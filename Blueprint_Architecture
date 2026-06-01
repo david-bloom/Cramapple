@@ -1,0 +1,45 @@
+# 💻 Cramapple Technical & AI Architecture Specification
+
+This blueprint defines the infrastructural data schema, low-latency pipeline routing, and anti-hallucination guardrails powering the PassTo/Cramapple scoring engine.
+
+---
+
+## 🗄️ 1. PostgreSQL Schema (Supabase DDL Layer)
+
+The relational engine stores strict structured outputs under strict Row-Level Security (RLS) policies. This schema decouples the core context-pinned rubrics from volatile student telemetry logs.
+
+```sql
+-- Enable Vector Extension for Pinned Content Ingestion
+CREATE EXTENSION IF NOT EXISTS vector;
+
+-- Master Curriculum Context Table
+CREATE TABLE public.context_pinned_rubrics (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    unit_id INT NOT NULL UNIQUE,
+    unit_title VARCHAR(255) NOT NULL,
+    rubric_payload JSONB NOT NULL, -- Holds explicit Define, Explain, Predict targets
+    target_max_points INT NOT NULL DEFAULT 3,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Student Mastery & Diagnostic Execution Ledger
+CREATE TABLE public.student_mastery_logs (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    student_id UUID NOT NULL,
+    unit_id INT NOT NULL REFERENCES public.context_pinned_rubrics(unit_id),
+    points_earned INT NOT NULL,
+    max_points INT NOT NULL,
+    mastery_tier VARCHAR(10) NOT NULL, -- 'Score 3', 'Score 4', 'Score 5'
+    is_logic_gap BOOLEAN NOT NULL DEFAULT FALSE,
+    raw_response_payload JSONB NOT NULL, -- Stores structural D, E, P inputs
+    diagnostic_feedback JSONB NOT NULL,  -- Stores structural protocolActionPlan
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Enable RLS on telemetry layers
+ALTER TABLE public.student_mastery_logs ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Students can only access their own mastery logs"
+    ON public.student_mastery_logs
+    FOR SELECT
+    USING (auth.uid() = student_id);
