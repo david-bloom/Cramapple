@@ -1,0 +1,56 @@
+Cramapple Product Features Specification
+
+This document details the functional mechanics, interface boundary states, and data loops driving user interactions across the platform's core states.
+
+---
+
+## 🔄 1. The 45-Minute "Cram" Block Lifecycle
+
+User sessions are bounded inside a high-intensity, non-fatiguing loop designed to maximize student focus and automate cognitive offloading.
+
+┌────────────────────────────────────────────────────────────────────────┐
+│                      45-Minute Cram Block Loop                         │
+├───────────────────┬───────────────────────────┬────────────────────────┤
+│  00:00 - 10:00    │  10:00 - 15:00            │  15:00 - 45:00         │
+│  Diagnostic       │  Visual Micro-Lessons     │  Active Recall Drill   │
+│  Sprint Phase     │  Phase                    │  Phase                 │
+└─────────┬─────────┴─────────────┬─────────────┴───────────┬────────────┘
+│                       │                         │
+▼                       ▼                         ▼
+10 Dynamic MCQs        3 High-Impact Cards       Isolated Form Inputs
+(Establishes baseline)  (Targets identified gaps) (D→E→P Prompt Completion)
+
+
+---
+
+## 🛠️ 2. Detailed Interface Input Board Functional Matrix
+
+The platform replaces generic open text boxes with a structured interaction workspace that actively manages input states.
+
+### Component Layout and Validation Architecture
+
+*   **Segmented Text Workspaces:** The terminal displays three isolated text lines corresponding directly to the **Define**, **Explain**, and **Predict** steps.
+*   **Character Limits & Structure Guards:** Each line requires a minimum threshold of 15 words to prevent low-effort inputs, capped at a maximum of 120 words to encourage scannable, clear answers.
+*   **The Progress Block Mechanism:** The "Submit Core Response" interaction is programmatically disabled until all three input blocks contain active character configurations.
+
+---
+
+## 🚧 3. Core Interface States
+
+The system handles student inputs using four distinct interface states to keep user loops tight and direct.
+
+### A. Initialization State
+The system pulls data from the database and updates the progress displays.
+*   *UI Presentation:* Renders clear conceptual unit labels and lists the target point criteria derived from the official rubrics. The input workspaces display faded placeholder text tracking the structural parameters required for each step.
+
+### B. Input Validation & Verification State
+The engine evaluates live keystroke metrics against structural limits.
+*   *UI Presentation:* Displays a neutral loading animation while the text is sent to the backend endpoint. Character count trackers change color dynamically to indicate if an entry is within bounds.
+
+### C. Remediation Intercept State
+Triggered when the backend engine flags an omit error via the **Logic-Gap Protocol**.
+*   *UI Presentation:* Highlights skipped steps in the text string using the visual bracket marker (`[...]`). The system displays an inline sub-challenge card containing targeted hints, while locking primary dashboard navigation until the response is updated.
+
+### D. Verification Log State
+Triggered once the text response clears the evaluation layer and scores points.
+*   *UI Presentation:* Displays green checkmarks next to completed steps and registers the points on the scoreboard. It presents an analytical comparison block comparing the student's entry directly with verified rubric definitions, and unlocks the next study block.
