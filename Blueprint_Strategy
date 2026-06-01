@@ -1,3 +1,4 @@
+Markdown
 # 🛠️ Cramapple Strategic Blueprint
 
 This master document details the alignment between Cramapple's product mechanics, engineering architecture, and corporate monetization strategy.
@@ -43,3 +44,62 @@ Cramapple bypasses institutional sales friction by embedding its Go-To-Market an
 ## 💻 3. Technical Architecture (As an Operational Cost & Margin Safeguard)
 
 The platform's technical architecture is optimized to protect gross margins, optimize latency, and prevent model hallucination.
+
+                         ┌──────────────────────────┐
+                         │  AI Orchestration Layer  │
+                         └─────────────┬────────────┘
+                                       │
+             ┌─────────────────────────┴─────────────────────────┐
+             ▼ (Low-Latency Pass)                                ▼ (Deep Rubric Pass)
+  ┌──────────────────────┐                            ┌──────────────────────┐
+  │   Gemini 1.5 Flash   │                            │    Gemini 1.5 Pro    │
+  │ • MCQ Selection      │                            │ • FRQ Grading Engine │
+  │ • Chat Remediation   │                            │ • Context-Pinned RAG │
+  └──────────────────────┘                            └──────────┬───────────┘
+                                                                 │ Submits Grading
+                                                                 ▼
+                                                      ┌──────────────────────┐
+                                                      │   Gemini 1.5 Flash   │
+                                                      │  (Self-Check Guard)  │
+                                                      └──────────┬───────────┘
+                                                                 │ Passes Audit
+                                                                 ▼
+                                                     [Verified Student Output]
+
+### Feature Integration Portfolio
+
+* **The Split-Engine AI Processing Architecture:**
+    * *Implementation:* Programmatic separation of processing requests. Simple tasks like multiple-choice routing are assigned to Gemini 1.5 Flash, while deep text grading passes are sent to Gemini 1.5 Pro, combined with a final anti-hallucination guard pass.
+    * *Strategic Utility:* Lowers the server token cost per user session. Running lightweight models for standard interactions keeps gross margins high ($>85\%$).
+* **The Closed-World Assumption RAG Core:**
+    * *Implementation:* Vectorized document ingestion via `LlamaParse` into `pgvector` inside Supabase. The orchestration layer runs with an explicit zero-temperature system instruction, turning off global model memory and pinning responses to the reference material.
+    * *Strategic Utility:* Mitigates compliance and product liability risks by preventing model hallucinations. Pinned data sourcing ensures that automated feedback stays perfectly aligned with current College Board grading rubrics.
+* **The Supabase Normalized State Schema:**
+    * *Implementation:* Unified storage tables linking user profiles, relational billing IDs, verified knowledge chunks, and real-time student mastery logs (`student_mastery_logs`) under strict Row Level Security (RLS) rules.
+    * *Strategic Utility:* Eliminates database redundancy and safeguards user data privacy while reducing structural operational costs.
+
+---
+
+## 💼 4. Business Strategy & Opportunity (As Market Positioning & Moat Creation)
+
+Cramapple positions itself as a high-margin alternative to premium private tutoring, using software scalability to disrupt a highly fragmented market.
+
+HIGH COST |  Private Tutors ($100-$300/hr)      [ CRAMAPPLE MVP ]
+|                                 (High-Scale / Automated D→E→P)
+|
+|  Static Test-Prep Books ($25)   Standard Quiz Apps ($10/mo)
+LOW COST |____________________________________________________________
+LOW INTERACTION                  HIGH INTERACTION
+
+
+### Feature Integration Portfolio
+
+* **Automated Rubric-Aligned Feedback Delivery:**
+    * *Implementation:* An interactive dashboard interface that replaces handwritten essay revisions with real-time, objective binary point logging based on official test parameters.
+    * *Strategic Utility:* Positions Cramapple as a premium software-driven alternative to human tutoring. By automating high-fidelity feedback, the platform scales efficiently without the operational costs and hiring constraints of traditional agencies.
+* **The Student Mastery Failure Matrix Database:**
+    * *Implementation:* An analytics logger that aggregates anonymized text inputs, tracking precise logic gaps and concept-specific failure vectors across demographic cohorts.
+    * *Strategic Utility:* Builds a proprietary and highly defensible data asset. Capturing real-world student learning breakdowns at scale creates a valuable dataset that strengthens the platform's intellectual property.
+* **The Content-Agnostic Core Orchestration Engine:**
+    * *Implementation:* An abstraction layer within the TypeScript backend that separates prompt mechanics from the underlying data structures, allowing new curriculum modules to be swapped in seamlessly.
+    * *Strategic Utility:* Establishes a clear blueprint for fast, low-cost horizontal expansion to capture adjacent test-prep markets (such as IB, CLEP, or MCAT) without needing to rewrite the application code.
