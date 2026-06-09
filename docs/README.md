@@ -16,6 +16,7 @@ Material contradictions should be surfaced to David Bloom, Product Owner, rather
 ## Folders
 
 - `product/`: Vision, product doctrine, and later product requirements.
+- `architecture/`: Canonical system architecture, technical boundaries, and later detailed technical designs.
 - `team_charter/`: Roles, approval boundaries, task workflow, and agent rules.
 - `activity_log/`: Durable approvals, decisions, and meaningful project activity.
 - `tasks/`: Approved and proposed work.

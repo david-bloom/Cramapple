@@ -4,6 +4,15 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ---
 
+## High-Level System Architecture Prepared — 2026-06-09
+
+**Task:** TASK-0003
+**Status:** Ready for Owner Review
+**Summary:** Promoted the architecture planning discussion into a canonical high-level design covering critical workflows, logical components, learner memory, account progress, user-provided questions, validator operations, parent entitlements, AI/provider boundaries, marketing interoperability, security, deployment, and AP-exam extensibility.
+
+**Next Owner:** David Bloom
+**Next Required Action:** Review the pull request and approve, request changes, or record the Done decision.
+
 ## Project Operating System Initialized — 2026-06-09
 
 **Task:** TASK-0001

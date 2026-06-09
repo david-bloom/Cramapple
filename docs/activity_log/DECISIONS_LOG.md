@@ -79,3 +79,38 @@ The Strategy Advisor may recommend, draft, analyze, and challenge. The role may 
 ### Risks / Follow-ups
 
 The named person or agent filling the Strategy Advisor role may vary and should be recorded when assigned.
+
+## DECISION-0004 — High-Level Architecture Boundaries
+
+**Date:** 2026-06-09
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Related Task:** TASK-0003
+**Area:** Architecture
+
+### Context
+
+Cramapple needs a durable architecture before detailed teaching, grading, data, and implementation designs. Earlier root-level blueprints move too quickly into preliminary schemas and provider-specific model routing.
+
+### Decision
+
+Adopt a high-level architecture organized around managed presentation and application services, Supabase as the proposed durable system of record, replaceable task-specific AI providers, versioned canonical content, durable learner evidence, separate teaching and grading responsibilities, first-class validator operations, and event-based marketing interoperability.
+
+### Rationale
+
+This establishes stable ownership and trust boundaries before committing to detailed schemas or vendors. It supports grading and teaching quality, low-code maintainability, cross-session learning, and additional AP exams.
+
+### Consequences
+
+- Detailed teaching and grading designs will be separate canonical documents.
+- Student attempts remain durable while mastery, recommendations, and progress are derived and rebuildable.
+- Validators require scoped entitlements and version-specific approval workflows.
+- Marketing integrations receive approved events rather than sensitive learning content.
+- User-provided questions remain isolated from canonical content.
+- Parent progress is a future paid entitlement with separate relationship, consent, billing, and visibility checks.
+
+### Risks / Follow-ups
+
+- Detailed data, security, teaching, grading, and integration designs remain open.
+- Managed-service boundaries must be tested against latency, cost, privacy, and seasonal load.
+- Legal review is required for minors, uploads, official materials, and parent access.
