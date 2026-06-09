@@ -1,6 +1,6 @@
 # Cramapple Vision and Problem Statement
 
-**Canonical reference draft | June 9, 2026 | v0.2**
+**Canonical reference draft | June 9, 2026 | v0.3**
 
 ## Document Status
 
@@ -157,7 +157,7 @@ The record exists to improve guidance, show progress, and help the student resum
 
 Cramapple teaches students how exam responses earn or lose individual points. Feedback should distinguish between knowing the underlying biology and expressing it with the specificity, evidence, calculation, or mechanism the question requires.
 
-Cramapple should not claim that one answer is literally an AP score of 3, 4, or 5. A single response does not determine a final AP score. Instead, feedback may explain:
+Cramapple should not claim that one answer is literally an AP score of 3, 4, or 5. A single response does not determine a final AP score. Instead, response-level feedback may explain:
 
 - The rubric points earned.
 - The exact criteria missed.
@@ -165,7 +165,15 @@ Cramapple should not claim that one answer is literally an AP score of 3, 4, or 
 - A stronger response consistent with a student targeting a higher overall score.
 - A complete, realistic top-level response.
 
-Any "targeting a 4" or "targeting a 5" language is Cramapple guidance, not an official score prediction.
+Cramapple may provide an estimated AP score range or readiness estimate when it has sufficient evidence across relevant content, skills, and question formats. The estimate should:
+
+- Identify the evidence and assumptions supporting it.
+- State its confidence and important coverage gaps.
+- Be labeled as a Cramapple estimate, not an official College Board score or guarantee.
+- Explain the specific knowledge, skills, rubric criteria, or practice results most likely to move the student toward the next score range.
+- Be recalibrated as new student evidence and expert-scored validation data become available.
+
+Any "estimated 3," "targeting a 4," or "targeting a 5" language is Cramapple guidance. The product should prefer ranges and qualified language when the evidence does not support a precise estimate.
 
 ### 6.2 Free-Response Grading
 
@@ -427,6 +435,7 @@ The first year should measure:
 - Pre- and post-practice performance.
 - Rubric points earned over time.
 - Expert-AI grading agreement.
+- Estimated-score calibration against expert-scored student work and later observed outcomes when available.
 - Accuracy by module, skill, and question type.
 - Error recurrence and remediation.
 - Retention after a delay.
@@ -466,7 +475,7 @@ The principal risks are:
 - **Grading validity:** Automated feedback may sound persuasive while awarding criteria incorrectly.
 - **Hallucination and drift:** The model may depart from approved content or scoring logic.
 - **Copyright and trademark:** Official or student-provided materials may be used beyond permitted boundaries.
-- **False precision:** Readiness or score language may imply more certainty than the evidence supports.
+- **False precision:** Estimated score or readiness language may imply more certainty than the evidence supports. Estimates require transparent evidence thresholds, confidence language, calibration, and prominent non-official labeling.
 - **Content scale:** Expert validation may become the bottleneck for coverage and expansion.
 - **Seasonality:** Demand is concentrated around AP exam dates.
 - **Weak urgency in fall:** The school-year study-aid customer may behave differently from the target crammer.
@@ -487,7 +496,7 @@ The vision should be supported by four separate canonical reference documents:
 
 - Final customer-facing positioning and tagline.
 - Whether students select a target score.
-- How Cramapple communicates readiness without making unsupported score predictions.
+- What evidence thresholds, confidence language, and calibration standards Cramapple requires before showing an estimated score range.
 - The appropriate number, length, and composition of sessions.
 - The precise recommendation algorithm for "next best action."
 - The minimum expert-AI scoring agreement required for launch.

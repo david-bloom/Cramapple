@@ -12,7 +12,7 @@ from docx.shared import Inches, Pt, RGBColor
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "docs" / "product" / "CRAMAPPLE_VISION.md"
-OUTPUT = ROOT / "docs" / "product" / "Cramapple-Vision-v0.2.docx"
+OUTPUT = ROOT / "docs" / "product" / "Cramapple-Vision-v0.3.docx"
 
 BLUE = RGBColor(46, 116, 181)
 DARK_BLUE = RGBColor(31, 77, 120)
@@ -72,7 +72,7 @@ def add_page_number(paragraph):
     run._r.append(fld_char_end)
 
 
-def add_hyperlink(paragraph, text, url):
+def add_hyperlink(paragraph, text, url, font_size=None):
     part = paragraph.part
     rel_id = part.relate_to(
         url,
@@ -88,6 +88,12 @@ def add_hyperlink(paragraph, text, url):
     underline = OxmlElement("w:u")
     underline.set(qn("w:val"), "single")
     run_pr.extend([color, underline])
+    if font_size is not None:
+        size = OxmlElement("w:sz")
+        size.set(qn("w:val"), str(int(font_size * 2)))
+        size_cs = OxmlElement("w:szCs")
+        size_cs.set(qn("w:val"), str(int(font_size * 2)))
+        run_pr.extend([size, size_cs])
     run.append(run_pr)
     text_node = OxmlElement("w:t")
     text_node.text = text
@@ -305,9 +311,11 @@ def render_markdown(doc, lines):
                 p = doc.add_paragraph(style="List Bullet")
                 p.paragraph_format.left_indent = Inches(0.5)
                 p.paragraph_format.first_line_indent = Inches(-0.25)
-                p.paragraph_format.space_after = Pt(4)
-                p.add_run(label + ": ")
-                add_hyperlink(p, url, url)
+                p.paragraph_format.space_after = Pt(2)
+                p.paragraph_format.line_spacing = 1.0
+                label_run = p.add_run(label + ": ")
+                label_run.font.size = Pt(9.5)
+                add_hyperlink(p, url, url, font_size=9.5)
             else:
                 add_bullet(doc, text)
             continue

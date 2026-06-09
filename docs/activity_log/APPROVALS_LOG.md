@@ -37,3 +37,22 @@ Use `david-bloom/ai-project-operating-kit` for Cramapple and store the vision an
 - David is the Product Owner.
 - Add Strategy Advisor as an advisory role working with David and the co-founders.
 - The role advises on plans and business decisions but has no independent approval authority.
+
+## APPROVAL-0002 — Permit Estimated AP Score Guidance
+
+**Date:** 2026-06-09
+**Approved By:** David Bloom
+**Related Task:** TASK-0002
+**Decision:** Approved
+
+### Summary
+
+Revise the canonical vision to allow Cramapple to provide estimated AP score ranges and guidance on what a student should improve to move toward the next score range.
+
+### Notes
+
+- Estimates must be identified as Cramapple estimates, not official College Board scores or guarantees.
+- Estimates should be based on sufficient evidence across relevant content, skills, and question formats.
+- The product should disclose confidence, assumptions, and important evidence gaps.
+- Estimated scoring must be calibrated and improved using expert-scored work and observed outcomes when available.
+- This approval covers documentation and planning only, not implementation.
