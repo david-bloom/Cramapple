@@ -1,3 +1,4 @@
+import argparse
 from pathlib import Path
 import re
 
@@ -132,7 +133,7 @@ def add_page_number(paragraph):
     run._r.extend([begin, instruction, end])
 
 
-def create_numbering(doc, ordered):
+def create_numbering(doc, ordered, start_at=1):
     numbering = doc.part.numbering_part.element
     abstract_ids = [
         int(node.get(qn("w:abstractNumId")))
@@ -154,7 +155,7 @@ def create_numbering(doc, ordered):
     level = OxmlElement("w:lvl")
     level.set(qn("w:ilvl"), "0")
     start = OxmlElement("w:start")
-    start.set(qn("w:val"), "1")
+    start.set(qn("w:val"), str(start_at))
     num_fmt = OxmlElement("w:numFmt")
     num_fmt.set(qn("w:val"), "decimal" if ordered else "bullet")
     lvl_text = OxmlElement("w:lvlText")
@@ -256,6 +257,8 @@ def table_widths(column_count):
         return [2600, 4200, 2560]
     if column_count == 4:
         return [1900, 3000, 2300, 2160]
+    if column_count == 5:
+        return [2200, 1200, 1200, 1700, 3060]
     base = TABLE_WIDTH_DXA // column_count
     widths = [base] * column_count
     widths[-1] += TABLE_WIDTH_DXA - sum(widths)
@@ -270,6 +273,7 @@ def add_markdown_table(doc, rows):
     set_repeat_table_header(table.rows[0])
 
     for row_index, row in enumerate(rows):
+        prevent_row_split(table.rows[row_index])
         for column_index, text in enumerate(row):
             cell = table.cell(row_index, column_index)
             if row_index == 0:
@@ -285,7 +289,7 @@ def add_markdown_table(doc, rows):
     spacer.paragraph_format.space_after = Pt(0)
 
 
-def configure_document():
+def configure_document(header_text):
     doc = Document()
     section = doc.sections[0]
     section.start_type = WD_SECTION_START.NEW_PAGE
@@ -322,7 +326,7 @@ def configure_document():
         style.paragraph_format.keep_with_next = True
 
     header = section.header.paragraphs[0]
-    header.text = "CRAMAPPLE | HIGH-LEVEL SYSTEM ARCHITECTURE"
+    header.text = header_text
     header.paragraph_format.space_after = Pt(0)
     for run in header.runs:
         set_run_font(run, size=8.5, color=MUTED, bold=True)
@@ -331,25 +335,25 @@ def configure_document():
     return doc
 
 
-def add_masthead(doc):
+def add_masthead(doc, title_text, version, date_text, status, scope):
     spacer = doc.add_paragraph()
     spacer.paragraph_format.space_after = Pt(10)
 
     title = doc.add_paragraph()
     title.paragraph_format.space_after = Pt(4)
-    run = title.add_run("Cramapple High-Level System Architecture")
+    run = title.add_run(title_text)
     set_run_font(run, size=25, color=INK, bold=True)
 
     subtitle = doc.add_paragraph()
     subtitle.paragraph_format.space_after = Pt(16)
-    run = subtitle.add_run("Canonical planning draft | Version 0.1")
+    run = subtitle.add_run(f"Canonical planning draft | Version {version}")
     set_run_font(run, size=13, color=MUTED)
 
     metadata = [
         ("Product owner", "David Bloom"),
-        ("Date", "June 9, 2026"),
-        ("Status", "Ready for owner review"),
-        ("Scope", "Planning and architecture only; no implementation"),
+        ("Date", date_text),
+        ("Status", status),
+        ("Scope", scope),
     ]
     for label, value in metadata:
         paragraph = doc.add_paragraph()
@@ -387,7 +391,11 @@ def render_markdown(doc, lines):
         if line.startswith("```"):
             numbered_id = None
             if in_code:
-                add_code_block(doc, code_lines, keep_together=(code_language == "mermaid"))
+                add_code_block(
+                    doc,
+                    code_lines,
+                    keep_together=(code_language == "mermaid" and len(code_lines) <= 45),
+                )
                 code_lines = []
                 code_language = ""
                 in_code = False
@@ -454,11 +462,15 @@ def render_markdown(doc, lines):
             index += 1
             continue
 
-        number_match = re.match(r"^\d+\. (.+)$", line)
+        number_match = re.match(r"^(\d+)\. (.+)$", line)
         if number_match:
             if numbered_id is None:
-                numbered_id = create_numbering(doc, ordered=True)
-            add_list_item(doc, number_match.group(1), numbered_id)
+                numbered_id = create_numbering(
+                    doc,
+                    ordered=True,
+                    start_at=int(number_match.group(1)),
+                )
+            add_list_item(doc, number_match.group(2), numbered_id)
             index += 1
             continue
 
@@ -469,20 +481,45 @@ def render_markdown(doc, lines):
         index += 1
 
 
-def build():
-    doc = configure_document()
-    add_masthead(doc)
-    render_markdown(doc, SOURCE.read_text(encoding="utf-8").splitlines())
+def build(source, output, title, header, version, date_text, status, scope, keywords):
+    doc = configure_document(header)
+    add_masthead(doc, title, version, date_text, status, scope)
+    render_markdown(doc, source.read_text(encoding="utf-8").splitlines())
 
     properties = doc.core_properties
-    properties.title = "Cramapple High-Level System Architecture"
+    properties.title = title
     properties.subject = "Canonical planning draft"
     properties.author = "Cramapple"
-    properties.keywords = "Cramapple, architecture, AP exams, teaching, grading, validation"
+    properties.keywords = keywords
 
-    doc.save(OUTPUT)
-    print(OUTPUT)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    doc.save(output)
+    print(output)
 
 
 if __name__ == "__main__":
-    build()
+    parser = argparse.ArgumentParser(description="Build a Cramapple planning DOCX from Markdown.")
+    parser.add_argument("--source", type=Path, default=SOURCE)
+    parser.add_argument("--output", type=Path, default=OUTPUT)
+    parser.add_argument("--title", default="Cramapple High-Level System Architecture")
+    parser.add_argument("--header", default="CRAMAPPLE | HIGH-LEVEL SYSTEM ARCHITECTURE")
+    parser.add_argument("--version", default="0.1")
+    parser.add_argument("--date", dest="date_text", default="June 9, 2026")
+    parser.add_argument("--status", default="Ready for owner review")
+    parser.add_argument("--scope", default="Planning and architecture only; no implementation")
+    parser.add_argument(
+        "--keywords",
+        default="Cramapple, architecture, AP exams, teaching, grading, validation",
+    )
+    args = parser.parse_args()
+    build(
+        source=args.source,
+        output=args.output,
+        title=args.title,
+        header=args.header,
+        version=args.version,
+        date_text=args.date_text,
+        status=args.status,
+        scope=args.scope,
+        keywords=args.keywords,
+    )

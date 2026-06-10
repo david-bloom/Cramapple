@@ -58,3 +58,22 @@ Create and publish a detailed high-level Cramapple system architecture as a plan
 - Include a future paid parent progress entitlement, explicitly outside MVP.
 - Preserve separate follow-on designs for teaching and grading.
 - This approval covers documentation and planning only.
+
+## APPROVAL-0004 — Create Component Architecture and Teaching Design
+
+**Date:** 2026-06-10
+**Approved By:** David Bloom
+**Related Task:** TASK-0004
+**Decision:** Approved
+
+### Summary
+
+Create separate canonical documents for system context and logical component architecture, and for teaching and pedagogy.
+
+### Notes
+
+- The ten-day window should be treated as a specific exam-horizon learning constraint.
+- Retrieval, spacing, interleaving, and metacognitive calibration should influence the design.
+- College Board section and point distributions are critical recommendation inputs.
+- Weakness and improvability must be treated as different estimates.
+- The work remains planning and documentation only.

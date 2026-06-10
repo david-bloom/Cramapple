@@ -114,3 +114,67 @@ This establishes stable ownership and trust boundaries before committing to deta
 - Detailed data, security, teaching, grading, and integration designs remain open.
 - Managed-service boundaries must be tested against latency, cost, privacy, and seasonal load.
 - Legal review is required for minors, uploads, official materials, and parent access.
+
+## DECISION-0005 — Version Official Exam Facts Separately from Product Models
+
+**Date:** 2026-06-10
+**Decision Owner:** David Bloom
+**Status:** Proposed
+**Related Task:** TASK-0004
+**Area:** Architecture
+
+### Context
+
+Section weights, point distributions, task types, and curriculum ranges directly influence what Cramapple recommends. Scattering those facts through prompts or prose would make updates, review, and audit unreliable.
+
+### Decision
+
+Create a versioned Exam Specification Registry for official exam facts. Store Cramapple-derived weights, formulas, and predictions as separate records with explicit assumptions and model versions.
+
+### Rationale
+
+This prevents official facts from being confused with product inference and allows each school year's exam pack to be reviewed, activated, superseded, and audited.
+
+### Consequences
+
+- Every recommendation can identify the exam facts and derived model that influenced it.
+- Source scope must be precise; for example, AP Biology unit ranges apply to the multiple-choice section.
+- Exam changes can trigger impact analysis and revalidation.
+
+### Risks / Follow-ups
+
+- Source licensing and authorized-material rules require legal review.
+- The physical schema and update workflow remain to be designed.
+
+## DECISION-0006 — Adopt an Exam-Horizon Retrieval Pedagogy
+
+**Date:** 2026-06-10
+**Decision Owner:** David Bloom
+**Status:** Proposed
+**Related Task:** TASK-0004
+**Area:** Product
+
+### Context
+
+Cramapple's initial use case is approximately ten days before an AP exam. A year-long curriculum model does not fit this constraint, while passive cramming offers weak evidence of independent retrieval and transfer.
+
+### Decision
+
+Use attempt-first diagnosis, minimal targeted teaching, immediate transfer, delayed retrieval, deliberate interleaving, confidence calibration, and exam-value-aware recommendations as the teaching-system foundation.
+
+### Rationale
+
+The approach directs limited study time toward demonstrated gaps that appear teachable and valuable while preserving return visits before exam day.
+
+### Consequences
+
+- Weakness, improvability, and exam value are separate recommendation inputs.
+- Explanations do not count as mastery without retrieval.
+- FRQs are taught by task and criterion; CER is used where the scoring opportunity calls for argumentation.
+- Student-facing recommendations explain their reasoning.
+
+### Risks / Follow-ups
+
+- AP Biology tutors must review the pedagogy before implementation or launch.
+- Cramapple-specific intervals and effect claims require product validation.
+- A detailed grading and calibration design remains open.

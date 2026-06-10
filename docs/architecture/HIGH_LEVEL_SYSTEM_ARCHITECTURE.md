@@ -13,7 +13,7 @@ The architecture is designed around four priorities:
 3. Favor maintainable low-code and managed systems, including Lovable, Vercel, and Supabase.
 4. Interoperate safely with marketing and lifecycle tools, especially social-media marketing systems.
 
-Detailed teaching and grading system designs will be maintained separately. This document defines the platform contract within which those systems operate.
+Detailed designs are maintained separately. The system context and component model is defined in `SYSTEM_CONTEXT_AND_LOGICAL_COMPONENT_ARCHITECTURE.md`. Teaching behavior is defined in `../teaching/TEACHING_AND_PEDAGOGY_DESIGN.md`. A grading design remains a required follow-on artifact.
 
 ## 2. Scope
 
@@ -815,7 +815,7 @@ Subject launch requires the same teaching, grading, content, privacy, and operat
 
 ## 23. Required Follow-On Designs
 
-1. **Teaching System Design:** learning taxonomy, instructional patterns, diagnostics, remediation, recommendation logic, spaced review, and pedagogical validation.
+1. **Teaching System Design:** defined initially in `../teaching/TEACHING_AND_PEDAGOGY_DESIGN.md`; refine after owner and tutor review.
 2. **Grading System Design:** rubric packages, evaluation orchestration, confidence, calibration, human agreement, estimated-score logic, and escalation.
 3. **Shared Data and Content Design:** conceptual and physical data model, versioning, event contracts, RLS, retention, and migration strategy.
 4. **Security and Privacy Design:** threat model, authorization matrix, minor privacy, upload controls, audit, deletion, and incident response.
