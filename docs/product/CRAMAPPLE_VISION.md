@@ -408,9 +408,9 @@ Cramapple will be sold as a one-time service rather than a recurring subscriptio
 
 Initial pricing hypotheses are:
 
-- One subject: $29.99.
-- Two subjects: $49.99.
-- Three subjects: $59.99.
+- One subject: $39.99.
+- Two subjects: $69.99.
+- Three subjects: $89.99.
 - Unlimited subjects: $99.00.
 
 Only the single-subject offer is relevant to the Biology-only launch. Bundles should not be sold until additional subjects meet the same quality standard. Pricing, discount depth, duration of access, refunds, and any parent add-on remain open to testing.

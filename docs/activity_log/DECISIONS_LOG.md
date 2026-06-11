@@ -110,3 +110,171 @@ The grading and recommendation systems will need evidence thresholds, confidence
 - Establish expert review and calibration standards before launch.
 - Determine how estimated ranges should be updated as new performance evidence arrives.
 - Validate customer-facing language with students, parents, tutors, and legal review.
+
+## DECISION-0004 — High-Level Architecture Boundaries
+
+**Date:** 2026-06-09
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Related Task:** TASK-0003
+**Area:** Architecture
+
+### Context
+
+Cramapple needs a durable architecture before detailed teaching, grading, data, and implementation designs. Earlier root-level blueprints move too quickly into preliminary schemas and provider-specific model routing.
+
+### Decision
+
+Adopt a high-level architecture organized around managed presentation and application services, Supabase as the proposed durable system of record, replaceable task-specific AI providers, versioned canonical content, durable learner evidence, separate teaching and grading responsibilities, first-class validator operations, and event-based marketing interoperability.
+
+### Rationale
+
+This establishes stable ownership and trust boundaries before committing to detailed schemas or vendors. It supports grading and teaching quality, low-code maintainability, cross-session learning, and additional AP exams.
+
+### Consequences
+
+- Detailed teaching and grading designs will be separate canonical documents.
+- Student attempts remain durable while mastery, recommendations, and progress are derived and rebuildable.
+- Validators require scoped entitlements and version-specific approval workflows.
+- Marketing integrations receive approved events rather than sensitive learning content.
+- User-provided questions remain isolated from canonical content.
+- Parent progress is a future paid entitlement with separate relationship, consent, billing, and visibility checks.
+
+### Risks / Follow-ups
+
+- Detailed data, security, teaching, grading, and integration designs remain open.
+- Managed-service boundaries must be tested against latency, cost, privacy, and seasonal load.
+- Legal review is required for minors, uploads, official materials, and parent access.
+
+## DECISION-0005 — Version Official Exam Facts Separately from Product Models
+
+**Date:** 2026-06-10
+**Decision Owner:** David Bloom
+**Status:** Proposed
+**Related Task:** TASK-0004
+**Area:** Architecture
+
+### Context
+
+Section weights, point distributions, task types, and curriculum ranges directly influence what Cramapple recommends. Scattering those facts through prompts or prose would make updates, review, and audit unreliable.
+
+### Decision
+
+Create a versioned Exam Specification Registry for official exam facts. Store Cramapple-derived weights, formulas, and predictions as separate records with explicit assumptions and model versions.
+
+### Rationale
+
+This prevents official facts from being confused with product inference and allows each school year's exam pack to be reviewed, activated, superseded, and audited.
+
+### Consequences
+
+- Every recommendation can identify the exam facts and derived model that influenced it.
+- Source scope must be precise; for example, AP Biology unit ranges apply to the multiple-choice section.
+- Exam changes can trigger impact analysis and revalidation.
+
+### Risks / Follow-ups
+
+- Source licensing and authorized-material rules require legal review.
+- The physical schema and update workflow remain to be designed.
+
+## DECISION-0006 — Adopt an Exam-Horizon Retrieval Pedagogy
+
+**Date:** 2026-06-10
+**Decision Owner:** David Bloom
+**Status:** Proposed
+**Related Task:** TASK-0004
+**Area:** Product
+
+### Context
+
+Cramapple's initial use case is approximately ten days before an AP exam. A year-long curriculum model does not fit this constraint, while passive cramming offers weak evidence of independent retrieval and transfer.
+
+### Decision
+
+Use attempt-first diagnosis, minimal targeted teaching, immediate transfer, delayed retrieval, deliberate interleaving, confidence calibration, and exam-value-aware recommendations as the teaching-system foundation.
+
+### Rationale
+
+The approach directs limited study time toward demonstrated gaps that appear teachable and valuable while preserving return visits before exam day.
+
+### Consequences
+
+- Weakness, improvability, and exam value are separate recommendation inputs.
+- Explanations do not count as mastery without retrieval.
+- FRQs are taught by task and criterion; CER is used where the scoring opportunity calls for argumentation.
+- Student-facing recommendations explain their reasoning.
+
+### Risks / Follow-ups
+
+- AP Biology tutors must review the pedagogy before implementation or launch.
+- Cramapple-specific intervals and effect claims require product validation.
+- A detailed grading and calibration design remains open.
+
+## DECISION-0007 — Use Evidence-Weighted Escalation Within One Learning Model
+
+**Date:** 2026-06-10
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Related Task:** TASK-0004
+**Area:** Product
+
+### Context
+
+A deterministic three-miss trigger, universal Sideways-first sequence, and generic learner-preference memory would create false precision and could waste limited study time.
+
+### Decision
+
+Use one per-assessable-target-and-facet learning-state model. Weight failure evidence by independence, variation, delay, and support; use discriminating probes to select Sideways, Apart, or Down; confirm intervention success through independent and delayed performance; offer Move On; and calculate Park return from exam horizon, frustration, and expected exam utility.
+
+Anonymous student responses and outcome traces may be used to improve Cramapple's grading, teaching, content, evaluation, model configurations, and routing. Public publication remains separately gated and includes a signed-in-user proper-name sweep.
+
+### Rationale
+
+The model creates a rational, auditable policy without claiming certainty about hidden cognitive causes. Subsequent independent performance tests whether the selected intervention was useful.
+
+### Consequences
+
+- Learner state must preserve support level, route, immediate transfer, delayed retention, Move On, and Park evidence.
+- The content graph needs prerequisite, component, representation, and transfer relationships.
+- Validators need compact evidence packages for uncertain and repeated-failure cases.
+- Demonstrated intervention effectiveness is specific to skill and task type.
+- Legal terms and notices must describe anonymous improvement use.
+
+### Risks / Follow-ups
+
+- Entry weights, thresholds, and Park constants require pilot calibration.
+- Counsel must finalize age, consent, retention, deletion, and jurisdictional requirements.
+- Grading thresholds remain owned by the future grading design.
+
+## DECISION-0008 — Define Skill Evidence, Learner Override, and Publishing Ownership
+
+**Date:** 2026-06-11
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Related Task:** TASK-0004
+**Area:** Product
+
+### Context
+
+The unified model required clearer boundaries for what counts as the same skill, how Frame affects evidence, who chooses interventions, when success becomes independent, and whether public question pages belong to learning or marketing.
+
+### Decision
+
+Use an assessable skill target composed of canonical operation, required knowledge or concept cluster, and substantive success criterion, with representation and support recorded as facets. Use Frame for both diagnosis and teaching, but classify evidence according to what the Frame reveals. Recommend interventions with visible alternatives and learner override. Treat per-target time and stronger success thresholds as research items. Assign public student-question publishing primarily to marketing/content while requiring pedagogical and grading release gates.
+
+### Rationale
+
+This avoids counters that are either too broad or question-specific, preserves the evidentiary meaning of assistance, and implements the principle that Cramapple guides without dictating. It also keeps private learning evidence separate from acquisition publishing while protecting educational quality.
+
+### Consequences
+
+- Learner evidence stores target identity, representation, support, Frame type, recommendation, and override.
+- A supported attempt cannot become independent merely through relabeling; a fresh unsupported transfer attempt is required.
+- The product may recommend Move On but does not enforce an unvalidated pedagogical time cap.
+- Marketing owns public packaging and distribution; validators own teaching and grading quality approval.
+
+### Risks / Follow-ups
+
+- AP Biology tutors must validate target-equivalence examples.
+- Product research must establish stable-improvement thresholds and time budgets by task type and exam horizon.
+- Analytics must distinguish recommendation acceptance, override, and outcome without penalizing learner agency.

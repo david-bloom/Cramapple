@@ -56,3 +56,81 @@ Revise the canonical vision to allow Cramapple to provide estimated AP score ran
 - The product should disclose confidence, assumptions, and important evidence gaps.
 - Estimated scoring must be calibrated and improved using expert-scored work and observed outcomes when available.
 - This approval covers documentation and planning only, not implementation.
+
+## APPROVAL-0003 — Create High-Level System Architecture
+
+**Date:** 2026-06-09
+**Approved By:** David Bloom
+**Related Task:** TASK-0003
+**Decision:** Approved
+
+### Summary
+
+Create and publish a detailed high-level Cramapple system architecture as a planning artifact.
+
+### Notes
+
+- Separate first-time sign up/start from resume learning.
+- Include durable learner memory, account progress, and review recommendations.
+- Account for accepting, teaching, and grading user-provided questions even if staged after MVP.
+- Include efficient teaching and grading validation through entitlements, UI, workflow, and release gates.
+- Include a future paid parent progress entitlement, explicitly outside MVP.
+- Preserve separate follow-on designs for teaching and grading.
+- This approval covers documentation and planning only.
+
+## APPROVAL-0004 — Create Component Architecture and Teaching Design
+
+**Date:** 2026-06-10
+**Approved By:** David Bloom
+**Related Task:** TASK-0004
+**Decision:** Approved
+
+### Summary
+
+Create separate canonical documents for system context and logical component architecture, and for teaching and pedagogy.
+
+### Notes
+
+- The ten-day window should be treated as a specific exam-horizon learning constraint.
+- Retrieval, spacing, interleaving, and metacognitive calibration should influence the design.
+- College Board section and point distributions are critical recommendation inputs.
+- Weakness and improvability must be treated as different estimates.
+- The work remains planning and documentation only.
+
+## APPROVAL-0005 — Adopt Unified Learning and Stuck-State Model
+
+**Date:** 2026-06-10
+**Approved By:** David Bloom
+**Related Task:** TASK-0004
+**Decision:** Approved
+
+### Summary
+
+Adopt one learning-state model for ordinary teaching and stuck escalation, with evidence-weighted entry, discriminating probes, independent confirmation, schedule-aware Park, and learner Move On.
+
+### Notes
+
+- Three misses are not treated as equivalent evidence or an automatic stuck trigger.
+- Sideways, Apart, and Down should be selected from direct probes when feasible, while avoiding false precision.
+- Immediate success must be confirmed through independent transfer and later review when the schedule permits.
+- Intervention effectiveness is tracked by skill and task type, not as a general learning-style preference.
+- Anonymous student responses may be used to improve Cramapple.
+- Terms and Conditions govern residual personal-information submission risk; public candidates receive a signed-in-user proper-name sweep.
+
+## APPROVAL-0006 — Resolve Learning-System Boundary Questions
+
+**Date:** 2026-06-11
+**Approved By:** David Bloom
+**Related Task:** TASK-0004
+**Decision:** Approved with Research Items
+
+### Summary
+
+Define the repeated-miss skill unit, use Frame for both diagnosis and teaching, make intervention selection learner-overridable, and assign public student-question publishing primarily to marketing while preserving educational quality gates.
+
+### Notes
+
+- Cramapple guides but does not dictate; the learner may resist a recommendation and choose another path.
+- The evidence required for stronger independent-success or stable-improvement claims is a pedagogical research item.
+- The amount of time spent on one skill remains TBD and should not be presented as a validated universal cap.
+- Publishing question-and-teaching pages is primarily a marketing workflow, but the public artifact is educational and requires teaching and grading review.
