@@ -22,6 +22,9 @@ Refine the high-level architecture into explicit system-context and logical-comp
 - Define weakness, improvability, and exam value as separate recommendation inputs.
 - Record the current AP Biology section, point, unit, practice, and FRQ distributions.
 - Define teaching validation and evaluation requirements.
+- Define a unified ordinary-learning and stuck-escalation state model.
+- Define evidence-weighted escalation, discriminating probes, Move On, Park, and schedule-aware return.
+- Define anonymous student-response use for Cramapple improvement separately from public publication.
 - Create canonical Markdown and DOCX documents.
 
 ## Out of Scope
@@ -46,6 +49,11 @@ Refine the high-level architecture into explicit system-context and logical-comp
 - [x] AP Biology section and point distributions are documented.
 - [x] FRQ criterion and task-specific pedagogy is defined.
 - [x] Validator review and release gates are defined.
+- [x] Unified learning and stuck-state escalation are defined.
+- [x] Sideways, Apart, and Down routing uses direct evidence where feasible.
+- [x] Immediate transfer and delayed confirmation are separate outcomes.
+- [x] Schedule-aware Park and Move On are defined.
+- [x] Anonymous improvement use and publication gates are separated.
 - [x] Canonical DOCX files are generated and visually reviewed.
 - [ ] David reviews the pull request and records the Done decision.
 - [ ] AP Biology tutors review the pedagogy before implementation or launch.
@@ -70,7 +78,7 @@ Refine the high-level architecture into explicit system-context and logical-comp
 - Verified the AP Biology exam format, raw-point structure, unit ranges, science-practice ranges, FRQ structure, and public-material availability against current College Board primary sources.
 - Confirmed that unit ranges are labeled as multiple-choice-section weights and that Cramapple-derived point values are labeled as planning approximations.
 - Reviewed the system-context and logical-component design against the approved high-level architecture.
-- Rendered and visually inspected all pages of the three architecture and teaching DOCX files: 20 system-context pages, 23 teaching pages, and 23 high-level architecture pages.
+- Rendered and visually inspected all pages of the five current architecture and teaching DOCX files: 23 high-level architecture pages, 21 system-context pages, 26 teaching-design pages, 30 learning-system pages, and 11 stuck-protocol pages.
 - Corrected ordered-list continuation, table-row pagination, and large-diagram page flow in the shared document renderer.
 - Validated all DOCX archives, Python renderer syntax, and Git whitespace.
 

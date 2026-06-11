@@ -353,7 +353,7 @@ flowchart TB
 #### Learning Session Orchestrator
 
 - Creates, resumes, and completes learning sessions.
-- Executes the pedagogical state machine.
+- Executes the unified pedagogical state machine, including cold, coached, exam-simulation, escalation, Move On, Park, and return states.
 - Coordinates attempt, diagnosis, teaching, retry, grading, and scheduling.
 - Records which policy and content versions governed each interaction.
 
@@ -395,6 +395,8 @@ flowchart TB
 - Links questions to canonical concepts and skills without adding them to the approved library.
 - Detects insufficient context and requests clarification.
 - Applies stronger uncertainty and provenance disclosures than canonical content.
+- Separates private learner use, anonymous internal improvement use, and separately gated public publication.
+- Before public publication, sweeps for the signed-in user's proper name variants and holds or removes matches.
 
 ### 8.4 Assessment Domain
 
@@ -473,6 +475,7 @@ Official facts and Cramapple-derived planning values are separate record types. 
 - Stores append-oriented observations: attempts, answers, scores, criterion outcomes, confidence, time, hints, interventions, retries, and delayed reviews.
 - Treats evidence as durable and attributable.
 - Does not overwrite history when interpretations change.
+- Records skill-and-task state, support level, escalation route, Park timing, and immediate versus delayed outcomes.
 
 #### Learner Model Projector
 
@@ -490,6 +493,14 @@ Official facts and Cramapple-derived planning values are separate record types. 
 
 - Stores generated recommendations, explanations, eligibility reasons, acceptance, deferral, completion, and outcome.
 - Supports analysis of whether recommendations improved later performance.
+
+#### Improvement Dataset Builder
+
+- Creates governed anonymous or deidentified datasets from student responses, outcomes, and validator corrections.
+- Excludes identity, account, payment, parent, and direct-contact fields.
+- Keeps source version, model version, adjudication status, skill-and-task key, intervention, and outcome provenance.
+- Supplies evaluation, grading, teaching, content, prompt, model-configuration, and routing-improvement workflows.
+- Does not publish learner material; public publication is a separate release workflow.
 
 ### 8.7 Quality and Release Domain
 
@@ -622,6 +633,8 @@ Text or upload intake
   -> ground in approved exam pack
   -> disclose limitations
   -> store as private learner evidence
+  -> create anonymous improvement evidence under policy
+  -> publish only through a separate quality, rights, and identity gate
 ```
 
 ## 10. Data Ownership
@@ -635,6 +648,7 @@ Text or upload intake
 | Rubrics and grading packages | Rubric repository | Grading and teaching |
 | Student submissions | Submission service | Grading, evidence, progress |
 | Learner observations | Learner evidence service | Projection, calibration, recommendations |
+| Anonymous improvement examples | Improvement dataset builder | Evaluation, teaching, grading, content, and model-policy improvement |
 | Mastery/readiness estimates | Learner model projector | Recommendations and progress |
 | Recommendation decisions | Next-best-action engine | Student application and analytics |
 | Review and release state | Quality and release domain | Exam pack resolver |
@@ -755,7 +769,7 @@ This is a proposed mapping, not a commitment. Component contracts should survive
 4. Learner evidence is durable; mastery and recommendations are rebuildable.
 5. Exam packs bind complete approved versions atomically.
 6. Validator and release operations are production components.
-7. User-provided questions remain private and noncanonical.
+7. User-provided questions remain noncanonical; private learner use, anonymous internal improvement use, and public publication are separate governed states.
 8. External marketing systems receive allowlisted events, not learning records.
 9. Managed vendors implement contracts but do not define them.
 

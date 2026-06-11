@@ -4,6 +4,15 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ---
 
+## Unified Learning and Stuck-State Revision — 2026-06-10
+
+**Task:** TASK-0004
+**Status:** Documentation revision in progress
+**Summary:** Replaced deterministic miss counting and universal Sideways-first routing with evidence-weighted escalation, discriminating probes, independent and delayed confirmation, learner Move On, schedule-aware Park, and skill-and-task-specific intervention effectiveness. Added explicit anonymous use of student responses to improve Cramapple, separate from public publication.
+
+**Next Owner:** David Bloom
+**Next Required Action:** Review the revised learning-system documents and the updated pull request.
+
 ## Component Architecture and Teaching Design Prepared — 2026-06-10
 
 **Task:** TASK-0004

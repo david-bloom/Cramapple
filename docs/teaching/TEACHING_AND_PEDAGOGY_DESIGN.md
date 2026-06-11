@@ -1,6 +1,6 @@
 # Cramapple Teaching and Pedagogy Design
 
-**Canonical planning draft | June 10, 2026 | v0.1**
+**Canonical planning draft | June 10, 2026 | v0.2**
 
 ## 1. Document Status
 
@@ -122,22 +122,34 @@ These foundations are supported by broad learning-science literature, but Cramap
 
 ## 5. Ten-Day Learning Model
 
-### 5.1 Learning Loop
+### 5.1 Unified Learning-State Model
 
 ```mermaid
 flowchart LR
+    Orient["Mode-appropriate orientation"]
     Attempt["Cold attempt + confidence"]
-    Diagnose["Diagnose likely gap"]
+    Evaluate["Evaluate response"]
+    Diagnose["Diagnose competing hypotheses"]
     Teach["Minimal targeted intervention"]
-    Retry["New transfer attempt"]
-    Record["Record evidence"]
-    Schedule["Schedule delayed retrieval"]
-    Review["Interleaved delayed review"]
-    Update["Update learner model"]
+    Retry["Independent transfer retry"]
+    Confirm["Confirm immediate or delayed transfer"]
+    Schedule["Schedule retrieval or return"]
 
-    Attempt --> Diagnose --> Teach --> Retry --> Record --> Schedule --> Review --> Update
-    Update --> Attempt
+    Orient --> Attempt --> Evaluate --> Diagnose --> Teach --> Retry --> Confirm --> Schedule
+    Schedule --> Orient
 ```
+
+The same model governs ordinary learning and stuck-state escalation. Stuck is a state for a skill-and-task key, not a separate teaching system or a learner label.
+
+Three modes preserve the meaning of performance evidence:
+
+| Mode | Answer-bearing support before attempt | Evidence use |
+| --- | --- | --- |
+| Cold | None beyond mechanics and accessibility | Eligible for proficiency and progress evidence |
+| Coached | Hints, criteria, concepts, or partial structure | Measures supported performance; requires a fresh cold retry |
+| Exam simulation | Only support allowed by the exam conditions | Measures execution under the configured simulation |
+
+The system distinguishes supported success, immediate independent transfer, and confirmed delayed retention. It does not convert a repaired answer directly into mastery.
 
 ### 5.2 Horizon Phases
 
@@ -365,6 +377,24 @@ The first diagnostic set should maximize information rather than simply sample t
 
 The learner may skip the broad diagnostic and begin with a requested topic or question. Cramapple then builds the model opportunistically.
 
+### 8.5 Stuck-State Evidence and Escalation
+
+Repeated misses are not equivalent evidence. The escalation policy weights attempts:
+
+| Attempt evidence | Failure weight |
+| --- | ---: |
+| Independent varied failure after delay | 1.00 |
+| Independent varied failure in the same session | 0.65 |
+| Repeated failure on the same or nearly identical item | 0.35 |
+| Heavily assisted, incomplete, or off-task attempt | 0.00 |
+| Source, rubric, or grading uncertainty | 0.00; route to `content_uncertain` |
+
+A skill-and-task key becomes an escalation candidate at cumulative evidence of 1.65 when there are at least two independent attempts, two distinct items or surfaces, and a failed ordinary intervention followed by independent retry.
+
+Stuck state is warranted when the candidate also has a discriminating probe result, two failed intervention classes, a delayed failure after immediate success, or a learner request to Move On. Low diagnostic confidence alone is not sufficient.
+
+The detailed policy, including calibration requirements, is defined in `LEARNING_SYSTEM_STUCK.md`.
+
 ## 9. Weakness, Improvability, and Exam Value
 
 ### 9.1 Separate Concepts
@@ -477,7 +507,19 @@ The system records the highest support level used.
 | Example/nonexample | Clarify the boundary of a concept or scoring criterion |
 | Prerequisite repair | Teach the minimal precursor needed for the target |
 
-### 10.3 Explanation Requirements
+### 10.3 Escalation Routing
+
+Escalation uses direct probes where feasible:
+
+- **Step Down:** a required prerequisite probe fails.
+- **Step Apart:** atomic components pass but the recomposed task fails.
+- **Step Sideways:** prerequisites and components remain available, but a coherent misconception, framing sensitivity, or representation gap persists.
+- **Ambiguous evidence:** use a reversible Sideways probe or let the learner choose between breaking the task apart and reviewing the prerequisite.
+- **Content uncertainty:** withhold negative learner-model updates and route evidence to validators.
+
+There is no universal Sideways-first order. The objective is a defensible next action whose effectiveness is tested through independent transfer, not a claim that Cramapple has identified the learner's hidden cause precisely.
+
+### 10.4 Explanation Requirements
 
 Approved explanations should be:
 
@@ -620,6 +662,15 @@ The system must support students arriving with a specific outside question.
 - Separate source question wording from Cramapple-authored explanation.
 - State uncertainty when extraction, diagrams, or context are incomplete.
 - Never promote the question into canonical content without review.
+- Keep cold orientation free of answer-bearing concepts, traps, rubric criteria, formula choices, or graph trends.
+- Treat internal anonymous improvement use and public publication as separate decisions.
+- Before public publication, sweep for the signed-in user's full proper name and reasonable first-name, last-name, and combined-name variants; remove or hold matches.
+
+### 14.3 Anonymous Improvement Use
+
+Cramapple uses anonymous or deidentified student responses and outcome traces to improve grading, teaching, content, evaluation sets, prompts, model configurations, and intervention routing. Validator corrections, source versions, and adjudication status remain attached to improvement examples.
+
+Names, account identifiers, payment information, parent identifiers, and direct contact information are excluded from improvement datasets. Terms and Conditions prohibit submission of personal or confidential information and govern residual edge cases. Counsel owns final consent, age, retention, deletion, and jurisdiction-specific requirements.
 
 ## 15. Teaching Validation
 
@@ -645,6 +696,8 @@ Validators should review reusable instructional units rather than random prose:
 - Delayed retrieval variant.
 - Recommendation explanation.
 - Expected evidence and failure cases.
+
+For production cases and model disagreements, the validator receives a compact evidence package containing the source, rubric version, anonymized response, grader rationale, competing diagnosis hypotheses, probes, intervention, independent retry, delayed outcome when available, and the reason for review.
 
 ### 15.3 Teaching Release Gates
 
@@ -673,8 +726,27 @@ Monitor:
 - Validator-reported defects.
 - Disparities by accessibility or learner group.
 - Model and content version drift.
+- Effectiveness by skill-and-task key and intervention class.
+- Repeated Park events and `content_uncertain` rates.
 
 High immediate gain with poor delayed retention is not success.
+
+Intervention history must not become a generic learning-style preference. Cramapple may bias a route only when comparable evidence shows that the intervention improved independent or delayed performance for the learner on that skill and task type.
+
+### 15.5 Park and Return Policy
+
+Move On is always available. Park is the system state used when the support budget is exhausted, expected benefit is low, validated content is unavailable, or the learner chooses to defer.
+
+Let `H` be hours until the exam, `F` frustration from 0 to 1, and `U` normalized expected exam utility from 0 to 1:
+
+```text
+minimum reset R = 12 + 36F
+priority target P = 48 - 24U
+latest useful return L = max(0, H - 18)
+return delay = min(L, max(R, P))
+```
+
+If `L < 12`, do not automatically resurface the skill; offer optional concise review. This is a deterministic, explainable starting policy, not a claim of scientific optimality.
 
 ## 16. Evaluation Framework
 
@@ -755,6 +827,12 @@ Experiments require expert review and must not remove minimum-quality safeguards
 10. FRQ teaching is criterion- and task-specific; CER is important but not universal.
 11. Improvement requires comparable, independent, and preferably delayed evidence.
 12. Tutors and AP experts validate pedagogy before launch.
+13. Ordinary learning and stuck escalation use one state model.
+14. Repeated failures are weighted by evidentiary strength; three misses are not automatically a stuck state.
+15. Sideways, Apart, and Down are selected through discriminating probes when feasible, with reversible choice under ambiguity.
+16. Move On is always available, and Park uses an exam-schedule-aware return formula.
+17. Intervention effectiveness is tracked by skill and task type, not as a general learning-style preference.
+18. Anonymous student responses are used to improve Cramapple; public publication is separately gated.
 
 ## 19. Open Questions
 

@@ -178,3 +178,39 @@ The approach directs limited study time toward demonstrated gaps that appear tea
 - AP Biology tutors must review the pedagogy before implementation or launch.
 - Cramapple-specific intervals and effect claims require product validation.
 - A detailed grading and calibration design remains open.
+
+## DECISION-0007 — Use Evidence-Weighted Escalation Within One Learning Model
+
+**Date:** 2026-06-10
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Related Task:** TASK-0004
+**Area:** Product
+
+### Context
+
+A deterministic three-miss trigger, universal Sideways-first sequence, and generic learner-preference memory would create false precision and could waste limited study time.
+
+### Decision
+
+Use one per-skill-and-task learning-state model. Weight failure evidence by independence, variation, delay, and support; use discriminating probes to select Sideways, Apart, or Down; confirm intervention success through independent and delayed performance; offer Move On; and calculate Park return from exam horizon, frustration, and expected exam utility.
+
+Anonymous student responses and outcome traces may be used to improve Cramapple's grading, teaching, content, evaluation, model configurations, and routing. Public publication remains separately gated and includes a signed-in-user proper-name sweep.
+
+### Rationale
+
+The model creates a rational, auditable policy without claiming certainty about hidden cognitive causes. Subsequent independent performance tests whether the selected intervention was useful.
+
+### Consequences
+
+- Learner state must preserve support level, route, immediate transfer, delayed retention, Move On, and Park evidence.
+- The content graph needs prerequisite, component, representation, and transfer relationships.
+- Validators need compact evidence packages for uncertain and repeated-failure cases.
+- Demonstrated intervention effectiveness is specific to skill and task type.
+- Legal terms and notices must describe anonymous improvement use.
+
+### Risks / Follow-ups
+
+- Entry weights, thresholds, and Park constants require pilot calibration.
+- Counsel must finalize age, consent, retention, deletion, and jurisdictional requirements.
+- Grading thresholds remain owned by the future grading design.

@@ -389,11 +389,14 @@ flowchart TB
 
 - Handles text and future file intake.
 - Extracts content, classifies the question, identifies missing context, and isolates user material from canonical content.
+- Separates private learner use, anonymous internal improvement use, and separately gated public publication.
+- Sweeps public candidates for the signed-in user's proper name variants and holds or removes matches.
 
 **Progress and learner-state service**
 
 - Rebuilds strength, difficulty, recurrence, confidence, and recency views.
 - Selects comparable evidence and creates qualified progress statements.
+- Persists support level, escalation route, immediate transfer, delayed retention, Move On, and Park state by skill and task type.
 
 **Content validation and publication service**
 
@@ -419,6 +422,12 @@ flowchart TB
 **Learner evidence**
 
 - Sessions, attempts, responses, assistance used, criterion results, confidence, timing, and evaluation provenance.
+
+**Anonymous improvement evidence**
+
+- Deidentified responses, outcomes, validator corrections, and version provenance used to improve Cramapple's grading, teaching, content, evaluation sets, prompts, model configurations, and routing policies.
+- Excludes identity, account, payment, parent, and direct-contact fields.
+- Does not make a response public; publication requires a separate release decision.
 
 **Derived learner state**
 

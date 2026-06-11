@@ -77,3 +77,23 @@ Create separate canonical documents for system context and logical component arc
 - College Board section and point distributions are critical recommendation inputs.
 - Weakness and improvability must be treated as different estimates.
 - The work remains planning and documentation only.
+
+## APPROVAL-0005 — Adopt Unified Learning and Stuck-State Model
+
+**Date:** 2026-06-10
+**Approved By:** David Bloom
+**Related Task:** TASK-0004
+**Decision:** Approved
+
+### Summary
+
+Adopt one learning-state model for ordinary teaching and stuck escalation, with evidence-weighted entry, discriminating probes, independent confirmation, schedule-aware Park, and learner Move On.
+
+### Notes
+
+- Three misses are not treated as equivalent evidence or an automatic stuck trigger.
+- Sideways, Apart, and Down should be selected from direct probes when feasible, while avoiding false precision.
+- Immediate success must be confirmed through independent transfer and later review when the schedule permits.
+- Intervention effectiveness is tracked by skill and task type, not as a general learning-style preference.
+- Anonymous student responses may be used to improve Cramapple.
+- Terms and Conditions govern residual personal-information submission risk; public candidates receive a signed-in-user proper-name sweep.
