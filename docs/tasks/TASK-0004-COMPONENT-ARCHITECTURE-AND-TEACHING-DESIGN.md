@@ -54,6 +54,11 @@ Refine the high-level architecture into explicit system-context and logical-comp
 - [x] Immediate transfer and delayed confirmation are separate outcomes.
 - [x] Schedule-aware Park and Move On are defined.
 - [x] Anonymous improvement use and publication gates are separated.
+- [x] Repeated-miss evidence uses a defined assessable skill target.
+- [x] Frame is defined for both diagnostic and instructional use.
+- [x] Intervention choice is recommendation-with-override.
+- [x] Per-target time and stable-success thresholds are explicitly research/TBD items.
+- [x] Public student-question publishing is assigned primarily to marketing/content with pedagogical gates.
 - [x] Canonical DOCX files are generated and visually reviewed.
 - [ ] David reviews the pull request and records the Done decision.
 - [ ] AP Biology tutors review the pedagogy before implementation or launch.
@@ -78,7 +83,7 @@ Refine the high-level architecture into explicit system-context and logical-comp
 - Verified the AP Biology exam format, raw-point structure, unit ranges, science-practice ranges, FRQ structure, and public-material availability against current College Board primary sources.
 - Confirmed that unit ranges are labeled as multiple-choice-section weights and that Cramapple-derived point values are labeled as planning approximations.
 - Reviewed the system-context and logical-component design against the approved high-level architecture.
-- Rendered and visually inspected all pages of the five current architecture and teaching DOCX files: 23 high-level architecture pages, 21 system-context pages, 26 teaching-design pages, 30 learning-system pages, and 11 stuck-protocol pages.
+- Rendered and visually inspected all pages of the five current architecture and teaching DOCX files: 23 high-level architecture pages, 21 system-context pages, 28 teaching-design pages, 31 learning-system pages, and 13 stuck-protocol pages.
 - Corrected ordered-list continuation, table-row pagination, and large-diagram page flow in the shared document renderer.
 - Validated all DOCX archives, Python renderer syntax, and Git whitespace.
 

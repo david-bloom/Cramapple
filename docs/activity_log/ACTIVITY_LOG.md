@@ -4,6 +4,15 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ---
 
+## Learning Boundary Questions Resolved — 2026-06-11
+
+**Task:** TASK-0004
+**Status:** Documentation revision in progress
+**Summary:** Defined assessable skill targets for repeated-miss evidence; established diagnostic and instructional Frame behavior; made intervention selection recommendation-with-override; marked per-target time and stable-success thresholds for pedagogy research; and assigned public student-question publishing primarily to marketing/content with teaching and grading gates.
+
+**Next Owner:** David Bloom
+**Next Required Action:** Review the revised documents and PR language.
+
 ## Unified Learning and Stuck-State Revision — 2026-06-10
 
 **Task:** TASK-0004

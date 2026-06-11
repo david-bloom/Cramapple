@@ -193,7 +193,7 @@ A deterministic three-miss trigger, universal Sideways-first sequence, and gener
 
 ### Decision
 
-Use one per-skill-and-task learning-state model. Weight failure evidence by independence, variation, delay, and support; use discriminating probes to select Sideways, Apart, or Down; confirm intervention success through independent and delayed performance; offer Move On; and calculate Park return from exam horizon, frustration, and expected exam utility.
+Use one per-assessable-target-and-facet learning-state model. Weight failure evidence by independence, variation, delay, and support; use discriminating probes to select Sideways, Apart, or Down; confirm intervention success through independent and delayed performance; offer Move On; and calculate Park return from exam horizon, frustration, and expected exam utility.
 
 Anonymous student responses and outcome traces may be used to improve Cramapple's grading, teaching, content, evaluation, model configurations, and routing. Public publication remains separately gated and includes a signed-in-user proper-name sweep.
 
@@ -214,3 +214,36 @@ The model creates a rational, auditable policy without claiming certainty about 
 - Entry weights, thresholds, and Park constants require pilot calibration.
 - Counsel must finalize age, consent, retention, deletion, and jurisdictional requirements.
 - Grading thresholds remain owned by the future grading design.
+
+## DECISION-0008 — Define Skill Evidence, Learner Override, and Publishing Ownership
+
+**Date:** 2026-06-11
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Related Task:** TASK-0004
+**Area:** Product
+
+### Context
+
+The unified model required clearer boundaries for what counts as the same skill, how Frame affects evidence, who chooses interventions, when success becomes independent, and whether public question pages belong to learning or marketing.
+
+### Decision
+
+Use an assessable skill target composed of canonical operation, required knowledge or concept cluster, and substantive success criterion, with representation and support recorded as facets. Use Frame for both diagnosis and teaching, but classify evidence according to what the Frame reveals. Recommend interventions with visible alternatives and learner override. Treat per-target time and stronger success thresholds as research items. Assign public student-question publishing primarily to marketing/content while requiring pedagogical and grading release gates.
+
+### Rationale
+
+This avoids counters that are either too broad or question-specific, preserves the evidentiary meaning of assistance, and implements the principle that Cramapple guides without dictating. It also keeps private learning evidence separate from acquisition publishing while protecting educational quality.
+
+### Consequences
+
+- Learner evidence stores target identity, representation, support, Frame type, recommendation, and override.
+- A supported attempt cannot become independent merely through relabeling; a fresh unsupported transfer attempt is required.
+- The product may recommend Move On but does not enforce an unvalidated pedagogical time cap.
+- Marketing owns public packaging and distribution; validators own teaching and grading quality approval.
+
+### Risks / Follow-ups
+
+- AP Biology tutors must validate target-equivalence examples.
+- Product research must establish stable-improvement thresholds and time budgets by task type and exam horizon.
+- Analytics must distinguish recommendation acceptance, override, and outcome without penalizing learner agency.

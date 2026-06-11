@@ -1,18 +1,18 @@
 # Cramapple Learning and Curriculum System
 
-**Canonical planning draft | June 10, 2026 | v0.6**
+**Canonical planning draft | June 11, 2026 | v0.7**
 
 ## Document Status
 
 This is a working canonical reference for Cramapple's teaching and curriculum methodology. It defines the unified learning-state model, question-archetype adaptations, intervention modes, escalation behavior, calibration moves against known AI-grading failure modes, and the research and source authorities that ground each design decision.
 
-This document covers the complete normal learning path and establishes the boundary with the companion `LEARNING_SYSTEM_STUCK.md` document. The companion specifies the detailed Sideways, Apart, Down, Move On, and Park behavior used when ordinary intervention is not producing progress. Stuck behavior is an escalation level inside the unified per-skill learning state machine, not a separate mutually exclusive system.
+This document covers the complete normal learning path and establishes the boundary with the companion `LEARNING_SYSTEM_STUCK.md` document. The companion specifies the detailed Sideways, Apart, Down, Move On, and Park behavior used when ordinary intervention is not producing progress. Stuck behavior is an escalation level inside the unified per-assessable-target learning state machine, not a separate mutually exclusive system.
 
 Statements labeled Decision reflect the current direction. Statements labeled Hypothesis require testing. Items labeled Open remain unresolved.
 
 This document operates under `TEACHING_AND_PEDAGOGY_DESIGN.md`, which holds the governing pedagogical contract and research framing. Where the documents overlap, `TEACHING_AND_PEDAGOGY_DESIGN.md` governs principles and evidence claims; this document governs the operational learning loop.
 
-*Changelog. v0.6 (June 2026) adopts the unified learning-state model; separates cold, coached, and exam orientation; adds discriminating probes and evidence-weighted escalation; makes post-help success provisional until independent confirmation; adds schedule-aware Move On and Park behavior; tracks intervention effectiveness by skill and task type; corrects AP Biology exam facts; and clarifies that anonymous student responses are used to improve Cramapple. v0.5 added the Subject Waitlist mechanism. v0.4 added Student-Supplied Questions and Landing Pages. v0.3 reframed integrity signals as coaching. v0.2 added calibration moves and academic AI grading sources.*
+*Changelog. v0.7 (June 2026) defines the assessable skill target, defines Frame as both diagnostic and instructional with separate evidence treatment, makes intervention choice recommendation-with-override, marks the per-skill time budget and stronger success thresholds as research questions, and assigns public question publishing primarily to the marketing workflow while retaining pedagogical release standards. v0.6 adopted the unified learning-state model; separated cold, coached, and exam orientation; added discriminating probes and evidence-weighted escalation; made post-help success provisional until independent confirmation; added schedule-aware Move On and Park behavior; tracked intervention effectiveness by skill and task type; corrected AP Biology exam facts; and clarified that anonymous student responses are used to improve Cramapple.*
 
 ## Purpose
 
@@ -172,6 +172,15 @@ Teaching uses the least revealing intervention likely to restart productive work
 
 Every teaching intervention ends with a new, independently completed task. Success on a scaffolded step is evidence that the intervention helped, not evidence that the target skill is mastered.
 
+#### Frame: Diagnostic and Instructional
+
+Frame is a controlled restatement of what kind of task the learner is facing and how its parts relate. It serves both diagnosis and teaching, but the two uses have different evidence consequences.
+
+- **Diagnostic Frame** changes presentation without supplying the answer-bearing concept, relationship, evidence, calculation, or hidden rubric criterion. It may clarify the visible command verb, separate the task from distracting context, or restate the requested output. Success after a diagnostic Frame is evidence of framing sensitivity, but it is recorded separately from fully cold performance and still requires fresh cold transfer.
+- **Instructional Frame** explicitly teaches the task structure: what the question is asking, which information matters, how the response should be organized, or which criterion the learner is trying to satisfy. It is coached support and cannot produce independent-performance evidence on that attempt.
+
+The intervention record must identify which Frame was used and what information it revealed. The name "Frame" alone is not sufficient evidence metadata.
+
 ### 3.6 Confirm Transfer
 
 Immediate success after teaching receives one of three evidence states:
@@ -182,6 +191,10 @@ Immediate success after teaching receives one of three evidence states:
 
 Only immediate independent transfer can close the current interaction as a provisional success. Confirmed retention is required before Cramapple presents the skill as stable improvement. A later failure reopens the learner-model estimate without erasing the prior observation.
 
+Supported success and independent success are classifications of different attempts, not levels that change merely with time. A fresh attempt qualifies as immediate independent transfer when it tests the same assessable skill target on a changed surface without answer-bearing support and the learner independently satisfies the applicable criterion. This is a working evidence definition, not a researched mastery threshold.
+
+The stronger graduation question remains open: how many independent attempts, how much transfer variation, and what delay justify describing a target as stable improvement for a particular skill and task type. The answer must come from pedagogy review and Cramapple validation, not a universal percentage imported from another domain.
+
 ### 3.7 Schedule Retrieval or Move On
 
 After an independent retry, Cramapple schedules delayed review based on fragility, days remaining, exam value, assistance, prior history, and available study opportunities. The learner can always choose **Move on and return later** after a scored attempt or intervention. That action preserves the evidence, creates a revisit obligation when useful, and prevents one skill from consuming the session.
@@ -189,6 +202,8 @@ After an independent retry, Cramapple schedules delayed review based on fragilit
 ## 4. Ordinary Intervention and Confirmation Modes
 
 Selecting the right intervention is pedagogically consequential and consumes scarce study time. Cramapple therefore uses the least revealing intervention supported by the evidence, then requires an independent retry.
+
+Cramapple recommends rather than dictates. The recommended intervention includes a short explanation, but the learner can select another available approach, request more or less help, or Move On. An override does not count as resistance, failure, or negative proficiency evidence. Outcomes from accepted and overridden recommendations may improve later routing when they are specific to comparable skill targets and tasks.
 
 ### 4.1 Tighten
 
@@ -378,11 +393,13 @@ MCQ accounts for 50% of the exam score. The volume is substantial and the miscon
 
 ## 8. Student-Supplied Questions and Landing Pages
 
-This is the highest-value interaction Cramapple has, and the primary acquisition channel. When a student pastes in a question they are actually stuck on — homework, a practice exam, a prep book — they have a real problem and have explicitly chosen Cramapple over ChatGPT. The flow that handles this moment is both a teaching moment for the individual student and a content artifact for SEO and AEO acquisition.
+This is the highest-value interaction Cramapple has, and the primary acquisition channel. When a student pastes in a question they are actually stuck on — homework, a practice exam, a prep book — they have a real problem and have explicitly chosen Cramapple over ChatGPT. The private response is a learning workflow. Any later public landing page is primarily a marketing and content-acquisition workflow that publishes educational material.
 
 ### 8.1 The Dual Purpose
 
-Every resolved student-supplied question can serve two functions. First, it teaches the individual student using the unified learning loop adapted for an externally provided question. Second, if it passes source, quality, rights, and identity checks, it may become an anonymous public landing page. Internal anonymous improvement use and public publication are separate decisions.
+Every resolved student-supplied question can serve two functions. First, it teaches the individual student using the unified learning loop adapted for an externally provided question. Second, if it passes source, quality, rights, identity, and pedagogical checks, it may become an anonymous public landing page. Internal anonymous improvement use and public publication are separate decisions.
+
+**Ownership decision.** The student's private learning interaction belongs to the learning system. Selection, packaging, release, distribution, SEO/AEO measurement, and lifecycle use of a public landing page belong primarily to the marketing/content workflow. Teaching validators own the accuracy and pedagogical quality gate for the published explanation and any transfer question. Publication must never alter the student's grade, learner model, or access to the private answer.
 
 The dual purpose raises the quality bar on every student-supplied interaction. Generic, rubric-recycled feedback — the dominant failure mode in the AI grading literature (Section 5.3) — was already a pedagogical problem. With landing pages, it is also a marketing problem. Pages with weak teaching do not rank, do not get cited, do not acquire. Criterion-specific, evidence-grounded evaluation and teaching make both the student moment and any approved public page useful.
 
@@ -517,7 +534,7 @@ Not every student-supplied question produces a landing page. A quality gate sits
 
 - **Borderline: **Queued for review. Orly or a content reviewer assesses; possibly edits the rendered version for relevance and quality before publication.
 
-The quality gate protects the SEO and AEO surface from low-quality content and preserves Cramapple's pedagogical credibility. Before publication, the system also performs a deterministic sweep for the signed-in user's full proper name and known first-name/last-name combinations. Matches are removed or held for review. Terms and conditions prohibit submission of personal or confidential information and govern residual edge cases. This control is deliberately narrow and does not imply that Cramapple can detect every possible identifier.
+The quality gate protects the SEO and AEO surface from low-quality content and preserves Cramapple's pedagogical credibility. The marketing/content workflow cannot publish merely because a page may acquire traffic: the rendered teaching must also pass the applicable scientific, grading, and teaching review. Before publication, the system also performs a deterministic sweep for the signed-in user's full proper name and known first-name/last-name combinations. Matches are removed or held for review. Terms and conditions prohibit submission of personal or confidential information and govern residual edge cases. This control is deliberately narrow and does not imply that Cramapple can detect every possible identifier.
 
 ### 8.9 Landing Page Experience
 
@@ -645,6 +662,8 @@ The student can dismiss the prompt and proceed. The signal is calibrated to fire
 
 ## 12. Open Items
 
+- Research the minimum independent evidence required for stable-improvement language by assessable skill target and task type.
+- Determine the per-target time and intervention budget; no universal cap is approved.
 - The exact return-interval algorithm for the Lock queue. Working defaults are 24 hours for missed points and 48–72 hours for Stretch-confirmed points. Requires student data to validate.
 
 - The number of intermediate fade steps in the Show mode (between full worked example and parallel problem). Default is one. May need to be two for higher-complexity quantitative work.

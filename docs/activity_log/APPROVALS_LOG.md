@@ -97,3 +97,21 @@ Adopt one learning-state model for ordinary teaching and stuck escalation, with 
 - Intervention effectiveness is tracked by skill and task type, not as a general learning-style preference.
 - Anonymous student responses may be used to improve Cramapple.
 - Terms and Conditions govern residual personal-information submission risk; public candidates receive a signed-in-user proper-name sweep.
+
+## APPROVAL-0006 — Resolve Learning-System Boundary Questions
+
+**Date:** 2026-06-11
+**Approved By:** David Bloom
+**Related Task:** TASK-0004
+**Decision:** Approved with Research Items
+
+### Summary
+
+Define the repeated-miss skill unit, use Frame for both diagnosis and teaching, make intervention selection learner-overridable, and assign public student-question publishing primarily to marketing while preserving educational quality gates.
+
+### Notes
+
+- Cramapple guides but does not dictate; the learner may resist a recommendation and choose another path.
+- The evidence required for stronger independent-success or stable-improvement claims is a pedagogical research item.
+- The amount of time spent on one skill remains TBD and should not be presented as a validated universal cap.
+- Publishing question-and-teaching pages is primarily a marketing workflow, but the public artifact is educational and requires teaching and grading review.

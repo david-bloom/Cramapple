@@ -1,6 +1,6 @@
 # Cramapple Teaching and Pedagogy Design
 
-**Canonical planning draft | June 10, 2026 | v0.2**
+**Canonical planning draft | June 11, 2026 | v0.3**
 
 ## 1. Document Status
 
@@ -139,7 +139,7 @@ flowchart LR
     Schedule --> Orient
 ```
 
-The same model governs ordinary learning and stuck-state escalation. Stuck is a state for a skill-and-task key, not a separate teaching system or a learner label.
+The same model governs ordinary learning and stuck-state escalation. Stuck is a state for an assessable skill target and facet, not a separate teaching system or a learner label.
 
 Three modes preserve the meaning of performance evidence:
 
@@ -150,6 +150,22 @@ Three modes preserve the meaning of performance evidence:
 | Exam simulation | Only support allowed by the exam conditions | Measures execution under the configured simulation |
 
 The system distinguishes supported success, immediate independent transfer, and confirmed delayed retention. It does not convert a repaired answer directly into mastery.
+
+### 5.1.1 Assessable Skill Target
+
+Official AP practices and component skills provide the canonical taxonomy, but repeated-miss evidence requires a smaller reusable unit. Cramapple defines an assessable skill target as:
+
+`canonical operation × required knowledge or concept cluster × success criterion`
+
+Representation, question form, and support conditions are recorded as facets. Attempts count together only when the operation, knowledge dependency, and substantive success criterion match. A shared AP unit or rubric row is not sufficient. Representation variants share evidence only through an explicit transfer relationship.
+
+For example, two different datasets that require calculating and interpreting chi-square against the same decision criterion can provide varied evidence for one target. Identifying a trend in a graph and explaining the biological mechanism behind that trend are different targets. Justifying claims in gene regulation and ecology may share a canonical argumentation skill while remaining separate assessable targets because the required knowledge differs.
+
+### 5.1.2 From Supported to Independent Evidence
+
+Supported and independent success describe different attempt conditions. A supported result is never promoted by relabeling. A later attempt is immediate independent transfer only when it uses a fresh aligned item, changes nonessential surface features, removes answer-bearing support, requires production rather than copying or recognition, and satisfies the applicable criterion.
+
+One immediate independent transfer result is provisional. The number of attempts, degree of variation, and delay needed for stable-improvement language remain a pedagogical research question. Worked-example fading and assistance research support removing help and testing on a new problem, but do not establish one universal mastery threshold for Cramapple's subjects, task types, and exam horizon.
 
 ### 5.2 Horizon Phases
 
@@ -389,7 +405,7 @@ Repeated misses are not equivalent evidence. The escalation policy weights attem
 | Heavily assisted, incomplete, or off-task attempt | 0.00 |
 | Source, rubric, or grading uncertainty | 0.00; route to `content_uncertain` |
 
-A skill-and-task key becomes an escalation candidate at cumulative evidence of 1.65 when there are at least two independent attempts, two distinct items or surfaces, and a failed ordinary intervention followed by independent retry.
+An assessable skill target and facet become an escalation candidate at cumulative evidence of 1.65 when there are at least two independent attempts, two distinct items or surfaces, and a failed ordinary intervention followed by independent retry.
 
 Stuck state is warranted when the candidate also has a discriminating probe result, two failed intervention classes, a delayed failure after immediate success, or a learner request to Move On. Low diagnostic confidence alone is not sufficient.
 
@@ -507,6 +523,15 @@ The system records the highest support level used.
 | Example/nonexample | Clarify the boundary of a concept or scoring criterion |
 | Prerequisite repair | Teach the minimal precursor needed for the target |
 
+### 10.2.1 Frame
+
+Frame is used for both diagnosis and teaching:
+
+- **Diagnostic Frame** neutrally restates the visible task demand without answer-bearing content. It tests whether task interpretation or presentation is contributing to failure. Success is recorded as framed performance and must be followed by fresh cold transfer.
+- **Instructional Frame** explicitly teaches the task structure, relevant information, response organization, or scoring opportunity. It is coached support and cannot count as independent performance.
+
+Each Frame record identifies what was changed or revealed so validators can judge whether the resulting evidence remains diagnostic.
+
 ### 10.3 Escalation Routing
 
 Escalation uses direct probes where feasible:
@@ -518,6 +543,14 @@ Escalation uses direct probes where feasible:
 - **Content uncertainty:** withhold negative learner-model updates and route evidence to validators.
 
 There is no universal Sideways-first order. The objective is a defensible next action whose effectiveness is tested through independent transfer, not a claim that Cramapple has identified the learner's hidden cause precisely.
+
+### 10.3.1 Learner Agency
+
+Cramapple recommends the best-supported intervention and explains why. The learner may accept it, choose another approved intervention, change the requested support level, or Move On. Overrides are not treated as noncompliance or negative learning evidence. This is a hybrid policy: system guidance remains substantive, while the learner retains control.
+
+### 10.3.2 Time on One Target
+
+No universal per-target time cap is approved. Cramapple records elapsed time, intervention count, exam proximity, frustration, learner intent, recommendation, override, and subsequent outcome. After repeated unsuccessful interventions it should recommend Move On / Return Later prominently, while allowing the learner to continue when another approved path exists. Tutor review and product research must determine suggested budgets by task type and exam horizon.
 
 ### 10.4 Explanation Requirements
 
@@ -645,6 +678,8 @@ Cramapple should teach CER where it matches the scoring opportunity and avoid pa
 
 The system must support students arriving with a specific outside question.
 
+The private answer and teaching interaction are learning-system responsibilities. Any public landing page created from the question is primarily a marketing/content workflow, although the published explanation and transfer activity remain educational artifacts subject to teaching validation. Marketing owns candidate selection, packaging, release, distribution, and performance measurement; teaching and grading validators own pedagogical and scoring quality gates.
+
 ### 14.1 Modes
 
 - Teach me the underlying concept.
@@ -726,7 +761,7 @@ Monitor:
 - Validator-reported defects.
 - Disparities by accessibility or learner group.
 - Model and content version drift.
-- Effectiveness by skill-and-task key and intervention class.
+- Effectiveness by assessable skill target, facet, and intervention class.
 - Repeated Park events and `content_uncertain` rates.
 
 High immediate gain with poor delayed retention is not success.
@@ -778,6 +813,10 @@ Candidate controlled tests include:
 - Recommendation with reasoning versus recommendation alone.
 - Criterion-level FRQ feedback versus holistic feedback.
 - Different review intervals by days remaining.
+- One versus two immediate independent transfer items after supported success.
+- Different surface-change and delay requirements before stable-improvement language.
+- Recommended intervention with visible alternatives versus learner-first intervention selection.
+- Different suggested time and move budgets by task type and exam horizon.
 
 Experiments require expert review and must not remove minimum-quality safeguards.
 
@@ -833,6 +872,11 @@ Experiments require expert review and must not remove minimum-quality safeguards
 16. Move On is always available, and Park uses an exam-schedule-aware return formula.
 17. Intervention effectiveness is tracked by skill and task type, not as a general learning-style preference.
 18. Anonymous student responses are used to improve Cramapple; public publication is separately gated.
+19. Repeated misses are counted at the assessable skill target and facet, not at the whole AP practice or individual-question level.
+20. Frame serves diagnosis and teaching, with different support and evidence classifications.
+21. Intervention choice is recommendation-with-override: Cramapple guides, and the learner may choose another path.
+22. No universal per-skill time cap or stable-success threshold is approved before pedagogical research and validation.
+23. Public student-question publishing is primarily a marketing/content workflow with mandatory pedagogical release gates.
 
 ## 19. Open Questions
 
@@ -842,6 +886,8 @@ Experiments require expert review and must not remove minimum-quality safeguards
 - What confidence scale creates useful evidence without interrupting flow?
 - How should time cost and fatigue affect next-action ranking?
 - What minimum delayed evidence is required before saying a learner improved?
+- How many fresh independent attempts, what transfer distance, and what delay should establish stable improvement for each skill and task type?
+- What suggested time and intervention budget should apply by task type, exam horizon, and learner intent?
 - Which released materials may be stored, transformed, or displayed under applicable rights?
 - How should recommendations change for learners targeting a 3 versus a 5?
 - What study schedule is appropriate when fewer than three days remain?
@@ -864,5 +910,9 @@ Experiments require expert review and must not remove minimum-quality safeguards
 - Cepeda, N. J., Pashler, H., Vul, E., Wixted, J. T., and Rohrer, D. (2006). Distributed practice in verbal recall tasks. Psychological Bulletin. https://doi.org/10.1037/0033-2909.132.3.354
 - Rohrer, D., and Taylor, K. (2007). The shuffling of mathematics problems improves learning. Instructional Science. https://doi.org/10.1007/s11251-007-9015-8
 - Dunlosky, J., and Rawson, K. A. (2012). Overconfidence produces underachievement. Learning and Instruction. https://doi.org/10.1016/j.learninstruc.2011.08.003
+- Renkl, A., and Atkinson, R. K. (2003). Structuring the transition from example study to problem solving in cognitive skill acquisition.
+- Renkl, A., Atkinson, R. K., and Große, C. S. (2004). How fading worked solution steps works: A cognitive load perspective.
+- Salden, R. J. C. M., Aleven, V., Schwonke, R., and Renkl, A. (2010). The expertise reversal effect and worked examples in tutored problem solving.
+- Koedinger, K. R., and Aleven, V. (2007). Exploring the assistance dilemma in experiments with cognitive tutors.
 
 Research citations support design hypotheses. Cramapple-specific intervals, rankings, messages, and effect claims require validation in the product's own context.

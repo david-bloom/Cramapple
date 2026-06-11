@@ -396,6 +396,7 @@ flowchart TB
 - Detects insufficient context and requests clarification.
 - Applies stronger uncertainty and provenance disclosures than canonical content.
 - Separates private learner use, anonymous internal improvement use, and separately gated public publication.
+- Hands approved public-page candidates to the marketing/content publication workflow; publication does not change private learner evidence, grading, or access.
 - Before public publication, sweeps for the signed-in user's proper name variants and holds or removes matches.
 
 ### 8.4 Assessment Domain
@@ -476,6 +477,7 @@ Official facts and Cramapple-derived planning values are separate record types. 
 - Treats evidence as durable and attributable.
 - Does not overwrite history when interpretations change.
 - Records skill-and-task state, support level, escalation route, Park timing, and immediate versus delayed outcomes.
+- Records assessable skill target, representation facet, Frame type, recommendation, learner override, and attempt evidence conditions.
 
 #### Learner Model Projector
 
@@ -498,9 +500,17 @@ Official facts and Cramapple-derived planning values are separate record types. 
 
 - Creates governed anonymous or deidentified datasets from student responses, outcomes, and validator corrections.
 - Excludes identity, account, payment, parent, and direct-contact fields.
-- Keeps source version, model version, adjudication status, skill-and-task key, intervention, and outcome provenance.
+- Keeps source version, model version, adjudication status, assessable skill target and facet, intervention, and outcome provenance.
 - Supplies evaluation, grading, teaching, content, prompt, model-configuration, and routing-improvement workflows.
 - Does not publish learner material; public publication is a separate release workflow.
+
+#### Public Educational Content Publisher
+
+- Is owned primarily by the marketing/content domain.
+- Accepts only candidates that pass source, rights, identity, scientific, teaching, and grading gates.
+- Packages approved questions, explanations, and optional transfer activities for SEO, AEO, social, and lifecycle distribution.
+- Measures acquisition and engagement without feeding publication status into the originating learner's grade or proficiency model.
+- Preserves version and validator provenance for every educational claim displayed publicly.
 
 ### 8.7 Quality and Release Domain
 
@@ -634,7 +644,8 @@ Text or upload intake
   -> disclose limitations
   -> store as private learner evidence
   -> create anonymous improvement evidence under policy
-  -> publish only through a separate quality, rights, and identity gate
+  -> hand candidate to marketing/content workflow
+  -> publish only through separate quality, rights, identity, and pedagogical gates
 ```
 
 ## 10. Data Ownership
