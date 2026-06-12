@@ -68,9 +68,17 @@ separate security, privacy, retention, and authorization design.
 - [x] Full-versus-partial revalidation rules are defined.
 - [x] Atomic publication, monitoring, incident, retirement, rollback, and audit procedures are defined.
 - [x] Paid-tutor original-question authoring replaces historical-question-seeded generation.
-- [x] Both MCQs and FRQs are included with a ten-question subject/subtopic coverage target.
+- [x] All 60 official AP Biology topics are included with a planning target of
+  ten MCQs and five short-FRQ prompts per topic.
+- [x] Long-FRQ planning targets four stimulus packages and eight counted prompts
+  per unit.
+- [x] Inventory is defined as one MCQ or one independently delivered and
+  answered FRQ prompt.
 - [x] Controlled AI versioning is limited to Cramapple-owned or fully licensed proprietary packages.
 - [x] AP Reader eligibility and diagnostic lifecycle rules are defined.
+- [x] Expert-curated diagnostic candidates may be used before empirical confirmation.
+- [x] Statistical item signals open human review and do not automatically change lifecycle state.
+- [x] Physical Supabase design is deferred until logical governance and application architecture approval.
 - [ ] AI-version holdout, production item sample thresholds, and permitted asset sources are defined.
 - [ ] Learning Quality Owner reviews the paid-author workflow and proposed educational quality gates.
 - [ ] Counsel reviews the proposed rights and retention boundaries.

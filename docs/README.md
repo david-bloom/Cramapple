@@ -42,6 +42,8 @@ The universal rule is defined in
 ## Folders
 
 - `product/`: Vision, product doctrine, and later product requirements.
+- `product/CONTENT_QUANTITY_AND_DISTRIBUTION.md`: Approved-direction AP Biology
+  topic matrix, inventory definition, and quantity targets.
 - `architecture/`: Canonical system architecture, technical boundaries, and later detailed technical designs.
 - `architecture/CONTENT_GOVERNANCE_AND_VALIDATION.md`: Proposed operating procedure for sources, rights, validation, release, monitoring, revalidation, retirement, rollback, and audit.
 - `teaching/`: Canonical pedagogy, diagnostics, instructional policy, and learning-system designs.

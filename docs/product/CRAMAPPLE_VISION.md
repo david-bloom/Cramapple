@@ -297,7 +297,14 @@ David Bloom, co-founder, Chief Executive Officer, and Product Owner, has final r
 
 Paid tutors and subject experts will create Cramapple's original question packages. Separate qualified reviewers will validate scientific accuracy, teaching quality, exam alignment, and grading behavior. Authors do not approve their own work. Expert sign-off is a launch gate. If the responsible experts do not approve the content and grading behavior, the product does not launch.
 
-The initial bank will include both MCQs and FRQs, with a target of at least ten approved questions for each subject-and-subtopic pair. Cramapple may use AI to create candidate versions from questions it owns or fully licenses for derivative and model use. Each variant is a new artifact and requires a complete rubric, teaching package, provenance, and independent validation.
+The initial bank will use all 60 official public AP Biology topics. Each topic
+targets at least ten approved MCQs and five approved short-FRQ prompts. Each
+unit additionally targets four long-FRQ stimulus packages with two
+independently deliverable prompts per package. One MCQ or one delivered FRQ
+prompt counts as one inventory item. Cramapple may use AI to create candidate
+versions from questions it owns or fully licenses for derivative and model use.
+Each variant is a new artifact and requires a complete rubric, teaching
+package, provenance, and independent validation.
 
 Approval of content alone is insufficient. Before launch, Cramapple should test AI grading against responses independently scored by experts and establish an acceptable level of criterion-by-criterion agreement.
 

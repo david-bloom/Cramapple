@@ -290,6 +290,12 @@ These are logical contract schemas. The physical database design may normalize
 them further, but it must preserve all fields, constraints, append-only evidence,
 and immutable payloads.
 
+Physical Supabase or Postgres DDL is deferred until this logical governance
+model and the applicable application architecture are approved. A physical
+schema proposal must be reviewed as a separate hard-gated task and must not
+replace these logical contracts with mutable approval booleans or overwriteable
+content rows.
+
 ### 7.1 Common Types
 
 ```text
@@ -499,11 +505,12 @@ question_coverage_target {
   coverage_target_id: UUID
   exam_id: UUID
   subject_id: UUID
-  subtopic_id: UUID
+  scope_type: topic | unit
+  taxonomy_scope_id: UUID
   school_year: string
-  minimum_approved_questions: integer >= 10
-  mcq_target: integer | null
-  frq_target: integer | null
+  mcq_target: integer >= 0
+  short_frq_prompt_target: integer >= 0
+  long_frq_prompt_target: integer >= 0
   required_skill_ids: UUID[]
   required_representation_types: string[]
   required_difficulty_bands: string[]
@@ -658,9 +665,14 @@ Constraints:
   approval.
 - A false attestation suspends the author immediately and opens a rights and
   quality incident.
-- `minimum_approved_questions` counts only independently approved production
-  artifacts; drafts, superficial reskins, and validation-only AI variants do
-  not count.
+- Coverage targets count only independently approved production inventory
+  items. One inventory item is one MCQ or one independently delivered and
+  answered FRQ prompt. Stimuli, subparts, rubric criteria, and package
+  components do not count separately. Drafts, superficial reskins, and
+  validation-only AI variants do not count.
+- A `topic` scope requires `mcq_target >= 10` and
+  `short_frq_prompt_target >= 5`. A `unit` scope records the long-FRQ target and
+  initially requires `long_frq_prompt_target >= 8`.
 - An AI variant run is invalid unless every base package has the required
   release rights and complete provenance.
 - A question may have only one active `diagnostic_active` or `teaching_active`
@@ -1029,11 +1041,20 @@ operational requirements, not legal advice.
 Cramapple commissions qualified tutors to create original question packages.
 Official historical questions are not production inputs.
 
-The initial AP Biology bank includes both MCQs and FRQs. The coverage target is
-at least ten approved questions for every active subject-and-subtopic pair. The
-exact MCQ-to-FRQ mix is assigned in the coverage matrix according to the exam
-blueprint, skill demand, and instructional need; it is not inferred from the
-number of historical questions available.
+The initial AP Biology bank uses all 60 official public topics in the current
+Course and Exam Description. The planning target for every topic is at least ten
+approved MCQs and five approved short-FRQ prompts. Each unit additionally
+targets four long-FRQ stimulus packages with two independently deliverable
+prompts per package.
+
+One MCQ or one independently delivered and answered FRQ prompt counts as one
+inventory item. The corrected full planning target is 964 inventory items:
+600 MCQs, 300 short-FRQ prompts, and 64 long-FRQ prompts. The detailed matrix is
+defined in `../product/CONTENT_QUANTITY_AND_DISTRIBUTION.md`.
+
+These quantities are targets Cramapple will work to meet or exceed. A launch
+below target requires a visible gap report, Learning Quality review, and Product
+Owner approval; it does not silently lower the target.
 
 Paid Tutor Authors receive an approved authoring brief containing:
 
@@ -1208,9 +1229,17 @@ performance. A diagnostic question may later graduate to teaching use or be
 retired. Graduation or retirement requires a recorded lifecycle decision,
 exposure review, replacement-coverage check, and new exam-pack manifest.
 
+An independently expert-curated `diagnostic_candidate` may be used with
+students before empirical confirmation. Its status records expert judgment, not
+a claim of statistical validation.
+
 Student use never changes an immutable question version. Performance evidence
 may trigger investigation, reclassification, revision, suspension, retirement,
 or a commission for additional questions.
+
+Statistical thresholds and monitoring signals open a human review case. They do
+not automatically demote, retire, revise, or republish an item. Any lifecycle
+change requires an authorized human decision and a recorded rationale.
 
 ## 11. Teaching Validation Gate
 

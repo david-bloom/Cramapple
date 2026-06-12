@@ -424,7 +424,7 @@ questions.
 ### Consequences
 
 - AI variants are new immutable artifacts and do not inherit base approval.
-- Superficial reskins do not count toward the ten-question target.
+- Superficial reskins do not count toward coverage targets.
 - Question performance is monitored by version and intended use.
 - Performance evidence opens review but does not automatically change item
   status until sample and decision thresholds are approved.
@@ -432,13 +432,18 @@ questions.
 
 ### Open Gates
 
-- MCQ-to-FRQ allocation within each subject-and-subtopic pair.
 - Minimum student sample and evidence thresholds for changing or retiring an
   item.
 - Independent holdout set and passing thresholds for AI-versioning changes.
 - Permitted sources and rights rules for graphs, datasets, experimental
   contexts, passages, and images.
 - Final counsel-approved release language.
+
+### Supersession Note
+
+The quantity language in this decision is superseded by `DECISION-0014`, which
+uses all 60 official topics and sets separate MCQ, short-FRQ, and long-FRQ
+planning targets.
 
 ## DECISION-0012 — Require Local Documents to Be Synchronized to GitHub
 
@@ -530,3 +535,65 @@ Limiting Word documents reduces duplicate maintenance and format drift.
 
 - A Google Docs backup process and link registry may be defined later if needed.
 - External stakeholders may occasionally require Word, PDF, or another format.
+
+## DECISION-0014 — Adopt Corrected AP Biology Coverage and Diagnostic Direction
+
+**Date:** 2026-06-12
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Related Task:** TASK-0005 / CONTENT-001A
+**Area:** Product / Content Operations / Architecture
+
+### Context
+
+Claude proposed a useful coverage model but calculated the bank using 48
+topics. The current official AP Biology Course and Exam Description contains 60
+topics, and the proposed table was internally inconsistent. The review also
+identified unresolved definitions for inventory counting, pre-confirmation
+diagnostic use, automated lifecycle changes, and physical database timing.
+
+### Decision
+
+- Use all 60 official public AP Biology topics as Cramapple's coverage taxonomy.
+- Target at least ten approved MCQs and five approved short-FRQ prompts for each
+  topic.
+- Target four long-FRQ stimulus packages per unit, with two independently
+  deliverable prompts per package.
+- Count one MCQ or one independently delivered and answered FRQ prompt as one
+  inventory item.
+- Treat 964 items as the corrected full planning target: 600 MCQs, 300
+  short-FRQ prompts, and 64 long-FRQ prompts.
+- Work to meet or exceed the target; any launch shortfall requires a visible
+  coverage-gap report, Learning Quality review, and Product Owner decision.
+- Permit independently expert-curated diagnostic candidates to be used with
+  students before empirical confirmation.
+- Require statistical item signals to open human review. They do not
+  automatically demote, retire, revise, or publish an item.
+- Defer physical Supabase or Postgres design until the logical governance model
+  and application architecture are approved.
+
+### Rationale
+
+The official taxonomy gives Cramapple a stable public alignment layer. Separate
+targets for MCQs and FRQs support focused practice without confusing inventory
+count with package workload. Human review preserves governance authority when
+early item statistics are noisy or assignment is adaptive. Deferring physical
+DDL prevents a premature schema from weakening immutable content, independent
+approval, audit, and atomic-release requirements.
+
+### Consequences
+
+- `CONTENT_QUANTITY_AND_DISTRIBUTION.md` is the controlling planning matrix.
+- The prior ten-total-questions quantity in `DECISION-0011` is superseded.
+- The initial Claude patch and its 784-item calculation must not be applied.
+- Diagnostic candidates may serve learners before statistical confirmation,
+  while remaining clearly classified as expert-curated candidates.
+- A later physical-schema task must implement the approved logical contracts
+  rather than replacing them with mutable rows or direct approval booleans.
+
+### Open Gates
+
+- Learning Quality review of topic-level feasibility and content variety.
+- Beta-launch coverage threshold and prioritization if 964 items are incomplete.
+- Minimum sample sizes and statistical methods for item-performance review.
+- AI-variant holdout policy and permitted source/asset rules.

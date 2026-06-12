@@ -295,10 +295,12 @@ records.
   authors, sellers, and AP Reader reviewers.
 - [ ] Define versioned coverage briefs for questions, rubrics, lessons, hints,
   worked examples, probes, transfer items, and delayed variants.
-- [x] Set the initial coverage target at ten approved questions per
-  subject-and-subtopic pair, including both MCQs and FRQs.
-- [ ] Set the MCQ-to-FRQ allocation for each subject-and-subtopic pair.
-  Claude analysis is in progress; require the evidence package defined below.
+- [x] Use all 60 official public AP Biology topics as the coverage taxonomy.
+- [x] Set the planning target at ten approved MCQs and five approved short-FRQ
+  prompts per topic, plus four long-FRQ stimulus packages and eight counted
+  long-FRQ prompts per unit.
+- [x] Define one inventory item as one MCQ or one independently delivered and
+  answered FRQ prompt.
 - [ ] Define priority modules, skills, archetypes, and misconception coverage.
 - [ ] Recruit paid tutor authors and separate qualified validators.
 - [ ] Create originality, similarity, source-disclosure, and rights preflight.
@@ -313,15 +315,21 @@ records.
   contexts, passages, and images.
 - [ ] Define the minimum student sample and evidence thresholds for item
   revision, reclassification, suspension, and retirement.
+- [x] Require statistical performance signals to open human review rather than
+  automatically changing an item's lifecycle state.
 - [x] Allow diagnostic questions to graduate to teaching use or retire through
   a versioned lifecycle decision.
+- [x] Permit independently expert-curated diagnostic candidates to be used
+  before empirical confirmation.
+- [x] Defer physical Supabase design until the logical governance model and
+  application architecture are approved.
 - [ ] Create source and rights plans for every artifact family.
 - [ ] Establish production throughput and quality reporting.
 
 #### CONTENT-001A - Question Distribution Analysis Handoff
 
-**Status:** In Progress
-**Owner:** Claude analysis; Orly Bloom / Learning Quality Owner reviews
+**Status:** Owner Direction Recorded; Revision Required
+**Owner:** Main Conductor revision; Orly Bloom / Learning Quality Owner reviews
 **Decision Owner:** David Bloom
 
 The analysis should return:
@@ -343,6 +351,11 @@ The analysis should return:
 The analysis must not reproduce official question text or use secure,
 credential-restricted, or confidential material. Its recommendation does not
 become policy until Learning Quality Owner review and Product Owner approval.
+
+Claude's initial handoff was reviewed on 2026-06-12. Its useful planning model
+was retained, but its 48-topic assumption and 784-item total were rejected. The
+corrected approved-direction matrix uses 60 official topics and a 964-item
+planning target. Physical Supabase DDL remains deferred.
 
 ### EVAL-001 - Efficacy Measurement
 

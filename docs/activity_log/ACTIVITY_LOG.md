@@ -4,6 +4,21 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ---
 
+## Corrected AP Biology Coverage Direction Adopted — 2026-06-12
+
+**Task:** TASK-0005 / CONTENT-001A
+**Status:** Approved direction; Learning Quality review remains
+**Summary:** Reviewed Claude's coverage and schema package. Retained the
+separate MCQ/FRQ targeting model but corrected the taxonomy from 48 to 60
+official topics and the full target from 784 to 964 inventory items. Defined one
+inventory item as one MCQ or one independently delivered FRQ prompt. Approved
+expert-curated diagnostic use before empirical confirmation, required human
+review for statistical signals, and deferred physical Supabase design.
+
+**Next Owner:** Orly Bloom / Learning Quality Owner
+**Next Required Action:** Review topic-level feasibility, content variety, and
+beta prioritization against the corrected matrix.
+
 ## Markdown-First Document Rule Adopted — 2026-06-12
 
 **Task:** Operating documentation
@@ -32,27 +47,29 @@ verify the remote branch.
 ## Question Distribution Analysis Started — 2026-06-12
 
 **Task:** CONTENT-001A
-**Status:** In Progress
-**Summary:** Claude is analyzing the required distribution of MCQs and FRQs and
-the number of questions needed for each AP Biology Module/Subtopic pair.
+**Status:** Completed with corrections
+**Summary:** Claude analyzed the distribution of MCQs and FRQs. Review retained
+the separate question-form target model but rejected the 48-topic assumption
+and 784-item total. `DECISION-0014` records the corrected 60-topic, 964-item
+direction.
 
-**Next Owner:** Claude, then Orly Bloom / Learning Quality Owner
-**Next Required Action:** Return the governed analysis handoff specified in
-`docs/MASTER_TODO.md`, including the full allocation table, methodology,
-scenarios, workload estimate, sources, calculations, and uncertainty.
+**Next Owner:** Orly Bloom / Learning Quality Owner
+**Next Required Action:** Review the corrected coverage matrix, topic-level
+feasibility, content variety, and beta prioritization.
 
 ## Proprietary Question Bank Rules Defined — 2026-06-12
 
 **Task:** TASK-0005 / CONTENT-001
 **Status:** Approved direction with open gates
-**Summary:** Defined a bank containing both MCQs and FRQs with at least ten
-approved questions per subject-and-subtopic pair. Base packages come from paid
-authors or purchases; AI may create candidate variants only from packages with
-explicit derivative and model-input rights. Every variant requires a complete
-rubric, teaching package, provenance, and independent validation.
+**Summary:** Defined a proprietary MCQ and FRQ bank. Quantity was later refined
+by `DECISION-0014` to ten MCQs and five short-FRQ prompts per official topic
+plus eight long-FRQ prompts per unit. Base packages come from paid authors or
+purchases; AI may create candidate variants only from packages with explicit
+derivative and model-input rights. Every variant requires a complete rubric,
+teaching package, provenance, and independent validation.
 
 **Next Owner:** Orly Bloom / Learning Quality Owner with counsel
-**Next Required Action:** Set the MCQ-to-FRQ allocation, draft the simple
+**Next Required Action:** Review topic-level feasibility, draft the simple
 release, define permitted source and asset rules, establish the AI holdout, and
 set production sample thresholds for question changes and retirement.
 
