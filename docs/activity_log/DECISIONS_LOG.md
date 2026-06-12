@@ -80,6 +80,37 @@ The Strategy Advisor may recommend, draft, analyze, and challenge. The role may 
 
 The named person or agent filling the Strategy Advisor role may vary and should be recorded when assigned.
 
+## DECISION-0003 — Allow Qualified Estimated AP Score Guidance
+
+**Date:** 2026-06-09
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Related Task:** TASK-0002
+**Area:** Product
+
+### Context
+
+The initial vision prohibited official AP score prediction but left the role of estimated scoring unresolved. Students need understandable guidance about their likely current range and what improvement could move them forward.
+
+### Decision
+
+Cramapple may provide estimated AP score ranges or readiness estimates when supported by sufficient evidence. Estimates must be clearly identified as non-official, express uncertainty, disclose important evidence gaps, and connect the estimate to concrete next actions.
+
+### Rationale
+
+Qualified estimates can make criterion-level feedback more useful and motivating while preserving a clear distinction between Cramapple guidance and official College Board scoring.
+
+### Consequences
+
+The grading and recommendation systems will need evidence thresholds, confidence rules, calibration datasets, versioned estimation logic, and monitoring for systematic error. A single response must not be presented as a definitive overall AP score.
+
+### Risks / Follow-ups
+
+- Define the minimum evidence required before displaying an estimate.
+- Establish expert review and calibration standards before launch.
+- Determine how estimated ranges should be updated as new performance evidence arrives.
+- Validate customer-facing language with students, parents, tutors, and legal review.
+
 ## DECISION-0004 — High-Level Architecture Boundaries
 
 **Date:** 2026-06-09
