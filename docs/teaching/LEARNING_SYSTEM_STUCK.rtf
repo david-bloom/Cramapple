@@ -1,0 +1,777 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2822
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Arial-BoldMT;\f1\froman\fcharset0 Times-Roman;\f2\fswiss\fcharset0 ArialMT;
+\f3\fswiss\fcharset0 Arial-ItalicMT;\f4\fnil\fcharset0 ArialUnicodeMS;\f5\fswiss\fcharset0 Arial-BoldItalicMT;
+}
+{\colortbl;\red255\green255\blue255;\red27\green94\blue138;\red51\green51\blue51;\red102\green102\blue102;
+\red191\green191\blue191;}
+{\*\expandedcolortbl;;\csgenericrgb\c10588\c36863\c54118;\csgenericrgb\c20000\c20000\c20000;\csgenericrgb\c40000\c40000\c40000;
+\csgray\c79525;}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid1\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid1}
+{\list\listtemplateid2\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid101\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid2}
+{\list\listtemplateid3\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid201\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid3}
+{\list\listtemplateid4\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid301\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid4}
+{\list\listtemplateid5\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid401\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid5}
+{\list\listtemplateid6\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid501\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid6}
+{\list\listtemplateid7\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid601\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid7}
+{\list\listtemplateid8\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid701\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid8}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}{\listoverride\listid2\listoverridecount0\ls2}{\listoverride\listid3\listoverridecount0\ls3}{\listoverride\listid4\listoverridecount0\ls4}{\listoverride\listid5\listoverridecount0\ls5}{\listoverride\listid6\listoverridecount0\ls6}{\listoverride\listid7\listoverridecount0\ls7}{\listoverride\listid8\listoverridecount0\ls8}}
+\margl1440\margr1440
+\deftab720
+\pard\pardeftab720\sa120\pardirnatural\partightenfactor0
+
+\f0\b\fs52 \cf2 CRAMAPPLE
+\f1\b0\fs24 \cf0 \
+\pard\pardeftab720\sa80\pardirnatural\partightenfactor0
+
+\f2\fs32 \cf3 Stuck Student Protocol
+\f1\fs24 \cf0 \
+\pard\pardeftab720\sa240\pardirnatural\partightenfactor0
+
+\f3\i\fs18 \cf4 Companion Reference Document  |  v0.1  |  June 2026  |  Internal Use Only
+\f1\i0\fs24 \cf0 \
+\
+\pard\pardeftab720\sb360\sa180\pardirnatural\partightenfactor0
+
+\f0\b\fs32 \cf3 Document Status
+\f1\b0\fs24 \cf0 \
+\pard\pardeftab720\sa120\pardirnatural\partightenfactor0
+
+\f2\fs22 \cf3 This document specifies the Stuck Student protocol \'97 the secondary teaching approach that activates when the default Score Loop documented in LEARNING_SYSTEM.docx has failed for a particular skill. It is the natural companion to LEARNING_SYSTEM, named as out-of-scope in Section 11 of that document and developed here in full.
+\f1\fs24 \cf0 \
+
+\f2\fs22 \cf3 LEARNING_SYSTEM remains the authority on the default teaching loop, the three Repair modes, calibration, student-supplied questions, and the data posture. This document is the authority on what Cramapple does when that loop is not working for a student on a specific skill. The two are mutually exclusive at the per-skill level: at any moment, for any given skill, a student is either in the Score Loop or in the Stuck protocol, never both.
+\f1\fs24 \cf0 \
+
+\f2\fs22 \cf3 Statements labeled Decision reflect the current direction. Statements labeled Hypothesis require testing. Items labeled Open remain unresolved.
+\f1\fs24 \cf0 \
+\pard\pardeftab720\sa120\pardirnatural\partightenfactor0
+
+\f3\i\fs18 \cf4 Changelog. v0.1 (June 2026) initial draft. Establishes the three Stuck-protocol moves (Sideways, Apart, Down), the selection sequence (Sideways always first; student-choice between Apart and Down; both offered before parking), the Park exit, the soft-visibility UX commitment, the button-based choice prompt, and the preference-memory feature in the Lock.
+\f1\i0\fs24 \cf0 \
+\pard\pardeftab720\sa240\pardirnatural\partightenfactor0
+\cf0 \
+\pard\pardeftab720\sb360\sa180\pardirnatural\partightenfactor0
+
+\f0\b\fs32 \cf3 1. Premise
+\f1\b0\fs24 \cf0 \
+\pard\pardeftab720\sa120\pardirnatural\partightenfactor0
+
+\f4\fs22 \cf3 The Score Loop is built for the case where a student is progressing. It assumes the student has the foundational knowledge, can parse the prompt, can hold the task in working memory, and is willing to wrestle with feedback. When those conditions hold, the loop's intra-loop escalation (Tighten \uc0\u8594  Show on diagnostic confidence drop, per LEARNING_SYSTEM 4.4) reliably closes most gaps.
+\f1\fs24 \cf0 \
+\pard\pardeftab720\sa120\pardirnatural\partightenfactor0
+
+\f2\fs22 \cf3 Some students miss the same skill three times in a row anyway. Some hold persistently low diagnostic confidence across attempts. When that happens, re-presenting the same content a fourth time does nothing useful. Cramapple has already tried the cheap and the more expensive Repair within the loop. Continuing to run the loop on this skill is friction without progress.
+\f1\fs24 \cf0 \
+
+\f2\fs22 \cf3 The Stuck protocol exists because the default loop's failure is itself a signal: the student needs something structurally different, not more of the same. The protocol's job is to pick a different intervention, run it, and either return the student to the Score Loop with the skill resolved or park the skill for later when neither intervention takes.
+\f1\fs24 \cf0 \
+\pard\pardeftab720\sb120\sa120\pardirnatural\partightenfactor0
+
+\f0\b\fs22 \cf2 Decision.
+\f2\b0 \cf3  The Stuck protocol is a per-skill state, not a per-student or per-session state. A student can be stuck on chi-square interpretation while progressing normally on cellular respiration in the same session. Cramapple manages the state at the skill level.
+\f1\fs24 \cf0 \
+\pard\pardeftab720\sa120\pardirnatural\partightenfactor0
+
+\f3\i\fs18 \cf4 This commitment matters operationally. It means the protocol does not stigmatize the student, does not pause the session, and does not require any global judgment about whether the student is "struggling." It is a targeted response to a specific skill where the loop is not working.
+\f1\i0\fs24 \cf0 \
+\pard\pardeftab720\sb360\sa180\pardirnatural\partightenfactor0
+
+\f0\b\fs32 \cf3 2. Entry Triggers
+\f1\b0\fs24 \cf0 \
+\pard\pardeftab720\sa120\pardirnatural\partightenfactor0
+
+\f2\fs22 \cf3 Two triggers move a skill from the Score Loop into the Stuck protocol. Both are named in LEARNING_SYSTEM Section 11 and are restated here in operational form.
+\f1\fs24 \cf0 \
+\pard\tx220\tx720\pardeftab720\li720\fi-720\sa100\pardirnatural\partightenfactor0
+\ls1\ilvl0
+\f5\i\b\fs22 \cf3 {\listtext	\uc0\u8226 	}\ul \strike \strikec3 Three consecutive misses on the same skill. The student has attempted the skill three times \'97 typically across an initial encounter and two Lock re-encounters at 24\'9672 hour intervals \'97 and missed the point each time. Each attempt has run through the full Score Loop including intra-loop escalation from Tighten to Show where confidence was low.\
+\ls1\ilvl0\ulnone \strike0\striked0 {\listtext	\uc0\u8226 	}\ul \strike \strikec3 Persistently low diagnostic confidence. Across two or more attempts on the same skill, Cramapple's diagnostic step has been unable to classify the error type with sufficient confidence. The grading pipeline returns an error type but flags the rationale as weak, or the error type oscillates between attempts. This trigger fires earlier than the three-miss trigger and catches the case where the student is missing the skill in different ways each time \'97 itself a signal that the underlying problem is not a knowledge gap the loop can close.\
+\pard\pardeftab720\sb120\sa120\pardirnatural\partightenfactor0
+
+\f0\i0 \cf2 \ulnone \strike0\striked0 Decision.
+\f2\b0 \cf3  The triggers are skill-specific and Lock-aware. Three failed attempts within a single sitting count, but so do three failed attempts spread across Lock re-encounters over a week. The Lock surfaces the previously-missed skill in a different surface form each time, so failures across Lock re-encounters are a stronger signal than failures in immediate succession.
+\f1\fs24 \cf0 \
+\pard\pardeftab720\sa120\pardirnatural\partightenfactor0
+
+\f3\i\fs18 \cf4 Open: the exact threshold for "persistently low diagnostic confidence." The grading pipeline (LEARNING_SYSTEM 3.3) returns per-criterion rationales with confidence weights; the threshold for triggering the Stuck protocol on confidence rather than miss-count needs calibration on real student data. Default working assumption: two consecutive attempts where the highest-confidence error classification falls below 0.6.
+\f1\i0\fs24 \cf0 \
+\pard\pardeftab720\sb360\sa180\pardirnatural\partightenfactor0
+
+\f0\b\fs32 \cf3 3. The Three Moves
+\f1\b0\fs24 \cf0 \
+\pard\pardeftab720\sa120\pardirnatural\partightenfactor0
+
+\f2\fs22 \cf3 The Score Loop has three Repair modes (Tighten, Show, Stretch) corresponding to three different shapes of within-loop intervention. The Stuck protocol has three moves of its own, each designed for the case where the loop itself has not worked. The moves are not Repair modes \'97 they replace the Score Loop for this skill rather than running inside it.
+\f1\fs24 \cf0 \
+
+\f2\fs22 \cf3 Each move stays grounded in the cognitive science literature, and each maps to a distinct hypothesis about why the loop has failed. The moves are not ordered by severity. They are ordered by cognitive distance from the original problem \'97 how far the student has to travel from the original task to engage with the move.
+\f1\fs24 \cf0 \
+\pard\pardeftab720\sb280\sa140\pardirnatural\partightenfactor0
+
+\f0\b\fs26 \cf3 3.1 Step Sideways
+\f1\b0\fs24 \cf0 \
+\pard\pardeftab720\sa120\pardirnatural\partightenfactor0
+
+\f2\fs22 \cf3 Same skill, same level, different angle. The student encounters a contrasting case, a reframed version of the same concept, or a deliberately constructed example designed to make a likely misconception visible by contradiction.
+\f1\fs24 \cf0 \
+\pard\pardeftab720\sa120\pardirnatural\partightenfactor0
+
+\f0\b\fs22 \cf3 When it works. 
+\f2\b0 The student's loop failure was driven by an interaction with the specific framing of the original problem \'97 a surface feature, a misread of the prompt, or an entrenched mental model that the original framing reinforced. Re-presenting the same problem fails because the same framing keeps triggering the same wrong response. A reframed version short-circuits the pattern.
+\f1\fs24 \cf0 \
+
+\f0\b\fs22 \cf3 In practice. 
+\f2\b0 For a chi-square problem the student keeps misinterpreting, Cramapple constructs a structurally identical problem in a different scientific context (e.g., shifting from plant pigmentation ratios to a Mendelian cross) and asks the student to attempt that. For a conceptual question the student keeps answering with a wrong mental model, Cramapple presents two response options side by side \'97 the student's reasoning and the correct reasoning \'97 and asks which is internally consistent with the prompt's evidence. The contrasting-case approach is the conceptual-change literature's preferred move.
+\f1\fs24 \cf0 \
+
+\f0\b\fs22 \cf3 Source. 
+\f2\b0 Driver et al. and Chi on conceptual change. The central finding is that re-presenting correct information rarely dislodges a held misconception; what works is forcing the student into cognitive dissonance and giving them the tools to resolve it. Step Sideways operationalizes that principle.
+\f1\fs24 \cf0 \
+\pard\pardeftab720\sb280\sa140\pardirnatural\partightenfactor0
+
+\f0\b\fs26 \cf3 3.2 Step Apart
+\f1\b0\fs24 \cf0 \
+\pard\pardeftab720\sa120\pardirnatural\partightenfactor0
+
+\f2\fs22 \cf3 Same skill, broken into atomic sub-skills, each solved in isolation, then re-integrated. The student handles one component at a time before recomposing the full task.
+\f1\fs24 \cf0 \
+\pard\pardeftab720\sa120\pardirnatural\partightenfactor0
+
+\f0\b\fs22 \cf3 When it works. 
+\f2\b0 The loop has failed because the integrated task overwhelms working memory or because the student's procedural execution fragments mid-task. Each individual step works in isolation but the student loses the thread when stringing them together. Decomposition removes the integration load.
+\f1\fs24 \cf0 \
+
+\f0\b\fs22 \cf3 In practice. 
+\f2\b0 For a multi-step quantitative FRQ the student keeps fumbling, Cramapple breaks the task into single-step sub-problems \'97 state the hypothesis, compute the expected value, compute the test statistic, compare to the critical value, state the conclusion \'97 and runs each as its own micro-attempt with its own confirmation. Only after each step is confirmed does Cramapple ask the student to recompose the full procedure on a parallel problem. For a complex experimental-analysis FRQ, Cramapple asks the student to identify the independent variable, then the dependent variable, then the control, then to construct the experimental claim \'97 separating the components before the synthesis.
+\f1\fs24 \cf0 \
+
+\f0\b\fs22 \cf3 Source. 
+\f2\b0 Sweller and the cognitive load theory literature. Element interactivity \'97 the number of pieces a student must hold simultaneously to complete a task \'97 is a known driver of failure on complex multi-step problems. Decomposition reduces element interactivity; backward chaining of the components builds the integration step by step.
+\f1\fs24 \cf0 \
+\pard\pardeftab720\sb280\sa140\pardirnatural\partightenfactor0
+
+\f0\b\fs26 \cf3 3.3 Step Down
+\f1\b0\fs24 \cf0 \
+\pard\pardeftab720\sa120\pardirnatural\partightenfactor0
+
+\f2\fs22 \cf3 Different skill, simpler one, treated as a prerequisite to the original. The student leaves the original skill entirely, learns or re-learns the foundational concept that the original skill depended on, and only then returns to the original.
+\f1\fs24 \cf0 \
+\pard\pardeftab720\sa120\pardirnatural\partightenfactor0
+
+\f0\b\fs22 \cf3 When it works. 
+\f2\b0 The loop has failed because the original skill is built on a prerequisite the student does not actually hold. No amount of work on the original skill will succeed because the foundation is missing. Step Down is the most expensive move \'97 it adds an entire teaching cycle on a different skill before returning \'97 but it is the only move that addresses the missing-foundation case.
+\f1\fs24 \cf0 \
+
+\f0\b\fs22 \cf3 In practice. 
+\f2\b0 For a chi-square interpretation problem the student keeps missing, Cramapple identifies that the underlying gap is the null hypothesis concept itself and routes the student to a short Score Loop on null hypothesis reasoning. Only after the student passes that returns the student to the original chi-square problem. For a Hardy-Weinberg problem, the prerequisite might be the algebraic manipulation rather than the population genetics. The diagnosis points at the prerequisite; the move runs a self-contained mini-loop on it.
+\f1\fs24 \cf0 \
+
+\f0\b\fs22 \cf3 Source. 
+\f2\b0 Bloom's mastery learning (1968, 1984) and VanLehn's review of intelligent tutoring systems (2011). The 2-sigma finding from Bloom's mastery-learning work is anchored in prerequisite tracing: when the loop fails, drop down to the foundational objective and confirm mastery there before retrying the higher-level objective. VanLehn's review finds the best human tutors and the best ITS converge on this move and achieve comparable effect sizes (~0.8\uc0\u963 ) precisely because of it.
+\f1\fs24 \cf0 \
+\pard\pardeftab720\sb360\sa180\pardirnatural\partightenfactor0
+
+\f0\b\fs32 \cf3 4. Selection Sequence
+\f1\b0\fs24 \cf0 \
+\pard\pardeftab720\sa120\pardirnatural\partightenfactor0
+
+\f2\fs22 \cf3 The selection sequence is not diagnostic in the same way the Score Loop's Repair selection (LEARNING_SYSTEM 4.4) is diagnostic. The Score Loop infers an error type from the student's response and maps it to a Repair mode. The Stuck protocol does something different: it tries the cheapest move first, and where that fails, it hands the student the metacognitive choice between the two more expensive moves.
+\f1\fs24 \cf0 \
+\pard\pardeftab720\sb280\sa140\pardirnatural\partightenfactor0
+
+\f0\b\fs26 \cf3 4.1 First Move: Always Step Sideways
+\f1\b0\fs24 \cf0 \
+\pard\pardeftab720\sa120\pardirnatural\partightenfactor0
+
+\f2\fs22 \cf3 When a skill enters the Stuck protocol, Cramapple always begins with Step Sideways. This is the cheapest move in cognitive distance \'97 the student stays on the same skill at the same level. It also catches the largest single class of stuck-student cases, which is the misconception or surface-pattern failure that no amount of re-presentation will dislodge.
+\f1\fs24 \cf0 \
+
+\f2\fs22 \cf3 Starting with Step Sideways also matches the Score Loop's intra-loop escalation principle in Section 4.4 of LEARNING_SYSTEM: try the cheapest viable intervention first; escalate only when it fails. This is a structural consistency, not a coincidence \'97 both selection logics reflect the same commitment to minimal cognitive imposition consistent with closing the gap.
+\f1\fs24 \cf0 \
+\pard\pardeftab720\sb120\sa120\pardirnatural\partightenfactor0
+
+\f0\b\fs22 \cf2 Decision.
+\f2\b0 \cf3  Step Sideways is always the first Stuck-protocol move on a skill, regardless of the diagnostic signal from the failed Score Loop attempts. The diagnostic step is used to select the contrasting case or reframing, not to select the move itself.
+\f1\fs24 \cf0 \
+\pard\pardeftab720\sb280\sa140\pardirnatural\partightenfactor0
+
+\f0\b\fs26 \cf3 4.2 If Sideways Resolves: Return to Score Loop
+\f1\b0\fs24 \cf0 \
+\pard\pardeftab720\sa120\pardirnatural\partightenfactor0
+
+\f2\fs22 \cf3 If the student successfully demonstrates the skill in the Sideways framing, Cramapple returns the skill to the Score Loop with the point credited. The Lock re-encounter is scheduled at the standard interval (24\'9672 hours per LEARNING_SYSTEM Section 5.1) using a surface form that does not duplicate the Sideways framing \'97 the Lock test must require transfer, not just recognition.
+\f1\fs24 \cf0 \
+\pard\pardeftab720\sb280\sa140\pardirnatural\partightenfactor0
+
+\f0\b\fs26 \cf3 4.3 If Sideways Does Not Resolve: Student-Choice Prompt
+\f1\b0\fs24 \cf0 \
+\pard\pardeftab720\sa120\pardirnatural\partightenfactor0
+
+\f2\fs22 \cf3 If the student misses the Sideways attempt, Cramapple does not silently pick the next move. It surfaces a choice to the student through a button-based prompt:
+\f1\fs24 \cf0 \
+\pard\pardeftab720\sa120\pardirnatural\partightenfactor0
+
+\f3\i\fs22 \cf3 \'93Let\'92s try this from a different angle. Would you like me to break this down into the component parts, or show you the foundational elements first?\'94
+\f1\i0\fs24 \cf0 \
+\pard\pardeftab720\sa120\pardirnatural\partightenfactor0
+
+\f2\fs22 \cf3 Two buttons follow: Break it down (Step Apart) and Show me the foundation (Step Down). The student picks. The choice is offered, not assigned.
+\f1\fs24 \cf0 \
+\pard\pardeftab720\sa120\pardirnatural\partightenfactor0
+
+\f0\b\fs22 \cf3 Why student choice instead of Cramapple choosing. 
+\f2\b0 The diagnostic signal at this point is too noisy to reliably distinguish a working-memory failure from a missing-foundation failure. More importantly, asking the student to reflect on which approach would help is itself a metacognitive skill worth building. Students who can answer \'93I need to see the pieces\'94 versus \'93I need to see the foundation\'94 are demonstrating self-knowledge about their own learning \'97 which transfers across subjects in a way the specific Stuck-protocol moves do not. The choice prompt converts a hard diagnostic call into a teaching moment.
+\f1\fs24 \cf0 \
+
+\f0\b\fs22 \cf3 Why those two as the choices. 
+\f2\b0 Step Apart and Step Down are the two more expensive moves; both have already failed by elimination to be the right next move (Sideways is gone). They also correspond to two distinct and recognizable kinds of stuckness \'97 \'93there\'92s too much going on\'94 and \'93I feel like I\'92m missing something underneath\'94 \'97 that students can map onto without specialized vocabulary.
+\f1\fs24 \cf0 \
+\pard\pardeftab720\sb280\sa140\pardirnatural\partightenfactor0
+
+\f0\b\fs26 \cf3 4.4 If the Chosen Move Does Not Resolve: Offer the Other
+\f1\b0\fs24 \cf0 \
+\pard\pardeftab720\sa120\pardirnatural\partightenfactor0
+
+\f2\fs22 \cf3 If the student's chosen move does not resolve the skill \'97 the student picks Step Apart and still misses on the recomposed attempt, or picks Step Down and still misses the original problem after the prerequisite is confirmed \'97 Cramapple offers the remaining move with a gentle reframe:
+\f1\fs24 \cf0 \
+\pard\pardeftab720\sa120\pardirnatural\partightenfactor0
+
+\f3\i\fs22 \cf3 \'93OK, let\'92s try the other approach. Want me to [show you the foundational elements / break this down into component parts] instead?\'94
+\f1\i0\fs24 \cf0 \
+\pard\pardeftab720\sa120\pardirnatural\partightenfactor0
+
+\f2\fs22 \cf3 The second move is offered as a suggestion, not surfaced through another choice prompt. The student can decline and proceed to Park (Section 5) if they prefer.
+\f1\fs24 \cf0 \
+\pard\pardeftab720\sb120\sa120\pardirnatural\partightenfactor0
+
+\f0\b\fs22 \cf2 Decision.
+\f2\b0 \cf3  Both Apart and Down are attempted before Park. Two moves' worth of attempts is enough signal to know whether the skill needs to come back later with fresh framing. One is not enough; three would push the student into frustration territory that the Park mechanism is explicitly designed to prevent.
+\f1\fs24 \cf0 \
+\pard\pardeftab720\sb280\sa140\pardirnatural\partightenfactor0
+
+\f0\b\fs26 \cf3 4.5 If Both Apart and Down Fail: Park
+\f1\b0\fs24 \cf0 \
+\pard\pardeftab720\sa120\pardirnatural\partightenfactor0
+
+\f2\fs22 \cf3 If the student has now run Sideways, then their chosen second move, then the alternate second move, and still missed the original skill \'97 Cramapple parks the skill. Park is detailed in Section 5. Briefly: the skill is removed from the current session, flagged in the Lock for re-emergence with fresh framing, and the student is given a graceful narrative that does not name failure.
+\f1\fs24 \cf0 \
+\pard\pardeftab720\sb280\sa140\pardirnatural\partightenfactor0
+
+\f0\b\fs26 \cf3 4.6 Selection Summary Table
+\f1\b0\fs24 \cf0 \
+\pard\pardeftab720\sa120\pardirnatural\partightenfactor0
+\cf0 \
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadl100 \clpadr100 \gaph\cellx2160
+\clvertalc \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadl100 \clpadr100 \gaph\cellx4320
+\clvertalc \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadl100 \clpadr100 \gaph\cellx6480
+\clvertalc \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadl100 \clpadr100 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\pardirnatural\partightenfactor0
+
+\f0\b\fs20 \cf3 Stage
+\f1\b0\fs24 \cf0 \cell 
+\pard\intbl\itap1\pardeftab720\pardirnatural\partightenfactor0
+
+\f0\b\fs20 \cf3 Move
+\f1\b0\fs24 \cf0 \cell 
+\pard\intbl\itap1\pardeftab720\pardirnatural\partightenfactor0
+
+\f0\b\fs20 \cf3 Selection
+\f1\b0\fs24 \cf0 \cell 
+\pard\intbl\itap1\pardeftab720\pardirnatural\partightenfactor0
+
+\f0\b\fs20 \cf3 On Failure
+\f1\b0\fs24 \cf0 \cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadl100 \clpadr100 \gaph\cellx2160
+\clvertalc \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadl100 \clpadr100 \gaph\cellx4320
+\clvertalc \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadl100 \clpadr100 \gaph\cellx6480
+\clvertalc \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadl100 \clpadr100 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\pardirnatural\partightenfactor0
+
+\f0\b\fs20 \cf3 Entry
+\f1\b0\fs24 \cf0 \cell 
+\pard\intbl\itap1\pardeftab720\pardirnatural\partightenfactor0
+
+\f0\b\fs20 \cf3 Step Sideways
+\f1\b0\fs24 \cf0 \cell 
+\pard\intbl\itap1\pardeftab720\pardirnatural\partightenfactor0
+
+\f0\b\fs20 \cf3 Cramapple, default
+\f1\b0\fs24 \cf0 \cell 
+\pard\intbl\itap1\pardeftab720\pardirnatural\partightenfactor0
+
+\f0\b\fs20 \cf3 Surface choice prompt
+\f1\b0\fs24 \cf0 \cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadl100 \clpadr100 \gaph\cellx2160
+\clvertalc \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadl100 \clpadr100 \gaph\cellx4320
+\clvertalc \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadl100 \clpadr100 \gaph\cellx6480
+\clvertalc \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadl100 \clpadr100 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\pardirnatural\partightenfactor0
+
+\f0\b\fs20 \cf3 Second
+\f1\b0\fs24 \cf0 \cell 
+\pard\intbl\itap1\pardeftab720\pardirnatural\partightenfactor0
+
+\f0\b\fs20 \cf3 Apart or Down
+\f1\b0\fs24 \cf0 \cell 
+\pard\intbl\itap1\pardeftab720\pardirnatural\partightenfactor0
+
+\f0\b\fs20 \cf3 Student, via buttons
+\f1\b0\fs24 \cf0 \cell 
+\pard\intbl\itap1\pardeftab720\pardirnatural\partightenfactor0
+
+\f0\b\fs20 \cf3 Offer the other
+\f1\b0\fs24 \cf0 \cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadl100 \clpadr100 \gaph\cellx2160
+\clvertalc \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadl100 \clpadr100 \gaph\cellx4320
+\clvertalc \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadl100 \clpadr100 \gaph\cellx6480
+\clvertalc \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadl100 \clpadr100 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\pardirnatural\partightenfactor0
+
+\f0\b\fs20 \cf3 Third
+\f1\b0\fs24 \cf0 \cell 
+\pard\intbl\itap1\pardeftab720\pardirnatural\partightenfactor0
+
+\f0\b\fs20 \cf3 The remaining move
+\f1\b0\fs24 \cf0 \cell 
+\pard\intbl\itap1\pardeftab720\pardirnatural\partightenfactor0
+
+\f0\b\fs20 \cf3 Cramapple, suggestion
+\f1\b0\fs24 \cf0 \cell 
+\pard\intbl\itap1\pardeftab720\pardirnatural\partightenfactor0
+
+\f0\b\fs20 \cf3 Park the skill
+\f1\b0\fs24 \cf0 \cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadl100 \clpadr100 \gaph\cellx2160
+\clvertalc \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadl100 \clpadr100 \gaph\cellx4320
+\clvertalc \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadl100 \clpadr100 \gaph\cellx6480
+\clvertalc \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadl100 \clpadr100 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\pardirnatural\partightenfactor0
+
+\f0\b\fs20 \cf3 Exit
+\f1\b0\fs24 \cf0 \cell 
+\pard\intbl\itap1\pardeftab720\pardirnatural\partightenfactor0
+
+\f0\b\fs20 \cf3 Park
+\f1\b0\fs24 \cf0 \cell 
+\pard\intbl\itap1\pardeftab720\pardirnatural\partightenfactor0
+
+\f0\b\fs20 \cf3 Cramapple, automatic
+\f1\b0\fs24 \cf0 \cell 
+\pard\intbl\itap1\pardeftab720\pardirnatural\partightenfactor0
+
+\f0\b\fs20 \cf3 Re-emerge per Section 5
+\f1\b0\fs24 \cf0 \cell \lastrow\row
+\pard\pardeftab720\sa120\pardirnatural\partightenfactor0
+\cf0 \
+\pard\pardeftab720\sb360\sa180\pardirnatural\partightenfactor0
+
+\f0\b\fs32 \cf3 5. Park
+\f1\b0\fs24 \cf0 \
+\pard\pardeftab720\sa120\pardirnatural\partightenfactor0
+
+\f2\fs22 \cf3 Park is the graceful exit from the Stuck protocol when all three moves have failed. It is the only move in Cramapple where the system explicitly stops trying to teach a specific skill in the current session. The decision to include Park at all is grounded in the mastery-learning literature's distinction between productive and unproductive struggle: when a skill has resisted three structurally different interventions, continuing to work on it produces frustration and disengagement, not learning.
+\f1\fs24 \cf0 \
+\pard\pardeftab720\sb280\sa140\pardirnatural\partightenfactor0
+
+\f0\b\fs26 \cf3 5.1 What Park Does
+\f1\b0\fs24 \cf0 \
+\pard\tx220\tx720\pardeftab720\li720\fi-720\sa100\pardirnatural\partightenfactor0
+\ls2\ilvl0
+\f5\i\b\fs22 \cf3 {\listtext	\uc0\u8226 	}\ul \strike \strikec3 Removes the skill from the current session. The student does not see another attempt on this skill in this sitting. Cramapple moves on to the next question or skill in the planned sequence.\
+\ls2\ilvl0\ulnone \strike0\striked0 {\listtext	\uc0\u8226 	}\ul \strike \strikec3 Flags the skill for content review. The skill is marked in Orly's content management system as having generated a three-move-no-resolution event for this student. Patterns across multiple students on the same skill are a signal that the underlying content (question, rubric, worked example, or prerequisite mapping) needs review. The flag is editorial, not student-visible.\
+\ls2\ilvl0\ulnone \strike0\striked0 {\listtext	\uc0\u8226 	}\ul \strike \strikec3 Returns the skill to the Lock with extended interval and fresh framing. The Lock surfaces the parked skill no sooner than 5\'967 days later (versus the standard 24\'9672 hours), and surfaces it with a different surface form than any used during the Stuck protocol. The extended interval is to allow the student's mental state to reset; the fresh framing is to avoid retriggering whatever surface pattern blocked the original loop.\
+\pard\pardeftab720\sb280\sa140\pardirnatural\partightenfactor0
+
+\f0\i0\fs26 \cf3 \ulnone \strike0\striked0 5.2 What the Student Sees
+\f1\b0\fs24 \cf0 \
+\pard\pardeftab720\sa120\pardirnatural\partightenfactor0
+
+\f2\fs22 \cf3 The student does not see the word \'93park\'94 and does not see anything that names failure. Cramapple presents a brief, gentle narrative:
+\f1\fs24 \cf0 \
+\pard\pardeftab720\sa120\pardirnatural\partightenfactor0
+
+\f3\i\fs22 \cf3 \'93This one\'92s tough. Let\'92s come back to it in a few days with fresh eyes \'97 I\'92ll bring it up again when you\'92re back. For now, let\'92s keep going.\'94
+\f1\i0\fs24 \cf0 \
+\pard\pardeftab720\sa120\pardirnatural\partightenfactor0
+
+\f2\fs22 \cf3 Then Cramapple proceeds to the next item in the session. The student feels the encounter ending cleanly rather than grinding into frustration.
+\f1\fs24 \cf0 \
+\pard\pardeftab720\sb120\sa120\pardirnatural\partightenfactor0
+
+\f0\b\fs22 \cf2 Decision.
+\f2\b0 \cf3  The framing is forward-looking (\'93come back in a few days\'94), not retrospective (\'93we tried three times\'94). The student does not need to know the protocol's mechanics to benefit from the protocol's exit.
+\f1\fs24 \cf0 \
+\pard\pardeftab720\sb280\sa140\pardirnatural\partightenfactor0
+
+\f0\b\fs26 \cf3 5.3 Re-Emergence
+\f1\b0\fs24 \cf0 \
+\pard\pardeftab720\sa120\pardirnatural\partightenfactor0
+
+\f4\fs22 \cf3 When the parked skill resurfaces in the Lock after the extended interval, Cramapple treats the encounter as fresh \'97 the student re-enters the Score Loop on the skill at the normal Frame \uc0\u8594  Attempt \u8594  Score+Diagnose \u8594  Repair cadence. The skill is no longer flagged as stuck; the previous Stuck protocol attempts are not surfaced to the student.
+\f1\fs24 \cf0 \
+\pard\pardeftab720\sa120\pardirnatural\partightenfactor0
+
+\f2\fs22 \cf3 Internally, Cramapple does retain the history. If the re-emergence attempt also fails into the three-miss trigger, the skill re-enters the Stuck protocol \'97 but now with the preference memory from Section 6 informing the choice prompt. If the re-emergence attempt is missed but does not trigger the protocol immediately, the skill simply re-enters the standard Lock cycle.
+\f1\fs24 \cf0 \
+\pard\pardeftab720\sa120\pardirnatural\partightenfactor0
+
+\f3\i\fs18 \cf4 Open: number of Park re-emergence cycles before flagging the skill for editorial intervention. Working assumption: two parks on the same skill for the same student triggers a content-team review and a hold on further automated re-surfacing until a human (Orly or an authored content reviewer) inspects the question, rubric, and prerequisite mapping.
+\f1\i0\fs24 \cf0 \
+\pard\pardeftab720\sb360\sa180\pardirnatural\partightenfactor0
+
+\f0\b\fs32 \cf3 6. Lock Integration and Preference Memory
+\f1\b0\fs24 \cf0 \
+\pard\pardeftab720\sa120\pardirnatural\partightenfactor0
+
+\f2\fs22 \cf3 The Lock (LEARNING_SYSTEM Section 5.1) is the spaced-retrieval queue. The Stuck protocol interacts with the Lock in three ways, all of which compound to make the protocol smarter about each individual student over time.
+\f1\fs24 \cf0 \
+\pard\pardeftab720\sb280\sa140\pardirnatural\partightenfactor0
+
+\f0\b\fs26 \cf3 6.1 Stuck-Resolved Skills
+\f1\b0\fs24 \cf0 \
+\pard\pardeftab720\sa120\pardirnatural\partightenfactor0
+
+\f2\fs22 \cf3 A skill that exits the Stuck protocol with resolution (passed Sideways, or passed Apart or Down) returns to the Lock at the standard interval but with a flag indicating it required Stuck-protocol intervention. The Lock surfaces it with deliberate non-similarity to the framing that resolved it \'97 if Step Sideways used a Mendelian cross to teach chi-square, the Lock re-encounter uses neither a Mendelian cross nor the original surface form. The point of the Lock is to test transfer, not to test recognition of the framing that worked.
+\f1\fs24 \cf0 \
+\pard\pardeftab720\sa120\pardirnatural\partightenfactor0
+
+\f3\i\fs18 \cf4 Open: whether stuck-resolved skills should be Locked at a shorter interval than standard (e.g., 24 hours instead of 24\'9672 hours) given that the resolution was harder-won and is more fragile. Working assumption: same interval; revisit if usage data shows higher re-loss rates on stuck-resolved skills.
+\f1\i0\fs24 \cf0 \
+\pard\pardeftab720\sb280\sa140\pardirnatural\partightenfactor0
+
+\f0\b\fs26 \cf3 6.2 Stuck-Parked Skills
+\f1\b0\fs24 \cf0 \
+\pard\pardeftab720\sa120\pardirnatural\partightenfactor0
+
+\f2\fs22 \cf3 A parked skill returns to the Lock at the extended interval (5\'967 days, per Section 5.1). On re-encounter the skill is treated as a fresh Score Loop attempt. The parked-history flag is retained internally and is what triggers the preference memory (Section 6.3) if the skill enters the Stuck protocol a second time.
+\f1\fs24 \cf0 \
+\pard\pardeftab720\sb280\sa140\pardirnatural\partightenfactor0
+
+\f0\b\fs26 \cf3 6.3 Preference Memory
+\f1\b0\fs24 \cf0 \
+\pard\pardeftab720\sa120\pardirnatural\partightenfactor0
+
+\f2\fs22 \cf3 Across encounters, Cramapple tracks which Stuck-protocol moves have produced resolution for each individual student. Three data points are tracked per student:
+\f1\fs24 \cf0 \
+\pard\tx220\tx720\pardeftab720\li720\fi-720\sa100\pardirnatural\partightenfactor0
+\ls3\ilvl0
+\f5\i\b\fs22 \cf3 {\listtext	\uc0\u8226 	}\ul \strike \strikec3 Frequency: how many times the student has reached the choice prompt (after Sideways failed).\
+\ls3\ilvl0\ulnone \strike0\striked0 {\listtext	\uc0\u8226 	}\ul \strike \strikec3 Choice: which move the student picked each time \'97 Apart or Down.\
+\ls3\ilvl0\ulnone \strike0\striked0 {\listtext	\uc0\u8226 	}\ul \strike \strikec3 Outcome: whether the chosen move resolved the skill, whether the offered alternate resolved, or whether the skill was parked.\
+\pard\pardeftab720\sa120\pardirnatural\partightenfactor0
+
+\f2\i0\b0 \cf3 \ulnone \strike0\striked0 Once a student has reached the choice prompt three times and shown a consistent preference \'97 picking the same move two of three times and resolving with it more than half the time \'97 Cramapple biases the next choice prompt to lead with the preferred move. The prompt language stays identical; the button order swaps so the preferred move appears first. The student can still pick either.
+\f1\fs24 \cf0 \
+\pard\pardeftab720\sb120\sa120\pardirnatural\partightenfactor0
+
+\f0\b\fs22 \cf2 Decision.
+\f2\b0 \cf3  Preference memory is a soft bias on button ordering, not a hard default. The choice is always still presented. The student retains agency. The preference memory is the mechanism by which the protocol's discovery framing \'97 \'93experiment with styles to find what unlocks learning\'94 \'97 pays off over time.
+\f1\fs24 \cf0 \
+\pard\pardeftab720\sa120\pardirnatural\partightenfactor0
+
+\f3\i\fs18 \cf4 Open: thresholds. Three choice-prompt encounters before preference memory activates is a working assumption. The 2-of-3 consistency and 50% resolution threshold are working assumptions. All require calibration on real student data and may differ by student demographic or AP subject.
+\f1\i0\fs24 \cf0 \
+\pard\pardeftab720\sb280\sa140\pardirnatural\partightenfactor0
+
+\f0\b\fs26 \cf3 6.4 Cross-Student Aggregation
+\f1\b0\fs24 \cf0 \
+\pard\pardeftab720\sa120\pardirnatural\partightenfactor0
+
+\f2\fs22 \cf3 Per LEARNING_SYSTEM Section 13.3, Cramapple does not train on student response data. But aggregate, anonymized signals about which Stuck-protocol move resolved which skills do inform content authoring. If chi-square consistently resolves through Step Down (null hypothesis prerequisite) and rarely through Step Apart, that is editorial signal for Orly: the chi-square content may need a prerequisite-strengthening pass. This use of aggregate data is consistent with the operating principle in LEARNING_SYSTEM 13.3 \'97 system-level improvement, not individual model training.
+\f1\fs24 \cf0 \
+\pard\pardeftab720\sb360\sa180\pardirnatural\partightenfactor0
+
+\f0\b\fs32 \cf3 7. UX Expression
+\f1\b0\fs24 \cf0 \
+\pard\pardeftab720\sa120\pardirnatural\partightenfactor0
+
+\f2\fs22 \cf3 The Stuck protocol's UX commitment is soft visibility: the student notices that Cramapple's approach has shifted, but does not see anything that names the student as failing, stuck, or struggling. The shape difference between the Score Loop and the Stuck protocol is the signal; explicit labeling is not.
+\f1\fs24 \cf0 \
+\pard\pardeftab720\sb280\sa140\pardirnatural\partightenfactor0
+
+\f0\b\fs26 \cf3 7.1 What the Student Sees on Entry
+\f1\b0\fs24 \cf0 \
+\pard\pardeftab720\sa120\pardirnatural\partightenfactor0
+
+\f2\fs22 \cf3 When a skill enters the Stuck protocol, the next interaction begins with a brief reframe rather than another Score Loop iteration:
+\f1\fs24 \cf0 \
+\pard\pardeftab720\sa120\pardirnatural\partightenfactor0
+
+\f3\i\fs22 \cf3 \'93Let me approach this from a different angle.\'94
+\f1\i0\fs24 \cf0 \
+\pard\pardeftab720\sa120\pardirnatural\partightenfactor0
+
+\f2\fs22 \cf3 That line, followed by the Step Sideways framing, is the only marker. The student is not told \'93you\'92ve missed this three times\'94 or \'93you\'92re struggling.\'94 The shift in framing carries the meaning.
+\f1\fs24 \cf0 \
+\pard\pardeftab720\sb280\sa140\pardirnatural\partightenfactor0
+
+\f0\b\fs26 \cf3 7.2 The Choice Prompt
+\f1\b0\fs24 \cf0 \
+\pard\pardeftab720\sa120\pardirnatural\partightenfactor0
+
+\f2\fs22 \cf3 When Sideways fails, the choice prompt is delivered as inline text followed by two buttons. The button-based form factor is the right primitive for this interaction for three reasons. It is fast \'97 one tap rather than a typed response. It is concrete \'97 the student picks between two labeled options rather than generating an open answer. And it constrains the response space \'97 there is no possibility of misunderstanding what the student meant, which matters for a metacognitive prompt where ambiguity would defeat the purpose.
+\f1\fs24 \cf0 \
+\pard\pardeftab720\sb120\sa120\pardirnatural\partightenfactor0
+
+\f0\b\fs22 \cf2 Decision.
+\f2\b0 \cf3  Choice prompt: two buttons. Button labels: \'93Break it down\'94 (Step Apart) and \'93Show me the foundation\'94 (Step Down). Order: Apart left, Down right by default. Preference memory may swap the order per Section 6.3.
+\f1\fs24 \cf0 \
+\pard\pardeftab720\sa120\pardirnatural\partightenfactor0
+
+\f3\i\fs18 \cf4 Open: visual treatment of the buttons relative to the rest of the question screen. The button-based prompt should be clearly distinct from MCQ choices (which are also buttons) to avoid the student reading the choice prompt as part of the question. Working assumption: the prompt renders in a contained block with a subtle background color shift, positioned below the question region. UX details to be specified in the design system once the broader landing-page and Score-panel patterns are locked.
+\f1\i0\fs24 \cf0 \
+\pard\pardeftab720\sb280\sa140\pardirnatural\partightenfactor0
+
+\f0\b\fs26 \cf3 7.3 What the Student Does Not See
+\f1\b0\fs24 \cf0 \
+\pard\tx220\tx720\pardeftab720\li720\fi-720\sa100\pardirnatural\partightenfactor0
+\ls4\ilvl0
+\f5\i\b\fs22 \cf3 {\listtext	\uc0\u8226 	}\ul \strike \strikec3 The word \'93stuck.\'94\
+\ls4\ilvl0\ulnone \strike0\striked0 {\listtext	\uc0\u8226 	}\ul \strike \strikec3 Counters or progress indicators showing how many attempts have failed.\
+\ls4\ilvl0\ulnone \strike0\striked0 {\listtext	\uc0\u8226 	}\ul \strike \strikec3 References to other students or aggregate difficulty data.\
+\ls4\ilvl0\ulnone \strike0\striked0 {\listtext	\uc0\u8226 	}\ul \strike \strikec3 Explanations of which move is being run or why.\
+\ls4\ilvl0\ulnone \strike0\striked0 {\listtext	\uc0\u8226 	}\ul \strike \strikec3 Any acknowledgment that the protocol exists as a distinct mode from the Score Loop.\
+\pard\pardeftab720\sa120\pardirnatural\partightenfactor0
+
+\f2\i0\b0 \cf3 \ulnone \strike0\striked0 These are deliberate omissions. The product's commitment is that the student experiences a coherent teacher who is adjusting to them, not a state machine that has flagged them as off-track. Naming the mode would convert a teaching moment into a diagnostic moment, which violates the soft-visibility commitment.
+\f1\fs24 \cf0 \
+\pard\pardeftab720\sb280\sa140\pardirnatural\partightenfactor0
+
+\f0\b\fs26 \cf3 7.4 Parent and Effort Surfaces
+\f1\b0\fs24 \cf0 \
+\pard\pardeftab720\sa120\pardirnatural\partightenfactor0
+
+\f2\fs22 \cf3 Per LEARNING_SYSTEM Section 10.5 and Section 12 (Open Items), the parent-facing effort rollup is still being designed. The Stuck protocol contributes one signal to that surface: the number of skills currently parked. The wording surfaced to parents follows the same soft-visibility principle \'97 \'93skills set aside for a fresh look later this week\'94 rather than \'93skills the student has failed.\'94 Parents see a forward-looking aggregate; they do not see the per-attempt data.
+\f1\fs24 \cf0 \
+\pard\pardeftab720\sa120\pardirnatural\partightenfactor0
+
+\f3\i\fs18 \cf4 Open: whether the parent surface shows the parked-skill count at all, or only the aggregate effort metric. Tied to the broader open item on parent-facing rollup design in LEARNING_SYSTEM Section 12.
+\f1\i0\fs24 \cf0 \
+\pard\pardeftab720\sb360\sa180\pardirnatural\partightenfactor0
+
+\f0\b\fs32 \cf3 8. Research and Source Linkage
+\f1\b0\fs24 \cf0 \
+\pard\pardeftab720\sa120\pardirnatural\partightenfactor0
+
+\f2\fs22 \cf3 Each Stuck-protocol move and the Park exit traces to a specific research base, consistent with the methodology premise in LEARNING_SYSTEM Section 1 that every teaching activity should be traceable to either cognitive science, College Board guidance, or documented AP teacher practice. The Stuck protocol is grounded in the cognitive-science branch of that triad; College Board materials do not speak directly to remediation.
+\f1\fs24 \cf0 \
+\
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadl100 \clpadr100 \gaph\cellx2880
+\clvertalc \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadl100 \clpadr100 \gaph\cellx5760
+\clvertalc \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadl100 \clpadr100 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\pardirnatural\partightenfactor0
+
+\f0\b\fs20 \cf3 Component
+\f1\b0\fs24 \cf0 \cell 
+\pard\intbl\itap1\pardeftab720\pardirnatural\partightenfactor0
+
+\f0\b\fs20 \cf3 Research Base
+\f1\b0\fs24 \cf0 \cell 
+\pard\intbl\itap1\pardeftab720\pardirnatural\partightenfactor0
+
+\f0\b\fs20 \cf3 Authority
+\f1\b0\fs24 \cf0 \cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadl100 \clpadr100 \gaph\cellx2880
+\clvertalc \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadl100 \clpadr100 \gaph\cellx5760
+\clvertalc \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadl100 \clpadr100 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\pardirnatural\partightenfactor0
+
+\f0\b\fs20 \cf3 Step Sideways
+\f1\b0\fs24 \cf0 \cell 
+\pard\intbl\itap1\pardeftab720\pardirnatural\partightenfactor0
+
+\f0\b\fs20 \cf3 Conceptual change literature. Re-presentation of correct information does not dislodge held misconceptions; cognitive dissonance through contrasting cases does.
+\f1\b0\fs24 \cf0 \cell 
+\pard\intbl\itap1\pardeftab720\pardirnatural\partightenfactor0
+
+\f0\b\fs20 \cf3 Driver et al. (1994); Chi (2008)
+\f1\b0\fs24 \cf0 \cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadl100 \clpadr100 \gaph\cellx2880
+\clvertalc \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadl100 \clpadr100 \gaph\cellx5760
+\clvertalc \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadl100 \clpadr100 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\pardirnatural\partightenfactor0
+
+\f0\b\fs20 \cf3 Step Apart
+\f1\b0\fs24 \cf0 \cell 
+\pard\intbl\itap1\pardeftab720\pardirnatural\partightenfactor0
+
+\f0\b\fs20 \cf3 Cognitive load theory. Element interactivity drives failure on multi-step tasks; decomposition with backward chaining reduces working memory load.
+\f1\b0\fs24 \cf0 \cell 
+\pard\intbl\itap1\pardeftab720\pardirnatural\partightenfactor0
+
+\f0\b\fs20 \cf3 Sweller (1988); Sweller et al. (1998); Renkl & Atkinson (2003)
+\f1\b0\fs24 \cf0 \cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadl100 \clpadr100 \gaph\cellx2880
+\clvertalc \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadl100 \clpadr100 \gaph\cellx5760
+\clvertalc \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadl100 \clpadr100 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\pardirnatural\partightenfactor0
+
+\f0\b\fs20 \cf3 Step Down
+\f1\b0\fs24 \cf0 \cell 
+\pard\intbl\itap1\pardeftab720\pardirnatural\partightenfactor0
+
+\f0\b\fs20 \cf3 Mastery learning. Failure on a higher-level objective is reliably resolved by confirming mastery on the prerequisite objective first. Best human tutors and best ITS converge on this move.
+\f1\b0\fs24 \cf0 \cell 
+\pard\intbl\itap1\pardeftab720\pardirnatural\partightenfactor0
+
+\f0\b\fs20 \cf3 Bloom (1968, 1984); VanLehn (2011)
+\f1\b0\fs24 \cf0 \cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadl100 \clpadr100 \gaph\cellx2880
+\clvertalc \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadl100 \clpadr100 \gaph\cellx5760
+\clvertalc \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadl100 \clpadr100 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\pardirnatural\partightenfactor0
+
+\f0\b\fs20 \cf3 Sideways-first ordering
+\f1\b0\fs24 \cf0 \cell 
+\pard\intbl\itap1\pardeftab720\pardirnatural\partightenfactor0
+
+\f0\b\fs20 \cf3 Cheap-first escalation principle. Try the least-expensive viable intervention; escalate only on failure. Same principle as LEARNING_SYSTEM Section 4.4.
+\f1\b0\fs24 \cf0 \cell 
+\pard\intbl\itap1\pardeftab720\pardirnatural\partightenfactor0
+
+\f0\b\fs20 \cf3 Convergent ITS practice
+\f1\b0\fs24 \cf0 \cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadl100 \clpadr100 \gaph\cellx2880
+\clvertalc \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadl100 \clpadr100 \gaph\cellx5760
+\clvertalc \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadl100 \clpadr100 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\pardirnatural\partightenfactor0
+
+\f0\b\fs20 \cf3 Student-choice prompt
+\f1\b0\fs24 \cf0 \cell 
+\pard\intbl\itap1\pardeftab720\pardirnatural\partightenfactor0
+
+\f0\b\fs20 \cf3 Metacognitive transfer. Self-knowledge about one\'92s own learning is a transferable skill that exceeds the within-domain value of any specific intervention.
+\f1\b0\fs24 \cf0 \cell 
+\pard\intbl\itap1\pardeftab720\pardirnatural\partightenfactor0
+
+\f0\b\fs20 \cf3 Flavell (1979); Pintrich (2002)
+\f1\b0\fs24 \cf0 \cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadl100 \clpadr100 \gaph\cellx2880
+\clvertalc \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadl100 \clpadr100 \gaph\cellx5760
+\clvertalc \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadl100 \clpadr100 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\pardirnatural\partightenfactor0
+
+\f0\b\fs20 \cf3 Park exit
+\f1\b0\fs24 \cf0 \cell 
+\pard\intbl\itap1\pardeftab720\pardirnatural\partightenfactor0
+
+\f0\b\fs20 \cf3 Productive vs unproductive struggle. Struggle that produces learning is qualitatively different from struggle that produces frustration; the difference matters for engagement and persistence.
+\f1\b0\fs24 \cf0 \cell 
+\pard\intbl\itap1\pardeftab720\pardirnatural\partightenfactor0
+
+\f0\b\fs20 \cf3 Kapur (2008, 2014) on productive failure; Hiebert & Grouws (2007)
+\f1\b0\fs24 \cf0 \cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadl100 \clpadr100 \gaph\cellx2880
+\clvertalc \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadl100 \clpadr100 \gaph\cellx5760
+\clvertalc \clshdrawnil \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadl100 \clpadr100 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\pardirnatural\partightenfactor0
+
+\f0\b\fs20 \cf3 Preference memory
+\f1\b0\fs24 \cf0 \cell 
+\pard\intbl\itap1\pardeftab720\pardirnatural\partightenfactor0
+
+\f0\b\fs20 \cf3 Aptitude-treatment interaction. Individual learners respond differentially to different instructional approaches; systems that adapt to demonstrated preferences outperform fixed-sequence systems.
+\f1\b0\fs24 \cf0 \cell 
+\pard\intbl\itap1\pardeftab720\pardirnatural\partightenfactor0
+
+\f0\b\fs20 \cf3 Cronbach & Snow (1977); modern ITS personalization literature
+\f1\b0\fs24 \cf0 \cell \lastrow\row
+\pard\pardeftab720\sa120\pardirnatural\partightenfactor0
+\cf0 \
+\pard\pardeftab720\sa120\pardirnatural\partightenfactor0
+
+\f2\fs22 \cf3 PEDAGOGY.docx holds the underlying citations in depth. Where this document and PEDAGOGY diverge, PEDAGOGY is the authority on the research; this document is the authority on what Cramapple does with it.
+\f1\fs24 \cf0 \
+\pard\pardeftab720\sb360\sa180\pardirnatural\partightenfactor0
+
+\f0\b\fs32 \cf3 9. Relationship to LEARNING_SYSTEM.docx
+\f1\b0\fs24 \cf0 \
+\pard\pardeftab720\sa120\pardirnatural\partightenfactor0
+
+\f2\fs22 \cf3 This document is a companion to LEARNING_SYSTEM.docx, not a replacement for any of its sections. The relationship is exclusive at the per-skill level \'97 a given skill, at a given moment, is either being taught through the Score Loop or being taught through the Stuck protocol, never both. Several cross-references matter for the operational team:
+\f1\fs24 \cf0 \
+\pard\tx220\tx720\pardeftab720\li720\fi-720\sa100\pardirnatural\partightenfactor0
+\ls5\ilvl0
+\f5\i\b\fs22 \cf3 {\listtext	\uc0\u8226 	}\ul \strike \strikec3 LEARNING_SYSTEM Section 3 (Score Loop). 
+\f4\i0\b0 The default loop the Stuck protocol replaces when triggered. Frame \uc0\u8594  Attempt \u8594  Score+Diagnose \u8594  Repair remains the architecture for any skill not currently in Stuck protocol.\
+\ls5\ilvl0
+\f5\i\b \ulnone \strike0\striked0 {\listtext	\uc0\u8226 	}\ul \strike \strikec3 LEARNING_SYSTEM Section 4 (Repair Modes). The intra-loop escalation from Tighten to Show on confidence drop is the prerequisite condition for entering the Stuck protocol. If that escalation has not been allowed to run, the loop has not actually failed yet \'97 re-attempts of Tighten or Show should precede Stuck-protocol entry.\
+\ls5\ilvl0\ulnone \strike0\striked0 {\listtext	\uc0\u8226 	}\ul \strike \strikec3 LEARNING_SYSTEM Section 5 (Lock). Spaced retrieval continues to be the engine. The Stuck protocol interacts with the Lock as detailed in Section 6 of this document \'97 modifying intervals and surface-form selection but not replacing the underlying queue.\
+\ls5\ilvl0\ulnone \strike0\striked0 {\listtext	\uc0\u8226 	}\ul \strike \strikec3 LEARNING_SYSTEM Section 11 (Out of Scope). This document is the natural companion named there. With this document committed, the Stuck Student protocol moves out of Section 11 of LEARNING_SYSTEM in the next minor version of that doc, and the cross-reference here replaces it.\
+\ls5\ilvl0\ulnone \strike0\striked0 {\listtext	\uc0\u8226 	}\ul \strike \strikec3 LEARNING_SYSTEM Section 13 (Data and Improvement). The same data posture applies. Student response data captured during Stuck protocol attempts is treated under the same rules as Score Loop data. Aggregate, anonymized signals about move effectiveness can inform editorial content review (Section 6.4 of this document).\
+\pard\pardeftab720\sb360\sa180\pardirnatural\partightenfactor0
+
+\f0\i0\fs32 \cf3 \ulnone \strike0\striked0 10. Out of Scope for This Document
+\f1\b0\fs24 \cf0 \
+\pard\tx220\tx720\pardeftab720\li720\fi-720\sa100\pardirnatural\partightenfactor0
+\ls6\ilvl0
+\f5\i\b\fs22 \cf3 {\listtext	\uc0\u8226 	}\ul \strike \strikec3 Human escalation. The decision to keep the Stuck protocol AI-only is locked. If a future product decision introduces human tutors, parent escalation, or teacher handoff, that mechanism belongs in a separate document and should not be retrofit into this protocol.\
+\ls6\ilvl0\ulnone \strike0\striked0 {\listtext	\uc0\u8226 	}\ul \strike \strikec3 Content authoring for Stuck-protocol artifacts. Step Sideways requires authored contrasting cases. Step Apart requires authored sub-skill decompositions. Step Down requires authored prerequisite-skill content with its own mini-Score-Loops. The authoring workflow for these belongs in CONTENT_AUTHORING.docx (forthcoming) and is out of scope here.\
+\ls6\ilvl0\ulnone \strike0\striked0 {\listtext	\uc0\u8226 	}\ul \strike \strikec3 Diagnostic-driven move selection. An earlier design considered a diagnostic step at protocol entry that would infer the cause of stuckness and pick the move accordingly. That approach is explicitly rejected in favor of the Sideways-first plus student-choice sequence. The rejected design and the reasons for rejecting it are noted here only to prevent re-litigation.\
+\ls6\ilvl0\ulnone \strike0\striked0 {\listtext	\uc0\u8226 	}\ul \strike \strikec3 Detection of off-task or low-effort responses inside the Stuck protocol. The effort and coaching signals in LEARNING_SYSTEM Section 10.5 continue to apply; their integration with Stuck-protocol-specific telemetry is out of scope here.\
+\ls6\ilvl0\ulnone \strike0\striked0 {\listtext	\uc0\u8226 	}\ul \strike \strikec3 Efficacy measurement. How Cramapple measures whether the Stuck protocol is working \'97 resolution rates by move, by skill, by subject \'97 is part of the broader efficacy-measurement workstream that is out of scope across all teaching documents and owned by analytics.\
+\pard\pardeftab720\sb360\sa180\pardirnatural\partightenfactor0
+
+\f0\i0\fs32 \cf3 \ulnone \strike0\striked0 11. Open Items
+\f1\b0\fs24 \cf0 \
+\pard\tx220\tx720\pardeftab720\li720\fi-720\sa100\pardirnatural\partightenfactor0
+\ls7\ilvl0
+\f5\i\b\fs22 \cf3 {\listtext	\uc0\u8226 	}\ul \strike \strikec3 Exact threshold for \'93persistently low diagnostic confidence\'94 as an entry trigger. Working assumption: two consecutive attempts where the highest-confidence error classification falls below 0.6. Requires calibration on real student data.\
+\ls7\ilvl0\ulnone \strike0\striked0 {\listtext	\uc0\u8226 	}\ul \strike \strikec3 Whether stuck-resolved skills should Lock at a shorter interval than standard (24 hours instead of 24\'9672 hours) to account for fragility of hard-won resolution. Working assumption: same interval; revisit if re-loss rates run higher than baseline.\
+\ls7\ilvl0\ulnone \strike0\striked0 {\listtext	\uc0\u8226 	}\ul \strike \strikec3 Number of Park re-emergence cycles before editorial intervention. Working assumption: two parks on the same skill for the same student triggers content-team review.\
+\ls7\ilvl0\ulnone \strike0\striked0 {\listtext	\uc0\u8226 	}\ul \strike \strikec3 Thresholds for preference memory activation. Working assumption: three choice-prompt encounters, 2-of-3 consistency, 50% resolution rate. All three numbers require calibration.\
+\ls7\ilvl0\ulnone \strike0\striked0 {\listtext	\uc0\u8226 	}\ul \strike \strikec3 Visual treatment of the choice prompt buttons relative to MCQ buttons. Working assumption: contained block, subtle background color shift, positioned below the question region. UX details deferred to the broader design system pass.\
+\ls7\ilvl0\ulnone \strike0\striked0 {\listtext	\uc0\u8226 	}\ul \strike \strikec3 Whether the parent-facing effort rollup surfaces parked-skill counts at all, or only aggregate effort. Tied to the parent-incentive-mechanism open item in LEARNING_SYSTEM Section 12.\
+\ls7\ilvl0\ulnone \strike0\striked0 {\listtext	\uc0\u8226 	}\ul \strike \strikec3 How to handle the case where a Step Down prerequisite is itself a skill the student has been parked on. Working assumption: surface a second-order prerequisite if one exists; otherwise the system parks the original skill immediately without running Step Down and surfaces both for editorial review. Edge case but real.\
+\ls7\ilvl0\ulnone \strike0\striked0 {\listtext	\uc0\u8226 	}\ul \strike \strikec3 Whether the alternate-move suggestion in Section 4.4 (after the first student-chosen move fails) should be surfaced as a button or as a system message. Working assumption: system message with an inline accept/decline; lighter than a full second choice prompt.\
+\ls7\ilvl0\ulnone \strike0\striked0 {\listtext	\uc0\u8226 	}\ul \strike \strikec3 Whether to expose the preference memory to the student in any form (e.g., \'93you usually find it helpful to see the foundation first\'97want to start there?\'94). Working assumption: no, the bias is invisible. Worth testing whether surfacing it adds metacognitive value or feels like surveillance.\
+\ls7\ilvl0\ulnone \strike0\striked0 {\listtext	\uc0\u8226 	}\ul \strike \strikec3 Whether the Stuck protocol should ever fire on student-supplied questions (LEARNING_SYSTEM Section 8) or only on canonical-portfolio questions. Working assumption: canonical only at launch; student-supplied questions Park immediately on persistent miss without running the full protocol, because the prerequisite-skill graph required for Step Down does not exist for non-canonical content.\
+\pard\pardeftab720\sb360\sa180\pardirnatural\partightenfactor0
+
+\f0\i0\fs32 \cf3 \ulnone \strike0\striked0 12. Operating Implications
+\f1\b0\fs24 \cf0 \
+\pard\pardeftab720\sa120\pardirnatural\partightenfactor0
+
+\f2\fs22 \cf3 Several downstream artifacts need updates once this document is committed.
+\f1\fs24 \cf0 \
+\pard\tx220\tx720\pardeftab720\li720\fi-720\sa100\pardirnatural\partightenfactor0
+\ls8\ilvl0
+\f5\i\b\fs22 \cf3 {\listtext	\uc0\u8226 	}\ul \strike \strikec3 LEARNING_SYSTEM.docx. Section 11 (Out of Scope) loses the first bullet \'97 the Stuck Student protocol is no longer out of scope. Section 11 renumbering of subsequent items downstream is not required; only the bullet is removed. A cross-reference to this document is added at Sections 3.5 (Lock), 4.4 (Selection Logic), and 5.1 (Lock spacing) so that the operational team can navigate between the two documents fluently.\
+\ls8\ilvl0\ulnone \strike0\striked0 {\listtext	\uc0\u8226 	}\ul \strike \strikec3 PEDAGOGY.docx. The Driver/Chi conceptual-change citations, Sweller cognitive load citations, Bloom/VanLehn mastery learning citations, Kapur productive-failure citations, and Cronbach/Snow aptitude-treatment-interaction citations should be present in PEDAGOGY. Any that are missing should be added in the next minor version.\
+\ls8\ilvl0\ulnone \strike0\striked0 {\listtext	\uc0\u8226 	}\ul \strike \strikec3 Content authoring. Orly and the hired experts need a content backlog: contrasting cases for Step Sideways across the FRQ archetypes; sub-skill decompositions for Step Apart on the quantitative and procedural skills most likely to overload working memory; prerequisite-skill mini-loops for the highest-failure-rate skills identified in pilot data. This is the largest operating cost of the Stuck protocol and the largest dependency for launch readiness.\
+\ls8\ilvl0\ulnone \strike0\striked0 {\listtext	\uc0\u8226 	}\ul \strike \strikec3 ECONOMICS.docx. Inference-cost model needs an update. The Stuck protocol is more expensive per skill than the Score Loop \'97 up to three additional teaching cycles on a single skill. Marginal cost per stuck-skill event needs estimation; aggregate impact on inference cost depends on the rate at which skills enter the Stuck protocol, which is itself an open empirical question.\
+\ls8\ilvl0\ulnone \strike0\striked0 {\listtext	\uc0\u8226 	}\ul \strike \strikec3 Engineering. The skill-state machine needs a Stuck mode with the Sub-states Sideways, ChoicePrompt, Apart, Down, OfferAlternate, and Parked. The Lock needs preference-memory storage per student. The button-based choice prompt is a new UX primitive that must be added to the component library.\
+\pard\pardeftab720\sa240\pardirnatural\partightenfactor0
+
+\f1\i0\b0\fs24 \cf0 \ulnone \strike0\striked0 \
+\pard\pardeftab720\sa120\pardirnatural\partightenfactor0
+
+\f3\i\fs18 \cf4 End of document. Version 0.1, June 2026. Next revision expected after content-authoring backlog estimation and pilot calibration of entry-trigger thresholds.
+\f1\i0\fs24 \cf0 \
+}
