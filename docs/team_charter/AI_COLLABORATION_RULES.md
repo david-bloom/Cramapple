@@ -79,6 +79,19 @@ The QA Agent must not approve, close, publish final decisions, deploy, migrate, 
 
 If it is not written in GitHub, it does not exist for operating purposes.
 
+Every project document retained in the local workspace must also be committed
+and pushed to `david-bloom/Cramapple`. A document change is not durably complete
+while it exists only on one machine.
+
+Agents must:
+
+- include new and modified project documents in the relevant Git commit;
+- push the commit to GitHub before reporting synchronization complete;
+- verify the remote branch contains the commit;
+- report any local document that could not be pushed;
+- exclude temporary renders, caches, editor files, and operating-system
+  metadata unless they are intentional project artifacts.
+
 Relevant records may include:
 
 - Task files.

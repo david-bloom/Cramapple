@@ -86,7 +86,7 @@ Cramapple owns the user experience, learner record, exam specifications, approve
 
 | External System | Permitted Exchange | Prohibited Exchange |
 | --- | --- | --- |
-| College Board resources | Public exam specifications, released questions, scoring guidelines, samples, commentary, and authorized teacher materials where legally permitted | Unlicensed republication, credential sharing, or treating unofficial summaries as official facts |
+| College Board resources | Public exam specifications and other material used by authorized humans for exam alignment where legally permitted | Unlicensed republication, credential sharing, secure-material disclosure, generative-model input, or using official questions as authoring seeds or adaptation targets |
 | AI provider | Minimum task context required for classification, teaching, or grading | Direct database access, unrestricted learner history, marketing identifiers, or authority to publish content |
 | Payment provider | Customer, product, payment, subscription, and refund state | Student answers, weaknesses, grades, uploaded questions, or progress narratives |
 | Marketing and social platforms | Consent status, campaign attribution, lifecycle stage, and approved conversion events | Detailed learning evidence, grades, rubric results, misconceptions, uploads, or parent reports |

@@ -115,3 +115,123 @@ Define the repeated-miss skill unit, use Frame for both diagnosis and teaching, 
 - The evidence required for stronger independent-success or stable-improvement claims is a pedagogical research item.
 - The amount of time spent on one skill remains TBD and should not be presented as a validated universal cap.
 - Publishing question-and-teaching pages is primarily a marketing workflow, but the public artifact is educational and requires teaching and grading review.
+
+## APPROVAL-0007 — TASK-0001 Done
+
+**Date:** 2026-06-12
+**Approved By:** David Bloom
+**Related Task:** TASK-0001
+**Decision:** Done
+
+### Summary
+
+Accept the project operating system and canonical vision task as complete.
+
+### Notes
+
+- `NOW-001` is Done.
+- The operating kit, authority model, source-of-truth structure, and canonical
+  vision are accepted.
+
+## APPROVAL-0008 — TASK-0003 Done
+
+**Date:** 2026-06-12
+**Approved By:** David Bloom
+**Related Task:** TASK-0003
+**Decision:** Done
+
+### Summary
+
+Accept the high-level system architecture task as complete.
+
+### Notes
+
+- `NOW-002` is Done.
+- Detailed follow-on designs remain separately scoped backlog work.
+
+## APPROVAL-0009 — TASK-0004 Owner Review Complete
+
+**Date:** 2026-06-12
+**Approved By:** David Bloom
+**Related Task:** TASK-0004
+**Decision:** Approved with Notes
+
+### Summary
+
+Approve the current component architecture and teaching-design documentation.
+
+### Notes
+
+- `NOW-003` is Done.
+- `TASK-0004` is not yet Done because AP Biology tutor review remains required
+  under `NOW-004`.
+- Tutor findings may require remediation before the task closes or the pedagogy
+  is used for implementation or launch.
+
+## APPROVAL-0010 — Paid Tutor Original-Question Model
+
+**Date:** 2026-06-12
+**Approved By:** David Bloom
+**Related Task:** TASK-0005 / CONTENT-001
+**Decision:** Approved
+
+### Summary
+
+Use paid qualified tutors and subject experts to create Cramapple's original
+question packages instead of using historical College Board questions as seed
+material.
+
+### Notes
+
+- Official questions and scoring materials are not generation inputs or
+  adaptation targets.
+- Authors cannot approve their own work.
+- Base question packages are human-authored or purchased. Controlled
+  generative-AI versioning received separate approval in `APPROVAL-0011`.
+- Counsel review remains required for contracts, rights, and official-material
+  guidance.
+
+## APPROVAL-0011 — Proprietary Question Bank and AI Versioning Boundaries
+
+**Date:** 2026-06-12
+**Approved By:** David Bloom
+**Related Task:** TASK-0005 / CONTENT-001
+**Decision:** Approved with Notes
+
+### Summary
+
+Approve a proprietary MCQ and FRQ bank with at least ten approved questions per
+subject-and-subtopic pair, built from Cramapple-authored and purchased packages,
+with controlled AI creation of candidate variants.
+
+### Notes
+
+- Official question text is excluded from the workflow.
+- AI may use only packages with explicit derivative and model-input rights.
+- Every base question and AI variant requires a complete rubric and teaching
+  package.
+- AP Reader Validators must have served in at least one of 2024, 2025, or 2026
+  and satisfy the applicable Cramapple validator qualification.
+- Diagnostic questions may graduate to teaching use or retire.
+- Student sample thresholds, AI holdout design, permitted source/asset policy,
+  MCQ-to-FRQ allocation, and final release language remain open gates.
+
+## APPROVAL-0012 — GitHub Document Synchronization Rule
+
+**Date:** 2026-06-12
+**Approved By:** David Bloom
+**Related Task:** N/A
+**Decision:** Approved
+
+### Summary
+
+Require every project document retained locally to be committed and pushed to
+`david-bloom/Cramapple`.
+
+### Notes
+
+- Local-only documents are not durable project records.
+- Synchronization requires remote verification.
+- Temporary and machine-local files such as `.DS_Store` remain excluded.
+- Secrets and protected data must use approved secure storage rather than
+  GitHub.

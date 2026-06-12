@@ -247,3 +247,205 @@ This avoids counters that are either too broad or question-specific, preserves t
 - AP Biology tutors must validate target-equivalence examples.
 - Product research must establish stable-improvement thresholds and time budgets by task type and exam horizon.
 - Analytics must distinguish recommendation acceptance, override, and outcome without penalizing learner agency.
+
+## DECISION-0009 — Adopt Content Governance and Validation Operating Policy
+
+**Date:** 2026-06-12
+**Decision Owner:** David Bloom
+**Status:** Proposed
+**Related Task:** TASK-0005
+**Area:** Architecture / Operations
+
+### Context
+
+The approved architecture requires immutable versioned content, source and
+rights provenance, separate teaching and grading validators, independent release
+gates, atomic exam-pack publication, monitoring, revalidation, retirement,
+rollback, and audit. Exact operating rules and thresholds were still open.
+
+### Decision
+
+Adopt `docs/architecture/CONTENT_GOVERNANCE_AND_VALIDATION.md` as the controlling
+operating procedure for content and rubric governance after Learning Quality
+Owner, counsel, and Product Owner review.
+
+### Rationale
+
+The policy makes release authority, reviewer independence, qualifications,
+schemas, acceptance criteria, numeric quality thresholds, refresh schedules,
+and revalidation scope explicit and auditable.
+
+### Consequences
+
+- Content and rubric releases use immutable versions and complete manifests.
+- Teaching and grading have independent reviewer and evidence gates.
+- Source and rights status can block use independently of educational quality.
+- Model, prompt, rubric, source, and policy changes receive defined
+  revalidation scope.
+- Implementation requires separate approved technical, security, and data work.
+
+### Risks / Follow-ups
+
+- Numeric thresholds require expert review and pilot evidence before adoption.
+- Counsel must review official-material, license, retention, and public-use
+  boundaries.
+- Validator staffing and cost must be tested against launch coverage.
+- Physical schemas and workbench implementation remain separate tasks.
+
+## DECISION-0010 — Use Paid Tutors for Original Question Authoring
+
+**Date:** 2026-06-12
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Related Task:** TASK-0005 / CONTENT-001
+**Area:** Product / Operations
+
+### Context
+
+Cramapple needs a scalable original question bank. A proposed model would have
+used historical College Board questions as seed material for a proprietary
+question-making skill. That approach creates rights risk, derivative-content
+risk, and weak accountability for question quality.
+
+### Decision
+
+Pay qualified tutors and subject experts to independently author original
+questions and complete question packages from Cramapple coverage briefs.
+
+Official historical questions and scoring materials are not seeds, adaptation
+targets, few-shot examples, or generative-model inputs. Authorized humans may
+review public official materials for abstract alignment where legally permitted,
+but commissioned artifacts must be independently expressed.
+
+Paid tutors create or sell Cramapple the base AP Biology packages. AI does not
+draft base questions from official or third-party material. Controlled
+versioning of Cramapple-owned or fully licensed packages is governed by
+`DECISION-0011`.
+
+### Rationale
+
+Paid human authorship creates clear accountability, supports contractual
+ownership and originality attestations, and separates exam familiarity from
+copying or automated derivation. It also allows question quality to be improved
+through structured author feedback without making official material part of the
+production pipeline.
+
+### Consequences
+
+- Content coverage is commissioned from a coverage matrix rather than generated
+  as a fixed number of derivatives per historical question.
+- Tutor authors deliver complete question packages, not question text alone.
+- Authors may revise but cannot approve their own work.
+- Validation remains independent and includes scientific, teaching, grading,
+  originality, provenance, and rights gates.
+- Contracts must address compensation, confidentiality, originality, source
+  disclosure, restricted materials, revisions, and IP assignment or license.
+
+### Risks / Follow-ups
+
+- Human authoring cost and throughput may constrain coverage.
+- Tutor quality and writing skill will vary and require qualification.
+- Independent similarity review is still required.
+- Counsel must approve author agreements and official-material review guidance.
+
+## DECISION-0011 — Define the Proprietary Question Bank and AI Versioning Model
+
+**Date:** 2026-06-12
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Related Task:** TASK-0005 / CONTENT-001
+**Area:** Product / Operations
+
+### Context
+
+The paid-tutor model required decisions about bank coverage, MCQ and FRQ scope,
+AI use, AP Reader eligibility, IP release, diagnostic lifecycle, and production
+monitoring.
+
+### Decision
+
+- Use a human abstraction firewall. Official question text and scoring material
+  do not enter the authoring or AI-versioning workflow.
+- Include both MCQs and FRQs.
+- Target at least ten approved questions for each subject-and-subtopic pair.
+- Build the proprietary base set from Cramapple-authored and purchased question
+  packages.
+- Permit AI to create candidate variants only from proprietary packages for
+  which Cramapple holds explicit adaptation, derivative-work, and model-input
+  rights.
+- Require a complete rubric and teaching package for every base question and
+  every AI variant.
+- Define an AP Reader Validator as someone who served as an AP Biology Reader
+  in at least one of 2024, 2025, or 2026 and also meets the applicable Cramapple
+  validator qualification.
+- Use a simple counsel-approved release for authors, sellers, and AP Reader
+  reviewers.
+- Allow diagnostic questions to graduate to teaching use or be retired through
+  a governed lifecycle decision.
+
+### Rationale
+
+This creates a coverage-driven proprietary bank while preserving human
+accountability, contractual rights, exam authenticity, and independent
+validation. AI expands owned content rather than deriving content from official
+questions.
+
+### Consequences
+
+- AI variants are new immutable artifacts and do not inherit base approval.
+- Superficial reskins do not count toward the ten-question target.
+- Question performance is monitored by version and intended use.
+- Performance evidence opens review but does not automatically change item
+  status until sample and decision thresholds are approved.
+- AP Reader status does not authorize disclosure or use of secure material.
+
+### Open Gates
+
+- MCQ-to-FRQ allocation within each subject-and-subtopic pair.
+- Minimum student sample and evidence thresholds for changing or retiring an
+  item.
+- Independent holdout set and passing thresholds for AI-versioning changes.
+- Permitted sources and rights rules for graphs, datasets, experimental
+  contexts, passages, and images.
+- Final counsel-approved release language.
+
+## DECISION-0012 — Require Local Documents to Be Synchronized to GitHub
+
+**Date:** 2026-06-12
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Related Task:** N/A
+**Area:** Operations
+
+### Context
+
+GitHub is Cramapple's durable source of truth, but project documents can still
+be created or revised locally before they are pushed.
+
+### Decision
+
+Every project document retained in the local Cramapple workspace must also be
+committed and pushed to `david-bloom/Cramapple`. A local-only document is not a
+durable project record.
+
+Temporary renders, caches, editor files, and operating-system metadata are not
+project documents and should remain untracked.
+
+### Rationale
+
+This prevents source-of-truth drift, preserves work across machines and agents,
+and ensures project decisions can be reconstructed from GitHub.
+
+### Consequences
+
+- Agents include all retained project documents in the relevant commit.
+- Synchronization is complete only after the commit is pushed and the remote
+  branch is verified.
+- Any document that cannot be pushed must be reported explicitly.
+- `.DS_Store` and comparable machine-local files are excluded.
+
+### Risks / Follow-ups
+
+- Sensitive information must not be placed in project documents merely to
+  satisfy synchronization; secrets and protected data require approved secure
+  storage.

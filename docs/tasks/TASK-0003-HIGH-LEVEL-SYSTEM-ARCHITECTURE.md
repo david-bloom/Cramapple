@@ -4,7 +4,7 @@
 **Title:** High-Level System Architecture
 **Owner:** Main Conductor
 **Product Owner:** David Bloom
-**Status:** Ready for Owner Review
+**Status:** Done
 **Priority:** High
 **Created Date:** 2026-06-09
 **Approved Date:** 2026-06-09
@@ -55,7 +55,7 @@ Create a durable high-level architecture that supports quality teaching and grad
 - [x] Marketing interoperability and sensitive-data boundaries are defined.
 - [x] Logical architecture, data ownership, deployment, and extensibility are documented.
 - [x] Canonical DOCX is generated and visually reviewed.
-- [ ] David reviews the pull request and records the Done decision.
+- [x] David reviews the pull request and records the Done decision.
 
 ## QA Plan
 
@@ -81,5 +81,5 @@ Canonical Markdown and DOCX were reviewed for consistency. The DOCX archive vali
 
 ## Done Decision
 
-**Decision:** Pending Product Owner review
-**Date:** Pending
+**Decision:** Done through APPROVAL-0008
+**Date:** 2026-06-12

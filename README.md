@@ -6,9 +6,13 @@ Cramapple is an AP score-optimization product. The initial product focuses on AP
 
 GitHub documentation in this repository is the durable project source of truth. Chat discussions are not authoritative until recorded here.
 
+Every project document retained locally must also be committed and pushed to
+this repository. Local-only documents are not durable project records.
+
 Start with:
 
 - [Cramapple Vision and Problem Statement](docs/product/CRAMAPPLE_VISION.md)
+- [Master To-Do Backlog](docs/MASTER_TODO.md)
 - [AI Collaboration Rules](docs/team_charter/AI_COLLABORATION_RULES.md)
 - [Task Workflow](docs/team_charter/TASK_WORKFLOW.md)
 - [Agent Operating Model](docs/team_charter/AGENT_OPERATING_MODEL.md)

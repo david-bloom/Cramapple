@@ -631,7 +631,8 @@ FRQ instruction should decompose each question into independently scorable oppor
 
 ### 13.2 Task Operations
 
-The system should explicitly teach common operations represented in the framework and released questions:
+The system should explicitly teach common operations defined by the public
+framework and confirmed through qualified human exam-alignment review:
 
 - Identify or determine.
 - Describe.
@@ -644,7 +645,9 @@ The system should explicitly teach common operations represented in the framewor
 - Evaluate a hypothesis or prediction.
 - Propose an investigation.
 
-Teaching should be based on official skill definitions and question-specific scoring guidance, not generic writing advice.
+Teaching should be based on official public skill definitions and Cramapple's
+independently authored, validated question-specific scoring packages, not
+generic writing advice.
 
 ### 13.3 Claim-Evidence-Reasoning
 
