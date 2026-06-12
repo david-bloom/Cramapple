@@ -20,6 +20,19 @@ pushed to `david-bloom/Cramapple`. Local-only documents are not durable
 source-of-truth records. Temporary renders, caches, editor files, and
 operating-system metadata are excluded.
 
+## Document Formats
+
+- Markdown (`.md`) in GitHub is the default and canonical project-document
+  format.
+- Google Docs may be used as a collaboration or backup copy. Accepted changes
+  must return to the canonical Markdown file.
+- Word (`.docx`) is an exception for a specific recipient, submission, print, or
+  layout requirement. It should be generated from a canonical source and not
+  maintained independently.
+
+The universal rule is defined in
+`team_charter/AI_COLLABORATION_RULES.md`.
+
 ## Master Backlog
 
 - `MASTER_TODO.md`: Canonical index of active tasks, proposed follow-on work,

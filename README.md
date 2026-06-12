@@ -9,6 +9,10 @@ GitHub documentation in this repository is the durable project source of truth. 
 Every project document retained locally must also be committed and pushed to
 this repository. Local-only documents are not durable project records.
 
+Markdown is the canonical document format. Google Docs may be used as a
+collaboration or backup copy; Word documents are exceptions for specific
+external or layout requirements.
+
 Start with:
 
 - [Cramapple Vision and Problem Statement](docs/product/CRAMAPPLE_VISION.md)

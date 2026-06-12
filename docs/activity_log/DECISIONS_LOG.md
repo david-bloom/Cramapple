@@ -480,3 +480,53 @@ and ensures project decisions can be reconstructed from GitHub.
 - Sensitive information must not be placed in project documents merely to
   satisfy synchronization; secrets and protected data require approved secure
   storage.
+
+## DECISION-0013 — Make Markdown the Default Project Document Medium
+
+**Date:** 2026-06-12
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Related Task:** N/A
+**Area:** Operations / Documentation
+
+### Context
+
+Cramapple has accumulated Markdown, Word, RTF, spreadsheet, and other document
+formats. Maintaining ordinary project documents in multiple editable formats
+creates synchronization work and ambiguity about which copy governs.
+
+### Decision
+
+Markdown (`.md`) in GitHub is the default and canonical medium for project
+documents.
+
+Google Docs is the preferred secondary format when live collaboration,
+comments, suggestion mode, or a cloud backup copy is useful. Accepted changes
+must be incorporated into the canonical Markdown file.
+
+Word (`.docx`) should be avoided unless a specific external recipient,
+submission, printing, or layout-fidelity requirement makes it necessary. A Word
+document must be derived from a canonical source and must not become an
+independent competing source.
+
+### Rationale
+
+Markdown is easy to review, compare, version, search, and maintain in GitHub.
+Google Docs supports human collaboration without replacing the source of truth.
+Limiting Word documents reduces duplicate maintenance and format drift.
+
+### Consequences
+
+- Agents create ordinary durable project documents as Markdown by default.
+- Google Docs are collaboration or backup copies, not authoritative records.
+- Accepted Google Docs edits return to Markdown and GitHub.
+- Existing Word snapshots may remain, but they are not refreshed by default.
+- New or updated Word deliverables require a specific format need.
+- Artifact-native formats such as spreadsheets, images, presentations, and
+  executable source files remain appropriate when Markdown cannot represent the
+  artifact itself.
+
+### Risks / Follow-ups
+
+- A Google Docs backup process and link registry may be defined later if needed.
+- External stakeholders may occasionally require Word, PDF, or another format.
