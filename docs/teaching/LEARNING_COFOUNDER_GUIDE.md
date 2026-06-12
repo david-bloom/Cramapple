@@ -362,59 +362,59 @@ Before launch, there will also be a pre-launch calibration run: we'll grade a se
 
 ## Part 6: Your Role as Learning Co-Founder
 
-Here's what you own.
+You have a full life — college applications, a job, everything else — and this document isn't asking you to add a second job on top of it. What it is asking is that you be Cramapple's most important voice on whether the teaching actually works.
+
+Dad handles the operational weight: managing the build, coordinating with engineers, running the business side, and keeping everything moving. Your role is different. It's about expertise and judgment — the things only you can provide because you're close to the subject, close to the age of our students, and close to what good teaching actually feels like. Every area below is a partnership. You bring the judgment; we work through it together.
 
 ---
 
 **Content quality**
 
-You set the bar for what a good Cramapple question looks like. Every question in the system — whether Cramapple-authored or sourced from elsewhere — should reflect a standard you'd be comfortable defending to an experienced AP Biology teacher.
+The most important thing you can do for Cramapple's quality is develop a clear sense of what a good question and a good rubric look like — and say something when something feels off.
 
-In practice this means reviewing questions and rubrics before they go into student sessions, and flagging anything that doesn't feel right. A rubric criterion that seems off. A question that tests something different from what it claims to test. Teaching content that would confuse a student rather than help them.
+That doesn't mean reviewing everything. It means being a reliable voice when content comes across your desk: does this question actually test what it says it tests? Does this feedback make sense to a student? Would a real AP Biology teacher be comfortable with this rubric? You don't need to be the expert on every detail — tutors will handle the deep verification. But your instinct is something no one else on the team has, and it's worth a lot.
 
-You won't need to be the expert on every rubric detail — that's what tutors are for. But you'll develop a sharp instinct for quality, and that instinct is something no one else on the team will have in the same way.
+In practice, Dad will flag the things that most need your eyes. You respond when you can, with whatever reaction you have — including "this seems fine" and "something feels off, not sure why." Both are useful.
 
 ---
 
 **Tutor relationships**
 
-Cramapple needs a small network of AP Biology tutors and teachers who can validate our pedagogy and content. Finding, vetting, and working with those people is primarily your responsibility.
+Cramapple needs a small set of AP Biology tutors and teachers who can validate the teaching design and content — people with real classroom experience who know exactly how students fail on each FRQ type.
 
-What you're looking for: real experience teaching AP Biology to real students with a track record of results, familiarity with how AP FRQs are actually scored, and willingness to engage with specifics — not just "this looks fine" but "here's the specific error pattern I see on this type of question every year."
-
-This isn't a one-time exercise. Tutors will review new content, validate calibration decisions, and flag when the teaching interventions don't match how students actually fail on a particular topic. The relationship needs to be ongoing.
+You don't need to manage these relationships yourself. What you can contribute is your own network and instinct for who would be good. If you know an AP Biology teacher whose class you respected, or a tutor who actually helped you, that's a lead worth sharing. Dad will handle outreach and coordination, but your read on who knows their stuff matters.
 
 ---
 
 **Grading calibration**
 
-In the early stages, you'll be a primary validator. That means reading AI-graded responses and deciding whether the AI got it right.
+Before Cramapple launches, we'll run a calibration exercise: grade a set of student responses with known scores, compare our AI results to the right answers, and identify what the AI is getting wrong. You'll participate in that — not as the only reviewer, but as one of the people whose judgment we test against.
 
-You'll start to see patterns in how the AI makes mistakes — the types of responses where it consistently over- or under-scores, the feedback phrases that are technically accurate but pedagogically useless. When you catch a consistent error and flag it, that becomes a fix.
+This is a contained exercise, not an ongoing daily task. It might be a few sessions of sitting with Dad and going through responses together, saying "this grade seems too high" or "this feedback doesn't address what the student actually wrote." That kind of input — grounded in your sense of what good feedback looks like — is exactly what we need.
 
-You don't need to review every response. You need to review enough of the right ones: the edge cases, the borderline scores, the cases where the teaching intervention shown doesn't seem matched to the actual error.
+After launch, we'll build out a more formal validator pipeline. Your involvement will scale with what makes sense at the time.
 
 ---
 
 **Student testing**
 
-Before Cramapple launches more broadly, real students need to try it. You'll play a role in recruiting student testers and observing what happens.
+Before Cramapple goes live more broadly, real students will try it. You'll help recruit some of those testers — friends, classmates, people you think would give honest reactions — and we'll watch together what happens.
 
-What we're watching for isn't primarily whether students get the right answers. It's:
-- Where does the loop break down in practice?
-- What does confusing feedback feel like from a student's perspective?
-- Are the escalation moves (Sideways, Apart, Down) actually helping when students get stuck, or do they feel arbitrary or frustrating?
-- Are students spending time on the right things, or getting diverted by low-value paths?
+What we're listening for isn't whether they get the right answers. It's:
+- Where does the loop feel confusing or frustrating in practice?
+- Does the feedback actually tell them what to do differently, or does it feel like noise?
+- Are the escalation moves (when students get stuck) helpful, or do they feel arbitrary?
+- Would a real student stick with it, or would they bail?
 
-Your job during testing is to be the voice that says "this doesn't feel right" — not "it doesn't match the spec," but "a real student would have given up here" or "this feedback told me nothing about what I should do differently."
+You're the best person in the room to answer those questions, because you're closest to the experience. You don't need to run the session — Dad will do that. Your job is to watch and say what a real student would think.
 
 ---
 
-**The ongoing improvement cycle**
+**The quality voice**
 
-After launch, Cramapple's teaching quality depends on how actively we maintain it. New exam cycles bring updated scoring guidelines. Calibration data reveals systematic errors. Student performance data shows where the teaching isn't working.
+After launch, the most durable part of your role is being the person who asks: is this actually helping students earn more points? Not in theory — concretely, for real students working on real skills.
 
-You'll be the person who keeps asking: is Cramapple actually helping students earn more points? Not in the abstract — concretely, for the skills we're targeting. When the answer is no, you'll be the first to want to know why, and the person most motivated to fix it.
+That question will come up in occasional conversations with Dad as we look at how students are using the product. It doesn't require a lot of time, but it requires real engagement — reading what you're shown, reacting honestly, and pushing back when something doesn't seem right. That's the ongoing ask: not a large time commitment, but a genuine one.
 
 ---
 
