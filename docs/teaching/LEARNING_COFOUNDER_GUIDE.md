@@ -56,6 +56,8 @@ Cramapple shows Maya a question:
 
 > *A researcher treats two groups of bacteria with an antibiotic. Group A is wild-type. Group B carries a mutation in a membrane protein. After 24 hours, Group B shows significantly higher survival rates. Explain how natural selection could account for the difference in survival rates between the two groups.*
 
+> **[EDITORIAL NOTE — before finalizing: clarify that this is not an actual AP Biology FRQ. Real FRQs are multi-part questions — a single stimulus or scenario followed by several sub-questions (a), (b), (c) each testing a different skill. This example is a standalone single-response item used to keep the walkthrough simple. The guide should make that distinction explicit so Orly isn't confused when she encounters actual FRQs, and so she doesn't think Cramapple works question-by-question through a multi-part FRQ as a single unit.]**
+
 The question is just the question. No hint. No guidance. No "here's what the rubric wants." Cramapple tells her the format (written response, complete sentences), how to submit, and nothing else.
 
 This feels counterintuitive — why not help her first? Because **the cold attempt is the most valuable diagnostic tool in the system.** What Maya writes before she's been taught anything tells us exactly what she already knows, where her reasoning breaks down, and what kind of gap we're dealing with. Once we help her, that information is gone. The attempt is contaminated.
