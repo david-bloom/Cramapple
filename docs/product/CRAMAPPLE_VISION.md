@@ -1,6 +1,6 @@
 # Cramapple Vision and Problem Statement
 
-**Canonical reference draft | June 9, 2026 | v0.2**
+**Canonical reference draft | June 9, 2026 | v0.3**
 
 ## Document Status
 
@@ -157,7 +157,7 @@ The record exists to improve guidance, show progress, and help the student resum
 
 Cramapple teaches students how exam responses earn or lose individual points. Feedback should distinguish between knowing the underlying biology and expressing it with the specificity, evidence, calculation, or mechanism the question requires.
 
-Cramapple should not claim that one answer is literally an AP score of 3, 4, or 5. A single response does not determine a final AP score. Instead, feedback may explain:
+Cramapple should not claim that one answer is literally an AP score of 3, 4, or 5. A single response does not determine a final AP score. Instead, response-level feedback may explain:
 
 - The rubric points earned.
 - The exact criteria missed.
@@ -165,7 +165,15 @@ Cramapple should not claim that one answer is literally an AP score of 3, 4, or 
 - A stronger response consistent with a student targeting a higher overall score.
 - A complete, realistic top-level response.
 
-Any "targeting a 4" or "targeting a 5" language is Cramapple guidance, not an official score prediction.
+Cramapple may provide an estimated AP score range or readiness estimate when it has sufficient evidence across relevant content, skills, and question formats. The estimate should:
+
+- Identify the evidence and assumptions supporting it.
+- State its confidence and important coverage gaps.
+- Be labeled as a Cramapple estimate, not an official College Board score or guarantee.
+- Explain the specific knowledge, skills, rubric criteria, or practice results most likely to move the student toward the next score range.
+- Be recalibrated as new student evidence and expert-scored validation data become available.
+
+Any "estimated 3," "targeting a 4," or "targeting a 5" language is Cramapple guidance. The product should prefer ranges and qualified language when the evidence does not support a precise estimate.
 
 ### 6.2 Free-Response Grading
 
@@ -289,11 +297,7 @@ David Bloom, co-founder, Chief Executive Officer, and Product Owner, has final r
 
 Paid tutors and subject experts will create Cramapple's original question packages. Separate qualified reviewers will validate scientific accuracy, teaching quality, exam alignment, and grading behavior. Authors do not approve their own work. Expert sign-off is a launch gate. If the responsible experts do not approve the content and grading behavior, the product does not launch.
 
-The initial bank will include both MCQs and FRQs, with a target of at least ten
-approved questions for each subject-and-subtopic pair. Cramapple may use AI to
-create candidate versions from questions it owns or fully licenses for
-derivative and model use. Each variant is a new artifact and requires a complete
-rubric, teaching package, provenance, and independent validation.
+The initial bank will include both MCQs and FRQs, with a target of at least ten approved questions for each subject-and-subtopic pair. Cramapple may use AI to create candidate versions from questions it owns or fully licenses for derivative and model use. Each variant is a new artifact and requires a complete rubric, teaching package, provenance, and independent validation.
 
 Approval of content alone is insufficient. Before launch, Cramapple should test AI grading against responses independently scored by experts and establish an acceptable level of criterion-by-criterion agreement.
 
@@ -408,9 +412,9 @@ Cramapple will be sold as a one-time service rather than a recurring subscriptio
 
 Initial pricing hypotheses are:
 
-- One subject: $29.99.
-- Two subjects: $49.99.
-- Three subjects: $59.99.
+- One subject: $39.99.
+- Two subjects: $69.99.
+- Three subjects: $89.99.
 - Unlimited subjects: $99.00.
 
 Only the single-subject offer is relevant to the Biology-only launch. Bundles should not be sold until additional subjects meet the same quality standard. Pricing, discount depth, duration of access, refunds, and any parent add-on remain open to testing.
@@ -435,6 +439,7 @@ The first year should measure:
 - Pre- and post-practice performance.
 - Rubric points earned over time.
 - Expert-AI grading agreement.
+- Estimated-score calibration against expert-scored student work and later observed outcomes when available.
 - Accuracy by module, skill, and question type.
 - Error recurrence and remediation.
 - Retention after a delay.
@@ -467,8 +472,7 @@ Cramapple will pay qualified tutors and subject experts to create original quest
 - How disagreements are resolved.
 - How content is versioned, updated, or retired.
 - How authors are compensated and assign or license commissioned work.
-- How originality, source disclosure, restricted-material exclusion, and
-  author-validator independence are enforced.
+- How originality, source disclosure, restricted-material exclusion, and author-validator independence are enforced.
 
 ## 14. Major Risks
 
@@ -477,7 +481,7 @@ The principal risks are:
 - **Grading validity:** Automated feedback may sound persuasive while awarding criteria incorrectly.
 - **Hallucination and drift:** The model may depart from approved content or scoring logic.
 - **Copyright and trademark:** Official or student-provided materials may be used beyond permitted boundaries.
-- **False precision:** Readiness or score language may imply more certainty than the evidence supports.
+- **False precision:** Estimated score or readiness language may imply more certainty than the evidence supports. Estimates require transparent evidence thresholds, confidence language, calibration, and prominent non-official labeling.
 - **Content scale:** Expert validation may become the bottleneck for coverage and expansion.
 - **Seasonality:** Demand is concentrated around AP exam dates.
 - **Weak urgency in fall:** The school-year study-aid customer may behave differently from the target crammer.
@@ -498,7 +502,7 @@ The vision should be supported by four separate canonical reference documents:
 
 - Final customer-facing positioning and tagline.
 - Whether students select a target score.
-- How Cramapple communicates readiness without making unsupported score predictions.
+- What evidence thresholds, confidence language, and calibration standards Cramapple requires before showing an estimated score range.
 - The appropriate number, length, and composition of sessions.
 - The precise recommendation algorithm for "next best action."
 - The minimum expert-AI scoring agreement required for launch.
