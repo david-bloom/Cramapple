@@ -59,6 +59,9 @@ of contaminated source material.
 - [x] Authored examples separated from independent grading gold evidence.
 - [x] Three-arm validation experiment defined with controls and decision rules.
 - [x] Tutor-first production baseline preserved.
+- [x] MCQ and FRQ authoring may proceed simultaneously through coordinated
+  workstreams.
+- [x] Reviewed FRQs remain unapproved candidates subject to edit or rejection.
 - [ ] Learning Quality Owner reviews the architecture and experiment.
 - [ ] Counsel reviews the experiment's source, rights, and author agreements.
 - [ ] Experiment briefs, assignments, blinding, and data-capture plan are frozen.

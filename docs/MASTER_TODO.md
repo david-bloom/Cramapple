@@ -61,6 +61,10 @@ records.
 | NOW-008 | P1 | Decide the visual-stimulus architecture direction | David Bloom | Ready for Owner Review | Decide the four-lane model, fail-closed rule, V1 visual types, synthetic-data rule, and graphing device floor in `TASK-0006` |
 | NOW-009 | P1 | Review the authoring architecture and experiment protocol | Orly Bloom / Learning Quality Owner | Expert Review Required | Review failure cards, prompt composition, complete-package contracts, experiment arms, metrics, and decision thresholds in `TASK-0007` |
 | NOW-010 | P0 | Review authoring experiment rights and contracts | Counsel | Expert Review Required | Confirm source isolation, contamination handling, releases, model-input rights, and retention rules before experiment execution |
+| NOW-011 | P1 | Commission the proprietary replacement exemplar | Orly Bloom / Paid Tutor Author | Proposed | Execute `TASK-0008` from a blank brief after author and rights gates |
+| NOW-012 | P1 | Reconcile conceptual schemas with governance | Technical Owner / Main Conductor | Proposed | Complete `TASK-0009` before any physical database design |
+| NOW-013 | P0 | Establish grader confidence and calibration | Learning Quality Owner / Grading Lead | Proposed | Complete `TASK-0010` before learner-facing automated FRQ scores |
+| NOW-014 | P2 | Prototype handwritten graph camera capture | Product / Technical Owner | Research | Test the QR-linked paper-first flow in `TASK-0011` |
 
 ## 4. Active Task Register
 
@@ -72,6 +76,10 @@ records.
 | `TASK-0005` | Content Governance and Validation Operating Procedure | High | In Progress | Learning Quality Owner, counsel, and Product Owner decisions |
 | `TASK-0006` | Visual Stimulus and Rendering System | High | Ready for Owner Review | Product Owner direction, expert reviews, and representation audit |
 | `TASK-0007` | Content Authoring Architecture and Model Experiment | High | In Progress | Learning Quality, counsel, execution-budget, and pilot gates |
+| `TASK-0008` | Proprietary Exemplar Replacement | High | Proposed | Author commission and full validation |
+| `TASK-0009` | Schema and Governance Reconciliation | High | Proposed | Conceptual-model approval |
+| `TASK-0010` | Grader Confidence and Calibration | Critical | Proposed | Learning Quality and Product Owner release gates |
+| `TASK-0011` | Handwritten Graph Capture | Medium | Research | Prototype and feasibility decision |
 
 ## 5. P0 Legal, Privacy, and Trust Backlog
 
@@ -131,6 +139,7 @@ records.
 **Status:** Proposed
 **Owner:** Learning Quality Owner with grading lead and technical owner
 **Depends on:** `TASK-0004`, `TASK-0005`
+**Execution record:** `TASK-0010`
 
 - [ ] Define rubric-package contracts and criterion independence.
 - [ ] Define deterministic and model-supported grading orchestration.
@@ -146,6 +155,7 @@ records.
 **Status:** Proposed
 **Owner:** Technical owner
 **Depends on:** Approved architecture and governance policy
+**Reconciliation record:** `TASK-0009`
 
 - [ ] Create the conceptual and physical data model.
 - [ ] Define immutable version, provenance, dependency, review, validation,
@@ -228,6 +238,7 @@ records.
   phylogenetic tree.
 - [ ] Validate screen-reader, keyboard, zoom, contrast, and mobile behavior.
 - [ ] Define and validate learner-created graphing and scoring.
+- [ ] Research QR-linked handwritten graph capture through `TASK-0011`.
 - [ ] Select a renderer only after the bounded prototype and architecture gate.
 
 ## 7. P1 Product and Teaching Design Backlog
@@ -336,6 +347,7 @@ records.
   prompts, exemplars, evaluation sets, and production content.
 - [x] Retain consequential content lessons as abstract failure cards rather
   than complete rejected questions.
+- [ ] Create a clean proprietary replacement exemplar through `TASK-0008`.
 - [ ] Execute `TASK-0007` only after Learning Quality, counsel, participant,
   blinding, and budget gates pass.
 - [ ] Define and approve the independent holdout set and passing thresholds for
@@ -357,6 +369,8 @@ records.
   before empirical confirmation.
 - [x] Defer physical Supabase design until the logical governance model and
   application architecture are approved.
+- [ ] Complete `TASK-0009` conceptual schema reconciliation before physical
+  Supabase or Postgres design.
 - [ ] Create source and rights plans for every artifact family.
 - [ ] Establish production throughput and quality reporting.
 
@@ -439,6 +453,8 @@ planning target. Physical Supabase DDL remains deferred.
 - [ ] Minimum-fix, improved-answer, and complete-answer feedback.
 - [ ] Confidence, escalation, human review, and regrading.
 - [ ] Production quality sampling and drift monitoring.
+- [ ] Paper-first handwritten graph intake if `TASK-0011` passes its research
+  gate.
 
 ### BUILD-004 - Student-Provided Questions
 

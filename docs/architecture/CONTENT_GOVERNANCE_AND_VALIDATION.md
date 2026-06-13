@@ -1247,6 +1247,12 @@ Author-generated samples are development cases. They do not establish a human
 gold set, calibrate a grader, or satisfy the held-out requirements in Section
 12. Gold evidence requires blind independent human scoring and adjudication.
 
+MCQ and FRQ authoring may proceed simultaneously. Neither form inherits
+approval from the other, and each artifact must pass its applicable independent
+gates. Unreviewed candidate FRQs may be revised into new immutable versions or
+rejected; candidate status does not make them exemplars, calibration evidence,
+or production content.
+
 ### 10.6 Visual Stimulus Packages
 
 Tables, charts, graphs, diagrams, models, experimental setups, and
@@ -1454,6 +1460,30 @@ Additional release rules:
 - The minimum fix is actually sufficient for the next point.
 - Ambiguous and unsupported cases have an escalation rule.
 - The package passes the complete metric suite.
+
+### 12.5 Confidence-Building Release Sequence
+
+Reasonable confidence comes from converging evidence, not a model-generated
+confidence label.
+
+1. Validate criterion independence and deterministic checks.
+2. Create blind dual-human gold labels with lead adjudication.
+3. Separate development, calibration, locked holdout, and challenge sets.
+4. Calibrate abstention and confidence bands against observed criterion error.
+5. Use independent grading passes for high-value or high-risk responses and
+   escalate disagreement.
+6. Run a shadow cohort in which humans review every response before automated
+   scores become learner-facing.
+7. During limited release, review every escalation and at least 20% of
+   apparently high-confidence cases.
+8. Graduate from limited release only through a recorded gate decision; general
+   release then begins the first-30-days sampling regime in Section 17.1.
+9. Maintain hidden sentinel cases, production sampling, dispute review,
+   regrading, drift monitoring, and suspension triggers.
+
+Author-generated responses remain development cases. Synthetic responses may
+expand coverage but cannot substitute for independently adjudicated evidence.
+The operational plan and Done gates are defined in `TASK-0010`.
 
 ## 13. Approval Thresholds and Release Authority
 

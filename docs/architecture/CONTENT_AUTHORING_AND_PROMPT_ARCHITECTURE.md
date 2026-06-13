@@ -241,8 +241,13 @@ in `CONTENT_GOVERNANCE_AND_VALIDATION.md`.
 
 ## 10. Sequencing
 
-Cramapple should not complete the MCQ bank before testing FRQ architecture.
-That would discover the hardest grading, visual, and graphing risks too late.
+Cramapple develops MCQ and FRQ authoring in parallel. They share governance,
+prompt-build, source, rights, and validation infrastructure, while retaining
+separate package contracts and specialist review.
+
+Parallel does not mean uncoordinated. Shared failures and improvements are
+recorded once in the governing component or failure-card suite and then tested
+across both workstreams.
 
 The first vertical slice should include:
 
@@ -255,6 +260,12 @@ The first vertical slice should include:
    rollback trail.
 
 After the vertical slice passes, content can scale by portfolio priority.
+
+The ecology FRQs reviewed from the external archive are unapproved candidates.
+They are not exemplars, production content, or calibration evidence. Qualified
+tutors and AP Reader Validators may edit them into new immutable versions or
+reject them. Promotion depends on complete source, rights, teaching, grading,
+visual, and accessibility review.
 
 ## 11. Approval Boundaries
 

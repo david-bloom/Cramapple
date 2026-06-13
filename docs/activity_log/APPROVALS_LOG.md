@@ -332,3 +332,28 @@ baseline.
 - Experimental items do not count toward production coverage.
 - A separate Product Owner decision is required before any alternative
   authoring model becomes production policy.
+
+## APPROVAL-0016 — Content and Assessment Follow-On Direction
+
+**Date:** 2026-06-13
+**Approved By:** David Bloom
+**Related Tasks:** TASK-0008, TASK-0009, TASK-0010, TASK-0011
+**Decision:** Approved with Notes
+
+### Summary
+
+Create a clean proprietary replacement exemplar, reconcile schemas with
+governance before physical design, build confidence in FRQ grading through
+human gold sets and phased validation, develop MCQ and FRQ authoring
+simultaneously, and research paper-first QR-linked handwritten graph capture.
+
+### Notes
+
+- The replacement exemplar begins from a blank brief and cannot use the
+  rejected candidate.
+- Text-only visual storage is not a permanent solution; logical package
+  contracts may precede physical DDL.
+- Learner-facing automated FRQ scoring remains hard-gated.
+- Existing FRQ candidates may be edited or dropped only through tutor and AP
+  Reader review.
+- Camera capture is approved for research, not production.

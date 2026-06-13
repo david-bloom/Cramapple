@@ -58,3 +58,7 @@ The universal rule is defined in
 - `team_charter/`: Roles, approval boundaries, task workflow, and agent rules.
 - `activity_log/`: Durable approvals, decisions, and meaningful project activity.
 - `tasks/`: Approved and proposed work.
+  - `TASK-0008`: Clean proprietary exemplar replacement.
+  - `TASK-0009`: Schema-governance reconciliation.
+  - `TASK-0010`: Grader confidence and calibration.
+  - `TASK-0011`: Handwritten graph-capture research.

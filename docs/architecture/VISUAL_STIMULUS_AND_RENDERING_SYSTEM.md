@@ -207,6 +207,30 @@ under the approved learning-system rules.
 Visual content is a family of immutable artifacts, not an ungoverned JSON field
 inside a mutable question row.
 
+Text-only stimulus storage is not sufficient for production visual content and
+must not become the permanent interface. Physical database design may remain
+deferred, but authoring can proceed using a versioned logical stimulus package
+represented in governed Markdown and validated JSON artifacts.
+
+```text
+stimulus_package_version {
+  stimulus_package_id: UUID
+  stimulus_package_version_id: UUID
+  ordered_components: [
+    passage_version | dataset_version | visual_stimulus_version |
+    asset_version | accessible_representation_version
+  ]
+  shared_instructions: string | null
+  source_version_ids: UUID[]
+  rights_record_ids: UUID[]
+  package_sha256: SHA256
+}
+```
+
+This interim contract is enough to author, review, and version packages before
+physical DDL. It is not permission to collapse structured visuals back into a
+single prose field.
+
 ```text
 visual_stimulus_version {
   visual_stimulus_id: UUID
@@ -413,25 +437,37 @@ regression testing against all active visual specifications before release.
 ## 8. Learner-Created Graphs
 
 Graph construction is a separate capability from rendering a stimulus.
+Cramapple's preferred research direction is paper-first graphing rather than a
+general digital drawing tool.
 
-The graphing workspace must capture semantic intent, not only pixels:
+The learner draws on paper, then submits a photograph. A QR code may hand the
+active submission from a desktop or tablet to a secure phone capture page. The
+capture flow should:
 
-- selected graph type;
-- independent and dependent variables;
-- axis labels, units, scale, and bounds;
-- plotted points or bars;
-- uncertainty representation;
-- legend and series mapping;
-- title when required; and
-- learner revisions and final submission.
+- bind a short-lived, single-use token to the learner, session, question
+  version, and submission slot;
+- request explicit camera permission and prefer the rear camera;
+- guide framing so axes, units, scale, points or bars, error bars, legend, and
+  title are visible;
+- permit review, crop, rotation, retake, and explicit submission;
+- detect blur, glare, cutoff edges, perspective distortion, and inadequate
+  resolution;
+- retain the original immutable image and separately version any normalized
+  derivative;
+- extract candidate graph features with criterion-level confidence;
+- request a retake or human review when extraction is uncertain; and
+- provide a non-QR fallback and an accessible alternative.
 
-The grading package must define which properties earn each point and which
+The grading package defines which visible properties earn each point and which
 errors are mechanical, scientific, or interpretive. Cold mode must not select
 the axes, scale, graph type, trend, or interpretation for the learner.
 
-An accessible graph-construction path and expert-validated scoring method are
-required before graph-construction questions may be released to learners who
-cannot use the default visual editor.
+Camera-based grading requires a separate held-out image set covering varied
+handwriting, paper, lighting, perspective, devices, graph types, and realistic
+errors. Low-confidence extraction cannot be presented as an authoritative
+grade.
+
+The complete placeholder research task is `TASK-0011`.
 
 ## 9. Renderer Selection Process
 
@@ -480,10 +516,8 @@ Approve the following planning direction:
 7. Audit the 964-item plan by representation type before estimating coverage or
    implementation effort.
 8. Support responsive chart and table viewing on phones, tablets, and desktops.
-9. Treat tablet or desktop as the initial exam-equivalent graph-construction
-   environment. Phone-created graphs may be offered for convenience but do not
-   count as equivalent graph-construction evidence until usability and scoring
-   validation pass.
+9. Prefer authentic paper graph construction with secure camera capture over a
+   general digital drawing tool.
 
 The initial Lane A prototype should support semantic tables, line charts, bar
 charts, scatter plots, multiple series, and error bars. Phylogenetic trees
@@ -498,9 +532,9 @@ scientifically important, and poorly served by prose-only replacement.
 3. Confirm the proposed V1 visual types and phylogenetic-tree prototype.
 4. Confirm that pedagogically synthetic data are allowed under the stated
    disclosure and validation rules.
-5. Confirm the recommended device rule: responsive viewing on all supported
-   devices, with tablet or desktop required initially for exam-equivalent
-   graph-construction evidence.
+5. After `TASK-0011`, decide whether QR-linked handwritten graph capture is
+   accurate, usable, accessible, private, and operationally feasible enough for
+   production.
 
 ## 12. Required Follow-On Analysis
 
@@ -512,7 +546,7 @@ scientifically important, and poorly served by prose-only replacement.
 - Prototype and compare eligible renderers.
 - Conduct screen-reader, keyboard, zoom, contrast, and mobile testing.
 - Define accessible-equivalence review exercises and validator qualifications.
-- Define graph-construction interaction and grading requirements.
+- Prototype and validate QR-linked handwritten graph capture and grading.
 - Establish visual regression, semantic equivalence, and renderer-migration
   tests.
 

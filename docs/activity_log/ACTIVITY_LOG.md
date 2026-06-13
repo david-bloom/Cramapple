@@ -4,6 +4,21 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ---
 
+## Content Follow-On Tasks Defined — 2026-06-13
+
+**Tasks:** TASK-0008 through TASK-0011
+**Status:** Proposed / Research
+**Summary:** Added a clean proprietary exemplar replacement, conceptual
+schema-governance reconciliation, phased grader-confidence program, and
+paper-first QR-linked handwritten graph-capture research. Confirmed that MCQ
+and FRQ authoring proceed simultaneously and that all reviewed FRQs remain
+unapproved candidates subject to edit or rejection.
+
+**Next Owner:** Learning Quality Owner, Grading Lead, Technical Owner, and
+counsel as assigned
+**Next Required Action:** Review task scopes and approve execution resources and
+participants where required.
+
 ## Authoring Architecture Rewritten and Experiment Defined — 2026-06-13
 
 **Task:** TASK-0007 / CONTENT-001

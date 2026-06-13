@@ -779,3 +779,117 @@ taxonomies and future subjects.
 
 - The compiler and manifest schema require a later approved implementation
   task.
+
+## DECISION-0019 — Create a Clean Proprietary Replacement Exemplar
+
+**Date:** 2026-06-13
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Related Task:** TASK-0008
+**Area:** Content Operations / Rights
+
+### Context
+
+The rejected official-derived candidate left the authoring workflow without its
+intended first MCQ exemplar.
+
+### Decision
+
+Create a replacement from a blank governed brief through a paid qualified tutor
+who has not received the rejected candidate or its source description. The new
+package must pass the complete originality, rights, scientific, teaching,
+grading, accessibility, and exemplar-admission gates.
+
+### Consequences
+
+- The rejected candidate is not repaired or used as inspiration.
+- Approval as production content does not automatically approve use as a model
+  exemplar.
+- `TASK-0008` owns the replacement workflow.
+
+## DECISION-0020 — Reconcile Schemas Before Physical Database Design
+
+**Date:** 2026-06-13
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Related Task:** TASK-0009
+**Area:** Architecture / Data Governance
+
+### Context
+
+The reviewed Supabase proposals contain useful entities but use mutable content
+rows, approval booleans, direct state updates, and cascade deletion that
+conflict with approved governance.
+
+### Decision
+
+Create a conceptual reconciliation model mapping useful schema concepts to
+immutable artifact versions, append-only reviews and lifecycle events,
+rebuildable projections, reusable stimulus packages, and atomic release
+manifests. Do not create or approve physical DDL until reconciliation passes.
+
+Text-only visual storage is not accepted as the permanent approach. Authoring
+may proceed against logical stimulus-package Markdown and JSON contracts while
+physical design remains deferred.
+
+### Consequences
+
+- The archive schemas are inputs to analysis, not canonical schemas.
+- `TASK-0009` precedes physical Supabase design.
+- Structured visual work does not need to wait for DDL.
+
+## DECISION-0021 — Develop MCQ and FRQ Authoring Simultaneously
+
+**Date:** 2026-06-13
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Related Task:** TASK-0007
+**Area:** Content Operations
+
+### Context
+
+The reviewed proposal deferred FRQ implementation until MCQ authoring reached
+coverage. That sequence would delay discovery of grading, visual, and graphing
+risks.
+
+### Decision
+
+Run coordinated MCQ and FRQ authoring workstreams simultaneously. Share
+governance and infrastructure, but preserve separate package contracts and
+independent gates.
+
+All currently reviewed FRQs remain unapproved candidates. Tutors and AP Reader
+Validators may edit them into new immutable versions or drop them.
+
+### Consequences
+
+- Neither question form blocks initial architecture work on the other.
+- Candidate FRQs are not exemplars, calibration evidence, or production
+  content.
+- The first vertical slice includes MCQ, short FRQ, and long FRQ packages.
+
+## DECISION-0022 — Research Paper-First Handwritten Graph Capture
+
+**Date:** 2026-06-13
+**Decision Owner:** David Bloom
+**Status:** Approved for Research
+**Related Task:** TASK-0011
+**Area:** Product / Assessment / Accessibility
+
+### Context
+
+A general digital graph editor would be complex and may be less authentic than
+paper graph construction.
+
+### Decision
+
+Prefer paper-first graphing and research a QR-linked secure phone camera flow.
+The system may assist with image quality and feature extraction, but uncertain
+graphs require retake or human review.
+
+### Consequences
+
+- Digital drawing is not the default graph-construction plan.
+- Production use requires upload-security, privacy, accessibility, usability,
+  and held-out grading validation.
+- `TASK-0011` is a research placeholder, not implementation approval.

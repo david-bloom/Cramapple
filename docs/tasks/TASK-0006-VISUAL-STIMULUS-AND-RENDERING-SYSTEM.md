@@ -61,6 +61,8 @@ Untrusted HTML, scripts, arbitrary URLs, and free-form SVG are prohibited.
 - [x] Source, rights, validation, and revalidation rules proposed.
 - [x] Visual reviewer qualifications and counts proposed.
 - [x] Learner-created graphing separated from displayed stimuli.
+- [x] Paper-first, camera-capture graphing direction recorded as `TASK-0011`.
+- [x] Interim logical stimulus-package contract defined without physical DDL.
 - [x] V1 prototype scope and renderer-selection process proposed.
 - [ ] Product Owner decides the five open direction questions.
 - [ ] Learning Quality Owner reviews construct equivalence and V1 scope.
