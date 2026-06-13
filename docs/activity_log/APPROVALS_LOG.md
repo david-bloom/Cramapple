@@ -306,3 +306,29 @@ physical Supabase design.
 - Statistical signals cannot automatically change item state.
 - Physical database design requires a later hard-gated task after logical
   governance and application architecture approval.
+
+## APPROVAL-0015 — Reject Prohibited Derivative and Test Authoring Models
+
+**Date:** 2026-06-13
+**Approved By:** David Bloom
+**Related Task:** TASK-0007
+**Decision:** Approved with Notes
+
+### Summary
+
+Remove the proposed official-derived candidate, preserve consequential content
+lessons only as abstract anti-example failure cards, and test alternative
+AI-led authoring models without replacing the paid-tutor-first production
+baseline.
+
+### Notes
+
+- The rejected item must not enter GitHub, prompts, exemplars, model inputs,
+  evaluation sets, or production content.
+- The stale ZIP patches are not applied.
+- Experiment design and validation-only testing are approved in principle.
+- Learning Quality, counsel, participant, blinding, data-capture, and budget
+  gates remain before execution.
+- Experimental items do not count toward production coverage.
+- A separate Product Owner decision is required before any alternative
+  authoring model becomes production policy.

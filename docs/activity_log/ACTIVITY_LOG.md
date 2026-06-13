@@ -4,6 +4,36 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ---
 
+## Authoring Architecture Rewritten and Experiment Defined — 2026-06-13
+
+**Task:** TASK-0007 / CONTENT-001
+**Status:** In Progress
+**Summary:** Rejected the prohibited official-derived candidate, converted useful
+quality lessons into abstract failure cards, preserved paid-tutor authorship as
+the production baseline, and defined a blinded validation-only experiment for
+alternative AI-led authoring models. Replaced stale physical-schema proposals
+with an immutable prompt-build-manifest architecture and complete MCQ/FRQ
+package contracts.
+
+**Next Owner:** Orly Bloom / Learning Quality Owner and counsel
+**Next Required Action:** Review the architecture, experimental arms, source
+isolation, contracts, metrics, and decision thresholds before execution.
+
+## Visual Stimulus Architecture Review Prepared — 2026-06-12
+
+**Task:** TASK-0006 / CONTENT-001
+**Status:** Ready for Owner Review
+**Summary:** Assessed the proposed structured-chart, prose-fallback, and
+image-generation model. Recommended deterministic quantitative visuals,
+governed authored or constrained diagrams, validated accessible equivalents,
+and deferral of free-form generated scientific images. Added fail-closed,
+answer-leakage, source, rights, revalidation, and learner-created graphing
+requirements.
+
+**Next Owner:** David Bloom
+**Next Required Action:** Decide the five architecture questions in
+`TASK-0006`, followed by Learning Quality, accessibility, and counsel review.
+
 ## Corrected AP Biology Coverage Direction Adopted — 2026-06-12
 
 **Task:** TASK-0005 / CONTENT-001A

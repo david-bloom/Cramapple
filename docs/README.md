@@ -44,8 +44,16 @@ The universal rule is defined in
 - `product/`: Vision, product doctrine, and later product requirements.
 - `product/CONTENT_QUANTITY_AND_DISTRIBUTION.md`: Approved-direction AP Biology
   topic matrix, inventory definition, and quantity targets.
+- `product/CONTENT_AUTHORING_MODEL_EXPERIMENT.md`: Controlled comparison of the
+  tutor-first baseline and alternative AI-led authoring models.
 - `architecture/`: Canonical system architecture, technical boundaries, and later detailed technical designs.
 - `architecture/CONTENT_GOVERNANCE_AND_VALIDATION.md`: Proposed operating procedure for sources, rights, validation, release, monitoring, revalidation, retirement, rollback, and audit.
+- `architecture/CONTENT_AUTHORING_AND_PROMPT_ARCHITECTURE.md`: Authoring
+  firewall, failure-card policy, prompt composition, MCQ/FRQ contracts, and
+  multi-subject logical boundaries.
+- `architecture/VISUAL_STIMULUS_AND_RENDERING_SYSTEM.md`: Proposed architecture
+  for structured visuals, governed diagrams, accessibility equivalence,
+  learner-created graphs, and renderer validation.
 - `teaching/`: Canonical pedagogy, diagnostics, instructional policy, and learning-system designs.
 - `team_charter/`: Roles, approval boundaries, task workflow, and agent rules.
 - `activity_log/`: Durable approvals, decisions, and meaningful project activity.

@@ -1152,6 +1152,28 @@ The holdout design and passing thresholds are TBD. Until they are approved, AI
 variants may be created and reviewed in validation but cannot count toward
 production coverage or enter a production exam-pack manifest.
 
+### 10.3.1 Alternative Authoring Model Experiment
+
+The paid-tutor model remains the production baseline. AI-led creation of base
+packages may be tested only in an isolated validation experiment using blank
+governed briefs, approved factual sources, arm blinding, and the same
+independent gates applied to tutor-authored packages.
+
+Experimental base packages:
+
+- receive complete immutable generation and review provenance;
+- cannot use official questions, adaptation descriptions, contaminated
+  artifacts, or evaluation holdouts;
+- cannot count toward production coverage;
+- cannot enter a production exam-pack manifest;
+- remain subject to paid human accountability and independent review according
+  to their experimental arm; and
+- require a separate Product Owner decision before any authoring arm becomes
+  production policy.
+
+The approved experimental design is defined in
+`../product/CONTENT_AUTHORING_MODEL_EXPERIMENT.md`.
+
 ### 10.4 Required Authoring Package
 
 An author submits:
@@ -1169,6 +1191,21 @@ An author submits:
 - accessibility considerations;
 - validation cases;
 - proposed risk and change class.
+
+### 10.4.1 Rejected Content and Anti-Examples
+
+Rejected questions are not automatically useful training material. A rejected
+artifact with official-question derivation, uncertain rights, contamination, or
+distinctive source resemblance must be deleted or quarantined outside the
+authoring and evaluation systems according to counsel-approved retention rules.
+
+When a failure teaches a general lesson, Cramapple records an abstract failure
+card containing the failure type, consequence, detection question, remediation,
+and a newly authored synthetic regression case. It does not retain the rejected
+wording, scenario, organisms, values, answer choices, or source locator.
+
+The failure-card policy and initial catalog are defined in
+`CONTENT_AUTHORING_AND_PROMPT_ARCHITECTURE.md`.
 
 ### 10.5 Question Package Minimum
 
@@ -1206,7 +1243,39 @@ For an FRQ package, the rubric and teaching package also include:
 - full-, partial-, and no-credit samples;
 - criterion-specific minimum fixes, transfer item, and delayed variant.
 
-### 10.6 Question Use Classification and Lifecycle
+Author-generated samples are development cases. They do not establish a human
+gold set, calibrate a grader, or satisfy the held-out requirements in Section
+12. Gold evidence requires blind independent human scoring and adjudication.
+
+### 10.6 Visual Stimulus Packages
+
+Tables, charts, graphs, diagrams, models, experimental setups, and
+learner-created graphs are governed content, not decorative attachments.
+
+Every visual package must:
+
+- identify its intended visual purpose and assessed representation;
+- retain immutable data, specification, asset, accessible-representation, and
+  renderer-profile dependencies;
+- disclose source, rights, transformations, units, uncertainty, and synthetic
+  status;
+- pass scientific, teaching, grading, accessibility, answer-leakage, and
+  rendered-output review;
+- preserve the assessed construct across supported delivery modes; and
+- fail closed rather than silently substitute prose when the visual operation
+  is material to the question.
+
+Free-form model-generated scientific images and untrusted SVG are not approved
+production inputs. Deterministic rendering of validated structured
+specifications and governed authored or constrained diagrams are the proposed
+production paths.
+
+The complete proposed logical design, validation checklist, revalidation rules,
+and open owner decisions are defined in
+`VISUAL_STIMULUS_AND_RENDERING_SYSTEM.md` and `TASK-0006`. Those decisions must
+be approved before physical schema or renderer implementation.
+
+### 10.7 Question Use Classification and Lifecycle
 
 AP Reader Validators classify independently reviewed questions for intended
 use. The classifications are:

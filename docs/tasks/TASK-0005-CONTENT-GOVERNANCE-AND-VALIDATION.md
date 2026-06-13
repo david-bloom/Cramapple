@@ -80,6 +80,14 @@ separate security, privacy, retention, and authorization design.
 - [x] Statistical item signals open human review and do not automatically change lifecycle state.
 - [x] Physical Supabase design is deferred until logical governance and application architecture approval.
 - [ ] AI-version holdout, production item sample thresholds, and permitted asset sources are defined.
+- [x] Visual-stimulus architecture, source controls, accessibility-equivalence,
+  and rendering rules are proposed in `TASK-0006`.
+- [ ] Product Owner and required experts approve or revise the visual-stimulus
+  rules before they become operating policy.
+- [x] Alternative authoring models are limited to the validation-only experiment
+  in `TASK-0007`; tutor-first remains the production baseline.
+- [x] Rejected content is abstracted into failure cards rather than retained as
+  prompt or exemplar material.
 - [ ] Learning Quality Owner reviews the paid-author workflow and proposed educational quality gates.
 - [ ] Counsel reviews the proposed rights and retention boundaries.
 - [ ] Product Owner approves, requests changes, or rejects the policy.

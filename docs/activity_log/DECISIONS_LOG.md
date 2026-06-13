@@ -597,3 +597,185 @@ approval, audit, and atomic-release requirements.
 - Beta-launch coverage threshold and prioritization if 964 items are incomplete.
 - Minimum sample sizes and statistical methods for item-performance review.
 - AI-variant holdout policy and permitted source/asset rules.
+
+## DECISION-0015 — Adopt a Governed Four-Lane Visual Architecture
+
+**Date:** 2026-06-12
+**Decision Owner:** David Bloom
+**Status:** Proposed
+**Related Task:** TASK-0006
+**Area:** Architecture / Product / Accessibility / Content Operations
+
+### Context
+
+The initial visual proposal recommended structured product-rendered data
+visuals, prose fallback for diagrams, and deferral of image generation. Review
+found that this direction reduces rendering risk but does not fully preserve
+visual-assessment validity, accessibility equivalence, diagram coverage,
+versioning, rights, or learner-created graphing.
+
+### Proposed Decision
+
+- Use deterministic structured rendering for semantic tables and common
+  quantitative charts.
+- Use governed human-authored assets or constrained domain renderers for
+  diagrams, trees, models, and experimental setups.
+- Require an accessible companion or separately validated equivalent for every
+  visual.
+- Do not silently replace a visual-dependent task with prose.
+- Defer free-form generative scientific images from production.
+- Treat learner-created graphing as a separate assessment capability.
+- Define vendor-neutral logical artifacts before physical database design or
+  renderer selection.
+
+### Rationale
+
+Visual interpretation and graph construction are assessed operations, not
+presentation details. The architecture must give learners access without
+revealing the answer or changing the skill being measured. Immutable visual,
+dataset, accessibility, and renderer dependencies also preserve audit and
+revalidation integrity.
+
+### Consequences
+
+- The 964-item content plan requires a representation audit.
+- Common charts and phylogenetic trees become the first proposed prototypes.
+- Semantic HTML is preferred for tables.
+- Renderer upgrades require corpus-wide regression testing.
+- Missing or unsupported visual equivalents fail closed.
+
+### Risks / Follow-ups
+
+- Product Owner direction is required on the five decisions in `TASK-0006`.
+- Learning Quality, accessibility, and counsel reviews remain required.
+- Graph construction may need a larger minimum viewport than chart viewing.
+- Renderer and physical-schema decisions remain deferred.
+
+## DECISION-0016 — Reject the Official-Derived Candidate and Use Abstract Failure Cards
+
+**Date:** 2026-06-13
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Related Task:** TASK-0007
+**Area:** Content Operations / Rights / Quality
+
+### Context
+
+A proposed MCQ identified an official question as its source and changed the
+organism, setting, and values. The same review found consequential quality
+failures in other candidate questions.
+
+### Decision
+
+- Reject the official-derived item completely.
+- Do not store it in the Cramapple repository, prompt library, exemplar pool,
+  model inputs, evaluation sets, or production content.
+- Preserve useful lessons from flawed candidates only as abstract failure cards
+  and independently authored synthetic regression cases.
+- Do not retain the original wording, distinctive scenario, organisms, values,
+  answer choices, or source locator in an anti-example corpus.
+
+### Rationale
+
+Numerical and organism substitutions remain adaptation and violate the approved
+human abstraction firewall. Abstract failure cards preserve quality lessons
+without creating rights, contamination, or prompt-anchoring risk.
+
+### Consequences
+
+- The reviewed ZIP patches are not applied.
+- Initial failure cards cover missing data, duplicate distractor logic,
+  underdetermined predictions, omitted causal links, unsourced specificity,
+  pseudoreplication, undefined thresholds, and exam-format mismatch.
+- Future contaminated artifacts require documented scope review and exclusion.
+
+### Risks / Follow-ups
+
+- Counsel must define retention and deletion rules for contaminated working
+  material outside the canonical repository.
+
+## DECISION-0017 — Test Alternative Authoring Models Without Changing Production Policy
+
+**Date:** 2026-06-13
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Related Task:** TASK-0007
+**Area:** Product / Content Operations / Experimentation
+
+### Context
+
+The reviewed proposal implicitly replaced paid tutor authorship with
+AI-generated base questions seeded by exemplars. The potential quality, speed,
+cost, and scaling differences are worth measuring, but an implicit replacement
+would bypass approved governance.
+
+### Decision
+
+- Keep paid qualified tutors as the production base-package authors.
+- Run a controlled validation-only experiment comparing tutor-first, AI-first
+  with paid tutor revision, and AI-first with independent validation.
+- Give all arms the same blank governed briefs, approved factual sources,
+  package contracts, and independent gates.
+- Prohibit official questions, adaptation descriptions, contaminated content,
+  and evaluation holdouts from every arm.
+- Do not count experimental items toward production coverage or publish them
+  without a later Product Owner decision.
+
+### Rationale
+
+A blinded comparison can test the business model without allowing cost or speed
+to override originality, scientific accuracy, educational quality, grading
+reliability, accessibility, or accountability.
+
+### Consequences
+
+- `CONTENT_AUTHORING_MODEL_EXPERIMENT.md` controls the pilot design.
+- Experiment execution still requires Learning Quality, counsel, participant,
+  data-capture, and budget gates.
+- Pilot success authorizes analysis, not production use.
+
+### Risks / Follow-ups
+
+- Validator labor can hide the true cost of weak AI drafts.
+- Small pilot samples cannot establish broad equivalence.
+- Long FRQs require a later replicated phase.
+
+## DECISION-0018 — Use Versioned Prompt Build Manifests
+
+**Date:** 2026-06-13
+**Decision Owner:** David Bloom
+**Status:** Proposed
+**Related Task:** TASK-0007
+**Area:** Architecture / Content Operations
+
+### Context
+
+The reviewed multi-subject proposal correctly separated shared, subject, and
+question-type concerns but proposed loosely concatenating Markdown files and
+premature physical database changes.
+
+### Proposed Decision
+
+Use immutable prompt build manifests that resolve universal governance, exam
+pack, taxonomy schemes, task archetype, coverage brief, permitted sources or
+base packages, output contract, failure-card suite, and model configuration.
+Keep Markdown as the human-reviewable source while a deterministic compiler
+records the ordered components and final prompt hash.
+
+### Rationale
+
+This preserves reviewability while making prompt assembly reproducible,
+testable, provider-independent, and compatible with multiple parallel
+taxonomies and future subjects.
+
+### Consequences
+
+- Multi-subject support remains logical rather than physical.
+- External pipeline services, not model self-critique, own authoritative
+  verification.
+- Physical Supabase design remains deferred.
+
+### Risks / Follow-ups
+
+- The compiler and manifest schema require a later approved implementation
+  task.

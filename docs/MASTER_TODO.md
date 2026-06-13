@@ -3,7 +3,7 @@
 **Status:** Active backlog index
 **Owner:** Main Conductor
 **Product Owner:** David Bloom
-**Last Updated:** 2026-06-12
+**Last Updated:** 2026-06-13
 
 ## 1. Purpose
 
@@ -58,6 +58,9 @@ records.
 | NOW-005 | P0 | Review the proposed content-governance educational gates | Orly Bloom / Learning Quality Owner | In Progress | Review paid-author qualifications and workflow, validator qualifications, reviewer counts, and teaching/grading thresholds |
 | NOW-006 | P0 | Review content-governance rights and retention boundaries | Counsel | Expert Review Required | Approve or revise rights, official-material, retention, and public-use controls |
 | NOW-007 | P1 | Decide the content-governance policy | David Bloom | Ready for Owner Review | Approve, request changes, or reject `TASK-0005` after expert and counsel review |
+| NOW-008 | P1 | Decide the visual-stimulus architecture direction | David Bloom | Ready for Owner Review | Decide the four-lane model, fail-closed rule, V1 visual types, synthetic-data rule, and graphing device floor in `TASK-0006` |
+| NOW-009 | P1 | Review the authoring architecture and experiment protocol | Orly Bloom / Learning Quality Owner | Expert Review Required | Review failure cards, prompt composition, complete-package contracts, experiment arms, metrics, and decision thresholds in `TASK-0007` |
+| NOW-010 | P0 | Review authoring experiment rights and contracts | Counsel | Expert Review Required | Confirm source isolation, contamination handling, releases, model-input rights, and retention rules before experiment execution |
 
 ## 4. Active Task Register
 
@@ -67,6 +70,8 @@ records.
 | `TASK-0003` | High-Level System Architecture | High | Done | None |
 | `TASK-0004` | Component Architecture and Teaching Design | High | In Progress | AP Biology tutor review |
 | `TASK-0005` | Content Governance and Validation Operating Procedure | High | In Progress | Learning Quality Owner, counsel, and Product Owner decisions |
+| `TASK-0006` | Visual Stimulus and Rendering System | High | Ready for Owner Review | Product Owner direction, expert reviews, and representation audit |
+| `TASK-0007` | Content Authoring Architecture and Model Experiment | High | In Progress | Learning Quality, counsel, execution-budget, and pilot gates |
 
 ## 5. P0 Legal, Privacy, and Trust Backlog
 
@@ -206,6 +211,25 @@ records.
 - [ ] Define subject waitlist, launch-announcement, and reporting workflows.
 - [ ] Define public educational-content publishing and identity-sweep workflow.
 
+### DESIGN-007 - Visual Stimulus and Rendering System
+
+**Status:** Ready for Owner Review
+**Owner:** Technical owner with Learning Quality Owner
+**Depends on:** `TASK-0005`, `TASK-0006`, CONTENT-001A
+
+- [x] Assess structured rendering, prose fallback, and image-generation options.
+- [x] Define the proposed four-lane visual architecture.
+- [x] Define logical visual, dataset, accessibility, and renderer-profile
+  contracts without physical DDL.
+- [x] Define construct-preservation, answer-leakage, and fail-closed rules.
+- [ ] Obtain Product Owner direction on the five open decisions.
+- [ ] Audit the 964-item plan by visual kind and purpose.
+- [ ] Prototype semantic tables, common quantitative charts, and a constrained
+  phylogenetic tree.
+- [ ] Validate screen-reader, keyboard, zoom, contrast, and mobile behavior.
+- [ ] Define and validate learner-created graphing and scoring.
+- [ ] Select a renderer only after the bounded prototype and architecture gate.
+
 ## 7. P1 Product and Teaching Design Backlog
 
 ### LEARN-001 - Optional Calibration Diagnostic
@@ -306,6 +330,14 @@ records.
 - [ ] Create originality, similarity, source-disclosure, and rights preflight.
 - [x] Permit controlled AI versioning only from Cramapple-owned or fully
   licensed proprietary packages with derivative and model-input rights.
+- [x] Preserve paid-tutor authorship as the production baseline while testing
+  AI-led base authoring in an isolated, validation-only experiment.
+- [x] Reject the proposed official-derived candidate and prohibit it from
+  prompts, exemplars, evaluation sets, and production content.
+- [x] Retain consequential content lessons as abstract failure cards rather
+  than complete rejected questions.
+- [ ] Execute `TASK-0007` only after Learning Quality, counsel, participant,
+  blinding, and budget gates pass.
 - [ ] Define and approve the independent holdout set and passing thresholds for
   AI-created variants; variants cannot count toward production coverage before
   this gate passes.
@@ -313,6 +345,8 @@ records.
   rights, source, similarity, and holdout policies are approved.
 - [ ] Define permitted sources for original graphs, datasets, experimental
   contexts, passages, and images.
+- [ ] Complete `TASK-0006` visual-source, rendering, accessibility-equivalence,
+  and learner-created-graphing decisions.
 - [ ] Define the minimum student sample and evidence thresholds for item
   revision, reclassification, suspension, and retirement.
 - [x] Require statistical performance signals to open human review rather than
