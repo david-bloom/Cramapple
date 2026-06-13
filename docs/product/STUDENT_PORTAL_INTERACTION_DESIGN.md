@@ -62,14 +62,14 @@ Home action rather than a permanent navigation destination.
 ### 4.1 First Session
 
 ```text
-Create or restore account
-  -> Resolve minimum required consent and age state
-  -> Select AP Biology and exam date
+Account created
+  -> Confirm account readiness and explain the one-minute setup
+  -> Confirm AP Biology, exam date, and broad starting point
+  -> Ask the learner's immediate goal
   -> Ask available time
-  -> Ask immediate intent
-  -> Offer optional calibration or direct start
-  -> Create session
-  -> Deliver first cold attempt or mode-appropriate orientation
+  -> Offer optional three-question calibration or direct start
+  -> Show the proposed first-session plan and why it was selected
+  -> Start the first cold attempt or requested activity
 ```
 
 #### Proposed onboarding explanation
@@ -81,6 +81,33 @@ Create or restore account
 The explanation should appear once in a compact format, with an optional
 "How it works" expansion. It should not lead with methodology names or a long
 tour.
+
+#### Post-account setup sequence
+
+The setup uses five short screens. Each screen asks for one category of
+information and explains why it matters.
+
+1. **Account ready.** Confirm that setup takes about one minute and that a full
+   diagnostic is optional.
+2. **Exam context.** Confirm AP Biology, collect the exam date when known, and
+   ask for a broad self-described starting point. The starting point is
+   orientation, not proficiency evidence.
+3. **Immediate goal.** Let the learner choose recommendation, topic practice,
+   check-my-work, or bring-a-question entry.
+4. **Available time.** Present Quick, Focused, and Buckle Down as adjustable
+   time commitments rather than fixed curricula.
+5. **Starting method.** Offer a recommended three-question calibration or
+   direct entry into the requested activity.
+
+The final setup screen shows the proposed plan before beginning. It states:
+
+- session duration;
+- whether calibration is included;
+- the requested or recommended activity;
+- how the session is expected to close; and
+- why those elements were selected.
+
+The learner may change the plan, finish setup later, or proceed.
 
 #### Required first-session inputs
 
@@ -94,6 +121,25 @@ tour.
 - Optional confidence or uncertainty.
 
 A full diagnostic is optional. The student may skip calibration and begin.
+
+#### Setup rules
+
+- Do not ask for a target AP score until the product decision on target-score
+  use is resolved.
+- Do not convert self-reported starting point into mastery or readiness.
+- Do not require a full profile before the first useful attempt.
+- Save completed setup steps so an interrupted learner resumes at the next
+  incomplete step.
+- Explain why each question affects the first plan.
+- Keep calibration optional and distinguish it from a full diagnostic.
+- If the exam date is unknown, continue with qualified scheduling and ask
+  again later.
+- When calibration is selected, begin with a cold calibration item before the
+  requested activity.
+- When calibration is skipped, route directly to topic selection,
+  question-and-answer intake, or user-question intake as appropriate.
+- Final consent, age-gating, and required notices remain governed by their
+  separate legal and product decisions.
 
 ### 4.2 Returning Session
 

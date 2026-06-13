@@ -4,6 +4,22 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ---
 
+## Post-Account Student Experience Expanded - 2026-06-13
+
+**Task:** UX-001
+**Status:** In Progress
+**Summary:** Expanded the first-run prototype from a single setup screen into a
+five-step, recoverable post-account journey: account-ready explanation, AP
+Biology exam context, immediate learner goal, available time, optional
+calibration, and a transparent first-session plan. The plan changes with the
+learner's choices and preserves direct-start and finish-later paths.
+
+**Next Owner:** Learning, Marketing, accessibility, representative learners,
+and David Bloom for review
+**Next Required Action:** Test whether learners understand why each setup
+question is asked, how it changes their plan, and whether calibration feels
+optional rather than required.
+
 ## Initial Student Portal UX Work Started - 2026-06-13
 
 **Task:** UX-001

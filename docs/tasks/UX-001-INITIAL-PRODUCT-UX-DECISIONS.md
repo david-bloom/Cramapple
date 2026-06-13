@@ -64,6 +64,8 @@ legal gates.
 - [x] UX task scope, approval boundary, and dependencies are recorded.
 - [x] Proposed student-portal information architecture is documented.
 - [x] Core first-session and returning-session flows are documented.
+- [x] Post-account creation setup is expanded into exam context, immediate
+  goal, time available, optional calibration, and first-plan confirmation.
 - [x] Student-visible learning-loop states and primary actions are documented.
 - [x] Initial test variants for onboarding, session modes, and bracket-marker
   feedback are documented.
@@ -130,6 +132,23 @@ Initial browser verification completed on 2026-06-13:
   overflow.
 - Representative learner testing and specialist accessibility review remain
   pending.
+
+Post-account creation design revision prepared on 2026-06-13:
+
+- Replaced the single setup screen with a recoverable five-step first-run
+  journey.
+- Added explicit reasons for collecting exam timing, goal, and time available.
+- Preserved optional calibration and direct-start paths.
+- Added a transparent first-session plan that changes with learner selections.
+- Routed direct-start choices to topic, check-my-work, or bring-a-question
+  intake instead of a generic practice item.
+- Verified required exam-date recovery and the unknown-date path.
+- Verified recommended calibration begins with a cold calibration item.
+- Verified direct topic selection reaches topic intake and then practice.
+- Verified check-my-work intake requires both the prompt and learner answer.
+- Verified the first-session plan updates duration, activity, calibration,
+  numbering, and rationale from learner selections.
+- Verified the revised setup at 390 by 844 pixels with no horizontal overflow.
 
 ## Done Decision
 

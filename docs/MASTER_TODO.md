@@ -490,6 +490,7 @@ planning target. Physical Supabase DDL remains deferred.
 **Design record:** `docs/product/STUDENT_PORTAL_INTERACTION_DESIGN.md`
 
 - [x] Draft the first-session onboarding explanation.
+- [x] Design the post-account creation setup and first-session plan.
 - [x] Define session-mode presentation variants for testing.
 - [x] Define bracket-marker feedback variants for testing.
 - [x] Draft peer-tone academic-integrity coaching copy.
