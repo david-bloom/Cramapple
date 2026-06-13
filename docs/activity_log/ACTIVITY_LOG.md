@@ -4,6 +4,24 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ---
 
+## Initial Student Portal UX Work Started - 2026-06-13
+
+**Task:** UX-001
+**Status:** In Progress
+**Summary:** David authorized the initial product UX work. Created the formal
+task record and proposed student-portal interaction design covering onboarding,
+session modes, the stable learning-session frame, criterion feedback, repair
+and retry, learner override, Move On and return behavior, coaching copy,
+uncertainty, disputed grades, progress, accessibility, prototype scope, and
+research questions. Production implementation and final UX decisions remain
+hard-gated.
+
+**Next Owner:** Main Conductor for low-fidelity prototype preparation; Orly
+Bloom, Micah Bloom, accessibility reviewer, and David Bloom for review
+**Next Required Action:** Conduct Learning, Marketing, accessibility, and
+representative learner review of `prototypes/ux-001/index.html`, then bring the
+nine proposed UX decisions to David.
+
 ## Content Follow-On Tasks Defined — 2026-06-13
 
 **Tasks:** TASK-0008 through TASK-0011

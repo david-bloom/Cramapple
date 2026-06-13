@@ -357,3 +357,25 @@ simultaneously, and research paper-first QR-linked handwritten graph capture.
 - Existing FRQ candidates may be edited or dropped only through tutor and AP
   Reader review.
 - Camera capture is approved for research, not production.
+
+## APPROVAL-0017 - Start Initial Product UX Design
+
+**Date:** 2026-06-13
+**Approved By:** David Bloom
+**Related Task:** UX-001
+**Decision:** Approved with Notes
+
+### Summary
+
+Begin UX-001 design and prototype work for the student portal using the current
+vision, architecture, learning-system, and backlog records.
+
+### Notes
+
+- Approval covers interaction specifications, copy variants, low-fidelity
+  wireframes, clickable prototypes, research plans, and decision packets.
+- Final student-facing UX decisions remain subject to Product Owner review.
+- Learning, Marketing, and accessibility review remain required.
+- This approval does not authorize production frontend implementation,
+  deployment, physical database design, final grading behavior, or use of
+  unapproved content.

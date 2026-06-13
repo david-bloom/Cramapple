@@ -1,0 +1,1331 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cramapple UX-001 Prototype</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #17231f;
+      --muted: #5f6f68;
+      --paper: #fffdf7;
+      --canvas: #f3f0e7;
+      --line: #d7d7cc;
+      --brand: #315f4b;
+      --brand-dark: #224737;
+      --brand-soft: #e6f0ea;
+      --accent: #d8a937;
+      --good: #276749;
+      --good-soft: #e7f4ec;
+      --warn: #8a5a12;
+      --warn-soft: #fff4d6;
+      --bad: #9b3a34;
+      --bad-soft: #fae9e7;
+      --shadow: 0 16px 45px rgba(42, 53, 47, 0.12);
+      --radius: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at top left, rgba(216, 169, 55, 0.13), transparent 30rem),
+        var(--canvas);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+      line-height: 1.5;
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    button,
+    input,
+    textarea,
+    [tabindex] {
+      outline-offset: 3px;
+    }
+
+    :focus-visible {
+      outline: 3px solid #1e6bb8;
+    }
+
+    .app-shell {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 250px minmax(0, 1fr);
+    }
+
+    .prototype-rail {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      padding: 22px 18px;
+      color: #f8fbf9;
+      background: #1d332b;
+    }
+
+    .prototype-rail h1 {
+      margin: 0;
+      font-size: 1rem;
+      letter-spacing: 0.02em;
+    }
+
+    .prototype-rail p {
+      color: #c7d5ce;
+      font-size: 0.83rem;
+    }
+
+    .prototype-badge {
+      display: inline-flex;
+      margin-bottom: 12px;
+      padding: 4px 9px;
+      border: 1px solid #779186;
+      border-radius: 999px;
+      color: #f8fbf9;
+      font-size: 0.72rem;
+      font-weight: 750;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .jump-list {
+      display: grid;
+      gap: 7px;
+      margin-top: 20px;
+    }
+
+    .jump-list button {
+      width: 100%;
+      padding: 9px 11px;
+      border: 0;
+      border-radius: 9px;
+      color: #e7efeb;
+      background: transparent;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .jump-list button:hover,
+    .jump-list button[aria-current="true"] {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .main {
+      min-width: 0;
+    }
+
+    .topbar {
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 253, 247, 0.92);
+      backdrop-filter: blur(12px);
+    }
+
+    .wordmark {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 850;
+      letter-spacing: -0.025em;
+    }
+
+    .apple-mark {
+      width: 28px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      border-radius: 9px 12px 11px 12px;
+      color: white;
+      background: var(--brand);
+      transform: rotate(-4deg);
+    }
+
+    .top-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .content {
+      width: min(980px, calc(100% - 40px));
+      margin: 38px auto 80px;
+    }
+
+    .screen {
+      display: none;
+    }
+
+    .screen.active {
+      display: block;
+      animation: enter 180ms ease-out;
+    }
+
+    @keyframes enter {
+      from {
+        opacity: 0;
+        transform: translateY(5px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      color: var(--brand);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      max-width: 760px;
+      margin: 0;
+      font-size: clamp(2rem, 5vw, 3.55rem);
+      line-height: 1.03;
+      letter-spacing: -0.045em;
+    }
+
+    h3 {
+      margin: 0;
+      font-size: 1.25rem;
+      letter-spacing: -0.02em;
+    }
+
+    .lede {
+      max-width: 680px;
+      margin: 18px 0 28px;
+      color: var(--muted);
+      font-size: 1.08rem;
+    }
+
+    .card {
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    .card + .card {
+      margin-top: 18px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .choice {
+      min-height: 150px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 18px;
+      border: 2px solid var(--line);
+      border-radius: 15px;
+      color: var(--ink);
+      background: var(--paper);
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .choice:hover,
+    .choice.selected {
+      border-color: var(--brand);
+      background: var(--brand-soft);
+    }
+
+    .choice strong {
+      display: block;
+      font-size: 1.12rem;
+    }
+
+    .choice span {
+      color: var(--muted);
+    }
+
+    .choice .time {
+      margin-top: 16px;
+      color: var(--brand);
+      font-weight: 800;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .button {
+      min-height: 44px;
+      padding: 11px 17px;
+      border: 1px solid transparent;
+      border-radius: 11px;
+      font-weight: 760;
+      cursor: pointer;
+    }
+
+    .button.primary {
+      color: white;
+      background: var(--brand);
+    }
+
+    .button.primary:hover {
+      background: var(--brand-dark);
+    }
+
+    .button.secondary {
+      border-color: var(--line);
+      color: var(--ink);
+      background: var(--paper);
+    }
+
+    .button.ghost {
+      color: var(--brand);
+      background: transparent;
+    }
+
+    .button.danger-quiet {
+      color: var(--bad);
+      background: transparent;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    label {
+      display: grid;
+      gap: 7px;
+      font-weight: 720;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 12px 13px;
+      border: 1px solid #b9c0bb;
+      border-radius: 10px;
+      color: var(--ink);
+      background: white;
+    }
+
+    textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    .home-grid {
+      display: grid;
+      grid-template-columns: 1.55fr 0.85fr;
+      gap: 18px;
+      margin-top: 26px;
+    }
+
+    .recommendation {
+      position: relative;
+      overflow: hidden;
+      color: white;
+      background: var(--brand);
+    }
+
+    .recommendation::after {
+      content: "";
+      position: absolute;
+      right: -65px;
+      bottom: -80px;
+      width: 220px;
+      height: 220px;
+      border: 35px solid rgba(255, 255, 255, 0.08);
+      border-radius: 50%;
+    }
+
+    .recommendation .eyebrow,
+    .recommendation .muted {
+      color: #d6e7df;
+    }
+
+    .recommendation h3 {
+      max-width: 520px;
+      margin-top: 6px;
+      font-size: 1.8rem;
+    }
+
+    .recommendation .actions {
+      position: relative;
+      z-index: 1;
+    }
+
+    .recommendation .button.primary {
+      color: var(--brand-dark);
+      background: white;
+    }
+
+    .recommendation .button.ghost {
+      color: white;
+    }
+
+    .stat {
+      padding: 14px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .stat:last-child {
+      border-bottom: 0;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.1rem;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .session-bar {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 18px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .progress-track {
+      height: 8px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: #dddcd4;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 36%;
+      border-radius: inherit;
+      background: var(--accent);
+    }
+
+    .orientation {
+      margin-bottom: 16px;
+      padding: 13px 15px;
+      border-left: 4px solid var(--accent);
+      border-radius: 8px;
+      background: #fff9e8;
+    }
+
+    .question-type {
+      display: inline-flex;
+      margin-bottom: 12px;
+      padding: 5px 9px;
+      border-radius: 999px;
+      color: var(--brand);
+      background: var(--brand-soft);
+      font-size: 0.76rem;
+      font-weight: 800;
+    }
+
+    .question {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.16rem;
+    }
+
+    .options {
+      display: grid;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .option {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: white;
+      cursor: pointer;
+    }
+
+    .option:hover {
+      border-color: var(--brand);
+    }
+
+    .option input {
+      width: auto;
+      margin-top: 4px;
+    }
+
+    .feedback {
+      margin-top: 18px;
+      padding: 20px;
+      border: 1px solid #acd0ba;
+      border-radius: 15px;
+      background: var(--good-soft);
+    }
+
+    .feedback.warn {
+      border-color: #e0c477;
+      background: var(--warn-soft);
+    }
+
+    .feedback[hidden] {
+      display: none;
+    }
+
+    .criterion-list {
+      display: grid;
+      gap: 10px;
+      margin: 18px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .criterion {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 10px;
+      align-items: start;
+      padding: 13px;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      background: white;
+    }
+
+    .criterion-icon {
+      width: 25px;
+      height: 25px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: white;
+      background: var(--good);
+      font-weight: 900;
+    }
+
+    .criterion.missed .criterion-icon {
+      background: var(--bad);
+    }
+
+    .gap-sentence {
+      margin: 18px 0;
+      padding: 18px;
+      border-radius: 12px;
+      background: #f4f2ec;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.18rem;
+    }
+
+    .gap {
+      display: inline-block;
+      padding: 0 5px;
+      border-bottom: 3px solid var(--accent);
+      color: var(--warn);
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-weight: 850;
+    }
+
+    .notice {
+      padding: 18px;
+      border: 1px solid #e0c477;
+      border-radius: 14px;
+      background: var(--warn-soft);
+    }
+
+    .success-panel {
+      max-width: 700px;
+      margin: 40px auto 0;
+      padding: 34px;
+      border-radius: 24px;
+      background: var(--good-soft);
+      text-align: center;
+    }
+
+    .success-check {
+      width: 58px;
+      height: 58px;
+      display: grid;
+      place-items: center;
+      margin: 0 auto 18px;
+      border-radius: 50%;
+      color: white;
+      background: var(--good);
+      font-size: 1.7rem;
+      font-weight: 900;
+    }
+
+    .progress-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 22px;
+    }
+
+    .mini-bars {
+      display: grid;
+      gap: 11px;
+      margin-top: 18px;
+    }
+
+    .mini-bar {
+      display: grid;
+      grid-template-columns: 145px 1fr auto;
+      gap: 10px;
+      align-items: center;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .mini-bar-track {
+      height: 8px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: #e0e0d8;
+    }
+
+    .mini-bar-fill {
+      height: 100%;
+      border-radius: inherit;
+      background: var(--brand);
+    }
+
+    .dialog-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      background: rgba(20, 31, 27, 0.55);
+    }
+
+    .dialog-backdrop[hidden] {
+      display: none;
+    }
+
+    .dialog {
+      width: min(560px, 100%);
+      padding: 25px;
+      border-radius: 18px;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    .status {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 30;
+      max-width: 360px;
+      padding: 12px 15px;
+      border-radius: 10px;
+      color: white;
+      background: #1d332b;
+      box-shadow: var(--shadow);
+    }
+
+    .status[hidden] {
+      display: none;
+    }
+
+    @media (max-width: 850px) {
+      .app-shell {
+        display: block;
+      }
+
+      .prototype-rail {
+        position: static;
+        height: auto;
+        padding: 14px 18px;
+      }
+
+      .prototype-rail p {
+        display: none;
+      }
+
+      .jump-list {
+        display: flex;
+        overflow-x: auto;
+        margin-top: 10px;
+      }
+
+      .jump-list button {
+        width: auto;
+        flex: 0 0 auto;
+      }
+
+      .topbar {
+        padding: 0 20px;
+      }
+
+      .grid,
+      .home-grid,
+      .progress-grid,
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .content {
+        width: min(100% - 28px, 700px);
+        margin-top: 28px;
+      }
+
+      h2 {
+        font-size: 2.25rem;
+      }
+
+      .mini-bar {
+        grid-template-columns: 1fr;
+        gap: 5px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="prototype-rail" aria-label="Prototype controls">
+      <div class="prototype-badge">UX-001 prototype</div>
+      <h1>Student portal states</h1>
+      <p>
+        Review artifact only. Use these shortcuts to inspect flows that would
+        normally appear at different moments.
+      </p>
+      <nav class="jump-list" aria-label="Jump to prototype screen">
+        <button type="button" data-screen="welcome">Onboarding</button>
+        <button type="button" data-screen="home">Returning home</button>
+        <button type="button" data-screen="modes">Session modes</button>
+        <button type="button" data-screen="mcq">MCQ attempt</button>
+        <button type="button" data-screen="frq">FRQ attempt</button>
+        <button type="button" data-screen="uncertain">Uncertainty</button>
+        <button type="button" data-screen="complete">Completion</button>
+        <button type="button" data-screen="progress">Progress</button>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="wordmark">
+          <span class="apple-mark" aria-hidden="true">C</span>
+          <span>Cramapple</span>
+        </div>
+        <div class="top-actions">
+          <span>Prototype scenario</span>
+          <span aria-hidden="true">|</span>
+          <span>12 days left</span>
+        </div>
+      </header>
+
+      <div class="content">
+        <section class="screen active" id="welcome" tabindex="-1">
+          <p class="eyebrow">Make the time count</p>
+          <h2>Earn more points with the study time you have.</h2>
+          <p class="lede">
+            Try a question, see exactly where points were earned or missed, and
+            practice the smallest change most likely to help.
+          </p>
+
+          <div class="card">
+            <div class="form-grid">
+              <label>
+                Your exam
+                <input value="AP Biology" readonly>
+              </label>
+              <label>
+                Exam date
+                <input type="date">
+              </label>
+            </div>
+            <div class="actions">
+              <button class="button primary" type="button" data-go="modes">
+                Continue
+              </button>
+              <button class="button ghost" type="button" data-toast="The expanded explanation would open here.">
+                How it works
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <section class="screen" id="home" tabindex="-1">
+          <p class="eyebrow">Welcome back, Maya</p>
+          <h2>Make your next 12 minutes useful.</h2>
+          <div class="home-grid">
+            <article class="card recommendation">
+              <p class="eyebrow">Recommended next</p>
+              <h3>Interpreting experimental controls</h3>
+              <p class="muted">
+                This has cost you points in more than one unit, and a short
+                review is due. About 12 minutes.
+              </p>
+              <div class="actions">
+                <button class="button primary" type="button" data-go="mcq">
+                  Start
+                </button>
+                <button class="button ghost" type="button" data-toast="Reason: repeated misses plus a due review.">
+                  Why this?
+                </button>
+                <button class="button ghost" type="button" data-go="modes">
+                  Choose something else
+                </button>
+              </div>
+            </article>
+            <aside class="card">
+              <h3>Today</h3>
+              <div class="stat">
+                <strong>1 review due</strong>
+                <span class="muted">Cell communication</span>
+              </div>
+              <div class="stat">
+                <strong>30 minutes available</strong>
+                <span class="muted">Change session length</span>
+              </div>
+              <div class="stat">
+                <strong>Bring a question</strong>
+                <span class="muted">Paste or type for this prototype</span>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <section class="screen" id="modes" tabindex="-1">
+          <p class="eyebrow">Session setup</p>
+          <h2>How much time do you have?</h2>
+          <p class="lede">
+            Pick a starting point. You can stop cleanly or keep going if your
+            time changes.
+          </p>
+          <div class="grid" role="group" aria-label="Session mode">
+            <button class="choice" type="button" data-mode="Quick">
+              <span>
+                <strong>Quick</strong>
+                Get one useful win.
+              </span>
+              <span class="time">About 15 min</span>
+            </button>
+            <button class="choice selected" type="button" data-mode="Focused">
+              <span>
+                <strong>Focused</strong>
+                Practice and repair a priority skill.
+              </span>
+              <span class="time">About 30 min</span>
+            </button>
+            <button class="choice" type="button" data-mode="Buckle Down">
+              <span>
+                <strong>Buckle Down</strong>
+                Mix practice, repair, and due review.
+              </span>
+              <span class="time">About 60 min</span>
+            </button>
+          </div>
+          <div class="actions">
+            <button class="button primary" type="button" data-go="mcq">
+              Start focused session
+            </button>
+            <button class="button secondary" type="button" data-go="home">
+              Back
+            </button>
+          </div>
+        </section>
+
+        <section class="screen" id="mcq" tabindex="-1">
+          <div class="session-bar">
+            <div>
+              <div class="progress-track" aria-label="Session progress">
+                <div class="progress-fill"></div>
+              </div>
+              <span>Focused session - question 2 of 5</span>
+            </div>
+            <button class="button ghost" type="button" data-go="home">
+              Leave session
+            </button>
+          </div>
+
+          <div class="orientation">
+            <strong>Cold attempt.</strong> Choose the best answer before seeing
+            an explanation.
+          </div>
+
+          <article class="card">
+            <span class="question-type">Multiple choice</span>
+            <h3>Identify the experimental control</h3>
+            <p class="question">
+              A researcher grows identical seedlings under three colors of
+              light. All groups receive the same soil, water, temperature, and
+              light intensity. Which comparison best isolates the effect of
+              light color on growth?
+            </p>
+
+            <fieldset class="options">
+              <legend class="visually-hidden">Answer choices</legend>
+              <label class="option">
+                <input type="radio" name="mcq" value="a">
+                Compare seedlings receiving different amounts of water.
+              </label>
+              <label class="option">
+                <input type="radio" name="mcq" value="b">
+                Compare growth among the three light-color groups.
+              </label>
+              <label class="option">
+                <input type="radio" name="mcq" value="c">
+                Compare seedlings grown in different soil types.
+              </label>
+              <label class="option">
+                <input type="radio" name="mcq" value="d">
+                Compare plants measured on different days.
+              </label>
+            </fieldset>
+
+            <div class="actions" id="mcq-actions">
+              <button class="button primary" type="button" id="submit-mcq">
+                Submit answer
+              </button>
+              <button class="button ghost" type="button" data-toast="A coached hint would begin here and the attempt would no longer count as cold.">
+                I need help
+              </button>
+              <button class="button ghost" type="button" data-go="complete">
+                Move on and return later
+              </button>
+            </div>
+
+            <div class="feedback" id="mcq-feedback" hidden>
+              <p class="eyebrow">1 of 1 point</p>
+              <h3>You isolated the variable being tested.</h3>
+              <p>
+                The groups differ by light color while soil, water,
+                temperature, and intensity stay constant.
+              </p>
+              <div class="actions">
+                <button class="button primary" type="button" data-go="frq">
+                  Next question
+                </button>
+                <button class="button ghost" type="button" data-toast="The explanation would expand here.">
+                  See why the others miss
+                </button>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <section class="screen" id="frq" tabindex="-1">
+          <div class="session-bar">
+            <div>
+              <div class="progress-track" aria-label="Session progress">
+                <div class="progress-fill" style="width: 58%"></div>
+              </div>
+              <span>Focused session - question 3 of 5</span>
+            </div>
+            <button class="button ghost" type="button" data-go="home">
+              Leave session
+            </button>
+          </div>
+
+          <div class="orientation">
+            <strong>Cold attempt.</strong> Explain the biological mechanism in
+            one or two sentences.
+          </div>
+
+          <article class="card">
+            <span class="question-type">Short free response - 2 points</span>
+            <h3>Explain a mechanism</h3>
+            <p class="question">
+              A protein loses function after prolonged exposure to unusually
+              high temperature. Explain how the temperature change can alter
+              the protein's function.
+            </p>
+
+            <label for="frq-answer">
+              Your response
+              <textarea id="frq-answer">High heat causes the protein to lose its shape, so it can no longer do its job.</textarea>
+            </label>
+
+            <div class="actions" id="frq-actions">
+              <button class="button primary" type="button" id="submit-frq">
+                Submit response
+              </button>
+              <button class="button ghost" type="button" data-toast="A coached explanation would begin here.">
+                I need help
+              </button>
+              <button class="button ghost" type="button" data-go="complete">
+                Move on
+              </button>
+            </div>
+
+            <div class="feedback" id="frq-feedback" hidden>
+              <p class="eyebrow">Estimated: 1 of 2 points</p>
+              <h3>You named the shape change. Add the molecular mechanism.</h3>
+              <ul class="criterion-list">
+                <li class="criterion">
+                  <span class="criterion-icon" aria-label="Earned">+</span>
+                  <span>
+                    <strong>Earned:</strong> You connected protein shape to
+                    function.
+                  </span>
+                </li>
+                <li class="criterion missed">
+                  <span class="criterion-icon" aria-label="Missed">-</span>
+                  <span>
+                    <strong>Missing:</strong> Explain how heat disrupts the
+                    interactions that maintain the protein's structure.
+                  </span>
+                </li>
+              </ul>
+              <div class="actions">
+                <button class="button primary" type="button" id="start-repair">
+                  Get this point
+                </button>
+                <button class="button secondary" type="button" data-toast="Alternative choices: see how this works, break it into parts, or review a prerequisite.">
+                  Try a different approach
+                </button>
+                <button class="button ghost" type="button" id="open-dispute">
+                  Request a recheck
+                </button>
+              </div>
+            </div>
+
+            <div class="feedback warn" id="repair-panel" hidden>
+              <p class="eyebrow">Fix the missing step</p>
+              <h3>What belongs in the gap?</h3>
+              <p class="gap-sentence">
+                High temperature <span class="gap">[...]</span> changes the
+                protein's three-dimensional shape, so its function is reduced.
+              </p>
+              <p>
+                Name what happens to the interactions that stabilize the
+                protein's structure.
+              </p>
+              <label for="repair-answer">
+                Add the mechanism
+                <textarea id="repair-answer" rows="3"></textarea>
+              </label>
+              <div class="actions">
+                <button class="button primary" type="button" id="submit-repair">
+                  Check this step
+                </button>
+                <button class="button ghost" type="button" data-toast="The prototype would offer a different angle, decomposition, or prerequisite review.">
+                  Choose another approach
+                </button>
+                <button class="button ghost" type="button" data-go="complete">
+                  Move on and return later
+                </button>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <section class="screen" id="uncertain" tabindex="-1">
+          <p class="eyebrow">Safe failure state</p>
+          <h2>Useful feedback without false certainty.</h2>
+          <div class="card notice">
+            <h3>I cannot present this score as reliable.</h3>
+            <p>
+              Something in the question, diagram, or scoring information may
+              be incomplete or inconsistent. This attempt will not count
+              against your progress.
+            </p>
+            <div class="actions">
+              <button class="button primary" type="button" data-toast="The learner would add the missing passage, diagram, or answer choices.">
+                Add missing context
+              </button>
+              <button class="button secondary" type="button" data-go="mcq">
+                Try another question
+              </button>
+              <button class="button ghost" type="button" data-toast="Flag recorded. No response time or human review is promised in this prototype.">
+                Flag for review
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <section class="screen" id="complete" tabindex="-1">
+          <div class="success-panel">
+            <div class="success-check" aria-hidden="true">+</div>
+            <p class="eyebrow">Session complete</p>
+            <h2>That point held up on a new question.</h2>
+            <p class="lede">
+              You completed an independent retry. We will bring this skill back
+              before the exam to see whether it sticks.
+            </p>
+            <div class="actions" style="justify-content: center">
+              <button class="button primary" type="button" data-go="progress">
+                See progress
+              </button>
+              <button class="button secondary" type="button" data-go="home">
+                Return home
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <section class="screen" id="progress" tabindex="-1">
+          <p class="eyebrow">Your AP Biology work</p>
+          <h2>Progress you can inspect.</h2>
+          <p class="lede">
+            Activity, supported performance, and independent evidence stay
+            separate.
+          </p>
+
+          <div class="progress-grid">
+            <article class="card">
+              <p class="eyebrow">Recommended next</p>
+              <h3>Return to experimental controls</h3>
+              <p class="muted">
+                One delayed check is due tomorrow. About 8 minutes.
+              </p>
+              <div class="actions">
+                <button class="button primary" type="button" data-go="mcq">
+                  Practice next
+                </button>
+              </div>
+            </article>
+            <article class="card">
+              <p class="eyebrow">This week</p>
+              <div class="stat">
+                <strong>3 independent points earned</strong>
+                <span class="muted">Across fresh questions without help</span>
+              </div>
+              <div class="stat">
+                <strong>2 supported repairs</strong>
+                <span class="muted">Waiting for independent confirmation</span>
+              </div>
+            </article>
+            <article class="card">
+              <h3>Evidence by skill</h3>
+              <div class="mini-bars">
+                <div class="mini-bar">
+                  <span>Experimental design</span>
+                  <span class="mini-bar-track"><span class="mini-bar-fill" style="display:block;width:72%"></span></span>
+                  <strong>Improving</strong>
+                </div>
+                <div class="mini-bar">
+                  <span>Data analysis</span>
+                  <span class="mini-bar-track"><span class="mini-bar-fill" style="display:block;width:48%"></span></span>
+                  <strong>Mixed</strong>
+                </div>
+                <div class="mini-bar">
+                  <span>Mechanism explanations</span>
+                  <span class="mini-bar-track"><span class="mini-bar-fill" style="display:block;width:35%"></span></span>
+                  <strong>Priority</strong>
+                </div>
+              </div>
+            </article>
+            <article class="card">
+              <h3>Activity</h3>
+              <div class="stat">
+                <strong>64 minutes practiced</strong>
+                <span class="muted">Across three sessions</span>
+              </div>
+              <div class="stat">
+                <strong>11 questions attempted</strong>
+                <span class="muted">Activity is not presented as mastery</span>
+              </div>
+            </article>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <div class="dialog-backdrop" id="dispute-dialog" hidden>
+    <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dispute-title">
+      <p class="eyebrow">Criterion recheck</p>
+      <h3 id="dispute-title">What do you think the feedback missed?</h3>
+      <p class="muted">
+        Point to the criterion and explain what evidence in your response should
+        count. This prototype does not promise a human response time.
+      </p>
+      <label for="dispute-text">
+        Your reason
+        <textarea id="dispute-text" rows="4"></textarea>
+      </label>
+      <div class="actions">
+        <button class="button primary" type="button" id="submit-dispute">
+          Submit recheck
+        </button>
+        <button class="button secondary" type="button" id="close-dispute">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="status" id="status" role="status" aria-live="polite" hidden></div>
+
+  <script>
+    const screens = Array.from(document.querySelectorAll(".screen"));
+    const jumpButtons = Array.from(document.querySelectorAll("[data-screen]"));
+    const status = document.getElementById("status");
+    let statusTimer;
+
+    function showScreen(id) {
+      const target = document.getElementById(id);
+      if (!target) return;
+
+      screens.forEach((screen) => screen.classList.toggle("active", screen === target));
+      jumpButtons.forEach((button) => {
+        button.setAttribute("aria-current", String(button.dataset.screen === id));
+      });
+      target.focus();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function showStatus(message) {
+      window.clearTimeout(statusTimer);
+      status.textContent = message;
+      status.hidden = false;
+      statusTimer = window.setTimeout(() => {
+        status.hidden = true;
+      }, 3500);
+    }
+
+    document.addEventListener("click", (event) => {
+      const goButton = event.target.closest("[data-go]");
+      const screenButton = event.target.closest("[data-screen]");
+      const toastButton = event.target.closest("[data-toast]");
+
+      if (goButton) showScreen(goButton.dataset.go);
+      if (screenButton) showScreen(screenButton.dataset.screen);
+      if (toastButton) showStatus(toastButton.dataset.toast);
+    });
+
+    document.querySelectorAll("[data-mode]").forEach((button) => {
+      button.addEventListener("click", () => {
+        document.querySelectorAll("[data-mode]").forEach((choice) => {
+          choice.classList.toggle("selected", choice === button);
+        });
+        const startButton = document.querySelector("#modes .button.primary");
+        startButton.textContent = `Start ${button.dataset.mode.toLowerCase()} session`;
+      });
+    });
+
+    document.getElementById("submit-mcq").addEventListener("click", () => {
+      const selected = document.querySelector('input[name="mcq"]:checked');
+      if (!selected) {
+        showStatus("Choose an answer before submitting.");
+        return;
+      }
+      document.getElementById("mcq-actions").hidden = true;
+      document.getElementById("mcq-feedback").hidden = false;
+      document.getElementById("mcq-feedback").scrollIntoView({ behavior: "smooth" });
+    });
+
+    document.getElementById("submit-frq").addEventListener("click", () => {
+      document.getElementById("frq-actions").hidden = true;
+      document.getElementById("frq-feedback").hidden = false;
+      document.getElementById("frq-feedback").scrollIntoView({ behavior: "smooth" });
+    });
+
+    document.getElementById("start-repair").addEventListener("click", () => {
+      document.getElementById("frq-feedback").hidden = true;
+      document.getElementById("repair-panel").hidden = false;
+      document.getElementById("repair-answer").focus();
+    });
+
+    document.getElementById("submit-repair").addEventListener("click", () => {
+      const answer = document.getElementById("repair-answer").value.trim();
+      if (!answer) {
+        showStatus("Add the missing mechanism before checking this step.");
+        return;
+      }
+      showScreen("complete");
+    });
+
+    const disputeDialog = document.getElementById("dispute-dialog");
+    const disputeTrigger = document.getElementById("open-dispute");
+
+    document.getElementById("open-dispute").addEventListener("click", () => {
+      disputeDialog.hidden = false;
+      document.getElementById("dispute-text").focus();
+    });
+
+    function closeDispute() {
+      disputeDialog.hidden = true;
+      disputeTrigger.focus();
+    }
+
+    document.getElementById("close-dispute").addEventListener("click", closeDispute);
+    document.getElementById("submit-dispute").addEventListener("click", () => {
+      closeDispute();
+      showStatus("Recheck request saved. No response time is promised in this prototype.");
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (disputeDialog.hidden) return;
+
+      if (event.key === "Escape") {
+        closeDispute();
+        return;
+      }
+
+      if (event.key === "Tab") {
+        const dialogControls = Array.from(
+          disputeDialog.querySelectorAll("button, textarea, input, [tabindex]")
+        ).filter((element) => !element.disabled && element.tabIndex >= 0);
+        const firstControl = dialogControls[0];
+        const lastControl = dialogControls[dialogControls.length - 1];
+
+        if (event.shiftKey && document.activeElement === firstControl) {
+          event.preventDefault();
+          lastControl.focus();
+        } else if (!event.shiftKey && document.activeElement === lastControl) {
+          event.preventDefault();
+          firstControl.focus();
+        }
+      }
+    });
+
+    showScreen("welcome");
+  </script>
+</body>
+</html>

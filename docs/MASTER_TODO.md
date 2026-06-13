@@ -80,6 +80,7 @@ records.
 | `TASK-0009` | Schema and Governance Reconciliation | High | Proposed | Conceptual-model approval |
 | `TASK-0010` | Grader Confidence and Calibration | Critical | Proposed | Learning Quality and Product Owner release gates |
 | `TASK-0011` | Handwritten Graph Capture | Medium | Research | Prototype and feasibility decision |
+| `UX-001` | Initial Product UX Decisions | High | In Progress | Learning, Marketing, accessibility, and Product Owner review |
 
 ## 5. P0 Legal, Privacy, and Trust Backlog
 
@@ -483,15 +484,21 @@ planning target. Physical Supabase DDL remains deferred.
 
 ### UX-001 - Initial Product UX Decisions
 
-**Status:** Proposed
+**Status:** In Progress
 **Owner:** Product Owner with Learning and Marketing owners
+**Task record:** `docs/tasks/UX-001-INITIAL-PRODUCT-UX-DECISIONS.md`
+**Design record:** `docs/product/STUDENT_PORTAL_INTERACTION_DESIGN.md`
 
-- [ ] Design the first-session onboarding explanation.
-- [ ] Test session-mode presentation.
-- [ ] Test bracket-marker feedback with or without sentence-level treatment.
-- [ ] Define peer-tone academic-integrity coaching copy.
-- [ ] Define uncertainty, escalation, and disputed-grade language.
+- [x] Draft the first-session onboarding explanation.
+- [x] Define session-mode presentation variants for testing.
+- [x] Define bracket-marker feedback variants for testing.
+- [x] Draft peer-tone academic-integrity coaching copy.
+- [x] Draft uncertainty, escalation, and disputed-grade language.
+- [x] Produce the initial low-fidelity clickable prototype.
+- [ ] Test the prototype with representative learners.
+- [ ] Obtain Learning and Marketing review.
 - [ ] Complete accessibility review.
+- [ ] Obtain Product Owner decision on the proposed UX directions.
 
 ## 9. P2 Commercial and Operating Backlog
 
