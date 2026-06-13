@@ -110,6 +110,7 @@ The initial interaction specification is:
 
 - `docs/product/STUDENT_PORTAL_INTERACTION_DESIGN.md`
 - `prototypes/ux-001/index.html`
+- `prompts/LOVABLE_UX001_STUDENT_EXPERIENCE.md`
 
 This task may create wireframes, prototypes, copy variants, research plans, and
 decision packets. It does not authorize production code.

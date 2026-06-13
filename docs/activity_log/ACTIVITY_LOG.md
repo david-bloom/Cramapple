@@ -4,6 +4,23 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ---
 
+## Lovable UX-001 Render Brief Prepared - 2026-06-13
+
+**Task:** UX-001
+**Status:** In Progress
+**Summary:** Created a self-contained Lovable build brief for rendering the
+post-account student experience and related learning-session states. The brief
+defines frontend routes, mock state, exact copy, branching behavior,
+accessibility requirements, QA paths, and explicit prohibitions on backend
+connections, production deployment, protected content, and invented product
+policy.
+
+**Next Owner:** David Bloom / Lovable operator
+**Next Required Action:** Give
+`prompts/LOVABLE_UX001_STUDENT_EXPERIENCE.md` to Lovable, generate a preview,
+and return the preview for Learning, Marketing, accessibility, learner, and
+Product Owner review.
+
 ## Post-Account Student Experience Expanded - 2026-06-13
 
 **Task:** UX-001
