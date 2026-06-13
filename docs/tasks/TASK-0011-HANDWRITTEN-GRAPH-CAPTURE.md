@@ -115,6 +115,17 @@ Pilot protocol and Claude revision brief:
 - `docs/research/ORLY_DRAWN_RESPONSE_PILOT_PROTOCOL.md`
 - `prompts/CLAUDE_REVISE_DRAWN_RESPONSE_PILOT_SET.md`
 
+Claude returned the proposed three-prompt `v0.1-ai-draft` on 2026-06-13.
+Preflight found that Prompt 2 and Prompt 3 were not reproducible from their
+stated synthetic-data methods, the rights section cited a nonexistent
+originality approval, and several uncertainty and graphical-estimate criteria
+would confound the capture pilot.
+
+The package is not ready for Orly. Required review and remediation:
+
+- `docs/research/DRAWN_RESPONSE_PILOT_V0_REVIEW.md`
+- `prompts/CLAUDE_REMEDIATE_DRAWN_RESPONSE_PILOT_V0.md`
+
 ## Approval State
 
 **Approval Required:** Yes

@@ -4,6 +4,25 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ---
 
+## Drawn-Response Pilot V0 Preflight Blocked - 2026-06-13
+
+**Tasks:** TASK-0010 / TASK-0011
+**Status:** QA Blocked - Revision Required
+**Summary:** Reviewed Claude's three-prompt AI-drafted pilot. The package has
+the right scope, student/reviewer separation, candidate labeling, and capture
+controls. Preflight found that Prompt 2's enzyme table is not reproducible from
+its incomplete stated formula, Prompt 3's values do not match its logistic
+equation, and the rights section cites a nonexistent Product Owner originality
+approval. Standardized the P0 recommendation to SEM, symmetric error bars, an
+operational plateau estimate, and a bounded linear scale. Corrected unsupported
+rubric assumptions.
+
+**Next Owner:** Claude for v0.2 remediation
+**Next Required Action:** Produce a new immutable package satisfying
+`prompts/CLAUDE_REMEDIATE_DRAWN_RESPONSE_PILOT_V0.md`, then return it for
+deterministic recalculation, Learning Quality preflight, rights-status review,
+and Product Owner decision before Orly begins.
+
 ## Orly Drawn-Response Pilot Protocol Prepared - 2026-06-13
 
 **Tasks:** TASK-0010 / TASK-0011
