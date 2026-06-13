@@ -166,7 +166,7 @@ Landing or invitation
   -> Create account or authenticate
   -> Resolve consent and age-related state
   -> Create learner profile
-  -> Select AP exam and exam date
+  -> Select AP exam, resolve its official date, and confirm learner registration
   -> Capture immediate goal and available time
   -> Choose optional calibration, requested topic, or direct practice
   -> Create first learning session

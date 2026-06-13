@@ -197,8 +197,11 @@ Store:
 ```ts
 type SetupState = {
   exam: "AP Biology";
-  examDate: string | null;
-  examDateUnknown: boolean;
+  registrationStatus:
+    | "registered"
+    | "not_registered"
+    | "unsure"
+    | null;
   startingPoint:
     | "unsure"
     | "major_gaps"
@@ -214,6 +217,21 @@ type SetupState = {
   startingMethod: "calibration" | "direct";
 };
 ```
+
+Keep authoritative exam data outside learner setup state:
+
+```ts
+const activeExamPack = {
+  exam: "AP Biology",
+  officialExamDate: "May 4, 2026",
+  administration: "2026",
+} as const;
+```
+
+This is the dated prototype scenario already referenced by Cramapple's
+canonical teaching design. Production work must resolve the current official
+date from the active versioned exam specification rather than retaining this
+mock fixture.
 
 Persist state in `localStorage` only for prototype recovery.
 
@@ -294,28 +312,43 @@ Copy:
 ```text
 YOUR EXAM
 
-When are you taking AP Biology?
+Are you registered for the AP Biology exam?
 
-Your exam date changes what is worth doing now and when review should come
-back.
+The official exam date comes from Cramapple's active AP Biology exam pack.
+Confirm your registration so reminders and exam-day planning fit your
+situation.
 ```
 
-Show AP Biology as the selected exam pack.
+Show AP Biology as the selected exam pack and display:
+
+```text
+Official exam date
+{{officialExamDate}}
+```
+
+`officialExamDate` is authoritative exam-pack data, not learner-entered state.
+If the date is not present in the mock fixture, show `Official date not loaded`
+and a prototype-data warning. Do not invent a date or ask the learner for it.
 
 Inputs:
 
-- Exam date.
+- Registration status as a required single-select control:
+  - Yes, I’m registered.
+  - Not yet.
+  - I’m not sure.
 - Starting-point select:
   - I’m not sure yet.
   - I have some major gaps.
   - I know some topics, not others.
   - I’m aiming to turn a good score into a great one.
-- Checkbox: `I do not know my exam date yet`.
 
 Rules:
 
-- Require a date or the unknown-date checkbox.
-- Disabling the date field when the checkbox is selected is acceptable.
+- Require an explicit registration-status selection.
+- Do not block setup when the learner selects `Not yet` or `I’m not sure`.
+- For those two selections, explain that AP exam registration happens through
+  the learner's school or AP coordinator and that Cramapple does not register
+  students for the exam.
 - The self-described starting point is orientation only. Do not display it as
   measured readiness.
 
@@ -1025,7 +1058,8 @@ Handle these states in the frontend prototype:
 - Default.
 - Selected and unselected cards.
 - Required-field validation.
-- Unknown exam date.
+- Registered, not registered yet, and unsure status.
+- Missing official-date fixture warning.
 - Interrupted setup recovery from local state.
 - Calibration selected.
 - Calibration skipped.
@@ -1079,6 +1113,8 @@ Do not:
   the browser.
 - Claim a human will review a disputed grade.
 - Ask for a target AP score.
+- Ask the learner to enter the official AP exam date.
+- Claim that Cramapple registers learners for an AP exam.
 - Turn self-reported confidence or starting point into proficiency.
 - Make calibration mandatory.
 - Reveal hidden criteria or answer-bearing concepts before a cold attempt.
@@ -1101,7 +1137,8 @@ Before reporting the draft complete:
 3. Test check-my-work validation:
    check work → skip calibration → plan → require prompt and answer.
 4. Test bring-a-question validation and mode selection.
-5. Test missing exam-date validation and unknown-date recovery.
+5. Test missing registration-status validation and all three registration
+   paths. Confirm that `not registered yet` and `unsure` can continue.
 6. Test that plan copy, duration, steps, numbering, and rationale change from
    the selected setup state.
 7. Test recheck modal keyboard behavior.
