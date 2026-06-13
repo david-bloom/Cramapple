@@ -80,6 +80,24 @@ complex digital drawing tool.
 - [ ] Tutor and student usability study completed.
 - [ ] Product Owner decides whether to proceed, revise, or stop.
 
+## Architecture Review
+
+Claude's initial drawn-response proposal was reviewed on 2026-06-13. The review
+retains paper-first QR capture and direct upload as promising prototype flows,
+but rejects production vendor selection, single-pass learner-facing grading,
+official-question reuse, self-reported confidence, generic mastery counters,
+and unvalidated image annotations.
+
+The proposed next research package narrows the first capability to AP Biology
+quantitative graph construction and requires a capture prototype, adjudicated
+gold set, offline architecture bake-off, calibrated abstention, and shadow
+operation before any production recommendation.
+
+Review and follow-up brief:
+
+- `docs/research/DRAWN_RESPONSE_ARCHITECTURE_REVIEW.md`
+- `prompts/CLAUDE_DRAWN_RESPONSE_EXECUTABLE_PLAN.md`
+
 ## Approval State
 
 **Approval Required:** Yes
