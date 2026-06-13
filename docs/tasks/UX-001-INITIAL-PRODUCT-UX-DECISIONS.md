@@ -143,7 +143,10 @@ Post-account creation design revision prepared on 2026-06-13:
 - Added a transparent first-session plan that changes with learner selections.
 - Routed direct-start choices to topic, check-my-work, or bring-a-question
   intake instead of a generic practice item.
-- Verified required exam-date recovery and the unknown-date path.
+- Replaced learner-entered exam dates with the official date supplied by the
+  active AP Biology exam specification.
+- Verified required registration-status validation for registered, not
+  registered yet, and unsure paths.
 - Verified recommended calibration begins with a cold calibration item.
 - Verified direct topic selection reaches topic intake and then practice.
 - Verified check-my-work intake requires both the prompt and learner answer.

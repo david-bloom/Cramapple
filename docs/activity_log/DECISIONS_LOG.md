@@ -893,3 +893,37 @@ graphs require retake or human review.
 - Production use requires upload-security, privacy, accessibility, usability,
   and held-out grading validation.
 - `TASK-0011` is a research placeholder, not implementation approval.
+
+## DECISION-0023 — Resolve Official Exam Dates from the Exam Specification
+
+**Date:** 2026-06-13
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Related Task:** UX-001
+**Area:** Product / Architecture
+
+### Context
+
+The first-run UX asked students to enter the date of a standardized AP exam
+whose official schedule is already known to Cramapple.
+
+### Decision
+
+Resolve and display the official date from the active versioned exam
+specification. Ask the learner to confirm registration status instead of
+entering the date.
+
+### Rationale
+
+The exam authority, not the learner, defines the official date. Treating it as
+system data removes avoidable input burden and prevents conflicting dates while
+still capturing the learner-specific fact that affects reminders and planning.
+
+### Consequences
+
+- Learner setup stores registration status, not a user-entered official date.
+- The UX supports registered, not registered yet, and unsure states.
+- Missing official-date data is a system-data problem and must not be shifted
+  to the learner.
+- Registration itself remains outside Cramapple and occurs through a school or
+  AP coordinator.

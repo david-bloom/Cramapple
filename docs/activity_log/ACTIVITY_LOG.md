@@ -4,6 +4,23 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ---
 
+## Official Exam Date and Registration Direction Applied - 2026-06-13
+
+**Task:** UX-001
+**Status:** In Progress
+**Summary:** Removed learner-entered AP exam dates from the canonical student
+portal UX, clickable prototype, architecture workflow, and Lovable render
+brief. The active versioned exam specification now supplies the official date,
+while the learner confirms registered, not registered yet, or unsure status.
+The latter two paths remain non-blocking and explain that registration happens
+through the learner's school or AP coordinator.
+
+**Next Owner:** Learning, accessibility, representative learners, and David
+Bloom for review
+**Next Required Action:** Review whether the three registration choices and
+school/AP coordinator explanation are clear without distracting from the first
+useful learning action.
+
 ## Lovable UX-001 Render Brief Prepared - 2026-06-13
 
 **Task:** UX-001

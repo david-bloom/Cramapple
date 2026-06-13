@@ -379,3 +379,28 @@ vision, architecture, learning-system, and backlog records.
 - This approval does not authorize production frontend implementation,
   deployment, physical database design, final grading behavior, or use of
   unapproved content.
+
+## APPROVAL-0018 - Use Official Exam Dates and Confirm Registration
+
+**Date:** 2026-06-13
+**Approved By:** David Bloom
+**Related Task:** UX-001
+**Decision:** Approved with Notes
+
+### Summary
+
+Use the official AP exam date already defined by Cramapple's active versioned
+exam specification. Do not ask students to provide that date. Ask students to
+confirm whether they are registered for the selected exam.
+
+### Notes
+
+- Registration status supports `registered`, `not registered yet`, and
+  `unsure`.
+- Students who are not registered or are unsure may continue learning.
+- Cramapple must explain that exam registration happens through the student's
+  school or AP coordinator and must not imply that Cramapple registers them.
+- If official date data is unavailable, show a system-data warning rather than
+  inventing a date or asking the student to supply it.
+- This approval covers UX-001 documentation and prototype work, not production
+  implementation or deployment.

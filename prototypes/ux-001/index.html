@@ -369,6 +369,29 @@
       background: var(--brand);
     }
 
+    .registration-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-top: 18px;
+    }
+
+    .registration-choice {
+      min-height: 104px;
+    }
+
+    .exam-date {
+      color: var(--muted);
+      text-align: right;
+    }
+
+    .exam-date small,
+    .exam-date strong {
+      display: block;
+    }
+
+    .exam-date strong {
+      color: var(--ink);
+    }
+
     .actions {
       display: flex;
       flex-wrap: wrap;
@@ -414,6 +437,10 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 16px;
+    }
+
+    .form-grid.single {
+      grid-template-columns: 1fr;
     }
 
     .exam-card {
@@ -896,6 +923,7 @@
 
       .grid,
       .grid.two,
+      .registration-grid,
       .home-grid,
       .progress-grid,
       .form-grid {
@@ -993,8 +1021,8 @@
           <p class="eyebrow">Account created</p>
           <h2>Now let’s make your first session useful.</h2>
           <p class="lede">
-            Cramapple will use your exam timing, your goal today, and the time
-            you have right now to build a starting plan.
+            Cramapple will use the official exam timing, your goal today, and
+            the time you have right now to build a starting plan.
           </p>
 
           <div class="card account-created">
@@ -1021,10 +1049,11 @@
             <span class="complete"></span><span class="current"></span><span></span><span></span><span></span>
           </div>
           <p class="eyebrow">Your exam</p>
-          <h2>When are you taking AP Biology?</h2>
+          <h2>Are you registered for the AP Biology exam?</h2>
           <p class="lede">
-            Your exam date changes what is worth doing now and when review
-            should come back.
+            The official exam date comes from Cramapple’s active AP Biology
+            exam pack. Confirm your registration so reminders and exam-day
+            planning fit your situation.
           </p>
 
           <div class="card">
@@ -1034,13 +1063,30 @@
                 <strong>AP Biology</strong>
                 Initial Cramapple exam pack
               </span>
-              <span class="selected-label">Selected</span>
+              <span class="exam-date">
+                <small>Official exam date</small>
+                <strong>May 4, 2026</strong>
+              </span>
             </div>
-            <div class="form-grid">
-              <label>
-                Exam date
-                <input type="date" id="exam-date">
-              </label>
+            <div class="grid registration-grid" role="group" aria-label="AP Biology exam registration status">
+              <button class="choice registration-choice" type="button" data-registration="registered" aria-pressed="false">
+                <strong>Yes, I’m registered</strong>
+                <span>I plan to take this exam.</span>
+              </button>
+              <button class="choice registration-choice" type="button" data-registration="not_registered" aria-pressed="false">
+                <strong>Not yet</strong>
+                <span>I have not registered yet.</span>
+              </button>
+              <button class="choice registration-choice" type="button" data-registration="unsure" aria-pressed="false">
+                <strong>I’m not sure</strong>
+                <span>I need to confirm my status.</span>
+              </button>
+            </div>
+            <div class="setup-note" id="registration-note" hidden>
+              <span aria-hidden="true">i</span>
+              <span><strong>You can keep learning.</strong> AP exam registration happens through your school or AP coordinator; Cramapple does not register you for the exam.</span>
+            </div>
+            <div class="form-grid single">
               <label>
                 Where are you starting?
                 <select id="starting-point">
@@ -1049,10 +1095,6 @@
                   <option value="middle">I know some topics, not others</option>
                   <option value="strong">I’m aiming to turn a good score into a great one</option>
                 </select>
-              </label>
-              <label class="check-row">
-                <input type="checkbox" id="unknown-date">
-                I do not know my exam date yet
               </label>
             </div>
             <div class="setup-note">
@@ -1722,6 +1764,7 @@
       progress: ["AP Biology", "Progress"]
     };
     const setupState = {
+      registrationStatus: null,
       intent: "recommend",
       mode: "Focused",
       minutes: 30,
@@ -1797,18 +1840,23 @@
       });
     });
 
-    document.getElementById("unknown-date").addEventListener("change", (event) => {
-      const dateInput = document.getElementById("exam-date");
-      dateInput.disabled = event.target.checked;
-      if (event.target.checked) dateInput.value = "";
+    document.querySelectorAll("[data-registration]").forEach((button) => {
+      button.addEventListener("click", () => {
+        document.querySelectorAll("[data-registration]").forEach((choice) => {
+          const selected = choice === button;
+          choice.classList.toggle("selected", selected);
+          choice.setAttribute("aria-pressed", String(selected));
+        });
+        setupState.registrationStatus = button.dataset.registration;
+        document.getElementById("registration-note").hidden =
+          setupState.registrationStatus === "registered";
+      });
     });
 
     document.getElementById("continue-exam").addEventListener("click", () => {
-      const dateInput = document.getElementById("exam-date");
-      const unknownDate = document.getElementById("unknown-date").checked;
-      if (!dateInput.value && !unknownDate) {
-        showStatus("Add your exam date or choose “I do not know my exam date yet.”");
-        dateInput.focus();
+      if (!setupState.registrationStatus) {
+        showStatus("Confirm whether you’re registered, not registered yet, or unsure.");
+        document.querySelector("[data-registration]").focus();
         return;
       }
       showScreen("intent");

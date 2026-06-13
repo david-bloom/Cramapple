@@ -51,7 +51,7 @@ visual design, grading behavior, recommendation logic, or legal policy.
 | Review queue | Complete due Lock retrieval | Start review |
 | Progress | Inspect effort, evidence, gaps, and next action | Practice next |
 | Bring a question | Enter an outside question and choose a mode | Continue |
-| Account | Exam date, accessibility, privacy, and account controls | Save |
+| Account | Exam registration, accessibility, privacy, and account controls | Save |
 
 The MVP navigation should remain small. Home, Review, Progress, and Account are
 the proposed persistent destinations. "Bring a question" may be a prominent
@@ -64,7 +64,7 @@ Home action rather than a permanent navigation destination.
 ```text
 Account created
   -> Confirm account readiness and explain the one-minute setup
-  -> Confirm AP Biology, exam date, and broad starting point
+  -> Show the official AP Biology exam date, confirm registration, and ask broad starting point
   -> Ask the learner's immediate goal
   -> Ask available time
   -> Offer optional three-question calibration or direct start
@@ -89,7 +89,8 @@ information and explains why it matters.
 
 1. **Account ready.** Confirm that setup takes about one minute and that a full
    diagnostic is optional.
-2. **Exam context.** Confirm AP Biology, collect the exam date when known, and
+2. **Exam context.** Confirm AP Biology, display the official exam date from
+   the active exam specification, ask whether the learner is registered, and
    ask for a broad self-described starting point. The starting point is
    orientation, not proficiency evidence.
 3. **Immediate goal.** Let the learner choose recommendation, topic practice,
@@ -111,7 +112,8 @@ The learner may change the plan, finish setup later, or proceed.
 
 #### Required first-session inputs
 
-- AP exam and exam date.
+- AP exam and registration status. The official exam date comes from the
+  active versioned exam specification and is not learner-entered data.
 - Time available now.
 - Immediate intent:
   - Tell me what to work on.
@@ -132,8 +134,15 @@ A full diagnostic is optional. The student may skip calibration and begin.
   incomplete step.
 - Explain why each question affects the first plan.
 - Keep calibration optional and distinguish it from a full diagnostic.
-- If the exam date is unknown, continue with qualified scheduling and ask
-  again later.
+- Never ask the learner to enter an official exam date already defined by the
+  active exam specification.
+- Require an explicit `registered`, `not registered yet`, or `unsure`
+  confirmation. A learner who is not registered or is unsure may continue
+  learning; Cramapple should explain that registration happens through the
+  learner's school or AP coordinator.
+- If the official date is unavailable from the active exam specification,
+  show a system-data warning and avoid inventing or asking the learner to
+  supply the date.
 - When calibration is selected, begin with a cold calibration item before the
   requested activity.
 - When calibration is skipped, route directly to topic selection,
