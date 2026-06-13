@@ -4,6 +4,25 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ---
 
+## Orly Drawn-Response Pilot Protocol Prepared - 2026-06-13
+
+**Tasks:** TASK-0010 / TASK-0011
+**Status:** Draft internal research protocol
+**Summary:** Reviewed Claude's 12-item hand-drawn AP Biology reference library.
+Retained its graph-feature taxonomy and recommendation to begin with bounded
+quantitative graphs, but rejected the historical official-question derivatives
+as pilot prompts or gold-set seeds. Corrected overgeneralized graphing and
+scoring claims. Prepared a protocol for Orly to complete three or fewer
+independently authored graph prompts and submit two raw phone captures per
+response.
+
+**Next Owner:** Claude for rights-clean pilot drafting; Orly Bloom for Learning
+Quality review and participation after the prompts pass review
+**Next Required Action:** Claude produces three original student prompt sheets,
+separate reviewer packages, provenance records, and the Orly administration
+checklist defined in
+`prompts/CLAUDE_REVISE_DRAWN_RESPONSE_PILOT_SET.md`.
+
 ## Official Exam Date and Registration Direction Applied - 2026-06-13
 
 **Task:** UX-001

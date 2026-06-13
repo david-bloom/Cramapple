@@ -98,6 +98,23 @@ Review and follow-up brief:
 - `docs/research/DRAWN_RESPONSE_ARCHITECTURE_REVIEW.md`
 - `prompts/CLAUDE_DRAWN_RESPONSE_EXECUTABLE_PLAN.md`
 
+## Initial Expert Capture Pilot
+
+David directed preparation for Orly Bloom to complete proposed handwritten
+questions and submit phone photographs. Claude's historical-reference library
+was reviewed as a useful taxonomy input but is not eligible as the formal pilot
+or as a gold-set seed.
+
+The initial expert batch must use three or fewer newly authored, rights-clean
+quantitative graph prompts. Orly's responses are expert development cases for
+prompt clarity, capture quality, and pipeline debugging. They are not
+independent learner gold labels or evidence of grading accuracy.
+
+Pilot protocol and Claude revision brief:
+
+- `docs/research/ORLY_DRAWN_RESPONSE_PILOT_PROTOCOL.md`
+- `prompts/CLAUDE_REVISE_DRAWN_RESPONSE_PILOT_SET.md`
+
 ## Approval State
 
 **Approval Required:** Yes
