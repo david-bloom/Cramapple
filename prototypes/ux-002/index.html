@@ -1,0 +1,1418 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cramapple UX-002 Review Portal</title>
+  <style>
+    :root {
+      --ink: #17251f;
+      --muted: #66736d;
+      --paper: #fffdf8;
+      --canvas: #f3f0e7;
+      --line: #d9d7cf;
+      --brand: #2f6f5c;
+      --brand-dark: #1f4d40;
+      --brand-soft: #e5f0eb;
+      --amber: #a85f10;
+      --amber-soft: #fff0d8;
+      --red: #a33a35;
+      --red-soft: #fbe9e7;
+      --blue: #315f8f;
+      --blue-soft: #eaf2fb;
+      --shadow: 0 18px 50px rgba(33, 44, 38, 0.12);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--canvas);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      background:
+        radial-gradient(circle at 80% 0%, rgba(47, 111, 92, 0.09), transparent 34rem),
+        var(--canvas);
+    }
+
+    button,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      color: inherit;
+    }
+
+    button:focus-visible,
+    textarea:focus-visible {
+      outline: 3px solid #80a9ff;
+      outline-offset: 2px;
+    }
+
+    .app {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 250px 1fr;
+    }
+
+    .sidebar {
+      padding: 24px 18px;
+      color: white;
+      background: #18382f;
+    }
+
+    .brand {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 28px;
+      font-weight: 850;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 11px;
+      color: #18382f;
+      background: #f5c950;
+      font-weight: 900;
+    }
+
+    .prototype-label {
+      display: inline-block;
+      margin-bottom: 12px;
+      padding: 5px 8px;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .sidebar h1 {
+      margin: 0;
+      font-size: 1.15rem;
+    }
+
+    .sidebar-copy {
+      margin: 8px 0 22px;
+      color: #c7d5cf;
+      font-size: 0.88rem;
+      line-height: 1.5;
+    }
+
+    .nav-label {
+      margin: 22px 10px 8px;
+      color: #92ada3;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .nav-button {
+      width: 100%;
+      min-height: 46px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 4px 0;
+      padding: 10px 12px;
+      border: 0;
+      border-radius: 11px;
+      color: #e9f0ed;
+      background: transparent;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .nav-button:hover,
+    .nav-button.active {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .count {
+      min-width: 27px;
+      padding: 3px 7px;
+      border-radius: 999px;
+      color: #18382f;
+      background: #d9e9e3;
+      font-size: 0.75rem;
+      font-weight: 850;
+      text-align: center;
+    }
+
+    .shell {
+      min-width: 0;
+    }
+
+    .topbar {
+      min-height: 72px;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: center;
+      padding: 12px 28px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 253, 248, 0.9);
+      backdrop-filter: blur(12px);
+    }
+
+    .topbar strong,
+    .topbar span {
+      display: block;
+    }
+
+    .topbar span {
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 0.84rem;
+    }
+
+    .role-switcher {
+      display: flex;
+      gap: 6px;
+      padding: 5px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: white;
+    }
+
+    .role-button {
+      min-height: 38px;
+      padding: 8px 12px;
+      border: 0;
+      border-radius: 8px;
+      background: transparent;
+      cursor: pointer;
+      font-weight: 750;
+    }
+
+    .role-button.active {
+      color: white;
+      background: var(--brand);
+    }
+
+    main {
+      max-width: 1500px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .review-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: flex-end;
+      margin-bottom: 18px;
+    }
+
+    .eyebrow {
+      margin: 0 0 6px;
+      color: var(--brand);
+      font-size: 0.77rem;
+      font-weight: 850;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(1.55rem, 3vw, 2.35rem);
+      letter-spacing: -0.035em;
+    }
+
+    .header-note {
+      max-width: 440px;
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .workflow-strip {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .workflow-step {
+      min-height: 74px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(255, 253, 248, 0.7);
+    }
+
+    .workflow-step.active {
+      border-color: var(--brand);
+      background: var(--brand-soft);
+    }
+
+    .workflow-step strong,
+    .workflow-step span {
+      display: block;
+    }
+
+    .workflow-step span {
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    .workspace {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 390px;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    .artifact-card {
+      min-width: 0;
+      overflow: hidden;
+    }
+
+    .artifact-toolbar {
+      min-height: 62px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      padding: 12px 18px;
+      border-bottom: 1px solid var(--line);
+      background: #faf8f2;
+    }
+
+    .artifact-toolbar strong,
+    .artifact-toolbar span {
+      display: block;
+    }
+
+    .artifact-toolbar span {
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 5px 9px;
+      border-radius: 999px;
+      color: var(--brand-dark);
+      background: var(--brand-soft);
+      font-size: 0.76rem;
+      font-weight: 850;
+    }
+
+    .artifact-body {
+      padding: 24px;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 22px;
+    }
+
+    .meta {
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: white;
+    }
+
+    .meta span,
+    .meta strong {
+      display: block;
+    }
+
+    .meta span {
+      margin-bottom: 3px;
+      color: var(--muted);
+      font-size: 0.72rem;
+    }
+
+    .question {
+      margin: 0 0 20px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.12rem, 2vw, 1.35rem);
+      line-height: 1.62;
+    }
+
+    .placeholder-note {
+      margin: -8px 0 20px;
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    .options {
+      display: grid;
+      gap: 10px;
+    }
+
+    .option {
+      display: grid;
+      grid-template-columns: 34px 1fr auto;
+      gap: 12px;
+      align-items: center;
+      padding: 13px 14px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: white;
+    }
+
+    .option.reviewing {
+      border: 2px solid var(--blue);
+      background: var(--blue-soft);
+    }
+
+    .option-letter {
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      border-radius: 9px;
+      color: white;
+      background: #59665f;
+      font-weight: 850;
+    }
+
+    .option-tag {
+      color: var(--muted);
+      font-size: 0.76rem;
+      font-weight: 800;
+    }
+
+    .reviewing .option-tag {
+      color: var(--blue);
+    }
+
+    .context-box {
+      margin-top: 18px;
+      padding: 15px;
+      border-radius: 12px;
+      background: #f1f3ee;
+    }
+
+    .context-box strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .context-box p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .carousel-controls {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      padding: 14px 18px;
+      border-top: 1px solid var(--line);
+      background: #faf8f2;
+    }
+
+    .carousel-controls span {
+      color: var(--muted);
+      font-size: 0.84rem;
+    }
+
+    .button {
+      min-height: 44px;
+      padding: 10px 15px;
+      border: 1px solid transparent;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    .button.primary {
+      color: white;
+      background: var(--brand);
+    }
+
+    .button.primary:hover {
+      background: var(--brand-dark);
+    }
+
+    .button.secondary {
+      border-color: var(--line);
+      background: white;
+    }
+
+    .button.ghost {
+      color: var(--brand);
+      background: transparent;
+    }
+
+    .review-panel {
+      position: sticky;
+      top: 18px;
+      overflow: hidden;
+    }
+
+    .panel-header {
+      padding: 18px 18px 14px;
+      border-bottom: 1px solid var(--line);
+      background: #faf8f2;
+    }
+
+    .panel-header h3 {
+      margin: 0;
+      font-size: 1.12rem;
+    }
+
+    .panel-header p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 0.85rem;
+      line-height: 1.45;
+    }
+
+    .panel-body {
+      padding: 18px;
+    }
+
+    .field-label {
+      display: block;
+      margin: 0 0 9px;
+      font-size: 0.82rem;
+      font-weight: 850;
+    }
+
+    .score-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin-bottom: 19px;
+    }
+
+    .score-button {
+      min-height: 88px;
+      padding: 10px 7px;
+      border: 2px solid var(--line);
+      border-radius: 12px;
+      background: white;
+      cursor: pointer;
+    }
+
+    .score-button strong,
+    .score-button span {
+      display: block;
+    }
+
+    .score-button strong {
+      font-size: 1.25rem;
+    }
+
+    .score-button span {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 0.75rem;
+    }
+
+    .score-button.selected[data-score="1"] {
+      border-color: var(--brand);
+      background: var(--brand-soft);
+    }
+
+    .score-button.selected[data-score="2"] {
+      border-color: var(--amber);
+      background: var(--amber-soft);
+    }
+
+    .score-button.selected[data-score="3"] {
+      border-color: var(--red);
+      background: var(--red-soft);
+    }
+
+    .difficulty-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 6px;
+      margin-bottom: 19px;
+    }
+
+    .difficulty-button {
+      min-height: 58px;
+      padding: 7px 4px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: white;
+      cursor: pointer;
+      font-size: 0.72rem;
+      font-weight: 750;
+    }
+
+    .difficulty-button.selected {
+      border: 2px solid var(--blue);
+      color: var(--blue);
+      background: var(--blue-soft);
+    }
+
+    .concern-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-bottom: 17px;
+    }
+
+    .concern {
+      min-height: 36px;
+      padding: 7px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: white;
+      cursor: pointer;
+      font-size: 0.76rem;
+      font-weight: 700;
+    }
+
+    .concern.selected {
+      border-color: var(--amber);
+      color: #6d3d09;
+      background: var(--amber-soft);
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 104px;
+      resize: vertical;
+      padding: 11px 12px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      color: var(--ink);
+      background: white;
+      line-height: 1.45;
+    }
+
+    .preview {
+      margin-top: 14px;
+      padding: 12px;
+      border-radius: 10px;
+      color: var(--muted);
+      background: #f1f3ee;
+      font-size: 0.83rem;
+      line-height: 1.45;
+    }
+
+    .preview strong {
+      color: var(--ink);
+    }
+
+    .panel-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .panel-actions .primary {
+      flex: 1;
+    }
+
+    .independence {
+      display: flex;
+      gap: 9px;
+      margin-top: 13px;
+      color: var(--muted);
+      font-size: 0.77rem;
+      line-height: 1.45;
+    }
+
+    .discussion-panel {
+      display: none;
+    }
+
+    .discussion-panel.active {
+      display: block;
+    }
+
+    .standard-panel.hidden {
+      display: none;
+    }
+
+    .label-comparison {
+      display: grid;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .label-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      padding: 11px 12px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: white;
+    }
+
+    .label-row span {
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    .status {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 20;
+      max-width: 390px;
+      padding: 13px 15px;
+      border-radius: 11px;
+      color: white;
+      background: #193a30;
+      box-shadow: var(--shadow);
+    }
+
+    .status[hidden] {
+      display: none;
+    }
+
+    @media (max-width: 1100px) {
+      .app {
+        grid-template-columns: 210px 1fr;
+      }
+
+      .workspace {
+        grid-template-columns: 1fr;
+      }
+
+      .review-panel {
+        position: static;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .app {
+        display: block;
+      }
+
+      .sidebar {
+        padding: 14px 16px;
+      }
+
+      .sidebar-copy,
+      .nav-label {
+        display: none;
+      }
+
+      .brand {
+        margin-bottom: 10px;
+      }
+
+      .sidebar h1 {
+        font-size: 1rem;
+      }
+
+      .prototype-nav {
+        display: flex;
+        gap: 6px;
+        overflow-x: auto;
+      }
+
+      .nav-button {
+        width: auto;
+        flex: 0 0 auto;
+      }
+
+      .topbar,
+      .review-header,
+      .artifact-toolbar,
+      .carousel-controls {
+        align-items: flex-start;
+      }
+
+      .topbar,
+      .review-header {
+        flex-direction: column;
+      }
+
+      .topbar {
+        padding: 13px 16px;
+      }
+
+      main {
+        padding: 16px;
+      }
+
+      .workflow-strip,
+      .meta-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .artifact-body {
+        padding: 18px;
+      }
+
+      .option {
+        grid-template-columns: 34px 1fr;
+      }
+
+      .option-tag {
+        grid-column: 2;
+      }
+
+      .difficulty-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar" aria-label="Prototype navigation">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">C</span>
+        <span>Cramapple Review</span>
+      </div>
+      <span class="prototype-label">UX-002 prototype</span>
+      <h1>Question and answer review</h1>
+      <p class="sidebar-copy">
+        Frontend-only review artifact. Submitted choices do not write records
+        or approve production content.
+      </p>
+
+      <p class="nav-label">Review states</p>
+      <nav class="prototype-nav" aria-label="Jump to review state">
+        <button class="nav-button active" type="button" data-view="tutor-question">
+          Tutor question <span class="count">8</span>
+        </button>
+        <button class="nav-button" type="button" data-view="reader-question">
+          AP Reader question <span class="count">3</span>
+        </button>
+        <button class="nav-button" type="button" data-view="tutor-answer">
+          Tutor answer <span class="count">12</span>
+        </button>
+        <button class="nav-button" type="button" data-view="reader-answer">
+          AP Reader answer <span class="count">5</span>
+        </button>
+        <button class="nav-button" type="button" data-view="difficulty">
+          Difficulty discussion <span class="count">4</span>
+        </button>
+      </nav>
+    </aside>
+
+    <div class="shell">
+      <header class="topbar">
+        <div>
+          <strong id="reviewer-name">Jordan Lee</strong>
+          <span id="reviewer-context">Tutor validator · AP Biology · Independent assignment</span>
+        </div>
+        <div class="role-switcher" aria-label="Prototype reviewer role">
+          <button class="role-button active" type="button" data-role="tutor">Tutor view</button>
+          <button class="role-button" type="button" data-role="reader">AP Reader view</button>
+        </div>
+      </header>
+
+      <main>
+        <div class="review-header">
+          <div>
+            <p class="eyebrow" id="stage-eyebrow">Tutor review · Question</p>
+            <h2 id="stage-title">Review question 4 of 12</h2>
+          </div>
+          <p class="header-note" id="stage-note">
+            Your decision is hidden from the other tutor until both independent
+            reviews are submitted.
+          </p>
+        </div>
+
+        <div class="workflow-strip" aria-label="Candidate workflow">
+          <div class="workflow-step active" id="flow-tutors">
+            <strong>1. Two tutors</strong>
+            <span>Independent 1-3 scores</span>
+          </div>
+          <div class="workflow-step" id="flow-aggregate">
+            <strong>2. Aggregate</strong>
+            <span>2 advances · 3 revises · 4+ excludes</span>
+          </div>
+          <div class="workflow-step" id="flow-reader">
+            <strong>3. AP Reader</strong>
+            <span>Approve, recycle, or exclude</span>
+          </div>
+          <div class="workflow-step" id="flow-release">
+            <strong>4. Other gates</strong>
+            <span>Approval here is not publication</span>
+          </div>
+        </div>
+
+        <div class="workspace">
+          <article class="card artifact-card" aria-labelledby="artifact-title">
+            <div class="artifact-toolbar">
+              <div>
+                <strong id="artifact-title">MCQ candidate Q-APBIO-041 · v3</strong>
+                <span id="artifact-subtitle">Question review · Original placeholder content</span>
+              </div>
+              <span class="badge" id="assignment-badge">Tutor 1 of 2</span>
+            </div>
+
+            <div class="artifact-body">
+              <div class="meta-grid">
+                <div class="meta"><span>Topic</span><strong>Cell energetics</strong></div>
+                <div class="meta"><span>Skill</span><strong>Data interpretation</strong></div>
+                <div class="meta"><span>Intended use</span><strong>Teaching candidate</strong></div>
+                <div class="meta"><span>Intended difficulty</span><strong>Medium</strong></div>
+              </div>
+
+              <p class="question">
+                A researcher grows genetically identical seedlings under four
+                light intensities while keeping temperature, water, and carbon
+                dioxide concentration constant. Which result would best support
+                the claim that light intensity is limiting photosynthesis in
+                this setup?
+              </p>
+              <p class="placeholder-note">
+                Prototype-only original placeholder. Not approved Cramapple content.
+              </p>
+
+              <div class="options" aria-label="Answer options">
+                <div class="option" data-option="A">
+                  <span class="option-letter">A</span>
+                  <span>Oxygen production increases as light intensity increases, then levels off.</span>
+                  <span class="option-tag">Proposed correct</span>
+                </div>
+                <div class="option" data-option="B">
+                  <span class="option-letter">B</span>
+                  <span>Oxygen production remains constant at every light intensity.</span>
+                  <span class="option-tag">Distractor</span>
+                </div>
+                <div class="option" data-option="C">
+                  <span class="option-letter">C</span>
+                  <span>Seedling mass decreases while oxygen production increases.</span>
+                  <span class="option-tag">Distractor</span>
+                </div>
+                <div class="option" data-option="D">
+                  <span class="option-letter">D</span>
+                  <span>Carbon dioxide concentration increases only in the brightest treatment.</span>
+                  <span class="option-tag">Distractor</span>
+                </div>
+              </div>
+
+              <div class="context-box" id="review-context-box">
+                <strong>Review context</strong>
+                <p id="review-context-copy">
+                  Review the question as a complete candidate. The answer
+                  options will receive separate review only after the question
+                  passes this stage.
+                </p>
+              </div>
+            </div>
+
+            <div class="carousel-controls">
+              <button class="button secondary" type="button" id="previous-item">Previous</button>
+              <span id="carousel-position">Question 4 of 12 · Draft saved locally</span>
+              <button class="button secondary" type="button" id="next-item">Next</button>
+            </div>
+          </article>
+
+          <aside class="card review-panel" aria-label="Review controls">
+            <div class="panel-header">
+              <h3 id="panel-title">Your independent review</h3>
+              <p id="panel-copy">Choose one score and one difficulty label. Maybe and No require a rationale.</p>
+            </div>
+
+            <div class="panel-body standard-panel" id="standard-panel">
+              <span class="field-label" id="score-label">Tutor score</span>
+              <div class="score-grid" role="group" aria-labelledby="score-label">
+                <button class="score-button" type="button" data-score="1" aria-pressed="false">
+                  <strong>1</strong><span id="score-one-label">Yes</span>
+                </button>
+                <button class="score-button" type="button" data-score="2" aria-pressed="false">
+                  <strong>2</strong><span id="score-two-label">Maybe</span>
+                </button>
+                <button class="score-button" type="button" data-score="3" aria-pressed="false">
+                  <strong>3</strong><span id="score-three-label">No</span>
+                </button>
+              </div>
+
+              <div id="difficulty-section">
+                <span class="field-label" id="difficulty-label">Difficulty label</span>
+                <div class="difficulty-grid" role="group" aria-labelledby="difficulty-label">
+                  <button class="difficulty-button" type="button" data-difficulty="Easy" aria-pressed="false">Easy</button>
+                  <button class="difficulty-button" type="button" data-difficulty="Moderately easy" aria-pressed="false">Moderately easy</button>
+                  <button class="difficulty-button" type="button" data-difficulty="Medium" aria-pressed="false">Medium</button>
+                  <button class="difficulty-button" type="button" data-difficulty="Hard" aria-pressed="false">Hard</button>
+                  <button class="difficulty-button" type="button" data-difficulty="Very hard" aria-pressed="false">Very hard</button>
+                </div>
+              </div>
+
+              <span class="field-label">Concerns</span>
+              <div class="concern-grid" aria-label="Concern codes">
+                <button class="concern" type="button" aria-pressed="false">Accuracy</button>
+                <button class="concern" type="button" aria-pressed="false">Ambiguity</button>
+                <button class="concern" type="button" aria-pressed="false">Alignment</button>
+                <button class="concern" type="button" aria-pressed="false">Difficulty</button>
+                <button class="concern" type="button" aria-pressed="false">Answer clue</button>
+              </div>
+
+              <label class="field-label" for="rationale">Rationale</label>
+              <textarea id="rationale" placeholder="Explain the evidence for your decision."></textarea>
+
+              <div class="preview" id="disposition-preview">
+                <strong>No score selected.</strong> Choose 1, 2, or 3 to see what
+                this decision means.
+              </div>
+
+              <div class="panel-actions">
+                <button class="button primary" type="button" id="submit-review">Submit and lock</button>
+                <button class="button ghost" type="button" id="recuse">Recuse</button>
+              </div>
+
+              <div class="independence">
+                <span aria-hidden="true">i</span>
+                <span id="independence-copy">The other tutor cannot see this score or rationale before both reviews are locked.</span>
+              </div>
+            </div>
+
+            <div class="panel-body discussion-panel" id="discussion-panel">
+              <span class="field-label">Locked labels</span>
+              <div class="label-comparison">
+                <div class="label-row"><span>Tutor A</span><strong>Medium</strong></div>
+                <div class="label-row"><span>Tutor B</span><strong>Hard</strong></div>
+                <div class="label-row"><span>AP Reader</span><strong>Medium</strong></div>
+              </div>
+
+              <label class="field-label" for="discussion-note">Discussion outcome</label>
+              <textarea id="discussion-note" placeholder="Record why the confirmed label fits this version."></textarea>
+
+              <span class="field-label" id="resolution-label">Resolution</span>
+              <div class="score-grid" role="group" aria-labelledby="resolution-label">
+                <button class="score-button resolution-button" type="button" data-resolution="Medium" aria-pressed="false">
+                  <strong>M</strong><span>Confirm medium</span>
+                </button>
+                <button class="score-button resolution-button" type="button" data-resolution="Hard" aria-pressed="false">
+                  <strong>H</strong><span>Confirm hard</span>
+                </button>
+                <button class="score-button resolution-button" type="button" data-resolution="Revise" aria-pressed="false">
+                  <strong>R</strong><span>Revise question</span>
+                </button>
+              </div>
+
+              <div class="preview">
+                Prior labels remain immutable. This records a discussion outcome
+                or sends the question to a new version.
+              </div>
+              <div class="panel-actions">
+                <button class="button primary" type="button" id="submit-resolution">Record outcome</button>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <div class="status" id="status" role="status" aria-live="polite" hidden></div>
+
+  <script>
+    const state = {
+      view: "tutor-question",
+      role: "tutor",
+      score: null,
+      difficulty: null,
+      resolution: null,
+      item: 4,
+      answerIndex: 1
+    };
+
+    const status = document.getElementById("status");
+    const standardPanel = document.getElementById("standard-panel");
+    const discussionPanel = document.getElementById("discussion-panel");
+    const difficultySection = document.getElementById("difficulty-section");
+    const scoreLabel = document.getElementById("score-label");
+    const panelTitle = document.getElementById("panel-title");
+    const panelCopy = document.getElementById("panel-copy");
+    const stageEyebrow = document.getElementById("stage-eyebrow");
+    const stageTitle = document.getElementById("stage-title");
+    const stageNote = document.getElementById("stage-note");
+    const assignmentBadge = document.getElementById("assignment-badge");
+    const artifactSubtitle = document.getElementById("artifact-subtitle");
+    const contextCopy = document.getElementById("review-context-copy");
+    const preview = document.getElementById("disposition-preview");
+    const rationale = document.getElementById("rationale");
+    const independenceCopy = document.getElementById("independence-copy");
+    let statusTimer;
+
+    const viewConfig = {
+      "tutor-question": {
+        role: "tutor",
+        eyebrow: "Tutor review · Question",
+        title: "Review question 4 of 12",
+        note: "Your decision is hidden from the other tutor until both independent reviews are submitted.",
+        badge: "Tutor 1 of 2",
+        subtitle: "Question review · Original placeholder content",
+        context: "Review the question as a complete candidate. The answer options will receive separate review only after the question passes this stage.",
+        answer: null,
+        difficulty: true
+      },
+      "reader-question": {
+        role: "reader",
+        eyebrow: "AP Reader review · Question",
+        title: "Review tutor-approved question 2 of 5",
+        note: "Both tutor reviews are locked. Your decision approves this stage, creates a new version, or excludes the current version.",
+        badge: "Tutor aggregate: 2",
+        subtitle: "AP Reader question review · Two tutor Yes scores",
+        context: "Tutor A: Yes · Tutor B: Yes. Both tutors labeled the question Medium. Approval here still does not publish the question.",
+        answer: null,
+        difficulty: true
+      },
+      "tutor-answer": {
+        role: "tutor",
+        eyebrow: "Tutor review · MCQ answer",
+        title: "Review answer B · 2 of 4",
+        note: "Score this answer independently while keeping the complete MCQ visible.",
+        badge: "Tutor 2 of 2",
+        subtitle: "Answer option review · Distractor B",
+        context: "Review whether distractor B is scientifically defensible as an incorrect option, plausible, unambiguous, and free of unintended clues.",
+        answer: "B",
+        difficulty: false
+      },
+      "reader-answer": {
+        role: "reader",
+        eyebrow: "AP Reader review · MCQ answer",
+        title: "Review answer B · 2 of 4",
+        note: "A score of 2 creates a new answer/package version. A score of 3 excludes the current MCQ package.",
+        badge: "Tutor aggregate: 2",
+        subtitle: "AP Reader answer review · Two tutor Yes scores",
+        context: "Tutor A: Yes · Tutor B: Yes. The current MCQ cannot complete answer review until all four options are approved.",
+        answer: "B",
+        difficulty: false
+      },
+      difficulty: {
+        role: "reader",
+        eyebrow: "Difficulty discussion",
+        title: "Resolve label mismatch · Q-APBIO-041 v3",
+        note: "Exact agreement was not reached. Do not average the three labels.",
+        badge: "Discussion required",
+        subtitle: "Question approved · Difficulty unconfirmed",
+        context: "The approval decision remains locked. This discussion confirms the difficulty label or creates a revision path.",
+        answer: null,
+        difficulty: false
+      }
+    };
+
+    function showStatus(message) {
+      window.clearTimeout(statusTimer);
+      status.textContent = message;
+      status.hidden = false;
+      statusTimer = window.setTimeout(() => {
+        status.hidden = true;
+      }, 4000);
+    }
+
+    function clearReview() {
+      state.score = null;
+      state.difficulty = null;
+      state.resolution = null;
+      rationale.value = "";
+      document.getElementById("discussion-note").value = "";
+      document.querySelectorAll(".score-button, .difficulty-button, .concern").forEach((button) => {
+        button.classList.remove("selected");
+        button.setAttribute("aria-pressed", "false");
+      });
+      updatePreview();
+    }
+
+    function setRole(role) {
+      state.role = role;
+      document.querySelectorAll("[data-role]").forEach((button) => {
+        const active = button.dataset.role === role;
+        button.classList.toggle("active", active);
+        button.setAttribute("aria-pressed", String(active));
+      });
+
+      const reader = role === "reader";
+      document.getElementById("reviewer-name").textContent = reader ? "Avery Morgan" : "Jordan Lee";
+      document.getElementById("reviewer-context").textContent = reader
+        ? "AP Reader validator · AP Biology · Assigned review"
+        : "Tutor validator · AP Biology · Independent assignment";
+      scoreLabel.textContent = reader ? "AP Reader score" : "Tutor score";
+      document.getElementById("score-one-label").textContent = reader ? "Approve" : "Yes";
+      document.getElementById("score-two-label").textContent = reader ? "Edit and recycle" : "Maybe";
+      document.getElementById("score-three-label").textContent = reader ? "Exclude" : "No";
+      independenceCopy.textContent = reader
+        ? "Tutor decisions are locked evidence. They do not preselect or replace your decision."
+        : "The other tutor cannot see this score or rationale before both reviews are locked.";
+    }
+
+    function setView(view) {
+      state.view = view;
+      const config = viewConfig[view];
+      setRole(config.role);
+      clearReview();
+
+      document.querySelectorAll("[data-view]").forEach((button) => {
+        const active = button.dataset.view === view;
+        button.classList.toggle("active", active);
+        button.setAttribute("aria-current", String(active));
+      });
+
+      stageEyebrow.textContent = config.eyebrow;
+      stageTitle.textContent = config.title;
+      stageNote.textContent = config.note;
+      assignmentBadge.textContent = config.badge;
+      artifactSubtitle.textContent = config.subtitle;
+      contextCopy.textContent = config.context;
+      difficultySection.hidden = !config.difficulty;
+
+      document.querySelectorAll(".option").forEach((option) => {
+        option.classList.toggle("reviewing", option.dataset.option === config.answer);
+      });
+
+      const discussion = view === "difficulty";
+      standardPanel.classList.toggle("hidden", discussion);
+      discussionPanel.classList.toggle("active", discussion);
+
+      panelTitle.textContent = config.answer
+        ? "Review this answer"
+        : readerPanelTitle(view);
+      panelCopy.textContent = config.answer
+        ? "Score this option independently. Maybe and No require a rationale."
+        : readerPanelCopy(view);
+
+      document.getElementById("flow-tutors").classList.toggle("active", view.startsWith("tutor"));
+      document.getElementById("flow-aggregate").classList.toggle("active", view === "difficulty");
+      document.getElementById("flow-reader").classList.toggle("active", view.startsWith("reader"));
+      document.getElementById("flow-release").classList.remove("active");
+
+      if (config.answer) {
+        state.answerIndex = ["A", "B", "C", "D"].indexOf(config.answer);
+        updateAnswerPresentation();
+      } else {
+        document.getElementById("carousel-position").textContent =
+          `Question ${state.item} of 12 · Draft saved locally`;
+      }
+    }
+
+    function readerPanelTitle(view) {
+      if (view === "reader-question") return "Your AP Reader review";
+      if (view === "difficulty") return "Resolve difficulty label";
+      return "Your independent review";
+    }
+
+    function readerPanelCopy(view) {
+      if (view === "reader-question") {
+        return "Choose an AP Reader score and difficulty label. Recycle and Exclude require a rationale.";
+      }
+      if (view === "difficulty") {
+        return "Compare the three locked labels. Confirm one label or create a revision path without rewriting prior decisions.";
+      }
+      return "Choose one score and one difficulty label. Maybe and No require a rationale.";
+    }
+
+    function updateAnswerPresentation() {
+      const letters = ["A", "B", "C", "D"];
+      const letter = letters[state.answerIndex];
+      const correct = letter === "A";
+      document.querySelectorAll(".option").forEach((option) => {
+        option.classList.toggle("reviewing", option.dataset.option === letter);
+      });
+      stageTitle.textContent = `Review answer ${letter} · ${state.answerIndex + 1} of 4`;
+      artifactSubtitle.textContent = `${state.role === "reader" ? "AP Reader" : "Tutor"} answer review · ${correct ? "Proposed correct answer" : `Distractor ${letter}`}`;
+      document.getElementById("carousel-position").textContent =
+        `Answer ${letter} of 4 · Draft saved locally`;
+      contextCopy.textContent = correct
+        ? "Review whether answer A is scientifically correct, uniquely supported by the stem, and consistent with the rationale."
+        : `Review whether distractor ${letter} is scientifically defensible as an incorrect option, plausible, unambiguous, and free of unintended clues.`;
+    }
+
+    function updatePreview() {
+      if (!state.score) {
+        preview.innerHTML = "<strong>No score selected.</strong> Choose 1, 2, or 3 to see what this decision means.";
+        return;
+      }
+
+      const answer = state.view.includes("answer");
+      if (state.role === "tutor") {
+        const tutorCopy = {
+          1: "Your Yes can advance only after the second independent tutor review. An aggregate of 2 goes to AP Reader review.",
+          2: "Your Maybe requires a rationale. With a Yes it creates aggregate 3 and reserves a new version for modification; any higher aggregate excludes the current version.",
+          3: answer
+            ? "Your No requires a rationale. The tutor aggregate will be at least 4, excluding the current MCQ package."
+            : "Your No requires a rationale. The tutor aggregate will be at least 4, excluding the current question version."
+        };
+        preview.innerHTML = `<strong>Disposition preview.</strong> ${tutorCopy[state.score]}`;
+        return;
+      }
+
+      const readerCopy = {
+        1: answer
+          ? "This answer passes AP Reader review. The MCQ remains blocked until all four answers pass."
+          : "This question passes this candidate review stage. Separate source, rights, grading, and release gates still apply.",
+        2: answer
+          ? "Create a new answer/package version and return it to two tutors for independent reassessment."
+          : "Create a new question version and return it to two tutors for independent reassessment.",
+        3: answer
+          ? "Exclude the current MCQ package because one of its required four options failed."
+          : "Exclude the current question version."
+      };
+      preview.innerHTML = `<strong>Disposition preview.</strong> ${readerCopy[state.score]}`;
+    }
+
+    document.querySelectorAll("[data-view]").forEach((button) => {
+      button.addEventListener("click", () => setView(button.dataset.view));
+    });
+
+    document.querySelectorAll("[data-role]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const view = button.dataset.role === "reader" ? "reader-question" : "tutor-question";
+        setView(view);
+      });
+    });
+
+    document.querySelectorAll("[data-score]").forEach((button) => {
+      button.addEventListener("click", () => {
+        state.score = Number(button.dataset.score);
+        document.querySelectorAll("[data-score]").forEach((choice) => {
+          const selected = choice === button;
+          choice.classList.toggle("selected", selected);
+          choice.setAttribute("aria-pressed", String(selected));
+        });
+        updatePreview();
+      });
+    });
+
+    document.querySelectorAll("[data-difficulty]").forEach((button) => {
+      button.addEventListener("click", () => {
+        state.difficulty = button.dataset.difficulty;
+        document.querySelectorAll("[data-difficulty]").forEach((choice) => {
+          const selected = choice === button;
+          choice.classList.toggle("selected", selected);
+          choice.setAttribute("aria-pressed", String(selected));
+        });
+      });
+    });
+
+    document.querySelectorAll(".concern").forEach((button) => {
+      button.addEventListener("click", () => {
+        const selected = !button.classList.contains("selected");
+        button.classList.toggle("selected", selected);
+        button.setAttribute("aria-pressed", String(selected));
+      });
+    });
+
+    document.querySelectorAll("[data-resolution]").forEach((button) => {
+      button.addEventListener("click", () => {
+        state.resolution = button.dataset.resolution;
+        document.querySelectorAll("[data-resolution]").forEach((choice) => {
+          const selected = choice === button;
+          choice.classList.toggle("selected", selected);
+          choice.setAttribute("aria-pressed", String(selected));
+        });
+      });
+    });
+
+    document.getElementById("submit-review").addEventListener("click", () => {
+      if (!state.score) {
+        showStatus("Choose a score before submitting.");
+        document.querySelector("[data-score]").focus();
+        return;
+      }
+
+      const needsDifficulty = !difficultySection.hidden;
+      if (needsDifficulty && !state.difficulty) {
+        showStatus("Choose a difficulty label before submitting.");
+        document.querySelector("[data-difficulty]").focus();
+        return;
+      }
+
+      if (state.score > 1 && !rationale.value.trim()) {
+        showStatus("Add a rationale for this decision.");
+        rationale.focus();
+        return;
+      }
+
+      showStatus("Review submitted and locked. The next eligible assignment is ready.");
+    });
+
+    document.getElementById("submit-resolution").addEventListener("click", () => {
+      const note = document.getElementById("discussion-note");
+      if (!state.resolution) {
+        showStatus("Choose a difficulty resolution.");
+        document.querySelector("[data-resolution]").focus();
+        return;
+      }
+      if (!note.value.trim()) {
+        showStatus("Record the reason for this discussion outcome.");
+        note.focus();
+        return;
+      }
+      showStatus(state.resolution === "Revise"
+        ? "Revision path recorded. A new immutable version is required."
+        : `Difficulty confirmed as ${state.resolution}. Prior labels remain locked.`);
+    });
+
+    document.getElementById("recuse").addEventListener("click", () => {
+      showStatus("Recusal would record a conflict event and return this assignment for replacement.");
+    });
+
+    document.getElementById("previous-item").addEventListener("click", () => {
+      if (state.view.includes("answer")) {
+        state.answerIndex = Math.max(0, state.answerIndex - 1);
+        updateAnswerPresentation();
+        showStatus("Previous answer loaded. Draft state is preserved in this prototype.");
+        return;
+      }
+      state.item = Math.max(1, state.item - 1);
+      document.getElementById("carousel-position").textContent =
+        `Question ${state.item} of 12 · Draft saved locally`;
+      showStatus("Previous prototype item loaded.");
+    });
+
+    document.getElementById("next-item").addEventListener("click", () => {
+      if (state.view.includes("answer")) {
+        state.answerIndex = Math.min(3, state.answerIndex + 1);
+        updateAnswerPresentation();
+        showStatus("Next answer loaded. Draft state is preserved in this prototype.");
+        return;
+      }
+      state.item = Math.min(12, state.item + 1);
+      document.getElementById("carousel-position").textContent =
+        `Question ${state.item} of 12 · Draft saved locally`;
+      showStatus("Next prototype item loaded.");
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (standardPanel.classList.contains("hidden")) return;
+      if (event.target.matches("textarea, input, select")) return;
+      if (!["1", "2", "3"].includes(event.key)) return;
+      const button = document.querySelector(`[data-score="${event.key}"]`);
+      button.click();
+      button.focus();
+    });
+
+    setView("tutor-question");
+  </script>
+</body>
+</html>

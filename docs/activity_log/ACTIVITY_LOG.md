@@ -4,6 +4,23 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ---
 
+## Question and Answer Review Portal Design Started - 2026-06-13
+
+**Task:** UX-002
+**Status:** In Progress
+**Summary:** Defined the staged two-tutor and AP Reader workflow for question
+candidates and MCQ answer options, including aggregate-score routing, immutable
+edit-and-recycle behavior, whole-package exclusion, exact-agreement difficulty
+labels, reviewer independence, and the boundary between candidate approval and
+production release. Created the canonical interaction design, task record,
+clickable prototype, and Lovable render brief.
+
+**Next Owner:** Tutors, AP Readers, Learning Quality Owner, accessibility and
+security reviewers, and David Bloom
+**Next Required Action:** Review and test the carousel, score meanings,
+rationale requirements, answer-package behavior, and difficulty discussion
+before any production implementation.
+
 ## Drawn-Response Pilot V0 Preflight Blocked - 2026-06-13
 
 **Tasks:** TASK-0010 / TASK-0011

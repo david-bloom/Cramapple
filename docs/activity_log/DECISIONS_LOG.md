@@ -927,3 +927,44 @@ still capturing the learner-specific fact that affects reminders and planning.
   to the learner.
 - Registration itself remains outside Cramapple and occurs through a school or
   AP coordinator.
+
+## DECISION-0024 — Use Staged Tutor and AP Reader Candidate Review
+
+**Date:** 2026-06-13
+**Decision Owner:** David Bloom
+**Status:** Approved for UX Design
+**Related Task:** UX-002
+**Area:** Product / Content Operations
+
+### Context
+
+Cramapple needs a simple reviewer workflow for deciding whether original
+question candidates and MCQ answer options should advance, be revised, or be
+excluded.
+
+### Decision
+
+Use two independent tutor scores of 1 Yes, 2 Maybe, or 3 No. Sum the locked
+tutor scores: aggregate 2 advances to AP Reader review, aggregate 3 reserves a
+new version for modification and reassessment, and aggregate 4-6 excludes the
+current version.
+
+Use AP Reader scores of 1 Approve, 2 Edit and recycle to two tutors, and
+3 Exclude. Apply the same staged review independently to each of the four MCQ
+answer options after the question passes question review.
+
+### Rationale
+
+The model is easy to teach, preserves two independent tutor judgments, creates
+a clear expert escalation, and prevents edits from inheriting approval.
+
+### Consequences
+
+- Any excluded answer excludes the current four-option MCQ package.
+- All four answers must pass before answer review is complete.
+- Edits create new immutable versions and reset the affected review.
+- Every question receives two tutor difficulty labels; a question reaching AP
+  Reader review receives the third label.
+- Exact agreement confirms difficulty; disagreement creates a discussion item.
+- This workflow decides candidate disposition and does not replace downstream
+  content-governance or release gates.

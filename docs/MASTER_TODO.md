@@ -501,6 +501,23 @@ planning target. Physical Supabase DDL remains deferred.
 - [ ] Complete accessibility review.
 - [ ] Obtain Product Owner decision on the proposed UX directions.
 
+### UX-002 - Question and Answer Review Portal
+
+**Status:** In Progress
+**Owner:** Product Owner with Learning Quality Owner
+**Task record:** `docs/tasks/UX-002-QUESTION-ANSWER-REVIEW-PORTAL.md`
+**Design record:** `docs/product/QUESTION_AND_ANSWER_REVIEW_PORTAL_DESIGN.md`
+
+- [x] Define independent two-tutor 1-3 scoring and aggregate outcomes.
+- [x] Define AP Reader approval, recycle, and exclusion outcomes.
+- [x] Define exact-agreement difficulty labeling and discussion.
+- [x] Define question-first and four-answer MCQ review gates.
+- [x] Draft reviewer queue and carousel interaction model.
+- [x] Produce and verify the clickable reviewer prototype.
+- [ ] Obtain tutor and AP Reader usability review.
+- [ ] Complete Learning Quality, accessibility, and security review.
+- [ ] Obtain Product Owner decision before production implementation.
+
 ## 9. P2 Commercial and Operating Backlog
 
 ### GTM-001 - Positioning and Launch Messaging

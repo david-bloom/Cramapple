@@ -404,3 +404,27 @@ confirm whether they are registered for the selected exam.
   inventing a date or asking the student to supply it.
 - This approval covers UX-001 documentation and prototype work, not production
   implementation or deployment.
+
+## APPROVAL-0019 - Start Question and Answer Review Portal Design
+
+**Date:** 2026-06-13
+**Approved By:** David Bloom
+**Related Task:** UX-002
+**Decision:** Approved with Notes
+
+### Summary
+
+Design a carousel-based review portal for logged-in tutors and AP Readers using
+the Product Owner's question, answer, scoring, recycling, exclusion, and
+difficulty-label workflow.
+
+### Notes
+
+- Approval covers design records, wireframes, clickable prototypes, and a
+  Lovable render brief.
+- Two tutor decisions remain independent until both are submitted.
+- Candidate-stage approval does not authorize production publication.
+- Existing source, rights, teaching, grading, accessibility, release, and
+  exam-pack gates remain required.
+- This approval does not authorize production authentication, database design,
+  reviewer-data writes, deployment, or use of unapproved content.
