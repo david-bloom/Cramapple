@@ -1,13 +1,15 @@
 # Proposal: Team Charter Improvements
 
 **Status:** Proposed — Pending Owner Review
-**Version:** v2 (revised after Codex review)
+**Version:** v2.2 (revised after Codex PR review)
 **Author:** Claude (drafted under Standing Approval — draft plans/recommendations)
 **Reviewers:** David Bloom (Product Owner), Codex
 **Date:** 2026-06-14
 **Affects:** `docs/team_charter/AI_COLLABORATION_RULES.md`, `docs/team_charter/AGENT_OPERATING_MODEL.md`, `docs/team_charter/TASK_WORKFLOW.md`, `docs/team_charter/STANDING_APPROVAL_LANES.md`, `docs/team_charter/DEFINITION_OF_DONE.md`, `docs/team_charter/HANDOFF_PACKET_TEMPLATE.md`, `docs/team_charter/SKILLS_GUIDE.md`, `docs/activity_log/APPROVALS_LOG.md`, `docs/activity_log/DECISIONS_LOG.md`, `docs/agent_notes/` (new), new-session prompts (kit-level)
 
 ## Revision History
+
+**v2.2 — 2026-06-15, after Codex PR review.** Tightens Proposal 10's note lifecycle and naming model: recipient inboxes replace sender-specific filenames, `SYNC` and startup report every non-Resolved note, owner-authored notes use the same inboxes, the files are described as chronological logs rather than append-only, and the standing-approval text no longer refers to an undefined owner inbox. Also removes a Proposal 9 example that applied lifecycle status to a non-governed artifact and updates the document metadata to reflect all ten proposals.
 
 **v2.1 — 2026-06-14, added Proposal 10 per owner direction.** Introduces a durable cross-agent notes channel (`docs/agent_notes/`) so that when the owner invokes `SYNC` (Proposal 1), each agent has a known location with a known format to read inbound notes from the other agent. Additive — does not change Proposals 1–9. Affected: `AI_COLLABORATION_RULES.md` gains a "Cross-Agent Notes" subsection; kit new-session prompts gain a one-line inbound-file read instruction; three new files seeded under `docs/agent_notes/`. Cross-cutting recording (one `APPROVAL-NNNN`, one `DECISION-NNNN`, one `CHANGELOG.md` entry) covers Proposal 10 in the same bundle when adopted together.
 
@@ -39,7 +41,7 @@ Integrated resolutions from owner review:
 
 ## Purpose
 
-Address nine specific gaps in the team charter — four operating-model gaps, four small clarifications, and one cross-cutting source-of-truth question about in-progress drafts. Each section states the problem, the proposed change, and the exact text/structure edits required.
+Address ten specific gaps in the team charter: operating-model gaps, small clarifications, a cross-cutting source-of-truth question about in-progress drafts, and a durable cross-agent notes channel. Each section states the problem, the proposed change, and the exact text/structure edits required.
 
 Nothing in this proposal is approved. It is a recommendation under Standing Approval (drafting recommendations and plans). Adoption is a Hard Gate.
 
@@ -289,7 +291,7 @@ Recognized lifecycle `Status:` values for governed documents:
 
 ### 9c. Branch and status are independent
 
-- A `Draft` document may live on a feature branch (typical) **or** on `main` if it's a draft of a non-governed artifact being iterated openly.
+- A governed document with `Status: Draft` may live on a feature branch (typical) **or** on `main`.
 - A `Proposed` document may live on a feature branch **or** on `main`. Recording a `Proposed` decision on `main` durably captures the proposal; it does not imply approval.
 - An `Approved` document may live on `main` (typical, once merged) **or** on a feature branch (if it was approved while still on the branch and merge hasn't happened yet).
 - No combination of branch and status is implicitly forbidden. Status reflects the approval lifecycle; branch reflects the workflow location.
@@ -341,18 +343,18 @@ This preserves the rule's intent (no local-only durable state) without forcing i
 
 **Problem.** Today, agent-to-agent communication has no durable venue. Handoff packets (`HANDOFF_PACKET_TEMPLATE.md`) are task-bound and one-shot. The activity log captures completed events, not forward-looking requests. Chat does not survive sessions. If Codex needs Claude to handle something next session — or vice versa — there is no source-of-truth location to leave that note. When the owner invokes `SYNC` (Proposal 1), each agent has nowhere to look for outstanding cross-agent requests, so cross-agent context is repeatedly lost.
 
-**Proposal.** Add a small, append-only notes folder. Two directional files, status-driven, mirroring existing log conventions.
+**Proposal.** Add a small notes folder containing two chronological recipient inboxes. Sender-authored content is immutable; recipients update only operational status and resolution fields.
 
 ### 10a. Folder and files
 
 ```
 docs/agent_notes/
-  CLAUDE_FROM_CODEX.md   — notes Codex writes for Claude
-  CODEX_FROM_CLAUDE.md   — notes Claude writes for Codex
-  README.md              — one-page convention reference
+  CLAUDE_INBOX.md   — durable notes addressed to Claude
+  CODEX_INBOX.md    — durable notes addressed to Codex
+  README.md         — one-page convention reference
 ```
 
-Naming pattern: `[RECIPIENT]_FROM_[SENDER].md`. Extensible to a third agent if needed (6 files at 3 agents); flat enough at two.
+Naming pattern: `[RECIPIENT]_INBOX.md`. The sender is recorded in each entry's `From:` field, so agent-authored and owner-authored notes use the same recipient inbox. A third recurring agent requires only one additional inbox.
 
 ### 10b. Entry format
 
@@ -393,33 +395,33 @@ Chronological, newest at bottom (matches `ACTIVITY_LOG.md`, `APPROVALS_LOG.md`, 
 
 Add to the `SYNC` handshake section in `AI_COLLABORATION_RULES.md`:
 
-> On `SYNC`, the agent re-reads `docs/agent_notes/[INBOUND].md` (the file addressed to it) and reports every entry with `Status: Open` — by `NOTE-…` ID, subject, sender, date, and required action — before reporting other state. For Claude, `[INBOUND]` resolves to `CLAUDE_FROM_CODEX.md`; for Codex, `CODEX_FROM_CLAUDE.md`.
+> On `SYNC`, the agent re-reads `docs/agent_notes/[RECIPIENT]_INBOX.md` and reports every entry whose `Status` is not `Resolved` — by `NOTE-…` ID, subject, status, sender, date, and required action — before reporting other state. For Claude, the file is `CLAUDE_INBOX.md`; for Codex, it is `CODEX_INBOX.md`.
 
 ### 10e. Startup prompt addition
 
 Add one line to the new-session prompt (the unified `NEW_SESSION_PROMPT.md` per Kit-review B1; until that lands, add to both `CLAUDE_NEW_SESSION_PROMPT.md` and `CODEX_NEW_SESSION_PROMPT.md`):
 
-> Read `docs/agent_notes/[INBOUND_FILE].md` and report Open notes addressed to you.
+> Read `docs/agent_notes/[RECIPIENT]_INBOX.md` and report all notes not marked `Resolved`.
 
 ### 10f. Owner as occasional sender
 
-The owner may leave standing notes by writing an entry with `From: David` and `To: Claude`, `To: Codex`, or `To: Both`. Entries addressed `To: Both` are mirrored in *both* inbound files so each agent sees the note on `SYNC`. Use a shared `NOTE-…` ID with `-A` / `-B` suffix to make the mirror visible (e.g., `NOTE-2026-06-15-01-A` in `CLAUDE_FROM_CODEX.md`, `NOTE-2026-06-15-01-B` in `CODEX_FROM_CLAUDE.md`).
+The owner may leave standing notes by writing an entry with `From: David` and `To: Claude`, `To: Codex`, or `To: Both`. Entries addressed `To: Both` are mirrored in both recipient inboxes so each agent sees the note on `SYNC`. Use a shared `NOTE-…` ID with `-A` / `-B` suffix to make the mirror visible (e.g., `NOTE-2026-06-15-01-A` in `CLAUDE_INBOX.md`, `NOTE-2026-06-15-01-B` in `CODEX_INBOX.md`).
 
 This is not a replacement for direct chat — it's a durable place for instructions that must survive session boundaries.
 
 ### 10g. Concrete edits
 
-- **Create** `docs/agent_notes/CLAUDE_FROM_CODEX.md`, `docs/agent_notes/CODEX_FROM_CLAUDE.md`, and `docs/agent_notes/README.md`. Each inbound file ships with the format block at the top and zero entries. `README.md` summarizes 10a–10f.
+- **Create** `docs/agent_notes/CLAUDE_INBOX.md`, `docs/agent_notes/CODEX_INBOX.md`, and `docs/agent_notes/README.md`. Each inbox ships with the format block at the top and zero entries. `README.md` summarizes 10a–10f.
 - **`AI_COLLABORATION_RULES.md`** — add a "Cross-Agent Notes" subsection covering 10a, 10b, 10c, and 10d.
 - **New-session prompts** — add the one-line read instruction (10e). When the kit's merged-prompt change (Kit-review B1) lands, this lives in the single file with an actor-aware placeholder.
-- **`STANDING_APPROVAL_LANES.md`** — Lane 1 (Standing Approvals) explicitly covers "Writing a cross-agent note (`docs/agent_notes/*`) addressed to another agent or to the owner." Writing notes is communication, not implementation; it inherits the Lane 1 doc-only standing approval.
+- **`STANDING_APPROVAL_LANES.md`** — Lane 1 (Standing Approvals) explicitly covers "Writing a note in another agent's recipient inbox (`docs/agent_notes/*_INBOX.md`)." Writing notes is communication, not implementation; it inherits the Lane 1 doc-only standing approval.
 
 ### 10h. Alternatives considered
 
-- **Single shared `AGENT_NOTES.md` file.** Rejected: loses the "addressed to me" cue; both agents would have to filter on every `SYNC`. Two files mean each agent reads exactly one inbound file.
+- **Single shared `AGENT_NOTES.md` file.** Rejected: loses the "addressed to me" cue; both agents would have to filter on every `SYNC`. Recipient inboxes mean each agent reads exactly one file.
 - **Reuse `HANDOFF_PACKET_TEMPLATE.md`.** Rejected: handoff packets are task-bound and one-shot. Cross-agent notes are standing, additive, and may span tasks — different shape, different lifecycle.
 - **GitHub issues or PR comments.** Rejected: heavier surface, fragments across two interfaces (files vs the GitHub UI), and breaks the existing "durable project state is Markdown in `docs/`" pattern.
-- **Per-agent inbox folders (`docs/agent_notes/claude/inbox.md`).** Rejected for now: same effect as the two flat files but with extra path depth. Worth reconsidering if a third agent joins routinely.
+- **Per-agent inbox folders (`docs/agent_notes/claude/inbox.md`).** Rejected for now: same effect as flat recipient inbox files but with extra path depth. Worth reconsidering if agent-specific notes expand beyond one file each.
 
 ---
 
