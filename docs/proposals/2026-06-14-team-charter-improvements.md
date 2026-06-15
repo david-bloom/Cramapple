@@ -5,9 +5,11 @@
 **Author:** Claude (drafted under Standing Approval — draft plans/recommendations)
 **Reviewers:** David Bloom (Product Owner), Codex
 **Date:** 2026-06-14
-**Affects:** `docs/team_charter/AI_COLLABORATION_RULES.md`, `docs/team_charter/AGENT_OPERATING_MODEL.md`, `docs/team_charter/TASK_WORKFLOW.md`, `docs/team_charter/STANDING_APPROVAL_LANES.md`, `docs/team_charter/DEFINITION_OF_DONE.md`, `docs/team_charter/HANDOFF_PACKET_TEMPLATE.md`, `docs/team_charter/SKILLS_GUIDE.md`, `docs/activity_log/APPROVALS_LOG.md`, `docs/activity_log/DECISIONS_LOG.md`
+**Affects:** `docs/team_charter/AI_COLLABORATION_RULES.md`, `docs/team_charter/AGENT_OPERATING_MODEL.md`, `docs/team_charter/TASK_WORKFLOW.md`, `docs/team_charter/STANDING_APPROVAL_LANES.md`, `docs/team_charter/DEFINITION_OF_DONE.md`, `docs/team_charter/HANDOFF_PACKET_TEMPLATE.md`, `docs/team_charter/SKILLS_GUIDE.md`, `docs/activity_log/APPROVALS_LOG.md`, `docs/activity_log/DECISIONS_LOG.md`, `docs/agent_notes/` (new), new-session prompts (kit-level)
 
 ## Revision History
+
+**v2.1 — 2026-06-14, added Proposal 10 per owner direction.** Introduces a durable cross-agent notes channel (`docs/agent_notes/`) so that when the owner invokes `SYNC` (Proposal 1), each agent has a known location with a known format to read inbound notes from the other agent. Additive — does not change Proposals 1–9. Affected: `AI_COLLABORATION_RULES.md` gains a "Cross-Agent Notes" subsection; kit new-session prompts gain a one-line inbound-file read instruction; three new files seeded under `docs/agent_notes/`. Cross-cutting recording (one `APPROVAL-NNNN`, one `DECISION-NNNN`, one `CHANGELOG.md` entry) covers Proposal 10 in the same bundle when adopted together.
 
 **v2 — 2026-06-14, after Codex review (consolidated for commit).** Incorporates Codex's first review (P1 / P2 / P3 findings) plus three additional fixes from Codex's second pass, plus integration of resolved open questions.
 
@@ -335,11 +337,97 @@ This preserves the rule's intent (no local-only durable state) without forcing i
 
 ---
 
+## 10. Cross-Agent Notes — a durable agent-to-agent channel
+
+**Problem.** Today, agent-to-agent communication has no durable venue. Handoff packets (`HANDOFF_PACKET_TEMPLATE.md`) are task-bound and one-shot. The activity log captures completed events, not forward-looking requests. Chat does not survive sessions. If Codex needs Claude to handle something next session — or vice versa — there is no source-of-truth location to leave that note. When the owner invokes `SYNC` (Proposal 1), each agent has nowhere to look for outstanding cross-agent requests, so cross-agent context is repeatedly lost.
+
+**Proposal.** Add a small, append-only notes folder. Two directional files, status-driven, mirroring existing log conventions.
+
+### 10a. Folder and files
+
+```
+docs/agent_notes/
+  CLAUDE_FROM_CODEX.md   — notes Codex writes for Claude
+  CODEX_FROM_CLAUDE.md   — notes Claude writes for Codex
+  README.md              — one-page convention reference
+```
+
+Naming pattern: `[RECIPIENT]_FROM_[SENDER].md`. Extensible to a third agent if needed (6 files at 3 agents); flat enough at two.
+
+### 10b. Entry format
+
+Chronological, newest at bottom (matches `ACTIVITY_LOG.md`, `APPROVALS_LOG.md`, `DECISIONS_LOG.md`):
+
+```markdown
+## NOTE-YYYY-MM-DD-NN — Short subject
+
+**From:** Codex
+**To:** Claude
+**Status:** Open / Acknowledged / Resolved
+**Related:** TASK-XXXX, APPROVAL-NNNN, branch, PR, file path (any/none)
+**Date:** YYYY-MM-DD
+
+### Context
+
+### Note / Request / Question
+
+### Required Action (if any)
+
+### Resolution
+*(filled by recipient when status → Resolved)*
+```
+
+`Status:` vocabulary (operational, not the lifecycle `Status:` from Proposal 9b):
+
+- `Open` — sender awaits acknowledgement or action.
+- `Acknowledged` — recipient has seen and accepted; not yet resolved.
+- `Resolved` — action taken or note no longer load-bearing; preserved for history.
+
+### 10c. Edit rules
+
+- The **sender** appends new notes to the bottom of the inbound file for the recipient. The Context / Note / Required Action blocks are immutable once written (like a sent message).
+- The **recipient** may update the `Status:` field and fill the `### Resolution` block. The recipient does **not** edit the sender's text.
+- Either agent may add a follow-up note to the *other* file in response (e.g., a clarifying question). Cross-reference by `NOTE-…` ID.
+
+### 10d. SYNC behavior addition
+
+Add to the `SYNC` handshake section in `AI_COLLABORATION_RULES.md`:
+
+> On `SYNC`, the agent re-reads `docs/agent_notes/[INBOUND].md` (the file addressed to it) and reports every entry with `Status: Open` — by `NOTE-…` ID, subject, sender, date, and required action — before reporting other state. For Claude, `[INBOUND]` resolves to `CLAUDE_FROM_CODEX.md`; for Codex, `CODEX_FROM_CLAUDE.md`.
+
+### 10e. Startup prompt addition
+
+Add one line to the new-session prompt (the unified `NEW_SESSION_PROMPT.md` per Kit-review B1; until that lands, add to both `CLAUDE_NEW_SESSION_PROMPT.md` and `CODEX_NEW_SESSION_PROMPT.md`):
+
+> Read `docs/agent_notes/[INBOUND_FILE].md` and report Open notes addressed to you.
+
+### 10f. Owner as occasional sender
+
+The owner may leave standing notes by writing an entry with `From: David` and `To: Claude`, `To: Codex`, or `To: Both`. Entries addressed `To: Both` are mirrored in *both* inbound files so each agent sees the note on `SYNC`. Use a shared `NOTE-…` ID with `-A` / `-B` suffix to make the mirror visible (e.g., `NOTE-2026-06-15-01-A` in `CLAUDE_FROM_CODEX.md`, `NOTE-2026-06-15-01-B` in `CODEX_FROM_CLAUDE.md`).
+
+This is not a replacement for direct chat — it's a durable place for instructions that must survive session boundaries.
+
+### 10g. Concrete edits
+
+- **Create** `docs/agent_notes/CLAUDE_FROM_CODEX.md`, `docs/agent_notes/CODEX_FROM_CLAUDE.md`, and `docs/agent_notes/README.md`. Each inbound file ships with the format block at the top and zero entries. `README.md` summarizes 10a–10f.
+- **`AI_COLLABORATION_RULES.md`** — add a "Cross-Agent Notes" subsection covering 10a, 10b, 10c, and 10d.
+- **New-session prompts** — add the one-line read instruction (10e). When the kit's merged-prompt change (Kit-review B1) lands, this lives in the single file with an actor-aware placeholder.
+- **`STANDING_APPROVAL_LANES.md`** — Lane 1 (Standing Approvals) explicitly covers "Writing a cross-agent note (`docs/agent_notes/*`) addressed to another agent or to the owner." Writing notes is communication, not implementation; it inherits the Lane 1 doc-only standing approval.
+
+### 10h. Alternatives considered
+
+- **Single shared `AGENT_NOTES.md` file.** Rejected: loses the "addressed to me" cue; both agents would have to filter on every `SYNC`. Two files mean each agent reads exactly one inbound file.
+- **Reuse `HANDOFF_PACKET_TEMPLATE.md`.** Rejected: handoff packets are task-bound and one-shot. Cross-agent notes are standing, additive, and may span tasks — different shape, different lifecycle.
+- **GitHub issues or PR comments.** Rejected: heavier surface, fragments across two interfaces (files vs the GitHub UI), and breaks the existing "durable project state is Markdown in `docs/`" pattern.
+- **Per-agent inbox folders (`docs/agent_notes/claude/inbox.md`).** Rejected for now: same effect as the two flat files but with extra path depth. Worth reconsidering if a third agent joins routinely.
+
+---
+
 ## Cross-cutting recording requirements
 
-The owner may adopt this proposal as a single bundle, or as any explicitly listed subset of the nine items. The adoption — bundle or subset — is **one Hard Gate**, recorded with:
+The owner may adopt this proposal as a single bundle, or as any explicitly listed subset of the ten items. The adoption — bundle or subset — is **one Hard Gate**, recorded with:
 
-- **One** `APPROVAL-NNNN` entry in `APPROVALS_LOG.md` that names the adopted items by number (e.g., "Adopts Proposals 1, 2, 3, 5, 6, 7, 8, 9 from `docs/proposals/2026-06-14-team-charter-improvements.md`").
+- **One** `APPROVAL-NNNN` entry in `APPROVALS_LOG.md` that names the adopted items by number (e.g., "Adopts Proposals 1, 2, 3, 5, 6, 7, 8, 9, 10 from `docs/proposals/2026-06-14-team-charter-improvements.md`").
 - **One** `DECISION-NNNN` entry in `DECISIONS_LOG.md` (Area: Operations) capturing rationale and consequences.
 - **One** `CHANGELOG.md` entry in `docs/team_charter/` (per Proposal 4) listing which proposal numbers landed and pointing back to the `APPROVAL-NNNN` and `DECISION-NNNN`.
 
