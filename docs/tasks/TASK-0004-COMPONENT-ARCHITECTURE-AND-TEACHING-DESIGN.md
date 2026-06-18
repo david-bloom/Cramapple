@@ -4,7 +4,7 @@
 **Title:** Component Architecture and Teaching Design
 **Owner:** Main Conductor
 **Product Owner:** David Bloom
-**Status:** Ready for Owner Review
+**Status:** In Progress
 **Priority:** High
 **Created Date:** 2026-06-10
 **Approved Date:** 2026-06-10
@@ -60,7 +60,7 @@ Refine the high-level architecture into explicit system-context and logical-comp
 - [x] Per-target time and stable-success thresholds are explicitly research/TBD items.
 - [x] Public student-question publishing is assigned primarily to marketing/content with pedagogical gates.
 - [x] Canonical DOCX files are generated and visually reviewed.
-- [ ] David reviews the pull request and records the Done decision.
+- [x] David reviews the pull request and approves the current documentation.
 - [ ] AP Biology tutors review the pedagogy before implementation or launch.
 
 ## QA Plan
@@ -91,5 +91,5 @@ Refine the high-level architecture into explicit system-context and logical-comp
 
 ## Done Decision
 
-**Decision:** Pending Product Owner review
+**Decision:** Pending AP Biology tutor review
 **Date:** Pending

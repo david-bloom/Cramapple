@@ -74,7 +74,14 @@ Concept Explanation (Practice 1) and Argumentation (Practice 6) together account
 
 The College Board provides 90 minutes for the six-question free-response section but does not prescribe a time budget for each question. Cramapple may recommend practice pacing, but it must label that pacing as product guidance rather than an official exam rule.
 
-The College Board also operates paywalled, audit-gated resources: AP Classroom (unit guides, progress checks, question bank), the Teaching and Assessing video modules where master AP educators model instructional strategies, AP Summer Institutes (paid teacher training), and the AP teacher community. Orly should obtain audit-approved access where possible, as these resources inform expert validation and content authoring workflows that Cramapple cannot derive from public sources alone.
+The College Board also operates paywalled, audit-gated resources: AP Classroom
+(unit guides, progress checks, question bank), Teaching and Assessing video
+modules, AP Summer Institutes, and the AP teacher community. Authorized
+educators may use those resources for their own professional development and
+exam familiarity within the applicable terms. Secure, credential-restricted, or
+licensed content must not be copied, disclosed, transformed, used as a
+Cramapple authoring source, or entered into a model. Cramapple question authors
+work from approved briefs and independently usable scientific sources.
 
 The published released scoring guidelines plus annotated sample student responses are the most operationally valuable public artifact. Each released FRQ comes with point-by-point commentary explaining why a response earned or missed each criterion. That is the closest the College Board comes to publishing a teaching standard for grading itself.
 

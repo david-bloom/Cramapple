@@ -1,0 +1,2046 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cramapple UX-001 Prototype</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #17231f;
+      --muted: #5f6f68;
+      --paper: #fffdf7;
+      --canvas: #f3f0e7;
+      --line: #d7d7cc;
+      --brand: #315f4b;
+      --brand-dark: #224737;
+      --brand-soft: #e6f0ea;
+      --accent: #d8a937;
+      --good: #276749;
+      --good-soft: #e7f4ec;
+      --warn: #8a5a12;
+      --warn-soft: #fff4d6;
+      --bad: #9b3a34;
+      --bad-soft: #fae9e7;
+      --shadow: 0 16px 45px rgba(42, 53, 47, 0.12);
+      --radius: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at top left, rgba(216, 169, 55, 0.13), transparent 30rem),
+        var(--canvas);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+      line-height: 1.5;
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    button,
+    input,
+    textarea,
+    [tabindex] {
+      outline-offset: 3px;
+    }
+
+    :focus-visible {
+      outline: 3px solid #1e6bb8;
+    }
+
+    .app-shell {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 250px minmax(0, 1fr);
+    }
+
+    .prototype-rail {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      padding: 22px 18px;
+      color: #f8fbf9;
+      background: #1d332b;
+    }
+
+    .prototype-rail h1 {
+      margin: 0;
+      font-size: 1rem;
+      letter-spacing: 0.02em;
+    }
+
+    .prototype-rail p {
+      color: #c7d5ce;
+      font-size: 0.83rem;
+    }
+
+    .prototype-badge {
+      display: inline-flex;
+      margin-bottom: 12px;
+      padding: 4px 9px;
+      border: 1px solid #779186;
+      border-radius: 999px;
+      color: #f8fbf9;
+      font-size: 0.72rem;
+      font-weight: 750;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .jump-list {
+      display: grid;
+      gap: 7px;
+      margin-top: 20px;
+    }
+
+    .jump-list button {
+      width: 100%;
+      padding: 9px 11px;
+      border: 0;
+      border-radius: 9px;
+      color: #e7efeb;
+      background: transparent;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .jump-list button:hover,
+    .jump-list button[aria-current="true"] {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .main {
+      min-width: 0;
+    }
+
+    .topbar {
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 253, 247, 0.92);
+      backdrop-filter: blur(12px);
+    }
+
+    .wordmark {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 850;
+      letter-spacing: -0.025em;
+    }
+
+    .apple-mark {
+      width: 28px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      border-radius: 9px 12px 11px 12px;
+      color: white;
+      background: var(--brand);
+      transform: rotate(-4deg);
+    }
+
+    .top-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .content {
+      width: min(980px, calc(100% - 40px));
+      margin: 38px auto 80px;
+    }
+
+    .screen {
+      display: none;
+    }
+
+    .screen.active {
+      display: block;
+      animation: enter 180ms ease-out;
+    }
+
+    @keyframes enter {
+      from {
+        opacity: 0;
+        transform: translateY(5px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      color: var(--brand);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      max-width: 760px;
+      margin: 0;
+      font-size: clamp(2rem, 5vw, 3.55rem);
+      line-height: 1.03;
+      letter-spacing: -0.045em;
+    }
+
+    h3 {
+      margin: 0;
+      font-size: 1.25rem;
+      letter-spacing: -0.02em;
+    }
+
+    .lede {
+      max-width: 680px;
+      margin: 18px 0 28px;
+      color: var(--muted);
+      font-size: 1.08rem;
+    }
+
+    .card {
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    .card + .card {
+      margin-top: 18px;
+    }
+
+    .setup-progress {
+      display: flex;
+      gap: 7px;
+      align-items: center;
+      margin-bottom: 28px;
+    }
+
+    .setup-progress span {
+      width: 34px;
+      height: 6px;
+      border-radius: 999px;
+      background: #d7d7cc;
+    }
+
+    .setup-progress span.complete,
+    .setup-progress span.current {
+      background: var(--brand);
+    }
+
+    .setup-progress span.current {
+      width: 54px;
+    }
+
+    .account-created {
+      display: grid;
+      grid-template-columns: 72px 1fr;
+      gap: 18px;
+      align-items: center;
+      max-width: 720px;
+      margin-top: 28px;
+    }
+
+    .account-check {
+      width: 64px;
+      height: 64px;
+      display: grid;
+      place-items: center;
+      border-radius: 20px;
+      color: white;
+      background: var(--brand);
+      font-size: 1.8rem;
+      font-weight: 900;
+      transform: rotate(-3deg);
+    }
+
+    .setup-note {
+      display: flex;
+      gap: 11px;
+      align-items: flex-start;
+      margin-top: 20px;
+      padding: 14px 15px;
+      border-radius: 12px;
+      color: var(--muted);
+      background: #f1f3ee;
+      font-size: 0.92rem;
+    }
+
+    .setup-note strong {
+      color: var(--ink);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .grid.two {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .choice {
+      min-height: 150px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 18px;
+      border: 2px solid var(--line);
+      border-radius: 15px;
+      color: var(--ink);
+      background: var(--paper);
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .choice:hover,
+    .choice.selected {
+      border-color: var(--brand);
+      background: var(--brand-soft);
+    }
+
+    .choice strong {
+      display: block;
+      font-size: 1.12rem;
+    }
+
+    .choice span {
+      color: var(--muted);
+    }
+
+    .choice .time {
+      margin-top: 16px;
+      color: var(--brand);
+      font-weight: 800;
+    }
+
+    .choice-icon {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 16px;
+      border-radius: 12px;
+      color: var(--brand-dark);
+      background: var(--brand-soft);
+      font-weight: 900;
+    }
+
+    .choice.selected .choice-icon {
+      color: white;
+      background: var(--brand);
+    }
+
+    .registration-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-top: 18px;
+    }
+
+    .registration-choice {
+      min-height: 104px;
+    }
+
+    .exam-date {
+      color: var(--muted);
+      text-align: right;
+    }
+
+    .exam-date small,
+    .exam-date strong {
+      display: block;
+    }
+
+    .exam-date strong {
+      color: var(--ink);
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .button {
+      min-height: 44px;
+      padding: 11px 17px;
+      border: 1px solid transparent;
+      border-radius: 11px;
+      font-weight: 760;
+      cursor: pointer;
+    }
+
+    .button.primary {
+      color: white;
+      background: var(--brand);
+    }
+
+    .button.primary:hover {
+      background: var(--brand-dark);
+    }
+
+    .button.secondary {
+      border-color: var(--line);
+      color: var(--ink);
+      background: var(--paper);
+    }
+
+    .button.ghost {
+      color: var(--brand);
+      background: transparent;
+    }
+
+    .button.danger-quiet {
+      color: var(--bad);
+      background: transparent;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-grid.single {
+      grid-template-columns: 1fr;
+    }
+
+    .exam-card {
+      display: grid;
+      grid-template-columns: 56px 1fr auto;
+      gap: 15px;
+      align-items: center;
+      margin-bottom: 20px;
+      padding: 16px;
+      border: 2px solid var(--brand);
+      border-radius: 15px;
+      background: var(--brand-soft);
+    }
+
+    .exam-card .apple-mark {
+      width: 50px;
+      height: 50px;
+      font-size: 1.15rem;
+    }
+
+    .exam-card strong {
+      display: block;
+      font-size: 1.08rem;
+    }
+
+    .exam-card .selected-label {
+      color: var(--brand);
+      font-size: 0.82rem;
+      font-weight: 800;
+    }
+
+    .check-row {
+      display: flex;
+      grid-column: 1 / -1;
+      gap: 9px;
+      align-items: center;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .check-row input {
+      width: auto;
+    }
+
+    .plan-card {
+      overflow: hidden;
+      padding: 0;
+    }
+
+    .plan-header {
+      padding: 24px;
+      color: white;
+      background: var(--brand);
+    }
+
+    .plan-header .eyebrow {
+      color: #d6e7df;
+    }
+
+    .plan-header h3 {
+      font-size: 1.7rem;
+    }
+
+    .plan-body {
+      padding: 10px 24px 24px;
+    }
+
+    .plan-step {
+      display: grid;
+      grid-template-columns: 40px 1fr auto;
+      gap: 12px;
+      align-items: center;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .plan-step:last-child {
+      border-bottom: 0;
+    }
+
+    .plan-number {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 10px;
+      color: var(--brand);
+      background: var(--brand-soft);
+      font-weight: 900;
+    }
+
+    .plan-step strong {
+      display: block;
+    }
+
+    .plan-time {
+      color: var(--muted);
+      font-size: 0.88rem;
+      font-weight: 750;
+    }
+
+    .why-plan {
+      margin-top: 18px;
+      padding: 16px;
+      border-left: 4px solid var(--accent);
+      border-radius: 9px;
+      background: #fff9e8;
+    }
+
+    label {
+      display: grid;
+      gap: 7px;
+      font-weight: 720;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 12px 13px;
+      border: 1px solid #b9c0bb;
+      border-radius: 10px;
+      color: var(--ink);
+      background: white;
+    }
+
+    input:disabled {
+      color: #8b948f;
+      background: #ecece7;
+    }
+
+    textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    .home-grid {
+      display: grid;
+      grid-template-columns: 1.55fr 0.85fr;
+      gap: 18px;
+      margin-top: 26px;
+    }
+
+    .recommendation {
+      position: relative;
+      overflow: hidden;
+      color: white;
+      background: var(--brand);
+    }
+
+    .recommendation::after {
+      content: "";
+      position: absolute;
+      right: -65px;
+      bottom: -80px;
+      width: 220px;
+      height: 220px;
+      border: 35px solid rgba(255, 255, 255, 0.08);
+      border-radius: 50%;
+    }
+
+    .recommendation .eyebrow,
+    .recommendation .muted {
+      color: #d6e7df;
+    }
+
+    .recommendation h3 {
+      max-width: 520px;
+      margin-top: 6px;
+      font-size: 1.8rem;
+    }
+
+    .recommendation .actions {
+      position: relative;
+      z-index: 1;
+    }
+
+    .recommendation .button.primary {
+      color: var(--brand-dark);
+      background: white;
+    }
+
+    .recommendation .button.ghost {
+      color: white;
+    }
+
+    .stat {
+      padding: 14px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .stat:last-child {
+      border-bottom: 0;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.1rem;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .session-bar {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 18px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .progress-track {
+      height: 8px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: #dddcd4;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 36%;
+      border-radius: inherit;
+      background: var(--accent);
+    }
+
+    .orientation {
+      margin-bottom: 16px;
+      padding: 13px 15px;
+      border-left: 4px solid var(--accent);
+      border-radius: 8px;
+      background: #fff9e8;
+    }
+
+    .question-type {
+      display: inline-flex;
+      margin-bottom: 12px;
+      padding: 5px 9px;
+      border-radius: 999px;
+      color: var(--brand);
+      background: var(--brand-soft);
+      font-size: 0.76rem;
+      font-weight: 800;
+    }
+
+    .question {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.16rem;
+    }
+
+    .options {
+      display: grid;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .option {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: white;
+      cursor: pointer;
+    }
+
+    .option:hover {
+      border-color: var(--brand);
+    }
+
+    .option input {
+      width: auto;
+      margin-top: 4px;
+    }
+
+    .feedback {
+      margin-top: 18px;
+      padding: 20px;
+      border: 1px solid #acd0ba;
+      border-radius: 15px;
+      background: var(--good-soft);
+    }
+
+    .feedback.warn {
+      border-color: #e0c477;
+      background: var(--warn-soft);
+    }
+
+    .feedback[hidden] {
+      display: none;
+    }
+
+    .criterion-list {
+      display: grid;
+      gap: 10px;
+      margin: 18px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .criterion {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 10px;
+      align-items: start;
+      padding: 13px;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      background: white;
+    }
+
+    .criterion-icon {
+      width: 25px;
+      height: 25px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: white;
+      background: var(--good);
+      font-weight: 900;
+    }
+
+    .criterion.missed .criterion-icon {
+      background: var(--bad);
+    }
+
+    .gap-sentence {
+      margin: 18px 0;
+      padding: 18px;
+      border-radius: 12px;
+      background: #f4f2ec;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.18rem;
+    }
+
+    .gap {
+      display: inline-block;
+      padding: 0 5px;
+      border-bottom: 3px solid var(--accent);
+      color: var(--warn);
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-weight: 850;
+    }
+
+    .notice {
+      padding: 18px;
+      border: 1px solid #e0c477;
+      border-radius: 14px;
+      background: var(--warn-soft);
+    }
+
+    .success-panel {
+      max-width: 700px;
+      margin: 40px auto 0;
+      padding: 34px;
+      border-radius: 24px;
+      background: var(--good-soft);
+      text-align: center;
+    }
+
+    .success-check {
+      width: 58px;
+      height: 58px;
+      display: grid;
+      place-items: center;
+      margin: 0 auto 18px;
+      border-radius: 50%;
+      color: white;
+      background: var(--good);
+      font-size: 1.7rem;
+      font-weight: 900;
+    }
+
+    .progress-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 22px;
+    }
+
+    .mini-bars {
+      display: grid;
+      gap: 11px;
+      margin-top: 18px;
+    }
+
+    .mini-bar {
+      display: grid;
+      grid-template-columns: 145px 1fr auto;
+      gap: 10px;
+      align-items: center;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .mini-bar-track {
+      height: 8px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: #e0e0d8;
+    }
+
+    .mini-bar-fill {
+      height: 100%;
+      border-radius: inherit;
+      background: var(--brand);
+    }
+
+    .dialog-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      background: rgba(20, 31, 27, 0.55);
+    }
+
+    .dialog-backdrop[hidden] {
+      display: none;
+    }
+
+    .dialog {
+      width: min(560px, 100%);
+      padding: 25px;
+      border-radius: 18px;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    .status {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 30;
+      max-width: 360px;
+      padding: 12px 15px;
+      border-radius: 10px;
+      color: white;
+      background: #1d332b;
+      box-shadow: var(--shadow);
+    }
+
+    .status[hidden] {
+      display: none;
+    }
+
+    @media (max-width: 850px) {
+      .app-shell {
+        display: block;
+      }
+
+      .prototype-rail {
+        position: static;
+        height: auto;
+        padding: 14px 18px;
+      }
+
+      .prototype-rail p {
+        display: none;
+      }
+
+      .jump-list {
+        display: flex;
+        overflow-x: auto;
+        margin-top: 10px;
+      }
+
+      .jump-list button {
+        width: auto;
+        flex: 0 0 auto;
+      }
+
+      .topbar {
+        padding: 0 20px;
+      }
+
+      .grid,
+      .grid.two,
+      .registration-grid,
+      .home-grid,
+      .progress-grid,
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .account-created,
+      .exam-card {
+        grid-template-columns: 1fr;
+      }
+
+      .account-check {
+        width: 56px;
+        height: 56px;
+      }
+
+      .exam-card .selected-label {
+        justify-self: start;
+      }
+
+      .plan-step {
+        grid-template-columns: 36px 1fr;
+      }
+
+      .plan-time {
+        grid-column: 2;
+      }
+
+      .content {
+        width: min(100% - 28px, 700px);
+        margin-top: 28px;
+      }
+
+      h2 {
+        font-size: 2.25rem;
+      }
+
+      .mini-bar {
+        grid-template-columns: 1fr;
+        gap: 5px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="prototype-rail" aria-label="Prototype controls">
+      <div class="prototype-badge">UX-001 prototype</div>
+      <h1>Student portal states</h1>
+      <p>
+        Review artifact only. Use these shortcuts to inspect flows that would
+        normally appear at different moments.
+      </p>
+      <nav class="jump-list" aria-label="Jump to prototype screen">
+        <button type="button" data-screen="welcome">New student setup</button>
+        <button type="button" data-screen="home">Returning home</button>
+        <button type="button" data-screen="first-plan">First-session plan</button>
+        <button type="button" data-screen="mcq">MCQ attempt</button>
+        <button type="button" data-screen="frq">FRQ attempt</button>
+        <button type="button" data-screen="uncertain">Uncertainty</button>
+        <button type="button" data-screen="complete">Completion</button>
+        <button type="button" data-screen="progress">Progress</button>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="wordmark">
+          <span class="apple-mark" aria-hidden="true">C</span>
+          <span>Cramapple</span>
+        </div>
+        <div class="top-actions">
+          <span id="header-context">New account setup</span>
+          <span aria-hidden="true">|</span>
+          <span id="header-detail">Step 1 of 5</span>
+        </div>
+      </header>
+
+      <div class="content">
+        <section class="screen active" id="welcome" tabindex="-1">
+          <div class="setup-progress" aria-label="Setup step 1 of 5">
+            <span class="current"></span><span></span><span></span><span></span><span></span>
+          </div>
+          <p class="eyebrow">Account created</p>
+          <h2>Now let’s make your first session useful.</h2>
+          <p class="lede">
+            Cramapple will use the official exam timing, your goal today, and
+            the time you have right now to build a starting plan.
+          </p>
+
+          <div class="card account-created">
+            <div class="account-check" aria-hidden="true">+</div>
+            <div>
+              <h3>Your Cramapple account is ready.</h3>
+              <p class="muted">
+                Setup takes about a minute. A full diagnostic is optional.
+              </p>
+            </div>
+          </div>
+          <div class="actions">
+            <button class="button primary" type="button" data-go="exam-setup">
+              Set up my first session
+            </button>
+            <button class="button ghost" type="button" data-toast="You will try a question, see where points were earned or missed, and practice the smallest useful change.">
+              What happens next?
+            </button>
+          </div>
+        </section>
+
+        <section class="screen" id="exam-setup" tabindex="-1">
+          <div class="setup-progress" aria-label="Setup step 2 of 5">
+            <span class="complete"></span><span class="current"></span><span></span><span></span><span></span>
+          </div>
+          <p class="eyebrow">Your exam</p>
+          <h2>Are you registered for the AP Biology exam?</h2>
+          <p class="lede">
+            The official exam date comes from Cramapple’s active AP Biology
+            exam pack. Confirm your registration so reminders and exam-day
+            planning fit your situation.
+          </p>
+
+          <div class="card">
+            <div class="exam-card">
+              <span class="apple-mark" aria-hidden="true">AP</span>
+              <span>
+                <strong>AP Biology</strong>
+                Initial Cramapple exam pack
+              </span>
+              <span class="exam-date">
+                <small>Official exam date</small>
+                <strong>May 4, 2026</strong>
+              </span>
+            </div>
+            <div class="grid registration-grid" role="group" aria-label="AP Biology exam registration status">
+              <button class="choice registration-choice" type="button" data-registration="registered" aria-pressed="false">
+                <strong>Yes, I’m registered</strong>
+                <span>I plan to take this exam.</span>
+              </button>
+              <button class="choice registration-choice" type="button" data-registration="not_registered" aria-pressed="false">
+                <strong>Not yet</strong>
+                <span>I have not registered yet.</span>
+              </button>
+              <button class="choice registration-choice" type="button" data-registration="unsure" aria-pressed="false">
+                <strong>I’m not sure</strong>
+                <span>I need to confirm my status.</span>
+              </button>
+            </div>
+            <div class="setup-note" id="registration-note" hidden>
+              <span aria-hidden="true">i</span>
+              <span><strong>You can keep learning.</strong> AP exam registration happens through your school or AP coordinator; Cramapple does not register you for the exam.</span>
+            </div>
+            <div class="form-grid single">
+              <label>
+                Where are you starting?
+                <select id="starting-point">
+                  <option value="unsure">I’m not sure yet</option>
+                  <option value="behind">I have some major gaps</option>
+                  <option value="middle">I know some topics, not others</option>
+                  <option value="strong">I’m aiming to turn a good score into a great one</option>
+                </select>
+              </label>
+            </div>
+            <div class="setup-note">
+              <span aria-hidden="true">i</span>
+              <span><strong>You can change this later.</strong> We will not make a score prediction from setup answers.</span>
+            </div>
+            <div class="actions">
+              <button class="button primary" type="button" id="continue-exam">
+                Continue
+              </button>
+              <button class="button secondary" type="button" data-go="welcome">
+                Back
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <section class="screen" id="intent" tabindex="-1">
+          <div class="setup-progress" aria-label="Setup step 3 of 5">
+            <span class="complete"></span><span class="complete"></span><span class="current"></span><span></span><span></span>
+          </div>
+          <p class="eyebrow">Your goal today</p>
+          <h2>What would feel most useful right now?</h2>
+          <p class="lede">
+            This sets the starting direction, not a permanent track. You stay
+            free to choose another topic or activity.
+          </p>
+          <div class="grid two" role="group" aria-label="Immediate study goal">
+            <button class="choice selected" type="button" data-intent="recommend" aria-pressed="true">
+              <span>
+                <span class="choice-icon" aria-hidden="true">→</span>
+                <strong>Tell me what to work on</strong>
+                Start with the highest-value evidence Cramapple can gather.
+              </span>
+            </button>
+            <button class="choice" type="button" data-intent="topic" aria-pressed="false">
+              <span>
+                <span class="choice-icon" aria-hidden="true">T</span>
+                <strong>Practice a topic</strong>
+                Choose a unit or skill you already have in mind.
+              </span>
+            </button>
+            <button class="choice" type="button" data-intent="work" aria-pressed="false">
+              <span>
+                <span class="choice-icon" aria-hidden="true">✓</span>
+                <strong>Check my work</strong>
+                Start from an answer you have already attempted.
+              </span>
+            </button>
+            <button class="choice" type="button" data-intent="question" aria-pressed="false">
+              <span>
+                <span class="choice-icon" aria-hidden="true">?</span>
+                <strong>Bring a question</strong>
+                Type or paste something from class or practice.
+              </span>
+            </button>
+          </div>
+          <div class="actions">
+            <button class="button primary" type="button" data-go="modes">
+              Continue
+            </button>
+            <button class="button secondary" type="button" data-go="exam-setup">
+              Back
+            </button>
+          </div>
+        </section>
+
+        <section class="screen" id="home" tabindex="-1">
+          <p class="eyebrow">Welcome back, Maya</p>
+          <h2>Make your next 12 minutes useful.</h2>
+          <div class="home-grid">
+            <article class="card recommendation">
+              <p class="eyebrow">Recommended next</p>
+              <h3>Interpreting experimental controls</h3>
+              <p class="muted">
+                This has cost you points in more than one unit, and a short
+                review is due. About 12 minutes.
+              </p>
+              <div class="actions">
+                <button class="button primary" type="button" data-go="mcq">
+                  Start
+                </button>
+                <button class="button ghost" type="button" data-toast="Reason: repeated misses plus a due review.">
+                  Why this?
+                </button>
+                <button class="button ghost" type="button" data-go="modes">
+                  Choose something else
+                </button>
+              </div>
+            </article>
+            <aside class="card">
+              <h3>Today</h3>
+              <div class="stat">
+                <strong>1 review due</strong>
+                <span class="muted">Cell communication</span>
+              </div>
+              <div class="stat">
+                <strong>30 minutes available</strong>
+                <span class="muted">Change session length</span>
+              </div>
+              <div class="stat">
+                <strong>Bring a question</strong>
+                <span class="muted">Paste or type for this prototype</span>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <section class="screen" id="modes" tabindex="-1">
+          <div class="setup-progress" aria-label="Setup step 4 of 5">
+            <span class="complete"></span><span class="complete"></span><span class="complete"></span><span class="current"></span><span></span>
+          </div>
+          <p class="eyebrow">Time available</p>
+          <h2>How much time do you have?</h2>
+          <p class="lede">
+            Pick a starting point. You can stop cleanly or keep going if your
+            time changes.
+          </p>
+          <div class="grid" role="group" aria-label="Session mode">
+            <button class="choice" type="button" data-mode="Quick">
+              <span>
+                <strong>Quick</strong>
+                Get one useful win.
+              </span>
+              <span class="time">About 15 min</span>
+            </button>
+            <button class="choice selected" type="button" data-mode="Focused">
+              <span>
+                <strong>Focused</strong>
+                Practice and repair a priority skill.
+              </span>
+              <span class="time">About 30 min</span>
+            </button>
+            <button class="choice" type="button" data-mode="Buckle Down">
+              <span>
+                <strong>Buckle Down</strong>
+                Mix practice, repair, and due review.
+              </span>
+              <span class="time">About 60 min</span>
+            </button>
+          </div>
+          <div class="actions">
+            <button class="button primary" type="button" data-go="calibration">
+              Continue with 30 minutes
+            </button>
+            <button class="button secondary" type="button" data-go="intent">
+              Back
+            </button>
+          </div>
+        </section>
+
+        <section class="screen" id="calibration" tabindex="-1">
+          <div class="setup-progress" aria-label="Setup step 5 of 5">
+            <span class="complete"></span><span class="complete"></span><span class="complete"></span><span class="complete"></span><span class="current"></span>
+          </div>
+          <p class="eyebrow">Choose how to begin</p>
+          <h2>Want a quick starting read?</h2>
+          <p class="lede">
+            Three short questions can help Cramapple avoid sending you to a
+            topic just because it is first in the curriculum.
+          </p>
+          <div class="grid two" role="group" aria-label="First session starting method">
+            <button class="choice selected" type="button" data-start="calibration" aria-pressed="true">
+              <span>
+                <span class="choice-icon" aria-hidden="true">3</span>
+                <strong>Start with a quick calibration</strong>
+                Three varied questions, then a recommendation you can accept or
+                change.
+              </span>
+              <span class="time">Recommended · about 6 min</span>
+            </button>
+            <button class="choice" type="button" data-start="direct" aria-pressed="false">
+              <span>
+                <span class="choice-icon" aria-hidden="true">→</span>
+                <strong>Skip calibration</strong>
+                Go straight to your chosen topic or activity.
+              </span>
+              <span class="time">You can calibrate later</span>
+            </button>
+          </div>
+          <div class="setup-note">
+            <span aria-hidden="true">i</span>
+            <span><strong>This is not a full diagnostic.</strong> It is a small sample used to improve the first recommendation.</span>
+          </div>
+          <div class="actions">
+            <button class="button primary" type="button" data-go="first-plan">
+              Build my first session
+            </button>
+            <button class="button secondary" type="button" data-go="modes">
+              Back
+            </button>
+          </div>
+        </section>
+
+        <section class="screen" id="first-plan" tabindex="-1">
+          <p class="eyebrow">Your first session</p>
+          <h2>Here’s the plan. You can change it.</h2>
+          <p class="lede" id="plan-summary">
+            A focused 30-minute start with three calibration questions, followed
+            by practice on the highest-value gap we can support.
+          </p>
+
+          <article class="card plan-card">
+            <div class="plan-header">
+              <p class="eyebrow">Focused · about 30 minutes</p>
+              <h3 id="plan-title">Find the best place to start</h3>
+            </div>
+            <div class="plan-body">
+              <div class="plan-step" id="calibration-plan-step">
+                <span class="plan-number">1</span>
+                <span>
+                  <strong>Quick calibration</strong>
+                  Three cold questions across different skills.
+                </span>
+                <span class="plan-time">~6 min</span>
+              </div>
+              <div class="plan-step">
+                <span class="plan-number" id="practice-step-number">2</span>
+                <span>
+                  <strong id="practice-step-title">Practice the best next opportunity</strong>
+                  <span id="practice-step-copy">See why it was chosen, then accept it or choose something else.</span>
+                </span>
+                <span class="plan-time">~16 min</span>
+              </div>
+              <div class="plan-step">
+                <span class="plan-number" id="close-step-number">3</span>
+                <span>
+                  <strong>Lock in the useful part</strong>
+                  Finish with a fresh attempt and a clear next action.
+                </span>
+                <span class="plan-time">~8 min</span>
+              </div>
+            </div>
+          </article>
+
+          <div class="why-plan">
+            <strong>Why this plan?</strong>
+            <span id="why-plan-copy">
+              You asked Cramapple to recommend what to work on. A small sample
+              gives the recommendation some evidence without forcing a long
+              diagnostic.
+            </span>
+          </div>
+
+          <div class="actions">
+            <button class="button primary" type="button" id="start-first-session">
+              Start first session
+            </button>
+            <button class="button secondary" type="button" data-go="calibration">
+              Change plan
+            </button>
+            <button class="button ghost" type="button" data-toast="Your setup answers are saved. You can leave and resume from this plan.">
+              Finish later
+            </button>
+          </div>
+        </section>
+
+        <section class="screen" id="direct-entry" tabindex="-1">
+          <p class="eyebrow" id="direct-entry-eyebrow">Your starting point</p>
+          <h2 id="direct-entry-title">Choose where to begin.</h2>
+          <p class="lede" id="direct-entry-copy">
+            Start with the activity you selected during setup.
+          </p>
+
+          <div class="card">
+            <div id="topic-entry" hidden>
+              <label for="topic-select">
+                Topic or unit
+                <select id="topic-select">
+                  <option>Unit 3 · Cellular Energetics</option>
+                  <option>Unit 4 · Cell Communication and Cell Cycle</option>
+                  <option>Unit 6 · Gene Expression and Regulation</option>
+                  <option>Unit 7 · Natural Selection</option>
+                  <option>Browse all AP Biology topics</option>
+                </select>
+              </label>
+              <div class="setup-note">
+                <span aria-hidden="true">i</span>
+                <span>Cramapple may suggest a brief prerequisite check, but it will explain why and let you continue with your topic.</span>
+              </div>
+            </div>
+
+            <div id="work-entry" hidden>
+              <label for="work-prompt">
+                Question or prompt
+                <textarea id="work-prompt" placeholder="Paste or type the question you answered."></textarea>
+              </label>
+              <label for="work-answer" style="margin-top: 15px">
+                Your answer
+                <textarea id="work-answer" placeholder="Add the answer you want checked."></textarea>
+              </label>
+            </div>
+
+            <div id="question-entry" hidden>
+              <label for="question-prompt">
+                Your question
+                <textarea id="question-prompt" placeholder="Paste or type the complete question, including answer choices when relevant."></textarea>
+              </label>
+              <label for="question-mode" style="margin-top: 15px">
+                What do you want from Cramapple?
+                <select id="question-mode">
+                  <option>Teach me the underlying concept</option>
+                  <option>Give me a hint</option>
+                  <option>Check my work</option>
+                  <option>Walk me through a solution</option>
+                </select>
+              </label>
+              <div class="setup-note">
+                <span aria-hidden="true">i</span>
+                <span>If context is missing, Cramapple will ask for it rather than inventing details.</span>
+              </div>
+            </div>
+
+            <div class="actions">
+              <button class="button primary" type="button" id="continue-direct-entry">
+                Continue
+              </button>
+              <button class="button secondary" type="button" data-go="first-plan">
+                Back to plan
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <section class="screen" id="mcq" tabindex="-1">
+          <div class="session-bar">
+            <div>
+              <div class="progress-track" aria-label="Session progress">
+                <div class="progress-fill"></div>
+              </div>
+              <span>Focused session - question 2 of 5</span>
+            </div>
+            <button class="button ghost" type="button" data-go="home">
+              Leave session
+            </button>
+          </div>
+
+          <div class="orientation">
+            <strong>Cold attempt.</strong> Choose the best answer before seeing
+            an explanation.
+          </div>
+
+          <article class="card">
+            <span class="question-type">Multiple choice</span>
+            <h3>Identify the experimental control</h3>
+            <p class="question">
+              A researcher grows identical seedlings under three colors of
+              light. All groups receive the same soil, water, temperature, and
+              light intensity. Which comparison best isolates the effect of
+              light color on growth?
+            </p>
+
+            <fieldset class="options">
+              <legend class="visually-hidden">Answer choices</legend>
+              <label class="option">
+                <input type="radio" name="mcq" value="a">
+                Compare seedlings receiving different amounts of water.
+              </label>
+              <label class="option">
+                <input type="radio" name="mcq" value="b">
+                Compare growth among the three light-color groups.
+              </label>
+              <label class="option">
+                <input type="radio" name="mcq" value="c">
+                Compare seedlings grown in different soil types.
+              </label>
+              <label class="option">
+                <input type="radio" name="mcq" value="d">
+                Compare plants measured on different days.
+              </label>
+            </fieldset>
+
+            <div class="actions" id="mcq-actions">
+              <button class="button primary" type="button" id="submit-mcq">
+                Submit answer
+              </button>
+              <button class="button ghost" type="button" data-toast="A coached hint would begin here and the attempt would no longer count as cold.">
+                I need help
+              </button>
+              <button class="button ghost" type="button" data-go="complete">
+                Move on and return later
+              </button>
+            </div>
+
+            <div class="feedback" id="mcq-feedback" hidden>
+              <p class="eyebrow">1 of 1 point</p>
+              <h3>You isolated the variable being tested.</h3>
+              <p>
+                The groups differ by light color while soil, water,
+                temperature, and intensity stay constant.
+              </p>
+              <div class="actions">
+                <button class="button primary" type="button" data-go="frq">
+                  Next question
+                </button>
+                <button class="button ghost" type="button" data-toast="The explanation would expand here.">
+                  See why the others miss
+                </button>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <section class="screen" id="frq" tabindex="-1">
+          <div class="session-bar">
+            <div>
+              <div class="progress-track" aria-label="Session progress">
+                <div class="progress-fill" style="width: 58%"></div>
+              </div>
+              <span>Focused session - question 3 of 5</span>
+            </div>
+            <button class="button ghost" type="button" data-go="home">
+              Leave session
+            </button>
+          </div>
+
+          <div class="orientation">
+            <strong>Cold attempt.</strong> Explain the biological mechanism in
+            one or two sentences.
+          </div>
+
+          <article class="card">
+            <span class="question-type">Short free response - 2 points</span>
+            <h3>Explain a mechanism</h3>
+            <p class="question">
+              A protein loses function after prolonged exposure to unusually
+              high temperature. Explain how the temperature change can alter
+              the protein's function.
+            </p>
+
+            <label for="frq-answer">
+              Your response
+              <textarea id="frq-answer">High heat causes the protein to lose its shape, so it can no longer do its job.</textarea>
+            </label>
+
+            <div class="actions" id="frq-actions">
+              <button class="button primary" type="button" id="submit-frq">
+                Submit response
+              </button>
+              <button class="button ghost" type="button" data-toast="A coached explanation would begin here.">
+                I need help
+              </button>
+              <button class="button ghost" type="button" data-go="complete">
+                Move on
+              </button>
+            </div>
+
+            <div class="feedback" id="frq-feedback" hidden>
+              <p class="eyebrow">Estimated: 1 of 2 points</p>
+              <h3>You named the shape change. Add the molecular mechanism.</h3>
+              <ul class="criterion-list">
+                <li class="criterion">
+                  <span class="criterion-icon" aria-label="Earned">+</span>
+                  <span>
+                    <strong>Earned:</strong> You connected protein shape to
+                    function.
+                  </span>
+                </li>
+                <li class="criterion missed">
+                  <span class="criterion-icon" aria-label="Missed">-</span>
+                  <span>
+                    <strong>Missing:</strong> Explain how heat disrupts the
+                    interactions that maintain the protein's structure.
+                  </span>
+                </li>
+              </ul>
+              <div class="actions">
+                <button class="button primary" type="button" id="start-repair">
+                  Get this point
+                </button>
+                <button class="button secondary" type="button" data-toast="Alternative choices: see how this works, break it into parts, or review a prerequisite.">
+                  Try a different approach
+                </button>
+                <button class="button ghost" type="button" id="open-dispute">
+                  Request a recheck
+                </button>
+              </div>
+            </div>
+
+            <div class="feedback warn" id="repair-panel" hidden>
+              <p class="eyebrow">Fix the missing step</p>
+              <h3>What belongs in the gap?</h3>
+              <p class="gap-sentence">
+                High temperature <span class="gap">[...]</span> changes the
+                protein's three-dimensional shape, so its function is reduced.
+              </p>
+              <p>
+                Name what happens to the interactions that stabilize the
+                protein's structure.
+              </p>
+              <label for="repair-answer">
+                Add the mechanism
+                <textarea id="repair-answer" rows="3"></textarea>
+              </label>
+              <div class="actions">
+                <button class="button primary" type="button" id="submit-repair">
+                  Check this step
+                </button>
+                <button class="button ghost" type="button" data-toast="The prototype would offer a different angle, decomposition, or prerequisite review.">
+                  Choose another approach
+                </button>
+                <button class="button ghost" type="button" data-go="complete">
+                  Move on and return later
+                </button>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <section class="screen" id="uncertain" tabindex="-1">
+          <p class="eyebrow">Safe failure state</p>
+          <h2>Useful feedback without false certainty.</h2>
+          <div class="card notice">
+            <h3>I cannot present this score as reliable.</h3>
+            <p>
+              Something in the question, diagram, or scoring information may
+              be incomplete or inconsistent. This attempt will not count
+              against your progress.
+            </p>
+            <div class="actions">
+              <button class="button primary" type="button" data-toast="The learner would add the missing passage, diagram, or answer choices.">
+                Add missing context
+              </button>
+              <button class="button secondary" type="button" data-go="mcq">
+                Try another question
+              </button>
+              <button class="button ghost" type="button" data-toast="Flag recorded. No response time or human review is promised in this prototype.">
+                Flag for review
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <section class="screen" id="complete" tabindex="-1">
+          <div class="success-panel">
+            <div class="success-check" aria-hidden="true">+</div>
+            <p class="eyebrow">Session complete</p>
+            <h2>That point held up on a new question.</h2>
+            <p class="lede">
+              You completed an independent retry. We will bring this skill back
+              before the exam to see whether it sticks.
+            </p>
+            <div class="actions" style="justify-content: center">
+              <button class="button primary" type="button" data-go="progress">
+                See progress
+              </button>
+              <button class="button secondary" type="button" data-go="home">
+                Return home
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <section class="screen" id="progress" tabindex="-1">
+          <p class="eyebrow">Your AP Biology work</p>
+          <h2>Progress you can inspect.</h2>
+          <p class="lede">
+            Activity, supported performance, and independent evidence stay
+            separate.
+          </p>
+
+          <div class="progress-grid">
+            <article class="card">
+              <p class="eyebrow">Recommended next</p>
+              <h3>Return to experimental controls</h3>
+              <p class="muted">
+                One delayed check is due tomorrow. About 8 minutes.
+              </p>
+              <div class="actions">
+                <button class="button primary" type="button" data-go="mcq">
+                  Practice next
+                </button>
+              </div>
+            </article>
+            <article class="card">
+              <p class="eyebrow">This week</p>
+              <div class="stat">
+                <strong>3 independent points earned</strong>
+                <span class="muted">Across fresh questions without help</span>
+              </div>
+              <div class="stat">
+                <strong>2 supported repairs</strong>
+                <span class="muted">Waiting for independent confirmation</span>
+              </div>
+            </article>
+            <article class="card">
+              <h3>Evidence by skill</h3>
+              <div class="mini-bars">
+                <div class="mini-bar">
+                  <span>Experimental design</span>
+                  <span class="mini-bar-track"><span class="mini-bar-fill" style="display:block;width:72%"></span></span>
+                  <strong>Improving</strong>
+                </div>
+                <div class="mini-bar">
+                  <span>Data analysis</span>
+                  <span class="mini-bar-track"><span class="mini-bar-fill" style="display:block;width:48%"></span></span>
+                  <strong>Mixed</strong>
+                </div>
+                <div class="mini-bar">
+                  <span>Mechanism explanations</span>
+                  <span class="mini-bar-track"><span class="mini-bar-fill" style="display:block;width:35%"></span></span>
+                  <strong>Priority</strong>
+                </div>
+              </div>
+            </article>
+            <article class="card">
+              <h3>Activity</h3>
+              <div class="stat">
+                <strong>64 minutes practiced</strong>
+                <span class="muted">Across three sessions</span>
+              </div>
+              <div class="stat">
+                <strong>11 questions attempted</strong>
+                <span class="muted">Activity is not presented as mastery</span>
+              </div>
+            </article>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <div class="dialog-backdrop" id="dispute-dialog" hidden>
+    <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dispute-title">
+      <p class="eyebrow">Criterion recheck</p>
+      <h3 id="dispute-title">What do you think the feedback missed?</h3>
+      <p class="muted">
+        Point to the criterion and explain what evidence in your response should
+        count. This prototype does not promise a human response time.
+      </p>
+      <label for="dispute-text">
+        Your reason
+        <textarea id="dispute-text" rows="4"></textarea>
+      </label>
+      <div class="actions">
+        <button class="button primary" type="button" id="submit-dispute">
+          Submit recheck
+        </button>
+        <button class="button secondary" type="button" id="close-dispute">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="status" id="status" role="status" aria-live="polite" hidden></div>
+
+  <script>
+    const screens = Array.from(document.querySelectorAll(".screen"));
+    const jumpButtons = Array.from(document.querySelectorAll("[data-screen]"));
+    const status = document.getElementById("status");
+    const headerContext = document.getElementById("header-context");
+    const headerDetail = document.getElementById("header-detail");
+    const setupHeader = {
+      welcome: ["New account setup", "Step 1 of 5"],
+      "exam-setup": ["New account setup", "Step 2 of 5"],
+      intent: ["New account setup", "Step 3 of 5"],
+      modes: ["New account setup", "Step 4 of 5"],
+      calibration: ["New account setup", "Step 5 of 5"],
+      "first-plan": ["First-session plan", "Ready to begin"],
+      "direct-entry": ["First session", "Your chosen starting point"],
+      home: ["AP Biology", "12 days left"],
+      mcq: ["Focused session", "Question 2 of 5"],
+      frq: ["Focused session", "Question 3 of 5"],
+      uncertain: ["Learning session", "Needs context"],
+      complete: ["Session complete", "Review scheduled"],
+      progress: ["AP Biology", "Progress"]
+    };
+    const setupState = {
+      registrationStatus: null,
+      intent: "recommend",
+      mode: "Focused",
+      minutes: 30,
+      start: "calibration"
+    };
+    let statusTimer;
+
+    function showScreen(id) {
+      const target = document.getElementById(id);
+      if (!target) return;
+
+      screens.forEach((screen) => screen.classList.toggle("active", screen === target));
+      jumpButtons.forEach((button) => {
+        button.setAttribute("aria-current", String(button.dataset.screen === id));
+      });
+      const header = setupHeader[id] || ["Prototype scenario", "Review state"];
+      headerContext.textContent = header[0];
+      headerDetail.textContent = header[1];
+      target.focus();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function showStatus(message) {
+      window.clearTimeout(statusTimer);
+      status.textContent = message;
+      status.hidden = false;
+      statusTimer = window.setTimeout(() => {
+        status.hidden = true;
+      }, 3500);
+    }
+
+    document.addEventListener("click", (event) => {
+      const goButton = event.target.closest("[data-go]");
+      const screenButton = event.target.closest("[data-screen]");
+      const toastButton = event.target.closest("[data-toast]");
+
+      if (goButton) showScreen(goButton.dataset.go);
+      if (screenButton) showScreen(screenButton.dataset.screen);
+      if (toastButton) showStatus(toastButton.dataset.toast);
+    });
+
+    document.querySelectorAll("[data-mode]").forEach((button) => {
+      button.addEventListener("click", () => {
+        document.querySelectorAll("[data-mode]").forEach((choice) => {
+          choice.classList.toggle("selected", choice === button);
+        });
+        setupState.mode = button.dataset.mode;
+        setupState.minutes = setupState.mode === "Quick" ? 15 : setupState.mode === "Focused" ? 30 : 60;
+        const continueButton = document.querySelector("#modes .button.primary");
+        continueButton.textContent = `Continue with ${setupState.minutes} minutes`;
+      });
+    });
+
+    document.querySelectorAll("[data-intent]").forEach((button) => {
+      button.addEventListener("click", () => {
+        document.querySelectorAll("[data-intent]").forEach((choice) => {
+          const selected = choice === button;
+          choice.classList.toggle("selected", selected);
+          choice.setAttribute("aria-pressed", String(selected));
+        });
+        setupState.intent = button.dataset.intent;
+      });
+    });
+
+    document.querySelectorAll("[data-start]").forEach((button) => {
+      button.addEventListener("click", () => {
+        document.querySelectorAll("[data-start]").forEach((choice) => {
+          const selected = choice === button;
+          choice.classList.toggle("selected", selected);
+          choice.setAttribute("aria-pressed", String(selected));
+        });
+        setupState.start = button.dataset.start;
+      });
+    });
+
+    document.querySelectorAll("[data-registration]").forEach((button) => {
+      button.addEventListener("click", () => {
+        document.querySelectorAll("[data-registration]").forEach((choice) => {
+          const selected = choice === button;
+          choice.classList.toggle("selected", selected);
+          choice.setAttribute("aria-pressed", String(selected));
+        });
+        setupState.registrationStatus = button.dataset.registration;
+        document.getElementById("registration-note").hidden =
+          setupState.registrationStatus === "registered";
+      });
+    });
+
+    document.getElementById("continue-exam").addEventListener("click", () => {
+      if (!setupState.registrationStatus) {
+        showStatus("Confirm whether you’re registered, not registered yet, or unsure.");
+        document.querySelector("[data-registration]").focus();
+        return;
+      }
+      showScreen("intent");
+    });
+
+    document.querySelector('[data-go="first-plan"]').addEventListener("click", () => {
+      const intentCopy = {
+        recommend: {
+          title: "Find the best place to start",
+          practice: "Practice the best next opportunity",
+          copy: "See why it was chosen, then accept it or choose something else.",
+          why: "You asked Cramapple to recommend what to work on."
+        },
+        topic: {
+          title: "Start with the topic you choose",
+          practice: "Practice your selected topic",
+          copy: "Cramapple may suggest a short prerequisite check before you begin.",
+          why: "You chose to begin with a topic already on your mind."
+        },
+        work: {
+          title: "Use your own work as the starting point",
+          practice: "Check the answer you bring",
+          copy: "Get criterion-level feedback, then practice the most useful missing step.",
+          why: "You chose to start from work you have already attempted."
+        },
+        question: {
+          title: "Start with the question you bring",
+          practice: "Classify and work through your question",
+          copy: "Cramapple will ask for missing context rather than inventing it.",
+          why: "You chose to begin with a question from class or practice."
+        }
+      };
+      const selectedIntent = intentCopy[setupState.intent];
+      const usesCalibration = setupState.start === "calibration";
+      document.getElementById("plan-title").textContent = selectedIntent.title;
+      document.getElementById("practice-step-title").textContent = selectedIntent.practice;
+      document.getElementById("practice-step-copy").textContent = selectedIntent.copy;
+      document.querySelector(".plan-header .eyebrow").textContent =
+        `${setupState.mode} · about ${setupState.minutes} minutes`;
+      document.getElementById("plan-summary").textContent = usesCalibration
+        ? `A ${setupState.mode.toLowerCase()} ${setupState.minutes}-minute start with three calibration questions, followed by the activity you chose.`
+        : `A ${setupState.mode.toLowerCase()} ${setupState.minutes}-minute start that goes directly to the activity you chose.`;
+      document.getElementById("calibration-plan-step").hidden = !usesCalibration;
+      document.getElementById("practice-step-number").textContent = usesCalibration ? "2" : "1";
+      document.getElementById("close-step-number").textContent = usesCalibration ? "3" : "2";
+      document.getElementById("why-plan-copy").textContent = usesCalibration
+        ? `${selectedIntent.why} A small sample gives the first plan some evidence without forcing a long diagnostic.`
+        : `${selectedIntent.why} You skipped calibration, so the first recommendation will rely on your choice until Cramapple observes more evidence.`;
+    });
+
+    function configureDirectEntry() {
+      const entryContent = {
+        topic: {
+          eyebrow: "Choose a topic",
+          title: "Where do you want to begin?",
+          copy: "Pick the topic on your mind. Cramapple will preserve your choice while checking whether a short prerequisite would save time."
+        },
+        work: {
+          eyebrow: "Check my work",
+          title: "Bring the answer you already tried.",
+          copy: "Include the full prompt when you can. Feedback is more reliable when the question, response, and relevant visual are all present."
+        },
+        question: {
+          eyebrow: "Bring a question",
+          title: "What are you working on?",
+          copy: "Add the complete question and choose how much help you want."
+        }
+      };
+      const selected = entryContent[setupState.intent];
+      document.getElementById("direct-entry-eyebrow").textContent = selected.eyebrow;
+      document.getElementById("direct-entry-title").textContent = selected.title;
+      document.getElementById("direct-entry-copy").textContent = selected.copy;
+      document.getElementById("topic-entry").hidden = setupState.intent !== "topic";
+      document.getElementById("work-entry").hidden = setupState.intent !== "work";
+      document.getElementById("question-entry").hidden = setupState.intent !== "question";
+    }
+
+    document.getElementById("start-first-session").addEventListener("click", () => {
+      if (setupState.start === "calibration" || setupState.intent === "recommend") {
+        showScreen("mcq");
+        return;
+      }
+      configureDirectEntry();
+      showScreen("direct-entry");
+    });
+
+    document.getElementById("continue-direct-entry").addEventListener("click", () => {
+      if (setupState.intent === "work") {
+        const prompt = document.getElementById("work-prompt").value.trim();
+        const answer = document.getElementById("work-answer").value.trim();
+        if (!prompt || !answer) {
+          showStatus("Add both the question and your answer before continuing.");
+          return;
+        }
+        showScreen("frq");
+        return;
+      }
+      if (setupState.intent === "question") {
+        const question = document.getElementById("question-prompt").value.trim();
+        if (!question) {
+          showStatus("Add the question before continuing.");
+          return;
+        }
+      }
+      showScreen("mcq");
+    });
+
+    document.getElementById("submit-mcq").addEventListener("click", () => {
+      const selected = document.querySelector('input[name="mcq"]:checked');
+      if (!selected) {
+        showStatus("Choose an answer before submitting.");
+        return;
+      }
+      document.getElementById("mcq-actions").hidden = true;
+      document.getElementById("mcq-feedback").hidden = false;
+      document.getElementById("mcq-feedback").scrollIntoView({ behavior: "smooth" });
+    });
+
+    document.getElementById("submit-frq").addEventListener("click", () => {
+      document.getElementById("frq-actions").hidden = true;
+      document.getElementById("frq-feedback").hidden = false;
+      document.getElementById("frq-feedback").scrollIntoView({ behavior: "smooth" });
+    });
+
+    document.getElementById("start-repair").addEventListener("click", () => {
+      document.getElementById("frq-feedback").hidden = true;
+      document.getElementById("repair-panel").hidden = false;
+      document.getElementById("repair-answer").focus();
+    });
+
+    document.getElementById("submit-repair").addEventListener("click", () => {
+      const answer = document.getElementById("repair-answer").value.trim();
+      if (!answer) {
+        showStatus("Add the missing mechanism before checking this step.");
+        return;
+      }
+      showScreen("complete");
+    });
+
+    const disputeDialog = document.getElementById("dispute-dialog");
+    const disputeTrigger = document.getElementById("open-dispute");
+
+    document.getElementById("open-dispute").addEventListener("click", () => {
+      disputeDialog.hidden = false;
+      document.getElementById("dispute-text").focus();
+    });
+
+    function closeDispute() {
+      disputeDialog.hidden = true;
+      disputeTrigger.focus();
+    }
+
+    document.getElementById("close-dispute").addEventListener("click", closeDispute);
+    document.getElementById("submit-dispute").addEventListener("click", () => {
+      closeDispute();
+      showStatus("Recheck request saved. No response time is promised in this prototype.");
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (disputeDialog.hidden) return;
+
+      if (event.key === "Escape") {
+        closeDispute();
+        return;
+      }
+
+      if (event.key === "Tab") {
+        const dialogControls = Array.from(
+          disputeDialog.querySelectorAll("button, textarea, input, [tabindex]")
+        ).filter((element) => !element.disabled && element.tabIndex >= 0);
+        const firstControl = dialogControls[0];
+        const lastControl = dialogControls[dialogControls.length - 1];
+
+        if (event.shiftKey && document.activeElement === firstControl) {
+          event.preventDefault();
+          lastControl.focus();
+        } else if (!event.shiftKey && document.activeElement === lastControl) {
+          event.preventDefault();
+          firstControl.focus();
+        }
+      }
+    });
+
+    showScreen("welcome");
+  </script>
+</body>
+</html>

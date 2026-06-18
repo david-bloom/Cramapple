@@ -295,13 +295,24 @@ The system evaluates criteria independently, checks for contradictions, and repo
 
 David Bloom, co-founder, Chief Executive Officer, and Product Owner, has final responsibility for product quality and release decisions. Orly Bloom, co-founder and Vice President of Learning, leads curriculum quality, content, teaching, and expert validation.
 
-Students, teachers, tutors, and hired subject experts will contribute to validation. Expert sign-off is a launch gate. If the responsible experts do not approve the content and grading behavior, the product does not launch.
+Paid tutors and subject experts will create Cramapple's original question packages. Separate qualified reviewers will validate scientific accuracy, teaching quality, exam alignment, and grading behavior. Authors do not approve their own work. Expert sign-off is a launch gate. If the responsible experts do not approve the content and grading behavior, the product does not launch.
+
+The initial bank will use all 60 official public AP Biology topics. Each topic
+targets at least ten approved MCQs and five approved short-FRQ prompts. Each
+unit additionally targets four long-FRQ stimulus packages with two
+independently deliverable prompts per package. One MCQ or one delivered FRQ
+prompt counts as one inventory item. Cramapple may use AI to create candidate
+versions from questions it owns or fully licenses for derivative and model use.
+Each variant is a new artifact and requires a complete rubric, teaching
+package, provenance, and independent validation.
 
 Approval of content alone is insufficient. Before launch, Cramapple should test AI grading against responses independently scored by experts and establish an acceptable level of criterion-by-criterion agreement.
 
 ### 8.4 Source and Intellectual Property Boundaries
 
-Cramapple will align its original content to the publicly available AP Biology course framework, exam structure, and skills. The current working assumption is that official College Board questions and scoring materials will not be placed into a generative AI workflow or reproduced commercially without written permission or legal approval.
+Cramapple will align its original content to the publicly available AP Biology course framework, exam structure, and skills. Cramapple will pay qualified tutors and subject experts to independently author original questions and complete rubric packages from approved coverage briefs.
+
+Official College Board questions and scoring materials will not be used as question seeds, adaptation targets, few-shot examples, or generative-AI inputs, and will not be reproduced commercially without written permission or legal approval. Authorized humans may review public materials for abstract exam alignment where legally permitted, but commissioned work must be independently expressed and supported by approved sources.
 
 Cramapple should create independently authored questions and scoring criteria, validated by experts familiar with AP expectations. Legal review is required before launch regarding copyright, trademarks, product claims, student uploads, and use of official materials.
 
@@ -458,7 +469,7 @@ Founder time commitments remain open. The operating plan must be realistic about
 
 ### 13.2 Expert Operating Model
 
-Cramapple will use students, teachers, tutors, and paid subject experts to create and validate the product. Detailed workflows must define:
+Cramapple will pay qualified tutors and subject experts to create original question packages and will use separate qualified experts to validate them. Detailed workflows must define:
 
 - Who may draft content.
 - Who reviews scientific accuracy.
@@ -467,6 +478,8 @@ Cramapple will use students, teachers, tutors, and paid subject experts to creat
 - What constitutes approval.
 - How disagreements are resolved.
 - How content is versioned, updated, or retired.
+- How authors are compensated and assign or license commissioned work.
+- How originality, source disclosure, restricted-material exclusion, and author-validator independence are enforced.
 
 ## 14. Major Risks
 

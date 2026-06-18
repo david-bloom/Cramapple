@@ -79,6 +79,19 @@ The QA Agent must not approve, close, publish final decisions, deploy, migrate, 
 
 If it is not written in GitHub, it does not exist for operating purposes.
 
+Every project document retained in the local workspace must also be committed
+and pushed to `david-bloom/Cramapple`. A document change is not durably complete
+while it exists only on one machine.
+
+Agents must:
+
+- include new and modified project documents in the relevant Git commit;
+- push the commit to GitHub before reporting synchronization complete;
+- verify the remote branch contains the commit;
+- report any local document that could not be pushed;
+- exclude temporary renders, caches, editor files, and operating-system
+  metadata unless they are intentional project artifacts.
+
 Relevant records may include:
 
 - Task files.
@@ -90,6 +103,31 @@ Relevant records may include:
 - Architecture docs.
 - Feature docs.
 - QA notes.
+
+## Universal Document Format Rule
+
+Markdown (`.md`) is the default and canonical medium for project documents.
+Agents should create and maintain durable plans, requirements, policies,
+architecture, teaching documents, decisions, logs, and task records as Markdown
+in GitHub unless a different format is required by the artifact itself.
+
+Google Docs is the preferred secondary format when live human collaboration,
+comments, suggestion mode, or a cloud backup copy is useful. A Google Doc is not
+the project source of truth. Accepted changes must be incorporated into the
+canonical Markdown file and committed to GitHub. When practical, the Google Doc
+should identify or link to its canonical Markdown source.
+
+Word (`.docx`) should be avoided unless a specific external recipient,
+submission requirement, printing need, or layout-fidelity requirement makes it
+necessary. When a Word document is necessary:
+
+- derive it from the canonical Markdown or another canonical structured source;
+- do not maintain it as an independent competing source;
+- state which Markdown file governs if the versions differ; and
+- regenerate it only when the specific Word deliverable must be updated.
+
+Existing Word snapshots may remain for historical reference or an active
+external need, but agents must not create or refresh them by default.
 
 ## Optional Manual Sync Handshake
 
