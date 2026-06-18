@@ -1,0 +1,1434 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cramapple UX-003 Authoring Workbench</title>
+  <style>
+    :root {
+      --ink: #18332d;
+      --muted: #65746f;
+      --canvas: #f4f0e8;
+      --paper: #fffdf8;
+      --green: #123f35;
+      --green-2: #246859;
+      --mint: #dfece5;
+      --blue: #e6eef5;
+      --blue-ink: #31536b;
+      --amber: #f5e6bd;
+      --amber-ink: #765414;
+      --red: #f6ded8;
+      --red-ink: #8b3025;
+      --line: #d9d7cf;
+      --soft-line: #e9e5dc;
+      --shadow: 0 12px 32px rgba(33, 52, 46, .08);
+      --radius: 16px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { color-scheme: light; }
+
+    body {
+      margin: 0;
+      background: var(--canvas);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.45;
+    }
+
+    button, input, textarea, select { font: inherit; }
+
+    button, a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button:focus-visible, a:focus-visible, input:focus-visible,
+    textarea:focus-visible, select:focus-visible {
+      outline: 3px solid #65a995;
+      outline-offset: 2px;
+    }
+
+    .app {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 270px minmax(0, 1fr);
+    }
+
+    .sidebar {
+      background: var(--green);
+      color: #fff;
+      padding: 22px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -.02em;
+    }
+
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      border-radius: 11px;
+      display: grid;
+      place-items: center;
+      background: #f5cf72;
+      color: var(--green);
+      font-weight: 900;
+    }
+
+    .prototype-label {
+      display: inline-flex;
+      align-self: flex-start;
+      padding: 5px 9px;
+      border: 1px solid rgba(255,255,255,.24);
+      border-radius: 999px;
+      color: #d9e8e2;
+      font-size: 12px;
+    }
+
+    .side-nav, .queue-list {
+      display: grid;
+      gap: 7px;
+    }
+
+    .side-nav button, .queue-card {
+      border: 0;
+      width: 100%;
+      color: inherit;
+      background: transparent;
+      text-align: left;
+      border-radius: 12px;
+      cursor: pointer;
+    }
+
+    .side-nav button {
+      min-height: 44px;
+      padding: 10px 12px;
+      font-weight: 700;
+    }
+
+    .side-nav button:hover, .side-nav button.active {
+      background: rgba(255,255,255,.12);
+    }
+
+    .nav-count {
+      float: right;
+      min-width: 24px;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.14);
+      text-align: center;
+      font-size: 12px;
+    }
+
+    .queue-label {
+      margin: 4px 8px 0;
+      color: #b9d0c8;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .queue-card {
+      padding: 12px;
+      border: 1px solid rgba(255,255,255,.1);
+    }
+
+    .queue-card.active {
+      background: #fff;
+      color: var(--ink);
+      box-shadow: 0 8px 20px rgba(0,0,0,.12);
+    }
+
+    .queue-card strong, .queue-card span { display: block; }
+    .queue-card strong { margin: 4px 0; font-size: 14px; }
+    .queue-card span { color: #bdd2cb; font-size: 12px; }
+    .queue-card.active span { color: var(--muted); }
+
+    .mini-status {
+      display: inline-flex !important;
+      width: auto;
+      padding: 3px 7px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.12);
+      font-size: 10px !important;
+      font-weight: 800;
+      letter-spacing: .03em;
+      text-transform: uppercase;
+    }
+
+    .queue-card.active .mini-status {
+      background: var(--amber);
+      color: var(--amber-ink);
+    }
+
+    .sidebar-user {
+      margin-top: auto;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,.16);
+      color: #d8e7e1;
+      font-size: 13px;
+    }
+
+    .main {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .topbar {
+      min-height: 70px;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      background: rgba(255,253,248,.94);
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(10px);
+    }
+
+    .top-title strong, .top-title span { display: block; }
+    .top-title strong { font-size: 15px; }
+    .top-title span { color: var(--muted); font-size: 12px; }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .save-state {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .btn {
+      min-height: 42px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      background: var(--paper);
+      color: var(--ink);
+      font-weight: 750;
+      cursor: pointer;
+    }
+
+    .btn:hover { border-color: #9dadA7; }
+    .btn.primary { border-color: var(--green); background: var(--green); color: #fff; }
+    .btn.soft { border-color: #a9c6bb; background: var(--mint); color: var(--green); }
+    .btn.danger { border-color: #d99b90; color: var(--red-ink); background: #fff9f7; }
+    .btn.text { border-color: transparent; background: transparent; padding-inline: 8px; }
+    .btn.small { min-height: 34px; padding: 6px 10px; font-size: 12px; }
+
+    .brief {
+      margin: 18px 22px 0;
+      padding: 14px 16px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .brief-main {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .brief-icon {
+      width: 36px;
+      height: 36px;
+      flex: 0 0 auto;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      background: var(--amber);
+      color: var(--amber-ink);
+      font-weight: 900;
+    }
+
+    .brief strong, .brief span { display: block; }
+    .brief span { color: var(--muted); font-size: 13px; }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 9px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .pill.amber { background: var(--amber); color: var(--amber-ink); }
+    .pill.red { background: var(--red); color: var(--red-ink); }
+    .pill.green { background: var(--mint); color: var(--green); }
+    .pill.blue { background: var(--blue); color: var(--blue-ink); }
+
+    .workspace {
+      min-width: 0;
+      flex: 1;
+      padding: 18px 22px 28px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 330px;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .workspace.single { grid-template-columns: minmax(0, 1fr); }
+
+    .editor-card, .context-card, .screen-card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .editor-card, .context-card { min-width: 0; }
+
+    .section-tabs {
+      max-width: 100%;
+      padding: 10px;
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      border-bottom: 1px solid var(--soft-line);
+    }
+
+    .tab {
+      min-height: 38px;
+      padding: 8px 11px;
+      border: 0;
+      border-radius: 9px;
+      background: transparent;
+      color: var(--muted);
+      font-weight: 750;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    .tab:hover, .tab.active { background: var(--mint); color: var(--green); }
+    .tab .dot { margin-left: 5px; }
+
+    .editor-body { padding: 22px; }
+
+    .section-heading {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: flex-start;
+      margin-bottom: 20px;
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { margin-bottom: 4px; font-size: 24px; letter-spacing: -.03em; }
+    h2 { margin-bottom: 6px; font-size: 19px; letter-spacing: -.02em; }
+    h3 { margin-bottom: 8px; font-size: 15px; }
+    .lede, .help { color: var(--muted); font-size: 13px; }
+
+    .field-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 15px;
+    }
+
+    .field { display: grid; gap: 6px; }
+    .field.full { grid-column: 1 / -1; }
+    .field label { font-size: 12px; font-weight: 800; }
+
+    input, textarea, select {
+      width: 100%;
+      border: 1px solid #cfcfc8;
+      border-radius: 10px;
+      background: #fff;
+      color: var(--ink);
+      padding: 10px 11px;
+    }
+
+    input[type="radio"], input[type="checkbox"] { width: auto; }
+
+    textarea { min-height: 112px; resize: vertical; }
+    input[readonly] { background: #f6f4ef; color: var(--muted); }
+
+    .comment-anchor {
+      border-color: #d18d7f;
+      box-shadow: 0 0 0 3px rgba(209, 141, 127, .12);
+    }
+
+    .inline-note {
+      padding: 11px 12px;
+      border-radius: 10px;
+      background: var(--blue);
+      color: var(--blue-ink);
+      font-size: 12px;
+    }
+
+    .option-list, .criterion-list, .hint-list, .check-list, .source-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .option-card, .criterion-card, .hint-card, .check-row, .source-row {
+      padding: 14px;
+      border: 1px solid var(--soft-line);
+      border-radius: 12px;
+      background: #fff;
+    }
+
+    .option-card.flagged { border-color: #dcaa9f; background: #fffbfa; }
+    .option-head, .row-between {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .option-label {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-weight: 850;
+    }
+
+    .letter {
+      width: 28px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      background: #edf2ef;
+    }
+
+    .option-fields {
+      margin-top: 12px;
+      display: grid;
+      gap: 9px;
+    }
+
+    .context-card {
+      position: sticky;
+      top: 88px;
+      max-height: calc(100vh - 110px);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .context-tabs {
+      padding: 8px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 4px;
+      border-bottom: 1px solid var(--soft-line);
+    }
+
+    .context-tabs .tab { padding-inline: 5px; font-size: 11px; }
+    .context-body { padding: 15px; overflow: auto; }
+
+    .comment {
+      margin-bottom: 12px;
+      padding: 13px;
+      border: 1px solid var(--soft-line);
+      border-radius: 12px;
+      background: #fff;
+    }
+
+    .comment.blocking { border-left: 4px solid #bd5749; }
+    .comment.required { border-left: 4px solid #d69d37; }
+    .comment.suggestion { border-left: 4px solid #668ca5; }
+    .comment-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 8px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .comment p { margin-bottom: 10px; font-size: 13px; }
+    .comment textarea { min-height: 72px; font-size: 12px; }
+
+    .check-row { display: flex; align-items: flex-start; gap: 10px; }
+    .check-icon {
+      width: 23px;
+      height: 23px;
+      flex: 0 0 auto;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .check-icon.pass { background: var(--mint); color: var(--green); }
+    .check-icon.warn { background: var(--amber); color: var(--amber-ink); }
+    .check-icon.fail { background: var(--red); color: var(--red-ink); }
+    .check-row strong, .check-row span { display: block; }
+    .check-row span { color: var(--muted); font-size: 11px; }
+
+    .diff-toolbar, .filter-row {
+      display: flex;
+      gap: 7px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .diff-block {
+      margin-bottom: 10px;
+      border: 1px solid var(--soft-line);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .diff-block strong { display: block; padding: 8px 10px; background: #f5f3ee; font-size: 12px; }
+    .diff-line { padding: 7px 10px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; }
+    .diff-line.old { background: #fff0ed; color: #7b3028; text-decoration: line-through; }
+    .diff-line.new { background: #eaf5ef; color: #1d5a48; }
+
+    .screen {
+      display: none;
+      padding: 24px;
+    }
+
+    .screen.active { display: block; }
+
+    .screen-card {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .queue-table {
+      margin-top: 18px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .task-row {
+      padding: 15px;
+      border: 1px solid var(--soft-line);
+      border-radius: 13px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 14px;
+      align-items: center;
+      background: #fff;
+    }
+
+    .task-row h3 { margin-bottom: 4px; }
+    .task-row p { margin-bottom: 8px; }
+
+    .welcome {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 280px;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+
+    .stat {
+      padding: 14px;
+      border-radius: 12px;
+      background: #edf3ef;
+    }
+
+    .stat strong, .stat span { display: block; }
+    .stat strong { font-size: 24px; }
+    .stat span { color: var(--muted); font-size: 11px; }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      display: none;
+      place-items: center;
+      padding: 18px;
+      background: rgba(14, 32, 27, .52);
+    }
+
+    .modal-backdrop.open { display: grid; }
+
+    .modal {
+      width: min(720px, 100%);
+      max-height: 90vh;
+      overflow: auto;
+      background: var(--paper);
+      border-radius: 18px;
+      box-shadow: 0 24px 80px rgba(0,0,0,.24);
+    }
+
+    .modal-header, .modal-footer {
+      padding: 17px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .modal-header { border-bottom: 1px solid var(--soft-line); }
+    .modal-footer { border-top: 1px solid var(--soft-line); justify-content: flex-end; }
+    .modal-body { padding: 20px; }
+
+    .stepper {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      margin-bottom: 18px;
+    }
+
+    .step {
+      padding: 7px;
+      border-radius: 8px;
+      background: #eeeae2;
+      color: var(--muted);
+      text-align: center;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .step.active { background: var(--green); color: #fff; }
+
+    .map-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 190px;
+      gap: 10px;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--soft-line);
+    }
+
+    .confirmation-list {
+      display: grid;
+      gap: 10px;
+      margin: 16px 0;
+    }
+
+    .confirmation-list label {
+      display: flex;
+      gap: 9px;
+      align-items: flex-start;
+      padding: 10px;
+      border: 1px solid var(--soft-line);
+      border-radius: 10px;
+      font-size: 13px;
+    }
+
+    .confirmation-list input { width: auto; margin-top: 3px; }
+
+    .toast {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 90;
+      max-width: 360px;
+      padding: 12px 15px;
+      border-radius: 12px;
+      background: var(--green);
+      color: #fff;
+      box-shadow: var(--shadow);
+      opacity: 0;
+      transform: translateY(12px);
+      pointer-events: none;
+      transition: .18s ease;
+    }
+
+    .toast.show { opacity: 1; transform: translateY(0); }
+
+    .hidden { display: none !important; }
+
+    @media (max-width: 1050px) {
+      .app { grid-template-columns: 220px minmax(0, 1fr); }
+      .workspace { grid-template-columns: 1fr; }
+      .context-card { position: static; max-height: none; }
+    }
+
+    @media (max-width: 760px) {
+      .app { display: block; }
+      .sidebar {
+        padding: 12px;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 10px;
+      }
+      .brand { align-self: center; }
+      .prototype-label, .queue-label, .sidebar-user { display: none; }
+      .side-nav {
+        grid-column: 1 / -1;
+        grid-template-columns: repeat(4, 1fr);
+      }
+      .side-nav button {
+        padding: 8px 4px;
+        font-size: 11px;
+        text-align: center;
+      }
+      .nav-count { display: none; }
+      .queue-list {
+        grid-column: 1 / -1;
+        display: flex;
+        min-width: 0;
+        max-width: calc(100vw - 24px);
+        gap: 8px;
+        overflow-x: auto;
+        padding-bottom: 2px;
+      }
+      .queue-card { min-width: 205px; }
+      .topbar { padding: 10px 12px; }
+      .save-state { display: none; }
+      .top-actions { gap: 5px; }
+      .top-actions .btn { min-height: 38px; padding: 7px 9px; font-size: 11px; }
+      .brief { margin: 12px 12px 0; align-items: flex-start; }
+      .brief > .pill { display: none; }
+      .workspace { padding: 12px; }
+      .editor-body { padding: 16px; }
+      .field-grid { grid-template-columns: 1fr; }
+      .field.full { grid-column: auto; }
+      .section-heading { display: block; }
+      .welcome { grid-template-columns: 1fr; }
+      .task-row { grid-template-columns: 1fr; }
+      .screen { padding: 12px; }
+      .screen-card { padding: 18px; }
+      .map-row { grid-template-columns: 1fr; }
+      .context-tabs { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar" aria-label="Author workspace navigation">
+      <div class="brand"><span class="brand-mark">C</span>Cramapple</div>
+      <span class="prototype-label">UX-003 prototype · local simulation</span>
+
+      <nav class="side-nav" aria-label="Primary">
+        <button class="active" data-screen="work-screen">My work <span class="nav-count">3</span></button>
+        <button data-screen="submitted-screen">Submitted <span class="nav-count">1</span></button>
+        <button data-screen="reference-screen">Reference</button>
+        <button data-screen="review-screen">Review carousel <span class="nav-count">5</span></button>
+      </nav>
+
+      <div class="queue-label">Open work</div>
+      <div class="queue-list">
+        <button class="queue-card active" data-task="recycled">
+          <span class="mini-status">Revision · 2 blockers</span>
+          <strong>MCQ-BIO-0142 · v2</strong>
+          <span>Cell signaling · Due Jun 18</span>
+        </button>
+        <button class="queue-card" data-task="new">
+          <span class="mini-status">Needs acknowledgement</span>
+          <strong>New short FRQ</strong>
+          <span>Gene expression · Due Jun 21</span>
+        </button>
+        <button class="queue-card" data-task="submitted">
+          <span class="mini-status">With tutors</span>
+          <strong>FRQ-BIO-0088 · v1</strong>
+          <span>Natural selection · Submitted</span>
+        </button>
+      </div>
+
+      <div class="sidebar-user">
+        <strong>Dr. Maya Chen</strong><br>
+        Tutor author · AP Biology<br>
+        Reviewer qualification active
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="top-title">
+          <strong id="top-title">Recycled MCQ revision</strong>
+          <span id="top-subtitle">Draft derived from immutable version 2</span>
+        </div>
+        <div class="top-actions">
+          <span class="save-state" id="save-state" aria-live="polite">Draft saved locally</span>
+          <button class="btn" id="import-button">Import document</button>
+          <button class="btn primary" id="submit-button">Review and submit</button>
+        </div>
+      </header>
+
+      <section id="work-screen" class="screen active" aria-label="Current authoring work">
+        <div id="queue-view" class="screen-card hidden">
+          <div class="welcome">
+            <div>
+              <span class="pill blue">New assignment</span>
+              <h1 style="margin-top:12px">Short FRQ authoring task</h1>
+              <p class="lede">Create an original complete package from the approved brief. Acknowledge the task before starting work.</p>
+              <div class="inline-note"><strong>Brief:</strong> AP Biology · Gene expression · Explain regulation from evidence · 3 points · Medium difficulty.</div>
+              <div style="margin-top:18px;display:flex;gap:8px;flex-wrap:wrap">
+                <button class="btn primary" id="acknowledge-button">Acknowledge and start</button>
+                <button class="btn">Request clarification</button>
+                <button class="btn">Report conflict</button>
+                <button class="btn danger">Decline assignment</button>
+              </div>
+            </div>
+            <div class="stat-grid">
+              <div class="stat"><strong>7</strong><span>required package sections</span></div>
+              <div class="stat"><strong>3</strong><span>rubric points requested</span></div>
+              <div class="stat"><strong>Jun 21</strong><span>assignment due</span></div>
+              <div class="stat"><strong>Original</strong><span>no predecessor version</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div id="editor-view">
+          <div class="brief">
+            <div class="brief-main">
+              <div class="brief-icon" id="brief-icon">R</div>
+              <div>
+                <strong id="brief-title">Revision brief · MCQ-BIO-0142 · predecessor v2</strong>
+                <span id="brief-meta">AP Biology · Unit 4 · Cell communication · Medium · Independent practice</span>
+                <span id="brief-trigger">Trigger: Tutor aggregate 3 · preserve comments and return new version to two tutors</span>
+              </div>
+            </div>
+            <span class="pill amber" id="brief-due">Due Jun 18 · 3 comments</span>
+          </div>
+
+          <div class="workspace" id="workspace">
+            <article class="editor-card">
+              <nav class="section-tabs" aria-label="Package sections">
+                <button class="tab active" data-editor="question">Question <span class="dot">●</span></button>
+                <button class="tab" id="answers-tab" data-editor="answers">Answers <span class="dot">!</span></button>
+                <button class="tab" data-editor="hints">Hints <span class="dot">●</span></button>
+                <button class="tab" data-editor="explanation">Explanation <span class="dot">!</span></button>
+                <button class="tab" data-editor="sources">Sources & rights <span class="dot">!</span></button>
+                <button class="tab" data-editor="accessibility">Accessibility <span class="dot">●</span></button>
+                <button class="tab" data-editor="checks">Checks & submit <span class="dot">2</span></button>
+              </nav>
+
+              <div class="editor-body">
+                <section class="editor-section" data-section="question">
+                  <div class="section-heading">
+                    <div>
+                      <h1>Question</h1>
+                      <p class="lede" id="question-lede">Revise the stem without changing the assessed construct unless the brief is reopened.</p>
+                    </div>
+                    <span class="pill green" id="question-status">Complete</span>
+                  </div>
+                  <div class="field-grid">
+                    <div class="field full">
+                      <label for="stem">Question stem</label>
+                      <textarea id="stem" class="comment-anchor">A researcher exposes cultured liver cells to increasing concentrations of hormone Q. The cells respond by activating an intracellular kinase only when membrane receptor R is present. Which change would most directly reduce the cells' response to hormone Q?</textarea>
+                      <span class="help" id="stem-help">Reviewer comment attached · revised from version 2</span>
+                    </div>
+                    <div class="field">
+                      <label>Question form</label>
+                      <input id="question-form" value="Multiple-choice question" readonly>
+                    </div>
+                    <div class="field">
+                      <label>Intended difficulty</label>
+                      <select><option>Medium</option><option>Hard</option><option>Moderately easy</option></select>
+                    </div>
+                    <div class="field">
+                      <label>Topic</label>
+                      <input id="topic-field" value="Cell communication">
+                    </div>
+                    <div class="field">
+                      <label>Skill</label>
+                      <input id="skill-field" value="Predict effects of a system disruption">
+                    </div>
+                    <div class="field full">
+                      <label>Expected reasoning path</label>
+                      <textarea id="reasoning-path">Identify receptor R as required for signal reception, then select the change that disrupts receptor availability before intracellular kinase activation.</textarea>
+                    </div>
+                    <div class="field full">
+                      <label>Known ambiguity or failure cases</label>
+                      <textarea id="ambiguity-notes">Choices must distinguish reduced receptor abundance from downstream kinase inhibition. Avoid two options that both fully eliminate the response.</textarea>
+                    </div>
+                  </div>
+                </section>
+
+                <section class="editor-section hidden" data-section="answers">
+                  <div class="section-heading">
+                    <div>
+                      <h1 id="answers-title">Answers</h1>
+                      <p class="lede" id="answers-lede">One best answer and three distinct distractor mechanisms are required.</p>
+                    </div>
+                    <span class="pill red" id="answers-status">2 blockers</span>
+                  </div>
+                  <div class="option-list" id="mcq-answers">
+                    <div class="option-card">
+                      <div class="option-head">
+                        <div class="option-label"><span class="letter">A</span> Proposed best answer</div>
+                        <label><input type="radio" name="key" checked> Key</label>
+                      </div>
+                      <div class="option-fields">
+                        <input value="A mutation that decreases the number of receptor R proteins in the plasma membrane">
+                        <textarea>Correct because fewer functional receptors reduce hormone binding and initiation of the signaling pathway.</textarea>
+                      </div>
+                    </div>
+                    <div class="option-card">
+                      <div class="option-head">
+                        <div class="option-label"><span class="letter">B</span> Distractor</div>
+                        <label><input type="radio" name="key"> Key</label>
+                      </div>
+                      <div class="option-fields">
+                        <input value="An increase in the transcription of the intracellular kinase gene">
+                        <textarea>Misconception: more downstream signaling protein will compensate for reduced signal reception.</textarea>
+                      </div>
+                    </div>
+                    <div class="option-card flagged">
+                      <div class="option-head">
+                        <div class="option-label"><span class="letter">C</span> Distractor</div>
+                        <span class="pill red">Comment</span>
+                      </div>
+                      <div class="option-fields">
+                        <input class="comment-anchor" value="An increase in the translation of receptor R mRNA">
+                        <textarea class="comment-anchor">Misconception: increasing synthesis always lowers responsiveness through feedback.</textarea>
+                        <span class="help">Reviewer says this does not reduce response and overlaps with option B's abundance mechanism.</span>
+                      </div>
+                    </div>
+                    <div class="option-card">
+                      <div class="option-head">
+                        <div class="option-label"><span class="letter">D</span> Distractor</div>
+                        <label><input type="radio" name="key"> Key</label>
+                      </div>
+                      <div class="option-fields">
+                        <input value="A change that slows degradation of the activated kinase">
+                        <textarea>Misconception: extending a downstream signal would reduce the magnitude of the response.</textarea>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="criterion-list hidden" id="frq-rubric">
+                    <div class="criterion-card">
+                      <div class="row-between"><strong>Criterion 1 · 1 point</strong><span class="pill green">Drafted</span></div>
+                      <div class="option-fields">
+                        <textarea>Identifies a regulatory interaction that changes transcription of the target gene.</textarea>
+                        <textarea>Accept equivalent descriptions of a transcription factor, repressor, or enhancer interaction when the direction of regulation is clear.</textarea>
+                      </div>
+                    </div>
+                    <div class="criterion-card">
+                      <div class="row-between"><strong>Criterion 2 · 1 point</strong><span class="pill amber">Needs boundary case</span></div>
+                      <div class="option-fields">
+                        <textarea>Uses the provided expression evidence to support the proposed regulatory relationship.</textarea>
+                        <textarea placeholder="Describe insufficient, contradictory, and boundary responses"></textarea>
+                      </div>
+                    </div>
+                    <div class="criterion-card">
+                      <div class="row-between"><strong>Criterion 3 · 1 point</strong><span class="pill amber">In progress</span></div>
+                      <div class="option-fields">
+                        <textarea>Predicts the effect of the regulatory change on protein abundance and explains the causal chain.</textarea>
+                        <textarea placeholder="Add accepted alternatives and equivalent reasoning"></textarea>
+                      </div>
+                    </div>
+                    <button class="btn small">Add rubric criterion</button>
+                  </div>
+                </section>
+
+                <section class="editor-section hidden" data-section="hints">
+                  <div class="section-heading">
+                    <div><h1>Hints</h1><p class="lede">Order support from a light cue to a more explicit reasoning prompt.</p></div>
+                    <button class="btn small">Add hint</button>
+                  </div>
+                  <div class="hint-list">
+                    <div class="hint-card"><strong>Hint 1 · Orient</strong><textarea>Start with the first event required for hormone Q to affect the cell.</textarea></div>
+                    <div class="hint-card"><strong>Hint 2 · Focus</strong><textarea>Which option changes the cell's ability to receive the extracellular signal before the kinase is activated?</textarea></div>
+                  </div>
+                </section>
+
+                <section class="editor-section hidden" data-section="explanation">
+                  <div class="section-heading">
+                    <div><h1>Explanation</h1><p class="lede">Teach the causal chain and correct the likely misconception.</p></div>
+                    <span class="pill amber">1 comment</span>
+                  </div>
+                  <div class="field-grid">
+                    <div class="field full">
+                      <label>Teaching explanation</label>
+                      <textarea class="comment-anchor">Hormone Q is correlated with kinase activation only in cells that have receptor R. Reducing receptor R at the membrane lowers the number of cells able to bind the hormone and begin the signaling cascade.</textarea>
+                      <span class="help">Clarify why this evidence supports a required pathway step rather than causation from correlation alone.</span>
+                    </div>
+                    <div class="field full">
+                      <label>Minimum correction</label>
+                      <textarea>Signal reception occurs before intracellular transduction, so disrupting the receptor directly reduces initiation of the response.</textarea>
+                    </div>
+                    <div class="field">
+                      <label>Immediate transfer candidate</label>
+                      <textarea>Predict the effect of receptor internalization after repeated hormone exposure.</textarea>
+                    </div>
+                    <div class="field">
+                      <label>Delayed retrieval candidate</label>
+                      <textarea>Compare receptor loss with inhibition of a downstream second messenger.</textarea>
+                    </div>
+                  </div>
+                </section>
+
+                <section class="editor-section hidden" data-section="sources">
+                  <div class="section-heading">
+                    <div><h1>Sources and rights</h1><p class="lede">Attestation records origin and permissions; it is not counsel approval.</p></div>
+                    <button class="btn small">Add source</button>
+                  </div>
+                  <div class="source-list">
+                    <div class="source-row">
+                      <div class="row-between"><strong id="source-claim">Signal-transduction factual claim</strong><span class="pill green">Recorded</span></div>
+                      <p class="help" id="source-citation">OpenStax Biology 2e · Cell Communication · paraphrase/synthesis · accessed Jun 15, 2026</p>
+                    </div>
+                    <div class="source-row">
+                      <div class="row-between"><strong>Question scenario and values</strong><span class="pill green">Cramapple original</span></div>
+                      <p class="help">Authored from the governed brief; no question text used as a seed or adaptation target.</p>
+                    </div>
+                    <div class="source-row">
+                      <div class="row-between"><strong>Imported planning notes.docx</strong><span class="pill amber">Needs evidence</span></div>
+                      <p class="help">Simulated attachment · ownership confirmed · permission evidence not attached.</p>
+                    </div>
+                    <div class="source-row">
+                      <div class="row-between"><strong>Restricted-material disclosure</strong><span class="pill green">None disclosed</span></div>
+                      <p class="help">No AP Classroom, unreleased exam, Reading, or credential-restricted material used.</p>
+                    </div>
+                  </div>
+                </section>
+
+                <section class="editor-section hidden" data-section="accessibility">
+                  <div class="section-heading">
+                    <div><h1>Accessibility</h1><p class="lede">Record representations needed for equivalent use.</p></div>
+                    <span class="pill green">Complete</span>
+                  </div>
+                  <div class="field-grid">
+                    <div class="field full"><label>Plain-language visual description</label><textarea>No visual is required for this item.</textarea></div>
+                    <div class="field"><label>Equation or symbol notes</label><input value="None"></div>
+                    <div class="field"><label>Reading-order concerns</label><input value="None"></div>
+                    <div class="field full"><label>Accessibility review note</label><textarea>Answer options use parallel grammatical structure and do not depend on color, position, or an image.</textarea></div>
+                  </div>
+                </section>
+
+                <section class="editor-section hidden" data-section="checks">
+                  <div class="section-heading">
+                    <div><h1>Checks and submit</h1><p class="lede">Resolve blockers before creating immutable version 3.</p></div>
+                    <span class="pill red">2 blockers</span>
+                  </div>
+                  <div class="check-list">
+                    <button class="check-row" data-jump="answers">
+                      <span class="check-icon fail">!</span><span><strong>Distractor C requires revision</strong><span>Reviewer finding and distinct-mechanism check are unresolved.</span></span>
+                    </button>
+                    <button class="check-row" data-jump="explanation">
+                      <span class="check-icon fail">!</span><span><strong>Required explanation comment has no response</strong><span>Explain the causal inference supported by the receptor comparison.</span></span>
+                    </button>
+                    <div class="check-row">
+                      <span class="check-icon warn">?</span><span><strong>Imported note needs permission evidence</strong><span>Remove the attachment or send it to rights review before submission.</span></span>
+                    </div>
+                    <div class="check-row">
+                      <span class="check-icon pass">✓</span><span><strong>Complete MCQ package</strong><span>Stem, four options, key, rationales, hints, and explanation present.</span></span>
+                    </div>
+                    <div class="check-row">
+                      <span class="check-icon pass">✓</span><span><strong>Reassessment impact identified</strong><span>Question and all four answers return to two tutors.</span></span>
+                    </div>
+                  </div>
+                  <div style="margin-top:18px">
+                    <button class="btn primary" data-open-submit>Review and submit version 3</button>
+                  </div>
+                </section>
+              </div>
+            </article>
+
+            <aside class="context-card" id="context-card" aria-label="Workbench context">
+              <nav class="context-tabs" aria-label="Context panels">
+                <button class="tab active" data-context="comments">Comments</button>
+                <button class="tab" data-context="checks">Checks</button>
+                <button class="tab" data-context="versions">Versions</button>
+                <button class="tab" data-context="rights">Rights</button>
+              </nav>
+              <div class="context-body">
+                <section class="context-section" data-context-section="comments">
+                  <div class="row-between"><h2>Reviewer comments</h2><span class="pill red">2 required</span></div>
+                  <div class="comment blocking">
+                    <div class="comment-meta"><span>Tutor review · Stem</span><span>Blocking</span></div>
+                    <p>The keyed answer is not uniquely supported because the prior stem allowed downstream kinase inhibition to produce the same outcome.</p>
+                    <button class="btn small text jump-field" data-target="question">Jump to field</button>
+                    <textarea placeholder="Describe what changed or explain why no change was made"></textarea>
+                    <button class="btn small soft address-comment">Addressed in draft</button>
+                  </div>
+                  <div class="comment required">
+                    <div class="comment-meta"><span>Tutor review · Option C</span><span>Required</span></div>
+                    <p>Distractor C repeats an abundance misconception and does not plausibly reduce the response.</p>
+                    <button class="btn small text jump-field" data-target="answers">Jump to field</button>
+                    <textarea placeholder="Author response"></textarea>
+                    <button class="btn small soft address-comment">Addressed in draft</button>
+                  </div>
+                  <div class="comment required">
+                    <div class="comment-meta"><span>Learning Quality · Explanation</span><span>Required</span></div>
+                    <p>Distinguish correlation from the causal inference supported by receptor-presence and pathway-order evidence.</p>
+                    <button class="btn small text jump-field" data-target="explanation">Jump to field</button>
+                    <textarea placeholder="Author response"></textarea>
+                    <button class="btn small soft address-comment">Addressed in draft</button>
+                  </div>
+                </section>
+
+                <section class="context-section hidden" data-context-section="checks">
+                  <div class="row-between"><h2>Live preflight</h2><span class="pill red">2 blockers</span></div>
+                  <div class="check-list">
+                    <div class="check-row"><span class="check-icon fail">!</span><span><strong>Reviewer responses</strong><span>2 required responses missing</span></span></div>
+                    <div class="check-row"><span class="check-icon fail">!</span><span><strong>Distinct distractors</strong><span>B and C overlap</span></span></div>
+                    <div class="check-row"><span class="check-icon warn">?</span><span><strong>Rights evidence</strong><span>1 attachment pending</span></span></div>
+                    <div class="check-row"><span class="check-icon pass">✓</span><span><strong>Package fields</strong><span>Required fields present</span></span></div>
+                    <div class="check-row"><span class="check-icon pass">✓</span><span><strong>Answer key</strong><span>Exactly one proposed key</span></span></div>
+                  </div>
+                </section>
+
+                <section class="context-section hidden" data-context-section="versions">
+                  <div class="row-between"><h2>Compare versions</h2><span class="pill blue">Draft vs v2</span></div>
+                  <div class="diff-toolbar">
+                    <button class="btn small soft">Side by side</button>
+                    <button class="btn small">Unified</button>
+                    <button class="btn small">v2 vs v1</button>
+                  </div>
+                  <div class="filter-row">
+                    <span class="pill green">Question</span>
+                    <span class="pill blue">Answers</span>
+                    <span class="pill blue">Teaching</span>
+                  </div>
+                  <div class="diff-block">
+                    <strong>Question stem</strong>
+                    <div class="diff-line old">Which treatment would reduce kinase activity?</div>
+                    <div class="diff-line new">Which change would most directly reduce the cells' response to hormone Q?</div>
+                  </div>
+                  <div class="diff-block">
+                    <strong>Option C rationale</strong>
+                    <div class="diff-line old">Increasing synthesis lowers responsiveness.</div>
+                    <div class="diff-line new">Draft still requires a distinct plausible misconception.</div>
+                  </div>
+                  <div class="inline-note"><strong>High-impact check:</strong> The answer key has not changed. Stem clarity and one distractor changed, so the full MCQ package returns to tutor reassessment.</div>
+                </section>
+
+                <section class="context-section hidden" data-context-section="rights">
+                  <div class="row-between"><h2>Provenance</h2><span class="pill amber">1 pending</span></div>
+                  <div class="check-list">
+                    <div class="check-row"><span class="check-icon pass">✓</span><span><strong>Author and brief</strong><span>Dr. Maya Chen · commission C-204</span></span></div>
+                    <div class="check-row"><span class="check-icon pass">✓</span><span><strong>Originality disclosure</strong><span>No question adaptation disclosed</span></span></div>
+                    <div class="check-row"><span class="check-icon pass">✓</span><span><strong>Tools disclosed</strong><span>Word processor; no generative source text</span></span></div>
+                    <div class="check-row"><span class="check-icon warn">?</span><span><strong>Attachment evidence</strong><span>Permission record missing</span></span></div>
+                  </div>
+                  <button class="btn small" style="margin-top:12px" data-editor-jump="sources">Open sources and rights</button>
+                </section>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section id="submitted-screen" class="screen">
+        <div class="screen-card">
+          <span class="pill green">Submitted</span>
+          <h1 style="margin-top:12px">Immutable submissions</h1>
+          <p class="lede">Submission creates a candidate version. Review and release remain separate.</p>
+          <div class="task-row">
+            <div><h3>FRQ-BIO-0088 · Version 1</h3><p class="lede">Natural selection · Submitted Jun 14 · Two tutor reviews pending</p><span class="pill blue">Prior decisions: none</span></div>
+            <button class="btn">View submitted version</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="reference-screen" class="screen">
+        <div class="screen-card">
+          <span class="pill blue">Reference</span>
+          <h1 style="margin-top:12px">Authoring standards</h1>
+          <p class="lede">The active brief, package contract, rights guidance, failure cards, and accessibility checklist belong here.</p>
+          <div class="check-list">
+            <div class="check-row"><span class="check-icon pass">1</span><span><strong>Complete package contract</strong><span>Question, scoring, teaching, provenance, and validation fields.</span></span></div>
+            <div class="check-row"><span class="check-icon pass">2</span><span><strong>Originality boundary</strong><span>Do not copy, paraphrase, reskin, or adapt official or third-party questions.</span></span></div>
+            <div class="check-row"><span class="check-icon pass">3</span><span><strong>Immutable revision rule</strong><span>Every resubmission creates a successor version and repeats affected reviews.</span></span></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="review-screen" class="screen">
+        <div class="screen-card">
+          <span class="pill blue">Separate reviewer mode</span>
+          <h1 style="margin-top:12px">Enter the review carousel</h1>
+          <p class="lede">Your AP Biology tutor-review qualification is active. Reviewer work uses UX-002 and stays separate from authoring.</p>
+          <div class="inline-note"><strong>Independence check:</strong> Items you authored, revised, collaborated on, sourced, or discussed are excluded from your review queue.</div>
+          <div class="stat-grid" style="margin:18px 0;max-width:480px">
+            <div class="stat"><strong>5</strong><span>assigned reviews</span></div>
+            <div class="stat"><strong>0</strong><span>conflicted items visible</span></div>
+          </div>
+          <a class="btn primary" href="../ux-002/" style="display:inline-flex;align-items:center;text-decoration:none">Open UX-002 review carousel</a>
+          <button class="btn" id="self-review-demo" style="margin-left:7px">Test self-review block</button>
+          <div id="self-review-message" class="inline-note hidden" style="margin-top:14px;background:var(--red);color:var(--red-ink)"><strong>Blocked:</strong> MCQ-BIO-0142 is excluded because you revised this artifact.</div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="import-modal" role="dialog" aria-modal="true" aria-labelledby="import-title">
+    <div class="modal">
+      <div class="modal-header"><div><h2 id="import-title">Import document</h2><span class="help">Prototype simulation · no file is transmitted</span></div><button class="btn small text" data-close-modal="import-modal">Close</button></div>
+      <div class="modal-body">
+        <div class="stepper"><div class="step active">1 Select</div><div class="step">2 Rights</div><div class="step">3 Map</div><div class="step">4 Import</div></div>
+        <div class="field"><label>Document</label><input value="planning-notes.docx" readonly></div>
+        <div class="confirmation-list">
+          <label><input type="checkbox" id="import-rights"> <span>I created this document or have documented permission to use its contents for Cramapple authoring.</span></label>
+          <label><input type="checkbox" id="import-restricted"> <span>This document contains no secure AP Classroom, unreleased exam, Reading, or other restricted material.</span></label>
+        </div>
+        <div class="map-row"><div><strong>Section 1</strong><div class="help">Question stem and four choices</div></div><select><option>Question + answers</option><option>Do not import</option></select></div>
+        <div class="map-row"><div><strong>Section 2</strong><div class="help">Two teaching prompts</div></div><select><option>Hints</option><option>Explanation</option><option>Do not import</option></select></div>
+        <div class="map-row"><div><strong>Section 3</strong><div class="help">Bibliography</div></div><select><option>Sources & rights</option><option>Do not import</option></select></div>
+        <div class="inline-note" style="margin-top:14px"><strong>Extraction warning:</strong> One table heading may be missing. Imported text remains an editable draft and retains the document as a provenance attachment.</div>
+      </div>
+      <div class="modal-footer"><button class="btn" data-close-modal="import-modal">Cancel</button><button class="btn primary" id="complete-import">Import mapped sections</button></div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="submit-modal" role="dialog" aria-modal="true" aria-labelledby="submit-title">
+    <div class="modal">
+      <div class="modal-header"><div><h2 id="submit-title">Create immutable version 3</h2><span class="help">Prior version and review decisions remain unchanged.</span></div><button class="btn small text" data-close-modal="submit-modal">Close</button></div>
+      <div class="modal-body">
+        <div class="inline-note"><strong>Reassessment impact:</strong> Version 3 returns the question and all four answers to two independent tutors. Version 2 scores do not transfer as approval.</div>
+        <div class="field" style="margin-top:15px"><label for="change-summary">Change summary</label><textarea id="change-summary" placeholder="Summarize the stem, distractor, explanation, source, and rights changes"></textarea></div>
+        <div class="confirmation-list">
+          <label><input type="checkbox" class="submit-check"> <span>I responded to every required reviewer comment or provided a no-change rationale.</span></label>
+          <label><input type="checkbox" class="submit-check"> <span>I attest that this version is original as disclosed and uses no prohibited restricted material.</span></label>
+          <label><input type="checkbox" class="submit-check"> <span>I recorded sources, assets, collaborators, tools, prior publication, and rights evidence accurately.</span></label>
+          <label><input type="checkbox" class="submit-check"> <span>I understand this creates an immutable candidate version and does not approve or publish it.</span></label>
+        </div>
+        <div id="submit-warning" class="inline-note" style="background:var(--amber);color:var(--amber-ink)"><strong>Prototype note:</strong> You can complete this scenario even with simulated preflight blockers.</div>
+      </div>
+      <div class="modal-footer"><button class="btn" data-close-modal="submit-modal">Continue editing</button><button class="btn primary" id="confirm-submit">Submit version 3</button></div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="success-modal" role="dialog" aria-modal="true" aria-labelledby="success-title">
+    <div class="modal">
+      <div class="modal-body" style="padding:30px;text-align:center">
+        <div class="brand-mark" style="margin:0 auto 14px;width:54px;height:54px;border-radius:17px">✓</div>
+        <span class="pill green">Candidate version created</span>
+        <h1 id="success-title" style="margin-top:12px">Version 3 submitted</h1>
+        <p>Returned to two tutors for independent reassessment. Version 2, its decisions, and all reviewer comments remain preserved.</p>
+        <div style="display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:18px">
+          <button class="btn" data-close-modal="success-modal">View submitted version</button>
+          <button class="btn primary" id="success-back">Back to my work</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    const screens = document.querySelectorAll(".screen");
+    const navButtons = document.querySelectorAll(".side-nav button");
+    const editorView = document.getElementById("editor-view");
+    const queueView = document.getElementById("queue-view");
+    const toast = document.getElementById("toast");
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add("show");
+      clearTimeout(window.toastTimer);
+      window.toastTimer = setTimeout(() => toast.classList.remove("show"), 2400);
+    }
+
+    function showScreen(id) {
+      screens.forEach(screen => screen.classList.toggle("active", screen.id === id));
+      navButtons.forEach(button => button.classList.toggle("active", button.dataset.screen === id));
+    }
+
+    function setEditorMode(mode) {
+      const isFrq = mode === "frq";
+      document.getElementById("brief-icon").textContent = isFrq ? "N" : "R";
+      document.getElementById("brief-title").textContent = isFrq
+        ? "New authoring brief · short FRQ · no predecessor"
+        : "Revision brief · MCQ-BIO-0142 · predecessor v2";
+      document.getElementById("brief-meta").textContent = isFrq
+        ? "AP Biology · Unit 6 · Gene expression and regulation · Medium · Teaching"
+        : "AP Biology · Unit 4 · Cell communication · Medium · Independent practice";
+      document.getElementById("brief-trigger").textContent = isFrq
+        ? "Original commission · create a complete three-point package from the governed brief"
+        : "Trigger: Tutor aggregate 3 · preserve comments and return new version to two tutors";
+      document.getElementById("brief-due").textContent = isFrq ? "Due Jun 21 · original package" : "Due Jun 18 · 3 comments";
+      document.getElementById("question-lede").textContent = isFrq
+        ? "Create an original prompt from the approved brief and complete every scoring and teaching dependency."
+        : "Revise the stem without changing the assessed construct unless the brief is reopened.";
+      document.getElementById("question-status").textContent = isFrq ? "Draft started" : "Complete";
+      document.getElementById("question-status").className = isFrq ? "pill blue" : "pill green";
+      document.getElementById("stem-help").textContent = isFrq
+        ? "Original draft · no predecessor wording or reviewer comments"
+        : "Reviewer comment attached · revised from version 2";
+      document.getElementById("context-card").classList.toggle("hidden", isFrq);
+      document.getElementById("workspace").classList.toggle("single", isFrq);
+      document.getElementById("answers-tab").innerHTML = isFrq
+        ? 'Rubric <span class="dot">!</span>'
+        : 'Answers <span class="dot">!</span>';
+      document.getElementById("answers-title").textContent = isFrq ? "Rubric" : "Answers";
+      document.getElementById("answers-lede").textContent = isFrq
+        ? "Define independent point criteria, accepted alternatives, and boundary responses."
+        : "One best answer and three distinct distractor mechanisms are required.";
+      document.getElementById("answers-status").textContent = isFrq ? "2 incomplete criteria" : "2 blockers";
+      document.getElementById("answers-status").className = isFrq ? "pill amber" : "pill red";
+      document.getElementById("mcq-answers").classList.toggle("hidden", isFrq);
+      document.getElementById("frq-rubric").classList.toggle("hidden", !isFrq);
+      document.getElementById("question-form").value = isFrq ? "Short free-response question · 3 points" : "Multiple-choice question";
+      document.getElementById("topic-field").value = isFrq ? "Gene expression and regulation" : "Cell communication";
+      document.getElementById("skill-field").value = isFrq ? "Explain biological relationships using evidence" : "Predict effects of a system disruption";
+      document.getElementById("stem").value = isFrq
+        ? "Researchers compare target-gene expression in cells with and without regulatory protein T. Write the original prompt and evidence table required by the approved brief."
+        : "A researcher exposes cultured liver cells to increasing concentrations of hormone Q. The cells respond by activating an intracellular kinase only when membrane receptor R is present. Which change would most directly reduce the cells' response to hormone Q?";
+      document.getElementById("reasoning-path").value = isFrq
+        ? "Students identify the regulatory relationship, cite expression evidence, and predict the downstream effect on protein abundance."
+        : "Identify receptor R as required for signal reception, then select the change that disrupts receptor availability before intracellular kinase activation.";
+      document.getElementById("ambiguity-notes").value = isFrq
+        ? "The evidence must support the direction of regulation without requiring one exact molecular mechanism."
+        : "Choices must distinguish reduced receptor abundance from downstream kinase inhibition. Avoid two options that both fully eliminate the response.";
+      document.getElementById("source-claim").textContent = isFrq ? "Gene-regulation factual claim" : "Signal-transduction factual claim";
+      document.getElementById("source-citation").textContent = isFrq
+        ? "OpenStax Biology 2e · Gene Expression · paraphrase/synthesis · accessed Jun 15, 2026"
+        : "OpenStax Biology 2e · Cell Communication · paraphrase/synthesis · accessed Jun 15, 2026";
+    }
+
+    navButtons.forEach(button => {
+      button.addEventListener("click", () => showScreen(button.dataset.screen));
+    });
+
+    document.querySelectorAll(".queue-card").forEach(card => {
+      card.addEventListener("click", () => {
+        document.querySelectorAll(".queue-card").forEach(item => item.classList.remove("active"));
+        card.classList.add("active");
+        showScreen("work-screen");
+        if (card.dataset.task === "new") {
+          editorView.classList.add("hidden");
+          queueView.classList.remove("hidden");
+          document.getElementById("top-title").textContent = "New short FRQ assignment";
+          document.getElementById("top-subtitle").textContent = "Acknowledgement required before authoring";
+        } else if (card.dataset.task === "submitted") {
+          showScreen("submitted-screen");
+        } else {
+          setEditorMode("mcq");
+          editorView.classList.remove("hidden");
+          queueView.classList.add("hidden");
+          document.getElementById("top-title").textContent = "Recycled MCQ revision";
+          document.getElementById("top-subtitle").textContent = "Draft derived from immutable version 2";
+        }
+      });
+    });
+
+    document.getElementById("acknowledge-button").addEventListener("click", () => {
+      showToast("Assignment acknowledged · authoring draft opened");
+      setEditorMode("frq");
+      queueView.classList.add("hidden");
+      editorView.classList.remove("hidden");
+      document.getElementById("top-title").textContent = "New short FRQ draft";
+      document.getElementById("top-subtitle").textContent = "Draft has no predecessor version";
+    });
+
+    function showEditorSection(name) {
+      document.querySelectorAll(".editor-section").forEach(section => section.classList.toggle("hidden", section.dataset.section !== name));
+      document.querySelectorAll("[data-editor]").forEach(tab => tab.classList.toggle("active", tab.dataset.editor === name));
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    document.querySelectorAll("[data-editor]").forEach(tab => tab.addEventListener("click", () => showEditorSection(tab.dataset.editor)));
+    document.querySelectorAll("[data-jump]").forEach(button => button.addEventListener("click", () => showEditorSection(button.dataset.jump)));
+    document.querySelectorAll(".jump-field").forEach(button => button.addEventListener("click", () => showEditorSection(button.dataset.target)));
+    document.querySelectorAll("[data-editor-jump]").forEach(button => button.addEventListener("click", () => showEditorSection(button.dataset.editorJump)));
+
+    document.querySelectorAll("[data-context]").forEach(tab => {
+      tab.addEventListener("click", () => {
+        document.querySelectorAll("[data-context]").forEach(item => item.classList.toggle("active", item === tab));
+        document.querySelectorAll(".context-section").forEach(section => section.classList.toggle("hidden", section.dataset.contextSection !== tab.dataset.context));
+      });
+    });
+
+    document.querySelectorAll("input, textarea, select").forEach(field => {
+      field.addEventListener("input", () => {
+        const save = document.getElementById("save-state");
+        save.textContent = "Saving draft...";
+        clearTimeout(window.saveTimer);
+        window.saveTimer = setTimeout(() => save.textContent = "Draft saved locally", 650);
+      });
+    });
+
+    document.querySelectorAll(".address-comment").forEach(button => {
+      button.addEventListener("click", () => {
+        const comment = button.closest(".comment");
+        const response = comment.querySelector("textarea");
+        if (!response.value.trim()) {
+          response.focus();
+          showToast("Add an author response before marking this addressed");
+          return;
+        }
+        button.textContent = "Addressed in draft ✓";
+        button.disabled = true;
+        comment.style.opacity = ".72";
+        showToast("Author response linked to the current draft");
+      });
+    });
+
+    function openModal(id) {
+      document.getElementById(id).classList.add("open");
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove("open");
+    }
+
+    document.getElementById("import-button").addEventListener("click", () => openModal("import-modal"));
+    document.getElementById("submit-button").addEventListener("click", () => openModal("submit-modal"));
+    document.querySelectorAll("[data-open-submit]").forEach(button => button.addEventListener("click", () => openModal("submit-modal")));
+    document.querySelectorAll("[data-close-modal]").forEach(button => button.addEventListener("click", () => closeModal(button.dataset.closeModal)));
+
+    document.getElementById("complete-import").addEventListener("click", () => {
+      if (!document.getElementById("import-rights").checked || !document.getElementById("import-restricted").checked) {
+        showToast("Confirm ownership and restricted-material status first");
+        return;
+      }
+      closeModal("import-modal");
+      showToast("Mapped sections imported into the editable draft");
+      showEditorSection("sources");
+    });
+
+    document.getElementById("confirm-submit").addEventListener("click", () => {
+      const summary = document.getElementById("change-summary").value.trim();
+      const checks = [...document.querySelectorAll(".submit-check")];
+      if (!summary || checks.some(check => !check.checked)) {
+        showToast("Complete the change summary and all attestations");
+        return;
+      }
+      closeModal("submit-modal");
+      openModal("success-modal");
+    });
+
+    document.getElementById("success-back").addEventListener("click", () => {
+      closeModal("success-modal");
+      showScreen("submitted-screen");
+    });
+
+    document.getElementById("self-review-demo").addEventListener("click", () => {
+      document.getElementById("self-review-message").classList.remove("hidden");
+    });
+
+    document.querySelectorAll(".modal-backdrop").forEach(backdrop => {
+      backdrop.addEventListener("click", event => {
+        if (event.target === backdrop) closeModal(backdrop.id);
+      });
+    });
+
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape") {
+        document.querySelectorAll(".modal-backdrop.open").forEach(modal => closeModal(modal.id));
+      }
+    });
+  </script>
+</body>
+</html>

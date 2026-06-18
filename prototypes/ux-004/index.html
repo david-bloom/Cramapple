@@ -1,0 +1,1475 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cramapple UX-004 Student Question Intake</title>
+  <style>
+    :root {
+      --ink: #17251f;
+      --muted: #65716c;
+      --paper: #fffdf8;
+      --canvas: #f3f0e7;
+      --line: #dad7ce;
+      --brand: #2f6f5c;
+      --brand-dark: #204d40;
+      --brand-soft: #e5f0eb;
+      --blue: #315f8f;
+      --blue-soft: #eaf2fb;
+      --amber: #9d5d13;
+      --amber-soft: #fff0d8;
+      --red: #9b3f39;
+      --red-soft: #fbe9e7;
+      --shadow: 0 18px 48px rgba(30, 43, 36, 0.12);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--canvas);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      background:
+        radial-gradient(circle at 80% 0%, rgba(47, 111, 92, 0.11), transparent 35rem),
+        var(--canvas);
+    }
+
+    button,
+    textarea,
+    select {
+      font: inherit;
+    }
+
+    button {
+      color: inherit;
+    }
+
+    button:focus-visible,
+    textarea:focus-visible,
+    select:focus-visible {
+      outline: 3px solid #80a9ff;
+      outline-offset: 2px;
+    }
+
+    .app {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 248px minmax(0, 1fr);
+    }
+
+    .rail {
+      padding: 22px 18px;
+      color: white;
+      background: #193a30;
+    }
+
+    .brand {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 24px;
+      font-weight: 850;
+    }
+
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      color: #193a30;
+      background: #f4c84d;
+      font-weight: 900;
+    }
+
+    .prototype-label {
+      display: inline-block;
+      padding: 5px 8px;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 999px;
+      font-size: 0.7rem;
+      font-weight: 850;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .rail h1 {
+      margin: 12px 0 8px;
+      font-size: 1.18rem;
+    }
+
+    .rail-copy {
+      margin: 0 0 20px;
+      color: #c9d6d1;
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+
+    .rail-label {
+      margin: 22px 10px 7px;
+      color: #91aca2;
+      font-size: 0.71rem;
+      font-weight: 850;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
+
+    .rail-button {
+      width: 100%;
+      min-height: 44px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin: 4px 0;
+      padding: 9px 11px;
+      border: 0;
+      border-radius: 10px;
+      color: #e9f0ed;
+      background: transparent;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .rail-button:hover,
+    .rail-button.active {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .rail-number {
+      width: 25px;
+      height: 25px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      border-radius: 8px;
+      color: #193a30;
+      background: #dceae5;
+      font-size: 0.75rem;
+      font-weight: 850;
+    }
+
+    .scenario-button {
+      font-size: 0.82rem;
+    }
+
+    .shell {
+      min-width: 0;
+    }
+
+    .topbar {
+      min-height: 68px;
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: center;
+      padding: 12px 28px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 253, 248, 0.9);
+      backdrop-filter: blur(12px);
+    }
+
+    .topbar strong,
+    .topbar span {
+      display: block;
+    }
+
+    .topbar span {
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    .save-state {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    .save-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--brand);
+    }
+
+    main {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 26px;
+    }
+
+    .progress {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 8px;
+      margin-bottom: 22px;
+    }
+
+    .progress-step {
+      min-height: 58px;
+      padding: 9px 10px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      color: var(--muted);
+      background: rgba(255, 253, 248, 0.7);
+      font-size: 0.75rem;
+    }
+
+    .progress-step strong {
+      display: block;
+      margin-bottom: 3px;
+      color: var(--ink);
+    }
+
+    .progress-step.current {
+      border-color: var(--brand);
+      background: var(--brand-soft);
+    }
+
+    .progress-step.complete {
+      border-color: #a7c2b8;
+    }
+
+    .screen {
+      display: none;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    .eyebrow {
+      margin: 0 0 7px;
+      color: var(--brand);
+      font-size: 0.77rem;
+      font-weight: 850;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      max-width: 800px;
+      margin: 0;
+      font-size: clamp(1.8rem, 4vw, 2.75rem);
+      letter-spacing: -0.045em;
+      line-height: 1.08;
+    }
+
+    .lede {
+      max-width: 760px;
+      margin: 12px 0 24px;
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.55;
+    }
+
+    .card {
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 17px;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    .tabs {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin-bottom: 20px;
+      padding: 5px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #f5f3ed;
+    }
+
+    .tab {
+      min-height: 48px;
+      border: 0;
+      border-radius: 9px;
+      background: transparent;
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    .tab.active {
+      color: white;
+      background: var(--brand);
+    }
+
+    .input-panel {
+      display: none;
+    }
+
+    .input-panel.active {
+      display: block;
+    }
+
+    label,
+    .field-label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 0.84rem;
+      font-weight: 850;
+    }
+
+    textarea,
+    select {
+      width: 100%;
+      padding: 12px 13px;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      color: var(--ink);
+      background: white;
+    }
+
+    textarea {
+      min-height: 180px;
+      resize: vertical;
+      line-height: 1.5;
+    }
+
+    .upload-zone {
+      min-height: 230px;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      border: 2px dashed #b9beb8;
+      border-radius: 15px;
+      background: #faf9f5;
+      text-align: center;
+    }
+
+    .upload-zone strong,
+    .upload-zone span {
+      display: block;
+    }
+
+    .upload-zone span {
+      max-width: 480px;
+      margin: 7px auto 15px;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .guidance {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .note {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 13px 14px;
+      border-radius: 11px;
+      color: var(--muted);
+      background: #f0f2ed;
+      font-size: 0.85rem;
+      line-height: 1.45;
+    }
+
+    .note strong {
+      color: var(--ink);
+    }
+
+    .note.warning {
+      color: #6e420d;
+      background: var(--amber-soft);
+    }
+
+    .note.danger {
+      color: #702d29;
+      background: var(--red-soft);
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 22px;
+    }
+
+    .button {
+      min-height: 44px;
+      padding: 10px 16px;
+      border: 1px solid transparent;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    .button.primary {
+      color: white;
+      background: var(--brand);
+    }
+
+    .button.primary:hover {
+      background: var(--brand-dark);
+    }
+
+    .button.secondary {
+      border-color: var(--line);
+      background: white;
+    }
+
+    .button.ghost {
+      color: var(--brand);
+      background: transparent;
+    }
+
+    .button:disabled {
+      cursor: not-allowed;
+      opacity: 0.48;
+    }
+
+    .demo-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 12px;
+    }
+
+    .demo-button {
+      min-height: 36px;
+      padding: 7px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+      background: white;
+      cursor: pointer;
+      font-size: 0.75rem;
+      font-weight: 750;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .preview-card {
+      min-height: 330px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      background: #f7f5ef;
+    }
+
+    .preview-card h3,
+    .capture-card h3 {
+      margin: 0 0 12px;
+      font-size: 1rem;
+    }
+
+    .preview-paper {
+      min-height: 250px;
+      padding: 18px;
+      border: 1px solid #cfcac0;
+      border-radius: 8px;
+      background: white;
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.55;
+      white-space: pre-wrap;
+    }
+
+    .capture-card {
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      background: white;
+    }
+
+    .checklist {
+      display: grid;
+      gap: 8px;
+      margin-top: 15px;
+    }
+
+    .check-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 12px;
+      border-radius: 9px;
+      background: #f4f4ef;
+      font-size: 0.82rem;
+    }
+
+    .check-item strong {
+      color: var(--brand);
+    }
+
+    .check-item.missing strong {
+      color: var(--amber);
+    }
+
+    .alert {
+      display: none;
+      margin-top: 15px;
+      padding: 15px;
+      border-radius: 12px;
+      background: var(--amber-soft);
+    }
+
+    .alert.active {
+      display: block;
+    }
+
+    .alert.danger {
+      background: var(--red-soft);
+    }
+
+    .alert h3 {
+      margin: 0 0 5px;
+      font-size: 1rem;
+    }
+
+    .alert p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .match-card {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 16px;
+      align-items: center;
+      padding: 18px;
+      border: 2px solid var(--brand);
+      border-radius: 15px;
+      background: var(--brand-soft);
+    }
+
+    .match-icon {
+      width: 50px;
+      height: 50px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      color: white;
+      background: var(--brand);
+      font-weight: 900;
+    }
+
+    .match-card strong,
+    .match-card span {
+      display: block;
+    }
+
+    .match-card span {
+      margin-top: 4px;
+      color: var(--muted);
+    }
+
+    .confidence {
+      padding: 6px 9px;
+      border-radius: 999px;
+      color: var(--brand-dark);
+      background: white;
+      font-size: 0.76rem;
+      font-weight: 850;
+    }
+
+    .classification-grid,
+    .mode-grid,
+    .context-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .choice {
+      min-height: 130px;
+      padding: 16px;
+      border: 2px solid var(--line);
+      border-radius: 13px;
+      background: white;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .choice:hover,
+    .choice.selected {
+      border-color: var(--brand);
+      background: var(--brand-soft);
+    }
+
+    .choice strong,
+    .choice span {
+      display: block;
+    }
+
+    .choice span {
+      margin-top: 7px;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .context-grid .choice {
+      min-height: 96px;
+    }
+
+    .answer-box {
+      display: none;
+      margin-top: 17px;
+    }
+
+    .answer-box.active {
+      display: block;
+    }
+
+    .integrity-warning {
+      display: none;
+      margin-top: 16px;
+    }
+
+    .integrity-warning.active {
+      display: flex;
+    }
+
+    .summary {
+      display: grid;
+      gap: 11px;
+    }
+
+    .summary-row {
+      display: grid;
+      grid-template-columns: 170px 1fr;
+      gap: 14px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .summary-row:last-child {
+      border-bottom: 0;
+    }
+
+    .summary-row span {
+      color: var(--muted);
+      font-size: 0.83rem;
+    }
+
+    .summary-row strong {
+      font-size: 0.92rem;
+    }
+
+    .status {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 30;
+      max-width: 390px;
+      padding: 13px 15px;
+      border-radius: 11px;
+      color: white;
+      background: #193a30;
+      box-shadow: var(--shadow);
+    }
+
+    .status[hidden] {
+      display: none;
+    }
+
+    @media (max-width: 900px) {
+      .app {
+        display: block;
+      }
+
+      .rail {
+        padding: 14px 16px;
+      }
+
+      .rail-copy,
+      .rail-label {
+        display: none;
+      }
+
+      .brand {
+        margin-bottom: 10px;
+      }
+
+      .step-nav,
+      .scenario-nav {
+        display: flex;
+        gap: 6px;
+        overflow-x: auto;
+      }
+
+      .rail-button {
+        width: auto;
+        flex: 0 0 auto;
+      }
+
+      .split {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .topbar {
+        align-items: flex-start;
+        padding: 12px 16px;
+      }
+
+      main {
+        padding: 18px 14px;
+      }
+
+      .progress {
+        grid-template-columns: repeat(5, 120px);
+        overflow-x: auto;
+      }
+
+      .tabs,
+      .guidance,
+      .classification-grid,
+      .mode-grid,
+      .context-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .card {
+        padding: 17px;
+      }
+
+      .match-card {
+        grid-template-columns: 1fr;
+      }
+
+      .summary-row {
+        grid-template-columns: 1fr;
+        gap: 4px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="rail" aria-label="Prototype controls">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">C</span>
+        <span>Cramapple</span>
+      </div>
+      <span class="prototype-label">UX-004 prototype</span>
+      <h1>Bring a question</h1>
+      <p class="rail-copy">
+        Review artifact only. Photo and document processing are simulated and
+        no question is uploaded.
+      </p>
+
+      <p class="rail-label">Flow</p>
+      <nav class="step-nav" aria-label="Jump to intake step">
+        <button class="rail-button active" type="button" data-go="capture"><span class="rail-number">1</span>Add question</button>
+        <button class="rail-button" type="button" data-go="confirm"><span class="rail-number">2</span>Confirm capture</button>
+        <button class="rail-button" type="button" data-go="match"><span class="rail-number">3</span>Confirm match</button>
+        <button class="rail-button" type="button" data-go="help"><span class="rail-number">4</span>Choose help</button>
+        <button class="rail-button" type="button" data-go="review"><span class="rail-number">5</span>Review</button>
+      </nav>
+
+      <p class="rail-label">Scenarios</p>
+      <div class="scenario-nav">
+        <button class="rail-button scenario-button" type="button" data-scenario="complete">Complete question</button>
+        <button class="rail-button scenario-button" type="button" data-scenario="missing">Missing figure</button>
+        <button class="rail-button scenario-button" type="button" data-scenario="personal">Personal information</button>
+        <button class="rail-button scenario-button" type="button" data-scenario="moderate">Moderate match</button>
+        <button class="rail-button scenario-button" type="button" data-scenario="unsupported">Unsupported subject</button>
+      </div>
+    </aside>
+
+    <div class="shell">
+      <header class="topbar">
+        <div>
+          <strong>AP Biology · Bring a question</strong>
+          <span id="header-detail">Step 1 of 5</span>
+        </div>
+        <div class="save-state">
+          <span class="save-dot" aria-hidden="true"></span>
+          <span>Prototype draft saved locally</span>
+        </div>
+      </header>
+
+      <main>
+        <div class="progress" aria-label="Question intake progress">
+          <div class="progress-step current" data-progress="capture"><strong>1</strong>Add question</div>
+          <div class="progress-step" data-progress="confirm"><strong>2</strong>Confirm capture</div>
+          <div class="progress-step" data-progress="match"><strong>3</strong>Confirm match</div>
+          <div class="progress-step" data-progress="help"><strong>4</strong>Choose help</div>
+          <div class="progress-step" data-progress="review"><strong>5</strong>Review and begin</div>
+        </div>
+
+        <section class="screen active" id="capture" tabindex="-1">
+          <p class="eyebrow">Bring a question</p>
+          <h2>Add the complete question.</h2>
+          <p class="lede">
+            Include answer choices and any graph, table, diagram, passage, or
+            earlier subpart the question refers to.
+          </p>
+
+          <div class="card">
+            <div class="tabs" role="tablist" aria-label="Question input method">
+              <button class="tab active" type="button" data-input="text" role="tab" aria-selected="true">Type or paste</button>
+              <button class="tab" type="button" data-input="photo" role="tab" aria-selected="false">Photo or screenshot</button>
+              <button class="tab" type="button" data-input="document" role="tab" aria-selected="false">Document</button>
+            </div>
+
+            <div class="input-panel active" id="input-text">
+              <label for="question-text">Question</label>
+              <textarea id="question-text" placeholder="Paste or type the complete question here."></textarea>
+              <div class="demo-actions" aria-label="Prototype examples">
+                <button class="demo-button" type="button" data-fill="complete">Use complete example</button>
+                <button class="demo-button" type="button" data-fill="missing">Use missing-figure example</button>
+                <button class="demo-button" type="button" data-fill="personal">Use personal-information example</button>
+              </div>
+            </div>
+
+            <div class="input-panel" id="input-photo">
+              <div class="upload-zone">
+                <div>
+                  <strong>Choose a clear photo or screenshot</strong>
+                  <span>Make sure the full question and every referenced visual are inside the frame. This prototype does not upload a file.</span>
+                  <button class="button secondary" type="button" data-simulate="photo">Use demo photo</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="input-panel" id="input-document">
+              <div class="upload-zone">
+                <div>
+                  <strong>Choose a question document</strong>
+                  <span>Select the relevant page before continuing. Supported formats and limits require security approval.</span>
+                  <button class="button secondary" type="button" data-simulate="document">Use demo document</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="guidance">
+              <div class="note">
+                <span aria-hidden="true">i</span>
+                <span><strong>Complete context helps.</strong> Cramapple asks for missing material rather than inventing it.</span>
+              </div>
+              <div class="note warning">
+                <span aria-hidden="true">!</span>
+                <span><strong>Remove personal information.</strong> Do not include names, faces, school details, contact information, or anything confidential.</span>
+              </div>
+            </div>
+
+            <div class="actions">
+              <button class="button primary" type="button" id="continue-capture">Review what Cramapple captured</button>
+              <button class="button ghost" type="button" data-toast="Your draft would remain private and recoverable.">Finish later</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="screen" id="confirm" tabindex="-1">
+          <p class="eyebrow">Confirm capture</p>
+          <h2>Make sure Cramapple has the whole question.</h2>
+          <p class="lede">
+            The original stays separate from the corrected text used for
+            classification and teaching.
+          </p>
+
+          <div class="card">
+            <div class="split">
+              <div class="preview-card">
+                <h3>Original submission</h3>
+                <div class="preview-paper" id="original-preview"></div>
+              </div>
+              <div class="capture-card">
+                <h3>Cramapple captured</h3>
+                <label for="captured-text">Correct the extraction if needed</label>
+                <textarea id="captured-text"></textarea>
+                <div class="checklist">
+                  <div class="check-item"><span>Question text</span><strong>Included</strong></div>
+                  <div class="check-item" id="choices-check"><span>Answer choices</span><strong>Included</strong></div>
+                  <div class="check-item" id="visual-check"><span>Referenced visual</span><strong>Not needed</strong></div>
+                  <div class="check-item"><span>Your answer</span><strong>Not added yet</strong></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="alert" id="missing-alert">
+              <h3>This question mentions a graph that is not included.</h3>
+              <p>Add the graph or describe what it shows. Cramapple will ask once rather than inventing the missing information.</p>
+              <div class="actions">
+                <button class="button secondary" type="button" id="add-context">Add demo graph context</button>
+                <button class="button ghost" type="button" id="continue-limited">Continue with a limitation</button>
+              </div>
+            </div>
+
+            <div class="alert danger" id="personal-alert">
+              <h3>This may include personal information.</h3>
+              <p>Review and remove the possible name and school information before continuing. Cramapple may not detect everything.</p>
+              <div class="actions">
+                <button class="button secondary" type="button" id="remove-personal">Review and remove</button>
+                <button class="button ghost" type="button" data-go="capture">Use another input</button>
+              </div>
+            </div>
+
+            <div class="actions">
+              <button class="button primary" type="button" id="continue-confirm">Confirm capture</button>
+              <button class="button secondary" type="button" data-go="capture">Back</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="screen" id="match" tabindex="-1">
+          <p class="eyebrow">Confirm match</p>
+          <h2 id="match-heading">Does this match look right?</h2>
+          <p class="lede" id="match-lede">
+            Categorizing the task helps Cramapple choose an approved method
+            without pretending the source question is authoritative.
+          </p>
+
+          <div class="card">
+            <div class="match-card" id="match-card">
+              <span class="match-icon" aria-hidden="true">AP</span>
+              <div>
+                <strong id="match-title">AP Biology · Unit 3</strong>
+                <span id="match-description">Cellular energetics · Limiting factors · Conceptual analysis</span>
+              </div>
+              <span class="confidence" id="confidence-label">High confidence</span>
+            </div>
+
+            <div class="classification-grid" id="match-actions">
+              <button class="choice selected" type="button" data-match="confirm" aria-pressed="true">
+                <strong>Yes, continue</strong>
+                <span>Use this subject and topic for the learning flow.</span>
+              </button>
+              <button class="choice" type="button" data-match="change" aria-pressed="false">
+                <strong>Choose a different topic</strong>
+                <span>Correct the category without changing the question.</span>
+              </button>
+              <button class="choice" type="button" data-match="context" aria-pressed="false">
+                <strong>Add more context</strong>
+                <span>Return to the captured question and include what is missing.</span>
+              </button>
+              <button class="choice" type="button" data-match="not-bio" aria-pressed="false">
+                <strong>This is not AP Biology</strong>
+                <span>Tell Cramapple the subject was interpreted incorrectly.</span>
+              </button>
+            </div>
+
+            <div id="topic-correction" hidden style="margin-top: 16px">
+              <label for="topic-select">Choose the closest AP Biology topic</label>
+              <select id="topic-select">
+                <option>Unit 2 · Cell Structure and Function</option>
+                <option selected>Unit 3 · Cellular Energetics</option>
+                <option>Unit 4 · Cell Communication and Cell Cycle</option>
+                <option>Unit 6 · Gene Expression and Regulation</option>
+                <option>Unit 7 · Natural Selection</option>
+                <option>I am not sure</option>
+              </select>
+            </div>
+
+            <div class="alert" id="unsupported-alert">
+              <h3>This looks outside Cramapple's supported subjects.</h3>
+              <p>Cramapple should decline clearly rather than improvise. A future subject waitlist requires approved age and consent handling.</p>
+            </div>
+
+            <div class="note" style="margin-top: 16px">
+              <span aria-hidden="true">i</span>
+              <span><strong>Your confirmation helps routing.</strong> It does not create an official rubric or make the uploaded question approved content.</span>
+            </div>
+
+            <div class="actions">
+              <button class="button primary" type="button" id="continue-match">Choose how Cramapple should help</button>
+              <button class="button secondary" type="button" data-go="confirm">Back</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="screen" id="help" tabindex="-1">
+          <p class="eyebrow">Choose help</p>
+          <h2>What would be most useful?</h2>
+          <p class="lede">
+            The choice changes how much Cramapple reveals and what the attempt
+            can count as evidence.
+          </p>
+
+          <div class="card">
+            <div class="mode-grid" role="group" aria-label="Help mode">
+              <button class="choice selected" type="button" data-mode="Teach me" aria-pressed="true">
+                <strong>Teach me</strong>
+                <span>Explain the concept, show an example, then let me try a fresh question.</span>
+              </button>
+              <button class="choice" type="button" data-mode="Give me a hint" aria-pressed="false">
+                <strong>Give me a hint</strong>
+                <span>Offer one bounded cue while I keep working.</span>
+              </button>
+              <button class="choice" type="button" data-mode="Check my work" aria-pressed="false">
+                <strong>Check my work</strong>
+                <span>Review the answer I already attempted and identify supported gaps.</span>
+              </button>
+              <button class="choice" type="button" data-mode="Walk through the solution" aria-pressed="false">
+                <strong>Walk through the solution</strong>
+                <span>Show the reasoning, then offer a fresh independent attempt.</span>
+              </button>
+            </div>
+
+            <div class="answer-box" id="answer-box">
+              <label for="learner-answer">Your attempted answer</label>
+              <textarea id="learner-answer" placeholder="Add the answer or work you want Cramapple to check."></textarea>
+            </div>
+
+            <p class="field-label" style="margin-top: 20px">Where is this question from?</p>
+            <div class="context-grid" role="group" aria-label="Assessment context">
+              <button class="choice selected" type="button" data-context="Practice, homework, or studying" aria-pressed="true">
+                <strong>Practice, homework, or studying</strong>
+                <span>I am using this to learn or prepare.</span>
+              </button>
+              <button class="choice" type="button" data-context="A quiz or test I am taking right now" aria-pressed="false">
+                <strong>A quiz or test I am taking right now</strong>
+                <span>This is part of an active assessment.</span>
+              </button>
+              <button class="choice" type="button" data-context="I am not sure" aria-pressed="false">
+                <strong>I am not sure</strong>
+                <span>I need help identifying the right boundary.</span>
+              </button>
+            </div>
+
+            <div class="note warning integrity-warning" id="integrity-warning">
+              <span aria-hidden="true">!</span>
+              <span><strong>Concept help remains available.</strong> This prototype limits full solutions and work checking during an active assessment. Final behavior requires the approved academic-integrity policy.</span>
+            </div>
+
+            <div class="actions">
+              <button class="button primary" type="button" id="continue-help">Review and begin</button>
+              <button class="button secondary" type="button" data-go="match">Back</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="screen" id="review" tabindex="-1">
+          <p class="eyebrow">Ready to begin</p>
+          <h2>Here is what Cramapple will use.</h2>
+          <p class="lede">
+            Check the match, help mode, and limitations before starting.
+          </p>
+
+          <div class="card">
+            <div class="summary">
+              <div class="summary-row"><span>Input</span><strong id="summary-input">Typed or pasted question</strong></div>
+              <div class="summary-row"><span>Capture</span><strong id="summary-capture">Question and answer choices confirmed</strong></div>
+              <div class="summary-row"><span>Match</span><strong id="summary-match">AP Biology · Unit 3 · High confidence</strong></div>
+              <div class="summary-row"><span>Help</span><strong id="summary-mode">Teach me</strong></div>
+              <div class="summary-row"><span>Assessment context</span><strong id="summary-context">Practice, homework, or studying</strong></div>
+              <div class="summary-row"><span>Scoring limit</span><strong id="summary-limit">Cramapple will use the strongest supported match and disclose uncertainty.</strong></div>
+            </div>
+
+            <div class="note" style="margin-top: 18px">
+              <span aria-hidden="true">i</span>
+              <span><strong>Your private learning comes first.</strong> The question does not enter Cramapple's approved library automatically. Anonymous improvement use and any public publication are separate governed processes.</span>
+            </div>
+
+            <div class="actions">
+              <button class="button primary" type="button" id="begin-button">Start teaching</button>
+              <button class="button secondary" type="button" data-go="capture">Edit question</button>
+              <button class="button secondary" type="button" data-go="help">Change help</button>
+              <button class="button ghost" type="button" data-toast="Your intake would be saved so you can resume later.">Finish later</button>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <div class="status" id="status" role="status" aria-live="polite" hidden></div>
+
+  <script>
+    const examples = {
+      complete: `A researcher grows genetically identical seedlings under four light intensities while keeping temperature, water, and carbon dioxide concentration constant.
+
+Which result would best support the claim that light intensity is limiting photosynthesis in this setup?
+
+A. Oxygen production increases as light intensity increases, then levels off.
+B. Oxygen production remains constant at every light intensity.
+C. Seedling mass decreases while oxygen production increases.
+D. Carbon dioxide concentration increases only in the brightest treatment.`,
+      missing: `Use the graph above to identify the light intensity at which photosynthesis first stops increasing. Explain your answer using the data.`,
+      personal: `Jordan Smith - Roosevelt High School
+
+A researcher grows genetically identical seedlings under four light intensities. Which result best supports the claim that light intensity is limiting photosynthesis?
+
+A. Oxygen production increases, then levels off.
+B. Oxygen production remains constant.
+C. Seedling mass decreases.
+D. Carbon dioxide increases.`
+    };
+
+    const state = {
+      step: "capture",
+      inputMethod: "text",
+      scenario: "complete",
+      sourceText: "",
+      missingContext: false,
+      personalInfo: false,
+      limitedContext: false,
+      confidence: "High",
+      unsupported: false,
+      matchChoice: "confirm",
+      mode: "Teach me",
+      assessmentContext: "Practice, homework, or studying"
+    };
+
+    const steps = ["capture", "confirm", "match", "help", "review"];
+    const status = document.getElementById("status");
+    let statusTimer;
+
+    function showStatus(message) {
+      window.clearTimeout(statusTimer);
+      status.textContent = message;
+      status.hidden = false;
+      statusTimer = window.setTimeout(() => {
+        status.hidden = true;
+      }, 4200);
+    }
+
+    function showStep(id) {
+      state.step = id;
+      document.querySelectorAll(".screen").forEach((screen) => {
+        screen.classList.toggle("active", screen.id === id);
+      });
+      document.querySelectorAll("[data-go]").forEach((button) => {
+        button.classList.toggle("active", button.dataset.go === id && button.classList.contains("rail-button"));
+      });
+      const currentIndex = steps.indexOf(id);
+      document.querySelectorAll("[data-progress]").forEach((item) => {
+        const index = steps.indexOf(item.dataset.progress);
+        item.classList.toggle("current", index === currentIndex);
+        item.classList.toggle("complete", index < currentIndex);
+      });
+      document.getElementById("header-detail").textContent = `Step ${currentIndex + 1} of 5`;
+      document.getElementById(id).focus();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function setInputMethod(method) {
+      state.inputMethod = method;
+      document.querySelectorAll("[data-input]").forEach((button) => {
+        const selected = button.dataset.input === method;
+        button.classList.toggle("active", selected);
+        button.setAttribute("aria-selected", String(selected));
+      });
+      document.querySelectorAll(".input-panel").forEach((panel) => {
+        panel.classList.toggle("active", panel.id === `input-${method}`);
+      });
+    }
+
+    function loadScenario(name) {
+      state.scenario = name;
+      state.unsupported = name === "unsupported";
+      state.confidence = name === "moderate" ? "Moderate" : name === "unsupported" ? "Low" : "High";
+      state.missingContext = name === "missing";
+      state.personalInfo = name === "personal";
+      state.limitedContext = false;
+      state.sourceText = examples[name] || examples.complete;
+      document.getElementById("question-text").value = state.sourceText;
+      setInputMethod("text");
+      prepareConfirmation();
+      prepareMatch();
+      showStep(name === "moderate" || name === "unsupported" ? "match" : "capture");
+      showStatus(`Loaded the ${name.replace("-", " ")} prototype scenario.`);
+    }
+
+    function prepareConfirmation() {
+      const source = state.sourceText || examples.complete;
+      document.getElementById("original-preview").textContent =
+        state.inputMethod === "text"
+          ? source
+          : `[Simulated ${state.inputMethod} preview]\n\n${source}`;
+      document.getElementById("captured-text").value = source;
+
+      const missing = state.missingContext;
+      const personal = state.personalInfo;
+      document.getElementById("missing-alert").classList.toggle("active", missing);
+      document.getElementById("personal-alert").classList.toggle("active", personal);
+      document.getElementById("visual-check").classList.toggle("missing", missing);
+      document.querySelector("#visual-check strong").textContent = missing ? "Missing" : "Not needed";
+      document.getElementById("continue-confirm").disabled = personal || missing;
+    }
+
+    function prepareMatch() {
+      const title = document.getElementById("match-title");
+      const description = document.getElementById("match-description");
+      const confidence = document.getElementById("confidence-label");
+      const alert = document.getElementById("unsupported-alert");
+
+      if (state.unsupported) {
+        title.textContent = "Possible AP French question";
+        description.textContent = "Outside Cramapple's currently supported subject portfolio";
+        confidence.textContent = "Low confidence";
+        alert.classList.add("active");
+        document.getElementById("continue-match").disabled = true;
+      } else if (state.confidence === "Moderate") {
+        title.textContent = "AP Biology · Possible Unit 3";
+        description.textContent = "Cellular energetics · Limiting factors";
+        confidence.textContent = "Moderate confidence";
+        alert.classList.remove("active");
+        document.getElementById("continue-match").disabled = false;
+      } else if (state.confidence === "Low") {
+        title.textContent = "Possible AP Biology · Unit 3";
+        description.textContent = "The referenced graph is missing, so the exact task and scoring pattern are unverified";
+        confidence.textContent = "Low confidence";
+        alert.classList.remove("active");
+        document.getElementById("continue-match").disabled = false;
+      } else {
+        title.textContent = "AP Biology · Unit 3";
+        description.textContent = "Cellular energetics · Limiting factors · Conceptual analysis";
+        confidence.textContent = "High confidence";
+        alert.classList.remove("active");
+        document.getElementById("continue-match").disabled = false;
+      }
+    }
+
+    function updateModeAvailability() {
+      const activeAssessment = state.assessmentContext === "A quiz or test I am taking right now";
+      const warning = document.getElementById("integrity-warning");
+      warning.classList.toggle("active", activeAssessment);
+
+      document.querySelectorAll("[data-mode]").forEach((button) => {
+        const restricted = activeAssessment &&
+          ["Check my work", "Walk through the solution"].includes(button.dataset.mode);
+        button.disabled = restricted;
+      });
+
+      if (activeAssessment && ["Check my work", "Walk through the solution"].includes(state.mode)) {
+        state.mode = "Give me a hint";
+        selectGroup("[data-mode]", "mode", state.mode);
+        showStatus("For this prototype, active assessments are limited to concept teaching or a bounded hint.");
+      }
+      document.getElementById("answer-box").classList.toggle("active", state.mode === "Check my work");
+    }
+
+    function selectGroup(selector, key, value) {
+      document.querySelectorAll(selector).forEach((button) => {
+        const selected = button.dataset[key] === value;
+        button.classList.toggle("selected", selected);
+        button.setAttribute("aria-pressed", String(selected));
+      });
+    }
+
+    function updateSummary() {
+      const inputLabels = {
+        text: "Typed or pasted question",
+        photo: "Simulated photo or screenshot",
+        document: "Simulated document"
+      };
+      document.getElementById("summary-input").textContent = inputLabels[state.inputMethod];
+      document.getElementById("summary-capture").textContent = state.limitedContext
+        ? "Question confirmed with a missing-visual limitation"
+        : "Question and available context confirmed";
+      document.getElementById("summary-match").textContent =
+        `AP Biology · Unit 3 · ${state.confidence} confidence`;
+      document.getElementById("summary-mode").textContent = state.mode;
+      document.getElementById("summary-context").textContent = state.assessmentContext;
+      document.getElementById("summary-limit").textContent = state.confidence === "High"
+        ? "Use the strongest validated match available and disclose any remaining uncertainty."
+        : "Provide qualified conceptual guidance and avoid unsupported precise scoring.";
+
+      const labels = {
+        "Teach me": "Start teaching",
+        "Give me a hint": "Give me a hint",
+        "Check my work": "Check my work",
+        "Walk through the solution": "Walk through the solution"
+      };
+      document.getElementById("begin-button").textContent = labels[state.mode];
+    }
+
+    document.addEventListener("click", (event) => {
+      const go = event.target.closest("[data-go]");
+      const toast = event.target.closest("[data-toast]");
+      if (go) showStep(go.dataset.go);
+      if (toast) showStatus(toast.dataset.toast);
+    });
+
+    document.querySelectorAll("[data-input]").forEach((button) => {
+      button.addEventListener("click", () => setInputMethod(button.dataset.input));
+    });
+
+    document.querySelectorAll("[data-fill]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const name = button.dataset.fill;
+        state.scenario = name;
+        state.sourceText = examples[name];
+        state.missingContext = name === "missing";
+        state.personalInfo = name === "personal";
+        state.confidence = "High";
+        state.unsupported = false;
+        document.getElementById("question-text").value = state.sourceText;
+      });
+    });
+
+    document.querySelectorAll("[data-simulate]").forEach((button) => {
+      button.addEventListener("click", () => {
+        state.inputMethod = button.dataset.simulate;
+        state.sourceText = examples.complete;
+        state.missingContext = false;
+        state.personalInfo = false;
+        showStatus(`Demo ${button.dataset.simulate} selected. No file was uploaded.`);
+      });
+    });
+
+    document.querySelectorAll("[data-scenario]").forEach((button) => {
+      button.addEventListener("click", () => loadScenario(button.dataset.scenario));
+    });
+
+    document.getElementById("continue-capture").addEventListener("click", () => {
+      if (state.inputMethod === "text") {
+        state.sourceText = document.getElementById("question-text").value.trim();
+        if (!state.sourceText) {
+          showStatus("Add the question before continuing.");
+          document.getElementById("question-text").focus();
+          return;
+        }
+      }
+      if (!state.sourceText) {
+        showStatus(`Choose a demo ${state.inputMethod} before continuing.`);
+        return;
+      }
+      prepareConfirmation();
+      showStep("confirm");
+    });
+
+    document.getElementById("remove-personal").addEventListener("click", () => {
+      state.personalInfo = false;
+      state.sourceText = state.sourceText
+        .replace("Jordan Smith - Roosevelt High School\n\n", "");
+      document.getElementById("captured-text").value = state.sourceText;
+      document.getElementById("original-preview").textContent =
+        `${examples.personal}\n\n[Possible personal information removed from the confirmed extraction.]`;
+      document.getElementById("personal-alert").classList.remove("active");
+      document.getElementById("continue-confirm").disabled = state.missingContext;
+      showStatus("Possible personal information removed from the confirmed extraction.");
+    });
+
+    document.getElementById("add-context").addEventListener("click", () => {
+      state.missingContext = false;
+      state.sourceText += "\n\nGraph context added: oxygen production rises from 2 to 8 units as light increases, then remains at 8 units.";
+      document.getElementById("captured-text").value = state.sourceText;
+      document.getElementById("missing-alert").classList.remove("active");
+      document.getElementById("visual-check").classList.remove("missing");
+      document.querySelector("#visual-check strong").textContent = "Description added";
+      document.getElementById("continue-confirm").disabled = state.personalInfo;
+      showStatus("Graph context added to the confirmed capture.");
+    });
+
+    document.getElementById("continue-limited").addEventListener("click", () => {
+      state.missingContext = false;
+      state.limitedContext = true;
+      state.confidence = "Low";
+      document.getElementById("missing-alert").classList.remove("active");
+      document.getElementById("continue-confirm").disabled = false;
+      showStatus("Cramapple will continue with a missing-visual limitation and avoid precise scoring.");
+    });
+
+    document.getElementById("continue-confirm").addEventListener("click", () => {
+      if (state.personalInfo) {
+        showStatus("Review and remove the possible personal information before continuing.");
+        document.getElementById("remove-personal").focus();
+        return;
+      }
+      if (state.missingContext) {
+        showStatus("Add the missing context or continue with a stated limitation.");
+        document.getElementById("add-context").focus();
+        return;
+      }
+      state.sourceText = document.getElementById("captured-text").value.trim();
+      prepareMatch();
+      showStep("match");
+    });
+
+      document.querySelectorAll("[data-match]").forEach((button) => {
+      button.addEventListener("click", () => {
+        state.matchChoice = button.dataset.match;
+        selectGroup("[data-match]", "match", state.matchChoice);
+        if (state.matchChoice === "context") {
+          showStatus("Return to Confirm capture to add the missing material.");
+        }
+        document.getElementById("topic-correction").hidden = state.matchChoice !== "change";
+        if (state.matchChoice === "not-bio") {
+          state.unsupported = true;
+          state.confidence = "Low";
+          prepareMatch();
+        }
+        if (state.matchChoice === "change") {
+          state.confidence = "Moderate";
+          document.getElementById("match-title").textContent = "AP Biology · Topic correction needed";
+          document.getElementById("match-description").textContent = "Choose the closest unit before beginning";
+          document.getElementById("confidence-label").textContent = "Student correction";
+        }
+      });
+    });
+
+    document.getElementById("topic-select").addEventListener("change", (event) => {
+      document.getElementById("match-title").textContent = `AP Biology · ${event.target.value.split(" · ")[0]}`;
+      document.getElementById("match-description").textContent =
+        `${event.target.value} · Student-corrected routing`;
+    });
+
+    document.getElementById("continue-match").addEventListener("click", () => {
+      if (state.unsupported) {
+        showStatus("This subject is not supported. Cramapple should decline rather than improvise.");
+        return;
+      }
+      if (state.matchChoice === "context") {
+        showStep("confirm");
+        return;
+      }
+      showStep("help");
+    });
+
+    document.querySelectorAll("[data-mode]").forEach((button) => {
+      button.addEventListener("click", () => {
+        if (button.disabled) return;
+        state.mode = button.dataset.mode;
+        selectGroup("[data-mode]", "mode", state.mode);
+        document.getElementById("answer-box").classList.toggle("active", state.mode === "Check my work");
+      });
+    });
+
+    document.querySelectorAll("[data-context]").forEach((button) => {
+      button.addEventListener("click", () => {
+        state.assessmentContext = button.dataset.context;
+        selectGroup("[data-context]", "context", state.assessmentContext);
+        updateModeAvailability();
+      });
+    });
+
+    document.getElementById("continue-help").addEventListener("click", () => {
+      if (state.mode === "Check my work" && !document.getElementById("learner-answer").value.trim()) {
+        showStatus("Add the answer or work you want Cramapple to check.");
+        document.getElementById("learner-answer").focus();
+        return;
+      }
+      updateSummary();
+      showStep("review");
+    });
+
+    document.getElementById("begin-button").addEventListener("click", () => {
+      showStatus(`${document.getElementById("begin-button").textContent} would begin with the confirmed question and stated confidence limits.`);
+    });
+
+    loadScenario("complete");
+  </script>
+</body>
+</html>

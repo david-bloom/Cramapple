@@ -1,0 +1,19 @@
+{
+  "name": "vercel-gateway-check",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "description": "SP-1 gateway feature-verification scratch (Vercel AI Gateway).",
+  "scripts": {
+    "verify": "node --env-file=.env.local verify.mjs",
+    "models": "node --env-file=.env.local models.mjs",
+    "structured": "node --env-file=.env.local structured.mjs",
+    "overhead": "node --env-file=.env.local overhead.mjs",
+    "reasoning": "node --env-file=.env.local reasoning.mjs"
+  },
+  "dependencies": {
+    "@ai-sdk/openai": "^3.0.73",
+    "ai": "^6.0.208",
+    "zod": "^4.4.3"
+  }
+}
