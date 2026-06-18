@@ -4,6 +4,65 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ---
 
+## Beta Revised-Answer Scoring Bug Logged - 2026-06-16
+
+**Surface:** `https://cramapple-beta.lovable.app/beta`
+**Status:** Patch Prompt Drafted
+**Summary:** Confirmed by manual walkthrough on the Photosynthesis light
+reactions FRQ that a coached revision targeting a single missed criterion
+returns `Predicted: +0   Actual: +0` and leaves the revised total unchanged
+even when the revision plainly satisfies the targeted criterion. Root cause
+hypothesis: the revision is graded in isolation against the full rubric, so
+it silently loses credit on criteria the original earned. Recommended fix
+is targeted-criterion grading: grade the revised text only against the
+clicked criterion and carry every other per-criterion decision forward
+from the immutable original, then recompute the total. The comparison panel
+must also expose original total, revised total, per-criterion delta,
+predicted gain, and observed gain. Drafted
+`prompts/LOVABLE_BETA_FIX_REVISION_SCORING.md` with the bug, the (b)
+grading semantics, the updated comparison fields, and an acceptance check
+requiring `REVISED (3/4)` with `+1` on the reproduction.
+
+**Next Owner:** Lovable patch operator, then David Bloom for verification
+**Next Required Action:** Apply the patch prompt to the beta, rerun the
+documented walkthrough, and confirm both the gain case and the
+no-improvement case behave as specified before any further beta use.
+
+## Content Authoring and Revision Workbench Design Started - 2026-06-15
+
+**Task:** UX-003
+**Status:** In Progress
+**Summary:** Defined the author-facing destination for new commissions and
+items recycled by UX-002. The workbench covers task acknowledgement, complete
+MCQ and FRQ package editing, simulated document import, anchored reviewer
+comments, immutable version comparison, provenance and rights capture,
+preflight, resubmission to two-tutor reassessment, and qualified access to the
+review carousel with self-review exclusion. Renumbered student-provided
+question intake to UX-004.
+
+**Next Owner:** Paid Tutor Authors, AP Readers, Learning Quality Owner,
+accessibility, security, privacy, and rights reviewers, then David Bloom
+**Next Required Action:** Test the queue, editor, comments, comparison,
+provenance, resubmission, and review-mode transition before any production
+implementation.
+
+## Student-Provided Question Intake Design Started - 2026-06-13
+
+**Task:** UX-004
+**Status:** In Progress
+**Summary:** Defined a five-stage outside-question intake covering typed,
+pasted, photographed, and document inputs; extraction confirmation; possible
+personal information; one-round missing-context clarification; confidence-aware
+subject matching; Teach, Hint, Check My Work, and Solution modes; and a
+conservative active-assessment state. Created the canonical UX specification,
+task record, clickable prototype, and Lovable render brief.
+
+**Next Owner:** Learning Quality, accessibility, security, privacy, rights, and
+academic-integrity reviewers, then David Bloom
+**Next Required Action:** Test whether students can provide complete context,
+understand confidence limits, choose the intended help mode, and distinguish
+private use from anonymous improvement and separately reviewed publication.
+
 ## Question and Answer Review Portal Design Started - 2026-06-13
 
 **Task:** UX-002

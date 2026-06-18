@@ -98,6 +98,17 @@ Review and follow-up brief:
 - `docs/research/DRAWN_RESPONSE_ARCHITECTURE_REVIEW.md`
 - `prompts/CLAUDE_DRAWN_RESPONSE_EXECUTABLE_PLAN.md`
 
+## Phase-1 Execution Specification
+
+The initial phase-1 specification defines six newly authored graph items across
+three bounded archetypes, criterion labels, the dual-human labeling protocol,
+abstention rules, and the locked offline evaluation plan. The historical AP
+Biology reference library is used only as taxonomy and failure-mode input; its
+identifiable official-question material is excluded from prompts, exemplars,
+model inputs, and evaluation cases.
+
+- `docs/research/TASK-0011_PHASE_1_EXECUTION_SPEC.md`
+
 ## Initial Expert Capture Pilot
 
 David directed preparation for Orly Bloom to complete proposed handwritten

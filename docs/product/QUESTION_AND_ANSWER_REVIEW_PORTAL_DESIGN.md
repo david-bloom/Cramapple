@@ -85,6 +85,11 @@ Question candidate version
 `Question review approved` means eligible for the next applicable content gate.
 It does not mean production release.
 
+Items routed to modification or `Edit and recycle` open an author revision task
+in the UX-003 Content Authoring and Revision Workbench. UX-002 preserves the
+locked decisions and triggering comments; UX-003 creates the successor version
+and returns it to the required independent reassessment queue.
+
 ## 5. Difficulty Label Workflow
 
 Each assigned reviewer supplies one required difficulty label. Both tutors
@@ -157,7 +162,8 @@ the content-governance policy.
 | Reference | Current score definitions, checklists, and reviewer policy |
 
 Administrative assignment, qualification, release, and authoring tools remain
-outside the reviewer portal.
+outside the reviewer portal. Authoring and recycled revision work is designed
+in UX-003.
 
 ### 7.2 Queue Cards
 

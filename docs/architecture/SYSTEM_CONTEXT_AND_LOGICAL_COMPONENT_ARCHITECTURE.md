@@ -201,6 +201,7 @@ flowchart TB
         Submission["Submission service"]
         Grading["Grading orchestrator"]
         Evaluation["Criterion evaluation adapters"]
+        Boundary["Criterion boundary calibration"]
         Escalation["Confidence and human-escalation service"]
     end
 
@@ -256,8 +257,11 @@ flowchart TB
 
     Submission --> Grading
     Grading --> Evaluation
+    Grading --> Boundary
     Grading --> Escalation
     Grading --> RubricRepo
+    Boundary --> RubricRepo
+    Boundary --> Review
 
     ExamPack --> ExamSpec
     ExamPack --> ContentRepo
@@ -411,13 +415,39 @@ flowchart TB
 
 - Selects the applicable grading package and evaluation workflow.
 - Combines deterministic checks, model-supported evaluation, and human review.
-- Returns criterion-level evidence, estimated scoring, feedback, and confidence.
+- Applies approved criterion-boundary contracts before presenting earned or
+  missed decisions.
+- Returns criterion-level evidence, decision gates, estimated scoring,
+  feedback, and confidence.
 
 #### Criterion Evaluation Adapters
 
 - Hide provider-specific model calls behind typed task contracts.
+- Route provider calls through Vercel AI Gateway by default. The
+  `provider/model` identifier (e.g., `openai/gpt-5.5`,
+  `anthropic/claude-haiku-4-5`, `google/gemini-2.5-flash`) abstracts the
+  upstream provider, so an arm can change models without changing
+  adapter code. Direct-provider calls remain a permitted fallback if the
+  gateway has a regional outage.
 - Validate structured outputs and retry only within policy.
-- Preserve prompt, model, parameter, and source versions for audit.
+- Preserve prompt, model, parameter, gateway routing decision, and
+  source versions for audit.
+
+#### Criterion Boundary Calibration
+
+- Owns the operational scoring-threshold contract for each grading-sensitive
+  criterion.
+- Stores required evidence targets, accepted boundary examples, insufficient
+  boundary examples, contradiction rules, ambiguity rules, minimum fixes, and
+  adjudicated case IDs.
+- Requires evidence extraction before a model-supported point can be awarded.
+- Validates gate/status invariants, such as "empty evidence quote cannot earn"
+  and "failed gate cannot earn."
+- Distinguishes model defects from rubric-boundary or label-quality defects.
+- Routes apparent boundary conflicts to Learning Quality before using those
+  labels as grader ground truth.
+- Records boundary-contract version IDs with every grading result for audit and
+  revalidation.
 
 #### Confidence and Human-Escalation Service
 
@@ -454,7 +484,11 @@ Official facts and Cramapple-derived planning values are separate record types. 
 #### Rubric and Scoring Package Repository
 
 - Owns question-specific and archetype-level grading criteria.
-- Stores official scoring guidance, accepted alternatives, common non-credit responses, samples, and calibration cases.
+- Stores scoring guidance, accepted alternatives, insufficient or common
+  non-credit responses, samples, calibration cases, and criterion-boundary
+  contracts.
+- Versions boundary contracts with the rubric so scoring-threshold changes
+  trigger revalidation rather than silently changing model behavior.
 - Is consumed by grading but may also expose approved criterion descriptions to teaching.
 
 #### Source and Provenance Registry
@@ -706,6 +740,17 @@ Use asynchronous work for:
 
 AI providers are execution dependencies, not domain owners.
 
+Model calls are issued through **Vercel AI Gateway** as the standard
+intermediary. The gateway provides one authenticated egress for OpenAI,
+Anthropic, Google, and any future provider Cramapple adopts; short-lived
+OIDC tokens replace per-provider API keys in the runtime; billing,
+observability, prompt caching, BYOK routing, and failover are configured
+centrally rather than in app code. Direct-provider calls remain a
+permitted operational fallback during a gateway outage but are not the
+default code path. The gateway feature-verification gate and overhead
+calibration are documented in
+`docs/research/sp1_gateway_verification.md`.
+
 Each model task must define:
 
 - Typed input and output schema.
@@ -717,6 +762,8 @@ Each model task must define:
 - Timeout, retry, and fallback policy.
 - Evaluation suite and release threshold.
 - Logging and retention policy.
+- Routing decision (gateway vs direct) and the cached-prefix strategy
+  for the prompt.
 
 Model tasks may include classification, misconception detection, teaching-expression generation, answer extraction, and criterion evaluation. Final recommendations, releases, entitlements, and official-fact changes remain controlled by Cramapple policy.
 
@@ -732,7 +779,7 @@ Model tasks may include classification, misconception detection, teaching-expres
 | Private uploads | Supabase Storage with signed access |
 | Scheduled review work | Managed cron invoking protected server jobs |
 | Event outbox | PostgreSQL outbox tables and managed workers |
-| AI calls | Server-side provider adapters |
+| AI calls | Server-side adapters routed through Vercel AI Gateway using a Vercel-issued OIDC token; direct-provider fallback retained for gateway outages |
 | Product analytics and marketing | Destination adapters receiving approved events |
 
 This is a proposed mapping, not a commitment. Component contracts should survive replacement of any listed vendor.
@@ -783,6 +830,10 @@ This is a proposed mapping, not a commitment. Component contracts should survive
 7. User-provided questions remain noncanonical; private learner use, anonymous internal improvement use, and public publication are separate governed states.
 8. External marketing systems receive allowlisted events, not learning records.
 9. Managed vendors implement contracts but do not define them.
+10. Model calls route through Vercel AI Gateway by default. The
+    `provider/model` identifier is the unit of model selection; per-provider
+    keys do not appear in the production runtime; the verification of this
+    decision lives in `docs/research/sp1_gateway_verification.md`.
 
 ## 16. Open Design Questions
 

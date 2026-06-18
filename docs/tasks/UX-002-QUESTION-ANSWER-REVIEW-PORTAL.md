@@ -41,6 +41,7 @@ carousel workflow.
 - AP Reader question and answer review carousel.
 - Difficulty discussion queue.
 - Review assignment, comparison, versioning, and candidate disposition.
+- Recycled-item handoff to the UX-003 authoring and revision workbench.
 
 ## Data / Security / Integration Impact
 
@@ -57,6 +58,8 @@ required; the browser cannot be authoritative for review or release state.
 - [x] Any excluded answer blocks the current four-option MCQ package.
 - [x] Submitted decisions and edits preserve immutable versions.
 - [x] Candidate approval is distinguished from production release.
+- [x] Revision and edit-and-recycle outcomes have an explicit UX-003
+  destination.
 - [x] Clickable carousel prototype is produced.
 - [x] Lovable-ready handoff is produced.
 - [ ] Tutor, AP Reader, Learning Quality, accessibility, and security review is

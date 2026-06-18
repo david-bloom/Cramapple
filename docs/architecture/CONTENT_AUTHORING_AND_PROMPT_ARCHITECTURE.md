@@ -4,7 +4,7 @@
 **Owner:** Main Conductor / Learning Quality Owner / Technical Owner
 **Product Owner:** David Bloom
 **Related Tasks:** `TASK-0005`, `TASK-0007`, `CONTENT-001`
-**Last Updated:** 2026-06-13
+**Last Updated:** 2026-06-17
 
 ## 1. Purpose
 
@@ -225,6 +225,7 @@ An FRQ candidate package includes:
 - independently deliverable prompt parts;
 - point count resolved from the active exam pack;
 - criterion-level scoring rules;
+- criterion-boundary contracts with evidence gates;
 - accepted alternatives and equivalent reasoning;
 - insufficient, contradictory, and boundary responses;
 - calculation, unit, graph, diagram, and notation rules;
@@ -238,6 +239,13 @@ Author-generated sample responses are **development test cases**, not a human
 gold set and not sufficient to calibrate or release a grader. Gold evidence
 continues to require blind independent human scoring and the held-out thresholds
 in `CONTENT_GOVERNANCE_AND_VALIDATION.md`.
+
+Criterion-boundary contracts are the preferred home for accepted variants,
+insufficient wording, and threshold examples that affect scoring. They should
+state what evidence must appear in the learner response before a criterion can
+earn, what related wording remains insufficient, and which adjudicated cases
+guard that boundary. Prompt components may consume these contracts, but they
+must not invent new scoring thresholds outside the rubric package.
 
 ## 10. Sequencing
 

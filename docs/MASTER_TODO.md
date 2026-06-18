@@ -3,7 +3,7 @@
 **Status:** Active backlog index
 **Owner:** Main Conductor
 **Product Owner:** David Bloom
-**Last Updated:** 2026-06-13
+**Last Updated:** 2026-06-15
 
 ## 1. Purpose
 
@@ -81,6 +81,9 @@ records.
 | `TASK-0010` | Grader Confidence and Calibration | Critical | Proposed | Learning Quality and Product Owner release gates |
 | `TASK-0011` | Handwritten Graph Capture | Medium | Research | Prototype and feasibility decision |
 | `UX-001` | Initial Product UX Decisions | High | In Progress | Learning, Marketing, accessibility, and Product Owner review |
+| `UX-002` | Question and Answer Review Portal | High | In Progress | Tutor, AP Reader, Learning Quality, accessibility, security, and Product Owner review |
+| `UX-003` | Content Authoring and Revision Workbench | High | In Progress | Author, Learning Quality, accessibility, security, rights, and Product Owner review |
+| `UX-004` | Student-Provided Question Intake | High | In Progress | Learning Quality, accessibility, security, privacy, rights, academic-integrity, and Product Owner review |
 
 ## 5. P0 Legal, Privacy, and Trust Backlog
 
@@ -516,6 +519,45 @@ planning target. Physical Supabase DDL remains deferred.
 - [x] Produce and verify the clickable reviewer prototype.
 - [ ] Obtain tutor and AP Reader usability review.
 - [ ] Complete Learning Quality, accessibility, and security review.
+- [ ] Obtain Product Owner decision before production implementation.
+
+### UX-003 - Content Authoring and Revision Workbench
+
+**Status:** In Progress
+**Owner:** Product Owner with Learning Quality Owner
+**Task record:** `docs/tasks/UX-003-CONTENT-AUTHORING-REVISION-WORKBENCH.md`
+**Design record:** `docs/product/CONTENT_AUTHORING_AND_REVISION_WORKBENCH_DESIGN.md`
+
+- [x] Define assigned-work queue and acknowledgement behavior.
+- [x] Define complete MCQ and FRQ package editing.
+- [x] Define governed document import and field mapping.
+- [x] Define anchored reviewer-comment responses.
+- [x] Define immutable version comparison and impact warnings.
+- [x] Define provenance, originality, assets, tools, and rights states.
+- [x] Define recycled-item resubmission to two-tutor reassessment.
+- [x] Link qualified users to UX-002 while preventing self-review.
+- [x] Produce and verify the clickable workbench prototype.
+- [ ] Obtain author, Learning Quality, accessibility, security, privacy, and
+  rights review.
+- [ ] Obtain Product Owner decision before production implementation.
+
+### UX-004 - Student-Provided Question Intake
+
+**Status:** In Progress
+**Owner:** Product Owner with Learning Quality Owner
+**Task record:** `docs/tasks/UX-004-STUDENT-PROVIDED-QUESTION-INTAKE.md`
+**Design record:** `docs/product/STUDENT_PROVIDED_QUESTION_INTAKE_DESIGN.md`
+
+- [x] Define typed/pasted, photo/screenshot, and document entry.
+- [x] Define extraction confirmation and missing-context clarification.
+- [x] Define high, moderate, and low match-confidence behavior.
+- [x] Define Teach, Hint, Check My Work, and Solution mode selection.
+- [x] Define personal-information and active-assessment states.
+- [x] Separate private use, anonymous improvement, canonical content, and
+  public publication.
+- [ ] Produce and verify the clickable intake prototype.
+- [ ] Obtain Learning Quality, accessibility, security, privacy, rights, and
+  academic-integrity review.
 - [ ] Obtain Product Owner decision before production implementation.
 
 ## 9. P2 Commercial and Operating Backlog

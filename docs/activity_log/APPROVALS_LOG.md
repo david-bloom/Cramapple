@@ -428,3 +428,59 @@ difficulty-label workflow.
   exam-pack gates remain required.
 - This approval does not authorize production authentication, database design,
   reviewer-data writes, deployment, or use of unapproved content.
+
+## APPROVAL-0020 - Start Student-Provided Question Intake Design
+
+**Date:** 2026-06-13
+**Approved By:** David Bloom
+**Related Task:** UX-004
+**Decision:** Approved with Notes
+
+### Summary
+
+Design the student experience for typing, pasting, photographing, or uploading
+an outside question and choosing teaching, hint, work-checking, or solution
+help.
+
+### Notes
+
+- Approval covers interaction design, copy, clickable prototypes, and a
+  Lovable render brief.
+- Missing context must be requested rather than invented.
+- Student confirmation may improve routing but does not make a question,
+  source, or rubric authoritative.
+- Private learning, anonymous improvement, canonical content, and public
+  publication remain separate states.
+- Final upload, privacy, rights, retention, consent, provider, and
+  academic-integrity policy remains hard-gated.
+- This approval does not authorize production file processing, storage,
+  grading, publication, deployment, or use of protected content.
+
+## APPROVAL-0021 - Start Content Authoring and Revision Workbench Design
+
+**Date:** 2026-06-15
+**Approved By:** David Bloom
+**Related Task:** UX-003
+**Decision:** Approved with Notes
+
+### Summary
+
+Design the author-facing workbench for creating complete question packages,
+receiving recycled items from UX-002, responding to reviewer comments,
+comparing immutable versions, recording provenance and rights, and resubmitting
+new versions for independent reassessment.
+
+### Notes
+
+- The existing student-provided question intake is renumbered from UX-003 to
+  UX-004 without changing its approved product direction.
+- Approval covers interaction design, copy, clickable prototypes, and a
+  Lovable render brief.
+- UX-003 may link qualified users to the UX-002 review carousel but may not
+  allow self-review or duplicate scoring inside the author editor.
+- A recycled item creates a new immutable version; prior scores do not transfer
+  as approval.
+- Author attestation does not constitute rights clearance or production
+  approval.
+- This approval does not authorize production uploads, storage, database
+  design, contracting, payment, review assignment, publication, or deployment.

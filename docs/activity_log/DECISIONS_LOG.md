@@ -968,3 +968,88 @@ a clear expert escalation, and prevents edits from inheriting approval.
 - Exact agreement confirms difficulty; disagreement creates a discussion item.
 - This workflow decides candidate disposition and does not replace downstream
   content-governance or release gates.
+
+## DECISION-0025 — Use a Verified Five-Stage Outside-Question Intake
+
+**Date:** 2026-06-13
+**Decision Owner:** David Bloom
+**Status:** Approved for UX Design
+**Related Task:** UX-004
+**Area:** Product / Learning / Trust
+
+### Context
+
+Students may bring incomplete, photographed, copyrighted, personally
+identifying, off-subject, or actively assessed questions. A single text box
+does not provide enough context or trust handling.
+
+### Decision
+
+Use five stages: add the question, confirm capture, confirm match, choose help,
+and review before beginning. Support typed/pasted, photo/screenshot, and
+document concepts. Use one clarification round for missing context or relevance
+and disclose confidence before teaching or grading.
+
+### Rationale
+
+The staged flow preserves the student's real intent while preventing extraction
+errors, missing context, and uncertain classification from silently becoming
+confident teaching or scoring.
+
+### Consequences
+
+- Check My Work requires the learner's attempted answer.
+- Low-confidence matches avoid authoritative scoring.
+- External questions remain isolated from canonical content.
+- Anonymous improvement and public publication remain separate.
+- A conservative active-assessment prototype limits solution and answer-check
+  behavior, but final enforcement awaits the approved academic-integrity
+  policy.
+- Photo and document implementation remains blocked on upload security,
+  privacy, rights, retention, and provider decisions.
+
+## DECISION-0026 — Separate Authoring, Revision, and Independent Review
+
+**Date:** 2026-06-15
+**Decision Owner:** David Bloom
+**Status:** Approved for UX Design
+**Related Task:** UX-003
+**Area:** Product / Content Operations / Rights
+
+### Context
+
+UX-002 can reserve or recycle a question or answer version, but it previously
+had no designed interface where an author could receive the task, revise the
+complete package, preserve provenance, and return a successor version for
+reassessment.
+
+### Decision
+
+Use UX-003 as a content authoring and revision workbench. It owns assigned-work
+acknowledgement, complete MCQ and FRQ package editing, document import,
+reviewer-comment response, immutable version comparison, provenance and rights
+capture, preflight, and resubmission.
+
+Keep UX-002 as the independent scoring and disposition surface. Qualified users
+may switch between modes, but cannot review work they authored, revised, or
+collaborated on.
+
+Renumber the student-provided question intake to UX-004.
+
+### Rationale
+
+This gives recycled review outcomes an operational destination while preserving
+reviewer independence, immutable history, complete-package integrity, and
+rights controls.
+
+### Consequences
+
+- Tutor aggregate 3, AP Reader score 2, and revision outcomes create UX-003
+  tasks.
+- Resubmission creates a new immutable version and returns it to the required
+  reassessment queue.
+- Autosaves remain drafts and are not version history.
+- Reviewer comments remain immutable; authors attach responses and changes.
+- Provenance and rights checks can block submission without implying counsel
+  approval.
+- UX-004 now identifies student-provided question intake.
