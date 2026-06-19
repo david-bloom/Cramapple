@@ -497,13 +497,28 @@ async function gradeCriterionModelResolved(row, criterionId, arm, armName) {
   const phash = promptHash(`${instructions}\n\n${input}`);
   const t2Ms = performance.now() - t2Start;
 
-  let attempt = await runOneCall(arm.model, instructions, input, arm.reasoningEffort, arm.maxOutputTokens, arm.providerOptions);
+  // Bug found via Codex QA (2026-06-18): this previously awaited runOneCall()
+  // BEFORE racing it against the timeout, so withTimeout was racing an
+  // already-resolved value against the clock - it could never actually time
+  // out. Every arm sets criterionTimeoutMs, so this meant no timeout had ever
+  // fired in any run this session. Fixed by racing the call's own promise.
+  // Note: the underlying call isn't cancelled on timeout (no AbortController
+  // wired in) - it keeps running server-side, we just stop waiting on it.
+  const attemptPromise = runOneCall(arm.model, instructions, input, arm.reasoningEffort, arm.maxOutputTokens, arm.providerOptions);
   let retried = false;
   let timedOut = false;
+  let attempt;
 
   if (arm.criterionTimeoutMs) {
-    const raced = await withTimeout(Promise.resolve(attempt), arm.criterionTimeoutMs);
-    if (raced.timedOut) timedOut = true;
+    const raced = await withTimeout(attemptPromise, arm.criterionTimeoutMs);
+    if (raced.timedOut) {
+      timedOut = true;
+      attempt = { final: null, usage: { inputTokens: 0, outputTokens: 0, reasoningTokens: 0, cachedTokens: 0 }, costUsd: 0, t3Ms: arm.criterionTimeoutMs, t4Ms: 0, ok: false, error: 'criterion_call_timeout', schemaValid: false };
+    } else {
+      attempt = raced.value;
+    }
+  } else {
+    attempt = await attemptPromise;
   }
 
   if (!timedOut && !attempt.schemaValid) {
@@ -541,8 +556,9 @@ async function gradeCriterionModelResolved(row, criterionId, arm, armName) {
             ? 'empty_evidence_invariant'
             : 'low_confidence';
       const escInstructions = buildInstructions(criterionId, true);
-      const escResult = await runOneCall(arm.escalationModel, escInstructions, input, arm.escalationReasoningEffort, 200);
-      const escRaced = arm.escalationTimeoutMs ? await withTimeout(Promise.resolve(escResult), arm.escalationTimeoutMs) : { timedOut: false };
+      const escPromise = runOneCall(arm.escalationModel, escInstructions, input, arm.escalationReasoningEffort, 200);
+      const escRaced = arm.escalationTimeoutMs ? await withTimeout(escPromise, arm.escalationTimeoutMs) : { timedOut: false, value: await escPromise };
+      const escResult = escRaced.value;
       if (escRaced.timedOut) {
         escalationTimedOut = true;
       } else {
