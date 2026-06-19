@@ -1,0 +1,291 @@
+{
+  "report": "docs/research/grader_speed_sp1_report.md",
+  "protocol": "docs/research/GRADER_SPEED_SUBTASK_PROTOCOL.md",
+  "script": "scripts/vercel-gateway-check/sp1_pilot.mjs",
+  "run_date": "2026-06-18",
+  "raw_results_path": "/private/tmp/cramapple-grader-sp1/sp1_pilot_2026-06-18_v5.jsonl",
+  "supersedes": [
+    "/private/tmp/cramapple-grader-sp1/sp1_pilot_2026-06-18_v4.jsonl",
+    "/private/tmp/cramapple-grader-sp1/sp1_pilot_2026-06-18_v3.jsonl",
+    "/private/tmp/cramapple-grader-sp1/sp1_pilot_2026-06-18_v2.jsonl",
+    "/private/tmp/cramapple-grader-sp1/sp1_pilot_2026-06-18.jsonl"
+  ],
+  "frq_id": "FRQ02",
+  "read_tier": "Decision-Grade by sample size (n=40/arm); NOT sufficient for SP-1 section-14 production-promotion decision",
+  "gateway_used": true,
+  "this_run": "Root-cause fix: rewrote FRQ02-C2 boundary table after diagnosing that a v1 rule (meant to stop over-credit) was applied too broadly and caused systematic under-credit. Did not add a new architecture arm.",
+  "headline_result": "Plain SP-FAST (gpt-4o-mini, no escalation, cheapest/fastest arm) improved from 81.2% to 86.2% strict agreement from this single fix - a bigger jump than any architecture change tested in the prior 4 runs. Now within 1.3pp of the best escalation-style arm at ~1/16th the cost and ~half the latency.",
+  "c2_diagnostic": {
+    "v1_boundary_table_sp_fast_c2_accuracy": "24/40 (60.0%)",
+    "v2_boundary_table_sp_fast_c2_accuracy": "31/40 (77.5%)",
+    "fixed_root_cause": "v1's 'attributes randomness only to downstream effect' rule was applied too broadly, rejecting clear event-level claims like 'construction randomly killed plants' and 'randomly destroyed'",
+    "remaining_likely_label_noise": [
+      "S014",
+      "S054",
+      "S058",
+      "S062",
+      "S070"
+    ],
+    "remaining_genuinely_hard_boundary_cases": [
+      "S028",
+      "S068"
+    ]
+  },
+  "known_issues": [
+    "ambiguity tagging is response-level proxy (5 named cluster IDs), not criterion-level frozen Learning Quality review",
+    "single FRQ only (FRQ02); protocol requires all six summer-beta FRQs",
+    "TTFD not separately instrumented from general TTFB; H6 not decidable",
+    "T1/T2 remain script-level placeholders, not real grading-service overhead",
+    "SP-1 and SP-1-Serial p95 noisy across all 5 runs with no config change - tail latency not yet stable at n=40",
+    "boundary-table diagnostic process not yet applied to FRQ02-C1/C3/C4"
+  ],
+  "recommended_next_steps": [
+    "Apply the same error-vs-reviewer-note diagnostic to FRQ02-C1, C3, C4 before further architecture work",
+    "Flag S014/S054/S058/S062/S070 to Learning Quality as likely corpus label inconsistencies"
+  ],
+  "per_arm_metrics": [
+    {
+      "arm": "BM-Control",
+      "n_responses": 40,
+      "n_criteria": 160,
+      "strict_agreement": "137/160",
+      "schema_valid": "145/160",
+      "frq_p50_ms": 10466.7,
+      "frq_p95_ms": 15057.7,
+      "avg_cost_usd_per_frq": 0.02035,
+      "escalation_rate": "0/160",
+      "routing": [
+        "vercel_ai_gateway"
+      ]
+    },
+    {
+      "arm": "SP-1",
+      "n_responses": 40,
+      "n_criteria": 160,
+      "strict_agreement": "134/160",
+      "schema_valid": "146/160",
+      "frq_p50_ms": 7036.1,
+      "frq_p95_ms": 36305.1,
+      "avg_cost_usd_per_frq": 0.01952,
+      "escalation_rate": "0/160",
+      "routing": [
+        "vercel_ai_gateway"
+      ]
+    },
+    {
+      "arm": "SP-1-Serial",
+      "n_responses": 40,
+      "n_criteria": 160,
+      "strict_agreement": "133/160",
+      "schema_valid": "144/160",
+      "frq_p50_ms": 11569.8,
+      "frq_p95_ms": 18220.4,
+      "avg_cost_usd_per_frq": 0.0192,
+      "escalation_rate": "0/160",
+      "routing": [
+        "vercel_ai_gateway"
+      ]
+    },
+    {
+      "arm": "SP-1-Medium",
+      "n_responses": 40,
+      "n_criteria": 160,
+      "strict_agreement": "123/160",
+      "schema_valid": "129/160",
+      "frq_p50_ms": 2935.2,
+      "frq_p95_ms": 4803.9,
+      "avg_cost_usd_per_frq": 0.0193,
+      "escalation_rate": "0/160",
+      "routing": [
+        "vercel_ai_gateway"
+      ]
+    },
+    {
+      "arm": "SP-FAST",
+      "n_responses": 40,
+      "n_criteria": 160,
+      "strict_agreement": "138/160",
+      "schema_valid": "160/160",
+      "frq_p50_ms": 1744.4,
+      "frq_p95_ms": 3688.1,
+      "avg_cost_usd_per_frq": 0.00051,
+      "escalation_rate": "0/160",
+      "routing": [
+        "vercel_ai_gateway"
+      ]
+    },
+    {
+      "arm": "SP-FAST-ESC",
+      "n_responses": 40,
+      "n_criteria": 160,
+      "strict_agreement": "138/160",
+      "schema_valid": "155/160",
+      "frq_p50_ms": 4003.5,
+      "frq_p95_ms": 6599.5,
+      "avg_cost_usd_per_frq": 0.00597,
+      "escalation_rate": "33/160",
+      "routing": [
+        "vercel_ai_gateway"
+      ]
+    },
+    {
+      "arm": "SP-FAST-ESC-C2Direct",
+      "n_responses": 40,
+      "n_criteria": 160,
+      "strict_agreement": "140/160",
+      "schema_valid": "152/160",
+      "frq_p50_ms": 3079.2,
+      "frq_p95_ms": 5715.7,
+      "avg_cost_usd_per_frq": 0.00806,
+      "escalation_rate": "9/160",
+      "routing": [
+        "vercel_ai_gateway"
+      ]
+    },
+    {
+      "arm": "SP-FAST-ESC-C2Direct-Low",
+      "n_responses": 40,
+      "n_criteria": 160,
+      "strict_agreement": "137/160",
+      "schema_valid": "154/160",
+      "frq_p50_ms": 3579.5,
+      "frq_p95_ms": 6146.6,
+      "avg_cost_usd_per_frq": 0.00826,
+      "escalation_rate": "12/160",
+      "routing": [
+        "vercel_ai_gateway"
+      ]
+    },
+    {
+      "arm": "SP-FAST-Haiku",
+      "n_responses": 40,
+      "n_criteria": 160,
+      "strict_agreement": "140/160",
+      "schema_valid": "160/160",
+      "frq_p50_ms": 1676.8,
+      "frq_p95_ms": 4259.3,
+      "avg_cost_usd_per_frq": 0.00415,
+      "escalation_rate": "0/160",
+      "routing": [
+        "vercel_ai_gateway"
+      ]
+    },
+    {
+      "arm": "SP-FAST-Gemini",
+      "n_responses": 40,
+      "n_criteria": 160,
+      "strict_agreement": "146/160",
+      "schema_valid": "160/160",
+      "frq_p50_ms": 934.8,
+      "frq_p95_ms": 1224.2,
+      "avg_cost_usd_per_frq": 0.00141,
+      "escalation_rate": "0/160",
+      "routing": [
+        "vercel_ai_gateway"
+      ]
+    }
+  ],
+  "misattribution_audit": {
+    "tool": "scripts/misattribution-check/checker.py",
+    "method": "spaCy dependency parse; checks whether random/chance trigger words co-occur (sentence-scoped, negation-aware) with a destruction/survival-related lemma",
+    "standalone_accuracy_full_100": "66/100 (66%) - worse than any LLM arm alone, not a replacement classifier",
+    "deployed_role": "disagreement-based audit, runs only on 'earned' verdicts for FRQ02-C2",
+    "bugs_found_and_fixed_during_testing": [
+      "'selection' lemma matched negated 'not because of natural selection', causing false earned on S028 - fixed via negation-scope detection",
+      "'event' lemma fixed 2 false alarms but caused a miss on S020 via unrelated content in a different sentence of the same response - reverted"
+    ],
+    "final_result_against_full_scale_c2direct_low_output": {
+      "earned_verdicts_audited": "54/100",
+      "flagged_for_review": "4/100 (7.4% of earned calls)",
+      "actual_overcredit_errors_at_this_scale": 2,
+      "caught_by_audit": "2/2 (100%)",
+      "false_alarms": 2
+    },
+    "not_yet_done": "not wired into live grading harness as real-time gate; validated as offline post-hoc join against already-produced results"
+  },
+  "full_scale_validation_n100": {
+    "raw_results_path": "/private/tmp/cramapple-grader-sp1/sp1_pilot_2026-06-18_scale100.jsonl",
+    "arms_tested": [
+      "BM-Control",
+      "SP-FAST-ESC-C2Direct-Low"
+    ],
+    "scope_note": "full FRQ02 corpus (100/100 available labeled responses), NOT multiple FRQs - no other summer-beta FRQ has a labeled corpus yet",
+    "result": {
+      "BM-Control": {
+        "strict_agreement": "355/400 (88.8%)",
+        "frq_p50_ms": 10203,
+        "frq_p95_ms": 14870,
+        "avg_cost_usd_per_frq": 0.02029
+      },
+      "SP-FAST-ESC-C2Direct-Low": {
+        "strict_agreement": "355/400 (88.8%)",
+        "frq_p50_ms": 3728,
+        "frq_p95_ms": 7059,
+        "avg_cost_usd_per_frq": 0.00798
+      }
+    },
+    "headline": "Ties BM-Control exactly on accuracy at the largest available sample, ~2.7x faster, ~2.5x cheaper. C2-specific accuracy now beats control (79/100 vs 75/100)."
+  },
+  "parse_first_routing": {
+    "arm": "SP-FAST-ESC-C2ParseFirst",
+    "method": "runs misattribution parser BEFORE any model call for FRQ02-C2; routes to gpt-5.5-low (hard path) if parser finds trigger words with no qualifying attachment, else gpt-4o-mini (fast path)",
+    "bug_found_and_fixed": "first attempt left existing confidence-based escalation (threshold 0.95) active on the fast path; 19/28 'fast' calls escalated to gpt-5.5 medium anyway, making it slower than C2Direct-Low instead of faster. Fixed by disabling escalation entirely on the fast path.",
+    "result_vs_c2direct_low_n40": {
+      "C2Direct-Low": {
+        "strict_agreement_overall": "87.5%",
+        "frq_p50_ms": 2378,
+        "frq_p95_ms": 4747,
+        "avg_cost_usd_per_frq": 0.00693,
+        "c2_accuracy": "77.5%"
+      },
+      "ParseFirst_buggy": {
+        "strict_agreement_overall": "86.2%",
+        "frq_p50_ms": 3337,
+        "frq_p95_ms": 5969,
+        "avg_cost_usd_per_frq": 0.00687,
+        "c2_accuracy": "80.0%"
+      },
+      "ParseFirst_fixed": {
+        "strict_agreement_overall": "86.2%",
+        "frq_p50_ms": 2318,
+        "frq_p95_ms": 4900,
+        "avg_cost_usd_per_frq": 0.00267,
+        "c2_accuracy": "77.5%"
+      }
+    },
+    "headline": "Fixed parse-first ties C2Direct-Low on speed and C2 accuracy while cutting cost 61% (70% of C2 calls now run on gpt-4o-mini alone, no redundant escalation).",
+    "new_finding": "Hard path (gpt-5.5, 12/40 routed cases) is only 50% accurate (6/12). Routing correctly identifies which cases are structurally hard, but the stronger model doesn't reliably resolve them - several overlap with previously-flagged likely corpus label inconsistencies (S014, S058, S070).",
+    "not_yet_tested": "post-hoc misattribution audit has never been run end-to-end live (only offline-joined against existing results); combined parse-first + post-hoc-audit-on-both-paths design not built"
+  },
+  "misattribution_audit_live_run": {
+    "arm": "SP-FAST-Gemini",
+    "n": 40,
+    "first_live_end_to_end_test": true,
+    "bugs_found_and_fixed": [
+      "escalateToMaxOutputTokens raised 200 -> 1000 across all 3 arms using the audit; S020 alone needs 493 reasoning tokens before gpt-5.5 medium can emit JSON, confirmed via direct probe",
+      "added bounded retry to the audit's escalation call, matching the existing primary-path pattern",
+      "fixed missing audit_escalation_retried default on the prefilter early-return path (schema-consistency drift)"
+    ],
+    "result": {
+      "strict_agreement": "146/160 (91.2%)",
+      "schema_valid": "160/160 (100%)",
+      "c2_accuracy": "34/40 (85.0%)",
+      "frq_p50_ms": 965,
+      "frq_p95_ms": 8142,
+      "avg_cost_usd_per_frq": 0.00308,
+      "percentiles_ms": {
+        "p50": 965,
+        "p60": 1108,
+        "p70": 1753,
+        "p80": 2173,
+        "p90": 4115,
+        "p95": 8142,
+        "p100": 11105
+      }
+    },
+    "audit_outcome": "flagged 4/40 earned verdicts; escalation corrected 3/4 (S028, S068 fixed; S025 confirmed already-correct); S020 still wrong even after escalation with full reasoning budget",
+    "key_finding": "S020 is now wrong across every configuration tested this entire session (BM-Control, every gpt-4o-mini variant, C2Direct medium, C2Direct-Low, parse-first hard path, SP-FAST-Gemini, and gpt-5.5 medium with no token constraint). No model/effort/routing combination has resolved it - points to boundary redesign or label adjudication, not another architecture variant.",
+    "latency_tail_diagnosis": "p95/p100 are exactly the 4 audit-escalated responses (100% correlation), not noise. Direct, expected cost of the token-budget fix: giving the escalation call room to actually finish reasoning makes it slower, not just more reliable. Open design question, not yet decided: is this tradeoff acceptable as-is."
+  },
+  "status": "Paused for independent code QA (Codex) before any further test run, requested 2026-06-18"
+}
