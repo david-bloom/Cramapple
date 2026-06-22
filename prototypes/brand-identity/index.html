@@ -1,0 +1,560 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cramapple — Visual Identity Proposal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Inter+Tight:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --font-display: "Inter Tight", "Inter", sans-serif;
+    --font-mono: "SF Mono", ui-monospace, "Cascadia Code", Menlo, monospace;
+    --radius: 10px;
+    --ease: cubic-bezier(0.2, 0.0, 0.1, 1);
+    --t-fast: 120ms;
+    --t-base: 200ms;
+  }
+
+  html[data-theme="dark"] {
+    --bg: #0B0E0C;
+    --surface: #13170F;
+    --surface-2: #1B201A;
+    --border: #2A312B;
+    --text: #F3F5F0;
+    --text-muted: #97A096;
+    --accent: #34B273;
+    --accent-text: #06150D;
+    --accent-soft: #16261C;
+    --fb-correct: #4C9CF1;
+    --fb-correct-bg: #11203A;
+    --fb-partial: #E0AC4C;
+    --fb-partial-bg: #2C2210;
+    --fb-incorrect: #E2685D;
+    --fb-incorrect-bg: #2E1714;
+    --shadow: 0 1px 0 rgba(255,255,255,0.04) inset, 0 8px 24px rgba(0,0,0,0.35);
+  }
+
+  html[data-theme="light"] {
+    --bg: #FAFAF7;
+    --surface: #FFFFFF;
+    --surface-2: #F1F2EE;
+    --border: #E1E3DC;
+    --text: #14180F;
+    --text-muted: #5B6356;
+    --accent: #1F8F58;
+    --accent-text: #FFFFFF;
+    --accent-soft: #E7F4EC;
+    --fb-correct: #1D5FD1;
+    --fb-correct-bg: #E9F0FE;
+    --fb-partial: #9A6B0F;
+    --fb-partial-bg: #FAF1DE;
+    --fb-incorrect: #B43A30;
+    --fb-incorrect-bg: #FBEAE8;
+    --shadow: 0 1px 0 rgba(0,0,0,0.02) inset, 0 8px 24px rgba(20,24,15,0.08);
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    transition: background-color var(--t-base) var(--ease), color var(--t-base) var(--ease);
+  }
+
+  ::selection { background: var(--accent); color: var(--accent-text); }
+
+  a { color: inherit; }
+
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 28px; }
+
+  /* ---------- status banner ---------- */
+  .status-banner {
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--text-muted);
+    padding: 10px 0;
+    text-align: center;
+  }
+  .status-banner strong { color: var(--text); font-weight: 600; }
+
+  /* ---------- nav ---------- */
+  nav {
+    position: sticky; top: 0; z-index: 50;
+    background: color-mix(in srgb, var(--bg) 86%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+  nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+  .brand-mark-row { display: flex; align-items: center; gap: 10px; }
+  .brand-mark-row svg { width: 22px; height: 22px; color: var(--accent); }
+  .brand-mark-row span { font-family: var(--font-display); font-weight: 700; font-size: 17px; letter-spacing: -0.01em; }
+  .nav-links { display: flex; gap: 22px; font-size: 14px; color: var(--text-muted); }
+  .nav-links a { text-decoration: none; transition: color var(--t-fast) var(--ease); }
+  .nav-links a:hover { color: var(--text); }
+  .theme-toggle {
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-size: 13px;
+    font-family: var(--font-body);
+    font-weight: 500;
+    cursor: pointer;
+    transition: border-color var(--t-fast) var(--ease), transform var(--t-fast) var(--ease);
+  }
+  .theme-toggle:hover { border-color: var(--accent); }
+  .theme-toggle:active { transform: scale(0.96); }
+
+  /* ---------- hero ---------- */
+  header.hero { padding: 96px 0 72px; border-bottom: 1px solid var(--border); }
+  .eyebrow {
+    font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--accent); font-weight: 600; margin-bottom: 18px;
+  }
+  h1.display {
+    font-family: var(--font-display);
+    font-size: clamp(40px, 6vw, 64px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+    margin: 0 0 20px;
+    max-width: 14ch;
+  }
+  .hero p.lede {
+    font-size: 19px; color: var(--text-muted); max-width: 56ch; margin: 0;
+  }
+  .hero-mark { margin-top: 48px; display: flex; align-items: center; gap: 28px; }
+  .hero-mark svg { width: 72px; height: 72px; color: var(--accent); }
+
+  /* ---------- sections ---------- */
+  section { padding: 72px 0; border-bottom: 1px solid var(--border); }
+  section:last-of-type { border-bottom: none; }
+  .section-head { margin-bottom: 40px; max-width: 62ch; }
+  .section-num {
+    font-family: var(--font-mono); font-size: 13px; color: var(--text-muted);
+    margin-bottom: 10px; display: block;
+  }
+  h2 {
+    font-family: var(--font-display); font-size: 30px; letter-spacing: -0.01em;
+    margin: 0 0 12px; font-weight: 700;
+  }
+  .section-head p { color: var(--text-muted); margin: 0; font-size: 16px; }
+
+  /* ---------- color ---------- */
+  .swatch-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 16px; margin-bottom: 16px;
+  }
+  .swatch {
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    background: var(--surface);
+  }
+  .swatch-color { height: 88px; }
+  .swatch-meta { padding: 12px 14px; }
+  .swatch-meta .name { font-size: 13px; font-weight: 600; }
+  .swatch-meta .hex { font-family: var(--font-mono); font-size: 12px; color: var(--text-muted); }
+  .swatch-label {
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--text-muted); margin: 28px 0 12px; font-weight: 600;
+  }
+
+  /* ---------- typography ---------- */
+  .type-row { display: flex; align-items: baseline; gap: 24px; padding: 18px 0; border-top: 1px solid var(--border); }
+  .type-row:first-of-type { border-top: none; }
+  .type-row .tag { font-family: var(--font-mono); font-size: 12px; color: var(--text-muted); width: 130px; flex-shrink: 0; }
+  .type-sample { font-family: var(--font-display); font-weight: 700; letter-spacing: -0.01em; }
+  .type-body-sample { font-family: var(--font-body); font-weight: 400; color: var(--text-muted); max-width: 60ch; }
+
+  .feedback-density-demo {
+    margin-top: 32px; background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow);
+  }
+  .feedback-density-demo h4 { margin: 0 0 6px; font-size: 14px; font-family: var(--font-mono); color: var(--text-muted); font-weight: 500; }
+  .feedback-density-demo .crit { display: flex; gap: 12px; padding: 10px 0; border-top: 1px solid var(--border); font-size: 15px; }
+  .feedback-density-demo .crit:first-of-type { border-top: none; }
+  .crit-dot { width: 9px; height: 9px; border-radius: 50%; margin-top: 7px; flex-shrink: 0; }
+
+  /* ---------- voice ---------- */
+  .voice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  @media (max-width: 720px) { .voice-grid { grid-template-columns: 1fr; } }
+  .voice-card { border-radius: var(--radius); padding: 20px 22px; border: 1px solid var(--border); }
+  .voice-card.use { background: var(--accent-soft); border-color: color-mix(in srgb, var(--accent) 35%, var(--border)); }
+  .voice-card.avoid { background: var(--surface-2); }
+  .voice-card .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 700; margin-bottom: 10px; }
+  .voice-card.use .label { color: var(--accent); }
+  .voice-card.avoid .label { color: var(--text-muted); }
+  .voice-card p { margin: 0; font-size: 15.5px; }
+  .voice-card.avoid p { color: var(--text-muted); text-decoration: line-through; text-decoration-color: color-mix(in srgb, var(--text-muted) 50%, transparent); text-decoration-thickness: 1px; }
+  .voice-pairs { display: flex; flex-direction: column; gap: 14px; margin-bottom: 36px; }
+
+  .principle-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+  .principle-list li { font-size: 15px; padding-left: 20px; position: relative; color: var(--text-muted); }
+  .principle-list li::before {
+    content: ""; position: absolute; left: 0; top: 9px; width: 6px; height: 6px;
+    border-radius: 50%; background: var(--accent);
+  }
+  .principle-list li strong { color: var(--text); font-weight: 600; }
+
+  /* ---------- motion demo ---------- */
+  .motion-demo {
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 28px; margin-top: 28px; box-shadow: var(--shadow);
+  }
+  .motion-demo-controls { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
+
+  .btn {
+    font-family: var(--font-body); font-weight: 600; font-size: 14px;
+    border-radius: 7px; padding: 10px 18px; border: 1px solid transparent;
+    cursor: pointer; transition: transform var(--t-fast) var(--ease), background-color var(--t-fast) var(--ease), border-color var(--t-fast) var(--ease);
+  }
+  .btn-primary { background: var(--accent); color: var(--accent-text); }
+  .btn-primary:hover { transform: translateY(-1px); }
+  .btn-primary:active { transform: scale(0.97) translateY(0); }
+  .btn-secondary { background: transparent; border-color: var(--border); color: var(--text); }
+  .btn-secondary:hover { border-color: var(--text-muted); }
+  .btn-secondary:active { transform: scale(0.97); }
+
+  .score-bar-track {
+    height: 8px; border-radius: 999px; background: var(--surface-2); overflow: hidden; margin: 6px 0 4px;
+    border: 1px solid var(--border);
+  }
+  .score-bar-fill {
+    height: 100%; width: 0%; background: var(--accent); border-radius: 999px;
+    transition: width 650ms var(--ease);
+  }
+  .score-label { font-family: var(--font-mono); font-size: 13px; color: var(--text-muted); }
+
+  .feedback-reveal {
+    margin-top: 20px; opacity: 0; transform: translateY(6px);
+    transition: opacity 260ms var(--ease), transform 260ms var(--ease);
+    background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 16px 18px; font-size: 15px;
+  }
+  .feedback-reveal.shown { opacity: 1; transform: translateY(0); }
+
+  /* ---------- anti-pattern contrast ---------- */
+  .contrast-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 720px) { .contrast-grid { grid-template-columns: 1fr; } }
+  .contrast-card { border-radius: 14px; padding: 22px; position: relative; overflow: hidden; }
+  .contrast-card .tag { font-size: 11px; text-transform: uppercase; font-weight: 800; letter-spacing: 0.06em; margin-bottom: 14px; display: inline-block; }
+  .contrast-card.dont {
+    background: linear-gradient(135deg, #FFE3F1, #E3F3FF 45%, #FFF6D6);
+    color: #2a1d33; font-family: "Comic Sans MS", "Inter", sans-serif;
+  }
+  .contrast-card.dont .tag { color: #B23E8C; background: #fff; padding: 4px 10px; border-radius: 999px; }
+  .contrast-card.dont h3 { font-size: 22px; margin: 0 0 8px; }
+  .contrast-card.dont .badge { display: inline-block; background: #FFD23F; color: #5b4400; font-size: 12px; font-weight: 800; padding: 4px 10px; border-radius: 999px; margin-top: 12px; }
+  .contrast-card.dont .mascot { position: absolute; right: -10px; bottom: -10px; font-size: 64px; opacity: 0.5; }
+  .contrast-card.do { background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow); }
+  .contrast-card.do .tag { color: var(--accent); }
+  .contrast-card.do h3 { font-family: var(--font-display); font-size: 20px; margin: 0 0 8px; letter-spacing: -0.01em; }
+  .contrast-card.do .meta { font-family: var(--font-mono); font-size: 13px; color: var(--text-muted); margin-top: 14px; }
+
+  footer { padding: 48px 0 80px; }
+  footer p { color: var(--text-muted); font-size: 13.5px; max-width: 60ch; }
+</style>
+</head>
+<body>
+
+<div class="status-banner">
+  <strong>Proposal — not yet final.</strong> Color palette and mark are an illustrative direction for review, pending David's decision. See Activity Log, 2026-06-21.
+</div>
+
+<nav>
+  <div class="wrap">
+    <div class="brand-mark-row">
+      <svg viewBox="0 0 120 120" fill="currentColor"><use href="#cramapple-mark"/></svg>
+      <span>Cramapple</span>
+    </div>
+    <div class="nav-links">
+      <a href="#mark">Mark</a>
+      <a href="#color">Color</a>
+      <a href="#type">Type</a>
+      <a href="#voice">Voice</a>
+      <a href="#motion">Motion</a>
+      <a href="#antipatterns">Anti-patterns</a>
+    </div>
+    <button class="theme-toggle" id="themeToggle">Light mode</button>
+  </div>
+</nav>
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <symbol id="cramapple-mark" viewBox="0 0 120 120">
+      <polygon points="60,14 74,18 88,30 96,46 98,64 92,82 78,98 60,106 42,98 28,82 22,64 24,46 32,30 46,18" />
+      <polygon points="58,14 62,14 65,2 59,2" />
+      <polygon points="62,6 79,1 70,15" />
+    </symbol>
+  </defs>
+</svg>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Visual Identity — Proposal v0.1</div>
+    <h1 class="display">Maximize your time. Maximize your score.</h1>
+    <p class="lede">Built like a tech product, not a study app — the confident minimalism of Apple or Chrome, not the classroom warmth of a tutoring brand. Earns trust through precision, not encouragement.</p>
+    <div class="hero-mark">
+      <svg viewBox="0 0 120 120" fill="currentColor"><use href="#cramapple-mark"/></svg>
+      <div class="score-label" style="max-width:32ch">Geometric, abstract apple echo. No bite notch — reads as its own mark, not Apple Inc.-adjacent. Single flat color, simple enough to hold up at favicon size.</div>
+    </div>
+  </div>
+</header>
+
+<section id="mark">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-num">01 — Logo / Wordmark</span>
+      <h2>Wordmark-led. The mark is a quiet accent.</h2>
+      <p>This is a desktop web product, not a mobile app where an icon glyph has to carry the brand alone. The full name in the chosen typography is the primary identity surface — the mark appears small, sparingly, mostly as a tab icon or alongside the wordmark.</p>
+    </div>
+    <div class="swatch-grid" style="grid-template-columns: repeat(auto-fit, minmax(140px,1fr));">
+      <div class="swatch">
+        <div class="swatch-color" style="display:flex;align-items:center;justify-content:center;background:var(--surface-2)">
+          <svg viewBox="0 0 120 120" fill="var(--text)" style="width:64px;height:64px"><use href="#cramapple-mark"/></svg>
+        </div>
+        <div class="swatch-meta"><div class="name">Mark — full size</div><div class="hex">current text color</div></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="display:flex;align-items:center;justify-content:center;background:var(--surface-2)">
+          <svg viewBox="0 0 120 120" fill="var(--accent)" style="width:32px;height:32px"><use href="#cramapple-mark"/></svg>
+        </div>
+        <div class="swatch-meta"><div class="name">Tab-icon size</div><div class="hex">accent fill</div></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="display:flex;align-items:center;justify-content:center;background:#0B0E0C">
+          <svg viewBox="0 0 120 120" fill="#34B273" style="width:64px;height:64px"><use href="#cramapple-mark"/></svg>
+        </div>
+        <div class="swatch-meta"><div class="name">On dark</div><div class="hex">forced dark demo</div></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="display:flex;align-items:center;justify-content:center;background:#FAFAF7">
+          <svg viewBox="0 0 120 120" fill="#1F8F58" style="width:64px;height:64px"><use href="#cramapple-mark"/></svg>
+        </div>
+        <div class="swatch-meta"><div class="name">On light</div><div class="hex">forced light demo</div></div>
+      </div>
+    </div>
+    <p style="color:var(--text-muted);font-size:14px;margin-top:8px">This is the faceted-polygon direction (mark "Option A" from the 06-21 session). The fully abstract open-ring direction ("Option B") is the other unresolved candidate — not rendered here, still David's call.</p>
+  </div>
+</section>
+
+<section id="color">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-num">02 — Color</span>
+      <h2>Mono + green. Dark-first.</h2>
+      <p>One signature accent, used with confidence, against a near-black graphite base. Dark mode is the default viewing condition (a desk, late at night) — light mode is a fully-supported alternate, not an afterthought. Toggle the theme above to compare both.</p>
+    </div>
+
+    <div class="swatch-label">Signature</div>
+    <div class="swatch-grid">
+      <div class="swatch">
+        <div class="swatch-color" style="background:var(--bg)"></div>
+        <div class="swatch-meta"><div class="name">Base</div><div class="hex" id="hex-bg"></div></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:var(--surface)"></div>
+        <div class="swatch-meta"><div class="name">Surface</div><div class="hex" id="hex-surface"></div></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:var(--accent)"></div>
+        <div class="swatch-meta"><div class="name">Accent</div><div class="hex" id="hex-accent"></div></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:var(--text)"></div>
+        <div class="swatch-meta"><div class="name">Text</div><div class="hex" id="hex-text"></div></div>
+      </div>
+    </div>
+
+    <div class="swatch-label">Semantic feedback (separate from signature accent — never used for brand decoration)</div>
+    <div class="swatch-grid">
+      <div class="swatch">
+        <div class="swatch-color" style="background:var(--fb-correct)"></div>
+        <div class="swatch-meta"><div class="name">Earned credit</div><div class="hex" id="hex-correct"></div></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:var(--fb-partial)"></div>
+        <div class="swatch-meta"><div class="name">Partial credit</div><div class="hex" id="hex-partial"></div></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:var(--fb-incorrect)"></div>
+        <div class="swatch-meta"><div class="name">Missed</div><div class="hex" id="hex-incorrect"></div></div>
+      </div>
+    </div>
+
+    <div class="feedback-density-demo">
+      <h4>Criterion-level feedback — semantic color in use</h4>
+      <div class="crit"><span class="crit-dot" style="background:var(--fb-correct)"></span><div><strong>Identifies the independent variable.</strong> Earned — correctly named light intensity as the manipulated variable.</div></div>
+      <div class="crit"><span class="crit-dot" style="background:var(--fb-partial)"></span><div><strong>Quantifies the relationship.</strong> Partial — describes direction of change but doesn't reference the data values.</div></div>
+      <div class="crit"><span class="crit-dot" style="background:var(--fb-incorrect)"></span><div><strong>States a valid conclusion.</strong> Missed — conclusion isn't supported by the data shown in the graph.</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="type">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-num">03 — Typography</span>
+      <h2>Inter. Built for long, dense reading sessions.</h2>
+      <p>Modern grotesque sans, SF Pro / Google Sans register. Generous line-height and comfortable body sizes — designed for a desktop reading session, not a cramped mobile type scale.</p>
+    </div>
+
+    <div class="type-row"><div class="tag">Display / 56</div><div class="type-sample" style="font-size:56px">Aa Bb 12</div></div>
+    <div class="type-row"><div class="tag">H1 / 36 / 700</div><div class="type-sample" style="font-size:36px">Score breakdown</div></div>
+    <div class="type-row"><div class="tag">H2 / 24 / 700</div><div class="type-sample" style="font-size:24px">Unit 3 — Cellular Energetics</div></div>
+    <div class="type-row"><div class="tag">Body / 17 / 400</div><div class="type-body-sample" style="font-size:17px">This earns 3 of 5 points because your response identifies the independent variable but doesn't quantify the relationship shown in the data.</div></div>
+    <div class="type-row"><div class="tag">Caption / 13 / 500</div><div class="type-body-sample" style="font-size:13px;font-weight:500">MODULE 3.2 · GRAPH ANALYSIS · MEDIUM</div></div>
+  </div>
+</section>
+
+<section id="voice">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-num">04 — Voice</span>
+      <h2>Confident, economical, precise.</h2>
+      <p>Closer to Apple's terse certainty than an encouraging-teacher tone. Honest about gaps, never hyped — and doesn't lead with "AI" as the sell.</p>
+    </div>
+
+    <div class="voice-pairs">
+      <div class="voice-grid">
+        <div class="voice-card use"><div class="label">Use</div><p>"This earns 3 of 5 points because your response identifies the independent variable but doesn't quantify the relationship."</p></div>
+        <div class="voice-card avoid"><div class="label">Avoid</div><p>"Great try! 🎉 You got some of it right — keep going, you've got this!"</p></div>
+      </div>
+      <div class="voice-grid">
+        <div class="voice-card use"><div class="label">Use</div><p>"We couldn't grade this — the photo is too blurry to read the axis labels. Retake it."</p></div>
+        <div class="voice-card avoid"><div class="label">Avoid</div><p>"Oops! 😅 Something went a little wonky. Let's try that again!"</p></div>
+      </div>
+      <div class="voice-grid">
+        <div class="voice-card use"><div class="label">Use</div><p>"Built by a family that's taken, taught, and tutored this exact exam."</p></div>
+        <div class="voice-card avoid"><div class="label">Avoid</div><p>"Meet the 16-year-old who built an AI study app! 🚀"</p></div>
+      </div>
+    </div>
+
+    <ul class="principle-list">
+      <li><strong>No AI-as-headline.</strong> Pedagogy and rigor lead; the model is a quiet implementation detail.</li>
+      <li><strong>Credibility, not novelty.</strong> The family story is evidence of rigor (primary sources on the exact exam), not a founder-story charm device.</li>
+      <li><strong>Feels like a great tutor, looks like Apple.</strong> Interaction tone and visual brand temperature are different axes — warmth in the feedback, restraint in the chrome.</li>
+      <li><strong>Reframes urgency as efficiency.</strong> No countdown timers, no FOMO banners, no manufactured panic.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="motion">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-num">05 — Motion</span>
+      <h2>Fast, purposeful, no bounce.</h2>
+      <p>Motion communicates a state change, not delight. No spring/overshoot easing, no celebratory animation, no gamified reward motion (no confetti, no streak pop, no mascot dance).</p>
+    </div>
+
+    <ul class="principle-list">
+      <li><strong>120–260ms</strong> — short enough to feel immediate, never sluggish.</li>
+      <li><strong>Ease-out only</strong> — quick start, gentle settle. No bounce, no spring, no overshoot.</li>
+      <li><strong>Small displacement</strong> — a few pixels of movement, not slides or zooms.</li>
+      <li><strong>No idle motion</strong> — nothing animates unless the user or system state actually changed.</li>
+    </ul>
+
+    <div class="motion-demo">
+      <div class="motion-demo-controls">
+        <button class="btn btn-primary" id="demoBtn">Generate feedback</button>
+        <button class="btn btn-secondary" id="resetBtn">Reset</button>
+      </div>
+      <div class="score-label">Score <span id="scoreNum">0</span>/5</div>
+      <div class="score-bar-track"><div class="score-bar-fill" id="scoreFill"></div></div>
+      <div class="feedback-reveal" id="feedbackReveal">This earns 3 of 5 points because your response identifies the independent variable but doesn't quantify the relationship shown in the data.</div>
+    </div>
+  </div>
+</section>
+
+<section id="antipatterns">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-num">06 — Anti-patterns</span>
+      <h2>What we're deliberately not.</h2>
+      <p>Generic edtech cliché vs. the Cramapple direction — same underlying content, opposite visual register.</p>
+    </div>
+    <div class="contrast-grid">
+      <div class="contrast-card dont">
+        <span class="tag">Generic edtech</span>
+        <h3>Woohoo! 🎉 3/5 — nice try!!</h3>
+        <p style="margin:0 0 4px">You're SO close to a perfect score! Keep that streak going! 🔥</p>
+        <span class="badge">+10 XP earned!</span>
+        <div class="mascot">🍏</div>
+      </div>
+      <div class="contrast-card do">
+        <span class="tag">Cramapple</span>
+        <h3>Score: 3 / 5</h3>
+        <p style="color:var(--text-muted);margin:0">Identifies the independent variable. Doesn't quantify the relationship. Conclusion isn't supported by the data shown.</p>
+        <div class="meta">MODULE 3.2 · GRAPH ANALYSIS</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>This is a working proposal generated from <code>docs/product/CRAMAPPLE_VISUAL_IDENTITY_BRIEF.md</code> and the 2026-06-21 family brand discussion. Palette, mark, and copy examples are illustrative — nothing here is locked. Open items: confirm mono+green vs. alternate palettes, choose mark Option A (shown) vs. Option B (abstract open ring, not rendered), and resolve the parent-vs-student primary-messaging question noted in the brief.</p>
+  </div>
+</footer>
+
+<script>
+  const root = document.documentElement;
+  const toggle = document.getElementById('themeToggle');
+  function setTheme(t) {
+    root.setAttribute('data-theme', t);
+    toggle.textContent = t === 'dark' ? 'Light mode' : 'Dark mode';
+    document.querySelectorAll('.swatch-color').forEach(()=>{});
+    syncHexLabels();
+  }
+  toggle.addEventListener('click', () => {
+    const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    setTheme(next);
+  });
+
+  function syncHexLabels() {
+    const cs = getComputedStyle(root);
+    const map = {
+      'hex-bg': '--bg', 'hex-surface': '--surface', 'hex-accent': '--accent', 'hex-text': '--text',
+      'hex-correct': '--fb-correct', 'hex-partial': '--fb-partial', 'hex-incorrect': '--fb-incorrect'
+    };
+    Object.entries(map).forEach(([id, varName]) => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = cs.getPropertyValue(varName).trim();
+    });
+  }
+  syncHexLabels();
+
+  // motion demo
+  const demoBtn = document.getElementById('demoBtn');
+  const resetBtn = document.getElementById('resetBtn');
+  const scoreFill = document.getElementById('scoreFill');
+  const scoreNum = document.getElementById('scoreNum');
+  const reveal = document.getElementById('feedbackReveal');
+
+  function runDemo() {
+    scoreFill.style.width = '60%';
+    scoreNum.textContent = '3';
+    reveal.classList.add('shown');
+  }
+  function resetDemo() {
+    scoreFill.style.width = '0%';
+    scoreNum.textContent = '0';
+    reveal.classList.remove('shown');
+  }
+  demoBtn.addEventListener('click', () => { resetDemo(); requestAnimationFrame(() => requestAnimationFrame(runDemo)); });
+  resetBtn.addEventListener('click', resetDemo);
+</script>
+
+</body>
+</html>
