@@ -8,10 +8,15 @@ function requireEnv(name: string) {
   return value;
 }
 
+// Fail fast on module load so a misconfigured deploy is caught at function
+// startup, not on first request. Mirrors the validation pattern in
+// evaluate-attempt and prevents silent empty defaults in production.
+const SUPABASE_URL = requireEnv("SUPABASE_URL");
+const SUPABASE_ANON_KEY = requireEnv("SUPABASE_ANON_KEY");
+const SUPABASE_SERVICE_ROLE_KEY = requireEnv("SUPABASE_SERVICE_ROLE_KEY");
+
 export function createAnonClient(req: Request) {
-  const url = requireEnv("SUPABASE_URL");
-  const anonKey = requireEnv("SUPABASE_ANON_KEY");
-  return createClient(url, anonKey, {
+  return createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
     auth: { autoRefreshToken: false, persistSession: false },
     global: {
       headers: {
@@ -22,9 +27,7 @@ export function createAnonClient(req: Request) {
 }
 
 export function createServiceClient() {
-  const url = requireEnv("SUPABASE_URL");
-  const serviceKey = requireEnv("SUPABASE_SERVICE_ROLE_KEY");
-  return createClient(url, serviceKey, {
+  return createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
     auth: { autoRefreshToken: false, persistSession: false },
   });
 }
