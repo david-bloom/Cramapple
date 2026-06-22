@@ -37,6 +37,20 @@ const OPENAI_OUTPUT_PRICE_PER_1M = requirePositiveNumberEnv("OPENAI_OUTPUT_PRICE
 const OPENAI_DAILY_CAP_USD = requirePositiveNumberEnv("OPENAI_DAILY_CAP_USD");
 const EVALUATE_ATTEMPT_PROMPT_VERSION = requireEnv("EVALUATE_ATTEMPT_PROMPT_VERSION");
 
+// Timeout is configurable so we can tune for high-reasoning models without
+// a code change. 90s accommodates reasoning: { effort: "high" } latency
+// observed in pilot runs while still bounding requests so a hung connection
+// can't tie up the function instance.
+const OPENAI_REQUEST_TIMEOUT_MS = (() => {
+  const raw = Deno.env.get("OPENAI_REQUEST_TIMEOUT_MS");
+  if (!raw) return 90_000;
+  const parsed = Number(raw);
+  if (!Number.isInteger(parsed) || parsed <= 0) {
+    throw new Error("Invalid environment variable: OPENAI_REQUEST_TIMEOUT_MS");
+  }
+  return parsed;
+})();
+
 type AllowedOperation =
   | "grade_initial_attempt"
   | "select_repair"
@@ -353,12 +367,92 @@ function buildGradingPrompt(input: {
   ].join("\n\n");
 }
 
+// Sentinel error thrown when a transient failure is worth retrying once.
+// Non-transient errors (4xx other than 429, JSON parse failures, schema
+// violations) are thrown directly and not retried.
+class TransientGraderError extends Error {
+  constructor(message: string, public override readonly cause?: unknown) {
+    super(message);
+    this.name = "TransientGraderError";
+  }
+}
+
+async function attemptOpenAICall(input: {
+  body: Record<string, unknown>;
+  idempotencyKey: string;
+  timeoutMs: number;
+}) {
+  const startedAt = Date.now();
+  let response: Response;
+
+  try {
+    response = await fetch("https://api.openai.com/v1/responses", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${OPENAI_API_KEY}`,
+        "Content-Type": "application/json",
+        // Send a stable idempotency key so a network-level retry against
+        // the same logical grading request cannot be charged twice.
+        "Idempotency-Key": input.idempotencyKey,
+      },
+      body: JSON.stringify(input.body),
+      // AbortSignal.timeout bounds the entire fetch lifecycle including
+      // connection + read. On timeout, fetch rejects with an AbortError
+      // which we surface as a transient error so it can be retried once.
+      signal: AbortSignal.timeout(input.timeoutMs),
+    });
+  } catch (error) {
+    const elapsedMs = Date.now() - startedAt;
+    if (error instanceof DOMException && error.name === "AbortError") {
+      throw new TransientGraderError(
+        `openai_timeout_after_${elapsedMs}ms`,
+        error,
+      );
+    }
+    // TypeError covers DNS, TLS handshake, connection-reset style failures.
+    if (error instanceof TypeError) {
+      throw new TransientGraderError("openai_network_error", error);
+    }
+    throw error;
+  }
+
+  const elapsedMs = Date.now() - startedAt;
+  const raw = await response.json().catch(() => null);
+
+  if (!response.ok) {
+    const message = raw?.error?.message ?? `openai_http_${response.status}`;
+    // Retry on 408/425/429/5xx. Other 4xx are validation problems where
+    // the same request will keep failing — fail fast and let the caller's
+    // catch produce a safe uncertainty response for the student.
+    if (
+      response.status === 408 ||
+      response.status === 425 ||
+      response.status === 429 ||
+      response.status >= 500
+    ) {
+      throw new TransientGraderError(
+        `openai_http_${response.status}: ${message}`,
+      );
+    }
+    throw new Error(message);
+  }
+
+  const outputText = extractOutputText(raw ?? {});
+  if (!outputText) {
+    throw new Error("openai_missing_output_text");
+  }
+
+  const parsed = JSON.parse(outputText);
+  return { raw, parsed, elapsedMs };
+}
+
 async function callOpenAIGrader(input: {
   modelId: string;
   maxOutputTokens: number;
   systemPrompt: string;
   userPrompt: string;
   userIdHash: string;
+  idempotencyKey: string;
 }) {
   const body = {
     model: input.modelId,
@@ -386,30 +480,29 @@ async function callOpenAIGrader(input: {
     user: input.userIdHash.slice(0, 64),
   };
 
-  const startedAt = Date.now();
-  const response = await fetch("https://api.openai.com/v1/responses", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${OPENAI_API_KEY}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(body),
-  });
-  const elapsedMs = Date.now() - startedAt;
-  const raw = await response.json().catch(() => null);
-
-  if (!response.ok) {
-    const message = raw?.error?.message ?? `openai_http_${response.status}`;
-    throw new Error(message);
+  // At most one retry on transient failures. The Idempotency-Key header
+  // makes the retry safe against double-billing for requests that reached
+  // the server but failed mid-response.
+  try {
+    return await attemptOpenAICall({
+      body,
+      idempotencyKey: input.idempotencyKey,
+      timeoutMs: OPENAI_REQUEST_TIMEOUT_MS,
+    });
+  } catch (error) {
+    if (!(error instanceof TransientGraderError)) {
+      throw error;
+    }
+    // Brief backoff before the single retry. 500ms is small enough that
+    // students do not feel it during a normal grading hop but large enough
+    // to let a transient upstream blip clear.
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    return await attemptOpenAICall({
+      body,
+      idempotencyKey: input.idempotencyKey,
+      timeoutMs: OPENAI_REQUEST_TIMEOUT_MS,
+    });
   }
-
-  const outputText = extractOutputText(raw ?? {});
-  if (!outputText) {
-    throw new Error("openai_missing_output_text");
-  }
-
-  const parsed = JSON.parse(outputText);
-  return { raw, parsed, elapsedMs };
 }
 
 function sanitizeModelResult(
@@ -933,6 +1026,7 @@ Deno.serve(async (req) => {
       systemPrompt,
       userPrompt: buildGradingPrompt(promptBase),
       userIdHash: await sha256Hex(user.id),
+      idempotencyKey: idempotencyKey,
     });
 
     finalPayload = sanitizeModelResult(modelResponse.parsed, promptBase.criteria);

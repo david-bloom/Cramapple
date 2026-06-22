@@ -113,17 +113,21 @@ Deno.serve(async (req) => {
     return jsonResponse({ error: "forbidden_path" }, { status: 403 });
   }
 
+  // Scope the lookup to (request_id, reason_code) to match the composite
+  // unique index added in migration 202606210001. Same request_id reused
+  // for a different mode/operation is a separate audit row, not a conflict.
   const { data: existing, error: existingError } = await service.schema("app")
     .from("audit_events")
     .select("request_id, reason_code, metadata")
     .eq("request_id", idempotencyKey)
+    .eq("reason_code", mode)
     .maybeSingle();
 
   if (existingError) {
     return jsonResponse({ error: "storage_audit_lookup_failed" }, { status: 500 });
   }
 
-  if (existing && existing.reason_code === mode) {
+  if (existing) {
     const metadata = existing.metadata && typeof existing.metadata === "object"
       ? existing.metadata as Record<string, unknown>
       : null;

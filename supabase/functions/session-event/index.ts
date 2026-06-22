@@ -63,17 +63,21 @@ async function loadIdempotentResult(
   requestHash: string,
   operation: SessionOperation,
 ) {
+  // Scope the lookup to (request_id, reason_code) to match the composite
+  // unique index added in migration 202606210001. Same request_id reused
+  // for a different operation is a different audit row, not a conflict.
   const { data, error } = await service.schema("app")
     .from("audit_events")
     .select("request_id, reason_code, metadata")
     .eq("request_id", requestId)
+    .eq("reason_code", operation)
     .maybeSingle();
 
   if (error) {
     throw error;
   }
 
-  if (!data || data.reason_code !== operation) {
+  if (!data) {
     return null;
   }
 
