@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0029 — ALLOWED_ORIGINS Required in All Environments; No Wildcard CORS Fallback
 - DECISION-0028 — Auto-Trigger QA and Model Routing (Codex Proposal Folded In)
 - DECISION-0027 — Adopt Charter Simplification and Tiering (Pilot: Cramapple Only)
 - DECISION-0026 — Separate Authoring, Revision, and Independent Review
@@ -1143,3 +1144,66 @@ Auto-triggering QA and model selection removes waiting without removing any appr
 
 - If auto-triggered QA produces a backlog of QA work outpacing available QA-agent capacity, revisit whether `Standard` tier should auto-trigger QA at the same rate as `Hard-Gate` tier, or whether `Standard` should batch.
 - Same success metrics as DECISION-0027 (hard-gate escalations/week, QA round-trips/task) apply; no new metric introduced for this decision specifically.
+
+## DECISION-0029 — ALLOWED_ORIGINS Required in All Environments; No Wildcard CORS Fallback
+
+**Date:** 2026-06-21
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Related Task:** TASK-0012
+**Area:** Security
+
+### Context
+
+PR #14 introduced an `ALLOWED_ORIGINS` env-driven allow-list in
+`supabase/functions/_shared/cors.ts`. The first cut kept a wildcard
+fallback (`Access-Control-Allow-Origin: *`) when the env was unset, on
+the rationale that dev / local convenience was worth the production risk
+of a missed deployment checklist item.
+
+QA flagged the wildcard fallback as a real production footgun. With no
+code-level guard, a production deploy without `ALLOWED_ORIGINS` would
+silently send `*` and weaken defense-in-depth against CSRF-style abuse
+from rogue origins.
+
+### Decision
+
+`ALLOWED_ORIGINS` is required in every environment (production, beta,
+preview, local dev). The Edge Function `_shared/cors.ts` module fails
+fast at load time if the env is unset or parses to an empty list. There
+is no wildcard fallback path in the code.
+
+Local-dev convention:
+
+```
+ALLOWED_ORIGINS=http://localhost:5173,http://localhost:3000,https://cramapple-beta.lovable.app
+```
+
+### Rationale
+
+- Production wildcard CORS is a real risk; the dev cost of setting one
+  env var is trivial.
+- Eliminating the conditional removes a class of operational error
+  (forget the checklist item, ship wildcard to prod).
+- Non-browser callers (curl, server-to-server, CI) don't need CORS
+  headers and are unaffected by the strict policy.
+
+### Consequences
+
+- All Cramapple deploys (Supabase Edge Functions in production and dev,
+  any future preview environment, local Supabase) must set
+  `ALLOWED_ORIGINS` before functions can start. The function will throw
+  `Missing required environment variable: ALLOWED_ORIGINS` at module
+  load otherwise.
+- The `corsHeaders` legacy export with `Access-Control-Allow-Origin: *`
+  has been removed; nothing in the repo imported it.
+- The deployment checklist gains one mandatory env var per environment.
+
+### Risks / Follow-ups
+
+- First-time local-dev setup must include the env. Document in any
+  developer-onboarding instructions (no such doc exists yet — when one
+  lands, the env example above belongs in it).
+- Future preview / staging environments need their origins added.
+- This decision does not address Decision 2 (failed/rejected grading
+  and the daily budget cap), which remains pending owner direction.
