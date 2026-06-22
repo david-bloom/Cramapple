@@ -4,7 +4,11 @@ import { requireProfile } from "../_shared/auth.ts";
 
 type StorageMode = "sign_upload" | "sign_download" | "sign_delete";
 
-const allowedModes = new Set<StorageMode>(["sign_upload", "sign_download", "sign_delete"]);
+const allowedModes = new Set<StorageMode>([
+  "sign_upload",
+  "sign_download",
+  "sign_delete",
+]);
 const allowedBuckets = new Set([
   "content-assets",
   "learner-uploads",
@@ -21,8 +25,13 @@ function asInteger(value: unknown) {
 }
 
 async function sha256Hex(value: string) {
-  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(value));
-  return Array.from(new Uint8Array(digest)).map((byte) => byte.toString(16).padStart(2, "0")).join("");
+  const digest = await crypto.subtle.digest(
+    "SHA-256",
+    new TextEncoder().encode(value),
+  );
+  return Array.from(new Uint8Array(digest)).map((byte) =>
+    byte.toString(16).padStart(2, "0")
+  ).join("");
 }
 
 function isSafeStoragePath(path: string) {
@@ -75,7 +84,9 @@ Deno.serve(async (req) => {
     return respond({ error: "invalid_json" }, { status: 400 });
   }
 
-  const mode = asString((body as Record<string, unknown>).mode) as StorageMode | null;
+  const mode = asString((body as Record<string, unknown>).mode) as
+    | StorageMode
+    | null;
   if (!mode || !allowedModes.has(mode)) {
     return respond({ error: "invalid_mode" }, { status: 400 });
   }
@@ -88,9 +99,12 @@ Deno.serve(async (req) => {
       (body as Record<string, unknown>).request_id ??
       (body as Record<string, unknown>).requestId,
   );
-  const expiresIn = asInteger((body as Record<string, unknown>).expires_in) ?? 3600;
+  const expiresIn = asInteger((body as Record<string, unknown>).expires_in) ??
+    3600;
 
-  if (!bucket || !allowedBuckets.has(bucket) || !path || !isSafeStoragePath(path)) {
+  if (
+    !bucket || !allowedBuckets.has(bucket) || !path || !isSafeStoragePath(path)
+  ) {
     return respond({ error: "invalid_bucket_or_path" }, { status: 400 });
   }
 
@@ -182,7 +196,9 @@ Deno.serve(async (req) => {
           request_hash: requestHash,
           result,
         },
-        event_sha256: await sha256Hex(JSON.stringify({ mode, requestHash, result })),
+        event_sha256: await sha256Hex(
+          JSON.stringify({ mode, requestHash, result }),
+        ),
         created_at: new Date().toISOString(),
       });
 
@@ -198,7 +214,10 @@ Deno.serve(async (req) => {
     }
 
     if (mode === "sign_download") {
-      const { data, error } = await storage.createSignedUrl(path, Math.max(60, Math.min(expiresIn, 86400)));
+      const { data, error } = await storage.createSignedUrl(
+        path,
+        Math.max(60, Math.min(expiresIn, 86400)),
+      );
       if (error || !data?.signedUrl) {
         throw new Error("storage_sign_download_failed");
       }
@@ -228,7 +247,9 @@ Deno.serve(async (req) => {
             expires_in: result.expires_in,
           },
         },
-        event_sha256: await sha256Hex(JSON.stringify({ mode, requestHash, result })),
+        event_sha256: await sha256Hex(
+          JSON.stringify({ mode, requestHash, result }),
+        ),
         created_at: new Date().toISOString(),
       });
 
@@ -274,7 +295,9 @@ Deno.serve(async (req) => {
           expires_in: result.expires_in,
         },
       },
-      event_sha256: await sha256Hex(JSON.stringify({ mode, requestHash, result })),
+      event_sha256: await sha256Hex(
+        JSON.stringify({ mode, requestHash, result }),
+      ),
       created_at: new Date().toISOString(),
     });
 
@@ -288,7 +311,9 @@ Deno.serve(async (req) => {
       { status: 200 },
     );
   } catch (error) {
-    const message = error instanceof Error ? error.message : "storage_sign_url_failed";
+    const message = error instanceof Error
+      ? error.message
+      : "storage_sign_url_failed";
     return respond(
       {
         status: "failed",

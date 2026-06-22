@@ -17,7 +17,9 @@ export async function requireProfile(req: Request) {
   const { data, error } = await service
     .schema("app")
     .from("profiles")
-    .select("user_id, role, full_name, timezone, locale, onboarding_completed_at, created_at, updated_at")
+    .select(
+      "user_id, role, full_name, timezone, locale, onboarding_completed_at, created_at, updated_at",
+    )
     .eq("user_id", user.id)
     .maybeSingle();
 

@@ -31,11 +31,19 @@ function requirePositiveNumberEnv(name: string) {
 // Fail fast on deployment misconfiguration instead of grading with silent defaults.
 const OPENAI_API_KEY = requireEnv("OPENAI_API_KEY");
 const OPENAI_MODEL = requireEnv("OPENAI_MODEL");
-const OPENAI_MAX_OUTPUT_TOKENS = requirePositiveIntegerEnv("OPENAI_MAX_OUTPUT_TOKENS");
-const OPENAI_INPUT_PRICE_PER_1M = requirePositiveNumberEnv("OPENAI_INPUT_PRICE_PER_1M");
-const OPENAI_OUTPUT_PRICE_PER_1M = requirePositiveNumberEnv("OPENAI_OUTPUT_PRICE_PER_1M");
+const OPENAI_MAX_OUTPUT_TOKENS = requirePositiveIntegerEnv(
+  "OPENAI_MAX_OUTPUT_TOKENS",
+);
+const OPENAI_INPUT_PRICE_PER_1M = requirePositiveNumberEnv(
+  "OPENAI_INPUT_PRICE_PER_1M",
+);
+const OPENAI_OUTPUT_PRICE_PER_1M = requirePositiveNumberEnv(
+  "OPENAI_OUTPUT_PRICE_PER_1M",
+);
 const OPENAI_DAILY_CAP_USD = requirePositiveNumberEnv("OPENAI_DAILY_CAP_USD");
-const EVALUATE_ATTEMPT_PROMPT_VERSION = requireEnv("EVALUATE_ATTEMPT_PROMPT_VERSION");
+const EVALUATE_ATTEMPT_PROMPT_VERSION = requireEnv(
+  "EVALUATE_ATTEMPT_PROMPT_VERSION",
+);
 
 // Timeout is configurable so we can tune for high-reasoning models without
 // a code change. 90s accommodates reasoning: { effort: "high" } latency
@@ -68,7 +76,11 @@ type CriterionRow = {
 
 type OutputCriterion = {
   criterion_key: string;
-  status: "earned" | "not_yet_earned" | "unable_to_determine" | "not_applicable";
+  status:
+    | "earned"
+    | "not_yet_earned"
+    | "unable_to_determine"
+    | "not_applicable";
   points_awarded: number;
   evidence_quote: string | null;
   decision_explanation: string | null;
@@ -250,9 +262,9 @@ function normalizeCriterionStatus(
   status: unknown,
 ): OutputCriterion["status"] {
   return status === "earned" ||
-    status === "not_yet_earned" ||
-    status === "unable_to_determine" ||
-    status === "not_applicable"
+      status === "not_yet_earned" ||
+      status === "unable_to_determine" ||
+      status === "not_applicable"
     ? status
     : "unable_to_determine";
 }
@@ -272,9 +284,7 @@ function pickHighestGap(
   criteria: OutputCriterion[],
   sourceCriteria: CriterionRow[],
 ) {
-  const firstGap = criteria.find((criterion) =>
-    criterion.status !== "earned"
-  );
+  const firstGap = criteria.find((criterion) => criterion.status !== "earned");
 
   if (!firstGap) {
     return null;
@@ -286,9 +296,9 @@ function pickHighestGap(
 
   return {
     criterion_key: firstGap.criterion_key,
-    minimum_fix: source?.minimum_fix ?? firstGap.minimum_fix ?? "Provide the missing evidence.",
-    repair_prompt:
-      source?.minimum_fix ??
+    minimum_fix: source?.minimum_fix ?? firstGap.minimum_fix ??
+      "Provide the missing evidence.",
+    repair_prompt: source?.minimum_fix ??
       firstGap.minimum_fix ??
       "Revise only the missing criterion and keep the rest of the response intact.",
   };
@@ -335,7 +345,9 @@ function buildGradingPrompt(input: {
     ];
 
     if (criterion.evidence_requirements) {
-      pieces.push(`  evidence_requirements: ${criterion.evidence_requirements}`);
+      pieces.push(
+        `  evidence_requirements: ${criterion.evidence_requirements}`,
+      );
     }
 
     if (criterion.minimum_fix) {
@@ -517,8 +529,7 @@ function sanitizeModelResult(
         : {};
 
       return {
-        criterion_key:
-          asString(rawItem.criterion_key) ??
+        criterion_key: asString(rawItem.criterion_key) ??
           source?.criterion_key ??
           `criterion_${index + 1}`,
         status: normalizeCriterionStatus(rawItem.status),
@@ -527,7 +538,8 @@ function sanitizeModelResult(
           : 0,
         evidence_quote: asString(rawItem.evidence_quote),
         decision_explanation: asString(rawItem.decision_explanation),
-        minimum_fix: asString(rawItem.minimum_fix) ?? source?.minimum_fix ?? null,
+        minimum_fix: asString(rawItem.minimum_fix) ?? source?.minimum_fix ??
+          null,
       } as OutputCriterion;
     })
     : buildFallbackCriteria(sourceCriteria, "Unable to parse model output.");
@@ -538,19 +550,28 @@ function sanitizeModelResult(
 
   const pointsAvailable = Number.isFinite(Number(parsed.points_available))
     ? Number(parsed.points_available)
-    : sourceCriteria.reduce((sum, criterion) => sum + criterion.points_possible, 0);
+    : sourceCriteria.reduce(
+      (sum, criterion) => sum + criterion.points_possible,
+      0,
+    );
 
   const highestValueGap = parsed.highest_value_gap &&
       typeof parsed.highest_value_gap === "object" &&
       !Array.isArray(parsed.highest_value_gap)
     ? {
-      criterion_key: asString((parsed.highest_value_gap as Record<string, unknown>).criterion_key) ??
+      criterion_key: asString(
+        (parsed.highest_value_gap as Record<string, unknown>).criterion_key,
+      ) ??
         pickHighestGap(criteria, sourceCriteria)?.criterion_key ??
         "criterion",
-      minimum_fix: asString((parsed.highest_value_gap as Record<string, unknown>).minimum_fix) ??
+      minimum_fix: asString(
+        (parsed.highest_value_gap as Record<string, unknown>).minimum_fix,
+      ) ??
         pickHighestGap(criteria, sourceCriteria)?.minimum_fix ??
         "Provide the missing evidence.",
-      repair_prompt: asString((parsed.highest_value_gap as Record<string, unknown>).repair_prompt) ??
+      repair_prompt: asString(
+        (parsed.highest_value_gap as Record<string, unknown>).repair_prompt,
+      ) ??
         pickHighestGap(criteria, sourceCriteria)?.repair_prompt ??
         "Revise the highest-value missing criterion.",
     }
@@ -561,15 +582,27 @@ function sanitizeModelResult(
       !Array.isArray(parsed.predicted_improvement)
     ? {
       label: (
-        asString((parsed.predicted_improvement as Record<string, unknown>).label) === "better" ||
-          asString((parsed.predicted_improvement as Record<string, unknown>).label) === "much_better"
-            ? asString((parsed.predicted_improvement as Record<string, unknown>).label)
-            : "none"
+        asString(
+              (parsed.predicted_improvement as Record<string, unknown>).label,
+            ) === "better" ||
+          asString(
+              (parsed.predicted_improvement as Record<string, unknown>).label,
+            ) === "much_better"
+          ? asString(
+            (parsed.predicted_improvement as Record<string, unknown>).label,
+          )
+          : "none"
       ) as "better" | "much_better" | "none",
       predicted_point_gain: Number.isFinite(
-        Number((parsed.predicted_improvement as Record<string, unknown>).predicted_point_gain),
-      )
-        ? Number((parsed.predicted_improvement as Record<string, unknown>).predicted_point_gain)
+          Number(
+            (parsed.predicted_improvement as Record<string, unknown>)
+              .predicted_point_gain,
+          ),
+        )
+        ? Number(
+          (parsed.predicted_improvement as Record<string, unknown>)
+            .predicted_point_gain,
+        )
         : 0,
     }
     : null;
@@ -581,15 +614,13 @@ function sanitizeModelResult(
     criteria,
     highest_value_gap: highestValueGap,
     predicted_improvement: predictedImprovement,
-    confidence:
-      asString(parsed.confidence) === "high" ||
+    confidence: asString(parsed.confidence) === "high" ||
         asString(parsed.confidence) === "medium" ||
         asString(parsed.confidence) === "low"
-        ? asString(parsed.confidence)
-        : "medium",
+      ? asString(parsed.confidence)
+      : "medium",
     uncertainty_reason: asString(parsed.uncertainty_reason),
-    student_facing_summary:
-      asString(parsed.student_facing_summary) ??
+    student_facing_summary: asString(parsed.student_facing_summary) ??
       "Your response was scored successfully.",
   };
 }
@@ -624,7 +655,13 @@ Deno.serve(async (req) => {
   }
 
   const idempotencyKey = asString(
-    getBodyField(body, "idempotency_key", "idempotencyKey", "request_id", "requestId"),
+    getBodyField(
+      body,
+      "idempotency_key",
+      "idempotencyKey",
+      "request_id",
+      "requestId",
+    ),
   );
   const attemptId = asUuid(getBodyField(body, "attempt_id", "attemptId"));
   const responseVersionId = asUuid(
@@ -636,14 +673,20 @@ Deno.serve(async (req) => {
   const rubricVersionId = asUuid(
     getBodyField(body, "rubric_version_id", "rubricVersionId"),
   );
-  const promptVersion = asString(getBodyField(body, "prompt_version", "promptVersion")) ??
-    EVALUATE_ATTEMPT_PROMPT_VERSION;
+  // Prompt rollout is server-controlled. The version comes from
+  // EVALUATE_ATTEMPT_PROMPT_VERSION only — any prompt_version supplied in
+  // the request body is ignored. This closes the loophole where a client
+  // could otherwise select any published prompt row at request time and
+  // bypass the env-controlled rollout gate documented in
+  // 202606210005_seed_initial_prompt_versions.sql.
+  const promptVersion = EVALUATE_ATTEMPT_PROMPT_VERSION;
   const assistanceCondition = asString(
     getBodyField(body, "assistance_condition", "assistanceCondition"),
   ) ?? "independent";
 
   if (
-    !idempotencyKey || !attemptId || !responseVersionId || !contentItemVersionId ||
+    !idempotencyKey || !attemptId || !responseVersionId ||
+    !contentItemVersionId ||
     !rubricVersionId
   ) {
     return respond(
@@ -735,25 +778,38 @@ Deno.serve(async (req) => {
     );
   }
 
-  const [{ data: attempt, error: attemptError }, { data: responseVersion, error: responseError }, { data: contentVersion, error: contentError }] = await Promise.all([
+  const [
+    { data: attempt, error: attemptError },
+    { data: responseVersion, error: responseError },
+    { data: contentVersion, error: contentError },
+  ] = await Promise.all([
     service.schema("app")
       .from("attempts")
-      .select("id, user_id, learning_session_id, exam_pack_version_id, content_item_version_id, attempt_mode, status, assistance_state, started_at, submitted_at, graded_at, score_points, score_possible")
+      .select(
+        "id, user_id, learning_session_id, exam_pack_version_id, content_item_version_id, attempt_mode, status, assistance_state, started_at, submitted_at, graded_at, score_points, score_possible",
+      )
       .eq("id", attemptId)
       .maybeSingle(),
     service.schema("app")
       .from("response_versions")
-      .select("id, attempt_id, parent_response_version_id, response_text, response_parts, version_number, is_submitted, created_at")
+      .select(
+        "id, attempt_id, parent_response_version_id, response_text, response_parts, version_number, is_submitted, created_at",
+      )
       .eq("id", responseVersionId)
       .maybeSingle(),
     service.schema("app")
       .from("content_item_versions")
-      .select("id, content_item_id, version_num, stem, stimulus, prompt_json, explanation, help_text, content_hash, status, approved_at, approved_by, published_at")
+      .select(
+        "id, content_item_id, version_num, stem, stimulus, prompt_json, explanation, help_text, content_hash, status, approved_at, approved_by, published_at",
+      )
       .eq("id", contentItemVersionId)
       .maybeSingle(),
   ]);
 
-  if (attemptError || responseError || contentError || !attempt || !responseVersion || !contentVersion) {
+  if (
+    attemptError || responseError || contentError || !attempt ||
+    !responseVersion || !contentVersion
+  ) {
     return respond({ error: "not_found" }, { status: 404 });
   }
 
@@ -773,7 +829,12 @@ Deno.serve(async (req) => {
     return respond({ error: "content_version_mismatch" }, { status: 409 });
   }
 
-  const [{ data: contentItem }, { data: examPackVersion }, { data: criteriaRows }, { data: mcqChoices }] = await Promise.all([
+  const [
+    { data: contentItem },
+    { data: examPackVersion },
+    { data: criteriaRows },
+    { data: mcqChoices },
+  ] = await Promise.all([
     service.schema("app")
       .from("content_items")
       .select("id, exam_pack_version_id, content_key, item_type, title, status")
@@ -786,7 +847,9 @@ Deno.serve(async (req) => {
       .maybeSingle(),
     service.schema("app")
       .from("frq_criteria")
-      .select("criterion_key, learner_facing_text, points_possible, evidence_requirements, minimum_fix, accepted_variants")
+      .select(
+        "criterion_key, learner_facing_text, points_possible, evidence_requirements, minimum_fix, accepted_variants",
+      )
       .eq("content_item_version_id", contentVersion.id)
       .order("criterion_key", { ascending: true }),
     service.schema("app")
@@ -850,7 +913,9 @@ Deno.serve(async (req) => {
     rubric_version_id: rubricVersionId,
   };
 
-  const { data: insertedResult, error: insertError } = await service.schema("app")
+  const { data: insertedResult, error: insertError } = await service.schema(
+    "app",
+  )
     .from("grading_results")
     .insert(requestRecord)
     .select("*")
@@ -875,7 +940,9 @@ Deno.serve(async (req) => {
       );
     }
 
-    return respond({ error: "could_not_create_grading_record" }, { status: 409 });
+    return respond({ error: "could_not_create_grading_record" }, {
+      status: 409,
+    });
   }
 
   const estimatedInputTokens = estimateTokens(
@@ -898,10 +965,10 @@ Deno.serve(async (req) => {
       usageRow = await service.rpc("reserve_model_usage", {
         p_request_id: idempotencyKey,
         p_request_hash: requestHash,
-      p_model_id: modelId,
-      p_reserved_cost_usd: reservedCost,
-      p_cap_usd: OPENAI_DAILY_CAP_USD,
-    }).then((result) => result.data as Record<string, unknown> | null);
+        p_model_id: modelId,
+        p_reserved_cost_usd: reservedCost,
+        p_cap_usd: OPENAI_DAILY_CAP_USD,
+      }).then((result) => result.data as Record<string, unknown> | null);
 
       if (!usageRow) {
         throw new Error("budget_reservation_failed");
@@ -912,7 +979,9 @@ Deno.serve(async (req) => {
         .update({
           status: "failed",
           confidence: "low",
-          uncertainty_reason: error instanceof Error ? error.message : "budget_reservation_failed",
+          uncertainty_reason: error instanceof Error
+            ? error.message
+            : "budget_reservation_failed",
         })
         .eq("request_id", idempotencyKey);
 
@@ -930,9 +999,10 @@ Deno.serve(async (req) => {
   }
 
   if (isMcq) {
-    const selectedChoice = summarizeSelectedChoice(responseParts as Record<string, unknown>) ??
-      responseText?.trim() ??
-      null;
+    const selectedChoice =
+      summarizeSelectedChoice(responseParts as Record<string, unknown>) ??
+        responseText?.trim() ??
+        null;
     const correctChoice = Array.isArray(mcqChoices)
       ? mcqChoices.find((choice) => choice.is_correct)
       : null;
@@ -963,13 +1033,13 @@ Deno.serve(async (req) => {
       points_earned: earned,
       points_available: 1,
       criteria,
-      highest_value_gap: earned
-        ? null
-        : {
-          criterion_key: "mcq_correct_choice",
-          minimum_fix: "Select the answer choice that matches the published correct answer.",
-          repair_prompt: "Choose the answer that matches the published correct answer.",
-        },
+      highest_value_gap: earned ? null : {
+        criterion_key: "mcq_correct_choice",
+        minimum_fix:
+          "Select the answer choice that matches the published correct answer.",
+        repair_prompt:
+          "Choose the answer that matches the published correct answer.",
+      },
       predicted_improvement: null,
       confidence: "high",
       uncertainty_reason: null,
@@ -1030,7 +1100,11 @@ Deno.serve(async (req) => {
     "Return only the JSON object that matches the schema.",
   ].join(" ");
 
-  let modelResponse: { raw: Record<string, unknown>; parsed: Record<string, unknown>; elapsedMs: number } | null = null;
+  let modelResponse: {
+    raw: Record<string, unknown>;
+    parsed: Record<string, unknown>;
+    elapsedMs: number;
+  } | null = null;
   let finalStatus: "graded" | "uncertain" | "failed" = "failed";
   let finalPayload: ReturnType<typeof sanitizeModelResult> | null = null;
   let inputTokens = estimatedInputTokens;
@@ -1061,10 +1135,15 @@ Deno.serve(async (req) => {
       idempotencyKey: idempotencyKey,
     });
 
-    finalPayload = sanitizeModelResult(modelResponse.parsed, promptBase.criteria);
+    finalPayload = sanitizeModelResult(
+      modelResponse.parsed,
+      promptBase.criteria,
+    );
     finalStatus = finalPayload.status === "graded" ? "graded" : "uncertain";
 
-    const usage = modelResponse.raw.usage as Record<string, unknown> | undefined;
+    const usage = modelResponse.raw.usage as
+      | Record<string, unknown>
+      | undefined;
     inputTokens = Number.isFinite(Number(usage?.input_tokens))
       ? Number(usage?.input_tokens)
       : inputTokens;
@@ -1079,7 +1158,9 @@ Deno.serve(async (req) => {
         (pricingOutputTokens / 1_000_000) * OPENAI_OUTPUT_PRICE_PER_1M,
     );
   } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : "grading_failed";
+    const errorMessage = error instanceof Error
+      ? error.message
+      : "grading_failed";
     finalStatus = "uncertain";
     finalPayload = {
       status: finalStatus,
@@ -1122,14 +1203,13 @@ Deno.serve(async (req) => {
     .limit(1)
     .maybeSingle();
 
-  const actualPointGain =
-    previousResult &&
-    "points_earned" in previousResult &&
-    previousResult.points_earned !== null &&
-    finalPayload.points_earned !== null &&
-    finalPayload.points_earned !== undefined
-      ? Number(finalPayload.points_earned) - Number(previousResult.points_earned)
-      : null;
+  const actualPointGain = previousResult &&
+      "points_earned" in previousResult &&
+      previousResult.points_earned !== null &&
+      finalPayload.points_earned !== null &&
+      finalPayload.points_earned !== undefined
+    ? Number(finalPayload.points_earned) - Number(previousResult.points_earned)
+    : null;
 
   const predictedPointGain =
     finalPayload.predicted_improvement?.predicted_point_gain ?? null;
@@ -1138,8 +1218,8 @@ Deno.serve(async (req) => {
       ? predictedPointGain === actualPointGain
         ? "matched"
         : predictedPointGain < actualPointGain
-          ? "under_predicted"
-          : "over_predicted"
+        ? "under_predicted"
+        : "over_predicted"
       : null;
 
   const highestValueGap = finalPayload.highest_value_gap ?? pickHighestGap(
