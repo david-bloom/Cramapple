@@ -4,14 +4,25 @@ import { requireProfile } from "../_shared/auth.ts";
 
 // submit-response flips a response_version from draft to submitted, so the
 // next evaluate-attempt call can grade it. evaluate-attempt requires
-// response_versions.is_submitted = true (see
-// supabase/functions/evaluate-attempt/index.ts), but the RLS policy on
+// response_versions.is_submitted = true, but the RLS policy on
 // response_versions explicitly forbids authenticated users from updating
 // is_submitted (the WITH CHECK clause demands is_submitted = false on the
-// new row). The transition must be server-mediated. This function is that
-// mediator: it authenticates the caller, verifies ownership and current
-// state, then uses service_role to perform the atomic update plus audit
-// log entry.
+// new row). The transition must be server-mediated.
+//
+// All write-side work is delegated to app.submit_response (defined in
+// migration 202606210007). The RPC runs as SECURITY DEFINER under
+// service_role, locks the attempt and response_version rows with
+// SELECT ... FOR UPDATE, validates state inside the lock, and performs the
+// two updates plus the audit insert in one transaction. That eliminates
+// the partial-failure window the prior two-statement implementation had
+// and the concurrent-submit race where two callers could both pass the
+// pre-check.
+//
+// This function is now a thin authn / input-validation wrapper that
+// extracts the caller identity from the JWT, validates UUIDs and the
+// idempotency key, then calls the RPC. Error codes raised by the RPC use
+// the prefix 'submit_response:<code>[:<detail>]' and are mapped to HTTP
+// statuses below.
 
 type SubmitOperation = "submit_response";
 
@@ -39,38 +50,49 @@ async function sha256Hex(value: string) {
     .join("");
 }
 
-async function loadIdempotentResult(
-  service: ReturnType<typeof createServiceClient>,
-  requestId: string,
-  requestHash: string,
-  operation: SubmitOperation,
-) {
-  const { data, error } = await service.schema("app")
-    .from("audit_events")
-    .select("request_id, reason_code, metadata")
-    .eq("request_id", requestId)
-    .eq("reason_code", operation)
-    .maybeSingle();
+type RpcErrorMapping = {
+  status: number;
+  body: Record<string, unknown>;
+};
 
-  if (error) {
-    throw error;
+function mapRpcError(rpcMessage: string | undefined): RpcErrorMapping {
+  if (typeof rpcMessage !== "string") {
+    return { status: 500, body: { error: "submit_response_failed" } };
   }
 
-  if (!data) {
-    return null;
+  // Extract the 'submit_response:<code>[:<detail>]' payload regardless of
+  // any framing Postgres / postgrest-js wraps around it.
+  const match = rpcMessage.match(/submit_response:([a-z_]+)(?::(.+))?/);
+  if (!match) {
+    return { status: 500, body: { error: "submit_response_failed" } };
   }
 
-  const metadata = data.metadata && typeof data.metadata === "object"
-    ? data.metadata as Record<string, unknown>
-    : null;
-
-  if (!metadata || metadata.request_hash !== requestHash) {
-    return { conflict: true as const };
+  const [, code, detail] = match;
+  switch (code) {
+    case "idempotency_conflict":
+      return { status: 409, body: { error: "idempotency_conflict" } };
+    case "attempt_not_found":
+    case "response_not_found":
+      return { status: 404, body: { error: "not_found" } };
+    case "forbidden":
+      return { status: 403, body: { error: "forbidden" } };
+    case "response_attempt_mismatch":
+      return { status: 409, body: { error: "response_attempt_mismatch" } };
+    case "attempt_not_submittable":
+      return {
+        status: 409,
+        body: detail
+          ? {
+            error: "attempt_not_submittable",
+            attempt_status: detail.trim(),
+          }
+          : { error: "attempt_not_submittable" },
+      };
+    case "response_already_submitted":
+      return { status: 409, body: { error: "response_already_submitted" } };
+    default:
+      return { status: 500, body: { error: "submit_response_failed" } };
   }
-
-  return metadata.result
-    ? { result: metadata.result as Record<string, unknown> }
-    : { result: null };
 }
 
 Deno.serve(async (req) => {
@@ -130,183 +152,23 @@ Deno.serve(async (req) => {
     return respond({ error: "forbidden" }, { status: 403 });
   }
 
-  const service = createServiceClient();
   const requestHash = await sha256Hex(
     JSON.stringify({ operation, attemptId, responseVersionId, idempotencyKey }),
   );
 
-  // Idempotent replay path: if we already recorded this submission under
-  // the same (request_id, reason_code), return the cached result. A
-  // different payload hash with the same key is a 409 conflict.
-  const dedup = await loadIdempotentResult(
-    service,
-    idempotencyKey,
-    requestHash,
-    operation,
-  ).catch((error) => {
-    console.error("audit_event_lookup_failed", error);
-    return { lookupError: true as const };
+  const service = createServiceClient();
+  const { data, error } = await service.schema("app").rpc("submit_response", {
+    p_attempt_id: attemptId,
+    p_response_version_id: responseVersionId,
+    p_actor_id: user.id,
+    p_actor_role: role,
+    p_idempotency_key: idempotencyKey,
+    p_request_hash: requestHash,
   });
 
-  if (dedup && "lookupError" in dedup) {
-    return respond(
-      { error: "submit_audit_lookup_failed" },
-      { status: 500 },
-    );
-  }
-
-  if (dedup) {
-    if ("conflict" in dedup) {
-      return respond({ error: "idempotency_conflict" }, { status: 409 });
-    }
-    return respond(
-      {
-        status: "ok",
-        function: "submit-response",
-        operation,
-        result: dedup.result,
-      },
-      { status: 200 },
-    );
-  }
-
-  // Load attempt + response_version atomically to verify ownership and
-  // current state before any mutation.
-  const [
-    { data: attempt, error: attemptError },
-    { data: responseVersion, error: responseError },
-  ] = await Promise.all([
-    service.schema("app")
-      .from("attempts")
-      .select(
-        "id, user_id, status, submitted_at, learning_session_id, content_item_version_id",
-      )
-      .eq("id", attemptId)
-      .maybeSingle(),
-    service.schema("app")
-      .from("response_versions")
-      .select("id, attempt_id, is_submitted, submitted_at, version_number")
-      .eq("id", responseVersionId)
-      .maybeSingle(),
-  ]);
-
-  if (attemptError || responseError) {
-    return respond({ error: "submit_lookup_failed" }, { status: 500 });
-  }
-
-  if (!attempt || !responseVersion) {
-    return respond({ error: "not_found" }, { status: 404 });
-  }
-
-  // Admin may submit on behalf of a learner (for ops / support cases),
-  // students only their own.
-  if (attempt.user_id !== user.id && role !== "admin") {
-    return respond({ error: "forbidden" }, { status: 403 });
-  }
-
-  if (responseVersion.attempt_id !== attempt.id) {
-    return respond(
-      { error: "response_attempt_mismatch" },
-      { status: 409 },
-    );
-  }
-
-  // attempts that have already been graded cannot accept a new submission.
-  // 'draft' is the normal pre-submission state; 'failed' covers retry of a
-  // previously-failed submission. Anything else is a no-op or a conflict.
-  if (
-    attempt.status !== "draft" &&
-    attempt.status !== "failed"
-  ) {
-    return respond(
-      { error: "attempt_not_submittable", attempt_status: attempt.status },
-      { status: 409 },
-    );
-  }
-
-  if (responseVersion.is_submitted) {
-    return respond(
-      { error: "response_already_submitted" },
-      { status: 409 },
-    );
-  }
-
-  const submittedAt = new Date().toISOString();
-
-  // Update response_versions first, then attempts. If the second update
-  // fails the response_version is still flagged as submitted, but
-  // attempts.status stays at 'draft' — the next submit-response call will
-  // surface 'response_already_submitted' and the client can recover. The
-  // alternative (transactional via an RPC) is more correct but heavier;
-  // the rate of failure on a service_role update is low enough that
-  // sequential is acceptable for now.
-  const { error: responseUpdateError } = await service.schema("app")
-    .from("response_versions")
-    .update({
-      is_submitted: true,
-      submitted_at: submittedAt,
-    })
-    .eq("id", responseVersionId);
-
-  if (responseUpdateError) {
-    return respond(
-      { error: "response_submit_failed" },
-      { status: 500 },
-    );
-  }
-
-  const { error: attemptUpdateError } = await service.schema("app")
-    .from("attempts")
-    .update({
-      status: "submitted",
-      submitted_at: submittedAt,
-    })
-    .eq("id", attemptId);
-
-  if (attemptUpdateError) {
-    return respond(
-      { error: "attempt_submit_failed" },
-      { status: 500 },
-    );
-  }
-
-  const result = {
-    attempt_id: attempt.id,
-    response_version_id: responseVersion.id,
-    status: "submitted",
-    submitted_at: submittedAt,
-  };
-
-  const { error: auditError } = await service.schema("app")
-    .from("audit_events")
-    .insert({
-      audit_event_id: crypto.randomUUID(),
-      occurred_at: submittedAt,
-      actor_type: "human",
-      actor_id: user.id,
-      action: "submit_response.submit_response",
-      object_type: "response_version",
-      object_id: responseVersion.id,
-      request_id: idempotencyKey,
-      reason_code: operation,
-      metadata: {
-        request_hash: requestHash,
-        attempt_id: attempt.id,
-        actor_role: role,
-        result,
-      },
-      event_sha256: await sha256Hex(
-        JSON.stringify({ operation, requestHash, result }),
-      ),
-      created_at: submittedAt,
-    });
-
-  if (auditError) {
-    // Audit failure is logged but does not roll back the submission —
-    // the response_versions / attempts updates already landed and the
-    // student deserves a successful response. The audit gap will surface
-    // in the operational dashboard.
-    console.error("submit_response_audit_failed", auditError);
+  if (error) {
+    const mapped = mapRpcError(error.message);
+    return respond(mapped.body, { status: mapped.status });
   }
 
   return respond(
@@ -314,7 +176,7 @@ Deno.serve(async (req) => {
       status: "ok",
       function: "submit-response",
       operation,
-      result,
+      result: data,
     },
     { status: 200 },
   );

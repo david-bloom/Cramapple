@@ -68,12 +68,17 @@ function asStringArray(value: unknown) {
 
 function asObjectArray<T extends Record<string, unknown>>(value: unknown) {
   return Array.isArray(value)
-    ? value.filter((item) => item && typeof item === "object" && !Array.isArray(item)) as T[]
+    ? value.filter((item) =>
+      item && typeof item === "object" && !Array.isArray(item)
+    ) as T[]
     : [];
 }
 
 async function sha256Hex(value: string) {
-  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(value));
+  const digest = await crypto.subtle.digest(
+    "SHA-256",
+    new TextEncoder().encode(value),
+  );
   return Array.from(new Uint8Array(digest))
     .map((byte) => byte.toString(16).padStart(2, "0"))
     .join("");
@@ -115,7 +120,8 @@ function canPerformOperation(role: string, operation: AllowedOperation) {
     return false;
   }
 
-  return operation === "create_draft" || operation === "update_draft" || operation === "bulk_import";
+  return operation === "create_draft" || operation === "update_draft" ||
+    operation === "bulk_import";
 }
 
 function requireGate(
@@ -180,9 +186,12 @@ async function nextArtifactVersionSequence(
   service: ReturnType<typeof createServiceClient>,
   artifactId: string,
 ) {
-  const { data, error } = await service.rpc("reserve_artifact_version_sequence", {
-    p_artifact_id: artifactId,
-  });
+  const { data, error } = await service.rpc(
+    "reserve_artifact_version_sequence",
+    {
+      p_artifact_id: artifactId,
+    },
+  );
 
   if (error || typeof data !== "number") {
     throw new Error("artifact_sequence_reservation_failed");
@@ -199,7 +208,10 @@ async function ensureLegacyProjection(
   createdBy: string,
   status: string,
 ) {
-  if (!payload.exam_pack_version_id || !payload.content_key || !payload.item_type || !payload.title) {
+  if (
+    !payload.exam_pack_version_id || !payload.content_key ||
+    !payload.item_type || !payload.title
+  ) {
     return null;
   }
 
@@ -249,10 +261,14 @@ async function ensureLegacyProjection(
     .limit(1)
     .maybeSingle();
 
-  const nextVersionNum = latestVersion?.version_num ? Number(latestVersion.version_num) + 1 : 1;
+  const nextVersionNum = latestVersion?.version_num
+    ? Number(latestVersion.version_num) + 1
+    : 1;
 
   const payloadHash = await sha256Hex(JSON.stringify(artifact));
-  const { data: insertedVersion, error: versionError } = await service.schema("app")
+  const { data: insertedVersion, error: versionError } = await service.schema(
+    "app",
+  )
     .from("content_item_versions")
     .insert({
       content_item_id: contentItemId,
@@ -300,7 +316,9 @@ async function ensureLegacyProjection(
     );
   }
 
-  if (Array.isArray(payload.content_labels) && payload.content_labels.length > 0) {
+  if (
+    Array.isArray(payload.content_labels) && payload.content_labels.length > 0
+  ) {
     const { data: examPackVersion } = await service.schema("app")
       .from("exam_pack_versions")
       .select("exam_pack_id")
@@ -316,7 +334,9 @@ async function ensureLegacyProjection(
       : { data: [] as Array<{ id: string; label_key: string }> };
 
     const labelIdByKey = new Map(
-      (labels ?? []).map((label) => [label.label_key as string, label.id as string]),
+      (labels ?? []).map((
+        label,
+      ) => [label.label_key as string, label.id as string]),
     );
 
     const links = payload.content_labels
@@ -350,17 +370,25 @@ async function createArtifactDraft(
   const artifact = asRecord(body.artifact) ?? {};
   const sourceRecord = asRecord(body.source_record);
   const rightsRecord = asRecord(body.rights_record);
-  const compatibility = asRecord(body.compatibility) as CompatibilityProjection | null;
-  const stateReasonCode = asString(body.reason_code) ?? `${operation}_requested`;
+  const compatibility = asRecord(body.compatibility) as
+    | CompatibilityProjection
+    | null;
+  const stateReasonCode = asString(body.reason_code) ??
+    `${operation}_requested`;
 
   const artifactId = asString(artifact.artifact_id) ?? crypto.randomUUID();
   const artifactVersionId = crypto.randomUUID();
-  const versionSequence = await nextArtifactVersionSequence(service, artifactId);
+  const versionSequence = await nextArtifactVersionSequence(
+    service,
+    artifactId,
+  );
   const payload = asRecord(artifact.payload) ?? artifact;
   const payloadHash = await sha256Hex(JSON.stringify(payload));
 
   if (sourceRecord) {
-    const { error: sourceError } = await service.schema("app").from("source_records").insert({
+    const { error: sourceError } = await service.schema("app").from(
+      "source_records",
+    ).insert({
       source_id: sourceRecord.source_id ?? crypto.randomUUID(),
       version_sequence: Number(sourceRecord.version_sequence ?? 1),
       title: asString(sourceRecord.title) ?? "Untitled source",
@@ -375,14 +403,17 @@ async function createArtifactDraft(
       effective_to: sourceRecord.effective_to ?? null,
       exam_id: sourceRecord.exam_id ?? null,
       school_year: sourceRecord.school_year ?? null,
-      scope_statement: asString(sourceRecord.scope_statement) ?? "Draft content source",
+      scope_statement: asString(sourceRecord.scope_statement) ??
+        "Draft content source",
       source_excerpt_locator: sourceRecord.source_excerpt_locator ?? null,
       stored_object_id: sourceRecord.stored_object_id ?? null,
       content_sha256: asString(sourceRecord.content_sha256) ?? payloadHash,
       authority_tier: Number(sourceRecord.authority_tier ?? 3),
       refresh_class: asString(sourceRecord.refresh_class) ?? "SCIENCE_STABLE",
-      next_refresh_due_at: sourceRecord.next_refresh_due_at ?? new Date().toISOString(),
-      supersedes_source_version_id: sourceRecord.supersedes_source_version_id ?? null,
+      next_refresh_due_at: sourceRecord.next_refresh_due_at ??
+        new Date().toISOString(),
+      supersedes_source_version_id: sourceRecord.supersedes_source_version_id ??
+        null,
       provenance_status: asString(sourceRecord.provenance_status) ?? "draft",
       created_by: profileId,
     });
@@ -392,7 +423,9 @@ async function createArtifactDraft(
   }
 
   if (rightsRecord) {
-    const { error: rightsError } = await service.schema("app").from("rights_records").insert({
+    const { error: rightsError } = await service.schema("app").from(
+      "rights_records",
+    ).insert({
       source_version_id: rightsRecord.source_version_id,
       rights_status: asString(rightsRecord.rights_status) ?? "unknown",
       permitted_uses: asStringArray(rightsRecord.permitted_uses),
@@ -408,7 +441,8 @@ async function createArtifactDraft(
       reviewed_at: rightsRecord.reviewed_at ?? new Date().toISOString(),
       legal_approval_required: Boolean(rightsRecord.legal_approval_required),
       legal_approval_id: rightsRecord.legal_approval_id ?? null,
-      next_review_due_at: rightsRecord.next_review_due_at ?? new Date().toISOString(),
+      next_review_due_at: rightsRecord.next_review_due_at ??
+        new Date().toISOString(),
       notes: rightsRecord.notes ?? null,
       created_by: profileId,
     });
@@ -417,23 +451,28 @@ async function createArtifactDraft(
     }
   }
 
-  const { data: insertedArtifact, error: artifactError } = await service.schema("app")
+  const { data: insertedArtifact, error: artifactError } = await service.schema(
+    "app",
+  )
     .from("artifact_versions")
     .insert({
       artifact_id: artifactId,
       artifact_type: asString(artifact.artifact_type) ?? "question",
       exam_id: artifact.exam_id ?? body.exam_id ?? null,
-      school_year: asString(artifact.school_year) ?? asString(body.school_year) ?? "unknown",
+      school_year: asString(artifact.school_year) ??
+        asString(body.school_year) ?? "unknown",
       version_sequence: versionSequence,
       semantic_version: asString(artifact.semantic_version) ?? "1.0.0",
       language: asString(artifact.language) ?? "en-US",
-      payload_schema_version: asString(artifact.payload_schema_version) ?? "1.0.0",
+      payload_schema_version: asString(artifact.payload_schema_version) ??
+        "1.0.0",
       payload,
       payload_sha256: payloadHash,
       risk_class: asString(artifact.risk_class) ?? "R1",
       change_class: asString(artifact.change_class) ?? "C1",
       change_summary: asString(artifact.change_summary) ?? "Draft created",
-      change_rationale: asString(artifact.change_rationale) ?? "Initial draft created through admin workflow",
+      change_rationale: asString(artifact.change_rationale) ??
+        "Initial draft created through admin workflow",
       authored_by: [profileId],
       predecessor_version_id: artifact.predecessor_version_id ?? null,
       created_by: profileId,
@@ -445,7 +484,9 @@ async function createArtifactDraft(
     throw new Error("artifact_insert_failed");
   }
 
-  const { error: stateError } = await service.schema("app").from("artifact_state_events").insert({
+  const { error: stateError } = await service.schema("app").from(
+    "artifact_state_events",
+  ).insert({
     artifact_version_id: insertedArtifact.artifact_version_id,
     prior_state: null,
     new_state: "draft",
@@ -488,7 +529,9 @@ async function changeArtifactState(
   const artifactId = asString(body.artifact_id);
   const reasonCode = asString(body.reason_code) ?? `${operation}_requested`;
   const targetState = normalizePublishedState(operation);
-  const compatibility = asRecord(body.compatibility) as CompatibilityProjection | null;
+  const compatibility = asRecord(body.compatibility) as
+    | CompatibilityProjection
+    | null;
 
   if (!artifactVersionId && !artifactId) {
     throw new Error("missing_artifact_identifier");
@@ -503,7 +546,8 @@ async function changeArtifactState(
       .order("version_sequence", { ascending: false })
       .limit(1)
       .maybeSingle();
-    currentVersionId = (data?.artifact_version_id as string | undefined) ?? null;
+    currentVersionId = (data?.artifact_version_id as string | undefined) ??
+      null;
   }
 
   if (!currentVersionId) {
@@ -515,7 +559,9 @@ async function changeArtifactState(
   });
   const priorState = asString(currentState) ?? "draft";
 
-  const { error: stateError } = await service.schema("app").from("artifact_state_events").insert({
+  const { error: stateError } = await service.schema("app").from(
+    "artifact_state_events",
+  ).insert({
     artifact_version_id: currentVersionId,
     prior_state: priorState,
     new_state: targetState,
@@ -553,7 +599,9 @@ async function changeArtifactState(
       if (latestVersion?.id) {
         await service.schema("app").from("content_item_versions").update({
           status: targetState === "published" ? "published" : "retired",
-          published_at: targetState === "published" ? new Date().toISOString() : null,
+          published_at: targetState === "published"
+            ? new Date().toISOString()
+            : null,
         }).eq("id", latestVersion.id);
       }
     }
@@ -612,12 +660,16 @@ async function changeArtifactState(
         release_gate: releaseGate,
       });
 
-      const { data: releaseRow, error: releaseError } = await service.schema("app")
+      const { data: releaseRow, error: releaseError } = await service.schema(
+        "app",
+      )
         .from("release_candidates")
         .insert({
           exam_id: releaseCandidate.exam_id ?? body.exam_id ?? null,
-          school_year: asString(releaseCandidate.school_year) ?? asString(body.school_year) ?? "unknown",
-          proposed_version: asString(releaseCandidate.proposed_version) ?? "1.0.0",
+          school_year: asString(releaseCandidate.school_year) ??
+            asString(body.school_year) ?? "unknown",
+          proposed_version: asString(releaseCandidate.proposed_version) ??
+            "1.0.0",
           release_class: releaseClass,
           source_gate: sourceGate,
           rights_gate: rightsGate,
@@ -636,23 +688,32 @@ async function changeArtifactState(
       }
 
       if (releaseRow) {
-        const { data: manifestRow, error: manifestError } = await service.schema("app")
+        const { data: manifestRow, error: manifestError } = await service
+          .schema("app")
           .from("exam_pack_manifests")
           .insert({
             exam_id: manifest.exam_id ?? body.exam_id ?? null,
-            school_year: asString(manifest.school_year) ?? asString(body.school_year) ?? "unknown",
+            school_year: asString(manifest.school_year) ??
+              asString(body.school_year) ?? "unknown",
             exam_pack_version: asString(manifest.exam_pack_version) ?? "1.0.0",
-            artifact_version_ids: manifest.artifact_version_ids ?? [currentVersionId],
+            artifact_version_ids: manifest.artifact_version_ids ??
+              [currentVersionId],
             source_version_ids: manifest.source_version_ids ?? [],
             rights_record_ids: manifest.rights_record_ids ?? [],
-            validator_policy_version_id: manifest.validator_policy_version_id ?? crypto.randomUUID(),
-            teaching_policy_version_id: manifest.teaching_policy_version_id ?? crypto.randomUUID(),
-            grading_policy_version_id: manifest.grading_policy_version_id ?? crypto.randomUUID(),
+            validator_policy_version_id: manifest.validator_policy_version_id ??
+              crypto.randomUUID(),
+            teaching_policy_version_id: manifest.teaching_policy_version_id ??
+              crypto.randomUUID(),
+            grading_policy_version_id: manifest.grading_policy_version_id ??
+              crypto.randomUUID(),
             prompt_version_ids: manifest.prompt_version_ids ?? [],
-            model_configuration_version_ids: manifest.model_configuration_version_ids ?? [],
+            model_configuration_version_ids:
+              manifest.model_configuration_version_ids ?? [],
             validation_run_ids: manifest.validation_run_ids ?? [],
-            qualification_rule_version_ids: manifest.qualification_rule_version_ids ?? [],
-            manifest_sha256: asString(manifest.manifest_sha256) ?? await sha256Hex(JSON.stringify(manifest)),
+            qualification_rule_version_ids:
+              manifest.qualification_rule_version_ids ?? [],
+            manifest_sha256: asString(manifest.manifest_sha256) ??
+              await sha256Hex(JSON.stringify(manifest)),
             created_by: profileId,
           })
           .select("manifest_id")
@@ -663,19 +724,22 @@ async function changeArtifactState(
         }
 
         if (manifestRow) {
-          const { error: publicationError } = await service.schema("app").from("publication_events").insert({
+          const { error: publicationError } = await service.schema("app").from(
+            "publication_events",
+          ).insert({
             release_candidate_id: releaseRow.release_candidate_id,
             manifest_id: manifestRow.manifest_id,
             environment: asString(body.environment) ?? "production",
             action: "publish",
             approved_by: body.approved_by ?? [profileId],
             executed_by: profileId,
-            transaction_id: asString(body.transaction_id) ?? crypto.randomUUID(),
+            transaction_id: asString(body.transaction_id) ??
+              crypto.randomUUID(),
             smoke_test_run_id: body.smoke_test_run_id ?? null,
             outcome: "succeeded",
             created_by: profileId,
           });
-        if (publicationError) {
+          if (publicationError) {
             throw new Error("publication_event_insert_failed");
           }
         }
@@ -727,7 +791,12 @@ Deno.serve(async (req) => {
     return respond({ error: "forbidden" }, { status: 403 });
   }
 
-  if (!canPerformOperation(profileResult.profile.role as string, operation as AllowedOperation)) {
+  if (
+    !canPerformOperation(
+      profileResult.profile.role as string,
+      operation as AllowedOperation,
+    )
+  ) {
     return respond({ error: "forbidden" }, { status: 403 });
   }
 
@@ -752,9 +821,15 @@ Deno.serve(async (req) => {
       throw existing.error;
     }
 
-    if (existing.data && existing.data.metadata && typeof existing.data.metadata === "object") {
+    if (
+      existing.data && existing.data.metadata &&
+      typeof existing.data.metadata === "object"
+    ) {
       const metadata = existing.data.metadata as Record<string, unknown>;
-      if (metadata.request_hash === payloadHash && metadata.operation === operation) {
+      if (
+        metadata.request_hash === payloadHash &&
+        metadata.operation === operation
+      ) {
         return respond(
           {
             status: "ok",
@@ -770,7 +845,9 @@ Deno.serve(async (req) => {
 
     let result: Record<string, unknown>;
     if (operation === "bulk_import") {
-      const items = asObjectArray<Record<string, unknown>>((body as Record<string, unknown>).items);
+      const items = asObjectArray<Record<string, unknown>>(
+        (body as Record<string, unknown>).items,
+      );
       const imported: unknown[] = [];
       for (const item of items) {
         const created = await createArtifactDraft(
@@ -778,9 +855,12 @@ Deno.serve(async (req) => {
           profileId,
           {
             ...item,
-            source_record: item.source_record ?? (body as Record<string, unknown>).source_record ?? null,
-            rights_record: item.rights_record ?? (body as Record<string, unknown>).rights_record ?? null,
-            compatibility: item.compatibility ?? (body as Record<string, unknown>).compatibility ?? null,
+            source_record: item.source_record ??
+              (body as Record<string, unknown>).source_record ?? null,
+            rights_record: item.rights_record ??
+              (body as Record<string, unknown>).rights_record ?? null,
+            compatibility: item.compatibility ??
+              (body as Record<string, unknown>).compatibility ?? null,
           },
           "create_draft",
         );
@@ -788,7 +868,12 @@ Deno.serve(async (req) => {
       }
       result = { imported };
     } else if (operation === "create_draft" || operation === "update_draft") {
-      result = await createArtifactDraft(service, profileId, body as Record<string, unknown>, operation);
+      result = await createArtifactDraft(
+        service,
+        profileId,
+        body as Record<string, unknown>,
+        operation,
+      );
     } else {
       result = await changeArtifactState(
         service,
@@ -808,16 +893,20 @@ Deno.serve(async (req) => {
       actor_id: profileId,
       action: `admin_content.${operation}`,
       object_type: "artifact",
-      object_id: asString(result.artifact_version_id) ?? asString(result.artifact_id) ?? crypto.randomUUID(),
+      object_id: asString(result.artifact_version_id) ??
+        asString(result.artifact_id) ?? crypto.randomUUID(),
       request_id: idempotencyKey,
       reason_code: operation,
       metadata: {
         operation,
         request_hash: payloadHash,
-        client_reason_code: asString((body as Record<string, unknown>).reason_code) ?? null,
+        client_reason_code:
+          asString((body as Record<string, unknown>).reason_code) ?? null,
         result,
       },
-      event_sha256: await sha256Hex(JSON.stringify({ operation, requestHash: payloadHash, result })),
+      event_sha256: await sha256Hex(
+        JSON.stringify({ operation, requestHash: payloadHash, result }),
+      ),
       created_at: new Date().toISOString(),
     });
 
@@ -831,7 +920,9 @@ Deno.serve(async (req) => {
       { status: 200 },
     );
   } catch (error) {
-    const message = error instanceof Error ? error.message : "admin_content_failed";
+    const message = error instanceof Error
+      ? error.message
+      : "admin_content_failed";
     const clientErrors = new Set([
       "invalid_json",
       "invalid_operation",
