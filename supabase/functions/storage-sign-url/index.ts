@@ -59,22 +59,25 @@ function ownsLearnerPath(userId: string, path: string) {
 }
 
 Deno.serve(async (req) => {
+  const respond = (body: unknown, init: ResponseInit = {}) =>
+    jsonResponse(body, init, req);
+
   if (req.method === "OPTIONS") {
-    return jsonResponse({ ok: true }, { status: 200 });
+    return respond({ ok: true }, { status: 200 });
   }
 
   if (req.method !== "POST") {
-    return jsonResponse({ error: "method_not_allowed" }, { status: 405 });
+    return respond({ error: "method_not_allowed" }, { status: 405 });
   }
 
   const body = await readJsonBody(req);
   if (!body || typeof body !== "object" || Array.isArray(body)) {
-    return jsonResponse({ error: "invalid_json" }, { status: 400 });
+    return respond({ error: "invalid_json" }, { status: 400 });
   }
 
   const mode = asString((body as Record<string, unknown>).mode) as StorageMode | null;
   if (!mode || !allowedModes.has(mode)) {
-    return jsonResponse({ error: "invalid_mode" }, { status: 400 });
+    return respond({ error: "invalid_mode" }, { status: 400 });
   }
 
   const bucket = asString((body as Record<string, unknown>).bucket);
@@ -88,16 +91,16 @@ Deno.serve(async (req) => {
   const expiresIn = asInteger((body as Record<string, unknown>).expires_in) ?? 3600;
 
   if (!bucket || !allowedBuckets.has(bucket) || !path || !isSafeStoragePath(path)) {
-    return jsonResponse({ error: "invalid_bucket_or_path" }, { status: 400 });
+    return respond({ error: "invalid_bucket_or_path" }, { status: 400 });
   }
 
   if (!idempotencyKey) {
-    return jsonResponse({ error: "missing_idempotency_key" }, { status: 400 });
+    return respond({ error: "missing_idempotency_key" }, { status: 400 });
   }
 
   const profileResult = await loadProfile(req);
   if (!profileResult) {
-    return jsonResponse({ error: "unauthorized" }, { status: 401 });
+    return respond({ error: "unauthorized" }, { status: 401 });
   }
 
   const role = profileResult.profile.role as string;
@@ -106,11 +109,11 @@ Deno.serve(async (req) => {
   const requestHash = await sha256Hex(JSON.stringify(body));
 
   if (!canAccessBucket(role, bucket, mode)) {
-    return jsonResponse({ error: "forbidden" }, { status: 403 });
+    return respond({ error: "forbidden" }, { status: 403 });
   }
 
   if (bucket === "learner-uploads" && !ownsLearnerPath(userId, path)) {
-    return jsonResponse({ error: "forbidden_path" }, { status: 403 });
+    return respond({ error: "forbidden_path" }, { status: 403 });
   }
 
   // Scope the lookup to (request_id, reason_code) to match the composite
@@ -124,7 +127,7 @@ Deno.serve(async (req) => {
     .maybeSingle();
 
   if (existingError) {
-    return jsonResponse({ error: "storage_audit_lookup_failed" }, { status: 500 });
+    return respond({ error: "storage_audit_lookup_failed" }, { status: 500 });
   }
 
   if (existing) {
@@ -132,10 +135,10 @@ Deno.serve(async (req) => {
       ? existing.metadata as Record<string, unknown>
       : null;
     if (!metadata || metadata.request_hash !== requestHash) {
-      return jsonResponse({ error: "idempotency_conflict" }, { status: 409 });
+      return respond({ error: "idempotency_conflict" }, { status: 409 });
     }
 
-    return jsonResponse(
+    return respond(
       {
         status: "ok",
         function: "storage-sign-url",
@@ -151,7 +154,7 @@ Deno.serve(async (req) => {
   try {
     if (mode === "sign_delete") {
       if (role !== "admin") {
-        return jsonResponse({ error: "forbidden" }, { status: 403 });
+        return respond({ error: "forbidden" }, { status: 403 });
       }
 
       const { error: deleteError } = await storage.remove([path]);
@@ -183,7 +186,7 @@ Deno.serve(async (req) => {
         created_at: new Date().toISOString(),
       });
 
-      return jsonResponse(
+      return respond(
         {
           status: "ok",
           function: "storage-sign-url",
@@ -229,7 +232,7 @@ Deno.serve(async (req) => {
         created_at: new Date().toISOString(),
       });
 
-      return jsonResponse(
+      return respond(
         {
           status: "ok",
           function: "storage-sign-url",
@@ -275,7 +278,7 @@ Deno.serve(async (req) => {
       created_at: new Date().toISOString(),
     });
 
-    return jsonResponse(
+    return respond(
       {
         status: "ok",
         function: "storage-sign-url",
@@ -286,7 +289,7 @@ Deno.serve(async (req) => {
     );
   } catch (error) {
     const message = error instanceof Error ? error.message : "storage_sign_url_failed";
-    return jsonResponse(
+    return respond(
       {
         status: "failed",
         function: "storage-sign-url",

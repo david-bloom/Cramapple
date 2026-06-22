@@ -602,22 +602,25 @@ async function readBodyAsRecord(req: Request) {
 }
 
 Deno.serve(async (req) => {
+  const respond = (body: unknown, init: ResponseInit = {}) =>
+    jsonResponse(body, init, req);
+
   if (req.method === "OPTIONS") {
-    return jsonResponse({ ok: true }, { status: 200 });
+    return respond({ ok: true }, { status: 200 });
   }
 
   if (req.method !== "POST") {
-    return jsonResponse({ error: "method_not_allowed" }, { status: 405 });
+    return respond({ error: "method_not_allowed" }, { status: 405 });
   }
 
   const body = await readBodyAsRecord(req);
   if (!body) {
-    return jsonResponse({ error: "invalid_json" }, { status: 400 });
+    return respond({ error: "invalid_json" }, { status: 400 });
   }
 
   const operation = asString(getBodyField(body, "operation"));
   if (!operation || !allowedOperations.has(operation as AllowedOperation)) {
-    return jsonResponse({ error: "invalid_operation" }, { status: 400 });
+    return respond({ error: "invalid_operation" }, { status: 400 });
   }
 
   const idempotencyKey = asString(
@@ -643,7 +646,7 @@ Deno.serve(async (req) => {
     !idempotencyKey || !attemptId || !responseVersionId || !contentItemVersionId ||
     !rubricVersionId
   ) {
-    return jsonResponse(
+    return respond(
       {
         error: "missing_required_fields",
         required: [
@@ -660,15 +663,44 @@ Deno.serve(async (req) => {
 
   const profileResult = await requireProfile(req);
   if (!profileResult) {
-    return jsonResponse({ error: "unauthorized" }, { status: 401 });
+    return respond({ error: "unauthorized" }, { status: 401 });
   }
 
   const { user, profile } = profileResult;
   if (profile.role !== "student" && profile.role !== "admin") {
-    return jsonResponse({ error: "forbidden" }, { status: 403 });
+    return respond({ error: "forbidden" }, { status: 403 });
   }
 
   const service = createServiceClient();
+
+  // Enforce prompt governance: the supplied promptVersion must correspond
+  // to a published row in app.prompt_versions for this operation. Without
+  // this check, a client could pass any free-text string and have it
+  // written verbatim into grading_results.prompt_version, breaking the
+  // audit trail and bypassing the prompt-rollout gate the table was
+  // created to enforce.
+  const { data: promptVersionRow, error: promptVersionLookupError } =
+    await service.schema("app")
+      .from("prompt_versions")
+      .select("id, status")
+      .eq("operation", operation)
+      .eq("version", promptVersion)
+      .maybeSingle();
+
+  if (promptVersionLookupError) {
+    return respond(
+      { error: "prompt_version_lookup_failed" },
+      { status: 500 },
+    );
+  }
+
+  if (!promptVersionRow || promptVersionRow.status !== "published") {
+    return respond(
+      { error: "invalid_prompt_version" },
+      { status: 400 },
+    );
+  }
+
   const requestHashPayload = {
     operation,
     idempotencyKey,
@@ -689,10 +721,10 @@ Deno.serve(async (req) => {
 
   if (existingResult) {
     if (existingResult.request_hash !== requestHash) {
-      return jsonResponse({ error: "idempotency_conflict" }, { status: 409 });
+      return respond({ error: "idempotency_conflict" }, { status: 409 });
     }
 
-    return jsonResponse(
+    return respond(
       {
         status: existingResult.status,
         function: "evaluate-attempt",
@@ -722,23 +754,23 @@ Deno.serve(async (req) => {
   ]);
 
   if (attemptError || responseError || contentError || !attempt || !responseVersion || !contentVersion) {
-    return jsonResponse({ error: "not_found" }, { status: 404 });
+    return respond({ error: "not_found" }, { status: 404 });
   }
 
   if (attempt.user_id !== user.id && profile.role !== "admin") {
-    return jsonResponse({ error: "forbidden" }, { status: 403 });
+    return respond({ error: "forbidden" }, { status: 403 });
   }
 
   if (responseVersion.attempt_id !== attempt.id) {
-    return jsonResponse({ error: "response_attempt_mismatch" }, { status: 409 });
+    return respond({ error: "response_attempt_mismatch" }, { status: 409 });
   }
 
   if (!responseVersion.is_submitted) {
-    return jsonResponse({ error: "response_not_submitted" }, { status: 409 });
+    return respond({ error: "response_not_submitted" }, { status: 409 });
   }
 
   if (attempt.content_item_version_id !== contentVersion.id) {
-    return jsonResponse({ error: "content_version_mismatch" }, { status: 409 });
+    return respond({ error: "content_version_mismatch" }, { status: 409 });
   }
 
   const [{ data: contentItem }, { data: examPackVersion }, { data: criteriaRows }, { data: mcqChoices }] = await Promise.all([
@@ -765,7 +797,7 @@ Deno.serve(async (req) => {
   ]);
 
   if (!contentItem || !examPackVersion) {
-    return jsonResponse({ error: "content_not_found" }, { status: 404 });
+    return respond({ error: "content_not_found" }, { status: 404 });
   }
 
   if (
@@ -773,7 +805,7 @@ Deno.serve(async (req) => {
     contentVersion.status !== "published" ||
     examPackVersion.status !== "published"
   ) {
-    return jsonResponse({ error: "content_not_published" }, { status: 409 });
+    return respond({ error: "content_not_published" }, { status: 409 });
   }
 
   const responseParts = parseJsonSafe(
@@ -832,7 +864,7 @@ Deno.serve(async (req) => {
       .maybeSingle();
 
     if (conflictResult && conflictResult.request_hash === requestHash) {
-      return jsonResponse(
+      return respond(
         {
           status: conflictResult.status,
           function: "evaluate-attempt",
@@ -843,7 +875,7 @@ Deno.serve(async (req) => {
       );
     }
 
-    return jsonResponse({ error: "could_not_create_grading_record" }, { status: 409 });
+    return respond({ error: "could_not_create_grading_record" }, { status: 409 });
   }
 
   const estimatedInputTokens = estimateTokens(
@@ -884,7 +916,7 @@ Deno.serve(async (req) => {
         })
         .eq("request_id", idempotencyKey);
 
-      return jsonResponse(
+      return respond(
         {
           status: "budget_capped",
           function: "evaluate-attempt",
@@ -978,7 +1010,7 @@ Deno.serve(async (req) => {
       result_summary: finalResult.student_facing_summary,
     }).eq("id", attempt.id);
 
-    return jsonResponse(
+    return respond(
       {
         status: "graded",
         function: "evaluate-attempt",
@@ -1078,7 +1110,7 @@ Deno.serve(async (req) => {
   }
 
   if (!finalPayload) {
-    return jsonResponse({ error: "grading_failed" }, { status: 500 });
+    return respond({ error: "grading_failed" }, { status: 500 });
   }
 
   const { data: previousResult } = await service.schema("app")
@@ -1155,7 +1187,7 @@ Deno.serve(async (req) => {
     })
     .eq("id", attempt.id);
 
-  return jsonResponse(
+  return respond(
     {
       status: finalStatus,
       function: "evaluate-attempt",
