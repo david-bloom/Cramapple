@@ -125,22 +125,25 @@ async function recordSessionEvent(
 }
 
 Deno.serve(async (req) => {
+  const respond = (body: unknown, init: ResponseInit = {}) =>
+    jsonResponse(body, init, req);
+
   if (req.method === "OPTIONS") {
-    return jsonResponse({ ok: true }, { status: 200 });
+    return respond({ ok: true }, { status: 200 });
   }
 
   if (req.method !== "POST") {
-    return jsonResponse({ error: "method_not_allowed" }, { status: 405 });
+    return respond({ error: "method_not_allowed" }, { status: 405 });
   }
 
   const body = await readJsonBody(req);
   if (!body || typeof body !== "object" || Array.isArray(body)) {
-    return jsonResponse({ error: "invalid_json" }, { status: 400 });
+    return respond({ error: "invalid_json" }, { status: 400 });
   }
 
   const operation = asString((body as Record<string, unknown>).operation) as SessionOperation | null;
   if (!operation || !allowedOperations.has(operation)) {
-    return jsonResponse({ error: "invalid_operation" }, { status: 400 });
+    return respond({ error: "invalid_operation" }, { status: 400 });
   }
 
   const idempotencyKey = asString(
@@ -150,12 +153,12 @@ Deno.serve(async (req) => {
       (body as Record<string, unknown>).requestId,
   );
   if (!idempotencyKey) {
-    return jsonResponse({ error: "missing_idempotency_key" }, { status: 400 });
+    return respond({ error: "missing_idempotency_key" }, { status: 400 });
   }
 
   const profileResult = await loadProfile(req);
   if (!profileResult) {
-    return jsonResponse({ error: "unauthorized" }, { status: 401 });
+    return respond({ error: "unauthorized" }, { status: 401 });
   }
 
   const service = createServiceClient();
@@ -165,10 +168,10 @@ Deno.serve(async (req) => {
   const deduped = await loadIdempotentResult(service, idempotencyKey, requestHash, operation);
   if (deduped) {
     if ("conflict" in deduped) {
-      return jsonResponse({ error: "idempotency_conflict" }, { status: 409 });
+      return respond({ error: "idempotency_conflict" }, { status: 409 });
     }
 
-    return jsonResponse(
+    return respond(
       {
         status: "ok",
         function: "session-event",
@@ -181,7 +184,7 @@ Deno.serve(async (req) => {
 
   try {
     if (operation === "attach_anonymous_session") {
-      return jsonResponse(
+      return respond(
         {
           status: "unsupported",
           function: "session-event",
@@ -200,7 +203,7 @@ Deno.serve(async (req) => {
       const availableMinutes = asInteger((body as Record<string, unknown>).available_minutes);
 
       if (!examPackVersionId || !entryPath || !sessionMode || availableMinutes === null) {
-        return jsonResponse(
+        return respond(
           {
             error: "missing_required_fields",
             required: [
@@ -237,7 +240,7 @@ Deno.serve(async (req) => {
         session_mode: sessionMode,
       });
 
-      return jsonResponse(
+      return respond(
         {
           status: "ok",
           function: "session-event",
@@ -255,7 +258,7 @@ Deno.serve(async (req) => {
         (body as Record<string, unknown>).studySessionId,
     );
     if (!sessionId) {
-      return jsonResponse({ error: "missing_session_id" }, { status: 400 });
+      return respond({ error: "missing_session_id" }, { status: 400 });
     }
 
     const { data: session, error: sessionError } = await service.schema("app")
@@ -265,11 +268,11 @@ Deno.serve(async (req) => {
       .maybeSingle();
 
     if (sessionError || !session) {
-      return jsonResponse({ error: "not_found" }, { status: 404 });
+      return respond({ error: "not_found" }, { status: 404 });
     }
 
     if (session.user_id !== profileId) {
-      return jsonResponse({ error: "forbidden" }, { status: 403 });
+      return respond({ error: "forbidden" }, { status: 403 });
     }
 
     if (operation === "session_resume") {
@@ -278,7 +281,7 @@ Deno.serve(async (req) => {
         resumed: true,
       });
 
-      return jsonResponse(
+      return respond(
         {
           status: "ok",
           function: "session-event",
@@ -306,7 +309,7 @@ Deno.serve(async (req) => {
         saved: true,
       });
 
-      return jsonResponse(
+      return respond(
         {
           status: "ok",
           function: "session-event",
@@ -340,7 +343,7 @@ Deno.serve(async (req) => {
       final_status: endStatus,
     });
 
-    return jsonResponse(
+    return respond(
       {
         status: "ok",
         function: "session-event",
@@ -363,7 +366,7 @@ Deno.serve(async (req) => {
       "unsupported_operation",
     ]);
 
-    return jsonResponse(
+    return respond(
       {
         status: "failed",
         function: "session-event",
