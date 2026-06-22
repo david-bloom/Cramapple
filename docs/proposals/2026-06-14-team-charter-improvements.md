@@ -1,13 +1,15 @@
 # Proposal: Team Charter Improvements
 
 **Status:** Proposed — Pending Owner Review
-**Version:** v2.2 (revised after Codex PR review)
+**Version:** v2.3 (adds Proposal 11 — session boundaries)
 **Author:** Claude (drafted under Standing Approval — draft plans/recommendations)
 **Reviewers:** David Bloom (Product Owner), Codex
 **Date:** 2026-06-14
-**Affects:** `docs/team_charter/AI_COLLABORATION_RULES.md`, `docs/team_charter/AGENT_OPERATING_MODEL.md`, `docs/team_charter/TASK_WORKFLOW.md`, `docs/team_charter/STANDING_APPROVAL_LANES.md`, `docs/team_charter/DEFINITION_OF_DONE.md`, `docs/team_charter/HANDOFF_PACKET_TEMPLATE.md`, `docs/team_charter/SKILLS_GUIDE.md`, `docs/activity_log/APPROVALS_LOG.md`, `docs/activity_log/DECISIONS_LOG.md`, `docs/agent_notes/` (new), new-session prompts (kit-level)
+**Affects:** `docs/team_charter/AI_COLLABORATION_RULES.md`, `docs/team_charter/AGENT_OPERATING_MODEL.md`, `docs/team_charter/TASK_WORKFLOW.md`, `docs/team_charter/STANDING_APPROVAL_LANES.md`, `docs/team_charter/DEFINITION_OF_DONE.md`, `docs/team_charter/HANDOFF_PACKET_TEMPLATE.md`, `docs/team_charter/SKILLS_GUIDE.md`, `docs/activity_log/APPROVALS_LOG.md`, `docs/activity_log/DECISIONS_LOG.md`, `docs/agent_notes/` (new), `prompts/CLAUDE_NEW_SESSION_PROMPT.md`, `prompts/CODEX_NEW_SESSION_PROMPT.md`, `prompts/CLOSE_SESSION_PROMPT.md`
 
 ## Revision History
+
+**v2.3 — 2026-06-21, added Proposal 11 (session boundaries).** Codifies the existing start-of-session prompts as the formal session-open ritual, adds a matching session-close ritual referencing `prompts/CLOSE_SESSION_PROMPT.md`, and defines the owner trigger phrases ("start a new \<project\> session" and "end \<project\> session"). Additive — does not change Proposals 1–10. The session-close prompt currently lives only on the `claude/task-0011-drawn-response-eval-tooling` branch; adoption of Proposal 11 includes promoting it to `main` independently of that task. Cross-cutting recording covers Proposal 11 in the same bundle when adopted together.
 
 **v2.2 — 2026-06-15, after Codex PR review.** Tightens Proposal 10's note lifecycle and naming model: recipient inboxes replace sender-specific filenames, `SYNC` and startup report every non-Resolved note, owner-authored notes use the same inboxes, the files are described as chronological logs rather than append-only, and the standing-approval text no longer refers to an undefined owner inbox. Also removes a Proposal 9 example that applied lifecycle status to a non-governed artifact and updates the document metadata to reflect all ten proposals.
 
@@ -425,11 +427,63 @@ This is not a replacement for direct chat — it's a durable place for instructi
 
 ---
 
+## 11. Session boundaries — formalize open and close rituals
+
+**Problem.** Two prompts already exist that bracket a working session — `prompts/CLAUDE_NEW_SESSION_PROMPT.md` and `prompts/CODEX_NEW_SESSION_PROMPT.md` (start) and `prompts/CLOSE_SESSION_PROMPT.md` (end). The start prompts are tracked on `main`. The close prompt currently lives only on the `claude/task-0011-drawn-response-eval-tooling` feature branch. Nothing in the team charter references either ritual, so:
+
+- The trigger phrasing the owner uses ("start a new cramapple session", "end cramapple session") works only because agents have internalized it from prior sessions, not because the charter documents it.
+- An agent that hasn't seen the convention has no canonical reference to follow.
+- The close ritual depends on a file that will only reach `main` if TASK-0011 merges first — a logically unrelated dependency.
+
+**Proposal.** Codify both rituals in the charter and promote the close prompt to `main` independently of TASK-0011.
+
+### 11a. Triggers
+
+- **Open:** the owner says any variant of "start a new \<project\> session" (e.g. "start a new cramapple session"). Agents respond by running the steps in `prompts/CLAUDE_NEW_SESSION_PROMPT.md` (Claude) or `prompts/CODEX_NEW_SESSION_PROMPT.md` (Codex): read current source-of-truth docs, report current task, approval state, blockers, and next action. This trigger is sync/orientation only — it does not authorize execution or imply owner approval.
+- **Close:** the owner says any variant of "end \<project\> session" or "close \<project\> session" (e.g. "end cramapple session"). Agents respond by running the 10-point closeout in `prompts/CLOSE_SESSION_PROMPT.md`: current task, what changed, what was verified, what remains open, blockers/risks, files changed, commands run with results, approval state, exact next step, do-not-touch scope. If the work is not ready to resume cleanly, the agent also refreshes a handoff packet per `HANDOFF_PACKET_TEMPLATE.md`.
+
+The close ritual is **not** owner approval. Like `SYNC` (Proposal 1) and the start-of-session ritual, it is sync/handoff only. Done decisions, QA pass decisions, deployment authorization, and other hard gates still follow the normal approval path.
+
+### 11b. Charter additions
+
+- `AI_COLLABORATION_RULES.md`, after the "Startup Rule" section, add a "Closeout Rule" section: "At the end of a working session, agents run the closeout reported in `prompts/CLOSE_SESSION_PROMPT.md`. The closeout records current state in GitHub before the session ends. It does not by itself authorize execution, approval, deployment, or task closure — those follow the normal approval path."
+- `AI_COLLABORATION_RULES.md`, "Startup Rule" section, append: "The owner's start-of-session trigger ('start a new \<project\> session') invokes this rule explicitly."
+- `TASK_WORKFLOW.md`, Status Values section, add a note that `Ready for Owner Review` and `Ready for QA` transitions trigger a closeout if they would end the session.
+
+### 11c. Prompt promotion
+
+`prompts/CLOSE_SESSION_PROMPT.md` is currently only on the `claude/task-0011-drawn-response-eval-tooling` branch. Adoption of Proposal 11 includes:
+
+1. Cherry-picking that file onto `main` directly (or onto whichever branch lands Proposal 11), so the close prompt is not dependent on TASK-0011 merging.
+2. Confirming `prompts/CLAUDE_NEW_SESSION_PROMPT.md` and `prompts/CODEX_NEW_SESSION_PROMPT.md` remain on `main` unchanged.
+
+### 11d. Why both rituals belong in the charter, not just the prompts directory
+
+Prompts are agent-facing operating instructions. The charter documents the rules they enforce. Without the charter reference:
+
+- Future agents may not know the prompts exist or that the trigger phrases are real commands.
+- The owner cannot reasonably hold an agent accountable for skipping the closeout if the rule never appears in the charter.
+- The `SYNC` handshake (Proposal 1) is already documented in `AI_COLLABORATION_RULES.md`; session-open and session-close are the same shape of operational handshake and deserve the same treatment.
+
+### 11e. Concrete edits
+
+- **Charter:** add the Closeout Rule subsection to `AI_COLLABORATION_RULES.md` and the trigger-phrase note to the existing Startup Rule.
+- **Prompts:** promote `prompts/CLOSE_SESSION_PROMPT.md` to `main` as a kit-level file.
+- **Recording:** the adoption is one `APPROVAL-NNNN` and one `DECISION-NNNN` in the cross-cutting bundle below; no separate per-rule records.
+
+### 11f. Alternatives considered
+
+- **Leave it implicit; let agents learn the convention.** Rejected: the team is adding agents and the convention is undocumented. The cost of one charter section is much less than the cost of every new agent discovering the closeout ritual by trial and error.
+- **Document closeout only in `CLAUDE.md` files at the project root.** Rejected: the charter docs are the source of truth for operating rules; `CLAUDE.md` is downstream context.
+- **Replace both prompts with inline charter text.** Rejected: prompts can be loaded into a session's context window directly; charter sections cannot. Both formats are needed for different consumers.
+
+---
+
 ## Cross-cutting recording requirements
 
-The owner may adopt this proposal as a single bundle, or as any explicitly listed subset of the ten items. The adoption — bundle or subset — is **one Hard Gate**, recorded with:
+The owner may adopt this proposal as a single bundle, or as any explicitly listed subset of the eleven items. The adoption — bundle or subset — is **one Hard Gate**, recorded with:
 
-- **One** `APPROVAL-NNNN` entry in `APPROVALS_LOG.md` that names the adopted items by number (e.g., "Adopts Proposals 1, 2, 3, 5, 6, 7, 8, 9, 10 from `docs/proposals/2026-06-14-team-charter-improvements.md`").
+- **One** `APPROVAL-NNNN` entry in `APPROVALS_LOG.md` that names the adopted items by number (e.g., "Adopts Proposals 1, 2, 3, 5, 6, 7, 8, 9, 10, 11 from `docs/proposals/2026-06-14-team-charter-improvements.md`").
 - **One** `DECISION-NNNN` entry in `DECISIONS_LOG.md` (Area: Operations) capturing rationale and consequences.
 - **One** `CHANGELOG.md` entry in `docs/team_charter/` (per Proposal 4) listing which proposal numbers landed and pointing back to the `APPROVAL-NNNN` and `DECISION-NNNN`.
 
