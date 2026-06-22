@@ -278,6 +278,115 @@
       margin-top: 28px;
     }
 
+    .auth-shell {
+      display: grid;
+      grid-template-columns: 1.08fr 0.92fr;
+      gap: 18px;
+      align-items: start;
+      margin-top: 26px;
+    }
+
+    .auth-hero {
+      position: relative;
+      overflow: hidden;
+      color: white;
+      background: linear-gradient(160deg, var(--brand), #24493a 72%);
+    }
+
+    .auth-hero::after {
+      content: "";
+      position: absolute;
+      right: -70px;
+      top: -88px;
+      width: 230px;
+      height: 230px;
+      border: 34px solid rgba(255, 255, 255, 0.08);
+      border-radius: 50%;
+    }
+
+    .auth-hero .eyebrow,
+    .auth-hero .muted {
+      color: #d8e7e0;
+    }
+
+    .auth-hero h3 {
+      font-size: 1.7rem;
+    }
+
+    .auth-points {
+      display: grid;
+      gap: 12px;
+      margin: 20px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .auth-points li {
+      display: grid;
+      grid-template-columns: 26px 1fr;
+      gap: 10px;
+      align-items: start;
+    }
+
+    .auth-point-mark {
+      width: 24px;
+      height: 24px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: var(--brand-dark);
+      background: white;
+      font-weight: 900;
+    }
+
+    .auth-card-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .auth-card {
+      display: grid;
+      gap: 10px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: white;
+    }
+
+    .auth-card strong {
+      font-size: 1.04rem;
+    }
+
+    .auth-card .muted {
+      font-size: 0.92rem;
+    }
+
+    .auth-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .field-hint {
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .inline-link {
+      padding: 0;
+      border: 0;
+      color: var(--brand);
+      background: transparent;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .account-summary {
+      display: grid;
+      gap: 12px;
+    }
+
     .account-check {
       width: 64px;
       height: 64px;
@@ -924,6 +1033,7 @@
       .grid,
       .grid.two,
       .registration-grid,
+      .auth-shell,
       .home-grid,
       .progress-grid,
       .form-grid {
@@ -989,6 +1099,10 @@
         normally appear at different moments.
       </p>
       <nav class="jump-list" aria-label="Jump to prototype screen">
+        <button type="button" data-screen="account-entry">Account entry</button>
+        <button type="button" data-screen="sign-up">Create account</button>
+        <button type="button" data-screen="sign-in">Sign in</button>
+        <button type="button" data-screen="reset-password">Reset password</button>
         <button type="button" data-screen="welcome">New student setup</button>
         <button type="button" data-screen="home">Returning home</button>
         <button type="button" data-screen="first-plan">First-session plan</button>
@@ -1014,7 +1128,187 @@
       </header>
 
       <div class="content">
-        <section class="screen active" id="welcome" tabindex="-1">
+        <section class="screen active" id="account-entry" tabindex="-1">
+          <p class="eyebrow">Account access</p>
+          <h2>Create your account or sign in.</h2>
+          <p class="lede">
+            Saving an account lets Cramapple restore your progress, keep your
+            work tied to the right student, and resume unfinished attempts.
+          </p>
+
+          <div class="auth-shell">
+            <article class="card auth-hero">
+              <p class="eyebrow">Student account</p>
+              <h3>One login for practice, feedback, and progress.</h3>
+              <p class="muted">
+                Start fresh, come back later, or reset your password without
+                losing the work already saved to your account.
+              </p>
+              <ul class="auth-points" aria-label="Account benefits">
+                <li>
+                  <span class="auth-point-mark" aria-hidden="true">1</span>
+                  <span>Save responses and resume unfinished work.</span>
+                </li>
+                <li>
+                  <span class="auth-point-mark" aria-hidden="true">2</span>
+                  <span>Keep your scores and feedback connected to one student record.</span>
+                </li>
+                <li>
+                  <span class="auth-point-mark" aria-hidden="true">3</span>
+                  <span>Recover access with a password reset if you forget it.</span>
+                </li>
+              </ul>
+            </article>
+
+            <div class="auth-card-grid">
+              <article class="auth-card">
+                <strong>Create a new account</strong>
+                <span class="muted">For a first-time student who wants to start a saved session.</span>
+                <div class="auth-actions">
+                  <button class="button primary" type="button" data-go="sign-up">
+                    Create account
+                  </button>
+                </div>
+              </article>
+              <article class="auth-card">
+                <strong>Sign in</strong>
+                <span class="muted">For a returning student who already has an account.</span>
+                <div class="auth-actions">
+                  <button class="button secondary" type="button" data-go="sign-in">
+                    Sign in
+                  </button>
+                </div>
+              </article>
+              <article class="auth-card">
+                <strong>Reset password</strong>
+                <span class="muted">For a student who cannot access an existing account.</span>
+                <div class="auth-actions">
+                  <button class="button ghost" type="button" data-go="reset-password">
+                    Send reset link
+                  </button>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="screen" id="sign-up" tabindex="-1">
+          <p class="eyebrow">Create account</p>
+          <h2>Set up your student account.</h2>
+          <p class="lede">
+            This only takes a minute. After the account is created, Cramapple
+            will move you into first-session setup so your work can be saved.
+          </p>
+
+          <div class="card">
+            <form id="sign-up-form">
+              <div class="form-grid">
+                <label>
+                  Full name
+                  <input type="text" id="signup-name" autocomplete="name" placeholder="Maya Rivera" required>
+                </label>
+                <label>
+                  Email
+                  <input type="email" id="signup-email" autocomplete="email" placeholder="maya@example.com" required>
+                </label>
+                <label>
+                  Password
+                  <input type="password" id="signup-password" autocomplete="new-password" placeholder="At least 8 characters" minlength="8" required>
+                </label>
+                <label>
+                  Confirm password
+                  <input type="password" id="signup-password-confirm" autocomplete="new-password" placeholder="Repeat password" minlength="8" required>
+                </label>
+              </div>
+              <div class="setup-note" style="margin-top: 16px">
+                <span aria-hidden="true">i</span>
+                <span><strong>We only use this account to save your work.</strong> You can reset the password later if you forget it.</span>
+              </div>
+              <div class="auth-actions">
+                <button class="button primary" type="submit">
+                  Create account
+                </button>
+                <button class="button secondary" type="button" data-go="account-entry">
+                  Back
+                </button>
+                <button class="inline-link" type="button" data-go="sign-in">
+                  Already have an account?
+                </button>
+              </div>
+            </form>
+          </div>
+        </section>
+
+        <section class="screen" id="sign-in" tabindex="-1">
+          <p class="eyebrow">Sign in</p>
+          <h2>Welcome back.</h2>
+          <p class="lede">
+            Sign in to resume your saved work, review scores, and keep moving
+            from where you left off.
+          </p>
+
+          <div class="card">
+            <form id="sign-in-form">
+              <div class="form-grid single">
+                <label>
+                  Email
+                  <input type="email" id="signin-email" autocomplete="email" placeholder="maya@example.com" required>
+                </label>
+                <label>
+                  Password
+                  <input type="password" id="signin-password" autocomplete="current-password" placeholder="Your password" required>
+                </label>
+              </div>
+              <label class="check-row" style="margin-top: 14px">
+                <input type="checkbox" id="signin-remember">
+                Keep me signed in on this device
+              </label>
+              <div class="auth-actions">
+                <button class="button primary" type="submit">
+                  Sign in
+                </button>
+                <button class="button secondary" type="button" data-go="account-entry">
+                  Back
+                </button>
+                <button class="inline-link" type="button" data-go="reset-password">
+                  Forgot password?
+                </button>
+              </div>
+            </form>
+          </div>
+        </section>
+
+        <section class="screen" id="reset-password" tabindex="-1">
+          <p class="eyebrow">Password reset</p>
+          <h2>We’ll send a reset link.</h2>
+          <p class="lede">
+            Use the email address tied to your student account. The link can be
+            used to set a new password and return to sign-in.
+          </p>
+
+          <div class="card">
+            <form id="reset-form">
+              <label>
+                Account email
+                <input type="email" id="reset-email" autocomplete="email" placeholder="maya@example.com" required>
+              </label>
+              <div class="setup-note" style="margin-top: 16px">
+                <span aria-hidden="true">i</span>
+                <span><strong>Security note:</strong> the reset link should expire after a short period and only work once.</span>
+              </div>
+              <div class="auth-actions">
+                <button class="button primary" type="submit">
+                  Send reset link
+                </button>
+                <button class="button secondary" type="button" data-go="sign-in">
+                  Back to sign in
+                </button>
+              </div>
+            </form>
+          </div>
+        </section>
+
+        <section class="screen" id="welcome" tabindex="-1">
           <div class="setup-progress" aria-label="Setup step 1 of 5">
             <span class="current"></span><span></span><span></span><span></span><span></span>
           </div>
@@ -1163,7 +1457,7 @@
         </section>
 
         <section class="screen" id="home" tabindex="-1">
-          <p class="eyebrow">Welcome back, Maya</p>
+          <p class="eyebrow" id="home-greeting">Welcome back, Maya</p>
           <h2>Make your next 12 minutes useful.</h2>
           <div class="home-grid">
             <article class="card recommendation">
@@ -1187,6 +1481,16 @@
             </article>
             <aside class="card">
               <h3>Today</h3>
+              <div class="account-summary">
+                <div class="stat">
+                  <strong id="home-account-name">Maya Rivera</strong>
+                  <span class="muted" id="home-account-email">maya@example.com</span>
+                </div>
+                <div class="stat">
+                  <strong>Account access</strong>
+                  <span class="muted">Resume saved work, reset your password, or sign out.</span>
+                </div>
+              </div>
               <div class="stat">
                 <strong>1 review due</strong>
                 <span class="muted">Cell communication</span>
@@ -1195,9 +1499,13 @@
                 <strong>30 minutes available</strong>
                 <span class="muted">Change session length</span>
               </div>
-              <div class="stat">
-                <strong>Bring a question</strong>
-                <span class="muted">Paste or type for this prototype</span>
+              <div class="auth-actions">
+                <button class="button secondary" type="button" data-go="reset-password">
+                  Reset password
+                </button>
+                <button class="button ghost" type="button" data-go="sign-in">
+                  Sign out
+                </button>
               </div>
             </aside>
           </div>
@@ -1748,7 +2056,14 @@
     const status = document.getElementById("status");
     const headerContext = document.getElementById("header-context");
     const headerDetail = document.getElementById("header-detail");
+    const homeGreeting = document.getElementById("home-greeting");
+    const homeAccountName = document.getElementById("home-account-name");
+    const homeAccountEmail = document.getElementById("home-account-email");
     const setupHeader = {
+      "account-entry": ["Account access", "Create or sign in"],
+      "sign-up": ["Account access", "Create account"],
+      "sign-in": ["Account access", "Sign in"],
+      "reset-password": ["Account access", "Reset password"],
       welcome: ["New account setup", "Step 1 of 5"],
       "exam-setup": ["New account setup", "Step 2 of 5"],
       intent: ["New account setup", "Step 3 of 5"],
@@ -1770,11 +2085,23 @@
       minutes: 30,
       start: "calibration"
     };
+    const authState = {
+      name: "Maya Rivera",
+      email: "maya@example.com"
+    };
     let statusTimer;
 
     function showScreen(id) {
       const target = document.getElementById(id);
       if (!target) return;
+
+      if (id === "sign-in") {
+        document.getElementById("signin-email").value = authState.email;
+      }
+
+      if (id === "reset-password") {
+        document.getElementById("reset-email").value = authState.email;
+      }
 
       screens.forEach((screen) => screen.classList.toggle("active", screen === target));
       jumpButtons.forEach((button) => {
@@ -1794,6 +2121,18 @@
       statusTimer = window.setTimeout(() => {
         status.hidden = true;
       }, 3500);
+    }
+
+    function syncAccountDisplay() {
+      if (homeGreeting) {
+        homeGreeting.textContent = `Welcome back, ${authState.name}`;
+      }
+      if (homeAccountName) {
+        homeAccountName.textContent = authState.name;
+      }
+      if (homeAccountEmail) {
+        homeAccountEmail.textContent = authState.email;
+      }
     }
 
     document.addEventListener("click", (event) => {
@@ -1860,6 +2199,65 @@
         return;
       }
       showScreen("intent");
+    });
+
+    document.getElementById("sign-up-form").addEventListener("submit", (event) => {
+      event.preventDefault();
+      const name = document.getElementById("signup-name");
+      const email = document.getElementById("signup-email");
+      const password = document.getElementById("signup-password");
+      const confirm = document.getElementById("signup-password-confirm");
+
+      if (!name.value.trim() || !email.value.trim() || !password.value || !confirm.value) {
+        showStatus("Fill out every field to create the account.");
+        return;
+      }
+      if (password.value.length < 8) {
+        showStatus("Use a password with at least 8 characters.");
+        return;
+      }
+      if (password.value !== confirm.value) {
+        showStatus("The passwords do not match.");
+        return;
+      }
+
+      authState.name = name.value.trim();
+      authState.email = email.value.trim();
+      syncAccountDisplay();
+      showStatus("Account created. Let’s set up the first session.");
+      showScreen("welcome");
+    });
+
+    document.getElementById("sign-in-form").addEventListener("submit", (event) => {
+      event.preventDefault();
+      const email = document.getElementById("signin-email");
+      const password = document.getElementById("signin-password");
+
+      if (!email.value.trim() || !password.value) {
+        showStatus("Enter your email and password to sign in.");
+        return;
+      }
+
+      authState.email = email.value.trim();
+      syncAccountDisplay();
+      showStatus("Signed in. Restoring your saved work.");
+      showScreen("home");
+    });
+
+    document.getElementById("reset-form").addEventListener("submit", (event) => {
+      event.preventDefault();
+      const email = document.getElementById("reset-email");
+
+      if (!email.value.trim()) {
+        showStatus("Enter the email address for the account.");
+        return;
+      }
+
+      authState.email = email.value.trim();
+      syncAccountDisplay();
+      document.getElementById("signin-email").value = authState.email;
+      showStatus("Reset link sent. Check your email, then return to sign in.");
+      showScreen("sign-in");
     });
 
     document.querySelector('[data-go="first-plan"]').addEventListener("click", () => {
@@ -2040,7 +2438,8 @@
       }
     });
 
-    showScreen("welcome");
+    syncAccountDisplay();
+    showScreen("account-entry");
   </script>
 </body>
 </html>

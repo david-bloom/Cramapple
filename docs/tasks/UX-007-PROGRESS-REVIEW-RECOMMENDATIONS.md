@@ -25,6 +25,8 @@ and recommendation history.
 - Define recommendation history and outcome trace.
 - Define misconception hypotheses and mixed-evidence states.
 - Define dispute, regrade, sparse-evidence, and empty states.
+- Define responsive behavior for desktop and mobile, including 390 CSS pixel
+  reflow.
 - Produce a Lovable-ready render brief without a prototype.
 
 ## Out of Scope
@@ -64,8 +66,12 @@ must remain separated from summary projections and future parent entitlements.
 - [x] Recommendation history preserves original reasoning and later outcomes.
 - [x] Misconceptions remain bounded hypotheses rather than learner labels.
 - [x] Disputes and corrected grades safely rebuild projections.
+- [x] Pending dispute and corrected-regrade states are visibly rendered.
 - [x] New, sparse, and no-review states are defined.
 - [x] Lovable-ready handoff is produced.
+- [x] Mobile and desktop layouts remain usable, with clear 390 CSS pixel
+  reflow.
+- [x] Overview cards avoid raw learner response text and official score claims.
 - [ ] Learning Quality, accessibility, privacy, security, and marketing review
   is completed.
 - [ ] Product Owner approves, revises, or rejects the final UX.
@@ -97,7 +103,15 @@ Primary records:
 - `docs/product/PROGRESS_REVIEW_RECOMMENDATIONS_DESIGN.md`
 - `prompts/LOVABLE_UX007_PROGRESS_REVIEW_RECOMMENDATIONS.md`
 
-No prototype is authorized by this task.
+Lovable should implement the route set, scenario coverage, and empty states in
+the prompt, including:
+
+- `/prototype/home`
+- `/prototype/review`
+- `/prototype/progress`
+- `/prototype/progress/skills/:skillId`
+- `/prototype/recommendations/:recommendationId`
+- `/prototype/recommendations/history`
 
 ## QA Review
 
@@ -107,4 +121,3 @@ Pending expert and Product Owner review.
 
 **Decision:** Pending
 **Date:** Pending
-

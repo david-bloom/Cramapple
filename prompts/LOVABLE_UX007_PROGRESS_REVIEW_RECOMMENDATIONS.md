@@ -111,6 +111,10 @@ Tabs:
 - Waiting for grading
 - Optional review
 
+Render these as distinct visible tabs or segmented sections, not as a flat
+mixed list. The five groups must stay separable in the UI and each group should
+have its own heading, count, and example card.
+
 Each card shows:
 
 - target;
@@ -248,6 +252,10 @@ Do not fill empty states with zero-percent charts.
 - Corrected regrade rebuild.
 - No review due.
 
+The pending-dispute and corrected-regrade states must be visibly rendered, not
+just referenced in copy. Show the original progress state while the dispute is
+pending, and show before/after projection changes when a regrade is corrected.
+
 ## Accessibility and Privacy
 
 - Full keyboard operation and visible focus.
@@ -259,4 +267,3 @@ Do not fill empty states with zero-percent charts.
 - No parent, teacher, classroom, or public-sharing view.
 - No official score prediction, mastery percentage, guaranteed gain, or
   production recommendation claim.
-
