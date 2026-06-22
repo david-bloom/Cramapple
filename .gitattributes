@@ -1,0 +1,6 @@
+# Git LFS configuration for large image assets in research and reference materials.
+# These directories contain high-resolution PNG files used in grading protocols and documentation.
+# Images committed before this rule existed remain in git history; future images use LFS.
+
+docs/research/DRAWN_RESPONSE_FRQs_v1.1_images/*.png filter=lfs diff=lfs merge=lfs -text
+prompts/DRG_P1_REFERENCE_IMAGES_assets/*.png filter=lfs diff=lfs merge=lfs -text
