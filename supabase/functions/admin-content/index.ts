@@ -133,6 +133,49 @@ function requireGate(
   return gate;
 }
 
+// Publish must fail closed. A gate value the client supplied is not yet a
+// trusted assertion — until we resolve gates from validation_runs /
+// review_decisions server-side, we at minimum require that the client say
+// every gate already passed (or, where allowed, is explicitly not applicable).
+//
+// TODO(task-0012-trusted-gates): replace this with a server-side resolution
+// pass that reads validation_runs, review_decisions, and rights_records for
+// the artifact_version_id and rejects publish unless those records show the
+// gate as passed. This stub keeps publish fail-closed against client-asserted
+// "pending" or "failed" values, but does not yet defend against a client
+// asserting "passed" when no validator actually approved.
+function enforceGatePolicy(gates: {
+  source_gate: string;
+  rights_gate: string;
+  teaching_gate: string;
+  grading_gate: string;
+  security_privacy_gate: string;
+  release_gate: string;
+}) {
+  const mustPass: Array<keyof typeof gates> = [
+    "source_gate",
+    "rights_gate",
+    "release_gate",
+  ];
+  for (const field of mustPass) {
+    if (gates[field] !== "passed") {
+      throw new Error(`gate_not_passed_${field}`);
+    }
+  }
+
+  const mayBeNotApplicable: Array<keyof typeof gates> = [
+    "teaching_gate",
+    "grading_gate",
+    "security_privacy_gate",
+  ];
+  for (const field of mayBeNotApplicable) {
+    const value = gates[field];
+    if (value !== "passed" && value !== "not_applicable") {
+      throw new Error(`gate_not_passed_${field}`);
+    }
+  }
+}
+
 async function nextArtifactVersionSequence(
   service: ReturnType<typeof createServiceClient>,
   artifactId: string,
@@ -560,6 +603,15 @@ async function changeArtifactState(
         ["pending", "passed", "failed"],
       );
 
+      enforceGatePolicy({
+        source_gate: sourceGate,
+        rights_gate: rightsGate,
+        teaching_gate: teachingGate,
+        grading_gate: gradingGate,
+        security_privacy_gate: securityPrivacyGate,
+        release_gate: releaseGate,
+      });
+
       const { data: releaseRow, error: releaseError } = await service.schema("app")
         .from("release_candidates")
         .insert({
@@ -682,10 +734,15 @@ Deno.serve(async (req) => {
   const payloadHash = await sha256Hex(JSON.stringify(body));
 
   try {
+    // Scope the lookup to (request_id, reason_code) to match the composite
+    // unique index added in migration 202606210001. reason_code at insert
+    // time is the operation (see audit_events insert below). Same request_id
+    // reused for a different operation is a separate audit row, not a conflict.
     const existing = await service.schema("app")
       .from("audit_events")
       .select("audit_event_id, metadata, request_id")
       .eq("request_id", idempotencyKey)
+      .eq("reason_code", operation)
       .maybeSingle();
 
     if (existing.error) {
@@ -738,6 +795,9 @@ Deno.serve(async (req) => {
       );
     }
 
+    // reason_code is canonical to the operation here so it aligns with the
+    // composite unique on (request_id, reason_code) and the dedup query
+    // above. Client-supplied reason text is preserved in metadata.
     await service.schema("app").from("audit_events").insert({
       audit_event_id: crypto.randomUUID(),
       occurred_at: new Date().toISOString(),
@@ -747,10 +807,11 @@ Deno.serve(async (req) => {
       object_type: "artifact",
       object_id: asString(result.artifact_version_id) ?? asString(result.artifact_id) ?? crypto.randomUUID(),
       request_id: idempotencyKey,
-      reason_code: asString((body as Record<string, unknown>).reason_code) ?? operation,
+      reason_code: operation,
       metadata: {
         operation,
         request_hash: payloadHash,
+        client_reason_code: asString((body as Record<string, unknown>).reason_code) ?? null,
         result,
       },
       event_sha256: await sha256Hex(JSON.stringify({ operation, requestHash: payloadHash, result })),
@@ -790,6 +851,12 @@ Deno.serve(async (req) => {
       "invalid_grading_gate",
       "invalid_security_privacy_gate",
       "invalid_release_gate",
+      "gate_not_passed_source_gate",
+      "gate_not_passed_rights_gate",
+      "gate_not_passed_teaching_gate",
+      "gate_not_passed_grading_gate",
+      "gate_not_passed_security_privacy_gate",
+      "gate_not_passed_release_gate",
     ]);
 
     return jsonResponse(
