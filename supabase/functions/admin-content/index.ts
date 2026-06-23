@@ -186,7 +186,7 @@ async function nextArtifactVersionSequence(
   service: ReturnType<typeof createServiceClient>,
   artifactId: string,
 ) {
-  const { data, error } = await service.rpc(
+  const { data, error } = await service.schema("app").rpc(
     "reserve_artifact_version_sequence",
     {
       p_artifact_id: artifactId,
@@ -554,9 +554,12 @@ async function changeArtifactState(
     throw new Error("artifact_not_found");
   }
 
-  const { data: currentState } = await service.rpc("project_artifact_state", {
-    p_artifact_version_id: currentVersionId,
-  });
+  const { data: currentState } = await service.schema("app").rpc(
+    "project_artifact_state",
+    {
+      p_artifact_version_id: currentVersionId,
+    },
+  );
   const priorState = asString(currentState) ?? "draft";
 
   const { error: stateError } = await service.schema("app").from(

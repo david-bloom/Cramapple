@@ -962,7 +962,7 @@ Deno.serve(async (req) => {
 
   if (!isMcq) {
     try {
-      usageRow = await service.rpc("reserve_model_usage", {
+      usageRow = await service.schema("app").rpc("reserve_model_usage", {
         p_request_id: idempotencyKey,
         p_request_hash: requestHash,
         p_model_id: modelId,
@@ -1179,7 +1179,7 @@ Deno.serve(async (req) => {
     };
   } finally {
     if (usageRow) {
-      await service.rpc("complete_model_usage", {
+      await service.schema("app").rpc("complete_model_usage", {
         p_request_id: idempotencyKey,
         p_request_hash: requestHash,
         p_status: finalStatus === "graded" ? "completed" : "failed",
