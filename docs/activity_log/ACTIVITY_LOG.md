@@ -1,6 +1,21 @@
 # Activity Log
 
-This log records meaningful operating activity, approvals, closeouts, blockers, and handoffs.
+This log records meaningful operating activity, approvals, closeouts, blockers, and handoffs. Newest entries are at the top.
+
+## Index
+
+Most recent entries (full reverse-chronological list follows below):
+
+- Beta Revised-Answer Scoring Bug Logged — 2026-06-16
+- Content Authoring and Revision Workbench Design Started — 2026-06-15
+- Student-Provided Question Intake Design Started — 2026-06-13
+- Question and Answer Review Portal Design Started — 2026-06-13
+- Drawn-Response Pilot V0 Preflight Blocked — 2026-06-13
+- Orly Drawn-Response Pilot Protocol Prepared — 2026-06-13
+
+**Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+(Note: branches with TASK-0012 production-readiness work in flight will have additional, newer entries on top of this log once that work lands on `main` separately — this index reflects `main`'s state at the time the charter changes below were adopted.)
 
 ---
 

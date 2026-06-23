@@ -4,6 +4,7 @@
 **Title:**
 **Owner:**
 **Product Owner:** David Bloom
+**Tier:** Micro / Standard / Hard-Gate
 **Status:** Not Started
 **Priority:** Low / Medium / High / Critical
 **Created Date:** YYYY-MM-DD
@@ -36,14 +37,18 @@
 ## Approval State
 
 **Approval Required:** Yes / No
-**Approval Type:** Standing / Batch / Hard Gate
+**Approval Type:** Standing / Batch (incl. SLA) / Delegated Domain / Hard Gate
 **Decision:** Pending
 
 ## Implementation Notes
 
 ## QA Review
 
+**QA Verdict:** Pending (Pass / Fail) — `Standard` and `Hard-Gate` tier only; `Micro` tier skips QA.
+
 ## Done Decision
 
 **Decision:** Pending
 **Date:** YYYY-MM-DD
+
+(`Micro` tier: log completion in `ACTIVITY_LOG.md` instead of a separate Done Decision record.)
