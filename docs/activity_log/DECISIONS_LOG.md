@@ -2,6 +2,21 @@
 
 This log records product, architecture, operating, security, design, and workflow decisions.
 
+## Index
+
+Most recent entries (full chronological list follows below):
+
+- DECISION-0028 — Auto-Trigger QA and Model Routing (Codex Proposal Folded In)
+- DECISION-0027 — Adopt Charter Simplification and Tiering (Pilot: Cramapple Only)
+- DECISION-0026 — Separate Authoring, Revision, and Independent Review
+- DECISION-0025 — Use a Verified Five-Stage Outside-Question Intake
+- DECISION-0024 — Use Staged Tutor and AP Reader Candidate Review
+- DECISION-0023 — Resolve Official Exam Dates from the Exam Specification
+
+**Rotation rule:** once this log exceeds ~600 lines, archive the older entries to `docs/activity_log/archive/DECISIONS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries. (This log is already well over that threshold — the first archive pass is overdue, not optional.)
+
+(Note: the TASK-0012 branch independently logged its own DECISION-0027/0028 — CORS/ALLOWED_ORIGINS and budget-burn semantics — under different numbers on its own branch. Those land separately when that work merges to `main`; this charter-adoption decision claimed 0027/0028 here because `main` had not yet recorded entries past DECISION-0026 at merge time. If both branches' numbering collides on merge, renumber on whichever side merges second and update this index.)
+
 ## Decision Format
 
 ```markdown
@@ -1053,3 +1068,78 @@ rights controls.
 - Provenance and rights checks can block submission without implying counsel
   approval.
 - UX-004 now identifies student-provided question intake.
+
+## DECISION-0027 — Adopt Charter Simplification and Tiering (Pilot: Cramapple Only)
+
+**Date:** 2026-06-23
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Related Task:** N/A (governance/process)
+**Area:** Operations
+
+### Context
+
+The AI Project Operating Kit, in production use on Cramapple and PassTo, had accumulated real friction: heavy approval ceremony routed entirely through the Product Owner, duplicated guidance across charter docs (most visibly the sync handshake, repeated near-verbatim in five files), self-reported "synced"/"done" claims with nothing checking them, and unrotated logs already running to 1,000+ lines. Two independent reviews (`docs/proposals/2026-06-14-team-charter-improvements.md` and `docs/proposals/2026-06-23-kit-simplification-memo.md`) converged on largely the same diagnosis but had six unreconciled points of conflict between them.
+
+### Decision
+
+Adopt, into Cramapple's `docs/team_charter/` only (the public `ai-project-operating-kit` repo is explicitly out of scope for this decision):
+
+- The full content of `docs/proposals/2026-06-23-kit-simplification-memo.md`.
+- Proposals 1, 2 (recording structure/SLA substrate, not its deferred automation), 3, 4, 5 (reconciled), 7, 8 (reconciled), and 9 of `docs/proposals/2026-06-14-team-charter-improvements.md`.
+- Not adopted: Proposal 6 and Proposal 10 of the 06-14 proposal — out of scope, not depended on by the simplification memo.
+
+Conflict resolutions (see `APPROVAL-0022` for full detail): the 6-state status taxonomy wins over keeping `QA Passed`/`QA Blocked` distinct, with Proposal 5's actual safety property (only the Main Conductor closes a task) preserved as a role rule; `APPROVALS_LOG.md` stays a separate file rather than merging into `DECISIONS_LOG.md`, since Proposal 2's structure is the substrate the new Standing-tier SLA depends on.
+
+### Rationale
+
+Both proposals identified the same root cause from different angles: high-stakes process machinery was being applied uniformly regardless of actual risk. The fix is conditional rigor, not less rigor — ambiguous-but-reversible work gets a clarifying question instead of an automatic hard gate; domain-specific decisions go to a named delegate instead of always to the Product Owner; small reversible work skips ceremony it doesn't need; sync claims get a real check instead of a narrated one; and the two governance docs that disagreed on six points needed to be reconciled before either was implementable, not adopted independently.
+
+### Consequences
+
+- Seven `docs/team_charter/` documents changed; `SKILLS_GUIDE.md` renamed to `TOOL_AND_INTEGRATION_GUIDE.md`; two new files added (`CHANGELOG.md`, `scripts/verify-sync.sh`); both new-session prompts updated; `docs/tasks/TASK_TEMPLATE.md` gained a `Tier` field; all three activity logs gained an index block and a stated (not yet executed) rotation rule.
+- Existing tasks and log entries are **not** retroactively rewritten onto the new status vocabulary or tiering scheme — old entries read under the rules in force when they were written.
+- The public `ai-project-operating-kit` repository is untouched. Upstreaming is a separate future decision, contingent on this pilot working in practice.
+
+### Risks / Follow-ups
+
+- Two leading indicators should be watched for a few weeks: hard-gate escalations per week, and QA round-trips per task. No tooling collects these automatically yet — this is currently a manual read of `APPROVALS_LOG.md` and `DECISIONS_LOG.md`.
+- `DECISIONS_LOG.md` is already roughly double its newly-stated rotation threshold (~600 lines); the first archive pass is overdue and not done as part of this decision.
+- Proposal 2's batch-approval expiration automation, Proposal 6, and Proposal 10 (Cross-Agent Notes) remain candidates for separate future decisions.
+- This decision does not authorize pushing any of this work to `github.com/david-bloom/ai-project-operating-kit`.
+
+## DECISION-0028 — Auto-Trigger QA and Model Routing (Codex Proposal Folded In)
+
+**Date:** 2026-06-23
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Related Task:** N/A (governance/process)
+**Area:** Operations
+
+### Context
+
+`docs/proposals/2026-06-23-agent-routing-and-qa-proposal-for-claude.md` (Codex) observed that the charter adopted under DECISION-0027, while reducing approval ceremony, still left QA-triggering and model selection as things someone had to remember to ask for, rather than automatic workflow steps — a residual source of avoidable waiting.
+
+### Decision
+
+Fold into `AGENT_OPERATING_MODEL.md`:
+
+- The Main Conductor auto-triggers QA for any `Standard`/`Hard-Gate` tier task reaching `Ready for Review`; `Micro` tier QA remains optional at the conductor's judgment.
+- The Main Conductor auto-applies the Model and Effort Policy per agent call rather than asking the Product Owner to pick a model each time.
+- Explicit good-use/bad-use guidance for spawning additional agents, and three new Anti-Patterns reflecting the above.
+
+The proposal's guardrail requiring the orchestrator to record which model was used and why on every call was narrowed to: record only on deviation from the default tier.
+
+### Rationale
+
+Auto-triggering QA and model selection removes waiting without removing any approval boundary — QA was already Lane 1 standing-approved, this just makes it fire automatically instead of on request, and model choice was never itself a hard-gated decision. Recording every routine model choice would have reintroduced exactly the ceremony DECISION-0027 was trying to remove; recording only deviations keeps the audit trail useful instead of noisy.
+
+### Consequences
+
+- `AGENT_OPERATING_MODEL.md` gains explicit auto-trigger language in the Main Conductor and QA Agent sections, a narrowed recording requirement in Model and Effort Policy, agent-spawning good-use/bad-use guidance in the Default Pattern section, and three new Anti-Patterns.
+- No change to any Hard Gate, Standing Approval Lane, or Delegated Domain Approval boundary from DECISION-0027 — this decision is additive process automation, not a new approval grant.
+
+### Risks / Follow-ups
+
+- If auto-triggered QA produces a backlog of QA work outpacing available QA-agent capacity, revisit whether `Standard` tier should auto-trigger QA at the same rate as `Hard-Gate` tier, or whether `Standard` should batch.
+- Same success metrics as DECISION-0027 (hard-gate escalations/week, QA round-trips/task) apply; no new metric introduced for this decision specifically.
