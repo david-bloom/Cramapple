@@ -71,20 +71,22 @@ Must not:
 
 Use for:
 
-- Ready-for-QA tasks.
+- Tasks at `Ready for Review` (tier: Standard or Hard-Gate).
 - Re-QA after remediation.
 - Independent skeptical review.
 
+**QA must be a genuinely fresh, independent context — not a relabeled continuation of the implementer's own thread.** That independence is the actual mechanism that catches blind spots; a QA pass run in the same context as the implementation is QA in name only.
+
 Returns:
 
-1. Proposed verdict.
+1. Proposed verdict (Pass / Fail).
 2. Blocking findings.
 3. Non-blocking risks/test gaps.
 4. Evidence reviewed.
 5. Required remediation or next action.
 6. Remaining approval boundaries.
 
-Must not publish, approve, close, mark passed, deploy, migrate, or alter live state.
+May set status to `Blocked` when QA cannot proceed. Must not publish, approve, close, set status to `Done` or `Do Not Do`, deploy, migrate, or alter live state — see `AI_COLLABORATION_RULES.md`.
 
 ## UX / Prompt Agent
 
@@ -96,18 +98,39 @@ Use for:
 - Design-system risks.
 - Client/backend contract clarity.
 
-## Manual Sync Handshake
+## Manual Sync Handshake — `SYNC`
 
-If the project enables an optional manual sync handshake, such as `C` or `c`, agents treat it as a request to refresh from source-of-truth records and report state.
+The project's manual sync handshake is `SYNC` (uppercase, standalone — replaces the earlier `C`/`c` convention, which was too easy to trigger by accident). Agents treat it as a request to refresh from source-of-truth records and report state.
 
 The main conductor should use the handshake to:
 
 - Re-read relevant GitHub docs, task files, issues, and logs.
+- Check `docs/team_charter/CHANGELOG.md` for changes since the last read.
 - Confirm approval boundaries.
 - Identify blockers and next action.
 - Decide whether a handoff packet or side-agent review is needed.
 
 Side agents and QA agents may respond to the handshake with evidence and proposed findings only. The handshake does not grant authority to execute, publish, approve, close, mark passed, or launch.
+
+## Model and Effort Policy
+
+Match reasoning depth to risk, not to role title, and keep the policy portable across whichever harness is in use (Claude, Codex, Lovable, or others):
+
+- **Fast/default tier** — drafting, routine edits, summaries, straightforward implementation support, handoff-packet and task-spec scaffolding.
+- **Strongest available tier** — final QA verdicts, hard-gate classification, Main Conductor judgment calls, and any ambiguous or sensitive policy reasoning. These are low-frequency, high-blast-radius decisions; they're exactly where extra reasoning depth earns its cost.
+- **Deterministic scripts and tools** — whenever the task can be made mechanical (e.g. `scripts/verify-sync.sh`), prefer a script over an agent narrating compliance.
+
+Don't keep additional model/effort variants beyond this unless they earn their place with a measurable quality or cost win.
+
+## Task Tiers
+
+Every task gets a tier, set at creation:
+
+- **Micro** — standing-approved, reversible, low blast radius. Skips the handoff packet; uses a minimal status path (`Not Started` → `In Progress` → `Done`); logged, not packeted.
+- **Standard** — the default workflow: handoff packets where meaningful, full status path, QA as needed.
+- **Hard-Gate** — Standard workflow plus explicit Product Owner (or delegated domain approver) sign-off before `Done`.
+
+A diff touching only docs, tests, or an already-low-risk path may be tagged `Micro` by file-pattern alone rather than requiring a fresh judgment call every time.
 
 ## Anti-Patterns
 
@@ -116,3 +139,6 @@ Side agents and QA agents may respond to the handshake with evidence and propose
 - Giving agents overlapping write scopes.
 - Treating QA pass as launch approval.
 - Relying on chat-only memory.
+- Running QA in the same context/thread as the implementation it's reviewing.
+- Defaulting ambiguous-but-reversible work to a hard gate instead of asking a clarifying question.
+- Applying Hard-Gate ceremony to Micro-tier work, or skipping QA on Hard-Gate work to save time.

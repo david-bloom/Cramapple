@@ -1,8 +1,39 @@
 # Activity Log
 
-This log records meaningful operating activity, approvals, closeouts, blockers, and handoffs.
+This log records meaningful operating activity, approvals, closeouts, blockers, and handoffs. Newest entries are at the top.
+
+## Index
+
+Most recent entries (full reverse-chronological list follows below):
+
+- Production Readiness QA Handoff — 2026-06-21
+- Cramapple Visual Identity Brief Revised From Family Discussion — 2026-06-21
+- Session and Storage Backend Surfaces Wired — 2026-06-21
+- Cramapple Visual Identity Brief Drafted — 2026-06-21
+- Production Plumbing Session Handoff — 2026-06-20
+- Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
+
+**Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 ---
+
+## Production Readiness QA Handoff - 2026-06-21
+
+**Task:** TASK-0012 / production-readiness review
+**Status:** Handoff Logged; Live Function Boundary Still Unverified End-to-End
+**Summary:** Captured the current state so the next session can resume cleanly. The local repo is on `claude/task-0012-qa-fixes` at `c5a4f93`, and PR #12 fixes are present locally: audit-event idempotency now scopes to `(request_id, reason_code)` via `supabase/migrations/202606210001_audit_events_idempotency_per_operation.sql`, and shared Supabase env validation now fails fast at module load in `supabase/functions/_shared/supabase.ts`. Live Vercel route checks for `/beta/start`, `/beta/resume`, and `/beta/admin/health` returned `200`, but direct POSTs to `https://cugmpcpdeqkaqmyyqujx.supabase.co/functions/v1/session-event`, `/evaluate-attempt`, and `/admin-content` returned `404 NOT_FOUND`, so the configured Supabase project still does not expose the expected function endpoints. The code review also established that the repo contains no `useServerFn`, `createServerFn`, or `_serverFn` call sites, so any remaining Lovable backend coupling would have to be confirmed in the live runtime/network tab, not from source alone.
+
+**Next Owner:** Main Conductor / Claude QA
+**Next Required Action:** Verify the live beta network path against the intended Supabase function origin, confirm beta/prod Supabase isolation in the dashboards, and enumerate any remaining `admin-content` defects as explicit checklist items before cutover.
+
+## Cramapple Visual Identity Brief Revised From Family Discussion - 2026-06-21
+
+**Task:** No tracked task number yet (brand/visual identity work; not yet filed under docs/tasks)
+**Status:** Brief Revised; Color/Mark Direction Still Unresolved
+**Summary:** Transcribed a full-family recorded brand discussion (David, Orly, Micah, Nama, plus the kids as target-user panel) and revised `docs/product/CRAMAPPLE_VISUAL_IDENTITY_BRIEF.md` against it. Changes: added buyer-timing segmentation (2-month/1-month/cram cohorts) plus an ongoing-class-support segment; flagged an open, unresolved question on whether parents should lead messaging over students, especially early in the cycle; added explicit voice guidance to not lead with "AI" as the sell and to use the family/primary-source story as evidence of rigor rather than founder-story novelty; clarified that "feels like a really good tutor" is an interaction-tone target distinct from the Apple/Chrome visual-brand-temperature target; added semantic/functional color use for criterion-level grading feedback (correct/partial/incorrect) as a deliberate palette exception; added a seasonal grade-now/exam-later copy framing note; and flagged programmatic per-question SEO landing pages as a real design-system requirement needing a template. Color palette (mono+green leaning) and logo mark (Option A vs. B) from the prior session remain unresolved and untouched by this revision.
+
+**Next Owner:** David Bloom
+**Next Required Action:** Resolve the buyer-order open question (student-first vs. parent-first messaging) and confirm or amend the new Voice/Color additions; separately, still owes a decision on the mono+green palette and mark Option A/B from the prior session.
 
 ## Cramapple Visual Identity Brief Revised From Family Discussion - 2026-06-21
 

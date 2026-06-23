@@ -2,6 +2,19 @@
 
 This log records product, architecture, operating, security, design, and workflow decisions.
 
+## Index
+
+Most recent entries (full chronological list follows below):
+
+- DECISION-0029 — Adopt Charter Simplification and Tiering (Pilot: Cramapple Only)
+- DECISION-0028 — Failed/Rejected Grading Burns the Daily Budget Cap When Cost Is Known
+- DECISION-0027 — ALLOWED_ORIGINS Required in All Environments; No Wildcard CORS Fallback
+- DECISION-0026 — Separate Authoring, Revision, and Independent Review
+- DECISION-0025 — Use a Verified Five-Stage Outside-Question Intake
+- DECISION-0024 — Use Staged Tutor and AP Reader Candidate Review
+
+**Rotation rule:** once this log exceeds ~600 lines, archive the older entries to `docs/activity_log/archive/DECISIONS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries. (This log is already at roughly double that threshold as of this rule's adoption — the first archive pass is overdue, not optional; see the recorded decision adopting this rule for the cutover task.)
+
 ## Decision Format
 
 ```markdown
@@ -1181,3 +1194,42 @@ Reservation-release behavior (`reserved_cost_usd` reduction on the
   changed) plus manual schema cross-reference against
   `202606210004_daily_budget_row_lock.sql` and
   `202606210008_reserve_model_usage_race_fix.sql`.
+
+## DECISION-0029 — Adopt Charter Simplification and Tiering (Pilot: Cramapple Only)
+
+**Date:** 2026-06-23
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Related Task:** N/A (governance/process)
+**Area:** Operations
+
+### Context
+
+The AI Project Operating Kit, in production use on Cramapple and PassTo, had accumulated real friction: heavy approval ceremony routed entirely through the Product Owner, duplicated guidance across charter docs (most visibly the sync handshake, repeated near-verbatim in five files), self-reported "synced"/"done" claims with nothing checking them, and unrotated logs already running to 1,000+ lines. Two independent reviews (`docs/proposals/2026-06-14-team-charter-improvements.md` and `docs/proposals/2026-06-23-kit-simplification-memo.md`) converged on largely the same diagnosis but had six unreconciled points of conflict between them.
+
+### Decision
+
+Adopt, into Cramapple's `docs/team_charter/` only (the public `ai-project-operating-kit` repo is explicitly out of scope for this decision):
+
+- The full content of `docs/proposals/2026-06-23-kit-simplification-memo.md`.
+- Proposals 1, 2 (recording structure/SLA substrate, not its deferred automation), 3, 4, 5 (reconciled), 7, 8 (reconciled), and 9 of `docs/proposals/2026-06-14-team-charter-improvements.md`.
+- Not adopted: Proposal 6 and Proposal 10 of the 06-14 proposal — out of scope, not depended on by the simplification memo.
+
+Conflict resolutions (see `APPROVAL-0022` for full detail): the 6-state status taxonomy wins over keeping `QA Passed`/`QA Blocked` distinct, with Proposal 5's actual safety property (only the Main Conductor closes a task) preserved as a role rule; `APPROVALS_LOG.md` stays a separate file rather than merging into `DECISIONS_LOG.md`, since Proposal 2's structure is the substrate the new Standing-tier SLA depends on.
+
+### Rationale
+
+Both proposals identified the same root cause from different angles: high-stakes process machinery was being applied uniformly regardless of actual risk. The fix is conditional rigor, not less rigor — ambiguous-but-reversible work gets a clarifying question instead of an automatic hard gate; domain-specific decisions go to a named delegate instead of always to the Product Owner; small reversible work skips ceremony it doesn't need; sync claims get a real check instead of a narrated one; and the two governance docs that disagreed on six points needed to be reconciled before either was implementable, not adopted independently.
+
+### Consequences
+
+- Seven `docs/team_charter/` documents changed; `SKILLS_GUIDE.md` renamed to `TOOL_AND_INTEGRATION_GUIDE.md`; two new files added (`CHANGELOG.md`, `scripts/verify-sync.sh`); both new-session prompts updated; `docs/tasks/TASK_TEMPLATE.md` gained a `Tier` field; all three activity logs gained an index block and a stated (not yet executed) rotation rule.
+- Existing tasks and log entries are **not** retroactively rewritten onto the new status vocabulary or tiering scheme — old entries read under the rules in force when they were written.
+- The public `ai-project-operating-kit` repository is untouched. Upstreaming is a separate future decision, contingent on this pilot working in practice.
+
+### Risks / Follow-ups
+
+- Two leading indicators should be watched for a few weeks: hard-gate escalations per week, and QA round-trips per task. No tooling collects these automatically yet — this is currently a manual read of `APPROVALS_LOG.md` and `DECISIONS_LOG.md`.
+- `DECISIONS_LOG.md` is already roughly double its newly-stated rotation threshold (~600 lines); the first archive pass is overdue and not done as part of this decision.
+- Proposal 2's batch-approval expiration automation, Proposal 6, and Proposal 10 (Cross-Agent Notes) remain candidates for separate future decisions.
+- This decision does not authorize pushing any of this work to `github.com/david-bloom/ai-project-operating-kit`.

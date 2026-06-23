@@ -2,15 +2,32 @@
 
 This log records approvals, rejections, Done decisions, and risk acceptances.
 
+## Index
+
+Most recent entries (full chronological list follows below):
+
+- APPROVAL-0022 — Charter Simplification and Tiering Adoption
+- APPROVAL-0021 — Start Content Authoring and Revision Workbench Design
+- APPROVAL-0020 — Start Student-Provided Question Intake Design
+- APPROVAL-0019 — Start Question and Answer Review Portal Design
+- APPROVAL-0018 — Use Official Exam Dates and Confirm Registration
+- APPROVAL-0017 — Start Initial Product UX Design
+
+**Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
+
 ## Approval Format
 
 ```markdown
 ## APPROVAL-0000 — Approval Title
 
 **Date:** YYYY-MM-DD
-**Approved By:** David Bloom
+**Approved By:** David Bloom / [Delegated Domain Approver name]
 **Related Task:** TASK-0000 / N/A
-**Decision:** Approved / Rejected / Approved with Notes / Done / Not Done / Do Not Do
+**Decision:** Approved / Rejected / Approved with Notes / Done / Not Done / Do Not Do / Approved (Batch) / Approved (Domain)
+**Decided By:** (required when Decision is Approved (Domain) — names the domain approver)
+**Applies To:** (required when Decision is Approved (Batch) or Approved (Domain) — agents/roles/tasks the approval covers)
+**Expires / Review Trigger:** (required when Decision is Approved (Batch) or Approved (Domain); end-of-day inclusive, America/New_York, or a named condition)
+**Status:** Active / Expired / Superseded (required when Decision is Approved (Batch) or Approved (Domain))
 
 ### Summary
 
@@ -20,6 +37,8 @@ What was approved or rejected?
 
 -
 ```
+
+**Conflict rule:** if `Expires` has passed but `Status` still reads `Active`, the approval is treated as expired regardless of the recorded status — the date wins. `Status: Superseded` overrides date-based validity even before expiration.
 
 ## APPROVAL-0001 — Adopt AI Project Operating Kit and GitHub Source of Truth
 
@@ -484,3 +503,25 @@ new versions for independent reassessment.
   approval.
 - This approval does not authorize production uploads, storage, database
   design, contracting, payment, review assignment, publication, or deployment.
+
+## APPROVAL-0022 — Charter Simplification and Tiering Adoption
+
+**Date:** 2026-06-23
+**Approved By:** David Bloom
+**Related Task:** N/A (governance/process, not a product task)
+**Decision:** Approved
+
+### Summary
+
+Adopts, as a single bundle, into Cramapple's `docs/team_charter/` (pilot project; the public `ai-project-operating-kit` repo is untouched pending results):
+
+- All eleven "What To Simplify" items plus the Rollout Sequencing, Success Metrics, and "Other Ways To Move Development Faster" sections of `docs/proposals/2026-06-23-kit-simplification-memo.md`.
+- Proposals 1, 2 (recording structure and SLA substrate only — not its automation, per the proposal's own v2 resolution), 3, 4, 5 (reconciled — see Notes), 7, 8 (reconciled), and 9 of `docs/proposals/2026-06-14-team-charter-improvements.md`.
+- Explicitly **not** adopted: Proposal 6 (Definition of Done test-evidence wording) and Proposal 10 (Cross-Agent Notes) — neither is depended on by the simplification memo; left for separate consideration.
+
+### Notes
+
+- **Status taxonomy conflict resolution:** the simplification memo's 6-state collapse was adopted over Proposals 5 and 8's status-preservation approach. Proposal 5's actual safety property (QA cannot unilaterally close a task) survives as a role rule in `AI_COLLABORATION_RULES.md` — only the Main Conductor sets `Done` — rather than as a dedicated `QA Passed` status word. Proposal 8's `Do Not Do` definition was kept; its `QA Blocked` distinction was folded into `Blocked`.
+- **Log-count question resolution:** Proposal 2's purpose-built `APPROVALS_LOG.md` structure was kept as-is (not merged into `DECISIONS_LOG.md`) — it's the substrate the new Standing-tier SLA depends on.
+- This approval does not authorize pushing any of this to the public `ai-project-operating-kit` repository. That remains a separate, later decision once the pilot is proven on new Cramapple tasks.
+- `DECISIONS_LOG.md` is already roughly double its newly-adopted rotation threshold; the first archive pass is a follow-up, not done as part of this approval.
