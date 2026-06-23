@@ -18,4 +18,3 @@ export interface DraftFunctionEnvelope<T = Record<string, unknown>> {
   message?: string;
   data?: T;
 }
-

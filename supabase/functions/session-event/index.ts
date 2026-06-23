@@ -33,8 +33,13 @@ function asInteger(value: unknown) {
 }
 
 async function sha256Hex(value: string) {
-  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(value));
-  return Array.from(new Uint8Array(digest)).map((byte) => byte.toString(16).padStart(2, "0")).join("");
+  const digest = await crypto.subtle.digest(
+    "SHA-256",
+    new TextEncoder().encode(value),
+  );
+  return Array.from(new Uint8Array(digest)).map((byte) =>
+    byte.toString(16).padStart(2, "0")
+  ).join("");
 }
 
 function safeSessionShape(session: Record<string, unknown>) {
@@ -119,28 +124,35 @@ async function recordSessionEvent(
       result,
       ...detail,
     },
-    event_sha256: await sha256Hex(JSON.stringify({ operation, requestHash, result, detail })),
+    event_sha256: await sha256Hex(
+      JSON.stringify({ operation, requestHash, result, detail }),
+    ),
     created_at: new Date().toISOString(),
   });
 }
 
 Deno.serve(async (req) => {
+  const respond = (body: unknown, init: ResponseInit = {}) =>
+    jsonResponse(body, init, req);
+
   if (req.method === "OPTIONS") {
-    return jsonResponse({ ok: true }, { status: 200 });
+    return respond({ ok: true }, { status: 200 });
   }
 
   if (req.method !== "POST") {
-    return jsonResponse({ error: "method_not_allowed" }, { status: 405 });
+    return respond({ error: "method_not_allowed" }, { status: 405 });
   }
 
   const body = await readJsonBody(req);
   if (!body || typeof body !== "object" || Array.isArray(body)) {
-    return jsonResponse({ error: "invalid_json" }, { status: 400 });
+    return respond({ error: "invalid_json" }, { status: 400 });
   }
 
-  const operation = asString((body as Record<string, unknown>).operation) as SessionOperation | null;
+  const operation = asString((body as Record<string, unknown>).operation) as
+    | SessionOperation
+    | null;
   if (!operation || !allowedOperations.has(operation)) {
-    return jsonResponse({ error: "invalid_operation" }, { status: 400 });
+    return respond({ error: "invalid_operation" }, { status: 400 });
   }
 
   const idempotencyKey = asString(
@@ -150,25 +162,30 @@ Deno.serve(async (req) => {
       (body as Record<string, unknown>).requestId,
   );
   if (!idempotencyKey) {
-    return jsonResponse({ error: "missing_idempotency_key" }, { status: 400 });
+    return respond({ error: "missing_idempotency_key" }, { status: 400 });
   }
 
   const profileResult = await loadProfile(req);
   if (!profileResult) {
-    return jsonResponse({ error: "unauthorized" }, { status: 401 });
+    return respond({ error: "unauthorized" }, { status: 401 });
   }
 
   const service = createServiceClient();
   const requestHash = await sha256Hex(JSON.stringify(body));
   const profileId = profileResult.user.id;
 
-  const deduped = await loadIdempotentResult(service, idempotencyKey, requestHash, operation);
+  const deduped = await loadIdempotentResult(
+    service,
+    idempotencyKey,
+    requestHash,
+    operation,
+  );
   if (deduped) {
     if ("conflict" in deduped) {
-      return jsonResponse({ error: "idempotency_conflict" }, { status: 409 });
+      return respond({ error: "idempotency_conflict" }, { status: 409 });
     }
 
-    return jsonResponse(
+    return respond(
       {
         status: "ok",
         function: "session-event",
@@ -181,7 +198,7 @@ Deno.serve(async (req) => {
 
   try {
     if (operation === "attach_anonymous_session") {
-      return jsonResponse(
+      return respond(
         {
           status: "unsupported",
           function: "session-event",
@@ -194,13 +211,22 @@ Deno.serve(async (req) => {
     }
 
     if (operation === "session_start") {
-      const examPackVersionId = asUuid((body as Record<string, unknown>).exam_pack_version_id);
+      const examPackVersionId = asUuid(
+        (body as Record<string, unknown>).exam_pack_version_id,
+      );
       const entryPath = asString((body as Record<string, unknown>).entry_path);
-      const sessionMode = asString((body as Record<string, unknown>).session_mode);
-      const availableMinutes = asInteger((body as Record<string, unknown>).available_minutes);
+      const sessionMode = asString(
+        (body as Record<string, unknown>).session_mode,
+      );
+      const availableMinutes = asInteger(
+        (body as Record<string, unknown>).available_minutes,
+      );
 
-      if (!examPackVersionId || !entryPath || !sessionMode || availableMinutes === null) {
-        return jsonResponse(
+      if (
+        !examPackVersionId || !entryPath || !sessionMode ||
+        availableMinutes === null
+      ) {
+        return respond(
           {
             error: "missing_required_fields",
             required: [
@@ -224,7 +250,9 @@ Deno.serve(async (req) => {
           available_minutes: availableMinutes,
           status: "active",
         })
-        .select("id, user_id, exam_pack_version_id, entry_path, session_mode, available_minutes, status, started_at, ended_at, created_at, updated_at")
+        .select(
+          "id, user_id, exam_pack_version_id, entry_path, session_mode, available_minutes, status, started_at, ended_at, created_at, updated_at",
+        )
         .maybeSingle();
 
       if (error || !inserted) {
@@ -232,12 +260,21 @@ Deno.serve(async (req) => {
       }
 
       const result = safeSessionShape(inserted as Record<string, unknown>);
-      await recordSessionEvent(service, idempotencyKey, requestHash, profileId, operation, result, inserted.id as string, {
-        entry_path: entryPath,
-        session_mode: sessionMode,
-      });
+      await recordSessionEvent(
+        service,
+        idempotencyKey,
+        requestHash,
+        profileId,
+        operation,
+        result,
+        inserted.id as string,
+        {
+          entry_path: entryPath,
+          session_mode: sessionMode,
+        },
+      );
 
-      return jsonResponse(
+      return respond(
         {
           status: "ok",
           function: "session-event",
@@ -255,30 +292,41 @@ Deno.serve(async (req) => {
         (body as Record<string, unknown>).studySessionId,
     );
     if (!sessionId) {
-      return jsonResponse({ error: "missing_session_id" }, { status: 400 });
+      return respond({ error: "missing_session_id" }, { status: 400 });
     }
 
     const { data: session, error: sessionError } = await service.schema("app")
       .from("learning_sessions")
-      .select("id, user_id, exam_pack_version_id, entry_path, session_mode, available_minutes, status, started_at, ended_at, created_at, updated_at")
+      .select(
+        "id, user_id, exam_pack_version_id, entry_path, session_mode, available_minutes, status, started_at, ended_at, created_at, updated_at",
+      )
       .eq("id", sessionId)
       .maybeSingle();
 
     if (sessionError || !session) {
-      return jsonResponse({ error: "not_found" }, { status: 404 });
+      return respond({ error: "not_found" }, { status: 404 });
     }
 
     if (session.user_id !== profileId) {
-      return jsonResponse({ error: "forbidden" }, { status: 403 });
+      return respond({ error: "forbidden" }, { status: 403 });
     }
 
     if (operation === "session_resume") {
       const result = safeSessionShape(session as Record<string, unknown>);
-      await recordSessionEvent(service, idempotencyKey, requestHash, profileId, operation, result, sessionId, {
-        resumed: true,
-      });
+      await recordSessionEvent(
+        service,
+        idempotencyKey,
+        requestHash,
+        profileId,
+        operation,
+        result,
+        sessionId,
+        {
+          resumed: true,
+        },
+      );
 
-      return jsonResponse(
+      return respond(
         {
           status: "ok",
           function: "session-event",
@@ -294,7 +342,9 @@ Deno.serve(async (req) => {
         .from("learning_sessions")
         .update({ status: session.status })
         .eq("id", sessionId)
-        .select("id, user_id, exam_pack_version_id, entry_path, session_mode, available_minutes, status, started_at, ended_at, created_at, updated_at")
+        .select(
+          "id, user_id, exam_pack_version_id, entry_path, session_mode, available_minutes, status, started_at, ended_at, created_at, updated_at",
+        )
         .maybeSingle();
 
       if (saveError || !touched) {
@@ -302,11 +352,20 @@ Deno.serve(async (req) => {
       }
 
       const result = safeSessionShape(touched as Record<string, unknown>);
-      await recordSessionEvent(service, idempotencyKey, requestHash, profileId, operation, result, sessionId, {
-        saved: true,
-      });
+      await recordSessionEvent(
+        service,
+        idempotencyKey,
+        requestHash,
+        profileId,
+        operation,
+        result,
+        sessionId,
+        {
+          saved: true,
+        },
+      );
 
-      return jsonResponse(
+      return respond(
         {
           status: "ok",
           function: "session-event",
@@ -317,9 +376,10 @@ Deno.serve(async (req) => {
       );
     }
 
-    const endStatus = asString((body as Record<string, unknown>).status) === "archived"
-      ? "archived"
-      : "completed";
+    const endStatus =
+      asString((body as Record<string, unknown>).status) === "archived"
+        ? "archived"
+        : "completed";
 
     const { data: ended, error: endError } = await service.schema("app")
       .from("learning_sessions")
@@ -328,7 +388,9 @@ Deno.serve(async (req) => {
         ended_at: new Date().toISOString(),
       })
       .eq("id", sessionId)
-      .select("id, user_id, exam_pack_version_id, entry_path, session_mode, available_minutes, status, started_at, ended_at, created_at, updated_at")
+      .select(
+        "id, user_id, exam_pack_version_id, entry_path, session_mode, available_minutes, status, started_at, ended_at, created_at, updated_at",
+      )
       .maybeSingle();
 
     if (endError || !ended) {
@@ -336,11 +398,20 @@ Deno.serve(async (req) => {
     }
 
     const result = safeSessionShape(ended as Record<string, unknown>);
-    await recordSessionEvent(service, idempotencyKey, requestHash, profileId, operation, result, sessionId, {
-      final_status: endStatus,
-    });
+    await recordSessionEvent(
+      service,
+      idempotencyKey,
+      requestHash,
+      profileId,
+      operation,
+      result,
+      sessionId,
+      {
+        final_status: endStatus,
+      },
+    );
 
-    return jsonResponse(
+    return respond(
       {
         status: "ok",
         function: "session-event",
@@ -350,7 +421,9 @@ Deno.serve(async (req) => {
       { status: 200 },
     );
   } catch (error) {
-    const message = error instanceof Error ? error.message : "session_event_failed";
+    const message = error instanceof Error
+      ? error.message
+      : "session_event_failed";
     const clientErrors = new Set([
       "invalid_json",
       "invalid_operation",
@@ -363,7 +436,7 @@ Deno.serve(async (req) => {
       "unsupported_operation",
     ]);
 
-    return jsonResponse(
+    return respond(
       {
         status: "failed",
         function: "session-event",

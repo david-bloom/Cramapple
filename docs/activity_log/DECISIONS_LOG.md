@@ -2,6 +2,19 @@
 
 This log records product, architecture, operating, security, design, and workflow decisions.
 
+## Index
+
+Most recent entries (full chronological list follows below):
+
+- DECISION-0030 — Auto-Trigger QA and Model Routing (Codex Proposal Folded In)
+- DECISION-0029 — Adopt Charter Simplification and Tiering (Pilot: Cramapple Only)
+- DECISION-0028 — Failed/Rejected Grading Burns the Daily Budget Cap When Cost Is Known
+- DECISION-0027 — ALLOWED_ORIGINS Required in All Environments; No Wildcard CORS Fallback
+- DECISION-0026 — Separate Authoring, Revision, and Independent Review
+- DECISION-0025 — Use a Verified Five-Stage Outside-Question Intake
+
+**Rotation rule:** once this log exceeds ~600 lines, archive the older entries to `docs/activity_log/archive/DECISIONS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries. (This log is already at roughly double that threshold as of this rule's adoption — the first archive pass is overdue, not optional; see the recorded decision adopting this rule for the cutover task.)
+
 ## Decision Format
 
 ```markdown
@@ -1053,3 +1066,206 @@ rights controls.
 - Provenance and rights checks can block submission without implying counsel
   approval.
 - UX-004 now identifies student-provided question intake.
+
+## DECISION-0027 — ALLOWED_ORIGINS Required in All Environments; No Wildcard CORS Fallback
+
+**Date:** 2026-06-21
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Related Task:** TASK-0012
+**Area:** Security
+
+### Context
+
+PR #14 introduced an `ALLOWED_ORIGINS` env-driven allow-list in
+`supabase/functions/_shared/cors.ts`. The first cut kept a wildcard
+fallback (`Access-Control-Allow-Origin: *`) when the env was unset, on
+the rationale that dev / local convenience was worth the production risk
+of a missed deployment checklist item.
+
+QA flagged the wildcard fallback as a real production footgun. With no
+code-level guard, a production deploy without `ALLOWED_ORIGINS` would
+silently send `*` and weaken defense-in-depth against CSRF-style abuse
+from rogue origins.
+
+### Decision
+
+`ALLOWED_ORIGINS` is required in every environment (production, beta,
+preview, local dev). The Edge Function `_shared/cors.ts` module fails
+fast at load time if the env is unset or parses to an empty list. There
+is no wildcard fallback path in the code.
+
+Local-dev convention:
+
+```
+ALLOWED_ORIGINS=http://localhost:5173,http://localhost:3000,https://cramapple-beta.lovable.app
+```
+
+### Rationale
+
+- Production wildcard CORS is a real risk; the dev cost of setting one
+  env var is trivial.
+- Eliminating the conditional removes a class of operational error
+  (forget the checklist item, ship wildcard to prod).
+- Non-browser callers (curl, server-to-server, CI) don't need CORS
+  headers and are unaffected by the strict policy.
+
+### Consequences
+
+- All Cramapple deploys (Supabase Edge Functions in production and dev,
+  any future preview environment, local Supabase) must set
+  `ALLOWED_ORIGINS` before functions can start. The function will throw
+  `Missing required environment variable: ALLOWED_ORIGINS` at module
+  load otherwise.
+- The `corsHeaders` legacy export with `Access-Control-Allow-Origin: *`
+  has been removed; nothing in the repo imported it.
+- The deployment checklist gains one mandatory env var per environment.
+
+### Risks / Follow-ups
+
+- First-time local-dev setup must include the env. Document in any
+  developer-onboarding instructions (no such doc exists yet — when one
+  lands, the env example above belongs in it).
+- Future preview / staging environments need their origins added.
+- This decision does not address Decision 2 (failed/rejected grading
+  and the daily budget cap), which remains pending owner direction.
+
+## DECISION-0028 — Failed/Rejected Grading Burns the Daily Budget Cap When Cost Is Known
+
+**Date:** 2026-06-22
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Related Task:** TASK-0012
+**Area:** Cost control
+
+### Context
+
+`app.complete_model_usage` (introduced in `202606210004_daily_budget_row_lock.sql`)
+burned `actual_cost_usd` against `OPENAI_DAILY_CAP_USD` only when a
+grading call completed successfully. Any `failed` or `rejected`
+outcome burned `0`, regardless of whether the provider call had
+already incurred a real, known cost (e.g. OpenAI returned a billable
+response but Cramapple's own downstream validation then rejected it).
+This under-counted real spend against the daily cap.
+
+### Decision
+
+`app.complete_model_usage` now burns cost as follows:
+
+- `completed` — burns `actual_cost_usd` (unchanged).
+- `failed` / `rejected` with a non-null `actual_cost_usd` — burns
+  `actual_cost_usd`.
+- `failed` / `rejected` with a null `actual_cost_usd` — burns `0`
+  (caller has no cost data to report; the provider call may never have
+  happened).
+
+Implemented in
+`202606210010_complete_model_usage_burn_known_cost_on_failure.sql`.
+Reservation-release behavior (`reserved_cost_usd` reduction on the
+`app.daily_budgets` row) is unchanged.
+
+### Rationale
+
+- `OPENAI_DAILY_CAP_USD` should track real provider spend, not just
+  spend on calls that happened to finish cleanly. A failed call that
+  still cost money is still money spent.
+- Burning `0` only when the cost is genuinely unknown avoids inventing
+  a cost figure for calls that never reached the provider.
+
+### Consequences
+
+- Grading calls that fail after the provider responds (with usage
+  data) now reduce remaining daily budget headroom.
+- `supabase/functions/evaluate-attempt/index.ts` is unaffected by this
+  migration — it already passes whatever `actual_cost_usd` it computed
+  (defaulting to `0` if the provider call never returned usage), so no
+  Edge Function change was required.
+
+### Risks / Follow-ups
+
+- Failed rows that complete with a null `actual_cost_usd` are not
+  reconciled against provider billing by this migration. That
+  reconciliation should happen during production monitoring — compare
+  `app.model_usage_ledger` against the OpenAI usage dashboard/API — not
+  be guessed at here.
+- No real Postgres instance was available to apply this migration
+  (Docker/Colima/Podman unavailable in this environment); verification
+  was `deno check` / `deno fmt --check` (no Edge Function files
+  changed) plus manual schema cross-reference against
+  `202606210004_daily_budget_row_lock.sql` and
+  `202606210008_reserve_model_usage_race_fix.sql`.
+
+## DECISION-0029 — Adopt Charter Simplification and Tiering (Pilot: Cramapple Only)
+
+**Date:** 2026-06-23
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Related Task:** N/A (governance/process)
+**Area:** Operations
+
+### Context
+
+The AI Project Operating Kit, in production use on Cramapple and PassTo, had accumulated real friction: heavy approval ceremony routed entirely through the Product Owner, duplicated guidance across charter docs (most visibly the sync handshake, repeated near-verbatim in five files), self-reported "synced"/"done" claims with nothing checking them, and unrotated logs already running to 1,000+ lines. Two independent reviews (`docs/proposals/2026-06-14-team-charter-improvements.md` and `docs/proposals/2026-06-23-kit-simplification-memo.md`) converged on largely the same diagnosis but had six unreconciled points of conflict between them.
+
+### Decision
+
+Adopt, into Cramapple's `docs/team_charter/` only (the public `ai-project-operating-kit` repo is explicitly out of scope for this decision):
+
+- The full content of `docs/proposals/2026-06-23-kit-simplification-memo.md`.
+- Proposals 1, 2 (recording structure/SLA substrate, not its deferred automation), 3, 4, 5 (reconciled), 7, 8 (reconciled), and 9 of `docs/proposals/2026-06-14-team-charter-improvements.md`.
+- Not adopted: Proposal 6 and Proposal 10 of the 06-14 proposal — out of scope, not depended on by the simplification memo.
+
+Conflict resolutions (see `APPROVAL-0022` for full detail): the 6-state status taxonomy wins over keeping `QA Passed`/`QA Blocked` distinct, with Proposal 5's actual safety property (only the Main Conductor closes a task) preserved as a role rule; `APPROVALS_LOG.md` stays a separate file rather than merging into `DECISIONS_LOG.md`, since Proposal 2's structure is the substrate the new Standing-tier SLA depends on.
+
+### Rationale
+
+Both proposals identified the same root cause from different angles: high-stakes process machinery was being applied uniformly regardless of actual risk. The fix is conditional rigor, not less rigor — ambiguous-but-reversible work gets a clarifying question instead of an automatic hard gate; domain-specific decisions go to a named delegate instead of always to the Product Owner; small reversible work skips ceremony it doesn't need; sync claims get a real check instead of a narrated one; and the two governance docs that disagreed on six points needed to be reconciled before either was implementable, not adopted independently.
+
+### Consequences
+
+- Seven `docs/team_charter/` documents changed; `SKILLS_GUIDE.md` renamed to `TOOL_AND_INTEGRATION_GUIDE.md`; two new files added (`CHANGELOG.md`, `scripts/verify-sync.sh`); both new-session prompts updated; `docs/tasks/TASK_TEMPLATE.md` gained a `Tier` field; all three activity logs gained an index block and a stated (not yet executed) rotation rule.
+- Existing tasks and log entries are **not** retroactively rewritten onto the new status vocabulary or tiering scheme — old entries read under the rules in force when they were written.
+- The public `ai-project-operating-kit` repository is untouched. Upstreaming is a separate future decision, contingent on this pilot working in practice.
+
+### Risks / Follow-ups
+
+- Two leading indicators should be watched for a few weeks: hard-gate escalations per week, and QA round-trips per task. No tooling collects these automatically yet — this is currently a manual read of `APPROVALS_LOG.md` and `DECISIONS_LOG.md`.
+- `DECISIONS_LOG.md` is already roughly double its newly-stated rotation threshold (~600 lines); the first archive pass is overdue and not done as part of this decision.
+- Proposal 2's batch-approval expiration automation, Proposal 6, and Proposal 10 (Cross-Agent Notes) remain candidates for separate future decisions.
+- This decision does not authorize pushing any of this work to `github.com/david-bloom/ai-project-operating-kit`.
+
+## DECISION-0030 — Auto-Trigger QA and Model Routing (Codex Proposal Folded In)
+
+**Date:** 2026-06-23
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Related Task:** N/A (governance/process)
+**Area:** Operations
+
+### Context
+
+`docs/proposals/2026-06-23-agent-routing-and-qa-proposal-for-claude.md` (Codex) observed that the charter adopted under DECISION-0029, while reducing approval ceremony, still left QA-triggering and model selection as things someone had to remember to ask for, rather than automatic workflow steps — a residual source of avoidable waiting.
+
+### Decision
+
+Fold into `AGENT_OPERATING_MODEL.md`:
+
+- The Main Conductor auto-triggers QA for any `Standard`/`Hard-Gate` tier task reaching `Ready for Review`; `Micro` tier QA remains optional at the conductor's judgment.
+- The Main Conductor auto-applies the Model and Effort Policy per agent call rather than asking the Product Owner to pick a model each time.
+- Explicit good-use/bad-use guidance for spawning additional agents, and three new Anti-Patterns reflecting the above.
+
+The proposal's guardrail requiring the orchestrator to record which model was used and why on every call was narrowed to: record only on deviation from the default tier.
+
+### Rationale
+
+Auto-triggering QA and model selection removes waiting without removing any approval boundary — QA was already Lane 1 standing-approved, this just makes it fire automatically instead of on request, and model choice was never itself a hard-gated decision. Recording every routine model choice would have reintroduced exactly the ceremony DECISION-0029 was trying to remove; recording only deviations keeps the audit trail useful instead of noisy.
+
+### Consequences
+
+- `AGENT_OPERATING_MODEL.md` gains explicit auto-trigger language in the Main Conductor and QA Agent sections, a narrowed recording requirement in Model and Effort Policy, agent-spawning good-use/bad-use guidance in the Default Pattern section, and three new Anti-Patterns.
+- No change to any Hard Gate, Standing Approval Lane, or Delegated Domain Approval boundary from DECISION-0029 — this decision is additive process automation, not a new approval grant.
+
+### Risks / Follow-ups
+
+- If auto-triggered QA produces a backlog of QA work outpacing available QA-agent capacity, revisit whether `Standard` tier should auto-trigger QA at the same rate as `Hard-Gate` tier, or whether `Standard` should batch.
+- Same success metrics as DECISION-0029 (hard-gate escalations/week, QA round-trips/task) apply; no new metric introduced for this decision specifically.
