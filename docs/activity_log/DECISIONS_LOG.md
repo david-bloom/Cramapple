@@ -6,12 +6,12 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0030 — Auto-Trigger QA and Model Routing (Codex Proposal Folded In)
 - DECISION-0029 — Adopt Charter Simplification and Tiering (Pilot: Cramapple Only)
 - DECISION-0028 — Failed/Rejected Grading Burns the Daily Budget Cap When Cost Is Known
 - DECISION-0027 — ALLOWED_ORIGINS Required in All Environments; No Wildcard CORS Fallback
 - DECISION-0026 — Separate Authoring, Revision, and Independent Review
 - DECISION-0025 — Use a Verified Five-Stage Outside-Question Intake
-- DECISION-0024 — Use Staged Tutor and AP Reader Candidate Review
 
 **Rotation rule:** once this log exceeds ~600 lines, archive the older entries to `docs/activity_log/archive/DECISIONS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries. (This log is already at roughly double that threshold as of this rule's adoption — the first archive pass is overdue, not optional; see the recorded decision adopting this rule for the cutover task.)
 
@@ -1233,3 +1233,39 @@ Both proposals identified the same root cause from different angles: high-stakes
 - `DECISIONS_LOG.md` is already roughly double its newly-stated rotation threshold (~600 lines); the first archive pass is overdue and not done as part of this decision.
 - Proposal 2's batch-approval expiration automation, Proposal 6, and Proposal 10 (Cross-Agent Notes) remain candidates for separate future decisions.
 - This decision does not authorize pushing any of this work to `github.com/david-bloom/ai-project-operating-kit`.
+
+## DECISION-0030 — Auto-Trigger QA and Model Routing (Codex Proposal Folded In)
+
+**Date:** 2026-06-23
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Related Task:** N/A (governance/process)
+**Area:** Operations
+
+### Context
+
+`docs/proposals/2026-06-23-agent-routing-and-qa-proposal-for-claude.md` (Codex) observed that the charter adopted under DECISION-0029, while reducing approval ceremony, still left QA-triggering and model selection as things someone had to remember to ask for, rather than automatic workflow steps — a residual source of avoidable waiting.
+
+### Decision
+
+Fold into `AGENT_OPERATING_MODEL.md`:
+
+- The Main Conductor auto-triggers QA for any `Standard`/`Hard-Gate` tier task reaching `Ready for Review`; `Micro` tier QA remains optional at the conductor's judgment.
+- The Main Conductor auto-applies the Model and Effort Policy per agent call rather than asking the Product Owner to pick a model each time.
+- Explicit good-use/bad-use guidance for spawning additional agents, and three new Anti-Patterns reflecting the above.
+
+The proposal's guardrail requiring the orchestrator to record which model was used and why on every call was narrowed to: record only on deviation from the default tier.
+
+### Rationale
+
+Auto-triggering QA and model selection removes waiting without removing any approval boundary — QA was already Lane 1 standing-approved, this just makes it fire automatically instead of on request, and model choice was never itself a hard-gated decision. Recording every routine model choice would have reintroduced exactly the ceremony DECISION-0029 was trying to remove; recording only deviations keeps the audit trail useful instead of noisy.
+
+### Consequences
+
+- `AGENT_OPERATING_MODEL.md` gains explicit auto-trigger language in the Main Conductor and QA Agent sections, a narrowed recording requirement in Model and Effort Policy, agent-spawning good-use/bad-use guidance in the Default Pattern section, and three new Anti-Patterns.
+- No change to any Hard Gate, Standing Approval Lane, or Delegated Domain Approval boundary from DECISION-0029 — this decision is additive process automation, not a new approval grant.
+
+### Risks / Follow-ups
+
+- If auto-triggered QA produces a backlog of QA work outpacing available QA-agent capacity, revisit whether `Standard` tier should auto-trigger QA at the same rate as `Hard-Gate` tier, or whether `Standard` should batch.
+- Same success metrics as DECISION-0029 (hard-gate escalations/week, QA round-trips/task) apply; no new metric introduced for this decision specifically.

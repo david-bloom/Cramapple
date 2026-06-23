@@ -6,12 +6,12 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0023 — Agent Routing and Automatic QA (Codex Proposal)
 - APPROVAL-0022 — Charter Simplification and Tiering Adoption
 - APPROVAL-0021 — Start Content Authoring and Revision Workbench Design
 - APPROVAL-0020 — Start Student-Provided Question Intake Design
 - APPROVAL-0019 — Start Question and Answer Review Portal Design
 - APPROVAL-0018 — Use Official Exam Dates and Confirm Registration
-- APPROVAL-0017 — Start Initial Product UX Design
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
 
@@ -525,3 +525,20 @@ Adopts, as a single bundle, into Cramapple's `docs/team_charter/` (pilot project
 - **Log-count question resolution:** Proposal 2's purpose-built `APPROVALS_LOG.md` structure was kept as-is (not merged into `DECISIONS_LOG.md`) — it's the substrate the new Standing-tier SLA depends on.
 - This approval does not authorize pushing any of this to the public `ai-project-operating-kit` repository. That remains a separate, later decision once the pilot is proven on new Cramapple tasks.
 - `DECISIONS_LOG.md` is already roughly double its newly-adopted rotation threshold; the first archive pass is a follow-up, not done as part of this approval.
+
+## APPROVAL-0023 — Agent Routing and Automatic QA (Codex Proposal)
+
+**Date:** 2026-06-23
+**Approved By:** David Bloom
+**Related Task:** N/A (governance/process)
+**Decision:** Approved with Notes
+
+### Summary
+
+Folds `docs/proposals/2026-06-23-agent-routing-and-qa-proposal-for-claude.md` into `AGENT_OPERATING_MODEL.md`: QA auto-triggers for `Standard`/`Hard-Gate` tier work instead of waiting for a request; the Main Conductor auto-applies the Model and Effort Policy without asking the Product Owner to choose a model per call; explicit good-use/bad-use guidance for spawning additional agents.
+
+### Notes
+
+- The proposal's guardrail "the orchestrator must record which model was used and why" was narrowed: recorded only on deviation from the default tier (i.e., escalation to the strongest tier), not on every routine call — recording every fast-tier call would reintroduce the ceremony this whole effort is removing.
+- No conflicts found with the 06-14 proposal or the 06-23 simplification memo; this is additive to the Model and Effort Policy and Task Tiers sections adopted under APPROVAL-0022.
+- Does not change any approval boundary: model selection and QA auto-triggering both still stop at the existing Hard-Gate list.

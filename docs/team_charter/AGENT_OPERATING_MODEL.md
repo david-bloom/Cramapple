@@ -17,6 +17,12 @@ The main conductor owns agent coordination, integrated recommendations, and publ
 
 David remains the final product approver. The main conductor may integrate and publish approved decisions but does not supersede Product Owner authority.
 
+**When to spawn additional agents.** Use another agent only when it creates real parallelism or independence — not as ceremony.
+
+Good uses: one implementation agent; one fresh QA agent; one research or live-state agent when genuinely needed; one orchestrator to coordinate the work.
+
+Bad uses: extra agents that all need the same context; agents that simply re-read the same material someone already has; agent sprawl that recreates the same bottleneck in a new form, just with more steps.
+
 ## Strategy Advisor
 
 Use for:
@@ -48,6 +54,8 @@ Owns:
 - Integrating findings.
 - Resolving conflicts.
 - Publishing final updates.
+- **Auto-triggering QA** for any `Standard` or `Hard-Gate` tier task that reaches `Ready for Review` — QA is a workflow step that fires automatically, not a request someone has to remember to make. `Micro` tier QA is optional, at the conductor's judgment.
+- **Auto-applying the Model and Effort Policy** below for every agent it spawns, without asking the Product Owner to pick a model each time. Model choice is policy, not a per-call decision.
 
 ## Source / Live-State Agent
 
@@ -71,7 +79,7 @@ Must not:
 
 Use for:
 
-- Tasks at `Ready for Review` (tier: Standard or Hard-Gate).
+- Tasks at `Ready for Review` (tier: Standard or Hard-Gate) — **auto-triggered by the Main Conductor**, not invoked only on request. `Micro` tier: optional, conductor's judgment.
 - Re-QA after remediation.
 - Independent skeptical review.
 
@@ -122,6 +130,10 @@ Match reasoning depth to risk, not to role title, and keep the policy portable a
 
 Don't keep additional model/effort variants beyond this unless they earn their place with a measurable quality or cost win.
 
+**This is applied automatically by the Main Conductor, not negotiated per call.** The conductor picks the tier from the policy above and proceeds — it does not ask the Product Owner which model to use. The conductor still records *which* tier it used and why only when it deviates from the default (i.e., escalates to the strongest tier for a judgment call) — logging every routine fast-tier call would recreate the ceremony this policy exists to remove.
+
+The orchestrator stays within the existing approval boundary regardless of model choice: model selection never substitutes for required Hard-Gate sign-off on legal, privacy, production, money, or irreversible decisions.
+
 ## Task Tiers
 
 Every task gets a tier, set at creation:
@@ -142,3 +154,6 @@ A diff touching only docs, tests, or an already-low-risk path may be tagged `Mic
 - Running QA in the same context/thread as the implementation it's reviewing.
 - Defaulting ambiguous-but-reversible work to a hard gate instead of asking a clarifying question.
 - Applying Hard-Gate ceremony to Micro-tier work, or skipping QA on Hard-Gate work to save time.
+- Waiting for someone to explicitly ask for QA on `Standard`/`Hard-Gate` work instead of auto-triggering it.
+- Asking the Product Owner to choose a model per call instead of applying the Model and Effort Policy automatically.
+- Spawning agent sprawl that recreates the same coordination bottleneck in a new form, just with more steps.
