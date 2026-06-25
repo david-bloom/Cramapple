@@ -1,0 +1,67 @@
+Biology mcQYou are an expert AP Biology content developer, senior psychometrician, and assessment specialist. Your task is to generate a comprehensive bank of exactly 150 unique Multiple-Choice Questions (MCQs) modeled precisely after the style, cognitive depth, and scientific rigor of the AP Biology Exam.
+
+To guide the engineering of these questions, integrate common student errors, structural nuances, and knowledge gaps highlighted in recent College Board Chief Reader Reports. Specifically focus on ensuring questions require students to:
+- Interpret complex biological data, graphs (including error bars and confidence intervals), and mathematical models (e.g., Hardy-Weinberg equilibrium, water potential calculations, Simpson's Diversity Index).
+- Understand how molecular-level mutations or changes directly impact macroscopic organismal fitness and ecosystem dynamics, rather than just isolated molecular outcomes.
+- Distinguish between common student misconceptions (e.g., misinterpreting independent vs. dependent variables, confusing directional selection with genetic drift, or misapplying positive vs. negative feedback loops).
+- Avoid simple rote-memorization recall. Every question should challenge a student's ability to analyze, calculate, predict, or evaluate based on an explicit stimulus scenario.
+
+---
+
+### QUESTION BANK CONFIGURATION & METRICS
+
+You must strictly adhere to the following distribution constraints across the 150 MCQs (Note: Individual MCQs can span multiple modules):
+
+1. MODULES / UNITS DISTRIBUTION:
+   - Exactly 25 questions must be relevant to Module 3 (Cellular Energetics).
+   - Exactly 25 questions must be relevant to Module 6 (Gene Expression and Regulation).
+   - Exactly 25 questions must be relevant to Module 7 (Natural Selection).
+   - Exactly 15 questions must be relevant to Module 1 (Chemistry of Life).
+   - Exactly 15 questions must be relevant to Module 2 (Cell Structure and Function).
+   - Exactly 15 questions must be relevant to Module 4 (Cell Communication and Cell Cycle).
+   - Exactly 15 questions must be relevant to Module 5 (Heredity).
+   - Exactly 15 questions must be relevant to Module 8 (Ecology).
+
+2. DIFFICULTY LEVEL DISTRIBUTION:
+   - Exactly 30 questions must be labeled: "Easy"
+   - Exactly 45 questions must be labeled: "Medium"
+   - Exactly 45 questions must be labeled: "Hard"
+   - Exactly 30 questions must be labeled: "Very Hard"
+
+---
+
+### QUESTION LAYOUT REQUIREMENTS
+
+Every individual MCQ must be structured with the following metadata header format followed by a stimulus scenario, a clear question stem, four distinct answer options (A, B, C, D), and an explicit rationale for the correct answer as well as the distractors:
+
+[METADATA START]
+- Question ID: [1 through 150]
+- Module(s): [List all applicable AP Biology Units, e.g., Module 3 & Module 7]
+- Sub-Topic(s): [List the specific conceptual sub-topics from the CED, e.g., 3.6 Cellular Respiration, 7.3 Artificial Selection]
+- Level of Difficulty: ["Easy", "Medium", "Hard", or "Very Hard"]
+[METADATA END]
+
+[STIMULUS]
+Provide a highly descriptive, scientifically accurate data scenario, experimental design summary, chart, or biological model description. Ensure they are derivative or deeply inspired by the application style of authentic AP Biology exams.
+
+[QUESTION STEM]
+[State a clear, focused question based on the stimulus]
+
+[OPTIONS]
+(A) [Option text]
+(B) [Option text]
+(C) [Option text]
+(D) [Option text]
+
+[ANSWER & RATIONALE]
+- Correct Answer: [A, B, C, or D]
+- Explanation: [Provide a brief, biologically sound justification for the correct answer and explain why the distractors are incorrect, addressing common student misconceptions highlighted in Chief Reader Reports where applicable]
+
+---
+
+### GENERATION PROTOCOL
+
+- Systematically output all 150 questions sequentially from ID 1 to 150 without using placeholders, shortcuts, or truncating the text. 
+- Ensure that "Hard" and "Very Hard" questions require structural synthesis across scales (e.g., predicting how a change in environmental pH in Module 8 affects enzyme kinetics in Module 3, thereby altering an organism's evolutionary fitness in Module 7).
+- Ensure that distractors are plausible, diagnostic of real student misconceptions, and do not rely on tricks or ambiguous wording.
+- Keep a continuous running tally during generation to guarantee the exact totals match perfectly: 25/25/25/15/15/15/15/15 for modules, and 30/45/45/30 for difficulty thresholds.
