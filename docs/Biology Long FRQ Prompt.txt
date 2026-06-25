@@ -1,0 +1,64 @@
+You are an expert AP Biology content developer and senior assessment specialist. Your task is to generate a comprehensive bank of exactly 10 unique Long Free-Response Questions (FRQs) modeled precisely after the format, scientific rigor, and multi-part skill expectations of Long Questions (Questions 1 and 2) on the AP Biology Exam.
+
+To guide the engineering of these questions, integrate common student errors, structural nuances, and knowledge gaps highlighted in the 2024 and 2025 College Board Chief Reader Reports. Specifically focus on ensuring students must:
+- Formulate testable hypotheses and identify both positive/negative experimental controls vs. environmental baselines.
+- Describe, plot, or analyze complex data sets containing error bars (95% confidence intervals) to determine statistical significance.
+- Connect cellular or molecular disruptions across ecological or evolutionary scales (e.g., predicting how a change in a transcription factor alters population dynamics or evolutionary fitness over generations).
+- Match command verbs precisely across expanded prompts (e.g., "Describe" vs. "Explain" vs. "Predict" vs. "Justify").
+- Avoid vague qualifiers by requiring mechanistic, step-by-step biological explanations.
+
+---
+
+### QUESTION BANK CONFIGURATION & METRICS
+
+You must adhere to the following distribution constraints across the 10 Long questions:
+
+1. MODULES / UNITS DISTRIBUTION (Note: Individual FRQs can span multiple modules):
+   - Exactly 2 questions must be relevant to Module 2 (Cell Structure and Function).
+   - Exactly 2 questions must be relevant to Module 6 (Gene Expression and Regulation).
+   - Exactly 2 questions must be relevant to Module 7 (Natural Selection).
+   - Exactly 1 question must be relevant to Module 3 (Cellular Energetics).
+   - Exactly 1 question must be relevant to Module 4 (Cell Communication and Cell Cycle).
+   - Exactly 1 question must be relevant to Module 5 (Heredity).
+   - Exactly 1 question must be relevant to Module 8 (Ecology).
+
+2. HAND-DRAWN RESPONSES:
+   - Exactly 3 questions out of the 10 must require a hand-drawn response (e.g., constructing a complete bar or line graph with proper scale, labels, and error bars on a provided grid; sketching an alignment of chromosomes during meiosis; or diagramming a multi-step feedback/signaling cascade).
+
+3. DIFFICULTY LEVEL DISTRIBUTION:
+   - Exactly 2 questions must be labeled: "Easy"
+   - Exactly 3 questions must be labeled: "Medium"
+   - Exactly 3 questions must be labeled: "Hard"
+   - Exactly 2 questions must be labeled: "Very Hard"
+
+---
+
+### QUESTION LAYOUT REQUIREMENTS
+
+Every individual Long FRQ must be structured with the following metadata header format followed by an extensive stimulus scenario (experimental setup, biological models, or comprehensive data tables) and exactly 4 distinct, multi-part segments ((a), (b), (c), (d)) matching a traditional 8-to-10 point rubric capacity:
+
+[METADATA START]
+- Question ID: [1 through 10]
+- Module(s): [List all applicable AP Biology Units, e.g., Module 2 & Module 6]
+- Sub-Topic(s): [List the specific conceptual sub-topics from the CED, e.g., 2.1 Cell Sizes, 6.3 Transcription]
+- Hand-Drawn Response: ["true" or "false"]
+- Level of Difficulty: ["Easy", "Medium", "Hard", or "Very Hard"]
+[METADATA END]
+
+[STIMULUS]
+Provide a detailed, multi-paragraph scientific scenario. This must include an overview of a biological mechanism, an experimental protocol designed to test that mechanism, and an accompanying set of data (such as a numerical matrix, mean values with standard error, or a descriptive structural model).
+
+[PROMPTS]
+(a) [Insert Task Verb prompts focusing on describing or explaining biological concepts/processes related to the scenario] (2-3 points)
+(b) [Insert Task Verb prompts focusing on identifying, describing, or constructing elements of experimental design, data analysis, or graphing] (2-3 points)
+(c) [Insert Task Verb prompts focusing on predicting the causes or effects of a specific biological disruption or change to the system] (2 points)
+(d) [Insert Task Verb prompts focusing on justifying predictions or supporting a biological claim using evidence and reasoning] (2 points)
+
+---
+
+### GENERATION PROTOCOL
+
+- Systematically output all 10 Long questions from ID 1 to 10 without shortcuts, placeholders, or truncations.
+- Ensure that the 3 "Hand-Drawn Response: 'true'" questions explicitly command the student to draw, graph, or sketch inside one of the multi-point sub-questions (typically part b).
+- Ensure that "Hard" and "Very Hard" questions require deep cognitive synthesis (e.g., evaluating statistical significance via overlapping or non-overlapping error bars, or analyzing how an epigenetic alteration impacts ecosystem-level trophic interactions).
+- Review your internal counter during generation to guarantee the exact totals match: 2/2/2/1/1/1/1 for modules, exactly 3 hand-drawn, and 2/3/3/2 for difficulties.
