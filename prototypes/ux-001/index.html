@@ -989,9 +989,9 @@
         normally appear at different moments.
       </p>
       <nav class="jump-list" aria-label="Jump to prototype screen">
-        <button type="button" data-screen="welcome">New student setup</button>
+        <button type="button" data-screen="welcome">Account created</button>
+        <button type="button" data-screen="setup">First-session setup</button>
         <button type="button" data-screen="home">Returning home</button>
-        <button type="button" data-screen="first-plan">First-session plan</button>
         <button type="button" data-screen="mcq">MCQ attempt</button>
         <button type="button" data-screen="frq">FRQ attempt</button>
         <button type="button" data-screen="uncertain">Uncertainty</button>
@@ -1009,20 +1009,18 @@
         <div class="top-actions">
           <span id="header-context">New account setup</span>
           <span aria-hidden="true">|</span>
-          <span id="header-detail">Step 1 of 5</span>
+          <span id="header-detail">First session</span>
         </div>
       </header>
 
       <div class="content">
         <section class="screen active" id="welcome" tabindex="-1">
-          <div class="setup-progress" aria-label="Setup step 1 of 5">
-            <span class="current"></span><span></span><span></span><span></span><span></span>
-          </div>
           <p class="eyebrow">Account created</p>
-          <h2>Now let’s make your first session useful.</h2>
+          <h2>Let’s make your first session useful.</h2>
           <p class="lede">
-            Cramapple will use the official exam timing, your goal today, and
-            the time you have right now to build a starting plan.
+            Cramapple helps you use the time you have to earn more AP Biology
+            points. Your first session starts near where your class probably is
+            right now.
           </p>
 
           <div class="card account-created">
@@ -1030,30 +1028,27 @@
             <div>
               <h3>Your Cramapple account is ready.</h3>
               <p class="muted">
-                Setup takes about a minute. A full diagnostic is optional.
+                One quick screen and you’re practicing. You can change anything
+                before you begin.
               </p>
             </div>
           </div>
           <div class="actions">
-            <button class="button primary" type="button" data-go="exam-setup">
+            <button class="button primary" type="button" data-go="setup">
               Set up my first session
             </button>
             <button class="button ghost" type="button" data-toast="You will try a question, see where points were earned or missed, and practice the smallest useful change.">
-              What happens next?
+              How Cramapple works
             </button>
           </div>
         </section>
 
-        <section class="screen" id="exam-setup" tabindex="-1">
-          <div class="setup-progress" aria-label="Setup step 2 of 5">
-            <span class="complete"></span><span class="current"></span><span></span><span></span><span></span>
-          </div>
-          <p class="eyebrow">Your exam</p>
-          <h2>Are you registered for the AP Biology exam?</h2>
+        <section class="screen" id="setup" tabindex="-1">
+          <p class="eyebrow">Start with a useful session</p>
+          <h2>Here’s a short session to start.</h2>
           <p class="lede">
-            The official exam date comes from Cramapple’s active AP Biology
-            exam pack. Confirm your registration so reminders and exam-day
-            planning fit your situation.
+            This is based on where your AP Biology class probably is right now.
+            Change the unit or time if you like, then begin.
           </p>
 
           <div class="card">
@@ -1065,99 +1060,116 @@
               </span>
               <span class="exam-date">
                 <small>Official exam date</small>
-                <strong>May 4, 2026</strong>
+                <strong id="setup-exam-date">May 4, 2026</strong>
               </span>
             </div>
-            <div class="grid registration-grid" role="group" aria-label="AP Biology exam registration status">
-              <button class="choice registration-choice" type="button" data-registration="registered" aria-pressed="false">
-                <strong>Yes, I’m registered</strong>
-                <span>I plan to take this exam.</span>
+
+            <h3 id="course-position-heading">Your class is probably around Unit 3: Cellular Energetics.</h3>
+            <p class="muted" id="course-position-note">
+              We use this only to start you on reachable material. It is not a
+              measure of what you know.
+            </p>
+            <div class="actions" role="group" aria-label="Confirm where your class is">
+              <button class="button secondary" type="button" id="position-confirm" aria-pressed="false">
+                That’s right
               </button>
-              <button class="choice registration-choice" type="button" data-registration="not_registered" aria-pressed="false">
-                <strong>Not yet</strong>
-                <span>I have not registered yet.</span>
+              <button class="button secondary" type="button" id="position-change-toggle" aria-expanded="false" aria-controls="unit-picker">
+                Change unit
               </button>
-              <button class="choice registration-choice" type="button" data-registration="unsure" aria-pressed="false">
-                <strong>I’m not sure</strong>
-                <span>I need to confirm my status.</span>
+              <button class="button ghost" type="button" id="position-unsure" aria-pressed="false">
+                I’m not sure
               </button>
             </div>
-            <div class="setup-note" id="registration-note" hidden>
-              <span aria-hidden="true">i</span>
-              <span><strong>You can keep learning.</strong> AP exam registration happens through your school or AP coordinator; Cramapple does not register you for the exam.</span>
-            </div>
-            <div class="form-grid single">
-              <label>
-                Where are you starting?
-                <select id="starting-point">
-                  <option value="unsure">I’m not sure yet</option>
-                  <option value="behind">I have some major gaps</option>
-                  <option value="middle">I know some topics, not others</option>
-                  <option value="strong">I’m aiming to turn a good score into a great one</option>
+            <div class="form-grid single" id="unit-picker" hidden>
+              <label for="unit-select">
+                Which unit is your class on?
+                <select id="unit-select">
+                  <option value="u1">Unit 1: Chemistry of Life</option>
+                  <option value="u2">Unit 2: Cell Structure and Function</option>
+                  <option value="u3" selected>Unit 3: Cellular Energetics</option>
+                  <option value="u4">Unit 4: Cell Communication and Cell Cycle</option>
+                  <option value="u5">Unit 5: Heredity</option>
+                  <option value="u6">Unit 6: Gene Expression and Regulation</option>
+                  <option value="u7">Unit 7: Natural Selection</option>
+                  <option value="u8">Unit 8: Ecology</option>
                 </select>
               </label>
             </div>
-            <div class="setup-note">
+            <div class="setup-note" id="work-ahead-note" hidden>
               <span aria-hidden="true">i</span>
-              <span><strong>You can change this later.</strong> We will not make a score prediction from setup answers.</span>
+              <span><strong>You can work ahead.</strong> If this feels too early, we’ll help you return to the strongest covered next step.</span>
             </div>
-            <div class="actions">
-              <button class="button primary" type="button" id="continue-exam">
-                Continue
+          </div>
+
+          <div class="card">
+            <h3>How much time do you have?</h3>
+            <div class="grid" role="group" aria-label="Available time">
+              <button class="choice selected" type="button" data-minutes="15" aria-pressed="true">
+                <span><strong>15 min</strong> Get one useful win.</span>
               </button>
-              <button class="button secondary" type="button" data-go="welcome">
-                Back
+              <button class="choice" type="button" data-minutes="30" aria-pressed="false">
+                <span><strong>30 min</strong> Practice and repair a priority skill.</span>
+              </button>
+              <button class="choice" type="button" data-minutes="60" aria-pressed="false">
+                <span><strong>60 min</strong> Mix practice, repair, and review.</span>
               </button>
             </div>
+          </div>
+
+          <article class="card plan-card">
+            <div class="plan-header">
+              <p class="eyebrow" id="plan-eyebrow">About 15 minutes</p>
+              <h3 id="plan-title">Recommended first session</h3>
+            </div>
+            <div class="plan-body">
+              <p id="plan-summary">
+                You’ll try one question on <strong id="plan-unit-label">Unit 3:
+                Cellular Energetics</strong>, see exactly where points were
+                earned or missed, and practice the smallest change most likely
+                to help.
+              </p>
+              <div class="why-plan">
+                <strong>Why this?</strong>
+                <span>
+                  We’re starting near where your AP Biology class probably is
+                  right now. You can change the unit or time above.
+                </span>
+              </div>
+            </div>
+          </article>
+
+          <div class="actions">
+            <button class="button primary" type="button" id="start-first-session">
+              Start session
+            </button>
+            <button class="button secondary" type="button" data-secondary="topic">
+              Choose a topic
+            </button>
+            <button class="button secondary" type="button" data-secondary="work">
+              Check my work
+            </button>
+            <button class="button secondary" type="button" data-secondary="question">
+              Bring a question
+            </button>
+            <button class="button ghost" type="button" data-go="setup-paused">
+              Finish setup later
+            </button>
           </div>
         </section>
 
-        <section class="screen" id="intent" tabindex="-1">
-          <div class="setup-progress" aria-label="Setup step 3 of 5">
-            <span class="complete"></span><span class="complete"></span><span class="current"></span><span></span><span></span>
-          </div>
-          <p class="eyebrow">Your goal today</p>
-          <h2>What would feel most useful right now?</h2>
+        <section class="screen" id="setup-paused" tabindex="-1">
+          <p class="eyebrow">Setup paused</p>
+          <h2>Your plan is saved.</h2>
           <p class="lede">
-            This sets the starting direction, not a permanent track. You stay
-            free to choose another topic or activity.
+            You can come back and start from the same unit and time whenever
+            you’re ready.
           </p>
-          <div class="grid two" role="group" aria-label="Immediate study goal">
-            <button class="choice selected" type="button" data-intent="recommend" aria-pressed="true">
-              <span>
-                <span class="choice-icon" aria-hidden="true">→</span>
-                <strong>Tell me what to work on</strong>
-                Start with the highest-value evidence Cramapple can gather.
-              </span>
-            </button>
-            <button class="choice" type="button" data-intent="topic" aria-pressed="false">
-              <span>
-                <span class="choice-icon" aria-hidden="true">T</span>
-                <strong>Practice a topic</strong>
-                Choose a unit or skill you already have in mind.
-              </span>
-            </button>
-            <button class="choice" type="button" data-intent="work" aria-pressed="false">
-              <span>
-                <span class="choice-icon" aria-hidden="true">✓</span>
-                <strong>Check my work</strong>
-                Start from an answer you have already attempted.
-              </span>
-            </button>
-            <button class="choice" type="button" data-intent="question" aria-pressed="false">
-              <span>
-                <span class="choice-icon" aria-hidden="true">?</span>
-                <strong>Bring a question</strong>
-                Type or paste something from class or practice.
-              </span>
-            </button>
-          </div>
           <div class="actions">
-            <button class="button primary" type="button" data-go="modes">
-              Continue
+            <button class="button primary" type="button" data-go="setup">
+              Resume setup
             </button>
-            <button class="button secondary" type="button" data-go="exam-setup">
-              Back
+            <button class="button secondary" type="button" data-go="home">
+              Go to Home
             </button>
           </div>
         </section>
@@ -1180,7 +1192,7 @@
                 <button class="button ghost" type="button" data-toast="Reason: repeated misses plus a due review.">
                   Why this?
                 </button>
-                <button class="button ghost" type="button" data-go="modes">
+                <button class="button ghost" type="button" data-toast="Alternatives would appear here: another due review, a chosen topic, or a shorter session.">
                   Choose something else
                 </button>
               </div>
@@ -1200,155 +1212,6 @@
                 <span class="muted">Paste or type for this prototype</span>
               </div>
             </aside>
-          </div>
-        </section>
-
-        <section class="screen" id="modes" tabindex="-1">
-          <div class="setup-progress" aria-label="Setup step 4 of 5">
-            <span class="complete"></span><span class="complete"></span><span class="complete"></span><span class="current"></span><span></span>
-          </div>
-          <p class="eyebrow">Time available</p>
-          <h2>How much time do you have?</h2>
-          <p class="lede">
-            Pick a starting point. You can stop cleanly or keep going if your
-            time changes.
-          </p>
-          <div class="grid" role="group" aria-label="Session mode">
-            <button class="choice" type="button" data-mode="Quick">
-              <span>
-                <strong>Quick</strong>
-                Get one useful win.
-              </span>
-              <span class="time">About 15 min</span>
-            </button>
-            <button class="choice selected" type="button" data-mode="Focused">
-              <span>
-                <strong>Focused</strong>
-                Practice and repair a priority skill.
-              </span>
-              <span class="time">About 30 min</span>
-            </button>
-            <button class="choice" type="button" data-mode="Buckle Down">
-              <span>
-                <strong>Buckle Down</strong>
-                Mix practice, repair, and due review.
-              </span>
-              <span class="time">About 60 min</span>
-            </button>
-          </div>
-          <div class="actions">
-            <button class="button primary" type="button" data-go="calibration">
-              Continue with 30 minutes
-            </button>
-            <button class="button secondary" type="button" data-go="intent">
-              Back
-            </button>
-          </div>
-        </section>
-
-        <section class="screen" id="calibration" tabindex="-1">
-          <div class="setup-progress" aria-label="Setup step 5 of 5">
-            <span class="complete"></span><span class="complete"></span><span class="complete"></span><span class="complete"></span><span class="current"></span>
-          </div>
-          <p class="eyebrow">Choose how to begin</p>
-          <h2>Want a quick starting read?</h2>
-          <p class="lede">
-            Three short questions can help Cramapple avoid sending you to a
-            topic just because it is first in the curriculum.
-          </p>
-          <div class="grid two" role="group" aria-label="First session starting method">
-            <button class="choice selected" type="button" data-start="calibration" aria-pressed="true">
-              <span>
-                <span class="choice-icon" aria-hidden="true">3</span>
-                <strong>Start with a quick calibration</strong>
-                Three varied questions, then a recommendation you can accept or
-                change.
-              </span>
-              <span class="time">Recommended · about 6 min</span>
-            </button>
-            <button class="choice" type="button" data-start="direct" aria-pressed="false">
-              <span>
-                <span class="choice-icon" aria-hidden="true">→</span>
-                <strong>Skip calibration</strong>
-                Go straight to your chosen topic or activity.
-              </span>
-              <span class="time">You can calibrate later</span>
-            </button>
-          </div>
-          <div class="setup-note">
-            <span aria-hidden="true">i</span>
-            <span><strong>This is not a full diagnostic.</strong> It is a small sample used to improve the first recommendation.</span>
-          </div>
-          <div class="actions">
-            <button class="button primary" type="button" data-go="first-plan">
-              Build my first session
-            </button>
-            <button class="button secondary" type="button" data-go="modes">
-              Back
-            </button>
-          </div>
-        </section>
-
-        <section class="screen" id="first-plan" tabindex="-1">
-          <p class="eyebrow">Your first session</p>
-          <h2>Here’s the plan. You can change it.</h2>
-          <p class="lede" id="plan-summary">
-            A focused 30-minute start with three calibration questions, followed
-            by practice on the highest-value gap we can support.
-          </p>
-
-          <article class="card plan-card">
-            <div class="plan-header">
-              <p class="eyebrow">Focused · about 30 minutes</p>
-              <h3 id="plan-title">Find the best place to start</h3>
-            </div>
-            <div class="plan-body">
-              <div class="plan-step" id="calibration-plan-step">
-                <span class="plan-number">1</span>
-                <span>
-                  <strong>Quick calibration</strong>
-                  Three cold questions across different skills.
-                </span>
-                <span class="plan-time">~6 min</span>
-              </div>
-              <div class="plan-step">
-                <span class="plan-number" id="practice-step-number">2</span>
-                <span>
-                  <strong id="practice-step-title">Practice the best next opportunity</strong>
-                  <span id="practice-step-copy">See why it was chosen, then accept it or choose something else.</span>
-                </span>
-                <span class="plan-time">~16 min</span>
-              </div>
-              <div class="plan-step">
-                <span class="plan-number" id="close-step-number">3</span>
-                <span>
-                  <strong>Lock in the useful part</strong>
-                  Finish with a fresh attempt and a clear next action.
-                </span>
-                <span class="plan-time">~8 min</span>
-              </div>
-            </div>
-          </article>
-
-          <div class="why-plan">
-            <strong>Why this plan?</strong>
-            <span id="why-plan-copy">
-              You asked Cramapple to recommend what to work on. A small sample
-              gives the recommendation some evidence without forcing a long
-              diagnostic.
-            </span>
-          </div>
-
-          <div class="actions">
-            <button class="button primary" type="button" id="start-first-session">
-              Start first session
-            </button>
-            <button class="button secondary" type="button" data-go="calibration">
-              Change plan
-            </button>
-            <button class="button ghost" type="button" data-toast="Your setup answers are saved. You can leave and resume from this plan.">
-              Finish later
-            </button>
           </div>
         </section>
 
@@ -1412,8 +1275,8 @@
               <button class="button primary" type="button" id="continue-direct-entry">
                 Continue
               </button>
-              <button class="button secondary" type="button" data-go="first-plan">
-                Back to plan
+              <button class="button secondary" type="button" data-go="setup">
+                Back to setup
               </button>
             </div>
           </div>
@@ -1425,7 +1288,7 @@
               <div class="progress-track" aria-label="Session progress">
                 <div class="progress-fill"></div>
               </div>
-              <span>Focused session - question 2 of 5</span>
+              <span>Practice session - question 1 of 5</span>
             </div>
             <button class="button ghost" type="button" data-go="home">
               Leave session
@@ -1504,7 +1367,7 @@
               <div class="progress-track" aria-label="Session progress">
                 <div class="progress-fill" style="width: 58%"></div>
               </div>
-              <span>Focused session - question 3 of 5</span>
+              <span>Practice session - question 2 of 5</span>
             </div>
             <button class="button ghost" type="button" data-go="home">
               Leave session
@@ -1749,28 +1612,269 @@
     const headerContext = document.getElementById("header-context");
     const headerDetail = document.getElementById("header-detail");
     const setupHeader = {
-      welcome: ["New account setup", "Step 1 of 5"],
-      "exam-setup": ["New account setup", "Step 2 of 5"],
-      intent: ["New account setup", "Step 3 of 5"],
-      modes: ["New account setup", "Step 4 of 5"],
-      calibration: ["New account setup", "Step 5 of 5"],
-      "first-plan": ["First-session plan", "Ready to begin"],
+      welcome: ["New account setup", "First session"],
+      setup: ["New account setup", "First session"],
+      "setup-paused": ["New account setup", "Paused"],
       "direct-entry": ["First session", "Your chosen starting point"],
-      home: ["AP Biology", "12 days left"],
-      mcq: ["Focused session", "Question 2 of 5"],
-      frq: ["Focused session", "Question 3 of 5"],
+      home: ["AP Biology", "Home"],
+      mcq: ["Practice session", "Question 1"],
+      frq: ["Practice session", "Question 2"],
       uncertain: ["Learning session", "Needs context"],
       complete: ["Session complete", "Review scheduled"],
       progress: ["AP Biology", "Progress"]
     };
+    const STUDENT_SESSION_ID_KEY = "cramapple.ux001.session-id.v1";
+
+    function loadStoredSessionId() {
+      try {
+        const value = localStorage.getItem(STUDENT_SESSION_ID_KEY);
+        return value && value.trim() ? value : null;
+      } catch {
+        return null;
+      }
+    }
+
+    function storeSessionId(sessionId) {
+      try {
+        if (sessionId) {
+          localStorage.setItem(STUDENT_SESSION_ID_KEY, sessionId);
+        } else {
+          localStorage.removeItem(STUDENT_SESSION_ID_KEY);
+        }
+      } catch {
+        // If storage is unavailable, keep the session in memory only.
+      }
+    }
+
     const setupState = {
-      registrationStatus: null,
-      intent: "recommend",
-      mode: "Focused",
-      minutes: 30,
-      start: "calibration"
+      coursePosition: {
+        unitId: "u3",
+        unitLabel: "Unit 3: Cellular Energetics",
+        source: "pacing_prior",
+        positionEstimateConfidence: "medium",
+        confirmedAt: null
+      },
+      minutes: 15,
+      firstIntent: "recommend",
+      setupStatus: "in_progress",
+      sessionId: loadStoredSessionId()
     };
+    // Likely-future units relative to the pacing prior; used only for soft
+    // work-ahead copy, never as mastery or readiness.
+    const UNIT_ORDER = ["u1", "u2", "u3", "u4", "u5", "u6", "u7", "u8"];
     let statusTimer;
+    const BACKEND_BASE = window.CRAMAPPLE_SUPABASE_URL ?? "";
+    const BACKEND_ANON_KEY =
+      window.CRAMAPPLE_SUPABASE_ANON_KEY ??
+      window.CRAMAPPLE_SUPABASE_PUBLISHABLE_KEY ??
+      "";
+    const EXAM_PACK_VERSION_ID = window.CRAMAPPLE_EXAM_PACK_VERSION_ID ?? "";
+    const ATTEMPT_CONTEXT = window.CRAMAPPLE_ATTEMPT_CONTEXT ?? {};
+    const BACKEND_CONFIG_MISSING_KEY = "cramapple.backend-config-missing.v1";
+    const BACKEND_CONFIG_MISSING_STATE = "cramapple.backend-config-missing.state";
+    let supabaseClientPromise = null;
+    let currentSessionPromise = null;
+    let authListenerAttached = false;
+    let syncStatusText = "";
+
+    function hasBackendConfig() {
+      return Boolean(BACKEND_BASE && BACKEND_ANON_KEY);
+    }
+
+    function rememberBackendConfigAbsence(reason) {
+      const payload = {
+        missing: true,
+        reason,
+        updated_at: new Date().toISOString(),
+        page: "ux-001",
+      };
+      try {
+        localStorage.setItem(BACKEND_CONFIG_MISSING_KEY, "1");
+        localStorage.setItem(BACKEND_CONFIG_MISSING_STATE, JSON.stringify(payload));
+      } catch {
+        // Ignore storage failures and continue in mock mode.
+      }
+      syncStatusText = "Mock mode · backend config missing";
+    }
+
+    function getStoredConfigAbsence() {
+      try {
+        return localStorage.getItem(BACKEND_CONFIG_MISSING_KEY) === "1"
+          ? JSON.parse(localStorage.getItem(BACKEND_CONFIG_MISSING_STATE) || "null")
+          : null;
+      } catch {
+        return null;
+      }
+    }
+
+    async function getSupabaseClient() {
+      if (!hasBackendConfig()) {
+        rememberBackendConfigAbsence("missing_supabase_url_or_key");
+        return null;
+      }
+
+      if (!supabaseClientPromise) {
+        supabaseClientPromise = import(
+          "https://esm.sh/@supabase/supabase-js@2.49.1"
+        ).then(({ createClient }) =>
+          createClient(BACKEND_BASE, BACKEND_ANON_KEY, {
+            auth: {
+              autoRefreshToken: true,
+              persistSession: true,
+              detectSessionInUrl: true,
+            },
+          })
+        );
+      }
+
+      const client = await supabaseClientPromise;
+      if (!authListenerAttached && client) {
+        authListenerAttached = true;
+        client.auth.onAuthStateChange(() => {
+          currentSessionPromise = null;
+          void refreshSyncStatus();
+        });
+      }
+
+      return client;
+    }
+
+    async function getCurrentSession() {
+      if (currentSessionPromise) return await currentSessionPromise;
+      currentSessionPromise = (async () => {
+        const client = await getSupabaseClient();
+        if (!client) return null;
+        const { data, error } = await client.auth.getSession();
+        if (error || !data?.session) return null;
+        return data.session;
+      })();
+      return await currentSessionPromise;
+    }
+
+    async function backendHeaders() {
+      const headers = { "Content-Type": "application/json" };
+      const session = await getCurrentSession();
+      if (session?.access_token) {
+        headers.Authorization = `Bearer ${session.access_token}`;
+      }
+      return headers;
+    }
+
+    async function backendRequest(functionName, payload) {
+      if (!hasBackendConfig()) {
+        rememberBackendConfigAbsence(`missing_config_${functionName}`);
+        throw new Error("backend_not_configured");
+      }
+      const session = await getCurrentSession();
+      if (!session?.access_token) {
+        throw new Error("supabase_session_missing");
+      }
+      const response = await fetch(`${BACKEND_BASE}/functions/v1/${functionName}`, {
+        method: "POST",
+        headers: await backendHeaders(),
+        body: JSON.stringify(payload ?? {}),
+      });
+      const text = await response.text();
+      let data;
+      try {
+        data = text ? JSON.parse(text) : {};
+      } catch {
+        data = { raw: text };
+      }
+      if (!response.ok) {
+        const error = new Error(data?.error || `request_failed_${response.status}`);
+        error.data = data;
+        throw error;
+      }
+      return data;
+    }
+
+    async function syncSession(operation, extra = {}) {
+      if (!hasBackendConfig()) {
+        rememberBackendConfigAbsence(`missing_config_${operation}`);
+        return null;
+      }
+      const session = await getCurrentSession();
+      if (!session?.access_token) {
+        syncStatusText = "Supabase session required for live sync";
+        return null;
+      }
+      if (operation === "session_start" && !EXAM_PACK_VERSION_ID) {
+        return null;
+      }
+      if (operation !== "session_start" && !setupState.sessionId) {
+        return null;
+      }
+      const payload = {
+        operation,
+        idempotency_key: `${operation}-${Date.now()}-${Math.random().toString(36).slice(2)}`,
+        ...(operation === "session_start"
+          ? { exam_pack_version_id: EXAM_PACK_VERSION_ID }
+          : { session_id: setupState.sessionId }),
+        ...extra,
+      };
+      const data = await backendRequest("session-event", payload);
+      const result = data.result || {};
+      if (result.id) {
+        setupState.sessionId = result.id;
+        storeSessionId(result.id);
+      } else if (operation === "session_end") {
+        storeSessionId(null);
+      }
+      return data;
+    }
+
+    async function syncAttempt(operation, extra = {}) {
+      if (!hasBackendConfig()) {
+        rememberBackendConfigAbsence(`missing_config_${operation}`);
+        return null;
+      }
+      const session = await getCurrentSession();
+      if (!session?.access_token) {
+        syncStatusText = "Supabase session required for live grading sync";
+        return null;
+      }
+      const attemptId = ATTEMPT_CONTEXT.attempt_id ?? ATTEMPT_CONTEXT.attemptId;
+      const responseVersionId = ATTEMPT_CONTEXT.response_version_id ??
+        ATTEMPT_CONTEXT.responseVersionId;
+      const contentItemVersionId = ATTEMPT_CONTEXT.content_item_version_id ??
+        ATTEMPT_CONTEXT.contentItemVersionId;
+      const rubricVersionId = ATTEMPT_CONTEXT.rubric_version_id ??
+        ATTEMPT_CONTEXT.rubricVersionId;
+      if (
+        !attemptId || !responseVersionId || !contentItemVersionId ||
+        !rubricVersionId
+      ) {
+        return null;
+      }
+      return await backendRequest("evaluate-attempt", {
+        operation,
+        attempt_id: attemptId,
+        response_version_id: responseVersionId,
+        content_item_version_id: contentItemVersionId,
+        rubric_version_id: rubricVersionId,
+        idempotency_key:
+          `${operation}-${Date.now()}-${Math.random().toString(36).slice(2)}`,
+        ...extra,
+      });
+    }
+
+    async function refreshSyncStatus() {
+      const header = document.getElementById("header-detail");
+      const session = await getCurrentSession();
+      if (session?.user) {
+        const email = session.user.email || session.user.id.slice(0, 8);
+        syncStatusText = `Supabase session active · ${email}`;
+      } else if (getStoredConfigAbsence()) {
+        syncStatusText = "Mock mode · backend config missing";
+      } else {
+        syncStatusText = "Supabase session required for live sync";
+      }
+      if (header) {
+        const base = header.textContent.split(" · ")[0];
+        header.textContent = `${base} · ${syncStatusText}`;
+      }
+    }
 
     function showScreen(id) {
       const target = document.getElementById(id);
@@ -1782,7 +1886,9 @@
       });
       const header = setupHeader[id] || ["Prototype scenario", "Review state"];
       headerContext.textContent = header[0];
-      headerDetail.textContent = header[1];
+      headerDetail.textContent = syncStatusText
+        ? `${header[1]} · ${syncStatusText}`
+        : header[1];
       target.focus();
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
@@ -1806,105 +1912,92 @@
       if (toastButton) showStatus(toastButton.dataset.toast);
     });
 
-    document.querySelectorAll("[data-mode]").forEach((button) => {
-      button.addEventListener("click", () => {
-        document.querySelectorAll("[data-mode]").forEach((choice) => {
-          choice.classList.toggle("selected", choice === button);
-        });
-        setupState.mode = button.dataset.mode;
-        setupState.minutes = setupState.mode === "Quick" ? 15 : setupState.mode === "Focused" ? 30 : 60;
-        const continueButton = document.querySelector("#modes .button.primary");
-        continueButton.textContent = `Continue with ${setupState.minutes} minutes`;
-      });
+    const UNIT_LABELS = {
+      u1: "Unit 1: Chemistry of Life",
+      u2: "Unit 2: Cell Structure and Function",
+      u3: "Unit 3: Cellular Energetics",
+      u4: "Unit 4: Cell Communication and Cell Cycle",
+      u5: "Unit 5: Heredity",
+      u6: "Unit 6: Gene Expression and Regulation",
+      u7: "Unit 7: Natural Selection",
+      u8: "Unit 8: Ecology"
+    };
+    const PACING_PRIOR_UNIT = "u3";
+
+    function renderPlan() {
+      const label = setupState.coursePosition.unitLabel;
+      document.getElementById("plan-eyebrow").textContent =
+        `About ${setupState.minutes} minutes`;
+      document.getElementById("plan-unit-label").textContent = label;
+      document.getElementById("course-position-heading").textContent =
+        `Your class is probably around ${label}.`;
+      const priorIndex = UNIT_ORDER.indexOf(PACING_PRIOR_UNIT);
+      const chosenIndex = UNIT_ORDER.indexOf(setupState.coursePosition.unitId);
+      const aheadOfPrior =
+        setupState.coursePosition.source === "learner_adjusted" &&
+        chosenIndex > priorIndex;
+      document.getElementById("work-ahead-note").hidden = !aheadOfPrior;
+    }
+
+    function setPositionPressed(confirmed, unsure) {
+      document.getElementById("position-confirm")
+        .setAttribute("aria-pressed", String(confirmed));
+      document.getElementById("position-unsure")
+        .setAttribute("aria-pressed", String(unsure));
+    }
+
+    document.getElementById("position-confirm").addEventListener("click", () => {
+      setupState.coursePosition.source = "pacing_prior";
+      setupState.coursePosition.positionEstimateConfidence = "high";
+      setupState.coursePosition.confirmedAt = new Date().toISOString();
+      setPositionPressed(true, false);
+      showStatus("Starting near where your class probably is. You can change this anytime.");
     });
 
-    document.querySelectorAll("[data-intent]").forEach((button) => {
+    document.getElementById("position-unsure").addEventListener("click", () => {
+      setupState.coursePosition.positionEstimateConfidence = "low";
+      setupState.coursePosition.confirmedAt = new Date().toISOString();
+      setPositionPressed(false, true);
+      showStatus("No problem. We’ll start near a likely spot and adjust as you work.");
+    });
+
+    document.getElementById("position-change-toggle").addEventListener("click", (event) => {
+      const picker = document.getElementById("unit-picker");
+      const willShow = picker.hidden;
+      picker.hidden = !willShow;
+      event.currentTarget.setAttribute("aria-expanded", String(willShow));
+      if (willShow) document.getElementById("unit-select").focus();
+    });
+
+    document.getElementById("unit-select").addEventListener("change", (event) => {
+      const unitId = event.target.value;
+      setupState.coursePosition.unitId = unitId;
+      setupState.coursePosition.unitLabel = UNIT_LABELS[unitId];
+      setupState.coursePosition.source = "learner_adjusted";
+      setupState.coursePosition.confirmedAt = new Date().toISOString();
+      setPositionPressed(false, false);
+      renderPlan();
+    });
+
+    document.querySelectorAll("[data-minutes]").forEach((button) => {
       button.addEventListener("click", () => {
-        document.querySelectorAll("[data-intent]").forEach((choice) => {
+        document.querySelectorAll("[data-minutes]").forEach((choice) => {
           const selected = choice === button;
           choice.classList.toggle("selected", selected);
           choice.setAttribute("aria-pressed", String(selected));
         });
-        setupState.intent = button.dataset.intent;
+        setupState.minutes = Number(button.dataset.minutes);
+        renderPlan();
       });
     });
 
-    document.querySelectorAll("[data-start]").forEach((button) => {
+    document.querySelectorAll("[data-secondary]").forEach((button) => {
       button.addEventListener("click", () => {
-        document.querySelectorAll("[data-start]").forEach((choice) => {
-          const selected = choice === button;
-          choice.classList.toggle("selected", selected);
-          choice.setAttribute("aria-pressed", String(selected));
-        });
-        setupState.start = button.dataset.start;
+        const map = { topic: "topic", work: "check_work", question: "bring_question" };
+        setupState.firstIntent = map[button.dataset.secondary];
+        configureDirectEntry();
+        showScreen("direct-entry");
       });
-    });
-
-    document.querySelectorAll("[data-registration]").forEach((button) => {
-      button.addEventListener("click", () => {
-        document.querySelectorAll("[data-registration]").forEach((choice) => {
-          const selected = choice === button;
-          choice.classList.toggle("selected", selected);
-          choice.setAttribute("aria-pressed", String(selected));
-        });
-        setupState.registrationStatus = button.dataset.registration;
-        document.getElementById("registration-note").hidden =
-          setupState.registrationStatus === "registered";
-      });
-    });
-
-    document.getElementById("continue-exam").addEventListener("click", () => {
-      if (!setupState.registrationStatus) {
-        showStatus("Confirm whether you’re registered, not registered yet, or unsure.");
-        document.querySelector("[data-registration]").focus();
-        return;
-      }
-      showScreen("intent");
-    });
-
-    document.querySelector('[data-go="first-plan"]').addEventListener("click", () => {
-      const intentCopy = {
-        recommend: {
-          title: "Find the best place to start",
-          practice: "Practice the best next opportunity",
-          copy: "See why it was chosen, then accept it or choose something else.",
-          why: "You asked Cramapple to recommend what to work on."
-        },
-        topic: {
-          title: "Start with the topic you choose",
-          practice: "Practice your selected topic",
-          copy: "Cramapple may suggest a short prerequisite check before you begin.",
-          why: "You chose to begin with a topic already on your mind."
-        },
-        work: {
-          title: "Use your own work as the starting point",
-          practice: "Check the answer you bring",
-          copy: "Get criterion-level feedback, then practice the most useful missing step.",
-          why: "You chose to start from work you have already attempted."
-        },
-        question: {
-          title: "Start with the question you bring",
-          practice: "Classify and work through your question",
-          copy: "Cramapple will ask for missing context rather than inventing it.",
-          why: "You chose to begin with a question from class or practice."
-        }
-      };
-      const selectedIntent = intentCopy[setupState.intent];
-      const usesCalibration = setupState.start === "calibration";
-      document.getElementById("plan-title").textContent = selectedIntent.title;
-      document.getElementById("practice-step-title").textContent = selectedIntent.practice;
-      document.getElementById("practice-step-copy").textContent = selectedIntent.copy;
-      document.querySelector(".plan-header .eyebrow").textContent =
-        `${setupState.mode} · about ${setupState.minutes} minutes`;
-      document.getElementById("plan-summary").textContent = usesCalibration
-        ? `A ${setupState.mode.toLowerCase()} ${setupState.minutes}-minute start with three calibration questions, followed by the activity you chose.`
-        : `A ${setupState.mode.toLowerCase()} ${setupState.minutes}-minute start that goes directly to the activity you chose.`;
-      document.getElementById("calibration-plan-step").hidden = !usesCalibration;
-      document.getElementById("practice-step-number").textContent = usesCalibration ? "2" : "1";
-      document.getElementById("close-step-number").textContent = usesCalibration ? "3" : "2";
-      document.getElementById("why-plan-copy").textContent = usesCalibration
-        ? `${selectedIntent.why} A small sample gives the first plan some evidence without forcing a long diagnostic.`
-        : `${selectedIntent.why} You skipped calibration, so the first recommendation will rely on your choice until Cramapple observes more evidence.`;
     });
 
     function configureDirectEntry() {
@@ -1914,37 +2007,46 @@
           title: "Where do you want to begin?",
           copy: "Pick the topic on your mind. Cramapple will preserve your choice while checking whether a short prerequisite would save time."
         },
-        work: {
+        check_work: {
           eyebrow: "Check my work",
           title: "Bring the answer you already tried.",
           copy: "Include the full prompt when you can. Feedback is more reliable when the question, response, and relevant visual are all present."
         },
-        question: {
+        bring_question: {
           eyebrow: "Bring a question",
           title: "What are you working on?",
           copy: "Add the complete question and choose how much help you want."
         }
       };
-      const selected = entryContent[setupState.intent];
+      const selected = entryContent[setupState.firstIntent] || entryContent.topic;
       document.getElementById("direct-entry-eyebrow").textContent = selected.eyebrow;
       document.getElementById("direct-entry-title").textContent = selected.title;
       document.getElementById("direct-entry-copy").textContent = selected.copy;
-      document.getElementById("topic-entry").hidden = setupState.intent !== "topic";
-      document.getElementById("work-entry").hidden = setupState.intent !== "work";
-      document.getElementById("question-entry").hidden = setupState.intent !== "question";
+      document.getElementById("topic-entry").hidden = setupState.firstIntent !== "topic";
+      document.getElementById("work-entry").hidden = setupState.firstIntent !== "check_work";
+      document.getElementById("question-entry").hidden = setupState.firstIntent !== "bring_question";
     }
 
     document.getElementById("start-first-session").addEventListener("click", () => {
-      if (setupState.start === "calibration" || setupState.intent === "recommend") {
-        showScreen("mcq");
-        return;
-      }
-      configureDirectEntry();
-      showScreen("direct-entry");
+      setupState.setupStatus = "completed";
+      void syncSession("session_start", {
+        entry_path: "recommendation",
+        course_position_unit: setupState.coursePosition.unitId,
+        position_estimate_confidence: setupState.coursePosition.positionEstimateConfidence,
+        available_minutes: setupState.minutes,
+      }).catch((error) => {
+        console.warn("session_start sync failed", error);
+      });
+      // The first practice item is ordinary practice and continuous evidence,
+      // not a separate diagnostic ceremony.
+      showScreen("mcq");
     });
 
     document.getElementById("continue-direct-entry").addEventListener("click", () => {
-      if (setupState.intent === "work") {
+      void syncSession("session_resume").catch((error) => {
+        console.warn("session_resume sync failed", error);
+      });
+      if (setupState.firstIntent === "check_work") {
         const prompt = document.getElementById("work-prompt").value.trim();
         const answer = document.getElementById("work-answer").value.trim();
         if (!prompt || !answer) {
@@ -1954,7 +2056,7 @@
         showScreen("frq");
         return;
       }
-      if (setupState.intent === "question") {
+      if (setupState.firstIntent === "bring_question") {
         const question = document.getElementById("question-prompt").value.trim();
         if (!question) {
           showStatus("Add the question before continuing.");
@@ -1970,12 +2072,32 @@
         showStatus("Choose an answer before submitting.");
         return;
       }
+      void syncAttempt("grade_initial_attempt", {
+        response_payload: {
+          selected_choice: selected.value,
+        },
+      }).catch((error) => {
+        console.warn("attempt sync failed", error);
+      });
+      void syncSession("session_save").catch((error) => {
+        console.warn("session_save sync failed", error);
+      });
       document.getElementById("mcq-actions").hidden = true;
       document.getElementById("mcq-feedback").hidden = false;
       document.getElementById("mcq-feedback").scrollIntoView({ behavior: "smooth" });
     });
 
     document.getElementById("submit-frq").addEventListener("click", () => {
+      void syncAttempt("grade_initial_attempt", {
+        response_payload: {
+          response_text: document.getElementById("frq-answer").value.trim(),
+        },
+      }).catch((error) => {
+        console.warn("attempt sync failed", error);
+      });
+      void syncSession("session_save").catch((error) => {
+        console.warn("session_save sync failed", error);
+      });
       document.getElementById("frq-actions").hidden = true;
       document.getElementById("frq-feedback").hidden = false;
       document.getElementById("frq-feedback").scrollIntoView({ behavior: "smooth" });
@@ -1993,6 +2115,16 @@
         showStatus("Add the missing mechanism before checking this step.");
         return;
       }
+      void syncAttempt("grade_revision", {
+        response_payload: {
+          response_text: answer,
+        },
+      }).catch((error) => {
+        console.warn("attempt sync failed", error);
+      });
+      void syncSession("session_end", { status: "completed" }).catch((error) => {
+        console.warn("session_end sync failed", error);
+      });
       showScreen("complete");
     });
 
@@ -2012,6 +2144,9 @@
     document.getElementById("close-dispute").addEventListener("click", closeDispute);
     document.getElementById("submit-dispute").addEventListener("click", () => {
       closeDispute();
+      void syncSession("session_save").catch((error) => {
+        console.warn("session_save sync failed", error);
+      });
       showStatus("Recheck request saved. No response time is promised in this prototype.");
     });
 
@@ -2040,7 +2175,10 @@
       }
     });
 
-    showScreen("welcome");
+    renderPlan();
+    void refreshSyncStatus().then(() => {
+      showScreen("welcome");
+    });
   </script>
 </body>
 </html>

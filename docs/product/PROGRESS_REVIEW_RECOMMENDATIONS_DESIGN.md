@@ -180,6 +180,7 @@ The card does not claim a causal diagnosis or guaranteed score gain.
 Show the factors used, not a hidden opaque score:
 
 - exam value;
+- likely course position (where the learner's class probably is);
 - recent independent evidence;
 - due review;
 - recurring criterion gap;
@@ -193,8 +194,44 @@ Show the factors used, not a hidden opaque score:
 
 Use plain language and disclose missing or uncertain inputs.
 
+The likely-course-position factor expresses *where the learner's class probably
+is* in the calendar-keyed pacing sequence, in plain student language such as
+"we're starting near where your class probably is right now." It is a coverage
+prior used to keep recommendations on reachable material — it is **never**
+presented as mastery, readiness, or a measure of what the learner knows, and a
+single answer does not change it into proficiency evidence. See
+`docs/proposals/2026-06-29-year-aware-point-maximization.md`.
+
 Target score does not appear until the Product Owner approves how it affects
 recommendations.
+
+### 9.1 Seasonal Emphasis and Returning Re-Entry
+
+The recommendation keeps the same card and explanation structure year-round, but
+its center of gravity shifts with the readiness frontier and mastery-freshness
+decay (see `docs/proposals/2026-06-29-year-aware-point-maximization.md`):
+
+- early year — build and lock the current unit;
+- mid year — retention rises; decayed earlier units increasingly win the slot,
+  and due review becomes the headline rather than a footnote;
+- late year — integration, cross-unit prioritization, and fuller exam practice.
+
+This is one value function with a decay term, not three modes. For returning
+learners:
+
+- re-confirm course position only when triggered (the pacing prior crosses a
+  unit boundary since last confirmation, or performance diverges from the assumed
+  frontier) — never every session and never silently;
+- when the reachable frontier has grown since the last visit, surface newly
+  reachable material and close the loop on any earlier soft-redirected
+  work-ahead attempt;
+- coordinate decay-driven re-surfacing with Lock due-review so the same item does
+  not appear twice in recommendations or the review queue (open item in
+  `LEARN-007`).
+
+A single answer never changes content mastery, readiness, or course position
+into proficiency evidence; a wrong work-ahead answer lowers position-estimate
+confidence and may soft-redirect, nothing more.
 
 ## 10. Alternatives and Override
 
