@@ -63,13 +63,12 @@ Home action rather than a permanent navigation destination.
 
 ```text
 Account created
-  -> Confirm account readiness and explain the one-minute setup
-  -> Show the official AP Biology exam date, confirm registration, and ask broad starting point
-  -> Ask the learner's immediate goal
-  -> Ask available time
-  -> Offer optional three-question calibration or direct start
-  -> Show the proposed first-session plan and why it was selected
-  -> Start the first cold attempt or requested activity
+  -> Open one composed setup surface (no multi-step wizard)
+  -> Display the official AP Biology exam date
+  -> Pre-fill course position from the pacing prior; learner confirms or adjusts
+  -> Confirm available time (defaulted, adjustable)
+  -> Generate and show the first-session plan inline
+  -> Start the first practice item
 ```
 
 #### Proposed onboarding explanation
@@ -82,47 +81,43 @@ The explanation should appear once in a compact format, with an optional
 "How it works" expansion. It should not lead with methodology names or a long
 tour.
 
-#### Post-account setup sequence
+#### Post-account setup surface
 
-The setup uses five short screens. Each screen asks for one category of
-information and explains why it matters.
+The setup uses one composed surface with recoverable sub-decisions. It presents
+the smallest plan that can start useful learning while preserving the underlying
+state needed to resume or adjust later.
 
-1. **Account ready.** Confirm that setup takes about one minute and that a full
-   diagnostic is optional.
-2. **Exam context.** Confirm AP Biology, display the official exam date from
-   the active exam specification, ask whether the learner is registered, and
-   ask for a broad self-described starting point. The starting point is
-   orientation, not proficiency evidence.
-3. **Immediate goal.** Let the learner choose recommendation, topic practice,
-   check-my-work, or bring-a-question entry.
-4. **Available time.** Present Quick, Focused, and Buckle Down as adjustable
-   time commitments rather than fixed curricula.
-5. **Starting method.** Offer a recommended three-question calibration or
-   direct entry into the requested activity.
+The surface includes:
 
-The final setup screen shows the proposed plan before beginning. It states:
+- a compact value statement;
+- AP Biology and the official exam date from the active exam specification;
+- a one-tap course-position pacing prior that the learner may change;
+- available-time choices, with a short session selected by default;
+- a proposed first-session plan;
+- secondary routes for topic practice, check-my-work, or bring-a-question.
+
+The proposed plan states:
 
 - session duration;
-- whether calibration is included;
 - the requested or recommended activity;
 - how the session is expected to close; and
 - why those elements were selected.
 
-The learner may change the plan, finish setup later, or proceed.
+The learner may change the plan, finish setup later, or proceed. Registration
+status is not part of onboarding because it does not change the learning loop.
 
 #### Required first-session inputs
 
-- AP exam and registration status. The official exam date comes from the
-  active versioned exam specification and is not learner-entered data.
+- AP exam and official date from the active versioned exam specification. The
+  learner does not enter official exam data.
+- Confirmed or adjusted course-position pacing prior.
 - Time available now.
-- Immediate intent:
-  - Tell me what to work on.
-  - Practice a topic.
-  - Check my work.
-  - Bring a question.
 - Optional confidence or uncertainty.
 
-A full diagnostic is optional. The student may skip calibration and begin.
+The default immediate intent is "tell me what to work on." Topic practice,
+check-my-work, and bring-a-question remain available as in-product actions, but
+they are not required before the first useful attempt. A full diagnostic is
+optional. The first practice item may serve as continuous calibration.
 
 #### Setup rules
 
@@ -130,31 +125,39 @@ A full diagnostic is optional. The student may skip calibration and begin.
   use is resolved.
 - Do not convert self-reported starting point into mastery or readiness.
 - Do not require a full profile before the first useful attempt.
-- Save completed setup steps so an interrupted learner resumes at the next
-  incomplete step.
-- Explain why each question affects the first plan.
-- Keep calibration optional and distinguish it from a full diagnostic.
+- Persist the composed surface's sub-decisions (course-position confirmation,
+  time selection, plan generation, and any interruption state) so a learner who
+  leaves can resume the same start without repeating a wizard.
+- Explain why each input affects the first plan.
+- Keep calibration optional and distinguish it from a full diagnostic. A first
+  practice item may create useful evidence without being framed as a test.
 - Never ask the learner to enter an official exam date already defined by the
   active exam specification.
-- Require an explicit `registered`, `not registered yet`, or `unsure`
-  confirmation. A learner who is not registered or is unsure may continue
-  learning; Cramapple should explain that registration happens through the
-  learner's school or AP coordinator.
+- Do not require registration status before the first useful attempt.
+  Registration status does not change the learning loop. If surfaced at all, it
+  belongs in Account or a lightweight reminder, not onboarding.
 - If the official date is unavailable from the active exam specification,
   show a system-data warning and avoid inventing or asking the learner to
   supply the date.
-- When calibration is selected, begin with a cold calibration item before the
-  requested activity.
-- When calibration is skipped, route directly to topic selection,
-  question-and-answer intake, or user-question intake as appropriate.
+- Route the default "tell me what to work on" intent straight into the first
+  practice item. Topic selection, check-my-work, and bring-a-question remain
+  available as in-product actions rather than onboarding gates.
 - Final consent, age-gating, and required notices remain governed by their
   separate legal and product decisions.
 
 ### 4.2 Returning Session
 
+A returning learner is not re-onboarded. Cramapple already knows their confirmed
+course position, accumulated content and point-capture evidence, mastery
+freshness, and history. The returning experience is **re-entry into a picture
+that has moved since the last visit**, not a fresh setup. See
+`docs/proposals/2026-06-29-year-aware-point-maximization.md`.
+
 ```text
 Open Home
-  -> Show incomplete work and due review
+  -> Recover any incomplete onboarding or interrupted session
+  -> Re-confirm course position only when triggered (see below)
+  -> Show what is newly reachable since the last visit, when the frontier grew
   -> Show one recommended next action with reason and time estimate
   -> Continue, choose another action, or change available time
 ```
@@ -170,7 +173,61 @@ Primary action: `Start`
 
 Secondary actions: `Why this?`, `Choose something else`
 
-The portal must recover interrupted onboarding and incomplete sessions.
+#### Triggered course-position re-confirmation
+
+Do not re-ask course position every session, and do not silently assume it. Show
+a lightweight one-tap re-confirmation (the returning analog of first-session
+confirm) **only when**:
+
+- the calendar-keyed pacing prior crosses a unit boundary since the learner's
+  last confirmation; or
+- recent performance diverges from the assumed frontier (for example, repeated
+  wrong answers on assumed-covered material, or fluent work above the prior).
+
+Otherwise stay quiet. Re-confirmation is ambient, never a gate.
+
+#### Seasonal recommendation shift
+
+The Home recommendation keeps the same structure but changes its center of
+gravity across the year, driven by the readiness frontier and mastery-freshness
+decay — not by a separate mode:
+
+- **Early year:** build and lock the current unit.
+- **Mid year:** retention rises; decayed earlier units increasingly win the
+  recommendation slot, and "a short review is due" becomes the headline rather
+  than a footnote.
+- **Late year:** integration, cross-unit prioritization, and fuller exam
+  practice.
+
+#### Newly reachable material and the work-ahead loop
+
+When the reachable frontier has grown since the last visit, acknowledge it
+("Your class has probably moved into Unit 4 — start there, or shore up Unit 3
+first?"). If the learner previously attempted work ahead of their class and was
+soft-redirected, and the prior has since caught up, surface it proactively
+("Unit 6 is in range now — you tried it early; ready to take it on?"). This
+closes the loop on the work-ahead decision without ever gating it.
+
+#### Two-axis surfacing
+
+Home and Progress should reflect both axes: content coverage ("what you know")
+and point-capture skill ("how well you capture available points"). A returning
+learner whose content is still thin but whose point-capture is improving should
+see that win. Home may recommend a point-capture drill independent of unit.
+
+#### Review as rhythm, not penalty
+
+Frame decay-driven and Lock-driven review as the natural cadence ("time to see
+if this still holds"), never as punitive overdue language. Decay-driven
+re-surfacing and Lock due-review must be coordinated so the same item does not
+appear twice on Home; the coordination rule is an open item in `LEARN-007`.
+
+#### What does not change
+
+Returning learners are not re-onboarded: no re-confirming time beyond a quick
+adjust, no re-establishing goals, no dashboard of zeroes. The re-entry additions
+are ambient (a card or a triggered prompt), not gates. The portal must recover
+interrupted onboarding and incomplete sessions.
 
 ## 5. Session Mode Presentation
 
@@ -430,9 +487,9 @@ The prototype must support:
 Accessibility review is a release gate for the UX decision, not a final polish
 step.
 
-## 12. Prototype Scope
+## 12. Student Experience Scope
 
-The first low-fidelity clickable prototype should cover:
+The student experience build should cover:
 
 1. New learner onboarding.
 2. Returning Home with one recommendation and a due review.
@@ -448,9 +505,9 @@ The first low-fidelity clickable prototype should cover:
 Use original placeholder content that does not reproduce official questions or
 unapproved candidate material.
 
-Initial prototype:
+Primary Lovable handoff:
 
-- `prototypes/ux-001/index.html`
+- `prompts/LOVABLE_UX001_STUDENT_EXPERIENCE.md`
 
 ## 13. Research Plan
 
