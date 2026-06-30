@@ -231,8 +231,8 @@ before its inputs exist.
 |---|---|---|---|---|
 | 0 | Decision gate — the 5 pending owner decisions above | **David** | — | **Done** (`DECISION-0031`) |
 | 1 | De-hardcode grading prompts; resolve subject from `app.exam_packs` per attempt; regression-test against AP Biology | **Codex** (backend) | Phase 0 approval | **Done, merged** (PR #20) |
-| 2 | `app.subjects` row, exam_pack + content_labels for AP Statistics, additive migration | **Codex** (backend), reviewed by **Orly** for label correctness | Phase 1 | Prompt drafted (PR #22), **do-not-execute pending David's migration go-ahead** |
-| 3 | Deterministic calculation-check verifier for Stats FRQ criteria | **Codex** (backend) | Phase 1 | Prompt drafted and **cleared** (PR #21) — Codex executing |
+| 2 | `app.subjects` row, exam_pack + content_labels for AP Statistics, additive migration | **Codex** (backend), reviewed by **Orly** for label correctness | Phase 1 | **Cleared** (`DECISION-0032`, `APPROVAL-0025`) — Codex executing |
+| 3 | Deterministic calculation-check verifier for Stats FRQ criteria | **Codex** (backend) | Phase 1 | **Done, merged** (PR #24) — two QA rounds, both Pass. Non-blocking follow-up (diagnostic text only) cleared and queued (`prompts/CODEX_AP_STATISTICS_PHASE3_FOLLOWUP_CI_REASON_TEXT.md`) |
 | 4 | Pilot content batch (governed authoring, no official material) | **Orly** (curriculum), same governance gates as Biology | Phase 2 | Brief drafted (`docs/product/AP_STATISTICS_PHASE4_CONTENT_AUTHORING_BRIEF.md`), blocked on Phase 2 landing |
 | 5 | Subject selector + AP Statistics practice/assessment routes | **Lovable** (frontend) | Phase 2 + 4 (real content to render) | Prompt drafted (`prompts/LOVABLE_AP_STATISTICS_PHASE5_SUBJECT_SELECTOR.md`), blocked on Phase 2 + 4 |
 | 6 | Calibration run against AP Statistics gold set; tutor credentialing | **Claude/QA Agent** (protocol) + **David** (tutor pool decision) | Phases 3–4 | Protocol drafted (`docs/research/AP_STATISTICS_PHASE6_CALIBRATION_PROTOCOL.md`), blocked on Phase 3 + 4 |
@@ -278,6 +278,24 @@ findings.
 QA pass is not launch or merge approval — David decides whether PR #20
 merges. Remaining task-level work (Phases 2–7) is unaffected by this
 verdict; it covers Phase 1 only.
+
+**Phase 3 (PR #24) QA Verdict: Pass, on second round.** First round (fresh
+Claude QA agent) found two real, reproduced blocking bugs in the
+confidence-interval calculation checker: (1) ambiguity detection silently
+picked the wrong CI pair when a response contained more than one (e.g. a
+corrected answer after a crossed-out attempt) instead of returning
+`indeterminate`; (2) tolerance comparisons had no float-epsilon cushion,
+so a value exactly at the boundary could fail due to IEEE imprecision.
+Codex remediated both (fail-closed ambiguity rule, epsilon-safe tolerance
+helper) with two new regression tests; re-QA (separate fresh agent)
+independently re-ran the original adversarial reproduction case plus a
+3-pair variant, confirmed both fixes hold, confirmed no regression on the
+previously-working single-pair case, and found one new non-blocking
+cosmetic gap (diagnostic `reason` text doesn't distinguish 0-claims from
+multi-claims for the CI path) — queued as a follow-up, not a blocker.
+9/9 tests passing. Demonstrates the value of the two-round QA pattern: the
+first round's adversarial verification (not just "tests pass") is what
+caught bugs a less skeptical review would have missed.
 
 ## Done Decision
 
