@@ -5,10 +5,10 @@
 **Owner:** Main Conductor
 **Product Owner:** David Bloom
 **Tier:** Hard-Gate
-**Status:** Ready for Review
+**Status:** In Progress
 **Priority:** High
 **Created Date:** 2026-06-30
-**Approved Date:** Pending
+**Approved Date:** 2026-06-30
 
 ## Product Goal
 
@@ -132,22 +132,49 @@ new content-ownership relationship at the same time as a new subject.
 
 **Approval Required:** Yes
 **Approval Type:** Hard Gate
-**Decision:** Pending
+**Decision:** Approved
+**Approved By:** David Bloom
+**Date:** 2026-06-30
+**Recorded:** `DECISION-0031`, `APPROVAL-0024` (`docs/activity_log/DECISIONS_LOG.md`,
+`docs/activity_log/APPROVALS_LOG.md`)
 
-**Pending owner decisions (need David's sign-off before any phase below
-executes):**
+**Owner decisions (resolved 2026-06-30):**
 
-1. Confirm AP Statistics as Subject 2 (per the technical-fit comparison in
-   chat; pricing/positioning not assessed here).
-2. Confirm content-sourcing model for Stats: reuse the existing
-   tutor-authored-base-package model (TASK-0007/0008) under Orly, or pilot a
-   different authoring arm.
-3. Confirm pilot content batch size and target date.
-4. Confirm whether existing reviewers can be cross-credentialed for AP
-   Statistics or a new tutor pool is needed (cost/ops decision).
-5. Confirm rights/licensing posture for any AP Statistics source material
-   (same hard gate as Biology — no official CollegeBoard material as model
-   input or exemplar).
+1. **Confirmed.** AP Statistics is Subject 2.
+2. **Confirmed.** Reuse the existing tutor-authored-base-package content model
+   (TASK-0007/0008) under Orly — no new authoring arm for this subject.
+3. **Confirmed.** Pilot batch sized and distributed across all 9 AP
+   Statistics units (College Board unit numbering), David-provided:
+
+   | Module | MCQs | FRQs |
+   |---|---|---|
+   | 1 | 15 | 6 |
+   | 2 | 5 | 2 |
+   | 3 | 10 | 4 |
+   | 4 | 6 | 5 |
+   | 5 | 5 | 4 |
+   | 6 | 10 | 4 |
+   | 7 | 10 | 4 |
+   | 8 | 5 | 2 |
+   | 9 | 5 | 2 |
+   | **Total** | **71** | **33** |
+
+   Plus an investigative-task item — form and count **TBD**, separate from the
+   table above; needs its own scoping pass before Phase 4 content authoring
+   starts (investigative tasks are a distinct AP Statistics task archetype,
+   not a long/short FRQ variant, so they need an archetype definition under
+   §6/§9 of `CONTENT_AUTHORING_AND_PROMPT_ARCHITECTURE.md` before Orly can
+   author against them). Target date: not yet set — revisit once Orly
+   confirms bandwidth alongside ongoing Bio work.
+4. **Confirmed.** Existing reviewers can be cross-credentialed across
+   subjects, including AP Statistics — no new tutor pool required.
+5. **Confirmed.** Same rights posture as AP Biology (no official CollegeBoard
+   material as model input or exemplar) — this was already settled policy,
+   restated here for the record, not reopened.
+
+**Phase 0 is closed.** Phase 1 (Codex) is cleared to start —
+`prompts/CODEX_AP_STATISTICS_PHASE1_GRADING_GENERALIZATION.md`'s
+do-not-execute condition is satisfied.
 
 ## Implementation Notes — Delegation Plan
 

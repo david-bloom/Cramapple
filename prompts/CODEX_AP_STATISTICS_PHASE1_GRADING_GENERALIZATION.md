@@ -1,9 +1,7 @@
 # Codex Execution Prompt — TASK-0013 Phase 1: Grading Prompt Generalization
 
-**DO NOT EXECUTE until TASK-0013 (`docs/tasks/TASK-0013-AP-STATISTICS-LAUNCH.md`)
-Approval State reads `Decision: Approved`.** This file is drafted ahead of
-approval so the work can start immediately once David signs off; it is not
-itself an authorization to implement.
+**Cleared to execute.** TASK-0013 was approved by David Bloom on 2026-06-30
+(`DECISION-0031`, `APPROVAL-0024`). This prompt is ready to hand to Codex.
 
 ## Context
 
