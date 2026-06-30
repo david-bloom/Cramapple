@@ -1,0 +1,183 @@
+# TASK-0013 — AP Statistics Launch (Subject 2)
+
+**Task ID:** TASK-0013
+**Title:** Expand Cramapple to AP Statistics as the second subject
+**Owner:** Main Conductor
+**Product Owner:** David Bloom
+**Tier:** Hard-Gate
+**Status:** Ready for Review
+**Priority:** High
+**Created Date:** 2026-06-30
+**Approved Date:** Pending
+
+## Product Goal
+
+Launch AP Statistics as Cramapple's second subject, reusing the multi-subject
+logical model already designed in
+`docs/architecture/CONTENT_AUTHORING_AND_PROMPT_ARCHITECTURE.md` §6 and the
+`app.subjects` schema normalization
+(`supabase/migrations/202606230002_subjects_normalization.sql`), while closing
+the gap between that design and the AP-Biology-only shortcuts currently in the
+grading and verification code.
+
+AP Statistics was selected over AP Calculus AB, AP English Literature, and AP
+World History because its FRQs are criterion/rubric-scored with quantitative
+thresholds — the same scoring shape as AP Biology's FRQ criterion contracts —
+and because it shares a curriculum owner (Orly) with AP Biology, avoiding a
+new content-ownership relationship at the same time as a new subject.
+
+## Technical Scope
+
+1. **Grading/prompt generalization (blocks any second subject, do first).**
+   De-hardcode the "AP Biology" literals in `grade-frq` and `evaluate-attempt`
+   and wire grading prompt composition to `subject_id` /
+   `taxonomy_scheme_id` via the prompt-build manifest already specified in
+   `CONTENT_AUTHORING_AND_PROMPT_ARCHITECTURE.md` §5, instead of inventing a
+   parallel path.
+2. **Net-new verification technique.** AP Statistics FRQ criteria need
+   deterministic calculation checks (e.g., verifying a computed test
+   statistic, p-value, or confidence interval against the student's stated
+   work) — a verification technique named in §7 but not yet built for any
+   subject. The hand-drawn-graph grading work from TASK-0011 was built for
+   Biology's graph-construction FRQs and is not assumed to transfer; Stats
+   FRQs more often require typed numeric/calculation responses than freehand
+   sketches, so this needs its own scoping pass before assuming reuse.
+3. **Schema/content instantiation.** Insert an `AP Statistics` row into
+   `app.subjects`; create an `exam_pack` version and a new `taxonomy_scheme`
+   for AP Statistics (units, practices, task types) — distinct from Biology's
+   scheme per §6 ("a single generalized list is insufficient").
+4. **Content authoring.** A pilot content batch (not the full Biology-scale
+   30 long FRQ / 100 short FRQ / 100 MCQ) authored under the existing
+   governance rules in `CONTENT_AUTHORING_AND_PROMPT_ARCHITECTURE.md` and
+   `CONTENT_GOVERNANCE_AND_VALIDATION.md` — no official College Board
+   questions or scoring material as model input, same originality/rights
+   gates as Biology.
+5. **Frontend/UX.** Subject selection and AP Statistics practice/assessment
+   routes. Scope and input UI (e.g., typed numeric/calculation entry vs the
+   freehand canvas built for Biology graphs) to be defined once Phase 1
+   confirms what the grader actually needs from the student response.
+6. **Calibration.** A scaled-down version of the SP-1 calibration protocol
+   (`docs/research/grader_speed_sp1_report.md`) against an AP Statistics gold
+   set, using the subject-agnostic reviewer tables already live
+   (`content_review_assignments`, `content_review_decisions`) — but a new,
+   Stats-credentialed tutor pool, since the current reviewers are
+   Biology-credentialed.
+
+## Out of Scope
+
+- Any other AP subject (Calculus AB, English Lit, World History) — this task
+  is AP Statistics only.
+- Full Biology-scale content volume for the pilot batch.
+- Production deployment or public launch — those are separate Hard Gates
+  under `STANDING_APPROVAL_LANES.md` Lane 3 and are not pre-authorized by
+  approval of this task.
+- Pricing, bundling, or marketing sequencing decisions (the SEO phased plan
+  already lists AP Statistics as a Phase 2 candidate in
+  `docs/proposals/2026-06-23-codex-phased-plan.md`, but that's a separate
+  workstream from this task).
+
+## Routes / Components / Systems Affected
+
+- `supabase/functions/grade-frq/index.ts`,
+  `supabase/functions/evaluate-attempt/index.ts` (prompt generalization)
+- `app.subjects`, `app.exam_packs`, new taxonomy_scheme tables (schema)
+- New verification service/module for deterministic calculation checks
+- Frontend: subject selector, new AP Statistics routes (Lovable)
+- Reviewer/tutor workflow: new Stats-credentialed reviewer accounts
+
+## Data / Security / Integration Impact
+
+- New `app.subjects` row and exam_pack/taxonomy rows — additive schema data,
+  not a destructive migration, but still routed through the Database
+  Migrations hard gate per `STANDING_APPROVAL_LANES.md`.
+- No change to student-data handling, auth, or secrets boundaries.
+- Reviewer/tutor onboarding for AP Statistics is a new credentialing decision,
+  not just a config change — flagged as a pending owner decision below.
+
+## Acceptance Criteria
+
+- [ ] Grading prompt composition for at least one FRQ task type is
+      subject-driven (manifest pulls `subject_id`), not hardcoded to "AP
+      Biology," and AP Biology grading output is unchanged (regression-safe).
+- [ ] A deterministic calculation-check verifier exists for at least one AP
+      Statistics FRQ criterion type and is demonstrated against a test case.
+- [ ] `app.subjects` contains an `ap-statistics` row; a versioned exam_pack
+      and taxonomy_scheme exist for it.
+- [ ] A pilot content batch (size TBD by Orly/David) passes the same
+      originality/rights/scientific(statistical)-consistency gates Biology
+      content passes.
+- [ ] A calibration run against an AP Statistics gold set produces
+      documented grader agreement/confidence numbers, not just a "looks
+      right" judgment call.
+- [ ] Frontend exposes AP Statistics as a selectable subject end-to-end in a
+      non-production environment.
+
+## QA Plan
+
+- Manual QA: spot-check AP Biology grading output before/after the
+  generalization change to confirm no regression.
+- Automated tests: unit tests on the deterministic calculation-check verifier
+  against known correct/incorrect statistical work.
+- Regression areas: AP Biology grading paths, prompt-build manifest resolution
+  for both subjects.
+- Failure cases: malformed/partial calculation work, ambiguous notation,
+  criterion boundary cases (reuse the boundary-contract pattern from Biology's
+  C2 misattribution work where applicable).
+- Security/data/integration checks: confirm subject_id is read from the
+  immutable question-version the student saw, not re-resolved against a
+  later-edited taxonomy (same caveat already on record for MCQ lookup-table
+  grading in `[[project_multisubject_grading_strategy]]`).
+
+## Approval State
+
+**Approval Required:** Yes
+**Approval Type:** Hard Gate
+**Decision:** Pending
+
+**Pending owner decisions (need David's sign-off before any phase below
+executes):**
+
+1. Confirm AP Statistics as Subject 2 (per the technical-fit comparison in
+   chat; pricing/positioning not assessed here).
+2. Confirm content-sourcing model for Stats: reuse the existing
+   tutor-authored-base-package model (TASK-0007/0008) under Orly, or pilot a
+   different authoring arm.
+3. Confirm pilot content batch size and target date.
+4. Confirm whether existing reviewers can be cross-credentialed for AP
+   Statistics or a new tutor pool is needed (cost/ops decision).
+5. Confirm rights/licensing posture for any AP Statistics source material
+   (same hard gate as Biology — no official CollegeBoard material as model
+   input or exemplar).
+
+## Implementation Notes — Delegation Plan
+
+Phased so Phase 1 unblocks everything else and nothing downstream starts
+before its inputs exist.
+
+| Phase | Work | Delegate | Depends on |
+|---|---|---|---|
+| 0 | Decision gate — the 5 pending owner decisions above | **David** | — |
+| 1 | De-hardcode grading prompts; wire prompt-build manifest to `subject_id`/`taxonomy_scheme_id`; regression-test against AP Biology | **Codex** (backend) | Phase 0 approval |
+| 2 | `app.subjects` row, exam_pack + taxonomy_scheme for AP Statistics, additive migration | **Codex** (backend), reviewed by **Orly** for taxonomy correctness | Phase 1 |
+| 3 | Deterministic calculation-check verifier for Stats FRQ criteria | **Codex** (backend) | Phase 1 |
+| 4 | Pilot content batch (governed authoring, no official material) | **Orly** (curriculum), same governance gates as Biology | Phase 2 |
+| 5 | Subject selector + AP Statistics practice/assessment routes; input UI decision (typed calculation entry vs canvas) | **Lovable** (frontend) | Phase 1 output (what the grader needs from a response) |
+| 6 | Calibration run against AP Statistics gold set; tutor credentialing | **Claude/QA Agent** (protocol) + **David** (tutor pool decision) | Phases 3–4 |
+| 7 | Launch readiness review (separate Hard Gate — not granted by this task) | **David** | All above |
+
+A ready-to-fire Codex prompt for Phase 1 is drafted at
+`prompts/CODEX_AP_STATISTICS_PHASE1_GRADING_GENERALIZATION.md`, marked
+do-not-execute until this task's Approval State changes to Approved. No
+Lovable prompt is drafted yet — Phase 5's input-UI decision depends on Phase
+1's output and would be speculative before that.
+
+## QA Review
+
+**QA Verdict:** Pending (Standard/Hard-Gate tier — QA auto-triggers when this
+task reaches `Ready for Review` on the implementation side, not at the spec
+stage it's at now).
+
+## Done Decision
+
+**Decision:** Pending
+**Date:** Pending
