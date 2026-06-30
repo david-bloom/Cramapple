@@ -246,9 +246,24 @@ Lovable prompt is drafted yet — Phase 5's input-UI decision depends on Phase
 
 ## QA Review
 
-**QA Verdict:** Pending (Standard/Hard-Gate tier — QA auto-triggers when this
-task reaches `Ready for Review` on the implementation side, not at the spec
-stage it's at now).
+**Phase 1 (PR #20) QA Verdict: Pass** — two independent reviews, no blocking
+findings.
+
+- **Claude QA agent** (fresh/independent context, spawned 2026-06-30):
+  Pass. Verified the `exam_pack_not_found` guard precedes every use of
+  `exam_name`, the diff is surgical (3 hunks, no unrelated files), `deno
+  check` passes, the one `deno fmt` violation at line 832 is pre-existing
+  and outside the changed hunks, the `public.questions` no-subject-concept
+  claim checks out, and the activity-log entries are structurally
+  consistent. Non-blocking notes: no live Supabase integration test was
+  possible in this environment; `exam_packs.subject` (free-text) and
+  `exam_packs.subject_id` (FK) coexist and should be reconciled in Phase 2.
+- **Codex** (independent second pass, `prompts/CODEX_TASK0013_PHASE1_QA_REVIEW.md`):
+  Pass. No blocking findings.
+
+QA pass is not launch or merge approval — David decides whether PR #20
+merges. Remaining task-level work (Phases 2–7) is unaffected by this
+verdict; it covers Phase 1 only.
 
 ## Done Decision
 
