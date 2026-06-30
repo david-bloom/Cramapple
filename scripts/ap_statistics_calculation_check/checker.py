@@ -51,7 +51,7 @@ SINGLE_LABELS = {
         re.compile(r"\bp(?:[- ]?value)?\b", re.I),
     ],
 }
-CI_LABEL = re.compile(r"\b(?:confidence interval|ci)\b", re.I)
+FLOAT_EPSILON = 1e-12
 
 
 @dataclass(frozen=True)
@@ -91,6 +91,10 @@ def tolerance_from(spec: dict[str, Any]) -> float:
         return 0.0
 
 
+def within_tolerance(actual: float, expected: float, tolerance: float) -> bool:
+    return abs(actual - expected) <= tolerance + FLOAT_EPSILON
+
+
 def _first_number_after(text: str, start: int, window: int = 80) -> Optional[Tuple[float, str, int, int]]:
     segment = text[start : min(len(text), start + window)]
     match = VALUE_RE.search(segment)
@@ -106,15 +110,6 @@ def _first_number_after(text: str, start: int, window: int = 80) -> Optional[Tup
 
 def _all_number_spans(text: str) -> list[tuple[int, int]]:
     return [(m.start(), m.end()) for m in re.finditer(NUMBER_RE, text)]
-
-
-def _closest_distance(point: int, spans: list[Tuple[int, int]]) -> Optional[int]:
-    if not spans:
-        return None
-    return min(
-        min(abs(point - start), abs(point - end))
-        for start, end in spans
-    )
 
 
 def extract_single_value_claims(answer_text: str, kind: str) -> list[Claim]:
@@ -198,38 +193,22 @@ def _pair_candidates(answer_text: str) -> list[Claim]:
 
 
 def extract_confidence_interval_claims(answer_text: str) -> list[Claim]:
-    label_spans = [(m.start(), m.end()) for m in CI_LABEL.finditer(answer_text)]
     pair_candidates = _pair_candidates(answer_text)
     if not pair_candidates:
         return []
-
-    if not label_spans:
-        return pair_candidates if len(pair_candidates) == 1 else []
-
-    scored: list[tuple[int, Claim]] = []
-    for candidate in pair_candidates:
-        distance = _closest_distance(candidate.span_start, label_spans)
-        if distance is None:
-            continue
-        scored.append((distance, candidate))
-
-    if not scored:
+    if len(pair_candidates) != 1:
         return []
-
-    scored.sort(key=lambda item: (item[0], item[1].span_start, item[1].span_end))
-    best_distance = scored[0][0]
-    best = [candidate for distance, candidate in scored if distance == best_distance]
-    return best if len(best) == 1 else []
+    return pair_candidates
 
 
 def compare_single_value(candidate: Claim, expected: float, tolerance: float) -> bool:
     if candidate.value is None:
         return False
     if candidate.comparator == "lte":
-        return expected <= candidate.value + tolerance
+        return expected <= candidate.value + tolerance + FLOAT_EPSILON
     if candidate.comparator == "gte":
-        return expected >= candidate.value - tolerance
-    return abs(candidate.value - expected) <= tolerance
+        return expected >= candidate.value - tolerance - FLOAT_EPSILON
+    return within_tolerance(candidate.value, expected, tolerance)
 
 
 def compare_interval(candidate: Claim, expected: dict[str, Any], tolerance: float) -> bool:
@@ -243,8 +222,8 @@ def compare_interval(candidate: Claim, expected: dict[str, Any], tolerance: floa
     if candidate.lower > candidate.upper:
         return False
     return (
-        abs(candidate.lower - expected_lower) <= tolerance
-        and abs(candidate.upper - expected_upper) <= tolerance
+        within_tolerance(candidate.lower, expected_lower, tolerance)
+        and within_tolerance(candidate.upper, expected_upper, tolerance)
     )
 
 

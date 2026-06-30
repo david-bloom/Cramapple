@@ -70,6 +70,34 @@ class CalculationCheckerTest(unittest.TestCase):
         )
         self.assert_verdict(result, "does_not_match")
 
+    def test_ambiguous_multiple_confidence_intervals(self):
+        result = checker.check_request(
+            {
+                "response_id": "ci-ambiguous",
+                "answer_text": "My first try was (10.0, 15.0), but the corrected 95% CI is (12.4, 18.9).",
+                "expected_answer_spec": {
+                    "calculation_type": "confidence_interval",
+                    "target": {"lower": 12.4, "upper": 18.9},
+                    "tolerance": 0.1,
+                },
+            }
+        )
+        self.assert_verdict(result, "indeterminate")
+
+    def test_tolerance_edge_matches_with_float_noise(self):
+        result = checker.check_request(
+            {
+                "response_id": "edge-match",
+                "answer_text": "t = 2.00",
+                "expected_answer_spec": {
+                    "calculation_type": "t_statistic",
+                    "target": 1.95,
+                    "tolerance": 0.05,
+                },
+            }
+        )
+        self.assert_verdict(result, "matches")
+
     def test_no_extractable_number(self):
         result = checker.check_request(
             {
