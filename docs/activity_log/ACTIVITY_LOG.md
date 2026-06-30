@@ -6,18 +6,141 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
-- Beta Revised-Answer Scoring Bug Logged — 2026-06-16
-- Content Authoring and Revision Workbench Design Started — 2026-06-15
-- Student-Provided Question Intake Design Started — 2026-06-13
-- Question and Answer Review Portal Design Started — 2026-06-13
-- Drawn-Response Pilot V0 Preflight Blocked — 2026-06-13
-- Orly Drawn-Response Pilot Protocol Prepared — 2026-06-13
+- Hand-Drawn Graph Corpus Realism Fix and Four-Finding Spot-Check — 2026-06-30
+- New-User Experience Live QA — 2026-06-29
+- Production Readiness QA Handoff — 2026-06-21
+- Cramapple Visual Identity Brief Revised From Family Discussion — 2026-06-21
+- Session and Storage Backend Surfaces Wired — 2026-06-21
+- Cramapple Visual Identity Brief Drafted — 2026-06-21
+- Production Plumbing Session Handoff — 2026-06-20
+- Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
-(Note: branches with TASK-0012 production-readiness work in flight will have additional, newer entries on top of this log once that work lands on `main` separately — this index reflects `main`'s state at the time the charter changes below were adopted.)
-
 ---
+
+## Hand-Drawn Graph Corpus Realism Fix and Four-Finding Spot-Check - 2026-06-30
+
+**Task:** TASK-0011 (handwritten graph capture); relates to TASK-0010 gold/calibration governance.
+**Status:** Research progress — generator fixed and verified. No production or content-release approval. Not committed to git (working in place on the `claude/task-0012-deferred-findings` branch).
+
+**Summary:** Spot-checked the in-repo hand-drawn graph generation artifacts
+against four defect modes carried over from prior corpus/reference-image work:
+(a) pen-type tradeoff (legibility vs point-position precision), (b) recurring
+"carrying capacity" in student-facing text, (c) synthetic data that lands on
+uniform/consecutive-integer sequences that are not real noise, and (d) paired
+good/bad reference images that must isolate exactly one criterion violation.
+
+Findings against the 2026-06-29 v0.1 corpus (`HDG-2026-P1-*`): (b) clean — zero
+student-facing or reviewer occurrences; (a) only partially handled — the Orly
+protocol logs `writing_instrument` after the fact but the 150-item capture
+instruction is identical and silent on instrument; (c) failing and systemic —
+no replicate-level data (SEM was an arithmetic formula), 60/90 uniform x-grids,
+only 5 categorical mean-shapes recycled across 50 items, symmetric analytic
+series; (d) absent in-repo — neither generator produces single-violation pairs,
+so there are no true-negative criterion cases.
+
+Acted on (c): rewrote `scripts/generate_hand_drawn_graph_corpus.py` to a
+seeded, reproducible v0.2 generator. Every displayed mean and SEM is now derived
+from synthetic replicate observations (stored per point for audit); two noise
+scales give off-model scatter plus a legitimate irregular SEM; x-grids are
+non-uniform but clean; displayed values are integer means / one-decimal SEM; and
+shapes are RNG-varied per item. Output written to a NEW package
+`docs/research/hand_drawn_graph_corpus_2026_06_30/` (prefix `HDG-2026-P2-*`); the
+v0.1 package is left untouched and stays bound to the 100+ pages already drawn.
+
+**Verified:** Generator runs and is bit-for-bit reproducible across runs
+(identical JSONL hash). Re-running the v0.1 audit checks on v0.2: uniform x-grids
+4/100 (was 60/90), uniform/fake SEM 0/100 (was 13/100), distinct categorical
+shapes 50/50 (was 5), non-integer means 0 and non-1dp SEM 0, replicate-derived
+SEM varies within every item, real off-model scatter in 49/50 series items. A
+late-binding closure bug in the peak branch (corrupted 13 items) was found and
+fixed; peak items now render proper optima with mild scatter. v0.1 dir confirmed
+unmodified.
+
+**Open / not done:** (a) pen-type is still uncontrolled (no felt-tip caution,
+no matched-instrument capture sets); (d) single-violation negative cases still
+do not exist — required before criterion precision can be measured; v0.2 has no
+trace-set renders yet (`generate_hand_drawn_trace_sets.py` still targets v0.1);
+no adjudicated dual-human gold exists for any image; external multimodal grading
+remains blocked on Product Owner data-transfer approval. These gate any
+learner-facing automated graph score per the drawn-response architecture review
+and TASK-0010.
+
+**Next Owner:** David Bloom (Product Owner).
+**Next Required Action:** Decide the next collection/test focus — recommended
+order: (1) reviewer blind-scoring pass to establish adjudicated gold (no provider
+needed), (2) author single-violation responses for true negatives (finding d),
+(3) point the trace renderer at the v0.2 package if drawable pages are wanted.
+Confirm git handling (currently uncommitted, in place).
+
+## New-User Experience Live QA - 2026-06-29
+
+**Task:** UX-001 (year-aware onboarding); Lovable-built student app at cramapple.com
+**Status:** QA findings proposed — NOT passed. Pass/Done decision is the Product Owner's.
+
+**Summary:** Live walkthrough of the new-user flow on cramapple.com via the
+connected Chrome browser, signed in as `dbloom01@gmail.com` (so QA ran on the
+owner's real account, leaving test data: one completed setup, one practice
+session, one submitted MCQ). The `/signup` purchase wizard and account creation
+could not be exercised (payment/account creation are prohibited agent actions),
+so the commercial funnel is verified only to step 1 ("Which AP subject are you
+buying?", 4-step, AP Biology available).
+
+Working: landing page; `/account-created` welcome screen (prior dead-end
+regression is fixed); setup-complete guard (`/account-created` → `/home` for a
+returning user); `/setup` one-screen composed surface matching the design
+(exam panel, course-position copy, time selector defaulting to 15 min,
+recommended-session card, secondary "Other ways to start"); time selector;
+`Start session` → `/session/mcq`; MCQ cold attempt → submit → "1 of 1 point"
+feedback in an accessibility live region → Continue/Retry; returning Home
+recommendation card. No console errors observed during the flow.
+
+Defects found:
+1. (HIGH) `/setup` course-position controls are unwired — "Change" opens no unit
+   picker and "Yes, that's right" has no visible effect (silent no-op, no console
+   error). Learner cannot confirm/adjust course position, breaking a locked
+   onboarding decision.
+2. (HIGH — needs confirmation) `/account-created` primary CTA "Set up my first
+   session" did not navigate to `/setup` on first pass; could not reproduce
+   because the page now forwards to `/home` (setup complete) and the owner's
+   account state was not reset to retest.
+3. (MEDIUM-HIGH) Exam date wrong/stale: `/setup` shows "Tuesday, May 12, 2026"
+   with "0 days from today" — a past date with a clamped countdown. An Aug 2026
+   beta needs the 2027 administration date.
+4. (MEDIUM) In-app pages (`/setup`, `/session/mcq`) render in a cramped ~210px
+   left column at desktop width; marketing pages render full-width — an app-shell
+   container issue.
+5. (LOW) Page titles leak the internal "UX-001" dev label (e.g. "MCQ attempt —
+   Cramapple UX-001").
+
+Fix prompt drafted: `prompts/LOVABLE_UX001_FIX_SETUP_DEFECTS.md` (covers #1–#4
+plus the #5 minor).
+
+**Next Owner:** David Bloom (Product Owner) for pass/Done decision; Lovable for
+fixes once approved.
+**Next Required Action:** Run `LOVABLE_UX001_FIX_SETUP_DEFECTS.md`; confirm the
+welcome-CTA navigation with a true first-time user; resolve the exam-pack date
+source (data, not just frontend). Do not treat the new-user experience as
+launch-ready until #1 and #3 are fixed and re-verified.
+
+## Production Readiness QA Handoff - 2026-06-21
+
+**Task:** TASK-0012 / production-readiness review
+**Status:** Handoff Logged; Live Function Boundary Still Unverified End-to-End
+**Summary:** Captured the current state so the next session can resume cleanly. The local repo is on `claude/task-0012-qa-fixes` at `c5a4f93`, and PR #12 fixes are present locally: audit-event idempotency now scopes to `(request_id, reason_code)` via `supabase/migrations/202606210001_audit_events_idempotency_per_operation.sql`, and shared Supabase env validation now fails fast at module load in `supabase/functions/_shared/supabase.ts`. Live Vercel route checks for `/beta/start`, `/beta/resume`, and `/beta/admin/health` returned `200`, but direct POSTs to `https://cugmpcpdeqkaqmyyqujx.supabase.co/functions/v1/session-event`, `/evaluate-attempt`, and `/admin-content` returned `404 NOT_FOUND`, so the configured Supabase project still does not expose the expected function endpoints. The code review also established that the repo contains no `useServerFn`, `createServerFn`, or `_serverFn` call sites, so any remaining Lovable backend coupling would have to be confirmed in the live runtime/network tab, not from source alone.
+
+**Next Owner:** Main Conductor / Claude QA
+**Next Required Action:** Verify the live beta network path against the intended Supabase function origin, confirm beta/prod Supabase isolation in the dashboards, and enumerate any remaining `admin-content` defects as explicit checklist items before cutover.
+
+## Cramapple Visual Identity Brief Revised From Family Discussion - 2026-06-21
+
+**Task:** No tracked task number yet (brand/visual identity work; not yet filed under docs/tasks)
+**Status:** Brief Revised; Color/Mark Direction Still Unresolved
+**Summary:** Transcribed a full-family recorded brand discussion (David, Orly, Micah, Nama, plus the kids as target-user panel) and revised `docs/product/CRAMAPPLE_VISUAL_IDENTITY_BRIEF.md` against it. Changes: added buyer-timing segmentation (2-month/1-month/cram cohorts) plus an ongoing-class-support segment; flagged an open, unresolved question on whether parents should lead messaging over students, especially early in the cycle; added explicit voice guidance to not lead with "AI" as the sell and to use the family/primary-source story as evidence of rigor rather than founder-story novelty; clarified that "feels like a really good tutor" is an interaction-tone target distinct from the Apple/Chrome visual-brand-temperature target; added semantic/functional color use for criterion-level grading feedback (correct/partial/incorrect) as a deliberate palette exception; added a seasonal grade-now/exam-later copy framing note; and flagged programmatic per-question SEO landing pages as a real design-system requirement needing a template. Color palette (mono+green leaning) and logo mark (Option A vs. B) from the prior session remain unresolved and untouched by this revision.
+
+**Next Owner:** David Bloom
+**Next Required Action:** Resolve the buyer-order open question (student-first vs. parent-first messaging) and confirm or amend the new Voice/Color additions; separately, still owes a decision on the mono+green palette and mark Option A/B from the prior session.
 
 ## Cramapple Visual Identity Brief Revised From Family Discussion - 2026-06-21
 
