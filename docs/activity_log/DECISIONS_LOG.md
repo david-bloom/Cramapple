@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0030 — Failed/Rejected Grading Burns the Daily Budget Cap When Cost Is Known
 - DECISION-0029 — ALLOWED_ORIGINS Required in All Environments; No Wildcard CORS Fallback
 - DECISION-0028 — Auto-Trigger QA and Model Routing (Codex Proposal Folded In)
 - DECISION-0027 — Adopt Charter Simplification and Tiering (Pilot: Cramapple Only)
@@ -1208,7 +1209,7 @@ ALLOWED_ORIGINS=http://localhost:5173,http://localhost:3000,https://cramapple-be
 - This decision does not address Decision 2 (failed/rejected grading
   and the daily budget cap), which remains pending owner direction.
 
-## DECISION-0028 — Failed/Rejected Grading Burns the Daily Budget Cap When Cost Is Known
+## DECISION-0030 — Failed/Rejected Grading Burns the Daily Budget Cap When Cost Is Known
 
 **Date:** 2026-06-22
 **Decision Owner:** David Bloom
