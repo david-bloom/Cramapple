@@ -166,15 +166,20 @@ Landing or invitation
   -> Create account or authenticate
   -> Resolve consent and age-related state
   -> Create learner profile
-  -> Select AP exam, resolve its official date, and confirm learner registration
-  -> Capture immediate goal and available time
-  -> Choose optional calibration, requested topic, or direct practice
+  -> Resolve AP exam and official date from the active exam specification
+  -> Confirm or adjust the course-position pacing prior
+  -> Capture available time and compose a first-session plan
   -> Create first learning session
   -> Deliver approved instruction or practice
   -> Persist first learning evidence
 ```
 
-The first useful action should not depend on completing a long profile. Interrupted onboarding must be recoverable. A diagnostic is optional.
+The first useful action should not depend on completing a long profile or
+waiting until most course modules have already been covered. Cramapple must work
+throughout the school year by defaulting to the learner's likely current course
+frontier, letting the learner adjust that assumption, and treating the first
+practice item as useful learning evidence rather than as diagnostic ceremony.
+Interrupted onboarding must be recoverable. A diagnostic is optional.
 
 ### 7.2 Resume Learning
 
