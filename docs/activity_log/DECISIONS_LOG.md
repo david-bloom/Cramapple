@@ -6,6 +6,8 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0030 — Failed/Rejected Grading Burns the Daily Budget Cap When Cost Is Known
+- DECISION-0029 — ALLOWED_ORIGINS Required in All Environments; No Wildcard CORS Fallback
 - DECISION-0028 — Auto-Trigger QA and Model Routing (Codex Proposal Folded In)
 - DECISION-0027 — Adopt Charter Simplification and Tiering (Pilot: Cramapple Only)
 - DECISION-0026 — Separate Authoring, Revision, and Independent Review
@@ -1143,3 +1145,131 @@ Auto-triggering QA and model selection removes waiting without removing any appr
 
 - If auto-triggered QA produces a backlog of QA work outpacing available QA-agent capacity, revisit whether `Standard` tier should auto-trigger QA at the same rate as `Hard-Gate` tier, or whether `Standard` should batch.
 - Same success metrics as DECISION-0027 (hard-gate escalations/week, QA round-trips/task) apply; no new metric introduced for this decision specifically.
+
+## DECISION-0029 — ALLOWED_ORIGINS Required in All Environments; No Wildcard CORS Fallback
+
+**Date:** 2026-06-21
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Related Task:** TASK-0012
+**Area:** Security
+
+### Context
+
+PR #14 introduced an `ALLOWED_ORIGINS` env-driven allow-list in
+`supabase/functions/_shared/cors.ts`. The first cut kept a wildcard
+fallback (`Access-Control-Allow-Origin: *`) when the env was unset, on
+the rationale that dev / local convenience was worth the production risk
+of a missed deployment checklist item.
+
+QA flagged the wildcard fallback as a real production footgun. With no
+code-level guard, a production deploy without `ALLOWED_ORIGINS` would
+silently send `*` and weaken defense-in-depth against CSRF-style abuse
+from rogue origins.
+
+### Decision
+
+`ALLOWED_ORIGINS` is required in every environment (production, beta,
+preview, local dev). The Edge Function `_shared/cors.ts` module fails
+fast at load time if the env is unset or parses to an empty list. There
+is no wildcard fallback path in the code.
+
+Local-dev convention:
+
+```
+ALLOWED_ORIGINS=http://localhost:5173,http://localhost:3000,https://cramapple-beta.lovable.app
+```
+
+### Rationale
+
+- Production wildcard CORS is a real risk; the dev cost of setting one
+  env var is trivial.
+- Eliminating the conditional removes a class of operational error
+  (forget the checklist item, ship wildcard to prod).
+- Non-browser callers (curl, server-to-server, CI) don't need CORS
+  headers and are unaffected by the strict policy.
+
+### Consequences
+
+- All Cramapple deploys (Supabase Edge Functions in production and dev,
+  any future preview environment, local Supabase) must set
+  `ALLOWED_ORIGINS` before functions can start. The function will throw
+  `Missing required environment variable: ALLOWED_ORIGINS` at module
+  load otherwise.
+- The `corsHeaders` legacy export with `Access-Control-Allow-Origin: *`
+  has been removed; nothing in the repo imported it.
+- The deployment checklist gains one mandatory env var per environment.
+
+### Risks / Follow-ups
+
+- First-time local-dev setup must include the env. Document in any
+  developer-onboarding instructions (no such doc exists yet — when one
+  lands, the env example above belongs in it).
+- Future preview / staging environments need their origins added.
+- This decision does not address Decision 2 (failed/rejected grading
+  and the daily budget cap), which remains pending owner direction.
+
+## DECISION-0030 — Failed/Rejected Grading Burns the Daily Budget Cap When Cost Is Known
+
+**Date:** 2026-06-22
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Related Task:** TASK-0012
+**Area:** Cost control
+
+### Context
+
+`app.complete_model_usage` (introduced in `202606210004_daily_budget_row_lock.sql`)
+burned `actual_cost_usd` against `OPENAI_DAILY_CAP_USD` only when a
+grading call completed successfully. Any `failed` or `rejected`
+outcome burned `0`, regardless of whether the provider call had
+already incurred a real, known cost (e.g. OpenAI returned a billable
+response but Cramapple's own downstream validation then rejected it).
+This under-counted real spend against the daily cap.
+
+### Decision
+
+`app.complete_model_usage` now burns cost as follows:
+
+- `completed` — burns `actual_cost_usd` (unchanged).
+- `failed` / `rejected` with a non-null `actual_cost_usd` — burns
+  `actual_cost_usd`.
+- `failed` / `rejected` with a null `actual_cost_usd` — burns `0`
+  (caller has no cost data to report; the provider call may never have
+  happened).
+
+Implemented in
+`202606210010_complete_model_usage_burn_known_cost_on_failure.sql`.
+Reservation-release behavior (`reserved_cost_usd` reduction on the
+`app.daily_budgets` row) is unchanged.
+
+### Rationale
+
+- `OPENAI_DAILY_CAP_USD` should track real provider spend, not just
+  spend on calls that happened to finish cleanly. A failed call that
+  still cost money is still money spent.
+- Burning `0` only when the cost is genuinely unknown avoids inventing
+  a cost figure for calls that never reached the provider.
+
+### Consequences
+
+- Grading calls that fail after the provider responds (with usage
+  data) now reduce remaining daily budget headroom.
+- `supabase/functions/evaluate-attempt/index.ts` is unaffected by this
+  migration — it already passes whatever `actual_cost_usd` it computed
+  (defaulting to `0` if the provider call never returned usage), so no
+  Edge Function change was required.
+
+### Risks / Follow-ups
+
+- Failed rows that complete with a null `actual_cost_usd` are not
+  reconciled against provider billing by this migration. That
+  reconciliation should happen during production monitoring — compare
+  `app.model_usage_ledger` against the OpenAI usage dashboard/API — not
+  be guessed at here.
+- No real Postgres instance was available to apply this migration
+  (Docker/Colima/Podman unavailable in this environment); verification
+  was `deno check` / `deno fmt --check` (no Edge Function files
+  changed) plus manual schema cross-reference against
+  `202606210004_daily_budget_row_lock.sql` and
+  `202606210008_reserve_model_usage_race_fix.sql`.

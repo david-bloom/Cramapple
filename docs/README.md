@@ -54,6 +54,9 @@ The universal rule is defined in
 - `architecture/VISUAL_STIMULUS_AND_RENDERING_SYSTEM.md`: Proposed architecture
   for structured visuals, governed diagrams, accessibility equivalence,
   learner-created graphs, and renderer validation.
+- `legal/`: Draft terms, privacy, and other user-facing legal copy.
+- `seo/`: Search and answer-engine strategy, page plans, and AP Biology content
+  packages for marketing expansion.
 - `teaching/`: Canonical pedagogy, diagnostics, instructional policy, and learning-system designs.
 - `team_charter/`: Roles, approval boundaries, task workflow, and agent rules.
 - `activity_log/`: Durable approvals, decisions, and meaningful project activity.

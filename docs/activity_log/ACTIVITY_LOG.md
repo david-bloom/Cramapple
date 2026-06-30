@@ -6,18 +6,250 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
-- Beta Revised-Answer Scoring Bug Logged — 2026-06-16
-- Content Authoring and Revision Workbench Design Started — 2026-06-15
-- Student-Provided Question Intake Design Started — 2026-06-13
-- Question and Answer Review Portal Design Started — 2026-06-13
-- Drawn-Response Pilot V0 Preflight Blocked — 2026-06-13
-- Orly Drawn-Response Pilot Protocol Prepared — 2026-06-13
+- Hand-Drawn Graph Corpus Realism Fix and Four-Finding Spot-Check — 2026-06-30
+- New-User Experience Live QA — 2026-06-29
+- Production Readiness QA Handoff — 2026-06-21
+- Cramapple Visual Identity Brief Revised From Family Discussion — 2026-06-21
+- Session and Storage Backend Surfaces Wired — 2026-06-21
+- Cramapple Visual Identity Brief Drafted — 2026-06-21
+- Production Plumbing Session Handoff — 2026-06-20
+- Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
-(Note: branches with TASK-0012 production-readiness work in flight will have additional, newer entries on top of this log once that work lands on `main` separately — this index reflects `main`'s state at the time the charter changes below were adopted.)
-
 ---
+
+## Hand-Drawn Graph Corpus Realism Fix and Four-Finding Spot-Check - 2026-06-30
+
+**Task:** TASK-0011 (handwritten graph capture); relates to TASK-0010 gold/calibration governance.
+**Status:** Research progress — generator fixed and verified. No production or content-release approval. Committed, rebased onto `main`, and opened as PR #18 (`claude/task-0012-deferred-findings`) alongside the broader working-tree cleanup; mergeable.
+
+**Summary:** Spot-checked the in-repo hand-drawn graph generation artifacts
+against four defect modes carried over from prior corpus/reference-image work:
+(a) pen-type tradeoff (legibility vs point-position precision), (b) recurring
+"carrying capacity" in student-facing text, (c) synthetic data that lands on
+uniform/consecutive-integer sequences that are not real noise, and (d) paired
+good/bad reference images that must isolate exactly one criterion violation.
+
+Findings against the 2026-06-29 v0.1 corpus (`HDG-2026-P1-*`): (b) clean — zero
+student-facing or reviewer occurrences; (a) only partially handled — the Orly
+protocol logs `writing_instrument` after the fact but the 150-item capture
+instruction is identical and silent on instrument; (c) failing and systemic —
+no replicate-level data (SEM was an arithmetic formula), 60/90 uniform x-grids,
+only 5 categorical mean-shapes recycled across 50 items, symmetric analytic
+series; (d) absent in-repo — neither generator produces single-violation pairs,
+so there are no true-negative criterion cases.
+
+Acted on (c): rewrote `scripts/generate_hand_drawn_graph_corpus.py` to a
+seeded, reproducible v0.2 generator. Every displayed mean and SEM is now derived
+from synthetic replicate observations (stored per point for audit); two noise
+scales give off-model scatter plus a legitimate irregular SEM; x-grids are
+non-uniform but clean; displayed values are integer means / one-decimal SEM; and
+shapes are RNG-varied per item. Output written to a NEW package
+`docs/research/hand_drawn_graph_corpus_2026_06_30/` (prefix `HDG-2026-P2-*`); the
+v0.1 package is left untouched and stays bound to the 100+ pages already drawn.
+
+**Verified:** Generator runs and is bit-for-bit reproducible across runs
+(identical JSONL hash). Re-running the v0.1 audit checks on v0.2: uniform x-grids
+4/100 (was 60/90), uniform/fake SEM 0/100 (was 13/100), distinct categorical
+shapes 50/50 (was 5), non-integer means 0 and non-1dp SEM 0, replicate-derived
+SEM varies within every item, real off-model scatter in 49/50 series items. A
+late-binding closure bug in the peak branch (corrupted 13 items) was found and
+fixed; peak items now render proper optima with mild scatter. v0.1 dir confirmed
+unmodified.
+
+**Open / not done:** (a) pen-type is still uncontrolled (no felt-tip caution,
+no matched-instrument capture sets); (d) single-violation negative cases still
+do not exist — required before criterion precision can be measured; v0.2 has no
+trace-set renders yet (`generate_hand_drawn_trace_sets.py` still targets v0.1);
+no adjudicated dual-human gold exists for any image; external multimodal grading
+remains blocked on Product Owner data-transfer approval. These gate any
+learner-facing automated graph score per the drawn-response architecture review
+and TASK-0010.
+
+**Next Owner:** David Bloom (Product Owner).
+**Next Required Action:** Decide the next collection/test focus — recommended
+order: (1) reviewer blind-scoring pass to establish adjudicated gold (no provider
+needed), (2) author single-violation responses for true negatives (finding d),
+(3) point the trace renderer at the v0.2 package if drawable pages are wanted.
+Review/merge PR #18 (note: TASK-0012 decisions were renumbered to DECISION-0029
+CORS / DECISION-0030 budget to resolve a numbering collision with `main`).
+
+## New-User Experience Live QA - 2026-06-29
+
+**Task:** UX-001 (year-aware onboarding); Lovable-built student app at cramapple.com
+**Status:** QA findings proposed — NOT passed. Pass/Done decision is the Product Owner's.
+
+**Summary:** Live walkthrough of the new-user flow on cramapple.com via the
+connected Chrome browser, signed in as `dbloom01@gmail.com` (so QA ran on the
+owner's real account, leaving test data: one completed setup, one practice
+session, one submitted MCQ). The `/signup` purchase wizard and account creation
+could not be exercised (payment/account creation are prohibited agent actions),
+so the commercial funnel is verified only to step 1 ("Which AP subject are you
+buying?", 4-step, AP Biology available).
+
+Working: landing page; `/account-created` welcome screen (prior dead-end
+regression is fixed); setup-complete guard (`/account-created` → `/home` for a
+returning user); `/setup` one-screen composed surface matching the design
+(exam panel, course-position copy, time selector defaulting to 15 min,
+recommended-session card, secondary "Other ways to start"); time selector;
+`Start session` → `/session/mcq`; MCQ cold attempt → submit → "1 of 1 point"
+feedback in an accessibility live region → Continue/Retry; returning Home
+recommendation card. No console errors observed during the flow.
+
+Defects found:
+1. (HIGH) `/setup` course-position controls are unwired — "Change" opens no unit
+   picker and "Yes, that's right" has no visible effect (silent no-op, no console
+   error). Learner cannot confirm/adjust course position, breaking a locked
+   onboarding decision.
+2. (HIGH — needs confirmation) `/account-created` primary CTA "Set up my first
+   session" did not navigate to `/setup` on first pass; could not reproduce
+   because the page now forwards to `/home` (setup complete) and the owner's
+   account state was not reset to retest.
+3. (MEDIUM-HIGH) Exam date wrong/stale: `/setup` shows "Tuesday, May 12, 2026"
+   with "0 days from today" — a past date with a clamped countdown. An Aug 2026
+   beta needs the 2027 administration date.
+4. (MEDIUM) In-app pages (`/setup`, `/session/mcq`) render in a cramped ~210px
+   left column at desktop width; marketing pages render full-width — an app-shell
+   container issue.
+5. (LOW) Page titles leak the internal "UX-001" dev label (e.g. "MCQ attempt —
+   Cramapple UX-001").
+
+Fix prompt drafted: `prompts/LOVABLE_UX001_FIX_SETUP_DEFECTS.md` (covers #1–#4
+plus the #5 minor).
+
+**Next Owner:** David Bloom (Product Owner) for pass/Done decision; Lovable for
+fixes once approved.
+**Next Required Action:** Run `LOVABLE_UX001_FIX_SETUP_DEFECTS.md`; confirm the
+welcome-CTA navigation with a true first-time user; resolve the exam-pack date
+source (data, not just frontend). Do not treat the new-user experience as
+launch-ready until #1 and #3 are fixed and re-verified.
+
+## Production Readiness QA Handoff - 2026-06-21
+
+**Task:** TASK-0012 / production-readiness review
+**Status:** Handoff Logged; Live Function Boundary Still Unverified End-to-End
+**Summary:** Captured the current state so the next session can resume cleanly. The local repo is on `claude/task-0012-qa-fixes` at `c5a4f93`, and PR #12 fixes are present locally: audit-event idempotency now scopes to `(request_id, reason_code)` via `supabase/migrations/202606210001_audit_events_idempotency_per_operation.sql`, and shared Supabase env validation now fails fast at module load in `supabase/functions/_shared/supabase.ts`. Live Vercel route checks for `/beta/start`, `/beta/resume`, and `/beta/admin/health` returned `200`, but direct POSTs to `https://cugmpcpdeqkaqmyyqujx.supabase.co/functions/v1/session-event`, `/evaluate-attempt`, and `/admin-content` returned `404 NOT_FOUND`, so the configured Supabase project still does not expose the expected function endpoints. The code review also established that the repo contains no `useServerFn`, `createServerFn`, or `_serverFn` call sites, so any remaining Lovable backend coupling would have to be confirmed in the live runtime/network tab, not from source alone.
+
+**Next Owner:** Main Conductor / Claude QA
+**Next Required Action:** Verify the live beta network path against the intended Supabase function origin, confirm beta/prod Supabase isolation in the dashboards, and enumerate any remaining `admin-content` defects as explicit checklist items before cutover.
+
+## Cramapple Visual Identity Brief Revised From Family Discussion - 2026-06-21
+
+**Task:** No tracked task number yet (brand/visual identity work; not yet filed under docs/tasks)
+**Status:** Brief Revised; Color/Mark Direction Still Unresolved
+**Summary:** Transcribed a full-family recorded brand discussion (David, Orly, Micah, Nama, plus the kids as target-user panel) and revised `docs/product/CRAMAPPLE_VISUAL_IDENTITY_BRIEF.md` against it. Changes: added buyer-timing segmentation (2-month/1-month/cram cohorts) plus an ongoing-class-support segment; flagged an open, unresolved question on whether parents should lead messaging over students, especially early in the cycle; added explicit voice guidance to not lead with "AI" as the sell and to use the family/primary-source story as evidence of rigor rather than founder-story novelty; clarified that "feels like a really good tutor" is an interaction-tone target distinct from the Apple/Chrome visual-brand-temperature target; added semantic/functional color use for criterion-level grading feedback (correct/partial/incorrect) as a deliberate palette exception; added a seasonal grade-now/exam-later copy framing note; and flagged programmatic per-question SEO landing pages as a real design-system requirement needing a template. Color palette (mono+green leaning) and logo mark (Option A vs. B) from the prior session remain unresolved and untouched by this revision.
+
+**Next Owner:** David Bloom
+**Next Required Action:** Resolve the buyer-order open question (student-first vs. parent-first messaging) and confirm or amend the new Voice/Color additions; separately, still owes a decision on the mono+green palette and mark Option A/B from the prior session.
+
+## Cramapple Visual Identity Brief Revised From Family Discussion - 2026-06-21
+
+**Task:** No tracked task number yet (brand/visual identity work; not yet filed under docs/tasks)
+**Status:** Brief Revised; Color/Mark Direction Still Unresolved
+**Summary:** Transcribed a full-family recorded brand discussion (David, Orly, Micah, Nama, plus the kids as target-user panel) and revised `docs/product/CRAMAPPLE_VISUAL_IDENTITY_BRIEF.md` against it. Changes: added buyer-timing segmentation (2-month/1-month/cram cohorts) plus an ongoing-class-support segment; flagged an open, unresolved question on whether parents should lead messaging over students, especially early in the cycle; added explicit voice guidance to not lead with "AI" as the sell and to use the family/primary-source story as evidence of rigor rather than founder-story novelty; clarified that "feels like a really good tutor" is an interaction-tone target distinct from the Apple/Chrome visual-brand-temperature target; added semantic/functional color use for criterion-level grading feedback (correct/partial/incorrect) as a deliberate palette exception; added a seasonal grade-now/exam-later copy framing note; and flagged programmatic per-question SEO landing pages as a real design-system requirement needing a template. Color palette (mono+green leaning) and logo mark (Option A vs. B) from the prior session remain unresolved and untouched by this revision.
+
+**Next Owner:** David Bloom
+**Next Required Action:** Resolve the buyer-order open question (student-first vs. parent-first messaging) and confirm or amend the new Voice/Color additions; separately, still owes a decision on the mono+green palette and mark Option A/B from the prior session.
+
+## Session and Storage Backend Surfaces Wired - 2026-06-21
+
+**Task:** TASK-0012
+**Status:** In Progress
+**Summary:** Replaced the remaining `session-event` and `storage-sign-url` Edge Function scaffolds with authenticated production implementations. `session-event` now creates, resumes, saves, and ends `app.learning_sessions` rows with idempotent audit logging, while explicitly returning a clear unsupported response for anonymous-session attachment until the schema supports it. `storage-sign-url` now validates bucket/path scope, enforces learner-owned `learner-uploads` paths, issues signed upload/download URLs, and performs admin-only cleanup deletes. The function set still passes `deno check`. Browser smoke on the local prototype pages succeeded. The Supabase project roots responded, the updated Edge Functions were deployed to `pcntajvbdfqhbeewmdry`, and the live function routes now return `401` instead of `404`, confirming they are exposed at the expected boundary.
+
+**Next Owner:** Main Conductor
+**Next Required Action:** Verify the Vercel-facing app routes in production still point at the deployed Supabase functions, then confirm whether any remaining live beta traffic still depends on Lovable-hosted backend execution.
+
+## Cramapple Visual Identity Brief Drafted - 2026-06-21
+
+**Task:** No tracked task number yet (brand/visual identity work; not yet filed under docs/tasks)
+**Status:** Brief Draft Complete; Color/Mark Direction In Progress (unresolved)
+**Summary:** Worked through David's preliminary creative brief (Google Doc) and tightened it into `docs/product/CRAMAPPLE_VISUAL_IDENTITY_BRIEF.md`. Resolved several open forks: Khan Academy/Quizlet/Duolingo are stature-only references (importance to students), not visual style references; Apple/Mozilla/Chrome/Instagram are the actual style touchstones — Cramapple should read as a tech-category product, not another edtech app; identity is designed for the student, parent-facing material inherits it rather than getting a separate "credibility" register; deliverable order is voice -> typography -> color -> fonts -> logo/wordmark; product is web-first (not mobile), used at a desk late at night, so contrast and a dark-mode-first palette are hard requirements, not aesthetic preference; the brand helps the student manage urgency rather than manufacturing more of it (no countdown/FOMO devices). Explored four color directions (signal blue/Chrome-coded, graphite+amber/Apple-coded, mono+green/terminal-coded, deep violet/Instagram-coded) in both dark and light mode as inline chat mockups. David is leaning toward mono+green. Iterated the apple mark through three rounds toward more geometric, less literal forms, ending with two unresolved options: (A) a faceted straight-edged polygon silhouette that keeps a faint apple echo, (B) a fully abstract open-ring mark with no literal apple reference at all.
+
+**Next Owner:** David Bloom (creative direction decision)
+**Next Required Action:** Decide between mark Option A and Option B (or request another iteration) and confirm the mono+green palette. Note: the color/mark mockups shown this session were inline chat visualizations only — nothing was saved as a file in the repo. Once a direction is locked, the brief's Color and Logo/Wordmark sections need to be updated with the final hex values and a saved SVG of the chosen mark.
+
+## Production Plumbing Session Handoff - 2026-06-20
+
+**Task:** TASK-0012
+**Status:** In Progress
+**Summary:** Completed the first production-plumbing pass for the new Vercel/Supabase boundary. Confirmed Vercel project mapping for `cramapple` and `cramapple-dev`, set the Supabase environment split, and documented the `SUPABASE_URL` / `SUPABASE_ANON_KEY` / `SUPABASE_SERVICE_ROLE_KEY` checklist for both environments. Provisioned `Cramapple-Development` in Supabase by applying the `app` schema migrations in order, creating the private storage buckets, and verifying the seeded exam pack and account/profile rows. Verified auth and session persistence in the beta flow, then identified that the live graded attempt path was still executing through Lovable-managed `useServerFn` / `_serverFn` behavior instead of the new backend boundary.
+
+**Next Owner:** Main Conductor, then David Bloom for continued migration sequencing
+**Next Required Action:** Finish removing the remaining Lovable backend surface (`beta.admin.health.tsx`), then wire the live attempt/session/admin paths to the repo-owned Vercel/Supabase endpoints when ready.
+
+## Supabase Production Migrations and Storage Policies Drafted - 2026-06-20
+
+**Task:** TASK-0012
+**Status:** Draft Complete
+**Summary:** Converted the production Supabase schema plan into SQL migrations under `supabase/migrations/`. The migration set creates the `app` schema, profiles, exam packs, versioned content, sessions, attempts, criterion results, progress snapshots, audit events, the initial AP Biology seed, and private storage bucket policies. No live deployment or database change was applied.
+
+**Next Owner:** Main Conductor, then David Bloom for review and live application approval
+**Next Required Action:** Review the migrations and policies for any scope tweaks, then decide whether to apply them to the production Supabase project.
+
+## Supabase Production Schema and RLS Plan Drafted - 2026-06-20
+
+**Task:** TASK-0012
+**Status:** Draft Complete
+**Summary:** Drafted the production Supabase schema, RLS, and storage plan for the fresh production project `pcntajvbdfqhbeewmdry`. The plan defines the `app` schema, profiles, exam packs, versioned content, attempts, progress snapshots, audit events, private storage buckets, and the browser/server trust boundary. No live database, RLS, or storage changes were made.
+
+**Next Owner:** Main Conductor, then David Bloom for approval and migration sequencing
+**Next Required Action:** Review the schema and policy draft, decide whether any tables or bucket rules need scope reduction, and then convert the approved plan into migrations and server-side functions.
+
+## Supabase Edge Function Draft Added - 2026-06-20
+
+**Task:** TASK-0012
+**Status:** Draft Complete
+**Summary:** Added a production Edge Function draft covering assessment grading, session orchestration, storage URL signing, and admin content lifecycle operations. The draft includes a dedicated architecture note and scaffolded function entrypoints under `supabase/functions/`, but no live deployment or provider calls were made.
+
+**Next Owner:** Main Conductor, then David Bloom for review and implementation sequencing
+**Next Required Action:** Review the function catalog and decide whether the draft should be expanded into real authorization, database, and model-orchestration logic before any deployment.
+
+## Evaluate-Attempt Production Path Implemented - 2026-06-20
+
+**Task:** TASK-0012
+**Status:** In Progress
+**Summary:** Replaced the `evaluate-attempt` scaffold with a real production-grade Edge Function that authenticates the caller, loads the attempt, response version, content item, and rubric criteria from Supabase, reserves daily model budget atomically, calls the OpenAI Responses API with structured output, persists grading results, and updates the attempt record. Added the supporting `response_versions`, `grading_results`, `model_usage_ledger`, and `prompt_versions` migration.
+
+**Next Owner:** Main Conductor, then David Bloom for review, secret setup, and live migration approval
+**Next Required Action:** Review the new migration and function contract, then decide whether to wire the remaining session and admin functions to the same production ledger pattern before deployment.
+
+## Supabase Schema Review Feedback Addressed - 2026-06-20
+
+**Task:** TASK-0012
+**Status:** In Progress
+**Summary:** Incorporated Claude's review feedback by narrowing the schema-plan language to the operational learning boundary, explicitly separating the full content-governance model as a separate hard-gated task, and adding database guardrails for client-side grading-truth writes, published-content uniqueness, MCQ correctness uniqueness, duplicate-response protection, attempt rubric uniqueness, and session-query indexing.
+
+**Next Owner:** Main Conductor, then David Bloom for approval and migration sequencing
+**Next Required Action:** Review the new guardrail migration and decide whether to further decompose the content-side model into the governance task before production application.
+
+## Full Content Governance Model Added - 2026-06-20
+
+**Task:** TASK-0012
+**Status:** In Progress
+**Summary:** Added the logical content-governance schema for source provenance, rights, artifact versions, state events, commissions, author and validator qualifications, review assignments, validation suites, release candidates, manifests, publication events, incidents, and revalidation tracking. The production plan was updated to note that the governance model now exists in the migration set.
+
+**Next Owner:** Main Conductor, then David Bloom for review of the governance migration and any wiring changes needed in the application
+**Next Required Action:** Verify the new tables and decide whether the app should be rewired to them immediately or left on compatibility tables until the next release slice.
+
+## Content Workflows Wired to Governance Tables - 2026-06-20
+
+**Task:** TASK-0012
+**Status:** In Progress
+**Summary:** Replaced the admin content scaffold with a real governance-aware Edge Function that writes source, rights, artifact version, state event, release candidate, manifest, and publication records. The legacy content tables now act as a compatibility projection, and a new migration marks them as deprecated so the transition is explicit.
+
+**Next Owner:** Main Conductor, then David Bloom for review of the content workflow wiring and compatibility projection behavior
+**Next Required Action:** Decide when to rewire the remaining read path off the legacy content tables and whether to keep the compatibility projection only for a bounded transition window.
+
+## Production Plumbing and Cutover Readiness Task Created - 2026-06-20
+
+**Task:** TASK-0012
+**Status:** Not Started
+**Summary:** Added a production-plumbing task to define the environment split, production accounts and keys, backend trust boundaries, deployment and rollback expectations, observability, and cutover criteria for moving from beta validation into a governed production launch. The task intentionally stays documentation-only and does not change live secrets, migrations, or deployments.
+
+**Next Owner:** Main Conductor, then David Bloom for approval and implementation sequencing
+**Next Required Action:** Review the task scope against UX001 and UX006, then turn the approved boundaries into the concrete production setup plan.
 
 ## Beta Revised-Answer Scoring Bug Logged - 2026-06-16
 

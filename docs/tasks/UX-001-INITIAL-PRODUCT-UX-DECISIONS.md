@@ -27,12 +27,13 @@ action.
 - Define test variants for bracket-marker and sentence-level feedback.
 - Draft peer-tone academic-integrity coaching copy.
 - Draft uncertainty, escalation, recheck, and disputed-grade language.
-- Define accessibility requirements for the interaction prototype.
-- Produce a low-fidelity clickable prototype and an owner decision packet.
+- Define accessibility requirements for the student experience.
+- Produce the Lovable student-experience build brief and an owner decision
+  packet.
 
 ## Out of Scope
 
-- Production frontend implementation.
+- Backend implementation beyond existing auth/session or mock-state fallback.
 - Final visual brand system or polished marketing copy.
 - Physical database, API, or event-schema design.
 - Final recommendation-ranking, grading, or confidence algorithms.
@@ -64,22 +65,29 @@ legal gates.
 - [x] UX task scope, approval boundary, and dependencies are recorded.
 - [x] Proposed student-portal information architecture is documented.
 - [x] Core first-session and returning-session flows are documented.
-- [x] Post-account creation setup is expanded into exam context, immediate
-  goal, time available, optional calibration, and first-plan confirmation.
+- [x] Post-account creation setup is collapsed into one composed, recoverable
+  setup surface with course-position confirmation, time selection, and a
+  first-session plan.
 - [x] Student-visible learning-loop states and primary actions are documented.
 - [x] Initial test variants for onboarding, session modes, and bracket-marker
   feedback are documented.
 - [x] Initial coaching, uncertainty, escalation, and disputed-grade copy is
   documented as proposed.
-- [x] Prototype accessibility requirements are documented.
+- [x] Student-experience accessibility requirements are documented.
 - [ ] Learning Quality Owner reviews pedagogical fidelity and answer-leakage
   risks.
 - [ ] Marketing owner reviews tone, naming, and student-facing copy.
 - [ ] Accessibility specialist reviews interaction patterns.
-- [x] Initial low-fidelity clickable prototype is produced.
-- [ ] Low-fidelity clickable prototype is tested with representative learners.
+- [x] Initial Lovable student-experience build brief is produced.
+- [ ] Student experience is tested with representative learners.
+- [ ] Collapsed one-screen setup passes a dedicated accessibility QA pass:
+  keyboard navigation, focus order, screen-reader labels, recoverability, and
+  mobile overflow.
+- [ ] A/B test compares the prior multi-step onboarding against the one-screen
+  setup on time-to-first-attempt, comprehension, trust, ability to change
+  unit/time, and ability to find alternate routes.
 - [ ] Product Owner approves, revises, or rejects the proposed UX decisions.
-- [ ] Approved decisions are recorded before production implementation.
+- [ ] Approved decisions are recorded before backend production hardening.
 
 ## QA Plan
 
@@ -109,7 +117,6 @@ pending
 The initial interaction specification is:
 
 - `docs/product/STUDENT_PORTAL_INTERACTION_DESIGN.md`
-- `prototypes/ux-001/index.html`
 - `prompts/LOVABLE_UX001_STUDENT_EXPERIENCE.md`
 
 This task may create wireframes, prototypes, copy variants, research plans, and
@@ -134,7 +141,27 @@ Initial browser verification completed on 2026-06-13:
 - Representative learner testing and specialist accessibility review remain
   pending.
 
-Post-account creation design revision prepared on 2026-06-13:
+### Revision Note — 2026-06-29 (Year-Aware Point Maximization)
+
+The approved prototype direction has shifted from the expanded five-step setup
+journey to **one composed, recoverable setup surface**: course position
+pre-filled from a calendar-keyed pacing prior (learner confirms or adjusts),
+available time (defaulted, adjustable), and an inline first-session plan.
+Registration status, the immediate-goal screen, and the calibration-versus-direct
+fork are removed from onboarding — registration moves to Account, "tell me what
+to work on" is the default intent, and the first practice item serves as
+continuous calibration.
+
+Source: `docs/proposals/2026-06-29-year-aware-point-maximization.md` (reviewed by
+Codex; pending Product Owner + curricular decision). This is a proposed
+direction. It is **not** approved: it remains pending Product Owner sign-off, a
+dedicated accessibility QA pass on the collapsed surface, and an A/B test against
+the prior fuller onboarding. The `STUDENT_PORTAL_INTERACTION_DESIGN.md` §4.1 and
+`prompts/LOVABLE_UX001_STUDENT_EXPERIENCE.md` have been reconciled to this
+direction; the static prototype is being updated to match.
+
+Post-account creation design revision prepared on 2026-06-13
+`SUPERSEDED by 2026-06-29 year-aware onboarding direction`:
 
 - Replaced the single setup screen with a recoverable five-step first-run
   journey.
@@ -153,6 +180,16 @@ Post-account creation design revision prepared on 2026-06-13:
 - Verified the first-session plan updates duration, activity, calibration,
   numbering, and rationale from learner selections.
 - Verified the revised setup at 390 by 844 pixels with no horizontal overflow.
+
+Current direction as of 2026-06-29:
+
+- Replace the five-step first-run journey with one composed, recoverable setup
+  surface.
+- Do not ask registration status during onboarding.
+- Do not require a calibration/direct-start fork.
+- Default to a short recommended session based on course-position pacing prior,
+  with course position and available time adjustable before start.
+- Use real app routes, not `/prototype` routes.
 
 ## Done Decision
 

@@ -59,6 +59,9 @@ student response, and remains reliable after release.
 
 - Release only validated question, rubric, prompt, model, and confidence-policy
   combinations.
+- For new BYOQ or rubric revisions, require a calibration pass with
+  `gpt-4o-mini` plus a secondary audit model before the combination is treated
+  as production-ready.
 - Human-review all low-confidence, conflicting, novel, disputed, and
   high-impact cases.
 - Random-review at least 20% of apparently high-confidence cases during the
@@ -90,6 +93,8 @@ Findings from `docs/research/grader_speed_sp1_report.md` and `frq_grading_status
 **Relevant to Phase 3/5 (confidence-based escalation design):** a deterministic, zero-marginal-cost audit (dependency-parse check, not a model call) was built and validated as one input to a disagreement-based escalation policy — catching an over-credit error class that confidence-based escalation structurally cannot, since a confidently-wrong model never self-flags. One open design question from that work, not yet decided, worth resolving as part of this task's confidence-policy design rather than left to the research script: the audit currently credits a response if *any* sentence anywhere in it contains qualifying language, with no check for a contradicting sentence elsewhere in the same response. One concrete failure of this policy was found and patched (a single overly-generic match word was removed after it caused a false credit), but the underlying "any qualifying evidence anywhere" policy itself hasn't been validated against genuinely mixed or self-contradictory responses — only against the one case that happened to surface it. This needs an explicit decision (e.g., should contradictory evidence be required to be reconciled, or does the most recent/most specific statement win) before any audit of this shape is relied on for real scores.
 
 **Relevant to Phase 5 ("release only validated question, rubric, prompt, model, and confidence-policy combinations"):** as of 2026-06-18, no single combination from the speed/quality investigation has been validated to decision-grade rigor end-to-end — the most-tested architecture (full n=100 validation) and the best-performing single number found (n=40 only, one provider) are two different, not-yet-reconciled candidates. Don't read either as a release recommendation; both need this task's actual process applied before either is a release candidate.
+
+**Relevant to Phase 5 (BYOQ calibration rule):** user-provided questions and any material rubric revision should be calibrated with `gpt-4o-mini` as the primary boundary scorer and a secondary audit model on the disagreement set before entering the production grading path. The secondary model is for boundary diagnosis and rubric tightening, not for default live fallback scoring.
 
 ## Acceptance Criteria
 

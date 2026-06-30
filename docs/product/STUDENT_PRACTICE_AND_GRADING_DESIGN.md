@@ -168,6 +168,54 @@ If reviewer labels, rubric wording, and model behavior expose a boundary
 conflict, treat it as a rubric-quality issue. Do not tune the prompt to match
 an unstable label silently.
 
+### 6.4 Rubric Calibration Workflow
+
+Use a two-step calibration workflow for new or changing FRQ rubrics before
+they are treated as production-ready:
+
+1. Run the primary rubric scorer on the released question and rubric using
+   `gpt-4o-mini` as the baseline calibration model.
+2. If the criterion is new, revised, disputed, or appears in a disagreement
+   cluster, run a secondary audit model on the same response set.
+3. Use the disagreement set to tighten the rubric boundary or route the item
+   to Learning Quality review.
+4. Do not use the secondary model as a silent production fallback scorer for
+   stable learner attempts.
+
+For BYOQ and other user-provided questions, the dual-model pass is the
+default calibration path before release. The goal is boundary diagnosis, not
+ensemble voting.
+
+### 6.5 Rubric Improvement Loop
+
+Every new question introduced into the product should pass through a rubric
+improvement loop before it is treated as release-ready content:
+
+1. **Reasoning agent:** review the question, rubric, answer key, and a sample
+   of representative student responses for boundary pressure, hidden
+   assumptions, and edge cases.
+2. **Rule-following agent:** score the same material with a literal rubric
+   reading to expose over-credit and under-credit risk.
+3. **Judge agent:** reconcile disagreements, assign the final criterion-level
+   call for each disputed row, and emit a rubric-debug note.
+4. **Learning Quality review:** if the disagreement reflects rubric ambiguity,
+   double-barreled criteria, answer leakage, or missing boundary language,
+   revise the question or rubric before tutor review.
+
+The output of this loop is not a generic quality score. It is a concrete list
+of rubric defects, boundary clarifications, and whether the item can move
+forward unchanged, needs revision, or should be rejected.
+
+Use this loop by default for:
+
+- newly authored questions;
+- revised questions;
+- new FRQ rubrics;
+- MCQ distractor sets and answer keys;
+
+Do not use it on every learner attempt. It is a content-governance workflow,
+not a live grading requirement.
+
 ## 7. Quantitative and Data-Analysis Practice
 
 The response may contain:
@@ -218,6 +266,9 @@ grading_failed
 Available only for released question, rubric, grader, and confidence-policy
 combinations. Show criterion result and total with the approved qualification,
 not as an official College Board score.
+
+New BYOQ items or rubric revisions remain `qualified` or `content_uncertain`
+until the calibration workflow has been completed and reviewed.
 
 ### 8.2 Qualified Result
 

@@ -177,7 +177,7 @@ traffic jam.
 
 ### Prompt
 
-A population of wild wildflowers exhibits a single gene locus with two alleles
+A population of wildflowers exhibits a single gene locus with two alleles
 (`F` and `f`) controlling flower color. A construction project randomly
 destroys 90% of the wildflower population. The remaining individual plants are
 left to randomly interbreed.
@@ -194,7 +194,7 @@ assuming no mutation or gene flow occurs.
 | Criterion ID | Draft criterion | Notes for reviewer |
 | --- | --- | --- |
 | `FRQ02-C1` | Identifies genetic drift as the mechanism. | Bottleneck effect is acceptable and more specific. |
-| `FRQ02-C2` | Explains that the construction event is random/non-selective with respect to flower-color fitness. | Prevents over-crediting natural-selection explanations. |
+| `FRQ02-C2` | Explains that the construction event randomly removed plants regardless of flower color or fitness, so the allele-frequency shift came from chance sampling rather than natural selection. | Prevents over-crediting natural-selection explanations or vague "random change" language. |
 | `FRQ02-C3` | Predicts reduced genetic diversity compared with the original population. | Should address diversity over later generations, not only immediate mortality. |
 | `FRQ02-C4` | Explains that small isolated populations experience random allele-frequency change, allele loss/fixation, or reduced heterozygosity when no mutation or gene flow restores variation. | Random mating alone is insufficient because population size is small. |
 

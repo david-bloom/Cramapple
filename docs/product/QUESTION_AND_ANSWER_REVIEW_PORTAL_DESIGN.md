@@ -30,6 +30,8 @@ accessibility, release, and exam-pack gates remain separately required.
 8. Prevent an incomplete or partially approved four-option MCQ from advancing.
 9. Show reviewers what their decision will do before submission.
 10. Keep submitted decisions immutable and auditable.
+11. Run a Codex pre-review before tutor assignment so obvious relevance,
+    answer-key, rubric, or leakage problems are edited out before human review.
 
 ## 3. Score Definitions
 
@@ -71,8 +73,10 @@ version. The edit creates a new immutable candidate version.
 
 ```text
 Question candidate version
-  -> Tutor A independent review
-  -> Tutor B independent review
+  -> Codex pre-review
+       pass -> Tutor A independent review
+                 -> Tutor B independent review
+       edit_needed -> Revision task in UX-003
   -> Aggregate tutor scores
        2 -> AP Reader review
               1 -> Question review approved
@@ -119,7 +123,8 @@ reviewers.
 
 ## 6. MCQ Answer Workflow
 
-Answer review begins only after the MCQ question passes question review.
+Answer review begins only after the MCQ question passes question review and
+Codex has cleared the question for tutor review.
 
 The four answer options remain part of one versioned MCQ package:
 
@@ -178,6 +183,8 @@ Each queue item shows:
 - progress, such as `Question 4 of 12` or `Answer B, 2 of 4`;
 - whether the review is independent and blinded;
 - draft, ready, submitted, or recusal state.
+- imported batches can appear in the queue after a validated intake upload and
+  Codex pre-review.
 
 Do not show the other tutor's identity, score, rationale, or difficulty label
 before both tutor decisions are locked.
@@ -208,10 +215,23 @@ Show:
 - author identity hidden during independent review where practical;
 - `Report conflict / recuse` action.
 
+Before a question enters the tutor queue, Codex should screen the imported
+candidate for:
+
+- relevance to the requested skill and topic;
+- stem clarity and completeness;
+- answer-key correctness;
+- distractor plausibility for MCQs;
+- rubric alignment and boundary precision for FRQs;
+- duplicate, leaked, or answer-giving wording.
+
+Items that fail screening should route to revision, not tutor review.
+
 The review panel requires:
 
 - one tutor or AP Reader score;
 - one difficulty label;
+- one or more module and subtopic labels for question reviews;
 - concern codes;
 - rationale for `Maybe`, `No`, `Edit and recycle`, or `Exclude`;
 - optional note for `Yes` or `Approve`;
@@ -233,6 +253,9 @@ The reviewer considers:
 - consistency with the stem and rationale.
 
 Scoring remains one independent 1-3 decision per answer option.
+Each answer card should also support an explicit approve action and an explicit
+propose-change action so the reviewer does not have to infer the available
+outcome from a generic note field.
 
 ### 8.4 Keyboard and Carousel Behavior
 
@@ -324,8 +347,11 @@ The UX-002 prototype should demonstrate:
 - AP Reader question review;
 - exact difficulty agreement and disagreement;
 - independent review of four MCQ answers;
+- explicit question and answer approve/change actions;
+- required module and subtopic tagging on question reviews;
 - answer exclusion blocking the current MCQ package;
 - edit-and-recycle creating a new version;
+- batch upload parsing with a downloadable intake template;
 - responsive carousel behavior.
 
 The prototype uses original placeholder content and frontend-only state. It

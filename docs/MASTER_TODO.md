@@ -318,6 +318,30 @@ records.
 - [ ] Define progress reporting versus estimated-score projection.
 - [ ] Define disputed-grade and low-confidence effects on learner state.
 
+### LEARN-007 - Year-Aware Readiness, Decay, and Pacing Prior
+
+**Status:** Proposed
+**Owner:** Learning Quality Owner (Orly Bloom) with Product Owner
+**Source:** `docs/proposals/2026-06-29-year-aware-point-maximization.md`
+(reviewed by Codex; pending Product Owner + curricular decision)
+
+- [ ] Resolve how `readiness` is expressed before backend recommendation logic:
+  hard eligibility scope vs. soft prior vs. multiplicative ranking, consistent
+  with the no-gate work-ahead decision (proposal open question 2). *(item 8)*
+- [ ] Define the rule that prevents decay-driven re-surfacing and Lock due-review
+  from competing for the same recommendation slot (proposal open question 1).
+  *(item 9)*
+- [ ] Curricular owner supplies the AP Biology default scope & sequence for the
+  pacing prior, with an honest read on classroom divergence. Without it, the
+  prototype may use mock Unit 3 but production cannot tune year-aware behavior.
+  *(item 10)*
+- [ ] Curricular owner sets the mastery-freshness decay cadence: how fast a
+  locked unit's freshness falls and how aggressively it re-surfaces. *(item 10)*
+- [ ] Confirm diagnostic scope = confirmed covered frontier does not conflict
+  with UX-001 / UX-006 / UX-007 assumptions (proposal open question 3).
+- [ ] Decide where point-capture skill lives as a first-class, cross-unit signal
+  distinct from content mastery (proposal open question 5).
+
 ### CONTENT-001 - AP Biology Content Authoring and Coverage Plan
 
 **Status:** In Progress
@@ -502,6 +526,12 @@ planning target. Physical Supabase DDL remains deferred.
 - [ ] Test the prototype with representative learners.
 - [ ] Obtain Learning and Marketing review.
 - [ ] Complete accessibility review.
+- [ ] Run a dedicated accessibility QA pass on the collapsed one-screen setup:
+  keyboard navigation, focus order, screen-reader labels, recoverability, and
+  mobile overflow. *(year-aware onboarding, item 11)*
+- [ ] A/B test the prior multi-step onboarding vs. the one-screen setup on
+  time-to-first-attempt, comprehension, trust, ability to change unit/time, and
+  ability to find alternate routes. *(year-aware onboarding, item 12)*
 - [ ] Obtain Product Owner decision on the proposed UX directions.
 
 ### UX-002 - Question and Answer Review Portal

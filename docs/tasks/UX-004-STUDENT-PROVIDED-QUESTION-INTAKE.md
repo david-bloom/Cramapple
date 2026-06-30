@@ -58,6 +58,8 @@ approved retention and deletion rules.
 - [x] Original input and learner-confirmed extraction are distinguished.
 - [x] One-round relevance and completeness clarification is specified.
 - [x] High, moderate, and low match behavior is specified.
+- [x] New BYOQ items are routed through a rubric-calibration pass before
+  production release.
 - [x] Teach, Hint, Check My Work, and Solution modes are specified.
 - [x] Personal-information and active-assessment states are specified without
   claiming final policy.
