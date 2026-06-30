@@ -21,26 +21,45 @@ alter table app.audit_events
   add column if not exists metadata jsonb not null default '{}'::jsonb,
   add column if not exists event_sha256 text;
 
-update app.audit_events
-set
-  audit_event_id = coalesce(audit_event_id, id::text),
-  occurred_at = coalesce(occurred_at, created_at),
-  actor_type = coalesce(actor_type, 'human'),
-  actor_id = coalesce(actor_id, coalesce(actor_user_id::text, subject_user_id::text, 'system')),
-  request_id = coalesce(request_id, payload ->> 'request_id'),
-  reason_code = coalesce(reason_code, action),
-  metadata = coalesce(metadata, payload, '{}'::jsonb),
-  event_sha256 = coalesce(
-    event_sha256,
-    encode(digest(coalesce(payload::text, ''), 'sha256'), 'hex')
-  )
-where audit_event_id is null
-   or occurred_at is null
-   or actor_type is null
-   or actor_id is null
-   or request_id is null
-   or reason_code is null
-   or event_sha256 is null;
+-- Backfill legacy rows only when the old schema columns exist.
+-- On fresh projects, audit_events is created with the new schema (no 'id',
+-- 'actor_user_id', etc.), so the table is empty and the UPDATE is a no-op
+-- semantically — but Postgres would reject the column references at parse time.
+-- Using EXECUTE defers resolution to runtime after the existence check.
+do $$
+begin
+  if exists (
+    select 1
+    from information_schema.columns
+    where table_schema = 'app'
+      and table_name   = 'audit_events'
+      and column_name  = 'id'
+  ) then
+    execute $sql$
+      update app.audit_events
+      set
+        audit_event_id = coalesce(audit_event_id, id::text),
+        occurred_at    = coalesce(occurred_at, created_at),
+        actor_type     = coalesce(actor_type, 'human'),
+        actor_id       = coalesce(actor_id, coalesce(actor_user_id::text, subject_user_id::text, 'system')),
+        request_id     = coalesce(request_id, payload ->> 'request_id'),
+        reason_code    = coalesce(reason_code, action),
+        metadata       = coalesce(metadata, payload, '{}'::jsonb),
+        event_sha256   = coalesce(
+          event_sha256,
+          encode(digest(coalesce(payload::text, ''), 'sha256'), 'hex')
+        )
+      where audit_event_id is null
+         or occurred_at    is null
+         or actor_type     is null
+         or actor_id       is null
+         or request_id     is null
+         or reason_code    is null
+         or event_sha256   is null
+    $sql$;
+  end if;
+end;
+$$;
 
 alter table app.audit_events
   alter column audit_event_id set not null,

@@ -77,7 +77,26 @@ Notes:
 - Users may not update `role`.
 - `role` is provisioned server-side only.
 
-### 3.2 `app.exam_packs`
+### 3.2 `app.subjects`
+
+Purpose: canonical subject registry shared across exam packs and coverage
+targets.
+
+Columns:
+
+- `id uuid primary key default gen_random_uuid()`
+- `subject_key text not null unique`
+- `display_name text not null`
+- `status text not null default 'active'`
+- `created_at timestamptz not null default now()`
+- `updated_at timestamptz not null default now()`
+
+Status values:
+
+- `active`
+- `retired`
+
+### 3.3 `app.exam_packs`
 
 Purpose: stable subject-level exam container.
 
@@ -86,7 +105,7 @@ Columns:
 - `id uuid primary key default gen_random_uuid()`
 - `exam_code text not null unique`
 - `exam_name text not null`
-- `subject text not null`
+- `subject_id uuid not null references app.subjects(id)`
 - `created_at timestamptz not null default now()`
 - `updated_at timestamptz not null default now()`
 
@@ -94,8 +113,9 @@ Example:
 
 - `exam_code = 'ap_biology'`
 - `exam_name = 'AP Biology'`
+- `subject_id -> app.subjects.id`
 
-### 3.3 `app.exam_pack_versions`
+### 3.4 `app.exam_pack_versions`
 
 Purpose: year-specific authoritative exam pack release.
 
@@ -120,7 +140,7 @@ Status values:
 - `published`
 - `retired`
 
-### 3.4 `app.content_labels`
+### 3.5 `app.content_labels`
 
 Purpose: reusable topical or operational labels.
 
@@ -144,7 +164,7 @@ Label types:
 - `difficulty`
 - `workflow`
 
-### 3.5 `app.content_items`
+### 3.6 `app.content_items`
 
 Purpose: stable logical content entity.
 
@@ -172,7 +192,7 @@ Status values:
 - `published`
 - `retired`
 
-### 3.6 `app.content_item_versions`
+### 3.7 `app.content_item_versions`
 
 Purpose: immutable versioned content body.
 
@@ -208,7 +228,7 @@ Note:
   retained only for compatibility with the student practice loop until the app
   is rewired to the governance tables and manifest flow.
 
-### 3.7 `app.mcq_choices`
+### 3.8 `app.mcq_choices`
 
 Purpose: choices for MCQ versions.
 
@@ -226,7 +246,7 @@ Constraints:
 
 - exactly one correct choice per MCQ version.
 
-### 3.8 `app.frq_criteria`
+### 3.9 `app.frq_criteria`
 
 Purpose: criterion-level rubric for FRQ and short-answer versions.
 
@@ -242,7 +262,7 @@ Columns:
 - `accepted_variants jsonb not null default '[]'::jsonb`
 - `created_at timestamptz not null default now()`
 
-### 3.9 `app.content_item_labels`
+### 3.10 `app.content_item_labels`
 
 Purpose: many-to-many labels.
 
@@ -252,7 +272,19 @@ Columns:
 - `content_label_id uuid not null references app.content_labels(id) on delete cascade`
 - `primary key (content_item_id, content_label_id)`
 
-### 3.10 `app.learning_sessions`
+Additional content ingestion and reviewer-workflow tables are introduced in the
+production migration layer to support structured uploads and tutor/reader
+review routing on top of the normalized subject and artifact tables. These
+include `app.content_ingest_batches`, `app.content_ingest_rows`,
+`app.artifact_label_assignments`, `app.content_review_assignments`,
+`app.content_review_assignment_labels`, `app.content_review_decisions`, and
+the `app.attempts.artifact_version_id` bridge for the student workflow.
+
+The corresponding server-side touchpoints are `content-intake` for upload
+batch ingestion, `review-queue` for reviewer assignment reads, and
+`review-decision` for locked reviewer submissions.
+
+### 3.11 `app.learning_sessions`
 
 Purpose: a user-visible study session.
 
