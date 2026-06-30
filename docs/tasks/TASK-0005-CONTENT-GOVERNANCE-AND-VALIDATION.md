@@ -67,6 +67,7 @@ separate security, privacy, retention, and authorization design.
 - [x] Source and rights refresh schedules are defined.
 - [x] Full-versus-partial revalidation rules are defined.
 - [x] Atomic publication, monitoring, incident, retirement, rollback, and audit procedures are defined.
+- [x] Rubric audit and sampling policy is defined for scheduled boundary review.
 - [x] Paid-tutor original-question authoring replaces historical-question-seeded generation.
 - [x] All 60 official AP Biology topics are included with a planning target of
   ten MCQs and five short-FRQ prompts per topic.
@@ -88,6 +89,10 @@ separate security, privacy, retention, and authorization design.
   in `TASK-0007`; tutor-first remains the production baseline.
 - [x] Rejected content is abstracted into failure cards rather than retained as
   prompt or exemplar material.
+- [x] Codex pre-review flags question relevance, answer-key correctness,
+  distractor plausibility, and rubric-boundary issues before tutor review.
+- [x] New authored questions and rubrics pass through a rubric improvement
+  loop with reasoning, rule-following, and judge roles.
 - [ ] Learning Quality Owner reviews the paid-author workflow and proposed educational quality gates.
 - [ ] Counsel reviews the proposed rights and retention boundaries.
 - [ ] Product Owner approves, requests changes, or rejects the policy.

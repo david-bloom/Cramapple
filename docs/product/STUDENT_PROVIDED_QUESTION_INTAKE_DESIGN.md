@@ -201,6 +201,34 @@ If unresolved, either:
 - avoid precise scoring;
 - or decline when Cramapple cannot provide a safe useful answer.
 
+### 6.4 Rubric Calibration Before Release
+
+Questions that enter through BYOQ should not move directly from capture to
+production scoring unless their rubric boundary has been calibrated.
+
+Calibration rule:
+
+- run the primary rubric scorer with `gpt-4o-mini` against the released
+  rubric;
+- if the item is newly authored, revised, disputed, or ambiguous, run a
+  secondary audit model on the same responses;
+- use the disagreement set to tighten the rubric or send the item to Learning
+  Quality review;
+- do not rely on a second model as a live fallback scorer for every learner
+  attempt.
+
+This keeps BYOQ on the calibration path while leaving stable production scoring
+single-model unless a specific ambiguity trigger fires.
+
+### 6.5 BYOQ Remains Separate
+
+BYOQ stays on the intake and calibration path for now. It does not enter the
+new rubric-improvement system unless Product Owner or Learning Quality later
+decides to promote a specific BYOQ item into the canonical content workflow.
+
+That keeps student-provided questions isolated from the authored-content
+improvement pipeline while the system is being built and tested.
+
 ### 6.4 Portfolio Outcomes
 
 - **Current enrolled subject:** standard flow.

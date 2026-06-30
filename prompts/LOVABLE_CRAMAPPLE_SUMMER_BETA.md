@@ -129,10 +129,14 @@ Use a clean SPA with client-side routing:
 /session/:sessionId/end   session reflection
 /resume                   local or authenticated session history
 /account                  optional Google sign-in and saved sessions
+/plan                     first-session plan and live session summary
+/reviewer-login           reviewer auth entry and session check
 ```
 
 Unauthorized users must not be blocked from practice. Authentication is
-optional and exists only for cross-device saving and account-based resume.
+optional for learners and exists only for cross-device saving and
+account-based resume, but live account and reviewer pages must treat the
+Supabase Auth session as the source of truth when it is present.
 
 ## Landing Page
 
@@ -797,6 +801,12 @@ Optional Google login:
 Do not include a production `Dev Bypass Login`. A development-only bypass may
 exist only behind a non-production environment flag and must be impossible to
 render in production.
+
+For non-production verification only, it is acceptable to add a clearly labeled
+developer diagnostics surface that shows the active Supabase project ref,
+whether `supabase.auth.getSession()` currently returns a session, and whether
+that session has an access token. Any copy/export action for the token must be
+impossible to render in production.
 
 ## Daily Cost Hard Cap
 

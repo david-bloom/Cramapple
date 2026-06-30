@@ -1,8 +1,9 @@
 # Lovable Build Brief - UX-002 Question and Answer Review Portal
 
-Build a polished, responsive, frontend-only Cramapple reviewer portal from this
-brief. The result is a review prototype for logged-in tutors and AP Readers.
-Do not connect a database, Supabase, production authentication, or deployment.
+Build a polished, responsive Cramapple reviewer portal from this brief. The
+result should run in mock mode when backend config is absent, but when
+Supabase config and session are available it must read the live review queue
+and write reviewer decisions through the approved content review endpoints.
 
 ## Purpose
 
@@ -14,6 +15,10 @@ understand.
 Approval in this portal is candidate-stage approval only. It does not publish
 content or replace source, rights, teaching, grading, accessibility, release,
 or exam-pack gates.
+
+Use Supabase Auth/session as the source of truth for reviewer identity. When
+backend config is missing, the UI should visibly stay in mock mode and preserve
+that absence so the wiring can be fixed later.
 
 ## Visual Direction
 

@@ -159,6 +159,86 @@ The prototype simulates import and does not transmit a file. Production upload
 requires malware scanning, access control, retention, deletion, extraction,
 privacy, and rights approval.
 
+### 7.1 Intake Template
+
+The UX-003 handoff must use the same structured intake shape as UX-002 so a
+reviewed item can be recycled without re-translation.
+
+Supported upload formats:
+
+- CSV with one row per reviewable item;
+- JSON array with one object per reviewable item.
+
+Required shared fields:
+
+- `item_id`
+- `review_stage`
+- `question_type`
+- `stem`
+- `modules`
+- `subtopics`
+
+Recommended optional fields:
+
+- `change_request`
+- `notes`
+- `source_title`
+- `source_locator`
+- `version`
+- `difficulty`
+
+MCQ-specific fields:
+
+- `answer_letter`
+- `answer_text`
+- `answer_status`
+
+FRQ-specific fields:
+
+- `canonical_answer`
+- `rubric_summary`
+- `criterion_notes`
+
+The intake parser should preserve the submitted row order, keep the original
+upload as provenance, and map each row into either a question review item, an
+answer review item, or a canonical-answer review item. Module and subtopic
+values should remain multi-valued so the same item can be tagged to more than
+one curriculum area.
+
+### 7.2 Schema Landing Map
+
+The template fields land in the database like this:
+
+| Upload field | Schema destination |
+| --- | --- |
+| `item_id` | `app.content_ingest_rows.row_key` |
+| `review_stage` | `app.content_ingest_rows.review_stage` |
+| `question_type` | `app.content_ingest_rows.question_type` |
+| `stem` | `app.content_ingest_rows.stem` |
+| `modules` | `app.content_ingest_rows.modules` and later `app.artifact_label_assignments` |
+| `subtopics` | `app.content_ingest_rows.subtopics` and later `app.artifact_label_assignments` |
+| `change_request` | `app.content_ingest_rows.change_request` |
+| `notes` | `app.content_ingest_rows.notes` |
+| `source_title` | `app.content_ingest_batches.parsed_template` and `app.content_ingest_rows.row_payload` |
+| `source_locator` | `app.content_ingest_batches.parsed_template` and `app.content_ingest_rows.row_payload` |
+| `version` | `app.content_ingest_batches.parsed_template` and `app.content_ingest_rows.row_payload` |
+| `difficulty` | `app.content_ingest_rows.row_payload` and, after review, `app.content_review_decisions.difficulty_label_id` |
+| `answer_letter` | `app.content_ingest_rows.answer_letter` |
+| `answer_text` | `app.content_ingest_rows.answer_text` |
+| `answer_status` | `app.content_ingest_rows.row_payload` |
+| `canonical_answer` | `app.content_ingest_rows.canonical_answer` |
+| `rubric_summary` | `app.content_ingest_rows.row_payload` |
+| `criterion_notes` | `app.content_ingest_rows.row_payload` |
+
+The parser should retain the full uploaded row JSON in `row_payload` even when
+some fields are also normalized into dedicated columns. That keeps the intake
+provenance intact and gives UX-003 enough context to reconstruct a revision
+without re-reading the source file.
+
+The template is not an approval artifact. Imported rows still require the
+normal completeness, rights, and review checks before they can become an
+editable draft or enter any review queue.
+
 ## 8. Reviewer Comments
 
 Comments are grouped by package field, severity, and review stage:
@@ -365,4 +445,3 @@ The prototype uses original placeholder content and frontend-only state.
 - How are compensation milestones tied to acknowledgement, submission,
   revision, acceptance, and rejection?
 - Which authoring actions require reauthentication or a signed attestation?
-
