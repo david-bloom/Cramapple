@@ -5,10 +5,10 @@
 **Owner:** Main Conductor
 **Product Owner:** David Bloom
 **Tier:** Hard-Gate
-**Status:** Ready for Review
+**Status:** In Progress
 **Priority:** High
 **Created Date:** 2026-06-30
-**Approved Date:** Pending
+**Approved Date:** 2026-06-30
 
 ## Product Goal
 
@@ -132,22 +132,95 @@ new content-ownership relationship at the same time as a new subject.
 
 **Approval Required:** Yes
 **Approval Type:** Hard Gate
-**Decision:** Pending
+**Decision:** Approved
+**Approved By:** David Bloom
+**Date:** 2026-06-30
+**Recorded:** `DECISION-0031`, `APPROVAL-0024` (`docs/activity_log/DECISIONS_LOG.md`,
+`docs/activity_log/APPROVALS_LOG.md`)
 
-**Pending owner decisions (need David's sign-off before any phase below
-executes):**
+**Owner decisions (resolved 2026-06-30):**
 
-1. Confirm AP Statistics as Subject 2 (per the technical-fit comparison in
-   chat; pricing/positioning not assessed here).
-2. Confirm content-sourcing model for Stats: reuse the existing
-   tutor-authored-base-package model (TASK-0007/0008) under Orly, or pilot a
-   different authoring arm.
-3. Confirm pilot content batch size and target date.
-4. Confirm whether existing reviewers can be cross-credentialed for AP
-   Statistics or a new tutor pool is needed (cost/ops decision).
-5. Confirm rights/licensing posture for any AP Statistics source material
-   (same hard gate as Biology — no official CollegeBoard material as model
-   input or exemplar).
+1. **Confirmed.** AP Statistics is Subject 2.
+2. **Confirmed.** Reuse the existing tutor-authored-base-package content model
+   (TASK-0007/0008) under Orly — no new authoring arm for this subject.
+3. **Confirmed.** Pilot batch sized and distributed across all 9 AP
+   Statistics units (College Board unit numbering), David-provided:
+
+   | Module | MCQs | FRQs |
+   |---|---|---|
+   | 1 | 15 | 6 |
+   | 2 | 5 | 2 |
+   | 3 | 10 | 4 |
+   | 4 | 6 | 5 |
+   | 5 | 5 | 4 |
+   | 6 | 10 | 4 |
+   | 7 | 10 | 4 |
+   | 8 | 5 | 2 |
+   | 9 | 5 | 2 |
+   | **Total** | **71** | **33** |
+
+   Plus an investigative-task item — form and count **TBD**, separate from the
+   table above; needs its own scoping pass before Phase 4 content authoring
+   starts (investigative tasks are a distinct AP Statistics task archetype,
+   not a long/short FRQ variant, so they need an archetype definition under
+   §6/§9 of `CONTENT_AUTHORING_AND_PROMPT_ARCHITECTURE.md` before Orly can
+   author against them). Target date: not yet set — revisit once Orly
+   confirms bandwidth alongside ongoing Bio work.
+4. **Confirmed.** Existing reviewers can be cross-credentialed across
+   subjects, including AP Statistics — no new tutor pool required.
+5. **Confirmed.** Same rights posture as AP Biology (no official CollegeBoard
+   material as model input or exemplar) — this was already settled policy,
+   restated here for the record, not reopened.
+
+**Phase 0 is closed.** Phase 1 is cleared to start —
+`prompts/CODEX_AP_STATISTICS_PHASE1_GRADING_GENERALIZATION.md`'s
+do-not-execute condition is satisfied.
+
+**Phase 1 status: implemented, awaiting QA.** Executed by Claude (not Codex —
+Codex was occupied productionalizing the hand-drawn graph grader at the time;
+this is implementation work either actor can do, the delegation table is a
+default assignment, not an exclusivity rule). Findings and changes:
+
+- `supabase/functions/evaluate-attempt/index.ts` (the actual production
+  grading path — idempotent, budget-capped, prompt-versioned) is now
+  subject-driven with **no new manifest infrastructure needed**:
+  `app.exam_packs.exam_name` already existed as a per-exam-pack column
+  (seeded `'AP Biology'` in `202606200003_seed_ap_biology_exam_pack.sql`) but
+  `evaluate-attempt` never selected it, hardcoding the literal instead. Fixed
+  by fetching `exam_packs` via `examPackVersion.exam_pack_id` and using
+  `exam_name` for both the `examName` prompt field and the system-prompt
+  string. Fails loudly (`exam_pack_not_found`, 404) if the row can't be
+  resolved, per the original Phase 1 requirement. Zero schema migration
+  needed — this was a missing `select` column, not a missing manifest.
+- `supabase/functions/grade-frq/index.ts` was **not** changed. It turns out
+  to run against a completely different, Biology-only prototype schema
+  (`public.questions` from `202606230001_prototype_student_schema.sql`) that
+  has no subject concept at all — `unit` is a hard `check (unit between 1 and
+  8)` constraint, `science_practice between 1 and 6`, no `subject_id` or
+  equivalent linkage anywhere in that table. Swapping its hardcoded prompt
+  string alone would be cosmetic, not a real generalization, since there's no
+  subject data behind it to drive the swap. True support would require schema
+  work on `public.questions` (or retiring it in favor of the `app.*` path
+  `evaluate-attempt` already uses) — out of this phase's "no migrations"
+  scope and a separate decision (is `public.questions` still meant to be
+  live, or is it a superseded prototype?) worth a explicit answer before
+  investing in it.
+- **Verification:** `deno check` passes on the modified file. No live
+  Supabase/Postgres instance is available in this environment (consistent
+  with prior sessions' notes in `docs/research/supabase-token-deployment-postmortem.md`),
+  so this follows the same verification precedent used for
+  `DECISION-0030`'s Edge Function change: type-check plus manual
+  cross-reference against the seed data, not a live integration run.
+  Cross-reference confirms `exam_packs.exam_name = 'AP Biology'` exactly
+  matches the removed literal, so existing AP Biology grading output is
+  unchanged. A pre-existing, unrelated `deno fmt` formatting violation at
+  line 832 (outside this diff) was left untouched rather than expanding
+  scope.
+- **Where Phase 2 plugs in:** once an `app.exam_packs` row exists for AP
+  Statistics with `exam_name = 'AP Statistics'` and `subject_id` pointing at
+  a new `app.subjects` row, `evaluate-attempt` requires no further code
+  change to grade it — the exam-pack lookup added in this phase already
+  generalizes by data, not by branching logic.
 
 ## Implementation Notes — Delegation Plan
 
@@ -173,9 +246,24 @@ Lovable prompt is drafted yet — Phase 5's input-UI decision depends on Phase
 
 ## QA Review
 
-**QA Verdict:** Pending (Standard/Hard-Gate tier — QA auto-triggers when this
-task reaches `Ready for Review` on the implementation side, not at the spec
-stage it's at now).
+**Phase 1 (PR #20) QA Verdict: Pass** — two independent reviews, no blocking
+findings.
+
+- **Claude QA agent** (fresh/independent context, spawned 2026-06-30):
+  Pass. Verified the `exam_pack_not_found` guard precedes every use of
+  `exam_name`, the diff is surgical (3 hunks, no unrelated files), `deno
+  check` passes, the one `deno fmt` violation at line 832 is pre-existing
+  and outside the changed hunks, the `public.questions` no-subject-concept
+  claim checks out, and the activity-log entries are structurally
+  consistent. Non-blocking notes: no live Supabase integration test was
+  possible in this environment; `exam_packs.subject` (free-text) and
+  `exam_packs.subject_id` (FK) coexist and should be reconciled in Phase 2.
+- **Codex** (independent second pass, `prompts/CODEX_TASK0013_PHASE1_QA_REVIEW.md`):
+  Pass. No blocking findings.
+
+QA pass is not launch or merge approval — David decides whether PR #20
+merges. Remaining task-level work (Phases 2–7) is unaffected by this
+verdict; it covers Phase 1 only.
 
 ## Done Decision
 

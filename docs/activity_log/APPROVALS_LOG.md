@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0024 — AP Statistics Launch (TASK-0013, Phase 0 Decision Gate)
 - APPROVAL-0023 — Agent Routing and Automatic QA (Codex Proposal)
 - APPROVAL-0022 — Charter Simplification and Tiering Adoption
 - APPROVAL-0021 — Start Content Authoring and Revision Workbench Design
@@ -542,3 +543,32 @@ Folds `docs/proposals/2026-06-23-agent-routing-and-qa-proposal-for-claude.md` in
 - The proposal's guardrail "the orchestrator must record which model was used and why" was narrowed: recorded only on deviation from the default tier (i.e., escalation to the strongest tier), not on every routine call — recording every fast-tier call would reintroduce the ceremony this whole effort is removing.
 - No conflicts found with the 06-14 proposal or the 06-23 simplification memo; this is additive to the Model and Effort Policy and Task Tiers sections adopted under APPROVAL-0022.
 - Does not change any approval boundary: model selection and QA auto-triggering both still stop at the existing Hard-Gate list.
+
+## APPROVAL-0024 — AP Statistics Launch (TASK-0013, Phase 0 Decision Gate)
+
+**Date:** 2026-06-30
+**Approved By:** David Bloom
+**Related Task:** TASK-0013
+**Decision:** Approved
+
+### Summary
+
+Approved TASK-0013's Phase 0 decision gate: AP Statistics is Subject 2;
+content sourcing reuses the existing tutor-authored-base-package model under
+Orly; pilot content batch follows the 9-unit MCQ/FRQ distribution recorded in
+`DECISION-0031` (71 MCQs / 33 FRQs, investigative-task scope still TBD);
+existing reviewers may be cross-credentialed across subjects without a new
+tutor pool; rights/licensing posture is unchanged from AP Biology. Clears
+Phase 1 (Codex: grading-prompt generalization) to execute.
+
+### Notes
+
+- This approval covers Phase 0 only. Phases 2–7 in
+  `docs/tasks/TASK-0013-AP-STATISTICS-LAUNCH.md` still execute in sequence,
+  each depending on the prior phase's output, and production
+  deployment/launch remains a separate Hard Gate not granted here.
+- The investigative-task item type (AP Statistics-specific archetype, not a
+  long/short FRQ variant) is explicitly unscoped pending its own definition
+  pass — does not block the MCQ/FRQ portion of the pilot batch.
+- No target date set for the pilot batch; revisit once Orly confirms
+  bandwidth.

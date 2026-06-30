@@ -880,6 +880,22 @@ Deno.serve(async (req) => {
     return respond({ error: "content_not_published" }, { status: 409 });
   }
 
+  // Subject-driven grading: examName comes from the exam pack the question
+  // actually belongs to, not a literal. This is what makes grading prompts
+  // work for any subject without a code change per subject (TASK-0013
+  // Phase 1) — fails loudly rather than silently falling back to Biology if
+  // the exam pack row is somehow missing.
+  const { data: examPack, error: examPackError } = await service
+    .schema("app")
+    .from("exam_packs")
+    .select("id, exam_code, exam_name")
+    .eq("id", examPackVersion.exam_pack_id)
+    .maybeSingle();
+
+  if (examPackError || !examPack) {
+    return respond({ error: "exam_pack_not_found" }, { status: 404 });
+  }
+
   const responseParts = parseJsonSafe(
     typeof responseVersion.response_parts === "string"
       ? responseVersion.response_parts
@@ -893,7 +909,7 @@ Deno.serve(async (req) => {
   const promptBase = {
     operation: operation as AllowedOperation,
     promptVersion,
-    examName: `AP Biology`,
+    examName: examPack.exam_name as string,
     itemTitle: contentItem.title as string,
     itemType: contentItem.item_type as string,
     stem: contentVersion.stem as string,
@@ -1101,7 +1117,7 @@ Deno.serve(async (req) => {
   }
 
   const systemPrompt = [
-    "You are a production AP Biology criterion-based grader.",
+    `You are Cramapple's production criterion-based grader for ${examPack.exam_name}.`,
     "Use only the provided released content, rubric, and student response.",
     "Score each criterion independently.",
     "Do not invent evidence.",

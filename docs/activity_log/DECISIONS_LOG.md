@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0031 — Launch AP Statistics as Subject 2, Reusing the Tutor-Authored Content Model
 - DECISION-0030 — Failed/Rejected Grading Burns the Daily Budget Cap When Cost Is Known
 - DECISION-0029 — ALLOWED_ORIGINS Required in All Environments; No Wildcard CORS Fallback
 - DECISION-0028 — Auto-Trigger QA and Model Routing (Codex Proposal Folded In)
@@ -1273,3 +1274,63 @@ Reservation-release behavior (`reserved_cost_usd` reduction on the
   changed) plus manual schema cross-reference against
   `202606210004_daily_budget_row_lock.sql` and
   `202606210008_reserve_model_usage_race_fix.sql`.
+
+## DECISION-0031 — Launch AP Statistics as Subject 2, Reusing the Tutor-Authored Content Model
+
+**Date:** 2026-06-30
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Related Task:** TASK-0013
+**Area:** Product / Architecture / Operations
+
+### Context
+
+Cramapple's architecture was designed for multiple subjects
+(`CONTENT_AUTHORING_AND_PROMPT_ARCHITECTURE.md` §6, `app.subjects` schema
+normalization) but only AP Biology is built and live. David requested an
+assessment of which AP subject — among AP Statistics, AP Calculus AB, and AP
+English Literature (Orly's subjects this year) and AP World History (Micah's)
+— is the closest technical match to AP Biology, then asked for a launch plan.
+
+### Decision
+
+1. AP Statistics is Subject 2. It ranked closest to AP Biology on
+   grading-architecture reuse: criterion/rubric-scored FRQs with quantitative
+   thresholds (same scoring shape as Biology's FRQ criterion contracts), and
+   it needs a verification technique (deterministic calculation checks)
+   already named but unbuilt in §7, rather than a wholly new grading
+   paradigm (e.g. holistic essay scoring, which AP English Literature would
+   require).
+2. Content sourcing reuses the existing tutor-authored-base-package model
+   (TASK-0007/0008) under Orly — no new authoring arm.
+3. The pilot content batch follows AP Statistics' 9-unit structure with
+   per-unit MCQ/FRQ counts David provided (71 MCQs / 33 FRQs total across
+   units 1–9; investigative-task form and count still TBD — see
+   `TASK-0013-AP-STATISTICS-LAUNCH.md` Approval State for the full table).
+4. Existing reviewers can be cross-credentialed across subjects, including
+   AP Statistics — no new tutor pool required for the review/calibration
+   pipeline.
+5. Rights/licensing posture is unchanged from AP Biology: no official
+   CollegeBoard material as model input or exemplar. This was already
+   settled policy and is restated here for the record, not reopened.
+
+Full phased delegation plan (Codex / Lovable / Orly / David) recorded in
+`docs/tasks/TASK-0013-AP-STATISTICS-LAUNCH.md`.
+
+### Rationale
+
+Maximize reuse of the grading/verification investment already made for AP
+Biology, and avoid opening a new content-ownership or tutor-credentialing
+relationship at the same time as a new subject.
+
+### Consequences
+
+- Phase 1 (de-hardcoding `grade-frq`/`evaluate-attempt` away from literal "AP
+  Biology" strings, wiring the prompt-build manifest to `subject_id`) is
+  cleared for Codex to execute — it was the one piece blocking any second
+  subject regardless of which one was chosen.
+- The investigative-task archetype is not yet defined and blocks Phase 4
+  content authoring for that item type specifically; it does not block the
+  MCQ/FRQ portions of the pilot batch.
+- No target date is set for the pilot batch yet — pending Orly's bandwidth
+  confirmation alongside ongoing AP Biology work.
