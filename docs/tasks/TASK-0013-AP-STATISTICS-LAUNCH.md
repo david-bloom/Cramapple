@@ -227,22 +227,36 @@ default assignment, not an exclusivity rule). Findings and changes:
 Phased so Phase 1 unblocks everything else and nothing downstream starts
 before its inputs exist.
 
-| Phase | Work | Delegate | Depends on |
-|---|---|---|---|
-| 0 | Decision gate — the 5 pending owner decisions above | **David** | — |
-| 1 | De-hardcode grading prompts; wire prompt-build manifest to `subject_id`/`taxonomy_scheme_id`; regression-test against AP Biology | **Codex** (backend) | Phase 0 approval |
-| 2 | `app.subjects` row, exam_pack + taxonomy_scheme for AP Statistics, additive migration | **Codex** (backend), reviewed by **Orly** for taxonomy correctness | Phase 1 |
-| 3 | Deterministic calculation-check verifier for Stats FRQ criteria | **Codex** (backend) | Phase 1 |
-| 4 | Pilot content batch (governed authoring, no official material) | **Orly** (curriculum), same governance gates as Biology | Phase 2 |
-| 5 | Subject selector + AP Statistics practice/assessment routes; input UI decision (typed calculation entry vs canvas) | **Lovable** (frontend) | Phase 1 output (what the grader needs from a response) |
-| 6 | Calibration run against AP Statistics gold set; tutor credentialing | **Claude/QA Agent** (protocol) + **David** (tutor pool decision) | Phases 3–4 |
-| 7 | Launch readiness review (separate Hard Gate — not granted by this task) | **David** | All above |
+| Phase | Work | Delegate | Depends on | Status |
+|---|---|---|---|---|
+| 0 | Decision gate — the 5 pending owner decisions above | **David** | — | **Done** (`DECISION-0031`) |
+| 1 | De-hardcode grading prompts; resolve subject from `app.exam_packs` per attempt; regression-test against AP Biology | **Codex** (backend) | Phase 0 approval | **Done, merged** (PR #20) |
+| 2 | `app.subjects` row, exam_pack + content_labels for AP Statistics, additive migration | **Codex** (backend), reviewed by **Orly** for label correctness | Phase 1 | Prompt drafted (PR #22), **do-not-execute pending David's migration go-ahead** |
+| 3 | Deterministic calculation-check verifier for Stats FRQ criteria | **Codex** (backend) | Phase 1 | Prompt drafted and **cleared** (PR #21) — Codex executing |
+| 4 | Pilot content batch (governed authoring, no official material) | **Orly** (curriculum), same governance gates as Biology | Phase 2 | Brief drafted (`docs/product/AP_STATISTICS_PHASE4_CONTENT_AUTHORING_BRIEF.md`), blocked on Phase 2 landing |
+| 5 | Subject selector + AP Statistics practice/assessment routes | **Lovable** (frontend) | Phase 2 + 4 (real content to render) | Prompt drafted (`prompts/LOVABLE_AP_STATISTICS_PHASE5_SUBJECT_SELECTOR.md`), blocked on Phase 2 + 4 |
+| 6 | Calibration run against AP Statistics gold set; tutor credentialing | **Claude/QA Agent** (protocol) + **David** (tutor pool decision) | Phases 3–4 | Protocol drafted (`docs/research/AP_STATISTICS_PHASE6_CALIBRATION_PROTOCOL.md`), blocked on Phase 3 + 4 |
+| 7 | Launch readiness review (separate Hard Gate — not granted by this task) | **David** | All above | Not started |
+
+Every phase now has a ready-to-execute handoff drafted. Phases 2, 4, 5, and 6
+are blocked on dependencies (Phase 2 needs your migration go-ahead; 4/5/6
+cascade from there) — nothing further to draft until those unblock.
 
 A ready-to-fire Codex prompt for Phase 1 is drafted at
 `prompts/CODEX_AP_STATISTICS_PHASE1_GRADING_GENERALIZATION.md`, marked
 do-not-execute until this task's Approval State changes to Approved. No
 Lovable prompt is drafted yet — Phase 5's input-UI decision depends on Phase
 1's output and would be speculative before that.
+
+**Phase 3 status: implemented as a standalone checker.** Added
+`scripts/ap_statistics_calculation_check/checker.py` plus synthetic tests in
+`scripts/ap_statistics_calculation_check/test_checker.py`. The assumed input
+shape is `expected_answer_spec = {calculation_type, target, tolerance,
+comparison?}` with confidence intervals represented as `{lower, upper}`.
+The checker returns `matches`, `does_not_match`, or `indeterminate` and is
+kept independent of `evaluate-attempt` until the Phase 2/4 data exists to
+drive it. Validation: `python3 -m unittest discover -s
+scripts/ap_statistics_calculation_check -p 'test_*.py' -v`.
 
 ## QA Review
 
