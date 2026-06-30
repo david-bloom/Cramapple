@@ -137,6 +137,33 @@ The package is not ready for Orly. Required review and remediation:
 - `docs/research/DRAWN_RESPONSE_PILOT_V0_REVIEW.md`
 - `prompts/CLAUDE_REMEDIATE_DRAWN_RESPONSE_PILOT_V0.md`
 
+## Progress Notes
+
+### 2026-06-30 — Corpus realism fix (v0.2) and four-finding spot-check
+
+Spot-checked the hand-drawn generation artifacts against four defect modes from
+prior corpus/reference-image work: (a) pen-type legibility-vs-precision
+tradeoff, (b) "carrying capacity" in student text, (c) synthetic data that is
+not real noise, (d) paired good/bad reference images isolating one criterion
+violation.
+
+Results vs the 2026-06-29 v0.1 corpus: (b) clean; (a) only logged after the
+fact, not controlled; (c) failing (no replicates, uniform x-grids, 5 recycled
+shapes); (d) absent — no single-violation negatives exist in-repo.
+
+Acted on (c): `scripts/generate_hand_drawn_graph_corpus.py` rewritten to a
+seeded, reproducible v0.2 generator (replicate-derived SEM, off-model scatter,
+non-uniform clean x-grids, round-ish displayed values, RNG-varied shapes). New
+package: `docs/research/hand_drawn_graph_corpus_2026_06_30/` (prefix
+`HDG-2026-P2-*`). v0.1 left untouched and still bound to the pages already drawn.
+Verified bit-for-bit reproducible; audit metrics restored (uniform x-grids
+4/100, fake SEM 0/100, distinct categorical shapes 50/50). See the 2026-06-30
+activity-log entry for full detail.
+
+Still open: pen-type control (a); single-violation negatives (d); v0.2
+trace-set renders; adjudicated dual-human gold; external-provider data-transfer
+approval. Each gates any learner-facing automated graph score.
+
 ## Approval State
 
 **Approval Required:** Yes
