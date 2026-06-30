@@ -10,3 +10,17 @@
 **/.venv/
 __pycache__/
 supabase/.temp/
+
+# Secrets — never commit
+.secrets.env
+*.secrets.env
+
+# Large local research artifacts and tooling (kept on disk, not in git)
+Hand Drawn Samples/
+output/
+tmp/
+.codex-home/
+
+# Regenerable hand-drawn trace renders (rebuild via scripts/generate_hand_drawn_trace_sets.py)
+docs/research/hand_drawn_graph_corpus_*/trace_sets/*/pages/
+docs/research/hand_drawn_graph_corpus_*/trace_sets/*/*.pdf
