@@ -13,7 +13,14 @@ function requireEnv(name: string) {
 // evaluate-attempt and prevents silent empty defaults in production.
 const SUPABASE_URL = requireEnv("SUPABASE_URL");
 const SUPABASE_ANON_KEY = requireEnv("SUPABASE_ANON_KEY");
-const SUPABASE_SERVICE_ROLE_KEY = requireEnv("SUPABASE_SERVICE_ROLE_KEY");
+const SUPABASE_SERVICE_ROLE_KEY =
+  Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ??
+  Deno.env.get("SERVICE_ROLE_KEY") ??
+  (() => {
+    throw new Error(
+      "Missing required environment variable: SERVICE_ROLE_KEY",
+    );
+  })();
 
 export function createAnonClient(req: Request) {
   return createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {

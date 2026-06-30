@@ -46,9 +46,22 @@ These steps require Vercel, Supabase, DNS, or other external dashboard access.
 - [ ] Confirm the production Supabase project is the intended one.
 - [ ] Confirm the beta runtime is not still depending on Lovable Cloud for
   authoritative backend work before any production migration.
+- [ ] Confirm the dev beta route exposes a real Supabase Auth session when you
+  sign in, or document that it does not.
+- [ ] If the beta route cannot surface a usable session, approve a dev-only
+  diagnostics helper that shows session state in non-production only.
 - [ ] Set the production secret values in Supabase Edge Function secrets or the
   deployment environment as appropriate.
-- [ ] Confirm the database migrations are applied in order.
+- [x] Confirm the database migrations are applied in order.
+      *Confirmed 2026-06-27: all 25 local migration files applied to `pcntajvbdfqhbeewmdry`; 2 additional
+      seed-data migrations applied via MCP (no local file counterparts — see migration-drift risk below).*
+      **Content inventory as of 2026-06-27:** 30 long FRQs (L-001–L-030), 100 MCQs,
+      20 short FRQs (S-001–S-020, frq_form='short', status='draft', 2 criteria each).
+      `canonical_answer_1` / `canonical_answer_2` columns exist on `content_item_versions` but are all NULL.
+      **Migration-drift risk:** remote has 28 applied migrations; local `supabase/migrations/` has 25 files.
+      Three remote migrations lack local files: one pre-existing gap + `seed_short_frqs_s001_s010` +
+      `seed_short_frqs_s011_s020`. Do NOT run `supabase db reset` or `supabase db push` until local files
+      for the two seed migrations are created and committed.
 - [ ] Confirm RLS is enabled on exposed tables and the service-role writes work.
 - [ ] Confirm Storage buckets exist and the object policies are correct.
 - [ ] Deploy or refresh the Edge Functions after secrets are in place.
@@ -101,3 +114,20 @@ These are repo-side tasks I can execute without dashboard access.
 4. You run the first smoke tests in preview/beta.
 5. I patch any repo-side mismatches the smoke tests reveal.
 6. You approve production cutover only after the blockers are closed.
+
+## 4. Token Recovery for Grade-FRQ Verification
+
+This is the immediate recovery path for the dev-project verification blocker.
+The only owner action in this sequence should be whatever step is required to
+create or approve a real Supabase Auth session.
+
+1. Open the development beta route for `Cramapple-Development`.
+2. Verify you are not on the Lovable root shell.
+3. Sign in through the route that is meant to create a real Supabase session.
+4. Confirm the browser now has a Supabase access token for
+   `wmgjsdkphcyhngaffbqf`.
+5. If no usable session appears, decide whether to approve a dev-only session
+   diagnostics surface.
+6. Once a fresh token exists, send it as `Authorization: Bearer <token>` to
+   `grade-frq`.
+7. Run the A-E synthetic cases immediately after capture.

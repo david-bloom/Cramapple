@@ -667,6 +667,9 @@ Deno.serve(async (req) => {
   const responseVersionId = asUuid(
     getBodyField(body, "response_version_id", "responseVersionId"),
   );
+  const artifactVersionId = asUuid(
+    getBodyField(body, "artifact_version_id", "artifactVersionId"),
+  );
   const contentItemVersionId = asUuid(
     getBodyField(body, "content_item_version_id", "contentItemVersionId"),
   );
@@ -686,8 +689,7 @@ Deno.serve(async (req) => {
 
   if (
     !idempotencyKey || !attemptId || !responseVersionId ||
-    !contentItemVersionId ||
-    !rubricVersionId
+    !contentItemVersionId || !rubricVersionId
   ) {
     return respond(
       {
@@ -749,6 +751,7 @@ Deno.serve(async (req) => {
     idempotencyKey,
     attemptId,
     responseVersionId,
+    artifactVersionId,
     contentItemVersionId,
     rubricVersionId,
     assistanceCondition,
@@ -786,7 +789,7 @@ Deno.serve(async (req) => {
     service.schema("app")
       .from("attempts")
       .select(
-        "id, user_id, learning_session_id, exam_pack_version_id, content_item_version_id, attempt_mode, status, assistance_state, started_at, submitted_at, graded_at, score_points, score_possible",
+        "id, user_id, learning_session_id, exam_pack_version_id, content_item_version_id, artifact_version_id, attempt_mode, status, assistance_state, started_at, submitted_at, graded_at, score_points, score_possible",
       )
       .eq("id", attemptId)
       .maybeSingle(),
@@ -825,8 +828,14 @@ Deno.serve(async (req) => {
     return respond({ error: "response_not_submitted" }, { status: 409 });
   }
 
-  if (attempt.content_item_version_id !== contentVersion.id) {
+  if (
+    contentItemVersionId && attempt.content_item_version_id !== contentVersion.id
+  ) {
     return respond({ error: "content_version_mismatch" }, { status: 409 });
+  }
+
+  if (artifactVersionId && attempt.artifact_version_id !== artifactVersionId) {
+    return respond({ error: "artifact_version_mismatch" }, { status: 409 });
   }
 
   const [

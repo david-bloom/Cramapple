@@ -30,6 +30,9 @@ type CompatibilityProjection = {
   exam_pack_version_id?: string;
   content_key?: string;
   item_type?: "mcq" | "frq" | "quantitative";
+  frq_form?: "short" | "long";
+  canonical_answer?: string | null;
+  ingest_row_id?: string;
   title?: string;
   stem?: string;
   stimulus?: string | null;
@@ -230,6 +233,7 @@ async function ensureLegacyProjection(
         exam_pack_version_id: payload.exam_pack_version_id,
         content_key: payload.content_key,
         item_type: payload.item_type,
+        frq_form: payload.item_type === "frq" ? (payload.frq_form ?? null) : null,
         title: payload.title,
         status,
         created_by: createdBy,
@@ -279,6 +283,7 @@ async function ensureLegacyProjection(
       explanation: payload.explanation ?? null,
       help_text: payload.help_text ?? null,
       content_hash: payloadHash,
+      canonical_answer: payload.canonical_answer ?? null,
       status,
       published_at: status === "published" ? new Date().toISOString() : null,
       created_by: createdBy,
@@ -300,6 +305,12 @@ async function ensureLegacyProjection(
         rationale: choice.rationale ?? null,
       })),
     );
+  }
+
+  if (payload.item_type === "frq") {
+    if (!Array.isArray(payload.frq_criteria) || payload.frq_criteria.length === 0) {
+      throw new Error("frq_item_requires_criteria");
+    }
   }
 
   if (payload.item_type === "frq" && Array.isArray(payload.frq_criteria)) {
@@ -351,12 +362,42 @@ async function ensureLegacyProjection(
       await service.schema("app").from("content_item_labels").upsert(links, {
         onConflict: "content_item_id,content_label_id",
       });
+
+      const artifactLinks = links.map((link) => ({
+        artifact_version_id: artifactVersionId,
+        content_label_id: link.content_label_id,
+        created_by: createdBy,
+      }));
+
+      await service.schema("app").from("artifact_label_assignments").upsert(
+        artifactLinks,
+        {
+          onConflict: "artifact_version_id,content_label_id",
+        },
+      );
+    }
+  }
+
+  const contentItemVersionId = insertedVersion.id as string;
+
+  // If this content was ingested via the staging pipeline, backfill the
+  // content_item_version_id on any assignment that was created against that
+  // ingest row so the assignment stays live after promotion.
+  if (payload.ingest_row_id) {
+    const { error: backfillError } = await service.schema("app")
+      .from("content_review_assignments")
+      .update({ content_item_version_id: contentItemVersionId })
+      .eq("ingest_row_id", payload.ingest_row_id)
+      .is("content_item_version_id", null);
+
+    if (backfillError) {
+      throw new Error("assignment_backfill_failed");
     }
   }
 
   return {
     content_item_id: contentItemId,
-    content_item_version_id: insertedVersion.id as string,
+    content_item_version_id: contentItemVersionId,
     compatibility_status: status,
   };
 }
@@ -931,6 +972,8 @@ Deno.serve(async (req) => {
       "invalid_operation",
       "missing_idempotency_key",
       "forbidden",
+      "frq_item_requires_criteria",
+      "assignment_backfill_failed",
       "missing_artifact_identifier",
       "artifact_not_found",
       "artifact_sequence_reservation_failed",
