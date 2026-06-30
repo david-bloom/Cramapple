@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- AP Statistics Launch Task Drafted (TASK-0013) — 2026-06-30
 - Hand-Drawn Graph Corpus Realism Fix and Four-Finding Spot-Check — 2026-06-30
 - New-User Experience Live QA — 2026-06-29
 - Production Readiness QA Handoff — 2026-06-21
@@ -16,6 +17,49 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## AP Statistics Launch Task Drafted (TASK-0013) - 2026-06-30
+
+**Task:** TASK-0013 (new — AP Statistics, Subject 2)
+**Status:** Spec drafted, Hard-Gate tier, `Ready for Review` / Awaiting Owner
+Approval. No implementation has started; this is plan-only.
+
+**Summary:** At David's request, assessed which AP subject is the closest
+technical match to AP Biology among the subjects Orly (AP Statistics, AP
+Calculus AB, AP English Literature) and Micah (AP World History) are taking
+this year, on grading-architecture reuse grounds — FRQ scoring shape
+(criterion/rubric vs holistic essay) and what verification technique each
+needs (deterministic calculation checks, symbolic math, document-use
+reasoning, or none of the above). AP Statistics ranked closest: criterion/
+rubric-scored FRQs with quantitative thresholds, same scoring shape as
+Biology's FRQ criterion contracts, plus a shared curriculum owner (Orly).
+
+Drafted `docs/tasks/TASK-0013-AP-STATISTICS-LAUNCH.md` with a phased
+delegation plan: Phase 1 (de-hardcode `grade-frq`/`evaluate-attempt` away
+from literal "AP Biology" strings and wire the existing prompt-build-manifest
+design from `CONTENT_AUTHORING_AND_PROMPT_ARCHITECTURE.md` §5 to
+`subject_id`) is the one piece that blocks any second subject regardless of
+which one is chosen, so it's sequenced first and delegated to Codex. Also
+drafted a ready-to-fire Codex execution prompt for that phase
+(`prompts/CODEX_AP_STATISTICS_PHASE1_GRADING_GENERALIZATION.md`), explicitly
+marked do-not-execute pending task approval. Lovable's frontend phase is
+scoped but not prompted yet, since the AP Statistics response-input UI
+(typed calculation entry vs Biology's freehand graph canvas) depends on
+Phase 1's output.
+
+Confirmed via schema read that the multi-subject logical model was already
+partially built: `app.subjects` exists as a first-class table
+(`202606230002_subjects_normalization.sql`), and `content_key`/taxonomy
+`label_type` columns are generic, not Biology-specific. The actual gap is in
+the grading edge functions, not the schema.
+
+**Next Owner:** David Bloom
+**Next Required Action:** Review `docs/tasks/TASK-0013-AP-STATISTICS-LAUNCH.md`
+and answer the five pending owner decisions listed in its Approval State
+section (subject confirmation, content-sourcing model, pilot batch size/date,
+reviewer credentialing, rights posture) before Codex Phase 1 begins.
 
 ---
 
