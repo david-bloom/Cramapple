@@ -22,7 +22,7 @@ Most recent entries (full reverse-chronological list follows below):
 ## Hand-Drawn Graph Corpus Realism Fix and Four-Finding Spot-Check - 2026-06-30
 
 **Task:** TASK-0011 (handwritten graph capture); relates to TASK-0010 gold/calibration governance.
-**Status:** Research progress — generator fixed and verified. No production or content-release approval. Not committed to git (working in place on the `claude/task-0012-deferred-findings` branch).
+**Status:** Research progress — generator fixed and verified. No production or content-release approval. Committed, rebased onto `main`, and opened as PR #18 (`claude/task-0012-deferred-findings`) alongside the broader working-tree cleanup; mergeable.
 
 **Summary:** Spot-checked the in-repo hand-drawn graph generation artifacts
 against four defect modes carried over from prior corpus/reference-image work:
@@ -72,7 +72,8 @@ and TASK-0010.
 order: (1) reviewer blind-scoring pass to establish adjudicated gold (no provider
 needed), (2) author single-violation responses for true negatives (finding d),
 (3) point the trace renderer at the v0.2 package if drawable pages are wanted.
-Confirm git handling (currently uncommitted, in place).
+Review/merge PR #18 (note: TASK-0012 decisions were renumbered to DECISION-0029
+CORS / DECISION-0030 budget to resolve a numbering collision with `main`).
 
 ## New-User Experience Live QA - 2026-06-29
 
