@@ -1,10 +1,10 @@
 # Codex Execution Prompt — TASK-0013 Phase 2: AP Statistics Schema Instantiation
 
-**DO NOT EXECUTE until David gives an explicit migration go-ahead.**
-`STANDING_APPROVAL_LANES.md` Lane 3 lists database migrations as their own
-Hard Gate, separate from TASK-0013's overall task approval — Phase 0's
-sign-off does not cover this. This file is drafted ahead of that go-ahead so
-the work is ready to fire the moment it's cleared.
+**Cleared to execute.** David authorized this migration on 2026-06-30
+(`DECISION-0032`, `APPROVAL-0025`), satisfying the Database Migrations Hard
+Gate (`STANDING_APPROVAL_LANES.md` Lane 3) separately from Phase 0's
+task-level approval. Scope is exactly as drafted below — no broader
+migration authority is granted.
 
 ## Context
 

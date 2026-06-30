@@ -572,3 +572,24 @@ Phase 1 (Codex: grading-prompt generalization) to execute.
   pass — does not block the MCQ/FRQ portion of the pilot batch.
 - No target date set for the pilot batch; revisit once Orly confirms
   bandwidth.
+
+## APPROVAL-0025 — TASK-0013 Phase 2 Migration Go-Ahead
+
+**Date:** 2026-06-30
+**Approved By:** David Bloom
+**Related Task:** TASK-0013
+**Decision:** Approved
+
+### Summary
+
+Authorizes the Phase 2 database migration (`app.subjects`, `app.exam_packs`/
+`exam_pack_versions`, `app.content_labels` for AP Statistics) to execute.
+Separate from `APPROVAL-0024`'s Phase 0 task-level approval, per the
+Database Migrations Hard Gate in `STANDING_APPROVAL_LANES.md`. See
+`DECISION-0032` for full scope and rationale.
+
+### Notes
+
+- Scope is exactly `prompts/CODEX_AP_STATISTICS_PHASE2_SCHEMA_INSTANTIATION.md`
+  as drafted — no broader migration authority granted.
+- Publishing the resulting exam pack/content is explicitly not covered.

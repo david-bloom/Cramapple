@@ -1334,3 +1334,49 @@ relationship at the same time as a new subject.
   MCQ/FRQ portions of the pilot batch.
 - No target date is set for the pilot batch yet — pending Orly's bandwidth
   confirmation alongside ongoing AP Biology work.
+
+## DECISION-0032 — Authorize TASK-0013 Phase 2 Database Migration (AP Statistics Schema)
+
+**Date:** 2026-06-30
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Related Task:** TASK-0013
+**Area:** Architecture / Operations
+
+### Context
+
+`TASK-0013`'s overall Hard-Gate approval (`DECISION-0031`) covered subject
+selection, content-sourcing model, and pilot batch composition — it did not
+cover the Phase 2 database migration itself. `STANDING_APPROVAL_LANES.md`
+Lane 3 lists database migrations as their own Hard Gate, separate from
+"implementation not already covered by an approved task," so Phase 2's
+migration (`prompts/CODEX_AP_STATISTICS_PHASE2_SCHEMA_INSTANTIATION.md`)
+was drafted but explicitly marked do-not-execute pending a separate
+sign-off.
+
+### Decision
+
+David authorized the Phase 2 migration to proceed, in the same exchange
+where Phase 3 (PR #24) was confirmed merged. Scope: one additive,
+idempotent migration inserting an `app.subjects` row for AP Statistics, an
+`app.exam_packs`/`exam_pack_versions` pair (version `status: 'draft'`, not
+`'published'`), and `app.content_labels` rows for the 9 AP Statistics units
+— exactly as scoped in the Phase 2 prompt. No other migration is authorized
+by this decision.
+
+### Rationale
+
+Phase 1 (subject-driven grading) and Phase 3 (calculation verifier) are
+both complete and merged with passing independent QA. The schema work is
+additive-only and was deliberately scoped (draft status, no publish) to
+stay inert until content actually exists, so the blast radius of proceeding
+now is low.
+
+### Consequences
+
+- `prompts/CODEX_AP_STATISTICS_PHASE2_SCHEMA_INSTANTIATION.md`'s
+  do-not-execute condition is satisfied; Codex is cleared to execute it.
+- Phase 4 (content authoring) unblocks once Phase 2 lands.
+- This decision does not authorize publishing the exam pack, content
+  labels, or any content — that remains a separate decision per the
+  prompt's explicit scope boundary.
