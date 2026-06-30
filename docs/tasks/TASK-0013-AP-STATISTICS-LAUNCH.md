@@ -172,9 +172,55 @@ new content-ownership relationship at the same time as a new subject.
    material as model input or exemplar) — this was already settled policy,
    restated here for the record, not reopened.
 
-**Phase 0 is closed.** Phase 1 (Codex) is cleared to start —
+**Phase 0 is closed.** Phase 1 is cleared to start —
 `prompts/CODEX_AP_STATISTICS_PHASE1_GRADING_GENERALIZATION.md`'s
 do-not-execute condition is satisfied.
+
+**Phase 1 status: implemented, awaiting QA.** Executed by Claude (not Codex —
+Codex was occupied productionalizing the hand-drawn graph grader at the time;
+this is implementation work either actor can do, the delegation table is a
+default assignment, not an exclusivity rule). Findings and changes:
+
+- `supabase/functions/evaluate-attempt/index.ts` (the actual production
+  grading path — idempotent, budget-capped, prompt-versioned) is now
+  subject-driven with **no new manifest infrastructure needed**:
+  `app.exam_packs.exam_name` already existed as a per-exam-pack column
+  (seeded `'AP Biology'` in `202606200003_seed_ap_biology_exam_pack.sql`) but
+  `evaluate-attempt` never selected it, hardcoding the literal instead. Fixed
+  by fetching `exam_packs` via `examPackVersion.exam_pack_id` and using
+  `exam_name` for both the `examName` prompt field and the system-prompt
+  string. Fails loudly (`exam_pack_not_found`, 404) if the row can't be
+  resolved, per the original Phase 1 requirement. Zero schema migration
+  needed — this was a missing `select` column, not a missing manifest.
+- `supabase/functions/grade-frq/index.ts` was **not** changed. It turns out
+  to run against a completely different, Biology-only prototype schema
+  (`public.questions` from `202606230001_prototype_student_schema.sql`) that
+  has no subject concept at all — `unit` is a hard `check (unit between 1 and
+  8)` constraint, `science_practice between 1 and 6`, no `subject_id` or
+  equivalent linkage anywhere in that table. Swapping its hardcoded prompt
+  string alone would be cosmetic, not a real generalization, since there's no
+  subject data behind it to drive the swap. True support would require schema
+  work on `public.questions` (or retiring it in favor of the `app.*` path
+  `evaluate-attempt` already uses) — out of this phase's "no migrations"
+  scope and a separate decision (is `public.questions` still meant to be
+  live, or is it a superseded prototype?) worth a explicit answer before
+  investing in it.
+- **Verification:** `deno check` passes on the modified file. No live
+  Supabase/Postgres instance is available in this environment (consistent
+  with prior sessions' notes in `docs/research/supabase-token-deployment-postmortem.md`),
+  so this follows the same verification precedent used for
+  `DECISION-0030`'s Edge Function change: type-check plus manual
+  cross-reference against the seed data, not a live integration run.
+  Cross-reference confirms `exam_packs.exam_name = 'AP Biology'` exactly
+  matches the removed literal, so existing AP Biology grading output is
+  unchanged. A pre-existing, unrelated `deno fmt` formatting violation at
+  line 832 (outside this diff) was left untouched rather than expanding
+  scope.
+- **Where Phase 2 plugs in:** once an `app.exam_packs` row exists for AP
+  Statistics with `exam_name = 'AP Statistics'` and `subject_id` pointing at
+  a new `app.subjects` row, `evaluate-attempt` requires no further code
+  change to grade it — the exam-pack lookup added in this phase already
+  generalizes by data, not by branching logic.
 
 ## Implementation Notes — Delegation Plan
 
