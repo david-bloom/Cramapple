@@ -20,854 +20,382 @@
       --red-soft: #fbe9e7;
       --blue: #315f8f;
       --blue-soft: #eaf2fb;
+      --green-soft: #d6eedd;
       --shadow: 0 18px 50px rgba(33, 44, 38, 0.12);
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, sans-serif;
       color: var(--ink);
-      background: var(--canvas);
     }
-
-    * {
-      box-sizing: border-box;
-    }
-
+    * { box-sizing: border-box; }
     body {
       margin: 0;
       min-width: 320px;
-      background:
-        radial-gradient(circle at 80% 0%, rgba(47, 111, 92, 0.09), transparent 34rem),
-        var(--canvas);
-    }
-
-    button,
-    textarea {
-      font: inherit;
-    }
-
-    button {
-      color: inherit;
-    }
-
-    button:focus-visible,
-    textarea:focus-visible {
-      outline: 3px solid #80a9ff;
-      outline-offset: 2px;
-    }
-
-    .app {
-      min-height: 100vh;
-      display: grid;
-      grid-template-columns: 250px 1fr;
-    }
-
-    .sidebar {
-      padding: 24px 18px;
-      color: white;
-      background: #18382f;
-    }
-
-    .brand {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      margin-bottom: 28px;
-      font-weight: 850;
-      letter-spacing: -0.02em;
-    }
-
-    .brand-mark {
-      width: 34px;
-      height: 34px;
-      display: grid;
-      place-items: center;
-      border-radius: 11px;
-      color: #18382f;
-      background: #f5c950;
-      font-weight: 900;
-    }
-
-    .prototype-label {
-      display: inline-block;
-      margin-bottom: 12px;
-      padding: 5px 8px;
-      border: 1px solid rgba(255, 255, 255, 0.35);
-      border-radius: 999px;
-      font-size: 0.72rem;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .sidebar h1 {
-      margin: 0;
-      font-size: 1.15rem;
-    }
-
-    .sidebar-copy {
-      margin: 8px 0 22px;
-      color: #c7d5cf;
-      font-size: 0.88rem;
-      line-height: 1.5;
-    }
-
-    .nav-label {
-      margin: 22px 10px 8px;
-      color: #92ada3;
-      font-size: 0.72rem;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .nav-button {
-      width: 100%;
-      min-height: 46px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin: 4px 0;
-      padding: 10px 12px;
-      border: 0;
-      border-radius: 11px;
-      color: #e9f0ed;
-      background: transparent;
-      text-align: left;
-      cursor: pointer;
-    }
-
-    .nav-button:hover,
-    .nav-button.active {
-      background: rgba(255, 255, 255, 0.12);
-    }
-
-    .count {
-      min-width: 27px;
-      padding: 3px 7px;
-      border-radius: 999px;
-      color: #18382f;
-      background: #d9e9e3;
-      font-size: 0.75rem;
-      font-weight: 850;
-      text-align: center;
-    }
-
-    .shell {
-      min-width: 0;
-    }
-
-    .topbar {
-      min-height: 72px;
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      align-items: center;
-      padding: 12px 28px;
-      border-bottom: 1px solid var(--line);
-      background: rgba(255, 253, 248, 0.9);
-      backdrop-filter: blur(12px);
-    }
-
-    .topbar strong,
-    .topbar span {
-      display: block;
-    }
-
-    .topbar span {
-      margin-top: 2px;
-      color: var(--muted);
-      font-size: 0.84rem;
-    }
-
-    .role-switcher {
-      display: flex;
-      gap: 6px;
-      padding: 5px;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      background: white;
-    }
-
-    .role-button {
-      min-height: 38px;
-      padding: 8px 12px;
-      border: 0;
-      border-radius: 8px;
-      background: transparent;
-      cursor: pointer;
-      font-weight: 750;
-    }
-
-    .role-button.active {
-      color: white;
-      background: var(--brand);
-    }
-
-    main {
-      max-width: 1500px;
-      margin: 0 auto;
-      padding: 24px;
-    }
-
-    .review-header {
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      align-items: flex-end;
-      margin-bottom: 18px;
-    }
-
-    .eyebrow {
-      margin: 0 0 6px;
-      color: var(--brand);
-      font-size: 0.77rem;
-      font-weight: 850;
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
-    }
-
-    h2 {
-      margin: 0;
-      font-size: clamp(1.55rem, 3vw, 2.35rem);
-      letter-spacing: -0.035em;
-    }
-
-    .header-note {
-      max-width: 440px;
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.5;
-    }
-
-    .workflow-strip {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 10px;
-      margin-bottom: 18px;
-    }
-
-    .workflow-step {
-      min-height: 74px;
-      padding: 12px;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      background: rgba(255, 253, 248, 0.7);
-    }
-
-    .workflow-step.active {
-      border-color: var(--brand);
-      background: var(--brand-soft);
-    }
-
-    .workflow-step strong,
-    .workflow-step span {
-      display: block;
-    }
-
-    .workflow-step span {
-      margin-top: 5px;
-      color: var(--muted);
-      font-size: 0.8rem;
-    }
-
-    .workspace {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) 390px;
-      gap: 18px;
-      align-items: start;
-    }
-
-    .card {
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      background: var(--paper);
-      box-shadow: var(--shadow);
-    }
-
-    .artifact-card {
-      min-width: 0;
-      overflow: hidden;
-    }
-
-    .artifact-toolbar {
-      min-height: 62px;
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      align-items: center;
-      padding: 12px 18px;
-      border-bottom: 1px solid var(--line);
-      background: #faf8f2;
-    }
-
-    .artifact-toolbar strong,
-    .artifact-toolbar span {
-      display: block;
-    }
-
-    .artifact-toolbar span {
-      margin-top: 2px;
-      color: var(--muted);
-      font-size: 0.8rem;
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      min-height: 28px;
-      padding: 5px 9px;
-      border-radius: 999px;
-      color: var(--brand-dark);
-      background: var(--brand-soft);
-      font-size: 0.76rem;
-      font-weight: 850;
-    }
-
-    .artifact-body {
-      padding: 24px;
-    }
-
-    .meta-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 10px;
-      margin-bottom: 22px;
-    }
-
-    .meta {
-      padding: 10px 12px;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      background: white;
-    }
-
-    .meta span,
-    .meta strong {
-      display: block;
-    }
-
-    .meta span {
-      margin-bottom: 3px;
-      color: var(--muted);
-      font-size: 0.72rem;
-    }
-
-    .question {
-      margin: 0 0 20px;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(1.12rem, 2vw, 1.35rem);
-      line-height: 1.62;
-    }
-
-    .placeholder-note {
-      margin: -8px 0 20px;
-      color: var(--muted);
-      font-size: 0.8rem;
-    }
-
-    .options {
-      display: grid;
-      gap: 10px;
-    }
-
-    .option {
-      display: grid;
-      grid-template-columns: 34px 1fr auto;
-      gap: 12px;
-      align-items: center;
-      padding: 13px 14px;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      background: white;
-    }
-
-    .option.reviewing {
-      border: 2px solid var(--blue);
-      background: var(--blue-soft);
-    }
-
-    .option-letter {
-      width: 30px;
-      height: 30px;
-      display: grid;
-      place-items: center;
-      border-radius: 9px;
-      color: white;
-      background: #59665f;
-      font-weight: 850;
-    }
-
-    .option-tag {
-      color: var(--muted);
-      font-size: 0.76rem;
-      font-weight: 800;
-    }
-
-    .reviewing .option-tag {
-      color: var(--blue);
-    }
-
-    .context-box {
-      margin-top: 18px;
-      padding: 15px;
-      border-radius: 12px;
-      background: #f1f3ee;
-    }
-
-    .context-box strong {
-      display: block;
-      margin-bottom: 5px;
-    }
-
-    .context-box p {
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.5;
-    }
-
-    .carousel-controls {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      align-items: center;
-      padding: 14px 18px;
-      border-top: 1px solid var(--line);
-      background: #faf8f2;
-    }
-
-    .carousel-controls span {
-      color: var(--muted);
-      font-size: 0.84rem;
-    }
-
-    .button {
-      min-height: 44px;
-      padding: 10px 15px;
-      border: 1px solid transparent;
-      border-radius: 10px;
-      cursor: pointer;
-      font-weight: 800;
-    }
-
-    .button.primary {
-      color: white;
-      background: var(--brand);
-    }
-
-    .button.primary:hover {
-      background: var(--brand-dark);
-    }
-
-    .button.secondary {
-      border-color: var(--line);
-      background: white;
-    }
-
-    .button.ghost {
-      color: var(--brand);
-      background: transparent;
-    }
-
-    .review-panel {
-      position: sticky;
-      top: 18px;
-      overflow: hidden;
-    }
-
-    .panel-header {
-      padding: 18px 18px 14px;
-      border-bottom: 1px solid var(--line);
-      background: #faf8f2;
-    }
-
-    .panel-header h3 {
-      margin: 0;
-      font-size: 1.12rem;
-    }
-
-    .panel-header p {
-      margin: 6px 0 0;
-      color: var(--muted);
-      font-size: 0.85rem;
-      line-height: 1.45;
-    }
-
-    .panel-body {
-      padding: 18px;
-    }
-
-    .field-label {
-      display: block;
-      margin: 0 0 9px;
-      font-size: 0.82rem;
-      font-weight: 850;
-    }
-
-    .score-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 8px;
-      margin-bottom: 19px;
-    }
-
-    .score-button {
-      min-height: 88px;
-      padding: 10px 7px;
-      border: 2px solid var(--line);
-      border-radius: 12px;
-      background: white;
-      cursor: pointer;
-    }
-
-    .score-button strong,
-    .score-button span {
-      display: block;
-    }
-
-    .score-button strong {
-      font-size: 1.25rem;
-    }
-
-    .score-button span {
-      margin-top: 4px;
-      color: var(--muted);
-      font-size: 0.75rem;
-    }
-
-    .score-button.selected[data-score="1"] {
-      border-color: var(--brand);
-      background: var(--brand-soft);
-    }
-
-    .score-button.selected[data-score="2"] {
-      border-color: var(--amber);
-      background: var(--amber-soft);
-    }
-
-    .score-button.selected[data-score="3"] {
-      border-color: var(--red);
-      background: var(--red-soft);
-    }
-
-    .difficulty-grid {
-      display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 6px;
-      margin-bottom: 19px;
-    }
-
-    .difficulty-button {
-      min-height: 58px;
-      padding: 7px 4px;
-      border: 1px solid var(--line);
-      border-radius: 9px;
-      background: white;
-      cursor: pointer;
-      font-size: 0.72rem;
-      font-weight: 750;
-    }
-
-    .difficulty-button.selected {
-      border: 2px solid var(--blue);
-      color: var(--blue);
-      background: var(--blue-soft);
-    }
-
-    .concern-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 7px;
-      margin-bottom: 17px;
-    }
-
-    .concern {
-      min-height: 36px;
-      padding: 7px 10px;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      background: white;
-      cursor: pointer;
-      font-size: 0.76rem;
-      font-weight: 700;
-    }
-
-    .concern.selected {
-      border-color: var(--amber);
-      color: #6d3d09;
-      background: var(--amber-soft);
-    }
-
-    textarea {
-      width: 100%;
-      min-height: 104px;
-      resize: vertical;
-      padding: 11px 12px;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      color: var(--ink);
-      background: white;
-      line-height: 1.45;
-    }
-
-    .preview {
-      margin-top: 14px;
-      padding: 12px;
-      border-radius: 10px;
-      color: var(--muted);
-      background: #f1f3ee;
-      font-size: 0.83rem;
-      line-height: 1.45;
-    }
-
-    .preview strong {
-      color: var(--ink);
-    }
-
-    .panel-actions {
-      display: flex;
-      gap: 8px;
-      margin-top: 16px;
-    }
-
-    .panel-actions .primary {
-      flex: 1;
-    }
-
-    .independence {
-      display: flex;
-      gap: 9px;
-      margin-top: 13px;
-      color: var(--muted);
-      font-size: 0.77rem;
-      line-height: 1.45;
-    }
-
-    .discussion-panel {
-      display: none;
-    }
-
-    .discussion-panel.active {
-      display: block;
-    }
-
-    .standard-panel.hidden {
-      display: none;
-    }
-
-    .label-comparison {
-      display: grid;
-      gap: 8px;
-      margin-bottom: 18px;
-    }
-
-    .label-row {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      align-items: center;
-      padding: 11px 12px;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      background: white;
-    }
-
-    .label-row span {
-      color: var(--muted);
-      font-size: 0.8rem;
-    }
-
-    .status {
-      position: fixed;
-      right: 18px;
-      bottom: 18px;
-      z-index: 20;
-      max-width: 390px;
-      padding: 13px 15px;
-      border-radius: 11px;
-      color: white;
-      background: #193a30;
-      box-shadow: var(--shadow);
-    }
-
-    .status[hidden] {
-      display: none;
-    }
-
+      background: radial-gradient(circle at 80% 0%, rgba(47,111,92,.09), transparent 34rem), var(--canvas);
+    }
+    button, textarea { font: inherit; }
+    button { color: inherit; }
+    button:focus-visible, textarea:focus-visible { outline: 3px solid #80a9ff; outline-offset: 2px; }
+
+    /* ── App shell ─────────────────────────────────── */
+    .app { min-height: 100vh; display: grid; grid-template-columns: 250px 1fr; }
+    .sidebar { padding: 24px 18px; color: white; background: #18382f; }
+    .brand { display: flex; gap: 10px; align-items: center; margin-bottom: 28px; font-weight: 850; letter-spacing: -.02em; }
+    .brand-mark { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 11px; color: #18382f; background: #f5c950; font-weight: 900; }
+    .prototype-label { display: inline-block; margin-bottom: 12px; padding: 5px 8px; border: 1px solid rgba(255,255,255,.35); border-radius: 999px; font-size: .72rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    .sidebar h1 { margin: 0; font-size: 1.15rem; }
+    .sidebar-copy { margin: 8px 0 22px; color: #c7d5cf; font-size: .88rem; line-height: 1.5; }
+    .nav-label { margin: 22px 10px 8px; color: #92ada3; font-size: .72rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    .nav-button { width: 100%; min-height: 44px; display: flex; justify-content: space-between; align-items: center; margin: 3px 0; padding: 9px 12px; border: 0; border-radius: 11px; color: #e9f0ed; background: transparent; text-align: left; cursor: pointer; font-size: .88rem; }
+    .nav-button:hover, .nav-button.active { background: rgba(255,255,255,.12); }
+    .count { min-width: 26px; padding: 3px 6px; border-radius: 999px; color: #18382f; background: #d9e9e3; font-size: .74rem; font-weight: 850; text-align: center; }
+    .shell { min-width: 0; }
+    .topbar { min-height: 70px; display: flex; justify-content: space-between; gap: 20px; align-items: center; padding: 12px 28px; border-bottom: 1px solid var(--line); background: rgba(255,253,248,.9); backdrop-filter: blur(12px); }
+    .topbar strong, .topbar span { display: block; }
+    .topbar span { margin-top: 2px; color: var(--muted); font-size: .84rem; }
+    .role-switcher { display: flex; gap: 6px; padding: 5px; border: 1px solid var(--line); border-radius: 12px; background: white; }
+    .role-button { min-height: 36px; padding: 7px 12px; border: 0; border-radius: 8px; background: transparent; cursor: pointer; font-weight: 750; }
+    .role-button.active { color: white; background: var(--brand); }
+    main { max-width: 1500px; margin: 0 auto; padding: 24px; }
+
+    /* ── Tasks home ────────────────────────────────── */
+    .tasks-home { max-width: 640px; }
+    .eyebrow { margin: 0 0 6px; color: var(--brand); font-size: .77rem; font-weight: 850; letter-spacing: .09em; text-transform: uppercase; }
+    h2 { margin: 0; font-size: clamp(1.55rem,3vw,2.2rem); letter-spacing: -.035em; }
+    .tasks-home > p { margin: 10px 0 24px; color: var(--muted); line-height: 1.5; }
+    .task-grid { display: grid; gap: 10px; }
+    .task-card { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 18px 20px; border: 2px solid var(--line); border-radius: 16px; background: var(--paper); cursor: pointer; text-align: left; box-shadow: var(--shadow); width: 100%; }
+    .task-card:hover { border-color: var(--brand); }
+    .task-card.selected { border-color: var(--brand); background: var(--brand-soft); }
+    .task-subject { display: block; font-size: .74rem; font-weight: 850; letter-spacing: .07em; text-transform: uppercase; color: var(--brand-dark); margin-bottom: 3px; }
+    .task-type { display: block; font-size: 1.05rem; font-weight: 750; }
+    .task-count { display: block; margin-top: 3px; font-size: .82rem; color: var(--muted); }
+    .task-arrow { font-size: 1.4rem; color: var(--muted); }
+    .no-tasks { padding: 40px; border: 1px dashed var(--line); border-radius: 16px; text-align: center; color: var(--muted); }
+    .start-row { margin-top: 20px; display: flex; gap: 12px; align-items: center; }
+    .start-hint { color: var(--muted); font-size: .85rem; }
+    .upload-card { margin-bottom: 18px; overflow: hidden; }
+    .upload-header { display: flex; justify-content: space-between; gap: 16px; align-items: flex-start; padding: 18px 20px 14px; border-bottom: 1px solid var(--line); background: #f8f5ee; }
+    .upload-header h3 { margin: 0; font-size: 1.05rem; }
+    .upload-header p { margin: 6px 0 0; color: var(--muted); line-height: 1.45; }
+    .upload-pill { display: inline-flex; align-items: center; min-height: 28px; padding: 5px 10px; border-radius: 999px; color: var(--brand-dark); background: var(--brand-soft); font-size: .74rem; font-weight: 850; white-space: nowrap; }
+    .upload-body { padding: 18px 20px 20px; }
+    .upload-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 14px 0; }
+    .upload-textarea { min-height: 220px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .8rem; }
+    .upload-grid { display: grid; grid-template-columns: minmax(0,1.3fr) minmax(0,.9fr); gap: 14px; align-items: start; margin-top: 10px; }
+    .upload-panel { padding: 13px 14px; border: 1px solid var(--line); border-radius: 12px; background: white; }
+    .upload-panel strong { display: block; margin-bottom: 6px; }
+    .upload-panel p, .upload-panel li { color: var(--muted); line-height: 1.45; }
+    .upload-panel ul { margin: 10px 0 0 18px; padding: 0; }
+    .upload-status { margin-top: 10px; padding: 10px 12px; border-radius: 10px; background: #f1f3ee; color: var(--muted); font-size: .83rem; line-height: 1.45; }
+    .upload-status strong { color: var(--ink); }
+    .imported-section { margin-top: 18px; }
+    .section-head { display: flex; justify-content: space-between; gap: 14px; align-items: baseline; margin-bottom: 12px; }
+    .section-head h3 { margin: 0; font-size: 1rem; }
+    .section-head span { color: var(--muted); font-size: .84rem; }
+    .imported-grid { display: grid; gap: 10px; }
+    .imported-card { display: flex; justify-content: space-between; gap: 14px; align-items: flex-start; padding: 14px 16px; border: 1px solid var(--line); border-radius: 14px; background: var(--paper); box-shadow: var(--shadow); }
+    .imported-card strong { display: block; margin-bottom: 4px; }
+    .imported-meta { color: var(--muted); font-size: .82rem; line-height: 1.45; }
+    .imported-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+    .imported-tag { display: inline-flex; align-items: center; min-height: 24px; padding: 3px 8px; border-radius: 999px; border: 1px solid var(--line); background: white; color: var(--muted); font-size: .72rem; font-weight: 750; }
+    .imported-action { min-height: 40px; white-space: nowrap; }
+
+    /* ── Review layout ─────────────────────────────── */
+    .review-header { display: flex; justify-content: space-between; gap: 20px; align-items: flex-end; margin-bottom: 18px; }
+    .header-note { max-width: 440px; margin: 0; color: var(--muted); line-height: 1.5; }
+    .workspace { display: grid; grid-template-columns: minmax(0,1fr) 390px; gap: 18px; align-items: start; }
+    .card { border: 1px solid var(--line); border-radius: 18px; background: var(--paper); box-shadow: var(--shadow); }
+    .artifact-card { min-width: 0; overflow: hidden; }
+    .artifact-toolbar { min-height: 60px; display: flex; justify-content: space-between; gap: 12px; align-items: center; padding: 12px 18px; border-bottom: 1px solid var(--line); background: #faf8f2; }
+    .artifact-toolbar strong, .artifact-toolbar span { display: block; }
+    .artifact-toolbar span { margin-top: 2px; color: var(--muted); font-size: .8rem; }
+    .badge { display: inline-flex; align-items: center; min-height: 26px; padding: 4px 9px; border-radius: 999px; color: var(--brand-dark); background: var(--brand-soft); font-size: .75rem; font-weight: 850; white-space: nowrap; }
+    .artifact-body { padding: 24px; }
+    .meta-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 10px; margin-bottom: 22px; }
+    .meta { padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; background: white; }
+    .meta span, .meta strong { display: block; }
+    .meta span { margin-bottom: 3px; color: var(--muted); font-size: .72rem; }
+    .question { margin: 0 0 8px; font-family: Georgia,"Times New Roman",serif; font-size: clamp(1.1rem,2vw,1.3rem); line-height: 1.65; }
+    .placeholder-note { margin: 0 0 20px; color: var(--muted); font-size: .78rem; }
+
+    /* ── MCQ options ───────────────────────────────── */
+    .options { display: grid; gap: 9px; }
+    .option { padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; background: white; }
+    .option.reviewing { border: 2px solid var(--blue); background: var(--blue-soft); }
+    .option-main { display: grid; grid-template-columns: 32px 1fr; gap: 12px; align-items: start; }
+    .option-letter { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 9px; color: white; background: #59665f; font-weight: 850; flex-shrink: 0; }
+    .option-foot { display: flex; gap: 8px; align-items: center; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--line); }
+    .option-tag { flex: 1; color: var(--muted); font-size: .74rem; font-weight: 800; }
+    .reviewing .option-tag { color: var(--blue); }
+    .approval-badge { min-height: 22px; padding: 2px 8px; border-radius: 999px; font-size: .7rem; font-weight: 800; }
+    .approval-badge.pending { color: var(--muted); background: #ebe9e1; }
+    .approval-badge.approved { color: #1a5c3a; background: var(--green-soft); }
+    .approval-badge.rejected { color: var(--red); background: var(--red-soft); }
+    .approval-badge.revised { color: #6d3d09; background: var(--amber-soft); }
+
+    /* ── FRQ canonical answer ──────────────────────── */
+    .canonical-section { margin-top: 20px; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+    .canonical-hd { display: flex; align-items: center; gap: 10px; padding: 11px 16px; border-bottom: 1px solid var(--line); background: #f5f2ea; }
+    .canonical-hd strong { font-size: .85rem; font-weight: 850; flex: 1; }
+    .canonical-bd { padding: 16px; }
+    .canonical-text { font-family: Georgia,"Times New Roman",serif; line-height: 1.6; margin: 0 0 14px; }
+    .drawn-placeholder { min-height: 130px; border: 2px dashed var(--line); border-radius: 10px; display: grid; place-items: center; text-align: center; color: var(--muted); font-size: .84rem; background: #f8f6ef; margin-bottom: 14px; padding: 20px; line-height: 1.55; }
+    .canonical-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    .ca-btn { min-height: 32px; padding: 5px 12px; border: 1px solid var(--line); border-radius: 8px; background: white; cursor: pointer; font-size: .79rem; font-weight: 750; }
+    .ca-btn.sel-approve { border-color: var(--brand); color: var(--brand-dark); background: var(--brand-soft); }
+    .ca-btn.sel-reject { border-color: var(--red); color: var(--red); background: var(--red-soft); }
+    .ca-btn.edit-btn { color: var(--blue); border-color: var(--blue); }
+    .frq-toggle-row { margin-top: 12px; }
+    .frq-toggle-btn { min-height: 30px; padding: 4px 12px; border: 1px dashed var(--line); border-radius: 8px; background: white; cursor: pointer; font-size: .77rem; color: var(--muted); }
+
+    /* ── Context / carousel ────────────────────────── */
+    .context-box { margin-top: 18px; padding: 14px; border-radius: 12px; background: #f1f3ee; }
+    .context-box strong { display: block; margin-bottom: 5px; }
+    .context-box p { margin: 0; color: var(--muted); line-height: 1.5; }
+    .carousel-controls { display: flex; justify-content: space-between; gap: 12px; align-items: center; padding: 14px 18px; border-top: 1px solid var(--line); background: #faf8f2; }
+    .carousel-controls span { color: var(--muted); font-size: .84rem; }
+    .button { min-height: 44px; padding: 10px 15px; border: 1px solid transparent; border-radius: 10px; cursor: pointer; font-weight: 800; }
+    .button.primary { color: white; background: var(--brand); }
+    .button.primary:hover { background: var(--brand-dark); }
+    .button.secondary { border-color: var(--line); background: white; }
+    .button.ghost { color: var(--muted); background: transparent; border-color: var(--line); }
+
+    /* ── Review panel ──────────────────────────────── */
+    .review-panel { position: sticky; top: 18px; overflow: hidden; }
+    .panel-header { padding: 18px 18px 14px; border-bottom: 1px solid var(--line); background: #faf8f2; }
+    .panel-header h3 { margin: 0; font-size: 1.1rem; }
+    .panel-header p { margin: 6px 0 0; color: var(--muted); font-size: .84rem; line-height: 1.45; }
+    .panel-body { padding: 18px; }
+    .field-label { display: block; margin: 0 0 9px; font-size: .82rem; font-weight: 850; }
+    .optional-label { color: var(--muted); font-size: .71rem; font-weight: 600; margin-left: 4px; }
+
+    /* Tutor score */
+    .score-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 8px; margin-bottom: 19px; }
+    .score-button { min-height: 86px; padding: 10px 7px; border: 2px solid var(--line); border-radius: 12px; background: white; cursor: pointer; }
+    .score-button strong, .score-button span { display: block; }
+    .score-button strong { font-size: 1.25rem; }
+    .score-button span { margin-top: 4px; color: var(--muted); font-size: .75rem; }
+    .score-button.selected[data-score="1"] { border-color: var(--brand); background: var(--brand-soft); }
+    .score-button.selected[data-score="2"] { border-color: var(--amber); background: var(--amber-soft); }
+    .score-button.selected[data-score="3"] { border-color: var(--red); background: var(--red-soft); }
+
+    /* Reader agree/disagree */
+    .evidence-strip { display: grid; gap: 7px; margin-bottom: 16px; }
+    .evidence-row { padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; background: white; }
+    .evidence-meta { font-size: .75rem; color: var(--muted); margin-bottom: 2px; }
+    .evidence-verdict { font-size: .85rem; font-weight: 800; }
+    .evidence-note { font-size: .76rem; color: var(--muted); margin-top: 3px; font-style: italic; }
+    .agree-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 19px; }
+    .agree-button { min-height: 72px; padding: 12px 8px; border: 2px solid var(--line); border-radius: 12px; background: white; cursor: pointer; }
+    .agree-button strong { display: block; font-size: 1.4rem; margin-bottom: 3px; }
+    .agree-button span { font-size: .76rem; color: var(--muted); font-weight: 600; }
+    .agree-button.selected[data-decision="agree"] { border-color: var(--brand); background: var(--brand-soft); }
+    .agree-button.selected[data-decision="disagree"] { border-color: var(--red); background: var(--red-soft); }
+
+    /* Difficulty */
+    .difficulty-grid { display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); gap: 6px; margin-bottom: 19px; }
+    .difficulty-button { min-height: 58px; padding: 7px 4px; border: 1px solid var(--line); border-radius: 9px; background: white; cursor: pointer; font-size: .71rem; font-weight: 750; }
+    .difficulty-button.selected { border: 2px solid var(--blue); color: var(--blue); background: var(--blue-soft); }
+
+    /* Diagnostic */
+    .diagnostic-row { display: flex; align-items: center; gap: 10px; padding: 11px 13px; margin-bottom: 17px; border: 1px solid var(--line); border-radius: 10px; background: white; cursor: pointer; width: 100%; text-align: left; }
+    .diagnostic-row.flagged { border-color: var(--amber); background: var(--amber-soft); }
+    .diag-check { flex-shrink: 0; width: 18px; height: 18px; border: 2px solid var(--line); border-radius: 4px; display: grid; place-items: center; font-size: .75rem; color: white; }
+    .diagnostic-row.flagged .diag-check { border-color: var(--amber); background: var(--amber); }
+    .diag-text { flex: 1; font-size: .82rem; font-weight: 700; }
+    .diag-sub { display: block; font-size: .72rem; color: var(--muted); font-weight: 500; margin-top: 2px; }
+
+    /* Concerns */
+    .concern-grid { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 17px; }
+    .concern { min-height: 34px; padding: 6px 10px; border: 1px solid var(--line); border-radius: 999px; background: white; cursor: pointer; font-size: .76rem; font-weight: 700; }
+    .concern.selected { border-color: var(--amber); color: #6d3d09; background: var(--amber-soft); }
+
+    /* Topic picker */
+    .topic-picker { display: grid; gap: 5px; margin-bottom: 17px; }
+    .module-row { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: white; }
+    .module-header { display: flex; align-items: center; gap: 8px; width: 100%; padding: 8px 10px; border: 0; background: transparent; text-align: left; cursor: pointer; font-size: .79rem; font-weight: 700; line-height: 1.3; }
+    .module-header:hover { background: #f5f7f4; }
+    .module-header.has-selection { background: var(--brand-soft); }
+    .module-check { flex-shrink: 0; width: 16px; height: 16px; border: 2px solid var(--line); border-radius: 4px; display: grid; place-items: center; font-size: .68rem; color: white; }
+    .module-header.has-selection .module-check { border-color: var(--brand); background: var(--brand); }
+    .module-name { flex: 1; }
+    .module-count { color: var(--brand-dark); font-size: .7rem; font-weight: 850; background: rgba(47,111,92,.12); padding: 2px 6px; border-radius: 999px; }
+    .module-expand-icon { color: var(--muted); font-size: .62rem; margin-left: 2px; }
+    .subtopics-panel { display: none; padding: 7px 10px 10px 34px; border-top: 1px solid var(--line); background: #f7faf7; }
+    .module-row.open .subtopics-panel { display: block; }
+    .subtopic-all-row { margin-bottom: 7px; }
+    .subtopic-all-btn { min-height: 25px; padding: 3px 9px; border: 1px dashed var(--line); border-radius: 999px; background: white; cursor: pointer; font-size: .71rem; font-weight: 750; color: var(--muted); }
+    .subtopic-all-btn.all-selected { border-color: var(--brand); color: var(--brand-dark); background: var(--brand-soft); border-style: solid; }
+    .subtopic-chips { display: flex; flex-wrap: wrap; gap: 5px; }
+    .subtopic-chip { min-height: 25px; padding: 3px 8px; border: 1px solid var(--line); border-radius: 999px; background: white; cursor: pointer; font-size: .71rem; font-weight: 650; }
+    .subtopic-chip:hover { border-color: var(--brand); }
+    .subtopic-chip.selected { border-color: var(--brand); color: var(--brand-dark); background: var(--brand-soft); font-weight: 800; }
+    .required-label { color: var(--red); font-size: .71rem; font-weight: 850; margin-left: 4px; text-transform: uppercase; letter-spacing: .06em; }
+    .proposal-section { margin: 14px 0 16px; }
+    .proposal-section textarea { min-height: 96px; }
+    .proposal-note { margin: 7px 0 0; color: var(--muted); font-size: .78rem; line-height: 1.45; }
+    .proposal-badge { display: inline-flex; align-items: center; min-height: 24px; padding: 3px 8px; border-radius: 999px; background: var(--amber-soft); color: #6d3d09; font-size: .72rem; font-weight: 850; margin-left: 6px; }
+
+    /* Notes */
+    textarea { width: 100%; min-height: 92px; resize: vertical; padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; color: var(--ink); background: white; line-height: 1.45; }
+    .notes-field { margin-bottom: 15px; }
+    .notes-field textarea { background: #fdfcf7; border-style: dashed; min-height: 80px; font-size: .88rem; }
+
+    /* Disposition preview */
+    .preview { margin-top: 14px; padding: 12px; border-radius: 10px; color: var(--muted); background: #f1f3ee; font-size: .83rem; line-height: 1.45; }
+    .preview strong { color: var(--ink); }
+
+    /* Panel actions */
+    .panel-actions { display: flex; gap: 8px; margin-top: 16px; }
+    .panel-actions .primary { flex: 1; }
+    .independence { display: flex; gap: 9px; margin-top: 12px; color: var(--muted); font-size: .77rem; line-height: 1.45; }
+
+    /* Discussion panel */
+    .discussion-panel { display: none; }
+    .discussion-panel.active { display: block; }
+    .standard-panel.hidden { display: none; }
+    .label-comparison { display: grid; gap: 8px; margin-bottom: 18px; }
+    .label-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; background: white; }
+    .label-row span { color: var(--muted); font-size: .8rem; }
+
+    /* Status toast */
+    .status { position: fixed; right: 18px; bottom: 18px; z-index: 20; max-width: 390px; padding: 13px 15px; border-radius: 11px; color: white; background: #193a30; box-shadow: var(--shadow); font-size: .88rem; }
+    .status[hidden] { display: none; }
+
+    /* ── Responsive ────────────────────────────────── */
     @media (max-width: 1100px) {
-      .app {
-        grid-template-columns: 210px 1fr;
-      }
-
-      .workspace {
-        grid-template-columns: 1fr;
-      }
-
-      .review-panel {
-        position: static;
-      }
+      .app { grid-template-columns: 210px 1fr; }
+      .workspace { grid-template-columns: 1fr; }
+      .review-panel { position: static; }
     }
-
     @media (max-width: 760px) {
-      .app {
-        display: block;
-      }
-
-      .sidebar {
-        padding: 14px 16px;
-      }
-
-      .sidebar-copy,
-      .nav-label {
-        display: none;
-      }
-
-      .brand {
-        margin-bottom: 10px;
-      }
-
-      .sidebar h1 {
-        font-size: 1rem;
-      }
-
-      .prototype-nav {
-        display: flex;
-        gap: 6px;
-        overflow-x: auto;
-      }
-
-      .nav-button {
-        width: auto;
-        flex: 0 0 auto;
-      }
-
-      .topbar,
-      .review-header,
-      .artifact-toolbar,
-      .carousel-controls {
-        align-items: flex-start;
-      }
-
-      .topbar,
-      .review-header {
-        flex-direction: column;
-      }
-
-      .topbar {
-        padding: 13px 16px;
-      }
-
-      main {
-        padding: 16px;
-      }
-
-      .workflow-strip,
-      .meta-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .artifact-body {
-        padding: 18px;
-      }
-
-      .option {
-        grid-template-columns: 34px 1fr;
-      }
-
-      .option-tag {
-        grid-column: 2;
-      }
-
-      .difficulty-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
+      .app { display: block; }
+      .sidebar { padding: 14px 16px; }
+      .sidebar-copy, .nav-label { display: none; }
+      .brand { margin-bottom: 10px; }
+      .sidebar h1 { font-size: 1rem; }
+      .prototype-nav { display: flex; gap: 6px; overflow-x: auto; }
+      .nav-button { width: auto; flex: 0 0 auto; }
+      .topbar, .review-header { flex-direction: column; }
+      .topbar { padding: 13px 16px; }
+      main { padding: 16px; }
+      .meta-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+      .artifact-body { padding: 16px; }
+      .difficulty-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
     }
-
     @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
-        scroll-behavior: auto !important;
-        transition: none !important;
-      }
+      *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
     }
   </style>
 </head>
 <body>
-  <div class="app">
-    <aside class="sidebar" aria-label="Prototype navigation">
-      <div class="brand">
-        <span class="brand-mark" aria-hidden="true">C</span>
-        <span>Cramapple Review</span>
+<div class="app">
+  <aside class="sidebar" aria-label="Prototype navigation">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">C</span>
+      <span>Cramapple Review</span>
+    </div>
+    <span class="prototype-label">UX-002 prototype</span>
+    <h1>Question &amp; answer review</h1>
+    <p class="sidebar-copy" id="sidebar-copy">Supabase Auth/session drives live reads and writes when configured. If backend config is missing, the page stays in mock mode and remembers the gap so we can fix it.</p>
+
+    <p class="nav-label">Review states</p>
+    <nav class="prototype-nav" aria-label="Jump to review state">
+      <button class="nav-button active" type="button" data-view="tasks">Tasks <span class="count">4</span></button>
+      <button class="nav-button" type="button" data-view="tutor-mcq">Tutor · MCQ <span class="count">8</span></button>
+      <button class="nav-button" type="button" data-view="tutor-frq">Tutor · FRQ <span class="count">3</span></button>
+      <button class="nav-button" type="button" data-view="tutor-answer">Tutor · Answer <span class="count">12</span></button>
+      <button class="nav-button" type="button" data-view="reader-question">Reader · Question <span class="count">5</span></button>
+      <button class="nav-button" type="button" data-view="difficulty">Difficulty discussion <span class="count">2</span></button>
+    </nav>
+  </aside>
+
+  <div class="shell">
+    <header class="topbar">
+      <div>
+        <strong id="reviewer-name">Jordan Lee</strong>
+        <span id="reviewer-context">Tutor validator · AP Biology · Checking Supabase session</span>
       </div>
-      <span class="prototype-label">UX-002 prototype</span>
-      <h1>Question and answer review</h1>
-      <p class="sidebar-copy">
-        Frontend-only review artifact. Submitted choices do not write records
-        or approve production content.
-      </p>
+      <div class="role-switcher" aria-label="Prototype reviewer role">
+        <button class="role-button active" type="button" data-role="tutor">Tutor view</button>
+        <button class="role-button" type="button" data-role="reader">AP Reader view</button>
+      </div>
+    </header>
 
-      <p class="nav-label">Review states</p>
-      <nav class="prototype-nav" aria-label="Jump to review state">
-        <button class="nav-button active" type="button" data-view="tutor-question">
-          Tutor question <span class="count">8</span>
-        </button>
-        <button class="nav-button" type="button" data-view="reader-question">
-          AP Reader question <span class="count">3</span>
-        </button>
-        <button class="nav-button" type="button" data-view="tutor-answer">
-          Tutor answer <span class="count">12</span>
-        </button>
-        <button class="nav-button" type="button" data-view="reader-answer">
-          AP Reader answer <span class="count">5</span>
-        </button>
-        <button class="nav-button" type="button" data-view="difficulty">
-          Difficulty discussion <span class="count">4</span>
-        </button>
-      </nav>
-    </aside>
+    <main>
 
-    <div class="shell">
-      <header class="topbar">
-        <div>
-          <strong id="reviewer-name">Jordan Lee</strong>
-          <span id="reviewer-context">Tutor validator · AP Biology · Independent assignment</span>
+      <!-- ══ TASKS VIEW ══════════════════════════════════ -->
+              <div id="view-tasks" class="tasks-home">
+        <p class="eyebrow">Reviewer home</p>
+        <h2>Your tasks</h2>
+        <p>Select a task to start reviewing. If you cover multiple subjects or question types, choose which queue to work through first.</p>
+        <section class="card upload-card" aria-labelledby="upload-title">
+          <div class="upload-header">
+            <div>
+              <p class="eyebrow" style="margin-bottom:4px">Batch intake</p>
+              <h3 id="upload-title">Upload questions and answers</h3>
+              <p>Paste a CSV or JSON batch, or choose a file. Parsed rows are added to the review queue as separate question or answer items.</p>
+            </div>
+            <span class="upload-pill">Draft template required</span>
+          </div>
+          <div class="upload-body">
+            <div class="upload-actions">
+              <button class="button secondary" type="button" id="download-template-btn">Download CSV template</button>
+              <label class="button secondary" for="upload-file" style="cursor:pointer">Choose file</label>
+              <input id="upload-file" type="file" accept=".csv,.json,.txt" hidden>
+              <button class="button ghost" type="button" id="load-sample-btn">Load sample batch</button>
+            </div>
+            <label class="field-label" for="upload-input">Upload template</label>
+            <textarea id="upload-input" class="upload-textarea" spellcheck="false" aria-describedby="upload-help"></textarea>
+            <div class="upload-grid">
+              <div class="upload-panel">
+                <strong>Template columns</strong>
+                <p id="upload-help">Use one row per reviewable item. Required columns: <code>item_id</code>, <code>review_stage</code>, <code>question_type</code>, <code>stem</code>, <code>modules</code>, <code>subtopics</code>.</p>
+                <ul>
+                  <li><code>review_stage</code>: <code>tutor-mcq</code>, <code>tutor-answer</code>, <code>tutor-frq</code>, or <code>reader-question</code></li>
+                  <li><code>change_request</code>: what should change if the item is returned</li>
+                  <li><code>answer_letter</code> and <code>answer_text</code>: for MCQ answer rows</li>
+                  <li><code>canonical_answer</code>: for FRQ answer rows</li>
+                </ul>
+              </div>
+              <div class="upload-panel">
+                <strong>Upload rules</strong>
+                <p>The parser treats each row as one queue item. Modules and subtopics accept pipe-separated values. Notes and change requests stay attached to the imported item.</p>
+                <div class="upload-status" id="upload-status"><strong>No batch loaded.</strong> Paste a template or load the sample to populate the queue.</div>
+              </div>
+            </div>
+            <div class="panel-actions" style="margin-top:14px">
+              <button class="button primary" type="button" id="parse-upload-btn">Parse and add to queue</button>
+              <button class="button ghost" type="button" id="clear-upload-btn">Clear batch</button>
+            </div>
+          </div>
+        </section>
+        <div class="task-grid" id="task-grid"></div>
+        <section class="imported-section" id="imported-section" hidden aria-labelledby="imported-title">
+          <div class="section-head">
+            <h3 id="imported-title">Imported review queue</h3>
+            <span id="imported-count">0 items</span>
+          </div>
+          <div class="imported-grid" id="imported-grid"></div>
+        </section>
+        <div class="start-row">
+          <button class="button primary" type="button" id="start-btn" disabled>Start selected task</button>
+          <span class="start-hint" id="start-hint">Select a task above</span>
         </div>
-        <div class="role-switcher" aria-label="Prototype reviewer role">
-          <button class="role-button active" type="button" data-role="tutor">Tutor view</button>
-          <button class="role-button" type="button" data-role="reader">AP Reader view</button>
-        </div>
-      </header>
+      </div>
 
-      <main>
+      <!-- ══ REVIEW VIEW ═════════════════════════════════ -->
+      <div id="view-review" hidden>
         <div class="review-header">
           <div>
-            <p class="eyebrow" id="stage-eyebrow">Tutor review · Question</p>
+            <p class="eyebrow" id="stage-eyebrow">Tutor review · MCQ</p>
             <h2 id="stage-title">Review question 4 of 12</h2>
           </div>
-          <p class="header-note" id="stage-note">
-            Your decision is hidden from the other tutor until both independent
-            reviews are submitted.
-          </p>
-        </div>
-
-        <div class="workflow-strip" aria-label="Candidate workflow">
-          <div class="workflow-step active" id="flow-tutors">
-            <strong>1. Two tutors</strong>
-            <span>Independent 1-3 scores</span>
-          </div>
-          <div class="workflow-step" id="flow-aggregate">
-            <strong>2. Aggregate</strong>
-            <span>2 advances · 3 revises · 4+ excludes</span>
-          </div>
-          <div class="workflow-step" id="flow-reader">
-            <strong>3. AP Reader</strong>
-            <span>Approve, recycle, or exclude</span>
-          </div>
-          <div class="workflow-step" id="flow-release">
-            <strong>4. Other gates</strong>
-            <span>Approval here is not publication</span>
-          </div>
+          <p class="header-note" id="stage-note">Your decision is hidden from the other tutor until both independent reviews are submitted.</p>
         </div>
 
         <div class="workspace">
+
+          <!-- Artifact card -->
           <article class="card artifact-card" aria-labelledby="artifact-title">
             <div class="artifact-toolbar">
               <div>
@@ -878,84 +406,196 @@
             </div>
 
             <div class="artifact-body">
-              <div class="meta-grid">
-                <div class="meta"><span>Topic</span><strong>Cell energetics</strong></div>
-                <div class="meta"><span>Skill</span><strong>Data interpretation</strong></div>
-                <div class="meta"><span>Intended use</span><strong>Teaching candidate</strong></div>
-                <div class="meta"><span>Intended difficulty</span><strong>Medium</strong></div>
+              <div class="meta-grid" id="meta-grid">
+                <div class="meta"><span>Topic</span><strong id="meta-topic">Cell energetics</strong></div>
+                <div class="meta"><span>Skill</span><strong id="meta-skill">Data interpretation</strong></div>
+                <div class="meta"><span>Intended use</span><strong id="meta-use">Teaching candidate</strong></div>
               </div>
 
-              <p class="question">
-                A researcher grows genetically identical seedlings under four
-                light intensities while keeping temperature, water, and carbon
-                dioxide concentration constant. Which result would best support
-                the claim that light intensity is limiting photosynthesis in
-                this setup?
-              </p>
-              <p class="placeholder-note">
-                Prototype-only original placeholder. Not approved Cramapple content.
-              </p>
-
-              <div class="options" aria-label="Answer options">
-                <div class="option" data-option="A">
-                  <span class="option-letter">A</span>
-                  <span>Oxygen production increases as light intensity increases, then levels off.</span>
-                  <span class="option-tag">Proposed correct</span>
+              <!-- MCQ content -->
+              <div id="mcq-content">
+                <p class="question">A researcher grows genetically identical seedlings under four light intensities while keeping temperature, water, and carbon dioxide concentration constant. Which result would best support the claim that light intensity is limiting photosynthesis in this setup?</p>
+                <p class="placeholder-note">Prototype-only original placeholder. Not approved Cramapple content.</p>
+                <div class="proposal-section">
+                  <span class="field-label">Question decision <span class="proposal-badge" id="question-decision-badge">Approve or propose change</span></span>
+                  <textarea id="question-proposal" placeholder="If you do not approve this question, describe the exact change needed before it can return to review."></textarea>
+                  <p class="proposal-note" id="question-proposal-note">Use this field to propose a revision to the question stem, setup, or answerability.</p>
                 </div>
-                <div class="option" data-option="B">
-                  <span class="option-letter">B</span>
-                  <span>Oxygen production remains constant at every light intensity.</span>
-                  <span class="option-tag">Distractor</span>
-                </div>
-                <div class="option" data-option="C">
-                  <span class="option-letter">C</span>
-                  <span>Seedling mass decreases while oxygen production increases.</span>
-                  <span class="option-tag">Distractor</span>
-                </div>
-                <div class="option" data-option="D">
-                  <span class="option-letter">D</span>
-                  <span>Carbon dioxide concentration increases only in the brightest treatment.</span>
-                  <span class="option-tag">Distractor</span>
+                <div class="options" aria-label="Answer options">
+                  <div class="option" data-option="A">
+                    <div class="option-main">
+                      <span class="option-letter">A</span>
+                      <span>Oxygen production increases as light intensity increases, then levels off.</span>
+                    </div>
+                    <div class="option-foot">
+                      <span class="option-tag">Proposed correct</span>
+                      <span class="approval-badge pending" id="appr-A">Pending</span>
+                    </div>
+                    <div class="canonical-actions" style="margin-top:10px">
+                      <button class="ca-btn" type="button" data-option-action="approve-A">Approve answer</button>
+                      <button class="ca-btn edit-btn" type="button" data-option-action="revise-A">Propose change</button>
+                    </div>
+                  </div>
+                  <div class="option" data-option="B">
+                    <div class="option-main">
+                      <span class="option-letter">B</span>
+                      <span>Oxygen production remains constant at every light intensity.</span>
+                    </div>
+                    <div class="option-foot">
+                      <span class="option-tag">Distractor</span>
+                      <span class="approval-badge pending" id="appr-B">Pending</span>
+                    </div>
+                    <div class="canonical-actions" style="margin-top:10px">
+                      <button class="ca-btn" type="button" data-option-action="approve-B">Approve answer</button>
+                      <button class="ca-btn edit-btn" type="button" data-option-action="revise-B">Propose change</button>
+                    </div>
+                  </div>
+                  <div class="option" data-option="C">
+                    <div class="option-main">
+                      <span class="option-letter">C</span>
+                      <span>Seedling mass decreases while oxygen production increases.</span>
+                    </div>
+                    <div class="option-foot">
+                      <span class="option-tag">Distractor</span>
+                      <span class="approval-badge pending" id="appr-C">Pending</span>
+                    </div>
+                    <div class="canonical-actions" style="margin-top:10px">
+                      <button class="ca-btn" type="button" data-option-action="approve-C">Approve answer</button>
+                      <button class="ca-btn edit-btn" type="button" data-option-action="revise-C">Propose change</button>
+                    </div>
+                  </div>
+                  <div class="option" data-option="D">
+                    <div class="option-main">
+                      <span class="option-letter">D</span>
+                      <span>Carbon dioxide concentration increases only in the brightest treatment.</span>
+                    </div>
+                    <div class="option-foot">
+                      <span class="option-tag">Distractor</span>
+                      <span class="approval-badge pending" id="appr-D">Pending</span>
+                    </div>
+                    <div class="canonical-actions" style="margin-top:10px">
+                      <button class="ca-btn" type="button" data-option-action="approve-D">Approve answer</button>
+                      <button class="ca-btn edit-btn" type="button" data-option-action="revise-D">Propose change</button>
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              <div class="context-box" id="review-context-box">
+              <!-- FRQ content -->
+              <div id="frq-content" hidden>
+                <p class="question">A plant cell is placed in a solution with lower water potential than the cell's contents. Describe how water moves across the plasma membrane and explain how turgor pressure changes as a result.</p>
+                <p class="placeholder-note">Prototype-only original placeholder. Not approved Cramapple content.</p>
+                <div class="proposal-section">
+                  <span class="field-label">Question decision <span class="proposal-badge" id="frq-question-decision-badge">Approve or propose change</span></span>
+                  <textarea id="frq-question-proposal" placeholder="If you do not approve this FRQ prompt, describe the exact change needed before it can return to review."></textarea>
+                  <p class="proposal-note">Use this field to propose a revision to the FRQ prompt, context, or expected response boundaries.</p>
+                </div>
+
+                <!-- Text canonical answer -->
+                <div class="canonical-section" id="canonical-text">
+                  <div class="canonical-hd">
+                    <strong>Canonical answer</strong>
+                    <span class="approval-badge pending" id="canonical-badge">Pending review</span>
+                  </div>
+                  <div class="canonical-bd">
+                    <p class="canonical-text">Water moves from the cell (higher water potential) to the surrounding solution (lower water potential) by osmosis through aquaporin channels in the plasma membrane. As water leaves, the cell shrinks away from the cell wall (plasmolysis) and turgor pressure decreases to zero or below zero.</p>
+                    <div class="canonical-actions">
+                      <button class="ca-btn" type="button" data-ca="approve">Approve canonical answer</button>
+                      <button class="ca-btn edit-btn" type="button" data-ca="edit">Propose change</button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Drawn canonical answer -->
+                <div class="canonical-section" id="canonical-drawn" hidden>
+                  <div class="canonical-hd">
+                    <strong>Canonical answer — hand-drawn diagram</strong>
+                    <span class="approval-badge pending" id="canonical-drawn-badge">Pending review</span>
+                  </div>
+                  <div class="canonical-bd">
+                    <div class="drawn-placeholder">
+                      <div>📋 Hand-drawn diagram placeholder<br>
+                      Production: scanned author diagram showing labeled membrane,<br>
+                      water-potential gradient, and osmosis direction.</div>
+                    </div>
+                    <div class="canonical-actions">
+                      <button class="ca-btn" type="button" data-ca="approve-drawn">Approve canonical answer</button>
+                      <button class="ca-btn edit-btn" type="button" data-ca="edit">Propose change</button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="frq-toggle-row">
+                  <button class="frq-toggle-btn" type="button" id="frq-toggle">Switch to hand-drawn canonical answer (demo)</button>
+                </div>
+              </div>
+
+              <div class="context-box" id="context-box">
                 <strong>Review context</strong>
-                <p id="review-context-copy">
-                  Review the question as a complete candidate. The answer
-                  options will receive separate review only after the question
-                  passes this stage.
-                </p>
+                <p id="context-copy">Review the question as a complete candidate. Answer options receive separate review after the question passes this stage.</p>
               </div>
             </div>
 
             <div class="carousel-controls">
-              <button class="button secondary" type="button" id="previous-item">Previous</button>
-              <span id="carousel-position">Question 4 of 12 · Draft saved locally</span>
-              <button class="button secondary" type="button" id="next-item">Next</button>
+              <button class="button secondary" type="button" id="prev-btn">Previous</button>
+              <span id="carousel-pos">Question 4 of 12 · Draft saved locally</span>
+              <button class="button secondary" type="button" id="next-btn">Next</button>
             </div>
           </article>
 
+          <!-- Review panel -->
           <aside class="card review-panel" aria-label="Review controls">
             <div class="panel-header">
               <h3 id="panel-title">Your independent review</h3>
-              <p id="panel-copy">Choose one score and one difficulty label. Maybe and No require a rationale.</p>
+              <p id="panel-copy">Choose a score and difficulty label. Maybe and No require a note.</p>
             </div>
 
+            <!-- Standard panel -->
             <div class="panel-body standard-panel" id="standard-panel">
-              <span class="field-label" id="score-label">Tutor score</span>
-              <div class="score-grid" role="group" aria-labelledby="score-label">
-                <button class="score-button" type="button" data-score="1" aria-pressed="false">
-                  <strong>1</strong><span id="score-one-label">Yes</span>
-                </button>
-                <button class="score-button" type="button" data-score="2" aria-pressed="false">
-                  <strong>2</strong><span id="score-two-label">Maybe</span>
-                </button>
-                <button class="score-button" type="button" data-score="3" aria-pressed="false">
-                  <strong>3</strong><span id="score-three-label">No</span>
-                </button>
+
+              <!-- Tutor 1/2/3 -->
+              <div id="tutor-score-section">
+                <span class="field-label" id="score-label">Tutor score</span>
+                <div class="score-grid" role="group" aria-labelledby="score-label">
+                  <button class="score-button" type="button" data-score="1" aria-pressed="false">
+                    <strong>1</strong><span id="lbl-1">Approve</span>
+                  </button>
+                  <button class="score-button" type="button" data-score="2" aria-pressed="false">
+                    <strong>2</strong><span id="lbl-2">Propose change</span>
+                  </button>
+                  <button class="score-button" type="button" data-score="3" aria-pressed="false">
+                    <strong>3</strong><span id="lbl-3">Reject</span>
+                  </button>
+                </div>
               </div>
 
+              <!-- Reader agree/disagree -->
+              <div id="reader-section" hidden>
+                <span class="field-label">Tutor decisions (locked)</span>
+                <div class="evidence-strip">
+                  <div class="evidence-row">
+                    <div class="evidence-meta">Tutor A</div>
+                    <div class="evidence-verdict">Yes</div>
+                    <div class="evidence-note">"Question stem is clear and well-targeted."</div>
+                  </div>
+                  <div class="evidence-row">
+                    <div class="evidence-meta">Tutor B</div>
+                    <div class="evidence-verdict">Yes</div>
+                    <div class="evidence-note">"All distractors are plausible. Difficulty feels medium."</div>
+                  </div>
+                </div>
+                <span class="field-label" id="agree-label">Your decision</span>
+                <div class="agree-grid" role="group" aria-labelledby="agree-label">
+                  <button class="agree-button" type="button" data-decision="agree" aria-pressed="false">
+                    <strong>✓</strong><span>Agree</span>
+                  </button>
+                  <button class="agree-button" type="button" data-decision="disagree" aria-pressed="false">
+                    <strong>✗</strong><span>Disagree</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Difficulty (question views, tutor only) -->
               <div id="difficulty-section">
                 <span class="field-label" id="difficulty-label">Difficulty label</span>
                 <div class="difficulty-grid" role="group" aria-labelledby="difficulty-label">
@@ -967,6 +607,17 @@
                 </div>
               </div>
 
+              <!-- Diagnostic (question views only) -->
+              <div id="diagnostic-section">
+                <button class="diagnostic-row" type="button" id="diagnostic-toggle" aria-pressed="false">
+                  <span class="diag-check" aria-hidden="true" id="diag-check"></span>
+                  <span class="diag-text">Good for diagnostic
+                    <span class="diag-sub">Flag this question as a strong diagnostic candidate</span>
+                  </span>
+                </button>
+              </div>
+
+              <!-- Concerns -->
               <span class="field-label">Concerns</span>
               <div class="concern-grid" aria-label="Concern codes">
                 <button class="concern" type="button" aria-pressed="false">Accuracy</button>
@@ -976,25 +627,39 @@
                 <button class="concern" type="button" aria-pressed="false">Answer clue</button>
               </div>
 
-              <label class="field-label" for="rationale">Rationale</label>
-              <textarea id="rationale" placeholder="Explain the evidence for your decision."></textarea>
+              <!-- Related topics (question views only) -->
+              <div id="topic-section">
+                <span class="field-label" id="topic-label">Related modules and subtopics <span class="required-label">required</span></span>
+                <div id="topic-picker" class="topic-picker" role="group" aria-labelledby="topic-label"></div>
+              </div>
+
+              <!-- Notes -->
+              <div id="notes-q" class="notes-field">
+                <label class="field-label" for="note-q">Notes <span class="optional-label">optional</span></label>
+                <textarea id="note-q" placeholder="e.g. &quot;The proposed correct answer assumes X but the stem doesn't establish X. A better answer would be…&quot;"></textarea>
+              </div>
+
+              <div id="notes-a" class="notes-field" hidden>
+                <label class="field-label" for="note-a" id="note-a-label">Notes on this answer <span class="optional-label">optional</span></label>
+                <textarea id="note-a" placeholder="e.g. &quot;This proposed correct answer is not correct because… A better answer would be…&quot;"></textarea>
+              </div>
 
               <div class="preview" id="disposition-preview">
-                <strong>No score selected.</strong> Choose 1, 2, or 3 to see what
-                this decision means.
+                <strong>No score selected.</strong> Choose Approve, Propose change, or Reject to see what this decision means.
               </div>
 
               <div class="panel-actions">
-                <button class="button primary" type="button" id="submit-review">Submit and lock</button>
-                <button class="button ghost" type="button" id="recuse">Recuse</button>
+                <button class="button primary" type="button" id="submit-btn">Submit and next</button>
+                <button class="button ghost" type="button" id="skip-btn">Skip</button>
               </div>
 
               <div class="independence">
-                <span aria-hidden="true">i</span>
-                <span id="independence-copy">The other tutor cannot see this score or rationale before both reviews are locked.</span>
+                <span aria-hidden="true">ℹ</span>
+                <span id="independence-copy">The other tutor cannot see this score or note before both reviews are locked.</span>
               </div>
             </div>
 
+            <!-- Difficulty discussion panel -->
             <div class="panel-body discussion-panel" id="discussion-panel">
               <span class="field-label">Locked labels</span>
               <div class="label-comparison">
@@ -1002,12 +667,10 @@
                 <div class="label-row"><span>Tutor B</span><strong>Hard</strong></div>
                 <div class="label-row"><span>AP Reader</span><strong>Medium</strong></div>
               </div>
-
               <label class="field-label" for="discussion-note">Discussion outcome</label>
               <textarea id="discussion-note" placeholder="Record why the confirmed label fits this version."></textarea>
-
-              <span class="field-label" id="resolution-label">Resolution</span>
-              <div class="score-grid" role="group" aria-labelledby="resolution-label">
+              <span class="field-label" id="res-label">Resolution</span>
+              <div class="score-grid" role="group" aria-labelledby="res-label">
                 <button class="score-button resolution-button" type="button" data-resolution="Medium" aria-pressed="false">
                   <strong>M</strong><span>Confirm medium</span>
                 </button>
@@ -1018,401 +681,1079 @@
                   <strong>R</strong><span>Revise question</span>
                 </button>
               </div>
-
-              <div class="preview">
-                Prior labels remain immutable. This records a discussion outcome
-                or sends the question to a new version.
-              </div>
+              <div class="preview">Prior labels remain immutable. This records a discussion outcome or creates a revision path.</div>
               <div class="panel-actions">
                 <button class="button primary" type="button" id="submit-resolution">Record outcome</button>
               </div>
             </div>
           </aside>
         </div>
-      </main>
-    </div>
+      </div><!-- /view-review -->
+
+    </main>
   </div>
+</div>
+<div class="status" id="status" role="status" aria-live="polite" hidden></div>
 
-  <div class="status" id="status" role="status" aria-live="polite" hidden></div>
+<script>
+/* ── Data ──────────────────────────────────────────── */
 
-  <script>
-    const state = {
-      view: "tutor-question",
-      role: "tutor",
-      score: null,
-      difficulty: null,
-      resolution: null,
-      item: 4,
-      answerIndex: 1
+const DEMO_TASKS = [
+  { key: "ap-bio-mcq",       subject: "AP Biology",   type: "MCQ",          count: 8,  view: "tutor-mcq"  },
+  { key: "ap-bio-frq-short", subject: "AP Biology",   type: "FRQ — Short",  count: 4,  view: "tutor-frq"  },
+  { key: "ap-bio-frq-long",  subject: "AP Biology",   type: "FRQ — Long",   count: 2,  view: "tutor-frq"  },
+  { key: "ap-chem-mcq",      subject: "AP Chemistry", type: "MCQ",          count: 5,  view: "tutor-mcq"  }
+];
+
+let TASKS = [...DEMO_TASKS];
+
+const AP_BIO_UNITS = [
+  { key:"u1", name:"Unit 1 · Chemistry of Life", topics:[
+    {id:"1.1",name:"Structure of Water and Hydrogen Bonding"},{id:"1.2",name:"Elements of Life"},
+    {id:"1.3",name:"Introduction to Macromolecules"},{id:"1.4",name:"Carbohydrates"},
+    {id:"1.5",name:"Lipids"},{id:"1.6",name:"Nucleic Acids"},{id:"1.7",name:"Proteins"}]},
+  { key:"u2", name:"Unit 2 · Cells", topics:[
+    {id:"2.1",name:"Cell Structure and Function"},{id:"2.2",name:"Cell Size"},
+    {id:"2.3",name:"Plasma Membrane"},{id:"2.4",name:"Membrane Permeability"},
+    {id:"2.5",name:"Membrane Transport"},{id:"2.6",name:"Facilitated Diffusion"},
+    {id:"2.7",name:"Tonicity and Osmoregulation"},{id:"2.8",name:"Mechanisms of Transport"},
+    {id:"2.9",name:"Cell Compartmentalization"},{id:"2.10",name:"Origins of Cell Compartmentalization"}]},
+  { key:"u3", name:"Unit 3 · Cellular Energetics", topics:[
+    {id:"3.1",name:"Enzymes"},{id:"3.2",name:"Environmental Impacts on Enzyme Function"},
+    {id:"3.3",name:"Cellular Energy"},{id:"3.4",name:"Photosynthesis"},{id:"3.5",name:"Cellular Respiration"}]},
+  { key:"u4", name:"Unit 4 · Cell Communication and Cell Cycle", topics:[
+    {id:"4.1",name:"Cell Communication"},{id:"4.2",name:"Introduction to Signal Transduction"},
+    {id:"4.3",name:"Signal Transduction Pathways"},{id:"4.4",name:"Feedback"},
+    {id:"4.5",name:"Cell Cycle"},{id:"4.6",name:"Regulation of Cell Cycle"}]},
+  { key:"u5", name:"Unit 5 · Heredity", topics:[
+    {id:"5.1",name:"Meiosis"},{id:"5.2",name:"Meiosis and Genetic Diversity"},
+    {id:"5.3",name:"Mendelian Genetics"},{id:"5.4",name:"Non-Mendelian Genetics"},
+    {id:"5.5",name:"Environmental Effects on Phenotype"}]},
+  { key:"u6", name:"Unit 6 · Gene Expression and Regulation", topics:[
+    {id:"6.1",name:"DNA and RNA Structure"},{id:"6.2",name:"DNA Replication"},
+    {id:"6.3",name:"Transcription and RNA Processing"},{id:"6.4",name:"Translation"},
+    {id:"6.5",name:"Regulation of Gene Expression"},{id:"6.6",name:"Gene Expression and Cell Specialization"},
+    {id:"6.7",name:"Mutations"},{id:"6.8",name:"Biotechnology"}]},
+  { key:"u7", name:"Unit 7 · Natural Selection", topics:[
+    {id:"7.1",name:"Introduction to Natural Selection"},{id:"7.2",name:"Natural Selection"},
+    {id:"7.3",name:"Artificial Selection"},{id:"7.4",name:"Population Genetics"},
+    {id:"7.5",name:"Hardy-Weinberg Equilibrium"},{id:"7.6",name:"Evidence of Evolution"},
+    {id:"7.7",name:"Common Ancestry"},{id:"7.8",name:"Continuing Evolution"},
+    {id:"7.9",name:"Phylogeny"},{id:"7.10",name:"Speciation"},
+    {id:"7.11",name:"Variations in Populations"},{id:"7.12",name:"Origins of Life on Earth"}]},
+  { key:"u8", name:"Unit 8 · Ecology", topics:[
+    {id:"8.1",name:"Responses to the Environment"},{id:"8.2",name:"Energy Flow Through Ecosystems"},
+    {id:"8.3",name:"Population Ecology"},{id:"8.4",name:"Effect of Density on Populations"},
+    {id:"8.5",name:"Community Ecology"},{id:"8.6",name:"Biodiversity"},{id:"8.7",name:"Disruptions in Ecosystems"}]}
+];
+
+/* ── State ─────────────────────────────────────────── */
+
+const state = {
+  view: "tasks",
+  role: "tutor",
+  score: null,
+  difficulty: null,
+  resolution: null,
+  readerDecision: null,
+  diagnosticFlag: false,
+  item: 4,
+  answerIndex: 0,
+  answerApprovals: { A: null, B: null, C: null, D: null },
+  canonicalDecision: null,
+  expandedUnits: new Set(),
+  selectedTopics: {},
+  selectedTask: null,
+  selectedAssignmentId: loadStoredAssignmentId(),
+  remoteQueueLoaded: false,
+  frqDrawnMode: false,
+  importedItems: [],
+  uploadText: ""
+};
+
+/* ── DOM refs ──────────────────────────────────────── */
+
+const $ = (id) => document.getElementById(id);
+const statusEl = $("status");
+let statusTimer;
+const BACKEND_BASE = window.CRAMAPPLE_SUPABASE_URL ?? "";
+const BACKEND_ANON_KEY =
+  window.CRAMAPPLE_SUPABASE_ANON_KEY ??
+  window.CRAMAPPLE_SUPABASE_PUBLISHABLE_KEY ??
+  "";
+const BACKEND_CONFIG_MISSING_KEY = "cramapple.backend-config-missing.v1";
+const BACKEND_CONFIG_MISSING_STATE = "cramapple.backend-config-missing.state";
+const REVIEWER_ASSIGNMENT_ID_KEY = "cramapple.ux002.assignment-id.v1";
+let supabaseClientPromise = null;
+let currentSessionPromise = null;
+let authListenerAttached = false;
+
+function loadStoredAssignmentId() {
+  try {
+    const value = localStorage.getItem(REVIEWER_ASSIGNMENT_ID_KEY);
+    return value && value.trim() ? value : null;
+  } catch {
+    return null;
+  }
+}
+
+function storeAssignmentId(assignmentId) {
+  try {
+    if (assignmentId) {
+      localStorage.setItem(REVIEWER_ASSIGNMENT_ID_KEY, assignmentId);
+    } else {
+      localStorage.removeItem(REVIEWER_ASSIGNMENT_ID_KEY);
+    }
+  } catch {
+    // Ignore storage failures and keep the selection in memory only.
+  }
+}
+
+function rememberBackendConfigAbsence(reason) {
+  const payload = {
+    missing: true,
+    reason,
+    updated_at: new Date().toISOString(),
+    page: "ux-002",
+  };
+  try {
+    localStorage.setItem(BACKEND_CONFIG_MISSING_KEY, "1");
+    localStorage.setItem(BACKEND_CONFIG_MISSING_STATE, JSON.stringify(payload));
+  } catch {
+    // Ignore storage failures and continue in mock mode.
+  }
+}
+
+function hasBackendConfig() {
+  return Boolean(BACKEND_BASE && BACKEND_ANON_KEY);
+}
+
+function getStoredConfigAbsence() {
+  try {
+    return localStorage.getItem(BACKEND_CONFIG_MISSING_KEY) === "1"
+      ? JSON.parse(localStorage.getItem(BACKEND_CONFIG_MISSING_STATE) || "null")
+      : null;
+  } catch {
+    return null;
+  }
+}
+
+async function getSupabaseClient() {
+  if (!hasBackendConfig()) {
+    rememberBackendConfigAbsence("missing_supabase_url_or_key");
+    return null;
+  }
+
+  if (!supabaseClientPromise) {
+    supabaseClientPromise = import(
+      "https://esm.sh/@supabase/supabase-js@2.49.1"
+    ).then(({ createClient }) =>
+      createClient(BACKEND_BASE, BACKEND_ANON_KEY, {
+        auth: {
+          autoRefreshToken: true,
+          persistSession: true,
+          detectSessionInUrl: true,
+        },
+      })
+    );
+  }
+
+  const client = await supabaseClientPromise;
+  if (!authListenerAttached && client) {
+    authListenerAttached = true;
+    client.auth.onAuthStateChange(() => {
+      currentSessionPromise = null;
+      void refreshReviewerContext();
+      void loadRemoteQueue();
+    });
+  }
+
+  return client;
+}
+
+async function getCurrentSession() {
+  if (currentSessionPromise) return await currentSessionPromise;
+  currentSessionPromise = (async () => {
+    const client = await getSupabaseClient();
+    if (!client) return null;
+    const { data, error } = await client.auth.getSession();
+    if (error || !data?.session) return null;
+    return data.session;
+  })();
+  return await currentSessionPromise;
+}
+
+async function backendHeaders() {
+  const headers = { "Content-Type": "application/json" };
+  const session = await getCurrentSession();
+  if (session?.access_token) {
+    headers.Authorization = `Bearer ${session.access_token}`;
+  }
+  return headers;
+}
+
+async function backendRequest(functionName, payload, method = "POST") {
+  if (!hasBackendConfig()) {
+    rememberBackendConfigAbsence(`missing_config_${functionName}`);
+    throw new Error("backend_not_configured");
+  }
+  const session = await getCurrentSession();
+  if (!session?.access_token) {
+    throw new Error("supabase_session_missing");
+  }
+  const response = await fetch(
+    `${BACKEND_BASE}/functions/v1/${functionName}`,
+    {
+      method,
+      headers: await backendHeaders(),
+      body: method === "GET" ? undefined : JSON.stringify(payload ?? {}),
+    },
+  );
+  const text = await response.text();
+  let data;
+  try {
+    data = text ? JSON.parse(text) : {};
+  } catch {
+    data = { raw: text };
+  }
+  if (!response.ok) {
+    const error = new Error(data?.error || `request_failed_${response.status}`);
+    error.data = data;
+    throw error;
+  }
+  return data;
+}
+
+function deriveViewFromAssignment(assignment) {
+  if (assignment.assigned_role === "reader") {
+    return assignment.review_stage === "answer"
+      ? "reader-answer"
+      : "reader-question";
+  }
+  if (assignment.review_stage === "difficulty_discussion") return "difficulty";
+  if (assignment.review_stage === "canonical_answer") return "tutor-frq";
+  if (assignment.review_stage === "answer") return "tutor-answer";
+  if (assignment.review_kind === "frq") return "tutor-frq";
+  return "tutor-mcq";
+}
+
+function assignmentToTask(assignment) {
+  return {
+    key: assignment.content_review_assignment_id,
+    subject: assignment.assigned_role === "reader" ? "Reader queue" : "Tutor queue",
+    type: `${assignment.review_kind.toUpperCase()} · ${assignment.review_stage}`,
+    count: 1,
+    view: deriveViewFromAssignment(assignment),
+    assignmentId: assignment.content_review_assignment_id,
+    artifactVersionId: assignment.artifact_version_id,
+    reviewStage: assignment.review_stage,
+    reviewKind: assignment.review_kind,
+  };
+}
+
+/* ── View configs ──────────────────────────────────── */
+
+const VIEWS = {
+  "tutor-mcq": {
+    role:"tutor", eyebrow:"Tutor review · MCQ",
+    title:"Review question 4 of 12",
+    note:"Your decision is hidden from the other tutor until both independent reviews are submitted.",
+    badge:"Tutor 1 of 2", subtitle:"MCQ question review · Original placeholder content",
+    context:"Review the question as a complete candidate. Answer options receive separate review after the question passes this stage.",
+    answerLetter:null, showDifficulty:true, showDiagnostic:true, showTopics:true,
+    showNotesQ:true, showNotesA:false, showMcq:true, showFrq:false, readerMode:false, discussion:false
+  },
+  "tutor-frq": {
+    role:"tutor", eyebrow:"Tutor review · FRQ",
+    title:"Review FRQ 2 of 4",
+    note:"Review the question and the canonical answer. Approve or reject the canonical answer independently.",
+    badge:"FRQ — Short · Tutor 1 of 2", subtitle:"FRQ — Short candidate · Original placeholder content",
+    context:"Review the question stem and the canonical answer. You must approve or reject the canonical answer as part of this review.",
+    answerLetter:null, showDifficulty:true, showDiagnostic:true, showTopics:true,
+    showNotesQ:true, showNotesA:false, showMcq:false, showFrq:true, readerMode:false, discussion:false
+  },
+  "tutor-answer": {
+    role:"tutor", eyebrow:"Tutor review · MCQ answer",
+    title:"Review answer A · 1 of 4",
+    note:"Score this answer independently. Keep the full question visible for context.",
+    badge:"Tutor 2 of 2", subtitle:"Answer review · Proposed correct answer",
+    context:"Review whether answer A is scientifically correct, uniquely supported by the stem, and consistent with the rationale.",
+    answerLetter:"A", showDifficulty:false, showDiagnostic:false, showTopics:false,
+    showNotesQ:false, showNotesA:true, showMcq:true, showFrq:false, readerMode:false, discussion:false
+  },
+  "reader-question": {
+    role:"reader", eyebrow:"AP Reader review · Question",
+    title:"Review question 2 of 5",
+    note:"Both tutor reviews are locked. Your decision is final. Disagreements are tracked in reporting.",
+    badge:"Tutor aggregate: 2", subtitle:"AP Reader question review · Aggregate Yes + Yes",
+    context:"Tutor A and Tutor B both scored Yes. Review all evidence before deciding.",
+    answerLetter:null, showDifficulty:true, showDiagnostic:false, showTopics:false,
+    showNotesQ:true, showNotesA:false, showMcq:true, showFrq:false, readerMode:true, discussion:false
+  },
+  "reader-answer": {
+    role:"reader", eyebrow:"AP Reader review · Answer",
+    title:"Review answer A · 1 of 4",
+    note:"Both tutor answer decisions are locked. Your decision is final for this answer option.",
+    badge:"Tutor aggregate: 2", subtitle:"AP Reader answer review · Aggregate Yes + Yes",
+    context:"Tutor A and Tutor B both approved this answer option. Review correctness, uniqueness, and any misleading clue before deciding.",
+    answerLetter:"A", showDifficulty:false, showDiagnostic:false, showTopics:false,
+    showNotesQ:false, showNotesA:false, showMcq:true, showFrq:false, readerMode:true, discussion:false
+  },
+  "difficulty": {
+    role:"reader", eyebrow:"Difficulty discussion",
+    title:"Resolve label mismatch · Q-APBIO-041 v3",
+    note:"Exact agreement was not reached. Do not average or round the labels.",
+    badge:"Discussion required", subtitle:"Question approved · Difficulty unconfirmed",
+    context:"The approval decision remains locked. This discussion confirms the difficulty label or creates a revision path.",
+    answerLetter:null, showDifficulty:false, showDiagnostic:false, showTopics:false,
+    showNotesQ:false, showNotesA:false, showMcq:true, showFrq:false, readerMode:false, discussion:true
+  }
+};
+
+const SAMPLE_UPLOAD = `item_id,review_stage,question_type,stem,answer_letter,answer_text,canonical_answer,modules,subtopics,change_request,notes
+MCQ-APBIO-041,tutor-mcq,MCQ,"A researcher grows genetically identical seedlings under four light intensities while keeping temperature, water, and carbon dioxide concentration constant. Which result would best support the claim that light intensity is limiting photosynthesis in this setup?",,,"",Unit 3 | Unit 4,"3.4 | 4.1","Propose a clearer control condition","Question review item"
+MCQ-APBIO-041-A,tutor-answer,MCQ answer,"Same stem",A,"Oxygen production increases as light intensity increases, then levels off.",,Unit 3,"3.4","Propose wording change","Proposed correct answer"
+MCQ-APBIO-041-B,tutor-answer,MCQ answer,"Same stem",B,"Oxygen production remains constant at every light intensity.",,Unit 3,"3.4","Propose distractor change","Answer option B"
+FRQ-APBIO-018,tutor-frq,FRQ,"A plant cell is placed in a solution with lower water potential than the cell's contents. Describe how water moves across the plasma membrane and explain how turgor pressure changes as a result.",,,"Water leaves the cell by osmosis and turgor pressure decreases.",Unit 2,"2.3 | 2.7","Propose a tighter response boundary","FRQ question item"
+FRQ-APBIO-018-CANONICAL,tutor-frq,FRQ canonical answer,"Same stem",,,"Water moves from the cell to the surrounding solution by osmosis through aquaporins, causing plasmolysis and a decrease in turgor pressure.",Unit 2,"2.3 | 2.7","Propose canonical wording change","Canonical answer item"`;
+
+/* ── Tasks ─────────────────────────────────────────── */
+
+function buildTaskGrid() {
+  const grid = $("task-grid");
+  grid.innerHTML = "";
+
+  if (!TASKS.length) {
+    grid.innerHTML = '<div class="no-tasks">No tasks assigned. Check back later or contact your coordinator.</div>';
+    return;
+  }
+
+  TASKS.forEach((task) => {
+    const card = document.createElement("button");
+    card.type = "button";
+    card.className = "task-card";
+    card.dataset.taskKey = task.key;
+    card.setAttribute("aria-pressed", "false");
+    card.innerHTML = `
+      <div>
+        <span class="task-subject">${task.subject}</span>
+        <span class="task-type">${task.type}</span>
+        <span class="task-count">${task.count} item${task.count !== 1 ? "s" : ""} assigned</span>
+      </div>
+      <span class="task-arrow" aria-hidden="true">›</span>`;
+    card.addEventListener("click", () => {
+      document.querySelectorAll(".task-card").forEach((c) => { c.classList.remove("selected"); c.setAttribute("aria-pressed","false"); });
+      card.classList.add("selected");
+      card.setAttribute("aria-pressed","true");
+      state.selectedTask = task;
+      state.selectedAssignmentId = task.assignmentId ?? null;
+      storeAssignmentId(state.selectedAssignmentId);
+      $("start-btn").disabled = false;
+      $("start-hint").textContent = `${task.subject} · ${task.type}`;
+    });
+    grid.appendChild(card);
+  });
+
+  if (TASKS.length === 1) grid.querySelector(".task-card").click();
+}
+
+function restoreSelectedTaskFromStorage() {
+  if (!state.selectedAssignmentId) return;
+
+  const task = TASKS.find((entry) => entry.assignmentId === state.selectedAssignmentId);
+  if (!task) return;
+
+  state.selectedTask = task;
+  $("start-btn").disabled = false;
+  $("start-hint").textContent = `${task.subject} · ${task.type}`;
+
+  document.querySelectorAll(".task-card").forEach((card) => {
+    const isMatch = card.dataset.taskKey === task.key;
+    card.classList.toggle("selected", isMatch);
+    card.setAttribute("aria-pressed", String(isMatch));
+  });
+}
+
+async function loadRemoteQueue() {
+  try {
+    const data = await backendRequest("review-queue", {}, "GET");
+    if (Array.isArray(data.queue) && data.queue.length) {
+      TASKS = data.queue.map(assignmentToTask);
+      state.remoteQueueLoaded = true;
+      buildTaskGrid();
+      restoreSelectedTaskFromStorage();
+      showStatus(`Loaded ${TASKS.length} DB-backed review item${TASKS.length === 1 ? "" : "s"}.`);
+    }
+  } catch (error) {
+    const code = error?.message || String(error);
+    if (code === "backend_not_configured") {
+      showStatus("Mock mode is active because backend config is missing. We will come back and fix Supabase wiring.");
+    } else if (code === "supabase_session_missing") {
+      const stored = getStoredConfigAbsence();
+      showStatus(stored
+        ? "Supabase config is still missing, so the review queue stays in mock mode."
+        : "Supabase session is missing, so live queue reads are paused until sign-in.");
+    } else {
+      console.warn("review queue load failed", error);
+    }
+  }
+}
+
+$("start-btn").addEventListener("click", () => {
+  if (!state.selectedTask) return;
+  setView(state.selectedTask.view);
+});
+
+function toList(value) {
+  return (value || "")
+    .split(/\||;/)
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
+function parseCsv(text) {
+  const rows = [];
+  let row = [];
+  let cell = "";
+  let inQuotes = false;
+  for (let i = 0; i < text.length; i += 1) {
+    const ch = text[i];
+    const next = text[i + 1];
+    if (ch === '"' && inQuotes && next === '"') {
+      cell += '"';
+      i += 1;
+    } else if (ch === '"') {
+      inQuotes = !inQuotes;
+    } else if (ch === "," && !inQuotes) {
+      row.push(cell);
+      cell = "";
+    } else if ((ch === "\n" || ch === "\r") && !inQuotes) {
+      if (ch === "\r" && next === "\n") i += 1;
+      row.push(cell);
+      if (row.some((value) => value.trim() !== "")) rows.push(row);
+      row = [];
+      cell = "";
+    } else {
+      cell += ch;
+    }
+  }
+  row.push(cell);
+  if (row.some((value) => value.trim() !== "")) rows.push(row);
+  if (!rows.length) return [];
+  const headers = rows.shift().map((header) => header.trim());
+  return rows.map((values) => {
+    const item = {};
+    headers.forEach((header, index) => {
+      item[header] = (values[index] || "").trim();
+    });
+    return item;
+  });
+}
+
+function parseUpload(text) {
+  const trimmed = text.trim();
+  if (!trimmed) return [];
+  let rows;
+  if (trimmed.startsWith("[") || trimmed.startsWith("{")) {
+    const parsed = JSON.parse(trimmed);
+    rows = Array.isArray(parsed) ? parsed : [parsed];
+  } else {
+    rows = parseCsv(trimmed);
+  }
+  const requiredFields = ["item_id", "review_stage", "question_type", "stem", "modules", "subtopics"];
+  return rows.map((row, index) => {
+    const stage = String(row.review_stage ?? row.stage ?? "tutor-mcq").trim();
+    const missing = requiredFields.filter((field) => !String(row[field] ?? row[field.toLowerCase()] ?? "").trim());
+    if (missing.length) {
+      throw new Error(`Row ${index + 1} is missing: ${missing.join(", ")}`);
+    }
+    const modules = toList(row.modules).join(" · ");
+    const subtopics = toList(row.subtopics).join(" · ");
+    return {
+      id: row.item_id || row.id || `imported-${index + 1}`,
+      stage,
+      type: row.question_type || row.type || "Question",
+      stem: row.stem || row.question || row.prompt || "Imported item",
+      answerLetter: row.answer_letter || "",
+      answerText: row.answer_text || row.answer || "",
+      canonicalAnswer: row.canonical_answer || "",
+      modules,
+      subtopics,
+      changeRequest: row.change_request || row.proposed_change || "",
+      notes: row.notes || "",
+      displayRole: stage.startsWith("reader") ? "reader" : "tutor"
     };
+  });
+}
 
-    const status = document.getElementById("status");
-    const standardPanel = document.getElementById("standard-panel");
-    const discussionPanel = document.getElementById("discussion-panel");
-    const difficultySection = document.getElementById("difficulty-section");
-    const scoreLabel = document.getElementById("score-label");
-    const panelTitle = document.getElementById("panel-title");
-    const panelCopy = document.getElementById("panel-copy");
-    const stageEyebrow = document.getElementById("stage-eyebrow");
-    const stageTitle = document.getElementById("stage-title");
-    const stageNote = document.getElementById("stage-note");
-    const assignmentBadge = document.getElementById("assignment-badge");
-    const artifactSubtitle = document.getElementById("artifact-subtitle");
-    const contextCopy = document.getElementById("review-context-copy");
-    const preview = document.getElementById("disposition-preview");
-    const rationale = document.getElementById("rationale");
-    const independenceCopy = document.getElementById("independence-copy");
-    let statusTimer;
+function renderImportedQueue() {
+  const section = $("imported-section");
+  const grid = $("imported-grid");
+  const count = $("imported-count");
+  grid.innerHTML = "";
+  count.textContent = `${state.importedItems.length} item${state.importedItems.length === 1 ? "" : "s"}`;
+  section.hidden = state.importedItems.length === 0;
+  if (!state.importedItems.length) return;
+  state.importedItems.forEach((item) => {
+    const card = document.createElement("article");
+    card.className = "imported-card";
+    const stageLabel = item.stage.replaceAll("-", " ").replace(/\b\w/g, (match) => match.toUpperCase());
+    const detail = item.canonicalAnswer || item.answerText || item.stem;
+    card.innerHTML = `
+      <div>
+        <strong>${item.id}</strong>
+        <div class="imported-meta">${stageLabel} · ${item.type}<br>${detail}</div>
+        <div class="imported-tags">
+          ${item.modules ? `<span class="imported-tag">Modules: ${item.modules}</span>` : ""}
+          ${item.subtopics ? `<span class="imported-tag">Subtopics: ${item.subtopics}</span>` : ""}
+          ${item.changeRequest ? `<span class="imported-tag">Change: ${item.changeRequest}</span>` : ""}
+          ${item.notes ? `<span class="imported-tag">Notes: ${item.notes}</span>` : ""}
+        </div>
+      </div>
+      <button class="button secondary imported-action" type="button">Open review</button>`;
+    card.querySelector("button").addEventListener("click", () => {
+      setView(item.stage in VIEWS ? item.stage : "tutor-mcq");
+      $("start-hint").textContent = `Imported item ${item.id} opened`;
+    });
+    grid.appendChild(card);
+  });
+}
 
-    const viewConfig = {
-      "tutor-question": {
-        role: "tutor",
-        eyebrow: "Tutor review · Question",
-        title: "Review question 4 of 12",
-        note: "Your decision is hidden from the other tutor until both independent reviews are submitted.",
-        badge: "Tutor 1 of 2",
-        subtitle: "Question review · Original placeholder content",
-        context: "Review the question as a complete candidate. The answer options will receive separate review only after the question passes this stage.",
-        answer: null,
-        difficulty: true
-      },
-      "reader-question": {
-        role: "reader",
-        eyebrow: "AP Reader review · Question",
-        title: "Review tutor-approved question 2 of 5",
-        note: "Both tutor reviews are locked. Your decision approves this stage, creates a new version, or excludes the current version.",
-        badge: "Tutor aggregate: 2",
-        subtitle: "AP Reader question review · Two tutor Yes scores",
-        context: "Tutor A: Yes · Tutor B: Yes. Both tutors labeled the question Medium. Approval here still does not publish the question.",
-        answer: null,
-        difficulty: true
-      },
-      "tutor-answer": {
-        role: "tutor",
-        eyebrow: "Tutor review · MCQ answer",
-        title: "Review answer B · 2 of 4",
-        note: "Score this answer independently while keeping the complete MCQ visible.",
-        badge: "Tutor 2 of 2",
-        subtitle: "Answer option review · Distractor B",
-        context: "Review whether distractor B is scientifically defensible as an incorrect option, plausible, unambiguous, and free of unintended clues.",
-        answer: "B",
-        difficulty: false
-      },
-      "reader-answer": {
-        role: "reader",
-        eyebrow: "AP Reader review · MCQ answer",
-        title: "Review answer B · 2 of 4",
-        note: "A score of 2 creates a new answer/package version. A score of 3 excludes the current MCQ package.",
-        badge: "Tutor aggregate: 2",
-        subtitle: "AP Reader answer review · Two tutor Yes scores",
-        context: "Tutor A: Yes · Tutor B: Yes. The current MCQ cannot complete answer review until all four options are approved.",
-        answer: "B",
-        difficulty: false
-      },
-      difficulty: {
-        role: "reader",
-        eyebrow: "Difficulty discussion",
-        title: "Resolve label mismatch · Q-APBIO-041 v3",
-        note: "Exact agreement was not reached. Do not average the three labels.",
-        badge: "Discussion required",
-        subtitle: "Question approved · Difficulty unconfirmed",
-        context: "The approval decision remains locked. This discussion confirms the difficulty label or creates a revision path.",
-        answer: null,
-        difficulty: false
-      }
-    };
+function setUploadStatus(html) {
+  $("upload-status").innerHTML = html;
+}
 
-    function showStatus(message) {
-      window.clearTimeout(statusTimer);
-      status.textContent = message;
-      status.hidden = false;
-      statusTimer = window.setTimeout(() => {
-        status.hidden = true;
-      }, 4000);
+async function refreshReviewerContext() {
+  const session = await getCurrentSession();
+  const context = $("reviewer-context");
+  const sidebarCopy = $("sidebar-copy");
+  if (session?.user) {
+    const email = session.user.email || session.user.id.slice(0, 8);
+    context.textContent = `Supabase session active · ${email} · live reads and writes enabled`;
+    sidebarCopy.textContent = "Live queue and reviewer decisions use the Supabase session. Mock mode is only for missing backend config.";
+    return;
+  }
+
+  const missing = getStoredConfigAbsence();
+  if (missing) {
+    context.textContent = "Mock mode · backend config missing";
+    sidebarCopy.textContent = "Supabase config is missing, so this review page is running in mock mode and preserving that warning for follow-up.";
+    return;
+  }
+
+  context.textContent = "Supabase session required · sign in to load live queue data";
+  sidebarCopy.textContent = "This page will use the live review queue once a Supabase session is available.";
+}
+
+function markOptionDecision(letter, kind) {
+  const badge = $(`appr-${letter}`);
+  if (!badge) return;
+  if (kind === "approved") {
+    badge.className = "approval-badge approved";
+    badge.textContent = "✓ Approved";
+  } else if (kind === "revised") {
+    badge.className = "approval-badge revised";
+    badge.textContent = "↻ Change proposed";
+  } else {
+    badge.className = "approval-badge pending";
+    badge.textContent = "Pending review";
+  }
+}
+
+/* ── Topic picker ──────────────────────────────────── */
+
+function buildTopicPicker() {
+  const picker = $("topic-picker");
+  picker.innerHTML = "";
+  AP_BIO_UNITS.forEach((unit) => {
+    state.selectedTopics[unit.key] = new Set();
+    const row = document.createElement("div");
+    row.className = "module-row"; row.dataset.unit = unit.key;
+    const hdr = document.createElement("button");
+    hdr.type = "button"; hdr.className = "module-header"; hdr.setAttribute("aria-expanded","false");
+    hdr.innerHTML = `<span class="module-check" aria-hidden="true"></span><span class="module-name">${unit.name}</span><span class="module-count" hidden>0</span><span class="module-expand-icon" aria-hidden="true">▼</span>`;
+    const panel = document.createElement("div"); panel.className = "subtopics-panel";
+    const allRow = document.createElement("div"); allRow.className = "subtopic-all-row";
+    const allBtn = document.createElement("button"); allBtn.type = "button"; allBtn.className = "subtopic-all-btn"; allBtn.textContent = "Select all subtopics";
+    allBtn.addEventListener("click", (e) => { e.stopPropagation(); const s = state.selectedTopics[unit.key]; s.size === unit.topics.length ? s.clear() : unit.topics.forEach((t) => s.add(t.id)); refreshUnit(unit.key); });
+    allRow.appendChild(allBtn);
+    const chips = document.createElement("div"); chips.className = "subtopic-chips";
+    unit.topics.forEach((topic) => {
+      const chip = document.createElement("button"); chip.type = "button"; chip.className = "subtopic-chip";
+      chip.dataset.topicId = topic.id; chip.textContent = `${topic.id} ${topic.name}`; chip.setAttribute("aria-pressed","false");
+      chip.addEventListener("click", (e) => { e.stopPropagation(); const s = state.selectedTopics[unit.key]; s.has(topic.id) ? s.delete(topic.id) : s.add(topic.id); refreshUnit(unit.key); });
+      chips.appendChild(chip);
+    });
+    panel.appendChild(allRow); panel.appendChild(chips); row.appendChild(hdr); row.appendChild(panel); picker.appendChild(row);
+    hdr.addEventListener("click", () => { const open = row.classList.toggle("open"); hdr.setAttribute("aria-expanded",String(open)); open ? state.expandedUnits.add(unit.key) : state.expandedUnits.delete(unit.key); });
+  });
+}
+
+function refreshUnit(unitKey) {
+  const unit = AP_BIO_UNITS.find((u) => u.key === unitKey);
+  const sel = state.selectedTopics[unitKey];
+  const row = document.querySelector(`.module-row[data-unit="${unitKey}"]`);
+  if (!row) return;
+  const hdr = row.querySelector(".module-header");
+  const badge = row.querySelector(".module-count");
+  const allBtn = row.querySelector(".subtopic-all-btn");
+  const allSel = sel.size === unit.topics.length;
+  hdr.classList.toggle("has-selection", sel.size > 0);
+  hdr.querySelector(".module-check").textContent = sel.size > 0 ? "✓" : "";
+  badge.hidden = sel.size === 0; badge.textContent = sel.size;
+  allBtn.classList.toggle("all-selected", allSel);
+  allBtn.textContent = allSel ? "Clear all subtopics" : "Select all subtopics";
+  row.querySelectorAll(".subtopic-chip").forEach((c) => { const s = sel.has(c.dataset.topicId); c.classList.toggle("selected",s); c.setAttribute("aria-pressed",String(s)); });
+}
+
+function clearTopics() {
+  AP_BIO_UNITS.forEach((unit) => { if (state.selectedTopics[unit.key]) state.selectedTopics[unit.key].clear(); refreshUnit(unit.key); const row = document.querySelector(`.module-row[data-unit="${unit.key}"]`); if (row) { row.classList.remove("open"); row.querySelector(".module-header").setAttribute("aria-expanded","false"); } });
+  state.expandedUnits.clear();
+}
+
+function hasTopicSelection() {
+  return Object.values(state.selectedTopics).some((set) => set && set.size > 0);
+}
+
+/* ── Helpers ───────────────────────────────────────── */
+
+function showStatus(msg) {
+  clearTimeout(statusTimer); statusEl.textContent = msg; statusEl.hidden = false;
+  statusTimer = setTimeout(() => { statusEl.hidden = true; }, 4000);
+}
+
+function setApprBadge(id, val) {
+  const el = $(id); if (!el) return;
+  el.className = "approval-badge " + (val || "pending");
+  el.textContent = val === "approved" ? "✓ Approved" : val === "rejected" ? "✗ Rejected" : "Pending";
+}
+
+function refreshApprBadges() {
+  ["A","B","C","D"].forEach((l) => setApprBadge(`appr-${l}`, state.answerApprovals[l]));
+}
+
+function updatePreview() {
+  const preview = $("disposition-preview"); if (!preview) return;
+  const cfg = VIEWS[state.view]; if (!cfg || cfg.discussion) return;
+  if (cfg.readerMode) {
+    if (!state.readerDecision) { preview.innerHTML = "<strong>No decision selected.</strong> Choose Agree or Disagree."; return; }
+    preview.innerHTML = state.readerDecision === "agree"
+      ? "<strong>Agree.</strong> Item advances. Both tutor decisions are confirmed."
+      : "<strong>Disagree.</strong> Item is held. Disagreement is recorded in reporting for Learning Quality review.";
+    return;
+  }
+  if (!state.score) { preview.innerHTML = "<strong>No score selected.</strong> Choose Approve, Propose change, or Reject."; return; }
+  const isAns = cfg.answerLetter !== null;
+  const msgs = {
+    1: isAns ? "Your approval can advance after the second tutor review. Aggregate 2 moves the answer to AP Reader review." : "Your approval can advance after the second tutor review. Aggregate 2 moves the question to AP Reader review.",
+    2: "Your proposed change requires a note. Aggregate 3 reserves a new version for modification.",
+    3: isAns ? "Your rejection requires a note. Aggregate will be at least 4, excluding the current answer." : "Your rejection requires a note. Aggregate will be at least 4, excluding the current version."
+  };
+  preview.innerHTML = `<strong>Disposition preview.</strong> ${msgs[state.score]}`;
+}
+
+/* ── clearReview ───────────────────────────────────── */
+
+function clearReview() {
+  state.score = null; state.difficulty = null; state.resolution = null;
+  state.readerDecision = null; state.diagnosticFlag = false; state.canonicalDecision = null;
+  $("note-q").value = ""; $("note-a").value = ""; $("discussion-note").value = "";
+  $("question-proposal").value = ""; $("frq-question-proposal").value = "";
+  document.querySelectorAll(".score-button,.difficulty-button,.concern,.agree-button").forEach((b) => { b.classList.remove("selected"); b.setAttribute("aria-pressed","false"); });
+  const diag = $("diagnostic-toggle"); diag.classList.remove("flagged"); diag.setAttribute("aria-pressed","false"); $("diag-check").textContent = "";
+  document.querySelectorAll(".ca-btn").forEach((b) => b.classList.remove("sel-approve","sel-reject"));
+  const cb = $("canonical-badge"); if (cb) { cb.className = "approval-badge pending"; cb.textContent = "Pending review"; }
+  const cdb = $("canonical-drawn-badge"); if (cdb) { cdb.className = "approval-badge pending"; cdb.textContent = "Pending review"; }
+  ["A","B","C","D"].forEach((letter) => markOptionDecision(letter, "pending"));
+  clearTopics(); updatePreview();
+}
+
+/* ── setView ───────────────────────────────────────── */
+
+function setView(view) {
+  state.view = view;
+  const showReview = view !== "tasks";
+  $("view-tasks").hidden = showReview;
+  $("view-review").hidden = !showReview;
+
+  document.querySelectorAll("[data-view]").forEach((b) => b.classList.toggle("active", b.dataset.view === view));
+
+  if (view === "tasks") return;
+
+  const cfg = VIEWS[view];
+  if (!cfg) return;
+  state.role = cfg.role;
+  clearReview();
+
+  // Role switcher
+  document.querySelectorAll("[data-role]").forEach((b) => { const a = b.dataset.role === cfg.role; b.classList.toggle("active",a); b.setAttribute("aria-pressed",String(a)); });
+  $("reviewer-name").textContent = cfg.role === "reader" ? "Avery Morgan" : "Jordan Lee";
+  $("reviewer-context").textContent = cfg.role === "reader" ? "AP Reader validator · AP Biology · Assigned review" : "Tutor validator · AP Biology · Independent assignment";
+
+  // Stage labels
+  $("stage-eyebrow").textContent = cfg.eyebrow;
+  $("stage-title").textContent = cfg.title;
+  $("stage-note").textContent = cfg.note;
+  $("assignment-badge").textContent = cfg.badge;
+  $("artifact-subtitle").textContent = cfg.subtitle;
+  $("context-copy").textContent = cfg.context;
+
+  // Panel
+  $("panel-title").textContent = cfg.discussion ? "Resolve difficulty label" : cfg.readerMode ? "Your AP Reader decision" : "Your independent review";
+  $("panel-copy").textContent = cfg.discussion ? "Compare the three locked labels. Confirm one or create a revision path." : cfg.readerMode ? "Your decision is final. Disagreements are tracked in reporting." : "Choose approve, propose change, or reject. Proposals and returns need a short note.";
+
+  // Score / reader sections
+  $("tutor-score-section").hidden = cfg.readerMode || cfg.discussion;
+  $("reader-section").hidden = !cfg.readerMode || cfg.discussion;
+
+  // Panel sections
+  $("difficulty-section").hidden = !cfg.showDifficulty;
+  $("diagnostic-section").hidden = !cfg.showDiagnostic;
+  $("topic-section").hidden = !cfg.showTopics;
+  $("notes-q").hidden = !cfg.showNotesQ;
+  $("notes-a").hidden = !cfg.showNotesA;
+
+  $("question-decision-badge").textContent = cfg.answerLetter ? "Approve or propose change for answer context" : "Approve or propose change";
+  $("frq-question-decision-badge").textContent = "Approve or propose change";
+
+  // Content
+  $("mcq-content").hidden = !cfg.showMcq;
+  $("frq-content").hidden = !cfg.showFrq;
+
+  // Standard vs discussion
+  $("standard-panel").classList.toggle("hidden", cfg.discussion);
+  $("discussion-panel").classList.toggle("active", cfg.discussion);
+
+  $("independence-copy").textContent = cfg.role === "reader"
+    ? "Tutor decisions are locked evidence. They do not preselect or replace your decision."
+    : "The other tutor cannot see this score or note before both reviews are locked.";
+
+  // Answer highlighting
+  document.querySelectorAll(".option").forEach((o) => o.classList.remove("reviewing"));
+  if (cfg.answerLetter) {
+    state.answerIndex = ["A","B","C","D"].indexOf(cfg.answerLetter);
+    updateAnswerPresentation();
+  } else {
+    $("carousel-pos").textContent = `Question ${state.item} of 12 · Draft saved locally`;
+  }
+
+  refreshApprBadges();
+  updatePreview();
+}
+
+/* ── Answer presentation ───────────────────────────── */
+
+function updateAnswerPresentation() {
+  const letters = ["A","B","C","D"];
+  const letter = letters[state.answerIndex];
+  const isCorrect = letter === "A";
+  document.querySelectorAll(".option").forEach((o) => o.classList.toggle("reviewing", o.dataset.option === letter));
+  $("stage-title").textContent = `Review answer ${letter} · ${state.answerIndex + 1} of 4`;
+  $("artifact-subtitle").textContent = `${state.role === "reader" ? "AP Reader" : "Tutor"} answer review · ${isCorrect ? "Proposed correct answer" : `Distractor ${letter}`}`;
+  $("carousel-pos").textContent = `Answer ${letter} of 4 · Draft saved locally`;
+  $("context-copy").textContent = isCorrect
+    ? "Review whether answer A is scientifically correct, uniquely supported by the stem, and consistent with the rationale."
+    : `Review whether distractor ${letter} is scientifically defensible as an incorrect option, plausible, unambiguous, and free of unintended clues.`;
+  $("note-a-label").innerHTML = `Notes on answer ${letter} <span class="optional-label">optional</span>`;
+}
+
+function loadUploadText(text, sourceLabel) {
+  $("upload-input").value = text;
+  state.uploadText = text;
+  setUploadStatus(`<strong>${sourceLabel} loaded.</strong> Parse the batch to add items to the queue.`);
+}
+
+function selectedConcernCodes() {
+  return Array.from(document.querySelectorAll(".concern.selected"))
+    .map((button) => button.textContent.trim());
+}
+
+function templateDownload() {
+  const blob = new Blob([SAMPLE_UPLOAD], { type: "text/csv;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "cramapple-review-upload-template.csv";
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+/* ── Event wiring ──────────────────────────────────── */
+
+document.querySelectorAll("[data-view]").forEach((b) => b.addEventListener("click", () => setView(b.dataset.view)));
+
+document.querySelectorAll("[data-role]").forEach((b) => {
+  b.addEventListener("click", () => setView(b.dataset.role === "reader" ? "reader-question" : "tutor-mcq"));
+});
+
+document.querySelectorAll("[data-score]").forEach((b) => {
+  b.addEventListener("click", () => {
+    state.score = Number(b.dataset.score);
+    document.querySelectorAll("[data-score]").forEach((c) => { const s = c === b; c.classList.toggle("selected",s); c.setAttribute("aria-pressed",String(s)); });
+    const labels = { 1: "Approve", 2: "Propose change", 3: "Reject" };
+    $("question-decision-badge").textContent = `${labels[state.score]} question or answer`;
+    $("frq-question-decision-badge").textContent = labels[state.score] + " FRQ question";
+    updatePreview();
+  });
+});
+
+document.querySelectorAll("[data-option-action]").forEach((b) => {
+  b.addEventListener("click", () => {
+    const [action, letter] = b.dataset.optionAction.split("-");
+    if (action === "approve") {
+      markOptionDecision(letter, "approved");
+      showStatus(`Answer ${letter} approved.`);
+      return;
     }
+    markOptionDecision(letter, "revised");
+    const proposal = $("question-proposal");
+    proposal.value = proposal.value.trim() || `Propose a revision to answer ${letter}.`;
+    showStatus(`Change proposed for answer ${letter}.`);
+  });
+});
 
-    function clearReview() {
-      state.score = null;
-      state.difficulty = null;
-      state.resolution = null;
-      rationale.value = "";
-      document.getElementById("discussion-note").value = "";
-      document.querySelectorAll(".score-button, .difficulty-button, .concern").forEach((button) => {
-        button.classList.remove("selected");
-        button.setAttribute("aria-pressed", "false");
-      });
-      updatePreview();
+document.querySelectorAll("[data-decision]").forEach((b) => {
+  b.addEventListener("click", () => {
+    state.readerDecision = b.dataset.decision;
+    document.querySelectorAll("[data-decision]").forEach((c) => { const s = c === b; c.classList.toggle("selected",s); c.setAttribute("aria-pressed",String(s)); });
+    updatePreview();
+  });
+});
+
+document.querySelectorAll("[data-difficulty]").forEach((b) => {
+  b.addEventListener("click", () => {
+    state.difficulty = b.dataset.difficulty;
+    document.querySelectorAll("[data-difficulty]").forEach((c) => { const s = c === b; c.classList.toggle("selected",s); c.setAttribute("aria-pressed",String(s)); });
+  });
+});
+
+document.querySelectorAll(".concern").forEach((b) => {
+  b.addEventListener("click", () => { const s = !b.classList.contains("selected"); b.classList.toggle("selected",s); b.setAttribute("aria-pressed",String(s)); });
+});
+
+document.querySelectorAll("[data-resolution]").forEach((b) => {
+  b.addEventListener("click", () => {
+    state.resolution = b.dataset.resolution;
+    document.querySelectorAll("[data-resolution]").forEach((c) => { const s = c === b; c.classList.toggle("selected",s); c.setAttribute("aria-pressed",String(s)); });
+  });
+});
+
+$("diagnostic-toggle").addEventListener("click", () => {
+  state.diagnosticFlag = !state.diagnosticFlag;
+  $("diagnostic-toggle").classList.toggle("flagged", state.diagnosticFlag);
+  $("diagnostic-toggle").setAttribute("aria-pressed", String(state.diagnosticFlag));
+  $("diag-check").textContent = state.diagnosticFlag ? "✓" : "";
+  showStatus(state.diagnosticFlag ? "Flagged as a diagnostic candidate." : "Diagnostic flag removed.");
+});
+
+// Canonical answer actions
+document.querySelectorAll("[data-ca]").forEach((b) => {
+  b.addEventListener("click", () => {
+    const action = b.dataset.ca;
+    if (action === "approve" || action === "approve-drawn") {
+      state.canonicalDecision = "approved";
+      document.querySelectorAll("[data-ca='approve'],[data-ca='approve-drawn']").forEach((el) => el.classList.add("sel-approve"));
+      document.querySelectorAll("[data-ca='edit']").forEach((el) => el.classList.remove("sel-reject"));
+      [$("canonical-badge"), $("canonical-drawn-badge")].forEach((el) => { if (el) { el.className = "approval-badge approved"; el.textContent = "✓ Approved"; } });
+      showStatus("Canonical answer approved.");
+    } else if (action === "edit") {
+      state.canonicalDecision = "revision";
+      document.querySelectorAll("[data-ca='approve'],[data-ca='approve-drawn']").forEach((el) => el.classList.remove("sel-approve"));
+      document.querySelectorAll("[data-ca='edit']").forEach((el) => el.classList.add("sel-reject"));
+      [$("canonical-badge"), $("canonical-drawn-badge")].forEach((el) => { if (el) { el.className = "approval-badge revised"; el.textContent = "↻ Change proposed"; } });
+      showStatus("Change proposed for the canonical answer.");
     }
+  });
+});
 
-    function setRole(role) {
-      state.role = role;
-      document.querySelectorAll("[data-role]").forEach((button) => {
-        const active = button.dataset.role === role;
-        button.classList.toggle("active", active);
-        button.setAttribute("aria-pressed", String(active));
-      });
+// FRQ drawn/text toggle (demo)
+$("frq-toggle").addEventListener("click", () => {
+  state.frqDrawnMode = !state.frqDrawnMode;
+  $("canonical-text").hidden = state.frqDrawnMode;
+  $("canonical-drawn").hidden = !state.frqDrawnMode;
+  $("frq-toggle").textContent = state.frqDrawnMode
+    ? "Switch to text canonical answer (demo)"
+    : "Switch to hand-drawn canonical answer (demo)";
+});
 
-      const reader = role === "reader";
-      document.getElementById("reviewer-name").textContent = reader ? "Avery Morgan" : "Jordan Lee";
-      document.getElementById("reviewer-context").textContent = reader
-        ? "AP Reader validator · AP Biology · Assigned review"
-        : "Tutor validator · AP Biology · Independent assignment";
-      scoreLabel.textContent = reader ? "AP Reader score" : "Tutor score";
-      document.getElementById("score-one-label").textContent = reader ? "Approve" : "Yes";
-      document.getElementById("score-two-label").textContent = reader ? "Edit and recycle" : "Maybe";
-      document.getElementById("score-three-label").textContent = reader ? "Exclude" : "No";
-      independenceCopy.textContent = reader
-        ? "Tutor decisions are locked evidence. They do not preselect or replace your decision."
-        : "The other tutor cannot see this score or rationale before both reviews are locked.";
+$("download-template-btn").addEventListener("click", templateDownload);
+
+$("load-sample-btn").addEventListener("click", () => {
+  loadUploadText(SAMPLE_UPLOAD, "Sample CSV template");
+});
+
+$("upload-file").addEventListener("change", async (event) => {
+  const file = event.target.files && event.target.files[0];
+  if (!file) return;
+  const text = await file.text();
+  loadUploadText(text, file.name);
+});
+
+$("clear-upload-btn").addEventListener("click", () => {
+  state.uploadText = "";
+  $("upload-input").value = "";
+  state.importedItems = [];
+  renderImportedQueue();
+  setUploadStatus("<strong>Batch cleared.</strong> Paste a new template or load the sample.");
+});
+
+$("parse-upload-btn").addEventListener("click", () => {
+  try {
+    const text = $("upload-input").value;
+    const parsed = parseUpload(text);
+    if (!parsed.length) {
+      setUploadStatus("<strong>No rows detected.</strong> Paste the CSV or JSON template before parsing.");
+      return;
     }
-
-    function setView(view) {
-      state.view = view;
-      const config = viewConfig[view];
-      setRole(config.role);
-      clearReview();
-
-      document.querySelectorAll("[data-view]").forEach((button) => {
-        const active = button.dataset.view === view;
-        button.classList.toggle("active", active);
-        button.setAttribute("aria-current", String(active));
+    state.importedItems = parsed;
+    renderImportedQueue();
+    if (hasBackendConfig()) {
+      const rows = parsed.map((item) => ({
+        item_id: item.id,
+        review_stage: item.stage,
+        question_type: item.type,
+        stem: item.stem,
+        answer_letter: item.answerLetter || null,
+        answer_text: item.answerText || null,
+        canonical_answer: item.canonicalAnswer || null,
+        modules: item.modules ? item.modules.split(" · ") : [],
+        subtopics: item.subtopics ? item.subtopics.split(" · ") : [],
+        change_request: item.changeRequest || null,
+        notes: item.notes || null,
+      }));
+      backendRequest("content-intake", {
+        subject_key: "ap_biology",
+        upload_format: text.trim().startsWith("[") ? "json" : "csv",
+        raw_template: text,
+        parser_version: "ux-002-template-v1",
+        rows,
+      }).then((result) => {
+        if (Array.isArray(result.assignments) && result.assignments.length) {
+          TASKS = result.assignments.map(assignmentToTask);
+          buildTaskGrid();
+        }
+        setUploadStatus(`<strong>${parsed.length} item${parsed.length === 1 ? "" : "s"} parsed and synced.</strong> ${Object.entries(parsed.reduce((acc, item) => { acc[item.stage] = (acc[item.stage] || 0) + 1; return acc; }, {})).map(([stage, count]) => `${stage}: ${count}`).join(" · ")}`);
+      }).catch((error) => {
+        setUploadStatus(`<strong>${parsed.length} item${parsed.length === 1 ? "" : "s"} parsed.</strong> DB sync unavailable, using local queue. ${error.message || ""}`);
       });
-
-      stageEyebrow.textContent = config.eyebrow;
-      stageTitle.textContent = config.title;
-      stageNote.textContent = config.note;
-      assignmentBadge.textContent = config.badge;
-      artifactSubtitle.textContent = config.subtitle;
-      contextCopy.textContent = config.context;
-      difficultySection.hidden = !config.difficulty;
-
-      document.querySelectorAll(".option").forEach((option) => {
-        option.classList.toggle("reviewing", option.dataset.option === config.answer);
-      });
-
-      const discussion = view === "difficulty";
-      standardPanel.classList.toggle("hidden", discussion);
-      discussionPanel.classList.toggle("active", discussion);
-
-      panelTitle.textContent = config.answer
-        ? "Review this answer"
-        : readerPanelTitle(view);
-      panelCopy.textContent = config.answer
-        ? "Score this option independently. Maybe and No require a rationale."
-        : readerPanelCopy(view);
-
-      document.getElementById("flow-tutors").classList.toggle("active", view.startsWith("tutor"));
-      document.getElementById("flow-aggregate").classList.toggle("active", view === "difficulty");
-      document.getElementById("flow-reader").classList.toggle("active", view.startsWith("reader"));
-      document.getElementById("flow-release").classList.remove("active");
-
-      if (config.answer) {
-        state.answerIndex = ["A", "B", "C", "D"].indexOf(config.answer);
-        updateAnswerPresentation();
-      } else {
-        document.getElementById("carousel-position").textContent =
-          `Question ${state.item} of 12 · Draft saved locally`;
-      }
+      return;
     }
+    const counts = parsed.reduce((acc, item) => {
+      acc[item.stage] = (acc[item.stage] || 0) + 1;
+      return acc;
+    }, {});
+    const summary = Object.entries(counts).map(([stage, count]) => `${stage}: ${count}`).join(" · ");
+    setUploadStatus(`<strong>${parsed.length} item${parsed.length === 1 ? "" : "s"} parsed.</strong> ${summary}`);
+  } catch (error) {
+    setUploadStatus(`<strong>Upload parse failed.</strong> ${error.message}`);
+  }
+});
 
-    function readerPanelTitle(view) {
-      if (view === "reader-question") return "Your AP Reader review";
-      if (view === "difficulty") return "Resolve difficulty label";
-      return "Your independent review";
-    }
+$("submit-btn").addEventListener("click", () => {
+  const cfg = VIEWS[state.view]; if (!cfg) return;
 
-    function readerPanelCopy(view) {
-      if (view === "reader-question") {
-        return "Choose an AP Reader score and difficulty label. Recycle and Exclude require a rationale.";
-      }
-      if (view === "difficulty") {
-        return "Compare the three locked labels. Confirm one label or create a revision path without rewriting prior decisions.";
-      }
-      return "Choose one score and one difficulty label. Maybe and No require a rationale.";
-    }
+  if (cfg.readerMode) {
+    if (!state.readerDecision) { showStatus("Choose Agree or Disagree before submitting."); return; }
+    showStatus("AP Reader decision recorded. Moving to next item.");
+    return;
+  }
 
-    function updateAnswerPresentation() {
-      const letters = ["A", "B", "C", "D"];
-      const letter = letters[state.answerIndex];
-      const correct = letter === "A";
-      document.querySelectorAll(".option").forEach((option) => {
-        option.classList.toggle("reviewing", option.dataset.option === letter);
-      });
-      stageTitle.textContent = `Review answer ${letter} · ${state.answerIndex + 1} of 4`;
-      artifactSubtitle.textContent = `${state.role === "reader" ? "AP Reader" : "Tutor"} answer review · ${correct ? "Proposed correct answer" : `Distractor ${letter}`}`;
-      document.getElementById("carousel-position").textContent =
-        `Answer ${letter} of 4 · Draft saved locally`;
-      contextCopy.textContent = correct
-        ? "Review whether answer A is scientifically correct, uniquely supported by the stem, and consistent with the rationale."
-        : `Review whether distractor ${letter} is scientifically defensible as an incorrect option, plausible, unambiguous, and free of unintended clues.`;
-    }
+  if (!state.score) { showStatus("Choose a score before submitting."); document.querySelector("[data-score]").focus(); return; }
 
-    function updatePreview() {
-      if (!state.score) {
-        preview.innerHTML = "<strong>No score selected.</strong> Choose 1, 2, or 3 to see what this decision means.";
-        return;
-      }
+  if (cfg.showDifficulty && !state.difficulty) { showStatus("Choose a difficulty label before submitting."); document.querySelector("[data-difficulty]").focus(); return; }
 
-      const answer = state.view.includes("answer");
-      if (state.role === "tutor") {
-        const tutorCopy = {
-          1: "Your Yes can advance only after the second independent tutor review. An aggregate of 2 goes to AP Reader review.",
-          2: "Your Maybe requires a rationale. With a Yes it creates aggregate 3 and reserves a new version for modification; any higher aggregate excludes the current version.",
-          3: answer
-            ? "Your No requires a rationale. The tutor aggregate will be at least 4, excluding the current MCQ package."
-            : "Your No requires a rationale. The tutor aggregate will be at least 4, excluding the current question version."
-        };
-        preview.innerHTML = `<strong>Disposition preview.</strong> ${tutorCopy[state.score]}`;
-        return;
-      }
+  if (cfg.showFrq && !state.canonicalDecision) { showStatus("Approve or propose a change to the canonical answer before submitting."); return; }
 
-      const readerCopy = {
-        1: answer
-          ? "This answer passes AP Reader review. The MCQ remains blocked until all four answers pass."
-          : "This question passes this candidate review stage. Separate source, rights, grading, and release gates still apply.",
-        2: answer
-          ? "Create a new answer/package version and return it to two tutors for independent reassessment."
-          : "Create a new question version and return it to two tutors for independent reassessment.",
-        3: answer
-          ? "Exclude the current MCQ package because one of its required four options failed."
-          : "Exclude the current question version."
-      };
-      preview.innerHTML = `<strong>Disposition preview.</strong> ${readerCopy[state.score]}`;
-    }
+  if (cfg.showTopics && !hasTopicSelection()) { showStatus("Select at least one module and subtopic before submitting."); $("topic-picker").scrollIntoView({ block: "nearest", behavior: "smooth" }); return; }
 
-    document.querySelectorAll("[data-view]").forEach((button) => {
-      button.addEventListener("click", () => setView(button.dataset.view));
+  if (state.score > 1) {
+    const note = cfg.showNotesA ? $("note-a") : (cfg.showFrq ? $("frq-question-proposal") : $("question-proposal"));
+    if (!note.value.trim()) { showStatus("Add a note explaining this decision."); note.focus(); return; }
+  }
+
+  if (cfg.answerLetter && state.score === 1) {
+    state.answerApprovals[cfg.answerLetter] = "approved";
+    refreshApprBadges();
+  } else if (cfg.answerLetter && state.score === 3) {
+    state.answerApprovals[cfg.answerLetter] = "rejected";
+    refreshApprBadges();
+  }
+
+  if (hasBackendConfig() && state.selectedAssignmentId && state.selectedTask?.artifactVersionId) {
+    const decision = cfg.readerMode
+      ? state.readerDecision
+      : state.score === 1
+        ? "approve"
+        : state.score === 2
+          ? "propose_change"
+          : "reject";
+    const rationale = cfg.readerMode
+      ? $("discussion-note").value.trim() || "Reader decision recorded."
+      : (cfg.showNotesA ? $("note-a").value.trim() : cfg.showFrq ? $("frq-question-proposal").value.trim() : $("question-proposal").value.trim());
+    backendRequest("review-decision", {
+      content_review_assignment_id: state.selectedAssignmentId,
+      artifact_version_id: state.selectedTask.artifactVersionId,
+      decision: decision || "approve",
+      score: cfg.readerMode ? null : state.score,
+      rationale,
+      change_request: cfg.showFrq ? $("frq-question-proposal").value.trim() || null : $("question-proposal").value.trim() || null,
+      concern_codes: selectedConcernCodes(),
+    }).then(() => {
+      showStatus("Review saved to the database. Moving to next item.");
+      storeAssignmentId(null);
+    }).catch((error) => {
+      showStatus(`Review saved locally. DB sync unavailable: ${error.message || error}`);
     });
+    return;
+  }
 
-    document.querySelectorAll("[data-role]").forEach((button) => {
-      button.addEventListener("click", () => {
-        const view = button.dataset.role === "reader" ? "reader-question" : "tutor-question";
-        setView(view);
-      });
-    });
+  showStatus("Review submitted locally. Moving to next item.");
+});
 
-    document.querySelectorAll("[data-score]").forEach((button) => {
-      button.addEventListener("click", () => {
-        state.score = Number(button.dataset.score);
-        document.querySelectorAll("[data-score]").forEach((choice) => {
-          const selected = choice === button;
-          choice.classList.toggle("selected", selected);
-          choice.setAttribute("aria-pressed", String(selected));
-        });
-        updatePreview();
-      });
-    });
+$("submit-resolution").addEventListener("click", () => {
+  if (!state.resolution) { showStatus("Choose a difficulty resolution."); return; }
+  if (!$("discussion-note").value.trim()) { showStatus("Record the reason for this outcome."); $("discussion-note").focus(); return; }
+  showStatus(state.resolution === "Revise"
+    ? "Revision path recorded. A new immutable version is required."
+    : `Difficulty confirmed as ${state.resolution}. Prior labels remain locked.`);
+});
 
-    document.querySelectorAll("[data-difficulty]").forEach((button) => {
-      button.addEventListener("click", () => {
-        state.difficulty = button.dataset.difficulty;
-        document.querySelectorAll("[data-difficulty]").forEach((choice) => {
-          const selected = choice === button;
-          choice.classList.toggle("selected", selected);
-          choice.setAttribute("aria-pressed", String(selected));
-        });
-      });
-    });
+$("skip-btn").addEventListener("click", () => showStatus("Item skipped. It remains in your queue."));
 
-    document.querySelectorAll(".concern").forEach((button) => {
-      button.addEventListener("click", () => {
-        const selected = !button.classList.contains("selected");
-        button.classList.toggle("selected", selected);
-        button.setAttribute("aria-pressed", String(selected));
-      });
-    });
+$("prev-btn").addEventListener("click", () => {
+  const cfg = VIEWS[state.view];
+  if (cfg && cfg.answerLetter !== null) { state.answerIndex = Math.max(0, state.answerIndex - 1); updateAnswerPresentation(); showStatus("Previous answer."); return; }
+  state.item = Math.max(1, state.item - 1);
+  $("carousel-pos").textContent = `Question ${state.item} of 12 · Draft saved locally`;
+  showStatus("Previous item.");
+});
 
-    document.querySelectorAll("[data-resolution]").forEach((button) => {
-      button.addEventListener("click", () => {
-        state.resolution = button.dataset.resolution;
-        document.querySelectorAll("[data-resolution]").forEach((choice) => {
-          const selected = choice === button;
-          choice.classList.toggle("selected", selected);
-          choice.setAttribute("aria-pressed", String(selected));
-        });
-      });
-    });
+$("next-btn").addEventListener("click", () => {
+  const cfg = VIEWS[state.view];
+  if (cfg && cfg.answerLetter !== null) { state.answerIndex = Math.min(3, state.answerIndex + 1); updateAnswerPresentation(); showStatus("Next answer."); return; }
+  state.item = Math.min(12, state.item + 1);
+  $("carousel-pos").textContent = `Question ${state.item} of 12 · Draft saved locally`;
+  showStatus("Next item.");
+});
 
-    document.getElementById("submit-review").addEventListener("click", () => {
-      if (!state.score) {
-        showStatus("Choose a score before submitting.");
-        document.querySelector("[data-score]").focus();
-        return;
-      }
+document.addEventListener("keydown", (e) => {
+  if ($("standard-panel").classList.contains("hidden")) return;
+  if (e.target.matches("textarea,input,select")) return;
+  if (!["1","2","3"].includes(e.key)) return;
+  const b = document.querySelector(`[data-score="${e.key}"]`);
+  if (b && !$("tutor-score-section").hidden) { b.click(); b.focus(); }
+});
 
-      const needsDifficulty = !difficultySection.hidden;
-      if (needsDifficulty && !state.difficulty) {
-        showStatus("Choose a difficulty label before submitting.");
-        document.querySelector("[data-difficulty]").focus();
-        return;
-      }
-
-      if (state.score > 1 && !rationale.value.trim()) {
-        showStatus("Add a rationale for this decision.");
-        rationale.focus();
-        return;
-      }
-
-      showStatus("Review submitted and locked. The next eligible assignment is ready.");
-    });
-
-    document.getElementById("submit-resolution").addEventListener("click", () => {
-      const note = document.getElementById("discussion-note");
-      if (!state.resolution) {
-        showStatus("Choose a difficulty resolution.");
-        document.querySelector("[data-resolution]").focus();
-        return;
-      }
-      if (!note.value.trim()) {
-        showStatus("Record the reason for this discussion outcome.");
-        note.focus();
-        return;
-      }
-      showStatus(state.resolution === "Revise"
-        ? "Revision path recorded. A new immutable version is required."
-        : `Difficulty confirmed as ${state.resolution}. Prior labels remain locked.`);
-    });
-
-    document.getElementById("recuse").addEventListener("click", () => {
-      showStatus("Recusal would record a conflict event and return this assignment for replacement.");
-    });
-
-    document.getElementById("previous-item").addEventListener("click", () => {
-      if (state.view.includes("answer")) {
-        state.answerIndex = Math.max(0, state.answerIndex - 1);
-        updateAnswerPresentation();
-        showStatus("Previous answer loaded. Draft state is preserved in this prototype.");
-        return;
-      }
-      state.item = Math.max(1, state.item - 1);
-      document.getElementById("carousel-position").textContent =
-        `Question ${state.item} of 12 · Draft saved locally`;
-      showStatus("Previous prototype item loaded.");
-    });
-
-    document.getElementById("next-item").addEventListener("click", () => {
-      if (state.view.includes("answer")) {
-        state.answerIndex = Math.min(3, state.answerIndex + 1);
-        updateAnswerPresentation();
-        showStatus("Next answer loaded. Draft state is preserved in this prototype.");
-        return;
-      }
-      state.item = Math.min(12, state.item + 1);
-      document.getElementById("carousel-position").textContent =
-        `Question ${state.item} of 12 · Draft saved locally`;
-      showStatus("Next prototype item loaded.");
-    });
-
-    document.addEventListener("keydown", (event) => {
-      if (standardPanel.classList.contains("hidden")) return;
-      if (event.target.matches("textarea, input, select")) return;
-      if (!["1", "2", "3"].includes(event.key)) return;
-      const button = document.querySelector(`[data-score="${event.key}"]`);
-      button.click();
-      button.focus();
-    });
-
-    setView("tutor-question");
-  </script>
+/* ── Init ──────────────────────────────────────────── */
+buildTaskGrid();
+buildTopicPicker();
+renderImportedQueue();
+loadUploadText(SAMPLE_UPLOAD, "Sample CSV template");
+void refreshReviewerContext();
+loadRemoteQueue();
+setView("tasks");
+</script>
 </body>
 </html>
