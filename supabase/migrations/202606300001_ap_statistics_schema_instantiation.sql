@@ -14,17 +14,15 @@ with upserted_subject as (
   returning id
 ),
 upserted_pack as (
-  insert into app.exam_packs (exam_code, exam_name, subject, subject_id)
+  insert into app.exam_packs (exam_code, exam_name, subject_id)
   select
     'ap_statistics',
     'AP Statistics',
-    'statistics',
     id
   from upserted_subject
   on conflict (exam_code)
   do update set
     exam_name = excluded.exam_name,
-    subject = excluded.subject,
     subject_id = excluded.subject_id
   returning id
 ),
