@@ -193,12 +193,7 @@ def _pair_candidates(answer_text: str) -> list[Claim]:
 
 
 def extract_confidence_interval_claims(answer_text: str) -> list[Claim]:
-    pair_candidates = _pair_candidates(answer_text)
-    if not pair_candidates:
-        return []
-    if len(pair_candidates) != 1:
-        return []
-    return pair_candidates
+    return _pair_candidates(answer_text)
 
 
 def compare_single_value(candidate: Claim, expected: float, tolerance: float) -> bool:
@@ -236,13 +231,13 @@ def evaluate(answer_text: str, expected_spec: dict[str, Any]) -> dict[str, Any]:
         if not claims:
             return {
                 "verdict": "indeterminate",
-                "reason": "No unambiguous confidence-interval claim could be extracted.",
+                "reason": "No confidence-interval claim could be extracted.",
                 "detected_claims": [],
             }
         if len(claims) > 1:
             return {
                 "verdict": "indeterminate",
-                "reason": "Multiple confidence-interval claims were found and the answer is ambiguous.",
+                "reason": "Multiple confidence-interval claims were found; cannot determine which one answers this criterion.",
                 "detected_claims": [claim.__dict__ for claim in claims],
             }
         claim = claims[0]
