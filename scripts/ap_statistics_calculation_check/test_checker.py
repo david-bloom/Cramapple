@@ -83,6 +83,24 @@ class CalculationCheckerTest(unittest.TestCase):
             }
         )
         self.assert_verdict(result, "indeterminate")
+        self.assertIn("Multiple confidence-interval claims were found", result["reason"])
+        self.assertGreaterEqual(len(result["detected_claims"]), 2)
+
+    def test_no_confidence_interval_claim(self):
+        result = checker.check_request(
+            {
+                "response_id": "ci-none",
+                "answer_text": "I think the interval is around the middle, but I did not compute it.",
+                "expected_answer_spec": {
+                    "calculation_type": "confidence_interval",
+                    "target": {"lower": 12.4, "upper": 18.9},
+                    "tolerance": 0.1,
+                },
+            }
+        )
+        self.assert_verdict(result, "indeterminate")
+        self.assertIn("No confidence-interval claim could be extracted", result["reason"])
+        self.assertEqual(result["detected_claims"], [])
 
     def test_tolerance_edge_matches_with_float_noise(self):
         result = checker.check_request(
