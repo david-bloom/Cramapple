@@ -9,7 +9,7 @@ When documents conflict, use this order:
 3. Canonical product documents in `docs/product/`.
 4. Approved team-charter and operating documents.
 5. Current architecture, curriculum, marketing, and economics documents when created.
-6. Root-level `Blueprint_*` files as speculative historical inputs only.
+6. `legacy/` files (early `Blueprint_*` planning docs, formerly loose at repo root) as speculative historical inputs only.
 
 Material contradictions should be surfaced to David Bloom, Product Owner, rather than silently resolved.
 

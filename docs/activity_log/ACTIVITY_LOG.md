@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Legacy Blueprint Files Relocated to `legacy/` — 2026-07-01
 - AP Statistics Launch Task Drafted (TASK-0013) — 2026-06-30
 - Hand-Drawn Graph Corpus Realism Fix and Four-Finding Spot-Check — 2026-06-30
 - New-User Experience Live QA — 2026-06-29
@@ -19,6 +20,27 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 ---
+
+## Legacy Blueprint Files Relocated to `legacy/` - 2026-07-01
+
+**Task:** Housekeeping (no task ID; doc-only, standing-approval cleanup).
+**Status:** Done.
+
+**Summary:** The `Blueprint_*` planning docs and `PROJECT_SETUP.md` (dated
+2026-06-08/09) were sitting in an untracked, never-committed `legacy
+content/` directory (note the space) at repo root — meaning `docs/README.md`'s
+Authority Order item 6 referenced "root-level `Blueprint_*` files" that did
+not actually exist in git. Moved the eight files into a new tracked `legacy/`
+directory and updated `docs/README.md` item 6 to point at it. Historical
+references to "root-level `Blueprint_*` files" in `CRAMAPPLE_VISION.md`,
+`DECISIONS_LOG.md` (`DECISION-0001` consequences), and
+`TASK-0003-HIGH-LEVEL-SYSTEM-ARCHITECTURE.md` were left unchanged as
+accurate-at-the-time historical record; only the current normative pointer in
+`docs/README.md` was updated.
+
+**Next Owner:** David Bloom.
+**Next Required Action:** None — informational. Confirm before merge if this
+should also be reflected in `CRAMAPPLE_VISION.md`/`DECISIONS_LOG.md`.
 
 ## AP Statistics Launch Task Drafted (TASK-0013) - 2026-06-30
 
