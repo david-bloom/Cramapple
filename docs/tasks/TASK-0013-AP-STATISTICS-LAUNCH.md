@@ -231,10 +231,10 @@ before its inputs exist.
 |---|---|---|---|---|
 | 0 | Decision gate — the 5 pending owner decisions above | **David** | — | **Done** (`DECISION-0031`) |
 | 1 | De-hardcode grading prompts; resolve subject from `app.exam_packs` per attempt; regression-test against AP Biology | **Codex** (backend) | Phase 0 approval | **Done, merged** (PR #20) |
-| 2 | `app.subjects` row, exam_pack + content_labels for AP Statistics, additive migration | **Codex** (backend), reviewed by **Orly** for label correctness | Phase 1 | **Cleared** (`DECISION-0032`, `APPROVAL-0025`) — Codex executing |
-| 3 | Deterministic calculation-check verifier for Stats FRQ criteria | **Codex** (backend) | Phase 1 | **Done, merged** (PR #24) — two QA rounds, both Pass. Non-blocking follow-up (diagnostic text only) cleared and queued (`prompts/CODEX_AP_STATISTICS_PHASE3_FOLLOWUP_CI_REASON_TEXT.md`) |
-| 4 | Pilot content batch (governed authoring, no official material) | **Orly** (curriculum), same governance gates as Biology | Phase 2 | Brief drafted (`docs/product/AP_STATISTICS_PHASE4_CONTENT_AUTHORING_BRIEF.md`), blocked on Phase 2 landing |
-| 5 | Subject selector + AP Statistics practice/assessment routes | **Lovable** (frontend) | Phase 2 + 4 (real content to render) | Prompt drafted (`prompts/LOVABLE_AP_STATISTICS_PHASE5_SUBJECT_SELECTOR.md`), blocked on Phase 2 + 4 |
+| 2 | `app.subjects` row, exam_pack + content_labels for AP Statistics, additive migration | **Codex** (backend), reviewed by **Orly** for label correctness | Phase 1 | **Done, merged** (PR #26) — one QA round found a fatal bug (stale reference to a column dropped by an earlier migration; would have failed to apply), fixed, re-QA Pass |
+| 3 | Deterministic calculation-check verifier for Stats FRQ criteria | **Codex** (backend) | Phase 1 | **Done, merged** (PR #24 + follow-up PR #27) — three QA rounds total across both PRs, all ultimately Pass |
+| 4 | Pilot content batch (governed authoring, no official material) | **Orly** (curriculum), same governance gates as Biology | Phase 2 | Brief ready (`docs/product/AP_STATISTICS_PHASE4_CONTENT_AUTHORING_BRIEF.md`) — **unblocked**, Phase 2 has landed |
+| 5 | Subject selector + AP Statistics practice/assessment routes | **Lovable** (frontend) | Phase 2 + 4 (real content to render) | Prompt drafted (`prompts/LOVABLE_AP_STATISTICS_PHASE5_SUBJECT_SELECTOR.md`), still blocked on Phase 4 content |
 | 6 | Calibration run against AP Statistics gold set; tutor credentialing | **Claude/QA Agent** (protocol) + **David** (tutor pool decision) | Phases 3–4 | Protocol drafted (`docs/research/AP_STATISTICS_PHASE6_CALIBRATION_PROTOCOL.md`), blocked on Phase 3 + 4 |
 | 7 | Launch readiness review (separate Hard Gate — not granted by this task) | **David** | All above | Not started |
 
@@ -296,6 +296,39 @@ multi-claims for the CI path) — queued as a follow-up, not a blocker.
 9/9 tests passing. Demonstrates the value of the two-round QA pattern: the
 first round's adversarial verification (not just "tests pass") is what
 caught bugs a less skeptical review would have missed.
+
+**Phase 3 follow-up (PR #27) QA Verdict: Pass.** Fixed the diagnostic-text
+gap PR #24's re-QA flagged (CI 0-claims vs. multi-claims now produce
+distinct `reason`/`detected_claims` output instead of collapsing to the
+same generic message). QA independently ran adversarial inputs beyond the
+new tests (0, 1, 3, and 4-pair cases), confirmed verdict logic (still
+`indeterminate` either way) was genuinely unchanged, and confirmed no
+scope creep. One pre-existing (not introduced by this PR) cosmetic note:
+the underlying pair-extraction regex can produce near-duplicate candidates
+in `detected_claims` at 3+ pairs — harmless, flagged for a future
+follow-up, not blocking. 10/10 tests passing.
+
+**Phase 2 (PR #26) QA Verdict: Pass, on second round.** First round found
+one fatal, blocking bug: the migration inserted into
+`app.exam_packs.subject`, a column dropped six days earlier by
+`202606230002_subjects_normalization.sql` — this would have made the
+migration fail outright at apply time with "column does not exist." Every
+other structural check passed clean on the first round (constraint names,
+`draft` status on the new exam_pack_version, valid check-constraint values,
+no collision with the AP Biology row, exam date verified correct against
+College Board's published 2026 schedule). Fixed by removing the stale
+`subject`/`excluded.subject` references and confirming `subject_id` (the FK
+that replaced it) was already wired correctly. Re-QA independently
+confirmed the column no longer appears anywhere in the file, the on-conflict
+SET clause is syntactically valid after the removal, and did a full fresh
+read of the file rather than trusting the diff alone.
+
+This is the second QA round in this task to catch a real, would-have-shipped
+defect before merge (the first being Phase 3's CI ambiguity bug) — both
+caught by adversarial/structural verification a "does it look right"
+pass would have missed, and both on changes that had already been
+authorized/cleared, since QA is independent of and does not substitute for
+approval.
 
 ## Done Decision
 
