@@ -1380,3 +1380,105 @@ now is low.
 - This decision does not authorize publishing the exam pack, content
   labels, or any content — that remains a separate decision per the
   prompt's explicit scope boundary.
+
+## DECISION-0033 — Publish and Publicly Expose Unreviewed AP Statistics Content for Feedback and Tutor Recruiting
+
+**Date:** 2026-07-01 through 2026-07-03
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Related Task:** TASK-0013
+**Area:** Content Governance / Product
+
+### Context
+
+`TASK-0013` Phase 4's authoring brief (`docs/product/AP_STATISTICS_PHASE4_CONTENT_AUTHORING_BRIEF.md`)
+states pilot content gets "the same originality, scientific/statistical,
+and teaching/grading gates Biology content goes through — no shortcut for
+being 'just a pilot.'" As of 2026-07-01, 48 AP Statistics items (18
+Claude-generated MCQs, 18 David-supplied short FRQs, 12 Codex-generated
+hand-drawn graph-response FRQs) existed with zero tutor/reader review and
+zero formal rights-clearance record (`content_item_versions.review_status`
+null on all items; no `app.rights_records` row for any of them). This
+decision retroactively records three related, previously chat-only
+instructions as durable governance, per `feedback_governance`'s "chat-only
+decisions don't count" rule.
+
+### Decision
+
+1. **Publish despite no tutor review (2026-07-01).** David instructed
+   directly: "fix the errors and publish." 36 of the 48 items (the MCQ and
+   short-FRQ smoke batch) were promoted from `content_ingest_rows` staging
+   into the live `content_items`/`content_item_versions` tables
+   (`status = 'published'`), after two confirmed computational errors were
+   found and fixed by independent recomputation (see
+   `docs/research/ap_statistics_phase4_mcq_smoke_batch_2026_07_01/README.md`).
+   `content_item_versions.review_status` was deliberately left `NULL`
+   rather than fabricated, and no `app.release_candidates`/`rights_gate`
+   assertion was written, since neither was true. The remaining 12
+   hand-drawn graph-response items were staged only (per explicit
+   instruction that tutors would review those before publish) and remain
+   in `content_ingest_rows`, not yet promoted.
+2. **Rights/originality clearance is not a blocking concern for this
+   content (2026-07-03 clarification).** David: "Rights/originality
+   clearance is not an issue. By rule we are not using College Board
+   questions." This restates, rather than reopens, the rights posture
+   already settled in `DECISION-0031` ("no official CollegeBoard material
+   as model input or exemplar") and the general policy in
+   `CONTENT_GOVERNANCE_AND_VALIDATION.md`: because all AP Statistics
+   content is independently authored synthetic material by construction,
+   not derived from copyrighted CollegeBoard exam content, the
+   infringement risk the formal `rights_records`/`rights_gate` process
+   exists to catch does not apply here. This does **not** mean the formal
+   DB-level rights gate has been run (it hasn't, and the `content_gate`
+   comment in `supabase/functions/admin-content/index.ts:156-186` about
+   client-asserted-but-unverified gates still stands as a real system gap)
+   — it means the underlying risk is judged not present for this specific
+   content by policy, so the absence of that DB record is not itself a
+   blocker.
+3. **Show it as live/selectable on the public site despite no review
+   (2026-07-03).** David: "we are showing cramapple to students and tutors
+   and so need the site to look live even though payment is not live and
+   tutors and readers have not reviewed. this is necessary for user
+   feedback and tutor recruiting." This authorizes
+   `prompts/LOVABLE_SIGNUP_DYNAMIC_SUBJECTS.md`'s design: AP Statistics
+   renders as "Available" (not "Coming Soon") on `/signup`, selectable by
+   real external users, specifically because real payment processing is
+   not currently live site-wide (no financial exposure) and because
+   showing it to tutors is part of how it gets reviewed. This is a
+   deliberate, scoped exception — it does not authorize marketing AP
+   Statistics as launch-ready, does not authorize enabling real payment
+   for it, and does not extend to any other unreviewed subject without a
+   separate decision.
+
+### Rationale
+
+Cramapple's stated near-term need (per this decision) is user feedback and
+tutor recruiting, not a commercial AP Statistics launch. With payment not
+live, the actual risk surface of showing unreviewed content is bounded —
+no student can be charged for it, and the tutors seeing it are exactly the
+population meant to review it. The rights concern is resolved by the
+project's standing no-official-material authoring policy, not by this
+decision creating a new exception.
+
+### Consequences
+
+- AP Statistics MCQ/short-FRQ content (36 items) is live and gradeable in
+  Production without tutor review. The 12 hand-drawn graph-response items
+  remain staged, not published, pending tutor review as originally
+  instructed.
+- `/signup` may render AP Statistics as purchasable-looking even though no
+  real purchase should be expected to complete meaningfully differently
+  from Biology's current (possibly also non-live) payment state — see the
+  open question this raises about Biology's own `evaluate-attempt` publish
+  gate, tracked separately, not resolved by this decision.
+- This decision does **not** constitute a Done decision, a QA pass, or a
+  production launch approval for AP Statistics per `feedback_governance`'s
+  Definition of Done — tutor review, rights-gate formalization (if ever
+  desired), and a genuine launch-readiness review remain separate, future
+  decisions.
+- Test reviewer accounts (`tutor-a`, `tutor-b`, `reader-a`,
+  `admin@cramapple-test.internal`) were disabled (`auth.users.banned_until`
+  set to 2099, not deleted — deletion was blocked by real historical
+  `content_review_assignments`/`content_review_decisions` rows that would
+  have cascade-deleted) ahead of real tutors being recruited under this
+  decision.

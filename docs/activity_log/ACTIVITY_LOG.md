@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Cramapple-Wide QA Pass: AP Biology Publish Gap Found; Governance Paperwork and Test-Account Cleanup — 2026-07-03
 - AP Statistics Hand-Drawn Graph-Response Seed QA'd and Staged — 2026-07-02
 - AP Statistics Smoke Batch QA-Fixed and Published Live — 2026-07-01
 - AP Statistics Phase 2 Migration Applied; MCQ + Short FRQ Smoke Batches Staged — 2026-07-01
@@ -21,6 +22,68 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## Cramapple-Wide QA Pass: AP Biology Publish Gap Found; Governance Paperwork and Test-Account Cleanup - 2026-07-03
+
+**Task:** Cross-cutting, relates to TASK-0012, TASK-0013.
+**Status:** One urgent new finding surfaced, not yet fixed. Two cleanup items closed.
+
+**Summary:** At David's request for "what remains for AP Bio and AP Stats
+beyond tutor approval and payment," did a live QA pass across both
+subjects rather than relying on prior session notes.
+
+**Finding (urgent, unresolved): AP Biology has zero published content in
+Production.** All 242 `app.content_items`/`content_item_versions` rows for
+AP Biology (100 MCQ + 142 FRQ) sit at `status = 'draft'`.
+`evaluate-attempt` (`supabase/functions/evaluate-attempt/index.ts:875-879`)
+unconditionally requires `content_items.status`, `content_item_versions
+.status`, and `exam_pack_versions.status` to all equal `'published'` — Bio's
+exam pack version is published, but no individual item is, so real student
+attempts should currently fail with `content_not_published` (409) across
+the board. Across the entire database, AP Statistics (36 items, published
+2026-07-01) is the *only* subject with any published content right now.
+This directly contradicts a successful live grading walkthrough recorded
+in "New-User Experience Live QA" (2026-06-29) — timeline/cause not yet
+investigated. Not fixed in this session; flagged for the next session to
+root-cause before assuming Biology grading works.
+
+**Governance paperwork closed:** confirmed most AP Statistics docs
+(`TASK-0013.md`, the MCQ/FRQ smoke batch, three prompt files) were already
+committed and pushed by a parallel process (commit `0027e7a`). Committed
+and pushed the remaining four files this session had produced (
+`docs/research/ap_statistics_graph_response_seed_2026_07_02/`,
+`scripts/generate_ap_statistics_graph_response_seed.py`,
+`prompts/LOVABLE_SIGNUP_DYNAMIC_SUBJECTS.md`,
+`prompts/LOVABLE_HOMEPAGE_DEMO_FRQ.md`). Recorded `DECISION-0033` in
+`DECISIONS_LOG.md`, formalizing three previously chat-only instructions:
+publishing AP Statistics content without tutor review (2026-07-01), the
+rights/originality-is-not-a-blocker clarification (2026-07-03, restates
+`DECISION-0031`'s existing no-official-material policy rather than
+reopening it), and showing AP Statistics as live/selectable on `/signup`
+for feedback and tutor-recruiting purposes given payment isn't live
+(2026-07-03).
+
+**Test-account cleanup closed, via disable rather than delete.** Checked
+FK constraints before acting: `created_by` on this session's content
+(`content_items`, `content_item_versions`, `content_ingest_batches`,
+`content_ingest_rows` — 123 rows total) is `ON DELETE NO ACTION`, so a hard
+delete would have simply failed rather than cascading. But
+`content_review_assignments` (5 rows) and `content_review_decisions` (3
+rows) reference these accounts as `reviewer_id` with `ON DELETE CASCADE`
+— real historical Biology reviewer-workflow QA data, not test noise a hard
+delete would have destroyed. Set `auth.users.banned_until = '2099-01-01'`
+for all four test accounts (`tutor-a`, `tutor-b`, `reader-a`,
+`admin@cramapple-test.internal`) instead — login disabled, referential
+integrity and review history intact.
+
+**Next Owner:** David Bloom.
+**Next Required Action:** Investigate and fix the AP Biology publish gap
+before assuming Biology grading works for real students. If Biology
+content actually needs the same manual promotion AP Statistics got, that's
+a materially bigger action (242 items vs. 36) and should get the same
+explicit go-ahead DECISION-0032/0033 got.
 
 ---
 
