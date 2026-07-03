@@ -233,20 +233,32 @@ before its inputs exist.
 | 1 | De-hardcode grading prompts; resolve subject from `app.exam_packs` per attempt; regression-test against AP Biology | **Codex** (backend) | Phase 0 approval | **Done, merged** (PR #20) |
 | 2 | `app.subjects` row, exam_pack + content_labels for AP Statistics, additive migration | **Codex** (backend), reviewed by **Orly** for label correctness | Phase 1 | **Done, merged** (PR #26) — one QA round found a fatal bug (stale reference to a column dropped by an earlier migration; would have failed to apply), fixed, re-QA Pass |
 | 3 | Deterministic calculation-check verifier for Stats FRQ criteria | **Codex** (backend) | Phase 1 | **Done, merged** (PR #24 + follow-up PR #27) — three QA rounds total across both PRs, all ultimately Pass |
-| 4 | Pilot content batch (governed authoring, no official material) | **Orly** (curriculum), same governance gates as Biology | Phase 2 | Brief ready (`docs/product/AP_STATISTICS_PHASE4_CONTENT_AUTHORING_BRIEF.md`) — **unblocked**, Phase 2 has landed |
-| 5 | Subject selector + AP Statistics practice/assessment routes | **Lovable** (frontend) | Phase 2 + 4 (real content to render) | Prompt drafted (`prompts/LOVABLE_AP_STATISTICS_PHASE5_SUBJECT_SELECTOR.md`), still blocked on Phase 4 content |
-| 6 | Calibration run against AP Statistics gold set; tutor credentialing | **Claude/QA Agent** (protocol) + **David** (tutor pool decision) | Phases 3–4 | Protocol drafted (`docs/research/AP_STATISTICS_PHASE6_CALIBRATION_PROTOCOL.md`), blocked on Phase 3 + 4 |
+| 4 | Pilot content batch (governed authoring, no official material) | **Orly** (curriculum), same governance gates as Biology | Phase 2 | Brief ready (`docs/product/AP_STATISTICS_PHASE4_CONTENT_AUTHORING_BRIEF.md`); execution prompt drafted (`prompts/CODEX_AP_STATISTICS_PHASE4_PILOT_CONTENT_BATCH.md`); smoke batch published live in Production after QA fixup |
+| 5 | Subject selector + AP Statistics practice/assessment routes | **Lovable** (frontend) | Phase 2 + 4 (real content to render) | Validated in Lovable; AP Statistics-ready subject-aware onboarding is already fully implemented and no frontend changes are needed right now |
+| 6 | Calibration run against AP Statistics gold set; tutor credentialing | **Claude/QA Agent** (protocol) + **David** (tutor pool decision) | Phases 3–4 | Protocol drafted (`docs/research/AP_STATISTICS_PHASE6_CALIBRATION_PROTOCOL.md`) and execution prompt drafted (`prompts/CLAUDE_AP_STATISTICS_PHASE6_CALIBRATION_RUN.md`); execution thread launched, still waiting on real blind tutor-scored data |
 | 7 | Launch readiness review (separate Hard Gate — not granted by this task) | **David** | All above | Not started |
 
-Every phase now has a ready-to-execute handoff drafted. Phases 2, 4, 5, and 6
-are blocked on dependencies (Phase 2 needs your migration go-ahead; 4/5/6
-cascade from there) — nothing further to draft until those unblock.
+Every phase now has a handoff or live artifact in place. Phase 5 is now
+validated as already implemented; Phase 6 still needs real blind tutor-scored
+data before it can be called fully complete, but the execution packets are no
+longer the blocker.
+
+Rule of thumb: Phases 1 and 3 are platform-level capabilities that should
+generalize to later subjects; Phases 2 and 4 are subject-specific instantiation
+and content; Phase 5 mixes shared platform UI with subject-specific content
+once content exists.
 
 A ready-to-fire Codex prompt for Phase 1 is drafted at
 `prompts/CODEX_AP_STATISTICS_PHASE1_GRADING_GENERALIZATION.md`, marked
-do-not-execute until this task's Approval State changes to Approved. No
-Lovable prompt is drafted yet — Phase 5's input-UI decision depends on Phase
-1's output and would be speculative before that.
+do-not-execute until this task's Approval State changes to Approved.
+Phase 4's execution prompt is now drafted at
+`prompts/CODEX_AP_STATISTICS_PHASE4_PILOT_CONTENT_BATCH.md` and the smoke
+batch has been published live after QA fixup; the Lovable subject-aware
+onboarding prompt lives at
+`prompts/LOVABLE_AP_STATISTICS_SUBJECT_AWARE_ONBOARDING.md` and Lovable
+confirmed the frontend is already implemented; and the Phase 6 calibration
+run prompt lives at `prompts/CLAUDE_AP_STATISTICS_PHASE6_CALIBRATION_RUN.md`
+and has been launched as a separate execution thread.
 
 **Phase 3 status: implemented as a standalone checker.** Added
 `scripts/ap_statistics_calculation_check/checker.py` plus synthetic tests in

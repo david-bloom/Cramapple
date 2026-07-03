@@ -6,6 +6,9 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- AP Statistics Hand-Drawn Graph-Response Seed QA'd and Staged — 2026-07-02
+- AP Statistics Smoke Batch QA-Fixed and Published Live — 2026-07-01
+- AP Statistics Phase 2 Migration Applied; MCQ + Short FRQ Smoke Batches Staged — 2026-07-01
 - Legacy Blueprint Files Relocated to `legacy/` — 2026-07-01
 - AP Statistics Launch Task Drafted (TASK-0013) — 2026-06-30
 - Hand-Drawn Graph Corpus Realism Fix and Four-Finding Spot-Check — 2026-06-30
@@ -20,6 +23,167 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 ---
+
+## AP Statistics Hand-Drawn Graph-Response Seed QA'd and Staged - 2026-07-02
+
+**Task:** TASK-0013 (AP Statistics, Subject 2) Phase 4; relates to TASK-0011 (hand-drawn graph grading).
+**Status:** Staged for tutor review only. Not reviewed, not published. Content and generator script authored by Codex in a separate worktree (`/Users/davidbloom/.codex/worktrees/da74/Cramapple`), QA'd and migrated by Claude.
+
+**Summary:** At David's request, QA'd Codex's
+`scripts/generate_ap_statistics_graph_response_seed.py` (840-line
+deterministic generator, no randomness, PIL-based reference-image rendering)
+and the 12 AP Statistics graph-response FRQs it produced (6 archetypes x 2:
+boxplot, segmented bar, mosaic plot, dotplot, scatterplot, curve
+annotation). Independently recomputed every numeric/statistical claim in
+all 12 items rather than reading them at face value. Found one real error:
+`APSTATS-HDG-2026-GRAPH-010`'s canonical answer claimed 82 cm should not be
+called a definite outlier; recomputing the standard 1.5xIQR rule on that
+item's own dataset (Q1=71.5, Q3=75.5, upper fence=81.5) shows 82 exceeds the
+fence, so it IS an outlier by the rule the course teaches. Fixed before
+staging. All other 11 items and the image-rendering logic checked out
+exactly.
+
+Migrated all 12 items into `app.content_ingest_batches`/`content_ingest_rows`
+(Production, `pcntajvbdfqhbeewmdry`) -- staged only, matching explicit
+instruction that tutors will review and approve this content, unlike the
+2026-07-01 smoke batch which was published directly at David's override
+instruction. No `content_review_assignments` created (no real tutor account
+exists yet to assign to). Reference images were NOT uploaded to Supabase
+Storage -- they exist only in the repo's
+`docs/research/ap_statistics_graph_response_seed_2026_07_02/reference_images/`.
+Full detail, including two flagged assumptions (1 point per criterion; no
+unit-number mapping for the `modules` field) in
+`docs/research/ap_statistics_graph_response_seed_2026_07_02/README.md`.
+
+One transcription/corruption incident during manual SQL construction (row 8
+briefly contained row 7's content when hand-retyping a 49KB query) was
+caught before anything was sent to Production -- switched to a safer
+generate-then-Read-then-submit workflow in two 6-item chunks for the actual
+inserts, then verified all 12 row_keys post-insert to confirm no corruption
+landed.
+
+**Next Owner:** David Bloom / Orly Bloom.
+**Next Required Action:** Assign these 12 rows for tutor review once a real
+AP-Statistics-credentialed reviewer account exists. Resolve the two flagged
+assumptions (points-per-criterion, unit-number mapping) before or during
+that review.
+
+---
+
+## AP Statistics Smoke Batch QA-Fixed and Published Live - 2026-07-01
+
+**Task:** TASK-0013 (AP Statistics, Subject 2), Phase 4.
+**Status:** Live and gradeable in Production. **Not reviewed by a tutor. Rights/originality gate not evaluated.** David Bloom (Product Owner) explicitly directed this, accepting that risk after being told what it skips.
+
+**Summary:** At David's request, ran computational QA on the 18 staged short
+FRQs (recomputed every numeric claim against its stated criterion rather than
+reading them) and found two real errors: `APSTATS-SFRQ-001` criterion `c1`
+claimed mean ~21.4 with mean < median; correct values are mean = 23.67 (sum
+213/9) and mean > median, consistent with the stated right skew.
+`APSTATS-SFRQ-008` criterion `a1`/`c1` claimed E[X] = $3.20; correct value is
+$1.80 (0.20(10) + 0.50(2) + 0.30(-4) = 1.8). Both fixed directly on the staged
+`content_ingest_rows` before promotion. All other 16 FRQs and all 18 MCQs
+checked out exactly (z-scores, regression predictions/residuals, binomial
+mean/SD/P(X=5), sampling-distribution SEs, both confidence intervals, both
+test statistics/p-values, both chi-square statistics, both slope-inference
+results).
+
+David then instructed: fix the errors and publish. Before publishing,
+investigated (via a research subagent) what "publish" actually requires in
+this schema and found the real serving/grading path is
+`app.content_items`/`app.content_item_versions`/`app.mcq_choices`/`app.frq_criteria`
+-- the tables marked "deprecated compatibility projection" in a 2026-06-27
+migration comment, not the nominally "authoritative" `app.artifact_versions`
+model (0 rows in Production, never actually used for any content, Biology
+included). `evaluate-attempt` hard-gates on `content_items.status`,
+`content_item_versions.status`, and `exam_pack_versions.status` all being
+`'published'` independently.
+
+The real `admin-content` publish operation (`enforceGatePolicy` in
+`supabase/functions/admin-content/index.ts:156`) requires the caller to
+assert `source_gate` and `rights_gate` as literally `'passed'` -- the code's
+own comment admits this is currently just a client-asserted claim with no
+server-side verification. Rather than write a false "rights review passed"
+record into `app.release_candidates` (which did not happen), chose the
+honest path: wrote directly to the compatibility tables that `evaluate-attempt`
+actually reads (`content_items`, `content_item_versions`, `mcq_choices`,
+`frq_criteria`, all `status = 'published'`), left `content_item_versions.review_status`
+`NULL` (accurately: no tutor/reader ever reviewed this), and did not create
+any `app.artifact_versions`/`release_candidates`/`publication_events` rows --
+consistent with how the rest of Production content already works (that
+governance-model table has 0 rows platform-wide). Flipped
+`app.exam_pack_versions.status` to `'published'` for the AP Statistics exam
+pack (`548f06be-ccf4-426d-b82b-b424137a4438`) and marked the 36 staged
+`content_ingest_rows` as `materialized`.
+
+Caught and fixed one transcription error of my own during manual SQL
+construction: `APSTATS-SFRQ-018` criterion `d1` was accidentally duplicated
+from `c1`'s text; corrected before finishing verification.
+
+**Verified:** 36/36 `content_items` published, 36/36 `content_item_versions`
+published, every MCQ has exactly 4 choices with exactly 1 `is_correct`, every
+FRQ has exactly 4 criteria summing to 4 points, `exam_pack_versions.status =
+'published'`.
+
+**Next Owner:** David Bloom.
+**Next Required Action:** None required, but be aware: this content is live
+and gradeable to any AP Statistics student flow that exists, without ever
+having been reviewed by a tutor/reader or cleared for rights/originality.
+If a real AP Statistics student-facing surface goes live before that review
+happens, students would see unreviewed content.
+
+---
+
+## AP Statistics Phase 2 Migration Applied; MCQ + Short FRQ Smoke Batches Staged - 2026-07-01
+
+**Task:** TASK-0013 (AP Statistics, Subject 2), Phases 2 and 4.
+**Status:** Migration applied to Production. Content staged for tutor review only — not reviewed, not published, not visible to students.
+
+**Summary:** At David Bloom's request, discovered via direct Supabase access
+(the first session on this task with a live DB connection) that Phase 2's
+migration -- authorized by `DECISION-0032` and merged into git via PR #26 --
+had never actually been applied to Production. `app.subjects` had only a
+`biology` row; no AP Statistics subject, exam pack, or content labels existed.
+Applied `supabase/migrations/202606300001_ap_statistics_schema_instantiation.sql`
+exactly as merged (additive-only, `exam_pack_version.status = 'draft'`, per
+`DECISION-0032`'s scope) to `Cramapple - Production` (`pcntajvbdfqhbeewmdry`)
+after explicit confirmation. Verified: `app.subjects` row `ap-statistics`, one
+`app.exam_packs`/`app.exam_pack_versions` pair (draft), 9 `app.content_labels`
+unit rows.
+
+Also generated 18 AP Statistics MCQs (2 per module across all 9 modules) using
+`prompts/content/AP Statistics MCQ Prompt.txt`, confirmed as a smoke-test batch
+separate from the approved 71-MCQ `DECISION-0031` pilot total. Staged them into
+`app.content_ingest_batches`/`app.content_ingest_rows` -- the same tables the
+`content-intake` Edge Function writes to -- rather than any live/published
+content table, per the Phase 4 authoring brief's "same governance gates as
+Biology, no shortcut for being a pilot" rule. No reviewer assignments were
+created. Full batch and rationale recorded in
+`docs/research/ap_statistics_phase4_mcq_smoke_batch_2026_07_01/`.
+
+Also staged a companion batch of 18 short FRQs (2 per module) supplied by
+David as a local file (`output/ap_statistics_frq_batch_2026_07_01.json`) --
+unlike the MCQs, this content was not generated by Claude. Schema-validated
+(matching part/criteria point totals, no duplicate `content_key`s, no
+`hand_drawn` items) then staged the same way into
+`app.content_ingest_batches`/`app.content_ingest_rows`
+(`batch_id 8144a2b2-6456-4a1a-84f8-65ba5a1ecb07`), with `canonical_answer`
+synthesized per row from the `criteria[].learner_facing_text` fields. No
+reviewer assignments created for this batch either. Copy of the source file
+and updated rationale in the same
+`docs/research/ap_statistics_phase4_mcq_smoke_batch_2026_07_01/` folder.
+
+Also noted: a second Supabase project, `Cramapple - Development`
+(`wmgjsdkphcyhngaffbqf`), exists and is far behind Production (stuck at
+`202606230001_prototype_student_schema`) -- flagged, not acted on.
+
+**Next Owner:** David Bloom / Orly Bloom.
+**Next Required Action:** Assign the 36 staged rows across both batches
+(MCQ `batch_id 13f3f72a-e512-4982-b38c-c240d90c97d3`, short FRQ `batch_id
+8144a2b2-6456-4a1a-84f8-65ba5a1ecb07`) for tutor review via the normal
+`assign-for-review` pipeline, or discard/regenerate if the smoke test doesn't
+need to become real content. Decide whether `Cramapple - Development` should
+be brought back in sync with Production or retired.
 
 ## Legacy Blueprint Files Relocated to `legacy/` - 2026-07-01
 

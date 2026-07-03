@@ -1,0 +1,290 @@
+[
+  {
+    "content_key": "APSTATS-MCQ-001",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": ["1"],
+    "subtopics": ["Unit 1: Measures of Center and Spread (Resistance to Skew/Outliers)"],
+    "intended_difficulty": "Medium",
+    "stimulus": "A researcher records the time (in minutes) that 40 customers spend in a coffee shop. The distribution of times is strongly right-skewed, with a few customers staying much longer than typical. The five-number summary is: Min = 3, Q1 = 8, Median = 12, Q3 = 18, Max = 65.",
+    "stem": "Which measure of center and spread is most appropriate to report for this distribution, and why?",
+    "choices": [
+      { "choice_key": "A", "choice_text": "Mean and standard deviation, because they use every data value in the distribution.", "is_correct": false, "rationale": "Both the mean and standard deviation are pulled toward the long right tail and the high outlier (65); they are not resistant, so 'uses every value' is not a reason to prefer them for a skewed distribution." },
+      { "choice_key": "B", "choice_text": "Mean and range, because the range captures the full spread including the long visits.", "is_correct": false, "rationale": "The range is determined entirely by the two most extreme values, making it even more sensitive to the outlier than the standard deviation; the mean is also not resistant." },
+      { "choice_key": "C", "choice_text": "Median and IQR, because they are resistant to the strong right skew and the high outlier.", "is_correct": true, "rationale": "The median and IQR depend only on the middle portion of the ordered data, so they are not distorted by the skew or the outlier at 65 minutes -- the standard choice for a skewed distribution." },
+      { "choice_key": "D", "choice_text": "Median and standard deviation, because the median is resistant but the shape of the distribution doesn't affect measures of spread.", "is_correct": false, "rationale": "This mixes a resistant measure of center with a non-resistant measure of spread; shape and outliers affect standard deviation just as much as they affect the mean." }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-002",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": ["1"],
+    "subtopics": ["Unit 1: Standardized Scores (z-scores) and Comparing Distributions"],
+    "intended_difficulty": "Hard",
+    "stimulus": "On a nationally normed exam, scores are approximately normally distributed with mean 500 and standard deviation 100. Fatima scores 640. On a different, unrelated diagnostic test with mean 20 and standard deviation 4, Diego scores 26.",
+    "stem": "Which student performed better relative to their own test's distribution, and by how many standard deviations above the mean?",
+    "choices": [
+      { "choice_key": "A", "choice_text": "Diego, because his z-score of 1.5 is higher than Fatima's z-score of 1.4.", "is_correct": true, "rationale": "Fatima's z-score is (640 - 500)/100 = 1.4. Diego's z-score is (26 - 20)/4 = 1.5. Standardizing puts both scores on the same scale, and Diego's is higher." },
+      { "choice_key": "B", "choice_text": "Fatima, because 640 is a higher raw score than 26.", "is_correct": false, "rationale": "Comparing raw scores directly ignores that the two tests have completely different means and standard deviations; raw scores from different distributions are not comparable without standardizing." },
+      { "choice_key": "C", "choice_text": "Fatima, because her raw score is farther from her test's mean (140 points) than Diego's is from his (6 points).", "is_correct": false, "rationale": "Comparing raw point distances from the mean ignores the different scales (standard deviations) of the two tests; 140 points on a test with SD 100 is less extreme than 6 points on a test with SD 4." },
+      { "choice_key": "D", "choice_text": "The two students performed identically, because both scored above their test's mean.", "is_correct": false, "rationale": "Both scoring above the mean does not mean the performances are equivalent; the magnitude of each score's standardized distance from the mean still needs to be compared." }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-003",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": ["2"],
+    "subtopics": ["Unit 2: Interpreting the Slope of a Least-Squares Regression Line"],
+    "intended_difficulty": "Medium",
+    "stimulus": "A researcher fits a least-squares regression line to predict a house's selling price (in thousands of dollars) from its size (in hundreds of square feet) for 50 homes in a city. The regression equation is: predicted price = 45 + 12.5(size).",
+    "stem": "Which is the correct interpretation of the slope in context?",
+    "choices": [
+      { "choice_key": "A", "choice_text": "For every additional house sold, the price increases by $12,500.", "is_correct": false, "rationale": "This misreads the explanatory variable; the slope is tied to size (hundreds of square feet), not the count of houses sold." },
+      { "choice_key": "B", "choice_text": "The average house in the sample costs $12,500.", "is_correct": false, "rationale": "This confuses the slope with a measure of the average selling price; $12,500 describes a rate of change, not a typical price." },
+      { "choice_key": "C", "choice_text": "12.5% of the variation in price is explained by size.", "is_correct": false, "rationale": "This describes what r-squared measures, not the slope; the slope is a rate of change in the response variable, not a percentage of explained variation." },
+      { "choice_key": "D", "choice_text": "For each additional 100 square feet of size, the predicted selling price increases by $12,500, on average.", "is_correct": true, "rationale": "The slope of a least-squares line gives the predicted change in the response variable (price, in thousands of dollars) for a one-unit increase in the explanatory variable (size, in hundreds of square feet)." }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-004",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": ["2"],
+    "subtopics": ["Unit 2: Residual Plots and Assessing Linearity"],
+    "intended_difficulty": "Hard",
+    "stimulus": "A statistics student fits a least-squares regression line relating a car's age (in years) to its resale value (in dollars) for 30 used cars. The residual plot shows residuals that are negative for cars less than 3 years old, positive for cars between 3 and 9 years old, and negative again for cars older than 9 years old, forming a clear curved pattern.",
+    "stem": "What does this residual plot most strongly suggest about the appropriateness of the linear model?",
+    "choices": [
+      { "choice_key": "A", "choice_text": "The residual plot confirms the linear model is appropriate because the residuals are small in magnitude.", "is_correct": false, "rationale": "The magnitude of residuals alone doesn't establish appropriateness; a systematic curved pattern is the key signal to check for, regardless of how small individual residuals are." },
+      { "choice_key": "B", "choice_text": "The curved pattern in the residuals indicates the relationship between age and resale value is not linear, so a linear model is not appropriate here.", "is_correct": true, "rationale": "A random scatter of residuals with no pattern supports linearity; a clear curved pattern like this one indicates the true relationship is curved, so a linear model systematically over- and under-predicts in different regions." },
+      { "choice_key": "C", "choice_text": "The residual plot suggests r is close to 0, so age and resale value are not associated.", "is_correct": false, "rationale": "A curved residual pattern can occur even when there is a strong, real (nonlinear) association between the variables; residual shape and correlation strength are different pieces of information." },
+      { "choice_key": "D", "choice_text": "The residual plot cannot be used to assess the linear model; only the value of r-squared can determine appropriateness.", "is_correct": false, "rationale": "A high r-squared can still occur alongside a clearly curved residual pattern; checking the residual plot is an essential, separate step from looking at r-squared." }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-005",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": ["3"],
+    "subtopics": ["Unit 3: Observational Studies vs. Experiments (Causation)"],
+    "intended_difficulty": "Medium",
+    "stimulus": "A wellness magazine reports that people who meditate at least 20 minutes per day have lower blood pressure on average than people who do not meditate, based on a survey of 500 adults who volunteered to report their meditation habits and blood pressure.",
+    "stem": "Which conclusion is appropriately supported by this study design?",
+    "choices": [
+      { "choice_key": "A", "choice_text": "There is an association between meditation habits and blood pressure in this sample, but causation cannot be concluded because participants were not randomly assigned to meditate or not.", "is_correct": true, "rationale": "This was an observational, voluntary-response study with no random assignment of the explanatory variable, so an association can be described but a causal claim is not supported." },
+      { "choice_key": "B", "choice_text": "Meditating for 20 minutes a day causes lower blood pressure.", "is_correct": false, "rationale": "This draws a causal conclusion from an observational study with no random assignment, which cannot rule out confounding variables." },
+      { "choice_key": "C", "choice_text": "Because the sample size is large (500 people), causation can be concluded even without random assignment.", "is_correct": false, "rationale": "A large sample size reduces sampling variability but does nothing to address confounding; only random assignment supports causal claims." },
+      { "choice_key": "D", "choice_text": "No conclusion can be drawn because the study did not use a randomized experiment.", "is_correct": false, "rationale": "This overcorrects -- observational studies can still support conclusions about association, just not causation." }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-006",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": ["3"],
+    "subtopics": ["Unit 3: Blocking in Experimental Design"],
+    "intended_difficulty": "Hard",
+    "stimulus": "A researcher wants to test whether a new fertilizer increases tomato plant yield compared to a standard fertilizer. She has 40 tomato plants: 20 grown in full-sun plots and 20 grown in partial-shade plots. She plans to randomly assign fertilizer type (new vs. standard) separately within the full-sun group and separately within the partial-shade group, rather than randomizing across all 40 plants at once.",
+    "stem": "What is the primary statistical benefit of this design compared to completely randomizing fertilizer type across all 40 plants without regard to sun exposure?",
+    "choices": [
+      { "choice_key": "A", "choice_text": "It removes the need for random assignment altogether, since sun exposure is already controlled.", "is_correct": false, "rationale": "Blocking does not replace random assignment; fertilizer type is still randomly assigned within each sun-exposure block." },
+      { "choice_key": "B", "choice_text": "It guarantees that the new fertilizer will outperform the standard fertilizer within each sun-exposure group.", "is_correct": false, "rationale": "Blocking controls a source of variability; it does not guarantee any particular outcome for either treatment." },
+      { "choice_key": "C", "choice_text": "It reduces variability in yield due to sun exposure, making it easier to detect a true difference between fertilizers if one exists.", "is_correct": true, "rationale": "Blocking by a known nuisance variable (sun exposure) removes its variability from the comparison between fertilizers, increasing the power to detect a real treatment effect." },
+      { "choice_key": "D", "choice_text": "It increases the sample size available for comparing the fertilizers.", "is_correct": false, "rationale": "Blocking reorganizes how the same 40 plants are grouped and randomized; it does not add any additional plants or observations." }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-007",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": ["4"],
+    "subtopics": ["Unit 4: Independence and the Gambler's Fallacy"],
+    "intended_difficulty": "Medium",
+    "stimulus": "At a local carnival game, a wheel is spun and lands on red with probability 0.3 on each independent spin. A player has just watched the wheel land on red four times in a row.",
+    "stem": "What is the probability that the wheel lands on red on the next spin?",
+    "choices": [
+      { "choice_key": "A", "choice_text": "Less than 0.3, because red is \"due\" to be balanced out by other colors soon.", "is_correct": false, "rationale": "This is the gambler's fallacy -- independent events have no memory, so past outcomes do not change the probability of the next spin." },
+      { "choice_key": "B", "choice_text": "0.3, because each spin is independent of previous spins.", "is_correct": true, "rationale": "Since the spins are stated to be independent, the probability of red on any single spin remains 0.3 regardless of the outcomes of previous spins." },
+      { "choice_key": "C", "choice_text": "Greater than 0.3, because landing on red four times in a row suggests the wheel is more likely to land on red.", "is_correct": false, "rationale": "This treats a run of independent outcomes as evidence of a changing probability, which contradicts the stated independence of the spins." },
+      { "choice_key": "D", "choice_text": "0.3 to the fourth power, because the probability of five reds in a row must be calculated.", "is_correct": false, "rationale": "This answers a different question (the probability of a specific five-spin sequence) rather than the probability of the single next spin." }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-008",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": ["4"],
+    "subtopics": ["Unit 4: Combining Random Variables (Variance of a Sum)"],
+    "intended_difficulty": "Hard",
+    "stimulus": "A vending machine dispenses two independent snack items in a bundle. The number of chip bags dispensed has mean 3 and standard deviation 0.8. The number of candy bars dispensed has mean 2 and standard deviation 0.6. Let T = total number of snack items (chips + candy) dispensed in a bundle.",
+    "stem": "What is the standard deviation of T?",
+    "choices": [
+      { "choice_key": "A", "choice_text": "1.4, because standard deviations of independent random variables add directly.", "is_correct": false, "rationale": "Standard deviations do not add directly, even for independent random variables; it is the variances that add." },
+      { "choice_key": "B", "choice_text": "0.2, because the standard deviation of a sum is the difference of the standard deviations.", "is_correct": false, "rationale": "This applies the wrong operation entirely; subtracting standard deviations has no statistical justification here." },
+      { "choice_key": "C", "choice_text": "1.96, because the variance of T is the square of the sum of the two standard deviations.", "is_correct": false, "rationale": "This squares the sum of the standard deviations (0.8 + 0.6)^2 instead of summing the individual variances, a common algebra-of-variance error." },
+      { "choice_key": "D", "choice_text": "1.0, because Var(T) = 0.8^2 + 0.6^2 = 0.64 + 0.36 = 1.00, so SD(T) is the square root of 1.00.", "is_correct": true, "rationale": "For independent random variables, variances add: Var(T) = Var(chips) + Var(candy) = 0.64 + 0.36 = 1.00, so SD(T) = sqrt(1.00) = 1.0." }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-009",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": ["5"],
+    "subtopics": ["Unit 5: Central Limit Theorem -- Shape and Variability of the Sampling Distribution of the Mean"],
+    "intended_difficulty": "Medium",
+    "stimulus": "The distribution of individual household incomes in a large city is strongly right-skewed. A researcher plans to take a random sample of n households and compute the sample mean income, x-bar.",
+    "stem": "As the sample size n increases from 10 to 100, what happens to the shape and variability of the sampling distribution of x-bar?",
+    "choices": [
+      { "choice_key": "A", "choice_text": "The shape becomes more skewed and the variability increases, matching the population more closely as n grows.", "is_correct": false, "rationale": "This reverses both effects of the Central Limit Theorem; larger samples make the sampling distribution of the mean look less like the skewed population, not more." },
+      { "choice_key": "B", "choice_text": "The shape stays exactly as skewed as the population, but the variability decreases.", "is_correct": false, "rationale": "This ignores the Central Limit Theorem's effect on shape; as n increases, the sampling distribution of x-bar becomes more normal, not equally skewed." },
+      { "choice_key": "C", "choice_text": "The shape becomes more approximately normal and the variability (standard error) decreases.", "is_correct": true, "rationale": "The Central Limit Theorem states that as n increases, the sampling distribution of x-bar becomes more approximately normal regardless of population shape, and its standard error (population SD divided by the square root of n) decreases as n increases." },
+      { "choice_key": "D", "choice_text": "The shape becomes more approximately normal, but the variability stays the same regardless of n.", "is_correct": false, "rationale": "This correctly describes the shape change but incorrectly claims the standard error is unaffected by sample size, when in fact it decreases as n increases." }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-010",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": ["5"],
+    "subtopics": ["Unit 5: Conditions for the Sampling Distribution of a Sample Proportion (Success-Failure Condition)"],
+    "intended_difficulty": "Hard",
+    "stimulus": "A quality control engineer wants to use a normal approximation for the sampling distribution of the sample proportion of defective items in a random sample of size n = 40 from a manufacturing process where the true defect rate is p = 0.03.",
+    "stem": "Why is it inappropriate to use a normal approximation for the sampling distribution of p-hat in this situation?",
+    "choices": [
+      { "choice_key": "A", "choice_text": "np = 40(0.03) = 1.2, which is less than 10, so the success-failure condition is not met and the sampling distribution of p-hat would be skewed, not approximately normal.", "is_correct": true, "rationale": "The success-failure condition requires both np and n(1-p) to be at least 10 (a common threshold); here np = 1.2, which fails the condition, so the normal approximation is not justified." },
+      { "choice_key": "B", "choice_text": "The sample size 40 is too small to ever use a normal approximation, regardless of p.", "is_correct": false, "rationale": "Appropriateness depends on np and n(1-p), not on the sample size n alone; a sample of 40 could be adequate for a different value of p." },
+      { "choice_key": "C", "choice_text": "The population defect rate p = 0.03 is a parameter, not a statistic, so the normal approximation does not apply to parameters.", "is_correct": false, "rationale": "This confuses the parameter/statistic distinction with the actual condition being checked; the success-failure condition uses p to check np and n(1-p), regardless of p being a parameter." },
+      { "choice_key": "D", "choice_text": "Random sampling was not used, so no approximation is valid.", "is_correct": false, "rationale": "The stimulus states the sample is random; this introduces an assumption violation that isn't actually present in the scenario." }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-011",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": ["6"],
+    "subtopics": ["Unit 6: Interpreting a Confidence Interval for a Proportion"],
+    "intended_difficulty": "Medium",
+    "stimulus": "A polling organization constructs a 95% confidence interval for the proportion of adults in a state who support a new transportation initiative and obtains the interval (0.46, 0.54) based on a random sample of 800 adults.",
+    "stem": "Which is a correct interpretation of this confidence interval?",
+    "choices": [
+      { "choice_key": "A", "choice_text": "There is a 95% probability that the true population proportion is between 0.46 and 0.54.", "is_correct": false, "rationale": "The true population proportion is a fixed (though unknown) number, not a random variable, so it is incorrect to assign a probability to it falling in a specific interval." },
+      { "choice_key": "B", "choice_text": "95% of adults in the state support the initiative, plus or minus 4 percentage points.", "is_correct": false, "rationale": "This confuses the confidence interval for the unknown population proportion with a statement about what fraction of individual adults support the initiative." },
+      { "choice_key": "C", "choice_text": "If this exact sample were surveyed 100 times, the sample proportion would fall between 0.46 and 0.54 ninety-five times.", "is_correct": false, "rationale": "\"95% confidence\" describes the long-run behavior of the method across many different random samples, not repeated surveys of the same fixed sample." },
+      { "choice_key": "D", "choice_text": "We are 95% confident that the interval from 0.46 to 0.54 captures the true proportion of all adults in the state who support the initiative, based on the method used to construct it.", "is_correct": true, "rationale": "This correctly ties the 95% confidence level to the reliability of the interval-construction method over repeated random sampling, rather than to a probability statement about the fixed parameter." }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-012",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": ["6"],
+    "subtopics": ["Unit 6: Two-Proportion z-Test -- Interpreting a Significant Result from a Randomized Experiment"],
+    "intended_difficulty": "Hard",
+    "stimulus": "A company tests whether a new checkout design increases the proportion of customers who complete a purchase. In a randomized experiment, 620 customers were shown the new design and 245 completed a purchase; 580 customers were shown the old design and 203 completed a purchase. A two-proportion z-test for the alternative hypothesis that the new design's completion proportion is greater than the old design's completion proportion yields a p-value of 0.038.",
+    "stem": "Using a significance level of alpha = 0.05, which is the correct conclusion in context?",
+    "choices": [
+      { "choice_key": "A", "choice_text": "Because p = 0.038 is less than 0.05, there is a 3.8% probability that the old and new designs have the same true completion proportion.", "is_correct": false, "rationale": "This is the classic p-value misinterpretation; a p-value is the probability of the observed (or more extreme) sample results assuming the null hypothesis is true, not the probability that the null hypothesis itself is true." },
+      { "choice_key": "B", "choice_text": "Because p = 0.038 is less than 0.05, there is convincing evidence that the new checkout design causes a higher completion proportion than the old design.", "is_correct": true, "rationale": "Because this was a randomized experiment (customers were randomly assigned to see each design) and the p-value is below alpha, a causal conclusion in context is statistically justified." },
+      { "choice_key": "C", "choice_text": "Because p = 0.038 is less than 0.05, there is convincing evidence that the new design is associated with a higher completion proportion, but causation cannot be concluded since this was not a controlled experiment.", "is_correct": false, "rationale": "This misreads the stimulus, which explicitly describes a randomized experiment; causal language is actually appropriate here, unlike in an observational study." },
+      { "choice_key": "D", "choice_text": "Because p = 0.038 is close to 0.05, the results are inconclusive and no decision can be made at alpha = 0.05.", "is_correct": false, "rationale": "The formal decision rule compares p to alpha directly; since 0.038 < 0.05, the result is statistically significant regardless of how close the p-value is to the threshold." }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-013",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": ["7"],
+    "subtopics": ["Unit 7: Conditions for a One-Sample t-Interval for a Mean"],
+    "intended_difficulty": "Medium",
+    "stimulus": "A nutritionist wants to construct a confidence interval for the mean sugar content (in grams) of a population of energy bars using a random sample of 8 bars. A dotplot of the 8 sample values shows a strong right skew with one bar much higher in sugar content than the rest.",
+    "stem": "Is it appropriate to construct a one-sample t-interval for the mean using this sample?",
+    "choices": [
+      { "choice_key": "A", "choice_text": "No, because the sample size is small (n = 8) and the sample data show strong skewness, so there is no good reason to believe the sampling distribution of x-bar is approximately normal.", "is_correct": true, "rationale": "With a small sample and clear skewness/an outlier in the data, there is no basis for assuming the population is approximately normal or that the sampling distribution of the mean is approximately normal, so the t-interval's normality condition is not satisfied." },
+      { "choice_key": "B", "choice_text": "Yes, because the sample was randomly selected, and random selection is the only condition required for a t-interval.", "is_correct": false, "rationale": "Random selection is one condition, but the normal/large-sample condition on the shape of the data or the sampling distribution must also be checked; it is not the only requirement." },
+      { "choice_key": "C", "choice_text": "Yes, because the Central Limit Theorem guarantees the sampling distribution of x-bar is approximately normal for any sample size greater than 5.", "is_correct": false, "rationale": "There is no such rule; the Central Limit Theorem's normal approximation improves gradually with sample size and depends on how skewed the population is, not a fixed cutoff of 5." },
+      { "choice_key": "D", "choice_text": "No, because t-intervals can never be used with sample sizes smaller than 30.", "is_correct": false, "rationale": "This overgeneralizes a common rule of thumb into an absolute rule; small samples can still support a t-interval when there's good reason to believe the population itself is approximately normal, which is not the case here given the observed skew." }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-014",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": ["7"],
+    "subtopics": ["Unit 7: Paired vs. Two-Sample t-Procedures"],
+    "intended_difficulty": "Hard",
+    "stimulus": "A running coach wants to know whether a new stretching routine improves 1-mile run times. She has each of 24 runners run 1 mile, record their time, complete the new stretching routine, then run the same 1-mile course again and record their time. She wants to compare each runner's time before and after the stretching routine.",
+    "stem": "Which inference procedure is appropriate for testing whether the stretching routine changes mean run time?",
+    "choices": [
+      { "choice_key": "A", "choice_text": "A two-sample t-test for the difference of two means, since there are two sets of run times (before and after).", "is_correct": false, "rationale": "This treats the before and after times as coming from two independent samples, but the same 24 runners were measured under both conditions, which calls for a paired procedure instead." },
+      { "choice_key": "B", "choice_text": "A one-sample z-test on the mean of the after times, since the population standard deviation of run times is likely known from prior races.", "is_correct": false, "rationale": "This introduces an assumption (known population standard deviation) not supported by the stimulus, and it also ignores the paired before/after structure of the data entirely." },
+      { "choice_key": "C", "choice_text": "A paired t-test on the differences between each runner's before and after times, since the same runners were measured under both conditions.", "is_correct": true, "rationale": "Because each runner contributes both a before and an after time, the appropriate procedure is a paired t-test on the within-runner differences, which accounts for the natural pairing and removes runner-to-runner variability from the comparison." },
+      { "choice_key": "D", "choice_text": "A two-proportion z-test comparing the proportion of runners who improved before and after.", "is_correct": false, "rationale": "This discards the actual numeric time data in favor of a proportion, and proportions procedures are not appropriate for genuinely quantitative (time) measurements." }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-015",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": ["8"],
+    "subtopics": ["Unit 8: Choosing Between Chi-Square Goodness-of-Fit, Independence, and Homogeneity"],
+    "intended_difficulty": "Medium",
+    "stimulus": "A hobbyist claims that a six-sided die is fair. She rolls the die 300 times and records the observed count of each face (1 through 6), then wants to compare these observed counts to the counts expected if the die were truly fair.",
+    "stem": "Which chi-square procedure should she use?",
+    "choices": [
+      { "choice_key": "A", "choice_text": "A chi-square test for homogeneity, since she is comparing multiple groups.", "is_correct": false, "rationale": "A test for homogeneity compares the distribution of one categorical variable across two or more independent groups or samples; here there is only one sample and one hypothesized distribution to compare against." },
+      { "choice_key": "B", "choice_text": "A chi-square test for independence, since face value and roll number might be related.", "is_correct": false, "rationale": "A test for independence examines whether two categorical variables measured on the same individuals are related; there is no second categorical variable being crossed with face value here." },
+      { "choice_key": "C", "choice_text": "A two-proportion z-test, since she only cares whether the die is fair or not.", "is_correct": false, "rationale": "This scenario involves six categories at once (each face), not a single two-outcome proportion comparison between two groups." },
+      { "choice_key": "D", "choice_text": "A chi-square goodness-of-fit test, since she is comparing the observed distribution of one categorical variable (die face) to a hypothesized distribution.", "is_correct": true, "rationale": "A goodness-of-fit test compares the observed counts of a single categorical variable, from a single sample, to a hypothesized (here, uniform/fair) distribution -- exactly this scenario." }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-016",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": ["8"],
+    "subtopics": ["Unit 8: Expected Counts Condition for Chi-Square Procedures"],
+    "intended_difficulty": "Hard",
+    "stimulus": "A researcher collects data on eye color (categorized as Brown, Blue, Green, Hazel, or Other) for a random sample of 60 people from a small town, wanting to test whether the town's eye-color distribution matches known national percentages. After computing expected counts under the national percentages, the expected count for the \"Other\" category is 2.4, while all other categories have expected counts above 10.",
+    "stem": "What is the best course of action given this situation?",
+    "choices": [
+      { "choice_key": "A", "choice_text": "Proceed with the chi-square goodness-of-fit test as planned; expected counts do not need to meet any minimum threshold as long as the observed counts are all positive.", "is_correct": false, "rationale": "Chi-square procedures require expected counts to meet a minimum threshold (commonly at least 5 in each category) for the chi-square approximation to be valid; observed counts being positive does not address this." },
+      { "choice_key": "B", "choice_text": "Combine the \"Other\" category with another sparse or conceptually similar category so that all expected counts are at least 5, then proceed with the chi-square goodness-of-fit test using the reduced set of categories.", "is_correct": true, "rationale": "Combining categories to raise low expected counts to at least 5 is the standard way to satisfy the expected-counts condition while still allowing a valid chi-square goodness-of-fit test to proceed." },
+      { "choice_key": "C", "choice_text": "Switch to a chi-square test for independence instead, since that test has no minimum expected-count requirement.", "is_correct": false, "rationale": "The expected-counts condition applies to chi-square procedures generally, including tests for independence and homogeneity; switching tests does not remove the requirement." },
+      { "choice_key": "D", "choice_text": "Increase the significance level from 0.05 to 0.10 to compensate for the small expected count in the \"Other\" category.", "is_correct": false, "rationale": "Adjusting the significance level addresses the decision threshold, not the underlying condition violation caused by a too-small expected count; it does not fix the validity problem." }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-017",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": ["9"],
+    "subtopics": ["Unit 9: Interpreting the Standard Error of the Slope"],
+    "intended_difficulty": "Medium",
+    "stimulus": "A researcher fits a least-squares regression line to examine the relationship between weekly hours of exercise and resting heart rate for a random sample of 45 adults. Computer output gives a slope estimate of b = -1.8 beats per minute per hour of exercise, with a standard error of the slope SE(b) = 0.6, testing H0: beta = 0 versus Ha: beta does not equal 0.",
+    "stem": "Which is the correct interpretation of the standard error of the slope, SE(b) = 0.6, in this context?",
+    "choices": [
+      { "choice_key": "A", "choice_text": "On average, individual resting heart rates differ from the regression line's predictions by 0.6 beats per minute.", "is_correct": false, "rationale": "This describes the standard deviation of the residuals (a measure of scatter about the line), not the standard error of the slope estimate itself." },
+      { "choice_key": "B", "choice_text": "0.6% of the variation in resting heart rate is explained by hours of exercise.", "is_correct": false, "rationale": "This describes r-squared, a percentage-of-variation-explained statistic, which is a different quantity from the standard error of the slope." },
+      { "choice_key": "C", "choice_text": "SE(b) = 0.6 measures how much the estimated slope, b, would be expected to vary from sample to sample if many different random samples of 45 adults were taken from the population.", "is_correct": true, "rationale": "The standard error of the slope quantifies the sample-to-sample variability of the slope estimate b across repeated random samples of the same size from the population -- the same logic as a standard error for any other sample statistic." },
+      { "choice_key": "D", "choice_text": "The true population slope beta is guaranteed to be within 0.6 of -1.8.", "is_correct": false, "rationale": "A standard error alone does not provide a guaranteed bound; forming an actual margin of error requires multiplying by an appropriate critical value, and even then the result is a confidence interval, not a guarantee." }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-018",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": ["9"],
+    "subtopics": ["Unit 9: Hypothesis Test for the Slope -- Significance vs. Causation and Effect Size"],
+    "intended_difficulty": "Hard",
+    "stimulus": "Using the same study as the previous item (n = 45 adults, slope b = -1.8, SE(b) = 0.6), a t-test of H0: beta = 0 versus Ha: beta does not equal 0 produces a p-value of 0.004. This was an observational study; adults were not randomly assigned their exercise habits.",
+    "stem": "Which is the correct conclusion at alpha = 0.05?",
+    "choices": [
+      { "choice_key": "A", "choice_text": "Because p = 0.004 is less than 0.05, there is convincing evidence of a negative linear relationship between hours of exercise and resting heart rate in the population, but since this was an observational study, causation cannot be concluded from this test alone.", "is_correct": true, "rationale": "The small p-value gives convincing evidence against beta = 0, supporting a real linear association in the population, but because adults were not randomly assigned their exercise habits, confounding variables cannot be ruled out and a causal claim is not supported." },
+      { "choice_key": "B", "choice_text": "Because p = 0.004 is less than 0.05, there is convincing evidence that increasing exercise causes a decrease in resting heart rate.", "is_correct": false, "rationale": "This draws a causal conclusion from an observational study with no random assignment of exercise habits, which cannot rule out confounding variables such as age or overall fitness." },
+      { "choice_key": "C", "choice_text": "Because p = 0.004 is less than 0.05, the null hypothesis is proven false and beta must equal -1.8 in the population.", "is_correct": false, "rationale": "Rejecting a null hypothesis provides evidence against beta = 0; it does not \"prove\" the null false with certainty, nor does it establish that the population slope equals the sample estimate exactly." },
+      { "choice_key": "D", "choice_text": "Because p = 0.004 is less than 0.05, there is convincing evidence of a strong linear relationship, meaning r-squared must be close to 1.", "is_correct": false, "rationale": "Statistical significance (driven partly by sample size) and effect size (such as r-squared) are different concepts; a small but real slope can be highly statistically significant with a large enough sample without indicating a strong r-squared." }
+    ]
+  }
+]
