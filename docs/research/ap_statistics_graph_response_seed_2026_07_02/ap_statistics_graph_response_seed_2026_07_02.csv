@@ -1,0 +1,124 @@
+item_id,archetype,stem,canonical_answer,expected_image_filename,criterion_definitions,display_table,expected_graph_spec,subtopics
+APSTATS-HDG-2026-GRAPH-001,boxplot_construction_interpretation,"A logistics teacher recorded delivery times for two route types. Construct side-by-side boxplots from the five-number summaries, using one common horizontal or vertical scale. Then write one sentence comparing the centers and one sentence comparing the variability.
+
+| Route type | Min | Q1 | Median | Q3 | Max |
+| --- | --- | --- | --- | --- | --- |
+| Rural | 24 | 28 | 31 | 38 | 42 |
+| Urban | 30 | 33 | 37 | 45 | 49 |",Side-by-side boxplots with rural min/Q1/median/Q3/max at 24/28/31/38/42 and urban at 30/33/37/45/49. Urban routes have the higher median delivery time; urban routes also have greater variability by IQR and range.,APSTATS-HDG-2026-GRAPH-001__reference.png,"[{""criterion_id"": ""BOXPLOT_SCALE"", ""met_rule"": ""Uses one interpretable common scale for both groups.""}, {""criterion_id"": ""FIVE_NUMBER_VALUES"", ""met_rule"": ""Both boxplots recover the listed five-number summaries.""}, {""criterion_id"": ""CENTER_COMPARISON"", ""met_rule"": ""Correctly compares medians in context.""}, {""criterion_id"": ""VARIABILITY_COMPARISON"", ""met_rule"": ""Correctly compares IQR or range in context.""}]","[{""Route type"": ""Rural"", ""Min"": 24, ""Q1"": 28, ""Median"": 31, ""Q3"": 38, ""Max"": 42}, {""Route type"": ""Urban"", ""Min"": 30, ""Q1"": 33, ""Median"": 37, ""Q3"": 45, ""Max"": 49}]","{""representation"": ""side-by-side boxplots"", ""x_axis"": ""route type"", ""y_axis"": ""delivery time (minutes)""}","[""boxplots"", ""five-number summaries"", ""distribution comparison""]"
+APSTATS-HDG-2026-GRAPH-002,segmented_bar_graph_construction,"A school surveyed students about how often they use a homework planning app. Complete a segmented bar graph using relative frequencies for each class group. Then identify which group has the larger relative frequency of weekly app use.
+
+| Class group | Never | Monthly | Weekly |
+| --- | --- | --- | --- |
+| Underclass | 20 | 45 | 35 |
+| Upperclass | 12 | 38 | 50 |","Underclass segmented bar: 0.20 never, 0.45 monthly, 0.35 weekly. Upperclass segmented bar: 0.12 never, 0.38 monthly, 0.50 weekly. Upperclass students have the larger relative frequency of weekly app use.",APSTATS-HDG-2026-GRAPH-002__reference.png,"[{""criterion_id"": ""RELATIVE_FREQUENCIES"", ""met_rule"": ""Converts counts to correct within-group relative frequencies.""}, {""criterion_id"": ""SEGMENTED_BARS"", ""met_rule"": ""Draws two complete segmented bars with total length 1 or 100%.""}, {""criterion_id"": ""CATEGORY_LABELS"", ""met_rule"": ""Segments and class groups are identifiable.""}, {""criterion_id"": ""COMPARISON"", ""met_rule"": ""Correctly identifies the larger weekly relative frequency.""}]","[{""Class group"": ""Underclass"", ""Never"": 20, ""Monthly"": 45, ""Weekly"": 35}, {""Class group"": ""Upperclass"", ""Never"": 12, ""Monthly"": 38, ""Weekly"": 50}]","{""representation"": ""segmented bar graph"", ""x_axis"": ""relative frequency"", ""groups"": [""Underclass"", ""Upperclass""]}","[""segmented bar graphs"", ""relative frequency"", ""categorical association""]"
+APSTATS-HDG-2026-GRAPH-003,mosaic_plot_interpretation,"Students were classified by primary study device and reported stress level. Draw a mosaic plot from the table so that each device width is proportional to its total count and each vertical segment shows the conditional distribution of stress level within that device. Then state which device group has the largest number of high-stress students.
+
+| Device | Low | Medium | High |
+| --- | --- | --- | --- |
+| Phone | 24 | 36 | 40 |
+| Laptop | 18 | 52 | 30 |
+| Tablet | 30 | 30 | 20 |","Device widths are proportional to totals: Phone 100, Laptop 100, Tablet 80 out of 280. Segment heights use within-device proportions. Phone has the largest number of high-stress students: 40, compared with 30 for Laptop and 20 for Tablet.",APSTATS-HDG-2026-GRAPH-003__reference.png,"[{""criterion_id"": ""WIDTHS_BY_TOTAL"", ""met_rule"": ""Device widths are proportional to device totals.""}, {""criterion_id"": ""HEIGHTS_BY_CONDITIONAL_PROPORTION"", ""met_rule"": ""Segment heights use within-device proportions.""}, {""criterion_id"": ""SEGMENT_LABELS"", ""met_rule"": ""Device and stress-level categories are identifiable.""}, {""criterion_id"": ""AREA_OR_COUNT_REASONING"", ""met_rule"": ""Correctly identifies Phone as largest high-stress count.""}]","[{""Device"": ""Phone"", ""Low"": 24, ""Medium"": 36, ""High"": 40}, {""Device"": ""Laptop"", ""Low"": 18, ""Medium"": 52, ""High"": 30}, {""Device"": ""Tablet"", ""Low"": 30, ""Medium"": 30, ""High"": 20}]","{""representation"": ""mosaic plot"", ""x_axis"": ""primary study device"", ""y_axis"": ""conditional stress-level proportion""}","[""mosaic plots"", ""area reasoning"", ""conditional proportion""]"
+APSTATS-HDG-2026-GRAPH-004,dotplot_distribution_shape,"A sample of 12 customer wait times is shown below. Construct a dotplot of the data, then describe the distribution's shape and identify any possible outlier.
+
+| Wait time (min) |
+| --- |
+| 4 |
+| 5 |
+| 5 |
+| 6 |
+| 6 |
+| 6 |
+| 7 |
+| 7 |
+| 8 |
+| 11 |
+| 12 |
+| 14 |","Dotplot places dots at 4, two at 5, three at 6, two at 7, one at 8, one at 11, one at 12, and one at 14. The distribution is right-skewed, with 14 minutes a possible high outlier.",APSTATS-HDG-2026-GRAPH-004__reference.png,"[{""criterion_id"": ""DOT_COUNTS"", ""met_rule"": ""Plots the correct number of dots at each wait time.""}, {""criterion_id"": ""AXIS_SCALE"", ""met_rule"": ""Uses an interpretable numeric scale covering 4 through 14.""}, {""criterion_id"": ""SHAPE_DESCRIPTION"", ""met_rule"": ""Describes the distribution as right-skewed in context.""}, {""criterion_id"": ""OUTLIER_NOTE"", ""met_rule"": ""Identifies 14 minutes as a possible high outlier or unusual value.""}]","[{""Wait time (min)"": 4}, {""Wait time (min)"": 5}, {""Wait time (min)"": 5}, {""Wait time (min)"": 6}, {""Wait time (min)"": 6}, {""Wait time (min)"": 6}, {""Wait time (min)"": 7}, {""Wait time (min)"": 7}, {""Wait time (min)"": 8}, {""Wait time (min)"": 11}, {""Wait time (min)"": 12}, {""Wait time (min)"": 14}]","{""representation"": ""dotplot"", ""x_axis"": ""wait time (minutes)""}","[""dotplots"", ""shape"", ""outliers"", ""distribution description""]"
+APSTATS-HDG-2026-GRAPH-005,scatterplot_regression_context,"A teacher recorded hours studied and quiz score for nine students. Construct a scatterplot, sketch a reasonable least-squares trend line, and describe the direction, form, and strength of the association in context.
+
+| Hours studied | Quiz score |
+| --- | --- |
+| 2 | 41 |
+| 3 | 45 |
+| 4 | 48 |
+| 5 | 53 |
+| 6 | 55 |
+| 7 | 59 |
+| 8 | 65 |
+| 9 | 68 |
+| 10 | 72 |","Scatterplot shows a strong positive roughly linear association between hours studied and quiz score. A reasonable trend line rises from about (2, 41) toward about (10, 72).",APSTATS-HDG-2026-GRAPH-005__reference.png,"[{""criterion_id"": ""POINTS_PLOTTED"", ""met_rule"": ""Plots all nine ordered pairs at recoverable locations.""}, {""criterion_id"": ""AXIS_LABELS"", ""met_rule"": ""Labels hours studied and quiz score on the correct axes.""}, {""criterion_id"": ""TREND_LINE"", ""met_rule"": ""Sketches a reasonable increasing line through the point cloud.""}, {""criterion_id"": ""ASSOCIATION_DESCRIPTION"", ""met_rule"": ""Describes strong positive roughly linear association in context.""}]","[{""Hours studied"": 2, ""Quiz score"": 41}, {""Hours studied"": 3, ""Quiz score"": 45}, {""Hours studied"": 4, ""Quiz score"": 48}, {""Hours studied"": 5, ""Quiz score"": 53}, {""Hours studied"": 6, ""Quiz score"": 55}, {""Hours studied"": 7, ""Quiz score"": 59}, {""Hours studied"": 8, ""Quiz score"": 65}, {""Hours studied"": 9, ""Quiz score"": 68}, {""Hours studied"": 10, ""Quiz score"": 72}]","{""representation"": ""scatterplot with trend line"", ""x_axis"": ""hours studied"", ""y_axis"": ""quiz score""}","[""scatterplots"", ""linear association"", ""regression""]"
+APSTATS-HDG-2026-GRAPH-006,graph_annotation_marking_value,"The table gives values from a curve showing the probability that a sample satisfies a condition as sample size increases. Draw the curve on a graph with sample size on the x-axis and probability on the y-axis. Mark the point for sample size 20 with an X, then estimate the corresponding probability.
+
+| Sample size | Probability |
+| --- | --- |
+| 5 | 0.02 |
+| 10 | 0.07 |
+| 15 | 0.18 |
+| 20 | 0.39 |
+| 25 | 0.61 |
+| 30 | 0.78 |
+| 35 | 0.88 |
+| 40 | 0.94 |
+| 45 | 0.97 |
+| 50 | 0.99 |",Curve increases from near 0 toward 1. The marked X should be at sample size 20 and probability about 0.39. A reasonable estimate is approximately 0.4.,APSTATS-HDG-2026-GRAPH-006__reference.png,"[{""criterion_id"": ""CURVE_SHAPE"", ""met_rule"": ""Draws an increasing curve consistent with the table.""}, {""criterion_id"": ""AXIS_SCALE_LABELS"", ""met_rule"": ""Labels sample size and probability with interpretable scales.""}, {""criterion_id"": ""X_LOCATION"", ""met_rule"": ""Places X at sample size 20 and probability about 0.39.""}, {""criterion_id"": ""PROBABILITY_ESTIMATE"", ""met_rule"": ""Reports an estimate close to 0.39 or 0.4.""}]","[{""Sample size"": 5, ""Probability"": 0.02}, {""Sample size"": 10, ""Probability"": 0.07}, {""Sample size"": 15, ""Probability"": 0.18}, {""Sample size"": 20, ""Probability"": 0.39}, {""Sample size"": 25, ""Probability"": 0.61}, {""Sample size"": 30, ""Probability"": 0.78}, {""Sample size"": 35, ""Probability"": 0.88}, {""Sample size"": 40, ""Probability"": 0.94}, {""Sample size"": 45, ""Probability"": 0.97}, {""Sample size"": 50, ""Probability"": 0.99}]","{""representation"": ""curve with marked point"", ""x_axis"": ""sample size"", ""y_axis"": ""probability""}","[""graph interpretation"", ""marking a value"", ""sampling conditions""]"
+APSTATS-HDG-2026-GRAPH-007,boxplot_construction_interpretation,"A city planner compared commute times for students who usually ride the bus and students who usually bike. Construct side-by-side boxplots from the five-number summaries using one common scale. Then compare the typical commute time and the spread in context.
+
+| Transportation | Min | Q1 | Median | Q3 | Max |
+| --- | --- | --- | --- | --- | --- |
+| Bus | 18 | 24 | 29 | 41 | 55 |
+| Bike | 12 | 16 | 19 | 25 | 31 |",Side-by-side boxplots with bus min/Q1/median/Q3/max at 18/24/29/41/55 and bike at 12/16/19/25/31. Bus commutes have the larger median and greater spread by both IQR and range.,APSTATS-HDG-2026-GRAPH-007__reference.png,"[{""criterion_id"": ""BOXPLOT_SCALE"", ""met_rule"": ""Uses one interpretable common scale for both groups.""}, {""criterion_id"": ""FIVE_NUMBER_VALUES"", ""met_rule"": ""Both boxplots recover the listed five-number summaries.""}, {""criterion_id"": ""CENTER_COMPARISON"", ""met_rule"": ""Correctly compares medians in context.""}, {""criterion_id"": ""VARIABILITY_COMPARISON"", ""met_rule"": ""Correctly compares IQR or range in context.""}]","[{""Transportation"": ""Bus"", ""Min"": 18, ""Q1"": 24, ""Median"": 29, ""Q3"": 41, ""Max"": 55}, {""Transportation"": ""Bike"", ""Min"": 12, ""Q1"": 16, ""Median"": 19, ""Q3"": 25, ""Max"": 31}]","{""representation"": ""side-by-side boxplots"", ""x_axis"": ""transportation type"", ""y_axis"": ""commute time (minutes)""}","[""boxplots"", ""five-number summaries"", ""distribution comparison""]"
+APSTATS-HDG-2026-GRAPH-008,segmented_bar_graph_construction,"A teacher scored short written explanations before and after a simulation lesson. Complete a segmented bar graph using relative frequencies for each lesson timing group. Then state whether the relative frequency of correct explanations increased after the lesson.
+
+| Lesson timing | Incorrect | Partially correct | Correct |
+| --- | --- | --- | --- |
+| Before lesson | 30 | 42 | 28 |
+| After lesson | 14 | 30 | 56 |","Before lesson segmented bar: 0.30 incorrect, 0.42 partially correct, 0.28 correct. After lesson segmented bar: 0.14 incorrect, 0.30 partially correct, 0.56 correct. The relative frequency of correct explanations increased after the lesson.",APSTATS-HDG-2026-GRAPH-008__reference.png,"[{""criterion_id"": ""RELATIVE_FREQUENCIES"", ""met_rule"": ""Converts counts to correct within-group relative frequencies.""}, {""criterion_id"": ""SEGMENTED_BARS"", ""met_rule"": ""Draws two complete segmented bars with total length 1 or 100%.""}, {""criterion_id"": ""CATEGORY_LABELS"", ""met_rule"": ""Segments and lesson timing groups are identifiable.""}, {""criterion_id"": ""COMPARISON"", ""met_rule"": ""Correctly states that correct explanations increased after the lesson.""}]","[{""Lesson timing"": ""Before lesson"", ""Incorrect"": 30, ""Partially correct"": 42, ""Correct"": 28}, {""Lesson timing"": ""After lesson"", ""Incorrect"": 14, ""Partially correct"": 30, ""Correct"": 56}]","{""representation"": ""segmented bar graph"", ""x_axis"": ""relative frequency"", ""groups"": [""Before lesson"", ""After lesson""]}","[""segmented bar graphs"", ""relative frequency"", ""categorical association""]"
+APSTATS-HDG-2026-GRAPH-009,mosaic_plot_interpretation,"Students were grouped by usual study time and caffeine use level. Draw a mosaic plot so each study time width is proportional to its total count and each vertical segment shows the conditional distribution of caffeine use within that study time. Then identify which study-time group has the largest number of high-caffeine students.
+
+| Study time | Low | Medium | High |
+| --- | --- | --- | --- |
+| Morning | 36 | 42 | 12 |
+| Afternoon | 28 | 50 | 32 |
+| Evening | 16 | 38 | 46 |","Study-time widths are proportional to totals: Morning 90, Afternoon 110, Evening 100 out of 300. Segment heights use within-study-time proportions. Evening has the largest high-caffeine count: 46, compared with 32 for Afternoon and 12 for Morning.",APSTATS-HDG-2026-GRAPH-009__reference.png,"[{""criterion_id"": ""WIDTHS_BY_TOTAL"", ""met_rule"": ""Study-time widths are proportional to group totals.""}, {""criterion_id"": ""HEIGHTS_BY_CONDITIONAL_PROPORTION"", ""met_rule"": ""Segment heights use within-group proportions.""}, {""criterion_id"": ""SEGMENT_LABELS"", ""met_rule"": ""Study-time and caffeine-use categories are identifiable.""}, {""criterion_id"": ""AREA_OR_COUNT_REASONING"", ""met_rule"": ""Correctly identifies Evening as largest high-caffeine count.""}]","[{""Study time"": ""Morning"", ""Low"": 36, ""Medium"": 42, ""High"": 12}, {""Study time"": ""Afternoon"", ""Low"": 28, ""Medium"": 50, ""High"": 32}, {""Study time"": ""Evening"", ""Low"": 16, ""Medium"": 38, ""High"": 46}]","{""representation"": ""mosaic plot"", ""x_axis"": ""usual study time"", ""y_axis"": ""conditional caffeine-use proportion""}","[""mosaic plots"", ""area reasoning"", ""conditional proportion""]"
+APSTATS-HDG-2026-GRAPH-010,dotplot_distribution_shape,"A biology class measured the heights of 12 plants after four weeks. Construct a dotplot of the data, then describe the distribution's shape and comment on whether there is a clear outlier.
+
+| Height (cm) |
+| --- |
+| 68 |
+| 70 |
+| 71 |
+| 72 |
+| 72 |
+| 73 |
+| 74 |
+| 74 |
+| 75 |
+| 76 |
+| 78 |
+| 82 |","Dotplot places dots at 68, 70, 71, two at 72, one at 73, two at 74, one at 75, one at 76, one at 78, and one at 82. The distribution is roughly unimodal with a slight right tail; 82 cm is high but not clearly isolated enough to require calling it an outlier.",APSTATS-HDG-2026-GRAPH-010__reference.png,"[{""criterion_id"": ""DOT_COUNTS"", ""met_rule"": ""Plots the correct number of dots at each plant height.""}, {""criterion_id"": ""AXIS_SCALE"", ""met_rule"": ""Uses an interpretable numeric scale covering 68 through 82.""}, {""criterion_id"": ""SHAPE_DESCRIPTION"", ""met_rule"": ""Describes the distribution as roughly unimodal with slight right tail or similar.""}, {""criterion_id"": ""OUTLIER_NOTE"", ""met_rule"": ""Does not overstate 82 cm as a definite outlier; explains it is high or possibly unusual.""}]","[{""Height (cm)"": 68}, {""Height (cm)"": 70}, {""Height (cm)"": 71}, {""Height (cm)"": 72}, {""Height (cm)"": 72}, {""Height (cm)"": 73}, {""Height (cm)"": 74}, {""Height (cm)"": 74}, {""Height (cm)"": 75}, {""Height (cm)"": 76}, {""Height (cm)"": 78}, {""Height (cm)"": 82}]","{""representation"": ""dotplot"", ""x_axis"": ""height (cm)""}","[""dotplots"", ""shape"", ""clusters"", ""distribution description""]"
+APSTATS-HDG-2026-GRAPH-011,scatterplot_regression_context,"A technology club measured screen brightness and battery remaining after one hour for nine phones. Construct a scatterplot, sketch a reasonable least-squares trend line, and describe the direction, form, and strength of the association in context.
+
+| Screen brightness (%) | Battery remaining (%) |
+| --- | --- |
+| 12 | 88 |
+| 14 | 84 |
+| 15 | 82 |
+| 17 | 79 |
+| 18 | 77 |
+| 20 | 73 |
+| 21 | 70 |
+| 23 | 66 |
+| 25 | 63 |","Scatterplot shows a strong negative roughly linear association between screen brightness and battery remaining. A reasonable trend line falls from about (12, 88) toward about (25, 63).",APSTATS-HDG-2026-GRAPH-011__reference.png,"[{""criterion_id"": ""POINTS_PLOTTED"", ""met_rule"": ""Plots all nine ordered pairs at recoverable locations.""}, {""criterion_id"": ""AXIS_LABELS"", ""met_rule"": ""Labels screen brightness and battery remaining on the correct axes.""}, {""criterion_id"": ""TREND_LINE"", ""met_rule"": ""Sketches a reasonable decreasing line through the point cloud.""}, {""criterion_id"": ""ASSOCIATION_DESCRIPTION"", ""met_rule"": ""Describes strong negative roughly linear association in context.""}]","[{""Screen brightness (%)"": 12, ""Battery remaining (%)"": 88}, {""Screen brightness (%)"": 14, ""Battery remaining (%)"": 84}, {""Screen brightness (%)"": 15, ""Battery remaining (%)"": 82}, {""Screen brightness (%)"": 17, ""Battery remaining (%)"": 79}, {""Screen brightness (%)"": 18, ""Battery remaining (%)"": 77}, {""Screen brightness (%)"": 20, ""Battery remaining (%)"": 73}, {""Screen brightness (%)"": 21, ""Battery remaining (%)"": 70}, {""Screen brightness (%)"": 23, ""Battery remaining (%)"": 66}, {""Screen brightness (%)"": 25, ""Battery remaining (%)"": 63}]","{""representation"": ""scatterplot with trend line"", ""x_axis"": ""screen brightness (%)"", ""y_axis"": ""battery remaining (%)""}","[""scatterplots"", ""negative association"", ""regression""]"
+APSTATS-HDG-2026-GRAPH-012,graph_annotation_marking_value,"A simulation estimated the detection rate for a rare issue as additional sample size increased. Draw the curve using the table, with added sample size on the x-axis and detection rate on the y-axis. Mark the point for added sample size 25 with an X, then estimate the corresponding detection rate.
+
+| Added sample size | Detection rate |
+| --- | --- |
+| 0 | 0.12 |
+| 5 | 0.2 |
+| 10 | 0.34 |
+| 15 | 0.52 |
+| 20 | 0.69 |
+| 25 | 0.81 |
+| 30 | 0.89 |
+| 35 | 0.94 |
+| 40 | 0.97 |",Curve increases from about 0.12 toward 0.97. The marked X should be at added sample size 25 and detection rate about 0.81.,APSTATS-HDG-2026-GRAPH-012__reference.png,"[{""criterion_id"": ""CURVE_SHAPE"", ""met_rule"": ""Draws an increasing curve consistent with the table.""}, {""criterion_id"": ""AXIS_SCALE_LABELS"", ""met_rule"": ""Labels added sample size and detection rate with interpretable scales.""}, {""criterion_id"": ""X_LOCATION"", ""met_rule"": ""Places X at added sample size 25 and detection rate about 0.81.""}, {""criterion_id"": ""RATE_ESTIMATE"", ""met_rule"": ""Reports an estimate close to 0.81.""}]","[{""Added sample size"": 0, ""Detection rate"": 0.12}, {""Added sample size"": 5, ""Detection rate"": 0.2}, {""Added sample size"": 10, ""Detection rate"": 0.34}, {""Added sample size"": 15, ""Detection rate"": 0.52}, {""Added sample size"": 20, ""Detection rate"": 0.69}, {""Added sample size"": 25, ""Detection rate"": 0.81}, {""Added sample size"": 30, ""Detection rate"": 0.89}, {""Added sample size"": 35, ""Detection rate"": 0.94}, {""Added sample size"": 40, ""Detection rate"": 0.97}]","{""representation"": ""curve with marked point"", ""x_axis"": ""added sample size"", ""y_axis"": ""detection rate""}","[""graph interpretation"", ""marking a value"", ""probability curve""]"
