@@ -119,15 +119,28 @@ function summarizeGuardrailNotes(criteria: CriterionResult[]) {
 
 const OPENAI_API_KEY = requireEnv("OPENAI_API_KEY");
 const OPENAI_MODEL = Deno.env.get("OPENAI_MODEL") ?? "gpt-4.1-mini";
+const OPENAI_STRICT_MODEL = Deno.env.get("OPENAI_STRICT_MODEL") ?? "gpt-5.5";
 const OPENAI_MAX_OUTPUT_TOKENS = Number(
   Deno.env.get("OPENAI_MAX_OUTPUT_TOKENS") ?? "1200",
 );
+const OPENAI_FAST_MAX_OUTPUT_TOKENS = (() => {
+  const raw = Deno.env.get("OPENAI_FAST_MAX_OUTPUT_TOKENS");
+  if (!raw) return 320;
+  const parsed = Number(raw);
+  if (!Number.isInteger(parsed) || parsed <= 0) {
+    throw new Error("Invalid environment variable: OPENAI_FAST_MAX_OUTPUT_TOKENS");
+  }
+  return parsed;
+})();
 
 async function callOpenAIGrade(input: {
+  model: string;
   systemPrompt: string;
   userPrompt: string;
   idempotencyKey: string;
   userId: string;
+  reasoningEffort?: "low" | "medium" | "high";
+  maxOutputTokens: number;
 }) {
   const response = await fetch("https://api.openai.com/v1/responses", {
     method: "POST",
@@ -137,7 +150,7 @@ async function callOpenAIGrade(input: {
       "Idempotency-Key": input.idempotencyKey,
     },
     body: JSON.stringify({
-      model: OPENAI_MODEL,
+      model: input.model,
       input: [
         {
           role: "system",
@@ -149,8 +162,10 @@ async function callOpenAIGrade(input: {
         },
       ],
       store: false,
-      reasoning: { effort: "medium" },
-      max_output_tokens: OPENAI_MAX_OUTPUT_TOKENS,
+      ...(input.reasoningEffort
+        ? { reasoning: { effort: input.reasoningEffort } }
+        : {}),
+      max_output_tokens: input.maxOutputTokens,
       text: {
         format: {
           type: "json_schema",
@@ -332,37 +347,58 @@ Deno.serve(async (req) => {
       ? question.rubric
       : JSON.stringify(question.rubric ?? null),
   ) ?? {};
+  const teachingPackage = question.teaching_package &&
+      typeof question.teaching_package === "object" &&
+      !Array.isArray(question.teaching_package)
+    ? question.teaching_package as Record<string, unknown>
+    : {};
+  const frqSubtype = asString(question.frq_subtype) ??
+    asString(teachingPackage.frq_subtype) ?? null;
+  const questionDifficulty = asString(question.difficulty) ?? "standard";
+  const isLongOrInvestigative = question.type === "long_frq" ||
+    frqSubtype === "investigative_task" ||
+    questionDifficulty === "challenging";
+  const primaryModel = isLongOrInvestigative ? OPENAI_STRICT_MODEL : OPENAI_MODEL;
+  const primaryReasoning = isLongOrInvestigative ? "medium" : undefined;
+  const primaryMaxOutputTokens = isLongOrInvestigative
+    ? OPENAI_MAX_OUTPUT_TOKENS
+    : OPENAI_FAST_MAX_OUTPUT_TOKENS;
 
   const systemPrompt = [
-    "You are Cramapple's criterion-based AP Biology grader.",
-    "Score the student's response against the provided rubric only.",
-    "This scorer is for released, validated question/rubric combinations.",
-    "New BYOQ content or rubric revisions must be calibrated separately with a primary model plus a secondary audit model before they are treated as production-ready.",
+    "You are Cramapple's criterion-based AP grader.",
+    "Score only the rubric and do not invent evidence.",
+    "Keep each string short and return only JSON that matches the schema.",
+    "If evidence is weak or ambiguous, lower confidence rather than guessing.",
     "Do not invent evidence.",
     "When evidence is absent, use empty evidence_quote if there is truly no evidence.",
     "When evidence is present but ambiguous, use unable_to_determine and quote the observed text.",
-    "Return only valid JSON matching the schema.",
   ].join(" ");
 
-  const userPrompt = [
-    `Question type: ${question.type}`,
-    `Question stem: ${question.stem}`,
-    question.stimulus_url
-      ? `Stimulus URL: ${question.stimulus_url}`
-      : "Stimulus URL: none",
-    `Question rubric JSON: ${JSON.stringify(rubric, null, 2)}`,
-    `Student response text: ${responseText}`,
-    `Assistance level: ${assistanceLevel}`,
-    "Produce a point summary, criterion-level breakdown, the missing concept, a rewritten next fix, and a brief teaching note.",
-  ].join("\n\n");
+  const userPrompt = JSON.stringify(
+    {
+      question_type: question.type,
+      frq_subtype: frqSubtype,
+      difficulty: questionDifficulty,
+      stem: question.stem,
+      stimulus_url: question.stimulus_url ?? null,
+      rubric,
+      student_response_text: responseText,
+      assistance_level: assistanceLevel,
+    },
+    null,
+    0,
+  );
 
   let graded: { raw: Record<string, unknown>; parsed: Record<string, unknown> };
   try {
     graded = await callOpenAIGrade({
+      model: primaryModel,
       systemPrompt,
       userPrompt,
       idempotencyKey: attemptId,
       userId: user.id,
+      reasoningEffort: primaryReasoning,
+      maxOutputTokens: primaryMaxOutputTokens,
     });
   } catch (error) {
     const fallback = {
@@ -428,11 +464,101 @@ Deno.serve(async (req) => {
       modelConfidence === "qualified" || modelConfidence === "low"
     ? modelConfidence
     : "qualified";
-  const shouldQualifyResult = modelStatus !== "graded" ||
+  const shouldEscalateToStrict = !isLongOrInvestigative && (
+    modelStatus !== "graded" ||
     normalizedConfidence === "low" ||
     hasUnableCriteria ||
-    guardrailNotes.length > 0;
-  const pointsEarned = criteria.reduce(
+    guardrailNotes.length > 0
+  );
+
+  if (shouldEscalateToStrict) {
+    try {
+      graded = await callOpenAIGrade({
+        model: OPENAI_STRICT_MODEL,
+        systemPrompt: [
+          systemPrompt,
+          "This is a strict escalation pass after the fast pass was low-confidence or guardrail-adjusted.",
+        ].join(" "),
+        userPrompt,
+        idempotencyKey: `${attemptId}:strict`,
+        userId: user.id,
+        reasoningEffort: "medium",
+        maxOutputTokens: OPENAI_MAX_OUTPUT_TOKENS,
+      });
+    } catch (error) {
+      const fallback = {
+        status: "uncertain",
+        points_earned: 0,
+        points_available: Number(question.points_available ?? 1) || 1,
+        point_summary:
+          "Your answer is saved, but grading could not be completed confidently.",
+        criteria: [],
+        missing_concept: "The grader could not determine the missing concept.",
+        next_fix: "Try again with the missing concept stated directly.",
+        teaching_note:
+          "This result should be reviewed if it appears unexpectedly.",
+        confidence: "low",
+        uncertainty_reason: error instanceof Error
+          ? error.message
+          : "grading_failed",
+      };
+
+      await service.schema("public").from("student_attempts").update({
+        response_text: responseText || attempt.response_text,
+        assistance_level: assistanceLevel,
+        submitted_at: new Date().toISOString(),
+        grading_state: "content_uncertain",
+        grader_output: fallback,
+      }).eq("id", attemptId);
+
+      return respond(
+        { status: "uncertain", function: "grade-frq", result: fallback },
+        { status: 202 },
+      );
+    }
+  }
+
+  const parsedAfterEscalation = graded.parsed as Record<string, unknown>;
+  const criteriaAfterEscalation = Array.isArray(parsedAfterEscalation.criteria)
+    ? parsedAfterEscalation.criteria.map((item, index) => {
+      const row = item && typeof item === "object"
+        ? item as Record<string, unknown>
+        : {};
+      const criterionKey = asString(row.criterion_key) ??
+        `criterion_${index + 1}`;
+      return enforceCriterionGuardrails({
+        criterion_key: criterionKey,
+        label: asString(row.label) ?? criterionKey,
+        status: normalizeStatus(row.status),
+        evidence_quote: asString(row.evidence_quote) ?? "",
+        explanation: asString(row.explanation) ?? "",
+        minimum_fix: asString(row.minimum_fix) ?? "",
+        points_awarded: Number.isFinite(Number(row.points_awarded))
+          ? Number(row.points_awarded)
+          : 0,
+      });
+    })
+    : [];
+
+  const guardrailNotesAfterEscalation = summarizeGuardrailNotes(
+    criteriaAfterEscalation,
+  );
+  const hasUnableCriteriaAfterEscalation = criteriaAfterEscalation.some((criterion) =>
+    criterion.status === "unable_to_determine"
+  );
+  const modelStatusAfterEscalation = asString(parsedAfterEscalation.status) ??
+    "graded";
+  const modelConfidenceAfterEscalation = asString(parsedAfterEscalation.confidence);
+  const normalizedConfidenceAfterEscalation = modelConfidenceAfterEscalation === "high" ||
+      modelConfidenceAfterEscalation === "qualified" ||
+      modelConfidenceAfterEscalation === "low"
+    ? modelConfidenceAfterEscalation
+    : "qualified";
+  const shouldQualifyResult = modelStatusAfterEscalation !== "graded" ||
+    normalizedConfidenceAfterEscalation === "low" ||
+    hasUnableCriteriaAfterEscalation ||
+    guardrailNotesAfterEscalation.length > 0;
+  const pointsEarned = criteriaAfterEscalation.reduce(
     (sum, criterion) => sum + criterion.points_awarded,
     0,
   );
@@ -440,26 +566,26 @@ Deno.serve(async (req) => {
   const result = {
     status: shouldQualifyResult ? "uncertain" : "graded",
     points_earned: pointsEarned,
-    points_available: Number.isFinite(Number(parsed.points_available))
-      ? Number(parsed.points_available)
+    points_available: Number.isFinite(Number(parsedAfterEscalation.points_available))
+      ? Number(parsedAfterEscalation.points_available)
       : Number(question.points_available ?? 1) || 1,
     point_summary: shouldQualifyResult
       ? "Your response is saved, but at least one criterion needs a qualified review before this score should be treated as final."
-      : asString(parsed.point_summary) ?? "Criterion-level feedback is ready.",
-    criteria,
-    missing_concept: asString(parsed.missing_concept) ?? "",
-    next_fix: asString(parsed.next_fix) ?? "",
-    teaching_note: asString(parsed.teaching_note) ?? "",
-    confidence: shouldQualifyResult && normalizedConfidence === "high"
+      : asString(parsedAfterEscalation.point_summary) ?? "Criterion-level feedback is ready.",
+    criteria: criteriaAfterEscalation,
+    missing_concept: asString(parsedAfterEscalation.missing_concept) ?? "",
+    next_fix: asString(parsedAfterEscalation.next_fix) ?? "",
+    teaching_note: asString(parsedAfterEscalation.teaching_note) ?? "",
+    confidence: shouldQualifyResult && normalizedConfidenceAfterEscalation === "high"
       ? "qualified"
-      : normalizedConfidence,
+      : normalizedConfidenceAfterEscalation,
     uncertainty_reason: shouldQualifyResult
-      ? asString(parsed.uncertainty_reason) ??
-        (guardrailNotes.length > 0
+      ? asString(parsedAfterEscalation.uncertainty_reason) ??
+        (guardrailNotesAfterEscalation.length > 0
           ? "grader_output_guardrail_adjusted"
           : "criterion_unable_to_determine")
-      : asString(parsed.uncertainty_reason),
-    guardrail_notes: guardrailNotes,
+      : asString(parsedAfterEscalation.uncertainty_reason),
+    guardrail_notes: guardrailNotesAfterEscalation,
     raw_model_response: graded.raw,
   };
 
@@ -467,7 +593,7 @@ Deno.serve(async (req) => {
     ? "graded_high_confidence"
     : "content_uncertain";
 
-  const lockRows = criteria.filter((criterion) =>
+  const lockRows = criteriaAfterEscalation.filter((criterion) =>
     criterion.status !== "earned"
   );
   if (lockRows.length > 0) {

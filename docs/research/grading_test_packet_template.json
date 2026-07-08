@@ -1,0 +1,80 @@
+{
+  "template_id": "grading_test_packet_template_v1",
+  "template_kind": "grading_test_packet",
+  "status": "draft",
+  "created_at": null,
+  "updated_at": null,
+  "subject": null,
+  "question_type_distribution": {
+    "mcq": null,
+    "frq": null,
+    "hand_drawn_frq": null
+  },
+  "difficulty_distribution": {
+    "easy": null,
+    "medium": null,
+    "hard": null
+  },
+  "module_distribution": [
+    {
+      "module_id": null,
+      "module_name": null,
+      "count": null
+    }
+  ],
+  "special_instructions": null,
+  "standard_defaults": {
+    "supported_question_types": [
+      "MCQ",
+      "FRQ",
+      "Hand-drawn FRQ"
+    ],
+    "default_difficulty_taxonomy": [
+      "Easy",
+      "Medium",
+      "Hard"
+    ],
+    "default_contract_shape": [
+      "representation_or_answer_form",
+      "labels_or_context",
+      "geometry_values_or_evidence",
+      "completeness_or_boundary_cue"
+    ],
+    "default_missing_special_instructions": "none"
+  },
+  "packet_fields": {
+    "packet_name": null,
+    "packet_version": null,
+    "subject": null,
+    "objective": null,
+    "item_inventory": [
+      {
+        "item_id": null,
+        "item_type": null,
+        "difficulty": null,
+        "module": null,
+        "source_ref": null,
+        "content_ref": null,
+        "response_ref": null,
+        "contract_ref": null,
+        "boundary_tags": []
+      }
+    ],
+    "evaluation_target": null,
+    "review_status": "draft",
+    "reviewer_notes": null
+  },
+  "required_user_inputs": [
+    "subject",
+    "question_type_distribution",
+    "difficulty_distribution",
+    "module_distribution",
+    "special_instructions"
+  ],
+  "assembly_rules": [
+    "Ask only for missing required user inputs.",
+    "Reuse standardized defaults when the user has not overridden them.",
+    "Keep the contract shape fixed unless a test explicitly changes it.",
+    "Do not create a packet with contradictory counts."
+  ]
+}

@@ -1,0 +1,397 @@
+{
+  "items": [
+    {
+      "content_key": "APBIO-HDG-2026-GRAPH-001",
+      "prompt_json": {
+        "archetype": "boxplot_construction_interpretation",
+        "subject": "AP Biology",
+        "modules": ["AP Biology", "ecology", "data analysis"],
+        "subtopics": ["stomata density", "leaf adaptation", "distribution comparison"],
+        "capture_instruction": "Original research seed for hand-drawn AP Biology graph-response grading. Do not expose criterion definitions to the person drawing the graph.",
+        "content_key": "APBIO-HDG-2026-GRAPH-001",
+        "frq_form": "short",
+        "item_type": "frq",
+        "hand_drawn": true,
+        "label_status": "ai_provisional_unapproved",
+        "rights_status": "independently_authored_synthetic_research_seed_unverified",
+        "stem": "Answer the following question. Submit one photograph showing your constructed graph and your written response together.",
+        "stimulus": "A botanist measured stomata density (per mm^2) on samples of sun leaves and shade leaves from the same tree species. Construct side-by-side boxplots from the five-number summaries, using one common scale. Then write one sentence comparing the centers and one sentence comparing the variability.\n\n| Leaf type | Min | Q1 | Median | Q3 | Max |\n| --- | --- | --- | --- | --- | --- |\n| Sun | 180 | 210 | 235 | 260 | 290 |\n| Shade | 90 | 110 | 130 | 150 | 175 |",
+        "expected_graph_spec": {"representation": "side-by-side boxplots", "x_axis": "leaf type", "y_axis": "stomata density (per mm^2)"},
+        "stimulus_table": [
+          {"Leaf type": "Sun", "Min": 180, "Q1": 210, "Median": 235, "Q3": 260, "Max": 290},
+          {"Leaf type": "Shade", "Min": 90, "Q1": 110, "Median": 130, "Q3": 150, "Max": 175}
+        ],
+        "criteria": [
+          {"criterion_key": "BOXPLOT_SCALE", "learner_facing_text": "Uses one interpretable common scale for both leaf types.", "points_possible": 1},
+          {"criterion_key": "FIVE_NUMBER_VALUES", "learner_facing_text": "Both boxplots recover the listed five-number summaries.", "points_possible": 1},
+          {"criterion_key": "CENTER_COMPARISON", "learner_facing_text": "Correctly compares medians (sun leaves have higher stomata density) in context.", "points_possible": 1},
+          {"criterion_key": "VARIABILITY_COMPARISON", "learner_facing_text": "Correctly compares IQR or range (sun leaves more variable) in context.", "points_possible": 1}
+        ],
+        "parts": [{"part_key": "a", "is_drawn": true, "points_possible": 4, "prompt_text": "See stimulus."}]
+      }
+    },
+    {
+      "content_key": "APBIO-HDG-2026-GRAPH-002",
+      "prompt_json": {
+        "archetype": "boxplot_construction_interpretation",
+        "subject": "AP Biology",
+        "modules": ["AP Biology", "cellular processes", "data analysis"],
+        "subtopics": ["enzyme activity", "temperature effect", "distribution comparison"],
+        "capture_instruction": "Original research seed for hand-drawn AP Biology graph-response grading. Do not expose criterion definitions to the person drawing the graph.",
+        "content_key": "APBIO-HDG-2026-GRAPH-002",
+        "frq_form": "short",
+        "item_type": "frq",
+        "hand_drawn": true,
+        "label_status": "ai_provisional_unapproved",
+        "rights_status": "independently_authored_synthetic_research_seed_unverified",
+        "stem": "Answer the following question. Submit one photograph showing your constructed graph and your written response together.",
+        "stimulus": "A student measured catalase reaction rates (bubbles/min) in replicate trials at two temperatures. Construct side-by-side boxplots from the five-number summaries, using one common scale. Then write one sentence comparing the centers and one sentence comparing the variability.\n\n| Temperature | Min | Q1 | Median | Q3 | Max |\n| --- | --- | --- | --- | --- | --- |\n| 20C | 8 | 11 | 13 | 15 | 18 |\n| 37C | 20 | 26 | 30 | 34 | 40 |",
+        "expected_graph_spec": {"representation": "side-by-side boxplots", "x_axis": "temperature", "y_axis": "reaction rate (bubbles/min)"},
+        "stimulus_table": [
+          {"Temperature": "20C", "Min": 8, "Q1": 11, "Median": 13, "Q3": 15, "Max": 18},
+          {"Temperature": "37C", "Min": 20, "Q1": 26, "Median": 30, "Q3": 34, "Max": 40}
+        ],
+        "criteria": [
+          {"criterion_key": "BOXPLOT_SCALE", "learner_facing_text": "Uses one interpretable common scale for both temperatures.", "points_possible": 1},
+          {"criterion_key": "FIVE_NUMBER_VALUES", "learner_facing_text": "Both boxplots recover the listed five-number summaries.", "points_possible": 1},
+          {"criterion_key": "CENTER_COMPARISON", "learner_facing_text": "Correctly compares medians (37C has higher reaction rate) in context.", "points_possible": 1},
+          {"criterion_key": "VARIABILITY_COMPARISON", "learner_facing_text": "Correctly compares IQR or range (37C more variable) in context.", "points_possible": 1}
+        ],
+        "parts": [{"part_key": "a", "is_drawn": true, "points_possible": 4, "prompt_text": "See stimulus."}]
+      }
+    },
+    {
+      "content_key": "APBIO-HDG-2026-GRAPH-003",
+      "prompt_json": {
+        "archetype": "segmented_bar_graph_construction",
+        "subject": "AP Biology",
+        "modules": ["AP Biology", "evolution", "data analysis"],
+        "subtopics": ["genotype frequency", "natural selection", "relative frequency"],
+        "capture_instruction": "Original research seed for hand-drawn AP Biology graph-response grading. Do not expose criterion definitions to the person drawing the graph.",
+        "content_key": "APBIO-HDG-2026-GRAPH-003",
+        "frq_form": "short",
+        "item_type": "frq",
+        "hand_drawn": true,
+        "label_status": "ai_provisional_unapproved",
+        "rights_status": "independently_authored_synthetic_research_seed_unverified",
+        "stem": "Answer the following question. Submit one photograph showing your constructed graph and your written response together.",
+        "stimulus": "Researchers genotyped a beetle population before and after a pesticide was introduced. Complete a segmented bar graph using relative frequencies of each genotype for each time point. Then identify which time point has the larger relative frequency of the resistant (RR) genotype.\n\n| Time point | RR | Rr | rr |\n| --- | --- | --- | --- |\n| Before | 10 | 30 | 60 |\n| After | 55 | 35 | 10 |",
+        "expected_graph_spec": {"representation": "segmented bar graph", "x_axis": "relative frequency", "groups": ["Before", "After"]},
+        "stimulus_table": [
+          {"Time point": "Before", "RR": 10, "Rr": 30, "rr": 60},
+          {"Time point": "After", "RR": 55, "Rr": 35, "rr": 10}
+        ],
+        "criteria": [
+          {"criterion_key": "RELATIVE_FREQUENCIES", "learner_facing_text": "Converts counts to correct within-time-point relative frequencies.", "points_possible": 1},
+          {"criterion_key": "SEGMENTED_BARS", "learner_facing_text": "Draws two complete segmented bars with total length 1 or 100%.", "points_possible": 1},
+          {"criterion_key": "CATEGORY_LABELS", "learner_facing_text": "Genotype segments and time points are identifiable.", "points_possible": 1},
+          {"criterion_key": "COMPARISON", "learner_facing_text": "Correctly identifies After as having the larger RR relative frequency.", "points_possible": 1}
+        ],
+        "parts": [{"part_key": "a", "is_drawn": true, "points_possible": 4, "prompt_text": "See stimulus."}]
+      }
+    },
+    {
+      "content_key": "APBIO-HDG-2026-GRAPH-004",
+      "prompt_json": {
+        "archetype": "segmented_bar_graph_construction",
+        "subject": "AP Biology",
+        "modules": ["AP Biology", "genetics", "data analysis"],
+        "subtopics": ["phenotype frequency", "habitat comparison", "relative frequency"],
+        "capture_instruction": "Original research seed for hand-drawn AP Biology graph-response grading. Do not expose criterion definitions to the person drawing the graph.",
+        "content_key": "APBIO-HDG-2026-GRAPH-004",
+        "frq_form": "short",
+        "item_type": "frq",
+        "hand_drawn": true,
+        "label_status": "ai_provisional_unapproved",
+        "rights_status": "independently_authored_synthetic_research_seed_unverified",
+        "stem": "Answer the following question. Submit one photograph showing your constructed graph and your written response together.",
+        "stimulus": "Snail shell color (banded vs. plain) was recorded in two habitats. Complete a segmented bar graph using relative frequencies for each habitat. Then identify which habitat has the larger relative frequency of banded snails.\n\n| Habitat | Banded | Plain |\n| --- | --- | --- |\n| Grassland | 65 | 35 |\n| Woodland | 25 | 75 |",
+        "expected_graph_spec": {"representation": "segmented bar graph", "x_axis": "relative frequency", "groups": ["Grassland", "Woodland"]},
+        "stimulus_table": [
+          {"Habitat": "Grassland", "Banded": 65, "Plain": 35},
+          {"Habitat": "Woodland", "Banded": 25, "Plain": 75}
+        ],
+        "criteria": [
+          {"criterion_key": "RELATIVE_FREQUENCIES", "learner_facing_text": "Converts counts to correct within-habitat relative frequencies.", "points_possible": 1},
+          {"criterion_key": "SEGMENTED_BARS", "learner_facing_text": "Draws two complete segmented bars with total length 1 or 100%.", "points_possible": 1},
+          {"criterion_key": "CATEGORY_LABELS", "learner_facing_text": "Shell-color segments and habitats are identifiable.", "points_possible": 1},
+          {"criterion_key": "COMPARISON", "learner_facing_text": "Correctly identifies Grassland as having the larger banded relative frequency.", "points_possible": 1}
+        ],
+        "parts": [{"part_key": "a", "is_drawn": true, "points_possible": 4, "prompt_text": "See stimulus."}]
+      }
+    },
+    {
+      "content_key": "APBIO-HDG-2026-GRAPH-005",
+      "prompt_json": {
+        "archetype": "mosaic_plot_interpretation",
+        "subject": "AP Biology",
+        "modules": ["AP Biology", "ecology", "data analysis"],
+        "subtopics": ["pollinator visitation", "plant-pollinator interaction", "conditional distribution"],
+        "capture_instruction": "Original research seed for hand-drawn AP Biology graph-response grading. Do not expose criterion definitions to the person drawing the graph.",
+        "content_key": "APBIO-HDG-2026-GRAPH-005",
+        "frq_form": "short",
+        "item_type": "frq",
+        "hand_drawn": true,
+        "label_status": "ai_provisional_unapproved",
+        "rights_status": "independently_authored_synthetic_research_seed_unverified",
+        "stem": "Answer the following question. Submit one photograph showing your constructed graph and your written response together.",
+        "stimulus": "Field researchers recorded which pollinator visited each of three wildflower species. Draw a mosaic plot from the table so that each species width is proportional to its total number of visits and each vertical segment shows the conditional distribution of pollinator type within that species. Then state which species has the largest number of bee visits.\n\n| Species | Bee | Moth | Beetle |\n| --- | --- | --- | --- |\n| Aster | 50 | 30 | 20 |\n| Clover | 60 | 10 | 10 |\n| Thistle | 15 | 45 | 20 |",
+        "expected_graph_spec": {"representation": "mosaic plot", "x_axis": "wildflower species", "y_axis": "conditional pollinator proportion"},
+        "stimulus_table": [
+          {"Species": "Aster", "Bee": 50, "Moth": 30, "Beetle": 20},
+          {"Species": "Clover", "Bee": 60, "Moth": 10, "Beetle": 10},
+          {"Species": "Thistle", "Bee": 15, "Moth": 45, "Beetle": 20}
+        ],
+        "criteria": [
+          {"criterion_key": "WIDTHS_BY_TOTAL", "learner_facing_text": "Species widths are proportional to species visit totals.", "points_possible": 1},
+          {"criterion_key": "HEIGHTS_BY_CONDITIONAL_PROPORTION", "learner_facing_text": "Segment heights use within-species proportions.", "points_possible": 1},
+          {"criterion_key": "SEGMENT_LABELS", "learner_facing_text": "Species and pollinator categories are identifiable.", "points_possible": 1},
+          {"criterion_key": "AREA_OR_COUNT_REASONING", "learner_facing_text": "Correctly identifies Aster as the species with the largest bee-visit count.", "points_possible": 1}
+        ],
+        "parts": [{"part_key": "a", "is_drawn": true, "points_possible": 4, "prompt_text": "See stimulus."}]
+      }
+    },
+    {
+      "content_key": "APBIO-HDG-2026-GRAPH-006",
+      "prompt_json": {
+        "archetype": "mosaic_plot_interpretation",
+        "subject": "AP Biology",
+        "modules": ["AP Biology", "ecology", "data analysis"],
+        "subtopics": ["habitat zonation", "diet composition", "conditional distribution"],
+        "capture_instruction": "Original research seed for hand-drawn AP Biology graph-response grading. Do not expose criterion definitions to the person drawing the graph.",
+        "content_key": "APBIO-HDG-2026-GRAPH-006",
+        "frq_form": "short",
+        "item_type": "frq",
+        "hand_drawn": true,
+        "label_status": "ai_provisional_unapproved",
+        "rights_status": "independently_authored_synthetic_research_seed_unverified",
+        "stem": "Answer the following question. Submit one photograph showing your constructed graph and your written response together.",
+        "stimulus": "Fish were sampled from three depth zones and classified by primary diet type. Draw a mosaic plot from the table so that each zone width is proportional to its total sample count and each vertical segment shows the conditional distribution of diet type within that zone. Then state which zone has the largest number of piscivores (fish-eaters).\n\n| Zone | Herbivore | Planktivore | Piscivore |\n| --- | --- | --- | --- |\n| Surface | 40 | 45 | 15 |\n| Mid-water | 20 | 30 | 50 |\n| Bottom | 35 | 15 | 25 |",
+        "expected_graph_spec": {"representation": "mosaic plot", "x_axis": "depth zone", "y_axis": "conditional diet-type proportion"},
+        "stimulus_table": [
+          {"Zone": "Surface", "Herbivore": 40, "Planktivore": 45, "Piscivore": 15},
+          {"Zone": "Mid-water", "Herbivore": 20, "Planktivore": 30, "Piscivore": 50},
+          {"Zone": "Bottom", "Herbivore": 35, "Planktivore": 15, "Piscivore": 25}
+        ],
+        "criteria": [
+          {"criterion_key": "WIDTHS_BY_TOTAL", "learner_facing_text": "Zone widths are proportional to zone sample totals.", "points_possible": 1},
+          {"criterion_key": "HEIGHTS_BY_CONDITIONAL_PROPORTION", "learner_facing_text": "Segment heights use within-zone proportions.", "points_possible": 1},
+          {"criterion_key": "SEGMENT_LABELS", "learner_facing_text": "Zone and diet-type categories are identifiable.", "points_possible": 1},
+          {"criterion_key": "AREA_OR_COUNT_REASONING", "learner_facing_text": "Correctly identifies Mid-water as the zone with the largest piscivore count.", "points_possible": 1}
+        ],
+        "parts": [{"part_key": "a", "is_drawn": true, "points_possible": 4, "prompt_text": "See stimulus."}]
+      }
+    },
+    {
+      "content_key": "APBIO-HDG-2026-GRAPH-007",
+      "prompt_json": {
+        "archetype": "dotplot_distribution_shape",
+        "subject": "AP Biology",
+        "modules": ["AP Biology", "evolution", "data analysis"],
+        "subtopics": ["Darwin's finches", "beak morphology", "distribution shape"],
+        "capture_instruction": "Original research seed for hand-drawn AP Biology graph-response grading. Do not expose criterion definitions to the person drawing the graph.",
+        "content_key": "APBIO-HDG-2026-GRAPH-007",
+        "frq_form": "short",
+        "item_type": "frq",
+        "hand_drawn": true,
+        "label_status": "ai_provisional_unapproved",
+        "rights_status": "independently_authored_synthetic_research_seed_unverified",
+        "stem": "Answer the following question. Submit one photograph showing your constructed graph and your written response together.",
+        "stimulus": "A sample of 12 Galapagos finch beak depths (mm) is shown below. Construct a dotplot of the data, then describe the distribution's shape and identify any possible outlier.\n\n| Beak depth (mm) |\n| --- |\n| 8 |\n| 9 |\n| 9 |\n| 10 |\n| 10 |\n| 10 |\n| 11 |\n| 11 |\n| 12 |\n| 15 |\n| 16 |\n| 18 |",
+        "expected_graph_spec": {"representation": "dotplot", "x_axis": "beak depth (mm)"},
+        "stimulus_table": [
+          {"Beak depth (mm)": 8}, {"Beak depth (mm)": 9}, {"Beak depth (mm)": 9},
+          {"Beak depth (mm)": 10}, {"Beak depth (mm)": 10}, {"Beak depth (mm)": 10},
+          {"Beak depth (mm)": 11}, {"Beak depth (mm)": 11}, {"Beak depth (mm)": 12},
+          {"Beak depth (mm)": 15}, {"Beak depth (mm)": 16}, {"Beak depth (mm)": 18}
+        ],
+        "criteria": [
+          {"criterion_key": "DOT_COUNTS", "learner_facing_text": "Plots the correct number of dots at each beak depth.", "points_possible": 1},
+          {"criterion_key": "AXIS_SCALE", "learner_facing_text": "Uses an interpretable numeric scale covering 8 through 18.", "points_possible": 1},
+          {"criterion_key": "SHAPE_DESCRIPTION", "learner_facing_text": "Describes the distribution as right-skewed in context.", "points_possible": 1},
+          {"criterion_key": "OUTLIER_NOTE", "learner_facing_text": "Identifies 18 mm as a possible high outlier or unusual value.", "points_possible": 1}
+        ],
+        "parts": [{"part_key": "a", "is_drawn": true, "points_possible": 4, "prompt_text": "See stimulus."}]
+      }
+    },
+    {
+      "content_key": "APBIO-HDG-2026-GRAPH-008",
+      "prompt_json": {
+        "archetype": "dotplot_distribution_shape",
+        "subject": "AP Biology",
+        "modules": ["AP Biology", "plant biology", "data analysis"],
+        "subtopics": ["seed germination", "distribution shape"],
+        "capture_instruction": "Original research seed for hand-drawn AP Biology graph-response grading. Do not expose criterion definitions to the person drawing the graph.",
+        "content_key": "APBIO-HDG-2026-GRAPH-008",
+        "frq_form": "short",
+        "item_type": "frq",
+        "hand_drawn": true,
+        "label_status": "ai_provisional_unapproved",
+        "rights_status": "independently_authored_synthetic_research_seed_unverified",
+        "stem": "Answer the following question. Submit one photograph showing your constructed graph and your written response together.",
+        "stimulus": "A sample of 12 bean seed germination times (days) under a growth-hormone treatment is shown below. Construct a dotplot of the data, then describe the distribution's shape and identify any possible outlier.\n\n| Germination time (days) |\n| --- |\n| 2 |\n| 3 |\n| 3 |\n| 3 |\n| 4 |\n| 4 |\n| 4 |\n| 4 |\n| 5 |\n| 5 |\n| 6 |\n| 9 |",
+        "expected_graph_spec": {"representation": "dotplot", "x_axis": "germination time (days)"},
+        "stimulus_table": [
+          {"Germination time (days)": 2}, {"Germination time (days)": 3}, {"Germination time (days)": 3},
+          {"Germination time (days)": 3}, {"Germination time (days)": 4}, {"Germination time (days)": 4},
+          {"Germination time (days)": 4}, {"Germination time (days)": 4}, {"Germination time (days)": 5},
+          {"Germination time (days)": 5}, {"Germination time (days)": 6}, {"Germination time (days)": 9}
+        ],
+        "criteria": [
+          {"criterion_key": "DOT_COUNTS", "learner_facing_text": "Plots the correct number of dots at each germination time.", "points_possible": 1},
+          {"criterion_key": "AXIS_SCALE", "learner_facing_text": "Uses an interpretable numeric scale covering 2 through 9.", "points_possible": 1},
+          {"criterion_key": "SHAPE_DESCRIPTION", "learner_facing_text": "Describes the distribution as right-skewed in context.", "points_possible": 1},
+          {"criterion_key": "OUTLIER_NOTE", "learner_facing_text": "Identifies 9 days as a possible high outlier or unusual value.", "points_possible": 1}
+        ],
+        "parts": [{"part_key": "a", "is_drawn": true, "points_possible": 4, "prompt_text": "See stimulus."}]
+      }
+    },
+    {
+      "content_key": "APBIO-HDG-2026-GRAPH-009",
+      "prompt_json": {
+        "archetype": "scatterplot_regression_context",
+        "subject": "AP Biology",
+        "modules": ["AP Biology", "cellular processes", "data analysis"],
+        "subtopics": ["enzyme kinetics", "substrate concentration", "association"],
+        "capture_instruction": "Original research seed for hand-drawn AP Biology graph-response grading. Do not expose criterion definitions to the person drawing the graph.",
+        "content_key": "APBIO-HDG-2026-GRAPH-009",
+        "frq_form": "short",
+        "item_type": "frq",
+        "hand_drawn": true,
+        "label_status": "ai_provisional_unapproved",
+        "rights_status": "independently_authored_synthetic_research_seed_unverified",
+        "stem": "Answer the following question. Submit one photograph showing your constructed graph and your written response together.",
+        "stimulus": "A student measured initial reaction rate at nine substrate concentrations, below saturation. Construct a scatterplot, sketch a reasonable trend line, and describe the direction, form, and strength of the association in context.\n\n| Substrate concentration (mM) | Reaction rate (umol/min) |\n| --- | --- |\n| 1 | 5 |\n| 2 | 9 |\n| 3 | 14 |\n| 4 | 17 |\n| 5 | 21 |\n| 6 | 24 |\n| 7 | 29 |\n| 8 | 32 |\n| 9 | 36 |",
+        "expected_graph_spec": {"representation": "scatterplot with trend line", "x_axis": "substrate concentration (mM)", "y_axis": "reaction rate (umol/min)"},
+        "stimulus_table": [
+          {"Substrate concentration (mM)": 1, "Reaction rate (umol/min)": 5},
+          {"Substrate concentration (mM)": 2, "Reaction rate (umol/min)": 9},
+          {"Substrate concentration (mM)": 3, "Reaction rate (umol/min)": 14},
+          {"Substrate concentration (mM)": 4, "Reaction rate (umol/min)": 17},
+          {"Substrate concentration (mM)": 5, "Reaction rate (umol/min)": 21},
+          {"Substrate concentration (mM)": 6, "Reaction rate (umol/min)": 24},
+          {"Substrate concentration (mM)": 7, "Reaction rate (umol/min)": 29},
+          {"Substrate concentration (mM)": 8, "Reaction rate (umol/min)": 32},
+          {"Substrate concentration (mM)": 9, "Reaction rate (umol/min)": 36}
+        ],
+        "criteria": [
+          {"criterion_key": "POINTS_PLOTTED", "learner_facing_text": "Plots all nine ordered pairs at recoverable locations.", "points_possible": 1},
+          {"criterion_key": "AXIS_LABELS", "learner_facing_text": "Labels substrate concentration and reaction rate on the correct axes.", "points_possible": 1},
+          {"criterion_key": "TREND_LINE", "learner_facing_text": "Sketches a reasonable increasing line through the point cloud.", "points_possible": 1},
+          {"criterion_key": "ASSOCIATION_DESCRIPTION", "learner_facing_text": "Describes a strong, positive, roughly linear association in context.", "points_possible": 1}
+        ],
+        "parts": [{"part_key": "a", "is_drawn": true, "points_possible": 4, "prompt_text": "See stimulus."}]
+      }
+    },
+    {
+      "content_key": "APBIO-HDG-2026-GRAPH-010",
+      "prompt_json": {
+        "archetype": "scatterplot_regression_context",
+        "subject": "AP Biology",
+        "modules": ["AP Biology", "ecology", "data analysis"],
+        "subtopics": ["population size", "resource availability", "association"],
+        "capture_instruction": "Original research seed for hand-drawn AP Biology graph-response grading. Do not expose criterion definitions to the person drawing the graph.",
+        "content_key": "APBIO-HDG-2026-GRAPH-010",
+        "frq_form": "short",
+        "item_type": "frq",
+        "hand_drawn": true,
+        "label_status": "ai_provisional_unapproved",
+        "rights_status": "independently_authored_synthetic_research_seed_unverified",
+        "stem": "Answer the following question. Submit one photograph showing your constructed graph and your written response together.",
+        "stimulus": "Ecologists recorded rabbit population size and available forage biomass across nine sample plots. Construct a scatterplot, sketch a reasonable trend line, and describe the direction, form, and strength of the association in context.\n\n| Forage biomass (kg/hectare) | Rabbit population size |\n| --- | --- |\n| 10 | 12 |\n| 20 | 22 |\n| 30 | 28 |\n| 40 | 35 |\n| 50 | 41 |\n| 60 | 46 |\n| 70 | 50 |\n| 80 | 55 |\n| 90 | 61 |",
+        "expected_graph_spec": {"representation": "scatterplot with trend line", "x_axis": "forage biomass (kg/hectare)", "y_axis": "rabbit population size"},
+        "stimulus_table": [
+          {"Forage biomass (kg/hectare)": 10, "Rabbit population size": 12},
+          {"Forage biomass (kg/hectare)": 20, "Rabbit population size": 22},
+          {"Forage biomass (kg/hectare)": 30, "Rabbit population size": 28},
+          {"Forage biomass (kg/hectare)": 40, "Rabbit population size": 35},
+          {"Forage biomass (kg/hectare)": 50, "Rabbit population size": 41},
+          {"Forage biomass (kg/hectare)": 60, "Rabbit population size": 46},
+          {"Forage biomass (kg/hectare)": 70, "Rabbit population size": 50},
+          {"Forage biomass (kg/hectare)": 80, "Rabbit population size": 55},
+          {"Forage biomass (kg/hectare)": 90, "Rabbit population size": 61}
+        ],
+        "criteria": [
+          {"criterion_key": "POINTS_PLOTTED", "learner_facing_text": "Plots all nine ordered pairs at recoverable locations.", "points_possible": 1},
+          {"criterion_key": "AXIS_LABELS", "learner_facing_text": "Labels forage biomass and rabbit population size on the correct axes.", "points_possible": 1},
+          {"criterion_key": "TREND_LINE", "learner_facing_text": "Sketches a reasonable increasing line through the point cloud.", "points_possible": 1},
+          {"criterion_key": "ASSOCIATION_DESCRIPTION", "learner_facing_text": "Describes a strong, positive, roughly linear association in context.", "points_possible": 1}
+        ],
+        "parts": [{"part_key": "a", "is_drawn": true, "points_possible": 4, "prompt_text": "See stimulus."}]
+      }
+    },
+    {
+      "content_key": "APBIO-HDG-2026-GRAPH-011",
+      "prompt_json": {
+        "archetype": "graph_annotation_marking_value",
+        "subject": "AP Biology",
+        "modules": ["AP Biology", "ecology", "data analysis"],
+        "subtopics": ["population growth", "carrying capacity", "logistic growth"],
+        "capture_instruction": "Original research seed for hand-drawn AP Biology graph-response grading. Do not expose criterion definitions to the person drawing the graph.",
+        "content_key": "APBIO-HDG-2026-GRAPH-011",
+        "frq_form": "short",
+        "item_type": "frq",
+        "hand_drawn": true,
+        "label_status": "ai_provisional_unapproved",
+        "rights_status": "independently_authored_synthetic_research_seed_unverified",
+        "stem": "Answer the following question. Submit one photograph showing your constructed graph and your written response together.",
+        "stimulus": "The table gives yeast population size over time in a nutrient-limited culture, approaching carrying capacity. Draw the growth curve on a graph with time on the x-axis and population size on the y-axis. Mark the point at week 5 with an X, then estimate the corresponding population size.\n\n| Week | Population (thousands) |\n| --- | --- |\n| 1 | 5 |\n| 2 | 12 |\n| 3 | 28 |\n| 4 | 55 |\n| 5 | 78 |\n| 6 | 90 |\n| 7 | 96 |\n| 8 | 98 |\n| 9 | 99 |\n| 10 | 99 |",
+        "expected_graph_spec": {"representation": "curve with marked point", "x_axis": "week", "y_axis": "population (thousands)"},
+        "stimulus_table": [
+          {"Week": 1, "Population (thousands)": 5},
+          {"Week": 2, "Population (thousands)": 12},
+          {"Week": 3, "Population (thousands)": 28},
+          {"Week": 4, "Population (thousands)": 55},
+          {"Week": 5, "Population (thousands)": 78},
+          {"Week": 6, "Population (thousands)": 90},
+          {"Week": 7, "Population (thousands)": 96},
+          {"Week": 8, "Population (thousands)": 98},
+          {"Week": 9, "Population (thousands)": 99},
+          {"Week": 10, "Population (thousands)": 99}
+        ],
+        "criteria": [
+          {"criterion_key": "CURVE_SHAPE", "learner_facing_text": "Draws an S-shaped (logistic) curve consistent with the table.", "points_possible": 1},
+          {"criterion_key": "AXIS_SCALE_LABELS", "learner_facing_text": "Labels week and population size with interpretable scales.", "points_possible": 1},
+          {"criterion_key": "X_LOCATION", "learner_facing_text": "Places X at week 5.", "points_possible": 1},
+          {"criterion_key": "PROBABILITY_ESTIMATE", "learner_facing_text": "Reports an estimate close to 78 thousand.", "points_possible": 1}
+        ],
+        "parts": [{"part_key": "a", "is_drawn": true, "points_possible": 4, "prompt_text": "See stimulus."}]
+      }
+    },
+    {
+      "content_key": "APBIO-HDG-2026-GRAPH-012",
+      "prompt_json": {
+        "archetype": "graph_annotation_marking_value",
+        "subject": "AP Biology",
+        "modules": ["AP Biology", "cellular processes", "data analysis"],
+        "subtopics": ["enzyme activity", "temperature optimum", "curve reading"],
+        "capture_instruction": "Original research seed for hand-drawn AP Biology graph-response grading. Do not expose criterion definitions to the person drawing the graph.",
+        "content_key": "APBIO-HDG-2026-GRAPH-012",
+        "frq_form": "short",
+        "item_type": "frq",
+        "hand_drawn": true,
+        "label_status": "ai_provisional_unapproved",
+        "rights_status": "independently_authored_synthetic_research_seed_unverified",
+        "stem": "Answer the following question. Submit one photograph showing your constructed graph and your written response together.",
+        "stimulus": "The table gives relative enzyme activity across a range of temperatures for a human digestive enzyme. Draw the curve on a graph with temperature on the x-axis and relative activity on the y-axis. Mark the point at 37C with an X, then estimate the corresponding relative activity.\n\n| Temperature (C) | Relative activity |\n| --- | --- |\n| 10 | 0.10 |\n| 20 | 0.30 |\n| 30 | 0.70 |\n| 37 | 1.00 |\n| 45 | 0.60 |\n| 55 | 0.20 |\n| 65 | 0.05 |",
+        "expected_graph_spec": {"representation": "curve with marked point", "x_axis": "temperature (C)", "y_axis": "relative activity"},
+        "stimulus_table": [
+          {"Temperature (C)": 10, "Relative activity": 0.10},
+          {"Temperature (C)": 20, "Relative activity": 0.30},
+          {"Temperature (C)": 30, "Relative activity": 0.70},
+          {"Temperature (C)": 37, "Relative activity": 1.00},
+          {"Temperature (C)": 45, "Relative activity": 0.60},
+          {"Temperature (C)": 55, "Relative activity": 0.20},
+          {"Temperature (C)": 65, "Relative activity": 0.05}
+        ],
+        "criteria": [
+          {"criterion_key": "CURVE_SHAPE", "learner_facing_text": "Draws a rise-then-fall curve consistent with the table (enzyme denaturation past the optimum).", "points_possible": 1},
+          {"criterion_key": "AXIS_SCALE_LABELS", "learner_facing_text": "Labels temperature and relative activity with interpretable scales.", "points_possible": 1},
+          {"criterion_key": "X_LOCATION", "learner_facing_text": "Places X at 37C.", "points_possible": 1},
+          {"criterion_key": "PROBABILITY_ESTIMATE", "learner_facing_text": "Reports an estimate close to 1.00 (the optimum).", "points_possible": 1}
+        ],
+        "parts": [{"part_key": "a", "is_drawn": true, "points_possible": 4, "prompt_text": "See stimulus."}]
+      }
+    }
+  ]
+}

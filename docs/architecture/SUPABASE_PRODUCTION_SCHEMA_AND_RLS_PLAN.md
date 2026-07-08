@@ -598,6 +598,16 @@ Path convention:
 
 - `content/{exam_code}/{content_item_id}/{version_id}/{filename}`
 
+HDR response photos use the same private bucket and should be tracked with
+sidecar metadata in Supabase instead of relying on repo-local paths alone.
+Recommended HDR path convention:
+
+- `content/{exam_code}/hdr/{content_key}/{capture_version}/{filename}`
+
+Where practical, the HDR photo metadata row should record the storage object
+path, the originating ingest row, and the later promoted content item version
+if one exists.
+
 ### 6.2 Bucket: `learner-uploads`
 
 Purpose: student-submitted images, screenshots, photographs, and documents.

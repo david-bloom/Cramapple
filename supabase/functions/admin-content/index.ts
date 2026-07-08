@@ -384,14 +384,24 @@ async function ensureLegacyProjection(
   // content_item_version_id on any assignment that was created against that
   // ingest row so the assignment stays live after promotion.
   if (payload.ingest_row_id) {
-    const { error: backfillError } = await service.schema("app")
+    const { error: assignmentBackfillError } = await service.schema("app")
       .from("content_review_assignments")
       .update({ content_item_version_id: contentItemVersionId })
       .eq("ingest_row_id", payload.ingest_row_id)
       .is("content_item_version_id", null);
 
-    if (backfillError) {
+    if (assignmentBackfillError) {
       throw new Error("assignment_backfill_failed");
+    }
+
+    const { error: hdrAssetBackfillError } = await service.schema("app")
+      .from("hdr_response_assets")
+      .update({ content_item_version_id: contentItemVersionId })
+      .eq("ingest_row_id", payload.ingest_row_id)
+      .is("content_item_version_id", null);
+
+    if (hdrAssetBackfillError) {
+      throw new Error("hdr_response_asset_backfill_failed");
     }
   }
 
@@ -974,6 +984,7 @@ Deno.serve(async (req) => {
       "forbidden",
       "frq_item_requires_criteria",
       "assignment_backfill_failed",
+      "hdr_response_asset_backfill_failed",
       "missing_artifact_identifier",
       "artifact_not_found",
       "artifact_sequence_reservation_failed",

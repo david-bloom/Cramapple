@@ -182,6 +182,13 @@ they are treated as production-ready:
 4. Do not use the secondary model as a silent production fallback scorer for
    stable learner attempts.
 
+Operational routing for the live grader should stay simple:
+
+- short FRQs start on the fast path;
+- investigative tasks stay on the strict path;
+- borderline or low-confidence first passes escalate to strict before the
+  result is treated as final.
+
 For BYOQ and other user-provided questions, the dual-model pass is the
 default calibration path before release. The goal is boundary diagnosis, not
 ensemble voting.

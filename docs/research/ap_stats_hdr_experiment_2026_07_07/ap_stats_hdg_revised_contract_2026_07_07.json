@@ -1,0 +1,134 @@
+{
+  "contract_id": "ap_stats_hdg_4criterion_v2",
+  "contract_version": "2026-07-07",
+  "purpose": "Tighten the AP Statistics hand-drawn grading contract so geometry and completeness are structural, labeling is legibility-based, and unable_to_determine is reserved for genuine visual uncertainty.",
+  "global_rules": [
+    "Score only what is visible in the image.",
+    "Hand-drawn wobble does not fail geometry unless the intended structure is no longer recoverable.",
+    "Labeling is legibility-based; do not require typography-perfect text.",
+    "Completeness means the requested structural components are present, including any required marked value, comparison, or estimate.",
+    "Use unable_to_determine only when the key structure or label cannot be recovered from the image."
+  ],
+  "archetype_rules": {
+    "curve_annotation": {
+      "notes": [
+        "The curve must be recognizable as the requested increasing or decreasing relationship.",
+        "If the prompt asks for a marked point or estimate, that mark/value is required for completeness."
+      ],
+      "criterion_definitions": [
+        {
+          "criterion_id": "REPRESENTATION",
+          "met_rule": "The curve is the correct requested graph family and relationship."
+        },
+        {
+          "criterion_id": "LABELING",
+          "met_rule": "Axis titles and any required marked point/value are legible enough to recover intended meaning."
+        },
+        {
+          "criterion_id": "GEOMETRY",
+          "met_rule": "Curve shape and marked point placement are recoverable despite ordinary hand-drawn wobble."
+        },
+        {
+          "criterion_id": "COMPLETENESS",
+          "met_rule": "The curve includes the prompt-specified mark/value and covers the intended range."
+        }
+      ]
+    },
+    "scatterplot_trend": {
+      "notes": [
+        "The point cloud must be visible, and the trend line should reflect the stated direction.",
+        "If the prompt asks for a line of best fit, a visibly reasonable line is required for completeness."
+      ],
+      "criterion_definitions": [
+        {
+          "criterion_id": "REPRESENTATION",
+          "met_rule": "The response is recognizably a scatterplot for the requested variables."
+        },
+        {
+          "criterion_id": "LABELING",
+          "met_rule": "Axis titles, scale cues, and any title or annotations are legible enough to recover meaning."
+        },
+        {
+          "criterion_id": "GEOMETRY",
+          "met_rule": "Point placement and trend line orientation are consistent with the requested relationship."
+        },
+        {
+          "criterion_id": "COMPLETENESS",
+          "met_rule": "All required points and the requested trend line or contextual description are present."
+        }
+      ]
+    },
+    "dotplot": {
+      "notes": [
+        "Count accuracy matters more than decorative polish.",
+        "A slight spacing wobble is acceptable if the values and counts remain recoverable."
+      ],
+      "criterion_definitions": [
+        {
+          "criterion_id": "REPRESENTATION",
+          "met_rule": "The response is recognizably a dotplot for the requested data."
+        },
+        {
+          "criterion_id": "LABELING",
+          "met_rule": "The numeric axis and any title or context labels are legible enough to recover the data scale."
+        },
+        {
+          "criterion_id": "GEOMETRY",
+          "met_rule": "Dot counts and placement make the distribution recoverable despite normal hand-drawn wobble."
+        },
+        {
+          "criterion_id": "COMPLETENESS",
+          "met_rule": "All data values are represented and the prompt-required shape or outlier note is present if asked."
+        }
+      ]
+    },
+    "segmented_bar_display": {
+      "notes": [
+        "Treat this as a structural segmented-bar task, not as a requirement for perfect mosaic or pixel-perfect bar geometry.",
+        "The key question is whether within-group proportions and category labels are recoverable."
+      ],
+      "criterion_definitions": [
+        {
+          "criterion_id": "REPRESENTATION",
+          "met_rule": "The response is recognizably a segmented bar display for the requested categories."
+        },
+        {
+          "criterion_id": "LABELING",
+          "met_rule": "Group names, category labels, and a relative-frequency axis or equivalent are legible enough to recover meaning."
+        },
+        {
+          "criterion_id": "GEOMETRY",
+          "met_rule": "Partition lines and segment proportions are recoverable despite hand-drawn wobble."
+        },
+        {
+          "criterion_id": "COMPLETENESS",
+          "met_rule": "All requested groups and category segments are present, with the full bar structure visible."
+        }
+      ]
+    },
+    "boxplot_comparison": {
+      "notes": [
+        "Boxplot geometry should be judged by recoverability of the five-number structure, not by perfect scale precision.",
+        "Handwritten labels count if they are legible enough to identify the groups and axis."
+      ],
+      "criterion_definitions": [
+        {
+          "criterion_id": "REPRESENTATION",
+          "met_rule": "The response is recognizably a side-by-side boxplot comparison for the requested groups."
+        },
+        {
+          "criterion_id": "LABELING",
+          "met_rule": "The axis and group labels are legible enough to identify the compared groups and variable."
+        },
+        {
+          "criterion_id": "GEOMETRY",
+          "met_rule": "The five-number structure and common scale are recoverable despite hand-drawn wobble."
+        },
+        {
+          "criterion_id": "COMPLETENESS",
+          "met_rule": "Both groups' boxplots are present and the comparison task is fully represented."
+        }
+      ]
+    }
+  }
+}

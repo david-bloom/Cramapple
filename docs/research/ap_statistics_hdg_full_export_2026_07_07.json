@@ -1,0 +1,3498 @@
+{
+  "metadata": {
+    "total_count": 40,
+    "source": "app.content_items + app.content_item_versions via supabase db query --linked",
+    "export_date": "2026-07-07"
+  },
+  "items": [
+    {
+      "content_key": "APSTATS-HDG-2026-GRAPH-001",
+      "prompt_json": {
+        "archetype": "boxplot_construction_interpretation",
+        "capture_instruction": "Original research seed for hand-drawn AP Statistics graph-response grading. Do not expose criterion definitions to the person drawing the graph.",
+        "content_key": "APSTATS-HDG-2026-GRAPH-001",
+        "criteria": [
+          {
+            "criterion_key": "BOXPLOT_SCALE",
+            "learner_facing_text": "Uses one interpretable common scale for both groups.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "FIVE_NUMBER_VALUES",
+            "learner_facing_text": "Both boxplots recover the listed five-number summaries.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "CENTER_COMPARISON",
+            "learner_facing_text": "Correctly compares medians in context.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "VARIABILITY_COMPARISON",
+            "learner_facing_text": "Correctly compares IQR or range in context.",
+            "points_possible": 1
+          }
+        ],
+        "expected_graph_spec": {
+          "representation": "side-by-side boxplots",
+          "x_axis": "route type",
+          "y_axis": "delivery time (minutes)"
+        },
+        "frq_form": "short",
+        "hand_drawn": true,
+        "item_type": "frq",
+        "label_status": "ai_provisional_unapproved",
+        "modules": [
+          "AP Statistics",
+          "data analysis",
+          "graphical displays"
+        ],
+        "parts": [
+          {
+            "is_drawn": true,
+            "part_key": "a",
+            "points_possible": 4,
+            "prompt_text": "A logistics teacher recorded delivery times for two route types. Construct side-by-side boxplots from the five-number summaries, using one common horizontal or vertical scale. Then write one sentence comparing the centers and one sentence comparing the variability.\n\n| Route type | Min | Q1 | Median | Q3 | Max |\n| --- | --- | --- | --- | --- | --- |\n| Rural | 24 | 28 | 31 | 38 | 42 |\n| Urban | 30 | 33 | 37 | 45 | 49 |"
+          }
+        ],
+        "rights_status": "independently_authored_synthetic_research_seed_unverified",
+        "stem": "Answer the following question. Submit one photograph showing your constructed graph and your written response together.",
+        "stimulus": "A logistics teacher recorded delivery times for two route types. Construct side-by-side boxplots from the five-number summaries, using one common horizontal or vertical scale. Then write one sentence comparing the centers and one sentence comparing the variability.\n\n| Route type | Min | Q1 | Median | Q3 | Max |\n| --- | --- | --- | --- | --- | --- |\n| Rural | 24 | 28 | 31 | 38 | 42 |\n| Urban | 30 | 33 | 37 | 45 | 49 |",
+        "stimulus_table": [
+          {
+            "Max": 42,
+            "Median": 31,
+            "Min": 24,
+            "Q1": 28,
+            "Q3": 38,
+            "Route type": "Rural"
+          },
+          {
+            "Max": 49,
+            "Median": 37,
+            "Min": 30,
+            "Q1": 33,
+            "Q3": 45,
+            "Route type": "Urban"
+          }
+        ],
+        "subject": "AP Statistics",
+        "subtopics": [
+          "boxplots",
+          "five-number summaries",
+          "distribution comparison"
+        ]
+      }
+    },
+    {
+      "content_key": "APSTATS-HDG-2026-GRAPH-002",
+      "prompt_json": {
+        "archetype": "segmented_bar_graph_construction",
+        "capture_instruction": "Original research seed for hand-drawn AP Statistics graph-response grading. Do not expose criterion definitions to the person drawing the graph.",
+        "content_key": "APSTATS-HDG-2026-GRAPH-002",
+        "criteria": [
+          {
+            "criterion_key": "RELATIVE_FREQUENCIES",
+            "learner_facing_text": "Converts counts to correct within-group relative frequencies.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "SEGMENTED_BARS",
+            "learner_facing_text": "Draws two complete segmented bars with total length 1 or 100%.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "CATEGORY_LABELS",
+            "learner_facing_text": "Segments and class groups are identifiable.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "COMPARISON",
+            "learner_facing_text": "Correctly identifies the larger weekly relative frequency.",
+            "points_possible": 1
+          }
+        ],
+        "expected_graph_spec": {
+          "groups": [
+            "Underclass",
+            "Upperclass"
+          ],
+          "representation": "segmented bar graph",
+          "x_axis": "relative frequency"
+        },
+        "frq_form": "short",
+        "hand_drawn": true,
+        "item_type": "frq",
+        "label_status": "ai_provisional_unapproved",
+        "modules": [
+          "AP Statistics",
+          "data analysis",
+          "graphical displays"
+        ],
+        "parts": [
+          {
+            "is_drawn": true,
+            "part_key": "a",
+            "points_possible": 4,
+            "prompt_text": "A school surveyed students about how often they use a homework planning app. Complete a segmented bar graph using relative frequencies for each class group. Then identify which group has the larger relative frequency of weekly app use.\n\n| Class group | Never | Monthly | Weekly |\n| --- | --- | --- | --- |\n| Underclass | 20 | 45 | 35 |\n| Upperclass | 12 | 38 | 50 |"
+          }
+        ],
+        "rights_status": "independently_authored_synthetic_research_seed_unverified",
+        "stem": "Answer the following question. Submit one photograph showing your constructed graph and your written response together.",
+        "stimulus": "A school surveyed students about how often they use a homework planning app. Complete a segmented bar graph using relative frequencies for each class group. Then identify which group has the larger relative frequency of weekly app use.\n\n| Class group | Never | Monthly | Weekly |\n| --- | --- | --- | --- |\n| Underclass | 20 | 45 | 35 |\n| Upperclass | 12 | 38 | 50 |",
+        "stimulus_table": [
+          {
+            "Class group": "Underclass",
+            "Monthly": 45,
+            "Never": 20,
+            "Weekly": 35
+          },
+          {
+            "Class group": "Upperclass",
+            "Monthly": 38,
+            "Never": 12,
+            "Weekly": 50
+          }
+        ],
+        "subject": "AP Statistics",
+        "subtopics": [
+          "segmented bar graphs",
+          "relative frequency",
+          "categorical association"
+        ]
+      }
+    },
+    {
+      "content_key": "APSTATS-HDG-2026-GRAPH-003",
+      "prompt_json": {
+        "archetype": "mosaic_plot_interpretation",
+        "capture_instruction": "Original research seed for hand-drawn AP Statistics graph-response grading. Do not expose criterion definitions to the person drawing the graph.",
+        "content_key": "APSTATS-HDG-2026-GRAPH-003",
+        "criteria": [
+          {
+            "criterion_key": "WIDTHS_BY_TOTAL",
+            "learner_facing_text": "Device widths are proportional to device totals.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "HEIGHTS_BY_CONDITIONAL_PROPORTION",
+            "learner_facing_text": "Segment heights use within-device proportions.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "SEGMENT_LABELS",
+            "learner_facing_text": "Device and stress-level categories are identifiable.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "AREA_OR_COUNT_REASONING",
+            "learner_facing_text": "Correctly identifies Phone as largest high-stress count.",
+            "points_possible": 1
+          }
+        ],
+        "expected_graph_spec": {
+          "representation": "mosaic plot",
+          "x_axis": "primary study device",
+          "y_axis": "conditional stress-level proportion"
+        },
+        "frq_form": "short",
+        "hand_drawn": true,
+        "item_type": "frq",
+        "label_status": "ai_provisional_unapproved",
+        "modules": [
+          "AP Statistics",
+          "data analysis",
+          "graphical displays"
+        ],
+        "parts": [
+          {
+            "is_drawn": true,
+            "part_key": "a",
+            "points_possible": 4,
+            "prompt_text": "Students were classified by primary study device and reported stress level. Draw a mosaic plot from the table so that each device width is proportional to its total count and each vertical segment shows the conditional distribution of stress level within that device. Then state which device group has the largest number of high-stress students.\n\n| Device | Low | Medium | High |\n| --- | --- | --- | --- |\n| Phone | 24 | 36 | 40 |\n| Laptop | 18 | 52 | 30 |\n| Tablet | 30 | 30 | 20 |"
+          }
+        ],
+        "rights_status": "independently_authored_synthetic_research_seed_unverified",
+        "stem": "Answer the following question. Submit one photograph showing your constructed graph and your written response together.",
+        "stimulus": "Students were classified by primary study device and reported stress level. Draw a mosaic plot from the table so that each device width is proportional to its total count and each vertical segment shows the conditional distribution of stress level within that device. Then state which device group has the largest number of high-stress students.\n\n| Device | Low | Medium | High |\n| --- | --- | --- | --- |\n| Phone | 24 | 36 | 40 |\n| Laptop | 18 | 52 | 30 |\n| Tablet | 30 | 30 | 20 |",
+        "stimulus_table": [
+          {
+            "Device": "Phone",
+            "High": 40,
+            "Low": 24,
+            "Medium": 36
+          },
+          {
+            "Device": "Laptop",
+            "High": 30,
+            "Low": 18,
+            "Medium": 52
+          },
+          {
+            "Device": "Tablet",
+            "High": 20,
+            "Low": 30,
+            "Medium": 30
+          }
+        ],
+        "subject": "AP Statistics",
+        "subtopics": [
+          "mosaic plots",
+          "area reasoning",
+          "conditional proportion"
+        ]
+      }
+    },
+    {
+      "content_key": "APSTATS-HDG-2026-GRAPH-004",
+      "prompt_json": {
+        "archetype": "dotplot_distribution_shape",
+        "capture_instruction": "Original research seed for hand-drawn AP Statistics graph-response grading. Do not expose criterion definitions to the person drawing the graph.",
+        "content_key": "APSTATS-HDG-2026-GRAPH-004",
+        "criteria": [
+          {
+            "criterion_key": "DOT_COUNTS",
+            "learner_facing_text": "Plots the correct number of dots at each wait time.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "AXIS_SCALE",
+            "learner_facing_text": "Uses an interpretable numeric scale covering 4 through 14.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "SHAPE_DESCRIPTION",
+            "learner_facing_text": "Describes the distribution as right-skewed in context.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "OUTLIER_NOTE",
+            "learner_facing_text": "Identifies 14 minutes as a possible high outlier or unusual value.",
+            "points_possible": 1
+          }
+        ],
+        "expected_graph_spec": {
+          "representation": "dotplot",
+          "x_axis": "wait time (minutes)"
+        },
+        "frq_form": "short",
+        "hand_drawn": true,
+        "item_type": "frq",
+        "label_status": "ai_provisional_unapproved",
+        "modules": [
+          "AP Statistics",
+          "data analysis",
+          "graphical displays"
+        ],
+        "parts": [
+          {
+            "is_drawn": true,
+            "part_key": "a",
+            "points_possible": 4,
+            "prompt_text": "A sample of 12 customer wait times is shown below. Construct a dotplot of the data, then describe the distribution's shape and identify any possible outlier.\n\n| Wait time (min) |\n| --- |\n| 4 |\n| 5 |\n| 5 |\n| 6 |\n| 6 |\n| 6 |\n| 7 |\n| 7 |\n| 8 |\n| 11 |\n| 12 |\n| 14 |"
+          }
+        ],
+        "rights_status": "independently_authored_synthetic_research_seed_unverified",
+        "stem": "Answer the following question. Submit one photograph showing your constructed graph and your written response together.",
+        "stimulus": "A sample of 12 customer wait times is shown below. Construct a dotplot of the data, then describe the distribution's shape and identify any possible outlier.\n\n| Wait time (min) |\n| --- |\n| 4 |\n| 5 |\n| 5 |\n| 6 |\n| 6 |\n| 6 |\n| 7 |\n| 7 |\n| 8 |\n| 11 |\n| 12 |\n| 14 |",
+        "stimulus_table": [
+          {
+            "Wait time (min)": 4
+          },
+          {
+            "Wait time (min)": 5
+          },
+          {
+            "Wait time (min)": 5
+          },
+          {
+            "Wait time (min)": 6
+          },
+          {
+            "Wait time (min)": 6
+          },
+          {
+            "Wait time (min)": 6
+          },
+          {
+            "Wait time (min)": 7
+          },
+          {
+            "Wait time (min)": 7
+          },
+          {
+            "Wait time (min)": 8
+          },
+          {
+            "Wait time (min)": 11
+          },
+          {
+            "Wait time (min)": 12
+          },
+          {
+            "Wait time (min)": 14
+          }
+        ],
+        "subject": "AP Statistics",
+        "subtopics": [
+          "dotplots",
+          "shape",
+          "outliers",
+          "distribution description"
+        ]
+      }
+    },
+    {
+      "content_key": "APSTATS-HDG-2026-GRAPH-005",
+      "prompt_json": {
+        "archetype": "scatterplot_regression_context",
+        "capture_instruction": "Original research seed for hand-drawn AP Statistics graph-response grading. Do not expose criterion definitions to the person drawing the graph.",
+        "content_key": "APSTATS-HDG-2026-GRAPH-005",
+        "criteria": [
+          {
+            "criterion_key": "POINTS_PLOTTED",
+            "learner_facing_text": "Plots all nine ordered pairs at recoverable locations.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "AXIS_LABELS",
+            "learner_facing_text": "Labels hours studied and quiz score on the correct axes.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "TREND_LINE",
+            "learner_facing_text": "Sketches a reasonable increasing line through the point cloud.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "ASSOCIATION_DESCRIPTION",
+            "learner_facing_text": "Describes strong positive roughly linear association in context.",
+            "points_possible": 1
+          }
+        ],
+        "expected_graph_spec": {
+          "representation": "scatterplot with trend line",
+          "x_axis": "hours studied",
+          "y_axis": "quiz score"
+        },
+        "frq_form": "short",
+        "hand_drawn": true,
+        "item_type": "frq",
+        "label_status": "ai_provisional_unapproved",
+        "modules": [
+          "AP Statistics",
+          "data analysis",
+          "graphical displays"
+        ],
+        "parts": [
+          {
+            "is_drawn": true,
+            "part_key": "a",
+            "points_possible": 4,
+            "prompt_text": "A teacher recorded hours studied and quiz score for nine students. Construct a scatterplot, sketch a reasonable least-squares trend line, and describe the direction, form, and strength of the association in context.\n\n| Hours studied | Quiz score |\n| --- | --- |\n| 2 | 41 |\n| 3 | 45 |\n| 4 | 48 |\n| 5 | 53 |\n| 6 | 55 |\n| 7 | 59 |\n| 8 | 65 |\n| 9 | 68 |\n| 10 | 72 |"
+          }
+        ],
+        "rights_status": "independently_authored_synthetic_research_seed_unverified",
+        "stem": "Answer the following question. Submit one photograph showing your constructed graph and your written response together.",
+        "stimulus": "A teacher recorded hours studied and quiz score for nine students. Construct a scatterplot, sketch a reasonable least-squares trend line, and describe the direction, form, and strength of the association in context.\n\n| Hours studied | Quiz score |\n| --- | --- |\n| 2 | 41 |\n| 3 | 45 |\n| 4 | 48 |\n| 5 | 53 |\n| 6 | 55 |\n| 7 | 59 |\n| 8 | 65 |\n| 9 | 68 |\n| 10 | 72 |",
+        "stimulus_table": [
+          {
+            "Hours studied": 2,
+            "Quiz score": 41
+          },
+          {
+            "Hours studied": 3,
+            "Quiz score": 45
+          },
+          {
+            "Hours studied": 4,
+            "Quiz score": 48
+          },
+          {
+            "Hours studied": 5,
+            "Quiz score": 53
+          },
+          {
+            "Hours studied": 6,
+            "Quiz score": 55
+          },
+          {
+            "Hours studied": 7,
+            "Quiz score": 59
+          },
+          {
+            "Hours studied": 8,
+            "Quiz score": 65
+          },
+          {
+            "Hours studied": 9,
+            "Quiz score": 68
+          },
+          {
+            "Hours studied": 10,
+            "Quiz score": 72
+          }
+        ],
+        "subject": "AP Statistics",
+        "subtopics": [
+          "scatterplots",
+          "linear association",
+          "regression"
+        ]
+      }
+    },
+    {
+      "content_key": "APSTATS-HDG-2026-GRAPH-006",
+      "prompt_json": {
+        "archetype": "graph_annotation_marking_value",
+        "capture_instruction": "Original research seed for hand-drawn AP Statistics graph-response grading. Do not expose criterion definitions to the person drawing the graph.",
+        "content_key": "APSTATS-HDG-2026-GRAPH-006",
+        "criteria": [
+          {
+            "criterion_key": "CURVE_SHAPE",
+            "learner_facing_text": "Draws an increasing curve consistent with the table.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "AXIS_SCALE_LABELS",
+            "learner_facing_text": "Labels sample size and probability with interpretable scales.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "X_LOCATION",
+            "learner_facing_text": "Places X at sample size 20 and probability about 0.39.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "PROBABILITY_ESTIMATE",
+            "learner_facing_text": "Reports an estimate close to 0.39 or 0.4.",
+            "points_possible": 1
+          }
+        ],
+        "expected_graph_spec": {
+          "representation": "curve with marked point",
+          "x_axis": "sample size",
+          "y_axis": "probability"
+        },
+        "frq_form": "short",
+        "hand_drawn": true,
+        "item_type": "frq",
+        "label_status": "ai_provisional_unapproved",
+        "modules": [
+          "AP Statistics",
+          "data analysis",
+          "graphical displays"
+        ],
+        "parts": [
+          {
+            "is_drawn": true,
+            "part_key": "a",
+            "points_possible": 4,
+            "prompt_text": "The table gives values from a curve showing the probability that a sample satisfies a condition as sample size increases. Draw the curve on a graph with sample size on the x-axis and probability on the y-axis. Mark the point for sample size 20 with an X, then estimate the corresponding probability.\n\n| Sample size | Probability |\n| --- | --- |\n| 5 | 0.02 |\n| 10 | 0.07 |\n| 15 | 0.18 |\n| 20 | 0.39 |\n| 25 | 0.61 |\n| 30 | 0.78 |\n| 35 | 0.88 |\n| 40 | 0.94 |\n| 45 | 0.97 |\n| 50 | 0.99 |"
+          }
+        ],
+        "rights_status": "independently_authored_synthetic_research_seed_unverified",
+        "stem": "Answer the following question. Submit one photograph showing your constructed graph and your written response together.",
+        "stimulus": "The table gives values from a curve showing the probability that a sample satisfies a condition as sample size increases. Draw the curve on a graph with sample size on the x-axis and probability on the y-axis. Mark the point for sample size 20 with an X, then estimate the corresponding probability.\n\n| Sample size | Probability |\n| --- | --- |\n| 5 | 0.02 |\n| 10 | 0.07 |\n| 15 | 0.18 |\n| 20 | 0.39 |\n| 25 | 0.61 |\n| 30 | 0.78 |\n| 35 | 0.88 |\n| 40 | 0.94 |\n| 45 | 0.97 |\n| 50 | 0.99 |",
+        "stimulus_table": [
+          {
+            "Probability": 0.02,
+            "Sample size": 5
+          },
+          {
+            "Probability": 0.07,
+            "Sample size": 10
+          },
+          {
+            "Probability": 0.18,
+            "Sample size": 15
+          },
+          {
+            "Probability": 0.39,
+            "Sample size": 20
+          },
+          {
+            "Probability": 0.61,
+            "Sample size": 25
+          },
+          {
+            "Probability": 0.78,
+            "Sample size": 30
+          },
+          {
+            "Probability": 0.88,
+            "Sample size": 35
+          },
+          {
+            "Probability": 0.94,
+            "Sample size": 40
+          },
+          {
+            "Probability": 0.97,
+            "Sample size": 45
+          },
+          {
+            "Probability": 0.99,
+            "Sample size": 50
+          }
+        ],
+        "subject": "AP Statistics",
+        "subtopics": [
+          "graph interpretation",
+          "marking a value",
+          "sampling conditions"
+        ]
+      }
+    },
+    {
+      "content_key": "APSTATS-HDG-2026-GRAPH-007",
+      "prompt_json": {
+        "archetype": "boxplot_construction_interpretation",
+        "capture_instruction": "Original research seed for hand-drawn AP Statistics graph-response grading. Do not expose criterion definitions to the person drawing the graph.",
+        "content_key": "APSTATS-HDG-2026-GRAPH-007",
+        "criteria": [
+          {
+            "criterion_key": "BOXPLOT_SCALE",
+            "learner_facing_text": "Uses one interpretable common scale for both groups.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "FIVE_NUMBER_VALUES",
+            "learner_facing_text": "Both boxplots recover the listed five-number summaries.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "CENTER_COMPARISON",
+            "learner_facing_text": "Correctly compares medians in context.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "VARIABILITY_COMPARISON",
+            "learner_facing_text": "Correctly compares IQR or range in context.",
+            "points_possible": 1
+          }
+        ],
+        "expected_graph_spec": {
+          "representation": "side-by-side boxplots",
+          "x_axis": "transportation type",
+          "y_axis": "commute time (minutes)"
+        },
+        "frq_form": "short",
+        "hand_drawn": true,
+        "item_type": "frq",
+        "label_status": "ai_provisional_unapproved",
+        "modules": [
+          "AP Statistics",
+          "data analysis",
+          "graphical displays"
+        ],
+        "parts": [
+          {
+            "is_drawn": true,
+            "part_key": "a",
+            "points_possible": 4,
+            "prompt_text": "A city planner compared commute times for students who usually ride the bus and students who usually bike. Construct side-by-side boxplots from the five-number summaries using one common scale. Then compare the typical commute time and the spread in context.\n\n| Transportation | Min | Q1 | Median | Q3 | Max |\n| --- | --- | --- | --- | --- | --- |\n| Bus | 18 | 24 | 29 | 41 | 55 |\n| Bike | 12 | 16 | 19 | 25 | 31 |"
+          }
+        ],
+        "rights_status": "independently_authored_synthetic_research_seed_unverified",
+        "stem": "Answer the following question. Submit one photograph showing your constructed graph and your written response together.",
+        "stimulus": "A city planner compared commute times for students who usually ride the bus and students who usually bike. Construct side-by-side boxplots from the five-number summaries using one common scale. Then compare the typical commute time and the spread in context.\n\n| Transportation | Min | Q1 | Median | Q3 | Max |\n| --- | --- | --- | --- | --- | --- |\n| Bus | 18 | 24 | 29 | 41 | 55 |\n| Bike | 12 | 16 | 19 | 25 | 31 |",
+        "stimulus_table": [
+          {
+            "Max": 55,
+            "Median": 29,
+            "Min": 18,
+            "Q1": 24,
+            "Q3": 41,
+            "Transportation": "Bus"
+          },
+          {
+            "Max": 31,
+            "Median": 19,
+            "Min": 12,
+            "Q1": 16,
+            "Q3": 25,
+            "Transportation": "Bike"
+          }
+        ],
+        "subject": "AP Statistics",
+        "subtopics": [
+          "boxplots",
+          "five-number summaries",
+          "distribution comparison"
+        ]
+      }
+    },
+    {
+      "content_key": "APSTATS-HDG-2026-GRAPH-008",
+      "prompt_json": {
+        "archetype": "segmented_bar_graph_construction",
+        "capture_instruction": "Original research seed for hand-drawn AP Statistics graph-response grading. Do not expose criterion definitions to the person drawing the graph.",
+        "content_key": "APSTATS-HDG-2026-GRAPH-008",
+        "criteria": [
+          {
+            "criterion_key": "RELATIVE_FREQUENCIES",
+            "learner_facing_text": "Converts counts to correct within-group relative frequencies.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "SEGMENTED_BARS",
+            "learner_facing_text": "Draws two complete segmented bars with total length 1 or 100%.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "CATEGORY_LABELS",
+            "learner_facing_text": "Segments and lesson timing groups are identifiable.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "COMPARISON",
+            "learner_facing_text": "Correctly states that correct explanations increased after the lesson.",
+            "points_possible": 1
+          }
+        ],
+        "expected_graph_spec": {
+          "groups": [
+            "Before lesson",
+            "After lesson"
+          ],
+          "representation": "segmented bar graph",
+          "x_axis": "relative frequency"
+        },
+        "frq_form": "short",
+        "hand_drawn": true,
+        "item_type": "frq",
+        "label_status": "ai_provisional_unapproved",
+        "modules": [
+          "AP Statistics",
+          "data analysis",
+          "graphical displays"
+        ],
+        "parts": [
+          {
+            "is_drawn": true,
+            "part_key": "a",
+            "points_possible": 4,
+            "prompt_text": "A teacher scored short written explanations before and after a simulation lesson. Complete a segmented bar graph using relative frequencies for each lesson timing group. Then state whether the relative frequency of correct explanations increased after the lesson.\n\n| Lesson timing | Incorrect | Partially correct | Correct |\n| --- | --- | --- | --- |\n| Before lesson | 30 | 42 | 28 |\n| After lesson | 14 | 30 | 56 |"
+          }
+        ],
+        "rights_status": "independently_authored_synthetic_research_seed_unverified",
+        "stem": "Answer the following question. Submit one photograph showing your constructed graph and your written response together.",
+        "stimulus": "A teacher scored short written explanations before and after a simulation lesson. Complete a segmented bar graph using relative frequencies for each lesson timing group. Then state whether the relative frequency of correct explanations increased after the lesson.\n\n| Lesson timing | Incorrect | Partially correct | Correct |\n| --- | --- | --- | --- |\n| Before lesson | 30 | 42 | 28 |\n| After lesson | 14 | 30 | 56 |",
+        "stimulus_table": [
+          {
+            "Correct": 28,
+            "Incorrect": 30,
+            "Lesson timing": "Before lesson",
+            "Partially correct": 42
+          },
+          {
+            "Correct": 56,
+            "Incorrect": 14,
+            "Lesson timing": "After lesson",
+            "Partially correct": 30
+          }
+        ],
+        "subject": "AP Statistics",
+        "subtopics": [
+          "segmented bar graphs",
+          "relative frequency",
+          "categorical association"
+        ]
+      }
+    },
+    {
+      "content_key": "APSTATS-HDG-2026-GRAPH-009",
+      "prompt_json": {
+        "archetype": "mosaic_plot_interpretation",
+        "capture_instruction": "Original research seed for hand-drawn AP Statistics graph-response grading. Do not expose criterion definitions to the person drawing the graph.",
+        "content_key": "APSTATS-HDG-2026-GRAPH-009",
+        "criteria": [
+          {
+            "criterion_key": "WIDTHS_BY_TOTAL",
+            "learner_facing_text": "Study-time widths are proportional to group totals.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "HEIGHTS_BY_CONDITIONAL_PROPORTION",
+            "learner_facing_text": "Segment heights use within-group proportions.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "SEGMENT_LABELS",
+            "learner_facing_text": "Study-time and caffeine-use categories are identifiable.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "AREA_OR_COUNT_REASONING",
+            "learner_facing_text": "Correctly identifies Evening as largest high-caffeine count.",
+            "points_possible": 1
+          }
+        ],
+        "expected_graph_spec": {
+          "representation": "mosaic plot",
+          "x_axis": "usual study time",
+          "y_axis": "conditional caffeine-use proportion"
+        },
+        "frq_form": "short",
+        "hand_drawn": true,
+        "item_type": "frq",
+        "label_status": "ai_provisional_unapproved",
+        "modules": [
+          "AP Statistics",
+          "data analysis",
+          "graphical displays"
+        ],
+        "parts": [
+          {
+            "is_drawn": true,
+            "part_key": "a",
+            "points_possible": 4,
+            "prompt_text": "Students were grouped by usual study time and caffeine use level. Draw a mosaic plot so each study time width is proportional to its total count and each vertical segment shows the conditional distribution of caffeine use within that study time. Then identify which study-time group has the largest number of high-caffeine students.\n\n| Study time | Low | Medium | High |\n| --- | --- | --- | --- |\n| Morning | 36 | 42 | 12 |\n| Afternoon | 28 | 50 | 32 |\n| Evening | 16 | 38 | 46 |"
+          }
+        ],
+        "rights_status": "independently_authored_synthetic_research_seed_unverified",
+        "stem": "Answer the following question. Submit one photograph showing your constructed graph and your written response together.",
+        "stimulus": "Students were grouped by usual study time and caffeine use level. Draw a mosaic plot so each study time width is proportional to its total count and each vertical segment shows the conditional distribution of caffeine use within that study time. Then identify which study-time group has the largest number of high-caffeine students.\n\n| Study time | Low | Medium | High |\n| --- | --- | --- | --- |\n| Morning | 36 | 42 | 12 |\n| Afternoon | 28 | 50 | 32 |\n| Evening | 16 | 38 | 46 |",
+        "stimulus_table": [
+          {
+            "High": 12,
+            "Low": 36,
+            "Medium": 42,
+            "Study time": "Morning"
+          },
+          {
+            "High": 32,
+            "Low": 28,
+            "Medium": 50,
+            "Study time": "Afternoon"
+          },
+          {
+            "High": 46,
+            "Low": 16,
+            "Medium": 38,
+            "Study time": "Evening"
+          }
+        ],
+        "subject": "AP Statistics",
+        "subtopics": [
+          "mosaic plots",
+          "area reasoning",
+          "conditional proportion"
+        ]
+      }
+    },
+    {
+      "content_key": "APSTATS-HDG-2026-GRAPH-010",
+      "prompt_json": {
+        "archetype": "dotplot_distribution_shape",
+        "capture_instruction": "Original research seed for hand-drawn AP Statistics graph-response grading. Do not expose criterion definitions to the person drawing the graph.",
+        "content_key": "APSTATS-HDG-2026-GRAPH-010",
+        "criteria": [
+          {
+            "criterion_key": "DOT_COUNTS",
+            "learner_facing_text": "Plots the correct number of dots at each plant height.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "AXIS_SCALE",
+            "learner_facing_text": "Uses an interpretable numeric scale covering 68 through 82.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "SHAPE_DESCRIPTION",
+            "learner_facing_text": "Describes the distribution as roughly unimodal with slight right tail or similar.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "OUTLIER_NOTE",
+            "learner_facing_text": "Identifies 82 cm as an outlier by the 1.5xIQR rule (Q1=71.5, Q3=75.5, IQR=4, upper fence=81.5), not as within the normal range.",
+            "points_possible": 1
+          }
+        ],
+        "expected_graph_spec": {
+          "representation": "dotplot",
+          "x_axis": "height (cm)"
+        },
+        "frq_form": "short",
+        "hand_drawn": true,
+        "item_type": "frq",
+        "label_status": "ai_provisional_unapproved",
+        "modules": [
+          "AP Statistics",
+          "data analysis",
+          "graphical displays"
+        ],
+        "parts": [
+          {
+            "is_drawn": true,
+            "part_key": "a",
+            "points_possible": 4,
+            "prompt_text": "A biology class measured the heights of 12 plants after four weeks. Construct a dotplot of the data, then describe the distribution's shape and comment on whether there is a clear outlier.\n\n| Height (cm) |\n| --- |\n| 68 |\n| 70 |\n| 71 |\n| 72 |\n| 72 |\n| 73 |\n| 74 |\n| 74 |\n| 75 |\n| 76 |\n| 78 |\n| 82 |"
+          }
+        ],
+        "qa_fix_note": "QA fix 2026-07-02: original canonical_answer/OUTLIER_NOTE asserted 82 cm should NOT be called a definite outlier. Independently recomputed via the standard 1.5xIQR rule on this item's own dataset: Q1=71.5, Q3=75.5, IQR=4.0, upper fence=81.5. 82 > 81.5, so it IS an outlier by the rule the course teaches. Corrected canonical_answer and OUTLIER_NOTE accordingly.",
+        "rights_status": "independently_authored_synthetic_research_seed_unverified",
+        "stem": "Answer the following question. Submit one photograph showing your constructed graph and your written response together.",
+        "stimulus": "A biology class measured the heights of 12 plants after four weeks. Construct a dotplot of the data, then describe the distribution's shape and comment on whether there is a clear outlier.\n\n| Height (cm) |\n| --- |\n| 68 |\n| 70 |\n| 71 |\n| 72 |\n| 72 |\n| 73 |\n| 74 |\n| 74 |\n| 75 |\n| 76 |\n| 78 |\n| 82 |",
+        "stimulus_table": [
+          {
+            "Height (cm)": 68
+          },
+          {
+            "Height (cm)": 70
+          },
+          {
+            "Height (cm)": 71
+          },
+          {
+            "Height (cm)": 72
+          },
+          {
+            "Height (cm)": 72
+          },
+          {
+            "Height (cm)": 73
+          },
+          {
+            "Height (cm)": 74
+          },
+          {
+            "Height (cm)": 74
+          },
+          {
+            "Height (cm)": 75
+          },
+          {
+            "Height (cm)": 76
+          },
+          {
+            "Height (cm)": 78
+          },
+          {
+            "Height (cm)": 82
+          }
+        ],
+        "subject": "AP Statistics",
+        "subtopics": [
+          "dotplots",
+          "shape",
+          "clusters",
+          "distribution description"
+        ]
+      }
+    },
+    {
+      "content_key": "APSTATS-HDG-2026-GRAPH-011",
+      "prompt_json": {
+        "archetype": "scatterplot_regression_context",
+        "capture_instruction": "Original research seed for hand-drawn AP Statistics graph-response grading. Do not expose criterion definitions to the person drawing the graph.",
+        "content_key": "APSTATS-HDG-2026-GRAPH-011",
+        "criteria": [
+          {
+            "criterion_key": "POINTS_PLOTTED",
+            "learner_facing_text": "Plots all nine ordered pairs at recoverable locations.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "AXIS_LABELS",
+            "learner_facing_text": "Labels screen brightness and battery remaining on the correct axes.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "TREND_LINE",
+            "learner_facing_text": "Sketches a reasonable decreasing line through the point cloud.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "ASSOCIATION_DESCRIPTION",
+            "learner_facing_text": "Describes strong negative roughly linear association in context.",
+            "points_possible": 1
+          }
+        ],
+        "expected_graph_spec": {
+          "representation": "scatterplot with trend line",
+          "x_axis": "screen brightness (%)",
+          "y_axis": "battery remaining (%)"
+        },
+        "frq_form": "short",
+        "hand_drawn": true,
+        "item_type": "frq",
+        "label_status": "ai_provisional_unapproved",
+        "modules": [
+          "AP Statistics",
+          "data analysis",
+          "graphical displays"
+        ],
+        "parts": [
+          {
+            "is_drawn": true,
+            "part_key": "a",
+            "points_possible": 4,
+            "prompt_text": "A technology club measured screen brightness and battery remaining after one hour for nine phones. Construct a scatterplot, sketch a reasonable least-squares trend line, and describe the direction, form, and strength of the association in context.\n\n| Screen brightness (%) | Battery remaining (%) |\n| --- | --- |\n| 12 | 88 |\n| 14 | 84 |\n| 15 | 82 |\n| 17 | 79 |\n| 18 | 77 |\n| 20 | 73 |\n| 21 | 70 |\n| 23 | 66 |\n| 25 | 63 |"
+          }
+        ],
+        "rights_status": "independently_authored_synthetic_research_seed_unverified",
+        "stem": "Answer the following question. Submit one photograph showing your constructed graph and your written response together.",
+        "stimulus": "A technology club measured screen brightness and battery remaining after one hour for nine phones. Construct a scatterplot, sketch a reasonable least-squares trend line, and describe the direction, form, and strength of the association in context.\n\n| Screen brightness (%) | Battery remaining (%) |\n| --- | --- |\n| 12 | 88 |\n| 14 | 84 |\n| 15 | 82 |\n| 17 | 79 |\n| 18 | 77 |\n| 20 | 73 |\n| 21 | 70 |\n| 23 | 66 |\n| 25 | 63 |",
+        "stimulus_table": [
+          {
+            "Battery remaining (%)": 88,
+            "Screen brightness (%)": 12
+          },
+          {
+            "Battery remaining (%)": 84,
+            "Screen brightness (%)": 14
+          },
+          {
+            "Battery remaining (%)": 82,
+            "Screen brightness (%)": 15
+          },
+          {
+            "Battery remaining (%)": 79,
+            "Screen brightness (%)": 17
+          },
+          {
+            "Battery remaining (%)": 77,
+            "Screen brightness (%)": 18
+          },
+          {
+            "Battery remaining (%)": 73,
+            "Screen brightness (%)": 20
+          },
+          {
+            "Battery remaining (%)": 70,
+            "Screen brightness (%)": 21
+          },
+          {
+            "Battery remaining (%)": 66,
+            "Screen brightness (%)": 23
+          },
+          {
+            "Battery remaining (%)": 63,
+            "Screen brightness (%)": 25
+          }
+        ],
+        "subject": "AP Statistics",
+        "subtopics": [
+          "scatterplots",
+          "negative association",
+          "regression"
+        ]
+      }
+    },
+    {
+      "content_key": "APSTATS-HDG-2026-GRAPH-012",
+      "prompt_json": {
+        "archetype": "graph_annotation_marking_value",
+        "capture_instruction": "Original research seed for hand-drawn AP Statistics graph-response grading. Do not expose criterion definitions to the person drawing the graph.",
+        "content_key": "APSTATS-HDG-2026-GRAPH-012",
+        "criteria": [
+          {
+            "criterion_key": "CURVE_SHAPE",
+            "learner_facing_text": "Draws an increasing curve consistent with the table.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "AXIS_SCALE_LABELS",
+            "learner_facing_text": "Labels added sample size and detection rate with interpretable scales.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "X_LOCATION",
+            "learner_facing_text": "Places X at added sample size 25 and detection rate about 0.81.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "RATE_ESTIMATE",
+            "learner_facing_text": "Reports an estimate close to 0.81.",
+            "points_possible": 1
+          }
+        ],
+        "expected_graph_spec": {
+          "representation": "curve with marked point",
+          "x_axis": "added sample size",
+          "y_axis": "detection rate"
+        },
+        "frq_form": "short",
+        "hand_drawn": true,
+        "item_type": "frq",
+        "label_status": "ai_provisional_unapproved",
+        "modules": [
+          "AP Statistics",
+          "data analysis",
+          "graphical displays"
+        ],
+        "parts": [
+          {
+            "is_drawn": true,
+            "part_key": "a",
+            "points_possible": 4,
+            "prompt_text": "A simulation estimated the detection rate for a rare issue as additional sample size increased. Draw the curve using the table, with added sample size on the x-axis and detection rate on the y-axis. Mark the point for added sample size 25 with an X, then estimate the corresponding detection rate.\n\n| Added sample size | Detection rate |\n| --- | --- |\n| 0 | 0.12 |\n| 5 | 0.2 |\n| 10 | 0.34 |\n| 15 | 0.52 |\n| 20 | 0.69 |\n| 25 | 0.81 |\n| 30 | 0.89 |\n| 35 | 0.94 |\n| 40 | 0.97 |"
+          }
+        ],
+        "rights_status": "independently_authored_synthetic_research_seed_unverified",
+        "stem": "Answer the following question. Submit one photograph showing your constructed graph and your written response together.",
+        "stimulus": "A simulation estimated the detection rate for a rare issue as additional sample size increased. Draw the curve using the table, with added sample size on the x-axis and detection rate on the y-axis. Mark the point for added sample size 25 with an X, then estimate the corresponding detection rate.\n\n| Added sample size | Detection rate |\n| --- | --- |\n| 0 | 0.12 |\n| 5 | 0.2 |\n| 10 | 0.34 |\n| 15 | 0.52 |\n| 20 | 0.69 |\n| 25 | 0.81 |\n| 30 | 0.89 |\n| 35 | 0.94 |\n| 40 | 0.97 |",
+        "stimulus_table": [
+          {
+            "Added sample size": 0,
+            "Detection rate": 0.12
+          },
+          {
+            "Added sample size": 5,
+            "Detection rate": 0.2
+          },
+          {
+            "Added sample size": 10,
+            "Detection rate": 0.34
+          },
+          {
+            "Added sample size": 15,
+            "Detection rate": 0.52
+          },
+          {
+            "Added sample size": 20,
+            "Detection rate": 0.69
+          },
+          {
+            "Added sample size": 25,
+            "Detection rate": 0.81
+          },
+          {
+            "Added sample size": 30,
+            "Detection rate": 0.89
+          },
+          {
+            "Added sample size": 35,
+            "Detection rate": 0.94
+          },
+          {
+            "Added sample size": 40,
+            "Detection rate": 0.97
+          }
+        ],
+        "subject": "AP Statistics",
+        "subtopics": [
+          "graph interpretation",
+          "marking a value",
+          "probability curve"
+        ]
+      }
+    },
+    {
+      "content_key": "APSTATS-HDG-2026-GRAPH-013",
+      "prompt_json": {
+        "archetype": "boxplot_construction_interpretation",
+        "capture_instruction": "Original research seed for hand-drawn AP Statistics graph-response grading. Do not expose criterion definitions to the person drawing the graph.",
+        "content_key": "APSTATS-HDG-2026-GRAPH-013",
+        "criteria": [
+          {
+            "criterion_key": "BOXPLOT_SCALE",
+            "learner_facing_text": "Uses one interpretable common scale for both groups.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "FIVE_NUMBER_VALUES",
+            "learner_facing_text": "Both boxplots recover the listed five-number summaries.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "CENTER_COMPARISON",
+            "learner_facing_text": "Correctly compares medians in context.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "VARIABILITY_COMPARISON",
+            "learner_facing_text": "Correctly compares IQR or range in context.",
+            "points_possible": 1
+          }
+        ],
+        "expected_graph_spec": {
+          "representation": "side-by-side boxplots",
+          "x_axis": "diet group",
+          "y_axis": "daily sugar intake (grams)"
+        },
+        "frq_form": "short",
+        "hand_drawn": true,
+        "item_type": "frq",
+        "label_status": "ai_provisional_unapproved",
+        "modules": [
+          "AP Statistics",
+          "data analysis",
+          "graphical displays"
+        ],
+        "parts": [
+          {
+            "is_drawn": true,
+            "part_key": "a",
+            "points_possible": 4,
+            "prompt_text": "A nutritionist compared daily sugar intake (grams) for two diet groups. Construct side-by-side boxplots from the five-number summaries, using one common scale. Then write one sentence comparing the centers and one sentence comparing the variability.\n\n| Diet group | Min | Q1 | Median | Q3 | Max |\n| --- | --- | --- | --- | --- | --- |\n| Standard | 45 | 62 | 78 | 95 | 130 |\n| Low-sugar | 20 | 28 | 35 | 44 | 58 |"
+          }
+        ],
+        "rights_status": "independently_authored_synthetic_research_seed_unverified",
+        "stem": "Answer the following question. Submit one photograph showing your constructed graph and your written response together.",
+        "stimulus": "A nutritionist compared daily sugar intake (grams) for two diet groups. Construct side-by-side boxplots from the five-number summaries, using one common scale. Then write one sentence comparing the centers and one sentence comparing the variability.\n\n| Diet group | Min | Q1 | Median | Q3 | Max |\n| --- | --- | --- | --- | --- | --- |\n| Standard | 45 | 62 | 78 | 95 | 130 |\n| Low-sugar | 20 | 28 | 35 | 44 | 58 |",
+        "stimulus_table": [
+          {
+            "Diet group": "Standard",
+            "Max": 130,
+            "Median": 78,
+            "Min": 45,
+            "Q1": 62,
+            "Q3": 95
+          },
+          {
+            "Diet group": "Low-sugar",
+            "Max": 58,
+            "Median": 35,
+            "Min": 20,
+            "Q1": 28,
+            "Q3": 44
+          }
+        ],
+        "subject": "AP Statistics",
+        "subtopics": [
+          "boxplot construction interpretation"
+        ]
+      }
+    },
+    {
+      "content_key": "APSTATS-HDG-2026-GRAPH-014",
+      "prompt_json": {
+        "archetype": "boxplot_construction_interpretation",
+        "capture_instruction": "Original research seed for hand-drawn AP Statistics graph-response grading. Do not expose criterion definitions to the person drawing the graph.",
+        "content_key": "APSTATS-HDG-2026-GRAPH-014",
+        "criteria": [
+          {
+            "criterion_key": "BOXPLOT_SCALE",
+            "learner_facing_text": "Uses one interpretable common scale for both groups.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "FIVE_NUMBER_VALUES",
+            "learner_facing_text": "Both boxplots recover the listed five-number summaries.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "CENTER_COMPARISON",
+            "learner_facing_text": "Correctly compares medians in context.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "VARIABILITY_COMPARISON",
+            "learner_facing_text": "Correctly compares IQR or range in context.",
+            "points_possible": 1
+          }
+        ],
+        "expected_graph_spec": {
+          "representation": "side-by-side boxplots",
+          "x_axis": "app usage frequency",
+          "y_axis": "quiz score"
+        },
+        "frq_form": "short",
+        "hand_drawn": true,
+        "item_type": "frq",
+        "label_status": "ai_provisional_unapproved",
+        "modules": [
+          "AP Statistics",
+          "data analysis",
+          "graphical displays"
+        ],
+        "parts": [
+          {
+            "is_drawn": true,
+            "part_key": "a",
+            "points_possible": 4,
+            "prompt_text": "A tutoring center compared quiz scores for students who used the app daily versus weekly. Construct side-by-side boxplots from the five-number summaries using one common scale. Then compare the typical score and the spread in context.\n\n| Usage | Min | Q1 | Median | Q3 | Max |\n| --- | --- | --- | --- | --- | --- |\n| Daily | 68 | 78 | 85 | 91 | 99 |\n| Weekly | 40 | 55 | 66 | 76 | 90 |"
+          }
+        ],
+        "rights_status": "independently_authored_synthetic_research_seed_unverified",
+        "stem": "Answer the following question. Submit one photograph showing your constructed graph and your written response together.",
+        "stimulus": "A tutoring center compared quiz scores for students who used the app daily versus weekly. Construct side-by-side boxplots from the five-number summaries using one common scale. Then compare the typical score and the spread in context.\n\n| Usage | Min | Q1 | Median | Q3 | Max |\n| --- | --- | --- | --- | --- | --- |\n| Daily | 68 | 78 | 85 | 91 | 99 |\n| Weekly | 40 | 55 | 66 | 76 | 90 |",
+        "stimulus_table": [
+          {
+            "Max": 99,
+            "Median": 85,
+            "Min": 68,
+            "Q1": 78,
+            "Q3": 91,
+            "Usage": "Daily"
+          },
+          {
+            "Max": 90,
+            "Median": 66,
+            "Min": 40,
+            "Q1": 55,
+            "Q3": 76,
+            "Usage": "Weekly"
+          }
+        ],
+        "subject": "AP Statistics",
+        "subtopics": [
+          "boxplot construction interpretation"
+        ]
+      }
+    },
+    {
+      "content_key": "APSTATS-HDG-2026-GRAPH-015",
+      "prompt_json": {
+        "archetype": "boxplot_construction_interpretation",
+        "capture_instruction": "Original research seed for hand-drawn AP Statistics graph-response grading. Do not expose criterion definitions to the person drawing the graph.",
+        "content_key": "APSTATS-HDG-2026-GRAPH-015",
+        "criteria": [
+          {
+            "criterion_key": "BOXPLOT_SCALE",
+            "learner_facing_text": "Uses one interpretable common scale for both groups.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "FIVE_NUMBER_VALUES",
+            "learner_facing_text": "Both boxplots recover the listed five-number summaries.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "CENTER_COMPARISON",
+            "learner_facing_text": "Correctly compares medians in context.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "VARIABILITY_COMPARISON",
+            "learner_facing_text": "Correctly compares IQR or range in context.",
+            "points_possible": 1
+          }
+        ],
+        "expected_graph_spec": {
+          "representation": "side-by-side boxplots",
+          "x_axis": "training group",
+          "y_axis": "sprint time (seconds)"
+        },
+        "frq_form": "short",
+        "hand_drawn": true,
+        "item_type": "frq",
+        "label_status": "ai_provisional_unapproved",
+        "modules": [
+          "AP Statistics",
+          "data analysis",
+          "graphical displays"
+        ],
+        "parts": [
+          {
+            "is_drawn": true,
+            "part_key": "a",
+            "points_possible": 4,
+            "prompt_text": "A coach compared sprint times (seconds) for two training groups. Construct side-by-side boxplots from the five-number summaries using one common scale. Then compare the typical time and the spread in context.\n\n| Group | Min | Q1 | Median | Q3 | Max |\n| --- | --- | --- | --- | --- | --- |\n| Interval training | 11.2 | 11.8 | 12.1 | 12.5 | 13.0 |\n| Steady-state training | 12.0 | 12.9 | 13.4 | 14.1 | 15.2 |"
+          }
+        ],
+        "rights_status": "independently_authored_synthetic_research_seed_unverified",
+        "stem": "Answer the following question. Submit one photograph showing your constructed graph and your written response together.",
+        "stimulus": "A coach compared sprint times (seconds) for two training groups. Construct side-by-side boxplots from the five-number summaries using one common scale. Then compare the typical time and the spread in context.\n\n| Group | Min | Q1 | Median | Q3 | Max |\n| --- | --- | --- | --- | --- | --- |\n| Interval training | 11.2 | 11.8 | 12.1 | 12.5 | 13.0 |\n| Steady-state training | 12.0 | 12.9 | 13.4 | 14.1 | 15.2 |",
+        "stimulus_table": [
+          {
+            "Group": "Interval training",
+            "Max": 13,
+            "Median": 12.1,
+            "Min": 11.2,
+            "Q1": 11.8,
+            "Q3": 12.5
+          },
+          {
+            "Group": "Steady-state training",
+            "Max": 15.2,
+            "Median": 13.4,
+            "Min": 12,
+            "Q1": 12.9,
+            "Q3": 14.1
+          }
+        ],
+        "subject": "AP Statistics",
+        "subtopics": [
+          "boxplot construction interpretation"
+        ]
+      }
+    },
+    {
+      "content_key": "APSTATS-HDG-2026-GRAPH-016",
+      "prompt_json": {
+        "archetype": "boxplot_construction_interpretation",
+        "capture_instruction": "Original research seed for hand-drawn AP Statistics graph-response grading. Do not expose criterion definitions to the person drawing the graph.",
+        "content_key": "APSTATS-HDG-2026-GRAPH-016",
+        "criteria": [
+          {
+            "criterion_key": "BOXPLOT_SCALE",
+            "learner_facing_text": "Uses one interpretable common scale for both groups.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "FIVE_NUMBER_VALUES",
+            "learner_facing_text": "Both boxplots recover the listed five-number summaries.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "CENTER_COMPARISON",
+            "learner_facing_text": "Correctly compares medians in context.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "VARIABILITY_COMPARISON",
+            "learner_facing_text": "Correctly compares IQR or range in context.",
+            "points_possible": 1
+          }
+        ],
+        "expected_graph_spec": {
+          "representation": "side-by-side boxplots",
+          "x_axis": "department",
+          "y_axis": "years of tenure"
+        },
+        "frq_form": "short",
+        "hand_drawn": true,
+        "item_type": "frq",
+        "label_status": "ai_provisional_unapproved",
+        "modules": [
+          "AP Statistics",
+          "data analysis",
+          "graphical displays"
+        ],
+        "parts": [
+          {
+            "is_drawn": true,
+            "part_key": "a",
+            "points_possible": 4,
+            "prompt_text": "An HR analyst compared years of tenure for two departments. Construct side-by-side boxplots from the five-number summaries using one common scale. Then compare the typical tenure and the spread in context.\n\n| Department | Min | Q1 | Median | Q3 | Max |\n| --- | --- | --- | --- | --- | --- |\n| Engineering | 0.5 | 2.0 | 3.5 | 6.0 | 12.0 |\n| Sales | 0.2 | 1.0 | 1.8 | 2.9 | 5.0 |"
+          }
+        ],
+        "rights_status": "independently_authored_synthetic_research_seed_unverified",
+        "stem": "Answer the following question. Submit one photograph showing your constructed graph and your written response together.",
+        "stimulus": "An HR analyst compared years of tenure for two departments. Construct side-by-side boxplots from the five-number summaries using one common scale. Then compare the typical tenure and the spread in context.\n\n| Department | Min | Q1 | Median | Q3 | Max |\n| --- | --- | --- | --- | --- | --- |\n| Engineering | 0.5 | 2.0 | 3.5 | 6.0 | 12.0 |\n| Sales | 0.2 | 1.0 | 1.8 | 2.9 | 5.0 |",
+        "stimulus_table": [
+          {
+            "Department": "Engineering",
+            "Max": 12,
+            "Median": 3.5,
+            "Min": 0.5,
+            "Q1": 2,
+            "Q3": 6
+          },
+          {
+            "Department": "Sales",
+            "Max": 5,
+            "Median": 1.8,
+            "Min": 0.2,
+            "Q1": 1,
+            "Q3": 2.9
+          }
+        ],
+        "subject": "AP Statistics",
+        "subtopics": [
+          "boxplot construction interpretation"
+        ]
+      }
+    },
+    {
+      "content_key": "APSTATS-HDG-2026-GRAPH-017",
+      "prompt_json": {
+        "archetype": "boxplot_construction_interpretation",
+        "capture_instruction": "Original research seed for hand-drawn AP Statistics graph-response grading. Do not expose criterion definitions to the person drawing the graph.",
+        "content_key": "APSTATS-HDG-2026-GRAPH-017",
+        "criteria": [
+          {
+            "criterion_key": "BOXPLOT_SCALE",
+            "learner_facing_text": "Uses one interpretable common scale for both groups.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "FIVE_NUMBER_VALUES",
+            "learner_facing_text": "Both boxplots recover the listed five-number summaries.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "CENTER_COMPARISON",
+            "learner_facing_text": "Correctly compares medians in context.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "VARIABILITY_COMPARISON",
+            "learner_facing_text": "Correctly compares IQR or range in context.",
+            "points_possible": 1
+          }
+        ],
+        "expected_graph_spec": {
+          "representation": "side-by-side boxplots",
+          "x_axis": "day type",
+          "y_axis": "wait time (minutes)"
+        },
+        "frq_form": "short",
+        "hand_drawn": true,
+        "item_type": "frq",
+        "label_status": "ai_provisional_unapproved",
+        "modules": [
+          "AP Statistics",
+          "data analysis",
+          "graphical displays"
+        ],
+        "parts": [
+          {
+            "is_drawn": true,
+            "part_key": "a",
+            "points_possible": 4,
+            "prompt_text": "A cafe manager compared customer wait times (minutes) on weekdays versus weekends. Construct side-by-side boxplots from the five-number summaries using one common scale. Then compare the typical wait time and the spread in context.\n\n| Day type | Min | Q1 | Median | Q3 | Max |\n| --- | --- | --- | --- | --- | --- |\n| Weekday | 2 | 4 | 6 | 8 | 12 |\n| Weekend | 5 | 9 | 13 | 18 | 26 |"
+          }
+        ],
+        "rights_status": "independently_authored_synthetic_research_seed_unverified",
+        "stem": "Answer the following question. Submit one photograph showing your constructed graph and your written response together.",
+        "stimulus": "A cafe manager compared customer wait times (minutes) on weekdays versus weekends. Construct side-by-side boxplots from the five-number summaries using one common scale. Then compare the typical wait time and the spread in context.\n\n| Day type | Min | Q1 | Median | Q3 | Max |\n| --- | --- | --- | --- | --- | --- |\n| Weekday | 2 | 4 | 6 | 8 | 12 |\n| Weekend | 5 | 9 | 13 | 18 | 26 |",
+        "stimulus_table": [
+          {
+            "Day type": "Weekday",
+            "Max": 12,
+            "Median": 6,
+            "Min": 2,
+            "Q1": 4,
+            "Q3": 8
+          },
+          {
+            "Day type": "Weekend",
+            "Max": 26,
+            "Median": 13,
+            "Min": 5,
+            "Q1": 9,
+            "Q3": 18
+          }
+        ],
+        "subject": "AP Statistics",
+        "subtopics": [
+          "boxplot construction interpretation"
+        ]
+      }
+    },
+    {
+      "content_key": "APSTATS-HDG-2026-GRAPH-018",
+      "prompt_json": {
+        "archetype": "segmented_bar_graph_construction",
+        "capture_instruction": "Original research seed for hand-drawn AP Statistics graph-response grading. Do not expose criterion definitions to the person drawing the graph.",
+        "content_key": "APSTATS-HDG-2026-GRAPH-018",
+        "criteria": [
+          {
+            "criterion_key": "RELATIVE_FREQUENCIES",
+            "learner_facing_text": "Converts counts to correct within-group relative frequencies.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "SEGMENTED_BARS",
+            "learner_facing_text": "Draws two complete segmented bars with total length 1 or 100%.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "CATEGORY_LABELS",
+            "learner_facing_text": "Segments and age groups are identifiable.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "COMPARISON",
+            "learner_facing_text": "Correctly identifies the larger frequent-viewing relative frequency.",
+            "points_possible": 1
+          }
+        ],
+        "expected_graph_spec": {
+          "groups": [
+            "Under 30",
+            "30 and over"
+          ],
+          "representation": "segmented bar graph",
+          "x_axis": "relative frequency"
+        },
+        "frq_form": "short",
+        "hand_drawn": true,
+        "item_type": "frq",
+        "label_status": "ai_provisional_unapproved",
+        "modules": [
+          "AP Statistics",
+          "data analysis",
+          "graphical displays"
+        ],
+        "parts": [
+          {
+            "is_drawn": true,
+            "part_key": "a",
+            "points_possible": 4,
+            "prompt_text": "A streaming service surveyed subscribers about how often they watch documentaries. Complete a segmented bar graph using relative frequencies for each age group. Then identify which group has the larger relative frequency of frequent viewing.\n\n| Age group | Never | Occasionally | Frequently |\n| --- | --- | --- | --- |\n| Under 30 | 25 | 50 | 25 |\n| 30 and over | 15 | 35 | 50 |"
+          }
+        ],
+        "rights_status": "independently_authored_synthetic_research_seed_unverified",
+        "stem": "Answer the following question. Submit one photograph showing your constructed graph and your written response together.",
+        "stimulus": "A streaming service surveyed subscribers about how often they watch documentaries. Complete a segmented bar graph using relative frequencies for each age group. Then identify which group has the larger relative frequency of frequent viewing.\n\n| Age group | Never | Occasionally | Frequently |\n| --- | --- | --- | --- |\n| Under 30 | 25 | 50 | 25 |\n| 30 and over | 15 | 35 | 50 |",
+        "stimulus_table": [
+          {
+            "Age group": "Under 30",
+            "Frequently": 25,
+            "Never": 25,
+            "Occasionally": 50
+          },
+          {
+            "Age group": "30 and over",
+            "Frequently": 50,
+            "Never": 15,
+            "Occasionally": 35
+          }
+        ],
+        "subject": "AP Statistics",
+        "subtopics": [
+          "segmented bar graph construction"
+        ]
+      }
+    },
+    {
+      "content_key": "APSTATS-HDG-2026-GRAPH-019",
+      "prompt_json": {
+        "archetype": "segmented_bar_graph_construction",
+        "capture_instruction": "Original research seed for hand-drawn AP Statistics graph-response grading. Do not expose criterion definitions to the person drawing the graph.",
+        "content_key": "APSTATS-HDG-2026-GRAPH-019",
+        "criteria": [
+          {
+            "criterion_key": "RELATIVE_FREQUENCIES",
+            "learner_facing_text": "Converts counts to correct within-group relative frequencies.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "SEGMENTED_BARS",
+            "learner_facing_text": "Draws two complete segmented bars with total length 1 or 100%.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "CATEGORY_LABELS",
+            "learner_facing_text": "Segments and period groups are identifiable.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "COMPARISON",
+            "learner_facing_text": "Correctly states that satisfied ratings increased after the change.",
+            "points_possible": 1
+          }
+        ],
+        "expected_graph_spec": {
+          "groups": [
+            "Before",
+            "After"
+          ],
+          "representation": "segmented bar graph",
+          "x_axis": "relative frequency"
+        },
+        "frq_form": "short",
+        "hand_drawn": true,
+        "item_type": "frq",
+        "label_status": "ai_provisional_unapproved",
+        "modules": [
+          "AP Statistics",
+          "data analysis",
+          "graphical displays"
+        ],
+        "parts": [
+          {
+            "is_drawn": true,
+            "part_key": "a",
+            "points_possible": 4,
+            "prompt_text": "A hospital tracked patient satisfaction ratings before and after a new scheduling system. Complete a segmented bar graph using relative frequencies for each period. Then state whether the relative frequency of 'satisfied' ratings increased.\n\n| Period | Dissatisfied | Neutral | Satisfied |\n| --- | --- | --- | --- |\n| Before | 40 | 35 | 25 |\n| After | 18 | 32 | 50 |"
+          }
+        ],
+        "rights_status": "independently_authored_synthetic_research_seed_unverified",
+        "stem": "Answer the following question. Submit one photograph showing your constructed graph and your written response together.",
+        "stimulus": "A hospital tracked patient satisfaction ratings before and after a new scheduling system. Complete a segmented bar graph using relative frequencies for each period. Then state whether the relative frequency of 'satisfied' ratings increased.\n\n| Period | Dissatisfied | Neutral | Satisfied |\n| --- | --- | --- | --- |\n| Before | 40 | 35 | 25 |\n| After | 18 | 32 | 50 |",
+        "stimulus_table": [
+          {
+            "Dissatisfied": 40,
+            "Neutral": 35,
+            "Period": "Before",
+            "Satisfied": 25
+          },
+          {
+            "Dissatisfied": 18,
+            "Neutral": 32,
+            "Period": "After",
+            "Satisfied": 50
+          }
+        ],
+        "subject": "AP Statistics",
+        "subtopics": [
+          "segmented bar graph construction"
+        ]
+      }
+    },
+    {
+      "content_key": "APSTATS-HDG-2026-GRAPH-020",
+      "prompt_json": {
+        "archetype": "segmented_bar_graph_construction",
+        "capture_instruction": "Original research seed for hand-drawn AP Statistics graph-response grading. Do not expose criterion definitions to the person drawing the graph.",
+        "content_key": "APSTATS-HDG-2026-GRAPH-020",
+        "criteria": [
+          {
+            "criterion_key": "RELATIVE_FREQUENCIES",
+            "learner_facing_text": "Converts counts to correct within-group relative frequencies.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "SEGMENTED_BARS",
+            "learner_facing_text": "Draws two complete segmented bars with total length 1 or 100%.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "CATEGORY_LABELS",
+            "learner_facing_text": "Segments and membership groups are identifiable.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "COMPARISON",
+            "learner_facing_text": "Correctly identifies the larger morning-workout relative frequency.",
+            "points_possible": 1
+          }
+        ],
+        "expected_graph_spec": {
+          "groups": [
+            "Standard",
+            "Premium"
+          ],
+          "representation": "segmented bar graph",
+          "x_axis": "relative frequency"
+        },
+        "frq_form": "short",
+        "hand_drawn": true,
+        "item_type": "frq",
+        "label_status": "ai_provisional_unapproved",
+        "modules": [
+          "AP Statistics",
+          "data analysis",
+          "graphical displays"
+        ],
+        "parts": [
+          {
+            "is_drawn": true,
+            "part_key": "a",
+            "points_possible": 4,
+            "prompt_text": "A gym surveyed members about preferred workout time. Complete a segmented bar graph using relative frequencies for each membership type. Then identify which membership type has the larger relative frequency of morning workouts.\n\n| Membership | Morning | Afternoon | Evening |\n| --- | --- | --- | --- |\n| Standard | 20 | 30 | 50 |\n| Premium | 45 | 30 | 25 |"
+          }
+        ],
+        "rights_status": "independently_authored_synthetic_research_seed_unverified",
+        "stem": "Answer the following question. Submit one photograph showing your constructed graph and your written response together.",
+        "stimulus": "A gym surveyed members about preferred workout time. Complete a segmented bar graph using relative frequencies for each membership type. Then identify which membership type has the larger relative frequency of morning workouts.\n\n| Membership | Morning | Afternoon | Evening |\n| --- | --- | --- | --- |\n| Standard | 20 | 30 | 50 |\n| Premium | 45 | 30 | 25 |",
+        "stimulus_table": [
+          {
+            "Afternoon": 30,
+            "Evening": 50,
+            "Membership": "Standard",
+            "Morning": 20
+          },
+          {
+            "Afternoon": 30,
+            "Evening": 25,
+            "Membership": "Premium",
+            "Morning": 45
+          }
+        ],
+        "subject": "AP Statistics",
+        "subtopics": [
+          "segmented bar graph construction"
+        ]
+      }
+    },
+    {
+      "content_key": "APSTATS-HDG-2026-GRAPH-021",
+      "prompt_json": {
+        "archetype": "segmented_bar_graph_construction",
+        "capture_instruction": "Original research seed for hand-drawn AP Statistics graph-response grading. Do not expose criterion definitions to the person drawing the graph.",
+        "content_key": "APSTATS-HDG-2026-GRAPH-021",
+        "criteria": [
+          {
+            "criterion_key": "RELATIVE_FREQUENCIES",
+            "learner_facing_text": "Converts counts to correct within-group relative frequencies.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "SEGMENTED_BARS",
+            "learner_facing_text": "Draws two complete segmented bars with total length 1 or 100%.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "CATEGORY_LABELS",
+            "learner_facing_text": "Segments and class-year groups are identifiable.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "COMPARISON",
+            "learner_facing_text": "Correctly identifies the larger biking relative frequency.",
+            "points_possible": 1
+          }
+        ],
+        "expected_graph_spec": {
+          "groups": [
+            "Freshman",
+            "Senior"
+          ],
+          "representation": "segmented bar graph",
+          "x_axis": "relative frequency"
+        },
+        "frq_form": "short",
+        "hand_drawn": true,
+        "item_type": "frq",
+        "label_status": "ai_provisional_unapproved",
+        "modules": [
+          "AP Statistics",
+          "data analysis",
+          "graphical displays"
+        ],
+        "parts": [
+          {
+            "is_drawn": true,
+            "part_key": "a",
+            "points_possible": 4,
+            "prompt_text": "A university surveyed students on their primary transportation mode by class year. Complete a segmented bar graph using relative frequencies for each class year. Then identify which class year has the larger relative frequency of biking.\n\n| Class year | Walk | Bike | Drive |\n| --- | --- | --- | --- |\n| Freshman | 60 | 30 | 10 |\n| Senior | 30 | 15 | 55 |"
+          }
+        ],
+        "rights_status": "independently_authored_synthetic_research_seed_unverified",
+        "stem": "Answer the following question. Submit one photograph showing your constructed graph and your written response together.",
+        "stimulus": "A university surveyed students on their primary transportation mode by class year. Complete a segmented bar graph using relative frequencies for each class year. Then identify which class year has the larger relative frequency of biking.\n\n| Class year | Walk | Bike | Drive |\n| --- | --- | --- | --- |\n| Freshman | 60 | 30 | 10 |\n| Senior | 30 | 15 | 55 |",
+        "stimulus_table": [
+          {
+            "Bike": 30,
+            "Class year": "Freshman",
+            "Drive": 10,
+            "Walk": 60
+          },
+          {
+            "Bike": 15,
+            "Class year": "Senior",
+            "Drive": 55,
+            "Walk": 30
+          }
+        ],
+        "subject": "AP Statistics",
+        "subtopics": [
+          "segmented bar graph construction"
+        ]
+      }
+    },
+    {
+      "content_key": "APSTATS-HDG-2026-GRAPH-022",
+      "prompt_json": {
+        "archetype": "segmented_bar_graph_construction",
+        "capture_instruction": "Original research seed for hand-drawn AP Statistics graph-response grading. Do not expose criterion definitions to the person drawing the graph.",
+        "content_key": "APSTATS-HDG-2026-GRAPH-022",
+        "criteria": [
+          {
+            "criterion_key": "RELATIVE_FREQUENCIES",
+            "learner_facing_text": "Converts counts to correct within-group relative frequencies.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "SEGMENTED_BARS",
+            "learner_facing_text": "Draws two complete segmented bars with total length 1 or 100%.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "CATEGORY_LABELS",
+            "learner_facing_text": "Segments and location-type groups are identifiable.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "COMPARISON",
+            "learner_facing_text": "Correctly identifies the larger delivery relative frequency.",
+            "points_possible": 1
+          }
+        ],
+        "expected_graph_spec": {
+          "groups": [
+            "Downtown",
+            "Suburban"
+          ],
+          "representation": "segmented bar graph",
+          "x_axis": "relative frequency"
+        },
+        "frq_form": "short",
+        "hand_drawn": true,
+        "item_type": "frq",
+        "label_status": "ai_provisional_unapproved",
+        "modules": [
+          "AP Statistics",
+          "data analysis",
+          "graphical displays"
+        ],
+        "parts": [
+          {
+            "is_drawn": true,
+            "part_key": "a",
+            "points_possible": 4,
+            "prompt_text": "A restaurant chain tracked order type by location. Complete a segmented bar graph using relative frequencies for each location type. Then identify which location type has the larger relative frequency of delivery orders.\n\n| Location type | Dine-in | Takeout | Delivery |\n| --- | --- | --- | --- |\n| Downtown | 45 | 30 | 25 |\n| Suburban | 20 | 25 | 55 |"
+          }
+        ],
+        "rights_status": "independently_authored_synthetic_research_seed_unverified",
+        "stem": "Answer the following question. Submit one photograph showing your constructed graph and your written response together.",
+        "stimulus": "A restaurant chain tracked order type by location. Complete a segmented bar graph using relative frequencies for each location type. Then identify which location type has the larger relative frequency of delivery orders.\n\n| Location type | Dine-in | Takeout | Delivery |\n| --- | --- | --- | --- |\n| Downtown | 45 | 30 | 25 |\n| Suburban | 20 | 25 | 55 |",
+        "stimulus_table": [
+          {
+            "Delivery": 25,
+            "Dine-in": 45,
+            "Location type": "Downtown",
+            "Takeout": 30
+          },
+          {
+            "Delivery": 55,
+            "Dine-in": 20,
+            "Location type": "Suburban",
+            "Takeout": 25
+          }
+        ],
+        "subject": "AP Statistics",
+        "subtopics": [
+          "segmented bar graph construction"
+        ]
+      }
+    },
+    {
+      "content_key": "APSTATS-HDG-2026-GRAPH-023",
+      "prompt_json": {
+        "archetype": "mosaic_plot_interpretation",
+        "capture_instruction": "Original research seed for hand-drawn AP Statistics graph-response grading. Do not expose criterion definitions to the person drawing the graph.",
+        "content_key": "APSTATS-HDG-2026-GRAPH-023",
+        "criteria": [
+          {
+            "criterion_key": "WIDTHS_BY_TOTAL",
+            "learner_facing_text": "Mode widths are proportional to mode totals.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "HEIGHTS_BY_CONDITIONAL_PROPORTION",
+            "learner_facing_text": "Segment heights use within-mode proportions.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "SEGMENT_LABELS",
+            "learner_facing_text": "Mode and satisfaction categories are identifiable.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "AREA_OR_COUNT_REASONING",
+            "learner_facing_text": "Correctly identifies Bus as largest dissatisfied count.",
+            "points_possible": 1
+          }
+        ],
+        "expected_graph_spec": {
+          "representation": "mosaic plot",
+          "x_axis": "transportation mode",
+          "y_axis": "conditional satisfaction proportion"
+        },
+        "frq_form": "short",
+        "hand_drawn": true,
+        "item_type": "frq",
+        "label_status": "ai_provisional_unapproved",
+        "modules": [
+          "AP Statistics",
+          "data analysis",
+          "graphical displays"
+        ],
+        "parts": [
+          {
+            "is_drawn": true,
+            "part_key": "a",
+            "points_possible": 4,
+            "prompt_text": "Students were classified by primary transportation mode and commute-time satisfaction. Draw a mosaic plot from the table so that each mode's width is proportional to its total count and each vertical segment shows the conditional distribution of satisfaction within that mode. Then state which mode has the largest number of dissatisfied students.\n\n| Mode | Satisfied | Neutral | Dissatisfied |\n| --- | --- | --- | --- |\n| Car | 40 | 30 | 30 |\n| Bus | 20 | 30 | 50 |\n| Bike | 45 | 25 | 10 |"
+          }
+        ],
+        "rights_status": "independently_authored_synthetic_research_seed_unverified",
+        "stem": "Answer the following question. Submit one photograph showing your constructed graph and your written response together.",
+        "stimulus": "Students were classified by primary transportation mode and commute-time satisfaction. Draw a mosaic plot from the table so that each mode's width is proportional to its total count and each vertical segment shows the conditional distribution of satisfaction within that mode. Then state which mode has the largest number of dissatisfied students.\n\n| Mode | Satisfied | Neutral | Dissatisfied |\n| --- | --- | --- | --- |\n| Car | 40 | 30 | 30 |\n| Bus | 20 | 30 | 50 |\n| Bike | 45 | 25 | 10 |",
+        "stimulus_table": [
+          {
+            "Dissatisfied": 30,
+            "Mode": "Car",
+            "Neutral": 30,
+            "Satisfied": 40
+          },
+          {
+            "Dissatisfied": 50,
+            "Mode": "Bus",
+            "Neutral": 30,
+            "Satisfied": 20
+          },
+          {
+            "Dissatisfied": 10,
+            "Mode": "Bike",
+            "Neutral": 25,
+            "Satisfied": 45
+          }
+        ],
+        "subject": "AP Statistics",
+        "subtopics": [
+          "mosaic plot interpretation"
+        ]
+      }
+    },
+    {
+      "content_key": "APSTATS-HDG-2026-GRAPH-024",
+      "prompt_json": {
+        "archetype": "mosaic_plot_interpretation",
+        "capture_instruction": "Original research seed for hand-drawn AP Statistics graph-response grading. Do not expose criterion definitions to the person drawing the graph.",
+        "content_key": "APSTATS-HDG-2026-GRAPH-024",
+        "criteria": [
+          {
+            "criterion_key": "WIDTHS_BY_TOTAL",
+            "learner_facing_text": "Department widths are proportional to department totals.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "HEIGHTS_BY_CONDITIONAL_PROPORTION",
+            "learner_facing_text": "Segment heights use within-department proportions.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "SEGMENT_LABELS",
+            "learner_facing_text": "Department and meeting-format categories are identifiable.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "AREA_OR_COUNT_REASONING",
+            "learner_facing_text": "Correctly identifies Sales as largest in-person count.",
+            "points_possible": 1
+          }
+        ],
+        "expected_graph_spec": {
+          "representation": "mosaic plot",
+          "x_axis": "department",
+          "y_axis": "conditional meeting-format proportion"
+        },
+        "frq_form": "short",
+        "hand_drawn": true,
+        "item_type": "frq",
+        "label_status": "ai_provisional_unapproved",
+        "modules": [
+          "AP Statistics",
+          "data analysis",
+          "graphical displays"
+        ],
+        "parts": [
+          {
+            "is_drawn": true,
+            "part_key": "a",
+            "points_possible": 4,
+            "prompt_text": "Employees were classified by department and preferred meeting format. Draw a mosaic plot so each department width is proportional to its total count and each vertical segment shows the conditional distribution of format preference within that department. Then identify which department has the largest number of employees preferring in-person meetings.\n\n| Department | Video | Hybrid | In-person |\n| --- | --- | --- | --- |\n| Sales | 20 | 30 | 50 |\n| Engineering | 50 | 35 | 15 |\n| Support | 25 | 35 | 40 |"
+          }
+        ],
+        "rights_status": "independently_authored_synthetic_research_seed_unverified",
+        "stem": "Answer the following question. Submit one photograph showing your constructed graph and your written response together.",
+        "stimulus": "Employees were classified by department and preferred meeting format. Draw a mosaic plot so each department width is proportional to its total count and each vertical segment shows the conditional distribution of format preference within that department. Then identify which department has the largest number of employees preferring in-person meetings.\n\n| Department | Video | Hybrid | In-person |\n| --- | --- | --- | --- |\n| Sales | 20 | 30 | 50 |\n| Engineering | 50 | 35 | 15 |\n| Support | 25 | 35 | 40 |",
+        "stimulus_table": [
+          {
+            "Department": "Sales",
+            "Hybrid": 30,
+            "In-person": 50,
+            "Video": 20
+          },
+          {
+            "Department": "Engineering",
+            "Hybrid": 35,
+            "In-person": 15,
+            "Video": 50
+          },
+          {
+            "Department": "Support",
+            "Hybrid": 35,
+            "In-person": 40,
+            "Video": 25
+          }
+        ],
+        "subject": "AP Statistics",
+        "subtopics": [
+          "mosaic plot interpretation"
+        ]
+      }
+    },
+    {
+      "content_key": "APSTATS-HDG-2026-GRAPH-025",
+      "prompt_json": {
+        "archetype": "mosaic_plot_interpretation",
+        "capture_instruction": "Original research seed for hand-drawn AP Statistics graph-response grading. Do not expose criterion definitions to the person drawing the graph.",
+        "content_key": "APSTATS-HDG-2026-GRAPH-025",
+        "criteria": [
+          {
+            "criterion_key": "WIDTHS_BY_TOTAL",
+            "learner_facing_text": "Section widths are proportional to section totals.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "HEIGHTS_BY_CONDITIONAL_PROPORTION",
+            "learner_facing_text": "Segment heights use within-section proportions.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "SEGMENT_LABELS",
+            "learner_facing_text": "Section and membership categories are identifiable.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "AREA_OR_COUNT_REASONING",
+            "learner_facing_text": "Correctly identifies Produce as largest member count.",
+            "points_possible": 1
+          }
+        ],
+        "expected_graph_spec": {
+          "representation": "mosaic plot",
+          "x_axis": "store section",
+          "y_axis": "conditional membership proportion"
+        },
+        "frq_form": "short",
+        "hand_drawn": true,
+        "item_type": "frq",
+        "label_status": "ai_provisional_unapproved",
+        "modules": [
+          "AP Statistics",
+          "data analysis",
+          "graphical displays"
+        ],
+        "parts": [
+          {
+            "is_drawn": true,
+            "part_key": "a",
+            "points_possible": 4,
+            "prompt_text": "Shoppers were classified by store section visited most and membership status. Draw a mosaic plot so each section's width is proportional to its total count and each vertical segment shows the conditional distribution of membership status within that section. Then identify which section has the largest number of member shoppers.\n\n| Section | Member | Non-member |\n| --- | --- | --- |\n| Produce | 70 | 30 |\n| Electronics | 40 | 60 |\n| Clothing | 55 | 45 |"
+          }
+        ],
+        "rights_status": "independently_authored_synthetic_research_seed_unverified",
+        "stem": "Answer the following question. Submit one photograph showing your constructed graph and your written response together.",
+        "stimulus": "Shoppers were classified by store section visited most and membership status. Draw a mosaic plot so each section's width is proportional to its total count and each vertical segment shows the conditional distribution of membership status within that section. Then identify which section has the largest number of member shoppers.\n\n| Section | Member | Non-member |\n| --- | --- | --- |\n| Produce | 70 | 30 |\n| Electronics | 40 | 60 |\n| Clothing | 55 | 45 |",
+        "stimulus_table": [
+          {
+            "Member": 70,
+            "Non-member": 30,
+            "Section": "Produce"
+          },
+          {
+            "Member": 40,
+            "Non-member": 60,
+            "Section": "Electronics"
+          },
+          {
+            "Member": 55,
+            "Non-member": 45,
+            "Section": "Clothing"
+          }
+        ],
+        "subject": "AP Statistics",
+        "subtopics": [
+          "mosaic plot interpretation"
+        ]
+      }
+    },
+    {
+      "content_key": "APSTATS-HDG-2026-GRAPH-026",
+      "prompt_json": {
+        "archetype": "mosaic_plot_interpretation",
+        "capture_instruction": "Original research seed for hand-drawn AP Statistics graph-response grading. Do not expose criterion definitions to the person drawing the graph.",
+        "content_key": "APSTATS-HDG-2026-GRAPH-026",
+        "criteria": [
+          {
+            "criterion_key": "WIDTHS_BY_TOTAL",
+            "learner_facing_text": "Location widths are proportional to location totals.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "HEIGHTS_BY_CONDITIONAL_PROPORTION",
+            "learner_facing_text": "Segment heights use within-location proportions.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "SEGMENT_LABELS",
+            "learner_facing_text": "Location and outcome categories are identifiable.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "AREA_OR_COUNT_REASONING",
+            "learner_facing_text": "Correctly identifies South clinic as largest no-show count.",
+            "points_possible": 1
+          }
+        ],
+        "expected_graph_spec": {
+          "representation": "mosaic plot",
+          "x_axis": "clinic location",
+          "y_axis": "conditional outcome proportion"
+        },
+        "frq_form": "short",
+        "hand_drawn": true,
+        "item_type": "frq",
+        "label_status": "ai_provisional_unapproved",
+        "modules": [
+          "AP Statistics",
+          "data analysis",
+          "graphical displays"
+        ],
+        "parts": [
+          {
+            "is_drawn": true,
+            "part_key": "a",
+            "points_possible": 4,
+            "prompt_text": "Patients were classified by clinic location and appointment outcome. Draw a mosaic plot so each location's width is proportional to its total count and each vertical segment shows the conditional distribution of outcome within that location. Then identify which location has the largest number of no-show appointments.\n\n| Location | Completed | Rescheduled | No-show |\n| --- | --- | --- | --- |\n| North clinic | 60 | 25 | 15 |\n| South clinic | 45 | 20 | 35 |\n| East clinic | 50 | 30 | 20 |"
+          }
+        ],
+        "rights_status": "independently_authored_synthetic_research_seed_unverified",
+        "stem": "Answer the following question. Submit one photograph showing your constructed graph and your written response together.",
+        "stimulus": "Patients were classified by clinic location and appointment outcome. Draw a mosaic plot so each location's width is proportional to its total count and each vertical segment shows the conditional distribution of outcome within that location. Then identify which location has the largest number of no-show appointments.\n\n| Location | Completed | Rescheduled | No-show |\n| --- | --- | --- | --- |\n| North clinic | 60 | 25 | 15 |\n| South clinic | 45 | 20 | 35 |\n| East clinic | 50 | 30 | 20 |",
+        "stimulus_table": [
+          {
+            "Completed": 60,
+            "Location": "North clinic",
+            "No-show": 15,
+            "Rescheduled": 25
+          },
+          {
+            "Completed": 45,
+            "Location": "South clinic",
+            "No-show": 35,
+            "Rescheduled": 20
+          },
+          {
+            "Completed": 50,
+            "Location": "East clinic",
+            "No-show": 20,
+            "Rescheduled": 30
+          }
+        ],
+        "subject": "AP Statistics",
+        "subtopics": [
+          "mosaic plot interpretation"
+        ]
+      }
+    },
+    {
+      "content_key": "APSTATS-HDG-2026-GRAPH-027",
+      "prompt_json": {
+        "archetype": "mosaic_plot_interpretation",
+        "capture_instruction": "Original research seed for hand-drawn AP Statistics graph-response grading. Do not expose criterion definitions to the person drawing the graph.",
+        "content_key": "APSTATS-HDG-2026-GRAPH-027",
+        "criteria": [
+          {
+            "criterion_key": "WIDTHS_BY_TOTAL",
+            "learner_facing_text": "Age-bracket widths are proportional to bracket totals.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "HEIGHTS_BY_CONDITIONAL_PROPORTION",
+            "learner_facing_text": "Segment heights use within-bracket proportions.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "SEGMENT_LABELS",
+            "learner_facing_text": "Age-bracket and voting-method categories are identifiable.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "AREA_OR_COUNT_REASONING",
+            "learner_facing_text": "Correctly identifies 65+ as largest mail-in count.",
+            "points_possible": 1
+          }
+        ],
+        "expected_graph_spec": {
+          "representation": "mosaic plot",
+          "x_axis": "age bracket",
+          "y_axis": "conditional voting-method proportion"
+        },
+        "frq_form": "short",
+        "hand_drawn": true,
+        "item_type": "frq",
+        "label_status": "ai_provisional_unapproved",
+        "modules": [
+          "AP Statistics",
+          "data analysis",
+          "graphical displays"
+        ],
+        "parts": [
+          {
+            "is_drawn": true,
+            "part_key": "a",
+            "points_possible": 4,
+            "prompt_text": "Voters were classified by age bracket and preferred voting method. Draw a mosaic plot so each age bracket's width is proportional to its total count and each vertical segment shows the conditional distribution of voting method within that bracket. Then identify which age bracket has the largest number of mail-in voters.\n\n| Age bracket | In-person | Mail-in | Early voting |\n| --- | --- | --- | --- |\n| 18-34 | 40 | 20 | 40 |\n| 35-64 | 35 | 35 | 30 |\n| 65+ | 20 | 55 | 25 |"
+          }
+        ],
+        "rights_status": "independently_authored_synthetic_research_seed_unverified",
+        "stem": "Answer the following question. Submit one photograph showing your constructed graph and your written response together.",
+        "stimulus": "Voters were classified by age bracket and preferred voting method. Draw a mosaic plot so each age bracket's width is proportional to its total count and each vertical segment shows the conditional distribution of voting method within that bracket. Then identify which age bracket has the largest number of mail-in voters.\n\n| Age bracket | In-person | Mail-in | Early voting |\n| --- | --- | --- | --- |\n| 18-34 | 40 | 20 | 40 |\n| 35-64 | 35 | 35 | 30 |\n| 65+ | 20 | 55 | 25 |",
+        "stimulus_table": [
+          {
+            "Age bracket": "18-34",
+            "Early voting": 40,
+            "In-person": 40,
+            "Mail-in": 20
+          },
+          {
+            "Age bracket": "35-64",
+            "Early voting": 30,
+            "In-person": 35,
+            "Mail-in": 35
+          },
+          {
+            "Age bracket": "65+",
+            "Early voting": 25,
+            "In-person": 20,
+            "Mail-in": 55
+          }
+        ],
+        "subject": "AP Statistics",
+        "subtopics": [
+          "mosaic plot interpretation"
+        ]
+      }
+    },
+    {
+      "content_key": "APSTATS-HDG-2026-GRAPH-028",
+      "prompt_json": {
+        "archetype": "dotplot_distribution_shape",
+        "capture_instruction": "Original research seed for hand-drawn AP Statistics graph-response grading. Do not expose criterion definitions to the person drawing the graph.",
+        "content_key": "APSTATS-HDG-2026-GRAPH-028",
+        "criteria": [
+          {
+            "criterion_key": "DOT_COUNTS",
+            "learner_facing_text": "Plots the correct number of dots at each commute time.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "AXIS_SCALE",
+            "learner_facing_text": "Uses an interpretable numeric scale covering 15 through 38.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "SHAPE_DESCRIPTION",
+            "learner_facing_text": "Describes the distribution as right-skewed in context.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "OUTLIER_NOTE",
+            "learner_facing_text": "Identifies 38 minutes as a possible high outlier or unusual value.",
+            "points_possible": 1
+          }
+        ],
+        "expected_graph_spec": {
+          "representation": "dotplot",
+          "x_axis": "commute time (minutes)"
+        },
+        "frq_form": "short",
+        "hand_drawn": true,
+        "item_type": "frq",
+        "label_status": "ai_provisional_unapproved",
+        "modules": [
+          "AP Statistics",
+          "data analysis",
+          "graphical displays"
+        ],
+        "parts": [
+          {
+            "is_drawn": true,
+            "part_key": "a",
+            "points_possible": 4,
+            "prompt_text": "A sample of 12 commute times (minutes) is shown below. Construct a dotplot of the data, then describe the distribution's shape and identify any possible outlier.\n\n| Commute time (min) |\n| --- |\n| 15 | 18 | 18 | 19 | 20 | 20 | 20 | 21 | 22 | 22 | 24 | 38 |"
+          }
+        ],
+        "rights_status": "independently_authored_synthetic_research_seed_unverified",
+        "stem": "Answer the following question. Submit one photograph showing your constructed graph and your written response together.",
+        "stimulus": "A sample of 12 commute times (minutes) is shown below. Construct a dotplot of the data, then describe the distribution's shape and identify any possible outlier.\n\n| Commute time (min) |\n| --- |\n| 15 | 18 | 18 | 19 | 20 | 20 | 20 | 21 | 22 | 22 | 24 | 38 |",
+        "stimulus_table": [
+          {
+            "Commute time (min)": 15
+          },
+          {
+            "Commute time (min)": 18
+          },
+          {
+            "Commute time (min)": 18
+          },
+          {
+            "Commute time (min)": 19
+          },
+          {
+            "Commute time (min)": 20
+          },
+          {
+            "Commute time (min)": 20
+          },
+          {
+            "Commute time (min)": 20
+          },
+          {
+            "Commute time (min)": 21
+          },
+          {
+            "Commute time (min)": 22
+          },
+          {
+            "Commute time (min)": 22
+          },
+          {
+            "Commute time (min)": 24
+          },
+          {
+            "Commute time (min)": 38
+          }
+        ],
+        "subject": "AP Statistics",
+        "subtopics": [
+          "dotplot distribution shape"
+        ]
+      }
+    },
+    {
+      "content_key": "APSTATS-HDG-2026-GRAPH-029",
+      "prompt_json": {
+        "archetype": "dotplot_distribution_shape",
+        "capture_instruction": "Original research seed for hand-drawn AP Statistics graph-response grading. Do not expose criterion definitions to the person drawing the graph.",
+        "content_key": "APSTATS-HDG-2026-GRAPH-029",
+        "criteria": [
+          {
+            "criterion_key": "DOT_COUNTS",
+            "learner_facing_text": "Plots the correct number of dots at each test score.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "AXIS_SCALE",
+            "learner_facing_text": "Uses an interpretable numeric scale covering 62 through 88.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "SHAPE_DESCRIPTION",
+            "learner_facing_text": "Describes the distribution as left-skewed (or notes the low tail) in context.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "OUTLIER_NOTE",
+            "learner_facing_text": "Identifies 62 as a possible low outlier separated from the main cluster.",
+            "points_possible": 1
+          }
+        ],
+        "expected_graph_spec": {
+          "representation": "dotplot",
+          "x_axis": "test score"
+        },
+        "frq_form": "short",
+        "hand_drawn": true,
+        "item_type": "frq",
+        "label_status": "ai_provisional_unapproved",
+        "modules": [
+          "AP Statistics",
+          "data analysis",
+          "graphical displays"
+        ],
+        "parts": [
+          {
+            "is_drawn": true,
+            "part_key": "a",
+            "points_possible": 4,
+            "prompt_text": "A sample of 12 test scores is shown below. Construct a dotplot of the data, then describe the distribution's shape and comment on whether there is a clear outlier.\n\n| Test score |\n| --- |\n| 62 | 78 | 80 | 81 | 82 | 83 | 84 | 84 | 85 | 86 | 87 | 88 |"
+          }
+        ],
+        "rights_status": "independently_authored_synthetic_research_seed_unverified",
+        "stem": "Answer the following question. Submit one photograph showing your constructed graph and your written response together.",
+        "stimulus": "A sample of 12 test scores is shown below. Construct a dotplot of the data, then describe the distribution's shape and comment on whether there is a clear outlier.\n\n| Test score |\n| --- |\n| 62 | 78 | 80 | 81 | 82 | 83 | 84 | 84 | 85 | 86 | 87 | 88 |",
+        "stimulus_table": [
+          {
+            "Test score": 62
+          },
+          {
+            "Test score": 78
+          },
+          {
+            "Test score": 80
+          },
+          {
+            "Test score": 81
+          },
+          {
+            "Test score": 82
+          },
+          {
+            "Test score": 83
+          },
+          {
+            "Test score": 84
+          },
+          {
+            "Test score": 84
+          },
+          {
+            "Test score": 85
+          },
+          {
+            "Test score": 86
+          },
+          {
+            "Test score": 87
+          },
+          {
+            "Test score": 88
+          }
+        ],
+        "subject": "AP Statistics",
+        "subtopics": [
+          "dotplot distribution shape"
+        ]
+      }
+    },
+    {
+      "content_key": "APSTATS-HDG-2026-GRAPH-030",
+      "prompt_json": {
+        "archetype": "dotplot_distribution_shape",
+        "capture_instruction": "Original research seed for hand-drawn AP Statistics graph-response grading. Do not expose criterion definitions to the person drawing the graph.",
+        "content_key": "APSTATS-HDG-2026-GRAPH-030",
+        "criteria": [
+          {
+            "criterion_key": "DOT_COUNTS",
+            "learner_facing_text": "Plots the correct number of dots at each step count.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "AXIS_SCALE",
+            "learner_facing_text": "Uses an interpretable numeric scale covering 6 through 12.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "SHAPE_DESCRIPTION",
+            "learner_facing_text": "Describes the distribution as roughly symmetric/unimodal in context.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "OUTLIER_NOTE",
+            "learner_facing_text": "Correctly notes there is no clear outlier in this dataset.",
+            "points_possible": 1
+          }
+        ],
+        "expected_graph_spec": {
+          "representation": "dotplot",
+          "x_axis": "daily steps (thousands)"
+        },
+        "frq_form": "short",
+        "hand_drawn": true,
+        "item_type": "frq",
+        "label_status": "ai_provisional_unapproved",
+        "modules": [
+          "AP Statistics",
+          "data analysis",
+          "graphical displays"
+        ],
+        "parts": [
+          {
+            "is_drawn": true,
+            "part_key": "a",
+            "points_possible": 4,
+            "prompt_text": "A sample of 12 daily step counts (thousands) is shown below. Construct a dotplot of the data, then describe the distribution's shape and comment on whether there is a clear outlier.\n\n| Steps (thousands) |\n| --- |\n| 6 | 7 | 7 | 8 | 8 | 8 | 9 | 9 | 10 | 10 | 11 | 12 |"
+          }
+        ],
+        "rights_status": "independently_authored_synthetic_research_seed_unverified",
+        "stem": "Answer the following question. Submit one photograph showing your constructed graph and your written response together.",
+        "stimulus": "A sample of 12 daily step counts (thousands) is shown below. Construct a dotplot of the data, then describe the distribution's shape and comment on whether there is a clear outlier.\n\n| Steps (thousands) |\n| --- |\n| 6 | 7 | 7 | 8 | 8 | 8 | 9 | 9 | 10 | 10 | 11 | 12 |",
+        "stimulus_table": [
+          {
+            "Steps (thousands)": 6
+          },
+          {
+            "Steps (thousands)": 7
+          },
+          {
+            "Steps (thousands)": 7
+          },
+          {
+            "Steps (thousands)": 8
+          },
+          {
+            "Steps (thousands)": 8
+          },
+          {
+            "Steps (thousands)": 8
+          },
+          {
+            "Steps (thousands)": 9
+          },
+          {
+            "Steps (thousands)": 9
+          },
+          {
+            "Steps (thousands)": 10
+          },
+          {
+            "Steps (thousands)": 10
+          },
+          {
+            "Steps (thousands)": 11
+          },
+          {
+            "Steps (thousands)": 12
+          }
+        ],
+        "subject": "AP Statistics",
+        "subtopics": [
+          "dotplot distribution shape"
+        ]
+      }
+    },
+    {
+      "content_key": "APSTATS-HDG-2026-GRAPH-031",
+      "prompt_json": {
+        "archetype": "dotplot_distribution_shape",
+        "capture_instruction": "Original research seed for hand-drawn AP Statistics graph-response grading. Do not expose criterion definitions to the person drawing the graph.",
+        "content_key": "APSTATS-HDG-2026-GRAPH-031",
+        "criteria": [
+          {
+            "criterion_key": "DOT_COUNTS",
+            "learner_facing_text": "Plots the correct number of dots at each delivery time.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "AXIS_SCALE",
+            "learner_facing_text": "Uses an interpretable numeric scale covering 1 through 11.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "SHAPE_DESCRIPTION",
+            "learner_facing_text": "Describes the distribution as right-skewed in context.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "OUTLIER_NOTE",
+            "learner_facing_text": "Identifies 11 days as a possible high outlier.",
+            "points_possible": 1
+          }
+        ],
+        "expected_graph_spec": {
+          "representation": "dotplot",
+          "x_axis": "delivery time (days)"
+        },
+        "frq_form": "short",
+        "hand_drawn": true,
+        "item_type": "frq",
+        "label_status": "ai_provisional_unapproved",
+        "modules": [
+          "AP Statistics",
+          "data analysis",
+          "graphical displays"
+        ],
+        "parts": [
+          {
+            "is_drawn": true,
+            "part_key": "a",
+            "points_possible": 4,
+            "prompt_text": "A sample of 12 package delivery times (days) is shown below. Construct a dotplot of the data, then describe the distribution's shape and identify any possible outlier.\n\n| Delivery time (days) |\n| --- |\n| 1 | 2 | 2 | 2 | 3 | 3 | 3 | 3 | 4 | 4 | 5 | 11 |"
+          }
+        ],
+        "rights_status": "independently_authored_synthetic_research_seed_unverified",
+        "stem": "Answer the following question. Submit one photograph showing your constructed graph and your written response together.",
+        "stimulus": "A sample of 12 package delivery times (days) is shown below. Construct a dotplot of the data, then describe the distribution's shape and identify any possible outlier.\n\n| Delivery time (days) |\n| --- |\n| 1 | 2 | 2 | 2 | 3 | 3 | 3 | 3 | 4 | 4 | 5 | 11 |",
+        "stimulus_table": [
+          {
+            "Delivery time (days)": 1
+          },
+          {
+            "Delivery time (days)": 2
+          },
+          {
+            "Delivery time (days)": 2
+          },
+          {
+            "Delivery time (days)": 2
+          },
+          {
+            "Delivery time (days)": 3
+          },
+          {
+            "Delivery time (days)": 3
+          },
+          {
+            "Delivery time (days)": 3
+          },
+          {
+            "Delivery time (days)": 3
+          },
+          {
+            "Delivery time (days)": 4
+          },
+          {
+            "Delivery time (days)": 4
+          },
+          {
+            "Delivery time (days)": 5
+          },
+          {
+            "Delivery time (days)": 11
+          }
+        ],
+        "subject": "AP Statistics",
+        "subtopics": [
+          "dotplot distribution shape"
+        ]
+      }
+    },
+    {
+      "content_key": "APSTATS-HDG-2026-GRAPH-032",
+      "prompt_json": {
+        "archetype": "scatterplot_regression_context",
+        "capture_instruction": "Original research seed for hand-drawn AP Statistics graph-response grading. Do not expose criterion definitions to the person drawing the graph.",
+        "content_key": "APSTATS-HDG-2026-GRAPH-032",
+        "criteria": [
+          {
+            "criterion_key": "POINTS_PLOTTED",
+            "learner_facing_text": "Plots all nine ordered pairs at recoverable locations.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "AXIS_LABELS",
+            "learner_facing_text": "Labels advertising spend and sales on the correct axes.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "TREND_LINE",
+            "learner_facing_text": "Sketches a reasonable increasing line through the point cloud.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "ASSOCIATION_DESCRIPTION",
+            "learner_facing_text": "Describes strong positive roughly linear association in context.",
+            "points_possible": 1
+          }
+        ],
+        "expected_graph_spec": {
+          "representation": "scatterplot with trend line",
+          "x_axis": "advertising spend (thousands of dollars)",
+          "y_axis": "monthly sales (thousands of dollars)"
+        },
+        "frq_form": "short",
+        "hand_drawn": true,
+        "item_type": "frq",
+        "label_status": "ai_provisional_unapproved",
+        "modules": [
+          "AP Statistics",
+          "data analysis",
+          "graphical displays"
+        ],
+        "parts": [
+          {
+            "is_drawn": true,
+            "part_key": "a",
+            "points_possible": 4,
+            "prompt_text": "A researcher recorded advertising spend (thousands of dollars) and monthly sales (thousands of dollars) for nine stores. Construct a scatterplot, sketch a reasonable least-squares trend line, and describe the direction, form, and strength of the association in context.\n\n| Ad spend | Sales |\n| --- | --- |\n| 2 | 30 | 3 | 34 | 4 | 40 | 5 | 44 | 6 | 47 | 7 | 53 | 8 | 58 | 9 | 62 | 10 | 68 |"
+          }
+        ],
+        "rights_status": "independently_authored_synthetic_research_seed_unverified",
+        "stem": "Answer the following question. Submit one photograph showing your constructed graph and your written response together.",
+        "stimulus": "A researcher recorded advertising spend (thousands of dollars) and monthly sales (thousands of dollars) for nine stores. Construct a scatterplot, sketch a reasonable least-squares trend line, and describe the direction, form, and strength of the association in context.\n\n| Ad spend | Sales |\n| --- | --- |\n| 2 | 30 | 3 | 34 | 4 | 40 | 5 | 44 | 6 | 47 | 7 | 53 | 8 | 58 | 9 | 62 | 10 | 68 |",
+        "stimulus_table": [
+          {
+            "Ad spend": 2,
+            "Sales": 30
+          },
+          {
+            "Ad spend": 3,
+            "Sales": 34
+          },
+          {
+            "Ad spend": 4,
+            "Sales": 40
+          },
+          {
+            "Ad spend": 5,
+            "Sales": 44
+          },
+          {
+            "Ad spend": 6,
+            "Sales": 47
+          },
+          {
+            "Ad spend": 7,
+            "Sales": 53
+          },
+          {
+            "Ad spend": 8,
+            "Sales": 58
+          },
+          {
+            "Ad spend": 9,
+            "Sales": 62
+          },
+          {
+            "Ad spend": 10,
+            "Sales": 68
+          }
+        ],
+        "subject": "AP Statistics",
+        "subtopics": [
+          "scatterplot regression context"
+        ]
+      }
+    },
+    {
+      "content_key": "APSTATS-HDG-2026-GRAPH-033",
+      "prompt_json": {
+        "archetype": "scatterplot_regression_context",
+        "capture_instruction": "Original research seed for hand-drawn AP Statistics graph-response grading. Do not expose criterion definitions to the person drawing the graph.",
+        "content_key": "APSTATS-HDG-2026-GRAPH-033",
+        "criteria": [
+          {
+            "criterion_key": "POINTS_PLOTTED",
+            "learner_facing_text": "Plots all nine ordered pairs at recoverable locations.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "AXIS_LABELS",
+            "learner_facing_text": "Labels car age and resale value on the correct axes.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "TREND_LINE",
+            "learner_facing_text": "Sketches a reasonable decreasing line through the point cloud.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "ASSOCIATION_DESCRIPTION",
+            "learner_facing_text": "Describes strong negative roughly linear association in context.",
+            "points_possible": 1
+          }
+        ],
+        "expected_graph_spec": {
+          "representation": "scatterplot with trend line",
+          "x_axis": "car age (years)",
+          "y_axis": "resale value (thousands of dollars)"
+        },
+        "frq_form": "short",
+        "hand_drawn": true,
+        "item_type": "frq",
+        "label_status": "ai_provisional_unapproved",
+        "modules": [
+          "AP Statistics",
+          "data analysis",
+          "graphical displays"
+        ],
+        "parts": [
+          {
+            "is_drawn": true,
+            "part_key": "a",
+            "points_possible": 4,
+            "prompt_text": "A mechanic recorded a car's age (years) and its resale value (thousands of dollars) for nine cars. Construct a scatterplot, sketch a reasonable least-squares trend line, and describe the direction, form, and strength of the association in context.\n\n| Age | Resale value |\n| --- | --- |\n| 1 | 28 | 2 | 25 | 3 | 22 | 4 | 19 | 5 | 17 | 6 | 14 | 7 | 12 | 8 | 9 | 9 | 7 |"
+          }
+        ],
+        "rights_status": "independently_authored_synthetic_research_seed_unverified",
+        "stem": "Answer the following question. Submit one photograph showing your constructed graph and your written response together.",
+        "stimulus": "A mechanic recorded a car's age (years) and its resale value (thousands of dollars) for nine cars. Construct a scatterplot, sketch a reasonable least-squares trend line, and describe the direction, form, and strength of the association in context.\n\n| Age | Resale value |\n| --- | --- |\n| 1 | 28 | 2 | 25 | 3 | 22 | 4 | 19 | 5 | 17 | 6 | 14 | 7 | 12 | 8 | 9 | 9 | 7 |",
+        "stimulus_table": [
+          {
+            "Age": 1,
+            "Resale value": 28
+          },
+          {
+            "Age": 2,
+            "Resale value": 25
+          },
+          {
+            "Age": 3,
+            "Resale value": 22
+          },
+          {
+            "Age": 4,
+            "Resale value": 19
+          },
+          {
+            "Age": 5,
+            "Resale value": 17
+          },
+          {
+            "Age": 6,
+            "Resale value": 14
+          },
+          {
+            "Age": 7,
+            "Resale value": 12
+          },
+          {
+            "Age": 8,
+            "Resale value": 9
+          },
+          {
+            "Age": 9,
+            "Resale value": 7
+          }
+        ],
+        "subject": "AP Statistics",
+        "subtopics": [
+          "scatterplot regression context"
+        ]
+      }
+    },
+    {
+      "content_key": "APSTATS-HDG-2026-GRAPH-034",
+      "prompt_json": {
+        "archetype": "scatterplot_regression_context",
+        "capture_instruction": "Original research seed for hand-drawn AP Statistics graph-response grading. Do not expose criterion definitions to the person drawing the graph.",
+        "content_key": "APSTATS-HDG-2026-GRAPH-034",
+        "criteria": [
+          {
+            "criterion_key": "POINTS_PLOTTED",
+            "learner_facing_text": "Plots all nine ordered pairs at recoverable locations.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "AXIS_LABELS",
+            "learner_facing_text": "Labels calorie intake and heart rate change on the correct axes.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "TREND_LINE",
+            "learner_facing_text": "Sketches a reasonable increasing line through the point cloud.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "ASSOCIATION_DESCRIPTION",
+            "learner_facing_text": "Describes strong positive roughly linear association in context.",
+            "points_possible": 1
+          }
+        ],
+        "expected_graph_spec": {
+          "representation": "scatterplot with trend line",
+          "x_axis": "daily calorie intake (hundreds)",
+          "y_axis": "resting heart rate change (bpm)"
+        },
+        "frq_form": "short",
+        "hand_drawn": true,
+        "item_type": "frq",
+        "label_status": "ai_provisional_unapproved",
+        "modules": [
+          "AP Statistics",
+          "data analysis",
+          "graphical displays"
+        ],
+        "parts": [
+          {
+            "is_drawn": true,
+            "part_key": "a",
+            "points_possible": 4,
+            "prompt_text": "A nutritionist recorded daily calorie intake (hundreds) and resting heart rate change (bpm) for nine participants in a controlled diet study. Construct a scatterplot, sketch a reasonable least-squares trend line, and describe the direction, form, and strength of the association in context.\n\n| Calorie intake (hundreds) | Heart rate change (bpm) |\n| --- | --- |\n| 14 | -2 | 16 | -1 | 18 | 0 | 20 | 1 | 22 | 1 | 24 | 3 | 26 | 3 | 28 | 5 | 30 | 6 |"
+          }
+        ],
+        "rights_status": "independently_authored_synthetic_research_seed_unverified",
+        "stem": "Answer the following question. Submit one photograph showing your constructed graph and your written response together.",
+        "stimulus": "A nutritionist recorded daily calorie intake (hundreds) and resting heart rate change (bpm) for nine participants in a controlled diet study. Construct a scatterplot, sketch a reasonable least-squares trend line, and describe the direction, form, and strength of the association in context.\n\n| Calorie intake (hundreds) | Heart rate change (bpm) |\n| --- | --- |\n| 14 | -2 | 16 | -1 | 18 | 0 | 20 | 1 | 22 | 1 | 24 | 3 | 26 | 3 | 28 | 5 | 30 | 6 |",
+        "stimulus_table": [
+          {
+            "Calorie intake (hundreds)": 14,
+            "Heart rate change (bpm)": -2
+          },
+          {
+            "Calorie intake (hundreds)": 16,
+            "Heart rate change (bpm)": -1
+          },
+          {
+            "Calorie intake (hundreds)": 18,
+            "Heart rate change (bpm)": 0
+          },
+          {
+            "Calorie intake (hundreds)": 20,
+            "Heart rate change (bpm)": 1
+          },
+          {
+            "Calorie intake (hundreds)": 22,
+            "Heart rate change (bpm)": 1
+          },
+          {
+            "Calorie intake (hundreds)": 24,
+            "Heart rate change (bpm)": 3
+          },
+          {
+            "Calorie intake (hundreds)": 26,
+            "Heart rate change (bpm)": 3
+          },
+          {
+            "Calorie intake (hundreds)": 28,
+            "Heart rate change (bpm)": 5
+          },
+          {
+            "Calorie intake (hundreds)": 30,
+            "Heart rate change (bpm)": 6
+          }
+        ],
+        "subject": "AP Statistics",
+        "subtopics": [
+          "scatterplot regression context"
+        ]
+      }
+    },
+    {
+      "content_key": "APSTATS-HDG-2026-GRAPH-035",
+      "prompt_json": {
+        "archetype": "scatterplot_regression_context",
+        "capture_instruction": "Original research seed for hand-drawn AP Statistics graph-response grading. Do not expose criterion definitions to the person drawing the graph.",
+        "content_key": "APSTATS-HDG-2026-GRAPH-035",
+        "criteria": [
+          {
+            "criterion_key": "POINTS_PLOTTED",
+            "learner_facing_text": "Plots all nine ordered pairs at recoverable locations.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "AXIS_LABELS",
+            "learner_facing_text": "Labels distance and commute time on the correct axes.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "TREND_LINE",
+            "learner_facing_text": "Sketches a reasonable increasing line through the point cloud.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "ASSOCIATION_DESCRIPTION",
+            "learner_facing_text": "Describes strong positive roughly linear association in context.",
+            "points_possible": 1
+          }
+        ],
+        "expected_graph_spec": {
+          "representation": "scatterplot with trend line",
+          "x_axis": "distance from downtown (miles)",
+          "y_axis": "average commute time (minutes)"
+        },
+        "frq_form": "short",
+        "hand_drawn": true,
+        "item_type": "frq",
+        "label_status": "ai_provisional_unapproved",
+        "modules": [
+          "AP Statistics",
+          "data analysis",
+          "graphical displays"
+        ],
+        "parts": [
+          {
+            "is_drawn": true,
+            "part_key": "a",
+            "points_possible": 4,
+            "prompt_text": "A city planner recorded a neighborhood's distance from downtown (miles) and average commute time (minutes) for nine neighborhoods. Construct a scatterplot, sketch a reasonable least-squares trend line, and describe the direction, form, and strength of the association in context.\n\n| Distance (miles) | Commute time (min) |\n| --- | --- |\n| 1 | 12 | 3 | 18 | 5 | 24 | 7 | 27 | 9 | 33 | 11 | 38 | 13 | 41 | 15 | 47 | 17 | 52 |"
+          }
+        ],
+        "rights_status": "independently_authored_synthetic_research_seed_unverified",
+        "stem": "Answer the following question. Submit one photograph showing your constructed graph and your written response together.",
+        "stimulus": "A city planner recorded a neighborhood's distance from downtown (miles) and average commute time (minutes) for nine neighborhoods. Construct a scatterplot, sketch a reasonable least-squares trend line, and describe the direction, form, and strength of the association in context.\n\n| Distance (miles) | Commute time (min) |\n| --- | --- |\n| 1 | 12 | 3 | 18 | 5 | 24 | 7 | 27 | 9 | 33 | 11 | 38 | 13 | 41 | 15 | 47 | 17 | 52 |",
+        "stimulus_table": [
+          {
+            "Commute time (min)": 12,
+            "Distance (miles)": 1
+          },
+          {
+            "Commute time (min)": 18,
+            "Distance (miles)": 3
+          },
+          {
+            "Commute time (min)": 24,
+            "Distance (miles)": 5
+          },
+          {
+            "Commute time (min)": 27,
+            "Distance (miles)": 7
+          },
+          {
+            "Commute time (min)": 33,
+            "Distance (miles)": 9
+          },
+          {
+            "Commute time (min)": 38,
+            "Distance (miles)": 11
+          },
+          {
+            "Commute time (min)": 41,
+            "Distance (miles)": 13
+          },
+          {
+            "Commute time (min)": 47,
+            "Distance (miles)": 15
+          },
+          {
+            "Commute time (min)": 52,
+            "Distance (miles)": 17
+          }
+        ],
+        "subject": "AP Statistics",
+        "subtopics": [
+          "scatterplot regression context"
+        ]
+      }
+    },
+    {
+      "content_key": "APSTATS-HDG-2026-GRAPH-036",
+      "prompt_json": {
+        "archetype": "scatterplot_regression_context",
+        "capture_instruction": "Original research seed for hand-drawn AP Statistics graph-response grading. Do not expose criterion definitions to the person drawing the graph.",
+        "content_key": "APSTATS-HDG-2026-GRAPH-036",
+        "criteria": [
+          {
+            "criterion_key": "POINTS_PLOTTED",
+            "learner_facing_text": "Plots all nine ordered pairs at recoverable locations.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "AXIS_LABELS",
+            "learner_facing_text": "Labels irrigation amount and yield loss on the correct axes.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "TREND_LINE",
+            "learner_facing_text": "Sketches a reasonable decreasing line through the point cloud.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "ASSOCIATION_DESCRIPTION",
+            "learner_facing_text": "Describes strong negative roughly linear association in context.",
+            "points_possible": 1
+          }
+        ],
+        "expected_graph_spec": {
+          "representation": "scatterplot with trend line",
+          "x_axis": "weekly irrigation (inches)",
+          "y_axis": "yield loss from drought stress (%)"
+        },
+        "frq_form": "short",
+        "hand_drawn": true,
+        "item_type": "frq",
+        "label_status": "ai_provisional_unapproved",
+        "modules": [
+          "AP Statistics",
+          "data analysis",
+          "graphical displays"
+        ],
+        "parts": [
+          {
+            "is_drawn": true,
+            "part_key": "a",
+            "points_possible": 4,
+            "prompt_text": "A farmer recorded weekly irrigation amount (inches) and crop yield loss due to drought stress (percent) for nine plots, where more irrigation is associated with less drought stress. Construct a scatterplot, sketch a reasonable least-squares trend line, and describe the direction, form, and strength of the association in context.\n\n| Irrigation (in) | Yield loss (%) |\n| --- | --- |\n| 0.5 | 42 | 1.0 | 36 | 1.5 | 31 | 2.0 | 26 | 2.5 | 20 | 3.0 | 15 | 3.5 | 11 | 4.0 | 6 | 4.5 | 3 |"
+          }
+        ],
+        "rights_status": "independently_authored_synthetic_research_seed_unverified",
+        "stem": "Answer the following question. Submit one photograph showing your constructed graph and your written response together.",
+        "stimulus": "A farmer recorded weekly irrigation amount (inches) and crop yield loss due to drought stress (percent) for nine plots, where more irrigation is associated with less drought stress. Construct a scatterplot, sketch a reasonable least-squares trend line, and describe the direction, form, and strength of the association in context.\n\n| Irrigation (in) | Yield loss (%) |\n| --- | --- |\n| 0.5 | 42 | 1.0 | 36 | 1.5 | 31 | 2.0 | 26 | 2.5 | 20 | 3.0 | 15 | 3.5 | 11 | 4.0 | 6 | 4.5 | 3 |",
+        "stimulus_table": [
+          {
+            "Irrigation (in)": 0.5,
+            "Yield loss (%)": 42
+          },
+          {
+            "Irrigation (in)": 1,
+            "Yield loss (%)": 36
+          },
+          {
+            "Irrigation (in)": 1.5,
+            "Yield loss (%)": 31
+          },
+          {
+            "Irrigation (in)": 2,
+            "Yield loss (%)": 26
+          },
+          {
+            "Irrigation (in)": 2.5,
+            "Yield loss (%)": 20
+          },
+          {
+            "Irrigation (in)": 3,
+            "Yield loss (%)": 15
+          },
+          {
+            "Irrigation (in)": 3.5,
+            "Yield loss (%)": 11
+          },
+          {
+            "Irrigation (in)": 4,
+            "Yield loss (%)": 6
+          },
+          {
+            "Irrigation (in)": 4.5,
+            "Yield loss (%)": 3
+          }
+        ],
+        "subject": "AP Statistics",
+        "subtopics": [
+          "scatterplot regression context"
+        ]
+      }
+    },
+    {
+      "content_key": "APSTATS-HDG-2026-GRAPH-037",
+      "prompt_json": {
+        "archetype": "graph_annotation_marking_value",
+        "capture_instruction": "Original research seed for hand-drawn AP Statistics graph-response grading. Do not expose criterion definitions to the person drawing the graph.",
+        "content_key": "APSTATS-HDG-2026-GRAPH-037",
+        "criteria": [
+          {
+            "criterion_key": "CURVE_SHAPE",
+            "learner_facing_text": "Draws an increasing curve consistent with the table.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "AXIS_SCALE_LABELS",
+            "learner_facing_text": "Labels operating hours and failure proportion with interpretable scales.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "X_LOCATION",
+            "learner_facing_text": "Places X at 300 hours and failure proportion about 0.68.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "PROBABILITY_ESTIMATE",
+            "learner_facing_text": "Reports an estimate close to 0.68.",
+            "points_possible": 1
+          }
+        ],
+        "expected_graph_spec": {
+          "representation": "curve with marked point",
+          "x_axis": "operating hours",
+          "y_axis": "cumulative failure proportion"
+        },
+        "frq_form": "short",
+        "hand_drawn": true,
+        "item_type": "frq",
+        "label_status": "ai_provisional_unapproved",
+        "modules": [
+          "AP Statistics",
+          "data analysis",
+          "graphical displays"
+        ],
+        "parts": [
+          {
+            "is_drawn": true,
+            "part_key": "a",
+            "points_possible": 4,
+            "prompt_text": "The table gives values from a curve showing the cumulative proportion of a batch of components that have failed as operating hours increase. Draw the curve on a graph with operating hours on the x-axis and cumulative failure proportion on the y-axis. Mark the point for 300 hours with an X, then estimate the corresponding failure proportion.\n\n| Hours | Failure proportion |\n| --- | --- |\n| 50 | 0.03 | 100 | 0.09 | 150 | 0.20 | 200 | 0.35 | 250 | 0.52 | 300 | 0.68 | 350 | 0.81 | 400 | 0.90 | 450 | 0.96 |"
+          }
+        ],
+        "rights_status": "independently_authored_synthetic_research_seed_unverified",
+        "stem": "Answer the following question. Submit one photograph showing your constructed graph and your written response together.",
+        "stimulus": "The table gives values from a curve showing the cumulative proportion of a batch of components that have failed as operating hours increase. Draw the curve on a graph with operating hours on the x-axis and cumulative failure proportion on the y-axis. Mark the point for 300 hours with an X, then estimate the corresponding failure proportion.\n\n| Hours | Failure proportion |\n| --- | --- |\n| 50 | 0.03 | 100 | 0.09 | 150 | 0.20 | 200 | 0.35 | 250 | 0.52 | 300 | 0.68 | 350 | 0.81 | 400 | 0.90 | 450 | 0.96 |",
+        "stimulus_table": [
+          {
+            "Failure proportion": 0.03,
+            "Hours": 50
+          },
+          {
+            "Failure proportion": 0.09,
+            "Hours": 100
+          },
+          {
+            "Failure proportion": 0.2,
+            "Hours": 150
+          },
+          {
+            "Failure proportion": 0.35,
+            "Hours": 200
+          },
+          {
+            "Failure proportion": 0.52,
+            "Hours": 250
+          },
+          {
+            "Failure proportion": 0.68,
+            "Hours": 300
+          },
+          {
+            "Failure proportion": 0.81,
+            "Hours": 350
+          },
+          {
+            "Failure proportion": 0.9,
+            "Hours": 400
+          },
+          {
+            "Failure proportion": 0.96,
+            "Hours": 450
+          }
+        ],
+        "subject": "AP Statistics",
+        "subtopics": [
+          "graph annotation marking value"
+        ]
+      }
+    },
+    {
+      "content_key": "APSTATS-HDG-2026-GRAPH-038",
+      "prompt_json": {
+        "archetype": "graph_annotation_marking_value",
+        "capture_instruction": "Original research seed for hand-drawn AP Statistics graph-response grading. Do not expose criterion definitions to the person drawing the graph.",
+        "content_key": "APSTATS-HDG-2026-GRAPH-038",
+        "criteria": [
+          {
+            "criterion_key": "CURVE_SHAPE",
+            "learner_facing_text": "Draws an increasing curve consistent with the table.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "AXIS_SCALE_LABELS",
+            "learner_facing_text": "Labels ad views and recall proportion with interpretable scales.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "X_LOCATION",
+            "learner_facing_text": "Places X at 6 ad views and recall proportion about 0.63.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "PROBABILITY_ESTIMATE",
+            "learner_facing_text": "Reports an estimate close to 0.63.",
+            "points_possible": 1
+          }
+        ],
+        "expected_graph_spec": {
+          "representation": "curve with marked point",
+          "x_axis": "number of ad views",
+          "y_axis": "recall proportion"
+        },
+        "frq_form": "short",
+        "hand_drawn": true,
+        "item_type": "frq",
+        "label_status": "ai_provisional_unapproved",
+        "modules": [
+          "AP Statistics",
+          "data analysis",
+          "graphical displays"
+        ],
+        "parts": [
+          {
+            "is_drawn": true,
+            "part_key": "a",
+            "points_possible": 4,
+            "prompt_text": "The table gives values from a curve showing the proportion of survey respondents who recall a product name as advertising exposure (number of ad views) increases. Draw the curve on a graph with ad views on the x-axis and recall proportion on the y-axis. Mark the point for 6 ad views with an X, then estimate the corresponding recall proportion.\n\n| Ad views | Recall proportion |\n| --- | --- |\n| 1 | 0.08 | 2 | 0.18 | 3 | 0.30 | 4 | 0.42 | 5 | 0.53 | 6 | 0.63 | 7 | 0.71 | 8 | 0.78 | 9 | 0.83 |"
+          }
+        ],
+        "rights_status": "independently_authored_synthetic_research_seed_unverified",
+        "stem": "Answer the following question. Submit one photograph showing your constructed graph and your written response together.",
+        "stimulus": "The table gives values from a curve showing the proportion of survey respondents who recall a product name as advertising exposure (number of ad views) increases. Draw the curve on a graph with ad views on the x-axis and recall proportion on the y-axis. Mark the point for 6 ad views with an X, then estimate the corresponding recall proportion.\n\n| Ad views | Recall proportion |\n| --- | --- |\n| 1 | 0.08 | 2 | 0.18 | 3 | 0.30 | 4 | 0.42 | 5 | 0.53 | 6 | 0.63 | 7 | 0.71 | 8 | 0.78 | 9 | 0.83 |",
+        "stimulus_table": [
+          {
+            "Ad views": 1,
+            "Recall proportion": 0.08
+          },
+          {
+            "Ad views": 2,
+            "Recall proportion": 0.18
+          },
+          {
+            "Ad views": 3,
+            "Recall proportion": 0.3
+          },
+          {
+            "Ad views": 4,
+            "Recall proportion": 0.42
+          },
+          {
+            "Ad views": 5,
+            "Recall proportion": 0.53
+          },
+          {
+            "Ad views": 6,
+            "Recall proportion": 0.63
+          },
+          {
+            "Ad views": 7,
+            "Recall proportion": 0.71
+          },
+          {
+            "Ad views": 8,
+            "Recall proportion": 0.78
+          },
+          {
+            "Ad views": 9,
+            "Recall proportion": 0.83
+          }
+        ],
+        "subject": "AP Statistics",
+        "subtopics": [
+          "graph annotation marking value"
+        ]
+      }
+    },
+    {
+      "content_key": "APSTATS-HDG-2026-GRAPH-039",
+      "prompt_json": {
+        "archetype": "graph_annotation_marking_value",
+        "capture_instruction": "Original research seed for hand-drawn AP Statistics graph-response grading. Do not expose criterion definitions to the person drawing the graph.",
+        "content_key": "APSTATS-HDG-2026-GRAPH-039",
+        "criteria": [
+          {
+            "criterion_key": "CURVE_SHAPE",
+            "learner_facing_text": "Draws an increasing curve consistent with the table.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "AXIS_SCALE_LABELS",
+            "learner_facing_text": "Labels sample size and power with interpretable scales.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "X_LOCATION",
+            "learner_facing_text": "Places X at sample size 60 and power about 0.77.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "PROBABILITY_ESTIMATE",
+            "learner_facing_text": "Reports an estimate close to 0.77.",
+            "points_possible": 1
+          }
+        ],
+        "expected_graph_spec": {
+          "representation": "curve with marked point",
+          "x_axis": "sample size",
+          "y_axis": "power"
+        },
+        "frq_form": "short",
+        "hand_drawn": true,
+        "item_type": "frq",
+        "label_status": "ai_provisional_unapproved",
+        "modules": [
+          "AP Statistics",
+          "data analysis",
+          "graphical displays"
+        ],
+        "parts": [
+          {
+            "is_drawn": true,
+            "part_key": "a",
+            "points_possible": 4,
+            "prompt_text": "The table gives values from a curve showing the power of a hypothesis test to detect a true effect as sample size increases. Draw the curve on a graph with sample size on the x-axis and power on the y-axis. Mark the point for sample size 60 with an X, then estimate the corresponding power.\n\n| Sample size | Power |\n| --- | --- |\n| 10 | 0.15 | 20 | 0.28 | 30 | 0.42 | 40 | 0.55 | 50 | 0.67 | 60 | 0.77 | 70 | 0.85 | 80 | 0.91 | 90 | 0.95 |"
+          }
+        ],
+        "rights_status": "independently_authored_synthetic_research_seed_unverified",
+        "stem": "Answer the following question. Submit one photograph showing your constructed graph and your written response together.",
+        "stimulus": "The table gives values from a curve showing the power of a hypothesis test to detect a true effect as sample size increases. Draw the curve on a graph with sample size on the x-axis and power on the y-axis. Mark the point for sample size 60 with an X, then estimate the corresponding power.\n\n| Sample size | Power |\n| --- | --- |\n| 10 | 0.15 | 20 | 0.28 | 30 | 0.42 | 40 | 0.55 | 50 | 0.67 | 60 | 0.77 | 70 | 0.85 | 80 | 0.91 | 90 | 0.95 |",
+        "stimulus_table": [
+          {
+            "Power": 0.15,
+            "Sample size": 10
+          },
+          {
+            "Power": 0.28,
+            "Sample size": 20
+          },
+          {
+            "Power": 0.42,
+            "Sample size": 30
+          },
+          {
+            "Power": 0.55,
+            "Sample size": 40
+          },
+          {
+            "Power": 0.67,
+            "Sample size": 50
+          },
+          {
+            "Power": 0.77,
+            "Sample size": 60
+          },
+          {
+            "Power": 0.85,
+            "Sample size": 70
+          },
+          {
+            "Power": 0.91,
+            "Sample size": 80
+          },
+          {
+            "Power": 0.95,
+            "Sample size": 90
+          }
+        ],
+        "subject": "AP Statistics",
+        "subtopics": [
+          "graph annotation marking value"
+        ]
+      }
+    },
+    {
+      "content_key": "APSTATS-HDG-2026-GRAPH-040",
+      "prompt_json": {
+        "archetype": "graph_annotation_marking_value",
+        "capture_instruction": "Original research seed for hand-drawn AP Statistics graph-response grading. Do not expose criterion definitions to the person drawing the graph.",
+        "content_key": "APSTATS-HDG-2026-GRAPH-040",
+        "criteria": [
+          {
+            "criterion_key": "CURVE_SHAPE",
+            "learner_facing_text": "Draws an increasing curve consistent with the table.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "AXIS_SCALE_LABELS",
+            "learner_facing_text": "Labels months since launch and adoption proportion with interpretable scales.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "X_LOCATION",
+            "learner_facing_text": "Places X at month 8 and adoption proportion about 0.44.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "PROBABILITY_ESTIMATE",
+            "learner_facing_text": "Reports an estimate close to 0.44.",
+            "points_possible": 1
+          }
+        ],
+        "expected_graph_spec": {
+          "representation": "curve with marked point",
+          "x_axis": "months since launch",
+          "y_axis": "adoption proportion"
+        },
+        "frq_form": "short",
+        "hand_drawn": true,
+        "item_type": "frq",
+        "label_status": "ai_provisional_unapproved",
+        "modules": [
+          "AP Statistics",
+          "data analysis",
+          "graphical displays"
+        ],
+        "parts": [
+          {
+            "is_drawn": true,
+            "part_key": "a",
+            "points_possible": 4,
+            "prompt_text": "The table gives values from a curve showing the proportion of a population that has adopted a new technology as months since launch increase. Draw the curve on a graph with months on the x-axis and adoption proportion on the y-axis. Mark the point for month 8 with an X, then estimate the corresponding adoption proportion.\n\n| Month | Adoption proportion |\n| --- | --- |\n| 2 | 0.05 | 4 | 0.14 | 6 | 0.27 | 8 | 0.44 | 10 | 0.60 | 12 | 0.73 | 14 | 0.83 | 16 | 0.90 | 18 | 0.95 |"
+          }
+        ],
+        "rights_status": "independently_authored_synthetic_research_seed_unverified",
+        "stem": "Answer the following question. Submit one photograph showing your constructed graph and your written response together.",
+        "stimulus": "The table gives values from a curve showing the proportion of a population that has adopted a new technology as months since launch increase. Draw the curve on a graph with months on the x-axis and adoption proportion on the y-axis. Mark the point for month 8 with an X, then estimate the corresponding adoption proportion.\n\n| Month | Adoption proportion |\n| --- | --- |\n| 2 | 0.05 | 4 | 0.14 | 6 | 0.27 | 8 | 0.44 | 10 | 0.60 | 12 | 0.73 | 14 | 0.83 | 16 | 0.90 | 18 | 0.95 |",
+        "stimulus_table": [
+          {
+            "Adoption proportion": 0.05,
+            "Month": 2
+          },
+          {
+            "Adoption proportion": 0.14,
+            "Month": 4
+          },
+          {
+            "Adoption proportion": 0.27,
+            "Month": 6
+          },
+          {
+            "Adoption proportion": 0.44,
+            "Month": 8
+          },
+          {
+            "Adoption proportion": 0.6,
+            "Month": 10
+          },
+          {
+            "Adoption proportion": 0.73,
+            "Month": 12
+          },
+          {
+            "Adoption proportion": 0.83,
+            "Month": 14
+          },
+          {
+            "Adoption proportion": 0.9,
+            "Month": 16
+          },
+          {
+            "Adoption proportion": 0.95,
+            "Month": 18
+          }
+        ],
+        "subject": "AP Statistics",
+        "subtopics": [
+          "graph annotation marking value"
+        ]
+      }
+    }
+  ]
+}
