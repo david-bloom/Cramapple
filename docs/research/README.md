@@ -63,6 +63,8 @@ Prefer these conventions for new work:
 - [Gold-Set Candidates Build Report 2026-07-08](./grading_gold_set_candidates_2026_07_08_report.md) — three calibration-tier candidate packages (Bio/Stats/Chem), adjudication-ready
 - [Deterministic Numeric-Check Experiment 2026-07-08](./deterministic_check_experiment_2026_07_08/report.md) — $0 checker, 100% specificity, catches the numeric-error class
 - [Label-Robustness Cross-Check 2026-07-08](./label_robustness_crosscheck_2026_07_08/report.md) — 0 confirmed label errors on checkable dimensions; independence is the remaining gap
+- [Grading Label Adjudication Queue 2026-07-08](./grading_label_adjudication_queue_2026_07_08.md) — consolidated Claude + Codex label reviews (both passes converge), ranked for human adjudication
+- [Generalization & Feedback Run Status 2026-07-08](./grading_generalization_feedback_run_status_2026_07_08.md) — run-readiness + blocker (no gateway creds in-session); turnkey manifest scaffold
 - [Grading Generalization and Feedback Protocol 2026-07-08](./grading_generalization_and_feedback_protocol_2026_07_08.md) — preregistered cross-subject generalization test plus feedback-quality measurement
 - [Grading Packet Backlog 2026-07-07](./grading_packet_backlog_2026_07_07.md)
 - [Grading Test Packet Requirements](./grading_test_packet_requirements.md)

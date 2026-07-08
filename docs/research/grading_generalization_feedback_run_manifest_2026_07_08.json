@@ -1,0 +1,73 @@
+{
+  "manifest_status": "NOT_FROZEN — set control_model and winning_arch.grader_model before any scoring, then set manifest_status to FROZEN and record the freeze time",
+  "protocol": "docs/research/grading_generalization_and_feedback_protocol_2026_07_08.md",
+  "date": "2026-07-08",
+  "tier": "calibration (silver) — not a release decision",
+
+  "frozen_corpora": {
+    "biology": {
+      "package": "docs/research/ap_biology_gold_set_candidate_2026_07_08/",
+      "labels": "provisional_labels.json",
+      "note": "L-009/a corrected to partially_earned before freeze"
+    },
+    "chemistry": {
+      "package": "docs/research/ap_chemistry_gold_set_candidate_2026_07_08/",
+      "source_corpus": "docs/research/ap_chemistry_frq_grading_experiment_batch_2026_07_07/ap_chemistry_frq_grading_experiment_batch_2026_07_07.json",
+      "variants_version": "v2_wrong_reasoning_2026_07_08",
+      "reason_match_signal": "injected_error field on every non-canonical response"
+    },
+    "statistics": {
+      "package": "docs/research/ap_statistics_gold_set_candidate_2026_07_08/",
+      "labels": "provisional_labels.json",
+      "excluded_from_agreement": ["APSTAT-MOD8-H001"],
+      "exclusion_reason": "corpus defect: no dataset supplied; correlation/regression values unverifiable"
+    }
+  },
+
+  "verification_profiles": {
+    "biology": "docs/research/AP_BIOLOGY_VERIFICATION_PROFILE.json",
+    "chemistry": "docs/research/AP_CHEMISTRY_VERIFICATION_PROFILE.json"
+  },
+
+  "arms": {
+    "winning_arch": {
+      "grader_model": "<FILL: one fast model, e.g. one of gpt-4o-mini | gemini-2.5-flash | claude-haiku-4-5>",
+      "boundary_contracts": "from each item's criterion-boundary contract (frozen)",
+      "verification_profile": "per subject (deterministic checks run where declared)",
+      "ensemble": false,
+      "confidence_escalation": false,
+      "direct_route_hard_criteria": "only if the subject package already pre-approves one"
+    },
+    "control": {
+      "model": "<FILL: frozen frontier single-model scorer; record any change before viewing output>",
+      "boundary_memory": "rubric text only",
+      "deterministic_checks": false,
+      "retrieval": false,
+      "escalation": false
+    }
+  },
+
+  "shared_across_arms": {
+    "response_order": "as stored in each package (frozen)",
+    "output_schema": "identical structured schema for both arms",
+    "scoring_instructions": "identical for both arms",
+    "feedback_fields_required_per_missed_criterion": [
+      "withheld_point_reason", "minimum_fix", "improved_answer", "error_classification"
+    ]
+  },
+
+  "endpoints": {
+    "primary": "micro-averaged criterion exact agreement pooled across the three corpora (MOD8 excluded)",
+    "secondary": ["per-subject criterion agreement", "total-point agreement where applicable",
+                  "over-credit / under-credit counts", "schema validity", "p50/p95 latency", "avg cost per response"],
+    "feedback_metrics": {
+      "reason_match": "match|partial|mismatch|unable — vs subject source-of-truth (chem injected_error; bio adjudication note+boundary contract; stats deterministic target/defect note)",
+      "minimum_fix_sufficiency": "match|partial|mismatch|unable",
+      "grounding": "match|partial|mismatch|unable"
+    }
+  },
+
+  "budget_rule": "DECISION-0030: check remaining cap before each call; stop if next call would exceed; burn known cost on failed/rejected calls; log cost for completed/failed/rejected alike; unknown cost -> burn zero, mark unknown",
+
+  "execution_note": "Runnable only in an environment with AI_GATEWAY_API_KEY or VERCEL_OIDC_TOKEN configured; this session had none, so the run was not executed. Reuse scripts/vercel-gateway-check/next_protocol.mjs or sp1_pilot.mjs as the two-arm runner."
+}
