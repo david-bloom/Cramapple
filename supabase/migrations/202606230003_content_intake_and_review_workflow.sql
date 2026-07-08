@@ -160,53 +160,6 @@ create table if not exists app.artifact_label_assignments (
 
 alter table app.artifact_label_assignments enable row level security;
 
-create policy "artifact_label_assignments_reviewer_write"
-on app.artifact_label_assignments
-for insert
-to authenticated
-with check (
-  exists (
-    select 1
-    from app.content_review_assignments cra
-    where cra.artifact_version_id = artifact_label_assignments.artifact_version_id
-      and cra.assigned_reviewer_id = auth.uid()
-  )
-);
-
-create policy "artifact_label_assignments_reviewer_update"
-on app.artifact_label_assignments
-for update
-to authenticated
-using (
-  exists (
-    select 1
-    from app.content_review_assignments cra
-    where cra.artifact_version_id = artifact_label_assignments.artifact_version_id
-      and cra.assigned_reviewer_id = auth.uid()
-  )
-)
-with check (
-  exists (
-    select 1
-    from app.content_review_assignments cra
-    where cra.artifact_version_id = artifact_label_assignments.artifact_version_id
-      and cra.assigned_reviewer_id = auth.uid()
-  )
-);
-
-create policy "artifact_label_assignments_reviewer_delete"
-on app.artifact_label_assignments
-for delete
-to authenticated
-using (
-  exists (
-    select 1
-    from app.content_review_assignments cra
-    where cra.artifact_version_id = artifact_label_assignments.artifact_version_id
-      and cra.assigned_reviewer_id = auth.uid()
-  )
-);
-
 create index if not exists artifact_label_assignments_label_id_idx
   on app.artifact_label_assignments (content_label_id, artifact_version_id);
 
@@ -395,6 +348,53 @@ grant select, insert, update, delete on app.content_review_assignments to servic
 grant select, insert, update, delete on app.content_review_assignment_labels to service_role;
 grant select, insert, update, delete on app.content_review_decisions to service_role;
 grant select, insert, update, delete on app.artifact_label_assignments to service_role;
+
+create policy "artifact_label_assignments_reviewer_write"
+on app.artifact_label_assignments
+for insert
+to authenticated
+with check (
+  exists (
+    select 1
+    from app.content_review_assignments cra
+    where cra.artifact_version_id = artifact_label_assignments.artifact_version_id
+      and cra.assigned_reviewer_id = auth.uid()
+  )
+);
+
+create policy "artifact_label_assignments_reviewer_update"
+on app.artifact_label_assignments
+for update
+to authenticated
+using (
+  exists (
+    select 1
+    from app.content_review_assignments cra
+    where cra.artifact_version_id = artifact_label_assignments.artifact_version_id
+      and cra.assigned_reviewer_id = auth.uid()
+  )
+)
+with check (
+  exists (
+    select 1
+    from app.content_review_assignments cra
+    where cra.artifact_version_id = artifact_label_assignments.artifact_version_id
+      and cra.assigned_reviewer_id = auth.uid()
+  )
+);
+
+create policy "artifact_label_assignments_reviewer_delete"
+on app.artifact_label_assignments
+for delete
+to authenticated
+using (
+  exists (
+    select 1
+    from app.content_review_assignments cra
+    where cra.artifact_version_id = artifact_label_assignments.artifact_version_id
+      and cra.assigned_reviewer_id = auth.uid()
+  )
+);
 
 create policy "artifact_label_assignments_reviewer_select"
 on app.artifact_label_assignments
