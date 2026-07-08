@@ -86,7 +86,10 @@ Deno.serve(async (req) => {
   const service = createServiceClient();
   const reviewerId = profileResult.user.id;
   const reviewerRole = profileResult.profile.role as string;
-  const includeAllPending = reviewerRole === "admin";
+  const queueScope = typeof profileResult.profile.review_queue_scope === "string"
+    ? profileResult.profile.review_queue_scope
+    : "my_queue";
+  const includeAllPending = queueScope === "all_pending";
 
   // ── Assignments ─────────────────────────────────────────────────────────────
 
@@ -122,7 +125,12 @@ Deno.serve(async (req) => {
       {
         status: "ok",
         function: "review-queue",
-        reviewer: { reviewer_id: reviewerId, reviewer_role: reviewerRole },
+        reviewer: {
+          reviewer_id: reviewerId,
+          reviewer_role: reviewerRole,
+          review_queue_scope: queueScope,
+          can_see_all_pending: includeAllPending,
+        },
         scope: includeAllPending ? "all_pending" : "mine",
         queue: [],
         counts: {},
@@ -347,6 +355,8 @@ Deno.serve(async (req) => {
         reviewer_id: reviewerId,
         reviewer_role: reviewerRole,
         reviewer_name: profileResult.profile.full_name,
+        review_queue_scope: queueScope,
+        can_see_all_pending: includeAllPending,
       },
       scope: includeAllPending ? "all_pending" : "mine",
       queue,

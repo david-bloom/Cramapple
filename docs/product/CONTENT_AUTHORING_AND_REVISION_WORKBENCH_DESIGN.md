@@ -222,7 +222,7 @@ The template fields land in the database like this:
 | `source_title` | `app.content_ingest_batches.parsed_template` and `app.content_ingest_rows.row_payload` |
 | `source_locator` | `app.content_ingest_batches.parsed_template` and `app.content_ingest_rows.row_payload` |
 | `version` | `app.content_ingest_batches.parsed_template` and `app.content_ingest_rows.row_payload` |
-| `difficulty` | `app.content_ingest_rows.row_payload` and, after review, `app.content_review_decisions.difficulty_label_id` |
+| `difficulty` | `app.content_ingest_rows.row_payload` and, after review, `app.content_review_decisions.difficulty_label` |
 | `answer_letter` | `app.content_ingest_rows.answer_letter` |
 | `answer_text` | `app.content_ingest_rows.answer_text` |
 | `answer_status` | `app.content_ingest_rows.row_payload` |

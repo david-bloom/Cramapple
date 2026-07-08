@@ -70,6 +70,9 @@ For AP Reader or FRQ paths, use the matching backend fields for that stage.
 - Treat concern codes as the controlled vocabulary: `Accuracy`, `Ambiguity`, `Rubric gap`, `Other`.
 - Use the normalized `content_items` / `content_item_versions` artifact model; if that pair is missing in the deployed project, add it rather than introducing `mcq_items` / `frq_packages` polymorphism.
 - Reflect `content_item_versions.review_status` in the UI as the backend-driven review state marker.
+- For `/reviewer/submissions`, use the same UX-002 `content_review_*` review pipeline as the queue and submission path. Do not query the older `review_assignments` / `review_decisions` pipeline for this screen.
+- Treat `difficulty_label` as the canonical column name for the newer review pipeline.
+- Use `review_queue_scope = 'all_pending'` as the explicit capability for the CC view. The ordinary reviewer experience must stay on `my_queue` by default.
 
 ## Forbidden Behavior
 
