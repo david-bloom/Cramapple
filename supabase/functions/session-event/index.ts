@@ -1,6 +1,12 @@
 import { createServiceClient } from "../_shared/supabase.ts";
 import { jsonResponse, readJsonBody } from "../_shared/http.ts";
 import { requireProfile } from "../_shared/auth.ts";
+import { loadLearningRuntimeContext } from "../_shared/learning-context.ts";
+import {
+  asRecord,
+  buildSessionMemoryState,
+  recordStudentMemoryEvent,
+} from "../_shared/student-memory.ts";
 
 type SessionOperation =
   | "session_start"
@@ -193,8 +199,71 @@ Deno.serve(async (req) => {
         result: deduped.result,
       },
       { status: 200 },
-    );
+  );
+}
+
+async function persistSessionMemory(
+  service: ReturnType<typeof createServiceClient>,
+  sessionId: string,
+  operation: SessionOperation,
+) {
+  const context = await loadLearningRuntimeContext(service, sessionId);
+  if (!context) {
+    return null;
   }
+
+  if (operation === "session_resume") {
+    return context;
+  }
+
+  const subjectDefaults = context.subject_defaults as Record<string, unknown>;
+  const subject = asRecord(subjectDefaults.subject);
+  const guidanceProfile = asRecord(subjectDefaults.guidance_profile);
+  const examPackVersion = asRecord(subjectDefaults.exam_pack_version);
+  const memory = asRecord(context.student_memory);
+  const sessionState = asRecord(context.session_state);
+
+  const memoryState = buildSessionMemoryState({
+    currentMemoryState: asRecord(memory.memory_state),
+    subjectId: String(subject.id ?? ""),
+    subjectKey: String(subject.subject_key ?? ""),
+    subjectName: String(subject.display_name ?? ""),
+    examPackVersionId: String(examPackVersion.id ?? ""),
+    sessionId: String(sessionState.id ?? sessionId),
+    entryPath: String(sessionState.entry_path ?? ""),
+    sessionMode: String(sessionState.session_mode ?? ""),
+    availableMinutes: Number(sessionState.available_minutes ?? 0),
+    sessionStatus: String(sessionState.status ?? "active"),
+    startedAt: typeof sessionState.started_at === "string"
+      ? sessionState.started_at
+      : null,
+    endedAt: typeof sessionState.ended_at === "string"
+      ? sessionState.ended_at
+      : null,
+    guidanceDefaults: asRecord(guidanceProfile.guidance_defaults),
+  });
+
+  try {
+    if (subject.id && sessionState.user_id) {
+      await recordStudentMemoryEvent(service, {
+        userId: String(sessionState.user_id),
+        subjectId: String(subject.id),
+        eventKind: "session_summary",
+        sourceSessionId: sessionId,
+        memoryState,
+        eventPayload: {
+          session_operation: operation,
+          session_state: context.session_state,
+          subject_defaults: context.subject_defaults,
+        },
+      });
+    }
+  } catch (error) {
+    console.error("session_memory_persist_failed", error);
+  }
+
+  return (await loadLearningRuntimeContext(service, sessionId)) ?? context;
+}
 
   try {
     if (operation === "attach_anonymous_session") {
@@ -260,6 +329,11 @@ Deno.serve(async (req) => {
       }
 
       const result = safeSessionShape(inserted as Record<string, unknown>);
+      const runtimeContext = await persistSessionMemory(
+        service,
+        inserted.id as string,
+        operation,
+      );
       await recordSessionEvent(
         service,
         idempotencyKey,
@@ -280,6 +354,7 @@ Deno.serve(async (req) => {
           function: "session-event",
           operation,
           result,
+          runtime_context: runtimeContext,
         },
         { status: 200 },
       );
@@ -313,6 +388,11 @@ Deno.serve(async (req) => {
 
     if (operation === "session_resume") {
       const result = safeSessionShape(session as Record<string, unknown>);
+      const runtimeContext = await persistSessionMemory(
+        service,
+        sessionId,
+        operation,
+      );
       await recordSessionEvent(
         service,
         idempotencyKey,
@@ -332,6 +412,7 @@ Deno.serve(async (req) => {
           function: "session-event",
           operation,
           result,
+          runtime_context: runtimeContext,
         },
         { status: 200 },
       );
@@ -352,6 +433,11 @@ Deno.serve(async (req) => {
       }
 
       const result = safeSessionShape(touched as Record<string, unknown>);
+      const runtimeContext = await persistSessionMemory(
+        service,
+        sessionId,
+        operation,
+      );
       await recordSessionEvent(
         service,
         idempotencyKey,
@@ -371,6 +457,7 @@ Deno.serve(async (req) => {
           function: "session-event",
           operation,
           result,
+          runtime_context: runtimeContext,
         },
         { status: 200 },
       );
@@ -398,6 +485,11 @@ Deno.serve(async (req) => {
     }
 
     const result = safeSessionShape(ended as Record<string, unknown>);
+    const runtimeContext = await persistSessionMemory(
+      service,
+      sessionId,
+      operation,
+    );
     await recordSessionEvent(
       service,
       idempotencyKey,
@@ -417,6 +509,7 @@ Deno.serve(async (req) => {
         function: "session-event",
         operation,
         result,
+        runtime_context: runtimeContext,
       },
       { status: 200 },
     );

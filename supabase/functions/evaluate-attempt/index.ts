@@ -1,6 +1,12 @@
 import { createServiceClient } from "../_shared/supabase.ts";
 import { jsonResponse, readJsonBody } from "../_shared/http.ts";
 import { requireProfile } from "../_shared/auth.ts";
+import { loadLearningRuntimeContext } from "../_shared/learning-context.ts";
+import {
+  asRecord,
+  buildGradingMemoryState,
+  recordStudentMemoryEvent,
+} from "../_shared/student-memory.ts";
 
 function requireEnv(name: string) {
   const value = Deno.env.get(name);
@@ -231,6 +237,96 @@ function parseJsonSafe(value: string | null | undefined) {
   } catch {
     return null;
   }
+}
+
+async function persistGradingMemory(input: {
+  service: ReturnType<typeof createServiceClient>;
+  sessionId: string | null;
+  attemptId: string;
+  attemptMode: string;
+  assistanceState: string;
+  finalStatus: string;
+  pointsEarned: number;
+  pointsAvailable: number;
+  confidence: string | null;
+  highestValueGap: {
+    criterion_key: string;
+    minimum_fix: string;
+    repair_prompt: string;
+  } | null;
+  criteria: Array<{
+    criterion_key: string;
+    status: string;
+    points_awarded: number;
+  }>;
+  summary: string;
+  examPackVersionId: string;
+}) {
+  if (!input.sessionId) {
+    return null;
+  }
+
+  const context = await loadLearningRuntimeContext(input.service, input.sessionId);
+  if (!context) {
+    return null;
+  }
+
+  const subjectDefaults = asRecord(context.subject_defaults);
+  const subject = asRecord(subjectDefaults.subject);
+  const examPack = asRecord(subjectDefaults.exam_pack);
+  const memory = asRecord(context.student_memory);
+  const sessionState = asRecord(context.session_state);
+
+  if (!subject.id || !sessionState.user_id) {
+    return context;
+  }
+
+  const memoryState = buildGradingMemoryState({
+    currentMemoryState: asRecord(memory.memory_state),
+    subjectId: String(subject.id),
+    subjectKey: String(subject.subject_key ?? ""),
+    subjectName: String(subject.display_name ?? ""),
+    examPackVersionId: input.examPackVersionId,
+    sessionId: input.sessionId,
+    attemptId: input.attemptId,
+    attemptMode: input.attemptMode,
+    assistanceState: input.assistanceState,
+    finalStatus: input.finalStatus,
+    pointsEarned: input.pointsEarned,
+    pointsAvailable: input.pointsAvailable,
+    confidence: input.confidence,
+    highestValueGap: input.highestValueGap,
+    criteria: input.criteria,
+    summary: input.summary,
+  });
+
+  try {
+    await recordStudentMemoryEvent(input.service, {
+      userId: String(sessionState.user_id),
+      subjectId: String(subject.id),
+      eventKind: "grading_result",
+      sourceSessionId: input.sessionId,
+      sourceAttemptId: input.attemptId,
+      memoryState,
+      eventPayload: {
+        exam_pack: examPack,
+        session_state: context.session_state,
+        grading_result: {
+          attempt_id: input.attemptId,
+          final_status: input.finalStatus,
+          points_earned: input.pointsEarned,
+          points_available: input.pointsAvailable,
+          confidence: input.confidence,
+          highest_value_gap: input.highestValueGap,
+          summary: input.summary,
+        },
+      },
+    });
+  } catch (error) {
+    console.error("grading_memory_persist_failed", error);
+  }
+
+  return (await loadLearningRuntimeContext(input.service, input.sessionId)) ?? context;
 }
 
 function extractOutputText(raw: Record<string, unknown>) {
@@ -1105,12 +1201,29 @@ Deno.serve(async (req) => {
       result_summary: finalResult.student_facing_summary,
     }).eq("id", attempt.id);
 
+    const runtimeContext = await persistGradingMemory({
+      service,
+      sessionId: attempt.learning_session_id as string | null,
+      attemptId: attempt.id,
+      attemptMode: attempt.attempt_mode as string,
+      assistanceState: attempt.assistance_state as string,
+      finalStatus: "graded",
+      pointsEarned: finalResult.points_earned,
+      pointsAvailable: finalResult.points_available,
+      confidence: finalResult.confidence,
+      highestValueGap: finalResult.highest_value_gap,
+      criteria,
+      summary: finalResult.student_facing_summary,
+      examPackVersionId: attempt.exam_pack_version_id as string,
+    });
+
     return respond(
       {
         status: "graded",
         function: "evaluate-attempt",
         operation,
         result: finalResult,
+        runtime_context: runtimeContext,
       },
       { status: 200 },
     );
@@ -1292,6 +1405,22 @@ Deno.serve(async (req) => {
     })
     .eq("id", attempt.id);
 
+  const runtimeContext = await persistGradingMemory({
+    service,
+    sessionId: attempt.learning_session_id as string | null,
+    attemptId: attempt.id,
+    attemptMode: attempt.attempt_mode as string,
+    assistanceState: attempt.assistance_state as string,
+    finalStatus,
+    pointsEarned: finalPayload.points_earned,
+    pointsAvailable: finalPayload.points_available,
+    confidence: finalPayload.confidence,
+    highestValueGap,
+    criteria: finalPayload.criteria,
+    summary: finalPayload.student_facing_summary,
+    examPackVersionId: attempt.exam_pack_version_id as string,
+  });
+
   return respond(
     {
       status: finalStatus,
@@ -1309,6 +1438,7 @@ Deno.serve(async (req) => {
         request_id: idempotencyKey,
         latency_ms: modelResponse?.elapsedMs ?? 0,
       },
+      runtime_context: runtimeContext,
     },
     { status: finalStatus === "graded" ? 200 : 202 },
   );
