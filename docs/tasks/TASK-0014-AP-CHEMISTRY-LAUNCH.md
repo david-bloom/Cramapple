@@ -98,8 +98,9 @@ equilibrium reasoning, or other chemistry-specific verification profiles.
 **Approval Type:** Hard Gate
 **Decision:** Phase 0 Approved (`APPROVAL-0026`, 2026-07-07). Content-sourcing
 model approved (`APPROVAL-0028`, 2026-07-07 — reuses the AP Statistics model
-from `APPROVAL-0024`/`DECISION-0031`). Phase 2 (schema/migration) and
-production launch remain separate Hard Gates not yet granted.
+from `APPROVAL-0024`/`DECISION-0031`). Phase 2 migration approved
+(`APPROVAL-0030`, 2026-07-07). Production launch remains a separate Hard
+Gate not yet granted.
 
 ## Implementation Notes — Delegation Plan
 
@@ -107,7 +108,7 @@ production launch remain separate Hard Gates not yet granted.
 |---|---|---|---|---|
 | 0 | Decision gate — confirm Chemistry launch scope, owner review path, and any subject-specific constraints | **David** | — | **Done** (`APPROVAL-0026`) |
 | 1 | Generalize grading/prompt composition away from AP Biology literals | **Codex** (backend) | Phase 0 approval | **Ready to start** |
-| 2 | Add `app.subjects`, exam-pack, and Chemistry taxonomy rows | **Codex** (backend) | Phase 1 | **Pending** |
+| 2 | Add `app.subjects`, exam-pack, and Chemistry taxonomy rows | **Codex** (backend) | Phase 1 | **Migration drafted and approved** (`APPROVAL-0030`; `supabase/migrations/202607070005_chemistry_physics_schema_instantiation.sql`, not yet applied) |
 | 3 | Build Chemistry verification profile for the first criterion type | **Codex** (backend) | Phase 1 | **Pending** |
 | 4 | Author and validate a governed Chemistry pilot batch (tutor-authored-base-package model, `APPROVAL-0028`) | **Orly** (curriculum), with David approval | Phases 2–3 | **Pending** |
 | 5 | Expose Chemistry in subject selection and learning routes | **Lovable** (frontend) | Phases 2–4 | **Pending** |

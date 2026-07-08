@@ -6,6 +6,8 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0031 — TASK-0015 Phase 2 Migration Go-Ahead
+- APPROVAL-0030 — TASK-0014 Phase 2 Migration Go-Ahead
 - APPROVAL-0029 — AP Physics Content-Sourcing Model (TASK-0015)
 - APPROVAL-0028 — AP Chemistry Content-Sourcing Model (TASK-0014)
 - APPROVAL-0027 — AP Physics Launch (TASK-0015, Phase 0 Decision Gate)
@@ -14,8 +16,6 @@ Most recent entries (full chronological list follows below):
 - APPROVAL-0024 — AP Statistics Launch (TASK-0013, Phase 0 Decision Gate)
 - APPROVAL-0023 — Agent Routing and Automatic QA (Codex Proposal)
 - APPROVAL-0022 — Charter Simplification and Tiering Adoption
-- APPROVAL-0021 — Start Content Authoring and Revision Workbench Design
-- APPROVAL-0020 — Start Student-Provided Question Intake Design
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
 
@@ -712,3 +712,53 @@ material as input or exemplar).
   sourcing approval.
 - Does not change Phase 2 (migration) or production-launch Hard Gate
   status — see `APPROVAL-0027`.
+
+## APPROVAL-0030 — TASK-0014 Phase 2 Migration Go-Ahead
+
+**Date:** 2026-07-07
+**Approved By:** David Bloom
+**Related Task:** TASK-0014
+**Decision:** Approved
+
+### Summary
+
+Authorizes the Phase 2 database migration seeding `ap-chemistry` as an
+`app.subjects` row, plus its `exam_pack`/`exam_pack_version` and
+`app.content_labels` unit/topic/skill scaffold, to execute — same Hard Gate
+category as `APPROVAL-0025` for AP Statistics. Covers
+`supabase/migrations/202607070005_chemistry_physics_schema_instantiation.sql`
+(Chemistry portion).
+
+### Notes
+
+- Scope is exactly the migration file as drafted — no broader migration
+  authority granted.
+- Publishing the resulting exam pack/content is explicitly not covered.
+- This migration was drafted by a concurrent Codex session working the
+  platform-adaptation side of `TASK-0014`/`TASK-0015` in the same working
+  tree; David committed it directly (`e37b3e5`) alongside the Chemistry/
+  Physics taxonomy and verification-profile artifacts.
+
+## APPROVAL-0031 — TASK-0015 Phase 2 Migration Go-Ahead
+
+**Date:** 2026-07-07
+**Approved By:** David Bloom
+**Related Task:** TASK-0015
+**Decision:** Approved
+
+### Summary
+
+Authorizes the Phase 2 database migration seeding `ap-physics-1` as an
+`app.subjects` row, plus its `exam_pack`/`exam_pack_version` and
+`app.content_labels` unit/topic/skill scaffold, to execute — same Hard Gate
+category as `APPROVAL-0025` for AP Statistics. Covers
+`supabase/migrations/202607070005_chemistry_physics_schema_instantiation.sql`
+(Physics portion).
+
+### Notes
+
+- Scope is exactly the migration file as drafted — no broader migration
+  authority granted.
+- Publishing the resulting exam pack/content is explicitly not covered.
+- Same concurrent-Codex-session origin as `APPROVAL-0030`; see that entry's
+  notes.
