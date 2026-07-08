@@ -1,7 +1,8 @@
-# Claude Execution Prompt - AP Chemistry and AP Physics Launch Support
+# Claude Execution Prompt - AP Chemistry and AP Physics 1 Launch Support
 
 **Draft only.** Use this prompt to create the subject-specific content and data
-needed to bring AP Chemistry and AP Physics into Cramapple in a governed way.
+needed to bring AP Chemistry and AP Physics 1 into Cramapple in a governed
+way.
 
 ## Context
 
@@ -12,7 +13,7 @@ profiles, grading tests, and production-readiness work.
 
 Your job is to own the subject-content and subject-data side:
 
-- analyze what Chemistry and Physics content the platform needs;
+- analyze what Chemistry and AP Physics 1 content the platform needs;
 - create the relevant governed content batches;
 - prepare the Supabase subject/exam-pack/taxonomy data needed for those
   subjects;
@@ -22,7 +23,8 @@ Your job is to own the subject-content and subject-data side:
 
 ## Goals
 
-1. Build the AP Chemistry and AP Physics content packages needed for pilot use.
+1. Build the AP Chemistry and AP Physics 1 content packages needed for pilot
+   use.
 2. Populate the subject data required for those subjects in Supabase, using the
    repo's approved schema and governance conventions.
 3. Keep the Lovable subject surfaces aligned with the current subject state so
@@ -34,15 +36,22 @@ Your job is to own the subject-content and subject-data side:
 
 - `docs/tasks/TASK-0014-AP-CHEMISTRY-LAUNCH.md`
 - `docs/tasks/TASK-0015-AP-PHYSICS-LAUNCH.md`
+- `docs/product/AP_CHEMISTRY_CONTENT_NEEDS_ANALYSIS.md`
+- `docs/product/AP_PHYSICS_CONTENT_NEEDS_ANALYSIS.md`
 - `docs/architecture/CONTENT_AUTHORING_AND_PROMPT_ARCHITECTURE.md`
 - `docs/product/CRAMAPPLE_VISION.md`
+- `docs/research/AP_CHEMISTRY_TAXONOMY.json`
+- `docs/research/AP_PHYSICS_1_TAXONOMY.json`
+- `docs/research/AP_CHEMISTRY_VERIFICATION_PROFILE.json`
+- `docs/research/AP_PHYSICS_1_VERIFICATION_PROFILE.json`
+- `docs/research/AP_CHEMISTRY_PHYSICS_GRADING_TEST_MATRIX.md`
 - Existing AP Biology and AP Statistics content/patterns in the repo
 
 ## What To Do
 
 ### 1. Analyze the subject content needs
 
-For each of AP Chemistry and AP Physics:
+For each of AP Chemistry and AP Physics 1:
 
 - identify the subject taxonomy needed for a pilot launch;
 - identify the likely verification and scoring needs at the content level;
@@ -71,7 +80,8 @@ existing schema and release workflow:
 
 - subject rows;
 - versioned exam-pack records;
-- taxonomy scheme records;
+- taxonomy scheme records or equivalent taxonomy scaffolding already used by
+  the repo;
 - any content records or seed payloads needed to support the pilot batch;
 - any supporting mappings or metadata required by the existing flow.
 
@@ -86,7 +96,7 @@ actual subject readiness:
 - subject labels and availability state;
 - subject ordering or selector notes if needed;
 - any prompt amendments Lovable needs to reflect the new subject state;
-- any copy or route notes needed for Chemistry and Physics.
+- any copy or route notes needed for Chemistry and Physics 1.
 
 Do not silently change launch policy or availability rules. If the current
 Lovable state and the repo's approved subject state disagree, report it.
@@ -123,7 +133,7 @@ Return a concise implementation report with:
 
 ## Success Criteria
 
-- AP Chemistry and AP Physics have governed pilot content ready for review.
+- AP Chemistry and AP Physics 1 have governed pilot content ready for review.
 - The required subject data is prepared for Supabase.
 - Lovable-facing subject state is current.
 - Codex can take the remaining platform-adaptation work without reconstructing

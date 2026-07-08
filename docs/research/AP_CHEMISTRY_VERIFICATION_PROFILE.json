@@ -1,0 +1,34 @@
+{
+  "subject_key": "ap-chemistry",
+  "display_name": "AP Chemistry",
+  "profile_version": "draft-2026-07-07",
+  "purpose": "first-pass chemistry verification and grading boundary checks",
+  "required_checks": [
+    "stoichiometric calculation consistency",
+    "equation balancing",
+    "unit-aware numeric checks",
+    "significant-figure tolerance handling",
+    "chemical notation correctness",
+    "graph/table reasoning",
+    "rights and originality preflight"
+  ],
+  "grader_signals": [
+    "numeric answer",
+    "units",
+    "balanced equation",
+    "scientific explanation",
+    "boundary-case rationale"
+  ],
+  "initial_calibration_targets": [
+    "exact numeric match",
+    "within-tolerance numeric match",
+    "out-of-tolerance near miss",
+    "notation error with otherwise correct reasoning",
+    "ambiguous partial-credit boundary"
+  ],
+  "blocked_until": [
+    "gold-set calibration review",
+    "pilot content rights review",
+    "subject readiness approval"
+  ]
+}

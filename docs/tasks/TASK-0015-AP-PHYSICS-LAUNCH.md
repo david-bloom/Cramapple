@@ -12,7 +12,7 @@
 
 ## Product Goal
 
-Launch AP Physics as a new Cramapple subject by extending the existing
+Launch AP Physics 1 as the initial Cramapple Physics subject by extending the existing
 multi-subject architecture, governed content workflow, and subject-aware UX
 that already support AP Biology and AP Statistics.
 
@@ -27,9 +27,10 @@ that Biology has not proven necessary.
 1. **Grading/prompt generalization.** Remove any AP Biology-only literals from
    Physics-facing prompt composition and verification paths so Physics is
    driven by subject metadata, not subject-specific strings.
-2. **Schema/content instantiation.** Add an `AP Physics` row to
-   `app.subjects`; create a versioned `exam_pack`; create a Physics-specific
-   `taxonomy_scheme` for units, practices, representations, and task types.
+2. **Schema/content instantiation.** Add an `AP Physics 1` row to
+   `app.subjects`; create a versioned `exam_pack`; create the Physics
+   taxonomy scaffold in `app.content_labels` plus the subject-side taxonomy
+   brief used by the authoring flow.
 3. **Subject-specific verification.** Define the Physics verification profile
    needed for the first pilot batch, likely including symbolic math, unit
    consistency, vector reasoning, and calculation checks.
@@ -68,8 +69,8 @@ that Biology has not proven necessary.
 
 - [ ] Physics prompt composition is subject-driven and AP Biology output is
       unchanged.
-- [ ] `app.subjects` contains an `ap-physics` row with versioned exam-pack and
-      taxonomy records.
+- [ ] `app.subjects` contains an `ap-physics-1` row with versioned exam-pack
+      and taxonomy scaffold records.
 - [ ] The initial Physics verification profile is implemented and tested
       against at least one pilot criterion type.
 - [ ] A governed Physics pilot batch passes originality/rights/teaching

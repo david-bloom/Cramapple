@@ -26,12 +26,12 @@ equilibrium reasoning, or other chemistry-specific verification profiles.
 
 1. **Grading/prompt generalization.** Ensure any remaining AP Biology literals
    in chemistry-facing prompt composition, content selection, or verification
-   paths are data-driven by `subject_id` / `taxonomy_scheme_id` and versioned
-   exam-pack metadata, not hardcoded subject strings.
+   paths are data-driven by `subject_id` and versioned exam-pack metadata, not
+   hardcoded subject strings.
 2. **Schema/content instantiation.** Add an `AP Chemistry` row to
-   `app.subjects`; create a versioned `exam_pack`; create a Chemistry-specific
-   `taxonomy_scheme` covering units, practices, task types, and chemistry
-   representations.
+   `app.subjects`; create a versioned `exam_pack`; create the Chemistry
+   taxonomy scaffold in `app.content_labels` plus the subject-side taxonomy
+   brief used by the authoring flow.
 3. **Subject-specific verification.** Define and implement the Chemistry
    verification profile needed for the first pilot batch, likely including
    stoichiometry, equation balancing, unit-aware calculation checks, and
@@ -73,7 +73,7 @@ equilibrium reasoning, or other chemistry-specific verification profiles.
 - [ ] Chemistry prompt composition is subject-driven and AP Biology output is
       unchanged.
 - [ ] `app.subjects` contains an `ap-chemistry` row with versioned exam-pack
-      and taxonomy records.
+      and taxonomy scaffold records.
 - [ ] The initial Chemistry verification profile is implemented and tested
       against at least one pilot criterion type.
 - [ ] A governed Chemistry pilot batch passes originality/rights/teaching
