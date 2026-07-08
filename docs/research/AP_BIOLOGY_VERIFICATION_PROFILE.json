@@ -1,0 +1,43 @@
+{
+  "subject_key": "ap-biology",
+  "display_name": "AP Biology",
+  "profile_version": "draft-2026-07-08",
+  "purpose": "Required deterministic-check layer for AP Biology FRQ grading, offloading mechanical and structurally-checkable criteria from the language-model grader. Runs independently of the model and is not marked verified by it. See docs/architecture/CONTENT_AUTHORING_AND_PROMPT_ARCHITECTURE.md sections 7.1 and 7.2.",
+  "required_checks": [
+    "required-field presence (each expected criterion has a decision and an evidence quote)",
+    "internal-contradiction check (an otherwise-earning claim voided by a contradicting statement elsewhere in the response)",
+    "misattribution / over-credit dependency-parse check for randomness-and-mechanism prose (adapted from the FRQ02-C2 checker in grader_speed_sp1_report.md)",
+    "calculation, unit, and rounding checks where a criterion is quantitative (Hardy-Weinberg, rates, ratios, probabilities)",
+    "abstention gate (unreadable input or missing required evidence returns unable_to_determine rather than a guessed score)",
+    "rights and originality preflight"
+  ],
+  "grader_signals": [
+    "criterion earned / not_earned / unable_to_determine",
+    "evidence quote drawn from the learner response",
+    "numeric answer and units where applicable",
+    "boundary-case rationale referencing the criterion-boundary contract"
+  ],
+  "initial_calibration_targets": [
+    "clear earned",
+    "clear not_earned",
+    "near-boundary earned (worked positive from the boundary contract)",
+    "near-boundary not_earned (worked negative from the boundary contract)",
+    "confidently-wrong-but-complete response (must not earn)",
+    "internally contradictory response (contradiction voids credit)",
+    "ambiguous / unreadable (must abstain)"
+  ],
+  "known_hard_cases": [
+    "S020 — graded the same way by every model/effort/routing combination tested; treat as a Learning Quality label/rubric adjudication case, not a grader-capability gap (see grading_cross_subject_takeaways.md Lesson 5)"
+  ],
+  "notes": [
+    "The deterministic layer owns the mechanical criteria it can decide and offloads them from the model; it does not replace the language-model grader for judgment criteria.",
+    "This check set catches the confidently-wrong-but-complete and over-credit-by-misattribution error classes that model self-reported confidence structurally cannot (grading_cross_subject_takeaways.md Lessons 3-4).",
+    "Every deterministic check is version-pinned to the grading result alongside the prompt, model, and criterion-boundary contract.",
+    "The dependency-parse misattribution checker had two real bugs found and fixed during its own development; re-validate it against any new corpus before relying on it for real scores."
+  ],
+  "blocked_until": [
+    "adjudicated AP Biology gold-set calibration review (dual-blind, per CONTENT_GOVERNANCE_AND_VALIDATION.md section 12)",
+    "pilot content rights review",
+    "subject readiness approval by the Product Owner"
+  ]
+}

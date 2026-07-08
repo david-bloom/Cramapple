@@ -1,5 +1,31 @@
 # Grading Packet Backlog - 2026-07-07
 
+> **Superseding priority (2026-07-08, DECISION-0034).** The breadth-first
+> ordering below is retained for history but is no longer the active direction.
+> The active priority is **depth: one fully-adjudicated AP Biology gold set**
+> (dual-blind human scoring + lead adjudication, meeting the §12.2 held-out
+> minimums for the launch questions) *before* more synthetic breadth packets.
+> Rationale: every decision-grade result so far is a single question against a
+> provisional corpus, and only adjudicated gold evidence can test the governance
+> release thresholds. See
+> [grading_cross_subject_takeaways.md](./grading_cross_subject_takeaways.md)
+> Lesson 7. The breadth families below remain valuable for pipeline exercise and
+> resume *after* the gold set exists; when generated, each must carry a
+> `development` corpus tier (canonical process, Corpus Tier Labeling) and, for
+> FRQs, must not rely on truncation-only wrong answers, which do not test the
+> confidently-wrong-but-complete failure mode.
+>
+> **Progress (2026-07-08).** Three `calibration`-tier gold-set-candidate packages
+> now exist (`ap_biology_gold_set_candidate_2026_07_08/`,
+> `ap_statistics_gold_set_candidate_2026_07_08/`,
+> `ap_chemistry_gold_set_candidate_2026_07_08/`), each with AI provisional labels,
+> a blind dual-scoring harness, and an adjudication queue — see
+> [grading_gold_set_candidates_2026_07_08_report.md](./grading_gold_set_candidates_2026_07_08_report.md).
+> The remaining work is **human adjudication** (AP Biology first) to upgrade them
+> to `adjudicated_gold`, a Statistics calculation checker, and hand-authored
+> wrong-reasoning Chemistry responses (the sampled Chemistry variants proved
+> truncation-degenerate).
+
 This backlog turns the current grading-research direction into the next packet families to prepare.
 It follows `docs/research/grading_test_packet_requirements.md` and the fixed 4-criterion contract pattern already used in the AP Statistics HDR and AP Biology spike packages.
 

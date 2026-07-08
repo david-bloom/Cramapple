@@ -15,6 +15,31 @@ Establish evidence-based confidence that Cramapple's FRQ grader scores each
 criterion consistently, abstains when appropriate, grounds feedback in the
 student response, and remains reliable after release.
 
+## Adopted Grading Standard (2026-07-08, DECISION-0034)
+
+Five directions are now standing policy for this task and the grading program.
+Details live in the architecture and research docs; this task operationalizes
+them.
+
+1. **Criterion-boundary contract is a required authored artifact** — authored
+   with the rubric, sharpened not invented during calibration
+   (`../architecture/CONTENT_AUTHORING_AND_PROMPT_ARCHITECTURE.md` §9.1;
+   `../architecture/CONTENT_GOVERNANCE_AND_VALIDATION.md` §10.5).
+2. **Depth over breadth** — effort goes to one fully-adjudicated AP Biology gold
+   set before more synthetic breadth corpora
+   (`../research/grading_packet_backlog_2026_07_07.md` revised priority).
+3. **Per-subject deterministic-check layer** is required and version-pinned
+   (`../architecture/CONTENT_AUTHORING_AND_PROMPT_ARCHITECTURE.md` §7.1;
+   per-subject verification profiles in `../research/`).
+4. **Feedback quality is measured, not only the score decision** — grounding,
+   minimum-fix sufficiency, and error-classification accuracy are reported
+   alongside criterion agreement (`../architecture/CONTENT_GOVERNANCE_AND_VALIDATION.md`
+   §12.3; `../research/GRADING_RESEARCH_CANONICAL_PROCESS.md`).
+5. **Single fast grader is the default runtime** — escalation-on-confidence,
+   ensembles, and reference layers are retired from the default; multiple models
+   are boundary auditors only (`../architecture/CONTENT_AUTHORING_AND_PROMPT_ARCHITECTURE.md`
+   §7.2). Rationale and evidence: `../research/grading_cross_subject_takeaways.md`.
+
 ## Confidence Program
 
 ### Phase 1 - Rubric and Development Cases
@@ -99,10 +124,24 @@ Findings from `docs/research/grader_speed_sp1_report.md` and `frq_grading_status
 ## Acceptance Criteria
 
 - [ ] Criterion-level rubric contract approved.
+- [ ] Criterion-boundary contract authored for every launch-question criterion
+      (required package element, per §9.1).
+- [ ] Per-subject deterministic-check layer implemented and version-pinned for
+      the launch subject (AP Biology verification profile).
+- [ ] One fully-adjudicated AP Biology gold set exists (depth-first), meeting the
+      §12.2 held-out minimums for at least the launch questions.
 - [ ] Adjudicated gold-set process operational.
-- [ ] Development, calibration, holdout, and challenge sets are access-isolated.
-- [ ] Release thresholds are reviewed against pilot feasibility.
-- [ ] Confidence and abstention are empirically calibrated.
+- [ ] Development, calibration, holdout, and challenge sets are access-isolated
+      and tier-labeled (development / calibration / adjudicated-gold / held-out /
+      challenge / sentinel).
+- [ ] Release thresholds are reviewed against pilot feasibility using the real
+      adjudicated gold set.
+- [ ] Confidence and abstention are empirically calibrated against observed
+      error, not model self-report.
+- [ ] Feedback-quality metrics (grounding, minimum-fix sufficiency, error
+      classification) are measured and pass §12.3 thresholds.
+- [ ] Default single-fast-grader runtime is validated; any hard-criterion direct
+      route is chosen from calibration evidence, not runtime confidence.
 - [ ] Independent-pass disagreement policy is approved.
 - [ ] Shadow cohort passes before learner-facing automated scores.
 - [ ] Limited-release human sampling and escalation are operational.

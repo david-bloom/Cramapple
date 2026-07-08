@@ -18,6 +18,8 @@ Start with:
 - [Cramapple Vision and Problem Statement](docs/product/CRAMAPPLE_VISION.md)
 - [Master To-Do Backlog](docs/MASTER_TODO.md)
 - [Content Authoring and Prompt Architecture](docs/architecture/CONTENT_AUTHORING_AND_PROMPT_ARCHITECTURE.md)
+- [Research Index](docs/research/README.md)
+- [Grading Research Canonical Process](docs/research/GRADING_RESEARCH_CANONICAL_PROCESS.md)
 - [Content Authoring Model Experiment](docs/product/CONTENT_AUTHORING_MODEL_EXPERIMENT.md)
 - [Visual Stimulus and Rendering System](docs/architecture/VISUAL_STIMULUS_AND_RENDERING_SYSTEM.md)
 - [AI Collaboration Rules](docs/team_charter/AI_COLLABORATION_RULES.md)

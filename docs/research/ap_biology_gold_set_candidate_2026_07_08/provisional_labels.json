@@ -1,0 +1,1174 @@
+{
+ "schema": "provisional_calibration_labels_v1",
+ "subject": "AP Biology",
+ "exam_code": "ap_biology",
+ "corpus_tier": "calibration",
+ "date": "2026-07-08",
+ "label_authority": "AI provisional (Claude Fable) vs rubric evidence_requirements; NOT human-adjudicated gold",
+ "label_codes": {
+  "E": "earned",
+  "P": "partially_earned",
+  "N": "not_earned",
+  "U": "unable_to_determine"
+ },
+ "items": [
+  {
+   "content_key": "APBIO-FRQ-L-001",
+   "module": "",
+   "difficulty": "",
+   "form": "long",
+   "question_text": "Answer all parts of the following question.\n\n(a) The light compensation point is the light intensity at which the net rate of gas exchange between a leaf and its environment equals zero.\n    (i) Using the data in the table, identify the light compensation point for the spinach leaf disks and explain what it indicates about the relative rates of photosynthesis and cellular respiration.\n    (ii) Predict and explain how the light compensation point would change if CO\u2082 concentration in the experiment were doubled from 0.03% to 0.06%.\n\n(b) Describe the pathway by which energy from light is used to synthesize ATP in the light reactions of photosynthesis. Include the roles of the electron transport chain, the proton gradient, and ATP synthase in your answer.\n\n(c) A student places illuminated spinach leaf disks into a solution containing radioactive \u00b9\u2074CO\u2082. After 5 minutes of illumination, the light is turned off. Identify the first stable organic compound in which \u00b9\u2074C would appear, and predict what happens to the concentration of RuBP in the chloroplast stroma during the first 2 minutes after the light is turned off. Explain your reasoning.\n\n(d) Describe the specific molecular pathway by w",
+   "stimulus": "A student uses the floating leaf disk assay to measure photosynthesis in spinach (Spinacia oleracea). Leaf disks are infiltrated with a sodium bicarbonate solution and placed in a 100 mL beaker illuminated at varying light intensities. The number of floating disks (indicating net O\u2082 production) is recorded at 10-minute intervals.\n\nNet O\u2082 exchange (\u03bcmol O\u2082 / m\u00b2 / s) at different light intensities:\n\nLight intensity (\u03bcmol photons/m\u00b2/s) | Net O\u2082 exchange\n0 (dark)                            | \u22122.0\n25                                  | \u22121.2\n50                                  | \u22120.3\n75                                  | 0.0\n100                                 | +1.4\n200                                 | +3.1\n400                                 | +4.8\n600                                 | +5.0\n80",
+   "rubric": [
+    {
+     "accepted_variants": [
+      "compensation point",
+      "light compensation",
+      "photosynthesis equals respiration",
+      "net O2 is zero",
+      "gross photosynthesis offsets respiration"
+     ],
+     "criterion_key": "a_i",
+     "evidence_requirements": "Must state compensation point = 75 \u03bcmol photons/m\u00b2/s (where net O\u2082 = 0). Must explain that at this point the rate of O\u2082 produced by photosynthesis equals the rate of O\u2082 consumed by cellular respiration (gross photosynthesis = respiration), so net gas exchange = 0. Accept: \"photosynthesis rate equals respiration rate\"; \"gross photosynthesis = 2.0 \u03bcmol O\u2082/m\u00b2/s to offset the dark respiration rate.\"",
+     "learner_facing_text": "Identify the light compensation point and explain what it indicates about the rates of photosynthesis and respiration.",
+     "minimum_fix": "Light compensation point = 75 \u03bcmol photons/m\u00b2/s; at this intensity photosynthesis rate = cellular respiration rate so net O\u2082 exchange = 0.",
+     "points_possible": 2
+    },
+    {
+     "accepted_variants": [
+      "compensation point decreases",
+      "shifts left",
+      "lower light intensity",
+      "CO2 no longer limiting",
+      "Calvin cycle faster",
+      "less light needed"
+     ],
+     "criterion_key": "a_ii",
+     "evidence_requirements": "Must predict compensation point DECREASES (shifts to lower light intensity / shifts left). Must explain: more CO\u2082 available \u2192 Calvin cycle can fix carbon faster at lower light levels \u2192 gross photosynthesis rate rises at any given light intensity \u2192 the light intensity at which gross photosynthesis offsets the fixed respiration cost is lower. Accept: \"compensation point decreases because Calvin cycle is no longer CO\u2082-limited, so less light is needed to drive enough photosynthesis to balance respiration.\"",
+     "learner_facing_text": "Predict and explain the effect of doubling CO\u2082 concentration on the light compensation point.",
+     "minimum_fix": "Compensation point decreases; more CO\u2082 increases Calvin cycle rate at each light level so lower light intensity is needed to offset respiration.",
+     "points_possible": 2
+    },
+    {
+     "accepted_variants": [
+      "electron transport",
+      "proton gradient",
+      "chemiosmosis",
+      "ATP synthase",
+      "thylakoid lumen",
+      "PSII",
+      "cytochrome b6f",
+      "H+ flow"
+     ],
+     "criterion_key": "b",
+     "evidence_requirements": "Must include: (1) Light absorbed by P680 (PSII) excites electrons \u2192 electrons passed to plastoquinone \u2192 cytochrome b6f complex \u2192 plastocyanin \u2192 P700 (PSI) \u2192 ferredoxin \u2192 NADP\u207a reductase \u2192 NADPH. Accept simplified: electrons flow through ETC. (2) Electron flow through cytochrome b6f pumps H\u207a from stroma into thylakoid lumen, building a proton gradient (low pH in lumen). (3) H\u207a flows back through ATP synthase (chemiosmosis) \u2192 drives ATP synthesis (phosphorylation of ADP + Pi). Two of these three elements required for full credit.",
+     "learner_facing_text": "Describe how light energy is converted to ATP in the light reactions, including the electron transport chain, proton gradient, and ATP synthase.",
+     "minimum_fix": "Light excites electrons \u2192 ETC pumps H\u207a into thylakoid lumen \u2192 proton gradient drives H\u207a through ATP synthase \u2192 ATP synthesized by chemiosmosis.",
+     "points_possible": 2
+    },
+    {
+     "accepted_variants": [
+      "3-PGA",
+      "3-phosphoglycerate",
+      "RuBP decreases",
+      "no ATP",
+      "no NADPH",
+      "cannot regenerate RuBP",
+      "light reactions stop"
+     ],
+     "criterion_key": "c",
+     "evidence_requirements": "First stable compound: 3-phosphoglycerate (3-PGA / PGA). Must state \u00b9\u2074CO\u2082 is fixed by RuBisCO onto RuBP \u2192 unstable 6-carbon intermediate immediately splits \u2192 two 3-PGA molecules. RuBP prediction: RuBP concentration DECREASES after light is turned off. Explanation: RuBP is regenerated from G3P using ATP and NADPH (products of light reactions); when light stops, ATP and NADPH are no longer produced \u2192 Calvin cycle cannot regenerate RuBP \u2192 RuBP is consumed by RuBisCO (CO\u2082 still present briefly) but not replaced \u2192 [RuBP] falls.",
+     "learner_facing_text": "Identify the first stable \u00b9\u2074C-labeled compound and predict what happens to RuBP concentration when the light is turned off.",
+     "minimum_fix": "\u00b9\u2074C first appears in 3-PGA (3-phosphoglycerate). RuBP concentration decreases after light turns off because ATP and NADPH needed to regenerate RuBP are no longer produced.",
+     "points_possible": 2
+    },
+    {
+     "accepted_variants": [
+      "G3P",
+      "glucose",
+      "pyruvate",
+      "acetyl-CoA",
+      "Krebs cycle",
+      "NADH",
+      "electron transport chain",
+      "oxidative phosphorylation",
+      "cytoplasm",
+      "mitochondrial matrix",
+      "inner mitochondrial membrane"
+     ],
+     "criterion_key": "d",
+     "evidence_requirements": "Must trace: G3P (from Calvin cycle, chloroplast stroma) \u2192 exported to cytoplasm \u2192 used to synthesize glucose (gluconeogenesis/glycolysis reversal, cytoplasm) \u2192 glucose enters glycolysis (cytoplasm) \u2192 pyruvate \u2192 transported into mitochondrial matrix \u2192 acetyl-CoA (via pyruvate dehydrogenase) \u2192 Krebs/citric acid cycle (mitochondrial matrix) \u2192 NADH/FADH\u2082 \u2192 electron transport chain (inner mitochondrial membrane) \u2192 oxidative phosphorylation \u2192 ATP. Minimum: G3P \u2192 glucose \u2192 pyruvate \u2192 acetyl-CoA \u2192 Krebs cycle \u2192 electrons to ETC \u2192 OXPHOS. Two specific intermediates and correct compartments required.",
+     "learner_facing_text": "Describe the molecular pathway linking Calvin cycle products to oxidative phosphorylation, naming intermediates and compartments.",
+     "minimum_fix": "G3P (chloroplast) \u2192 glucose (cytoplasm, via glycolysis in reverse or sugar synthesis) \u2192 pyruvate (cytoplasm via glycolysis) \u2192 acetyl-CoA (mitochondrial matrix) \u2192 Krebs cycle \u2192 NADH/FADH\u2082 \u2192 ETC (inner mitochondrial membrane) \u2192 oxidative phosphorylation \u2192 ATP.",
+     "points_possible": 2
+    }
+   ],
+   "responses": [
+    {
+     "response_index": 0,
+     "synthetic_type": "fully_correct",
+     "response_text": "(a)(i) The light compensation point for the spinach leaf disks is 75 micromol photons/m^2/s, the light intensity at which net O2 exchange equals zero. At this point, the rate of O2 produced by photosynthesis exactly equals the rate of O2 consumed by cellular respiration (gross photosynthesis = respiration rate of about 2.0 micromol O2/m^2/s), so no net oxygen is released or absorbed by the leaf.\n(ii) If CO2 concentration were doubled from 0.03% to 0.06%, the light compensation point would decrease, shifting to a lower light intensity. With more CO2 available, the Calvin cycle is no longer as limited by CO2 supply, so RuBisCO can fix carbon faster and gross photosynthesis rises more steeply with light. This means a lower light intensity is now sufficient for gross photosynthesis to offset the fixed respiration rate, so less light is needed to reach the point where net exchange is zero.\n(b) In the light reactions, light absorbed at photosystem II (P680) excites electrons, which pass through an electron transport chain including plastoquinone and the cytochrome b6f complex before reaching photosystem I (P700) via plastocyanin. As electrons pass through cytochrome b6f, the energy released pumps H+ ions from the stroma into the thylakoid lumen, building a steep proton gradient (low pH inside the lumen relative to the stroma). Because H+ cannot easily cross the membrane except through channels, this proton-motive force drives H+ back out through ATP synthase, and this flow of protons (chemiosmosis) powers the phosphorylation of ADP and inorganic phosphate into ATP.\n(c) The first stable organic compound to become radioactively labeled would be 3-phosphoglycerate (3-PGA), because 14CO2 is fixed onto RuBP by RuBisCO to form an unstable 6-carbon intermediate that immediately splits into two molecules of 3-PGA. During the first two minutes after the light is turned off, the concentration of RuBP in the stroma would decrease, because RuBP regeneration in the Calvin cycle depends on ATP and NADPH supplied by the light reactions. Once light stops, ATP and NADPH production halts, so RuBisCO continues briefly consuming the existing pool of RuBP (as long as CO2 is present) but the cycle can no longer regenerate it, causing RuBP levels to fall.\n(d) G3P produced in the chloroplast stroma by the Calvin cycle is exported to the cytoplasm, where much of it is converted into glucose through a reversal of glycolysis (gluconeogenesis-like steps). That glucose can then re-enter glycolysis in the cytoplasm, being broken down into pyruvate. Pyruvate is transported into the mitochondrial matrix, where pyruvate dehydrogenase converts it into acetyl-CoA. Acetyl-CoA enters the Krebs cycle in the matrix, producing NADH and FADH2, which donate electrons to the electron transport chain in the inner mitochondrial membrane, driving oxidative phosphorylation and ATP synthesis.",
+     "criteria": {
+      "a_i": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": ""
+      },
+      "a_ii": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": ""
+      },
+      "b": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": ""
+      },
+      "c": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": ""
+      },
+      "d": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": ""
+      }
+     }
+    },
+    {
+     "response_index": 1,
+     "synthetic_type": "partially_correct",
+     "response_text": "(a)(i) The compensation point is 75 micromol photons/m^2/s -- that's where the net O2 exchange line crosses zero on the table.\n(ii) If CO2 is doubled, the compensation point would increase because the plant needs more light energy to process all the extra carbon dioxide being taken in.\n(b) The light reactions use light to split water and make ATP and NADPH for the Calvin cycle.\n(c) The first labeled compound would be glucose, since glucose is the final sugar product that photosynthesis is trying to make from the radioactive carbon.\n(d) Not sure about this one -- I think the Calvin cycle products eventually get used for cell respiration somehow to make ATP.",
+     "criteria": {
+      "a_i": {
+       "provisional_label": "partially_earned",
+       "confidence": "med",
+       "adjudicate": true,
+       "note": "Value 75 correct but explanation restates 'net O2=0' without stating photosynthesis rate = respiration rate; adjudicate whether that half earns."
+      },
+      "a_ii": {
+       "provisional_label": "not_earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": "Predicts compensation point INCREASES; correct answer is decreases."
+      },
+      "b": {
+       "provisional_label": "not_earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": "'split water and make ATP/NADPH' gives no ETC/proton-gradient/ATP-synthase mechanism."
+      },
+      "c": {
+       "provisional_label": "not_earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": "Says first labeled compound is glucose (should be 3-PGA); RuBP not addressed."
+      },
+      "d": {
+       "provisional_label": "not_earned",
+       "confidence": "med",
+       "adjudicate": false,
+       "note": "'used for cell respiration somehow' \u2014 no intermediates or compartments."
+      }
+     }
+    },
+    {
+     "response_index": 2,
+     "synthetic_type": "borderline",
+     "response_text": "(a)(i) The compensation point is around 75, which is where photosynthesis and respiration cancel out so there's no net O2 change in the leaf.\n(ii) If you double the CO2, the compensation point would go down because the plant can photosynthesize more efficiently with extra CO2 available, so it doesn't need as much light.\n(b) Light energy is absorbed by the pigments in the thylakoid membrane and excites electrons, which move down the electron transport chain. This pumps protons into the thylakoid space, and then the protons flow through ATP synthase, which makes ATP.\n(c) The 14C would show up first in 3-PGA. When the light turns off, RuBP would start to decrease because the Calvin cycle can't keep running properly without the light reactions supplying what it needs.\n(d) The G3P from the Calvin cycle eventually gets turned into sugar and broken down through glycolysis into pyruvate, which then goes into the mitochondria and goes through the Krebs cycle and electron transport chain to make ATP through oxidative phosphorylation.",
+     "criteria": {
+      "a_i": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": ""
+      },
+      "a_ii": {
+       "provisional_label": "earned",
+       "confidence": "med",
+       "adjudicate": false,
+       "note": "Decreases + 'more efficient with extra CO2, needs less light' \u2014 informal but meets contract."
+      },
+      "b": {
+       "provisional_label": "earned",
+       "confidence": "med",
+       "adjudicate": false,
+       "note": "ETC + protons into thylakoid space + ATP synthase all present."
+      },
+      "c": {
+       "provisional_label": "earned",
+       "confidence": "med",
+       "adjudicate": false,
+       "note": "3-PGA + RuBP decreases with correct (if thin) reasoning."
+      },
+      "d": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": "Full glycolysis->Krebs->ETC chain with compartments."
+      }
+     }
+    },
+    {
+     "response_index": 3,
+     "synthetic_type": "subtly_wrong",
+     "response_text": "(a)(i) The compensation point is 75 micromol photons/m^2/s, the light intensity where photosynthesis and respiration are perfectly balanced so there is no net gas exchange.\n(ii) Doubling the CO2 concentration would actually increase the light compensation point. Since there is now more substrate available for the Calvin cycle to fix, the plant would need a higher light intensity to generate enough ATP and NADPH to keep up with the increased carbon fixation demand, so more light is required before net O2 exchange reaches zero.\n(b) Light energy absorbed at photosystem II excites electrons that travel down the electron transport chain to photosystem I, and the energy released pumps protons from the thylakoid lumen into the stroma, creating a gradient. The protons then flow back through ATP synthase from the stroma into the lumen, and this flow drives the synthesis of ATP from ADP and inorganic phosphate.\n(c) The first labeled organic compound would be 3-phosphoglycerate, since carbon fixation attaches CO2 to RuBP and the unstable intermediate splits into two 3-PGA molecules. When the light is turned off, RuBP concentration would actually increase over the next two minutes, because the Calvin cycle immediately stops running without light, so RuBisCO can no longer consume RuBP and it builds up in the stroma while the ATP and NADPH already present are used up elsewhere.\n(d) G3P made in the chloroplast is converted to glucose and broken down by glycolysis into pyruvate, which enters the mitochondria, is converted to acetyl-CoA, and proceeds through the Krebs cycle and electron transport chain to generate ATP by oxidative phosphorylation.",
+     "criteria": {
+      "a_i": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": ""
+      },
+      "a_ii": {
+       "provisional_label": "not_earned",
+       "confidence": "high",
+       "adjudicate": true,
+       "note": "CONFIDENTLY WRONG: predicts INCREASE with plausible ATP/NADPH-demand reasoning; classic complete-but-wrong case."
+      },
+      "b": {
+       "provisional_label": "not_earned",
+       "confidence": "med",
+       "adjudicate": true,
+       "note": "Proton pumping direction REVERSED (lumen->stroma, then stroma->lumen); adjudicate whether reversed mechanism voids criterion."
+      },
+      "c": {
+       "provisional_label": "not_earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": "3-PGA correct but predicts RuBP INCREASES (should decrease); criterion requires both parts."
+      },
+      "d": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": "Part (d) chain is correct even in this otherwise-wrong response \u2014 good split case."
+      }
+     }
+    }
+   ]
+  },
+  {
+   "content_key": "APBIO-FRQ-L-009",
+   "module": "",
+   "difficulty": "",
+   "form": "long",
+   "question_text": "Answer all parts of the following question.\n\n(a) Using the food web diagram and biomass data provided:\n    (i) Calculate the ecological efficiency of energy transfer from producers to primary consumers, and from primary consumers to secondary consumers. Show all calculations.\n    (ii) Explain why ecological efficiency is rarely above 10%, describing at least THREE ways energy is lost between trophic levels.\n    (iii) Calculate how many kilograms of phytoplankton (producers) would be needed to support the body mass of one 50 kg tuna (a tertiary consumer), assuming 10% ecological efficiency at each trophic level.\n\n(b) Nitrogen is required for the synthesis of proteins and nucleic acids. Trace the pathway of a nitrogen atom from atmospheric N\u2082 to its incorporation into a protein in a plant's leaf cell. Name each transformation step, the organisms responsible, and the inorganic chemical form of nitrogen at each step.\n\n(c) The data in Table 2 show the annual gross primary productivity (GPP) and ecosystem respiration (R) for four biomes.\n    (i) Calculate the net primary productivity (NPP) for each biome.\n    (ii) Explain why tropical rainforests have the highest GPP despite covering les",
+   "stimulus": "Marine food web (simplified):\nPhytoplankton \u2192 Zooplankton \u2192 Small fish (anchovies) \u2192 Tuna\n\nAnnual productivity and biomass data:\nTrophic level      | Annual net production (g dry mass/m\u00b2/yr)\nPhytoplankton      |         500\nZooplankton        |          42\nSmall fish         |           4.2\nTuna               |           0.5\n\nTable 2: Annual productivity of four biomes\nBiome                 | GPP (g C/m\u00b2/yr) | R (g C/m\u00b2/yr)\nTropical rainforest   |    3,300         |   2,200\nTemperate deciduous   |    1,200         |    800\nBoreal forest (taiga) |     700          |    500\nArctic tundra         |     140          |    100",
+   "rubric": [
+    {
+     "accepted_variants": [
+      "8.4%",
+      "10%",
+      "respiration heat loss",
+      "feces egestion",
+      "not all consumed",
+      "50000 kg phytoplankton",
+      "three trophic levels",
+      "divide by 0.001"
+     ],
+     "criterion_key": "a",
+     "evidence_requirements": "(i) Efficiency, phytoplankton\u2192zooplankton: 42/500 = 8.4%. Efficiency, zooplankton\u2192small fish: 4.2/42 = 10.0%. (ii) Three ways energy is lost: (1) Cellular respiration \u2014 a large fraction of ingested energy is used for metabolic processes (maintenance, thermoregulation in endotherms, movement) and released as heat \u2192 not available to next trophic level; (2) Excretion/urine/feces \u2014 some ingested organic matter passes through digestive tract unabsorbed and is lost in feces (egestion); urea and other nitrogenous waste products contain energy not passed up; (3) Not all organisms are consumed \u2014 some organisms die without being eaten \u2192 energy enters the decomposer food chain rather than the grazing food chain; (4) Reproduction and growth allocation \u2014 some energy is stored in tissues not consumed by the next trophic level (bones, shells, woody tissue). (iii) Three trophic levels above phytoplankton to reach tuna (tertiary consumer): phytoplankton \u2192 zooplankton \u2192 small fish \u2192 tuna. Mass of phytoplankton needed: 50 kg \u00f7 (0.1)\u00b3 = 50 \u00f7 0.001 = 50,000 kg. 1 pt for correct efficiency calculations; 1 pt for tuna calculation with at least one energy loss explanation.",
+     "learner_facing_text": "Calculate ecological efficiency between trophic levels; explain why < 10%; calculate phytoplankton needed for 50 kg tuna.",
+     "minimum_fix": "Phytoplankton\u2192zooplankton: 42/500 = 8.4%. Zooplankton\u2192small fish: 4.2/42 = 10%. Energy lost as heat (respiration), feces (not absorbed), organisms not consumed. 50 kg tuna requires 50,000 kg phytoplankton (50 \u00f7 0.1\u00b3).",
+     "points_possible": 2
+    },
+    {
+     "accepted_variants": [
+      "nitrogen fixation",
+      "nitrogenase",
+      "Rhizobium",
+      "Nitrosomonas",
+      "Nitrobacter",
+      "nitrification",
+      "NH4+",
+      "NO3-",
+      "root uptake",
+      "nitrate reduction",
+      "amino acid synthesis",
+      "GS-GOGAT",
+      "glutamate"
+     ],
+     "criterion_key": "b",
+     "evidence_requirements": "Complete pathway: (1) N\u2082 (atmosphere) \u2192 NH\u2083/NH\u2084\u207a: Nitrogen fixation. Organisms: free-living bacteria (Azotobacter) or symbiotic bacteria (Rhizobium in root nodules). Enzyme: nitrogenase. N\u2082 + H\u2082 \u2192 NH\u2083 \u2192 NH\u2084\u207a in soil. (2) NH\u2084\u207a \u2192 NO\u2082\u207b \u2192 NO\u2083\u207b: Nitrification. Organisms: Nitrosomonas (NH\u2084\u207a\u2192NO\u2082\u207b) and Nitrobacter (NO\u2082\u207b\u2192NO\u2083\u207b). (3) NO\u2083\u207b or NH\u2084\u207a absorbed by plant roots (active transport, via nitrate transporters). (4) NO\u2083\u207b \u2192 NH\u2084\u207a: Nitrate reduction in plant (by nitrate reductase, using NADH/NADPH). (5) NH\u2084\u207a incorporated into amino acids: NH\u2084\u207a + \u03b1-ketoglutarate \u2192 glutamate (GS-GOGAT pathway in chloroplast); glutamate \u2192 other amino acids via transamination. (6) Amino acids assembled into proteins by ribosomes in leaf cells. Award 1 pt for correctly naming nitrogen fixation and nitrification with organisms; 1 pt for plant uptake, nitrate reduction, and amino acid synthesis.",
+     "learner_facing_text": "Trace a nitrogen atom from atmospheric N\u2082 to protein in a plant leaf cell, naming steps, organisms, and chemical forms.",
+     "minimum_fix": "N\u2082 \u2192 NH\u2084\u207a (nitrogen fixation, Rhizobium/Azotobacter, nitrogenase) \u2192 NO\u2083\u207b (nitrification, Nitrosomonas + Nitrobacter) \u2192 absorbed by roots \u2192 reduced to NH\u2084\u207a in plant \u2192 incorporated into glutamate (GS-GOGAT) \u2192 amino acids \u2192 protein.",
+     "points_possible": 2
+    },
+    {
+     "accepted_variants": [
+      "NPP = GPP minus R",
+      "1100",
+      "400",
+      "200",
+      "40",
+      "year-round sunlight",
+      "warm temperatures",
+      "high rainfall",
+      "rapid decomposition",
+      "nutrient cycling",
+      "enzyme activity optimal"
+     ],
+     "criterion_key": "c",
+     "evidence_requirements": "(i) NPP = GPP \u2212 R. Tropical rainforest: 3300 \u2212 2200 = 1100 g C/m\u00b2/yr. Temperate deciduous: 1200 \u2212 800 = 400. Boreal forest: 700 \u2212 500 = 200. Arctic tundra: 140 \u2212 100 = 40. (ii) Tropical rainforest highest GPP despite smaller area than boreal because all four limiting factors are optimal: Light \u2014 year-round intense sunlight at low latitudes (near equator), no seasonal low-light winter; Temperature \u2014 warm year-round (25\u201330\u00b0C), optimal for enzyme function (photosynthesis enzymes); Water \u2014 high annual rainfall (2000+ mm), no water deficit limiting stomatal opening; Nutrient cycling \u2014 rapid decomposition in warm wet conditions means nutrients released quickly from dead organic matter and recycled rapidly into plant uptake. Boreal forests have seasonal darkness, cold temperatures (inhibit photosynthesis for months), frozen soil limiting nutrient access. 1 pt for all four NPP calculations correct; 1 pt for at least three of four explanatory factors for tropical GPP.",
+     "learner_facing_text": "Calculate NPP for each biome; explain why tropical rainforest has highest GPP.",
+     "minimum_fix": "NPP: Tropical=1100, Temperate=400, Boreal=200, Tundra=40 (g C/m\u00b2/yr). Tropical highest GPP: year-round intense sunlight (equatorial latitude), warm temperatures (optimal enzyme activity), high rainfall (no water deficit), rapid nutrient cycling (fast decomposition in warm-wet conditions).",
+     "points_possible": 2
+    },
+    {
+     "accepted_variants": [
+      "hypothesis stated",
+      "species richness or diversity index",
+      "control reef",
+      "treatment reef",
+      "annual measurements",
+      "baseline",
+      "transect survey",
+      "compare treatment and control",
+      "statistical comparison",
+      "limitation named"
+     ],
+     "criterion_key": "d",
+     "evidence_requirements": "Complete study design: Hypothesis: Removing the top predator (shark) from a coral reef reduces species diversity over 5 years. Measurements: (1) Species richness (number of species) and/or Shannon diversity index at the reef \u2014 baseline before shark removal and annually for 5 years. (2) Abundance of prey species (mesopredators like grouper, herbivores like parrotfish, urchins). (3) Coral cover percentage (as proxy for reef health). Method: Establish treatment reefs (sharks removed by fishing exclusion zones lifted or by simulated natural removal) and control reefs (sharks protected, same region). Survey via transect line/point counts at multiple sites annually. Statistical analysis: compare diversity metrics between treatment and control reefs over time, controlling for natural temporal variation. Determine result: if species richness/diversity index is significantly lower in shark-removed reefs than control reefs by year 5, prediction is supported. Limitation: any one of \u2014 (1) confounding variables (other human impacts, bleaching events) that could independently reduce diversity; (2) ethical/logistical challenges of actually removing sharks; (3) natural variation between reefs means differences may not be attributable to shark removal; (4) 5 years may be insufficient for cascade effects to be detectable. 1 pt for hypothesis + complete measurements + control/treatment structure; 1 pt for result determination criteria + specific limitation.",
+     "learner_facing_text": "Design a monitoring study to test the shark-removal prediction on coral reef species diversity.",
+     "minimum_fix": "Hypothesis: shark removal reduces coral reef species diversity. Measurements: annual species richness/diversity index surveys (transect counts) on shark-removed vs. control reefs. Results: compare diversity between reefs over 5 years; support if treatment reefs significantly less diverse. Limitation: confounding variables (bleaching, human fishing) may independently affect diversity and cannot be controlled.",
+     "points_possible": 2
+    }
+   ],
+   "responses": [
+    {
+     "response_index": 0,
+     "synthetic_type": "fully_correct",
+     "response_text": "(a)(i) Efficiency from phytoplankton to zooplankton = 42/500 = 8.4%. Efficiency from zooplankton to small fish = 4.2/42 = 10.0%.\n(ii) Ecological efficiency is rarely above 10% because a large fraction of the energy consumed at each trophic level is lost as heat through cellular respiration (metabolism, movement, thermoregulation); additional energy is lost through egestion, since undigested organic material is passed out as feces; and not every organism at a given trophic level is actually consumed by the next level -- many die and decompose instead, sending their energy into the decomposer food chain rather than up the grazing food chain.\n(iii) To support a 50 kg tuna as a tertiary consumer (three transfers from phytoplankton, at 10% efficiency each): 50 / (0.1)^3 = 50 / 0.001 = 50,000 kg of phytoplankton would be required.\n(b) Atmospheric N2 is converted to ammonium (NH4+) through nitrogen fixation, carried out by bacteria like Rhizobium (in root nodules) or free-living Azotobacter, using the enzyme nitrogenase. That ammonium is converted through nitrification, first to nitrite (NO2-) by Nitrosomonas and then to nitrate (NO3-) by Nitrobacter. Nitrate (or ammonium) is absorbed by plant roots and, if absorbed as nitrate, is reduced back to ammonium using nitrate reductase. That ammonium is incorporated into glutamate via the GS-GOGAT pathway, and glutamate's amino group is transferred to other molecules through transamination to build the full range of amino acids, which are assembled by ribosomes into proteins in the leaf cell.\n(c)(i) NPP = GPP - R. Tropical rainforest: 3,300 - 2,200 = 1,100 g C/m^2/yr. Temperate deciduous: 1,200 - 800 = 400. Boreal forest: 700 - 500 = 200. Arctic tundra: 140 - 100 = 40.\n(ii) Tropical rainforests have the highest GPP because all the major limiting factors for photosynthesis are optimal there: intense, consistent sunlight year-round near the equator, warm temperatures year-round that keep photosynthetic enzymes at their optimum rate, abundant rainfall that prevents water stress, and rapid nutrient cycling because warm, moist conditions speed up decomposition, quickly releasing nutrients back to actively growing plants.\n(d) My hypothesis is that removing the top predator (shark) reduces species diversity on the coral reef over time. I would measure species richness and/or a Shannon diversity index via transect or point-count surveys at both shark-removed (treatment) reefs and shark-present (control) reefs, taking baseline measurements before removal and then annually for 5 years, along with abundance of key prey species and percent coral cover. I would determine the result by statistically comparing diversity metrics between treatment and control reefs -- if treatment reefs show significantly lower diversity by year 5, the prediction is supported. One limitation is that other confounding factors, such as coral bleaching events or unrelated fishing pressure, could independently reduce diversity on either reef type.",
+     "criteria": {
+      "a": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": ""
+      },
+      "b": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": ""
+      },
+      "c": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": ""
+      },
+      "d": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": ""
+      }
+     }
+    },
+    {
+     "response_index": 1,
+     "synthetic_type": "partially_correct",
+     "response_text": "(a)(i) Phytoplankton to zooplankton efficiency is 42/500, which is about 8%.\n(ii) Not sure of all three reasons, but one is that energy is lost as heat during respiration.\n(iii) I think you'd need 5,000 kg of phytoplankton for the tuna, based on multiplying by 10% each time.\n(b) Nitrogen from the air gets fixed by bacteria and eventually plants use it to grow.\n(c)(i) NPP values: 1100, 400, 200, 40.\n(ii) Skipped.\n(d) Skipped.",
+     "criteria": {
+      "a": {
+       "provisional_label": "partially_earned",
+       "confidence": "med",
+       "adjudicate": false,
+       "note": "One efficiency (~8%) only; tuna calc 5,000 kg is WRONG (should be 50,000)."
+      },
+      "b": {
+       "provisional_label": "not_earned",
+       "confidence": "med",
+       "adjudicate": false,
+       "note": "'fixed by bacteria and plants use it' \u2014 no forms/organisms/steps."
+      },
+      "c": {
+       "provisional_label": "partially_earned",
+       "confidence": "med",
+       "adjudicate": false,
+       "note": "NPP values correct; part (ii) skipped."
+      },
+      "d": {
+       "provisional_label": "not_earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": "Skipped."
+      }
+     }
+    },
+    {
+     "response_index": 2,
+     "synthetic_type": "borderline",
+     "response_text": "(a)(i) Efficiency from phytoplankton to zooplankton is 42/500, about 8%, and from zooplankton to fish is 4.2/42, about 10%.\n(ii) Efficiency is low because energy gets lost as heat, in waste, and because not everything gets eaten.\n(iii) You'd need 50,000 kg of phytoplankton to support a 50 kg tuna since it's 10% efficient at each step.\n(b) Nitrogen fixation turns N2 into ammonia using bacteria, then nitrification turns that into nitrate, which plants take up through their roots and use to make amino acids and proteins.\n(c)(i) NPP = GPP - R for each: 1100, 400, 200, 40.\n(ii) Tropical rainforests have the highest GPP because it's warm and sunny there all year and there's a lot of rain, so plants can photosynthesize really well.\n(d) My hypothesis is that removing sharks reduces diversity. I'd measure species diversity on reefs with and without sharks over 5 years and compare them. A limitation could be other environmental factors messing with the results.",
+     "criteria": {
+      "a": {
+       "provisional_label": "earned",
+       "confidence": "med",
+       "adjudicate": false,
+       "note": "Both efficiencies + three losses + 50,000 kg."
+      },
+      "b": {
+       "provisional_label": "partially_earned",
+       "confidence": "med",
+       "adjudicate": true,
+       "note": "Names fixation+nitrification+uptake+assembly but omits organism names (Rhizobium/Nitrosomonas) and nitrate reduction; adjudicate organism-name strictness."
+      },
+      "c": {
+       "provisional_label": "earned",
+       "confidence": "med",
+       "adjudicate": false,
+       "note": "NPP correct + 3 of 4 factors (missing nutrient cycling)."
+      },
+      "d": {
+       "provisional_label": "earned",
+       "confidence": "med",
+       "adjudicate": false,
+       "note": "Hypothesis + treatment/control diversity survey + limitation."
+      }
+     }
+    },
+    {
+     "response_index": 3,
+     "synthetic_type": "subtly_wrong",
+     "response_text": "(a)(i) Efficiency from phytoplankton to zooplankton is 42/500 = 8.4%, and from zooplankton to small fish is 4.2/42 = 10%.\n(ii) Ecological efficiency stays below 10% mainly because higher trophic levels are larger animals that need more energy just to maintain their bigger bodies, so less energy is available to be passed up further; the bigger and more complex the organism, the more energy it wastes just existing.\n(iii) To support a 50 kg tuna, you'd need 50 x 10 x 10 = 5,000 kg of phytoplankton, counting the transfer from zooplankton to fish and from fish to tuna.\n(b) Nitrogen fixation converts N2 into nitrate (NO3-) directly, using bacteria like Rhizobium and the enzyme nitrogenase, and plants absorb this nitrate straight into their leaf cells where it's directly built into proteins without further conversion.\n(c)(i) NPP values: Tropical=1100, Temperate=400, Boreal=200, Tundra=40 g C/m^2/yr.\n(ii) Tropical rainforests have the highest GPP mostly because they cover such a massive land area near the equator, which means there's simply more total plant biomass photosynthesizing compared to smaller boreal forests.\n(d) My hypothesis is that removing sharks increases diversity, since without a large predator eating them, more of the smaller reef species would survive and populations would grow, leading to a richer ecosystem overall. I'd measure fish counts on reefs with and without sharks over five years. A limitation is that reef fish are hard to count accurately.",
+     "criteria": {
+      "a": {
+       "provisional_label": "partially_earned",
+       "confidence": "high",
+       "adjudicate": true,
+       "note": "CORRECTED 2026-07-08 (label-robustness re-grade): efficiency calculations (42/500=8.4%, 4.2/42=10%) are correct = 1 pt per rubric; only the tuna calc (5,000 kg) and body-size loss explanation are wrong. Was not_earned; under-credit."
+      },
+      "b": {
+       "provisional_label": "not_earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": "CONFIDENTLY WRONG: 'fixation converts N2 directly to nitrate' and 'nitrate built into protein without conversion' \u2014 skips ammonia + nitrate reduction."
+      },
+      "c": {
+       "provisional_label": "partially_earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": "NPP values correct; (ii) confuses total-area biomass with per-area GPP (wrong)."
+      },
+      "d": {
+       "provisional_label": "not_earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": "Predicts shark removal INCREASES diversity (wrong direction)."
+      }
+     }
+    }
+   ]
+  },
+  {
+   "content_key": "APBIO-FRQ-L-017",
+   "module": "",
+   "difficulty": "",
+   "form": "long",
+   "question_text": "Answer all parts of the following question.\n\n(a) Describe the sequence of molecular events that occurs when insulin binds to its receptor on a liver cell. Begin with receptor binding and end with GLUT4 transporter insertion into the plasma membrane. Include the role of receptor tyrosine kinase (RTK) activity, IRS-1, PI3K, and Akt (PKB).\n\n(b) Compare the insulin receptor (RTK) signaling pathway to the epinephrine receptor (GPCR / \u03b2-adrenergic receptor) signaling pathway. For each, identify: (i) the receptor type and its location; (ii) the primary intracellular second messenger or signal amplifier; and (iii) one physiological effect in a target cell.\n\n(c) A somatic mutation causes the insulin receptor to remain constitutively active (continuously phosphorylated even in the absence of insulin). Predict THREE distinct cellular consequences of this mutation, including effects on metabolism, cell proliferation, and gene expression.\n\n(d) Many cancer cells overexpress growth factor receptors (RTKs) or carry mutations that make downstream signaling proteins (like Ras or Akt) constitutively active. Explain how each of the following mutations could contribute to uncontrolled cell proliferatio",
+   "stimulus": "Insulin signaling pathway:\n\u2022 Insulin binds \u2192 receptor \u03b1-subunits change conformation\n\u2022 \u03b2-subunit cytoplasmic tails auto-phosphorylate tyrosines (kinase activation)\n\u2022 IRS-1 (Insulin Receptor Substrate-1) binds and is phosphorylated by receptor\n\u2022 PI3K recruited \u2192 phosphorylates PIP2 \u2192 PIP3\n\u2022 PIP3 recruits PDK1 and Akt \u2192 PDK1 phosphorylates/activates Akt\n\u2022 Active Akt phosphorylates downstream targets:\n  \u2013 Phosphorylates AS160 \u2192 GLUT4 vesicle fusion with plasma membrane\n  \u2013 Phosphorylates and inhibits GSK-3 \u2192 activates glycogen synthase\n  \u2013 Activates mTOR \u2192 promotes protein synthesis\n  \u2013 Phosphorylates and inactivates FOXO transcription factors\n\nGPCR comparison:\n\u2022 \u03b2-adrenergic receptor + epinephrine \u2192 G\u03b1-GTP \u2192 adenylyl cyclase activated\n\u2022 cAMP produced \u2192 PKA activated \u2192 multiple downstream pho",
+   "rubric": [
+    {
+     "accepted_variants": [
+      "auto-phosphorylation",
+      "IRS-1 phosphorylated",
+      "PI3K activated",
+      "PIP2 to PIP3",
+      "Akt PKB",
+      "PDK1",
+      "AS160",
+      "GLUT4 vesicle fusion",
+      "glucose uptake increases"
+     ],
+     "criterion_key": "a",
+     "evidence_requirements": "Correct pathway sequence: (1) Insulin binds to the extracellular \u03b1-subunit of the insulin receptor \u2192 conformational change. (2) \u03b2-subunit cytoplasmic tyrosine kinase domains auto-phosphorylate each other (transautophosphorylation) \u2192 kinase becomes active. (3) Activated receptor phosphorylates IRS-1 (Insulin Receptor Substrate-1) on multiple tyrosines. (4) Phosphorylated IRS-1 recruits and activates PI3K (phosphatidylinositol 3-kinase). (5) PI3K phosphorylates PIP2 \u2192 PIP3 at inner leaflet of plasma membrane. (6) PIP3 recruits PDK1 and Akt (PKB) to the membrane; PDK1 phosphorylates and activates Akt. (7) Active Akt phosphorylates AS160 (a GTPase-activating protein for Rab GTPases) \u2192 inactivates AS160 \u2192 Rab GTPases remain GTP-bound \u2192 GLUT4-containing vesicles traffic to and fuse with plasma membrane \u2192 increased glucose uptake. 1 pt for RTK activation mechanism (auto-phosphorylation, IRS-1 phosphorylation); 1 pt for PI3K\u2192PIP3\u2192Akt\u2192GLUT4 mechanism.",
+     "learner_facing_text": "Describe insulin \u2192 RTK \u2192 IRS-1 \u2192 PI3K \u2192 Akt \u2192 GLUT4 pathway in sequence.",
+     "minimum_fix": "Insulin binds receptor \u2192 RTK auto-phosphorylation \u2192 IRS-1 phosphorylated \u2192 PI3K activated \u2192 PIP2\u2192PIP3 \u2192 Akt (PKB) activated \u2192 AS160 phosphorylated \u2192 GLUT4 vesicles fuse with plasma membrane \u2192 glucose uptake.",
+     "points_possible": 2
+    },
+    {
+     "accepted_variants": [
+      "RTK intrinsic kinase",
+      "7-TM GPCR",
+      "PIP3 or Akt",
+      "cAMP second messenger",
+      "PKA",
+      "glucose uptake insulin",
+      "glycogenolysis epinephrine",
+      "adenylyl cyclase",
+      "G\u03b1 protein"
+     ],
+     "criterion_key": "b",
+     "evidence_requirements": "Insulin receptor (RTK): (i) Transmembrane receptor with intrinsic tyrosine kinase activity; single-pass (dimer) transmembrane; extracellular ligand-binding domain + intracellular kinase domain. (ii) Primary amplifier: PIP3 (membrane phospholipid second messenger) \u2192 activates Akt; no classical second messenger like cAMP; amplification through phosphorylation cascade. (iii) Physiological effect in liver: GLUT4 insertion \u2192 increased glucose uptake; glycogen synthase activated \u2192 glycogen synthesis; protein synthesis via mTOR. \u03b2-adrenergic receptor (GPCR): (i) 7-transmembrane receptor coupled to G-protein; no intrinsic catalytic activity; activates associated G\u03b1 protein. (ii) Primary second messenger: cAMP (produced by adenylyl cyclase activated by G\u03b1-GTP) \u2192 activates PKA (protein kinase A) \u2192 phosphorylates multiple targets. (iii) Physiological effect in skeletal muscle: PKA activates phosphorylase kinase \u2192 activates glycogen phosphorylase \u2192 glycogenolysis (glycogen breakdown) \u2192 glucose-1-phosphate \u2192 glycolysis \u2192 ATP for fight-or-flight. 1 pt per pathway with all 3 elements correct.",
+     "learner_facing_text": "Compare RTK (insulin) and GPCR (epinephrine) pathways on receptor type, second messenger, and physiological effect.",
+     "minimum_fix": "RTK (insulin): intrinsic tyrosine kinase, PIP3/Akt amplification, effect = glucose uptake / glycogen synthesis. GPCR (epinephrine): 7-TM receptor, G\u03b1 \u2192 adenylyl cyclase \u2192 cAMP \u2192 PKA, effect = glycogenolysis / fight-or-flight response.",
+     "points_possible": 2
+    },
+    {
+     "accepted_variants": [
+      "hypoglycemia",
+      "constitutive glucose uptake",
+      "GLUT4 always surface",
+      "mTOR active",
+      "FOXO inhibited",
+      "reduced apoptosis",
+      "tumor formation",
+      "excessive proliferation",
+      "lipogenesis",
+      "constitutive Akt"
+     ],
+     "criterion_key": "c",
+     "evidence_requirements": "Three consequences: (1) Metabolism: cells would constitutively import glucose (GLUT4 always at surface in insulin-sensitive cells) \u2192 increased glycolysis and glycogen synthesis \u2192 hypoglycemia (low blood glucose) as cells deplete blood glucose even in fasting state; excess acetyl-CoA \u2192 lipogenesis \u2192 excess fat storage. (2) Cell proliferation: Akt constitutively active \u2192 phosphorylates and inactivates GSK-3 \u2192 \u03b2-catenin accumulates \u2192 activates Wnt target genes promoting cell division; mTOR constitutively active \u2192 enhanced protein synthesis and cell growth; FOXO transcription factors constitutively inactivated \u2192 reduced expression of p27 (CDK inhibitor) and other cell cycle brakes \u2192 excessive cell proliferation \u2192 potential tumor formation. (3) Gene expression: constitutive Akt inactivates FOXO \u2192 reduced FOXO-dependent transcription (genes for gluconeogenesis, cell cycle arrest, apoptosis suppressed); mTOR promotes ribosome biogenesis and protein synthesis genes; constitutive growth signals mimic oncogenic transformation. Award 1 pt per two well-explained consequences, max 2 pts.",
+     "learner_facing_text": "Predict three consequences of constitutively active insulin receptor.",
+     "minimum_fix": "Three consequences: (1) Metabolism: hypoglycemia, excess glucose uptake, glycogen synthesis, lipogenesis even without food. (2) Proliferation: mTOR and Akt constitutively active \u2192 cell growth, reduced apoptosis, tumor-like proliferation. (3) Gene expression: FOXO transcription factors constitutively inhibited \u2192 reduced gluconeogenesis genes, reduced apoptosis genes.",
+     "points_possible": 2
+    },
+    {
+     "accepted_variants": [
+      "HER2 dimerization constitutive",
+      "Ras cannot hydrolyze GTP",
+      "constitutive MAPK",
+      "PTEN converts PIP3 to PIP2",
+      "PTEN loss PIP3 accumulates",
+      "Akt constitutively active",
+      "mTOR",
+      "tumor suppressor",
+      "30% human cancers Ras"
+     ],
+     "criterion_key": "d",
+     "evidence_requirements": "(i) HER2 overexpression: HER2 (ErbB2) is an RTK that forms dimers with other EGF family receptors; overexpression increases probability of spontaneous dimerization and auto-phosphorylation even without growth factor binding \u2192 constitutive downstream signaling (Ras\u2192MAPK, PI3K\u2192Akt) \u2192 constant proliferation signal. Also, more receptors means stronger amplified response to any ligand. Targeted by trastuzumab (Herceptin) antibody therapy. (ii) Ras-GTP locked: Ras is a small GTPase; normally GTP-Ras is active and stimulates proliferation (through MAPK cascade); Ras-GAP proteins hydrolyze GTP \u2192 GDP to inactivate Ras. A mutation preventing GTP hydrolysis (e.g., G12V mutation in KRAS) locks Ras in the active GTP-bound state \u2192 constitutive MAPK activation \u2192 continuous proliferation signal regardless of whether growth factor receptor is active. ~30% of human cancers have Ras mutations. (iii) PTEN loss: PTEN is a phosphatase that converts PIP3 back to PIP2 (antagonizes PI3K). Loss-of-function mutation \u2192 PIP3 accumulates constitutively \u2192 Akt constitutively active \u2192 mTOR always on \u2192 cell growth, survival, proliferation unchecked \u2192 tumor suppressor function lost (PTEN is a tumor suppressor). 1 pt per any two mechanisms with correct molecular detail.",
+     "learner_facing_text": "Explain how HER2 overexpression, Ras-GTP lock, and PTEN loss each contribute to cancer.",
+     "minimum_fix": "(i) HER2 overexpression: spontaneous dimerization \u2192 constitutive kinase activity \u2192 continuous RAS/MAPK and PI3K/Akt signaling without growth factor. (ii) Ras-GTP locked: cannot hydrolyze GTP \u2192 always active \u2192 constitutive MAPK \u2192 proliferation. (iii) PTEN loss: cannot convert PIP3\u2192PIP2 \u2192 PIP3 accumulates \u2192 Akt always active \u2192 mTOR \u2192 proliferation (lost tumor suppressor).",
+     "points_possible": 2
+    }
+   ],
+   "responses": [
+    {
+     "response_index": 0,
+     "synthetic_type": "fully_correct",
+     "response_text": "(a) Insulin binds the extracellular alpha-subunits of the insulin receptor, causing a conformational change that activates the intracellular tyrosine kinase domains of the beta-subunits, which auto-phosphorylate each other. The activated receptor then phosphorylates IRS-1 on multiple tyrosines, and phosphorylated IRS-1 recruits and activates PI3K, which phosphorylates PIP2 into PIP3 at the plasma membrane. PIP3 recruits PDK1 and Akt to the membrane, PDK1 phosphorylates and activates Akt, and active Akt phosphorylates AS160, inactivating it so that Rab GTPases stay GTP-bound and GLUT4 vesicles can fuse with the plasma membrane, increasing glucose uptake.\n(b) The insulin receptor is a receptor tyrosine kinase with intrinsic catalytic activity, and its main amplifier is the membrane lipid PIP3, which activates Akt; a physiological effect in the liver is GLUT4 insertion and glycogen synthesis. The beta-adrenergic receptor is a 7-transmembrane GPCR with no catalytic activity of its own, coupled to a G-alpha protein that activates adenylyl cyclase to make cAMP, which activates PKA; a physiological effect in skeletal muscle is glycogenolysis to fuel the fight-or-flight response.\n(c) If the insulin receptor were constitutively active, the cell would continuously import glucose because GLUT4 would stay at the surface even without insulin, driving down blood glucose toward hypoglycemia and pushing excess acetyl-CoA into fat storage. Constitutively active Akt would keep mTOR turned on and inactivate FOXO, promoting unchecked cell growth and proliferation and reducing normal apoptosis, which could contribute to tumor-like behavior. It would also permanently suppress FOXO-dependent gene expression, including genes for cell-cycle arrest and gluconeogenesis, shifting the cell's whole transcriptional program toward growth.\n(d) HER2 overexpression increases the chance that receptors spontaneously dimerize and auto-phosphorylate even without a growth factor bound, so downstream Ras-MAPK and PI3K-Akt signaling runs continuously and drives proliferation. A Ras protein locked in the GTP-bound state cannot be turned off by GAP-stimulated hydrolysis, so it constantly activates the MAPK cascade regardless of upstream receptor signaling. Loss of PTEN removes the enzyme that normally converts PIP3 back to PIP2, so PIP3 accumulates, Akt stays active, and mTOR-driven growth and survival signaling proceeds unchecked, which is why PTEN is considered a tumor suppressor.",
+     "criteria": {
+      "a": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": ""
+      },
+      "b": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": ""
+      },
+      "c": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": ""
+      },
+      "d": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": ""
+      }
+     }
+    },
+    {
+     "response_index": 1,
+     "synthetic_type": "partially_correct",
+     "response_text": "(a) Insulin binds the receptor and activates a signaling pathway that ends with GLUT4 moving to the membrane so glucose can enter the cell.\n(b) Insulin uses a receptor tyrosine kinase, and epinephrine uses a GPCR that makes cAMP.\n(c) Not sure about all three, but I think it would cause the cell to take up too much glucose and possibly cause low blood sugar.\n(d) HER2 overexpression would cause too much signaling for cell growth.",
+     "criteria": {
+      "a": {
+       "provisional_label": "not_earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": "'ends with GLUT4 to membrane' \u2014 no RTK/IRS-1/PI3K/PIP3/Akt mechanism."
+      },
+      "b": {
+       "provisional_label": "partially_earned",
+       "confidence": "med",
+       "adjudicate": false,
+       "note": "Names RTK, GPCR, cAMP but omits insulin's PIP3 amplifier and both physiological effects."
+      },
+      "c": {
+       "provisional_label": "partially_earned",
+       "confidence": "med",
+       "adjudicate": false,
+       "note": "One consequence (glucose uptake/low blood sugar) of three requested."
+      },
+      "d": {
+       "provisional_label": "partially_earned",
+       "confidence": "low",
+       "adjudicate": false,
+       "note": "HER2 named vaguely; Ras/PTEN absent."
+      }
+     }
+    },
+    {
+     "response_index": 2,
+     "synthetic_type": "borderline",
+     "response_text": "(a) Insulin binds its receptor, which activates the receptor's kinase activity and leads to IRS-1 getting phosphorylated. This activates PI3K, which eventually leads to Akt being turned on, and Akt causes GLUT4 to move to the membrane so the cell can take in more glucose.\n(b) Insulin's receptor is a receptor tyrosine kinase, and it works mostly through PIP3 and Akt to increase glucose uptake into cells. Epinephrine's receptor is a GPCR that uses cAMP and PKA, and it causes glycogen to break down for quick energy.\n(c) If the receptor were always on, the cell would probably keep taking up glucose all the time, which could cause low blood sugar. It might also cause cells to grow and divide more than they should because the growth pathways would always be active.\n(d) Overexpressing HER2 probably makes the receptor more active than normal, and a Ras protein that can't turn off would keep signaling for growth. Losing PTEN would let the PIP3 signal build up more than it should, keeping the pathway on.",
+     "criteria": {
+      "a": {
+       "provisional_label": "earned",
+       "confidence": "med",
+       "adjudicate": true,
+       "note": "Sequence present (kinase->IRS-1->PI3K->Akt->GLUT4) though skips PIP2->PIP3/AS160 detail; adjudicate depth."
+      },
+      "b": {
+       "provisional_label": "earned",
+       "confidence": "med",
+       "adjudicate": false,
+       "note": "Both pathways with receptor type, messenger, effect."
+      },
+      "c": {
+       "provisional_label": "earned",
+       "confidence": "med",
+       "adjudicate": false,
+       "note": "Two well-explained consequences (metabolism + proliferation)."
+      },
+      "d": {
+       "provisional_label": "earned",
+       "confidence": "med",
+       "adjudicate": false,
+       "note": "All three mechanisms, informal but correct."
+      }
+     }
+    },
+    {
+     "response_index": 3,
+     "synthetic_type": "subtly_wrong",
+     "response_text": "(a) Insulin binds its receptor, which triggers the receptor to release a second messenger called cAMP into the cytoplasm. This cAMP then activates PI3K and Akt in sequence, and Akt phosphorylates AS160 to trigger GLUT4 vesicles to move to the membrane, allowing glucose to enter the cell.\n(b) The insulin receptor and the beta-adrenergic receptor both work through the same core second messenger system, since insulin also raises cAMP levels to activate its downstream kinases just like epinephrine does; the main difference is which genes get turned on at the end, glucose uptake for insulin versus glycogen breakdown for epinephrine.\n(c) A constitutively active insulin receptor would likely cause the cell to stop taking in glucose altogether, since the receptor would become desensitized from being overstimulated, similar to how muscles fatigue from overuse, leading to elevated blood glucose and a diabetes-like state.\n(d) HER2 overexpression, a locked Ras-GTP, and loss of PTEN all work by directly mutating the DNA sequence of the growth-signaling genes themselves, which is why cells with these changes divide uncontrollably \u2014 the mutations physically add extra copies of the proliferation genes into the genome each time the cell divides.",
+     "criteria": {
+      "a": {
+       "provisional_label": "not_earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": "CONFIDENTLY WRONG: says insulin receptor releases cAMP (it does not)."
+      },
+      "b": {
+       "provisional_label": "not_earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": "CONFIDENTLY WRONG: claims insulin also works through cAMP \u2014 fundamental error."
+      },
+      "c": {
+       "provisional_label": "not_earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": "CONFIDENTLY WRONG: predicts cell STOPS glucose uptake / diabetes-like (opposite of correct)."
+      },
+      "d": {
+       "provisional_label": "not_earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": "CONFIDENTLY WRONG: attributes all three to DNA mutation of growth genes / gene copy gain."
+      }
+     }
+    }
+   ]
+  },
+  {
+   "content_key": "APBIO-FRQ-L-025",
+   "module": "",
+   "difficulty": "",
+   "form": "long",
+   "question_text": "Answer all parts of the following question.\n\n(a) Figure 1 shows the results of a morphological analysis of five species (A\u2013E). Shared derived characters (synapomorphies) are listed in the matrix.\n    (i) Define synapomorphy and explain why it is more informative for constructing phylogenies than symplesiomorphy (a shared ancestral character).\n    (ii) Using the character matrix data, construct the most parsimonious cladogram for species A\u2013E. Identify the outgroup and explain your reasoning.\n    (iii) Explain what \"most parsimonious\" means in phylogenetic analysis, and why parsimony is preferred when building cladograms.\n\n(b) The molecular clock hypothesis proposes that DNA sequences accumulate mutations at an approximately constant rate over time.\n    (i) Explain the molecular basis for the molecular clock \u2014 why do neutral mutations accumulate at a relatively constant rate?\n    (ii) Cytochrome b is commonly used as a molecular clock gene. Table 1 shows the percentage sequence differences in cytochrome b between pairs of primate species, and known fossil divergence dates for two of the pairs. Use the data to estimate the divergence time for the third pair (Human\u2013Gorilla) and show yo",
+   "stimulus": "Character matrix (1 = character present, 0 = absent):\n               | Char 1 | Char 2 | Char 3 | Char 4\nSpecies A      |   0    |   0    |   0    |   0    (outgroup)\nSpecies B      |   1    |   0    |   0    |   0\nSpecies C      |   1    |   1    |   0    |   0\nSpecies D      |   1    |   1    |   1    |   0\nSpecies E      |   1    |   1    |   1    |   1\n\nTable 1: Molecular clock data \u2014 Cytochrome b sequence divergence\nSpecies pair         | % sequence difference | Known divergence (Mya)\nHuman\u2013Chimpanzee     |       2.5%            |      5-7 Mya\nRhesus\u2013Baboon        |       5.4%            |     10-12 Mya\nHuman\u2013Gorilla        |       2.1%            |      ?\n\nCalculation setup: Assume 1% cytochrome b divergence \u2248 2 Mya\n(calibrated from the known pairs above)",
+   "rubric": [
+    {
+     "accepted_variants": [
+      "synapomorphy shared derived character",
+      "symplesiomorphy ancestral less informative",
+      "A outgroup",
+      "cladogram B C D E nested",
+      "B sister to C D E",
+      "D E sister group",
+      "most parsimonious fewest steps",
+      "Occams razor",
+      "minimize homoplasy"
+     ],
+     "criterion_key": "a",
+     "evidence_requirements": "(i) Synapomorphy: a shared derived character state that evolved in the common ancestor of a clade and is present in all members of that clade but not in the outgroup. It is more informative than symplesiomorphy because a symplesiomorphy is a character inherited from a remote common ancestor shared by many taxa (e.g., vertebral column in all vertebrates does not help distinguish mammals from reptiles). A synapomorphy is diagnostic for a specific node (clade) in the tree \u2014 it unites only the taxa that inherited it from their most recent common ancestor. (ii) Cladogram from matrix: Species A has no derived characters \u2192 outgroup (the ancestral state reference). Character 1 is shared by B, C, D, E \u2192 groups B+C+D+E as a clade (sister to A). Character 2 shared by C, D, E \u2192 groups C+D+E as a nested clade. Character 3 shared by D, E \u2192 groups D+E as sister. Character 4 only in E \u2192 autapomorphy of E. Cladogram: A is outgroup; sister group = (B + (C + (D + E))). Most parsimonious tree requires 4 evolutionary events (one for each character, each evolving once). (iii) Most parsimonious means the tree that requires the fewest evolutionary changes (fewest independent gains or losses of characters) to explain the data. Parsimony is preferred because it minimizes ad hoc hypotheses; Occam's razor \u2014 the simplest explanation (fewest events) is the best starting hypothesis; convergent evolution (homoplasy) is relatively rare, so the tree requiring the fewest evolutionary steps is most likely to reflect true evolutionary history. 1 pt for synapomorphy definition + cladogram topology; 1 pt for parsimony explanation.",
+     "learner_facing_text": "Define synapomorphy; construct cladogram from matrix; explain parsimony.",
+     "minimum_fix": "Synapomorphy = shared derived character at a node. More informative than symplesiomorphy (ancestral, too broadly shared). Cladogram: A=outgroup; (B,(C,(D,E))). Each character evolved once \u2192 4 total steps \u2192 most parsimonious. Parsimony: fewest evolutionary changes = most likely tree; minimizes ad hoc convergences.",
+     "points_possible": 2
+    },
+    {
+     "accepted_variants": [
+      "neutral mutations drift",
+      "mutation rate constant",
+      "no selection neutral",
+      "Human-Gorilla 2.1% 4.2 Mya",
+      "calibration 1% per 2 Mya",
+      "generation time limitation",
+      "selection affects rate",
+      "purifying selection",
+      "substitution rate heterogeneity"
+     ],
+     "criterion_key": "b",
+     "evidence_requirements": "(i) Molecular basis of clock: the molecular clock reflects the accumulation of neutral mutations (mutations that do not affect fitness) at a rate determined by the mutation rate of DNA replication. Because neutral mutations are not subject to natural selection (neither advantageous nor deleterious), their accumulation rate is primarily determined by the neutral mutation rate (errors per nucleotide per generation) \u00d7 generation time, both of which are relatively stable within a lineage. Genetic drift is the primary force fixing neutral alleles; fixation rate of neutral alleles = neutral mutation rate (by drift theory). Therefore sequences diverge at an approximately constant rate per unit time for neutral sites. (ii) Human-Gorilla calculation: Calibration from known pairs: Human-Chimp: 2.5% / 6 Mya midpoint = ~0.42%/Mya; Rhesus-Baboon: 5.4% / 11 Mya midpoint = ~0.49%/Mya. Using the provided conversion: 1% divergence \u2248 2 Mya. Human-Gorilla: 2.1% \u00d7 2 Mya/1% = 4.2 Mya. Estimated divergence: ~4.2 million years ago. (Actual data supports ~6-8 Mya; students should use the provided calibration, not outside knowledge.) (iii) Two limitations: (1) Generation time effect: organisms with shorter generation times have higher absolute mutation rates per year (more cell divisions per year \u2192 more replication errors). A mouse molecular clock runs faster than an elephant's. (2) Natural selection affects rate: protein-coding regions under strong purifying selection accumulate synonymous mutations faster than nonsynonymous \u2192 clock rates vary by functional constraint. Genes under positive selection accumulate changes faster in some lineages than others. Also: variation in DNA repair efficiency, metabolic rate (oxidative damage), and substitution rate heterogeneity among sites. Any two valid reasons accepted. 1 pt for neutral mutation rate explanation; 1 pt for calculation + 2 limitations.",
+     "learner_facing_text": "Explain molecular clock mechanism; calculate Human-Gorilla divergence; describe two limitations.",
+     "minimum_fix": "Clock mechanism: neutral mutations accumulate by drift at rate = neutral mutation rate; constant per unit time because no selection acts. Human-Gorilla: 2.1% \u00d7 2 Mya/% = ~4.2 Mya. Limitations: (1) generation time effect (short-generation organisms run clock faster); (2) purifying selection slows rate in conserved genes; positive selection speeds it locally.",
+     "points_possible": 2
+    },
+    {
+     "accepted_variants": [
+      "homoplasy convergent evolution",
+      "analogous structures not homologous",
+      "wings independent evolution",
+      "incorrect grouping",
+      "molecular more characters",
+      "statistical models",
+      "neutral sites",
+      "birds within Reptilia",
+      "whales hippos",
+      "overturned morphological phylogeny"
+     ],
+     "criterion_key": "c",
+     "evidence_requirements": "(i) Homoplasy: analogous structures evolve independently in unrelated lineages due to similar selective pressures (convergent evolution) or can be lost in parallel. In morphological phylogenetics, if two unrelated species share an analogous structure (not inherited from common ancestor), a morphological analysis treating it as a synapomorphy would incorrectly group them together. Example: wings evolved independently in birds, bats, and insects \u2014 a morphological analysis using \"wings\" as a character would incorrectly cluster these groups as close relatives. Streamlined body shape evolved independently in dolphins, sharks, and ichthyosaurs. (ii) Molecular phylogenies more reliable: DNA sequences have far more characters (billions of nucleotide positions) than morphological characters (dozens to hundreds), reducing the impact of any single homoplastic character; synonymous nucleotide changes at 3rd codon positions are nearly neutral and abundant \u2192 better molecular clock; molecular data allows statistical methods (maximum likelihood, Bayesian) that model the probability of change at each site and correct for multiple hits (saturation). Specific example: traditional morphology grouped birds with reptiles (classifying them separately as \"Reptilia\" + \"Aves\"); molecular phylogenetics conclusively showed birds ARE reptiles \u2014 specifically the sister group to crocodilians (archosaurs). Another example: traditional morphology placed whales with other aquatic animals; molecular data shows whales are most closely related to even-toed ungulates (hippopotamus is the closest living relative). 1 pt for homoplasy misleading mechanism; 1 pt for molecular reliability + specific example.",
+     "learner_facing_text": "Explain how homoplasy misleads morphological phylogenies; explain molecular reliability; give example of overturned phylogeny.",
+     "minimum_fix": "Homoplasy: analogous structures evolve independently (wings in birds/bats/insects); morphological analysis treats as synapomorphy \u2192 incorrect grouping. Molecular more reliable: many more characters; statistical models; neutral sites. Example: birds (Aves) are nested within Reptilia with crocodilians as sister \u2014 molecular overturned the traditional bird/reptile division. Or: whales sister to hippos.",
+     "points_possible": 2
+    },
+    {
+     "accepted_variants": [
+      "FST genetic differentiation",
+      "molecular sequence divergence",
+      "fixed allele differences",
+      "monophyletic lineages",
+      "diagnostic morphological characters",
+      "mate preference experiments",
+      "contact zone interbreeding",
+      "reproductive isolation evidence",
+      "species vs subspecies criteria"
+     ],
+     "criterion_key": "d",
+     "evidence_requirements": "Three lines of evidence: (1) Genetic/molecular: sequence DNA from both populations (multiple loci \u2014 mitochondrial DNA, nuclear microsatellites, or whole-genome SNPs). Calculate FST (genetic differentiation index) between populations. High FST (>0.25) suggests strong genetic isolation; distinct alleles fixed in each population \u2192 distinct evolutionary lineages. Species-level divergence may show fixed differences at multiple loci; subspecies would show partial differentiation. Phylogenetic species concept: if populations are monophyletic (each is a clade with respect to the other), they qualify as separate species. (2) Morphological: measure multiple quantitative morphological traits (body size, skull dimensions, pelage color/pattern). Test for statistical differences between populations. Greater and more consistent morphological divergence supports species status; slight average differences support subspecies. Identify diagnostic characters (characters that are 100% fixed as different between populations). (3) Behavioral/reproductive isolation (common garden or contact zone): if the populations are allopatric, identify contact zones where the ranges meet (or create in the lab). Test whether individuals recognize, court, and mate with individuals from the other population. Use acoustic, chemical, and visual cue experiments. If females show significant mate preference for conspecifics, reproductive isolation is evolving \u2192 species. If free interbreeding occurs in contact zones, they are likely subspecies. 1 pt per two evidence types with correct reasoning, max 2 pts.",
+     "learner_facing_text": "Describe three lines of evidence for species vs. subspecies determination.",
+     "minimum_fix": "Three evidence types: (1) Genetic: FST, fixed allele differences, phylogenetic monophyly; (2) Morphological: diagnostic fixed morphological characters; (3) Behavioral/reproductive isolation: mate preference experiments or contact zone interbreeding. Higher divergence and isolation \u2192 species; partial divergence \u2192 subspecies.",
+     "points_possible": 2
+    }
+   ],
+   "responses": [
+    {
+     "response_index": 0,
+     "synthetic_type": "fully_correct",
+     "response_text": "(a)(i) A synapomorphy is a shared derived character that evolved in the common ancestor of a clade and unites only the members of that clade, whereas a symplesiomorphy is an ancestral character shared broadly by many taxa and does not help distinguish a specific clade, making synapomorphies far more informative for building phylogenies. (ii) Species A lacks all four derived characters, so it is the outgroup; character 1 groups B, C, D, and E together; character 2 nests C, D, and E within that group; character 3 nests D and E further; and character 4 is unique to E, giving the topology A as outgroup with B sister to the clade containing C sister to (D, E). (iii) The most parsimonious tree is the one requiring the fewest evolutionary changes to explain the character data, which is preferred because it avoids unnecessary assumptions of convergent evolution and because true convergence (homoplasy) is relatively rare, so the simplest explanation is the most likely to reflect actual evolutionary history.\n(b)(i) The molecular clock reflects the steady accumulation of neutral mutations, which are not acted on by natural selection and are fixed by genetic drift at a rate approximately equal to the neutral mutation rate, so sequence divergence accumulates at a roughly constant rate over time. (ii) Using the calibration that 1% divergence corresponds to about 2 million years, the 2.1% divergence between human and gorilla cytochrome b sequences corresponds to an estimated divergence time of about 4.2 million years ago. (iii) The clock is not perfectly constant because organisms with shorter generation times undergo more replication cycles per year and accumulate mutations faster, and because natural selection, whether purifying or positive, can slow or speed up the substitution rate in different genes or lineages compared to a purely neutral expectation.\n(c)(i) Homoplasy occurs when analogous structures evolve independently in unrelated lineages due to similar selective pressures, and if a morphological analysis mistakenly treats such a convergent trait as a synapomorphy, it will incorrectly group the unrelated organisms together, as would happen if wings were used to group birds, bats, and insects as close relatives. (ii) Molecular phylogenies are generally more reliable because DNA sequences provide far more independent characters than morphology and can be analyzed with statistical models that account for multiple substitutions at a site, and a well known example is that molecular data revealed birds are nested within reptiles as the sister group to crocodilians, overturning the traditional morphological division between Reptilia and Aves.\n(d) The researcher could sequence DNA from both populations at multiple loci and calculate FST to assess genetic differentiation, since a high FST with fixed allele differences would support species status while partial differentiation would support subspecies status. The researcher could also measure multiple morphological traits for statistically significant and consistent differences, looking for diagnostic characters that are completely fixed between the populations. Finally, the researcher could test for reproductive isolation directly, such as through mate-choice experiments or observing behavior at a contact zone, since strong mate preference for conspecifics or lack of interbreeding would support species status while free interbreeding would suggest subspecies.",
+     "criteria": {
+      "a": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": ""
+      },
+      "b": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": ""
+      },
+      "c": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": ""
+      },
+      "d": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": ""
+      }
+     }
+    },
+    {
+     "response_index": 1,
+     "synthetic_type": "partially_correct",
+     "response_text": "(a) A synapomorphy is a shared derived trait. Species A is probably the outgroup since it has no derived characters.\n(b) The molecular clock is based on mutations building up over time at a constant rate, but I'm not confident in my Human-Gorilla calculation.\n(c) Homoplasy can make unrelated species look related if they evolved similar traits separately.\n(d) The researcher could compare their DNA and see if it's different enough to be separate species.",
+     "criteria": {
+      "a": {
+       "provisional_label": "partially_earned",
+       "confidence": "med",
+       "adjudicate": false,
+       "note": "Definition ok + A outgroup; no cladogram topology or parsimony explanation."
+      },
+      "b": {
+       "provisional_label": "not_earned",
+       "confidence": "med",
+       "adjudicate": false,
+       "note": "'constant rate' stated but no neutral/drift basis and no calculation."
+      },
+      "c": {
+       "provisional_label": "partially_earned",
+       "confidence": "med",
+       "adjudicate": false,
+       "note": "Homoplasy mechanism ok; no molecular-reliability point or example."
+      },
+      "d": {
+       "provisional_label": "partially_earned",
+       "confidence": "low",
+       "adjudicate": false,
+       "note": "One vague line of evidence (DNA 'different enough')."
+      }
+     }
+    },
+    {
+     "response_index": 2,
+     "synthetic_type": "borderline",
+     "response_text": "(a) A synapomorphy is a derived trait shared by a group, which is more useful than an ancestral trait shared by everyone because it actually helps define smaller groups. Based on the character matrix, species A would be the outgroup since it doesn't have any of the derived traits, and the others nest in order from B through E. The most parsimonious tree is the one that needs the fewest changes to explain the data.\n(b) The molecular clock works because mutations that don't affect fitness build up at a steady rate over time. Using the given ratio, I calculated Human-Gorilla divergence at around 4.2 million years ago. The clock isn't perfectly constant because different species reproduce at different rates and selection can affect how fast changes accumulate.\n(c) Homoplasy is when unrelated species evolve similar traits independently, which can trick a morphological analysis into grouping them together incorrectly, like with wings. Molecular data is usually considered more trustworthy since there's so much more of it to compare, and it's helped scientists figure out relationships that morphology got wrong, like with birds and reptiles.\n(d) The researcher could compare DNA between the two populations to see how different they are genetically. They could also look at physical traits to see if there are consistent differences. And they could see if the two populations would actually mate with each other if given the chance.",
+     "criteria": {
+      "a": {
+       "provisional_label": "earned",
+       "confidence": "med",
+       "adjudicate": false,
+       "note": "Definition + A outgroup + nesting order + parsimony=fewest changes."
+      },
+      "b": {
+       "provisional_label": "earned",
+       "confidence": "med",
+       "adjudicate": false,
+       "note": "Neutral-mutation basis + 4.2 Mya + generation/selection limitations."
+      },
+      "c": {
+       "provisional_label": "earned",
+       "confidence": "med",
+       "adjudicate": false,
+       "note": "Homoplasy + wings + molecular>morphology + birds/reptiles example."
+      },
+      "d": {
+       "provisional_label": "earned",
+       "confidence": "med",
+       "adjudicate": false,
+       "note": "Three lines: DNA, physical traits, mating."
+      }
+     }
+    },
+    {
+     "response_index": 3,
+     "synthetic_type": "subtly_wrong",
+     "response_text": "(a) A synapomorphy is any trait present in a large number of different species, making it useful because it applies so broadly across the tree, whereas a symplesiomorphy is a rare trait found in just one lineage. Since Species E has the most derived characters overall, it should be considered the outgroup, since outgroups are typically the most highly evolved and specialized members of a comparison set. The most parsimonious tree is whichever tree has the most nodes and branch points, since more branching points means more information is being captured about the relationships.\n(b) The molecular clock works because mutations occur at a rate directly proportional to how beneficial they are, so genes under strong positive selection accumulate the most consistent, clock-like changes over time. Using the 1% per 2 million years figure, the Human-Gorilla divergence would come out to roughly 1.05 million years ago, since a smaller percent difference should scale down proportionally faster than the reference pairs. The clock can be inaccurate because natural selection actually makes molecular changes happen at a perfectly uniform rate across every single gene, which sometimes conflicts with fossil-based date estimates.\n(c) Homoplasy refers to a trait that is inherited from a common ancestor and retained unchanged in every descendant lineage, which actually makes morphological trees more accurate since the trait's presence confirms shared ancestry beyond doubt. Molecular phylogenies are considered more reliable mainly because DNA sequencing is a newer technology, not because of anything about the statistical properties of the data itself. Birds being reclassified near crocodilians was mostly a matter of updating terminology rather than reflecting any real overturning of a prior morphological hypothesis.\n(d) The researcher should primarily rely on the two populations' geographic distance from each other, since populations that are farther apart geographically are automatically considered separate species regardless of any genetic or behavioral data. Comparing sizes of the two population's ranges and counting the total number of individuals in each would be the most direct way to establish species status.",
+     "criteria": {
+      "a": {
+       "provisional_label": "not_earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": "CONFIDENTLY WRONG: synapomorphy defined as broadly-shared trait; E as outgroup ('most derived'); parsimony = most nodes."
+      },
+      "b": {
+       "provisional_label": "not_earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": "CONFIDENTLY WRONG: mutation rate proportional to benefit; calc 1.05 Mya; 'selection makes rate perfectly uniform'."
+      },
+      "c": {
+       "provisional_label": "not_earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": "CONFIDENTLY WRONG: homoplasy defined as retained ancestral trait; molecular reliable 'because newer tech'; birds/crocs 'just terminology'."
+      },
+      "d": {
+       "provisional_label": "not_earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": "CONFIDENTLY WRONG: geographic distance alone defines species; count individuals/range size."
+      }
+     }
+    }
+   ]
+  },
+  {
+   "content_key": "APBIO-FRQ-L-033",
+   "module": "",
+   "difficulty": "",
+   "form": "long",
+   "question_text": "Answer all parts of the following question.\n\n(a) (i) Identify the temperature at which CO2 production rate was highest, and describe the overall trend in the data from 5C to 45C.\n    (ii) Explain, in terms of enzyme function, why CO2 production declines at temperatures above the optimum.\n\n(b) The fermentation tubes contained no dissolved oxygen. Identify the metabolic pathway(s) yeast used to produce the measured CO2, and explain why CO2 is produced by this pathway in yeast specifically (as opposed to a pathway that does not release CO2).\n\n(c) A second trial is run with oxygen bubbled continuously into the yeast culture at 35C. Predict how the rate of CO2 production would compare to the anaerobic 35C trial, and explain your prediction in terms of ATP yield per glucose and NADH shuttling.\n\n(d) Propose a modification to the original experimental setup that would allow the researcher to distinguish CO2 produced by fermentation from CO2 that might be produced by aerobic respiration if a small amount of oxygen leaked into the tubes, and explain how the modification would resolve the ambiguity.",
+   "stimulus": "A student incubates identical yeast-glucose suspensions in sealed fermentation tubes at six temperatures and measures CO2 gas produced (collected in an inverted graduated tube) after 30 minutes.\n\nTemperature (C) | CO2 produced (mL)\n5                | 0.5\n15               | 2.0\n25               | 5.5\n35               | 9.0\n40               | 7.0\n45               | 1.5",
+   "rubric": [
+    {
+     "accepted_variants": [
+      "35C is optimum",
+      "increases then decreases",
+      "peak at 35C",
+      "inverted U shape"
+     ],
+     "criterion_key": "a_i",
+     "evidence_requirements": "Optimal temperature is 35C (highest CO2 production, 9.0 mL). Trend: CO2 production increases from 5C to 35C, then declines from 35C to 45C (rises then falls / inverted-U shape).",
+     "learner_facing_text": "Identify the optimal temperature and describe the overall trend.",
+     "minimum_fix": "CO2 production peaks at 35C; it increases from 5C to 35C then decreases from 35C to 45C.",
+     "points_possible": 2
+    },
+    {
+     "accepted_variants": [
+      "enzyme denaturation",
+      "disrupted active site",
+      "broken hydrogen bonds",
+      "loss of tertiary structure"
+     ],
+     "criterion_key": "a_ii",
+     "evidence_requirements": "Above the optimal temperature, heat begins to disrupt the weak bonds (hydrogen bonds, hydrophobic interactions) maintaining the tertiary structure of glycolytic and fermentation enzymes; enzymes begin to denature, losing their functional active-site shape; fewer functional enzyme molecules are available to catalyze the reactions producing CO2, so the rate declines.",
+     "learner_facing_text": "Explain why CO2 production declines above the optimum temperature.",
+     "minimum_fix": "High temperatures denature the enzymes involved in glycolysis and fermentation, disrupting their active sites and reducing catalytic activity, so CO2 production falls.",
+     "points_possible": 2
+    },
+    {
+     "accepted_variants": [
+      "glycolysis and alcoholic fermentation",
+      "pyruvate decarboxylase releases CO2",
+      "pyruvate to acetaldehyde to ethanol",
+      "regenerates NAD+"
+     ],
+     "criterion_key": "b",
+     "evidence_requirements": "Yeast use glycolysis followed by alcoholic (ethanol) fermentation. CO2 is released specifically during the conversion of pyruvate to acetaldehyde by pyruvate decarboxylase (a decarboxylation step unique to ethanol fermentation, not lactic acid fermentation), before acetaldehyde is reduced to ethanol by alcohol dehydrogenase using NADH, regenerating NAD+ for glycolysis to continue.",
+     "learner_facing_text": "Identify the metabolic pathway producing CO2 and explain why this pathway releases CO2 in yeast.",
+     "minimum_fix": "Yeast perform glycolysis and alcoholic fermentation; CO2 is released when pyruvate is decarboxylated to acetaldehyde, a step specific to ethanol fermentation that regenerates NAD+ for glycolysis.",
+     "points_possible": 2
+    },
+    {
+     "accepted_variants": [
+      "shift to aerobic respiration",
+      "more ATP per glucose aerobically",
+      "NADH oxidized by ETC instead of fermentation",
+      "more CO2 per glucose from Krebs cycle",
+      "Pasteur effect"
+     ],
+     "criterion_key": "c",
+     "evidence_requirements": "With oxygen present, yeast would shift toward aerobic respiration (Pasteur effect); CO2 would still be produced, but now primarily from the Krebs cycle (more CO2 per glucose: 6 CO2 vs 2 from fermentation pathway via decarboxylation), though the rate of glucose consumption typically slows because aerobic respiration yields far more ATP per glucose (~30-32 ATP vs 2 ATP), so less glucose needs to be processed to meet energy demand; NADH is now shuttled into the mitochondria and oxidized via the electron transport chain rather than being used to reduce acetaldehyde to ethanol.",
+     "learner_facing_text": "Predict CO2 production with oxygen present at 35C and explain using ATP yield and NADH.",
+     "minimum_fix": "With oxygen, yeast would shift to aerobic respiration; more CO2 would be produced per glucose molecule (6 from Krebs cycle vs effectively 2 from fermentation) because aerobic respiration extracts more energy and NADH is oxidized via the ETC instead of fermentation.",
+     "points_possible": 2
+    },
+    {
+     "accepted_variants": [
+      "measure ethanol production",
+      "monitor oxygen consumption",
+      "fermentation produces ethanol 1:1 with CO2",
+      "aerobic respiration consumes O2"
+     ],
+     "criterion_key": "d",
+     "evidence_requirements": "Add an indicator for ethanol production (e.g., test the solution for ethanol concentration, or use a colorimetric assay) alongside the CO2 measurement; if fermentation occurred, ethanol should accumulate in proportion to CO2 produced (1:1 stoichiometry from pyruvate decarboxylation), while CO2 from aerobic respiration would not produce a matching increase in ethanol. Alternatively, monitor O2 consumption directly; if O2 is being consumed, some CO2 is from aerobic respiration, not exclusively fermentation.",
+     "learner_facing_text": "Propose a modification to distinguish fermentation-CO2 from aerobic-CO2 if oxygen leaked in.",
+     "minimum_fix": "Measure ethanol production alongside CO2; CO2 from fermentation should correspond to ethanol produced in roughly 1:1 ratio, while CO2 from aerobic respiration would not, allowing the researcher to distinguish the two sources.",
+     "points_possible": 2
+    }
+   ],
+   "responses": [
+    {
+     "response_index": 0,
+     "synthetic_type": "fully_correct",
+     "response_text": "(a)(i) CO2 production is highest at 35C, reaching 9.0 mL. The overall trend is an increase from 5C up to 35C, followed by a decline from 35C to 45C -- an inverted-U-shaped curve. (ii) Above the optimal temperature, heat begins to disrupt the hydrogen bonds and other weak interactions holding the fermentation enzymes' tertiary structure together, causing them to denature and lose their functional active-site shape. With fewer functional enzyme molecules available to catalyze glycolysis and fermentation reactions, the rate of CO2 production declines. (b) Since the tubes contained no dissolved oxygen, the yeast were using glycolysis followed by alcoholic (ethanol) fermentation. CO2 is released specifically when pyruvate decarboxylase converts pyruvate to acetaldehyde -- a decarboxylation step unique to alcoholic fermentation -- before acetaldehyde is reduced to ethanol by alcohol dehydrogenase, which regenerates NAD+ so glycolysis can continue. (c) With oxygen continuously supplied, the yeast would shift toward aerobic respiration. CO2 would still be produced, but now mostly from the Krebs cycle, which releases more CO2 per glucose (6 CO2) than fermentation (2 CO2 via decarboxylation); however, because aerobic respiration yields far more ATP per glucose (about 30-32 ATP versus 2 from fermentation), less glucose would need to be consumed to meet the cell's energy needs, and NADH would be oxidized via the electron transport chain rather than used to reduce acetaldehyde to ethanol. (d) I would measure ethanol accumulation alongside CO2 production. If the CO2 is coming from fermentation, ethanol should accumulate in roughly a 1:1 ratio with CO2 released, since both come from the same decarboxylation step, whereas CO2 produced by aerobic respiration would not correspond to additional ethanol production; a mismatch between CO2 and ethanol amounts would reveal that some of the gas came from aerobic respiration rather than fermentation alone.",
+     "criteria": {
+      "a_i": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": ""
+      },
+      "a_ii": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": ""
+      },
+      "b": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": ""
+      },
+      "c": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": ""
+      },
+      "d": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": ""
+      }
+     }
+    },
+    {
+     "response_index": 1,
+     "synthetic_type": "partially_correct",
+     "response_text": "(a)(i) CO2 production peaks at 35C and increases from 5C to 35C, then decreases from 35C to 45C. (ii) High temperatures denature the enzymes involved in the reaction, disrupting their active sites so CO2 production falls. (b) Yeast produce CO2 through lactic acid fermentation, which happens when oxygen is absent and glucose is broken down into lactic acid. (c) Adding oxygen probably wouldn't change much about the CO2 production, since the yeast were already producing CO2 fine without it. (d) I'm not sure how you would tell the two apart.",
+     "criteria": {
+      "a_i": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": ""
+      },
+      "a_ii": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": "Denaturation stated."
+      },
+      "b": {
+       "provisional_label": "not_earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": "Says lactic acid fermentation (yeast do alcoholic; lactic acid releases no CO2)."
+      },
+      "c": {
+       "provisional_label": "not_earned",
+       "confidence": "med",
+       "adjudicate": false,
+       "note": "'oxygen wouldn't change much' \u2014 no aerobic shift / ATP-yield reasoning."
+      },
+      "d": {
+       "provisional_label": "not_earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": "'not sure'."
+      }
+     }
+    },
+    {
+     "response_index": 2,
+     "synthetic_type": "borderline",
+     "response_text": "(a)(i) CO2 production went up until 35C and then went back down after that, so 35C seems to be the best temperature for the reaction. (ii) At higher temperatures the enzymes probably start to break down a little, so they don't work as well and the reaction slows down. (b) The yeast are fermenting without oxygen, and that process releases CO2 as one of its byproducts along the way to making alcohol. (c) With oxygen added, the yeast would probably do regular cellular respiration instead of fermentation, which usually makes more energy, so I'd expect the CO2 amount to be a bit different than in the anaerobic trial. (d) You could check for alcohol in the tubes along with the CO2 to see if it's really coming from fermentation.",
+     "criteria": {
+      "a_i": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": ""
+      },
+      "a_ii": {
+       "provisional_label": "earned",
+       "confidence": "med",
+       "adjudicate": false,
+       "note": "'enzymes break down' \u2014 denaturation, informal."
+      },
+      "b": {
+       "provisional_label": "partially_earned",
+       "confidence": "med",
+       "adjudicate": true,
+       "note": "'fermenting to make alcohol, CO2 byproduct' \u2014 implies alcoholic pathway but does not name pyruvate decarboxylation; adjudicate sufficiency."
+      },
+      "c": {
+       "provisional_label": "partially_earned",
+       "confidence": "med",
+       "adjudicate": true,
+       "note": "Shift to aerobic + more energy stated; no 6-vs-2 CO2 or NADH shuttle; adjudicate depth."
+      },
+      "d": {
+       "provisional_label": "earned",
+       "confidence": "med",
+       "adjudicate": false,
+       "note": "Measure ethanol alongside CO2."
+      }
+     }
+    },
+    {
+     "response_index": 3,
+     "synthetic_type": "subtly_wrong",
+     "response_text": "(a)(i) CO2 production peaks at 35C, rising from 5C to 35C and then falling off through 45C. (ii) Above the optimum, heat denatures the enzymes involved in glycolysis and fermentation, reducing their catalytic activity and lowering CO2 output. (b) Yeast performing anaerobic metabolism use lactic acid fermentation, converting pyruvate directly into lactic acid while regenerating NAD+ for glycolysis to continue; the CO2 measured in this experiment is released as a byproduct of this lactate-forming step. (c) With oxygen added, the yeast would produce less CO2 overall, because aerobic respiration bypasses the decarboxylation step entirely, relying only on the electron transport chain to generate ATP without releasing carbon dioxide as a byproduct. (d) Since lactic acid fermentation doesn't produce CO2 directly, any CO2 detected in the tubes must be coming from aerobic respiration, so simply measuring CO2 levels alone would be enough to distinguish the two processes without needing any additional test.",
+     "criteria": {
+      "a_i": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": ""
+      },
+      "a_ii": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": "Denaturation correct."
+      },
+      "b": {
+       "provisional_label": "not_earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": "CONFIDENTLY WRONG: lactic acid fermentation, pyruvate->lactic acid releasing CO2 (lactic acid releases no CO2)."
+      },
+      "c": {
+       "provisional_label": "not_earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": "CONFIDENTLY WRONG: predicts LESS CO2 with O2 ('aerobic bypasses decarboxylation, no CO2') \u2014 Krebs releases more CO2."
+      },
+      "d": {
+       "provisional_label": "not_earned",
+       "confidence": "high",
+       "adjudicate": true,
+       "note": "Error propagates from (b): 'any CO2 must be aerobic, measuring CO2 alone suffices' \u2014 internal contradiction the deterministic contradiction check should catch."
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "adjudication_queue": [
+  {
+   "item": "APBIO-FRQ-L-001",
+   "response": "partially_correct",
+   "criterion": "a_i",
+   "reason": "Value 75 correct but explanation restates 'net O2=0' without stating photosynthesis rate = respiration rate; adjudicate whether that half earns."
+  },
+  {
+   "item": "APBIO-FRQ-L-001",
+   "response": "subtly_wrong",
+   "criterion": "a_ii",
+   "reason": "CONFIDENTLY WRONG: predicts INCREASE with plausible ATP/NADPH-demand reasoning; classic complete-but-wrong case."
+  },
+  {
+   "item": "APBIO-FRQ-L-001",
+   "response": "subtly_wrong",
+   "criterion": "b",
+   "reason": "Proton pumping direction REVERSED (lumen->stroma, then stroma->lumen); adjudicate whether reversed mechanism voids criterion."
+  },
+  {
+   "item": "APBIO-FRQ-L-009",
+   "response": "borderline",
+   "criterion": "b",
+   "reason": "Names fixation+nitrification+uptake+assembly but omits organism names (Rhizobium/Nitrosomonas) and nitrate reduction; adjudicate organism-name strictness."
+  },
+  {
+   "item": "APBIO-FRQ-L-009",
+   "response": "subtly_wrong",
+   "criterion": "a",
+   "reason": "Efficiencies right but loss explanation is a body-size misconception AND tuna calc 5,000 kg wrong (only 2 transfers counted)."
+  },
+  {
+   "item": "APBIO-FRQ-L-017",
+   "response": "borderline",
+   "criterion": "a",
+   "reason": "Sequence present (kinase->IRS-1->PI3K->Akt->GLUT4) though skips PIP2->PIP3/AS160 detail; adjudicate depth."
+  },
+  {
+   "item": "APBIO-FRQ-L-033",
+   "response": "borderline",
+   "criterion": "b",
+   "reason": "'fermenting to make alcohol, CO2 byproduct' \u2014 implies alcoholic pathway but does not name pyruvate decarboxylation; adjudicate sufficiency."
+  },
+  {
+   "item": "APBIO-FRQ-L-033",
+   "response": "borderline",
+   "criterion": "c",
+   "reason": "Shift to aerobic + more energy stated; no 6-vs-2 CO2 or NADH shuttle; adjudicate depth."
+  },
+  {
+   "item": "APBIO-FRQ-L-033",
+   "response": "subtly_wrong",
+   "criterion": "d",
+   "reason": "Error propagates from (b): 'any CO2 must be aerobic, measuring CO2 alone suffices' \u2014 internal contradiction the deterministic contradiction check should catch."
+  }
+ ],
+ "deterministic_check_targets": [],
+ "corpus_defects": []
+}

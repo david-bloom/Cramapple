@@ -54,6 +54,9 @@ The universal rule is defined in
 - `architecture/VISUAL_STIMULUS_AND_RENDERING_SYSTEM.md`: Proposed architecture
   for structured visuals, governed diagrams, accessibility equivalence,
   learner-created graphs, and renderer validation.
+- `research/`: experiment records, calibration corpora, protocols, run
+  reports, takeaways, and indexes. Start with `research/README.md` and
+  `research/GRADING_RESEARCH_CANONICAL_PROCESS.md`.
 - `legal/`: Draft terms, privacy, and other user-facing legal copy.
 - `seo/`: Search and answer-engine strategy, page plans, and AP Biology content
   packages for marketing expansion.

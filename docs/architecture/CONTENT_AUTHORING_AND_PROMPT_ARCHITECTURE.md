@@ -4,7 +4,9 @@
 **Owner:** Main Conductor / Learning Quality Owner / Technical Owner
 **Product Owner:** David Bloom
 **Related Tasks:** `TASK-0005`, `TASK-0007`, `CONTENT-001`
-**Last Updated:** 2026-06-17
+**Last Updated:** 2026-07-08 (DECISION-0034: required criterion-boundary
+contracts §9.1, required per-subject deterministic-check layer §7.1, default
+grading runtime §7.2)
 
 ## 1. Purpose
 
@@ -218,6 +220,63 @@ The model may receive verifier feedback during a repair loop, but the release
 record comes from the external pipeline. A model cannot mark its own output
 verified.
 
+### 7.1 Deterministic Check Layer (Required Per Subject)
+
+Deterministic checks are a required, subject-specific layer, not an optional
+optimization. Each exam pack declares a `verification_profile` naming the
+mechanical checks its responses must pass — for example, calculation, unit,
+significant-figure, equation-balancing, sign-convention, notation, and
+required-field checks, plus any subject-specific structural check such as the
+dependency-parse misattribution check developed for AP Biology prose.
+
+Deterministic checks:
+
+- run independently of the language-model grader and are never marked verified
+  by it;
+- own the mechanical criteria they can decide, offloading those criteria from
+  the model;
+- are version-pinned to the grading result alongside the prompt, model, and
+  criterion-boundary contract; and
+- catch error classes — notably confidently-wrong-but-complete responses and
+  over-credit by misattribution — that a model's self-reported confidence
+  structurally cannot, because a confidently wrong model never self-flags.
+
+Per-subject verification profiles live in `../research/` (for example,
+`AP_BIOLOGY_VERIFICATION_PROFILE.json`,
+`AP_CHEMISTRY_VERIFICATION_PROFILE.json`, and
+`AP_PHYSICS_1_VERIFICATION_PROFILE.json`) until the physical schema is approved.
+Adding a subject that needs a new mechanical check is the expected reason to
+extend platform verification code (§5.1). The evidence behind this requirement is
+recorded in `../research/grading_cross_subject_takeaways.md` (Lesson 3).
+
+### 7.2 Default Grading Runtime
+
+The default runtime for scoring a learner FRQ response is:
+
+1. a single fast primary grader model per criterion, prompted with the criterion
+   and its criterion-boundary contract (§9.1);
+2. the deterministic check layer (§7.1) for every mechanical criterion it can
+   decide;
+3. direct routing of any criterion pre-identified as genuinely hard to a
+   stronger model — the hard criterion is chosen per criterion during
+   calibration, not triggered by the model's self-reported confidence at
+   runtime; and
+4. abstention (`unable_to_determine`) when required evidence is missing or the
+   input is unreadable, calibrated against observed error per `TASK-0010`.
+
+Escalation on self-reported confidence, fallback ensembles, exemplar-retrieval
+reference layers, and online "flywheel" precedent memory are **not** part of the
+default runtime. Repeated experiments
+(`../research/grading_cross_subject_takeaways.md`, Lessons 1-2 and 4) found they
+did not beat a single fast model with a correct boundary contract, and often cost
+quality, cost, or tail latency. Multiple models are used only as boundary
+auditors — to expose fuzzy rubric language during calibration — not as a runtime
+scoring ensemble.
+
+Changing the grader model, escalation routing, deterministic scoring logic, or
+confidence policy is a C2 change requiring full artifact-family revalidation
+(`CONTENT_GOVERNANCE_AND_VALIDATION.md` §16.3).
+
 ## 8. MCQ Package Contract
 
 An MCQ authoring result is a complete candidate package containing:
@@ -269,12 +328,34 @@ gold set and not sufficient to calibrate or release a grader. Gold evidence
 continues to require blind independent human scoring and the held-out thresholds
 in `CONTENT_GOVERNANCE_AND_VALIDATION.md`.
 
-Criterion-boundary contracts are the preferred home for accepted variants,
-insufficient wording, and threshold examples that affect scoring. They should
-state what evidence must appear in the learner response before a criterion can
-earn, what related wording remains insufficient, and which adjudicated cases
-guard that boundary. Prompt components may consume these contracts, but they
-must not invent new scoring thresholds outside the rubric package.
+### 9.1 Criterion-Boundary Contract (Required)
+
+Every FRQ criterion ships with a criterion-boundary contract. It is a blocking
+authoring deliverable, not an artifact the grader or a later calibration pass is
+expected to reverse-engineer from errors. An FRQ package whose criteria lack
+boundary contracts is incomplete and cannot enter validation.
+
+A criterion-boundary contract states:
+
+- the earned / not-earned decision rule in independently decidable terms;
+- the specific evidence that must appear in the learner response before the
+  criterion earns;
+- accepted equivalent wording and reasoning paths;
+- related-but-insufficient wording that must not earn, with the reason;
+- contradicting evidence that voids an otherwise-earning response;
+- at least one worked near-boundary positive example and one worked near-boundary
+  negative example; and
+- the adjudicated case IDs that guard the boundary once a gold set exists.
+
+Boundary contracts are authored with the rubric, and are *sharpened* — not
+invented — during calibration. A calibration or audit pass may propose a
+boundary-contract revision; each revision is a C2 change under
+`CONTENT_GOVERNANCE_AND_VALIDATION.md` §16.3. Prompt components consume the
+contract and must not introduce scoring thresholds outside it.
+
+The lesson behind this requirement — that boundary precision, not model size,
+routing, or reference volume, is the dominant grading-quality lever — is recorded
+in `../research/grading_cross_subject_takeaways.md` (Lesson 1).
 
 ## 10. Sequencing
 

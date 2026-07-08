@@ -4,8 +4,23 @@
 **Related Task:** `TASK-0014`
 **Files:**
 - `ap_chemistry_frq_grading_experiment_batch_2026_07_07.json` — 100 FRQ items (50 short, 50 long)
+- `ap_chemistry_frq_grading_experiment_batch_2026_07_07.truncation_variants_backup.json` — the original v1 corpus (truncation-derived variants), preserved
 - `images/` — 85 synthetic trace-image PNGs, one per item flagged `hdr: true`
-- `../../../scripts/generate_ap_chemistry_frq_grading_experiment.py` — the generator script (source of truth for content; re-run it to regenerate the JSON/images deterministically)
+- `../../../scripts/generate_ap_chemistry_frq_grading_experiment.py` — the v1 generator script
+
+> **v2 update (2026-07-08, variants version `v2_wrong_reasoning_2026_07_08`).**
+> The non-canonical response variants were rewritten. Previously they were
+> truncations of the canonical answer (see the "Synthetic response generation
+> method" caveat below), which could only test incompleteness, not wrong
+> reasoning. All 200 non-canonical responses (one `incorrect` per short item;
+> `borderline`/`partially_correct`/`subtly_wrong` per long item) are now
+> hand-authored genuinely-wrong-reasoning answers, each injecting one specific,
+> identifiable misconception recorded in that response's `injected_error` field.
+> The 100 canonical (`fully_correct`) answers are unchanged. Labels are AI
+> provisional / `calibration` tier per `DECISION-0034` / `APPROVAL-0032`. The v1
+> corpus is preserved in the `…truncation_variants_backup.json` file above. The
+> caveats in the next two sections describe the superseded v1 method and no
+> longer apply to the current variants.
 
 ## Purpose
 

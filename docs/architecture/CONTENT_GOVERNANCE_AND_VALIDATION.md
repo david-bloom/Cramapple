@@ -1,11 +1,12 @@
 # Cramapple Content Governance and Validation
 
 **Status:** Proposed for Product Owner approval
-**Document Version:** 0.1
-**Date:** 2026-06-12
+**Document Version:** 0.2
+**Date:** 2026-07-08 (v0.2, DECISION-0034: criterion-boundary contract and
+per-subject deterministic checks required in the FRQ package, §10.5)
 **Policy Owner:** David Bloom, Product Owner
 **Learning Quality Owner:** Orly Bloom, Vice President of Learning
-**Related Task:** TASK-0005
+**Related Task:** TASK-0005, TASK-0010
 
 ## 1. Purpose
 
@@ -1237,6 +1238,15 @@ For an MCQ package, the rubric and teaching package also include:
 For an FRQ package, the rubric and teaching package also include:
 
 - independently decidable point criteria where the task permits;
+- a required criterion-boundary contract for every criterion, per
+  `CONTENT_AUTHORING_AND_PROMPT_ARCHITECTURE.md` §9.1 (earned/not-earned decision
+  rule, required evidence, accepted variants, insufficient wording, contradiction
+  rule, and at least one worked near-boundary positive and negative example); a
+  criterion without a boundary contract is an incomplete package and cannot enter
+  validation;
+- required deterministic checks for every mechanical or structurally-checkable
+  criterion, per the subject's `verification_profile`
+  (`CONTENT_AUTHORING_AND_PROMPT_ARCHITECTURE.md` §7.1);
 - accepted equivalent language and reasoning paths;
 - insufficient, contradictory, and boundary responses;
 - calculation, unit, graph, diagram, and notation rules where applicable;

@@ -762,3 +762,42 @@ category as `APPROVAL-0025` for AP Statistics. Covers
 - Publishing the resulting exam pack/content is explicitly not covered.
 - Same concurrent-Codex-session origin as `APPROVAL-0030`; see that entry's
   notes.
+
+## APPROVAL-0032 — AI Provisional Grading Labels as Calibration Evidence (Gold-Set Candidates)
+
+**Date:** 2026-07-08
+**Approved By:** David Bloom
+**Related Task:** TASK-0010
+**Decision:** Approved
+
+### Summary
+
+Authorizes treating the AI-authored (Claude Fable) criterion-level provisional
+labels in the three gold-set-candidate packages as `calibration`-tier evidence,
+usable now for grader iteration and boundary-contract sharpening. This is the
+"treating generated samples as calibration evidence" Hard Gate
+(`CONTENT_AUTHORING_AND_PROMPT_ARCHITECTURE.md` §11), approved as Option B of the
+gold-set build under `DECISION-0034`.
+
+Covers:
+- `docs/research/ap_biology_gold_set_candidate_2026_07_08/`
+- `docs/research/ap_statistics_gold_set_candidate_2026_07_08/`
+- `docs/research/ap_chemistry_gold_set_candidate_2026_07_08/`
+
+### Not Approved
+
+- These are **not** `adjudicated_gold`. They do not satisfy the §12 grading
+  release gate and must not be cited for a release-threshold quality claim.
+- Upgrade to `adjudicated_gold` requires two qualified human Grading Validators
+  scoring blind + Lead adjudication (§12.1), then a recorded re-tier decision.
+- No learner-facing grading, launch readiness, or Done decision is implied.
+
+### Notes
+
+- AI labels are provisional judgments against each item's rubric
+  `evidence_requirements`/`accepted_variants`; the adjudication queue and
+  deterministic-check targets in each package's `provisional_labels.json` are the
+  priority items for the human pass.
+- Chemistry package carries a blocking corpus defect (truncation-degenerate
+  variants) — see its README; it calibrates incompleteness only until
+  wrong-reasoning responses are authored.

@@ -1,0 +1,794 @@
+{
+ "schema": "provisional_calibration_labels_v1",
+ "subject": "AP Statistics",
+ "exam_code": "ap_statistics",
+ "corpus_tier": "calibration",
+ "date": "2026-07-08",
+ "label_authority": "AI provisional (Claude Fable) vs rubric evidence_requirements; NOT human-adjudicated gold",
+ "label_codes": {
+  "E": "earned",
+  "P": "partially_earned",
+  "N": "not_earned",
+  "U": "unable_to_determine"
+ },
+ "items": [
+  {
+   "content_key": "APSTAT-MOD3-H001-INV",
+   "module": 2,
+   "difficulty": "hard",
+   "form": "long",
+   "question_text": "A coffee shop owner wants to estimate the average daily sales. She collects data only from Friday and Saturday (highest traffic days). (a) Identify the bias in this sampling method and explain how it affects the estimate. (b) Design an improved sampling plan that would reduce bias. How many days should be sampled, and how should the owner select them? (c) Suppose the improved sample of 30 days gives mean sales of $850 with SD $120. Calculate a 95% confidence interval for true mean daily sales. (d) Interpret the confidence interval in context. What does it tell the owner about typical daily sales? (e) The owner claims 'daily sales exceed $800 on average.' Use a hypothesis test to evaluate this claim.",
+   "stimulus": "",
+   "rubric": [
+    {
+     "criterion_key": "bias_identification",
+     "learner_facing_text": "Correctly identifies selection bias and explains its effect on the estimate (underestimates or overestimates daily average)",
+     "points_possible": 1
+    },
+    {
+     "criterion_key": "improved_sampling_design",
+     "learner_facing_text": "Proposes systematic or random sampling across all days; justifies sample size; addresses representativeness",
+     "points_possible": 1
+    },
+    {
+     "criterion_key": "ci_calculation",
+     "learner_facing_text": "Correctly calculates 95% CI as 850 \u00b1 1.96(120/\u221a30) \u2248 (808, 892)",
+     "points_possible": 1
+    },
+    {
+     "criterion_key": "ci_interpretation",
+     "learner_facing_text": "Interprets interval in context and discusses variability in daily sales",
+     "points_possible": 1
+    },
+    {
+     "criterion_key": "hypothesis_test",
+     "learner_facing_text": "Conducts one-sample t-test with H\u2080: \u03bc = 800, interprets p-value, and makes conclusion in context",
+     "points_possible": 1
+    }
+   ],
+   "responses": [
+    {
+     "response_index": 0,
+     "synthetic_type": "fully_correct",
+     "response_text": "(a) Selection bias: By only collecting data from Friday and Saturday, the sample overrepresents high-traffic days. This biases the estimate upward\u2014the estimated average daily sales will be higher than the true average across all days of the week.\n\n(b) Improved sampling: Use systematic random sampling by randomly selecting a starting date, then sampling every 7th day over several weeks. This ensures all days of the week are equally represented. Or use stratified random sampling with days of the week as strata, sampling equally from Monday-Sunday. A sample size of 30-50 days should provide adequate precision.\n\n(c) 95% CI: SE = 120/\u221a30 = 21.9; CI = 850 \u00b1 1.96(21.9) = 850 \u00b1 43 = (807, 893)\n\n(d) The interval (807, 893) tells the owner that we can be 95% confident the true average daily sales fall between $807 and $893. This suggests typical daily sales vary by about $86 around our point estimate.\n\n(e) H\u2080: \u03bc = 800, H\u2081: \u03bc > 800. t = (850-800)/(120/\u221a30) = 50/21.9 = 2.28, df = 29, p < 0.02. Since p < 0.05, reject H\u2080. We have evidence that average daily sales exceed $800.",
+     "criteria": {
+      "bias_identification": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": ""
+      },
+      "improved_sampling_design": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": ""
+      },
+      "ci_calculation": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": ""
+      },
+      "ci_interpretation": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": ""
+      },
+      "hypothesis_test": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": ""
+      }
+     }
+    },
+    {
+     "response_index": 1,
+     "synthetic_type": "partially_correct",
+     "response_text": "(a) The sample is biased because it only includes weekend days when sales are higher.\n\n(b) Use random sampling of all days. Maybe get a sample of 30 days.\n\n(c) CI calculation: 850 \u00b1 1.96(120/\u221a30) = 850 \u00b1 43 = (807, 893)\n\n(d) The interval is between $807 and $893.\n\n(e) For the hypothesis test, the null hypothesis is \u03bc = 800 and we test if sales exceed that. The p-value would be small.",
+     "criteria": {
+      "bias_identification": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": ""
+      },
+      "improved_sampling_design": {
+       "provisional_label": "partially_earned",
+       "confidence": "med",
+       "adjudicate": false,
+       "note": "'random sampling, 30 days' \u2014 minimal justification/representativeness."
+      },
+      "ci_calculation": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": "(807,893) correct."
+      },
+      "ci_interpretation": {
+       "provisional_label": "partially_earned",
+       "confidence": "med",
+       "adjudicate": false,
+       "note": "States interval; no context/variability discussion."
+      },
+      "hypothesis_test": {
+       "provisional_label": "partially_earned",
+       "confidence": "med",
+       "adjudicate": false,
+       "note": "H0 stated, 'p small'; no test statistic or contextual conclusion."
+      }
+     }
+    },
+    {
+     "response_index": 2,
+     "synthetic_type": "borderline",
+     "response_text": "(a) The sample only includes Friday and Saturday, which have higher sales than other days. This creates bias.\n\n(b) Take a random sample of days spread throughout the week. Sample maybe 40-50 days to get good representation.\n\n(c) Margin of error = 1.96 \u00d7 (120/\u221a30) \u2248 1.96 \u00d7 22 = 43. So the CI is roughly 850 \u00b1 43 = (807, 893).\n\n(d) This means we're 95% confident the true mean is between $807 and $893.\n\n(e) Test if \u03bc > 800. The sample mean is $850, which is $50 above $800. With standard error of about 22, this is about 2.3 standard errors above $800, which should give a small p-value, so we reject the null hypothesis.",
+     "criteria": {
+      "bias_identification": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": ""
+      },
+      "improved_sampling_design": {
+       "provisional_label": "earned",
+       "confidence": "med",
+       "adjudicate": false,
+       "note": "Random spread, 40-50, representativeness."
+      },
+      "ci_calculation": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": ""
+      },
+      "ci_interpretation": {
+       "provisional_label": "earned",
+       "confidence": "med",
+       "adjudicate": false,
+       "note": "95% confident 807-893 in context."
+      },
+      "hypothesis_test": {
+       "provisional_label": "earned",
+       "confidence": "med",
+       "adjudicate": false,
+       "note": "~2.3 SE above 800, small p, reject."
+      }
+     }
+    },
+    {
+     "response_index": 3,
+     "synthetic_type": "subtly_wrong",
+     "response_text": "(a) Collecting only Friday-Saturday data introduces selection bias that underestimates average daily sales because weekends have lower traffic than weekdays.\n\n(b) Sample systematically every 3 days over a 3-month period to ensure all types of days are represented. A sample of 20 days is sufficient.\n\n(c) SE = 120/30 = 4; CI = 850 \u00b1 1.96(4) = 850 \u00b1 7.84 = (842.16, 857.84)\n\n(d) We can be 95% confident the true average is between $842 and $858.\n\n(e) The test statistic is (850-800)/(120/\u221a20) \u2248 1.86. This is less than 1.96, so we fail to reject H\u2080 at \u03b1=0.05.",
+     "criteria": {
+      "bias_identification": {
+       "provisional_label": "not_earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": "CONFIDENTLY WRONG: says method UNDERESTIMATES because weekends have LOWER traffic \u2014 contradicts stimulus (Fri/Sat highest)."
+      },
+      "improved_sampling_design": {
+       "provisional_label": "partially_earned",
+       "confidence": "med",
+       "adjudicate": false,
+       "note": "Systematic every 3 days but 'n=20 sufficient' weakly justified."
+      },
+      "ci_calculation": {
+       "provisional_label": "not_earned",
+       "confidence": "high",
+       "adjudicate": true,
+       "note": "DETERMINISTIC-CHECK TARGET: SE computed as 120/30=4 (should be 120/sqrt(30)=21.9); CI (842,858) wrong."
+      },
+      "ci_interpretation": {
+       "provisional_label": "not_earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": "Interprets the wrong CI (grounded in the SE error)."
+      },
+      "hypothesis_test": {
+       "provisional_label": "not_earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": "Uses sqrt(20) (wrong n), t=1.86, fails to reject (should reject)."
+      }
+     }
+    }
+   ]
+  },
+  {
+   "content_key": "APSTAT-MOD5-H001-INV",
+   "module": 4,
+   "difficulty": "hard",
+   "form": "long",
+   "question_text": "A data scientist analyzes a dataset of 10,000 high school students and finds a strong positive correlation (r = 0.65) between hours spent on social media and anxiety scores. (a) Can the data scientist conclude that social media causes anxiety? Explain why or why not. (b) Identify three potential confounding variables that might explain this correlation. (c) The researcher decides to conduct a different study: randomly assign 50 students to either 'social media for 1 hour/day' or 'no social media' conditions for 4 weeks, then measure anxiety. Why is this experimental design better than the observational study for establishing causation? (d) Suppose this experiment yields t = 2.1, df = 48, p = 0.04. Write a conclusion in context. What assumptions are needed for this conclusion to be valid?",
+   "stimulus": "",
+   "rubric": [
+    {
+     "criterion_key": "causation_vs_correlation",
+     "learner_facing_text": "Correctly concludes no causation from correlation; explicitly discusses confounding variable possibility",
+     "points_possible": 1
+    },
+    {
+     "criterion_key": "confounding_variables",
+     "learner_facing_text": "Identifies three plausible confounders (e.g., personality type, sleep, peer relationships) with explanations",
+     "points_possible": 1
+    },
+    {
+     "criterion_key": "experimental_advantage",
+     "learner_facing_text": "Explains how randomization and control group reduce confounding and allow causal inference",
+     "points_possible": 1
+    },
+    {
+     "criterion_key": "experimental_conclusion",
+     "learner_facing_text": "Correctly interprets p-value and makes conclusion in context; identifies at least two assumptions (e.g., normality, independence)",
+     "points_possible": 1
+    }
+   ],
+   "responses": [
+    {
+     "response_index": 0,
+     "synthetic_type": "fully_correct",
+     "response_text": "(a) No, correlation \u2260 causation. The r=0.65 shows a strong positive association but cannot prove social media causes anxiety. There could be common causes or the reverse causal direction.\n\n(b) Three confounding variables: (1) Personality type\u2014anxious people might use social media more; (2) Sleep deprivation\u2014poor sleep increases both anxiety and social media use; (3) Peer pressure/social environment\u2014students in stressful peer groups both use more social media and have higher anxiety.\n\n(c) Experimental design is better because random assignment eliminates confounding. By randomly assigning treatment/control, we ensure confounders are balanced between groups. This allows causal inference from the difference in anxiety between groups.\n\n(d) t=2.1, df=48, p=0.04 < 0.05, so we reject H\u2080. We conclude that reducing social media to 1 hour/day significantly lowers anxiety scores compared to no social media. Assumptions: anxiety scores are approximately normal in each group; groups have equal variances; observations are independent.",
+     "criteria": {
+      "causation_vs_correlation": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": ""
+      },
+      "confounding_variables": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": ""
+      },
+      "experimental_advantage": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": ""
+      },
+      "experimental_conclusion": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": ""
+      }
+     }
+    },
+    {
+     "response_index": 1,
+     "synthetic_type": "partially_correct",
+     "response_text": "(a) Correlation does not imply causation.\n\n(b) Confounders: sleep, stress, time management skills.\n\n(c) Experimental design with random assignment is better for proving causation.\n\n(d) p-value = 0.04, which is significant at 0.05 level, so we conclude there's a significant effect.",
+     "criteria": {
+      "causation_vs_correlation": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": "Brief but correct."
+      },
+      "confounding_variables": {
+       "provisional_label": "earned",
+       "confidence": "med",
+       "adjudicate": false,
+       "note": "Three plausible."
+      },
+      "experimental_advantage": {
+       "provisional_label": "partially_earned",
+       "confidence": "med",
+       "adjudicate": false,
+       "note": "States 'better for causation' without explaining randomization balances confounders."
+      },
+      "experimental_conclusion": {
+       "provisional_label": "partially_earned",
+       "confidence": "med",
+       "adjudicate": false,
+       "note": "'p=0.04 significant' \u2014 no context, no assumptions."
+      }
+     }
+    },
+    {
+     "response_index": 2,
+     "synthetic_type": "borderline",
+     "response_text": "(a) No, we can't say social media causes anxiety just from correlation. There could be other explanations.\n\n(b) Confounding variables: depression, stress, personality type.\n\n(c) An experiment is better than observation because we control who uses social media and who doesn't, so we can isolate the effect of social media on anxiety.\n\n(d) With p=0.04, this is statistically significant. So social media restriction reduces anxiety. The assumptions are that the data are normally distributed.",
+     "criteria": {
+      "causation_vs_correlation": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": ""
+      },
+      "confounding_variables": {
+       "provisional_label": "earned",
+       "confidence": "med",
+       "adjudicate": false,
+       "note": ""
+      },
+      "experimental_advantage": {
+       "provisional_label": "earned",
+       "confidence": "med",
+       "adjudicate": false,
+       "note": "Control who uses SM -> isolate effect."
+      },
+      "experimental_conclusion": {
+       "provisional_label": "partially_earned",
+       "confidence": "med",
+       "adjudicate": true,
+       "note": "Conclusion in context + only ONE assumption (normal); rubric wants >=2; adjudicate."
+      }
+     }
+    },
+    {
+     "response_index": 3,
+     "synthetic_type": "subtly_wrong",
+     "response_text": "(a) The correlation suggests that social media use is causing anxiety in these students, but we need an experiment to confirm the magnitude of the effect.\n\n(b) Confounders: depression, which causes both anxiety and increased social media use; social skills, which affect how people interact on social media and their anxiety levels.\n\n(c) The experiment is better because it uses a control group, which the observational study lacks.\n\n(d) t=2.1 means the treatment effect is 2.1 standard errors above the null. p=0.04 means there's a 4% chance of this result under H\u2080. We reject H\u2080 and conclude social media causes anxiety to increase.",
+     "criteria": {
+      "causation_vs_correlation": {
+       "provisional_label": "not_earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": "CONFIDENTLY WRONG: asserts SM IS causing anxiety from correlation."
+      },
+      "confounding_variables": {
+       "provisional_label": "partially_earned",
+       "confidence": "med",
+       "adjudicate": false,
+       "note": "Two named (one weak); rubric wants three."
+      },
+      "experimental_advantage": {
+       "provisional_label": "partially_earned",
+       "confidence": "med",
+       "adjudicate": false,
+       "note": "Cites control group but misses randomization as the key mechanism."
+      },
+      "experimental_conclusion": {
+       "provisional_label": "not_earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": "Causal overclaim ('SM causes anxiety to increase'), wrong framing, no assumptions."
+      }
+     }
+    }
+   ]
+  },
+  {
+   "content_key": "APSTAT-MOD6-H001",
+   "module": 6,
+   "difficulty": "hard",
+   "form": "long",
+   "question_text": "A researcher compares two teaching methods using a randomized controlled experiment with 60 students (30 per method). After the course, the control group's test scores have mean 72 and standard deviation 8, while the treatment group has mean 76 and standard deviation 7. Conduct a two-sample t-test at the 0.05 significance level. What do you conclude?",
+   "stimulus": "",
+   "rubric": [
+    {
+     "criterion_key": "hypotheses_setup",
+     "learner_facing_text": "Correctly states null and alternative hypotheses",
+     "points_possible": 1
+    },
+    {
+     "criterion_key": "test_calculation",
+     "learner_facing_text": "Correctly calculates t-statistic and degrees of freedom",
+     "points_possible": 1
+    },
+    {
+     "criterion_key": "conclusion",
+     "learner_facing_text": "Makes appropriate conclusion based on p-value and significance level",
+     "points_possible": 1
+    }
+   ],
+   "responses": [
+    {
+     "response_index": 0,
+     "synthetic_type": "fully_correct",
+     "response_text": "(a) Hypotheses: H\u2080: \u03bc\u2081 = \u03bc\u2082 (no difference between teaching methods), H\u2081: \u03bc\u2081 \u2260 \u03bc\u2082 (methods differ)\n\n(b) t = (72-76)/\u221a[(8\u00b2/30)+(7\u00b2/30)] = -4/\u221a(2.133 + 1.633) = -4/\u221a3.766 = -4/1.94 = -2.06\ndf \u2248 58 (or use conservative df=29), p-value \u2248 0.043 (two-tailed)\n\n(c) Since p=0.043 < 0.05, reject H\u2080 at \u03b1=0.05. There is statistically significant evidence that the teaching methods differ in their effect on test scores. The treatment group (mean 76) significantly outperformed the control group (mean 72).",
+     "criteria": {
+      "hypotheses_setup": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": ""
+      },
+      "test_calculation": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": ""
+      },
+      "conclusion": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": ""
+      }
+     }
+    },
+    {
+     "response_index": 1,
+     "synthetic_type": "partially_correct",
+     "response_text": "(a) H\u2080: \u03bc\u2081 = \u03bc\u2082, H\u2081: \u03bc\u2081 \u2260 \u03bc\u2082\n\n(b) t = (76-72)/\u221a[(64/30)+(49/30)] = 4/\u221a3.77 \u2248 2.06, p < 0.05\n\n(c) Reject null hypothesis; conclude methods are different.",
+     "criteria": {
+      "hypotheses_setup": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": ""
+      },
+      "test_calculation": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": "t~2.06 correct (sign flipped, magnitude right)."
+      },
+      "conclusion": {
+       "provisional_label": "earned",
+       "confidence": "med",
+       "adjudicate": true,
+       "note": "'reject, methods differ' \u2014 concise; labeled partially_correct but reads as full credit. Calibration note: tests over-penalizing brevity."
+      }
+     }
+    },
+    {
+     "response_index": 2,
+     "synthetic_type": "borderline",
+     "response_text": "(a) H\u2080: \u03bc_control = \u03bc_treatment, H\u2081: \u03bc_control \u2260 \u03bc_treatment\n\n(b) t-statistic: t = (76-72)/sqrt(sum of variances) \u2248 2.0 to 2.1\n\n(c) p-value is approximately 0.04-0.05, so we're right at the significance threshold. We can conclude the methods differ, but the evidence is borderline.",
+     "criteria": {
+      "hypotheses_setup": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": ""
+      },
+      "test_calculation": {
+       "provisional_label": "earned",
+       "confidence": "med",
+       "adjudicate": false,
+       "note": "t~2.0-2.1 approximate."
+      },
+      "conclusion": {
+       "provisional_label": "earned",
+       "confidence": "med",
+       "adjudicate": false,
+       "note": "Acknowledges borderline p, methods differ."
+      }
+     }
+    },
+    {
+     "response_index": 3,
+     "synthetic_type": "subtly_wrong",
+     "response_text": "(a) H\u2080: \u03bc\u2081 = \u03bc\u2082, H\u2081: \u03bc\u2081 > \u03bc\u2082 (one-tailed)\n\n(b) t = (76-72)/(\u221a(64+49)/\u221a60) \u2248 1.86, p \u2248 0.065\n\n(c) Since p > 0.05, we fail to reject the null hypothesis and conclude there is insufficient evidence that the new teaching method improves test scores.",
+     "criteria": {
+      "hypotheses_setup": {
+       "provisional_label": "partially_earned",
+       "confidence": "med",
+       "adjudicate": false,
+       "note": "One-tailed H1: mu1>mu2 \u2014 wrong framing for 'differ' and backwards direction."
+      },
+      "test_calculation": {
+       "provisional_label": "not_earned",
+       "confidence": "high",
+       "adjudicate": true,
+       "note": "DETERMINISTIC-CHECK TARGET: t~1.86, p~0.065 miscomputed (correct ~2.06, p~0.043)."
+      },
+      "conclusion": {
+       "provisional_label": "not_earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": "Fails to reject (should reject)."
+      }
+     }
+    }
+   ]
+  },
+  {
+   "content_key": "APSTAT-MOD7-H001",
+   "module": 7,
+   "difficulty": "hard",
+   "form": "long",
+   "question_text": "A company has three machines producing widgets. Machine A produces 30% of widgets with 2% defect rate, Machine B produces 50% with 3% defect rate, and Machine C produces 20% with 1% defect rate. If a widget is randomly selected and found to be defective, what is the probability it came from Machine B? Use Bayes' theorem.",
+   "stimulus": "",
+   "rubric": [
+    {
+     "criterion_key": "bayes_theorem_setup",
+     "learner_facing_text": "Correctly identifies the probability statement and sets up the formula",
+     "points_possible": 1
+    },
+    {
+     "criterion_key": "calculation",
+     "learner_facing_text": "Correctly calculates P(Machine B | defective) using total probability",
+     "points_possible": 1
+    }
+   ],
+   "responses": [
+    {
+     "response_index": 0,
+     "synthetic_type": "fully_correct",
+     "response_text": "P(B|D) = P(D|B) \u00d7 P(B) / P(D)\n\nP(D|A) = 0.02, P(D|B) = 0.03, P(D|C) = 0.01\nP(A) = 0.30, P(B) = 0.50, P(C) = 0.20\n\nP(D) = P(D|A)P(A) + P(D|B)P(B) + P(D|C)P(C)\n     = 0.02(0.30) + 0.03(0.50) + 0.01(0.20)\n     = 0.006 + 0.015 + 0.002\n     = 0.023\n\nP(B|D) = 0.03 \u00d7 0.50 / 0.023 = 0.015 / 0.023 \u2248 0.65 or 65%",
+     "criteria": {
+      "bayes_theorem_setup": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": ""
+      },
+      "calculation": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": ""
+      }
+     }
+    },
+    {
+     "response_index": 1,
+     "synthetic_type": "partially_correct",
+     "response_text": "P(B|D) = P(D|B)P(B) / P(D)\n\nP(D) = total probability \u2248 0.023\nP(B|D) \u2248 0.65 or 65%",
+     "criteria": {
+      "bayes_theorem_setup": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": "Formula stated."
+      },
+      "calculation": {
+       "provisional_label": "earned",
+       "confidence": "med",
+       "adjudicate": false,
+       "note": "0.023 -> 0.65 correct, less work shown; reads as full despite 'partially' label."
+      }
+     }
+    },
+    {
+     "response_index": 2,
+     "synthetic_type": "borderline",
+     "response_text": "Total probability of defect: P(D) = 0.02(0.30) + 0.03(0.50) + 0.01(0.20) = 0.023\n\nP(B|D) = P(D and B) / P(D) = [0.03 \u00d7 0.50] / 0.023 = 0.015/0.023 \u2248 0.65",
+     "criteria": {
+      "bayes_theorem_setup": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": ""
+      },
+      "calculation": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": ""
+      }
+     }
+    },
+    {
+     "response_index": 3,
+     "synthetic_type": "subtly_wrong",
+     "response_text": "P(B|D) = P(B) \u00d7 P(D|B) = 0.50 \u00d7 0.03 = 0.015 or 1.5%\n\nMachine B is unlikely to be the source of defects.",
+     "criteria": {
+      "bayes_theorem_setup": {
+       "provisional_label": "not_earned",
+       "confidence": "high",
+       "adjudicate": false,
+       "note": "CONFIDENTLY WRONG: P(B|D)=P(B)P(D|B) \u2014 omits dividing by P(D); confuses joint with conditional."
+      },
+      "calculation": {
+       "provisional_label": "not_earned",
+       "confidence": "high",
+       "adjudicate": true,
+       "note": "Answer 0.015 (1.5%) mismatches total-probability normalization; deterministic sanity check flags it."
+      }
+     }
+    }
+   ]
+  },
+  {
+   "content_key": "APSTAT-MOD8-H001",
+   "module": 8,
+   "difficulty": "very_hard",
+   "form": "long",
+   "question_text": "A study collects data on hours studied (x) and test score (y) for 25 students. Calculate the correlation coefficient and regression equation. Interpret both the slope and intercept.",
+   "stimulus": "",
+   "rubric": [
+    {
+     "criterion_key": "correlation_calculation",
+     "learner_facing_text": "Correctly calculates correlation using appropriate formula or method",
+     "points_possible": 1
+    },
+    {
+     "criterion_key": "regression_equation",
+     "learner_facing_text": "Correctly finds least squares regression line with appropriate intercept and slope",
+     "points_possible": 1
+    },
+    {
+     "criterion_key": "interpretation",
+     "learner_facing_text": "Provides meaningful interpretation of both parameters in context",
+     "points_possible": 1
+    }
+   ],
+   "responses": [
+    {
+     "response_index": 0,
+     "synthetic_type": "fully_correct",
+     "response_text": "r = \u03a3[(x-x\u0304)(y-\u0233)] / \u221a[\u03a3(x-x\u0304)\u00b2\u03a3(y-\u0233)\u00b2]\n\nAssuming data calculations give r \u2248 0.82\n\nRegression line: \u0177 = a + bx where b = r(sy/sx)\nIf sx \u2248 8, sy \u2248 5, then b = 0.82(5/8) \u2248 0.51\n\n\u0177 = (\u0233 - b\u00d7x\u0304) + 0.51x \u2248 2.5 + 0.51x\n\nSlope interpretation: For each additional hour of study, test score increases by about 0.51 points.\nIntercept interpretation: When x=0 (no study), predicted score is 2.5 (not meaningful in context; test likely out of 100).",
+     "criteria": {
+      "correlation_calculation": {
+       "provisional_label": "earned",
+       "confidence": "low",
+       "adjudicate": true,
+       "note": "ITEM DEFECT: no dataset supplied; response assumes r~0.82. Method correct but value unverifiable."
+      },
+      "regression_equation": {
+       "provisional_label": "earned",
+       "confidence": "low",
+       "adjudicate": true,
+       "note": "Method (b=r*sy/sx) correct; values unverifiable without data."
+      },
+      "interpretation": {
+       "provisional_label": "earned",
+       "confidence": "med",
+       "adjudicate": false,
+       "note": "Slope + intercept interpreted with extrapolation caveat."
+      }
+     }
+    },
+    {
+     "response_index": 1,
+     "synthetic_type": "partially_correct",
+     "response_text": "r \u2248 0.8 (positive correlation)\n\u0177 = a + bx with slope around 0.5",
+     "criteria": {
+      "correlation_calculation": {
+       "provisional_label": "partially_earned",
+       "confidence": "low",
+       "adjudicate": true,
+       "note": "'r~0.8' asserted; no data."
+      },
+      "regression_equation": {
+       "provisional_label": "partially_earned",
+       "confidence": "low",
+       "adjudicate": false,
+       "note": "Slope ~0.5, minimal."
+      },
+      "interpretation": {
+       "provisional_label": "not_earned",
+       "confidence": "med",
+       "adjudicate": false,
+       "note": "No interpretation of parameters."
+      }
+     }
+    },
+    {
+     "response_index": 2,
+     "synthetic_type": "borderline",
+     "response_text": "Correlation r \u2248 0.80, fairly strong positive.\n\nRegression equation approximately: \u0177 = 3 + 0.5x\n\nThe slope means each hour of study adds about 0.5 points to the test score.",
+     "criteria": {
+      "correlation_calculation": {
+       "provisional_label": "earned",
+       "confidence": "low",
+       "adjudicate": true,
+       "note": "r~0.80 asserted; no data."
+      },
+      "regression_equation": {
+       "provisional_label": "earned",
+       "confidence": "low",
+       "adjudicate": false,
+       "note": "y=3+0.5x."
+      },
+      "interpretation": {
+       "provisional_label": "partially_earned",
+       "confidence": "med",
+       "adjudicate": false,
+       "note": "Slope interpreted; intercept interpretation missing."
+      }
+     }
+    },
+    {
+     "response_index": 3,
+     "synthetic_type": "subtly_wrong",
+     "response_text": "r \u2248 0.75\n\nRegression: \u0177 = 5 + 0.75x\n\nThe intercept 5 means students who study 0 hours score 5 points on the test. The slope 0.75 means each hour of study adds 0.75 points.",
+     "criteria": {
+      "correlation_calculation": {
+       "provisional_label": "earned",
+       "confidence": "low",
+       "adjudicate": true,
+       "note": "r~0.75 asserted; no data \u2014 'subtly_wrong' differs only in assumed values, not method."
+      },
+      "regression_equation": {
+       "provisional_label": "earned",
+       "confidence": "low",
+       "adjudicate": false,
+       "note": "y=5+0.75x."
+      },
+      "interpretation": {
+       "provisional_label": "partially_earned",
+       "confidence": "med",
+       "adjudicate": true,
+       "note": "Interpretations structurally fine; intercept stated uncritically. Weak differentiation \u2014 flag item."
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "adjudication_queue": [
+  {
+   "item": "APSTAT-MOD3-H001-INV",
+   "response": "subtly_wrong",
+   "criterion": "ci_calculation",
+   "reason": "DETERMINISTIC-CHECK TARGET: SE computed as 120/30=4 (should be 120/sqrt(30)=21.9); CI (842,858) wrong."
+  },
+  {
+   "item": "APSTAT-MOD5-H001-INV",
+   "response": "borderline",
+   "criterion": "experimental_conclusion",
+   "reason": "Conclusion in context + only ONE assumption (normal); rubric wants >=2; adjudicate."
+  },
+  {
+   "item": "APSTAT-MOD6-H001",
+   "response": "partially_correct",
+   "criterion": "conclusion",
+   "reason": "'reject, methods differ' \u2014 concise; labeled partially_correct but reads as full credit. Calibration note: tests over-penalizing brevity."
+  },
+  {
+   "item": "APSTAT-MOD6-H001",
+   "response": "subtly_wrong",
+   "criterion": "test_calculation",
+   "reason": "DETERMINISTIC-CHECK TARGET: t~1.86, p~0.065 miscomputed (correct ~2.06, p~0.043)."
+  },
+  {
+   "item": "APSTAT-MOD7-H001",
+   "response": "subtly_wrong",
+   "criterion": "calculation",
+   "reason": "Answer 0.015 (1.5%) mismatches total-probability normalization; deterministic sanity check flags it."
+  },
+  {
+   "item": "APSTAT-MOD8-H001",
+   "response": "fully_correct",
+   "criterion": "correlation_calculation",
+   "reason": "ITEM DEFECT: no dataset supplied; response assumes r~0.82. Method correct but value unverifiable."
+  },
+  {
+   "item": "APSTAT-MOD8-H001",
+   "response": "fully_correct",
+   "criterion": "regression_equation",
+   "reason": "Method (b=r*sy/sx) correct; values unverifiable without data."
+  },
+  {
+   "item": "APSTAT-MOD8-H001",
+   "response": "partially_correct",
+   "criterion": "correlation_calculation",
+   "reason": "'r~0.8' asserted; no data."
+  },
+  {
+   "item": "APSTAT-MOD8-H001",
+   "response": "borderline",
+   "criterion": "correlation_calculation",
+   "reason": "r~0.80 asserted; no data."
+  },
+  {
+   "item": "APSTAT-MOD8-H001",
+   "response": "subtly_wrong",
+   "criterion": "correlation_calculation",
+   "reason": "r~0.75 asserted; no data \u2014 'subtly_wrong' differs only in assumed values, not method."
+  },
+  {
+   "item": "APSTAT-MOD8-H001",
+   "response": "subtly_wrong",
+   "criterion": "interpretation",
+   "reason": "Interpretations structurally fine; intercept stated uncritically. Weak differentiation \u2014 flag item."
+  }
+ ],
+ "deterministic_check_targets": [
+  {
+   "item": "APSTAT-MOD3-H001-INV",
+   "response": "subtly_wrong",
+   "criterion": "ci_calculation",
+   "note": "DETERMINISTIC-CHECK TARGET: SE computed as 120/30=4 (should be 120/sqrt(30)=21.9); CI (842,858) wrong."
+  },
+  {
+   "item": "APSTAT-MOD6-H001",
+   "response": "subtly_wrong",
+   "criterion": "test_calculation",
+   "note": "DETERMINISTIC-CHECK TARGET: t~1.86, p~0.065 miscomputed (correct ~2.06, p~0.043)."
+  }
+ ],
+ "corpus_defects": [
+  "Item APSTAT-MOD8-H001 supplies no dataset, so correlation/regression VALUES cannot be graded for correctness (only method/interpretation). Flag to Learning Quality: attach a real dataset or restrict grading to method."
+ ]
+}

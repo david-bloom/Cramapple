@@ -6,6 +6,9 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0034 — Adopt Five Grading Standards (Boundary Contracts, Gold-Set Depth, Deterministic Layer, Feedback-Quality Evaluation, Single-Grader Default)
+- DECISION-0033 — Publish and Publicly Expose Unreviewed AP Statistics Content for Feedback and Tutor Recruiting
+- DECISION-0032 — Authorize TASK-0013 Phase 2 Database Migration (AP Statistics Schema)
 - DECISION-0031 — Launch AP Statistics as Subject 2, Reusing the Tutor-Authored Content Model
 - DECISION-0030 — Failed/Rejected Grading Burns the Daily Budget Cap When Cost Is Known
 - DECISION-0029 — ALLOWED_ORIGINS Required in All Environments; No Wildcard CORS Fallback
@@ -1482,3 +1485,87 @@ decision creating a new exception.
   `content_review_assignments`/`content_review_decisions` rows that would
   have cascade-deleted) ahead of real tutors being recruited under this
   decision.
+
+## DECISION-0034 — Adopt Five Grading Standards (Boundary Contracts, Gold-Set Depth, Deterministic Layer, Feedback-Quality Evaluation, Single-Grader Default)
+
+**Date:** 2026-07-08
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Related Task:** TASK-0010, TASK-0005
+**Area:** Architecture
+
+### Context
+
+A second-opinion assessment of Cramapple's grading approach reviewed the vision,
+the research canonical process and reporting standard, the governance/calibration
+gates, and the actual experimental evidence across AP Biology (the deep FRQ02
+investigation), AP Statistics, and AP Chemistry. The strongest, most-repeated
+finding across every isolated test was that rubric-boundary precision — not model
+size, routing, escalation, exemplar retrieval, or flywheel volume — is the
+dominant grading-quality lever, yet that finding lived only in scattered research
+reports. Related findings: deterministic zero-cost checks catch error classes
+model confidence cannot; feedback quality (the product's actual promise) was not
+being measured; and the only decision-grade evidence was a single question
+against a provisional corpus with suspected label defects.
+
+### Decision
+
+Adopt five standards for the grading program and record them in the durable docs:
+
+1. The **criterion-boundary contract is a required, authored artifact** for every
+   FRQ criterion, authored with the rubric and sharpened (not invented) during
+   calibration. A criterion without one is an incomplete package that cannot
+   enter validation.
+2. **Redirect research effort from breadth to depth** — one fully-adjudicated AP
+   Biology gold set before further synthetic breadth corpora; corpora carry an
+   explicit tier label and only adjudicated/held-out evidence may support quality
+   claims.
+3. Ship a **required per-subject deterministic-check layer**, declared in a
+   `verification_profile`, run independently of the model and version-pinned to
+   the grading result.
+4. **Measure feedback quality** — grounding, minimum-fix sufficiency, and
+   error-classification accuracy — in every grading experiment, not only the
+   criterion earned/not-earned decision.
+5. Make the **single fast grader + boundary contract + deterministic checks the
+   default runtime**; retire confidence-triggered escalation, fallback ensembles,
+   and reference layers from the default; use multiple models only as boundary
+   auditors.
+
+This decision changes documentation and standing research/engineering direction.
+It does not by itself approve any content for launch, close TASK-0010, accept
+quality risk, or ratify the numeric §12.3 release thresholds (still to be tested
+against the first real adjudicated gold set).
+
+### Rationale
+
+The evidence base is cited in `docs/research/grading_cross_subject_takeaways.md`
+(the new durable home for these lessons). Several of these concepts already
+existed in partial form in the docs (§9 named boundary contracts as "preferred";
+§12.3 already carried feedback thresholds; §7 listed deterministic checks); this
+decision elevates them to required and wires the research evaluation layer to the
+governance requirements so the lessons stop being re-derived.
+
+### Consequences
+
+- Docs updated: `CONTENT_AUTHORING_AND_PROMPT_ARCHITECTURE.md` (§7.1, §7.2, §9.1;
+  Last Updated bumped), `CONTENT_GOVERNANCE_AND_VALIDATION.md` (v0.2, §10.5),
+  `TASK-0010` (adopted-standard section + acceptance criteria),
+  `GRADING_RESEARCH_CANONICAL_PROCESS.md` (standing direction, corpus tiers,
+  feedback evaluation), `grading_packet_backlog_2026_07_07.md` (superseding
+  depth-first priority).
+- New artifacts: `docs/research/grading_cross_subject_takeaways.md` and
+  `docs/research/AP_BIOLOGY_VERIFICATION_PROFILE.json`.
+- The boundary contract becomes a blocking FRQ package element; existing
+  candidate FRQs without one are incomplete until it is added.
+
+### Risks / Follow-ups
+
+- The FRQ02-derived lessons need replication on other criteria and a second
+  subject before being treated as fully general (assessment next-experiment #1).
+- The §12.3 thresholds may prove infeasible; that is tested by follow-up #2 (one
+  adjudicated gold set), which is now the top research priority.
+- Grading tail-latency (escalation's 8-11s outliers vs. the brand-critical
+  exam-week window) remains an open product decision, not resolved here.
+- Index note: this entry is DECISION-0034 on branch
+  `claude/ap-statistics-mcq-short-frq-prompts`; if another branch also claims
+  0034, renumber whichever merges second and update the index.

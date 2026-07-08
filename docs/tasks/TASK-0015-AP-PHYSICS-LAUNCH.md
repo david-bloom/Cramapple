@@ -16,6 +16,11 @@ Launch AP Physics 1 as the initial Cramapple Physics subject by extending the ex
 multi-subject architecture, governed content workflow, and subject-aware UX
 that already support AP Biology and AP Statistics.
 
+Launch Physics as four separately sold SKUs with one shared physics engine:
+AP Physics 1, AP Physics 2, AP Physics C: Mechanics, and AP Physics C:
+Electricity and Magnetism. Roll out each SKU when ready, individually or in
+readiness waves when overlap is high enough to justify grouping.
+
 Physics is likely to require reusable platform capabilities beyond Biology,
 including symbolic math, vector reasoning, dimensional analysis, unit handling,
 and possibly diagram/graph support. The launch should keep the platform generic
@@ -40,6 +45,11 @@ that Biology has not proven necessary.
    the backend/content path exists.
 6. **Calibration.** Run a Physics gold-set calibration and record agreement,
    boundary, and failure-mode evidence before launch readiness review.
+
+7. **Launch sequencing.** Treat AP Physics 1 and AP Physics 2 as
+   diagram-heavy algebra-based SKUs, and the two AP Physics C courses as the
+   calculus-based pair whose derivations and notation share a single rubric
+   path.
 
 ## Out of Scope
 
@@ -77,6 +87,10 @@ that Biology has not proven necessary.
       validation.
 - [ ] Physics calibration against a gold set is documented.
 - [ ] Physics is selectable end-to-end in a non-production environment.
+- [ ] The four-SKU launch plan is recorded and the SKU rollout order is
+      approved.
+- [ ] Lovable has a frontend assignment for the four-SKU experience.
+- [ ] Claude has a planning/calibration assignment for the four-SKU launch.
 
 ## QA Plan
 
@@ -111,6 +125,9 @@ Gate not yet granted.
 | 5 | Expose Physics in subject selection and learning routes | **Lovable** (frontend) | Phases 2–4 | **Pending** |
 | 6 | Run Physics calibration against a gold set | **QA / Learning Quality** | Phases 3–4 | **Pending** |
 | 7 | Launch readiness review | **David** | All above | **Pending** |
+| 8 | Four-SKU launch plan, rollout sequencing, and assignments | **Main Conductor + Lovable + Claude** | Phase 0+ | **In progress** |
+| 9 | Physics question/answer authoring packet for all four SKUs | **Claude** (content) | Plan + brief | **In progress** |
+| 10 | Deferred backend/curriculum follow-ups from Lovable (component ship, signup prefill, waitlist capture) | **Main Conductor** | Any SKU live | **Deferred** |
 
 ## Done Decision
 
