@@ -92,8 +92,10 @@ that Biology has not proven necessary.
 
 **Approval Required:** Yes
 **Approval Type:** Hard Gate
-**Decision:** Phase 0 Approved (`APPROVAL-0027`, 2026-07-07). Phase 2 (schema/
-migration) and production launch remain separate Hard Gates not yet granted.
+**Decision:** Phase 0 Approved (`APPROVAL-0027`, 2026-07-07). Content-sourcing
+model approved (`APPROVAL-0029`, 2026-07-07 — reuses the AP Statistics model
+from `APPROVAL-0024`/`DECISION-0031`). Phase 2 (schema/migration) and
+production launch remain separate Hard Gates not yet granted.
 
 ## Implementation Notes — Delegation Plan
 
@@ -103,7 +105,7 @@ migration) and production launch remain separate Hard Gates not yet granted.
 | 1 | Generalize grading/prompt composition away from AP Biology literals | **Codex** (backend) | Phase 0 approval | **Ready to start** |
 | 2 | Add `app.subjects`, exam-pack, and Physics taxonomy rows | **Codex** (backend) | Phase 1 | **Pending** |
 | 3 | Build Physics verification profile for the first criterion type | **Codex** (backend) | Phase 1 | **Pending** |
-| 4 | Author and validate a governed Physics pilot batch | **Orly** (curriculum) or delegated reviewer, with David approval | Phases 2–3 | **Pending** |
+| 4 | Author and validate a governed Physics pilot batch (tutor-authored-base-package model, `APPROVAL-0029`) | **Orly** (curriculum) or delegated reviewer, with David approval | Phases 2–3 | **Pending** |
 | 5 | Expose Physics in subject selection and learning routes | **Lovable** (frontend) | Phases 2–4 | **Pending** |
 | 6 | Run Physics calibration against a gold set | **QA / Learning Quality** | Phases 3–4 | **Pending** |
 | 7 | Launch readiness review | **David** | All above | **Pending** |

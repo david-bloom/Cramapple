@@ -6,13 +6,16 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0029 — AP Physics Content-Sourcing Model (TASK-0015)
+- APPROVAL-0028 — AP Chemistry Content-Sourcing Model (TASK-0014)
+- APPROVAL-0027 — AP Physics Launch (TASK-0015, Phase 0 Decision Gate)
+- APPROVAL-0026 — AP Chemistry Launch (TASK-0014, Phase 0 Decision Gate)
+- APPROVAL-0025 — TASK-0013 Phase 2 Migration Go-Ahead
 - APPROVAL-0024 — AP Statistics Launch (TASK-0013, Phase 0 Decision Gate)
 - APPROVAL-0023 — Agent Routing and Automatic QA (Codex Proposal)
 - APPROVAL-0022 — Charter Simplification and Tiering Adoption
 - APPROVAL-0021 — Start Content Authoring and Revision Workbench Design
 - APPROVAL-0020 — Start Student-Provided Question Intake Design
-- APPROVAL-0019 — Start Question and Answer Review Portal Design
-- APPROVAL-0018 — Use Official Exam Dates and Confirm Registration
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
 
@@ -655,3 +658,57 @@ grading/prompt generalization) to execute.
   for AP Statistics.
 - Production deployment/launch remains a separate Hard Gate, not granted
   here.
+
+## APPROVAL-0028 — AP Chemistry Content-Sourcing Model (TASK-0014)
+
+**Date:** 2026-07-07
+**Approved By:** David Bloom
+**Related Task:** TASK-0014
+**Decision:** Approved
+
+### Summary
+
+Resolves the open item flagged in `APPROVAL-0026`'s Notes: AP Chemistry
+reuses the same content-sourcing model approved for AP Statistics under
+`APPROVAL-0024`/`DECISION-0031` — the existing tutor-authored-base-package
+model under Orly; existing reviewers may be cross-credentialed across
+subjects without standing up a new Chemistry-specific tutor pool; rights/
+licensing posture is unchanged from AP Biology (no official College Board
+material as input or exemplar).
+
+### Notes
+
+- Pilot-batch unit/item distribution (the Chemistry analogue of AP
+  Statistics' 71 MCQ / 33 FRQ, 9-unit split) is not set by this approval —
+  that is a content-planning detail for Phase 4, not a sourcing-model
+  decision, and should be derived from the AP Chemistry Course and Exam
+  framework the same way AP Statistics' was.
+- Does not change Phase 2 (migration) or production-launch Hard Gate
+  status — see `APPROVAL-0026`.
+
+## APPROVAL-0029 — AP Physics Content-Sourcing Model (TASK-0015)
+
+**Date:** 2026-07-07
+**Approved By:** David Bloom
+**Related Task:** TASK-0015
+**Decision:** Approved
+
+### Summary
+
+Resolves the open item flagged in `APPROVAL-0027`'s Notes: AP Physics reuses
+the same content-sourcing model approved for AP Statistics under
+`APPROVAL-0024`/`DECISION-0031` — the existing tutor-authored-base-package
+model under Orly; existing reviewers may be cross-credentialed across
+subjects without standing up a new Physics-specific tutor pool; rights/
+licensing posture is unchanged from AP Biology (no official College Board
+material as input or exemplar).
+
+### Notes
+
+- Pilot-batch unit/item distribution is not set by this approval — Physics
+  is also likely to need reusable verification capability (symbolic math,
+  units, vectors) beyond what Statistics or Chemistry require; that
+  verification-profile design work is Phase 3, not gated by this content-
+  sourcing approval.
+- Does not change Phase 2 (migration) or production-launch Hard Gate
+  status — see `APPROVAL-0027`.
