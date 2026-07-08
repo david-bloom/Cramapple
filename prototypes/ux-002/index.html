@@ -766,6 +766,8 @@ const state = {
   selectedTask: null,
   selectedAssignmentId: loadStoredAssignmentId(),
   remoteQueueLoaded: false,
+  remoteQueueScope: "mine",
+  remoteReviewerRole: null,
   frqDrawnMode: false,
   importedItems: [],
   uploadText: ""
@@ -938,11 +940,25 @@ function deriveViewFromAssignment(assignment) {
 }
 
 function assignmentToTask(assignment) {
+  const assigneeName = assignment.reviewer_name || "Unassigned reviewer";
+  const assigneeRole = assignment.reviewer_role || assignment.assigned_role || "reviewer";
+  const statusLabel = assignment.status === "in_progress"
+    ? "In progress"
+    : assignment.status === "pending"
+      ? "Pending"
+      : assignment.status === "assigned"
+        ? "Assigned"
+        : assignment.status === "opened"
+          ? "Opened"
+          : assignment.status;
   return {
     key: assignment.content_review_assignment_id,
     subject: assignment.assigned_role === "reader" ? "Reader queue" : "Tutor queue",
     type: `${assignment.review_kind.toUpperCase()} · ${assignment.review_stage}`,
     count: 1,
+    assignee: `${assigneeName} · ${assigneeRole}`,
+    status: assignment.status,
+    statusLabel,
     view: deriveViewFromAssignment(assignment),
     assignmentId: assignment.content_review_assignment_id,
     artifactVersionId: assignment.artifact_version_id,
@@ -1039,6 +1055,8 @@ function buildTaskGrid() {
         <span class="task-subject">${task.subject}</span>
         <span class="task-type">${task.type}</span>
         <span class="task-count">${task.count} item${task.count !== 1 ? "s" : ""} assigned</span>
+        <span class="task-count">${task.assignee ?? "Unassigned reviewer"}</span>
+        <span class="task-count">${task.statusLabel ? `Status: ${task.statusLabel}` : ""}</span>
       </div>
       <span class="task-arrow" aria-hidden="true">›</span>`;
     card.addEventListener("click", () => {
@@ -1077,12 +1095,22 @@ function restoreSelectedTaskFromStorage() {
 async function loadRemoteQueue() {
   try {
     const data = await backendRequest("review-queue", {}, "GET");
+    state.remoteQueueScope = typeof data.scope === "string" ? data.scope : "mine";
+    state.remoteReviewerRole = typeof data.reviewer?.reviewer_role === "string"
+      ? data.reviewer.reviewer_role
+      : null;
     if (Array.isArray(data.queue) && data.queue.length) {
       TASKS = data.queue.map(assignmentToTask);
       state.remoteQueueLoaded = true;
       buildTaskGrid();
       restoreSelectedTaskFromStorage();
-      showStatus(`Loaded ${TASKS.length} DB-backed review item${TASKS.length === 1 ? "" : "s"}.`);
+      showStatus(
+        state.remoteQueueScope === "all_pending"
+          ? `Loaded ${TASKS.length} DB-backed review item${TASKS.length === 1 ? "" : "s"} across all pending assignments.`
+          : `Loaded ${TASKS.length} DB-backed review item${TASKS.length === 1 ? "" : "s"}.`,
+      );
+    } else if (state.remoteQueueScope === "all_pending") {
+      $("reviewer-context").textContent = "Admin CC view · AP Biology · All pending assignments across reviewers";
     }
   } catch (error) {
     const code = error?.message || String(error);
@@ -1388,7 +1416,12 @@ function setView(view) {
   // Role switcher
   document.querySelectorAll("[data-role]").forEach((b) => { const a = b.dataset.role === cfg.role; b.classList.toggle("active",a); b.setAttribute("aria-pressed",String(a)); });
   $("reviewer-name").textContent = cfg.role === "reader" ? "Avery Morgan" : "Jordan Lee";
-  $("reviewer-context").textContent = cfg.role === "reader" ? "AP Reader validator · AP Biology · Assigned review" : "Tutor validator · AP Biology · Independent assignment";
+  $("reviewer-context").textContent =
+    state.remoteQueueScope === "all_pending" && state.remoteReviewerRole === "admin"
+      ? "Admin CC view · AP Biology · All pending assignments across reviewers"
+      : cfg.role === "reader"
+        ? "AP Reader validator · AP Biology · Assigned review"
+        : "Tutor validator · AP Biology · Independent assignment";
 
   // Stage labels
   $("stage-eyebrow").textContent = cfg.eyebrow;

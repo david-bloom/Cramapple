@@ -49,6 +49,13 @@ type FrqCriterion = {
   points_possible: number;
 };
 
+const OPEN_STATUSES = new Set([
+  "assigned",
+  "pending",
+  "opened",
+  "in_progress",
+]);
+
 async function loadProfile(req: Request) {
   const profileResult = await requireProfile(req);
   if (!profileResult) return null;
@@ -79,23 +86,30 @@ Deno.serve(async (req) => {
   const service = createServiceClient();
   const reviewerId = profileResult.user.id;
   const reviewerRole = profileResult.profile.role as string;
+  const includeAllPending = reviewerRole === "admin";
 
   // ── Assignments ─────────────────────────────────────────────────────────────
 
-  const { data: assignments, error: assignmentsError } = await service
+  let assignmentQuery = service
     .schema("app")
     .from("content_review_assignments")
     .select(
       "content_review_assignment_id, ingest_row_id, content_item_version_id, review_stage, review_kind, reviewer_id, blind_group_id, due_at, status, created_at",
-    )
-    .eq("reviewer_id", reviewerId)
+    );
+
+  if (!includeAllPending) {
+    assignmentQuery = assignmentQuery.eq("reviewer_id", reviewerId);
+  }
+
+  const { data: assignments, error: assignmentsError } = await assignmentQuery
     .order("due_at", { ascending: true, nullsFirst: false });
 
   if (assignmentsError) {
     return respond({ error: "queue_lookup_failed" }, { status: 500 });
   }
 
-  const assignmentRows = (assignments ?? []) as QueueAssignment[];
+  const assignmentRows = ((assignments ?? []) as QueueAssignment[])
+    .filter((assignment) => OPEN_STATUSES.has(assignment.status));
   const assignmentIds = assignmentRows.map(
     (r) => r.content_review_assignment_id,
   );
@@ -109,6 +123,7 @@ Deno.serve(async (req) => {
         status: "ok",
         function: "review-queue",
         reviewer: { reviewer_id: reviewerId, reviewer_role: reviewerRole },
+        scope: includeAllPending ? "all_pending" : "mine",
         queue: [],
         counts: {},
       },
@@ -186,11 +201,34 @@ Deno.serve(async (req) => {
   const contentItems = ((contentItemResult as { data?: unknown[] }).data ?? []) as ContentItem[];
   const mcqChoices = ((mcqChoiceResult as { data?: unknown[] }).data ?? []) as McqChoice[];
   const frqCriteria = ((frqCriterionResult as { data?: unknown[] }).data ?? []) as FrqCriterion[];
+  const reviewerIds = [
+    ...new Set(assignmentRows.map((assignment) => assignment.reviewer_id)),
+  ];
+
+  const reviewerProfilesResult = reviewerIds.length
+    ? await service.schema("app")
+      .from("profiles")
+      .select("user_id, full_name, role")
+      .in("user_id", reviewerIds)
+    : { data: [] as Array<Record<string, unknown>>, error: null };
+  const reviewerProfiles = Array.isArray(reviewerProfilesResult.data)
+    ? reviewerProfilesResult.data
+    : [];
 
   // ── Index lookups ────────────────────────────────────────────────────────────
 
   const versionById = new Map(contentVersions.map((v) => [v.id, v]));
   const itemById = new Map(contentItems.map((i) => [i.id, i]));
+  const reviewerById = new Map(
+    ((reviewerProfiles ?? []) as Array<Record<string, unknown>>).map((p) => [
+      String(p.user_id),
+      {
+        user_id: String(p.user_id),
+        full_name: typeof p.full_name === "string" ? p.full_name : null,
+        role: typeof p.role === "string" ? p.role : null,
+      },
+    ]),
+  );
 
   const choicesByVersion = mcqChoices.reduce(
     (acc, c) => {
@@ -218,6 +256,7 @@ Deno.serve(async (req) => {
     const versionId = assignment.content_item_version_id;
     const version = versionId ? versionById.get(versionId) : null;
     const item = version ? itemById.get(version.content_item_id) : null;
+    const reviewerProfile = reviewerById.get(assignment.reviewer_id);
 
     const artifact = version
       ? {
@@ -268,8 +307,10 @@ Deno.serve(async (req) => {
     return {
       // Assignment fields
       content_review_assignment_id: assignment.content_review_assignment_id,
-      assigned_role: reviewerRole,
+      assigned_role: reviewerProfile?.role ?? reviewerRole,
       reviewer_id: assignment.reviewer_id,
+      reviewer_name: reviewerProfile?.full_name ?? null,
+      reviewer_role: reviewerProfile?.role ?? null,
       review_stage: assignment.review_stage,
       review_kind: assignment.review_kind,
       blind_group_id: assignment.blind_group_id,
@@ -307,6 +348,7 @@ Deno.serve(async (req) => {
         reviewer_role: reviewerRole,
         reviewer_name: profileResult.profile.full_name,
       },
+      scope: includeAllPending ? "all_pending" : "mine",
       queue,
       counts,
     },
