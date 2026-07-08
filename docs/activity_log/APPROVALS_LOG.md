@@ -593,3 +593,65 @@ Database Migrations Hard Gate in `STANDING_APPROVAL_LANES.md`. See
 - Scope is exactly `prompts/CODEX_AP_STATISTICS_PHASE2_SCHEMA_INSTANTIATION.md`
   as drafted — no broader migration authority granted.
 - Publishing the resulting exam pack/content is explicitly not covered.
+
+## APPROVAL-0026 — AP Chemistry Launch (TASK-0014, Phase 0 Decision Gate)
+
+**Date:** 2026-07-07
+**Approved By:** David Bloom
+**Related Task:** TASK-0014
+**Decision:** Approved
+
+### Summary
+
+David approved "work related to Chemistry ... launch" in chat, clearing
+TASK-0014's Phase 0 decision gate as drafted: AP Chemistry proceeds as
+Subject 3 under the Technical Scope and Acceptance Criteria already recorded
+in `docs/tasks/TASK-0014-AP-CHEMISTRY-LAUNCH.md`. Clears Phase 1 (Codex:
+grading/prompt generalization) to execute.
+
+### Notes
+
+- Unlike `APPROVAL-0024` (AP Statistics Phase 0), this approval did not
+  specify a content-sourcing model, pilot-batch unit/item distribution, or
+  reviewer/tutor-credentialing approach for Chemistry — those remain open
+  and should be resolved (recorded as a `DECISION-NNNN` if non-trivial)
+  before Phase 4 (content authoring) proceeds.
+- This approval covers Phase 0 only. Phases 1–7 still execute in sequence
+  per the task's delegation plan.
+- Per `STANDING_APPROVAL_LANES.md`, database migrations remain a separate
+  Hard Gate — Phase 2 schema/content instantiation needs its own go-ahead
+  before any Supabase write executes, matching the `APPROVAL-0025` pattern
+  for AP Statistics.
+- Production deployment/launch remains a separate Hard Gate, not granted
+  here.
+
+## APPROVAL-0027 — AP Physics Launch (TASK-0015, Phase 0 Decision Gate)
+
+**Date:** 2026-07-07
+**Approved By:** David Bloom
+**Related Task:** TASK-0015
+**Decision:** Approved
+
+### Summary
+
+David approved "work related to ... Physics launch" in chat, clearing
+TASK-0015's Phase 0 decision gate as drafted: AP Physics proceeds as
+Subject 4 under the Technical Scope and Acceptance Criteria already recorded
+in `docs/tasks/TASK-0015-AP-PHYSICS-LAUNCH.md`. Clears Phase 1 (Codex:
+grading/prompt generalization) to execute.
+
+### Notes
+
+- As with `APPROVAL-0026`, this approval did not specify a content-sourcing
+  model, pilot-batch distribution, or reviewer/tutor-credentialing approach
+  for Physics — those remain open and should be resolved (recorded as a
+  `DECISION-NNNN` if non-trivial) before Phase 4 (content authoring)
+  proceeds.
+- This approval covers Phase 0 only. Phases 1–7 still execute in sequence
+  per the task's delegation plan.
+- Per `STANDING_APPROVAL_LANES.md`, database migrations remain a separate
+  Hard Gate — Phase 2 schema/content instantiation needs its own go-ahead
+  before any Supabase write executes, matching the `APPROVAL-0025` pattern
+  for AP Statistics.
+- Production deployment/launch remains a separate Hard Gate, not granted
+  here.

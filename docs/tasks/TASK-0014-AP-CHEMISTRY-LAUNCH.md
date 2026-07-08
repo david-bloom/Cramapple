@@ -5,10 +5,10 @@
 **Owner:** Main Conductor
 **Product Owner:** David Bloom
 **Tier:** Hard-Gate
-**Status:** Proposed
+**Status:** In Progress
 **Priority:** High
 **Created Date:** 2026-07-07
-**Approved Date:** Pending
+**Approved Date:** 2026-07-07 (Phase 0 only — see `APPROVAL-0026`)
 
 ## Product Goal
 
@@ -96,14 +96,15 @@ equilibrium reasoning, or other chemistry-specific verification profiles.
 
 **Approval Required:** Yes
 **Approval Type:** Hard Gate
-**Decision:** Pending
+**Decision:** Phase 0 Approved (`APPROVAL-0026`, 2026-07-07). Phase 2 (schema/
+migration) and production launch remain separate Hard Gates not yet granted.
 
 ## Implementation Notes — Delegation Plan
 
 | Phase | Work | Delegate | Depends on | Status |
 |---|---|---|---|---|
-| 0 | Decision gate — confirm Chemistry launch scope, owner review path, and any subject-specific constraints | **David** | — | **Pending** |
-| 1 | Generalize grading/prompt composition away from AP Biology literals | **Codex** (backend) | Phase 0 approval | **Pending** |
+| 0 | Decision gate — confirm Chemistry launch scope, owner review path, and any subject-specific constraints | **David** | — | **Done** (`APPROVAL-0026`) |
+| 1 | Generalize grading/prompt composition away from AP Biology literals | **Codex** (backend) | Phase 0 approval | **Ready to start** |
 | 2 | Add `app.subjects`, exam-pack, and Chemistry taxonomy rows | **Codex** (backend) | Phase 1 | **Pending** |
 | 3 | Build Chemistry verification profile for the first criterion type | **Codex** (backend) | Phase 1 | **Pending** |
 | 4 | Author and validate a governed Chemistry pilot batch | **Orly** (curriculum), with David approval | Phases 2–3 | **Pending** |
