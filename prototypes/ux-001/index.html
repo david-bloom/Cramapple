@@ -1120,6 +1120,10 @@
             <div class="plan-header">
               <p class="eyebrow" id="plan-eyebrow">About 15 minutes</p>
               <h3 id="plan-title">Recommended first session</h3>
+              <p class="plan-summary" id="plan-reason">
+                We’re starting near where your AP Biology class probably is
+                right now. You can change the unit or time above.
+              </p>
             </div>
             <div class="plan-body">
               <p id="plan-summary">
@@ -1130,7 +1134,7 @@
               </p>
               <div class="why-plan">
                 <strong>Why this?</strong>
-                <span>
+                <span id="plan-why">
                   We’re starting near where your AP Biology class probably is
                   right now. You can change the unit or time above.
                 </span>
@@ -1175,15 +1179,22 @@
         </section>
 
         <section class="screen" id="home" tabindex="-1">
-          <p class="eyebrow">Welcome back, Maya</p>
-          <h2>Make your next 12 minutes useful.</h2>
+          <p class="eyebrow" id="home-subject-label">Welcome back, Maya</p>
+          <h2 id="home-headline">Make your next 12 minutes useful.</h2>
           <div class="home-grid">
             <article class="card recommendation">
               <p class="eyebrow">Recommended next</p>
-              <h3>Interpreting experimental controls</h3>
-              <p class="muted">
+              <h3 id="home-next-title">Interpreting experimental controls</h3>
+              <p class="muted" id="home-next-copy">
                 This has cost you points in more than one unit, and a short
                 review is due. About 12 minutes.
+              </p>
+              <p class="setup-note" id="home-guidance-note">
+                <span aria-hidden="true">i</span>
+                <span>
+                  Guided help will be composed from the live runtime context
+                  when available.
+                </span>
               </p>
               <div class="actions">
                 <button class="button primary" type="button" data-go="mcq">
@@ -1512,8 +1523,8 @@
         </section>
 
         <section class="screen" id="progress" tabindex="-1">
-          <p class="eyebrow">Your AP Biology work</p>
-          <h2>Progress you can inspect.</h2>
+          <p class="eyebrow" id="progress-subject-label">Your AP Biology work</p>
+          <h2 id="progress-headline">Progress you can inspect.</h2>
           <p class="lede">
             Activity, supported performance, and independent evidence stay
             separate.
@@ -1522,8 +1533,8 @@
           <div class="progress-grid">
             <article class="card">
               <p class="eyebrow">Recommended next</p>
-              <h3>Return to experimental controls</h3>
-              <p class="muted">
+              <h3 id="progress-next-title">Return to experimental controls</h3>
+              <p class="muted" id="progress-next-copy">
                 One delayed check is due tomorrow. About 8 minutes.
               </p>
               <div class="actions">
@@ -1672,6 +1683,7 @@
     const ATTEMPT_CONTEXT = window.CRAMAPPLE_ATTEMPT_CONTEXT ?? {};
     const BACKEND_CONFIG_MISSING_KEY = "cramapple.backend-config-missing.v1";
     const BACKEND_CONFIG_MISSING_STATE = "cramapple.backend-config-missing.state";
+    let runtimeContext = null;
     let supabaseClientPromise = null;
     let currentSessionPromise = null;
     let authListenerAttached = false;
@@ -1789,6 +1801,316 @@
       return data;
     }
 
+    function getNestedValue(source, path) {
+      if (!source || !path) return undefined;
+      return path.split(".").reduce((value, key) => {
+        if (!value || typeof value !== "object") return undefined;
+        return value[key];
+      }, source);
+    }
+
+    function firstText(source, paths, fallback = "") {
+      for (const path of paths) {
+        const value = getNestedValue(source, path);
+        if (typeof value === "string" && value.trim()) {
+          return value.trim();
+        }
+        if (typeof value === "number" && Number.isFinite(value)) {
+          return String(value);
+        }
+      }
+      return fallback;
+    }
+
+    function firstNumber(source, paths, fallback = null) {
+      for (const path of paths) {
+        const value = getNestedValue(source, path);
+        if (typeof value === "number" && Number.isFinite(value)) {
+          return value;
+        }
+        if (typeof value === "string" && value.trim()) {
+          const parsed = Number(value);
+          if (Number.isFinite(parsed)) {
+            return parsed;
+          }
+        }
+      }
+      return fallback;
+    }
+
+    function extractRuntimeContext(data) {
+      return (
+        data?.runtime_context ??
+        data?.runtimeContext ??
+        data?.result?.runtime_context ??
+        data?.result?.runtimeContext ??
+        null
+      );
+    }
+
+    function buildPreviewRuntimeContext() {
+      return {
+        context_version: "preview",
+        subject_defaults: {
+          subject_label: "AP Biology",
+          official_exam_date: "May 4, 2026",
+        },
+        student_memory: {
+          summary: {
+            independent_evidence: "3 independent points earned",
+            coached_evidence: "2 supported repairs",
+          },
+        },
+        session_state: {
+          entry_path: setupState.firstIntent === "topic"
+            ? "topic"
+            : setupState.firstIntent === "check_work"
+            ? "check_work"
+            : setupState.firstIntent === "bring_question"
+            ? "bring_question"
+            : "recommendation",
+          session_mode: setupState.minutes <= 15
+            ? "quick"
+            : setupState.minutes <= 30
+            ? "focused"
+            : "buckle_down",
+          available_minutes: setupState.minutes,
+          status: setupState.setupStatus === "completed" ? "active" : setupState.setupStatus,
+        },
+        effective_guidance: {
+          next_action_title: setupState.coursePosition.unitLabel,
+          next_action_reason:
+            "We’re starting near where your AP Biology class probably is right now. You can change the unit or time.",
+          next_action_copy:
+            "You’ll try one question, see exactly where points were earned or missed, and practice the smallest change most likely to help.",
+          available_minutes: setupState.minutes,
+        },
+      };
+    }
+
+    function getActiveRuntimeContext() {
+      return runtimeContext || buildPreviewRuntimeContext();
+    }
+
+    function getSubjectLabel(context) {
+      return firstText(
+        context,
+        [
+          "subject_defaults.subject_label",
+          "subject_defaults.subject",
+          "subject_defaults.exam_label",
+          "subject_defaults.exam",
+          "subject_label",
+          "subject",
+          "exam",
+        ],
+        "AP Biology"
+      );
+    }
+
+    function getExamDate(context) {
+      return firstText(
+        context,
+        [
+          "subject_defaults.official_exam_date",
+          "subject_defaults.exam_date",
+          "subject_defaults.examDate",
+          "official_exam_date",
+          "exam_date",
+        ],
+        "May 4, 2026"
+      );
+    }
+
+    function getSessionModeLabel(context) {
+      const mode = firstText(
+        context,
+        [
+          "session_state.session_mode_label",
+          "session_state.session_mode",
+          "effective_guidance.session_mode_label",
+          "effective_guidance.session_mode",
+        ],
+        "focused"
+      );
+      return mode.charAt(0).toUpperCase() + mode.slice(1);
+    }
+
+    function getAvailableMinutes(context) {
+      return firstNumber(
+        context,
+        [
+          "session_state.available_minutes",
+          "effective_guidance.available_minutes",
+          "effective_guidance.time_estimate_minutes",
+        ],
+        setupState.minutes
+      );
+    }
+
+    function getGuidanceTitle(context) {
+      return firstText(
+        context,
+        [
+          "effective_guidance.next_action_title",
+          "effective_guidance.recommended_next_action",
+          "effective_guidance.headline",
+          "effective_guidance.title",
+        ],
+        setupState.coursePosition.unitLabel
+      );
+    }
+
+    function getGuidanceReason(context) {
+      return firstText(
+        context,
+        [
+          "effective_guidance.next_action_reason",
+          "effective_guidance.reason",
+          "effective_guidance.copy",
+          "effective_guidance.description",
+        ],
+        "We’re starting near where your AP Biology class probably is right now. You can change the unit or time."
+      );
+    }
+
+    function getGuidanceHelp(context) {
+      return firstText(
+        context,
+        [
+          "effective_guidance.next_action_copy",
+          "effective_guidance.help_copy",
+          "effective_guidance.help",
+          "effective_guidance.description",
+        ],
+        "You’ll try one question, see exactly where points were earned or missed, and practice the smallest change most likely to help."
+      );
+    }
+
+    function getStudentMemorySummary(context, fallback) {
+      return firstText(
+        context,
+        [
+          "student_memory.summary",
+          "student_memory.overview",
+          "student_memory.takeaway",
+          "student_memory.note",
+          "student_memory.independent_evidence",
+        ],
+        fallback
+      );
+    }
+
+    function getScreenHeader(id) {
+      const context = getActiveRuntimeContext();
+      const subjectLabel = getSubjectLabel(context);
+      const modeLabel = getSessionModeLabel(context);
+      switch (id) {
+        case "home":
+          return [subjectLabel, "Home"];
+        case "progress":
+          return [subjectLabel, "Progress"];
+        case "mcq":
+          return ["Practice session", `${modeLabel} · Question 1`];
+        case "frq":
+          return ["Practice session", `${modeLabel} · Question 2`];
+        case "uncertain":
+          return [subjectLabel, "Needs context"];
+        case "complete":
+          return [subjectLabel, "Session complete"];
+        case "setup":
+          return ["New account setup", "First session"];
+        case "setup-paused":
+          return ["New account setup", "Paused"];
+        case "direct-entry":
+          return ["First session", "Your chosen starting point"];
+        default:
+          return setupHeader[id] || ["Prototype scenario", "Review state"];
+      }
+    }
+
+    function renderRuntimeContext() {
+      const context = getActiveRuntimeContext();
+      const subjectLabel = getSubjectLabel(context);
+      const examDate = getExamDate(context);
+      const guidanceTitle = getGuidanceTitle(context);
+      const guidanceReason = getGuidanceReason(context);
+      const guidanceHelp = getGuidanceHelp(context);
+      const availableMinutes = getAvailableMinutes(context) ?? setupState.minutes;
+      const memorySummary = getStudentMemorySummary(
+        context,
+        "Guided help will be composed from the live runtime context when available."
+      );
+
+      const setupExamDate = document.getElementById("setup-exam-date");
+      if (setupExamDate) setupExamDate.textContent = examDate;
+
+      const planEyebrow = document.getElementById("plan-eyebrow");
+      if (planEyebrow) planEyebrow.textContent = `About ${availableMinutes} minutes`;
+
+      const planTitle = document.getElementById("plan-title");
+      if (planTitle) planTitle.textContent = guidanceTitle;
+
+      const planReason = document.getElementById("plan-reason");
+      if (planReason) planReason.textContent = guidanceReason;
+
+      const planSummary = document.getElementById("plan-summary");
+      if (planSummary) {
+        const unitLabel = setupState.coursePosition.unitLabel;
+        planSummary.innerHTML = `You’ll try one question on <strong id="plan-unit-label">${unitLabel}</strong>, see exactly where points were earned or missed, and practice the smallest change most likely to help.`;
+      }
+
+      const planWhy = document.getElementById("plan-why");
+      if (planWhy) planWhy.textContent = guidanceReason;
+
+      const homeSubjectLabel = document.getElementById("home-subject-label");
+      if (homeSubjectLabel) homeSubjectLabel.textContent = `Welcome back, ${subjectLabel}`;
+
+      const homeHeadline = document.getElementById("home-headline");
+      if (homeHeadline) {
+        homeHeadline.textContent = guidanceTitle
+          ? `${guidanceTitle} - make your next ${availableMinutes} minutes useful.`
+          : `Make your next ${availableMinutes} minutes useful.`;
+      }
+
+      const homeNextTitle = document.getElementById("home-next-title");
+      if (homeNextTitle) homeNextTitle.textContent = guidanceTitle;
+
+      const homeNextCopy = document.getElementById("home-next-copy");
+      if (homeNextCopy) homeNextCopy.textContent = guidanceHelp;
+
+      const homeGuidanceNote = document.getElementById("home-guidance-note");
+      if (homeGuidanceNote) {
+        homeGuidanceNote.querySelector("span:last-child").textContent =
+          memorySummary;
+      }
+
+      const progressSubjectLabel = document.getElementById("progress-subject-label");
+      if (progressSubjectLabel) progressSubjectLabel.textContent = `${subjectLabel} work`;
+
+      const progressHeadline = document.getElementById("progress-headline");
+      if (progressHeadline) progressHeadline.textContent = "Progress you can inspect.";
+
+      const progressNextTitle = document.getElementById("progress-next-title");
+      if (progressNextTitle) progressNextTitle.textContent = guidanceTitle;
+
+      const progressNextCopy = document.getElementById("progress-next-copy");
+      if (progressNextCopy) {
+        progressNextCopy.textContent = guidanceReason.includes("About")
+          ? guidanceReason
+          : `${guidanceReason} About ${availableMinutes} minutes.`;
+      }
+
+      const activeScreen = screens.find((screen) => screen.classList.contains("active"))?.id;
+      if (activeScreen && headerContext && headerDetail) {
+        const header = getScreenHeader(activeScreen);
+        headerContext.textContent = header[0];
+        headerDetail.textContent = syncStatusText
+          ? `${header[1]} · ${syncStatusText}`
+          : header[1];
+      }
+    }
+
     async function syncSession(operation, extra = {}) {
       if (!hasBackendConfig()) {
         rememberBackendConfigAbsence(`missing_config_${operation}`);
@@ -1815,12 +2137,17 @@
       };
       const data = await backendRequest("session-event", payload);
       const result = data.result || {};
+      const nextRuntimeContext = extractRuntimeContext(data) || extractRuntimeContext(result);
+      if (nextRuntimeContext) {
+        runtimeContext = nextRuntimeContext;
+      }
       if (result.id) {
         setupState.sessionId = result.id;
         storeSessionId(result.id);
       } else if (operation === "session_end") {
         storeSessionId(null);
       }
+      renderRuntimeContext();
       return data;
     }
 
@@ -1847,7 +2174,7 @@
       ) {
         return null;
       }
-      return await backendRequest("evaluate-attempt", {
+      const data = await backendRequest("evaluate-attempt", {
         operation,
         attempt_id: attemptId,
         response_version_id: responseVersionId,
@@ -1857,10 +2184,16 @@
           `${operation}-${Date.now()}-${Math.random().toString(36).slice(2)}`,
         ...extra,
       });
+      const nextRuntimeContext = extractRuntimeContext(data) ||
+        extractRuntimeContext(data?.result || {});
+      if (nextRuntimeContext) {
+        runtimeContext = nextRuntimeContext;
+      }
+      renderRuntimeContext();
+      return data;
     }
 
     async function refreshSyncStatus() {
-      const header = document.getElementById("header-detail");
       const session = await getCurrentSession();
       if (session?.user) {
         const email = session.user.email || session.user.id.slice(0, 8);
@@ -1870,9 +2203,23 @@
       } else {
         syncStatusText = "Supabase session required for live sync";
       }
-      if (header) {
-        const base = header.textContent.split(" · ")[0];
-        header.textContent = `${base} · ${syncStatusText}`;
+      renderRuntimeContext();
+    }
+
+    async function hydrateRuntimeContext() {
+      if (!hasBackendConfig() || !setupState.sessionId) {
+        return;
+      }
+      try {
+        const data = await syncSession("session_resume");
+        const nextRuntimeContext = extractRuntimeContext(data) ||
+          extractRuntimeContext(data?.result || {});
+        if (nextRuntimeContext) {
+          runtimeContext = nextRuntimeContext;
+          renderRuntimeContext();
+        }
+      } catch (error) {
+        console.warn("session_resume hydration failed", error);
       }
     }
 
@@ -1884,7 +2231,7 @@
       jumpButtons.forEach((button) => {
         button.setAttribute("aria-current", String(button.dataset.screen === id));
       });
-      const header = setupHeader[id] || ["Prototype scenario", "Review state"];
+      const header = getScreenHeader(id);
       headerContext.textContent = header[0];
       headerDetail.textContent = syncStatusText
         ? `${header[1]} · ${syncStatusText}`
@@ -1951,6 +2298,8 @@
       setupState.coursePosition.positionEstimateConfidence = "high";
       setupState.coursePosition.confirmedAt = new Date().toISOString();
       setPositionPressed(true, false);
+      renderPlan();
+      renderRuntimeContext();
       showStatus("Starting near where your class probably is. You can change this anytime.");
     });
 
@@ -1958,6 +2307,8 @@
       setupState.coursePosition.positionEstimateConfidence = "low";
       setupState.coursePosition.confirmedAt = new Date().toISOString();
       setPositionPressed(false, true);
+      renderPlan();
+      renderRuntimeContext();
       showStatus("No problem. We’ll start near a likely spot and adjust as you work.");
     });
 
@@ -1977,6 +2328,7 @@
       setupState.coursePosition.confirmedAt = new Date().toISOString();
       setPositionPressed(false, false);
       renderPlan();
+      renderRuntimeContext();
     });
 
     document.querySelectorAll("[data-minutes]").forEach((button) => {
@@ -1988,6 +2340,7 @@
         });
         setupState.minutes = Number(button.dataset.minutes);
         renderPlan();
+        renderRuntimeContext();
       });
     });
 
@@ -1996,6 +2349,7 @@
         const map = { topic: "topic", work: "check_work", question: "bring_question" };
         setupState.firstIntent = map[button.dataset.secondary];
         configureDirectEntry();
+        renderRuntimeContext();
         showScreen("direct-entry");
       });
     });
@@ -2176,7 +2530,7 @@
     });
 
     renderPlan();
-    void refreshSyncStatus().then(() => {
+    void refreshSyncStatus().then(() => hydrateRuntimeContext()).then(() => {
       showScreen("welcome");
     });
   </script>

@@ -6,9 +6,32 @@ Give this entire file to Lovable as the build prompt.
 
 This is a frontend-first student experience build, not a `/prototype` route or
 review-only sandbox. Use Supabase Auth/session as the source of truth when
-available, but fall back to local mock state when backend config is absent. Do
-not invent backend behavior. Remember missing backend config so the wiring can
-be fixed later.
+available, and hydrate the student UI from the backend-composed
+`runtime_context` returned by the session and grading functions. Fall back to
+local preview state only when backend config is absent. Do not invent backend
+behavior in the client. Remember missing backend config so the wiring can be
+fixed later.
+
+## Runtime Context Contract
+
+The Lovable student experience must treat `runtime_context` as the single
+runtime view of guidance, not as an extra optional payload.
+
+- Bootstrap the active session by calling the session event function with
+  `session_start` or `session_resume`, then store the returned
+  `runtime_context`.
+- Refresh the stored `runtime_context` after session saves, session end, and
+  every grading response from `evaluate-attempt`.
+- Render guided help, recommended next action copy, session framing, and the
+  student-memory-aware help text from:
+  - `runtime_context.subject_defaults`
+  - `runtime_context.student_memory`
+  - `runtime_context.session_state`
+  - `runtime_context.effective_guidance`
+- Do not recompute a parallel client-side recommendation engine or memory
+  layer.
+- If backend config is absent or a request fails in preview, use local preview
+  state only as a visibly non-authoritative fallback.
 
 Canonical Cramapple source material:
 
@@ -180,7 +203,8 @@ small typed configuration objects where practical.
 
 ## Mock State
 
-Use frontend-only local state when backend wiring is unavailable.
+Use frontend-only local state when backend wiring is unavailable. This is
+preview state only, not a second source of truth.
 
 ```ts
 type SetupState = {
@@ -226,7 +250,9 @@ Route:
 /account-created
 ```
 
-Purpose: confirm the account is ready and move directly into useful setup.
+Purpose: confirm the account is ready and move directly into useful setup. The
+guidance copy on this screen should be driven by `runtime_context` when
+available so the student sees the current plan, not a hardcoded prompt.
 
 Copy:
 
@@ -367,6 +393,10 @@ We’re starting near where your AP Biology class probably is right now. You can
 change the unit or time.
 ```
 
+When backend runtime data is available, derive the plan card from
+`runtime_context` instead of local heuristics. Use the runtime context to decide
+the current session mode, session path, available minutes, and help copy.
+
 Primary action:
 
 ```text
@@ -503,7 +533,7 @@ Routes:
 Home should show:
 
 - incomplete setup or incomplete session if present;
-- one recommended next action;
+- one recommended next action sourced from `runtime_context` when available;
 - reason and time estimate;
 - secondary options to choose another action.
 
@@ -514,6 +544,11 @@ Progress should separate:
 - coached work;
 - due review;
 - uncertain or withheld evidence.
+
+When runtime data is present, use `runtime_context.student_memory` for the
+evidence and help summary, and use `runtime_context.session_state` for the
+current session framing. If the runtime context is missing, show the local
+preview state clearly as a fallback.
 
 Do not show a dominant composite mastery score or AP score prediction.
 

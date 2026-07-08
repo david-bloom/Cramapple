@@ -15,9 +15,26 @@ Canonical Cramapple source material:
 - `docs/proposals/2026-06-29-year-aware-point-maximization.md`
 
 This is a frontend-first build. Use Supabase Auth/session as the source of truth
-when available; fall back to local mock state when backend config is absent. Do
-not invent backend behavior. Remember missing backend config so the wiring can
-be fixed later.
+when available, and hydrate the returning home flow from the backend-composed
+`runtime_context` returned by the session functions. Fall back to local preview
+state when backend config is absent. Do not invent backend behavior.
+Remember missing backend config so the wiring can be fixed later.
+
+## Runtime Context Contract
+
+The returning experience should read from `runtime_context` whenever a live
+session exists.
+
+- Use `session_resume` or `session_start` to obtain the current
+  `runtime_context` before rendering the Home recommendation.
+- Update the cached `runtime_context` after saves or any grading event that
+  changes help, recommendation, or memory state.
+- Drive recommendation copy, help copy, session framing, and recovery prompts
+  from `runtime_context.subject_defaults`, `runtime_context.student_memory`,
+  `runtime_context.session_state`, and `runtime_context.effective_guidance`.
+- Do not add a parallel client-side recommendation engine or memory store.
+- If the backend is unavailable in preview, show local fallback state clearly
+  as preview-only.
 
 ---
 
