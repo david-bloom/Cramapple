@@ -84,9 +84,22 @@ briefs already reference: `LOVABLE_UX002_REVIEW_PORTAL.md`,
   edge-function wrapper, not a raw table insert).
 - Student memory → `supabase.rpc('apply_student_memory_event', …)`.
 - Runtime context → `supabase.rpc('compose_learning_runtime_context', …)`.
-- Reviewer decision write → the RPC over `content_review_decisions` (confirm the
-  exact name in the Phase 1 notes). Do not `insert`/`update` `content_review_*`
-  directly.
+- Reviewer decision write → **the `review-decision` edge function** (NOT a Postgres
+  RPC; there is none). Call `supabase.functions.invoke('review-decision', { body })`
+  (POST; supabase-js attaches the user JWT). Always send
+  `content_review_assignment_id`; the rest of the body depends on the assignment's
+  `review_stage`: `tutor_question` → `tutor_score` (1|2|3) + `difficulty_label`
+  (Easy|Moderately easy|Medium|Hard|Very hard); `tutor_answer` → `answer_approval`
+  (approved|rejected); `tutor_frq_canonical` → `canonical_decision`
+  (approved|rejected|edited); `reader_question` → `reader_decision` (agree|disagree);
+  optional `note`/`concern_codes[]`/`diagnostic_flag`/`topic_selections{}` where
+  applicable. It inserts the decision, flips the assignment to `submitted`, and
+  advances the workflow server-side. Do NOT `insert`/`update` `content_review_*`
+  directly — reads come back from the curated views. (Sibling functions:
+  `review-queue`, `assign-for-review`.)
+- **Edge functions require `ALLOWED_ORIGINS`** (no wildcard, per DECISION-0029): set
+  it as an Edge Function secret to include the app's origin (Lovable preview now,
+  Vercel domain at Phase 3) or every function call fails CORS.
 
 ### C5. Structural fixes (these WILL break silently if missed)
 - **Non-`id` PKs:** replace `.eq('id', …)` with the real PK column —
