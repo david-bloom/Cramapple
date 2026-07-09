@@ -76,9 +76,51 @@ must be closed or explicitly accepted before production cutover:
 - confirm whether beta and production share the same Supabase project or other
   provider resources, and if so document a formal isolation or migration plan;
 - fix and verify the content-publishing defects in `admin-content` and the
-  governance migration path before claiming content-publishing readiness;
+  governance migration path before claiming content-publishing readiness (see
+  the itemized list in
+  `docs/architecture/PRODUCTION_PLUMBING_EXECUTION_CHECKLIST.md` §1.3a);
 - ensure startup fails fast on missing required secrets rather than silently
   defaulting to empty values.
+
+### 2026-07-09 migration-file reconciliation and new findings
+
+Local `supabase/migrations/` had drifted from both live projects — 15 applied
+migrations existed on one or both projects with no corresponding local file.
+This session pulled the exact applied SQL for all 15 directly from
+`supabase_migrations.schema_migrations` on both projects and verified every
+file byte-for-byte via `md5(array_to_string(statements, E'\n'))` before
+committing. Local files now match both live projects exactly as of this
+commit. Two things surfaced in the process that are new blockers, not closed
+items:
+
+- **Undocumented production decision reference.** Migration
+  `202607090002_curated_public_interface_revoke_anon.sql`, applied to
+  *production* on 2026-07-09, cites `DECISION-0035` in its lead comment.
+  `docs/activity_log/DECISIONS_LOG.md` tops out at `DECISION-0032` — 0033,
+  0034, and 0035 do not exist anywhere in the log. A production schema change
+  citing an approval record that was never recorded is a Source-of-Truth Rule
+  violation (`docs/team_charter/AI_COLLABORATION_RULES.md`) on top of being a
+  database migration, which is independently a Hard Gate
+  (`STANDING_APPROVAL_LANES.md`). **Someone applied production schema changes
+  outside this repo's tracked/approved migration flow.** David: please confirm
+  who ran this and whether DECISION-0033/0034/0035 exist in some other record
+  that needs to be backfilled here, or whether this needs to be treated as an
+  unauthorized change.
+- **Dev/prod schema divergence.** Development (`wmgjsdkphcyhngaffbqf`) has 7
+  migrations production does not: HDR response assets, calibration sets,
+  bootstrap FRQ schema, grading experiments, AP Chemistry/Physics 1 subject
+  instantiation, student memory runtime context, and FRQ synthetic responses
+  (all dated 2026-07-07, presumably TASK-0013/TASK-0010-adjacent research
+  work). Notably, the chemistry/physics migration marks those two subjects
+  `status = 'active'` in dev even though `EXPAND-001` (second exam pack) is
+  `Deferred` in `docs/MASTER_TODO.md`. This is dev-only and the exam packs
+  themselves stay `draft`, but it's schema-level evidence that subject
+  expansion work has already started ahead of the backlog's own deferral —
+  worth a policy check, not just a technical one.
+
+A QA review prompt covering this reconciliation plus a fresh code-review pass
+on `admin-content`'s publish-gate trust model is drafted at
+`prompts/CODEX_TASK0012_BACKEND_MIGRATION_QA_REVIEW.md`.
 
 ## Out of Scope
 
@@ -167,7 +209,9 @@ The following checks must be complete before this task can be marked ready:
 
 ## QA Review
 
-Pending.
+Pending. Fire `prompts/CODEX_TASK0012_BACKEND_MIGRATION_QA_REVIEW.md` in a
+fresh, independent context to verify the 2026-07-09 migration reconciliation
+and the `admin-content` gate-trust findings above.
 
 ## Done Decision
 

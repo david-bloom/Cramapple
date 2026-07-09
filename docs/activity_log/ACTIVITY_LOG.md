@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Backend-Migration Session: Migration-File Reconciliation and New Findings (TASK-0012) — 2026-07-09
 - AP Statistics Launch Task Drafted (TASK-0013) — 2026-06-30
 - Hand-Drawn Graph Corpus Realism Fix and Four-Finding Spot-Check — 2026-06-30
 - New-User Experience Live QA — 2026-06-29
@@ -19,6 +20,58 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 ---
+
+## Backend-Migration Session: Migration-File Reconciliation and New Findings (TASK-0012) - 2026-07-09
+
+**Task:** TASK-0012 (Production Plumbing and Beta-to-Prod Cutover Readiness)
+**Status:** Documentation and migration-file reconciliation only. No live
+schema, secret, or deployment changes made. QA not yet run.
+
+**Summary:** Opened a new session scoped to backend migration and re-oriented
+from source of truth per the operating model. Found via Supabase MCP
+(`list_migrations` / `execute_sql` against `supabase_migrations.schema_migrations`)
+that local `supabase/migrations/` had drifted further than the last recorded
+state (2026-06-27, 2 files): 15 applied migrations across the two projects had
+no local file — 8 on production (`pcntajvbdfqhbeewmdry`, including three
+applied as recently as 2026-07-09) and 7 dev-only
+(`wmgjsdkphcyhngaffbqf`, dated 2026-07-07). Pulled the exact applied SQL for
+all 15 from `schema_migrations` and wrote matching local files, verifying every
+one byte-for-byte via `md5(array_to_string(statements, E'\n'))` against the
+live row before committing. Local migrations now match both live projects
+exactly.
+
+Two new findings surfaced during reconciliation, both recorded in
+`docs/tasks/TASK-0012-PRODUCTION-PLUMBING-AND-CUTOVER.md`:
+(1) a production migration applied 2026-07-09 cites `DECISION-0035` in its
+lead comment, but `DECISIONS_LOG.md` tops out at `DECISION-0032` —
+0033/0034/0035 do not exist, meaning a production schema change was applied
+citing an approval record that was never logged (Source-of-Truth Rule /
+Hard-Gate violation, not just a documentation gap); (2) development has 7
+migrations production doesn't, including one that marks the `EXPAND-001`
+("Deferred" per `MASTER_TODO.md`) AP Chemistry/Physics 1 subjects `active` in
+the dev schema (draft-only exam packs, so contained, but a policy/
+implementation mismatch worth flagging).
+
+Also read `supabase/functions/admin-content/index.ts` in full and enumerated
+its content-publishing defects as explicit checklist items (previously a
+single vague line) in
+`docs/architecture/PRODUCTION_PLUMBING_EXECUTION_CHECKLIST.md` §1.3a: publish
+gates are client-asserted with no server-side validation-record check
+(admin-role only, confirmed via `canPerformOperation`), publish self-approval,
+a self-referential manifest hash, and no per-item idempotency/transaction
+boundary in `bulk_import` (a partial-failure retry would duplicate rows).
+
+Drafted `prompts/CODEX_TASK0012_BACKEND_MIGRATION_QA_REVIEW.md` — a tight,
+independent-verification QA prompt covering the migration-hash reconciliation
+and the `admin-content` findings, ready to fire in a fresh Codex context.
+
+**Next Owner:** David Bloom (the `DECISION-0035` gap needs his input on who
+applied it and whether a real decision record exists elsewhere to backfill);
+Codex for the QA pass once fired.
+**Next Required Action:** Fire `prompts/CODEX_TASK0012_BACKEND_MIGRATION_QA_REVIEW.md`
+in a fresh session; resolve the `DECISION-0035` provenance question; decide
+whether the dev-only chemistry/physics schema work needs to pause pending
+`EXPAND-001` policy review.
 
 ## AP Statistics Launch Task Drafted (TASK-0013) - 2026-06-30
 

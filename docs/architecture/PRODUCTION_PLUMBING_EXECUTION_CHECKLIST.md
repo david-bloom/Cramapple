@@ -58,14 +58,71 @@ These steps require Vercel, Supabase, DNS, or other external dashboard access.
       **Content inventory as of 2026-06-27:** 30 long FRQs (L-001–L-030), 100 MCQs,
       20 short FRQs (S-001–S-020, frq_form='short', status='draft', 2 criteria each).
       `canonical_answer_1` / `canonical_answer_2` columns exist on `content_item_versions` but are all NULL.
-      **Migration-drift risk:** remote has 28 applied migrations; local `supabase/migrations/` has 25 files.
-      Three remote migrations lack local files: one pre-existing gap + `seed_short_frqs_s001_s010` +
-      `seed_short_frqs_s011_s020`. Do NOT run `supabase db reset` or `supabase db push` until local files
-      for the two seed migrations are created and committed.
+      **Migration-drift risk — reconciled 2026-07-09.** Pulled every applied migration's exact SQL from
+      `supabase_migrations.schema_migrations` on both projects and wrote the 15 previously-untracked files,
+      each verified byte-for-byte via `md5(array_to_string(statements, E'\n'))` against the live row before
+      committing:
+      - Production (`pcntajvbdfqhbeewmdry`), 8 files added: `202606270007_seed_short_frqs_s001_s010.sql`,
+        `202606270008_seed_short_frqs_s011_s020.sql`, `202606300002_seed_long_frqs_l031_l034.sql`,
+        `202606300003_seed_long_frqs_l035_l038.sql`, `202606300004_seed_long_frqs_l039_l042.sql`,
+        `202607090001_curated_public_interface.sql`, `202607090002_curated_public_interface_revoke_anon.sql`,
+        `202607090003_fix_content_item_versions_rls_recursion.sql`.
+      - Development (`wmgjsdkphcyhngaffbqf`), 7 files added, dev-only (not yet applied to production):
+        `202607070001_hdr_response_assets.sql`, `202607070002_calibration_sets.sql`,
+        `202607070003_bootstrap_frq_schema.sql`, `202607070004_grading_experiments.sql`,
+        `202607070005_chemistry_physics_schema_instantiation.sql`,
+        `202607070006_student_memory_runtime_context.sql`, `202607071200_frq_synthetic_responses.sql`.
+      Local `supabase/migrations/` now matches both live projects exactly. `supabase db push` /
+      `db reset` are no longer blocked by drift, but see the two new findings logged in
+      `docs/tasks/TASK-0012-PRODUCTION-PLUMBING-AND-CUTOVER.md` §"2026-07-09 migration-file reconciliation
+      and new findings" (undocumented `DECISION-0035` reference on a production migration; dev/prod schema
+      divergence) before treating this as fully closed.
 - [ ] Confirm RLS is enabled on exposed tables and the service-role writes work.
 - [ ] Confirm Storage buckets exist and the object policies are correct.
 - [ ] Deploy or refresh the Edge Functions after secrets are in place.
 - [ ] Verify Data API / table exposure settings for the application schema.
+
+### 1.3a `admin-content` content-publishing defects (2026-07-09 code read)
+
+Found reading `supabase/functions/admin-content/index.ts` directly. These are
+the concrete items behind the "content-publishing defects" line in
+TASK-0012's Known Cutover Blockers — not yet independently verified by QA
+(see `prompts/CODEX_TASK0012_BACKEND_MIGRATION_QA_REVIEW.md`).
+
+- [ ] **Client-asserted publish gates are trusted, not verified server-side.**
+      `enforceGatePolicy` (~line 156) only checks that `source_gate`,
+      `rights_gate`, and `release_gate` are the *string* `"passed"` — it never
+      reads `validation_runs`, `review_decisions`, or `rights_records` to
+      confirm a real validator produced that state. The function's own
+      `TODO(task-0012-trusted-gates)` comment documents this gap. A caller
+      with `publish` access can currently self-assert every gate.
+- [ ] **Publish self-approval.** `changeArtifactState`'s publish path
+      (~line 778) defaults `approved_by` to `[profileId]` — the same account
+      calling publish can be recorded as the sole approver, with no check
+      against an independent second reviewer per the UX-002 two-tutor review
+      model.
+- [ ] **Manifest hash is self-referential.** `manifest_sha256` (~line 759)
+      defaults to a hash of the client-supplied manifest object itself rather
+      than a server-derived hash of the actual published artifact/source/
+      rights content, weakening it as an audit anchor.
+- [ ] **`bulk_import` has no per-item idempotency or transaction boundary.**
+      The `bulk_import` loop (~line 891) calls `createArtifactDraft` once per
+      item under a single batch-level idempotency key. If item N fails,
+      items 1..N-1 already committed `source_records`/`rights_records`/
+      `artifact_versions` rows, no audit event is written for the batch, and
+      a client retry with the same idempotency key re-runs items 1..N-1 —
+      each generates a fresh `crypto.randomUUID()` artifact id when the
+      caller doesn't supply one, so a retry produces duplicate rows rather
+      than detecting them as already-imported.
+- [x] Determine whether `content_author` (not just `admin`) can reach the
+      publish path via `canPerformOperation` (~line 117).
+      *Confirmed by reading the code: `content_author` is limited to
+      `create_draft`/`update_draft`/`bulk_import`; `publish`/`retire`/
+      `unpublish` fall through to `changeArtifactState` and require
+      `role === "admin"`. The self-approval and gate-trust findings above are
+      scoped to admin-role callers only, not content authors — lower severity
+      than an author self-publishing, but still a real gap since "admin" is a
+      single role with no second-admin cross-check.*
 
 ### 1.4 Monitoring and support
 
