@@ -180,6 +180,27 @@ Deno.test("formula checker uses exponent precedence before unary minus", () => {
   }
 });
 
+Deno.test("formula checker accepts negative exponents", () => {
+  const numeric = checkFormulaCase({
+    kind: "numeric",
+    canonical: "0.5",
+    response: "2^-1",
+  });
+  if (numeric.verdict !== "PASS") {
+    throw new Error("expected 2^-1 to evaluate to 0.5");
+  }
+
+  const expression = checkFormulaCase({
+    kind: "expression",
+    canonical: "1/x",
+    response: "x^-1",
+    variables: ["x"],
+  });
+  if (expression.verdict !== "PASS") {
+    throw new Error("expected x^-1 to match 1/x");
+  }
+});
+
 Deno.test("formula checker samples multivariable expressions independently", () => {
   const result = checkFormulaCase({
     kind: "expression",
@@ -190,6 +211,26 @@ Deno.test("formula checker samples multivariable expressions independently", () 
 
   if (result.verdict !== "FLAG") {
     throw new Error("expected multivariable non-equivalence to be flagged");
+  }
+});
+
+Deno.test("formula checker preserves signed-square behavior", () => {
+  const negativeCanonical = checkFormulaCase({
+    kind: "numeric",
+    canonical: "-4",
+    response: "-2^2",
+  });
+  if (negativeCanonical.verdict !== "PASS") {
+    throw new Error("expected -2^2 to evaluate to -4");
+  }
+
+  const parenthesized = checkFormulaCase({
+    kind: "numeric",
+    canonical: "4",
+    response: "(-2)^2",
+  });
+  if (parenthesized.verdict !== "PASS") {
+    throw new Error("expected (-2)^2 to evaluate to 4");
   }
 });
 

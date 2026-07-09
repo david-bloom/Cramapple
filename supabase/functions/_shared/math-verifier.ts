@@ -280,7 +280,7 @@ class Parser {
     const token = this.peek();
     if (token?.type === "op" && token.value === "^") {
       this.next();
-      const rhs = this.parsePower();
+      const rhs = this.parseUnary();
       node = { type: "binary", op: "^", left: node, right: rhs };
     }
     return node;
