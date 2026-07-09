@@ -5,6 +5,34 @@ result should run in mock mode when backend config is absent, but when
 Supabase config and session are available it must read the live review queue
 and write reviewer decisions through the approved content review endpoints.
 
+The frontend must use the curated `public` contract, not direct `app.*` table
+reads.
+
+Use these read sources:
+
+- `public.config`
+- `public.profiles`
+- `public.content_items`
+- `public.content_item_versions`
+- `public.mcq_choices`
+- `public.frq_criteria`
+- `public.content_review_assignments`
+- `public.content_review_decisions`
+- `public.learning_sessions`
+- `public.attempts`
+- `public.response_versions`
+- `public.attempt_criterion_results`
+- `public.grading_results`
+- `public.dashboard_overview_v1`
+- `public.dashboard_subjects_v1`
+- `public.dashboard_pipeline_v1`
+- `public.dashboard_engagement_v1`
+- `public.dashboard_quality_v1`
+- `public.dashboard_attention_v1`
+
+Role lives on `profiles.role`; there is no `user_roles` table.
+Review workflow is `content_review_*` only.
+
 ## Purpose
 
 Reviewers work through assigned question candidates and MCQ answer options in

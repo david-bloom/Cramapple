@@ -5,6 +5,45 @@ Build or update the Cramapple tutor/reader review experience so it can run as a 
 Lovable deployed the HTML for this UX-002 reviewer portal, so update the deployed Lovable project.
 Do not invent a separate architecture.
 
+## Backend Contract
+
+Use the curated `public` interface over `app`, not direct `app.*` reads from the browser.
+
+Read from:
+
+- `public.config`
+- `public.profiles`
+- `public.subjects`
+- `public.exam_packs`
+- `public.exam_pack_versions`
+- `public.content_labels`
+- `public.content_items`
+- `public.content_item_versions`
+- `public.mcq_choices`
+- `public.frq_criteria`
+- `public.content_item_labels`
+- `public.learning_sessions`
+- `public.attempts`
+- `public.response_versions`
+- `public.attempt_criterion_results`
+- `public.grading_results`
+- `public.content_review_assignments`
+- `public.content_review_decisions`
+- `public.dashboard_overview_v1`
+- `public.dashboard_subjects_v1`
+- `public.dashboard_pipeline_v1`
+- `public.dashboard_engagement_v1`
+- `public.dashboard_quality_v1`
+- `public.dashboard_attention_v1`
+
+Write only through the approved RPCs and server-backed flows:
+
+- `public.submit_response` via the edge function wrapper
+- `public.apply_student_memory_event` via the edge function wrapper
+- `public.compose_learning_runtime_context` via the edge function wrapper
+
+Do not read from or write to `app.*` directly in the frontend. `role` lives on `profiles`, not a `user_roles` table. Treat `content_review_*` as the canonical review workflow.
+
 ## Goal
 
 Make the tutor/reader review loop work for the pilot:

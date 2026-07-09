@@ -92,9 +92,13 @@ write grant.
 ### D. Rebuild the 6 `dashboard_*_v1` views
 
 None exist in Production. Rebuild them as `public` views over `app` (or as RPCs if
-they aggregate). Enumerate the 6 from the app's expectations in the reconciliation
-doc; if the exact 6 names/shapes aren't recoverable from the app repo
-(`cramapple-beta`), report which are ambiguous rather than inventing shapes.
+they aggregate). **Canonical names (pinned — the Lovable frontend briefs
+`LOVABLE_UX002_REVIEW_PORTAL.md` and `LOVABLE_TUTOR_READER_SUPABASE_EXECUTION.md`
+already read these exact names, so build these, not renamed variants):**
+`dashboard_overview_v1`, `dashboard_subjects_v1`, `dashboard_pipeline_v1`,
+`dashboard_engagement_v1`, `dashboard_quality_v1`, `dashboard_attention_v1`. If a
+required shape isn't recoverable from the app repo (`cramapple-beta`), report it as
+ambiguous rather than inventing the aggregation — but keep the name.
 
 ### E. Gap tables — implement the DECISION-0035 dispositions
 
