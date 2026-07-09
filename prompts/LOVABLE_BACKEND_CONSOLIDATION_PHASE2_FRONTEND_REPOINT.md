@@ -1,12 +1,17 @@
 # Lovable Brief — Backend Consolidation Phase 2: Frontend Repoint to Production (`app` schema via curated `public`)
 
-> **DO NOT EXECUTE YET.** This brief is gated on Phase 1 (the curated `public`
-> interface) existing **and being applied to Supabase Production
-> `pcntajvbdfqhbeewmdry`**, and on the Product Owner completing the console
-> prerequisites in §B. Until then, do not change `.env`, `config.toml`, OAuth, or
-> any Supabase query. Confirm Phase 1 is applied (ask David / check
-> `docs/architecture/PHASE1_CURATED_INTERFACE_NOTES.md` + its delta report) before
-> starting.
+> **STATUS: Phase 1 is APPLIED to Production (2026-07-09) — this brief is now
+> live.** The curated `public` interface exists and is verified on
+> `pcntajvbdfqhbeewmdry` (migrations `curated_public_interface` +
+> `curated_public_interface_revoke_anon`; QA record:
+> `docs/architecture/PHASE1_CURATED_INTERFACE_QA_FINDINGS_2026_07_09.md`, Re-QA
+> round 2 = PASS + apply record).
+>
+> **Remaining gate before you execute:** the two Product-Owner **console**
+> prerequisites in §B that are not yet done — **§B2 native Google OAuth** and
+> **§B3 secrets** (`SUPABASE_SERVICE_ROLE_KEY`, `OPENAI_API_KEY`). Do NOT change
+> `.env`, `config.toml`, OAuth, or Supabase queries until David confirms those two
+> are complete. Everything else is ready.
 
 ## A. Context (one paragraph — read the full plan before executing)
 
@@ -22,8 +27,10 @@ flip. Authoritative references (in the `Cramapple` docs repo):
 
 ## B. Product-Owner prerequisites (David — do these BEFORE Lovable executes)
 
-1. **Phase 1 applied to Production** and its delta report reviewed (any renamed
-   columns/ambiguous dashboards resolved). This is the gate.
+1. **Phase 1 applied to Production — ✅ DONE (2026-07-09).** Curated interface live
+   and verified on `pcntajvbdfqhbeewmdry`; delta reconciled (all view columns
+   confirmed against the live schema; the 6 `dashboard_*_v1` are intentionally
+   `security_definer` + staff-role-gated — accepted, see the QA doc).
 2. **Google OAuth (native Supabase, replacing the Lovable broker):** create a
    Google Cloud OAuth 2.0 client; set the authorized redirect URI to
    `https://pcntajvbdfqhbeewmdry.supabase.co/auth/v1/callback`; enter the client
