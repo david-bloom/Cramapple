@@ -5,6 +5,45 @@ Build or update the Cramapple tutor/reader review experience so it can run as a 
 Lovable deployed the HTML for this UX-002 reviewer portal, so update the deployed Lovable project.
 Do not invent a separate architecture.
 
+## Backend Contract
+
+Use the curated `public` interface over `app`, not direct `app.*` reads from the browser.
+
+Read from:
+
+- `public.config`
+- `public.profiles`
+- `public.subjects`
+- `public.exam_packs`
+- `public.exam_pack_versions`
+- `public.content_labels`
+- `public.content_items`
+- `public.content_item_versions`
+- `public.mcq_choices`
+- `public.frq_criteria`
+- `public.content_item_labels`
+- `public.learning_sessions`
+- `public.attempts`
+- `public.response_versions`
+- `public.attempt_criterion_results`
+- `public.grading_results`
+- `public.content_review_assignments`
+- `public.content_review_decisions`
+- `public.dashboard_overview_v1`
+- `public.dashboard_subjects_v1`
+- `public.dashboard_pipeline_v1`
+- `public.dashboard_engagement_v1`
+- `public.dashboard_quality_v1`
+- `public.dashboard_attention_v1`
+
+Write only through the approved RPCs and server-backed flows:
+
+- `public.submit_response` via the edge function wrapper
+- `public.apply_student_memory_event` via the edge function wrapper
+- `public.compose_learning_runtime_context` via the edge function wrapper
+
+Do not read from or write to `app.*` directly in the frontend. `role` lives on `profiles`, not a `user_roles` table. Treat `content_review_*` as the canonical review workflow.
+
 ## Goal
 
 Make the tutor/reader review loop work for the pilot:
@@ -54,6 +93,9 @@ For tutor question review, submit the fields the backend expects:
 - `supersedes_id` when applicable
 
 For AP Reader or FRQ paths, use the matching backend fields for that stage.
+The live review tables key off `content_review_assignment_id` and
+`content_review_decision_id`; do not assume a generic `id` field exists on the
+backend rows.
 
 ### UX rules
 
@@ -70,6 +112,12 @@ For AP Reader or FRQ paths, use the matching backend fields for that stage.
 - Treat concern codes as the controlled vocabulary: `Accuracy`, `Ambiguity`, `Rubric gap`, `Other`.
 - Use the normalized `content_items` / `content_item_versions` artifact model; if that pair is missing in the deployed project, add it rather than introducing `mcq_items` / `frq_packages` polymorphism.
 - Reflect `content_item_versions.review_status` in the UI as the backend-driven review state marker.
+- Treat `content_review_assignments.content_review_assignment_id` as the queue
+  row key and `content_review_decisions.content_review_decision_id` as the
+  immutable submission key.
+- For `/reviewer/submissions`, use the same UX-002 `content_review_*` review pipeline as the queue and submission path. Do not query the older `review_assignments` / `review_decisions` pipeline for this screen.
+- Treat `difficulty_label` as the canonical column name for the newer review pipeline.
+- Use `review_queue_scope = 'all_pending'` as the explicit capability for the CC view. The ordinary reviewer experience must stay on `my_queue` by default.
 
 ## Forbidden Behavior
 

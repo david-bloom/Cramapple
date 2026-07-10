@@ -42,6 +42,12 @@ Execute the tutor/reader Supabase plan end to end:
 - Lovable deployed the HTML for UX-002, so treat the deployed Lovable project as the UI target.
 - Use the normalized `content_items` / `content_item_versions` artifact model; if the deployed project is missing it, add that pair rather than introducing `mcq_items` / `frq_packages` polymorphism.
 - The current Supabase content set includes 80 FRQs, so FRQ question review is in scope for the pilot; canonical-answer review remains conditional on canonical answers being present.
+- Keep `/reviewer/submissions` on the UX-002 `content_review_*` pipeline only. Do not mix the older `review_assignments` / `review_decisions` pipeline into the reviewer submissions screen.
+- Use `difficulty_label` as the canonical newer-pipeline column name.
+- Treat `content_review_assignment_id` and `content_review_decision_id` as the
+  live row identifiers in the newer pipeline; do not assume a generic `id`
+  column on those rows.
+- Use `review_queue_scope = 'all_pending'` as the explicit capability for the CC view. Keep the ordinary reviewer queue on `my_queue`.
 
 ## Execution Order
 

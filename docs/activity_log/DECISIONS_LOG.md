@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0035 — Resolve Phase 0 of the Backend Consolidation Migration (Schema Reconciliation, Option A/A2)
 - DECISION-0031 — Launch AP Statistics as Subject 2, Reusing the Tutor-Authored Content Model
 - DECISION-0030 — Failed/Rejected Grading Burns the Daily Budget Cap When Cost Is Known
 - DECISION-0029 — ALLOWED_ORIGINS Required in All Environments; No Wildcard CORS Fallback
@@ -1380,3 +1381,77 @@ now is low.
 - This decision does not authorize publishing the exam pack, content
   labels, or any content — that remains a separate decision per the
   prompt's explicit scope boundary.
+
+## DECISION-0035 — Resolve Phase 0 of the Backend Consolidation Migration (Schema Reconciliation, Option A/A2)
+
+**Date:** 2026-07-09
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Related Task:** N/A (Backend Consolidation & Migration Plan, 2026-07-08)
+**Area:** Architecture / Integration
+
+### Context
+
+The live Lovable app (Supabase project `tazjfzphsevtgervlyit`, `public.*`, ~26
+tables) and Production (`pcntajvbdfqhbeewmdry`, `app.*`, ~60 tables, RPC/view
+design) are two independently-built, diverged schemas — the root cause of
+"published content doesn't appear in the app." The plan
+(`docs/architecture/BACKEND_CONSOLIDATION_MIGRATION_PLAN_2026_07_08.md`, with the
+mapping in `APP_SCHEMA_RECONCILIATION_2026_07_08.md`) already chose **Option A /
+A2**: adapt the app to the `app` schema via a curated `public` interface (views
+for reads + `supabase.rpc(...)` for writes), not a table-for-table env flip.
+Phase 0 (decisions only) blocked all downstream work and was reserved for the
+Product Owner. This entry resolves it.
+
+### Decision
+
+1. **Review workflow →** the reviewer UI targets **`content_review_*`**
+   (content-version review: `app.content_review_assignments` /
+   `content_review_decisions`), not the artifact-review `review_*` tables.
+2. **Auth users →** **start fresh** in Production; the Lovable-Cloud users on
+   `tazjfzphsevtgervlyit` do NOT carry over (treated as pre-beta/test accounts).
+3. **Anonymous practice →** **No** — require sign-in on prod. Drop
+   `anonymous_sessions`; curated views grant only `authenticated` (no `anon`).
+4. **App AI keys →** move the app's own AI features to **`OPENAI_API_KEY`**
+   (already set), off the Lovable AI Gateway. (Distinct from the grading runners'
+   Vercel AI Gateway, which is unchanged.)
+5. **Gap tables →** `config`: **add a small `app.config`** KV table (exposed via a
+   curated read view). Drop `anonymous_sessions`, `capture_sessions` (re-add when
+   the TASK-0011 capture path lands), `idempotency_keys` (use
+   `grading_results.request_id/request_hash`), and `predictions` (embedded in
+   `grading_results`). Adapt the app to the **`blind_group_id` column** instead of
+   a `review_blind_groups` table. **Rebuild the 6 `dashboard_*_v1` views** as
+   `public` views over `app`.
+
+### Rationale
+
+Each choice minimizes surface and churn for an Aug-2026 beta: `content_review_*`
+matches a pre-launch content-vetting reviewer UI; fresh auth avoids a `pg_dump`
+migration of throwaway accounts; sign-in-only shrinks the public API surface;
+`OPENAI_API_KEY` decouples the app's AI from Lovable now that the key exists; the
+gap-table dispositions follow the schema's existing design (idempotency and
+predictions already live in `grading_results`; blind grouping is already a
+column).
+
+### Consequences
+
+- **Unblocks Phase 1** (Codex: build the curated `public` interface — views +
+  RPC confirmation over `app`, incl. `app.config` and rebuilt `dashboard_*_v1`)
+  and **Phase 2** (Lovable: repoint to the curated interface, native Supabase
+  Google OAuth, `.env`/`config.toml` → Production).
+- Docs `BACKEND_CONSOLIDATION_MIGRATION_PLAN_2026_07_08.md` §7 and
+  `APP_SCHEMA_RECONCILIATION_2026_07_08.md` gap table updated to "resolved."
+- Phase 1 build spec captured in
+  `prompts/CODEX_BACKEND_CONSOLIDATION_PHASE1_CURATED_INTERFACE.md`.
+
+### Risks / Follow-ups
+
+- "Start fresh" auth assumes the current Lovable-Cloud users are not real
+  beta users with data to preserve — reconfirm before disabling Lovable Cloud.
+- `content_review_*` pick should be validated against the actual reviewer UI
+  routes during Phase 2; if the UI also grades artifacts, revisit (the "both"
+  option was declined).
+- Migration docs and this decision originate on branch
+  `claude/backend-consolidation-migration` (off `main`). `main` is at
+  DECISION-0032; branches for DECISION-0033/0034 are outstanding. If numbering
+  collides on merge, renumber whichever merges second and update the index.
