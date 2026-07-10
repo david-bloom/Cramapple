@@ -352,10 +352,14 @@ Do not merge directly; David remains Final Approver.
   portal-doesn't-load report is actually resolved, not just structurally
   plausible.
 - **`assign-for-review`'s stricter contract** (exactly 2 tutor reviewers,
-  `tutor_question` stage only) has not been exercised against the rewritten
-  `createAssignmentsForVersion` live — confirm the admin assignment-creation
-  UI (wherever it lives) actually passes 2 reviewer IDs, since the old
-  prototype allowed 1–8.
+  `tutor_question` stage only) is enforced in the rewritten
+  `createAssignmentsForVersion` (`reviewerIds.length(2)`, non-`tutor_question`
+  rejected before the edge-function call). Codex checked the Lovable project
+  2026-07-10: the reviewer routes call queue/read/decision paths, the ops
+  dashboard routes are read-only, and the older embedded UX-002 script is
+  localStorage-only. No live admin assignment-creation UI caller was found in
+  this project, so there is no current UI path that sends 1–8 reviewers; the
+  remaining gap is product wiring/live exercise of an admin creation surface.
 
 ### 10.3 Cleanup, no urgency
 
@@ -370,8 +374,12 @@ Do not merge directly; David remains Final Approver.
   applied migration list (`list_migrations` checked 2026-07-10). Either it was
   superseded by an ad hoc `execute_sql` grant (the commit log shows "Grant CC
   queue to David's reviewer profile" / "Backfill admin review queue scope" as
-  separate already-landed work) or it's a stale draft. Confirm which before
-  either applying or deleting it — don't apply it blind.
+  separate already-landed work) or it's a stale draft. Codex checked 2026-07-10:
+  this file is **not redundant** with `202607080003_backfill_review_queue_scope`.
+  The tracked migration grants `review_queue_scope = 'all_pending'` while
+  deliberately keeping David at the ordinary reviewer role level; the untracked
+  file additionally sets `role = 'admin'`. Treat it as a still-unapplied
+  privilege-escalation decision, not a safe cleanup file. Do not apply it blind.
 
 ### 10.4 Explicitly out of scope for this migration (tracked elsewhere)
 
