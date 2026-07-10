@@ -132,30 +132,120 @@ a small gap migration.
   Lovable-Cloud project and will NOT carry over — migrate (`pg_dump` of
   `auth.users` + data) or start fresh.
 
-**Phase 1 — Backend curated interface (Codex).**
+**Phase 1 — Backend curated interface (Codex). ✅ APPLIED to Production 2026-07-09.**
 - Build `public` views (reads) + confirm/extend RPCs (writes) over the app subset;
   grant `select`/`execute` to `authenticated` (and `anon` only where anon practice
   is intended); do NOT expose ops tables. Rebuild the 6 `dashboard_*_v1` views over
   `app`. Apply to Production via Supabase CLI/dashboard (user has elevated access;
   Codex/Lovable do not).
+- **Status:** `202607090001_curated_public_interface.sql` + a follow-up
+  `curated_public_interface_revoke_anon` migration (applied directly, not yet
+  committed to the repo — see follow-up below) are both live on Production
+  (`pcntajvbdfqhbeewmdry`, migration versions `20260709123347` /
+  `20260709123606`). Verified 2026-07-09 via Supabase MCP against live
+  Production: all 19 entity views + 6 dashboard views + `app.config` exist; the 5
+  RPC signatures match; `authenticated` holds grants on every curated
+  view/table and `anon` holds none; sample reads return data (e.g.
+  `public.content_items` = 330 rows). The 6 dashboard views are intentionally
+  `SECURITY DEFINER` (flagged as advisor ERRORs — expected, each has an
+  in-view `auth.uid()` role-gate per the QA doc's design note, not a new gap).
+  **Follow-up needed:** commit a matching `curated_public_interface_revoke_anon`
+  migration file to the repo so `supabase/migrations` matches Production's
+  migration history (currently drifted — that migration exists remotely only).
 
-**Phase 2 — Frontend repoint (Lovable).** Per the mapping doc: repoint queries to
-the curated views/RPCs (`supabase.rpc(...)`); regenerate `types.ts`
-(`supabase gen types typescript --project-id pcntajvbdfqhbeewmdry`); fix non-`id`
-PK filters; map `user_roles`→`profiles.role`; swap Google OAuth from the Lovable
-broker to native Supabase provider (own Google Cloud OAuth client + redirect URI
-`https://pcntajvbdfqhbeewmdry.supabase.co/auth/v1/callback`); update
-`.env`/`config.toml` to Production; add `SUPABASE_SERVICE_ROLE_KEY` (from
-Supabase → Settings → API) as a secret.
+**Phase 2 — Frontend repoint (Lovable). ✅ Reads + auth done; writes deferred.**
+- **Status (reported 2026-07-09, not yet independently re-verified this
+  session):** Lovable pivoted off Cloud entirely into a **new, non-Cloud fork**
+  — `exam-buddy-wireframe` (preview
+  `https://preview--exam-buddy-wireframe.lovable.app`) — rather than repointing
+  the old Cloud-bound project in place.
+  - Reads verified end-to-end with real evidence: `/rest/v1/subjects` returns
+    200 with real Production data, via a **typed-client workaround** — the
+    generated `types.ts` is **permanently locked** on this fork (accepted
+    standing pattern, not a blocker to unwind).
+  - Native Google OAuth fully works: required fixing 3 call sites (Lovable's
+    `@lovable.dev/cloud-auth-js` broker → native
+    `supabase.auth.signInWithOAuth`) plus a Supabase Auth **Site URL** fix (was
+    defaulting to `localhost:3000`).
+  - **Deferred, not done — carry into Phase 3+:**
+    - Writes (`session-event`, `evaluate-attempt`, `review-decision`) are
+      spec'd but **never HAR-verified**. Treat as unproven until checked.
+    - Phase 2c cleanup outstanding: delete the now-dead
+      `@lovable.dev/cloud-auth-js` / `src/integrations/lovable/` code; drop
+      anon/capture flows.
+    - Minor `ap-statistics` vs `ap_statistics` naming mismatch in one hook.
+    - The student attempt-submit backend edge function is still missing
+      (separate Phase 1 follow-up, not a Phase 2 item).
 
-**Phase 3 — Hosting cutover (David + Vercel).** Point the `cramapple` Vercel
-project at `cramapple-beta`, set Framework/Root, set Production env vars
-(`VITE_SUPABASE_URL` + publishable key above, server keys as needed).
+**Phase 3 — Hosting cutover (David + Vercel). ✅ DONE 2026-07-09.**
+- `exam-buddy-wireframe`'s Lovable project connected to a new GitHub repo,
+  `david-bloom/exam-buddy-wireframe` (private; `package.json`/`vite.config.ts`
+  at repo root — Root Directory left blank/default).
+- `cramapple` Vercel project (`prj_o6OPEaC541tFdI3VDjfhnLG9TlGG`) Git-repointed
+  from the wrong `Cramapple` docs repo to `david-bloom/exam-buddy-wireframe`
+  (David, via dashboard — no MCP tool exists to change a project's Git link,
+  root directory, or env vars). Production env vars set:
+  `VITE_SUPABASE_URL=https://pcntajvbdfqhbeewmdry.supabase.co`,
+  `VITE_SUPABASE_PUBLISHABLE_KEY=sb_publishable_TlRLW6EOot2pzI4QYtuP7A_XcktZHFT`
+  (matches the repo's committed `.env` exactly — was already Production-correct).
+- First deploy from a stale "Redeploy" reused the old broken build source
+  (still `Cramapple`@`894c27b`, same `ENOENT` error) — required an explicit
+  **Create Deployment** with commit ref `main` to force a fresh pull from the
+  new repo. Resulting deploy `dpl_FZUJbAH8HnkStbL4TVeHDs9uwaa9`: `READY`,
+  `target: production`, built from `exam-buddy-wireframe@e79f1d7` (main),
+  aliased to `cramapple.vercel.app` + `cramapple-bloom-llc.vercel.app`.
+  Verified: `curl https://cramapple.vercel.app` → 200.
+- `ALLOWED_ORIGINS` edge-function secret and Supabase Auth → URL Configuration
+  → Redirect URLs both updated (additively — Lovable preview origin kept) to
+  include `https://cramapple.vercel.app` + `https://cramapple-bloom-llc.vercel.app`.
+  Supabase Auth **Site URL** switched from the Lovable preview origin to
+  `https://cramapple.vercel.app` (David's call — Vercel is now the real
+  production host).
+- **Not yet done via MCP (no read access to edge-fn secrets or a
+  secrets-write tool):** independent confirmation of the exact `ALLOWED_ORIGINS`
+  value now live. Trust David's report; spot-check via a real CORS'd request
+  from the Vercel origin if issues appear.
 
-**Phase 4 — Verify, then optionally disable Lovable Cloud.** Test sign-in,
-dashboard, attempt→grade end-to-end; watch Production api logs for `/rest/v1/`
-traffic. Keep Lovable Cloud enabled ≥1 week as rollback; only disable
-(Connectors → Lovable Cloud → Disable) after the cutover is verified.
+**Phase 4 — Verify, then optionally disable Lovable Cloud. IN PROGRESS
+2026-07-09.** Test sign-in, dashboard, attempt→grade end-to-end; watch
+Production api logs for `/rest/v1/` traffic. Keep Lovable Cloud enabled ≥1
+week as rollback; only disable (Connectors → Lovable Cloud → Disable) after
+the cutover is verified.
+- ✅ Sign-in (native Google OAuth) verified live on `cramapple.vercel.app`.
+- ✅ Subject list reads verified live, real Production data.
+- Found + fixed (same session): the student MCQ practice flow was a fully
+  faked client-side prototype (instant fabricated grading feedback, zero
+  backend calls, question content mismatched to subject). Lovable rewired it
+  to real reads (`content_item_versions`/`mcq_choices`) + an honest disabled-
+  grading state (commit `c7f72e2`).
+- Found + fixed (same session): that fix then surfaced a **real, pre-existing
+  Postgres RLS bug** — `app.content_item_versions_select_published` and
+  `app.content_items`'s reviewer policy referenced each other, causing
+  "infinite recursion detected in policy" for any real authenticated read
+  (service-role reads used in earlier QA never hit it). Fixed via migration
+  `fix_content_item_versions_rls_recursion` (SECURITY DEFINER helper breaks
+  the cycle). This bug predates Phase 1/2/3 — it was just never exercised by
+  a live authenticated query until this session.
+- **`session_start` write path fully verified live 2026-07-09** — a real
+  `app.learning_sessions` row was created via the actual "Start session"
+  button on `cramapple.vercel.app`. Getting there required fixing 3 stacked,
+  pre-existing backend/frontend bugs (none introduced by this migration,
+  just never previously exercised by a real authenticated caller):
+  (1) `_shared/auth.ts` called `getUser()` with no token argument — fixed to
+  `getUser(token)`; (2) **`app` schema was never exposed to PostgREST**
+  (`pgrst.db_schemas` only had `public, graphql_public`) — fixed via
+  `ALTER ROLE authenticator SET pgrst.db_schemas = 'public, app, graphql_public'`
+  + `NOTIFY pgrst, 'reload schema'`; this had been silently blocking ALL
+  edge-function writes to `app.*`, not just this one; (3) frontend
+  `entry_path` values didn't match the DB CHECK constraint — fixed in
+  `_ux.setup.index.tsx` (commit `0417c6a7`).
+- **Open follow-up:** the `getUser(token)` fix was only applied to
+  `session-event` — `evaluate-attempt` and `review-decision` bundle their own
+  copies of `_shared/auth.ts` and almost certainly have the identical bug,
+  untested. Reviewer/tutor flow not re-checked against live Production.
+  Grading/submit remains honestly disabled (separate, pre-existing gap — no
+  edge function creates/submits a `response_version` yet). Full blow-by-blow:
+  `project_supabase_prod_dev.md`.
 
 ---
 
@@ -204,6 +294,12 @@ frontend) are unblocked. See `docs/activity_log/DECISIONS_LOG.md#DECISION-0035`.
   `evaluate-attempt` is the repo's (Phase A landed in commit `8f79ebe`; F1/F2
   remediation still open, see `CODEX_TASK0016_PHASE_A_QA_FINDINGS_2026_07_08.md`).
 
+**Full history / canonical branch:** `codex/backend-consolidation-reconciled`
+is now the authoritative reconciliation branch for this migration. It starts
+from `claude/backend-consolidation-migration` (Phase 0 decisions, Phase 1 spec +
+application, Phase 2 briefs) and cherry-picks the 2026-07-10 closure commits
+from `claude/ap-statistics-mcq-short-frq-prompts` (`e321a9c`, `fa35f85`).
+
 ## 9. Fresh-context quick-start
 
 1. Read this doc + `APP_SCHEMA_RECONCILIATION_2026_07_08.md`.
@@ -213,5 +309,76 @@ frontend) are unblocked. See `docs/activity_log/DECISIONS_LOG.md#DECISION-0035`.
    `get_deployment_build_logs` for team `team_YetZ2yQaKEofqcsgkWZqu6g6`.
 3. Start with **Phase 0 decisions** — nothing downstream should proceed until the
    review-workflow, gap-table, and auth decisions are made.
+4. For Phase 3: first confirm which GitHub repo the `exam-buddy-wireframe`
+   Lovable project syncs to (Lovable project settings → GitHub connection, or
+   ask the user) — do not assume `cramapple-beta` still holds.
 4. Do NOT change `.env`, `config.toml`, OAuth, or Vercel settings until the backend
    interface (Phase 1) exists and Phase 0 is decided.
+
+---
+
+## 10. Remaining Work — 2026-07-10
+
+Status as of this update: Phases 0–3 are functionally complete and live on
+Production (`pcntajvbdfqhbeewmdry`). All four QA findings from
+`BACKEND_CONSOLIDATION_QA_FINDINGS_2026_07_09.md` (contract mismatch, fictional
+admin-scope fields, CORS standardization, RLS restoration) are closed, and the
+reviewer-portal frontend gap (`review.functions.ts` targeting a legacy schema)
+is closed. What's left:
+
+### 10.1 Branch fragmentation — resolved in repo, pending PR merge
+
+Resolved 2026-07-10 on `codex/backend-consolidation-reconciled`. Verification
+showed the full branch-to-branch diff was polluted by unrelated AP Statistics /
+grading-engine work on `claude/ap-statistics-mcq-short-frq-prompts`, so only the
+two backend-consolidation closure commits were moved:
+
+- `e321a9c` → cherry-picked as `de85c6b`: adds the QA findings closure doc and
+  removes the retired `supabase/functions/grade-frq/index.ts` source.
+- `fa35f85` → cherry-picked onto the reconciled branch with this plan document
+  resolved as the canonical, status-rich version.
+
+`main` still does not reflect the migration until the reconciliation PR merges.
+Do not merge directly; David remains Final Approver.
+
+### 10.2 Live verification not yet run
+
+- **Reviewer portal end-to-end browser test.** The `review.functions.ts`
+  rewrite (Lovable project `d334fed9-5a97-4e76-906e-7c0ad7082212`, commit
+  `36d0a86`) was verified by diff review + typecheck only. No one has actually
+  logged in as a reviewer/admin against Production and walked queue-load →
+  open-assignment → submit-decision → appears-in-submissions. This is the
+  step that would confirm the original "Unauthorized: Invalid token" /
+  portal-doesn't-load report is actually resolved, not just structurally
+  plausible.
+- **`assign-for-review`'s stricter contract** (exactly 2 tutor reviewers,
+  `tutor_question` stage only) has not been exercised against the rewritten
+  `createAssignmentsForVersion` live — confirm the admin assignment-creation
+  UI (wherever it lives) actually passes 2 reviewer IDs, since the old
+  prototype allowed 1–8.
+
+### 10.3 Cleanup, no urgency
+
+- `grade-frq` is still deployed on Production (`4c7e99cd-…`, v5) even though
+  the repo source was removed 2026-07-10 — no `delete_edge_function` tool was
+  available via MCP. Delete via Supabase dashboard or
+  `supabase functions delete grade-frq --project-ref pcntajvbdfqhbeewmdry`
+  whenever convenient; it only ever 404s (backing tables are empty), so
+  there's no live-traffic risk.
+- `supabase/migrations/202607080004_promote_dbloom01_to_admin.sql` exists
+  untracked in the working tree but does **not** appear in Production's
+  applied migration list (`list_migrations` checked 2026-07-10). Either it was
+  superseded by an ad hoc `execute_sql` grant (the commit log shows "Grant CC
+  queue to David's reviewer profile" / "Backfill admin review queue scope" as
+  separate already-landed work) or it's a stale draft. Confirm which before
+  either applying or deleting it — don't apply it blind.
+
+### 10.4 Explicitly out of scope for this migration (tracked elsewhere)
+
+- `grade-frq`'s underlying grading-engine gaps (deterministic layer not wired,
+  no adjudicated gold set) — tracked in
+  `docs/research/grading_engine_rollout_plan_2026_07_08.md` and
+  `docs/tasks/TASK-0016-GRADING-ENGINE-ROLLOUT.md`, unrelated to backend
+  consolidation.
+- The AP Biology publish-gap (all 242 content_items `draft`) — a separate
+  URGENT track per memory, not touched by this migration.
