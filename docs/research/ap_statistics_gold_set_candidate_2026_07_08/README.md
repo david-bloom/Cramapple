@@ -5,6 +5,9 @@
 **Related:** DECISION-0034 (Option B); `../grading_cross_subject_takeaways.md`;
 `../../architecture/CONTENT_GOVERNANCE_AND_VALIDATION.md` §12
 
+**Calibration note:** the 2026-07-09 100-item package supersedes this 5-item
+slice for calibration runs; keep this package as a historical/smoke-test slice.
+
 ## What this is / is not
 
 - **Is:** a locked candidate response set with criterion-level provisional
@@ -60,7 +63,7 @@ These are the concrete calibration cases for the AP Statistics calculation
 checker the assessment recommended (and the Chemistry README flagged Stats had
 already prototyped). Build the checker so it flags these two at zero API cost.
 
-## Adjudication queue (11 items) — includes a corpus defect
+## Adjudication queue (7 items)
 
 Highest-value flags:
 
@@ -72,13 +75,22 @@ Highest-value flags:
   source label. Calibration signal: tests whether the grader over-penalizes
   concise-but-complete answers (a real product risk — students who write tersely
   should not lose points).
+- **APSTAT-MOD8-H001 / subtly_wrong / interpretation** — intercept stated
+  uncritically; weak differentiation from the other tiers. Separate from the
+  corpus defect below (item-design note, not a data issue).
 
-## Corpus defect (flag to Learning Quality)
+## Corpus defect — resolved 2026-07-09
 
 - **APSTAT-MOD8-H001 supplies no dataset.** Responses fabricate r ≈ 0.75–0.82,
-  so correlation/regression *values* cannot be graded for correctness — only
-  method and interpretation. Either attach a real dataset or scope the rubric to
-  method-only before this item is used as gold.
+  so correlation/regression *values* cannot be graded for correctness.
+  **Resolution (Product Owner approved):** scope the rubric to
+  method-only/self-consistency grading rather than sourcing a real dataset —
+  `correlation_calculation` grades formula-application steps, and
+  `regression_equation` grades `b=r(sy/sx)` applied correctly to the response's
+  own asserted `r`/`sy`/`sx`, regardless of whether those values are real. See
+  `../AP_STATISTICS_MOD3_MOD6_BOUNDARY_CONTRACTS_2026_07_09.md` §3 and the
+  `grading_note` fields on the item's rubric in `provisional_labels.json` and
+  the bootstrap corpus.
 
 ## How to upgrade to `adjudicated_gold`
 
