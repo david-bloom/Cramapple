@@ -14326,12 +14326,12 @@
           "subject": "AP Statistics",
           "item_type": "frq",
           "frq_form": "short",
-          "stem": "A scatter plot shows the relationship between study hours and exam scores. Describe what you observe in the plot about the relationship.",
+          "stem": "A scatterplot of study hours versus exam scores has an upward, roughly linear pattern. The points cluster moderately close to a line, with no obvious outliers. Describe the direction, form, and strength of the relationship, and state whether outliers are present.",
           "stimulus": "",
           "rubric": [
             {
               "criterion_key": "visual_description",
-              "learner_facing_text": "Describes the direction (positive/negative), strength (strong/weak/moderate), and presence of outliers or patterns",
+              "learner_facing_text": "Identifies a positive, roughly linear, moderate-to-strong relationship and no obvious outliers",
               "points_possible": 1
             }
           ],
@@ -14378,9 +14378,9 @@
         "content_key": "APSTAT-MOD4-M004",
         "item_type": "frq",
         "frq_form": "short",
-        "canonical_answer": "visual_description: Describes the direction (positive/negative), strength (strong/weak/moderate), and presence of outliers or patterns",
+        "canonical_answer": "visual_description: Identifies a positive, roughly linear, moderate-to-strong relationship and no obvious outliers",
         "title": "APSTAT-MOD4-M004",
-        "stem": "A scatter plot shows the relationship between study hours and exam scores. Describe what you observe in the plot about the relationship.",
+        "stem": "A scatterplot of study hours versus exam scores has an upward, roughly linear pattern. The points cluster moderately close to a line, with no obvious outliers. Describe the direction, form, and strength of the relationship, and state whether outliers are present.",
         "stimulus": "",
         "prompt_json": {
           "subject": "AP Statistics",
@@ -14405,7 +14405,7 @@
           "verification_profile_version": "phase-c-2026-07-10",
           "phase_c_publish_packet": "2026-07-11"
         },
-        "explanation": "visual_description: Describes the direction (positive/negative), strength (strong/weak/moderate), and presence of outliers or patterns",
+        "explanation": "visual_description: Identifies a positive, roughly linear, moderate-to-strong relationship and no obvious outliers",
         "help_text": "Address each rubric criterion directly and show quantitative work where applicable.",
         "content_labels": [
           "unit_4"
@@ -14413,7 +14413,7 @@
         "frq_criteria": [
           {
             "criterion_key": "visual_description",
-            "learner_facing_text": "Describes the direction (positive/negative), strength (strong/weak/moderate), and presence of outliers or patterns",
+            "learner_facing_text": "Identifies a positive, roughly linear, moderate-to-strong relationship and no obvious outliers",
             "points_possible": 1,
             "evidence_requirements": null,
             "minimum_fix": null,
@@ -14741,7 +14741,7 @@
           "rubric": [
             {
               "criterion_key": "descriptive_statistics",
-              "learner_facing_text": "Correctly calculates mean as 20 and standard deviation as approximately 7.07",
+              "learner_facing_text": "Correctly calculates mean as 20 and sample standard deviation as approximately 7.91",
               "points_possible": 1
             }
           ],
@@ -14770,9 +14770,9 @@
                 "kind": "numeric+ecf",
                 "parts": [
                   "mean",
-                  "sd_population_authored"
+                  "sd_sample"
                 ],
-                "note": "Rubric/authored response expect mean 20 and SD about 7.07, which is population SD for the listed values. The item says sample, whose SD would be about 7.91, so this key preserves the current rubric value and the remediation log flags the content boundary."
+                "note": "The item requests the sample standard deviation, so the keyed calculation uses the n-1 denominator and yields about 7.91."
               }
             },
             "verification_profile_version": "phase-c-2026-07-10",
@@ -14797,7 +14797,7 @@
         "content_key": "APSTAT-MOD5-M001",
         "item_type": "frq",
         "frq_form": "short",
-        "canonical_answer": "descriptive_statistics: Correctly calculates mean as 20 and standard deviation as approximately 7.07",
+        "canonical_answer": "descriptive_statistics: Correctly calculates mean as 20 and sample standard deviation as approximately 7.91",
         "title": "APSTAT-MOD5-M001",
         "stem": "Calculate the mean and standard deviation of this sample: 10, 15, 20, 25, 30.",
         "stimulus": "",
@@ -14825,15 +14825,15 @@
               "kind": "numeric+ecf",
               "parts": [
                 "mean",
-                "sd_population_authored"
+                "sd_sample"
               ],
-              "note": "Rubric/authored response expect mean 20 and SD about 7.07, which is population SD for the listed values. The item says sample, whose SD would be about 7.91, so this key preserves the current rubric value and the remediation log flags the content boundary."
+              "note": "The item requests the sample standard deviation, so the keyed calculation uses the n-1 denominator and yields about 7.91."
             }
           },
           "verification_profile_version": "phase-c-2026-07-10",
           "phase_c_publish_packet": "2026-07-11"
         },
-        "explanation": "descriptive_statistics: Correctly calculates mean as 20 and standard deviation as approximately 7.07",
+        "explanation": "descriptive_statistics: Correctly calculates mean as 20 and sample standard deviation as approximately 7.91",
         "help_text": "Address each rubric criterion directly and show quantitative work where applicable.",
         "content_labels": [
           "unit_5"
@@ -14841,7 +14841,7 @@
         "frq_criteria": [
           {
             "criterion_key": "descriptive_statistics",
-            "learner_facing_text": "Correctly calculates mean as 20 and standard deviation as approximately 7.07",
+            "learner_facing_text": "Correctly calculates mean as 20 and sample standard deviation as approximately 7.91",
             "points_possible": 1,
             "evidence_requirements": null,
             "minimum_fix": null,
@@ -14985,11 +14985,11 @@
           "item_type": "frq",
           "frq_form": "short",
           "stem": "This histogram shows the distribution of test scores. Describe the shape and explain what it suggests about how students performed.",
-          "stimulus": "",
+          "stimulus": "Histogram bin counts: 50-59: 2 students; 60-69: 6; 70-79: 14; 80-89: 6; 90-99: 2.",
           "rubric": [
             {
               "criterion_key": "histogram_interpretation",
-              "learner_facing_text": "Correctly identifies shape (normal, skewed, bimodal), center/spread, and draws inference about student performance",
+              "learner_facing_text": "Identifies an approximately symmetric, unimodal distribution centered in the 70s, spanning roughly 50-99, with most students scoring 70-79",
               "points_possible": 1
             }
           ],
@@ -15036,10 +15036,10 @@
         "content_key": "APSTAT-MOD5-M003",
         "item_type": "frq",
         "frq_form": "short",
-        "canonical_answer": "histogram_interpretation: Correctly identifies shape (normal, skewed, bimodal), center/spread, and draws inference about student performance",
+        "canonical_answer": "histogram_interpretation: Identifies an approximately symmetric, unimodal distribution centered in the 70s, spanning roughly 50-99, with most students scoring 70-79",
         "title": "APSTAT-MOD5-M003",
         "stem": "This histogram shows the distribution of test scores. Describe the shape and explain what it suggests about how students performed.",
-        "stimulus": "",
+        "stimulus": "Histogram bin counts: 50-59: 2 students; 60-69: 6; 70-79: 14; 80-89: 6; 90-99: 2.",
         "prompt_json": {
           "subject": "AP Statistics",
           "module": 5,
@@ -15063,7 +15063,7 @@
           "verification_profile_version": "phase-c-2026-07-10",
           "phase_c_publish_packet": "2026-07-11"
         },
-        "explanation": "histogram_interpretation: Correctly identifies shape (normal, skewed, bimodal), center/spread, and draws inference about student performance",
+        "explanation": "histogram_interpretation: Identifies an approximately symmetric, unimodal distribution centered in the 70s, spanning roughly 50-99, with most students scoring 70-79",
         "help_text": "Address each rubric criterion directly and show quantitative work where applicable.",
         "content_labels": [
           "unit_5"
@@ -15071,7 +15071,7 @@
         "frq_criteria": [
           {
             "criterion_key": "histogram_interpretation",
-            "learner_facing_text": "Correctly identifies shape (normal, skewed, bimodal), center/spread, and draws inference about student performance",
+            "learner_facing_text": "Identifies an approximately symmetric, unimodal distribution centered in the 70s, spanning roughly 50-99, with most students scoring 70-79",
             "points_possible": 1,
             "evidence_requirements": null,
             "minimum_fix": null,
@@ -15769,12 +15769,12 @@
           "subject": "AP Statistics",
           "item_type": "frq",
           "frq_form": "short",
-          "stem": "This graph shows the sampling distribution of a sample mean. Use it to explain what the Central Limit Theorem tells us.",
+          "stem": "Repeated random samples of size n = 50 are drawn from a strongly right-skewed population with mean μ and standard deviation σ. Use the Central Limit Theorem to describe the approximate shape, center, and standard deviation of the sampling distribution of the sample mean.",
           "stimulus": "",
           "rubric": [
             {
               "criterion_key": "clt_application",
-              "learner_facing_text": "Explains that sample means are approximately normally distributed regardless of population shape, and relates to the graph",
+              "learner_facing_text": "Explains that for n = 50 the sample mean is approximately normal, centered at μ, with standard deviation σ/√50",
               "points_possible": 1
             }
           ],
@@ -15821,9 +15821,9 @@
         "content_key": "APSTAT-MOD6-M004",
         "item_type": "frq",
         "frq_form": "short",
-        "canonical_answer": "clt_application: Explains that sample means are approximately normally distributed regardless of population shape, and relates to the graph",
+        "canonical_answer": "clt_application: Explains that for n = 50 the sample mean is approximately normal, centered at μ, with standard deviation σ/√50",
         "title": "APSTAT-MOD6-M004",
-        "stem": "This graph shows the sampling distribution of a sample mean. Use it to explain what the Central Limit Theorem tells us.",
+        "stem": "Repeated random samples of size n = 50 are drawn from a strongly right-skewed population with mean μ and standard deviation σ. Use the Central Limit Theorem to describe the approximate shape, center, and standard deviation of the sampling distribution of the sample mean.",
         "stimulus": "",
         "prompt_json": {
           "subject": "AP Statistics",
@@ -15848,7 +15848,7 @@
           "verification_profile_version": "phase-c-2026-07-10",
           "phase_c_publish_packet": "2026-07-11"
         },
-        "explanation": "clt_application: Explains that sample means are approximately normally distributed regardless of population shape, and relates to the graph",
+        "explanation": "clt_application: Explains that for n = 50 the sample mean is approximately normal, centered at μ, with standard deviation σ/√50",
         "help_text": "Address each rubric criterion directly and show quantitative work where applicable.",
         "content_labels": [
           "unit_6"
@@ -15856,7 +15856,7 @@
         "frq_criteria": [
           {
             "criterion_key": "clt_application",
-            "learner_facing_text": "Explains that sample means are approximately normally distributed regardless of population shape, and relates to the graph",
+            "learner_facing_text": "Explains that for n = 50 the sample mean is approximately normal, centered at μ, with standard deviation σ/√50",
             "points_possible": 1,
             "evidence_requirements": null,
             "minimum_fix": null,
@@ -16394,11 +16394,11 @@
           "item_type": "frq",
           "frq_form": "short",
           "stem": "Analyze this residual plot from a linear regression. What does it tell you about whether the linear model is appropriate?",
-          "stimulus": "",
+          "stimulus": "Residual-plot description: residuals are randomly scattered above and below 0 across the fitted-value range; vertical spread is roughly constant; no curve or isolated outlier is visible.",
           "rubric": [
             {
               "criterion_key": "residual_analysis",
-              "learner_facing_text": "Discusses pattern in residuals, constant variance, and provides conclusion about model appropriateness",
+              "learner_facing_text": "Uses the random zero-centered pattern and roughly constant spread to conclude that a linear model is appropriate",
               "points_possible": 1
             }
           ],
@@ -16445,10 +16445,10 @@
         "content_key": "APSTAT-MOD6-H004",
         "item_type": "frq",
         "frq_form": "short",
-        "canonical_answer": "residual_analysis: Discusses pattern in residuals, constant variance, and provides conclusion about model appropriateness",
+        "canonical_answer": "residual_analysis: Uses the random zero-centered pattern and roughly constant spread to conclude that a linear model is appropriate",
         "title": "APSTAT-MOD6-H004",
         "stem": "Analyze this residual plot from a linear regression. What does it tell you about whether the linear model is appropriate?",
-        "stimulus": "",
+        "stimulus": "Residual-plot description: residuals are randomly scattered above and below 0 across the fitted-value range; vertical spread is roughly constant; no curve or isolated outlier is visible.",
         "prompt_json": {
           "subject": "AP Statistics",
           "module": 6,
@@ -16472,7 +16472,7 @@
           "verification_profile_version": "phase-c-2026-07-10",
           "phase_c_publish_packet": "2026-07-11"
         },
-        "explanation": "residual_analysis: Discusses pattern in residuals, constant variance, and provides conclusion about model appropriateness",
+        "explanation": "residual_analysis: Uses the random zero-centered pattern and roughly constant spread to conclude that a linear model is appropriate",
         "help_text": "Address each rubric criterion directly and show quantitative work where applicable.",
         "content_labels": [
           "unit_6"
@@ -16480,7 +16480,7 @@
         "frq_criteria": [
           {
             "criterion_key": "residual_analysis",
-            "learner_facing_text": "Discusses pattern in residuals, constant variance, and provides conclusion about model appropriateness",
+            "learner_facing_text": "Uses the random zero-centered pattern and roughly constant spread to conclude that a linear model is appropriate",
             "points_possible": 1,
             "evidence_requirements": null,
             "minimum_fix": null,
@@ -17385,27 +17385,27 @@
           "subject": "AP Statistics",
           "item_type": "frq",
           "frq_form": "long",
-          "stem": "A school collects data on 100 students: SAT score (x) and college GPA (y). The scatter plot shows a generally positive trend but with substantial scatter. (a) Display and analyze the data. Create an appropriate graph and calculate relevant summary statistics (mean, standard deviation, correlation). (b) Fit a linear regression model. State the equation and interpret the slope and intercept in context. (c) Examine the residual plot provided. Identify any violations of the linear model assumptions and explain what they suggest. (d) Given your findings, should the school use this regression model to predict college GPA from SAT scores? Justify your recommendation, including discussion of R² and prediction limitations.",
+          "stem": "A school summarizes data from 100 students as follows: mean SAT = 1050, SD SAT = 150, mean GPA = 3.10, SD GPA = 0.50, and r = 0.75. The least-squares line is predicted GPA = 0.475 + 0.0025(SAT), with R² = 0.5625; observed SAT scores range from 750 to 1350. Residuals are randomly scattered around 0 with roughly constant spread and no strong outliers. (a) Describe the association. (b) Interpret the slope and intercept in context. (c) Assess the linear-model conditions from the residual description. (d) Recommend whether and how the model should be used, discussing R², prediction uncertainty, and extrapolation.",
           "stimulus": "",
           "rubric": [
             {
               "criterion_key": "exploratory_analysis",
-              "learner_facing_text": "Creates scatter plot or histogram; calculates mean, SD, and correlation; discusses features and patterns in the data",
+              "learner_facing_text": "Describes a moderately strong positive linear association using r = 0.75 and the supplied summaries",
               "points_possible": 1
             },
             {
               "criterion_key": "regression_fitting",
-              "learner_facing_text": "Provides correct regression equation with appropriate notation and interprets slope and intercept meaningfully in context",
+              "learner_facing_text": "Interprets slope 0.0025 GPA points per SAT point and notes that the intercept at SAT = 0 is outside context",
               "points_possible": 1
             },
             {
               "criterion_key": "residual_diagnostics",
-              "learner_facing_text": "Analyzes residual plot for linearity, constant variance, and normality; identifies and explains any violations",
+              "learner_facing_text": "Uses the random zero-centered residuals and constant spread to support linearity and equal variance, while noting normality is not established by this description",
               "points_possible": 1
             },
             {
               "criterion_key": "model_recommendation",
-              "learner_facing_text": "Makes justified recommendation about model use based on diagnostic findings; acknowledges R², prediction range, and other limitations",
+              "learner_facing_text": "Recommends cautious within-range prediction, interprets R² = 0.5625, and discusses uncertainty and extrapolation limits",
               "points_possible": 1
             }
           ],
@@ -17457,9 +17457,9 @@
         "content_key": "APSTAT-MOD6-H002-INV",
         "item_type": "frq",
         "frq_form": "long",
-        "canonical_answer": "exploratory_analysis: Creates scatter plot or histogram; calculates mean, SD, and correlation; discusses features and patterns in the data\nregression_fitting: Provides correct regression equation with appropriate notation and interprets slope and intercept meaningfully in context\nresidual_diagnostics: Analyzes residual plot for linearity, constant variance, and normality; identifies and explains any violations\nmodel_recommendation: Makes justified recommendation about model use based on diagnostic findings; acknowledges R², prediction range, and other limitations",
+        "canonical_answer": "exploratory_analysis: Describes a moderately strong positive linear association using r = 0.75 and the supplied summaries\nregression_fitting: Interprets slope 0.0025 GPA points per SAT point and notes that the intercept at SAT = 0 is outside context\nresidual_diagnostics: Uses the random zero-centered residuals and constant spread to support linearity and equal variance, while noting normality is not established by this description\nmodel_recommendation: Recommends cautious within-range prediction, interprets R² = 0.5625, and discusses uncertainty and extrapolation limits",
         "title": "APSTAT-MOD6-H002-INV",
-        "stem": "A school collects data on 100 students: SAT score (x) and college GPA (y). The scatter plot shows a generally positive trend but with substantial scatter. (a) Display and analyze the data. Create an appropriate graph and calculate relevant summary statistics (mean, standard deviation, correlation). (b) Fit a linear regression model. State the equation and interpret the slope and intercept in context. (c) Examine the residual plot provided. Identify any violations of the linear model assumptions and explain what they suggest. (d) Given your findings, should the school use this regression model to predict college GPA from SAT scores? Justify your recommendation, including discussion of R² and prediction limitations.",
+        "stem": "A school summarizes data from 100 students as follows: mean SAT = 1050, SD SAT = 150, mean GPA = 3.10, SD GPA = 0.50, and r = 0.75. The least-squares line is predicted GPA = 0.475 + 0.0025(SAT), with R² = 0.5625; observed SAT scores range from 750 to 1350. Residuals are randomly scattered around 0 with roughly constant spread and no strong outliers. (a) Describe the association. (b) Interpret the slope and intercept in context. (c) Assess the linear-model conditions from the residual description. (d) Recommend whether and how the model should be used, discussing R², prediction uncertainty, and extrapolation.",
         "stimulus": "",
         "prompt_json": {
           "subject": "AP Statistics",
@@ -17489,7 +17489,7 @@
           "verification_profile_version": "phase-c-2026-07-10",
           "phase_c_publish_packet": "2026-07-11"
         },
-        "explanation": "exploratory_analysis: Creates scatter plot or histogram; calculates mean, SD, and correlation; discusses features and patterns in the data\nregression_fitting: Provides correct regression equation with appropriate notation and interprets slope and intercept meaningfully in context\nresidual_diagnostics: Analyzes residual plot for linearity, constant variance, and normality; identifies and explains any violations\nmodel_recommendation: Makes justified recommendation about model use based on diagnostic findings; acknowledges R², prediction range, and other limitations",
+        "explanation": "exploratory_analysis: Describes a moderately strong positive linear association using r = 0.75 and the supplied summaries\nregression_fitting: Interprets slope 0.0025 GPA points per SAT point and notes that the intercept at SAT = 0 is outside context\nresidual_diagnostics: Uses the random zero-centered residuals and constant spread to support linearity and equal variance, while noting normality is not established by this description\nmodel_recommendation: Recommends cautious within-range prediction, interprets R² = 0.5625, and discusses uncertainty and extrapolation limits",
         "help_text": "Address each rubric criterion directly and show quantitative work where applicable.",
         "content_labels": [
           "unit_5"
@@ -17497,7 +17497,7 @@
         "frq_criteria": [
           {
             "criterion_key": "exploratory_analysis",
-            "learner_facing_text": "Creates scatter plot or histogram; calculates mean, SD, and correlation; discusses features and patterns in the data",
+            "learner_facing_text": "Describes a moderately strong positive linear association using r = 0.75 and the supplied summaries",
             "points_possible": 1,
             "evidence_requirements": null,
             "minimum_fix": null,
@@ -17505,7 +17505,7 @@
           },
           {
             "criterion_key": "regression_fitting",
-            "learner_facing_text": "Provides correct regression equation with appropriate notation and interprets slope and intercept meaningfully in context",
+            "learner_facing_text": "Interprets slope 0.0025 GPA points per SAT point and notes that the intercept at SAT = 0 is outside context",
             "points_possible": 1,
             "evidence_requirements": null,
             "minimum_fix": null,
@@ -17513,7 +17513,7 @@
           },
           {
             "criterion_key": "residual_diagnostics",
-            "learner_facing_text": "Analyzes residual plot for linearity, constant variance, and normality; identifies and explains any violations",
+            "learner_facing_text": "Uses the random zero-centered residuals and constant spread to support linearity and equal variance, while noting normality is not established by this description",
             "points_possible": 1,
             "evidence_requirements": null,
             "minimum_fix": null,
@@ -17521,7 +17521,7 @@
           },
           {
             "criterion_key": "model_recommendation",
-            "learner_facing_text": "Makes justified recommendation about model use based on diagnostic findings; acknowledges R², prediction range, and other limitations",
+            "learner_facing_text": "Recommends cautious within-range prediction, interprets R² = 0.5625, and discusses uncertainty and extrapolation limits",
             "points_possible": 1,
             "evidence_requirements": null,
             "minimum_fix": null,
@@ -19821,12 +19821,12 @@
           "subject": "AP Statistics",
           "item_type": "frq",
           "frq_form": "short",
-          "stem": "Using this scatter plot with regression line, predict the y-value for a new x-value and explain your method.",
-          "stimulus": "",
+          "stem": "A regression line fitted for observed x-values from 0 to 20 is predicted y = 10 + 2.5x. Predict y when x = 12, explain the substitution, and state one limitation of the prediction.",
+          "stimulus": "The new x-value, 12, lies within the observed range 0-20.",
           "rubric": [
             {
               "criterion_key": "regression_prediction",
-              "learner_facing_text": "Uses equation or visual interpolation to make reasonable prediction and explains limitations",
+              "learner_facing_text": "Substitutes x = 12 to obtain predicted y = 40 and notes that regression predictions retain uncertainty",
               "points_possible": 1
             }
           ],
@@ -19873,10 +19873,10 @@
         "content_key": "APSTAT-MOD8-M003",
         "item_type": "frq",
         "frq_form": "short",
-        "canonical_answer": "regression_prediction: Uses equation or visual interpolation to make reasonable prediction and explains limitations",
+        "canonical_answer": "regression_prediction: Substitutes x = 12 to obtain predicted y = 40 and notes that regression predictions retain uncertainty",
         "title": "APSTAT-MOD8-M003",
-        "stem": "Using this scatter plot with regression line, predict the y-value for a new x-value and explain your method.",
-        "stimulus": "",
+        "stem": "A regression line fitted for observed x-values from 0 to 20 is predicted y = 10 + 2.5x. Predict y when x = 12, explain the substitution, and state one limitation of the prediction.",
+        "stimulus": "The new x-value, 12, lies within the observed range 0-20.",
         "prompt_json": {
           "subject": "AP Statistics",
           "module": 8,
@@ -19900,7 +19900,7 @@
           "verification_profile_version": "phase-c-2026-07-10",
           "phase_c_publish_packet": "2026-07-11"
         },
-        "explanation": "regression_prediction: Uses equation or visual interpolation to make reasonable prediction and explains limitations",
+        "explanation": "regression_prediction: Substitutes x = 12 to obtain predicted y = 40 and notes that regression predictions retain uncertainty",
         "help_text": "Address each rubric criterion directly and show quantitative work where applicable.",
         "content_labels": [
           "unit_8"
@@ -19908,7 +19908,7 @@
         "frq_criteria": [
           {
             "criterion_key": "regression_prediction",
-            "learner_facing_text": "Uses equation or visual interpolation to make reasonable prediction and explains limitations",
+            "learner_facing_text": "Substitutes x = 12 to obtain predicted y = 40 and notes that regression predictions retain uncertainty",
             "points_possible": 1,
             "evidence_requirements": null,
             "minimum_fix": null,
@@ -22655,12 +22655,12 @@
           "subject": "AP Statistics",
           "item_type": "frq",
           "frq_form": "short",
-          "stem": "Analyze this histogram showing test scores. What does the shape tell you about student performance?",
-          "stimulus": "",
+          "stem": "Analyze the histogram summarized by these test-score bin counts. Describe its shape, approximate center and spread, and what the shape suggests about student performance.",
+          "stimulus": "Score bin counts: 40-49: 1; 50-59: 2; 60-69: 4; 70-79: 8; 80-89: 12; 90-100: 13.",
           "rubric": [
             {
               "criterion_key": "histogram_analysis",
-              "learner_facing_text": "Describes shape (normal, skewed, bimodal); interprets center and spread; discusses what shape suggests about student performance",
+              "learner_facing_text": "Identifies a left-skewed distribution concentrated in the 80-100 range, spanning about 40-100, and explains that most students scored highly",
               "points_possible": 1
             }
           ],
@@ -22708,10 +22708,10 @@
         "content_key": "STATS-MOD3-H009",
         "item_type": "frq",
         "frq_form": "short",
-        "canonical_answer": "histogram_analysis: Describes shape (normal, skewed, bimodal); interprets center and spread; discusses what shape suggests about student performance",
+        "canonical_answer": "histogram_analysis: Identifies a left-skewed distribution concentrated in the 80-100 range, spanning about 40-100, and explains that most students scored highly",
         "title": "STATS-MOD3-H009",
-        "stem": "Analyze this histogram showing test scores. What does the shape tell you about student performance?",
-        "stimulus": "",
+        "stem": "Analyze the histogram summarized by these test-score bin counts. Describe its shape, approximate center and spread, and what the shape suggests about student performance.",
+        "stimulus": "Score bin counts: 40-49: 1; 50-59: 2; 60-69: 4; 70-79: 8; 80-89: 12; 90-100: 13.",
         "prompt_json": {
           "subject": "AP Statistics",
           "module": 3,
@@ -22736,7 +22736,7 @@
           "verification_profile_version": "phase-c-2026-07-10",
           "phase_c_publish_packet": "2026-07-11"
         },
-        "explanation": "histogram_analysis: Describes shape (normal, skewed, bimodal); interprets center and spread; discusses what shape suggests about student performance",
+        "explanation": "histogram_analysis: Identifies a left-skewed distribution concentrated in the 80-100 range, spanning about 40-100, and explains that most students scored highly",
         "help_text": "Address each rubric criterion directly and show quantitative work where applicable.",
         "content_labels": [
           "unit_3"
@@ -22744,7 +22744,7 @@
         "frq_criteria": [
           {
             "criterion_key": "histogram_analysis",
-            "learner_facing_text": "Describes shape (normal, skewed, bimodal); interprets center and spread; discusses what shape suggests about student performance",
+            "learner_facing_text": "Identifies a left-skewed distribution concentrated in the 80-100 range, spanning about 40-100, and explains that most students scored highly",
             "points_possible": 1,
             "evidence_requirements": null,
             "minimum_fix": null,
@@ -23577,12 +23577,12 @@
           "subject": "AP Statistics",
           "item_type": "frq",
           "frq_form": "short",
-          "stem": "This diagram shows the structure of a multi-factor experiment. Identify the factors and levels, and explain how the design controls for confounding.",
-          "stimulus": "",
+          "stem": "A school randomly assigns students in equal numbers to four treatments formed by crossing tutoring frequency (none or weekly) with practice type (standard or adaptive). Identify the factors and levels, describe the 2 × 2 factorial structure, and explain how random assignment and crossing the factors help separate effects and limit confounding.",
+          "stimulus": "Treatments: (none, standard), (none, adaptive), (weekly, standard), and (weekly, adaptive).",
           "rubric": [
             {
               "criterion_key": "multifactor_analysis",
-              "learner_facing_text": "Correctly identifies factors and levels; explains how factorial design allows separation of individual effects",
+              "learner_facing_text": "Identifies tutoring frequency and practice type with two levels each, describes the four-cell factorial design, and explains main effects, interaction, and random assignment",
               "points_possible": 1
             }
           ],
@@ -23630,10 +23630,10 @@
         "content_key": "STATS-MOD4-H014",
         "item_type": "frq",
         "frq_form": "short",
-        "canonical_answer": "multifactor_analysis: Correctly identifies factors and levels; explains how factorial design allows separation of individual effects",
+        "canonical_answer": "multifactor_analysis: Identifies tutoring frequency and practice type with two levels each, describes the four-cell factorial design, and explains main effects, interaction, and random assignment",
         "title": "STATS-MOD4-H014",
-        "stem": "This diagram shows the structure of a multi-factor experiment. Identify the factors and levels, and explain how the design controls for confounding.",
-        "stimulus": "",
+        "stem": "A school randomly assigns students in equal numbers to four treatments formed by crossing tutoring frequency (none or weekly) with practice type (standard or adaptive). Identify the factors and levels, describe the 2 × 2 factorial structure, and explain how random assignment and crossing the factors help separate effects and limit confounding.",
+        "stimulus": "Treatments: (none, standard), (none, adaptive), (weekly, standard), and (weekly, adaptive).",
         "prompt_json": {
           "subject": "AP Statistics",
           "module": 4,
@@ -23658,7 +23658,7 @@
           "verification_profile_version": "phase-c-2026-07-10",
           "phase_c_publish_packet": "2026-07-11"
         },
-        "explanation": "multifactor_analysis: Correctly identifies factors and levels; explains how factorial design allows separation of individual effects",
+        "explanation": "multifactor_analysis: Identifies tutoring frequency and practice type with two levels each, describes the four-cell factorial design, and explains main effects, interaction, and random assignment",
         "help_text": "Address each rubric criterion directly and show quantitative work where applicable.",
         "content_labels": [
           "unit_4"
@@ -23666,7 +23666,7 @@
         "frq_criteria": [
           {
             "criterion_key": "multifactor_analysis",
-            "learner_facing_text": "Correctly identifies factors and levels; explains how factorial design allows separation of individual effects",
+            "learner_facing_text": "Identifies tutoring frequency and practice type with two levels each, describes the four-cell factorial design, and explains main effects, interaction, and random assignment",
             "points_possible": 1,
             "evidence_requirements": null,
             "minimum_fix": null,
