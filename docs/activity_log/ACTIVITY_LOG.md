@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- TASK-0016 Phase A Grading-Router Reconciled Onto Grading Branch — 2026-07-12
 - AP Statistics Launch Task Drafted (TASK-0013) — 2026-06-30
 - Hand-Drawn Graph Corpus Realism Fix and Four-Finding Spot-Check — 2026-06-30
 - New-User Experience Live QA — 2026-06-29
@@ -17,6 +18,75 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## TASK-0016 Phase A Grading-Router Reconciled Onto Grading Branch - 2026-07-12
+
+**Task:** TASK-0016 (Grading Engine Rollout), Phase A
+**Status:** Landed on `claude/cramapple-grading-mlr0o1` (pushed, draft PR
+opened). Not on `main`. No production deploy, no approval requested yet —
+mechanical reconciliation only.
+
+**Summary:** At David's request to move grading toward production wired to
+the Lovable frontend, first step was reconciling TASK-0016's Phase A
+deterministic/symbolic grading-router work — previously stranded on
+`origin/codex/task0016-phase-c-base` and never merged — onto this branch's
+current, post-backend-consolidation `main` lineage. A straight cherry-pick of
+commits `8f79ebe`/`98dc544` produced false conflicts because their branch
+lineage also carries unrelated, unwanted Lovable runtime-context commits
+(`44687a4`, `3b61a41`) earlier in its history. Resolved by diffing each
+commit directly against the actual merge-base (`4a179e0`, confirmed identical
+to this branch's pre-change `evaluate-attempt/index.ts` and `_shared/`) and
+applying that diff instead, then cherry-picking `98dc544` (R1/R2 remediation)
+on top, which applied cleanly since its parent is `8f79ebe` exactly.
+
+Added `supabase/functions/_shared/{grading-router,math-verifier,
+formula-notation}.ts` (+ tests) and wired them into `evaluate-attempt`, plus
+6 migrations (deterministic verifier pins, rubric-routing columns +
+backfill, feedback/action/repair hint columns on `grading_results`).
+Verified the reconstructed `evaluate-attempt/index.ts` is byte-identical to
+`8f79ebe`'s target before layering the remediation commit.
+
+**Found and fixed during reconciliation, not carried over from any branch:**
+the curated `public.grading_results` view (`202607090001_curated_public_
+interface.sql`, applied 2026-07-09, one day after Phase A's migrations but
+before Phase A was ever reconciled onto this history) lists `grading_results`
+columns explicitly and was missing all 5 of Phase A's new columns
+(`feedback_preview`, `action_hint`, `repair_hint`,
+`deterministic_verifier_version`, `boundary_contract_version`). Since Lovable
+reads through `public.grading_results`, not `app.grading_results` directly,
+this would have silently hidden Phase A's feedback/repair output from the
+frontend even after Phase A landed. Added
+`202607120001_grading_results_view_phase_a_columns.sql` to recreate the view
+with those columns included.
+
+**Deliberately left out of this reconciliation** (present on
+`codex/task0016-phase-c-base` but out of scope for landing the grading
+router): AP Chemistry/Physics launch scaffolding, AP Statistics content-sync
+commits, review-queue admin-scope changes, the Lovable runtime-context/
+student-memory wiring, and the small `25da9ea` `review-queue` `frq_form`
+fix. None of these are prerequisites for Phase A; pulling them in would have
+reintroduced the large unrelated diff surface this step was meant to avoid.
+
+**Not done in this step:** Phase C (AP Statistics deterministic-layer +
+content publish) — its QA verdict is `FAIL`
+(`ap_statistics_phase_c_publish_staging_2026_07_11/qa_review.md` on
+`codex/task0016-phase-c-content-publish-approval-main`) with remediation
+claimed but never re-verified; not pulled in here. No SP-1 quality-research
+findings (misattribution audit, `C2Direct-Low` routing) are wired in — those
+were never wired into `evaluate-attempt` on any branch, including this one.
+Migrations have not been applied to any live Supabase project; `deno check`/
+tests have not been run (no `deno` available in this environment) — TypeScript
+correctness has only been verified by exact diff match against the source
+commit's target, not by compiling.
+
+**Next Owner:** David Bloom / Main Conductor
+**Next Required Action:** Decide the quality bar for what ships first (per
+prior session discussion: deterministic layer alone vs. also wiring the
+misattribution audit before merge to `main`), get the outstanding Phase A
+reviewer sign-off confirmed, and run `deno check`/tests against these files
+in an environment with Deno before treating Phase A as merge-ready.
 
 ---
 
