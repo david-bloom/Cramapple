@@ -324,6 +324,24 @@ export function buildStatisticsDeterministicFallback(input: {
     return null;
   }
 
+  // STATISTICS_TARGETS is item-level: one flat list of required values per
+  // content_key, with no mapping of which value belongs to which rubric
+  // criterion. That's safe when an item has exactly one gradable criterion
+  // (the common case), but wrong when it has more than one -- a response
+  // that fully earns criterion A but doesn't state a value needed only by
+  // criterion B would otherwise have the ENTIRE response hard-blocked here
+  // (zero credit, LLM never called), not just criterion B. Confirmed live
+  // on APSTAT-MOD3-H001-INV (ci_calculation + hypothesis_test bundled into
+  // one check) against a real provisional-labeled-"earned" response
+  // (2026-07-12). Until this check is made criterion-aware, only let it
+  // hard-block single-criterion items; for anything else, fall through to
+  // the LLM grader, which still receives this flag as a soft repair-hint
+  // signal via the separate checkStatisticsDeterministicEvidence() call in
+  // evaluate-attempt/index.ts (statisticsCheck), not lost.
+  if (input.criteria.length !== 1) {
+    return null;
+  }
+
   return {
     status: "uncertain" as const,
     points_earned: 0,

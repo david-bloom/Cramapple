@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Statistics Deterministic Verifier: Fixed the Criterion-Bundling Severity Bug — 2026-07-12
 - Statistics Deterministic Verifier: Fixed Redundant-Value Over-Strictness, Found a Severity Bug — 2026-07-12
 - Phase C R4 Independent Re-QA — Confirmed — 2026-07-12
 - Phase C Remediation R4: Fixed 3 Unanswerable FRQs + Module 8 Difficulty Labels — 2026-07-12
@@ -19,6 +20,81 @@ Most recent entries (full reverse-chronological list follows below):
 - Cramapple Visual Identity Brief Revised From Family Discussion — 2026-06-21
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## Statistics Deterministic Verifier: Fixed the Criterion-Bundling Severity Bug - 2026-07-12
+
+**Task:** Directly follows the entry below. Relates to `TASK-0016`,
+`TASK-0010`.
+**Status:** Fixed on `claude/cramapple-grading-mlr0o1`
+(`supabase/functions/_shared/statistics-verifier.ts`), not yet deployed to
+Production, not yet independently re-QA'd.
+
+**Summary:** David asked whether the criterion-bundling issue flagged in
+the prior entry had an identifiable root cause, and then asked to fix it.
+Root cause confirmed precisely: `STATISTICS_TARGETS` is item-level (one
+flat required-values list per `content_key`), with no mapping of which
+value belongs to which rubric criterion. The gate this feeds
+(`buildStatisticsDeterministicFallback`, wired at `evaluate-attempt/
+index.ts` as `"deterministic-statistics-prefilter"`) is intentionally a
+cost-saving pre-filter, not an accidental fallback — but its item-level
+granularity doesn't match rubrics that have more than one independently-
+gradable criterion, so on those items ANY single missing value hard-blocks
+credit and the LLM call for the ENTIRE response, not just the one affected
+criterion.
+
+**Confirmed scope before fixing, not guessed:** checked all 5 items with
+visible per-criterion data (`statistics_item_keys.json`) for criterion
+count. Only `APSTAT-MOD3-H001-INV` has more than one numeric criterion
+(`ci_calculation` + `hypothesis_test`) — confirmed exposed. `MOD6-H001`,
+`MOD7-H001`, `MOD8-H001` are single-criterion — safe even before this fix.
+The 14 `APSTATS-SFRQ-*` items (already-published production content, not
+the calibration corpus) aren't in that file, so their criterion count
+couldn't be confirmed without live Supabase access (not available this
+session — MCP tool calls started requiring interactive approval).
+
+**The fix, chosen specifically to not require knowing what wasn't
+confirmed:** rather than attempting to guess which target value belongs to
+which criterion for the 14 unverified items (real risk of silently
+assigning a value to the wrong criterion and introducing a new,
+differently-shaped bug), added a guard in
+`buildStatisticsDeterministicFallback`: the hard block now only fires when
+the item has exactly one rubric criterion
+(`input.criteria.length !== 1 -> return null`). `promptBase.criteria` is
+already the live rubric loaded from the `frq_criteria` table at the
+`evaluate-attempt` call site, so this check works correctly at runtime for
+every item, including the 14 unverified ones, without needing their
+structure known in advance — if any of them turn out to be multi-criterion,
+this guard already protects them; if single-criterion, behavior is
+unchanged.
+
+**What this does NOT do:** it doesn't add real per-criterion deterministic
+partial credit — multi-criterion items just stop being hard-blocked and
+fall through to full LLM grading instead, still informed by the same
+signal as a repair-hint (confirmed the codebase already threads
+`checkStatisticsDeterministicEvidence`'s raw result through as a soft
+signal via a separate `statisticsCheck` variable, used for
+`action_hint`/`repair_hint` even when the LLM grades normally — not lost
+by this change, only the hard block is narrowed).
+
+**Verified before committing:** ran a plain-JS simulation of the exact
+guard logic against three cases — `MOD3-H001-INV` (2 criteria, still flags
+internally) now correctly falls through (`null`, LLM runs); `MOD6-H001` (1
+criterion, already passes after the prior fix) unaffected; a hypothetical
+single-criterion item with genuinely no evidence still hard-blocks as
+before. Brace-balance checked (no Deno available in this environment for a
+real typecheck, same standing limitation as every code change this
+session).
+
+**Next Owner:** David Bloom / Main Conductor
+**Next Required Action:** Get this independently re-QA'd before deploying.
+Decide whether to check the 14 `APSTATS-SFRQ-*` items' live criterion
+structure (needs Supabase MCP re-approval) to know for certain whether any
+of them were actually exposed to the original bug, versus leaving it
+unconfirmed since the fix protects them either way. Decide whether/when to
+deploy this and the prior SE/SE_diff fix to Production — neither has been
+deployed yet.
 
 ---
 
