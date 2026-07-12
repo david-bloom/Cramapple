@@ -6,13 +6,13 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Phase C R4 Independent Re-QA — Confirmed — 2026-07-12
 - Phase C Remediation R4: Fixed 3 Unanswerable FRQs + Module 8 Difficulty Labels — 2026-07-12
 - Phase C Publish Packet Independent Re-QA — Fail, New Blockers Found — 2026-07-12
 - TASK-0010 Approved and UX-006 Brief Replaced With Real Integration — 2026-07-12
 - Phase A Broken-Import Fix and Deterministic-Layer-Only Ship Decision — 2026-07-12
 - TASK-0016 Phase A Grading-Router Reconciled Onto Grading Branch — 2026-07-12
 - AP Statistics Launch Task Drafted (TASK-0013) — 2026-06-30
-- Hand-Drawn Graph Corpus Realism Fix and Four-Finding Spot-Check — 2026-06-30
 - New-User Experience Live QA — 2026-06-29
 - Production Readiness QA Handoff — 2026-06-21
 - Cramapple Visual Identity Brief Revised From Family Discussion — 2026-06-21
@@ -21,15 +21,61 @@ Most recent entries (full reverse-chronological list follows below):
 
 ---
 
+## Phase C R4 Independent Re-QA - Confirmed - 2026-07-12
+
+**Task:** TASK-0016 Phase C. Verifies the R4 remediation entry below.
+**Status:** Independently re-QA'd, fresh/isolated agent, no memory of
+building R4 or the checker script. **Verdict: holds up — no defects
+found.** First remediation round on this packet to pass independent
+re-verification on the first try; R1-R3 needed a second pass to find gaps.
+
+**Summary:** Re-checked every specific R4 claim rather than trusting the
+self-report: independently recomputed the `APSTAT-MOD7-H002-INV`
+chi-square statistic from scratch (χ² = 48.61, df = 2, p < 0.0001 —
+matches exactly) and confirmed all 4 response variants are internally
+consistent with the new stimulus, not just the `fully_correct` one;
+verified the `APSTAT-MOD7-M001`/`-M004` stimulus fixes against the
+deterministic answer keys and `validate_keys.py`; wrote an independent
+script checking difficulty-suffix consistency across **all 100 FRQ items
+in every module**, not just Module 8 — zero mismatches, confirming the fix
+was complete and didn't regress anything elsewhere; rebuilt the packet
+from a clean detached worktree and confirmed byte-identical reproducibility.
+
+**Directly tested, not just read, both self-disclosed checker
+limitations** flagged in `scripts/task0016_phase_c_qa_checks.mjs`'s own
+comments: scanned every `ecf_parts[].givens` value in the full 30-item key
+file for the whitelisted convention values (0.5, 1.96, 1.645, 2.576, 2.326,
+1.282) — found 9 occurrences, checked each by hand, all are genuine
+textbook conventions (stated confidence levels, true/false guess
+probability, or in one case a value the checker's own percent-regex
+already catches directly). Separately grepped all 100 FRQ stems for
+visual-vocabulary words the checker's keyword list doesn't cover ("bar
+chart," "dotplot," "stem-and-leaf," "normal curve," etc.) — zero hits;
+every "plot"/"table"/"graph" mention already matches the existing regex and
+already shows up in the 7 human-read candidates. **Neither limitation is
+currently exploitable on this corpus** — real gaps in principle, but not
+live defects today.
+
+Also read a further 10-item unchecklisted random sample (no keyword
+heuristic, no prior review) for the same answerability defect class this
+entire investigation has been about — no new issues found.
+
+**Next Owner:** David Bloom / Main Conductor
+**Next Required Action:** None blocking — R4 is verified. Remaining open
+items unchanged from R4's own list: `APSTAT-MOD8-M001`'s strength-
+assessment gap (left open, out of scope), and the rights/source +
+manifest-schema-drift publish blockers flagged in `approval_packet.md`.
+
+---
+
 ## Phase C Remediation R4: Fixed 3 Unanswerable FRQs + Module 8 Difficulty Labels - 2026-07-12
 
 **Task:** TASK-0016 Phase C. Directly follows the independent re-QA entry
 below.
 **Status:** Fixed on `claude/cramapple-grading-mlr0o1` (commit `b552f06`,
-pushed to PR #38). **Not independently re-QA'd yet** — same caveat R1-R3
-had before this session's re-QA found their gaps; do not treat this as
-verified until someone else re-checks it. No staging or publish action
-executed.
+pushed to PR #38). **Independently re-QA'd 2026-07-12, same day — held up.**
+See the "Phase C R4 Independent Re-QA — Confirmed" entry above for the
+verification record. No staging or publish action executed.
 
 **Summary:** At David's request to fix the 3 new answerability blockers,
 the Module 8 difficulty labels, commit the missing checker script, and
@@ -94,15 +140,16 @@ this checker has visibility into. Renamed the output to
 honest about being unclassified) rather than fabricate a number that looks
 precise but isn't verifiable.
 
-**Not done:** independent re-QA of this round (R4). Rights/source and
-manifest-schema-drift issues flagged separately in `approval_packet.md` —
-untouched, out of scope for this fix.
+**Not done, at the time this entry was written:** independent re-QA of this
+round — completed later the same day, see the entry above. Rights/source
+and manifest-schema-drift issues flagged separately in `approval_packet.md`
+remain untouched, out of scope for this fix.
 
 **Next Owner:** David Bloom / Main Conductor
-**Next Required Action:** Get an independent (fresh-context) re-QA of R4
-before treating this packet as stage-ready — R1-R3 looked done too, until
-this session's re-QA found the gaps. Decide whether to fix
-`APSTAT-MOD8-M001` now or leave it for a later round.
+**Next Required Action:** Decide whether to fix `APSTAT-MOD8-M001` now or
+leave it for a later round. Rights/source and manifest-schema-drift gate
+still needs to clear before this packet is actually stage-ready — R4 fixed
+content-answerability, not the separately-flagged publish blockers.
 
 ---
 
