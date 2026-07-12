@@ -29,17 +29,25 @@ student response, and remains reliable after release.
 ### Phase 2 - Adjudicated Gold Sets
 
 - Two qualified Grading Validators score every case blind at criterion level.
-  **Source (2026-07-12):** Grading Validators are the tutors currently being
-  hired, not separately recruited — individuals not yet named, since hiring
-  is in progress. They must clear `TASK-0005`/`NOW-005`'s validator
+  **Source (2026-07-12):** one of the two is David Bloom. The second is one
+  of the tutors currently being hired — individual not yet named, since
+  hiring is in progress. Both must clear `TASK-0005`/`NOW-005`'s validator
   qualification, renewal, calibration, and suspension bar
   (`docs/tasks/TASK-0005-CONTENT-GOVERNANCE-AND-VALIDATION.md`) before
   scoring gold-set cases here — that gate is still `In Progress`, not yet
-  approved, so this phase cannot start until it is.
-- A Lead Grading Validator adjudicates every disagreement. David Bloom is
-  named Learning Quality Owner / Grading Lead for this task (2026-07-12);
-  whether he also serves as Lead Grading Validator or that's a distinct
-  hired-tutor role is not yet decided.
+  approved, so this phase cannot start until it is. This applies to David
+  too: the task doesn't exempt the Product Owner from the qualification bar
+  it sets for everyone else scoring gold-set cases.
+- A Lead Grading Validator adjudicates every disagreement. **Open conflict,
+  not yet resolved:** David Bloom is both a named Grading Validator (above)
+  and Learning Quality Owner / Grading Lead for this task. The Lead's job is
+  to adjudicate disagreements *between* the two blind scorers — if David is
+  one of the two scorers, he cannot also be the Lead adjudicating his own
+  disagreements with the other scorer without collapsing the independence
+  this phase exists to protect. Either the second (hired-tutor) validator's
+  Lead role needs to be a third person, or David needs to step back from
+  being one of the two scorers. Flagging rather than picking one, since this
+  is a real process-design tradeoff, not a naming detail.
 - Model output remains hidden until gold labels are locked.
 - Development, calibration, held-out, and challenge sets remain separate.
 - Held-out cases and near-neighbor variants are inaccessible to prompt authors

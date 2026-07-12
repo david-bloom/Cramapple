@@ -92,13 +92,29 @@ Whether David also serves as Lead Grading Validator (who adjudicates
 disagreements between the two scorers) or that's a separate hired-tutor
 role is not yet decided.
 
+**Third addendum, same day:** David asked to be named one of the two
+Grading Validators himself (not just Lead / Learning Quality Owner).
+Recorded in the task file. This sharpens rather than resolves the open
+question from the addendum above: the Lead's entire function is
+adjudicating disagreements *between* the two blind scorers, so if David is
+one of the two scorers, he structurally cannot also be the Lead
+adjudicating his own disagreements with the other scorer — that would
+collapse the independence the phase exists to protect. Flagged in the task
+file as an unresolved process-design tradeoff (third person as Lead, or
+David steps back from being a scorer) rather than picking one unilaterally.
+Also noted explicitly: the `NOW-005`/`TASK-0005` qualification bar applies
+to David the same as any hired-tutor validator — being Product Owner
+doesn't exempt him from it.
+
 **Next Owner:** David Bloom / Main Conductor
-**Next Required Action:** Before handing the UX-006 brief to Lovable,
-confirm the two open items above via Supabase MCP or dashboard (content
-publish status; `attempt-response` vs `submit-response`/`app.submit_response`
-as the real submission entrypoint). Decide whether David is also Lead
-Grading Validator, and track `NOW-005` (validator qualifications) as a
-prerequisite for the hired tutors to actually start Phase 2 work.
+**Next Required Action:** Resolve the Lead-vs-scorer conflict above before
+Phase 2 can actually run once validators are qualified and hiring lands.
+Before handing the UX-006 brief to Lovable, confirm the two open items from
+the first addendum via Supabase MCP or dashboard (content publish status;
+`attempt-response` vs `submit-response`/`app.submit_response` as the real
+submission entrypoint). Track `NOW-005` (validator qualifications) as a
+prerequisite for anyone — David included — to score Phase 2 gold-set
+cases.
 
 ---
 
