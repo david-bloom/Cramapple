@@ -1,0 +1,1007 @@
+{
+  "meta": {
+    "name": "ap_statistics_verification_keys_v2",
+    "subject_key": "ap-statistics",
+    "created": "2026-07-09",
+    "tier": "development",
+    "source_items": "docs/research/ap_statistics_gold_set_candidate_2026_07_09/provisional_labels.json",
+    "purpose": "Per-item deterministic keys + ECF (consistency-point) templates for the AP Statistics gold-set-candidate items, in the schema consumed by the deterministic numeric checker (checker.py), the symbolic checker (formula_checker.py), and the ECF engine (ecf_engine.py). This is the content half of TASK-0016 Phase C — the verification_profile payload Codex's Engine 1/3 integration grades against.",
+    "part_schema": "Each ecf_part: {id, points, canonical_formula, givens{sym:value}, deps{sym:upstream_part_id}, canonical_answer, sign_sensitive?}. Formula strings are SymPy-parseable (sqrt, **). ECF re-substitutes the STUDENT's upstream answers into the canonical formula per ecf_engine.py.",
+    "boundary_note": "RESOLVED 2026-07-09 (see ../AP_STATISTICS_MOD3_MOD6_BOUNDARY_CONTRACTS_2026_07_09.md, approved by Product Owner). MOD3: z*=1.96 (source canonical) vs t*(df=29)=2.045 both accepted — the CI shift (~805.2,894.8 vs ~807.1,892.9) is within the deterministic checker's 2% relative tolerance, so no key change was needed; a regression test now covers the t*-based response. MOD6: the t_stat part below is no longer sign_sensitive — H1 is non-directional (mu1 != mu2), so either subtraction order is a valid complete answer; only the magnitude is graded. Phase C remediation also added explicit numeric keys/triage for the wider 100-item candidate set; see ../AP_STATISTICS_PHASE_C_REMEDIATION_LOG_2026_07_09.md. C3 triage 2026-07-10 added 7 more items (13 numeric parts) covering empirical-rule constants, conditional-probability arithmetic, and a frequency table; see AP_STATISTICS_PHASE_C_TRIAGE_2026_07_10.md for the full 62-item disposition."
+  },
+  "items": [
+    {
+      "content_key": "APSTAT-MOD3-E003",
+      "form": "short",
+      "criteria": {
+        "z_score_calculation": {
+          "kind": "numeric",
+          "parts": [
+            "z_score"
+          ]
+        }
+      },
+      "ecf_parts": [
+        {
+          "id": "z_score",
+          "points": 1,
+          "canonical_formula": "(x - mu) / sd",
+          "givens": {
+            "x": 60,
+            "mu": 50,
+            "sd": 5
+          },
+          "canonical_answer": 2
+        }
+      ],
+      "ecf_note": "Single numeric part; no downstream ECF chain."
+    },
+    {
+      "content_key": "APSTAT-MOD3-E004",
+      "form": "short",
+      "criteria": {
+        "range_calculation": {
+          "kind": "numeric",
+          "parts": [
+            "range"
+          ]
+        }
+      },
+      "ecf_parts": [
+        {
+          "id": "range",
+          "points": 1,
+          "canonical_formula": "hi - lo",
+          "givens": {
+            "hi": 12,
+            "lo": 3
+          },
+          "canonical_answer": 9
+        }
+      ],
+      "ecf_note": "Single numeric part; no downstream ECF chain."
+    },
+    {
+      "content_key": "APSTAT-MOD3-H001-INV",
+      "form": "long",
+      "criteria": {
+        "bias_identification": {
+          "kind": "conceptual",
+          "verdict": "ABSTAIN"
+        },
+        "improved_sampling_design": {
+          "kind": "conceptual",
+          "verdict": "ABSTAIN"
+        },
+        "ci_calculation": {
+          "kind": "numeric+ecf",
+          "parts": [
+            "SE",
+            "CI_low",
+            "CI_high"
+          ]
+        },
+        "ci_interpretation": {
+          "kind": "conceptual",
+          "verdict": "ABSTAIN"
+        },
+        "hypothesis_test": {
+          "kind": "numeric+ecf",
+          "parts": [
+            "t_stat"
+          ],
+          "note": "H0/H1 setup + conclusion are conceptual (ABSTAIN); only the test statistic is deterministic."
+        }
+      },
+      "ecf_parts": [
+        {
+          "id": "SE",
+          "points": 1,
+          "canonical_formula": "s / sqrt(n)",
+          "givens": {
+            "s": 120,
+            "n": 30
+          },
+          "canonical_answer": 21.9089,
+          "note": "s/sqrt(n) — the known SE-error class: 120/30=4 (wrong) vs 120/sqrt(30)=21.9. Caught at the FORMULA level by the symbolic checker before arithmetic."
+        },
+        {
+          "id": "CI_low",
+          "points": 1,
+          "canonical_formula": "xbar - z * SE",
+          "givens": {
+            "xbar": 850,
+            "z": 1.96
+          },
+          "deps": {
+            "SE": "SE"
+          },
+          "canonical_answer": 807.05855
+        },
+        {
+          "id": "CI_high",
+          "points": 1,
+          "canonical_formula": "xbar + z * SE",
+          "givens": {
+            "xbar": 850,
+            "z": 1.96
+          },
+          "deps": {
+            "SE": "SE"
+          },
+          "canonical_answer": 892.94145
+        },
+        {
+          "id": "t_stat",
+          "points": 1,
+          "canonical_formula": "(xbar - mu0) / SE",
+          "givens": {
+            "xbar": 850,
+            "mu0": 800
+          },
+          "deps": {
+            "SE": "SE"
+          },
+          "canonical_answer": 2.28218
+        }
+      ],
+      "ecf_note": "SE feeds BOTH the CI (parts c) and the hypothesis test (part e). A wrong SE should dock the SE point once, then carry forward: CI bounds and the t-statistic computed correctly on the student's own SE earn full ECF credit."
+    },
+    {
+      "content_key": "APSTAT-MOD4-H001-INV",
+      "form": "long",
+      "criteria": {
+        "hypothesis_test_execution": {
+          "kind": "numeric+ecf",
+          "parts": [
+            "SE_diff",
+            "t_stat"
+          ],
+          "note": "Two-sample t-test for treatment mean 68 vs control mean 72. Directional reduction is semantically meaningful for the conclusion, but the numeric t magnitude is keyed sign-insensitive because students may write treatment-control (negative) or control-treatment (positive) and then state the correct one-tailed direction in prose."
+        }
+      },
+      "ecf_parts": [
+        {
+          "id": "SE_diff",
+          "points": 1,
+          "canonical_formula": "sqrt(s1**2 / n1 + s2**2 / n2)",
+          "givens": {
+            "s1": 6,
+            "n1": 25,
+            "s2": 5,
+            "n2": 25
+          },
+          "canonical_answer": 1.56205
+        },
+        {
+          "id": "t_stat",
+          "points": 1,
+          "canonical_formula": "(m1 - m2) / SEd",
+          "givens": {
+            "m1": 68,
+            "m2": 72
+          },
+          "deps": {
+            "SEd": "SE_diff"
+          },
+          "canonical_answer": 2.56074,
+          "note": "Sign is convention-dependent; magnitude is deterministic, directional interpretation stays with rubric/LLM."
+        }
+      ],
+      "ecf_note": "New Phase C remediation key. Boundary invoked: sign-sensitivity only when direction is semantically meaningful; here numeric magnitude is keyed and directional conclusion remains conceptual."
+    },
+    {
+      "content_key": "APSTAT-MOD4-M002",
+      "form": "short",
+      "criteria": {
+        "stratified_sampling": {
+          "kind": "numeric",
+          "parts": [
+            "suburban_n"
+          ],
+          "note": "Direct proportional allocation for stratified sample."
+        }
+      },
+      "ecf_parts": [
+        {
+          "id": "suburban_n",
+          "points": 1,
+          "canonical_formula": "p * n",
+          "givens": {
+            "p": 0.35,
+            "n": 400
+          },
+          "canonical_answer": 140
+        }
+      ],
+      "ecf_note": "Single numeric part."
+    },
+    {
+      "content_key": "APSTAT-MOD5-H001-INV",
+      "form": "long",
+      "criteria": {
+        "causation_vs_correlation": {
+          "kind": "conceptual",
+          "verdict": "ABSTAIN"
+        },
+        "confounding_variables": {
+          "kind": "conceptual",
+          "verdict": "ABSTAIN"
+        },
+        "experimental_advantage": {
+          "kind": "conceptual",
+          "verdict": "ABSTAIN"
+        },
+        "experimental_conclusion": {
+          "kind": "conceptual",
+          "verdict": "ABSTAIN"
+        }
+      },
+      "ecf_parts": [],
+      "ecf_note": "Fully conceptual item — no deterministic keys; entire item routes to the LLM grader."
+    },
+    {
+      "content_key": "APSTAT-MOD5-M001",
+      "form": "short",
+      "criteria": {
+        "descriptive_statistics": {
+          "kind": "numeric+ecf",
+          "parts": [
+            "mean",
+            "sd_sample"
+          ],
+          "note": "The item requests the sample standard deviation, so the keyed calculation uses the n-1 denominator and yields about 7.91."
+        }
+      },
+      "ecf_parts": [
+        {
+          "id": "mean",
+          "points": 1,
+          "canonical_formula": "(a+b+c+d+e)/5",
+          "givens": {
+            "a": 10,
+            "b": 15,
+            "c": 20,
+            "d": 25,
+            "e": 30
+          },
+          "canonical_answer": 20
+        },
+        {
+          "id": "sd_sample",
+          "points": 1,
+          "canonical_formula": "sqrt(((a-mean)**2+(b-mean)**2+(c-mean)**2+(d-mean)**2+(e-mean)**2)/(5-1))",
+          "givens": {
+            "a": 10,
+            "b": 15,
+            "c": 20,
+            "d": 25,
+            "e": 30
+          },
+          "deps": {
+            "mean": "mean"
+          },
+          "canonical_answer": 7.905694,
+          "note": "Sample SD uses Bessel's correction: sqrt(250/(5-1)) = sqrt(62.5)."
+        }
+      ],
+      "ecf_note": "Mean and sample SD are both deterministically checkable from the five listed values."
+    },
+    {
+      "content_key": "APSTAT-MOD6-H001",
+      "form": "long",
+      "criteria": {
+        "hypotheses_setup": {
+          "kind": "conceptual",
+          "verdict": "ABSTAIN"
+        },
+        "test_calculation": {
+          "kind": "numeric+ecf",
+          "parts": [
+            "SE_diff",
+            "t_stat"
+          ]
+        },
+        "conclusion": {
+          "kind": "conceptual",
+          "verdict": "ABSTAIN",
+          "note": "reject/fail-to-reject decision depends on p; the p-decision is conceptual, the t-statistic is deterministic."
+        }
+      },
+      "ecf_parts": [
+        {
+          "id": "SE_diff",
+          "points": 1,
+          "canonical_formula": "sqrt(s1**2 / n1 + s2**2 / n2)",
+          "givens": {
+            "s1": 8,
+            "n1": 30,
+            "s2": 7,
+            "n2": 30
+          },
+          "canonical_answer": 1.94079
+        },
+        {
+          "id": "t_stat",
+          "points": 1,
+          "canonical_formula": "(m1 - m2) / SEd",
+          "givens": {
+            "m1": 72,
+            "m2": 76
+          },
+          "deps": {
+            "SEd": "SE_diff"
+          },
+          "canonical_answer": 2.06104,
+          "note": "H1 is non-directional (mu1 != mu2); either subtraction order is a valid complete answer. Magnitude 2.06 is graded, sign is not (RESOLVED 2026-07-09, see boundary-contract doc)."
+        }
+      ],
+      "ecf_note": "Two-sample pooled-SE feeds the t-statistic. Wrong SE_diff but correct t on their own SE earns ECF."
+    },
+    {
+      "content_key": "APSTAT-MOD6-H003",
+      "form": "short",
+      "criteria": {
+        "power_calculation": {
+          "kind": "numeric",
+          "parts": [
+            "power"
+          ]
+        }
+      },
+      "ecf_parts": [
+        {
+          "id": "power",
+          "points": 1,
+          "canonical_formula": "1 - beta",
+          "givens": {
+            "beta": 0.1
+          },
+          "canonical_answer": 0.9
+        }
+      ],
+      "ecf_note": "Single numeric part; no downstream ECF chain."
+    },
+    {
+      "content_key": "APSTAT-MOD6-H007",
+      "form": "short",
+      "criteria": {
+        "ci_width_calculation": {
+          "kind": "numeric",
+          "parts": [
+            "confidence_level"
+          ],
+          "note": "The exact halved-width confidence is about 58.9%; the authored response text says about 67%, so the deterministic key reflects the exact math and flags the item for content review."
+        }
+      },
+      "ecf_parts": [
+        {
+          "id": "confidence_level",
+          "points": 1,
+          "canonical_formula": "erf((1.645 / 2) / sqrt(2))",
+          "givens": {},
+          "canonical_answer": 0.58921,
+          "note": "Halving the width halves z*, which corresponds to a confidence level of about 58.9%, not 67%."
+        }
+      ],
+      "ecf_note": "Single numeric part; this item is a content-quality finding because the authored response/rubric rounds to an incorrect confidence level."
+    },
+    {
+      "content_key": "APSTAT-MOD6-M001",
+      "form": "long",
+      "criteria": {
+        "sampling_design": {
+          "kind": "conceptual",
+          "verdict": "ABSTAIN"
+        },
+        "margin_of_error": {
+          "kind": "numeric",
+          "parts": [
+            "n_required"
+          ]
+        }
+      },
+      "ecf_parts": [
+        {
+          "id": "n_required",
+          "points": 1,
+          "canonical_formula": "(z**2 * p * (1 - p)) / me**2",
+          "givens": {
+            "z": 1.96,
+            "p": 0.5,
+            "me": 0.05
+          },
+          "canonical_answer": 384.16,
+          "note": "The authored response rounds this to about 385; the exact calculation is 384.16."
+        }
+      ],
+      "ecf_note": "Single numeric part; the sampling-design criterion remains conceptual."
+    },
+    {
+      "content_key": "APSTAT-MOD6-M003",
+      "form": "short",
+      "criteria": {
+        "ci_calculation": {
+          "kind": "numeric+ecf",
+          "parts": [
+            "SE",
+            "CI_low",
+            "CI_high"
+          ]
+        }
+      },
+      "ecf_parts": [
+        {
+          "id": "SE",
+          "points": 1,
+          "canonical_formula": "sd / sqrt(n)",
+          "givens": {
+            "sd": 10,
+            "n": 100
+          },
+          "canonical_answer": 1
+        },
+        {
+          "id": "CI_low",
+          "points": 1,
+          "canonical_formula": "xbar - z * SE",
+          "givens": {
+            "xbar": 50,
+            "z": 1.96
+          },
+          "deps": {
+            "SE": "SE"
+          },
+          "canonical_answer": 48.04
+        },
+        {
+          "id": "CI_high",
+          "points": 1,
+          "canonical_formula": "xbar + z * SE",
+          "givens": {
+            "xbar": 50,
+            "z": 1.96
+          },
+          "deps": {
+            "SE": "SE"
+          },
+          "canonical_answer": 51.96
+        }
+      ],
+      "ecf_note": "A wrong SE should still carry through cleanly to both interval bounds."
+    },
+    {
+      "content_key": "APSTAT-MOD7-H001",
+      "form": "long",
+      "criteria": {
+        "bayes_theorem_setup": {
+          "kind": "conceptual",
+          "verdict": "ABSTAIN",
+          "note": "stating P(B|D)=P(D|B)P(B)/P(D) is conceptual; the computation is deterministic."
+        },
+        "calculation": {
+          "kind": "numeric+ecf",
+          "parts": [
+            "P_D",
+            "P_BgivenD"
+          ]
+        }
+      },
+      "ecf_parts": [
+        {
+          "id": "P_D",
+          "points": 1,
+          "canonical_formula": "pda*pa + pdb*pb + pdc*pc",
+          "givens": {
+            "pda": 0.02,
+            "pa": 0.3,
+            "pdb": 0.03,
+            "pb": 0.5,
+            "pdc": 0.01,
+            "pc": 0.2
+          },
+          "canonical_answer": 0.023
+        },
+        {
+          "id": "P_BgivenD",
+          "points": 1,
+          "canonical_formula": "(pdb * pb) / PD",
+          "givens": {
+            "pdb": 0.03,
+            "pb": 0.5
+          },
+          "deps": {
+            "PD": "P_D"
+          },
+          "canonical_answer": 0.65217
+        }
+      ],
+      "ecf_note": "Total probability P(D) feeds the Bayes posterior. A wrong P(D) but a correct posterior on their own P(D) earns ECF."
+    },
+    {
+      "content_key": "APSTAT-MOD7-H005",
+      "form": "short",
+      "criteria": {
+        "binomial_probability": {
+          "kind": "numeric",
+          "parts": [
+            "probability_exactly_8"
+          ]
+        }
+      },
+      "ecf_parts": [
+        {
+          "id": "probability_exactly_8",
+          "points": 1,
+          "canonical_formula": "factorial(20) / (factorial(8) * factorial(12)) * (0.4**8) * (0.6**12)",
+          "givens": {},
+          "canonical_answer": 0.179705787754689
+        }
+      ],
+      "ecf_note": "Single numeric part; the response rounds this to about 0.18."
+    },
+    {
+      "content_key": "APSTAT-MOD7-H007",
+      "form": "short",
+      "criteria": {
+        "standard_error_sample_size": {
+          "kind": "numeric",
+          "parts": [
+            "n_required"
+          ]
+        }
+      },
+      "ecf_parts": [
+        {
+          "id": "n_required",
+          "points": 1,
+          "canonical_formula": "(sigma / se)**2",
+          "givens": {
+            "sigma": 8,
+            "se": 1
+          },
+          "canonical_answer": 64
+        }
+      ],
+      "ecf_note": "Single numeric part; no downstream ECF chain."
+    },
+    {
+      "content_key": "APSTAT-MOD7-M001",
+      "form": "short",
+      "criteria": {
+        "marginal_probability": {
+          "kind": "numeric",
+          "parts": [
+            "prefer_rate"
+          ]
+        }
+      },
+      "ecf_parts": [
+        {
+          "id": "prefer_rate",
+          "points": 1,
+          "canonical_formula": "prefer / total",
+          "givens": {
+            "prefer": 80,
+            "total": 200
+          },
+          "canonical_answer": 0.4
+        }
+      ],
+      "ecf_note": "Single numeric part; no downstream ECF chain."
+    },
+    {
+      "content_key": "APSTAT-MOD7-M002",
+      "form": "short",
+      "criteria": {
+        "independence_multiplication": {
+          "kind": "numeric",
+          "parts": [
+            "p_intersection"
+          ],
+          "note": "Independent-event multiplication."
+        }
+      },
+      "ecf_parts": [
+        {
+          "id": "p_intersection",
+          "points": 1,
+          "canonical_formula": "pa * pb",
+          "givens": {
+            "pa": 0.3,
+            "pb": 0.4
+          },
+          "canonical_answer": 0.12
+        }
+      ],
+      "ecf_note": "Single numeric part."
+    },
+    {
+      "content_key": "APSTAT-MOD7-M004",
+      "form": "short",
+      "criteria": {
+        "tree_diagram_calculation": {
+          "kind": "numeric",
+          "parts": [
+            "path_prob"
+          ]
+        }
+      },
+      "ecf_parts": [
+        {
+          "id": "path_prob",
+          "points": 1,
+          "canonical_formula": "p1 * p2",
+          "givens": {
+            "p1": 0.3,
+            "p2": 0.7
+          },
+          "canonical_answer": 0.21
+        }
+      ],
+      "ecf_note": "Single numeric part; no downstream ECF chain."
+    },
+    {
+      "content_key": "APSTAT-MOD7-M005",
+      "form": "short",
+      "criteria": {
+        "expected_value": {
+          "kind": "numeric",
+          "parts": [
+            "expected"
+          ]
+        }
+      },
+      "ecf_parts": [
+        {
+          "id": "expected",
+          "points": 1,
+          "canonical_formula": "n * p",
+          "givens": {
+            "n": 10,
+            "p": 0.5
+          },
+          "canonical_answer": 5
+        }
+      ],
+      "ecf_note": "Single numeric part; no downstream ECF chain."
+    },
+    {
+      "content_key": "APSTAT-MOD8-H001",
+      "form": "long",
+      "corpus_defect": "NO DATASET. The item asks to compute r and the regression line from data on 25 students, but no data table exists; the canonical answer 'assumes data calculations give r≈0.82'. Documented in ap_statistics_graph_response_seed_2026_07_02 and the takeaways (Lesson 8). RESOLVED 2026-07-09 (Product Owner approved): rubric scoped to method-only/self-consistency grading rather than sourcing real data; see ../AP_STATISTICS_MOD3_MOD6_BOUNDARY_CONTRACTS_2026_07_09.md §3.",
+      "criteria": {
+        "correlation_calculation": {
+          "kind": "numeric",
+          "verdict": "ABSTAIN",
+          "reason": "no dataset — cannot key a numeric answer; LLM grader applies method-only rubric"
+        },
+        "regression_equation": {
+          "kind": "symbolic_only",
+          "symbolic_key": "r*(sy/sx)",
+          "note": "slope STRUCTURE b=r*(sy/sx) is checkable; numeric value is not (no data). LLM grader checks self-consistency against the response's own asserted r/sy/sx."
+        },
+        "interpretation": {
+          "kind": "conceptual",
+          "verdict": "ABSTAIN"
+        }
+      },
+      "ecf_parts": [],
+      "ecf_note": "Excluded from any numeric ECF cascade until the item is repaired with a real dataset (corpus defect)."
+    },
+    {
+      "content_key": "STATS-MOD1-E004",
+      "form": "short",
+      "criteria": {
+        "mean_calculation": {
+          "kind": "numeric",
+          "parts": [
+            "mean"
+          ],
+          "note": "Direct arithmetic mean."
+        }
+      },
+      "ecf_parts": [
+        {
+          "id": "mean",
+          "points": 1,
+          "canonical_formula": "(a+b+c+d+e)/5",
+          "givens": {
+            "a": 12,
+            "b": 15,
+            "c": 18,
+            "d": 21,
+            "e": 24
+          },
+          "canonical_answer": 18
+        }
+      ],
+      "ecf_note": "Single numeric part."
+    },
+    {
+      "content_key": "STATS-MOD1-M002",
+      "form": "short",
+      "criteria": {
+        "std_dev_calculation": {
+          "kind": "numeric+ecf",
+          "parts": [
+            "mean",
+            "sample_sd"
+          ],
+          "note": "Requested sample standard deviation for 2,4,6,8,10."
+        }
+      },
+      "ecf_parts": [
+        {
+          "id": "mean",
+          "points": 1,
+          "canonical_formula": "(a+b+c+d+e)/5",
+          "givens": {
+            "a": 2,
+            "b": 4,
+            "c": 6,
+            "d": 8,
+            "e": 10
+          },
+          "canonical_answer": 6
+        },
+        {
+          "id": "sample_sd",
+          "points": 1,
+          "canonical_formula": "sqrt(((a-mean)**2+(b-mean)**2+(c-mean)**2+(d-mean)**2+(e-mean)**2)/(5-1))",
+          "givens": {
+            "a": 2,
+            "b": 4,
+            "c": 6,
+            "d": 8,
+            "e": 10
+          },
+          "deps": {
+            "mean": "mean"
+          },
+          "canonical_answer": 3.16228
+        }
+      ],
+      "ecf_note": "New Phase C remediation key; also corrected a wrong fully_correct synthetic response."
+    },
+    {
+      "content_key": "STATS-MOD3-M006",
+      "form": "short",
+      "criteria": {
+        "percentile_zscore": {
+          "kind": "numeric",
+          "parts": [
+            "z_score"
+          ],
+          "note": "84th percentile is approximately one standard deviation above the mean."
+        }
+      },
+      "ecf_parts": [
+        {
+          "id": "z_score",
+          "points": 1,
+          "canonical_formula": "1",
+          "givens": {},
+          "canonical_answer": 1
+        }
+      ],
+      "ecf_note": "Single numeric part; accepts approximate z=1."
+    },
+    {
+      "content_key": "APSTAT-MOD3-E001",
+      "form": "short",
+      "criteria": {
+        "empirical_rule_application": {
+          "kind": "numeric",
+          "parts": [
+            "pct_within_1sd"
+          ]
+        }
+      },
+      "ecf_parts": [
+        {
+          "id": "pct_within_1sd",
+          "points": 1,
+          "canonical_formula": "68",
+          "givens": {},
+          "canonical_answer": 68,
+          "note": "Empirical rule constant (~68% within 1 SD); independent of the item's specific mean/SD."
+        }
+      ],
+      "ecf_note": "Single constant part; no downstream ECF chain."
+    },
+    {
+      "content_key": "APSTAT-MOD7-M003",
+      "form": "short",
+      "criteria": {
+        "test_performance": {
+          "kind": "numeric",
+          "parts": [
+            "false_positive_rate"
+          ]
+        }
+      },
+      "ecf_parts": [
+        {
+          "id": "false_positive_rate",
+          "points": 1,
+          "canonical_formula": "1 - specificity",
+          "givens": {
+            "specificity": 0.9
+          },
+          "canonical_answer": 0.1
+        }
+      ],
+      "ecf_note": "Single numeric part; no downstream ECF chain."
+    },
+    {
+      "content_key": "APSTAT-MOD7-H002",
+      "form": "short",
+      "criteria": {
+        "mutually_exclusive": {
+          "kind": "numeric",
+          "parts": [
+            "P_or",
+            "P_and"
+          ]
+        }
+      },
+      "ecf_parts": [
+        {
+          "id": "P_or",
+          "points": 1,
+          "canonical_formula": "pa + pb",
+          "givens": {
+            "pa": 0.2,
+            "pb": 0.3
+          },
+          "canonical_answer": 0.5
+        },
+        {
+          "id": "P_and",
+          "points": 1,
+          "canonical_formula": "0",
+          "givens": {},
+          "canonical_answer": 0,
+          "note": "Mutually exclusive events cannot co-occur."
+        }
+      ],
+      "ecf_note": "Both parts are independent constants/givens; no ECF chain between them."
+    },
+    {
+      "content_key": "APSTAT-MOD8-M002",
+      "form": "short",
+      "criteria": {
+        "r_squared_interpretation": {
+          "kind": "numeric",
+          "parts": [
+            "r_squared_pct"
+          ]
+        }
+      },
+      "ecf_parts": [
+        {
+          "id": "r_squared_pct",
+          "points": 1,
+          "canonical_formula": "r_squared",
+          "givens": {
+            "r_squared": 0.64
+          },
+          "canonical_answer": 0.64,
+          "note": "Echoes the given R^2 as a percentage of explained variability; catches confusing R^2 with r or 1-R^2."
+        }
+      ],
+      "ecf_note": "Single constant part; no downstream ECF chain."
+    },
+    {
+      "content_key": "APSTAT-MOD8-M004",
+      "form": "short",
+      "criteria": {
+        "slope_interpretation": {
+          "kind": "numeric",
+          "parts": [
+            "slope_value"
+          ]
+        }
+      },
+      "ecf_parts": [
+        {
+          "id": "slope_value",
+          "points": 1,
+          "canonical_formula": "slope",
+          "givens": {
+            "slope": 3
+          },
+          "canonical_answer": 3,
+          "note": "Echoes the given slope from y=3x+5; catches confusing slope with intercept."
+        }
+      ],
+      "ecf_note": "Single constant part; no downstream ECF chain."
+    },
+    {
+      "content_key": "STATS-MOD3-E006",
+      "form": "short",
+      "criteria": {
+        "empirical_rule": {
+          "kind": "numeric",
+          "parts": [
+            "pct_within_1sd"
+          ]
+        }
+      },
+      "ecf_parts": [
+        {
+          "id": "pct_within_1sd",
+          "points": 1,
+          "canonical_formula": "68",
+          "givens": {},
+          "canonical_answer": 68,
+          "note": "67-83 is mean(75) +/- 1 SD(8); empirical rule constant, independent of the specific mean/SD values."
+        }
+      ],
+      "ecf_note": "Single constant part; no downstream ECF chain."
+    },
+    {
+      "content_key": "STATS-MOD1-M004",
+      "form": "short",
+      "criteria": {
+        "frequency_table": {
+          "kind": "numeric",
+          "parts": [
+            "freq_A",
+            "freq_B",
+            "freq_C",
+            "rel_freq_A",
+            "rel_freq_B",
+            "rel_freq_C"
+          ]
+        }
+      },
+      "ecf_parts": [
+        {
+          "id": "freq_A",
+          "points": 1,
+          "canonical_formula": "4",
+          "givens": {},
+          "canonical_answer": 4
+        },
+        {
+          "id": "freq_B",
+          "points": 1,
+          "canonical_formula": "3",
+          "givens": {},
+          "canonical_answer": 3
+        },
+        {
+          "id": "freq_C",
+          "points": 1,
+          "canonical_formula": "1",
+          "givens": {},
+          "canonical_answer": 1
+        },
+        {
+          "id": "rel_freq_A",
+          "points": 1,
+          "canonical_formula": "4/8",
+          "givens": {},
+          "canonical_answer": 0.5
+        },
+        {
+          "id": "rel_freq_B",
+          "points": 1,
+          "canonical_formula": "3/8",
+          "givens": {},
+          "canonical_answer": 0.375
+        },
+        {
+          "id": "rel_freq_C",
+          "points": 1,
+          "canonical_formula": "1/8",
+          "givens": {},
+          "canonical_answer": 0.125
+        }
+      ],
+      "ecf_note": "Tally from the given sequence (A,B,A,C,B,A,B,A: A=4,B=3,C=1 of 8); all six parts are independent constants, no ECF chain."
+    }
+  ]
+}
