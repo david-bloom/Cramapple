@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Phase A Broken-Import Fix and Deterministic-Layer-Only Ship Decision — 2026-07-12
 - TASK-0016 Phase A Grading-Router Reconciled Onto Grading Branch — 2026-07-12
 - AP Statistics Launch Task Drafted (TASK-0013) — 2026-06-30
 - Hand-Drawn Graph Corpus Realism Fix and Four-Finding Spot-Check — 2026-06-30
@@ -18,6 +19,70 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## Phase A Broken-Import Fix and Deterministic-Layer-Only Ship Decision - 2026-07-12
+
+**Task:** TASK-0016, Phase A. Corrects the previous entry below.
+**Status:** Fixed on `claude/cramapple-grading-mlr0o1` (commit `62758c9`),
+pushed to PR #37. Still not merged to `main`, still no production deploy at
+the time of this entry.
+
+**Summary:** David asked to land Phase A wiring live for tutors to see it in
+action without waiting for the tutor-approval gate, shipping today's
+single-call LLM grader plus the deterministic layer only (explicitly not the
+SP-1 misattribution audit or `C2Direct-Low` routing). Before deploying,
+found that the `evaluate-attempt/index.ts` landed in the prior entry
+(sourced from upstream commit `8f79ebe`) imports four modules —
+`evaluate-attempt-response.ts`, `grading-feedback.ts`,
+`statistics-verifier.ts`, `verification-profiles.ts` — that do not exist on
+any branch in the repository's history, **including `8f79ebe`'s own source
+branch at any commit**. That code would fail to load in Deno at all; it was
+never actually runnable upstream, not just unmerged. The prior entry's claim
+that the file was verified "byte-identical to `8f79ebe`'s target" was true
+but insufficient — byte-identical to a target that itself doesn't resolve is
+not a working verification.
+
+Did not attempt to fabricate the four missing modules. Instead rewrote the
+integration from the pre-Phase-A `evaluate-attempt/index.ts` by hand:
+`resolveGradingRoute` (self-contained, verified) picks a route from
+`rubric_type`/`evaluator_strategy` (now selected from `content_item_versions`)
+or falls back to legacy `item_type`; when the route is `symbolic_ecf` and the
+item's `content_key` matches a seeded entry in `math-verifier.ts`'s
+`STATISTICS_ITEM_KEYS` lookup with populated `ecf_parts`, `buildEcfResult`
+grades it deterministically (`model_id: "deterministic-symbolic-ecf"`,
+`deterministic_verifier_version` recorded) and the LLM call and budget
+reservation are both skipped. Every other case — including every currently
+published AP Biology item, since none are in that lookup — falls through to
+the existing single-call LLM grader completely unchanged. Deliberately did
+not wire `formula-notation.ts`'s ambiguous-text/action-hint/repair-hint
+helpers or populate the `feedback_preview`/`action_hint`/`repair_hint`
+columns added by the prior entry's migrations — those need the still-missing
+feedback-formatting layer; left null rather than fabricated.
+
+Verified: only `grading-router.ts`, `math-verifier.ts`, and
+`formula-notation.ts` are imported, and grepped the full `supabase/functions/`
+tree to confirm zero remaining references to any of the four missing
+modules. Brace-balance checked (no Deno available in this environment, so
+this is not a substitute for `deno check`/`deno test`, which is still
+outstanding).
+
+**Decision, recorded per David's instruction:** ship Phase A (deterministic
+layer + existing single-call grader) to Production ahead of the formal AP
+Biology tutor-review gate (`NOW-004`) and `TASK-0010` approval, specifically
+so tutors can observe it live and drive iteration from real behavior rather
+than reviewing it statically first. This is a scoped exception for tutor
+visibility, not a decision to open automated FRQ scores to students broadly
+— `TASK-0010`/`NOW-013`'s gate on learner-facing automated scores is
+unchanged and still open.
+
+**Next Owner:** David Bloom / Main Conductor
+**Next Required Action:** Merge PR #37, apply the pending migrations to
+`Cramapple-Production` (`pcntajvbdfqhbeewmdry`), and redeploy
+`evaluate-attempt`. Run `deno check`/`deno test` in an environment with Deno
+before or immediately after deploy, since that verification is still
+outstanding.
 
 ---
 
