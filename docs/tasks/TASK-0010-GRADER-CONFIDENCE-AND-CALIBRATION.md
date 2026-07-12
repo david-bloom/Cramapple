@@ -29,7 +29,17 @@ student response, and remains reliable after release.
 ### Phase 2 - Adjudicated Gold Sets
 
 - Two qualified Grading Validators score every case blind at criterion level.
-- A Lead Grading Validator adjudicates every disagreement.
+  **Source (2026-07-12):** Grading Validators are the tutors currently being
+  hired, not separately recruited — individuals not yet named, since hiring
+  is in progress. They must clear `TASK-0005`/`NOW-005`'s validator
+  qualification, renewal, calibration, and suspension bar
+  (`docs/tasks/TASK-0005-CONTENT-GOVERNANCE-AND-VALIDATION.md`) before
+  scoring gold-set cases here — that gate is still `In Progress`, not yet
+  approved, so this phase cannot start until it is.
+- A Lead Grading Validator adjudicates every disagreement. David Bloom is
+  named Learning Quality Owner / Grading Lead for this task (2026-07-12);
+  whether he also serves as Lead Grading Validator or that's a distinct
+  hired-tutor role is not yet decided.
 - Model output remains hidden until gold labels are locked.
 - Development, calibration, held-out, and challenge sets remain separate.
 - Held-out cases and near-neighbor variants are inaccessible to prompt authors

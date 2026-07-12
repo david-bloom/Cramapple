@@ -80,12 +80,25 @@ of shipping a stale "not yet named" note. Phase 2 still needs a *second*
 qualified Grading Validator besides David before that phase can run — the
 task requires two independent blind scorers.
 
+**Second addendum, same day:** David clarified the Grading Validators
+(plural, Phase 2's "two qualified Grading Validators") will be sourced from
+the tutors currently being hired, not separately recruited — no individuals
+named yet since hiring is in progress. Recorded in the task file's Phase 2
+section with an explicit dependency this creates: those tutors must clear
+`TASK-0005`/`NOW-005`'s validator-qualification bar (still `In Progress`,
+not yet approved) before they can score gold-set cases, so Phase 2 is now
+blocked on two things, not one — hiring completing, and `NOW-005` clearing.
+Whether David also serves as Lead Grading Validator (who adjudicates
+disagreements between the two scorers) or that's a separate hired-tutor
+role is not yet decided.
+
 **Next Owner:** David Bloom / Main Conductor
 **Next Required Action:** Before handing the UX-006 brief to Lovable,
 confirm the two open items above via Supabase MCP or dashboard (content
 publish status; `attempt-response` vs `submit-response`/`app.submit_response`
-as the real submission entrypoint). Name a second Grading Validator for
-`TASK-0010` Phase 2.
+as the real submission entrypoint). Decide whether David is also Lead
+Grading Validator, and track `NOW-005` (validator qualifications) as a
+prerequisite for the hired tutors to actually start Phase 2 work.
 
 ---
 
