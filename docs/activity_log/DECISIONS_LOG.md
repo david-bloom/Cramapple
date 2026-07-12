@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0036 — Approve TASK-0010 Grader Confidence and Calibration Program
 - DECISION-0035 — Resolve Phase 0 of the Backend Consolidation Migration (Schema Reconciliation, Option A/A2)
 - DECISION-0031 — Launch AP Statistics as Subject 2, Reusing the Tutor-Authored Content Model
 - DECISION-0030 — Failed/Rejected Grading Burns the Daily Budget Cap When Cost Is Known
@@ -1455,3 +1456,64 @@ column).
   `claude/backend-consolidation-migration` (off `main`). `main` is at
   DECISION-0032; branches for DECISION-0033/0034 are outstanding. If numbering
   collides on merge, renumber whichever merges second and update the index.
+
+## DECISION-0036 — Approve TASK-0010 Grader Confidence and Calibration Program
+
+**Date:** 2026-07-12
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Related Task:** TASK-0010
+**Area:** Product / Learning Quality / Grading
+
+### Context
+
+`TASK-0010` has sat at `Proposed` since 2026-06-13 — a six-phase program
+(rubric/development cases, adjudicated gold sets, locked evaluation, shadow
+operation, limited release, continuous monitoring) required before any
+learner-facing automated FRQ score, per `NOW-013`. The same session that
+requested this approval also shipped `TASK-0016` Phase A (deterministic
+layer + existing single-call grader) directly to Production for tutor
+visibility, ahead of this program's completion — see
+`docs/activity_log/ACTIVITY_LOG.md`, 2026-07-12 entries, for that separate
+decision and its scoping.
+
+### Decision
+
+Approve `TASK-0010` to move from `Proposed` to active execution. The
+program in the task file — Phases 1 through 6 — is authorized to proceed
+as written.
+
+### Rationale
+
+The Phase A ship decision creates real, immediate pressure to have this
+program actually running rather than sitting proposed: tutors are now
+looking at live deterministic + LLM grading output, and this program is
+the mechanism that turns their observations into adjudicated gold labels,
+calibrated confidence, and an eventual real release gate — rather than
+tutor feedback accumulating with no formal process to act on it.
+
+### Consequences
+
+- `TASK-0010` status: `Proposed` → `Approved`. `NOW-013` and the
+  `MASTER_TODO.md` Active Task Register row move to `In Progress`.
+- Does **not** mark any of `TASK-0010`'s eleven acceptance criteria as met —
+  none are. This is authorization to execute the program, not a Done
+  decision, and not itself a launch decision.
+- Does **not** satisfy `NOW-013`'s learner-facing-automated-scores gate,
+  which still requires Phase 4 (shadow cohort) and Phase 5 (limited
+  release) to actually pass.
+- Does **not** retroactively expand the Phase A tutor-visibility ship
+  decision to general student-facing release — those remain two separate,
+  independently-scoped decisions made the same day.
+
+### Risks / Follow-ups
+
+- No Learning Quality Owner or Grading Lead has been named yet (task file
+  lists the role, not a person) — Phase 2's "two qualified Grading
+  Validators" and "Lead Grading Validator adjudicate" requirements can't
+  start without someone actually filling those roles.
+- The stuck FRQ02 cases (`S020`, `S028`, `S068`) and suspected corpus-label
+  inconsistencies (`S014`, `S054`, `S058`, `S062`, `S070`) flagged in
+  `docs/research/frq_grading_status_2026-06-18.md` are ready-made Phase 2
+  adjudication-queue material — good first real work for this program
+  once staffed.

@@ -4,10 +4,10 @@
 **Title:** Establish Reasonable Confidence in FRQ Grading
 **Owner:** Learning Quality Owner / Grading Lead / Technical Owner
 **Product Owner:** David Bloom
-**Status:** Proposed
+**Status:** Approved (program authorized to execute; acceptance criteria below remain open)
 **Priority:** Critical
 **Created Date:** 2026-06-13
-**Approved Date:** Pending
+**Approved Date:** 2026-07-12
 
 ## Product Goal
 
@@ -115,7 +115,17 @@ Findings from `docs/research/grader_speed_sp1_report.md` and `frq_grading_status
 
 **Approval Required:** Yes
 **Approval Type:** Product and Learning Quality hard gate
-**Decision:** Pending
+**Decision:** Approved (2026-07-12, `APPROVAL-0026` / `DECISION-0036`) — this
+authorizes the confidence/calibration program above to begin active
+execution. It is not a Done decision and does not certify any acceptance
+criterion below as met; none are yet. In particular it does not satisfy
+`NOW-013`'s gate on learner-facing automated FRQ scores, which requires the
+Phase 4 shadow cohort and Phase 5 limited-release criteria to actually
+pass first. Separately, on 2026-07-12 David also authorized shipping
+`TASK-0016` Phase A (deterministic layer + existing single-call grader) to
+Production ahead of this program's completion, scoped explicitly to tutor
+visibility — see `docs/activity_log/ACTIVITY_LOG.md` for that decision,
+which this approval does not retroactively supersede or expand.
 
 ## Done Decision
 

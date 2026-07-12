@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- TASK-0010 Approved and UX-006 Brief Replaced With Real Integration — 2026-07-12
 - Phase A Broken-Import Fix and Deterministic-Layer-Only Ship Decision — 2026-07-12
 - TASK-0016 Phase A Grading-Router Reconciled Onto Grading Branch — 2026-07-12
 - AP Statistics Launch Task Drafted (TASK-0013) — 2026-06-30
@@ -15,10 +16,69 @@ Most recent entries (full reverse-chronological list follows below):
 - Cramapple Visual Identity Brief Revised From Family Discussion — 2026-06-21
 - Session and Storage Backend Surfaces Wired — 2026-06-21
 - Cramapple Visual Identity Brief Drafted — 2026-06-21
-- Production Plumbing Session Handoff — 2026-06-20
-- Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## TASK-0010 Approved and UX-006 Brief Replaced With Real Integration - 2026-07-12
+
+**Task:** TASK-0010, UX-006. Follows directly from the two entries below.
+**Status:** `TASK-0010` approved to execute (`APPROVAL-0026`/`DECISION-0036`).
+`prompts/LOVABLE_UX006_STUDENT_PRACTICE_GRADING.md` replaced with a
+real-integration version. Neither is a production deploy by itself — the
+UX-006 brief is a build spec for whoever executes it next (Lovable), not
+yet executed.
+
+**Summary:** After the Phase A ship-and-fix work in the two entries below,
+David approved `TASK-0010` (Grader Confidence and Calibration) to move from
+`Proposed` to active execution, and asked for the `UX-006` Lovable brief to
+be replaced from frontend-only/simulated to real backend integration.
+Recorded as `APPROVAL-0026` and `DECISION-0036`: this authorizes the
+confidence/calibration program to run, not a Done decision — none of
+`TASK-0010`'s eleven acceptance criteria are met, and `NOW-013`'s gate on
+learner-facing automated scores is explicitly still open (needs Phase 4
+shadow cohort + Phase 5 limited release to actually pass). Updated
+`docs/tasks/TASK-0010-...md` status/approval-state and
+`docs/MASTER_TODO.md`'s `NOW-013`/Active Task Register rows accordingly.
+
+Rewrote `prompts/LOVABLE_UX006_STUDENT_PRACTICE_GRADING.md` to wire the
+existing UX design (MCQ/FRQ practice, criterion feedback, grading states)
+to the real Production backend instead of Lovable-fixture state: real
+Supabase auth (no anonymous), reads only through the curated `public.*`
+views (`PHASE1_CURATED_INTERFACE_NOTES.md`), and a concrete
+`evaluate-attempt` request/response contract pulled directly from the
+deployed function's source (`operation`/`idempotency_key`/`attempt_id`/
+`response_version_id`/`content_item_version_id`/`rubric_version_id`/
+`assistance_condition`; response fields including the `feedback_preview`/
+`action_hint`/`repair_hint` columns fixed in the prior entry). Explicitly
+kept dispute and regrade simulated — no backend exists for either, in git
+or on Production, so building against them for real would mean fabricating
+a contract that doesn't exist anywhere.
+
+**Two things flagged in the brief as needing live verification before
+build, not asserted as fact:** (1) whether AP Biology content is actually
+published yet — a prior finding (`DECISION-0033`) flagged all
+`content_items` stuck in `draft`, which would block this brief from being
+exercised end-to-end at all; (2) which entrypoint actually submits a
+response — git has a `submit-response` edge function and an
+`app.submit_response` RPC, but Production's live edge-function list
+(checked this session) shows a differently-named `attempt-response`
+function instead, consistent with the same out-of-band deployment pattern
+already found for grading. Supabase MCP tool calls started requiring
+interactive approval partway through this session (tool server
+reconnected under new IDs) and couldn't be retried non-interactively, so
+neither was confirmed live — the brief tells whoever builds it to check
+both before wiring anything, rather than guessing.
+
+**Next Owner:** David Bloom / Main Conductor
+**Next Required Action:** Before handing the UX-006 brief to Lovable,
+confirm the two open items above via Supabase MCP or dashboard (content
+publish status; `attempt-response` vs `submit-response`/`app.submit_response`
+as the real submission entrypoint). Separately, `TASK-0010` needs an actual
+Learning Quality Owner / Grading Lead named before Phase 2 (adjudicated
+gold sets) can start — the role is specified in the task file, not a
+person.
 
 ---
 

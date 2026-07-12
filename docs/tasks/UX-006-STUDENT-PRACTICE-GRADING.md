@@ -29,7 +29,9 @@ human-review states; and immutable regrading.
 
 ## Out of Scope
 
-- Production grading implementation or learner-facing release approval.
+- Learner-facing (general student) release approval — still gated by
+  `TASK-0010`'s open acceptance criteria even though `TASK-0010` itself is
+  now approved to proceed (2026-07-12).
 - Calibration thresholds and operational gates owned by `TASK-0010`.
 - Internal adjudication and release controls owned by UX-005.
 - Student-provided question intake owned by UX-004.
@@ -96,9 +98,20 @@ and grading release pending
 Primary records:
 
 - `docs/product/STUDENT_PRACTICE_AND_GRADING_DESIGN.md`
-- `prompts/LOVABLE_UX006_STUDENT_PRACTICE_GRADING.md`
+- `prompts/LOVABLE_UX006_STUDENT_PRACTICE_GRADING.md` — replaced 2026-07-12
+  with a real-integration version (real Supabase Production backend, real
+  `evaluate-attempt` grading, real auth) at David's direction, superseding
+  the original frontend-only/simulated-state version. Scope: tutor
+  visibility and iteration on the now-live TASK-0016 Phase A grading
+  engine, not a general student-facing launch. Dispute and regrade remain
+  simulated — no backend exists for either. See
+  `docs/activity_log/ACTIVITY_LOG.md` (2026-07-12) for the full decision
+  record and known open risks (content-publish-gap check, unconfirmed
+  response-submission entrypoint).
 
-No prototype is authorized by this task.
+A prototype (frontend-only, simulated) was previously not authorized. Real
+backend integration is now authorized per the above; a broader interactive
+prototype beyond what the current brief specifies is still not authorized.
 
 ## QA Review
 

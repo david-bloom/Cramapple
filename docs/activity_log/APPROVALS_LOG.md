@@ -6,6 +6,8 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0026 — TASK-0010 Grader Confidence and Calibration Program
+- APPROVAL-0025 — TASK-0013 Phase 2 Migration Go-Ahead
 - APPROVAL-0024 — AP Statistics Launch (TASK-0013, Phase 0 Decision Gate)
 - APPROVAL-0023 — Agent Routing and Automatic QA (Codex Proposal)
 - APPROVAL-0022 — Charter Simplification and Tiering Adoption
@@ -593,3 +595,32 @@ Database Migrations Hard Gate in `STANDING_APPROVAL_LANES.md`. See
 - Scope is exactly `prompts/CODEX_AP_STATISTICS_PHASE2_SCHEMA_INSTANTIATION.md`
   as drafted — no broader migration authority granted.
 - Publishing the resulting exam pack/content is explicitly not covered.
+
+## APPROVAL-0026 — TASK-0010 Grader Confidence and Calibration Program
+
+**Date:** 2026-07-12
+**Approved By:** David Bloom
+**Related Task:** TASK-0010
+**Decision:** Approved
+
+### Summary
+
+Approves `TASK-0010` (Grader Confidence and Calibration) to move from
+`Proposed` into active execution as the governing program for FRQ grading
+confidence, gold-set adjudication, shadow operation, and release gating.
+See `DECISION-0036` for full scope and what this does and does not cover.
+
+### Notes
+
+- This is program-level approval to begin execution, not a Done decision.
+  None of `TASK-0010`'s eleven acceptance criteria are met yet — see the
+  task file's Acceptance Criteria section, all still unchecked as of this
+  approval.
+- Does not satisfy `NOW-013`'s gate on learner-facing automated FRQ scores.
+  That gate requires the Phase 4 shadow cohort and Phase 5 limited-release
+  criteria to actually pass.
+- Granted the same day as, but is a separate decision from, shipping
+  `TASK-0016` Phase A to Production for tutor visibility — see
+  `docs/activity_log/ACTIVITY_LOG.md`, 2026-07-12 entries, for that
+  decision record. This approval does not retroactively expand that one's
+  scope to general student-facing release.
