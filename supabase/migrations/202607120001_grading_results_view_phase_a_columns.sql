@@ -8,10 +8,18 @@
 -- added to the view. Without this, the Lovable frontend (which reads through
 -- public.grading_results, not app.grading_results directly) cannot see
 -- feedback text, repair hints, or verifier/boundary-contract provenance.
+--
+-- Postgres refuses `create or replace view` when the new column list isn't a
+-- pure trailing append (here the new columns are inserted before
+-- created_at/updated_at, not appended after them), so this must drop and
+-- recreate rather than replace. Confirmed no other view depends on
+-- public.grading_results before drop (checked via pg_depend on Production).
 
 begin;
 
-create or replace view public.grading_results
+drop view public.grading_results;
+
+create view public.grading_results
 with (security_invoker = true)
 as
 select

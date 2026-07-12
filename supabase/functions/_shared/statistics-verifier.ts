@@ -1,0 +1,323 @@
+import { buildFallbackCriteria, type FeedbackCriterionRow } from "./grading-feedback.ts";
+
+type StatisticsCheckStatus = "pass" | "flag" | "abstain";
+
+type StatisticsCheck = {
+  content_key: string;
+  status: StatisticsCheckStatus;
+  reason: string;
+  repair_hint: string | null;
+};
+
+type NumericTarget = {
+  value: number;
+  sign_sensitive?: boolean;
+};
+
+const DEFAULT_REL_TOL = 0.02;
+
+const STATISTICS_TARGETS: Record<
+  string,
+  {
+    reason: string;
+    repair_hint: string;
+    values: NumericTarget[];
+  } | null
+> = {
+  "APSTAT-MOD3-H001-INV": {
+    reason:
+      "The response should include the confidence-interval bounds and test statistic from the keyed calculation.",
+    repair_hint:
+      "Recompute the standard error with sqrt(n), then update the confidence interval and t-statistic using that corrected value.",
+    values: [
+      { value: 21.9089 },
+      { value: 807.05863 },
+      { value: 892.94137 },
+      { value: 2.28217 },
+    ],
+  },
+  "APSTAT-MOD5-H001-INV": null,
+  "APSTAT-MOD6-H001": {
+    reason:
+      "The response should include the keyed two-sample standard error and test statistic.",
+    repair_hint:
+      "Recompute the pooled standard error with the keyed sample sizes, then recalculate the t-statistic on that value.",
+    values: [
+      { value: 1.94079 },
+      { value: 2.06104 },
+    ],
+  },
+  "APSTAT-MOD7-H001": {
+    reason:
+      "The response should include the keyed probability values for the Bayes calculation.",
+    repair_hint:
+      "Recompute the total probability first, then use it in the Bayes posterior.",
+    values: [
+      { value: 0.023 },
+      { value: 0.65217 },
+    ],
+  },
+  "APSTATS-SFRQ-008": {
+    reason:
+      "The response should include the keyed expected value and standard deviation for the raffle payoff.",
+    repair_hint:
+      "Recompute the expected value from the weighted payoffs, then use the same payoff table to find the standard deviation.",
+    values: [
+      { value: 1.8 },
+      { value: 4.9 },
+    ],
+  },
+  "APSTATS-SFRQ-003": {
+    reason:
+      "The response should include the keyed regression prediction and residual.",
+    repair_hint:
+      "Recompute the prediction from the regression line, then subtract it from the observed score to find the residual.",
+    values: [
+      { value: 76.6 },
+      { value: -2.6, sign_sensitive: true },
+    ],
+  },
+  "APSTATS-SFRQ-004": {
+    reason:
+      "The response should include the keyed regression prediction and residual.",
+    repair_hint:
+      "Recompute the prediction from the regression line, then subtract it from the observed sleep time to find the residual.",
+    values: [
+      { value: 5.25 },
+      { value: -0.25, sign_sensitive: true },
+    ],
+  },
+  "APSTATS-SFRQ-009": {
+    reason:
+      "The response should include the keyed mean and standard deviation of the sampling distribution.",
+    repair_hint:
+      "Recompute the sampling-distribution mean and standard deviation from the declared p and n.",
+    values: [
+      { value: 0.28 },
+      { value: 0.0225 },
+    ],
+  },
+  "APSTATS-SFRQ-010": {
+    reason:
+      "The response should include the keyed mean and standard deviation of the sampling distribution.",
+    repair_hint:
+      "Recompute the sampling-distribution mean and standard deviation from the declared mu and n.",
+    values: [
+      { value: 7.2 },
+      { value: 0.3 },
+    ],
+  },
+  "APSTAT-MOD8-H001": null,
+  // The entries below (SFRQ-001, 002, 005, 006, 007, 011-018) extend
+  // deterministic coverage to the remaining published AP Statistics SFRQ
+  // items. Values are read directly off each item's published
+  // canonical_answer_1 field. Freshly authored 2026-07-10, not yet reviewed
+  // by Learning Quality and not yet run against an adjudicated gold set —
+  // same development-tier caveat as the rest of this file.
+  "APSTATS-SFRQ-001": {
+    reason:
+      "The response should include the keyed median and mean commute times.",
+    repair_hint:
+      "Recompute the median (middle value) and the mean (sum divided by count) from the data set.",
+    values: [
+      { value: 22 },
+      { value: 23.7 },
+    ],
+  },
+  "APSTATS-SFRQ-002": {
+    reason: "The response should include both keyed z-scores.",
+    repair_hint:
+      "Recompute each z-score as (score - mean) / standard deviation for its own quiz.",
+    values: [
+      { value: 1.5 },
+      { value: 2.5 },
+    ],
+  },
+  "APSTATS-SFRQ-005": null,
+  "APSTATS-SFRQ-006": null,
+  "APSTATS-SFRQ-007": {
+    reason:
+      "The response should include the keyed binomial mean, standard deviation, and probability.",
+    repair_hint:
+      "Recompute the mean as n*p, the standard deviation as sqrt(n*p*(1-p)), and P(X=5) from the binomial formula.",
+    values: [
+      { value: 5 },
+      { value: 1.94 },
+      { value: 0.202 },
+    ],
+  },
+  "APSTATS-SFRQ-011": {
+    reason:
+      "The response should include the keyed sample proportion and confidence-interval bounds.",
+    repair_hint:
+      "Recompute p-hat from the counts, then rebuild the interval as p-hat plus or minus the margin of error.",
+    values: [
+      { value: 0.70 },
+      { value: 0.618 },
+      { value: 0.782 },
+    ],
+  },
+  "APSTATS-SFRQ-012": {
+    reason: "The response should include the keyed z-statistic and p-value.",
+    repair_hint:
+      "Recompute z from the sample proportion and hypothesized proportion, then find the matching p-value.",
+    values: [
+      { value: 2.40 },
+      { value: 0.008 },
+    ],
+  },
+  "APSTATS-SFRQ-013": {
+    reason:
+      "The response should include the keyed t-statistic and confidence-interval bounds.",
+    repair_hint:
+      "Recompute t from x-bar, mu0, s, and n, then rebuild the interval as x-bar plus or minus the margin of error.",
+    values: [
+      { value: 2.00 },
+      { value: 69.7 },
+      { value: 78.3 },
+    ],
+  },
+  "APSTATS-SFRQ-014": {
+    reason:
+      "The response should include the keyed matched-pairs t-statistic.",
+    repair_hint:
+      "Recompute t from the mean and standard deviation of the within-student differences.",
+    values: [
+      { value: 7.00 },
+    ],
+  },
+  "APSTATS-SFRQ-015": {
+    reason:
+      "The response should include the keyed expected count and chi-square statistic.",
+    repair_hint:
+      "Recompute the expected count under equal probability, then sum (observed-expected)^2/expected across all categories.",
+    values: [
+      { value: 25 },
+      { value: 3.12 },
+    ],
+  },
+  "APSTATS-SFRQ-016": {
+    reason:
+      "The response should include the keyed expected count and chi-square statistic.",
+    repair_hint:
+      "Recompute the expected count from the row and column totals, then sum (observed-expected)^2/expected across all cells.",
+    values: [
+      { value: 15 },
+      { value: 2.40 },
+    ],
+  },
+  "APSTATS-SFRQ-017": {
+    reason: "The response should include the keyed t-statistic and slope.",
+    repair_hint:
+      "Recompute t from the slope and its standard error, and restate the slope from the regression output.",
+    values: [
+      { value: 4.73 },
+      { value: 5.2 },
+    ],
+  },
+  "APSTATS-SFRQ-018": {
+    reason:
+      "The response should include the keyed confidence-interval bounds for the slope.",
+    repair_hint:
+      "Recompute the interval as the sample slope plus or minus the margin of error, keeping the sign of the slope.",
+    values: [
+      { value: -3.65, sign_sensitive: true },
+      { value: -1.15, sign_sensitive: true },
+    ],
+  },
+};
+
+function extractNumbers(text: string) {
+  const cleaned = text.replace(/,/g, "");
+  const matches = cleaned.match(/[+-]?\d*\.?\d+(?:e[+-]?\d+)?/gi) ?? [];
+  return matches
+    .map((value) => Number(value))
+    .filter((value) => Number.isFinite(value));
+}
+
+function matchesTarget(candidate: number, target: NumericTarget) {
+  if (target.sign_sensitive && Math.sign(candidate) !== Math.sign(target.value)) {
+    return false;
+  }
+
+  const base = Math.abs(target.value);
+  if (base === 0) {
+    return Math.abs(candidate) < 1e-12;
+  }
+
+  return Math.abs(Math.abs(candidate) - base) <= base * DEFAULT_REL_TOL;
+}
+
+export function checkStatisticsDeterministicEvidence(input: {
+  contentKey?: string | null;
+  responseText?: string | null;
+}): StatisticsCheck | null {
+  const contentKey = input.contentKey?.trim();
+  if (!contentKey) return null;
+
+  const target = STATISTICS_TARGETS[contentKey];
+  if (target === undefined) return null;
+  if (target === null) {
+    return {
+      content_key: contentKey,
+      status: "abstain",
+      reason: "This item is conceptual or corpus-defective for numeric checking.",
+      repair_hint: null,
+    };
+  }
+
+  const responseText = input.responseText?.trim();
+  if (!responseText) {
+    return {
+      content_key: contentKey,
+      status: "flag",
+      reason: target.reason,
+      repair_hint: target.repair_hint,
+    };
+  }
+
+  const numbers = extractNumbers(responseText);
+  const allPresent = target.values.every((item) =>
+    numbers.some((candidate) => matchesTarget(candidate, item))
+  );
+
+  return {
+    content_key: contentKey,
+    status: allPresent ? "pass" : "flag",
+    reason: target.reason,
+    repair_hint: allPresent ? null : target.repair_hint,
+  };
+}
+
+export function buildStatisticsDeterministicFallback(input: {
+  contentKey?: string | null;
+  responseText?: string | null;
+  criteria: FeedbackCriterionRow[];
+  pointsAvailable: number;
+}) {
+  const check = checkStatisticsDeterministicEvidence({
+    contentKey: input.contentKey,
+    responseText: input.responseText,
+  });
+
+  if (!check || check.status !== "flag") {
+    return null;
+  }
+
+  return {
+    status: "uncertain" as const,
+    points_earned: 0,
+    points_available: input.pointsAvailable,
+    criteria: buildFallbackCriteria(input.criteria, check.reason),
+    highest_value_gap: null,
+    predicted_improvement: null,
+    confidence: "low" as const,
+    uncertainty_reason:
+      `Deterministic Statistics check flagged the response: ${check.reason}`,
+    student_facing_summary:
+      "The numeric part of this response needs correction before the grader can score it confidently.",
+    action_hint: "show_scaffold" as const,
+    repair_hint: check.repair_hint,
+    deterministic_check: check,
+  };
+}
