@@ -1,6 +1,54 @@
 import { createServiceClient } from "../_shared/supabase.ts";
 import { jsonResponse, readJsonBody } from "../_shared/http.ts";
 import { requireProfile } from "../_shared/auth.ts";
+import { resolveGradingRoute } from "../_shared/grading-router.ts";
+import { detectAmbiguousTypedFormulaText } from "../_shared/formula-notation.ts";
+import { resolveFormulaActionHint } from "../_shared/formula-notation.ts";
+import { resolveFormulaRepairHint } from "../_shared/formula-notation.ts";
+import {
+  formatVerificationProfileSummary,
+  getVerificationProfile,
+  summarizeVerificationProfile,
+} from "../_shared/verification-profiles.ts";
+import {
+  buildEcfResult,
+  coerceEcfQuestion,
+  findStatisticsItem,
+} from "../_shared/math-verifier.ts";
+import {
+  buildStatisticsDeterministicFallback,
+  checkStatisticsDeterministicEvidence,
+} from "../_shared/statistics-verifier.ts";
+import {
+  buildFallbackCriteria,
+  buildShadowReviewPayload,
+  pickHighestGap,
+} from "../_shared/grading-feedback.ts";
+import {
+  type AllowedOperation,
+  buildGradingPrompt,
+  buildGradingRequestBody,
+  buildSystemPrompt,
+  extractOutputText,
+  extractUsage,
+  type FeedbackCriterionRow,
+  isTransientHttpStatus,
+  sanitizeModelResult,
+} from "../_shared/grading-contract.ts";
+import { loadLearningRuntimeContext } from "../_shared/learning-context.ts";
+import {
+  asRecord,
+  buildGradingMemoryState,
+  recordStudentMemoryEvent,
+} from "../_shared/student-memory.ts";
+import {
+  buildEvaluateAttemptResponse,
+  buildEvaluateAttemptResult,
+} from "../_shared/evaluate-attempt-response.ts";
+import {
+  buildRepairPlan,
+  lockGradeDecision,
+} from "../_shared/grading-repair.ts";
 
 function requireEnv(name: string) {
   const value = Deno.env.get(name);
@@ -44,6 +92,7 @@ const OPENAI_DAILY_CAP_USD = requirePositiveNumberEnv("OPENAI_DAILY_CAP_USD");
 const EVALUATE_ATTEMPT_PROMPT_VERSION = requireEnv(
   "EVALUATE_ATTEMPT_PROMPT_VERSION",
 );
+const MATH_VERIFIER_VERSION = "math-verifier-ts-2026-07-08";
 
 // Timeout is configurable so we can tune for high-reasoning models without
 // a code change. 90s accommodates reasoning: { effort: "high" } latency
@@ -59,20 +108,7 @@ const OPENAI_REQUEST_TIMEOUT_MS = (() => {
   return parsed;
 })();
 
-type AllowedOperation =
-  | "grade_initial_attempt"
-  | "select_repair"
-  | "grade_revision"
-  | "grade_transfer_attempt";
-
-type CriterionRow = {
-  criterion_key: string;
-  learner_facing_text: string;
-  points_possible: number;
-  evidence_requirements: string | null;
-  minimum_fix: string | null;
-  accepted_variants: unknown;
-};
+export type { AllowedOperation };
 
 type OutputCriterion = {
   criterion_key: string;
@@ -93,99 +129,6 @@ const allowedOperations = new Set<AllowedOperation>([
   "grade_revision",
   "grade_transfer_attempt",
 ]);
-
-const gradingSchema = {
-  type: "object",
-  additionalProperties: false,
-  properties: {
-    status: {
-      type: "string",
-      enum: ["graded", "uncertain", "failed"],
-    },
-    points_earned: { type: "integer" },
-    points_available: { type: "integer" },
-    criteria: {
-      type: "array",
-      items: {
-        type: "object",
-        additionalProperties: false,
-        properties: {
-          criterion_key: { type: "string" },
-          status: {
-            type: "string",
-            enum: [
-              "earned",
-              "not_yet_earned",
-              "unable_to_determine",
-              "not_applicable",
-            ],
-          },
-          points_awarded: { type: "integer" },
-          evidence_quote: { type: ["string", "null"] },
-          decision_explanation: { type: ["string", "null"] },
-          minimum_fix: { type: ["string", "null"] },
-        },
-        required: [
-          "criterion_key",
-          "status",
-          "points_awarded",
-          "evidence_quote",
-          "decision_explanation",
-          "minimum_fix",
-        ],
-      },
-    },
-    highest_value_gap: {
-      anyOf: [
-        { type: "null" },
-        {
-          type: "object",
-          additionalProperties: false,
-          properties: {
-            criterion_key: { type: "string" },
-            minimum_fix: { type: "string" },
-            repair_prompt: { type: "string" },
-          },
-          required: ["criterion_key", "minimum_fix", "repair_prompt"],
-        },
-      ],
-    },
-    predicted_improvement: {
-      anyOf: [
-        { type: "null" },
-        {
-          type: "object",
-          additionalProperties: false,
-          properties: {
-            label: {
-              type: "string",
-              enum: ["better", "much_better", "none"],
-            },
-            predicted_point_gain: { type: "integer" },
-          },
-          required: ["label", "predicted_point_gain"],
-        },
-      ],
-    },
-    confidence: {
-      type: "string",
-      enum: ["high", "medium", "low"],
-    },
-    uncertainty_reason: { type: ["string", "null"] },
-    student_facing_summary: { type: "string" },
-  },
-  required: [
-    "status",
-    "points_earned",
-    "points_available",
-    "criteria",
-    "highest_value_gap",
-    "predicted_improvement",
-    "confidence",
-    "uncertainty_reason",
-    "student_facing_summary",
-  ],
-} as const;
 
 function getBodyField(body: Record<string, unknown>, ...keys: string[]) {
   for (const key of keys) {
@@ -233,75 +176,108 @@ function parseJsonSafe(value: string | null | undefined) {
   }
 }
 
-function extractOutputText(raw: Record<string, unknown>) {
-  const direct = raw.output_text;
-  if (typeof direct === "string" && direct.length > 0) {
-    return direct;
-  }
-
-  const output = raw.output;
-  if (Array.isArray(output)) {
-    for (const item of output) {
-      if (!item || typeof item !== "object") continue;
-      const content = (item as Record<string, unknown>).content;
-      if (!Array.isArray(content)) continue;
-      for (const piece of content) {
-        if (!piece || typeof piece !== "object") continue;
-        const text = (piece as Record<string, unknown>).text;
-        if (typeof text === "string" && text.length > 0) {
-          return text;
-        }
-      }
-    }
-  }
-
-  return null;
-}
-
-function normalizeCriterionStatus(
-  status: unknown,
-): OutputCriterion["status"] {
-  return status === "earned" ||
-      status === "not_yet_earned" ||
-      status === "unable_to_determine" ||
-      status === "not_applicable"
-    ? status
-    : "unable_to_determine";
-}
-
-function buildFallbackCriteria(criteria: CriterionRow[], reason: string) {
-  return criteria.map((criterion) => ({
-    criterion_key: criterion.criterion_key,
-    status: "unable_to_determine" as const,
-    points_awarded: 0,
-    evidence_quote: null,
-    decision_explanation: reason,
-    minimum_fix: criterion.minimum_fix,
-  }));
-}
-
-function pickHighestGap(
-  criteria: OutputCriterion[],
-  sourceCriteria: CriterionRow[],
-) {
-  const firstGap = criteria.find((criterion) => criterion.status !== "earned");
-
-  if (!firstGap) {
+async function persistGradingMemory(input: {
+  service: ReturnType<typeof createServiceClient>;
+  sessionId: string | null;
+  attemptId: string;
+  attemptMode: string;
+  assistanceState: string;
+  finalStatus: string;
+  pointsEarned: number;
+  pointsAvailable: number;
+  confidence: string | null;
+  highestValueGap: {
+    criterion_key: string;
+    minimum_fix: string;
+    repair_prompt: string;
+  } | null;
+  criteria: Array<{
+    criterion_key: string;
+    status: string;
+    points_awarded: number;
+  }>;
+  summary: string;
+  examPackVersionId: string;
+  gradingRoute?: Record<string, unknown> | null;
+  verificationProfile?: Record<string, unknown> | null;
+  verificationProfileSummary?: Record<string, unknown> | null;
+  feedbackPreview?: string | null;
+  actionHint?: string | null;
+  repairHint?: string | null;
+  deterministicCheck?: Record<string, unknown> | null;
+}) {
+  if (!input.sessionId) {
     return null;
   }
 
-  const source = sourceCriteria.find((item) =>
-    item.criterion_key === firstGap.criterion_key
-  );
+  const context = await loadLearningRuntimeContext(input.service, input.sessionId);
+  if (!context) {
+    return null;
+  }
 
-  return {
-    criterion_key: firstGap.criterion_key,
-    minimum_fix: source?.minimum_fix ?? firstGap.minimum_fix ??
-      "Provide the missing evidence.",
-    repair_prompt: source?.minimum_fix ??
-      firstGap.minimum_fix ??
-      "Revise only the missing criterion and keep the rest of the response intact.",
-  };
+  const subjectDefaults = asRecord(context.subject_defaults);
+  const subject = asRecord(subjectDefaults.subject);
+  const examPack = asRecord(subjectDefaults.exam_pack);
+  const memory = asRecord(context.student_memory);
+  const sessionState = asRecord(context.session_state);
+
+  if (!subject.id || !sessionState.user_id) {
+    return context;
+  }
+
+  const memoryState = buildGradingMemoryState({
+    currentMemoryState: asRecord(memory.memory_state),
+    subjectId: String(subject.id),
+    subjectKey: String(subject.subject_key ?? ""),
+    subjectName: String(subject.display_name ?? ""),
+    examPackVersionId: input.examPackVersionId,
+    sessionId: input.sessionId,
+    attemptId: input.attemptId,
+    attemptMode: input.attemptMode,
+    assistanceState: input.assistanceState,
+    finalStatus: input.finalStatus,
+    pointsEarned: input.pointsEarned,
+    pointsAvailable: input.pointsAvailable,
+    confidence: input.confidence,
+    highestValueGap: input.highestValueGap,
+    criteria: input.criteria,
+    summary: input.summary,
+  });
+
+  try {
+    await recordStudentMemoryEvent(input.service, {
+      userId: String(sessionState.user_id),
+      subjectId: String(subject.id),
+      eventKind: "grading_result",
+      sourceSessionId: input.sessionId,
+      sourceAttemptId: input.attemptId,
+      memoryState,
+      eventPayload: {
+        exam_pack: examPack,
+        session_state: context.session_state,
+        grading_route: input.gradingRoute ?? null,
+        verification_profile: input.verificationProfile ?? null,
+        verification_profile_summary: input.verificationProfileSummary ?? null,
+        feedback_preview: input.feedbackPreview ?? null,
+        action_hint: input.actionHint ?? null,
+        repair_hint: input.repairHint ?? null,
+        deterministic_check: input.deterministicCheck ?? null,
+        grading_result: {
+          attempt_id: input.attemptId,
+          final_status: input.finalStatus,
+          points_earned: input.pointsEarned,
+          points_available: input.pointsAvailable,
+          confidence: input.confidence,
+          highest_value_gap: input.highestValueGap,
+          summary: input.summary,
+        },
+      },
+    });
+  } catch (error) {
+    console.error("grading_memory_persist_failed", error);
+  }
+
+  return (await loadLearningRuntimeContext(input.service, input.sessionId)) ?? context;
 }
 
 function summarizeSelectedChoice(responseJson: Record<string, unknown>) {
@@ -324,59 +300,6 @@ function summarizeSelectedChoice(responseJson: Record<string, unknown>) {
   }
 
   return null;
-}
-
-function buildGradingPrompt(input: {
-  operation: AllowedOperation;
-  promptVersion: string;
-  examName: string;
-  itemTitle: string;
-  itemType: string;
-  stem: string;
-  stimulus: string | null;
-  responseText: string | null;
-  responseParts: unknown;
-  criteria: CriterionRow[];
-}) {
-  const rubricLines = input.criteria.map((criterion) => {
-    const pieces = [
-      `- ${criterion.criterion_key}: ${criterion.learner_facing_text}`,
-      `  points_possible: ${criterion.points_possible}`,
-    ];
-
-    if (criterion.evidence_requirements) {
-      pieces.push(
-        `  evidence_requirements: ${criterion.evidence_requirements}`,
-      );
-    }
-
-    if (criterion.minimum_fix) {
-      pieces.push(`  minimum_fix: ${criterion.minimum_fix}`);
-    }
-
-    return pieces.join("\n");
-  }).join("\n");
-
-  return [
-    `You are Cramapple's production grader for ${input.examName}.`,
-    `Use only the released content and rubric provided below.`,
-    `Do not invent facts, claims, or criteria that are not present in the rubric.`,
-    `If evidence is insufficient, mark the relevant criteria unable_to_determine and explain why.`,
-    `The operation is ${input.operation}.`,
-    `Prompt version: ${input.promptVersion}.`,
-    `Item title: ${input.itemTitle}.`,
-    `Item type: ${input.itemType}.`,
-    `Stem: ${input.stem}`,
-    input.stimulus ? `Stimulus: ${input.stimulus}` : "Stimulus: none",
-    `Rubric:`,
-    rubricLines,
-    `Student response text:`,
-    input.responseText ?? "",
-    `Student response parts JSON:`,
-    JSON.stringify(input.responseParts ?? {}, null, 2),
-    `Return JSON matching the schema exactly.`,
-    `For select_repair, make highest_value_gap the single highest-value missing criterion and keep repair_prompt narrow and actionable.`,
-  ].join("\n\n");
 }
 
 // Sentinel error thrown when a transient failure is worth retrying once.
@@ -436,12 +359,7 @@ async function attemptOpenAICall(input: {
     // Retry on 408/425/429/5xx. Other 4xx are validation problems where
     // the same request will keep failing — fail fast and let the caller's
     // catch produce a safe uncertainty response for the student.
-    if (
-      response.status === 408 ||
-      response.status === 425 ||
-      response.status === 429 ||
-      response.status >= 500
-    ) {
+    if (isTransientHttpStatus(response.status)) {
       throw new TransientGraderError(
         `openai_http_${response.status}: ${message}`,
       );
@@ -466,31 +384,13 @@ async function callOpenAIGrader(input: {
   userIdHash: string;
   idempotencyKey: string;
 }) {
-  const body = {
-    model: input.modelId,
-    input: [
-      {
-        role: "system",
-        content: [{ type: "input_text", text: input.systemPrompt }],
-      },
-      {
-        role: "user",
-        content: [{ type: "input_text", text: input.userPrompt }],
-      },
-    ],
-    store: false,
-    reasoning: { effort: "high" },
-    max_output_tokens: input.maxOutputTokens,
-    text: {
-      format: {
-        type: "json_schema",
-        name: "grading_result",
-        strict: true,
-        schema: gradingSchema,
-      },
-    },
-    user: input.userIdHash.slice(0, 64),
-  };
+  const body = buildGradingRequestBody({
+    modelId: input.modelId,
+    maxOutputTokens: input.maxOutputTokens,
+    systemPrompt: input.systemPrompt,
+    userPrompt: input.userPrompt,
+    userIdHash: input.userIdHash,
+  });
 
   // At most one retry on transient failures. The Idempotency-Key header
   // makes the retry safe against double-billing for requests that reached
@@ -515,114 +415,6 @@ async function callOpenAIGrader(input: {
       timeoutMs: OPENAI_REQUEST_TIMEOUT_MS,
     });
   }
-}
-
-function sanitizeModelResult(
-  parsed: Record<string, unknown>,
-  sourceCriteria: CriterionRow[],
-) {
-  const criteria = Array.isArray(parsed.criteria)
-    ? parsed.criteria.map((item, index) => {
-      const source = sourceCriteria[index];
-      const rawItem = item && typeof item === "object"
-        ? item as Record<string, unknown>
-        : {};
-
-      return {
-        criterion_key: asString(rawItem.criterion_key) ??
-          source?.criterion_key ??
-          `criterion_${index + 1}`,
-        status: normalizeCriterionStatus(rawItem.status),
-        points_awarded: Number.isFinite(Number(rawItem.points_awarded))
-          ? Number(rawItem.points_awarded)
-          : 0,
-        evidence_quote: asString(rawItem.evidence_quote),
-        decision_explanation: asString(rawItem.decision_explanation),
-        minimum_fix: asString(rawItem.minimum_fix) ?? source?.minimum_fix ??
-          null,
-      } as OutputCriterion;
-    })
-    : buildFallbackCriteria(sourceCriteria, "Unable to parse model output.");
-
-  const pointsEarned = Number.isFinite(Number(parsed.points_earned))
-    ? Number(parsed.points_earned)
-    : criteria.reduce((sum, criterion) => sum + criterion.points_awarded, 0);
-
-  const pointsAvailable = Number.isFinite(Number(parsed.points_available))
-    ? Number(parsed.points_available)
-    : sourceCriteria.reduce(
-      (sum, criterion) => sum + criterion.points_possible,
-      0,
-    );
-
-  const highestValueGap = parsed.highest_value_gap &&
-      typeof parsed.highest_value_gap === "object" &&
-      !Array.isArray(parsed.highest_value_gap)
-    ? {
-      criterion_key: asString(
-        (parsed.highest_value_gap as Record<string, unknown>).criterion_key,
-      ) ??
-        pickHighestGap(criteria, sourceCriteria)?.criterion_key ??
-        "criterion",
-      minimum_fix: asString(
-        (parsed.highest_value_gap as Record<string, unknown>).minimum_fix,
-      ) ??
-        pickHighestGap(criteria, sourceCriteria)?.minimum_fix ??
-        "Provide the missing evidence.",
-      repair_prompt: asString(
-        (parsed.highest_value_gap as Record<string, unknown>).repair_prompt,
-      ) ??
-        pickHighestGap(criteria, sourceCriteria)?.repair_prompt ??
-        "Revise the highest-value missing criterion.",
-    }
-    : pickHighestGap(criteria, sourceCriteria);
-
-  const predictedImprovement = parsed.predicted_improvement &&
-      typeof parsed.predicted_improvement === "object" &&
-      !Array.isArray(parsed.predicted_improvement)
-    ? {
-      label: (
-        asString(
-              (parsed.predicted_improvement as Record<string, unknown>).label,
-            ) === "better" ||
-          asString(
-              (parsed.predicted_improvement as Record<string, unknown>).label,
-            ) === "much_better"
-          ? asString(
-            (parsed.predicted_improvement as Record<string, unknown>).label,
-          )
-          : "none"
-      ) as "better" | "much_better" | "none",
-      predicted_point_gain: Number.isFinite(
-          Number(
-            (parsed.predicted_improvement as Record<string, unknown>)
-              .predicted_point_gain,
-          ),
-        )
-        ? Number(
-          (parsed.predicted_improvement as Record<string, unknown>)
-            .predicted_point_gain,
-        )
-        : 0,
-    }
-    : null;
-
-  return {
-    status: asString(parsed.status) ?? "uncertain",
-    points_earned: pointsEarned,
-    points_available: pointsAvailable,
-    criteria,
-    highest_value_gap: highestValueGap,
-    predicted_improvement: predictedImprovement,
-    confidence: asString(parsed.confidence) === "high" ||
-        asString(parsed.confidence) === "medium" ||
-        asString(parsed.confidence) === "low"
-      ? asString(parsed.confidence)
-      : "medium",
-    uncertainty_reason: asString(parsed.uncertainty_reason),
-    student_facing_summary: asString(parsed.student_facing_summary) ??
-      "Your response was scored successfully.",
-  };
 }
 
 async function readBodyAsRecord(req: Request) {
@@ -803,7 +595,7 @@ Deno.serve(async (req) => {
     service.schema("app")
       .from("content_item_versions")
       .select(
-        "id, content_item_id, version_num, stem, stimulus, prompt_json, explanation, help_text, content_hash, status, approved_at, approved_by, published_at",
+        "id, content_item_id, version_num, stem, stimulus, prompt_json, rubric_type, evaluator_strategy, explanation, help_text, content_hash, status, approved_at, approved_by, published_at",
       )
       .eq("id", contentItemVersionId)
       .maybeSingle(),
@@ -904,6 +696,10 @@ Deno.serve(async (req) => {
   const responseText = typeof responseVersion.response_text === "string"
     ? responseVersion.response_text
     : null;
+  const statisticsCheck = checkStatisticsDeterministicEvidence({
+    contentKey: contentItem.content_key as string | null,
+    responseText,
+  });
 
   const attemptKind = attempt.attempt_mode as string;
   const promptBase = {
@@ -916,13 +712,68 @@ Deno.serve(async (req) => {
     stimulus: contentVersion.stimulus as string | null,
     responseText,
     responseParts,
-    criteria: Array.isArray(criteriaRows) ? criteriaRows as CriterionRow[] : [],
+    criteria: Array.isArray(criteriaRows)
+      ? criteriaRows as FeedbackCriterionRow[]
+      : [],
   };
+
+  const gradingRuntimeContext = attempt.learning_session_id
+    ? await loadLearningRuntimeContext(
+      service,
+      attempt.learning_session_id as string,
+    )
+    : null;
+  const gradingRuntimeSubject = asRecord(
+    asRecord(gradingRuntimeContext?.subject_defaults).subject,
+  );
+  const verificationProfile = getVerificationProfile(
+    asString(gradingRuntimeSubject.subject_key),
+  );
+  const verificationProfileSummary = summarizeVerificationProfile(
+    verificationProfile,
+  );
+
+  const routing = resolveGradingRoute({
+    rubricType: (contentVersion as Record<string, unknown>).rubric_type,
+    evaluatorStrategy: (contentVersion as Record<string, unknown>).evaluator_strategy,
+    itemType: contentItem.item_type as string | null,
+    promptJson: contentVersion.prompt_json,
+  });
 
   const defaultPointsAvailable = promptBase.criteria.reduce(
     (sum, criterion) => sum + Number(criterion.points_possible || 0),
     0,
   ) || (contentItem.item_type === "mcq" ? 1 : 0);
+  const statisticsDeterministicFallback = routing.target === "llm_text"
+    ? buildStatisticsDeterministicFallback({
+      contentKey: contentItem.content_key as string | null,
+      responseText,
+      criteria: promptBase.criteria,
+      pointsAvailable: defaultPointsAvailable,
+    })
+    : null;
+
+  const routedModelId = routing.target === "mcq_rule"
+    ? "rule-based-mcq"
+    : routing.target === "llm_text"
+    ? statisticsDeterministicFallback
+      ? "deterministic-statistics-prefilter"
+      : OPENAI_MODEL
+    : routing.target === "symbolic_ecf"
+    ? "symbolic-ecf-verifier"
+    : "shadow-review-placeholder";
+
+  const estimatedInputTokens = estimateTokens(
+    [
+      JSON.stringify(promptBase),
+      JSON.stringify(contentVersion.prompt_json ?? {}),
+    ].join("\n"),
+  );
+  const reservedCost = money(
+    (estimatedInputTokens / 1_000_000) * OPENAI_INPUT_PRICE_PER_1M +
+      (OPENAI_MAX_OUTPUT_TOKENS / 1_000_000) * OPENAI_OUTPUT_PRICE_PER_1M,
+  );
+  const modelId = OPENAI_MODEL;
 
   const requestRecord = {
     request_id: idempotencyKey,
@@ -933,9 +784,12 @@ Deno.serve(async (req) => {
     status: "processing",
     points_available: defaultPointsAvailable,
     confidence: "medium",
-    model_id: OPENAI_MODEL,
+    model_id: routedModelId,
     prompt_version: promptVersion,
     rubric_version_id: rubricVersionId,
+    estimated_cost_usd: statisticsDeterministicFallback ? 0 : reservedCost,
+    deterministic_verifier_version: MATH_VERIFIER_VERSION,
+    boundary_contract_version: verificationProfile?.profile_version ?? null,
   };
 
   const { data: insertedResult, error: insertError } = await service.schema(
@@ -970,22 +824,10 @@ Deno.serve(async (req) => {
     });
   }
 
-  const estimatedInputTokens = estimateTokens(
-    [
-      JSON.stringify(promptBase),
-      JSON.stringify(contentVersion.prompt_json ?? {}),
-    ].join("\n"),
-  );
-  const reservedCost = money(
-    (estimatedInputTokens / 1_000_000) * OPENAI_INPUT_PRICE_PER_1M +
-      (OPENAI_MAX_OUTPUT_TOKENS / 1_000_000) * OPENAI_OUTPUT_PRICE_PER_1M,
-  );
-  const modelId = OPENAI_MODEL;
-
   let usageRow: Record<string, unknown> | null = null;
-  const isMcq = contentItem.item_type === "mcq";
+  const isMcq = routing.target === "mcq_rule";
 
-  if (!isMcq) {
+  if (routing.target === "llm_text" && !statisticsDeterministicFallback) {
     try {
       usageRow = await service.schema("app").rpc("reserve_model_usage", {
         p_request_id: idempotencyKey,
@@ -1088,6 +930,9 @@ Deno.serve(async (req) => {
       model_id: "rule-based-mcq",
       prompt_version: promptVersion,
       rubric_version_id: rubricVersionId,
+      deterministic_verifier_version: MATH_VERIFIER_VERSION,
+      boundary_contract_version: verificationProfile?.profile_version ?? null,
+      feedback_preview: finalResult.student_facing_summary,
       input_tokens: 0,
       output_tokens: 0,
       estimated_cost_usd: 0,
@@ -1105,25 +950,37 @@ Deno.serve(async (req) => {
       result_summary: finalResult.student_facing_summary,
     }).eq("id", attempt.id);
 
+    const runtimeContext = await persistGradingMemory({
+      service,
+      sessionId: attempt.learning_session_id as string | null,
+      attemptId: attempt.id,
+      attemptMode: attempt.attempt_mode as string,
+      assistanceState: attempt.assistance_state as string,
+      finalStatus: "graded",
+      pointsEarned: finalResult.points_earned,
+      pointsAvailable: finalResult.points_available,
+      confidence: finalResult.confidence,
+      highestValueGap: finalResult.highest_value_gap,
+      criteria,
+      summary: finalResult.student_facing_summary,
+      feedbackPreview: finalResult.student_facing_summary,
+      actionHint: null,
+      repairHint: finalResult.highest_value_gap?.repair_prompt ?? null,
+      deterministicCheck: statisticsCheck,
+      examPackVersionId: attempt.exam_pack_version_id as string,
+    });
+
     return respond(
       {
         status: "graded",
         function: "evaluate-attempt",
         operation,
         result: finalResult,
+        runtime_context: runtimeContext,
       },
       { status: 200 },
     );
   }
-
-  const systemPrompt = [
-    `You are Cramapple's production criterion-based grader for ${examPack.exam_name}.`,
-    "Use only the provided released content, rubric, and student response.",
-    "Score each criterion independently.",
-    "Do not invent evidence.",
-    "When the response is ambiguous or unsupported, mark the criterion unable_to_determine.",
-    "Return only the JSON object that matches the schema.",
-  ].join(" ");
 
   let modelResponse: {
     raw: Record<string, unknown>;
@@ -1131,87 +988,235 @@ Deno.serve(async (req) => {
     elapsedMs: number;
   } | null = null;
   let finalStatus: "graded" | "uncertain" | "failed" = "failed";
-  let finalPayload: ReturnType<typeof sanitizeModelResult> | null = null;
+  let finalPayload: ReturnType<typeof sanitizeModelResult> |
+    ReturnType<typeof buildShadowReviewPayload> |
+    NonNullable<ReturnType<typeof buildStatisticsDeterministicFallback>> |
+    null = null;
   let inputTokens = estimatedInputTokens;
   let outputTokens = 0;
   let actualCost = 0;
 
-  try {
-    await service.schema("app").from("grading_results").update({
-      status: "processing",
-      model_id: modelId,
-      estimated_cost_usd: reservedCost,
-      prompt_version: promptVersion,
-      rubric_version_id: rubricVersionId,
-    }).eq("request_id", idempotencyKey);
-
-    if (usageRow) {
-      await service.schema("app").from("model_usage_ledger").update({
-        status: "running",
-      }).eq("request_id", idempotencyKey);
-    }
-
-    modelResponse = await callOpenAIGrader({
-      modelId,
-      maxOutputTokens: OPENAI_MAX_OUTPUT_TOKENS,
-      systemPrompt,
-      userPrompt: buildGradingPrompt(promptBase),
-      userIdHash: await sha256Hex(user.id),
-      idempotencyKey: idempotencyKey,
-    });
-
-    finalPayload = sanitizeModelResult(
-      modelResponse.parsed,
-      promptBase.criteria,
+  if (routing.target === "symbolic_ecf") {
+    const statisticsItem = findStatisticsItem(
+      contentItem.content_key as string | null,
     );
-    finalStatus = finalPayload.status === "graded" ? "graded" : "uncertain";
-
-    const usage = modelResponse.raw.usage as
-      | Record<string, unknown>
-      | undefined;
-    inputTokens = Number.isFinite(Number(usage?.input_tokens))
-      ? Number(usage?.input_tokens)
-      : inputTokens;
-    outputTokens = Number.isFinite(Number(usage?.output_tokens))
-      ? Number(usage?.output_tokens)
-      : outputTokens;
-
-    const pricingInputTokens = inputTokens;
-    const pricingOutputTokens = outputTokens;
-    actualCost = money(
-      (pricingInputTokens / 1_000_000) * OPENAI_INPUT_PRICE_PER_1M +
-        (pricingOutputTokens / 1_000_000) * OPENAI_OUTPUT_PRICE_PER_1M,
+    const typedFormulaAmbiguity = detectAmbiguousTypedFormulaText(responseText);
+    const ecfQuestion = coerceEcfQuestion(
+      statisticsItem,
+      responseParts,
     );
-  } catch (error) {
-    const errorMessage = error instanceof Error
-      ? error.message
-      : "grading_failed";
-    finalStatus = "uncertain";
-    finalPayload = {
-      status: finalStatus,
-      points_earned: 0,
-      points_available: defaultPointsAvailable,
-      criteria: buildFallbackCriteria(
-        promptBase.criteria,
-        "Cramapple can offer a few useful observations, but it is not confident enough to present this result as reliable.",
+    const ecfResult = ecfQuestion ? buildEcfResult(ecfQuestion) : null;
+    const ecfCriteria = ecfResult?.parts.map((part) => ({
+      criterion_key: part.part,
+      learner_facing_text:
+        statisticsItem?.ecf_parts.find((item) => item.id === part.part)?.note ??
+          `ECF part ${part.part}`,
+      points_possible:
+        statisticsItem?.ecf_parts.find((item) => item.id === part.part)?.points ??
+          part.points_possible,
+      evidence_requirements: null,
+      minimum_fix:
+        statisticsItem?.ecf_parts.find((item) => item.id === part.part)?.note ??
+          "Show the formula and substitutions for this step.",
+      accepted_variants: [],
+    })) ?? promptBase.criteria;
+    const ecfHighestGap = ecfResult?.parts.find((part) =>
+      part.verdict !== "CORRECT"
+    ) ?? null;
+    const ecfSummary = ecfResult
+      ? ecfResult.parts.map((part) =>
+        `${part.part}: ${part.verdict} (${part.points_awarded}/${part.points_possible})`
+      ).join("; ")
+      : "The symbolic verifier could not reconstruct a structured ECF payload from the submitted response.";
+    const resolvedActionHint = typedFormulaAmbiguity.ambiguous
+      ? "show_scaffold"
+      : ecfResult?.parts.some((part) =>
+          part.verdict === "NAKED_ANSWER" || part.verdict === "CONCEPTUAL_COLLAPSE"
+        )
+      ? "show_scaffold"
+      : "review_context";
+    const resolvedRepairHint = typedFormulaAmbiguity.repair_hint ??
+      ecfHighestGap?.feedback ??
+      null;
+    const deterministicCheck = ecfResult
+      ? {
+        status: ecfResult.parts.every((part) => part.verdict === "CORRECT")
+          ? "pass"
+          : "flag",
+        version: MATH_VERIFIER_VERSION,
+        content_key: contentItem.content_key,
+        result: ecfResult,
+        reason: ecfSummary,
+      }
+      : statisticsCheck;
+    const shadowSummary = statisticsItem
+      ? `${statisticsItem.content_key} symbolic/ECF grading is saved for follow-up. ${ecfSummary}`
+      : "This response is saved and routed for reviewer follow-up.";
+    const shadowReason = [
+      routing.reason,
+      statisticsItem
+        ? `Symbolic formula and ECF boundary executed for ${statisticsItem.content_key}.`
+        : "No symbolic verification profile was available for this item, so the response is routed for follow-up.",
+      typedFormulaAmbiguity.ambiguous ? typedFormulaAmbiguity.reason : null,
+    ].filter(Boolean).join(" ");
+
+    finalPayload = buildShadowReviewPayload({
+      criteria: ecfCriteria,
+      pointsAvailable: ecfResult?.possible ?? defaultPointsAvailable,
+      reason: shadowReason,
+      actionHint: resolvedActionHint,
+      repairHint: resolveFormulaRepairHint(
+        resolvedRepairHint ?? statisticsCheck?.repair_hint,
+        ecfHighestGap
+          ? {
+            minimum_fix:
+              statisticsItem?.ecf_parts.find((item) => item.id === ecfHighestGap.part)
+                ?.note ?? "Show the missing work.",
+            repair_prompt:
+              statisticsItem?.ecf_parts.find((item) => item.id === ecfHighestGap.part)
+                ?.note ?? "Show the missing work.",
+          }
+          : null,
       ),
-      highest_value_gap: null,
-      predicted_improvement: null,
-      confidence: "low",
-      uncertainty_reason: errorMessage,
-      student_facing_summary:
-        "Your answer is saved, but feedback is taking longer than expected.",
-    };
-  } finally {
-    if (usageRow) {
-      await service.schema("app").rpc("complete_model_usage", {
-        p_request_id: idempotencyKey,
-        p_request_hash: requestHash,
-        p_status: finalStatus === "graded" ? "completed" : "failed",
-        p_actual_cost_usd: actualCost,
-        p_input_tokens: inputTokens,
-        p_output_tokens: outputTokens,
-      });
+      deterministicCheck,
+      summary: `${shadowSummary}${typedFormulaAmbiguity.ambiguous ? ` ${typedFormulaAmbiguity.reason}` : ""}`,
+      verificationProfileSummary,
+    });
+    finalStatus = "uncertain";
+    modelResponse = null;
+    inputTokens = 0;
+    outputTokens = 0;
+    actualCost = 0;
+  } else if (routing.target === "shadow_review") {
+    const verificationProfileSummary = summarizeVerificationProfile(
+      verificationProfile,
+    );
+    const readableVerificationSummary = formatVerificationProfileSummary(
+      verificationProfile,
+    );
+    const typedFormulaAmbiguity = detectAmbiguousTypedFormulaText(responseText);
+    const actionHint = statisticsCheck?.status === "flag"
+      ? "show_scaffold"
+      : resolveFormulaActionHint(typedFormulaAmbiguity.ambiguous);
+    const repairHint = resolveFormulaRepairHint(
+      statisticsCheck?.repair_hint ?? typedFormulaAmbiguity.repair_hint,
+      null,
+    );
+    const shadowSummary = verificationProfile
+      ? `${verificationProfile.display_name} formula feedback is saved and routed for reviewer follow-up. The symbolic verifier is declared but not wired in this phase, so we are holding the item instead of guessing.${typedFormulaAmbiguity.ambiguous ? ` ${typedFormulaAmbiguity.reason}` : ""}`
+      : "This response is saved and routed for reviewer follow-up.";
+    const shadowReason =
+      `${routing.reason} The item is held for human/shadow review until the declared verifier is wired in.${typedFormulaAmbiguity.ambiguous ? ` ${typedFormulaAmbiguity.reason}` : ""}${statisticsCheck?.status === "flag" ? ` Deterministic statistics check: ${statisticsCheck.reason}` : ""}`;
+    finalPayload = buildShadowReviewPayload({
+      criteria: promptBase.criteria,
+      pointsAvailable: defaultPointsAvailable,
+      reason: shadowReason,
+      actionHint,
+      repairHint,
+      deterministicCheck: statisticsCheck,
+      summary: readableVerificationSummary
+        ? `${shadowSummary} Expected checks: ${verificationProfile?.required_checks.map((check) => check.check).join(", ")}.${statisticsCheck?.status === "flag" ? ` Deterministic check flagged the keyed Statistics evidence.` : ""}`
+        : shadowSummary,
+      verificationProfileSummary,
+    });
+    finalStatus = "uncertain";
+    modelResponse = null;
+    inputTokens = 0;
+    outputTokens = 0;
+    actualCost = 0;
+  } else {
+    if (statisticsDeterministicFallback) {
+      finalPayload = statisticsDeterministicFallback;
+      finalStatus = "uncertain";
+      modelResponse = null;
+      inputTokens = 0;
+      outputTokens = 0;
+      actualCost = 0;
+    } else {
+      const systemPrompt = buildSystemPrompt(examPack.exam_name as string);
+
+      try {
+        await service.schema("app").from("grading_results").update({
+          status: "processing",
+          model_id: routedModelId,
+          estimated_cost_usd: reservedCost,
+          prompt_version: promptVersion,
+          rubric_version_id: rubricVersionId,
+          deterministic_verifier_version: MATH_VERIFIER_VERSION,
+          boundary_contract_version: verificationProfile?.profile_version ?? null,
+        }).eq("request_id", idempotencyKey);
+
+        if (usageRow) {
+          await service.schema("app").from("model_usage_ledger").update({
+            status: "running",
+          }).eq("request_id", idempotencyKey);
+        }
+
+        modelResponse = await callOpenAIGrader({
+          modelId,
+          maxOutputTokens: OPENAI_MAX_OUTPUT_TOKENS,
+          systemPrompt,
+          userPrompt: buildGradingPrompt(promptBase),
+          userIdHash: await sha256Hex(user.id),
+          idempotencyKey: idempotencyKey,
+        });
+
+        finalPayload = sanitizeModelResult(
+          modelResponse.parsed,
+          promptBase.criteria,
+          { responseText, responseParts },
+        );
+        finalStatus = finalPayload.status === "graded" ? "graded" : "uncertain";
+
+        const usage = extractUsage(modelResponse.raw);
+        inputTokens = usage.inputTokens ?? inputTokens;
+        outputTokens = usage.outputTokens ?? outputTokens;
+
+        const pricingInputTokens = inputTokens;
+        const pricingOutputTokens = outputTokens;
+        actualCost = money(
+          (pricingInputTokens / 1_000_000) * OPENAI_INPUT_PRICE_PER_1M +
+            (pricingOutputTokens / 1_000_000) * OPENAI_OUTPUT_PRICE_PER_1M,
+        );
+      } catch (error) {
+        const errorMessage = error instanceof Error
+          ? error.message
+          : "grading_failed";
+        finalStatus = "uncertain";
+        finalPayload = {
+          status: finalStatus,
+          points_earned: 0,
+          points_available: defaultPointsAvailable,
+          criteria: buildFallbackCriteria(
+            promptBase.criteria,
+            "Cramapple can offer a few useful observations, but it is not confident enough to present this result as reliable.",
+          ),
+          highest_value_gap: null,
+          predicted_improvement: null,
+          confidence: "low",
+          uncertainty_reason: errorMessage,
+          student_facing_summary:
+            "Your answer is saved, but feedback is taking longer than expected.",
+          action_hint: null,
+          repair_hint: null,
+          sanitization_version: "grading-sanitizer-v2",
+          integrity_issues: [{
+            code: "criteria_missing" as const,
+            criterion_key: null,
+          }],
+        };
+      } finally {
+        if (usageRow) {
+          await service.schema("app").rpc("complete_model_usage", {
+            p_request_id: idempotencyKey,
+            p_request_hash: requestHash,
+            p_status: finalStatus === "graded" ? "completed" : "failed",
+            p_actual_cost_usd: actualCost,
+            p_input_tokens: inputTokens,
+            p_output_tokens: outputTokens,
+          });
+        }
+      }
     }
   }
 
@@ -1251,6 +1256,23 @@ Deno.serve(async (req) => {
     finalPayload.criteria,
     promptBase.criteria,
   );
+  const feedbackPreview = finalPayload.student_facing_summary;
+  const actionHint = finalPayload.action_hint ??
+    (statisticsCheck?.status === "flag" ? "show_scaffold" : null);
+  const repairHint = resolveFormulaRepairHint(
+    finalPayload.repair_hint ?? statisticsCheck?.repair_hint,
+    highestValueGap,
+  );
+  const repairPlan = buildRepairPlan({
+    lockedGrade: lockGradeDecision({
+      gradeFingerprint: `${idempotencyKey}:${promptVersion}:${rubricVersionId}`,
+      pointsEarned: finalPayload.points_earned,
+      pointsAvailable: finalPayload.points_available,
+      criteria: finalPayload.criteria,
+    }),
+    sourceCriteria: promptBase.criteria,
+    deterministicCheck: statisticsCheck,
+  });
 
   const updatePayload = {
     status: finalStatus,
@@ -1264,12 +1286,19 @@ Deno.serve(async (req) => {
     prediction_outcome: predictionOutcome,
     confidence: finalPayload.confidence,
     uncertainty_reason: finalPayload.uncertainty_reason,
-    model_id: modelId,
+    model_id: routedModelId,
     prompt_version: promptVersion,
     rubric_version_id: rubricVersionId,
+    deterministic_verifier_version: MATH_VERIFIER_VERSION,
+    boundary_contract_version: verificationProfile?.profile_version ?? null,
+    feedback_preview: feedbackPreview,
+    action_hint: actionHint,
+    repair_hint: repairHint,
     input_tokens: inputTokens,
     output_tokens: outputTokens,
-    estimated_cost_usd: actualCost || reservedCost,
+    estimated_cost_usd: routing.target === "llm_text"
+      ? (statisticsDeterministicFallback ? 0 : actualCost || reservedCost)
+      : 0,
     latency_ms: modelResponse?.elapsedMs ?? 0,
     raw_model_response: modelResponse?.raw ?? null,
   };
@@ -1292,24 +1321,55 @@ Deno.serve(async (req) => {
     })
     .eq("id", attempt.id);
 
+  const runtimeContext = await persistGradingMemory({
+    service,
+    sessionId: attempt.learning_session_id as string | null,
+    attemptId: attempt.id,
+    attemptMode: attempt.attempt_mode as string,
+    assistanceState: attempt.assistance_state as string,
+    finalStatus,
+    pointsEarned: finalPayload.points_earned,
+    pointsAvailable: finalPayload.points_available,
+    confidence: finalPayload.confidence,
+    highestValueGap,
+    criteria: finalPayload.criteria,
+    summary: finalPayload.student_facing_summary,
+    repairHint,
+    feedbackPreview,
+    examPackVersionId: attempt.exam_pack_version_id as string,
+    gradingRoute: routing,
+    verificationProfile,
+    verificationProfileSummary,
+    actionHint,
+    deterministicCheck: statisticsCheck,
+  });
+
   return respond(
-    {
+    buildEvaluateAttemptResponse({
       status: finalStatus,
-      function: "evaluate-attempt",
-      operation,
-      result: {
-        ...finalPayload,
-        actual_point_gain: actualPointGain,
-        prediction_outcome: predictionOutcome,
-        model_id: modelId,
-        prompt_version: promptVersion,
-        rubric_version_id: rubricVersionId,
-        attempt_id: attempt.id,
-        response_version_id: responseVersion.id,
-        request_id: idempotencyKey,
-        latency_ms: modelResponse?.elapsedMs ?? 0,
-      },
-    },
+      operation: operation as AllowedOperation,
+      result: buildEvaluateAttemptResult({
+        finalPayload,
+        actualPointGain,
+        predictionOutcome,
+        routedModelId,
+        promptVersion,
+        rubricVersionId,
+        gradingRoute: routing,
+        verificationProfile,
+        verificationProfileSummary,
+        feedbackPreview,
+        actionHint,
+        repairHint,
+        repairPlan,
+        deterministicCheck: statisticsCheck,
+        attemptId: attempt.id,
+        responseVersionId: responseVersion.id,
+        requestId: idempotencyKey,
+        latencyMs: modelResponse?.elapsedMs ?? 0,
+      }),
+      runtimeContext,
+    }),
     { status: finalStatus === "graded" ? 200 : 202 },
   );
 });

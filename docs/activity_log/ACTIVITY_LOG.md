@@ -6,6 +6,8 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Phase A Broken-Import Fix and Deterministic-Layer-Only Ship Decision — 2026-07-12
+- TASK-0016 Phase A Grading-Router Reconciled Onto Grading Branch — 2026-07-12
 - AP Statistics Launch Task Drafted (TASK-0013) — 2026-06-30
 - Hand-Drawn Graph Corpus Realism Fix and Four-Finding Spot-Check — 2026-06-30
 - New-User Experience Live QA — 2026-06-29
@@ -17,6 +19,139 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## Phase A Broken-Import Fix and Deterministic-Layer-Only Ship Decision - 2026-07-12
+
+**Task:** TASK-0016, Phase A. Corrects the previous entry below.
+**Status:** Fixed on `claude/cramapple-grading-mlr0o1` (commit `62758c9`),
+pushed to PR #37. Still not merged to `main`, still no production deploy at
+the time of this entry.
+
+**Summary:** David asked to land Phase A wiring live for tutors to see it in
+action without waiting for the tutor-approval gate, shipping today's
+single-call LLM grader plus the deterministic layer only (explicitly not the
+SP-1 misattribution audit or `C2Direct-Low` routing). Before deploying,
+found that the `evaluate-attempt/index.ts` landed in the prior entry
+(sourced from upstream commit `8f79ebe`) imports four modules —
+`evaluate-attempt-response.ts`, `grading-feedback.ts`,
+`statistics-verifier.ts`, `verification-profiles.ts` — that do not exist on
+any branch in the repository's history, **including `8f79ebe`'s own source
+branch at any commit**. That code would fail to load in Deno at all; it was
+never actually runnable upstream, not just unmerged. The prior entry's claim
+that the file was verified "byte-identical to `8f79ebe`'s target" was true
+but insufficient — byte-identical to a target that itself doesn't resolve is
+not a working verification.
+
+Did not attempt to fabricate the four missing modules. Instead rewrote the
+integration from the pre-Phase-A `evaluate-attempt/index.ts` by hand:
+`resolveGradingRoute` (self-contained, verified) picks a route from
+`rubric_type`/`evaluator_strategy` (now selected from `content_item_versions`)
+or falls back to legacy `item_type`; when the route is `symbolic_ecf` and the
+item's `content_key` matches a seeded entry in `math-verifier.ts`'s
+`STATISTICS_ITEM_KEYS` lookup with populated `ecf_parts`, `buildEcfResult`
+grades it deterministically (`model_id: "deterministic-symbolic-ecf"`,
+`deterministic_verifier_version` recorded) and the LLM call and budget
+reservation are both skipped. Every other case — including every currently
+published AP Biology item, since none are in that lookup — falls through to
+the existing single-call LLM grader completely unchanged. Deliberately did
+not wire `formula-notation.ts`'s ambiguous-text/action-hint/repair-hint
+helpers or populate the `feedback_preview`/`action_hint`/`repair_hint`
+columns added by the prior entry's migrations — those need the still-missing
+feedback-formatting layer; left null rather than fabricated.
+
+Verified: only `grading-router.ts`, `math-verifier.ts`, and
+`formula-notation.ts` are imported, and grepped the full `supabase/functions/`
+tree to confirm zero remaining references to any of the four missing
+modules. Brace-balance checked (no Deno available in this environment, so
+this is not a substitute for `deno check`/`deno test`, which is still
+outstanding).
+
+**Decision, recorded per David's instruction:** ship Phase A (deterministic
+layer + existing single-call grader) to Production ahead of the formal AP
+Biology tutor-review gate (`NOW-004`) and `TASK-0010` approval, specifically
+so tutors can observe it live and drive iteration from real behavior rather
+than reviewing it statically first. This is a scoped exception for tutor
+visibility, not a decision to open automated FRQ scores to students broadly
+— `TASK-0010`/`NOW-013`'s gate on learner-facing automated scores is
+unchanged and still open.
+
+**Next Owner:** David Bloom / Main Conductor
+**Next Required Action:** Merge PR #37, apply the pending migrations to
+`Cramapple-Production` (`pcntajvbdfqhbeewmdry`), and redeploy
+`evaluate-attempt`. Run `deno check`/`deno test` in an environment with Deno
+before or immediately after deploy, since that verification is still
+outstanding.
+
+---
+
+## TASK-0016 Phase A Grading-Router Reconciled Onto Grading Branch - 2026-07-12
+
+**Task:** TASK-0016 (Grading Engine Rollout), Phase A
+**Status:** Landed on `claude/cramapple-grading-mlr0o1` (pushed, draft PR
+opened). Not on `main`. No production deploy, no approval requested yet —
+mechanical reconciliation only.
+
+**Summary:** At David's request to move grading toward production wired to
+the Lovable frontend, first step was reconciling TASK-0016's Phase A
+deterministic/symbolic grading-router work — previously stranded on
+`origin/codex/task0016-phase-c-base` and never merged — onto this branch's
+current, post-backend-consolidation `main` lineage. A straight cherry-pick of
+commits `8f79ebe`/`98dc544` produced false conflicts because their branch
+lineage also carries unrelated, unwanted Lovable runtime-context commits
+(`44687a4`, `3b61a41`) earlier in its history. Resolved by diffing each
+commit directly against the actual merge-base (`4a179e0`, confirmed identical
+to this branch's pre-change `evaluate-attempt/index.ts` and `_shared/`) and
+applying that diff instead, then cherry-picking `98dc544` (R1/R2 remediation)
+on top, which applied cleanly since its parent is `8f79ebe` exactly.
+
+Added `supabase/functions/_shared/{grading-router,math-verifier,
+formula-notation}.ts` (+ tests) and wired them into `evaluate-attempt`, plus
+6 migrations (deterministic verifier pins, rubric-routing columns +
+backfill, feedback/action/repair hint columns on `grading_results`).
+Verified the reconstructed `evaluate-attempt/index.ts` is byte-identical to
+`8f79ebe`'s target before layering the remediation commit.
+
+**Found and fixed during reconciliation, not carried over from any branch:**
+the curated `public.grading_results` view (`202607090001_curated_public_
+interface.sql`, applied 2026-07-09, one day after Phase A's migrations but
+before Phase A was ever reconciled onto this history) lists `grading_results`
+columns explicitly and was missing all 5 of Phase A's new columns
+(`feedback_preview`, `action_hint`, `repair_hint`,
+`deterministic_verifier_version`, `boundary_contract_version`). Since Lovable
+reads through `public.grading_results`, not `app.grading_results` directly,
+this would have silently hidden Phase A's feedback/repair output from the
+frontend even after Phase A landed. Added
+`202607120001_grading_results_view_phase_a_columns.sql` to recreate the view
+with those columns included.
+
+**Deliberately left out of this reconciliation** (present on
+`codex/task0016-phase-c-base` but out of scope for landing the grading
+router): AP Chemistry/Physics launch scaffolding, AP Statistics content-sync
+commits, review-queue admin-scope changes, the Lovable runtime-context/
+student-memory wiring, and the small `25da9ea` `review-queue` `frq_form`
+fix. None of these are prerequisites for Phase A; pulling them in would have
+reintroduced the large unrelated diff surface this step was meant to avoid.
+
+**Not done in this step:** Phase C (AP Statistics deterministic-layer +
+content publish) — its QA verdict is `FAIL`
+(`ap_statistics_phase_c_publish_staging_2026_07_11/qa_review.md` on
+`codex/task0016-phase-c-content-publish-approval-main`) with remediation
+claimed but never re-verified; not pulled in here. No SP-1 quality-research
+findings (misattribution audit, `C2Direct-Low` routing) are wired in — those
+were never wired into `evaluate-attempt` on any branch, including this one.
+Migrations have not been applied to any live Supabase project; `deno check`/
+tests have not been run (no `deno` available in this environment) — TypeScript
+correctness has only been verified by exact diff match against the source
+commit's target, not by compiling.
+
+**Next Owner:** David Bloom / Main Conductor
+**Next Required Action:** Decide the quality bar for what ships first (per
+prior session discussion: deterministic layer alone vs. also wiring the
+misattribution audit before merge to `main`), get the outstanding Phase A
+reviewer sign-off confirmed, and run `deno check`/tests against these files
+in an environment with Deno before treating Phase A as merge-ready.
 
 ---
 
