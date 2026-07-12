@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Phase C Remediation R4: Fixed 3 Unanswerable FRQs + Module 8 Difficulty Labels — 2026-07-12
 - Phase C Publish Packet Independent Re-QA — Fail, New Blockers Found — 2026-07-12
 - TASK-0010 Approved and UX-006 Brief Replaced With Real Integration — 2026-07-12
 - Phase A Broken-Import Fix and Deterministic-Layer-Only Ship Decision — 2026-07-12
@@ -15,10 +16,93 @@ Most recent entries (full reverse-chronological list follows below):
 - New-User Experience Live QA — 2026-06-29
 - Production Readiness QA Handoff — 2026-06-21
 - Cramapple Visual Identity Brief Revised From Family Discussion — 2026-06-21
-- Session and Storage Backend Surfaces Wired — 2026-06-21
-- Cramapple Visual Identity Brief Drafted — 2026-06-21
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## Phase C Remediation R4: Fixed 3 Unanswerable FRQs + Module 8 Difficulty Labels - 2026-07-12
+
+**Task:** TASK-0016 Phase C. Directly follows the independent re-QA entry
+below.
+**Status:** Fixed on `claude/cramapple-grading-mlr0o1` (commit `b552f06`,
+pushed to PR #38). **Not independently re-QA'd yet** — same caveat R1-R3
+had before this session's re-QA found their gaps; do not treat this as
+verified until someone else re-checks it. No staging or publish action
+executed.
+
+**Summary:** At David's request to fix the 3 new answerability blockers,
+the Module 8 difficulty labels, commit the missing checker script, and
+re-scan the full corpus, brought the entire Phase C publish packet (all 9
+generator inputs + the generator script + the deterministic-key validator,
+previously only on `codex/task0016-phase-c-content-publish-approval-main`)
+onto this branch.
+
+**Fixed `APSTAT-MOD7-M001`/`-M004`/`-H002-INV`** — same defect class as the
+original 8: rubric/answer-key data never shown to the student. Added the
+missing stimulus text for the first two. For `-H002-INV` (a 4-part
+contingency-table + chi-square item that was missing its medium-anxiety
+group entirely), constructed a full self-consistent data set, independently
+computed the chi-square statistic by hand (χ² ≈ 48.61, df=2, p<0.0001)
+*before* writing it into the model response, and rewrote all 4 response
+texts (fully-correct through subtly-wrong) to match. Also fixed an
+unrelated bug found while editing: the item's `module` field said 6, its
+content_key says MOD7.
+
+**Fixed the Module 8 difficulty labels** — 9 of 10 items were tagged
+`very_hard` regardless of key suffix; corrected `M001`-`M005` to `medium`
+and `H001`-`H004` to `hard`, matching the corpus-wide suffix convention
+confirmed elsewhere (E→easy 15/15, VH→very_hard 6/6, no exceptions outside
+Module 8).
+
+**Committed `scripts/task0016_phase_c_qa_checks.mjs`** — the checker both
+`qa_review.md` and the original `remediation_log.md` cite was confirmed (by
+the independent re-QA) to never have been committed anywhere; this is a
+fresh implementation, not a recovery. Its first version produced its own
+false positives — flagged the standard z=1.96 95%-CI critical value as a
+"hidden given," and missed percentage-form data (`"35%"` in a stem vs.
+`0.35` in the answer key) due to a number-matching bug. Fixed both before
+committing. The full-corpus visual/tabular-keyword scan is deliberately a
+**warning tier, not fail-closed** — verified by hand that it produces real
+false positives on this corpus (self-contained or purely conceptual items
+that happen to mention "table"/"plot"), so a regex flags human-read
+candidates rather than asserting a verdict it can't actually make.
+
+**Full-corpus scan result:** 7 candidates, resolved by hand — 6 confirmed
+false positives (documented individually in `remediation_log.md`'s R4
+section), 1 real and left open (`APSTAT-MOD8-M001`: direction is
+answerable but the rubric's "strength" requirement has no supporting
+scatter-tightness data in the stem — same defect class, but outside the
+specific 3-item scope requested this round, so flagged rather than
+silently fixed).
+
+**Verified, not just asserted:** regenerated the packet
+(`build_task0016_phase_c_publish_packet.mjs`, same 200/100/100/18/0/0
+structural counts as before); re-ran `validate_keys.py`
+(`ALL CHECKS PASS`, 44/44 keys, 7/7 ECF templates — confirms the
+stem/stimulus-only edits didn't disturb the deterministic answer keys
+underneath them); ran the new checker (`PASS`, 28 deterministically-keyed
+FRQs matching R1-R3's figure).
+
+**Also found and deliberately did not fix:** the checker's disposition
+count (`deterministicKeyed`/`conceptualOnly`/`excludedOrMethodOnly`)
+initially tried to reproduce R1-R3's "28 keyed / 68 conceptual / 4
+excluded" split, but `statistics_item_keys.json` only covers 30 of the 100
+FRQ items — there's no way to derive that specific 68/4 split from data
+this checker has visibility into. Renamed the output to
+`deterministicKeyed` (28, verified) / `notDeterministicallyKeyed` (72,
+honest about being unclassified) rather than fabricate a number that looks
+precise but isn't verifiable.
+
+**Not done:** independent re-QA of this round (R4). Rights/source and
+manifest-schema-drift issues flagged separately in `approval_packet.md` —
+untouched, out of scope for this fix.
+
+**Next Owner:** David Bloom / Main Conductor
+**Next Required Action:** Get an independent (fresh-context) re-QA of R4
+before treating this packet as stage-ready — R1-R3 looked done too, until
+this session's re-QA found the gaps. Decide whether to fix
+`APSTAT-MOD8-M001` now or leave it for a later round.
 
 ---
 
