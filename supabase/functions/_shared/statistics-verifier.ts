@@ -29,8 +29,19 @@ const STATISTICS_TARGETS: Record<
       "The response should include the confidence-interval bounds and test statistic from the keyed calculation.",
     repair_hint:
       "Recompute the standard error with sqrt(n), then update the confidence interval and t-statistic using that corrected value.",
+    // SE (21.9089) intentionally NOT required as its own bare value here.
+    // The rubric's own learner_facing_text only asks for the CI bounds --
+    // "Correctly calculates 95% CI as 850 +/- 1.96(120/sqrt(30)) ~ (808,
+    // 892)" -- not a separately-typed SE. A response that expresses SE
+    // symbolically (e.g. "120/sqrt(30)") instead of evaluating it to a
+    // decimal was being hard-flagged and zero-credited by this check even
+    // when CI_low/CI_high were both numerically correct -- and correct CI
+    // bounds mathematically imply a correct SE, since CI_low/CI_high are
+    // computed directly from it, so the explicit SE check was redundant on
+    // top of being over-strict. Confirmed against a real provisional-
+    // labeled-"earned" case in provisional_labels.json (response_index 2)
+    // that this check was wrongly flagging before this fix (2026-07-12).
     values: [
-      { value: 21.9089 },
       { value: 807.05863 },
       { value: 892.94137 },
       { value: 2.28217 },
@@ -39,11 +50,20 @@ const STATISTICS_TARGETS: Record<
   "APSTAT-MOD5-H001-INV": null,
   "APSTAT-MOD6-H001": {
     reason:
-      "The response should include the keyed two-sample standard error and test statistic.",
+      "The response should include the keyed two-sample test statistic.",
     repair_hint:
       "Recompute the pooled standard error with the keyed sample sizes, then recalculate the t-statistic on that value.",
+    // SE_diff (1.94079) intentionally not required as its own bare value,
+    // same reasoning as APSTAT-MOD3-H001-INV above: the rubric only asks
+    // for "t-statistic and degrees of freedom," and t_stat = (m1-m2)/SE_diff
+    // with m1/m2 fixed constants means a correct t_stat mathematically
+    // implies a correct SE_diff -- the explicit check was redundant and,
+    // confirmed against a real provisional-labeled-"earned" case
+    // (response_index 1, "sqrt(sum of variances)" expressed symbolically,
+    // t given as a rounded range "2.0 to 2.1" that already passes the 2%
+    // tolerance on 2.06104), was wrongly zero-crediting a correct response
+    // over an intermediate value the rubric never asked to see restated.
     values: [
-      { value: 1.94079 },
       { value: 2.06104 },
     ],
   },

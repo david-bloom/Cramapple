@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Statistics Deterministic Verifier: Fixed Redundant-Value Over-Strictness, Found a Severity Bug — 2026-07-12
 - Phase C R4 Independent Re-QA — Confirmed — 2026-07-12
 - Phase C Remediation R4: Fixed 3 Unanswerable FRQs + Module 8 Difficulty Labels — 2026-07-12
 - Phase C Publish Packet Independent Re-QA — Fail, New Blockers Found — 2026-07-12
@@ -18,6 +19,124 @@ Most recent entries (full reverse-chronological list follows below):
 - Cramapple Visual Identity Brief Revised From Family Discussion — 2026-06-21
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## Statistics Deterministic Verifier: Fixed Redundant-Value Over-Strictness, Found a Severity Bug - 2026-07-12
+
+**Task:** Follows from the AP Statistics calibration dry-run's 10 disagreement
+cases (85.7% agreement, `ap_statistics_phase_c_calibration_dryrun_2026_07_11/report.md`).
+Relates to `TASK-0016` (grading engine), `TASK-0010` (grading confidence).
+**Status:** 2 of 10 cases fixed in `supabase/functions/_shared/statistics-verifier.ts`
+(live production code, already deployed and now updated in git on
+`claude/cramapple-grading-mlr0o1`). 1 fully verified fixed, 1 partially
+fixed with the remaining blocker identified and deliberately not touched.
+A severity-level architectural issue was found and is flagged, not fixed,
+pending an explicit decision. Not yet independently re-QA'd.
+
+**Summary:** At David's request, went through all 10 calibration dry-run
+disagreements individually, pulling the exact response text and rubric for
+each (not just the dry-run's summary notes) before deciding what to fix.
+They split into four distinct categories, not one "tolerance" problem:
+
+**Category A — over-strict, live, fixed (2 of 3 cases):**
+`APSTAT-MOD3-H001-INV` and `APSTAT-MOD6-H001` both required an
+intermediate value (SE / SE_diff) to appear as a bare typed number in the
+response, even though (a) the rubric's own `learner_facing_text` only asks
+for the final CI bounds / t-statistic, never a separately-stated SE, and
+(b) a correct final value mathematically implies a correct intermediate
+value (CI_low/CI_high are computed directly from SE; t_stat from SE_diff),
+making the explicit intermediate check both over-strict and redundant.
+Removed SE (21.9089) from `APSTAT-MOD3-H001-INV`'s target list and SE_diff
+(1.94079) from `APSTAT-MOD6-H001`'s. **Verified by hand** (plain-JS
+reimplementation of the exact comparison logic, run against the real
+response texts from `provisional_labels.json`, not assumed): `MOD6-H001`
+now fully passes. `MOD3-H001-INV` only partially improves — see the
+severity finding below for why it still doesn't fully flip.
+
+**Category B — not a live bug (1 case, `APSTAT-MOD4-H001-INV`):** this
+content_key isn't in `statistics-verifier.ts`'s target list at all: this
+disagreement only exists in the calibration dry-run's own standalone
+research-script reimplementation (`calibration_runner.ts`), not in
+production. No live code to fix. Not adding new deterministic coverage for
+it — that's expanding what the system checks, a different decision than
+fixing what's already checked.
+
+**Category C — false-positive over-credit risk, not currently live (2
+cases, `APSTAT-MOD7-M005` and `STATS-MOD1-E004`):** both are genuine bugs
+in the *dry-run script's* local number-matching (a coincidentally-matching
+number gets credited even when it's not the actual computed answer — e.g.
+`STATS-MOD1-E004`'s response computes the WRONG mean, 22.5, but happens to
+include "18" as one of the four raw data values it's averaging, and the
+naive matcher credits it as if 18 were the given answer). **Neither
+content_key is in the live `statistics-verifier.ts` target list**, so this
+specific exposure isn't live today — but the underlying pattern (matching
+any occurrence of a number in free text, with no check that it's presented
+as the actual final answer) is structurally present in every one of the
+~20 items that *are* covered. Correctly distinguishing "the decisive final
+answer" from "a number that happens to appear" is a real NLP problem, not
+a parameter tweak — deliberately not attempting an ad-hoc heuristic fix for
+this now, same reasoning as the QA checker's visual-keyword heuristic
+earlier this session. Flagging as a known structural risk across the whole
+target list, not fixing.
+
+**Category D — label/scope questions, not code bugs (4 cases,
+`APSTAT-MOD6-M001` x2, `APSTAT-MOD7-H001`, `APSTAT-MOD8-M002`,
+`APSTAT-MOD8-M004`):** the deterministic checker (where it applies) is
+either already correct and the *provisional* AI-draft label looks wrong
+(`MOD6-M001`'s two disagreements look like a genuine labeling
+inconsistency — one arithmetically-correct response labeled
+`partially_earned`, another labeled `not_earned` for what reads as the
+same class of correct-arithmetic response; `MOD7-H001` looks like the
+provisional label under-crediting terse-but-correct work), or the
+criterion is fundamentally about *interpretation* language, not just
+numeric presence (`MOD8-M002`/`MOD8-M004`: the number is present but the
+interpretation is backwards/miscontextualized, which a number-presence
+check structurally cannot evaluate). None of these are addressed here —
+they're `TASK-0010` Phase 2 adjudication-queue material, not code to
+patch unilaterally.
+
+**Severity finding, not fixed, needs an explicit decision:** traced
+exactly how `checkStatisticsDeterministicEvidence`'s result is used in
+`evaluate-attempt/index.ts` (lines ~747, ~1128). When it flags, the result
+(`buildStatisticsDeterministicFallback`) **replaces the entire grading
+payload for the whole response, zeroes points_earned, sets confidence to
+low, and skips the LLM grader call entirely** — for every criterion in the
+item, not just the one with the missing value. This is exactly why the
+`MOD3-H001-INV` fix above only partially worked: the item's flat target
+list bundles values from two logically separate rubric criteria
+(`ci_calculation`'s CI bounds and `hypothesis_test`'s t-statistic) into one
+undifferentiated list, so a response that fully earns `ci_calculation` but
+doesn't compute an explicit numeric t-statistic for `hypothesis_test`
+still gets the *entire response* hard-zeroed and never reaches the LLM —
+confirmed against the real provisional-labeled-"earned" response used in
+the dry-run. Fixing this properly means making the deterministic gate
+criterion-aware (the calibration script's own local `keyedCriterionVerdict`
+already does this correctly via `statistics_item_keys.json`'s
+per-criterion `parts`, live production code does not) — a real
+architecture change to a hard-gate in live grading code, not a parameter
+tweak. Deliberately not attempted in this pass: no way to test the change
+end-to-end in this environment (no Deno, no ability to invoke
+`evaluate-attempt` live), and the blast radius (every AP Statistics FRQ
+routed through this pre-filter, currently ~20 keyed items) is large enough
+to warrant explicit sign-off before restructuring, not a same-session
+silent fix.
+
+**Verified before committing:** brace-balance checked (no Deno available
+in this environment for a real typecheck — same limitation as every prior
+code change this session); the two target-list edits verified against the
+exact real response texts, not assumed correct from the summary notes.
+
+**Next Owner:** David Bloom / Main Conductor
+**Next Required Action:** Decide whether `buildStatisticsDeterministicFallback`
+should keep its current all-or-nothing hard-block-and-zero-credit behavior,
+or whether a criterion-aware version (or a softer "flag for review, still
+let the LLM grade" behavior) should replace it — this affects every live
+AP Statistics FRQ response routed through it today, not a hypothetical.
+Route `MOD6-M001`'s apparent label inconsistency and `MOD7-H001`'s
+possible under-crediting to `TASK-0010` Phase 2 adjudication once staffed.
+Get this round independently re-QA'd before treating it as verified — same
+standing caveat as every remediation round this session.
 
 ---
 
