@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Statistics Deterministic Verifier Fixes: Independent Opus Re-QA — Confirmed Safe, Found Broader Scope Than Disclosed — 2026-07-12
 - Statistics Deterministic Verifier: Fixed the Criterion-Bundling Severity Bug — 2026-07-12
 - Statistics Deterministic Verifier: Fixed Redundant-Value Over-Strictness, Found a Severity Bug — 2026-07-12
 - Phase C R4 Independent Re-QA — Confirmed — 2026-07-12
@@ -20,6 +21,79 @@ Most recent entries (full reverse-chronological list follows below):
 - Cramapple Visual Identity Brief Revised From Family Discussion — 2026-06-21
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## Statistics Deterministic Verifier Fixes: Independent Opus Re-QA - Confirmed Safe, Found Broader Scope Than Disclosed - 2026-07-12
+
+**Task:** Verifies the two entries below (SE/SE_diff removal, criterion-
+count guard). Relates to `TASK-0016`, `TASK-0010`.
+**Status:** Both fixes confirmed correct and safe by independent re-QA
+(David's request: run the re-QA with a different model, `opus`, for
+genuine model-diversity independence, not just fresh context). One
+correction applied to the guard's own commit-time claim; one comment
+inaccuracy fixed. Still not deployed to Production.
+
+**Summary:** Opus re-derived all the math independently (SE, CI bounds,
+t-statistics from `ecf_parts` canonical formulas), independently ported
+and ran the exact `extractNumbers`/`matchesTarget` logic against the real
+response texts, and traced the live call site line-by-line rather than
+trusting the commit messages. Verdict on both fixes: **correct, safe, no
+over-grading hole introduced.** Specifically confirmed the "final value
+mathematically implies correct intermediate value" argument is airtight
+for both `MOD3-H001-INV` and `MOD6-H001` — the checker matches against
+fixed canonical values (not the student's own derivation), and each final
+value is strictly monotonic in its intermediate, so no arithmetic-error-
+cancellation path exists that could let a wrong SE produce a passing final
+value. Confirmed `MOD6-H001` now genuinely passes (t=2.1 clears the 2%
+tolerance on 2.06104) and `MOD3-H001-INV` still genuinely fails, specifically
+on the missing hypothesis-test t-statistic (2.28217) — the response never
+computes it. Confirmed the "signal isn't lost" claim precisely: `statisticsCheck`
+threads through as `action_hint`/`repair_hint`/metadata on the LLM path,
+but does **not** reach the LLM's own prompt — it shapes feedback, not the
+score, worth being precise about going forward.
+
+**What the QA caught that the original fix missed:** the criterion-count
+guard checks `input.criteria.length`, which is *total* rubric criteria
+(numeric + conceptual combined) — there's no "kind" field available at
+that call site to filter to just numeric ones. Every content_key currently
+in `STATISTICS_TARGETS` has 2+ total criteria (`MOD3-H001-INV`: 5,
+`MOD6-H001`: 3, `MOD7-H001`: 2, all 18 `APSTATS-SFRQ-*` items: 4 each).
+That means the guard currently returns null for the **entire configured
+catalog**, not just the one multi-numeric-criterion item that motivated
+the fix — the hard-block/cost-saving prefilter path is presently
+unreachable for everything. Safe (every response gets real LLM grading
+now, no wrong zeros), but a real, previously-undisclosed side effect: the
+prefilter's cost-saving purpose is dormant, not narrowly fixed.
+
+**Also caught and corrected:** the guard's original commit claimed the 18
+`APSTATS-SFRQ-*` items' criterion structure "couldn't be confirmed without
+live DB access." That was wrong — it's determinable from
+`docs/research/ap_statistics_phase4_mcq_smoke_batch_2026_07_01/ap_statistics_frq_batch_2026_07_01.json`'s
+a/b/c/d criterion structure, which was already checked out on this branch.
+Missed it the first time; QA found it. Corrected the code comment to state
+this plainly instead of the "unknown" claim.
+
+**Also caught:** a minor but real inaccuracy in the SE_diff fix's own
+comment — it claimed the response's "2.0 to 2.1" range "already passes
+the 2% tolerance," when actually only the 2.1 endpoint does (2.0 misses by
+0.02); the conclusion (response passes) was still correct since the
+numeric-match logic only needs one hit, but the comment overstated why.
+Fixed.
+
+**Verified, not just re-asserted:** independently confirmed no test
+breakage — the only tests referencing the removed SE/SE_diff values
+(`math-verifier_test.ts`) exercise the separate symbolic ECF verifier, not
+this file. Confirmed no TypeScript-level issues from reading (still no
+Deno available in this environment for a real compile check).
+
+**Next Owner:** David Bloom / Main Conductor
+**Next Required Action:** Decide whether the dormant cost-saving prefilter
+is worth restoring properly (would need a numeric-vs-conceptual criterion
+"kind" signal threaded to the call site — a real follow-up feature, not a
+quick fix) or is an acceptable tradeoff to leave as-is (safety over cost
+savings). Decide whether/when to deploy both statistics-verifier.ts fixes
+to Production — still undeployed.
 
 ---
 

@@ -60,9 +60,14 @@ const STATISTICS_TARGETS: Record<
     // implies a correct SE_diff -- the explicit check was redundant and,
     // confirmed against a real provisional-labeled-"earned" case
     // (response_index 1, "sqrt(sum of variances)" expressed symbolically,
-    // t given as a rounded range "2.0 to 2.1" that already passes the 2%
-    // tolerance on 2.06104), was wrongly zero-crediting a correct response
-    // over an intermediate value the rubric never asked to see restated.
+    // t given as a rounded range "2.0 to 2.1" -- only the 2.1 endpoint is
+    // within the 2% tolerance on 2.06104 (2.0 misses it), but matchesTarget
+    // only needs one number in the response to hit, so this response
+    // already passes on t_stat alone), was wrongly zero-crediting a
+    // correct response over an intermediate value the rubric never asked
+    // to see restated. (Corrected 2026-07-12 after independent re-QA
+    // caught the original comment overstating that both range endpoints
+    // passed -- verified by hand: |2.0-2.06104|=0.061 > tol 0.041.)
     values: [
       { value: 2.06104 },
     ],
@@ -338,6 +343,28 @@ export function buildStatisticsDeterministicFallback(input: {
   // the LLM grader, which still receives this flag as a soft repair-hint
   // signal via the separate checkStatisticsDeterministicEvidence() call in
   // evaluate-attempt/index.ts (statisticsCheck), not lost.
+  //
+  // KNOWN, DISCLOSED CONSEQUENCE (found by independent re-QA, 2026-07-12,
+  // not caught before this guard was first committed): this counts TOTAL
+  // rubric criteria on the item, not just numeric ones -- there's no
+  // criterion "kind" (numeric vs conceptual) available at this call site
+  // to filter on. Every content_key currently configured in
+  // STATISTICS_TARGETS has 2+ TOTAL criteria (APSTAT-MOD3-H001-INV: 5,
+  // APSTAT-MOD6-H001: 3, APSTAT-MOD7-H001: 2, all 18 APSTATS-SFRQ-* items:
+  // 4 each, per docs/research/ap_statistics_phase4_mcq_smoke_batch_2026_07_01/
+  // ap_statistics_frq_batch_2026_07_01.json's a/b/c/d structure -- contrary
+  // to this guard's original commit message, which incorrectly claimed the
+  // SFRQ items' structure "couldn't be confirmed without live DB access";
+  // it's in that repo file). That means this guard currently returns null
+  // for EVERY configured item -- the hard-block/cost-saving prefilter path
+  // is presently unreachable for the whole catalog, not just the one
+  // multi-numeric-criterion item that motivated the fix. This is SAFE (no
+  // wrong zero-credit; every response now gets real LLM grading) but is a
+  // real, disclosed side effect: the prefilter's cost-saving purpose is
+  // dormant until this is made properly numeric-criterion-aware, not just
+  // total-criterion-aware. Deliberately left this way rather than guessing
+  // which of each item's criteria are numeric without a reliable "kind"
+  // field at the call site -- that's the next real fix, not this one.
   if (input.criteria.length !== 1) {
     return null;
   }
