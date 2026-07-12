@@ -71,14 +71,21 @@ reconnected under new IDs) and couldn't be retried non-interactively, so
 neither was confirmed live — the brief tells whoever builds it to check
 both before wiring anything, rather than guessing.
 
+**Addendum, same day:** David named himself Learning Quality Owner / Grading
+Lead for `TASK-0010`. Updated the task file's `Owner` line and
+`MASTER_TODO.md`'s `NOW-013` owner column accordingly; corrected
+`DECISION-0036`'s Risks/Follow-ups (still unmerged at the time, so amended
+in place rather than logged as a separate correction) to reflect it instead
+of shipping a stale "not yet named" note. Phase 2 still needs a *second*
+qualified Grading Validator besides David before that phase can run — the
+task requires two independent blind scorers.
+
 **Next Owner:** David Bloom / Main Conductor
 **Next Required Action:** Before handing the UX-006 brief to Lovable,
 confirm the two open items above via Supabase MCP or dashboard (content
 publish status; `attempt-response` vs `submit-response`/`app.submit_response`
-as the real submission entrypoint). Separately, `TASK-0010` needs an actual
-Learning Quality Owner / Grading Lead named before Phase 2 (adjudicated
-gold sets) can start — the role is specified in the task file, not a
-person.
+as the real submission entrypoint). Name a second Grading Validator for
+`TASK-0010` Phase 2.
 
 ---
 

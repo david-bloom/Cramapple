@@ -63,7 +63,7 @@ records.
 | NOW-010 | P0 | Review authoring experiment rights and contracts | Counsel | Expert Review Required | Confirm source isolation, contamination handling, releases, model-input rights, and retention rules before experiment execution |
 | NOW-011 | P1 | Commission the proprietary replacement exemplar | Orly Bloom / Paid Tutor Author | Proposed | Execute `TASK-0008` from a blank brief after author and rights gates |
 | NOW-012 | P1 | Reconcile conceptual schemas with governance | Technical Owner / Main Conductor | Proposed | Complete `TASK-0009` before any physical database design |
-| NOW-013 | P0 | Establish grader confidence and calibration | Learning Quality Owner / Grading Lead | In Progress | Complete `TASK-0010` before learner-facing automated FRQ scores |
+| NOW-013 | P0 | Establish grader confidence and calibration | David Bloom (Learning Quality Owner / Grading Lead) | In Progress | Complete `TASK-0010` before learner-facing automated FRQ scores |
 | NOW-014 | P2 | Prototype handwritten graph camera capture | Product / Technical Owner | Research | Test the QR-linked paper-first flow in `TASK-0011` |
 
 ## 4. Active Task Register

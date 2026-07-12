@@ -2,7 +2,7 @@
 
 **Task ID:** TASK-0010
 **Title:** Establish Reasonable Confidence in FRQ Grading
-**Owner:** Learning Quality Owner / Grading Lead / Technical Owner
+**Owner:** Learning Quality Owner / Grading Lead: David Bloom (named 2026-07-12) / Technical Owner
 **Product Owner:** David Bloom
 **Status:** Approved (program authorized to execute; acceptance criteria below remain open)
 **Priority:** Critical

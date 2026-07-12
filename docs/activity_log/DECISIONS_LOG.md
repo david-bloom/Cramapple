@@ -1508,10 +1508,11 @@ tutor feedback accumulating with no formal process to act on it.
 
 ### Risks / Follow-ups
 
-- No Learning Quality Owner or Grading Lead has been named yet (task file
-  lists the role, not a person) — Phase 2's "two qualified Grading
-  Validators" and "Lead Grading Validator adjudicate" requirements can't
-  start without someone actually filling those roles.
+- David Bloom named Learning Quality Owner / Grading Lead for this task,
+  2026-07-12 (same day, before this PR merged). Phase 2 still needs a
+  second qualified Grading Validator besides David — "two qualified Grading
+  Validators score every case blind" per the task file — before that phase
+  can actually run.
 - The stuck FRQ02 cases (`S020`, `S028`, `S068`) and suspected corpus-label
   inconsistencies (`S014`, `S054`, `S058`, `S062`, `S070`) flagged in
   `docs/research/frq_grading_status_2026-06-18.md` are ready-made Phase 2
