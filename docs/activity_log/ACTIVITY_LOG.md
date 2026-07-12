@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Phase C Publish Packet Independent Re-QA — Fail, New Blockers Found — 2026-07-12
 - TASK-0010 Approved and UX-006 Brief Replaced With Real Integration — 2026-07-12
 - Phase A Broken-Import Fix and Deterministic-Layer-Only Ship Decision — 2026-07-12
 - TASK-0016 Phase A Grading-Router Reconciled Onto Grading Branch — 2026-07-12
@@ -18,6 +19,82 @@ Most recent entries (full reverse-chronological list follows below):
 - Cramapple Visual Identity Brief Drafted — 2026-06-21
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## Phase C Publish Packet Independent Re-QA - Fail, New Blockers Found - 2026-07-12
+
+**Task:** TASK-0016 Phase C (AP Statistics content publish packet). Relates
+to `TASK-0010` (rubric/content quality) and the earlier Fail verdict on
+`codex/task0016-phase-c-content-publish-approval-main`.
+**Status:** Independently re-QA'd, fresh/isolated agent, no prior context on
+this content. **Verdict: Fail — new blockers, not just re-confirmation of
+old ones.** No content changed; this is a review-only pass. Not merged, not
+published.
+
+**Summary:** At David's request to "make sure" the Phase C remediation
+actually holds up (the original Fail verdict's fixes had only been
+self-verified by the same author who made them — see the earlier session
+entries), ran an independent QA pass in an isolated git worktree
+(`git worktree add --detach`, no shared state with the remediator's or the
+original reviewer's checkout).
+
+**R1 (reproducibility) and R2 (`APSTAT-MOD5-M001` sample-SD value:
+7.91) — confirmed genuinely fixed.** Rebuilt the packet from a second,
+independent detached worktree; output byte-identical to the committed
+`bulk_import_payload.json`. Independently recomputed the SD by hand (sample
+variance 62.5, sqrt = 7.905694... ≈ 7.91) — checks out. Re-ran
+`validate_keys.py` independently (had to install `sympy`, undocumented
+dependency): `ALL CHECKS PASS`.
+
+**R3 (8 answerability fixes) — the named 8 are real, but the sweep was
+incomplete.** All 8 claimed fixes independently verified as genuinely
+answerable from their (now text-embedded) stimuli, math/logic checked by
+hand for each. But the agent scanned the **full 100-item FRQ corpus**, not
+just the 8-item checklist, and found the identical defect class
+(rubric/answer requires data never shown to the student) still present in
+at least 3 more items never mentioned by either the original QA or the
+remediation log:
+
+- `APSTAT-MOD7-M001` — contingency-table marginal-probability item; the
+  needed counts (`prefer: 80, total: 200`) exist only in the hidden answer
+  key, never in the student-facing stem.
+- `APSTAT-MOD7-M004` — same pattern, tree-diagram probabilities
+  (`p1: 0.3, p2: 0.7`) never surfaced to the student.
+- `APSTAT-MOD7-H002-INV` — part (a) asks the student to construct a
+  contingency table from data that isn't fully given (missing the
+  low/medium/high anxiety group sizes) — same class as the already-fixed
+  `MOD6-H002-INV`, but this sibling item was missed.
+- Plus a softer one, `APSTAT-MOD8-M001` (rubric requires "moderate to
+  strong strength" from a stem that only says "appears linear," no
+  scatter-tightness info given).
+
+**New issue, unrelated to R1-R3:** all 10 Module-8 FRQ items are tagged
+`difficulty: "very_hard"` in `prompt_json` regardless of their key-suffix
+letter (which encodes difficulty everywhere else in the corpus) — Module
+8's medium/hard difficulty buckets are effectively empty for exam-draw
+purposes. Not caught by the original QA's 15-item sample (Module 8 wasn't
+in it).
+
+**Could not verify:** the fail-closed checker script (`task0016_qa_checks.mjs`)
+both prior documents cite as returning a clean pass is **not committed
+anywhere in the repo** — it only ever existed at a `/private/tmp/...` path
+on the original author's/remediator's own machines. The agent independently
+re-derived the structural counts it would have checked (duplicates,
+disposition counts, `-CAL` key count) by hand instead — matched, but this
+is a partial substitute, not a re-run of the actual cited tool. Live-DB
+collision/publish behavior also not checked (no live access), consistent
+with both prior documents' own scope limits.
+
+**Next Owner:** David Bloom / Main Conductor
+**Next Required Action:** Do not run `bulk_import` on this packet. Fix
+`APSTAT-MOD7-M001`, `APSTAT-MOD7-M004`, `APSTAT-MOD7-H002-INV` (same
+stimulus-completion pattern as the original 8), correct the Module 8
+difficulty field, and commit the QA-cited checker script into the repo so
+future passes can actually re-run the same tool instead of re-deriving
+substitute checks by hand. Then run a full-corpus (not 15-item sample)
+answerability scan before the next QA pass, given a sample-based scan
+already missed 3+4 items across two rounds.
 
 ---
 
