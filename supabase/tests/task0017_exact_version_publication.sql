@@ -27,6 +27,7 @@ declare
   v_manifest_id uuid;
   v_release_candidate_id uuid;
   v_expected_manifest_sha256 text;
+  v_manifest_relation_ok boolean;
 begin
   select user_id into v_actor_id
   from app.profiles
@@ -174,6 +175,15 @@ begin
        <> v_expected_manifest_sha256 then
     raise exception 'task0017_manifest_hash_is_not_canonical';
   end if;
+  if to_regclass('app.exam_pack_manifest_content_versions') is not null then
+    execute 'select exists (select 1 from app.exam_pack_manifest_content_versions
+      where manifest_id=$1 and ordinal=1 and content_item_version_id=$2
+        and content_key_snapshot=''exact-version'')'
+      into v_manifest_relation_ok using v_manifest_id,v_requested_version_id;
+    if not v_manifest_relation_ok then
+      raise exception 'task0017_manifest_relation_did_not_pin_exact_version';
+    end if;
+  end if;
   if not exists (
     select 1
     from pg_catalog.pg_extension e
@@ -200,6 +210,26 @@ begin
   end if;
   if app.project_artifact_state(v_artifact_version_id) <> 'published' then
     raise exception 'task0017_artifact_state_not_published';
+  end if;
+  if to_regclass('app.execution_approvals') is not null then
+    begin
+      update app.exam_pack_manifests set manifest_sha256=repeat('0',64) where manifest_id=v_manifest_id;
+      raise exception 'task0017_manifest_parent_mutation_was_accepted';
+    exception when others then
+      if sqlerrm not like 'immutable_record:update_not_allowed%' then raise; end if;
+    end;
+    begin
+      update app.validation_suites set content_sha256=repeat('0',64)
+        where suite_version_id=v_grading_suite_version_id;
+      raise exception 'task0017_validation_suite_mutation_was_accepted';
+    exception when others then
+      if sqlerrm not like 'immutable_record:update_not_allowed%' then raise; end if;
+    end;
+    update app.validation_runs set invalidated_at=now(),invalidation_reason='regression'
+      where run_id=v_grading_run_id;
+    if app.validation_run_is_current(v_grading_run_id,v_requested_version_id,'grading_calibration') then
+      raise exception 'task0017_invalidated_validation_failed_open';
+    end if;
   end if;
 end;
 $$;

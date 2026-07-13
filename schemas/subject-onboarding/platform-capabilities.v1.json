@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0.0",
+  "renderers": {
+    "markdown": "supported",
+    "math": "supported",
+    "table": "supported"
+  },
+  "response_modalities": {
+    "choice": "supported",
+    "typed-text": "supported",
+    "typed-math": "supported",
+    "table": "supported",
+    "graph": "experimental",
+    "drawing": "experimental",
+    "file-upload": "experimental"
+  },
+  "graders": { "mcq-key": "supported", "statistics-frq-rubric": "supported" },
+  "calculator_modes": {
+    "desmos-built-in": "supported",
+    "approved-handheld": "supported"
+  },
+  "verification_check_types": [
+    "schema",
+    "statistical-correctness",
+    "content-correctness",
+    "answer-rubric-consistency",
+    "grading-calibration",
+    "security-privacy"
+  ],
+  "deterministic_check_types": [
+    "numeric-tolerance",
+    "keyword-evidence",
+    "choice-key",
+    "table-shape"
+  ],
+  "deterministic_check_contracts": {
+    "numeric-tolerance": {
+      "required": ["absolute"],
+      "properties": { "absolute": "number" },
+      "additional_properties": false
+    },
+    "keyword-evidence": {
+      "required": ["keywords"],
+      "properties": { "keywords": "array" },
+      "additional_properties": false
+    },
+    "choice-key": {
+      "required": ["choice"],
+      "properties": { "choice": "string" },
+      "additional_properties": false
+    },
+    "table-shape": {
+      "required": ["rows", "columns"],
+      "properties": { "rows": "number", "columns": "number" },
+      "additional_properties": false
+    }
+  }
+}

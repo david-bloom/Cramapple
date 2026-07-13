@@ -5,7 +5,7 @@
 **Owner:** Codex (schema, adapters, verifier scaffold, migrations, tests, publication trust)
 **Product Owner:** David Bloom
 **Tier:** Hard-Gate
-**Status:** In Progress
+**Status:** Ready for Review
 **Priority:** High
 **Created Date:** 2026-07-13
 **Approved Date:** 2026-07-13 (`DECISION-0039`: H0/H1 + P0 repository/local-verification stage only)
@@ -121,7 +121,7 @@ Plan/apply are separate. Schema changes remain reviewed migrations; subject inst
 
 ## Implementation Summary
 
-In progress. P0 is implemented and re-verified locally after DECISION-0039. It introduces a service-role-only transactional publication RPC and routes publish operations through the exact canonical content-version ID. The Edge boundary now requires separately identified grading/calibration and security/privacy validation-run IDs and fails before RPC invocation when any required evidence class or policy ID is absent. The RPC still resolves actual suite types, pass state, and exact version targeting. The manifest hash is now computed from canonical ordered content/evidence/version relations rather than arbitrary request JSON. The Dev execution packet is prepared but unapproved/unexecuted. H2–H5 persistence/implementation remains gated.
+Repository/local H1–H5 implementation is complete under DECISION-0040 and ready for fresh independent re-QA after remediation of the first review. P0 remains atomic/exact-version and delegates only the content-clearance waiver boundary to the H5 resolver. H1 persists a lossless, immutable canonical ItemPackage snapshot/hash on `content_item_versions` and pins exact immutable archetype versions. H2 adds integrity-checked multi-scheme taxonomy per exact exam-pack version and normalizes legacy May 2026 calendar-year identifiers to `2025-26`, while failing closed if denormalized governance-year rows need a separate reconciliation. H3 adds immutable typed platform/check/suite registries and validates item-derived capabilities/check contracts again at the database boundary. H4 adds policy/pack-scoped typed reviewer evidence, revocations, persisted reviewer/team eligibility, and minimum-reviewer enforcement. H5 adds immutable Product-Owner content-clearance exceptions, exact manifest pinning, revocations, and a machine-readable gate report. Authoritative scoped approval records, advisory locks, and unique package/environment identities protect direct RPC and concurrent execution. Dev and Production remain untouched.
 
 ## Test Results
 
@@ -139,17 +139,25 @@ In progress. P0 is implemented and re-verified locally after DECISION-0039. It i
 - Exact-version regression now independently reconstructs and matches the canonical manifest hash over the ordered content relation and exact evidence/policy version references.
 - `deno test --allow-env supabase/functions/admin-content/publication-request_test.ts` — passed 2026-07-13 (3 tests): complete Edge→RPC request, fail-closed missing evidence categories, and authenticated-admin approval default. Evidence: `docs/qa/evidence/TASK0017_EDGE_RPC_CONTRACT_2026_07_13.log`.
 - `deno check supabase/functions/admin-content/index.ts` — passed after Edge→RPC contract extraction.
+- `deno test --allow-read scripts/subject-harness/validate-contracts_test.ts scripts/subject-harness/compiler_test.ts` — passed 2026-07-13 (7/7).
+- PostgreSQL 17.10 clean-stack run on disposable port 55443 — passed: P0 + H1/H2 + H3–H5 migrations; rollback and exact-version regressions; exact manifest-relation pin; manifest/suite immutability; invalidation fail-closed.
+- AP Statistics annual-revision/Q1–Q4 round-trip and Bio/Stats normalized golden snapshots — passed.
+- AP Chemistry scaffold reconciliation — passed with zero Chemistry publication.
+- Transaction-rolled-back true `create-subject` fixture — passed with no durable rows.
+- Canonical-plan tamper rejection; item-derived capability check; review-policy conflict; authoritative approval lookup; canonical immutability; H4 typed evidence/revocation/team evaluation; H5 exception/revocation; concurrent conflict; and idempotent reapply — passed.
+- Security/schema audit: `anon_apply=false`, `authenticated_apply=false`, `service_apply=true`, zero new tables without RLS, zero missing FK indexes.
+- Evidence: `docs/qa/TASK0017_H1_H5_LOCAL_EVIDENCE_2026_07_13.md`.
 
 ## Risks / Issues
 
-- Existing governance names still refer to `artifact_version_ids`; its deprecation and replacement design are approved, but the backward-compatible schema change remains pending the H0/H1 design and migration gates.
+- The legacy `artifact_version_ids` array remains as a compatibility carrier. The ordered canonical relation and server-side dual-write are implemented locally, but read cutover/removal remain later separately approved migrations.
 - Current evidence must contain target-bound grading/calibration and security/privacy validation runs; absent evidence correctly blocks publication.
-- The durable, typed content-clearance-exception record is approved for H5 design. P0 continues to block rather than infer a waiver until that record and its verifier are separately implemented and approved.
+- Content-clearance exceptions are implemented locally and exact-scope/Product-Owner/revocation/expiry checked; grading, rights, source, security/privacy, and release approval remain non-waivable.
 - Deployment order matters: the RPC migration must precede the updated Edge Function in any approved environment rollout.
 - The August Biology/Statistics release remains execution-blocked until the authoritative gate records required by the RPC exist and a Dev/Production execution packet is separately approved. Product Owner release authorization is recorded; it is not itself a substitute for those records.
 - P0 is locally verified, not deployed. Real Supabase Dev verification remains part of a separately approved execution step.
 - The Edge request contract now requires callers to send `grading_calibration_validation_run_ids` and `security_privacy_validation_run_ids` separately. Any future admin UI/client request builder must adopt this contract before environment rollout; omission fails closed.
-- TASK-0009 fast-track conceptual slices are **ratified** (2026-07-13, `DECISION-0040`); physical H1/H2 design may now proceed and returns for its own Hard-Gate review. A separate Dev execution approval ID is still required before any Dev migration (not yet issued).
+- TASK-0009 fast-track slices are ratified and the physical implementation is ready for review. A separate Dev execution approval ID is still required before any Dev migration (not yet issued).
 
 ## Approval State
 
@@ -160,8 +168,8 @@ In progress. P0 is implemented and re-verified locally after DECISION-0039. It i
 
 ## QA Result
 
-P0 locally re-verified against disposable PostgreSQL 17.10 after the DECISION-0039 conditions: both SQL tests pass, pgcrypto resolves in `extensions`, canonical manifest hashing is asserted, and the Edge→RPC evidence contract passes. Dev/Production remain untouched. Dev execution packet: `docs/qa/TASK0017_DEV_EXECUTION_EVIDENCE_PACKET_2026_07_13.md`.
+Implementation-agent evidence is green after remediating the initial independent-QA blockers, including clean disposable PostgreSQL execution, concurrent-apply verification, and security/schema audits. Fresh independent re-QA against the frozen remediation commit is required before a proposed final verdict. Dev/Production remain untouched. The Dev preflight must additionally prove `app` is not in PostgREST's exposed-schema list. Physical design: `docs/architecture/TASK0017_H1_H5_PHYSICAL_DESIGN_2026_07_13.md`; local evidence: `docs/qa/TASK0017_H1_H5_LOCAL_EVIDENCE_2026_07_13.md`.
 
 ## Done Decision
 
-Not done. TASK-0009 fast-track slices are ratified and repository/local H1–H5 implementation is authorized (`DECISION-0040`). The next checkpoints are: (1) complete implementation and local QA, then return the physical design/migrations for Hard-Gate review; (2) obtain a separate Product-Owner approval ID before any Dev migration/deployment and re-run P0 tests in that packet. Production remains a distinct Hard Gate.
+Not done. Repository/local implementation is Ready for Review. Next checkpoints: fresh independent QA; Product Owner Hard-Gate physical migration decision; then a separate Dev execution approval ID and Dev evidence run. Production remains a distinct Hard Gate.

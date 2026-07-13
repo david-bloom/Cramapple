@@ -5,17 +5,30 @@
   "type": "object",
   "additionalProperties": false,
   "required": [
-    "schema_version", "package_id", "operation", "subject", "exam_pack",
-    "sources", "taxonomy", "blueprint", "archetypes", "capabilities",
-    "inventory", "verification", "review_policy", "release_gates",
-    "provenance", "supersession"
+    "schema_version",
+    "package_id",
+    "operation",
+    "subject",
+    "exam_pack",
+    "sources",
+    "taxonomy",
+    "blueprint",
+    "archetypes",
+    "capabilities",
+    "inventory",
+    "verification",
+    "review_policy",
+    "release_gates",
+    "provenance",
+    "supersession"
   ],
   "properties": {
     "schema_version": { "const": "1.0.0" },
     "package_id": { "$ref": "#/$defs/slug" },
     "operation": { "enum": ["create-subject", "create-exam-pack-version"] },
     "subject": {
-      "type": "object", "additionalProperties": false,
+      "type": "object",
+      "additionalProperties": false,
       "required": ["subject_key", "display_name"],
       "properties": {
         "subject_key": { "$ref": "#/$defs/slug" },
@@ -24,8 +37,15 @@
       }
     },
     "exam_pack": {
-      "type": "object", "additionalProperties": false,
-      "required": ["exam_code", "exam_name", "school_year", "official_exam_date", "exam_pack_version"],
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "exam_code",
+        "exam_name",
+        "school_year",
+        "official_exam_date",
+        "exam_pack_version"
+      ],
       "properties": {
         "exam_code": { "$ref": "#/$defs/nonempty" },
         "exam_name": { "$ref": "#/$defs/nonempty" },
@@ -36,10 +56,21 @@
       }
     },
     "sources": {
-      "type": "array", "minItems": 1,
+      "type": "array",
+      "minItems": 1,
       "items": {
-        "type": "object", "additionalProperties": false,
-        "required": ["source_key", "source_version", "title", "publisher", "authority_tier", "uri", "content_sha256", "rights_status"],
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "source_key",
+          "source_version",
+          "title",
+          "publisher",
+          "authority_tier",
+          "uri",
+          "content_sha256",
+          "rights_status"
+        ],
         "properties": {
           "source_key": { "$ref": "#/$defs/slug" },
           "source_version": { "$ref": "#/$defs/nonempty" },
@@ -49,25 +80,43 @@
           "uri": { "type": "string", "format": "uri" },
           "content_sha256": { "$ref": "#/$defs/sha256" },
           "scope": { "type": "string" },
-          "rights_status": { "enum": ["cramapple_owned", "public_domain", "licensed", "written_permission"] },
+          "rights_status": {
+            "enum": [
+              "cramapple_owned",
+              "public_domain",
+              "licensed",
+              "written_permission"
+            ]
+          },
           "refresh_due_at": { "type": "string", "format": "date-time" }
         }
       }
     },
     "taxonomy": {
-      "type": "object", "additionalProperties": false,
+      "type": "object",
+      "additionalProperties": false,
       "required": ["scheme_key", "scheme_version", "nodes"],
       "properties": {
         "scheme_key": { "$ref": "#/$defs/slug" },
         "scheme_version": { "$ref": "#/$defs/semver" },
         "nodes": {
-          "type": "array", "minItems": 1,
+          "type": "array",
+          "minItems": 1,
           "items": {
-            "type": "object", "additionalProperties": false,
+            "type": "object",
+            "additionalProperties": false,
             "required": ["node_key", "node_type", "label", "ordinal"],
             "properties": {
               "node_key": { "$ref": "#/$defs/slug" },
-              "node_type": { "enum": ["unit", "topic", "learning_objective", "practice", "skill"] },
+              "node_type": {
+                "enum": [
+                  "unit",
+                  "topic",
+                  "learning_objective",
+                  "practice",
+                  "skill"
+                ]
+              },
               "label": { "$ref": "#/$defs/nonempty" },
               "parent_key": { "$ref": "#/$defs/slug" },
               "ordinal": { "type": "integer", "minimum": 1 },
@@ -79,28 +128,44 @@
       }
     },
     "blueprint": {
-      "type": "object", "additionalProperties": false,
+      "type": "object",
+      "additionalProperties": false,
       "required": ["sections", "taxonomy_weights"],
       "properties": {
         "sections": {
-          "type": "array", "minItems": 1,
+          "type": "array",
+          "minItems": 1,
           "items": {
-            "type": "object", "additionalProperties": false,
-            "required": ["section_key", "duration_minutes", "score_weight", "item_count", "item_types"],
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "section_key",
+              "duration_minutes",
+              "score_weight",
+              "item_count",
+              "item_types"
+            ],
             "properties": {
               "section_key": { "$ref": "#/$defs/slug" },
               "duration_minutes": { "type": "integer", "minimum": 1 },
               "score_weight": { "$ref": "#/$defs/proportion" },
               "item_count": { "type": "integer", "minimum": 1 },
-              "item_types": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/itemType" } },
+              "item_types": {
+                "type": "array",
+                "minItems": 1,
+                "uniqueItems": true,
+                "items": { "$ref": "#/$defs/itemType" }
+              },
               "notes": { "type": "string" }
             }
           }
         },
         "taxonomy_weights": {
-          "type": "array", "minItems": 1,
+          "type": "array",
+          "minItems": 1,
           "items": {
-            "type": "object", "additionalProperties": false,
+            "type": "object",
+            "additionalProperties": false,
             "required": ["taxonomy_node_key", "minimum", "maximum"],
             "properties": {
               "taxonomy_node_key": { "$ref": "#/$defs/slug" },
@@ -112,10 +177,19 @@
       }
     },
     "archetypes": {
-      "type": "array", "minItems": 1,
+      "type": "array",
+      "minItems": 1,
       "items": {
-        "type": "object", "additionalProperties": false,
-        "required": ["archetype_key", "version", "item_type", "total_points", "practice_refs", "response_modalities"],
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "archetype_key",
+          "version",
+          "item_type",
+          "total_points",
+          "practice_refs",
+          "response_modalities"
+        ],
         "properties": {
           "archetype_key": { "$ref": "#/$defs/slug" },
           "version": { "$ref": "#/$defs/semver" },
@@ -128,8 +202,13 @@
       }
     },
     "capabilities": {
-      "type": "object", "additionalProperties": false,
-      "required": ["required_renderers", "required_response_modalities", "required_graders"],
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "required_renderers",
+        "required_response_modalities",
+        "required_graders"
+      ],
       "properties": {
         "required_renderers": { "$ref": "#/$defs/stringSet" },
         "required_response_modalities": { "$ref": "#/$defs/modalities" },
@@ -138,13 +217,16 @@
       }
     },
     "inventory": {
-      "type": "object", "additionalProperties": false,
+      "type": "object",
+      "additionalProperties": false,
       "required": ["targets"],
       "properties": {
         "targets": {
-          "type": "array", "minItems": 1,
+          "type": "array",
+          "minItems": 1,
           "items": {
-            "type": "object", "additionalProperties": false,
+            "type": "object",
+            "additionalProperties": false,
             "required": ["item_type", "target_count"],
             "properties": {
               "item_type": { "$ref": "#/$defs/itemType" },
@@ -157,8 +239,13 @@
       }
     },
     "verification": {
-      "type": "object", "additionalProperties": false,
-      "required": ["profile_version", "required_check_types", "gold_set_required"],
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "profile_version",
+        "required_check_types",
+        "gold_set_required"
+      ],
       "properties": {
         "profile_version": { "$ref": "#/$defs/semver" },
         "required_check_types": { "$ref": "#/$defs/stringSet" },
@@ -168,8 +255,13 @@
       }
     },
     "review_policy": {
-      "type": "object", "additionalProperties": false,
-      "required": ["policy_version", "required_capabilities", "independence_required"],
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "policy_version",
+        "required_capabilities",
+        "independence_required"
+      ],
       "properties": {
         "policy_version": { "$ref": "#/$defs/semver" },
         "required_capabilities": { "$ref": "#/$defs/stringSet" },
@@ -178,12 +270,29 @@
       }
     },
     "release_gates": {
-      "type": "array", "minItems": 1, "uniqueItems": true,
-      "items": { "enum": ["source", "rights", "content_clearance", "grading_calibration", "security_privacy", "release_approval"] }
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "source",
+          "rights",
+          "content_clearance",
+          "grading_calibration",
+          "security_privacy",
+          "release_approval"
+        ]
+      }
     },
     "provenance": {
-      "type": "object", "additionalProperties": false,
-      "required": ["fact_pack_version", "authoring_prompt_version", "generated_by", "generated_at"],
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "fact_pack_version",
+        "authoring_prompt_version",
+        "generated_by",
+        "generated_at"
+      ],
       "properties": {
         "fact_pack_version": { "$ref": "#/$defs/nonempty" },
         "authoring_prompt_version": { "$ref": "#/$defs/nonempty" },
@@ -193,10 +302,13 @@
       }
     },
     "supersession": {
-      "type": "object", "additionalProperties": false,
+      "type": "object",
+      "additionalProperties": false,
       "required": ["strategy"],
       "properties": {
-        "strategy": { "enum": ["none", "preserve-prior-pack", "retire-prior-pack"] },
+        "strategy": {
+          "enum": ["none", "preserve-prior-pack", "retire-prior-pack"]
+        },
         "prior_exam_pack_version_ref": { "type": "string" },
         "retire_content_keys": { "$ref": "#/$defs/stringSet" },
         "remap_manifest_ref": { "type": "string" }
@@ -205,12 +317,16 @@
   },
   "allOf": [
     {
-      "if": { "properties": { "operation": { "const": "create-exam-pack-version" } } },
+      "if": {
+        "properties": { "operation": { "const": "create-exam-pack-version" } }
+      },
       "then": {
         "properties": {
           "subject": {
             "type": "object",
-            "properties": { "existing_subject_key": { "$ref": "#/$defs/slug" } },
+            "properties": {
+              "existing_subject_key": { "$ref": "#/$defs/slug" }
+            },
             "required": ["existing_subject_key"]
           }
         }
@@ -225,7 +341,26 @@
     "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
     "proportion": { "type": "number", "minimum": 0, "maximum": 1 },
     "itemType": { "enum": ["mcq", "frq", "quantitative"] },
-    "modalities": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "enum": ["choice", "typed-text", "typed-math", "table", "graph", "drawing", "file-upload"] } },
-    "stringSet": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/nonempty" } }
+    "modalities": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "choice",
+          "typed-text",
+          "typed-math",
+          "table",
+          "graph",
+          "drawing",
+          "file-upload"
+        ]
+      }
+    },
+    "stringSet": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/nonempty" }
+    }
   }
 }

@@ -8,7 +8,7 @@
     "existing_subject_key": "ap-statistics"
   },
   "exam_pack": {
-    "exam_code": "AP-STAT",
+    "exam_code": "ap_statistics",
     "exam_name": "AP Statistics",
     "school_year": "2026-27",
     "official_exam_date": "2027-05-01",
@@ -31,74 +31,220 @@
     "scheme_key": "ap-statistics-fall-2026",
     "scheme_version": "1.0.0",
     "nodes": [
-      {"node_key":"unit-1","node_type":"unit","label":"Exploring One-Variable Data and Collecting Data","ordinal":1,"source_refs":["college-board-ap-statistics-ced-fall-2026"]},
-      {"node_key":"unit-2","node_type":"unit","label":"Probability, Random Variables, and Probability Distributions","ordinal":2,"source_refs":["college-board-ap-statistics-ced-fall-2026"]},
-      {"node_key":"unit-3","node_type":"unit","label":"Inference for Categorical Data: Proportions","ordinal":3,"source_refs":["college-board-ap-statistics-ced-fall-2026"]},
-      {"node_key":"unit-4","node_type":"unit","label":"Inference for Quantitative Data: Means","ordinal":4,"source_refs":["college-board-ap-statistics-ced-fall-2026"]},
-      {"node_key":"unit-5","node_type":"unit","label":"Regression Analysis","ordinal":5,"source_refs":["college-board-ap-statistics-ced-fall-2026"]},
-      {"node_key":"practice-1","node_type":"practice","label":"Formulate Questions","ordinal":1,"source_refs":["college-board-ap-statistics-ced-fall-2026"]},
-      {"node_key":"practice-2","node_type":"practice","label":"Collect Data","ordinal":2,"source_refs":["college-board-ap-statistics-ced-fall-2026"]},
-      {"node_key":"practice-3","node_type":"practice","label":"Analyze Data","ordinal":3,"source_refs":["college-board-ap-statistics-ced-fall-2026"]},
-      {"node_key":"practice-4","node_type":"practice","label":"Interpret Results","ordinal":4,"source_refs":["college-board-ap-statistics-ced-fall-2026"]}
+      {
+        "node_key": "unit-1",
+        "node_type": "unit",
+        "label": "Exploring One-Variable Data and Collecting Data",
+        "ordinal": 1,
+        "source_refs": ["college-board-ap-statistics-ced-fall-2026"]
+      },
+      {
+        "node_key": "unit-2",
+        "node_type": "unit",
+        "label": "Probability, Random Variables, and Probability Distributions",
+        "ordinal": 2,
+        "source_refs": ["college-board-ap-statistics-ced-fall-2026"]
+      },
+      {
+        "node_key": "unit-3",
+        "node_type": "unit",
+        "label": "Inference for Categorical Data: Proportions",
+        "ordinal": 3,
+        "source_refs": ["college-board-ap-statistics-ced-fall-2026"]
+      },
+      {
+        "node_key": "unit-4",
+        "node_type": "unit",
+        "label": "Inference for Quantitative Data: Means",
+        "ordinal": 4,
+        "source_refs": ["college-board-ap-statistics-ced-fall-2026"]
+      },
+      {
+        "node_key": "unit-5",
+        "node_type": "unit",
+        "label": "Regression Analysis",
+        "ordinal": 5,
+        "source_refs": ["college-board-ap-statistics-ced-fall-2026"]
+      },
+      {
+        "node_key": "practice-1",
+        "node_type": "practice",
+        "label": "Formulate Questions",
+        "ordinal": 1,
+        "source_refs": ["college-board-ap-statistics-ced-fall-2026"]
+      },
+      {
+        "node_key": "practice-2",
+        "node_type": "practice",
+        "label": "Collect Data",
+        "ordinal": 2,
+        "source_refs": ["college-board-ap-statistics-ced-fall-2026"]
+      },
+      {
+        "node_key": "practice-3",
+        "node_type": "practice",
+        "label": "Analyze Data",
+        "ordinal": 3,
+        "source_refs": ["college-board-ap-statistics-ced-fall-2026"]
+      },
+      {
+        "node_key": "practice-4",
+        "node_type": "practice",
+        "label": "Interpret Results",
+        "ordinal": 4,
+        "source_refs": ["college-board-ap-statistics-ced-fall-2026"]
+      }
     ]
   },
   "blueprint": {
     "sections": [
-      {"section_key":"multiple-choice","duration_minutes":90,"score_weight":0.5,"item_count":42,"item_types":["mcq"],"notes":"Four-option items; includes two three-question sets."},
-      {"section_key":"free-response","duration_minutes":90,"score_weight":0.5,"item_count":4,"item_types":["frq"],"notes":"Four 10-point questions."}
+      {
+        "section_key": "multiple-choice",
+        "duration_minutes": 90,
+        "score_weight": 0.5,
+        "item_count": 42,
+        "item_types": ["mcq"],
+        "notes": "Four-option items; includes two three-question sets."
+      },
+      {
+        "section_key": "free-response",
+        "duration_minutes": 90,
+        "score_weight": 0.5,
+        "item_count": 4,
+        "item_types": ["frq"],
+        "notes": "Four 10-point questions."
+      }
     ],
     "taxonomy_weights": [
-      {"taxonomy_node_key":"unit-1","minimum":0,"maximum":1},
-      {"taxonomy_node_key":"unit-2","minimum":0,"maximum":1},
-      {"taxonomy_node_key":"unit-3","minimum":0,"maximum":1},
-      {"taxonomy_node_key":"unit-4","minimum":0,"maximum":1},
-      {"taxonomy_node_key":"unit-5","minimum":0,"maximum":1}
+      { "taxonomy_node_key": "unit-1", "minimum": 0, "maximum": 1 },
+      { "taxonomy_node_key": "unit-2", "minimum": 0, "maximum": 1 },
+      { "taxonomy_node_key": "unit-3", "minimum": 0, "maximum": 1 },
+      { "taxonomy_node_key": "unit-4", "minimum": 0, "maximum": 1 },
+      { "taxonomy_node_key": "unit-5", "minimum": 0, "maximum": 1 }
     ]
   },
   "archetypes": [
-    {"archetype_key":"frq-practices-1-2","version":"1.0.0","item_type":"frq","total_points":10,"practice_refs":["practice-1","practice-2"],"response_modalities":["typed-text"]},
-    {"archetype_key":"frq-practices-3-4","version":"1.0.0","item_type":"frq","total_points":10,"practice_refs":["practice-3","practice-4"],"response_modalities":["typed-text","typed-math"]},
-    {"archetype_key":"frq-inference","version":"1.0.0","item_type":"frq","total_points":10,"practice_refs":["practice-3","practice-4"],"response_modalities":["typed-text","typed-math"]},
-    {"archetype_key":"frq-multifocus-2-3-4","version":"1.0.0","item_type":"frq","total_points":10,"practice_refs":["practice-2","practice-3","practice-4"],"response_modalities":["typed-text","typed-math","table"]},
-    {"archetype_key":"mcq-four-option","version":"1.0.0","item_type":"mcq","total_points":1,"practice_refs":["practice-1"],"response_modalities":["choice"]}
+    {
+      "archetype_key": "frq-practices-1-2",
+      "version": "1.0.0",
+      "item_type": "frq",
+      "total_points": 10,
+      "practice_refs": ["practice-1", "practice-2"],
+      "response_modalities": ["typed-text"]
+    },
+    {
+      "archetype_key": "frq-practices-3-4",
+      "version": "1.0.0",
+      "item_type": "frq",
+      "total_points": 10,
+      "practice_refs": ["practice-3", "practice-4"],
+      "response_modalities": ["typed-text", "typed-math"]
+    },
+    {
+      "archetype_key": "frq-inference",
+      "version": "1.0.0",
+      "item_type": "frq",
+      "total_points": 10,
+      "practice_refs": ["practice-3", "practice-4"],
+      "response_modalities": ["typed-text", "typed-math"]
+    },
+    {
+      "archetype_key": "frq-multifocus-2-3-4",
+      "version": "1.0.0",
+      "item_type": "frq",
+      "total_points": 10,
+      "practice_refs": ["practice-2", "practice-3", "practice-4"],
+      "response_modalities": ["typed-text", "typed-math", "table"]
+    },
+    {
+      "archetype_key": "mcq-four-option",
+      "version": "1.0.0",
+      "item_type": "mcq",
+      "total_points": 1,
+      "practice_refs": ["practice-1"],
+      "response_modalities": ["choice"]
+    }
   ],
   "capabilities": {
-    "required_renderers": ["markdown","math","table"],
-    "required_response_modalities": ["choice","typed-text","typed-math","table"],
-    "required_graders": ["mcq-key","statistics-frq-rubric"],
-    "calculator_modes": ["desmos-built-in","approved-handheld"]
+    "required_renderers": ["markdown", "math", "table"],
+    "required_response_modalities": [
+      "choice",
+      "typed-text",
+      "typed-math",
+      "table"
+    ],
+    "required_graders": ["mcq-key", "statistics-frq-rubric"],
+    "calculator_modes": ["desmos-built-in", "approved-handheld"]
   },
-  "inventory": {"targets":[
-    {"item_type":"mcq","archetype_key":"mcq-four-option","target_count":42},
-    {"item_type":"frq","archetype_key":"frq-practices-1-2","target_count":1},
-    {"item_type":"frq","archetype_key":"frq-practices-3-4","target_count":1},
-    {"item_type":"frq","archetype_key":"frq-inference","target_count":1},
-    {"item_type":"frq","archetype_key":"frq-multifocus-2-3-4","target_count":1}
-  ]},
+  "inventory": {
+    "targets": [
+      {
+        "item_type": "mcq",
+        "archetype_key": "mcq-four-option",
+        "target_count": 42
+      },
+      {
+        "item_type": "frq",
+        "archetype_key": "frq-practices-1-2",
+        "target_count": 1
+      },
+      {
+        "item_type": "frq",
+        "archetype_key": "frq-practices-3-4",
+        "target_count": 1
+      },
+      {
+        "item_type": "frq",
+        "archetype_key": "frq-inference",
+        "target_count": 1
+      },
+      {
+        "item_type": "frq",
+        "archetype_key": "frq-multifocus-2-3-4",
+        "target_count": 1
+      }
+    ]
+  },
   "verification": {
-    "profile_version":"1.0.0",
-    "required_check_types":["schema","statistical-correctness","answer-rubric-consistency","grading-calibration","security-privacy"],
-    "gold_set_required":true,
-    "minimum_gold_items":1,
-    "calibration_notes":"Non-waivable before publication."
+    "profile_version": "1.0.0",
+    "required_check_types": [
+      "schema",
+      "statistical-correctness",
+      "answer-rubric-consistency",
+      "grading-calibration",
+      "security-privacy"
+    ],
+    "gold_set_required": true,
+    "minimum_gold_items": 1,
+    "calibration_notes": "Non-waivable before publication."
   },
   "review_policy": {
-    "policy_version":"1.0.0",
-    "required_capabilities":["ap-statistics-subject-matter","assessment-review"],
-    "independence_required":true,
-    "minimum_reviewers":1
+    "policy_version": "1.0.0",
+    "required_capabilities": [
+      "ap-statistics-subject-matter",
+      "assessment-review"
+    ],
+    "independence_required": true,
+    "minimum_reviewers": 1
   },
-  "release_gates":["source","rights","content_clearance","grading_calibration","security_privacy","release_approval"],
+  "release_gates": [
+    "source",
+    "rights",
+    "content_clearance",
+    "grading_calibration",
+    "security_privacy",
+    "release_approval"
+  ],
   "provenance": {
-    "fact_pack_version":"AP_STATISTICS_2027_CED_FACT_PACK@2026-07-13",
-    "authoring_prompt_version":"CLAUDE_AP_STATISTICS_REBUILD@2026-07-13",
-    "generated_by":"Claude",
-    "generated_at":"2026-07-13T12:00:00Z"
+    "fact_pack_version": "AP_STATISTICS_2027_CED_FACT_PACK@2026-07-13",
+    "authoring_prompt_version": "CLAUDE_AP_STATISTICS_REBUILD@2026-07-13",
+    "generated_by": "Claude",
+    "generated_at": "2026-07-13T12:00:00Z"
   },
   "supersession": {
-    "strategy":"preserve-prior-pack",
-    "prior_exam_pack_version_ref":"AP-STAT/2025-26",
-    "retire_content_keys":[],
-    "remap_manifest_ref":"ap-statistics-2026-27-remap-v1"
+    "strategy": "preserve-prior-pack",
+    "prior_exam_pack_version_ref": "ap_statistics/2025-26",
+    "retire_content_keys": [],
+    "remap_manifest_ref": "ap-statistics-2026-27-remap-v1"
   }
 }

@@ -1,10 +1,77 @@
 {
-  "schema_version":"1.0.0","package_id":"ap-statistics-q3-fixture","content_key":"ap-statistics-q3-fixture","content_version":1,
-  "exam_pack_ref":{"exam_code":"AP-STAT","school_year":"2026-27","exam_pack_version":"1.0.0"},
-  "item_type":"frq","archetype_ref":{"archetype_key":"frq-inference","version":"1.0.0"},
-  "taxonomy_refs":[{"scheme_key":"ap-statistics-fall-2026","scheme_version":"1.0.0","node_key":"unit-3"},{"scheme_key":"ap-statistics-fall-2026","scheme_version":"1.0.0","node_key":"practice-4"}],
-  "stimuli":[{"stimulus_key":"sample-result","ordinal":1,"kind":"text","payload":{"text":"A random sample produced 48 successes in 80 trials."}}],
-  "parts":[{"part_key":"part-a","ordinal":1,"prompt":"Conduct an appropriate inference procedure and state the conclusion in context.","stimulus_refs":["sample-result"],"response_modalities":["typed-text","typed-math"],"points":10,"criteria":[{"criterion_key":"inference","points":10,"description":"Procedure, conditions, calculations, and conclusion are valid.","required_evidence":["procedure","conditions","calculation","conclusion"],"deterministic_checks":[{"check_type":"numeric-tolerance","parameters":{"absolute":0.01}}]}]}],
-  "accessibility":{"language":"en-US","screen_reader_review_required":true,"accommodation_notes":"Text-only fixture."},
-  "provenance":{"source_refs":["college-board-ap-statistics-ced-fall-2026"],"fact_pack_version":"AP_STATISTICS_2027_CED_FACT_PACK@2026-07-13","authoring_prompt_version":"fixture-v1","generated_by":"Codex fixture","generated_at":"2026-07-13T12:00:00Z","content_sha256":"3333333333333333333333333333333333333333333333333333333333333333"}
+  "schema_version": "1.0.0",
+  "package_id": "ap-statistics-q3-fixture",
+  "content_key": "ap-statistics-q3-fixture",
+  "content_version": 1,
+  "exam_pack_ref": {
+    "exam_code": "ap_statistics",
+    "school_year": "2026-27",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "frq",
+  "archetype_ref": { "archetype_key": "frq-inference", "version": "1.0.0" },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-statistics-fall-2026",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-3"
+    },
+    {
+      "scheme_key": "ap-statistics-fall-2026",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-4"
+    }
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "sample-result",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "A random sample produced 48 successes in 80 trials."
+      }
+    }
+  ],
+  "parts": [
+    {
+      "part_key": "part-a",
+      "ordinal": 1,
+      "prompt": "Conduct an appropriate inference procedure and state the conclusion in context.",
+      "stimulus_refs": ["sample-result"],
+      "response_modalities": ["typed-text", "typed-math"],
+      "points": 10,
+      "criteria": [
+        {
+          "criterion_key": "inference",
+          "points": 10,
+          "description": "Procedure, conditions, calculations, and conclusion are valid.",
+          "required_evidence": [
+            "procedure",
+            "conditions",
+            "calculation",
+            "conclusion"
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "numeric-tolerance",
+              "parameters": { "absolute": 0.01 }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en-US",
+    "screen_reader_review_required": true,
+    "accommodation_notes": "Text-only fixture."
+  },
+  "provenance": {
+    "source_refs": ["college-board-ap-statistics-ced-fall-2026"],
+    "fact_pack_version": "AP_STATISTICS_2027_CED_FACT_PACK@2026-07-13",
+    "authoring_prompt_version": "fixture-v1",
+    "generated_by": "Codex fixture",
+    "generated_at": "2026-07-13T12:00:00Z",
+    "content_sha256": "9b04a60c650c0d26a6959d0b27106cf5f7a6d7238cbfd1d211aef7ddd470e396"
+  }
 }

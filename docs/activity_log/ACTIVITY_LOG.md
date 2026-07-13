@@ -6,7 +6,8 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
-- AP Statistics Vertical-Slice G3V Re-QA: Q1/Q3 Pass; Q4 Rubric Boundary Still Blocks — 2026-07-13
+- TASK-0017 H1–H5 Repository Harness Implemented and Locally Verified — 2026-07-13
+- AP Statistics Vertical-Slice G3V Re-QA: Q1/Q3/Q4 Pass — 2026-07-13
 - TASK-0017 Post-Approval P0 Re-Verification + TASK-0009 Fast-Track Slices; AP Statistics G3V Failed 3 FRQs — 2026-07-13
 - TASK-0017 Subject-Onboarding Harness Opened; Publication-Trust P0 Found in admin-content — 2026-07-13
 - AP Statistics 2026-27 CED Change Assessed; Multi-Model Content Rebuild Orchestration Designed — 2026-07-13
@@ -29,6 +30,19 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 ---
+
+## TASK-0017 H1–H5 Repository Harness Implemented and Locally Verified — 2026-07-13
+
+**Task:** TASK-0017 — Reusable Subject-Onboarding Harness
+**Status:** Ready for Review; repository/local implementation green; Dev/Production untouched.
+
+**Summary:** After Product Owner clarification under DECISION-0040, implemented additive H1/H2 persistence, the deterministic plan/apply compiler, and H3–H5 capability, validation, eligibility, manifest-relation, and content-clearance-exception layers. The first independent QA correctly failed the draft on trust-boundary and evidence-model gaps. Those blockers were remediated: canonical payload and parent-manifest immutability; typed validation target/invalidation checks; immutable suite meaning; policy/pack-scoped typed reviewer evidence, revocations, persisted reviewer/team eligibility; item-derived capability and deterministic-contract checks at compiler and DB boundaries; authoritative environment approval records; policy-conflict detection; and advisory-lock/unique-key concurrency control. Canonical questions remain `content_items` / `content_item_versions`; no parallel `artifact_versions` question record was introduced.
+
+**Local evidence:** PostgreSQL 17.10 clean-stack execution on disposable port 55443 passed P0 rollback/exact-version tests after H1–H5. AP Statistics preserved a seeded prior nine-unit taxonomy and persisted the five-unit/four-practice scheme plus Q1–Q4. Bio/current-Stats golden snapshots were stable. Chemistry scaffold reconciliation published no content. The true-create fixture rolled back completely. Canonical-plan/item tampering, unsupported item modalities, changed same-semver policies, arbitrary Dev approval strings, invalidated validation evidence, and revoked reviewer/clearance evidence failed closed. A real two-session conflicting apply produced exactly one winner. Idempotent Stats reapply remained one application/four item applications. Privilege/RLS/plugin audits were green; hosted PostgREST exposed-schema verification remains a required Dev preflight.
+
+**Evidence:** `docs/architecture/TASK0017_H1_H5_PHYSICAL_DESIGN_2026_07_13.md`; `docs/qa/TASK0017_H1_H5_LOCAL_EVIDENCE_2026_07_13.md`.
+
+**Next Required Action:** Fresh independent re-QA against the frozen remediation commit, followed by a Product Owner Hard-Gate decision for any target environment. Do not apply to Dev without a separate authoritative approval record/ID and proof that `app` is not Data API-exposed; Production remains distinct.
 
 ## AP Statistics Vertical-Slice G3V Re-QA: Q1/Q3/Q4 Pass — 2026-07-13
 

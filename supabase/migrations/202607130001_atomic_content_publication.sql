@@ -39,6 +39,31 @@ begin
 end;
 $$;
 
+-- H5 replaces this fail-closed stub after the immutable exception schema is
+-- installed. Keeping the resolver boundary in P0 avoids any migration-order
+-- dependency while ensuring no exception can be inferred before H5 exists.
+create or replace function app.has_active_content_clearance_exception(
+  p_content_item_version_id uuid
+) returns boolean
+language sql stable security invoker set search_path = ''
+as $$ select false; $$;
+
+-- H3 replaces this compatibility resolver with the typed registry version.
+create or replace function app.validation_run_is_current(
+  p_run_id uuid, p_content_item_version_id uuid, p_gate_category text default null
+) returns boolean
+language sql stable security invoker set search_path = '' as $$
+  select exists (
+    select 1 from app.validation_runs vr
+    join app.validation_suites vs on vs.suite_version_id=vr.suite_version_id
+    where vr.run_id=p_run_id and vr.status='passed' and vr.completed_at is not null
+      and vr.target_version_ids @> array[p_content_item_version_id]
+      and (p_gate_category is null or
+        (p_gate_category='grading_calibration' and vs.suite_type in ('grading','calibration')) or
+        (p_gate_category='security_privacy' and vs.suite_type in ('security','privacy','security_privacy')))
+  );
+$$;
+
 create or replace function app.publish_content_item_version_atomic(p_request jsonb)
 returns jsonb
 language plpgsql
@@ -212,47 +237,26 @@ begin
     raise exception 'publish_content:rights_gate_failed';
   end if;
 
-  if v_review_status is null or v_review_status not in (
+  if (v_review_status is null or v_review_status not in (
     'question_review_approved', 'difficulty_confirmed', 'mcq_answer_review_complete'
-  ) then
+  )) and not app.has_active_content_clearance_exception(v_content_version_id) then
     raise exception 'publish_content:content_clearance_gate_failed';
   end if;
 
   if cardinality(v_validation_run_ids) = 0 or exists (
-    select 1
-    from unnest(v_validation_run_ids) as requested_run(run_id)
-    left join app.validation_runs vr on vr.run_id = requested_run.run_id
-    where vr.run_id is null
-       or vr.status <> 'passed'
-       or vr.completed_at is null
-       or not (vr.target_version_ids @> array[v_content_version_id])
+    select 1 from unnest(v_validation_run_ids) requested_run(run_id)
+    where not app.validation_run_is_current(requested_run.run_id,v_content_version_id,null)
   ) then
     raise exception 'publish_content:validation_evidence_failed';
   end if;
 
-  if not exists (
-    select 1
-    from app.validation_runs vr
-    join app.validation_suites vs on vs.suite_version_id = vr.suite_version_id
-    where vr.run_id = any(v_validation_run_ids)
-      and vr.status = 'passed'
-      and vr.completed_at is not null
-      and vr.target_version_ids @> array[v_content_version_id]
-      and vs.suite_type in ('grading', 'calibration')
-  ) then
+  if not exists (select 1 from unnest(v_validation_run_ids) r(run_id)
+    where app.validation_run_is_current(r.run_id,v_content_version_id,'grading_calibration')) then
     raise exception 'publish_content:grading_gate_failed';
   end if;
 
-  if not exists (
-    select 1
-    from app.validation_runs vr
-    join app.validation_suites vs on vs.suite_version_id = vr.suite_version_id
-    where vr.run_id = any(v_validation_run_ids)
-      and vr.status = 'passed'
-      and vr.completed_at is not null
-      and vr.target_version_ids @> array[v_content_version_id]
-      and vs.suite_type in ('security', 'privacy', 'security_privacy')
-  ) then
+  if not exists (select 1 from unnest(v_validation_run_ids) r(run_id)
+    where app.validation_run_is_current(r.run_id,v_content_version_id,'security_privacy')) then
     raise exception 'publish_content:security_privacy_gate_failed';
   end if;
 
@@ -341,7 +345,7 @@ begin
   where id = v_content_version_id;
 
   update app.content_items
-  set status = 'published', title = coalesce(nullif(p_request->>'title', ''), title)
+  set status = 'published'
   where id = v_content_item_id;
 
   if v_artifact_version_id is not null then
