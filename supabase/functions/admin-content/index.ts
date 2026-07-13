@@ -1,6 +1,7 @@
 import { createServiceClient } from "../_shared/supabase.ts";
 import { jsonResponse, readJsonBody } from "../_shared/http.ts";
 import { requireProfile } from "../_shared/auth.ts";
+import { invokeAtomicPublicationRpc } from "./publication-request.ts";
 
 type AllowedOperation =
   | "create_draft"
@@ -28,6 +29,7 @@ type LegacyCriterion = {
 
 type CompatibilityProjection = {
   exam_pack_version_id?: string;
+  content_item_version_id?: string;
   content_key?: string;
   item_type?: "mcq" | "frq" | "quantitative";
   frq_form?: "short" | "long";
@@ -125,64 +127,6 @@ function canPerformOperation(role: string, operation: AllowedOperation) {
 
   return operation === "create_draft" || operation === "update_draft" ||
     operation === "bulk_import";
-}
-
-function requireGate(
-  value: unknown,
-  fieldName: string,
-  allowedValues: string[],
-) {
-  const gate = asString(value);
-  if (!gate) {
-    throw new Error(`missing_${fieldName}`);
-  }
-  if (!allowedValues.includes(gate)) {
-    throw new Error(`invalid_${fieldName}`);
-  }
-  return gate;
-}
-
-// Publish must fail closed. A gate value the client supplied is not yet a
-// trusted assertion — until we resolve gates from validation_runs /
-// review_decisions server-side, we at minimum require that the client say
-// every gate already passed (or, where allowed, is explicitly not applicable).
-//
-// TODO(task-0012-trusted-gates): replace this with a server-side resolution
-// pass that reads validation_runs, review_decisions, and rights_records for
-// the artifact_version_id and rejects publish unless those records show the
-// gate as passed. This stub keeps publish fail-closed against client-asserted
-// "pending" or "failed" values, but does not yet defend against a client
-// asserting "passed" when no validator actually approved.
-function enforceGatePolicy(gates: {
-  source_gate: string;
-  rights_gate: string;
-  teaching_gate: string;
-  grading_gate: string;
-  security_privacy_gate: string;
-  release_gate: string;
-}) {
-  const mustPass: Array<keyof typeof gates> = [
-    "source_gate",
-    "rights_gate",
-    "release_gate",
-  ];
-  for (const field of mustPass) {
-    if (gates[field] !== "passed") {
-      throw new Error(`gate_not_passed_${field}`);
-    }
-  }
-
-  const mayBeNotApplicable: Array<keyof typeof gates> = [
-    "teaching_gate",
-    "grading_gate",
-    "security_privacy_gate",
-  ];
-  for (const field of mayBeNotApplicable) {
-    const value = gates[field];
-    if (value !== "passed" && value !== "not_applicable") {
-      throw new Error(`gate_not_passed_${field}`);
-    }
-  }
 }
 
 async function nextArtifactVersionSequence(
@@ -283,7 +227,6 @@ async function ensureLegacyProjection(
       explanation: payload.explanation ?? null,
       help_text: payload.help_text ?? null,
       content_hash: payloadHash,
-      canonical_answer: payload.canonical_answer ?? null,
       status,
       published_at: status === "published" ? new Date().toISOString() : null,
       created_by: createdBy,
@@ -605,6 +548,42 @@ async function changeArtifactState(
     throw new Error("artifact_not_found");
   }
 
+  // Publication is intentionally a single database call. The RPC resolves
+  // every gate from stored evidence, locks and activates the exact canonical
+  // content_item_versions.id, and writes release/manifest/publication records
+  // in the same transaction. No serving state is changed before this call.
+  if (targetState === "published") {
+    const releaseCandidate = asRecord(body.release_candidate);
+    const manifest = asRecord(body.manifest);
+    const contentItemVersionId = asString(body.content_item_version_id) ??
+      asString(compatibility?.content_item_version_id);
+
+    if (!releaseCandidate || !manifest) {
+      throw new Error("missing_release_manifest");
+    }
+    if (!contentItemVersionId) {
+      throw new Error("missing_content_item_version_id");
+    }
+    if (!compatibility?.exam_pack_version_id || !compatibility.content_key) {
+      throw new Error("missing_compatibility_projection");
+    }
+
+    const { data, error } = await invokeAtomicPublicationRpc(service, {
+      body,
+      profileId,
+      artifactVersionId: currentVersionId,
+      contentItemVersionId,
+      compatibility,
+      reasonCode,
+    });
+
+    if (error || !data) {
+      throw new Error("publication_transaction_failed");
+    }
+
+    return data as Record<string, unknown>;
+  }
+
   const { data: currentState } = await service.schema("app").rpc(
     "project_artifact_state",
     {
@@ -638,7 +617,7 @@ async function changeArtifactState(
 
     if (legacyItem?.id) {
       await service.schema("app").from("content_items").update({
-        status: targetState === "published" ? "published" : "retired",
+        status: "retired",
         title: compatibility.title ?? undefined,
       }).eq("id", legacyItem.id);
 
@@ -652,151 +631,9 @@ async function changeArtifactState(
 
       if (latestVersion?.id) {
         await service.schema("app").from("content_item_versions").update({
-          status: targetState === "published" ? "published" : "retired",
-          published_at: targetState === "published"
-            ? new Date().toISOString()
-            : null,
+          status: "retired",
+          published_at: null,
         }).eq("id", latestVersion.id);
-      }
-    }
-  }
-
-  if (targetState === "published") {
-    const releaseCandidate = asRecord(body.release_candidate);
-    const manifest = asRecord(body.manifest);
-    if (!releaseCandidate || !manifest) {
-      throw new Error("missing_release_manifest");
-    }
-
-    {
-      const releaseClass = asString(releaseCandidate.release_class) ?? "minor";
-      if (!["patch", "minor", "major", "emergency"].includes(releaseClass)) {
-        throw new Error("invalid_release_class");
-      }
-
-      const sourceGate = requireGate(
-        releaseCandidate.source_gate,
-        "source_gate",
-        ["pending", "passed", "failed"],
-      );
-      const rightsGate = requireGate(
-        releaseCandidate.rights_gate,
-        "rights_gate",
-        ["pending", "passed", "failed"],
-      );
-      const teachingGate = requireGate(
-        releaseCandidate.teaching_gate,
-        "teaching_gate",
-        ["pending", "passed", "failed", "not_applicable"],
-      );
-      const gradingGate = requireGate(
-        releaseCandidate.grading_gate,
-        "grading_gate",
-        ["pending", "passed", "failed", "not_applicable"],
-      );
-      const securityPrivacyGate = requireGate(
-        releaseCandidate.security_privacy_gate,
-        "security_privacy_gate",
-        ["pending", "passed", "failed", "not_applicable"],
-      );
-      const releaseGate = requireGate(
-        releaseCandidate.release_gate,
-        "release_gate",
-        ["pending", "passed", "failed"],
-      );
-
-      enforceGatePolicy({
-        source_gate: sourceGate,
-        rights_gate: rightsGate,
-        teaching_gate: teachingGate,
-        grading_gate: gradingGate,
-        security_privacy_gate: securityPrivacyGate,
-        release_gate: releaseGate,
-      });
-
-      const { data: releaseRow, error: releaseError } = await service.schema(
-        "app",
-      )
-        .from("release_candidates")
-        .insert({
-          exam_id: releaseCandidate.exam_id ?? body.exam_id ?? null,
-          school_year: asString(releaseCandidate.school_year) ??
-            asString(body.school_year) ?? "unknown",
-          proposed_version: asString(releaseCandidate.proposed_version) ??
-            "1.0.0",
-          release_class: releaseClass,
-          source_gate: sourceGate,
-          rights_gate: rightsGate,
-          teaching_gate: teachingGate,
-          grading_gate: gradingGate,
-          security_privacy_gate: securityPrivacyGate,
-          release_gate: releaseGate,
-          blocking_findings: releaseCandidate.blocking_findings ?? [],
-          created_by: profileId,
-        })
-        .select("release_candidate_id")
-        .maybeSingle();
-
-      if (releaseError) {
-        throw new Error("release_candidate_insert_failed");
-      }
-
-      if (releaseRow) {
-        const { data: manifestRow, error: manifestError } = await service
-          .schema("app")
-          .from("exam_pack_manifests")
-          .insert({
-            exam_id: manifest.exam_id ?? body.exam_id ?? null,
-            school_year: asString(manifest.school_year) ??
-              asString(body.school_year) ?? "unknown",
-            exam_pack_version: asString(manifest.exam_pack_version) ?? "1.0.0",
-            artifact_version_ids: manifest.artifact_version_ids ??
-              [currentVersionId],
-            source_version_ids: manifest.source_version_ids ?? [],
-            rights_record_ids: manifest.rights_record_ids ?? [],
-            validator_policy_version_id: manifest.validator_policy_version_id ??
-              crypto.randomUUID(),
-            teaching_policy_version_id: manifest.teaching_policy_version_id ??
-              crypto.randomUUID(),
-            grading_policy_version_id: manifest.grading_policy_version_id ??
-              crypto.randomUUID(),
-            prompt_version_ids: manifest.prompt_version_ids ?? [],
-            model_configuration_version_ids:
-              manifest.model_configuration_version_ids ?? [],
-            validation_run_ids: manifest.validation_run_ids ?? [],
-            qualification_rule_version_ids:
-              manifest.qualification_rule_version_ids ?? [],
-            manifest_sha256: asString(manifest.manifest_sha256) ??
-              await sha256Hex(JSON.stringify(manifest)),
-            created_by: profileId,
-          })
-          .select("manifest_id")
-          .maybeSingle();
-
-        if (manifestError) {
-          throw new Error("manifest_insert_failed");
-        }
-
-        if (manifestRow) {
-          const { error: publicationError } = await service.schema("app").from(
-            "publication_events",
-          ).insert({
-            release_candidate_id: releaseRow.release_candidate_id,
-            manifest_id: manifestRow.manifest_id,
-            environment: asString(body.environment) ?? "production",
-            action: "publish",
-            approved_by: body.approved_by ?? [profileId],
-            executed_by: profileId,
-            transaction_id: asString(body.transaction_id) ??
-              crypto.randomUUID(),
-            smoke_test_run_id: body.smoke_test_run_id ?? null,
-            outcome: "succeeded",
-            created_by: profileId,
-          });
-          if (publicationError) {
-            throw new Error("publication_event_insert_failed");
-          }
-        }
       }
     }
   }
@@ -989,6 +826,18 @@ Deno.serve(async (req) => {
       "artifact_not_found",
       "artifact_sequence_reservation_failed",
       "missing_release_manifest",
+      "missing_content_item_version_id",
+      "missing_compatibility_projection",
+      "missing_source_version_ids",
+      "missing_rights_record_ids",
+      "missing_grading_calibration_validation_run_ids",
+      "missing_security_privacy_validation_run_ids",
+      "missing_validator_policy_version_id",
+      "missing_teaching_policy_version_id",
+      "missing_grading_policy_version_id",
+      "missing_approved_by",
+      "missing_school_year",
+      "duplicate_validation_run_id_across_gate_categories",
       "invalid_release_class",
       "missing_source_gate",
       "missing_rights_gate",

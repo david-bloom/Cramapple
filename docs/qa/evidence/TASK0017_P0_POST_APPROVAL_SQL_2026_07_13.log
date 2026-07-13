@@ -1,0 +1,80 @@
+TASK-0017 P0 post-approval local verification
+Date: 2026-07-13
+Scope: disposable local PostgreSQL only
+Cluster: /tmp/task0017-postapproval.Qg6XqO
+Database: task0017
+Server: PostgreSQL 17.10 (Homebrew)
+
+Command:
+/usr/local/opt/postgresql@17/bin/psql \
+  -h /tmp/task0017-postapproval.Qg6XqO -p 55433 -d task0017 \
+  -v ON_ERROR_STOP=1 \
+  -f supabase/tests/task0017_p0_test_schema.sql \
+  -f supabase/migrations/202607130001_atomic_content_publication.sql \
+  -f supabase/tests/task0017_atomic_publication_regression.sql \
+  -f supabase/tests/task0017_exact_version_publication.sql
+
+Output:
+CREATE SCHEMA
+CREATE EXTENSION
+CREATE SCHEMA
+DO
+CREATE TABLE
+INSERT 0 1
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE INDEX
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE FUNCTION
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+GRANT
+GRANT
+BEGIN
+CREATE SCHEMA
+NOTICE: schema "extensions" already exists, skipping
+DO
+CREATE FUNCTION
+REVOKE
+REVOKE
+REVOKE
+GRANT
+COMMIT
+BEGIN
+DO
+ROLLBACK
+BEGIN
+DO
+ROLLBACK
+
+Exit code: 0
+
+Interpretation:
+- AC#1 passed: deliberately late artifact failure was caught; the transaction
+  block asserted the content item/version stayed draft and release candidate,
+  manifest, and publication row counts did not change.
+- AC#2 passed: exact requested version 2 published, prior version 1 retired,
+  newer unapproved version 3 stayed draft, and the manifest pinned version 2.
+- AC#2 also recomputed and matched the canonical manifest content/relation hash.
+- The fixture deliberately installed pgcrypto in public. The migration moved
+  it to extensions before compiling/calling extensions.digest.
+
+Explicit extension and privilege query output:
+
+  server_version  | pgcrypto_schema |       digest_signature
+------------------+-----------------+------------------------------
+ 17.10 (Homebrew) | extensions      | extensions.digest(text,text)
+(1 row)
+
+ anon_execute | authenticated_execute | service_role_execute
+--------------+-----------------------+----------------------
+ f            | f                     | t
+(1 row)

@@ -1,0 +1,38 @@
+TASK-0017 admin-content -> atomic publication RPC contract verification
+Date: 2026-07-13
+Scope: repository/local test only
+
+Command:
+deno test --allow-env \
+  supabase/functions/admin-content/publication-request_test.ts
+
+Output:
+Check supabase/functions/admin-content/publication-request_test.ts
+running 3 tests from ./supabase/functions/admin-content/publication-request_test.ts
+admin-content invokes RPC with every required exact-version evidence ID ... ok
+admin-content fails closed before RPC when a gate evidence category is absent ... ok
+admin-content defaults approved_by to the authenticated admin ... ok
+
+ok | 3 passed | 0 failed
+
+Exit code: 0
+
+Contract proven:
+- exact content_item_version_id and exam_pack_version_id;
+- non-empty source_version_ids and rights_record_ids;
+- an explicitly categorized grading/calibration run ID;
+- an explicitly categorized security/privacy run ID;
+- the RPC receives their combined validation_run_ids array;
+- approved_by contains the authenticated admin by default;
+- validator, teaching, and grading policy-version IDs are present; and
+- omission of any required evidence category fails before an RPC call.
+
+The SQL RPC independently verifies that every supplied run is passed and targets
+the exact content version, and that the combined evidence contains an actual
+grading/calibration suite and an actual security/privacy suite. The Edge labels
+therefore cannot manufacture eligibility.
+
+Additional command:
+deno check supabase/functions/admin-content/index.ts
+
+Output: success (exit code 0)

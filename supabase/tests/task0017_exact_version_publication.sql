@@ -20,9 +20,13 @@ declare
   v_security_suite_version_id uuid := gen_random_uuid();
   v_grading_run_id uuid := gen_random_uuid();
   v_security_run_id uuid := gen_random_uuid();
+  v_validator_policy_version_id uuid := gen_random_uuid();
+  v_teaching_policy_version_id uuid := gen_random_uuid();
+  v_grading_policy_version_id uuid := gen_random_uuid();
   v_result jsonb;
   v_manifest_id uuid;
   v_release_candidate_id uuid;
+  v_expected_manifest_sha256 text;
 begin
   select user_id into v_actor_id
   from app.profiles
@@ -108,15 +112,41 @@ begin
     'source_version_ids', to_jsonb(array[v_source_version_id]),
     'rights_record_ids', to_jsonb(array[v_rights_record_id]),
     'validation_run_ids', to_jsonb(array[v_grading_run_id, v_security_run_id]),
-    'validator_policy_version_id', gen_random_uuid(),
-    'teaching_policy_version_id', gen_random_uuid(),
-    'grading_policy_version_id', gen_random_uuid(),
+    'validator_policy_version_id', v_validator_policy_version_id,
+    'teaching_policy_version_id', v_teaching_policy_version_id,
+    'grading_policy_version_id', v_grading_policy_version_id,
     'approved_by', to_jsonb(array[v_actor_id]),
     'environment', 'local'
   ));
 
   v_manifest_id := (v_result->>'manifest_id')::uuid;
   v_release_candidate_id := (v_result->>'release_candidate_id')::uuid;
+  v_expected_manifest_sha256 := encode(extensions.digest(
+    jsonb_build_object(
+      'schema_version', '1.0.0',
+      'exam_id', v_exam_id,
+      'school_year', '2098-99',
+      'exam_pack_version', '1.0.0',
+      'content_versions', jsonb_build_array(jsonb_build_object(
+        'ordinal', 1,
+        'content_item_version_id', v_requested_version_id,
+        'content_key_snapshot', 'exact-version',
+        'content_sha256', repeat('2', 64)
+      )),
+      'source_version_ids', to_jsonb(array[v_source_version_id]),
+      'rights_record_ids', to_jsonb(array[v_rights_record_id]),
+      'validator_policy_version_id', v_validator_policy_version_id,
+      'teaching_policy_version_id', v_teaching_policy_version_id,
+      'grading_policy_version_id', v_grading_policy_version_id,
+      'prompt_version_ids', '[]'::jsonb,
+      'model_configuration_version_ids', '[]'::jsonb,
+      'validation_run_ids', to_jsonb(
+        array(select unnest(array[v_grading_run_id, v_security_run_id]) order by 1)
+      ),
+      'qualification_rule_version_ids', '[]'::jsonb
+    )::text,
+    'sha256'::text
+  ), 'hex');
 
   if (v_result->>'content_item_version_id')::uuid <> v_requested_version_id then
     raise exception 'task0017_rpc_returned_wrong_content_version';
@@ -139,6 +169,19 @@ begin
   if (select artifact_version_ids from app.exam_pack_manifests where manifest_id = v_manifest_id)
        <> array[v_requested_version_id] then
     raise exception 'task0017_manifest_did_not_pin_exact_version';
+  end if;
+  if (select manifest_sha256 from app.exam_pack_manifests where manifest_id = v_manifest_id)
+       <> v_expected_manifest_sha256 then
+    raise exception 'task0017_manifest_hash_is_not_canonical';
+  end if;
+  if not exists (
+    select 1
+    from pg_catalog.pg_extension e
+    join pg_catalog.pg_namespace n on n.oid = e.extnamespace
+    where e.extname = 'pgcrypto'
+      and n.nspname = 'extensions'
+  ) or to_regprocedure('extensions.digest(text,text)') is null then
+    raise exception 'task0017_extensions_digest_not_resolved';
   end if;
   if not exists (
     select 1 from app.release_candidates rc

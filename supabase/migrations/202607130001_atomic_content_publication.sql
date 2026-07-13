@@ -4,6 +4,41 @@
 
 begin;
 
+create schema if not exists extensions;
+
+do $$
+declare
+  v_extension_schema text;
+  v_relocatable boolean;
+begin
+  select n.nspname, e.extrelocatable
+  into v_extension_schema, v_relocatable
+  from pg_catalog.pg_extension e
+  join pg_catalog.pg_namespace n on n.oid = e.extnamespace
+  where e.extname = 'pgcrypto';
+
+  if not found then
+    create extension pgcrypto with schema extensions;
+  elsif v_extension_schema <> 'extensions' then
+    if not v_relocatable then
+      raise exception 'publish_content:pgcrypto_not_relocatable_from_%',
+        v_extension_schema;
+    end if;
+    alter extension pgcrypto set schema extensions;
+  end if;
+
+  if not exists (
+    select 1
+    from pg_catalog.pg_proc p
+    join pg_catalog.pg_namespace n on n.oid = p.pronamespace
+    where n.nspname = 'extensions'
+      and p.proname = 'digest'
+  ) then
+    raise exception 'publish_content:extensions_digest_unavailable';
+  end if;
+end;
+$$;
+
 create or replace function app.publish_content_item_version_atomic(p_request jsonb)
 returns jsonb
 language plpgsql
@@ -19,11 +54,21 @@ declare
   v_exam_id uuid;
   v_school_year text;
   v_content_key text;
+  v_content_sha256 text;
   v_review_status text;
   v_source_ids uuid[];
   v_rights_ids uuid[];
   v_validation_run_ids uuid[];
   v_approved_by uuid[];
+  v_prompt_version_ids uuid[];
+  v_model_configuration_version_ids uuid[];
+  v_qualification_rule_version_ids uuid[];
+  v_validator_policy_version_id uuid;
+  v_teaching_policy_version_id uuid;
+  v_grading_policy_version_id uuid;
+  v_exam_pack_version text;
+  v_manifest_payload jsonb;
+  v_manifest_sha256 text;
   v_release_candidate_id uuid := gen_random_uuid();
   v_manifest_id uuid := gen_random_uuid();
   v_prior_state text;
@@ -45,6 +90,7 @@ begin
     civ.content_item_id,
     ci.exam_pack_version_id,
     ci.content_key,
+    civ.content_hash,
     civ.review_status,
     epv.exam_pack_id,
     epv.school_year
@@ -52,6 +98,7 @@ begin
     v_content_item_id,
     v_exam_pack_version_id,
     v_content_key,
+    v_content_sha256,
     v_review_status,
     v_exam_id,
     v_school_year
@@ -81,23 +128,43 @@ begin
     raise exception 'publish_content:release_gate_failed';
   end if;
 
-  select coalesce(array_agg(value::uuid), '{}'::uuid[])
+  select coalesce(array_agg(value::uuid order by value::uuid), '{}'::uuid[])
   into v_source_ids
   from jsonb_array_elements_text(coalesce(p_request->'source_version_ids', '[]'::jsonb));
-  select coalesce(array_agg(value::uuid), '{}'::uuid[])
+  select coalesce(array_agg(value::uuid order by value::uuid), '{}'::uuid[])
   into v_rights_ids
   from jsonb_array_elements_text(coalesce(p_request->'rights_record_ids', '[]'::jsonb));
-  select coalesce(array_agg(value::uuid), '{}'::uuid[])
+  select coalesce(array_agg(value::uuid order by value::uuid), '{}'::uuid[])
   into v_validation_run_ids
   from jsonb_array_elements_text(coalesce(p_request->'validation_run_ids', '[]'::jsonb));
-  select coalesce(array_agg(value::uuid), '{}'::uuid[])
+  select coalesce(array_agg(value::uuid order by value::uuid), '{}'::uuid[])
   into v_approved_by
   from jsonb_array_elements_text(coalesce(p_request->'approved_by', '[]'::jsonb));
+  select coalesce(array_agg(value::uuid order by value::uuid), '{}'::uuid[])
+  into v_prompt_version_ids
+  from jsonb_array_elements_text(coalesce(p_request->'prompt_version_ids', '[]'::jsonb));
+  select coalesce(array_agg(value::uuid order by value::uuid), '{}'::uuid[])
+  into v_model_configuration_version_ids
+  from jsonb_array_elements_text(coalesce(p_request->'model_configuration_version_ids', '[]'::jsonb));
+  select coalesce(array_agg(value::uuid order by value::uuid), '{}'::uuid[])
+  into v_qualification_rule_version_ids
+  from jsonb_array_elements_text(coalesce(p_request->'qualification_rule_version_ids', '[]'::jsonb));
+
+  v_validator_policy_version_id := nullif(p_request->>'validator_policy_version_id', '')::uuid;
+  v_teaching_policy_version_id := nullif(p_request->>'teaching_policy_version_id', '')::uuid;
+  v_grading_policy_version_id := nullif(p_request->>'grading_policy_version_id', '')::uuid;
+  v_exam_pack_version := coalesce(
+    nullif(p_request->>'exam_pack_version', ''),
+    '1.0.0'
+  );
 
   if cardinality(v_source_ids) <> cardinality(array(select distinct unnest(v_source_ids)))
      or cardinality(v_rights_ids) <> cardinality(array(select distinct unnest(v_rights_ids)))
      or cardinality(v_validation_run_ids) <> cardinality(array(select distinct unnest(v_validation_run_ids)))
-     or cardinality(v_approved_by) <> cardinality(array(select distinct unnest(v_approved_by))) then
+     or cardinality(v_approved_by) <> cardinality(array(select distinct unnest(v_approved_by)))
+     or cardinality(v_prompt_version_ids) <> cardinality(array(select distinct unnest(v_prompt_version_ids)))
+     or cardinality(v_model_configuration_version_ids) <> cardinality(array(select distinct unnest(v_model_configuration_version_ids)))
+     or cardinality(v_qualification_rule_version_ids) <> cardinality(array(select distinct unnest(v_qualification_rule_version_ids))) then
     raise exception 'publish_content:duplicate_evidence_identifier';
   end if;
 
@@ -192,11 +259,42 @@ begin
   if not (v_actor_id = any(v_approved_by)) then
     raise exception 'publish_content:release_approval_missing';
   end if;
-  if nullif(p_request->>'validator_policy_version_id', '') is null
-     or nullif(p_request->>'teaching_policy_version_id', '') is null
-     or nullif(p_request->>'grading_policy_version_id', '') is null then
+  if v_validator_policy_version_id is null
+     or v_teaching_policy_version_id is null
+     or v_grading_policy_version_id is null then
     raise exception 'publish_content:policy_version_missing';
   end if;
+
+  -- Canonical manifest hash: deterministic ordered content-relation rows and
+  -- exact evidence/policy version references only. Request/audit metadata such
+  -- as transaction_id, reason_code, title, actor, and environment is excluded.
+  v_manifest_payload := jsonb_build_object(
+    'schema_version', '1.0.0',
+    'exam_id', v_exam_id,
+    'school_year', v_school_year,
+    'exam_pack_version', v_exam_pack_version,
+    'content_versions', jsonb_build_array(jsonb_build_object(
+      'ordinal', 1,
+      'content_item_version_id', v_content_version_id,
+      'content_key_snapshot', v_content_key,
+      'content_sha256', v_content_sha256
+    )),
+    'source_version_ids', to_jsonb(v_source_ids),
+    'rights_record_ids', to_jsonb(v_rights_ids),
+    'validator_policy_version_id', v_validator_policy_version_id,
+    'teaching_policy_version_id', v_teaching_policy_version_id,
+    'grading_policy_version_id', v_grading_policy_version_id,
+    'prompt_version_ids', to_jsonb(v_prompt_version_ids),
+    'model_configuration_version_ids',
+      to_jsonb(v_model_configuration_version_ids),
+    'validation_run_ids', to_jsonb(v_validation_run_ids),
+    'qualification_rule_version_ids',
+      to_jsonb(v_qualification_rule_version_ids)
+  );
+  v_manifest_sha256 := encode(
+    extensions.digest(v_manifest_payload::text, 'sha256'::text),
+    'hex'
+  );
 
   insert into app.release_candidates (
     release_candidate_id, exam_id, school_year, proposed_version,
@@ -220,16 +318,16 @@ begin
     qualification_rule_version_ids, manifest_sha256, created_by
   ) values (
     v_manifest_id, v_exam_id, v_school_year,
-    coalesce(nullif(p_request->>'exam_pack_version', ''), '1.0.0'),
+    v_exam_pack_version,
     array[v_content_version_id], v_source_ids, v_rights_ids,
-    (p_request->>'validator_policy_version_id')::uuid,
-    (p_request->>'teaching_policy_version_id')::uuid,
-    (p_request->>'grading_policy_version_id')::uuid,
-    coalesce((select array_agg(value::uuid) from jsonb_array_elements_text(coalesce(p_request->'prompt_version_ids', '[]'::jsonb))), '{}'::uuid[]),
-    coalesce((select array_agg(value::uuid) from jsonb_array_elements_text(coalesce(p_request->'model_configuration_version_ids', '[]'::jsonb))), '{}'::uuid[]),
+    v_validator_policy_version_id,
+    v_teaching_policy_version_id,
+    v_grading_policy_version_id,
+    v_prompt_version_ids,
+    v_model_configuration_version_ids,
     v_validation_run_ids,
-    coalesce((select array_agg(value::uuid) from jsonb_array_elements_text(coalesce(p_request->'qualification_rule_version_ids', '[]'::jsonb))), '{}'::uuid[]),
-    encode(extensions.digest(p_request::text, 'sha256'::text), 'hex'), v_actor_id
+    v_qualification_rule_version_ids,
+    v_manifest_sha256, v_actor_id
   );
 
   update app.content_item_versions

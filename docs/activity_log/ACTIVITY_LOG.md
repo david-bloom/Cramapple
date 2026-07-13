@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- TASK-0017 Post-Approval P0 Re-Verification + TASK-0009 Fast-Track Slices; AP Statistics G3V Failed 3 FRQs — 2026-07-13
 - TASK-0017 Subject-Onboarding Harness Opened; Publication-Trust P0 Found in admin-content — 2026-07-13
 - AP Statistics 2026-27 CED Change Assessed; Multi-Model Content Rebuild Orchestration Designed — 2026-07-13
 - Tutor Content-Review Pipeline Repaired, Subject Qualifications Added, Grading-Telemetry Auth Bug Found; AP Bio/Stats Draft QA Pass and Fixes — 2026-07-12
@@ -28,21 +29,39 @@ Most recent entries (full reverse-chronological list follows below):
 
 ---
 
+## TASK-0017 Post-Approval P0 Re-Verification + TASK-0009 Fast-Track Slices; AP Statistics G3V Failed 3 FRQs — 2026-07-13
+
+**Tasks:** TASK-0017, TASK-0009; AP Statistics 2026-27 rebuild G3V
+**Status:** P0 repository/local evidence green; TASK-0009 fast-track conceptual slices proposed for review; G3V failed pending targeted content remediation. Dev/Production untouched.
+
+**Summary:** Executed the DECISION-0039 repository/local-only conditions on remote-verified branch `codex/task0016-phase-c-content-publish-approval-packet` at `997c476` while preserving the dirty worktree. Both P0 SQL regressions passed against fresh PostgreSQL 17.10. The fixture deliberately installed pgcrypto in `public`; the migration normalized it to `extensions` and proved `extensions.digest(text,text)` resolves. RPC privileges remained anon/authenticated false, service-role true. Replaced request-payload hashing with a deterministic canonical manifest hash over the ordered exact content-version relation plus sorted evidence/policy references; the positive regression independently reconstructs and matches it.
+
+Extracted the Edge→RPC request contract. The Edge caller now requires non-empty source and rights IDs, separately categorized grading/calibration and security/privacy validation-run IDs, approved-by identity, and validator/teaching/grading policy version IDs. Three local tests passed, including fail-before-RPC omissions; the RPC independently validates actual suite category, pass state, and exact target version. Prepared a Dev execution/rollback/evidence packet; no approval ID exists and nothing was applied.
+
+Delivered TASK-0009's two DECISION-0038 fast-track conceptual slices: immutable ItemPackage/archetype identity mapped to `content_items`/`content_item_versions` only, and multi-scheme taxonomy per exact `exam_pack_version` with version-level assignments and historical coexistence. `artifact_versions` is not restored as a parallel question record. No DDL was produced.
+
+Fresh independent G3V review recomputed the full AP Statistics vertical slice. All arithmetic passed and no removed topic was tested, but Q1 incorrectly calls a one-week visitor frame a census of all members, Q3 asks to verify independence without a population count, and Q4 makes an inferential decision without alpha or an explicit decision rule. Verdict: 7 pass / 3 fail across 10 logical units. The source's “9 items” count is also wrong (10 logical units / 12 atomic questions). Bulk generation remains gated.
+
+**Evidence:** `docs/qa/evidence/TASK0017_P0_POST_APPROVAL_SQL_2026_07_13.log`; `docs/qa/evidence/TASK0017_EDGE_RPC_CONTRACT_2026_07_13.log`; `docs/qa/TASK0017_DEV_EXECUTION_EVIDENCE_PACKET_2026_07_13.md`; `docs/architecture/TASK0009_M0_FAST_TRACK_CONCEPTUAL_MODEL_2026_07_13.md`; `docs/research/CODEX_G3V_AP_STATISTICS_VERTICAL_SLICE_QA_2026_07_13.md`.
+
+**Next Owner:** David Bloom for TASK-0009 slice ratification and any separate Dev approval; Claude/content author for Q1/Q3/Q4 remediation; fresh Codex QA for G3V re-review.
+**Next Required Action:** Revise the three failed FRQs and inventory count, then re-run G3V. Separately review the two TASK-0009 conceptual slices. Do not apply Dev/Production changes or start AP Statistics bulk generation.
+
 ## TASK-0017 Subject-Onboarding Harness Opened; Publication-Trust P0 Found in admin-content — 2026-07-13
 
 **Task:** TASK-0017 (new, Hard-Gate); relates to TASK-0016, TASK-0014/0015, TASK-0009.
-**Status:** Task opened, design-approval-first. `DECISION-0037` recorded. Publication-trust **P0 verified, not yet fixed**.
+**Status:** Task in progress. P0 is implemented and locally verified against disposable PostgreSQL 17; H0/H1 executable contracts and governance design are ready for review. Dev and Production remain untouched.
 
 **Summary:** David asked what Codex could most do to accelerate launching new subjects. Recommendation: turn per-subject launch machinery into a reusable, parameterized onboarding harness (since content authoring is now parallelized by Anthropic models, the repeat bottleneck is the validation/infrastructure layer). Drafted a Codex prompt; Codex returned a detailed review that (a) verified a P0 publication-trust bug and (b) required structural revisions. All incorporated into a Hard-Gate task.
 
-**Publication-trust P0 (verified, unfixed):** `supabase/functions/admin-content/index.ts` `changeArtifactState` sets `content_items`/`content_item_versions` to `status='published'` (≈ lines 638–660) **before** requiring the release manifest (≈ 663–668) or running `enforceGatePolicy` (≈ 707–714). Non-atomic separate service calls, so a publish that fails the manifest/gate has already flipped content live/gradeable with no rollback. Repair is TASK-0017's first work item (server-resolved eligibility, atomic apply + rollback, reviewed-version==activated-version proof, regression test).
+**Publication-trust P0:** The prior non-atomic publication sequence was replaced in the repository with a service-role-only transactional RPC that locks and publishes the exact reviewed `content_item_versions.id`, derives gate eligibility from stored evidence, and rolls back serving and release state together. A real PostgreSQL run caught ambiguous PL/pgSQL aliases missed by typecheck; those were corrected. Clean-schema rollback and exact-version regressions now pass. The exact-version test proves version 2 publishes while prior version 1 retires and newer unapproved version 3 remains untouched. Privileges resolve `anon=false`, `authenticated=false`, `service_role=true` for RPC execution. The independent review also added duplicate, extraneous, stale, and expired rights/evidence rejection.
 
 **David's decisions (`DECISION-0037`):** P0 first → H1 vertical slice → rest; content-clearance waivable by PO only (grading/rights/security never); canonical question-version record (v1) = `content_item_versions.id`; canonical school-year id = `2026-27`; AP Chem/Physics adopt the harness once ready (no new one-offs); harness supports new-subject and annual-revision.
 
-**Deliverables:** `docs/tasks/TASK-0017-SUBJECT-ONBOARDING-HARNESS.md` (scope H0–H5 + P0 + delivery sequence + CLI), `prompts/CODEX_SUBJECT_ONBOARDING_HARNESS_2026_07_13.md` (v2 execution brief), `DECISION-0037`, MASTER_TODO register row.
+**Deliverables:** `docs/tasks/TASK-0017-SUBJECT-ONBOARDING-HARNESS.md`; atomic RPC migration and PostgreSQL fixtures/regressions; executable Draft 2020-12 SubjectPackage and ItemPackage schemas; AP Statistics 2026-27 and Q1–Q4 fixtures; pinned contract validator/tests; and `docs/architecture/TASK0017_H0_H1_DESIGN_2026_07_13.md` covering the manifest replacement, typed validation registry, immutable content-clearance exception, security boundary, migration, and rollback.
 
-**Next Owner:** Codex (produce TASK-0017 design + P0 repair for Product Owner approval).
-**Next Required Action:** Codex delivers the design proposal (SubjectPackage contract, taxonomy-versioning, capability model, security review) and the P0 fix, on Dev, for David's approval before any Production change.
+**Next Owner:** David Bloom / TASK-0009 conceptual-model owner.
+**Next Required Action:** Review H0/H1 contracts and ratify/revise the relational slices through TASK-0009. Then authorize a separate Dev physical-design/migration execution packet if accepted. Materialize authoritative gate evidence before any August Biology/Statistics publication. Do not publish AP Chemistry.
 
 ## AP Statistics 2026-27 CED Change Assessed; Multi-Model Content Rebuild Orchestration Designed — 2026-07-13
 

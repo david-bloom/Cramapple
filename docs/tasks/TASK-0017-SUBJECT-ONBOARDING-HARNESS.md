@@ -5,10 +5,10 @@
 **Owner:** Codex (schema, adapters, verifier scaffold, migrations, tests, publication trust)
 **Product Owner:** David Bloom
 **Tier:** Hard-Gate
-**Status:** In Progress (P0 verified; H0/H1 design ready for review)
+**Status:** In Progress
 **Priority:** High
 **Created Date:** 2026-07-13
-**Approved Date:** 2026-07-13 (P0 repository implementation and documentation remediation only)
+**Approved Date:** 2026-07-13 (`DECISION-0039`: H0/H1 + P0 repository/local-verification stage only)
 **Related:** `DECISION-0037`, `DECISION-0036`, `DECISION-0034`, `DECISION-0035`, `TASK-0016`, `TASK-0014`, `TASK-0015`, `TASK-0009`, and `docs/product/AP_STATISTICS_2027_CONTENT_REBUILD_ORCHESTRATION.md`
 
 ## Product Goal
@@ -121,7 +121,7 @@ Plan/apply are separate. Schema changes remain reviewed migrations; subject inst
 
 ## Implementation Summary
 
-In progress. P0 is implemented and locally verified. It introduces a service-role-only transactional publication RPC and routes publish operations through the exact canonical content-version ID. The executable H0/H1 JSON Schemas, AP Statistics Q1–Q4 fixtures, validator/tests, manifest replacement, typed validation registry, content-clearance exception contract, and migration/rollback proposal are in `docs/architecture/TASK0017_H0_H1_DESIGN_2026_07_13.md` and `schemas/subject-onboarding/`. H2–H5 persistence/implementation remains gated.
+In progress. P0 is implemented and re-verified locally after DECISION-0039. It introduces a service-role-only transactional publication RPC and routes publish operations through the exact canonical content-version ID. The Edge boundary now requires separately identified grading/calibration and security/privacy validation-run IDs and fails before RPC invocation when any required evidence class or policy ID is absent. The RPC still resolves actual suite types, pass state, and exact version targeting. The manifest hash is now computed from canonical ordered content/evidence/version relations rather than arbitrary request JSON. The Dev execution packet is prepared but unapproved/unexecuted. H2–H5 persistence/implementation remains gated.
 
 ## Test Results
 
@@ -134,6 +134,11 @@ In progress. P0 is implemented and locally verified. It introduces a service-rol
 - Independent SQL/security review tightened evidence integrity: duplicate evidence IDs, unknown/extraneous rights IDs, rights for unlisted sources, expired licenses, overdue rights review, and missing required legal approval now fail closed.
 - RPC privilege query returned `anon=false`, `authenticated=false`, `service_role=true` for `EXECUTE`.
 - `deno test --allow-read scripts/subject-harness/validate-contracts_test.ts` — passed 2026-07-13 (3 tests): valid AP Statistics SubjectPackage/Q1–Q4 packages, legacy calendar-year rejection, and executable verifier-field rejection.
+- Post-DECISION-0039 clean-cluster rerun against PostgreSQL 17.10 — passed 2026-07-13. Both SQL regressions completed with `ON_ERROR_STOP=1`; evidence: `docs/qa/evidence/TASK0017_P0_POST_APPROVAL_SQL_2026_07_13.log`.
+- The fixture deliberately installs pgcrypto in `public`; the migration relocates the extension to `extensions` and asserts `extensions.digest(text,text)` exists before compiling the RPC. Explicit query returned `pgcrypto_schema=extensions` and `extensions.digest(text,text)`.
+- Exact-version regression now independently reconstructs and matches the canonical manifest hash over the ordered content relation and exact evidence/policy version references.
+- `deno test --allow-env supabase/functions/admin-content/publication-request_test.ts` — passed 2026-07-13 (3 tests): complete Edge→RPC request, fail-closed missing evidence categories, and authenticated-admin approval default. Evidence: `docs/qa/evidence/TASK0017_EDGE_RPC_CONTRACT_2026_07_13.log`.
+- `deno check supabase/functions/admin-content/index.ts` — passed after Edge→RPC contract extraction.
 
 ## Risks / Issues
 
@@ -143,6 +148,8 @@ In progress. P0 is implemented and locally verified. It introduces a service-rol
 - Deployment order matters: the RPC migration must precede the updated Edge Function in any approved environment rollout.
 - The August Biology/Statistics release remains execution-blocked until the authoritative gate records required by the RPC exist and a Dev/Production execution packet is separately approved. Product Owner release authorization is recorded; it is not itself a substitute for those records.
 - P0 is locally verified, not deployed. Real Supabase Dev verification remains part of a separately approved execution step.
+- The Edge request contract now requires callers to send `grading_calibration_validation_run_ids` and `security_privacy_validation_run_ids` separately. Any future admin UI/client request builder must adopt this contract before environment rollout; omission fails closed.
+- TASK-0009 fast-track conceptual slices are delivered as a proposed model, not yet Product Owner-ratified for physical design.
 
 ## Approval State
 
@@ -152,8 +159,8 @@ In progress. P0 is implemented and locally verified. It introduces a service-rol
 
 ## QA Result
 
-P0 locally verified against disposable PostgreSQL 17; independent SQL/security review completed with evidence-integrity hardening. H0/H1 executable contracts and design packet pass local schema tests. Dev/Production remain untouched.
+P0 locally re-verified against disposable PostgreSQL 17.10 after the DECISION-0039 conditions: both SQL tests pass, pgcrypto resolves in `extensions`, canonical manifest hashing is asserted, and the Edge→RPC evidence contract passes. Dev/Production remain untouched. Dev execution packet: `docs/qa/TASK0017_DEV_EXECUTION_EVIDENCE_PACKET_2026_07_13.md`.
 
 ## Done Decision
 
-Not done. The next approval checkpoint is Product Owner review of H0/H1 and TASK-0009 ratification of the relational design slices, followed by a separate Dev physical-design/migration proposal.
+Not done. The next approval checkpoint is Product Owner review/ratification of the TASK-0009 fast-track slices and a separate approval ID for any Dev migration/deployment. Production remains a distinct Hard Gate.

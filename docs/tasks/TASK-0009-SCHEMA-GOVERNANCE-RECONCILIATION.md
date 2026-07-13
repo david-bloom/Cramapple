@@ -4,7 +4,7 @@
 **Title:** Reconcile Content Schema Proposals with Approved Governance
 **Owner:** Technical Owner / Main Conductor
 **Product Owner:** David Bloom
-**Status:** Approved with conditions — conceptual-model deliverable pending
+**Status:** In Progress
 **Priority:** High
 **Created Date:** 2026-06-13
 **Approved Date:** 2026-07-13 (scope only; `DECISION-0038`). The conceptual model + gap report return for the final Hard-Gate approval before any physical DDL.
@@ -83,17 +83,17 @@ it does not approve DDL or waive the final TASK-0009 Hard Gate.
   authoritative mutable evidence.
 - [ ] Stimulus packages support ordered text, datasets, visuals, assets, and
   accessibility alternatives.
-- [ ] Taxonomy design supports multiple schemes per `exam_pack_version` while
+- [x] Taxonomy design supports multiple schemes per `exam_pack_version` while
   preserving historical exam-pack/taxonomy resolution.
-- [ ] The fast-track immutable item-package/archetype slice is delivered with
+- [x] The fast-track immutable item-package/archetype slice is delivered with
   an explicit TASK-0017 H1 handoff.
-- [ ] The fast-track multi-scheme taxonomy-per-`exam_pack_version` slice is
+- [x] The fast-track multi-scheme taxonomy-per-`exam_pack_version` slice is
   delivered with an explicit TASK-0017 H2 handoff.
 - [ ] Deletion, retirement, withdrawal, and rollback semantics are explicit.
 - [ ] Atomic exam-pack manifest resolution is represented.
 - [ ] Security, privacy, retention, and RLS requirements are handed off to the
   physical-design task.
-- [ ] The `content_item_versions` ⇄ `artifact_versions` identity question is
+- [x] The `content_item_versions` ⇄ `artifact_versions` identity question is
   resolved with an explicit compatibility/migration decision (Condition 1), not
   a second canonical record.
 - [ ] Product Owner approves the conceptual model before physical DDL.
@@ -126,11 +126,25 @@ Scope/approach approved to proceed. Two conditions bind the deliverable:
 This approves the **scope only**. The conceptual model + gap report return for the
 final Hard-Gate approval before any physical DDL.
 
+## Fast-Track Implementation Summary
+
+The two DECISION-0038 fast-track conceptual slices and M0 compatibility/gap
+inventory are delivered in
+`docs/architecture/TASK0009_M0_FAST_TRACK_CONCEPTUAL_MODEL_2026_07_13.md`.
+They map ItemPackage/archetype identity directly to
+`content_items`/`content_item_versions`, prohibit new question writes to
+`artifact_versions`, and define versioned taxonomy schemes and assignments per
+exact `exam_pack_version`/`content_item_version`. Each slice includes an explicit
+TASK-0017 H1/H2 handoff and physical-design blockers.
+
+No DDL was authored or applied. The broader TASK-0009 conceptual model remains
+open after review of these fast-track slices.
+
 ## Approval State
 
 **Approval Required:** Yes
 **Approval Type:** Hard Gate
-**Decision:** Scope approved with conditions — 2026-07-13, David Bloom (`DECISION-0038`). Final model deliverable: Pending.
+**Decision:** Scope approved with conditions — 2026-07-13, David Bloom (`DECISION-0038`). Fast-track slice ratification: Pending Product Owner review. No physical DDL approved.
 
 ## Done Decision
 
