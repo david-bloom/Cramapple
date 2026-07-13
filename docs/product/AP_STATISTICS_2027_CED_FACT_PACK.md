@@ -9,7 +9,7 @@
 
 This fact pack is derived from the **structure and metadata** of the *AP Statistics Course and Exam Description, Effective Fall 2026* (unit/topic map, practices, weights, exam blueprint, task-verb definitions, published revisions) and from the College Board revision page. It contains **no official College Board questions, scoring guidelines, or verbatim exam content** — those must never enter authoring (`DECISION-0031`/`0033`). Any item authored from this pack is independently constructed synthetic content.
 
-**Confidence flags:** exam structure, practices/skills, unit weights, FRQ archetypes, task verbs, and the confirmed removals are transcribed directly from the CED and verified. **Per-topic skill tags and Essential-Knowledge (EK) IDs are NOT yet anchored** — topic *titles* are transcribed from the Course-at-a-Glance, but the fine-grained LO/EK IDs (e.g., `5.3.A.1`) need anchoring from the unit-guide topic pages (CED pp. 23–155) or Orly's confirmation before per-item authoring keys on them.
+**Confidence flags:** exam structure, practices/skills, unit weights, FRQ archetypes, task verbs, and the confirmed removals are transcribed directly from the CED and verified. **Per-topic skill tags are now anchored** (§3) — read directly from the CED Unit-at-a-Glance tables (all 60 topics, all 5 units). Learning-Objective codes follow the pattern `X.Y.A / X.Y.B / …` and each maps to one of the skills listed; **Essential-Knowledge codes** (`X.Y.A.n`) are the granular sub-statements on each CED topic page — cite the specific EK per item at authoring time (they are not bulk-transcribed here). The item's skill tag is what the cascade keys on for practice/skill alignment.
 
 ## 1. Exam structure (verified)
 
@@ -27,17 +27,95 @@ This fact pack is derived from the **structure and metadata** of the *AP Statist
 | 4 | Inference for Quantitative Data: Means | ~18 | 10–20% |
 | 5 | Regression Analysis | ~9 | 10–20% |
 
-## 3. Topic map (titles verified; skill tags / EK IDs to anchor)
+## 3. Topic map with anchored skills (verified — CED Unit-at-a-Glance, all 5 units)
 
-**Unit 1:** 1.1 Introducing Statistics: What Can We Learn from Data? · 1.2 Variables · 1.3 Tabular Representation and Summary Statistics for One Categorical Variable · 1.4 Graphical Representations for One Categorical Variable · 1.5 Graphical Representations for One Quantitative Variable · 1.6 Descriptions for One Quantitative Variable Distributions · 1.7 Summary Statistics for One Quantitative Variable · 1.8 Graphical Representations of Summary Statistics for One Quantitative Variable · 1.9 Comparisons of the Distributions for One Quantitative Variable · 1.10 The Investigative Question Revisited and Data Collection · 1.11 Random Sampling · 1.12 Potential Problems with Sampling · 1.13 Experimental Design
+Per topic: **skills** (read from the CED Unit-at-a-Glance). Skill → practice: `1.x`→P1, `2.x`→P2, `3.x`→P3, `4.x`→P4. LO codes follow `X.Y.A/B/C`; EK codes `X.Y.A.n` are cited per item at authoring time.
 
-**Unit 2:** 2.1 Tabular and Graphical Representations for the Distributions of Two Categorical Variables · 2.2 Summary Statistics for Two Categorical Variables · 2.3 Estimating Probabilities Using Simulation · 2.4 Introduction to Probability · 2.5 Mutually Exclusive Events · 2.6 Conditional Probability · 2.7 Independent Events and Unions of Events · 2.8 Introduction to Random Variables and Probability Distributions · 2.9 Parameters of Random Variables · 2.10 The Binomial Distribution · 2.11 The Normal Distribution · 2.12 Sampling Distributions and the Central Limit Theorem
+**Unit 1 — Exploring One-Variable Data and Collecting Data**
 
-**Unit 3:** 3.1 Estimators · 3.2 Sampling Distributions for Sample Proportions · 3.3 Constructing a Confidence Interval for a Population Proportion · 3.4 Justifying a Claim Based on a Confidence Interval for a Population Proportion · 3.5 Setting Up a Test for a Population Proportion · 3.6 p-Values · 3.7 Carrying Out a Test for a Population Proportion · 3.8 Potential Errors When Performing Tests · 3.9 Sampling Distributions for the Difference Between Sample Proportions · 3.10 Constructing a Confidence Interval for the Difference Between Two Population Proportions · 3.11 Justifying a Claim Based on a Confidence Interval for the Difference Between Two Population Proportions · 3.12 Setting Up a Test for the Difference Between Two Population Proportions · 3.13 Carrying Out a Test for the Difference Between Two Population Proportions · 3.14 Setting Up a Chi-Square Test for Homogeneity or Independence · 3.15 Carrying Out a Chi-Square Test for Homogeneity or Independence
+| Topic | Title | Skills |
+|---|---|---|
+| 1.1 | Introducing Statistics: What Can We Learn from Data? | 1.A, 2.A |
+| 1.2 | Variables | 2.A |
+| 1.3 | Tabular Representation and Summary Statistics for One Categorical Variable | 3.A, 4.A |
+| 1.4 | Graphical Representations for One Categorical Variable | 3.A, 4.A, 4.B |
+| 1.5 | Graphical Representations for One Quantitative Variable | 3.A |
+| 1.6 | Descriptions for One Quantitative Variable Distributions | 4.A, 4.B |
+| 1.7 | Summary Statistics for One Quantitative Variable | 3.B, 4.A, 4.B |
+| 1.8 | Graphical Representations of Summary Statistics for One Quantitative Variable | 3.A, 4.A |
+| 1.9 | Comparisons of the Distributions for One Quantitative Variable | 3.B, 4.A, 4.B, 4.C |
+| 1.10 | The Investigative Question Revisited and Data Collection | 1.A, 2.A, 2.B |
+| 1.11 | Random Sampling | 2.A, 2.B |
+| 1.12 | Potential Problems with Sampling | 2.A |
+| 1.13 | Experimental Design | 2.A, 2.B |
 
-**Unit 4:** 4.1 Sampling Distributions for Sample Means · 4.2 Constructing a Confidence Interval for a Population Mean or Population Mean Difference · 4.3 Justifying a Claim Based on a Confidence Interval for a Population Mean or Population Mean Difference · 4.4 Setting Up a Test for a Population Mean or Population Mean Difference · 4.5 Carrying Out a Test for a Population Mean or Population Mean Difference · 4.6 Sampling Distributions for the Difference Between Two Sample Means · 4.7 Constructing a Confidence Interval for the Difference Between Two Population Means · 4.8 Justifying a Claim Based on a Confidence Interval for the Difference Between Two Population Means · 4.9 Setting Up a Test for the Difference Between Two Population Means · 4.10 Carrying Out a Test for the Difference Between Two Population Means
+*LO→skill (from topic pages):* 1.1.A [2.A], 1.1.B [1.A]; 1.2.A/B/C [2.A]; 1.3.A [3.A], 1.3.B [4.A]; 1.4.A [3.A], 1.4.B [4.B], 1.4.C [4.A]; 1.5.A [3.A]; 1.6.A [4.A], 1.6.B [4.B]; 1.7.A/B [3.B] (+ measures-of-spread LO).
 
-**Unit 5:** 5.1 Graphical Representations Between Two Quantitative Variables · 5.2 Correlation · 5.3 Linear Regression Models · 5.4 Residuals · 5.5 Least-Squares Regression
+**Unit 2 — Probability, Random Variables, and Probability Distributions**
+
+| Topic | Title | Skills |
+|---|---|---|
+| 2.1 | Tabular and Graphical Representations for the Distributions of Two Categorical Variables | 4.A, 4.B |
+| 2.2 | Summary Statistics for Two Categorical Variables | 3.B, 4.A, 4.B |
+| 2.3 | Estimating Probabilities Using Simulation | 3.C |
+| 2.4 | Introduction to Probability | 3.C |
+| 2.5 | Mutually Exclusive Events | 4.B |
+| 2.6 | Conditional Probability | 3.C |
+| 2.7 | Independent Events and Unions of Events | 3.C |
+| 2.8 | Introduction to Random Variables and Probability Distributions | 3.A |
+| 2.9 | Parameters of Random Variables | 3.B, 4.D |
+| 2.10 | The Binomial Distribution | 3.C, 3.D, 4.B, 4.D |
+| 2.11 | The Normal Distribution | 3.C, 3.D, 4.C |
+| 2.12 | Sampling Distributions and the Central Limit Theorem | 4.C |
+
+**Unit 3 — Inference for Categorical Data: Proportions**
+
+| Topic | Title | Skills |
+|---|---|---|
+| 3.1 | Estimators | 3.D, 4.B |
+| 3.2 | Sampling Distributions for Sample Proportions | 3.D, 4.D, 4.E |
+| 3.3 | Constructing a Confidence Interval for a Population Proportion | 2.C, 3.E, 4.E |
+| 3.4 | Justifying a Claim Based on a Confidence Interval for a Population Proportion | 2.D, 4.F, 4.G |
+| 3.5 | Setting Up a Test for a Population Proportion | 2.C, 2.E, 4.E |
+| 3.6 | p-Values | 4.F |
+| 3.7 | Carrying Out a Test for a Population Proportion | 3.E, 4.G |
+| 3.8 | Potential Errors When Performing Tests | 2.D, 3.C, 4.D |
+| 3.9 | Sampling Distributions for the Difference Between Sample Proportions | 3.D, 4.D, 4.E |
+| 3.10 | Constructing a Confidence Interval for the Difference Between Two Population Proportions | 2.C, 3.E, 4.E |
+| 3.11 | Justifying a Claim Based on a Confidence Interval for the Difference Between Two Population Proportions | 4.F, 4.G |
+| 3.12 | Setting Up a Test for the Difference Between Two Population Proportions | 2.C, 2.E, 4.E |
+| 3.13 | Carrying Out a Test for the Difference Between Two Population Proportions | 3.E, 4.F, 4.G |
+| 3.14 | Setting Up a Chi-Square Test for Homogeneity or Independence | 2.C, 2.E, 4.C, 4.E |
+| 3.15 | Carrying Out a Chi-Square Test for Homogeneity or Independence | 3.C, 3.E, 4.F, 4.G |
+
+**Unit 4 — Inference for Quantitative Data: Means**
+
+| Topic | Title | Skills |
+|---|---|---|
+| 4.1 | Sampling Distributions for Sample Means | 3.D, 4.D, 4.E |
+| 4.2 | Constructing a Confidence Interval for a Population Mean or Population Mean Difference | 2.C, 3.E, 4.C, 4.E |
+| 4.3 | Justifying a Claim Based on a Confidence Interval for a Population Mean or Population Mean Difference | 2.D, 4.F, 4.G |
+| 4.4 | Setting Up a Test for a Population Mean or Population Mean Difference | 2.C, 2.E, 4.E |
+| 4.5 | Carrying Out a Test for a Population Mean or Population Mean Difference | 3.E, 4.F, 4.G |
+| 4.6 | Sampling Distributions for the Difference Between Two Sample Means | 3.D, 4.D, 4.E |
+| 4.7 | Constructing a Confidence Interval for the Difference Between Two Population Means | 2.C, 3.E, 4.E |
+| 4.8 | Justifying a Claim Based on a Confidence Interval for the Difference Between Two Population Means | 4.F, 4.G |
+| 4.9 | Setting Up a Test for the Difference Between Two Population Means | 2.C, 2.E, 4.E |
+| 4.10 | Carrying Out a Test for the Difference Between Two Population Means | 3.E, 4.F, 4.G |
+
+**Unit 5 — Regression Analysis**
+
+| Topic | Title | Skills |
+|---|---|---|
+| 5.1 | Graphical Representations Between Two Quantitative Variables | 3.A, 4.A, 4.B |
+| 5.2 | Correlation | 4.D |
+| 5.3 | Linear Regression Models | 3.B |
+| 5.4 | Residuals | 3.B, 4.A, 4.D |
+| 5.5 | Least-Squares Regression | 3.B, 4.D |
+
+*LO→skill (from topic pages):* 5.3.A [3.B]; 5.4.A [3.B], 5.4.B [4.D], 5.4.C [4.A]; 5.5.A [3.B], 5.5.B [4.D].
+
+**Removed-topic note:** the five removed topics (§8) are already absent from this map — the new Unit 5 has no slope-inference topic, and Unit 3's chi-square is homogeneity/independence only (no goodness-of-fit). Author only against the topics listed above.
 
 ## 4. Statistical practices & skills (verified)
 
@@ -80,7 +158,7 @@ Fully digital in Bluebook: keyboard entry, an updated symbols menu, a **built-in
 ## 9. Open items for the AP Statistics tutor (G0A sign-off)
 
 1. **Confirm** the unit/topic map and weights above (correct any transcription).
-2. **Anchor EK/LO IDs and per-topic skill tags** from the unit guides (or confirm authoring may proceed at topic granularity for the vertical slice, with EK-level detail added before bulk).
+2. ~~Anchor EK/LO IDs and per-topic skill tags~~ **DONE** (§3, all 60 topics, from the CED Unit-at-a-Glance). Tutor: confirm the skill anchoring is acceptable for authoring; granular EK (`X.Y.A.n`) is cited per item.
 3. **Remap rules** for the 5 removed topics: which legacy items truly test a removed concept vs. can be remapped; residual-plot items given the retained-but-reframed status.
 4. **Supplemental policy** (`DECISION-0037` Q3 default = keep removed-topic/hand-drawn as clearly labeled supplemental) — confirm.
 5. **Inventory distribution:** 71 MCQ / 33 FRQ across the 5 units by MC weight + the 4 FRQ archetypes (Claude to propose the per-unit split for Orly's OK).
