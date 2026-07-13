@@ -6,6 +6,9 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- TASK-0017 Subject-Onboarding Harness Opened; Publication-Trust P0 Found in admin-content — 2026-07-13
+- AP Statistics 2026-27 CED Change Assessed; Multi-Model Content Rebuild Orchestration Designed — 2026-07-13
+- Tutor Content-Review Pipeline Repaired, Subject Qualifications Added, Grading-Telemetry Auth Bug Found; AP Bio/Stats Draft QA Pass and Fixes — 2026-07-12
 - Cramapple-Wide QA Pass: AP Biology Publish Gap Found; Governance Paperwork and Test-Account Cleanup — 2026-07-03
 - AP Statistics Hand-Drawn Graph-Response Seed QA'd and Staged — 2026-07-02
 - AP Statistics Smoke Batch QA-Fixed and Published Live — 2026-07-01
@@ -24,6 +27,82 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 ---
+
+## TASK-0017 Subject-Onboarding Harness Opened; Publication-Trust P0 Found in admin-content — 2026-07-13
+
+**Task:** TASK-0017 (new, Hard-Gate); relates to TASK-0016, TASK-0014/0015, TASK-0009.
+**Status:** Task opened, design-approval-first. `DECISION-0037` recorded. Publication-trust **P0 verified, not yet fixed**.
+
+**Summary:** David asked what Codex could most do to accelerate launching new subjects. Recommendation: turn per-subject launch machinery into a reusable, parameterized onboarding harness (since content authoring is now parallelized by Anthropic models, the repeat bottleneck is the validation/infrastructure layer). Drafted a Codex prompt; Codex returned a detailed review that (a) verified a P0 publication-trust bug and (b) required structural revisions. All incorporated into a Hard-Gate task.
+
+**Publication-trust P0 (verified, unfixed):** `supabase/functions/admin-content/index.ts` `changeArtifactState` sets `content_items`/`content_item_versions` to `status='published'` (≈ lines 638–660) **before** requiring the release manifest (≈ 663–668) or running `enforceGatePolicy` (≈ 707–714). Non-atomic separate service calls, so a publish that fails the manifest/gate has already flipped content live/gradeable with no rollback. Repair is TASK-0017's first work item (server-resolved eligibility, atomic apply + rollback, reviewed-version==activated-version proof, regression test).
+
+**David's decisions (`DECISION-0037`):** P0 first → H1 vertical slice → rest; content-clearance waivable by PO only (grading/rights/security never); canonical question-version record (v1) = `content_item_versions.id`; canonical school-year id = `2026-27`; AP Chem/Physics adopt the harness once ready (no new one-offs); harness supports new-subject and annual-revision.
+
+**Deliverables:** `docs/tasks/TASK-0017-SUBJECT-ONBOARDING-HARNESS.md` (scope H0–H5 + P0 + delivery sequence + CLI), `prompts/CODEX_SUBJECT_ONBOARDING_HARNESS_2026_07_13.md` (v2 execution brief), `DECISION-0037`, MASTER_TODO register row.
+
+**Next Owner:** Codex (produce TASK-0017 design + P0 repair for Product Owner approval).
+**Next Required Action:** Codex delivers the design proposal (SubjectPackage contract, taxonomy-versioning, capability model, security review) and the P0 fix, on Dev, for David's approval before any Production change.
+
+## AP Statistics 2026-27 CED Change Assessed; Multi-Model Content Rebuild Orchestration Designed — 2026-07-13
+
+**Task:** Cross-cutting — TASK-0013 (AP Statistics); relates to TASK-0016, tutor review workstream.
+**Status:** Assessment done; orchestration designed and documented; **not yet executed** (blocked on curriculum lock + Codex plan review). `DECISION-0036` recorded.
+
+**Summary:** David surfaced the College Board 2026-27 AP Statistics CED change. Reviewed the CED PDF directly and confirmed a major restructuring, then designed a multi-model content-rebuild orchestration per David's executive decision to have Anthropic models lead content development.
+
+**CED changes confirmed (read from the PDF, not inferred):**
+- Course collapses **9 modules → 5 units** (new MC weights U1 20–30%, U2 15–25%, U3 15–25%, U4 10–20%, U5 10–20%).
+- FRQ section restructures **6×~4pt → 4×10pt** multi-part questions (Q1 Practices 1&2; Q2 Practices 3&4; Q3 inference; Q4 multi-area) — each point scored independently. Exam is 42 MCQ + 4 FRQ, 90 min/section, 50/50 weight.
+- **Inference for the regression slope** and **chi-square goodness-of-fit** do not appear in the new unit list — flagged UNCONFIRMED-removed pending Orly's call and a prior-edition diff.
+- Fully digital via Bluebook with a built-in Desmos calculator; College Board gives no detail on digital graph-entry. Per David, **hand-drawn graph capture stays in scope** (no Desmos-equivalent exists; students still need graph-construction practice).
+
+**Deliverables this session:**
+- `docs/product/AP_STATISTICS_2027_CONTENT_REBUILD_ORCHESTRATION.md` — two orchestrations (A: item re-creation to the 5-unit/4×10pt shape; B: rubric-block + student-repair refresh incl. deterministic verifier-profile sync), the corrected model cascade (Opus authors + adversarially verifies correctness; Sonnet conformance + bulk transforms; Haiku catalog/report), and gates G0–G5 with Codex as independent plan-reviewer (G1) and QA (G3).
+- Added an AP-Statistics-specific rubric standard block to `docs/product/TUTOR_REVIEWER_QUICKSTART.md` (unit tagging, 4 practices, 4×10pt independent-point FRQ scoring, task-verb↔criterion matching, slope/chi-square flag-don't-reject guidance) — sourced from the CED scoring guidelines.
+- `DECISION-0036` records the AI-led authoring shift, the model tiering, Codex's reviewer role, and the standing guardrails (candidate-not-cleared, no auto-publish, no CB material, boundary-contract requirement).
+- Memory `project_ap_stats_2027_format_change` created/updated.
+
+**Corrected an earlier framing:** the initial instinct to QA Opus output with Sonnet was flagged as backwards for correctness-critical statistical content; the cascade keeps correctness verification at Opus tier and independent, with Sonnet limited to conformance.
+
+**Codex G1 review (2026-07-13):** verdict "return for targeted revision, then approve." Spec revised to **v2** incorporating all required corrections: five removed topics recorded as confirmed CB facts (verified against the CB page — departures-from-linearity, combining random variables, geometric distribution, chi-square GOF, slope inference; residual plots retained); authoring input is a human-reviewed CED fact pack, not the full PDF; curriculum authoring split from verifier code (cascade emits a requirements manifest, Codex/TASK-0016 implements); added G−1 containment and a separate G4B grading-clearance gate; deterministic scripts own counts/recomputation (Haiku narrative-only); vertical slice required before bulk. Codex also flagged the v1 docs as uncommitted (GitHub source-of-truth durability pending).
+
+**Next Owner:** David (scope decisions Q1–Q7 in the spec; live removed-topic-item disposition is time-sensitive), Orly (G0A fact pack), Codex/TASK-0016 (G1.5 FRQ-archetype schema — `content_ingest_rows.frq_form` is short/long only and cannot represent Q1–Q4).
+**Next Required Action:** (1) David answers the execution-gating open questions. (2) Claude drafts the G0A CED fact pack for Orly's confirmation (if approved). (3) G−1 corpus freeze + classification. (4) Vertical slice, Codex G3V, then bulk. Content lands staged only; publication remains David-gated.
+
+## Tutor Content-Review Pipeline Repaired, Subject Qualifications Added, Grading-Telemetry Auth Bug Found; AP Bio/Stats Draft QA Pass and Fixes — 2026-07-12
+
+**Task:** Cross-cutting — relates to TASK-0016, tutor onboarding, content QA.
+**Status:** Tutor invite/review pipeline now functional end-to-end and verified with a real test invite. Content QA pass complete for all 200 draft MCQs and 254 draft FRQs, with fixes applied. Grading-telemetry dashboard fix scoped but blocked on Lovable credits.
+
+**Summary:** Session started from "make sure the assessment process is ready" (tutors hired to review content) and expanded through several rounds of live debugging and QA once testing surfaced real bugs.
+
+**Tutor review pipeline — bugs found and fixed (all deployed to Production, `pcntajvbdfqhbeewmdry`):**
+- `reviewer-invite` edge function existed in the repo but was never deployed to Production (deployed now, v3).
+- `app.prevent_profile_role_change` trigger blocked legitimate service-role profile updates because it checked the legacy JWT `role` claim, which doesn't exist under Production's newer opaque API-key format; fixed to also check `current_user = 'service_role'` (migration `fix_prevent_profile_role_change_service_role_check`).
+- `checkDashboardAdmin`/`assertAdmin` (Lovable frontend, `Remix of Cramapple App` project) called a `has_role` RPC that doesn't exist in Production — silently made every admin check return false, hiding admin nav and blocking `/reviewer/users`. Fixed to read `profiles.role` directly.
+- A stray Lovable-authored edit briefly replaced the working `reviewer-invite` call with a hand-rolled query against a nonexistent `user_roles` table; reverted to the correct edge-function call.
+- Added a real invite form to `/reviewer/users` (was a hardcoded stub) with role + subject-qualification selection.
+
+**New feature — subject qualifications (per Product Owner decision):** tutors are now scoped to the AP subject(s) they're invited for, stored in `app.validator_qualifications` (`qualification_type='grading'`, `exam_ids[]`). `assign-for-review` now rejects assigning content outside a tutor's qualified subjects; `review-queue` filters a tutor's own queue by qualification (fails open if a reviewer has no qualification rows, so existing seed data isn't broken). Two required-but-previously-missing columns on `validator_qualifications` (`qualification_policy_version_id`, `expires_at`) were populated with placeholder/far-future values since no formal qualification-policy framework exists yet.
+
+**Review-flow behavior changes (per Product Owner decision):** `review-decision`'s `tutor_question` stage now requires per-answer-choice approval (`answer_approvals`) for MCQs in the same submission as the question decision — collapsing the old two-phase design where answer-choice review happened in a separate `tutor_answer` round after reader approval. A `note` is now hard-required (400 `note_required`) when the question or any answer choice isn't fully approved. Added a `diagnostic_flag` UI control with reviewer guidance copy (first draft, not yet reviewed by Learning Quality). Deferred: module/topic tagging and student-facing surfacing timing — logged as open follow-up, not built this session.
+
+**Grading-telemetry dashboard bug found, fix scoped but not yet shipped (blocked on Lovable credits):** `loadDashboardOverview` queries `dashboard_subjects_v1`/`dashboard_pipeline_v1`/etc. using the service-role client, but those views gate on `auth.uid()` — service-role calls have no `auth.uid()`, so every dashboard view silently returns zero rows regardless of admin status. Fix (swap to the caller's own RLS-scoped client) is fully specified but blocked on the Lovable workspace's monthly credit limit as of session end.
+
+**Content QA pass — all 200 draft MCQs + 254 draft FRQs reviewed (AP Biology + AP Statistics), via parallel review agents; confirmed findings fixed directly in Production:**
+- 2 MCQ content defects fixed: `APBIO-MCQ-005` (glucose/galactose mislabeled as structural isomers — they're stereoisomers/epimers), `APBIO-MCQ-082` (stated allele frequency 20.8% didn't match the founder-effect math; corrected to 16.7%).
+- 3 FRQ procedural/labeling defects fixed: `APSTAT-MOD3-H001-INV` and `APSTAT-MOD6-M003` used z*-based confidence intervals when only sample SD was known (should be t*-based; corrected with right df and bounds); `STATS-MOD1-E002` mislabeled a student ID number as quantitative (corrected to categorical).
+- 12 FRQ rubric/canonical-answer mismatches fixed (mostly AP Biology): canonical answers that didn't actually contain what their own rubric criterion required (missing probability calculations, missing named concepts like "directional selection" or "bottleneck effect," missing numeric results).
+- **Confirmed canonical answers (`content_item_versions.canonical_answer_1/2`) are not consumed anywhere in the live grading/repair path** (`evaluate-attempt` doesn't reference them; `statistics-verifier.ts`'s deterministic table was a one-time manual copy, not a live read) — they're an editorial/reference field only. This resolved an open question about backfill priority.
+- Backfilled full-credit canonical answers for all 42 `APBIO-FRQ-L-*` (long-form) items, which had none. In the process found and fixed: `APBIO-FRQ-L-028` (stem only presented part (a); rubric graded parts (b)(c)(d) on content never shown to the student — extended the stem to properly set up all four parts) and `APBIO-FRQ-L-004` (stem referenced "the 6th base" of a template strand for a point mutation, but that position didn't match the described base per the given sequence; corrected to the actual matching position and updated the codon-change reasoning).
+- Found and fixed a real data-integrity bug in **published** content: all 40 `APSTATS-HDG-2026-GRAPH-*` items (hand-drawn graph FRQs, live in Production) were missing their `app.frq_criteria` projection, even though the correct rubric already existed in `content_item_versions.prompt_json`. Fixed via a direct SQL projection from the existing JSON (no content invented) — 160 criteria rows inserted across 40 items. An initial "12 items with no data at all" finding from one QA batch was a false alarm caused by a wrong content_key filter pattern; the real content_key prefixes are `APBIO-HDG-` / `APSTATS-HDG-`, not `HDG-` alone.
+- A systemic content-items/versions/choices/criteria linkage sweep across the *entire* corpus (not just drafts) found no other orphaned items beyond the one above.
+
+**Files changed in this repo (uncommitted as of session end):** `supabase/functions/reviewer-invite/index.ts`, `assign-for-review/index.ts`, `review-decision/index.ts`, `review-queue/index.ts` — all mirror what's deployed live in Production; not yet committed to git.
+
+**Next Owner:** David Bloom
+**Next Required Action:** (1) Add Lovable workspace credits, then have Claude send the already-specified `loadDashboardOverview`/Content-page fix. (2) Decide whether to run the same systemic `prompt_json`-vs-`frq_criteria` desync check against other published content beyond the HDG items. (3) Review/commit the four locally-modified edge function files. (4) Resume TASK-0016 critical path — gold-set adjudication is still the launch-gate blocker, now realistically unblocked since the tutor pipeline works.
 
 ## Cramapple-Wide QA Pass: AP Biology Publish Gap Found; Governance Paperwork and Test-Account Cleanup - 2026-07-03
 
