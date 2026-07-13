@@ -266,7 +266,7 @@ Each point is earned independently (a wrong earlier part does not forfeit a late
 5. **C(ii): SE ≈ 0.0274 using p0 = 0.25.** Not earned: uses p̂ in the SE, or wrong n. Fix: *for a model-based comparison use SE = √(p0(1−p0)/n) with p0 = 0.25.*
 6. **C(iii): z ≈ 0.80 AND its two-sided p-value ≈ 0.42.** (Scores the full C(iii) task — both the standardized statistic and the p-value the part asks for.) Not earned: wrong z/sign, or the p-value is missing or one-sided. Fix: *z = (p̂ − p0)/SE, then two-sided p = 2·P(Z > |z|).* (**ECF**: the p-value is judged from the student's own z.)
 7. **D(i): decision — fail to reject at α = 0.05 (two-sided p ≈ 0.42 > α).** Not earned: decision inconsistent with the student's two-sided p-value vs α (**ECF**: judged against the student's own p-value). Fix: *compare the two-sided p-value to α = 0.05.*
-8. **D(ii): justify with the statistic.** Not earned: conclusion with no reference to z / probability. Fix: *cite that |z| ≈ 0.8 is small, so the deviation is within ordinary sampling variability.*
+8. **D(ii): justify using the p-value** (matches the part's "justify using your p-value"). Not earned: justification that does not reference the p-value vs α (e.g., "z is small" alone). Fix: *cite that the two-sided p ≈ 0.42 > α = 0.05, so the result is consistent with the model.* (**ECF**: judged against the student's own p-value.)
 9. **E(i): a validity condition (random sample / independence).** Not earned: none, or an irrelevant condition. Fix: *state the sample must be random (and n ≤ 10% of orders).*
 10. **E(ii): large-counts condition with the check.** Not earned: states the rule with no numbers, or uses p̂. Fix: *np0 = 62.5 and n(1−p0) = 187.5, both ≥ 10; and n = 250 ≤ 10% of the >5,000 orders.*
 
@@ -278,7 +278,7 @@ Each point is earned independently (a wrong earlier part does not forfeit a late
 - **No removed topics** authored as tested content (U5 is descriptive regression only; no slope inference, no chi-square GOF, no geometric/combining-RV/departures-from-linearity).
 - **Every numeric claim recomputed inline** (shown per item).
 - **Each FRQ = exactly 10 independently-earnable points** with evidence boundary + counterexample + minimum-fix repair text.
-- **Status:** artifacts only, not staged, not published. Codex G3V round 1 → 7/10 pass; Q1/Q3/Q4 remediated. **Re-review:** Q1 & Q3 cleared; Q4 had one residual (Part C(iii) asked for the p-value but Point 6 scored only the z-statistic — an unscored task) — now fixed (Point 6 scores z + p-value). **Pending Codex confirmation of the Q4 fix** and the tutor's fact-pack review.
+- **Status:** artifacts only, not staged, not published. Codex G3V round 1 → 7/10 pass; Q1/Q3/Q4 remediated. **Re-review:** Q1 & Q3 cleared. Q4 residuals fixed in two passes — (a) Point 6 now scores C(iii)'s z + p-value; (b) Point 8 now requires the p-value justification that D(ii) asks for (was accepting "z is small"). Both are task-verb↔criterion alignment fixes. **Pending Codex confirmation of the Q4 fix** and the tutor's fact-pack review.
 
 ## G3V remediation log (2026-07-13)
 
