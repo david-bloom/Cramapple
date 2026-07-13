@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0037 — Open TASK-0017 (Subject-Onboarding Harness); Publication-Trust P0 Repair; Gate-Waivability, Canonical-Record, and School-Year Policy
 - DECISION-0036 — Anthropic Multi-Model Cascade Leads AP Statistics 2026-27 Content Rebuild
 - DECISION-0035 — August Pilot May Launch Without Tutor Content Review
 - DECISION-0034 — Adopt Five Grading Standards (Boundary Contracts, Gold-Set Depth, Deterministic Layer, Feedback-Quality Evaluation, Single-Grader Default)
@@ -1642,3 +1643,37 @@ Codex performed the independent G1 plan review and endorsed the executive change
 - **Deterministic scripts** own counts/coverage/numeric recomputation; Haiku is narrative-only; a **vertical slice** must clear Codex review before any bulk generation.
 - v1 and the reviewer quickstart were flagged by Codex as **uncommitted local changes** — durability in GitHub (source of truth) is a pending action, at David's direction.
 - Seven open scope questions (inventory target, live removed-topic disposition, supplemental policy, app-vs-API, keying, waiver scope, fact-pack drafting) are recorded in the spec for David; several block bulk execution, none block drafting the fact pack or the vertical slice design.
+
+## DECISION-0037 — Open TASK-0017 (Subject-Onboarding Harness); Publication-Trust P0 Repair; Gate-Waivability, Canonical-Record, and School-Year Policy
+
+**Date:** 2026-07-13
+**Decision Owner:** David Bloom
+**Status:** Approved (task opened; design approval still required before Dev migrations)
+**Related Task:** TASK-0017 (new), relates to TASK-0016, TASK-0014/0015, TASK-0009, `DECISION-0036`, `DECISION-0035`, `DECISION-0034`
+**Area:** Architecture / Content Governance / Publication Trust
+
+### Context
+
+Following the AI-led content-authoring shift (`DECISION-0036`), the dominant repeat-work cost for launching a new subject (or a new annual exam version) is the hand-built per-subject machinery: schema/taxonomy instantiation, ingestion/staging, deterministic verification, reviewer qualification, and publication gating. Codex reviewed the proposed reusable-harness prompt and returned a detailed set of required structural revisions plus a verified P0 publication-trust defect. David resolved the open decisions.
+
+### Decision
+
+1. **Open TASK-0017 — Reusable Subject-Onboarding Harness** as a Hard-Gate task, design-approval-first (`docs/tasks/TASK-0017-SUBJECT-ONBOARDING-HARNESS.md`). Implementation is Codex's lane; content authoring stays Claude's (`DECISION-0036`); calibration stays Claude + Learning Quality.
+2. **Publication-trust P0 repair, first.** `admin-content` `changeArtifactState` flips `content_items`/`content_item_versions` to `published` before validating the release manifest and gates, non-atomically — a rejected publish can leave content served/gradeable (verified 2026-07-13, `supabase/functions/admin-content/index.ts` ≈ lines 638–660 vs 663–714). Repair: compute eligibility server-side from authoritative evidence, apply state/serving/manifest/release atomically with rollback, prove reviewed-version == activated-version, add a regression test.
+3. **Gate-waivability policy:** publication eligibility is evidence-derived. A Product Owner may waive **content-clearance only** (tutor/content review — consistent with `DECISION-0035`) with a recorded exception. **Grading/calibration, rights, and security/privacy gates are never waivable.**
+4. **Canonical question-version record (v1) = `content_item_versions.id`** (serving, review, attempts, grading, release manifests all reference it). `artifact_versions` (0 rows in Production) is not resurrected as a parallel canonical record; any consolidation is `TASK-0009`'s call.
+5. **Canonical school-year identifier = `2026-27`** (academic-year form); existing `"2026"`/`"2025-26"` values normalize to it.
+6. **AP Chemistry (TASK-0014) / AP Physics (TASK-0015)** adopt the harness once ready; no net-new bespoke scaffolding for them in the meantime (not paused, no new one-offs).
+7. **Harness supports both** `create-subject` and `create-exam-pack-version` (annual revision preserving historical taxonomy/labels/content/attempts/calibration).
+
+### Rationale
+
+The harness removes the fixed per-subject engineering cost so future subjects are config-and-content drops. The P0 must precede any automation built on the publish path, or the harness would industrialize an unsound gate. Waivability mirrors `DECISION-0035` (content review waivable) while hard-protecting grading/rights/security. `content_item_versions` is already the de-facto canonical record; formalizing it avoids magnifying today's drift.
+
+### Consequences / guardrails
+
+- **Design approval before any Dev migration**; Dev migrations separately approved; Production is a distinct Hard-Gate review (migration + rollback + evidence). Dev-first (`wmgjsdkphcyhngaffbqf`); no Production schema change without a recorded approval ID.
+- Harness makes subjects fast to **stand up**, never fast to **publish** — content/grading/publication gates remain hard stops (H5 proves eligibility from authoritative records).
+- Config never executes arbitrary code (declarative checks + reviewed plugins). Reviewer *people* stay out of reusable configs.
+- Gold-set/calibration tooling and frontend implementation remain out of scope; the harness only emits calibration status and a Lovable UI-capability handoff.
+- This opens the task and records the policy calls; it does not approve the harness design, any migration, or any Production change — those are later gates.

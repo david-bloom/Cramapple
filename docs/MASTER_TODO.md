@@ -84,6 +84,7 @@ records.
 | `UX-002` | Question and Answer Review Portal | High | In Progress | Tutor, AP Reader, Learning Quality, accessibility, security, and Product Owner review |
 | `UX-003` | Content Authoring and Revision Workbench | High | In Progress | Author, Learning Quality, accessibility, security, rights, and Product Owner review |
 | `UX-004` | Student-Provided Question Intake | High | In Progress | Learning Quality, accessibility, security, privacy, rights, academic-integrity, and Product Owner review |
+| `TASK-0017` | Subject-Onboarding Harness (+ publication-trust P0) | High | Proposed | Design approval, then separately-approved Dev migrations, then Production Hard-Gate review |
 
 ## 5. P0 Legal, Privacy, and Trust Backlog
 
