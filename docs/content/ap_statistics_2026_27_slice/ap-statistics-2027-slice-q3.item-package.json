@@ -1,0 +1,157 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "ap-statistics-2027-slice-q3",
+  "content_key": "ap-statistics-2027-slice-q3",
+  "content_version": 1,
+  "exam_pack_ref": {
+    "exam_code": "ap_statistics",
+    "school_year": "2026-27",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "frq",
+  "archetype_ref": { "archetype_key": "frq-inference", "version": "1.0.0" },
+  "taxonomy_refs": [
+    { "scheme_key": "ap-statistics-fall-2026", "scheme_version": "1.0.0", "node_key": "unit-3" },
+    { "scheme_key": "ap-statistics-fall-2026", "scheme_version": "1.0.0", "node_key": "practice-2" },
+    { "scheme_key": "ap-statistics-fall-2026", "scheme_version": "1.0.0", "node_key": "practice-3" },
+    { "scheme_key": "ap-statistics-fall-2026", "scheme_version": "1.0.0", "node_key": "practice-4" }
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "bus-survey-context",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "A community college wants to estimate the proportion of all its enrolled students who would use an expanded evening bus service. From a random sample of 250 enrolled students, 160 said they would use the service. The college will fund the expansion only if it has convincing evidence that more than half of all enrolled students would use it."
+      },
+      "source_refs": ["college-board-ap-statistics-ced-fall-2026"],
+      "alt_text": "In a random sample of 250 enrolled students, 160 said they would use an expanded evening bus service."
+    }
+  ],
+  "parts": [
+    {
+      "part_key": "part-a",
+      "ordinal": 1,
+      "label": "(a)",
+      "prompt": "Identify an appropriate procedure to estimate the proportion of all enrolled students who would use the service, and check that the conditions for the procedure are met.",
+      "stimulus_refs": ["bus-survey-context"],
+      "response_modalities": ["typed-text"],
+      "points": 3,
+      "criteria": [
+        {
+          "criterion_key": "a-procedure",
+          "points": 1,
+          "description": "Names a one-sample z-interval for a population proportion (one-proportion z-interval).",
+          "required_evidence": ["names-one-proportion-z-interval"]
+        },
+        {
+          "criterion_key": "a-random-independence",
+          "points": 1,
+          "description": "States the Random condition (random sample of 250 students is given) and the independence / 10% condition (250 is less than 10% of all enrolled students).",
+          "required_evidence": ["random-condition", "ten-percent-condition"]
+        },
+        {
+          "criterion_key": "a-large-counts",
+          "points": 1,
+          "description": "Checks the Large Counts condition with numbers: number of successes 160 and failures 90 are each at least 10.",
+          "required_evidence": ["successes-160-ge-10", "failures-90-ge-10"]
+        }
+      ]
+    },
+    {
+      "part_key": "part-b",
+      "ordinal": 2,
+      "label": "(b)",
+      "prompt": "Construct a 95% confidence interval for the proportion of all enrolled students who would use the expanded service. Show the sample proportion, the standard error, and the interval.",
+      "stimulus_refs": ["bus-survey-context"],
+      "response_modalities": ["typed-text", "typed-math"],
+      "points": 3,
+      "criteria": [
+        {
+          "criterion_key": "b-phat-se",
+          "points": 1,
+          "description": "Computes the sample proportion p-hat = 160/250 = 0.64 and the standard error sqrt(0.64 x 0.36 / 250) = 0.0304 (approximately).",
+          "required_evidence": ["phat-0.64", "se-0.0304"],
+          "deterministic_checks": [
+            { "check_type": "numeric-tolerance", "parameters": { "absolute": 0.0008 } }
+          ]
+        },
+        {
+          "criterion_key": "b-structure",
+          "points": 1,
+          "description": "Uses the correct critical value z* = 1.96 and the structure p-hat plus or minus z* times SE.",
+          "required_evidence": ["zstar-1.96", "estimate-plus-minus-margin"]
+        },
+        {
+          "criterion_key": "b-interval",
+          "points": 1,
+          "description": "Reports the interval approximately (0.580, 0.700), from 0.64 plus or minus 0.0595.",
+          "required_evidence": ["interval-0.580-to-0.700"],
+          "deterministic_checks": [
+            { "check_type": "numeric-tolerance", "parameters": { "absolute": 0.01 } },
+            { "check_type": "numeric-tolerance", "parameters": { "absolute": 0.01 } }
+          ]
+        }
+      ]
+    },
+    {
+      "part_key": "part-c",
+      "ordinal": 3,
+      "label": "(c)",
+      "prompt": "Interpret the confidence interval, and separately interpret what the 95% confidence level means in this context.",
+      "stimulus_refs": ["bus-survey-context"],
+      "response_modalities": ["typed-text"],
+      "points": 2,
+      "criteria": [
+        {
+          "criterion_key": "c-interval-interpretation",
+          "points": 1,
+          "description": "Interprets the interval: we are 95% confident that the true proportion of all enrolled students who would use the expanded service is between about 0.580 and 0.700.",
+          "required_evidence": ["confident-population-proportion-in-context", "uses-interval-bounds"]
+        },
+        {
+          "criterion_key": "c-level-interpretation",
+          "points": 1,
+          "description": "Interprets the confidence level: if the sampling and interval procedure were repeated many times, about 95% of the resulting intervals would capture the true population proportion.",
+          "required_evidence": ["repeated-sampling-95-percent-capture"]
+        }
+      ]
+    },
+    {
+      "part_key": "part-d",
+      "ordinal": 4,
+      "label": "(d)",
+      "prompt": "Based on the interval, does the college have convincing evidence that more than half of all enrolled students would use the expanded service? Justify your answer.",
+      "stimulus_refs": ["bus-survey-context"],
+      "response_modalities": ["typed-text"],
+      "points": 2,
+      "criteria": [
+        {
+          "criterion_key": "d-basis",
+          "points": 1,
+          "description": "Bases the decision on the interval: the entire interval (about 0.580 to 0.700) lies above 0.50.",
+          "required_evidence": ["entire-interval-above-0.50"]
+        },
+        {
+          "criterion_key": "d-conclusion",
+          "points": 1,
+          "description": "Concludes in context that because all plausible values exceed 0.50, there is convincing evidence that more than half of all enrolled students would use the service, so the funding criterion is met.",
+          "required_evidence": ["convincing-evidence-majority-in-context"]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en-US",
+    "screen_reader_review_required": true,
+    "accommodation_notes": "Text-only stimulus with alt_text. Responses are typed text and typed math; the item minimizes symbolic entry consistent with the digital exam, per fact-pack section 7."
+  },
+  "provenance": {
+    "source_refs": ["college-board-ap-statistics-ced-fall-2026"],
+    "fact_pack_version": "AP_STATISTICS_2027_CED_FACT_PACK@2026-07-13",
+    "authoring_prompt_version": "CLAUDE_AP_STATISTICS_REBUILD@2026-07-13",
+    "generated_by": "Claude",
+    "generated_at": "2026-07-13T18:00:00Z",
+    "content_sha256": "4d74dd3d85be72c3e5344fd55be309406324f99faecde319a0f61332e3c51ac3"
+  }
+}

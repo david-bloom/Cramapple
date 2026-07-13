@@ -1,0 +1,176 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "ap-statistics-2027-slice-q4",
+  "content_key": "ap-statistics-2027-slice-q4",
+  "content_version": 1,
+  "exam_pack_ref": {
+    "exam_code": "ap_statistics",
+    "school_year": "2026-27",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "frq",
+  "archetype_ref": { "archetype_key": "frq-multifocus-2-3-4", "version": "1.0.0" },
+  "taxonomy_refs": [
+    { "scheme_key": "ap-statistics-fall-2026", "scheme_version": "1.0.0", "node_key": "unit-2" },
+    { "scheme_key": "ap-statistics-fall-2026", "scheme_version": "1.0.0", "node_key": "unit-3" },
+    { "scheme_key": "ap-statistics-fall-2026", "scheme_version": "1.0.0", "node_key": "practice-2" },
+    { "scheme_key": "ap-statistics-fall-2026", "scheme_version": "1.0.0", "node_key": "practice-3" },
+    { "scheme_key": "ap-statistics-fall-2026", "scheme_version": "1.0.0", "node_key": "practice-4" }
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "layout-experiment-context",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "An online retailer tests whether a redesigned checkout page increases the proportion of visitors who complete a purchase. Of 400 arriving visitors, 200 are randomly assigned to see the current page (Layout A) and 200 to see the redesigned page (Layout B). Among Layout A visitors, 46 completed a purchase; among Layout B visitors, 66 completed a purchase."
+      },
+      "source_refs": ["college-board-ap-statistics-ced-fall-2026"],
+      "alt_text": "A randomized experiment: 200 visitors see Layout A with 46 purchases; 200 see Layout B with 66 purchases."
+    },
+    {
+      "stimulus_key": "purchase-two-way-table",
+      "ordinal": 2,
+      "kind": "table",
+      "payload": {
+        "label": "Purchases by layout (some cells left blank to complete)",
+        "columns": ["", "Completed purchase", "Did not complete", "Total"],
+        "rows": [
+          ["Layout A", "46", "", "200"],
+          ["Layout B", "66", "", "200"],
+          ["Total", "", "", "400"]
+        ]
+      },
+      "source_refs": ["college-board-ap-statistics-ced-fall-2026"],
+      "alt_text": "Two-way table with completed-purchase counts 46 for Layout A and 66 for Layout B; the did-not-complete cells and column totals are blank."
+    }
+  ],
+  "parts": [
+    {
+      "part_key": "part-a",
+      "ordinal": 1,
+      "label": "(a)",
+      "prompt": "Explain the purpose of randomly assigning visitors to the two layouts in this experiment.",
+      "stimulus_refs": ["layout-experiment-context"],
+      "response_modalities": ["typed-text"],
+      "points": 2,
+      "criteria": [
+        {
+          "criterion_key": "a-balances-groups",
+          "points": 1,
+          "description": "Explains that random assignment tends to create two groups that are similar with respect to other variables, balancing potential confounding variables between the layouts.",
+          "required_evidence": ["creates-similar-groups", "balances-confounders"]
+        },
+        {
+          "criterion_key": "a-causal-basis",
+          "points": 1,
+          "description": "Explains that this allows an observed difference in purchase rates to be attributed to the layout, supporting a cause-and-effect conclusion.",
+          "required_evidence": ["supports-causal-attribution"]
+        }
+      ]
+    },
+    {
+      "part_key": "part-b",
+      "ordinal": 2,
+      "label": "(b)",
+      "prompt": "Complete the two-way table, then calculate the proportion of visitors who completed a purchase under each layout.",
+      "stimulus_refs": ["purchase-two-way-table"],
+      "response_modalities": ["table", "typed-math"],
+      "points": 3,
+      "criteria": [
+        {
+          "criterion_key": "b-table",
+          "points": 1,
+          "description": "Completes the table correctly: Layout A did-not-complete = 154, Layout B did-not-complete = 134, completed total = 112, did-not-complete total = 288, grand total = 400.",
+          "required_evidence": ["a-not-154", "b-not-134", "completed-total-112", "notcompleted-total-288"],
+          "deterministic_checks": [
+            { "check_type": "table-shape", "parameters": { "rows": 3, "columns": 3 } }
+          ]
+        },
+        {
+          "criterion_key": "b-prop-a",
+          "points": 1,
+          "description": "Computes the Layout A purchase proportion 46/200 = 0.23.",
+          "required_evidence": ["prop-a-0.23"],
+          "deterministic_checks": [
+            { "check_type": "numeric-tolerance", "parameters": { "absolute": 0.005 } }
+          ]
+        },
+        {
+          "criterion_key": "b-prop-b",
+          "points": 1,
+          "description": "Computes the Layout B purchase proportion 66/200 = 0.33.",
+          "required_evidence": ["prop-b-0.33"],
+          "deterministic_checks": [
+            { "check_type": "numeric-tolerance", "parameters": { "absolute": 0.005 } }
+          ]
+        }
+      ]
+    },
+    {
+      "part_key": "part-c",
+      "ordinal": 3,
+      "label": "(c)",
+      "prompt": "Describe the association between layout and purchase completion shown by these data.",
+      "stimulus_refs": ["purchase-two-way-table"],
+      "response_modalities": ["typed-text"],
+      "points": 2,
+      "criteria": [
+        {
+          "criterion_key": "c-direction",
+          "points": 1,
+          "description": "States the direction: Layout B had a higher purchase proportion than Layout A (0.33 versus 0.23), a difference of 0.10.",
+          "required_evidence": ["b-higher-than-a", "difference-0.10"]
+        },
+        {
+          "criterion_key": "c-context",
+          "points": 1,
+          "description": "Interprets the association in context: in this experiment the redesigned page was associated with a greater proportion of completed purchases.",
+          "required_evidence": ["association-in-context"]
+        }
+      ]
+    },
+    {
+      "part_key": "part-d",
+      "ordinal": 4,
+      "label": "(d)",
+      "prompt": "The retailer wants to know whether Layout B produces a higher purchase rate in general. Identify an appropriate inference procedure, state one condition and why it is met, and explain what kind of conclusion the experiment can and cannot support.",
+      "stimulus_refs": ["layout-experiment-context", "purchase-two-way-table"],
+      "response_modalities": ["typed-text"],
+      "points": 3,
+      "criteria": [
+        {
+          "criterion_key": "d-procedure",
+          "points": 1,
+          "description": "Identifies a two-sample (two-proportion) z-test for the difference between two proportions (a chi-square test of homogeneity is also acceptable).",
+          "required_evidence": ["names-two-proportion-z-test-or-chi-square-homogeneity"]
+        },
+        {
+          "criterion_key": "d-condition",
+          "points": 1,
+          "description": "States one appropriate condition and why it is met, for example Large Counts: each group's completed and not-completed counts (46, 154, 66, 134) are all at least 10.",
+          "required_evidence": ["condition-stated", "condition-justified-with-numbers"]
+        },
+        {
+          "criterion_key": "d-scope",
+          "points": 1,
+          "description": "Explains scope: because layout was randomly assigned, a significant difference would support a causal conclusion, but because visitors were not a random sample, generalizing beyond these visitors is limited.",
+          "required_evidence": ["causation-from-random-assignment", "generalization-limited-no-random-sample"]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en-US",
+    "screen_reader_review_required": true,
+    "accommodation_notes": "A partially completed two-way table is provided with alt_text; the table-completion response uses the table modality permitted by the frq-multifocus-2-3-4 archetype. Remaining responses are typed text and typed math."
+  },
+  "provenance": {
+    "source_refs": ["college-board-ap-statistics-ced-fall-2026"],
+    "fact_pack_version": "AP_STATISTICS_2027_CED_FACT_PACK@2026-07-13",
+    "authoring_prompt_version": "CLAUDE_AP_STATISTICS_REBUILD@2026-07-13",
+    "generated_by": "Claude",
+    "generated_at": "2026-07-13T18:00:00Z",
+    "content_sha256": "95609d94b2b89849bf5318a17048840fbf7a60060b17aea4c5fcf88ad4c5b6a9"
+  }
+}

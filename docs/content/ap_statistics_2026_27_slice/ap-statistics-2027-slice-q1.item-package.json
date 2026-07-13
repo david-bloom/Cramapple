@@ -1,0 +1,160 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "ap-statistics-2027-slice-q1",
+  "content_key": "ap-statistics-2027-slice-q1",
+  "content_version": 1,
+  "exam_pack_ref": {
+    "exam_code": "ap_statistics",
+    "school_year": "2026-27",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "frq",
+  "archetype_ref": { "archetype_key": "frq-practices-1-2", "version": "1.0.0" },
+  "taxonomy_refs": [
+    { "scheme_key": "ap-statistics-fall-2026", "scheme_version": "1.0.0", "node_key": "unit-1" },
+    { "scheme_key": "ap-statistics-fall-2026", "scheme_version": "1.0.0", "node_key": "practice-1" },
+    { "scheme_key": "ap-statistics-fall-2026", "scheme_version": "1.0.0", "node_key": "practice-2" }
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "trail-context",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "The parks department of a mid-sized city opened a new 3-mile riverside walking and biking trail last year. Before deciding whether to fund a second trail, the department wants to understand how the city's adult residents use the new trail."
+      },
+      "source_refs": ["college-board-ap-statistics-ced-fall-2026"],
+      "alt_text": "A city parks department is studying how adult residents use a newly opened riverside trail."
+    }
+  ],
+  "parts": [
+    {
+      "part_key": "part-a",
+      "ordinal": 1,
+      "label": "(a)",
+      "prompt": "State one investigative question that the parks department could answer with data collected from the city's adult residents about their use of the new trail.",
+      "stimulus_refs": ["trail-context"],
+      "response_modalities": ["typed-text"],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "a-statistical-question",
+          "points": 1,
+          "description": "Poses a statistical investigative question about a characteristic of the population of adult residents that anticipates variability and can be answered by collecting and summarizing data (not a yes/no fact or a question about a single person).",
+          "required_evidence": ["population-referenced", "answerable-by-data", "anticipates-variability"]
+        }
+      ]
+    },
+    {
+      "part_key": "part-b",
+      "ordinal": 2,
+      "label": "(b)",
+      "prompt": "Identify the population of interest for this study. Then describe one categorical variable and one quantitative variable that could be recorded for each resident to help answer your question from part (a).",
+      "stimulus_refs": ["trail-context"],
+      "response_modalities": ["typed-text"],
+      "points": 2,
+      "criteria": [
+        {
+          "criterion_key": "b-population",
+          "points": 1,
+          "description": "Identifies the population as the city's adult residents (or an equivalent clearly bounded resident population), not merely people already observed using the trail.",
+          "required_evidence": ["population-is-adult-residents"]
+        },
+        {
+          "criterion_key": "b-variables",
+          "points": 1,
+          "description": "Gives one correctly classified categorical variable AND one correctly classified quantitative variable, each recordable per resident and relevant to trail use (e.g., categorical: whether the resident has used the trail; quantitative: number of trail visits in a typical month).",
+          "required_evidence": ["valid-categorical-variable", "valid-quantitative-variable"]
+        }
+      ]
+    },
+    {
+      "part_key": "part-c",
+      "ordinal": 3,
+      "label": "(c)",
+      "prompt": "Describe a method the department could use to select a simple random sample of 200 adult residents from a list of all adult residents, and explain one reason random selection is preferable to surveying only volunteers for this study.",
+      "stimulus_refs": ["trail-context"],
+      "response_modalities": ["typed-text"],
+      "points": 3,
+      "criteria": [
+        {
+          "criterion_key": "c-frame",
+          "points": 1,
+          "description": "Describes using the list of all adult residents as a sampling frame (e.g., number the residents 1 to N).",
+          "required_evidence": ["sampling-frame-identified"]
+        },
+        {
+          "criterion_key": "c-random-mechanism",
+          "points": 1,
+          "description": "Describes a valid random-selection mechanism giving every resident an equal chance of selection (e.g., a random number generator or random digit table selects 200 distinct labels), so it is a simple random sample.",
+          "required_evidence": ["equal-chance-mechanism", "yields-srs"]
+        },
+        {
+          "criterion_key": "c-why-random",
+          "points": 1,
+          "description": "Explains that random selection reduces selection bias and supports generalizing results to the population of adult residents, whereas volunteers tend to be unrepresentative.",
+          "required_evidence": ["reduces-bias-or-generalizes"]
+        }
+      ]
+    },
+    {
+      "part_key": "part-d",
+      "ordinal": 4,
+      "label": "(d)",
+      "prompt": "A staff member instead suggests handing out surveys only to people who are already using the trail on a Saturday morning. Identify the type of bias this approach is most likely to introduce, and explain how it could lead the department to a misleading conclusion about how the city's adult residents use the trail.",
+      "stimulus_refs": ["trail-context"],
+      "response_modalities": ["typed-text"],
+      "points": 2,
+      "criteria": [
+        {
+          "criterion_key": "d-identify-bias",
+          "points": 1,
+          "description": "Identifies undercoverage/selection (convenience) bias: residents who do not use the trail, or who use it at other times, have little or no chance of being included.",
+          "required_evidence": ["names-selection-or-undercoverage-bias", "excluded-group-identified"]
+        },
+        {
+          "criterion_key": "d-explain-effect",
+          "points": 1,
+          "description": "Explains that the sample would overstate trail use or support because non-users and infrequent users are excluded, misleading the department's funding decision.",
+          "required_evidence": ["direction-of-error-explained"]
+        }
+      ]
+    },
+    {
+      "part_key": "part-e",
+      "ordinal": 5,
+      "label": "(e)",
+      "prompt": "Suppose the department finds that residents who live within one mile of the trail report more weekly exercise, on average, than residents who live farther away. Explain why this observational result does not by itself establish that the trail caused the difference in exercise, and describe one confounding variable that could offer an alternative explanation.",
+      "stimulus_refs": ["trail-context"],
+      "response_modalities": ["typed-text"],
+      "points": 2,
+      "criteria": [
+        {
+          "criterion_key": "e-observational-limit",
+          "points": 1,
+          "description": "Explains that because residents were not randomly assigned to live near or far from the trail (an observational comparison), an association between proximity and exercise does not establish causation.",
+          "required_evidence": ["no-random-assignment", "association-not-causation"]
+        },
+        {
+          "criterion_key": "e-confounder",
+          "points": 1,
+          "description": "Describes a plausible confounding variable associated with both living near the trail and exercising more (e.g., more active people choose to live near the trail; nearer neighborhoods are more walkable), and ties it to both variables.",
+          "required_evidence": ["plausible-confounder", "linked-to-both-variables"]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en-US",
+    "screen_reader_review_required": true,
+    "accommodation_notes": "Text-only item: prompt and stimulus are prose, responses are typed text. No figure, table, or color-dependent content. Stimulus carries alt_text for screen-reader parity."
+  },
+  "provenance": {
+    "source_refs": ["college-board-ap-statistics-ced-fall-2026"],
+    "fact_pack_version": "AP_STATISTICS_2027_CED_FACT_PACK@2026-07-13",
+    "authoring_prompt_version": "CLAUDE_AP_STATISTICS_REBUILD@2026-07-13",
+    "generated_by": "Claude",
+    "generated_at": "2026-07-13T18:00:00Z",
+    "content_sha256": "dd8fbbefbb02a231f082c7284a654bb462f3f4c6ff6e8b1ac3a4ffc017895888"
+  }
+}

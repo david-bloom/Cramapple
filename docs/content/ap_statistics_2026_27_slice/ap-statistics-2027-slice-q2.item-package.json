@@ -1,0 +1,172 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "ap-statistics-2027-slice-q2",
+  "content_key": "ap-statistics-2027-slice-q2",
+  "content_version": 1,
+  "exam_pack_ref": {
+    "exam_code": "ap_statistics",
+    "school_year": "2026-27",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "frq",
+  "archetype_ref": { "archetype_key": "frq-practices-3-4", "version": "1.0.0" },
+  "taxonomy_refs": [
+    { "scheme_key": "ap-statistics-fall-2026", "scheme_version": "1.0.0", "node_key": "unit-1" },
+    { "scheme_key": "ap-statistics-fall-2026", "scheme_version": "1.0.0", "node_key": "practice-3" },
+    { "scheme_key": "ap-statistics-fall-2026", "scheme_version": "1.0.0", "node_key": "practice-4" }
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "class-a-reaction-times",
+      "ordinal": 1,
+      "kind": "dataset",
+      "payload": {
+        "label": "Class A simple reaction times (seconds), n = 15, sorted",
+        "units": "seconds",
+        "values": [0.20, 0.22, 0.25, 0.26, 0.28, 0.30, 0.31, 0.33, 0.35, 0.36, 0.38, 0.40, 0.42, 0.45, 0.70]
+      },
+      "source_refs": ["college-board-ap-statistics-ced-fall-2026"],
+      "alt_text": "Fifteen sorted reaction times in seconds for Class A, ranging from 0.20 to 0.70 seconds."
+    },
+    {
+      "stimulus_key": "class-b-summary",
+      "ordinal": 2,
+      "kind": "table",
+      "payload": {
+        "label": "Class B simple reaction times (seconds): five-number summary, n = 15",
+        "columns": ["Minimum", "Q1", "Median", "Q3", "Maximum"],
+        "rows": [[0.24, 0.30, 0.38, 0.48, 0.55]]
+      },
+      "source_refs": ["college-board-ap-statistics-ced-fall-2026"],
+      "alt_text": "Class B five-number summary: minimum 0.24, Q1 0.30, median 0.38, Q3 0.48, maximum 0.55 seconds."
+    }
+  ],
+  "parts": [
+    {
+      "part_key": "part-a",
+      "ordinal": 1,
+      "label": "(a)",
+      "prompt": "Using the Class A data, calculate the median reaction time and the interquartile range (IQR). Show the quartiles you use.",
+      "stimulus_refs": ["class-a-reaction-times"],
+      "response_modalities": ["typed-math"],
+      "points": 2,
+      "criteria": [
+        {
+          "criterion_key": "a-median",
+          "points": 1,
+          "description": "Reports the median as the 8th sorted value, 0.33 seconds.",
+          "required_evidence": ["median-0.33"],
+          "deterministic_checks": [
+            { "check_type": "numeric-tolerance", "parameters": { "absolute": 0.005 } }
+          ]
+        },
+        {
+          "criterion_key": "a-iqr",
+          "points": 1,
+          "description": "Reports Q1 = 0.26 and Q3 = 0.40, giving IQR = 0.14 seconds.",
+          "required_evidence": ["q1-0.26", "q3-0.40", "iqr-0.14"],
+          "deterministic_checks": [
+            { "check_type": "numeric-tolerance", "parameters": { "absolute": 0.005 } }
+          ]
+        }
+      ]
+    },
+    {
+      "part_key": "part-b",
+      "ordinal": 2,
+      "label": "(b)",
+      "prompt": "Use the 1.5 x IQR rule to determine whether the Class A data contain any outliers. Show the boundaries you use and identify any outliers.",
+      "stimulus_refs": ["class-a-reaction-times"],
+      "response_modalities": ["typed-text", "typed-math"],
+      "points": 2,
+      "criteria": [
+        {
+          "criterion_key": "b-fences",
+          "points": 1,
+          "description": "Computes 1.5 x IQR = 0.21 and the fences: upper = Q3 + 0.21 = 0.61, lower = Q1 - 0.21 = 0.05.",
+          "required_evidence": ["step-1.5xiqr-0.21", "upper-fence-0.61", "lower-fence-0.05"],
+          "deterministic_checks": [
+            { "check_type": "numeric-tolerance", "parameters": { "absolute": 0.005 } }
+          ]
+        },
+        {
+          "criterion_key": "b-outlier",
+          "points": 1,
+          "description": "Identifies 0.70 as an outlier because it exceeds the upper fence 0.61, and states no value falls below 0.05, so it is the only outlier.",
+          "required_evidence": ["0.70-above-upper-fence", "only-outlier"]
+        }
+      ]
+    },
+    {
+      "part_key": "part-c",
+      "ordinal": 3,
+      "label": "(c)",
+      "prompt": "Describe the distribution of Class A reaction times. Address shape, center, spread, and any unusual features in context.",
+      "stimulus_refs": ["class-a-reaction-times"],
+      "response_modalities": ["typed-text"],
+      "points": 3,
+      "criteria": [
+        {
+          "criterion_key": "c-shape",
+          "points": 1,
+          "description": "Describes the shape as skewed to the right (or not symmetric), referencing the high tail / value 0.70.",
+          "required_evidence": ["shape-right-skewed", "reason-references-tail-or-outlier"]
+        },
+        {
+          "criterion_key": "c-center",
+          "points": 1,
+          "description": "Reports center using the median, about 0.33 seconds, in context of reaction times.",
+          "required_evidence": ["center-median-0.33-in-context"]
+        },
+        {
+          "criterion_key": "c-spread-feature",
+          "points": 1,
+          "description": "Reports spread with a resistant measure (IQR = 0.14 s) or range, and names the outlier at 0.70 s as an unusual feature.",
+          "required_evidence": ["spread-reported", "unusual-feature-outlier"]
+        }
+      ]
+    },
+    {
+      "part_key": "part-d",
+      "ordinal": 4,
+      "label": "(d)",
+      "prompt": "The Class B five-number summary is given. Compare the two classes' reaction-time distributions and justify a claim about which class tended to react faster.",
+      "stimulus_refs": ["class-a-reaction-times", "class-b-summary"],
+      "response_modalities": ["typed-text"],
+      "points": 3,
+      "criteria": [
+        {
+          "criterion_key": "d-center-compare",
+          "points": 1,
+          "description": "Compares centers: Class A median 0.33 s is less than Class B median 0.38 s, so Class A tended to react faster.",
+          "required_evidence": ["compare-medians", "direction-a-faster"]
+        },
+        {
+          "criterion_key": "d-spread-compare",
+          "points": 1,
+          "description": "Compares variability using IQR: Class A IQR 0.14 s is less than Class B IQR 0.18 s (0.48 - 0.30), so Class B is more variable; uses a resistant measure given Class A's outlier.",
+          "required_evidence": ["compare-iqr", "class-b-more-variable"]
+        },
+        {
+          "criterion_key": "d-justified-claim",
+          "points": 1,
+          "description": "States a justified comparative claim in context: Class A reacted faster on average, acknowledging Class B's greater spread and Class A's high outlier.",
+          "required_evidence": ["claim-in-context", "acknowledges-spread-or-outlier"]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en-US",
+    "screen_reader_review_required": true,
+    "accommodation_notes": "Data provided as a sorted numeric list and a five-number-summary table, both with alt_text. Responses are typed math and typed text; no student-produced graph is required, consistent with the frq-practices-3-4 archetype."
+  },
+  "provenance": {
+    "source_refs": ["college-board-ap-statistics-ced-fall-2026"],
+    "fact_pack_version": "AP_STATISTICS_2027_CED_FACT_PACK@2026-07-13",
+    "authoring_prompt_version": "CLAUDE_AP_STATISTICS_REBUILD@2026-07-13",
+    "generated_by": "Claude",
+    "generated_at": "2026-07-13T18:00:00Z",
+    "content_sha256": "71314a91db5c9b878098543ebc8de310f4271c39dfac4ac4e17c10dbbcde9999"
+  }
+}
