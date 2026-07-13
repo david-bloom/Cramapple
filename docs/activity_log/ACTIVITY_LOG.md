@@ -34,7 +34,7 @@ Most recent entries (full reverse-chronological list follows below):
 ## TASK-0017 H1–H5 Repository Harness Implemented and Locally Verified — 2026-07-13
 
 **Task:** TASK-0017 — Reusable Subject-Onboarding Harness
-**Status:** Ready for Review; repository/local implementation green; Dev/Production untouched.
+**Status:** Repository/local build complete; independent re-QA passed; ready for Dev Hard-Gate; Dev/Production untouched.
 
 **Summary:** After Product Owner clarification under DECISION-0040, implemented additive H1/H2 persistence, the deterministic plan/apply compiler, and H3–H5 capability, validation, eligibility, manifest-relation, calibration, and content-clearance layers. Two independent-QA passes correctly failed intermediate snapshots. The resulting remediation now covers canonical package/legacy payload and parent-manifest immutability; typed target/invalidation checks and immutable suite meaning; policy/pack-scoped reviewer evidence, revocations, persisted team eligibility, and review-queue enforcement; item-derived renderer/modality and deterministic parameter checks at compiler and DB boundaries; exact hash-attested waiver evidence; P0-equivalent gate reporting; package-bound adjudicated calibration evidence; exact approval binding/revocation/consumption; policy-conflict detection; and concurrency control. Canonical questions remain `content_items` / `content_item_versions`; no parallel `artifact_versions` question record was introduced.
 
@@ -42,7 +42,9 @@ Most recent entries (full reverse-chronological list follows below):
 
 **Evidence:** `docs/architecture/TASK0017_H1_H5_PHYSICAL_DESIGN_2026_07_13.md`; `docs/qa/TASK0017_H1_H5_LOCAL_EVIDENCE_2026_07_13.md`.
 
-**Next Required Action:** Fresh independent re-QA against the frozen remediation commit, followed by a Product Owner Hard-Gate decision for any target environment. Do not apply to Dev without a separate authoritative approval record/ID and proof that `app` is not Data API-exposed; Production remains distinct.
+**Independent verdict:** PASS at frozen commit `4b1bc07`; no remaining repository blocker.
+
+**Next Required Action:** Product Owner Hard-Gate decision for Dev, followed by an exact authoritative execution approval record/ID, hosted proof that `app` is not Data API-exposed, and a Dev evidence run. Production remains distinct.
 
 ## AP Statistics Vertical-Slice G3V Re-QA: Q1/Q3/Q4 Pass — 2026-07-13
 

@@ -5,7 +5,7 @@
 **Owner:** Codex (schema, adapters, verifier scaffold, migrations, tests, publication trust)
 **Product Owner:** David Bloom
 **Tier:** Hard-Gate
-**Status:** Ready for Review
+**Status:** Repository Build Complete — Ready for Dev Hard-Gate
 **Priority:** High
 **Created Date:** 2026-07-13
 **Approved Date:** 2026-07-13 (`DECISION-0039`: H0/H1 + P0 repository/local-verification stage only)
@@ -168,8 +168,8 @@ Repository/local H1–H5 implementation is complete under DECISION-0040 and read
 
 ## QA Result
 
-Implementation-agent evidence is green after remediating the initial independent-QA blockers, including clean disposable PostgreSQL execution, concurrent-apply verification, and security/schema audits. Fresh independent re-QA against the frozen remediation commit is required before a proposed final verdict. Dev/Production remain untouched. The Dev preflight must additionally prove `app` is not in PostgREST's exposed-schema list. Physical design: `docs/architecture/TASK0017_H1_H5_PHYSICAL_DESIGN_2026_07_13.md`; local evidence: `docs/qa/TASK0017_H1_H5_LOCAL_EVIDENCE_2026_07_13.md`.
+Implementation-agent evidence is green after three remediation passes, including clean disposable PostgreSQL execution, concurrent-apply verification, and security/schema audits. Fresh independent re-QA passed the frozen `4b1bc07` snapshot with no remaining repository blocker. Dev/Production remain untouched. The Dev preflight must additionally prove `app` is not in PostgREST's exposed-schema list. Physical design: `docs/architecture/TASK0017_H1_H5_PHYSICAL_DESIGN_2026_07_13.md`; local evidence: `docs/qa/TASK0017_H1_H5_LOCAL_EVIDENCE_2026_07_13.md`.
 
 ## Done Decision
 
-Not done. Repository/local implementation is Ready for Review. Next checkpoints: fresh independent QA; Product Owner Hard-Gate physical migration decision; then a separate Dev execution approval ID and Dev evidence run. Production remains a distinct Hard Gate.
+Repository/local build is complete and independently passed. The harness is ready for a separate Dev Hard-Gate decision, exact execution approval record/ID, hosted Data API exposure preflight, and Dev evidence run. Production remains a distinct Hard Gate.

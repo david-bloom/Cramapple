@@ -53,9 +53,10 @@ The H3–H5 migration adds typed manifest validation and ordered manifest dual-w
 
 ## Remaining Hard Gates
 
-- Fresh independent re-QA of the remediated implementation and SQL.
 - Product Owner Hard-Gate decision for any target-environment application.
 - Separate Dev execution approval ID and Dev evidence packet.
 - Dev preflight proving `app` is absent from the PostgREST/Data API exposed-schema list.
 - Authoritative grading/calibration and security/privacy evidence before any content publication.
 - Separate Production proposal and approval.
+
+Repository/local independent re-QA passed at `4b1bc07`; this does not authorize either target environment.
