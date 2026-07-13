@@ -66,6 +66,7 @@ Every FRQ must pass, or A4 fails it back to A2 (bounded retries):
 5. **Hedged inferred-shape language** ("apparent/likely") when inferring from summary statistics.
 6. **No removed topics** — no slope inference, chi-square GOF, geometric distribution, combining random variables, or departures-from-linearity (fact pack §8).
 7. **Task-verb ↔ demand match** — "Identify" needs no justification; "Explain/Justify" requires reasoning.
+8. **Task-coverage completeness** — every task the item asks students to perform maps to a scored criterion, and no scored criterion lacks an asked task (G3V re-review lesson: an asked p-value left unscored).
 
 ## 4. Per-item author prompt template (A2)
 

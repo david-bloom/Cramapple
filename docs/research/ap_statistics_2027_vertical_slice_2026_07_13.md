@@ -264,7 +264,7 @@ Each point is earned independently (a wrong earlier part does not forfeit a late
 3. **B: interpret E(X) in context.** Not earned: "the mean is 2.6" with no context, or calls it the most likely value. Fix: *over many orders, the average items per order is ≈ 2.6.*
 4. **C(i): p̂ = 0.272.** Not earned: 68/1000 or other. Fix: *68/250.*
 5. **C(ii): SE ≈ 0.0274 using p0 = 0.25.** Not earned: uses p̂ in the SE, or wrong n. Fix: *for a model-based comparison use SE = √(p0(1−p0)/n) with p0 = 0.25.*
-6. **C(iii): z ≈ 0.80.** Not earned: wrong numerator/denominator, or wrong sign handling. Fix: *z = (p̂ − p0)/SE.*
+6. **C(iii): z ≈ 0.80 AND its two-sided p-value ≈ 0.42.** (Scores the full C(iii) task — both the standardized statistic and the p-value the part asks for.) Not earned: wrong z/sign, or the p-value is missing or one-sided. Fix: *z = (p̂ − p0)/SE, then two-sided p = 2·P(Z > |z|).* (**ECF**: the p-value is judged from the student's own z.)
 7. **D(i): decision — fail to reject at α = 0.05 (two-sided p ≈ 0.42 > α).** Not earned: decision inconsistent with the student's two-sided p-value vs α (**ECF**: judged against the student's own p-value). Fix: *compare the two-sided p-value to α = 0.05.*
 8. **D(ii): justify with the statistic.** Not earned: conclusion with no reference to z / probability. Fix: *cite that |z| ≈ 0.8 is small, so the deviation is within ordinary sampling variability.*
 9. **E(i): a validity condition (random sample / independence).** Not earned: none, or an irrelevant condition. Fix: *state the sample must be random (and n ≤ 10% of orders).*
@@ -278,7 +278,7 @@ Each point is earned independently (a wrong earlier part does not forfeit a late
 - **No removed topics** authored as tested content (U5 is descriptive regression only; no slope inference, no chi-square GOF, no geometric/combining-RV/departures-from-linearity).
 - **Every numeric claim recomputed inline** (shown per item).
 - **Each FRQ = exactly 10 independently-earnable points** with evidence boundary + counterexample + minimum-fix repair text.
-- **Status:** artifacts only, not staged, not published. Codex G3V returned **7/10 pass**; Q1/Q3/Q4 remediated above; **pending G3V re-review** and the tutor's fact-pack review.
+- **Status:** artifacts only, not staged, not published. Codex G3V round 1 → 7/10 pass; Q1/Q3/Q4 remediated. **Re-review:** Q1 & Q3 cleared; Q4 had one residual (Part C(iii) asked for the p-value but Point 6 scored only the z-statistic — an unscored task) — now fixed (Point 6 scores z + p-value). **Pending Codex confirmation of the Q4 fix** and the tutor's fact-pack review.
 
 ## G3V remediation log (2026-07-13)
 
@@ -297,3 +297,4 @@ Every FRQ the cascade authors must, before it passes internal verification:
 3. **State decision rules explicitly** — α and/or an explicit threshold (e.g., "within two standard errors"); never leave the decision criterion implicit in the model answer.
 4. **Attach ECF/consequential-error rules** to every dependent calc→decision chain, so a wrong upstream value is judged against the student's own subsequent work.
 5. Keep inferential-shape language hedged ("apparent/likely") when inferring from summary statistics.
+6. **Task-coverage completeness** — every task the item asks students to perform maps to a scored criterion, and no scored criterion lacks a corresponding asked task. (G3V re-review lesson: Q4 asked for a p-value in C(iii) but Point 6 scored only the z-statistic, leaving the p-value an unscored task.)
