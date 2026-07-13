@@ -6,6 +6,8 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0036 — Anthropic Multi-Model Cascade Leads AP Statistics 2026-27 Content Rebuild
+- DECISION-0035 — August Pilot May Launch Without Tutor Content Review
 - DECISION-0034 — Adopt Five Grading Standards (Boundary Contracts, Gold-Set Depth, Deterministic Layer, Feedback-Quality Evaluation, Single-Grader Default)
 - DECISION-0033 — Publish and Publicly Expose Unreviewed AP Statistics Content for Feedback and Tutor Recruiting
 - DECISION-0032 — Authorize TASK-0013 Phase 2 Database Migration (AP Statistics Schema)
@@ -1569,3 +1571,74 @@ governance requirements so the lessons stop being re-derived.
 - Index note: this entry is DECISION-0034 on branch
   `claude/ap-statistics-mcq-short-frq-prompts`; if another branch also claims
   0034, renumber whichever merges second and update the index.
+
+## DECISION-0035 — August Pilot May Launch Without Tutor Content Review
+
+**Date:** 2026-07-12
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Related Task:** Cross-cutting — tutor content-review workstream, `docs/research/TUTOR_CONTENT_ASSESSMENT_PILOT_2026_07_12.md`
+**Area:** Content Governance / Product
+
+### Context
+
+The tutor content-review pipeline was repaired and verified functional on 2026-07-12 (see `ACTIVITY_LOG.md`'s "Tutor Content-Review Pipeline Repaired..." entry), and a full QA pass fixed 17 confirmed defects across all 200 draft MCQs and 254 draft FRQs. Despite that progress, actual onboarding and assignment of the two hired tutors against real content is not confirmed done, and no adjudicated tutor sign-off exists for either subject's launch corpus. With an August pilot target, tutor review was at risk of being the blocking gate.
+
+### Decision
+
+David: "We may launch the August pilot without tutor review. This is my decision." The August pilot launch is authorized to proceed without completed expert tutor content review as a precondition, at the Product Owner's discretion.
+
+### Rationale
+
+Not separately elaborated beyond the owner's direct instruction. Consistent with `DECISION-0033`'s precedent (AP Statistics MCQ/short-FRQ content was published live without tutor review on 2026-07-01, David accepting that risk after being told what it skips) — this decision generalizes the same owner override to the August pilot as a whole, across both subjects.
+
+### Consequences
+
+- Tutor content review (onboarding the two hired tutors, running assignments, collecting `tutor_clear` outcomes) is **not** a hard gate for the August pilot. It remains valuable and should continue, but its completion is not a precondition David requires before launch.
+- This does not retroactively validate content as reviewed, does not close the content-governance requirement that expert sign-off is normally a launch gate (`CONTENT_GOVERNANCE_AND_VALIDATION.md`), and does not extend to grading-side gates (TASK-0010 gold-set adjudication, PR #38 deployment, launch-bar measurement) — those remain separate, ungated by this decision.
+- Per `feedback_governance`'s "QA-pass ≠ launch approval" rule: the 17-defect QA fix pass and pipeline repair are QA work, not a substitute for tutor review; this decision is what actually removes tutor review as a blocking requirement, not the QA pass itself.
+- `docs/research/TUTOR_CONTENT_ASSESSMENT_PILOT_2026_07_12.md` was updated the same day to mark its operational-status claims stale and to point here.
+
+## DECISION-0036 — Anthropic Multi-Model Cascade Leads AP Statistics 2026-27 Content Rebuild
+
+**Date:** 2026-07-13
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Related Task:** Cross-cutting — TASK-0013 (AP Statistics), relates to TASK-0016 (grading engine), `DECISION-0034`, `DECISION-0035`, `DECISION-0031`
+**Area:** Content Governance / Product / Process
+
+### Context
+
+The AP Statistics *Course and Exam Description, Effective Fall 2026* (exam May 2027 — the Aug-2026-beta cohort's actual exam) restructures the course: 9 modules → 5 units, FRQ section 6×~4pt → 4×10pt multi-part questions, 42 MCQ + 4 FRQ, and two topics Cramapple currently covers (inference for the regression slope; chi-square goodness-of-fit) do not appear in the new unit list. Cramapple's existing Stats content is largely mis-shaped for this exam and needs rebuilding under time pressure. David expanded the Anthropic subscription specifically to have Anthropic models lead complex-reasoning and content-execution work.
+
+### Decision
+
+1. **Anthropic models lead AP Statistics content authoring for this rebuild.** This is a deliberate shift from the tutor-authored base-package model (`DECISION-0031`, TASK-0005/0007/0008) for this specific workstream, made explicitly by the Product Owner — not backed into via tooling.
+2. **Adopt a corrected multi-model cascade** (documented in `docs/product/AP_STATISTICS_2027_CONTENT_REBUILD_ORCHESTRATION.md`): **Opus 4.8** (`claude-opus-4-8`) authors items, criterion-boundary contracts, and student repair text, and also runs the correctness verification as an independent, adversarially-framed pass with fresh context; **Sonnet 5** (`claude-sonnet-5`) runs conformance/schema checks and bulk mechanical transforms; **Haiku 4.5** (`claude-haiku-4-5-20251001`) catalogs and reports. The strongest model's correctness output is never screened by a lighter model.
+3. **Codex is the independent reviewer** — a plan review before authoring (Gate G1) and an independent QA pass on staged output (Gate G3), separate from the in-cascade Opus verifier.
+4. **Two orchestrations are defined:** (A) item re-creation to the 5-unit / 4×10pt structure; (B) rubric-block (criterion-boundary contract) and student-facing repair refresh, including a sync of the AP Statistics deterministic verification profile.
+
+### Rationale
+
+Speed to the Aug 2026 beta with the new exam shape, using the capability David is paying to lead this work. The cascade is shaped to avoid the obvious failure mode (screening the strongest model's statistical output with a weaker QA model) by keeping correctness verification at Opus tier and independent, consistent with `DECISION-0034`'s emphasis that a precise rubric contract, not raw model size, is the main quality lever.
+
+### Consequences / guardrails (unchanged and binding)
+
+- **AI output is candidate content, not cleared content.** The cascade writes only to staging (`content_ingest_batches`/`content_ingest_rows`); it does not satisfy the content-quality launch gate. Clearing is human tutor review (`TUTOR_REVIEWER_QUICKSTART.md`) **or** an explicit `DECISION-0035` waiver recorded per batch — never assumed because the models QA'd it (`feedback_governance`: QA-pass ≠ launch approval).
+- **No auto-publish.** Promotion to `status='published'` remains a separate Product-Owner-gated action (Gate G5).
+- **No College Board material** as model input, exemplar, or seed (`DECISION-0031`/`0033`) — the CED is used for structure/standards only, not item content.
+- **Every FRQ criterion requires an authored boundary contract** (`DECISION-0034` standard 1); the deterministic verification layer is version-pinned to match (standard 3).
+- **Blocked on curriculum lock (Gate G0, Orly):** final unit/topic map, the slope-inference and chi-square-GOF in/out call, per-unit counts, and FRQ blueprints are prerequisites. The orchestration is documented and ready but is **not yet run** pending G0 + G1.
+- This decision authorizes the *authoring process*; it does not approve any specific content, close TASK-0013, or accept content-quality risk beyond what `DECISION-0035` already records.
+
+### Update 2026-07-13 — Codex G1 review: return for revision, then approve
+
+Codex performed the independent G1 plan review and endorsed the executive change (Claude leads Stats curriculum authoring; Codex stays independent reviewer/QA, not a competing author). Verdict: **return for targeted revision, then approve.** The orchestration spec was revised to **v2** incorporating Codex's required corrections; the decision stands with these tightened guardrails now binding:
+
+- The **five removed topics are confirmed College Board facts** (verified against the CB revision page 2026-07-13): departures-from-linearity (2.9), combining random variables (4.9), geometric distribution (4.12), chi-square goodness-of-fit (8.2/8.3), and inference for slopes (old Unit 9). Residual plots/curvature **remain** (new Topic 5.4). This corrects v1's "unconfirmed-removed" framing.
+- Authoring input is a **human-reviewed CED fact pack**, never the full CED PDF (which contains official questions/scoring guidelines).
+- **Curriculum authoring (Claude) is split from verifier implementation (Codex/TASK-0016):** the cascade emits a verifier-requirements manifest and does **not** edit `statistics-verifier.ts` or production verifier config.
+- Added **G−1 containment** (freeze + classify/dispose current corpus, incl. live removed-topic items) and a separate **G4B grading-clearance gate** — `DECISION-0035` waives tutor review, not grading calibration.
+- **Deterministic scripts** own counts/coverage/numeric recomputation; Haiku is narrative-only; a **vertical slice** must clear Codex review before any bulk generation.
+- v1 and the reviewer quickstart were flagged by Codex as **uncommitted local changes** — durability in GitHub (source of truth) is a pending action, at David's direction.
+- Seven open scope questions (inventory target, live removed-topic disposition, supplemental policy, app-vs-API, keying, waiver scope, fact-pack drafting) are recorded in the spec for David; several block bulk execution, none block drafting the fact pack or the vertical slice design.
