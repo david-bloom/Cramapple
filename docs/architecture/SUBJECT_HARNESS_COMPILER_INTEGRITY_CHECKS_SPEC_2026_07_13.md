@@ -3,7 +3,7 @@
 **Prepared:** 2026-07-13 · Author: Claude (H0/H1 contract lane)
 **For:** Codex (owns `scripts/subject-harness/compiler.ts`, verifier registry, tests)
 **Task:** TASK-0017 · Related: `DECISION-0037`, `DECISION-0039`, `DECISION-0040`
-**Status:** Partially adopted — **A, B, and the archetype-granularity of C/D remain open and are routed back to Codex** (Product Owner decision, 2026-07-13).
+**Status:** **A, C, D adopted by Codex; B decided by Claude (2026-07-13) — lower-bound rule in §B, ready for Codex to implement.**
 
 ## Adoption status (2026-07-13, after Codex's TASK-0017 "done")
 
@@ -13,12 +13,17 @@ in `compiler.ts` `walkParts` — validating each item part's `response_modalitie
 **subject's** `capabilities.required_response_modalities` and the platform registry. That partially
 covers gap D at the *subject* level.
 
-**Still open (routed back to Codex):**
-- **A** — inventory targets are never resolved against archetypes (`grep inventory scripts/subject-harness/` = 0 hits).
-- **B** — blueprint `item_count` is never reconciled with summed inventory `target_count`.
-- **C** — archetype `response_modalities` are still not constrained to `capabilities.required_response_modalities`.
-- **D (archetype granularity)** — a part can still use a modality its **own archetype** does not declare,
-  as long as the subject supports it; Codex's new check is subject-level, not archetype-level.
+Codex subsequently adopted **A, C, and D** with fatal, machine-readable compiler checks and
+negative regression coverage. The checks resolve inventory target archetype keys and item types,
+constrain archetype modalities to subject capabilities, and recursively constrain part/subpart
+modalities to the exact resolved archetype version.
+
+**Claude's B decision (2026-07-13) — resolves Codex's deferral:** `inventory.targets` is an
+*authoring bank* (Orly-approved 100 MCQ / 70 FRQ, `APPROVAL-0036`), **not** an exam form. B is
+therefore **not** an equality check. Use the **lower-bound** rule in §B
+(`inventoryDemand(T) >= formDemand(T)`, error `inventory.below_form_demand`): it never rejects the
+approved bank, needs no schema change, and still catches an inventory that cannot fill one exam form.
+Ready for Codex to implement; not yet in the compiler.
 
 The four AP Statistics 2027 slice items in `docs/content/ap_statistics_2026_27_slice/` compile green
 under the current checks, so none of these gaps is blocking that content today — they remain
@@ -32,8 +37,8 @@ reconciliation (criteria → part → archetype), stimulus refs, deterministic-c
 allow-listing, `content_sha256`, capability preflight, taxonomy-parent resolution, blueprint
 section-weight sums, and academic-year consistency. All six existing tests pass.
 
-Four cross-package invariants are **not** enforced today. Each lets a malformed package compile
-clean, and each is a mistake real content authoring will make. This spec defines the rule, error
+Four cross-package invariants were identified. A, C, and D are now enforced; B awaits the inventory
+semantics decision described above. This spec defines the rule, error
 `code`/`path`/`message` (following the compiler's existing `<namespace>.<detail>` convention),
 where in `compilePlan` to add it, severity, and a test. All are additive; none change existing
 passing behavior on the current AP Statistics fixtures.
@@ -69,23 +74,31 @@ does not exist, or whose `item_type` disagrees with the referenced archetype, co
 
 ---
 
-## B — Blueprint item counts must reconcile with inventory (FATAL where unambiguous)
+## B — Inventory must be able to fill at least one exam form (FATAL) — REVISED 2026-07-13
 
-**Gap:** `blueprint.sections[].item_count` and summed `inventory.targets[].target_count` are never
-compared. A blueprint promising 4 FRQs with an inventory summing to 3 passes.
+**Revised per Codex's correct objection (2026-07-13).** The original rule required
+`inventoryDemand(T) == blueprintDemand(T)`. That is **wrong**: `inventory.targets` is an *authoring
+bank* (Orly-approved 100 MCQ / 70 FRQ, `APPROVAL-0036`), while `blueprint.sections[].item_count`
+(42 MCQ / 4 FRQ) describes *one exam form*. Equality would reject correct packages. **Do not
+implement the equality version.** Use the lower-bound below, which is correct whether `inventory`
+holds bank counts or per-form counts, and still catches the real defect (an inventory that cannot
+even assemble one form).
 
-**Rule:** For each `item_type T`:
+**Gap:** nothing checks that the authored inventory can supply a full exam form. An inventory
+summing to 3 FRQ under a 4-FRQ form passes.
+
+**Rule (lower-bound):** For each `item_type T`:
 - `inventoryDemand(T)` = Σ `target_count` over `inventory.targets` with `item_type == T`.
-- `blueprintDemand(T)` = Σ `item_count` over `blueprint.sections` whose `item_types` **equals `[T]`
+- `formDemand(T)` = Σ `item_count` over `blueprint.sections` whose `item_types` **equals `[T]`
   exactly** (single-type sections only).
-- If at least one single-type section exists for `T`, require `inventoryDemand(T) == blueprintDemand(T)`.
+- If at least one single-type section exists for `T`, require `inventoryDemand(T) >= formDemand(T)`.
 - Any section with more than one entry in `item_types` makes its counts unattributable per type;
-  emit a non-fatal advisory and skip that section from `blueprintDemand`.
+  emit a non-fatal advisory and skip that section from `formDemand`.
 
 **Errors:**
 | code | severity | path | message |
 |------|----------|------|---------|
-| `blueprint.inventory_count_mismatch` | FATAL | `/inventory/targets` | `item_type <T>: inventory <n>, blueprint <m>` |
+| `inventory.below_form_demand` | FATAL | `/inventory/targets` | `item_type <T>: inventory <n> < one form needs <m>` |
 | `blueprint.mixed_section_unreconciled` | ADVISORY (record, do not fail) | `/blueprint/sections/{i}` | `section <key> mixes item_types; counts not reconciled` |
 
 Advisories: if the compiler has no advisory channel yet, add an `advisories: Issue[]` field to
@@ -93,10 +106,16 @@ Advisories: if the compiler has no advisory channel yet, add an `advisories: Iss
 
 **Placement:** after A, before the per-item loop.
 
-**Baseline:** current fixture — mcq 42==42, frq 4==(1+1+1+1); both sections single-type → stays green.
+**Baseline:** current fixture (per-form-style inventory) — mcq 42 ≥ 42, frq 4 ≥ 4 → green. Also
+green once inventory carries the approved bank — mcq 100 ≥ 42, frq 70 ≥ 4.
 
-**Test:** set `inventory.targets[1].target_count` to `2` → frq inventory 5 ≠ blueprint 4 →
-`blueprint.inventory_count_mismatch`.
+**Test:** set an frq `inventory.targets[].target_count` so the frq sum is `3` → 3 < 4 →
+`inventory.below_form_demand`.
+
+**Optional (only if the team wants bank vs form modeled explicitly):** add an
+`inventory.kind: "bank" | "per-form"` discriminator (default `per-form` for back-compat). The
+lower-bound above is correct without it; the discriminator would only enable a stricter *equality*
+check for `per-form` inventories if ever desired. Not required to unblock A/C/D.
 
 ---
 
