@@ -144,7 +144,8 @@ begin
       'validation_run_ids', to_jsonb(
         array(select unnest(array[v_grading_run_id, v_security_run_id]) order by 1)
       ),
-      'qualification_rule_version_ids', '[]'::jsonb
+      'qualification_rule_version_ids', '[]'::jsonb,
+      'content_clearance_exception_id', null
     )::text,
     'sha256'::text
   ), 'hex');

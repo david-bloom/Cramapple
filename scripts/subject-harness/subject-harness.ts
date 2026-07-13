@@ -52,17 +52,57 @@ async function build(args: string[]) {
 
 if (import.meta.main) {
   const [command, ...args] = Deno.args;
-  if (!["validate", "plan", "apply"].includes(command)) {
+  if (!["validate", "verify", "plan", "apply", "evidence"].includes(command)) {
     console.error(
-      "usage: subject-harness <validate|plan|apply> --subject file [--item file ...]",
+      "usage: subject-harness <validate|verify|plan|apply|evidence> --subject file [--item file ...]",
     );
     Deno.exit(2);
   }
   try {
+    if (command === "evidence") {
+      const requestPath = option(args, "--request");
+      if (!requestPath) throw new Error("evidence requires --request JSON");
+      const databaseUrl = Deno.env.get("SUBJECT_HARNESS_DATABASE_URL");
+      if (!databaseUrl) {
+        throw new Error("SUBJECT_HARNESS_DATABASE_URL is required");
+      }
+      const request = await Deno.readTextFile(requestPath);
+      const result = await new Deno.Command("psql", {
+        args: [
+          databaseUrl,
+          "--set=ON_ERROR_STOP=1",
+          "--no-psqlrc",
+          "--tuples-only",
+          "--command",
+          `select app.content_publication_gate_status(${
+            sqlLiteral(request)
+          }::jsonb);`,
+        ],
+        stdout: "inherit",
+        stderr: "inherit",
+      }).output();
+      if (!result.success) Deno.exit(result.code);
+      Deno.exit(0);
+    }
     const plan = await build(args);
     if (command === "validate") {
       console.log(
         JSON.stringify({ valid: true, plan_sha256: plan.plan_sha256 }),
+      );
+      Deno.exit(0);
+    }
+    if (command === "verify") {
+      console.log(
+        JSON.stringify(
+          {
+            valid: true,
+            plan_sha256: plan.plan_sha256,
+            verification: plan.subject_package.verification,
+            release_gates: plan.subject_package.release_gates,
+          },
+          null,
+          2,
+        ),
       );
       Deno.exit(0);
     }

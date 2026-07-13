@@ -226,6 +226,11 @@ const governanceResult = await sql(`
   literal(reviewer)
 }::uuid],'{}')->>'eligible')::boolean
     then raise exception 'H4:minimum_reviewer_team_failed'; end if;
+  select id into v_item from app.content_item_versions where item_package_payload is not null limit 1;
+  insert into app.content_review_assignments(content_item_version_id,reviewer_id,review_stage,created_by)
+    values(v_item,${literal(reviewer)}::uuid,'tutor_question',${
+  literal(actor)
+}::uuid);
   insert into app.reviewer_capability_revocations(reviewer_capability_assignment_id,reason,revoked_by)
     values(v_assignment,'Regression revocation',${literal(actor)}::uuid);
   v_result:=app.evaluate_reviewer_eligibility(v_policy,${
@@ -236,7 +241,12 @@ const governanceResult = await sql(`
   literal(reviewer)
 }::uuid)
     then raise exception 'H4:eligibility_evaluations_not_persisted'; end if;
-  select id into v_item from app.content_item_versions where item_package_payload is not null limit 1;
+  begin insert into app.content_review_assignments(content_item_version_id,reviewer_id,review_stage,created_by)
+    values(v_item,${literal(reviewer)}::uuid,'tutor_answer',${
+  literal(actor)
+}::uuid);
+    raise exception 'H4:ineligible_queue_assignment_accepted';
+  exception when others then if sqlerrm not like 'review_assignment:reviewer_ineligible:%' then raise; end if; end;
   insert into app.governance_role_assignments(actor_id,role_key,decision_id,effective_at,created_by)
     values(${
   literal(actor)
@@ -258,6 +268,69 @@ const governanceResult = await sql(`
 end $$;
 select 'H4_H5_FAIL_CLOSED_PASS';`);
 
+const waiverHashResult = await sql(`do $$ declare
+  v_item uuid; v_item_row app.content_item_versions%rowtype; v_content app.content_items%rowtype;
+  v_pack app.exam_pack_versions%rowtype; v_role uuid; v_exception uuid; v_source uuid:=gen_random_uuid();
+  v_right uuid:=gen_random_uuid(); v_cal_suite uuid:=gen_random_uuid(); v_sec_suite uuid:=gen_random_uuid();
+  v_cal_run uuid:=gen_random_uuid(); v_sec_run uuid:=gen_random_uuid(); v_result jsonb; v_manifest uuid;
+  v_expected text; v_payload jsonb;
+begin
+  select id into v_item from app.content_item_versions where item_package_payload is not null and status='draft' limit 1;
+  select * into v_item_row from app.content_item_versions where id=v_item;
+  select * into v_content from app.content_items where id=v_item_row.content_item_id;
+  select * into v_pack from app.exam_pack_versions where id=v_content.exam_pack_version_id;
+  select governance_role_assignment_id into v_role from app.governance_role_assignments where actor_id=${
+  literal(actor)
+}::uuid and role_key='product-owner' limit 1;
+  insert into app.content_clearance_exceptions(exception_type,scope_type,scope_id,approved_by,governance_role_assignment_id,rationale,evidence_record_ids,effective_at,expires_at,created_by)
+    values('content-clearance','content-version',v_item,${
+  literal(actor)
+}::uuid,v_role,'Manifest waiver hash regression',array[gen_random_uuid()],now()-interval '1 minute',now()+interval '1 day',${
+  literal(actor)
+}::uuid)
+    returning exception_id into v_exception;
+  insert into app.source_records(source_id,source_version_id,version_sequence,title,publisher,source_type,scope_statement,content_sha256,authority_tier,refresh_class,next_refresh_due_at,provenance_status)
+    values(gen_random_uuid(),v_source,1,'Harness regression','Cramapple','internal','Local waiver hash',repeat('c',64),1,'EXAM',now()+interval '1 day','verified');
+  insert into app.rights_records(rights_record_id,source_version_id,rights_status,next_review_due_at)
+    values(v_right,v_source,'cramapple_owned',now()+interval '1 day');
+  insert into app.validation_suites(suite_version_id,name,exam_id,suite_type,split,content_sha256)
+    values(v_cal_suite,'Harness calibration',v_pack.exam_pack_id,'calibration','validation',repeat('d',64)),
+      (v_sec_suite,'Harness security',v_pack.exam_pack_id,'security_privacy','validation',repeat('e',64));
+  insert into app.validation_runs(run_id,suite_version_id,target_version_ids,environment,runner_type,completed_at,status)
+    values(v_cal_run,v_cal_suite,array[v_item],'local','deterministic',now(),'passed'),
+      (v_sec_run,v_sec_suite,array[v_item],'local','deterministic',now(),'passed');
+  insert into app.calibration_evidence_records(content_item_version_id,validation_run_id,profile_version,gold_item_count,
+    adjudicated_gold_item_count,metrics,evidence_uri,evidence_sha256,status,created_by)
+    values(v_item,v_cal_run,'1.0.0',1,1,'{"agreement":1}','urn:test:calibration',repeat('f',64),'passed',${
+  literal(actor)
+}::uuid);
+  v_result:=app.publish_content_item_version_atomic(jsonb_build_object('content_item_version_id',v_item,
+    'actor_id',${
+  literal(actor)
+}::uuid,'exam_pack_version_id',v_content.exam_pack_version_id,
+    'content_key',v_content.content_key,'school_year',v_pack.school_year,'exam_pack_version','1.0.0',
+    'source_version_ids',to_jsonb(array[v_source]),'rights_record_ids',to_jsonb(array[v_right]),
+    'validation_run_ids',to_jsonb(array[v_cal_run,v_sec_run]),'approved_by',to_jsonb(array[${
+  literal(actor)
+}::uuid]),
+    'validator_policy_version_id',gen_random_uuid(),'teaching_policy_version_id',gen_random_uuid(),
+    'grading_policy_version_id',gen_random_uuid(),'environment','local'));
+  v_manifest:=(v_result->>'manifest_id')::uuid;
+  if (select content_clearance_exception_id from app.exam_pack_manifests where manifest_id=v_manifest)<>v_exception
+    then raise exception 'H5:manifest_exception_not_pinned'; end if;
+  select jsonb_build_object('schema_version','1.0.0','exam_id',m.exam_id,'school_year',m.school_year,
+    'exam_pack_version',m.exam_pack_version,'content_versions',jsonb_build_array(jsonb_build_object(
+      'ordinal',r.ordinal,'content_item_version_id',r.content_item_version_id,'content_key_snapshot',r.content_key_snapshot,
+      'content_sha256',r.content_sha256)),'source_version_ids',to_jsonb(m.source_version_ids),
+    'rights_record_ids',to_jsonb(m.rights_record_ids),'validator_policy_version_id',m.validator_policy_version_id,
+    'teaching_policy_version_id',m.teaching_policy_version_id,'grading_policy_version_id',m.grading_policy_version_id,
+    'prompt_version_ids',to_jsonb(m.prompt_version_ids),'model_configuration_version_ids',to_jsonb(m.model_configuration_version_ids),
+    'validation_run_ids',to_jsonb(m.validation_run_ids),'qualification_rule_version_ids',to_jsonb(m.qualification_rule_version_ids),
+    'content_clearance_exception_id',m.content_clearance_exception_id),m.manifest_sha256 into v_payload,v_expected
+    from app.exam_pack_manifests m join app.exam_pack_manifest_content_versions r on r.manifest_id=m.manifest_id where m.manifest_id=v_manifest;
+  if encode(extensions.digest(v_payload::text,'sha256'),'hex')<>v_expected then raise exception 'H5:exception_not_hash_attested'; end if;
+end $$; select 'WAIVER_HASH_ATTESTATION_PASS';`);
+
 const trustBoundaryPlan: any = structuredClone(
   await compilePlan(base, [
     await read(`${fixtureRoot}/ap-statistics-q1.item-package.json`),
@@ -272,6 +345,37 @@ const trustBoundaryResult = await sql(`do $$ begin
     raise exception 'TRUST:item_modality_bypass_accepted';
   exception when others then if sqlerrm not like 'subject_harness:item_response_modality_preflight_failed%' then raise; end if; end;
 end $$; select 'DB_ITEM_CAPABILITY_FAIL_CLOSED_PASS';`);
+
+const rendererPlan: any = structuredClone(
+  await compilePlan(base, [
+    await read(`${fixtureRoot}/ap-statistics-q1.item-package.json`),
+  ], registry),
+);
+rendererPlan.items[0].package.stimuli[0].kind = "image";
+await resign(rendererPlan);
+const rendererBoundaryResult = await sql(`do $$ begin
+  begin perform app.apply_subject_package_atomic(${
+  literal(JSON.stringify(rendererPlan))
+}::jsonb,${literal(actor)}::uuid,'local',null);
+    raise exception 'TRUST:item_renderer_bypass_accepted';
+  exception when others then if sqlerrm not like 'subject_harness:item_stimulus_renderer_preflight_failed%' then raise; end if; end;
+end $$; select 'DB_ITEM_RENDERER_FAIL_CLOSED_PASS';`);
+
+const parameterPlan: any = structuredClone(
+  await compilePlan(base, [
+    await read(`${fixtureRoot}/ap-statistics-q3.item-package.json`),
+  ], registry),
+);
+parameterPlan.items[0].package.parts[0].criteria[0].deterministic_checks[0]
+  .parameters.absolute = "wrong-type";
+await resign(parameterPlan);
+const parameterBoundaryResult = await sql(`do $$ begin
+  begin perform app.apply_subject_package_atomic(${
+  literal(JSON.stringify(parameterPlan))
+}::jsonb,${literal(actor)}::uuid,'local',null);
+    raise exception 'TRUST:parameter_type_bypass_accepted';
+  exception when others then if sqlerrm not like 'subject_harness:deterministic_check_registry_failed%' then raise; end if; end;
+end $$; select 'DB_PARAMETER_CONTRACT_FAIL_CLOSED_PASS';`);
 
 const policyConflict = structuredClone(chemistry);
 policyConflict.review_policy.required_capabilities.push(
@@ -293,6 +397,59 @@ const approvalResult = await sql(`do $$ begin
     raise exception 'TRUST:arbitrary_approval_accepted';
   exception when others then if sqlerrm not like 'subject_harness:authoritative_approval_required%' then raise; end if; end;
 end $$; select 'AUTHORITATIVE_APPROVAL_FAIL_CLOSED_PASS';`);
+
+const approvalBindingResult = await sql(
+  `do $$ declare v_role uuid; v_result jsonb; v_application uuid; begin
+  select governance_role_assignment_id into v_role from app.governance_role_assignments
+    where actor_id=${literal(actor)}::uuid and role_key='product-owner' limit 1;
+  insert into app.execution_approvals(approval_id,environment,scope_key,package_id,package_sha256,plan_sha256,
+    authorized_actor_id,governance_role_assignment_id,approved_by,effective_at,expires_at,status)
+    values('TEST-BINDING-REVOKED','dev','subject-harness-apply','${chemistry.package_id}',
+      '${chemistryPlan.subject_package_sha256}','${chemistryPlan.plan_sha256}',${
+    literal(actor)
+  }::uuid,v_role,
+      ${
+    literal(actor)
+  }::uuid,now()-interval '1 minute',now()+interval '1 day','active');
+  begin perform app.apply_subject_package_atomic(${
+    literal(JSON.stringify(chemistryPlan))
+  }::jsonb,${literal(reviewer)}::uuid,'dev','TEST-BINDING-REVOKED');
+    raise exception 'TRUST:wrong_actor_approval_accepted';
+  exception when others then if sqlerrm not like 'subject_harness:authoritative_approval_required%' then raise; end if; end;
+  insert into app.execution_approval_revocations(approval_id,reason,revoked_by)
+    values('TEST-BINDING-REVOKED','Regression revocation',${
+    literal(actor)
+  }::uuid);
+  begin perform app.apply_subject_package_atomic(${
+    literal(JSON.stringify(chemistryPlan))
+  }::jsonb,${literal(actor)}::uuid,'dev','TEST-BINDING-REVOKED');
+    raise exception 'TRUST:revoked_approval_accepted';
+  exception when others then if sqlerrm not like 'subject_harness:authoritative_approval_required%' then raise; end if; end;
+  insert into app.execution_approvals(approval_id,environment,scope_key,package_id,package_sha256,plan_sha256,
+    authorized_actor_id,governance_role_assignment_id,approved_by,effective_at,expires_at,status)
+    values('TEST-BINDING-CONSUME','dev','subject-harness-apply','${chemistry.package_id}',
+      '${chemistryPlan.subject_package_sha256}','${chemistryPlan.plan_sha256}',${
+    literal(actor)
+  }::uuid,v_role,
+      ${
+    literal(actor)
+  }::uuid,now()-interval '1 minute',now()+interval '1 day','active');
+  v_result:=app.apply_subject_package_atomic(${
+    literal(JSON.stringify(chemistryPlan))
+  }::jsonb,${literal(actor)}::uuid,'dev','TEST-BINDING-CONSUME');
+  v_application:=(v_result->>'application_id')::uuid;
+  if not exists(select 1 from app.execution_approval_consumptions where approval_id='TEST-BINDING-CONSUME'
+    and subject_package_application_id=v_application and consumed_by=${
+    literal(actor)
+  }::uuid)
+    then raise exception 'TRUST:approval_consumption_missing'; end if;
+  perform app.apply_subject_package_atomic(${
+    literal(JSON.stringify(chemistryPlan))
+  }::jsonb,${literal(actor)}::uuid,'dev','TEST-BINDING-CONSUME');
+  if (select count(*) from app.execution_approval_consumptions where approval_id='TEST-BINDING-CONSUME')<>1
+    then raise exception 'TRUST:approval_consumption_not_idempotent'; end if;
+end $$; select 'EXACT_APPROVAL_BINDING_REVOCATION_CONSUMPTION_PASS';`,
+);
 
 const immutabilityResult = await sql(`do $$ declare v_item uuid; begin
   select id into v_item from app.content_item_versions where item_package_sha256 is not null limit 1;
@@ -338,9 +495,13 @@ console.log(
     chemistryResult,
     createResult,
     governanceResult,
+    waiverHashResult,
     trustBoundaryResult,
+    rendererBoundaryResult,
+    parameterBoundaryResult,
     policyConflictResult,
     approvalResult,
+    approvalBindingResult,
     immutabilityResult,
     concurrencyResult,
   ].join("\n"),

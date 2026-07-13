@@ -17,6 +17,12 @@ alter table app.content_item_versions add column prompt_json jsonb not null defa
   add column updated_at timestamptz not null default now();
 alter table app.validation_suites add column created_at timestamptz not null default now(),
   add column created_by uuid references app.profiles(user_id);
+create table app.content_review_assignments (
+  content_review_assignment_id uuid primary key default gen_random_uuid(),
+  content_item_version_id uuid not null references app.content_item_versions(id),
+  reviewer_id uuid not null references app.profiles(user_id), review_stage text not null,
+  status text not null default 'pending', created_by uuid references app.profiles(user_id)
+);
 
 grant select,insert,update on app.subjects,app.exam_packs,app.exam_pack_versions,
   app.content_items,app.content_item_versions to service_role;

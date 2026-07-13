@@ -96,7 +96,9 @@ create index content_item_versions_archetype_idx on app.content_item_versions(ar
 create or replace function app.protect_item_package_snapshot()
 returns trigger language plpgsql security invoker set search_path = '' as $$
 begin
-  if old.item_package_sha256 is not null and
+  if (old.item_package_sha256 is not null or old.status in ('published','retired')
+      or exists(select 1 from app.exam_pack_manifests m where old.id=any(m.artifact_version_ids))
+      or exists(select 1 from app.exam_pack_manifest_content_versions r where r.content_item_version_id=old.id)) and
     (to_jsonb(new) - array['status','review_status','approved_at','approved_by','published_at','updated_at'])
       is distinct from
     (to_jsonb(old) - array['status','review_status','approved_at','approved_by','published_at','updated_at'])
@@ -110,7 +112,10 @@ create trigger content_item_versions_protect_item_package_snapshot before update
 create or replace function app.protect_package_managed_content_item()
 returns trigger language plpgsql security invoker set search_path = '' as $$
 begin
-  if exists(select 1 from app.content_item_versions v where v.content_item_id=old.id and v.item_package_sha256 is not null)
+  if exists(select 1 from app.content_item_versions v where v.content_item_id=old.id and
+      (v.item_package_sha256 is not null or v.status in ('published','retired')
+       or exists(select 1 from app.exam_pack_manifests m where v.id=any(m.artifact_version_ids))
+       or exists(select 1 from app.exam_pack_manifest_content_versions r where r.content_item_version_id=v.id)))
     and (to_jsonb(new)-array['status','updated_at']) is distinct from (to_jsonb(old)-array['status','updated_at'])
   then raise exception 'subject_harness:package_managed_content_item_immutable'; end if;
   return new;

@@ -145,6 +145,41 @@ create or replace function app.validation_run_is_current(
   );
 $$;
 
+create table app.calibration_evidence_records (
+  calibration_evidence_record_id uuid primary key default gen_random_uuid(),
+  content_item_version_id uuid not null references app.content_item_versions(id) on delete restrict,
+  validation_run_id uuid not null references app.validation_runs(run_id) on delete restrict,
+  profile_version text not null, gold_item_count integer not null check(gold_item_count>0),
+  adjudicated_gold_item_count integer not null check(adjudicated_gold_item_count>=0),
+  metrics jsonb not null, evidence_uri text not null, evidence_sha256 text not null check(evidence_sha256 ~ '^[a-f0-9]{64}$'),
+  status text not null check(status in ('passed','failed','invalidated')),
+  created_at timestamptz not null default now(), created_by uuid not null references app.profiles(user_id),
+  check(adjudicated_gold_item_count<=gold_item_count), unique(content_item_version_id,validation_run_id,profile_version)
+);
+create index calibration_evidence_content_idx on app.calibration_evidence_records(content_item_version_id);
+create index calibration_evidence_run_idx on app.calibration_evidence_records(validation_run_id);
+create index calibration_evidence_created_by_idx on app.calibration_evidence_records(created_by);
+
+create or replace function app.calibration_requirement_satisfied(p_content_item_version_id uuid)
+returns boolean language sql stable security invoker set search_path='' as $$
+  with requirement as (
+    select coalesce((spa.package_payload#>>'{verification,gold_set_required}')::boolean,false) required,
+      coalesce((spa.package_payload#>>'{verification,minimum_gold_items}')::int,0) minimum_gold_items,
+      spa.package_payload#>>'{verification,profile_version}' profile_version
+    from app.item_package_applications ipa join app.subject_package_applications spa
+      on spa.subject_package_application_id=ipa.subject_package_application_id
+    where ipa.content_item_version_id=p_content_item_version_id limit 1
+  )
+  select case when not exists(select 1 from app.content_item_versions where id=p_content_item_version_id) then false
+  when not exists(select 1 from requirement) then true else (select not requirement.required or exists(
+    select 1 from app.calibration_evidence_records c
+    where c.content_item_version_id=p_content_item_version_id and c.profile_version=requirement.profile_version
+      and c.status='passed' and c.gold_item_count>=requirement.minimum_gold_items
+      and c.adjudicated_gold_item_count>=requirement.minimum_gold_items
+      and app.validation_run_is_current(c.validation_run_id,p_content_item_version_id,'grading_calibration')
+  ) from requirement) end;
+$$;
+
 create table app.review_policy_versions (
   review_policy_version_id uuid primary key default gen_random_uuid(),
   exam_pack_version_id uuid not null references app.exam_pack_versions(id) on delete restrict,
@@ -262,6 +297,9 @@ create index governance_role_assignments_created_by_idx on app.governance_role_a
 create table app.execution_approvals (
   approval_id text primary key, environment text not null check(environment in ('dev','production')),
   scope_key text not null check(scope_key='subject-harness-apply'),
+  package_id text not null, package_sha256 text not null check(package_sha256 ~ '^[a-f0-9]{64}$'),
+  plan_sha256 text not null check(plan_sha256 ~ '^[a-f0-9]{64}$'),
+  authorized_actor_id uuid not null references app.profiles(user_id),
   governance_role_assignment_id uuid not null references app.governance_role_assignments(governance_role_assignment_id) on delete restrict,
   approved_by uuid not null references app.profiles(user_id), effective_at timestamptz not null,
   expires_at timestamptz not null, status text not null check(status='active'), created_at timestamptz not null default now(),
@@ -269,6 +307,21 @@ create table app.execution_approvals (
 );
 create index execution_approvals_role_idx on app.execution_approvals(governance_role_assignment_id);
 create index execution_approvals_approved_by_idx on app.execution_approvals(approved_by);
+create index execution_approvals_actor_idx on app.execution_approvals(authorized_actor_id);
+create table app.execution_approval_revocations (
+  execution_approval_revocation_id uuid primary key default gen_random_uuid(), approval_id text not null unique
+    references app.execution_approvals(approval_id) on delete restrict,
+  reason text not null check(length(btrim(reason))>0), revoked_at timestamptz not null default now(),
+  revoked_by uuid not null references app.profiles(user_id)
+);
+create index execution_approval_revocations_by_idx on app.execution_approval_revocations(revoked_by);
+create table app.execution_approval_consumptions (
+  execution_approval_consumption_id uuid primary key default gen_random_uuid(), approval_id text not null unique
+    references app.execution_approvals(approval_id) on delete restrict,
+  subject_package_application_id uuid not null unique references app.subject_package_applications(subject_package_application_id) on delete restrict,
+  consumed_at timestamptz not null default now(), consumed_by uuid not null references app.profiles(user_id)
+);
+create index execution_approval_consumptions_by_idx on app.execution_approval_consumptions(consumed_by);
 
 create table app.content_clearance_exceptions (
   exception_id uuid primary key default gen_random_uuid(), exception_type text not null check (exception_type='content-clearance'),
@@ -301,19 +354,24 @@ create or replace function app.has_active_content_clearance_exception(
   p_content_item_version_id uuid
 ) returns boolean
 language sql stable security invoker set search_path = '' as $$
-  select exists (
-    select 1
-    from app.content_clearance_exceptions cce
-    join app.governance_role_assignments gra
-      on gra.governance_role_assignment_id=cce.governance_role_assignment_id
-     and gra.actor_id=cce.approved_by and gra.role_key='product-owner'
-     and gra.effective_at<=now() and (gra.expires_at is null or gra.expires_at>now())
-    where cce.scope_type='content-version' and cce.scope_id=p_content_item_version_id
-      and cce.exception_type='content-clearance'
-      and cce.effective_at<=now() and cce.expires_at>now()
-      and not exists (select 1 from app.content_clearance_exception_revocations r where r.exception_id=cce.exception_id)
-      and not exists (select 1 from app.content_clearance_exceptions newer where newer.supersedes_exception_id=cce.exception_id)
-  );
+  select app.active_content_clearance_exception_id(p_content_item_version_id) is not null;
+$$;
+
+create or replace function app.active_content_clearance_exception_id(
+  p_content_item_version_id uuid
+) returns uuid language sql stable security invoker set search_path='' as $$
+  select cce.exception_id
+  from app.content_clearance_exceptions cce
+  join app.governance_role_assignments gra
+    on gra.governance_role_assignment_id=cce.governance_role_assignment_id
+   and gra.actor_id=cce.approved_by and gra.role_key='product-owner'
+   and gra.effective_at<=now() and (gra.expires_at is null or gra.expires_at>now())
+  where cce.scope_type='content-version' and cce.scope_id=p_content_item_version_id
+    and cce.exception_type='content-clearance'
+    and cce.effective_at<=now() and cce.expires_at>now()
+    and not exists (select 1 from app.content_clearance_exception_revocations r where r.exception_id=cce.exception_id)
+    and not exists (select 1 from app.content_clearance_exceptions newer where newer.supersedes_exception_id=cce.exception_id)
+  order by cce.approved_at desc,cce.exception_id limit 1;
 $$;
 
 alter table app.exam_pack_manifests add column if not exists content_clearance_exception_id uuid
@@ -323,7 +381,7 @@ create index exam_pack_manifests_clearance_exception_idx on app.exam_pack_manife
 
 create or replace function app.enforce_typed_manifest_validation()
 returns trigger language plpgsql security invoker set search_path = '' as $$
-declare v_content_version uuid; v_exception uuid;
+declare v_content_version uuid; v_exception uuid; v_payload jsonb; v_expected text;
 begin
   if exists (
     select 1 from unnest(new.validation_run_ids) requested(run_id)
@@ -351,15 +409,23 @@ begin
     end if;
   end loop;
   if cardinality(new.artifact_version_ids)=1 then
-    select cce.exception_id into v_exception from app.content_clearance_exceptions cce
-    join app.governance_role_assignments gra on gra.governance_role_assignment_id=cce.governance_role_assignment_id
-    where cce.scope_type='content-version' and cce.scope_id=new.artifact_version_ids[1]
-      and cce.effective_at<=now() and cce.expires_at>now() and gra.actor_id=cce.approved_by
-      and gra.role_key='product-owner' and gra.effective_at<=now() and (gra.expires_at is null or gra.expires_at>now())
-      and not exists(select 1 from app.content_clearance_exception_revocations r where r.exception_id=cce.exception_id)
-    order by cce.approved_at desc limit 1;
+    v_exception:=app.active_content_clearance_exception_id(new.artifact_version_ids[1]);
     new.content_clearance_exception_id:=v_exception;
   end if;
+  select jsonb_build_object('schema_version','1.0.0','exam_id',new.exam_id,'school_year',new.school_year,
+    'exam_pack_version',new.exam_pack_version,'content_versions',jsonb_agg(jsonb_build_object(
+      'ordinal',member.ordinality,'content_item_version_id',civ.id,'content_key_snapshot',ci.content_key,
+      'content_sha256',civ.content_hash) order by member.ordinality),
+    'source_version_ids',to_jsonb(new.source_version_ids),'rights_record_ids',to_jsonb(new.rights_record_ids),
+    'validator_policy_version_id',new.validator_policy_version_id,'teaching_policy_version_id',new.teaching_policy_version_id,
+    'grading_policy_version_id',new.grading_policy_version_id,'prompt_version_ids',to_jsonb(new.prompt_version_ids),
+    'model_configuration_version_ids',to_jsonb(new.model_configuration_version_ids),
+    'validation_run_ids',to_jsonb(new.validation_run_ids),'qualification_rule_version_ids',to_jsonb(new.qualification_rule_version_ids),
+    'content_clearance_exception_id',new.content_clearance_exception_id)
+    into v_payload from unnest(new.artifact_version_ids) with ordinality member(id,ordinality)
+    join app.content_item_versions civ on civ.id=member.id join app.content_items ci on ci.id=civ.content_item_id;
+  v_expected:=encode(extensions.digest(v_payload::text,'sha256'),'hex');
+  if new.manifest_sha256<>v_expected then raise exception 'publish_content:manifest_hash_mismatch'; end if;
   return new;
 end; $$;
 create trigger exam_pack_manifests_typed_validation before insert on app.exam_pack_manifests
@@ -394,32 +460,68 @@ create trigger exam_pack_manifests_reject_immutable_mutation before update or de
   for each row execute function app.reject_immutable_record_mutation();
 
 create or replace function app.content_publication_gate_status(
-  p_content_version_id uuid,p_source_ids uuid[],p_rights_ids uuid[],p_validation_run_ids uuid[],p_actor_id uuid
-) returns jsonb language sql stable security invoker set search_path='' as $$
-  with item as (select review_status from app.content_item_versions where id=p_content_version_id),
-  exception as (select cce.exception_id from app.content_clearance_exceptions cce
-    join app.governance_role_assignments gra on gra.governance_role_assignment_id=cce.governance_role_assignment_id
-    where cce.scope_type='content-version' and cce.scope_id=p_content_version_id and cce.effective_at<=now()
-      and cce.expires_at>now() and gra.role_key='product-owner' and gra.actor_id=cce.approved_by
-      and not exists(select 1 from app.content_clearance_exception_revocations r where r.exception_id=cce.exception_id)
-    order by cce.approved_at desc limit 1)
-  select jsonb_build_object(
-    'content_version_id',p_content_version_id,
-    'source',cardinality(p_source_ids)>0 and not exists(select 1 from unnest(p_source_ids) x(id)
-      left join app.source_records s on s.source_version_id=x.id where s.provenance_status is distinct from 'verified' or s.next_refresh_due_at<=now()),
-    'rights',cardinality(p_rights_ids)>0 and not exists(select 1 from unnest(p_rights_ids) x(id)
-      left join app.rights_records r on r.rights_record_id=x.id where r.rights_status not in ('cramapple_owned','public_domain','licensed','written_permission')
-        or r.next_review_due_at<=now() or (r.license_expires_at is not null and r.license_expires_at<=now())),
-    'content_clearance',coalesce((select review_status in ('question_review_approved','difficulty_confirmed','mcq_answer_review_complete') from item),false)
-      or exists(select 1 from exception),
-    'content_clearance_exception_id',(select exception_id from exception),
-    'validation',cardinality(p_validation_run_ids)>0 and not exists(select 1 from unnest(p_validation_run_ids) r(id)
-      where not app.validation_run_is_current(r.id,p_content_version_id,null)),
-    'grading_calibration',exists(select 1 from unnest(p_validation_run_ids) r(id)
-      where app.validation_run_is_current(r.id,p_content_version_id,'grading_calibration')),
-    'security_privacy',exists(select 1 from unnest(p_validation_run_ids) r(id)
-      where app.validation_run_is_current(r.id,p_content_version_id,'security_privacy')),
-    'release_approval',exists(select 1 from app.profiles p where p.user_id=p_actor_id and p.role='admin')
+  p_content_version_id uuid,p_source_ids uuid[],p_rights_ids uuid[],p_validation_run_ids uuid[],
+  p_actor_id uuid,p_approved_by uuid[],p_validator_policy_version_id uuid,
+  p_teaching_policy_version_id uuid,p_grading_policy_version_id uuid
+) returns jsonb language plpgsql stable security invoker set search_path='' as $$
+declare v_source boolean; v_rights boolean; v_clearance boolean; v_validation boolean;
+  v_grading boolean; v_calibration boolean; v_security boolean; v_release boolean;
+  v_exception uuid; v_reasons text[]:='{}'; v_review text;
+begin
+  select review_status into v_review from app.content_item_versions where id=p_content_version_id;
+  v_source:=cardinality(p_source_ids)>0 and not exists(select 1 from unnest(p_source_ids) x(id)
+    left join app.source_records s on s.source_version_id=x.id where s.source_version_id is null
+      or s.provenance_status<>'verified' or s.next_refresh_due_at<=now());
+  v_rights:=cardinality(p_rights_ids)>0 and not exists(select 1 from unnest(p_rights_ids) x(id)
+    left join app.rights_records r on r.rights_record_id=x.id where r.rights_record_id is null
+      or not r.source_version_id=any(p_source_ids)
+      or r.rights_status not in ('cramapple_owned','public_domain','licensed','written_permission')
+      or (r.license_expires_at is not null and r.license_expires_at<=now()) or r.next_review_due_at<=now()
+      or (r.legal_approval_required and r.legal_approval_id is null))
+    and not exists(select 1 from unnest(p_source_ids) s(id) where not exists(select 1 from app.rights_records r
+      where r.rights_record_id=any(p_rights_ids) and r.source_version_id=s.id
+        and r.rights_status in ('cramapple_owned','public_domain','licensed','written_permission')
+        and (r.license_expires_at is null or r.license_expires_at>now()) and r.next_review_due_at>now()
+        and (not r.legal_approval_required or r.legal_approval_id is not null)));
+  v_exception:=app.active_content_clearance_exception_id(p_content_version_id);
+  v_clearance:=coalesce(v_review in ('question_review_approved','difficulty_confirmed','mcq_answer_review_complete'),false) or v_exception is not null;
+  v_validation:=cardinality(p_validation_run_ids)>0 and not exists(select 1 from unnest(p_validation_run_ids) r(id)
+    where not app.validation_run_is_current(r.id,p_content_version_id,null));
+  v_grading:=exists(select 1 from unnest(p_validation_run_ids) r(id)
+    where app.validation_run_is_current(r.id,p_content_version_id,'grading_calibration'));
+  v_calibration:=app.calibration_requirement_satisfied(p_content_version_id);
+  v_security:=exists(select 1 from unnest(p_validation_run_ids) r(id)
+    where app.validation_run_is_current(r.id,p_content_version_id,'security_privacy'));
+  v_release:=p_actor_id=any(p_approved_by) and p_validator_policy_version_id is not null
+    and p_teaching_policy_version_id is not null and p_grading_policy_version_id is not null
+    and exists(select 1 from app.profiles where user_id=p_actor_id and role='admin');
+  if not v_source then v_reasons:=array_append(v_reasons,'source.failed'); end if;
+  if not v_rights then v_reasons:=array_append(v_reasons,'rights.failed'); end if;
+  if not v_clearance then v_reasons:=array_append(v_reasons,'content_clearance.failed'); end if;
+  if not v_validation then v_reasons:=array_append(v_reasons,'validation.failed'); end if;
+  if not v_grading then v_reasons:=array_append(v_reasons,'grading.failed'); end if;
+  if not v_calibration then v_reasons:=array_append(v_reasons,'calibration.failed'); end if;
+  if not v_security then v_reasons:=array_append(v_reasons,'security_privacy.failed'); end if;
+  if not v_release then v_reasons:=array_append(v_reasons,'release_approval.failed'); end if;
+  return jsonb_build_object('content_version_id',p_content_version_id,'source',v_source,'rights',v_rights,
+    'content_clearance',v_clearance,'content_clearance_exception_id',v_exception,'validation',v_validation,
+    'grading',v_grading,'calibration',v_calibration,'security_privacy',v_security,'release_approval',v_release,
+    'eligible',cardinality(v_reasons)=0,'reason_codes',to_jsonb(v_reasons));
+end;
+$$;
+
+create or replace function app.content_publication_gate_status(p_request jsonb)
+returns jsonb language sql stable security invoker set search_path='' as $$
+  select app.content_publication_gate_status(
+    nullif(p_request->>'content_item_version_id','')::uuid,
+    array(select value::uuid from jsonb_array_elements_text(coalesce(p_request->'source_version_ids','[]'))),
+    array(select value::uuid from jsonb_array_elements_text(coalesce(p_request->'rights_record_ids','[]'))),
+    array(select value::uuid from jsonb_array_elements_text(coalesce(p_request->'validation_run_ids','[]'))),
+    nullif(p_request->>'actor_id','')::uuid,
+    array(select value::uuid from jsonb_array_elements_text(coalesce(p_request->'approved_by','[]'))),
+    nullif(p_request->>'validator_policy_version_id','')::uuid,
+    nullif(p_request->>'teaching_policy_version_id','')::uuid,
+    nullif(p_request->>'grading_policy_version_id','')::uuid
   );
 $$;
 
@@ -470,6 +572,30 @@ declare v_min int; v_eligible int:=0; v_reviewer uuid; v_result jsonb; begin
     'reason_codes',case when v_eligible>=v_min then '[]'::jsonb else jsonb_build_array('team.minimum_reviewers_not_met') end);
 end; $$;
 
+create or replace function app.enforce_content_review_assignment_eligibility()
+returns trigger language plpgsql security invoker set search_path='' as $$
+declare v_policy uuid; v_result jsonb; begin
+  select rp.review_policy_version_id into v_policy
+  from app.item_package_applications ipa
+  join app.subject_package_applications spa on spa.subject_package_application_id=ipa.subject_package_application_id
+  join app.review_policy_versions rp on rp.exam_pack_version_id=spa.exam_pack_version_id
+    and rp.semantic_version=spa.package_payload#>>'{review_policy,policy_version}'
+  where ipa.content_item_version_id=new.content_item_version_id;
+  if v_policy is null then return new; end if;
+  v_result:=app.evaluate_reviewer_eligibility(v_policy,new.reviewer_id,
+    array(select created_by from app.content_item_versions where id=new.content_item_version_id and created_by is not null));
+  if not (v_result->>'eligible')::boolean then
+    raise exception 'review_assignment:reviewer_ineligible:%',v_result->'reason_codes';
+  end if;
+  return new;
+end; $$;
+do $$ begin
+  if to_regclass('app.content_review_assignments') is not null then
+    execute 'drop trigger if exists content_review_assignments_enforce_harness_eligibility on app.content_review_assignments';
+    execute 'create trigger content_review_assignments_enforce_harness_eligibility before insert or update of reviewer_id,content_item_version_id on app.content_review_assignments for each row execute function app.enforce_content_review_assignment_eligibility()';
+  end if;
+end $$;
+
 create or replace function app.apply_subject_package_atomic(
   p_compiled_plan jsonb,
   p_actor_id uuid,
@@ -499,9 +625,17 @@ begin
     select 1 from app.execution_approvals ea join app.governance_role_assignments gra
       on gra.governance_role_assignment_id=ea.governance_role_assignment_id
     where ea.approval_id=p_approval_id and ea.environment=p_environment and ea.scope_key='subject-harness-apply'
+      and ea.package_id=v_subject_package->>'package_id' and ea.package_sha256=v_package_hash
+      and ea.plan_sha256=v_plan_hash and ea.authorized_actor_id=p_actor_id
       and ea.status='active' and ea.effective_at<=now() and ea.expires_at>now()
       and gra.role_key='product-owner' and gra.actor_id=ea.approved_by
       and gra.effective_at<=now() and (gra.expires_at is null or gra.expires_at>now())
+      and not exists(select 1 from app.execution_approval_revocations r where r.approval_id=ea.approval_id)
+      and (not exists(select 1 from app.execution_approval_consumptions c where c.approval_id=ea.approval_id)
+        or exists(select 1 from app.execution_approval_consumptions c join app.subject_package_applications spa
+          on spa.subject_package_application_id=c.subject_package_application_id
+          where c.approval_id=ea.approval_id and spa.package_id=ea.package_id and spa.package_sha256=ea.package_sha256
+            and spa.plan_sha256=ea.plan_sha256 and spa.environment=ea.environment and c.consumed_by=ea.authorized_actor_id))
   ) then
     raise exception 'subject_harness:authoritative_approval_required';
   end if;
@@ -662,6 +796,13 @@ begin
       where package_id=v_subject_package->>'package_id' and package_sha256=v_package_hash and environment=p_environment;
     if not found then raise exception 'subject_harness:package_id_hash_conflict'; end if;
   end if;
+  if p_environment in ('dev','production') then
+    insert into app.execution_approval_consumptions(approval_id,subject_package_application_id,consumed_by)
+      values(p_approval_id,v_application_id,p_actor_id) on conflict(approval_id) do nothing;
+    if not exists(select 1 from app.execution_approval_consumptions where approval_id=p_approval_id
+      and subject_package_application_id=v_application_id and consumed_by=p_actor_id)
+    then raise exception 'subject_harness:approval_replay_conflict'; end if;
+  end if;
 
   for v_item_plan in select value from jsonb_array_elements(p_compiled_plan->'items') order by value#>>'{package,package_id}' loop
     v_item := v_item_plan->'package'; v_item_hash := v_item_plan->>'content_sha256';
@@ -681,6 +822,14 @@ begin
         or not (v_subject_package#>'{capabilities,required_response_modalities}') ? trim(both '"' from modality::text)
     ) then raise exception 'subject_harness:item_response_modality_preflight_failed'; end if;
     if exists(
+      select 1 from jsonb_array_elements(coalesce(v_item->'stimuli','[]')) stimulus
+      cross join lateral (select case stimulus->>'kind' when 'text' then 'markdown' when 'table' then 'table'
+        when 'dataset' then 'table' when 'formula' then 'math' when 'image' then 'image' when 'chart' then 'chart' end) needed(code)
+      left join app.platform_capabilities pc on pc.capability_kind='renderer' and pc.capability_code=needed.code
+      where needed.code is null or pc.support_status is distinct from 'supported'
+        or not (v_subject_package#>'{capabilities,required_renderers}') ? needed.code
+    ) then raise exception 'subject_harness:item_stimulus_renderer_preflight_failed'; end if;
+    if exists(
       select 1 from jsonb_path_query(v_item,'$.parts.**.criteria[*].deterministic_checks[*]') chk
       left join app.deterministic_check_types dct on dct.check_type_key=chk->>'check_type' and dct.active
       left join app.verifier_plugin_versions vpv on vpv.verifier_plugin_version_id=dct.verifier_plugin_version_id
@@ -690,6 +839,9 @@ begin
           where not (dct.parameter_contract->'properties' ? k))
         or exists(select 1 from jsonb_array_elements_text(coalesce(dct.parameter_contract->'required','[]')) required(k)
           where not (coalesce(chk->'parameters','{}') ? required.k))
+        or exists(select 1 from jsonb_object_keys(coalesce(chk->'parameters','{}')) k
+          where dct.parameter_contract->'properties' ? k
+            and jsonb_typeof(chk->'parameters'->k)<>dct.parameter_contract#>>array['properties',k])
     ) then raise exception 'subject_harness:deterministic_check_registry_failed'; end if;
     if exists(select 1 from app.item_package_applications ipa
       where ipa.environment=p_environment and ipa.package_id=v_item->>'package_id' and ipa.package_sha256<>v_item_hash)
@@ -742,11 +894,13 @@ grant execute on function app.apply_subject_package_atomic(jsonb,uuid,text,text)
 do $$ declare v_table regclass; begin foreach v_table in array array[
   'app.platform_capabilities'::regclass,'app.verifier_plugins'::regclass,'app.verifier_plugin_versions'::regclass,
   'app.deterministic_check_types'::regclass,'app.validation_suite_types'::regclass,
+  'app.calibration_evidence_records'::regclass,
   'app.review_policy_versions'::regclass,'app.qualification_evidence_records'::regclass,
   'app.reviewer_capability_assignments'::regclass,'app.reviewer_capability_evidence'::regclass,
   'app.reviewer_capability_revocations'::regclass,
   'app.eligibility_evaluations'::regclass,'app.governance_role_assignments'::regclass,
-  'app.execution_approvals'::regclass,'app.content_clearance_exceptions'::regclass,
+  'app.execution_approvals'::regclass,'app.execution_approval_revocations'::regclass,
+  'app.execution_approval_consumptions'::regclass,'app.content_clearance_exceptions'::regclass,
   'app.content_clearance_exception_revocations'::regclass
 ] loop execute format('create trigger reject_immutable_mutation before update or delete on %s for each row execute function app.reject_immutable_record_mutation()',v_table); end loop; end; $$;
 
@@ -755,6 +909,7 @@ alter table app.verifier_plugins enable row level security;
 alter table app.verifier_plugin_versions enable row level security;
 alter table app.deterministic_check_types enable row level security;
 alter table app.validation_suite_types enable row level security;
+alter table app.calibration_evidence_records enable row level security;
 alter table app.review_policy_versions enable row level security;
 alter table app.qualification_evidence_records enable row level security;
 alter table app.reviewer_capability_assignments enable row level security;
@@ -763,21 +918,25 @@ alter table app.reviewer_capability_revocations enable row level security;
 alter table app.eligibility_evaluations enable row level security;
 alter table app.governance_role_assignments enable row level security;
 alter table app.execution_approvals enable row level security;
+alter table app.execution_approval_revocations enable row level security;
+alter table app.execution_approval_consumptions enable row level security;
 alter table app.content_clearance_exceptions enable row level security;
 alter table app.content_clearance_exception_revocations enable row level security;
 
 revoke all on app.platform_capabilities,app.verifier_plugins,app.verifier_plugin_versions,
-  app.deterministic_check_types,app.validation_suite_types,
+  app.deterministic_check_types,app.validation_suite_types,app.calibration_evidence_records,
   app.validation_suite_versions,app.review_policy_versions,app.qualification_evidence_records,
   app.reviewer_capability_assignments,app.reviewer_capability_evidence,app.reviewer_capability_revocations,
-  app.eligibility_evaluations,app.governance_role_assignments,app.execution_approvals,app.content_clearance_exceptions,
+  app.eligibility_evaluations,app.governance_role_assignments,app.execution_approvals,
+  app.execution_approval_revocations,app.execution_approval_consumptions,app.content_clearance_exceptions,
   app.content_clearance_exception_revocations from public,anon,authenticated;
 grant select on app.platform_capabilities,app.verifier_plugins,app.verifier_plugin_versions,
   app.deterministic_check_types,app.validation_suite_types,
   app.validation_suite_versions to service_role;
-grant select,insert on app.review_policy_versions,app.qualification_evidence_records,
+grant select,insert on app.calibration_evidence_records,app.review_policy_versions,app.qualification_evidence_records,
   app.reviewer_capability_assignments,app.reviewer_capability_evidence,app.reviewer_capability_revocations,
-  app.eligibility_evaluations,app.governance_role_assignments,app.execution_approvals,app.content_clearance_exceptions,
+  app.eligibility_evaluations,app.governance_role_assignments,app.execution_approvals,
+  app.execution_approval_revocations,app.execution_approval_consumptions,app.content_clearance_exceptions,
   app.content_clearance_exception_revocations to service_role;
 revoke all on function app.evaluate_reviewer_eligibility(uuid,uuid,uuid[]) from public,anon,authenticated;
 grant execute on function app.evaluate_reviewer_eligibility(uuid,uuid,uuid[]) to service_role;
@@ -787,7 +946,14 @@ revoke all on function app.provision_reviewer_capability(uuid,uuid,text,uuid[],t
 grant execute on function app.provision_reviewer_capability(uuid,uuid,text,uuid[],timestamptz,timestamptz,uuid) to service_role;
 revoke all on function app.has_active_content_clearance_exception(uuid) from public,anon,authenticated;
 grant execute on function app.has_active_content_clearance_exception(uuid) to service_role;
-revoke all on function app.content_publication_gate_status(uuid,uuid[],uuid[],uuid[],uuid) from public,anon,authenticated;
-grant execute on function app.content_publication_gate_status(uuid,uuid[],uuid[],uuid[],uuid) to service_role;
+revoke all on function app.active_content_clearance_exception_id(uuid) from public,anon,authenticated;
+grant execute on function app.active_content_clearance_exception_id(uuid) to service_role;
+revoke all on function app.calibration_requirement_satisfied(uuid) from public,anon,authenticated;
+grant execute on function app.calibration_requirement_satisfied(uuid) to service_role;
+revoke all on function app.content_publication_gate_status(uuid,uuid[],uuid[],uuid[],uuid,uuid[],uuid,uuid,uuid) from public,anon,authenticated;
+grant execute on function app.content_publication_gate_status(uuid,uuid[],uuid[],uuid[],uuid,uuid[],uuid,uuid,uuid) to service_role;
+revoke all on function app.content_publication_gate_status(jsonb) from public,anon,authenticated;
+grant execute on function app.content_publication_gate_status(jsonb) to service_role;
+revoke all on function app.enforce_content_review_assignment_eligibility() from public,anon,authenticated;
 
 commit;

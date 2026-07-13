@@ -47,6 +47,10 @@ create or replace function app.has_active_content_clearance_exception(
 ) returns boolean
 language sql stable security invoker set search_path = ''
 as $$ select false; $$;
+create or replace function app.active_content_clearance_exception_id(
+  p_content_item_version_id uuid
+) returns uuid language sql stable security invoker set search_path=''
+as $$ select null::uuid; $$;
 
 -- H3 replaces this compatibility resolver with the typed registry version.
 create or replace function app.validation_run_is_current(
@@ -63,6 +67,10 @@ language sql stable security invoker set search_path = '' as $$
         (p_gate_category='security_privacy' and vs.suite_type in ('security','privacy','security_privacy')))
   );
 $$;
+create or replace function app.calibration_requirement_satisfied(
+  p_content_item_version_id uuid
+) returns boolean language sql stable security invoker set search_path=''
+as $$ select true; $$;
 
 create or replace function app.publish_content_item_version_atomic(p_request jsonb)
 returns jsonb
@@ -97,6 +105,7 @@ declare
   v_release_candidate_id uuid := gen_random_uuid();
   v_manifest_id uuid := gen_random_uuid();
   v_prior_state text;
+  v_content_clearance_exception_id uuid;
 begin
   v_content_version_id := nullif(p_request->>'content_item_version_id', '')::uuid;
   v_artifact_version_id := nullif(p_request->>'artifact_version_id', '')::uuid;
@@ -237,9 +246,10 @@ begin
     raise exception 'publish_content:rights_gate_failed';
   end if;
 
+  v_content_clearance_exception_id:=app.active_content_clearance_exception_id(v_content_version_id);
   if (v_review_status is null or v_review_status not in (
     'question_review_approved', 'difficulty_confirmed', 'mcq_answer_review_complete'
-  )) and not app.has_active_content_clearance_exception(v_content_version_id) then
+  )) and v_content_clearance_exception_id is null then
     raise exception 'publish_content:content_clearance_gate_failed';
   end if;
 
@@ -253,6 +263,9 @@ begin
   if not exists (select 1 from unnest(v_validation_run_ids) r(run_id)
     where app.validation_run_is_current(r.run_id,v_content_version_id,'grading_calibration')) then
     raise exception 'publish_content:grading_gate_failed';
+  end if;
+  if not app.calibration_requirement_satisfied(v_content_version_id) then
+    raise exception 'publish_content:calibration_evidence_failed';
   end if;
 
   if not exists (select 1 from unnest(v_validation_run_ids) r(run_id)
@@ -293,7 +306,8 @@ begin
       to_jsonb(v_model_configuration_version_ids),
     'validation_run_ids', to_jsonb(v_validation_run_ids),
     'qualification_rule_version_ids',
-      to_jsonb(v_qualification_rule_version_ids)
+      to_jsonb(v_qualification_rule_version_ids),
+    'content_clearance_exception_id', v_content_clearance_exception_id
   );
   v_manifest_sha256 := encode(
     extensions.digest(v_manifest_payload::text, 'sha256'::text),

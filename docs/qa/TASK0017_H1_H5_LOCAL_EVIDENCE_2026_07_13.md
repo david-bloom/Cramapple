@@ -33,9 +33,13 @@ CANONICAL_PLAN_TAMPER_REJECTED
 CHEMISTRY_SCAFFOLD_PASS
 CREATE_SUBJECT_ROLLBACK_PASS
 H4_H5_FAIL_CLOSED_PASS
+WAIVER_HASH_ATTESTATION_PASS
 DB_ITEM_CAPABILITY_FAIL_CLOSED_PASS
+DB_ITEM_RENDERER_FAIL_CLOSED_PASS
+DB_PARAMETER_CONTRACT_FAIL_CLOSED_PASS
 REVIEW_POLICY_CONFLICT_PASS
 AUTHORITATIVE_APPROVAL_FAIL_CLOSED_PASS
+EXACT_APPROVAL_BINDING_REVOCATION_CONSUMPTION_PASS
 CANONICAL_ITEM_IMMUTABILITY_PASS
 CONCURRENT_PACKAGE_IDENTITY_PASS
 ```
@@ -44,10 +48,11 @@ CONCURRENT_PACKAGE_IDENTITY_PASS
 - AP Biology/current AP Statistics: normalized semantic snapshots preserved stems, prompt JSON, content keys, and hashes; the approved school-year correction is the only modeled identifier change.
 - AP Chemistry: existing scaffold reconciled with nine taxonomy nodes; no Chemistry content was published.
 - True create-subject: subject/pack/taxonomy existed inside the transaction and no row survived rollback.
-- H4: scoped, typed reviewer evidence failed closed when absent, passed when current, persisted every eligibility evaluation, enforced minimum team size, and failed closed after an immutable revocation event.
-- H5: an exact Product-Owner content-clearance exception resolved, is pinned on a manifest when used, and failed closed after revocation; a machine-readable all-gate reporter uses the same typed evidence resolver.
+- H4: scoped, typed reviewer evidence failed closed when absent, passed when current, persisted every eligibility evaluation, enforced minimum team size, allowed a qualified queue assignment, and rejected the next queue assignment after an immutable revocation event.
+- H5: an exact Product-Owner content-clearance exception resolved, was pinned and included in the independently reconstructed manifest hash, and failed closed after revocation. The `evidence` reporter rejected a nonexistent content version with eight machine-readable gate reasons. Package-managed publication additionally requires current adjudicated calibration evidence meeting the package's profile/minimum-gold contract.
 - Tamper test: changing the SubjectPackage after compilation was rejected by the database canonical-plan hash check.
-- Trusted-boundary tests rejected an item-only unsupported modality, a same-semver review-policy hash conflict, an arbitrary Dev approval string, canonical item mutation, parent-manifest/suite mutation, and invalidated evidence.
+- Trusted-boundary tests rejected item-only unsupported modality and renderer demands, a wrong deterministic-parameter type, a same-semver review-policy hash conflict, an arbitrary Dev approval string, canonical legacy/package item mutation, parent-manifest/suite mutation, and invalidated evidence.
+- Execution approval tests proved exact environment/package/package-hash/plan-hash/actor binding, revocation, one-time consumption, and idempotent retry against the same recorded application. The `dev` label existed only inside this disposable local database; no Dev project was contacted.
 - Two concurrent different-hash applications for the same package/environment produced exactly one winner.
 - Reapplying the same AP Statistics package returned the same application ID; counts remained one subject application and four item applications.
 
