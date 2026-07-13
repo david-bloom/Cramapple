@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- AP Statistics Vertical-Slice G3V Re-QA: Q1/Q3 Pass; Q4 Rubric Boundary Still Blocks — 2026-07-13
 - TASK-0017 Post-Approval P0 Re-Verification + TASK-0009 Fast-Track Slices; AP Statistics G3V Failed 3 FRQs — 2026-07-13
 - TASK-0017 Subject-Onboarding Harness Opened; Publication-Trust P0 Found in admin-content — 2026-07-13
 - AP Statistics 2026-27 CED Change Assessed; Multi-Model Content Rebuild Orchestration Designed — 2026-07-13
@@ -28,6 +29,18 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 ---
+
+## AP Statistics Vertical-Slice G3V Re-QA: Q1/Q3 Pass; Q4 Rubric Boundary Still Blocks — 2026-07-13
+
+**Task:** AP Statistics 2026-27 content rebuild, Gate G3V
+**Status:** Re-QA proposed verdict Fail — 9/10 logical units pass; bulk generation remains gated.
+
+**Summary:** Reviewed branch tip `31e1967`; the vertical-slice remediation itself landed at `a478f7e`. Q1 now defines and reaches all registered members, making the census key unambiguous. Q3 supplies independent random selection from more than 10,000 bottles, so the 10% condition is verifiable; its t statistic and two-sided p-value recompute correctly. Q4 now supplies population size, alpha, and a correct two-sided p-value/decision, but Part C(iii) asks learners to compute the p-value while Point 6 awards only the z statistic. Points 7–8 do not impose a correct p-value boundary, so one explicit task verb remains unscored. Required narrow repair: make Point 6 require `z≈.80` and `p≈.42`, and make Point 8 explicitly justify `p>.05`. No removed topic appears; inventory is correctly 10 units / 12 atomic questions.
+
+**Evidence:** `docs/research/CODEX_G3V_AP_STATISTICS_VERTICAL_SLICE_REQA_2026_07_13.md`.
+
+**Next Owner:** Claude/content author for the Q4 criterion repair; Codex for focused confirmation.
+**Next Required Action:** Repair Q4 Points 6 and 8, then run focused G3V confirmation. Do not begin bulk generation yet.
 
 ## TASK-0017 Post-Approval P0 Re-Verification + TASK-0009 Fast-Track Slices; AP Statistics G3V Failed 3 FRQs — 2026-07-13
 
