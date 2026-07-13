@@ -1793,3 +1793,9 @@ This satisfies the "TASK-0009 M0 ratification" precondition in `DECISION-0038`/`
 
 - TASK-0009: fast-track slice ratification → Approved (2026-07-13); full model deliverable still Pending.
 - TASK-0017: ratification checkpoint met; physical H1/H2 design may proceed; Dev application still gated on a separate approval ID.
+
+### Product Owner execution clarification — 2026-07-13
+
+David Bloom subsequently clarified DECISION-0040's repository-execution boundary: Codex is approved to build the H1/H2 physical design and additive migration artifacts, the compiler/persistence layer, and H3–H5 in the repository, and to verify them locally. This clarification supersedes the narrower wording above that limited the next step to producing a design packet only.
+
+The environment boundary is unchanged: no migration or function may be applied to Dev without a separate Dev execution approval ID, and no Production migration, deployment, configuration change, or publication is authorized. The completed repository implementation and local evidence return for Hard-Gate review before environment execution.
