@@ -63,6 +63,7 @@ async function resign(plan: any) {
   const unsignedPlan = structuredClone(plan);
   delete unsignedPlan.plan_sha256;
   delete unsignedPlan.plan_canonical_json;
+  delete unsignedPlan.advisories;
   plan.plan_canonical_json = canonicalJson(unsignedPlan);
   plan.plan_sha256 = await sha256(plan.plan_canonical_json);
   return plan;

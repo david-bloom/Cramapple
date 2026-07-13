@@ -178,6 +178,7 @@ export type CompiledPlan = {
   plan_schema_version: "1.0.0";
   plan_sha256: string;
   plan_canonical_json: string;
+  advisories: Issue[];
   subject_package_sha256: string;
   subject_package_canonical_json: string;
   taxonomy_sha256: string;
@@ -201,6 +202,7 @@ export async function compilePlan(
   capabilityRegistry: Record<string, any>,
 ): Promise<CompiledPlan> {
   const issues: Issue[] = [];
+  const advisories: Issue[] = [];
   const subjectContract = await validateContract(
     "subject-package",
     subjectPackage,
@@ -334,6 +336,46 @@ export async function compilePlan(
         "reference.inventory_item_type_mismatch",
         `/inventory/targets/${index}`,
         `target item_type ${target.item_type}, archetype ${target.archetype_key} is ${archetype.item_type}`,
+      );
+    }
+  }
+
+  const inventoryDemand = new Map<string, number>();
+  for (const target of values(subjectPackage.inventory.targets)) {
+    const itemType = String(target.item_type);
+    inventoryDemand.set(
+      itemType,
+      (inventoryDemand.get(itemType) ?? 0) + Number(target.target_count),
+    );
+  }
+  const formDemand = new Map<string, number>();
+  for (const [index, section] of sections.entries()) {
+    const itemTypes = values(section.item_types);
+    if (itemTypes.length > 1) {
+      push(
+        advisories,
+        "blueprint.mixed_section_unreconciled",
+        `/blueprint/sections/${index}`,
+        `section ${section.section_key} mixes item_types; counts not reconciled`,
+      );
+      continue;
+    }
+    if (itemTypes.length === 1) {
+      const itemType = String(itemTypes[0]);
+      formDemand.set(
+        itemType,
+        (formDemand.get(itemType) ?? 0) + Number(section.item_count),
+      );
+    }
+  }
+  for (const [itemType, demand] of formDemand) {
+    const inventory = inventoryDemand.get(itemType) ?? 0;
+    if (inventory < demand) {
+      push(
+        issues,
+        "inventory.below_form_demand",
+        "/inventory/targets",
+        `item_type ${itemType}: inventory ${inventory} < one form needs ${demand}`,
       );
     }
   }
@@ -618,5 +660,6 @@ export async function compilePlan(
     ...unsigned,
     plan_canonical_json: planCanonical,
     plan_sha256: await sha256(planCanonical),
+    advisories,
   } as CompiledPlan;
 }

@@ -114,6 +114,51 @@ Deno.test("inventory item types must agree with their archetypes", async () => {
   );
 });
 
+Deno.test("inventory must be able to fill one exam form", async () => {
+  const subject = await fixture("ap-statistics-2026-27.subject-package.json");
+  const item = await fixture("ap-statistics-q1.item-package.json");
+  const capabilities = await registry();
+  subject.inventory.targets.splice(1, 1);
+  const error = await assertRejects(
+    () => compilePlan(subject, [item], capabilities),
+    HarnessValidationError,
+  );
+  assert(
+    error.issues.some((issue) =>
+      issue.code === "inventory.below_form_demand" &&
+      issue.path === "/inventory/targets" &&
+      issue.message === "item_type frq: inventory 3 < one form needs 4"
+    ),
+  );
+});
+
+Deno.test("authoring-bank inventory may exceed one exam form", async () => {
+  const subject = await fixture("ap-statistics-2026-27.subject-package.json");
+  const item = await fixture("ap-statistics-q1.item-package.json");
+  subject.inventory.targets[0].target_count = 100;
+  [14, 16, 22, 18].forEach((count, index) => {
+    subject.inventory.targets[index + 1].target_count = count;
+  });
+  const plan = await compilePlan(subject, [item], await registry());
+  assertEquals(plan.advisories, []);
+});
+
+Deno.test("mixed-type blueprint sections produce a non-fatal advisory", async () => {
+  const subject = await fixture("ap-statistics-2026-27.subject-package.json");
+  const item = await fixture("ap-statistics-q1.item-package.json");
+  subject.blueprint.sections[0].item_types = ["mcq", "frq"];
+  const plan = await compilePlan(subject, [item], await registry());
+  assertEquals(plan.advisories, [
+    {
+      code: "blueprint.mixed_section_unreconciled",
+      path: "/blueprint/sections/0",
+      message:
+        "section multiple-choice mixes item_types; counts not reconciled",
+    },
+  ]);
+  assert(!("advisories" in JSON.parse(plan.plan_canonical_json)));
+});
+
 Deno.test("archetype modalities must be declared by the subject", async () => {
   const subject = await fixture("ap-statistics-2026-27.subject-package.json");
   const item = await fixture("ap-statistics-q1.item-package.json");

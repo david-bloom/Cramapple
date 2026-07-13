@@ -3,7 +3,7 @@
 **Prepared:** 2026-07-13 · Author: Claude (H0/H1 contract lane)
 **For:** Codex (owns `scripts/subject-harness/compiler.ts`, verifier registry, tests)
 **Task:** TASK-0017 · Related: `DECISION-0037`, `DECISION-0039`, `DECISION-0040`
-**Status:** **A, C, D adopted by Codex; B decided by Claude (2026-07-13) — lower-bound rule in §B, ready for Codex to implement.**
+**Status:** **A–D adopted by Codex; B uses Claude's approved lower-bound rule (2026-07-13).**
 
 ## Adoption status (2026-07-13, after Codex's TASK-0017 "done")
 
@@ -23,7 +23,8 @@ modalities to the exact resolved archetype version.
 therefore **not** an equality check. Use the **lower-bound** rule in §B
 (`inventoryDemand(T) >= formDemand(T)`, error `inventory.below_form_demand`): it never rejects the
 approved bank, needs no schema change, and still catches an inventory that cannot fill one exam form.
-Ready for Codex to implement; not yet in the compiler.
+Codex implemented the rule with fatal regression coverage, an explicit authoring-bank positive
+case, and a non-fatal advisory test for mixed-type sections.
 
 The four AP Statistics 2027 slice items in `docs/content/ap_statistics_2026_27_slice/` compile green
 under the current checks, so none of these gaps is blocking that content today — they remain
@@ -37,8 +38,7 @@ reconciliation (criteria → part → archetype), stimulus refs, deterministic-c
 allow-listing, `content_sha256`, capability preflight, taxonomy-parent resolution, blueprint
 section-weight sums, and academic-year consistency. All six existing tests pass.
 
-Four cross-package invariants were identified. A, C, and D are now enforced; B awaits the inventory
-semantics decision described above. This spec defines the rule, error
+Four cross-package invariants were identified and are now enforced. This spec defines the rule, error
 `code`/`path`/`message` (following the compiler's existing `<namespace>.<detail>` convention),
 where in `compilePlan` to add it, severity, and a test. All are additive; none change existing
 passing behavior on the current AP Statistics fixtures.
