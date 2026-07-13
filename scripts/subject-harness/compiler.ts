@@ -283,6 +283,15 @@ export async function compilePlan(
       archetype,
     ) => [`${archetype.archetype_key}@${archetype.version}`, archetype]),
   );
+  const archetypesByKey = new Map(
+    values(subjectPackage.archetypes).map((archetype) => [
+      archetype.archetype_key,
+      archetype,
+    ]),
+  );
+  const declaredModalities = new Set(
+    values(subjectPackage.capabilities.required_response_modalities),
+  );
   for (
     const [index, archetype] of values(subjectPackage.archetypes).entries()
   ) {
@@ -295,6 +304,37 @@ export async function compilePlan(
           ref,
         );
       }
+    }
+    for (const modality of values(archetype.response_modalities)) {
+      if (!declaredModalities.has(modality)) {
+        push(
+          issues,
+          "capability.archetype_modality_undeclared",
+          `/archetypes/${index}/response_modalities`,
+          `${modality} not in capabilities.required_response_modalities`,
+        );
+      }
+    }
+  }
+  for (
+    const [index, target] of values(subjectPackage.inventory.targets).entries()
+  ) {
+    if (!target.archetype_key) continue;
+    const archetype = archetypesByKey.get(target.archetype_key);
+    if (!archetype) {
+      push(
+        issues,
+        "reference.inventory_archetype_not_found",
+        `/inventory/targets/${index}/archetype_key`,
+        String(target.archetype_key),
+      );
+    } else if (target.item_type !== archetype.item_type) {
+      push(
+        issues,
+        "reference.inventory_item_type_mismatch",
+        `/inventory/targets/${index}`,
+        `target item_type ${target.item_type}, archetype ${target.archetype_key} is ${archetype.item_type}`,
+      );
     }
   }
 
@@ -426,9 +466,9 @@ export async function compilePlan(
       stimuli.map((stimulus) => stimulus.stimulus_key),
     );
     const parts = values(item.parts);
-    const declaredModalities = new Set(
-      values(subjectPackage.capabilities.required_response_modalities),
-    );
+    const archetypeModalities = archetype
+      ? new Set(values(archetype.response_modalities))
+      : undefined;
     const walkParts = (candidate: any, partPath: string) => {
       for (const modality of values(candidate.response_modalities)) {
         const state = capabilityRegistry.response_modalities?.[modality];
@@ -446,6 +486,14 @@ export async function compilePlan(
             "capability.item_modality_not_supported",
             partPath,
             String(modality),
+          );
+        }
+        if (archetypeModalities && !archetypeModalities.has(modality)) {
+          push(
+            issues,
+            "reference.part_modality_not_in_archetype",
+            `${partPath}/response_modalities`,
+            `${modality} not permitted by archetype ${archetype.archetype_key}`,
           );
         }
       }

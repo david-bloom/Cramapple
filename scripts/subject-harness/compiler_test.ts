@@ -80,6 +80,74 @@ Deno.test("item modality cannot bypass subject capability declaration", async ()
   );
 });
 
+Deno.test("inventory archetype keys must resolve", async () => {
+  const subject = await fixture("ap-statistics-2026-27.subject-package.json");
+  const item = await fixture("ap-statistics-q1.item-package.json");
+  const capabilities = await registry();
+  subject.inventory.targets[1].archetype_key = "frq-does-not-exist";
+  const error = await assertRejects(
+    () => compilePlan(subject, [item], capabilities),
+    HarnessValidationError,
+  );
+  assert(
+    error.issues.some((issue) =>
+      issue.code === "reference.inventory_archetype_not_found" &&
+      issue.path === "/inventory/targets/1/archetype_key"
+    ),
+  );
+});
+
+Deno.test("inventory item types must agree with their archetypes", async () => {
+  const subject = await fixture("ap-statistics-2026-27.subject-package.json");
+  const item = await fixture("ap-statistics-q1.item-package.json");
+  const capabilities = await registry();
+  subject.inventory.targets[0].item_type = "frq";
+  const error = await assertRejects(
+    () => compilePlan(subject, [item], capabilities),
+    HarnessValidationError,
+  );
+  assert(
+    error.issues.some((issue) =>
+      issue.code === "reference.inventory_item_type_mismatch" &&
+      issue.path === "/inventory/targets/0"
+    ),
+  );
+});
+
+Deno.test("archetype modalities must be declared by the subject", async () => {
+  const subject = await fixture("ap-statistics-2026-27.subject-package.json");
+  const item = await fixture("ap-statistics-q1.item-package.json");
+  const capabilities = await registry();
+  subject.archetypes[0].response_modalities.push("graph");
+  const error = await assertRejects(
+    () => compilePlan(subject, [item], capabilities),
+    HarnessValidationError,
+  );
+  assert(
+    error.issues.some((issue) =>
+      issue.code === "capability.archetype_modality_undeclared" &&
+      issue.path === "/archetypes/0/response_modalities"
+    ),
+  );
+});
+
+Deno.test("part modalities must be permitted by the resolved archetype", async () => {
+  const subject = await fixture("ap-statistics-2026-27.subject-package.json");
+  const item = await fixture("ap-statistics-q1.item-package.json");
+  const capabilities = await registry();
+  item.parts[0].response_modalities = ["typed-math"];
+  const error = await assertRejects(
+    () => compilePlan(subject, [item], capabilities),
+    HarnessValidationError,
+  );
+  assert(
+    error.issues.some((issue) =>
+      issue.code === "reference.part_modality_not_in_archetype" &&
+      issue.path === "/items/0/parts/0/response_modalities"
+    ),
+  );
+});
+
 Deno.test("deterministic check parameters obey the registered contract", async () => {
   const subject = await fixture("ap-statistics-2026-27.subject-package.json");
   const item = await fixture("ap-statistics-q3.item-package.json");
