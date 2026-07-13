@@ -273,7 +273,8 @@ const waiverHashResult = await sql(`do $$ declare
   v_pack app.exam_pack_versions%rowtype; v_role uuid; v_exception uuid; v_source uuid:=gen_random_uuid();
   v_right uuid:=gen_random_uuid(); v_cal_suite uuid:=gen_random_uuid(); v_sec_suite uuid:=gen_random_uuid();
   v_cal_run uuid:=gen_random_uuid(); v_sec_run uuid:=gen_random_uuid(); v_result jsonb; v_manifest uuid;
-  v_expected text; v_payload jsonb;
+  v_validator uuid:=gen_random_uuid(); v_teaching uuid:=gen_random_uuid(); v_grading uuid:=gen_random_uuid();
+  v_expected text; v_payload jsonb; v_request jsonb; v_gate jsonb;
 begin
   select id into v_item from app.content_item_versions where item_package_payload is not null and status='draft' limit 1;
   select * into v_item_row from app.content_item_versions where id=v_item;
@@ -304,7 +305,7 @@ begin
     values(v_item,v_cal_run,'1.0.0',1,1,'{"agreement":1}','urn:test:calibration',repeat('f',64),'passed',${
   literal(actor)
 }::uuid);
-  v_result:=app.publish_content_item_version_atomic(jsonb_build_object('content_item_version_id',v_item,
+  v_request:=jsonb_build_object('content_item_version_id',v_item,
     'actor_id',${
   literal(actor)
 }::uuid,'exam_pack_version_id',v_content.exam_pack_version_id,
@@ -313,8 +314,28 @@ begin
     'validation_run_ids',to_jsonb(array[v_cal_run,v_sec_run]),'approved_by',to_jsonb(array[${
   literal(actor)
 }::uuid]),
-    'validator_policy_version_id',gen_random_uuid(),'teaching_policy_version_id',gen_random_uuid(),
-    'grading_policy_version_id',gen_random_uuid(),'environment','local'));
+    'validator_policy_version_id',v_validator,'teaching_policy_version_id',v_teaching,
+    'grading_policy_version_id',v_grading,'environment','local');
+  v_gate:=app.content_publication_gate_status(v_request);
+  if not (v_gate->>'eligible')::boolean then raise exception 'H5:positive_reporter_parity_failed:%',v_gate; end if;
+  v_gate:=app.content_publication_gate_status(jsonb_set(v_request,'{source_version_ids}',to_jsonb(array[v_source,v_source])));
+  if (v_gate->>'eligible')::boolean or not (v_gate->'reason_codes' ? 'evidence.duplicate_identifier')
+    then raise exception 'H5:duplicate_reporter_failed_open:%',v_gate; end if;
+  begin perform app.publish_content_item_version_atomic(jsonb_set(v_request,'{source_version_ids}',to_jsonb(array[v_source,v_source])));
+    raise exception 'H5:duplicate_publication_was_accepted';
+  exception when others then if sqlerrm not like 'publish_content:duplicate_evidence_identifier%' then raise; end if; end;
+  begin
+    perform set_config('session_replication_role','replica',true);
+    update app.validation_suite_types set retired_at=now() where suite_type_key='calibration';
+    perform set_config('session_replication_role','origin',true);
+    v_gate:=app.content_publication_gate_status(v_request);
+    if (v_gate->>'eligible')::boolean then raise exception 'H5:retired_suite_reporter_failed_open'; end if;
+    raise exception 'H5:rollback_retired_suite_fixture';
+  exception when others then
+    perform set_config('session_replication_role','origin',true);
+    if sqlerrm<>'H5:rollback_retired_suite_fixture' then raise; end if;
+  end;
+  v_result:=app.publish_content_item_version_atomic(v_request);
   v_manifest:=(v_result->>'manifest_id')::uuid;
   if (select content_clearance_exception_id from app.exam_pack_manifests where manifest_id=v_manifest)<>v_exception
     then raise exception 'H5:manifest_exception_not_pinned'; end if;
@@ -329,7 +350,7 @@ begin
     'content_clearance_exception_id',m.content_clearance_exception_id),m.manifest_sha256 into v_payload,v_expected
     from app.exam_pack_manifests m join app.exam_pack_manifest_content_versions r on r.manifest_id=m.manifest_id where m.manifest_id=v_manifest;
   if encode(extensions.digest(v_payload::text,'sha256'),'hex')<>v_expected then raise exception 'H5:exception_not_hash_attested'; end if;
-end $$; select 'WAIVER_HASH_ATTESTATION_PASS';`);
+end $$; select 'REPORTER_P0_PARITY_AND_WAIVER_HASH_PASS';`);
 
 const trustBoundaryPlan: any = structuredClone(
   await compilePlan(base, [

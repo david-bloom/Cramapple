@@ -138,6 +138,7 @@ create or replace function app.validation_run_is_current(
     join app.validation_suite_types vst on vst.suite_type_key=vs.suite_type_key
     where vr.run_id=p_run_id and vr.status='passed' and vr.completed_at is not null
       and vr.invalidated_at is null and vr.target_kind='content-version'
+      and vst.retired_at is null
       and (vs.expected_target_kind is null or vs.expected_target_kind='content-version')
       and 'content-version'=any(vst.target_kinds)
       and vr.target_version_ids @> array[p_content_item_version_id]
@@ -466,13 +467,17 @@ create or replace function app.content_publication_gate_status(
 ) returns jsonb language plpgsql stable security invoker set search_path='' as $$
 declare v_source boolean; v_rights boolean; v_clearance boolean; v_validation boolean;
   v_grading boolean; v_calibration boolean; v_security boolean; v_release boolean;
-  v_exception uuid; v_reasons text[]:='{}'; v_review text;
+  v_unique boolean; v_exception uuid; v_reasons text[]:='{}'; v_review text;
 begin
+  v_unique:=cardinality(coalesce(p_source_ids,'{}'))=cardinality(array(select distinct unnest(coalesce(p_source_ids,'{}'))))
+    and cardinality(coalesce(p_rights_ids,'{}'))=cardinality(array(select distinct unnest(coalesce(p_rights_ids,'{}'))))
+    and cardinality(coalesce(p_validation_run_ids,'{}'))=cardinality(array(select distinct unnest(coalesce(p_validation_run_ids,'{}'))))
+    and cardinality(coalesce(p_approved_by,'{}'))=cardinality(array(select distinct unnest(coalesce(p_approved_by,'{}'))));
   select review_status into v_review from app.content_item_versions where id=p_content_version_id;
-  v_source:=cardinality(p_source_ids)>0 and not exists(select 1 from unnest(p_source_ids) x(id)
+  v_source:=v_unique and cardinality(coalesce(p_source_ids,'{}'))>0 and not exists(select 1 from unnest(coalesce(p_source_ids,'{}')) x(id)
     left join app.source_records s on s.source_version_id=x.id where s.source_version_id is null
       or s.provenance_status<>'verified' or s.next_refresh_due_at<=now());
-  v_rights:=cardinality(p_rights_ids)>0 and not exists(select 1 from unnest(p_rights_ids) x(id)
+  v_rights:=v_unique and cardinality(coalesce(p_rights_ids,'{}'))>0 and not exists(select 1 from unnest(coalesce(p_rights_ids,'{}')) x(id)
     left join app.rights_records r on r.rights_record_id=x.id where r.rights_record_id is null
       or not r.source_version_id=any(p_source_ids)
       or r.rights_status not in ('cramapple_owned','public_domain','licensed','written_permission')
@@ -485,16 +490,17 @@ begin
         and (not r.legal_approval_required or r.legal_approval_id is not null)));
   v_exception:=app.active_content_clearance_exception_id(p_content_version_id);
   v_clearance:=coalesce(v_review in ('question_review_approved','difficulty_confirmed','mcq_answer_review_complete'),false) or v_exception is not null;
-  v_validation:=cardinality(p_validation_run_ids)>0 and not exists(select 1 from unnest(p_validation_run_ids) r(id)
+  v_validation:=v_unique and cardinality(coalesce(p_validation_run_ids,'{}'))>0 and not exists(select 1 from unnest(coalesce(p_validation_run_ids,'{}')) r(id)
     where not app.validation_run_is_current(r.id,p_content_version_id,null));
   v_grading:=exists(select 1 from unnest(p_validation_run_ids) r(id)
     where app.validation_run_is_current(r.id,p_content_version_id,'grading_calibration'));
   v_calibration:=app.calibration_requirement_satisfied(p_content_version_id);
   v_security:=exists(select 1 from unnest(p_validation_run_ids) r(id)
     where app.validation_run_is_current(r.id,p_content_version_id,'security_privacy'));
-  v_release:=p_actor_id=any(p_approved_by) and p_validator_policy_version_id is not null
+  v_release:=v_unique and p_actor_id=any(coalesce(p_approved_by,'{}')) and p_validator_policy_version_id is not null
     and p_teaching_policy_version_id is not null and p_grading_policy_version_id is not null
     and exists(select 1 from app.profiles where user_id=p_actor_id and role='admin');
+  if not v_unique then v_reasons:=array_append(v_reasons,'evidence.duplicate_identifier'); end if;
   if not v_source then v_reasons:=array_append(v_reasons,'source.failed'); end if;
   if not v_rights then v_reasons:=array_append(v_reasons,'rights.failed'); end if;
   if not v_clearance then v_reasons:=array_append(v_reasons,'content_clearance.failed'); end if;
@@ -506,7 +512,7 @@ begin
   return jsonb_build_object('content_version_id',p_content_version_id,'source',v_source,'rights',v_rights,
     'content_clearance',v_clearance,'content_clearance_exception_id',v_exception,'validation',v_validation,
     'grading',v_grading,'calibration',v_calibration,'security_privacy',v_security,'release_approval',v_release,
-    'eligible',cardinality(v_reasons)=0,'reason_codes',to_jsonb(v_reasons));
+    'evidence_identifiers_unique',v_unique,'eligible',cardinality(v_reasons)=0,'reason_codes',to_jsonb(v_reasons));
 end;
 $$;
 

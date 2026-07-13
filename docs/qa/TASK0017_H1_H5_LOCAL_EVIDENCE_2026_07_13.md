@@ -33,7 +33,7 @@ CANONICAL_PLAN_TAMPER_REJECTED
 CHEMISTRY_SCAFFOLD_PASS
 CREATE_SUBJECT_ROLLBACK_PASS
 H4_H5_FAIL_CLOSED_PASS
-WAIVER_HASH_ATTESTATION_PASS
+REPORTER_P0_PARITY_AND_WAIVER_HASH_PASS
 DB_ITEM_CAPABILITY_FAIL_CLOSED_PASS
 DB_ITEM_RENDERER_FAIL_CLOSED_PASS
 DB_PARAMETER_CONTRACT_FAIL_CLOSED_PASS
@@ -49,7 +49,7 @@ CONCURRENT_PACKAGE_IDENTITY_PASS
 - AP Chemistry: existing scaffold reconciled with nine taxonomy nodes; no Chemistry content was published.
 - True create-subject: subject/pack/taxonomy existed inside the transaction and no row survived rollback.
 - H4: scoped, typed reviewer evidence failed closed when absent, passed when current, persisted every eligibility evaluation, enforced minimum team size, allowed a qualified queue assignment, and rejected the next queue assignment after an immutable revocation event.
-- H5: an exact Product-Owner content-clearance exception resolved, was pinned and included in the independently reconstructed manifest hash, and failed closed after revocation. The `evidence` reporter rejected a nonexistent content version with eight machine-readable gate reasons. Package-managed publication additionally requires current adjudicated calibration evidence meeting the package's profile/minimum-gold contract.
+- H5: an exact Product-Owner content-clearance exception resolved, was pinned and included in the independently reconstructed manifest hash, and failed closed after revocation. Reporter/P0 parity passed for a publishable request; both rejected duplicate evidence IDs, and the reporter rejected a retired validation-suite type. The `evidence` CLI also rejected a nonexistent content version with eight machine-readable gate reasons. Package-managed publication additionally requires current adjudicated calibration evidence meeting the package's profile/minimum-gold contract.
 - Tamper test: changing the SubjectPackage after compilation was rejected by the database canonical-plan hash check.
 - Trusted-boundary tests rejected item-only unsupported modality and renderer demands, a wrong deterministic-parameter type, a same-semver review-policy hash conflict, an arbitrary Dev approval string, canonical legacy/package item mutation, parent-manifest/suite mutation, and invalidated evidence.
 - Execution approval tests proved exact environment/package/package-hash/plan-hash/actor binding, revocation, one-time consumption, and idempotent retry against the same recorded application. The `dev` label existed only inside this disposable local database; no Dev project was contacted.

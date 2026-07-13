@@ -144,7 +144,7 @@ Repository/local H1–H5 implementation is complete under DECISION-0040 and read
 - AP Statistics annual-revision/Q1–Q4 round-trip and Bio/Stats normalized golden snapshots — passed.
 - AP Chemistry scaffold reconciliation — passed with zero Chemistry publication.
 - Transaction-rolled-back true `create-subject` fixture — passed with no durable rows.
-- Canonical-plan tamper rejection; item-derived modality/renderer and parameter-type checks; review-policy conflict; exact approval binding/revocation/consumption; legacy/package canonical immutability; H4 queue/evidence/revocation/team evaluation; H5 calibration, exception hash attestation, reporter fail-closed behavior; concurrent conflict; and idempotent reapply — passed.
+- Canonical-plan tamper rejection; item-derived modality/renderer and parameter-type checks; review-policy conflict; exact approval binding/revocation/consumption; legacy/package canonical immutability; H4 queue/evidence/revocation/team evaluation; H5 calibration, exception hash attestation, positive reporter/P0 parity, duplicate-ID parity, retired-suite rejection; concurrent conflict; and idempotent reapply — passed.
 - Security/schema audit: `anon_apply=false`, `authenticated_apply=false`, `service_apply=true`, zero new tables without RLS, zero missing FK indexes.
 - Evidence: `docs/qa/TASK0017_H1_H5_LOCAL_EVIDENCE_2026_07_13.md`.
 
