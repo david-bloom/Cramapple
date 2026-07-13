@@ -149,7 +149,7 @@ In progress. P0 is implemented and re-verified locally after DECISION-0039. It i
 - The August Biology/Statistics release remains execution-blocked until the authoritative gate records required by the RPC exist and a Dev/Production execution packet is separately approved. Product Owner release authorization is recorded; it is not itself a substitute for those records.
 - P0 is locally verified, not deployed. Real Supabase Dev verification remains part of a separately approved execution step.
 - The Edge request contract now requires callers to send `grading_calibration_validation_run_ids` and `security_privacy_validation_run_ids` separately. Any future admin UI/client request builder must adopt this contract before environment rollout; omission fails closed.
-- TASK-0009 fast-track conceptual slices are delivered as a proposed model, not yet Product Owner-ratified for physical design.
+- TASK-0009 fast-track conceptual slices are **ratified** (2026-07-13, `DECISION-0040`); physical H1/H2 design may now proceed and returns for its own Hard-Gate review. A separate Dev execution approval ID is still required before any Dev migration (not yet issued).
 
 ## Approval State
 
@@ -163,4 +163,4 @@ P0 locally re-verified against disposable PostgreSQL 17.10 after the DECISION-00
 
 ## Done Decision
 
-Not done. The next approval checkpoint is Product Owner review/ratification of the TASK-0009 fast-track slices and a separate approval ID for any Dev migration/deployment. Production remains a distinct Hard Gate.
+Not done. TASK-0009 fast-track slices are ratified (`DECISION-0040`). The next checkpoints are: (1) produce the physical H1/H2 design → Hard-Gate design/migration review; (2) a separate Product-Owner approval ID for any Dev migration/deployment (P0 SQL tests must re-run green in that packet); Production remains a distinct Hard Gate.

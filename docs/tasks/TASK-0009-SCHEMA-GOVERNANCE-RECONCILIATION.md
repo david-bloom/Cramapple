@@ -144,7 +144,7 @@ open after review of these fast-track slices.
 
 **Approval Required:** Yes
 **Approval Type:** Hard Gate
-**Decision:** Scope approved with conditions — 2026-07-13, David Bloom (`DECISION-0038`). Fast-track slice ratification: Pending Product Owner review. No physical DDL approved.
+**Decision:** Scope approved with conditions — 2026-07-13, David Bloom (`DECISION-0038`). **Fast-track slice ratification: Approved 2026-07-13, David Bloom (`DECISION-0040`)** — the two conceptual slices (item-package/archetype identity; multi-scheme taxonomy per `exam_pack_version`) are ratified; physical H1/H2 design may proceed and returns for its own Hard-Gate review. **No physical DDL approved; no Dev execution ID issued.** Full conceptual model + gap report still Pending.
 
 ## Done Decision
 

@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0040 — Ratify TASK-0009 Fast-Track Conceptual Slices (H1 item-package/archetype identity; H2 multi-scheme taxonomy)
 - DECISION-0039 — Approve TASK-0017 H0/H1 Design + P0 Publication Repair (repository/local-verification stage; no environment application)
 - DECISION-0038 — Approve TASK-0009 Schema-Governance Reconciliation Scope (with conditions)
 - DECISION-0037 — Open TASK-0017 (Subject-Onboarding Harness); Publication-Trust P0 Repair; Gate-Waivability, Canonical-Record, and School-Year Policy
@@ -1755,3 +1756,40 @@ Codex delivered the TASK-0017 H0/H1 design packet, the P0 atomic-publication mig
 ### Noted consequence — open for explicit acceptance (not decided here)
 
 The repaired path is fail-closed on a full evidence contract: nothing publishes until verified source, valid rights, approved `review_status`, passed grading/calibration **and** security/privacy validation runs targeting the exact version, release approval, and policy-version IDs all exist. This puts **TASK-0010 grading calibration on the critical path to ANY publish**, including the AP Statistics rebuild and all AP Biology draft content. Recorded as a consequence of the correct fail-closed design; David's explicit acceptance (or a defined interim) is still pending.
+
+## DECISION-0040 — Ratify TASK-0009 Fast-Track Conceptual Slices (H1 item-package/archetype identity; H2 multi-scheme taxonomy)
+
+**Date:** 2026-07-13
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Related Task:** TASK-0009; unblocks the `DECISION-0039`-endorsed designs and TASK-0017 H1/H2
+**Area:** Architecture / Content Governance
+
+### Context
+
+`DECISION-0038` approved TASK-0009 scope and directed a fast-track of the two conceptual slices TASK-0017 H1/H2 depend on; `DECISION-0039` endorsed the delivered designs but routed them "through TASK-0009 M0 ratification + a separate additive migration approval." That ratification was the remaining Pending gate.
+
+### Decision
+
+Ratify the two TASK-0009 fast-track **conceptual** slices as delivered in the TASK-0017 H0/H1 design packet:
+1. **Immutable item-package / archetype identity**, mapped onto the canonical `content_items` / `content_item_versions` records (no resurrected `artifact_versions` parallel record — `DECISION-0038` Condition 1 preserved).
+2. **Multi-scheme taxonomy per `exam_pack_version`** (historical schemes preserved; annual revision coexists with the prior pack).
+
+This satisfies the "TASK-0009 M0 ratification" precondition in `DECISION-0038`/`0039`.
+
+### What this unblocks
+
+- Codex may now produce the **physical H1/H2 design** (DDL/migrations) and the manifest-relation / validation-registry / exception schema — the `DECISION-0039`-endorsed designs may proceed to physical design.
+- Satisfies the ratification half of TASK-0017's next checkpoint.
+
+### What this does NOT approve (still separate gates)
+
+- The **produced physical H1/H2 design** returns for its own Hard-Gate design/migration review before any environment.
+- A **separate Dev execution approval ID** is still required before applying ANY migration to Dev — **not issued here** (David to provide when ready).
+- The P0 SQL regression tests must **re-run green in the Dev execution packet** (verification, separate from authorization).
+- No Production change; the full TASK-0009 conceptual model + gap report still return for the final Hard-Gate.
+
+### Consequences
+
+- TASK-0009: fast-track slice ratification → Approved (2026-07-13); full model deliverable still Pending.
+- TASK-0017: ratification checkpoint met; physical H1/H2 design may proceed; Dev application still gated on a separate approval ID.
