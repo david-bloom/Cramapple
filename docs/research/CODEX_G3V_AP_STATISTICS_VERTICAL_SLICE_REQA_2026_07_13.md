@@ -8,7 +8,7 @@
 
 ## Proposed verdict
 
-**FAIL — 9 PASS / 1 FAIL across 10 logical review units.** Q1 and Q3 now clear their prior blocking findings. Q4's statistical work is correct, but its revised prompt introduces a p-value computation that no criterion actually requires, leaving a task-verb↔criterion mismatch. Bulk generation remains gated pending that narrow repair and confirmation.
+**FAIL — 9 PASS / 1 FAIL across 10 logical review units.** Q1 and Q3 clear their prior blocking findings. Q4's statistical work is correct. Commit `996b46d` fixed Point 6 so the p-value computation is now scored, but Point 8 still permits a z-only justification even though Part D(ii) explicitly requires justification using the p-value. Bulk generation remains gated pending that one-line repair and confirmation.
 
 ## Remediated-item review
 
@@ -41,12 +41,13 @@ The revised inference is correct:
 - two-sided `p=.421786`; `.421786>.05`, so fail to reject; and
 - large counts are 62.5 and 187.5.
 
-However, Part C(iii) now asks students to “compute the standardized statistic **and its two-sided p-value**.” Point 6 awards only `z≈.80`. Point 7 awards an ECF-consistent decision, and Point 8 awards a general justification referencing z/probability. A learner can therefore omit or incorrectly compute the p-value without losing the point assigned to C(iii). The newly added task verb is not represented by an earning boundary.
+Part C(iii) asks students to “compute the standardized statistic **and its two-sided p-value**.” Commit `996b46d` correctly revised Point 6 to require both `z≈.80` and two-sided `p≈.42`, with the p-value judged from the learner's own z. That closes the original unscored-task defect.
+
+One residual remains. Part D(ii) says “justify using your p-value,” but Point 8 still earns for a justification referencing z/probability and its minimum fix explicitly cites only that `|z|≈.8` is small. A learner can satisfy Point 8 without using a p-value, contrary to the task verb.
 
 Required fix:
 
-1. Revise Point 6 to require both `z≈.80` and the two-sided `p≈.42`, with explicit partial/ECF treatment if desired; and
-2. revise Point 8's earning and minimum-fix language to require the comparison `p≈.42 > α=.05` while keeping Point 7's decision ECF based on the learner's own p-value.
+Revise Point 8's earning, non-earning, and minimum-fix language to require the comparison `p≈.42 > α=.05` while keeping Point 7's decision ECF based on the learner's own p-value. Point 6 requires no further change.
 
 ## Other checks
 
@@ -57,4 +58,4 @@ Required fix:
 
 ## Gate disposition
 
-G3V remains uncleared solely for the Q4 p-value rubric boundary. After the two-line criterion repair, a focused confirmation of Q4 is sufficient; Q1 and Q3 do not require another content rewrite.
+G3V remains uncleared solely for Q4 Point 8's p-value justification boundary. After that one-line criterion repair, a focused confirmation of Q4 is sufficient; Q1 and Q3 do not require another content rewrite.
