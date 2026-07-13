@@ -1,14 +1,14 @@
 # Codex G3V Re-QA — AP Statistics 2026-27 Vertical Slice
 
-**Status:** Proposed QA finding — one rubric remediation remains
+**Status:** G3V passed — focused confirmation complete
 **Date:** 2026-07-13
 **Commit reviewed:** `31e1967` (slice remediation introduced at `a478f7e`)
 **Source:** `docs/research/ap_statistics_2027_vertical_slice_2026_07_13.md`
 **Environment impact:** None; committed-document review only
 
-## Proposed verdict
+## Final verdict
 
-**FAIL — 9 PASS / 1 FAIL across 10 logical review units.** Q1 and Q3 clear their prior blocking findings. Q4's statistical work is correct. Commit `996b46d` fixed Point 6 so the p-value computation is now scored, but Point 8 still permits a z-only justification even though Part D(ii) explicitly requires justification using the p-value. Bulk generation remains gated pending that one-line repair and confirmation.
+**PASS — 10 PASS / 0 FAIL across 10 logical review units.** Q1 and Q3 cleared their original findings. Q4's statistical work was already correct; commit `996b46d` made Point 6 score the requested z-statistic and p-value, and commit `716843e` made Point 8 require the p-value justification explicitly requested by D(ii). Every task now maps to an earning boundary.
 
 ## Remediated-item review
 
@@ -28,7 +28,7 @@
 - Point 8 now applies ECF to the learner's own computed test statistic/p-value, resolving the calculation→decision dependency.
 - Non-blocking cleanup: extend the same explicit ECF wording to Point 9 so the contextual conclusion is judged consistently with the learner's earned decision.
 
-### Q4 — FAIL (rubric validity only)
+### Q4 — PASS after focused rubric confirmation
 
 The revised inference is correct:
 
@@ -43,11 +43,14 @@ The revised inference is correct:
 
 Part C(iii) asks students to “compute the standardized statistic **and its two-sided p-value**.” Commit `996b46d` correctly revised Point 6 to require both `z≈.80` and two-sided `p≈.42`, with the p-value judged from the learner's own z. That closes the original unscored-task defect.
 
-One residual remains. Part D(ii) says “justify using your p-value,” but Point 8 still earns for a justification referencing z/probability and its minimum fix explicitly cites only that `|z|≈.8` is small. A learner can satisfy Point 8 without using a p-value, contrary to the task verb.
+Commit `716843e` closes the residual D(ii) mismatch. Point 8 now:
 
-Required fix:
+- requires justification using the p-value;
+- explicitly rejects “z is small” alone;
+- requires `p≈.42 > α=.05`, supporting consistency with the model; and
+- applies ECF against the learner's own p-value.
 
-Revise Point 8's earning, non-earning, and minimum-fix language to require the comparison `p≈.42 > α=.05` while keeping Point 7's decision ECF based on the learner's own p-value. Point 6 requires no further change.
+The Q4 prompt, model solution, and all ten earning boundaries now align.
 
 ## Other checks
 
@@ -58,4 +61,4 @@ Revise Point 8's earning, non-earning, and minimum-fix language to require the c
 
 ## Gate disposition
 
-G3V remains uncleared solely for Q4 Point 8's p-value justification boundary. After that one-line criterion repair, a focused confirmation of Q4 is sufficient; Q1 and Q3 do not require another content rewrite.
+G3V is cleared at commit `716843e`: 10/10 logical review units pass. This clears the Codex vertical-slice QA gate only; remaining fact-pack/tutor, grading, calibration, security/privacy, and publication approvals retain their separate authority.

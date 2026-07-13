@@ -30,17 +30,17 @@ Most recent entries (full reverse-chronological list follows below):
 
 ---
 
-## AP Statistics Vertical-Slice G3V Re-QA: Q1/Q3 Pass; Q4 Rubric Boundary Still Blocks — 2026-07-13
+## AP Statistics Vertical-Slice G3V Re-QA: Q1/Q3/Q4 Pass — 2026-07-13
 
 **Task:** AP Statistics 2026-27 content rebuild, Gate G3V
-**Status:** Re-QA proposed verdict Fail — 9/10 logical units pass; after `996b46d`, only Q4 Point 8 remains; bulk generation remains gated.
+**Status:** G3V passed — 10/10 logical review units pass after focused Q4 confirmation at `716843e`.
 
-**Summary:** Reviewed branch tip `31e1967`; the vertical-slice remediation itself landed at `a478f7e`. Q1 now defines and reaches all registered members, making the census key unambiguous. Q3 supplies independent random selection from more than 10,000 bottles, so the 10% condition is verifiable; its t statistic and two-sided p-value recompute correctly. Q4 supplies population size, alpha, and a correct two-sided p-value/decision. Focused re-check of `996b46d` confirms Point 6 now scores both `z≈.80` and `p≈.42`. Point 8 still permits a z-only justification even though D(ii) explicitly requires justification using the p-value. Required final repair: Point 8 must require `p≈.42 > .05`. No removed topic appears; inventory is correctly 10 units / 12 atomic questions.
+**Summary:** Reviewed branch tip `31e1967`; the vertical-slice remediation itself landed at `a478f7e`. Q1 now defines and reaches all registered members, making the census key unambiguous. Q3 supplies independent random selection from more than 10,000 bottles, so the 10% condition is verifiable; its t statistic and two-sided p-value recompute correctly. Q4 supplies population size, alpha, and a correct two-sided p-value/decision. Commit `996b46d` made Point 6 score both `z≈.80` and `p≈.42`; commit `716843e` made Point 8 require `p≈.42 > .05` and reject z-only justification. The Q4 prompt/model/rubric now align. No removed topic appears; inventory is correctly 10 units / 12 atomic questions. G3V passes 10/10.
 
 **Evidence:** `docs/research/CODEX_G3V_AP_STATISTICS_VERTICAL_SLICE_REQA_2026_07_13.md`.
 
-**Next Owner:** Claude/content author for the Q4 criterion repair; Codex for focused confirmation.
-**Next Required Action:** Repair Q4 Point 8, then run focused G3V confirmation. Point 6 is clear. Do not begin bulk generation yet.
+**Next Owner:** AP Statistics orchestration owner for the next separately governed gate.
+**Next Required Action:** Treat G3V as cleared. Confirm remaining fact-pack/tutor and grading/calibration prerequisites before any bulk run, staging, or publication; G3V clearance alone authorizes none of those later actions.
 
 ## TASK-0017 Post-Approval P0 Re-Verification + TASK-0009 Fast-Track Slices; AP Statistics G3V Failed 3 FRQs — 2026-07-13
 

@@ -278,7 +278,7 @@ Each point is earned independently (a wrong earlier part does not forfeit a late
 - **No removed topics** authored as tested content (U5 is descriptive regression only; no slope inference, no chi-square GOF, no geometric/combining-RV/departures-from-linearity).
 - **Every numeric claim recomputed inline** (shown per item).
 - **Each FRQ = exactly 10 independently-earnable points** with evidence boundary + counterexample + minimum-fix repair text.
-- **Status:** artifacts only, not staged, not published. Codex G3V round 1 → 7/10 pass; Q1/Q3/Q4 remediated. **Re-review:** Q1 & Q3 cleared. Q4 residuals fixed in two passes — (a) Point 6 now scores C(iii)'s z + p-value; (b) Point 8 now requires the p-value justification that D(ii) asks for (was accepting "z is small"). Both are task-verb↔criterion alignment fixes. **Pending Codex confirmation of the Q4 fix** and the tutor's fact-pack review.
+- **Status:** artifacts only, not staged, not published. Codex G3V round 1 → 7/10 pass; Q1/Q3/Q4 remediated. Re-review cleared Q1/Q3; focused confirmation at `716843e` cleared Q4 after Point 6 and Point 8 task-verb↔criterion repairs. **G3V passed: 10/10 logical review units.** Tutor fact-pack review and all later grading/calibration/publication gates remain separate and pending.
 
 ## G3V remediation log (2026-07-13)
 
