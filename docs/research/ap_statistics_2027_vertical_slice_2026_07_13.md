@@ -4,7 +4,7 @@
 **Authoring input:** `docs/product/AP_STATISTICS_2027_CED_FACT_PACK.md` (G0A draft — **not yet Orly-confirmed**, so this slice is provisional and may be reworked when the fact pack is signed off).
 **Author / verification:** authored by Opus (`claude-opus-4-8`); every numeric claim **recomputed inline by the author** (deterministic self-check shown per item). This is author self-recomputation, **NOT independent verification** — the independent adversarial/numeric check is Codex's G3V, still pending.
 **No College Board material** was used as input; all contexts, data, and wording are independently constructed.
-**Prepared:** 2026-07-13 · **Slice complete** (linked MCQ set + 5 standalone unit MCQs + Q1–Q4).
+**Prepared:** 2026-07-13 · **G3V-remediated** — Codex G3V (2026-07-13) passed 7/10 review units; Q1, Q3, Q4 FAILed on **rubric validity** (not arithmetic — all numbers verified) and are remediated below; **pending G3V re-review**. See `docs/research/CODEX_G3V_AP_STATISTICS_VERTICAL_SLICE_QA_2026_07_13.md`.
 
 Vertical-slice target (orchestration spec): one 3-question MCQ set · one standalone MCQ per unit (5) · one complete 10-point Q1/Q2/Q3/Q4. Purpose: prove authoring → deterministic check → package assembly → (Codex) review end-to-end **before** any bulk generation.
 
@@ -55,7 +55,7 @@ Vertical-slice target (orchestration spec): one 3-question MCQ set · one standa
 
 **Stimulus (independently constructed):** A regional library system wants to study how long members spend per visit, in minutes, and will let each of three branches choose its own data-collection method.
 
-- **Branch P:** every member who visits during one chosen week is asked to report their time per visit; non-responders are reminded until they answer.
+- **Branch P:** every member on the branch's registered-membership list is mailed the survey and required to report their time per visit; non-responders are reminded until **every member** has answered. (The population is all registered members, so all are reached.)
 - **Branch Q:** the branch's service area is divided into **eight zones that are similar to one another**; **two of the eight zones are selected at random**, and every member living in those two zones is surveyed.
 - **Branch R:** only members who responded to a *previous* library survey are surveyed again.
 
@@ -89,9 +89,9 @@ For Branch Q, the five-number summaries of time per visit (minutes) for the two 
 Each point is earned independently (a wrong earlier part does not forfeit a later point).
 
 **Point 1 — A(i) sampling method for Branch P**
-- Earns: identifies Branch P as a **census** (of that week's visitors).
+- Earns: identifies Branch P as a **census** (every member of the defined population is surveyed).
 - Does not earn: "random sample," "convenience sample," "simple random sample," or no identification.
-- Minimum fix (repair): *Every member who visits that week is asked — that's a census, not a sample. Name the method that surveys the whole (weekly) population.*
+- Minimum fix (repair): *Every member on the membership list is surveyed — that reaches the whole population, so it is a census, not a sample.*
 
 **Point 2 — A(ii) sampling method for Branch Q**
 - Earns: identifies **cluster random sampling** (or "cluster sample").
@@ -212,7 +212,7 @@ Each point is earned independently (a wrong earlier part does not forfeit a late
 3. **A(iii) mean > median because of the high value 250.** Not earned: states relationship with no reason, or reverses it. Fix: *name the outlier as the cause; a high outlier pulls the mean above the median.*
 4. **B(i) Q1 = 85, Q3 = 105, IQR = 20.** Not earned: wrong quartiles / IQR. Fix: *quartiles are the medians of the lower and upper halves (excluding the overall median).*
 5. **B(ii) upper fence 135 and conclude 250 is an outlier.** Not earned: no fence shown, or concludes without comparison. Fix: *fence = Q3 + 1.5·IQR = 135; compare 250 to it.*
-6. **C(i) compare centers using medians (A < B).** Not earned: compares means only despite the outlier, or no direction. Fix: *use the (resistant) medians: A's center is lower.*
+6. **C(i) compare centers using medians (A < B).** Not earned: compares means only despite the outlier, or no direction. Fix: *use the (resistant) medians: A's center is lower.* (**ECF**: Points 6–7 judged against the student's own Point 1/4 values.)
 7. **C(ii) compare spreads with IQR (A > B).** Not earned: uses range/SD only, or no direction. Fix: *compare IQRs: A is more variable.*
 8. **D explain median/IQR resistant → appropriate for A.** Not earned: "they're better" with no link to the outlier. Fix: *because 250 is an outlier, the resistant median/IQR are not distorted; mean/SD are.*
 9. **E(i) shape of B is roughly symmetric.** Not earned: skewed/other with no basis. Fix: *look at balance of the values around the center.*
@@ -224,11 +224,11 @@ Each point is earned independently (a wrong earlier part does not forfeit a late
 
 **Unit/Topics:** 4 (4.4–4.5), inference across P2/P3/P4 · **Archetype:** Q3 · **Modality:** `exam_aligned_digital` · **Difficulty:** Medium-Hard
 
-**Stimulus (constructed):** A company states that its bottles contain a mean of 500 mL. A quality inspector suspects the true mean **differs** from 500 mL. A random sample of **n = 36** bottles has sample mean **x̄ = 496.5 mL** and sample standard deviation **s = 9 mL**. Test at **α = 0.05**.
+**Stimulus (constructed):** A company states that its bottles contain a mean of 500 mL. A quality inspector suspects the true mean **differs** from 500 mL. A random sample of **n = 36** bottles, selected independently at random from a production run of **more than 10,000 bottles**, has sample mean **x̄ = 496.5 mL** and sample standard deviation **s = 9 mL**. Test at **α = 0.05**.
 
 **Parts:** **A.** State the hypotheses. **B.** (i) identify the appropriate inference procedure (ii) verify the randomness/independence condition (iii) verify the normality/large-sample condition. **C.** (i) calculate the test statistic (ii) give the degrees of freedom and the p-value (or a critical-value comparison). **D.** (i) state the reject/fail-to-reject decision (ii) state the conclusion in context. **E.** Describe what a Type I error would mean in this context.
 
-**Model solution & deterministic check:** H0: μ = 500; Ha: μ ≠ 500 (two-sided). Procedure: **one-sample t-test for a mean** (population SD unknown, only s given). Conditions: random sample (stated); n = 36 presumably ≤ 10% of all bottles (independence); n = 36 ≥ 30 → sampling distribution of x̄ approximately normal (CLT). SE = s/√n = 9/√36 = 9/6 = **1.5**. t = (x̄ − μ0)/SE = (496.5 − 500)/1.5 = −3.5/1.5 = **−2.33**; df = n − 1 = **35**. Two-sided p-value ≈ 2·P(T35 < −2.33) ≈ **0.025**. Since p ≈ 0.025 < 0.05 → **reject H0**; there is convincing evidence the true mean differs from 500 mL. Type I error: concluding the mean differs from 500 mL when in fact it equals 500 mL.
+**Model solution & deterministic check:** H0: μ = 500; Ha: μ ≠ 500 (two-sided). Procedure: **one-sample t-test for a mean** (population SD unknown, only s given). Conditions: random sample (stated); n = 36 ≤ 10% of the >10,000-bottle run and bottles chosen independently (independence met); n = 36 ≥ 30 → sampling distribution of x̄ approximately normal (CLT). SE = s/√n = 9/√36 = 9/6 = **1.5**. t = (x̄ − μ0)/SE = (496.5 − 500)/1.5 = −3.5/1.5 = **−2.33**; df = n − 1 = **35**. Two-sided p-value ≈ 2·P(T35 < −2.33) ≈ **0.025**. Since p ≈ 0.025 < 0.05 → **reject H0**; there is convincing evidence the true mean differs from 500 mL. Type I error: concluding the mean differs from 500 mL when in fact it equals 500 mL.
 
 **Criterion-boundary contract (10 points, independently earned):**
 1. **A: H0: μ = 500.** Not earned: uses x̄/p̂, or an inequality. Fix: *null is equality of the population mean to 500.*
@@ -238,7 +238,7 @@ Each point is earned independently (a wrong earlier part does not forfeit a late
 5. **B(iii): normality/large-sample checked.** Not earned: no mention, or claims population must be normal without noting n ≥ 30. Fix: *n = 36 ≥ 30, so CLT applies.*
 6. **C(i): t = −2.33 (correct SE and formula).** Not earned: wrong SE, sign, or uses σ. Fix: *SE = s/√n = 1.5; t = (496.5−500)/1.5.*
 7. **C(ii): df = 35 and p ≈ 0.025 (two-sided) — or correct critical-value comparison.** Not earned: df = 36, one-sided p, or no p/critical value. Fix: *df = n−1 = 35; double the one-tail area for a two-sided test.*
-8. **D(i): correct decision — reject H0 (p < α).** Not earned: decision inconsistent with the stated p vs α. Fix: *compare p to α = 0.05 and decide accordingly.*
+8. **D(i): correct decision — reject H0 (p < α).** Not earned: decision inconsistent with the student's own p vs α (**ECF**: judged against the student's computed t/p, not only the model value). Fix: *compare p to α = 0.05 and decide accordingly.*
 9. **D(ii): conclusion in context.** Not earned: "reject H0" with no context, or restates significance without the bottles. Fix: *phrase the conclusion about the true mean fill in mL.*
 10. **E: Type I error in context.** Not earned: generic definition, or describes a Type II error. Fix: *concluding the mean differs from 500 when it truly is 500.*
 
@@ -254,9 +254,9 @@ Each point is earned independently (a wrong earlier part does not forfeit a late
 |---|---|---|---|---|---|---|
 | P(x) | 0.05 | 0.15 | 0.30 | 0.25 | 0.15 | 0.10 |
 
-**Parts:** **A.** (i) find P(X ≥ 3) (ii) find E(X). **B.** interpret E(X) in context. **C.** In a random sample of **250** orders, **68** had 4 or more items. (i) compute the sample proportion (ii) compute the standard error using the model's P(X ≥ 4) (iii) compute the standardized statistic comparing the sample proportion to the model. **D.** (i) state whether the data are consistent with the model (ii) justify using your statistic. **E.** (i) state one condition needed for the part-C inference (ii) verify the large-counts condition.
+**Parts:** **A.** (i) find P(X ≥ 3) (ii) find E(X). **B.** interpret E(X) in context. **C.** In a random sample of **250** orders, selected independently at random from the store's **more than 5,000 monthly orders**, **68** had 4 or more items. (i) compute the sample proportion (ii) compute the standard error using the model's P(X ≥ 4) (iii) compute the standardized statistic and its two-sided p-value. **D.** At the **α = 0.05** level, (i) state whether there is convincing evidence the true proportion of orders with 4+ items differs from 0.25 (ii) justify using your p-value. **E.** (i) state one condition needed for the part-C inference (ii) verify the large-counts and 10% conditions.
 
-**Model solution & deterministic check:** distribution sums to 1 (0.05+0.15+0.30+0.25+0.15+0.10 = 1.00 ✓). P(X ≥ 3) = 0.25+0.15+0.10 = **0.50** ✓. E(X) = 0(0.05)+1(0.15)+2(0.30)+3(0.25)+4(0.15)+5(0.10) = 0+0.15+0.60+0.75+0.60+0.50 = **2.60** ✓. Model P(X ≥ 4) = 0.15+0.10 = 0.25. Sample p̂ = 68/250 = **0.272** ✓. SE = √(0.25·0.75/250) = √0.00075 = **0.0274** ✓. z = (0.272 − 0.25)/0.0274 = 0.022/0.0274 ≈ **0.80** ✓. Since |z| ≈ 0.8 is small (well under ~2), the data are **consistent** with the model — no convincing evidence the true proportion differs from 0.25. Conditions: random sample (stated); large counts np0 = 250(0.25) = 62.5 ≥ 10 and n(1−p0) = 250(0.75) = 187.5 ≥ 10 ✓.
+**Model solution & deterministic check:** distribution sums to 1 (0.05+0.15+0.30+0.25+0.15+0.10 = 1.00 ✓). P(X ≥ 3) = 0.25+0.15+0.10 = **0.50** ✓. E(X) = 0(0.05)+1(0.15)+2(0.30)+3(0.25)+4(0.15)+5(0.10) = 0+0.15+0.60+0.75+0.60+0.50 = **2.60** ✓. Model P(X ≥ 4) = 0.15+0.10 = 0.25. Sample p̂ = 68/250 = **0.272** ✓. SE = √(0.25·0.75/250) = √0.00075 = **0.0274** ✓. z = (0.272 − 0.25)/0.0274 = 0.022/0.0274 ≈ **0.80**; two-sided p-value ≈ 2·P(Z > 0.80) ≈ **0.42** ✓. Since p ≈ 0.42 > α = 0.05, **fail to reject** — no convincing evidence the true proportion differs from 0.25. Conditions: independent random sample, n = 250 ≤ 10% of the >5,000 orders; large counts np0 = 250(0.25) = 62.5 ≥ 10 and n(1−p0) = 250(0.75) = 187.5 ≥ 10 ✓.
 
 **Criterion-boundary contract (10 points, independently earned):**
 1. **A(i): P(X ≥ 3) = 0.50.** Not earned: uses P(X > 3) = 0.25, or wrong terms. Fix: *include x = 3, 4, 5.*
@@ -265,17 +265,35 @@ Each point is earned independently (a wrong earlier part does not forfeit a late
 4. **C(i): p̂ = 0.272.** Not earned: 68/1000 or other. Fix: *68/250.*
 5. **C(ii): SE ≈ 0.0274 using p0 = 0.25.** Not earned: uses p̂ in the SE, or wrong n. Fix: *for a model-based comparison use SE = √(p0(1−p0)/n) with p0 = 0.25.*
 6. **C(iii): z ≈ 0.80.** Not earned: wrong numerator/denominator, or wrong sign handling. Fix: *z = (p̂ − p0)/SE.*
-7. **D(i): decision — data are consistent with the model.** Not earned: claims a difference from a small z. Fix: *a small |z| means the sample is close to the model.*
+7. **D(i): decision — fail to reject at α = 0.05 (two-sided p ≈ 0.42 > α).** Not earned: decision inconsistent with the student's two-sided p-value vs α (**ECF**: judged against the student's own p-value). Fix: *compare the two-sided p-value to α = 0.05.*
 8. **D(ii): justify with the statistic.** Not earned: conclusion with no reference to z / probability. Fix: *cite that |z| ≈ 0.8 is small, so the deviation is within ordinary sampling variability.*
 9. **E(i): a validity condition (random sample / independence).** Not earned: none, or an irrelevant condition. Fix: *state the sample must be random (and n ≤ 10% of orders).*
-10. **E(ii): large-counts condition with the check.** Not earned: states the rule with no numbers, or uses p̂. Fix: *np0 = 62.5 and n(1−p0) = 187.5, both ≥ 10.*
+10. **E(ii): large-counts condition with the check.** Not earned: states the rule with no numbers, or uses p̂. Fix: *np0 = 62.5 and n(1−p0) = 187.5, both ≥ 10; and n = 250 ≤ 10% of the >5,000 orders.*
 
 ---
 
 ## Slice self-check summary (author)
 
-- **9 items** authored (3-question linked MCQ set + 5 standalone unit MCQs + Q1–Q4); all 5 units and all 4 practices represented; all 4 FRQ archetypes present.
+- **12 atomic questions across 10 review units** (1 linked 3-question set + 5 standalone unit MCQs + 4 FRQs); all 5 units and all 4 practices represented; all 4 FRQ archetypes present. *(Deterministic counters must declare the convention: 10 review units / 12 atomic questions — not "9 items.")*
 - **No removed topics** authored as tested content (U5 is descriptive regression only; no slope inference, no chi-square GOF, no geometric/combining-RV/departures-from-linearity).
 - **Every numeric claim recomputed inline** (shown per item).
 - **Each FRQ = exactly 10 independently-earnable points** with evidence boundary + counterexample + minimum-fix repair text.
-- **Status unchanged:** artifacts only, not staged, not published, **pending Codex G3V** (independent numeric + adversarial review) and Orly's fact-pack confirmation.
+- **Status:** artifacts only, not staged, not published. Codex G3V returned **7/10 pass**; Q1/Q3/Q4 remediated above; **pending G3V re-review** and the tutor's fact-pack review.
+
+## G3V remediation log (2026-07-13)
+
+Codex G3V confirmed **every numeric claim** and that **no removed topic** is tested. The three FAILs were rubric-validity defects (not arithmetic), all remediated:
+
+- **Q1** — Branch P was ambiguous ("census" only under one reading; visiting-that-week undercovers "all members"). Fix: redefined the population as all registered members, reached in full → an unambiguous census.
+- **Q3** — B(ii) asked students to *verify* the 10% independence condition, but the stimulus gave no population size ("presumably" ≠ verification). Fix: stated the run is >10,000 bottles and the sample is independent, so n ≤ 10% is verifiable.
+- **Q4** — Part D demanded an inferential decision with no α or explicit rule (the model silently used "well under ~2"). Fix: stated α = 0.05, added the two-sided p-value (≈ 0.42), decided by p vs α; added the >5,000-order population so the 10% condition is verifiable.
+- Added **consequential-error/ECF** language to dependent calc→decision chains so "independently earnable" is operational; corrected the item count to 10 units / 12 atomic questions.
+
+### Authoring invariants for BULK (enforce in Orchestration A/B — this is the systematic lesson)
+
+Every FRQ the cascade authors must, before it passes internal verification:
+1. **Define the population precisely** and ensure the keyed sampling method is unambiguous for that population.
+2. **Supply the information needed to verify any condition the item asks to verify** — if it says "verify n ≤ 10%," the stimulus must give (or bound) the population size; never rely on "presumably."
+3. **State decision rules explicitly** — α and/or an explicit threshold (e.g., "within two standard errors"); never leave the decision criterion implicit in the model answer.
+4. **Attach ECF/consequential-error rules** to every dependent calc→decision chain, so a wrong upstream value is judged against the student's own subsequent work.
+5. Keep inferential-shape language hedged ("apparent/likely") when inferring from summary statistics.
