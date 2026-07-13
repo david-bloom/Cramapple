@@ -1,0 +1,142 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cramapple.com/schemas/subject-onboarding/item-package/1.0.0",
+  "title": "Cramapple Versioned ItemPackage",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "package_id", "content_key", "content_version",
+    "exam_pack_ref", "item_type", "archetype_ref", "taxonomy_refs",
+    "stimuli", "parts", "accessibility", "provenance"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "package_id": { "$ref": "#/$defs/slug" },
+    "content_key": { "$ref": "#/$defs/slug" },
+    "content_version": { "type": "integer", "minimum": 1 },
+    "exam_pack_ref": {
+      "type": "object", "additionalProperties": false,
+      "required": ["exam_code", "school_year", "exam_pack_version"],
+      "properties": {
+        "exam_code": { "$ref": "#/$defs/nonempty" },
+        "school_year": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}$" },
+        "exam_pack_version": { "$ref": "#/$defs/semver" }
+      }
+    },
+    "item_type": { "enum": ["mcq", "frq", "quantitative"] },
+    "archetype_ref": {
+      "type": "object", "additionalProperties": false,
+      "required": ["archetype_key", "version"],
+      "properties": {
+        "archetype_key": { "$ref": "#/$defs/slug" },
+        "version": { "$ref": "#/$defs/semver" }
+      }
+    },
+    "taxonomy_refs": {
+      "type": "array", "minItems": 1, "uniqueItems": true,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["scheme_key", "scheme_version", "node_key"],
+        "properties": {
+          "scheme_key": { "$ref": "#/$defs/slug" },
+          "scheme_version": { "$ref": "#/$defs/semver" },
+          "node_key": { "$ref": "#/$defs/slug" }
+        }
+      }
+    },
+    "stimuli": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["stimulus_key", "ordinal", "kind", "payload"],
+        "properties": {
+          "stimulus_key": { "$ref": "#/$defs/slug" },
+          "ordinal": { "type": "integer", "minimum": 1 },
+          "kind": { "enum": ["text", "table", "dataset", "image", "chart", "formula"] },
+          "payload": { "type": "object" },
+          "asset_ref": { "type": "string" },
+          "source_refs": { "$ref": "#/$defs/stringSet" },
+          "alt_text": { "type": "string", "minLength": 1 },
+          "long_description": { "type": "string" }
+        }
+      }
+    },
+    "parts": {
+      "type": "array", "minItems": 1,
+      "items": { "$ref": "#/$defs/part" }
+    },
+    "accessibility": {
+      "type": "object", "additionalProperties": false,
+      "required": ["language", "screen_reader_review_required", "accommodation_notes"],
+      "properties": {
+        "language": { "type": "string", "pattern": "^[a-z]{2}(?:-[A-Z]{2})?$" },
+        "screen_reader_review_required": { "type": "boolean" },
+        "accommodation_notes": { "type": "string" }
+      }
+    },
+    "provenance": {
+      "type": "object", "additionalProperties": false,
+      "required": ["source_refs", "fact_pack_version", "authoring_prompt_version", "generated_by", "generated_at", "content_sha256"],
+      "properties": {
+        "source_refs": { "$ref": "#/$defs/stringSet" },
+        "fact_pack_version": { "$ref": "#/$defs/nonempty" },
+        "authoring_prompt_version": { "$ref": "#/$defs/nonempty" },
+        "generated_by": { "$ref": "#/$defs/nonempty" },
+        "generated_at": { "type": "string", "format": "date-time" },
+        "content_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "supersedes_content_version": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "legacy_projection": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "frq_form": { "type": "string" },
+        "projection_only": { "const": true }
+      }
+    }
+  },
+  "$defs": {
+    "nonempty": { "type": "string", "minLength": 1 },
+    "slug": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+    "semver": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "stringSet": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/nonempty" } },
+    "responseModality": { "enum": ["choice", "typed-text", "typed-math", "table", "graph", "drawing", "file-upload"] },
+    "criterion": {
+      "type": "object", "additionalProperties": false,
+      "required": ["criterion_key", "points", "description", "required_evidence"],
+      "properties": {
+        "criterion_key": { "$ref": "#/$defs/slug" },
+        "points": { "type": "integer", "minimum": 0 },
+        "description": { "$ref": "#/$defs/nonempty" },
+        "required_evidence": { "$ref": "#/$defs/stringSet" },
+        "accepted_variants": { "$ref": "#/$defs/stringSet" },
+        "deterministic_checks": {
+          "type": "array",
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["check_type", "parameters"],
+            "properties": {
+              "check_type": { "enum": ["numeric-tolerance", "expression-equivalence", "keyword-evidence", "choice-key", "table-shape", "graph-feature"] },
+              "parameters": { "type": "object" }
+            }
+          }
+        }
+      }
+    },
+    "part": {
+      "type": "object", "additionalProperties": false,
+      "required": ["part_key", "ordinal", "prompt", "response_modalities", "points", "criteria"],
+      "properties": {
+        "part_key": { "$ref": "#/$defs/slug" },
+        "ordinal": { "type": "integer", "minimum": 1 },
+        "label": { "type": "string" },
+        "prompt": { "$ref": "#/$defs/nonempty" },
+        "stimulus_refs": { "$ref": "#/$defs/stringSet" },
+        "response_modalities": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/responseModality" } },
+        "points": { "type": "integer", "minimum": 0 },
+        "criteria": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/criterion" } },
+        "subparts": { "type": "array", "items": { "$ref": "#/$defs/part" } }
+      }
+    }
+  }
+}

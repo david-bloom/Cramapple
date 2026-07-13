@@ -1,8 +1,8 @@
 # AP Statistics 2026-27 — CED Fact Pack (G0A authoring input)
 
-**Status:** DRAFT for Orly's confirmation (curriculum sign-off). This is the **only sanctioned authoring input** for the AP Statistics content rebuild cascade (`AP_STATISTICS_2027_CONTENT_REBUILD_ORCHESTRATION.md`, Gate G0A). Claude authors items from *this* document, not from the CED PDF.
+**Status:** DRAFT for **AP Statistics tutor review** — the qualified subject tutor performs the G0A sign-off (per David, 2026-07-13; Orly remains Curriculum Owner). This is the **only sanctioned authoring input** for the AP Statistics content rebuild cascade (`AP_STATISTICS_2027_CONTENT_REBUILD_ORCHESTRATION.md`, Gate G0A). Claude authors items from *this* document, not from the CED PDF.
 **School year:** `2026-27` (canonical form per `DECISION-0037`) · **Exam administered:** May 2027
-**Prepared:** 2026-07-13 · **Owner to confirm:** Orly Bloom
+**Prepared:** 2026-07-13 · **Reviewer (G0A sign-off):** AP Statistics subject tutor
 **Related:** `DECISION-0036`, `DECISION-0037`, `TASK-0017`, orchestration spec.
 
 ## Provenance & rights (read first)
@@ -77,7 +77,7 @@ Fully digital in Bluebook: keyboard entry, an updated symbols menu, a **built-in
 
 **Retained:** **residual plots and curvature** stay in the course (new Topic 5.4) — only the "departures from linearity" framing is removed. Do not conflate. Chi-square tests for **homogeneity/independence** remain (Topics 3.14–3.15); only goodness-of-fit is gone.
 
-## 9. Open items for Orly (G0A sign-off)
+## 9. Open items for the AP Statistics tutor (G0A sign-off)
 
 1. **Confirm** the unit/topic map and weights above (correct any transcription).
 2. **Anchor EK/LO IDs and per-topic skill tags** from the unit guides (or confirm authoring may proceed at topic granularity for the vertical slice, with EK-level detail added before bulk).

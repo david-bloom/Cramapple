@@ -6,6 +6,8 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0039 — Approve TASK-0017 H0/H1 Design + P0 Publication Repair (repository/local-verification stage; no environment application)
+- DECISION-0038 — Approve TASK-0009 Schema-Governance Reconciliation Scope (with conditions)
 - DECISION-0037 — Open TASK-0017 (Subject-Onboarding Harness); Publication-Trust P0 Repair; Gate-Waivability, Canonical-Record, and School-Year Policy
 - DECISION-0036 — Anthropic Multi-Model Cascade Leads AP Statistics 2026-27 Content Rebuild
 - DECISION-0035 — August Pilot May Launch Without Tutor Content Review
@@ -1662,9 +1664,16 @@ Following the AI-led content-authoring shift (`DECISION-0036`), the dominant rep
 2. **Publication-trust P0 repair, first.** `admin-content` `changeArtifactState` flips `content_items`/`content_item_versions` to `published` before validating the release manifest and gates, non-atomically — a rejected publish can leave content served/gradeable (verified 2026-07-13, `supabase/functions/admin-content/index.ts` ≈ lines 638–660 vs 663–714). Repair: compute eligibility server-side from authoritative evidence, apply state/serving/manifest/release atomically with rollback, prove reviewed-version == activated-version, add a regression test.
 3. **Gate-waivability policy:** publication eligibility is evidence-derived. A Product Owner may waive **content-clearance only** (tutor/content review — consistent with `DECISION-0035`) with a recorded exception. **Grading/calibration, rights, and security/privacy gates are never waivable.**
 4. **Canonical question-version record (v1) = `content_item_versions.id`** (serving, review, attempts, grading, release manifests all reference it). `artifact_versions` (0 rows in Production) is not resurrected as a parallel canonical record; any consolidation is `TASK-0009`'s call.
-5. **Canonical school-year identifier = `2026-27`** (academic-year form); existing `"2026"`/`"2025-26"` values normalize to it.
+5. **Canonical school-year identifier uses academic-year form (`YYYY-YY`) derived from the official exam date.** A legacy `"2026"` row with a May 2026 exam becomes `2025-26`; a May 2027 exam becomes `2026-27`; do not blanket-map `"2026"`.
 6. **AP Chemistry (TASK-0014) / AP Physics (TASK-0015)** adopt the harness once ready; no net-new bespoke scaffolding for them in the meantime (not paused, no new one-offs).
 7. **Harness supports both** `create-subject` and `create-exam-pack-version` (annual revision preserving historical taxonomy/labels/content/attempts/calibration).
+8. **Deprecate the legacy manifest name.** `exam_pack_manifests.artifact_version_ids` is not the durable canonical name for v1 content-version manifests. H0/H1 must design a correctly named, typed replacement and backward-compatible migration; the legacy field may remain only as a temporary P0 carrier.
+9. **Typed validation-suite registry.** Replace unconstrained suite-category text with a typed/versioned registry, including `security_privacy` as a first-class publication-gate category.
+10. **Typed content-clearance exceptions.** H5 must introduce a dedicated immutable record with scope, Product Owner approval, rationale/evidence, effective/expiry bounds, and revocation/supersession. It can waive content clearance only; grading/calibration, rights, and security/privacy remain non-waivable.
+11. **Schema authority split:** TASK-0017 does not supersede TASK-0009. TASK-0017 supplies approved v1 consumer constraints; TASK-0009 retains conceptual schema/governance authority and must ratify and incorporate them before related physical DDL.
+12. **Chemistry fixture scope:** AC4 tests reconciliation of the existing AP Chemistry subject/exam-pack/taxonomy scaffold. AP Chemistry content is not authorized for publication.
+13. **August pilot release intent:** human-verified AP Biology and AP Statistics content is authorized for the August pilot with live checking/monitoring. The content is AI-generated and treated as Cramapple-authored candidate material, subject to the recorded human verification and evidence requirements.
+14. **No gate fiction:** the August authorization does not mark P0 verified, manufacture source/rights/security/grading evidence, or waive non-waivable gates. Release execution follows only after the required database tests and authoritative records are complete.
 
 ### Rationale
 
@@ -1676,4 +1685,73 @@ The harness removes the fixed per-subject engineering cost so future subjects ar
 - Harness makes subjects fast to **stand up**, never fast to **publish** — content/grading/publication gates remain hard stops (H5 proves eligibility from authoritative records).
 - Config never executes arbitrary code (declarative checks + reviewed plugins). Reviewer *people* stay out of reusable configs.
 - Gold-set/calibration tooling and frontend implementation remain out of scope; the harness only emits calibration status and a Lovable UI-capability handoff.
+- The three design directions in items 8–10 are approved. Their schema implementation and any Dev/Production application still require the task's design, migration, QA, and environment approval gates.
+- AP Biology/AP Statistics August release intent is approved, but publication execution remains a separate evidence-backed operation. AP Chemistry is explicitly excluded.
 - This opens the task and records the policy calls; it does not approve the harness design, any migration, or any Production change — those are later gates.
+
+### Update 2026-07-13 — AP Statistics tutor owns the review chain
+
+David reassigned the AP Statistics review chain to the qualified subject tutor: the tutor (1) reviews/approves the **fact pack** (G0A — was Orly's confirmation under this decision's Q7), then (2) reviews **content** against the approved fact pack (G4A), then (3) reviews **grading & repair** once content is **released to the tutor**. Clarified: "released" = handed to the tutor for review, **not** a student-facing publish — so the non-waivable grading-calibration gate (G4B) is unchanged and all three tutor reviews occur before any student sees content. Orly remains Curriculum Owner. Reflected in `AP_STATISTICS_2027_CONTENT_REBUILD_ORCHESTRATION.md` (gate table + responsibilities) and `AP_STATISTICS_2027_CED_FACT_PACK.md` (status/reviewer).
+
+## DECISION-0038 — Approve TASK-0009 Schema-Governance Reconciliation Scope (with conditions)
+
+**Date:** 2026-07-13
+**Decision Owner:** David Bloom
+**Status:** Approved — scope only (conceptual model returns for final Hard-Gate approval before DDL)
+**Related Task:** TASK-0009; relates to TASK-0017, `DECISION-0037`
+**Area:** Architecture / Content Governance
+
+### Context
+
+TASK-0009 (Schema and Governance Reconciliation) is a conceptual-model task — translate the approved governance contracts into a coherent data model before any physical Postgres/RLS design. It contains no DDL to approve yet; the deliverable is the model + a gap/contradiction report. Reviewed at David's request; it overlaps the canonical-record and manifest decisions made in `DECISION-0037`/`TASK-0017`.
+
+### Decision
+
+Approve the **scope/approach to proceed**, with two binding conditions. The actual conceptual model + gap report return for the final Hard-Gate approval before any DDL.
+
+1. **Directional canonical-identity reconciliation.** The "stable identity + immutable version" concept must map onto the existing `content_items`/`content_item_versions` records (v1 canonical per `DECISION-0037`). The model must not resurrect `artifact_versions` (0 rows in Production) as a parallel canonical record; conflicts return an explicit compatibility/migration decision to TASK-0017. Added as a named acceptance criterion.
+2. **Fast-track the two slices TASK-0017 H1/H2 depend on** — immutable item-package/archetype identity and multi-scheme taxonomy per `exam_pack_version` — so this task does not become the long-pole blocker on the August AP Statistics rebuild's staging path.
+
+### Rationale
+
+The scope is at the right altitude (model before DDL), its invariants are correct (immutable versioned payloads, append-only reviews/state, projections separated from authoritative evidence), and its Authority Boundary section already arbitrates the TASK-0017 overlap correctly. The two conditions prevent the one real drift risk (a resurrected parallel canonical record) and the one real schedule risk (a comprehensive model exercise blocking the narrow schema the rebuild needs).
+
+### Consequences
+
+- TASK-0009 status → "Approved with conditions — conceptual-model deliverable pending." Approval State records scope approval; the model deliverable remains Pending for the final Hard-Gate.
+- TASK-0017 H1/H2 DDL remains gated on TASK-0009 ratifying the relevant slices; Condition 2 keeps that from stalling August.
+- This approves scope, not the model; it does not authorize any DDL, migration, or physical design.
+
+## DECISION-0039 — Approve TASK-0017 H0/H1 Design + P0 Publication Repair (repository/local-verification stage; no environment application)
+
+**Date:** 2026-07-13
+**Decision Owner:** David Bloom
+**Status:** Approved — repository + local-verification stage only; no Dev/Production application authorized
+**Related Task:** TASK-0017; relates to TASK-0009 (`DECISION-0038`), TASK-0010, `DECISION-0037`
+**Area:** Publication Trust / Architecture / Content Governance
+
+### Context
+
+Codex delivered the TASK-0017 H0/H1 design packet, the P0 atomic-publication migration (`202607130001_atomic_content_publication.sql`), and two SQL regression tests, plus JSON contract schemas + a pinned Ajv validator. Reviewed at David's request against the actual repo.
+
+### What was verified
+
+- **H0/H1 contracts — independently executed by Claude (green, 2026-07-13):** the Deno/Ajv contract tests pass 3/3 — AP Statistics Q1–Q4 fixtures validate; the `YYYY-YY` school-year rule fails closed on a calendar-year value; item packages reject executable-verifier fields.
+- **P0 migration — reviewed line-by-line + dependency-checked:** gates now precede all state mutations (fixes the ordering bug); eligibility is derived from stored evidence (source/rights/review-status/validation-runs), not client-asserted gate strings; row-locked (`for update`); publishes the exact requested `content_item_versions.id` and retires siblings; `service_role`-only execute. All referenced tables/columns exist.
+- **Both SQL tests — reviewed (design):** prove AC#1 (late failure → full rollback, content stays draft, zero surviving release/manifest/publication rows) and AC#2 (exact reviewed version; a newer unapproved draft is not published). TASK-0017 reports these locally verified against disposable PostgreSQL 17. **Claude reviewed but did not independently re-execute the SQL** — local PG17 pass is per Codex's report and must be re-run in the Dev execution packet.
+
+### Decision
+
+1. **Approve the H0/H1 SubjectPackage/ItemPackage contracts** (verified) for non-persistent package authoring/validation.
+2. **Approve the P0 publication repair as repository implementation** at the local-verification stage. **P0 is not "done" for any environment until both SQL tests are re-run green in the Dev execution packet.**
+3. **Endorse** the `exam_pack_manifest_content_versions` manifest-relation replacement, the typed validation registry (with `waiver_policy`), and the immutable content-clearance-exception record — routed through TASK-0009 M0 ratification + a separate additive migration approval (per `DECISION-0038`).
+
+### Not approved / conditions
+
+- No Dev or Production migration, application, or publication is authorized by this decision. P0 stays repository + local-verification only.
+- The three schema designs proceed to physical design only after TASK-0009 ratification and separate migration approval.
+- Before any environment application: (a) an edge-function↔RPC integration test proving the caller supplies all required evidence IDs (source, rights, validation runs, approved_by, policy versions); (b) supersede the interim `manifest_sha256` (currently a hash of the request payload, not content) with the canonical content/relation hash per the packet.
+
+### Noted consequence — open for explicit acceptance (not decided here)
+
+The repaired path is fail-closed on a full evidence contract: nothing publishes until verified source, valid rights, approved `review_status`, passed grading/calibration **and** security/privacy validation runs targeting the exact version, release approval, and policy-version IDs all exist. This puts **TASK-0010 grading calibration on the critical path to ANY publish**, including the AP Statistics rebuild and all AP Biology draft content. Recorded as a consequence of the correct fail-closed design; David's explicit acceptance (or a defined interim) is still pending.

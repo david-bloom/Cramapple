@@ -57,7 +57,7 @@ Claude authors from a curated fact pack containing only: the 5-unit / topic map 
 - **Claude (Anthropic models):** curriculum blueprint, authored items, rubrics/boundary contracts, student repair text, and a *verifier-requirements manifest*.
 - **Codex / implementation (TASK-0016):** schema and ingestion adapters, verifier **code** and config (`statistics-verifier.ts`, `AP_STATISTICS_VERIFICATION_PROFILE.json`), tests, migrations, integration.
 - **Codex QA:** independent recomputation and adversarial review at G1/G3V/G3.
-- **Orly:** curriculum sign-off (fact pack, remap rules).
+- **AP Statistics subject tutor:** the review chain — fact pack (G0A, incl. remap rules) → content (G4A, against the approved fact pack) → grading & repair (on content **released to the tutor**, i.e. pre-student). Reassigned from Orly per David (2026-07-13); "released" = handed to the tutor for review, never a student-facing publish, so the non-waivable grading-calibration gate (G4B) is unchanged. **Orly** remains Curriculum Owner.
 - **David:** scope, supplemental policy, live-content disposition, waiver, publication, launch.
 
 ## Model tiering (corrected cascade)
@@ -80,7 +80,7 @@ Generation is not the hardest step; verifying a statistical rubric is at least a
 | Gate | Owner | Condition |
 |---|---|---|
 | **G−1 — Freeze & classify current content** | David + Claude/scripts | Freeze new AP Stats publication; inventory every live/draft item; assign each `remap` / `rewrite` / `retire` / `supplemental-only` / `adjudicate`; decide disposition of the confirmed removed-topic items currently live (see Q2). |
-| **G0A — Curriculum fact pack** | Orly (Claude may draft) | 5-unit/topic/practice fact pack, LO IDs, weights, FRQ archetypes, task verbs, confirmed removals, remap rules. |
+| **G0A — Curriculum fact pack** | **AP Stats subject tutor** reviews/approves (Claude drafts) | 5-unit/topic/practice fact pack, LO IDs, weights, FRQ archetypes, task verbs, confirmed removals, remap rules. |
 | **G0B — Scope & policy** | David | Inventory target, supplemental-content policy, live-content disposition, waiver posture. |
 | **G1 — Codex plan + slice review** | Codex | Review of this revised spec and the planned vertical slice. |
 | **G1.5 — Technical readiness** | Codex/TASK-0016 | Exam-pack/taxonomy versioning; **FRQ-archetype schema** (fixes `content_ingest_rows.frq_form` = short/long only, which cannot represent Q1–Q4 archetypes) or a validated `row_payload` adapter; ingestion adapter. Must precede any DB staging. |
@@ -88,7 +88,7 @@ Generation is not the hardest step; verifying a statistical rubric is at least a
 | **G3V — Codex slice QA** | Codex | 100% independent review of the slice end-to-end. |
 | **G2 — Bulk authoring** | Claude | Only after slice passes and remediation lands. |
 | **G3 — Codex batch QA** | Codex | 100% of inference FRQs + high-risk criteria; MCQ sampling only after measured defect rates justify it. |
-| **G4A — Content clearance** | Tutors or PO waiver | Tutor review (`TUTOR_REVIEWER_QUICKSTART.md`) or explicit `DECISION-0035` batch waiver. |
+| **G4A — Content clearance** | AP Stats tutor (or PO waiver) | Tutor reviews content **against the approved fact pack** (`TUTOR_REVIEWER_QUICKSTART.md`), then reviews **grading & repair** on content released to the tutor (pre-student). Content-clearance may be PO-waived (`DECISION-0035`); grading is not (G4B). |
 | **G4B — Grading clearance** | TASK-0016 | Verifier sync, boundary tests, adjudicated/held-out response evidence, launch-threshold report. `DECISION-0035` waives tutor review, **not** grading calibration. |
 | **G5 — Publish** | David | Promote staged bundles to published. |
 
@@ -158,7 +158,7 @@ Codex's correctness review is a *separate* check from the in-cascade Opus verifi
 - **Q4 — Execution path: RESOLVED → Claude app / subagents** (the expanded subscription). Run controls are bounded by app/subagent limits; the per-batch cost ceiling is expressed in subscription usage rather than API spend. Preflight the three model IDs' availability in the app/subagent harness before the first run.
 - **Q5 — Keying: DEFAULT stands (Codex rec) → new May-2027 content keys / explicit exam-pack-version binding**, so historical 2026 content remains auditable.
 - **Q6 — Waiver scope: DEFAULT stands → decide the tutor-review waiver after the vertical slice** and tutor availability, not up front for the whole batch.
-- **Q7 — Fact pack: RESOLVED → Claude drafts the G0A CED fact pack from CED metadata for Orly's confirmation.**
+- **Q7 — Fact pack: RESOLVED → Claude drafts the G0A CED fact pack; the AP Statistics subject tutor reviews/approves it** (reassigned from Orly per David, 2026-07-13). The same tutor then reviews content (G4A) and grading & repair — all pre-student, so the grading-calibration gate (G4B) is unchanged.
 
 ## Not in scope / dependencies
 
