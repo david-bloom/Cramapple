@@ -82,6 +82,8 @@ records.
 | `TASK-0011` | Handwritten Graph Capture | Medium | Research | Prototype and feasibility decision |
 | `TASK-0014` | AP Chemistry Launch (Subject 3) | High | Not Started | Execution approval; pilot scope, chemistry review pool, calibration (see `DECISION-0036`) |
 | `TASK-0015` | AP Calculus AB & BC Launch | High | Not Started | Execution approval; symbolic-equivalence verifier, pilot scope, calculus review pool (see `DECISION-0036`) |
+| `TASK-0017` | AP Physics 1 & 2 Launch (algebra-based) | High | Not Started | Execution approval; numeric verifier (units/vectors), pilot scope, physics review pool (see `DECISION-0037`) |
+| `TASK-0018` | AP Physics C: Mechanics & E&M Launch (calculus-based) | High | Not Started | Execution approval; reuse `TASK-0015` symbolic verifier, pilot scope, calculus-physics review pool (see `DECISION-0037`) |
 | `UX-001` | Initial Product UX Decisions | High | In Progress | Learning, Marketing, accessibility, and Product Owner review |
 | `UX-002` | Question and Answer Review Portal | High | In Progress | Tutor, AP Reader, Learning Quality, accessibility, security, and Product Owner review |
 | `UX-003` | Content Authoring and Revision Workbench | High | In Progress | Author, Learning Quality, accessibility, security, rights, and Product Owner review |
@@ -649,10 +651,14 @@ planning target. Physical Supabase DDL remains deferred.
 
 ### EXPAND-001 - Second Exam Pack
 
-**Status:** Proposed (next subjects selected — AP Chemistry and AP Calculus AB &
-BC; execution scope not yet approved)
+**Status:** Proposed (subject pipeline selected; execution scope not yet approved)
 **Owner:** Product Owner with Strategy Advisor and Learning Quality Owner
-**Decision:** `DECISION-0036` (Product Owner selection, 2026-07-14)
+**Decision:** `DECISION-0036` (AP Chemistry + AP Calculus AB & BC) and
+`DECISION-0037` (the four AP Physics subjects, sequenced after Chemistry and
+Calculus)
+**Subject pipeline:** Subject 1 AP Biology (live) → Subject 2 AP Statistics (in
+flight) → AP Chemistry + AP Calculus AB/BC (`TASK-0014`, `TASK-0015`) → AP Physics
+1, 2, C: Mechanics, C: E&M (`TASK-0017`, `TASK-0018`)
 **Design record:** `docs/product/FACT_PACKS_AND_QUESTION_SETS.md` (layered
 fact-pack + short-question-set artifacts + Draft seed content for AP Chemistry,
 AP Calculus AB, and AP Calculus BC; `Status: Draft`, awaiting domain-qualified

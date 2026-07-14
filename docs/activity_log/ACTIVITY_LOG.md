@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Four AP Physics Subjects Selected, Launch Tasks + Seed Content Drafted (DECISION-0037) — 2026-07-14
 - Chemistry & Calculus Launch Tasks Drafted and Seed Content Expanded — 2026-07-14
 - Next Subjects Selected: AP Chemistry and AP Calculus AB & BC (DECISION-0036) — 2026-07-14
 - Fact Packs and Short Question Sets Drafted for Next-Round Subjects — 2026-07-14
@@ -23,6 +24,41 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## Four AP Physics Subjects Selected, Launch Tasks + Seed Content Drafted (DECISION-0037) - 2026-07-14
+
+**Task:** EXPAND-001; TASK-0017, TASK-0018. **Status:** Recorded/drafted on
+`claude/cramapple-content-creation-igjvfb`. Selection recorded; task specs await
+execution approval; content is Draft illustrative format examples.
+
+**Summary:** Product Owner directed the four AP Physics subjects "after that"
+(after Chemistry and Calculus). Recorded as `DECISION-0037`: AP Physics 1
+(algebra), AP Physics 2 (algebra), AP Physics C: Mechanics (calculus), AP Physics
+C: E&M (calculus), sequenced after `TASK-0014`/`TASK-0015`. Tracked via two
+launch tasks grouped by architecture, each naming its two subjects:
+`TASK-0017` (Physics 1 & 2, algebra-based; numeric verifier with units/vectors)
+and `TASK-0018` (Physics C Mechanics & E&M, calculus-based; reuses the
+`TASK-0015` symbolic-equivalence verifier). Both `Not Started` / `Decision:
+Pending`.
+
+Seeded one fact pack + one short question set per physics subject under
+`docs/content/`: `FP-PHYS1-2.1-01` (Newton's 2nd law & kinematics), `FP-PHYS2-4.1-01`
+(DC circuits), `FP-PHYSCMECH-1.1-01` (kinematics with calculus), `FP-PHYSCEM-1.1-01`
+(Coulomb's law & electric field), each with a matching `QS-*`. All original,
+public-domain-level content in Cramapple wording. Updated the seed index in
+`FACT_PACKS_AND_QUESTION_SETS.md` (§1.2, §7.1), EXPAND-001 (full subject pipeline),
+and the MASTER_TODO Active Task Register.
+
+**Guardrails honored:** task specs await Hard-Gate execution approval; seed
+content remains NOT production content and NOT calibration evidence; no official
+material used; production still requires the EXPAND-001 capability/validator/
+Learning-Quality (physics) gates.
+
+**Next action:** Product Owner execution-approval decisions on the launch tasks
+(Chemistry/Calculus first, then Physics) and the per-task owner decisions;
+domain-qualified Learning Quality review of the seed content per subject.
 
 ---
 

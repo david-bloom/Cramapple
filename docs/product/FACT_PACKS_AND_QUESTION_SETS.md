@@ -39,11 +39,20 @@ Per Product Owner direction: **AP Chemistry, AP Calculus AB, AP Calculus BC.**
   packs and question sets tag `applies_to: [CALC_AB, CALC_BC]` where shared, and
   `applies_to: [CALC_BC]` for BC-only material, so BC reuses AB content instead
   of duplicating it.
-- These subjects are **not yet formally selected** (`EXPAND-001` is Deferred).
-  Drafting these artifacts does not select them; it prepares reusable structure
-  and seed examples so the selection decision can be made against something
-  concrete. Subject selection remains a Product Owner decision with Strategy
-  Advisor and Learning Quality input.
+- These subjects are recorded as selected by the Product Owner in `DECISION-0036`
+  (execution scope still gated). Subject selection remains a Product Owner decision
+  with Strategy Advisor and Learning Quality input.
+
+### 1.2 Subsequent round — AP Physics (after Chemistry and Calculus)
+
+Per `DECISION-0037`, the round **after** Chemistry and Calculus is the four AP
+Physics exams, using the same artifacts defined here. Subject codes:
+`PHYS1` (AP Physics 1, algebra-based), `PHYS2` (AP Physics 2, algebra-based),
+`PHYSCMECH` (AP Physics C: Mechanics, calculus-based), `PHYSCEM` (AP Physics C:
+E&M, calculus-based). The calculus-based Physics C exams reuse the Calculus
+symbolic-equivalence verifier; the algebra-based exams use numeric checks. Launch
+tasks: `docs/tasks/TASK-0017-AP-PHYSICS-1-2-LAUNCH.md`,
+`docs/tasks/TASK-0018-AP-PHYSICS-C-LAUNCH.md`.
 
 ## 2. What this document is not
 
@@ -274,6 +283,21 @@ Learning-Quality-reviewed packages.
 
 Launch tasks for these subjects: `docs/tasks/TASK-0014-AP-CHEMISTRY-LAUNCH.md`,
 `docs/tasks/TASK-0015-AP-CALCULUS-LAUNCH.md`.
+
+### 7.1 AP Physics round seed artifacts (subsequent round, `DECISION-0037`)
+
+One fact pack + one short question set per physics subject, all `state: Drafted`
+illustrative format examples with original public-domain-level content.
+
+| Subject | Fact pack | Short question set |
+| --- | --- | --- |
+| AP Physics 1 | `docs/content/ap-physics-1/FP-PHYS1-2.1-01.md` (Newton's 2nd law & kinematics) | `docs/content/ap-physics-1/QS-PHYS1-2.1-01.md` |
+| AP Physics 2 | `docs/content/ap-physics-2/FP-PHYS2-4.1-01.md` (DC circuits: Ohm's law & power) | `docs/content/ap-physics-2/QS-PHYS2-4.1-01.md` |
+| AP Physics C: Mechanics | `docs/content/ap-physics-c-mechanics/FP-PHYSCMECH-1.1-01.md` (kinematics with calculus) | `docs/content/ap-physics-c-mechanics/QS-PHYSCMECH-1.1-01.md` |
+| AP Physics C: E&M | `docs/content/ap-physics-c-em/FP-PHYSCEM-1.1-01.md` (Coulomb's law & electric field) | `docs/content/ap-physics-c-em/QS-PHYSCEM-1.1-01.md` |
+
+Launch tasks: `docs/tasks/TASK-0017-AP-PHYSICS-1-2-LAUNCH.md`,
+`docs/tasks/TASK-0018-AP-PHYSICS-C-LAUNCH.md`.
 
 ## 8. Open gates and questions
 

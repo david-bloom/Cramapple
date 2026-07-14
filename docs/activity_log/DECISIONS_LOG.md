@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0037 — Select the Four AP Physics Subjects as the Round After Chemistry and Calculus
 - DECISION-0036 — Select AP Chemistry and AP Calculus (AB & BC) as the Next Subjects
 - DECISION-0035 — Resolve Phase 0 of the Backend Consolidation Migration (Schema Reconciliation, Option A/A2)
 - DECISION-0031 — Launch AP Statistics as Subject 2, Reusing the Tutor-Authored Content Model
@@ -1528,3 +1529,69 @@ Calc AB content be reused by BC rather than authored twice.
   (off `main`). `main`'s decision numbering has outstanding branches
   (DECISION-0033/0034 per the DECISION-0035 note); if numbering collides on
   merge, renumber whichever merges second and update the index.
+
+## DECISION-0037 — Select the Four AP Physics Subjects as the Round After Chemistry and Calculus
+
+**Date:** 2026-07-14
+**Decision Owner:** David Bloom
+**Status:** Approved (selection/direction and sequencing; production readiness remains gated)
+**Related Task:** TASK-0017, TASK-0018 (to be approved for execution)
+**Related Backlog:** EXPAND-001
+**Area:** Product
+
+### Context
+
+Following `DECISION-0036` (AP Chemistry and AP Calculus AB/BC selected as the
+next subjects), the Product Owner directed that the four AP Physics exams be done
+**after** Chemistry and Calculus.
+
+### Decision
+
+1. The subjects after AP Chemistry and AP Calculus are the four AP Physics exams:
+   **AP Physics 1: Algebra-Based**, **AP Physics 2: Algebra-Based**,
+   **AP Physics C: Mechanics** (calculus-based), and **AP Physics C: Electricity
+   and Magnetism** (calculus-based).
+2. **Sequencing is explicit:** this round follows the Chemistry and Calculus
+   launch work (`TASK-0014`, `TASK-0015`). It does not preempt them.
+3. **Tracked via two launch tasks grouped by architecture**, each naming its two
+   subjects: `TASK-0017` (AP Physics 1 & 2, algebra-based pair) and `TASK-0018`
+   (AP Physics C: Mechanics & E&M, calculus-based pair). All four subjects are
+   distinct `app.subjects` entries; the grouping is for task tracking and shared
+   verifier/reviewer work, mirroring how `TASK-0015` grouped Calculus AB & BC.
+4. AP Physics C reuses the calculus symbolic-equivalence verifier scoped in
+   `TASK-0015` (Physics C is calculus-based); AP Physics 1 & 2 reuse the numeric
+   calculation-check verifier direction (algebra-based).
+5. Content sourcing reuses the tutor-authored base-package model; rights posture
+   unchanged (no official CollegeBoard material). Restated, not reopened.
+
+### Rationale
+
+Physics maximizes reuse of the quantitative-grading and verification investment:
+the algebra-based exams fit numeric calculation checks, and the calculus-based
+Physics C exams build directly on the Calculus symbolic-equivalence verifier —
+so doing Physics after Calculus is the efficient order. Pairing by
+algebra-vs-calculus keeps shared reviewer pools and verifier work together.
+
+### Consequences
+
+- EXPAND-001 subject pipeline is now: Subject 1 AP Biology (live), Subject 2 AP
+  Statistics (in flight), then AP Chemistry + AP Calculus AB/BC
+  (`DECISION-0036`), then the four AP Physics subjects (this decision).
+- Two launch task specs (`TASK-0017`, `TASK-0018`) drafted, `Not Started` /
+  `Decision: Pending`; execution scope not approved.
+- Production readiness still requires the EXPAND-001 gates: domain-qualified
+  Learning Quality (physics) review, capability and validator gates, and equal
+  source/rights/teaching/grading/release quality to AP Biology.
+
+### Risks / Follow-ups
+
+- Grouping four subjects into two task tracks is Main Conductor judgment; if the
+  Product Owner wants four independent launch tracks, split `TASK-0017`/`0018`.
+- The AP Physics CEDs were revised for recent school years; confirm exact
+  official unit/topic identifiers per exam against the current CED before any
+  pack or task is Approved.
+- Physics needs vector notation, free-body/circuit/field diagrams, and unit
+  handling in both the authoring/render surface and the calculation verifier.
+- Originates on branch `claude/cramapple-content-creation-igjvfb`; if decision
+  numbering collides on merge, renumber whichever merges second and update the
+  index.
