@@ -1,8 +1,19 @@
 import { createAnonClient, createServiceClient } from "./supabase.ts";
 
+export function getBearerToken(req: Request) {
+  const authorization = req.headers.get("Authorization") ?? "";
+  const match = authorization.match(/^Bearer\s+(.+)$/i);
+  return match?.[1]?.trim() || null;
+}
+
 export async function requireAuthedUser(req: Request) {
+  const token = getBearerToken(req);
+  if (!token) {
+    return null;
+  }
+
   const client = createAnonClient(req);
-  const { data, error } = await client.auth.getUser();
+  const { data, error } = await client.auth.getUser(token);
   if (error || !data.user) {
     return null;
   }
