@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Tutor Content-Review Set Built; Stats Tutor (Jill) STATS-RV-B1 Queue Assigned in Production — 2026-07-14
 - TASK-0016 Phase A Executed on Dev (Migrations + Functions, Shadow Mode) — 2026-07-14
 - TASK-0017 H1–H5 Repository Harness Implemented and Locally Verified — 2026-07-13
 - AP Statistics Vertical-Slice G3V Re-QA: Q1/Q3/Q4 Pass — 2026-07-13
@@ -31,6 +32,39 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 ---
+
+## Tutor Content-Review Set Built; Stats Tutor (Jill) STATS-RV-B1 Queue Assigned in Production — 2026-07-14
+
+**Task:** Tutor content review (onboarding + content QA toward calibration)
+**Status:** Stats tutor onboarding batch live in Production; Bio + larger batches staged.
+
+**Summary:** Built a deterministic, stratified tutor content-review set of 140
+Production items (`docs/research/tutor_review_set_2026_07_14/`): STATS-RV-B1/B2 and
+BIO-RV-B1/B2 (10 MCQ + 10 FRQ, then 25 each), read-only from Production
+(`pcntajvbdfqhbeewmdry`). Confirmed both tutors hold active grading qualifications
+(Stats, Bio). Reviewed the Product Owner's tutor instructions doc (Google Doc) —
+largely aligned with the `review-decision` flow (one-submission MCQ approval,
+note-required, subject-scoped queue); two items to confirm against the reviewer UI
+(decision labels Yes/Maybe/No ↔ numeric `tutor_score`; issue codes vs free-form
+`concern_codes`). Product Owner decided to launch beta single-reviewer if needed.
+
+**Production write (Product Owner authorized):** assigned STATS-RV-B1 to the Stats
+tutor Jill (`available_memory@yahoo.com`, reviewer_id `0a5909f7…`) — 20
+`content_review_assignments` (10 mcq + 10 frq, `tutor_question`, `pending`,
+`created_by` admin) + set those 20 `content_item_versions.review_status =
+tutor_review_pending`, replicating `assign-for-review` for a single reviewer (that
+Edge function requires two distinct reviewers, so the rows were created directly).
+Verified: 20 pending for Jill, versions marked. Nothing published; this is content
+review only (a tutor decision never publishes an item or changes a grade).
+
+**Flag:** the Stats items are 2026-format (9-module); AP Statistics is being rebuilt
+to 2027 (5-unit) per DECISION-0036 — some may be retiring. Bio has no format change.
+
+**Next Owner:** David Bloom.
+**Next Required Action:** Confirm the reviewer-UI decision labels/issue codes match
+the instructions; assign BIO-RV-B1 when the Bio tutor is ready; assign STATS-RV-B2
+after B1 clears. Tutor content review remains distinct from the grading-calibration
+gold set (response adjudication), which is the DECISION-0041 publish gate.
 
 ## TASK-0016 Phase A Executed on Dev (Migrations + Functions, Shadow Mode) — 2026-07-14
 
