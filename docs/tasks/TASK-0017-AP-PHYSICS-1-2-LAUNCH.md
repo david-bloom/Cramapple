@@ -5,11 +5,10 @@
 **Owner:** Main Conductor
 **Product Owner:** David Bloom
 **Tier:** Hard-Gate
-**Status:** Not Started
+**Status:** In Progress (sequenced after Chemistry and Calculus)
 **Priority:** High
 **Created Date:** 2026-07-14
-**Approved Date:** Pending (subject selection + sequencing recorded `DECISION-0037`;
-execution approval pending)
+**Approved Date:** 2026-07-14 (`APPROVAL-0026`)
 
 ## Product Goal
 
@@ -107,17 +106,27 @@ Physics C (`TASK-0018`).
 
 **Approval Required:** Yes
 **Approval Type:** Hard Gate
-**Decision:** Pending
-**Selection recorded:** `DECISION-0037` (AP Physics 1 & 2 selected, sequenced after
-Chemistry and Calculus, 2026-07-14). Execution scope, pilot batch sizes, and
-reviewer credentialing are **not yet approved**.
+**Decision:** Approved — `APPROVAL-0026` (Product Owner, 2026-07-14). Selection and
+sequencing recorded in `DECISION-0037`. Sequenced after Chemistry and Calculus.
 
-**Pending owner decisions:**
+**Owner decisions (resolved 2026-07-14):**
 
-1. Pilot batch sizes and per-unit MCQ/FRQ distribution for Physics 1 and Physics 2.
-2. Physics reviewer pool: recruit new physics-credentialed reviewers.
-3. Curriculum owner for AP Physics content.
-4. Confirm Physics 1 & 2 share one task track (this task) vs. splitting.
+1. **Curriculum owner:** David Bloom (holding the role in Orly's stead).
+2. **Reviewer/author pool:** David will hire new physics-credentialed tutors and
+   independent reviewers for Physics 1 & 2 — new recruitment.
+3. **Task grouping:** Physics 1 & 2 remain one task track (this task), confirmed.
+4. **Pilot batch size — RECOMMENDED, pending Product Owner confirmation of exact
+   numbers.** Per-unit density **8 MCQ + 3 FRQ**. Two-stage, gated on calibration:
+   - **Stage A (validation slice, each exam):** 3 highest-weight units ≈ **24 MCQ
+     + 9 FRQ** per exam.
+   - **Stage B (unit-complete):** Physics 1 ~8 units ≈ **64 MCQ + 24 FRQ**;
+     Physics 2 ~7 units ≈ **56 MCQ + 21 FRQ**.
+   Unit counts approximate pending CED confirmation.
+
+Execution is approved. Production deployment, public launch, and any lowering of
+the originality/rights/teaching/grading/accessibility gates remain separate Hard
+Gates and are **not** granted here; domain-qualified Learning Quality review and
+calibration still gate production.
 
 ## Implementation Notes — Delegation Plan (proposed, pending approval)
 

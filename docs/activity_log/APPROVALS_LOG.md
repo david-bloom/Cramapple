@@ -6,6 +6,8 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0026 — Approve Execution of the Chemistry, Calculus, and Physics Launch Tasks
+- APPROVAL-0025 — TASK-0013 Phase 2 Migration Go-Ahead
 - APPROVAL-0024 — AP Statistics Launch (TASK-0013, Phase 0 Decision Gate)
 - APPROVAL-0023 — Agent Routing and Automatic QA (Codex Proposal)
 - APPROVAL-0022 — Charter Simplification and Tiering Adoption
@@ -593,3 +595,43 @@ Database Migrations Hard Gate in `STANDING_APPROVAL_LANES.md`. See
 - Scope is exactly `prompts/CODEX_AP_STATISTICS_PHASE2_SCHEMA_INSTANTIATION.md`
   as drafted — no broader migration authority granted.
 - Publishing the resulting exam pack/content is explicitly not covered.
+
+## APPROVAL-0026 — Approve Execution of the Chemistry, Calculus, and Physics Launch Tasks
+
+**Date:** 2026-07-14
+**Approved By:** David Bloom
+**Related Task:** TASK-0014, TASK-0015, TASK-0017, TASK-0018
+**Decision:** Approved
+
+### Summary
+
+The Product Owner approved execution of all four next-round subject launch tasks:
+`TASK-0014` (AP Chemistry), `TASK-0015` (AP Calculus AB & BC), `TASK-0017` (AP
+Physics 1 & 2), and `TASK-0018` (AP Physics C: Mechanics & E&M). This is the
+Hard-Gate execution approval those specs were awaiting (selection was recorded in
+`DECISION-0036` and `DECISION-0037`).
+
+### Notes
+
+- **Curriculum owner:** David Bloom owns curriculum for these subjects (holding
+  the role in Orly's stead). Recorded as the curriculum owner on all four tasks.
+- **Reviewer/tutor pool:** David will hire new tutors and reviewers for these
+  subjects — new recruitment, not cross-credentialing from the AP Biology pool.
+  Each subject requires domain-qualified authors and independent validators
+  (chemistry, calculus, and physics); a calculus-qualified reviewer may double for
+  AP Physics C.
+- **Task grouping confirmed:** the four physics subjects remain tracked as two
+  launch tasks grouped by architecture (`TASK-0017` algebra-based, `TASK-0018`
+  calculus-based), as drafted.
+- **Pilot sizes:** the Main Conductor's recommendation (per-unit density 8 MCQ +
+  3 FRQ, anchored to the AP Statistics pilot; two-stage — a 3-unit validation
+  slice per subject gated on calibration, then unit-complete) is recorded on each
+  task as **recommended, pending Product Owner confirmation of the exact numbers**.
+  Approval of execution does not by itself lock the pilot counts.
+- **Not covered:** this approval authorizes task execution and authoring under the
+  existing governance gates. It does **not** grant production deployment, public
+  launch, or any lowering of the originality/rights/teaching/grading/accessibility
+  gates — those remain separate Hard Gates. Domain-qualified Learning Quality
+  review and calibration still gate production per subject.
+- Sequencing unchanged: Chemistry and Calculus first, then Physics
+  (`DECISION-0037`).

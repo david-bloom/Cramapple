@@ -6,11 +6,10 @@ Electricity and Magnetism (calculus-based)
 **Owner:** Main Conductor
 **Product Owner:** David Bloom
 **Tier:** Hard-Gate
-**Status:** Not Started
+**Status:** In Progress (sequenced after Chemistry and Calculus)
 **Priority:** High
 **Created Date:** 2026-07-14
-**Approved Date:** Pending (subject selection + sequencing recorded `DECISION-0037`;
-execution approval pending)
+**Approved Date:** 2026-07-14 (`APPROVAL-0026`)
 
 ## Product Goal
 
@@ -110,17 +109,29 @@ efficiency reason `DECISION-0037` sequences Physics after Calculus.
 
 **Approval Required:** Yes
 **Approval Type:** Hard Gate
-**Decision:** Pending
-**Selection recorded:** `DECISION-0037` (AP Physics C: Mechanics & E&M selected,
-sequenced after Chemistry and Calculus, 2026-07-14). Execution scope, pilot batch
-sizes, and reviewer credentialing are **not yet approved**.
+**Decision:** Approved — `APPROVAL-0026` (Product Owner, 2026-07-14). Selection and
+sequencing recorded in `DECISION-0037`. Sequenced after Chemistry and Calculus;
+depends on the `TASK-0015` symbolic verifier.
 
-**Pending owner decisions:**
+**Owner decisions (resolved 2026-07-14):**
 
-1. Pilot batch sizes and per-unit MCQ/FRQ distribution for each Physics C exam.
-2. Calculus-physics reviewer pool: recruit vs. cross-credential.
-3. Curriculum owner for AP Physics C content.
-4. Confirm Mechanics & E&M share one task track (this task) vs. splitting.
+1. **Curriculum owner:** David Bloom (holding the role in Orly's stead).
+2. **Reviewer/author pool:** David will hire new calculus-physics-credentialed
+   tutors and independent reviewers — new recruitment; a calculus-qualified
+   reviewer may double for Physics C.
+3. **Task grouping:** Mechanics & E&M remain one task track (this task), confirmed.
+4. **Pilot batch size — RECOMMENDED, pending Product Owner confirmation of exact
+   numbers.** Per-unit density **8 MCQ + 3 FRQ**. Two-stage, gated on calibration:
+   - **Stage A (validation slice, each exam):** 3 highest-weight units ≈ **24 MCQ
+     + 9 FRQ** per exam (for E&M, which has ~5 units, Stage A may be 2–3 units).
+   - **Stage B (unit-complete):** Physics C: Mechanics ~7 units ≈ **56 MCQ + 21
+     FRQ**; Physics C: E&M ~5 units ≈ **40 MCQ + 15 FRQ**.
+   Unit counts approximate pending CED confirmation.
+
+Execution is approved. Production deployment, public launch, and any lowering of
+the originality/rights/teaching/grading/accessibility gates remain separate Hard
+Gates and are **not** granted here; domain-qualified Learning Quality review and
+calibration still gate production.
 
 ## Implementation Notes — Delegation Plan (proposed, pending approval)
 

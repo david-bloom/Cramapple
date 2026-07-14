@@ -5,11 +5,10 @@
 **Owner:** Main Conductor
 **Product Owner:** David Bloom
 **Tier:** Hard-Gate
-**Status:** Not Started
+**Status:** In Progress
 **Priority:** High
 **Created Date:** 2026-07-14
-**Approved Date:** Pending (subject selection recorded `DECISION-0036`; execution
-approval pending)
+**Approved Date:** 2026-07-14 (`APPROVAL-0026`)
 
 ## Product Goal
 
@@ -117,20 +116,30 @@ of launching them together.
 
 **Approval Required:** Yes
 **Approval Type:** Hard Gate
-**Decision:** Pending
-**Selection recorded:** `DECISION-0036` (AP Calculus AB & BC selected, 2026-07-14).
-Execution scope, pilot batch size, and reviewer credentialing are **not yet
-approved**.
+**Decision:** Approved — `APPROVAL-0026` (Product Owner, 2026-07-14). Selection
+recorded in `DECISION-0036`.
 
-**Pending owner decisions:**
+**Owner decisions (resolved 2026-07-14):**
 
-1. Model AB and BC as two `app.subjects` rows, or one subject family with two
-   exam packs sharing a taxonomy (recommended, to make AB⊂BC reuse natural).
-2. Pilot batch size and per-unit MCQ/FRQ distribution for AB and the BC-only
-   units.
-3. Calculus reviewer pool: recruit new calculus-credentialed reviewers.
-4. Curriculum owner for AP Calculus content.
-5. Target window relative to ongoing subjects.
+1. **Curriculum owner:** David Bloom (holding the role in Orly's stead).
+2. **Reviewer/author pool:** David will hire new calculus-credentialed tutors and
+   independent reviewers — new recruitment, not cross-credentialing.
+3. **AB/BC modeling:** open sub-decision retained for Phase 2 (two `app.subjects`
+   rows vs. one family with two exam packs); recommended one family sharing a
+   taxonomy so AB⊂BC reuse is natural. Does not block approval.
+4. **Pilot batch size — RECOMMENDED, pending Product Owner confirmation of exact
+   numbers.** Per-unit density **8 MCQ + 3 FRQ**. Two-stage, gated on calibration:
+   - **Stage A (validation slice):** 3 highest-weight AB units ≈ **24 MCQ + 9 FRQ**.
+   - **Stage B (unit-complete):** AB's ~8 units ≈ **64 MCQ + 24 FRQ**, authored
+     once and reused by BC; plus the ~2 BC-only units (Unit 9 parametric/polar,
+     Unit 10 series) ≈ **+16 MCQ + 6 FRQ**. BC's usable bank by reuse ≈ 80 MCQ +
+     30 FRQ.
+   Unit counts approximate pending CED confirmation.
+
+Execution is approved. Production deployment, public launch, and any lowering of
+the originality/rights/teaching/grading/accessibility gates remain separate Hard
+Gates and are **not** granted here; domain-qualified Learning Quality review and
+calibration still gate production.
 
 ## Implementation Notes — Delegation Plan (proposed, pending approval)
 

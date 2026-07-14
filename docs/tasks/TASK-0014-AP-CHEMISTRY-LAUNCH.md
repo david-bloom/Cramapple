@@ -5,11 +5,10 @@
 **Owner:** Main Conductor
 **Product Owner:** David Bloom
 **Tier:** Hard-Gate
-**Status:** Not Started
+**Status:** In Progress
 **Priority:** High
 **Created Date:** 2026-07-14
-**Approved Date:** Pending (subject selection recorded `DECISION-0036`; execution
-approval pending)
+**Approved Date:** 2026-07-14 (`APPROVAL-0026`)
 
 ## Product Goal
 
@@ -120,19 +119,30 @@ review pool.
 
 **Approval Required:** Yes
 **Approval Type:** Hard Gate
-**Decision:** Pending
-**Selection recorded:** `DECISION-0036` (AP Chemistry selected as a next subject,
-2026-07-14). Execution scope, pilot batch size/distribution, and reviewer
-credentialing are **not yet approved**.
+**Decision:** Approved — `APPROVAL-0026` (Product Owner, 2026-07-14). Selection
+recorded in `DECISION-0036`.
 
-**Pending owner decisions:**
+**Owner decisions (resolved 2026-07-14):**
 
-1. Pilot batch size and per-unit MCQ/FRQ distribution (Biology-scale is not
-   assumed; propose a scaled pilot like AP Statistics' 71 MCQ / 33 FRQ).
-2. Chemistry reviewer pool: recruit new chemistry-credentialed reviewers vs.
-   confirm any existing reviewer holds chemistry qualification.
-3. Curriculum owner for AP Chemistry content (Orly, or a chemistry lead).
-4. Target window relative to ongoing AP Biology and AP Statistics work.
+1. **Curriculum owner:** David Bloom (holding the role in Orly's stead).
+2. **Reviewer/author pool:** David will hire new chemistry-credentialed tutors and
+   independent reviewers for this subject — new recruitment, not cross-credentialing
+   from the AP Biology pool.
+3. **Task scope/grouping:** as drafted.
+4. **Pilot batch size — RECOMMENDED, pending Product Owner confirmation of exact
+   numbers.** Per-unit density **8 MCQ + 3 FRQ** (anchored to the AP Statistics
+   pilot). Two-stage, gated on calibration:
+   - **Stage A (validation slice):** the 3 highest-exam-weight units ≈ **24 MCQ +
+     9 FRQ**; run the full author → review → grading → calibration loop before
+     scaling.
+   - **Stage B (unit-complete pilot):** all ~9 units ≈ **72 MCQ + 27 FRQ**.
+   Unit counts approximate pending CED confirmation. Roughly one in three FRQs
+   should be multi-part to exercise harder grading.
+
+Execution is approved. Production deployment, public launch, and any lowering of
+the originality/rights/teaching/grading/accessibility gates remain separate Hard
+Gates and are **not** granted here; domain-qualified Learning Quality review and
+calibration still gate production.
 
 ## Implementation Notes — Delegation Plan (proposed, pending approval)
 

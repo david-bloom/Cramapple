@@ -80,10 +80,10 @@ records.
 | `TASK-0009` | Schema and Governance Reconciliation | High | Proposed | Conceptual-model approval |
 | `TASK-0010` | Grader Confidence and Calibration | Critical | Proposed | Learning Quality and Product Owner release gates |
 | `TASK-0011` | Handwritten Graph Capture | Medium | Research | Prototype and feasibility decision |
-| `TASK-0014` | AP Chemistry Launch (Subject 3) | High | Not Started | Execution approval; pilot scope, chemistry review pool, calibration (see `DECISION-0036`) |
-| `TASK-0015` | AP Calculus AB & BC Launch | High | Not Started | Execution approval; symbolic-equivalence verifier, pilot scope, calculus review pool (see `DECISION-0036`) |
-| `TASK-0017` | AP Physics 1 & 2 Launch (algebra-based) | High | Not Started | Execution approval; numeric verifier (units/vectors), pilot scope, physics review pool (see `DECISION-0037`) |
-| `TASK-0018` | AP Physics C: Mechanics & E&M Launch (calculus-based) | High | Not Started | Execution approval; reuse `TASK-0015` symbolic verifier, pilot scope, calculus-physics review pool (see `DECISION-0037`) |
+| `TASK-0014` | AP Chemistry Launch (Subject 3) | High | In Progress | Approved `APPROVAL-0026`; confirm pilot numbers, hire chemistry tutors/reviewers, calculation verifier, calibration |
+| `TASK-0015` | AP Calculus AB & BC Launch | High | In Progress | Approved `APPROVAL-0026`; confirm pilot numbers, hire calculus tutors/reviewers, symbolic-equivalence verifier, calibration |
+| `TASK-0017` | AP Physics 1 & 2 Launch (algebra-based) | High | In Progress | Approved `APPROVAL-0026` (after Chem/Calc); confirm pilot numbers, hire physics tutors/reviewers, numeric verifier, calibration |
+| `TASK-0018` | AP Physics C: Mechanics & E&M Launch (calculus-based) | High | In Progress | Approved `APPROVAL-0026` (after Chem/Calc); confirm pilot numbers, hire calculus-physics tutors/reviewers, reuse `TASK-0015` verifier |
 | `UX-001` | Initial Product UX Decisions | High | In Progress | Learning, Marketing, accessibility, and Product Owner review |
 | `UX-002` | Question and Answer Review Portal | High | In Progress | Tutor, AP Reader, Learning Quality, accessibility, security, and Product Owner review |
 | `UX-003` | Content Authoring and Revision Workbench | High | In Progress | Author, Learning Quality, accessibility, security, rights, and Product Owner review |
@@ -651,11 +651,18 @@ planning target. Physical Supabase DDL remains deferred.
 
 ### EXPAND-001 - Second Exam Pack
 
-**Status:** Proposed (subject pipeline selected; execution scope not yet approved)
+**Status:** In Progress (pipeline selected; launch tasks approved for execution —
+`APPROVAL-0026`)
 **Owner:** Product Owner with Strategy Advisor and Learning Quality Owner
 **Decision:** `DECISION-0036` (AP Chemistry + AP Calculus AB & BC) and
 `DECISION-0037` (the four AP Physics subjects, sequenced after Chemistry and
-Calculus)
+Calculus); execution approved in `APPROVAL-0026`
+**Curriculum owner:** David Bloom (holding the role in Orly's stead).
+**Reviewers/authors:** new per-subject tutors and independent reviewers to be
+hired (chemistry, calculus, physics) — not cross-credentialed from AP Biology.
+**Pilot sizing:** Main Conductor recommendation recorded on each task (8 MCQ + 3
+FRQ per unit; Stage A validation slice → Stage B unit-complete); exact numbers
+pending Product Owner confirmation.
 **Subject pipeline:** Subject 1 AP Biology (live) → Subject 2 AP Statistics (in
 flight) → AP Chemistry + AP Calculus AB/BC (`TASK-0014`, `TASK-0015`) → AP Physics
 1, 2, C: Mechanics, C: E&M (`TASK-0017`, `TASK-0018`)

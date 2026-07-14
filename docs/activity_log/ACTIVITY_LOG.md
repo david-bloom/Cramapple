@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Launch Tasks Approved for Execution; Pilot-Size Recommendation Recorded (APPROVAL-0026) — 2026-07-14
 - Four AP Physics Subjects Selected, Launch Tasks + Seed Content Drafted (DECISION-0037) — 2026-07-14
 - Chemistry & Calculus Launch Tasks Drafted and Seed Content Expanded — 2026-07-14
 - Next Subjects Selected: AP Chemistry and AP Calculus AB & BC (DECISION-0036) — 2026-07-14
@@ -24,6 +25,46 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## Launch Tasks Approved for Execution; Pilot-Size Recommendation Recorded (APPROVAL-0026) - 2026-07-14
+
+**Task:** TASK-0014, TASK-0015, TASK-0017, TASK-0018. **Status:** Approved for
+execution; each moved to `In Progress` on `claude/cramapple-content-creation-igjvfb`.
+
+**Summary:** Product Owner approved execution of all four next-round subject
+launch tasks (`APPROVAL-0026`), resolved two owner decisions, and requested a
+pilot-size recommendation.
+
+**Resolved:**
+- **Curriculum owner:** David Bloom, for all four subjects (holding Orly's role).
+- **Reviewers/authors:** David will hire new per-subject tutors and independent
+  reviewers (chemistry, calculus, physics) — new recruitment, not
+  cross-credentialing from AP Biology.
+- **Grouping:** the four physics subjects stay as two task tracks (`TASK-0017`
+  algebra-based, `TASK-0018` calculus-based).
+
+**Pilot-size recommendation (recorded on each task; exact numbers pending Product
+Owner confirmation):** per-unit density 8 MCQ + 3 FRQ, anchored to the approved AP
+Statistics pilot (71 MCQ / 33 FRQ over 9 units). Two-stage, gated on calibration:
+Stage A validation slice = 3 highest-weight units per subject (≈24 MCQ + 9 FRQ),
+then Stage B unit-complete. Stage B per subject (unit counts approximate, confirm
+against CED): Chemistry ≈72 MCQ + 27 FRQ; Calc AB ≈64 MCQ + 24 FRQ (+16 MCQ + 6
+FRQ BC-only, reused by BC); Physics 1 ≈64 MCQ + 24 FRQ; Physics 2 ≈56 MCQ + 21
+FRQ; Physics C: Mechanics ≈56 MCQ + 21 FRQ; Physics C: E&M ≈40 MCQ + 15 FRQ. Net
+new authoring ≈368 MCQ + 138 FRQ across the pipeline. Recommended hiring order:
+chemistry and calculus tutors first (earlier round).
+
+**Still gated (not granted by this approval):** production deployment, public
+launch, and any lowering of the originality/rights/teaching/grading/accessibility
+gates. Domain-qualified Learning Quality review and calibration still gate
+production per subject. Pilot counts are recommended, not locked, until the
+Product Owner confirms the numbers.
+
+**Next action:** Product Owner confirmation of the pilot numbers; begin hiring
+(chemistry + calculus first); Phase 1 grading-generalization verification per
+subject once tutors/authors are in place.
 
 ---
 
