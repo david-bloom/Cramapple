@@ -92,11 +92,21 @@ review only (a tutor decision never publishes an item or changes a grade).
 **Flag:** the Stats items are 2026-format (9-module); AP Statistics is being rebuilt
 to 2027 (5-unit) per DECISION-0036 — some may be retiring. Bio has no format change.
 
+**Update 2026-07-14:** BIO-RV-B1 assigned to the Bio tutor **Morgan**
+(`amjadsolangi654@gmail.com`, reviewer_id `83098fb9…`, role tutor, Bio-qualified) —
+20 `content_review_assignments` (10 mcq + 10 frq, `tutor_question`, `pending`) +
+versions marked `tutor_review_pending`, same single-reviewer mechanism as Jill.
+Both tutors now have a live B1 queue. Separately, the **AP Biology CED fact pack**
+(`docs/product/AP_BIOLOGY_CED_FACT_PACK.md`) §3 topic map was anchored from the
+public course framework and is now a **G0A DRAFT ready for Morgan's sign-off**
+(mirrors Jill's Stats G0A).
+
 **Next Owner:** David Bloom.
 **Next Required Action:** Confirm the reviewer-UI decision labels/issue codes match
-the instructions; assign BIO-RV-B1 when the Bio tutor is ready; assign STATS-RV-B2
-after B1 clears. Tutor content review remains distinct from the grading-calibration
-gold set (response adjudication), which is the DECISION-0041 publish gate.
+the instructions; hand Morgan the AP Biology fact pack for G0A sign-off; assign
+STATS-RV-B2 / BIO-RV-B2 after the B1 batches clear. Tutor content review remains
+distinct from the grading-calibration gold set (response adjudication), the
+DECISION-0041 publish gate.
 
 ## TASK-0016 Phase A Executed on Dev (Migrations + Functions, Shadow Mode) — 2026-07-14
 
