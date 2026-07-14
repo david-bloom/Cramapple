@@ -116,7 +116,11 @@ coverage_brief {
   target_skill_statement: string      # one sentence: what a correct
                                       #   response demonstrates          (required)
   representations: string[]           # table/graph/diagram/model/prose (required)
-  difficulty_band: enum               # Easy/Medium/Hard/Very Hard      (required)
+  intended_difficulty: enum           # author's estimate on the UX-002
+                                      #   5-level scale (§4.2)            (required)
+  validated_difficulty: enum|null     # set ONLY by the UX-002 reviewer
+                                      #   agreement workflow; null until
+                                      #   confirmed (§4.2)
   intended_use: enum                  # teaching | diagnostic | transfer(required)
 
   # --- Package the author must deliver (points to the contract) ---
@@ -155,7 +159,7 @@ maps to a package-contract field the author owns:
 
 | Artifact family | Where it lives in the package | Brief must specify |
 | --- | --- | --- |
-| Question(s) | MCQ stem+choices / FRQ prompt parts | topic, SP, task verb, difficulty |
+| Question(s) | MCQ stem+choices / FRQ prompt parts | topic, SP, task verb, intended difficulty (§4.2) |
 | Rubric | criterion-level scoring rules + boundary contracts | criterion granularity expected |
 | Lesson | teaching explanation | the misconception(s) the lesson must resolve |
 | Hints | minimum correction / fade steps | whether staged hints are in scope |
@@ -166,6 +170,34 @@ maps to a package-contract field the author owns:
 
 A brief does not author these — it states the coverage requirement for each so
 the author's package is complete and reviewable against the same expectation.
+
+### 4.2 Difficulty is validated, not asserted
+
+Difficulty is a **validated** attribute, not a value the author simply declares.
+(Raised by reviewer feedback — Jill, AP Statistics tutor — 2026-07-14.) Two
+difficulty values are tracked, distinctly:
+
+- **`intended_difficulty`** — the author's (or brief's) estimate. It sets the
+  target and appears on the reviewer's queue card as the "intended difficulty."
+  It is never the confirmed label.
+- **`validated_difficulty`** — confirmed **only** by the independent-reviewer
+  workflow in `QUESTION_AND_ANSWER_REVIEW_PORTAL_DESIGN.md` §5: both tutors and
+  the AP Reader each supply a difficulty label; the label is confirmed **only on
+  exact three-way agreement**; any disagreement routes to `difficulty_discussion`
+  and the portal never averages or silently picks a median. Until that agreement
+  exists, `validated_difficulty` stays `null`.
+
+**Scale.** Both fields use the UX-002 five-level scale — Easy, Moderately easy,
+Medium, Hard, Very hard — not the earlier four-level draft, so intended and
+validated values are directly comparable. (The five label names are still
+proposed copy in UX-002 §13 and are being reviewer-tested; this artifact tracks
+that scale rather than defining its own.)
+
+**Optional later layer — empirical difficulty.** Post-exposure performance
+signals (e.g. percent-correct / p-value) may *open human review* to revise a
+validated label, consistent with CONTENT-001's rule that statistical signals open
+review rather than auto-changing an item's state. This layer is a proposed
+enhancement, not required for the pilot.
 
 ## 5. Portfolio-Gap Model
 
@@ -224,7 +256,7 @@ target_skill_statement: >
   calculates an expected Hardy-Weinberg value and justifies whether an observed
   deviation is consistent with the equilibrium assumptions.
 representations: [data table OR allele/genotype frequency figure, algebraic model]
-difficulty_band: Hard
+intended_difficulty: Hard   # validated_difficulty set later by UX-002 review
 intended_use: teaching
 
 form: MCQ
@@ -286,7 +318,7 @@ target_skill_statement: >
   change in conditions.
 representations: [results table OR line graph with an independent and dependent
                   variable, prose]
-difficulty_band: Medium
+intended_difficulty: Medium # validated_difficulty set later by UX-002 review
 intended_use: teaching
 
 form: SFRQ
@@ -352,7 +384,7 @@ target_skill_statement: >
   evidence.
 representations: [multi-part shared stimulus with at least one quantitative
                   data display, algebraic/quantitative reasoning, prose argument]
-difficulty_band: Hard
+intended_difficulty: Hard   # validated_difficulty set later by UX-002 review
 intended_use: teaching
 
 form: LFRQ

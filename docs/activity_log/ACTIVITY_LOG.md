@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Reviewer Feedback Folded In: Difficulty Validation and 1–3 Score Clarity (Jill) — 2026-07-14
 - Launch Tasks Approved for Execution; Pilot-Size Recommendation Recorded (APPROVAL-0026) — 2026-07-14
 - Four AP Physics Subjects Selected, Launch Tasks + Seed Content Drafted (DECISION-0037) — 2026-07-14
 - Chemistry & Calculus Launch Tasks Drafted and Seed Content Expanded — 2026-07-14
@@ -25,6 +26,42 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## Reviewer Feedback Folded In: Difficulty Validation and 1–3 Score Clarity (Jill) - 2026-07-14
+
+**Task:** UX-002; CONTENT-001 / content artifacts. **Status:** Folded in on
+`claude/cramapple-content-creation-igjvfb`.
+
+**Summary:** The AP Statistics tutor (Jill), via David, raised two process points
+before progressing: (1) add validation to the difficulty level, and (2) clarity on
+the "1-2-3 score."
+
+**Response and changes:**
+- **1–3 score clarified.** The 1–3 is a *suitability disposition* where **lower is
+  better** (1 = advance/approve, 3 = exclude), distinct from difficulty and from a
+  quality-out-of-3 reading; two tutors' scores sum to a *tutor aggregate* (2–6);
+  the AP Reader uses its own 1–3. Added an explicit clarification block to
+  `QUESTION_AND_ANSWER_REVIEW_PORTAL_DESIGN.md` §3 and recorded the feedback in
+  §13.
+- **Difficulty validation confirmed and reconciled.** The UX-002 §5 workflow
+  already validates difficulty via exact two-tutor + AP-Reader agreement (no
+  averaging). The content artifacts were inconsistent — they carried a single
+  author-asserted 4-level `difficulty_band`. Reconciled: the coverage-brief schema
+  (`CONTENT_COVERAGE_BRIEFS.md` §4, new §4.2) and the question-set schema
+  (`FACT_PACKS_AND_QUESTION_SETS.md` §5, new §5.4) now split `intended_difficulty`
+  (author estimate) from `validated_difficulty` (set only by UX-002 agreement,
+  null until confirmed), both on the UX-002 five-level scale. Seed items' labels
+  are `intended_difficulty` only.
+- **Proposed follow-up:** an optional post-exposure *empirical* difficulty layer
+  that opens human review to revise a confirmed label (consistent with CONTENT-001's
+  "statistical signals open review"). Flagged as a proposal, not required for the
+  pilot — awaiting Product Owner / Learning Quality direction.
+
+**Next action:** confirm the approach with Jill/Orly; decide whether the empirical
+difficulty layer is in scope for the pilot; then resume the paused next-work
+choice (author briefs vs. verifier prompts).
 
 ---
 

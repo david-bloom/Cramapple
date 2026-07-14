@@ -35,9 +35,23 @@ accessibility, release, and exam-pack gates remain separately required.
 
 ## 3. Score Definitions
 
+**Read this first — what the 1–3 score is and is not** (clarification prompted by
+reviewer feedback, Jill, AP Statistics tutor, 2026-07-14):
+
+- The 1–3 score is a **suitability disposition**, and **lower is better**: `1`
+  means "advance/approve," `3` means "exclude." It is **not** a quality rating out
+  of 3 (where 3 would feel best), and it is **not** the difficulty label.
+- **Difficulty is a separate label** on its own five-level scale (§5), recorded
+  alongside the score but never mixed with it.
+- Each of two tutors gives one 1–3 score; the **tutor aggregate is their sum
+  (2–6)**, so an individual `1–3` and the combined `2–6` are different numbers —
+  the interface must label the combined value `Tutor aggregate`.
+- The **AP Reader** uses its own 1–3 with different labels (Approve / Edit and
+  recycle / Exclude, §3.2) — same lower-is-better direction, different actions.
+
 ### 3.1 Tutor Score
 
-Each of two tutors independently assigns one score:
+Each of two tutors independently assigns one score (lower is better):
 
 | Score | Label | Meaning |
 | --- | --- | --- |
@@ -359,6 +373,15 @@ does not authenticate users, write production records, or publish content.
 
 ## 13. Open Review Questions
 
+- **Reviewer feedback (Jill, AP Statistics tutor, 2026-07-14):** (1) the 1–3
+  score's meaning and lower-is-better polarity needed to be explicit — addressed
+  by the clarification block added to §3, and reflected in the content-artifact
+  schemas (`CONTENT_COVERAGE_BRIEFS.md` §4.2, `FACT_PACKS_AND_QUESTION_SETS.md`
+  §5.4); (2) difficulty should be validated, not author-asserted — the §5
+  agreement workflow already validates it, and the content artifacts now
+  distinguish `intended_difficulty` from `validated_difficulty`. Open follow-up:
+  whether to add a post-exposure empirical difficulty layer that can open review
+  to revise a confirmed label.
 - Confirm the five difficulty label names.
 - Decide who owns and records difficulty discussion outcomes.
 - Decide whether AP Readers see tutor scores before recording an initial

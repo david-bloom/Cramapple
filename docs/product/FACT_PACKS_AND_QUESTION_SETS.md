@@ -234,7 +234,9 @@ question_set_item {
   primary_topic: string
   science_or_math_practice: string[]
   task_verbs: string[]
-  difficulty_band: enum
+  intended_difficulty: enum       # author estimate, UX-002 5-level scale (§5.4)
+  validated_difficulty: enum|null # set ONLY by UX-002 reviewer agreement;
+                                  #   null until confirmed (§5.4)
   # For production, each item resolves to the full MCQ (§8) or FRQ (§9)
   # package contract in CONTENT_AUTHORING_AND_PROMPT_ARCHITECTURE.md.
   # In a Draft set, an item may carry an illustrative stem + key + rationale
@@ -242,6 +244,25 @@ question_set_item {
   status_note: string
 }
 ```
+
+### 5.4 Difficulty is validated, not asserted
+
+(Reviewer feedback — Jill, AP Statistics tutor — 2026-07-14.) Item difficulty is a
+**validated** attribute, tracked as two distinct values, identical to the
+coverage-brief rule (`CONTENT_COVERAGE_BRIEFS.md` §4.2):
+
+- **`intended_difficulty`** — the author's estimate; sets the target, shown to
+  reviewers as "intended difficulty," never the confirmed label.
+- **`validated_difficulty`** — confirmed **only** by the independent-reviewer
+  workflow in `QUESTION_AND_ANSWER_REVIEW_PORTAL_DESIGN.md` §5 (two tutors + AP
+  Reader; confirmed on **exact agreement**; disagreement → `difficulty_discussion`;
+  never averaged). `null` until confirmed.
+
+Both use the UX-002 five-level scale (Easy, Moderately easy, Medium, Hard, Very
+hard). The Easy/Medium/Hard labels on the Draft **seed** items in `docs/content/`
+are `intended_difficulty` only — illustrative, not validated. A post-exposure
+empirical layer may later open review to revise a validated label (proposed, not
+required for the pilot).
 
 ### 5.3 Relationship to coverage briefs
 
