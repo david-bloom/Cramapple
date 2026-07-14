@@ -647,12 +647,17 @@ planning target. Physical Supabase DDL remains deferred.
 
 ### EXPAND-001 - Second Exam Pack
 
-**Status:** Deferred
+**Status:** Proposed (next subjects selected — AP Chemistry and AP Calculus AB &
+BC; execution scope not yet approved)
 **Owner:** Product Owner with Strategy Advisor and Learning Quality Owner
+**Decision:** `DECISION-0036` (Product Owner selection, 2026-07-14)
 **Design record:** `docs/product/FACT_PACKS_AND_QUESTION_SETS.md` (layered
 fact-pack + short-question-set artifacts + Draft seed content for AP Chemistry,
-AP Calculus AB, and AP Calculus BC; `Status: Draft`, subject selection not yet
-made, awaiting Learning Quality review)
+AP Calculus AB, and AP Calculus BC; `Status: Draft`, awaiting domain-qualified
+Learning Quality review)
+**Next step:** create a launch task per subject (or combined), analogous to
+`TASK-0013` for AP Statistics, then pass the EXPAND-001 capability, validator,
+and Learning Quality gates before production.
 
 - [ ] Rank subjects using demand and operating evidence.
 - [ ] Select the next natural-science exam.

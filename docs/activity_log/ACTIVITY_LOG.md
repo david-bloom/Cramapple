@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Next Subjects Selected: AP Chemistry and AP Calculus AB & BC (DECISION-0036) — 2026-07-14
 - Fact Packs and Short Question Sets Drafted for Next-Round Subjects — 2026-07-14
 - Content Coverage Brief System Drafted (CONTENT-001) — 2026-07-14
 - Phase A Broken-Import Fix and Deterministic-Layer-Only Ship Decision — 2026-07-12
@@ -21,6 +22,28 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## Next Subjects Selected: AP Chemistry and AP Calculus AB & BC (DECISION-0036) - 2026-07-14
+
+**Task:** EXPAND-001 (subject selection). **Status:** Recorded on
+`claude/cramapple-content-creation-igjvfb`.
+
+**Summary:** Product Owner directed that the next subjects after AP Statistics
+are **AP Chemistry** and **AP Calculus (AB and BC)** ("Chemistry and calculus are
+next"). Recorded as `DECISION-0036` (Approved for selection; production readiness
+gated). EXPAND-001 moved from `Deferred` to `Proposed`. Content sourcing reuses
+the tutor-authored base-package model; rights posture unchanged (no official
+CollegeBoard material). Calc AB is treated as a subset of BC for content reuse.
+
+**Gates still open before production:** launch task per subject (analogous to
+TASK-0013); domain-qualified Learning Quality review (a chemistry reviewer and a
+calculus reviewer); capability and validator gates; official CED taxonomy
+confirmation per subject.
+
+**Next action:** draft the launch task(s) and/or expand the seed content for both
+subjects, per Product Owner direction on depth.
 
 ---
 

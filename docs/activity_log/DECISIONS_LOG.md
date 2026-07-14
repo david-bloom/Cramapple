@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0036 — Select AP Chemistry and AP Calculus (AB & BC) as the Next Subjects
 - DECISION-0035 — Resolve Phase 0 of the Backend Consolidation Migration (Schema Reconciliation, Option A/A2)
 - DECISION-0031 — Launch AP Statistics as Subject 2, Reusing the Tutor-Authored Content Model
 - DECISION-0030 — Failed/Rejected Grading Burns the Daily Budget Cap When Cost Is Known
@@ -1455,3 +1456,75 @@ column).
   `claude/backend-consolidation-migration` (off `main`). `main` is at
   DECISION-0032; branches for DECISION-0033/0034 are outstanding. If numbering
   collides on merge, renumber whichever merges second and update the index.
+
+## DECISION-0036 — Select AP Chemistry and AP Calculus (AB & BC) as the Next Subjects
+
+**Date:** 2026-07-14
+**Decision Owner:** David Bloom
+**Status:** Approved (selection/direction; production readiness remains gated)
+**Related Task:** N/A yet (launch task to be created, analogous to TASK-0013)
+**Related Backlog:** EXPAND-001
+**Area:** Product
+
+### Context
+
+AP Biology is Subject 1 (live) and AP Statistics is Subject 2
+(`DECISION-0031`, `TASK-0013`, in flight). In this content-creation session the
+Product Owner directed the creation of fact packs and short question sets for
+the next round of subjects and selected **AP Chemistry, AP Calculus AB, and AP
+Calculus BC**, then confirmed "Chemistry and calculus are next." The layered
+fact-pack and short-question-set artifacts and one Draft seed slice per subject
+were drafted in `docs/product/FACT_PACKS_AND_QUESTION_SETS.md` and
+`docs/content/` (PR #39).
+
+### Decision
+
+1. The next subjects after AP Statistics are **AP Chemistry** and **AP Calculus
+   (AB and BC)**. AP Calculus AB is treated as a strict subset of BC: shared
+   content is tagged `applies_to: [CALCAB, CALCBC]`; BC-only material (Units 9–10)
+   is tagged `[CALCBC]`.
+2. Content sourcing reuses the existing tutor-authored base-package model
+   (`TASK-0007`/`TASK-0008`), same as AP Biology and AP Statistics — no new
+   authoring arm.
+3. Rights/licensing posture is unchanged: no official CollegeBoard material as
+   model input, exemplar, or source. Restated for the record, not reopened.
+4. This selection is Product Owner direction. It short-circuits the EXPAND-001
+   "rank subjects using demand and operating evidence" step by owner choice; it
+   does not waive the remaining EXPAND-001 gates.
+
+### Rationale
+
+Both subjects reuse the existing grading/verification investment: AP Chemistry is
+the closest structural cousin to AP Biology (units, MCQ + criterion-scored FRQ,
+data analysis), and AP Calculus is heavily symbolic/quantitative and fits the
+deterministic calculation-verifier path already named in the architecture
+(`CONTENT_AUTHORING_AND_PROMPT_ARCHITECTURE.md` §7). Choosing them together lets
+Calc AB content be reused by BC rather than authored twice.
+
+### Consequences
+
+- EXPAND-001 moves from `Deferred` to `Proposed` (subjects selected; execution
+  scope not yet approved). Backlog updated accordingly.
+- A launch task per subject (or a combined launch task), analogous to
+  `TASK-0013` for AP Statistics, is the next step to define scope, unit/topic
+  taxonomy confirmation against the current CED, per-unit MCQ/FRQ counts, owners,
+  and acceptance criteria.
+- Production readiness still requires the EXPAND-001 gates: domain-qualified
+  Learning Quality review for each subject (a chemistry reviewer and a calculus
+  reviewer, not the AP Biology reviewer), capability and validator gates, and
+  equal source/rights/teaching/grading/release quality to AP Biology.
+- The draft seed content in PR #39 remains illustrative format examples, not
+  production content or calibration evidence, until the gates above pass.
+
+### Risks / Follow-ups
+
+- Strategy Advisor and Learning Quality input named in EXPAND-001 was not
+  separately recorded before this selection; capture any dissent or sequencing
+  concerns when the launch task is scoped.
+- Subject/taxonomy identifiers used in the seed packs are the publicly known
+  unit structures; confirm exact official topic ids against the current CED per
+  subject before any pack or set is Approved.
+- This decision originates on branch `claude/cramapple-content-creation-igjvfb`
+  (off `main`). `main`'s decision numbering has outstanding branches
+  (DECISION-0033/0034 per the DECISION-0035 note); if numbering collides on
+  merge, renumber whichever merges second and update the index.
