@@ -577,21 +577,26 @@ Deno.serve(async (req) => {
       reviewer_id: profileResult.user.id,
       supersedes_id: supersedes,
       review_stage: reviewStage,
+      // Every stage-specific field is gated to its own stage so a client that
+      // sends an off-stage field (validated only inside its branch) cannot write
+      // a value that violates a DB check and surfaces as a generic 500.
       tutor_decision: reviewStage === "tutor_question" ? tutorDecision : null,
       tutor_score: tutorScoreForInsert,
       difficulty_action: reviewStage === "tutor_question"
         ? difficultyAction
         : null,
-      difficulty_label: difficultyLabel,
+      difficulty_label: reviewStage === "tutor_question" ? difficultyLabel : null,
       diagnostic_flag: diagnosticFlag,
       concern_codes: concernCodes,
       note,
       topic_selections: topicSelections,
-      answer_key: answerKey,
-      answer_approval: answerApproval,
-      canonical_decision: canonicalDecision,
+      answer_key: reviewStage === "tutor_answer" ? answerKey : null,
+      answer_approval: reviewStage === "tutor_answer" ? answerApproval : null,
+      canonical_decision: reviewStage === "tutor_frq_canonical"
+        ? canonicalDecision
+        : null,
       canonical_answer_snapshot: canonicalAnswerSnapshot,
-      reader_decision: readerDecision,
+      reader_decision: reviewStage === "reader_question" ? readerDecision : null,
       decision_payload: decisionPayload,
       decision_hash: decisionHash,
       created_by: profileResult.user.id,

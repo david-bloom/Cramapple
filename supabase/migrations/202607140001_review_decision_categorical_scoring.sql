@@ -25,6 +25,9 @@ alter table app.content_review_decisions
   add column if not exists tutor_decision text;
 
 alter table app.content_review_decisions
+  drop constraint if exists crd_tutor_decision_check;
+
+alter table app.content_review_decisions
   add constraint crd_tutor_decision_check
   check (
     tutor_decision is null
@@ -49,6 +52,9 @@ where tutor_score is not null
 -- rows predate this action and keep difficulty_action null.
 alter table app.content_review_decisions
   add column if not exists difficulty_action text;
+
+alter table app.content_review_decisions
+  drop constraint if exists crd_difficulty_action_check;
 
 alter table app.content_review_decisions
   add constraint crd_difficulty_action_check

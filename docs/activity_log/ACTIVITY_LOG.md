@@ -65,6 +65,19 @@ branch + Vercel preview).
 and the Codex backend prompt; QA; then apply the migration through the gate and
 promote. The PR branch already produces a Vercel preview build.
 
+**Update (same day):** the backend half was implemented on the branch
+(`review-decision`/`review-queue` edge functions) rather than handed to Codex, at
+Product Owner request, to land in lockstep with the Lovable frontend. A fresh
+independent QA agent reviewed the migration + edge functions and returned
+**Pass** (no blocking defects). Two non-blocking notes were fixed: stage-gated the
+remaining insert fields (defense-in-depth against cross-stage contamination
+producing a generic 500) and made the two new migration constraints idempotent.
+Two other notes (dead reader numeric-fallback path; mixed legacy/new difficulty
+during a split-client transition) were accepted as documented/harmless. Backend is
+staged on the branch, **not deployed**. Product Owner is holding the Lovable
+publish until the backend deploys, in order: migration `202607140001` → edge
+functions → frontend.
+
 ---
 
 ## Reviewer Feedback Folded In: Difficulty Validation and 1–3 Score Clarity (Jill) - 2026-07-14
