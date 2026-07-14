@@ -33,55 +33,48 @@ accessibility, release, and exam-pack gates remain separately required.
 11. Run a Codex pre-review before tutor assignment so obvious relevance,
     answer-key, rubric, or leakage problems are edited out before human review.
 
-## 3. Score Definitions
+## 3. Review Decisions
 
-**Read this first — what the 1–3 score is and is not** (clarification prompted by
-reviewer feedback, Jill, AP Statistics tutor, 2026-07-14):
+**Model (updated by `DECISION-0038`, 2026-07-14).** The earlier numeric 1–3 score
+is replaced by an explicit categorical decision — the numeric scale's
+lower-is-better polarity and the individual-vs-aggregate confusion were a repeated
+source of reviewer error (raised by Jill, AP Statistics tutor). Difficulty is a
+separate attribute handled by Agree/Propose (§5), never mixed with the decision.
 
-- The 1–3 score is a **suitability disposition**, and **lower is better**: `1`
-  means "advance/approve," `3` means "exclude." It is **not** a quality rating out
-  of 3 (where 3 would feel best), and it is **not** the difficulty label.
-- **Difficulty is a separate label** on its own five-level scale (§5), recorded
-  alongside the score but never mixed with it.
-- Each of two tutors gives one 1–3 score; the **tutor aggregate is their sum
-  (2–6)**, so an individual `1–3` and the combined `2–6` are different numbers —
-  the interface must label the combined value `Tutor aggregate`.
-- The **AP Reader** uses its own 1–3 with different labels (Approve / Edit and
-  recycle / Exclude, §3.2) — same lower-is-better direction, different actions.
+### 3.1 Tutor Decision
 
-### 3.1 Tutor Score
+Each of two tutors independently records one decision:
 
-Each of two tutors independently assigns one score (lower is better):
-
-| Score | Label | Meaning |
+| Decision | Meaning | Rationale required |
 | --- | --- | --- |
-| 1 | Yes | Suitable to advance without substantive modification |
-| 2 | Maybe | Plausible, but a specific issue requires modification or discussion |
-| 3 | No | Unsuitable in the current version |
+| Approve | Suitable to advance as-is | no (optional note) |
+| Approve with edits | Good, but specific edits are needed | yes |
+| Disapprove | Not suitable in this version | yes |
 
-The **tutor aggregate** is the sum of the two locked scores:
+The two locked tutor decisions resolve to a disposition (no numeric aggregate):
 
-| Aggregate | Possible votes | Disposition |
-| --- | --- | --- |
-| 2 | Yes + Yes | Advance to AP Reader review |
-| 3 | Yes + Maybe | Reserve for modification and tutor reassessment |
-| 4-6 | Yes + No, Maybe + Maybe, Maybe + No, or No + No | Exclude the current version |
+| Combination | Disposition |
+| --- | --- |
+| Approve + Approve | Advance to AP Reader review |
+| At least one Approve-with-edits, no Disapprove | Edit and recycle — new version returns to two tutors |
+| Any Disapprove | Exclude the current version (author may submit a revision) |
 
-The interface must say `Tutor aggregate` rather than only `Score` so reviewers
-do not confuse an individual 1-3 decision with the combined 2-6 result.
+Note this changes the prior model: two "Maybe/Approve-with-edits" decisions now
+route to edit-and-recycle, not exclusion.
 
-### 3.2 AP Reader Score
+### 3.2 AP Reader Decision
 
-The AP Reader assigns one score after a tutor aggregate of 2:
+After a tutor disposition of Advance, the AP Reader records one decision, using
+the same vocabulary:
 
-| Score | Label | Disposition |
-| --- | --- | --- |
-| 1 | Approve | Candidate passes this review stage |
-| 2 | Edit and recycle | Create a new version and return it to two tutors |
-| 3 | Exclude | Exclude the current version |
+| Decision | Disposition |
+| --- | --- |
+| Approve | Candidate passes this review stage |
+| Approve with edits | Create a new version and return it to two tutors |
+| Disapprove | Exclude the current version |
 
-An AP Reader score of 2 does not permit editing and approval of the same
-version. The edit creates a new immutable candidate version.
+Approve-with-edits does not permit editing and approving the same version; the
+edit creates a new immutable candidate version.
 
 ## 4. Question Workflow
 
@@ -91,13 +84,13 @@ Question candidate version
        pass -> Tutor A independent review
                  -> Tutor B independent review
        edit_needed -> Revision task in UX-003
-  -> Aggregate tutor scores
-       2 -> AP Reader review
-              1 -> Question review approved
-              2 -> New version -> two new tutor reviews
-              3 -> Current version excluded
-       3 -> Modification reserve -> new version -> two new tutor reviews
-       4-6 -> Current version excluded
+  -> Resolve tutor decisions
+       Approve + Approve -> AP Reader review
+              Approve            -> Question review approved
+              Approve with edits -> New version -> two new tutor reviews
+              Disapprove         -> Current version excluded
+       >=1 Approve-with-edits, no Disapprove -> Edit and recycle -> new version -> two new tutor reviews
+       Any Disapprove -> Current version excluded
 ```
 
 `Question review approved` means eligible for the next applicable content gate.
@@ -108,32 +101,31 @@ in the UX-003 Content Authoring and Revision Workbench. UX-002 preserves the
 locked decisions and triggering comments; UX-003 creates the successor version
 and returns it to the required independent reassessment queue.
 
-## 5. Difficulty Label Workflow
+## 5. Difficulty Agree/Propose Workflow
 
-Each assigned reviewer supplies one required difficulty label. Both tutors
-label every question they review. The AP Reader supplies the third label only
-for questions that reach AP Reader review:
+**Model (updated by `DECISION-0038`).** Reviewers no longer cold-label difficulty.
+Each item carries an author-supplied **intended difficulty** on the five-level
+scale (Easy, Moderately easy, Medium, Hard, Very hard). Each assigned reviewer
+takes one action against it:
 
-1. Easy
-2. Moderately easy
-3. Medium
-4. Hard
-5. Very hard
+- **Agree** — accepts the intended difficulty.
+- **Propose** — selects a different level from the five-level scale.
 
-Difficulty labels belong to the reviewed question version.
+Rules:
 
-- If both tutor labels and the AP Reader label match exactly, the difficulty
-  label is confirmed.
-- A question that does not reach AP Reader review has no confirmed difficulty
-  label from this workflow.
-- If any label differs, the question enters `difficulty_discussion`.
+- Difficulty is **confirmed** (`validated_difficulty` = intended) only when every
+  assigned reviewer **Agrees**.
+- If any reviewer **Proposes**, the question enters `difficulty_discussion`, which
+  shows the intended level and each proposed level.
 - The portal does not average, round, or silently choose the median.
-- A revised question receives fresh difficulty labels.
-- Difficulty disagreement does not erase an approval decision, but it blocks a
+- A revised question resets to the new version's intended difficulty and fresh
+  agree/propose actions.
+- A difficulty proposal does not erase a suitability decision, but it blocks a
   confirmed difficulty label until an authorized discussion is recorded.
+- `difficulty_action` (`agree`|`propose`) and, when proposing, `difficulty_label`
+  are recorded per reviewer (see migration `202607140001`).
 
-The exact five label names remain proposed copy and should be tested with
-reviewers.
+The five label names remain proposed copy and should be tested with reviewers.
 
 ## 6. MCQ Answer Workflow
 
@@ -148,19 +140,19 @@ The four answer options remain part of one versioned MCQ package:
 - rationale and option-specific review context.
 
 Each answer option is reviewed independently by two tutors using the same
-1-3 tutor scale.
+categorical decision (Approve / Approve with edits / Disapprove).
 
 ```text
 Answer option version
   -> Tutor A independent review
   -> Tutor B independent review
-  -> Aggregate tutor scores
-       2 -> AP Reader answer review
-              1 -> Answer approved
-              2 -> New answer/package version -> two tutor reviews
-              3 -> Current MCQ package excluded
-       3 -> Modification reserve -> new answer/package version -> two tutor reviews
-       4-6 -> Current MCQ package excluded
+  -> Resolve tutor decisions
+       Approve + Approve -> AP Reader answer review
+              Approve            -> Answer approved
+              Approve with edits -> New answer/package version -> two tutor reviews
+              Disapprove         -> Current MCQ package excluded
+       >=1 Approve-with-edits, no Disapprove -> new answer/package version -> two tutor reviews
+       Any Disapprove -> Current MCQ package excluded
 ```
 
 All four answer options must be approved before the answer-review stage is
@@ -266,15 +258,18 @@ The reviewer considers:
 - unintended clues or ambiguity;
 - consistency with the stem and rationale.
 
-Scoring remains one independent 1-3 decision per answer option.
+Scoring remains one independent categorical decision (Approve / Approve with
+edits / Disapprove) per answer option.
 Each answer card should also support an explicit approve action and an explicit
 propose-change action so the reviewer does not have to infer the available
 outcome from a generic note field.
 
 ### 8.4 Keyboard and Carousel Behavior
 
-- `1`, `2`, and `3` select the score only while the review panel is active.
-- Difficulty uses labeled buttons, not an unlabeled numeric shortcut.
+- The Approve / Approve-with-edits / Disapprove decision uses labeled buttons
+  (each with a text label and icon, not color alone); no numeric score shortcut.
+- Difficulty Agree/Propose uses labeled buttons; Propose reveals the five-level
+  picker.
 - `Previous` and `Next` navigate only after the current draft is saved.
 - `Submit and lock` is never triggered by a single keyboard shortcut.
 - Leaving with unsaved changes opens a warning.
@@ -291,8 +286,8 @@ After submission, show only:
 - whether the second independent review is pending;
 - the next assigned item.
 
-After both tutor reviews are locked, authorized users may see the aggregate and
-resulting queue destination.
+After both tutor reviews are locked, authorized users may see the combined
+disposition and resulting queue destination.
 
 ### 9.2 AP Reader Context
 
@@ -356,8 +351,9 @@ The UX-002 prototype should demonstrate:
 
 - tutor question review;
 - missing-field validation;
-- score 1, 2, and 3 disposition previews;
-- tutor aggregate outcomes of 2, 3, and 4 or more;
+- Approve / Approve-with-edits / Disapprove disposition previews;
+- tutor combination outcomes (both Approve; edit-and-recycle; any Disapprove);
+- difficulty Agree/Propose, including a proposal opening difficulty discussion;
 - AP Reader question review;
 - exact difficulty agreement and disagreement;
 - independent review of four MCQ answers;
@@ -373,15 +369,14 @@ does not authenticate users, write production records, or publish content.
 
 ## 13. Open Review Questions
 
-- **Reviewer feedback (Jill, AP Statistics tutor, 2026-07-14):** (1) the 1–3
-  score's meaning and lower-is-better polarity needed to be explicit — addressed
-  by the clarification block added to §3, and reflected in the content-artifact
-  schemas (`CONTENT_COVERAGE_BRIEFS.md` §4.2, `FACT_PACKS_AND_QUESTION_SETS.md`
-  §5.4); (2) difficulty should be validated, not author-asserted — the §5
-  agreement workflow already validates it, and the content artifacts now
-  distinguish `intended_difficulty` from `validated_difficulty`. Open follow-up:
-  whether to add a post-exposure empirical difficulty layer that can open review
-  to revise a confirmed label.
+- **Reviewer feedback (Jill, AP Statistics tutor, 2026-07-14) → `DECISION-0038`:**
+  the numeric 1–3 score was confusing, so it was **replaced** by the categorical
+  Approve / Approve-with-edits / Disapprove model (§3), and difficulty moved to
+  Agree/Propose (§5). The content-artifact schemas track `intended_difficulty` vs
+  `validated_difficulty` (`CONTENT_COVERAGE_BRIEFS.md` §4.2,
+  `FACT_PACKS_AND_QUESTION_SETS.md` §5.4). Open follow-ups: (a) a post-exposure
+  empirical difficulty layer that can open review to revise a confirmed label;
+  (b) confirm split-decision (Approve + Disapprove) handling — currently excludes.
 - Confirm the five difficulty label names.
 - Decide who owns and records difficulty discussion outcomes.
 - Decide whether AP Readers see tutor scores before recording an initial

@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Categorical Review Scoring + Difficulty Agree/Propose (DECISION-0038); Migration & Prompts Prepared — 2026-07-14
 - Reviewer Feedback Folded In: Difficulty Validation and 1–3 Score Clarity (Jill) — 2026-07-14
 - Launch Tasks Approved for Execution; Pilot-Size Recommendation Recorded (APPROVAL-0026) — 2026-07-14
 - Four AP Physics Subjects Selected, Launch Tasks + Seed Content Drafted (DECISION-0037) — 2026-07-14
@@ -26,6 +27,43 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## Categorical Review Scoring + Difficulty Agree/Propose (DECISION-0038); Migration & Prompts Prepared - 2026-07-14
+
+**Task:** UX-002 + content-review backend. **Status:** Design + decision recorded;
+implementation prepared on `claude/cramapple-content-creation-igjvfb`, **not
+applied to production**.
+
+**Summary:** Product Owner directed replacing the numeric 1–3 review score with
+**Approve / Approve-with-edits / Disapprove** and moving difficulty to
+**Agree/Propose** (superseding the 1–3 clarification recorded earlier the same
+day). Recorded as `DECISION-0038`.
+
+**What changed (all reversible, on the branch):**
+- `QUESTION_AND_ANSWER_REVIEW_PORTAL_DESIGN.md`: §3 decisions, §4/§6 workflows,
+  §5 difficulty agree/propose, §8.4 keyboard, §12 prototype scope, §13 updated to
+  the categorical model.
+- Prepared additive, reversible migration
+  `supabase/migrations/202607140001_review_decision_categorical_scoring.sql`
+  (adds `tutor_decision`, `difficulty_action`; extends `reader_decision`;
+  backfills from `tutor_score`). **Not applied.**
+- Frontend prompt `prompts/LOVABLE_UX002_REVIEW_SCORING_UPDATE.md` and backend
+  edge-function prompt `prompts/CODEX_REVIEW_DECISION_CATEGORICAL_SCORING.md`.
+
+**Why not applied to production:** this touches the **live** content-review
+pipeline (`content_review_decisions`, `review-decision`/`review-queue` edge
+functions). It is a Database Migrations Hard Gate (STANDING_APPROVAL_LANES Lane 3)
+and needs coordinated migration + edge function + frontend, plus fresh-context QA,
+before production. Applying the schema change alone would desync the running edge
+functions. Prepared and staged; production apply/deploy awaits QA and Product
+Owner confirmation of the target environment (or a trial on a Supabase dev
+branch + Vercel preview).
+
+**Next action:** Product Owner confirms target/environment; run the Lovable prompt
+and the Codex backend prompt; QA; then apply the migration through the gate and
+promote. The PR branch already produces a Vercel preview build.
 
 ---
 

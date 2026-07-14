@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0038 — Categorical Review Scoring (Approve / Approve-with-Edits / Disapprove) and Difficulty Agree/Propose
 - DECISION-0037 — Select the Four AP Physics Subjects as the Round After Chemistry and Calculus
 - DECISION-0036 — Select AP Chemistry and AP Calculus (AB & BC) as the Next Subjects
 - DECISION-0035 — Resolve Phase 0 of the Backend Consolidation Migration (Schema Reconciliation, Option A/A2)
@@ -1595,3 +1596,73 @@ algebra-vs-calculus keeps shared reviewer pools and verifier work together.
 - Originates on branch `claude/cramapple-content-creation-igjvfb`; if decision
   numbering collides on merge, renumber whichever merges second and update the
   index.
+
+## DECISION-0038 — Categorical Review Scoring (Approve / Approve-with-Edits / Disapprove) and Difficulty Agree/Propose
+
+**Date:** 2026-07-14
+**Decision Owner:** David Bloom
+**Status:** Approved (product/design direction); implementation is a Hard-Gate
+migration, not yet applied
+**Related Task:** UX-002; content-review backend (`content_review_decisions`,
+`review-decision`/`review-queue` edge functions)
+**Area:** Product / Design
+
+### Context
+
+Reviewer feedback (Jill, AP Statistics tutor) found the numeric 1–3 review score
+confusing (counterintuitive lower-is-better polarity; easy to conflate the
+individual 1–3 with the 2–6 aggregate and with difficulty). The Product Owner
+decided to replace the numeric score with explicit categorical actions and to
+change difficulty from cold-labeling to an agree/propose action.
+
+### Decision
+
+1. **Suitability decision is categorical**, replacing the tutor `tutor_score`
+   (1/2/3) and unifying the reader stage on the same vocabulary:
+   - **Approve**, **Approve with edits**, **Disapprove**.
+   Approve-with-edits and Disapprove require a rationale.
+2. **Tutor aggregate rules:** both Approve → advance to AP Reader; at least one
+   Approve-with-edits and no Disapprove → edit-and-recycle (new version → two
+   tutors); any Disapprove → exclude the current version. (This intentionally
+   changes the prior model where Maybe+Maybe was excluded — two Approve-with-edits
+   now routes to edit-and-recycle.)
+3. **Difficulty uses Agree/Propose:** the item shows its `intended_difficulty`;
+   each reviewer either **Agrees** or **Proposes** a different level on the
+   five-level scale. Difficulty is confirmed only when all reviewers agree; any
+   proposal → difficulty discussion. Never averaged. This supersedes the
+   exact-three-way-label-agreement mechanism.
+4. `intended_difficulty` vs `validated_difficulty` (recorded earlier for the
+   content artifacts) is unchanged: validated difficulty is set only when
+   reviewers agree.
+
+### Rationale
+
+Explicit action words remove the polarity confusion and the numeric-aggregate
+confusion, and agree/propose is faster and clearer for reviewers reacting to an
+author's intended difficulty than independent cold labeling.
+
+### Consequences
+
+- **Backend (Hard Gate):** additive migration
+  `202607140001_review_decision_categorical_scoring.sql` (adds `tutor_decision`,
+  `difficulty_action`; extends `reader_decision`; backfills from `tutor_score`) —
+  prepared, not applied. Edge-function aggregate logic change specified in
+  `prompts/CODEX_REVIEW_DECISION_CATEGORICAL_SCORING.md`. Must pass QA and the
+  Database Migrations hard gate; migration + edge function + frontend ship
+  together.
+- **Frontend:** `prompts/LOVABLE_UX002_REVIEW_SCORING_UPDATE.md`.
+- **Design of record:** `QUESTION_AND_ANSWER_REVIEW_PORTAL_DESIGN.md` updated to
+  the categorical model (§3, §5, §10, §12).
+- The earlier §3 clarification of the numeric 1–3 polarity is superseded by this
+  categorical model; the difficulty intended/validated split remains.
+
+### Risks / Follow-ups
+
+- Touches the **live** review pipeline; production apply/deploy is deliberately
+  staged behind QA and Product Owner confirmation of the target environment
+  (not applied blind).
+- Confirm split-decision handling (Approve + Disapprove) with reviewers: current
+  rule excludes on any Disapprove; a "route to discussion" alternative is
+  possible.
+- Originates on branch `claude/cramapple-content-creation-igjvfb`; renumber on
+  merge collision per the log convention.
