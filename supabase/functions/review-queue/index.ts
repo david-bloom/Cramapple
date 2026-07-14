@@ -32,6 +32,7 @@ type ContentItem = {
   item_type: string;
   title: string;
   frq_form: string | null;
+  exam_pack_version_id: string | null;
 };
 
 type McqChoice = {
@@ -148,7 +149,7 @@ Deno.serve(async (req) => {
   ] = await Promise.all([
     service.schema("app").from("content_review_decisions")
       .select(
-        "content_review_decision_id, content_review_assignment_id, content_item_version_id, review_stage, tutor_score, difficulty_label, concern_codes, note, answer_key, answer_approval, reader_decision, supersedes_id, submitted_at, created_at",
+        "content_review_decision_id, content_review_assignment_id, content_item_version_id, review_stage, tutor_score, difficulty_label, diagnostic_flag, concern_codes, note, answer_approvals, answer_key, answer_approval, reader_decision, supersedes_id, submitted_at, created_at",
       )
       .in("content_review_assignment_id", assignmentIds),
 
@@ -183,7 +184,7 @@ Deno.serve(async (req) => {
     await Promise.all([
       contentItemIds.length
         ? service.schema("app").from("content_items")
-          .select("id, content_key, item_type, title, frq_form")
+          .select("id, content_key, item_type, title, frq_form, exam_pack_version_id")
           .in("id", contentItemIds)
         : Promise.resolve({ data: [], error: null as null }),
 
@@ -258,9 +259,63 @@ Deno.serve(async (req) => {
     new Map<string, FrqCriterion[]>(),
   );
 
+  // ── Subject-qualification safety net ────────────────────────────────────────
+  // If this reviewer has recorded subject qualifications, hide any assignment
+  // outside those subjects. Fails open (no filtering) for reviewers with no
+  // qualification rows yet, so pre-existing reviewers aren't broken by this
+  // feature landing.
+
+  let visibleAssignmentRows = assignmentRows;
+
+  if (!includeAllPending) {
+    const examPackVersionIds = [
+      ...new Set(
+        contentItems
+          .map((i) => i.exam_pack_version_id)
+          .filter((id): id is string => Boolean(id)),
+      ),
+    ];
+
+    const [examPackVersionResult, qualificationResult] = await Promise.all([
+      examPackVersionIds.length
+        ? service.schema("app").from("exam_pack_versions")
+          .select("id, exam_pack_id")
+          .in("id", examPackVersionIds)
+        : Promise.resolve({ data: [], error: null as null }),
+      service.schema("app").from("validator_qualifications")
+        .select("exam_ids")
+        .eq("reviewer_id", reviewerId)
+        .eq("qualification_type", "grading")
+        .eq("status", "active"),
+    ]);
+
+    const examPackIdByVersionId = new Map(
+      ((examPackVersionResult.data ?? []) as Array<{ id: string; exam_pack_id: string }>)
+        .map((r) => [r.id, r.exam_pack_id]),
+    );
+
+    const qualifiedExamIds = new Set(
+      ((qualificationResult.data ?? []) as Array<{ exam_ids: string[] | null }>)
+        .flatMap((r) => r.exam_ids ?? []),
+    );
+
+    if (qualifiedExamIds.size > 0) {
+      visibleAssignmentRows = assignmentRows.filter((assignment) => {
+        const versionId = assignment.content_item_version_id;
+        const version = versionId ? versionById.get(versionId) : null;
+        const item = version ? itemById.get(version.content_item_id) : null;
+        const examPackId = item?.exam_pack_version_id
+          ? examPackIdByVersionId.get(item.exam_pack_version_id)
+          : null;
+        // Fail open if we can't resolve a subject for this item.
+        return !examPackId || qualifiedExamIds.has(examPackId);
+      });
+    }
+  }
+
   // ── Build the queue ──────────────────────────────────────────────────────────
 
-  const queue = assignmentRows.map((assignment) => {
+  const queue = visibleAssignmentRows.map((assignment) => {
     const versionId = assignment.content_item_version_id;
     const version = versionId ? versionById.get(versionId) : null;
     const item = version ? itemById.get(version.content_item_id) : null;

@@ -2,7 +2,7 @@ import { createServiceClient } from "../_shared/supabase.ts";
 import { jsonResponse, readJsonBody } from "../_shared/http.ts";
 import { requireProfile } from "../_shared/auth.ts";
 
-type ReviewerRole = "tutor" | "reader";
+type ReviewerRole = "tutor" | "reader" | "admin";
 
 function asString(value: unknown) {
   return typeof value === "string" && value.trim() ? value.trim() : null;
@@ -16,7 +16,21 @@ function asEmail(value: unknown) {
 
 function asReviewerRole(value: unknown): ReviewerRole | null {
   const role = asString(value);
-  return role === "tutor" || role === "reader" ? role : null;
+  return role === "tutor" || role === "reader" || role === "admin"
+    ? role
+    : null;
+}
+
+const UUID_RE =
+  /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
+
+function asExamIds(value: unknown): string[] | null {
+  if (value === undefined || value === null) return [];
+  if (!Array.isArray(value)) return null;
+  const ids = value.filter((v): v is string =>
+    typeof v === "string" && UUID_RE.test(v)
+  );
+  return ids.length === value.length ? ids : null;
 }
 
 async function loadAdminProfile(req: Request) {
@@ -80,6 +94,7 @@ Deno.serve(async (req) => {
   const email = asEmail(bodyRecord.email);
   const role = asReviewerRole(bodyRecord.role);
   const fullName = asString(bodyRecord.full_name);
+  const examIds = asExamIds(bodyRecord.exam_ids);
   const redirectTo = asString(bodyRecord.redirect_to) ??
     "https://cramapple.com/tutor-login";
 
@@ -94,8 +109,15 @@ Deno.serve(async (req) => {
     return respond(
       {
         error: "invalid_role",
-        allowed: ["tutor", "reader"],
+        allowed: ["tutor", "reader", "admin"],
       },
+      { status: 400 },
+    );
+  }
+
+  if (examIds === null) {
+    return respond(
+      { error: "invalid_exam_ids", detail: "exam_ids must be an array of uuids" },
       { status: 400 },
     );
   }
@@ -134,12 +156,14 @@ Deno.serve(async (req) => {
   }
 
   const profileFullName = fullName ?? email.split("@")[0];
+  const reviewQueueScope = role === "admin" ? "all_pending" : "my_queue";
   const { error: profileError } = await service.schema("app")
     .from("profiles")
     .upsert({
       user_id: authUser.id,
       full_name: profileFullName,
       role,
+      review_queue_scope: reviewQueueScope,
     }, { onConflict: "user_id" });
 
   if (profileError) {
@@ -147,6 +171,76 @@ Deno.serve(async (req) => {
       { error: "profile_upsert_failed", detail: profileError.message },
       { status: 500 },
     );
+  }
+
+  if (examIds.length > 0) {
+    const { data: validExamPacks, error: examPackError } = await service
+      .schema("app")
+      .from("exam_packs")
+      .select("id")
+      .in("id", examIds);
+
+    if (examPackError) {
+      return respond(
+        { error: "exam_pack_lookup_failed", detail: examPackError.message },
+        { status: 500 },
+      );
+    }
+
+    const validIds = new Set((validExamPacks ?? []).map((r) => r.id as string));
+    const unknownIds = examIds.filter((id) => !validIds.has(id));
+    if (unknownIds.length > 0) {
+      return respond(
+        { error: "unknown_exam_ids", detail: unknownIds },
+        { status: 400 },
+      );
+    }
+  }
+
+  // Replace any existing subject qualification for this reviewer with the
+  // requested set (idempotent re-invite: last invite wins).
+  const { error: qualDeleteError } = await service
+    .schema("app")
+    .from("validator_qualifications")
+    .delete()
+    .eq("reviewer_id", authUser.id)
+    .eq("qualification_type", "grading");
+
+  if (qualDeleteError) {
+    return respond(
+      { error: "qualification_update_failed", detail: qualDeleteError.message },
+      { status: 500 },
+    );
+  }
+
+  if (examIds.length > 0) {
+    const { error: qualInsertError } = await service
+      .schema("app")
+      .from("validator_qualifications")
+      .insert({
+        reviewer_id: authUser.id,
+        qualification_type: "grading",
+        exam_ids: examIds,
+        status: "active",
+        granted_by: profileResult.user.id,
+        granted_at: new Date().toISOString(),
+        effective_at: new Date().toISOString(),
+        // No expiration policy is defined yet for tutor subject
+        // qualifications; use a far-future sentinel since the column is
+        // NOT NULL. Revisit once a real qualification-policy framework
+        // (qualification_policy_version_id) exists.
+        expires_at: new Date(
+          Date.now() + 100 * 365 * 24 * 60 * 60 * 1000,
+        ).toISOString(),
+        qualification_policy_version_id: crypto.randomUUID(),
+      });
+
+    if (qualInsertError) {
+      return respond(
+        { error: "qualification_update_failed", detail: qualInsertError.message },
+        { status: 500 },
+      );
+    }
   }
 
   return respond(
@@ -162,7 +256,9 @@ Deno.serve(async (req) => {
         user_id: authUser.id,
         role,
         full_name: profileFullName,
+        review_queue_scope: reviewQueueScope,
       },
+      exam_ids: examIds,
       redirect_to: redirectTo,
       requested_by: profileResult.user.id,
     },

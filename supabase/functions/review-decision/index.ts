@@ -33,6 +33,27 @@ function asBool(value: unknown) {
   return null;
 }
 
+type AnswerApproval = { choice_key: string; approved: boolean };
+
+function asAnswerApprovals(value: unknown): AnswerApproval[] | null {
+  if (!Array.isArray(value)) return null;
+  const out: AnswerApproval[] = [];
+  for (const entry of value) {
+    if (
+      !entry || typeof entry !== "object" ||
+      typeof (entry as Record<string, unknown>).choice_key !== "string" ||
+      typeof (entry as Record<string, unknown>).approved !== "boolean"
+    ) {
+      return null;
+    }
+    out.push({
+      choice_key: (entry as Record<string, unknown>).choice_key as string,
+      approved: (entry as Record<string, unknown>).approved as boolean,
+    });
+  }
+  return out;
+}
+
 async function sha256Hex(value: string) {
   const digest = await crypto.subtle.digest(
     "SHA-256",
@@ -193,64 +214,15 @@ async function advanceWorkflow(
     const isRecycle = readerScore === 2;
 
     if (isApprove) {
-      if (reviewKind === "mcq") {
-        // Fan out tutor_answer assignments: 4 answer options × 2 original tutors.
-        const { data: originalTutorAssignments } = await service
-          .schema("app")
-          .from("content_review_assignments")
-          .select("reviewer_id, blind_group_id, created_by")
-          .eq("content_item_version_id", versionId)
-          .eq("review_stage", "tutor_question");
-
-        const tutorIds = [
-          ...new Set(
-            (originalTutorAssignments ?? []).map((a) => a.reviewer_id),
-          ),
-        ];
-        const answerBlindGroupId = crypto.randomUUID();
-        const createdBy =
-          originalTutorAssignments?.[0]?.created_by ?? null;
-
-        // Fetch answer option keys for this version.
-        const { data: choices } = await service
-          .schema("app")
-          .from("mcq_choices")
-          .select("choice_key")
-          .eq("content_item_version_id", versionId)
-          .order("choice_key", { ascending: true });
-
-        const choiceKeys = (choices ?? []).map((c) => c.choice_key as string);
-
-        const answerAssignments = tutorIds.flatMap((tutorId) =>
-          choiceKeys.map((choiceKey) => ({
-            content_item_version_id: versionId,
-            reviewer_id: tutorId,
-            review_stage: "tutor_answer",
-            review_kind: "mcq",
-            blind_group_id: answerBlindGroupId,
-            status: "pending",
-            created_by: createdBy,
-          }))
-        );
-
-        if (answerAssignments.length > 0) {
-          await service.schema("app")
-            .from("content_review_assignments")
-            .upsert(answerAssignments, {
-              onConflict: "content_item_version_id,reviewer_id,review_stage",
-              ignoreDuplicates: true,
-            });
-        }
-
-        await service.schema("app").from("content_item_versions")
-          .update({ review_status: "answer_tutor_review_pending" })
-          .eq("id", versionId);
-      } else {
-        // FRQ: question review approved.
-        await service.schema("app").from("content_item_versions")
-          .update({ review_status: "question_review_approved" })
-          .eq("id", versionId);
-      }
+      // MCQ answer choices are now approved/rejected by both tutors alongside
+      // the question itself (tutor_question.answer_approvals), so there is no
+      // separate answer-review fan-out stage to spawn here — the reader's
+      // approval finalizes the item for both MCQ and FRQ alike. (Legacy
+      // tutor_answer assignments created before this change still function;
+      // this code simply stops creating new ones.)
+      await service.schema("app").from("content_item_versions")
+        .update({ review_status: "question_review_approved" })
+        .eq("id", versionId);
     } else if (isRecycle) {
       await service.schema("app").from("content_item_versions")
         .update({ review_status: "modification_reserved" })
@@ -342,6 +314,8 @@ Deno.serve(async (req) => {
       ? (b.topic_selections as Record<string, unknown>)
       : null;
 
+  let answerApprovals: AnswerApproval[] | null = null;
+
   if (reviewStage === "tutor_question") {
     if (!tutorScore) {
       return respond(
@@ -371,12 +345,77 @@ Deno.serve(async (req) => {
         { status: 400 },
       );
     }
+
+    // MCQ items require the tutor to approve/reject each answer choice
+    // alongside the question itself, in this same submission.
+    if (assignment.review_kind === "mcq") {
+      const { data: choices, error: choicesError } = await service
+        .schema("app")
+        .from("mcq_choices")
+        .select("choice_key")
+        .eq("content_item_version_id", assignment.content_item_version_id);
+
+      if (choicesError) {
+        return respond({ error: "choices_lookup_failed" }, { status: 500 });
+      }
+
+      const expectedKeys = new Set(
+        (choices ?? []).map((c) => c.choice_key as string),
+      );
+
+      const parsedAnswerApprovals = asAnswerApprovals(b.answer_approvals);
+      if (!parsedAnswerApprovals) {
+        return respond(
+          {
+            error: "missing_required_fields",
+            required: ["answer_approvals"],
+            detail:
+              "answer_approvals must be an array of { choice_key, approved } covering every answer choice",
+          },
+          { status: 400 },
+        );
+      }
+
+      const submittedKeys = new Set(
+        parsedAnswerApprovals.map((a) => a.choice_key),
+      );
+      const missing = [...expectedKeys].filter((k) => !submittedKeys.has(k));
+      const unknown = [...submittedKeys].filter((k) => !expectedKeys.has(k));
+      if (missing.length > 0 || unknown.length > 0) {
+        return respond(
+          {
+            error: "invalid_answer_approvals",
+            detail: { missing, unknown },
+          },
+          { status: 400 },
+        );
+      }
+
+      answerApprovals = parsedAnswerApprovals;
+    }
+
+    // A note explaining the reasoning is required whenever any part of the
+    // item isn't fully approved — the question itself (tutor_score !== 1) or
+    // any individual answer choice.
+    const anyAnswerRejected = (answerApprovals ?? []).some((a) => !a.approved);
+    if ((tutorScore !== 1 || anyAnswerRejected) && !note) {
+      return respond(
+        {
+          error: "note_required",
+          detail:
+            "A note explaining the reasoning is required when the question or any answer choice is not approved",
+        },
+        { status: 400 },
+      );
+    }
+
     decisionPayload.tutor_score = tutorScore;
     decisionPayload.difficulty_label = difficultyLabel;
     decisionPayload.diagnostic_flag = diagnosticFlag;
     decisionPayload.concern_codes = concernCodes;
     decisionPayload.note = note;
     decisionPayload.topic_selections = topicSelections;
+    decisionPayload.answer_approvals = answerApprovals;
   }
 
   // ── tutor_answer ──────────────────────────────────────────────────────────
@@ -393,6 +432,15 @@ Deno.serve(async (req) => {
     }
     if (!["approved", "rejected"].includes(answerApproval)) {
       return respond({ error: "invalid_answer_approval" }, { status: 400 });
+    }
+    if (answerApproval === "rejected" && !note) {
+      return respond(
+        {
+          error: "note_required",
+          detail: "A note explaining the reasoning is required when rejecting an answer",
+        },
+        { status: 400 },
+      );
     }
     decisionPayload.answer_key = answerKey;
     decisionPayload.answer_approval = answerApproval;
@@ -496,6 +544,7 @@ Deno.serve(async (req) => {
       concern_codes: concernCodes,
       note,
       topic_selections: topicSelections,
+      answer_approvals: answerApprovals,
       answer_key: answerKey,
       answer_approval: answerApproval,
       canonical_decision: canonicalDecision,

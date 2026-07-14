@@ -73,7 +73,7 @@ Deno.serve(async (req) => {
   const { data: version, error: versionError } = await service
     .schema("app")
     .from("content_item_versions")
-    .select("id, status, review_status")
+    .select("id, content_item_id, status, review_status")
     .eq("id", contentItemVersionId)
     .maybeSingle();
 
@@ -98,6 +98,65 @@ Deno.serve(async (req) => {
       {
         error: "invalid_reviewer_role",
         detail: `${invalidRole.full_name} (${invalidRole.user_id}) has role '${invalidRole.role}', expected 'tutor'`,
+      },
+      { status: 400 },
+    );
+  }
+
+  // Resolve the content's subject (exam pack) and verify both reviewers are
+  // qualified for it.
+  const { data: contentItem, error: contentItemError } = await service
+    .schema("app")
+    .from("content_items")
+    .select("exam_pack_version_id")
+    .eq("id", version.content_item_id)
+    .maybeSingle();
+
+  if (contentItemError || !contentItem?.exam_pack_version_id) {
+    return respond({ error: "content_item_not_found" }, { status: 404 });
+  }
+
+  const { data: examPackVersion, error: examPackVersionError } = await service
+    .schema("app")
+    .from("exam_pack_versions")
+    .select("exam_pack_id")
+    .eq("id", contentItem.exam_pack_version_id)
+    .maybeSingle();
+
+  if (examPackVersionError || !examPackVersion?.exam_pack_id) {
+    return respond({ error: "exam_pack_not_found" }, { status: 404 });
+  }
+
+  const examPackId = examPackVersion.exam_pack_id as string;
+
+  const { data: qualifications, error: qualificationError } = await service
+    .schema("app")
+    .from("validator_qualifications")
+    .select("reviewer_id, exam_ids, status")
+    .in("reviewer_id", [reviewerAId, reviewerBId])
+    .eq("qualification_type", "grading")
+    .eq("status", "active");
+
+  if (qualificationError) {
+    return respond(
+      { error: "qualification_lookup_failed", detail: qualificationError.message },
+      { status: 500 },
+    );
+  }
+
+  const qualifiedReviewerIds = new Set(
+    (qualifications ?? [])
+      .filter((q) => Array.isArray(q.exam_ids) && q.exam_ids.includes(examPackId))
+      .map((q) => q.reviewer_id as string),
+  );
+
+  const unqualified = reviewers.filter((r) => !qualifiedReviewerIds.has(r.user_id));
+  if (unqualified.length > 0) {
+    return respond(
+      {
+        error: "reviewer_not_qualified",
+        detail: unqualified.map((r) => `${r.full_name} (${r.user_id})`),
+        exam_pack_id: examPackId,
       },
       { status: 400 },
     );
