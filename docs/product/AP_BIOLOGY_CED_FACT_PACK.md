@@ -1,8 +1,13 @@
 # AP Biology — CED Fact Pack (authoring/review input)
 
-**Status:** DRAFT — **built from the standard AP Biology course framework + the repo's existing Bio materials, NOT from a loaded CED document.** Needs (a) anchoring against the actual *AP Biology Course and Exam Description* for exact EK/LO IDs and precise weights, and (b) AP Biology tutor review. Treat the CED-derived specifics below as **provisional pending that anchoring** — the same posture the AP Statistics pack had before it was anchored from the CED I read.
+**Status:** **G0A DRAFT — ready for AP Biology tutor (Morgan) sign-off.** Exam
+structure, 8-unit map, unit weights, and the full topic map (§3) are now anchored
+from the public AP Biology course framework (2026-07-14). Remaining for G0A: verify
+any **2025-CED topic deltas**, supply exact **EK/LO IDs** and per-practice **skill
+sub-codes**, and confirm the FRQ question-type focuses. Granular EK codes are cited
+per item at authoring time (as in the Stats pack), not bulk-transcribed here.
 **Purpose:** authoring/review input for Cramapple's **existing** AP Biology content (242 draft `content_items`), not a rebuild. Analogous to `AP_STATISTICS_2027_CED_FACT_PACK.md`.
-**Prepared:** 2026-07-13 · **Reviewer (sign-off):** AP Biology subject tutor (once onboarded)
+**Prepared:** 2026-07-13 · **Topic map anchored:** 2026-07-14 · **Reviewer (G0A sign-off):** AP Biology subject tutor (Morgan) — *pending*
 **Related:** `AP_STATISTICS_2027_CONTENT_REBUILD_ORCHESTRATION.md` (same cascade/gates apply), `DECISION-0036` (AI-led authoring), `AP_BIOLOGY_VERIFICATION_PROFILE.json`, `project_ap_biology_publish_gap` memory.
 
 ## Important difference from AP Statistics (do not conflate)
@@ -38,11 +43,46 @@ Derived from the standard AP Biology course framework (public unit structure, sc
 | 7 | Natural Selection | 13–20% |
 | 8 | Ecology | 10–15% |
 
-*Weights above are the widely-published AP Biology ranges but were not read from a CED document for this pack — verify.*
+*Weights above match the public AP Biology course-framework ranges (confirmed 2026-07-14 against College Board AP Central + course-framework summaries); confirm no 2025-CED revision at Morgan's G0A.*
 
-## 3. Topic map (TO ANCHOR from the AP Biology CED)
+## 3. Topic map (anchored from the public AP Biology course framework; verify 2025-CED deltas + EK/LO IDs at G0A)
 
-Unlike the Stats pack (topic list read from the CED), the per-unit topic list and EK/LO IDs for Biology are **not enumerated here** — I did not have the AP Biology CED loaded. **Action:** anchor the topic list (`U.T` numbering) and EK IDs per unit from the AP Biology CED unit guides, then populate this section as a topic→science-practice→EK table (mirror `AP_STATISTICS_2027_CED_FACT_PACK.md` §3). Until then, author/review at the unit level and tag science practices from §4.
+Topic list and `U.T` numbering below are from the published AP Biology course
+framework (unit-at-a-glance structure). **Morgan (G0A) verifies** against the current
+**2025 CED** for any topic deltas (the 2025 CED revised some content) and supplies
+exact **EK/LO IDs** (`U.T.A / U.T.A.n`) — mirroring the Stats §3 posture, granular EK
+codes are cited **per item at authoring time**, not bulk-transcribed here. The item's
+**science-practice tag (§4)** is what the cascade keys on for skill alignment.
+
+**Unit 1 — Chemistry of Life** (8–11%)
+1.1 Structure of Water and Hydrogen Bonding · 1.2 Elements of Life · 1.3 Introduction to Biological Macromolecules · 1.4 Properties of Biological Macromolecules · 1.5 Structure and Function of Biological Macromolecules · 1.6 Nucleic Acids
+
+**Unit 2 — Cell Structure and Function** (10–13%)
+2.1 Cell Structure: Subcellular Components · 2.2 Cell Structure and Function · 2.3 Cell Size · 2.4 Plasma Membranes · 2.5 Membrane Permeability · 2.6 Membrane Transport · 2.7 Facilitated Diffusion · 2.8 Tonicity and Osmoregulation · 2.9 Mechanisms of Transport · 2.10 Cell Compartmentalization · 2.11 Origins of Cell Compartmentalization (endosymbiosis)
+
+**Unit 3 — Cellular Energetics** (12–16%)
+3.1 Enzyme Structure · 3.2 Enzyme Catalysis · 3.3 Environmental Impacts on Enzyme Function · 3.4 Cellular Energy · 3.5 Photosynthesis · 3.6 Cellular Respiration · 3.7 Fitness
+
+**Unit 4 — Cell Communication and Cell Cycle** (10–15%)
+4.1 Cell Communication · 4.2 Introduction to Signal Transduction · 4.3 Signal Transduction · 4.4 Changes in Signal Transduction Pathways · 4.5 Feedback · 4.6 Cell Cycle · 4.7 Regulation of Cell Cycle
+
+**Unit 5 — Heredity** (8–11%)
+5.1 Meiosis · 5.2 Meiosis and Genetic Diversity · 5.3 Mendelian Genetics · 5.4 Non-Mendelian Genetics · 5.5 Environmental Effects on Phenotype · 5.6 Chromosomal Inheritance
+
+**Unit 6 — Gene Expression and Regulation** (12–16%)
+6.1 DNA and RNA Structure · 6.2 Replication · 6.3 Transcription and RNA Processing · 6.4 Translation · 6.5 Regulation of Gene Expression · 6.6 Gene Expression and Cell Specialization · 6.7 Mutations · 6.8 Biotechnology
+
+**Unit 7 — Natural Selection** (13–20%)
+7.1 Introduction to Natural Selection · 7.2 Natural Selection · 7.3 Artificial Selection · 7.4 Population Genetics · 7.5 Hardy-Weinberg Equilibrium · 7.6 Evidence of Evolution · 7.7 Common Ancestry · 7.8 Continuing Evolution · 7.9 Phylogeny · 7.10 Speciation · 7.11 Extinction · 7.12 Variations in Populations · 7.13 Origin of Life on Earth
+
+**Unit 8 — Ecology** (10–15%)
+8.1 Responses to the Environment · 8.2 Energy Flow Through Ecosystems · 8.3 Population Ecology · 8.4 Effect of Density of Populations · 8.5 Community Ecology · 8.6 Biodiversity · 8.7 Disruptions to Ecosystems
+
+> Source of the structure above: public AP Biology course-framework listings
+> (College Board AP Central course page + course-framework summaries). **No official
+> CB questions or scoring guidelines are used.** Confidence: unit/topic names and
+> numbering are high-confidence for the standard framework; **the 2025 CED may have
+> topic-level revisions** — Morgan confirms at G0A before this drives per-item keys.
 
 ## 4. Science practices (high confidence)
 
@@ -80,7 +120,11 @@ All 242 AP Biology `content_items` are `status='draft'` (`project_ap_biology_pub
 
 ## 9. Open items (before this pack drives authoring/review)
 
-1. **Anchor §2/§3/§4 against the actual AP Biology CED** — exact weights, full topic list, EK/LO IDs, science-practice skill sub-codes. *(Provide the AP Biology CED PDF and I'll anchor it the way I did the Stats §3.)*
-2. **AP Biology tutor sign-off** (once a Bio-qualified tutor is onboarded — note the two current candidates are AP-Statistics-oriented).
-3. **Confirm the FRQ question-type breakdown** (long/short focuses) against the CED.
-4. Decide whether Biology content is authored-new, or the existing 242 draft items are reviewed/completed toward publication (likely the latter — no format change).
+1. ~~Anchor §2/§3 (weights + full topic map)~~ **DONE 2026-07-14** from the public
+   course framework. Remaining anchoring for Morgan's G0A: verify **2025-CED topic
+   deltas**, exact **EK/LO IDs**, and per-practice **skill sub-codes** (§4).
+2. **AP Biology tutor (Morgan) G0A sign-off** — Morgan is onboarded and Bio-qualified.
+   This pack is ready for her review (mirror Jill's Stats G0A: approve, or flag changes).
+3. **Confirm the FRQ question-type breakdown** (§5 long/short focuses) at G0A.
+4. Biology is **review/complete the existing 242 draft items** toward publication (no
+   2026-27 format change; not an authored-new rebuild) — confirmed at §8/§10.
