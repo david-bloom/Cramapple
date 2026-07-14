@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0041 — Accept the DECISION-0039 Consequence: TASK-0010 Grading Calibration Is on the Critical Path to ANY Publish
 - DECISION-0040 — Ratify TASK-0009 Fast-Track Conceptual Slices (H1 item-package/archetype identity; H2 multi-scheme taxonomy)
 - DECISION-0039 — Approve TASK-0017 H0/H1 Design + P0 Publication Repair (repository/local-verification stage; no environment application)
 - DECISION-0038 — Approve TASK-0009 Schema-Governance Reconciliation Scope (with conditions)
@@ -1753,9 +1754,9 @@ Codex delivered the TASK-0017 H0/H1 design packet, the P0 atomic-publication mig
 - The three schema designs proceed to physical design only after TASK-0009 ratification and separate migration approval.
 - Before any environment application: (a) an edge-function↔RPC integration test proving the caller supplies all required evidence IDs (source, rights, validation runs, approved_by, policy versions); (b) supersede the interim `manifest_sha256` (currently a hash of the request payload, not content) with the canonical content/relation hash per the packet.
 
-### Noted consequence — open for explicit acceptance (not decided here)
+### Noted consequence — ACCEPTED 2026-07-14 (see DECISION-0041)
 
-The repaired path is fail-closed on a full evidence contract: nothing publishes until verified source, valid rights, approved `review_status`, passed grading/calibration **and** security/privacy validation runs targeting the exact version, release approval, and policy-version IDs all exist. This puts **TASK-0010 grading calibration on the critical path to ANY publish**, including the AP Statistics rebuild and all AP Biology draft content. Recorded as a consequence of the correct fail-closed design; David's explicit acceptance (or a defined interim) is still pending.
+The repaired path is fail-closed on a full evidence contract: nothing publishes until verified source, valid rights, approved `review_status`, passed grading/calibration **and** security/privacy validation runs targeting the exact version, release approval, and policy-version IDs all exist. This puts **TASK-0010 grading calibration on the critical path to ANY publish**, including the AP Statistics rebuild and all AP Biology draft content. Recorded as a consequence of the correct fail-closed design. **David Bloom explicitly accepted this consequence on 2026-07-14; see DECISION-0041.** No interim carve-out was requested.
 
 ## DECISION-0040 — Ratify TASK-0009 Fast-Track Conceptual Slices (H1 item-package/archetype identity; H2 multi-scheme taxonomy)
 
@@ -1799,3 +1800,37 @@ This satisfies the "TASK-0009 M0 ratification" precondition in `DECISION-0038`/`
 David Bloom subsequently clarified DECISION-0040's repository-execution boundary: Codex is approved to build the H1/H2 physical design and additive migration artifacts, the compiler/persistence layer, and H3–H5 in the repository, and to verify them locally. This clarification supersedes the narrower wording above that limited the next step to producing a design packet only.
 
 The environment boundary is unchanged: no migration or function may be applied to Dev without a separate Dev execution approval ID, and no Production migration, deployment, configuration change, or publication is authorized. The completed repository implementation and local evidence return for Hard-Gate review before environment execution.
+
+## DECISION-0041 — Accept the DECISION-0039 Consequence: TASK-0010 Grading Calibration Is on the Critical Path to ANY Publish
+
+**Date:** 2026-07-14
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Related:** DECISION-0039 (fail-closed publication repair); TASK-0010 (grading calibration); TASK-0016 (grading engines); AP Statistics 2026-27 rebuild; AP Biology publish gap
+**Area:** Governance / Content Publication / Grading
+
+### Context
+
+DECISION-0039 repaired the publication path to be **fail-closed on a full evidence contract** — nothing publishes until verified source, valid rights, approved `review_status`, a passed **grading/calibration** validation run *and* a security/privacy validation run (both targeting the exact content version), a release approval, and policy-version IDs all exist. That decision explicitly left one item **open for explicit acceptance**: the consequence that requiring a passed grading/calibration run puts **TASK-0010 grading calibration on the critical path to ANY publish**.
+
+### Decision
+
+David Bloom **explicitly accepts** that consequence. The fail-closed evidence contract stands as designed; **no interim carve-out or waiver was requested**. Accordingly:
+
+- **No content publishes** — not the AP Statistics 2026-27 rebuild, not any AP Biology draft content, not any other subject — until a passed **TASK-0010 grading/calibration** validation run exists for the exact content version, alongside the other evidence-contract requirements.
+- TASK-0010 calibration is therefore a **launch-gating dependency**, not a parallel nice-to-have. It should be resourced and sequenced as such.
+
+### What this changes
+
+- The AP Statistics rebuild and the AP Biology publish gap are both **blocked on TASK-0010 calibration** (in addition to their own content/QA gates). The push-button AP Statistics calibration harness built 2026-07-14 (`scripts/grading-model-assessment/calibrate-ap-statistics.ts`) becomes authoritative only once **human dual-blind adjudicated gold** and **real grader captures** replace the provisional inputs — that adjudicated run is the gating artifact.
+
+### What this does NOT change / authorize
+
+- No change to the fail-closed design itself (already decided in DECISION-0039).
+- Does not lower any other gate; `QA-pass ≠ launch approval` still holds.
+- No Production or Dev change is authorized by this record; it is a governance acceptance only.
+
+### Consequences
+
+- DECISION-0039's "Noted consequence — open for explicit acceptance" is **resolved: Accepted (2026-07-14)**.
+- TASK-0010 moves onto the critical path for all publication.
