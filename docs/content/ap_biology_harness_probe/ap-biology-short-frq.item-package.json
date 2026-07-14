@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "ap-biology-probe-short-frq",
+  "content_key": "ap-biology-probe-short-frq",
+  "content_version": 1,
+  "exam_pack_ref": { "exam_code": "ap_biology", "school_year": "2026-27", "exam_pack_version": "1.0.0" },
+  "item_type": "frq",
+  "archetype_ref": { "archetype_key": "frq-short-conceptual", "version": "1.0.0" },
+  "taxonomy_refs": [
+    { "scheme_key": "ap-biology-2025", "scheme_version": "1.0.0", "node_key": "unit-2" },
+    { "scheme_key": "ap-biology-2025", "scheme_version": "1.0.0", "node_key": "practice-1" },
+    { "scheme_key": "ap-biology-2025", "scheme_version": "1.0.0", "node_key": "practice-6" }
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "membrane-context",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": { "text": "A cell is placed in a solution in which the concentration of a small, nonpolar solute is higher outside the cell than inside. The solute can cross the phospholipid bilayer directly." },
+      "source_refs": ["college-board-ap-biology-course-framework"],
+      "alt_text": "A cell in a solution where a small nonpolar solute is more concentrated outside than inside."
+    }
+  ],
+  "parts": [
+    {
+      "part_key": "part-a", "ordinal": 1, "label": "(a)",
+      "prompt": "Explain why the solute will move into the cell, and identify whether this movement requires energy input from the cell.",
+      "stimulus_refs": ["membrane-context"], "response_modalities": ["typed-text"], "points": 2,
+      "criteria": [
+        { "criterion_key": "a-gradient", "points": 1, "description": "Explains movement down the concentration gradient (from higher to lower concentration) by diffusion.", "required_evidence": ["down-concentration-gradient"] },
+        { "criterion_key": "a-passive", "points": 1, "description": "Identifies the movement as passive transport requiring no cellular energy (no ATP).", "required_evidence": ["passive-no-energy"] }
+      ]
+    },
+    {
+      "part_key": "part-b", "ordinal": 2, "label": "(b)",
+      "prompt": "Predict how the net movement of the solute will change as its concentration inside and outside the cell become equal, and justify your prediction.",
+      "stimulus_refs": ["membrane-context"], "response_modalities": ["typed-text"], "points": 2,
+      "criteria": [
+        { "criterion_key": "b-prediction", "points": 1, "description": "Predicts that net movement decreases to zero (dynamic equilibrium) as concentrations equalize.", "required_evidence": ["net-movement-to-zero"] },
+        { "criterion_key": "b-justification", "points": 1, "description": "Justifies that at equal concentrations there is no net concentration gradient, though molecules still move both directions equally.", "required_evidence": ["no-net-gradient", "still-moving-both-ways"] }
+      ]
+    }
+  ],
+  "accessibility": { "language": "en-US", "screen_reader_review_required": true, "accommodation_notes": "Text-only item with alt_text; typed-text responses." },
+  "provenance": {
+    "source_refs": ["college-board-ap-biology-course-framework"],
+    "fact_pack_version": "AP_BIOLOGY_CED_FACT_PACK@2026-07-13",
+    "authoring_prompt_version": "CLAUDE_AP_BIOLOGY_HARNESS_PROBE@2026-07-13",
+    "generated_by": "Claude",
+    "generated_at": "2026-07-13T20:00:00Z",
+    "content_sha256": "8159da70315aaeb3739fa7c641fb3c04ea910072075a76ad67fea8f099e15070"
+  }
+}

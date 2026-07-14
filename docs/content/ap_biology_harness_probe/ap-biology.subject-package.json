@@ -1,0 +1,108 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "ap-biology-2026-27",
+  "operation": "create-subject",
+  "subject": {
+    "subject_key": "ap-biology",
+    "display_name": "AP Biology"
+  },
+  "exam_pack": {
+    "exam_code": "ap_biology",
+    "exam_name": "AP Biology",
+    "school_year": "2026-27",
+    "official_exam_date": "2027-05-11",
+    "exam_pack_version": "1.0.0",
+    "effective_from": "2026-08-01"
+  },
+  "sources": [{
+    "source_key": "college-board-ap-biology-course-framework",
+    "source_version": "provisional-2026",
+    "title": "AP Biology Course and Exam Description (course framework structure)",
+    "publisher": "College Board",
+    "authority_tier": 1,
+    "uri": "https://apcentral.collegeboard.org/courses/ap-biology",
+    "content_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "scope": "8-unit framework, 6 science practices, exam blueprint",
+    "rights_status": "written_permission",
+    "refresh_due_at": "2027-06-01T00:00:00Z"
+  }],
+  "taxonomy": {
+    "scheme_key": "ap-biology-2025",
+    "scheme_version": "1.0.0",
+    "nodes": [
+      { "node_key": "unit-1", "node_type": "unit", "label": "Chemistry of Life", "ordinal": 1, "source_refs": ["college-board-ap-biology-course-framework"] },
+      { "node_key": "unit-2", "node_type": "unit", "label": "Cell Structure and Function", "ordinal": 2, "source_refs": ["college-board-ap-biology-course-framework"] },
+      { "node_key": "unit-3", "node_type": "unit", "label": "Cellular Energetics", "ordinal": 3, "source_refs": ["college-board-ap-biology-course-framework"] },
+      { "node_key": "unit-4", "node_type": "unit", "label": "Cell Communication and Cell Cycle", "ordinal": 4, "source_refs": ["college-board-ap-biology-course-framework"] },
+      { "node_key": "unit-5", "node_type": "unit", "label": "Heredity", "ordinal": 5, "source_refs": ["college-board-ap-biology-course-framework"] },
+      { "node_key": "unit-6", "node_type": "unit", "label": "Gene Expression and Regulation", "ordinal": 6, "source_refs": ["college-board-ap-biology-course-framework"] },
+      { "node_key": "unit-7", "node_type": "unit", "label": "Natural Selection", "ordinal": 7, "source_refs": ["college-board-ap-biology-course-framework"] },
+      { "node_key": "unit-8", "node_type": "unit", "label": "Ecology", "ordinal": 8, "source_refs": ["college-board-ap-biology-course-framework"] },
+      { "node_key": "practice-1", "node_type": "practice", "label": "Concept Explanation", "ordinal": 1, "source_refs": ["college-board-ap-biology-course-framework"] },
+      { "node_key": "practice-2", "node_type": "practice", "label": "Visual Representations", "ordinal": 2, "source_refs": ["college-board-ap-biology-course-framework"] },
+      { "node_key": "practice-3", "node_type": "practice", "label": "Questions and Methods", "ordinal": 3, "source_refs": ["college-board-ap-biology-course-framework"] },
+      { "node_key": "practice-4", "node_type": "practice", "label": "Representing and Describing Data", "ordinal": 4, "source_refs": ["college-board-ap-biology-course-framework"] },
+      { "node_key": "practice-5", "node_type": "practice", "label": "Statistical Tests and Data Analysis", "ordinal": 5, "source_refs": ["college-board-ap-biology-course-framework"] },
+      { "node_key": "practice-6", "node_type": "practice", "label": "Argumentation", "ordinal": 6, "source_refs": ["college-board-ap-biology-course-framework"] }
+    ]
+  },
+  "blueprint": {
+    "sections": [
+      { "section_key": "multiple-choice", "duration_minutes": 90, "score_weight": 0.5, "item_count": 60, "item_types": ["mcq"], "notes": "60 four-option items." },
+      { "section_key": "free-response", "duration_minutes": 90, "score_weight": 0.5, "item_count": 6, "item_types": ["frq"], "notes": "Two long (~8-10 pt) + four short (~4 pt)." }
+    ],
+    "taxonomy_weights": [
+      { "taxonomy_node_key": "unit-1", "minimum": 0, "maximum": 1 },
+      { "taxonomy_node_key": "unit-2", "minimum": 0, "maximum": 1 },
+      { "taxonomy_node_key": "unit-3", "minimum": 0, "maximum": 1 },
+      { "taxonomy_node_key": "unit-4", "minimum": 0, "maximum": 1 },
+      { "taxonomy_node_key": "unit-5", "minimum": 0, "maximum": 1 },
+      { "taxonomy_node_key": "unit-6", "minimum": 0, "maximum": 1 },
+      { "taxonomy_node_key": "unit-7", "minimum": 0, "maximum": 1 },
+      { "taxonomy_node_key": "unit-8", "minimum": 0, "maximum": 1 }
+    ]
+  },
+  "archetypes": [
+    { "archetype_key": "frq-long-experimental-analysis", "version": "1.0.0", "item_type": "frq", "total_points": 8, "practice_refs": ["practice-4", "practice-5", "practice-6"], "response_modalities": ["typed-text", "typed-math", "table"], "description": "Long FRQ: interpret and evaluate experimental results." },
+    { "archetype_key": "frq-short-conceptual", "version": "1.0.0", "item_type": "frq", "total_points": 4, "practice_refs": ["practice-1", "practice-6"], "response_modalities": ["typed-text"], "description": "Short FRQ: conceptual analysis." },
+    { "archetype_key": "frq-long-model-graph", "version": "1.0.0", "item_type": "frq", "total_points": 8, "practice_refs": ["practice-2", "practice-4", "practice-6"], "response_modalities": ["typed-text", "graph"], "description": "Long FRQ: construct/interpret a graph or model (exam-aligned graphing)." },
+    { "archetype_key": "mcq-standard", "version": "1.0.0", "item_type": "mcq", "total_points": 1, "practice_refs": ["practice-1"], "response_modalities": ["choice"] }
+  ],
+  "capabilities": {
+    "required_renderers": ["markdown", "math", "table"],
+    "required_response_modalities": ["choice", "typed-text", "typed-math", "table", "graph"],
+    "required_graders": ["mcq-key", "biology-frq-rubric"],
+    "calculator_modes": ["approved-handheld"]
+  },
+  "inventory": {
+    "targets": [
+      { "item_type": "mcq", "archetype_key": "mcq-standard", "target_count": 60 },
+      { "item_type": "frq", "archetype_key": "frq-long-experimental-analysis", "target_count": 2 },
+      { "item_type": "frq", "archetype_key": "frq-short-conceptual", "target_count": 3 },
+      { "item_type": "frq", "archetype_key": "frq-long-model-graph", "target_count": 2 }
+    ]
+  },
+  "verification": {
+    "profile_version": "1.0.0",
+    "required_check_types": ["schema", "content-correctness", "answer-rubric-consistency", "grading-calibration", "security-privacy"],
+    "gold_set_required": true,
+    "minimum_gold_items": 1,
+    "calibration_notes": "Provisional probe values; grading-calibration non-waivable before publication."
+  },
+  "review_policy": {
+    "policy_version": "1.0.0",
+    "required_capabilities": ["ap-biology-subject-matter", "assessment-review"],
+    "independence_required": true,
+    "minimum_reviewers": 1
+  },
+  "release_gates": ["source", "rights", "content_clearance", "grading_calibration", "security_privacy", "release_approval"],
+  "provenance": {
+    "fact_pack_version": "AP_BIOLOGY_CED_FACT_PACK@2026-07-13",
+    "authoring_prompt_version": "CLAUDE_AP_BIOLOGY_HARNESS_PROBE@2026-07-13",
+    "generated_by": "Claude",
+    "generated_at": "2026-07-13T20:00:00Z"
+  },
+  "supersession": {
+    "strategy": "none"
+  }
+}

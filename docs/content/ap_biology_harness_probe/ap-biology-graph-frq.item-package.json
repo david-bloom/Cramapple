@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "ap-biology-probe-graph-frq",
+  "content_key": "ap-biology-probe-graph-frq",
+  "content_version": 1,
+  "exam_pack_ref": { "exam_code": "ap_biology", "school_year": "2026-27", "exam_pack_version": "1.0.0" },
+  "item_type": "frq",
+  "archetype_ref": { "archetype_key": "frq-long-model-graph", "version": "1.0.0" },
+  "taxonomy_refs": [
+    { "scheme_key": "ap-biology-2025", "scheme_version": "1.0.0", "node_key": "unit-8" },
+    { "scheme_key": "ap-biology-2025", "scheme_version": "1.0.0", "node_key": "practice-2" },
+    { "scheme_key": "ap-biology-2025", "scheme_version": "1.0.0", "node_key": "practice-4" },
+    { "scheme_key": "ap-biology-2025", "scheme_version": "1.0.0", "node_key": "practice-6" }
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "population-data",
+      "ordinal": 1,
+      "kind": "table",
+      "payload": {
+        "label": "Size of a yeast population grown in a closed flask",
+        "columns": ["Time (hours)", "Population (cells x 10^6)"],
+        "rows": [[0, 2], [4, 6], [8, 18], [12, 40], [16, 58], [20, 62], [24, 63]]
+      },
+      "source_refs": ["college-board-ap-biology-course-framework"],
+      "alt_text": "Yeast population over 24 hours: 2, 6, 18, 40, 58, 62, 63 million cells at 0, 4, 8, 12, 16, 20, 24 hours."
+    }
+  ],
+  "parts": [
+    {
+      "part_key": "part-a", "ordinal": 1, "label": "(a)",
+      "prompt": "Construct a graph of yeast population size versus time using the data provided. Label and scale both axes and plot the data appropriately.",
+      "stimulus_refs": ["population-data"], "response_modalities": ["graph"], "points": 3,
+      "criteria": [
+        { "criterion_key": "a-axes", "points": 1, "description": "Both axes labeled with quantity and units and scaled appropriately, with time on the x-axis and population on the y-axis.", "required_evidence": ["axes-labeled", "axes-scaled"] },
+        { "criterion_key": "a-plot", "points": 1, "description": "All seven data points plotted accurately.", "required_evidence": ["points-plotted-accurately"] },
+        { "criterion_key": "a-form", "points": 1, "description": "Uses an appropriate representation (line or smooth curve connecting the trend) for continuous growth data.", "required_evidence": ["appropriate-graph-form"] }
+      ]
+    },
+    {
+      "part_key": "part-b", "ordinal": 2, "label": "(b)",
+      "prompt": "Describe the pattern of population growth shown by the data.",
+      "stimulus_refs": ["population-data"], "response_modalities": ["typed-text"], "points": 3,
+      "criteria": [
+        { "criterion_key": "b-exponential", "points": 1, "description": "Identifies an early phase of rapid, roughly exponential increase.", "required_evidence": ["exponential-phase"] },
+        { "criterion_key": "b-leveling", "points": 1, "description": "Identifies later leveling off toward a maximum (approaching carrying capacity).", "required_evidence": ["leveling-carrying-capacity"] },
+        { "criterion_key": "b-data-reference", "points": 1, "description": "Supports the description with reference to the data (e.g., near-constant ~62-63 million after 20 hours).", "required_evidence": ["cites-data"] }
+      ]
+    },
+    {
+      "part_key": "part-c", "ordinal": 3, "label": "(c)",
+      "prompt": "Identify one factor that could be responsible for the population leveling off in the closed flask, and explain how it limits growth.",
+      "stimulus_refs": ["population-data"], "response_modalities": ["typed-text"], "points": 2,
+      "criteria": [
+        { "criterion_key": "c-factor", "points": 1, "description": "Identifies a plausible density-dependent limiting factor (e.g., nutrient depletion, accumulation of waste/ethanol, limited space).", "required_evidence": ["valid-limiting-factor"] },
+        { "criterion_key": "c-mechanism", "points": 1, "description": "Explains how that factor reduces the per-capita growth rate as the population grows.", "required_evidence": ["mechanism-limits-growth"] }
+      ]
+    }
+  ],
+  "accessibility": { "language": "en-US", "screen_reader_review_required": true, "accommodation_notes": "Part (a) requires a constructed graph (graph modality) — a non-text response that needs an accessible construction/alternative path; the source data is provided as a table with alt_text so the prompt is readable without the graph." },
+  "provenance": {
+    "source_refs": ["college-board-ap-biology-course-framework"],
+    "fact_pack_version": "AP_BIOLOGY_CED_FACT_PACK@2026-07-13",
+    "authoring_prompt_version": "CLAUDE_AP_BIOLOGY_HARNESS_PROBE@2026-07-13",
+    "generated_by": "Claude",
+    "generated_at": "2026-07-13T20:00:00Z",
+    "content_sha256": "566a45f44f2c56cf7ed8fd9c78fa4d2a62eef02f752b926f2fda2fa8ea529fe6"
+  }
+}

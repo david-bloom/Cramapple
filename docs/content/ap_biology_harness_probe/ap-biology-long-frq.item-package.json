@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "ap-biology-probe-long-frq",
+  "content_key": "ap-biology-probe-long-frq",
+  "content_version": 1,
+  "exam_pack_ref": { "exam_code": "ap_biology", "school_year": "2026-27", "exam_pack_version": "1.0.0" },
+  "item_type": "frq",
+  "archetype_ref": { "archetype_key": "frq-long-experimental-analysis", "version": "1.0.0" },
+  "taxonomy_refs": [
+    { "scheme_key": "ap-biology-2025", "scheme_version": "1.0.0", "node_key": "unit-3" },
+    { "scheme_key": "ap-biology-2025", "scheme_version": "1.0.0", "node_key": "practice-4" },
+    { "scheme_key": "ap-biology-2025", "scheme_version": "1.0.0", "node_key": "practice-5" },
+    { "scheme_key": "ap-biology-2025", "scheme_version": "1.0.0", "node_key": "practice-6" }
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "enzyme-experiment",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": { "text": "A student investigates how temperature affects the activity of an enzyme. Identical samples of substrate and enzyme are held at 10, 20, 30, 40, and 50 degrees Celsius, and the initial reaction rate (micromoles of product per minute) is recorded three times at each temperature." },
+      "source_refs": ["college-board-ap-biology-course-framework"],
+      "alt_text": "An experiment measuring enzyme reaction rate at five temperatures, three trials each."
+    }
+  ],
+  "parts": [
+    {
+      "part_key": "part-a", "ordinal": 1, "label": "(a)",
+      "prompt": "Identify the independent variable and the dependent variable, and state one variable that must be held constant across the temperature groups.",
+      "stimulus_refs": ["enzyme-experiment"], "response_modalities": ["typed-text"], "points": 2,
+      "criteria": [
+        { "criterion_key": "a-variables", "points": 1, "description": "Correctly identifies temperature as the independent variable and reaction rate as the dependent variable.", "required_evidence": ["iv-temperature", "dv-reaction-rate"] },
+        { "criterion_key": "a-control", "points": 1, "description": "States one appropriately controlled variable (e.g., substrate concentration, enzyme concentration, pH).", "required_evidence": ["one-valid-controlled-variable"] }
+      ]
+    },
+    {
+      "part_key": "part-b", "ordinal": 2, "label": "(b)",
+      "prompt": "Describe the relationship between temperature and reaction rate that these data would be expected to show for a typical enzyme.",
+      "stimulus_refs": ["enzyme-experiment"], "response_modalities": ["typed-text"], "points": 2,
+      "criteria": [
+        { "criterion_key": "b-trend", "points": 1, "description": "Describes rate increasing with temperature up to an optimum, then decreasing.", "required_evidence": ["increase-then-decrease"] },
+        { "criterion_key": "b-optimum", "points": 1, "description": "References an optimum temperature at which rate is maximal.", "required_evidence": ["optimum-referenced"] }
+      ]
+    },
+    {
+      "part_key": "part-c", "ordinal": 3, "label": "(c)",
+      "prompt": "At 30 degrees the three recorded rates are 18, 20, and 22 micromoles per minute. Calculate the mean reaction rate at 30 degrees, and show your work.",
+      "stimulus_refs": ["enzyme-experiment"], "response_modalities": ["typed-math"], "points": 2,
+      "criteria": [
+        { "criterion_key": "c-calculation", "points": 1, "description": "Computes the mean as (18 + 20 + 22) / 3 = 20 micromoles per minute.", "required_evidence": ["mean-20"] },
+        { "criterion_key": "c-units-work", "points": 1, "description": "Shows the summation/division work and reports correct units (micromoles per minute).", "required_evidence": ["work-shown", "units-correct"] }
+      ]
+    },
+    {
+      "part_key": "part-d", "ordinal": 4, "label": "(d)",
+      "prompt": "Explain, in terms of enzyme structure, why reaction rate decreases at temperatures well above the optimum. Justify your explanation.",
+      "stimulus_refs": ["enzyme-experiment"], "response_modalities": ["typed-text"], "points": 2,
+      "criteria": [
+        { "criterion_key": "d-denaturation", "points": 1, "description": "Explains that high temperature denatures the enzyme (disrupts its three-dimensional/active-site shape).", "required_evidence": ["denaturation-shape-change"] },
+        { "criterion_key": "d-mechanism", "points": 1, "description": "Connects the shape change to reduced substrate binding at the active site, lowering rate.", "required_evidence": ["active-site-binding-reduced"] }
+      ]
+    }
+  ],
+  "accessibility": { "language": "en-US", "screen_reader_review_required": true, "accommodation_notes": "Text stimulus with alt_text; responses are typed text and typed math. No figure required." },
+  "provenance": {
+    "source_refs": ["college-board-ap-biology-course-framework"],
+    "fact_pack_version": "AP_BIOLOGY_CED_FACT_PACK@2026-07-13",
+    "authoring_prompt_version": "CLAUDE_AP_BIOLOGY_HARNESS_PROBE@2026-07-13",
+    "generated_by": "Claude",
+    "generated_at": "2026-07-13T20:00:00Z",
+    "content_sha256": "0d242d17e4e25ab01e04737eff6447194f9f42da2faa7cf79ff5f3a9d38ab4d1"
+  }
+}
