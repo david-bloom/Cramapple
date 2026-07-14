@@ -73,10 +73,25 @@ independent QA agent reviewed the migration + edge functions and returned
 remaining insert fields (defense-in-depth against cross-stage contamination
 producing a generic 500) and made the two new migration constraints idempotent.
 Two other notes (dead reader numeric-fallback path; mixed legacy/new difficulty
-during a split-client transition) were accepted as documented/harmless. Backend is
-staged on the branch, **not deployed**. Product Owner is holding the Lovable
-publish until the backend deploys, in order: migration `202607140001` → edge
-functions → frontend.
+during a split-client transition) were accepted as documented/harmless.
+
+**Deployed to production (`pcntajvbdfqhbeewmdry`, Cramapple - Production) on
+Product Owner instruction:**
+- Migration applied. The backfill `UPDATE` was rejected by the append-only
+  immutability trigger (`prevent_review_decision_mutation`) — expected: review
+  decisions are immutable. Re-applied the DDL only (add `tutor_decision`,
+  `difficulty_action`, extend `reader_decision`); the 4 legacy rows keep
+  `tutor_decision` null and resolve via the edge function's numeric fallback.
+  The repo migration file was updated to drop the backfill to match.
+- Edge functions deployed: `review-decision` (v8, ACTIVE, verify_jwt) and
+  `review-queue` (v11, ACTIVE, verify_jwt), bundled with their `_shared`
+  dependency closure.
+- Backend is now live on the categorical contract while still accepting legacy
+  numeric submissions. Product Owner clear to publish the Lovable frontend.
+
+**Not done / follow-up:** apply the same migration + deploy to the Development
+project if needed for parity; the PR (#39) still carries the migration + function
+source for the durable record and eventual merge to `main`.
 
 ---
 

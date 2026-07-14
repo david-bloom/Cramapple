@@ -34,17 +34,11 @@ alter table app.content_review_decisions
     or tutor_decision in ('approve', 'approve_with_edits', 'disapprove')
   );
 
--- Backfill from the legacy numeric score: 1 Yes → approve,
--- 2 Maybe → approve_with_edits, 3 No → disapprove.
-update app.content_review_decisions
-set tutor_decision = case tutor_score
-    when 1 then 'approve'
-    when 2 then 'approve_with_edits'
-    when 3 then 'disapprove'
-    else tutor_decision
-  end
-where tutor_score is not null
-  and tutor_decision is null;
+-- NOTE: no backfill UPDATE. content_review_decisions is append-only (enforced by
+-- the prevent_review_decision_mutation trigger), so existing rows cannot be
+-- updated. Legacy rows keep tutor_decision null and resolve via the edge
+-- function's resolveDecision fallback to the numeric tutor_score
+-- (1→approve, 2→approve_with_edits, 3→disapprove).
 
 -- ── Difficulty agree/propose action ─────────────────────────────────────────
 -- The reviewer either agrees with the item's intended difficulty or proposes a
