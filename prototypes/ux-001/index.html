@@ -736,6 +736,25 @@
       display: none;
     }
 
+    .feedback-preview {
+      margin: 14px 0 0;
+      padding: 12px 14px;
+      border-left: 4px solid var(--brand);
+      border-radius: 10px;
+      background: rgba(255,255,255,0.72);
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .feedback-section-label {
+      margin: 18px 0 4px;
+      color: var(--muted);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
     .criterion-list {
       display: grid;
       gap: 10px;
@@ -1009,17 +1028,17 @@
         <div class="top-actions">
           <span id="header-context">New account setup</span>
           <span aria-hidden="true">|</span>
-          <span id="header-detail">First session</span>
+          <span id="header-detail">Feedback session</span>
         </div>
       </header>
 
       <div class="content">
         <section class="screen active" id="welcome" tabindex="-1">
           <p class="eyebrow">Account created</p>
-          <h2>Let’s make your first session useful.</h2>
+          <h2>Let’s make your feedback session useful.</h2>
           <p class="lede">
             Cramapple helps you use the time you have to earn more AP Biology
-            points. Your first session starts near where your class probably is
+            points. Your feedback session starts near where your class probably is
             right now.
           </p>
 
@@ -1035,7 +1054,7 @@
           </div>
           <div class="actions">
             <button class="button primary" type="button" data-go="setup">
-              Set up my first session
+              Set up my feedback session
             </button>
             <button class="button ghost" type="button" data-toast="You will try a question, see where points were earned or missed, and practice the smallest useful change.">
               How Cramapple works
@@ -1119,7 +1138,7 @@
           <article class="card plan-card">
             <div class="plan-header">
               <p class="eyebrow" id="plan-eyebrow">About 15 minutes</p>
-              <h3 id="plan-title">Recommended first session</h3>
+              <h3 id="plan-title">Recommended feedback session</h3>
               <p class="plan-summary" id="plan-reason">
                 We’re starting near where your AP Biology class probably is
                 right now. You can change the unit or time above.
@@ -1150,7 +1169,7 @@
               Choose a topic
             </button>
             <button class="button secondary" type="button" data-secondary="work">
-              Check my work
+              Grading & feedback
             </button>
             <button class="button secondary" type="button" data-secondary="question">
               Bring a question
@@ -1272,7 +1291,7 @@
                 <select id="question-mode">
                   <option>Teach me the underlying concept</option>
                   <option>Give me a hint</option>
-                  <option>Check my work</option>
+                  <option>Grade my work with feedback</option>
                   <option>Walk me through a solution</option>
                 </select>
               </label>
@@ -1299,7 +1318,7 @@
               <div class="progress-track" aria-label="Session progress">
                 <div class="progress-fill"></div>
               </div>
-              <span>Practice session - question 1 of 5</span>
+              <span id="mcq-session-label">Feedback session - question 1 of 5</span>
             </div>
             <button class="button ghost" type="button" data-go="home">
               Leave session
@@ -1355,8 +1374,21 @@
 
             <div class="feedback" id="mcq-feedback" hidden>
               <p class="eyebrow">1 of 1 point</p>
+              <p class="feedback-preview" id="mcq-score-summary" aria-live="polite">
+                Score: 1 of 1 point
+              </p>
+              <p class="feedback-preview" id="mcq-criteria-summary" aria-live="polite">
+                Criteria met: 1 of 1
+              </p>
               <h3>You isolated the variable being tested.</h3>
-              <p>
+              <p class="feedback-preview" id="mcq-feedback-preview">
+                The groups differ by light color while soil, water,
+                temperature, and intensity stay constant.
+              </p>
+              <p class="muted" id="mcq-memory-note">
+                Remembered feedback will appear here after the attempt.
+              </p>
+              <p id="mcq-feedback-body">
                 The groups differ by light color while soil, water,
                 temperature, and intensity stay constant.
               </p>
@@ -1378,7 +1410,7 @@
               <div class="progress-track" aria-label="Session progress">
                 <div class="progress-fill" style="width: 58%"></div>
               </div>
-              <span>Practice session - question 2 of 5</span>
+              <span id="frq-session-label">Feedback session - question 2 of 5</span>
             </div>
             <button class="button ghost" type="button" data-go="home">
               Leave session
@@ -1418,8 +1450,25 @@
 
             <div class="feedback" id="frq-feedback" hidden>
               <p class="eyebrow">Estimated: 1 of 2 points</p>
+              <p class="feedback-preview" id="frq-score-summary" aria-live="polite">
+                Score: 1 of 2 points
+              </p>
+              <p class="feedback-preview" id="frq-criteria-summary" aria-live="polite">
+                Criteria met: 1 of 2
+              </p>
               <h3>You named the shape change. Add the molecular mechanism.</h3>
-              <ul class="criterion-list">
+              <p class="feedback-preview" id="frq-feedback-preview">
+                High heat causes the protein to lose its shape, so it can no
+                longer do its job.
+              </p>
+              <p class="muted" id="frq-memory-note">
+                Remembered feedback will appear here after the attempt.
+              </p>
+              <p class="feedback-preview" id="frq-next-step-preview" aria-live="polite">
+                Explain how heat changes the interactions that stabilize the
+                protein's structure.
+              </p>
+              <ul class="criterion-list" id="frq-criterion-list">
                 <li class="criterion">
                   <span class="criterion-icon" aria-label="Earned">+</span>
                   <span>
@@ -1437,7 +1486,7 @@
               </ul>
               <div class="actions">
                 <button class="button primary" type="button" id="start-repair">
-                  Get this point
+                  Open repair step
                 </button>
                 <button class="button secondary" type="button" data-toast="Alternative choices: see how this works, break it into parts, or review a prerequisite.">
                   Try a different approach
@@ -1450,15 +1499,30 @@
 
             <div class="feedback warn" id="repair-panel" hidden>
               <p class="eyebrow">Fix the missing step</p>
-              <h3>What belongs in the gap?</h3>
-              <p class="gap-sentence">
+              <h3 id="repair-title" aria-live="polite">What belongs in the gap?</h3>
+              <p class="feedback-preview" id="repair-criteria-summary" aria-live="polite">
+                Rubric coverage: waiting on a score.
+              </p>
+              <p class="muted" id="repair-deterministic-label">
+                Deterministic check
+              </p>
+              <p class="feedback-preview" id="repair-deterministic-text" aria-live="polite">
+                Waiting for the keyed numeric or structural check to explain what it found.
+              </p>
+              <p class="gap-sentence" id="repair-gap-sentence">
                 High temperature <span class="gap">[...]</span> changes the
                 protein's three-dimensional shape, so its function is reduced.
               </p>
-              <p>
+              <p id="repair-instruction">
                 Name what happens to the interactions that stabilize the
                 protein's structure.
               </p>
+              <ul class="criterion-list" id="repair-criterion-list">
+                <li class="criterion">
+                  <span class="criterion-icon" aria-label="Waiting">?</span>
+                  <span><strong>Waiting:</strong> The rubric breakdown will appear when the grader finishes.</span>
+                </li>
+              </ul>
               <label for="repair-answer">
                 Add the mechanism
                 <textarea id="repair-answer" rows="3"></textarea>
@@ -1482,15 +1546,56 @@
           <p class="eyebrow">Safe failure state</p>
           <h2>Useful feedback without false certainty.</h2>
           <div class="card notice">
+            <div class="prototype-badge" id="uncertain-action-badge">Needs context</div>
             <h3>I cannot present this score as reliable.</h3>
             <p>
               Something in the question, diagram, or scoring information may
               be incomplete or inconsistent. This attempt will not count
               against your progress.
             </p>
+            <p class="feedback-preview" id="uncertain-score-summary" aria-live="polite">
+              Score paused until the grader can score it safely.
+            </p>
+            <p class="feedback-preview" id="uncertain-criteria-summary" aria-live="polite">
+              Criteria met: waiting on a safe score.
+            </p>
+            <p class="feedback-preview" id="uncertain-feedback-preview">
+              If grading cannot be completed confidently, Cramapple saves the
+              response, routes it for follow-up, and tells you why it paused
+              instead of inventing a score.
+            </p>
+            <p class="muted" id="uncertain-memory-label">
+              Remembered feedback
+            </p>
+            <p class="feedback-preview" id="uncertain-memory-text" aria-live="polite">
+              The session memory will show the latest feedback trail here.
+            </p>
+            <p class="muted" id="uncertain-reason-label">
+              Why it paused
+            </p>
+            <p class="feedback-preview" id="uncertain-reason-text" aria-live="polite">
+              The grader will explain the specific issue here.
+            </p>
+            <p class="muted" id="uncertain-next-step-label">
+              Next step
+            </p>
+            <p class="muted" id="uncertain-deterministic-label">
+              Deterministic check
+            </p>
+            <p class="feedback-preview" id="uncertain-deterministic-text" aria-live="polite">
+              Waiting for the keyed numeric or structural check to explain what it found.
+            </p>
+            <p class="muted" id="uncertain-help-hint">
+              When the response looks like a risky typed formula, Cramapple
+              will ask for clearer grouping or a scaffold before trying to
+              score it.
+            </p>
+            <p class="feedback-preview" id="uncertain-repair-hint">
+              A concrete next step will appear here when the grader has one.
+            </p>
             <div class="actions">
-              <button class="button primary" type="button" data-toast="The learner would add the missing passage, diagram, or answer choices.">
-                Add missing context
+              <button class="button primary" type="button" data-toast="The learner would open the repair step and add the missing passage, diagram, or answer choices.">
+                Open repair step
               </button>
               <button class="button secondary" type="button" data-go="mcq">
                 Try another question
@@ -1511,6 +1616,15 @@
               You completed an independent retry. We will bring this skill back
               before the exam to see whether it sticks.
             </p>
+            <div class="card" style="margin: 18px auto 0; max-width: 720px; text-align: left;">
+              <p class="eyebrow">Remembered feedback</p>
+              <p class="muted" id="complete-memory-label">
+                The session memory will show the latest feedback trail here.
+              </p>
+              <p class="feedback-preview" id="complete-memory-text" aria-live="polite">
+                The session memory will show the latest feedback trail here.
+              </p>
+            </div>
             <div class="actions" style="justify-content: center">
               <button class="button primary" type="button" data-go="progress">
                 See progress
@@ -1623,13 +1737,13 @@
     const headerContext = document.getElementById("header-context");
     const headerDetail = document.getElementById("header-detail");
     const setupHeader = {
-      welcome: ["New account setup", "First session"],
-      setup: ["New account setup", "First session"],
+      welcome: ["New account setup", "Feedback session"],
+      setup: ["New account setup", "Feedback session"],
       "setup-paused": ["New account setup", "Paused"],
-      "direct-entry": ["First session", "Your chosen starting point"],
+      "direct-entry": ["Feedback session", "Your chosen starting point"],
       home: ["AP Biology", "Home"],
-      mcq: ["Practice session", "Question 1"],
-      frq: ["Practice session", "Question 2"],
+      mcq: ["Feedback session", "Question 1"],
+      frq: ["Feedback session", "Question 2"],
       uncertain: ["Learning session", "Needs context"],
       complete: ["Session complete", "Review scheduled"],
       progress: ["AP Biology", "Progress"]
@@ -1856,6 +1970,18 @@
           official_exam_date: "May 4, 2026",
         },
         student_memory: {
+          memory_state: {
+            last_feedback_summary:
+              "Score paused until the grader can score it safely.",
+            last_feedback_preview:
+              "Score paused until the grader can score it safely.",
+            last_action_hint: "show_scaffold",
+            last_repair_hint: "Rewrite the fraction with parentheses.",
+            last_deterministic_check: {
+              content_key: "APSTAT-MOD3-H001-INV",
+              status: "flag",
+            },
+          },
           summary: {
             independent_evidence: "3 independent points earned",
             coached_evidence: "2 supported repairs",
@@ -1991,6 +2117,8 @@
       return firstText(
         context,
         [
+          "student_memory.memory_state.last_feedback_summary",
+          "student_memory.memory_state.last_feedback_preview",
           "student_memory.summary",
           "student_memory.overview",
           "student_memory.takeaway",
@@ -2001,29 +2129,94 @@
       );
     }
 
+    function getFeedbackTrail(context) {
+      const memory = getNestedValue(context, "student_memory.memory_state") ??
+        getNestedValue(context, "student_memory") ??
+        {};
+      const feedbackPreview = firstText(
+        memory,
+        ["last_feedback_preview", "last_feedback_summary"],
+        "",
+      );
+      const actionHint = firstText(
+        memory,
+        ["last_action_hint"],
+        "",
+      );
+      const repairHint = firstText(
+        memory,
+        ["last_repair_hint"],
+        "",
+      );
+      const deterministicCheck = getNestedValue(memory, "last_deterministic_check");
+      const deterministicStatus = firstText(
+        deterministicCheck,
+        ["status"],
+        "",
+      );
+      const deterministicKey = firstText(
+        deterministicCheck,
+        ["content_key"],
+        "",
+      );
+
+      return {
+        feedbackPreview,
+        actionHint,
+        repairHint,
+        deterministicStatus,
+        deterministicKey,
+      };
+    }
+
+    function formatActionHintLabel(actionHint) {
+      if (actionHint === "show_scaffold") {
+        return "scaffold";
+      }
+      if (actionHint === "review_context") {
+        return "review context";
+      }
+      return actionHint;
+    }
+
+    function formatFeedbackTrailSummary(feedbackTrail, fallback) {
+      if (!feedbackTrail?.feedbackPreview) {
+        return fallback;
+      }
+      return `${feedbackTrail.feedbackPreview}${feedbackTrail.actionHint ? ` · Hint: ${formatActionHintLabel(feedbackTrail.actionHint)}` : ""}${feedbackTrail.repairHint ? ` · Repair: ${feedbackTrail.repairHint}` : ""}${feedbackTrail.deterministicStatus ? ` · Check: ${feedbackTrail.deterministicStatus}${feedbackTrail.deterministicKey ? ` (${feedbackTrail.deterministicKey})` : ""}` : ""}`;
+    }
+
+    function formatRememberedFeedbackText(feedbackTrail, fallback, prefix = "") {
+      const summary = formatFeedbackTrailSummary(feedbackTrail, "");
+      return summary ? `${prefix}${summary}` : fallback;
+    }
+
     function getScreenHeader(id) {
       const context = getActiveRuntimeContext();
       const subjectLabel = getSubjectLabel(context);
       const modeLabel = getSessionModeLabel(context);
+      const gradingSession = setupState.firstIntent === "check_work";
       switch (id) {
         case "home":
           return [subjectLabel, "Home"];
         case "progress":
           return [subjectLabel, "Progress"];
         case "mcq":
-          return ["Practice session", `${modeLabel} · Question 1`];
+          return [gradingSession ? "Grading session" : "Feedback session", `${modeLabel} · Question 1`];
         case "frq":
-          return ["Practice session", `${modeLabel} · Question 2`];
+          return [gradingSession ? "Grading session" : "Feedback session", `${modeLabel} · Question 2`];
         case "uncertain":
           return [subjectLabel, "Needs context"];
         case "complete":
           return [subjectLabel, "Session complete"];
         case "setup":
-          return ["New account setup", "First session"];
+          return ["New account setup", "Feedback session"];
         case "setup-paused":
           return ["New account setup", "Paused"];
         case "direct-entry":
-          return ["First session", "Your chosen starting point"];
+          return setupState.firstIntent === "check_work"
+            ? ["Grading session", "Your answer for review"]
+            : ["Feedback session", "Your chosen starting point"];
         default:
           return setupHeader[id] || ["Prototype scenario", "Review state"];
       }
@@ -2041,6 +2234,7 @@
         context,
         "Guided help will be composed from the live runtime context when available."
       );
+      const feedbackTrail = getFeedbackTrail(context);
 
       const setupExamDate = document.getElementById("setup-exam-date");
       if (setupExamDate) setupExamDate.textContent = examDate;
@@ -2063,6 +2257,34 @@
       const planWhy = document.getElementById("plan-why");
       if (planWhy) planWhy.textContent = guidanceReason;
 
+      const gradingSession = setupState.firstIntent === "check_work";
+      const mcqSessionLabel = document.getElementById("mcq-session-label");
+      if (mcqSessionLabel) {
+        mcqSessionLabel.textContent = gradingSession
+          ? "Grading session - question 1 of 5"
+          : "Feedback session - question 1 of 5";
+      }
+      const frqSessionLabel = document.getElementById("frq-session-label");
+      if (frqSessionLabel) {
+        frqSessionLabel.textContent = gradingSession
+          ? "Grading session - question 2 of 5"
+          : "Feedback session - question 2 of 5";
+      }
+
+      const uncertainMemoryLabel = document.getElementById("uncertain-memory-label");
+      if (uncertainMemoryLabel) {
+        uncertainMemoryLabel.textContent = feedbackTrail.feedbackPreview
+          ? "Remembered feedback"
+          : "Remembered feedback";
+      }
+      const uncertainMemoryText = document.getElementById("uncertain-memory-text");
+      if (uncertainMemoryText) {
+        uncertainMemoryText.textContent = formatRememberedFeedbackText(
+          feedbackTrail,
+          "The session memory will show the latest feedback trail here.",
+        );
+      }
+
       const homeSubjectLabel = document.getElementById("home-subject-label");
       if (homeSubjectLabel) homeSubjectLabel.textContent = `Welcome back, ${subjectLabel}`;
 
@@ -2082,7 +2304,23 @@
       const homeGuidanceNote = document.getElementById("home-guidance-note");
       if (homeGuidanceNote) {
         homeGuidanceNote.querySelector("span:last-child").textContent =
-          memorySummary;
+          formatRememberedFeedbackText(
+            feedbackTrail,
+            memorySummary,
+            "Latest feedback: ",
+          );
+      }
+
+      const completeMemoryLabel = document.getElementById("complete-memory-label");
+      if (completeMemoryLabel) {
+        completeMemoryLabel.textContent = "Remembered feedback";
+      }
+      const completeMemoryText = document.getElementById("complete-memory-text");
+      if (completeMemoryText) {
+        completeMemoryText.textContent = formatRememberedFeedbackText(
+          feedbackTrail,
+          "The session memory will show the latest feedback trail here.",
+        );
       }
 
       const progressSubjectLabel = document.getElementById("progress-subject-label");
@@ -2096,7 +2334,9 @@
 
       const progressNextCopy = document.getElementById("progress-next-copy");
       if (progressNextCopy) {
-        progressNextCopy.textContent = guidanceReason.includes("About")
+        progressNextCopy.textContent = feedbackTrail.feedbackPreview
+          ? `${guidanceReason} ${formatRememberedFeedbackText(feedbackTrail, "", "Latest feedback: ")}.`
+          : guidanceReason.includes("About")
           ? guidanceReason
           : `${guidanceReason} About ${availableMinutes} minutes.`;
       }
@@ -2193,6 +2433,502 @@
       return data;
     }
 
+    function openRepairPanel(nextStepText) {
+      const frqFeedback = document.getElementById("frq-feedback");
+      const repairPanel = document.getElementById("repair-panel");
+      const repairAnswer = document.getElementById("repair-answer");
+      const repairSeed = repairPanel?.dataset.repairSeed || "";
+      if (frqFeedback) frqFeedback.hidden = true;
+      if (repairPanel) {
+        repairPanel.hidden = false;
+        repairPanel.scrollIntoView({ behavior: "smooth" });
+      }
+      if (repairAnswer && !repairAnswer.value.trim() && (nextStepText || repairSeed)) {
+        repairAnswer.value = nextStepText || repairSeed;
+      }
+      if (repairAnswer) repairAnswer.focus();
+      if (repairAnswer) {
+        const end = repairAnswer.value.length;
+        try {
+          repairAnswer.setSelectionRange(end, end);
+        } catch {
+          // Some browsers may not support selection on textarea focus timing.
+        }
+      }
+    }
+
+    function summarizeCriterionPoints(criteria, fallbackEarned, fallbackAvailable) {
+      if (Array.isArray(criteria) && criteria.length) {
+        const available = criteria.reduce((total, criterion) => {
+          const points = Number(criterion?.points_possible ?? criterion?.points_awarded ?? 0);
+          return total + (Number.isFinite(points) ? points : 0);
+        }, 0);
+        const earned = criteria.reduce((total, criterion) => {
+          const points = Number(criterion?.points_awarded ?? 0);
+          return total + (Number.isFinite(points) ? points : 0);
+        }, 0);
+        if (available > 0) {
+          return { earned, available };
+        }
+      }
+
+      return {
+        earned: Number.isFinite(fallbackEarned) ? fallbackEarned : 0,
+        available: Number.isFinite(fallbackAvailable) ? fallbackAvailable : 0,
+      };
+    }
+
+    function formatCriterionGapTitle(criteriaTotals) {
+      const missing = Math.max((criteriaTotals?.total ?? 0) - (criteriaTotals?.met ?? 0), 0);
+      if (missing <= 0) {
+        return "What belongs in the gap?";
+      }
+      return missing === 1
+        ? "1 criterion still needs attention"
+        : `${missing} criteria still need attention`;
+    }
+
+    function renderCriterionBreakdown(criteria, fallbackText) {
+      if (!Array.isArray(criteria) || !criteria.length) {
+        return fallbackText;
+      }
+
+      return criteria.map((criterion) => {
+        const pointsAwarded = Number(criterion?.points_awarded ?? 0);
+        const isEarned = pointsAwarded > 0 ||
+          String(criterion?.status ?? "").includes("earned");
+        const title = isEarned ? "Earned" : "Missing";
+        const icon = isEarned ? "+" : "-";
+        const aria = isEarned ? "Earned" : "Missed";
+        const detail = String(
+          criterion?.minimum_fix ||
+            criterion?.decision_explanation ||
+            criterion?.evidence_quote ||
+            criterion?.criterion_key ||
+            "",
+        ).trim();
+        return `
+          <li class="criterion${isEarned ? "" : " missed"}">
+            <span class="criterion-icon" aria-label="${aria}">${icon}</span>
+            <span>
+              <strong>${title}:</strong> ${detail || "No additional detail was provided."}
+            </span>
+          </li>
+        `;
+      }).join("");
+    }
+
+    function summarizeCriterionCoverage(criteria, fallbackTotals) {
+      if (Array.isArray(criteria) && criteria.length) {
+        return {
+          met: criteria.reduce((total, criterion) => {
+            const pointsAwarded = Number(criterion?.points_awarded ?? 0);
+            return total + (pointsAwarded > 0 ||
+                String(criterion?.status ?? "").includes("earned")
+              ? 1
+              : 0);
+          }, 0),
+          total: criteria.length,
+        };
+      }
+
+      return {
+        met: Number.isFinite(fallbackTotals?.met) ? fallbackTotals.met : 0,
+        total: Number.isFinite(fallbackTotals?.total) ? fallbackTotals.total : 0,
+      };
+    }
+
+    function formatDeterministicCheckSummary(deterministicCheck) {
+      if (!deterministicCheck || typeof deterministicCheck !== "object") {
+        return "Waiting for the keyed numeric or structural check to explain what it found.";
+      }
+      const status = String(deterministicCheck.status || "unknown");
+      const contentKey = String(deterministicCheck.content_key || "").trim();
+      const reason = String(deterministicCheck.reason || "").trim();
+      const repairHint = String(
+        deterministicCheck.repair_hint || deterministicCheck.repairHint || "",
+      ).trim();
+      const segments = [];
+      if (contentKey) segments.push(`Item ${contentKey}`);
+      segments.push(`status: ${status}`);
+      if (reason) segments.push(reason);
+      if (repairHint) segments.push(`Repair hint: ${repairHint}`);
+      return segments.join(" · ");
+    }
+
+    function resetRepairGuidance() {
+      const repairTitle = document.getElementById("repair-title");
+      const repairSentence = document.getElementById("repair-gap-sentence");
+      const repairInstruction = document.getElementById("repair-instruction");
+      const startRepair = document.getElementById("start-repair");
+      const mcqScoreSummary = document.getElementById("mcq-score-summary");
+      const mcqCriteriaSummary = document.getElementById("mcq-criteria-summary");
+      const frqScoreSummary = document.getElementById("frq-score-summary");
+      const frqCriteriaSummary = document.getElementById("frq-criteria-summary");
+      const uncertainScoreSummary = document.getElementById("uncertain-score-summary");
+      const uncertainCriteriaSummary = document.getElementById("uncertain-criteria-summary");
+      const repairCriteriaSummary = document.getElementById("repair-criteria-summary");
+      const repairCriterionList = document.getElementById("repair-criterion-list");
+      const frqNextStep = document.getElementById("frq-next-step-preview");
+      const uncertainReasonLabel = document.getElementById("uncertain-reason-label");
+      const uncertainReasonText = document.getElementById("uncertain-reason-text");
+      const uncertainNextStepLabel = document.getElementById("uncertain-next-step-label");
+      const uncertainDeterministicLabel = document.getElementById("uncertain-deterministic-label");
+      const uncertainDeterministicText = document.getElementById("uncertain-deterministic-text");
+      const uncertainRepair = document.getElementById("uncertain-repair-hint");
+      const repairPanel = document.getElementById("repair-panel");
+      const repairDeterministicLabel = document.getElementById("repair-deterministic-label");
+      const repairDeterministicText = document.getElementById("repair-deterministic-text");
+
+      if (repairTitle) repairTitle.textContent = "What belongs in the gap?";
+      if (repairSentence) {
+        repairSentence.innerHTML =
+          `High temperature <span class="gap">[...]</span> changes the protein's three-dimensional shape, so its function is reduced.`;
+      }
+      if (repairInstruction) {
+        repairInstruction.textContent =
+          "Name what happens to the interactions that stabilize the protein's structure.";
+      }
+      if (startRepair) {
+        startRepair.textContent = "Open repair step";
+      }
+      if (mcqScoreSummary) {
+        mcqScoreSummary.textContent = "Score: 1 of 1 point";
+      }
+      if (mcqCriteriaSummary) {
+        mcqCriteriaSummary.textContent = "Criteria met: 1 of 1";
+      }
+      if (frqScoreSummary) {
+        frqScoreSummary.textContent = "Score: 1 of 2 points";
+      }
+      if (frqCriteriaSummary) {
+        frqCriteriaSummary.textContent = "Criteria met: 1 of 2";
+      }
+      if (uncertainScoreSummary) {
+        uncertainScoreSummary.textContent =
+          "Score paused until the grader can score it safely.";
+      }
+      if (uncertainCriteriaSummary) {
+        uncertainCriteriaSummary.textContent =
+          "Criteria met: waiting on a safe score.";
+      }
+      if (repairCriteriaSummary) {
+        repairCriteriaSummary.textContent =
+          "Rubric coverage: waiting on a score.";
+      }
+      if (repairCriterionList) {
+        repairCriterionList.innerHTML = `
+          <li class="criterion">
+            <span class="criterion-icon" aria-label="Waiting">?</span>
+            <span><strong>Waiting:</strong> The rubric breakdown will appear when the grader finishes.</span>
+          </li>
+        `;
+      }
+      if (frqNextStep) {
+        frqNextStep.textContent =
+          "Explain how heat changes the interactions that stabilize the protein's structure.";
+      }
+      if (uncertainReasonLabel) {
+        uncertainReasonLabel.textContent = "Why it paused";
+      }
+      if (uncertainReasonText) {
+        uncertainReasonText.textContent =
+          "The grader will explain the specific issue here.";
+      }
+      if (uncertainNextStepLabel) {
+        uncertainNextStepLabel.textContent = "Next step";
+      }
+      if (uncertainDeterministicLabel) {
+        uncertainDeterministicLabel.textContent = "Deterministic check";
+      }
+      if (uncertainDeterministicText) {
+        uncertainDeterministicText.textContent =
+          "Waiting for the keyed numeric or structural check to explain what it found.";
+      }
+      if (uncertainRepair) {
+        uncertainRepair.textContent =
+          "A concrete next step will appear here when the grader has one.";
+      }
+      if (repairDeterministicLabel) {
+        repairDeterministicLabel.textContent = "Deterministic check";
+      }
+      if (repairDeterministicText) {
+        repairDeterministicText.textContent =
+          "Waiting for the keyed numeric or structural check to explain what it found.";
+      }
+      if (repairPanel) {
+        delete repairPanel.dataset.repairSeed;
+        delete repairPanel.dataset.repairResultId;
+      }
+      const frqCriterionList = document.getElementById("frq-criterion-list");
+      if (frqCriterionList) {
+        frqCriterionList.innerHTML = `
+          <li class="criterion">
+            <span class="criterion-icon" aria-label="Earned">+</span>
+            <span><strong>Earned:</strong> You connected protein shape to function.</span>
+          </li>
+          <li class="criterion missed">
+            <span class="criterion-icon" aria-label="Missed">-</span>
+            <span><strong>Missing:</strong> Explain how heat disrupts the interactions that maintain the protein's structure.</span>
+          </li>
+        `;
+      }
+    }
+
+    function applyFeedbackPreview(result) {
+      const feedbackTrail = getFeedbackTrail(getActiveRuntimeContext());
+      const guidance = {
+        previewText: String(
+          result?.result?.feedback_preview ||
+            result?.result?.student_facing_summary ||
+            result?.result?.result_summary ||
+            "",
+        ).trim(),
+        uncertaintyReason: String(
+          result?.result?.uncertainty_reason ||
+            "",
+        ).trim(),
+        nextStepText: String(
+          result?.result?.repair_hint ||
+            result?.result?.highest_value_gap?.repair_prompt ||
+            result?.result?.highest_value_gap?.minimum_fix ||
+            "",
+        ).trim(),
+        actionHint: result?.result?.action_hint ?? null,
+        status: result?.result?.status ?? null,
+        pointsEarned: Number(result?.result?.points_earned ?? 0),
+        pointsAvailable: Number(result?.result?.points_available ?? 0),
+        resultId: String(
+          result?.result?.request_id ||
+            result?.result?.response_version_id ||
+            result?.result?.attempt_id ||
+            "",
+        ).trim(),
+        criteria: Array.isArray(result?.result?.criterion_results)
+          ? result.result.criterion_results
+          : Array.isArray(result?.result?.criteria)
+          ? result.result.criteria
+          : [],
+        deterministicCheck: result?.result?.deterministic_check ??
+          result?.deterministic_check ??
+          null,
+      };
+      const summaryTotals = summarizeCriterionPoints(
+        guidance.criteria,
+        guidance.pointsEarned,
+        guidance.pointsAvailable,
+      );
+      const criteriaTotals = summarizeCriterionCoverage(guidance.criteria, {
+        met: summaryTotals.available > 0 && summaryTotals.earned > 0
+          ? 1
+          : 0,
+        total: summaryTotals.available > 0 ? 1 : 0,
+      });
+
+      if (!guidance.previewText) return;
+
+      resetRepairGuidance();
+
+      const mcqFeedback = document.getElementById("mcq-feedback");
+      if (mcqFeedback) {
+        const scoreSummary = document.getElementById("mcq-score-summary");
+        const criteriaSummary = document.getElementById("mcq-criteria-summary");
+        const memoryNote = document.getElementById("mcq-memory-note");
+        if (scoreSummary) {
+          const earned = summaryTotals.available > 0 ? summaryTotals.earned : 1;
+          const available = summaryTotals.available > 0 ? summaryTotals.available : 1;
+          scoreSummary.textContent = `Score: ${earned} of ${available} point${available === 1 ? "" : "s"}`;
+        }
+        if (criteriaSummary) {
+          criteriaSummary.textContent = `Criteria met: ${criteriaTotals.met} of ${criteriaTotals.total}`;
+        }
+        const summary = document.getElementById("mcq-feedback-preview");
+        if (summary) summary.textContent = guidance.previewText;
+        if (memoryNote) {
+          memoryNote.textContent = formatFeedbackTrailSummary(
+            feedbackTrail,
+            "Remembered feedback will appear here after the attempt.",
+          );
+        }
+        const body = document.getElementById("mcq-feedback-body");
+        if (body) body.textContent = guidance.previewText;
+      }
+
+      const frqFeedback = document.getElementById("frq-feedback");
+      if (frqFeedback) {
+        const scoreSummary = document.getElementById("frq-score-summary");
+        const criteriaSummary = document.getElementById("frq-criteria-summary");
+        const memoryNote = document.getElementById("frq-memory-note");
+        if (scoreSummary) {
+          const earned = summaryTotals.available > 0 ? summaryTotals.earned : 1;
+          const available = summaryTotals.available > 0 ? summaryTotals.available : 2;
+          scoreSummary.textContent = `Score: ${earned} of ${available} point${available === 1 ? "" : "s"}`;
+        }
+        if (criteriaSummary) {
+          criteriaSummary.textContent = `Criteria met: ${criteriaTotals.met} of ${criteriaTotals.total || 2}`;
+        }
+        const summary = document.getElementById("frq-feedback-preview");
+        if (summary) summary.textContent = guidance.previewText;
+        if (memoryNote) {
+          memoryNote.textContent = formatFeedbackTrailSummary(
+            feedbackTrail,
+            "Remembered feedback will appear here after the attempt.",
+          );
+        }
+      }
+
+      const frqNextStep = document.getElementById("frq-next-step-preview");
+      if (frqNextStep && guidance.nextStepText) {
+        frqNextStep.textContent = guidance.nextStepText;
+      }
+      const repairCriteriaSummary = document.getElementById("repair-criteria-summary");
+      const repairCriterionList = document.getElementById("repair-criterion-list");
+      if (repairCriteriaSummary) {
+        repairCriteriaSummary.textContent = guidance.criteria.length
+          ? `Rubric coverage: ${criteriaTotals.met} of ${criteriaTotals.total} criteria met.`
+          : summaryTotals.available > 0
+          ? `Rubric coverage: ${summaryTotals.earned > 0 ? 1 : 0} of 1 criterion met.`
+          : "Rubric coverage: waiting on a score.";
+      }
+      if (repairCriterionList) {
+        repairCriterionList.innerHTML = renderCriterionBreakdown(
+          guidance.criteria,
+          `
+            <li class="criterion">
+              <span class="criterion-icon" aria-label="Waiting">?</span>
+              <span><strong>Waiting:</strong> The rubric breakdown will appear when the grader finishes.</span>
+            </li>
+          `,
+        );
+      }
+      if (repairTitle) {
+        repairTitle.textContent = formatCriterionGapTitle(criteriaTotals);
+      }
+
+      const frqCriterionList = document.getElementById("frq-criterion-list");
+      if (frqCriterionList) {
+        frqCriterionList.innerHTML = renderCriterionBreakdown(
+          guidance.criteria,
+          `
+            <li class="criterion">
+              <span class="criterion-icon" aria-label="Waiting">?</span>
+              <span><strong>Waiting:</strong> The rubric breakdown will appear when the grader finishes.</span>
+            </li>
+          `,
+        );
+      }
+
+      const uncertainFeedback = document.getElementById("uncertain-feedback-preview");
+      if (uncertainFeedback && guidance.status === "uncertain") {
+        uncertainFeedback.textContent = guidance.previewText;
+      }
+
+      const uncertainScoreSummary = document.getElementById("uncertain-score-summary");
+      const uncertainCriteriaSummary = document.getElementById("uncertain-criteria-summary");
+      const uncertainMemoryLabel = document.getElementById("uncertain-memory-label");
+      const uncertainMemoryText = document.getElementById("uncertain-memory-text");
+      if (uncertainScoreSummary && guidance.status === "uncertain") {
+        const earned = summaryTotals.available > 0 ? summaryTotals.earned : 0;
+        const available = summaryTotals.available > 0 ? summaryTotals.available : 0;
+        uncertainScoreSummary.textContent = available > 0
+          ? `Score paused at ${earned} of ${available} point${available === 1 ? "" : "s"} while the grader checks the response safely.`
+          : "Score paused until the grader can score it safely.";
+      }
+      if (uncertainCriteriaSummary && guidance.status === "uncertain") {
+        uncertainCriteriaSummary.textContent = criteriaTotals.total > 0
+          ? `Criteria met: ${criteriaTotals.met} of ${criteriaTotals.total}`
+          : "Criteria met: waiting on a safe score.";
+      }
+      if (uncertainMemoryLabel && guidance.status === "uncertain") {
+        uncertainMemoryLabel.textContent = "Remembered feedback";
+      }
+      if (uncertainMemoryText && guidance.status === "uncertain") {
+        uncertainMemoryText.textContent = guidance.previewText
+          ? `${guidance.previewText}${guidance.actionHint ? ` · Hint: ${guidance.actionHint === "show_scaffold" ? "scaffold" : "review context"}` : ""}${guidance.nextStepText ? ` · Repair: ${guidance.nextStepText}` : ""}`
+          : "The session memory will show the latest feedback trail here.";
+      }
+
+      const uncertainReason = document.getElementById("uncertain-reason-text");
+      if (uncertainReason && guidance.uncertaintyReason) {
+        uncertainReason.textContent = guidance.uncertaintyReason;
+      }
+
+      const uncertainDeterministic = document.getElementById("uncertain-deterministic-text");
+      if (uncertainDeterministic && guidance.deterministicCheck) {
+        uncertainDeterministic.textContent = formatDeterministicCheckSummary(
+          guidance.deterministicCheck,
+        );
+      }
+
+      const uncertainHint = document.getElementById("uncertain-help-hint");
+      if (uncertainHint && guidance.actionHint) {
+        const hint = guidance.actionHint === "show_scaffold"
+          ? "The response looks like a risky typed formula, so Cramapple would ask for clearer grouping or a scaffold before scoring it."
+          : "Cramapple would first review the broader context before trying to score this response.";
+        uncertainHint.textContent = hint;
+      }
+
+      const uncertainBadge = document.getElementById("uncertain-action-badge");
+      if (uncertainBadge && guidance.actionHint) {
+        uncertainBadge.textContent = guidance.actionHint === "show_scaffold"
+          ? "Scaffold needed"
+          : "Needs context";
+      }
+
+      const uncertainRepair = document.getElementById("uncertain-repair-hint");
+      if (uncertainRepair && guidance.nextStepText) {
+        uncertainRepair.textContent = guidance.nextStepText;
+      }
+
+      const uncertainNextStepLabel = document.getElementById("uncertain-next-step-label");
+      if (uncertainNextStepLabel && guidance.nextStepText) {
+        uncertainNextStepLabel.textContent = guidance.actionHint === "show_scaffold"
+          ? "Scaffold"
+          : "Minimum fix";
+      }
+
+      const repairPanel = document.getElementById("repair-panel");
+      const repairAnswer = document.getElementById("repair-answer");
+      const repairDeterministic = document.getElementById("repair-deterministic-text");
+      const previousResultId = repairPanel?.dataset.repairResultId || "";
+      const isFreshResult = Boolean(guidance.resultId) &&
+        guidance.resultId !== previousResultId;
+      if (repairPanel && guidance.resultId && isFreshResult) {
+        repairPanel.dataset.repairResultId = guidance.resultId;
+        delete repairPanel.dataset.repairSeed;
+        if (repairAnswer) repairAnswer.value = "";
+      }
+
+      if (guidance.nextStepText) {
+        const repairTitle = document.getElementById("repair-title");
+        const repairSentence = document.getElementById("repair-gap-sentence");
+        const repairInstruction = document.getElementById("repair-instruction");
+        const startRepair = document.getElementById("start-repair");
+        const frqFeedback = document.getElementById("frq-feedback");
+        if (repairTitle) repairTitle.textContent = "Here’s the missing step.";
+        if (repairSentence) {
+          repairSentence.innerHTML =
+            `<span class="gap">[...]</span> ${guidance.nextStepText}`;
+        }
+        if (repairInstruction) {
+          repairInstruction.textContent =
+            "Use the hint above to rewrite the step with clearer grouping or the missing mechanism.";
+        }
+        if (startRepair) {
+          startRepair.textContent = "Open repair step";
+        }
+        if (repairPanel) repairPanel.dataset.repairSeed = guidance.nextStepText;
+        if (frqFeedback?.hidden === false) {
+          openRepairPanel(guidance.nextStepText);
+        }
+      }
+      if (repairDeterministic && guidance.deterministicCheck) {
+        repairDeterministic.textContent = formatDeterministicCheckSummary(
+          guidance.deterministicCheck,
+        );
+      }
+    }
+
     async function refreshSyncStatus() {
       const session = await getCurrentSession();
       if (session?.user) {
@@ -2273,11 +3009,24 @@
 
     function renderPlan() {
       const label = setupState.coursePosition.unitLabel;
+      const gradingSession = setupState.firstIntent === "check_work";
       document.getElementById("plan-eyebrow").textContent =
         `About ${setupState.minutes} minutes`;
       document.getElementById("plan-unit-label").textContent = label;
       document.getElementById("course-position-heading").textContent =
         `Your class is probably around ${label}.`;
+      document.getElementById("plan-title").textContent = gradingSession
+        ? "Grading & feedback session"
+        : "Recommended feedback session";
+      document.getElementById("plan-reason").textContent = gradingSession
+        ? "Bring the question you already tried and the answer you wrote. Cramapple will score it, show the feedback trail, and open a repair step when that helps."
+        : "We’re starting near where your AP Biology class probably is right now, and the session is set up to surface useful feedback quickly. You can change the unit or time above.";
+      document.getElementById("plan-summary").innerHTML = gradingSession
+        ? `You’ll bring one question, get criterion-level feedback on your answer, and see the smallest repair that could earn the next point.`
+        : `You’ll try one question on <strong id="plan-unit-label">${label}</strong>, see exactly where points were earned or missed, and practice the smallest change most likely to help.`;
+      document.getElementById("plan-why").textContent = gradingSession
+        ? "This keeps the focus on scoring, feedback, and repair instead of broad review."
+        : "We’re starting near where your AP Biology class probably is right now, and the session is set up to surface useful feedback quickly. You can change the unit or time above.";
       const priorIndex = UNIT_ORDER.indexOf(PACING_PRIOR_UNIT);
       const chosenIndex = UNIT_ORDER.indexOf(setupState.coursePosition.unitId);
       const aheadOfPrior =
@@ -2362,9 +3111,9 @@
           copy: "Pick the topic on your mind. Cramapple will preserve your choice while checking whether a short prerequisite would save time."
         },
         check_work: {
-          eyebrow: "Check my work",
+          eyebrow: "Grading & feedback",
           title: "Bring the answer you already tried.",
-          copy: "Include the full prompt when you can. Feedback is more reliable when the question, response, and relevant visual are all present."
+          copy: "Include the full prompt when you can. Cramapple will score the response, show the feedback trail, and open repair only when it has a concrete next step."
         },
         bring_question: {
           eyebrow: "Bring a question",
@@ -2430,7 +3179,7 @@
         response_payload: {
           selected_choice: selected.value,
         },
-      }).catch((error) => {
+      }).then(applyFeedbackPreview).catch((error) => {
         console.warn("attempt sync failed", error);
       });
       void syncSession("session_save").catch((error) => {
@@ -2446,7 +3195,7 @@
         response_payload: {
           response_text: document.getElementById("frq-answer").value.trim(),
         },
-      }).catch((error) => {
+      }).then(applyFeedbackPreview).catch((error) => {
         console.warn("attempt sync failed", error);
       });
       void syncSession("session_save").catch((error) => {
@@ -2458,9 +3207,15 @@
     });
 
     document.getElementById("start-repair").addEventListener("click", () => {
-      document.getElementById("frq-feedback").hidden = true;
-      document.getElementById("repair-panel").hidden = false;
-      document.getElementById("repair-answer").focus();
+      const nextStepText =
+        document.getElementById("frq-next-step-preview")?.textContent?.trim() ||
+        document.getElementById("repair-answer")?.value?.trim() ||
+        "";
+      const repairPanel = document.getElementById("repair-panel");
+      if (repairPanel && !repairPanel.dataset.repairSeed) {
+        repairPanel.dataset.repairSeed = nextStepText;
+      }
+      openRepairPanel(nextStepText);
     });
 
     document.getElementById("submit-repair").addEventListener("click", () => {
@@ -2473,7 +3228,7 @@
         response_payload: {
           response_text: answer,
         },
-      }).catch((error) => {
+      }).then(applyFeedbackPreview).catch((error) => {
         console.warn("attempt sync failed", error);
       });
       void syncSession("session_end", { status: "completed" }).catch((error) => {
