@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "ap-statistics-2027-slice-mcq-u3",
+  "content_key": "ap-statistics-2027-slice-mcq-u3",
+  "content_version": 1,
+  "exam_pack_ref": { "exam_code": "ap_statistics", "school_year": "2026-27", "exam_pack_version": "1.0.0" },
+  "item_type": "mcq",
+  "archetype_ref": { "archetype_key": "mcq-four-option", "version": "1.0.0" },
+  "taxonomy_refs": [
+    { "scheme_key": "ap-statistics-fall-2026", "scheme_version": "1.0.0", "node_key": "unit-3" },
+    { "scheme_key": "ap-statistics-fall-2026", "scheme_version": "1.0.0", "node_key": "practice-4" }
+  ],
+  "stimuli": [],
+  "parts": [
+    {
+      "part_key": "stem",
+      "ordinal": 1,
+      "prompt": "A polling organization computes a 95% confidence interval for a population proportion. If it increases the sample size while keeping the confidence level and sample proportion the same, what happens to the margin of error?\n(A) It increases.\n(B) It decreases.\n(C) It stays the same.\n(D) It doubles.",
+      "response_modalities": ["choice"],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-choice",
+          "points": 1,
+          "description": "Correct answer is (B): the margin of error is proportional to 1/sqrt(n), so increasing n decreases the margin of error.",
+          "required_evidence": ["selects-B"],
+          "deterministic_checks": [{ "check_type": "choice-key", "parameters": { "choice": "B" } }]
+        }
+      ]
+    }
+  ],
+  "accessibility": { "language": "en-US", "screen_reader_review_required": true, "accommodation_notes": "Self-contained text MCQ; options embedded in prompt." },
+  "provenance": {
+    "source_refs": ["college-board-ap-statistics-ced-fall-2026"],
+    "fact_pack_version": "AP_STATISTICS_2027_CED_FACT_PACK@2026-07-13",
+    "authoring_prompt_version": "CLAUDE_AP_STATISTICS_REBUILD@2026-07-13",
+    "generated_by": "Claude",
+    "generated_at": "2026-07-13T21:00:00Z",
+    "content_sha256": "31b633cf00f61482b5593e7debe7c5cd86fd80af7bfa75e82bde13eab823f5a3"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "ap-statistics-2027-slice-mcq-u2",
+  "content_key": "ap-statistics-2027-slice-mcq-u2",
+  "content_version": 1,
+  "exam_pack_ref": { "exam_code": "ap_statistics", "school_year": "2026-27", "exam_pack_version": "1.0.0" },
+  "item_type": "mcq",
+  "archetype_ref": { "archetype_key": "mcq-four-option", "version": "1.0.0" },
+  "taxonomy_refs": [
+    { "scheme_key": "ap-statistics-fall-2026", "scheme_version": "1.0.0", "node_key": "unit-2" },
+    { "scheme_key": "ap-statistics-fall-2026", "scheme_version": "1.0.0", "node_key": "practice-3" }
+  ],
+  "stimuli": [],
+  "parts": [
+    {
+      "part_key": "stem",
+      "ordinal": 1,
+      "prompt": "A binomial random variable X counts the number of successes in n = 10 independent trials, each with probability of success p = 0.3. What is the mean (expected value) of X?\n(A) 3\n(B) 0.3\n(C) 2.1\n(D) 7",
+      "response_modalities": ["choice"],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-choice",
+          "points": 1,
+          "description": "Correct answer is (A) 3: for a binomial random variable the mean is np = 10 x 0.3 = 3. (Choice C, 2.1, is the variance np(1-p).)",
+          "required_evidence": ["selects-A"],
+          "deterministic_checks": [{ "check_type": "choice-key", "parameters": { "choice": "A" } }]
+        }
+      ]
+    }
+  ],
+  "accessibility": { "language": "en-US", "screen_reader_review_required": true, "accommodation_notes": "Self-contained text MCQ; options embedded in prompt." },
+  "provenance": {
+    "source_refs": ["college-board-ap-statistics-ced-fall-2026"],
+    "fact_pack_version": "AP_STATISTICS_2027_CED_FACT_PACK@2026-07-13",
+    "authoring_prompt_version": "CLAUDE_AP_STATISTICS_REBUILD@2026-07-13",
+    "generated_by": "Claude",
+    "generated_at": "2026-07-13T21:00:00Z",
+    "content_sha256": "66ca611d8e378d5c14b03e3c11b78db74704be08a7e9dd131794e63289f5c6b4"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "ap-statistics-2027-slice-mcq-u5",
+  "content_key": "ap-statistics-2027-slice-mcq-u5",
+  "content_version": 1,
+  "exam_pack_ref": { "exam_code": "ap_statistics", "school_year": "2026-27", "exam_pack_version": "1.0.0" },
+  "item_type": "mcq",
+  "archetype_ref": { "archetype_key": "mcq-four-option", "version": "1.0.0" },
+  "taxonomy_refs": [
+    { "scheme_key": "ap-statistics-fall-2026", "scheme_version": "1.0.0", "node_key": "unit-5" },
+    { "scheme_key": "ap-statistics-fall-2026", "scheme_version": "1.0.0", "node_key": "practice-4" }
+  ],
+  "stimuli": [],
+  "parts": [
+    {
+      "part_key": "stem",
+      "ordinal": 1,
+      "prompt": "A least-squares regression line for predicting a plant's height (cm) from the number of days since planting has the equation predicted height = 1.5 + 0.8(days). Which is the best interpretation of the slope?\n(A) For each additional day, the predicted height increases by 0.8 cm.\n(B) A plant with 0 days has a height of 0.8 cm.\n(C) The correlation between days and height is 0.8.\n(D) For each additional centimeter of height, days increase by 0.8.",
+      "response_modalities": ["choice"],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-choice",
+          "points": 1,
+          "description": "Correct answer is (A): the slope 0.8 is the predicted change in the response (height, cm) for each one-unit increase in the explanatory variable (one additional day).",
+          "required_evidence": ["selects-A"],
+          "deterministic_checks": [{ "check_type": "choice-key", "parameters": { "choice": "A" } }]
+        }
+      ]
+    }
+  ],
+  "accessibility": { "language": "en-US", "screen_reader_review_required": true, "accommodation_notes": "Self-contained text MCQ; options embedded in prompt." },
+  "provenance": {
+    "source_refs": ["college-board-ap-statistics-ced-fall-2026"],
+    "fact_pack_version": "AP_STATISTICS_2027_CED_FACT_PACK@2026-07-13",
+    "authoring_prompt_version": "CLAUDE_AP_STATISTICS_REBUILD@2026-07-13",
+    "generated_by": "Claude",
+    "generated_at": "2026-07-13T21:00:00Z",
+    "content_sha256": "545c5d3098b7a0acc94fe78c320b8c4c6f909ac2298a9d70ce5b0216b2952071"
+  }
+}

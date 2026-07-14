@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "ap-statistics-2027-slice-mcq-set1-q1",
+  "content_key": "ap-statistics-2027-slice-mcq-set1-q1",
+  "content_version": 1,
+  "exam_pack_ref": { "exam_code": "ap_statistics", "school_year": "2026-27", "exam_pack_version": "1.0.0" },
+  "item_type": "mcq",
+  "archetype_ref": { "archetype_key": "mcq-four-option", "version": "1.0.0" },
+  "taxonomy_refs": [
+    { "scheme_key": "ap-statistics-fall-2026", "scheme_version": "1.0.0", "node_key": "unit-1" },
+    { "scheme_key": "ap-statistics-fall-2026", "scheme_version": "1.0.0", "node_key": "practice-3" }
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "score-summary",
+      "ordinal": 1,
+      "kind": "table",
+      "payload": {
+        "label": "Five-number summary of 30 students' exam scores",
+        "columns": ["Minimum", "Q1", "Median", "Q3", "Maximum"],
+        "rows": [[40, 60, 66, 78, 100]]
+      },
+      "source_refs": ["college-board-ap-statistics-ced-fall-2026"],
+      "alt_text": "Five-number summary: minimum 40, Q1 60, median 66, Q3 78, maximum 100."
+    }
+  ],
+  "parts": [
+    {
+      "part_key": "stem",
+      "ordinal": 1,
+      "prompt": "Set item 1 of 3. Using the five-number summary of exam scores, what is the interquartile range (IQR)?\n(A) 18\n(B) 40\n(C) 9\n(D) 60",
+      "stimulus_refs": ["score-summary"],
+      "response_modalities": ["choice"],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-choice",
+          "points": 1,
+          "description": "Correct answer is (A) 18: IQR = Q3 - Q1 = 78 - 60 = 18.",
+          "required_evidence": ["selects-A"],
+          "deterministic_checks": [{ "check_type": "choice-key", "parameters": { "choice": "A" } }]
+        }
+      ]
+    }
+  ],
+  "accessibility": { "language": "en-US", "screen_reader_review_required": true, "accommodation_notes": "Options are embedded in the prompt text (the item-package schema has no structured options field). Source is a table stimulus with alt_text." },
+  "provenance": {
+    "source_refs": ["college-board-ap-statistics-ced-fall-2026"],
+    "fact_pack_version": "AP_STATISTICS_2027_CED_FACT_PACK@2026-07-13",
+    "authoring_prompt_version": "CLAUDE_AP_STATISTICS_REBUILD@2026-07-13",
+    "generated_by": "Claude",
+    "generated_at": "2026-07-13T21:00:00Z",
+    "content_sha256": "cd7d160506580bfb5e28317526f7e791f1136ca4eb6774dd64b4ac09c7d8cfd4"
+  }
+}

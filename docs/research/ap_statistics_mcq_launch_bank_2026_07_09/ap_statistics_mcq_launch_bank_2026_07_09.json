@@ -1,0 +1,4002 @@
+[
+  {
+    "content_key": "APSTATS-MCQ-001",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "1"
+    ],
+    "subtopics": [
+      "Unit 1: Measures of Center and Spread (Resistance to Skew/Outliers)"
+    ],
+    "intended_difficulty": "Medium",
+    "stimulus": "A researcher records the time (in minutes) that 40 customers spend in a coffee shop. The distribution of times is strongly right-skewed, with a few customers staying much longer than typical. The five-number summary is: Min = 3, Q1 = 8, Median = 12, Q3 = 18, Max = 65.",
+    "stem": "Which measure of center and spread is most appropriate to report for this distribution, and why?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "Mean and standard deviation, because they use every data value in the distribution.",
+        "is_correct": false,
+        "rationale": "Both the mean and standard deviation are pulled toward the long right tail and the high outlier (65); they are not resistant, so 'uses every value' is not a reason to prefer them for a skewed distribution."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "Mean and range, because the range captures the full spread including the long visits.",
+        "is_correct": false,
+        "rationale": "The range is determined entirely by the two most extreme values, making it even more sensitive to the outlier than the standard deviation; the mean is also not resistant."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "Median and IQR, because they are resistant to the strong right skew and the high outlier.",
+        "is_correct": true,
+        "rationale": "The median and IQR depend only on the middle portion of the ordered data, so they are not distorted by the skew or the outlier at 65 minutes -- the standard choice for a skewed distribution."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "Median and standard deviation, because the median is resistant but the shape of the distribution doesn't affect measures of spread.",
+        "is_correct": false,
+        "rationale": "This mixes a resistant measure of center with a non-resistant measure of spread; shape and outliers affect standard deviation just as much as they affect the mean."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-002",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "1"
+    ],
+    "subtopics": [
+      "Unit 1: Standardized Scores (z-scores) and Comparing Distributions"
+    ],
+    "intended_difficulty": "Hard",
+    "stimulus": "On a nationally normed exam, scores are approximately normally distributed with mean 500 and standard deviation 100. Fatima scores 640. On a different, unrelated diagnostic test with mean 20 and standard deviation 4, Diego scores 26.",
+    "stem": "Which student performed better relative to their own test's distribution, and by how many standard deviations above the mean?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "Diego, because his z-score of 1.5 is higher than Fatima's z-score of 1.4.",
+        "is_correct": true,
+        "rationale": "Fatima's z-score is (640 - 500)/100 = 1.4. Diego's z-score is (26 - 20)/4 = 1.5. Standardizing puts both scores on the same scale, and Diego's is higher."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "Fatima, because 640 is a higher raw score than 26.",
+        "is_correct": false,
+        "rationale": "Comparing raw scores directly ignores that the two tests have completely different means and standard deviations; raw scores from different distributions are not comparable without standardizing."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "Fatima, because her raw score is farther from her test's mean (140 points) than Diego's is from his (6 points).",
+        "is_correct": false,
+        "rationale": "Comparing raw point distances from the mean ignores the different scales (standard deviations) of the two tests; 140 points on a test with SD 100 is less extreme than 6 points on a test with SD 4."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "The two students performed identically, because both scored above their test's mean.",
+        "is_correct": false,
+        "rationale": "Both scoring above the mean does not mean the performances are equivalent; the magnitude of each score's standardized distance from the mean still needs to be compared."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-003",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "2"
+    ],
+    "subtopics": [
+      "Unit 2: Interpreting the Slope of a Least-Squares Regression Line"
+    ],
+    "intended_difficulty": "Medium",
+    "stimulus": "A researcher fits a least-squares regression line to predict a house's selling price (in thousands of dollars) from its size (in hundreds of square feet) for 50 homes in a city. The regression equation is: predicted price = 45 + 12.5(size).",
+    "stem": "Which is the correct interpretation of the slope in context?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "For every additional house sold, the price increases by $12,500.",
+        "is_correct": false,
+        "rationale": "This misreads the explanatory variable; the slope is tied to size (hundreds of square feet), not the count of houses sold."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "The average house in the sample costs $12,500.",
+        "is_correct": false,
+        "rationale": "This confuses the slope with a measure of the average selling price; $12,500 describes a rate of change, not a typical price."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "12.5% of the variation in price is explained by size.",
+        "is_correct": false,
+        "rationale": "This describes what r-squared measures, not the slope; the slope is a rate of change in the response variable, not a percentage of explained variation."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "For each additional 100 square feet of size, the predicted selling price increases by $12,500, on average.",
+        "is_correct": true,
+        "rationale": "The slope of a least-squares line gives the predicted change in the response variable (price, in thousands of dollars) for a one-unit increase in the explanatory variable (size, in hundreds of square feet)."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-004",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "2"
+    ],
+    "subtopics": [
+      "Unit 2: Residual Plots and Assessing Linearity"
+    ],
+    "intended_difficulty": "Hard",
+    "stimulus": "A statistics student fits a least-squares regression line relating a car's age (in years) to its resale value (in dollars) for 30 used cars. The residual plot shows residuals that are negative for cars less than 3 years old, positive for cars between 3 and 9 years old, and negative again for cars older than 9 years old, forming a clear curved pattern.",
+    "stem": "What does this residual plot most strongly suggest about the appropriateness of the linear model?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "The residual plot confirms the linear model is appropriate because the residuals are small in magnitude.",
+        "is_correct": false,
+        "rationale": "The magnitude of residuals alone doesn't establish appropriateness; a systematic curved pattern is the key signal to check for, regardless of how small individual residuals are."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "The curved pattern in the residuals indicates the relationship between age and resale value is not linear, so a linear model is not appropriate here.",
+        "is_correct": true,
+        "rationale": "A random scatter of residuals with no pattern supports linearity; a clear curved pattern like this one indicates the true relationship is curved, so a linear model systematically over- and under-predicts in different regions."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "The residual plot suggests r is close to 0, so age and resale value are not associated.",
+        "is_correct": false,
+        "rationale": "A curved residual pattern can occur even when there is a strong, real (nonlinear) association between the variables; residual shape and correlation strength are different pieces of information."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "The residual plot cannot be used to assess the linear model; only the value of r-squared can determine appropriateness.",
+        "is_correct": false,
+        "rationale": "A high r-squared can still occur alongside a clearly curved residual pattern; checking the residual plot is an essential, separate step from looking at r-squared."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-005",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "3"
+    ],
+    "subtopics": [
+      "Unit 3: Observational Studies vs. Experiments (Causation)"
+    ],
+    "intended_difficulty": "Medium",
+    "stimulus": "A wellness magazine reports that people who meditate at least 20 minutes per day have lower blood pressure on average than people who do not meditate, based on a survey of 500 adults who volunteered to report their meditation habits and blood pressure.",
+    "stem": "Which conclusion is appropriately supported by this study design?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "There is an association between meditation habits and blood pressure in this sample, but causation cannot be concluded because participants were not randomly assigned to meditate or not.",
+        "is_correct": true,
+        "rationale": "This was an observational, voluntary-response study with no random assignment of the explanatory variable, so an association can be described but a causal claim is not supported."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "Meditating for 20 minutes a day causes lower blood pressure.",
+        "is_correct": false,
+        "rationale": "This draws a causal conclusion from an observational study with no random assignment, which cannot rule out confounding variables."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "Because the sample size is large (500 people), causation can be concluded even without random assignment.",
+        "is_correct": false,
+        "rationale": "A large sample size reduces sampling variability but does nothing to address confounding; only random assignment supports causal claims."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "No conclusion can be drawn because the study did not use a randomized experiment.",
+        "is_correct": false,
+        "rationale": "This overcorrects -- observational studies can still support conclusions about association, just not causation."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-006",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "3"
+    ],
+    "subtopics": [
+      "Unit 3: Blocking in Experimental Design"
+    ],
+    "intended_difficulty": "Hard",
+    "stimulus": "A researcher wants to test whether a new fertilizer increases tomato plant yield compared to a standard fertilizer. She has 40 tomato plants: 20 grown in full-sun plots and 20 grown in partial-shade plots. She plans to randomly assign fertilizer type (new vs. standard) separately within the full-sun group and separately within the partial-shade group, rather than randomizing across all 40 plants at once.",
+    "stem": "What is the primary statistical benefit of this design compared to completely randomizing fertilizer type across all 40 plants without regard to sun exposure?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "It removes the need for random assignment altogether, since sun exposure is already controlled.",
+        "is_correct": false,
+        "rationale": "Blocking does not replace random assignment; fertilizer type is still randomly assigned within each sun-exposure block."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "It guarantees that the new fertilizer will outperform the standard fertilizer within each sun-exposure group.",
+        "is_correct": false,
+        "rationale": "Blocking controls a source of variability; it does not guarantee any particular outcome for either treatment."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "It reduces variability in yield due to sun exposure, making it easier to detect a true difference between fertilizers if one exists.",
+        "is_correct": true,
+        "rationale": "Blocking by a known nuisance variable (sun exposure) removes its variability from the comparison between fertilizers, increasing the power to detect a real treatment effect."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "It increases the sample size available for comparing the fertilizers.",
+        "is_correct": false,
+        "rationale": "Blocking reorganizes how the same 40 plants are grouped and randomized; it does not add any additional plants or observations."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-007",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "4"
+    ],
+    "subtopics": [
+      "Unit 4: Independence and the Gambler's Fallacy"
+    ],
+    "intended_difficulty": "Medium",
+    "stimulus": "At a local carnival game, a wheel is spun and lands on red with probability 0.3 on each independent spin. A player has just watched the wheel land on red four times in a row.",
+    "stem": "What is the probability that the wheel lands on red on the next spin?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "Less than 0.3, because red is \"due\" to be balanced out by other colors soon.",
+        "is_correct": false,
+        "rationale": "This is the gambler's fallacy -- independent events have no memory, so past outcomes do not change the probability of the next spin."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "0.3, because each spin is independent of previous spins.",
+        "is_correct": true,
+        "rationale": "Since the spins are stated to be independent, the probability of red on any single spin remains 0.3 regardless of the outcomes of previous spins."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "Greater than 0.3, because landing on red four times in a row suggests the wheel is more likely to land on red.",
+        "is_correct": false,
+        "rationale": "This treats a run of independent outcomes as evidence of a changing probability, which contradicts the stated independence of the spins."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "0.3 to the fourth power, because the probability of five reds in a row must be calculated.",
+        "is_correct": false,
+        "rationale": "This answers a different question (the probability of a specific five-spin sequence) rather than the probability of the single next spin."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-008",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "4"
+    ],
+    "subtopics": [
+      "Unit 4: Combining Random Variables (Variance of a Sum)"
+    ],
+    "intended_difficulty": "Hard",
+    "stimulus": "A vending machine dispenses two independent snack items in a bundle. The number of chip bags dispensed has mean 3 and standard deviation 0.8. The number of candy bars dispensed has mean 2 and standard deviation 0.6. Let T = total number of snack items (chips + candy) dispensed in a bundle.",
+    "stem": "What is the standard deviation of T?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "1.4, because standard deviations of independent random variables add directly.",
+        "is_correct": false,
+        "rationale": "Standard deviations do not add directly, even for independent random variables; it is the variances that add."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "0.2, because the standard deviation of a sum is the difference of the standard deviations.",
+        "is_correct": false,
+        "rationale": "This applies the wrong operation entirely; subtracting standard deviations has no statistical justification here."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "1.96, because the variance of T is the square of the sum of the two standard deviations.",
+        "is_correct": false,
+        "rationale": "This squares the sum of the standard deviations (0.8 + 0.6)^2 instead of summing the individual variances, a common algebra-of-variance error."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "1.0, because Var(T) = 0.8^2 + 0.6^2 = 0.64 + 0.36 = 1.00, so SD(T) is the square root of 1.00.",
+        "is_correct": true,
+        "rationale": "For independent random variables, variances add: Var(T) = Var(chips) + Var(candy) = 0.64 + 0.36 = 1.00, so SD(T) = sqrt(1.00) = 1.0."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-009",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "5"
+    ],
+    "subtopics": [
+      "Unit 5: Central Limit Theorem -- Shape and Variability of the Sampling Distribution of the Mean"
+    ],
+    "intended_difficulty": "Medium",
+    "stimulus": "The distribution of individual household incomes in a large city is strongly right-skewed. A researcher plans to take a random sample of n households and compute the sample mean income, x-bar.",
+    "stem": "As the sample size n increases from 10 to 100, what happens to the shape and variability of the sampling distribution of x-bar?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "The shape becomes more skewed and the variability increases, matching the population more closely as n grows.",
+        "is_correct": false,
+        "rationale": "This reverses both effects of the Central Limit Theorem; larger samples make the sampling distribution of the mean look less like the skewed population, not more."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "The shape stays exactly as skewed as the population, but the variability decreases.",
+        "is_correct": false,
+        "rationale": "This ignores the Central Limit Theorem's effect on shape; as n increases, the sampling distribution of x-bar becomes more normal, not equally skewed."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "The shape becomes more approximately normal and the variability (standard error) decreases.",
+        "is_correct": true,
+        "rationale": "The Central Limit Theorem states that as n increases, the sampling distribution of x-bar becomes more approximately normal regardless of population shape, and its standard error (population SD divided by the square root of n) decreases as n increases."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "The shape becomes more approximately normal, but the variability stays the same regardless of n.",
+        "is_correct": false,
+        "rationale": "This correctly describes the shape change but incorrectly claims the standard error is unaffected by sample size, when in fact it decreases as n increases."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-010",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "5"
+    ],
+    "subtopics": [
+      "Unit 5: Conditions for the Sampling Distribution of a Sample Proportion (Success-Failure Condition)"
+    ],
+    "intended_difficulty": "Hard",
+    "stimulus": "A quality control engineer wants to use a normal approximation for the sampling distribution of the sample proportion of defective items in a random sample of size n = 40 from a manufacturing process where the true defect rate is p = 0.03.",
+    "stem": "Why is it inappropriate to use a normal approximation for the sampling distribution of p-hat in this situation?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "np = 40(0.03) = 1.2, which is less than 10, so the success-failure condition is not met and the sampling distribution of p-hat would be skewed, not approximately normal.",
+        "is_correct": true,
+        "rationale": "The success-failure condition requires both np and n(1-p) to be at least 10 (a common threshold); here np = 1.2, which fails the condition, so the normal approximation is not justified."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "The sample size 40 is too small to ever use a normal approximation, regardless of p.",
+        "is_correct": false,
+        "rationale": "Appropriateness depends on np and n(1-p), not on the sample size n alone; a sample of 40 could be adequate for a different value of p."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "The population defect rate p = 0.03 is a parameter, not a statistic, so the normal approximation does not apply to parameters.",
+        "is_correct": false,
+        "rationale": "This confuses the parameter/statistic distinction with the actual condition being checked; the success-failure condition uses p to check np and n(1-p), regardless of p being a parameter."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "Random sampling was not used, so no approximation is valid.",
+        "is_correct": false,
+        "rationale": "The stimulus states the sample is random; this introduces an assumption violation that isn't actually present in the scenario."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-011",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "6"
+    ],
+    "subtopics": [
+      "Unit 6: Interpreting a Confidence Interval for a Proportion"
+    ],
+    "intended_difficulty": "Medium",
+    "stimulus": "A polling organization constructs a 95% confidence interval for the proportion of adults in a state who support a new transportation initiative and obtains the interval (0.46, 0.54) based on a random sample of 800 adults.",
+    "stem": "Which is a correct interpretation of this confidence interval?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "There is a 95% probability that the true population proportion is between 0.46 and 0.54.",
+        "is_correct": false,
+        "rationale": "The true population proportion is a fixed (though unknown) number, not a random variable, so it is incorrect to assign a probability to it falling in a specific interval."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "95% of adults in the state support the initiative, plus or minus 4 percentage points.",
+        "is_correct": false,
+        "rationale": "This confuses the confidence interval for the unknown population proportion with a statement about what fraction of individual adults support the initiative."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "If this exact sample were surveyed 100 times, the sample proportion would fall between 0.46 and 0.54 ninety-five times.",
+        "is_correct": false,
+        "rationale": "\"95% confidence\" describes the long-run behavior of the method across many different random samples, not repeated surveys of the same fixed sample."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "We are 95% confident that the interval from 0.46 to 0.54 captures the true proportion of all adults in the state who support the initiative, based on the method used to construct it.",
+        "is_correct": true,
+        "rationale": "This correctly ties the 95% confidence level to the reliability of the interval-construction method over repeated random sampling, rather than to a probability statement about the fixed parameter."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-012",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "6"
+    ],
+    "subtopics": [
+      "Unit 6: Two-Proportion z-Test -- Interpreting a Significant Result from a Randomized Experiment"
+    ],
+    "intended_difficulty": "Hard",
+    "stimulus": "A company tests whether a new checkout design increases the proportion of customers who complete a purchase. In a randomized experiment, 620 customers were shown the new design and 245 completed a purchase; 580 customers were shown the old design and 203 completed a purchase. A two-proportion z-test for the alternative hypothesis that the new design's completion proportion is greater than the old design's completion proportion yields a p-value of 0.038.",
+    "stem": "Using a significance level of alpha = 0.05, which is the correct conclusion in context?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "Because p = 0.038 is less than 0.05, there is a 3.8% probability that the old and new designs have the same true completion proportion.",
+        "is_correct": false,
+        "rationale": "This is the classic p-value misinterpretation; a p-value is the probability of the observed (or more extreme) sample results assuming the null hypothesis is true, not the probability that the null hypothesis itself is true."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "Because p = 0.038 is less than 0.05, there is convincing evidence that the new checkout design causes a higher completion proportion than the old design.",
+        "is_correct": true,
+        "rationale": "Because this was a randomized experiment (customers were randomly assigned to see each design) and the p-value is below alpha, a causal conclusion in context is statistically justified."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "Because p = 0.038 is less than 0.05, there is convincing evidence that the new design is associated with a higher completion proportion, but causation cannot be concluded since this was not a controlled experiment.",
+        "is_correct": false,
+        "rationale": "This misreads the stimulus, which explicitly describes a randomized experiment; causal language is actually appropriate here, unlike in an observational study."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "Because p = 0.038 is close to 0.05, the results are inconclusive and no decision can be made at alpha = 0.05.",
+        "is_correct": false,
+        "rationale": "The formal decision rule compares p to alpha directly; since 0.038 < 0.05, the result is statistically significant regardless of how close the p-value is to the threshold."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-013",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "7"
+    ],
+    "subtopics": [
+      "Unit 7: Conditions for a One-Sample t-Interval for a Mean"
+    ],
+    "intended_difficulty": "Medium",
+    "stimulus": "A nutritionist wants to construct a confidence interval for the mean sugar content (in grams) of a population of energy bars using a random sample of 8 bars. A dotplot of the 8 sample values shows a strong right skew with one bar much higher in sugar content than the rest.",
+    "stem": "Is it appropriate to construct a one-sample t-interval for the mean using this sample?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "No, because the sample size is small (n = 8) and the sample data show strong skewness, so there is no good reason to believe the sampling distribution of x-bar is approximately normal.",
+        "is_correct": true,
+        "rationale": "With a small sample and clear skewness/an outlier in the data, there is no basis for assuming the population is approximately normal or that the sampling distribution of the mean is approximately normal, so the t-interval's normality condition is not satisfied."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "Yes, because the sample was randomly selected, and random selection is the only condition required for a t-interval.",
+        "is_correct": false,
+        "rationale": "Random selection is one condition, but the normal/large-sample condition on the shape of the data or the sampling distribution must also be checked; it is not the only requirement."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "Yes, because the Central Limit Theorem guarantees the sampling distribution of x-bar is approximately normal for any sample size greater than 5.",
+        "is_correct": false,
+        "rationale": "There is no such rule; the Central Limit Theorem's normal approximation improves gradually with sample size and depends on how skewed the population is, not a fixed cutoff of 5."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "No, because t-intervals can never be used with sample sizes smaller than 30.",
+        "is_correct": false,
+        "rationale": "This overgeneralizes a common rule of thumb into an absolute rule; small samples can still support a t-interval when there's good reason to believe the population itself is approximately normal, which is not the case here given the observed skew."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-014",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "7"
+    ],
+    "subtopics": [
+      "Unit 7: Paired vs. Two-Sample t-Procedures"
+    ],
+    "intended_difficulty": "Hard",
+    "stimulus": "A running coach wants to know whether a new stretching routine improves 1-mile run times. She has each of 24 runners run 1 mile, record their time, complete the new stretching routine, then run the same 1-mile course again and record their time. She wants to compare each runner's time before and after the stretching routine.",
+    "stem": "Which inference procedure is appropriate for testing whether the stretching routine changes mean run time?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "A two-sample t-test for the difference of two means, since there are two sets of run times (before and after).",
+        "is_correct": false,
+        "rationale": "This treats the before and after times as coming from two independent samples, but the same 24 runners were measured under both conditions, which calls for a paired procedure instead."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "A one-sample z-test on the mean of the after times, since the population standard deviation of run times is likely known from prior races.",
+        "is_correct": false,
+        "rationale": "This introduces an assumption (known population standard deviation) not supported by the stimulus, and it also ignores the paired before/after structure of the data entirely."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "A paired t-test on the differences between each runner's before and after times, since the same runners were measured under both conditions.",
+        "is_correct": true,
+        "rationale": "Because each runner contributes both a before and an after time, the appropriate procedure is a paired t-test on the within-runner differences, which accounts for the natural pairing and removes runner-to-runner variability from the comparison."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "A two-proportion z-test comparing the proportion of runners who improved before and after.",
+        "is_correct": false,
+        "rationale": "This discards the actual numeric time data in favor of a proportion, and proportions procedures are not appropriate for genuinely quantitative (time) measurements."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-015",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "8"
+    ],
+    "subtopics": [
+      "Unit 8: Choosing Between Chi-Square Goodness-of-Fit, Independence, and Homogeneity"
+    ],
+    "intended_difficulty": "Medium",
+    "stimulus": "A hobbyist claims that a six-sided die is fair. She rolls the die 300 times and records the observed count of each face (1 through 6), then wants to compare these observed counts to the counts expected if the die were truly fair.",
+    "stem": "Which chi-square procedure should she use?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "A chi-square test for homogeneity, since she is comparing multiple groups.",
+        "is_correct": false,
+        "rationale": "A test for homogeneity compares the distribution of one categorical variable across two or more independent groups or samples; here there is only one sample and one hypothesized distribution to compare against."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "A chi-square test for independence, since face value and roll number might be related.",
+        "is_correct": false,
+        "rationale": "A test for independence examines whether two categorical variables measured on the same individuals are related; there is no second categorical variable being crossed with face value here."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "A two-proportion z-test, since she only cares whether the die is fair or not.",
+        "is_correct": false,
+        "rationale": "This scenario involves six categories at once (each face), not a single two-outcome proportion comparison between two groups."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "A chi-square goodness-of-fit test, since she is comparing the observed distribution of one categorical variable (die face) to a hypothesized distribution.",
+        "is_correct": true,
+        "rationale": "A goodness-of-fit test compares the observed counts of a single categorical variable, from a single sample, to a hypothesized (here, uniform/fair) distribution -- exactly this scenario."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-016",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "8"
+    ],
+    "subtopics": [
+      "Unit 8: Expected Counts Condition for Chi-Square Procedures"
+    ],
+    "intended_difficulty": "Hard",
+    "stimulus": "A researcher collects data on eye color (categorized as Brown, Blue, Green, Hazel, or Other) for a random sample of 60 people from a small town, wanting to test whether the town's eye-color distribution matches known national percentages. After computing expected counts under the national percentages, the expected count for the \"Other\" category is 2.4, while all other categories have expected counts above 10.",
+    "stem": "What is the best course of action given this situation?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "Proceed with the chi-square goodness-of-fit test as planned; expected counts do not need to meet any minimum threshold as long as the observed counts are all positive.",
+        "is_correct": false,
+        "rationale": "Chi-square procedures require expected counts to meet a minimum threshold (commonly at least 5 in each category) for the chi-square approximation to be valid; observed counts being positive does not address this."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "Combine the \"Other\" category with another sparse or conceptually similar category so that all expected counts are at least 5, then proceed with the chi-square goodness-of-fit test using the reduced set of categories.",
+        "is_correct": true,
+        "rationale": "Combining categories to raise low expected counts to at least 5 is the standard way to satisfy the expected-counts condition while still allowing a valid chi-square goodness-of-fit test to proceed."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "Switch to a chi-square test for independence instead, since that test has no minimum expected-count requirement.",
+        "is_correct": false,
+        "rationale": "The expected-counts condition applies to chi-square procedures generally, including tests for independence and homogeneity; switching tests does not remove the requirement."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "Increase the significance level from 0.05 to 0.10 to compensate for the small expected count in the \"Other\" category.",
+        "is_correct": false,
+        "rationale": "Adjusting the significance level addresses the decision threshold, not the underlying condition violation caused by a too-small expected count; it does not fix the validity problem."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-017",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "9"
+    ],
+    "subtopics": [
+      "Unit 9: Interpreting the Standard Error of the Slope"
+    ],
+    "intended_difficulty": "Medium",
+    "stimulus": "A researcher fits a least-squares regression line to examine the relationship between weekly hours of exercise and resting heart rate for a random sample of 45 adults. Computer output gives a slope estimate of b = -1.8 beats per minute per hour of exercise, with a standard error of the slope SE(b) = 0.6, testing H0: beta = 0 versus Ha: beta does not equal 0.",
+    "stem": "Which is the correct interpretation of the standard error of the slope, SE(b) = 0.6, in this context?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "On average, individual resting heart rates differ from the regression line's predictions by 0.6 beats per minute.",
+        "is_correct": false,
+        "rationale": "This describes the standard deviation of the residuals (a measure of scatter about the line), not the standard error of the slope estimate itself."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "0.6% of the variation in resting heart rate is explained by hours of exercise.",
+        "is_correct": false,
+        "rationale": "This describes r-squared, a percentage-of-variation-explained statistic, which is a different quantity from the standard error of the slope."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "SE(b) = 0.6 measures how much the estimated slope, b, would be expected to vary from sample to sample if many different random samples of 45 adults were taken from the population.",
+        "is_correct": true,
+        "rationale": "The standard error of the slope quantifies the sample-to-sample variability of the slope estimate b across repeated random samples of the same size from the population -- the same logic as a standard error for any other sample statistic."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "The true population slope beta is guaranteed to be within 0.6 of -1.8.",
+        "is_correct": false,
+        "rationale": "A standard error alone does not provide a guaranteed bound; forming an actual margin of error requires multiplying by an appropriate critical value, and even then the result is a confidence interval, not a guarantee."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-018",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "9"
+    ],
+    "subtopics": [
+      "Unit 9: Hypothesis Test for the Slope -- Significance vs. Causation and Effect Size"
+    ],
+    "intended_difficulty": "Hard",
+    "stimulus": "Using the same study as the previous item (n = 45 adults, slope b = -1.8, SE(b) = 0.6), a t-test of H0: beta = 0 versus Ha: beta does not equal 0 produces a p-value of 0.004. This was an observational study; adults were not randomly assigned their exercise habits.",
+    "stem": "Which is the correct conclusion at alpha = 0.05?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "Because p = 0.004 is less than 0.05, there is convincing evidence of a negative linear relationship between hours of exercise and resting heart rate in the population, but since this was an observational study, causation cannot be concluded from this test alone.",
+        "is_correct": true,
+        "rationale": "The small p-value gives convincing evidence against beta = 0, supporting a real linear association in the population, but because adults were not randomly assigned their exercise habits, confounding variables cannot be ruled out and a causal claim is not supported."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "Because p = 0.004 is less than 0.05, there is convincing evidence that increasing exercise causes a decrease in resting heart rate.",
+        "is_correct": false,
+        "rationale": "This draws a causal conclusion from an observational study with no random assignment of exercise habits, which cannot rule out confounding variables such as age or overall fitness."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "Because p = 0.004 is less than 0.05, the null hypothesis is proven false and beta must equal -1.8 in the population.",
+        "is_correct": false,
+        "rationale": "Rejecting a null hypothesis provides evidence against beta = 0; it does not \"prove\" the null false with certainty, nor does it establish that the population slope equals the sample estimate exactly."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "Because p = 0.004 is less than 0.05, there is convincing evidence of a strong linear relationship, meaning r-squared must be close to 1.",
+        "is_correct": false,
+        "rationale": "Statistical significance (driven partly by sample size) and effect size (such as r-squared) are different concepts; a small but real slope can be highly statistically significant with a large enough sample without indicating a strong r-squared."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-019",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "1"
+    ],
+    "subtopics": [
+      "Unit 1: Measures of Center and Spread"
+    ],
+    "intended_difficulty": "Easy",
+    "stimulus": "A set of delivery times is strongly right-skewed, with a few very long times.",
+    "stem": "Which pair of summary statistics is most appropriate to describe the center and spread?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "Mean and standard deviation, because they use all the data values.",
+        "is_correct": false,
+        "rationale": "Using every value is not an advantage when the distribution is skewed; these measures are not resistant."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "Mean and range, because the range captures the overall spread.",
+        "is_correct": false,
+        "rationale": "The range is driven only by the extreme values and is extremely sensitive to outliers."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "Median and IQR, because they are resistant to the skew and the long right tail.",
+        "is_correct": true,
+        "rationale": "Median and IQR are resistant measures, so they are the standard choice for skewed distributions and outliers."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "Median and standard deviation, because the median is resistant.",
+        "is_correct": false,
+        "rationale": "This mixes a resistant center with a non-resistant spread measure."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-020",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "1"
+    ],
+    "subtopics": [
+      "Unit 1: z-scores and standardization"
+    ],
+    "intended_difficulty": "Easy",
+    "stimulus": "A test has mean 70 and standard deviation 8.",
+    "stem": "What is the z-score for a student who scored 78?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "8",
+        "is_correct": false,
+        "rationale": "This subtracts the mean but does not standardize by the standard deviation."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "1.0",
+        "is_correct": true,
+        "rationale": "z = (78 - 70) / 8 = 1."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "0.8",
+        "is_correct": false,
+        "rationale": "This divides by 10 instead of 8 or treats the difference incorrectly."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "-1.0",
+        "is_correct": false,
+        "rationale": "The sign is wrong; 78 is above the mean."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-021",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "1"
+    ],
+    "subtopics": [
+      "Unit 1: effect of outliers"
+    ],
+    "intended_difficulty": "Medium",
+    "stimulus": "A data set has 12 values with mean 40. One value is changed from 18 to 30.",
+    "stem": "How does the mean change?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "It increases by 12.",
+        "is_correct": false,
+        "rationale": "That is the change in one data value, not the change in the mean."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "It does not change.",
+        "is_correct": false,
+        "rationale": "Changing a data value changes the mean unless the change is zero."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "It increases by 0.5.",
+        "is_correct": false,
+        "rationale": "This divides by the wrong number of values."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "It increases by 1.0, because the total sum increases by 12 and the data set has 12 values.",
+        "is_correct": true,
+        "rationale": "Changing one value by +12 raises the mean by 12/12 = 1."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-022",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "1"
+    ],
+    "subtopics": [
+      "Unit 1: shape and outliers"
+    ],
+    "intended_difficulty": "Medium",
+    "stimulus": "A boxplot has a long right whisker and one high outlier.",
+    "stem": "Which description best matches the distribution?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "Right-skewed with a high outlier.",
+        "is_correct": true,
+        "rationale": "A long right whisker and a high outlier indicate right skew."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "Left-skewed with a low outlier.",
+        "is_correct": false,
+        "rationale": "This describes the opposite tail behavior."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "Approximately symmetric with no outliers.",
+        "is_correct": false,
+        "rationale": "The long right tail and outlier contradict symmetry."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "Bimodal with two clusters.",
+        "is_correct": false,
+        "rationale": "A boxplot does not by itself show two modes, and nothing here indicates bimodality."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-023",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "1"
+    ],
+    "subtopics": [
+      "Unit 1: IQR and resistance"
+    ],
+    "intended_difficulty": "Medium",
+    "stimulus": "Data values are 10, 11, 12, 12, 13, 13, 15, 40.",
+    "stem": "Which measure is most resistant to the outlier 40?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "Range",
+        "is_correct": false,
+        "rationale": "The range is entirely determined by the minimum and maximum, so it is not resistant."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "Standard deviation",
+        "is_correct": false,
+        "rationale": "Standard deviation is pulled by extreme values and is not resistant."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "IQR",
+        "is_correct": true,
+        "rationale": "IQR depends on the middle half of the ordered data and is resistant to a single extreme value."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "Mean",
+        "is_correct": false,
+        "rationale": "The mean is also not resistant to outliers."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-024",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "1"
+    ],
+    "subtopics": [
+      "Unit 1: quartiles"
+    ],
+    "intended_difficulty": "Easy",
+    "stimulus": "A data set has 20 observations ordered from least to greatest.",
+    "stem": "Which statement about the median is correct?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "The median is the 10th value only.",
+        "is_correct": false,
+        "rationale": "That would be true only for an odd number of observations."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "The median is the average of the 10th and 11th values.",
+        "is_correct": true,
+        "rationale": "For an even number of observations, the median is the average of the two middle values."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "The median is the difference between the 10th and 11th values.",
+        "is_correct": false,
+        "rationale": "Median is an average, not a difference."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "The median is the mean of all 20 values.",
+        "is_correct": false,
+        "rationale": "That describes the mean, not the median."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-025",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "1"
+    ],
+    "subtopics": [
+      "Unit 1: outlier rule"
+    ],
+    "intended_difficulty": "Hard",
+    "stimulus": "For a data set, Q1 = 18 and Q3 = 30.",
+    "stem": "What is the upper fence for possible outliers?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "42",
+        "is_correct": false,
+        "rationale": "This uses 1.0(IQR) instead of 1.5(IQR)."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "36",
+        "is_correct": false,
+        "rationale": "This adds the IQR but not the 1.5 multiplier."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "60",
+        "is_correct": false,
+        "rationale": "This adds twice the IQR, which is too large."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "48",
+        "is_correct": true,
+        "rationale": "IQR = 12, so the upper fence is Q3 + 1.5(IQR) = 30 + 18 = 48."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-026",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "1"
+    ],
+    "subtopics": [
+      "Unit 1: percentile interpretation"
+    ],
+    "intended_difficulty": "Hard",
+    "stimulus": "A score is at the 75th percentile on a test.",
+    "stem": "What does that mean?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "About 75% of scores are at or below that score.",
+        "is_correct": true,
+        "rationale": "Percentiles describe the percentage of observations at or below the given value."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "The score is 75 points higher than the mean.",
+        "is_correct": false,
+        "rationale": "Percentile does not measure distance from the mean."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "75% of scores are above that score.",
+        "is_correct": false,
+        "rationale": "That would describe the 25th percentile, not the 75th."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "The score is the average of the top 75% of scores.",
+        "is_correct": false,
+        "rationale": "That is not what a percentile means."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-027",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "1"
+    ],
+    "subtopics": [
+      "Unit 1: compare mean and median"
+    ],
+    "intended_difficulty": "Medium",
+    "stimulus": "A distribution is roughly symmetric with no outliers.",
+    "stem": "Which statement is most appropriate?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "The mean must be much larger than the median.",
+        "is_correct": false,
+        "rationale": "That would suggest right skew, not symmetry."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "The median must always be larger than the mean.",
+        "is_correct": false,
+        "rationale": "There is no such rule."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "The mean and median will be close to each other.",
+        "is_correct": true,
+        "rationale": "In a roughly symmetric distribution, mean and median tend to be similar."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "The range is always the best measure of spread.",
+        "is_correct": false,
+        "rationale": "The best measure depends on shape and outliers."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-028",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "2"
+    ],
+    "subtopics": [
+      "Unit 2: correlation vs causation"
+    ],
+    "intended_difficulty": "Easy",
+    "stimulus": "A study finds a positive correlation between hours studied and test scores.",
+    "stem": "Which statement is valid?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "Studying definitely causes higher scores.",
+        "is_correct": false,
+        "rationale": "Causation is not justified from correlation alone."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "The variables are associated, but the study does not by itself prove that studying causes higher scores.",
+        "is_correct": true,
+        "rationale": "Correlation alone cannot establish causation because lurking variables or reverse causality may exist."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "There is no association at all.",
+        "is_correct": false,
+        "rationale": "The correlation indicates an association."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "The correlation proves the size of the causal effect.",
+        "is_correct": false,
+        "rationale": "Correlation does not quantify causal effect."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-029",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "2"
+    ],
+    "subtopics": [
+      "Unit 2: residual interpretation"
+    ],
+    "intended_difficulty": "Medium",
+    "stimulus": "A regression line predicts y = 52 for an observation whose actual y-value is 47.",
+    "stem": "What is the residual?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "5",
+        "is_correct": false,
+        "rationale": "This uses predicted - actual, which reverses the sign."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "99",
+        "is_correct": false,
+        "rationale": "This adds the values rather than subtracting them."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "-47",
+        "is_correct": false,
+        "rationale": "This subtracts the wrong quantity."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "-5",
+        "is_correct": true,
+        "rationale": "Residual = actual - predicted = 47 - 52 = -5."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-030",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "2"
+    ],
+    "subtopics": [
+      "Unit 2: extrapolation"
+    ],
+    "intended_difficulty": "Hard",
+    "stimulus": "A regression line was fit using x-values from 10 to 40.",
+    "stem": "Which prediction is most appropriate?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "Use the line to predict at x = 25, because that is within the observed x-range.",
+        "is_correct": true,
+        "rationale": "Interpolation within the observed range is much safer than extrapolation beyond it."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "Use the line to predict at x = 100, because the line works for all x-values.",
+        "is_correct": false,
+        "rationale": "This is extrapolation far beyond the data range."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "Use the line only when x equals the mean of the data.",
+        "is_correct": false,
+        "rationale": "Predictions are not limited to the mean."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "Never use a regression line for prediction.",
+        "is_correct": false,
+        "rationale": "Regression is often used for prediction within the data range."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-031",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "2"
+    ],
+    "subtopics": [
+      "Unit 2: slope interpretation"
+    ],
+    "intended_difficulty": "Medium",
+    "stimulus": "A regression line is ŷ = 12 + 0.8x.",
+    "stem": "What is the best interpretation of the slope?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "When x = 0, y increases by 0.8.",
+        "is_correct": false,
+        "rationale": "That mixes slope with intercept."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "The correlation is 0.8.",
+        "is_correct": false,
+        "rationale": "Slope and correlation are different quantities."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "For each 1-unit increase in x, the predicted y-value increases by about 0.8 units on average.",
+        "is_correct": true,
+        "rationale": "Slope describes the expected change in y for a one-unit increase in x."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "The y-intercept is 0.8.",
+        "is_correct": false,
+        "rationale": "The intercept is 12, not 0.8."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-032",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "2"
+    ],
+    "subtopics": [
+      "Unit 2: r-squared interpretation"
+    ],
+    "intended_difficulty": "Hard",
+    "stimulus": "A regression output reports R² = 0.64.",
+    "stem": "What does this mean?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "The correlation is 0.64.",
+        "is_correct": false,
+        "rationale": "R² is not the same as r."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "About 64% of the variation in y is explained by the linear relationship with x.",
+        "is_correct": true,
+        "rationale": "R² measures the proportion of variability in the response explained by the regression model."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "64% of the x-values are explained by y.",
+        "is_correct": false,
+        "rationale": "The response variable is y, not x."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "The slope is 0.64.",
+        "is_correct": false,
+        "rationale": "R² does not equal slope."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-033",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "2"
+    ],
+    "subtopics": [
+      "Unit 2: lurking variables"
+    ],
+    "intended_difficulty": "Medium",
+    "stimulus": "A positive association exists between ice cream sales and drownings.",
+    "stem": "Which lurking variable is the best explanation?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "The number of cash registers",
+        "is_correct": false,
+        "rationale": "This is not a plausible common cause."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "The color of the ice cream truck",
+        "is_correct": false,
+        "rationale": "This does not explain both variables."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "The slope of the regression line",
+        "is_correct": false,
+        "rationale": "That is a feature of the model, not a lurking variable."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "Hot weather / season of the year",
+        "is_correct": true,
+        "rationale": "A common cause like hot weather can increase both ice cream sales and swimming activity, leading to more drownings."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-034",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "2"
+    ],
+    "subtopics": [
+      "Unit 2: influential points"
+    ],
+    "intended_difficulty": "Hard",
+    "stimulus": "A scatterplot has one point far from the others with a very large x-value and unusually small y-value.",
+    "stem": "What is the likely effect of removing that point?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "The regression line and correlation could change substantially.",
+        "is_correct": true,
+        "rationale": "An influential point can strongly affect slope and correlation, especially when it has high leverage."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "Nothing changes because all points count equally.",
+        "is_correct": false,
+        "rationale": "Influential points can affect the fitted line a great deal."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "Only the y-intercept changes, never the slope.",
+        "is_correct": false,
+        "rationale": "Both slope and intercept can change."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "The sign of the correlation must always stay the same.",
+        "is_correct": false,
+        "rationale": "In some cases the sign can change if the influential point is extreme enough."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-035",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "2"
+    ],
+    "subtopics": [
+      "Unit 2: least squares line"
+    ],
+    "intended_difficulty": "Medium",
+    "stimulus": "A regression line minimizes the sum of the squared residuals.",
+    "stem": "Why are residuals squared?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "To make the line have a positive slope.",
+        "is_correct": false,
+        "rationale": "Squaring residuals has nothing to do with forcing the slope to be positive."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "To guarantee a perfect fit.",
+        "is_correct": false,
+        "rationale": "Squared residuals do not guarantee a perfect fit."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "Squaring prevents positive and negative residuals from canceling and gives more weight to larger errors.",
+        "is_correct": true,
+        "rationale": "The least-squares criterion uses squared residuals so all deviations count positively and large misses are penalized more."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "Because residuals must always be positive.",
+        "is_correct": false,
+        "rationale": "Residuals can be positive or negative."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-036",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "2"
+    ],
+    "subtopics": [
+      "Unit 2: direction and strength"
+    ],
+    "intended_difficulty": "Hard",
+    "stimulus": "A scatterplot shows a strong negative linear trend.",
+    "stem": "Which correlation value is most plausible?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "0.85",
+        "is_correct": false,
+        "rationale": "This has the wrong sign for a negative trend."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "-0.85",
+        "is_correct": true,
+        "rationale": "A strong negative linear trend corresponds to a correlation close to -1."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "-0.10",
+        "is_correct": false,
+        "rationale": "This would indicate a weak negative relationship, not a strong one."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "1.00",
+        "is_correct": false,
+        "rationale": "This would be a perfect positive linear relationship."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-037",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "3"
+    ],
+    "subtopics": [
+      "Unit 3: sampling methods"
+    ],
+    "intended_difficulty": "Easy",
+    "stimulus": "A teacher wants a random sample of 30 students from a list of 300.",
+    "stem": "What is the best method?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "Choose the first 30 students in alphabetical order.",
+        "is_correct": false,
+        "rationale": "This is not random and may be biased."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "Choose only students who volunteer.",
+        "is_correct": false,
+        "rationale": "Volunteers create voluntary-response bias."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "Assign each student a number and use a random number generator to select 30 numbers.",
+        "is_correct": true,
+        "rationale": "A simple random sample gives every student an equal chance of being selected."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "Choose every student whose birthday is in January.",
+        "is_correct": false,
+        "rationale": "This is systematic by a nonrandom rule and may be biased."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-038",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "3"
+    ],
+    "subtopics": [
+      "Unit 3: stratified sampling"
+    ],
+    "intended_difficulty": "Medium",
+    "stimulus": "A school has freshmen, sophomores, juniors, and seniors in different proportions.",
+    "stem": "Why might stratified sampling be better than a simple random sample?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "It ensures each grade level is represented in the sample.",
+        "is_correct": true,
+        "rationale": "Stratified sampling can improve representativeness when important subgroups need guaranteed representation."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "It guarantees no bias under any circumstance.",
+        "is_correct": false,
+        "rationale": "No sampling method guarantees zero bias."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "It always requires fewer people than any other method.",
+        "is_correct": false,
+        "rationale": "Sample size depends on the precision desired, not just the method."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "It removes the need for random selection.",
+        "is_correct": false,
+        "rationale": "Strata are typically sampled randomly within each group."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-039",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "3"
+    ],
+    "subtopics": [
+      "Unit 3: observational vs experimental studies"
+    ],
+    "intended_difficulty": "Hard",
+    "stimulus": "Researchers record whether students study music and whether they prefer online lectures. They do not assign any treatment.",
+    "stem": "What type of study is this?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "Randomized experiment",
+        "is_correct": false,
+        "rationale": "No random assignment or imposed treatment is described."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "Case-control experiment",
+        "is_correct": false,
+        "rationale": "This is not an experimental design."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "Double-blind trial",
+        "is_correct": false,
+        "rationale": "No treatment or blinding is described."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "Observational study",
+        "is_correct": true,
+        "rationale": "The researchers only observe existing behavior and do not impose a treatment."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-040",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "3"
+    ],
+    "subtopics": [
+      "Unit 3: blocking"
+    ],
+    "intended_difficulty": "Medium",
+    "stimulus": "An experiment compares two diets, but age may affect results.",
+    "stem": "How could blocking help?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "Ignore age because random assignment always eliminates all variation.",
+        "is_correct": false,
+        "rationale": "Random assignment reduces confounding but does not remove all variation."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "Group subjects into age categories before random assignment within each age block.",
+        "is_correct": true,
+        "rationale": "Blocking controls a known source of variability by balancing it across treatments."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "Use convenience sampling instead.",
+        "is_correct": false,
+        "rationale": "Convenience sampling increases bias and does not block anything."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "Use the largest age group only.",
+        "is_correct": false,
+        "rationale": "This would discard data and does not properly block."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-041",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "3"
+    ],
+    "subtopics": [
+      "Unit 3: confounding variables"
+    ],
+    "intended_difficulty": "Hard",
+    "stimulus": "A study finds that students who sleep more also score higher on tests.",
+    "stem": "Which is a plausible confounding variable?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "The regression slope",
+        "is_correct": false,
+        "rationale": "The slope is part of the analysis, not a lurking variable."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "The sample size",
+        "is_correct": false,
+        "rationale": "Sample size affects precision, not the causal mechanism in the same way."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "Study habits or prior preparation",
+        "is_correct": true,
+        "rationale": "A third variable could affect both sleep and test scores, producing the observed association."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "The p-value",
+        "is_correct": false,
+        "rationale": "The p-value is a summary of evidence, not a confounder."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-042",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "3"
+    ],
+    "subtopics": [
+      "Unit 3: random assignment"
+    ],
+    "intended_difficulty": "Easy",
+    "stimulus": "A school randomly assigns students to a new tutoring program or the old program.",
+    "stem": "What does random assignment help with most?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "Guaranteeing a perfectly equal sample size in every subgroup.",
+        "is_correct": false,
+        "rationale": "Random assignment does not guarantee equal subgroup sizes."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "Eliminating all measurement error.",
+        "is_correct": false,
+        "rationale": "Random assignment does not fix measurement problems."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "Making the study automatically double blind.",
+        "is_correct": false,
+        "rationale": "Blinding is separate from random assignment."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "Balancing lurking variables between the groups so a causal comparison is more credible.",
+        "is_correct": true,
+        "rationale": "Random assignment helps create comparable groups and supports causal inference."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-043",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "3"
+    ],
+    "subtopics": [
+      "Unit 3: undercoverage bias"
+    ],
+    "intended_difficulty": "Medium",
+    "stimulus": "A survey is conducted only by texting students with smartphones.",
+    "stem": "What bias is most likely?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "Undercoverage bias",
+        "is_correct": true,
+        "rationale": "Students without smartphones are systematically left out of the sample frame."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "Response bias only",
+        "is_correct": false,
+        "rationale": "The main issue is that some students are excluded before response occurs."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "No bias because texting is random.",
+        "is_correct": false,
+        "rationale": "The sample frame is not representative of all students."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "Placebo effect",
+        "is_correct": false,
+        "rationale": "Placebo effects apply to experiments, not surveys."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-044",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "3"
+    ],
+    "subtopics": [
+      "Unit 3: double-blind studies"
+    ],
+    "intended_difficulty": "Hard",
+    "stimulus": "A medical trial is designed so neither the subjects nor the evaluators know who receives the pill or placebo.",
+    "stem": "Why is this useful?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "It guarantees the treatment works.",
+        "is_correct": false,
+        "rationale": "Blinding does not guarantee effectiveness."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "It helps reduce placebo effects and observer bias.",
+        "is_correct": true,
+        "rationale": "Blinding reduces the chance that expectations affect responses or measurements."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "It removes the need for random assignment.",
+        "is_correct": false,
+        "rationale": "Random assignment is still needed."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "It makes the sample larger.",
+        "is_correct": false,
+        "rationale": "Blinding does not change sample size."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-045",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "3"
+    ],
+    "subtopics": [
+      "Unit 3: census vs sample"
+    ],
+    "intended_difficulty": "Medium",
+    "stimulus": "A principal asks every student in the school to fill out a survey.",
+    "stem": "What is this called?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "A random sample",
+        "is_correct": false,
+        "rationale": "Not everyone is selected randomly when all are surveyed."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "A stratified sample",
+        "is_correct": false,
+        "rationale": "There is no subsampling by strata here."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "A census",
+        "is_correct": true,
+        "rationale": "A census collects data from every member of the population of interest."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "A biased sample",
+        "is_correct": false,
+        "rationale": "A census may still have nonresponse issues, but it is still a census by definition."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-046",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "4"
+    ],
+    "subtopics": [
+      "Unit 4: conditional probability"
+    ],
+    "intended_difficulty": "Easy",
+    "stimulus": "In a class of 40 students, 10 are athletes, and 4 of those athletes are on the honor roll.",
+    "stem": "What is P(honor roll | athlete)?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "4/10 = 0.40",
+        "is_correct": true,
+        "rationale": "Conditional probability uses the athlete group as the denominator."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "4/40 = 0.10",
+        "is_correct": false,
+        "rationale": "This uses the whole class instead of only the athletes."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "10/40 = 0.25",
+        "is_correct": false,
+        "rationale": "This is P(athlete), not the conditional probability."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "4/6 = 0.67",
+        "is_correct": false,
+        "rationale": "This uses the wrong denominator."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-047",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "4"
+    ],
+    "subtopics": [
+      "Unit 4: independence"
+    ],
+    "intended_difficulty": "Medium",
+    "stimulus": "P(A) = 0.3, P(B) = 0.4, and P(A and B) = 0.12.",
+    "stem": "Are A and B independent?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "No, because P(A) and P(B) are not equal.",
+        "is_correct": false,
+        "rationale": "Equal probabilities are not required for independence."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "No, because the events both have probabilities less than 1.",
+        "is_correct": false,
+        "rationale": "All probabilities are less than 1; that does not determine independence."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "Yes, because A and B cannot both happen.",
+        "is_correct": false,
+        "rationale": "That would describe mutually exclusive events, not independence."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "Yes, because P(A)P(B) = 0.12 = P(A and B).",
+        "is_correct": true,
+        "rationale": "Independence holds when the joint probability equals the product of the marginal probabilities."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-048",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "4"
+    ],
+    "subtopics": [
+      "Unit 4: tree diagrams"
+    ],
+    "intended_difficulty": "Hard",
+    "stimulus": "A two-stage process has P(first success) = 0.3 and P(second success | first success) = 0.5.",
+    "stem": "What is the probability of success on both stages?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "0.8",
+        "is_correct": false,
+        "rationale": "This adds probabilities instead of multiplying along the path."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "0.15",
+        "is_correct": true,
+        "rationale": "Multiply along the path: 0.3 × 0.5 = 0.15."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "0.35",
+        "is_correct": false,
+        "rationale": "This combines the numbers incorrectly."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "0.65",
+        "is_correct": false,
+        "rationale": "This is not the probability of the joint path."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-049",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "4"
+    ],
+    "subtopics": [
+      "Unit 4: expected value"
+    ],
+    "intended_difficulty": "Medium",
+    "stimulus": "A game pays $10 with probability 0.2 and $0 otherwise.",
+    "stem": "What is the expected value?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "$10",
+        "is_correct": false,
+        "rationale": "This is the prize amount, not the expected value."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "$8",
+        "is_correct": false,
+        "rationale": "This is 10 × 0.8, which uses the wrong probability."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "$2",
+        "is_correct": true,
+        "rationale": "E(X) = 10(0.2) + 0(0.8) = 2."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "$0",
+        "is_correct": false,
+        "rationale": "There is a positive probability of winning, so the expected value is not zero."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-050",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "4"
+    ],
+    "subtopics": [
+      "Unit 4: complement rule"
+    ],
+    "intended_difficulty": "Hard",
+    "stimulus": "The probability that it rains tomorrow is 0.25.",
+    "stem": "What is the probability that it does not rain?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "0.75",
+        "is_correct": true,
+        "rationale": "Use the complement: 1 - 0.25 = 0.75."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "0.25",
+        "is_correct": false,
+        "rationale": "This repeats the original probability instead of its complement."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "0.50",
+        "is_correct": false,
+        "rationale": "This is not the complement of 0.25."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "0.80",
+        "is_correct": false,
+        "rationale": "This does not sum with 0.25 to 1."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-051",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "4"
+    ],
+    "subtopics": [
+      "Unit 4: mutually exclusive events"
+    ],
+    "intended_difficulty": "Easy",
+    "stimulus": "A single card is drawn from a standard deck.",
+    "stem": "Can the card be both a heart and a spade?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "Yes, because all suits overlap.",
+        "is_correct": false,
+        "rationale": "Suits are distinct categories."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "Yes, if the card is red.",
+        "is_correct": false,
+        "rationale": "Red does not make a card both a heart and a spade."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "No, because the events are independent.",
+        "is_correct": false,
+        "rationale": "Mutually exclusive is the relevant idea, not independence."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "No, because those events are mutually exclusive.",
+        "is_correct": true,
+        "rationale": "One card cannot belong to two different suits at the same time."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-052",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "4"
+    ],
+    "subtopics": [
+      "Unit 4: binomial probability"
+    ],
+    "intended_difficulty": "Medium",
+    "stimulus": "A basketball player makes a free throw with probability 0.7 on each attempt.",
+    "stem": "What features are needed for a binomial setting?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "Any random experiment with numerical outcomes.",
+        "is_correct": false,
+        "rationale": "Not every random experiment is binomial."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "A fixed number of trials, independent trials, two outcomes per trial, and a constant success probability.",
+        "is_correct": true,
+        "rationale": "Those are the standard binomial conditions."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "At least three outcomes on each trial.",
+        "is_correct": false,
+        "rationale": "Binomial trials have only two outcomes."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "A changing success probability from trial to trial.",
+        "is_correct": false,
+        "rationale": "Constant p is required."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-053",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "4"
+    ],
+    "subtopics": [
+      "Unit 4: combinations"
+    ],
+    "intended_difficulty": "Hard",
+    "stimulus": "A club wants to choose 3 officers from 10 members, with no order.",
+    "stem": "Which counting method is appropriate?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "Permutation",
+        "is_correct": false,
+        "rationale": "Permutation counts ordered arrangements, which is not needed here."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "Multiplication rule only",
+        "is_correct": false,
+        "rationale": "That alone does not account for choosing without order."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "Combination",
+        "is_correct": true,
+        "rationale": "When order does not matter, use combinations."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "Binomial distribution",
+        "is_correct": false,
+        "rationale": "This is a counting situation, not a binomial probability setting."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-054",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "4"
+    ],
+    "subtopics": [
+      "Unit 4: union probability"
+    ],
+    "intended_difficulty": "Medium",
+    "stimulus": "P(A) = 0.6, P(B) = 0.5, and P(A and B) = 0.2.",
+    "stem": "What is P(A or B)?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "0.9",
+        "is_correct": true,
+        "rationale": "Use the addition rule: P(A or B) = 0.6 + 0.5 - 0.2 = 0.9."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "0.7",
+        "is_correct": false,
+        "rationale": "This subtracts too much or omits one event."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "1.1",
+        "is_correct": false,
+        "rationale": "This adds the probabilities without correcting for overlap."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "0.2",
+        "is_correct": false,
+        "rationale": "This is only the intersection."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-055",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "5"
+    ],
+    "subtopics": [
+      "Unit 5: standard error"
+    ],
+    "intended_difficulty": "Easy",
+    "stimulus": "A population has σ = 12 and samples of size n = 36 are taken.",
+    "stem": "What is the standard error of x̄?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "12",
+        "is_correct": false,
+        "rationale": "This is the population standard deviation, not the standard error."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "2",
+        "is_correct": true,
+        "rationale": "SE = σ / √n = 12 / 6 = 2."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "6",
+        "is_correct": false,
+        "rationale": "This is √n, not the standard error."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "18",
+        "is_correct": false,
+        "rationale": "This is not a valid SE computation."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-056",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "5"
+    ],
+    "subtopics": [
+      "Unit 5: sampling distribution mean"
+    ],
+    "intended_difficulty": "Medium",
+    "stimulus": "Repeated random samples are taken from a population with mean μ = 80.",
+    "stem": "What is the mean of the sampling distribution of x̄?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "0",
+        "is_correct": false,
+        "rationale": "The sampling distribution mean is not zero unless the population mean is zero."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "n",
+        "is_correct": false,
+        "rationale": "Sample size is not the mean of the sampling distribution."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "σ",
+        "is_correct": false,
+        "rationale": "Population standard deviation is not the mean of the sampling distribution."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "80",
+        "is_correct": true,
+        "rationale": "The mean of the sampling distribution of x̄ equals the population mean μ."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-057",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "5"
+    ],
+    "subtopics": [
+      "Unit 5: CLT"
+    ],
+    "intended_difficulty": "Hard",
+    "stimulus": "A population is strongly skewed, but n = 50 random samples are taken.",
+    "stem": "Why is the sampling distribution of x̄ often approximately normal?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "By the Central Limit Theorem, large samples tend to produce an approximately normal sampling distribution of x̄.",
+        "is_correct": true,
+        "rationale": "The CLT says the sampling distribution of the mean becomes approximately normal as n grows large."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "Because every population is normal when n = 50.",
+        "is_correct": false,
+        "rationale": "The population itself does not become normal."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "Because the sample mean always equals the population mean.",
+        "is_correct": false,
+        "rationale": "The sample mean varies from sample to sample."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "Because skewness disappears in the raw data.",
+        "is_correct": false,
+        "rationale": "The raw data can still be skewed."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-058",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "5"
+    ],
+    "subtopics": [
+      "Unit 5: margin of error"
+    ],
+    "intended_difficulty": "Medium",
+    "stimulus": "A 95% confidence interval for a population proportion has margin of error 0.04.",
+    "stem": "What happens if the sample size increases and all else stays the same?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "The margin of error gets larger.",
+        "is_correct": false,
+        "rationale": "That is the opposite of the sample-size effect."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "The margin of error stays exactly the same.",
+        "is_correct": false,
+        "rationale": "Sample size affects SE and MOE."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "The margin of error gets smaller.",
+        "is_correct": true,
+        "rationale": "Larger samples reduce standard error, which shrinks the margin of error."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "The margin of error becomes negative.",
+        "is_correct": false,
+        "rationale": "Margins of error are never negative."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-059",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "5"
+    ],
+    "subtopics": [
+      "Unit 5: sample size effect"
+    ],
+    "intended_difficulty": "Hard",
+    "stimulus": "Two samples are taken from the same population, one with n = 25 and one with n = 100.",
+    "stem": "Which sample has the smaller standard error?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "The sample with n = 25.",
+        "is_correct": false,
+        "rationale": "Smaller samples have larger standard error."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "The sample with n = 100.",
+        "is_correct": true,
+        "rationale": "SE decreases as n increases because the denominator √n gets larger."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "Both samples have the same SE.",
+        "is_correct": false,
+        "rationale": "Sample size changes the SE."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "Neither sample has an SE.",
+        "is_correct": false,
+        "rationale": "Every sample mean has a standard error in this context."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-060",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "5"
+    ],
+    "subtopics": [
+      "Unit 5: bias vs variability"
+    ],
+    "intended_difficulty": "Medium",
+    "stimulus": "A new estimator consistently misses the true value by a large amount, even with large samples.",
+    "stem": "What is the main problem?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "Only variability",
+        "is_correct": false,
+        "rationale": "Large random scatter is not the only issue when the estimator is consistently off target."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "Normality",
+        "is_correct": false,
+        "rationale": "Normality is not the central issue described here."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "Independence",
+        "is_correct": false,
+        "rationale": "The question is about systematic error, not dependence."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "Bias",
+        "is_correct": true,
+        "rationale": "If an estimator is systematically off target, the estimator is biased."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-061",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "5"
+    ],
+    "subtopics": [
+      "Unit 5: sample proportion standard error"
+    ],
+    "intended_difficulty": "Hard",
+    "stimulus": "A sample proportion uses p̂ with p = 0.4 and n = 100.",
+    "stem": "What is the standard error of p̂?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "√[0.4(0.6)/100] ≈ 0.049",
+        "is_correct": true,
+        "rationale": "SE(p̂) = √[p(1-p)/n] = √[0.24/100] ≈ 0.049."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "0.24",
+        "is_correct": false,
+        "rationale": "This is the numerator p(1-p), not the standard error."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "0.4",
+        "is_correct": false,
+        "rationale": "This is the proportion, not its standard error."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "0.6",
+        "is_correct": false,
+        "rationale": "This is 1-p, not the standard error."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-062",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "5"
+    ],
+    "subtopics": [
+      "Unit 5: normal approximation conditions"
+    ],
+    "intended_difficulty": "Medium",
+    "stimulus": "A sample of size n = 12 comes from a population that is strongly skewed.",
+    "stem": "Is it reasonable to use a t-procedure?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "Yes, because all t-procedures work for any sample size.",
+        "is_correct": false,
+        "rationale": "t-procedures still require conditions."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "Yes, because the sample is random.",
+        "is_correct": false,
+        "rationale": "Randomness alone is not enough here."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "Usually no, because the sample is small and the population shape is strongly skewed.",
+        "is_correct": true,
+        "rationale": "Small samples require the population to be approximately normal for t procedures to be reliable."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "No, because t-procedures are only for proportions.",
+        "is_correct": false,
+        "rationale": "t-procedures are commonly used for means, not proportions."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-063",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "5"
+    ],
+    "subtopics": [
+      "Unit 5: power"
+    ],
+    "intended_difficulty": "Hard",
+    "stimulus": "A study has β = 0.25 for a particular test.",
+    "stem": "What is the power of the test?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "0.25",
+        "is_correct": false,
+        "rationale": "That is β, the Type II error rate."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "0.75",
+        "is_correct": true,
+        "rationale": "Power = 1 - β = 0.75."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "0.05",
+        "is_correct": false,
+        "rationale": "That would be α in many settings, not power."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "0.95",
+        "is_correct": false,
+        "rationale": "This is not 1 - β here."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-064",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "6"
+    ],
+    "subtopics": [
+      "Unit 6: confidence interval interpretation"
+    ],
+    "intended_difficulty": "Easy",
+    "stimulus": "A 95% confidence interval for a population mean is (18, 24).",
+    "stem": "Which interpretation is correct?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "There is a 95% chance the true mean is between 18 and 24.",
+        "is_correct": false,
+        "rationale": "That treats the fixed parameter as random."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "95% of the data values are between 18 and 24.",
+        "is_correct": false,
+        "rationale": "That describes the data, not the confidence interval."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "We are 95% confident that the method used produces intervals that capture the true population mean.",
+        "is_correct": true,
+        "rationale": "A confidence interval is about the method and long-run capture rate, not a probability that μ itself varies."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "The sample mean must be 21.",
+        "is_correct": false,
+        "rationale": "The sample mean is the midpoint only if the interval is symmetric, but interpretation still needs context."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-065",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "6"
+    ],
+    "subtopics": [
+      "Unit 6: CI computation"
+    ],
+    "intended_difficulty": "Medium",
+    "stimulus": "A sample has x̄ = 50, s = 10, and n = 25.",
+    "stem": "What is the 95% CI for the mean, using z* = 1.96 as a simple approximation?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "(46.08, 53.92)",
+        "is_correct": true,
+        "rationale": "SE = 10/√25 = 2, so 50 ± 1.96(2) = 50 ± 3.92 = (46.08, 53.92)."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "(30, 70)",
+        "is_correct": false,
+        "rationale": "This incorrectly uses the standard deviation itself instead of the standard error."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "(48, 52)",
+        "is_correct": false,
+        "rationale": "This underestimates the margin of error."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "(47.5, 52.5)",
+        "is_correct": false,
+        "rationale": "This uses the wrong critical-value calculation."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-066",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "6"
+    ],
+    "subtopics": [
+      "Unit 6: p-value decisions"
+    ],
+    "intended_difficulty": "Hard",
+    "stimulus": "A test gives p = 0.018 and α = 0.05.",
+    "stem": "What should the conclusion be?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "Fail to reject H₀ because p is not zero.",
+        "is_correct": false,
+        "rationale": "A p-value does not need to be zero to reject the null."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "Accept H₀ as proven true.",
+        "is_correct": false,
+        "rationale": "We do not prove the null hypothesis true."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "Ignore the p-value and use the sample mean only.",
+        "is_correct": false,
+        "rationale": "Inference is based on the p-value and significance level."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "Reject H₀; the result is statistically significant at the 0.05 level.",
+        "is_correct": true,
+        "rationale": "Since p < α, the evidence is strong enough to reject the null hypothesis."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-067",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "6"
+    ],
+    "subtopics": [
+      "Unit 6: one-proportion z test"
+    ],
+    "intended_difficulty": "Medium",
+    "stimulus": "A survey of 200 people finds 118 support a policy. The question is whether support exceeds 50%.",
+    "stem": "Which hypotheses are correct?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "H₀: p > 0.50, Hₐ: p = 0.50",
+        "is_correct": false,
+        "rationale": "Null and alternative are reversed."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "H₀: p = 0.50, Hₐ: p > 0.50",
+        "is_correct": true,
+        "rationale": "The claim is that support exceeds 50%, so this is a right-tailed test for a proportion."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "H₀: μ = 0.50, Hₐ: μ > 0.50",
+        "is_correct": false,
+        "rationale": "This uses the wrong parameter symbol."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "H₀: p = 118, Hₐ: p > 118",
+        "is_correct": false,
+        "rationale": "Proportions are not counts."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-068",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "6"
+    ],
+    "subtopics": [
+      "Unit 6: sign convention"
+    ],
+    "intended_difficulty": "Hard",
+    "stimulus": "A two-sample t test compares group 1 mean to group 2 mean, but the alternative is two-sided.",
+    "stem": "How should the sign of t be graded?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "The sign must always be positive.",
+        "is_correct": false,
+        "rationale": "The sign depends on which group is subtracted first."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "The sign is the only thing that matters.",
+        "is_correct": false,
+        "rationale": "For a two-sided test, the magnitude is the core of the evidence."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "Only the magnitude should matter when the alternative is two-sided and the sign is just subtraction order.",
+        "is_correct": true,
+        "rationale": "For a non-directional test, either subtraction order can be valid if the magnitude is correct."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "Sign never matters in any t-test.",
+        "is_correct": false,
+        "rationale": "Some contexts do treat sign as informative, especially directional tests or signed quantities."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-069",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "6"
+    ],
+    "subtopics": [
+      "Unit 6: paired t tests"
+    ],
+    "intended_difficulty": "Medium",
+    "stimulus": "The same 20 students are measured before and after a study program.",
+    "stem": "Which procedure is most appropriate?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "A paired t procedure on the differences.",
+        "is_correct": true,
+        "rationale": "The same individuals are measured twice, so the data are paired."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "A two-sample t procedure for independent samples.",
+        "is_correct": false,
+        "rationale": "The samples are not independent because they come from the same students."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "A two-proportion z test.",
+        "is_correct": false,
+        "rationale": "The data are quantitative, not categorical."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "A chi-square test of independence.",
+        "is_correct": false,
+        "rationale": "Chi-square tests are for categorical counts."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-070",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "6"
+    ],
+    "subtopics": [
+      "Unit 6: sample size and SE"
+    ],
+    "intended_difficulty": "Hard",
+    "stimulus": "A researcher wants a smaller standard error for a mean estimate.",
+    "stem": "Which change would help most directly?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "Decrease the sample size.",
+        "is_correct": false,
+        "rationale": "This would make SE larger."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "Increase the sample mean.",
+        "is_correct": false,
+        "rationale": "The sample mean does not control SE directly."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "Change the units of measurement.",
+        "is_correct": false,
+        "rationale": "Units change the scale, not the underlying sampling variability."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "Increase the sample size.",
+        "is_correct": true,
+        "rationale": "SE decreases as sample size increases, since SE = σ/√n."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-071",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "6"
+    ],
+    "subtopics": [
+      "Unit 6: power intuition"
+    ],
+    "intended_difficulty": "Medium",
+    "stimulus": "Two studies test the same hypothesis, but one has a much larger sample size.",
+    "stem": "Which study is more likely to have greater power, all else equal?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "The study with the smaller sample size.",
+        "is_correct": false,
+        "rationale": "Smaller samples usually have less power."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "The study with the larger sample size.",
+        "is_correct": true,
+        "rationale": "Larger samples reduce SE and usually make it easier to detect a true effect."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "They must have the same power.",
+        "is_correct": false,
+        "rationale": "Sample size affects power."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "Power depends only on the p-value.",
+        "is_correct": false,
+        "rationale": "Power is about the test design and true effect, not the observed p-value alone."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-072",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "6"
+    ],
+    "subtopics": [
+      "Unit 6: two-sample t interpretation"
+    ],
+    "intended_difficulty": "Hard",
+    "stimulus": "A study compares average scores from two independent groups.",
+    "stem": "Which statement is best after a significant two-sample t test?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "The two sample means are exactly equal.",
+        "is_correct": false,
+        "rationale": "Significance suggests evidence against equality, not exact equality."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "The populations are identical in every way.",
+        "is_correct": false,
+        "rationale": "The test does not prove that."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "There is convincing evidence of a difference in the population means in context.",
+        "is_correct": true,
+        "rationale": "A significant test supports a difference in means, not necessarily a claim about individual observations."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "The p-value is the probability the null is true.",
+        "is_correct": false,
+        "rationale": "That is a common p-value misconception."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-073",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "7"
+    ],
+    "subtopics": [
+      "Unit 7: marginal probability"
+    ],
+    "intended_difficulty": "Easy",
+    "stimulus": "A table shows 30 of 100 students prefer the new app.",
+    "stem": "What is the marginal probability that a student prefers the app?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "0.30",
+        "is_correct": true,
+        "rationale": "30 out of 100 students prefer the app, so the marginal probability is 0.30."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "0.70",
+        "is_correct": false,
+        "rationale": "This is the probability of not preferring the app."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "0.03",
+        "is_correct": false,
+        "rationale": "This incorrectly divides by 1000 or uses the wrong scale."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "0.50",
+        "is_correct": false,
+        "rationale": "That would require 50 students, not 30."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-074",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "7"
+    ],
+    "subtopics": [
+      "Unit 7: Bayes theorem"
+    ],
+    "intended_difficulty": "Medium",
+    "stimulus": "A factory has three machines with different defect rates and production shares.",
+    "stem": "Which formula correctly finds P(machine B | defective)?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "P(B)P(defective)",
+        "is_correct": false,
+        "rationale": "This is not conditional probability; it omits the denominator."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "P(B | defective) = P(B) / P(defective | B)",
+        "is_correct": false,
+        "rationale": "That is not Bayes’ theorem."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "P(defective | B) + P(B)",
+        "is_correct": false,
+        "rationale": "Probabilities are not combined this way."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "P(defective | B)P(B) / P(defective)",
+        "is_correct": true,
+        "rationale": "Bayes’ theorem reverses the conditional probability using the defect probability in the numerator and the total defect probability in the denominator."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-075",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "7"
+    ],
+    "subtopics": [
+      "Unit 7: chi-square procedure choice"
+    ],
+    "intended_difficulty": "Hard",
+    "stimulus": "A student wants to test whether preference for a snack is related to grade level using a contingency table.",
+    "stem": "Which procedure is appropriate?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "Chi-square goodness-of-fit",
+        "is_correct": false,
+        "rationale": "Goodness-of-fit is for one categorical variable and one distribution."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "Chi-square test of independence",
+        "is_correct": true,
+        "rationale": "Two categorical variables from one sample are being tested for association."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "Two-sample t test",
+        "is_correct": false,
+        "rationale": "t tests are for means, not categorical counts."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "Paired t test",
+        "is_correct": false,
+        "rationale": "The data are not paired quantitative measurements."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-076",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "7"
+    ],
+    "subtopics": [
+      "Unit 7: expected count"
+    ],
+    "intended_difficulty": "Medium",
+    "stimulus": "A chi-square table cell has row total 40, column total 50, and grand total 200.",
+    "stem": "What is the expected count in the cell?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "90",
+        "is_correct": false,
+        "rationale": "This is not the expected-count formula."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "20",
+        "is_correct": false,
+        "rationale": "This is too large and uses the wrong arithmetic."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "10",
+        "is_correct": true,
+        "rationale": "Expected count = (row total × column total) / grand total = 40×50/200 = 10."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "5",
+        "is_correct": false,
+        "rationale": "This divides by the wrong total."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-077",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "7"
+    ],
+    "subtopics": [
+      "Unit 7: variance of a discrete distribution"
+    ],
+    "intended_difficulty": "Hard",
+    "stimulus": "A discrete distribution has mean 4 and E(X²) = 22.",
+    "stem": "What is the variance?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "6",
+        "is_correct": true,
+        "rationale": "Var(X) = E(X²) - [E(X)]² = 22 - 16 = 6."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "18",
+        "is_correct": false,
+        "rationale": "This adds instead of subtracting the squared mean."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "8",
+        "is_correct": false,
+        "rationale": "This miscomputes the formula."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "4",
+        "is_correct": false,
+        "rationale": "This is the mean, not the variance."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-078",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "7"
+    ],
+    "subtopics": [
+      "Unit 7: binomial probability"
+    ],
+    "intended_difficulty": "Medium",
+    "stimulus": "A binomial setting has n = 5 and p = 0.5.",
+    "stem": "What is P(X = 0)?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "0.5",
+        "is_correct": false,
+        "rationale": "That is the probability of a single success, not zero successes in five trials."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "0.03125",
+        "is_correct": true,
+        "rationale": "P(X = 0) = (0.5)^5 = 1/32 = 0.03125."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "0.15625",
+        "is_correct": false,
+        "rationale": "This is not the correct binomial calculation for zero successes."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "5",
+        "is_correct": false,
+        "rationale": "That is the trial count, not a probability."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-079",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "7"
+    ],
+    "subtopics": [
+      "Unit 7: standard error and sample size"
+    ],
+    "intended_difficulty": "Hard",
+    "stimulus": "A researcher wants SE = 2 when σ = 10.",
+    "stem": "What sample size is needed?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "5",
+        "is_correct": false,
+        "rationale": "This confuses the square root of n with n itself."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "20",
+        "is_correct": false,
+        "rationale": "This does not satisfy 10/√n = 2."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "50",
+        "is_correct": false,
+        "rationale": "This would make the SE smaller than 2."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "25",
+        "is_correct": true,
+        "rationale": "SE = σ/√n, so 2 = 10/√n gives √n = 5 and n = 25."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-080",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "7"
+    ],
+    "subtopics": [
+      "Unit 7: p-value interpretation"
+    ],
+    "intended_difficulty": "Medium",
+    "stimulus": "A test reports p = 0.12 and α = 0.05.",
+    "stem": "Which conclusion is correct?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "Reject H₀ because p is less than 1.",
+        "is_correct": false,
+        "rationale": "Any p-value is less than 1, but that does not imply significance."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "Accept H₀ as proven.",
+        "is_correct": false,
+        "rationale": "We do not prove the null true."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "Fail to reject H₀; the result is not statistically significant at the 0.05 level.",
+        "is_correct": true,
+        "rationale": "Because p > α, the evidence is not strong enough to reject the null."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "The alternative hypothesis is true with probability 0.12.",
+        "is_correct": false,
+        "rationale": "That is a common misinterpretation of p-values."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-081",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "7"
+    ],
+    "subtopics": [
+      "Unit 7: mean of discrete distribution"
+    ],
+    "intended_difficulty": "Hard",
+    "stimulus": "A random variable takes values 1, 2, and 3 with probabilities 0.2, 0.5, and 0.3.",
+    "stem": "What is the mean?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "2.1",
+        "is_correct": true,
+        "rationale": "E(X) = 1(0.2) + 2(0.5) + 3(0.3) = 2.1."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "2.0",
+        "is_correct": false,
+        "rationale": "This likely comes from a rough average rather than the weighted mean."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "0.6",
+        "is_correct": false,
+        "rationale": "This is not the correct weighted average."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "3.0",
+        "is_correct": false,
+        "rationale": "This is the largest outcome, not the mean."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-082",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "8"
+    ],
+    "subtopics": [
+      "Unit 8: regression prediction"
+    ],
+    "intended_difficulty": "Easy",
+    "stimulus": "A regression line is used to predict a response value for x = 12, which is inside the observed x-range.",
+    "stem": "What is the best description of this prediction?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "Extrapolation, which is always safe.",
+        "is_correct": false,
+        "rationale": "Extrapolation is outside the data range and is not always safe."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "Interpolation, which is generally more reliable than extrapolation.",
+        "is_correct": true,
+        "rationale": "Predicting within the observed range is interpolation."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "A causal conclusion, which the regression automatically proves.",
+        "is_correct": false,
+        "rationale": "Regression does not by itself prove causation."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "A chi-square estimate.",
+        "is_correct": false,
+        "rationale": "Chi-square is not used for regression prediction."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-083",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "8"
+    ],
+    "subtopics": [
+      "Unit 8: slope interpretation"
+    ],
+    "intended_difficulty": "Medium",
+    "stimulus": "A regression model predicts exam score from study hours.",
+    "stem": "What does a slope of 4 mean?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "The score is 4 points when studying is zero.",
+        "is_correct": false,
+        "rationale": "That describes the intercept, not the slope."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "The correlation is 4.",
+        "is_correct": false,
+        "rationale": "Correlation cannot be 4; it must be between -1 and 1."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "There are 4 points in the sample.",
+        "is_correct": false,
+        "rationale": "Slope is not a sample size."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "For each additional study hour, the predicted exam score increases by about 4 points on average.",
+        "is_correct": true,
+        "rationale": "Slope describes the average change in the response for a one-unit increase in the explanatory variable."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-084",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "8"
+    ],
+    "subtopics": [
+      "Unit 8: r-squared interpretation"
+    ],
+    "intended_difficulty": "Hard",
+    "stimulus": "A regression output gives R² = 0.81.",
+    "stem": "Which interpretation is correct?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "81% of the variation in the response is explained by the linear model with the explanatory variable.",
+        "is_correct": true,
+        "rationale": "R² measures the proportion of variation explained by the regression model."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "The correlation is 0.81.",
+        "is_correct": false,
+        "rationale": "R² is not the same as r."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "81% of the points lie exactly on the line.",
+        "is_correct": false,
+        "rationale": "R² is about explained variation, not exact point placement."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "The slope is 0.81.",
+        "is_correct": false,
+        "rationale": "Slope and R² are different quantities."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-085",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "8"
+    ],
+    "subtopics": [
+      "Unit 8: residuals"
+    ],
+    "intended_difficulty": "Medium",
+    "stimulus": "A point lies above the regression line.",
+    "stem": "What is the sign of the residual?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "Negative",
+        "is_correct": false,
+        "rationale": "A point above the line gives actual > predicted, so the residual is positive."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "Zero",
+        "is_correct": false,
+        "rationale": "Only points exactly on the line have residual 0."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "Positive",
+        "is_correct": true,
+        "rationale": "Residual = actual - predicted, so a point above the line has a positive residual."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "Cannot be determined",
+        "is_correct": false,
+        "rationale": "The sign is determined by whether the point is above or below the line."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-086",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "8"
+    ],
+    "subtopics": [
+      "Unit 8: multicollinearity"
+    ],
+    "intended_difficulty": "Hard",
+    "stimulus": "In multiple regression, two explanatory variables are highly correlated with each other.",
+    "stem": "What issue is most likely?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "The model becomes a chi-square test.",
+        "is_correct": false,
+        "rationale": "Regression does not turn into chi-square."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "Multicollinearity, which can inflate standard errors and make coefficients harder to interpret.",
+        "is_correct": true,
+        "rationale": "When predictors are strongly related, separating their individual effects becomes difficult."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "The response variable must be categorical.",
+        "is_correct": false,
+        "rationale": "The response in multiple regression is quantitative."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "The slope must be exactly zero.",
+        "is_correct": false,
+        "rationale": "Multicollinearity does not force a zero slope."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-087",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "8"
+    ],
+    "subtopics": [
+      "Unit 8: line of best fit"
+    ],
+    "intended_difficulty": "Medium",
+    "stimulus": "A scatterplot is roughly linear with no strong outliers.",
+    "stem": "Why is a line of best fit reasonable?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "Because every scatterplot must be linear.",
+        "is_correct": false,
+        "rationale": "Not every scatterplot is linear."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "Because the line guarantees perfect predictions.",
+        "is_correct": false,
+        "rationale": "Regression never guarantees perfect predictions."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "Because a line always proves causation.",
+        "is_correct": false,
+        "rationale": "A line of best fit does not prove causation."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "Because the pattern is approximately linear, so a linear model can summarize the trend.",
+        "is_correct": true,
+        "rationale": "A line is a sensible summary when the association is approximately linear."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-088",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "8"
+    ],
+    "subtopics": [
+      "Unit 8: slope confidence interval"
+    ],
+    "intended_difficulty": "Hard",
+    "stimulus": "A 95% CI for a regression slope is (0.4, 1.2).",
+    "stem": "What can you conclude?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "The slope is significantly different from 0 at the 0.05 level because the interval does not include 0.",
+        "is_correct": true,
+        "rationale": "A CI for a slope that excludes 0 indicates evidence of a linear relationship."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "The slope must equal 0.8 exactly.",
+        "is_correct": false,
+        "rationale": "A confidence interval gives a range of plausible values, not a single guaranteed value."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "There is no linear relationship.",
+        "is_correct": false,
+        "rationale": "Excluding 0 suggests evidence of a linear relationship."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "The intercept is between 0.4 and 1.2.",
+        "is_correct": false,
+        "rationale": "This is a slope interval, not an intercept interval."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-089",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "8"
+    ],
+    "subtopics": [
+      "Unit 8: transformations"
+    ],
+    "intended_difficulty": "Medium",
+    "stimulus": "A scatterplot shows a curved relationship that levels off as x increases.",
+    "stem": "What might help linearize the relationship?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "Ignore the curvature and fit a line anyway.",
+        "is_correct": false,
+        "rationale": "That may give poor predictions and misleading residuals."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "Add a random outlier.",
+        "is_correct": false,
+        "rationale": "Adding an outlier does not linearize the relationship."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "A transformation such as taking logs of one or both variables.",
+        "is_correct": true,
+        "rationale": "Transformations can straighten curved relationships and stabilize spread."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "Switch to a chi-square test.",
+        "is_correct": false,
+        "rationale": "Chi-square is not a regression remedy."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-090",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "8"
+    ],
+    "subtopics": [
+      "Unit 8: influential point effects"
+    ],
+    "intended_difficulty": "Hard",
+    "stimulus": "A scatterplot has one extreme point with a large x-value that strongly pulls the fitted line upward.",
+    "stem": "What is that point called?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "A random intercept",
+        "is_correct": false,
+        "rationale": "That is not a standard regression term."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "An influential point",
+        "is_correct": true,
+        "rationale": "A point with high leverage can strongly affect the slope of the regression line."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "A confidence interval",
+        "is_correct": false,
+        "rationale": "An interval is not a point on a scatterplot."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "A residual",
+        "is_correct": false,
+        "rationale": "A residual is a vertical difference, not the point itself."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-091",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "9"
+    ],
+    "subtopics": [
+      "Unit 9: choosing a procedure"
+    ],
+    "intended_difficulty": "Hard",
+    "stimulus": "A researcher wants to compare mean commute times for two independent groups.",
+    "stem": "Which inference procedure is appropriate?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "A two-sample t procedure for the difference of means.",
+        "is_correct": true,
+        "rationale": "Two independent quantitative samples call for a two-sample t procedure."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "A paired t procedure.",
+        "is_correct": false,
+        "rationale": "The samples are independent, not paired."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "A one-proportion z procedure.",
+        "is_correct": false,
+        "rationale": "The response is quantitative, not categorical."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "A chi-square test of independence.",
+        "is_correct": false,
+        "rationale": "Chi-square is for categorical counts."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-092",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "9"
+    ],
+    "subtopics": [
+      "Unit 9: type I and type II errors"
+    ],
+    "intended_difficulty": "Medium",
+    "stimulus": "A null hypothesis is rejected even though it is actually true.",
+    "stem": "What type of error occurred?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "Type II error",
+        "is_correct": false,
+        "rationale": "Type II error is failing to reject a false null hypothesis."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "Type I error",
+        "is_correct": true,
+        "rationale": "A Type I error is rejecting a true null hypothesis."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "Sampling error",
+        "is_correct": false,
+        "rationale": "This is a more general term, not the specific hypothesis-test error."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "No error",
+        "is_correct": false,
+        "rationale": "Rejecting a true null hypothesis is an error."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-093",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "9"
+    ],
+    "subtopics": [
+      "Unit 9: paired vs independent"
+    ],
+    "intended_difficulty": "Hard",
+    "stimulus": "Each subject is measured before and after a new treatment.",
+    "stem": "Why is a paired procedure appropriate?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "Because the sample size is large.",
+        "is_correct": false,
+        "rationale": "Sample size alone does not determine whether data are paired."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "Because the response is categorical.",
+        "is_correct": false,
+        "rationale": "The response is quantitative here."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "Because each subject provides matched measurements, so the analysis should use within-subject differences.",
+        "is_correct": true,
+        "rationale": "Paired data come from the same individual or matched pairs, so differences are analyzed."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "Because paired tests always have more power than any other test.",
+        "is_correct": false,
+        "rationale": "Power is not the definition of a paired procedure."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-094",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "9"
+    ],
+    "subtopics": [
+      "Unit 9: regression inference"
+    ],
+    "intended_difficulty": "Very Hard",
+    "stimulus": "A slope test gives p = 0.008 for H₀: β = 0.",
+    "stem": "What is the strongest correct conclusion?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "The slope is exactly 0.008.",
+        "is_correct": false,
+        "rationale": "A p-value is not the slope estimate."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "There is no evidence of a relationship because 0.008 is small.",
+        "is_correct": false,
+        "rationale": "Small p-values are evidence against H₀."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "The correlation must be 0.008.",
+        "is_correct": false,
+        "rationale": "p-values and correlations are different quantities."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "There is convincing evidence of a linear relationship between x and y in the population, but causation is not justified without random assignment.",
+        "is_correct": true,
+        "rationale": "A small p-value supports a nonzero slope, but causation requires more than observational regression evidence."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-095",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "9"
+    ],
+    "subtopics": [
+      "Unit 9: sample size and power"
+    ],
+    "intended_difficulty": "Hard",
+    "stimulus": "Two studies test the same claim, but one uses a more stringent significance level and a smaller sample size.",
+    "stem": "Which study is most likely to have lower power?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "The study with the smaller sample size and more stringent α.",
+        "is_correct": true,
+        "rationale": "Lower α and smaller n both tend to reduce power."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "The study with the larger sample size and more stringent α.",
+        "is_correct": false,
+        "rationale": "Larger n increases power, all else equal."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "The study with the larger sample size and larger α.",
+        "is_correct": false,
+        "rationale": "Larger α increases power."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "Both studies must have the same power.",
+        "is_correct": false,
+        "rationale": "Power depends on n and α, so they need not match."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-096",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "9"
+    ],
+    "subtopics": [
+      "Unit 9: confidence interval width"
+    ],
+    "intended_difficulty": "Medium",
+    "stimulus": "A 99% confidence interval is wider than a 95% confidence interval from the same sample.",
+    "stem": "Why?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "Because the sample mean changes.",
+        "is_correct": false,
+        "rationale": "The same sample was used; the critical value changed."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "A higher confidence level uses a larger critical value, which makes the interval wider.",
+        "is_correct": true,
+        "rationale": "More confidence requires a wider interval to capture the parameter more often in the long run."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "Because the standard deviation becomes larger.",
+        "is_correct": false,
+        "rationale": "The sample standard deviation does not change just because confidence level changes."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "Because 99% means less certainty than 95%.",
+        "is_correct": false,
+        "rationale": "99% confidence is more, not less, confidence."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-097",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "9"
+    ],
+    "subtopics": [
+      "Unit 9: combining concepts"
+    ],
+    "intended_difficulty": "Very Hard",
+    "stimulus": "A randomized experiment compares two study methods and collects quantitative exam scores.",
+    "stem": "Which statement best combines design and inference?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "Because it is a randomized experiment, any sample difference proves causation with no additional conditions.",
+        "is_correct": false,
+        "rationale": "Inference conditions still matter."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "Because the data are quantitative, causation cannot be discussed.",
+        "is_correct": false,
+        "rationale": "Randomized experiments can support causal conclusions."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "Because of random assignment, a significant difference in sample means supports a causal conclusion in context if the inference conditions are met.",
+        "is_correct": true,
+        "rationale": "Random assignment supports causation; significance supports a difference in means if conditions hold."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "Because p-values measure the size of the effect, causation is automatic.",
+        "is_correct": false,
+        "rationale": "p-values indicate evidence, not effect size."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-098",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "9"
+    ],
+    "subtopics": [
+      "Unit 9: interpreting a confidence interval for a slope"
+    ],
+    "intended_difficulty": "Hard",
+    "stimulus": "A slope CI for study hours vs exam score is entirely positive.",
+    "stem": "What does this suggest?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "The response variable must be categorical.",
+        "is_correct": false,
+        "rationale": "The response in regression remains quantitative."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "The slope is definitely exactly the midpoint of the interval.",
+        "is_correct": false,
+        "rationale": "The midpoint is a point estimate, not a guaranteed true slope."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "There is evidence of a negative slope.",
+        "is_correct": false,
+        "rationale": "An interval entirely above 0 indicates a positive slope, not a negative one."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "There is evidence that the population slope is positive, so more study time is associated with higher predicted scores.",
+        "is_correct": true,
+        "rationale": "A CI entirely above 0 indicates a positive slope in the population."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-099",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "9"
+    ],
+    "subtopics": [
+      "Unit 9: choosing between regression and chi-square"
+    ],
+    "intended_difficulty": "Very Hard",
+    "stimulus": "A data set includes a quantitative score and a categorical group label.",
+    "stem": "Which analysis best answers whether the quantitative score differs by group?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "A chi-square test of independence",
+        "is_correct": false,
+        "rationale": "Chi-square is for two categorical variables, not one quantitative and one categorical variable."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "A two-sample t procedure, because the response is quantitative and the predictor is categorical with two groups.",
+        "is_correct": true,
+        "rationale": "Comparing a quantitative response between two groups calls for a two-sample t procedure."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "A one-proportion z test",
+        "is_correct": false,
+        "rationale": "That is for categorical success/failure data."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "A paired t procedure",
+        "is_correct": false,
+        "rationale": "The groups are not described as matched pairs."
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-MCQ-100",
+    "subject": "AP Statistics",
+    "item_type": "mcq",
+    "modules": [
+      "9"
+    ],
+    "subtopics": [
+      "Unit 9: two-proportion comparison"
+    ],
+    "intended_difficulty": "Hard",
+    "stimulus": "Two independent samples compare support for a policy: group 1 has 58 of 100 supporters, group 2 has 70 of 125 supporters.",
+    "stem": "Which inference procedure is appropriate?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "A two-proportion z procedure.",
+        "is_correct": true,
+        "rationale": "Two independent categorical groups with success/failure outcomes call for a two-proportion z procedure."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "A paired t procedure",
+        "is_correct": false,
+        "rationale": "The samples are not paired and the response is categorical."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "A one-sample t procedure",
+        "is_correct": false,
+        "rationale": "The response is not quantitative."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "A chi-square goodness-of-fit test",
+        "is_correct": false,
+        "rationale": "The question compares two groups, not one distribution to a claimed distribution."
+      }
+    ]
+  }
+]

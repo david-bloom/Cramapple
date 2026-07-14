@@ -2309,13 +2309,15 @@
       "rubric": [
         {
           "criterion_key": "correlation_calculation",
-          "learner_facing_text": "Correctly calculates correlation using appropriate formula or method",
-          "points_possible": 1
+          "learner_facing_text": "Correctly applies the correlation formula or method (evaluated on procedure, not on the numeric r produced — this item ships without a data table, so no specific r value is keyed)",
+          "points_possible": 1,
+          "grading_note": "METHOD-ONLY (corpus defect, no dataset — see corpus_defect_scoping below): earns if the response shows correct formula application steps (e.g. Σ(x−x̄)(y−ȳ) over √[Σ(x−x̄)²Σ(y−ȳ)²], or equivalent), regardless of the specific r asserted."
         },
         {
           "criterion_key": "regression_equation",
-          "learner_facing_text": "Correctly finds least squares regression line with appropriate intercept and slope",
-          "points_possible": 1
+          "learner_facing_text": "Correctly derives the regression line from the student's own stated r, sy, and sx (self-consistency check, not a fixed-value match — this item ships without a data table)",
+          "points_possible": 1,
+          "grading_note": "METHOD-ONLY: earns if b = r(sy/sx) and a = ȳ − b·x̄ are applied correctly to whatever r, sy, sx the response itself asserts, even though those values are unverifiable against real data."
         },
         {
           "criterion_key": "interpretation",
@@ -2323,6 +2325,7 @@
           "points_possible": 1
         }
       ],
+      "corpus_defect_scoping": "APSTAT-MOD8-H001 ships with no attached dataset, so correlation/regression VALUES cannot be graded for correctness — only method and self-consistency. Resolved 2026-07-09 (Product Owner approved path a, see docs/research/AP_STATISTICS_MOD3_MOD6_BOUNDARY_CONTRACTS_2026_07_09.md §3): scope grading to method-only rather than sourcing a real dataset. Engine 1 deterministic check already abstains on this item (STATISTICS_TARGETS['APSTAT-MOD8-H001'] = null); the LLM grader applies the self-consistency rule above.",
       "codex": {
         "question_type": "frq",
         "frq_form": "long",

@@ -588,13 +588,15 @@
    "rubric": [
     {
      "criterion_key": "correlation_calculation",
-     "learner_facing_text": "Correctly calculates correlation using appropriate formula or method",
-     "points_possible": 1
+     "learner_facing_text": "Correctly applies the correlation formula or method (evaluated on procedure, not on the numeric r produced — this item ships without a data table, so no specific r value is keyed)",
+     "points_possible": 1,
+     "grading_note": "METHOD-ONLY (corpus defect, no dataset, resolved 2026-07-09): earns if the response shows correct formula application steps, regardless of the specific r asserted."
     },
     {
      "criterion_key": "regression_equation",
-     "learner_facing_text": "Correctly finds least squares regression line with appropriate intercept and slope",
-     "points_possible": 1
+     "learner_facing_text": "Correctly derives the regression line from the student's own stated r, sy, and sx (self-consistency check, not a fixed-value match — this item ships without a data table)",
+     "points_possible": 1,
+     "grading_note": "METHOD-ONLY: earns if b = r(sy/sx) and a = ȳ − b·x̄ are applied correctly to whatever r, sy, sx the response itself asserts."
     },
     {
      "criterion_key": "interpretation",
@@ -602,6 +604,7 @@
      "points_possible": 1
     }
    ],
+   "corpus_defect_scoping": "Resolved 2026-07-09 (Product Owner approved path a, see ../AP_STATISTICS_MOD3_MOD6_BOUNDARY_CONTRACTS_2026_07_09.md §3): scope grading to method-only/self-consistency rather than sourcing a real dataset.",
    "responses": [
     {
      "response_index": 0,
@@ -611,14 +614,14 @@
       "correlation_calculation": {
        "provisional_label": "earned",
        "confidence": "low",
-       "adjudicate": true,
-       "note": "ITEM DEFECT: no dataset supplied; response assumes r~0.82. Method correct but value unverifiable."
+       "adjudicate": false,
+       "note": "Formula application shown; r~0.82 asserted but not graded (no dataset — method-only scoping resolved 2026-07-09, see corpus_defect_scoping)."
       },
       "regression_equation": {
        "provisional_label": "earned",
        "confidence": "low",
-       "adjudicate": true,
-       "note": "Method (b=r*sy/sx) correct; values unverifiable without data."
+       "adjudicate": false,
+       "note": "Method (b=r*sy/sx) correct, self-consistent with the response's own asserted values (method-only scoping resolved 2026-07-09, see corpus_defect_scoping)."
       },
       "interpretation": {
        "provisional_label": "earned",
@@ -636,8 +639,8 @@
       "correlation_calculation": {
        "provisional_label": "partially_earned",
        "confidence": "low",
-       "adjudicate": true,
-       "note": "'r~0.8' asserted; no data."
+       "adjudicate": false,
+       "note": "'r~0.8' asserted, no formula steps shown (method-only scoping resolved 2026-07-09, see corpus_defect_scoping)."
       },
       "regression_equation": {
        "provisional_label": "partially_earned",
@@ -661,8 +664,8 @@
       "correlation_calculation": {
        "provisional_label": "earned",
        "confidence": "low",
-       "adjudicate": true,
-       "note": "r~0.80 asserted; no data."
+       "adjudicate": false,
+       "note": "r~0.80 asserted (method-only scoping resolved 2026-07-09, see corpus_defect_scoping)."
       },
       "regression_equation": {
        "provisional_label": "earned",
@@ -686,8 +689,8 @@
       "correlation_calculation": {
        "provisional_label": "earned",
        "confidence": "low",
-       "adjudicate": true,
-       "note": "r~0.75 asserted; no data \u2014 'subtly_wrong' differs only in assumed values, not method."
+       "adjudicate": false,
+       "note": "r~0.75 asserted; 'subtly_wrong' differs only in assumed values, not method (method-only scoping resolved 2026-07-09, see corpus_defect_scoping)."
       },
       "regression_equation": {
        "provisional_label": "earned",
@@ -739,36 +742,6 @@
   },
   {
    "item": "APSTAT-MOD8-H001",
-   "response": "fully_correct",
-   "criterion": "correlation_calculation",
-   "reason": "ITEM DEFECT: no dataset supplied; response assumes r~0.82. Method correct but value unverifiable."
-  },
-  {
-   "item": "APSTAT-MOD8-H001",
-   "response": "fully_correct",
-   "criterion": "regression_equation",
-   "reason": "Method (b=r*sy/sx) correct; values unverifiable without data."
-  },
-  {
-   "item": "APSTAT-MOD8-H001",
-   "response": "partially_correct",
-   "criterion": "correlation_calculation",
-   "reason": "'r~0.8' asserted; no data."
-  },
-  {
-   "item": "APSTAT-MOD8-H001",
-   "response": "borderline",
-   "criterion": "correlation_calculation",
-   "reason": "r~0.80 asserted; no data."
-  },
-  {
-   "item": "APSTAT-MOD8-H001",
-   "response": "subtly_wrong",
-   "criterion": "correlation_calculation",
-   "reason": "r~0.75 asserted; no data \u2014 'subtly_wrong' differs only in assumed values, not method."
-  },
-  {
-   "item": "APSTAT-MOD8-H001",
    "response": "subtly_wrong",
    "criterion": "interpretation",
    "reason": "Interpretations structurally fine; intercept stated uncritically. Weak differentiation \u2014 flag item."
@@ -789,6 +762,6 @@
   }
  ],
  "corpus_defects": [
-  "Item APSTAT-MOD8-H001 supplies no dataset, so correlation/regression VALUES cannot be graded for correctness (only method/interpretation). Flag to Learning Quality: attach a real dataset or restrict grading to method."
+  "RESOLVED 2026-07-09 (Product Owner approved path a): APSTAT-MOD8-H001 supplies no dataset, so correlation_calculation and regression_equation are scoped to method-only/self-consistency grading rather than fixed-value matching. See rubric grading_note fields above and ../AP_STATISTICS_MOD3_MOD6_BOUNDARY_CONTRACTS_2026_07_09.md §3."
  ]
 }

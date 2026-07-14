@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "ap-statistics-2027-slice-mcq-u1",
+  "content_key": "ap-statistics-2027-slice-mcq-u1",
+  "content_version": 1,
+  "exam_pack_ref": { "exam_code": "ap_statistics", "school_year": "2026-27", "exam_pack_version": "1.0.0" },
+  "item_type": "mcq",
+  "archetype_ref": { "archetype_key": "mcq-four-option", "version": "1.0.0" },
+  "taxonomy_refs": [
+    { "scheme_key": "ap-statistics-fall-2026", "scheme_version": "1.0.0", "node_key": "unit-1" },
+    { "scheme_key": "ap-statistics-fall-2026", "scheme_version": "1.0.0", "node_key": "practice-2" }
+  ],
+  "stimuli": [],
+  "parts": [
+    {
+      "part_key": "stem",
+      "ordinal": 1,
+      "prompt": "A researcher assigns every student in a school a unique number, then uses a random number generator to select 50 of the numbers, and surveys those students. Which sampling method is this?\n(A) Simple random sample\n(B) Stratified random sample\n(C) Cluster sample\n(D) Convenience sample",
+      "response_modalities": ["choice"],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-choice",
+          "points": 1,
+          "description": "Correct answer is (A): every individual is numbered and selected by chance with each same-size subset equally likely, defining a simple random sample.",
+          "required_evidence": ["selects-A"],
+          "deterministic_checks": [{ "check_type": "choice-key", "parameters": { "choice": "A" } }]
+        }
+      ]
+    }
+  ],
+  "accessibility": { "language": "en-US", "screen_reader_review_required": true, "accommodation_notes": "Self-contained text MCQ; options embedded in prompt (no structured options field in schema)." },
+  "provenance": {
+    "source_refs": ["college-board-ap-statistics-ced-fall-2026"],
+    "fact_pack_version": "AP_STATISTICS_2027_CED_FACT_PACK@2026-07-13",
+    "authoring_prompt_version": "CLAUDE_AP_STATISTICS_REBUILD@2026-07-13",
+    "generated_by": "Claude",
+    "generated_at": "2026-07-13T21:00:00Z",
+    "content_sha256": "4d754faf38a687fca77348d9160eac63b1767eea2f62fde9bac770c9946ca78f"
+  }
+}

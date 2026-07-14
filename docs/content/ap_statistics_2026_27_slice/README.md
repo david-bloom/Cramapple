@@ -27,6 +27,27 @@ cascade. `QA-pass ≠ launch approval` (`feedback_governance`).
 All four are 10 points with each point scored independently (the 2027 4×10 format), compile green
 together (`plan_sha256 af858299…`), and carry verified canonical `content_sha256` values.
 
+### MCQ portion (completes the G2V slice)
+
+| File | Item | Unit | Answer |
+|------|------|------|--------|
+| `…-mcq-set1-q1/q2/q3.item-package.json` | 3-question set (shared five-number-summary stimulus): IQR, 1.5×IQR outlier, shape | Unit 1 | A / B / C |
+| `…-mcq-u1.item-package.json` | Sampling method (SRS) | Unit 1 | A |
+| `…-mcq-u2.item-package.json` | Binomial mean (np) | Unit 2 | A |
+| `…-mcq-u3.item-package.json` | Sample size → margin of error | Unit 3 | B |
+| `…-mcq-u4.item-package.json` | CI ↔ significance-test duality | Unit 4 | B |
+| `…-mcq-u5.item-package.json` | Regression slope interpretation | Unit 5 | A |
+
+8 MCQs (`archetype mcq-four-option`, 1 pt, `choice` modality, `choice-key` deterministic check).
+Verify with `deno run --allow-read docs/content/ap_statistics_2026_27_slice/compile-check-mcq.ts`.
+Full 12-item slice compiles as authored (`plan_sha256 28a27a86…`); the 4-FRQ anchor `af858299…`
+is preserved by `compile-check.ts`.
+
+**Two schema findings surfaced by MCQ authoring** (see
+`docs/architecture/SUBJECT_HARNESS_MCQ_SCHEMA_FINDINGS_2026_07_13.md`): the item-package schema has no
+structured MCQ **options** model (options are embedded in prompt text) and no **item-set** construct
+(the set is 3 separate items duplicating the stimulus). Both are H1/schema-lane decisions for Codex.
+
 Grounding: authored only from `AP_STATISTICS_2027_CED_FACT_PACK@2026-07-13` (no verbatim College
 Board content; synthetic contexts). Skill anchoring per fact-pack §3–§4; task verbs per §6; digital
 modality constraints per §7. Numeric answers embedded in criteria descriptions were computed exactly;

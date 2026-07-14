@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "ap-statistics-2027-slice-mcq-u4",
+  "content_key": "ap-statistics-2027-slice-mcq-u4",
+  "content_version": 1,
+  "exam_pack_ref": { "exam_code": "ap_statistics", "school_year": "2026-27", "exam_pack_version": "1.0.0" },
+  "item_type": "mcq",
+  "archetype_ref": { "archetype_key": "mcq-four-option", "version": "1.0.0" },
+  "taxonomy_refs": [
+    { "scheme_key": "ap-statistics-fall-2026", "scheme_version": "1.0.0", "node_key": "unit-4" },
+    { "scheme_key": "ap-statistics-fall-2026", "scheme_version": "1.0.0", "node_key": "practice-4" }
+  ],
+  "stimuli": [],
+  "parts": [
+    {
+      "part_key": "stem",
+      "ordinal": 1,
+      "prompt": "A 95% confidence interval for a population mean mu is (12, 20). Based only on this interval, a two-sided significance test of H0: mu = 10 versus Ha: mu != 10 at the alpha = 0.05 level would:\n(A) fail to reject H0.\n(B) reject H0.\n(C) be impossible to decide.\n(D) accept H0 as true.",
+      "response_modalities": ["choice"],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-choice",
+          "points": 1,
+          "description": "Correct answer is (B): because 10 is not contained in the 95% interval (12, 20), the two-sided test at alpha = 0.05 rejects H0 (confidence-interval / significance-test duality).",
+          "required_evidence": ["selects-B"],
+          "deterministic_checks": [{ "check_type": "choice-key", "parameters": { "choice": "B" } }]
+        }
+      ]
+    }
+  ],
+  "accessibility": { "language": "en-US", "screen_reader_review_required": true, "accommodation_notes": "Self-contained text MCQ; options embedded in prompt." },
+  "provenance": {
+    "source_refs": ["college-board-ap-statistics-ced-fall-2026"],
+    "fact_pack_version": "AP_STATISTICS_2027_CED_FACT_PACK@2026-07-13",
+    "authoring_prompt_version": "CLAUDE_AP_STATISTICS_REBUILD@2026-07-13",
+    "generated_by": "Claude",
+    "generated_at": "2026-07-13T21:00:00Z",
+    "content_sha256": "a57b9bb6011f744b607424094ca2745bead437c61a0e6c0bf1a1ca11f1c062c3"
+  }
+}
