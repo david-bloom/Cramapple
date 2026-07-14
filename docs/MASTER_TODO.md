@@ -649,6 +649,10 @@ planning target. Physical Supabase DDL remains deferred.
 
 **Status:** Deferred
 **Owner:** Product Owner with Strategy Advisor and Learning Quality Owner
+**Design record:** `docs/product/FACT_PACKS_AND_QUESTION_SETS.md` (layered
+fact-pack + short-question-set artifacts + Draft seed content for AP Chemistry,
+AP Calculus AB, and AP Calculus BC; `Status: Draft`, subject selection not yet
+made, awaiting Learning Quality review)
 
 - [ ] Rank subjects using demand and operating evidence.
 - [ ] Select the next natural-science exam.

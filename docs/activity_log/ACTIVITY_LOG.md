@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Fact Packs and Short Question Sets Drafted for Next-Round Subjects — 2026-07-14
 - Content Coverage Brief System Drafted (CONTENT-001) — 2026-07-14
 - Phase A Broken-Import Fix and Deterministic-Layer-Only Ship Decision — 2026-07-12
 - TASK-0016 Phase A Grading-Router Reconciled Onto Grading Branch — 2026-07-12
@@ -20,6 +21,55 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## Fact Packs and Short Question Sets Drafted for Next-Round Subjects - 2026-07-14
+
+**Task:** CONTENT-001 / EXPAND-001 (next-round subject content artifacts).
+**Status:** Drafted on `claude/cramapple-content-creation-igjvfb`. Design +
+illustrative seed content only — no subject selected, no content admitted to any
+pool, no gate cleared.
+
+**Summary:** Continuation of the content-creation session. Product Owner asked to
+create fact packs and short question sets for the next round of subjects, and
+selected **AP Chemistry, AP Calculus AB, and AP Calculus BC** with a **layered
+fact-pack** model (one governed artifact exposing authoring, learner-facing, and
+grading views).
+
+Created `docs/product/FACT_PACKS_AND_QUESTION_SETS.md`, which defines two
+subject-agnostic governed artifacts: the **Fact Pack** (generalizes the AP
+Biology reference-card model in `BIO_REFERENCE_LAYER_PLAN.md` into typed entries
+— concept, method, formula_rule, misconception, worked_method, boundary — with
+three scoped views gated by the bio plan's `sensitivity`/`use_scope` vocabulary),
+and the **Short Question Set** (a 3–6 item delivery grouping, lighter sibling of
+the coverage-brief system, each item still bound to the full MCQ/FRQ package
+contract for production). Includes ID/version/state conventions, a subject-neutral
+data model, per-view rights posture, and the Calc AB⊂BC subset-reuse rule.
+
+Seeded one fact pack + one short question set per subject as `Drafted`
+illustrative format examples under `docs/content/`:
+`FP-CHEM-4.7-01` + `QS-CHEM-4.7-01` (stoichiometry & ideal gas law);
+`FP-CALCAB-2.1-01` + `QS-CALCAB-2.1-01` (differentiation rules, `applies_to
+[CALCAB, CALCBC]`); `FP-CALCBC-10.13-01` + `QS-CALCBC-10.13-01` (series
+convergence, BC-only). All factual content is original, public-domain-level, in
+Cramapple wording.
+
+**Guardrails honored:** seed content is explicitly labeled NOT production content
+and NOT calibration evidence; no official AP material used as input; tutor-authored
+production baseline preserved (AI drafts are pending human authoring + review);
+learner-view scoping excludes answer-bearing/grading-sensitive entries pre-attempt
+(no answer leakage); new-subject expansion gates (EXPAND-001) called out.
+
+**Open gates (flagged, not cleared):** Product Owner subject selection
+(EXPAND-001) with Strategy Advisor + Learning Quality input; domain-qualified
+Learning Quality review of each subject's content (not the AP Bio reviewer);
+official CED taxonomy confirmation per subject; grading-view interaction with the
+existing grader/boundary-contract pipeline; production authorship model per
+subject.
+
+**Next action:** Product Owner subject-selection decision; domain-qualified
+Learning Quality review of the seed packs and sets.
 
 ---
 
