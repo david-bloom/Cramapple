@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Chemistry & Calculus Launch Tasks Drafted and Seed Content Expanded — 2026-07-14
 - Next Subjects Selected: AP Chemistry and AP Calculus AB & BC (DECISION-0036) — 2026-07-14
 - Fact Packs and Short Question Sets Drafted for Next-Round Subjects — 2026-07-14
 - Content Coverage Brief System Drafted (CONTENT-001) — 2026-07-14
@@ -22,6 +23,43 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## Chemistry & Calculus Launch Tasks Drafted and Seed Content Expanded - 2026-07-14
+
+**Task:** TASK-0014, TASK-0015 (EXPAND-001 execution planning). **Status:**
+Drafted on `claude/cramapple-content-creation-igjvfb`. Task specs await execution
+approval; content is Draft illustrative format examples.
+
+**Summary:** Product Owner picked "both, tasks first." Drafted two Hard-Gate
+launch task specs mirroring TASK-0013 (AP Statistics):
+`TASK-0014-AP-CHEMISTRY-LAUNCH.md` (Subject 3) and
+`TASK-0015-AP-CALCULUS-LAUNCH.md` (AB & BC). Both reuse the subject-driven
+grading path generalized in TASK-0013 Phase 1 (grade by data via
+`app.exam_packs.exam_name`, not new branching), the tutor-authored content model,
+and the unchanged rights posture. Key per-subject net-new work: Chemistry needs a
+deterministic calculation verifier (possible reuse of the AP Statistics checker);
+Calculus needs a sandboxed **symbolic-equivalence** verifier (larger build) and
+carries the AB⊂BC content-reuse relationship. Both specs are `Status: Not
+Started`, `Decision: Pending` — selection is recorded (DECISION-0036) but
+execution scope, pilot batch sizes, and reviewer credentialing are not approved.
+
+Expanded the seed content by one additional fact pack + short question set per
+subject (a second unit each), all Draft illustrative format examples:
+`FP-CHEM-8.1-01` (acids/bases & pH), `FP-CALCAB-6.1-01` (integration & FTC),
+`FP-CALCBC-9.1-01` (parametric & polar), each with a matching `QS-*`. The seed
+index in `FACT_PACKS_AND_QUESTION_SETS.md` §7 and the Active Task Register in
+`MASTER_TODO.md` were updated.
+
+**Guardrails honored:** task specs are drafts awaiting Hard-Gate execution
+approval; seed content remains NOT production content and NOT calibration
+evidence; no official material used; production still requires the EXPAND-001
+capability/validator/Learning-Quality gates named in each task.
+
+**Next action:** Product Owner execution-approval decision on TASK-0014/0015 and
+the pending owner decisions in each (pilot scope, reviewer pools, curriculum
+owners); domain-qualified Learning Quality review of the seed content.
 
 ---
 

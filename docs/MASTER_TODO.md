@@ -80,6 +80,8 @@ records.
 | `TASK-0009` | Schema and Governance Reconciliation | High | Proposed | Conceptual-model approval |
 | `TASK-0010` | Grader Confidence and Calibration | Critical | Proposed | Learning Quality and Product Owner release gates |
 | `TASK-0011` | Handwritten Graph Capture | Medium | Research | Prototype and feasibility decision |
+| `TASK-0014` | AP Chemistry Launch (Subject 3) | High | Not Started | Execution approval; pilot scope, chemistry review pool, calibration (see `DECISION-0036`) |
+| `TASK-0015` | AP Calculus AB & BC Launch | High | Not Started | Execution approval; symbolic-equivalence verifier, pilot scope, calculus review pool (see `DECISION-0036`) |
 | `UX-001` | Initial Product UX Decisions | High | In Progress | Learning, Marketing, accessibility, and Product Owner review |
 | `UX-002` | Question and Answer Review Portal | High | In Progress | Tutor, AP Reader, Learning Quality, accessibility, security, and Product Owner review |
 | `UX-003` | Content Authoring and Revision Workbench | High | In Progress | Author, Learning Quality, accessibility, security, rights, and Product Owner review |

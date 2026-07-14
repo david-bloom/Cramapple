@@ -266,8 +266,14 @@ Learning-Quality-reviewed packages.
 | Subject | Fact pack | Short question set |
 | --- | --- | --- |
 | AP Chemistry | `docs/content/ap-chemistry/FP-CHEM-4.7-01.md` (stoichiometry & the ideal gas law) | `docs/content/ap-chemistry/QS-CHEM-4.7-01.md` |
+| AP Chemistry | `docs/content/ap-chemistry/FP-CHEM-8.1-01.md` (acids, bases & pH) | `docs/content/ap-chemistry/QS-CHEM-8.1-01.md` |
 | AP Calculus AB | `docs/content/ap-calculus-ab/FP-CALCAB-2.1-01.md` (derivative rules) | `docs/content/ap-calculus-ab/QS-CALCAB-2.1-01.md` |
+| AP Calculus AB | `docs/content/ap-calculus-ab/FP-CALCAB-6.1-01.md` (integration & the FTC) | `docs/content/ap-calculus-ab/QS-CALCAB-6.1-01.md` |
 | AP Calculus BC | `docs/content/ap-calculus-bc/FP-CALCBC-10.13-01.md` (series convergence) | `docs/content/ap-calculus-bc/QS-CALCBC-10.13-01.md` |
+| AP Calculus BC | `docs/content/ap-calculus-bc/FP-CALCBC-9.1-01.md` (parametric & polar) | `docs/content/ap-calculus-bc/QS-CALCBC-9.1-01.md` |
+
+Launch tasks for these subjects: `docs/tasks/TASK-0014-AP-CHEMISTRY-LAUNCH.md`,
+`docs/tasks/TASK-0015-AP-CALCULUS-LAUNCH.md`.
 
 ## 8. Open gates and questions
 
