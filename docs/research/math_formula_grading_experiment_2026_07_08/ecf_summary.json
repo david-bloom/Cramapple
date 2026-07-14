@@ -1,0 +1,185 @@
+{
+  "passed": "6/6",
+  "cases": [
+    {
+      "name": "physics_cascade_arithmetic_ecf",
+      "expected": [
+        "INCORRECT",
+        "CORRECT_VIA_ECF",
+        "CORRECT_VIA_ECF"
+      ],
+      "got": [
+        "INCORRECT",
+        "CORRECT_VIA_ECF",
+        "CORRECT_VIA_ECF"
+      ],
+      "ok": true,
+      "result": {
+        "earned": 3,
+        "possible": 4,
+        "parts": [
+          {
+            "part": "A",
+            "verdict": "INCORRECT",
+            "points": "0/1",
+            "feedback": "Arithmetic error in part A: `F/m` with your values (F=20, m=4) gives 5.0, but you wrote 4."
+          },
+          {
+            "part": "B",
+            "verdict": "CORRECT_VIA_ECF",
+            "points": "2/2",
+            "feedback": "Your value from part A was off, but your setup for part B (`a*t`) is the right relationship and you computed it correctly on your own number \u2014 full credit for part B. Fix part A and this stays correct."
+          },
+          {
+            "part": "C",
+            "verdict": "CORRECT_VIA_ECF",
+            "points": "1/1",
+            "feedback": "Your value from part B was off, but your setup for part C (`0.5*m*v**2`) is the right relationship and you computed it correctly on your own number \u2014 full credit for part C. Fix part B and this stays correct."
+          }
+        ]
+      }
+    },
+    {
+      "name": "physics_cascade_conceptual_collapse",
+      "expected": [
+        "CORRECT",
+        "CONCEPTUAL_COLLAPSE",
+        "CORRECT_VIA_ECF"
+      ],
+      "got": [
+        "CORRECT",
+        "CONCEPTUAL_COLLAPSE",
+        "CORRECT_VIA_ECF"
+      ],
+      "ok": true,
+      "result": {
+        "earned": 2,
+        "possible": 4,
+        "parts": [
+          {
+            "part": "A",
+            "verdict": "CORRECT",
+            "points": "1/1",
+            "feedback": "Part A correct."
+          },
+          {
+            "part": "B",
+            "verdict": "CONCEPTUAL_COLLAPSE",
+            "points": "0/2",
+            "feedback": "Part B uses the wrong relationship: you wrote `a/t`, but this step needs `a*t`. That's a new conceptual error, so error-carried-forward doesn't rescue it."
+          },
+          {
+            "part": "C",
+            "verdict": "CORRECT_VIA_ECF",
+            "points": "1/1",
+            "feedback": "Your value from part B was off, but your setup for part C (`0.5*m*v**2`) is the right relationship and you computed it correctly on your own number \u2014 full credit for part C. Fix part B and this stays correct."
+          }
+        ]
+      }
+    },
+    {
+      "name": "single_part_coincidental_canonical",
+      "expected": [
+        "COINCIDENTAL"
+      ],
+      "got": [
+        "COINCIDENTAL"
+      ],
+      "ok": true,
+      "result": {
+        "earned": 0,
+        "possible": 1,
+        "parts": [
+          {
+            "part": "A",
+            "verdict": "COINCIDENTAL",
+            "points": "0/1",
+            "feedback": "Your final number for part A matches, but your shown work (`x*y` with your values) gives 4.0, not 5. The number isn't supported by the work, so it can't earn the point."
+          }
+        ]
+      }
+    },
+    {
+      "name": "single_part_naked_answer",
+      "expected": [
+        "NAKED_ANSWER"
+      ],
+      "got": [
+        "NAKED_ANSWER"
+      ],
+      "ok": true,
+      "result": {
+        "earned": 0,
+        "possible": 1,
+        "parts": [
+          {
+            "part": "A",
+            "verdict": "NAKED_ANSWER",
+            "points": "0/1",
+            "feedback": "No work shown for part A, so we can't trace how you reached 5. Consistency (ECF) credit can't be applied without shown work \u2014 opening the help walkthrough for this step."
+          }
+        ]
+      }
+    },
+    {
+      "name": "calculus_related_rates_ecf",
+      "expected": [
+        "INCORRECT",
+        "CORRECT_VIA_ECF"
+      ],
+      "got": [
+        "INCORRECT",
+        "CORRECT_VIA_ECF"
+      ],
+      "ok": true,
+      "result": {
+        "earned": 2,
+        "possible": 3,
+        "parts": [
+          {
+            "part": "A",
+            "verdict": "INCORRECT",
+            "points": "0/1",
+            "feedback": "Arithmetic error in part A: `(3*V/(4*pi))**(1/3)` with your values (V=113.0973) gives 3.0, but you wrote 2."
+          },
+          {
+            "part": "B",
+            "verdict": "CORRECT_VIA_ECF",
+            "points": "2/2",
+            "feedback": "Your value from part A was off, but your setup for part B (`4*pi*r**2*drdt`) is the right relationship and you computed it correctly on your own number \u2014 full credit for part B. Fix part A and this stays correct."
+          }
+        ]
+      }
+    },
+    {
+      "name": "all_correct_cascade_no_false_ecf",
+      "expected": [
+        "CORRECT",
+        "CORRECT"
+      ],
+      "got": [
+        "CORRECT",
+        "CORRECT"
+      ],
+      "ok": true,
+      "result": {
+        "earned": 3,
+        "possible": 3,
+        "parts": [
+          {
+            "part": "A",
+            "verdict": "CORRECT",
+            "points": "1/1",
+            "feedback": "Part A correct."
+          },
+          {
+            "part": "B",
+            "verdict": "CORRECT",
+            "points": "2/2",
+            "feedback": "Part B correct."
+          }
+        ]
+      }
+    }
+  ]
+}

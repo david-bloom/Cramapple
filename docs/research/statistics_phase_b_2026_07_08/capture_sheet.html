@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>TASK-0016 Phase B — Formula Capture Sheet</title>
+<style>
+  body { font-family: -apple-system, Segoe UI, Roboto, sans-serif; margin: 2rem; color: #111; }
+  h1 { font-size: 1.4rem; }
+  .intro { background: #f4f4f5; border: 1px solid #ddd; padding: 1rem 1.25rem; border-radius: 8px; font-size: 0.95rem; line-height: 1.5; max-width: 60rem; }
+  .item { border: 2px solid #222; border-radius: 10px; padding: 1rem 1.25rem; margin: 1.25rem 0; page-break-inside: avoid; break-inside: avoid; }
+  .key { font-weight: 700; font-family: ui-monospace, Menlo, monospace; font-size: 1rem; }
+  .tier { float: right; font-size: 0.8rem; color: #666; font-family: ui-monospace, monospace; }
+  .prompt { color: #444; font-size: 0.9rem; margin: 0.35rem 0 0.75rem; }
+  math { font-size: 2.6rem; }
+  .line { margin: 0.4rem 0; }
+  .lineid { font-family: ui-monospace, monospace; font-size: 0.8rem; color: #888; margin-right: 0.75rem; }
+  @media print { .intro { break-after: page; } }
+</style>
+</head>
+<body>
+<h1>Formula Capture Sheet — TASK-0016 Phase B transcription bake-off</h1>
+<div class="intro">
+  <strong>How to use:</strong> for each item, copy the formula(s) <em>in your own
+  handwriting</em> onto blank paper (write the <span class="key">item_key</span> at the
+  top of the page). Photograph <strong>one item per photo</strong>, and name each file
+  after its <span class="key">item_key</span> (e.g. <span class="key">BK-STAT-SE.jpg</span>).
+  Multi-line items: write each labeled line top to bottom, in order.
+  <br><br>
+  <strong>Note on realism:</strong> hand-<em>copying</em> a clean reference is a
+  controlled variant — it yields tidier writing than a real exam, so the resulting
+  fidelity number is an <em>optimistic upper bound</em> (if the model misreads even
+  this, it will certainly misread messier real work). Good enough for a first
+  measurement; a natural-handwriting corpus from several people is the follow-up.
+</div>
+
+<div class="item">
+  <span class="tier">easy · ap-statistics</span>
+  <div class="key">BK-STAT-SE</div>
+  <div class="prompt">Standard error of the sample mean.</div>
+  <div class="line"><span class="lineid">L1</span>
+    <math><mfrac><mi>s</mi><msqrt><mi>n</mi></msqrt></mfrac></math></div>
+</div>
+
+<div class="item">
+  <span class="tier">easy · ap-macroeconomics</span>
+  <div class="key">BK-ECON-MULT</div>
+  <div class="prompt">Spending multiplier, MPC = 0.8 (denominator form).</div>
+  <div class="line"><span class="lineid">L1</span>
+    <math><mfrac><mn>1</mn><mrow><mo>(</mo><mn>1</mn><mo>−</mo><mn>0.8</mn><mo>)</mo></mrow></mfrac></math></div>
+</div>
+
+<div class="item">
+  <span class="tier">easy · ap-physics-1</span>
+  <div class="key">BK-PHYS1-KIN</div>
+  <div class="prompt">Speed after falling height h from rest (energy conservation).</div>
+  <div class="line"><span class="lineid">L1</span>
+    <math><msqrt><mrow><mn>2</mn><mi>g</mi><mi>h</mi></mrow></msqrt></math></div>
+</div>
+
+<div class="item">
+  <span class="tier">medium · ap-calculus-ab</span>
+  <div class="key">BK-CALCAB-DERIV</div>
+  <div class="prompt">Derivative of y = sin(x²) — write the result.</div>
+  <div class="line"><span class="lineid">L1</span>
+    <math><mrow><mi>cos</mi><mo>(</mo><msup><mi>x</mi><mn>2</mn></msup><mo>)</mo>
+      <mo>·</mo><mn>2</mn><mi>x</mi></mrow></math></div>
+</div>
+
+<div class="item">
+  <span class="tier">hard · ap-calculus-bc</span>
+  <div class="key">BK-CALCBC-IBP</div>
+  <div class="prompt">Antiderivative of x·eˣ (integration by parts, include +C).</div>
+  <div class="line"><span class="lineid">L1</span>
+    <math><mrow><mi>x</mi><msup><mi>e</mi><mi>x</mi></msup><mo>−</mo>
+      <msup><mi>e</mi><mi>x</mi></msup><mo>+</mo><mi>C</mi></mrow></math></div>
+</div>
+
+<div class="item">
+  <span class="tier">hard · ap-physics-c-mech</span>
+  <div class="key">BK-PHYSC-DRAG</div>
+  <div class="prompt">Velocity vs. time for fall from rest with linear drag (terminal velocity × saturating factor).</div>
+  <div class="line"><span class="lineid">L1</span>
+    <math><mrow>
+      <mo>(</mo><mfrac><mrow><mi>m</mi><mi>g</mi></mrow><mi>b</mi></mfrac><mo>)</mo>
+      <mo>(</mo><mn>1</mn><mo>−</mo>
+      <msup><mi>e</mi><mrow><mo>−</mo><mfrac><mrow><mi>b</mi><mi>t</mi></mrow><mi>m</mi></mfrac></mrow></msup>
+      <mo>)</mo>
+    </mrow></math></div>
+</div>
+
+<div class="item">
+  <span class="tier">medium · ap-statistics · APSTAT-MOD3-H001-INV</span>
+  <div class="key">BK-STAT-MOD3-CI</div>
+  <div class="prompt">n=30, mean 850, s=120. Standard error, then 95% CI bounds (z*=1.96). One expression per line.</div>
+  <div class="line"><span class="lineid">SE</span>
+    <math><mfrac><mn>120</mn><msqrt><mn>30</mn></msqrt></mfrac></math></div>
+  <div class="line"><span class="lineid">CI_low</span>
+    <math><mrow><mn>850</mn><mo>−</mo><mn>1.96</mn>
+      <mo>(</mo><mfrac><mn>120</mn><msqrt><mn>30</mn></msqrt></mfrac><mo>)</mo></mrow></math></div>
+  <div class="line"><span class="lineid">CI_high</span>
+    <math><mrow><mn>850</mn><mo>+</mo><mn>1.96</mn>
+      <mo>(</mo><mfrac><mn>120</mn><msqrt><mn>30</mn></msqrt></mfrac><mo>)</mo></mrow></math></div>
+</div>
+
+</body>
+</html>
