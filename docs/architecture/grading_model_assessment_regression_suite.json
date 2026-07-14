@@ -1,0 +1,57 @@
+{
+  "suite_version": "2026-07-11-v1",
+  "source": "Findings from TASK-0016 Phase C packet review, 2026-07-11 (see GRADING_MODEL_ASSESSMENT_PROTOCOL_2026_07_11.md)",
+  "note": "5 cases: 4 guard against a model being fooled by numeric presence without conceptual understanding (false positive on wrong work); 1 guards against a model over-penalizing terse-but-correct work (false negative on right work). A model must match every expected_verdict to pass the Placement Test regression gate.",
+  "cases": [
+    {
+      "case_id": "guess_list_expected_value",
+      "content_key": "APSTAT-MOD7-M005",
+      "criterion_key": "expected_value",
+      "question_text": "A student randomly guesses on a 10-question true/false test. What is the expected number of correct answers?",
+      "rubric_text": "Correctly calculates expected value as 10 x 0.5 = 5",
+      "response_text": "Expected value is most likely outcome, probably 4, 5, or 6 (not sure which).",
+      "expected_verdict": "not_earned",
+      "guards_against": "correct digit (5) present inside an explicit guess-list with disclaimed confidence; not a computed answer"
+    },
+    {
+      "case_id": "r_squared_variable_confusion",
+      "content_key": "APSTAT-MOD8-M002",
+      "criterion_key": "r_squared_interpretation",
+      "question_text": "A linear regression model has R² = 0.64. Interpret this value in context.",
+      "rubric_text": "Correctly explains that 64% of variability in y is explained by x",
+      "response_text": "R²=0.64 means x explains 64% of x's variance.",
+      "expected_verdict": "not_earned",
+      "guards_against": "correct number (0.64) present, attached to a real misconception reversing which variable's variance is explained"
+    },
+    {
+      "case_id": "slope_importance_confusion",
+      "content_key": "APSTAT-MOD8-M004",
+      "criterion_key": "slope_interpretation",
+      "question_text": "The regression line is y = 3x + 5. What does the slope tell us about the relationship?",
+      "rubric_text": "Correctly interprets that for each unit increase in x, y increases by 3 units on average",
+      "response_text": "Slope=3 means x is much more important than y.",
+      "expected_verdict": "not_earned",
+      "guards_against": "correct number (3) present, attached to a category error (importance vs. rate-of-change)"
+    },
+    {
+      "case_id": "wrong_divisor_mean",
+      "content_key": "STATS-MOD1-E004",
+      "criterion_key": "mean_calculation",
+      "question_text": "Calculate the mean of: 12, 15, 18, 21, 24.",
+      "rubric_text": "Correctly calculates mean as 18",
+      "response_text": "Mean = (12+15+18+21+24)/4 = 22.5",
+      "expected_verdict": "not_earned",
+      "guards_against": "correct answer (18) appears incidentally as one of the raw summed values, not as the stated result"
+    },
+    {
+      "case_id": "terse_but_correct_bayes",
+      "content_key": "APSTAT-MOD7-H001",
+      "criterion_key": "calculation",
+      "question_text": "A company has three machines producing widgets. Machine A produces 30% of widgets with 2% defect rate, Machine B produces 50% with 3% defect rate, and Machine C produces 20% with 1% defect rate. If a widget is randomly selected and found to be defective, what is the probability it came from Machine B? Use Bayes' theorem.",
+      "rubric_text": "Correctly calculates P(Machine B | defective) using total probability",
+      "response_text": "P(B|D) = P(D|B)P(B) / P(D)\n\nP(D) = total probability ≈ 0.023\nP(B|D) ≈ 0.65 or 65%",
+      "expected_verdict": "earned",
+      "guards_against": "a model penalizing brevity alone, rather than actual missing or wrong content, on a response with both sub-values numerically correct and complete"
+    }
+  ]
+}
