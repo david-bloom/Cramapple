@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- TASK-0016 Phase A Executed on Dev (Migrations + Functions, Shadow Mode) — 2026-07-14
 - TASK-0017 H1–H5 Repository Harness Implemented and Locally Verified — 2026-07-13
 - AP Statistics Vertical-Slice G3V Re-QA: Q1/Q3/Q4 Pass — 2026-07-13
 - TASK-0017 Post-Approval P0 Re-Verification + TASK-0009 Fast-Track Slices; AP Statistics G3V Failed 3 FRQs — 2026-07-13
@@ -30,6 +31,46 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 ---
+
+## TASK-0016 Phase A Executed on Dev (Migrations + Functions, Shadow Mode) — 2026-07-14
+
+**Task:** TASK-0016 — Multi-Rubric Grading & Feedback Engine Rollout, Phase A
+**Status:** Deployed and boundary-verified on Development; Production untouched.
+
+**Summary:** Under APPROVAL-0037 (full Phase A incl. review pipeline), reconciled
+the uncommitted grading worktree into 11 workstream commits (95/95 function tests
+green; auth-token telemetry bug fixed), then executed Phase A on Dev
+(`wmgjsdkphcyhngaffbqf`). Read-only preflight found Dev's migration history
+**diverged / partly managed outside this repo** (rubric-routing columns applied
+under foreign Jul-11 version ids), so migrations were applied individually via MCP
+rather than `db push`. Applied 7 additive/idempotent migrations (5 `grading_results`
+columns, `profiles.review_queue_scope` with a hardened CHECK, review-schema
+stabilization, and RLS-policy restore taking two label tables from 0→4 policies).
+Deployed 6 edge functions via CLI with shared deps auto-bundled: `evaluate-attempt`
+(v7→v8) plus new `attempt-response`, `assign-for-review`, `review-queue`,
+`review-decision`, `reviewer-invite` — all ACTIVE. Post-DDL security advisors
+showed only pre-existing WARNs (no new findings; the RLS-zero-policy issues were
+resolved). Boundary smoke: unauth `evaluate-attempt`→401, `review-queue` GET→401,
+CORS preflight→200.
+
+**Deferred:** HDG spatial remediation (content guard would abort — 0 published HDG
+on Dev); queue-scope backfill + dbloom01→admin promotion (privilege change);
+non-Phase-A migrations (curated interface, atomic publication, TASK-0017 H1–H5).
+
+**Also built this session:** push-button AP Statistics calibration harness
+(`scripts/grading-model-assessment/calibrate-ap-statistics.ts` + converter +
+launch-bar verdict; 10/10 tests) — provisional/plumbing until adjudicated gold and
+real grader captures land.
+
+**Evidence:** `docs/qa/TASK0016_PHASE_A_DEV_EXECUTION_EVIDENCE_2026_07_14.md`;
+`docs/qa/TASK0016_PHASE_A_DEV_EXECUTION_PACKET_2026_07_14.md`.
+
+**Next Owner:** David Bloom.
+**Next Required Action:** Authorize the seeded end-to-end Dev evidence run (needs
+AP Statistics content + a test student on Dev) to prove router dispatch,
+deterministic-before-LLM, sanitizer grounding, and the shadow round-trip. Separately,
+schedule a migration-history reconciliation for Dev. No Production change is
+authorized; `QA-pass ≠ launch approval`.
 
 ## TASK-0017 H1–H5 Repository Harness Implemented and Locally Verified — 2026-07-13
 

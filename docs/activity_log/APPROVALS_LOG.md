@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0037 — TASK-0016 Phase A Dev Execution (full, incl. review pipeline)
 - APPROVAL-0036 — AP Statistics 2026-27 Content-Bank Inventory Split (100 MCQ / 70 FRQ)
 - APPROVAL-0035 — August Pilot Bio/Stats Release Intent; TASK-0017/0009 Split; Chemistry Scaffold-Only AC4
 - APPROVAL-0034 — TASK-0017 Manifest Naming, Validation Registry, and Content-Clearance Exception Design
@@ -922,3 +923,37 @@ These are **authoring-bank targets** (how many distinct items to write), not per
 - No content is cleared or published by this record (`QA-pass ≠ launch approval`).
 - The harness `inventory.targets` bank-vs-per-form modeling gap (raised in the proposal, for Codex)
   should be resolved before these counts enter a SubjectPackage.
+
+## APPROVAL-0037 — TASK-0016 Phase A Dev Execution (full, incl. review pipeline)
+
+**Date:** 2026-07-14
+**Approved By:** David Bloom
+**Related Task:** TASK-0016 (Phase A)
+**Decision:** Approved with Notes
+
+### Summary
+
+Authorized Dev execution of TASK-0016 Phase A (evaluator-strategy router,
+Engine 1 deterministic-before-LLM, Engine 3 typed dispatch, and the shadow-review
+pipeline), scope confirmed as **full Phase A including the review pipeline**.
+Target environment: `wmgjsdkphcyhngaffbqf` (Development) only; Production
+untouched. Executed 2026-07-14: 7 additive/idempotent migrations applied via MCP,
+6 edge functions deployed via CLI, boundary-verified (401 on unauth, GET route
+live, CORS preflight 200).
+
+Evidence: `docs/qa/TASK0016_PHASE_A_DEV_EXECUTION_EVIDENCE_2026_07_14.md`.
+
+### Notes
+
+- Preflight revealed Dev's migration history is **diverged / partly managed
+  outside this repo** (rubric-routing columns applied under foreign Jul-11 version
+  ids). `db push` was therefore not used; migrations applied individually.
+- Deferred within Phase A: HDG spatial remediation (content guard would abort — 0
+  published HDG on Dev); `202607080003/004` (queue-scope backfill + **promote
+  dbloom01→admin**, a role/privilege change not made autonomously). Available on
+  request.
+- **Not approved by this record:** any Production change; and the full end-to-end
+  shadow-grading Dev evidence run (needs seeded AP Statistics content + a test
+  student), which remains the next step. `QA-pass ≠ launch approval`.
+- Recommended follow-up: a separate migration-history reconciliation task to
+  realign Dev `schema_migrations` with the repo.
