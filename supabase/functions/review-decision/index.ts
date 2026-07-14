@@ -43,6 +43,51 @@ async function sha256Hex(value: string) {
     .join("");
 }
 
+// ── Categorical scoring model (DECISION-0038) ─────────────────────────────────
+// The suitability decision is categorical: approve | approve_with_edits |
+// disapprove. The legacy numeric tutor_score (1 Yes | 2 Maybe | 3 No) is still
+// accepted from older clients and mapped, and is dual-written so any legacy
+// reader of tutor_score keeps working during the transition.
+
+const SUITABILITY_DECISIONS = ["approve", "approve_with_edits", "disapprove"];
+const SCORE_TO_DECISION: Record<number, string> = {
+  1: "approve",
+  2: "approve_with_edits",
+  3: "disapprove",
+};
+const DECISION_TO_SCORE: Record<string, number> = {
+  approve: 1,
+  approve_with_edits: 2,
+  disapprove: 3,
+};
+
+// Resolve a stored decision row to a categorical suitability decision, preferring
+// the new tutor_decision column and falling back to the legacy numeric score.
+function resolveDecision(row: Record<string, unknown>): string | null {
+  const d = row.tutor_decision as string | null;
+  if (d && SUITABILITY_DECISIONS.includes(d)) return d;
+  const s = row.tutor_score as number | null;
+  if (s != null && SCORE_TO_DECISION[s]) return SCORE_TO_DECISION[s];
+  return null;
+}
+
+// Resolve the AP Reader disposition from either the categorical reader_decision,
+// the legacy agree/disagree values, or the legacy numeric score.
+function resolveReaderDisposition(
+  readerDecision: string | null,
+  readerScore: number | null,
+): "approve" | "recycle" | "exclude" | null {
+  if (readerDecision === "approve" || readerDecision === "agree") return "approve";
+  if (readerDecision === "disapprove" || readerDecision === "disagree") {
+    return "exclude";
+  }
+  if (readerDecision === "approve_with_edits") return "recycle";
+  if (readerScore === 1) return "approve";
+  if (readerScore === 2) return "recycle";
+  if (readerScore === 3) return "exclude";
+  return null;
+}
+
 async function loadProfile(req: Request) {
   const profileResult = await requireProfile(req);
   if (!profileResult) return null;
@@ -56,20 +101,20 @@ async function loadProfile(req: Request) {
 // ── Workflow advancement ──────────────────────────────────────────────────────
 //
 // Called synchronously after a decision is inserted. Checks whether the blind
-// group is now complete and, if so, computes the aggregate and creates
+// group is now complete and, if so, computes the disposition and creates
 // downstream assignments. All operations use service_role so they are not
 // subject to reviewer RLS policies.
 //
-// State machine (from the architecture plan):
+// State machine (DECISION-0038):
 //
-// tutor_question, aggregate 2 (Yes+Yes)    → create reader_question assignment
-// tutor_question, aggregate 3 (Yes+Maybe)  → flag modification_reserved
-// tutor_question, aggregate 4-6            → flag excluded
+// tutor_question, Approve + Approve                       → create reader_question assignment
+// tutor_question, >=1 Approve-with-edits, no Disapprove   → flag modification_reserved
+// tutor_question, any Disapprove                          → flag excluded
 //
-// reader_question, score 1 (Approve)       → MCQ: fan out tutor_answer ×4 options ×2 tutors
-//                                            FRQ: flag question_review_approved
-// reader_question, score 2 (Edit+recycle)  → flag modification_reserved
-// reader_question, score 3 (Exclude)       → flag excluded
+// reader_question, Approve            → MCQ: fan out tutor_answer ×4 options ×2 tutors
+//                                       FRQ: flag question_review_approved
+// reader_question, Approve with edits → flag modification_reserved
+// reader_question, Disapprove         → flag excluded
 
 async function advanceWorkflow(
   service: ReturnType<typeof createServiceClient>,
@@ -106,7 +151,9 @@ async function advanceWorkflow(
     const { data: groupDecisions } = await service
       .schema("app")
       .from("content_review_decisions")
-      .select("content_review_assignment_id, tutor_score, difficulty_label")
+      .select(
+        "content_review_assignment_id, tutor_decision, tutor_score, difficulty_action, difficulty_label",
+      )
       .in("content_review_assignment_id", groupIds)
       .order("submitted_at", { ascending: false });
 
@@ -122,12 +169,15 @@ async function advanceWorkflow(
 
     if (latestDecisions.length !== 2) return;
 
-    const scoreA = latestDecisions[0].tutor_score as number;
-    const scoreB = latestDecisions[1].tutor_score as number;
-    const aggregate = scoreA + scoreB;
+    const decA = resolveDecision(latestDecisions[0]);
+    const decB = resolveDecision(latestDecisions[1]);
+    if (!decA || !decB) return;
 
-    if (aggregate === 2) {
-      // Yes + Yes → create AP Reader assignment.
+    const anyDisapprove = decA === "disapprove" || decB === "disapprove";
+    const bothApprove = decA === "approve" && decB === "approve";
+
+    if (bothApprove) {
+      // Approve + Approve → create AP Reader assignment.
       // Find the original creator of the assignments (admin) to use as created_by.
       const { data: firstAssignment } = await service
         .schema("app")
@@ -161,22 +211,28 @@ async function advanceWorkflow(
         .update({ review_status: "ap_reader_pending" })
         .eq("id", versionId);
 
-      // Check difficulty label agreement; flag discussion if they differ.
+      // Difficulty agree/propose: any proposal blocks confirmation and routes to
+      // discussion. Fall back to legacy label mismatch when actions are absent.
+      const actA = latestDecisions[0].difficulty_action as string | null;
+      const actB = latestDecisions[1].difficulty_action as string | null;
+      const anyPropose = actA === "propose" || actB === "propose";
       const labelA = latestDecisions[0].difficulty_label as string | null;
       const labelB = latestDecisions[1].difficulty_label as string | null;
-      if (labelA && labelB && labelA !== labelB) {
+      const legacyMismatch = !actA && !actB && labelA != null &&
+        labelB != null && labelA !== labelB;
+      if (anyPropose || legacyMismatch) {
         await service.schema("app").from("content_item_versions")
           .update({ review_status: "difficulty_discussion" })
           .eq("id", versionId);
       }
-    } else if (aggregate === 3) {
-      await service.schema("app").from("content_item_versions")
-        .update({ review_status: "modification_reserved" })
-        .eq("id", versionId);
-    } else {
-      // aggregate 4-6
+    } else if (anyDisapprove) {
       await service.schema("app").from("content_item_versions")
         .update({ review_status: "excluded" })
+        .eq("id", versionId);
+    } else {
+      // At least one Approve-with-edits, no Disapprove → edit and recycle.
+      await service.schema("app").from("content_item_versions")
+        .update({ review_status: "modification_reserved" })
         .eq("id", versionId);
     }
   }
@@ -185,12 +241,10 @@ async function advanceWorkflow(
     const readerScore = decision.tutor_score as number | null;
     const readerDecisionValue = decision.reader_decision as string | null;
 
-    // reader_decision: "agree" maps to score 1 (approve),
-    // "disagree" maps to score 3 (exclude) per current design.
-    // Full AP Reader 1/2/3 scoring is not yet wired in the prototype.
-    const isApprove = readerDecisionValue === "agree" || readerScore === 1;
-    const isExclude = readerDecisionValue === "disagree" || readerScore === 3;
-    const isRecycle = readerScore === 2;
+    const disposition = resolveReaderDisposition(readerDecisionValue, readerScore);
+    const isApprove = disposition === "approve";
+    const isRecycle = disposition === "recycle";
+    const isExclude = disposition === "exclude";
 
     if (isApprove) {
       if (reviewKind === "mcq") {
@@ -328,9 +382,13 @@ Deno.serve(async (req) => {
   const decisionPayload: Record<string, unknown> = { review_stage: reviewStage };
 
   // ── tutor_question ────────────────────────────────────────────────────────
-  // Accept both canonical names and prototype aliases.
+  // Accept the categorical tutor_decision (canonical) and legacy numeric
+  // tutor_score/score (mapped). Difficulty uses difficulty_action agree/propose,
+  // with legacy label-only submissions still accepted.
 
-  const tutorScore = asInt(b.tutor_score ?? b.score);
+  const legacyTutorScore = asInt(b.tutor_score ?? b.score);
+  let tutorDecision = asString(b.tutor_decision);
+  const difficultyAction = asString(b.difficulty_action);
   const difficultyLabel = asString(b.difficulty_label ?? b.difficulty);
   const diagnosticFlag = asBool(b.diagnostic_flag) ?? false;
   const concernCodes = asStringArray(b.concern_codes);
@@ -342,36 +400,60 @@ Deno.serve(async (req) => {
       ? (b.topic_selections as Record<string, unknown>)
       : null;
 
+  // Numeric score written to the legacy column (dual-write) for tutor_question.
+  let tutorScoreForInsert: number | null = null;
+
+  const validDifficulty = [
+    "Easy",
+    "Moderately easy",
+    "Medium",
+    "Hard",
+    "Very hard",
+  ];
+
   if (reviewStage === "tutor_question") {
-    if (!tutorScore) {
+    // Resolve the suitability decision: prefer categorical, fall back to legacy.
+    if (!tutorDecision && legacyTutorScore && SCORE_TO_DECISION[legacyTutorScore]) {
+      tutorDecision = SCORE_TO_DECISION[legacyTutorScore];
+    }
+    if (!tutorDecision) {
       return respond(
-        { error: "missing_required_fields", required: ["tutor_score"] },
+        { error: "missing_required_fields", required: ["tutor_decision"] },
         { status: 400 },
       );
     }
-    if (![1, 2, 3].includes(tutorScore)) {
-      return respond({ error: "invalid_tutor_score" }, { status: 400 });
+    if (!SUITABILITY_DECISIONS.includes(tutorDecision)) {
+      return respond({ error: "invalid_tutor_decision" }, { status: 400 });
     }
-    if (!difficultyLabel) {
+    tutorScoreForInsert = DECISION_TO_SCORE[tutorDecision];
+
+    // Difficulty: new agree/propose contract, with legacy label-only fallback.
+    if (difficultyAction) {
+      if (!["agree", "propose"].includes(difficultyAction)) {
+        return respond({ error: "invalid_difficulty_action" }, { status: 400 });
+      }
+      if (difficultyAction === "propose" && !difficultyLabel) {
+        return respond(
+          { error: "missing_required_fields", required: ["difficulty_label"] },
+          { status: 400 },
+        );
+      }
+    } else if (!difficultyLabel) {
       return respond(
-        { error: "missing_required_fields", required: ["difficulty_label"] },
+        { error: "missing_required_fields", required: ["difficulty_action"] },
         { status: 400 },
       );
     }
-    const validDifficulty = [
-      "Easy",
-      "Moderately easy",
-      "Medium",
-      "Hard",
-      "Very hard",
-    ];
-    if (!validDifficulty.includes(difficultyLabel)) {
+    if (difficultyLabel && !validDifficulty.includes(difficultyLabel)) {
       return respond(
         { error: "invalid_difficulty_label", allowed: validDifficulty },
         { status: 400 },
       );
     }
-    decisionPayload.tutor_score = tutorScore;
+
+    decisionPayload.tutor_decision = tutorDecision;
+    decisionPayload.tutor_score = tutorScoreForInsert;
+    decisionPayload.difficulty_action = difficultyAction;
     decisionPayload.difficulty_label = difficultyLabel;
     decisionPayload.diagnostic_flag = diagnosticFlag;
     decisionPayload.concern_codes = concernCodes;
@@ -444,7 +526,9 @@ Deno.serve(async (req) => {
   }
 
   // ── reader_question ───────────────────────────────────────────────────────
-  // Accept both reader_decision (canonical) and decision (prototype alias).
+  // Accept the categorical reader_decision (approve | approve_with_edits |
+  // disapprove), the legacy agree/disagree values, and the prototype alias
+  // `decision`.
 
   const readerDecision = asString(
     b.reader_decision ??
@@ -458,7 +542,10 @@ Deno.serve(async (req) => {
         { status: 400 },
       );
     }
-    if (!["agree", "disagree"].includes(readerDecision)) {
+    if (
+      !["agree", "disagree", "approve", "approve_with_edits", "disapprove"]
+        .includes(readerDecision)
+    ) {
       return respond({ error: "invalid_reader_decision" }, { status: 400 });
     }
     decisionPayload.reader_decision = readerDecision;
@@ -490,7 +577,11 @@ Deno.serve(async (req) => {
       reviewer_id: profileResult.user.id,
       supersedes_id: supersedes,
       review_stage: reviewStage,
-      tutor_score: tutorScore,
+      tutor_decision: reviewStage === "tutor_question" ? tutorDecision : null,
+      tutor_score: tutorScoreForInsert,
+      difficulty_action: reviewStage === "tutor_question"
+        ? difficultyAction
+        : null,
       difficulty_label: difficultyLabel,
       diagnostic_flag: diagnosticFlag,
       concern_codes: concernCodes,
@@ -506,7 +597,7 @@ Deno.serve(async (req) => {
       created_by: profileResult.user.id,
     })
     .select(
-      "content_review_decision_id, content_review_assignment_id, content_item_version_id, reviewer_id, review_stage, supersedes_id, decision_hash, submitted_at, created_at",
+      "content_review_decision_id, content_review_assignment_id, content_item_version_id, reviewer_id, review_stage, supersedes_id, tutor_decision, tutor_score, difficulty_action, reader_decision, decision_hash, submitted_at, created_at",
     )
     .maybeSingle();
 

@@ -125,7 +125,7 @@ Deno.serve(async (req) => {
   ] = await Promise.all([
     service.schema("app").from("content_review_decisions")
       .select(
-        "content_review_decision_id, content_review_assignment_id, content_item_version_id, review_stage, tutor_score, difficulty_label, concern_codes, note, answer_key, answer_approval, reader_decision, supersedes_id, submitted_at, created_at",
+        "content_review_decision_id, content_review_assignment_id, content_item_version_id, review_stage, tutor_decision, tutor_score, difficulty_action, difficulty_label, concern_codes, note, answer_key, answer_approval, reader_decision, supersedes_id, submitted_at, created_at",
       )
       .in("content_review_assignment_id", assignmentIds),
 
