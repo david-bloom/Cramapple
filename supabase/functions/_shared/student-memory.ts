@@ -149,6 +149,10 @@ export function buildGradingMemoryState(input: {
     points_awarded: number;
   }>;
   summary: string;
+  feedbackPreview?: string | null;
+  actionHint?: string | null;
+  repairHint?: string | null;
+  deterministicCheck?: StudentMemoryState | null;
 }) {
   const base = input.currentMemoryState ?? {};
   const missingCriteria = input.criteria
@@ -169,6 +173,18 @@ export function buildGradingMemoryState(input: {
     last_points_available: input.pointsAvailable,
     last_confidence: input.confidence ?? "medium",
     last_feedback_summary: input.summary,
+    last_feedback_preview:
+      asString(input.feedbackPreview) ?? asString(base.last_feedback_preview) ??
+      input.summary,
+    last_action_hint:
+      asString(input.actionHint) ?? asString(base.last_action_hint) ?? null,
+    last_repair_hint:
+      asString(input.repairHint) ?? asString(base.last_repair_hint) ??
+      asString(input.highestValueGap?.repair_prompt) ??
+      asString(input.highestValueGap?.minimum_fix) ??
+      null,
+    last_deterministic_check:
+      input.deterministicCheck ?? base.last_deterministic_check ?? null,
     latest_gap_criteria: mergeStringArrays(
       base.latest_gap_criteria,
       input.highestValueGap
@@ -236,6 +252,7 @@ export async function recordStudentMemoryEvent(
     sourceAttemptId?: string | null;
     memoryState: StudentMemoryState;
     eventPayload?: StudentMemoryState;
+    deterministicCheck?: StudentMemoryState | null;
   },
 ) {
   const { data, error } = await service.schema("app")
@@ -249,6 +266,7 @@ export async function recordStudentMemoryEvent(
       event_payload: {
         event_kind: input.eventKind,
         memory_state: input.memoryState,
+        deterministic_check: input.deterministicCheck ?? null,
         ...(input.eventPayload ?? {}),
       },
     })

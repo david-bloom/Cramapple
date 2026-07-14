@@ -23,8 +23,18 @@ import {
   buildFallbackCriteria,
   buildShadowReviewPayload,
   pickHighestGap,
-  sanitizeModelResult,
 } from "../_shared/grading-feedback.ts";
+import {
+  type AllowedOperation,
+  buildGradingPrompt,
+  buildGradingRequestBody,
+  buildSystemPrompt,
+  extractOutputText,
+  extractUsage,
+  type FeedbackCriterionRow,
+  isTransientHttpStatus,
+  sanitizeModelResult,
+} from "../_shared/grading-contract.ts";
 import { loadLearningRuntimeContext } from "../_shared/learning-context.ts";
 import {
   asRecord,
@@ -35,6 +45,10 @@ import {
   buildEvaluateAttemptResponse,
   buildEvaluateAttemptResult,
 } from "../_shared/evaluate-attempt-response.ts";
+import {
+  buildRepairPlan,
+  lockGradeDecision,
+} from "../_shared/grading-repair.ts";
 
 function requireEnv(name: string) {
   const value = Deno.env.get(name);
@@ -94,20 +108,7 @@ const OPENAI_REQUEST_TIMEOUT_MS = (() => {
   return parsed;
 })();
 
-export type AllowedOperation =
-  | "grade_initial_attempt"
-  | "select_repair"
-  | "grade_revision"
-  | "grade_transfer_attempt";
-
-type CriterionRow = {
-  criterion_key: string;
-  learner_facing_text: string;
-  points_possible: number;
-  evidence_requirements: string | null;
-  minimum_fix: string | null;
-  accepted_variants: unknown;
-};
+export type { AllowedOperation };
 
 type OutputCriterion = {
   criterion_key: string;
@@ -128,104 +129,6 @@ const allowedOperations = new Set<AllowedOperation>([
   "grade_revision",
   "grade_transfer_attempt",
 ]);
-
-const gradingSchema = {
-  type: "object",
-  additionalProperties: false,
-  properties: {
-    status: {
-      type: "string",
-      enum: ["graded", "uncertain", "failed"],
-    },
-    points_earned: { type: "integer" },
-    points_available: { type: "integer" },
-    criteria: {
-      type: "array",
-      items: {
-        type: "object",
-        additionalProperties: false,
-        properties: {
-          criterion_key: { type: "string" },
-          status: {
-            type: "string",
-            enum: [
-              "earned",
-              "not_yet_earned",
-              "unable_to_determine",
-              "not_applicable",
-            ],
-          },
-          points_awarded: { type: "integer" },
-          evidence_quote: { type: ["string", "null"] },
-          decision_explanation: { type: ["string", "null"] },
-          minimum_fix: { type: ["string", "null"] },
-        },
-        required: [
-          "criterion_key",
-          "status",
-          "points_awarded",
-          "evidence_quote",
-          "decision_explanation",
-          "minimum_fix",
-        ],
-      },
-    },
-    highest_value_gap: {
-      anyOf: [
-        { type: "null" },
-        {
-          type: "object",
-          additionalProperties: false,
-          properties: {
-            criterion_key: { type: "string" },
-            minimum_fix: { type: "string" },
-            repair_prompt: { type: "string" },
-          },
-          required: ["criterion_key", "minimum_fix", "repair_prompt"],
-        },
-      ],
-    },
-    predicted_improvement: {
-      anyOf: [
-        { type: "null" },
-        {
-          type: "object",
-          additionalProperties: false,
-          properties: {
-            label: {
-              type: "string",
-              enum: ["better", "much_better", "none"],
-            },
-            predicted_point_gain: { type: "integer" },
-          },
-          required: ["label", "predicted_point_gain"],
-        },
-      ],
-    },
-    confidence: {
-      type: "string",
-      enum: ["high", "medium", "low"],
-    },
-    uncertainty_reason: { type: ["string", "null"] },
-    student_facing_summary: { type: "string" },
-    action_hint: {
-      type: ["string", "null"],
-      enum: ["show_scaffold", "review_context", null],
-    },
-    repair_hint: { type: ["string", "null"] },
-  },
-  required: [
-    "status",
-    "points_earned",
-    "points_available",
-    "criteria",
-    "highest_value_gap",
-    "predicted_improvement",
-    "confidence",
-    "uncertainty_reason",
-    "student_facing_summary",
-  ],
-} as const;
 
 function getBodyField(body: Record<string, unknown>, ...keys: string[]) {
   for (const key of keys) {
@@ -377,31 +280,6 @@ async function persistGradingMemory(input: {
   return (await loadLearningRuntimeContext(input.service, input.sessionId)) ?? context;
 }
 
-function extractOutputText(raw: Record<string, unknown>) {
-  const direct = raw.output_text;
-  if (typeof direct === "string" && direct.length > 0) {
-    return direct;
-  }
-
-  const output = raw.output;
-  if (Array.isArray(output)) {
-    for (const item of output) {
-      if (!item || typeof item !== "object") continue;
-      const content = (item as Record<string, unknown>).content;
-      if (!Array.isArray(content)) continue;
-      for (const piece of content) {
-        if (!piece || typeof piece !== "object") continue;
-        const text = (piece as Record<string, unknown>).text;
-        if (typeof text === "string" && text.length > 0) {
-          return text;
-        }
-      }
-    }
-  }
-
-  return null;
-}
-
 function summarizeSelectedChoice(responseJson: Record<string, unknown>) {
   const candidates = [
     responseJson.selected_choice_key,
@@ -422,59 +300,6 @@ function summarizeSelectedChoice(responseJson: Record<string, unknown>) {
   }
 
   return null;
-}
-
-function buildGradingPrompt(input: {
-  operation: AllowedOperation;
-  promptVersion: string;
-  examName: string;
-  itemTitle: string;
-  itemType: string;
-  stem: string;
-  stimulus: string | null;
-  responseText: string | null;
-  responseParts: unknown;
-  criteria: CriterionRow[];
-}) {
-  const rubricLines = input.criteria.map((criterion) => {
-    const pieces = [
-      `- ${criterion.criterion_key}: ${criterion.learner_facing_text}`,
-      `  points_possible: ${criterion.points_possible}`,
-    ];
-
-    if (criterion.evidence_requirements) {
-      pieces.push(
-        `  evidence_requirements: ${criterion.evidence_requirements}`,
-      );
-    }
-
-    if (criterion.minimum_fix) {
-      pieces.push(`  minimum_fix: ${criterion.minimum_fix}`);
-    }
-
-    return pieces.join("\n");
-  }).join("\n");
-
-  return [
-    `You are Cramapple's production grader for ${input.examName}.`,
-    `Use only the released content and rubric provided below.`,
-    `Do not invent facts, claims, or criteria that are not present in the rubric.`,
-    `If evidence is insufficient, mark the relevant criteria unable_to_determine and explain why.`,
-    `The operation is ${input.operation}.`,
-    `Prompt version: ${input.promptVersion}.`,
-    `Item title: ${input.itemTitle}.`,
-    `Item type: ${input.itemType}.`,
-    `Stem: ${input.stem}`,
-    input.stimulus ? `Stimulus: ${input.stimulus}` : "Stimulus: none",
-    `Rubric:`,
-    rubricLines,
-    `Student response text:`,
-    input.responseText ?? "",
-    `Student response parts JSON:`,
-    JSON.stringify(input.responseParts ?? {}, null, 2),
-    `Return JSON matching the schema exactly.`,
-    `For select_repair, make highest_value_gap the single highest-value missing criterion and keep repair_prompt narrow and actionable.`,
-  ].join("\n\n");
 }
 
 // Sentinel error thrown when a transient failure is worth retrying once.
@@ -534,12 +359,7 @@ async function attemptOpenAICall(input: {
     // Retry on 408/425/429/5xx. Other 4xx are validation problems where
     // the same request will keep failing — fail fast and let the caller's
     // catch produce a safe uncertainty response for the student.
-    if (
-      response.status === 408 ||
-      response.status === 425 ||
-      response.status === 429 ||
-      response.status >= 500
-    ) {
+    if (isTransientHttpStatus(response.status)) {
       throw new TransientGraderError(
         `openai_http_${response.status}: ${message}`,
       );
@@ -564,31 +384,13 @@ async function callOpenAIGrader(input: {
   userIdHash: string;
   idempotencyKey: string;
 }) {
-  const body = {
-    model: input.modelId,
-    input: [
-      {
-        role: "system",
-        content: [{ type: "input_text", text: input.systemPrompt }],
-      },
-      {
-        role: "user",
-        content: [{ type: "input_text", text: input.userPrompt }],
-      },
-    ],
-    store: false,
-    reasoning: { effort: "high" },
-    max_output_tokens: input.maxOutputTokens,
-    text: {
-      format: {
-        type: "json_schema",
-        name: "grading_result",
-        strict: true,
-        schema: gradingSchema,
-      },
-    },
-    user: input.userIdHash.slice(0, 64),
-  };
+  const body = buildGradingRequestBody({
+    modelId: input.modelId,
+    maxOutputTokens: input.maxOutputTokens,
+    systemPrompt: input.systemPrompt,
+    userPrompt: input.userPrompt,
+    userIdHash: input.userIdHash,
+  });
 
   // At most one retry on transient failures. The Idempotency-Key header
   // makes the retry safe against double-billing for requests that reached
@@ -910,7 +712,9 @@ Deno.serve(async (req) => {
     stimulus: contentVersion.stimulus as string | null,
     responseText,
     responseParts,
-    criteria: Array.isArray(criteriaRows) ? criteriaRows as CriterionRow[] : [],
+    criteria: Array.isArray(criteriaRows)
+      ? criteriaRows as FeedbackCriterionRow[]
+      : [],
   };
 
   const gradingRuntimeContext = attempt.learning_session_id
@@ -1329,14 +1133,7 @@ Deno.serve(async (req) => {
       outputTokens = 0;
       actualCost = 0;
     } else {
-      const systemPrompt = [
-        `You are Cramapple's production criterion-based grader for ${examPack.exam_name}.`,
-        "Use only the provided released content, rubric, and student response.",
-        "Score each criterion independently.",
-        "Do not invent evidence.",
-        "When the response is ambiguous or unsupported, mark the criterion unable_to_determine.",
-        "Return only the JSON object that matches the schema.",
-      ].join(" ");
+      const systemPrompt = buildSystemPrompt(examPack.exam_name as string);
 
       try {
         await service.schema("app").from("grading_results").update({
@@ -1367,18 +1164,13 @@ Deno.serve(async (req) => {
         finalPayload = sanitizeModelResult(
           modelResponse.parsed,
           promptBase.criteria,
+          { responseText, responseParts },
         );
         finalStatus = finalPayload.status === "graded" ? "graded" : "uncertain";
 
-        const usage = modelResponse.raw.usage as
-          | Record<string, unknown>
-          | undefined;
-        inputTokens = Number.isFinite(Number(usage?.input_tokens))
-          ? Number(usage?.input_tokens)
-          : inputTokens;
-        outputTokens = Number.isFinite(Number(usage?.output_tokens))
-          ? Number(usage?.output_tokens)
-          : outputTokens;
+        const usage = extractUsage(modelResponse.raw);
+        inputTokens = usage.inputTokens ?? inputTokens;
+        outputTokens = usage.outputTokens ?? outputTokens;
 
         const pricingInputTokens = inputTokens;
         const pricingOutputTokens = outputTokens;
@@ -1407,6 +1199,11 @@ Deno.serve(async (req) => {
             "Your answer is saved, but feedback is taking longer than expected.",
           action_hint: null,
           repair_hint: null,
+          sanitization_version: "grading-sanitizer-v2",
+          integrity_issues: [{
+            code: "criteria_missing" as const,
+            criterion_key: null,
+          }],
         };
       } finally {
         if (usageRow) {
@@ -1466,6 +1263,16 @@ Deno.serve(async (req) => {
     finalPayload.repair_hint ?? statisticsCheck?.repair_hint,
     highestValueGap,
   );
+  const repairPlan = buildRepairPlan({
+    lockedGrade: lockGradeDecision({
+      gradeFingerprint: `${idempotencyKey}:${promptVersion}:${rubricVersionId}`,
+      pointsEarned: finalPayload.points_earned,
+      pointsAvailable: finalPayload.points_available,
+      criteria: finalPayload.criteria,
+    }),
+    sourceCriteria: promptBase.criteria,
+    deterministicCheck: statisticsCheck,
+  });
 
   const updatePayload = {
     status: finalStatus,
@@ -1554,6 +1361,7 @@ Deno.serve(async (req) => {
         feedbackPreview,
         actionHint,
         repairHint,
+        repairPlan,
         deterministicCheck: statisticsCheck,
         attemptId: attempt.id,
         responseVersionId: responseVersion.id,
