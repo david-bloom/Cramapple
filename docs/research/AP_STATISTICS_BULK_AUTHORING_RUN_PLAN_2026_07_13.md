@@ -6,10 +6,10 @@
 
 ## Fire gates (both must clear before G2 runs)
 
-1. **Fact pack review (G0A)** — AP Statistics tutor confirms `AP_STATISTICS_2027_CED_FACT_PACK.md` (skills now anchored §3). *In process.*
-2. **G3V re-review** — Codex clears the 3 remediated vertical-slice FRQs. *Pending.*
+1. **Fact pack review (G0A)** — AP Statistics tutor confirms `AP_STATISTICS_2027_CED_FACT_PACK.md` (skills now anchored §3). **✅ CLEARED — approved by tutor Jill 2026-07-14, no changes.**
+2. **G3V re-review** — Codex clears the 3 remediated vertical-slice FRQs. **✅ CLEARED 2026-07-13 — 10/10 logical units pass (commit `716843e`).**
 
-On both green, run this plan. Nothing here fires before then.
+**Both fire gates are green.** Firing this plan (G2 bulk authoring) is now David's call — but confirm the broader orchestration pre-bulk items first: the open scope questions (Q1–Q7) and the **G1.5 FRQ-archetype schema gap** (`content_ingest_rows.frq_form` is short/long only and cannot represent the 2027 Q1–Q4 structure). Nothing here fires until David authorizes.
 
 ## 1. Inventory distribution — 71 MCQ + 33 FRQ (per `DECISION-0037`)
 
@@ -96,6 +96,7 @@ Every FRQ must pass, or A4 fails it back to A2 (bounded retries):
 
 ## Ready-to-fire checklist
 
-- [ ] Fact pack review (G0A) — tutor
-- [ ] G3V re-review of 3 FRQs — Codex
+- [x] Fact pack review (G0A) — tutor (Jill, 2026-07-14, no changes)
+- [x] G3V re-review of 3 FRQs — Codex (2026-07-13, 10/10)
+- [ ] David confirms open scope questions (Q1–Q7) + G1.5 FRQ-archetype schema, then authorizes G2
 - [ ] (then) Claude fires this plan → artifacts → Codex G3 → tutor G4A → grading/repair → G4B → publish

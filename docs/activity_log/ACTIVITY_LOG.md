@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- AP Statistics Fact Pack G0A Approved by Tutor Jill (No Changes) — Both Bulk-Authoring Fire Gates Green — 2026-07-14
 - Tutor Content-Review Set Built; Stats Tutor (Jill) STATS-RV-B1 Queue Assigned in Production — 2026-07-14
 - TASK-0016 Phase A Executed on Dev (Migrations + Functions, Shadow Mode) — 2026-07-14
 - TASK-0017 H1–H5 Repository Harness Implemented and Locally Verified — 2026-07-13
@@ -32,6 +33,37 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 ---
+
+## AP Statistics Fact Pack G0A Approved by Tutor Jill (No Changes) — Both Bulk-Authoring Fire Gates Green — 2026-07-14
+
+**Task:** AP Statistics 2026-27 content rebuild — Gate G0A
+**Status:** G0A cleared. Both named fire gates for G2 bulk authoring are now green; G2 remains David-gated on the broader orchestration items.
+
+**Summary:** The qualified AP Statistics subject tutor (Jill) approved
+`docs/product/AP_STATISTICS_2027_CED_FACT_PACK.md` — the sole sanctioned authoring
+input for the 2027 rebuild cascade — **without changes** (relayed by David; the
+subject tutor holds the G0A sign-off per David's 2026-07-13 review-chain
+reassignment; Orly remains Curriculum Owner). This clears **G0A**. The other named
+fire gate, **G3V**, already cleared 2026-07-13 (10/10 logical units, commit
+`716843e`). Because the sign-off carried no changes, the G3V-passed vertical slice
+(authored against the draft pack) needs no rework.
+
+**What this unblocks:** the two fire gates in
+`AP_STATISTICS_BULK_AUTHORING_RUN_PLAN_2026_07_13.md` are both green. **What it does
+NOT do:** authorize bulk authoring by itself — the orchestration spec still lists
+open scope questions (Q1–Q7) and the G1.5 FRQ-archetype schema gap
+(`content_ingest_rows.frq_form` is short/long only, can't represent the 2027 Q1–Q4
+structure); David authorizes G2. And downstream, bulk-authored content still passes
+Codex G3 → tutor G4A → grading/repair → **G4B calibration** before any publish
+(the DECISION-0041 gate). G0A is an *authoring-input* gate, upstream of both.
+
+**Distinction:** this fact-pack G0A sign-off is separate from Jill's in-progress
+STATS-RV-B1 *content-item* review, and from the grading-calibration gold set.
+
+**Next Owner:** David Bloom.
+**Next Required Action:** Decide whether to resolve the open scope questions +
+G1.5 schema and authorize G2 bulk authoring, or hold. Optionally formalize the G0A
+sign-off as an APPROVAL record.
 
 ## Tutor Content-Review Set Built; Stats Tutor (Jill) STATS-RV-B1 Queue Assigned in Production — 2026-07-14
 

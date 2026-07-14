@@ -1,8 +1,8 @@
 # AP Statistics 2026-27 — CED Fact Pack (G0A authoring input)
 
-**Status:** DRAFT for **AP Statistics tutor review** — the qualified subject tutor performs the G0A sign-off (per David, 2026-07-13; Orly remains Curriculum Owner). This is the **only sanctioned authoring input** for the AP Statistics content rebuild cascade (`AP_STATISTICS_2027_CONTENT_REBUILD_ORCHESTRATION.md`, Gate G0A). Claude authors items from *this* document, not from the CED PDF.
+**Status:** **G0A-APPROVED** by the qualified AP Statistics subject tutor (Jill) on **2026-07-14, without changes** (relayed by David; Orly remains Curriculum Owner). This is the **only sanctioned authoring input** for the AP Statistics content rebuild cascade (`AP_STATISTICS_2027_CONTENT_REBUILD_ORCHESTRATION.md`, Gate G0A). Claude authors items from *this* document, not from the CED PDF. Because the sign-off carried **no changes**, the G3V-passed vertical slice (built against this draft) needs no rework.
 **School year:** `2026-27` (canonical form per `DECISION-0037`) · **Exam administered:** May 2027
-**Prepared:** 2026-07-13 · **Reviewer (G0A sign-off):** AP Statistics subject tutor
+**Prepared:** 2026-07-13 · **Reviewer (G0A sign-off):** AP Statistics subject tutor (Jill) — **APPROVED 2026-07-14, no changes**
 **Related:** `DECISION-0036`, `DECISION-0037`, `TASK-0017`, orchestration spec.
 
 ## Provenance & rights (read first)
