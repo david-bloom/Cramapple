@@ -346,6 +346,9 @@ records.
 
 **Status:** In Progress
 **Owner:** Orly Bloom / Learning Quality Owner
+**Design record:** `docs/product/CONTENT_COVERAGE_BRIEFS.md` (coverage brief
+system + first-vertical-slice briefs; `Status: Draft`, awaiting Learning Quality
+Owner review)
 
 - [x] Adopt paid qualified tutors as the original-question authors.
 - [x] Prohibit historical College Board questions from serving as seeds,
@@ -357,7 +360,9 @@ records.
 - [x] Require a simple counsel-approved IP and confidentiality release for paid
   authors, sellers, and AP Reader reviewers.
 - [ ] Define versioned coverage briefs for questions, rubrics, lessons, hints,
-  worked examples, probes, transfer items, and delayed variants.
+  worked examples, probes, transfer items, and delayed variants. *(Brief system
+  and three first-slice briefs drafted in `CONTENT_COVERAGE_BRIEFS.md`; pending
+  Learning Quality Owner review and Product Owner decision.)*
 - [x] Use all 60 official public AP Biology topics as the coverage taxonomy.
 - [x] Set the planning target at ten approved MCQs and five approved short-FRQ
   prompts per topic, plus four long-FRQ stimulus packages and eight counted

@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Content Coverage Brief System Drafted (CONTENT-001) — 2026-07-14
 - Phase A Broken-Import Fix and Deterministic-Layer-Only Ship Decision — 2026-07-12
 - TASK-0016 Phase A Grading-Router Reconciled Onto Grading Branch — 2026-07-12
 - AP Statistics Launch Task Drafted (TASK-0013) — 2026-06-30
@@ -19,6 +20,51 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## Content Coverage Brief System Drafted (CONTENT-001) - 2026-07-14
+
+**Task:** CONTENT-001 (AP Biology Content Authoring and Coverage Plan), open
+checklist item "Define versioned coverage briefs for questions, rubrics,
+lessons, hints, worked examples, probes, transfer items, and delayed variants."
+**Status:** Drafted on `claude/cramapple-content-creation-igjvfb`. Design record
+only — no content authored, no author commissioned, no gate cleared.
+
+**Summary:** Content-creation session (Product Owner picked "draft versioned
+coverage briefs" from the four content-creation options). Created
+`docs/product/CONTENT_COVERAGE_BRIEFS.md`, which defines the coverage brief —
+concern #5 of the prompt build manifest in
+`CONTENT_AUTHORING_AND_PROMPT_ARCHITECTURE.md` §5 — as a versioned, immutable
+authoring instruction: brief ID convention (`CB-BIO-<topic>-<form>-<seq>`),
+version/state lifecycle, a full field schema, the mapping of the eight named
+artifact families (questions, rubric, lesson, hints, worked example, probes,
+transfer item, delayed variant) to package-contract fields, and a portfolio-gap
+model keyed to the fixed 964-item matrix in `CONTENT_QUANTITY_AND_DISTRIBUTION.md`.
+
+Seeded three concrete `Drafted` briefs that together form the first vertical
+slice required by `CONTENT_AUTHORING_AND_PROMPT_ARCHITECTURE.md` §10:
+`CB-BIO-7.5-MCQ-01` (Hardy-Weinberg, quantitative, carries the slice's
+quantitative-visual requirement), `CB-BIO-3.2-SFRQ-01` (enzyme data analysis),
+and `CB-BIO-U8-A-LFRQ-01` (Ecology long-FRQ package). Each brief describes only
+an abstract construct — no official scenario, dataset, organism, or value is
+imitated; briefs contain no stems, keys, distractors, or rubric text.
+
+**Guardrails honored:** briefs contain no authored content (production content
+is Hard-Gated per authoring architecture §11); no official material as input;
+tutor-authored baseline; complete-package contract required of every author;
+same gates for every arm; author sample responses are development fixtures, not
+gold.
+
+**Open gates (flagged, not cleared):** Learning Quality Owner (Orly) review of
+schema and the three seed briefs; author qualification + counsel-approved
+originality/IP/confidentiality release + compensation before any brief is
+`Assigned` (CONTENT-001 / TASK-0008); decide the governed coverage-matrix
+location; confirm brief-to-manifest ID binding vs. the deferred physical schema
+(TASK-0009).
+
+**Next action:** Learning Quality Owner review; Product Owner decision on the
+brief schema and vertical-slice topic choices.
 
 ---
 
