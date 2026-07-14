@@ -17,12 +17,12 @@ Your 2026-07-13 review is accepted in full. This brief reflects it and David's f
 1. **P0 first → H1 vertical slice → rest** under design approval.
 2. **Gate waivability:** content-clearance waivable by PO with a recorded exception; **grading/calibration, rights, security/privacy never waivable.**
 3. **AP Chem (TASK-0014) / Physics (TASK-0015):** adopt the harness once ready; **no new bespoke scaffolding** for them meanwhile.
-4. **Canonical school-year id = `2026-27`**; normalize existing `2026`/`2025-26`.
+4. **Canonical school-year id = academic-year form (`YYYY-YY`) derived from `official_exam_date`.** A legacy `2026` row with a May 2026 exam becomes `2025-26`; a May 2027 exam becomes `2026-27`. Do not blanket-map `2026`.
 5. **Canonical question-version record (v1) = `content_item_versions.id`** — do not create a second parallel record.
 
 ## Deliverable sequence
 
-Follow the TASK-0017 "Delivery Sequence" exactly. In short: **(1)** produce the design (SubjectPackage contract, taxonomy-versioning design, capability model, security review) for Product Owner approval **before any migration**; **(2)** ship the P0 publication repair; **(3)** H1 vertical slice (AP Stats Q1–Q4 round-trip, no DB staging first); then H2–H5 with AP Stats 2027 as the annual-revision test and AP Chemistry as the new-subject test.
+Follow the TASK-0017 "Delivery Sequence" exactly. In short: **(1)** implement and review the already authorized P0 repository repair without applying it to an environment; **(2)** produce the H0/H1 design packet for Product Owner approval; **(3)** obtain separate Dev migration approval; **(4)** prove the H1 AP Stats Q1–Q4 round-trip before DB staging; then continue H2–H5. AP Stats 2027 tests annual revision, AP Chemistry tests reconciliation of an existing bespoke subject, and a transaction-rolled-back fixture tests true `create-subject` behavior.
 
 ## Hard guardrails
 
@@ -30,7 +30,7 @@ Follow the TASK-0017 "Delivery Sequence" exactly. In short: **(1)** produce the 
 - **Dev first** (`wmgjsdkphcyhngaffbqf`); **no Production schema changes** without explicit David approval + recorded approval ID. Never infer the target from the currently linked project.
 - **No auto-publish**; nothing sets `status='published'` or asserts human approval outside the repaired, gated publish path.
 - **Config never executes arbitrary code** (declarative checks + reviewed plugins only).
-- **Backward compatible:** AP Biology + current AP Statistics must reproduce golden fixtures byte-for-byte or explain the migration.
+- **Backward compatible:** AP Biology + current AP Statistics must reproduce normalized semantic golden snapshots (excluding generated UUIDs, timestamps, and audit fields), with stable hashes for canonical config/payload content, or have an approved migration explanation.
 - **People stay out of reusable subject configs.**
 
 ## Report back
