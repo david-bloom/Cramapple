@@ -34,6 +34,40 @@
       }
     },
     "item_type": { "enum": ["mcq", "frq", "quantitative"] },
+    "difficulty": { "enum": ["Easy", "Medium", "Hard", "Very Hard"] },
+    "frq_form": { "enum": ["short", "long"] },
+    "canonical_answers": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 2,
+      "items": { "$ref": "#/$defs/nonempty" }
+    },
+    "mcq_choices": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["choice_key", "choice_text", "is_correct", "rationale"],
+        "properties": {
+          "choice_key": { "enum": ["A", "B", "C", "D"] },
+          "choice_text": { "$ref": "#/$defs/nonempty" },
+          "is_correct": { "type": "boolean" },
+          "rationale": { "$ref": "#/$defs/nonempty" }
+        }
+      }
+    },
+    "review_notes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["expected_reasoning", "known_boundary_cases", "originality_statement"],
+      "properties": {
+        "expected_reasoning": { "$ref": "#/$defs/nonempty" },
+        "known_boundary_cases": { "$ref": "#/$defs/stringSet" },
+        "originality_statement": { "$ref": "#/$defs/nonempty" }
+      }
+    },
     "archetype_ref": {
       "type": "object",
       "additionalProperties": false,

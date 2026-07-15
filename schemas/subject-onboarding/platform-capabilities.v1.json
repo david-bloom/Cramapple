@@ -14,7 +14,11 @@
     "drawing": "experimental",
     "file-upload": "experimental"
   },
-  "graders": { "mcq-key": "supported", "statistics-frq-rubric": "supported" },
+  "graders": {
+    "mcq-key": "supported",
+    "statistics-frq-rubric": "supported",
+    "science-frq-rubric": "supported"
+  },
   "calculator_modes": {
     "desmos-built-in": "supported",
     "approved-handheld": "supported"
@@ -35,8 +39,13 @@
   ],
   "deterministic_check_contracts": {
     "numeric-tolerance": {
-      "required": ["absolute"],
-      "properties": { "absolute": "number" },
+      "required": [],
+      "properties": {
+        "absolute": "number",
+        "expected_value": "number",
+        "tolerance": "number",
+        "unit": "string"
+      },
       "additional_properties": false
     },
     "keyword-evidence": {
@@ -45,8 +54,8 @@
       "additional_properties": false
     },
     "choice-key": {
-      "required": ["choice"],
-      "properties": { "choice": "string" },
+      "required": [],
+      "properties": { "choice": "string", "correct_key": "string" },
       "additional_properties": false
     },
     "table-shape": {

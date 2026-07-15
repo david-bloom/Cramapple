@@ -103,6 +103,12 @@ function verifyPart(
       }
       const contract = checkContracts[check.check_type];
       const parameters = record(check.parameters);
+      if (check.check_type === "choice-key" && !("choice" in parameters || "correct_key" in parameters)) {
+        push(issues, "verifier.parameter_required", `${path}/criteria/${index}/parameters`, "choice or correct_key");
+      }
+      if (check.check_type === "numeric-tolerance" && !("absolute" in parameters || ("expected_value" in parameters && "tolerance" in parameters))) {
+        push(issues, "verifier.parameter_required", `${path}/criteria/${index}/parameters`, "absolute or expected_value+tolerance");
+      }
       if (contract) {
         for (const key of values(contract.required)) {
           if (!(key in parameters)) {
@@ -449,6 +455,19 @@ export async function compilePlan(
   const compiledItems: CompiledPlan["items"] = [];
   for (const [index, item] of itemPackages.entries()) {
     const path = `/items/${index}`;
+    if (item.item_type === "mcq" && item.mcq_choices) {
+      const keys = values(item.mcq_choices).map((choice) => choice.choice_key);
+      const correct = values(item.mcq_choices).filter((choice) => choice.is_correct);
+      if (new Set(keys).size !== 4 || !["A", "B", "C", "D"].every((key) => keys.includes(key))) {
+        push(issues, "answer.mcq_choice_keys", `${path}/mcq_choices`, "choices must contain A, B, C, and D exactly once");
+      }
+      if (correct.length !== 1) {
+        push(issues, "answer.mcq_single_correct", `${path}/mcq_choices`, "exactly one choice must be correct");
+      }
+    }
+    if (item.item_type === "frq" && item.frq_form && !item.canonical_answers?.length) {
+      push(issues, "answer.frq_canonical_required", `${path}/canonical_answers`, "authored FRQ projections require a canonical answer");
+    }
     const expectedRef = subjectPackage.exam_pack;
     for (const key of ["exam_code", "school_year", "exam_pack_version"]) {
       if (item.exam_pack_ref[key] !== expectedRef[key]) {
