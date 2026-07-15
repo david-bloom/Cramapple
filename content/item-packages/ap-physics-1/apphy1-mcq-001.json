@@ -1,0 +1,109 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apphy1-mcq-001",
+  "content_key": "apphy1-mcq-001",
+  "content_version": 1,
+  "difficulty": "Easy",
+  "exam_pack_ref": {
+    "exam_code": "ap_physics_1",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "mcq",
+  "archetype_ref": {
+    "archetype_key": "ap-physics-1-mcq",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-physics-1-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-1-kinematics"
+    },
+    {
+      "scheme_key": "ap-physics-1-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-1"
+    }
+  ],
+  "stimuli": [],
+  "mcq_choices": [
+    {
+      "choice_key": "A",
+      "choice_text": "2 m/s²",
+      "is_correct": true,
+      "rationale": "change in velocity divided by time is 2 m/s²"
+    },
+    {
+      "choice_key": "B",
+      "choice_text": "3 m/s²",
+      "is_correct": false,
+      "rationale": "This option conflicts with change in velocity divided by time is 2 m/s²."
+    },
+    {
+      "choice_key": "C",
+      "choice_text": "6 m/s²",
+      "is_correct": false,
+      "rationale": "This option conflicts with change in velocity divided by time is 2 m/s²."
+    },
+    {
+      "choice_key": "D",
+      "choice_text": "10 m/s²",
+      "is_correct": false,
+      "rationale": "This option conflicts with change in velocity divided by time is 2 m/s²."
+    }
+  ],
+  "canonical_answers": [
+    "A"
+  ],
+  "parts": [
+    {
+      "part_key": "question",
+      "ordinal": 1,
+      "prompt": "A cart's velocity changes from 2 m/s to 8 m/s in 3 s. Its average acceleration is\n\nA. 2 m/s²\nB. 3 m/s²\nC. 6 m/s²\nD. 10 m/s²",
+      "response_modalities": [
+        "choice"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-answer",
+          "points": 1,
+          "description": "Select the single scientifically correct answer.",
+          "required_evidence": [
+            "A",
+            "change in velocity divided by time is 2 m/s²"
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "choice-key",
+              "parameters": {
+                "choice": "A"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All information is text-based."
+  },
+  "review_notes": {
+    "expected_reasoning": "change in velocity divided by time is 2 m/s²",
+    "known_boundary_cases": [],
+    "originality_statement": "Independently authored synthetic practice item; no official question or scoring material used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-physics-1-ced-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-15",
+    "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
+    "generated_by": "codex",
+    "generated_at": "2026-07-15T00:00:00Z",
+    "content_sha256": "0d6ac25783a398e01908db90639fce1e212e77eeb9ba80f47a4a7cecad17f56d"
+  }
+}
