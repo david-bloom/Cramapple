@@ -1,0 +1,109 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apchem-mcq-001",
+  "content_key": "apchem-mcq-001",
+  "content_version": 1,
+  "difficulty": "Easy",
+  "exam_pack_ref": {
+    "exam_code": "ap_chemistry",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "mcq",
+  "archetype_ref": {
+    "archetype_key": "ap-chemistry-mcq",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-chemistry-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-1-atomic-structure-and-properties"
+    },
+    {
+      "scheme_key": "ap-chemistry-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-1"
+    }
+  ],
+  "stimuli": [],
+  "mcq_choices": [
+    {
+      "choice_key": "A",
+      "choice_text": "0.250 mol",
+      "is_correct": false,
+      "rationale": "This option conflicts with mass divided by molar mass gives 0.500 mol."
+    },
+    {
+      "choice_key": "B",
+      "choice_text": "0.500 mol",
+      "is_correct": true,
+      "rationale": "mass divided by molar mass gives 0.500 mol"
+    },
+    {
+      "choice_key": "C",
+      "choice_text": "2.00 mol",
+      "is_correct": false,
+      "rationale": "This option conflicts with mass divided by molar mass gives 0.500 mol."
+    },
+    {
+      "choice_key": "D",
+      "choice_text": "162 mol",
+      "is_correct": false,
+      "rationale": "This option conflicts with mass divided by molar mass gives 0.500 mol."
+    }
+  ],
+  "canonical_answers": [
+    "B"
+  ],
+  "parts": [
+    {
+      "part_key": "question",
+      "ordinal": 1,
+      "prompt": "A 9.00 g sample of water (18.0 g mol⁻¹) contains how many moles?\n\nA. 0.250 mol\nB. 0.500 mol\nC. 2.00 mol\nD. 162 mol",
+      "response_modalities": [
+        "choice"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-answer",
+          "points": 1,
+          "description": "Select the single scientifically correct answer.",
+          "required_evidence": [
+            "B",
+            "mass divided by molar mass gives 0.500 mol"
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "choice-key",
+              "parameters": {
+                "choice": "B"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All information is text-based."
+  },
+  "review_notes": {
+    "expected_reasoning": "mass divided by molar mass gives 0.500 mol",
+    "known_boundary_cases": [],
+    "originality_statement": "Independently authored synthetic practice item; no official question or scoring material used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-chemistry-ced-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-15",
+    "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
+    "generated_by": "codex",
+    "generated_at": "2026-07-15T00:00:00Z",
+    "content_sha256": "a81e07ff3d1e8ab036788b303c25777b7110d867183eb712d055b8c49296f6b6"
+  }
+}

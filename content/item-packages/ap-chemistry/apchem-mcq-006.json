@@ -1,0 +1,109 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apchem-mcq-006",
+  "content_key": "apchem-mcq-006",
+  "content_version": 1,
+  "difficulty": "Medium",
+  "exam_pack_ref": {
+    "exam_code": "ap_chemistry",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "mcq",
+  "archetype_ref": {
+    "archetype_key": "ap-chemistry-mcq",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-chemistry-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-3-properties-of-substances-and-mixtures"
+    },
+    {
+      "scheme_key": "ap-chemistry-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-6"
+    }
+  ],
+  "stimuli": [],
+  "mcq_choices": [
+    {
+      "choice_key": "A",
+      "choice_text": "0.15",
+      "is_correct": false,
+      "rationale": "This option conflicts with Beer-Lambert absorbance is proportional to concentration."
+    },
+    {
+      "choice_key": "B",
+      "choice_text": "0.30",
+      "is_correct": true,
+      "rationale": "Beer-Lambert absorbance is proportional to concentration"
+    },
+    {
+      "choice_key": "C",
+      "choice_text": "0.60",
+      "is_correct": false,
+      "rationale": "This option conflicts with Beer-Lambert absorbance is proportional to concentration."
+    },
+    {
+      "choice_key": "D",
+      "choice_text": "1.20",
+      "is_correct": false,
+      "rationale": "This option conflicts with Beer-Lambert absorbance is proportional to concentration."
+    }
+  ],
+  "canonical_answers": [
+    "B"
+  ],
+  "parts": [
+    {
+      "part_key": "question",
+      "ordinal": 1,
+      "prompt": "A solution has absorbance 0.60 in a 1.0 cm cell. If concentration is halved, the absorbance is approximately\n\nA. 0.15\nB. 0.30\nC. 0.60\nD. 1.20",
+      "response_modalities": [
+        "choice"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-answer",
+          "points": 1,
+          "description": "Select the single scientifically correct answer.",
+          "required_evidence": [
+            "B",
+            "Beer-Lambert absorbance is proportional to concentration"
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "choice-key",
+              "parameters": {
+                "choice": "B"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All information is text-based."
+  },
+  "review_notes": {
+    "expected_reasoning": "Beer-Lambert absorbance is proportional to concentration",
+    "known_boundary_cases": [],
+    "originality_statement": "Independently authored synthetic practice item; no official question or scoring material used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-chemistry-ced-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-15",
+    "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
+    "generated_by": "codex",
+    "generated_at": "2026-07-15T00:00:00Z",
+    "content_sha256": "1ea5c626ec022bfc3e81ebb69533f4751ee6e8d70abcaa30de82b3df9199f3e5"
+  }
+}

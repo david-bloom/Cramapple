@@ -1,0 +1,109 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apchem-mcq-003",
+  "content_key": "apchem-mcq-003",
+  "content_version": 1,
+  "difficulty": "Easy",
+  "exam_pack_ref": {
+    "exam_code": "ap_chemistry",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "mcq",
+  "archetype_ref": {
+    "archetype_key": "ap-chemistry-mcq",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-chemistry-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-2-compound-structure-and-properties"
+    },
+    {
+      "scheme_key": "ap-chemistry-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-3"
+    }
+  ],
+  "stimuli": [],
+  "mcq_choices": [
+    {
+      "choice_key": "A",
+      "choice_text": "NH₃",
+      "is_correct": false,
+      "rationale": "This option conflicts with BF3 has three bonding regions and no lone pair on boron."
+    },
+    {
+      "choice_key": "B",
+      "choice_text": "CO₂",
+      "is_correct": false,
+      "rationale": "This option conflicts with BF3 has three bonding regions and no lone pair on boron."
+    },
+    {
+      "choice_key": "C",
+      "choice_text": "BF₃",
+      "is_correct": true,
+      "rationale": "BF3 has three bonding regions and no lone pair on boron"
+    },
+    {
+      "choice_key": "D",
+      "choice_text": "CH₄",
+      "is_correct": false,
+      "rationale": "This option conflicts with BF3 has three bonding regions and no lone pair on boron."
+    }
+  ],
+  "canonical_answers": [
+    "C"
+  ],
+  "parts": [
+    {
+      "part_key": "question",
+      "ordinal": 1,
+      "prompt": "Which species has a trigonal planar molecular geometry?\n\nA. NH₃\nB. CO₂\nC. BF₃\nD. CH₄",
+      "response_modalities": [
+        "choice"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-answer",
+          "points": 1,
+          "description": "Select the single scientifically correct answer.",
+          "required_evidence": [
+            "C",
+            "BF3 has three bonding regions and no lone pair on boron"
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "choice-key",
+              "parameters": {
+                "choice": "C"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All information is text-based."
+  },
+  "review_notes": {
+    "expected_reasoning": "BF3 has three bonding regions and no lone pair on boron",
+    "known_boundary_cases": [],
+    "originality_statement": "Independently authored synthetic practice item; no official question or scoring material used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-chemistry-ced-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-15",
+    "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
+    "generated_by": "codex",
+    "generated_at": "2026-07-15T00:00:00Z",
+    "content_sha256": "5d43659d0a89f6819642f91b5d5072dcfef991a32a304096bf65040d219605a2"
+  }
+}

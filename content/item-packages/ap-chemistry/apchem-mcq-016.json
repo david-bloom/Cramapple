@@ -1,0 +1,109 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apchem-mcq-016",
+  "content_key": "apchem-mcq-016",
+  "content_version": 1,
+  "difficulty": "Hard",
+  "exam_pack_ref": {
+    "exam_code": "ap_chemistry",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "mcq",
+  "archetype_ref": {
+    "archetype_key": "ap-chemistry-mcq",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-chemistry-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-7-equilibrium"
+    },
+    {
+      "scheme_key": "ap-chemistry-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-4"
+    }
+  ],
+  "stimuli": [],
+  "mcq_choices": [
+    {
+      "choice_key": "A",
+      "choice_text": "all partial pressures increase",
+      "is_correct": false,
+      "rationale": "This option conflicts with fixed component moles, volume, and temperature leave partial pressures unchanged."
+    },
+    {
+      "choice_key": "B",
+      "choice_text": "all partial pressures decrease",
+      "is_correct": false,
+      "rationale": "This option conflicts with fixed component moles, volume, and temperature leave partial pressures unchanged."
+    },
+    {
+      "choice_key": "C",
+      "choice_text": "reactant partial pressures alone increase",
+      "is_correct": false,
+      "rationale": "This option conflicts with fixed component moles, volume, and temperature leave partial pressures unchanged."
+    },
+    {
+      "choice_key": "D",
+      "choice_text": "the reacting-gas partial pressures do not change",
+      "is_correct": true,
+      "rationale": "fixed component moles, volume, and temperature leave partial pressures unchanged"
+    }
+  ],
+  "canonical_answers": [
+    "D"
+  ],
+  "parts": [
+    {
+      "part_key": "question",
+      "ordinal": 1,
+      "prompt": "Adding an inert gas at constant volume to an ideal-gas equilibrium changes equilibrium because\n\nA. all partial pressures increase\nB. all partial pressures decrease\nC. reactant partial pressures alone increase\nD. the reacting-gas partial pressures do not change",
+      "response_modalities": [
+        "choice"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-answer",
+          "points": 1,
+          "description": "Select the single scientifically correct answer.",
+          "required_evidence": [
+            "D",
+            "fixed component moles, volume, and temperature leave partial pressures unchanged"
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "choice-key",
+              "parameters": {
+                "choice": "D"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All information is text-based."
+  },
+  "review_notes": {
+    "expected_reasoning": "fixed component moles, volume, and temperature leave partial pressures unchanged",
+    "known_boundary_cases": [],
+    "originality_statement": "Independently authored synthetic practice item; no official question or scoring material used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-chemistry-ced-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-15",
+    "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
+    "generated_by": "codex",
+    "generated_at": "2026-07-15T00:00:00Z",
+    "content_sha256": "73402870be44712ff75bcdce8e4f4d4112fe71f5934b7955f8600626116ec29e"
+  }
+}
