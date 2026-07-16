@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Reviewer-Portal Backend Split Discovered; Categorical Scoring Fix Retargeted — 2026-07-15
 - Categorical Review Scoring + Difficulty Agree/Propose (DECISION-0038); Migration & Prompts Prepared — 2026-07-14
 - Reviewer Feedback Folded In: Difficulty Validation and 1–3 Score Clarity (Jill) — 2026-07-14
 - Launch Tasks Approved for Execution; Pilot-Size Recommendation Recorded (APPROVAL-0026) — 2026-07-14
@@ -27,6 +28,64 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## Reviewer-Portal Backend Split Discovered; Categorical Scoring Fix Retargeted - 2026-07-15
+
+**Task:** UX-002 / DECISION-0038 follow-up; EXPAND of the backend-consolidation
+concern (DECISION-0035 territory). **Status:** Investigated; fix handed to Product
+Owner to apply; governance gap flagged.
+
+**Trigger:** Reviewer feedback (Jill) after the frontend "publish": the reviewer
+portal at **cramapple.com** still showed the old numeric 1-2-3 score with no
+Approve/Approve-with-edits/Disapprove controls, and a DB error blocked submitting
+a score.
+
+**What the investigation found (significant architectural discovery):**
+- The reviewer portal is a **Lovable app with Lovable Cloud disabled**, connected
+  to an **external Supabase project** whose schema is `public.review_decisions`,
+  `public.mcq_items`, `public.frq_packages`, `public.topics`,
+  `public.review_assignments` — a prototype schema written to directly by the
+  app's server functions.
+- That schema exists in **neither** the governed **Cramapple - Production**
+  (`pcntajvbdfqhbeewmdry`) nor **Development** (`wmgjsdkphcyhngaffbqf`) Supabase
+  project (both only have `public.exam_specs/questions/sessions/student_attempts/
+  student_lock_queue`). So the portal points at a **third Supabase project not
+  visible to this session's Supabase access**.
+- Therefore the DECISION-0038 backend work (migration on
+  `app.content_review_decisions` + `review-decision`/`review-queue` edge functions,
+  deployed to Production) is on a **different backend than the reviewer portal
+  uses**. The two are parallel systems; the governed deploy does not serve the
+  portal.
+- The categorical UI change **was** coded on Jul 14, but in the
+  **`cramapple-prototype`** Lovable project — while **cramapple.com is served by a
+  different project, the `exam-buddy-wireframe` remix**, which never received the
+  change (Product Owner confirmed). Hence Jill's old UI.
+- Two code defects in the Lovable build: (a) the categorical→numeric mapping was
+  **reversed** (`approve→3` instead of `approve→1`), which corrupts the
+  dashboard Agreement math; (b) the frontend sends `tutor_decision`/
+  `difficulty_action` but the connected DB's `public.review_decisions` was never
+  migrated to add those columns (the Lovable agent could not run the migration and
+  saved SQL to `.lovable/plan.md`) — the source of Jill's submit error.
+
+**Fix (Product Owner to apply, "fix forward"):** re-run the scoring prompt on the
+`exam-buddy-wireframe` remix with the corrected mapping (`approve→1`); add
+`tutor_decision` and `difficulty_action` columns to `public.review_decisions` on
+the remix's connected Supabase; publish to cramapple.com; verify.
+
+**Governance gap flagged (open decision):** real reviewer decisions are being
+written to an ungoverned, repo-untracked Supabase project, separate from the
+governed `app.*` store — the exact split the backend consolidation
+(`DECISION-0035`) was meant to close. A deliberate decision is needed: consolidate
+the reviewer portal onto the governed `app.*` backend (single system of record) or
+formally recognize and govern the portal's separate stack. Deferred by Product
+Owner in favor of fixing forward for now.
+
+**Process lesson:** trace an app's actual data path (which project/schema it
+reads/writes) before deploying backend changes intended to serve it. The
+DECISION-0038 governed-backend deploy was correct in itself but did not serve the
+live portal.
 
 ---
 

@@ -1,11 +1,31 @@
 # Lovable Prompt — UX-002 Reviewer Portal: Categorical Scoring + Difficulty Agree/Propose
 
-**For:** the Cramapple reviewer portal (UX-002) Lovable project.
-**Related:** `DECISION-0038`, `docs/product/QUESTION_AND_ANSWER_REVIEW_PORTAL_DESIGN.md`,
-migration `supabase/migrations/202607140001_review_decision_categorical_scoring.sql`.
-**Status:** Ready to run once `DECISION-0038` is confirmed and the backend
-migration + `review-decision` edge-function change are deployed to the environment
-this project points at. Frontend and backend must ship together.
+**For:** the Cramapple reviewer portal Lovable project that serves **cramapple.com**
+— confirmed 2026-07-15 to be the **`exam-buddy-wireframe` remix**, NOT
+`cramapple-prototype` (the change was mistakenly coded there first).
+**Related:** `DECISION-0038`, `docs/product/QUESTION_AND_ANSWER_REVIEW_PORTAL_DESIGN.md`.
+
+> **IMPORTANT — portal backend reality (discovered 2026-07-15).** This portal does
+> NOT use the governed `app.*` schema or the `review-decision` edge function. It
+> writes directly to `public.review_decisions` on its own connected Supabase
+> project (Lovable Cloud disabled). Two corrections vs. the earlier build:
+> 1. **Mapping:** map the categorical decision to the legacy numeric `tutor_score`
+>    as **approve → 1, approve_with_edits → 2, disapprove → 3** (the earlier build
+>    used `approve → 3`, which is backwards and corrupts the dashboard Agreement
+>    math).
+> 2. **DB migration (apply manually to the portal's connected Supabase):**
+>    ```sql
+>    alter table public.review_decisions add column if not exists tutor_decision text;
+>    alter table public.review_decisions add column if not exists difficulty_action text;
+>    ```
+>    The Lovable agent cannot run this; without it, submit throws a column-missing
+>    error. Frontend + this DB change must ship together, then publish.
+>
+> The `supabase/migrations/202607140001_*.sql` and `review-decision` edge-function
+> changes in this repo are for the *governed* `app.*` backend (already deployed to
+> Cramapple - Production) — a separate system from this portal. See the
+> 2026-07-15 activity-log entry on the reviewer-portal backend split.
+**Status:** Fix-forward on the remix per Product Owner (2026-07-15).
 
 ---
 
