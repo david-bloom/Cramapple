@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Content Tab Read Fixed + Reviewer Stage Labels Clarified; tutor_answer Confusion Diagnosed — 2026-07-17
 - CORRECTION (HAR-verified): Portal Uses the Governed Backend; Fix Is Frontend-Only — 2026-07-17
 - Reviewer-Portal Backend Split Discovered; Categorical Scoring Fix Retargeted — 2026-07-15 *(SUPERSEDED — see 2026-07-17 correction)*
 - Categorical Review Scoring + Difficulty Agree/Propose (DECISION-0038); Migration & Prompts Prepared — 2026-07-14
@@ -29,6 +30,56 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## Content Tab Read Fixed + Reviewer Stage Labels Clarified; tutor_answer Confusion Diagnosed - 2026-07-17
+
+Two Product-Owner-reported "broken" symptoms on cramapple.com
+(`exam-buddy-wireframe`) were investigated against the live Production database
+(`pcntajvbdfqhbeewmdry`) and the actual portal code. One was a real regression;
+the other was a stage-model expectation mismatch, not a code fault.
+
+**Issue 1 — Admin Content tab errored (real regression, fixed).**
+- Root cause: the taxonomy/vocab normalization removed `app.exam_packs.subject`
+  (now `subject_id` + denormalized `subject_key` / `subject_name`, also exposed
+  directly on the `public.content_items` view). But `loadContentInventory`
+  (`src/lib/dashboard.functions.ts`) still selected
+  `exam_pack_versions!inner(exam_pack_id, exam_packs!inner(subject))`. PostgREST
+  errored on the missing `subject` column, so the whole tab showed "Failed to
+  load inventory." The published count was never missing from the code — the
+  read just died before rendering.
+- Fix (frontend-only, `exam-buddy-wireframe` commit `807499ca`): drop the dead
+  embed; read `subject_key` / `subject_name` straight off `content_items`;
+  `subjectLabel()` prefers `subject_name`, humanizes `subject_key` only as
+  fallback. Renamed the "# In Production" column to **"Published"** and added
+  published totals to the summary line. Verified data present in Production:
+  **36 published MCQ + 116 published FRQ** (plus 182 + 196 draft).
+
+**Issue 2 — Reviewer "approve each answer / difficulty / diagnostic missing"
+(not a bug; two-stage model).**
+- Assignment `fdeaf261-1bb4-48e6-9814-7979e8a138cf` is a **`tutor_answer`** task
+  (answer-key validation only). Per-answer approval, difficulty, and diagnostic
+  live on the **`tutor_question`** stage, which for that item two blind tutors
+  had already completed. 80 pending `tutor_question` MCQ tasks currently carry
+  those controls. The Product Owner had simply opened the one narrow-stage task
+  in the queue.
+- Decision (Product Owner): **keep the two-stage model**; improve routing/labels
+  rather than merge stages. Added `REVIEW_STAGE_DESCRIPTIONS` to
+  `src/lib/content-schema.ts` and rendered a one-line "what this stage collects"
+  description in both the reviewer queue cards (`reviewer.index.tsx`) and the
+  review-screen header (`reviewer.review.$assignmentId.tsx`). The `tutor_answer`
+  description explicitly points reviewers to the Question-quality stage for the
+  other controls.
+
+**Open UX watch-item (not yet a task):** the expectation mismatch shows the
+two-stage split (`tutor_question` vs `tutor_answer`) is confusing in practice.
+If tutors keep tripping on it, revisit "unify into one MCQ review screen" as a
+governed UX-002 change. No workflow, scoring model (`DECISION-0038`), edge
+function, or migration was changed by this fix.
+
+**Deploy:** `exam-buddy-wireframe` published (Lovable deploy
+`92856625-515a-49cb-84b0-27cc47d9cb9b`); type-check clean.
 
 ---
 
