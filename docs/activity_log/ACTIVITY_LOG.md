@@ -6,7 +6,8 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
-- Reviewer-Portal Backend Split Discovered; Categorical Scoring Fix Retargeted — 2026-07-15
+- CORRECTION (HAR-verified): Portal Uses the Governed Backend; Fix Is Frontend-Only — 2026-07-17
+- Reviewer-Portal Backend Split Discovered; Categorical Scoring Fix Retargeted — 2026-07-15 *(SUPERSEDED — see 2026-07-17 correction)*
 - Categorical Review Scoring + Difficulty Agree/Propose (DECISION-0038); Migration & Prompts Prepared — 2026-07-14
 - Reviewer Feedback Folded In: Difficulty Validation and 1–3 Score Clarity (Jill) — 2026-07-14
 - Launch Tasks Approved for Execution; Pilot-Size Recommendation Recorded (APPROVAL-0026) — 2026-07-14
@@ -31,7 +32,67 @@ Most recent entries (full reverse-chronological list follows below):
 
 ---
 
+## CORRECTION (HAR-verified): Portal Uses the Governed Backend; Fix Is Frontend-Only - 2026-07-17
+
+**Supersedes the 2026-07-15 entry below, whose "backend split / separate database"
+conclusion was WRONG.** A network trace (HAR) captured from cramapple.com by the
+Product Owner settles the topology with direct evidence.
+
+**Evidence from the HAR:**
+- All Supabase traffic goes to `pcntajvbdfqhbeewmdry.supabase.co` (Production).
+- The reviewer portal is a TanStack Start app using **server functions**
+  (`/_serverFn/...`), so the browser calls cramapple.com and the *server* calls
+  Supabase — which is why earlier browser-only reasoning about a "separate DB"
+  was mistaken.
+- The **queue-read** server function returns the exact shape of the deployed
+  `review-queue` edge function (`assigned_role`, `reviewer_name`,
+  `artifact.mcq_choices`, `sibling_decisions`); reviewer `dbloom01`/admin, 2
+  pending `tutor_answer` MCQ items.
+- A **submit** (approve answer "B") returned HTTP 200, `ok: true`, `error: null`,
+  and a persisted decision with a `decision_hash` and the exact column set the
+  deployed `review-decision` edge function returns — **including the new
+  `tutor_decision` / `difficulty_action`** columns from `DECISION-0038`. The row
+  was written to the governed `app.content_review_decisions`.
+
+**Corrected conclusions:**
+- The portal (cramapple.com = `exam-buddy-wireframe`) is **fully integrated with
+  the governed Production backend** via the `review-queue` / `review-decision`
+  edge functions deployed for `DECISION-0038`. There is **no separate/third
+  database, no `public.review_decisions` in the live path, no schema mismatch.**
+- The `DECISION-0038` migration + edge functions are correct and **in the live
+  path**; reviewer submissions succeed and land in the governed store.
+- The only real defect is the one the tutor (Jill) first reported: cramapple.com
+  still renders the **old numeric tutor-question scoring UI**, because the
+  categorical UI change was applied to the wrong Lovable project
+  (`cramapple-prototype`), not `exam-buddy-wireframe`.
+
+**Fix (frontend-only):** apply the categorical Approve / Approve-with-edits /
+Disapprove + difficulty Agree/Propose UI to `exam-buddy-wireframe`'s tutor-question
+review screen, sending `tutor_decision` / `difficulty_action` to the
+`review-decision` edge function it already calls. No DB migration, no repointing,
+no reversed-mapping fix (that concern applied only to `cramapple-prototype`'s
+separate direct-insert code, which is not the live path). The governed backend
+already accepts both the new and the legacy numeric contract.
+
+**Governance note (revised):** the earlier "ungoverned store" concern is
+withdrawn — the live portal writes to the governed store with the immutability +
+`decision_hash` audit controls. The remaining consolidation question is narrower:
+`cramapple-prototype` is a stray second project with its own direct-insert path;
+it should be retired or reconciled so it can't diverge again.
+
+**Process lesson (corrected):** I over-diagnosed twice from partial signals
+(a tables-only listing that hid views; assuming the portal did direct table
+inserts) before getting ground truth. The runtime trace was the decisive evidence
+and should have been sought earlier.
+
+---
+
 ## Reviewer-Portal Backend Split Discovered; Categorical Scoring Fix Retargeted - 2026-07-15
+
+> **SUPERSEDED / CORRECTED 2026-07-17** — the "backend split / separate database"
+> conclusion in this entry was wrong; see the HAR-verified correction above. The
+> live portal uses the governed backend. Entry retained for history.
+
 
 **Task:** UX-002 / DECISION-0038 follow-up; EXPAND of the backend-consolidation
 concern (DECISION-0035 territory). **Status:** Investigated; fix handed to Product

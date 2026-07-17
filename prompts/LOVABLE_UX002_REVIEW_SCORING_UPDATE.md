@@ -1,31 +1,33 @@
 # Lovable Prompt — UX-002 Reviewer Portal: Categorical Scoring + Difficulty Agree/Propose
 
 **For:** the Cramapple reviewer portal Lovable project that serves **cramapple.com**
-— confirmed 2026-07-15 to be the **`exam-buddy-wireframe` remix**, NOT
-`cramapple-prototype` (the change was mistakenly coded there first).
+— the **`exam-buddy-wireframe`** project (repo `david-bloom/exam-buddy-wireframe`),
+NOT `cramapple-prototype` (the change was mistakenly coded there first).
 **Related:** `DECISION-0038`, `docs/product/QUESTION_AND_ANSWER_REVIEW_PORTAL_DESIGN.md`.
 
-> **IMPORTANT — portal backend reality (discovered 2026-07-15).** This portal does
-> NOT use the governed `app.*` schema or the `review-decision` edge function. It
-> writes directly to `public.review_decisions` on its own connected Supabase
-> project (Lovable Cloud disabled). Two corrections vs. the earlier build:
-> 1. **Mapping:** map the categorical decision to the legacy numeric `tutor_score`
->    as **approve → 1, approve_with_edits → 2, disapprove → 3** (the earlier build
->    used `approve → 3`, which is backwards and corrupts the dashboard Agreement
->    math).
-> 2. **DB migration (apply manually to the portal's connected Supabase):**
->    ```sql
->    alter table public.review_decisions add column if not exists tutor_decision text;
->    alter table public.review_decisions add column if not exists difficulty_action text;
->    ```
->    The Lovable agent cannot run this; without it, submit throws a column-missing
->    error. Frontend + this DB change must ship together, then publish.
+> **Backend reality (HAR-verified 2026-07-17 — corrects the earlier note here).**
+> This portal **already uses the governed backend**: its server functions call the
+> deployed `review-queue` / `review-decision` edge functions on the Production
+> project (`pcntajvbdfqhbeewmdry`), writing to `app.content_review_decisions`
+> (confirmed by a live submit returning a `decision_hash` and the new
+> `tutor_decision`/`difficulty_action` columns). There is **no separate DB and no
+> `public.review_decisions` in this portal's path** — the earlier note claiming
+> otherwise was wrong.
 >
-> The `supabase/migrations/202607140001_*.sql` and `review-decision` edge-function
-> changes in this repo are for the *governed* `app.*` backend (already deployed to
-> Cramapple - Production) — a separate system from this portal. See the
-> 2026-07-15 activity-log entry on the reviewer-portal backend split.
-**Status:** Fix-forward on the remix per Product Owner (2026-07-15).
+> Consequences for this prompt:
+> - **This is a FRONTEND-ONLY change.** No DB migration is needed on the portal
+>   side (the `DECISION-0038` migration + edge functions are already live and in
+>   this portal's path).
+> - **No mapping fix is needed here.** The `review-decision` edge function already
+>   maps `approve→1, approve_with_edits→2, disapprove→3` server-side. (The reversed
+>   `approve→3` mapping was in `cramapple-prototype`'s separate direct-insert code,
+>   which is NOT the live path.)
+> - The submit should send `tutor_decision` + `difficulty_action` (and
+>   `difficulty_label` when proposing) to the `review-decision` edge function the
+>   portal already calls; the function also still accepts the legacy numeric
+>   `tutor_score`, so there is no hard cutover risk.
+**Status:** Frontend-only change on `exam-buddy-wireframe`; backend already
+deployed and verified in the live path (2026-07-17).
 
 ---
 
