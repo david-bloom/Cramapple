@@ -214,6 +214,33 @@ const Arms = {
     escalates: false,
     criterionTimeoutMs: 8000,
   },
+  // SP-FAST-ESC-Kimi: Kimi-thinking as the SELECTIVE ESCALATION target rather
+  // than a primary grader - the role gpt-5.5 plays in SP-FAST-ESC today. Fast
+  // gpt-4o-mini grades every criterion; only low-confidence / invariant-
+  // violating verdicts escalate to kimi-k2-thinking. This is the arm to reach
+  // for if SP-Kimi-Thinking proves accurate but too slow to be a speed-first
+  // primary: the thinking cost/latency is paid only on the ~10-20% of criteria
+  // that actually need it, so the p50 stays on the fast path while the hard
+  // cluster gets the reasoning model. Identical to SP-FAST-ESC except the
+  // escalation model is Kimi, which forces two thinking-model accommodations:
+  //   - escalationMaxOutputTokens: 2000 (new knob; a thinking model needs room
+  //     to reason + emit JSON, unlike gpt-5.5 at the default 200).
+  //   - escalationTimeoutMs: 45000 (a thinking pass can take tens of seconds;
+  //     SP-FAST-ESC's 8000 ms would time out the escalation and silently fall
+  //     back to the fast verdict on exactly the cases that triggered escalation).
+  // escalationReasoningEffort is left unset - Kimi reasons natively.
+  'SP-FAST-ESC-Kimi': {
+    model: 'openai/gpt-4o-mini',
+    boundaryMemory: true,
+    maxOutputTokens: 150,
+    parallelCriteria: true,
+    prefilter: true,
+    escalates: true,
+    criterionTimeoutMs: 4000,
+    escalationTimeoutMs: 45000,
+    escalationModel: 'moonshotai/kimi-k2-thinking',
+    escalationMaxOutputTokens: 2000,
+  },
   // Follow-up to SP-FAST-ESC: that arm's prior run showed FRQ02-C2 escalating on
   // 72.5% of responses, and since criteria run in parallel (end-to-end = max
   // across criteria), that one criterion dominated the whole response's latency
@@ -607,7 +634,12 @@ async function gradeCriterionModelResolved(row, criterionId, arm, armName) {
             ? 'empty_evidence_invariant'
             : 'low_confidence';
       const escInstructions = buildInstructions(criterionId, true);
-      const escPromise = runOneCall(arm.escalationModel, escInstructions, input, arm.escalationReasoningEffort, 200);
+      // maxOutputTokens defaults to 200 (unchanged for every existing arm), but
+      // is overridable so a thinking model used as the escalation target gets
+      // enough headroom to reason AND emit the JSON verdict - a 200-token cap
+      // would truncate it mid-reasoning, the same failure mode the primary
+      // Kimi-thinking arm avoids.
+      const escPromise = runOneCall(arm.escalationModel, escInstructions, input, arm.escalationReasoningEffort, arm.escalationMaxOutputTokens || 200);
       const escRaced = arm.escalationTimeoutMs ? await withTimeout(escPromise, arm.escalationTimeoutMs) : { timedOut: false, value: await escPromise };
       const escResult = escRaced.value;
       if (escRaced.timedOut) {

@@ -37,10 +37,22 @@ control and best-provider arms on the identical FRQ02 corpus.
 
 | Arm | Model | Thinking | maxOutputTokens | criterionTimeout | Role |
 | --- | --- | --- | --- | --- | --- |
-| `SP-Kimi-Thinking` | `moonshotai/kimi-k2-thinking` | native | 2000 | 45000 ms | Headline: does reasoning help? |
+| `SP-Kimi-Thinking` | `moonshotai/kimi-k2-thinking` | native | 2000 | 45000 ms | Headline: does reasoning help as a primary grader? |
 | `SP-FAST-Kimi` | `moonshotai/kimi-k2` | none | 200 | 8000 ms | Baseline: what does the reasoning buy vs. same-family instruct? |
+| `SP-FAST-ESC-Kimi` | `openai/gpt-4o-mini` → `moonshotai/kimi-k2-thinking` | native (escalation only) | 150 / esc 2000 | 4000 ms / esc 45000 ms | Kimi as the selective escalation target (the role gpt-5.5 plays today) |
 | `BM-Control` | `openai/gpt-5.5` (medium) | reasoning | 200 | — | Existing control |
 | `SP-FAST-Gemini` | `google/gemini-2.5-flash` | off | 150 | 4000 ms | Prior best speed+quality+cost single number |
+
+**`SP-FAST-ESC-Kimi`** is the answer to "what if the reasoning is accurate but
+too slow to be speed-first." Fast `gpt-4o-mini` grades every criterion; only
+low-confidence / invariant-violating verdicts escalate to `kimi-k2-thinking`,
+so the thinking latency and cost are paid on the ~10–20% of criteria that
+actually need it while the p50 stays on the fast path. It is identical to the
+existing `SP-FAST-ESC` arm except the escalation model is Kimi instead of
+gpt-5.5, which required making the escalation `maxOutputTokens` configurable
+(new `escalationMaxOutputTokens: 2000` — default stays 200 for every existing
+arm) and widening `escalationTimeoutMs` to 45 s so a thinking escalation isn't
+silently timed out back to the fast verdict.
 
 **Why the two Kimi-thinking settings differ from every fast arm** (both are
 required for the arm to measure something real rather than time out into
@@ -87,9 +99,10 @@ npm install
 #    in sp1_pilot.mjs (Arms + PRICING), then re-probe.
 npm run models
 
-# 1. Directional run (n=40), Kimi arms + the two comparison anchors, same IDs.
+# 1. Directional run (n=40): all three Kimi arms + the two comparison anchors,
+#    same response-ID set.
 node --env-file=.env.local sp1_pilot.mjs \
-  --arms SP-Kimi-Thinking,SP-FAST-Kimi,BM-Control,SP-FAST-Gemini \
+  --arms SP-Kimi-Thinking,SP-FAST-Kimi,SP-FAST-ESC-Kimi,BM-Control,SP-FAST-Gemini \
   --limit 40 \
   --output /tmp/cramapple-grader-kimi/kimi_pilot_2026-07-17.jsonl
 
@@ -135,10 +148,14 @@ the executive summary.
   no new errors in the frozen boundary cluster, at p50 latency within the
   single-FRQ budget.
 - **Kill for the fast path:** if `SP-Kimi-Thinking` p50 latency is materially
-  worse than the current best single-FRQ path, it is out as a primary grader
-  under the Speed-first priority regardless of accuracy — at most a candidate
-  for a selective escalation route (the role gpt-5.5 plays today), to be
-  registered as a separate follow-up arm, not concluded from this run.
+  worse than the current best single-FRQ path, it is out as a *primary* grader
+  under the Speed-first priority regardless of accuracy. That does not kill Kimi
+  outright — `SP-FAST-ESC-Kimi` is in this same run precisely to test the
+  selective-escalation role, where the thinking cost/latency is paid only on the
+  minority of criteria that escalate. Judge that arm on: (a) does escalating to
+  Kimi fix the C2 hard-cluster errors the fast-only path misses, and (b) does it
+  keep p50 on the fast path (escalation rate near SP-1 §11's expected 10–20%,
+  not the 72.5% C2 rate a prior gpt-5.5 escalation arm hit).
 - `SP-FAST-Kimi` is evaluated as an ordinary SP-FAST-* provider arm; its only
   special job here is to isolate what the thinking actually buys.
 
