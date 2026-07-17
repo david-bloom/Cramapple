@@ -100,10 +100,13 @@ npm install
 npm run models
 
 # 1. Directional run (n=40): all three Kimi arms + the two comparison anchors,
-#    same response-ID set.
+#    same response-ID set. --max-cost-usd caps spend at $10 (the default; shown
+#    explicitly here). The estimated cost of this run is ~$1.50, so the cap is a
+#    guardrail against a pricing surprise, not an expected stopping point.
 node --env-file=.env.local sp1_pilot.mjs \
   --arms SP-Kimi-Thinking,SP-FAST-Kimi,SP-FAST-ESC-Kimi,BM-Control,SP-FAST-Gemini \
   --limit 40 \
+  --max-cost-usd 10 \
   --output /tmp/cramapple-grader-kimi/kimi_pilot_2026-07-17.jsonl
 
 # 2. If Directional is encouraging, scale to Decision-Grade (n=100) unchanged.
@@ -111,6 +114,20 @@ node --env-file=.env.local sp1_pilot.mjs \
 
 The run is resumable: re-invoking with the same `--output` skips
 already-completed `arm:response_id` units.
+
+**Cost cap.** `--max-cost-usd` (default **$10**) is a hard spend ceiling: the
+run stops launching new response×arm units once cumulative **estimated** cost
+crosses it. Notes:
+- Cost is estimated from the harness `PRICING` table. For Kimi that pricing is
+  provisional, so the cap is a guardrail against a pricing surprise, not an
+  exact billing limit — reconcile against the real gateway invoice.
+- It is a *soft* cap: with up to `SP1_CONCURRENCY` (default 10) units in flight,
+  a few already-started units finish after the cap trips. Overshoot is bounded
+  by that many units — single-digit dollars at these per-FRQ costs.
+- Cost already banked in a resumed `--output` file counts against the cap, so a
+  restart can't spend the full ceiling again. If a run stops early on the cap,
+  re-run the same command with a higher `--max-cost-usd` to finish.
+- Set `--max-cost-usd 0` to disable the cap.
 
 ## 6. Integrity Gate (fill in at run time — reporting standard §4)
 

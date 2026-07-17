@@ -886,15 +886,20 @@ async function mapWithConcurrency(items, limit, fn) {
 }
 
 function parseArgs(argv) {
-  const out = { limit: 40, output: DEFAULT_OUTPUT, arms: Object.keys(Arms) };
+  // maxCostUsd is a hard spend ceiling. The run stops launching new
+  // response x arm units once cumulative estimated cost crosses it. Default $10.
+  // Set to 0 or a negative value to disable the cap entirely.
+  const out = { limit: 40, output: DEFAULT_OUTPUT, arms: Object.keys(Arms), maxCostUsd: 10 };
   for (let i = 2; i < argv.length; i += 1) {
     const arg = argv[i];
     if (arg === '--limit') out.limit = Number(argv[++i]);
     else if (arg === '--output') out.output = argv[++i];
     else if (arg === '--arms') out.arms = argv[++i].split(',').map((s) => s.trim()).filter(Boolean);
+    else if (arg === '--max-cost-usd') out.maxCostUsd = Number(argv[++i]);
     else if (arg === '--dry-run') out.dryRun = true;
     else fail(`unknown argument ${arg}`);
   }
+  if (Number.isNaN(out.maxCostUsd)) fail('--max-cost-usd must be a number');
   return out;
 }
 
@@ -906,21 +911,30 @@ async function main() {
   const allRows = loadRows(LABELS_PATH);
   const corpus = selectCorpus(allRows, args.limit);
 
+  const capEnabled = args.maxCostUsd > 0;
+  const capLabel = capEnabled ? `$${args.maxCostUsd.toFixed(2)}` : 'disabled';
+
   if (args.dryRun) {
     console.log(`Dry run OK. Corpus n=${corpus.length}. Cluster present: ${corpus.filter((r) => AMBIGUOUS_CLUSTER.has(r.response_id)).length}/5.`);
     console.log(`Arms: ${args.arms.join(', ')}`);
     console.log(`Planned criterion calls: ${corpus.length * args.arms.length * CRITERION_IDS.length} (excluding escalation/retry)`);
+    console.log(`Cost cap: ${capLabel} (estimated, from the PRICING table; halts new units when crossed)`);
     console.log(`Response IDs: ${corpus.map((r) => r.response_id).join(', ')}`);
     return;
   }
 
   fs.mkdirSync(path.dirname(args.output), { recursive: true });
   const done = new Set();
+  // Cost already banked in a resumed output file counts against the cap, so a
+  // restart cannot spend the full ceiling a second time.
+  let spentUsd = 0;
   if (fs.existsSync(args.output)) {
     for (const line of fs.readFileSync(args.output, 'utf8').split('\n').filter(Boolean)) {
       const row = JSON.parse(line);
       done.add(`${row.experiment_arm}:${row.response_id}`);
+      spentUsd += Number(row.cost_usd ?? 0);
     }
+    if (spentUsd > 0) console.log(`Resumed: $${spentUsd.toFixed(4)} already spent in ${path.basename(args.output)} (counts against the cap).`);
   }
 
   const stream = fs.createWriteStream(args.output, { flags: 'a' });
@@ -935,24 +949,46 @@ async function main() {
   }
 
   console.log(`Total response x arm units to run: ${work.length} (criteria run within each unit)`);
+  console.log(`Cost cap: ${capLabel} (estimated cost, from the PRICING table).`);
   let completed = 0;
+  let skippedForCap = 0;
+  let capTripped = false;
   await mapWithConcurrency(work, CONCURRENCY, async ({ armName, row }) => {
+    // Soft cap: with CONCURRENCY units in flight, up to CONCURRENCY-1 already-
+    // started units may still finish after the cap trips. Overshoot is bounded
+    // by that many units (single-digit dollars at these per-FRQ costs). The
+    // ceiling is checked against ESTIMATED cost (PRICING table); for Kimi that
+    // pricing is provisional, so treat the cap as a guardrail, not an exact
+    // billing limit - reconcile against the real gateway invoice.
+    if (capEnabled && spentUsd >= args.maxCostUsd) {
+      if (!capTripped) {
+        capTripped = true;
+        console.log(`Cost cap ${capLabel} reached at $${spentUsd.toFixed(4)} - not launching further units.`);
+      }
+      skippedForCap += 1;
+      return;
+    }
     const criterionRows = await gradeResponseForArm(row, armName);
     for (const r of criterionRows) {
       // t6_ms already set by gradeCriterionModelResolved/prefilter path (persistence write only).
       // Do not overwrite here - a prior version of this line measured from before the model
       // call instead of after validation, which double-counted T3+T4 into T6.
       stream.write(`${JSON.stringify(r)}\n`);
+      spentUsd += Number(r.cost_usd ?? 0);
     }
     completed += 1;
     if (completed % 10 === 0 || completed === work.length) {
-      console.log(`${completed}/${work.length} response x arm units complete`);
+      console.log(`${completed}/${work.length} units complete - est. spend $${spentUsd.toFixed(4)}`);
     }
   });
 
   await new Promise((resolve) => stream.end(resolve));
   shutdownMisattributionChecker();
   console.log(`Wrote SP-1 pilot JSONL: ${args.output}`);
+  console.log(`Total estimated spend: $${spentUsd.toFixed(4)} (cap ${capLabel}).`);
+  if (skippedForCap > 0) {
+    console.log(`Stopped early on cost cap: ${skippedForCap} response x arm unit(s) not run. Re-run the same command with a higher --max-cost-usd to finish (already-completed units are skipped).`);
+  }
 }
 
 await main();
