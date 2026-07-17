@@ -5,6 +5,12 @@ const MODELS = [
   'openai/gpt-5.5',
   'anthropic/claude-haiku-4-5',
   'google/gemini-2.5-flash',
+  // Kimi (Moonshot) grading experiment. Run this reachability probe FIRST to
+  // confirm the exact gateway slugs before spending money on the SP-1 pilot -
+  // if either row errors with an unknown-model message, fix the slug here and
+  // in sp1_pilot.mjs (Arms + PRICING) before running the paid grading run.
+  'moonshotai/kimi-k2-thinking',
+  'moonshotai/kimi-k2',
 ];
 
 const PROMPT = 'Reply with one short sentence confirming you received this.';

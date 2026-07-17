@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Kimi Grading Experiment Wired and Pre-Registered — 2026-07-17
 - Phase A Broken-Import Fix and Deterministic-Layer-Only Ship Decision — 2026-07-12
 - TASK-0016 Phase A Grading-Router Reconciled Onto Grading Branch — 2026-07-12
 - AP Statistics Launch Task Drafted (TASK-0013) — 2026-06-30
@@ -19,6 +20,56 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## Kimi Grading Experiment Wired and Pre-Registered - 2026-07-17
+
+**Task:** Grading-experiments session. Standard-tier research (reversible
+harness change; no learner-facing effect, no schema/production change).
+**Status:** Wired and pre-registered on
+`claude/cramapple-grading-experiments-9lkjqc`. NOT YET RUN — the paid run needs
+`AI_GATEWAY_API_KEY`, which is not present in the web session environment.
+
+**Summary:** David asked to rerun the grading experiments with **Kimi**
+(Moonshot) to see whether its complex reasoning helps students, measuring
+**speed, quality, and cost**. Wired two arms into the existing SP-1 harness
+(`scripts/vercel-gateway-check/sp1_pilot.mjs`) rather than building anything
+new, so results pair directly against the prior AP Bio arms on the identical
+100-row `learning_quality_approved` FRQ02 corpus:
+
+- `SP-Kimi-Thinking` (`moonshotai/kimi-k2-thinking`) — the headline arm. Kimi
+  reasons natively, not via the OpenAI `reasoningEffort` knob, so that knob is
+  left unset. Two settings deliberately differ from every fast arm and both are
+  required for the arm to measure anything real: `maxOutputTokens: 2000` (a
+  thinking model bills reasoning as output; a 150-cap truncates it before the
+  JSON verdict) and `criterionTimeoutMs: 45000` (a 4–8 s cap tuned for fast
+  models would time out every thinking call).
+- `SP-FAST-Kimi` (`moonshotai/kimi-k2`, no thinking) — the same-family baseline
+  that isolates what the reasoning actually buys.
+
+Also added both slugs to the `models.mjs` reachability probe and PROVISIONAL
+Kimi pricing to the `PRICING` table (flagged for reconciliation against the
+real gateway invoice before any cost number is cited). Both arms grade with the
+model alone (no gpt-5.5 escalation, no misattribution audit) for a clean read.
+
+Validated the wiring with `--dry-run` (arms parse, corpus loads 40/40 with all
+5 ambiguous-cluster IDs present, 320 planned calls) and `node --check` on both
+files. The actual paid run was NOT executed here — no gateway key in this
+environment.
+
+Pre-registered the run plan, hypotheses, priority order (Speed > Quality >
+Cost), integrity gate, and success/kill criteria in
+`docs/research/apbio_kimi_grading_experiment_2026-07-17.md` before running, per
+the reporting standard, so results can't be cherry-picked after the fact.
+
+**Scope guard:** FRQ02-only, single-question — input to `TASK-0010`, not a
+release claim, and not a change to the learner-facing automated-score gate
+(`NOW-013` unchanged).
+
+**Next Owner:** David Bloom — run `npm run models` then the pilot in an
+environment with `AI_GATEWAY_API_KEY`, or hand the run commands to whoever
+holds the key. Reconcile Kimi pricing at run time.
 
 ---
 

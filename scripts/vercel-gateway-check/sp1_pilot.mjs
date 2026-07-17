@@ -172,6 +172,48 @@ const Arms = {
       },
     },
   },
+  // Kimi (Moonshot) grading experiment - does a reasoning-capable open model
+  // help students by grading FRQ criteria more accurately, and at what speed /
+  // cost? Both arms grade with the model alone (no gpt-5.5 escalation, no
+  // misattribution audit) so the numbers are a clean read on Kimi's own
+  // grading, directly paired against BM-Control (gpt-5.5 medium) and
+  // SP-FAST-Gemini on the same FRQ02 corpus. Priority order stays
+  // Speed > Quality > Cost (see the pre-registration doc).
+  //
+  // SP-Kimi-Thinking: the headline arm. kimi-k2-thinking reasons natively -
+  // NOT via the OpenAI `reasoningEffort` knob - so reasoningEffort is left
+  // unset (runOneCall then attaches no openai providerOptions). Two settings
+  // differ deliberately from every fast arm above, and both are required for
+  // the arm to measure anything real rather than time out into garbage:
+  //   - maxOutputTokens is large: thinking tokens are billed and counted as
+  //     output, so a 150-token cap would truncate the model mid-reasoning
+  //     before it ever emits the JSON verdict.
+  //   - criterionTimeoutMs is large: a thinking pass can take tens of seconds;
+  //     a 4-8s cap (tuned for fast models) would time out every call and we'd
+  //     learn nothing about its true latency. This generous bound still catches
+  //     a genuine hang without pre-judging the speed result.
+  'SP-Kimi-Thinking': {
+    model: 'moonshotai/kimi-k2-thinking',
+    boundaryMemory: true,
+    maxOutputTokens: 2000,
+    parallelCriteria: true,
+    prefilter: true,
+    escalates: false,
+    criterionTimeoutMs: 45000,
+  },
+  // SP-FAST-Kimi: same model family WITHOUT native thinking (kimi-k2 instruct),
+  // as the speed/cost baseline that isolates what the reasoning actually buys.
+  // Configured like the other SP-FAST-* provider arms so it is comparable to
+  // them, not just to its thinking sibling.
+  'SP-FAST-Kimi': {
+    model: 'moonshotai/kimi-k2',
+    boundaryMemory: true,
+    maxOutputTokens: 200,
+    parallelCriteria: true,
+    prefilter: true,
+    escalates: false,
+    criterionTimeoutMs: 8000,
+  },
   // Follow-up to SP-FAST-ESC: that arm's prior run showed FRQ02-C2 escalating on
   // 72.5% of responses, and since criteria run in parallel (end-to-end = max
   // across criteria), that one criterion dominated the whole response's latency
@@ -365,6 +407,15 @@ const PRICING = {
   'openai/gpt-4o-mini': { input: 0.15, cached: 0.075, output: 0.6 },
   'anthropic/claude-haiku-4-5': { input: 0.8, cached: 0.08, output: 4.0 },
   'google/gemini-2.5-flash': { input: 0.3, cached: 0.03, output: 2.5 },
+  // Kimi (Moonshot) - PROVISIONAL per-1M-token pricing, must be reconciled
+  // against the actual Vercel AI Gateway Moonshot line items before any cost
+  // number from a Kimi arm is cited (reporting-standard integrity gate). These
+  // are Moonshot's own list prices as of the wiring date; the gateway may mark
+  // them up. kimi-k2-thinking bills its reasoning tokens as output tokens, so
+  // the `output` rate dominates that arm's cost - watch the Avg output tok /
+  // Avg reasoning tok columns in the report.
+  'moonshotai/kimi-k2-thinking': { input: 0.6, cached: 0.15, output: 2.5 },
+  'moonshotai/kimi-k2': { input: 0.6, cached: 0.15, output: 2.5 },
 };
 
 function estimateCost(usage, modelName) {
