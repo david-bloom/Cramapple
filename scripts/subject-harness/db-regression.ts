@@ -114,6 +114,18 @@ chemistry.archetypes = [{
   practice_refs: [],
   response_modalities: ["choice"],
 }];
+chemistry.blueprint.sections = [{
+  section_key: "multiple-choice",
+  duration_minutes: 5,
+  score_weight: 1,
+  item_count: 1,
+  item_types: ["mcq"],
+}];
+chemistry.inventory.targets = [{
+  item_type: "mcq",
+  archetype_key: "mcq-four-option",
+  target_count: 1,
+}];
 chemistry.supersession = { strategy: "none", retire_content_keys: [] };
 const chemistryPlan = await compilePlan(chemistry, [], registry);
 const tamperedPlan = structuredClone(chemistryPlan);
@@ -185,6 +197,18 @@ created.archetypes = [{
   practice_refs: [],
   response_modalities: ["choice"],
 }];
+created.blueprint.sections = [{
+  section_key: "multiple-choice",
+  duration_minutes: 5,
+  score_weight: 1,
+  item_count: 1,
+  item_types: ["mcq"],
+}];
+created.inventory.targets = [{
+  item_type: "mcq",
+  archetype_key: "mcq-four-option",
+  target_count: 1,
+}];
 created.supersession = { strategy: "none", retire_content_keys: [] };
 const createPlan = await compilePlan(created, [], registry);
 const createResult = await sql(`begin;
@@ -196,13 +220,118 @@ rollback;
 do $$ begin if exists(select 1 from app.subjects where subject_key='rollback-fixture') then raise exception 'AC5:rollback_failed'; end if; end $$;
 select 'CREATE_SUBJECT_ROLLBACK_PASS';`);
 
+const adoption = structuredClone(created);
+adoption.package_id = "matching-draft-adoption-fixture";
+adoption.operation = "create-exam-pack-version";
+adoption.subject = {
+  subject_key: "draft-adoption-fixture",
+  display_name: "Draft Adoption Fixture",
+  existing_subject_key: "draft-adoption-fixture",
+};
+adoption.exam_pack.exam_code = "draft_adoption_fixture";
+adoption.exam_pack.exam_name = "Draft Adoption Fixture";
+adoption.taxonomy.scheme_key = "draft-adoption-fixture-taxonomy";
+adoption.taxonomy.nodes.push({
+  node_key: "practice-1",
+  node_type: "practice",
+  label: "Draft Adoption Practice",
+  ordinal: 1,
+  source_refs: ["rollback-fixture-source"],
+});
+adoption.archetypes[0].archetype_key = "draft-adoption-mcq";
+adoption.inventory.targets[0].archetype_key = "draft-adoption-mcq";
+const adoptionItem = await read(
+  `${here}/../../content/item-packages/ap-calculus-ab/apcalcab-mcq-001.json`,
+);
+adoptionItem.package_id = "draft-adoption-q1";
+adoptionItem.content_key = "draft-adoption-q1";
+adoptionItem.exam_pack_ref = {
+  exam_code: "draft_adoption_fixture",
+  school_year: "2026-27",
+  exam_pack_version: "1.0.0",
+};
+adoptionItem.archetype_ref = {
+  archetype_key: "draft-adoption-mcq",
+  version: "1.0.0",
+};
+adoptionItem.provenance.source_refs = ["rollback-fixture-source"];
+for (const stimulus of adoptionItem.stimuli) {
+  stimulus.source_refs = ["rollback-fixture-source"];
+}
+adoptionItem.taxonomy_refs = adoptionItem.taxonomy_refs.map((
+  ref: any,
+  index: number,
+) => ({
+  ...ref,
+  scheme_key: "draft-adoption-fixture-taxonomy",
+  node_key: index === 0 ? "unit-1" : "practice-1",
+}));
+delete adoptionItem.provenance.content_sha256;
+adoptionItem.provenance.content_sha256 = await sha256(
+  canonicalJson(adoptionItem),
+);
+const adoptionPlan = await compilePlan(adoption, [adoptionItem], registry);
+const adoptionResult = await sql(`do $$ declare
+  v_subject uuid; v_pack uuid; v_pack_version uuid; v_item uuid; v_version uuid;
+  v_result jsonb;
+begin
+  insert into app.subjects(subject_key,display_name,status)
+    values('draft-adoption-fixture','Draft Adoption Fixture','active')
+    returning id into v_subject;
+  insert into app.exam_packs(exam_code,exam_name,subject_id)
+    values('draft_adoption_fixture','Draft Adoption Fixture',v_subject)
+    returning id into v_pack;
+  insert into app.exam_pack_versions(exam_pack_id,school_year,official_exam_date,status,created_by)
+    values(v_pack,'2026-27','2027-05-01','draft',${literal(actor)}::uuid)
+    returning id into v_pack_version;
+  insert into app.content_items(exam_pack_version_id,content_key,item_type,title,status,created_by)
+    values(v_pack_version,'draft-adoption-q1','mcq','Draft adoption Q1','draft',${
+  literal(actor)
+}::uuid)
+    returning id into v_item;
+  insert into app.content_item_versions(content_item_id,version_num,stem,prompt_json,content_hash,status,created_by)
+    values(v_item,1,${literal(adoptionItem.parts[0].prompt)},${
+  literal(JSON.stringify(adoptionItem))
+}::jsonb,
+      '${adoptionItem.provenance.content_sha256}','draft',${
+  literal(actor)
+}::uuid)
+    returning id into v_version;
+
+  v_result:=app.apply_subject_package_atomic(${
+  literal(JSON.stringify(adoptionPlan))
+}::jsonb,
+    ${literal(actor)}::uuid,'local',null);
+  if (select count(*) from app.content_item_versions where content_item_id=v_item)<>1 then
+    raise exception 'ADOPTION:canonical_version_duplicated';
+  end if;
+  if not exists(select 1 from app.content_item_versions where id=v_version
+    and item_package_sha256='${adoptionItem.provenance.content_sha256}'
+    and item_package_payload=${literal(JSON.stringify(adoptionItem))}::jsonb
+    and archetype_version_id is not null) then
+    raise exception 'ADOPTION:matching_draft_not_managed';
+  end if;
+  perform app.apply_subject_package_atomic(${
+  literal(JSON.stringify(adoptionPlan))
+}::jsonb,
+    ${literal(actor)}::uuid,'local',null);
+  if (select count(*) from app.item_package_applications where package_id='draft-adoption-q1' and environment='local')<>1 then
+    raise exception 'ADOPTION:reapply_not_idempotent';
+  end if;
+end $$;
+select 'MATCHING_DRAFT_ATOMIC_ADOPTION_PASS';`);
+
 const governanceResult = await sql(`
   do $$ declare v_policy uuid; v_pack uuid; v_item uuid; v_result jsonb; v_role uuid; v_exception uuid;
     v_evidence uuid; v_assignment uuid; v_capability text; begin
   insert into app.profiles(user_id,full_name,role) values(${
   literal(reviewer)
 }::uuid,'H4 Regression Reviewer','validator');
-  select review_policy_version_id into v_policy from app.review_policy_versions limit 1;
+  select policy.review_policy_version_id into v_policy
+  from app.review_policy_versions policy
+  join app.exam_pack_versions pack_version on pack_version.id=policy.exam_pack_version_id
+  join app.exam_packs pack on pack.id=pack_version.exam_pack_id
+  where pack.exam_code='draft_adoption_fixture';
   v_result:=app.evaluate_reviewer_eligibility(v_policy,${
   literal(reviewer)
 }::uuid,'{}');
@@ -227,7 +356,12 @@ const governanceResult = await sql(`
   literal(reviewer)
 }::uuid],'{}')->>'eligible')::boolean
     then raise exception 'H4:minimum_reviewer_team_failed'; end if;
-  select id into v_item from app.content_item_versions where item_package_payload is not null limit 1;
+  select civ.id into v_item
+  from app.content_item_versions civ
+  join app.content_items ci on ci.id=civ.content_item_id
+  where civ.item_package_payload is not null
+    and ci.exam_pack_version_id=v_pack
+  limit 1;
   insert into app.content_review_assignments(content_item_version_id,reviewer_id,review_stage,created_by)
     values(v_item,${literal(reviewer)}::uuid,'tutor_question',${
   literal(actor)
@@ -516,6 +650,7 @@ console.log(
     tamperResult,
     chemistryResult,
     createResult,
+    adoptionResult,
     governanceResult,
     waiverHashResult,
     trustBoundaryResult,
