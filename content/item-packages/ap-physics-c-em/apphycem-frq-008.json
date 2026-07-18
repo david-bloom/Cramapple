@@ -36,7 +36,7 @@
       "ordinal": 1,
       "kind": "text",
       "payload": {
-        "text": "representation translation: On the x-axis the electric potential is V(x)=V₀e^{-x/L} for x≥0."
+        "text": "On the x-axis the electric potential is V(x)=V₀e^{-x/L} for x≥0."
       },
       "source_refs": [
         "ap-physics-c-em-ced-fact-pack"
@@ -89,7 +89,7 @@
       "part_key": "part-b",
       "ordinal": 2,
       "label": "(b)",
-      "prompt": "Explain how the governing principle and the stated assumptions support the result.",
+      "prompt": "State the governing principle relating E to the potential gradient and the one-dimensional assumption on V(x), and explain how each supports the computed field direction.",
       "response_modalities": [
         "typed-text"
       ],
@@ -98,10 +98,10 @@
         {
           "criterion_key": "part-b-criterion",
           "points": 1,
-          "description": "Explain how the governing principle and the stated assumptions support the result",
+          "description": "State the governing principle relating E to the potential gradient and the one-dimensional assumption on V(x), and explain how each supports the computed field direction.",
           "required_evidence": [
-            "governing principle",
-            "assumption"
+            "E=-dV/dx",
+            "one-dimensional dependence on x"
           ],
           "accepted_variants": [
             "Equivalent scientifically correct notation and reasoning earn credit."
@@ -111,8 +111,8 @@
               "check_type": "keyword-evidence",
               "parameters": {
                 "keywords": [
-                  "principle",
-                  "assumption"
+                  "E=-dV/dx",
+                  "one-dimensional dependence on x"
                 ]
               }
             }
@@ -142,6 +142,6 @@
     "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
     "generated_by": "codex",
     "generated_at": "2026-07-15T00:00:00Z",
-    "content_sha256": "dd2519f82f6ce04c07c297cbc480b23069fb0975a00f2378d23439791429cc82"
+    "content_sha256": "562a7cca960b14792fb45a9180f56c07be8130f6c00217ba815cb734f4ae3b65"
   }
 }

@@ -36,7 +36,7 @@
       "ordinal": 1,
       "kind": "text",
       "payload": {
-        "text": "qualitative/quantitative translation: A nonconducting sphere of radius R has volume charge density ρ(r)=ρ₀r/R."
+        "text": "A nonconducting sphere of radius R has volume charge density ρ(r)=ρ₀r/R."
       },
       "source_refs": [
         "ap-physics-c-em-ced-fact-pack"
@@ -58,11 +58,11 @@
         {
           "criterion_key": "part-a-criterion",
           "points": 1,
-          "description": "Gauss's law with Qenc=∫₀ʳρ(r')4πr'²dr' gives E(r)=ρ₀r²/(4ε₀R) inside.",
+          "description": "Evaluating the field at the sphere's surface, E(R)=ρ₀R/(4ε₀), shows E scales linearly with R; doubling R doubles the surface field to ρ₀R/(2ε₀).",
           "required_evidence": [
-            "volume integral",
-            "Gauss",
-            "ρ₀r²/(4ε₀R)"
+            "E(R)=ρ₀R/(4ε₀)",
+            "linear scaling with R",
+            "field doubles"
           ],
           "accepted_variants": [
             "Equivalent scientifically correct notation and reasoning earn credit."
@@ -72,9 +72,9 @@
               "check_type": "keyword-evidence",
               "parameters": {
                 "keywords": [
-                  "volume integral",
-                  "Gauss",
-                  "ρ₀r²/(4ε₀R)"
+                  "ρ₀R/(4ε₀)",
+                  "doubles",
+                  "linear in R"
                 ]
               }
             }
@@ -89,7 +89,7 @@
       "part_key": "part-b",
       "ordinal": 2,
       "label": "(b)",
-      "prompt": "Explain how the governing principle and the stated assumptions support the result.",
+      "prompt": "Identify the governing principle applied to derive E(r) and explain how the assumption of spherical symmetry supports pulling E outside the surface integral.",
       "response_modalities": [
         "typed-text"
       ],
@@ -98,10 +98,10 @@
         {
           "criterion_key": "part-b-criterion",
           "points": 1,
-          "description": "Explain how the governing principle and the stated assumptions support the result",
+          "description": "Identify the governing principle applied to derive E(r) and explain how the assumption of spherical symmetry supports pulling E outside the surface integral.",
           "required_evidence": [
-            "governing principle",
-            "assumption"
+            "Gauss's law",
+            "spherical symmetry"
           ],
           "accepted_variants": [
             "Equivalent scientifically correct notation and reasoning earn credit."
@@ -111,8 +111,8 @@
               "check_type": "keyword-evidence",
               "parameters": {
                 "keywords": [
-                  "principle",
-                  "assumption"
+                  "Gauss's law",
+                  "spherical symmetry"
                 ]
               }
             }
@@ -142,6 +142,6 @@
     "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
     "generated_by": "codex",
     "generated_at": "2026-07-15T00:00:00Z",
-    "content_sha256": "616db1664970d2ca47b0f5c83cd72df29455c89e47ab868a1f1284f573d8fee4"
+    "content_sha256": "e9fef25380e4ed79e5bd026928bfdc2b5de41020c0be64c2a6350b6e5cefac68"
   }
 }

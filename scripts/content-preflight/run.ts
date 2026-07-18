@@ -10,7 +10,9 @@
 //
 // Accepts either a bare array of items, or an object with an `items` array, and
 // tolerates the bulk-import payload shape (FRQ criteria under `rubric`, MCQ
-// choices under `choices`). Items are located recursively by `item_type`.
+// choices under `choices`) as well as the subject-harness item-package shape
+// (MCQ choices under `mcq_choices`, as authored in content/item-packages/).
+// Items are located recursively by `item_type`.
 
 import {
   type ContentItemPackage,
@@ -49,7 +51,11 @@ function adapt(raw: any): ContentItemPackage {
     canonical_answer_1: raw.canonical_answer_1 ?? raw.canonical_answer ?? null,
     explanation: raw.explanation ?? raw?.prompt_json?.explanation ?? null,
     criteria,
-    choices: Array.isArray(raw.choices) ? raw.choices : undefined,
+    choices: Array.isArray(raw.choices)
+      ? raw.choices
+      : Array.isArray(raw.mcq_choices)
+      ? raw.mcq_choices
+      : undefined,
   };
 }
 

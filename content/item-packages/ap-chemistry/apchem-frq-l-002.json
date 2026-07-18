@@ -89,7 +89,7 @@
       "part_key": "part-b",
       "ordinal": 2,
       "label": "(b)",
-      "prompt": "Explain how the governing principle and the stated assumptions support the result.",
+      "prompt": "Explain how the formal-charge-minimization principle identifies the preferred Lewis structure, and state the assumption that both resonance contributors are equivalent in energy.",
       "response_modalities": [
         "typed-text"
       ],
@@ -98,10 +98,10 @@
         {
           "criterion_key": "part-b-criterion",
           "points": 1,
-          "description": "Explain how the governing principle and the stated assumptions support the result",
+          "description": "Formal-charge minimization selects the structure with the lowest formal charges, assuming the two resonance contributors are energetically equivalent.",
           "required_evidence": [
-            "governing principle",
-            "assumption"
+            "formal charge minimization",
+            "equivalent resonance contributors"
           ],
           "accepted_variants": [
             "Equivalent scientifically correct notation and reasoning earn credit."
@@ -111,8 +111,8 @@
               "check_type": "keyword-evidence",
               "parameters": {
                 "keywords": [
-                  "principle",
-                  "assumption"
+                  "formal charge minimization",
+                  "equivalent resonance"
                 ]
               }
             }
@@ -127,7 +127,7 @@
       "part_key": "part-c",
       "ordinal": 3,
       "label": "(c)",
-      "prompt": "Describe a measurement or representation that could test the result.",
+      "prompt": "Describe how you would test the predicted bond order, identifying the S-O bond length as the measured variable and using the same molecule and conditions as the controlled variable.",
       "response_modalities": [
         "typed-text"
       ],
@@ -136,10 +136,10 @@
         {
           "criterion_key": "part-c-criterion",
           "points": 1,
-          "description": "Describe a measurement or representation that could test the result",
+          "description": "A valid check measures S-O bond length (expected intermediate between single and double bond) while holding the molecule and conditions constant.",
           "required_evidence": [
-            "measured variable",
-            "controlled variable"
+            "S-O bond length",
+            "controlled conditions"
           ],
           "accepted_variants": [
             "Equivalent scientifically correct notation and reasoning earn credit."
@@ -149,8 +149,8 @@
               "check_type": "keyword-evidence",
               "parameters": {
                 "keywords": [
-                  "measure",
-                  "control"
+                  "bond length",
+                  "same conditions"
                 ]
               }
             }
@@ -165,7 +165,7 @@
       "part_key": "part-d",
       "ordinal": 4,
       "label": "(d)",
-      "prompt": "Identify one boundary case or systematic error and predict its effect.",
+      "prompt": "State one boundary case (e.g., unequal weighting of the two resonance contributors) and predict whether the true bond order would deviate above or below the resonance-averaged 1.5 value.",
       "response_modalities": [
         "typed-text"
       ],
@@ -174,10 +174,10 @@
         {
           "criterion_key": "part-d-criterion",
           "points": 1,
-          "description": "Identify one boundary case or systematic error and predict its effect",
+          "description": "Unequal weighting of the resonance contributors makes one S-O bond order higher and the other lower than the averaged 1.5 value.",
           "required_evidence": [
-            "direction of effect",
-            "justification"
+            "unequal contributor weighting",
+            "bond order deviation"
           ],
           "accepted_variants": [
             "Equivalent scientifically correct notation and reasoning earn credit."
@@ -187,8 +187,8 @@
               "check_type": "keyword-evidence",
               "parameters": {
                 "keywords": [
-                  "effect",
-                  "because"
+                  "unequal weighting",
+                  "bond order"
                 ]
               }
             }
@@ -218,6 +218,6 @@
     "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
     "generated_by": "codex",
     "generated_at": "2026-07-15T00:00:00Z",
-    "content_sha256": "ee03f53b6f4b39d3b72b5bd4119e1a53f6bbb17af8362475e8b96318b9debada"
+    "content_sha256": "46ac7234621605a14a8c6d38b6065538638ce4e72137c6b1ef64dbcf6b9fae91"
   }
 }

@@ -36,7 +36,7 @@
       "ordinal": 1,
       "kind": "text",
       "payload": {
-        "text": "qualitative/quantitative translation: A uniform 2.00 m beam weighing 100 N is hinged at one end and held horizontal by a vertical cable at the other end."
+        "text": "A uniform 2.00 m beam weighing 100 N is hinged at one end and held horizontal by a vertical cable at the other end."
       },
       "source_refs": [
         "ap-physics-1-ced-fact-pack"
@@ -58,11 +58,10 @@
         {
           "criterion_key": "part-a-criterion",
           "points": 1,
-          "description": "Torque balance about the hinge gives cable tension 50.0 N.",
+          "description": "Doubling the beam length leaves the cable tension unchanged at 50.0 N: torque balance gives T·L = W·(L/2), so T = W/2, and the length L cancels because both the weight's lever arm and the cable's lever arm scale proportionally with beam length.",
           "required_evidence": [
-            "torque",
-            "lever arm",
-            "50.0"
+            "tension remains 50.0 N when the length is doubled",
+            "length cancels in the torque balance because both lever arms scale with L"
           ],
           "accepted_variants": [
             "Equivalent scientifically correct notation and reasoning earn credit."
@@ -72,8 +71,8 @@
               "check_type": "keyword-evidence",
               "parameters": {
                 "keywords": [
-                  "torque",
-                  "lever arm",
+                  "unchanged",
+                  "cancels",
                   "50.0"
                 ]
               }
@@ -89,7 +88,7 @@
       "part_key": "part-b",
       "ordinal": 2,
       "label": "(b)",
-      "prompt": "Explain how the governing principle and the stated assumptions support the result.",
+      "prompt": "Explain why setting the sum of torques about the hinge to zero, assuming the beam's weight acts at its geometric center and the cable stays vertical, justifies the tension value found.",
       "response_modalities": [
         "typed-text"
       ],
@@ -98,10 +97,10 @@
         {
           "criterion_key": "part-b-criterion",
           "points": 1,
-          "description": "Explain how the governing principle and the stated assumptions support the result",
+          "description": "Correctly cites rotational equilibrium (sum of torques about the hinge equals zero) as the governing principle and states that the beam's weight acts at its center and the cable remains vertical.",
           "required_evidence": [
-            "governing principle",
-            "assumption"
+            "sum of torques about the hinge equals zero",
+            "weight acts at the beam's center"
           ],
           "accepted_variants": [
             "Equivalent scientifically correct notation and reasoning earn credit."
@@ -111,8 +110,8 @@
               "check_type": "keyword-evidence",
               "parameters": {
                 "keywords": [
-                  "principle",
-                  "assumption"
+                  "torque equilibrium",
+                  "beam center"
                 ]
               }
             }
@@ -142,6 +141,6 @@
     "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
     "generated_by": "codex",
     "generated_at": "2026-07-15T00:00:00Z",
-    "content_sha256": "d30f202b6ca1e7fb098d22ad5d6020dc21abf85d9c682d8b0c0650264da35dd9"
+    "content_sha256": "4b97cd409b6b09a167cf553ef271930c55d49fbbfaeb947bd703406e67146fbd"
   }
 }

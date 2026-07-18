@@ -36,7 +36,7 @@
       "ordinal": 1,
       "kind": "text",
       "payload": {
-        "text": "experimental design: A particle moves in one dimension in potential U(x)=ax⁴-bx² with a,b>0."
+        "text": "A particle moves in one dimension in potential U(x)=ax⁴-bx² with a,b>0."
       },
       "source_refs": [
         "ap-physics-c-mechanics-ced-fact-pack"
@@ -58,11 +58,11 @@
         {
           "criterion_key": "part-a-criterion",
           "points": 1,
-          "description": "F=-4ax³+2bx; stable equilibria are x=±sqrt(b/2a), where U has minima.",
+          "description": "Design measures the restoring force F on the particle at various displacements x from the equilibrium; independent variable is displacement x, dependent variable is measured force F(x)=-4ax³+2bx, and the potential coefficients a and b (same apparatus) must be held constant across trials.",
           "required_evidence": [
-            "-dU/dx",
-            "sqrt(b/2a)",
-            "stable"
+            "independent variable: displacement x",
+            "dependent variable: force F(x)",
+            "coefficients a and b held constant"
           ],
           "accepted_variants": [
             "Equivalent scientifically correct notation and reasoning earn credit."
@@ -72,9 +72,9 @@
               "check_type": "keyword-evidence",
               "parameters": {
                 "keywords": [
-                  "-dU/dx",
-                  "sqrt(b/2a)",
-                  "stable"
+                  "displacement x",
+                  "force F(x)",
+                  "held constant"
                 ]
               }
             }
@@ -89,7 +89,7 @@
       "part_key": "part-b",
       "ordinal": 2,
       "label": "(b)",
-      "prompt": "Explain how the governing principle and the stated assumptions support the result.",
+      "prompt": "Explain how identifying stable equilibria as points where U''(x)>0 (potential minima), and the assumption of negligible friction during measurement, supports your proposed experimental test.",
       "response_modalities": [
         "typed-text"
       ],
@@ -98,10 +98,10 @@
         {
           "criterion_key": "part-b-criterion",
           "points": 1,
-          "description": "Explain how the governing principle and the stated assumptions support the result",
+          "description": "Explain how identifying stable equilibria as points where U''(x)>0 (potential minima), and the assumption of negligible friction during measurement, supports your proposed experimental test.",
           "required_evidence": [
-            "governing principle",
-            "assumption"
+            "stable equilibria occur where U''(x)>0",
+            "negligible friction assumption"
           ],
           "accepted_variants": [
             "Equivalent scientifically correct notation and reasoning earn credit."
@@ -111,8 +111,8 @@
               "check_type": "keyword-evidence",
               "parameters": {
                 "keywords": [
-                  "principle",
-                  "assumption"
+                  "U''(x)>0",
+                  "negligible friction"
                 ]
               }
             }
@@ -142,6 +142,6 @@
     "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
     "generated_by": "codex",
     "generated_at": "2026-07-15T00:00:00Z",
-    "content_sha256": "fef587f8c01d578f47ab8e7fa75fd20af5343bba7752df0a8b4c1d2582e7e42b"
+    "content_sha256": "38abd29899abc476708d62bc2814fe108cf6c71ceaefade086042e9cfe8fb3eb"
   }
 }

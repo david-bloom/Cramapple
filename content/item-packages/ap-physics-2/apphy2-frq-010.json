@@ -6,7 +6,7 @@
   "difficulty": "Medium",
   "frq_form": "short",
   "canonical_answers": [
-    "The time constant is RC=2.00 s and Vc(t)=12.0(1-e^{-t/2.00}) V."
+    "Independent variable: elapsed time since the switch closes. Dependent variable: measured capacitor voltage Vc(t). Control: resistance, capacitance, and battery voltage held fixed."
   ],
   "exam_pack_ref": {
     "exam_code": "ap_physics_2",
@@ -36,7 +36,7 @@
       "ordinal": 1,
       "kind": "text",
       "payload": {
-        "text": "experimental design: An initially uncharged 20.0 μF capacitor charges through 100 kΩ from a 12.0 V battery."
+        "text": "An initially uncharged 20.0 μF capacitor charges through 100 kΩ from a 12.0 V battery."
       },
       "source_refs": [
         "ap-physics-2-ced-fact-pack"
@@ -58,11 +58,11 @@
         {
           "criterion_key": "part-a-criterion",
           "points": 1,
-          "description": "The time constant is RC=2.00 s and Vc(t)=12.0(1-e^{-t/2.00}) V.",
+          "description": "A feasible measurement design: close the switch at t = 0 and use a voltmeter or datalogger to record the capacitor voltage at successive time intervals as it charges. Independent variable = elapsed time since the switch closes; dependent variable = measured capacitor voltage Vc(t); control = the resistance (100 kΩ), capacitance (20.0 μF), and battery voltage (12.0 V), held fixed across trials.",
           "required_evidence": [
-            "2.00",
-            "exponential",
-            "initially uncharged"
+            "independent variable: elapsed time since the switch closes",
+            "dependent variable: measured capacitor voltage Vc(t)",
+            "control: resistance, capacitance, and battery voltage held fixed"
           ],
           "accepted_variants": [
             "Equivalent scientifically correct notation and reasoning earn credit."
@@ -72,9 +72,9 @@
               "check_type": "keyword-evidence",
               "parameters": {
                 "keywords": [
-                  "2.00",
-                  "exponential",
-                  "initially uncharged"
+                  "elapsed time",
+                  "capacitor voltage",
+                  "held fixed"
                 ]
               }
             }
@@ -89,7 +89,7 @@
       "part_key": "part-b",
       "ordinal": 2,
       "label": "(b)",
-      "prompt": "Explain how the governing principle and the stated assumptions support the result.",
+      "prompt": "Explain why the time constant τ = RC governs the exponential approach to full charge, and how assuming ideal (lossless) resistor and capacitor components justifies using this value directly.",
       "response_modalities": [
         "typed-text"
       ],
@@ -98,10 +98,10 @@
         {
           "criterion_key": "part-b-criterion",
           "points": 1,
-          "description": "Explain how the governing principle and the stated assumptions support the result",
+          "description": "Explain why the time constant τ = RC governs the exponential approach to full charge, and how assuming ideal (lossless) resistor and capacitor components justifies using this value directly.",
           "required_evidence": [
-            "governing principle",
-            "assumption"
+            "time constant τ = RC governs the exponential growth",
+            "ideal resistor and capacitor assumption"
           ],
           "accepted_variants": [
             "Equivalent scientifically correct notation and reasoning earn credit."
@@ -111,8 +111,8 @@
               "check_type": "keyword-evidence",
               "parameters": {
                 "keywords": [
-                  "principle",
-                  "assumption"
+                  "time constant",
+                  "ideal components"
                 ]
               }
             }
@@ -130,7 +130,7 @@
     "accommodation_notes": "Text and symbolic notation are fully described."
   },
   "review_notes": {
-    "expected_reasoning": "The time constant is RC=2.00 s and Vc(t)=12.0(1-e^{-t/2.00}) V.",
+    "expected_reasoning": "Independent variable: elapsed time since the switch closes. Dependent variable: measured capacitor voltage Vc(t). Control: resistance, capacitance, and battery voltage held fixed.",
     "known_boundary_cases": [],
     "originality_statement": "Independently authored synthetic draft for Tutor review; no official question or scoring material used."
   },
@@ -142,6 +142,6 @@
     "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
     "generated_by": "codex",
     "generated_at": "2026-07-15T00:00:00Z",
-    "content_sha256": "4c4b47b24963e8b32c6f163a84a468b4778e44a5ca606c54b87d444db9f1209e"
+    "content_sha256": "461812f55fde949bf8932e123b517a8c539f62434ef306e0b670e0917fe0fd59"
   }
 }

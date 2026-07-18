@@ -28,9 +28,9 @@ const goodMcq: ContentItemPackage = {
   explanation: "Teaching explanation.",
   choices: [
     { choice_key: "A", choice_text: "Right", is_correct: true, rationale: "Correct because ..." },
-    { choice_key: "B", choice_text: "Wrong 1", is_correct: false, rationale: "Wrong because ..." },
-    { choice_key: "C", choice_text: "Wrong 2", is_correct: false, rationale: "Wrong because ..." },
-    { choice_key: "D", choice_text: "Wrong 3", is_correct: false, rationale: "Wrong because ..." },
+    { choice_key: "B", choice_text: "Wrong 1", is_correct: false, rationale: "Misreads the units." },
+    { choice_key: "C", choice_text: "Wrong 2", is_correct: false, rationale: "Omits the second step." },
+    { choice_key: "D", choice_text: "Wrong 3", is_correct: false, rationale: "Applies the wrong formula." },
   ],
 };
 
@@ -97,6 +97,57 @@ Deno.test("MCQ missing a distractor rationale is BLOCKING", () => {
     choices: [{ ...goodMcq.choices![1], rationale: "" }, ...goodMcq.choices!.slice(0, 1), ...goodMcq.choices!.slice(2)],
   };
   assertEquals(preflightItem(bad).findings.some((f) => f.code === "MCQ_RATIONALE_EMPTY"), true);
+});
+
+Deno.test("MCQ distractors with identical rationale are BLOCKING (duplicate)", () => {
+  const bad: ContentItemPackage = {
+    ...goodMcq,
+    choices: [
+      goodMcq.choices![0],
+      { ...goodMcq.choices![1], rationale: "Confuses the input with the slope." },
+      { ...goodMcq.choices![2], rationale: "Confuses the input with the slope." },
+      goodMcq.choices![3],
+    ],
+  };
+  const r = preflightItem(bad);
+  assertEquals(r.ok, false);
+  const finding = r.findings.find((f) => f.code === "MCQ_DUPLICATE_RATIONALE");
+  assertEquals(finding !== undefined, true);
+  assertEquals(finding!.location, "choice:B,C");
+});
+
+Deno.test("MCQ distractors with templated 'This option conflicts with' rationale are BLOCKING (the five-subject-batch defect)", () => {
+  const bad: ContentItemPackage = {
+    ...goodMcq,
+    choices: [
+      { choice_key: "A", choice_text: "0.500 mol", is_correct: true, rationale: "mass divided by molar mass gives 0.500 mol" },
+      { choice_key: "B", choice_text: "0.250 mol", is_correct: false, rationale: "This option conflicts with mass divided by molar mass gives 0.500 mol." },
+      { choice_key: "C", choice_text: "2.00 mol", is_correct: false, rationale: "This option conflicts with mass divided by molar mass gives 0.500 mol." },
+      { choice_key: "D", choice_text: "162 mol", is_correct: false, rationale: "This option conflicts with mass divided by molar mass gives 0.500 mol." },
+    ],
+  };
+  const r = preflightItem(bad);
+  assertEquals(r.ok, false);
+  const finding = r.findings.find((f) => f.code === "MCQ_DUPLICATE_RATIONALE");
+  assertEquals(finding !== undefined, true);
+  assertEquals(finding!.location, "choice:B,C,D");
+});
+
+Deno.test("MCQ distractors with distinct rationale, incl. one echoing the correct answer's fact, are not flagged as duplicates", () => {
+  // The correct choice's rationale legitimately shares its underlying fact with
+  // what a distractor is measured against; only distractor-vs-distractor
+  // duplication should be flagged.
+  const ok: ContentItemPackage = {
+    ...goodMcq,
+    choices: [
+      { choice_key: "A", choice_text: "6", is_correct: true, rationale: "Factoring gives x+3 for x≠3, whose limit is 6." },
+      { choice_key: "B", choice_text: "0", is_correct: false, rationale: "Substitution into the uncanceled numerator alone does not evaluate the quotient." },
+      { choice_key: "C", choice_text: "3", is_correct: false, rationale: "This uses only the approach value, not the simplified function." },
+      { choice_key: "D", choice_text: "DNE", is_correct: false, rationale: "The removable hole does not prevent the two-sided limit from existing." },
+    ],
+  };
+  const r = preflightItem(ok);
+  assertEquals(r.findings.some((f) => f.code === "MCQ_DUPLICATE_RATIONALE"), false);
 });
 
 Deno.test("assertPreflight throws on blocking, lists the item", () => {

@@ -36,7 +36,7 @@
       "ordinal": 1,
       "kind": "text",
       "payload": {
-        "text": "experimental design: An LR circuit with inductance L and resistance R is connected to constant emf ℰ at t=0 with I(0)=0."
+        "text": "An LR circuit with inductance L and resistance R is connected to constant emf ℰ at t=0 with I(0)=0."
       },
       "source_refs": [
         "ap-physics-c-em-ced-fact-pack"
@@ -58,11 +58,11 @@
         {
           "criterion_key": "part-a-criterion",
           "points": 1,
-          "description": "Solving L dI/dt+RI=ℰ gives I=(ℰ/R)(1-e^{-Rt/L}) and time constant L/R.",
+          "description": "A valid design varies the inductance L as the independent variable, measures the resulting time constant τ=L/R (from the current growth curve) as the dependent variable, and holds the resistance R and emf ℰ constant as controls, consistent with I=(ℰ/R)(1-e^{-Rt/L}).",
           "required_evidence": [
-            "differential equation",
-            "initial condition",
-            "L/R"
+            "independent variable: inductance L",
+            "dependent variable: measured time constant τ=L/R",
+            "control: constant R and ℰ"
           ],
           "accepted_variants": [
             "Equivalent scientifically correct notation and reasoning earn credit."
@@ -72,9 +72,9 @@
               "check_type": "keyword-evidence",
               "parameters": {
                 "keywords": [
-                  "differential equation",
-                  "initial condition",
-                  "L/R"
+                  "inductance L",
+                  "time constant",
+                  "constant resistance"
                 ]
               }
             }
@@ -89,7 +89,7 @@
       "part_key": "part-b",
       "ordinal": 2,
       "label": "(b)",
-      "prompt": "Explain how the governing principle and the stated assumptions support the result.",
+      "prompt": "State the governing principle (Kirchhoff's voltage law) and the initial-condition assumption I(0)=0, and explain why each must hold for the proposed measurement of the time constant L/R to be valid.",
       "response_modalities": [
         "typed-text"
       ],
@@ -98,10 +98,10 @@
         {
           "criterion_key": "part-b-criterion",
           "points": 1,
-          "description": "Explain how the governing principle and the stated assumptions support the result",
+          "description": "State the governing principle (Kirchhoff's voltage law) and the initial-condition assumption I(0)=0, and explain why each must hold for the proposed measurement of the time constant L/R to be valid.",
           "required_evidence": [
-            "governing principle",
-            "assumption"
+            "Kirchhoff's voltage law",
+            "initial condition I(0)=0"
           ],
           "accepted_variants": [
             "Equivalent scientifically correct notation and reasoning earn credit."
@@ -111,8 +111,8 @@
               "check_type": "keyword-evidence",
               "parameters": {
                 "keywords": [
-                  "principle",
-                  "assumption"
+                  "Kirchhoff's voltage law",
+                  "initial condition I(0)=0"
                 ]
               }
             }
@@ -142,6 +142,6 @@
     "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
     "generated_by": "codex",
     "generated_at": "2026-07-15T00:00:00Z",
-    "content_sha256": "7387ee4ccd2e94d494527ab5c5dae691722b52c66abd0aba41c6bb9451a5d4e2"
+    "content_sha256": "ffe30435e944d34225c09f1368ca191f3682f07d71a9743317ca2b583d3af678"
   }
 }

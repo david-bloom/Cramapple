@@ -62,6 +62,21 @@ export interface PreflightResult {
 const nonEmpty = (v: unknown): boolean =>
   typeof v === "string" && v.trim().length > 0;
 
+// Strips the observed templated-boilerplate prefix ("This option conflicts
+// with ...") so a distractor rationale that is only a restatement of the
+// correct answer's rationale normalizes to the same key as its siblings, then
+// lowercases/trims for a straightforward equality comparison. This is a
+// mechanical proxy for §8's "distinct misconception or error mechanism for
+// every distractor" — it cannot detect all non-distinct rationale, but it
+// catches the templated/circular pattern that shipped across the five-subject
+// authoring batch (2026-07-18 QA finding).
+const normalizeRationaleForDuplicateCheck = (v: string): string =>
+  v
+    .trim()
+    .replace(/^this option conflicts with\s+/i, "")
+    .replace(/[\s.]+$/g, "")
+    .toLowerCase();
+
 function checkFrq(pkg: ContentItemPackage, out: PreflightFinding[]) {
   const key = pkg.content_key ?? "(unkeyed)";
   const push = (severity: Severity, code: string, location: string, message: string) =>
@@ -108,6 +123,33 @@ function checkMcq(pkg: ContentItemPackage, out: PreflightFinding[]) {
   }
   if (choices.length !== 4) push("warning", "MCQ_NOT_FOUR_CHOICES", "item", `MCQ has ${choices.length} choices; §8 expects 4 unless the exam pack specifies otherwise.`);
   if (!nonEmpty(pkg.explanation)) push("warning", "MCQ_EXPLANATION_EMPTY", "item", "MCQ has no teaching explanation (§8).");
+
+  // §8 requires "a distinct misconception or error mechanism for every
+  // distractor." A distractor rationale that is a templated restatement (or an
+  // exact duplicate of another distractor's rationale) satisfies MCQ_RATIONALE_EMPTY's
+  // non-empty check while still being non-distinct, so that check alone cannot
+  // catch it. Compare distractors only — the correct choice's rationale
+  // legitimately shares its underlying fact with what each distractor is
+  // measured against.
+  const distractorNorms = new Map<string, string[]>();
+  for (const c of choices) {
+    if (c.is_correct === true || !nonEmpty(c.rationale)) continue;
+    const norm = normalizeRationaleForDuplicateCheck(c.rationale as string);
+    if (!norm) continue;
+    const keys = distractorNorms.get(norm) ?? [];
+    keys.push(c.choice_key ?? "?");
+    distractorNorms.set(norm, keys);
+  }
+  for (const keys of distractorNorms.values()) {
+    if (keys.length >= 2) {
+      push(
+        "blocking",
+        "MCQ_DUPLICATE_RATIONALE",
+        `choice:${keys.join(",")}`,
+        `Distractors ${keys.join(", ")} share identical rationale (after stripping boilerplate phrasing); §8 requires a distinct misconception or error mechanism for every distractor.`,
+      );
+    }
+  }
 }
 
 /** Validate a single normalized content item package. */

@@ -38,19 +38,19 @@
       "choice_key": "B",
       "choice_text": "ρ(R)R",
       "is_correct": false,
-      "rationale": "This option conflicts with integrate density over spherical volume elements."
+      "rationale": "This evaluates the density only at the outer radius and scales it linearly by R instead of integrating over the volume."
     },
     {
       "choice_key": "C",
       "choice_text": "∫ρ dr only",
       "is_correct": false,
-      "rationale": "This option conflicts with integrate density over spherical volume elements."
+      "rationale": "This drops the 4πr² spherical-shell area factor, treating the volume element as just dr."
     },
     {
       "choice_key": "D",
       "choice_text": "4πR²/ρ",
       "is_correct": false,
-      "rationale": "This option conflicts with integrate density over spherical volume elements."
+      "rationale": "This inverts the relationship, dividing a surface area by density instead of integrating density over volume."
     }
   ],
   "canonical_answers": [
@@ -104,6 +104,6 @@
     "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
     "generated_by": "codex",
     "generated_at": "2026-07-15T00:00:00Z",
-    "content_sha256": "ab16dcea41291eb7762bb1bbc2d0ccd9db1b976889cb1ea8b3bae3ebcf87115d"
+    "content_sha256": "749750e52c9e23ec2d3d2f4f49f7f543266098142a6bce7e899c69117cd33586"
   }
 }

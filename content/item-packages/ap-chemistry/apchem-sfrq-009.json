@@ -87,7 +87,7 @@
       "part_key": "part-b",
       "ordinal": 2,
       "label": "(b)",
-      "prompt": "Explain how the governing principle and the stated assumptions support the result.",
+      "prompt": "Explain how the weak-acid equilibrium expression Ka=x²/(C−x) simplified by the small-x approximation supports the pH calculation, and state the assumption that x is less than 5% of the initial concentration C.",
       "response_modalities": [
         "typed-text"
       ],
@@ -96,10 +96,10 @@
         {
           "criterion_key": "part-b-criterion",
           "points": 1,
-          "description": "Explain how the governing principle and the stated assumptions support the result",
+          "description": "Approximating Ka=x²/(C−x) as x²/C simplifies solving for [H+], assuming x is under 5% of the initial concentration C.",
           "required_evidence": [
-            "governing principle",
-            "assumption"
+            "small-x approximation",
+            "5% validity assumption"
           ],
           "accepted_variants": [
             "Equivalent scientifically correct notation and reasoning earn credit."
@@ -109,8 +109,8 @@
               "check_type": "keyword-evidence",
               "parameters": {
                 "keywords": [
-                  "principle",
-                  "assumption"
+                  "small-x approximation",
+                  "5%"
                 ]
               }
             }
@@ -143,6 +143,6 @@
     "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
     "generated_by": "codex",
     "generated_at": "2026-07-15T00:00:00Z",
-    "content_sha256": "52e86bec4138e1c6fce9f909093d6e1253cb780c8c16aa187df1a10ff7abc47d"
+    "content_sha256": "a31e4936311a3b9fdb7000fa4a89d88866bff93871915610bcc6cef4ac27e433"
   }
 }

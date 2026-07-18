@@ -36,7 +36,7 @@
       "ordinal": 1,
       "kind": "text",
       "payload": {
-        "text": "representation translation: A disk of constant moment of inertia I experiences torque τ(t)=τ₀e^{-t/T} from rest."
+        "text": "A disk of constant moment of inertia I experiences torque τ(t)=τ₀e^{-t/T} from rest."
       },
       "source_refs": [
         "ap-physics-c-mechanics-ced-fact-pack"
@@ -89,7 +89,7 @@
       "part_key": "part-b",
       "ordinal": 2,
       "label": "(b)",
-      "prompt": "Explain how the governing principle and the stated assumptions support the result.",
+      "prompt": "Explain how the rotational analog of Newton's second law, I dω/dt=τ(t), together with the assumption that I is constant and no other torques act, produces the graph's ω(t) shape.",
       "response_modalities": [
         "typed-text"
       ],
@@ -98,10 +98,10 @@
         {
           "criterion_key": "part-b-criterion",
           "points": 1,
-          "description": "Explain how the governing principle and the stated assumptions support the result",
+          "description": "Explain how the rotational analog of Newton's second law, I dω/dt=τ(t), together with the assumption that I is constant and no other torques act, produces the graph's ω(t) shape.",
           "required_evidence": [
-            "governing principle",
-            "assumption"
+            "I dω/dt=τ(t)",
+            "I constant, no other torques"
           ],
           "accepted_variants": [
             "Equivalent scientifically correct notation and reasoning earn credit."
@@ -111,8 +111,8 @@
               "check_type": "keyword-evidence",
               "parameters": {
                 "keywords": [
-                  "principle",
-                  "assumption"
+                  "I dω/dt=τ",
+                  "I constant"
                 ]
               }
             }
@@ -142,6 +142,6 @@
     "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
     "generated_by": "codex",
     "generated_at": "2026-07-15T00:00:00Z",
-    "content_sha256": "7edcc71e54e49c23c8eac82a917ab54de634e9d90fc6375d1b8155e69b0ac379"
+    "content_sha256": "c4e69b79c9969f2933596366be9fdfe15465ab9effc55999e67459e77c38cbd0"
   }
 }

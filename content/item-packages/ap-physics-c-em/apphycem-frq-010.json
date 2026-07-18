@@ -36,7 +36,7 @@
       "ordinal": 1,
       "kind": "text",
       "payload": {
-        "text": "experimental design: A capacitor C initially at voltage V₀ discharges through resistance R at t=0."
+        "text": "A capacitor C initially at voltage V₀ discharges through resistance R at t=0."
       },
       "source_refs": [
         "ap-physics-c-em-ced-fact-pack"
@@ -58,11 +58,11 @@
         {
           "criterion_key": "part-a-criterion",
           "points": 1,
-          "description": "Solving RC dV/dt+V=0 gives V=V₀e^{-t/RC} and I=-(V₀/R)e^{-t/RC}.",
+          "description": "A valid design varies the resistance R as the independent variable, measures the resulting time constant τ (from the slope of ln V vs. t) as the dependent variable, and holds the capacitance C and initial voltage V₀ constant as controls, consistent with V=V₀e^{-t/RC}.",
           "required_evidence": [
-            "differential equation",
-            "initial condition",
-            "exponential"
+            "independent variable: resistance R",
+            "dependent variable: measured time constant τ=RC",
+            "control: constant C and V₀"
           ],
           "accepted_variants": [
             "Equivalent scientifically correct notation and reasoning earn credit."
@@ -72,9 +72,9 @@
               "check_type": "keyword-evidence",
               "parameters": {
                 "keywords": [
-                  "differential equation",
-                  "initial condition",
-                  "exponential"
+                  "resistance R",
+                  "time constant",
+                  "constant capacitance"
                 ]
               }
             }
@@ -89,7 +89,7 @@
       "part_key": "part-b",
       "ordinal": 2,
       "label": "(b)",
-      "prompt": "Explain how the governing principle and the stated assumptions support the result.",
+      "prompt": "State the governing principle (Kirchhoff's voltage law) and the initial-condition assumption V(0)=V₀ for an ideal RC loop, and explain why each must hold for the measurement to isolate the time constant.",
       "response_modalities": [
         "typed-text"
       ],
@@ -98,10 +98,10 @@
         {
           "criterion_key": "part-b-criterion",
           "points": 1,
-          "description": "Explain how the governing principle and the stated assumptions support the result",
+          "description": "State the governing principle (Kirchhoff's voltage law) and the initial-condition assumption V(0)=V₀ for an ideal RC loop, and explain why each must hold for the measurement to isolate the time constant.",
           "required_evidence": [
-            "governing principle",
-            "assumption"
+            "Kirchhoff's voltage law",
+            "initial condition V(0)=V₀"
           ],
           "accepted_variants": [
             "Equivalent scientifically correct notation and reasoning earn credit."
@@ -111,8 +111,8 @@
               "check_type": "keyword-evidence",
               "parameters": {
                 "keywords": [
-                  "principle",
-                  "assumption"
+                  "Kirchhoff's voltage law",
+                  "initial condition V(0)=V₀"
                 ]
               }
             }
@@ -142,6 +142,6 @@
     "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
     "generated_by": "codex",
     "generated_at": "2026-07-15T00:00:00Z",
-    "content_sha256": "88fa435f8d2eb17dab80937381d4f8aee611dc5e1f153f54757b34f4cd305766"
+    "content_sha256": "7f3cf5fa31a4f726ea8a3990531672f74e5b8c03e29b6efe90be260b33adbbe7"
   }
 }

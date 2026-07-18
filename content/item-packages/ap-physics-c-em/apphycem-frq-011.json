@@ -36,7 +36,7 @@
       "ordinal": 1,
       "kind": "text",
       "payload": {
-        "text": "experimental design: A long straight wire carries current I along +z; find the field using a circular Amperian loop of radius r."
+        "text": "A long straight wire carries current I along +z; find the field using a circular Amperian loop of radius r."
       },
       "source_refs": [
         "ap-physics-c-em-ced-fact-pack"
@@ -58,11 +58,11 @@
         {
           "criterion_key": "part-a-criterion",
           "points": 1,
-          "description": "∮B·dl=B(2πr)=μ₀I, so B=μ₀I/(2πr) in the azimuthal direction.",
+          "description": "A valid design varies the current I as the independent variable, measures the resulting magnetic field B at a fixed radius r as the dependent variable, and holds the radial distance r (and probe position along the wire) constant as the control, consistent with B=μ₀I/(2πr).",
           "required_evidence": [
-            "line integral",
-            "μ₀I/(2πr)",
-            "azimuthal"
+            "independent variable: current I",
+            "dependent variable: measured field B",
+            "control: fixed radius r"
           ],
           "accepted_variants": [
             "Equivalent scientifically correct notation and reasoning earn credit."
@@ -72,9 +72,9 @@
               "check_type": "keyword-evidence",
               "parameters": {
                 "keywords": [
-                  "line integral",
-                  "μ₀I/(2πr)",
-                  "azimuthal"
+                  "current I",
+                  "magnetic field B",
+                  "fixed radius"
                 ]
               }
             }
@@ -89,7 +89,7 @@
       "part_key": "part-b",
       "ordinal": 2,
       "label": "(b)",
-      "prompt": "Explain how the governing principle and the stated assumptions support the result.",
+      "prompt": "State the governing principle (Ampere's law) and the assumption of cylindrical symmetry about the wire, and explain why each is required for the proposed measurement of B(r) to be valid.",
       "response_modalities": [
         "typed-text"
       ],
@@ -98,10 +98,10 @@
         {
           "criterion_key": "part-b-criterion",
           "points": 1,
-          "description": "Explain how the governing principle and the stated assumptions support the result",
+          "description": "State the governing principle (Ampere's law) and the assumption of cylindrical symmetry about the wire, and explain why each is required for the proposed measurement of B(r) to be valid.",
           "required_evidence": [
-            "governing principle",
-            "assumption"
+            "Ampere's law",
+            "cylindrical symmetry"
           ],
           "accepted_variants": [
             "Equivalent scientifically correct notation and reasoning earn credit."
@@ -111,8 +111,8 @@
               "check_type": "keyword-evidence",
               "parameters": {
                 "keywords": [
-                  "principle",
-                  "assumption"
+                  "Ampere's law",
+                  "cylindrical symmetry"
                 ]
               }
             }
@@ -142,6 +142,6 @@
     "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
     "generated_by": "codex",
     "generated_at": "2026-07-15T00:00:00Z",
-    "content_sha256": "559a30f4b11632d42cbc1a8aaf7d41b08dc55e6d37f107d0ca349d7abdc307d9"
+    "content_sha256": "0ff49e47fbe2fb6309aa7b4d29e9c4ff138a7f31809c8ef48b85840f5641cfef"
   }
 }

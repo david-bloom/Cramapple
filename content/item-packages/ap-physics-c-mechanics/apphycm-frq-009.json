@@ -36,7 +36,7 @@
       "ordinal": 1,
       "kind": "text",
       "payload": {
-        "text": "experimental design: A mass m moves through a medium with drag force F=-bv and initial speed v₀."
+        "text": "A mass m moves through a medium with drag force F=-bv and initial speed v₀."
       },
       "source_refs": [
         "ap-physics-c-mechanics-ced-fact-pack"
@@ -58,11 +58,11 @@
         {
           "criterion_key": "part-a-criterion",
           "points": 1,
-          "description": "Solving m dv/dt=-bv gives v(t)=v₀e^{-bt/m} and x(t)=mv₀(1-e^{-bt/m})/b.",
+          "description": "Design measures the object's speed v at successive times t as it decelerates through the medium; independent variable is elapsed time t, dependent variable is measured speed v, and the drag coefficient b (same object, same fluid) must be held constant across trials.",
           "required_evidence": [
-            "differential equation",
-            "exponential",
-            "initial condition"
+            "independent variable: elapsed time t",
+            "dependent variable: speed v",
+            "control: drag coefficient b held constant"
           ],
           "accepted_variants": [
             "Equivalent scientifically correct notation and reasoning earn credit."
@@ -72,9 +72,9 @@
               "check_type": "keyword-evidence",
               "parameters": {
                 "keywords": [
-                  "differential equation",
-                  "exponential",
-                  "initial condition"
+                  "independent variable",
+                  "dependent variable",
+                  "drag coefficient"
                 ]
               }
             }
@@ -89,7 +89,7 @@
       "part_key": "part-b",
       "ordinal": 2,
       "label": "(b)",
-      "prompt": "Explain how the governing principle and the stated assumptions support the result.",
+      "prompt": "Explain how the constant time-constant τ=m/b predicted by the linear-drag model, and the assumption that drag stays proportional to v (no turbulence) over the tested speed range, supports your proposed measurement design.",
       "response_modalities": [
         "typed-text"
       ],
@@ -98,10 +98,10 @@
         {
           "criterion_key": "part-b-criterion",
           "points": 1,
-          "description": "Explain how the governing principle and the stated assumptions support the result",
+          "description": "Explain how the constant time-constant τ=m/b predicted by the linear-drag model, and the assumption that drag stays proportional to v (no turbulence) over the tested speed range, supports your proposed measurement design.",
           "required_evidence": [
-            "governing principle",
-            "assumption"
+            "time constant τ=m/b is independent of v₀",
+            "drag remains linear (proportional to v) over tested range"
           ],
           "accepted_variants": [
             "Equivalent scientifically correct notation and reasoning earn credit."
@@ -111,8 +111,8 @@
               "check_type": "keyword-evidence",
               "parameters": {
                 "keywords": [
-                  "principle",
-                  "assumption"
+                  "time constant",
+                  "linear drag assumption"
                 ]
               }
             }
@@ -142,6 +142,6 @@
     "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
     "generated_by": "codex",
     "generated_at": "2026-07-15T00:00:00Z",
-    "content_sha256": "30c2a45c377a33167052bf477d179a940a124e1e401c07e8718358c8076f59ff"
+    "content_sha256": "92ceaf6087a0c4a0c511a4310ac3639efe395eb0b718f1b313afb92710cf3bf1"
   }
 }

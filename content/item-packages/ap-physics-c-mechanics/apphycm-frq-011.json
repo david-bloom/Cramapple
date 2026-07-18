@@ -36,7 +36,7 @@
       "ordinal": 1,
       "kind": "text",
       "payload": {
-        "text": "experimental design: A time-dependent force F(t)=F₀(1-t/T) acts on a mass initially at rest for 0≤t≤T."
+        "text": "A time-dependent force F(t)=F₀(1-t/T) acts on a mass initially at rest for 0≤t≤T."
       },
       "source_refs": [
         "ap-physics-c-mechanics-ced-fact-pack"
@@ -58,11 +58,11 @@
         {
           "criterion_key": "part-a-criterion",
           "points": 1,
-          "description": "Impulse ∫₀ᵀFdt=F₀T/2, so final momentum is F₀T/2.",
+          "description": "Design varies the peak applied force F₀ across trials while measuring the resulting final momentum (mass times final velocity) of the object; independent variable is force amplitude F₀, dependent variable is final momentum p=F₀T/2, and the pulse duration T must be held constant across trials.",
           "required_evidence": [
-            "integral",
-            "F₀T/2",
-            "momentum"
+            "independent variable: force amplitude F₀",
+            "dependent variable: final momentum p",
+            "duration T held constant"
           ],
           "accepted_variants": [
             "Equivalent scientifically correct notation and reasoning earn credit."
@@ -72,9 +72,9 @@
               "check_type": "keyword-evidence",
               "parameters": {
                 "keywords": [
-                  "integral",
-                  "F₀T/2",
-                  "momentum"
+                  "force amplitude",
+                  "final momentum",
+                  "duration T held constant"
                 ]
               }
             }
@@ -89,7 +89,7 @@
       "part_key": "part-b",
       "ordinal": 2,
       "label": "(b)",
-      "prompt": "Explain how the governing principle and the stated assumptions support the result.",
+      "prompt": "Explain how the area under the F(t) graph representing the impulse, and the assumption that no momentum is lost to other interactions during the measurement, supports your proposed test design.",
       "response_modalities": [
         "typed-text"
       ],
@@ -98,10 +98,10 @@
         {
           "criterion_key": "part-b-criterion",
           "points": 1,
-          "description": "Explain how the governing principle and the stated assumptions support the result",
+          "description": "Explain how the area under the F(t) graph representing the impulse, and the assumption that no momentum is lost to other interactions during the measurement, supports your proposed test design.",
           "required_evidence": [
-            "governing principle",
-            "assumption"
+            "impulse equals area under F(t) graph",
+            "no other momentum losses during measurement"
           ],
           "accepted_variants": [
             "Equivalent scientifically correct notation and reasoning earn credit."
@@ -111,8 +111,8 @@
               "check_type": "keyword-evidence",
               "parameters": {
                 "keywords": [
-                  "principle",
-                  "assumption"
+                  "area under F(t)",
+                  "no other momentum losses"
                 ]
               }
             }
@@ -142,6 +142,6 @@
     "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
     "generated_by": "codex",
     "generated_at": "2026-07-15T00:00:00Z",
-    "content_sha256": "b466e54b497f6b6d8aab6dab27b54a0b70d9ebef0b007397607660fb7d449232"
+    "content_sha256": "4b0d767535d5b4a35dcde5c26ec3c9350dabd45b43ac261bf1bcbc2222b01b43"
   }
 }

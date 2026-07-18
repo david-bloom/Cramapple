@@ -36,7 +36,7 @@
       "ordinal": 1,
       "kind": "text",
       "payload": {
-        "text": "representation translation: One mole of an ideal monatomic gas is heated at constant volume from 300 K to 360 K."
+        "text": "One mole of an ideal monatomic gas is heated at constant volume from 300 K to 360 K."
       },
       "source_refs": [
         "ap-physics-2-ced-fact-pack"
@@ -89,7 +89,7 @@
       "part_key": "part-b",
       "ordinal": 2,
       "label": "(b)",
-      "prompt": "Explain how the governing principle and the stated assumptions support the result.",
+      "prompt": "Explain why the work done by the gas is zero at constant volume and how the monatomic ideal-gas assumption fixes the value of Cv used to compute ΔU.",
       "response_modalities": [
         "typed-text"
       ],
@@ -98,10 +98,10 @@
         {
           "criterion_key": "part-b-criterion",
           "points": 1,
-          "description": "Explain how the governing principle and the stated assumptions support the result",
+          "description": "Explain why the work done by the gas is zero at constant volume and how the monatomic ideal-gas assumption fixes the value of Cv used to compute ΔU.",
           "required_evidence": [
-            "governing principle",
-            "assumption"
+            "work is zero because volume is constant (W = ∫P dV = 0)",
+            "monatomic ideal-gas assumption fixes Cv = (3/2)R"
           ],
           "accepted_variants": [
             "Equivalent scientifically correct notation and reasoning earn credit."
@@ -111,8 +111,8 @@
               "check_type": "keyword-evidence",
               "parameters": {
                 "keywords": [
-                  "principle",
-                  "assumption"
+                  "constant volume",
+                  "monatomic"
                 ]
               }
             }
@@ -142,6 +142,6 @@
     "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
     "generated_by": "codex",
     "generated_at": "2026-07-15T00:00:00Z",
-    "content_sha256": "6d550da92c1ab7b52d4456adfcf705ff85728c4ec7bcb401afef1eabad3e5acc"
+    "content_sha256": "fb2b6764357467e4060b8fb5d5a8013f4dd2e5860d3aea55a18cebb13457e7c9"
   }
 }

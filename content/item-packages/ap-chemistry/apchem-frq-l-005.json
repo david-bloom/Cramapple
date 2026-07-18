@@ -87,7 +87,7 @@
       "part_key": "part-b",
       "ordinal": 2,
       "label": "(b)",
-      "prompt": "Explain how the governing principle and the stated assumptions support the result.",
+      "prompt": "Explain how the method of initial rates (comparing rate ratios as [A] and [B] are varied) establishes the reaction orders, and state the assumption that the proposed slow step's molecularity matches the observed rate law.",
       "response_modalities": [
         "typed-text"
       ],
@@ -96,10 +96,10 @@
         {
           "criterion_key": "part-b-criterion",
           "points": 1,
-          "description": "Explain how the governing principle and the stated assumptions support the result",
+          "description": "The method of initial rates compares how rate changes as [A] and [B] are independently varied, assuming the proposed elementary step's molecularity matches the derived rate law.",
           "required_evidence": [
-            "governing principle",
-            "assumption"
+            "method of initial rates",
+            "molecularity assumption"
           ],
           "accepted_variants": [
             "Equivalent scientifically correct notation and reasoning earn credit."
@@ -109,8 +109,8 @@
               "check_type": "keyword-evidence",
               "parameters": {
                 "keywords": [
-                  "principle",
-                  "assumption"
+                  "method of initial rates",
+                  "molecularity"
                 ]
               }
             }
@@ -125,7 +125,7 @@
       "part_key": "part-c",
       "ordinal": 3,
       "label": "(c)",
-      "prompt": "Describe a measurement or representation that could test the result.",
+      "prompt": "Describe how you would test the rate law experimentally, identifying the initial rate of B formation as the measured variable while holding [B] constant and varying only [A].",
       "response_modalities": [
         "typed-text"
       ],
@@ -134,10 +134,10 @@
         {
           "criterion_key": "part-c-criterion",
           "points": 1,
-          "description": "Describe a measurement or representation that could test the result",
+          "description": "A valid check measures the initial rate while holding [B] constant and varying only [A] to isolate its order.",
           "required_evidence": [
-            "measured variable",
-            "controlled variable"
+            "initial rate measurement",
+            "[B] held constant"
           ],
           "accepted_variants": [
             "Equivalent scientifically correct notation and reasoning earn credit."
@@ -147,8 +147,8 @@
               "check_type": "keyword-evidence",
               "parameters": {
                 "keywords": [
-                  "measure",
-                  "control"
+                  "initial rate",
+                  "held constant"
                 ]
               }
             }
@@ -163,7 +163,7 @@
       "part_key": "part-d",
       "ordinal": 4,
       "label": "(d)",
-      "prompt": "Identify one boundary case or systematic error and predict its effect.",
+      "prompt": "State one boundary case (e.g., a significant reverse reaction near equilibrium) and predict whether the measured initial rate would be too high or too low relative to the forward-only rate law.",
       "response_modalities": [
         "typed-text"
       ],
@@ -172,10 +172,10 @@
         {
           "criterion_key": "part-d-criterion",
           "points": 1,
-          "description": "Identify one boundary case or systematic error and predict its effect",
+          "description": "A significant reverse reaction near equilibrium subtracts from the net forward rate, making the measured initial rate too low.",
           "required_evidence": [
-            "direction of effect",
-            "justification"
+            "reverse reaction",
+            "rate too low"
           ],
           "accepted_variants": [
             "Equivalent scientifically correct notation and reasoning earn credit."
@@ -185,8 +185,8 @@
               "check_type": "keyword-evidence",
               "parameters": {
                 "keywords": [
-                  "effect",
-                  "because"
+                  "reverse reaction",
+                  "too low"
                 ]
               }
             }
@@ -216,6 +216,6 @@
     "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
     "generated_by": "codex",
     "generated_at": "2026-07-15T00:00:00Z",
-    "content_sha256": "1c35afff1e71d2e8788d89072cc89b9112f3264582bd12a85522bc2940ccaaf1"
+    "content_sha256": "b13302231b6337aca5aea01551999fa9b966da7dca8478e5c5828a47ade09781"
   }
 }

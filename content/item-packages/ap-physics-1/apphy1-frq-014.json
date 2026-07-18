@@ -36,7 +36,7 @@
       "ordinal": 1,
       "kind": "text",
       "payload": {
-        "text": "qualitative/quantitative translation: A solid cylinder rolls without slipping down a vertical drop h from rest."
+        "text": "A solid cylinder rolls without slipping down a vertical drop h from rest."
       },
       "source_refs": [
         "ap-physics-1-ced-fact-pack"
@@ -58,11 +58,10 @@
         {
           "criterion_key": "part-a-criterion",
           "points": 1,
-          "description": "Using I=MR²/2 and v=ωR gives v=sqrt(4gh/3).",
+          "description": "Doubling the drop height h increases the speed by a factor of √2 (not 2), since v = sqrt(4gh/3) is proportional to sqrt(h); the new speed equals √2 times the original speed.",
           "required_evidence": [
-            "rotational kinetic energy",
-            "v=ωR",
-            "sqrt(4gh/3)"
+            "speed is proportional to the square root of the drop height",
+            "doubling h multiplies v by √2, not by 2"
           ],
           "accepted_variants": [
             "Equivalent scientifically correct notation and reasoning earn credit."
@@ -72,9 +71,9 @@
               "check_type": "keyword-evidence",
               "parameters": {
                 "keywords": [
-                  "rotational kinetic energy",
-                  "v=ωR",
-                  "sqrt(4gh/3)"
+                  "square root",
+                  "√2",
+                  "sqrt(h)"
                 ]
               }
             }
@@ -89,7 +88,7 @@
       "part_key": "part-b",
       "ordinal": 2,
       "label": "(b)",
-      "prompt": "Explain how the governing principle and the stated assumptions support the result.",
+      "prompt": "Explain why combining translational and rotational kinetic energy terms, under the assumption that the cylinder rolls without slipping, justifies the derived speed at the bottom of the drop.",
       "response_modalities": [
         "typed-text"
       ],
@@ -98,10 +97,10 @@
         {
           "criterion_key": "part-b-criterion",
           "points": 1,
-          "description": "Explain how the governing principle and the stated assumptions support the result",
+          "description": "Correctly cites conservation of energy combining translational and rotational kinetic energy as the governing principle and states that rolling without slipping means no energy is lost to friction.",
           "required_evidence": [
-            "governing principle",
-            "assumption"
+            "translational and rotational kinetic energy combined",
+            "no frictional energy loss while rolling"
           ],
           "accepted_variants": [
             "Equivalent scientifically correct notation and reasoning earn credit."
@@ -111,8 +110,8 @@
               "check_type": "keyword-evidence",
               "parameters": {
                 "keywords": [
-                  "principle",
-                  "assumption"
+                  "rotational and translational KE",
+                  "no energy loss"
                 ]
               }
             }
@@ -142,6 +141,6 @@
     "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
     "generated_by": "codex",
     "generated_at": "2026-07-15T00:00:00Z",
-    "content_sha256": "56e047850122fd7baf124ba0b1761683577c16e54e9423e701ccf995e891a18b"
+    "content_sha256": "312f5fafbc08e8ccf072632dac4ab0b9339e1777d64eb82a2cb75f95f05b82b6"
   }
 }

@@ -87,7 +87,7 @@
       "part_key": "part-b",
       "ordinal": 2,
       "label": "(b)",
-      "prompt": "Explain how the governing principle and the stated assumptions support the result.",
+      "prompt": "Explain how the Beer-Lambert law's linear relationship between absorbance and concentration supports the calculated concentration, and state the assumption that the solution is dilute enough to avoid deviations from linearity.",
       "response_modalities": [
         "typed-text"
       ],
@@ -96,10 +96,10 @@
         {
           "criterion_key": "part-b-criterion",
           "points": 1,
-          "description": "Explain how the governing principle and the stated assumptions support the result",
+          "description": "The Beer-Lambert law's linear A=εbc relationship supports converting absorbance to concentration, assuming the solution is dilute enough to remain linear.",
           "required_evidence": [
-            "governing principle",
-            "assumption"
+            "Beer-Lambert law",
+            "dilute-solution assumption"
           ],
           "accepted_variants": [
             "Equivalent scientifically correct notation and reasoning earn credit."
@@ -109,8 +109,8 @@
               "check_type": "keyword-evidence",
               "parameters": {
                 "keywords": [
-                  "principle",
-                  "assumption"
+                  "Beer-Lambert",
+                  "dilute solution"
                 ]
               }
             }
@@ -140,6 +140,6 @@
     "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
     "generated_by": "codex",
     "generated_at": "2026-07-15T00:00:00Z",
-    "content_sha256": "a6036f11e6e5ce03245c02d92adc2a132dbe37d795ab064b5ed84a94e9e8e435"
+    "content_sha256": "836ff8553ea18e5aa4deb536f52e50d0239525489553b61995ced83a471b681e"
   }
 }

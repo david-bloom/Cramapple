@@ -87,7 +87,7 @@
       "part_key": "part-b",
       "ordinal": 2,
       "label": "(b)",
-      "prompt": "Explain how the governing principle and the stated assumptions support the result.",
+      "prompt": "Explain how the Gibbs free energy equation ΔG=ΔH−TΔS supports the calculated crossover temperature, and state the assumption that ΔH and ΔS do not change significantly over that temperature range.",
       "response_modalities": [
         "typed-text"
       ],
@@ -96,10 +96,10 @@
         {
           "criterion_key": "part-b-criterion",
           "points": 1,
-          "description": "Explain how the governing principle and the stated assumptions support the result",
+          "description": "Setting ΔG=ΔH−TΔS equal to zero gives the crossover temperature, assuming ΔH and ΔS are approximately temperature-independent over that range.",
           "required_evidence": [
-            "governing principle",
-            "assumption"
+            "ΔG=ΔH-TΔS",
+            "temperature-independent ΔH and ΔS"
           ],
           "accepted_variants": [
             "Equivalent scientifically correct notation and reasoning earn credit."
@@ -109,8 +109,8 @@
               "check_type": "keyword-evidence",
               "parameters": {
                 "keywords": [
-                  "principle",
-                  "assumption"
+                  "ΔH-TΔS",
+                  "temperature-independent"
                 ]
               }
             }
@@ -140,6 +140,6 @@
     "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
     "generated_by": "codex",
     "generated_at": "2026-07-15T00:00:00Z",
-    "content_sha256": "5e5d4493b95f5cc7e06c87519469d62a8aaf50358bcd64741ff659d6a0ab7bbc"
+    "content_sha256": "07ca1618e546d770ec433cf372e1665f5e9185655ec885b17b7e38150515470a"
   }
 }

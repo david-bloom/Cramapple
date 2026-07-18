@@ -87,7 +87,7 @@
       "part_key": "part-b",
       "ordinal": 2,
       "label": "(b)",
-      "prompt": "Explain how the governing principle and the stated assumptions support the result.",
+      "prompt": "Explain how the ideal gas law's assumptions of negligible intermolecular attraction and negligible molecular volume justify using PV=nRT here, and state the assumption that the gas behaves ideally at 298 K and 0.950 atm.",
       "response_modalities": [
         "typed-text"
       ],
@@ -96,10 +96,10 @@
         {
           "criterion_key": "part-b-criterion",
           "points": 1,
-          "description": "Explain how the governing principle and the stated assumptions support the result",
+          "description": "PV=nRT relies on negligible intermolecular attraction and molecular volume, assuming the gas behaves ideally at these conditions.",
           "required_evidence": [
-            "governing principle",
-            "assumption"
+            "negligible intermolecular forces",
+            "ideal behavior assumption"
           ],
           "accepted_variants": [
             "Equivalent scientifically correct notation and reasoning earn credit."
@@ -109,8 +109,8 @@
               "check_type": "keyword-evidence",
               "parameters": {
                 "keywords": [
-                  "principle",
-                  "assumption"
+                  "negligible intermolecular forces",
+                  "ideal behavior"
                 ]
               }
             }
@@ -125,7 +125,7 @@
       "part_key": "part-c",
       "ordinal": 3,
       "label": "(c)",
-      "prompt": "Describe a measurement or representation that could test the result.",
+      "prompt": "Describe how you would test for nonideal behavior, identifying the compressibility factor PV/nRT as the measured variable while holding temperature constant.",
       "response_modalities": [
         "typed-text"
       ],
@@ -134,10 +134,10 @@
         {
           "criterion_key": "part-c-criterion",
           "points": 1,
-          "description": "Describe a measurement or representation that could test the result",
+          "description": "A valid check measures the compressibility factor PV/nRT across pressures while holding temperature constant.",
           "required_evidence": [
-            "measured variable",
-            "controlled variable"
+            "compressibility factor",
+            "temperature held constant"
           ],
           "accepted_variants": [
             "Equivalent scientifically correct notation and reasoning earn credit."
@@ -147,8 +147,8 @@
               "check_type": "keyword-evidence",
               "parameters": {
                 "keywords": [
-                  "measure",
-                  "control"
+                  "compressibility factor",
+                  "constant temperature"
                 ]
               }
             }
@@ -163,7 +163,7 @@
       "part_key": "part-d",
       "ordinal": 4,
       "label": "(d)",
-      "prompt": "Identify one boundary case or systematic error and predict its effect.",
+      "prompt": "State one boundary case (e.g., high pressure where attractive forces dominate) and predict whether the moles calculated from the ideal gas law would be too high or too low compared to the true value.",
       "response_modalities": [
         "typed-text"
       ],
@@ -172,10 +172,10 @@
         {
           "criterion_key": "part-d-criterion",
           "points": 1,
-          "description": "Identify one boundary case or systematic error and predict its effect",
+          "description": "At high pressure, attractive forces lower the measured pressure below the ideal prediction, making the calculated moles too high.",
           "required_evidence": [
-            "direction of effect",
-            "justification"
+            "high pressure deviation",
+            "moles too high"
           ],
           "accepted_variants": [
             "Equivalent scientifically correct notation and reasoning earn credit."
@@ -185,8 +185,8 @@
               "check_type": "keyword-evidence",
               "parameters": {
                 "keywords": [
-                  "effect",
-                  "because"
+                  "high pressure",
+                  "too high"
                 ]
               }
             }
@@ -216,6 +216,6 @@
     "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
     "generated_by": "codex",
     "generated_at": "2026-07-15T00:00:00Z",
-    "content_sha256": "6122d5e718dcb442555c4d12e75c0e98c8ec76ab7f56b7fbcd2a5e6a8b6add76"
+    "content_sha256": "d87e5844f87de1923f816f06d316f49d3f9295693914d329f5a51923c28a146b"
   }
 }

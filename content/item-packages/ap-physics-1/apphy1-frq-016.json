@@ -36,7 +36,7 @@
       "ordinal": 1,
       "kind": "text",
       "payload": {
-        "text": "qualitative/quantitative translation: Water flows steadily from a 4.00 cm² section of a horizontal pipe at 2.00 m/s into a 1.00 cm² section."
+        "text": "Water flows steadily from a 4.00 cm² section of a horizontal pipe at 2.00 m/s into a 1.00 cm² section."
       },
       "source_refs": [
         "ap-physics-1-ced-fact-pack"
@@ -58,11 +58,10 @@
         {
           "criterion_key": "part-a-criterion",
           "points": 1,
-          "description": "Continuity gives 8.00 m/s in the narrow section; Bernoulli predicts lower static pressure there.",
+          "description": "Doubling the narrow section's cross-sectional area (from 1.00 cm² to 2.00 cm²) halves the exit speed to 4.00 m/s, since continuity gives v2 = A1v1/A2, which is inversely proportional to A2; because the speed difference between sections shrinks, Bernoulli's equation predicts a smaller pressure drop in the narrow section.",
           "required_evidence": [
-            "continuity",
-            "8.00",
-            "lower pressure"
+            "exit speed halves to 4.00 m/s because v2 is inversely proportional to A2",
+            "pressure drop becomes smaller because the speed difference between sections shrinks"
           ],
           "accepted_variants": [
             "Equivalent scientifically correct notation and reasoning earn credit."
@@ -72,9 +71,9 @@
               "check_type": "keyword-evidence",
               "parameters": {
                 "keywords": [
-                  "continuity",
-                  "8.00",
-                  "lower pressure"
+                  "halves",
+                  "4.00 m/s",
+                  "smaller pressure drop"
                 ]
               }
             }
@@ -89,7 +88,7 @@
       "part_key": "part-b",
       "ordinal": 2,
       "label": "(b)",
-      "prompt": "Explain how the governing principle and the stated assumptions support the result.",
+      "prompt": "Explain why assuming the water is incompressible and the flow steady lets you apply continuity (A1v1 = A2v2) and Bernoulli's equation to justify the higher speed and lower pressure in the narrow section.",
       "response_modalities": [
         "typed-text"
       ],
@@ -98,10 +97,10 @@
         {
           "criterion_key": "part-b-criterion",
           "points": 1,
-          "description": "Explain how the governing principle and the stated assumptions support the result",
+          "description": "Correctly cites the continuity equation and Bernoulli's principle as the governing relations and states that the flow is assumed steady and the water incompressible.",
           "required_evidence": [
-            "governing principle",
-            "assumption"
+            "incompressible, steady flow",
+            "Bernoulli relates speed and pressure"
           ],
           "accepted_variants": [
             "Equivalent scientifically correct notation and reasoning earn credit."
@@ -111,8 +110,8 @@
               "check_type": "keyword-evidence",
               "parameters": {
                 "keywords": [
-                  "principle",
-                  "assumption"
+                  "steady flow",
+                  "Bernoulli"
                 ]
               }
             }
@@ -145,6 +144,6 @@
     "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
     "generated_by": "codex",
     "generated_at": "2026-07-15T00:00:00Z",
-    "content_sha256": "0b20c693ba8a1c6a8f27e13a01ecbc3ffa2eee8ebae2bce07315a816bdf6384b"
+    "content_sha256": "1ebc03c75b107174fa4385e36c2a5c7ddb7b8fc1559a6a66200dabfa25939b5c"
   }
 }
