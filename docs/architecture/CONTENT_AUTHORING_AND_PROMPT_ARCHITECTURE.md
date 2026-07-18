@@ -1,12 +1,18 @@
 # Content Authoring and Prompt Architecture
 
-**Status:** Proposed architecture; experiment direction approved
+**Status:** Proposed architecture; experiment direction approved. **Exception —
+the content completeness contract is RATIFIED and binding:** §7.3 (completeness
+preflight, all ingestion paths) and §9.1 persisted-field requirements are enforced
+in code, not proposed.
 **Owner:** Main Conductor / Learning Quality Owner / Technical Owner
 **Product Owner:** David Bloom
 **Related Tasks:** `TASK-0005`, `TASK-0007`, `CONTENT-001`
-**Last Updated:** 2026-07-08 (DECISION-0034: required criterion-boundary
-contracts §9.1, required per-subject deterministic-check layer §7.1, default
-grading runtime §7.2)
+**Last Updated:** 2026-07-18 (David directive: ratified §7.3 content completeness
+preflight enforced on every ingestion path via
+`supabase/functions/_shared/content-preflight.ts`; required non-empty persisted
+fields §9.1 / governance §10.5). Prior: 2026-07-08 (DECISION-0034: required
+criterion-boundary contracts §9.1, required per-subject deterministic-check layer
+§7.1, default grading runtime §7.2).
 
 ## 1. Purpose
 
@@ -277,6 +283,52 @@ Changing the grader model, escalation routing, deterministic scoring logic, or
 confidence policy is a C2 change requiring full artifact-family revalidation
 (`CONTENT_GOVERNANCE_AND_VALIDATION.md` §16.3).
 
+### 7.3 Content Completeness Preflight (Required, All Ingestion Paths — RATIFIED)
+
+The MCQ (§8) and FRQ (§9/§9.1) package contracts are prose standards. On their
+own they proved insufficient: a bulk import authored with null
+`evidence_requirements`/`minimum_fix` on every AP Statistics FRQ criterion reached
+production because nothing mechanical rejected a "parseable but empty" package (§8:
+"Parseable JSON is necessary but not evidence of quality"), and the verification
+pipeline that would have caught it was described but unbuilt. This section closes
+that hole and is **ratified and binding**, not proposed.
+
+**The completeness contract is code, not prose.** Its single machine-checkable
+source of truth is `supabase/functions/_shared/content-preflight.ts`. Prose in §8
+/ §9 defines *intent*; the module defines *done*. When they diverge, the module is
+authoritative for the mechanical minimum and must be updated in the same change
+that changes the prose contract.
+
+**Blocking checks (an item with any of these must not be persisted, published, or
+remain published):**
+
+- FRQ: at least one criterion; every criterion has non-empty `learner_facing_text`,
+  `evidence_requirements`, and `minimum_fix`, plus `points_possible` an integer ≥ 1.
+- MCQ: at least two choices; exactly one keyed correct; every choice has non-empty
+  `choice_text` and `rationale`.
+
+**Warning checks (recommended completeness; gate with `--strict`):** FRQ
+`accepted_variants` non-empty per criterion, canonical answer present, teaching
+explanation present; MCQ four choices, teaching explanation present.
+
+**It runs on EVERY ingestion path — no exceptions.** Any way content reaches the
+content tables must call the preflight and reject blocking findings *before* the
+write:
+
+- the admin content function (`admin-content`) — wired at the single projection
+  choke point for `create_draft`, `update_draft`, `publish`, and `bulk_import` via
+  `assertPreflight`;
+- the authoring compiler and any generation script that emits content packages;
+- any future bulk-import or migration path; and
+- CI, over content JSON in the repo, via
+  `scripts/content-preflight/run.ts <file.json> [--strict]` (exit 1 on blocking).
+
+Governing content *only* at the authoring compiler is not sufficient — the Statistics
+defect entered through an import that bypassed it. Completeness is gated at the
+boundary of the content store, so incompleteness is impossible before human review,
+not merely discouraged. This is the enforcement behind the `CONTENT_GOVERNANCE_AND_VALIDATION.md`
+§10.5 required-field publication gate.
+
 ## 8. MCQ Package Contract
 
 An MCQ authoring result is a complete candidate package containing:
@@ -352,6 +404,26 @@ invented — during calibration. A calibration or audit pass may propose a
 boundary-contract revision; each revision is a C2 change under
 `CONTENT_GOVERNANCE_AND_VALIDATION.md` §16.3. Prompt components consume the
 contract and must not introduce scoring thresholds outside it.
+
+**Persisted fields (required, non-empty, publication-gated).** Two elements of the
+boundary contract persist per criterion and are consumed directly at runtime, so
+they must be present on every criterion record — never null or blank:
+
+- `evidence_requirements` — the grader's per-criterion boundary instruction. The
+  grading prompt injects it only when present; empty means the grader infers the
+  earn/not-earn boundary unaided, degrading consistency (the failure mode Lesson 1
+  of `../research/grading_cross_subject_takeaways.md` warns against).
+- `minimum_fix` — the student-facing, opportunity-framed repair coaching surfaced by
+  the highest-value-gap path. Empty collapses coaching to the generic
+  "Provide the missing evidence." placeholder, so the item cannot coach a student to
+  the missed point.
+
+An FRQ criterion missing either field is an incomplete package: it fails publication
+preflight and cannot be published or remain published
+(`CONTENT_GOVERNANCE_AND_VALIDATION.md` §10.5 required-field publication gate). Write
+`minimum_fix` in the opportunity-framed style validated in
+`../research/AP_BIOLOGY_CRITERION_BOUNDARY_CONTRACT_SHARPENING_2026_07_17.md` (name
+the specific point-securing gap, not a restatement of the model answer).
 
 The lesson behind this requirement — that boundary precision, not model size,
 routing, or reference volume, is the dominant grading-quality lever — is recorded

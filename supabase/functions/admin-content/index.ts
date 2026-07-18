@@ -2,6 +2,7 @@ import { createServiceClient } from "../_shared/supabase.ts";
 import { jsonResponse, readJsonBody } from "../_shared/http.ts";
 import { requireProfile } from "../_shared/auth.ts";
 import { invokeAtomicPublicationRpc } from "./publication-request.ts";
+import { assertPreflight } from "../_shared/content-preflight.ts";
 
 type AllowedOperation =
   | "create_draft"
@@ -160,6 +161,22 @@ async function ensureLegacyProjection(
     !payload.item_type || !payload.title
   ) {
     return null;
+  }
+
+  // Completeness gate (§9.1 / §10.5): reject incomplete MCQ/FRQ packages before
+  // any content row is written — the machine-checkable enforcement that stops the
+  // "parseable but empty" defect (e.g. blank evidence_requirements/minimum_fix)
+  // from ever being persisted, on every write path including bulk_import.
+  if (payload.item_type === "mcq" || payload.item_type === "frq") {
+    assertPreflight([{
+      content_key: payload.content_key,
+      item_type: payload.item_type,
+      status,
+      canonical_answer_1: payload.canonical_answer ?? null,
+      explanation: payload.explanation ?? null,
+      criteria: payload.frq_criteria,
+      choices: payload.mcq_choices,
+    }]);
   }
 
   const { data: item } = await service.schema("app")

@@ -1243,7 +1243,8 @@ For an FRQ package, the rubric and teaching package also include:
   rule, required evidence, accepted variants, insufficient wording, contradiction
   rule, and at least one worked near-boundary positive and negative example); a
   criterion without a boundary contract is an incomplete package and cannot enter
-  validation;
+  validation. The boundary contract's *required evidence* persists as a
+  **non-empty `evidence_requirements`** field on every criterion record;
 - required deterministic checks for every mechanical or structurally-checkable
   criterion, per the subject's `verification_profile`
   (`CONTENT_AUTHORING_AND_PROMPT_ARCHITECTURE.md` §7.1);
@@ -1251,7 +1252,23 @@ For an FRQ package, the rubric and teaching package also include:
 - insufficient, contradictory, and boundary responses;
 - calculation, unit, graph, diagram, and notation rules where applicable;
 - full-, partial-, and no-credit samples;
-- criterion-specific minimum fixes, transfer item, and delayed variant.
+- criterion-specific minimum fixes — persisted as a **non-empty `minimum_fix`**
+  field on every criterion record — plus transfer item and delayed variant.
+
+**Required-field publication gate (both item types).** Every FRQ criterion record
+MUST carry a non-empty `evidence_requirements` and a non-empty `minimum_fix`; every
+MCQ distractor MUST carry a non-empty `rationale`. These are the persisted form of
+the boundary contract's grading instruction and the student-facing repair coaching,
+consumed at runtime by the grader prompt (`evidence_requirements`) and the
+highest-value-gap repair path (`minimum_fix`); an empty value silently degrades
+grading consistency and collapses repair coaching to a generic placeholder. An item
+with any criterion missing either field **fails publication preflight and cannot be
+published or remain published** — this is a blocking package-completeness gate,
+enforced as a validation check in the fail-closed publication path (§16 /
+`DECISION-0039`), not an authoring nicety. Changing a populated `evidence_requirements`
+is a **C2** change (it alters grading behavior) and triggers artifact-family
+revalidation; first-time population of an empty field on already-published content is
+remediation of an incomplete package and is likewise gated and revalidated.
 
 Author-generated samples are development cases. They do not establish a human
 gold set, calibrate a grader, or satisfy the held-out requirements in Section
