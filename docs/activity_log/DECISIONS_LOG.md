@@ -1834,3 +1834,46 @@ David Bloom **explicitly accepts** that consequence. The fail-closed evidence co
 
 - DECISION-0039's "Noted consequence — open for explicit acceptance" is **resolved: Accepted (2026-07-14)**.
 - TASK-0010 moves onto the critical path for all publication.
+
+## DECISION-0042 — Adopt the AP Biology Depth-Threshold Boundary Policy; Approve `L-001/b` at 1/2; Resolve `L-009/b` at 1/2 (Coaching Contract); Ratify the `L-001/a_i` Variant-Scope Fix
+
+**Date:** 2026-07-17
+**Decision Owner:** David Bloom (Product Owner / Final Approver)
+**Status:** Approved (Product Owner gate). Curriculum sign-off interface noted below.
+**Related:** TASK-0010 (grading calibration); DECISION-0034 (five grading standards; boundary contracts required, §9.1); DECISION-0041 (TASK-0010 on the critical path to any publish); `docs/research/AP_BIOLOGY_CRITERION_BOUNDARY_CONTRACT_SHARPENING_2026_07_17.md`
+**Area:** Grading / Criterion-Boundary Contracts / AP Biology
+
+### Context
+
+The AP Biology gold-set candidate (`ap_biology_gold_set_candidate_2026_07_08/`) surfaced a 9-item adjudication queue. A 2026-07-17 pass drafted §9.1 boundary-contract language for each flagged criterion and found that **five of the nine items are the same underlying question**: on a 2-point *describe / explain / trace* criterion, does a response that gives the correct direction/outcome and names the correct actors — but omits a finer mechanistic step the rubric also lists — earn full, partial, or nothing?
+
+### Decision
+
+David Bloom, as Product Owner, makes three calls:
+
+1. **Adopt one governing depth-threshold policy** for all AP Biology "describe/explain/trace" criteria (resolving queue items `L-001/a_i`, `L-009/b`, `L-017/a`, `L-033/b`, `L-033/c` consistently):
+   > A required element earns its point when the response **(1) names the correct actor(s)** and **(2) states the correct causal relationship, direction, or outcome** the element tests. Omitting a finer sub-mechanistic intermediate the rubric lists as *enrichment* does **not** void the point. A required element does **not** earn when the response **(a)** states the wrong direction/outcome (fluent, complete, confident wrong answers still earn nothing — model self-reported confidence is not evidence), **(b)** gives only a definitional restatement in place of the required causal link, or **(c)** omits a *distinct required transformation/step* (not merely a finer detail of a step it already has).
+
+2. **Approve the `APBIO-FRQ-L-001 / b` disposition at `partially_earned` (1/2)** — one step up from the AI provisional `not_earned` — on the **independent-element reading**: on a 2-point criterion scored "two of three elements for full credit," one cleanly-correct required element earns 1 pt; a directionally-reversed mechanism (here, reversed proton-pump direction) voids the element it describes but does not retract a separately-correct element.
+
+3. **Ratify the `APBIO-FRQ-L-001 / a_i` variant-scope fix** (executed 2026-07-17): the definitional restatement `"net O2 is zero"` was removed from the criterion's `accepted_variants` and an explicit boundary clause added to `evidence_requirements`, so the definitional phrasing identifies the compensation point but no longer satisfies the required rate-equality explanation.
+
+4. **Resolve `APBIO-FRQ-L-009 / b` at `partially_earned` (1/2)** — Learning Quality (Orly)'s call, closing the last of the four ranked decisions. P1 (process backbone: fixation → nitrification → uptake → assimilation) earns; P2 is withheld. Rationale is product-driven, not only rubric purity: the coaching engine (`grading-feedback.ts` → `highest_value_gap`, ranked by `points_possible / estimated_repair_effort`, surfaced with `minimum_fix` + `predicted_improvement`) is built to push students to their cheapest next point; a whole-pathway response at **1/2** reads as "one specific addition from a point" (the high-leverage repair the ranking prioritizes), while **0/2** makes the same content look like a vaguer rebuild. 1/2 also matches the real modern AP standard (process points generally are not gated on memorized genus names) and still signals incompleteness (not 2/2), preserving coaching pressure.
+
+   **Coaching contract (authored):** the score does not coach — the `minimum_fix` does. Coaching for `L-009/b` **must name both point-2 gaps**: (a) the **nitrate-reduction step** (NO3- → NH4+ in the plant), the point-securing element in either reading; and (b) **organism naming** (Rhizobium, Nitrosomonas/Nitrobacter). Framing of the organism gap follows one factual input — does the operational AP standard require genus names? **If required →** imperative ("you must name…"); **if enrichment →** "naming the organisms strengthens this; the missing point is the nitrate-reduction step" (so students are not sent to memorize genera they do not need). **Working default = enrichment** (moderate-high confidence). The live `minimum_fix` was updated 2026-07-17 to an **enrichment-safe** wording that names both gaps and frames organisms as "strengthen further" without asserting they are optional — correct even if the standard is stricter. The sole residual is Orly confirming whether the target standard requires genera, which flips the wording to imperative (a one-line C2 edit; no score or student-behavior change).
+
+### What this changes
+
+- These become the guard rails the AP Biology adjudicated gold set is scored against. Each encoded contract is a **C2 change** under `CONTENT_GOVERNANCE_AND_VALIDATION.md` §16.3.
+- The `L-001/a_i` fix is applied to the four corpus/calibration artifacts that carried the inconsistent variant list (`ap_biology_frq_bootstrap_corpus_2026_07_07.json`, `ap_biology_frq_full_export_2026_07_07.json`, `apbio_frq_tutor_ready_packet.json`, and the candidate package's `provisional_labels.json`).
+
+### What this does NOT change / authorize
+
+- **Does not upgrade the package to `adjudicated_gold`.** Labels remain `calibration` until **two qualified human Grading Validators score blind + a Lead adjudicates** (§12.1). These dispositions are inputs to that human pass, not a substitute for it, and do not by themselves satisfy the DECISION-0041 grading/calibration publish gate.
+- **Curriculum sign-off interface:** `L-009/b` was resolved by Learning Quality (Orly) at 1/2 in this same session (see call 4 above); no ranked decision remains open. The sole residual is an emphasis-only coaching confirmation (enrichment vs imperative genus-name wording). If curriculum review later conflicts with any disposition here, it reopens as a C2 revision.
+- No Production or Dev change; no other gate lowered; `QA-pass ≠ launch approval` still holds.
+
+### Consequences
+
+- The depth policy applies uniformly: tightening or loosening it later moves all five depth-governed items together, by design.
+- Feeds the DECISION-0041 critical path — but only the human dual-blind adjudicated run is the gating artifact.
