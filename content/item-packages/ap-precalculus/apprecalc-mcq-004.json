@@ -1,0 +1,111 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apprecalc-mcq-004",
+  "content_key": "apprecalc-mcq-004",
+  "content_version": 1,
+  "difficulty": "Hard",
+  "exam_pack_ref": {
+    "exam_code": "ap_precalculus",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "mcq",
+  "archetype_ref": {
+    "archetype_key": "ap-precalculus-mcq",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-precalculus-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-1-polynomial-and-rational-functions"
+    },
+    {
+      "scheme_key": "ap-precalculus-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-2"
+    }
+  ],
+  "stimuli": [],
+  "mcq_choices": [
+    {
+      "choice_key": "A",
+      "choice_text": "It crosses at both zeros",
+      "is_correct": false,
+      "rationale": "The even-multiplicity zero does not require crossing."
+    },
+    {
+      "choice_key": "B",
+      "choice_text": "It touches at −1 and crosses at 3",
+      "is_correct": true,
+      "rationale": "Even multiplicity produces a touch and turn; odd multiplicity produces a crossing."
+    },
+    {
+      "choice_key": "C",
+      "choice_text": "It crosses at −1 and touches at 3",
+      "is_correct": false,
+      "rationale": "The behaviors are reversed."
+    },
+    {
+      "choice_key": "D",
+      "choice_text": "It touches at both zeros",
+      "is_correct": false,
+      "rationale": "The odd-multiplicity zero crosses."
+    }
+  ],
+  "canonical_answers": [
+    "B"
+  ],
+  "parts": [
+    {
+      "part_key": "question",
+      "ordinal": 1,
+      "prompt": "A polynomial has zeros −1 of multiplicity 2 and 3 of multiplicity 1. Which behavior is required?\n\nA. It crosses at both zeros\nB. It touches at −1 and crosses at 3\nC. It crosses at −1 and touches at 3\nD. It touches at both zeros",
+      "response_modalities": [
+        "choice"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-answer",
+          "points": 1,
+          "description": "Select the unique correct response.",
+          "required_evidence": [
+            "B",
+            "Even multiplicity produces a touch and turn; odd multiplicity produces a crossing."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "choice-key",
+              "parameters": {
+                "correct_key": "B"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All mathematical information is provided in text."
+  },
+  "review_notes": {
+    "expected_reasoning": "Even multiplicity produces a touch and turn; odd multiplicity produces a crossing.",
+    "known_boundary_cases": [
+      "Reject alternate choices unless their stated expression is mathematically equivalent to the keyed result."
+    ],
+    "originality_statement": "Independently authored Cramapple practice item; no released or secure question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-precalculus-public-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-17",
+    "authoring_prompt_version": "CODEX_CALCULUS_THREE_SUBJECT_SEED_2026_07_17",
+    "generated_by": "codex",
+    "generated_at": "2026-07-17T00:00:00Z",
+    "content_sha256": "55f840420413f28df423fc5a9441790cd09fce51e78cf0c4964495df069881e1"
+  }
+}

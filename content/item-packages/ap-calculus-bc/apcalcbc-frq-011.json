@@ -1,0 +1,187 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apcalcbc-frq-011",
+  "content_key": "apcalcbc-frq-011",
+  "content_version": 1,
+  "difficulty": "Medium",
+  "frq_form": "short",
+  "canonical_answers": [
+    "dy/dx=x√(x²+2). | L=∫[0 to 1]√(1+x²(x²+2))dx=∫[0 to 1](x²+1)dx. | The length is 4/3."
+  ],
+  "exam_pack_ref": {
+    "exam_code": "ap_calculus_bc",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "frq",
+  "archetype_ref": {
+    "archetype_key": "ap-calculus-bc-frq-modeling",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-calculus-bc-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-8-applications-of-integration"
+    },
+    {
+      "scheme_key": "ap-calculus-bc-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-1"
+    }
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "scenario",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "The curve y=(1/3)(x²+2)^(3/2) is considered for 0≤x≤1.",
+        "calculator_mode": "not-permitted"
+      },
+      "source_refs": [
+        "ap-calculus-bc-public-fact-pack"
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "part_key": "part-a",
+      "ordinal": 1,
+      "label": "(a)",
+      "prompt": "Find dy/dx.",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "dy/dx=x√(x²+2).",
+          "required_evidence": [
+            "x√(x²+2)"
+          ],
+          "accepted_variants": [
+            "Any algebraically equivalent form with correct reasoning."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "x√(x²+2)"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part_key": "part-b",
+      "ordinal": 2,
+      "label": "(b)",
+      "prompt": "Write and simplify the arc-length integral.",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-b-criterion-1",
+          "points": 1,
+          "description": "L=∫[0 to 1]√(1+x²(x²+2))dx=∫[0 to 1](x²+1)dx.",
+          "required_evidence": [
+            "arc length",
+            "(x²+1)²",
+            "x²+1"
+          ],
+          "accepted_variants": [
+            "Any algebraically equivalent form with correct reasoning."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "arc length",
+                  "(x²+1)²",
+                  "x²+1"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part_key": "part-c",
+      "ordinal": 3,
+      "label": "(c)",
+      "prompt": "Evaluate the length.",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-c-criterion-1",
+          "points": 1,
+          "description": "The length is 4/3.",
+          "required_evidence": [
+            "4/3"
+          ],
+          "accepted_variants": [
+            "Any algebraically equivalent form with correct reasoning."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "4/3"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "The prompt is complete in text; graph responses may be described with labeled features during accessibility review."
+  },
+  "review_notes": {
+    "expected_reasoning": "dy/dx=x√(x²+2). | L=∫[0 to 1]√(1+x²(x²+2))dx=∫[0 to 1](x²+1)dx. | The length is 4/3.",
+    "known_boundary_cases": [
+      "Award a criterion only when the conclusion is supported by the stated mathematical evidence.",
+      "Carry-forward arithmetic may earn later reasoning credit when the method remains valid."
+    ],
+    "originality_statement": "Independently authored Cramapple draft for Tutor review; no released or secure question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-calculus-bc-public-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-17",
+    "authoring_prompt_version": "CODEX_CALCULUS_THREE_SUBJECT_SEED_2026_07_17",
+    "generated_by": "codex",
+    "generated_at": "2026-07-17T00:00:00Z",
+    "content_sha256": "1b3afa2de71b2d77ebec64166872b9b49fbc7b15fc197e32a3018cc6fefd01fb"
+  }
+}

@@ -1,0 +1,186 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apcalcbc-frq-003",
+  "content_key": "apcalcbc-frq-003",
+  "content_version": 1,
+  "difficulty": "Hard",
+  "frq_form": "short",
+  "canonical_answers": [
+    "y′=−(y e^(xy)+2x)/(x e^(xy)−1). | The slope is 0. | Differentiating again or using a local expansion gives y″(0)=2."
+  ],
+  "exam_pack_ref": {
+    "exam_code": "ap_calculus_bc",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "frq",
+  "archetype_ref": {
+    "archetype_key": "ap-calculus-bc-frq-procedural",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-calculus-bc-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-3-differentiation-composite-implicit-and-inverse-functions"
+    },
+    {
+      "scheme_key": "ap-calculus-bc-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-1"
+    }
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "scenario",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "A curve is defined implicitly by e^(xy)+x²−y=1 near (0,0).",
+        "calculator_mode": "not-permitted"
+      },
+      "source_refs": [
+        "ap-calculus-bc-public-fact-pack"
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "part_key": "part-a",
+      "ordinal": 1,
+      "label": "(a)",
+      "prompt": "Find dy/dx in terms of x and y.",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "y′=−(y e^(xy)+2x)/(x e^(xy)−1).",
+          "required_evidence": [
+            "y e^(xy)+2x",
+            "x e^(xy)−1",
+            "negative"
+          ],
+          "accepted_variants": [
+            "Any algebraically equivalent form with correct reasoning."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "y e^(xy)+2x",
+                  "x e^(xy)−1",
+                  "negative"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part_key": "part-b",
+      "ordinal": 2,
+      "label": "(b)",
+      "prompt": "Find the slope at (0,0).",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-b-criterion-1",
+          "points": 1,
+          "description": "The slope is 0.",
+          "required_evidence": [
+            "0"
+          ],
+          "accepted_variants": [
+            "Any algebraically equivalent form with correct reasoning."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "numeric-tolerance",
+              "parameters": {
+                "expected_value": 0,
+                "tolerance": 0
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part_key": "part-c",
+      "ordinal": 3,
+      "label": "(c)",
+      "prompt": "Find d²y/dx² at (0,0).",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-c-criterion-1",
+          "points": 1,
+          "description": "Differentiating again or using a local expansion gives y″(0)=2.",
+          "required_evidence": [
+            "second derivative",
+            "2"
+          ],
+          "accepted_variants": [
+            "Any algebraically equivalent form with correct reasoning."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "numeric-tolerance",
+              "parameters": {
+                "expected_value": 2,
+                "tolerance": 0
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "The prompt is complete in text; graph responses may be described with labeled features during accessibility review."
+  },
+  "review_notes": {
+    "expected_reasoning": "y′=−(y e^(xy)+2x)/(x e^(xy)−1). | The slope is 0. | Differentiating again or using a local expansion gives y″(0)=2.",
+    "known_boundary_cases": [
+      "Award a criterion only when the conclusion is supported by the stated mathematical evidence.",
+      "Carry-forward arithmetic may earn later reasoning credit when the method remains valid."
+    ],
+    "originality_statement": "Independently authored Cramapple draft for Tutor review; no released or secure question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-calculus-bc-public-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-17",
+    "authoring_prompt_version": "CODEX_CALCULUS_THREE_SUBJECT_SEED_2026_07_17",
+    "generated_by": "codex",
+    "generated_at": "2026-07-17T00:00:00Z",
+    "content_sha256": "2a2f590a35341f335c966aa38f80317ebcf74cbe0c10d72e33a1a7fa62d633a8"
+  }
+}

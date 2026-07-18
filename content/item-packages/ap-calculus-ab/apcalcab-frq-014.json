@@ -1,0 +1,191 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apcalcab-frq-014",
+  "content_key": "apcalcab-frq-014",
+  "content_version": 1,
+  "difficulty": "Very Hard",
+  "frq_form": "short",
+  "canonical_answers": [
+    "The Euler approximation is y(1)=0.5: y(0.5)=0.5 and the next Euler slope is 0. | Using an integrating factor gives y=x−1+2e^(−x). | The exact value is 2/e≈0.7358, so 0.5 is an underestimate."
+  ],
+  "exam_pack_ref": {
+    "exam_code": "ap_calculus_ab",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "frq",
+  "archetype_ref": {
+    "archetype_key": "ap-calculus-ab-frq-representation",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-calculus-ab-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-7-differential-equations"
+    },
+    {
+      "scheme_key": "ap-calculus-ab-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-2"
+    }
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "scenario",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "The differential equation is dy/dx=x−y with y(0)=1.",
+        "calculator_mode": "not-permitted"
+      },
+      "source_refs": [
+        "ap-calculus-ab-public-fact-pack"
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "part_key": "part-a",
+      "ordinal": 1,
+      "label": "(a)",
+      "prompt": "Use Euler's method with step size 0.5 to approximate y(1).",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "The Euler approximation is y(1)=0.5: y(0.5)=0.5 and the next Euler slope is 0.",
+          "required_evidence": [
+            "step 0.5",
+            "y(0.5)=0.5",
+            "next slope 0",
+            "y(1)=0.5"
+          ],
+          "accepted_variants": [
+            "Any algebraically equivalent form with correct reasoning."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "numeric-tolerance",
+              "parameters": {
+                "expected_value": 0.5,
+                "tolerance": 0
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part_key": "part-b",
+      "ordinal": 2,
+      "label": "(b)",
+      "prompt": "Solve the differential equation exactly.",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-b-criterion-1",
+          "points": 1,
+          "description": "Using an integrating factor gives y=x−1+2e^(−x).",
+          "required_evidence": [
+            "integrating factor",
+            "x−1+2e^(−x)"
+          ],
+          "accepted_variants": [
+            "Any algebraically equivalent form with correct reasoning."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "integrating factor",
+                  "x−1+2e^(−x)"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part_key": "part-c",
+      "ordinal": 3,
+      "label": "(c)",
+      "prompt": "Compare the Euler value with the exact y(1) and state the error direction.",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-c-criterion-1",
+          "points": 1,
+          "description": "The exact value is 2/e≈0.7358, so 0.5 is an underestimate.",
+          "required_evidence": [
+            "2/e",
+            "0.7358",
+            "underestimate"
+          ],
+          "accepted_variants": [
+            "Any algebraically equivalent form with correct reasoning."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "2/e",
+                  "0.7358",
+                  "underestimate"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "The prompt is complete in text; graph responses may be described with labeled features during accessibility review."
+  },
+  "review_notes": {
+    "expected_reasoning": "The Euler approximation is y(1)=0.5: y(0.5)=0.5 and the next Euler slope is 0. | Using an integrating factor gives y=x−1+2e^(−x). | The exact value is 2/e≈0.7358, so 0.5 is an underestimate.",
+    "known_boundary_cases": [
+      "Award a criterion only when the conclusion is supported by the stated mathematical evidence.",
+      "Carry-forward arithmetic may earn later reasoning credit when the method remains valid."
+    ],
+    "originality_statement": "Independently authored Cramapple draft for Tutor review; no released or secure question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-calculus-ab-public-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-17",
+    "authoring_prompt_version": "CODEX_CALCULUS_THREE_SUBJECT_SEED_2026_07_17",
+    "generated_by": "codex",
+    "generated_at": "2026-07-17T00:00:00Z",
+    "content_sha256": "f73c7a16935e527255068fafcb9bd6d1c761356f3989aec963d64d285733120d"
+  }
+}

@@ -1,0 +1,193 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apcalcab-frq-006",
+  "content_key": "apcalcab-frq-006",
+  "content_version": 1,
+  "difficulty": "Hard",
+  "frq_form": "short",
+  "canonical_answers": [
+    "(h⁻¹)′(4)=1/h′(1)=−1/3. | P′(2)=2·2/h′(1)=−4/3. | The inverse derivative at input 4 uses the original input h⁻¹(4)=1, not the point where h has input 4."
+  ],
+  "exam_pack_ref": {
+    "exam_code": "ap_calculus_ab",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "frq",
+  "archetype_ref": {
+    "archetype_key": "ap-calculus-ab-frq-justification",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-calculus-ab-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-3-differentiation-composite-implicit-and-inverse-functions"
+    },
+    {
+      "scheme_key": "ap-calculus-ab-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-3"
+    }
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "scenario",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "A differentiable one-to-one function h has h(1)=4, h′(1)=−3, h(4)=7, and h′(4)=2.",
+        "calculator_mode": "not-permitted"
+      },
+      "source_refs": [
+        "ap-calculus-ab-public-fact-pack"
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "part_key": "part-a",
+      "ordinal": 1,
+      "label": "(a)",
+      "prompt": "Evaluate (h⁻¹)′(4).",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "(h⁻¹)′(4)=1/h′(1)=−1/3.",
+          "required_evidence": [
+            "1/h′(1)",
+            "−1/3"
+          ],
+          "accepted_variants": [
+            "Any algebraically equivalent form with correct reasoning."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "1/h′(1)",
+                  "−1/3"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part_key": "part-b",
+      "ordinal": 2,
+      "label": "(b)",
+      "prompt": "Let P(x)=h⁻¹(x²). Find P′(2).",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-b-criterion-1",
+          "points": 1,
+          "description": "P′(2)=2·2/h′(1)=−4/3.",
+          "required_evidence": [
+            "2x",
+            "h′(1)",
+            "−4/3"
+          ],
+          "accepted_variants": [
+            "Any algebraically equivalent form with correct reasoning."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "2x",
+                  "h′(1)",
+                  "−4/3"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part_key": "part-c",
+      "ordinal": 3,
+      "label": "(c)",
+      "prompt": "Explain why h′(4) is not used in either calculation.",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-c-criterion-1",
+          "points": 1,
+          "description": "The inverse derivative at input 4 uses the original input h⁻¹(4)=1, not the point where h has input 4.",
+          "required_evidence": [
+            "h⁻¹(4)=1",
+            "original input",
+            "not h′(4)"
+          ],
+          "accepted_variants": [
+            "Any algebraically equivalent form with correct reasoning."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "h⁻¹(4)=1",
+                  "original input",
+                  "not h′(4)"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "The prompt is complete in text; graph responses may be described with labeled features during accessibility review."
+  },
+  "review_notes": {
+    "expected_reasoning": "(h⁻¹)′(4)=1/h′(1)=−1/3. | P′(2)=2·2/h′(1)=−4/3. | The inverse derivative at input 4 uses the original input h⁻¹(4)=1, not the point where h has input 4.",
+    "known_boundary_cases": [
+      "Award a criterion only when the conclusion is supported by the stated mathematical evidence.",
+      "Carry-forward arithmetic may earn later reasoning credit when the method remains valid."
+    ],
+    "originality_statement": "Independently authored Cramapple draft for Tutor review; no released or secure question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-calculus-ab-public-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-17",
+    "authoring_prompt_version": "CODEX_CALCULUS_THREE_SUBJECT_SEED_2026_07_17",
+    "generated_by": "codex",
+    "generated_at": "2026-07-17T00:00:00Z",
+    "content_sha256": "d5063f7d32e3784eb156c079d8266a2c3e2f1909c8b948c241edb6ed75e0fe2b"
+  }
+}

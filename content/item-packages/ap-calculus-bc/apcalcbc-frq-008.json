@@ -1,0 +1,187 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apcalcbc-frq-008",
+  "content_key": "apcalcbc-frq-008",
+  "content_version": 1,
+  "difficulty": "Hard",
+  "frq_form": "short",
+  "canonical_answers": [
+    "With u=ln x, I(p)=∫[ln 2 to ∞]u^(−p)du. | The integral converges exactly for p>1. | I(2)=1/ln 2."
+  ],
+  "exam_pack_ref": {
+    "exam_code": "ap_calculus_bc",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "frq",
+  "archetype_ref": {
+    "archetype_key": "ap-calculus-bc-frq-justification",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-calculus-bc-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-6-integration-and-accumulation-of-change"
+    },
+    {
+      "scheme_key": "ap-calculus-bc-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-3"
+    }
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "scenario",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "For p>0 consider I(p)=∫[2 to ∞]1/[x(ln x)^p] dx.",
+        "calculator_mode": "not-permitted"
+      },
+      "source_refs": [
+        "ap-calculus-bc-public-fact-pack"
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "part_key": "part-a",
+      "ordinal": 1,
+      "label": "(a)",
+      "prompt": "Use a substitution to rewrite I(p).",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "With u=ln x, I(p)=∫[ln 2 to ∞]u^(−p)du.",
+          "required_evidence": [
+            "u=ln x",
+            "u^(−p)",
+            "ln 2"
+          ],
+          "accepted_variants": [
+            "Any algebraically equivalent form with correct reasoning."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "u=ln x",
+                  "u^(−p)",
+                  "ln 2"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part_key": "part-b",
+      "ordinal": 2,
+      "label": "(b)",
+      "prompt": "Determine all p for which I(p) converges.",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-b-criterion-1",
+          "points": 1,
+          "description": "The integral converges exactly for p>1.",
+          "required_evidence": [
+            "p>1"
+          ],
+          "accepted_variants": [
+            "Any algebraically equivalent form with correct reasoning."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "p>1"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part_key": "part-c",
+      "ordinal": 3,
+      "label": "(c)",
+      "prompt": "Evaluate I(2).",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-c-criterion-1",
+          "points": 1,
+          "description": "I(2)=1/ln 2.",
+          "required_evidence": [
+            "1/ln 2"
+          ],
+          "accepted_variants": [
+            "Any algebraically equivalent form with correct reasoning."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "1/ln 2"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "The prompt is complete in text; graph responses may be described with labeled features during accessibility review."
+  },
+  "review_notes": {
+    "expected_reasoning": "With u=ln x, I(p)=∫[ln 2 to ∞]u^(−p)du. | The integral converges exactly for p>1. | I(2)=1/ln 2.",
+    "known_boundary_cases": [
+      "Award a criterion only when the conclusion is supported by the stated mathematical evidence.",
+      "Carry-forward arithmetic may earn later reasoning credit when the method remains valid."
+    ],
+    "originality_statement": "Independently authored Cramapple draft for Tutor review; no released or secure question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-calculus-bc-public-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-17",
+    "authoring_prompt_version": "CODEX_CALCULUS_THREE_SUBJECT_SEED_2026_07_17",
+    "generated_by": "codex",
+    "generated_at": "2026-07-17T00:00:00Z",
+    "content_sha256": "bc4de011cf67eae183ab13727bcbfb364110af7f2afe309900aeb522ccc8a010"
+  }
+}

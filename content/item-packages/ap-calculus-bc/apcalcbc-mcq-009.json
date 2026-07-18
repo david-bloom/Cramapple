@@ -1,0 +1,111 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apcalcbc-mcq-009",
+  "content_key": "apcalcbc-mcq-009",
+  "content_version": 1,
+  "difficulty": "Hard",
+  "exam_pack_ref": {
+    "exam_code": "ap_calculus_bc",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "mcq",
+  "archetype_ref": {
+    "archetype_key": "ap-calculus-bc-mcq",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-calculus-bc-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-6-integration-and-accumulation-of-change"
+    },
+    {
+      "scheme_key": "ap-calculus-bc-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-1"
+    }
+  ],
+  "stimuli": [],
+  "mcq_choices": [
+    {
+      "choice_key": "A",
+      "choice_text": "ln|x²−1|+C",
+      "is_correct": false,
+      "rationale": "Differentiating gives 2x/(x²−1)."
+    },
+    {
+      "choice_key": "B",
+      "choice_text": "(1/2)ln|(x−1)/(x+1)|+C",
+      "is_correct": true,
+      "rationale": "Partial fractions give (1/2)/(x−1)−(1/2)/(x+1)."
+    },
+    {
+      "choice_key": "C",
+      "choice_text": "ln|(x−1)/(x+1)|+C",
+      "is_correct": false,
+      "rationale": "This is twice the needed antiderivative."
+    },
+    {
+      "choice_key": "D",
+      "choice_text": "arctan x+C",
+      "is_correct": false,
+      "rationale": "Arctangent applies to 1/(1+x²), not this difference of squares."
+    }
+  ],
+  "canonical_answers": [
+    "B"
+  ],
+  "parts": [
+    {
+      "part_key": "question",
+      "ordinal": 1,
+      "prompt": "An antiderivative of 1/(x²−1) is\n\nA. ln|x²−1|+C\nB. (1/2)ln|(x−1)/(x+1)|+C\nC. ln|(x−1)/(x+1)|+C\nD. arctan x+C",
+      "response_modalities": [
+        "choice"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-answer",
+          "points": 1,
+          "description": "Select the unique correct response.",
+          "required_evidence": [
+            "B",
+            "Partial fractions give (1/2)/(x−1)−(1/2)/(x+1)."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "choice-key",
+              "parameters": {
+                "correct_key": "B"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All mathematical information is provided in text."
+  },
+  "review_notes": {
+    "expected_reasoning": "Partial fractions give (1/2)/(x−1)−(1/2)/(x+1).",
+    "known_boundary_cases": [
+      "Reject alternate choices unless their stated expression is mathematically equivalent to the keyed result."
+    ],
+    "originality_statement": "Independently authored Cramapple practice item; no released or secure question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-calculus-bc-public-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-17",
+    "authoring_prompt_version": "CODEX_CALCULUS_THREE_SUBJECT_SEED_2026_07_17",
+    "generated_by": "codex",
+    "generated_at": "2026-07-17T00:00:00Z",
+    "content_sha256": "570a80e59ff9d831e6360276fba5179d78dce4b677f643f65e6d47c88a34a5d0"
+  }
+}

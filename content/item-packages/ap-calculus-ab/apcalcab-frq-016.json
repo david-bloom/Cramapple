@@ -1,0 +1,195 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apcalcab-frq-016",
+  "content_key": "apcalcab-frq-016",
+  "content_version": 1,
+  "difficulty": "Very Hard",
+  "frq_form": "short",
+  "canonical_answers": [
+    "dV/dt=A(h(t))h′(t); h(4)=2.8 and h′(4)=0, so dV/dt=0. | The change is ∫[2 to 2.6](30+5h)dh=24.9 m³. | The surface rises until t=4 and then falls, so total distance must add the absolute changes on both intervals."
+  ],
+  "exam_pack_ref": {
+    "exam_code": "ap_calculus_ab",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "frq",
+  "archetype_ref": {
+    "archetype_key": "ap-calculus-ab-frq-modeling",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-calculus-ab-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-8-applications-of-integration"
+    },
+    {
+      "scheme_key": "ap-calculus-ab-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-3"
+    }
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "scenario",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "A reservoir's depth is modeled by h(t)=2+0.4t−0.05t² meters for 0≤t≤6. Its horizontal cross-sectional area at depth h is A(h)=30+5h square meters.",
+        "calculator_mode": "approved-handheld"
+      },
+      "source_refs": [
+        "ap-calculus-ab-public-fact-pack"
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "part_key": "part-a",
+      "ordinal": 1,
+      "label": "(a)",
+      "prompt": "Find the instantaneous rate of change of water volume at t=4.",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "dV/dt=A(h(t))h′(t); h(4)=2.8 and h′(4)=0, so dV/dt=0.",
+          "required_evidence": [
+            "A(h)h′",
+            "h(4)=2.8",
+            "h′(4)=0",
+            "dV/dt=0"
+          ],
+          "accepted_variants": [
+            "Any algebraically equivalent form with correct reasoning."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "A(h)h′",
+                  "h(4)=2.8",
+                  "h′(4)=0",
+                  "dV/dt=0"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part_key": "part-b",
+      "ordinal": 2,
+      "label": "(b)",
+      "prompt": "Find the total change in volume from t=0 to t=6.",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-b-criterion-1",
+          "points": 1,
+          "description": "The change is ∫[2 to 2.6](30+5h)dh=24.9 m³.",
+          "required_evidence": [
+            "integral 2 to 2.6",
+            "30+5h",
+            "24.9"
+          ],
+          "accepted_variants": [
+            "Any algebraically equivalent form with correct reasoning."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "numeric-tolerance",
+              "parameters": {
+                "expected_value": 24.9,
+                "tolerance": 0.01,
+                "unit": "m^3"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part_key": "part-c",
+      "ordinal": 3,
+      "label": "(c)",
+      "prompt": "Explain why total distance traveled by the water surface is not h(6)−h(0).",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-c-criterion-1",
+          "points": 1,
+          "description": "The surface rises until t=4 and then falls, so total distance must add the absolute changes on both intervals.",
+          "required_evidence": [
+            "rises until t=4",
+            "falls",
+            "absolute changes"
+          ],
+          "accepted_variants": [
+            "Any algebraically equivalent form with correct reasoning."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "rises until t=4",
+                  "falls",
+                  "absolute changes"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "The prompt is complete in text; graph responses may be described with labeled features during accessibility review."
+  },
+  "review_notes": {
+    "expected_reasoning": "dV/dt=A(h(t))h′(t); h(4)=2.8 and h′(4)=0, so dV/dt=0. | The change is ∫[2 to 2.6](30+5h)dh=24.9 m³. | The surface rises until t=4 and then falls, so total distance must add the absolute changes on both intervals.",
+    "known_boundary_cases": [
+      "Award a criterion only when the conclusion is supported by the stated mathematical evidence.",
+      "Carry-forward arithmetic may earn later reasoning credit when the method remains valid."
+    ],
+    "originality_statement": "Independently authored Cramapple draft for Tutor review; no released or secure question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-calculus-ab-public-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-17",
+    "authoring_prompt_version": "CODEX_CALCULUS_THREE_SUBJECT_SEED_2026_07_17",
+    "generated_by": "codex",
+    "generated_at": "2026-07-17T00:00:00Z",
+    "content_sha256": "04df6d967d9b97a9255e567bfcd8f77966e20b1fc59587348fc8544eca52603e"
+  }
+}

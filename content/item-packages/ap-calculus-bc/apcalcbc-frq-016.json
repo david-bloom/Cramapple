@@ -1,0 +1,191 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apcalcbc-frq-016",
+  "content_key": "apcalcbc-frq-016",
+  "content_version": 1,
+  "difficulty": "Very Hard",
+  "frq_form": "short",
+  "canonical_answers": [
+    "f(x)=x−x²/2+x³/3−x⁴/4+… | At x=0.2 the approximation is 0.1822667. | The alternating bound is at most 0.2⁵/5=0.000064."
+  ],
+  "exam_pack_ref": {
+    "exam_code": "ap_calculus_bc",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "frq",
+  "archetype_ref": {
+    "archetype_key": "ap-calculus-bc-frq-representation",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-calculus-bc-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-10-infinite-sequences-and-series"
+    },
+    {
+      "scheme_key": "ap-calculus-bc-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-1"
+    }
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "scenario",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "Let f(x)=ln(1+x) for −1<x≤1.",
+        "calculator_mode": "not-permitted"
+      },
+      "source_refs": [
+        "ap-calculus-bc-public-fact-pack"
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "part_key": "part-a",
+      "ordinal": 1,
+      "label": "(a)",
+      "prompt": "Write the first four nonzero Maclaurin terms.",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "f(x)=x−x²/2+x³/3−x⁴/4+…",
+          "required_evidence": [
+            "x",
+            "−x²/2",
+            "x³/3",
+            "−x⁴/4"
+          ],
+          "accepted_variants": [
+            "Any algebraically equivalent form with correct reasoning."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "x",
+                  "−x²/2",
+                  "x³/3",
+                  "−x⁴/4"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part_key": "part-b",
+      "ordinal": 2,
+      "label": "(b)",
+      "prompt": "Use these terms to approximate ln(1.2).",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-b-criterion-1",
+          "points": 1,
+          "description": "At x=0.2 the approximation is 0.1822667.",
+          "required_evidence": [
+            "x=0.2",
+            "0.1822667"
+          ],
+          "accepted_variants": [
+            "Any algebraically equivalent form with correct reasoning."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "numeric-tolerance",
+              "parameters": {
+                "expected_value": 0.1822667,
+                "tolerance": 0.000001
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part_key": "part-c",
+      "ordinal": 3,
+      "label": "(c)",
+      "prompt": "Give a valid error bound for this approximation.",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-c-criterion-1",
+          "points": 1,
+          "description": "The alternating bound is at most 0.2⁵/5=0.000064.",
+          "required_evidence": [
+            "0.2^5/5",
+            "0.000064"
+          ],
+          "accepted_variants": [
+            "Any algebraically equivalent form with correct reasoning."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "0.2^5/5",
+                  "0.000064"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "The prompt is complete in text; graph responses may be described with labeled features during accessibility review."
+  },
+  "review_notes": {
+    "expected_reasoning": "f(x)=x−x²/2+x³/3−x⁴/4+… | At x=0.2 the approximation is 0.1822667. | The alternating bound is at most 0.2⁵/5=0.000064.",
+    "known_boundary_cases": [
+      "Award a criterion only when the conclusion is supported by the stated mathematical evidence.",
+      "Carry-forward arithmetic may earn later reasoning credit when the method remains valid."
+    ],
+    "originality_statement": "Independently authored Cramapple draft for Tutor review; no released or secure question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-calculus-bc-public-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-17",
+    "authoring_prompt_version": "CODEX_CALCULUS_THREE_SUBJECT_SEED_2026_07_17",
+    "generated_by": "codex",
+    "generated_at": "2026-07-17T00:00:00Z",
+    "content_sha256": "7fd0651c432bb4f8ea786c784151626bc5ab61d3cc5a35befe06e53ae49d90f6"
+  }
+}

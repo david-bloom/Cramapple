@@ -1,0 +1,195 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apcalcab-frq-013",
+  "content_key": "apcalcab-frq-013",
+  "content_version": 1,
+  "difficulty": "Hard",
+  "frq_form": "short",
+  "canonical_answers": [
+    "The equilibria are P=0 and P=5; P=5 is stable for positive initial values. | P′=1.2 and P″=0.2P′(5−2P)=0.24, so the solution is concave up. | Growth is greatest at P=2.5 hundreds, the vertex of 0.2P(5−P)."
+  ],
+  "exam_pack_ref": {
+    "exam_code": "ap_calculus_ab",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "frq",
+  "archetype_ref": {
+    "archetype_key": "ap-calculus-ab-frq-modeling",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-calculus-ab-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-7-differential-equations"
+    },
+    {
+      "scheme_key": "ap-calculus-ab-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-1"
+    }
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "scenario",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "A population P, in hundreds, satisfies dP/dt=0.2P(5−P) with P(0)=1.",
+        "calculator_mode": "not-permitted"
+      },
+      "source_refs": [
+        "ap-calculus-ab-public-fact-pack"
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "part_key": "part-a",
+      "ordinal": 1,
+      "label": "(a)",
+      "prompt": "State the equilibrium solutions and identify which is stable for positive populations.",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "The equilibria are P=0 and P=5; P=5 is stable for positive initial values.",
+          "required_evidence": [
+            "P=0",
+            "P=5",
+            "stable"
+          ],
+          "accepted_variants": [
+            "Any algebraically equivalent form with correct reasoning."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "P=0",
+                  "P=5",
+                  "stable"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part_key": "part-b",
+      "ordinal": 2,
+      "label": "(b)",
+      "prompt": "Find d²P/dt² when P=2 and determine the concavity then.",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-b-criterion-1",
+          "points": 1,
+          "description": "P′=1.2 and P″=0.2P′(5−2P)=0.24, so the solution is concave up.",
+          "required_evidence": [
+            "P′=1.2",
+            "P″=0.24",
+            "concave up"
+          ],
+          "accepted_variants": [
+            "Any algebraically equivalent form with correct reasoning."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "P′=1.2",
+                  "P″=0.24",
+                  "concave up"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part_key": "part-c",
+      "ordinal": 3,
+      "label": "(c)",
+      "prompt": "At what population is the growth rate greatest? Justify.",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-c-criterion-1",
+          "points": 1,
+          "description": "Growth is greatest at P=2.5 hundreds, the vertex of 0.2P(5−P).",
+          "required_evidence": [
+            "P=2.5",
+            "vertex",
+            "greatest growth"
+          ],
+          "accepted_variants": [
+            "Any algebraically equivalent form with correct reasoning."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "P=2.5",
+                  "vertex",
+                  "greatest growth"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "The prompt is complete in text; graph responses may be described with labeled features during accessibility review."
+  },
+  "review_notes": {
+    "expected_reasoning": "The equilibria are P=0 and P=5; P=5 is stable for positive initial values. | P′=1.2 and P″=0.2P′(5−2P)=0.24, so the solution is concave up. | Growth is greatest at P=2.5 hundreds, the vertex of 0.2P(5−P).",
+    "known_boundary_cases": [
+      "Award a criterion only when the conclusion is supported by the stated mathematical evidence.",
+      "Carry-forward arithmetic may earn later reasoning credit when the method remains valid."
+    ],
+    "originality_statement": "Independently authored Cramapple draft for Tutor review; no released or secure question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-calculus-ab-public-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-17",
+    "authoring_prompt_version": "CODEX_CALCULUS_THREE_SUBJECT_SEED_2026_07_17",
+    "generated_by": "codex",
+    "generated_at": "2026-07-17T00:00:00Z",
+    "content_sha256": "b41b40717ed7f206f9678b10d4d25c753fc0ca0987a120ae78c74a20434662f5"
+  }
+}

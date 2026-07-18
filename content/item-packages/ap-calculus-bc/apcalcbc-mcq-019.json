@@ -1,0 +1,111 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apcalcbc-mcq-019",
+  "content_key": "apcalcbc-mcq-019",
+  "content_version": 1,
+  "difficulty": "Very Hard",
+  "exam_pack_ref": {
+    "exam_code": "ap_calculus_bc",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "mcq",
+  "archetype_ref": {
+    "archetype_key": "ap-calculus-bc-mcq",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-calculus-bc-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-10-infinite-sequences-and-series"
+    },
+    {
+      "scheme_key": "ap-calculus-bc-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-1"
+    }
+  ],
+  "stimuli": [],
+  "mcq_choices": [
+    {
+      "choice_key": "A",
+      "choice_text": "−1/6",
+      "is_correct": false,
+      "rationale": "This resembles a sine-series coefficient."
+    },
+    {
+      "choice_key": "B",
+      "choice_text": "0",
+      "is_correct": true,
+      "rationale": "cos(x²)=1−x⁴/2!+x⁸/4!−…, so no x⁶ term occurs."
+    },
+    {
+      "choice_key": "C",
+      "choice_text": "1/24",
+      "is_correct": false,
+      "rationale": "The next nonconstant powers are 4 and 8, not 6."
+    },
+    {
+      "choice_key": "D",
+      "choice_text": "−1/720",
+      "is_correct": false,
+      "rationale": "This uses a sixth-derivative pattern without composition."
+    }
+  ],
+  "canonical_answers": [
+    "B"
+  ],
+  "parts": [
+    {
+      "part_key": "question",
+      "ordinal": 1,
+      "prompt": "The coefficient of x⁶ in the Maclaurin series for cos(x²) is\n\nA. −1/6\nB. 0\nC. 1/24\nD. −1/720",
+      "response_modalities": [
+        "choice"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-answer",
+          "points": 1,
+          "description": "Select the unique correct response.",
+          "required_evidence": [
+            "B",
+            "cos(x²)=1−x⁴/2!+x⁸/4!−…, so no x⁶ term occurs."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "choice-key",
+              "parameters": {
+                "correct_key": "B"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All mathematical information is provided in text."
+  },
+  "review_notes": {
+    "expected_reasoning": "cos(x²)=1−x⁴/2!+x⁸/4!−…, so no x⁶ term occurs.",
+    "known_boundary_cases": [
+      "Reject alternate choices unless their stated expression is mathematically equivalent to the keyed result."
+    ],
+    "originality_statement": "Independently authored Cramapple practice item; no released or secure question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-calculus-bc-public-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-17",
+    "authoring_prompt_version": "CODEX_CALCULUS_THREE_SUBJECT_SEED_2026_07_17",
+    "generated_by": "codex",
+    "generated_at": "2026-07-17T00:00:00Z",
+    "content_sha256": "e0527b2fe417a0caa2b35c9803cabbde287e15843d6c55fd6c07c939b05fcc70"
+  }
+}

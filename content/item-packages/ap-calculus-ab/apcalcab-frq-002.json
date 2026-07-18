@@ -1,0 +1,197 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apcalcab-frq-002",
+  "content_key": "apcalcab-frq-002",
+  "content_version": 1,
+  "difficulty": "Medium",
+  "frq_form": "short",
+  "canonical_answers": [
+    "There is at least one zero in each interval because the endpoint values change sign. | No; continuity guarantees existence but not uniqueness, so additional crossings are possible. | Strict monotonicity on each interval, with the stated sign changes, would give uniqueness."
+  ],
+  "exam_pack_ref": {
+    "exam_code": "ap_calculus_ab",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "frq",
+  "archetype_ref": {
+    "archetype_key": "ap-calculus-ab-frq-justification",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-calculus-ab-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-1-limits-and-continuity"
+    },
+    {
+      "scheme_key": "ap-calculus-ab-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-3"
+    }
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "scenario",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "A continuous function q satisfies q(0)=3, q(2)=−1, and q(5)=4.",
+        "calculator_mode": "not-permitted"
+      },
+      "source_refs": [
+        "ap-calculus-ab-public-fact-pack"
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "part_key": "part-a",
+      "ordinal": 1,
+      "label": "(a)",
+      "prompt": "Explain what the Intermediate Value Theorem guarantees about zeros on (0,2) and (2,5).",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "There is at least one zero in each interval because the endpoint values change sign.",
+          "required_evidence": [
+            "at least one",
+            "(0,2)",
+            "(2,5)",
+            "sign"
+          ],
+          "accepted_variants": [
+            "Any algebraically equivalent form with correct reasoning."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "at least one",
+                  "(0,2)",
+                  "(2,5)",
+                  "sign"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part_key": "part-b",
+      "ordinal": 2,
+      "label": "(b)",
+      "prompt": "Can the given information establish exactly two zeros on [0,5]? Explain.",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-b-criterion-1",
+          "points": 1,
+          "description": "No; continuity guarantees existence but not uniqueness, so additional crossings are possible.",
+          "required_evidence": [
+            "no",
+            "not uniqueness",
+            "additional"
+          ],
+          "accepted_variants": [
+            "Any algebraically equivalent form with correct reasoning."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "no",
+                  "not uniqueness",
+                  "additional"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part_key": "part-c",
+      "ordinal": 3,
+      "label": "(c)",
+      "prompt": "Give one additional condition that would make exactly one zero in each interval follow.",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-c-criterion-1",
+          "points": 1,
+          "description": "Strict monotonicity on each interval, with the stated sign changes, would give uniqueness.",
+          "required_evidence": [
+            "strictly monotonic",
+            "each interval",
+            "uniqueness"
+          ],
+          "accepted_variants": [
+            "Any algebraically equivalent form with correct reasoning."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "strictly monotonic",
+                  "each interval",
+                  "uniqueness"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "The prompt is complete in text; graph responses may be described with labeled features during accessibility review."
+  },
+  "review_notes": {
+    "expected_reasoning": "There is at least one zero in each interval because the endpoint values change sign. | No; continuity guarantees existence but not uniqueness, so additional crossings are possible. | Strict monotonicity on each interval, with the stated sign changes, would give uniqueness.",
+    "known_boundary_cases": [
+      "Award a criterion only when the conclusion is supported by the stated mathematical evidence.",
+      "Carry-forward arithmetic may earn later reasoning credit when the method remains valid."
+    ],
+    "originality_statement": "Independently authored Cramapple draft for Tutor review; no released or secure question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-calculus-ab-public-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-17",
+    "authoring_prompt_version": "CODEX_CALCULUS_THREE_SUBJECT_SEED_2026_07_17",
+    "generated_by": "codex",
+    "generated_at": "2026-07-17T00:00:00Z",
+    "content_sha256": "a68d3d952b0d3b0cf05127a0104195c53d458fc8e5ab44c883042f3b8f807031"
+  }
+}

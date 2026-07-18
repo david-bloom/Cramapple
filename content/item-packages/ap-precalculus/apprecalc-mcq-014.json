@@ -1,0 +1,111 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apprecalc-mcq-014",
+  "content_key": "apprecalc-mcq-014",
+  "content_version": 1,
+  "difficulty": "Very Hard",
+  "exam_pack_ref": {
+    "exam_code": "ap_precalculus",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "mcq",
+  "archetype_ref": {
+    "archetype_key": "ap-precalculus-mcq",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-precalculus-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-2-exponential-and-logarithmic-functions"
+    },
+    {
+      "scheme_key": "ap-precalculus-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-2"
+    }
+  ],
+  "stimuli": [],
+  "mcq_choices": [
+    {
+      "choice_key": "A",
+      "choice_text": "x>2",
+      "is_correct": false,
+      "rationale": "This omits the negative branch."
+    },
+    {
+      "choice_key": "B",
+      "choice_text": "x<−2",
+      "is_correct": false,
+      "rationale": "This omits the positive branch."
+    },
+    {
+      "choice_key": "C",
+      "choice_text": "−2<x<2",
+      "is_correct": false,
+      "rationale": "The logarithm's argument is negative there."
+    },
+    {
+      "choice_key": "D",
+      "choice_text": "x<−2 or x>2",
+      "is_correct": true,
+      "rationale": "The logarithm requires x²−4>0, which holds outside [−2,2]."
+    }
+  ],
+  "canonical_answers": [
+    "D"
+  ],
+  "parts": [
+    {
+      "part_key": "question",
+      "ordinal": 1,
+      "prompt": "For h(x)=ln(x²−4), the domain is\n\nA. x>2\nB. x<−2\nC. −2<x<2\nD. x<−2 or x>2",
+      "response_modalities": [
+        "choice"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-answer",
+          "points": 1,
+          "description": "Select the unique correct response.",
+          "required_evidence": [
+            "D",
+            "The logarithm requires x²−4>0, which holds outside [−2,2]."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "choice-key",
+              "parameters": {
+                "correct_key": "D"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All mathematical information is provided in text."
+  },
+  "review_notes": {
+    "expected_reasoning": "The logarithm requires x²−4>0, which holds outside [−2,2].",
+    "known_boundary_cases": [
+      "Reject alternate choices unless their stated expression is mathematically equivalent to the keyed result."
+    ],
+    "originality_statement": "Independently authored Cramapple practice item; no released or secure question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-precalculus-public-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-17",
+    "authoring_prompt_version": "CODEX_CALCULUS_THREE_SUBJECT_SEED_2026_07_17",
+    "generated_by": "codex",
+    "generated_at": "2026-07-17T00:00:00Z",
+    "content_sha256": "ef6777a7bfd7c1a3d109c3ad52f32277f8f76f95f17aa533a2f6beb6c333091d"
+  }
+}

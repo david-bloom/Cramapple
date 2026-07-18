@@ -1,0 +1,192 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apcalcbc-frq-012",
+  "content_key": "apcalcbc-frq-012",
+  "content_version": 1,
+  "difficulty": "Medium",
+  "frq_form": "short",
+  "canonical_answers": [
+    "dy/dx=(3t²−3)/(2t−2)=3(t+1)/2 for t≠1. | At t=1, dx/dt=0 and dy/dt=0 as well; after cancellation the slope limit is 3, so there is no vertical tangent there. | The point is (0,0), the slope is 3/2, and the line is y=(3/2)x."
+  ],
+  "exam_pack_ref": {
+    "exam_code": "ap_calculus_bc",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "frq",
+  "archetype_ref": {
+    "archetype_key": "ap-calculus-bc-frq-representation",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-calculus-bc-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-9-parametric-polar-and-vector-valued-functions"
+    },
+    {
+      "scheme_key": "ap-calculus-bc-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-1"
+    }
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "scenario",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "A parametric curve is x=t²−2t and y=t³−3t for −1≤t≤3.",
+        "calculator_mode": "not-permitted"
+      },
+      "source_refs": [
+        "ap-calculus-bc-public-fact-pack"
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "part_key": "part-a",
+      "ordinal": 1,
+      "label": "(a)",
+      "prompt": "Find dy/dx where dx/dt≠0.",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "dy/dx=(3t²−3)/(2t−2)=3(t+1)/2 for t≠1.",
+          "required_evidence": [
+            "(3t²−3)/(2t−2)",
+            "3(t+1)/2"
+          ],
+          "accepted_variants": [
+            "Any algebraically equivalent form with correct reasoning."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "(3t²−3)/(2t−2)",
+                  "3(t+1)/2"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part_key": "part-b",
+      "ordinal": 2,
+      "label": "(b)",
+      "prompt": "Identify the parameter value for a vertical tangent and give the point.",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-b-criterion-1",
+          "points": 1,
+          "description": "At t=1, dx/dt=0 and dy/dt=0 as well; after cancellation the slope limit is 3, so there is no vertical tangent there.",
+          "required_evidence": [
+            "t=1",
+            "both derivatives zero",
+            "no vertical tangent"
+          ],
+          "accepted_variants": [
+            "Any algebraically equivalent form with correct reasoning."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "t=1",
+                  "both derivatives zero",
+                  "no vertical tangent"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part_key": "part-c",
+      "ordinal": 3,
+      "label": "(c)",
+      "prompt": "Find the tangent line at t=0.",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-c-criterion-1",
+          "points": 1,
+          "description": "The point is (0,0), the slope is 3/2, and the line is y=(3/2)x.",
+          "required_evidence": [
+            "(0,0)",
+            "3/2",
+            "y=(3/2)x"
+          ],
+          "accepted_variants": [
+            "Any algebraically equivalent form with correct reasoning."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "(0,0)",
+                  "3/2",
+                  "y=(3/2)x"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "The prompt is complete in text; graph responses may be described with labeled features during accessibility review."
+  },
+  "review_notes": {
+    "expected_reasoning": "dy/dx=(3t²−3)/(2t−2)=3(t+1)/2 for t≠1. | At t=1, dx/dt=0 and dy/dt=0 as well; after cancellation the slope limit is 3, so there is no vertical tangent there. | The point is (0,0), the slope is 3/2, and the line is y=(3/2)x.",
+    "known_boundary_cases": [
+      "At t=1 the original parameterization is singular; do not award a vertical tangent solely from dx/dt=0."
+    ],
+    "originality_statement": "Independently authored Cramapple draft for Tutor review; no released or secure question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-calculus-bc-public-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-17",
+    "authoring_prompt_version": "CODEX_CALCULUS_THREE_SUBJECT_SEED_2026_07_17",
+    "generated_by": "codex",
+    "generated_at": "2026-07-17T00:00:00Z",
+    "content_sha256": "57a36d25167bc0127325d89be50c44128d1bc51c6a38ccf9372210d2b13a8373"
+  }
+}

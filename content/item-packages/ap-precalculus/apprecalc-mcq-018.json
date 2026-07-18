@@ -1,0 +1,111 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apprecalc-mcq-018",
+  "content_key": "apprecalc-mcq-018",
+  "content_version": 1,
+  "difficulty": "Medium",
+  "exam_pack_ref": {
+    "exam_code": "ap_precalculus",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "mcq",
+  "archetype_ref": {
+    "archetype_key": "ap-precalculus-mcq",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-precalculus-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-3-trigonometric-and-polar-functions"
+    },
+    {
+      "scheme_key": "ap-precalculus-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-1"
+    }
+  ],
+  "stimuli": [],
+  "mcq_choices": [
+    {
+      "choice_key": "A",
+      "choice_text": "π/3",
+      "is_correct": false,
+      "rationale": "Cosine is positive at π/3."
+    },
+    {
+      "choice_key": "B",
+      "choice_text": "2π/3",
+      "is_correct": true,
+      "rationale": "The principal arccos range is [0,π], and cosine is −1/2 at 2π/3 there."
+    },
+    {
+      "choice_key": "C",
+      "choice_text": "4π/3",
+      "is_correct": false,
+      "rationale": "This angle lies outside the principal range."
+    },
+    {
+      "choice_key": "D",
+      "choice_text": "5π/3",
+      "is_correct": false,
+      "rationale": "This angle also lies outside the principal range."
+    }
+  ],
+  "canonical_answers": [
+    "B"
+  ],
+  "parts": [
+    {
+      "part_key": "question",
+      "ordinal": 1,
+      "prompt": "If θ=arccos(−1/2), using the principal range of arccos, then θ=\n\nA. π/3\nB. 2π/3\nC. 4π/3\nD. 5π/3",
+      "response_modalities": [
+        "choice"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-answer",
+          "points": 1,
+          "description": "Select the unique correct response.",
+          "required_evidence": [
+            "B",
+            "The principal arccos range is [0,π], and cosine is −1/2 at 2π/3 there."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "choice-key",
+              "parameters": {
+                "correct_key": "B"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All mathematical information is provided in text."
+  },
+  "review_notes": {
+    "expected_reasoning": "The principal arccos range is [0,π], and cosine is −1/2 at 2π/3 there.",
+    "known_boundary_cases": [
+      "Reject alternate choices unless their stated expression is mathematically equivalent to the keyed result."
+    ],
+    "originality_statement": "Independently authored Cramapple practice item; no released or secure question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-precalculus-public-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-17",
+    "authoring_prompt_version": "CODEX_CALCULUS_THREE_SUBJECT_SEED_2026_07_17",
+    "generated_by": "codex",
+    "generated_at": "2026-07-17T00:00:00Z",
+    "content_sha256": "640e2663ab73b47f2d28d4696714468494bd4a934635e04c05a86093e80110a8"
+  }
+}

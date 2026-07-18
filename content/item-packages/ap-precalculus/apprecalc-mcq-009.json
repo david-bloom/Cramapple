@@ -1,0 +1,111 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apprecalc-mcq-009",
+  "content_key": "apprecalc-mcq-009",
+  "content_version": 1,
+  "difficulty": "Medium",
+  "exam_pack_ref": {
+    "exam_code": "ap_precalculus",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "mcq",
+  "archetype_ref": {
+    "archetype_key": "ap-precalculus-mcq",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-precalculus-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-2-exponential-and-logarithmic-functions"
+    },
+    {
+      "scheme_key": "ap-precalculus-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-1"
+    }
+  ],
+  "stimuli": [],
+  "mcq_choices": [
+    {
+      "choice_key": "A",
+      "choice_text": "x=4",
+      "is_correct": false,
+      "rationale": "This uses 2·3."
+    },
+    {
+      "choice_key": "B",
+      "choice_text": "x=7",
+      "is_correct": false,
+      "rationale": "This subtracts rather than adds 1."
+    },
+    {
+      "choice_key": "C",
+      "choice_text": "x=8",
+      "is_correct": false,
+      "rationale": "This gives x−1 rather than x."
+    },
+    {
+      "choice_key": "D",
+      "choice_text": "x=9",
+      "is_correct": true,
+      "rationale": "The equation is x−1=2³=8, so x=9."
+    }
+  ],
+  "canonical_answers": [
+    "D"
+  ],
+  "parts": [
+    {
+      "part_key": "question",
+      "ordinal": 1,
+      "prompt": "Solve log₂(x−1)=3.\n\nA. x=4\nB. x=7\nC. x=8\nD. x=9",
+      "response_modalities": [
+        "choice"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-answer",
+          "points": 1,
+          "description": "Select the unique correct response.",
+          "required_evidence": [
+            "D",
+            "The equation is x−1=2³=8, so x=9."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "choice-key",
+              "parameters": {
+                "correct_key": "D"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All mathematical information is provided in text."
+  },
+  "review_notes": {
+    "expected_reasoning": "The equation is x−1=2³=8, so x=9.",
+    "known_boundary_cases": [
+      "Reject alternate choices unless their stated expression is mathematically equivalent to the keyed result."
+    ],
+    "originality_statement": "Independently authored Cramapple practice item; no released or secure question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-precalculus-public-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-17",
+    "authoring_prompt_version": "CODEX_CALCULUS_THREE_SUBJECT_SEED_2026_07_17",
+    "generated_by": "codex",
+    "generated_at": "2026-07-17T00:00:00Z",
+    "content_sha256": "2496655b05940a4eadbb13c240840215928d3472d33697bcee0b8c16deaf2293"
+  }
+}

@@ -1,0 +1,111 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apcalcbc-mcq-002",
+  "content_key": "apcalcbc-mcq-002",
+  "content_version": 1,
+  "difficulty": "Medium",
+  "exam_pack_ref": {
+    "exam_code": "ap_calculus_bc",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "mcq",
+  "archetype_ref": {
+    "archetype_key": "ap-calculus-bc-mcq",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-calculus-bc-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-2-differentiation-definition-and-fundamental-properties"
+    },
+    {
+      "scheme_key": "ap-calculus-bc-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-1"
+    }
+  ],
+  "stimuli": [],
+  "mcq_choices": [
+    {
+      "choice_key": "A",
+      "choice_text": "x·x^(x−1)",
+      "is_correct": false,
+      "rationale": "This treats the exponent as constant."
+    },
+    {
+      "choice_key": "B",
+      "choice_text": "x^x ln x",
+      "is_correct": false,
+      "rationale": "This treats the base as constant."
+    },
+    {
+      "choice_key": "C",
+      "choice_text": "x^x(ln x+1)",
+      "is_correct": true,
+      "rationale": "Logarithmic differentiation of y=x^x gives y′/y=ln x+1."
+    },
+    {
+      "choice_key": "D",
+      "choice_text": "x^(x−1)(x+1)",
+      "is_correct": false,
+      "rationale": "This does not follow from logarithmic differentiation."
+    }
+  ],
+  "canonical_answers": [
+    "C"
+  ],
+  "parts": [
+    {
+      "part_key": "question",
+      "ordinal": 1,
+      "prompt": "For x>0, d/dx(x^x) equals\n\nA. x·x^(x−1)\nB. x^x ln x\nC. x^x(ln x+1)\nD. x^(x−1)(x+1)",
+      "response_modalities": [
+        "choice"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-answer",
+          "points": 1,
+          "description": "Select the unique correct response.",
+          "required_evidence": [
+            "C",
+            "Logarithmic differentiation of y=x^x gives y′/y=ln x+1."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "choice-key",
+              "parameters": {
+                "correct_key": "C"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All mathematical information is provided in text."
+  },
+  "review_notes": {
+    "expected_reasoning": "Logarithmic differentiation of y=x^x gives y′/y=ln x+1.",
+    "known_boundary_cases": [
+      "Reject alternate choices unless their stated expression is mathematically equivalent to the keyed result."
+    ],
+    "originality_statement": "Independently authored Cramapple practice item; no released or secure question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-calculus-bc-public-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-17",
+    "authoring_prompt_version": "CODEX_CALCULUS_THREE_SUBJECT_SEED_2026_07_17",
+    "generated_by": "codex",
+    "generated_at": "2026-07-17T00:00:00Z",
+    "content_sha256": "22c157888bbd8ea192712d006faf9144d6106ed1703f7bb26593e2505c2c566a"
+  }
+}

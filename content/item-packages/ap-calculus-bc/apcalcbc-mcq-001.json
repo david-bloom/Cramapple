@@ -1,0 +1,111 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apcalcbc-mcq-001",
+  "content_key": "apcalcbc-mcq-001",
+  "content_version": 1,
+  "difficulty": "Easy",
+  "exam_pack_ref": {
+    "exam_code": "ap_calculus_bc",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "mcq",
+  "archetype_ref": {
+    "archetype_key": "ap-calculus-bc-mcq",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-calculus-bc-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-1-limits-and-continuity"
+    },
+    {
+      "scheme_key": "ap-calculus-bc-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-1"
+    }
+  ],
+  "stimuli": [],
+  "mcq_choices": [
+    {
+      "choice_key": "A",
+      "choice_text": "0",
+      "is_correct": false,
+      "rationale": "The numerator and denominator both approach zero, but their ratio need not."
+    },
+    {
+      "choice_key": "B",
+      "choice_text": "1",
+      "is_correct": false,
+      "rationale": "This omits the inner factor 2."
+    },
+    {
+      "choice_key": "C",
+      "choice_text": "2",
+      "is_correct": true,
+      "rationale": "The expression has derivative ratio 2e^(2x)/1 at 0, or follows the standard exponential limit, giving 2."
+    },
+    {
+      "choice_key": "D",
+      "choice_text": "The limit diverges",
+      "is_correct": false,
+      "rationale": "The removable 0/0 form has a finite limit."
+    }
+  ],
+  "canonical_answers": [
+    "C"
+  ],
+  "parts": [
+    {
+      "part_key": "question",
+      "ordinal": 1,
+      "prompt": "Evaluate lim(x→0) (e^(2x)−1)/x.\n\nA. 0\nB. 1\nC. 2\nD. The limit diverges",
+      "response_modalities": [
+        "choice"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-answer",
+          "points": 1,
+          "description": "Select the unique correct response.",
+          "required_evidence": [
+            "C",
+            "The expression has derivative ratio 2e^(2x)/1 at 0, or follows the standard exponential limit, giving 2."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "choice-key",
+              "parameters": {
+                "correct_key": "C"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All mathematical information is provided in text."
+  },
+  "review_notes": {
+    "expected_reasoning": "The expression has derivative ratio 2e^(2x)/1 at 0, or follows the standard exponential limit, giving 2.",
+    "known_boundary_cases": [
+      "Reject alternate choices unless their stated expression is mathematically equivalent to the keyed result."
+    ],
+    "originality_statement": "Independently authored Cramapple practice item; no released or secure question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-calculus-bc-public-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-17",
+    "authoring_prompt_version": "CODEX_CALCULUS_THREE_SUBJECT_SEED_2026_07_17",
+    "generated_by": "codex",
+    "generated_at": "2026-07-17T00:00:00Z",
+    "content_sha256": "366e325e64f25e89d904a243179c30e14d6851220e7dc997160256de1d1a38a4"
+  }
+}

@@ -1,0 +1,111 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apcalcab-mcq-010",
+  "content_key": "apcalcab-mcq-010",
+  "content_version": 1,
+  "difficulty": "Hard",
+  "exam_pack_ref": {
+    "exam_code": "ap_calculus_ab",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "mcq",
+  "archetype_ref": {
+    "archetype_key": "ap-calculus-ab-mcq",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-calculus-ab-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-4-contextual-applications-of-differentiation"
+    },
+    {
+      "scheme_key": "ap-calculus-ab-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-3"
+    }
+  ],
+  "stimuli": [],
+  "mcq_choices": [
+    {
+      "choice_key": "A",
+      "choice_text": "an underestimate because h is concave up",
+      "is_correct": false,
+      "rationale": "The square-root function is not concave up."
+    },
+    {
+      "choice_key": "B",
+      "choice_text": "an overestimate because h is concave down",
+      "is_correct": true,
+      "rationale": "Since h″(x)<0, the tangent line lies above the graph, so the linearization overestimates √10."
+    },
+    {
+      "choice_key": "C",
+      "choice_text": "exact because h is linear near 9",
+      "is_correct": false,
+      "rationale": "Local linearity is an approximation, not exact equality."
+    },
+    {
+      "choice_key": "D",
+      "choice_text": "an underestimate because h′(9)>0",
+      "is_correct": false,
+      "rationale": "The sign of the first derivative does not determine over- versus underestimation."
+    }
+  ],
+  "canonical_answers": [
+    "B"
+  ],
+  "parts": [
+    {
+      "part_key": "question",
+      "ordinal": 1,
+      "prompt": "Let h(x)=√x. The tangent-line estimate at x=9 is used for √10. The estimate is\n\nA. an underestimate because h is concave up\nB. an overestimate because h is concave down\nC. exact because h is linear near 9\nD. an underestimate because h′(9)>0",
+      "response_modalities": [
+        "choice"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-answer",
+          "points": 1,
+          "description": "Select the unique correct response.",
+          "required_evidence": [
+            "B",
+            "Since h″(x)<0, the tangent line lies above the graph, so the linearization overestimates √10."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "choice-key",
+              "parameters": {
+                "correct_key": "B"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All mathematical information is provided in text."
+  },
+  "review_notes": {
+    "expected_reasoning": "Since h″(x)<0, the tangent line lies above the graph, so the linearization overestimates √10.",
+    "known_boundary_cases": [
+      "Reject alternate choices unless their stated expression is mathematically equivalent to the keyed result."
+    ],
+    "originality_statement": "Independently authored Cramapple practice item; no released or secure question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-calculus-ab-public-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-17",
+    "authoring_prompt_version": "CODEX_CALCULUS_THREE_SUBJECT_SEED_2026_07_17",
+    "generated_by": "codex",
+    "generated_at": "2026-07-17T00:00:00Z",
+    "content_sha256": "7bb5b984999e71458aa1ec09ccae9e4b2e703fedf43751b32d0fbfe0abb2be1b"
+  }
+}

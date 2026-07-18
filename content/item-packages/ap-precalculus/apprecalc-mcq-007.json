@@ -1,0 +1,111 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apprecalc-mcq-007",
+  "content_key": "apprecalc-mcq-007",
+  "content_version": 1,
+  "difficulty": "Very Hard",
+  "exam_pack_ref": {
+    "exam_code": "ap_precalculus",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "mcq",
+  "archetype_ref": {
+    "archetype_key": "ap-precalculus-mcq",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-precalculus-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-1-polynomial-and-rational-functions"
+    },
+    {
+      "scheme_key": "ap-precalculus-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-2"
+    }
+  ],
+  "stimuli": [],
+  "mcq_choices": [
+    {
+      "choice_key": "A",
+      "choice_text": "Q(x)→0",
+      "is_correct": false,
+      "rationale": "The numerator degree is larger, so the ratio does not tend to zero."
+    },
+    {
+      "choice_key": "B",
+      "choice_text": "Q(x)→1",
+      "is_correct": false,
+      "rationale": "Equal-degree behavior would give a horizontal limit."
+    },
+    {
+      "choice_key": "C",
+      "choice_text": "Q(x) behaves like x",
+      "is_correct": true,
+      "rationale": "The numerator has degree 3 with leading coefficient 1 and the denominator degree 2, so polynomial division gives slant behavior like x."
+    },
+    {
+      "choice_key": "D",
+      "choice_text": "Q(x) behaves like x²",
+      "is_correct": false,
+      "rationale": "The degree difference is one, not two."
+    }
+  ],
+  "canonical_answers": [
+    "C"
+  ],
+  "parts": [
+    {
+      "part_key": "question",
+      "ordinal": 1,
+      "prompt": "For Q(x)=(x−1)²(x+2)/(x²+1), the right-end behavior is closest to\n\nA. Q(x)→0\nB. Q(x)→1\nC. Q(x) behaves like x\nD. Q(x) behaves like x²",
+      "response_modalities": [
+        "choice"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-answer",
+          "points": 1,
+          "description": "Select the unique correct response.",
+          "required_evidence": [
+            "C",
+            "The numerator has degree 3 with leading coefficient 1 and the denominator degree 2, so polynomial division gives slant behavior like x."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "choice-key",
+              "parameters": {
+                "correct_key": "C"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All mathematical information is provided in text."
+  },
+  "review_notes": {
+    "expected_reasoning": "The numerator has degree 3 with leading coefficient 1 and the denominator degree 2, so polynomial division gives slant behavior like x.",
+    "known_boundary_cases": [
+      "Reject alternate choices unless their stated expression is mathematically equivalent to the keyed result."
+    ],
+    "originality_statement": "Independently authored Cramapple practice item; no released or secure question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-precalculus-public-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-17",
+    "authoring_prompt_version": "CODEX_CALCULUS_THREE_SUBJECT_SEED_2026_07_17",
+    "generated_by": "codex",
+    "generated_at": "2026-07-17T00:00:00Z",
+    "content_sha256": "02af0b28f2cb9f7ebda255892669b79e05c8f42fbf60a9f1718003d61242252e"
+  }
+}

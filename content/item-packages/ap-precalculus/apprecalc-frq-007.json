@@ -1,0 +1,259 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apprecalc-frq-007",
+  "content_key": "apprecalc-frq-007",
+  "content_version": 1,
+  "difficulty": "Hard",
+  "frq_form": "short",
+  "canonical_answers": [
+    "D(5)≈17.80°C. | After 5 minutes the sensor is about 17.8°C above room temperature. | The boundary time solves t=ln(10/48)/ln(0.82)≈7.91. | The model is below 10°C for t>7.91 minutes. | Exponential decay removes 18% of the current amount each minute. | A linear model would subtract the same absolute temperature difference each minute."
+  ],
+  "exam_pack_ref": {
+    "exam_code": "ap_precalculus",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "frq",
+  "archetype_ref": {
+    "archetype_key": "ap-precalculus-frq-nonperiodic-modeling",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-precalculus-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-2-exponential-and-logarithmic-functions"
+    },
+    {
+      "scheme_key": "ap-precalculus-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-3"
+    }
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "scenario",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "A sensor's excess temperature above room level is D(t)=48(0.82)^t degrees Celsius after t minutes.",
+        "calculator_mode": "approved-handheld"
+      },
+      "source_refs": [
+        "ap-precalculus-public-fact-pack"
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "part_key": "part-a",
+      "ordinal": 1,
+      "label": "(a)",
+      "prompt": "Find D(5) and interpret it.",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 2,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "D(5)≈17.80°C.",
+          "required_evidence": [
+            "48(0.82)^5",
+            "17.80"
+          ],
+          "accepted_variants": [
+            "Any algebraically equivalent form with correct reasoning."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "numeric-tolerance",
+              "parameters": {
+                "expected_value": 17.795,
+                "tolerance": 0.02,
+                "unit": "degrees C"
+              }
+            }
+          ]
+        },
+        {
+          "criterion_key": "part-a-criterion-2",
+          "points": 1,
+          "description": "After 5 minutes the sensor is about 17.8°C above room temperature.",
+          "required_evidence": [
+            "above room",
+            "5 minutes"
+          ],
+          "accepted_variants": [
+            "Any algebraically equivalent form with correct reasoning."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "above room",
+                  "5 minutes"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part_key": "part-b",
+      "ordinal": 2,
+      "label": "(b)",
+      "prompt": "Find the time when the excess first falls below 10°C.",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 2,
+      "criteria": [
+        {
+          "criterion_key": "part-b-criterion-1",
+          "points": 1,
+          "description": "The boundary time solves t=ln(10/48)/ln(0.82)≈7.91.",
+          "required_evidence": [
+            "ln(10/48)",
+            "ln(0.82)",
+            "7.91"
+          ],
+          "accepted_variants": [
+            "Any algebraically equivalent form with correct reasoning."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "ln(10/48)",
+                  "ln(0.82)",
+                  "7.91"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "criterion_key": "part-b-criterion-2",
+          "points": 1,
+          "description": "The model is below 10°C for t>7.91 minutes.",
+          "required_evidence": [
+            "t>7.91",
+            "below 10"
+          ],
+          "accepted_variants": [
+            "Any algebraically equivalent form with correct reasoning."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "t>7.91",
+                  "below 10"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part_key": "part-c",
+      "ordinal": 3,
+      "label": "(c)",
+      "prompt": "Explain why a linear decrease of 18% of the original 48 each minute would be a different model.",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 2,
+      "criteria": [
+        {
+          "criterion_key": "part-c-criterion-1",
+          "points": 1,
+          "description": "Exponential decay removes 18% of the current amount each minute.",
+          "required_evidence": [
+            "current amount",
+            "18%"
+          ],
+          "accepted_variants": [
+            "Any algebraically equivalent form with correct reasoning."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "current amount",
+                  "18%"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "criterion_key": "part-c-criterion-2",
+          "points": 1,
+          "description": "A linear model would subtract the same absolute temperature difference each minute.",
+          "required_evidence": [
+            "same absolute amount",
+            "linear"
+          ],
+          "accepted_variants": [
+            "Any algebraically equivalent form with correct reasoning."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "same absolute amount",
+                  "linear"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "The prompt is complete in text; graph responses may be described with labeled features during accessibility review."
+  },
+  "review_notes": {
+    "expected_reasoning": "D(5)≈17.80°C. | After 5 minutes the sensor is about 17.8°C above room temperature. | The boundary time solves t=ln(10/48)/ln(0.82)≈7.91. | The model is below 10°C for t>7.91 minutes. | Exponential decay removes 18% of the current amount each minute. | A linear model would subtract the same absolute temperature difference each minute.",
+    "known_boundary_cases": [
+      "Award a criterion only when the conclusion is supported by the stated mathematical evidence.",
+      "Carry-forward arithmetic may earn later reasoning credit when the method remains valid."
+    ],
+    "originality_statement": "Independently authored Cramapple draft for Tutor review; no released or secure question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-precalculus-public-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-17",
+    "authoring_prompt_version": "CODEX_CALCULUS_THREE_SUBJECT_SEED_2026_07_17",
+    "generated_by": "codex",
+    "generated_at": "2026-07-17T00:00:00Z",
+    "content_sha256": "26bc9d7ff2973b5b0024ef4ee76febff3298fee27b6a45b59702ad8dcc227e4b"
+  }
+}

@@ -1,0 +1,111 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apcalcbc-mcq-007",
+  "content_key": "apcalcbc-mcq-007",
+  "content_version": 1,
+  "difficulty": "Very Hard",
+  "exam_pack_ref": {
+    "exam_code": "ap_calculus_bc",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "mcq",
+  "archetype_ref": {
+    "archetype_key": "ap-calculus-bc-mcq",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-calculus-bc-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-5-analytical-applications-of-differentiation"
+    },
+    {
+      "scheme_key": "ap-calculus-bc-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-1"
+    }
+  ],
+  "stimuli": [],
+  "mcq_choices": [
+    {
+      "choice_key": "A",
+      "choice_text": "1",
+      "is_correct": false,
+      "rationale": "This performs no update."
+    },
+    {
+      "choice_key": "B",
+      "choice_text": "4/3",
+      "is_correct": true,
+      "rationale": "Newton's formula gives 1−(1−2)/3=4/3."
+    },
+    {
+      "choice_key": "C",
+      "choice_text": "3/2",
+      "is_correct": false,
+      "rationale": "This uses an incorrect derivative or arithmetic."
+    },
+    {
+      "choice_key": "D",
+      "choice_text": "2",
+      "is_correct": false,
+      "rationale": "This jumps to the radicand rather than applying Newton's method."
+    }
+  ],
+  "canonical_answers": [
+    "B"
+  ],
+  "parts": [
+    {
+      "part_key": "question",
+      "ordinal": 1,
+      "prompt": "One Newton iteration for solving x³−2=0, starting at x₀=1, gives x₁=\n\nA. 1\nB. 4/3\nC. 3/2\nD. 2",
+      "response_modalities": [
+        "choice"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-answer",
+          "points": 1,
+          "description": "Select the unique correct response.",
+          "required_evidence": [
+            "B",
+            "Newton's formula gives 1−(1−2)/3=4/3."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "choice-key",
+              "parameters": {
+                "correct_key": "B"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All mathematical information is provided in text."
+  },
+  "review_notes": {
+    "expected_reasoning": "Newton's formula gives 1−(1−2)/3=4/3.",
+    "known_boundary_cases": [
+      "Reject alternate choices unless their stated expression is mathematically equivalent to the keyed result."
+    ],
+    "originality_statement": "Independently authored Cramapple practice item; no released or secure question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-calculus-bc-public-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-17",
+    "authoring_prompt_version": "CODEX_CALCULUS_THREE_SUBJECT_SEED_2026_07_17",
+    "generated_by": "codex",
+    "generated_at": "2026-07-17T00:00:00Z",
+    "content_sha256": "8ca14788d3f41ac46eab21df71cc742f8d5a6bd26db2adc20ab47372ab98806e"
+  }
+}

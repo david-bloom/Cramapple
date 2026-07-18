@@ -1,0 +1,255 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apprecalc-frq-005",
+  "content_key": "apprecalc-frq-005",
+  "content_version": 1,
+  "difficulty": "Medium",
+  "frq_form": "short",
+  "canonical_answers": [
+    "The vertex occurs at x=8 batches. | The negative leading coefficient confirms the vertex is a maximum. | P(8)=14 hundred dollars. | The modeled maximum daily profit is $1,400. | x=30 lies outside the stated domain. | The quadratic's extrapolated decline is not supported by the observed production range."
+  ],
+  "exam_pack_ref": {
+    "exam_code": "ap_precalculus",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "frq",
+  "archetype_ref": {
+    "archetype_key": "ap-precalculus-frq-nonperiodic-modeling",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-precalculus-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-1-polynomial-and-rational-functions"
+    },
+    {
+      "scheme_key": "ap-precalculus-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-3"
+    }
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "scenario",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "A workshop's daily profit, in hundreds of dollars, is modeled by P(x)=−0.5x²+8x−18 for 2≤x≤14, where x is the number of batches produced.",
+        "calculator_mode": "approved-handheld"
+      },
+      "source_refs": [
+        "ap-precalculus-public-fact-pack"
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "part_key": "part-a",
+      "ordinal": 1,
+      "label": "(a)",
+      "prompt": "Find the production level that maximizes modeled profit.",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 2,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "The vertex occurs at x=8 batches.",
+          "required_evidence": [
+            "−b/(2a)",
+            "x=8"
+          ],
+          "accepted_variants": [
+            "Any algebraically equivalent form with correct reasoning."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "−b/(2a)",
+                  "x=8"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "criterion_key": "part-a-criterion-2",
+          "points": 1,
+          "description": "The negative leading coefficient confirms the vertex is a maximum.",
+          "required_evidence": [
+            "negative leading coefficient",
+            "maximum"
+          ],
+          "accepted_variants": [
+            "Any algebraically equivalent form with correct reasoning."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "negative leading coefficient",
+                  "maximum"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part_key": "part-b",
+      "ordinal": 2,
+      "label": "(b)",
+      "prompt": "Find and interpret the maximum profit.",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 2,
+      "criteria": [
+        {
+          "criterion_key": "part-b-criterion-1",
+          "points": 1,
+          "description": "P(8)=14 hundred dollars.",
+          "required_evidence": [
+            "P(8)=14"
+          ],
+          "accepted_variants": [
+            "Any algebraically equivalent form with correct reasoning."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "numeric-tolerance",
+              "parameters": {
+                "expected_value": 14,
+                "tolerance": 0
+              }
+            }
+          ]
+        },
+        {
+          "criterion_key": "part-b-criterion-2",
+          "points": 1,
+          "description": "The modeled maximum daily profit is $1,400.",
+          "required_evidence": [
+            "$1,400",
+            "daily profit"
+          ],
+          "accepted_variants": [
+            "Any algebraically equivalent form with correct reasoning."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "$1,400",
+                  "daily profit"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part_key": "part-c",
+      "ordinal": 3,
+      "label": "(c)",
+      "prompt": "State one limitation of using the model at x=30.",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 2,
+      "criteria": [
+        {
+          "criterion_key": "part-c-criterion-1",
+          "points": 1,
+          "description": "x=30 lies outside the stated domain.",
+          "required_evidence": [
+            "outside",
+            "2≤x≤14"
+          ],
+          "accepted_variants": [
+            "Any algebraically equivalent form with correct reasoning."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "outside",
+                  "2≤x≤14"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "criterion_key": "part-c-criterion-2",
+          "points": 1,
+          "description": "The quadratic's extrapolated decline is not supported by the observed production range.",
+          "required_evidence": [
+            "extrapolation",
+            "not supported"
+          ],
+          "accepted_variants": [
+            "Any algebraically equivalent form with correct reasoning."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "extrapolation",
+                  "not supported"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "The prompt is complete in text; graph responses may be described with labeled features during accessibility review."
+  },
+  "review_notes": {
+    "expected_reasoning": "The vertex occurs at x=8 batches. | The negative leading coefficient confirms the vertex is a maximum. | P(8)=14 hundred dollars. | The modeled maximum daily profit is $1,400. | x=30 lies outside the stated domain. | The quadratic's extrapolated decline is not supported by the observed production range.",
+    "known_boundary_cases": [
+      "Award a criterion only when the conclusion is supported by the stated mathematical evidence.",
+      "Carry-forward arithmetic may earn later reasoning credit when the method remains valid."
+    ],
+    "originality_statement": "Independently authored Cramapple draft for Tutor review; no released or secure question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-precalculus-public-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-17",
+    "authoring_prompt_version": "CODEX_CALCULUS_THREE_SUBJECT_SEED_2026_07_17",
+    "generated_by": "codex",
+    "generated_at": "2026-07-17T00:00:00Z",
+    "content_sha256": "708756480e052129f5648686adf27a050c3de245b9a2d440274c39565b8d32a9"
+  }
+}

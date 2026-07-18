@@ -1,0 +1,251 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apprecalc-frq-014",
+  "content_key": "apprecalc-frq-014",
+  "content_version": 1,
+  "difficulty": "Hard",
+  "frq_form": "short",
+  "canonical_answers": [
+    "Taking logarithms gives (x+1)ln3=(2x−1)ln7. | x=−(ln3+ln7)/(ln3−2ln7). | x≈1.090. | Substitution makes the two positive exponential expressions approximately equal. | The logarithmic equation is linear in x. | Its coefficient ln3−2ln7 is nonzero, so it has one solution."
+  ],
+  "exam_pack_ref": {
+    "exam_code": "ap_precalculus",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "frq",
+  "archetype_ref": {
+    "archetype_key": "ap-precalculus-frq-symbolic-manipulation",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-precalculus-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-2-exponential-and-logarithmic-functions"
+    },
+    {
+      "scheme_key": "ap-precalculus-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-1"
+    }
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "scenario",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "Solve and analyze 3^(x+1)=7^(2x−1).",
+        "calculator_mode": "not-permitted"
+      },
+      "source_refs": [
+        "ap-precalculus-public-fact-pack"
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "part_key": "part-a",
+      "ordinal": 1,
+      "label": "(a)",
+      "prompt": "Solve exactly for x.",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 2,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "Taking logarithms gives (x+1)ln3=(2x−1)ln7.",
+          "required_evidence": [
+            "(x+1)ln3",
+            "(2x−1)ln7"
+          ],
+          "accepted_variants": [
+            "Any algebraically equivalent form with correct reasoning."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "(x+1)ln3",
+                  "(2x−1)ln7"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "criterion_key": "part-a-criterion-2",
+          "points": 1,
+          "description": "x=−(ln3+ln7)/(ln3−2ln7).",
+          "required_evidence": [
+            "−(ln3+ln7)/(ln3−2ln7)"
+          ],
+          "accepted_variants": [
+            "Any algebraically equivalent form with correct reasoning."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "−(ln3+ln7)/(ln3−2ln7)"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part_key": "part-b",
+      "ordinal": 2,
+      "label": "(b)",
+      "prompt": "Give a decimal approximation.",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 2,
+      "criteria": [
+        {
+          "criterion_key": "part-b-criterion-1",
+          "points": 1,
+          "description": "x≈1.090.",
+          "required_evidence": [
+            "1.090"
+          ],
+          "accepted_variants": [
+            "Any algebraically equivalent form with correct reasoning."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "numeric-tolerance",
+              "parameters": {
+                "expected_value": 1.09,
+                "tolerance": 0.002
+              }
+            }
+          ]
+        },
+        {
+          "criterion_key": "part-b-criterion-2",
+          "points": 1,
+          "description": "Substitution makes the two positive exponential expressions approximately equal.",
+          "required_evidence": [
+            "substitution",
+            "equal"
+          ],
+          "accepted_variants": [
+            "Any algebraically equivalent form with correct reasoning."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "substitution",
+                  "equal"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part_key": "part-c",
+      "ordinal": 3,
+      "label": "(c)",
+      "prompt": "Explain why there is at most one solution.",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 2,
+      "criteria": [
+        {
+          "criterion_key": "part-c-criterion-1",
+          "points": 1,
+          "description": "The logarithmic equation is linear in x.",
+          "required_evidence": [
+            "linear in x"
+          ],
+          "accepted_variants": [
+            "Any algebraically equivalent form with correct reasoning."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "linear in x"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "criterion_key": "part-c-criterion-2",
+          "points": 1,
+          "description": "Its coefficient ln3−2ln7 is nonzero, so it has one solution.",
+          "required_evidence": [
+            "nonzero coefficient",
+            "one solution"
+          ],
+          "accepted_variants": [
+            "Any algebraically equivalent form with correct reasoning."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "nonzero coefficient",
+                  "one solution"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "The prompt is complete in text; graph responses may be described with labeled features during accessibility review."
+  },
+  "review_notes": {
+    "expected_reasoning": "Taking logarithms gives (x+1)ln3=(2x−1)ln7. | x=−(ln3+ln7)/(ln3−2ln7). | x≈1.090. | Substitution makes the two positive exponential expressions approximately equal. | The logarithmic equation is linear in x. | Its coefficient ln3−2ln7 is nonzero, so it has one solution.",
+    "known_boundary_cases": [
+      "Award a criterion only when the conclusion is supported by the stated mathematical evidence.",
+      "Carry-forward arithmetic may earn later reasoning credit when the method remains valid."
+    ],
+    "originality_statement": "Independently authored Cramapple draft for Tutor review; no released or secure question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-precalculus-public-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-17",
+    "authoring_prompt_version": "CODEX_CALCULUS_THREE_SUBJECT_SEED_2026_07_17",
+    "generated_by": "codex",
+    "generated_at": "2026-07-17T00:00:00Z",
+    "content_sha256": "97054d8f04073e077c23a71a34b1b33f721d5dab1fc5415984fccb17fdfd213b"
+  }
+}

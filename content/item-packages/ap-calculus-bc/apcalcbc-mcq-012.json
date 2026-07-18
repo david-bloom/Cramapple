@@ -1,0 +1,111 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apcalcbc-mcq-012",
+  "content_key": "apcalcbc-mcq-012",
+  "content_version": 1,
+  "difficulty": "Hard",
+  "exam_pack_ref": {
+    "exam_code": "ap_calculus_bc",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "mcq",
+  "archetype_ref": {
+    "archetype_key": "ap-calculus-bc-mcq",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-calculus-bc-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-7-differential-equations"
+    },
+    {
+      "scheme_key": "ap-calculus-bc-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-2"
+    }
+  ],
+  "stimuli": [],
+  "mcq_choices": [
+    {
+      "choice_key": "A",
+      "choice_text": "0",
+      "is_correct": false,
+      "rationale": "This is an equilibrium with zero growth."
+    },
+    {
+      "choice_key": "B",
+      "choice_text": "2.5",
+      "is_correct": false,
+      "rationale": "This is below the vertex."
+    },
+    {
+      "choice_key": "C",
+      "choice_text": "5",
+      "is_correct": true,
+      "rationale": "As a function of P, 0.4P(10−P) is a downward-opening quadratic with vertex at P=5."
+    },
+    {
+      "choice_key": "D",
+      "choice_text": "10",
+      "is_correct": false,
+      "rationale": "This is an equilibrium with zero growth."
+    }
+  ],
+  "canonical_answers": [
+    "C"
+  ],
+  "parts": [
+    {
+      "part_key": "question",
+      "ordinal": 1,
+      "prompt": "For dP/dt=0.4P(10−P), the solution curve has greatest upward slope when P=\n\nA. 0\nB. 2.5\nC. 5\nD. 10",
+      "response_modalities": [
+        "choice"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-answer",
+          "points": 1,
+          "description": "Select the unique correct response.",
+          "required_evidence": [
+            "C",
+            "As a function of P, 0.4P(10−P) is a downward-opening quadratic with vertex at P=5."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "choice-key",
+              "parameters": {
+                "correct_key": "C"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All mathematical information is provided in text."
+  },
+  "review_notes": {
+    "expected_reasoning": "As a function of P, 0.4P(10−P) is a downward-opening quadratic with vertex at P=5.",
+    "known_boundary_cases": [
+      "Reject alternate choices unless their stated expression is mathematically equivalent to the keyed result."
+    ],
+    "originality_statement": "Independently authored Cramapple practice item; no released or secure question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-calculus-bc-public-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-17",
+    "authoring_prompt_version": "CODEX_CALCULUS_THREE_SUBJECT_SEED_2026_07_17",
+    "generated_by": "codex",
+    "generated_at": "2026-07-17T00:00:00Z",
+    "content_sha256": "f0177237e02e3ce9d9af68c248d0dffbe826e6c099a2d91a07335e3e464f5bde"
+  }
+}

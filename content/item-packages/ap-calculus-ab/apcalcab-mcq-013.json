@@ -1,0 +1,111 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apcalcab-mcq-013",
+  "content_key": "apcalcab-mcq-013",
+  "content_version": 1,
+  "difficulty": "Very Hard",
+  "exam_pack_ref": {
+    "exam_code": "ap_calculus_ab",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "mcq",
+  "archetype_ref": {
+    "archetype_key": "ap-calculus-ab-mcq",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-calculus-ab-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-5-analytical-applications-of-differentiation"
+    },
+    {
+      "scheme_key": "ap-calculus-ab-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-2"
+    }
+  ],
+  "stimuli": [],
+  "mcq_choices": [
+    {
+      "choice_key": "A",
+      "choice_text": "f has a local minimum at x=0",
+      "is_correct": false,
+      "rationale": "The sign changes positive to negative at 0, so it is a maximum."
+    },
+    {
+      "choice_key": "B",
+      "choice_text": "f has a local maximum at x=0 and a local minimum at x=2",
+      "is_correct": true,
+      "rationale": "The sign of f′ is positive, then negative, then positive across 0 and 2."
+    },
+    {
+      "choice_key": "C",
+      "choice_text": "f is increasing only on (0,2)",
+      "is_correct": false,
+      "rationale": "f′ is negative on (0,2)."
+    },
+    {
+      "choice_key": "D",
+      "choice_text": "f is concave down for all x",
+      "is_correct": false,
+      "rationale": "Since f″=2x−2, concavity changes at x=1."
+    }
+  ],
+  "canonical_answers": [
+    "B"
+  ],
+  "parts": [
+    {
+      "part_key": "question",
+      "ordinal": 1,
+      "prompt": "Suppose f′(x)=x(x−2) and f(0)=1. Which statement is true?\n\nA. f has a local minimum at x=0\nB. f has a local maximum at x=0 and a local minimum at x=2\nC. f is increasing only on (0,2)\nD. f is concave down for all x",
+      "response_modalities": [
+        "choice"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-answer",
+          "points": 1,
+          "description": "Select the unique correct response.",
+          "required_evidence": [
+            "B",
+            "The sign of f′ is positive, then negative, then positive across 0 and 2."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "choice-key",
+              "parameters": {
+                "correct_key": "B"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All mathematical information is provided in text."
+  },
+  "review_notes": {
+    "expected_reasoning": "The sign of f′ is positive, then negative, then positive across 0 and 2.",
+    "known_boundary_cases": [
+      "Reject alternate choices unless their stated expression is mathematically equivalent to the keyed result."
+    ],
+    "originality_statement": "Independently authored Cramapple practice item; no released or secure question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-calculus-ab-public-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-17",
+    "authoring_prompt_version": "CODEX_CALCULUS_THREE_SUBJECT_SEED_2026_07_17",
+    "generated_by": "codex",
+    "generated_at": "2026-07-17T00:00:00Z",
+    "content_sha256": "685b0548a98064b5b0faf6259aaa2bd2e295ad143a73a5f0f8198dbc6ecbfabf"
+  }
+}

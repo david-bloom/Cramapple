@@ -1,0 +1,111 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apprecalc-mcq-002",
+  "content_key": "apprecalc-mcq-002",
+  "content_version": 1,
+  "difficulty": "Medium",
+  "exam_pack_ref": {
+    "exam_code": "ap_precalculus",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "mcq",
+  "archetype_ref": {
+    "archetype_key": "ap-precalculus-mcq",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-precalculus-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-1-polynomial-and-rational-functions"
+    },
+    {
+      "scheme_key": "ap-precalculus-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-2"
+    }
+  ],
+  "stimuli": [],
+  "mcq_choices": [
+    {
+      "choice_key": "A",
+      "choice_text": "P→∞ at both ends",
+      "is_correct": false,
+      "rationale": "This is even-degree positive behavior."
+    },
+    {
+      "choice_key": "B",
+      "choice_text": "P→−∞ at both ends",
+      "is_correct": false,
+      "rationale": "This is even-degree negative behavior."
+    },
+    {
+      "choice_key": "C",
+      "choice_text": "P→∞ as x→−∞ and P→−∞ as x→∞",
+      "is_correct": true,
+      "rationale": "The odd degree and negative leading coefficient determine opposite ends: left up and right down."
+    },
+    {
+      "choice_key": "D",
+      "choice_text": "P→−∞ as x→−∞ and P→∞ as x→∞",
+      "is_correct": false,
+      "rationale": "This reverses the sign set by the negative leading coefficient."
+    }
+  ],
+  "canonical_answers": [
+    "C"
+  ],
+  "parts": [
+    {
+      "part_key": "question",
+      "ordinal": 1,
+      "prompt": "Which end behavior matches P(x)=−2x⁵+7x²−1?\n\nA. P→∞ at both ends\nB. P→−∞ at both ends\nC. P→∞ as x→−∞ and P→−∞ as x→∞\nD. P→−∞ as x→−∞ and P→∞ as x→∞",
+      "response_modalities": [
+        "choice"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-answer",
+          "points": 1,
+          "description": "Select the unique correct response.",
+          "required_evidence": [
+            "C",
+            "The odd degree and negative leading coefficient determine opposite ends: left up and right down."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "choice-key",
+              "parameters": {
+                "correct_key": "C"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All mathematical information is provided in text."
+  },
+  "review_notes": {
+    "expected_reasoning": "The odd degree and negative leading coefficient determine opposite ends: left up and right down.",
+    "known_boundary_cases": [
+      "Reject alternate choices unless their stated expression is mathematically equivalent to the keyed result."
+    ],
+    "originality_statement": "Independently authored Cramapple practice item; no released or secure question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-precalculus-public-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-17",
+    "authoring_prompt_version": "CODEX_CALCULUS_THREE_SUBJECT_SEED_2026_07_17",
+    "generated_by": "codex",
+    "generated_at": "2026-07-17T00:00:00Z",
+    "content_sha256": "7de2d6e326101a75d3af6f120b018ad46f1bddea358097daca488b7d1456bf2b"
+  }
+}

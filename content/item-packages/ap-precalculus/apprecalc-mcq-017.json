@@ -1,0 +1,111 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apprecalc-mcq-017",
+  "content_key": "apprecalc-mcq-017",
+  "content_version": 1,
+  "difficulty": "Hard",
+  "exam_pack_ref": {
+    "exam_code": "ap_precalculus",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "mcq",
+  "archetype_ref": {
+    "archetype_key": "ap-precalculus-mcq",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-precalculus-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-3-trigonometric-and-polar-functions"
+    },
+    {
+      "scheme_key": "ap-precalculus-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-1"
+    }
+  ],
+  "stimuli": [],
+  "mcq_choices": [
+    {
+      "choice_key": "A",
+      "choice_text": "π/3 only",
+      "is_correct": false,
+      "rationale": "The second-quadrant solution is omitted."
+    },
+    {
+      "choice_key": "B",
+      "choice_text": "2π/3 only",
+      "is_correct": false,
+      "rationale": "The first-quadrant solution is omitted."
+    },
+    {
+      "choice_key": "C",
+      "choice_text": "π/3 and 2π/3",
+      "is_correct": true,
+      "rationale": "sin x=√3/2 is positive in Quadrants I and II."
+    },
+    {
+      "choice_key": "D",
+      "choice_text": "4π/3 and 5π/3",
+      "is_correct": false,
+      "rationale": "Sine is negative at those angles."
+    }
+  ],
+  "canonical_answers": [
+    "C"
+  ],
+  "parts": [
+    {
+      "part_key": "question",
+      "ordinal": 1,
+      "prompt": "On 0≤x<2π, the solutions to 2sin x=√3 are\n\nA. π/3 only\nB. 2π/3 only\nC. π/3 and 2π/3\nD. 4π/3 and 5π/3",
+      "response_modalities": [
+        "choice"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-answer",
+          "points": 1,
+          "description": "Select the unique correct response.",
+          "required_evidence": [
+            "C",
+            "sin x=√3/2 is positive in Quadrants I and II."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "choice-key",
+              "parameters": {
+                "correct_key": "C"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All mathematical information is provided in text."
+  },
+  "review_notes": {
+    "expected_reasoning": "sin x=√3/2 is positive in Quadrants I and II.",
+    "known_boundary_cases": [
+      "Reject alternate choices unless their stated expression is mathematically equivalent to the keyed result."
+    ],
+    "originality_statement": "Independently authored Cramapple practice item; no released or secure question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-precalculus-public-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-17",
+    "authoring_prompt_version": "CODEX_CALCULUS_THREE_SUBJECT_SEED_2026_07_17",
+    "generated_by": "codex",
+    "generated_at": "2026-07-17T00:00:00Z",
+    "content_sha256": "0a84ef1fe9ea7c39bd0e02a587ed1b945e6cbb68b2143936dd65ae0f3105263c"
+  }
+}

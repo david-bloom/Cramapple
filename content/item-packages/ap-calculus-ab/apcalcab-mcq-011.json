@@ -1,0 +1,111 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apcalcab-mcq-011",
+  "content_key": "apcalcab-mcq-011",
+  "content_version": 1,
+  "difficulty": "Medium",
+  "exam_pack_ref": {
+    "exam_code": "ap_calculus_ab",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "mcq",
+  "archetype_ref": {
+    "archetype_key": "ap-calculus-ab-mcq",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-calculus-ab-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-5-analytical-applications-of-differentiation"
+    },
+    {
+      "scheme_key": "ap-calculus-ab-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-2"
+    }
+  ],
+  "stimuli": [],
+  "mcq_choices": [
+    {
+      "choice_key": "A",
+      "choice_text": "t=0",
+      "is_correct": false,
+      "rationale": "The endpoint is not the requested interior sign change."
+    },
+    {
+      "choice_key": "B",
+      "choice_text": "t=1",
+      "is_correct": true,
+      "rationale": "v(t)=3(t−1)(t−3) changes from positive to negative at t=1."
+    },
+    {
+      "choice_key": "C",
+      "choice_text": "t=2",
+      "is_correct": false,
+      "rationale": "The velocity is not zero at t=2."
+    },
+    {
+      "choice_key": "D",
+      "choice_text": "t=3",
+      "is_correct": false,
+      "rationale": "At t=3 velocity changes from negative to positive, giving a local minimum."
+    }
+  ],
+  "canonical_answers": [
+    "B"
+  ],
+  "parts": [
+    {
+      "part_key": "question",
+      "ordinal": 1,
+      "prompt": "A particle has position s(t)=t³−6t²+9t for t≥0. At which time does s have a local maximum?\n\nA. t=0\nB. t=1\nC. t=2\nD. t=3",
+      "response_modalities": [
+        "choice"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-answer",
+          "points": 1,
+          "description": "Select the unique correct response.",
+          "required_evidence": [
+            "B",
+            "v(t)=3(t−1)(t−3) changes from positive to negative at t=1."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "choice-key",
+              "parameters": {
+                "correct_key": "B"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All mathematical information is provided in text."
+  },
+  "review_notes": {
+    "expected_reasoning": "v(t)=3(t−1)(t−3) changes from positive to negative at t=1.",
+    "known_boundary_cases": [
+      "Reject alternate choices unless their stated expression is mathematically equivalent to the keyed result."
+    ],
+    "originality_statement": "Independently authored Cramapple practice item; no released or secure question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-calculus-ab-public-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-17",
+    "authoring_prompt_version": "CODEX_CALCULUS_THREE_SUBJECT_SEED_2026_07_17",
+    "generated_by": "codex",
+    "generated_at": "2026-07-17T00:00:00Z",
+    "content_sha256": "4e3bbb5de069ff7e2213d99b069080f72234223ae7cf9ef5fae910edd2cf1df5"
+  }
+}

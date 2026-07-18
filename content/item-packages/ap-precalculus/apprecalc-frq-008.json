@@ -1,0 +1,253 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apprecalc-frq-008",
+  "content_key": "apprecalc-frq-008",
+  "content_version": 1,
+  "difficulty": "Very Hard",
+  "frq_form": "short",
+  "canonical_answers": [
+    "S(3)=36. | The modeled signal at 3 meters is 36 units. | log₂(d+1)=3, so d=7. | The model reaches 18 units at 7 meters. | S(d)≥0 implies log₂(d+1)≤4. | Thus 0≤d≤15 meters."
+  ],
+  "exam_pack_ref": {
+    "exam_code": "ap_precalculus",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "frq",
+  "archetype_ref": {
+    "archetype_key": "ap-precalculus-frq-nonperiodic-modeling",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-precalculus-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-2-exponential-and-logarithmic-functions"
+    },
+    {
+      "scheme_key": "ap-precalculus-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-2"
+    }
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "scenario",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "A model for signal strength is S(d)=72−18log₂(d+1) for distance d≥0 meters.",
+        "calculator_mode": "approved-handheld"
+      },
+      "source_refs": [
+        "ap-precalculus-public-fact-pack"
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "part_key": "part-a",
+      "ordinal": 1,
+      "label": "(a)",
+      "prompt": "Find S(3).",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 2,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "S(3)=36.",
+          "required_evidence": [
+            "log2(4)=2",
+            "36"
+          ],
+          "accepted_variants": [
+            "Any algebraically equivalent form with correct reasoning."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "numeric-tolerance",
+              "parameters": {
+                "expected_value": 36,
+                "tolerance": 0
+              }
+            }
+          ]
+        },
+        {
+          "criterion_key": "part-a-criterion-2",
+          "points": 1,
+          "description": "The modeled signal at 3 meters is 36 units.",
+          "required_evidence": [
+            "3 meters",
+            "36 units"
+          ],
+          "accepted_variants": [
+            "Any algebraically equivalent form with correct reasoning."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "3 meters",
+                  "36 units"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part_key": "part-b",
+      "ordinal": 2,
+      "label": "(b)",
+      "prompt": "Solve S(d)=18.",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 2,
+      "criteria": [
+        {
+          "criterion_key": "part-b-criterion-1",
+          "points": 1,
+          "description": "log₂(d+1)=3, so d=7.",
+          "required_evidence": [
+            "log2(d+1)=3",
+            "d=7"
+          ],
+          "accepted_variants": [
+            "Any algebraically equivalent form with correct reasoning."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "numeric-tolerance",
+              "parameters": {
+                "expected_value": 7,
+                "tolerance": 0,
+                "unit": "meters"
+              }
+            }
+          ]
+        },
+        {
+          "criterion_key": "part-b-criterion-2",
+          "points": 1,
+          "description": "The model reaches 18 units at 7 meters.",
+          "required_evidence": [
+            "18 units",
+            "7 meters"
+          ],
+          "accepted_variants": [
+            "Any algebraically equivalent form with correct reasoning."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "18 units",
+                  "7 meters"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part_key": "part-c",
+      "ordinal": 3,
+      "label": "(c)",
+      "prompt": "Determine the largest distance for which the model remains nonnegative.",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 2,
+      "criteria": [
+        {
+          "criterion_key": "part-c-criterion-1",
+          "points": 1,
+          "description": "S(d)≥0 implies log₂(d+1)≤4.",
+          "required_evidence": [
+            "log2(d+1)≤4"
+          ],
+          "accepted_variants": [
+            "Any algebraically equivalent form with correct reasoning."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "log2(d+1)≤4"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "criterion_key": "part-c-criterion-2",
+          "points": 1,
+          "description": "Thus 0≤d≤15 meters.",
+          "required_evidence": [
+            "d≤15",
+            "domain"
+          ],
+          "accepted_variants": [
+            "Any algebraically equivalent form with correct reasoning."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "d≤15",
+                  "domain"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "The prompt is complete in text; graph responses may be described with labeled features during accessibility review."
+  },
+  "review_notes": {
+    "expected_reasoning": "S(3)=36. | The modeled signal at 3 meters is 36 units. | log₂(d+1)=3, so d=7. | The model reaches 18 units at 7 meters. | S(d)≥0 implies log₂(d+1)≤4. | Thus 0≤d≤15 meters.",
+    "known_boundary_cases": [
+      "Award a criterion only when the conclusion is supported by the stated mathematical evidence.",
+      "Carry-forward arithmetic may earn later reasoning credit when the method remains valid."
+    ],
+    "originality_statement": "Independently authored Cramapple draft for Tutor review; no released or secure question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-precalculus-public-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-17",
+    "authoring_prompt_version": "CODEX_CALCULUS_THREE_SUBJECT_SEED_2026_07_17",
+    "generated_by": "codex",
+    "generated_at": "2026-07-17T00:00:00Z",
+    "content_sha256": "a3a15ed348c03c3f1bdb4954945a6c39a5c877c6e81411ad326e0a9869228c9e"
+  }
+}

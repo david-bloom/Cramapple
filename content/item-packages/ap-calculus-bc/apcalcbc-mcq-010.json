@@ -1,0 +1,111 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apcalcbc-mcq-010",
+  "content_key": "apcalcbc-mcq-010",
+  "content_version": 1,
+  "difficulty": "Medium",
+  "exam_pack_ref": {
+    "exam_code": "ap_calculus_bc",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "mcq",
+  "archetype_ref": {
+    "archetype_key": "ap-calculus-bc-mcq",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-calculus-bc-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-6-integration-and-accumulation-of-change"
+    },
+    {
+      "scheme_key": "ap-calculus-bc-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-3"
+    }
+  ],
+  "stimuli": [],
+  "mcq_choices": [
+    {
+      "choice_key": "A",
+      "choice_text": "p<0",
+      "is_correct": false,
+      "rationale": "Negative p makes the integrand grow."
+    },
+    {
+      "choice_key": "B",
+      "choice_text": "p<1",
+      "is_correct": false,
+      "rationale": "For p≤1 the tail does not have a finite limit."
+    },
+    {
+      "choice_key": "C",
+      "choice_text": "p=1",
+      "is_correct": false,
+      "rationale": "p=1 is the divergent logarithmic case."
+    },
+    {
+      "choice_key": "D",
+      "choice_text": "p>1",
+      "is_correct": true,
+      "rationale": "The p-integral has a finite tail precisely for p>1."
+    }
+  ],
+  "canonical_answers": [
+    "D"
+  ],
+  "parts": [
+    {
+      "part_key": "question",
+      "ordinal": 1,
+      "prompt": "The improper integral ∫[1 to ∞] x^(−p)dx converges exactly when\n\nA. p<0\nB. p<1\nC. p=1\nD. p>1",
+      "response_modalities": [
+        "choice"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-answer",
+          "points": 1,
+          "description": "Select the unique correct response.",
+          "required_evidence": [
+            "D",
+            "The p-integral has a finite tail precisely for p>1."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "choice-key",
+              "parameters": {
+                "correct_key": "D"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All mathematical information is provided in text."
+  },
+  "review_notes": {
+    "expected_reasoning": "The p-integral has a finite tail precisely for p>1.",
+    "known_boundary_cases": [
+      "Reject alternate choices unless their stated expression is mathematically equivalent to the keyed result."
+    ],
+    "originality_statement": "Independently authored Cramapple practice item; no released or secure question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-calculus-bc-public-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-17",
+    "authoring_prompt_version": "CODEX_CALCULUS_THREE_SUBJECT_SEED_2026_07_17",
+    "generated_by": "codex",
+    "generated_at": "2026-07-17T00:00:00Z",
+    "content_sha256": "2969cff3f6beebf1e124d3634eaec4d0a4392919a99ce140c2239e3f5838108d"
+  }
+}

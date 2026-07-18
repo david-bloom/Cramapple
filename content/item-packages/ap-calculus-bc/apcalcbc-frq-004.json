@@ -1,0 +1,191 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apcalcbc-frq-004",
+  "content_key": "apcalcbc-frq-004",
+  "content_version": 1,
+  "difficulty": "Medium",
+  "frq_form": "short",
+  "canonical_answers": [
+    "v′(t)=6e^(−t/2)(1−t/2), so the maximum occurs at t=2 seconds. | The distance is ∫[0 to 4]6te^(−t/2)dt=24−72e^(−2) meters. | v(t)≥0 on [0,4], so the drone never reverses horizontal direction."
+  ],
+  "exam_pack_ref": {
+    "exam_code": "ap_calculus_bc",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "frq",
+  "archetype_ref": {
+    "archetype_key": "ap-calculus-bc-frq-modeling",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-calculus-bc-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-4-contextual-applications-of-differentiation"
+    },
+    {
+      "scheme_key": "ap-calculus-bc-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-3"
+    }
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "scenario",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "A drone's horizontal velocity is v(t)=6te^(−t/2) meters per second for t≥0.",
+        "calculator_mode": "approved-handheld"
+      },
+      "source_refs": [
+        "ap-calculus-bc-public-fact-pack"
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "part_key": "part-a",
+      "ordinal": 1,
+      "label": "(a)",
+      "prompt": "Find the time when the velocity is greatest.",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "v′(t)=6e^(−t/2)(1−t/2), so the maximum occurs at t=2 seconds.",
+          "required_evidence": [
+            "v′",
+            "1−t/2",
+            "t=2"
+          ],
+          "accepted_variants": [
+            "Any algebraically equivalent form with correct reasoning."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "v′",
+                  "1−t/2",
+                  "t=2"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part_key": "part-b",
+      "ordinal": 2,
+      "label": "(b)",
+      "prompt": "Find the distance traveled from t=0 to t=4.",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-b-criterion-1",
+          "points": 1,
+          "description": "The distance is ∫[0 to 4]6te^(−t/2)dt=24−72e^(−2) meters.",
+          "required_evidence": [
+            "integral",
+            "24−72e^(−2)"
+          ],
+          "accepted_variants": [
+            "Any algebraically equivalent form with correct reasoning."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "integral",
+                  "24−72e^(−2)"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part_key": "part-c",
+      "ordinal": 3,
+      "label": "(c)",
+      "prompt": "Explain why displacement and distance are equal on this interval.",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-c-criterion-1",
+          "points": 1,
+          "description": "v(t)≥0 on [0,4], so the drone never reverses horizontal direction.",
+          "required_evidence": [
+            "v≥0",
+            "never reverses"
+          ],
+          "accepted_variants": [
+            "Any algebraically equivalent form with correct reasoning."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "v≥0",
+                  "never reverses"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "The prompt is complete in text; graph responses may be described with labeled features during accessibility review."
+  },
+  "review_notes": {
+    "expected_reasoning": "v′(t)=6e^(−t/2)(1−t/2), so the maximum occurs at t=2 seconds. | The distance is ∫[0 to 4]6te^(−t/2)dt=24−72e^(−2) meters. | v(t)≥0 on [0,4], so the drone never reverses horizontal direction.",
+    "known_boundary_cases": [
+      "Award a criterion only when the conclusion is supported by the stated mathematical evidence.",
+      "Carry-forward arithmetic may earn later reasoning credit when the method remains valid."
+    ],
+    "originality_statement": "Independently authored Cramapple draft for Tutor review; no released or secure question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-calculus-bc-public-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-17",
+    "authoring_prompt_version": "CODEX_CALCULUS_THREE_SUBJECT_SEED_2026_07_17",
+    "generated_by": "codex",
+    "generated_at": "2026-07-17T00:00:00Z",
+    "content_sha256": "bb1ec3d8a24c44732d675b1dfc0eb5a0e978d340a86cb4b4beebb76b600d9e98"
+  }
+}

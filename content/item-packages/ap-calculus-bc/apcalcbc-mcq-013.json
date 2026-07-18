@@ -1,0 +1,111 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apcalcbc-mcq-013",
+  "content_key": "apcalcbc-mcq-013",
+  "content_version": 1,
+  "difficulty": "Medium",
+  "exam_pack_ref": {
+    "exam_code": "ap_calculus_bc",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "mcq",
+  "archetype_ref": {
+    "archetype_key": "ap-calculus-bc-mcq",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-calculus-bc-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-8-applications-of-integration"
+    },
+    {
+      "scheme_key": "ap-calculus-bc-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-1"
+    }
+  ],
+  "stimuli": [],
+  "mcq_choices": [
+    {
+      "choice_key": "A",
+      "choice_text": "∫[0 to 1]√(1+(9/4)x)dx",
+      "is_correct": true,
+      "rationale": "Arc length is ∫√(1+(y′)²)dx and y′=(3/2)√x."
+    },
+    {
+      "choice_key": "B",
+      "choice_text": "∫[0 to 1](1+(3/2)√x)dx",
+      "is_correct": false,
+      "rationale": "The derivative must be squared inside a square root."
+    },
+    {
+      "choice_key": "C",
+      "choice_text": "∫[0 to 1]√(1+(3/2)x)dx",
+      "is_correct": false,
+      "rationale": "The square of the derivative is (9/4)x."
+    },
+    {
+      "choice_key": "D",
+      "choice_text": "∫[0 to 1]√(1+x³)dx",
+      "is_correct": false,
+      "rationale": "This squares the original function rather than its derivative."
+    }
+  ],
+  "canonical_answers": [
+    "A"
+  ],
+  "parts": [
+    {
+      "part_key": "question",
+      "ordinal": 1,
+      "prompt": "The length of y=x^(3/2) from x=0 to x=1 is represented by\n\nA. ∫[0 to 1]√(1+(9/4)x)dx\nB. ∫[0 to 1](1+(3/2)√x)dx\nC. ∫[0 to 1]√(1+(3/2)x)dx\nD. ∫[0 to 1]√(1+x³)dx",
+      "response_modalities": [
+        "choice"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-answer",
+          "points": 1,
+          "description": "Select the unique correct response.",
+          "required_evidence": [
+            "A",
+            "Arc length is ∫√(1+(y′)²)dx and y′=(3/2)√x."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "choice-key",
+              "parameters": {
+                "correct_key": "A"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All mathematical information is provided in text."
+  },
+  "review_notes": {
+    "expected_reasoning": "Arc length is ∫√(1+(y′)²)dx and y′=(3/2)√x.",
+    "known_boundary_cases": [
+      "Reject alternate choices unless their stated expression is mathematically equivalent to the keyed result."
+    ],
+    "originality_statement": "Independently authored Cramapple practice item; no released or secure question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-calculus-bc-public-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-17",
+    "authoring_prompt_version": "CODEX_CALCULUS_THREE_SUBJECT_SEED_2026_07_17",
+    "generated_by": "codex",
+    "generated_at": "2026-07-17T00:00:00Z",
+    "content_sha256": "0f008fd2c64fc7208850ce180f1d06d1737714590314bd784ba467b22bf480cf"
+  }
+}

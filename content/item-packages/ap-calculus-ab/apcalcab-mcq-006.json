@@ -1,0 +1,111 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apcalcab-mcq-006",
+  "content_key": "apcalcab-mcq-006",
+  "content_version": 1,
+  "difficulty": "Medium",
+  "exam_pack_ref": {
+    "exam_code": "ap_calculus_ab",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "mcq",
+  "archetype_ref": {
+    "archetype_key": "ap-calculus-ab-mcq",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-calculus-ab-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-2-differentiation-definition-and-fundamental-properties"
+    },
+    {
+      "scheme_key": "ap-calculus-ab-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-2"
+    }
+  ],
+  "stimuli": [],
+  "mcq_choices": [
+    {
+      "choice_key": "A",
+      "choice_text": "y=1+(x−e)/e",
+      "is_correct": true,
+      "rationale": "The point is (e,1) and the slope is 1/e."
+    },
+    {
+      "choice_key": "B",
+      "choice_text": "y=e+(x−1)/e",
+      "is_correct": false,
+      "rationale": "This uses an incorrect point."
+    },
+    {
+      "choice_key": "C",
+      "choice_text": "y=1+e(x−e)",
+      "is_correct": false,
+      "rationale": "This uses slope e instead of 1/e."
+    },
+    {
+      "choice_key": "D",
+      "choice_text": "y=(x−e)/e",
+      "is_correct": false,
+      "rationale": "This omits the y-coordinate 1 of the tangency point."
+    }
+  ],
+  "canonical_answers": [
+    "A"
+  ],
+  "parts": [
+    {
+      "part_key": "question",
+      "ordinal": 1,
+      "prompt": "The tangent line to y=ln x at x=e is\n\nA. y=1+(x−e)/e\nB. y=e+(x−1)/e\nC. y=1+e(x−e)\nD. y=(x−e)/e",
+      "response_modalities": [
+        "choice"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-answer",
+          "points": 1,
+          "description": "Select the unique correct response.",
+          "required_evidence": [
+            "A",
+            "The point is (e,1) and the slope is 1/e."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "choice-key",
+              "parameters": {
+                "correct_key": "A"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All mathematical information is provided in text."
+  },
+  "review_notes": {
+    "expected_reasoning": "The point is (e,1) and the slope is 1/e.",
+    "known_boundary_cases": [
+      "Reject alternate choices unless their stated expression is mathematically equivalent to the keyed result."
+    ],
+    "originality_statement": "Independently authored Cramapple practice item; no released or secure question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-calculus-ab-public-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-17",
+    "authoring_prompt_version": "CODEX_CALCULUS_THREE_SUBJECT_SEED_2026_07_17",
+    "generated_by": "codex",
+    "generated_at": "2026-07-17T00:00:00Z",
+    "content_sha256": "bc80a03eb32a24a39272fe7414a907386df5787fd590c7ab12a2fc693b779b92"
+  }
+}

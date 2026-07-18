@@ -1,0 +1,111 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apcalcab-mcq-008",
+  "content_key": "apcalcab-mcq-008",
+  "content_version": 1,
+  "difficulty": "Hard",
+  "exam_pack_ref": {
+    "exam_code": "ap_calculus_ab",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "mcq",
+  "archetype_ref": {
+    "archetype_key": "ap-calculus-ab-mcq",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-calculus-ab-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-3-differentiation-composite-implicit-and-inverse-functions"
+    },
+    {
+      "scheme_key": "ap-calculus-ab-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-1"
+    }
+  ],
+  "stimuli": [],
+  "mcq_choices": [
+    {
+      "choice_key": "A",
+      "choice_text": "−5/4",
+      "is_correct": false,
+      "rationale": "This takes the negative reciprocal of the correct slope."
+    },
+    {
+      "choice_key": "B",
+      "choice_text": "−4/5",
+      "is_correct": true,
+      "rationale": "Implicit differentiation gives 2x+y+(x+2y)y′=0, so y′=−4/5 at (1,2)."
+    },
+    {
+      "choice_key": "C",
+      "choice_text": "4/5",
+      "is_correct": false,
+      "rationale": "The sign from moving 2x+y is missing."
+    },
+    {
+      "choice_key": "D",
+      "choice_text": "5/4",
+      "is_correct": false,
+      "rationale": "Both sign and reciprocal are incorrect."
+    }
+  ],
+  "canonical_answers": [
+    "B"
+  ],
+  "parts": [
+    {
+      "part_key": "question",
+      "ordinal": 1,
+      "prompt": "On x²+xy+y²=7, what is dy/dx at (1,2)?\n\nA. −5/4\nB. −4/5\nC. 4/5\nD. 5/4",
+      "response_modalities": [
+        "choice"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-answer",
+          "points": 1,
+          "description": "Select the unique correct response.",
+          "required_evidence": [
+            "B",
+            "Implicit differentiation gives 2x+y+(x+2y)y′=0, so y′=−4/5 at (1,2)."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "choice-key",
+              "parameters": {
+                "correct_key": "B"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All mathematical information is provided in text."
+  },
+  "review_notes": {
+    "expected_reasoning": "Implicit differentiation gives 2x+y+(x+2y)y′=0, so y′=−4/5 at (1,2).",
+    "known_boundary_cases": [
+      "Reject alternate choices unless their stated expression is mathematically equivalent to the keyed result."
+    ],
+    "originality_statement": "Independently authored Cramapple practice item; no released or secure question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-calculus-ab-public-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-17",
+    "authoring_prompt_version": "CODEX_CALCULUS_THREE_SUBJECT_SEED_2026_07_17",
+    "generated_by": "codex",
+    "generated_at": "2026-07-17T00:00:00Z",
+    "content_sha256": "82c3b5a6e327625d8a989a0406c659d25ce576f2b61abd48c02b2582190a4f0c"
+  }
+}

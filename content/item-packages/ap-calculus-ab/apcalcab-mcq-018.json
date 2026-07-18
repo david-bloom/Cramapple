@@ -1,0 +1,111 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apcalcab-mcq-018",
+  "content_key": "apcalcab-mcq-018",
+  "content_version": 1,
+  "difficulty": "Hard",
+  "exam_pack_ref": {
+    "exam_code": "ap_calculus_ab",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "mcq",
+  "archetype_ref": {
+    "archetype_key": "ap-calculus-ab-mcq",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-calculus-ab-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-7-differential-equations"
+    },
+    {
+      "scheme_key": "ap-calculus-ab-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-1"
+    }
+  ],
+  "stimuli": [],
+  "mcq_choices": [
+    {
+      "choice_key": "A",
+      "choice_text": "√13",
+      "is_correct": false,
+      "rationale": "This omits one x² contribution."
+    },
+    {
+      "choice_key": "B",
+      "choice_text": "4",
+      "is_correct": false,
+      "rationale": "Squaring 4 does not satisfy the initial-value relation."
+    },
+    {
+      "choice_key": "C",
+      "choice_text": "√17",
+      "is_correct": true,
+      "rationale": "Separating gives y dy=2x dx, so y²=2x²+9 and the positive branch gives √17."
+    },
+    {
+      "choice_key": "D",
+      "choice_text": "5",
+      "is_correct": false,
+      "rationale": "This results from adding rather than integrating consistently."
+    }
+  ],
+  "canonical_answers": [
+    "C"
+  ],
+  "parts": [
+    {
+      "part_key": "question",
+      "ordinal": 1,
+      "prompt": "The solution of dy/dx=2x/y with y(0)=3 satisfies y(2)=\n\nA. √13\nB. 4\nC. √17\nD. 5",
+      "response_modalities": [
+        "choice"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-answer",
+          "points": 1,
+          "description": "Select the unique correct response.",
+          "required_evidence": [
+            "C",
+            "Separating gives y dy=2x dx, so y²=2x²+9 and the positive branch gives √17."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "choice-key",
+              "parameters": {
+                "correct_key": "C"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All mathematical information is provided in text."
+  },
+  "review_notes": {
+    "expected_reasoning": "Separating gives y dy=2x dx, so y²=2x²+9 and the positive branch gives √17.",
+    "known_boundary_cases": [
+      "Reject alternate choices unless their stated expression is mathematically equivalent to the keyed result."
+    ],
+    "originality_statement": "Independently authored Cramapple practice item; no released or secure question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-calculus-ab-public-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-17",
+    "authoring_prompt_version": "CODEX_CALCULUS_THREE_SUBJECT_SEED_2026_07_17",
+    "generated_by": "codex",
+    "generated_at": "2026-07-17T00:00:00Z",
+    "content_sha256": "2e5920b8e166f1b4912c793c1af9975fe214ed938906e6b361fdd1fa7d5ea2ff"
+  }
+}

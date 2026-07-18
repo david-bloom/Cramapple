@@ -1,0 +1,111 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apcalcbc-mcq-008",
+  "content_key": "apcalcbc-mcq-008",
+  "content_version": 1,
+  "difficulty": "Medium",
+  "exam_pack_ref": {
+    "exam_code": "ap_calculus_bc",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "mcq",
+  "archetype_ref": {
+    "archetype_key": "ap-calculus-bc-mcq",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-calculus-bc-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-6-integration-and-accumulation-of-change"
+    },
+    {
+      "scheme_key": "ap-calculus-bc-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-1"
+    }
+  ],
+  "stimuli": [],
+  "mcq_choices": [
+    {
+      "choice_key": "A",
+      "choice_text": "e^x(x−1)+C",
+      "is_correct": true,
+      "rationale": "Integration by parts with u=x gives xe^x−e^x+C."
+    },
+    {
+      "choice_key": "B",
+      "choice_text": "e^x(x+1)+C",
+      "is_correct": false,
+      "rationale": "Differentiation produces e^x(x+2)."
+    },
+    {
+      "choice_key": "C",
+      "choice_text": "x²e^x/2+C",
+      "is_correct": false,
+      "rationale": "This is not the integration-by-parts result."
+    },
+    {
+      "choice_key": "D",
+      "choice_text": "e^x+C",
+      "is_correct": false,
+      "rationale": "This omits the factor x contribution."
+    }
+  ],
+  "canonical_answers": [
+    "A"
+  ],
+  "parts": [
+    {
+      "part_key": "question",
+      "ordinal": 1,
+      "prompt": "Evaluate ∫x e^x dx.\n\nA. e^x(x−1)+C\nB. e^x(x+1)+C\nC. x²e^x/2+C\nD. e^x+C",
+      "response_modalities": [
+        "choice"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-answer",
+          "points": 1,
+          "description": "Select the unique correct response.",
+          "required_evidence": [
+            "A",
+            "Integration by parts with u=x gives xe^x−e^x+C."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "choice-key",
+              "parameters": {
+                "correct_key": "A"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All mathematical information is provided in text."
+  },
+  "review_notes": {
+    "expected_reasoning": "Integration by parts with u=x gives xe^x−e^x+C.",
+    "known_boundary_cases": [
+      "Reject alternate choices unless their stated expression is mathematically equivalent to the keyed result."
+    ],
+    "originality_statement": "Independently authored Cramapple practice item; no released or secure question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-calculus-bc-public-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-17",
+    "authoring_prompt_version": "CODEX_CALCULUS_THREE_SUBJECT_SEED_2026_07_17",
+    "generated_by": "codex",
+    "generated_at": "2026-07-17T00:00:00Z",
+    "content_sha256": "a8c83d5232e361cc7f99f9251b5c16ca9bb6b0cb594f962bbb3abe4534dacf6f"
+  }
+}

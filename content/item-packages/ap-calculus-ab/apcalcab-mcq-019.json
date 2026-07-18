@@ -1,0 +1,111 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apcalcab-mcq-019",
+  "content_key": "apcalcab-mcq-019",
+  "content_version": 1,
+  "difficulty": "Easy",
+  "exam_pack_ref": {
+    "exam_code": "ap_calculus_ab",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "mcq",
+  "archetype_ref": {
+    "archetype_key": "ap-calculus-ab-mcq",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-calculus-ab-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-8-applications-of-integration"
+    },
+    {
+      "scheme_key": "ap-calculus-ab-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-1"
+    }
+  ],
+  "stimuli": [],
+  "mcq_choices": [
+    {
+      "choice_key": "A",
+      "choice_text": "1/6",
+      "is_correct": true,
+      "rationale": "On [0,1], x is above x² and ∫(x−x²)dx=1/6."
+    },
+    {
+      "choice_key": "B",
+      "choice_text": "1/3",
+      "is_correct": false,
+      "rationale": "This omits the integral of one boundary."
+    },
+    {
+      "choice_key": "C",
+      "choice_text": "1/2",
+      "is_correct": false,
+      "rationale": "This is the area under y=x only."
+    },
+    {
+      "choice_key": "D",
+      "choice_text": "2/3",
+      "is_correct": false,
+      "rationale": "This reverses or miscombines the antiderivative terms."
+    }
+  ],
+  "canonical_answers": [
+    "A"
+  ],
+  "parts": [
+    {
+      "part_key": "question",
+      "ordinal": 1,
+      "prompt": "The area enclosed by y=x and y=x² on 0≤x≤1 is\n\nA. 1/6\nB. 1/3\nC. 1/2\nD. 2/3",
+      "response_modalities": [
+        "choice"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-answer",
+          "points": 1,
+          "description": "Select the unique correct response.",
+          "required_evidence": [
+            "A",
+            "On [0,1], x is above x² and ∫(x−x²)dx=1/6."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "choice-key",
+              "parameters": {
+                "correct_key": "A"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All mathematical information is provided in text."
+  },
+  "review_notes": {
+    "expected_reasoning": "On [0,1], x is above x² and ∫(x−x²)dx=1/6.",
+    "known_boundary_cases": [
+      "Reject alternate choices unless their stated expression is mathematically equivalent to the keyed result."
+    ],
+    "originality_statement": "Independently authored Cramapple practice item; no released or secure question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-calculus-ab-public-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-17",
+    "authoring_prompt_version": "CODEX_CALCULUS_THREE_SUBJECT_SEED_2026_07_17",
+    "generated_by": "codex",
+    "generated_at": "2026-07-17T00:00:00Z",
+    "content_sha256": "3273c3c76c099f808ee3555491a39cfc581a328dfd5dc2642d163a831c8ff239"
+  }
+}

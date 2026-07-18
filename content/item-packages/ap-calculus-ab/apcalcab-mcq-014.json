@@ -1,0 +1,111 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apcalcab-mcq-014",
+  "content_key": "apcalcab-mcq-014",
+  "content_version": 1,
+  "difficulty": "Medium",
+  "exam_pack_ref": {
+    "exam_code": "ap_calculus_ab",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "mcq",
+  "archetype_ref": {
+    "archetype_key": "ap-calculus-ab-mcq",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-calculus-ab-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-6-integration-and-accumulation-of-change"
+    },
+    {
+      "scheme_key": "ap-calculus-ab-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-1"
+    }
+  ],
+  "stimuli": [],
+  "mcq_choices": [
+    {
+      "choice_key": "A",
+      "choice_text": "cos(x⁶)",
+      "is_correct": false,
+      "rationale": "This omits the derivative of the upper limit."
+    },
+    {
+      "choice_key": "B",
+      "choice_text": "2x cos(x⁶)",
+      "is_correct": true,
+      "rationale": "The Fundamental Theorem and chain rule give cos((x²)³)·2x."
+    },
+    {
+      "choice_key": "C",
+      "choice_text": "2x cos(x³)",
+      "is_correct": false,
+      "rationale": "The integrand must be evaluated at t=x², producing x⁶."
+    },
+    {
+      "choice_key": "D",
+      "choice_text": "x² cos(x⁶)",
+      "is_correct": false,
+      "rationale": "The derivative of x² is 2x, not x²."
+    }
+  ],
+  "canonical_answers": [
+    "B"
+  ],
+  "parts": [
+    {
+      "part_key": "question",
+      "ordinal": 1,
+      "prompt": "If F(x)=∫[1 to x²] cos(t³)dt, then F′(x)=\n\nA. cos(x⁶)\nB. 2x cos(x⁶)\nC. 2x cos(x³)\nD. x² cos(x⁶)",
+      "response_modalities": [
+        "choice"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-answer",
+          "points": 1,
+          "description": "Select the unique correct response.",
+          "required_evidence": [
+            "B",
+            "The Fundamental Theorem and chain rule give cos((x²)³)·2x."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "choice-key",
+              "parameters": {
+                "correct_key": "B"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All mathematical information is provided in text."
+  },
+  "review_notes": {
+    "expected_reasoning": "The Fundamental Theorem and chain rule give cos((x²)³)·2x.",
+    "known_boundary_cases": [
+      "Reject alternate choices unless their stated expression is mathematically equivalent to the keyed result."
+    ],
+    "originality_statement": "Independently authored Cramapple practice item; no released or secure question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-calculus-ab-public-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-17",
+    "authoring_prompt_version": "CODEX_CALCULUS_THREE_SUBJECT_SEED_2026_07_17",
+    "generated_by": "codex",
+    "generated_at": "2026-07-17T00:00:00Z",
+    "content_sha256": "dac6f79e7c413786d119f64bf6793dcdc1e8dd4a3d2eaa08b24b20593fd48c3c"
+  }
+}

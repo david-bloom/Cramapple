@@ -1,0 +1,111 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apcalcab-mcq-003",
+  "content_key": "apcalcab-mcq-003",
+  "content_version": 1,
+  "difficulty": "Easy",
+  "exam_pack_ref": {
+    "exam_code": "ap_calculus_ab",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "mcq",
+  "archetype_ref": {
+    "archetype_key": "ap-calculus-ab-mcq",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-calculus-ab-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-1-limits-and-continuity"
+    },
+    {
+      "scheme_key": "ap-calculus-ab-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-3"
+    }
+  ],
+  "stimuli": [],
+  "mcq_choices": [
+    {
+      "choice_key": "A",
+      "choice_text": "g has exactly one zero in (1,4)",
+      "is_correct": false,
+      "rationale": "Continuity does not guarantee uniqueness."
+    },
+    {
+      "choice_key": "B",
+      "choice_text": "g has at least one zero in (1,4)",
+      "is_correct": true,
+      "rationale": "The Intermediate Value Theorem guarantees at least one zero because 0 lies between the endpoint values."
+    },
+    {
+      "choice_key": "C",
+      "choice_text": "g is increasing on [1,4]",
+      "is_correct": false,
+      "rationale": "Continuity and endpoint values do not guarantee monotonicity."
+    },
+    {
+      "choice_key": "D",
+      "choice_text": "g′ exists everywhere on (1,4)",
+      "is_correct": false,
+      "rationale": "A continuous function need not be differentiable."
+    }
+  ],
+  "canonical_answers": [
+    "B"
+  ],
+  "parts": [
+    {
+      "part_key": "question",
+      "ordinal": 1,
+      "prompt": "A function g is continuous on [1,4], with g(1)=−2 and g(4)=5. Which conclusion is guaranteed?\n\nA. g has exactly one zero in (1,4)\nB. g has at least one zero in (1,4)\nC. g is increasing on [1,4]\nD. g′ exists everywhere on (1,4)",
+      "response_modalities": [
+        "choice"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-answer",
+          "points": 1,
+          "description": "Select the unique correct response.",
+          "required_evidence": [
+            "B",
+            "The Intermediate Value Theorem guarantees at least one zero because 0 lies between the endpoint values."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "choice-key",
+              "parameters": {
+                "correct_key": "B"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All mathematical information is provided in text."
+  },
+  "review_notes": {
+    "expected_reasoning": "The Intermediate Value Theorem guarantees at least one zero because 0 lies between the endpoint values.",
+    "known_boundary_cases": [
+      "Reject alternate choices unless their stated expression is mathematically equivalent to the keyed result."
+    ],
+    "originality_statement": "Independently authored Cramapple practice item; no released or secure question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-calculus-ab-public-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-17",
+    "authoring_prompt_version": "CODEX_CALCULUS_THREE_SUBJECT_SEED_2026_07_17",
+    "generated_by": "codex",
+    "generated_at": "2026-07-17T00:00:00Z",
+    "content_sha256": "707e4d01575ea6c389b9840358f7894188d02cdc9cff7219c471f8cdc3c96cdd"
+  }
+}

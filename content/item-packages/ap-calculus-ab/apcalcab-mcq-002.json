@@ -1,0 +1,111 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apcalcab-mcq-002",
+  "content_key": "apcalcab-mcq-002",
+  "content_version": 1,
+  "difficulty": "Medium",
+  "exam_pack_ref": {
+    "exam_code": "ap_calculus_ab",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "mcq",
+  "archetype_ref": {
+    "archetype_key": "ap-calculus-ab-mcq",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-calculus-ab-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-1-limits-and-continuity"
+    },
+    {
+      "scheme_key": "ap-calculus-ab-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-3"
+    }
+  ],
+  "stimuli": [],
+  "mcq_choices": [
+    {
+      "choice_key": "A",
+      "choice_text": "0",
+      "is_correct": false,
+      "rationale": "The quotient would have a vertical asymptote."
+    },
+    {
+      "choice_key": "B",
+      "choice_text": "2",
+      "is_correct": false,
+      "rationale": "The numerator would not vanish at x=2."
+    },
+    {
+      "choice_key": "C",
+      "choice_text": "4",
+      "is_correct": true,
+      "rationale": "Continuity requires x²−a to vanish at x=2; a=4 then yields lim f(x)=lim(x+2)=4."
+    },
+    {
+      "choice_key": "D",
+      "choice_text": "8",
+      "is_correct": false,
+      "rationale": "The numerator would not vanish at x=2."
+    }
+  ],
+  "canonical_answers": [
+    "C"
+  ],
+  "parts": [
+    {
+      "part_key": "question",
+      "ordinal": 1,
+      "prompt": "For x≠2 let f(x)=(x²−a)/(x−2), and define f(2)=4. For which value of a is f continuous at x=2?\n\nA. 0\nB. 2\nC. 4\nD. 8",
+      "response_modalities": [
+        "choice"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-answer",
+          "points": 1,
+          "description": "Select the unique correct response.",
+          "required_evidence": [
+            "C",
+            "Continuity requires x²−a to vanish at x=2; a=4 then yields lim f(x)=lim(x+2)=4."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "choice-key",
+              "parameters": {
+                "correct_key": "C"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All mathematical information is provided in text."
+  },
+  "review_notes": {
+    "expected_reasoning": "Continuity requires x²−a to vanish at x=2; a=4 then yields lim f(x)=lim(x+2)=4.",
+    "known_boundary_cases": [
+      "Reject alternate choices unless their stated expression is mathematically equivalent to the keyed result."
+    ],
+    "originality_statement": "Independently authored Cramapple practice item; no released or secure question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-calculus-ab-public-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-17",
+    "authoring_prompt_version": "CODEX_CALCULUS_THREE_SUBJECT_SEED_2026_07_17",
+    "generated_by": "codex",
+    "generated_at": "2026-07-17T00:00:00Z",
+    "content_sha256": "06d0a5bfa114089cb57455b49f8911e6c1e7bb38776861dbd8b25f5b19af8cfb"
+  }
+}

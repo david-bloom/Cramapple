@@ -1,0 +1,111 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apprecalc-mcq-011",
+  "content_key": "apprecalc-mcq-011",
+  "content_version": 1,
+  "difficulty": "Hard",
+  "exam_pack_ref": {
+    "exam_code": "ap_precalculus",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "mcq",
+  "archetype_ref": {
+    "archetype_key": "ap-precalculus-mcq",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-precalculus-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-2-exponential-and-logarithmic-functions"
+    },
+    {
+      "scheme_key": "ap-precalculus-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-1"
+    }
+  ],
+  "stimuli": [],
+  "mcq_choices": [
+    {
+      "choice_key": "A",
+      "choice_text": "(1+log₅17)/2",
+      "is_correct": true,
+      "rationale": "Taking log base 5 gives 2x−1=log₅17, hence x=(1+log₅17)/2."
+    },
+    {
+      "choice_key": "B",
+      "choice_text": "(log₅17−1)/2",
+      "is_correct": false,
+      "rationale": "The sign of the constant is reversed."
+    },
+    {
+      "choice_key": "C",
+      "choice_text": "1+2log₅17",
+      "is_correct": false,
+      "rationale": "This does not solve the linear equation in x."
+    },
+    {
+      "choice_key": "D",
+      "choice_text": "log₅(17/2)",
+      "is_correct": false,
+      "rationale": "The exponent coefficient is not handled by dividing the argument."
+    }
+  ],
+  "canonical_answers": [
+    "A"
+  ],
+  "parts": [
+    {
+      "part_key": "question",
+      "ordinal": 1,
+      "prompt": "If 5^(2x−1)=17, then x equals\n\nA. (1+log₅17)/2\nB. (log₅17−1)/2\nC. 1+2log₅17\nD. log₅(17/2)",
+      "response_modalities": [
+        "choice"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-answer",
+          "points": 1,
+          "description": "Select the unique correct response.",
+          "required_evidence": [
+            "A",
+            "Taking log base 5 gives 2x−1=log₅17, hence x=(1+log₅17)/2."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "choice-key",
+              "parameters": {
+                "correct_key": "A"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All mathematical information is provided in text."
+  },
+  "review_notes": {
+    "expected_reasoning": "Taking log base 5 gives 2x−1=log₅17, hence x=(1+log₅17)/2.",
+    "known_boundary_cases": [
+      "Reject alternate choices unless their stated expression is mathematically equivalent to the keyed result."
+    ],
+    "originality_statement": "Independently authored Cramapple practice item; no released or secure question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-precalculus-public-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-17",
+    "authoring_prompt_version": "CODEX_CALCULUS_THREE_SUBJECT_SEED_2026_07_17",
+    "generated_by": "codex",
+    "generated_at": "2026-07-17T00:00:00Z",
+    "content_sha256": "f1bd8932e94c3e2e5eebacdb64f0e90d532b65b1672ed16a749d04206979b1cc"
+  }
+}

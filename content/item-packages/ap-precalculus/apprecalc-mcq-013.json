@@ -1,0 +1,111 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apprecalc-mcq-013",
+  "content_key": "apprecalc-mcq-013",
+  "content_version": 1,
+  "difficulty": "Easy",
+  "exam_pack_ref": {
+    "exam_code": "ap_precalculus",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "mcq",
+  "archetype_ref": {
+    "archetype_key": "ap-precalculus-mcq",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-precalculus-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-2-exponential-and-logarithmic-functions"
+    },
+    {
+      "scheme_key": "ap-precalculus-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-1"
+    }
+  ],
+  "stimuli": [],
+  "mcq_choices": [
+    {
+      "choice_key": "A",
+      "choice_text": "1/2",
+      "is_correct": false,
+      "rationale": "This is one half-life."
+    },
+    {
+      "choice_key": "B",
+      "choice_text": "1/4",
+      "is_correct": false,
+      "rationale": "This is two half-lives."
+    },
+    {
+      "choice_key": "C",
+      "choice_text": "1/8",
+      "is_correct": true,
+      "rationale": "Fifteen hours is three half-lives, so the fraction is (1/2)³=1/8."
+    },
+    {
+      "choice_key": "D",
+      "choice_text": "1/16",
+      "is_correct": false,
+      "rationale": "This is four half-lives."
+    }
+  ],
+  "canonical_answers": [
+    "C"
+  ],
+  "parts": [
+    {
+      "part_key": "question",
+      "ordinal": 1,
+      "prompt": "A medicine has half-life 5 hours. The fraction remaining after 15 hours is\n\nA. 1/2\nB. 1/4\nC. 1/8\nD. 1/16",
+      "response_modalities": [
+        "choice"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-answer",
+          "points": 1,
+          "description": "Select the unique correct response.",
+          "required_evidence": [
+            "C",
+            "Fifteen hours is three half-lives, so the fraction is (1/2)³=1/8."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "choice-key",
+              "parameters": {
+                "correct_key": "C"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All mathematical information is provided in text."
+  },
+  "review_notes": {
+    "expected_reasoning": "Fifteen hours is three half-lives, so the fraction is (1/2)³=1/8.",
+    "known_boundary_cases": [
+      "Reject alternate choices unless their stated expression is mathematically equivalent to the keyed result."
+    ],
+    "originality_statement": "Independently authored Cramapple practice item; no released or secure question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-precalculus-public-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-17",
+    "authoring_prompt_version": "CODEX_CALCULUS_THREE_SUBJECT_SEED_2026_07_17",
+    "generated_by": "codex",
+    "generated_at": "2026-07-17T00:00:00Z",
+    "content_sha256": "cc864a9f6d106e180ef5d90700ac38f1be3d337c6a58b137f3bcdf3dfed22eec"
+  }
+}
