@@ -21,6 +21,7 @@ type ContentVersion = {
   version_num: number;
   stem: string;
   stimulus: string | null;
+  stimulus_image_path: string | null;
   explanation: string | null;
   frq_form: string | null;
   review_status: string | null;
@@ -136,7 +137,7 @@ Deno.serve(async (req) => {
     contentVersionIds.length
       ? service.schema("app").from("content_item_versions")
         .select(
-          "id, content_item_id, version_num, stem, stimulus, explanation, frq_form, review_status, status",
+          "id, content_item_id, version_num, stem, stimulus, stimulus_image_path, explanation, frq_form, review_status, status",
         )
         .in("id", contentVersionIds)
       : Promise.resolve({ data: [], error: null as null }),
@@ -229,6 +230,7 @@ Deno.serve(async (req) => {
         title: item?.title ?? null,
         stem: version.stem,
         stimulus: version.stimulus,
+        stimulus_image_path: version.stimulus_image_path,
         explanation: version.explanation,
         frq_form: version.frq_form,
         review_status: version.review_status,
