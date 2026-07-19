@@ -1,10 +1,13 @@
 # AP Biology Missing Stimulus Images — Generated 2026-07-12
 
-**Status:** Images generated and reviewed by eye; not yet uploaded to
-Storage or linked in the database. Blocked mid-execution by an MCP tool
-access interruption (Supabase and Lovable both stopped responding
-mid-session) — this directory exists so the work survives that interruption
-and can be finished in one pass once access is restored.
+**Status:** Done as of 2026-07-19. Migration applied, images uploaded to
+`content-assets`, `stimulus_image_path` populated for all 10, curated view
+extended, `storage-sign-url`/`review-queue` deployed, and render paths
+added in the reviewer portal and student FRQ session (see the
+2026-07-19 activity log entry for full detail, including 3 scientific
+errors found and fixed in a second-pass image review before upload). Not
+yet independently re-QA'd by a live click-through — see "Remaining steps"
+below.
 
 ## Context
 
@@ -85,31 +88,26 @@ errors in the initial batch, since fixed and regenerated:**
 
 The other 7 images were re-checked in the same pass and found correct.
 
-## Remaining steps once tool access is restored
+## Remaining steps
 
-1. **Apply migration** `supabase/migrations/202607121001_add_stimulus_image_path.sql`
-   to Production (`pcntajvbdfqhbeewmdry`) — adds
-   `content_item_versions.stimulus_image_path text`.
-2. **Upload the 10 PNGs** to the `content-assets` Storage bucket at
-   `biology/frq/<content_key>.png`.
-3. **Update the 10 rows** in `app.content_item_versions` to set
-   `stimulus_image_path = 'biology/frq/<content_key>.png'` for the matching
-   `content_key`.
-4. **Extend the curated `public.content_item_versions` view** (and
-   `public.grading_results`-style views as needed) to expose the new
-   column — same gap pattern found and fixed earlier this session for
-   `grading_results`; don't repeat it here.
-5. **Deploy the `storage-sign-url` fix already committed to git** (adds
-   read-only `content-assets` access for `tutor`/`reader`/`validator`).
-6. **Update the reviewer portal frontend** (`cramapple-prototype` Lovable
-   project, `reviewer.review.$assignmentId.tsx`) to fetch a signed URL for
-   `stimulus_image_path` when present and render an `<img>`, alongside the
-   existing text stimulus.
-7. **Update the student-facing session frontend** (same project, FRQ
-   session route) with the equivalent render path, so students see the
-   same images tutors/readers are reviewing.
-8. **Verify**: confirm a reviewer (tutor-role account) can actually load
-   and see an image for at least one of the 10 items, and confirm a
-   student-facing practice session does too.
-9. Get this independently re-QA'd before treating it as done — standing
-   practice this session for every live-grading/content change.
+1. ~~Apply migration~~ — done. `202607121001` applied to Production
+   (`pcntajvbdfqhbeewmdry`).
+2. ~~Upload the 10 PNGs~~ — done. Uploaded to `content-assets` at
+   `Biology/FRQ/<content_key>.png` (capitalized — differs from the
+   `biology/frq/` convention in the migration comment; used as-uploaded).
+3. ~~Update the 10 rows~~ — done. All 10
+   `app.content_item_versions.stimulus_image_path` values set and confirmed.
+4. ~~Extend the curated `public.content_item_versions` view~~ — done, via
+   `202607121002_content_item_versions_view_stimulus_image_path.sql`.
+5. ~~Deploy the `storage-sign-url` fix~~ — done.
+6. ~~Update the reviewer portal frontend~~ — done, in the correct project
+   (`exam-buddy-wireframe`, not `cramapple-prototype` — see the 2026-07-19
+   activity log entry for why).
+7. ~~Update the student-facing session frontend~~ — done, same project.
+8. **Verify** (still open): confirm a reviewer (tutor-role account) can
+   actually load and see an image for at least one of the 10 items in the
+   live UI, and confirm a student-facing practice session does too.
+   Verified so far only at the data/auth level (see activity log) — not
+   yet an actual click-through by a logged-in account.
+9. Get this independently re-QA'd before treating it as fully done —
+   standing practice this session for every live-grading/content change.
