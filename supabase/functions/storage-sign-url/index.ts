@@ -53,7 +53,18 @@ function canAccessBucket(role: string, bucket: string, mode: StorageMode) {
   }
 
   if (bucket === "content-assets") {
-    return role === "admin" || role === "content_author";
+    // Authoring roles get full read/write/delete. Reviewer roles
+    // (tutor/reader/validator) only ever need to VIEW a stimulus image
+    // while reviewing content -- never upload or delete one -- so they're
+    // read-only here. Confirmed live (2026-07-12): content-assets had no
+    // reviewer access at all, which silently blocked the reviewer portal
+    // from ever rendering a stimulus image, on top of the portal frontend
+    // itself never having an <img> render path (fixed separately).
+    if (role === "admin" || role === "content_author") return true;
+    if (mode === "sign_download") {
+      return role === "tutor" || role === "reader" || role === "validator";
+    }
+    return false;
   }
 
   if (bucket === "validation-artifacts") {
