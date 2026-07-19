@@ -66,6 +66,25 @@ before this directory was written (see the corresponding activity log
 entry for the review notes, e.g. Complex II correctly shown without proton
 pumping, ETC/GPCR pathway order, replication fork topology).
 
+**2026-07-19 second-pass review (before Storage upload) found 3 real
+errors in the initial batch, since fixed and regenerated:**
+
+- `APBIO-FRQ-S-008` (replication fork): the "fork movement" arrow pointed
+  *away* from the still-paired parental strands and into the
+  already-unwound leading/lagging-strand region — backwards, since a fork
+  can only advance into unreplicated DNA. Arrow direction corrected.
+- `APBIO-FRQ-S-014` (ETC): drew a direct Complex I → Complex II arrow,
+  implying a single sequential I→II→III→IV pathway. Complex I and Complex
+  II are independent, parallel entry points (from NADH and FADH₂
+  respectively) that both feed Complex III — they don't feed each other.
+  Complex II moved off the main row with its own arrow into Complex III.
+- `APBIO-FRQ-S-015` (lac operon): an arrow ran from `lacI` directly into
+  the operon's `Promoter` box, visually implying a functional link between
+  lacI's own promoter and the operon's promoter. Replaced with a
+  standalone annotation on `lacI`, no connecting line.
+
+The other 7 images were re-checked in the same pass and found correct.
+
 ## Remaining steps once tool access is restored
 
 1. **Apply migration** `supabase/migrations/202607121001_add_stimulus_image_path.sql`

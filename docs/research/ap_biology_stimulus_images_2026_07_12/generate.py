@@ -15,7 +15,7 @@ from matplotlib.patches import FancyArrowPatch, FancyBboxPatch, Circle, Rectangl
 import numpy as np
 import os
 
-OUT = "/tmp/claude-0/-home-user-Cramapple/8364fa9b-b863-5e1c-98b0-196ba700bf15/scratchpad/bio_images"
+OUT = "/tmp/claude-0/-home-user-Cramapple/3e29b1b2-7240-5e27-87a6-445902996b54/scratchpad/bio_images"
 os.makedirs(OUT, exist_ok=True)
 
 plt.rcParams.update({
@@ -247,8 +247,13 @@ def s008():
     ax.text(6.6, 1.15, "lagging strand\n(Okazaki fragments)", fontsize=8, ha="center", color="#c0392b")
     _box(ax, 5.0, 0.55, 1.3, 0.55, "DNA pol", fc="#fbe6e6", fontsize=8)
 
-    _arrow(ax, (4.2, 4.0), (4.6, 4.0))
-    ax.text(4.3, 3.55, "fork\nmovement", fontsize=7, ha="center")
+    # Fork moves INTO the still-unopened parental duplex (left) -- the
+    # leading/lagging strands to the right are already-unwound territory
+    # the fork has passed through, so the arrow must point left, not right.
+    # (Confirmed wrong in the original render: arrow pointed away from the
+    # intact duplex and into the already-replicated region.)
+    _arrow(ax, (3.35, 4.0), (2.95, 4.0))
+    ax.text(3.15, 3.55, "fork\nmovement", fontsize=7, ha="center")
 
     save(fig, "APBIO-FRQ-S-008.png")
 
@@ -308,22 +313,29 @@ def s014():
     ax.text(0.5, 4.2, "intermembrane space", fontsize=9, style="italic")
     ax.text(0.5, 1.6, "mitochondrial matrix", fontsize=9, style="italic")
 
+    # Complex I and Complex II are INDEPENDENT, parallel entry points into
+    # the chain (from NADH and FADH2 respectively) -- they do not feed into
+    # each other. Both hand electrons to Complex III. The original render
+    # drew a direct Complex I -> Complex II arrow, wrongly implying a single
+    # sequential I-II-III-IV pathway; fixed by moving Complex II off the
+    # main row with its own separate arrow into Complex III.
     _box(ax, 0.8, 2.5, 1.3, 1.0, "Complex I")
-    _box(ax, 2.5, 2.5, 1.3, 1.0, "Complex II", fc="#f0f0f0")
     _box(ax, 4.2, 2.5, 1.3, 1.0, "Complex III")
     _box(ax, 5.9, 2.5, 1.3, 1.0, "Complex IV")
     _box(ax, 8.0, 2.0, 1.4, 1.6, "ATP\nsynthase")
+    _box(ax, 2.8, 0.55, 1.3, 0.9, "Complex II", fc="#f0f0f0")
 
     ax.text(0.9, 1.3, "NADH → NAD⁺", fontsize=8)
-    ax.text(2.6, 1.3, "FADH₂ → FAD", fontsize=8)
+    ax.text(2.9, 0.25, "FADH₂ → FAD", fontsize=8)
 
-    _arrow(ax, (2.1, 3.0), (2.5, 3.0))
-    _arrow(ax, (3.8, 3.0), (4.2, 3.0))
+    _arrow(ax, (2.1, 3.0), (4.2, 3.0))
     _arrow(ax, (5.5, 3.0), (5.9, 3.0))
     _arrow(ax, (7.2, 3.0), (7.5, 3.0))
-    ax.text(3.15, 3.15, "e⁻", color="#c0392b", fontsize=10, ha="center")
+    _arrow(ax, (4.05, 1.45), (4.4, 2.5), connectionstyle="arc3,rad=-0.25")
+    ax.text(3.0, 3.15, "e⁻", color="#c0392b", fontsize=10, ha="center")
     ax.text(5.0, 3.15, "e⁻", color="#c0392b", fontsize=10, ha="center")
     ax.text(6.8, 3.15, "e⁻", color="#c0392b", fontsize=10, ha="center")
+    ax.text(4.55, 1.75, "e⁻", color="#c0392b", fontsize=10, ha="center")
 
     for x in (1.45, 4.85, 6.55):
         ax.annotate("", xy=(x, 3.9), xytext=(x, 2.6),
@@ -348,10 +360,14 @@ def s015():
     ax.axis("off")
     ax.set_title("The lac Operon", fontsize=13, pad=12)
 
-    # regulatory gene lacI with own promoter
+    # regulatory gene lacI, transcribed from its own separate promoter --
+    # NOT the operon's Promoter box a few pixels to the right. The original
+    # render drew an arrow from lacI straight into that Promoter box, which
+    # visually implied a functional link between the two (as if lacI's
+    # transcription fed into starting the operon); replaced with a small
+    # self-contained annotation above lacI instead, with no connecting line.
     _box(ax, 0.4, 3.7, 1.6, 0.8, "lacI\n(regulatory gene)", fc="#eaf3ec", fontsize=8)
-    _arrow(ax, (2.0, 4.1), (2.4, 4.1))
-    ax.text(2.05, 4.35, "own\npromoter", fontsize=6, ha="center")
+    ax.text(1.2, 4.7, "(has its own separate promoter,\nnot shown)", fontsize=6, ha="center", style="italic")
 
     # repressor protein produced
     ax.add_patch(Circle((1.2, 2.3), 0.4, facecolor="#f2c14e", edgecolor="#333"))
