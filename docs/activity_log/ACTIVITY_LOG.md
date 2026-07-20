@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Content Review & QA Prompt for Codex Drafted — 2026-07-20
 - AP Statistics Question Issues: Pre-Launch Log — 2 Content Stubs Found, 2026-07-11 QA Findings Confirmed Fixed — 2026-07-19
 - AP Biology Stimulus Images: Uploaded, Linked, and Rendered — 3 Errors Found and Fixed in Second-Pass Review — 2026-07-19
 - Statistics Deterministic Verifier Fixes: Independent Opus Re-QA — Confirmed Safe, Found Broader Scope Than Disclosed — 2026-07-12
@@ -23,6 +24,44 @@ Most recent entries (full reverse-chronological list follows below):
 - Cramapple Visual Identity Brief Revised From Family Discussion — 2026-06-21
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## Content Review & QA Prompt for Codex Drafted - 2026-07-20
+
+**Task:** David asked for a content review/QA prompt for Codex covering the
+whole question bank, explicitly including assessing questions for missing
+images and the quality of existing images.
+
+**Status:** Drafted at
+`docs/governance/CONTENT_REVIEW_QA_PROMPT_FOR_CODEX.md`. `Status: Draft` —
+not yet run or approved as a standing procedure.
+
+**Summary:** Grounded the prompt in the actual governing docs
+(`CONTENT_GOVERNANCE_AND_VALIDATION.md`, `VISUAL_STIMULUS_AND_RENDERING_
+SYSTEM.md` §4/§7, `TASK-0005`) rather than writing a generic checklist, and
+built in the concrete defect patterns found during this session's Biology
+and Statistics passes so the next reviewer doesn't have to rediscover them:
+recompute-don't-eyeball canonical answers (the `APSTAT-MOD5-M001` SD error),
+rubric-metadata mismatches and self-correction artifacts left in rubric text
+(from `apbio_frq_corpus_quality_audit.md`), the content-stub pattern
+(`APSTAT-MOD7-M001`/`-M004` — deterministic numeric grading with no
+underlying data anywhere, which needs authoring, not an image), the
+4-bucket image-need classification (genuine gap / embedded-data /
+student-constructed / false positive), and — the part David specifically
+asked for — a dedicated image-quality pass that requires actually viewing
+each rendered image and tracing arrow direction/causality, since every real
+image defect found this session (`APBIO-FRQ-S-008`, `-014`, `-015`) was a
+directional/sequential error invisible without doing that, not a surface
+content problem. Noted the current fixed concern-code vocabulary
+(`Accuracy | Ambiguity | Rubric gap | Other`) has no dedicated "missing
+image" or "image defect" tag and flagged that as a gap rather than forcing
+a mismatch.
+
+**Next Owner:** David Bloom
+**Next Required Action:** Review the draft prompt, fill in `<SUBJECT>`, and
+hand it to Codex for a pass (AP Biology and AP Statistics have already had
+one round each this session; AP Calculus AB/BC and AP Precalculus have not).
 
 ---
 
