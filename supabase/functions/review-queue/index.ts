@@ -26,10 +26,36 @@ type ContentVersion = {
   review_status: string | null;
   status: string;
   stimulus_image_path: string | null;
+  prompt_json: Record<string, unknown> | null;
 };
 
 const STIMULUS_IMAGE_BUCKET = "content-assets";
 const STIMULUS_IMAGE_URL_TTL_SECONDS = 3600;
+
+// Heuristic-only, soft-flag QA aid (not a publish gate): the text implies a
+// figure/diagram/graph/photo the student must read, but there's neither an
+// attached stimulus image nor the corpus's established text-substitute
+// convention ("Figure 1 (described): ..." / "Figure 1 description: ...").
+// False positives are expected and fine — this surfaces a warning in the
+// review payload, it never blocks a tutor's decision. Hand-drawn
+// student-response items are excluded: those describe data the STUDENT
+// draws from, not a pre-supplied figure.
+const FIGURE_REFERENCE_PATTERN =
+  /(figure\s*\d|graph\s*(shown|shows|below)|diagram\s*(shown|shows|below)|image\s*(shown|shows|below)|picture\s*(shown|shows|below)|photograph\s*(shown|shows|below)|chart\s*(shown|shows|below)|the following\s*(figure|diagram|graph|image))/i;
+const DESCRIBED_SUBSTITUTE_PATTERN = /figure\s*\d*\s*\(?descri(bed|ption)\)?[:.]?/i;
+
+function looksLikeMissingStimulusImage(version: ContentVersion): boolean {
+  if (version.stimulus_image_path) return false;
+  const handDrawn = version.prompt_json?.hand_drawn === true ||
+    version.prompt_json?.hand_drawn === "true";
+  if (handDrawn) return false;
+
+  const text = `${version.stem ?? ""} ${version.stimulus ?? ""}`;
+  if (!FIGURE_REFERENCE_PATTERN.test(text)) return false;
+  if (DESCRIBED_SUBSTITUTE_PATTERN.test(text)) return false;
+
+  return true;
+}
 
 type ContentItem = {
   id: string;
@@ -140,7 +166,7 @@ Deno.serve(async (req) => {
     contentVersionIds.length
       ? service.schema("app").from("content_item_versions")
         .select(
-          "id, content_item_id, version_num, stem, stimulus, explanation, frq_form, review_status, status, stimulus_image_path",
+          "id, content_item_id, version_num, stem, stimulus, explanation, frq_form, review_status, status, stimulus_image_path, prompt_json",
         )
         .in("id", contentVersionIds)
       : Promise.resolve({ data: [], error: null as null }),
@@ -268,6 +294,13 @@ Deno.serve(async (req) => {
         stimulus_image_url: version.stimulus_image_path
           ? imageUrlByPath.get(version.stimulus_image_path) ?? null
           : null,
+        // Soft QA flag only — see looksLikeMissingStimulusImage. Never blocks
+        // a decision; a tutor can approve right past this.
+        content_flags: {
+          possible_missing_stimulus_image: looksLikeMissingStimulusImage(
+            version,
+          ),
+        },
         explanation: version.explanation,
         frq_form: version.frq_form,
         review_status: version.review_status,
