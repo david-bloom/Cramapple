@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Production Content Reconciled to Tutor Decisions; Reviewer Image Support Shipped — 2026-07-20
 - Kimi Grading Experiment Wired and Pre-Registered — 2026-07-17
 - Phase A Broken-Import Fix and Deterministic-Layer-Only Ship Decision — 2026-07-12
 - TASK-0016 Phase A Grading-Router Reconciled Onto Grading Branch — 2026-07-12
@@ -20,6 +21,120 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## Production Content Reconciled to Tutor Decisions; Reviewer Image Support Shipped - 2026-07-20
+
+**Task:** Grading-experiments session, continued live from a student-home-page
+UX review. Escalated into direct Production database and edge-function
+changes — Higher-tier: real production data mutations, code deploys, no
+schema/migration change.
+**Status:** Done and deployed. Some findings handed off, not fixed.
+
+**Summary:** Session started as a UX review of a `/proto/home` student
+homepage POC, then pivoted when the user asked whether AP Bio/Stats had
+enough tutor-reviewed content to finalize grading. Verified directly against
+Production (`pcntajvbdfqhbeewmdry`) rather than trusting the premise: found
+the *reviewed* content and the *published* content were largely disjoint sets
+— most published items had never been reviewed, and 2 AP Statistics items
+were live despite explicit tutor disapproval (out-of-CED for the 2027 exam).
+
+With explicit direction, reconciled Production to match actual tutor
+decisions:
+- Retired the 2 disapproved-and-published Stats items (`status='retired'`,
+  non-destructive).
+- Published 35 tutor-approved, no-edit-needed items stuck in draft (30 Bio +
+  5 Stats).
+- Remedied and published 8 `approve_with_edits` items with precise,
+  tutor-specified text fixes (answer-choice wording, a real math error, a
+  stray uncorrected draft calculation left in a rationale, a missing
+  intra-S-phase-checkpoint mention) — verified current text against each
+  tutor note before editing. Caught and fixed one of my own mistakes mid-way
+  (wrong `mcq_choices.id` grabbed for a choice-D edit; the text-match `WHERE`
+  clause prevented silent corruption).
+- Declined to freehand two "simplify the numbers/terminology" MCQs and two
+  substantive FRQ content issues (unrealistic data, rubric specificity,
+  stimulus/question mismatch) — fixed what had exact tutor-specified text
+  (`APBIO-FRQ-S-001` stimulus rewrite, `APSTATS-HDG-2026-GRAPH-005` quiz→test
+  relabel across stem/stimulus/table/JSON keys) and flagged the rest for
+  Orly rather than inventing exam content.
+- Reopened all 13 items I materially edited or made a keep-as-is judgment on
+  back to `pending` in `content_review_assignments` for the original tutor to
+  re-confirm, rather than trusting my own edits as final.
+
+Separately, confirmed tutors could not review image-bearing questions at all:
+`review-queue`'s payload never selected `stimulus_image_path`, and even if it
+had, the `content-assets` storage bucket only authorizes `admin`/
+`content_author` roles — tutors (`role='tutor'`) could never self-sign a
+download URL. Fixed by signing images server-side inside `review-queue`
+(service-role client, no bucket-ACL change needed); deployed to Production
+(v18). Audited both subjects for questions that need an image but lack one:
+found exactly one real gap (`APSTAT-MOD7-M004`, draft, completely empty
+stimulus for a "this tree diagram shows..." probability question) against
+~200 reviewed-or-pending items and the full Bio/Stats corpus. Everything else
+that looked like a candidate was already resolved via the corpus's
+established "Figure 1 (described): ..." text-substitute convention.
+
+Built and shipped a reusable soft-flag heuristic
+(`content_flags.possible_missing_stimulus_image`) into `review-queue` (v19)
+per explicit product decisions (soft flag, not a hard block; wired at the
+review checkpoint only, not into TASK-0017). Validated against the full
+reviewed-or-pending set before shipping and caught two bugs in my own first
+draft in the process (missed the "description" noun form vs. "described"
+participle; missed "diagram shows" vs. the narrower "diagram shown").
+
+Recovered the AP Biology/Statistics/Chemistry calibration-tier gold-set
+candidates (built 2026-07-08/09 per DECISION-0034/APPROVAL-0032) from two
+unmerged Codex branches onto `main` via PR #44 — they had never been merged
+and were at risk of being lost if those branches were cleaned up. Confirmed
+these remain AI-provisional "calibration" (silver), not `adjudicated_gold`;
+merging changes no launch gate.
+
+One process gap surfaced and left unresolved: there is no reliable
+system-level way to detect "tutor-reviewed content was edited after the
+review" — `content_item_versions.updated_at` is polluted by status-only bulk
+updates and doesn't propagate from child-table edits (`mcq_choices`,
+`frq_criteria`), so it gives both false positives and false negatives. All 13
+re-review flags this session exist only because they were tracked manually in
+conversation, not because the system would surface them on its own.
+
+**Verification performed:** `deno check` on `review-queue/index.ts` before
+each deploy (twice); manually confirmed all 10 real Bio FRQ stimulus images
+exist in `content-assets` storage before trusting the signing fix; re-derived
+and hand-verified the missing-image regex against ~200 real items before
+shipping, not just spot-checked; confirmed all 13 reopened items show
+`status='pending'` by content key after the fact.
+
+**Files/systems changed:** `supabase/functions/review-queue/index.ts`
+(deployed Production v18, v19); Production DB (`pcntajvbdfqhbeewmdry`) —
+`app.content_items`/`content_item_versions`/`mcq_choices` status and text
+updates, `content_review_assignments` reopened; PR #44
+(`claude/pull-gold-set-candidates` → `main`, open, not yet merged).
+
+**Open blockers/risks carried forward:**
+1. `APSTAT-MOD7-M004` — empty stimulus, unanswerable as authored, needs an
+   author (not fixed; declined to invent probability data).
+2. Four Bio FRQs need real content authoring, not mechanical fixes:
+   `APBIO-MCQ-069`, `APBIO-MCQ-074` (simplify, no exact spec given),
+   `APSTATS-HDG-2026-GRAPH-005` (unrealistic dataset — the quiz→test fix
+   addressed only part of the tutor's note), `APBIO-FRQ-S-001`/`-L-009`
+   flagged earlier, GRAPH-005/FRQ-S-001 both live with a known partial gap.
+3. No system-level "content edited after review" detector exists — proposed
+   using the unused `content_review_decisions.canonical_answer_snapshot`
+   column for this; not built.
+4. TASK-0010 human dual-blind adjudication has still not happened for either
+   subject — the calibration gold-set candidates recovered in PR #44 remain
+   silver-tier. This is unaffected by tonight's publish/retire actions but
+   means DECISION-0041's calibration-before-publish gate is still unmet by
+   everything published tonight.
+5. PR #44 is open, unreviewed, unmerged.
+
+**Next Owner:** David Bloom.
+**Next Required Action:** Review/merge PR #44; decide who authors the
+missing-image and simplify-content items; decide whether to build the
+content-drift-after-review detector; get the 13 reopened items in front of
+the Bio/Stats tutors.
 
 ---
 
