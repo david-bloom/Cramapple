@@ -22,7 +22,6 @@ type ContentVersion = {
   stem: string;
   stimulus: string | null;
   explanation: string | null;
-  frq_form: string | null;
   review_status: string | null;
   status: string;
   stimulus_image_path: string | null;
@@ -62,6 +61,7 @@ type ContentItem = {
   content_key: string;
   item_type: string;
   title: string;
+  frq_form: string | null;
 };
 
 type McqChoice = {
@@ -166,7 +166,7 @@ Deno.serve(async (req) => {
     contentVersionIds.length
       ? service.schema("app").from("content_item_versions")
         .select(
-          "id, content_item_id, version_num, stem, stimulus, explanation, frq_form, review_status, status, stimulus_image_path, prompt_json",
+          "id, content_item_id, version_num, stem, stimulus, explanation, review_status, status, stimulus_image_path, prompt_json",
         )
         .in("id", contentVersionIds)
       : Promise.resolve({ data: [], error: null as null }),
@@ -190,7 +190,7 @@ Deno.serve(async (req) => {
     await Promise.all([
       contentItemIds.length
         ? service.schema("app").from("content_items")
-          .select("id, content_key, item_type, title")
+          .select("id, content_key, item_type, title, frq_form")
           .in("id", contentItemIds)
         : Promise.resolve({ data: [], error: null as null }),
 
@@ -302,7 +302,7 @@ Deno.serve(async (req) => {
           ),
         },
         explanation: version.explanation,
-        frq_form: version.frq_form,
+        frq_form: item?.frq_form ?? null,
         review_status: version.review_status,
         mcq_choices: versionId
           ? (choicesByVersion.get(versionId) ?? [])
