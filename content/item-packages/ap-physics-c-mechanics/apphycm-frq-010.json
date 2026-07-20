@@ -1,0 +1,147 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apphycm-frq-010",
+  "content_key": "apphycm-frq-010",
+  "content_version": 1,
+  "difficulty": "Medium",
+  "frq_form": "short",
+  "canonical_answers": [
+    "F=-4ax³+2bx; stable equilibria are x=±sqrt(b/2a), where U has minima."
+  ],
+  "exam_pack_ref": {
+    "exam_code": "ap_physics_c_mechanics",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "frq",
+  "archetype_ref": {
+    "archetype_key": "ap-physics-c-mechanics-frq-experimental",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-physics-c-mechanics-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-3-work-energy-and-power"
+    },
+    {
+      "scheme_key": "ap-physics-c-mechanics-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-1"
+    }
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "scenario",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "A particle moves in one dimension in potential U(x)=ax⁴-bx² with a,b>0."
+      },
+      "source_refs": [
+        "ap-physics-c-mechanics-ced-fact-pack"
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "part_key": "part-a",
+      "ordinal": 1,
+      "label": "(a)",
+      "prompt": "Design a feasible measurement that tests the governing relation; identify the independent variable, dependent variable, and one control.",
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion",
+          "points": 1,
+          "description": "Design measures the restoring force F on the particle at various displacements x from the equilibrium; independent variable is displacement x, dependent variable is measured force F(x)=-4ax³+2bx, and the potential coefficients a and b (same apparatus) must be held constant across trials.",
+          "required_evidence": [
+            "independent variable: displacement x",
+            "dependent variable: force F(x)",
+            "coefficients a and b held constant"
+          ],
+          "accepted_variants": [
+            "Equivalent scientifically correct notation and reasoning earn credit."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "displacement x",
+                  "force F(x)",
+                  "held constant"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "stimulus_refs": [
+        "scenario"
+      ]
+    },
+    {
+      "part_key": "part-b",
+      "ordinal": 2,
+      "label": "(b)",
+      "prompt": "Explain how identifying stable equilibria as points where U''(x)>0 (potential minima), and the assumption of negligible friction during measurement, supports your proposed experimental test.",
+      "response_modalities": [
+        "typed-text"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-b-criterion",
+          "points": 1,
+          "description": "Explain how identifying stable equilibria as points where U''(x)>0 (potential minima), and the assumption of negligible friction during measurement, supports your proposed experimental test.",
+          "required_evidence": [
+            "stable equilibria occur where U''(x)>0",
+            "negligible friction assumption"
+          ],
+          "accepted_variants": [
+            "Equivalent scientifically correct notation and reasoning earn credit."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "U''(x)>0",
+                  "negligible friction"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "stimulus_refs": [
+        "scenario"
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "Text and symbolic notation are fully described."
+  },
+  "review_notes": {
+    "expected_reasoning": "F=-4ax³+2bx; stable equilibria are x=±sqrt(b/2a), where U has minima.",
+    "known_boundary_cases": [],
+    "originality_statement": "Independently authored synthetic draft for Tutor review; no official question or scoring material used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-physics-c-mechanics-ced-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-15",
+    "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
+    "generated_by": "codex",
+    "generated_at": "2026-07-15T00:00:00Z",
+    "content_sha256": "38abd29899abc476708d62bc2814fe108cf6c71ceaefade086042e9cfe8fb3eb"
+  }
+}

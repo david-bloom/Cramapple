@@ -1,0 +1,109 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apchem-mcq-008",
+  "content_key": "apchem-mcq-008",
+  "content_version": 1,
+  "difficulty": "Medium",
+  "exam_pack_ref": {
+    "exam_code": "ap_chemistry",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "mcq",
+  "archetype_ref": {
+    "archetype_key": "ap-chemistry-mcq",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-chemistry-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-3-properties-of-substances-and-mixtures"
+    },
+    {
+      "scheme_key": "ap-chemistry-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-2"
+    }
+  ],
+  "stimuli": [],
+  "mcq_choices": [
+    {
+      "choice_key": "A",
+      "choice_text": "0.50 L",
+      "is_correct": true,
+      "rationale": "Boyle's law gives V2=P1V1/P2"
+    },
+    {
+      "choice_key": "B",
+      "choice_text": "2.0 L",
+      "is_correct": false,
+      "rationale": "Assumes volume is unaffected by the pressure change and simply repeats the initial volume."
+    },
+    {
+      "choice_key": "C",
+      "choice_text": "4.0 L",
+      "is_correct": false,
+      "rationale": "Doubles the initial volume, as if volume increased proportionally with pressure rather than decreasing according to Boyle's law."
+    },
+    {
+      "choice_key": "D",
+      "choice_text": "8.0 L",
+      "is_correct": false,
+      "rationale": "Multiplies volume by pressure instead of dividing (2.0 × 4.0), treating volume as directly proportional to pressure."
+    }
+  ],
+  "canonical_answers": [
+    "A"
+  ],
+  "parts": [
+    {
+      "part_key": "question",
+      "ordinal": 1,
+      "prompt": "A gas occupies 2.0 L at 1.0 atm. At constant temperature, its volume at 4.0 atm is\n\nA. 0.50 L\nB. 2.0 L\nC. 4.0 L\nD. 8.0 L",
+      "response_modalities": [
+        "choice"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-answer",
+          "points": 1,
+          "description": "Select the single scientifically correct answer.",
+          "required_evidence": [
+            "A",
+            "Boyle's law gives V2=P1V1/P2"
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "choice-key",
+              "parameters": {
+                "choice": "A"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All information is text-based."
+  },
+  "review_notes": {
+    "expected_reasoning": "Boyle's law gives V2=P1V1/P2",
+    "known_boundary_cases": [],
+    "originality_statement": "Independently authored synthetic practice item; no official question or scoring material used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-chemistry-ced-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-15",
+    "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
+    "generated_by": "codex",
+    "generated_at": "2026-07-15T00:00:00Z",
+    "content_sha256": "467ceec6e5dd7a3eebf27531e15ccea53ac22c04e369d01c9162c5d4c1a58ce8"
+  }
+}

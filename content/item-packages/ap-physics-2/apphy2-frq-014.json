@@ -1,0 +1,147 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apphy2-frq-014",
+  "content_key": "apphy2-frq-014",
+  "content_version": 1,
+  "difficulty": "Hard",
+  "frq_form": "short",
+  "canonical_answers": [
+    "Doubling the photon energy to 6.40 eV gives KEmax = 6.40 − 2.00 = 4.40 eV (stopping potential 4.40 V); KEmax more than doubles because the work function is a fixed subtraction."
+  ],
+  "exam_pack_ref": {
+    "exam_code": "ap_physics_2",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "frq",
+  "archetype_ref": {
+    "archetype_key": "ap-physics-2-frq-translation",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-physics-2-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-15-modern-physics"
+    },
+    {
+      "scheme_key": "ap-physics-2-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-2"
+    }
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "scenario",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "Light of photon energy 3.20 eV illuminates a metal with work function 2.00 eV."
+      },
+      "source_refs": [
+        "ap-physics-2-ced-fact-pack"
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "part_key": "part-a",
+      "ordinal": 1,
+      "label": "(a)",
+      "prompt": "Predict how the observable changes when the defining scale parameter is doubled, and justify the prediction quantitatively.",
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion",
+          "points": 1,
+          "description": "Doubling the photon energy from 3.20 eV to 6.40 eV increases the maximum photoelectron kinetic energy to KEmax = 6.40 − 2.00 = 4.40 eV (stopping potential 4.40 V); because the 2.00 eV work function is subtracted rather than scaled, KEmax more than doubles even though photon energy exactly doubles.",
+          "required_evidence": [
+            "doubled photon energy = 6.40 eV",
+            "new KEmax = 6.40 − 2.00 = 4.40 eV (stopping potential 4.40 V)",
+            "KEmax does not simply double because the work function is a fixed subtraction, not a scaled quantity"
+          ],
+          "accepted_variants": [
+            "Equivalent scientifically correct notation and reasoning earn credit."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "6.40",
+                  "4.40",
+                  "work function"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "stimulus_refs": [
+        "scenario"
+      ]
+    },
+    {
+      "part_key": "part-b",
+      "ordinal": 2,
+      "label": "(b)",
+      "prompt": "Explain why doubling the photon energy while keeping the work function fixed increases the stopping potential by more than double the original value, referencing the fact that only the excess energy above the work function becomes kinetic energy.",
+      "response_modalities": [
+        "typed-text"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-b-criterion",
+          "points": 1,
+          "description": "Explain why doubling the photon energy while keeping the work function fixed increases the stopping potential by more than double the original value, referencing the fact that only the excess energy above the work function becomes kinetic energy.",
+          "required_evidence": [
+            "stopping potential relates only to energy above the work function",
+            "work function is a fixed subtraction, not a scaled quantity"
+          ],
+          "accepted_variants": [
+            "Equivalent scientifically correct notation and reasoning earn credit."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "excess energy",
+                  "work function subtraction"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "stimulus_refs": [
+        "scenario"
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "Text and symbolic notation are fully described."
+  },
+  "review_notes": {
+    "expected_reasoning": "Doubling the photon energy to 6.40 eV gives KEmax = 6.40 − 2.00 = 4.40 eV (stopping potential 4.40 V); KEmax more than doubles because the work function is a fixed subtraction.",
+    "known_boundary_cases": [],
+    "originality_statement": "Independently authored synthetic draft for Tutor review; no official question or scoring material used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-physics-2-ced-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-15",
+    "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
+    "generated_by": "codex",
+    "generated_at": "2026-07-15T00:00:00Z",
+    "content_sha256": "2e0397f60896dde80f177d3310257844d5539335a0aa9d1a78dcb871c7177471"
+  }
+}

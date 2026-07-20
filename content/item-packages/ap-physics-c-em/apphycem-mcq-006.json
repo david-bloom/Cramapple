@@ -1,0 +1,109 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apphycem-mcq-006",
+  "content_key": "apphycem-mcq-006",
+  "content_version": 1,
+  "difficulty": "Medium",
+  "exam_pack_ref": {
+    "exam_code": "ap_physics_c_em",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "mcq",
+  "archetype_ref": {
+    "archetype_key": "ap-physics-c-em-mcq",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-physics-c-em-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-9-electric-potential"
+    },
+    {
+      "scheme_key": "ap-physics-c-em-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-3"
+    }
+  ],
+  "stimuli": [],
+  "mcq_choices": [
+    {
+      "choice_key": "A",
+      "choice_text": "∇V=0",
+      "is_correct": true,
+      "rationale": "the gradient vanishes at a stationary point"
+    },
+    {
+      "choice_key": "B",
+      "choice_text": "V=0 necessarily",
+      "is_correct": false,
+      "rationale": "This confuses a vanishing slope of V with the potential's value itself being zero."
+    },
+    {
+      "choice_key": "C",
+      "choice_text": "infinite charge necessarily",
+      "is_correct": false,
+      "rationale": "This assumes a stationary point requires an infinite charge source rather than simply zero gradient."
+    },
+    {
+      "choice_key": "D",
+      "choice_text": "nonzero curl E",
+      "is_correct": false,
+      "rationale": "This invokes curl of E, which is always zero for an electrostatic field and unrelated to a stationary point of V."
+    }
+  ],
+  "canonical_answers": [
+    "A"
+  ],
+  "parts": [
+    {
+      "part_key": "question",
+      "ordinal": 1,
+      "prompt": "A stationary point of V has\n\nA. ∇V=0\nB. V=0 necessarily\nC. infinite charge necessarily\nD. nonzero curl E",
+      "response_modalities": [
+        "choice"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-answer",
+          "points": 1,
+          "description": "Select the single scientifically correct answer.",
+          "required_evidence": [
+            "A",
+            "the gradient vanishes at a stationary point"
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "choice-key",
+              "parameters": {
+                "choice": "A"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All information is text-based."
+  },
+  "review_notes": {
+    "expected_reasoning": "the gradient vanishes at a stationary point",
+    "known_boundary_cases": [],
+    "originality_statement": "Independently authored synthetic practice item; no official question or scoring material used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-physics-c-em-ced-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-15",
+    "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
+    "generated_by": "codex",
+    "generated_at": "2026-07-15T00:00:00Z",
+    "content_sha256": "7514e209331ee56d07915b865ba91be163b2c094404219f872033ac730e89956"
+  }
+}

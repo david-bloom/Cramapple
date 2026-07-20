@@ -1,0 +1,147 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apphy2-frq-003",
+  "content_key": "apphy2-frq-003",
+  "content_version": 1,
+  "difficulty": "Easy",
+  "frq_form": "short",
+  "canonical_answers": [
+    "The time constant is RC=2.00 s and Vc(t)=12.0(1-e^{-t/2.00}) V."
+  ],
+  "exam_pack_ref": {
+    "exam_code": "ap_physics_2",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "frq",
+  "archetype_ref": {
+    "archetype_key": "ap-physics-2-frq-math",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-physics-2-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-11-electric-circuits"
+    },
+    {
+      "scheme_key": "ap-physics-2-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-3"
+    }
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "scenario",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "An initially uncharged 20.0 μF capacitor charges through 100 kΩ from a 12.0 V battery."
+      },
+      "source_refs": [
+        "ap-physics-2-ced-fact-pack"
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "part_key": "part-a",
+      "ordinal": 1,
+      "label": "(a)",
+      "prompt": "Derive the stated observable from the supplied conditions and evaluate any given values.",
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion",
+          "points": 1,
+          "description": "The time constant is RC=2.00 s and Vc(t)=12.0(1-e^{-t/2.00}) V.",
+          "required_evidence": [
+            "2.00",
+            "exponential",
+            "initially uncharged"
+          ],
+          "accepted_variants": [
+            "Equivalent scientifically correct notation and reasoning earn credit."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "2.00",
+                  "exponential",
+                  "initially uncharged"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "stimulus_refs": [
+        "scenario"
+      ]
+    },
+    {
+      "part_key": "part-b",
+      "ordinal": 2,
+      "label": "(b)",
+      "prompt": "Explain how Kirchhoff's voltage law applied to the RC loop yields the exponential charging equation, and how assuming an ideal battery with no internal resistance and an initially uncharged capacitor justifies the given initial condition.",
+      "response_modalities": [
+        "typed-text"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-b-criterion",
+          "points": 1,
+          "description": "Explain how Kirchhoff's voltage law applied to the RC loop yields the exponential charging equation, and how assuming an ideal battery with no internal resistance and an initially uncharged capacitor justifies the given initial condition.",
+          "required_evidence": [
+            "Kirchhoff's voltage law applied to the RC loop",
+            "ideal battery with no internal resistance and initially uncharged capacitor"
+          ],
+          "accepted_variants": [
+            "Equivalent scientifically correct notation and reasoning earn credit."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "Kirchhoff",
+                  "no internal resistance"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "stimulus_refs": [
+        "scenario"
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "Text and symbolic notation are fully described."
+  },
+  "review_notes": {
+    "expected_reasoning": "The time constant is RC=2.00 s and Vc(t)=12.0(1-e^{-t/2.00}) V.",
+    "known_boundary_cases": [],
+    "originality_statement": "Independently authored synthetic draft for Tutor review; no official question or scoring material used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-physics-2-ced-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-15",
+    "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
+    "generated_by": "codex",
+    "generated_at": "2026-07-15T00:00:00Z",
+    "content_sha256": "d94bb119003094d5711d57dca9aa412189a410f4259c3087dbf16d13e400d63c"
+  }
+}

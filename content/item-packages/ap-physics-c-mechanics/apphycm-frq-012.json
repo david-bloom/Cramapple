@@ -1,0 +1,147 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apphycm-frq-012",
+  "content_key": "apphycm-frq-012",
+  "content_version": 1,
+  "difficulty": "Hard",
+  "frq_form": "short",
+  "canonical_answers": [
+    "Integrating I dω/dt=τ gives ω(t)=τ₀T(1-e^{-t/T})/I."
+  ],
+  "exam_pack_ref": {
+    "exam_code": "ap_physics_c_mechanics",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "frq",
+  "archetype_ref": {
+    "archetype_key": "ap-physics-c-mechanics-frq-experimental",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-physics-c-mechanics-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-5-torque-and-rotational-dynamics"
+    },
+    {
+      "scheme_key": "ap-physics-c-mechanics-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-3"
+    }
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "scenario",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "A disk of constant moment of inertia I experiences torque τ(t)=τ₀e^{-t/T} from rest."
+      },
+      "source_refs": [
+        "ap-physics-c-mechanics-ced-fact-pack"
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "part_key": "part-a",
+      "ordinal": 1,
+      "label": "(a)",
+      "prompt": "Design a feasible measurement that tests the governing relation; identify the independent variable, dependent variable, and one control.",
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion",
+          "points": 1,
+          "description": "Design measures the disk's angular velocity ω at successive times t as it spins up under the decaying torque; independent variable is elapsed time t, dependent variable is measured angular velocity ω, and the disk's moment of inertia I (same disk) must be held constant across trials.",
+          "required_evidence": [
+            "independent variable: elapsed time t",
+            "dependent variable: angular velocity ω",
+            "control: moment of inertia I held constant"
+          ],
+          "accepted_variants": [
+            "Equivalent scientifically correct notation and reasoning earn credit."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "independent variable",
+                  "angular velocity",
+                  "moment of inertia"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "stimulus_refs": [
+        "scenario"
+      ]
+    },
+    {
+      "part_key": "part-b",
+      "ordinal": 2,
+      "label": "(b)",
+      "prompt": "Explain how the predicted approach to a limiting angular velocity ω_max=τ₀T/I, and the assumption that frictional torque at the bearing is negligible, supports your proposed measurement design.",
+      "response_modalities": [
+        "typed-text"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-b-criterion",
+          "points": 1,
+          "description": "Explain how the predicted approach to a limiting angular velocity ω_max=τ₀T/I, and the assumption that frictional torque at the bearing is negligible, supports your proposed measurement design.",
+          "required_evidence": [
+            "ω approaches limiting value τ₀T/I",
+            "negligible frictional torque"
+          ],
+          "accepted_variants": [
+            "Equivalent scientifically correct notation and reasoning earn credit."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "limiting angular velocity",
+                  "negligible friction"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "stimulus_refs": [
+        "scenario"
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "Text and symbolic notation are fully described."
+  },
+  "review_notes": {
+    "expected_reasoning": "Integrating I dω/dt=τ gives ω(t)=τ₀T(1-e^{-t/T})/I.",
+    "known_boundary_cases": [],
+    "originality_statement": "Independently authored synthetic draft for Tutor review; no official question or scoring material used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-physics-c-mechanics-ced-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-15",
+    "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
+    "generated_by": "codex",
+    "generated_at": "2026-07-15T00:00:00Z",
+    "content_sha256": "2a6ce674539446ed0d6daf57f2a9c050dcb5f3646ac6e6bcbcea395e27c9851e"
+  }
+}

@@ -1,0 +1,147 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apphycm-frq-002",
+  "content_key": "apphycm-frq-002",
+  "content_version": 1,
+  "difficulty": "Easy",
+  "frq_form": "short",
+  "canonical_answers": [
+    "Solving m dv/dt=-bv gives v(t)=v₀e^{-bt/m} and x(t)=mv₀(1-e^{-bt/m})/b."
+  ],
+  "exam_pack_ref": {
+    "exam_code": "ap_physics_c_mechanics",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "frq",
+  "archetype_ref": {
+    "archetype_key": "ap-physics-c-mechanics-frq-math",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-physics-c-mechanics-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-2-force-and-translational-dynamics"
+    },
+    {
+      "scheme_key": "ap-physics-c-mechanics-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-2"
+    }
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "scenario",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "A mass m moves through a medium with drag force F=-bv and initial speed v₀."
+      },
+      "source_refs": [
+        "ap-physics-c-mechanics-ced-fact-pack"
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "part_key": "part-a",
+      "ordinal": 1,
+      "label": "(a)",
+      "prompt": "Derive the stated observable from the supplied conditions and evaluate any given values.",
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion",
+          "points": 1,
+          "description": "Solving m dv/dt=-bv gives v(t)=v₀e^{-bt/m} and x(t)=mv₀(1-e^{-bt/m})/b.",
+          "required_evidence": [
+            "differential equation",
+            "exponential",
+            "initial condition"
+          ],
+          "accepted_variants": [
+            "Equivalent scientifically correct notation and reasoning earn credit."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "differential equation",
+                  "exponential",
+                  "initial condition"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "stimulus_refs": [
+        "scenario"
+      ]
+    },
+    {
+      "part_key": "part-b",
+      "ordinal": 2,
+      "label": "(b)",
+      "prompt": "Explain how Newton's second law m dv/dt=-bv, together with the assumption that drag is directly proportional to speed (linear drag) with no other forces acting, leads to the exponential solution for v(t).",
+      "response_modalities": [
+        "typed-text"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-b-criterion",
+          "points": 1,
+          "description": "Explain how Newton's second law m dv/dt=-bv, together with the assumption that drag is directly proportional to speed (linear drag) with no other forces acting, leads to the exponential solution for v(t).",
+          "required_evidence": [
+            "Newton's second law m dv/dt=-bv",
+            "drag proportional to v with no other forces"
+          ],
+          "accepted_variants": [
+            "Equivalent scientifically correct notation and reasoning earn credit."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "Newton's second law",
+                  "linear drag"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "stimulus_refs": [
+        "scenario"
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "Text and symbolic notation are fully described."
+  },
+  "review_notes": {
+    "expected_reasoning": "Solving m dv/dt=-bv gives v(t)=v₀e^{-bt/m} and x(t)=mv₀(1-e^{-bt/m})/b.",
+    "known_boundary_cases": [],
+    "originality_statement": "Independently authored synthetic draft for Tutor review; no official question or scoring material used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-physics-c-mechanics-ced-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-15",
+    "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
+    "generated_by": "codex",
+    "generated_at": "2026-07-15T00:00:00Z",
+    "content_sha256": "779d1e62c5726dffab11864549710e8248c7bc01c11a38802d4cf962fdb48ccc"
+  }
+}

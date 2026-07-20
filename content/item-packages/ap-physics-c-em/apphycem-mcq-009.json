@@ -1,0 +1,109 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apphycem-mcq-009",
+  "content_key": "apphycem-mcq-009",
+  "content_version": 1,
+  "difficulty": "Medium",
+  "exam_pack_ref": {
+    "exam_code": "ap_physics_c_em",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "mcq",
+  "archetype_ref": {
+    "archetype_key": "ap-physics-c-em-mcq",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-physics-c-em-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-10-conductors-and-capacitors"
+    },
+    {
+      "scheme_key": "ap-physics-c-em-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-3"
+    }
+  ],
+  "stimuli": [],
+  "mcq_choices": [
+    {
+      "choice_key": "A",
+      "choice_text": "maximum",
+      "is_correct": false,
+      "rationale": "This reverses the actual physics, assuming free charge concentrates the field rather than canceling it in equilibrium."
+    },
+    {
+      "choice_key": "B",
+      "choice_text": "zero",
+      "is_correct": true,
+      "rationale": "free charges rearrange until the interior field vanishes"
+    },
+    {
+      "choice_key": "C",
+      "choice_text": "parallel to every direction",
+      "is_correct": false,
+      "rationale": "This mistakes a zero field for a nonzero field pointing equally in every direction."
+    },
+    {
+      "choice_key": "D",
+      "choice_text": "time varying",
+      "is_correct": false,
+      "rationale": "This assumes electrostatic equilibrium implies an oscillating field rather than a static zero field."
+    }
+  ],
+  "canonical_answers": [
+    "B"
+  ],
+  "parts": [
+    {
+      "part_key": "question",
+      "ordinal": 1,
+      "prompt": "In electrostatic equilibrium inside a conductor, E is\n\nA. maximum\nB. zero\nC. parallel to every direction\nD. time varying",
+      "response_modalities": [
+        "choice"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-answer",
+          "points": 1,
+          "description": "Select the single scientifically correct answer.",
+          "required_evidence": [
+            "B",
+            "free charges rearrange until the interior field vanishes"
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "choice-key",
+              "parameters": {
+                "choice": "B"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All information is text-based."
+  },
+  "review_notes": {
+    "expected_reasoning": "free charges rearrange until the interior field vanishes",
+    "known_boundary_cases": [],
+    "originality_statement": "Independently authored synthetic practice item; no official question or scoring material used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-physics-c-em-ced-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-15",
+    "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
+    "generated_by": "codex",
+    "generated_at": "2026-07-15T00:00:00Z",
+    "content_sha256": "363b32cfa792c47dad09990ae65f79d776c9d7a9b337e6d413a0cec47d6b6577"
+  }
+}

@@ -1,0 +1,145 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apchem-sfrq-006",
+  "content_key": "apchem-sfrq-006",
+  "content_version": 1,
+  "difficulty": "Hard",
+  "frq_form": "short",
+  "canonical_answers": [
+    "Ea=59.9 kJ mol^-1; a larger fraction of collisions exceeds Ea."
+  ],
+  "exam_pack_ref": {
+    "exam_code": "ap_chemistry",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "frq",
+  "archetype_ref": {
+    "archetype_key": "ap-chemistry-frq-short",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-chemistry-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-5-kinetics"
+    },
+    {
+      "scheme_key": "ap-chemistry-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-6"
+    }
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "scenario",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "An Arrhenius plot of ln k versus 1/T has slope -7200 K."
+      },
+      "source_refs": [
+        "ap-chemistry-ced-fact-pack"
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "part_key": "part-a",
+      "ordinal": 1,
+      "label": "(a)",
+      "prompt": "Calculate Ea and explain why k increases with temperature.",
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion",
+          "points": 1,
+          "description": "Ea=59.9 kJ mol^-1; a larger fraction of collisions exceeds Ea.",
+          "required_evidence": [
+            "59.9",
+            "activation energy"
+          ],
+          "accepted_variants": [
+            "Equivalent scientifically correct notation and reasoning earn credit."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "59.9",
+                  "activation energy"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "stimulus_refs": [
+        "scenario"
+      ]
+    },
+    {
+      "part_key": "part-b",
+      "ordinal": 2,
+      "label": "(b)",
+      "prompt": "Explain how the Arrhenius equation's linear form (ln k vs 1/T) supports the calculated activation energy, and state the assumption that the pre-exponential factor A is constant over the temperature range studied.",
+      "response_modalities": [
+        "typed-text"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-b-criterion",
+          "points": 1,
+          "description": "The linearized Arrhenius equation (ln k vs 1/T, slope -Ea/R) gives the activation energy, assuming the pre-exponential factor A stays constant over the studied range.",
+          "required_evidence": [
+            "Arrhenius equation",
+            "constant pre-exponential factor"
+          ],
+          "accepted_variants": [
+            "Equivalent scientifically correct notation and reasoning earn credit."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "Arrhenius",
+                  "pre-exponential factor"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "stimulus_refs": [
+        "scenario"
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "Text and symbolic notation are fully described."
+  },
+  "review_notes": {
+    "expected_reasoning": "Ea=59.9 kJ mol^-1; a larger fraction of collisions exceeds Ea.",
+    "known_boundary_cases": [],
+    "originality_statement": "Independently authored synthetic draft for Tutor review; no official question or scoring material used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-chemistry-ced-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-15",
+    "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
+    "generated_by": "codex",
+    "generated_at": "2026-07-15T00:00:00Z",
+    "content_sha256": "c4a70a2395da6740bf5d62d10cea600a17fc61dcabe08aa3f15b2802c12af8a1"
+  }
+}

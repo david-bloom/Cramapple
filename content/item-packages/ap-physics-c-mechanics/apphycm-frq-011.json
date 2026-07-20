@@ -1,0 +1,147 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apphycm-frq-011",
+  "content_key": "apphycm-frq-011",
+  "content_version": 1,
+  "difficulty": "Hard",
+  "frq_form": "short",
+  "canonical_answers": [
+    "Impulse ∫₀ᵀFdt=F₀T/2, so final momentum is F₀T/2."
+  ],
+  "exam_pack_ref": {
+    "exam_code": "ap_physics_c_mechanics",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "frq",
+  "archetype_ref": {
+    "archetype_key": "ap-physics-c-mechanics-frq-experimental",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-physics-c-mechanics-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-4-linear-momentum"
+    },
+    {
+      "scheme_key": "ap-physics-c-mechanics-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-2"
+    }
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "scenario",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "A time-dependent force F(t)=F₀(1-t/T) acts on a mass initially at rest for 0≤t≤T."
+      },
+      "source_refs": [
+        "ap-physics-c-mechanics-ced-fact-pack"
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "part_key": "part-a",
+      "ordinal": 1,
+      "label": "(a)",
+      "prompt": "Design a feasible measurement that tests the governing relation; identify the independent variable, dependent variable, and one control.",
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion",
+          "points": 1,
+          "description": "Design varies the peak applied force F₀ across trials while measuring the resulting final momentum (mass times final velocity) of the object; independent variable is force amplitude F₀, dependent variable is final momentum p=F₀T/2, and the pulse duration T must be held constant across trials.",
+          "required_evidence": [
+            "independent variable: force amplitude F₀",
+            "dependent variable: final momentum p",
+            "duration T held constant"
+          ],
+          "accepted_variants": [
+            "Equivalent scientifically correct notation and reasoning earn credit."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "force amplitude",
+                  "final momentum",
+                  "duration T held constant"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "stimulus_refs": [
+        "scenario"
+      ]
+    },
+    {
+      "part_key": "part-b",
+      "ordinal": 2,
+      "label": "(b)",
+      "prompt": "Explain how the area under the F(t) graph representing the impulse, and the assumption that no momentum is lost to other interactions during the measurement, supports your proposed test design.",
+      "response_modalities": [
+        "typed-text"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-b-criterion",
+          "points": 1,
+          "description": "Explain how the area under the F(t) graph representing the impulse, and the assumption that no momentum is lost to other interactions during the measurement, supports your proposed test design.",
+          "required_evidence": [
+            "impulse equals area under F(t) graph",
+            "no other momentum losses during measurement"
+          ],
+          "accepted_variants": [
+            "Equivalent scientifically correct notation and reasoning earn credit."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "area under F(t)",
+                  "no other momentum losses"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "stimulus_refs": [
+        "scenario"
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "Text and symbolic notation are fully described."
+  },
+  "review_notes": {
+    "expected_reasoning": "Impulse ∫₀ᵀFdt=F₀T/2, so final momentum is F₀T/2.",
+    "known_boundary_cases": [],
+    "originality_statement": "Independently authored synthetic draft for Tutor review; no official question or scoring material used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-physics-c-mechanics-ced-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-15",
+    "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
+    "generated_by": "codex",
+    "generated_at": "2026-07-15T00:00:00Z",
+    "content_sha256": "4b0d767535d5b4a35dcde5c26ec3c9350dabd45b43ac261bf1bcbc2222b01b43"
+  }
+}

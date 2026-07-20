@@ -1,0 +1,150 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apphy2-frq-015",
+  "content_key": "apphy2-frq-015",
+  "content_version": 1,
+  "difficulty": "Very Hard",
+  "frq_form": "short",
+  "canonical_answers": [
+    "Doubling ΔT to 120 K doubles Q (since Q = (3/2)nRΔT at constant volume, with W=0), giving Q ≈ 1496 J."
+  ],
+  "exam_pack_ref": {
+    "exam_code": "ap_physics_2",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "frq",
+  "archetype_ref": {
+    "archetype_key": "ap-physics-2-frq-translation",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-physics-2-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-9-thermodynamics"
+    },
+    {
+      "scheme_key": "ap-physics-2-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-3"
+    }
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "scenario",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "One mole of an ideal monatomic gas is heated at constant volume from 300 K to 360 K."
+      },
+      "source_refs": [
+        "ap-physics-2-ced-fact-pack"
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "part_key": "part-a",
+      "ordinal": 1,
+      "label": "(a)",
+      "prompt": "Predict how the observable changes when the defining scale parameter is doubled, and justify the prediction quantitatively.",
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion",
+          "points": 1,
+          "description": "Doubling the temperature change from ΔT = 60 K to ΔT = 120 K doubles Q, since at constant volume W = 0 and Q = ΔU = (3/2)nRΔT is directly proportional to ΔT; the new value is Q ≈ 1496 J.",
+          "required_evidence": [
+            "doubled ΔT = 120 K",
+            "new Q ≈ 1496 J, double the original because Q ∝ ΔT at constant volume",
+            "W remains 0 since volume is still constant"
+          ],
+          "accepted_variants": [
+            "Equivalent scientifically correct notation and reasoning earn credit."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "120",
+                  "1496",
+                  "proportional"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "stimulus_refs": [
+        "scenario"
+      ]
+    },
+    {
+      "part_key": "part-b",
+      "ordinal": 2,
+      "label": "(b)",
+      "prompt": "Explain why doubling ΔT would double Q in this process, referencing the fact that internal energy of an ideal gas depends only on temperature and the process occurs at constant volume.",
+      "response_modalities": [
+        "typed-text"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-b-criterion",
+          "points": 1,
+          "description": "Explain why doubling ΔT would double Q in this process, referencing the fact that internal energy of an ideal gas depends only on temperature and the process occurs at constant volume.",
+          "required_evidence": [
+            "internal energy of an ideal gas depends only on temperature",
+            "constant-volume process means W=0 so Q=ΔU"
+          ],
+          "accepted_variants": [
+            "Equivalent scientifically correct notation and reasoning earn credit."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "internal energy",
+                  "constant-volume"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "stimulus_refs": [
+        "scenario"
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "Text and symbolic notation are fully described."
+  },
+  "review_notes": {
+    "expected_reasoning": "Doubling ΔT to 120 K doubles Q (since Q = (3/2)nRΔT at constant volume, with W=0), giving Q ≈ 1496 J.",
+    "known_boundary_cases": [
+      "Award credit only when the conclusion follows from explicit evidence.",
+      "Check units, sign, and stated approximation."
+    ],
+    "originality_statement": "Independently authored synthetic draft for Tutor review; no official question or scoring material used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-physics-2-ced-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-15",
+    "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
+    "generated_by": "codex",
+    "generated_at": "2026-07-15T00:00:00Z",
+    "content_sha256": "56931ccf9aa8161bb2ac041ad6bfa1885928acc2b9e3eee6391880d3ede0f4c2"
+  }
+}

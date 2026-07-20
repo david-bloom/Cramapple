@@ -1,0 +1,147 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apphycm-frq-006",
+  "content_key": "apphycm-frq-006",
+  "content_version": 1,
+  "difficulty": "Medium",
+  "frq_form": "short",
+  "canonical_answers": [
+    "I about x=0 is ∫₀ᴸx²λ(x)dx=ML²/2."
+  ],
+  "exam_pack_ref": {
+    "exam_code": "ap_physics_c_mechanics",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "frq",
+  "archetype_ref": {
+    "archetype_key": "ap-physics-c-mechanics-frq-representation",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-physics-c-mechanics-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-6-energy-and-momentum-of-rotating-systems"
+    },
+    {
+      "scheme_key": "ap-physics-c-mechanics-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-3"
+    }
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "scenario",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "A thin rod of length L and mass M has linear density λ(x)=2Mx/L² measured from one end."
+      },
+      "source_refs": [
+        "ap-physics-c-mechanics-ced-fact-pack"
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "part_key": "part-a",
+      "ordinal": 1,
+      "label": "(a)",
+      "prompt": "Translate the governing relation into a labeled graph or diagram and explain its key slope, area, or direction.",
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion",
+          "points": 1,
+          "description": "I about x=0 is ∫₀ᴸx²λ(x)dx=ML²/2.",
+          "required_evidence": [
+            "dm=λdx",
+            "integral",
+            "ML²/2"
+          ],
+          "accepted_variants": [
+            "Equivalent scientifically correct notation and reasoning earn credit."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "dm=λdx",
+                  "integral",
+                  "ML²/2"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "stimulus_refs": [
+        "scenario"
+      ]
+    },
+    {
+      "part_key": "part-b",
+      "ordinal": 2,
+      "label": "(b)",
+      "prompt": "Explain how the integral definition of moment of inertia I=∫x²dm, together with the assumption that the rod's density varies continuously as λ(x)=2Mx/L² (not uniformly), gives I=ML²/2.",
+      "response_modalities": [
+        "typed-text"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-b-criterion",
+          "points": 1,
+          "description": "Explain how the integral definition of moment of inertia I=∫x²dm, together with the assumption that the rod's density varies continuously as λ(x)=2Mx/L² (not uniformly), gives I=ML²/2.",
+          "required_evidence": [
+            "I=∫x²dm integral definition",
+            "density varies as λ(x)=2Mx/L², not uniform"
+          ],
+          "accepted_variants": [
+            "Equivalent scientifically correct notation and reasoning earn credit."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "I=∫x²dm",
+                  "λ(x)=2Mx/L²"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "stimulus_refs": [
+        "scenario"
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "Text and symbolic notation are fully described."
+  },
+  "review_notes": {
+    "expected_reasoning": "I about x=0 is ∫₀ᴸx²λ(x)dx=ML²/2.",
+    "known_boundary_cases": [],
+    "originality_statement": "Independently authored synthetic draft for Tutor review; no official question or scoring material used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-physics-c-mechanics-ced-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-15",
+    "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
+    "generated_by": "codex",
+    "generated_at": "2026-07-15T00:00:00Z",
+    "content_sha256": "ef04c2f8e7407a3de940163edf272230fcc3af2e9ff911cc7b0f678493e3708d"
+  }
+}

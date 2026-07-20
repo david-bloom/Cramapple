@@ -1,0 +1,147 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apphycem-frq-014",
+  "content_key": "apphycem-frq-014",
+  "content_version": 1,
+  "difficulty": "Hard",
+  "frq_form": "short",
+  "canonical_answers": [
+    "Eₓ=-dV/dx=(V₀/L)e^{-x/L}, directed in +x."
+  ],
+  "exam_pack_ref": {
+    "exam_code": "ap_physics_c_em",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "frq",
+  "archetype_ref": {
+    "archetype_key": "ap-physics-c-em-frq-translation",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-physics-c-em-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-9-electric-potential"
+    },
+    {
+      "scheme_key": "ap-physics-c-em-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-2"
+    }
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "scenario",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "On the x-axis the electric potential is V(x)=V₀e^{-x/L} for x≥0."
+      },
+      "source_refs": [
+        "ap-physics-c-em-ced-fact-pack"
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "part_key": "part-a",
+      "ordinal": 1,
+      "label": "(a)",
+      "prompt": "Predict how the observable changes when the defining scale parameter is doubled, and justify the prediction quantitatively.",
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion",
+          "points": 1,
+          "description": "Evaluated at the origin, Eₓ(0)=V₀/L shows the field scales as 1/L; doubling L halves the field at the origin to V₀/(2L), while the spatial decay length itself doubles.",
+          "required_evidence": [
+            "Eₓ(0)=V₀/L",
+            "field halves",
+            "decay length doubles"
+          ],
+          "accepted_variants": [
+            "Equivalent scientifically correct notation and reasoning earn credit."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "V₀/(2L)",
+                  "halves",
+                  "decay length"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "stimulus_refs": [
+        "scenario"
+      ]
+    },
+    {
+      "part_key": "part-b",
+      "ordinal": 2,
+      "label": "(b)",
+      "prompt": "Identify the governing principle (E=-dV/dx) and the one-dimensional assumption on V(x) that justify how E changes when L is doubled.",
+      "response_modalities": [
+        "typed-text"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-b-criterion",
+          "points": 1,
+          "description": "Identify the governing principle (E=-dV/dx) and the one-dimensional assumption on V(x) that justify how E changes when L is doubled.",
+          "required_evidence": [
+            "E=-dV/dx",
+            "one-dimensional dependence on x"
+          ],
+          "accepted_variants": [
+            "Equivalent scientifically correct notation and reasoning earn credit."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "E=-dV/dx",
+                  "one-dimensional dependence on x"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "stimulus_refs": [
+        "scenario"
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "Text and symbolic notation are fully described."
+  },
+  "review_notes": {
+    "expected_reasoning": "Eₓ=-dV/dx=(V₀/L)e^{-x/L}, directed in +x.",
+    "known_boundary_cases": [],
+    "originality_statement": "Independently authored synthetic draft for Tutor review; no official question or scoring material used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-physics-c-em-ced-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-15",
+    "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
+    "generated_by": "codex",
+    "generated_at": "2026-07-15T00:00:00Z",
+    "content_sha256": "b0e140a5f33852bdc8bb6f8319986431dc59571aa2dc57ced47e7a6116fc67b2"
+  }
+}

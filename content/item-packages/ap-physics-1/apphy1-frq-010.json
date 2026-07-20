@@ -1,0 +1,147 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apphy1-frq-010",
+  "content_key": "apphy1-frq-010",
+  "content_version": 1,
+  "difficulty": "Medium",
+  "frq_form": "short",
+  "canonical_answers": [
+    "The net force is 9.00 N and acceleration is 3.00 m/s²."
+  ],
+  "exam_pack_ref": {
+    "exam_code": "ap_physics_1",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "frq",
+  "archetype_ref": {
+    "archetype_key": "ap-physics-1-frq-experimental",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-physics-1-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-2-force-and-translational-dynamics"
+    },
+    {
+      "scheme_key": "ap-physics-1-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-1"
+    }
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "scenario",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "A 3.00 kg block is pulled horizontally by 15.0 N while kinetic friction is 6.00 N."
+      },
+      "source_refs": [
+        "ap-physics-1-ced-fact-pack"
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "part_key": "part-a",
+      "ordinal": 1,
+      "label": "(a)",
+      "prompt": "Design a feasible measurement that tests the governing relation; identify the independent variable, dependent variable, and one control.",
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion",
+          "points": 1,
+          "description": "Correctly identifies the applied force as the independent variable, the resulting acceleration as the dependent variable, and holds the block's mass and the surface/friction condition constant as the control.",
+          "required_evidence": [
+            "applied force as the independent variable",
+            "resulting acceleration as the dependent variable",
+            "block mass and surface friction held constant as the control"
+          ],
+          "accepted_variants": [
+            "Equivalent scientifically correct notation and reasoning earn credit."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "applied force",
+                  "acceleration",
+                  "block mass"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "stimulus_refs": [
+        "scenario"
+      ]
+    },
+    {
+      "part_key": "part-b",
+      "ordinal": 2,
+      "label": "(b)",
+      "prompt": "Explain why applying Fnet = ma along the horizontal direction, assuming the 6.00 N kinetic friction force stays constant while the block slides, yields the net force and acceleration found.",
+      "response_modalities": [
+        "typed-text"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-b-criterion",
+          "points": 1,
+          "description": "Correctly cites Fnet = ma as the governing principle and states that kinetic friction is assumed to remain constant at 6.00 N while the block is sliding.",
+          "required_evidence": [
+            "Fnet = ma",
+            "friction force stays constant while sliding"
+          ],
+          "accepted_variants": [
+            "Equivalent scientifically correct notation and reasoning earn credit."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "Fnet = ma",
+                  "constant friction"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "stimulus_refs": [
+        "scenario"
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "Text and symbolic notation are fully described."
+  },
+  "review_notes": {
+    "expected_reasoning": "The net force is 9.00 N and acceleration is 3.00 m/s².",
+    "known_boundary_cases": [],
+    "originality_statement": "Independently authored synthetic draft for Tutor review; no official question or scoring material used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-physics-1-ced-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-15",
+    "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
+    "generated_by": "codex",
+    "generated_at": "2026-07-15T00:00:00Z",
+    "content_sha256": "b24b4b4c6bc2223539546375f220bb4dec31cb1b03f744511aa21d7d8995232e"
+  }
+}
