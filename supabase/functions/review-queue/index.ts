@@ -25,7 +25,11 @@ type ContentVersion = {
   frq_form: string | null;
   review_status: string | null;
   status: string;
+  stimulus_image_path: string | null;
 };
+
+const STIMULUS_IMAGE_BUCKET = "content-assets";
+const STIMULUS_IMAGE_URL_TTL_SECONDS = 3600;
 
 type ContentItem = {
   id: string;
@@ -136,7 +140,7 @@ Deno.serve(async (req) => {
     contentVersionIds.length
       ? service.schema("app").from("content_item_versions")
         .select(
-          "id, content_item_id, version_num, stem, stimulus, explanation, frq_form, review_status, status",
+          "id, content_item_id, version_num, stem, stimulus, explanation, frq_form, review_status, status, stimulus_image_path",
         )
         .in("id", contentVersionIds)
       : Promise.resolve({ data: [], error: null as null }),
@@ -187,6 +191,37 @@ Deno.serve(async (req) => {
   const mcqChoices = ((mcqChoiceResult as { data?: unknown[] }).data ?? []) as McqChoice[];
   const frqCriteria = ((frqCriterionResult as { data?: unknown[] }).data ?? []) as FrqCriterion[];
 
+  // ── Signed URLs for stimulus images ─────────────────────────────────────────
+  // content-assets is a private bucket (service_role only); reviewers never
+  // call storage-sign-url themselves (their role isn't authorized for that
+  // bucket) — this function signs on their behalf using its own service-role
+  // client, scoped to just the images this reviewer's queue actually needs.
+
+  const stimulusImagePaths = Array.from(
+    new Set(
+      contentVersions
+        .map((v) => v.stimulus_image_path)
+        .filter((path): path is string => Boolean(path)),
+    ),
+  );
+
+  const imageUrlByPath = new Map<string, string>();
+  if (stimulusImagePaths.length) {
+    const { data: signedUrls, error: signError } = await service.storage
+      .from(STIMULUS_IMAGE_BUCKET)
+      .createSignedUrls(stimulusImagePaths, STIMULUS_IMAGE_URL_TTL_SECONDS);
+
+    if (signError) {
+      return respond({ error: "stimulus_image_sign_failed" }, { status: 500 });
+    }
+
+    for (const entry of signedUrls ?? []) {
+      if (entry.path && entry.signedUrl && !entry.error) {
+        imageUrlByPath.set(entry.path, entry.signedUrl);
+      }
+    }
+  }
+
   // ── Index lookups ────────────────────────────────────────────────────────────
 
   const versionById = new Map(contentVersions.map((v) => [v.id, v]));
@@ -229,6 +264,10 @@ Deno.serve(async (req) => {
         title: item?.title ?? null,
         stem: version.stem,
         stimulus: version.stimulus,
+        stimulus_image_path: version.stimulus_image_path,
+        stimulus_image_url: version.stimulus_image_path
+          ? imageUrlByPath.get(version.stimulus_image_path) ?? null
+          : null,
         explanation: version.explanation,
         frq_form: version.frq_form,
         review_status: version.review_status,
