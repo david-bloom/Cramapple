@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- AP Statistics Question Issues: Pre-Launch Log — 2 Content Stubs Found, 2026-07-11 QA Findings Confirmed Fixed — 2026-07-19
 - AP Biology Stimulus Images: Uploaded, Linked, and Rendered — 3 Errors Found and Fixed in Second-Pass Review — 2026-07-19
 - Statistics Deterministic Verifier Fixes: Independent Opus Re-QA — Confirmed Safe, Found Broader Scope Than Disclosed — 2026-07-12
 - Statistics Deterministic Verifier: Fixed the Criterion-Bundling Severity Bug — 2026-07-12
@@ -22,6 +23,75 @@ Most recent entries (full reverse-chronological list follows below):
 - Cramapple Visual Identity Brief Revised From Family Discussion — 2026-06-21
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## AP Statistics Question Issues: Pre-Launch Log - 2 Content Stubs Found, 2026-07-11 QA Findings Confirmed Fixed - 2026-07-19
+
+**Task:** David asked for the AP Statistics equivalent of the AP Biology
+stimulus-image sweep: review every question to find ones that reference a
+graph/diagram they don't actually have. Relates to `TASK-0013`
+(AP Statistics Launch).
+
+**Status:** Investigation complete, logged to
+`docs/research/ap_statistics_question_issues_2026_07_19/README.md`. Not
+fixed — flagged for content authoring, not something to silently patch.
+
+**Summary:** Queried all 276 `ap-statistics` content items for
+graph/plot/diagram/table-reference language (~63 matches across two keyword
+passes), read each candidate's full stem and stimulus by hand. Unlike
+Biology, found **zero cases needing a generated stimulus image** — every
+genuine graph reference already has its underlying data given as text, or is
+a hand-drawn-graph (`HDG`) item where the student constructs their own graph
+and photographs it.
+
+Instead found **2 unfinished content stubs**: `APSTAT-MOD7-M004` ("This tree
+diagram shows...") and `APSTAT-MOD7-M001` ("A contingency table shows...")
+both narrate a data source that was never populated — empty stimulus, no
+numbers anywhere in stem/stimulus/explanation — while their
+`prompt_json.deterministic_criteria` wires them for deterministic numeric
+grading against a value that doesn't exist. Did not generate illustrative
+images or invent plausible-looking numbers for either: doing so would mean
+authoring new graded exam content (asserting specific branch probabilities /
+table cell counts as the answer key) under the guise of "adding an image,"
+not just illustrating existing text the way the Biology images did. Flagged
+for a content author to write real values instead.
+
+Cross-checked this session's finding against
+`docs/research/ap_statistics_phase_c_publish_staging_2026_07_11/qa_review.md`,
+which found the same class of problem in an earlier staging pass and blocked
+that import (`Fail`). Confirmed all of its findings are now fixed in current
+Production content: the `APSTAT-MOD5-M001` sample-SD keying error (was
+7.07/population value, now correctly ≈7.91) and all 8 FRQs it flagged as
+"requires absent visual/data stimuli" — each re-read directly and confirmed
+to now have sufficient text-embedded data or description to answer without
+an image (histogram bin counts, five-number summaries, fully-described
+scatterplot/residual shapes, or a plain CLT theory question that never
+needed a plotted graph at all).
+
+Also flagged, lower confidence: `APSTAT-MOD6-M001` asks for a required
+sample size (`n_required`, deterministic numeric) from a stated margin of
+error but no stated confidence level — `n_required` needs both. Didn't
+confirm this is actually broken (a documented grading convention elsewhere
+could resolve it) — noted for a second look rather than asserted as a
+defect.
+
+Separately observed, not a question-content issue: every `published`
+AP Statistics item (FRQ and MCQ alike) currently sits at `review_status` of
+`tutor_review_pending` or `null` — no terminal approved/confirmed status
+anywhere. Same pattern holds for Biology, so likely reflects how the
+`content_review_assignments`/`content_review_decisions` review workflow
+relates to the `content_item_versions.review_status` field generally, not
+a Statistics-specific gap — not confirmed either way, flagged for whoever
+owns that question before launch.
+
+**Next Owner:** David Bloom / AP Statistics content author
+**Next Required Action:** Write real tree-diagram branch probabilities for
+`APSTAT-MOD7-M004` and a real contingency table for `APSTAT-MOD7-M001`
+(with canonical numeric answers), confirm or dismiss the
+`APSTAT-MOD6-M001` confidence-level ambiguity, and clarify whether
+`published` AP Statistics content has actually cleared tutor/reader review
+before treating it as launch-ready.
 
 ---
 
