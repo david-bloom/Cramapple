@@ -238,6 +238,21 @@ The review panel requires:
 - a plain-language disposition preview;
 - explicit `Submit and lock` confirmation.
 
+Question-quality granularity depends on the item type:
+
+- For an MCQ, the tutor must explicitly approve or reject every normalized,
+  visible answer choice in addition to making the overall question decision.
+  Choice decisions start unset; the interface must not infer approval from an
+  untouched control or from duplicated source rows.
+- For an FRQ, the tutor review is deliberately holistic. The prompt, stimulus,
+  and rubric criteria are shown as evidence for one overall question decision.
+  Rubric criteria do not receive independent approval controls or independent
+  review-decision records in this stage.
+
+In-progress reviewer inputs remain a local draft keyed to the assignment.
+Cancel or refresh preserves that draft; a confirmed backend submission clears
+it. A draft must never be reused for a different assignment.
+
 ### 8.3 Answer Review Card
 
 Keep the full MCQ visible and highlight the answer under review. Show whether

@@ -92,6 +92,17 @@ For tutor question review, submit the fields the backend expects:
 - `note` or `rationale`
 - `supersedes_id` when applicable
 
+For MCQ `tutor_question` reviews, also submit `answer_approvals` with exactly
+one explicit `{ choice_key, approved }` entry for every normalized visible
+choice. Do not default an untouched choice to approved. FRQ `tutor_question`
+review is holistic: show rubric criteria as evidence, but do not submit
+criterion-level approvals.
+
+`Submit and lock` is single-use. The backend atomically records the immutable
+decision and marks its assignment submitted; a retry or second submission for
+the same assignment returns `assignment_locked` rather than creating another
+decision.
+
 For AP Reader or FRQ paths, use the matching backend fields for that stage.
 The live review tables key off `content_review_assignment_id` and
 `content_review_decision_id`; do not assume a generic `id` field exists on the
