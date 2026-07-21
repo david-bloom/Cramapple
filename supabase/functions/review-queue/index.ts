@@ -109,16 +109,33 @@ Deno.serve(async (req) => {
   const service = createServiceClient();
   const reviewerId = profileResult.user.id;
   const reviewerRole = profileResult.profile.role as string;
+  const reviewQueueScope = profileResult.profile.review_queue_scope as
+    | string
+    | null;
+
+  // Admin "CC" mode: an admin whose profile opts into review_queue_scope =
+  // 'all_pending' sees every reviewer's pending assignments, not just their
+  // own. This was already wired into the frontend (reviewer.index.tsx checks
+  // scope === "all_pending" && reviewerRole === "admin") and into the
+  // profiles table, but this function never actually implemented it — it
+  // always filtered to the caller's own reviewer_id regardless of role.
+  const isAdminCC = reviewerRole === "admin" && reviewQueueScope === "all_pending";
+  const scope = isAdminCC ? "all_pending" : "mine";
 
   // ── Assignments ─────────────────────────────────────────────────────────────
 
-  const { data: assignments, error: assignmentsError } = await service
+  let assignmentQuery = service
     .schema("app")
     .from("content_review_assignments")
     .select(
       "content_review_assignment_id, ingest_row_id, content_item_version_id, review_stage, review_kind, reviewer_id, blind_group_id, due_at, status, created_at",
-    )
-    .eq("reviewer_id", reviewerId)
+    );
+
+  assignmentQuery = isAdminCC
+    ? assignmentQuery.eq("status", "pending")
+    : assignmentQuery.eq("reviewer_id", reviewerId);
+
+  const { data: assignments, error: assignmentsError } = await assignmentQuery
     .order("due_at", { ascending: true, nullsFirst: false });
 
   if (assignmentsError) {
@@ -138,12 +155,40 @@ Deno.serve(async (req) => {
       {
         status: "ok",
         function: "review-queue",
-        reviewer: { reviewer_id: reviewerId, reviewer_role: reviewerRole },
+        reviewer: {
+          reviewer_id: reviewerId,
+          reviewer_role: reviewerRole,
+          reviewer_name: profileResult.profile.full_name,
+        },
+        scope,
         queue: [],
         counts: {},
       },
       { status: 200 },
     );
+  }
+
+  // In CC mode the queue spans other reviewers, so fetch their names/roles
+  // to label each card ("Owner: Jill Schmidlkofer · tutor").
+  const otherReviewerIds = Array.from(
+    new Set(assignmentRows.map((r) => r.reviewer_id)),
+  );
+  const reviewerProfileById = new Map<
+    string,
+    { full_name: string | null; role: string | null }
+  >();
+  if (isAdminCC && otherReviewerIds.length) {
+    const { data: reviewerProfiles } = await service
+      .schema("app")
+      .from("profiles")
+      .select("user_id, full_name, role")
+      .in("user_id", otherReviewerIds);
+    for (const p of reviewerProfiles ?? []) {
+      reviewerProfileById.set(p.user_id as string, {
+        full_name: p.full_name as string | null,
+        role: p.role as string | null,
+      });
+    }
   }
 
   // ── Parallel fetch: decisions, content versions, labels ─────────────────────
@@ -342,6 +387,10 @@ Deno.serve(async (req) => {
       content_review_assignment_id: assignment.content_review_assignment_id,
       assigned_role: reviewerRole,
       reviewer_id: assignment.reviewer_id,
+      reviewer_name: reviewerProfileById.get(assignment.reviewer_id)?.full_name ??
+        null,
+      reviewer_role: reviewerProfileById.get(assignment.reviewer_id)?.role ??
+        null,
       review_stage: assignment.review_stage,
       review_kind: assignment.review_kind,
       blind_group_id: assignment.blind_group_id,
@@ -379,6 +428,7 @@ Deno.serve(async (req) => {
         reviewer_role: reviewerRole,
         reviewer_name: profileResult.profile.full_name,
       },
+      scope,
       queue,
       counts,
     },
