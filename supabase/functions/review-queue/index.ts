@@ -79,6 +79,32 @@ type FrqCriterion = {
   points_possible: number;
 };
 
+// Any of these .in() filters can carry hundreds of IDs once admin CC mode
+// (all pending assignments across every reviewer) is in play — 711 pending
+// assignments at last count. A single .in() with that many UUIDs blows past
+// the PostgREST/gateway request-size limit and returns a plain error with no
+// detail (surfaced to the client as "queue_details_failed" /
+// "queue_lookup_failed"). Same failure class as the frontend's content
+// inventory query hit at 818 content items — chunk every large .in() call.
+const IN_CHUNK_SIZE = 150;
+
+async function fetchInChunks<T>(
+  ids: string[],
+  runChunk: (
+    chunk: string[],
+  ) => PromiseLike<{ data: T[] | null; error: { message: string } | null }>,
+): Promise<{ data: T[]; error: string | null }> {
+  if (ids.length === 0) return { data: [], error: null };
+  const out: T[] = [];
+  for (let i = 0; i < ids.length; i += IN_CHUNK_SIZE) {
+    const chunk = ids.slice(i, i + IN_CHUNK_SIZE);
+    const { data, error } = await runChunk(chunk);
+    if (error) return { data: out, error: error.message };
+    out.push(...((data ?? []) as T[]));
+  }
+  return { data: out, error: null };
+}
+
 async function loadProfile(req: Request) {
   const profileResult = await requireProfile(req);
   if (!profileResult) return null;
@@ -191,39 +217,36 @@ Deno.serve(async (req) => {
     }
   }
 
-  // ── Parallel fetch: decisions, content versions, labels ─────────────────────
+  // ── Fetch: decisions, content versions, labels (chunked) ────────────────────
 
-  const [
-    decisionResult,
-    labelResult,
-    contentVersionResult,
-  ] = await Promise.all([
-    service.schema("app").from("content_review_decisions")
-      .select(
-        "content_review_decision_id, content_review_assignment_id, content_item_version_id, review_stage, tutor_score, difficulty_label, concern_codes, note, answer_key, answer_approval, reader_decision, supersedes_id, submitted_at, created_at",
-      )
-      .in("content_review_assignment_id", assignmentIds),
+  const [decisionResult, labelResult, contentVersionResult] = await Promise.all([
+    fetchInChunks<Record<string, unknown>>(assignmentIds, (chunk) =>
+      service.schema("app").from("content_review_decisions")
+        .select(
+          "content_review_decision_id, content_review_assignment_id, content_item_version_id, review_stage, tutor_score, difficulty_label, concern_codes, note, answer_key, answer_approval, reader_decision, supersedes_id, submitted_at, created_at",
+        )
+        .in("content_review_assignment_id", chunk)),
 
-    service.schema("app").from("content_review_assignment_labels")
-      .select("content_review_assignment_id, content_label_id, created_at")
-      .in("content_review_assignment_id", assignmentIds),
+    fetchInChunks<Record<string, unknown>>(assignmentIds, (chunk) =>
+      service.schema("app").from("content_review_assignment_labels")
+        .select("content_review_assignment_id, content_label_id, created_at")
+        .in("content_review_assignment_id", chunk)),
 
-    contentVersionIds.length
-      ? service.schema("app").from("content_item_versions")
+    fetchInChunks<ContentVersion>(contentVersionIds, (chunk) =>
+      service.schema("app").from("content_item_versions")
         .select(
           "id, content_item_id, version_num, stem, stimulus, explanation, review_status, status, stimulus_image_path, prompt_json",
         )
-        .in("id", contentVersionIds)
-      : Promise.resolve({ data: [], error: null as null }),
+        .in("id", chunk)),
   ]);
 
-  if (decisionResult.error || labelResult.error || (contentVersionResult as { error?: unknown }).error) {
+  if (decisionResult.error || labelResult.error || contentVersionResult.error) {
     return respond({ error: "queue_details_failed" }, { status: 500 });
   }
 
-  const decisions = (decisionResult.data ?? []) as Array<Record<string, unknown>>;
-  const reviewLabels = (labelResult.data ?? []) as Array<Record<string, unknown>>;
-  const contentVersions = ((contentVersionResult as { data?: unknown[] }).data ?? []) as ContentVersion[];
+  const decisions = decisionResult.data;
+  const reviewLabels = labelResult.data;
+  const contentVersions = contentVersionResult.data;
 
   // ── Content items (for item_type, content_key, title) ───────────────────────
 
@@ -233,34 +256,35 @@ Deno.serve(async (req) => {
 
   const [contentItemResult, mcqChoiceResult, frqCriterionResult] =
     await Promise.all([
-      contentItemIds.length
-        ? service.schema("app").from("content_items")
+      fetchInChunks<ContentItem>(contentItemIds, (chunk) =>
+        service.schema("app").from("content_items")
           .select("id, content_key, item_type, title, frq_form")
-          .in("id", contentItemIds)
-        : Promise.resolve({ data: [], error: null as null }),
+          .in("id", chunk)),
 
-      contentVersionIds.length
-        ? service.schema("app").from("mcq_choices")
+      fetchInChunks<McqChoice>(contentVersionIds, (chunk) =>
+        service.schema("app").from("mcq_choices")
           .select(
             "content_item_version_id, choice_key, choice_text, is_correct, rationale",
           )
-          .in("content_item_version_id", contentVersionIds)
-          .order("choice_key", { ascending: true })
-        : Promise.resolve({ data: [], error: null as null }),
+          .in("content_item_version_id", chunk)
+          .order("choice_key", { ascending: true })),
 
-      contentVersionIds.length
-        ? service.schema("app").from("frq_criteria")
+      fetchInChunks<FrqCriterion>(contentVersionIds, (chunk) =>
+        service.schema("app").from("frq_criteria")
           .select(
             "content_item_version_id, criterion_key, learner_facing_text, points_possible",
           )
-          .in("content_item_version_id", contentVersionIds)
-          .order("criterion_key", { ascending: true })
-        : Promise.resolve({ data: [], error: null as null }),
+          .in("content_item_version_id", chunk)
+          .order("criterion_key", { ascending: true })),
     ]);
 
-  const contentItems = ((contentItemResult as { data?: unknown[] }).data ?? []) as ContentItem[];
-  const mcqChoices = ((mcqChoiceResult as { data?: unknown[] }).data ?? []) as McqChoice[];
-  const frqCriteria = ((frqCriterionResult as { data?: unknown[] }).data ?? []) as FrqCriterion[];
+  if (contentItemResult.error || mcqChoiceResult.error || frqCriterionResult.error) {
+    return respond({ error: "queue_details_failed" }, { status: 500 });
+  }
+
+  const contentItems = contentItemResult.data;
+  const mcqChoices = mcqChoiceResult.data;
+  const frqCriteria = frqCriterionResult.data;
 
   // ── Signed URLs for stimulus images ─────────────────────────────────────────
   // content-assets is a private bucket (service_role only); reviewers never
