@@ -194,3 +194,46 @@ Deno.test("assertPreflight throws on blocking, lists the item", () => {
   };
   assertThrows(() => assertPreflight([bad]), Error, "APX-FRQ-001");
 });
+
+Deno.test("MCQ correct choice far longer than distractor average is a length-parity WARNING, not blocking", () => {
+  const outlier: ContentItemPackage = {
+    ...goodMcq,
+    choices: [
+      {
+        choice_key: "A",
+        choice_text:
+          "There is an association between the two variables in this sample, but causation cannot be concluded because units were not randomly assigned to condition.",
+        is_correct: true,
+        rationale: "Correct because ...",
+      },
+      { choice_key: "B", choice_text: "It causes the effect.", is_correct: false, rationale: "Overclaims causation from an observational study." },
+      { choice_key: "C", choice_text: "No conclusion is possible.", is_correct: false, rationale: "Overstates what lack of randomization implies." },
+      { choice_key: "D", choice_text: "The sample size fixes it.", is_correct: false, rationale: "Sample size does not substitute for random assignment." },
+    ],
+  };
+  const r = preflightItem(outlier);
+  assertEquals(r.ok, true); // warning only, does not fail non-strict preflight
+  const finding = r.findings.find((f) => f.code === "MCQ_CORRECT_ANSWER_LENGTH_OUTLIER");
+  assertEquals(finding !== undefined, true);
+  assertEquals(finding!.severity, "warning");
+  assertEquals(finding!.location, "choice:A");
+});
+
+Deno.test("MCQ with roughly equal-length choices is not flagged for length parity", () => {
+  const r = preflightItem(goodMcq);
+  assertEquals(r.findings.some((f) => f.code === "MCQ_CORRECT_ANSWER_LENGTH_OUTLIER"), false);
+});
+
+Deno.test("MCQ with a shorter correct answer is not flagged for length parity", () => {
+  const shorterCorrect: ContentItemPackage = {
+    ...goodMcq,
+    choices: [
+      { choice_key: "A", choice_text: "0.3", is_correct: true, rationale: "Correct because each trial is independent." },
+      { choice_key: "B", choice_text: "Less than 0.3, because it is due to balance out soon.", is_correct: false, rationale: "Misapplies the gambler's fallacy." },
+      { choice_key: "C", choice_text: "Greater than 0.3, given the recent streak.", is_correct: false, rationale: "Misapplies the hot-hand fallacy." },
+      { choice_key: "D", choice_text: "0.3 raised to the fourth power.", is_correct: false, rationale: "Confuses this event with a run of five in a row." },
+    ],
+  };
+  const r = preflightItem(shorterCorrect);
+  assertEquals(r.findings.some((f) => f.code === "MCQ_CORRECT_ANSWER_LENGTH_OUTLIER"), false);
+});

@@ -165,6 +165,34 @@ function checkMcq(pkg: ContentItemPackage, out: PreflightFinding[]) {
       );
     }
   }
+
+  // 2026-07-21 QA finding (tutor feedback, AP Statistics): the correct choice
+  // is systematically longer than its distractors across published content —
+  // 75% of AP Statistics MCQs, 87% of AP Biology, correct answer averaging
+  // 1.6x-1.7x a distractor's length. That is a detectable "pick the longest
+  // answer" tell independent of subject knowledge. Warning, not blocking — a
+  // genuinely longer correct answer can be legitimate (naming two mechanisms
+  // where each distractor only needs one) and needs human judgment, not
+  // auto-rejection. Threshold calibrated below both observed population
+  // ratios so it catches the pattern earlier than the norm, not only at it.
+  const correctChoice = choices.find((c) => c.is_correct === true && nonEmpty(c.choice_text));
+  const distractorsWithText = choices.filter((c) => c.is_correct !== true && nonEmpty(c.choice_text));
+  if (correctChoice && distractorsWithText.length > 0) {
+    const correctLen = (correctChoice.choice_text as string).length;
+    const distractorAvgLen = distractorsWithText.reduce(
+      (sum, c) => sum + (c.choice_text as string).length,
+      0,
+    ) / distractorsWithText.length;
+    const ratio = distractorAvgLen > 0 ? correctLen / distractorAvgLen : Infinity;
+    if (ratio >= 1.4) {
+      push(
+        "warning",
+        "MCQ_CORRECT_ANSWER_LENGTH_OUTLIER",
+        `choice:${correctChoice.choice_key ?? "?"}`,
+        `Correct choice is ${correctLen} chars vs. a ${distractorAvgLen.toFixed(1)}-char distractor average (${ratio.toFixed(2)}x) — a detectable length-based tell. May be legitimate (more mechanisms named), but needs human review, not auto-fix.`,
+      );
+    }
+  }
 }
 
 /** Validate a single normalized content item package. */
