@@ -159,7 +159,9 @@ Deno.serve(async (req) => {
 
   assignmentQuery = isAdminCC
     ? assignmentQuery.eq("status", "pending")
-    : assignmentQuery.eq("reviewer_id", reviewerId);
+    : assignmentQuery
+      .eq("reviewer_id", reviewerId)
+      .in("status", ["pending", "in_progress"]);
 
   const { data: assignments, error: assignmentsError } = await assignmentQuery
     .order("due_at", { ascending: true, nullsFirst: false });
