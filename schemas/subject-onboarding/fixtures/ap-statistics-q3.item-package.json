@@ -9,7 +9,10 @@
     "exam_pack_version": "1.0.0"
   },
   "item_type": "frq",
-  "archetype_ref": { "archetype_key": "frq-inference", "version": "1.0.0" },
+  "archetype_ref": {
+    "archetype_key": "frq-inference",
+    "version": "1.0.0"
+  },
   "taxonomy_refs": [
     {
       "scheme_key": "ap-statistics-fall-2026",
@@ -37,8 +40,13 @@
       "part_key": "part-a",
       "ordinal": 1,
       "prompt": "Conduct an appropriate inference procedure and state the conclusion in context.",
-      "stimulus_refs": ["sample-result"],
-      "response_modalities": ["typed-text", "typed-math"],
+      "stimulus_refs": [
+        "sample-result"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
       "points": 10,
       "criteria": [
         {
@@ -54,9 +62,12 @@
           "deterministic_checks": [
             {
               "check_type": "numeric-tolerance",
-              "parameters": { "absolute": 0.01 }
+              "parameters": {
+                "absolute": 0.01
+              }
             }
-          ]
+          ],
+          "minimum_fix": "To earn this point, explicitly show procedure; conditions; calculation; conclusion."
         }
       ]
     }
@@ -67,11 +78,13 @@
     "accommodation_notes": "Text-only fixture."
   },
   "provenance": {
-    "source_refs": ["college-board-ap-statistics-ced-fall-2026"],
+    "source_refs": [
+      "college-board-ap-statistics-ced-fall-2026"
+    ],
     "fact_pack_version": "AP_STATISTICS_2027_CED_FACT_PACK@2026-07-13",
     "authoring_prompt_version": "fixture-v1",
     "generated_by": "Codex fixture",
     "generated_at": "2026-07-13T12:00:00Z",
-    "content_sha256": "9b04a60c650c0d26a6959d0b27106cf5f7a6d7238cbfd1d211aef7ddd470e396"
+    "content_sha256": "19d665db33eea59bc17e290080f4a08467429ba08183c4021a1d4ad5714e5881"
   }
 }

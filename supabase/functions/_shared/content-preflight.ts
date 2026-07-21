@@ -90,7 +90,12 @@ function checkFrq(pkg: ContentItemPackage, out: PreflightFinding[]) {
     const loc = `criterion:${c.criterion_key ?? "?"}`;
     if (!nonEmpty(c.criterion_key)) push("blocking", "FRQ_CRITERION_KEY_MISSING", loc, "Criterion is missing a criterion_key.");
     if (!nonEmpty(c.learner_facing_text)) push("blocking", "FRQ_LEARNER_TEXT_EMPTY", loc, "Criterion has empty learner_facing_text.");
-    if (typeof c.points_possible !== "number" || !Number.isFinite(c.points_possible) || c.points_possible < 1) {
+    if (
+      typeof c.points_possible !== "number" ||
+      !Number.isFinite(c.points_possible) ||
+      !Number.isInteger(c.points_possible) ||
+      c.points_possible < 1
+    ) {
       push("blocking", "FRQ_POINTS_INVALID", loc, "Criterion points_possible must be an integer >= 1.");
     }
     if (!nonEmpty(c.evidence_requirements)) push("blocking", "FRQ_EVIDENCE_REQ_EMPTY", loc, "Criterion has empty evidence_requirements (grader boundary). See §9.1.");

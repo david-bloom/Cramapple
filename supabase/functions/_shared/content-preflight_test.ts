@@ -59,6 +59,18 @@ Deno.test("empty evidence_requirements and minimum_fix are BLOCKING (the shipped
   assertEquals(codes, ["FRQ_EVIDENCE_REQ_EMPTY", "FRQ_MINIMUM_FIX_EMPTY"]);
 });
 
+Deno.test("FRQ points_possible must be an integer >= 1", () => {
+  for (const points_possible of [1.5, 0, -1, Number.NaN, Number.POSITIVE_INFINITY]) {
+    const bad: ContentItemPackage = {
+      ...goodFrq,
+      criteria: [{ ...goodFrq.criteria![0], points_possible }],
+    };
+    const r = preflightItem(bad);
+    assertEquals(r.ok, false);
+    assertEquals(r.findings.some((f) => f.code === "FRQ_POINTS_INVALID"), true);
+  }
+});
+
 Deno.test("empty accepted_variants is a WARNING, not blocking", () => {
   const warn: ContentItemPackage = {
     ...goodFrq,

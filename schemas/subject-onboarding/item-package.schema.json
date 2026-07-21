@@ -192,8 +192,9 @@
       ],
       "properties": {
         "criterion_key": { "$ref": "#/$defs/slug" },
-        "points": { "type": "integer", "minimum": 0 },
+        "points": { "type": "integer", "minimum": 1 },
         "description": { "$ref": "#/$defs/nonempty" },
+        "minimum_fix": { "$ref": "#/$defs/nonempty" },
         "required_evidence": { "$ref": "#/$defs/stringSet" },
         "accepted_variants": { "$ref": "#/$defs/stringSet" },
         "deterministic_checks": {

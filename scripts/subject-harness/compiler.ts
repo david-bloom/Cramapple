@@ -1,4 +1,6 @@
 import { validateContract } from "./validate-contracts.ts";
+import { adapt } from "../content-preflight/run.ts";
+import { assertPreflight } from "../../supabase/functions/_shared/content-preflight.ts";
 
 export type Json = null | boolean | number | string | Json[] | {
   [key: string]: Json;
@@ -223,6 +225,11 @@ export async function compilePlan(
     }
   }
   if (issues.length) throw new HarnessValidationError(issues);
+
+  // The JSON schema validates shape; the shared preflight validates semantic
+  // completeness (including trim-aware non-empty fields). This must happen
+  // before a plan can reach the atomic database ingestion function.
+  assertPreflight(itemPackages.map(adapt));
 
   const yearStart = Number(
     String(subjectPackage.exam_pack.school_year).slice(0, 4),

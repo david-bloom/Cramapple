@@ -11,7 +11,8 @@
 // Accepts either a bare array of items, or an object with an `items` array, and
 // tolerates the bulk-import payload shape (FRQ criteria under `rubric`, MCQ
 // choices under `choices`) as well as the subject-harness item-package shape
-// (MCQ choices under `mcq_choices`, as authored in content/item-packages/).
+// (MCQ choices under `mcq_choices`; FRQ criteria nested under `parts`, as
+// authored in content/item-packages/).
 // Items are located recursively by `item_type`.
 
 import {
@@ -35,21 +36,51 @@ function collectItems(node: any, out: any[]): void {
   }
 }
 
+function nestedCriteria(parts: unknown): Record<string, unknown>[] {
+  if (!Array.isArray(parts)) return [];
+  return parts.flatMap((partValue) => {
+    const part = partValue as Record<string, unknown>;
+    const criteria = Array.isArray(part.criteria)
+      ? part.criteria as Record<string, unknown>[]
+      : [];
+    return [...criteria, ...nestedCriteria(part.subparts)];
+  });
+}
+
 // deno-lint-ignore no-explicit-any
-function adapt(raw: any): ContentItemPackage {
-  const criteria = Array.isArray(raw.criteria)
+export function adapt(raw: any): ContentItemPackage {
+  const directCriteria = Array.isArray(raw.criteria)
     ? raw.criteria
     : Array.isArray(raw.rubric)
     ? raw.rubric
     : Array.isArray(raw?.prompt_json?.criteria)
     ? raw.prompt_json.criteria
     : undefined;
+  const sourceCriteria = (directCriteria ?? nestedCriteria(raw.parts)) as
+    Record<string, unknown>[];
+  const criteria = sourceCriteria.length === 0
+    ? undefined
+    : sourceCriteria.map((criterion) => ({
+      criterion_key: criterion.criterion_key as string | null | undefined,
+      learner_facing_text: (criterion.learner_facing_text ??
+        criterion.description) as string | null | undefined,
+      points_possible: (criterion.points_possible ?? criterion.points) as
+        number | null | undefined,
+      evidence_requirements: (criterion.evidence_requirements ??
+        (Array.isArray(criterion.required_evidence)
+          ? criterion.required_evidence.join("; ")
+          : undefined)) as string | null | undefined,
+      minimum_fix: criterion.minimum_fix as string | null | undefined,
+      accepted_variants: criterion.accepted_variants,
+    }));
   return {
     content_key: raw.content_key ?? null,
     item_type: raw.item_type,
     status: raw.status ?? null,
-    canonical_answer_1: raw.canonical_answer_1 ?? raw.canonical_answer ?? null,
-    explanation: raw.explanation ?? raw?.prompt_json?.explanation ?? null,
+    canonical_answer_1: raw.canonical_answer_1 ?? raw.canonical_answer ??
+      raw.canonical_answers?.[0] ?? null,
+    explanation: raw.explanation ?? raw?.prompt_json?.explanation ??
+      raw.review_notes?.expected_reasoning ?? null,
     criteria,
     choices: Array.isArray(raw.choices)
       ? raw.choices
@@ -94,4 +125,4 @@ function main() {
   Deno.exit(res.ok ? 0 : 1);
 }
 
-main();
+if (import.meta.main) main();

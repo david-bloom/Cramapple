@@ -39,6 +39,47 @@ begin
   if exists (
     select 1
     from calculus_item_seed seed
+    cross join lateral jsonb_path_query(seed.payload, '$.parts.**.criteria[*]') criterion
+    where seed.payload->>'item_type' = 'frq'
+      and (
+        nullif(btrim(criterion->>'criterion_key'),'') is null
+        or nullif(btrim(criterion->>'description'),'') is null
+        or nullif(btrim(criterion->>'minimum_fix'),'') is null
+        or case
+          when coalesce(criterion->>'points','') ~ '^[0-9]+$'
+            then (criterion->>'points')::integer < 1
+          else true
+        end
+        or jsonb_array_length(case
+          when jsonb_typeof(criterion->'required_evidence') = 'array'
+            then criterion->'required_evidence'
+          else '[]'::jsonb
+        end) = 0
+      )
+  ) then
+    raise exception 'calculus_seed:frq_preflight_failed';
+  end if;
+  if exists (
+    select 1
+    from calculus_item_seed seed
+    where seed.payload->>'item_type' = 'mcq'
+      and (
+        jsonb_typeof(seed.payload->'mcq_choices') <> 'array'
+        or jsonb_array_length(seed.payload->'mcq_choices') < 2
+        or (select count(*) from jsonb_array_elements(seed.payload->'mcq_choices') choice
+            where coalesce((choice->>'is_correct')::boolean,false)) <> 1
+        or exists (
+          select 1 from jsonb_array_elements(seed.payload->'mcq_choices') choice
+          where nullif(btrim(choice->>'choice_text'),'') is null
+            or nullif(btrim(choice->>'rationale'),'') is null
+        )
+      )
+  ) then
+    raise exception 'calculus_seed:mcq_preflight_failed';
+  end if;
+  if exists (
+    select 1
+    from calculus_item_seed seed
     join app.content_items ci on ci.content_key=seed.payload->>'content_key'
     join app.content_item_versions civ on civ.content_item_id=ci.id and civ.version_num=1
     where ci.status<>'draft' or civ.status<>'draft'
@@ -152,7 +193,7 @@ insert into app.frq_criteria(
 )
 select civ.id,criterion->>'criterion_key',criterion->>'description',(criterion->>'points')::int,
        array_to_string(array(select jsonb_array_elements_text(criterion->'required_evidence')),'; '),
-       'Provide the missing mathematical evidence: '||array_to_string(array(select jsonb_array_elements_text(criterion->'required_evidence')),', '),
+       criterion->>'minimum_fix',
        coalesce(criterion->'accepted_variants','[]'::jsonb)
 from calculus_item_seed seed
 join app.content_items ci on ci.content_key=seed.payload->>'content_key'
