@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Correction: 8-Subject Tutor Assignment Violated Scope Policy (Amjad/Jill Are Single-Subject) — 2026-07-21
 - 8 Subjects Assigned for Tutor Review (Chemistry, Physics ×4, Calculus AB/BC, Precalculus) — 2026-07-21
 - Content Review & QA Prompt for Codex Drafted — 2026-07-20
 - AP Statistics Question Issues: Pre-Launch Log — 2 Content Stubs Found, 2026-07-11 QA Findings Confirmed Fixed — 2026-07-19
@@ -25,6 +26,96 @@ Most recent entries (full reverse-chronological list follows below):
 - Cramapple Visual Identity Brief Revised From Family Discussion — 2026-06-21
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## Correction: 8-Subject Tutor Assignment Violated Scope Policy (Amjad/Jill Are Single-Subject) - 2026-07-21
+
+**Task:** Correction to the entry directly below this one. That entry's
+288-item, 576-row `content_review_assignments` insert assigned both Amjad Ali
+and Jill Schmidlkofer to review Chemistry, Physics 1/2/C-Mech/C-EM, Calculus
+AB/BC, and Precalculus content. David has confirmed the real tutor-scope
+policy is **Amjad = Biology-only, Jill = Statistics-only**. Neither tutor is
+qualified for any of those 8 subjects. This was a real policy violation,
+logged at the time as if it were correct.
+
+**Status:** Rows confirmed inert; root cause of the status change not fully
+attributable; no data deleted pending a separate decision with David.
+
+**What was verified directly against Production (`pcntajvbdfqhbeewmdry`):**
+- All 576 rows from the original insert (`content_review_assignments`,
+  `created_at = 2026-07-20 22:16:52.988445+00`, reviewers Amjad Ali and Jill
+  Schmidlkofer only) are now `status = 'skipped'`. None are `pending` or
+  `in_progress`. **This means the assignments never became live review
+  work** — skipped assignments don't surface in a tutor's queue.
+- The corresponding `content_item_versions.review_status` still reads
+  `tutor_review_pending` for all 576 rows — matching exactly what the
+  original entry says it set, and consistent with the
+  `content_pipeline_on_assignment` trigger having fired on insert (536 of
+  the underlying `content_item_versions`/`content_items` rows show
+  `status = 'assigned'`, which only happens when a row is inserted with
+  `status = 'pending'` — corroborating the original entry's claim that the
+  rows started as `pending`, not `skipped`).
+- `content_item_versions.updated_at` for all 576 rows reads
+  `2026-07-21 01:27:35.914747+00` — 48 seconds before the original commit's
+  own timestamp (`01:28:23 +0000`). This lines up with that entry's own
+  description of a second step ("Then set `review_status =
+  'tutor_review_pending'` on all 288 rows"), not with a later correction —
+  i.e. this timestamp is accounted for by the original session's own work,
+  not by whatever later changed `status` to `skipped`.
+
+**What could not be attributed:** the change from `pending` to `skipped` on
+the 576 `content_review_assignments` rows.
+- `app.audit_events` has no rows at all after `2026-07-17` — the audit log
+  was not populated over the entire window in question, so it cannot
+  confirm or rule out an actor.
+- No migration file in `supabase/migrations/` contains an `UPDATE ... SET
+  status = 'skipped'` against this table; the only schema changes touching
+  this table in the surrounding window
+  (`20260721172940_enforce_content_review_qualification.sql`) add a
+  BEFORE INSERT/UPDATE trigger that blocks unqualified-reviewer
+  inserts/reassignments going forward — it does not itself modify existing
+  rows, and per the `wip: capture unattributed uncommitted changes` commit
+  (`c05e272`, this same day), that migration file was itself found sitting
+  uncommitted and unapplied-via-migration-history in the working directory
+  with "no known author" before being committed defensively.
+- That same commit also captured an unattributed edit to
+  `supabase/functions/review-queue/index.ts` narrowing a reviewer's queue
+  query to exclude `skipped` (among other) statuses — plausible and
+  consistent with excluding exactly this kind of row from view, but it is a
+  read-side query filter, not a mechanism that could have written `status =
+  'skipped'` to the database.
+- No commit in `git log --all` contains a matching `UPDATE` statement or
+  script.
+- Conclusion: this is consistent with the same pattern already flagged
+  elsewhere in this repo's recent history — an unattributed, direct-SQL
+  change made against Production outside of any tracked migration or
+  session. The specific actor and mechanism remain unidentified. The
+  qualification-enforcement trigger now live on Production (regardless of
+  who applied it) would block a repeat of the original insert going
+  forward, which somewhat closes the vector, but does not explain this
+  specific remediation.
+
+**Not done, needs a decision with David:** whether to delete the 576 now-
+inert rows outright (cleaner, since they were created in error and never
+should have existed) or leave them in place with this corrected record. This
+is a real Production `DELETE` if chosen and needs explicit confirmation
+before execution, same as any other production data change.
+
+**Verification performed:** direct `execute_sql` queries against Production
+confirming row counts, statuses, and timestamps cited above; `git log --all`
+and `grep` across `supabase/migrations/` for any script that could explain
+the status change; cross-referenced against the `c05e272` commit and the
+`20260721172940` migration already known from earlier this session.
+
+**Files/systems changed:** `docs/activity_log/ACTIVITY_LOG.md` only (this
+entry). No Production data was modified by this correction.
+
+**Next Owner:** David Bloom
+**Next Required Action:** decide whether to delete the 576 inert rows or
+leave them as-is with this record; separately confirm no other subject-
+scope violations exist elsewhere in `content_review_assignments` (this
+correction only covers the 8-subject insert described in the entry below).
 
 ---
 
