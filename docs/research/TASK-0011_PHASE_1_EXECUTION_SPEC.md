@@ -74,8 +74,8 @@ Corrected for Cramapple:
 - production or authoritative automated grading.
 
 An excluded representation is not automatically wrong. It is unsupported and
-must be routed to human review unless the item rubric explicitly makes it a
-no-credit response.
+must be retained for research study unless the item rubric explicitly makes it
+a no-credit response.
 
 ## 3. Initial Six Graph Items
 

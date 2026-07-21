@@ -11,7 +11,8 @@ accessibility, security, privacy, and technical review
 This document defines the proposed learner experience for completing a graph on
 paper, handing capture to a phone by QR code or fallback link, checking image
 quality, retaking or submitting, following cross-device status, using an
-accessible alternative, and understanding when human review is required.
+accessible alternative, and understanding how failed captures are saved for
+study without human scoring in the learner flow.
 
 This is a research UX. It does not approve production upload, storage, visual
 extraction, automated graph grading, or learner-facing graph scores.
@@ -26,7 +27,8 @@ interaction design. Before any working capture prototype or production use:
   review;
 - graph-quality and feature-extraction performance require held-out evidence;
 - automated output remains hidden during shadow operation;
-- human review is required where approved research protocol specifies it.
+- unsupported or unreadable captures may be retained for research study, but
+  the learner flow does not offer human scoring.
 
 The design must distinguish capture acceptance from graph correctness.
 
@@ -57,7 +59,7 @@ Primary-device graph question
   -> Run simulated capture-quality check
        -> Retake recommended
        -> Accepted for review
-       -> Cannot determine; human review
+       -> Cannot determine; save for study
   -> Explicitly submit
   -> Sync status to primary device
   -> Continue, wait, or leave safely
@@ -230,7 +232,7 @@ not be included unless approved.
 Use when the system cannot safely decide image quality:
 
 > We cannot confirm that every required part is readable. This capture needs
-> human review or another submission method.
+> another submission method or may be saved for study.
 
 Do not grade automatically.
 
@@ -265,9 +267,8 @@ quality_checking
 retake_needed
 submitted
 capture_accepted
-human_review_required
-review_pending
-review_complete
+saved_for_study
+needs_another_method
 expired
 cancelled
 failed
@@ -287,26 +288,25 @@ Let the learner:
 
 Do not require both devices to remain open after submission.
 
-## 13. Human Review States
+## 13. Study-Only Failure States
 
-The capture may require human review because:
+The capture may be retained for study because:
 
 - quality cannot be determined;
 - representation is unsupported;
 - feature extraction abstains;
 - automated passes disagree;
-- the research protocol requires 100% shadow review;
 - the learner disputes the result.
 
 Learner-facing language:
 
-- `Saved for review`
-- `Review pending`
+- `Saved for study`
+- `Needs another method`
 - `More information needed`
-- `Review complete`
+- `Try again`
 
-Use `Human review` only when a staffed human-review service is genuinely
-operational. Research fixtures may label it as simulated.
+Do not offer human scoring in the learner flow. Research fixtures may label
+study-only states as simulated.
 
 ## 14. Accessible Alternatives
 
@@ -319,7 +319,7 @@ Provide:
 - ability to submit without crop;
 - accessible digital table or coordinate-entry alternative when it preserves
   the assessed construct;
-- supported accommodation or human-review path where camera use is impossible.
+- supported accommodation path where camera use is impossible.
 
 An alternative must not silently reduce the assessed operation. If equivalent
 access is unavailable, disclose the limitation and route to approved support.
@@ -382,5 +382,4 @@ The render must say `Research UX` and `No file is uploaded`.
 - How many retakes are tolerable in a cram session?
 - Which accessible alternatives preserve the graphing construct?
 - Do learners distinguish capture accepted from graph correct?
-- What state and time language is truthful during shadow human review?
-
+- What state and time language is truthful during shadow study?

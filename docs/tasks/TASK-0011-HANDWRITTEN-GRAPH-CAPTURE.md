@@ -13,7 +13,7 @@
 
 Preserve authentic paper graph construction while allowing Cramapple to receive,
 review, grade, and discuss a student's handwritten graph without building a
-complex digital drawing tool.
+complex digital drawing tool or offering human scoring in the learner flow.
 
 ## Proposed Flow
 
@@ -31,8 +31,9 @@ complex digital drawing tool.
 8. The original image and a normalized derivative are stored with immutable
    submission provenance.
 9. Vision-assisted extraction proposes graph features and confidence.
-10. The grading workflow applies criterion-level checks and escalates uncertain
-    or incomplete cases to human review.
+10. The grading workflow applies criterion-level checks and retains uncertain
+    or incomplete cases for research study without learner-facing human
+    scoring.
 
 ## Research Questions
 
@@ -41,7 +42,7 @@ complex digital drawing tool.
 - Can image-quality checks reliably prevent ungradeable submissions?
 - Which graph criteria can be extracted deterministically or with acceptable
   vision-model reliability?
-- What confidence threshold requires a retake or human review?
+- What confidence threshold requires a retake or study-only retention?
 - How should multi-page or graph-plus-written-explanation submissions work?
 - What accommodations are needed for learners who cannot handwrite, use a
   camera, or scan a QR code?

@@ -4,7 +4,7 @@ Build a polished, responsive, frontend-only research render for Cramapple's
 paper-first handwritten graph capture experience.
 
 Do not access a camera, generate a QR token, read or upload files, store images,
-run image analysis, connect a grader, or claim human-review availability. Use
+run image analysis, connect a grader, or claim human-scoring availability. Use
 simulated original fixtures only.
 
 Display a persistent label:
@@ -19,7 +19,7 @@ Research UX · No file is uploaded
 - UX-008 captures and routes the image.
 - Capture quality is not graph correctness.
 - Automated feature extraction and grading remain research-gated.
-- Human review is shown only as a simulated state.
+- Failed captures are shown as study-only states, not human review.
 - `TASK-0011` controls any later prototype or production gate.
 
 ## Visual Direction
@@ -59,8 +59,8 @@ Allow switching among:
 - Retake: glare
 - Cannot determine
 - Submitted
-- Human review required
-- Review complete
+- Saved for study
+- Needs another method
 - Accessible alternative
 - Network failure
 
@@ -186,7 +186,7 @@ Do not include `Continue anyway`.
 ### Cannot Determine
 
 > We cannot confirm that every required part is readable. This capture needs
-> simulated human review or another submission method.
+> another submission method or may be saved for study.
 
 Do not show an automated score.
 
@@ -215,9 +215,8 @@ Primary-device states:
 - Retake needed
 - Submitted
 - Capture accepted
-- Simulated human review required
-- Review pending
-- Review complete
+- Saved for study
+- Needs another method
 - Expired
 - Cancelled
 - Failed
@@ -241,7 +240,7 @@ Show:
 - no-crop submission;
 - keyboard image controls;
 - accessible coordinate or table entry only when it preserves the construct;
-- request approved accommodation or review.
+- request approved accommodation or another method.
 
 Explain when an equivalent method is not yet supported. Do not silently replace
 graph construction with an easier task.
@@ -270,7 +269,7 @@ Every error says what is saved and which next action is safe.
 - Image review and non-drag crop controls.
 - Looks ready.
 - Cutoff, blur, and glare retakes.
-- Cannot determine and simulated review.
+- Cannot determine and study-only retention.
 - Explicit submission.
 - Cross-device completion.
 - Accessible alternative.
@@ -286,5 +285,5 @@ Every error says what is saved and which next action is safe.
 - No real QR, camera, file, upload, metadata, learner data, or grading.
 - No public sharing.
 - Do not claim perfect personal-information detection.
-- Label every review, quality check, and submission as simulated research UX.
-
+- Label every study-only retention, quality check, and submission as simulated
+  research UX.

@@ -13,7 +13,8 @@
 
 Design the research-gated learner experience for paper graph response, QR or
 fallback phone handoff, camera capture, image review, quality checks, retakes,
-cross-device status, accessible alternatives, and human-review states.
+cross-device status, accessible alternatives, and study-only failure states
+without human scoring in the learner flow.
 
 ## Technical Scope
 
@@ -25,7 +26,7 @@ cross-device status, accessible alternatives, and human-review states.
 - Define capture-quality results and safe abstention.
 - Define explicit submission and cross-device status.
 - Define accessible alternatives and error recovery.
-- Define human-review states without implying production availability.
+- Define study-only failure states without implying human scoring.
 - Produce a Lovable-ready research render brief without a prototype.
 
 ## Out of Scope
@@ -46,7 +47,7 @@ cross-device status, accessible alternatives, and human-review states.
 - Image review and quality result.
 - Submission status on both devices.
 - Accessible alternative.
-- Human-review status.
+- Study-only failure status.
 
 ## Data / Security / Integration Impact
 
@@ -68,7 +69,7 @@ idempotency, and consent require approval before implementation.
 - [x] Explicit submission and cross-device recovery are defined.
 - [x] Non-QR, non-camera, non-drag, and equivalent-access alternatives are
   specified.
-- [x] Human-review language depends on operational availability.
+- [x] Study-only failure language is explicit and does not imply human scoring.
 - [x] Lovable-ready research handoff is produced.
 - [ ] `TASK-0011` research, security, privacy, accessibility, and evidence gates
   are completed.
@@ -79,7 +80,7 @@ idempotency, and consent require approval before implementation.
 - Document QA: Verify capture, quality, abstention, privacy, and graph-research
   boundaries against `TASK-0011` and its phase-1 specification.
 - Lovable QA: Walk QR, permission, capture, crop, retake, quality, submit,
-  expiry, fallback, accessibility, and review-status scenarios.
+  expiry, fallback, accessibility, and study-only status scenarios.
 - Regression areas: Capture accepted shown as correct, automatic grading,
   hidden upload, raw-image overwrite, inaccessible crop, and token overreach.
 - Failure cases: Expired token, denied camera, blur, glare, cutoff, network
@@ -112,4 +113,3 @@ Pending research, expert, and Product Owner review.
 
 **Decision:** Pending
 **Date:** Pending
-
