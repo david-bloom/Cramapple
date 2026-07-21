@@ -40,7 +40,8 @@ qualified for any of those 8 subjects. This was a real policy violation,
 logged at the time as if it were correct.
 
 **Status:** Rows confirmed inert; root cause of the status change not fully
-attributable; no data deleted pending a separate decision with David.
+attributable. David confirmed deletion — all 576 rows deleted from
+Production. Done.
 
 **What was verified directly against Production (`pcntajvbdfqhbeewmdry`):**
 - All 576 rows from the original insert (`content_review_assignments`,
@@ -96,26 +97,30 @@ the 576 `content_review_assignments` rows.
   forward, which somewhat closes the vector, but does not explain this
   specific remediation.
 
-**Not done, needs a decision with David:** whether to delete the 576 now-
-inert rows outright (cleaner, since they were created in error and never
-should have existed) or leave them in place with this corrected record. This
-is a real Production `DELETE` if chosen and needs explicit confirmation
-before execution, same as any other production data change.
+**Deletion performed:** David chose deletion over leaving the rows in place.
+Re-verified the exact filter (`created_at = '2026-07-20 22:16:52.988445+00'
+and status = 'skipped'` and reviewer in {Amjad Ali, Jill Schmidlkofer'})
+matched exactly 576 rows immediately before deleting, then ran the `DELETE
+... RETURNING content_review_assignment_id`, which returned exactly 576
+ids. Confirmed a follow-up `count(*)` against the same `created_at` value
+now returns 0. No other rows were touched — the filter was scoped to this
+exact insert batch only.
 
 **Verification performed:** direct `execute_sql` queries against Production
 confirming row counts, statuses, and timestamps cited above; `git log --all`
 and `grep` across `supabase/migrations/` for any script that could explain
 the status change; cross-referenced against the `c05e272` commit and the
-`20260721172940` migration already known from earlier this session.
+`20260721172940` migration already known from earlier this session; re-
+counted the target rows immediately before and after the delete.
 
-**Files/systems changed:** `docs/activity_log/ACTIVITY_LOG.md` only (this
-entry). No Production data was modified by this correction.
+**Files/systems changed:** `docs/activity_log/ACTIVITY_LOG.md` (this entry);
+Production DB (`pcntajvbdfqhbeewmdry`) — 576 `content_review_assignments`
+rows deleted.
 
 **Next Owner:** David Bloom
-**Next Required Action:** decide whether to delete the 576 inert rows or
-leave them as-is with this record; separately confirm no other subject-
-scope violations exist elsewhere in `content_review_assignments` (this
-correction only covers the 8-subject insert described in the entry below).
+**Next Required Action:** separately confirm no other subject-scope
+violations exist elsewhere in `content_review_assignments` (this correction
+only covers the 8-subject insert described in the entry below).
 
 ---
 
