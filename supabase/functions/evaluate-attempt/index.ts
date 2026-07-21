@@ -562,6 +562,18 @@ Deno.serve(async (req) => {
       return respond({ error: "idempotency_conflict" }, { status: 409 });
     }
 
+    const { data: existingAttempt } = await service.schema("app")
+      .from("attempts")
+      .select("user_id")
+      .eq("id", existingResult.attempt_id)
+      .maybeSingle();
+    if (
+      !existingAttempt ||
+      (existingAttempt.user_id !== user.id && profile.role !== "admin")
+    ) {
+      return respond({ error: "forbidden" }, { status: 403 });
+    }
+
     return respond(
       {
         status: existingResult.status,
@@ -670,6 +682,30 @@ Deno.serve(async (req) => {
     examPackVersion.status !== "published"
   ) {
     return respond({ error: "content_not_published" }, { status: 409 });
+  }
+
+  // Product access is authoritative on the server. Paid/beta users pass
+  // through; free-score-check users can reserve exactly one initial grade and
+  // one repair grade, idempotently by request ID. Admin calls are operational
+  // and intentionally bypass learner entitlements.
+  if (profile.role !== "admin") {
+    const { error: accessError } = await service.schema("app").rpc(
+      "authorize_grading_access",
+      {
+        p_user_id: user.id,
+        p_attempt_id: attempt.id,
+        p_operation: operation,
+        p_request_id: idempotencyKey,
+      },
+    );
+
+    if (accessError) {
+      const accessCode = accessError.message.match(
+        /grading_access:([a-z_]+)/,
+      )?.[1] ?? "entitlement_required";
+      const status = accessCode === "attempt_not_found" ? 404 : 403;
+      return respond({ error: accessCode }, { status });
+    }
   }
 
   // Subject-driven grading: examName comes from the exam pack the question
