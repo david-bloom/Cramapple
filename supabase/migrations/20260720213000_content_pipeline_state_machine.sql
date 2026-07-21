@@ -55,9 +55,8 @@ with latest_version as (
 ),
 decision_summary as (
   select content_item_version_id,
-    bool_or(tutor_decision in ('approve', 'approve_with_edits')
-            or tutor_score in (1, 2)) as has_approve,
-    bool_or(tutor_decision = 'disapprove' or tutor_score = 3) as has_disapprove
+    bool_or(tutor_score in (1, 2)) as has_approve,
+    bool_or(tutor_score = 3) as has_disapprove
   from app.content_review_decisions
   where review_stage in ('tutor_question', 'reader_question')
   group by 1
@@ -134,11 +133,12 @@ create trigger content_pipeline_on_assignment
   after insert on app.content_review_assignments
   for each row execute function app.tg_content_pipeline_on_assignment();
 
+revoke execute on function app.tg_content_pipeline_on_assignment()
+  from public, anon, authenticated;
+
 -- ── 4. Trigger: assigned -> reviewed_approved / reviewed_disapproved ───────
--- Handles both the tutor_decision field (how real tutor reviews have
--- actually been recorded to date) and tutor_score (the 1/2/3 aggregate model
--- the review-decision edge function's prototype flow writes), so this stays
--- correct regardless of which path a given submission came through. Only
+-- Driven by tutor_score, the 1/2/3 aggregate the review-decision edge
+-- function writes (1/2 = approve variants, 3 = disapprove). Only
 -- tutor_question/reader_question decisions drive item-level status — answer-
 -- key stages (tutor_answer, tutor_frq_canonical) are a separate concern.
 -- Never touches an item that's already published/retired.
@@ -155,9 +155,9 @@ begin
     return new;
   end if;
 
-  if new.tutor_decision = 'disapprove' or new.tutor_score = 3 then
+  if new.tutor_score = 3 then
     v_outcome := 'reviewed_disapproved';
-  elsif new.tutor_decision in ('approve', 'approve_with_edits') or new.tutor_score in (1, 2) then
+  elsif new.tutor_score in (1, 2) then
     v_outcome := 'reviewed_approved';
   else
     return new;
@@ -188,6 +188,9 @@ create trigger content_pipeline_on_decision
   after insert on app.content_review_decisions
   for each row execute function app.tg_content_pipeline_on_decision();
 
+revoke execute on function app.tg_content_pipeline_on_decision()
+  from public, anon, authenticated;
+
 -- ── 5. Guard: publish only allowed from reviewed_approved ──────────────────
 -- Retiring is always allowed (safe direction) from any state. Any other
 -- transition INTO 'published' that isn't from 'reviewed_approved' is
@@ -217,5 +220,8 @@ drop trigger if exists content_pipeline_guard_publish on app.content_item_versio
 create trigger content_pipeline_guard_publish
   before update on app.content_item_versions
   for each row execute function app.tg_content_pipeline_guard_publish();
+
+revoke execute on function app.tg_content_pipeline_guard_publish()
+  from public, anon, authenticated;
 
 commit;
