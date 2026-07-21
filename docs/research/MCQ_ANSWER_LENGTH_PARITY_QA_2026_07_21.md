@@ -170,11 +170,30 @@ and re-approval, not a direct edit to a published row. Re-run
 `checkAnswerLengthParity` against the new version before treating anything as
 resolved.
 
-## 6. Remaining work
+## 6. Status — UPDATED 2026-07-21 (later same day)
 
-- 5 more Stats items and 37 more Biology items in the table above still need
-  drafts (only the top few per subject were drafted here as a template).
+**All 50 flagged items now have complete draft rewrite sets** (all 9 AP
+Statistics + all 41 AP Biology, ratio >= 1.4x per §3's definitive list).
+Drafts were produced conversationally, one or two items at a time, and
+confirmed clear by David; they are not recorded item-by-item in this file —
+the conversation transcript is the source of record for the exact wording
+until they're carried into real content versions per §5. Each draft keeps
+the correct answer unchanged and expands every distractor to a real,
+specific-but-wrong misconception at the correct answer's length and
+mechanistic specificity, per the pattern established in §4.
+
+**Length-parity across all subjects, for visibility** (all published MCQs,
+2026-07-21): Biology 39/54 flagged, AP Statistics 9/20 (note: AP Statistics'
+`content_items.status` distribution changed mid-session — see the
+2026-07-21 Production content-state finding, unrelated to this workstream),
+Chemistry 0/2, all other subjects n<=2 with ratio < 1.4. Everything besides
+Stats/Biology/Chemistry is unflagged at current sample sizes, not
+independently re-verified as complete for those subjects.
+
+Still open:
 - Chemistry: handed to Codex, see `prompts/CODEX_CHEMISTRY_MCQ_LENGTH_PARITY_QA.md`.
-- Not yet checked: AP Calculus AB/BC, AP Physics 1/2/C-EM/C-Mech, AP
-  Precalculus. The check function is subject-agnostic — running it on the
-  remaining subjects is a cheap follow-up once someone wants that visibility.
+- **Step 5 (§5, unchanged): none of these 50 drafts have been applied to any
+  content row.** Routing them through a real new-version → review →
+  re-approval cycle, and re-running the length-parity check against each
+  resulting version, is the remaining work before any of this is "fixed"
+  rather than "drafted."

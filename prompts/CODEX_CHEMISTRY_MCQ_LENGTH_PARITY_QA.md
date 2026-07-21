@@ -25,44 +25,31 @@ the correct choice, distractors left as bare claims).
 
 Your job: run the same audit on **AP Chemistry**.
 
-## Branch note
+## Branch note — UPDATED, step 1 is already done, don't redo it
 
-This check was implemented on `claude/cramapple-grading-experiments-9lkjqc` as
-a new `supabase/functions/_shared/mcq-quality.ts` module, because that branch's
-`admin-content/index.ts` has no preflight-gate infrastructure at all yet.
+This check now exists in **two** places, neither reconciled with the other
+yet (see `prompts/CODEX_BRANCH_RECONCILIATION_INDEPENDENT_REVIEW.md` for the
+full branch-reconciliation picture):
 
-Your environment has `supabase/functions/_shared/content-preflight.ts`
-(from `codex/five-subject-harness-and-content`, commits `c5f5392`→`e7fd3b7` —
-the file your own independent re-QA audited on 2026-07-20). Put the check
-there instead, as a new finding alongside the existing completeness checks —
-same conceptual check, correct location for your branch's actual
-infrastructure. Don't try to reconcile the two branches' preflight
-approaches; that's a separate, bigger piece of work than this task.
+- `claude/cramapple-grading-experiments-9lkjqc`:
+  `supabase/functions/_shared/mcq-quality.ts` (that branch has no
+  content-preflight.ts at all).
+- **`codex/five-subject-harness-and-content`, your own worktree at
+  `/private/tmp/cramapple-content-qa`: added directly to
+  `supabase/functions/_shared/content-preflight.ts` as a new WARNING finding
+  `MCQ_CORRECT_ANSWER_LENGTH_OUTLIER` inside `checkMcq`, ratio >= 1.4x,
+  committed locally as commit `b1e803d` on top of your existing unpushed
+  `e7fd3b7`. Not pushed — it's sitting in your worktree right now. Pull it in
+  (or just look at the commit) before you do anything else; do not
+  re-implement this from scratch.**
+
+Skip straight to step 2 below — step 1 (write the check) is done.
 
 ## Steps
 
-**1. Write the check into `content-preflight.ts`.**
-
-Add a new WARNING-severity (not BLOCKING — a genuinely longer correct answer
-can be legitimate and needs human judgment) finding code
-`MCQ_CORRECT_ANSWER_LENGTH_OUTLIER`, following whatever finding-emission
-pattern `checkMcq` already uses in that file. Logic:
-
-```
-correct_length = length(the one is_correct choice's choice_text)
-distractor_avg_length = average length of the other choices' choice_text
-ratio = correct_length / distractor_avg_length
-flag if ratio >= 1.4
-```
-
-1.4 is calibrated below both observed population ratios (1.60x, 1.73x), so it
-catches the pattern earlier than the norm rather than only matching it exactly.
-Skip (don't flag, don't crash) if there isn't exactly one correct choice or
-there are no distractors — that's a different, already-covered completeness
-defect. Add regression tests following the existing test conventions in that
-file/directory (there's already a coverage gap noted for several blocking
-codes in the prior re-audit — don't add to it; test this new code same as the
-others).
+~~1. Write the check into `content-preflight.ts`~~ — **done, see above.**
+Just confirm the committed version behaves as expected against a couple of
+real Chemistry MCQs before relying on it for step 2.
 
 **2. Run it to produce the definitive impacted-item list for AP Chemistry.**
 
