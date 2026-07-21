@@ -162,6 +162,31 @@ Deno.test("MCQ distractors with distinct rationale, incl. one echoing the correc
   assertEquals(r.findings.some((f) => f.code === "MCQ_DUPLICATE_RATIONALE"), false);
 });
 
+Deno.test("FRQ criteria array containing a null entry is BLOCKING, not a thrown TypeError", () => {
+  const bad: ContentItemPackage = {
+    ...goodFrq,
+    criteria: [null as unknown as ContentItemPackage["criteria"] extends
+      (infer U)[] | null | undefined ? U : never],
+  };
+  const r = preflightItem(bad);
+  assertEquals(r.ok, false);
+  assertEquals(r.findings.some((f) => f.code === "FRQ_CRITERION_MALFORMED"), true);
+});
+
+Deno.test("MCQ choices array containing a null entry is BLOCKING, not a thrown TypeError", () => {
+  const bad: ContentItemPackage = {
+    ...goodMcq,
+    choices: [
+      null as unknown as ContentItemPackage["choices"] extends
+        (infer U)[] | null | undefined ? U : never,
+      ...goodMcq.choices!,
+    ],
+  };
+  const r = preflightItem(bad);
+  assertEquals(r.ok, false);
+  assertEquals(r.findings.some((f) => f.code === "MCQ_CHOICE_MALFORMED"), true);
+});
+
 Deno.test("assertPreflight throws on blocking, lists the item", () => {
   const bad: ContentItemPackage = {
     ...goodFrq,

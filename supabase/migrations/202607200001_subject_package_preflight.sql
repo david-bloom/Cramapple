@@ -34,17 +34,17 @@ begin
     end if;
   elsif v_payload->>'item_type' = 'frq' then
     for v_criterion in
-      select value from pg_catalog.jsonb_path_query(v_payload, '$.parts.**.criteria[*]')
+      select * from pg_catalog.jsonb_path_query(v_payload, '$.parts.**.criteria[*]')
     loop
       v_criterion_count := v_criterion_count + 1;
       if nullif(pg_catalog.btrim(v_criterion->>'criterion_key'), '') is null
         or nullif(pg_catalog.btrim(v_criterion->>'description'), '') is null
         or nullif(pg_catalog.btrim(v_criterion->>'minimum_fix'), '') is null
-        or case
+        or (case
           when coalesce(v_criterion->>'points', '') ~ '^[0-9]+$'
             then (v_criterion->>'points')::integer < 1
           else true
-        end
+        end)
         or pg_catalog.jsonb_array_length(case
           when pg_catalog.jsonb_typeof(v_criterion->'required_evidence') = 'array'
             then v_criterion->'required_evidence'
@@ -93,6 +93,10 @@ with source_criteria as (
   ) criterion
   where civ.item_package_payload is not null
 )
+-- The retired projection trigger's hardcoded fallback text is a non-empty
+-- string, so an emptiness check alone treats it as "already complete" and
+-- never repairs it. Rows carrying that exact literal are targeted for repair
+-- (and re-checked below) the same as rows that are empty outright.
 update app.frq_criteria target
 set evidence_requirements = case
       when nullif(pg_catalog.btrim(target.evidence_requirements), '') is null
@@ -101,6 +105,7 @@ set evidence_requirements = case
     end,
     minimum_fix = case
       when nullif(pg_catalog.btrim(target.minimum_fix), '') is null
+        or pg_catalog.btrim(target.minimum_fix) = 'Add the missing evidence identified by this criterion.'
         then source.minimum_fix
       else target.minimum_fix
     end
@@ -110,6 +115,7 @@ where target.content_item_version_id = source.content_item_version_id
   and (
     nullif(pg_catalog.btrim(target.evidence_requirements), '') is null
     or nullif(pg_catalog.btrim(target.minimum_fix), '') is null
+    or pg_catalog.btrim(target.minimum_fix) = 'Add the missing evidence identified by this criterion.'
   );
 
 do $$
@@ -124,6 +130,7 @@ begin
         nullif(pg_catalog.btrim(criterion.learner_facing_text), '') is null
         or nullif(pg_catalog.btrim(criterion.evidence_requirements), '') is null
         or nullif(pg_catalog.btrim(criterion.minimum_fix), '') is null
+        or pg_catalog.btrim(criterion.minimum_fix) = 'Add the missing evidence identified by this criterion.'
         or criterion.points_possible is null
         or criterion.points_possible < 1
         or criterion.points_possible <> pg_catalog.trunc(criterion.points_possible)
@@ -157,7 +164,7 @@ begin
   end loop;
 
   for v_criterion in
-    select value from jsonb_path_query(new.prompt_json, '$.parts.**.criteria[*]')
+    select * from jsonb_path_query(new.prompt_json, '$.parts.**.criteria[*]')
   loop
     insert into app.frq_criteria(
       content_item_version_id,criterion_key,learner_facing_text,points_possible,

@@ -87,6 +87,10 @@ function checkFrq(pkg: ContentItemPackage, out: PreflightFinding[]) {
     push("blocking", "FRQ_NO_CRITERIA", "item", "FRQ has no scoring criteria.");
   }
   for (const c of criteria) {
+    if (c === null || typeof c !== "object") {
+      push("blocking", "FRQ_CRITERION_MALFORMED", "criterion:?", "Criterion entry is not an object.");
+      continue;
+    }
     const loc = `criterion:${c.criterion_key ?? "?"}`;
     if (!nonEmpty(c.criterion_key)) push("blocking", "FRQ_CRITERION_KEY_MISSING", loc, "Criterion is missing a criterion_key.");
     if (!nonEmpty(c.learner_facing_text)) push("blocking", "FRQ_LEARNER_TEXT_EMPTY", loc, "Criterion has empty learner_facing_text.");
@@ -113,7 +117,13 @@ function checkMcq(pkg: ContentItemPackage, out: PreflightFinding[]) {
   const push = (severity: Severity, code: string, location: string, message: string) =>
     out.push({ content_key: key, item_type: "mcq", severity, code, location, message });
 
-  const choices = Array.isArray(pkg.choices) ? pkg.choices : [];
+  const rawChoices = Array.isArray(pkg.choices) ? pkg.choices : [];
+  for (const c of rawChoices) {
+    if (c === null || typeof c !== "object") {
+      push("blocking", "MCQ_CHOICE_MALFORMED", "choice:?", "Answer choice entry is not an object.");
+    }
+  }
+  const choices = rawChoices.filter((c): c is McqChoiceInput => c !== null && typeof c === "object");
   if (choices.length < 2) {
     push("blocking", "MCQ_TOO_FEW_CHOICES", "item", "MCQ has fewer than 2 answer choices.");
   }
