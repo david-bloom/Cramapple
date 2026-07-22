@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Shipped review-decision Atomic-Lock Fix; Fixed Unrealistic Scatterplot Correlations Flagged by Jill — 2026-07-22
 - Production Content Reconciled to Tutor Decisions; Reviewer Image Support Shipped — 2026-07-20
 - Kimi Grading Experiment Wired and Pre-Registered — 2026-07-17
 - Phase A Broken-Import Fix and Deterministic-Layer-Only Ship Decision — 2026-07-12
@@ -21,6 +22,111 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## Shipped review-decision Atomic-Lock Fix; Fixed Unrealistic Scatterplot Correlations Flagged by Jill - 2026-07-22
+
+**Task:** Two related pieces of live-Production work in one session.
+
+**Status:** Both done and deployed/applied.
+
+**1. `review-decision` edge function — deployed the atomic submission
+lock + rebuilt MCQ answer-approval flow.** Discovered the previously
+committed `a24d523` fix (atomic lock trigger + MCQ per-choice
+`answer_approvals`) was written on a stale fork of this file that predates
+the categorical-scoring rewrite (`bf70d0b`/`a6bee10`) actually live in
+Production — deploying it as-is would have silently reverted Production's
+live `tutor_decision`/`difficulty_action` model and its reader-approval →
+`tutor_answer` fan-out flow. Also found the deployed fan-out itself was
+broken: it tried to insert 4 assignment rows per tutor (one per MCQ choice)
+against an `upsert` `onConflict` target that has no matching unique
+constraint on `content_review_assignments` — meaning MCQ answer-choice
+review has likely never worked end-to-end in Production.
+
+Fix actually shipped: applied the `content_review_submission_lock` DB
+trigger (atomic, base-independent) unchanged, then rebuilt the MCQ
+answer-approval logic against the real deployed baseline — one
+`tutor_answer` assignment per tutor (not per choice), with the eventual
+decision required to cover every answer choice in a single bundled
+submission (`answer_approvals: [{choice_key, approved}, ...]`, validated
+exactly against `mcq_choices`, note required unless every choice is
+approved). This is also the only workable design under the new lock
+trigger, since it locks an assignment after its first decision — a
+choice-at-a-time submission model can't work once locking is atomic.
+
+Made two deployment mistakes correcting this (a placeholder file, then a
+mismatched cors/auth pair) before landing the correct version — both
+self-caught and fixed within the same session; confirmed via live
+smoke test and `get_logs` that 0 real decisions were lost (the crashes
+happened before the DB write, so failed = no-op, not corruption).
+
+**2. Fixed the exact unrealistic-scatterplot-data flaw Jill has been
+flagging since 2026-07-16.** Jill raised this again today, more
+comprehensively, after independently spot-checking 3 items (r = .997,
+.997, -.9955). Verified this quantitatively rather than taking it on
+faith: computed Pearson r directly against Production for the full
+`APSTATS-HDG-2026-GRAPH-*` `scatterplot_regression_context` archetype (7
+of the 40 hand-drawn-graph items) — all 7 had |r| between 0.987 and 0.9986,
+confirming this is systemic to the archetype, not just the 3 items Jill
+happened to check. Cross-referenced her actual `content_review_decisions`
+notes: she flagged `GRAPH-005` on 2026-07-16 and again 2026-07-21, and
+`GRAPH-033`/`GRAPH-036` today, with precise numeric suggestions
+(hours-studied 0–5 with repeats, quiz scores in the 60s–90s, r around
+-.75/-.80 for the irrigation item) — this flaw sat live on published,
+student-facing content for 6 days. The 2026-07-20 entry above already
+identified `GRAPH-005` as unrealistic and did a partial wording fix
+(quiz→test relabel) but explicitly left the underlying data-realism issue
+as a carried-forward gap — that gap is now closed, for all 7 items, not
+just 005.
+
+Rebuilt each of the 7 items' datasets (`GRAPH-005`, `-011`, `-032`, `-033`,
+`-034`, `-035`, `-036`) with realistic scatter (|r| ≈ 0.77–0.83, matching
+Jill's own suggested range), preserving each item's context, units, and
+association direction so no rubric criterion (trend-line direction,
+association-strength wording) needed to change. For `GRAPH-005`
+specifically, followed Jill's exact spec: hours studied 0–5 with repeated
+values, quiz scores in the 60s–90s range. Also fixed a markdown-table
+rendering bug found while doing this: items `-032` through `-036` had all
+their data rows collapsed onto a single line (missing row breaks) instead
+of one row per pair like `-005`/`-011` — same underlying template bug,
+fixed as part of the same edit. Updated all 4 places each item stores this
+text/data consistently (`content_item_versions.stimulus`,
+`prompt_json.stimulus`, `prompt_json.parts[0].prompt_text`,
+`prompt_json.stimulus_table`).
+
+Reopened the 3 assignments that already had a locked decision (`GRAPH-005`,
+`-033`, `-036`, all Jill) back to `pending` so she reviews the corrected
+version fresh, rather than trusting the fix as final. The other 4 items had
+no decision recorded yet, so nothing to reopen there.
+
+**Not done / flagged, not fixed:** `docs/research/benchmark_corpus_2026_07_06/statistics_hand_drawn_05/corpus.jsonl`
+references `GRAPH-005` as its `source_item_id` and still describes the old
+data (quiz-score wording, old point positions) — a downstream
+grading-harness benchmark sample, not live student content. Left as-is;
+worth a separate pass if that benchmark corpus needs to stay in sync with
+live content.
+
+**Verification performed:** independently computed Pearson r for all 7
+original datasets and all 7 replacement datasets before touching
+Production; confirmed the replacement update landed correctly by
+re-querying `content_item_versions.stimulus` after the migration; confirmed
+`review-decision` v15 boots cleanly (`OPTIONS` → 200, unauthenticated
+`POST` → 401, zero errors in `get_logs`) and that zero decisions were
+written to the DB during the ~2-minute mistake window.
+
+**Files/systems changed:** Production DB (`pcntajvbdfqhbeewmdry`) —
+`content_review_submission_lock` trigger (new); `review-decision` edge
+function (v15); 7 `content_item_versions` rows' `stimulus`/`prompt_json`
+for the `APSTATS-HDG-2026-GRAPH-*` scatterplot items; 3
+`content_review_assignments` rows reopened to `pending`.
+
+**Next Owner:** Jill Schmidlkofer (re-review the 3 reopened items),
+David Bloom
+**Next Required Action:** confirm the corrected `GRAPH-005`/`-033`/`-036`
+data reads as realistic; separately, this same generation flaw may extend
+to other archetypes/subjects seeded by the same pipeline — worth a broader
+sweep, not done here (scope was exactly what Jill flagged).
 
 ---
 
