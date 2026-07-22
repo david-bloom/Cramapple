@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cramapple.internal/schemas/drawn_response/capture_quality_record.schema.json",
+  "title": "Drawn-Response Capture-Quality Record",
+  "$comment": "Defined by docs/research/TASK-0011_PHASE_1_EXECUTION_SPEC.md section 5 and section 7.1. Capture quality is labeled before any visual observation or scoring (section 6.2 step 2) and describes the image, not the student's graph quality (section 5: 'Missing axis labels on a clear photograph are a scoring observation, not a capture failure').",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "PAGE_COMPLETE",
+    "GRAPH_REGION_COMPLETE",
+    "FOCUS_LEGIBILITY",
+    "GLARE_OCCLUSION",
+    "PERSPECTIVE_READABILITY",
+    "RESOLUTION_READABILITY",
+    "ORIENTATION_USABLE",
+    "INCIDENTAL_IDENTIFIER",
+    "CAPTURE_DISPOSITION",
+    "source_image_id",
+    "item_id",
+    "response_id",
+    "capture_reviewer_id",
+    "timestamp"
+  ],
+  "properties": {
+    "PAGE_COMPLETE": { "$ref": "#/$defs/passFailUncertain" },
+    "GRAPH_REGION_COMPLETE": { "$ref": "#/$defs/passFailUncertain" },
+    "FOCUS_LEGIBILITY": { "$ref": "#/$defs/passFailUncertain" },
+    "GLARE_OCCLUSION": { "$ref": "#/$defs/passFailUncertain" },
+    "PERSPECTIVE_READABILITY": { "$ref": "#/$defs/passFailUncertain" },
+    "RESOLUTION_READABILITY": { "$ref": "#/$defs/passFailUncertain" },
+    "ORIENTATION_USABLE": { "$ref": "#/$defs/passFailUncertain" },
+    "INCIDENTAL_IDENTIFIER": {
+      "type": "string",
+      "enum": ["NONE", "PRESENT", "UNCERTAIN"],
+      "description": "Spec section 5."
+    },
+    "CAPTURE_DISPOSITION": {
+      "type": "string",
+      "enum": ["ACCEPT", "RETAKE", "HUMAN_REVIEW"],
+      "description": "Spec section 5 and 7.1. RETAKE only when recapture can plausibly fix the defect; otherwise HUMAN_REVIEW."
+    },
+    "source_image_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "ID of the immutable original capture being labeled."
+    },
+    "item_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Tooling envelope field."
+    },
+    "response_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Tooling envelope field; the underlying response this capture belongs to."
+    },
+    "capture_reviewer_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Spec section 6.1: the Capture Reviewer labels image quality without seeing criterion outcomes. Tooling envelope field naming that role's reviewer."
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Tooling envelope field; ISO-8601 UTC."
+    }
+  },
+  "$defs": {
+    "passFailUncertain": {
+      "type": "string",
+      "enum": ["PASS", "FAIL", "UNCERTAIN"],
+      "description": "Spec section 5."
+    }
+  }
+}

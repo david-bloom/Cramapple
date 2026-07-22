@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cramapple.internal/schemas/drawn_response/criterion_decision_record.schema.json",
+  "title": "Drawn-Response Criterion Decision Record",
+  "$comment": "Defined by docs/research/TASK-0011_PHASE_1_EXECUTION_SPEC.md sections 4.1, 4.2, 6.3, 7.2. A decision must cite the observation_ids it relies on; it must never assert a fact about the image directly.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "criterion_id",
+    "criterion_label",
+    "decision",
+    "cited_observation_ids",
+    "reason_code",
+    "reviewer_id",
+    "rubric_version",
+    "timestamp",
+    "item_id",
+    "response_id",
+    "method"
+  ],
+  "properties": {
+    "criterion_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Item-specific criterion instance ID from that item's authored criterion_definitions package (e.g. 'DRG-P1-01-UNCERTAINTY_MARKS')."
+    },
+    "criterion_label": {
+      "type": "string",
+      "enum": [
+        "REPRESENTATION_TYPE",
+        "X_VARIABLE",
+        "Y_VARIABLE",
+        "X_UNIT",
+        "Y_UNIT",
+        "X_SCALE",
+        "Y_SCALE",
+        "CATEGORY_IDENTITY",
+        "PLOT_VALUES",
+        "UNCERTAINTY_MARKS",
+        "POINT_CONNECTION",
+        "BEST_FIT_RELATIONSHIP",
+        "ZERO_INTERCEPT_ANNOTATION",
+        "PLATEAU_ANNOTATION",
+        "ESTIMATE_VALUE"
+      ],
+      "description": "Shared cross-item criterion taxonomy from spec section 4.2, used for by-criterion rollups in section 8.3. Not present verbatim in the spec's per-record field list -- added so the evaluation harness can group criterion_id instances across the six items without re-deriving the mapping."
+    },
+    "decision": {
+      "type": "string",
+      "enum": ["MET", "NOT_MET", "ABSTAIN", "NOT_APPLICABLE"],
+      "description": "Spec section 4.1 criterion decision."
+    },
+    "cited_observation_ids": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 0,
+      "description": "observation_id values from observation_record.schema.json this decision relies on. Empty only when decision is NOT_APPLICABLE."
+    },
+    "reason_code": {
+      "type": "string",
+      "enum": [
+        "EVIDENCE_SATISFIES",
+        "VISIBLE_OMISSION",
+        "VISIBLE_INCORRECT",
+        "VISIBLE_CONTRADICTION",
+        "UNREADABLE_CAPTURE",
+        "CUTOFF_EVIDENCE",
+        "AMBIGUOUS_MARK",
+        "AMBIGUOUS_TEXT",
+        "UNSUPPORTED_REPRESENTATION",
+        "RUBRIC_AMBIGUITY",
+        "OUT_OF_DISTRIBUTION",
+        "NOT_REQUIRED"
+      ],
+      "description": "Spec section 6.3. Exactly one primary reason code per decision."
+    },
+    "reviewer_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Spec section 4.1. For automated method output, use the method/run identifier (see 'method' field) rather than a human reviewer ID."
+    },
+    "rubric_version": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Spec section 4.1. Must match an item's locked criterion_definitions version (section 6.2 step 10: a rubric defect invalidates affected labels and requires a new rubric version)."
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Spec section 4.1; ISO-8601 UTC."
+    },
+    "item_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Tooling envelope field."
+    },
+    "response_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Tooling envelope field; the underlying response, not a single photo variant."
+    },
+    "method": {
+      "type": "string",
+      "enum": [
+        "human_validator_a",
+        "human_validator_b",
+        "human_lead_adjudication",
+        "method_direct_multimodal",
+        "method_multimodal_observation_then_criterion",
+        "method_deterministic_geometry_ocr",
+        "method_hybrid_reconciliation"
+      ],
+      "description": "Tooling envelope field distinguishing gold human labels (section 6.1 roles) from the four candidate methods compared in section 8.2. Required so the same schema covers both gold labels and method output without ambiguity."
+    }
+  }
+}
