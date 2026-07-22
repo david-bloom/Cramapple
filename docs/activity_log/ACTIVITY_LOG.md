@@ -107,6 +107,52 @@ grading-harness benchmark sample, not live student content. Left as-is;
 worth a separate pass if that benchmark corpus needs to stay in sync with
 live content.
 
+**3. Same flaw confirmed in AP Biology — 2 items fixed, 10 more items with
+a separate related bug flagged, not fixed.** David asked whether the
+correlation pattern extends to other subjects. Checked every subject for
+the same structured `stimulus_table` hand-drawn-graph format: only Biology
+also uses it (12 items, same 6 archetypes as Statistics — same generation
+pipeline). Of those, 2 use `scatterplot_regression_context`:
+`APBIO-HDG-2026-GRAPH-009` (enzyme reaction rate vs. substrate
+concentration, r=0.999) and `-010` (rabbit population vs. forage biomass,
+r=0.993) — same bug, confirmed quantitatively the same way as the
+Statistics items. Neither was published (`010` was `assigned`, never
+shipped; `009` was `reviewed_disapproved`).
+
+Fixed both with the same realistic-scatter approach (r=0.849, r=0.817),
+keeping `009`'s substrate-concentration range in the sub-saturation region
+where real Michaelis-Menten enzyme kinetics is genuinely near-linear,
+rather than just adding noise to an implausible full-range enzyme curve.
+
+While fixing these, found `009`'s actual `content_review_assignments`
+history: Amjad disapproved it on 2026-07-17 for "missing the data values
+needed to make the graph" — and confirmed why: **all 12** Biology HDG
+items have `content_item_versions.stimulus` (the column the reviewer UI
+actually reads) `NULL`, even though the data exists in `prompt_json`. This
+is a separate, broader population bug from the correlation issue — it
+means none of the 12 Biology hand-drawn-graph items have ever been
+properly reviewable. Fixed it for `009`/`010` as part of the same update
+(populated `stimulus` with the corrected text+table). The other 10 items
+still have this bug — not fixed here, out of scope for what was asked, but
+worth a dedicated pass since it's blocking review entirely, not just a data
+quality issue.
+
+Reopened `009`'s assignment (Amjad) and reset its `content_item_versions`/
+`content_items` status from `reviewed_disapproved` back to `assigned` so it
+re-enters his queue with the fix in place, rather than staying rejected for
+a problem that's now resolved.
+
+**Files/systems changed (addendum):** Production DB — 2 more
+`content_item_versions` rows (`APBIO-HDG-2026-GRAPH-009`, `-010`) —
+`stimulus`, `prompt_json.stimulus`, `prompt_json.stimulus_table`; 1
+`content_review_assignments` row reopened to `pending`; `009`'s item/version
+status reset from `reviewed_disapproved` to `assigned`.
+
+**Next Required Action (addendum):** decide whether to fix the missing-
+`stimulus` bug on the other 10 Biology HDG items now or as a separate task —
+they're all currently unreviewable by design (empty stimulus in the
+reviewer UI), independent of any data-realism concerns.
+
 **Verification performed:** independently computed Pearson r for all 7
 original datasets and all 7 replacement datasets before touching
 Production; confirmed the replacement update landed correctly by
