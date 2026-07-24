@@ -12,6 +12,10 @@ values
 on conflict (id) do nothing;
 
 -- Private bucket for question assets and approved content media.
+-- Path convention:
+--   content/{exam_code}/{content_item_id}/{content_item_version_id}/{filename}
+-- Upload signing requires the content item and content item version rows to
+-- exist first; create drafts through admin-content.create_draft before upload.
 drop policy if exists "content_assets_service_only_select" on storage.objects;
 create policy "content_assets_service_only_select"
 on storage.objects
@@ -89,6 +93,10 @@ using (
 );
 
 -- Validation artifacts stay server-side and reviewer-only.
+-- Path convention:
+--   validation/{artifact_type}/{scope_id}/{filename}
+-- Validator signing requires an assigned/opened review assignment. Pre-
+-- assignment calibration or service workflows must use a server-side job.
 drop policy if exists "validation_artifacts_service_only_select" on storage.objects;
 create policy "validation_artifacts_service_only_select"
 on storage.objects
