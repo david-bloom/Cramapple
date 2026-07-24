@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- CED Verification and Physics Content Review — Session Handoff — 2026-07-24
 - Phase A Broken-Import Fix and Deterministic-Layer-Only Ship Decision — 2026-07-12
 - TASK-0016 Phase A Grading-Router Reconciled Onto Grading Branch — 2026-07-12
 - AP Statistics Launch Task Drafted (TASK-0013) — 2026-06-30
@@ -19,6 +20,23 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## CED Verification and Physics Content Review — Session Handoff - 2026-07-24
+
+**Task:** No formal TASK-XXXX yet — an outgrowth of the AP Statistics content-quality review, extended per David's instruction to build a primary-source "CED Fact Pack" per subject and check existing content against it. Priority given: physics, then calculus, then chemistry (biology added later).
+**Status:** Physics (all 4 courses) and Precalculus fully verified against primary-source CED PDFs and current. Calculus AB/BC, Chemistry, and Biology still need the same treatment — blocked this session by a Google Drive MCP connector that returned `MCP error -32003: MCP tool call requires approval` on every call, even after multiple reconnects. David is ending this session over the connector issue and starting a new one.
+
+**Full detail, reusable verification method, exact Drive doc titles/IDs, unmatched PDF links, and open engineering bugs are in `docs/reviewer_packets/CED_VERIFICATION_STATUS_2026_07_24.md` — read that file in full before picking this back up.**
+
+**Summary of what's done:** AP Physics 1, Physics 2, Physics C: Mechanics, and Physics C: E&M CEDs were all found to have been substantially restructured for 2024-25 (verified against David-supplied Fall 2024/© 2026 primary-source PDFs, not web search). Notably: Fluids moved from Physics 2 to Physics 1 (added as new Physics 1 Unit 8); Physics 1's unit structure was rewritten to closely mirror Physics C: Mechanics; neither Physics 1 nor Physics C: Mechanics has a standalone "Gravitation" unit anymore (orbital content lives under Unit 6, Topic 6.6); Physics C: E&M and Physics 2 were both renumbered. AP Precalculus got its first-ever fact pack (new subject, Fall 2026 edition, notably Unit 4 is taught but not assessed on the AP Exam). A scope check on the `apphy1-*` corpus found no items needed correction for the restructuring itself, but found two thin/uncovered areas relative to the new CED (orbital mechanics, and fluids density/buoyancy); 8 new content items were authored to close those gaps and assigned to reviewer Muhammad Saood. Four reviewer briefing packets for Saood were written and merged via PR #48.
+
+**Two engineering bugs surfaced but not fixed** (need an engineering session): `prevent_review_decision_mutation` trigger references the wrong PK column (`old.id` vs actual `content_review_decision_id`); `lock_content_review_submission` trigger blocks inserting a superseding decision against any assignment that already has one, even a broken one. Recommend one ticket covering both, bundled with the earlier `GRAPH-009`/`MCQ-078` assignment-locking issue.
+
+**Also outstanding:** several superseded/placeholder Google Drive fact-pack docs need manual deletion by David — no Drive delete tool is available to Claude. Full list in the linked status doc.
+
+**Next Owner:** whichever session picks this up next — start by reading `docs/reviewer_packets/CED_VERIFICATION_STATUS_2026_07_24.md` in full.
 
 ---
 
