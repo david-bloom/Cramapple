@@ -1,0 +1,109 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apphy2-mcq-008",
+  "content_key": "apphy2-mcq-008",
+  "content_version": 1,
+  "difficulty": "Medium",
+  "exam_pack_ref": {
+    "exam_code": "ap_physics_2",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "mcq",
+  "archetype_ref": {
+    "archetype_key": "ap-physics-2-mcq",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-physics-2-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-11-electric-circuits"
+    },
+    {
+      "scheme_key": "ap-physics-2-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-2"
+    }
+  ],
+  "stimuli": [],
+  "mcq_choices": [
+    {
+      "choice_key": "A",
+      "choice_text": "0.25 Ω",
+      "is_correct": false,
+      "rationale": "Inverts the formula, computing I/V instead of V/I."
+    },
+    {
+      "choice_key": "B",
+      "choice_text": "4 Ω",
+      "is_correct": true,
+      "rationale": "R=V/I"
+    },
+    {
+      "choice_key": "C",
+      "choice_text": "9 Ω",
+      "is_correct": false,
+      "rationale": "Subtracts the given values (12-3=9) instead of dividing voltage by current."
+    },
+    {
+      "choice_key": "D",
+      "choice_text": "36 Ω",
+      "is_correct": false,
+      "rationale": "Multiplies the given values (12x3=36) instead of dividing voltage by current."
+    }
+  ],
+  "canonical_answers": [
+    "B"
+  ],
+  "parts": [
+    {
+      "part_key": "question",
+      "ordinal": 1,
+      "prompt": "A 12 V battery drives 3 A through a resistor. Its resistance is\n\nA. 0.25 Ω\nB. 4 Ω\nC. 9 Ω\nD. 36 Ω",
+      "response_modalities": [
+        "choice"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-answer",
+          "points": 1,
+          "description": "Select the single scientifically correct answer.",
+          "required_evidence": [
+            "B",
+            "R=V/I"
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "choice-key",
+              "parameters": {
+                "choice": "B"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All information is text-based."
+  },
+  "review_notes": {
+    "expected_reasoning": "R=V/I",
+    "known_boundary_cases": [],
+    "originality_statement": "Independently authored synthetic practice item; no official question or scoring material used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-physics-2-ced-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-15",
+    "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
+    "generated_by": "codex",
+    "generated_at": "2026-07-15T00:00:00Z",
+    "content_sha256": "d14dcc0ca5b1c7ed3a227ac0104debc17db8bc9c83e5201f4ba6cd8f5f69ce4b"
+  }
+}

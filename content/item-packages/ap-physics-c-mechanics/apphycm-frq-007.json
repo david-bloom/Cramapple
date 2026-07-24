@@ -1,0 +1,149 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apphycm-frq-007",
+  "content_key": "apphycm-frq-007",
+  "content_version": 1,
+  "difficulty": "Medium",
+  "frq_form": "short",
+  "canonical_answers": [
+    "Linearizing Iθ''=-Mgd sinθ gives θ''+(Mgd/I)θ=0 and T=2πsqrt(I/Mgd)."
+  ],
+  "exam_pack_ref": {
+    "exam_code": "ap_physics_c_mechanics",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "frq",
+  "archetype_ref": {
+    "archetype_key": "ap-physics-c-mechanics-frq-representation",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-physics-c-mechanics-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-7-oscillations"
+    },
+    {
+      "scheme_key": "ap-physics-c-mechanics-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-1"
+    }
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "scenario",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "A physical pendulum of mass M has pivot-to-center distance d and moment of inertia I about the pivot."
+      },
+      "source_refs": [
+        "ap-physics-c-mechanics-ced-fact-pack"
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "part_key": "part-a",
+      "ordinal": 1,
+      "label": "(a)",
+      "prompt": "Translate the governing relation into a labeled graph or diagram and explain its key slope, area, or direction.",
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion",
+          "points": 1,
+          "description": "Linearizing Iθ''=-Mgd sinθ gives θ''+(Mgd/I)θ=0 and T=2πsqrt(I/Mgd).",
+          "required_evidence": [
+            "differential equation",
+            "small angle",
+            "2πsqrt(I/Mgd)"
+          ],
+          "accepted_variants": [
+            "Equivalent scientifically correct notation and reasoning earn credit."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "differential equation",
+                  "small angle",
+                  "2πsqrt(I/Mgd)"
+                ]
+              }
+            }
+          ],
+          "minimum_fix": "To earn this point, explicitly show differential equation; small angle; 2πsqrt(I/Mgd)."
+        }
+      ],
+      "stimulus_refs": [
+        "scenario"
+      ]
+    },
+    {
+      "part_key": "part-b",
+      "ordinal": 2,
+      "label": "(b)",
+      "prompt": "Explain how the small-angle approximation sinθ≈θ linearizes Iθ''=-Mgd sinθ into simple harmonic form, given the assumption that oscillations remain small-amplitude, to yield T=2π√(I/Mgd).",
+      "response_modalities": [
+        "typed-text"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-b-criterion",
+          "points": 1,
+          "description": "Explain how the small-angle approximation sinθ≈θ linearizes Iθ''=-Mgd sinθ into simple harmonic form, given the assumption that oscillations remain small-amplitude, to yield T=2π√(I/Mgd).",
+          "required_evidence": [
+            "small-angle approximation sinθ≈θ",
+            "small-amplitude oscillation assumption"
+          ],
+          "accepted_variants": [
+            "Equivalent scientifically correct notation and reasoning earn credit."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "small-angle approximation",
+                  "small-amplitude oscillation"
+                ]
+              }
+            }
+          ],
+          "minimum_fix": "To earn this point, explicitly show small-angle approximation sinθ≈θ; small-amplitude oscillation assumption."
+        }
+      ],
+      "stimulus_refs": [
+        "scenario"
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "Text and symbolic notation are fully described."
+  },
+  "review_notes": {
+    "expected_reasoning": "Linearizing Iθ''=-Mgd sinθ gives θ''+(Mgd/I)θ=0 and T=2πsqrt(I/Mgd).",
+    "known_boundary_cases": [],
+    "originality_statement": "Independently authored synthetic draft for Tutor review; no official question or scoring material used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-physics-c-mechanics-ced-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-15",
+    "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
+    "generated_by": "codex",
+    "generated_at": "2026-07-15T00:00:00Z",
+    "content_sha256": "fa28514eb0b54e536e5972346ddc65b63406b82e806a25f70fcb3bb80ee98d45"
+  }
+}

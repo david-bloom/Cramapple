@@ -1,0 +1,149 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apphycm-frq-001",
+  "content_key": "apphycm-frq-001",
+  "content_version": 1,
+  "difficulty": "Easy",
+  "frq_form": "short",
+  "canonical_answers": [
+    "Integrating gives x(t)=αt³/3 and differentiating gives a(t)=2αt."
+  ],
+  "exam_pack_ref": {
+    "exam_code": "ap_physics_c_mechanics",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "frq",
+  "archetype_ref": {
+    "archetype_key": "ap-physics-c-mechanics-frq-math",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-physics-c-mechanics-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-1-kinematics"
+    },
+    {
+      "scheme_key": "ap-physics-c-mechanics-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-1"
+    }
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "scenario",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "A particle moves on the x-axis with velocity v(t)=αt², where α>0 and x(0)=0."
+      },
+      "source_refs": [
+        "ap-physics-c-mechanics-ced-fact-pack"
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "part_key": "part-a",
+      "ordinal": 1,
+      "label": "(a)",
+      "prompt": "Derive the stated observable from the supplied conditions and evaluate any given values.",
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion",
+          "points": 1,
+          "description": "Integrating gives x(t)=αt³/3 and differentiating gives a(t)=2αt.",
+          "required_evidence": [
+            "integral",
+            "αt³/3",
+            "2αt"
+          ],
+          "accepted_variants": [
+            "Equivalent scientifically correct notation and reasoning earn credit."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "integral",
+                  "αt³/3",
+                  "2αt"
+                ]
+              }
+            }
+          ],
+          "minimum_fix": "To earn this point, explicitly show integral; αt³/3; 2αt."
+        }
+      ],
+      "stimulus_refs": [
+        "scenario"
+      ]
+    },
+    {
+      "part_key": "part-b",
+      "ordinal": 2,
+      "label": "(b)",
+      "prompt": "Explain how the calculus relationship between velocity, position, and acceleration, together with the initial condition x(0)=0, justifies the derived x(t) and a(t).",
+      "response_modalities": [
+        "typed-text"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-b-criterion",
+          "points": 1,
+          "description": "Explain how the calculus relationship between velocity, position, and acceleration, together with the initial condition x(0)=0, justifies the derived x(t) and a(t).",
+          "required_evidence": [
+            "v=dx/dt and a=dv/dt",
+            "initial condition x(0)=0"
+          ],
+          "accepted_variants": [
+            "Equivalent scientifically correct notation and reasoning earn credit."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "dx/dt",
+                  "x(0)=0"
+                ]
+              }
+            }
+          ],
+          "minimum_fix": "To earn this point, explicitly show v=dx/dt and a=dv/dt; initial condition x(0)=0."
+        }
+      ],
+      "stimulus_refs": [
+        "scenario"
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "Text and symbolic notation are fully described."
+  },
+  "review_notes": {
+    "expected_reasoning": "Integrating gives x(t)=αt³/3 and differentiating gives a(t)=2αt.",
+    "known_boundary_cases": [],
+    "originality_statement": "Independently authored synthetic draft for Tutor review; no official question or scoring material used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-physics-c-mechanics-ced-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-15",
+    "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
+    "generated_by": "codex",
+    "generated_at": "2026-07-15T00:00:00Z",
+    "content_sha256": "7f9e557089617e9f33e60e0995ad62cf899d7fcee0faca1897e310f392f14abc"
+  }
+}

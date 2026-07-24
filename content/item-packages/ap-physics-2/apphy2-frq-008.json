@@ -1,0 +1,149 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apphy2-frq-008",
+  "content_key": "apphy2-frq-008",
+  "content_version": 1,
+  "difficulty": "Medium",
+  "frq_form": "short",
+  "canonical_answers": [
+    "W=0 and ΔU=(3/2)nRΔT≈748 J, so Q≈748 J."
+  ],
+  "exam_pack_ref": {
+    "exam_code": "ap_physics_2",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "frq",
+  "archetype_ref": {
+    "archetype_key": "ap-physics-2-frq-representation",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-physics-2-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-9-thermodynamics"
+    },
+    {
+      "scheme_key": "ap-physics-2-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-2"
+    }
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "scenario",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "One mole of an ideal monatomic gas is heated at constant volume from 300 K to 360 K."
+      },
+      "source_refs": [
+        "ap-physics-2-ced-fact-pack"
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "part_key": "part-a",
+      "ordinal": 1,
+      "label": "(a)",
+      "prompt": "Translate the governing relation into a labeled graph or diagram and explain its key slope, area, or direction.",
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion",
+          "points": 1,
+          "description": "W=0 and ΔU=(3/2)nRΔT≈748 J, so Q≈748 J.",
+          "required_evidence": [
+            "constant volume",
+            "748",
+            "first law"
+          ],
+          "accepted_variants": [
+            "Equivalent scientifically correct notation and reasoning earn credit."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "constant volume",
+                  "748",
+                  "first law"
+                ]
+              }
+            }
+          ],
+          "minimum_fix": "To earn this point, explicitly show constant volume; 748; first law."
+        }
+      ],
+      "stimulus_refs": [
+        "scenario"
+      ]
+    },
+    {
+      "part_key": "part-b",
+      "ordinal": 2,
+      "label": "(b)",
+      "prompt": "Explain why the work done by the gas is zero at constant volume and how the monatomic ideal-gas assumption fixes the value of Cv used to compute ΔU.",
+      "response_modalities": [
+        "typed-text"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-b-criterion",
+          "points": 1,
+          "description": "Explain why the work done by the gas is zero at constant volume and how the monatomic ideal-gas assumption fixes the value of Cv used to compute ΔU.",
+          "required_evidence": [
+            "work is zero because volume is constant (W = ∫P dV = 0)",
+            "monatomic ideal-gas assumption fixes Cv = (3/2)R"
+          ],
+          "accepted_variants": [
+            "Equivalent scientifically correct notation and reasoning earn credit."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "constant volume",
+                  "monatomic"
+                ]
+              }
+            }
+          ],
+          "minimum_fix": "To earn this point, explicitly show work is zero because volume is constant (W = ∫P dV = 0); monatomic ideal-gas assumption fixes Cv = (3/2)R."
+        }
+      ],
+      "stimulus_refs": [
+        "scenario"
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "Text and symbolic notation are fully described."
+  },
+  "review_notes": {
+    "expected_reasoning": "W=0 and ΔU=(3/2)nRΔT≈748 J, so Q≈748 J.",
+    "known_boundary_cases": [],
+    "originality_statement": "Independently authored synthetic draft for Tutor review; no official question or scoring material used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-physics-2-ced-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-15",
+    "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
+    "generated_by": "codex",
+    "generated_at": "2026-07-15T00:00:00Z",
+    "content_sha256": "68c1690deb99f5f55f449b875d27b9ddb5e992eede4bf9af2bb60d90a969894d"
+  }
+}

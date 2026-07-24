@@ -1,0 +1,151 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apphy1-frq-015",
+  "content_key": "apphy1-frq-015",
+  "content_version": 1,
+  "difficulty": "Very Hard",
+  "frq_form": "short",
+  "canonical_answers": [
+    "The angular frequency is 20.0 rad/s and maximum speed is 1.60 m/s."
+  ],
+  "exam_pack_ref": {
+    "exam_code": "ap_physics_1",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "frq",
+  "archetype_ref": {
+    "archetype_key": "ap-physics-1-frq-translation",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-physics-1-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-7-oscillations"
+    },
+    {
+      "scheme_key": "ap-physics-1-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-3"
+    }
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "scenario",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "A 0.250 kg mass on an ideal 100 N/m spring oscillates with amplitude 0.080 m."
+      },
+      "source_refs": [
+        "ap-physics-1-ced-fact-pack"
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "part_key": "part-a",
+      "ordinal": 1,
+      "label": "(a)",
+      "prompt": "Predict how the observable changes when the defining scale parameter is doubled, and justify the prediction quantitatively.",
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion",
+          "points": 1,
+          "description": "Doubling the amplitude leaves the angular frequency unchanged at ω = 20.0 rad/s, since ω = sqrt(k/m) depends only on k and m, but it doubles the maximum speed to 3.20 m/s, since v_max = ωA is directly proportional to amplitude.",
+          "required_evidence": [
+            "angular frequency stays 20.0 rad/s because it does not depend on amplitude",
+            "maximum speed doubles to 3.20 m/s because v_max is proportional to amplitude"
+          ],
+          "accepted_variants": [
+            "Equivalent scientifically correct notation and reasoning earn credit."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "unchanged",
+                  "doubles",
+                  "3.20"
+                ]
+              }
+            }
+          ],
+          "minimum_fix": "To earn this point, explicitly show angular frequency stays 20.0 rad/s because it does not depend on amplitude; maximum speed doubles to 3.20 m/s because v_max is proportional to amplitude."
+        }
+      ],
+      "stimulus_refs": [
+        "scenario"
+      ]
+    },
+    {
+      "part_key": "part-b",
+      "ordinal": 2,
+      "label": "(b)",
+      "prompt": "Explain why assuming the spring is ideal and the oscillation undamped lets you use ω = sqrt(k/m) and v_max = ωA to obtain the angular frequency and maximum speed.",
+      "response_modalities": [
+        "typed-text"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-b-criterion",
+          "points": 1,
+          "description": "Correctly cites ω = sqrt(k/m) and v_max = ωA as the governing relations and states that the spring is assumed ideal and the motion undamped.",
+          "required_evidence": [
+            "ideal-spring assumption",
+            "v_max = omega times amplitude"
+          ],
+          "accepted_variants": [
+            "Equivalent scientifically correct notation and reasoning earn credit."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "ideal spring",
+                  "maximum speed"
+                ]
+              }
+            }
+          ],
+          "minimum_fix": "To earn this point, explicitly show ideal-spring assumption; v_max = omega times amplitude."
+        }
+      ],
+      "stimulus_refs": [
+        "scenario"
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "Text and symbolic notation are fully described."
+  },
+  "review_notes": {
+    "expected_reasoning": "The angular frequency is 20.0 rad/s and maximum speed is 1.60 m/s.",
+    "known_boundary_cases": [
+      "Award credit only when the conclusion follows from explicit evidence.",
+      "Check units, sign, and stated approximation."
+    ],
+    "originality_statement": "Independently authored synthetic draft for Tutor review; no official question or scoring material used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-physics-1-ced-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-15",
+    "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
+    "generated_by": "codex",
+    "generated_at": "2026-07-15T00:00:00Z",
+    "content_sha256": "015a04d9489d0c705cfb8944a71db461fa8de2e201e47eeb2e5e82b91ba288d0"
+  }
+}

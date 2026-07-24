@@ -1,0 +1,149 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apphycem-frq-006",
+  "content_key": "apphycem-frq-006",
+  "content_version": 1,
+  "difficulty": "Medium",
+  "frq_form": "short",
+  "canonical_answers": [
+    "Solving L dI/dt+RI=ℰ gives I=(ℰ/R)(1-e^{-Rt/L}) and time constant L/R."
+  ],
+  "exam_pack_ref": {
+    "exam_code": "ap_physics_c_em",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "frq",
+  "archetype_ref": {
+    "archetype_key": "ap-physics-c-em-frq-representation",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-physics-c-em-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-13-electromagnetic-induction"
+    },
+    {
+      "scheme_key": "ap-physics-c-em-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-3"
+    }
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "scenario",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "An LR circuit with inductance L and resistance R is connected to constant emf ℰ at t=0 with I(0)=0."
+      },
+      "source_refs": [
+        "ap-physics-c-em-ced-fact-pack"
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "part_key": "part-a",
+      "ordinal": 1,
+      "label": "(a)",
+      "prompt": "Translate the governing relation into a labeled graph or diagram and explain its key slope, area, or direction.",
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion",
+          "points": 1,
+          "description": "Solving L dI/dt+RI=ℰ gives I=(ℰ/R)(1-e^{-Rt/L}) and time constant L/R.",
+          "required_evidence": [
+            "differential equation",
+            "initial condition",
+            "L/R"
+          ],
+          "accepted_variants": [
+            "Equivalent scientifically correct notation and reasoning earn credit."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "differential equation",
+                  "initial condition",
+                  "L/R"
+                ]
+              }
+            }
+          ],
+          "minimum_fix": "To earn this point, explicitly show differential equation; initial condition; L/R."
+        }
+      ],
+      "stimulus_refs": [
+        "scenario"
+      ]
+    },
+    {
+      "part_key": "part-b",
+      "ordinal": 2,
+      "label": "(b)",
+      "prompt": "Explain how Kirchhoff's voltage law (the governing principle) and the initial condition I(0)=0 with constant emf ℰ (the stated assumption) yield the current's approach to ℰ/R.",
+      "response_modalities": [
+        "typed-text"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-b-criterion",
+          "points": 1,
+          "description": "Explain how Kirchhoff's voltage law (the governing principle) and the initial condition I(0)=0 with constant emf ℰ (the stated assumption) yield the current's approach to ℰ/R.",
+          "required_evidence": [
+            "Kirchhoff's voltage law",
+            "initial condition I(0)=0"
+          ],
+          "accepted_variants": [
+            "Equivalent scientifically correct notation and reasoning earn credit."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "Kirchhoff's voltage law",
+                  "initial condition I(0)=0"
+                ]
+              }
+            }
+          ],
+          "minimum_fix": "To earn this point, explicitly show Kirchhoff's voltage law; initial condition I(0)=0."
+        }
+      ],
+      "stimulus_refs": [
+        "scenario"
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "Text and symbolic notation are fully described."
+  },
+  "review_notes": {
+    "expected_reasoning": "Solving L dI/dt+RI=ℰ gives I=(ℰ/R)(1-e^{-Rt/L}) and time constant L/R.",
+    "known_boundary_cases": [],
+    "originality_statement": "Independently authored synthetic draft for Tutor review; no official question or scoring material used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-physics-c-em-ced-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-15",
+    "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
+    "generated_by": "codex",
+    "generated_at": "2026-07-15T00:00:00Z",
+    "content_sha256": "e45855f65a1027dd8d7deb0e9c7acfa4a615958524b9cee65ed21351203a7787"
+  }
+}

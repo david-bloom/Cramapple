@@ -1,0 +1,109 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apchem-mcq-005",
+  "content_key": "apchem-mcq-005",
+  "content_version": 1,
+  "difficulty": "Easy",
+  "exam_pack_ref": {
+    "exam_code": "ap_chemistry",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "mcq",
+  "archetype_ref": {
+    "archetype_key": "ap-chemistry-mcq",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-chemistry-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-3-properties-of-substances-and-mixtures"
+    },
+    {
+      "scheme_key": "ap-chemistry-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-5"
+    }
+  ],
+  "stimuli": [],
+  "mcq_choices": [
+    {
+      "choice_key": "A",
+      "choice_text": "Xe",
+      "is_correct": false,
+      "rationale": "Treats Xe's large molar mass as giving the highest rms speed, reversing the inverse relationship between mass and speed."
+    },
+    {
+      "choice_key": "B",
+      "choice_text": "Kr",
+      "is_correct": false,
+      "rationale": "Kr is heavier than He, so it has a lower rms speed at the same temperature, not the highest."
+    },
+    {
+      "choice_key": "C",
+      "choice_text": "Ar",
+      "is_correct": false,
+      "rationale": "Ar is heavier than He, so it has a lower rms speed at the same temperature, not the highest."
+    },
+    {
+      "choice_key": "D",
+      "choice_text": "He",
+      "is_correct": true,
+      "rationale": "lighter particles have greater rms speed at fixed temperature"
+    }
+  ],
+  "canonical_answers": [
+    "D"
+  ],
+  "parts": [
+    {
+      "part_key": "question",
+      "ordinal": 1,
+      "prompt": "At the same temperature, which gas sample has the greatest average molecular speed?\n\nA. Xe\nB. Kr\nC. Ar\nD. He",
+      "response_modalities": [
+        "choice"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-answer",
+          "points": 1,
+          "description": "Select the single scientifically correct answer.",
+          "required_evidence": [
+            "D",
+            "lighter particles have greater rms speed at fixed temperature"
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "choice-key",
+              "parameters": {
+                "choice": "D"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All information is text-based."
+  },
+  "review_notes": {
+    "expected_reasoning": "lighter particles have greater rms speed at fixed temperature",
+    "known_boundary_cases": [],
+    "originality_statement": "Independently authored synthetic practice item; no official question or scoring material used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-chemistry-ced-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-15",
+    "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
+    "generated_by": "codex",
+    "generated_at": "2026-07-15T00:00:00Z",
+    "content_sha256": "f4efb0250e715e419c6d5bc49f829b2855e0b086dcd0a61a1b0ae5630f871d9a"
+  }
+}

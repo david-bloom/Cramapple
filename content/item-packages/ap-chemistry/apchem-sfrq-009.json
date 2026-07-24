@@ -1,0 +1,150 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apchem-sfrq-009",
+  "content_key": "apchem-sfrq-009",
+  "content_version": 1,
+  "difficulty": "Very Hard",
+  "frq_form": "short",
+  "canonical_answers": [
+    "[H+]≈sqrt(KaC)=1.0×10^-3 M, pH≈3.00; ionization is about 1%."
+  ],
+  "exam_pack_ref": {
+    "exam_code": "ap_chemistry",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "frq",
+  "archetype_ref": {
+    "archetype_key": "ap-chemistry-frq-short",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-chemistry-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-8-acids-and-bases"
+    },
+    {
+      "scheme_key": "ap-chemistry-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-3"
+    }
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "scenario",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "A weak acid has Ka=1.0×10⁻⁵ and initial concentration 0.100 M."
+      },
+      "source_refs": [
+        "ap-chemistry-ced-fact-pack"
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "part_key": "part-a",
+      "ordinal": 1,
+      "label": "(a)",
+      "prompt": "Estimate pH and state the small-x check.",
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion",
+          "points": 1,
+          "description": "[H+]≈sqrt(KaC)=1.0×10^-3 M, pH≈3.00; ionization is about 1%.",
+          "required_evidence": [
+            "3.00",
+            "small"
+          ],
+          "accepted_variants": [
+            "Equivalent scientifically correct notation and reasoning earn credit."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "3.00",
+                  "small"
+                ]
+              }
+            }
+          ],
+          "minimum_fix": "To earn this point, explicitly show 3.00; small."
+        }
+      ],
+      "stimulus_refs": [
+        "scenario"
+      ]
+    },
+    {
+      "part_key": "part-b",
+      "ordinal": 2,
+      "label": "(b)",
+      "prompt": "Explain how the weak-acid equilibrium expression Ka=x²/(C−x) simplified by the small-x approximation supports the pH calculation, and state the assumption that x is less than 5% of the initial concentration C.",
+      "response_modalities": [
+        "typed-text"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-b-criterion",
+          "points": 1,
+          "description": "Approximating Ka=x²/(C−x) as x²/C simplifies solving for [H+], assuming x is under 5% of the initial concentration C.",
+          "required_evidence": [
+            "small-x approximation",
+            "5% validity assumption"
+          ],
+          "accepted_variants": [
+            "Equivalent scientifically correct notation and reasoning earn credit."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "small-x approximation",
+                  "5%"
+                ]
+              }
+            }
+          ],
+          "minimum_fix": "To earn this point, explicitly show small-x approximation; 5% validity assumption."
+        }
+      ],
+      "stimulus_refs": [
+        "scenario"
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "Text and symbolic notation are fully described."
+  },
+  "review_notes": {
+    "expected_reasoning": "[H+]≈sqrt(KaC)=1.0×10^-3 M, pH≈3.00; ionization is about 1%.",
+    "known_boundary_cases": [
+      "Award credit only when the conclusion follows from explicit evidence.",
+      "Check units, sign, and stated approximation."
+    ],
+    "originality_statement": "Independently authored synthetic draft for Tutor review; no official question or scoring material used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-chemistry-ced-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-15",
+    "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
+    "generated_by": "codex",
+    "generated_at": "2026-07-15T00:00:00Z",
+    "content_sha256": "7d679f398770ec69b204d68dd864134969f0dd7b0ba229f63c68ece3ecc5ffac"
+  }
+}

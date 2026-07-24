@@ -1,0 +1,147 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apchem-sfrq-003",
+  "content_key": "apchem-sfrq-003",
+  "content_version": 1,
+  "difficulty": "Medium",
+  "frq_form": "short",
+  "canonical_answers": [
+    "ΔG°=-nFE°≈-48.2 kJ mol^-1, so the standard reaction is favorable."
+  ],
+  "exam_pack_ref": {
+    "exam_code": "ap_chemistry",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "frq",
+  "archetype_ref": {
+    "archetype_key": "ap-chemistry-frq-short",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-chemistry-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-9-thermodynamics-and-electrochemistry"
+    },
+    {
+      "scheme_key": "ap-chemistry-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-3"
+    }
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "scenario",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "A cell transfers 2 mol electrons with E°=0.250 V."
+      },
+      "source_refs": [
+        "ap-chemistry-ced-fact-pack"
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "part_key": "part-a",
+      "ordinal": 1,
+      "label": "(a)",
+      "prompt": "Calculate ΔG° and connect its sign to spontaneity.",
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion",
+          "points": 1,
+          "description": "ΔG°=-nFE°≈-48.2 kJ mol^-1, so the standard reaction is favorable.",
+          "required_evidence": [
+            "-48.2",
+            "negative"
+          ],
+          "accepted_variants": [
+            "Equivalent scientifically correct notation and reasoning earn credit."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "-48.2",
+                  "negative"
+                ]
+              }
+            }
+          ],
+          "minimum_fix": "To earn this point, explicitly show -48.2; negative."
+        }
+      ],
+      "stimulus_refs": [
+        "scenario"
+      ]
+    },
+    {
+      "part_key": "part-b",
+      "ordinal": 2,
+      "label": "(b)",
+      "prompt": "Explain how the relationship ΔG°=-nFE° connects the cell potential to the free energy change, and state the assumption that the cell operates under standard-state conditions.",
+      "response_modalities": [
+        "typed-text"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-b-criterion",
+          "points": 1,
+          "description": "ΔG°=-nFE° converts the standard cell potential into free energy, assuming standard-state conditions (1 M, 1 atm, 25°C) hold.",
+          "required_evidence": [
+            "ΔG°=-nFE°",
+            "standard-state assumption"
+          ],
+          "accepted_variants": [
+            "Equivalent scientifically correct notation and reasoning earn credit."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "nFE",
+                  "standard-state"
+                ]
+              }
+            }
+          ],
+          "minimum_fix": "To earn this point, explicitly show ΔG°=-nFE°; standard-state assumption."
+        }
+      ],
+      "stimulus_refs": [
+        "scenario"
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "Text and symbolic notation are fully described."
+  },
+  "review_notes": {
+    "expected_reasoning": "ΔG°=-nFE°≈-48.2 kJ mol^-1, so the standard reaction is favorable.",
+    "known_boundary_cases": [],
+    "originality_statement": "Independently authored synthetic draft for Tutor review; no official question or scoring material used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-chemistry-ced-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-15",
+    "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
+    "generated_by": "codex",
+    "generated_at": "2026-07-15T00:00:00Z",
+    "content_sha256": "98793ae86c68f20c446bc3d7997c00accccb117fa8236511493a01ca184bde98"
+  }
+}

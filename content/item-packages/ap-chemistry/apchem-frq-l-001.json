@@ -1,0 +1,225 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apchem-frq-l-001",
+  "content_key": "apchem-frq-l-001",
+  "content_version": 1,
+  "difficulty": "Easy",
+  "frq_form": "long",
+  "canonical_answers": [
+    "Use balanced stoichiometry; mass fraction requires the carbonate molar mass and sample mass."
+  ],
+  "exam_pack_ref": {
+    "exam_code": "ap_chemistry",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "frq",
+  "archetype_ref": {
+    "archetype_key": "ap-chemistry-frq-long",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-chemistry-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-1-atomic-structure-and-properties"
+    },
+    {
+      "scheme_key": "ap-chemistry-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-1"
+    }
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "scenario",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "A 2.50 g carbonate sample reacts completely and produces 0.0118 mol CO₂."
+      },
+      "source_refs": [
+        "ap-chemistry-ced-fact-pack"
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "part_key": "part-a",
+      "ordinal": 1,
+      "label": "(a)",
+      "prompt": "Determine the carbonate mass fraction and justify the mole relationship.",
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion",
+          "points": 1,
+          "description": "Use balanced stoichiometry; mass fraction requires the carbonate molar mass and sample mass.",
+          "required_evidence": [
+            "mole ratio",
+            "mass fraction"
+          ],
+          "accepted_variants": [
+            "Equivalent scientifically correct notation and reasoning earn credit."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "mole ratio",
+                  "mass fraction"
+                ]
+              }
+            }
+          ],
+          "minimum_fix": "To earn this point, explicitly show mole ratio; mass fraction."
+        }
+      ],
+      "stimulus_refs": [
+        "scenario"
+      ]
+    },
+    {
+      "part_key": "part-b",
+      "ordinal": 2,
+      "label": "(b)",
+      "prompt": "Explain why the mole ratio from the balanced carbonate-acid reaction (conservation of mass) lets you convert moles of CO₂ to moles of carbonate, and state the assumption that the reaction went to completion.",
+      "response_modalities": [
+        "typed-text"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-b-criterion",
+          "points": 1,
+          "description": "The mole ratio from the balanced equation applies conservation of mass to convert CO2 moles to carbonate moles, assuming the reaction reached completion.",
+          "required_evidence": [
+            "conservation of mass",
+            "complete reaction"
+          ],
+          "accepted_variants": [
+            "Equivalent scientifically correct notation and reasoning earn credit."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "conservation of mass",
+                  "complete reaction"
+                ]
+              }
+            }
+          ],
+          "minimum_fix": "To earn this point, explicitly show conservation of mass; complete reaction."
+        }
+      ],
+      "stimulus_refs": [
+        "scenario"
+      ]
+    },
+    {
+      "part_key": "part-c",
+      "ordinal": 3,
+      "label": "(c)",
+      "prompt": "Describe how you would experimentally verify the CO₂ yield, identifying the mass of CO2 evolved as the measured variable and the initial sample mass as the variable held constant.",
+      "response_modalities": [
+        "typed-text"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-c-criterion",
+          "points": 1,
+          "description": "A valid check measures the mass of CO2 evolved while holding the initial sample mass constant across trials.",
+          "required_evidence": [
+            "mass of CO2 evolved",
+            "sample mass held constant"
+          ],
+          "accepted_variants": [
+            "Equivalent scientifically correct notation and reasoning earn credit."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "mass of CO2",
+                  "sample mass"
+                ]
+              }
+            }
+          ],
+          "minimum_fix": "To earn this point, explicitly show mass of CO2 evolved; sample mass held constant."
+        }
+      ],
+      "stimulus_refs": [
+        "scenario"
+      ]
+    },
+    {
+      "part_key": "part-d",
+      "ordinal": 4,
+      "label": "(d)",
+      "prompt": "State one systematic error (e.g., CO₂ escaping before capture) and predict whether it would make the calculated carbonate mass fraction too high or too low.",
+      "response_modalities": [
+        "typed-text"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-d-criterion",
+          "points": 1,
+          "description": "CO2 escaping before capture undercounts moles of gas produced, making the calculated carbonate mass fraction too low.",
+          "required_evidence": [
+            "CO2 escapes",
+            "mass fraction too low"
+          ],
+          "accepted_variants": [
+            "Equivalent scientifically correct notation and reasoning earn credit."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "escape",
+                  "too low"
+                ]
+              }
+            }
+          ],
+          "minimum_fix": "To earn this point, explicitly show CO2 escapes; mass fraction too low."
+        }
+      ],
+      "stimulus_refs": [
+        "scenario"
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "Text and symbolic notation are fully described."
+  },
+  "review_notes": {
+    "expected_reasoning": "Use balanced stoichiometry; mass fraction requires the carbonate molar mass and sample mass.",
+    "known_boundary_cases": [],
+    "originality_statement": "Independently authored synthetic draft for Tutor review; no official question or scoring material used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-chemistry-ced-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-15",
+    "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
+    "generated_by": "codex",
+    "generated_at": "2026-07-15T00:00:00Z",
+    "content_sha256": "ffbf39ef49374c3c87671565d63ebafa317d74558d2e6de173a4694494e42bfc"
+  }
+}
