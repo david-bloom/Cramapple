@@ -17,6 +17,11 @@ const allowedOperations = new Set<SessionOperation>([
   "attach_anonymous_session",
 ]);
 
+const allowedPracticeFormats = new Set([
+  "targeted_drill",
+  "full_exam_frq",
+]);
+
 function asString(value: unknown) {
   return typeof value === "string" && value.trim() ? value.trim() : null;
 }
@@ -50,6 +55,7 @@ function safeSessionShape(session: Record<string, unknown>) {
     entry_path: session.entry_path,
     session_mode: session.session_mode,
     available_minutes: session.available_minutes,
+    practice_format: session.practice_format,
     status: session.status,
     started_at: session.started_at,
     ended_at: session.ended_at,
@@ -221,6 +227,9 @@ Deno.serve(async (req) => {
       const availableMinutes = asInteger(
         (body as Record<string, unknown>).available_minutes,
       );
+      const practiceFormat = asString(
+        (body as Record<string, unknown>).practice_format,
+      );
 
       if (
         !examPackVersionId || !entryPath || !sessionMode ||
@@ -239,6 +248,9 @@ Deno.serve(async (req) => {
           { status: 400 },
         );
       }
+      if (practiceFormat && !allowedPracticeFormats.has(practiceFormat)) {
+        return respond({ error: "invalid_practice_format" }, { status: 400 });
+      }
 
       const { data: inserted, error } = await service.schema("app")
         .from("learning_sessions")
@@ -248,10 +260,11 @@ Deno.serve(async (req) => {
           entry_path: entryPath,
           session_mode: sessionMode,
           available_minutes: availableMinutes,
+          practice_format: practiceFormat,
           status: "active",
         })
         .select(
-          "id, user_id, exam_pack_version_id, entry_path, session_mode, available_minutes, status, started_at, ended_at, created_at, updated_at",
+          "id, user_id, exam_pack_version_id, entry_path, session_mode, available_minutes, practice_format, status, started_at, ended_at, created_at, updated_at",
         )
         .maybeSingle();
 
@@ -271,6 +284,7 @@ Deno.serve(async (req) => {
         {
           entry_path: entryPath,
           session_mode: sessionMode,
+          practice_format: practiceFormat,
         },
       );
 
@@ -298,7 +312,7 @@ Deno.serve(async (req) => {
     const { data: session, error: sessionError } = await service.schema("app")
       .from("learning_sessions")
       .select(
-        "id, user_id, exam_pack_version_id, entry_path, session_mode, available_minutes, status, started_at, ended_at, created_at, updated_at",
+        "id, user_id, exam_pack_version_id, entry_path, session_mode, available_minutes, practice_format, status, started_at, ended_at, created_at, updated_at",
       )
       .eq("id", sessionId)
       .maybeSingle();
@@ -343,7 +357,7 @@ Deno.serve(async (req) => {
         .update({ status: session.status })
         .eq("id", sessionId)
         .select(
-          "id, user_id, exam_pack_version_id, entry_path, session_mode, available_minutes, status, started_at, ended_at, created_at, updated_at",
+          "id, user_id, exam_pack_version_id, entry_path, session_mode, available_minutes, practice_format, status, started_at, ended_at, created_at, updated_at",
         )
         .maybeSingle();
 
@@ -389,7 +403,7 @@ Deno.serve(async (req) => {
       })
       .eq("id", sessionId)
       .select(
-        "id, user_id, exam_pack_version_id, entry_path, session_mode, available_minutes, status, started_at, ended_at, created_at, updated_at",
+        "id, user_id, exam_pack_version_id, entry_path, session_mode, available_minutes, practice_format, status, started_at, ended_at, created_at, updated_at",
       )
       .maybeSingle();
 
@@ -427,6 +441,7 @@ Deno.serve(async (req) => {
     const clientErrors = new Set([
       "invalid_json",
       "invalid_operation",
+      "invalid_practice_format",
       "missing_idempotency_key",
       "missing_required_fields",
       "missing_session_id",
