@@ -1,16 +1,19 @@
-# PROPOSAL (v3) — Branch-Sprawl Resolution & Prevention
+# PROPOSAL (v4) — Branch-Sprawl Resolution & Prevention
 
 **Status:** **Proposed — Awaiting Owner Approval.** R1–R7 were approved by David in
 chat (2026-07-09), but per governance (GitHub is source of truth; chat-only
 decisions are not valid records) this is **not durable until David records
-approval on this PR**. When he does, it flips to Approved and the adoption PR
-carries the formal `APPROVAL-NNNN` **and** `DECISION-NNNN`.
-**Reconciled from:** Claude v1 → Codex second-opinion → PR #54 review (all 8
-change requests incorporated here).
+approval on this PR, citing the final commit SHA of these amendments.** When he
+does, it flips to Approved and the adoption PR carries the formal `APPROVAL-NNNN`
+**and** `DECISION-NNNN`.
+**Reconciled from:** Claude v1 → Codex second-opinion → PR #54 review round 1
+(8 change requests) → PR #54 review round 2 (R5 + sequence refinements). All
+incorporated here.
 **Decision owner:** David Bloom (Product Owner).
 **Adoption is a HARD GATE:** it changes `docs/team_charter/AI_COLLABORATION_RULES.md`
-(§"In-Progress Drafts and Branches") + session prompts — recorded in
-`team_charter/CHANGELOG.md` against both the `APPROVAL-NNNN` and `DECISION-NNNN`.
+(§"In-Progress Drafts and Branches") + related charter docs + session prompts —
+recorded in `team_charter/CHANGELOG.md` against both the `APPROVAL-NNNN` and
+`DECISION-NNNN`.
 **Why now:** recurring branch sprawl caused real work loss (grading docs orphaned
 across branches, recovered from commits `e15d64b`/`a9e6ea4`/`a7438da`).
 
@@ -23,6 +26,8 @@ across branches, recovered from commits `e15d64b`/`a9e6ea4`/`a7438da`).
 - The grading checkout had **62 changed/untracked paths** → cleanup from *there* is
   dangerous. `origin/main` @ `23525c0` (#53); recovery progressed via
   **PRs #44–#53** (#50–#52 still open at review time).
+- **No CI exists** (no `.github/workflows`) — so gated merge automation has nothing
+  to gate on until a required check is established.
 - Scar-tissue names: `recovery/*-20260721` (×3), `_tmp_orphan_landing`,
   `claude/orphan-branch-recovery-storage`, `backup/task-0012-pre-rebase-20260630`,
   duplicate `*-local` branches, per-session random suffixes.
@@ -44,10 +49,10 @@ across branches, recovered from commits `e15d64b`/`a9e6ea4`/`a7438da`).
 | **R2** | **Continuation is driven by the canonical task record**, which carries `branch`, `PR`, and `task/status`, and MAY record a Codex task/thread ID. **Machine-local worktree paths/IDs stay ephemeral — never canonicalized in the task record.** |
 | **R3** | **Integrate completed slices regularly via small PRs.** Stacked PRs only for a *real* dependency; **no standing task-family integration branches.** |
 | **R4** | **Session close:** commit-and-**push** checkpoints whenever possible; if interrupted, an **explicit dirty-state handoff** in the task/handoff record — a stash is NOT durable; never leave silent orphaned changes. |
-| **R5** | **Readiness judgment and merge execution are separated:** (a) a **human/conductor records governance readiness**; (b) **automation verifies objective gates** (checks green, required approvals present, no conflicts) **and executes the merge**; (c) **automation never infers approval from prose and never makes an ambiguous risk decision** — if a gate is not mechanically satisfiable, it escalates to the human. |
+| **R5** | **Merge/readiness — GitHub-native, not a custom agent by default:** (a) a **human/conductor records governance readiness**; (b) **GitHub-native automation** (auto-merge / merge queue) **mechanically executes eligible merges** once required checks + required reviews pass; (c) **custom privileged automation is contingent — NOT adopted by default.** If ever needed, it starts **dry-run** under a least-privilege envelope: no branch-protection bypass; machine-readable readiness label or explicit approval+decision IDs; required checks passing; non-draft; no unresolved threads; sensitive-path escalation; full audit log. |
 | **R6** | **Delete-on-merge for the *remote* head branch** (GitHub auto-delete). **Local** branch/worktree cleanup **cannot** be centrally automated across machines — it is a client-side action gated by the R7 preflight. Archive-tag only unique unmerged/superseded work — not every merged branch. |
 | **R7** | **Worktree/branch removal preflight — verify ALL THREE:** (1) no uncommitted changes, (2) no unique commits, (3) no unpushed refs. Only then remove. |
-| **—** | **Trunk protection:** no normal direct commits to `main`; emergency = **human-only, auditable break-glass.** |
+| **—** | **Trunk protection:** no normal direct commits to `main`; force-push/deletion blocked; emergency = **human-only, auditable break-glass.** |
 
 **Correction:** `main` owns **integrated truth**, not active work. Active work lives
 on a narrowly scoped task branch **until reviewable**, then integrates.
@@ -56,45 +61,63 @@ on a narrowly scoped task branch **until reviewable**, then integrates.
 
 ## 4. One-time resolution (do NOT run from the dirty grading checkout)
 
-1. From a **clean checkout of `origin/main`**, delete the 6 verified-merged branches.
-2. Remove stale/`prunable` worktrees **only after the R7 three-check preflight**;
-   then `git worktree prune`.
-3. Triage each unmerged branch → **merge via PR** / **archive-tag then delete** /
-   **keep**. Let recovery PRs #50–#52 finish first; reconcile so nothing is
-   double-handled.
+From a **clean checkout of `origin/main`**: delete the 6 verified-merged branches;
+remove stale/`prunable` worktrees **only after the R7 three-check preflight**, then
+`git worktree prune`; triage each unmerged branch → **merge via PR** /
+**archive-tag then delete** / **keep**. Let recovery PRs #50–#52 finish first;
+**separate grading-doc recovery from executable Phase C artifacts.**
 
-## 5. Adoption steps (Hard Gate — follow-up PR)
+## 5. Adoption details (Hard Gate — governance/docs-only PR)
 
-1. Record durable owner approval on this PR (§ Status), then encode R1–R7 in
-   `AI_COLLABORATION_RULES.md` §In-Progress Drafts and Branches + the session
-   start/close prompts; log in `team_charter/CHANGELOG.md` against **both** the
-   `APPROVAL-NNNN` and `DECISION-NNNN`.
-2. GitHub: protect `main` (PR-only, required checks); enable auto-delete-head-on-merge.
-3. Stand up the R5 automation (objective-gate verify + execute; human records readiness).
-4. Run §4 one-time resolution from a clean checkout.
+- **Scope** (one cohesive governance slice): `AI_COLLABORATION_RULES.md` (canonical
+  R1–R7); `TASK_WORKFLOW.md` (+ branch / PR / task-thread fields for R2);
+  `HANDOFF_PACKET_TEMPLATE.md` (R4 dirty-state handoff); Codex + Claude
+  session-start prompts; **`CLOSE_SESSION_PROMPT.md` — reference & operationalize
+  the canonical R4 policy, do NOT maintain a competing definition**; `APPROVALS_LOG.md`
+  + `DECISIONS_LOG.md`; charter `CHANGELOG.md`. **No repo settings or merge bot in
+  this PR** — those are separately verifiable operational actions.
+- **Numbering:** allocate `APPROVAL-NNNN` + `DECISION-NNNN` from `origin/main` by
+  **parsing the full logs (not their indexes)**; **recheck open PRs immediately
+  before merge**; `main` remains authoritative; on collision the **later-merging
+  branch renumbers**.
+- **CI:** first **inventory existing test commands**; create **one fast,
+  deterministic, secret-free** workflow (not every checker blocking); establish it
+  on `main`, observe it passing reliably, and **only then** make it a required check.
 
 ## 6. This PR (self-durability first)
 
 Lands **only this proposal file** on a clean branch off `origin/main`, separated
-from the sprawl it resolves. It **demonstrates clean slice scope** (single-purpose,
-off `main`, pushed, no orphaned worktree) but **predates formal naming enforcement**
-— the branch `claude/branch-hygiene-proposal` has no `task-or-work-id`; enforcement
-of the R1 naming format begins at adoption (§5).
+from the sprawl it resolves. It **demonstrates clean slice scope** but **predates
+formal naming enforcement** — the branch `claude/branch-hygiene-proposal` has no
+`task-or-work-id`; R1 naming enforcement begins at adoption (§5).
 
-## 7. Review-response log (PR #54 review → v3)
+## 7. Recommended sequence (Codex round 2)
 
-All 8 change requests incorporated: (1) audit re-dated to 2026-07-26; (2) status →
-Proposed—Awaiting Owner Approval (no chat-only approval claim); (3) adoption
-requires both APPROVAL + DECISION records; (4) R1 naming relaxed to
-`task-or-work-id`, worked-example claim corrected; (5) R5 split into
-readiness-judgment vs gate-verify-and-execute, no prose-inferred approval; (6) R6
-scoped auto-delete to remote heads, local cleanup client-side; (7) R7 three-check
-preflight; (8) local worktree paths kept ephemeral in R2.
+1. Amend PR #54; request Codex re-review.
+2. David posts durable approval **citing the final SHA**.
+3. Merge #54; delete its remote branch.
+4. Open the governance-only adoption PR with both `APPROVAL-NNNN` + `DECISION-NNNN`.
+5. Enable PR-only `main`; block force-push/deletion; retain human-only admin bypass.
+6. Merge and stabilize the minimal CI workflow.
+7. Make its stable checks required; require appropriate review.
+8. Enable remote-head auto-deletion and native auto-merge.
+9. Use a merge queue **only if** concurrent merges create a real stale-base problem.
+10. Phased cleanup; separate grading-doc recovery from executable Phase C artifacts.
 
-## 8. Decisions
+## 8. Review-response log
 
-1. Approve R1–R7 (Hard Gate)? — **Pending durable owner approval on this PR** (chat
-   approval 2026-07-09 is not yet a valid record).
-2. Merge/readiness model? — **Gated automation with readiness/execution split (R5)**
-   (chat-approved 2026-07-09; confirm on-PR).
-3. Execute §6 (land this proposal)? — **Done** (this PR).
+Round 1 (8 change requests) + Round 2: R5 recast as **GitHub-native by default,
+custom agent contingent** with readiness/execution split; trunk protection adds
+force-push/deletion block; numbering refined (parse full logs, recheck before
+merge, later-merger renumbers); CI refined (inventory first, one deterministic
+required check, observe-then-require); close-session prompt references (not
+redefines) canonical R4; sequence set to the 10 steps in §7; owner approval must
+cite the final commit SHA.
+
+## 9. Decisions
+
+1. Approve R1–R7 (Hard Gate)? — **Pending durable owner approval on this PR, citing
+   the final SHA.**
+2. Merge/readiness model? — **GitHub-native auto-merge/merge-queue with the R5
+   readiness/execution split; custom privileged agent contingent, not default.**
+3. Execute §6 (land this proposal)? — **Done** (this PR; amended per review rounds).
