@@ -15,6 +15,11 @@ Usage:
         --repo /Users/davidbloom/Documents/Cramapple \
         --dirty-checkout-repo /Users/davidbloom/Documents/Cramapple \
         --out-dir docs/research/grading_branch_consolidation_manifest_2026_07_26
+
+`--dirty-checkout-repo` defaults to `--repo` and only needs to differ if the
+dirty uncommitted checkout being inventoried lives in a different working
+tree than the one holding the source-branch refs (e.g. a bare mirror used
+for the branch diffs, with the real working tree elsewhere).
 """
 
 import argparse
@@ -72,6 +77,9 @@ class Row:
     change_type: str
     old_blob: Optional[str]
     new_blob: Optional[str]
+    main_blob: Optional[str] = None
+    main_equivalence: str = "unknown"  # identical | divergent | absent | deletion
+    needs_landing: bool = True
     classification: str = "ambiguous"
     confidence: str = "low"
     rationale: str = ""
@@ -230,8 +238,12 @@ def diff_branch_against_main(repo, branch):
     """
     tip = run_git(repo, "rev-parse", branch).strip()
     baseline = run_git(repo, "merge-base", MAIN_REF, branch).strip()
+    # --abbrev=40 forces full-length blob SHAs. Without it, git defaults to
+    # 7-char abbreviations, which collide across unrelated blobs at this
+    # corpus size and made every cross-check against the (full-length)
+    # dirty-checkout hashes silently wrong.
     raw = run_git(
-        repo, "diff", "--raw", "-z", f"{MAIN_REF}...{branch}"
+        repo, "diff", "--raw", "-z", "--abbrev=40", f"{MAIN_REF}...{branch}"
     )
     return tip, baseline, parse_raw_diff_z(raw)
 
@@ -265,21 +277,41 @@ def parse_raw_diff_z(raw: str):
 def inventory_dirty_checkout(repo, branch):
     """Read-only inventory of the uncommitted working-tree state.
 
-    Uses `git status --porcelain=1` (read-only) and `git hash-object`
-    (read-only, does not write to the object database in a way that
-    affects the index) to fingerprint blobs without staging anything.
+    Uses `git status --porcelain=1 -z --untracked-files=all` (read-only)
+    and `git hash-object` (read-only — computes a blob hash without writing
+    it or touching the index) to fingerprint every individual file without
+    staging anything.
+
+    Two deliberate choices fix real bugs found in the first version:
+    - `--untracked-files=all` expands untracked directories into their
+      individual files. The default "normal" mode collapses an untracked
+      directory into a single directory-path entry, silently dropping every
+      file inside it from the manifest.
+    - `-z` (NUL-terminated, unquoted paths) avoids porcelain's C-style
+      quoting of paths containing spaces or other special characters, which
+      otherwise leaves literal quote characters in the path and breaks
+      `git hash-object` lookups for those files.
     """
     tip = run_git(repo, "rev-parse", "HEAD").strip()
     baseline = run_git(repo, "merge-base", MAIN_REF, branch).strip()
-    status_out = run_git(repo, "status", "--porcelain=1")
+    status_out = run_git(
+        repo, "status", "--porcelain=1", "-z", "--untracked-files=all"
+    )
+    parts = status_out.split("\x00")
     entries = []
-    for line in status_out.splitlines():
-        if not line.strip():
+    i = 0
+    while i < len(parts):
+        rec = parts[i]
+        if not rec:
+            i += 1
             continue
-        code = line[:2]
-        path = line[3:]
-        if " -> " in path:
-            path = path.split(" -> ")[-1]
+        code = rec[:2]
+        path = rec[3:]
+        i += 1
+        if "R" in code or "C" in code:
+            # Rename/copy records carry the destination path in this field
+            # and consume one extra NUL-separated field for the origin path.
+            i += 1  # skip ORIG_PATH — not needed for this inventory
         if code.strip() == "??":
             change_type = "A"
         elif "D" in code:
@@ -296,7 +328,27 @@ def inventory_dirty_checkout(repo, branch):
     return tip, baseline, entries
 
 
-def build_rows(repo):
+def load_main_blob_map(repo):
+    """Full path -> blob-SHA map for the current origin/main tree.
+
+    Built once via `git ls-tree -r -z`, which is read-only and returns
+    full-length (40-char) blob SHAs by default — no abbreviation mismatch
+    to worry about here.
+    """
+    raw = run_git(repo, "ls-tree", "-r", "-z", MAIN_REF)
+    mapping = {}
+    for rec in raw.split("\x00"):
+        if not rec:
+            continue
+        meta, path = rec.split("\t", 1)
+        # meta = "<mode> blob <sha>"
+        blob = meta.split(" ")[2]
+        mapping[path] = blob
+    return mapping
+
+
+def build_rows(repo, dirty_checkout_repo):
+    main_blob_map = load_main_blob_map(repo)
     rows = []
     for branch in SOURCE_BRANCHES:
         tip, baseline, entries = diff_branch_against_main(repo, branch)
@@ -317,11 +369,13 @@ def build_rows(repo):
                 rationale=rationale,
                 flags=flags,
             )
-            finalize_row(row, old_path)
+            finalize_row(row, old_path, main_blob_map)
             rows.append(row)
 
     # Dirty uncommitted checkout — read-only inventory, separate layer.
-    tip, baseline, entries = inventory_dirty_checkout(repo, DIRTY_CHECKOUT_BRANCH)
+    tip, baseline, entries = inventory_dirty_checkout(
+        dirty_checkout_repo, DIRTY_CHECKOUT_BRANCH
+    )
     for path, change_type, old_blob, new_blob, old_path in entries:
         classification, confidence, rationale = classify(path)
         flags = compute_flags(path, "uncommitted-worktree", change_type)
@@ -339,13 +393,34 @@ def build_rows(repo):
             rationale=rationale,
             flags=flags,
         )
-        finalize_row(row, old_path)
+        finalize_row(row, old_path, main_blob_map)
         rows.append(row)
 
     return rows
 
 
-def finalize_row(row: Row, old_path):
+def finalize_row(row: Row, old_path, main_blob_map):
+    row.main_blob = main_blob_map.get(row.path)
+
+    if row.change_type == "D":
+        if row.main_blob is None:
+            row.main_equivalence = "absent"
+            row.needs_landing = False
+        else:
+            row.main_equivalence = "deletion"
+            row.needs_landing = True
+    else:
+        if row.main_blob is None:
+            row.main_equivalence = "absent"
+            row.needs_landing = True
+        elif row.main_blob == row.new_blob:
+            row.main_equivalence = "identical"
+            row.needs_landing = False
+            row.flags.append("already-on-main")
+        else:
+            row.main_equivalence = "divergent"
+            row.needs_landing = True
+
     if row.classification == "discard-candidate":
         row.disposition_approval = "pending"
         row.intended_destination = "none — awaiting David's explicit discard acceptance"
@@ -359,6 +434,16 @@ def finalize_row(row: Row, old_path):
         row.intended_destination = "none — reference/history only, not landed via a grading PR"
     else:
         row.intended_destination = "pending-review"
+
+    # Any row with a "none" destination would otherwise land nowhere and
+    # vanish from reconciliation with no record of why. Treat it exactly
+    # like a discard-candidate — pending explicit sign-off — unless it is
+    # independently proven to already be represented on main byte-for-byte.
+    if row.intended_destination.startswith("none"):
+        if row.main_equivalence == "identical":
+            row.disposition_approval = "represented-on-main"
+        else:
+            row.disposition_approval = "pending"
 
     if row.confidence == "low":
         row.flags.append("low-confidence")
@@ -434,15 +519,23 @@ def summarize(rows):
     by_class = defaultdict(int)
     by_source = defaultdict(int)
     flagged = defaultdict(int)
+    by_equivalence = defaultdict(int)
     discard_pending = 0
+    pending_disposition = 0
+    already_on_main = 0
     conflicts = set()
     for r in rows:
         by_class[r.classification] += 1
         by_source[r.source] += 1
+        by_equivalence[r.main_equivalence] += 1
         for fl in set(r.flags):
             flagged[fl] += 1
         if r.classification == "discard-candidate":
             discard_pending += 1
+        if r.disposition_approval == "pending":
+            pending_disposition += 1
+        if r.main_equivalence == "identical":
+            already_on_main += 1
         if "cross-branch-conflict" in r.flags:
             conflicts.add(r.path)
     return {
@@ -450,7 +543,10 @@ def summarize(rows):
         "by_classification": dict(sorted(by_class.items())),
         "by_source": dict(sorted(by_source.items())),
         "flag_counts": dict(sorted(flagged.items())),
+        "by_main_equivalence": dict(sorted(by_equivalence.items())),
         "discard_candidates_pending_approval": discard_pending,
+        "rows_pending_disposition_approval": pending_disposition,
+        "rows_already_identical_on_main": already_on_main,
         "conflicting_paths": sorted(conflicts),
     }
 
@@ -491,16 +587,33 @@ def write_summary_md(summary, out_dir, rows):
     for k, v in summary["flag_counts"].items():
         lines.append(f"| {k} | {v} |")
     lines.append("")
+    lines.append("## Main-equivalence (is this content already on `main`?)")
+    lines.append("")
+    lines.append("| main_equivalence | count |")
+    lines.append("|---|---|")
+    for k, v in summary["by_main_equivalence"].items():
+        lines.append(f"| {k} | {v} |")
+    lines.append("")
     lines.append(
-        f"## Discard candidates — **{summary['discard_candidates_pending_approval']} rows, "
-        "all `disposition_approval: pending`**"
+        f"**{summary['rows_already_identical_on_main']} rows are already byte-identical "
+        "on `main`** (`main_equivalence: identical`, `needs_landing: false`). These do not "
+        "need to be carried into any destination PR — filter them out before assembling "
+        "the capabilities/evidence/content-CED PRs to avoid re-landing content that is "
+        "already there."
     )
     lines.append("")
     lines.append(
-        "No path classified `discard-candidate` may be dropped, omitted from "
-        "reconciliation, or used to justify branch deletion until David "
-        "explicitly reviews and accepts the discard list. See manifest.csv "
-        "filtered on `classification=discard-candidate`."
+        f"## Disposition approval — **{summary['rows_pending_disposition_approval']} rows "
+        "pending** (discard-candidates + any other row whose destination is `none`)"
+    )
+    lines.append("")
+    lines.append(
+        "No row with `disposition_approval: pending` may be dropped, omitted from "
+        "reconciliation, or used to justify branch deletion until David explicitly "
+        "reviews and accepts it — this includes the `discard-candidate` rows and any "
+        "`governance-history` (or other `none`-destination) row that is not already "
+        "proven identical to `main`. See manifest.csv filtered on "
+        "`disposition_approval=pending`."
     )
     lines.append("")
     if summary["conflicting_paths"]:
@@ -540,10 +653,17 @@ def write_summary_md(summary, out_dir, rows):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--repo", required=True)
+    parser.add_argument(
+        "--dirty-checkout-repo",
+        default=None,
+        help="Working tree to inventory for the uncommitted dirty-checkout "
+        "layer. Defaults to --repo.",
+    )
     parser.add_argument("--out-dir", required=True)
     args = parser.parse_args()
+    dirty_checkout_repo = args.dirty_checkout_repo or args.repo
 
-    rows = build_rows(args.repo)
+    rows = build_rows(args.repo, dirty_checkout_repo)
     detect_overlaps(rows)
     csv_path, jsonl_path = write_outputs(rows, args.out_dir)
     summary = summarize(rows)
