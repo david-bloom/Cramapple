@@ -41,4 +41,5 @@ Do not claim completion unless the relevant GitHub records and verification are
 up to date.
 Do not skip recording blockers just because they are inconvenient.
 Do not leave the session without naming the next owner and next step.
+Follow branch-hygiene R4 (AI_COLLABORATION_RULES.md §In-Progress Drafts and Branches): commit-and-push a checkpoint before closing; if the session is interrupted, record an explicit dirty-state handoff (a stash is not durable) — never leave silent orphaned changes.
 ```

@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0027 — Branch Hygiene Rules (R1–R7) Adoption (Hard Gate)
 - APPROVAL-0024 — AP Statistics Launch (TASK-0013, Phase 0 Decision Gate)
 - APPROVAL-0023 — Agent Routing and Automatic QA (Codex Proposal)
 - APPROVAL-0022 — Charter Simplification and Tiering Adoption
@@ -593,3 +594,27 @@ Database Migrations Hard Gate in `STANDING_APPROVAL_LANES.md`. See
 - Scope is exactly `prompts/CODEX_AP_STATISTICS_PHASE2_SCHEMA_INSTANTIATION.md`
   as drafted — no broader migration authority granted.
 - Publishing the resulting exam pack/content is explicitly not covered.
+
+## APPROVAL-0027 — Branch Hygiene Rules (R1–R7) Adoption (Hard Gate)
+
+**Date:** 2026-07-26
+**Approved By:** David Bloom
+**Related Task:** N/A (charter / operating-model change)
+**Decision:** Approved
+
+### Summary
+
+Approves adoption of branch-hygiene rules R1–R7 (anti branch-sprawl) as a charter /
+operating-model change, encoded in `AI_COLLABORATION_RULES.md` (§In-Progress Drafts
+and Branches) plus `TASK_WORKFLOW.md`, `HANDOFF_PACKET_TEMPLATE.md`, the Claude/Codex
+new-session prompts, and `CLOSE_SESSION_PROMPT.md`. Durable owner approval was
+recorded on PR #54 citing commit `85b1151` (source proposal
+`docs/proposals/BRANCH_HYGIENE_AND_ANTI_SPRAWL_2026_07_09.md`, merged). See DECISION-0039.
+
+### Notes
+
+- Operational enforcement (main branch protection, required CI checks, native
+  auto-merge, one-time branch/worktree cleanup) is separate from this charter
+  adoption and sequenced in the proposal — not in this PR.
+- R5 uses GitHub-native auto-merge/merge-queue with a human/conductor readiness
+  step; a custom privileged merge agent is contingent, not adopted by default.

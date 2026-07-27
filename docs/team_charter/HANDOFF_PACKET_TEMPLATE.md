@@ -16,6 +16,8 @@ Current Source:
 - Related docs:
 - Relevant issue/comment:
 - Latest commits reviewed:
+- Branch / PR:
+- Uncommitted / unpushed state (dirty-state handoff, R4):
 
 Approval State:
 - Approved:
