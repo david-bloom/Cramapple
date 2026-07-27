@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Branch Hygiene Operational Enforcement — 2026-07-26
 - CED Verification and Physics Content Review — Session Handoff — 2026-07-24
 - Phase A Broken-Import Fix and Deterministic-Layer-Only Ship Decision — 2026-07-12
 - TASK-0016 Phase A Grading-Router Reconciled Onto Grading Branch — 2026-07-12
@@ -20,6 +21,55 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## Branch Hygiene Operational Enforcement — 2026-07-26
+
+**Task:** Branch-sprawl resolution and prevention (`APPROVAL-0027` /
+`DECISION-0039`)
+**Status:** Charter adopted; repository controls active; first cleanup tranche
+complete. One required-review constraint remains.
+
+**Summary:** PR #55 encoded R1–R7 and was squash-merged as `0c83742` after a
+Codex re-review, source-of-truth status correction, and collision-free
+approval/decision number recheck. `main` is now PR-only; force-push and branch
+deletion are blocked; administrators retain the human-only break-glass bypass.
+PR #56 added `.github/workflows/minimal-ci.yml` and was squash-merged as
+`c11d9b3`. Its `test` job passed on both the PR (Actions run `30227404660`) and
+`main` (run `30227434281`), then became a strict required check. Review
+conversations must be resolved. GitHub-native auto-merge and automatic remote
+head deletion are enabled. Merge queue remains off because no stale-base race
+has been observed.
+
+**Required-review constraint:** David is currently the repository's only
+collaborator. GitHub does not allow an account to approve its own PR, so setting
+`required_approving_review_count: 1` would deadlock native auto-merge and force
+the admin bypass on every PR. The count therefore remains `0` until a second
+eligible reviewer is added; governance readiness remains a recorded
+human/conductor step.
+
+**Cleanup evidence:** Removed five local and four remote refs whose tips were
+fully merged and which had no worktree, unique commits, or unpushed refs.
+Removed the clean stale Physics Option B worktree/local branch after verifying
+all PR #53 paths were byte-equivalent on `main`. Removed the clean detached
+branch-audit worktree at a commit already ancestral to `main`. Removed merged
+PR #55/#56 local and remote heads after byte-equivalence checks, and pruned one
+dead `wt-bh-v3` worktree metadata entry. Six real worktrees remain.
+
+**Protected / not touched:** The grading checkout remains at 62 changed or
+untracked paths. The production-plumbing recovery worktree has 15 untracked
+duplicate-named files and failed R7, so it was not cleaned. Recovery worktrees
+and unmerged branches remain pending their PR disposition. Grading-document
+recovery and executable Phase C artifact recovery remain separate future
+slices. `math-verifier_test.ts` is not in the required CI battery because its
+`cases.json` fixture is part of that still-unrecovered grading work.
+
+**Next Owner:** David Bloom / Main Conductor
+**Next Required Action:** Add a second eligible GitHub reviewer before requiring
+one approval. Resolve PRs #50–#52, then continue R7 cleanup per branch. Recover
+grading documentation and executable Phase C artifacts through separate scoped
+PRs.
 
 ---
 
