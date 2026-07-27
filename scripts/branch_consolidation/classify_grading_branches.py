@@ -25,6 +25,7 @@ for the branch diffs, with the real working tree elsewhere).
 import argparse
 import csv
 import json
+import os
 import re
 import subprocess
 import sys
@@ -78,7 +79,7 @@ class Row:
     old_blob: Optional[str]
     new_blob: Optional[str]
     main_blob: Optional[str] = None
-    main_equivalence: str = "unknown"  # identical | divergent | absent | deletion
+    main_equivalence: str = "unknown"  # identical | divergent | absent | deletion | not-applicable-nested-repo
     needs_landing: bool = True
     classification: str = "ambiguous"
     confidence: str = "low"
@@ -87,6 +88,12 @@ class Row:
     intended_destination: str = "pending-review"
     disposition_approval: str = "n/a"
     dependency_notes: str = ""
+    nested_repo_remote: Optional[str] = None
+    nested_repo_branch: Optional[str] = None
+    nested_repo_head: Optional[str] = None
+    nested_repo_clean: Optional[bool] = None
+    nested_repo_upstream_ref: Optional[str] = None
+    nested_repo_upstream_equivalence: Optional[str] = None  # identical | ahead | behind-or-diverged | no-upstream-configured
 
 
 # --- Classification rule engine -------------------------------------------
@@ -274,6 +281,75 @@ def parse_raw_diff_z(raw: str):
     return entries
 
 
+def inspect_nested_repository(repo, rel_path):
+    """Identify a nested git repository (e.g. a `git worktree add` checkout
+    of an entirely different project) found inside the Cramapple working
+    tree, without recursing into its files.
+
+    `git status` never expands a directory that is itself a git repository
+    — it reports the directory path with a trailing slash instead, even
+    under `--untracked-files=all`. That boundary is correct git behavior,
+    not a bug: the nested repo has its own history, remote, and identity,
+    and its files are not Cramapple content. Recursing into it and
+    classifying its files as capability/evidence/content-CED/discard would
+    misrepresent a separate project as part of this repo's grading
+    consolidation.
+
+    Returns a dict describing the nested repo's remote, branch, HEAD,
+    working-tree cleanliness, and upstream equivalence — enough for a human
+    to judge durability without needing to open it.
+    """
+    nested_path = os.path.join(repo, rel_path)
+    remotes = run_git(nested_path, "remote", "-v").strip()
+    remote_url = None
+    for line in remotes.splitlines():
+        parts = line.split()
+        if len(parts) >= 2 and parts[0] == "origin":
+            remote_url = parts[1]
+            break
+
+    branch = run_git(nested_path, "rev-parse", "--abbrev-ref", "HEAD").strip()
+    head = run_git(nested_path, "rev-parse", "HEAD").strip()
+    dirty_count = len(
+        [
+            line
+            for line in run_git(nested_path, "status", "--porcelain=1").splitlines()
+            if line.strip()
+        ]
+    )
+    clean = dirty_count == 0
+
+    upstream_ref = None
+    upstream_equivalence = "no-upstream-configured"
+    try:
+        upstream_ref = run_git(
+            nested_path, "rev-parse", "--abbrev-ref", "--symbolic-full-name", "@{u}"
+        ).strip()
+        upstream_sha = run_git(nested_path, "rev-parse", "@{u}").strip()
+        if upstream_sha == head:
+            upstream_equivalence = "identical"
+        else:
+            ahead_behind = run_git(
+                nested_path, "rev-list", "--left-right", "--count", f"{upstream_ref}...HEAD"
+            ).strip()
+            behind, ahead = (ahead_behind.split() + ["0", "0"])[:2]
+            if behind == "0" and ahead != "0":
+                upstream_equivalence = "ahead"
+            else:
+                upstream_equivalence = "behind-or-diverged"
+    except RuntimeError:
+        pass
+
+    return {
+        "remote": remote_url,
+        "branch": branch,
+        "head": head,
+        "clean": clean,
+        "upstream_ref": upstream_ref,
+        "upstream_equivalence": upstream_equivalence,
+    }
+
+
 def inventory_dirty_checkout(repo, branch):
     """Read-only inventory of the uncommitted working-tree state.
 
@@ -299,6 +375,7 @@ def inventory_dirty_checkout(repo, branch):
     )
     parts = status_out.split("\x00")
     entries = []
+    nested_repos = []
     i = 0
     while i < len(parts):
         rec = parts[i]
@@ -318,6 +395,18 @@ def inventory_dirty_checkout(repo, branch):
             change_type = "D"
         else:
             change_type = "M"
+
+        # An untracked path reported with a trailing slash is a directory
+        # git refused to expand — the signature of a nested git repository
+        # (its own .git boundary), not an ordinary untracked directory.
+        if change_type == "A" and path.endswith("/"):
+            rel = path.rstrip("/")
+            if os.path.exists(os.path.join(repo, rel, ".git")):
+                info = inspect_nested_repository(repo, rel)
+                info["path"] = rel
+                nested_repos.append(info)
+                continue
+
         new_blob = None
         if change_type != "D":
             try:
@@ -325,7 +414,7 @@ def inventory_dirty_checkout(repo, branch):
             except RuntimeError:
                 new_blob = None
         entries.append((path, change_type, None, new_blob, None))
-    return tip, baseline, entries
+    return tip, baseline, entries, nested_repos
 
 
 def load_main_blob_map(repo):
@@ -373,9 +462,48 @@ def build_rows(repo, dirty_checkout_repo):
             rows.append(row)
 
     # Dirty uncommitted checkout — read-only inventory, separate layer.
-    tip, baseline, entries = inventory_dirty_checkout(
+    tip, baseline, entries, nested_repos = inventory_dirty_checkout(
         dirty_checkout_repo, DIRTY_CHECKOUT_BRANCH
     )
+
+    for info in nested_repos:
+        row = Row(
+            source=f"WORKTREE:{DIRTY_CHECKOUT_BRANCH}",
+            source_tip_sha=f"{tip}+dirty",
+            baseline_sha=baseline,
+            layer="uncommitted-worktree",
+            path=info["path"],
+            change_type="A",
+            old_blob=None,
+            new_blob=None,
+            classification="nested-repository",
+            confidence="high",
+            rationale=(
+                "Nested git repository (separate remote/history) found inside "
+                "the working tree — not Cramapple content, excluded from the "
+                "per-file inventory. See nested_repo_* fields."
+            ),
+            flags=["nested-repository"],
+        )
+        row.nested_repo_remote = info["remote"]
+        row.nested_repo_branch = info["branch"]
+        row.nested_repo_head = info["head"]
+        row.nested_repo_clean = info["clean"]
+        row.nested_repo_upstream_ref = info["upstream_ref"]
+        row.nested_repo_upstream_equivalence = info["upstream_equivalence"]
+        row.main_equivalence = "not-applicable-nested-repo"
+        row.needs_landing = False
+        row.intended_destination = (
+            f"none — separate repository ({info['remote'] or 'remote unknown'}), "
+            "not part of the Cramapple grading consolidation"
+        )
+        if info["clean"] and info["upstream_equivalence"] == "identical":
+            row.disposition_approval = "not-applicable-durable-elsewhere"
+        else:
+            row.disposition_approval = "pending"
+            row.flags.append("nested-repo-not-verified-durable")
+        rows.append(row)
+
     for path, change_type, old_blob, new_blob, old_path in entries:
         classification, confidence, rationale = classify(path)
         flags = compute_flags(path, "uncommitted-worktree", change_type)
@@ -524,7 +652,10 @@ def summarize(rows):
     pending_disposition = 0
     already_on_main = 0
     conflicts = set()
+    nested_repos = []
     for r in rows:
+        if r.classification == "nested-repository":
+            nested_repos.append(r)
         by_class[r.classification] += 1
         by_source[r.source] += 1
         by_equivalence[r.main_equivalence] += 1
@@ -548,6 +679,7 @@ def summarize(rows):
         "rows_pending_disposition_approval": pending_disposition,
         "rows_already_identical_on_main": already_on_main,
         "conflicting_paths": sorted(conflicts),
+        "nested_repos": nested_repos,
     }
 
 
@@ -629,6 +761,40 @@ def write_summary_md(summary, out_dir, rows):
         lines.append("")
         for p in summary["conflicting_paths"][:200]:
             lines.append(f"- `{p}`")
+        lines.append("")
+    nested_repos = summary.get("nested_repos") or []
+    if nested_repos:
+        lines.append(f"## Nested repositories detected ({len(nested_repos)})")
+        lines.append("")
+        lines.append(
+            "These are separate git repositories (their own remote/history) "
+            "found inside the working tree — e.g. a `git worktree add` "
+            "checkout of a different project. Their files are excluded from "
+            "the per-file inventory above; only this identity/durability "
+            "record is kept for each."
+        )
+        lines.append("")
+        for r in nested_repos:
+            lines.append(f"### `{r.path}`")
+            lines.append("")
+            lines.append(f"- remote: `{r.nested_repo_remote}`")
+            lines.append(f"- branch: `{r.nested_repo_branch}`")
+            lines.append(f"- HEAD: `{r.nested_repo_head}`")
+            lines.append(f"- working tree clean: `{r.nested_repo_clean}`")
+            lines.append(
+                f"- upstream (`{r.nested_repo_upstream_ref}`) equivalence: "
+                f"`{r.nested_repo_upstream_equivalence}`"
+            )
+            lines.append(f"- disposition_approval: `{r.disposition_approval}`")
+            lines.append("")
+        lines.append(
+            "A nested repo with `clean: True` and upstream equivalence "
+            "`identical` is fully durable on its own remote — nothing in it "
+            "would be lost if this directory were removed. That is a factual "
+            "finding, not an approval: removal is still a decision for a "
+            "human to make explicitly, and is entirely out of scope for the "
+            "Cramapple grading-branch consolidation this manifest covers."
+        )
         lines.append("")
     lines.append("## Known limitations of this pass")
     lines.append("")

@@ -101,18 +101,73 @@ def build_fixture_repo(tmp):
     write(repo, "untracked_dir/nested/y.txt", "y\n")
     write(repo, "file with space.txt", "space file\n")
     write(repo, "docs/research/dup/dirty_dup.md", "dup content\n")  # identical to committed dup blob
-    return repo
+
+    # --- nested git repository, e.g. a `git worktree add` checkout of an
+    #     entirely different project, sitting untracked inside the tree ---
+    upstream_bare = os.path.join(tmp, "nested_upstream.git")
+    subprocess.run(
+        ["git", "init", "-q", "--bare", upstream_bare], check=True
+    )
+    seed = os.path.join(tmp, "nested_seed")
+    os.makedirs(seed)
+    git(seed, "init", "-q", "-b", "main")
+    git(seed, "config", "user.email", "test@example.com")
+    git(seed, "config", "user.name", "Test")
+    write(seed, "README.md", "nested project\n")
+    git(seed, "add", "-A")
+    git(seed, "commit", "-q", "-m", "seed")
+    git(seed, "remote", "add", "origin", upstream_bare)
+    git(seed, "push", "-q", "-u", "origin", "main")
+
+    nested_dir = os.path.join(repo, "nested_project")
+    subprocess.run(
+        ["git", "clone", "-q", upstream_bare, nested_dir], check=True
+    )
+
+    return repo, nested_dir
 
 
 def main():
     tmp = tempfile.mkdtemp(prefix="czb_fixture_")
     old_main_ref = czb.MAIN_REF
     try:
-        repo = build_fixture_repo(tmp)
+        repo, nested_dir = build_fixture_repo(tmp)
         czb.MAIN_REF = "main"  # no "origin" remote in this throwaway repo
 
         # --- 1 & 2: dirty-checkout inventory (untracked dirs + spaces) ---
-        tip, baseline, entries = czb.inventory_dirty_checkout(repo, "feature")
+        tip, baseline, entries, nested_repos = czb.inventory_dirty_checkout(repo, "feature")
+
+        # --- nested-repository detection ---
+        check(
+            len(nested_repos) == 1,
+            "exactly one nested git repository detected under the dirty checkout",
+        )
+        check(
+            all(p != "nested_project" and not p.startswith("nested_project/")
+                for p, *_ in entries),
+            "the nested repository's files are excluded from the per-file "
+            "dirty-checkout inventory entirely (not expanded, not hashed)",
+        )
+        if nested_repos:
+            info = nested_repos[0]
+            check(info["path"] == "nested_project", "nested repo path recorded correctly")
+            check(
+                info["remote"] is not None and info["remote"].endswith("nested_upstream.git"),
+                "nested repo's origin remote URL captured",
+            )
+            check(info["branch"] == "main", "nested repo's current branch captured")
+            check(info["clean"] is True, "nested repo correctly identified as clean")
+            check(
+                info["upstream_equivalence"] == "identical",
+                "nested repo HEAD correctly identified as identical to its upstream",
+            )
+            check(
+                info["clean"] and info["upstream_equivalence"] == "identical",
+                "nested repo is verified clean + identical-to-upstream, which is "
+                "exactly the condition build_rows uses to set "
+                "disposition_approval=not-applicable-durable-elsewhere instead "
+                "of pending",
+            )
         by_path = {p: (ct, blob) for p, ct, _, blob, _ in entries}
 
         check(
