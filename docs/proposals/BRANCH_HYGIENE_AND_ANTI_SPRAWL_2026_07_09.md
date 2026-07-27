@@ -1,11 +1,10 @@
 # PROPOSAL (v4) — Branch-Sprawl Resolution & Prevention
 
-**Status:** **Proposed — Awaiting Owner Approval.** R1–R7 were approved by David in
-chat (2026-07-09), but per governance (GitHub is source of truth; chat-only
-decisions are not valid records) this is **not durable until David records
-approval on this PR, citing the final commit SHA of these amendments.** When he
-does, it flips to Approved and the adoption PR carries the formal `APPROVAL-NNNN`
-**and** `DECISION-NNNN`.
+**Status:** **Approved.** David Bloom recorded durable Product Owner approval on
+PR #54 (2026-07-26), citing final proposal commit `85b1151` and explicitly
+approving R1–R7, the R5 readiness/execution model, and human-only auditable
+break-glass. Formal adoption is recorded by `APPROVAL-0027` and
+`DECISION-0039` in the governance adoption PR #55.
 **Reconciled from:** Claude v1 → Codex second-opinion → PR #54 review round 1
 (8 change requests) → PR #54 review round 2 (R5 + sequence refinements). All
 incorporated here.
@@ -41,7 +40,7 @@ across branches, recovered from commits `e15d64b`/`a9e6ea4`/`a7438da`).
    **uncommitted/unpushed** work orphaned. *(Detached HEAD is normal for some Codex
    worktrees and is NOT itself the risk; uncommitted/unpushed work is.)*
 
-## 3. Proposed rules (R1–R7) — awaiting durable owner approval
+## 3. Adopted rules (R1–R7) — approved 2026-07-26
 
 | # | Rule |
 |---|---|
@@ -116,8 +115,9 @@ cite the final commit SHA.
 
 ## 9. Decisions
 
-1. Approve R1–R7 (Hard Gate)? — **Pending durable owner approval on this PR, citing
-   the final SHA.**
+1. Approve R1–R7 (Hard Gate)? — **Approved by David Bloom on PR #54
+   (2026-07-26), citing final proposal commit `85b1151`; formally recorded by
+   APPROVAL-0027 / DECISION-0039 in adoption PR #55.**
 2. Merge/readiness model? — **GitHub-native auto-merge/merge-queue with the R5
    readiness/execution split; custom privileged agent contingent, not default.**
 3. Execute §6 (land this proposal)? — **Done** (this PR; amended per review rounds).
