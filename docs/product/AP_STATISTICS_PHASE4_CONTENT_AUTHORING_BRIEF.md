@@ -21,6 +21,12 @@ new content-authoring architecture; it's an application of the existing one
 `CONTENT_GOVERNANCE_AND_VALIDATION.md`) to a second subject, per
 `DECISION-0031`.
 
+Platform boundary reminder: the shared platform is the prompt compiler,
+grading/verification pipeline, schema, and release governance. AP Statistics
+contributes subject-specific rows, labels, verification profiles, and content.
+This brief only covers the subject-specific layer that sits on top of the
+shared platform.
+
 ## Governing Rules (already settled, restated for this batch — not reopened)
 
 1. Tutor-authored proprietary base packages, same model as AP Biology

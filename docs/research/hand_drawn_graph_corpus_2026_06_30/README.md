@@ -30,6 +30,7 @@ to the hand-drawn pages already captured for it.
 - `hand_drawn_graph_questions_2026_06_30.csv`: spreadsheet-friendly export with JSON-encoded table/spec fields.
 - `supabase_content_intake_payload_2026_06_30.json`: wrapper payload shaped for the current `content-intake` Edge Function.
 - `scripts/generate_hand_drawn_graph_corpus.py`: deterministic generator (seed_base=20260630).
+- `trace_sets/set_04/`: hard-case calibration pack for rubric ambiguity, estimate annotation drift, and regression checks.
 
 ## Workflow
 
@@ -42,3 +43,8 @@ to the hand-drawn pages already captured for it.
 ## Status
 
 Research seed only. These items are independently authored synthetic prompts but have not yet passed Learning Quality, rights/similarity, accessibility, or production release review.
+
+Hard-case calibration pack:
+
+- `trace_sets/set_04/` is the designated `set4` calibration packet.
+- It is intentionally biased toward the estimate / plateau annotation failure mode while keeping categorical and series controls.

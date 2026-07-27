@@ -8,11 +8,11 @@ This prompt is only for the homepage demo experience. Do not change the How It W
 
 Add a homepage module that helps visitors understand Cramapple immediately by showing:
 
-1. An AP Biology FRQ prompt.
+1. An FRQ prompt from one of Cramapple's published subjects.
 2. A typed answer appearing in the answer box.
 3. The submit action being pressed.
 4. The graded response appearing next.
-5. Rotation through 3 FRQ examples.
+5. Rotation through 4 FRQ examples, alternating between AP Biology and AP Statistics.
 
 The demo should feel obvious as a demo, not as a live student session. It should be persuasive, calm, and credible.
 
@@ -48,7 +48,7 @@ See Cramapple in action
 ### Section intro copy
 
 ```text
-Watch a short AP Biology FRQ example from start to finish. The demo shows how Cramapple helps a student answer, submit, and see criterion-level feedback.
+Watch a short FRQ example from start to finish. The demo shows how Cramapple helps a student answer, submit, and see criterion-level feedback — across subjects.
 ```
 
 ### Demo layout
@@ -57,15 +57,16 @@ Watch a short AP Biology FRQ example from start to finish. The demo shows how Cr
 - Center: answer box with a typing animation or short looping replay of an answer being entered.
 - Primary action inside the demo: `Submit answer`.
 - Right side or below: graded response card that appears after submit.
-- Include a small label that makes the demo state clear, such as `Demo replay` or `Sample FRQ`.
+- Include a small label that makes the demo state clear and names the current subject, e.g. `Sample AP Biology FRQ` or `Sample AP Statistics FRQ` — derive this from the current example's `subject` field, not a fixed string. Do not hardcode the label to `Sample FRQ` or to any single subject.
 
 ### Rotation
 
-Rotate through 3 FRQ examples in a loop.
+Rotate through 4 FRQ examples in a loop, alternating subjects (AP Biology, AP Statistics, AP Biology, AP Statistics) so a visitor sees both subjects within one full loop.
 
 Each example should include:
 
-- a short AP Biology FRQ prompt;
+- a `subject` field (`AP Biology` or `AP Statistics`) that drives the demo label described above;
+- a short FRQ prompt in that subject's style;
 - a typed answer animation or scripted typing replay;
 - a submit moment;
 - a graded response summary;
@@ -83,11 +84,11 @@ If animation is used, prefer a lightweight frontend animation or controlled repl
 
 ## FRQ Demo Content
 
-Use original AP Biology-style prompts only. Do not copy College Board content.
+Use original prompts in the style of each subject's exam. Do not copy College Board content for either subject.
 
-Suggested rotation set:
+Suggested rotation set (alternate subjects in this order):
 
-### FRQ 1
+### FRQ 1 — AP Biology
 
 Topic: experimental design
 
@@ -104,7 +105,24 @@ Graded response highlight:
 - explains why the control matters;
 - next step: add the mechanism or evidence connection.
 
-### FRQ 2
+### FRQ 2 — AP Statistics
+
+Topic: random assignment in experimental design
+
+Prompt idea:
+
+```text
+A researcher wants to know whether a new study technique improves quiz scores. Explain why students should be randomly assigned to the new technique or the old technique, rather than letting them choose which one to use.
+```
+
+Graded response highlight:
+
+- identifies random assignment as the key design element;
+- explains that it balances confounding variables between groups;
+- connects it to supporting a cause-and-effect conclusion;
+- next step: add why this couldn't be concluded from an observational study alone.
+
+### FRQ 3 — AP Biology
 
 Topic: cell communication
 
@@ -121,22 +139,22 @@ Graded response highlight:
 - response in the nucleus;
 - next step: add the missing pathway detail.
 
-### FRQ 3
+### FRQ 4 — AP Statistics
 
-Topic: inheritance and population genetics
+Topic: confidence interval interpretation
 
 Prompt idea:
 
 ```text
-In a small population, a random event sharply reduces the number of individuals. Explain how this affects allele frequency and genetic diversity over time.
+A pollster reports a 95% confidence interval of (0.42, 0.50) for the proportion of voters who support a proposal. Explain what this interval means.
 ```
 
 Graded response highlight:
 
-- identifies genetic drift or bottleneck effect;
-- explains random allele loss;
-- connects to reduced diversity;
-- next step: strengthen the causal chain.
+- avoids saying there is a 95% probability the true proportion falls in this exact interval;
+- ties the confidence level to the method's long-run reliability across many samples;
+- states the interval estimates the population proportion, not any single voter's chance;
+- next step: connect margin of error to sample size.
 
 ## Copy
 
@@ -153,7 +171,7 @@ Answer, submit, and see what Cramapple says the response earned.
 ```
 
 ```text
-Three examples rotate here so you can see the experience without starting a session.
+Examples rotate between AP Biology and AP Statistics so you can see the experience without starting a session.
 ```
 
 ### Demo labels
@@ -209,17 +227,18 @@ Verify:
 
 1. The homepage still clearly presents the main call to action.
 2. The demo section appears as an obvious preview, not as a live session.
-3. Three FRQ examples rotate cleanly.
-4. The submit moment and graded response are easy to follow.
-5. The demo is usable with keyboard and reduced-motion settings.
-6. The layout remains calm and readable on mobile.
-7. No protected content or official College Board text is used.
+3. All 4 FRQ examples rotate cleanly, alternating AP Biology and AP Statistics.
+4. The demo label updates to name the correct subject for each example (no leftover hardcoded `Sample FRQ` or fixed-subject string).
+5. The submit moment and graded response are easy to follow.
+6. The demo is usable with keyboard and reduced-motion settings.
+7. The layout remains calm and readable on mobile.
+8. No protected content or official College Board text is used for either subject.
 
 ## Implementation Notes
 
 - Use local frontend state only.
-- Keep the demo content in a small typed configuration object.
+- Keep the demo content in a small typed configuration array, one object per example, each with a `subject` field (`AP Biology` | `AP Statistics`) alongside the existing prompt/answer/graded-response fields. The demo label and any subject-specific styling should read from `subject`, not be hardcoded.
 - Reuse the site’s existing visual language.
 - If the homepage already has a hero section, place this demo immediately below it.
-- Keep the section modular so later work can swap in real rendered FRQ examples or richer motion.
+- Keep the section modular so later work can add more subjects by appending to the configuration array, without touching the rotation, label, or layout logic.
 
