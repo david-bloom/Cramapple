@@ -6,6 +6,15 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Grading-Experiment Readiness Re-Verified; Engine 1 Grading+Repair Pilot Spec Authored — 2026-07-27
+- One-Reviewer + AI-QA Publication Reconciliation — 2026-07-27
+- Two-Approval / Executed-Edit Publication Reconciliation — 2026-07-27
+- Published-Without-Approval Assignment Backfill — 2026-07-27
+- Saood Precalculus/Physics QA Reconciled; 12 Corrections Forked; 16 False Exclusions Reversed — 2026-07-27
+- Two Frontend Bugs Found and Fixed (Stimulus-Table Rendering, Bio Reviewer Unit Availability); AP Statistics Never Assessed for FRQ Structure — 2026-07-26
+- FRQ Structure QA and Repair Across Six Subjects (Bio, Physics, Chemistry, Calc AB/BC, Precalc) — 2026-07-25/26
+- 100 New AP Chemistry Items Authored and Assigned; Calc/Precalc CED+QA Pass; Reviewer Roster Reshuffled — 2026-07-24
+- Fixed Alternating-Residual Artifact in Scatterplot Datasets; CED Verification for Calc/Chem/Bio; Reviewer Tagging-Gap Pipeline Fix; Adil Abbasi Onboarded — 2026-07-24
 - Shipped review-decision Atomic-Lock Fix; Fixed Unrealistic Scatterplot Correlations Flagged by Jill — 2026-07-22
 - Production Content Reconciled to Tutor Decisions; Reviewer Image Support Shipped — 2026-07-20
 - Kimi Grading Experiment Wired and Pre-Registered — 2026-07-17
@@ -22,6 +31,258 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## Grading-Experiment Readiness Re-Verified; Engine 1 Grading+Repair Pilot Spec Authored — 2026-07-27
+
+**Task:** Answer "are we ready to start running grading experiments?" — verify
+three specific readiness claims (reviewed content at scale, hand-drawn
+responses for Phase B, ≥20 verified Stats questions) rather than accept them,
+then move to actually preparing a first real experiment.
+
+**Findings:**
+- Corrected an earlier conclusion: the tracked repo hand-drawn-graph corpus is
+  synthetic and its one documented real pilot was QA-blocked, but a
+  previously-unknown local directory (`docs/hand drawn samples/`, untracked,
+  not in git) contains ~295 real photographed hand-drawn responses across
+  Biology, AP Statistics, Calculus AB, and Chemistry. Broader sampling (7
+  additional images across every subfolder) confirmed no synthetic files are
+  mixed in.
+- Pulled live production counts: 468 `reviewed_approved` items total (274 MCQ
+  + 194 FRQ), concentrated in Physics (all 4 courses) and Statistics; AP
+  Statistics alone has 58 `reviewed_approved` (37 MCQ + 21 FRQ), confirming
+  and exceeding the "≥20" claim.
+- Checked whether `published` implies `reviewed_approved` and found it does
+  not: only 83 of 159 published items (52%) have an actual
+  `content_review_decisions` row with `tutor_decision in ('approve',
+  'approve_with_edits')` behind them. Chemistry and both Calculus tracks have
+  zero approved published items. This is the [publication-trust
+  bug](../architecture/) already on record, now confirmed concretely in data.
+- Test-merged `claude/cramapple-grading-experiments-9lkjqc` against
+  `codex/five-subject-harness-and-content` in a scratch clone: the two
+  branches are complementary (content/harness vs. grading runtime) but not
+  cleanly mergeable — 7 real conflicts in `admin-content`, `attempt-response`,
+  `review-decision`, `review-queue`, plus `ACTIVITY_LOG.md`/`DECISIONS_LOG.md`
+  and two architecture docs. Deferred as a separate manual-merge task, not a
+  blocker for running experiments now.
+- Researched whether a zero-cost dry-run harness exists for the real grading
+  path: it does not. `grading-router.ts`'s routing logic is free and
+  deterministic but doesn't score anything; `evaluate-attempt/index.ts` calls
+  OpenAI directly and unconditionally with no mock/stub seam. Also confirmed
+  `evaluate-attempt` calls OpenAI directly rather than the Vercel AI Gateway
+  the project otherwise standardizes on — worth a separate look.
+- Researched the real invocation contract: `evaluate-attempt` requires a real
+  `attempts` + submitted `response_versions` row and only grades `published`
+  content (rejects `reviewed_approved` alone); no designated safe test
+  account exists in the codebase; no real candidate-answer corpus exists
+  paired with real content_keys.
+
+**Outcome:** Selected 6 real production items (all `published` and backed by
+a genuine approval decision — 3 Biology FRQ, 3 Statistics FRQ; MCQs
+deliberately excluded since MCQ grading is `rule_based_mcq` with no repair
+path to test) and generated 30 candidate student answers (5 per item, ranging
+quality tier 1–5, one guaranteed tier-5 each) via an independently-prompted
+Gemini pass, blind to the canonical answers/rubric to avoid bias. Authored and
+committed the full execution spec, the candidate-answer set, and a
+self-contained Codex kickoff prompt:
+`docs/research/grading_repair_pilot_2026_07_27/README.md`,
+`candidate_answers.json`, `gemini_answer_generation_prompt.md`, and
+`prompts/CODEX_GRADING_REPAIR_PILOT_KICKOFF_2026_07_27.md` (commit `0c5fc16`,
+pushed to `claude/cramapple-grading-experiments-9lkjqc`). The spec requires
+Codex to create one isolated synthetic test-student identity, run all 30
+answers through the real `evaluate-attempt`/`grading-router`/`grading-repair`
+path in Production, report accuracy/speed/cost findings against the standing
+Speed > Quality > Cost priority, and fully clean up all test data afterward.
+
+**Next Owner:** Codex (execution), then David Bloom (review of
+`RESULTS_2026_07_27.md`).
+**Next Required Action:** Hand
+`prompts/CODEX_GRADING_REPAIR_PILOT_KICKOFF_2026_07_27.md` to Codex and run the
+pilot end-to-end, including cleanup verification.
+
+## One-Reviewer + AI-QA Publication Reconciliation — 2026-07-27
+
+**Task:** Publish every latest question version with one clean approval from an
+active qualified tutor reviewer and authoritative Codex or Claude QA evidence.
+
+**Outcome:** Identified 18 eligible versions: four immutable QA-remediation
+forks and 14 AP Statistics versions carrying the Codex verification profile.
+Published all 18; final verification found 18 eligible, 18 published, and zero
+remaining unpublished. No explicit Claude QA marker was present in production,
+so no question qualified on Claude evidence alone.
+
+**Guardrail:** A plain content-generation `codex` tag was not treated as QA.
+Five score-2 approved-with-edits questions were excluded because the requested
+follow-up edits are not recorded as executed: `apphy1-frq-013`,
+`apphy2-mcq-016`, `apphycem-frq-014`, `apphycem-mcq-003`, and
+`APSTAT-MOD8-M004`.
+
+**Production Fix:** Publishing exposed a null-handling defect in
+`app.validate_full_exam_frq_version`: Physics MCQs with
+`practice_format IS NULL` were incorrectly evaluated as full-exam FRQs. Applied
+migration `fix_full_exam_frq_validator_null_practice_format`, using
+`IS DISTINCT FROM` so only explicit `full_exam_frq` items enter that validator.
+
+## Two-Approval / Executed-Edit Publication Reconciliation — 2026-07-27
+
+**Task:** Publish every latest content version that either has approvals from
+two distinct qualified reviewers or is an immutable remediation fork implementing
+a reviewer's approved-with-edits decision.
+
+**Outcome:** Reconciled 38 eligible latest versions. Eight multi-review-approved
+AP Biology MCQs were already published. Published 30 structurally complete
+remediation forks across Biology, Chemistry, Physics, Precalculus, and
+Statistics, and skipped their now-redundant pending re-review assignments.
+Four forks initially encountered the one-published-version constraint; their
+superseded published versions were retired before publishing the corrected
+latest versions. Final verification: 38 eligible, 38 published, zero remaining
+unpublished.
+
+**Exclusions:** Five structurally invalid, retired Biology short FRQs were not
+republished despite having two old approvals. Test-account approvals do not
+count toward the qualified two-reviewer rule.
+
+## Published-Without-Approval Assignment Backfill — 2026-07-27
+
+**Task:** Ensure every published latest question version without an approving
+tutor-question decision is assigned to a qualified subject reviewer.
+
+**Outcome:** Found 76 published versions without approval. Nineteen already had
+open assignments. Created the 56 missing assignments: 38 AP Statistics to Jill
+Schmidlkofer, 13 AP Biology to Sarah Sohail, and 5 AP Biology to Adil Abbasi.
+Calculus and Chemistry gaps were already assigned to Carlos Eduardo Hutchings
+and Muhammad Zeeshan, so no duplicates were added.
+
+`APSTATS-HDG-2026-GRAPH-039` already had Jill's explicit disapproval while
+remaining published, so it was retired instead of being incorrectly treated as
+unreviewed. Final production reconciliation: 75 published latest versions
+remain without approval, all 75 have an open tutor-question assignment, and
+zero are unassigned.
+
+**Next Required Action:** Complete the queued reviews and do not promote
+replacement versions without an approving tutor decision.
+
+## Saood Precalculus/Physics QA Reconciled; 12 Corrections Forked; 16 False Exclusions Reversed - 2026-07-27
+
+**Task:** Independently assess Muhammad Saood's completed AP Precalculus and all-Physics review at question level and apply confirmed fixes without overwriting submitted review evidence.
+
+**Outcome:** Reconciled 388 submitted decisions across AP Precalculus and the four Physics subjects. Saood found several genuine mathematical, physical, ambiguity, and rubric-alignment defects, but his 16 disapprovals of the new full-scale Physics FRQs were invalid: the mandatory subparts existed in `prompt_json.parts`, while the reviewer delivery/rendering path showed only the generic `stem`. The 16 decisions and assignments remain preserved, but their automatic `reviewed_disapproved` / `excluded` state was reversed to draft so they cannot be published or treated as validly rejected. The production `review-queue` Edge Function was updated to include `artifact.prompt_json` (v24). The corresponding Lovable reviewer-client rendering change remains blocked pending explicit authorization to send the implementation request to the external Lovable agent; therefore the 16 questions were not reopened.
+
+Confirmed fixes were implemented as immutable new versions for nine Precalculus FRQs (`001`, `005`, `007`, `008`, `009`, `010`, `013`, `014`, `016`), Precalculus MCQ `010`, and Physics C: E&M FRQs `013` and `022`. These changes make every scored rubric requirement explicit in the prompt, remove the strict-threshold ambiguity in Precalculus FRQ `007`, add the inverse-function domain to MCQ `010`, correct the fixed-interior-radius field scaling in E&M FRQ `013`, and repair the impossible equilibrium-release setup/missing mass in E&M FRQ `022`. All 12 latest versions have matching hashes and fresh pending Saood rechecks; all prior versions and decisions remain intact.
+
+**Files/systems changed:** Production Supabase `pcntajvbdfqhbeewmdry` — 12 new content versions + cloned choices/criteria + 12 pending recheck assignments; 16 full-scale Physics versions/items returned to draft; `review-queue` Edge Function v24. Repo — `supabase/functions/review-queue/index.ts`; `scripts/content-seed/reviewer-qa-remediation/20260727_saood_precalc_physics_qa.sql`.
+
+**Next Required Action:** authorize and ship the reviewer-client change that preserves and renders `prompt_json.parts`, then assign the 16 full-scale Physics FRQs for a valid second review (preferably Ghazanfar for independence).
+
+**Follow-up, same date:** David directed that the second review go back to Saood. Shipped a server-side reviewer-display safeguard in `review-queue` that appends any structured `prompt_json.parts` missing from the visible stem, avoiding both the client-rendering gap and duplicate prompts. Created immutable v2 forks of all 16 full-scale Physics FRQs, cloned all 160 rubric rows, grouped the assignments under the published workflow label `Full-scale Physics FRQ recheck` (one label per owning exam pack), and assigned all 16 to Saood as pending `tutor_question` work. Final reconciliation: 16/16 latest versions carry the pack marker, 16/16 items and versions are assigned, 16/16 hashes match, 16/16 pending Saood assignments have pack labels, and 16/16 original v1 decisions remain preserved.
+
+## Two Frontend Bugs Found and Fixed (Stimulus-Table Rendering, Bio Reviewer Unit Availability); AP Statistics Never Assessed for FRQ Structure - 2026-07-26
+
+**Task:** Continuation of the FRQ structure QA/repair effort (see entry below). David spotted that the reviewer portal showed no images for `APBIO-FRQ-L-009` despite the item clearly needing tabular data — investigating led to two real, unrelated frontend bugs in the production Lovable app (`d334fed9-5a97-4e76-906e-7c0ad7082212`, `exam-buddy-wireframe`, live at `cramapple.com`), both found and fixed the same way: read the actual rendering code first (not the reviewer portal alone, which needs a real login I don't have), diagnose precisely, send a fully-specified fix request to Lovable's build agent, then independently re-read the committed files to confirm the fix rather than trusting the agent's own "tests pass" report.
+
+**Bug 1: student-facing stimulus text with embedded data tables rendered as unreadable collapsed text.** `src/routes/_ux.session.frq.tsx` and `_ux.session.mcq.tsx` both dumped `item.stimulus` raw into a plain `<p className="cm-lede">` with no whitespace or table handling — since the CSS class has no `white-space: pre-wrap`/`pre-line`, the browser's default behavior collapses all newlines, so any stimulus with a pipe-delimited data table (common across Bio/Chem/Physics content) rendered as one unreadable run-on line, tables merged together indistinguishably. Confirmed this affected the student view specifically — the reviewer portal (`reviewer.review.$assignmentId.tsx`) uses `white-space: pre-wrap` and was already fine, matching what the reviewer had described as merely suboptimal, not broken. Checked every other plausible rendering surface before calling this complete: the marketing FRQ demo (hardcoded content, not DB-driven), the per-subject marketing "practice questions" SEO pages (static content, already using a proper table component, verified on both Biology and Chemistry), and the hand-drawn capture flow (doesn't render stimulus at all) — none had the bug. Fixed by adding a shared `src/components/session/StimulusText.tsx` component plus a `src/lib/stimulus-blocks.ts` parser that splits stimulus text into prose blocks (line breaks preserved) and pipe-delimited table blocks (rendered via the existing shadcn `Table` components, with caption detection for a preceding "Table N: ..." line), then wiring both session routes to use it. Verified by hand-tracing the parser against `APBIO-FRQ-L-009`'s actual stimulus text and independently reading back the committed files and the new unit test (`stimulus-blocks.test.ts`) rather than trusting Lovable's self-reported "115/115 tests pass." Commit `cba2d608142d2dc26b748874758d7867380502c5`.
+
+**Bug 2: two real AP Biology units were unselectable in the reviewer's mandatory topic-tagging dropdown, blocking submission.** Both Adil Abbasi and (independently) Sarah Sohail hit the same blocker: the reviewer review-workspace form requires picking a unit before it will accept a submission, but Unit 5 (Heredity) and Unit 8 (Ecology) were marked `available: false` in `src/data/taxonomy.ts`'s `AP_BIOLOGY_UNITS` array, rendering them as disabled "(coming soon)" options. This was stale, not deliberate — both units already have full subtopic lists in the same file, and Unit 8 (Ecology) content is demonstrably live in the review pipeline right now (`APBIO-FRQ-L-009`, fixed and reassigned in the prior entry, is an ecology item). Also discovered while diagnosing this: the mandatory-unit requirement is currently wired up **only** for Biology and Statistics (`subjectKeyFromContentKey` only maps `APBIO`→biology and `APSTAT`→ap-statistics; every other subject resolves to `null`, so `getUnitsForSubject` returns an empty list and the "must pick a unit" validation never triggers) — which is exactly why no Chemistry/Physics/Calculus reviewer had ever reported anything like this; they aren't subject to the requirement at all yet. Fixed by flipping both booleans to `available: true`, nothing else touched. Verified by independently reading back the committed file. Commit `9b8f7afa24b00f56aa6dc684c40987e37e76fc26`. David confirmed both units now show correctly for reviewers.
+
+**Also surfaced: AP Statistics was never assessed for the FRQ structure issue.** David asked directly whether all subjects had been assessed and repaired. Answer: no — the structural-conformance sweep documented in the entry below covered Bio, Physics (all 4), Chemistry, Calc AB, Calc BC, and Precalculus, but never included Statistics. There's a separate, larger AP Stats 2027 format-change rebuild already decided (6×4pt→4×10pt FRQs, per earlier memory/decision records) that may or may not already account for this — that assumption has not been verified and should not be treated as a substitute for actually checking Stats' current live FRQ structure against its current CED.
+
+**Files/systems changed:** Lovable project `d334fed9-5a97-4e76-906e-7c0ad7082212` (production frontend, `cramapple.com`) — `src/lib/stimulus-blocks.ts` (new), `src/components/session/StimulusText.tsx` (new), `src/lib/__tests__/stimulus-blocks.test.ts` (new), `src/routes/_ux.session.frq.tsx` and `_ux.session.mcq.tsx` (updated to use the new component), `src/data/taxonomy.ts` (two boolean flags flipped). No changes to this docs repo or to the content database in this entry.
+
+**Next Owner:** whoever picks up the paused Chemistry FRQ-structure repair (see the prior entry's continuation prompt, unchanged by this work); David, for deciding whether/when to run the AP Statistics structural assessment.
+**Next Required Action:** confirm with Adil and Sarah that their submissions now go through cleanly now that Units 5 and 8 are selectable (both were told the fix is live; neither has been independently confirmed via an authenticated click-through, which needs their own login). Decide whether to run the AP Statistics FRQ structure assessment next, using the same method as the other six subjects.
+
+---
+
+## FRQ Structure QA and Repair Across Six Subjects (Bio, Physics, Chemistry, Calc AB/BC, Precalc) - 2026-07-25/26
+
+**Task:** Adil Abbasi (new Bio reviewer) flagged an FRQ as "needing AP rubric numbering (i, ii, iii, iv)." Investigating that single comment surfaced a systemic defect: live FRQ content across most subjects does not match the real College Board CED's required point/part structure per FRQ type — a genuine points-left-on-the-table bug, not cosmetic. This grew into a full cross-subject audit-and-repair effort spanning two days. **Chemistry finished 2026-07-26 — see the dedicated update below. All six subjects now either fixed or handed to their appropriate owner (Physics/Codex in progress separately).**
+
+**Method established and reused across all six subjects:** pull the actual CED PDF (local repo copy or Google Drive), extract the real per-FRQ-type point/part structure with verbatim quotes (never from memory or "standard AP exam" assumptions), audit live DB content against it, then repair via either a mechanical fix (relabel/reweight/merge existing content) or genuine new authoring, always forking a new `content_item_versions` row (never editing in place) for any item with an existing submitted `content_review_decision`, and always independently re-querying the DB after every write rather than trusting a self-reported "verified" claim — a discipline that caught real errors, including two from a Haiku-run process that reported false verification results not backed by an actual query.
+
+**AP Biology — long FRQs FIXED, short FRQs RETIRED pending rebuild.** Real CED: 4 parts labeled "Part A/B/C/D", uneven weights (long=9pts as 1/3/3/2 or 1/4/2/2; short=4pts as 1/1/1/1). Found: all 42 long FRQs had only ~8pts flat-weighted (a few with 5 criteria instead of 4); all 100 short FRQs had only 2 of the 4 required parts. Long FRQs corrected 2026-07-25 in independently-verified batches of 5 (Haiku-executed, versioned/forked where a decision existed, review assignments created for every fork) — confirmed 42/42 correct via a fresh query, including catching and fixing two batches where the reported "verified correct" values didn't match the actual database. Short FRQs were bulk-retired by David directly (`status='retired'`) pending the still-unbuilt 2-new-parts-per-item authoring pass — not yet scoped or assigned.
+
+**Sarah Sohail added as a 3rd Biology reviewer** (existing profile, no onboarding needed) — given the same 20-item packet shape as Adil's original eval, minus the 5 now-retired short-FRQ slots (15 items: 10 MCQ + 5 long FRQ), sharing the same `blind_group_id`s as Amjad's/Adil's original decisions for direct comparison.
+
+**AP Physics — all 4 subjects (Physics 1/2, C-Mech, C-E&M), Codex Phase 2 approved and in progress, not done by Claude directly.** Real CED: 4 FRQ archetypes (Mathematical Routines=10pts, Translation Between Representations=12pts, Experimental Design and Analysis=10pts, Qualitative/Quantitative Translation=8pts) — verified independently for Physics 1 directly from source; Physics 2/C-Mech/C-E&M confirmed via Codex's verbatim-quoted follow-up after an initial pass left them unconfirmed. Found: all 136 live FRQs are 2-6pts, none meeting any archetype's real total; 64/136 already carry recoverable legacy archetype tags, only 2 truly unclassified. Corrected an initial Haiku/Codex mischaracterization: the CED's "4 FRQs" describes one exam sitting, not a target bank size — a practice bank should have many items per archetype. Codex traced the actual live serving code (Lovable frontend) and confirmed the defect is **dormant**, not live — zero Physics FRQs are currently published at both item and version level. David approved Codex's Phase 2 plan: reclassify all 136 as `targeted_drill`, author a 16-item full-scale vertical slice (one per archetype per subject) as `full_exam_frq`, mandatory CED subpart patterns for that slice, ordinary human review (no owner override), and a hard requirement that the serving-layer enforcement (canonical use-classification field + server-owned selection RPC + `create_attempt` format-matching) ships before any of the new content publishes. **In progress with Codex, not tracked further in this repo session.**
+
+**AP Chemistry — real CED: 3 Long FRQs (10pts each) + 4 Short FRQs (4pts each), 7 total, 46pts.** No fixed part template like Bio/Physics — the CED's own sample scoring guidelines show variable part counts (3 to 8 lettered parts) as long as the total is right. Found: only 1/28 long FRQs and 20/38 short FRQs already hit their targets; **this one is live, not dormant** — `apchem-frq-l-001` (4/10pts) and `apchem-sfrq-001` (2/4pts) are both currently published and reachable. **Fixed this session: the 6 worst long FRQs** (`apchem-frq-l-001` through `-006`, all were flat at 4pts against 10 required) — each part's already-compound task (e.g. "calculate X and justify Y") was split into 2-3 genuinely distinct, verified sub-criteria rather than point-inflated; 1 edited in place, 5 forked (2 auto-assigned by an existing DB trigger, 3 assigned manually) to Muhammad Zeeshan Hanif, the sole qualified Chemistry reviewer. Verified 6/6 at exactly 10 points.
+
+**AP Calculus AB and BC — FIXED, 32/32 items verified.** Real CED (both subjects share the identical structure): 6 FRQs, every one worth exactly 9 points across 3-4 parts (2-5pts each) — confirmed via literal "Total for Question N — 9 points" lines in the primary source. Found: all 32 items (16 AB + 16 BC) were flat at exactly 3 points (1 per part), 0/32 conforming — the largest proportional gap found across all subjects. Fixed by splitting each existing 1-point task into a genuine 3-component breakdown (setup/method, execution, final answer or justification), verified against the actual math for every one of the 32 items individually — not mechanical relabeling. AB: 4 items edited in place, 12 forked (a `validator_qualifications` trigger correctly blocked assigning the forks to SK MD Ferdous, whose qualification is `suspended` per David's standing decision — routed to Carlos Eduardo Hutchings instead, the other active-qualified AB reviewer). BC: all 16 edited in place (zero prior review decisions existed); **no reviewer assigned** — BC currently has no qualified/assigned reviewer at all, a pre-existing gap, not something this session should have guessed at.
+
+**AP Precalculus — FIXED, 16/16 items verified, including a self-caught near-mistake.** Real CED: 4 FRQ types (Function Concepts, Modeling a Non-Periodic Context, Modeling a Periodic Context, Symbolic Manipulations), each worth exactly 6 points across 3 lettered parts (2pts each). Initial assessment wrongly concluded the DB's existing 6-criteria-per-item structure (6×1pt) needed merging into 3×2pt — checked the real CED's own scoring guideline layout before executing and found the existing 6-criteria structure already matches the real exam's `i.`/`ii.` sub-scoring pattern for each part exactly; no merge was needed, and merging would have made the content *less* faithful, not more. The actual, narrower defect: lowercase `(a)/(b)/(c)` labeling instead of the real "Part A/B/C" convention, plus zero archetype classification on all 16 items. Fixed via fork (all 16 had a submitted decision — no in-place path existed for any of them), archetype-classified against the CED's precise task descriptions (2 of the 16 classifications were judgment calls, flagged as such rather than treated as settled), review assignments created. Discovered mid-fix that all 16 original decisions came from Muhammad Saood — initially treated as a possible mis-assignment (he's rostered as Physics-only) until David confirmed he's also a Calculus tutor being deliberately tested on Precalculus; re-review assignments routed back to him.
+
+**Files/systems changed:** Production DB (`pcntajvbdfqhbeewmdry`) — Bio: 42 long-FRQ versions (7 forked) + criteria; Chemistry: 6 long-FRQ versions (5 forked) + criteria + 5 review assignments; Calc AB: 16 versions (12 forked) + criteria + 12 review assignments; Calc BC: 16 versions (in-place) + criteria; Precalc: 16 forked versions + criteria + 16 review assignments. Repo — `docs/architecture/CONTENT_AUTHORING_AND_PROMPT_ARCHITECTURE.md` (new required FRQ structural-conformance check, §9); `docs/research/AP_PHYSICS_FRQ_STRUCTURE_VALIDATION_2026_07_25.md`, `docs/research/AP_CHEMISTRY_FRQ_STRUCTURE_VALIDATION_2026_07_25.md`, `docs/research/AP_CALCULUS_PRECALC_FRQ_STRUCTURE_VALIDATION_2026_07_26.md` (new); `prompts/CODEX_AP_BIOLOGY_FRQ_STRUCTURE_CORRECTION_2026_07_25.md`, `prompts/CODEX_AP_PHYSICS_FRQ_STRUCTURE_VALIDATION_AND_CORRECTION_2026_07_25.md` (new); `prompts/CLAUDE_FRQ_STRUCTURE_REPAIR_CONTINUATION_2026_07_26.md` (new handoff for the unfinished Chemistry work). Memory — reviewer roster and a new cross-subject FRQ-structure-audit tracking file updated throughout.
+
+**Next Owner:** whoever picks up the Chemistry repair (handoff prompt above has the exact remaining item lists and point deltas); David for the two staffing gaps surfaced (no qualified BC reviewer; Chemistry has only one reviewer, no pairing partner).
+**Next Required Action:** Chemistry — 21 long FRQs (`apchem-frq-l-007` through `-027`, currently 7-9pts, need 10) and 19 short FRQs (10 at 2pts including the live `apchem-sfrq-001`, 4 at 3pts, 4 at 5-6pts needing trimming) remain. See the handoff prompt for exact lists, current point totals, and decision status per item.
+
+### Update 2026-07-26: AP Chemistry FRQ repair completed
+
+Picked up `prompts/CLAUDE_FRQ_STRUCTURE_REPAIR_CONTINUATION_2026_07_26.md`. Fixed `apchem-sfrq-001` first (was `published`/`published` and under-pointed at 2/4 — the one live-exposure item) before anything else. Then fixed the remaining 18 short FRQs (9 forked to Zeeshan since they had submitted decisions, 9 edited in place) and all 21 remaining long FRQs (all edited in place — none had picked up a submitted decision since the prior audit) in verified batches of 4-6, re-querying `frq_criteria` and `content_item_versions.prompt_json` after every write. Every addition/trim was genuinely new or removed content (new sub-parts on real chemistry — thermodynamics extensions, common-ion effects, two-point Arrhenius calculations, etc. — never point inflation on an unchanged task), with the underlying chemistry verified by hand before writing.
+
+While doing a final full-bank sweep, found that the 6 long FRQs marked "fixed" in the entry above (`apchem-frq-l-001` through `-006`) had a real rubric (`frq_criteria` summed to 10, confirmed correct) but a stale `prompt_json.total_points` metadata field still reading 4 — never synced when they were fixed. Corrected all 6. This means any code path reading `total_points` from that field rather than summing `frq_criteria` would have shown an incorrect value for those 6 items until now; worth checking whether the serving/grading layer trusts that field anywhere.
+
+**Final state, full Chemistry FRQ bank (66 items):** all 28 long FRQs at exactly 10/10 points; all 38 short FRQs at exactly 4/4 points. No known FRQ structural defects remain in Chemistry.
+
+**Files/systems changed:** Production DB (`pcntajvbdfqhbeewmdry`) — `apchem-sfrq-001` (edited in place) plus 8 more short FRQs edited in place and 9 forked (`apchem-sfrq-002` through `-010`, all forked, 9 new `content_review_assignments` to Zeeshan); all 21 remaining long FRQs (`apchem-frq-l-007` through `-027`) edited in place plus new `frq_criteria` rows; `prompt_json.total_points` metadata corrected on `apchem-frq-l-001` through `-006`.
+
+**Next Owner:** David — the two staffing gaps from the original entry remain open (no qualified Calc BC reviewer; Chemistry has only Zeeshan, no pairing partner). Whoever next touches the Chemistry serving/grading path should confirm nothing reads the stale-metadata `total_points` field directly instead of summing criteria.
+**Next Required Action:** none blocking for Chemistry. AP Biology short-FRQ rebuild (100 items, bulk-retired, not yet scoped) remains the one open cross-subject FRQ-structure item.
+
+---
+
+## 100 New AP Chemistry Items Authored and Assigned; Calc/Precalc CED+QA Pass; Reviewer Roster Reshuffled - 2026-07-24
+
+**Task:** Continuation of the same-day session above. Six pieces of work: (1) authored and shipped 100 new AP Chemistry items; (2) wrote a Codex handoff prompt for the equivalent Calculus/Precalculus batch; (3) quality-audited Muhammad Zeeshan Hanif's (Chemistry, probationary) and SK MD Ferdous's (Calc AB) review work; (4) validated existing Codex-authored Calc AB/BC/Precalc content against CED and ran a quality pass, fixing real defects; (5) confirmed Adil Abbasi's Bio re-review pack; (6) reshuffled reviewer assignments per David's direction.
+
+**Status:** All done except the backfill/pipeline-code items noted as out of scope below.
+
+**1. Authored and shipped 50 MCQ + 50 FRQ for AP Chemistry**, distributed proportionally across all 9 CED units via parallel subagents (several hit transient API 502/connection-closed errors and were retried — no data loss, just slower). Ran a scripted validation pass before touching Production and caught two real defects pre-insert: one MCQ with no `is_correct:true` anywhere despite a correct rationale, and one FRQ criterion with leftover mid-sentence scratch-work text ("...60−20... actually 45−20=25..."). Both fixed before insert. Inserted via `content/item-packages`-equivalent direct SQL (`apchem-mcq-021..070`, `apchem-frq-l-007..028`, `apchem-sfrq-011..038`) using the Supabase CLI (`supabase db query --linked -f <file>`) rather than pasting SQL through the chat tool, after confirming the CLI's default linkage resolves to Production. Split into 4 packs of 25 and assigned to Muhammad Zeeshan Hanif (single reviewer — no second Chemistry reviewer exists yet for blind pairing).
+
+**2. Wrote `prompts/CODEX_CALCULUS_PRECALC_CONTENT_EXPANSION_2026_07_24.md`** — a handoff for Codex to author the same 50+50-per-subject batch for Calc AB, Calc BC, and Precalculus. While researching current numbering, discovered Codex's existing calc content (from `codex/five-subject-harness-and-content`, not this branch) uses a materially richer JSON-package schema than the one used for Chemistry here (`archetype_ref`, `taxonomy_refs`, `deterministic_checks`, `required_evidence`, provenance/originality metadata) — pointed the prompt at Codex's own existing files as the template rather than re-specifying a schema, and flagged the platform-wide MCQ-correct-answer-length-outlier pattern (found in `content-preflight.ts` git history) for Codex to avoid.
+
+**3. Reviewer quality audits.** Zeeshan (34 Chemistry decisions, 0 disapprovals, ~41% `approve_with_edits`): spot-checked his edit notes against actual stored content and both checked items were real, precise catches (a truncated MCQ rationale; a rationale conflating "enthalpy" with "enthalpy change") — verdict good, recommended for full-queue promotion (pending David's go-ahead, not yet actioned). Ferdous (32 Calc AB decisions, all `approve`, 0 edits/disapprovals): independently re-derived the math on 7 sampled items — all correct — but every FRQ note was empty (`null`) and MCQ notes were heavily templated (3 items share an identical sentence verbatim), plus one internally inconsistent entry (`concern_codes: ["Accuracy"]` on a plain `approve` with no described concern). Content came back clean but the review process itself doesn't clear the bar set by Zeeshan/Jill/Amjad — flagged as inconclusive on reviewer diligence, not yet promoted.
+
+**4. Validated existing Codex-authored Calc AB/BC/Precalc content (108 items) against the primary-source CED verified earlier this session** — clean: AB correctly uses only Units 1-8, BC correctly includes 9-10, Precalc correctly excludes the not-assessed Unit 4 (zero items tagged to it). Ran the MCQ-length-outlier check across all 60 existing MCQs: platform-here average is 1.11x (well under the 1.6-1.7x seen in Stats/Bio), but 11/60 (18%) still exceeded the 1.4x threshold. Fixed the 5 safely fixable ones (`apcalcab-mcq-013`, `apcalcbc-mcq-018`, `apprecalc-mcq-006`, `apprecalc-mcq-007`, `apprecalc-mcq-014`) without fabricating new distractor values; left 6 alone where the length gap is inherent to the math (e.g. irrational vs. integer answer choices) rather than authoring bias. One fix (`apprecalc-mcq-006` choice D) corrected a genuine bug independent of length: the distractor's value (`x²+5`) didn't match its own stated rationale ("adds f(x) and g(x)" — the actual sum is `x²+2x+2`). Also caught and **retracted** a false-positive math error I initially flagged on `apcalcbc-frq-005` — traced to comparing it against the wrong function from memory instead of pulling its actual stimulus first; the original content was correct.
+
+**5. Confirmed Adil Abbasi's 20-item Bio re-review packet** (set up earlier this session) is intact: all 20 assignments still blind-paired with Amjad Ali's original decisions via matching `blind_group_id`, some already `submitted`.
+
+**6. Reviewer roster changes, all per direct instruction, none unilateral:**
+- SK MD Ferdous: no new work pending his vs. Hutchings comparison.
+- Carlos Eduardo Hutchings: discovered he'd been assigned 100 pending items across all three Calc/Precalc subjects (not the single small evaluation packet on record) — deleted all 68 BC/Precalc assignments (all `pending`, zero decisions, safe to remove), leaving only his 32 AB items, so his packet now matches Ferdous's scope for a fair comparison.
+- Ghazanfar Ali (2nd Physics reviewer): discovered he'd been assigned 136 pending items across all four Physics subjects (also not the single small packet on record) — deleted the 102 Physics 2/C-Mechanics/C-E&M assignments, leaving only his 34-item Physics 1 packet.
+- Muhammad Saood (Physics, proven): no changes — already has 144 assignments across all 4 Physics subjects, 124 already submitted. Investigated "how much Physics content is CED-validated and QA'd" per David's question: CED validation was done in an *earlier* session (not re-verified today); no systematic QA pass (like the one just run on Calc) has ever been done on Physics content. Also surfaced 3 unresolved `reviewed_disapproved` items in Physics C E&M (`apphycem-frq-013`, `-frq-014`, `-mcq-003`) that need attention independent of any new assignment.
+
+**Not done / explicitly out of scope this session:** backfilling topic tags on existing untagged content (flagged 2026-07-24 earlier, David hasn't asked for this); a Physics QA pass (flagged, not requested); resolving the 3 disapproved Physics C E&M items; deciding whether to promote Zeeshan or reassign Amjad's full Bio backlog to Adil (both contingent on further evaluation per standing roster policy).
+
+**Files/systems changed:** Production DB (`pcntajvbdfqhbeewmdry`) — 100 new `apchem-*` content items + choices/criteria; 5 `apcalc*`/`apprecalc*` MCQ choice text/rationale edits; 4 new `content_review_assignments` packs (100 rows) for Zeeshan; 170 `content_review_assignments` rows deleted (68 Hutchings, 102 Ghazanfar). Repo — `prompts/CODEX_CALCULUS_PRECALC_CONTENT_EXPANSION_2026_07_24.md` (new); this activity log entry. Memory — reviewer roster memory updated to reflect all assignment changes above.
+
+**Next Owner:** David Bloom (decide Zeeshan/Ferdous/Hutchings promotion calls once comparisons are in; decide on the 3 disapproved Physics C E&M items); whoever picks up Codex's calculus batch next (prompt is written, not yet sent).
+**Next Required Action:** none blocking — all requested actions this session are complete. Recommend running a Physics QA pass (mirroring the Calc/Chem one) before trusting that corpus at the same confidence level as Calc/Chem, whenever that becomes a priority.
+
+---
+
+## Fixed Alternating-Residual Artifact in Scatterplot Datasets; CED Verification for Calc/Chem/Bio; Reviewer Tagging-Gap Pipeline Fix; Adil Abbasi Onboarded - 2026-07-24
+
+**Task:** Four pieces of work in one session: (1) continued the CED-verification handoff from `docs/reviewer_packets/CED_VERIFICATION_STATUS_2026_07_24.md` (PR #49) for Calculus/Chemistry/Biology; (2) investigated and fixed a review-decision `topic_selections` field that was silently always empty; (3) investigated and fixed a new data-realism bug Jill Schmidlkofer flagged in trend-line questions; (4) built an onboarding review queue for a new Biology tutor.
+
+**Status:** All four done.
+
+**1. CED verification — Calculus confirmed stable, Chemistry cosmetic renames only, Biology has real topic renumbering.** Verified all three subjects' primary-source PDFs (David-supplied; the AP Biology PDF was read directly from `docs/teaching/ap-biology-course-and-exam-description.pdf` via `pdftotext`, which proved far more reliable than the Google Drive `read_file_content` connector for a 240-page document — that connector truncated/reordered text past Unit 6). Calculus AB/BC: no changes from the existing fact pack. Chemistry: same 9 units, weighting, and topic numbering; only unit-title renames (Unit 2, 3, 6, 9) and one topic rename. Biology: real drift in Units 1, 2, 3, 4, 5, and 7 — topic counts changed (e.g. Unit 1 macromolecules split into 4 per-molecule topics, Unit 2 renamed "Cells" with 2 topics merged, Unit 3's "Fitness" topic dropped, Unit 7's "Extinction" topic dropped) while Units 6 and 8 are unchanged. Wrote a new "AP Biology 2026-27 — CED Fact Pack (v2, primary source Fall 2025, use this one)" to the shared Drive folder, content verified read back. Found incidentally: AP Biology's publish-gap memory (dated 2026-07-03/07-13, "0 published") is now stale — status breakdown is `draft: 109, published: 112, reviewed_approved: 22, assigned: 11` (254 total); not root-caused which session published them.
+
+**2. Reviewer tagging-gap root cause found and fixed.** `content_review_decisions.topic_selections` was `{}` on every single row — the field is fully wired end-to-end (schema, server function, edge function) but the actual tutor-review form (`src/routes/_authenticated/reviewer.review.$assignmentId.tsx` in the Lovable-managed frontend, project `d334fed9-5a97-4e76-906e-7c0ad7082212`) hardcoded `topic_selections: {}` at the submit call site with no state variable or UI control ever built for it. Had Lovable's agent add a `topicSelection` state + unit/topic picker sourced from `src/data/taxonomy.ts`, persisted via `reviewer-draft.ts`, required-before-submit (commit `a7fb7aa8`). Also found and fixed that `taxonomy.ts`'s `AP_BIOLOGY_UNITS`/`PLACEHOLDER_SUBTOPICS` were stale relative to the new CED fact pack from item 1 above; updated to match (commit `9db07ba9`). This only prevents the gap from growing — the 254 existing `apbio-*` items (and other subjects) remain untagged; no backfill was requested or done.
+
+**3. Fixed a second, distinct data-realism bug in the 9 `scatterplot_regression_context` items** (7 `APSTATS-HDG-2026-GRAPH-*`, 2 `APBIO-HDG-2026-GRAPH-*`) that were rebuilt in the 2026-07-22 entry above for an unrealistic-|r| complaint. Jill flagged that the "new" data in the most recent trend-line questions she reviewed (e.g. `GRAPH-011`) showed residuals alternating above/below the trend line in lockstep — a real regression-diagnostic red flag, not a cosmetic complaint. Verified quantitatively: recomputed residuals for all 9 items (sorted by the independent variable) and found 7-8 of 8 possible sign flips in every single one (random data averages ~4/8) — the 2026-07-22 fix corrected `|r|` but introduced a deterministic alternating-offset artifact instead of real noise while doing so. Confirmed the bug is fully scoped to this archetype (7 of 40 Stats HDG items, 2 of 12 Bio HDG items — every other archetype lacks paired regression data so structurally can't have this bug); 5 of the 7 Stats items were already `published` and live to students. Regenerated all 9 datasets with genuine `numpy` random noise (bisection-tuned to preserve each item's original `|r|`, direction, and value range so no rubric criterion needed to change — all 9 items' criteria are qualitative, e.g. "describes strong negative roughly linear association," with no numeric answer keys tied to specific data values), rejecting any candidate whose residual-sign flip ratio fell outside 25-72% (a plausible-random band). Wrote the corrected data to all 3 storage locations (`content_item_versions.stimulus`, `prompt_json.stimulus`/`stimulus_table`, and `prompt_json.parts[0].prompt_text` for the Stats items) and reopened the 2 Biology assignments that had a locked `submitted` decision back to `pending` (the Stats items were already `pending` from the prior fix's reopening — that's how Jill was reviewing them when she found this). Also noted, not fixed: 3 of the published Stats items (`GRAPH-032`, `-034`, `-035`) have **no review assignment at all** despite being live — a separate, pre-existing gap consistent with the known publication-trust bug already in memory.
+
+Added a permanent guardrail to `docs/architecture/CONTENT_AUTHORING_AND_PROMPT_ARCHITECTURE.md` §9 (FRQ Package Contract): synthetic scatterplot/regression datasets now require Jill's exact wording ("residuals should be randomly scattered around zero with no visible pattern...") in authoring instructions **plus** an automated post-generation check (reject if residual-sign alternation exceeds ~70% of transitions) — the instruction alone was judged insufficient since natural-language "don't have a pattern" guidance is a weak guardrail against an LLM (or human) still producing a subtly patterned sequence.
+
+**4. Onboarded new Biology tutor Adil Abbasi** (`adilmanzoor2434@gmail.com` — already existed as a `tutor`-role user, no invite needed) with a 20-item review queue (10 MCQ, 10 FRQ) at David's request, all fully overlapping items Amjad Ali (the existing primary Bio tutor) had already reviewed, sharing Amjad's existing `blind_group_id` per item so the two reviewers' decisions can be directly compared once Adil submits.
+
+**Files/systems changed:** Production DB (`pcntajvbdfqhbeewmdry`) — 9 `content_item_versions` rows' `stimulus`/`prompt_json` (scatterplot fix); 2 `content_review_assignments` rows reopened to `pending` (Bio scatterplot items); 20 new `content_review_assignments` rows for Adil Abbasi. Lovable project `d334fed9-5a97-4e76-906e-7c0ad7082212` — `reviewer.review.$assignmentId.tsx`, `reviewer-draft.ts`, `content-schema.ts` (topic picker, commit `a7fb7aa8`), `taxonomy.ts` (commit `9db07ba9`). Google Drive — new AP Biology CED fact pack v2. `docs/architecture/CONTENT_AUTHORING_AND_PROMPT_ARCHITECTURE.md` — new synthetic-dataset-realism guardrail.
+
+**Next Owner:** Jill Schmidlkofer (re-review the corrected scatterplot items), Adil Abbasi (first review queue), David Bloom.
+**Next Required Action:** decide whether to backfill topic tags on existing content (not done, out of scope for item 2 above); decide whether/how to fix `GRAPH-032`/`-034`/`-035`'s missing review assignments; complete Chemistry/Calculus corpus scope-check against the new fact packs if desired (not attempted this session, out of scope for what was asked).
 
 ---
 
