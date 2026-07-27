@@ -26,6 +26,8 @@ Status:
 Priority:
 Created Date:
 Approved Date:
+Branch:
+PR:
 Product Goal:
 Technical Scope:
 Out of Scope:
@@ -40,6 +42,11 @@ Approval State:
 QA Result:
 Done Decision:
 ```
+
+`Branch` and `PR` record the active feature branch and pull request for this task
+(branch-hygiene R2, `AI_COLLABORATION_RULES.md` §In-Progress Drafts and Branches). A
+new session continues that branch rather than forking a new one; machine-local
+worktree paths stay ephemeral and are not recorded here.
 
 `Tier` is `Micro`, `Standard`, or `Hard-Gate` — see `AGENT_OPERATING_MODEL.md`, Task Tiers. It determines how much of the rest of this workflow actually applies: `Micro` skips the handoff packet and most status states below; `Standard` uses the full flow; `Hard-Gate` uses the full flow plus the `Awaiting Owner Approval` status.
 
