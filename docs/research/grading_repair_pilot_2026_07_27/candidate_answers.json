@@ -1,0 +1,98 @@
+{
+  "_meta": {
+    "purpose": "Candidate student answers for the Engine 1 grading + repair accuracy/speed/cost pilot",
+    "generated_by": "Gemini (independent of the grading model; blind to canonical_answer_1/rubric criteria)",
+    "generated_date": "2026-07-27",
+    "source_prompt": "docs/research/grading_repair_pilot_2026_07_27/gemini_answer_generation_prompt.md",
+    "validation": "Structurally validated: 6 items x 5 responses each, exactly one quality_tier=5 per item, all non-empty, answer length scales with tier",
+    "quality_tier_caveat": "quality_tier is Gemini's own self-assessed judgment, not verified against the real rubric or canonical answer. It is a rough expected-quality signal for sanity-checking grader ranking, not certified ground truth. Known quirk: on APSTAT-MOD3-E005, the tier-2 answer is arguably a more confused misconception than the tier-3 answer (see README.md) — left as-is deliberately; the divergence itself is useful signal for how the grader handles ambiguous-quality answers.",
+    "production_project_ref": "pcntajvbdfqhbeewmdry",
+    "all_items_status": "published, with a real content_review_decisions row where tutor_decision in ('approve','approve_with_edits') — verified 2026-07-27, re-verify at execution time since status can change"
+  },
+  "answers": [
+    {
+      "content_key": "APBIO-FRQ-L-015",
+      "content_item_id": "4a84a371-50b8-47a1-8089-16ead0b41331",
+      "content_item_version_id": "b92d2f24-2311-45fa-a399-e1a4d15328e6",
+      "subject_key": "biology",
+      "item_type": "frq",
+      "responses": [
+        { "quality_tier": 5, "text": "Part A: Glucose has 6 carbons. In glycolysis it breaks into two 3-carbon pyruvates, so no carbon is lost yet. In pyruvate oxidation, each pyruvate loses one CO2, leaving two 2-carbon acetyl-CoA molecules (2 carbons lost total). These enter the Krebs cycle where the remaining 4 carbons are released as CO2 (2 per turn). So all 6 carbons leave as CO2.\nPart B: Glycolysis makes 2 NADH. Pyruvate oxidation makes 2 NADH. Krebs cycle makes 6 NADH and 2 FADH2. NADH goes to Complex I of the ETC and drops off electrons. FADH2 drops them off at Complex II. This powers the proton pump.\nPart C: The 32 ATP is a maximum, but actual is lower because 1) the mitochondrial membrane can be leaky to protons so they don't all go through ATP synthase, 2) the proton gradient is used for other work like transporting pyruvate into the mitochondria, and 3) the NADH from glycolysis costs ATP to shuttle into the mitochondria.\nPart D: Under anaerobic conditions, there's no oxygen to pull electrons down the ETC. So the ETC stops and you only get the 2 ATP from glycolysis instead of ~30. Because glycolysis needs NAD+ to keep going, the yeast does fermentation to recycle NADH back to NAD+. Since it's only getting 2 ATP per glucose instead of 30, it has to consume glucose way faster (4.2 vs 0.5) just to meet its basic energy needs. This is the Pasteur effect." },
+        { "quality_tier": 4, "text": "A) Glucose is broken down to pyruvate in glycolysis. Then pyruvate goes to the mitochondria and becomes acetyl coa. In the krebs cycle the carbons are breathed out as CO2. \nB) NADH and FADH2 carry electrons. Glycolysis makes 2 NADH. Pyruvate oxidation makes some NADH too. Krebs makes the most, 6 NADH and 2 FADH2. They take electrons to the electron transport chain to make a concentration gradient.\nC) The actual yield is lower because the cell might use the ATP for other things during the process. Also some energy is lost as heat because the reactions aren't 100% efficient. \nD) In anaerobic conditions there is no oxygen, so the yeast has to rely entirely on glycolysis for ATP. Glycolysis only gives 2 ATP. So the yeast has to eat a lot more glucose to get the same amount of energy it would normally get from aerobic respiration. Table 1 shows it goes from 0.5 to 4.2." },
+        { "quality_tier": 2, "text": "Part A: Carbon goes from glucose into pyruvate, then to the krebs cycle where it is made into energy and CO2 is released. \nPart B: NADH and FADH2 are produced in the krebs cycle. They are used in the ETC to make ATP by giving electrons to oxygen.\nPart C: Actual ATP is lower because energy is lost as heat. Nothing is perfectly efficient.\nPart D: The yeast uses more glucose in anaerobic because anaerobic is fermentation, which doesn't use oxygen. It has to work harder without oxygen." },
+        { "quality_tier": 3, "text": "A) Glycolysis breaks the 6 carbon glucose into two 3 carbon pyruvates. Pyruvate oxidation turns it into acetyl CoA and releases some CO2. The Krebs cycle releases the rest of the CO2. \nB) Glycolysis: 2 NADH. Krebs cycle: NADH and FADH2. The electron carriers bring electrons to the electron transport chain to power the ATP synthase to make ATP.\nC) Actual yield is less than 32 because not all the protons go through the ATP synthase, some leak out. Also NADH from the cytoplasm takes energy to get into the mitochondria.\nD) The Pasteur effect shows anaerobic consumes 4.2 while aerobic is 0.5. This happens because without oxygen, the ETC can't work. The cell has to use fermentation. Fermentation is way less efficient so it needs more glucose." },
+        { "quality_tier": 1, "text": "A) Glucose is a sugar that gets broken down in glycolysis to make energy. The carbons turn into CO2 which we breathe out. \nB) NADH is made in the mitochondria. It is used in the ETC to create ATP.\nC) 30-32 is just the theoretical number but in real life cells don't need that much ATP so they stop making it when they have enough.\nD) Table 1 shows anaerobic is 4.2. This means yeast prefer not to have oxygen. It consumes more glucose so it can grow faster." }
+      ]
+    },
+    {
+      "content_key": "APBIO-FRQ-L-028",
+      "content_item_id": "5608bd81-8a07-44ef-a98a-35bd9e01674b",
+      "content_item_version_id": "21f346be-0ebc-40eb-9a8e-f1c1f0a36deb",
+      "subject_key": "biology",
+      "item_type": "frq",
+      "responses": [
+        { "quality_tier": 5, "text": "Part A: This is primary succession because the eruption deposited meters of ash, meaning no soil was left, just bare rock/ash. Facilitation is when early species change the environment to help later species. A pioneer species here would be a nitrogen-fixing plant like lupine, which adds nutrients to the volcanic ash to create soil so later plants like conifers can grow. Diversity increases from year 0 to 50 as more niches are created, then plateaus as the climax community establishes.\nPart B: In undisturbed communities, diversity is lower because competitive exclusion happens—the best competitors take over and shade out everyone else. In highly disturbed areas, diversity is low because only fast-growing, hardy pioneer species can survive the constant wipeouts. Intermediate disturbance is highest because it prevents the best competitors from taking over, allowing both pioneer and climax species to coexist. On coral reefs, waves open up space so one type of coral doesn't take over everything.\nPart C: When Paine removed the sea stars, diversity dropped from 15 species to just a few because mussels took over the rock. A keystone species controls the community even if there aren't many of them. The trophic cascade here is removing the top predator lets the prey (mussels) overpopulate and competitively exclude the rest. Another keystone species is wolves in Yellowstone; they eat elk, which keeps elk from overeating the plants by the rivers.\nPart D: Zebra mussels 1) outcompete native mussels, 2) filter all the plankton which starves small fish, and 3) clog human water pipes. Invasive species succeed because they leave their natural predators and diseases behind. A management strategy is requiring ships to empty ballast water in the ocean before entering the lakes, which prevents the larvae from being introduced." },
+        { "quality_tier": 4, "text": "A: It is secondary succession because there was already a forest there before it erupted, so the seeds were probably buried under the ash. Facilitation is when pioneer species like moss or lichen break down rock into soil to make it suitable for bigger plants. Species richness goes up over the 50 years because more plants move in and create habitats.\nB: Diversity is lower without disturbance because of competitive exclusion, meaning the strongest species wins. With high disturbance, everything dies too often. Intermediate disturbance gives enough time for things to grow but not enough time for one species to dominate. \nC: Removing Pisaster caused the mussels to take over and diversity went down. A keystone species is one that holds the ecosystem together. Without it, the food web collapses. Elephants in the savanna are keystone because they knock down trees to keep it a grassland.\nD: Zebra mussels cause problems by eating all the food, taking up all the space, and killing native species. They succeed because they don't have natural predators in the Great Lakes. We can try to physically remove them off the pipes or introduce a predator that eats them." },
+        { "quality_tier": 3, "text": "Part A: Primary succession. This is when life starts from scratch. Pioneer species like weeds come in first. They die and become fertilizer for the trees that come later. Diversity increases over time as shown in the table from 0 to 30 species. \nPart B: The IDH says you need a medium amount of disturbance. If there is no disturbance, trees just grow big and nothing else can live there. If there is too much, everything is always dead. Waves on coral reefs act like the eruption, they clear out space.\nPart C: The removal made the mussels take over. Keystone species are the most important species. Trophic cascade means the food chain. If you remove the top, everything below it changes. \nPart D: Zebra mussels filter too much water. They kill other species. They reproduce fast because they are invasive. We should poison the water where they are to kill them off." },
+        { "quality_tier": 2, "text": "A) Primary succession because the volcano destroyed everything. Moss is a pioneer species. Diversity goes up over time.\nB) Intermediate disturbance hypothesis means you need some disturbance but not too much. \nC) Keystone species are like the keystone in an arch, if you pull it out the whole arch falls down. The sea star was eating the mussels, so without them the mussels got out of control.\nD) Zebra mussels are bad for the Great Lakes. They eat all the fish's food. Invasive species do well because they adapt better." },
+        { "quality_tier": 1, "text": "A) It is secondary succession because it happens second, after the volcano erupts. The pioneer species are the first animals to come back. \nB) Diversity is lower in undisturbed communities because the animals get bored and leave. \nC) A keystone species is the top of the food chain, like a lion. \nD) Zebra mussels hurt the ecosystem. We should build a net to keep them out." }
+      ]
+    },
+    {
+      "content_key": "STATS-MOD1-E005",
+      "content_item_id": "cfabb50f-6bee-4c75-af53-7ba415dd697f",
+      "content_item_version_id": "f4297ecb-da88-4422-a13a-d347231ebc68",
+      "subject_key": "ap-statistics",
+      "item_type": "frq",
+      "responses": [
+        { "quality_tier": 5, "text": "(a) is a parameter because it represents the average of the entire population (all employees). \n(b) is a statistic because it is calculated from a sample (100 employees) to estimate the parameter." },
+        { "quality_tier": 4, "text": "a) parameter. b) statistic." },
+        { "quality_tier": 3, "text": "(a) is the population because it's everyone. (b) is the sample because it's just 100." },
+        { "quality_tier": 2, "text": "a is a statistic because salary is a number you calculate. b is a parameter because 100 is the limit they set." },
+        { "quality_tier": 1, "text": "They are both statistics because you have to use math to find the average." }
+      ]
+    },
+    {
+      "content_key": "APSTAT-MOD3-E005",
+      "content_item_id": "649b4aec-efb7-4ed1-a606-6b873ed321b8",
+      "content_item_version_id": "bd6662e5-ef20-4a53-8c9f-0a4010d2470c",
+      "subject_key": "ap-statistics",
+      "item_type": "frq",
+      "responses": [
+        { "quality_tier": 5, "text": "No, correlation does not imply causation. Two variables can have a strong correlation just by coincidence, or there could be a third confounding variable that is causing both of them to change." },
+        { "quality_tier": 4, "text": "No, correlation just means there is a relationship or a trend between the two variables, not that one makes the other happen." },
+        { "quality_tier": 2, "text": "No, you can only prove causation if you do an observational study, correlation is just from a scatterplot." },
+        { "quality_tier": 3, "text": "Yes, if the correlation is strong enough (like r = 0.99) then it means one variable is causing the other to go up." },
+        { "quality_tier": 1, "text": "Yes, because the line of best fit shows that as x increases, y increases, so x is causing y." }
+      ]
+    },
+    {
+      "content_key": "APBIO-FRQ-L-021",
+      "content_item_id": "0880b181-fd70-4b8e-8659-48aeac65fff0",
+      "content_item_version_id": "072da3bc-ba23-4a52-8ef5-f1bb9a8ae49a",
+      "subject_key": "biology",
+      "item_type": "frq",
+      "responses": [
+        { "quality_tier": 5, "text": "Part A: To assemble the PIC, general transcription factors (like TFIID) bind to the TATA box at the promoter. Then RNA polymerase II binds to start transcription. An enhancer is far away, but activator proteins bind to it, and the DNA bends so the enhancer comes close to the promoter. Mediator proteins then connect the activators to the PIC to stimulate transcription.\nPart B: Euchromatin has acetyl groups attached to histone tails, which neutralizes their positive charge and loosens the DNA binding. Heterochromatin is deacetylated and tightly packed. HATs add acetyl groups to open chromatin (gene ON), while HDACs remove them to pack it (gene OFF). Adding an HDAC inhibitor would stop HDACs from working, meaning chromatin would stay acetylated and loose, causing a global increase in gene expression.\nPart C: The DBD alone yields 1, showing that just binding to DNA isn't enough to start transcription; it needs an activation domain. The AD results show that transcription is activated by these domains recruiting other proteins. AD3 interacts with Mediator, which helps recruit and stabilize RNA polymerase at the promoter, leading to high transcription (87).\nPart D: Combinatorial control means different cell types have different specific transcription factors, so they only turn on genes for that cell type. Epigenetic inheritance means chromatin modifications (like which regions are heterochromatin) are passed down during cell division, keeping unneeded genes permanently silenced in a specific cell lineage." },
+        { "quality_tier": 4, "text": "A: Transcription factors bind to the promoter, then RNA polymerase attaches to make the pre-initiation complex. TFIID is one of the factors. An enhancer is 10,000 bp away, but the DNA folds over so the activators on the enhancer can touch the mediator at the promoter and make transcription go faster.\nB: Euchromatin is uncoiled and heterochromatin is tightly coiled up. HATs add acetyl groups which makes the DNA uncoil so RNA polymerase can get in. HDACs take acetyl away. If you add an HDAC inhibitor, the DNA will stay uncoiled so transcription will increase everywhere in the cell.\nC: DBD alone doesn't do much (only 1). You need the activation domains to actually turn the gene on. AD3 interacting with the mediator helps pull the RNA polymerase in.\nD: Cells have the same DNA, but they use different combinations of transcription factors to only express what they need. Epigenetics means they also methylate parts of the DNA they never use, so they stay turned off." },
+        { "quality_tier": 3, "text": "Part A: First transcription factors bind, then RNA polymerase. Enhancers speed up transcription because activators bind to them and send a signal to the promoter.\nPart B: Figure 1 shows euchromatin is open and heterochromatin is closed. HATs close the DNA and HDACs open it. So if you inhibit HDAC, the DNA will stay closed and transcription will stop.\nPart C: Table 1 shows that if you just have DBD it is only 1. If you add AD1 and AD3 it goes up to 203. This means activation domains are required. Mediator complex helps it activate.\nPart D: Cell-type specific expression happens because different cells have different genes turned on." },
+        { "quality_tier": 2, "text": "A) Transcription happens when RNA polymerase reads the DNA. Enhancers enhance the rate of transcription.\nB) Euchromatin is beads on a string, which means it is ON. Heterochromatin is OFF. Histones are the proteins that hold it. An inhibitor would stop transcription.\nC) The table shows that you need activation domains to get high numbers. DBD alone is just the baseline.\nD) Combinatorial control means the cells combine different DNA." },
+        { "quality_tier": 1, "text": "A) The PIC is assembled in the nucleus. Transcription factors help it transcribe the DNA into RNA. \nB) Euchromatin is the good DNA that gets used. Heterochromatin is the junk DNA. \nC) DBD alone is 1. If you add AD3 it goes to 87. So AD3 is the best one. \nD) Multicellular organisms have different cells like skin and heart cells, so they need different DNA in each one to function." }
+      ]
+    },
+    {
+      "content_key": "APSTAT-MOD4-M003",
+      "content_item_id": "a2a8e8f7-f1f4-444f-a31d-cef8ec4d3c11",
+      "content_item_version_id": "15a93acc-e093-49fc-ae64-baa0e77a2c5c",
+      "subject_key": "ap-statistics",
+      "item_type": "frq",
+      "responses": [
+        { "quality_tier": 5, "text": "A census collects data from every single individual in the entire population. A sample survey only collects data from a subset of the population. You would use a census when the population is small and easy to reach. You use a sample survey when a census would take too much time, cost too much money, or when testing destroys the item." },
+        { "quality_tier": 4, "text": "A census is when you survey the whole population, and a sample is when you just survey a smaller group randomly. You use a census to be perfectly accurate and you use a sample when the population is too big to survey everyone." },
+        { "quality_tier": 2, "text": "A census is the survey the government does every 10 years to count everyone. A sample survey is like calling people on the phone. You use a census for the country and a sample for small things." },
+        { "quality_tier": 3, "text": "A census is testing everyone. A sample survey is testing a few. You use a census when you want to estimate the parameter, and a sample when you want the statistic." },
+        { "quality_tier": 1, "text": "A census is a type of sample survey where you ask people demographic questions. You use it when you want to find the mean of the population." }
+      ]
+    }
+  ]
+}
