@@ -136,6 +136,46 @@ Durability (has the work reached GitHub so it isn't trapped on one machine) and 
 
 **What "synchronization complete" means.** Applies to the branch the agent is working on, not necessarily `main`. A sync report must state: the branch name; that the latest commit is verified present on the remote; and, for governed documents in the change, the document's `Status:` value.
 
+#### Branch Hygiene (R1–R7) — anti branch-sprawl
+
+Adopted 2026-07-26 (Hard Gate; `APPROVAL-0027` / `DECISION-0039`; proposal
+`docs/proposals/BRANCH_HYGIENE_AND_ANTI_SPRAWL_2026_07_09.md`, merged PR #54).
+These rules **govern where they conflict with the older branch/PR/push bullets
+above** (which predate them). They exist because recurring per-session branching +
+no fast integration + no cleanup caused real work loss.
+
+- **R1 — Branch = one reviewable slice.** A branch is one independently reviewable
+  task/slice, named `<agent>/<task-or-work-id>-<slug>` (the `task-or-work-id` covers
+  un-numbered work like proposals/chores; **no random per-session suffixes**). A new
+  session on an in-flight slice **continues that branch — it does not fork a new one.**
+- **R2 — Continuation via the task record.** The canonical task record carries the
+  active `Branch` and `PR` (see `TASK_WORKFLOW.md`) and may note an agent task/thread
+  ID. Machine-local worktree paths/IDs stay ephemeral and are never recorded as canonical.
+- **R3 — Integrate small, often.** Integrate completed slices via small PRs; no
+  standing task-family integration branches; stacked PRs only for a real dependency.
+- **R4 — Session close is durable.** Commit-and-push a checkpoint whenever possible;
+  if a session is interrupted, record an explicit dirty-state handoff (see
+  `HANDOFF_PACKET_TEMPLATE.md` and `prompts/CLOSE_SESSION_PROMPT.md`) — a stash is not
+  durable; never leave silent orphaned changes.
+- **R5 — Readiness vs execution are separate.** A human/conductor records governance
+  readiness; **GitHub-native automation** (auto-merge / merge queue) mechanically
+  executes eligible merges once required checks + required reviews pass; a **custom
+  privileged merge agent is contingent, not adopted by default** (and if ever used,
+  runs dry-run under a least-privilege envelope).
+- **R6 — Delete on merge; archive sparingly.** The remote head branch is auto-deleted
+  on merge. Local branch/worktree cleanup is a client-side action gated by the R7
+  preflight — it cannot be centrally automated. Archive-tag only unique
+  unmerged/superseded work, not every merged branch.
+- **R7 — Removal preflight (all three).** Before removing a branch or worktree, verify:
+  (1) no uncommitted changes, (2) no unique commits, (3) no unpushed refs.
+- **Trunk protection.** No normal direct commits to `main`; force-push/deletion
+  blocked; emergency direct commits are a human-only, auditable break-glass action.
+  `main` owns integrated truth; active work lives on a scoped branch until reviewable.
+
+Operational enforcement (GitHub branch protection, required CI checks, native
+auto-merge, one-time branch/worktree cleanup) is tracked separately from this
+charter text — see the proposal's sequence.
+
 ## Universal Document Format Rule
 
 Markdown (`.md`) is the default and canonical medium for project documents.

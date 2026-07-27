@@ -1,0 +1,766 @@
+[
+  {
+    "content_key": "apphy1-frq-035",
+    "subject": "ap_physics_1",
+    "exam_pack_version_id": "29c719dc-701b-470f-9e49-fab981722d3f",
+    "source_fact_pack_id": "1WTHwHrJujEuBzAXsL92zQdnHXlE-cvgsArE_FOVdR1g",
+    "unit": 3,
+    "topic": "Work, Energy, and Power",
+    "title": "Spring launch on a rough track",
+    "archetype": "Mathematical Routines",
+    "difficulty": "Hard",
+    "stimulus": "A block of mass m is released from rest against a spring of constant k compressed a distance x. After losing contact with the spring, the block crosses a horizontal rough region of length L with kinetic-friction coefficient μ and then moves up a frictionless ramp. The zero of gravitational potential energy is the horizontal track. Express answers in terms of the given symbols and g.",
+    "parts": [
+      {
+        "part_key": "part-a",
+        "points": 7,
+        "prompt": "Derive an expression for the block's maximum vertical height h above the horizontal track. Begin from a fundamental physics principle, and show the work done by friction.",
+        "criteria": [
+          ["States an energy relation connecting the initial spring energy, friction work, and final gravitational potential energy.", "The response explicitly uses energy conservation modified by nonconservative work.", "Write an equation of the form E_i + W_nc = E_f."],
+          ["Writes the initial spring energy as (1/2)kx².", "The compression x is squared and the factor 1/2 is present.", "Use the elastic-potential expression (1/2)kx²."],
+          ["Determines the kinetic-friction magnitude as μmg on the horizontal region.", "The normal force is correctly identified as mg.", "Use f_k=μN and N=mg on the horizontal track."],
+          ["Writes the work by friction as -μmgL.", "The work has the correct negative sign and distance L.", "Include the negative sign because friction removes mechanical energy."],
+          ["Writes the final energy at maximum height as mgh with zero kinetic energy.", "The turning point condition v=0 is used.", "At the maximum height set kinetic energy to zero."],
+          ["Solves algebraically for h=(kx²)/(2m g)-μL.", "The symbolic result follows from the correct energy equation.", "Isolate h and simplify both terms."],
+          ["States the physical condition kx²/2>μmgL for the block to reach the ramp.", "The response recognizes when the derived positive height is physically attainable.", "Compare the spring energy with the energy dissipated on the rough region."]
+        ]
+      },
+      {
+        "part_key": "part-b",
+        "points": 3,
+        "prompt": "A second trial uses compression 2x while all other quantities are unchanged. Determine the change in maximum height, h(2x)-h(x), and explain why doubling x does not merely double the height.",
+        "criteria": [
+          ["Substitutes 2x into the derived height expression.", "The spring-energy term becomes proportional to (2x)².", "Replace x by 2x before simplifying."],
+          ["Obtains h(2x)-h(x)=3kx²/(2mg).", "The friction term cancels and the quadratic difference is correct.", "Subtract the two complete height expressions."],
+          ["Explains that spring energy is proportional to compression squared while the frictional loss is unchanged.", "The explanation connects the nonlinear result to the energy model.", "State both the x² dependence and the constant friction loss."]
+        ]
+      }
+    ],
+    "explanation": "Using E_i+W_f=E_f gives (1/2)kx²-μmgL=mgh, so h=kx²/(2mg)-μL, provided the spring energy exceeds the frictional loss. With compression 2x, the height increase is 3kx²/(2mg) because elastic energy scales as x²."
+  },
+  {
+    "content_key": "apphy1-frq-036",
+    "subject": "ap_physics_1",
+    "exam_pack_version_id": "29c719dc-701b-470f-9e49-fab981722d3f",
+    "source_fact_pack_id": "1WTHwHrJujEuBzAXsL92zQdnHXlE-cvgsArE_FOVdR1g",
+    "unit": 2,
+    "topic": "Force and Translational Dynamics",
+    "title": "Cart force graph and motion representations",
+    "archetype": "Translation Between Representations",
+    "difficulty": "Hard",
+    "stimulus": "A cart of mass m moves on a level track. At t=0 its velocity is +v0. The measured net force is +F0 from t=0 to T, decreases linearly from +F0 at T to -F0 at 3T, and is -F0 from 3T to 4T. Positive force and velocity are to the right.",
+    "parts": [
+      {
+        "part_key": "part-a",
+        "points": 3,
+        "prompt": "On axes of net force versus time, represent the described force from 0 to 4T and label every endpoint and zero crossing.",
+        "criteria": [
+          ["Shows a horizontal segment at +F0 from 0 to T.", "The first interval has the correct value and duration.", "Draw the constant +F0 interval through t=T."],
+          ["Shows a straight line from (T,+F0) through (2T,0) to (3T,-F0).", "The linear interval and zero crossing are correctly placed.", "A linear change from equal positive to negative values crosses zero halfway."],
+          ["Shows a horizontal segment at -F0 from 3T to 4T with labeled axes.", "The final interval and signs are correct.", "Complete the graph with the constant negative-force interval."]
+        ]
+      },
+      {
+        "part_key": "part-b",
+        "points": 4,
+        "prompt": "Translate the force representation into a velocity-versus-time graph from 0 to 4T. Label v(0), v(T), v(3T), and v(4T) in terms of m, v0, F0, and T, and show the correct curvature.",
+        "criteria": [
+          ["Uses slope dv/dt=F_net/m to connect the force and velocity graphs.", "The graph construction is explicitly tied to Newton's second law.", "Use acceleration, not force area alone, as the slope of velocity."],
+          ["Shows a straight increasing velocity segment with v(T)=v0+F0T/m.", "The first interval's slope and endpoint are correct.", "Use Δv=(F0/m)T for the constant-acceleration interval."],
+          ["Shows velocity with concave-down curvature from T to 3T and a horizontal tangent at 2T.", "The slope follows the linearly decreasing force and becomes zero at 2T.", "Match the sign and change of acceleration throughout the middle interval."],
+          ["Labels v(3T)=v0+F0T/m and v(4T)=v0.", "The zero net impulse from T to 3T and negative final impulse are applied correctly.", "Use signed areas under the force-time graph for each endpoint."]
+        ]
+      },
+      {
+        "part_key": "part-c",
+        "points": 3,
+        "prompt": "Construct a momentum-versus-time graph for the same interval. Explain one similarity and one difference between this graph and the velocity graph.",
+        "criteria": [
+          ["Constructs p(t)=mv(t) with the same qualitative shape as the velocity graph.", "All features occur at the same times and are scaled by m.", "Multiply every velocity value by the constant mass."],
+          ["Labels p(0)=mv0 and p(T)=mv0+F0T, with the corresponding values at 3T and 4T.", "The momentum endpoints are consistent with impulse.", "Use Δp equal to signed force-time area."],
+          ["Explains that p and v have identical shape for constant mass but different vertical scales and units.", "Both a similarity and a difference are stated.", "Mention constant proportionality p=mv and the scale or units."]
+        ]
+      },
+      {
+        "part_key": "part-d",
+        "points": 2,
+        "prompt": "Determine whether the cart ever reverses direction during 0≤t≤4T. Justify your answer from either representation.",
+        "criteria": [
+          ["States that the cart does not reverse direction.", "The conclusion is consistent with v0>0 and the computed velocities.", "Check the minimum velocity rather than only the final velocity."],
+          ["Justifies that velocity remains positive and returns to v0 at 4T; its maximum occurs at 2T.", "The signed impulse or graph is used correctly.", "Use the velocity graph or cumulative impulse to show v never reaches zero."]
+        ]
+      }
+    ],
+    "explanation": "Velocity slope is F_net/m, while momentum slope is F_net. Signed force-time areas give endpoint changes. The middle positive and negative triangular impulses cancel, and the last interval cancels the first, so v(4T)=v0 and the cart never reverses."
+  },
+  {
+    "content_key": "apphy1-frq-037",
+    "subject": "ap_physics_1",
+    "exam_pack_version_id": "29c719dc-701b-470f-9e49-fab981722d3f",
+    "source_fact_pack_id": "1WTHwHrJujEuBzAXsL92zQdnHXlE-cvgsArE_FOVdR1g",
+    "unit": 8,
+    "topic": "Fluids",
+    "title": "Testing the pressure-depth model",
+    "archetype": "Experimental Design and Analysis",
+    "difficulty": "Hard",
+    "stimulus": "A student is given a tall transparent container, an unidentified liquid, a ruler, a movable pressure sensor that reports absolute pressure, a stand and clamps, and a barometer. The student must determine the liquid's density without pouring out the liquid.",
+    "parts": [
+      {
+        "part_key": "part-a",
+        "points": 2,
+        "prompt": "State a testable model relating the measured absolute pressure P to sensor depth h, and identify the physical quantity represented by the model's slope.",
+        "criteria": [
+          ["States P=P_atm+ρgh for a liquid at rest.", "The model includes both atmospheric pressure and hydrostatic pressure.", "Include the nonzero surface-pressure intercept."],
+          ["Identifies the slope of P versus h as ρg.", "The requested physical meaning is correct.", "Use the change in pressure divided by the change in depth."]
+        ]
+      },
+      {
+        "part_key": "part-b",
+        "points": 2,
+        "prompt": "Describe how to collect pressure and depth data while controlling variables that could bias the result.",
+        "criteria": [
+          ["Measures pressure at several known vertical depths from the liquid surface after readings stabilize.", "The procedure produces multiple paired data points over a useful range.", "Record paired h and P values at several depths."],
+          ["Keeps the liquid at rest and uses the same calibrated sensor orientation while avoiding contact with the container.", "Relevant controls and a bias-reduction step are specified.", "Control sensor setup and do not disturb the fluid during readings."]
+        ]
+      },
+      {
+        "part_key": "part-c",
+        "points": 4,
+        "prompt": "Specify the graph and analysis used to determine density. Include how the barometer reading is used, how uncertainty in the density is obtained, and one check for a systematic offset in the pressure sensor.",
+        "criteria": [
+          ["Plots absolute pressure P on the vertical axis against depth h on the horizontal axis and fits a straight line.", "Axes and linear analysis match the model.", "Graph P versus h and use a best-fit line."],
+          ["Calculates density as ρ=slope/g.", "The slope is converted to density with correct units.", "Divide the fitted slope by g."],
+          ["Uses slope uncertainty to report δρ=δslope/g, or an equivalent high-low slope method.", "The density uncertainty is propagated from the fit.", "Convert the fit's slope uncertainty using the same factor 1/g."],
+          ["Compares the fitted intercept with the barometer's P_atm to diagnose a pressure-sensor zero offset.", "The independent atmospheric measurement is used as a systematic check.", "The h=0 intercept should agree with atmospheric pressure within uncertainty."]
+        ]
+      },
+      {
+        "part_key": "part-d",
+        "points": 2,
+        "prompt": "Suppose every recorded depth is larger than the true depth by the same constant amount. State whether the calculated density is too large, too small, or unchanged, and justify.",
+        "criteria": [
+          ["States that the calculated density is unchanged.", "The conclusion correctly distinguishes a constant horizontal offset from a scale error.", "A constant shift of all h values does not change a fitted slope."],
+          ["Justifies that the depth offset changes the intercept but not the slope of P versus recorded h.", "The effect is explained using the linear graph.", "Rewrite the model using h_recorded=h_true+constant."]
+        ]
+      }
+    ],
+    "explanation": "For a static liquid, P=P_atm+ρgh. A linear fit of P versus h has slope ρg and intercept P_atm. The density is slope/g, and a constant depth zero error shifts only the intercept."
+  },
+  {
+    "content_key": "apphy1-frq-038",
+    "subject": "ap_physics_1",
+    "exam_pack_version_id": "29c719dc-701b-470f-9e49-fab981722d3f",
+    "source_fact_pack_id": "1WTHwHrJujEuBzAXsL92zQdnHXlE-cvgsArE_FOVdR1g",
+    "unit": 7,
+    "topic": "Oscillations",
+    "title": "Mass-spring amplitude and speed",
+    "archetype": "Qualitative/Quantitative Translation",
+    "difficulty": "Medium",
+    "stimulus": "A cart of mass m attached to an ideal horizontal spring of constant k oscillates with amplitude A on a frictionless track. At one instant the cart is at x=A/2 and moving toward equilibrium. A second otherwise identical system has amplitude 2A.",
+    "parts": [
+      {
+        "part_key": "part-a",
+        "points": 3,
+        "prompt": "Without first calculating a numerical speed, predict whether the first cart's kinetic energy at x=A/2 is less than, equal to, or greater than its spring potential energy. Justify using an energy representation.",
+        "criteria": [
+          ["States that the kinetic energy is greater than the spring potential energy.", "The qualitative comparison is correct.", "Compare each energy with the fixed total energy."],
+          ["Uses total energy E=(1/2)kA² and spring energy U=(1/2)k(A/2)²=E/4.", "The energy fractions are correctly represented.", "Evaluate the spring energy at x=A/2 relative to the amplitude energy."],
+          ["Concludes K=E-U=3E/4, so K>U.", "The comparison follows explicitly from conservation of energy.", "Subtract the potential-energy fraction from the total."]
+        ]
+      },
+      {
+        "part_key": "part-b",
+        "points": 3,
+        "prompt": "Derive the speed of the first cart at x=A/2. Then determine the speed of the second cart when it is at x=A, and compare the two speeds.",
+        "criteria": [
+          ["Writes (1/2)kA²=(1/2)k(A/2)²+(1/2)mv² for the first cart.", "The correct energy equation is established.", "Include both spring and kinetic energy at x=A/2."],
+          ["Obtains v_1=(A/2)sqrt(3k/m).", "The algebra and square root are correct.", "Solve the energy equation for the positive speed magnitude."],
+          ["Obtains v_2=A sqrt(3k/m) at x=A for amplitude 2A and states v_2=2v_1.", "The second energy calculation and comparison are correct.", "Use total energy (1/2)k(2A)² and position A."]
+        ]
+      },
+      {
+        "part_key": "part-c",
+        "points": 2,
+        "prompt": "A student claims that doubling amplitude doubles the oscillation period because the cart travels twice as far. Evaluate the claim and explain the flaw.",
+        "criteria": [
+          ["States that the claim is incorrect and the period remains 2πsqrt(m/k).", "The ideal mass-spring period is correctly identified as amplitude independent.", "Use the period relation for an ideal spring."],
+          ["Explains that speeds also scale with amplitude, so the increased distance does not imply increased period.", "The flaw is addressed physically rather than only by citing a formula.", "Relate the larger path length to proportionally larger characteristic speeds."]
+        ]
+      }
+    ],
+    "explanation": "At x=A/2 the spring stores one quarter of the total energy, so kinetic energy is three quarters. Energy gives v1=(A/2)sqrt(3k/m); for amplitude 2A at x=A, v2=A sqrt(3k/m)=2v1. The ideal period is amplitude independent."
+  },
+  {
+    "content_key": "apphy2-frq-035",
+    "subject": "ap_physics_2",
+    "exam_pack_version_id": "f584ab0d-114a-4520-9649-42e3e9a2fd22",
+    "source_fact_pack_id": "10jX6Pmtd6vxhg-iqKAPh56UCyjy5l4kLFZC2AOaUo84",
+    "unit": 11,
+    "topic": "Electric Circuits",
+    "title": "Charging a capacitor through two resistors",
+    "archetype": "Mathematical Routines",
+    "difficulty": "Hard",
+    "stimulus": "An initially uncharged capacitor C is connected in series with resistors R and 2R and an ideal battery of emf ε. At t=0 an ideal switch is closed. Calculus is not required; you may use the standard charging form q(t)=Q_f(1-e^{-t/τ}).",
+    "parts": [
+      {
+        "part_key": "part-a",
+        "points": 7,
+        "prompt": "Derive expressions for the final capacitor charge Q_f, the circuit time constant τ, the current I(t), and the voltage across the resistor 2R as functions of time. Show that Kirchhoff's loop rule is satisfied.",
+        "criteria": [
+          ["Identifies the series equivalent resistance as 3R.", "The two series resistances are added correctly.", "Add R and 2R because the same current passes through both."],
+          ["Identifies the final capacitor voltage as ε and Q_f=Cε.", "The long-time open-circuit condition is correctly used.", "At steady state the current is zero, so the capacitor spans the battery emf."],
+          ["Obtains τ=(3R)C.", "The RC time constant uses the equivalent series resistance.", "Use τ=R_eq C."],
+          ["Writes q(t)=Cε(1-e^{-t/(3RC)}).", "The standard charging form has the correct final charge and time constant.", "Substitute Q_f and τ into the provided form."],
+          ["Writes I(t)=ε/(3R)e^{-t/(3RC)}.", "The charging current has correct initial value and exponential decay.", "Use I=(ε/3R)e^{-t/τ} or the charge change per time from the standard result."],
+          ["Writes V_2R(t)=(2ε/3)e^{-t/(3RC)}.", "Ohm's law is correctly applied to resistor 2R.", "Multiply the series current by 2R."],
+          ["Shows V_R+V_2R+V_C=ε at all times.", "The resistor drops sum to εe^{-t/τ} and the capacitor drop is ε(1-e^{-t/τ}).", "Substitute all three voltage expressions into the loop equation."]
+        ]
+      },
+      {
+        "part_key": "part-b",
+        "points": 3,
+        "prompt": "Determine the time when the capacitor stores one quarter of its final energy, and determine the energy dissipated in both resistors combined by that time.",
+        "criteria": [
+          ["Uses U_C/U_final=(V_C/ε)²=1/4 to obtain V_C=ε/2.", "The quadratic dependence of capacitor energy is applied.", "One quarter energy corresponds to one half the final voltage."],
+          ["Obtains t=3RC ln 2 from 1-e^{-t/(3RC)}=1/2.", "The time calculation is algebraically correct.", "Solve the exponential equation for t."],
+          ["Finds combined resistor dissipation E_diss=(1/2)Cε²-(1/8)Cε²=3Cε²/8.", "Energy delivered/stored is accounted for correctly for the charging process up to this state.", "Use battery work εq=Cε²/2 at q=Cε/2, then subtract stored energy Cε²/8."]
+        ]
+      }
+    ],
+    "explanation": "The series resistance is 3R, so τ=3RC, q=Cε(1-e^{-t/τ}), and I=(ε/3R)e^{-t/τ}. At one quarter of final capacitor energy, V_C=ε/2 and t=3RC ln2. Battery work minus stored energy gives 3Cε²/8 dissipated."
+  },
+  {
+    "content_key": "apphy2-frq-036",
+    "subject": "ap_physics_2",
+    "exam_pack_version_id": "f584ab0d-114a-4520-9649-42e3e9a2fd22",
+    "source_fact_pack_id": "10jX6Pmtd6vxhg-iqKAPh56UCyjy5l4kLFZC2AOaUo84",
+    "unit": 9,
+    "topic": "Thermodynamics",
+    "title": "Ideal-gas cycle representations",
+    "archetype": "Translation Between Representations",
+    "difficulty": "Hard",
+    "stimulus": "A fixed amount of monatomic ideal gas begins at state A=(V0,P0). It expands isobarically to B=(2V0,P0), cools isochorically to C=(2V0,P0/2), and returns to A along a straight line in a pressure-versus-volume diagram. Use the convention that work done by the gas is positive.",
+    "parts": [
+      {
+        "part_key": "part-a",
+        "points": 3,
+        "prompt": "Draw the complete cycle on labeled P-V axes, indicate its direction, and rank the temperatures at A, B, and C.",
+        "criteria": [
+          ["Plots A, B, and C at the specified coordinates and connects them with the stated path shapes.", "The isobaric, isochoric, and straight-line processes are represented correctly.", "Place each state first, then draw the three distinct process segments."],
+          ["Indicates the cycle direction A→B→C→A.", "Arrows follow the described sequence.", "Add direction arrows to all three legs."],
+          ["Uses T∝PV to conclude T_B is greatest and T_A=T_C.", "The ranking follows the ideal-gas law.", "Compare the product PV at each labeled state."]
+        ]
+      },
+      {
+        "part_key": "part-b",
+        "points": 4,
+        "prompt": "Calculate the work done by the gas on each leg and the net work for one cycle. Relate the sign of the net work to the geometry of the P-V graph.",
+        "criteria": [
+          ["Finds W_AB=P0V0.", "The isobaric rectangular area is correct.", "Use W=PΔV on A→B."],
+          ["Finds W_BC=0.", "The isochoric process has zero volume change.", "No boundary work occurs at constant volume."],
+          ["Finds W_CA=-(3/4)P0V0 using the average pressure along the straight path.", "The signed trapezoid area is correct.", "For a linear P(V), multiply average pressure 3P0/4 by ΔV=-V0."],
+          ["Obtains W_net=(1/4)P0V0 and identifies it as the enclosed clockwise area.", "The net value and positive sign are correct.", "Sum the three works and connect the result to cycle orientation."]
+        ]
+      },
+      {
+        "part_key": "part-c",
+        "points": 3,
+        "prompt": "Represent the same cycle on a temperature-versus-volume graph. State whether each segment is linear, horizontal, or curved and justify from the ideal-gas law.",
+        "criteria": [
+          ["Shows A→B as a straight increasing line T=(P0/nR)V.", "The isobaric relation and endpoints are correct.", "At constant pressure, temperature is proportional to volume."],
+          ["Shows B→C as a vertical segment at V=2V0.", "The constant-volume path and decreasing temperature are correct.", "Volume is the horizontal coordinate and remains fixed."],
+          ["Shows C→A as a curved path with T=PV/(nR) using the linearly varying P(V), not as a straight line.", "The representation correctly translates the straight P-V leg into a generally quadratic T-V relation.", "Substitute the line equation P(V) into T=PV/(nR)."]
+        ]
+      },
+      {
+        "part_key": "part-d",
+        "points": 2,
+        "prompt": "Determine the net heat added to the gas over one complete cycle and explain without calculating heat separately for all three legs.",
+        "criteria": [
+          ["States that the total internal-energy change over a complete cycle is zero.", "The gas returns to its initial thermodynamic state.", "Internal energy is a state function."],
+          ["Uses ΔU=Q-W to obtain Q_net=W_net=(1/4)P0V0.", "The first-law sign convention and final result are correct.", "Set cycle ΔU to zero and use the calculated net work."]
+        ]
+      }
+    ],
+    "explanation": "Temperatures follow PV. The net work is the clockwise enclosed area: P0V0-3P0V0/4=P0V0/4. Because the gas returns to its initial state, ΔU_cycle=0 and Q_net=W_net."
+  },
+  {
+    "content_key": "apphy2-frq-037",
+    "subject": "ap_physics_2",
+    "exam_pack_version_id": "f584ab0d-114a-4520-9649-42e3e9a2fd22",
+    "source_fact_pack_id": "10jX6Pmtd6vxhg-iqKAPh56UCyjy5l4kLFZC2AOaUo84",
+    "unit": 13,
+    "topic": "Geometric Optics",
+    "title": "Determining a converging lens focal length",
+    "archetype": "Experimental Design and Analysis",
+    "difficulty": "Medium",
+    "stimulus": "A student has a converging lens of unknown focal length, an illuminated object, a movable screen, an optical bench with a meter scale, and a ruler. The student can obtain several sharply focused real images.",
+    "parts": [
+      {
+        "part_key": "part-a",
+        "points": 2,
+        "prompt": "State a linearized model based on the thin-lens equation and identify graph variables whose slope or intercept can determine the focal length.",
+        "criteria": [
+          ["Starts from 1/f=1/d_o+1/d_i and rearranges to a linear relation such as 1/d_i=-1/d_o+1/f.", "The thin-lens equation is correctly linearized.", "Choose reciprocal distance variables."],
+          ["Identifies a plot of 1/d_i versus 1/d_o with slope -1 and vertical intercept 1/f.", "The graph variables and parameter extraction are correct.", "Match the rearranged equation to y=mx+b."]
+        ]
+      },
+      {
+        "part_key": "part-b",
+        "points": 2,
+        "prompt": "Describe a procedure for obtaining sufficient data, including how object and image distances are measured and how focus is judged.",
+        "criteria": [
+          ["Uses several object positions with d_o>f, moves the screen to the sharpest image, and records paired d_o and d_i values.", "The procedure yields multiple real-image data pairs.", "Vary object distance and refocus the screen for every trial."],
+          ["Measures both distances from the lens's optical center along the bench and uses a repeatable sharpness criterion.", "Reference points and focus judgment reduce systematic ambiguity.", "Use a consistent lens reference and minimize image blur."]
+        ]
+      },
+      {
+        "part_key": "part-c",
+        "points": 4,
+        "prompt": "Explain the graphing analysis, how f and its uncertainty are reported, and two checks that would reveal a measurement or model problem.",
+        "criteria": [
+          ["Plots 1/d_i vertically versus 1/d_o horizontally and obtains a best-fit line.", "The reciprocal data and linear fit are correctly specified.", "Transform every distance pair before fitting."],
+          ["Calculates f=1/b from the fitted vertical intercept b.", "The focal length is extracted correctly.", "Take the reciprocal of the intercept, with consistent units."],
+          ["Propagates intercept uncertainty as δf≈δb/b² or uses reciprocal bounds from acceptable extreme fits.", "A defensible focal-length uncertainty is reported.", "Convert the intercept uncertainty through f=1/b."],
+          ["Checks that the fitted slope is consistent with -1 and that residuals show no systematic curvature or position trend.", "Two valid model-quality checks are identified.", "Compare the slope with theory and inspect residual structure."]
+        ]
+      },
+      {
+        "part_key": "part-d",
+        "points": 2,
+        "prompt": "The ruler's zero is displaced by the same amount for every bench-position reading. Determine whether this affects the calculated focal length and justify.",
+        "criteria": [
+          ["States that a common additive offset in all absolute position readings does not affect d_o or d_i.", "The conclusion recognizes that distances are differences of positions.", "Subtracting two readings cancels the shared zero offset."],
+          ["Concludes that the calculated focal length is unchanged, assuming the lens-center reference is located consistently.", "The effect on the final analysis is correctly stated with its condition.", "Connect cancellation of the position offset to unchanged distance pairs."]
+        ]
+      }
+    ],
+    "explanation": "Linearizing the thin-lens equation gives 1/d_i=-1/d_o+1/f. The intercept is 1/f and the expected slope is -1. A common bench-coordinate offset cancels from measured separations."
+  },
+  {
+    "content_key": "apphy2-frq-038",
+    "subject": "ap_physics_2",
+    "exam_pack_version_id": "f584ab0d-114a-4520-9649-42e3e9a2fd22",
+    "source_fact_pack_id": "10jX6Pmtd6vxhg-iqKAPh56UCyjy5l4kLFZC2AOaUo84",
+    "unit": 12,
+    "topic": "Magnetism and Electromagnetic Induction",
+    "title": "Loop entering a magnetic field",
+    "archetype": "Qualitative/Quantitative Translation",
+    "difficulty": "Hard",
+    "stimulus": "A square conducting loop of side length ℓ and resistance R moves right at constant speed v into a region of uniform magnetic field B directed into the page. At the instant shown, a length x of the loop is inside the field, where 0<x<ℓ. Neglect self-inductance.",
+    "parts": [
+      {
+        "part_key": "part-a",
+        "points": 3,
+        "prompt": "Predict the direction of the induced current while the loop enters the field and the direction of the magnetic force on the loop. Justify both directions qualitatively.",
+        "criteria": [
+          ["States that the induced current is counterclockwise.", "The current creates a field out of the page.", "Use Lenz's law to oppose the increasing into-page flux."],
+          ["Justifies the current direction by noting that into-page magnetic flux is increasing.", "The flux change, not merely the field direction, is identified.", "State how the area inside the field changes."],
+          ["States that the net magnetic force is leftward, opposing the imposed motion.", "The direction is consistent with magnetic braking and the force on the leading vertical segment.", "Apply the right-hand rule to the current in the segment inside the field."]
+        ]
+      },
+      {
+        "part_key": "part-b",
+        "points": 3,
+        "prompt": "Derive expressions for the induced current magnitude and the external power required to keep the speed constant while 0<x<ℓ.",
+        "criteria": [
+          ["Writes magnetic flux magnitude Φ=Bℓx and dΦ/dt=Bℓv.", "The changing overlap area is correctly represented.", "Use overlap area ℓx and dx/dt=v."],
+          ["Obtains induced current I=Bℓv/R.", "Faraday's law and Ohm's law are applied correctly.", "Divide the induced emf Bℓv by R."],
+          ["Obtains required external power P=B²ℓ²v²/R, using P=I²R or Fv.", "The mechanical input equals the electrical dissipation at constant speed.", "Substitute the induced current into I²R."]
+        ]
+      },
+      {
+        "part_key": "part-c",
+        "points": 2,
+        "prompt": "Sketch induced current magnitude versus time from before the loop enters until after it is fully inside the uniform field. Explain the principal features.",
+        "criteria": [
+          ["Shows zero current before entry, a constant nonzero plateau during entry lasting ℓ/v, and zero after full entry.", "The graph has correct levels and timing for the stated interval.", "Current exists only while the overlap area changes at a constant rate."],
+          ["Explains that flux is constant both before entry and once the loop is wholly inside the uniform field.", "The zero-current regions are justified by dΦ/dt=0.", "Distinguish nonzero flux from changing flux."]
+        ]
+      }
+    ],
+    "explanation": "The increasing into-page flux induces a counterclockwise current and a leftward magnetic drag force. During entry, |emf|=Bℓv, I=Bℓv/R, and the required power equals I²R=B²ℓ²v²/R."
+  },
+  {
+    "content_key": "apphycm-frq-035",
+    "subject": "ap_physics_c_mechanics",
+    "exam_pack_version_id": "ab92fc0f-7bab-4ea2-a1bc-7f03130ab7a9",
+    "source_fact_pack_id": "1rc_z7A4CmhDx1Ya6zJswnKYm2wtOrLsJRK-7qBzDxG0",
+    "unit": 3,
+    "topic": "Work, Energy, and Power",
+    "title": "Motion in a quartic potential",
+    "archetype": "Mathematical Routines",
+    "difficulty": "Hard",
+    "stimulus": "A particle of mass m moves along the x-axis in the potential U(x)=αx⁴/4-βx²/2, where α and β are positive constants. At t=0 the particle is released from rest at x=A, where A>sqrt(2β/α).",
+    "parts": [
+      {
+        "part_key": "part-a",
+        "points": 7,
+        "prompt": "Using calculus and conservation laws, determine the equilibrium positions and their stability, derive the particle's speed as a function of position, and determine its maximum speed during the subsequent motion.",
+        "criteria": [
+          ["Calculates F(x)=-dU/dx=βx-αx³.", "The derivative and force sign are correct.", "Differentiate U and apply F=-dU/dx."],
+          ["Solves F=0 to obtain x=0 and x=±sqrt(β/α).", "All equilibrium positions are included.", "Factor x(β-αx²)=0."],
+          ["Uses d²U/dx²=3αx²-β to classify x=0 as unstable.", "The second-derivative test is applied correctly at the origin.", "A negative second derivative of U indicates a local maximum."],
+          ["Classifies x=±sqrt(β/α) as stable minima.", "The second derivative is positive at both nonzero equilibria.", "Evaluate 3αx²-β at x²=β/α."],
+          ["Writes (1/2)mv²+U(x)=U(A) from the release condition.", "Conservation of mechanical energy and the initial rest condition are used.", "Set total energy equal to the initial potential energy."],
+          ["Derives v(x)=sqrt{(2/m)[U(A)-U(x)]}.", "The speed expression is correctly isolated and applicable in allowed regions.", "Solve the energy equation for the nonnegative speed."],
+          ["Identifies maximum speed at a potential minimum and gives v_max=sqrt{(2/m)[U(A)+β²/(4α)]}.", "The minimum potential U=-β²/(4α) is correctly used.", "Evaluate U at x²=β/α and maximize K=E-U."]
+        ]
+      },
+      {
+        "part_key": "part-b",
+        "points": 3,
+        "prompt": "Determine whether the particle crosses x=0. If it does, derive its speed there; if it does not, identify the turning point that prevents crossing. Justify from the energy.",
+        "criteria": [
+          ["Evaluates U(0)=0 and U(A)=αA⁴/4-βA²/2.", "The barrier and total energy are compared explicitly.", "Use the release energy and the potential at the origin."],
+          ["Uses A>sqrt(2β/α) to show U(A)>0, so the particle crosses x=0.", "The given inequality is translated into the correct energy condition.", "Factor U(A)=A²(αA²-2β)/4."],
+          ["Obtains v(0)=sqrt{(2/m)U(A)}=sqrt{(αA⁴/2-βA²)/m}.", "The crossing speed follows correctly from conservation of energy.", "Set U=0 in the speed expression and simplify."]
+        ]
+      }
+    ],
+    "explanation": "Equilibria occur where βx-αx³=0. The origin is an unstable maximum and x=±sqrt(β/α) are stable minima. Conservation gives v(x)=sqrt{2[U(A)-U(x)]/m}; maximum speed occurs at either minimum. The given A makes U(A)>0, so the particle crosses the central barrier."
+  },
+  {
+    "content_key": "apphycm-frq-036",
+    "subject": "ap_physics_c_mechanics",
+    "exam_pack_version_id": "ab92fc0f-7bab-4ea2-a1bc-7f03130ab7a9",
+    "source_fact_pack_id": "1rc_z7A4CmhDx1Ya6zJswnKYm2wtOrLsJRK-7qBzDxG0",
+    "unit": 2,
+    "topic": "Force and Translational Dynamics",
+    "title": "Velocity-dependent drag representations",
+    "archetype": "Translation Between Representations",
+    "difficulty": "Hard",
+    "stimulus": "A small object of mass m is released from rest at t=0 and falls vertically through a fluid. Take downward as positive. The drag force has magnitude bv, where b is a positive constant and v is the downward velocity.",
+    "parts": [
+      {
+        "part_key": "part-a",
+        "points": 3,
+        "prompt": "Draw a force diagram for the object after release and write the differential equation governing v(t). Identify the terminal speed.",
+        "criteria": [
+          ["Shows weight mg downward and drag bv upward.", "The free-body diagram has correct forces and directions.", "Drag opposes the downward velocity."],
+          ["Writes m dv/dt=mg-bv with the stated sign convention.", "Newton's second law is correct.", "Sum downward-positive forces before dividing by m."],
+          ["Obtains terminal speed v_T=mg/b.", "Terminal motion is found by setting acceleration to zero.", "Set mg-bv_T=0."]
+        ]
+      },
+      {
+        "part_key": "part-b",
+        "points": 4,
+        "prompt": "Solve the differential equation for v(t) using v(0)=0. Then derive the acceleration a(t).",
+        "criteria": [
+          ["Separates variables or uses a valid linear-equation method on dv/dt+(b/m)v=g.", "A calculus-based solution method is shown.", "Put the equation in separable or first-order linear form."],
+          ["Integrates to obtain a logarithmic or equivalent exponential relation with an integration constant.", "The integration step is mathematically valid.", "Integrate dv/(g-bv/m)=dt."],
+          ["Applies v(0)=0 to obtain v(t)=v_T(1-e^{-bt/m}).", "The initial condition and time constant are correct.", "Choose the constant so velocity begins at zero."],
+          ["Differentiates to obtain a(t)=g e^{-bt/m}.", "The acceleration has correct initial and long-time limits.", "Differentiate the velocity expression with respect to time."]
+        ]
+      },
+      {
+        "part_key": "part-c",
+        "points": 3,
+        "prompt": "Sketch v versus t and a versus t on separate labeled axes. Mark initial values, asymptotes, and concavity.",
+        "criteria": [
+          ["Shows v starting at zero, increasing concave down, and approaching v_T asymptotically.", "The velocity graph matches the solution.", "Use both v and dv/dt limits."],
+          ["Shows a starting at g, decreasing concave up, and approaching zero.", "The acceleration graph matches the exponential solution.", "Use a=g e^{-bt/m}."],
+          ["Labels the characteristic time scale m/b or a representative value at t=m/b.", "The graph includes a quantitative time feature.", "Mark τ=m/b, where the exponential factor is e^{-1}."]
+        ]
+      },
+      {
+        "part_key": "part-d",
+        "points": 2,
+        "prompt": "A second object has the same mass but a larger drag coefficient. Compare its terminal speed and the initial slope of its velocity graph with those of the first object.",
+        "criteria": [
+          ["States that the second object's terminal speed is smaller because v_T=mg/b.", "The parameter dependence is correct.", "Increase b in the terminal-speed expression."],
+          ["States that the initial slope remains g because drag is zero at release.", "The initial acceleration comparison is correct.", "At v=0, the bv term vanishes for either object."]
+        ]
+      }
+    ],
+    "explanation": "Newton's law gives m dv/dt=mg-bv. With v(0)=0, v=(mg/b)(1-e^{-bt/m}) and a=g e^{-bt/m}. A larger b lowers terminal speed but does not change the initial acceleration."
+  },
+  {
+    "content_key": "apphycm-frq-037",
+    "subject": "ap_physics_c_mechanics",
+    "exam_pack_version_id": "ab92fc0f-7bab-4ea2-a1bc-7f03130ab7a9",
+    "source_fact_pack_id": "1rc_z7A4CmhDx1Ya6zJswnKYm2wtOrLsJRK-7qBzDxG0",
+    "unit": 5,
+    "topic": "Torque and Rotational Dynamics",
+    "title": "Measuring an irregular rotor's inertia",
+    "archetype": "Experimental Design and Analysis",
+    "difficulty": "Hard",
+    "stimulus": "An irregular rigid rotor turns with negligible axle friction about a fixed horizontal axis. A light string wrapped around a hub of measured radius r supports a hanging mass m. Available equipment includes several masses, a meterstick, a stopwatch, a motion sensor for the hanging mass, and a balance. The rotor's rotational inertia I is unknown.",
+    "parts": [
+      {
+        "part_key": "part-a",
+        "points": 2,
+        "prompt": "Derive a model relating the hanging mass's downward acceleration a to m, r, g, and I, assuming the string does not slip.",
+        "criteria": [
+          ["Combines mg-T=ma, Tr=Iα, and α=a/r.", "The translational and rotational equations and no-slip condition are all present.", "Write one force equation, one torque equation, and the kinematic link."],
+          ["Obtains a=mg/(m+I/r²), or an algebraically equivalent form.", "The model is solved correctly for acceleration.", "Eliminate T and α before isolating a."]
+        ]
+      },
+      {
+        "part_key": "part-b",
+        "points": 2,
+        "prompt": "Describe how to collect acceleration data for several trials while controlling sources of random and systematic error.",
+        "criteria": [
+          ["Uses several known hanging masses, releases from rest without a push, and obtains a from the slope of velocity-time data or a quadratic fit to position-time data.", "The procedure generates repeated quantitative acceleration measurements.", "Use the motion sensor rather than a single fall-time estimate where possible."],
+          ["Keeps r and drop distance fixed, prevents slip, and repeats trials to average random variation.", "Relevant controls and replication are specified.", "Control geometry and verify the string remains taut and nonslipping."]
+        ]
+      },
+      {
+        "part_key": "part-c",
+        "points": 4,
+        "prompt": "Linearize the model, specify graph axes, and explain how I and its uncertainty are determined. Include one diagnostic for non-negligible axle friction.",
+        "criteria": [
+          ["Rearranges to 1/a=1/g+(I/(g r²))(1/m), or an equivalent linear form.", "The model is correctly linearized.", "Invert the acceleration equation and separate constant and 1/m terms."],
+          ["Plots 1/a vertically versus 1/m horizontally and identifies slope S=I/(g r²).", "Axes and slope meaning match the linearized model.", "Map the equation to y=b+Sx."],
+          ["Calculates I=S g r² and propagates slope and radius uncertainty, or uses defensible extreme-fit bounds.", "The parameter and uncertainty method are correct.", "Include the r² sensitivity when reporting I uncertainty."],
+          ["Uses a fitted intercept inconsistent with 1/g or systematic residuals as evidence of unmodeled friction.", "A valid model diagnostic is identified.", "Compare the measured intercept with the frictionless prediction."]
+        ]
+      },
+      {
+        "part_key": "part-d",
+        "points": 2,
+        "prompt": "The actual hub radius is larger than the measured value used in the analysis. Determine the direction of the resulting error in I and justify.",
+        "criteria": [
+          ["States that the reported I is too small.", "The direction follows from I=Sgr².", "A radius underestimate enters the calculated inertia quadratically."],
+          ["Justifies that the fitted slope is data determined while multiplying by an underestimated r² reduces the inferred I.", "The role of the graph and radius is clearly distinguished.", "Hold the fitted slope fixed and compare the true and used radius factors."]
+        ]
+      }
+    ],
+    "explanation": "Eliminating tension gives a=mg/(m+I/r²). The linear form 1/a=1/g+[I/(gr²)](1/m) makes the slope proportional to I. An underestimated hub radius produces an underestimated inertia."
+  },
+  {
+    "content_key": "apphycm-frq-038",
+    "subject": "ap_physics_c_mechanics",
+    "exam_pack_version_id": "ab92fc0f-7bab-4ea2-a1bc-7f03130ab7a9",
+    "source_fact_pack_id": "1rc_z7A4CmhDx1Ya6zJswnKYm2wtOrLsJRK-7qBzDxG0",
+    "unit": 6,
+    "topic": "Gravitation and Orbits",
+    "title": "Tangential impulse in circular orbit",
+    "archetype": "Qualitative/Quantitative Translation",
+    "difficulty": "Hard",
+    "stimulus": "A satellite of mass m moves in a circular orbit of radius r around a planet of mass M. At one instant a brief tangential impulse increases the satellite's speed from the circular value v_c to (1+ε)v_c, where 0<ε<sqrt(2)-1. The satellite remains at radius r during the impulse.",
+    "parts": [
+      {
+        "part_key": "part-a",
+        "points": 3,
+        "prompt": "Predict whether the point of the impulse becomes the pericenter or apocenter of the new orbit. Justify using the radial acceleration immediately after the impulse and the orbit's qualitative shape.",
+        "criteria": [
+          ["States that the impulse point becomes the pericenter.", "The faster-than-circular tangential speed leads to outward motion after the impulse.", "At a turning point of radius, excess tangential speed corresponds to closest approach."],
+          ["Compares v²/r with GM/r² and shows the required centripetal acceleration exceeds gravity immediately after the impulse.", "The force-kinematics mismatch is correctly identified.", "Use v_c²=GM/r and v>v_c."],
+          ["Explains that the satellite initially curves less sharply than a circle and moves to larger radius, forming a bound ellipse.", "The qualitative trajectory follows from the acceleration comparison and the given speed bound.", "Connect insufficient inward acceleration to outward radial departure."]
+        ]
+      },
+      {
+        "part_key": "part-b",
+        "points": 3,
+        "prompt": "Derive the new orbit's specific mechanical energy and semimajor axis a in terms of r and ε.",
+        "criteria": [
+          ["Uses v_c²=GM/r in E/m=(1/2)(1+ε)²v_c²-GM/r.", "The post-impulse kinetic and potential energies are correct.", "Substitute the circular-speed relation only after writing total energy."],
+          ["Obtains E/m=(GM/(2r))[(1+ε)²-2], which is negative for the stated ε.", "The specific energy is simplified and boundness is checked.", "Compare (1+ε)² with 2."],
+          ["Uses E/m=-GM/(2a) to obtain a=r/[2-(1+ε)²].", "The semimajor axis is correctly derived.", "Equate the two specific-energy expressions and solve for a."]
+        ]
+      },
+      {
+        "part_key": "part-c",
+        "points": 2,
+        "prompt": "Sketch radial distance from the planet versus time for one new orbital period beginning at the impulse. Label the initial value and qualitative extrema.",
+        "criteria": [
+          ["Shows radius beginning at a minimum r with zero initial radial slope, increasing to one maximum, and returning to r after one period.", "The time representation matches a bound ellipse beginning at pericenter.", "Mark the impulse point as the radial minimum."],
+          ["Shows a smooth curve with zero slope at both pericenter and apocenter and labels r_max=2a-r or an equivalent relation.", "Turning-point behavior and the second extreme are correctly represented.", "Use r_peri+r_apo=2a for an ellipse."]
+        ]
+      }
+    ],
+    "explanation": "Because the new tangential speed exceeds circular speed, gravity cannot supply the instantaneous v²/r curvature and the satellite moves outward; the impulse point is pericenter. Energy gives a=r/[2-(1+ε)²], and the radial coordinate oscillates smoothly between r and 2a-r."
+  },
+  {
+    "content_key": "apphycem-frq-035",
+    "subject": "ap_physics_c_em",
+    "exam_pack_version_id": "841a88cc-773c-44e5-97fa-6504f8667689",
+    "source_fact_pack_id": "1AwMAtwpUj798kRROyz4O8q9w36YubauEeB7122mrJM0",
+    "unit": 8,
+    "topic": "Electrostatics and Gauss's Law",
+    "title": "Nonuniform charged insulating sphere",
+    "archetype": "Mathematical Routines",
+    "difficulty": "Hard",
+    "stimulus": "A solid insulating sphere of radius R has spherically symmetric volume charge density ρ(r)=ρ0(r/R) for 0≤r≤R and zero outside, where ρ0>0. Take electric potential to be zero at infinity.",
+    "parts": [
+      {
+        "part_key": "part-a",
+        "points": 7,
+        "prompt": "Using calculus and Gauss's law, derive the electric field magnitude for r<R and r≥R. Demonstrate continuity at r=R.",
+        "criteria": [
+          ["Writes dq=ρ(r')4πr'²dr' for a spherical shell.", "The volume element and radial variable are correct.", "Use dV=4πr'²dr'."],
+          ["Integrates q_enc(r)=∫0^r ρ0(r'/R)4πr'²dr'=πρ0r⁴/R.", "The enclosed-charge integral and result are correct.", "Integrate r'^3 from 0 to r."],
+          ["Applies E(4πr²)=q_enc/ε0 inside.", "Gauss's law uses the spherical surface and symmetry correctly.", "Use a concentric Gaussian sphere."],
+          ["Obtains E_inside=ρ0r²/(4ε0R), radially outward.", "The inside field has correct dependence, units, and direction.", "Substitute q_enc and divide by 4πr²ε0."],
+          ["Calculates total charge Q=πρ0R³.", "The inside charge result is evaluated correctly at R.", "Set r=R in q_enc."],
+          ["Obtains E_outside=ρ0R³/(4ε0r²), radially outward.", "The outside field is the total-charge inverse-square field.", "Apply Gauss's law with q_enc=Q."],
+          ["Shows both expressions give E(R)=ρ0R/(4ε0).", "Continuity at the boundary is explicitly demonstrated.", "Evaluate the inside and outside formulas at R."]
+        ]
+      },
+      {
+        "part_key": "part-b",
+        "points": 3,
+        "prompt": "Derive the electric potential at the center of the sphere.",
+        "criteria": [
+          ["Uses V(0)=∫0^∞ E(r)dr, split at R with the correct sign convention.", "The potential difference from infinity is expressed correctly.", "For an outward positive field, V(0)=∫_0^∞ E dr."],
+          ["Evaluates the inside contribution ∫0^R ρ0r²/(4ε0R)dr=ρ0R²/(12ε0).", "The interior integral is correct.", "Integrate r² and retain the 1/R factor."],
+          ["Evaluates the outside contribution ρ0R²/(4ε0) and obtains V(0)=ρ0R²/(3ε0).", "Both regions are combined correctly.", "Integrate r^{-2} from R to infinity and add the interior result."]
+        ]
+      }
+    ],
+    "explanation": "Integrating the density gives q_enc=πρ0r⁴/R and Q=πρ0R³. Gauss's law yields E=ρ0r²/(4ε0R) inside and ρ0R³/(4ε0r²) outside. Integrating the field from the center to infinity gives V(0)=ρ0R²/(3ε0)."
+  },
+  {
+    "content_key": "apphycem-frq-036",
+    "subject": "ap_physics_c_em",
+    "exam_pack_version_id": "841a88cc-773c-44e5-97fa-6504f8667689",
+    "source_fact_pack_id": "1AwMAtwpUj798kRROyz4O8q9w36YubauEeB7122mrJM0",
+    "unit": 11,
+    "topic": "Electric Circuits",
+    "title": "Discharging capacitor representations",
+    "archetype": "Translation Between Representations",
+    "difficulty": "Hard",
+    "stimulus": "A capacitor C is initially charged to potential V0. At t=0 it is disconnected from the source and connected across two parallel resistors R and 2R. Define q(t) as the charge on the initially positive plate and take current out of that plate as positive.",
+    "parts": [
+      {
+        "part_key": "part-a",
+        "points": 3,
+        "prompt": "Draw the discharge circuit, indicate current directions in both branches, and write the differential equation for q(t).",
+        "criteria": [
+          ["Shows R and 2R in parallel across C with conventional currents leaving the initially positive plate.", "The topology and current directions are correct.", "Both resistors share the capacitor voltage."],
+          ["Finds equivalent resistance R_eq=2R/3.", "The parallel combination is calculated correctly.", "Use 1/R_eq=1/R+1/(2R)."],
+          ["Writes dq/dt=-q/(R_eq C)=-3q/(2RC).", "Charge conservation and the voltage-current relation give the correct differential equation.", "Total outward current is -dq/dt=q/(R_eq C)."]
+        ]
+      },
+      {
+        "part_key": "part-b",
+        "points": 4,
+        "prompt": "Solve for q(t), the capacitor voltage, and each branch current. Verify current conservation at the junction.",
+        "criteria": [
+          ["Integrates the differential equation to obtain q=CV0e^{-3t/(2RC)}.", "The initial charge and time constant are correct.", "Apply q(0)=CV0 after separating variables."],
+          ["Writes V_C=V0e^{-3t/(2RC)}.", "The voltage follows q/C.", "Divide the charge expression by C."],
+          ["Writes I_R=(V0/R)e^{-3t/(2RC)} and I_2R=(V0/(2R))e^{-3t/(2RC)}.", "Ohm's law is correctly applied to both parallel branches.", "Each resistor has the same instantaneous voltage."],
+          ["Shows I_R+I_2R=(3V0/(2R))e^{-3t/(2RC)}=-dq/dt.", "The junction current relation is explicitly verified.", "Add branch currents and differentiate q(t)."]
+        ]
+      },
+      {
+        "part_key": "part-c",
+        "points": 3,
+        "prompt": "Sketch q(t), total current, and power dissipated in resistor 2R versus time on labeled axes. Compare their decay constants.",
+        "criteria": [
+          ["Shows q decreasing exponentially from CV0 with time constant 2RC/3.", "The charge graph's initial value and decay rate are correct.", "Read τ=R_eqC from the solution."],
+          ["Shows total current decreasing exponentially from 3V0/(2R) with the same time constant 2RC/3.", "The current graph has correct scale and decay.", "Current is proportional to q for this linear circuit."],
+          ["Shows P_2R=V0²/(2R)e^{-3t/(RC)}, with time constant RC/3, half the charge/current time constant.", "Squaring voltage correctly doubles the exponential decay rate.", "Use P=V²/(2R)."]
+        ]
+      },
+      {
+        "part_key": "part-d",
+        "points": 2,
+        "prompt": "Determine the fraction of the capacitor's initial energy dissipated in resistor 2R over the entire discharge and justify without evaluating a time integral.",
+        "criteria": [
+          ["Recognizes that the two resistors always have the same voltage, so their powers are in ratio P_R:P_2R=2:1.", "The constant power ratio is correct.", "Compare V²/R with V²/(2R)."],
+          ["Concludes that resistor 2R receives one third of the initial capacitor energy.", "The energy division follows the constant power ratio and complete discharge.", "The two branch fractions sum to one in the ratio 2:1."]
+        ]
+      }
+    ],
+    "explanation": "The parallel resistance is 2R/3, so q=CV0e^{-3t/(2RC)}. Both branch currents share that exponential. Power depends on voltage squared and therefore decays twice as fast. Since branch powers remain in a 2:1 ratio, the 2R resistor receives one third of the stored energy."
+  },
+  {
+    "content_key": "apphycem-frq-037",
+    "subject": "ap_physics_c_em",
+    "exam_pack_version_id": "841a88cc-773c-44e5-97fa-6504f8667689",
+    "source_fact_pack_id": "1AwMAtwpUj798kRROyz4O8q9w36YubauEeB7122mrJM0",
+    "unit": 12,
+    "topic": "Magnetic Fields",
+    "title": "Mapping the field inside a solenoid",
+    "archetype": "Experimental Design and Analysis",
+    "difficulty": "Hard",
+    "stimulus": "A long solenoid has unknown turns per unit length n. Available equipment includes the solenoid, an adjustable dc supply, an ammeter, a calibrated axial magnetic-field probe with stated reading uncertainty, a meterstick, and a stand. The probe can be positioned along the solenoid axis.",
+    "parts": [
+      {
+        "part_key": "part-a",
+        "points": 2,
+        "prompt": "State the ideal-solenoid model to be tested and identify a graph whose slope determines n.",
+        "criteria": [
+          ["States B=μ0nI well inside an ideal long solenoid.", "The theoretical field-current model is correct.", "Use Ampère's law result for the interior field."],
+          ["Identifies a plot of axial B versus I with slope μ0n.", "The graph and slope interpretation are correct.", "Match B=(μ0n)I to a linear graph."]
+        ]
+      },
+      {
+        "part_key": "part-b",
+        "points": 2,
+        "prompt": "Describe how to collect data that test both the field-current model and the assumption that the interior field is spatially uniform.",
+        "criteria": [
+          ["At a fixed central position, varies current over several safe values and records paired I and B, including a zero-current reading.", "The procedure tests linearity and provides an offset check.", "Collect multiple current-field pairs and include I=0."],
+          ["At one fixed nonzero current, measures B at several axial positions away from and near the ends while keeping probe orientation fixed.", "The procedure separately tests spatial uniformity.", "Map the axial field without rotating the probe."]
+        ]
+      },
+      {
+        "part_key": "part-c",
+        "points": 4,
+        "prompt": "Explain the analyses used to determine n and its uncertainty, to correct a constant ambient-field offset, and to identify the region where the ideal model is valid.",
+        "criteria": [
+          ["Fits B versus I at the center and calculates n=slope/μ0.", "The turns density is extracted from the correct fit.", "Divide the best-fit slope by μ0."],
+          ["Uses slope uncertainty to report δn=δslope/μ0 and incorporates the probe uncertainty in the fit or error bars.", "A defensible parameter uncertainty is specified.", "Propagate the fitted slope uncertainty through the constant factor."],
+          ["Uses the I=0 intercept or zero-current reading to subtract a constant ambient/probe offset before interpreting B.", "The offset correction is physically and statistically appropriate.", "Treat the nonzero zero-current field as an additive background."],
+          ["Uses the axial map and uncertainty bars to identify a central interval where B is statistically consistent with a constant, excluding end regions.", "The ideal-model validity region is determined from data.", "Define uniformity by agreement within measurement uncertainty."]
+        ]
+      },
+      {
+        "part_key": "part-d",
+        "points": 2,
+        "prompt": "The ammeter reads 4 percent higher than the true current at every setting. Determine the direction of the resulting error in n and justify.",
+        "criteria": [
+          ["States that the calculated n is too small.", "The direction of the calibration effect is correct.", "Overstated horizontal-axis values reduce the fitted B-versus-I_read slope."],
+          ["Justifies that slope_measured=B/I_read is smaller than B/I_true, so n=slope/μ0 is underestimated.", "The systematic error is traced through the graph calculation.", "Compare the measured and true slopes explicitly."]
+        ]
+      }
+    ],
+    "explanation": "Inside a long solenoid, B=μ0nI. The slope of B versus I gives n, while zero-current data remove an additive offset. An axial scan identifies the uniform central region. A current reading biased high makes the fitted slope and n too small."
+  },
+  {
+    "content_key": "apphycem-frq-038",
+    "subject": "ap_physics_c_em",
+    "exam_pack_version_id": "841a88cc-773c-44e5-97fa-6504f8667689",
+    "source_fact_pack_id": "1AwMAtwpUj798kRROyz4O8q9w36YubauEeB7122mrJM0",
+    "unit": 13,
+    "topic": "Electromagnetic Induction",
+    "title": "Magnetic braking of a sliding rod",
+    "archetype": "Qualitative/Quantitative Translation",
+    "difficulty": "Hard",
+    "stimulus": "A conducting rod of length ℓ and mass m slides without mechanical friction on horizontal conducting rails. The rails are connected by a resistor R, forming a closed loop. A uniform magnetic field B points vertically downward. At t=0 the rod is moving right with speed v0. Neglect rail and rod resistance and self-inductance.",
+    "parts": [
+      {
+        "part_key": "part-a",
+        "points": 3,
+        "prompt": "Predict the induced-current direction as viewed from above and the magnetic-force direction on the rod. Justify from flux change and energy.",
+        "criteria": [
+          ["States that the current direction produces an upward magnetic field through the loop.", "Lenz's law is applied to oppose increasing downward flux.", "As the rod moves right, loop area and downward flux increase."],
+          ["Gives the corresponding current direction around the specified rail geometry, with an unambiguous description or diagram.", "The current direction is consistent with an upward induced field.", "Use the right-hand rule for an upward field; counterclockwise as viewed from above."],
+          ["States that the magnetic force on the rod is leftward and explains that it removes kinetic energy that becomes resistor heat.", "The force direction and energy interpretation are correct.", "The induced force must oppose the motion in this passive circuit."]
+        ]
+      },
+      {
+        "part_key": "part-b",
+        "points": 3,
+        "prompt": "Derive the differential equation for v(t) and solve for the rod's speed.",
+        "criteria": [
+          ["Uses motional emf Bℓv and current I=Bℓv/R.", "The electromagnetic circuit relations are correct.", "Apply motional emf and Ohm's law."],
+          ["Obtains m dv/dt=-(B²ℓ²/R)v.", "The magnetic force IℓB and opposing sign are correct.", "Substitute current into the force on the rod."],
+          ["Solves v(t)=v0 exp[-B²ℓ²t/(mR)].", "The separable differential equation and initial condition are handled correctly.", "Integrate dv/v=-[B²ℓ²/(mR)]dt."]
+        ]
+      },
+      {
+        "part_key": "part-c",
+        "points": 2,
+        "prompt": "Sketch speed and resistor power versus time on labeled axes, and determine the total energy dissipated in the resistor.",
+        "criteria": [
+          ["Shows v decaying exponentially from v0 with time constant mR/(B²ℓ²), while P=(B²ℓ²/R)v0² exp[-2B²ℓ²t/(mR)] decays twice as fast.", "Both representations have correct initial values and relative decay rates.", "Use P=I²R and square the velocity exponential."],
+          ["Determines total dissipated energy as (1/2)mv0².", "Energy conservation is applied to the rod coming asymptotically to rest.", "All initial kinetic energy becomes resistor heat in the idealized system."]
+        ]
+      }
+    ],
+    "explanation": "The increasing downward flux drives a counterclockwise current viewed from above, producing a leftward drag force. The equation m dv/dt=-(B²ℓ²/R)v gives exponential speed decay. All initial kinetic energy is ultimately dissipated in R."
+  }
+]

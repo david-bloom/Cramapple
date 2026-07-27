@@ -33,4 +33,6 @@ Then report:
 Manual sync handshake: if the owner sends `SYNC`, re-read the current GitHub source-of-truth docs/issues/logs (including docs/team_charter/CHANGELOG.md for anything new) for the active work and report state, blockers, approval boundaries, and next action. Treat the trigger as sync/review only, not approval to execute.
 
 Do not implement code, revise task scope, deploy, apply migrations, set status to Done, close tasks/issues, or skip QA on Standard/Hard-Gate tier work until the required approval state is confirmed and recorded in GitHub.
+
+Branch hygiene (R1–R7; AI_COLLABORATION_RULES.md §In-Progress Drafts and Branches): work on one reviewable slice per branch, named `<agent>/<task-or-work-id>-<slug>`; continue an in-flight task's existing branch instead of forking a new one; commit-and-push a checkpoint before closing or handing off, recording an explicit dirty-state handoff if interrupted.
 ```
