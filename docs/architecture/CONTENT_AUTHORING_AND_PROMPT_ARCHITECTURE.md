@@ -247,6 +247,61 @@ earn, what related wording remains insufficient, and which adjudicated cases
 guard that boundary. Prompt components may consume these contracts, but they
 must not invent new scoring thresholds outside the rubric package.
 
+Synthetic bivariate datasets (scatterplot/trend-line/regression FRQs, e.g. the
+`scatterplot_regression_context` archetype) require a genuine random-noise
+residual pattern, not just a plausible correlation coefficient. A dataset can
+have a realistic `|r|` and still be detectably wrong if the points were placed
+by a deterministic rule rather than drawn with real noise — the most common
+failure mode is a residual sign that alternates almost every step (above the
+line, below, above, below), which is a textbook regression-diagnostic red flag
+an AP Statistics reviewer will recognize on sight. Authoring instructions for
+this archetype must include: "The residuals should be randomly scattered
+around zero with no visible pattern, curvature, clustering, funnel shape, or
+trend." That instruction alone is necessary but not sufficient — natural-language
+"don't have a pattern" guidance is a weak guardrail against an LLM (or a human)
+still producing a subtly patterned sequence, since nothing forces the output to
+actually pass a randomness check. Every generated or edited dataset for this
+archetype must also pass an automated check before being accepted: fit the
+least-squares line, compute the residual sign sequence sorted by the
+independent variable, and reject the dataset if consecutive-sign alternation
+exceeds roughly 70% of transitions (a true-random sequence flips sign close to
+half the time; a hand- or model-authored "scattered-looking" sequence that
+alternates 7-8 times out of 8 transitions is not random, it is patterned).
+Flagged 2026-07-24 by Jill Schmidlkofer against 9 `scatterplot_regression_context`
+items (7 `APSTATS-HDG-2026-GRAPH-*`, 2 `APBIO-HDG-2026-GRAPH-*`) that had
+already been rebuilt once for an unrealistic-|r| complaint — the rebuild fixed
+the correlation but introduced this alternating-residual artifact, confirming
+both checks are needed together, not either alone.
+
+Every FRQ's part count and per-part point weights must be validated against the
+active exam pack's specified structure for that FRQ's slot type before a
+candidate is accepted — not just checked against a loose total range (e.g.
+"short ≈ 4, long ≈ 8-10"), but against the exact per-part breakdown the CED
+specifies when one exists. The `EXAM_FORMAT_MISMATCH` failure card already
+covers this ("Point count, task structure, or timing conflicts with the active
+exam specification") but had never been wired into an actual required
+validation step, and prompt components that only specified a point-total range
+(not a per-part structure) gave no way to catch a part going missing rather
+than being mis-weighted. This must run as a blocking check with the same
+standing as the `content_hash = md5(stem)` and one-correct-choice checks: for
+any FRQ, count the authored/ingested parts and confirm they match the exam
+pack's specified part count for that slot (e.g. AP Biology's short FRQs must
+have exactly 4 parts summing to exactly 4 points, 1 per part; long FRQs must
+have exactly 4 parts summing to exactly 9, unevenly weighted per the CED's
+published pattern for that FRQ number) — a candidate with the right point
+total but the wrong part count must be rejected, not silently accepted.
+Flagged 2026-07-25 during a Bio reviewer-feedback QA pass: all 100 live
+`APBIO-FRQ-S-*` items had only 2 of the CED-required 4 parts (Parts C and D
+missing entirely, not just under-weighted), and all 42 `APBIO-FRQ-L-*` items
+were flat-weighted at ~8 points instead of the CED's uneven 9-point pattern —
+despite the original authoring prompts (`prompts/Biology Short FRQ Promp.txt`,
+`prompts/Biology Long FRQ Prompt.txt`) already specifying the correct 4-part
+structure, meaning the gap was never caught between generation and insertion
+because nothing checked part count against the exam pack at either stage.
+This is a maximization-of-points issue, not a cosmetic one: a missing part is
+graded content a student is never even asked, silently capping their
+achievable score below what the real exam awards for that question type.
+
 ## 10. Sequencing
 
 Cramapple develops MCQ and FRQ authoring in parallel. They share governance,
