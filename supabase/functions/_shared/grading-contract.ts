@@ -143,6 +143,298 @@ export const gradingSchema = {
   ],
 } as const;
 
+// --- Arm A: one model call per criterion ---------------------------------
+//
+// Production issues ONE call grading every criterion of an item. Measured in
+// Production 2026-07-28: latency = 0.58 s + 3.89 s x n_criteria, so a
+// 4-criterion Biology FRQ takes ~16 s. That is the shape Phase C closed as a
+// dead end (ARM_B_ROOT_CAUSE_ANALYSIS.md): the per-criterion slope is the cost
+// of generating one criterion's feedback serially, and the only way to flatten
+// it is to cut per-criterion output to roughly 20 words total -- which would
+// win the latency benchmark by deleting the feedback fields that are the
+// product promise.
+//
+// Arm A grades each criterion in its own call, in parallel, so item latency is
+// max-of-N rather than the serial sum and is flat in criterion count. Phase C
+// measured it at n=100: per-call p50 1,437 ms with no fat tail (max/p50 = 2.2),
+// item p50 1,712 ms against a corpus averaging 4.4 criteria.
+//
+// Two costs, both real and both accepted under the standing Speed > Quality >
+// Cost priority:
+//   - Input tokens rise ~3.6x, because the stem and stimulus are re-sent once
+//     per criterion. Phase C: $0.0045/FRQ vs $0.0019 on gemini-2.5-flash.
+//   - Criterion agreement was 2.8 pp LOWER for Arm A across two slices
+//     (90.6% vs 93.4% pooled). NOT statistically significant at that n and it
+//     must not be reported as a finding, but the plausible mechanism -- seeing
+//     all criteria in one context reduces criterion-boundary confusion -- is
+//     worth watching when this goes live.
+//
+// Note the Phase C numbers were measured on google/gemini-2.5-flash via the
+// Vercel AI Gateway. Production runs gpt-4.1-mini, which is materially slower
+// (3.89 s/criterion vs 0.637), so expect Arm A item latency near Production's
+// own measured 1-criterion figure of ~4.5 s, not Phase C's 1.7 s.
+
+// The per-criterion output schema: exactly the criterion object from
+// gradingSchema, plus a per-criterion confidence. Item-level fields are
+// deliberately absent -- asking each of N parallel calls for a whole-item
+// summary would produce N contradictory summaries, and every other item-level
+// field is derived from the criteria anyway (see mergeCriterionResults).
+export const criterionGradingSchema = {
+  type: "object",
+  additionalProperties: false,
+  properties: {
+    criterion_key: { type: "string" },
+    status: {
+      type: "string",
+      enum: [
+        "earned",
+        "partially_earned",
+        "not_yet_earned",
+        "unable_to_determine",
+        "not_applicable",
+      ],
+    },
+    points_awarded: { type: "integer" },
+    evidence_quote: { type: ["string", "null"] },
+    decision_explanation: { type: ["string", "null"] },
+    minimum_fix: { type: ["string", "null"] },
+    confidence: {
+      type: "string",
+      enum: ["high", "medium", "low"],
+    },
+  },
+  // Every property must be listed: strict:true rejects the request otherwise,
+  // and the API names only the first offender. This is the defect that kept 4
+  // of the 5 FRQ gradings ever attempted in Production from reaching the model.
+  required: [
+    "criterion_key",
+    "status",
+    "points_awarded",
+    "evidence_quote",
+    "decision_explanation",
+    "minimum_fix",
+    "confidence",
+  ],
+} as const;
+
+export function buildCriterionSystemPrompt(examName: string) {
+  return [
+    `You are Cramapple's production criterion-based grader for ${examName}.`,
+    "You are grading exactly ONE criterion of a free-response question.",
+    "Use only the provided released content, rubric, and student response.",
+    "Do not invent evidence.",
+    // Criterion isolation is the point of this architecture and also its main
+    // risk: without the other criteria in context the grader can drift into
+    // judging the response as a whole. Phase C's frozen Arm A prompt carried
+    // the same instruction.
+    "Judge only the criterion given below. Do not withhold its points because of a fault that belongs to a different criterion.",
+    "A criterion worth more than one point may be awarded part of its points: use partially_earned with the number of points genuinely evidenced.",
+    "Use earned only for the criterion's full points, and not_yet_earned only when nothing creditable is present.",
+    "Error carry forward: when this criterion uses a value the student computed incorrectly earlier, judge the method and reasoning shown here and do not withhold points solely because that inherited value is wrong.",
+    "When the response is ambiguous or unsupported, mark the criterion unable_to_determine rather than guessing.",
+    "evidence_quote must be an exact substring of the student response, or null.",
+    "Return only the JSON object that matches the schema.",
+  ].join(" ");
+}
+
+export function buildCriterionGradingPrompt(input: {
+  operation: AllowedOperation;
+  promptVersion: string;
+  examName: string;
+  itemTitle: string;
+  itemType: string;
+  stem: string;
+  stimulus: string | null;
+  responseText: string | null;
+  responseParts: unknown;
+  criterion: FeedbackCriterionRow;
+}) {
+  const criterion = input.criterion;
+  const contract = [
+    `  criterion_key: ${criterion.criterion_key}`,
+    `  points_possible: ${criterion.points_possible}`,
+    `  learner_facing_text: ${criterion.learner_facing_text}`,
+  ];
+  if (criterion.evidence_requirements) {
+    contract.push(`  evidence_requirements: ${criterion.evidence_requirements}`);
+  }
+  if (criterion.minimum_fix) {
+    contract.push(`  minimum_fix (rubric-authored): ${criterion.minimum_fix}`);
+  }
+  if (criterion.accepted_variants) {
+    contract.push(
+      `  accepted_variants: ${JSON.stringify(criterion.accepted_variants)}`,
+    );
+  }
+  if (criterion.points_possible > 1) {
+    contract.push(
+      `  award: any whole number of points from 0 to ${criterion.points_possible}; use partially_earned for anything in between`,
+    );
+  }
+
+  return [
+    `You are Cramapple's production grader for ${input.examName}.`,
+    `Use only the released content and criterion contract provided below.`,
+    `Do not invent facts, claims, or criteria that are not present in the contract.`,
+    `points_awarded must match the status: equal to points_possible for earned, strictly between 0 and points_possible for partially_earned, and 0 otherwise.`,
+    `The operation is ${input.operation}.`,
+    `Prompt version: ${input.promptVersion}.`,
+    `Item title: ${input.itemTitle}.`,
+    `Item type: ${input.itemType}.`,
+    `Stem: ${input.stem}`,
+    input.stimulus ? `Stimulus: ${input.stimulus}` : "Stimulus: none",
+    `Criterion contract (grade THIS criterion only):`,
+    contract.join("\n"),
+    `Student response text:`,
+    input.responseText ?? "",
+    `Student response parts JSON:`,
+    JSON.stringify(input.responseParts ?? {}, null, 2),
+    `Return JSON matching the schema exactly, with criterion_key set to ${criterion.criterion_key}.`,
+  ].join("\n\n");
+}
+
+export function buildCriterionRequestBody(input: {
+  modelId: string;
+  maxOutputTokens: number;
+  systemPrompt: string;
+  userPrompt: string;
+  userIdHash: string;
+  reasoningEffort?: "low" | "medium" | "high";
+}) {
+  const reasoning = supportsReasoningEffort(input.modelId)
+    ? { reasoning: { effort: input.reasoningEffort ?? "high" } }
+    : {};
+
+  return {
+    model: input.modelId,
+    input: [
+      {
+        role: "system",
+        content: [{ type: "input_text", text: input.systemPrompt }],
+      },
+      {
+        role: "user",
+        content: [{ type: "input_text", text: input.userPrompt }],
+      },
+    ],
+    store: false,
+    ...reasoning,
+    max_output_tokens: input.maxOutputTokens,
+    text: {
+      format: {
+        type: "json_schema",
+        name: "criterion_grading_result",
+        strict: true,
+        schema: criterionGradingSchema,
+      },
+    },
+    user: input.userIdHash.slice(0, 64),
+  };
+}
+
+// Composes the one student-visible field Arm A cannot get from the model.
+//
+// Under Arm B the model writes student_facing_summary having seen the whole
+// item. Under Arm A no single call sees the whole item, so the summary is
+// composed from the verdicts instead. This is a deliberate trade: the text is
+// plainer than model prose, but it is derived from the awarded points and so
+// cannot contradict them -- which the model-written summary could.
+export function composeStudentFacingSummary(
+  criteria: FeedbackCriterionResult[],
+  pointsEarned: number,
+  pointsAvailable: number,
+  topGapMinimumFix: string | null,
+): string {
+  const undecided = criteria.filter((criterion) =>
+    criterion.status === "unable_to_determine"
+  ).length;
+
+  const scored = pointsAvailable > 0
+    ? `You earned ${pointsEarned} of ${pointsAvailable} point${
+      pointsAvailable === 1 ? "" : "s"
+    }.`
+    : "Your response was scored.";
+
+  const parts = [scored];
+  if (pointsEarned < pointsAvailable && topGapMinimumFix) {
+    parts.push(`The most valuable next step: ${topGapMinimumFix}`);
+  }
+  if (undecided > 0) {
+    parts.push(
+      `${undecided} criter${
+        undecided === 1 ? "ion" : "ia"
+      } could not be decided from what you wrote, so this result is being held for review.`,
+    );
+  }
+  return parts.join(" ");
+}
+
+// Folds N per-criterion model results into the object shape sanitizeModelResult
+// already consumes, so the entire sanitize/grounding/partial-credit path is
+// shared between arms rather than reimplemented for one of them.
+//
+// A criterion whose call failed is passed through as unable_to_determine with a
+// null evidence_quote, which the sanitizer converts into an integrity issue and
+// therefore into an uncertain grading. This is strictly better than Arm B,
+// where one failed call loses every criterion on the item.
+export function mergeCriterionResults(
+  results: Array<Record<string, unknown> | null>,
+  sourceCriteria: FeedbackCriterionRow[],
+) {
+  const criteria = sourceCriteria.map((source, index) => {
+    const raw = results[index];
+    if (!raw) {
+      return {
+        criterion_key: source.criterion_key,
+        status: "unable_to_determine",
+        points_awarded: 0,
+        evidence_quote: null,
+        decision_explanation:
+          "This criterion could not be graded on this attempt.",
+        minimum_fix: source.minimum_fix,
+      };
+    }
+    // Force the key: a model echoing the wrong criterion_key would otherwise
+    // land this verdict on a different criterion, and the sanitizer matches by
+    // key. Position is authoritative here because we issued one call per
+    // source criterion, in order.
+    return { ...raw, criterion_key: source.criterion_key };
+  });
+
+  const confidences = results
+    .map((raw) => (raw?.confidence as string | undefined))
+    .filter((value): value is string =>
+      value === "high" || value === "medium" || value === "low"
+    );
+  // Weakest link, not an average: an item is only as trustworthy as its least
+  // confident criterion.
+  const confidence = confidences.length === 0
+    ? "medium"
+    : confidences.includes("low")
+    ? "low"
+    : confidences.includes("medium")
+    ? "medium"
+    : "high";
+
+  return {
+    criteria,
+    confidence,
+    uncertainty_reason: null,
+    // Deliberately null rather than derived. predicted_improvement is a model
+    // forecast that grading_results scores for calibration
+    // (predicted_label/predicted_point_gain/prediction_outcome). Synthesising
+    // one from the criteria would put a computed value into a column whose
+    // whole purpose is to measure how well the MODEL predicts, quietly
+    // corrupting that measurement. Arm A makes no forecast, and records none.
+    predicted_improvement: null,
+    // Item-level hint has no per-criterion equivalent; the caller already
+    // falls back to the deterministic-check hint when this is null.
+    action_hint: null,
+    // Replaced by the caller once points and the top gap are known.
+    student_facing_summary: null,
+  };
+}
+
 // The production system prompt. Moved verbatim from the inline array
 // evaluate-attempt used to build in its Deno.serve handler.
 export function buildSystemPrompt(examName: string) {
