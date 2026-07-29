@@ -247,9 +247,34 @@ export function buildCriterionGradingPrompt(input: {
   stimulus: string | null;
   responseText: string | null;
   responseParts: unknown;
+  criteria: FeedbackCriterionRow[];
   criterion: FeedbackCriterionRow;
 }) {
   const criterion = input.criterion;
+
+  // Every call gets the FULL rubric, and grades one criterion of it.
+  //
+  // The first version sent only the target criterion. That is where Arm A's
+  // measured quality regression came from: on a 2-point criterion wanting both
+  // "steep rise" and "flattens out", a response saying only "it ends up flat at
+  // the top" was awarded full marks in 3 of 3 trials, because with nothing else
+  // in view a partial description reads as a complete one. Arm B, seeing all
+  // four criteria, was correct in 3 of 3.
+  //
+  // Withholding the sibling criteria was purely a cost saving -- it is the only
+  // thing Arm A was buying by not re-sending them. At ~$0.002/FRQ, under the
+  // standing Quality > Speed > Cost order, that is not a trade worth making.
+  // Restoring the context targets the exact mechanism Phase C proposed for Arm
+  // B's +2.8 pp criterion-agreement edge: seeing all criteria at once reduces
+  // criterion-boundary confusion.
+  //
+  // Latency is unaffected -- input tokens are prefill, not serial generation,
+  // and generation is what Arm B's 3.89 s/criterion slope was made of.
+  const siblings = input.criteria
+    .filter((row) => row.criterion_key !== criterion.criterion_key)
+    .map((row) =>
+      `- ${row.criterion_key} (${row.points_possible} pt): ${row.learner_facing_text}`
+    );
   const contract = [
     `  criterion_key: ${criterion.criterion_key}`,
     `  points_possible: ${criterion.points_possible}`,
@@ -285,6 +310,17 @@ export function buildCriterionGradingPrompt(input: {
     input.stimulus ? `Stimulus: ${input.stimulus}` : "Stimulus: none",
     `Criterion contract (grade THIS criterion only):`,
     contract.join("\n"),
+    // Siblings are context, never targets. Naming them explicitly is what stops
+    // a partial answer to one criterion reading as a complete answer, while the
+    // "do not grade" framing keeps the verdict scoped to the one criterion this
+    // call is responsible for.
+    siblings.length > 0
+      ? [
+        `The other criteria on this item, for context only — do NOT grade them and do NOT report on them:`,
+        siblings.join("\n"),
+        `Use them only to judge whether the response's treatment of YOUR criterion is complete, rather than assuming any relevant statement it makes was aimed at your criterion.`,
+      ].join("\n")
+      : `This item has no other criteria.`,
     `Student response text:`,
     input.responseText ?? "",
     `Student response parts JSON:`,
