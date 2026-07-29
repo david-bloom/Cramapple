@@ -21,8 +21,13 @@ export type ResultCase = {
   cost_usd?: number;
 };
 
+// `partially_earned` must be listed here. The fallback is
+// "unable_to_determine", so omitting a real status does not merely lose
+// detail -- it silently reclassifies every partial award as an abstention,
+// which moves those cases out of the accuracy denominator entirely.
 function resultStatus(value: string | undefined) {
-  return value === "earned" || value === "not_yet_earned" ||
+  return value === "earned" || value === "partially_earned" ||
+      value === "not_yet_earned" ||
       value === "unable_to_determine" || value === "not_applicable"
     ? value
     : "unable_to_determine" as const;

@@ -136,6 +136,7 @@ type OutputCriterion = {
   criterion_key: string;
   status:
     | "earned"
+    | "partially_earned"
     | "not_yet_earned"
     | "unable_to_determine"
     | "not_applicable";
@@ -1257,11 +1258,13 @@ Deno.serve(async (req) => {
             "Your answer is saved, but feedback is taking longer than expected.",
           action_hint: null,
           repair_hint: null,
-          sanitization_version: "grading-sanitizer-v2",
+          sanitization_version: "grading-sanitizer-v3",
           integrity_issues: [{
             code: "criteria_missing" as const,
             criterion_key: null,
           }],
+          // The model never returned, so nothing was reconciled.
+          normalizations: [],
         };
       } finally {
         if (usageRow) {

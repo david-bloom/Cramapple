@@ -47,6 +47,13 @@ export const gradingSchema = {
             type: "string",
             enum: [
               "earned",
+              // Added 2026-07-28. 20% of Production criteria are multi-point
+              // and partial credit is intended, but the model had no way to
+              // express it: the enum forced an all-or-nothing status onto a
+              // 3-point criterion. It could only signal partial credit through
+              // points_awarded, which the sanitizer then treated as a
+              // contradiction and zeroed.
+              "partially_earned",
               "not_yet_earned",
               "unable_to_determine",
               "not_applicable",
@@ -142,8 +149,20 @@ export function buildSystemPrompt(examName: string) {
   return [
     `You are Cramapple's production criterion-based grader for ${examName}.`,
     "Use only the provided released content, rubric, and student response.",
-    "Score each criterion independently.",
+    "Judge each criterion on its own rubric text.",
     "Do not invent evidence.",
+    // Partial credit has to be stated here, not just permitted by the schema.
+    // Removing the sanitizer's zeroing lets a partial award survive; it does
+    // not cause one. Nothing in the prompt previously told the grader it could
+    // award fewer points than points_possible, so on a 3-point criterion it
+    // had no reason to ever return 1 or 2.
+    "A criterion worth more than one point may be awarded part of its points: use partially_earned with the number of points genuinely evidenced.",
+    "Use earned only for the criterion's full points, and not_yet_earned only when nothing creditable is present.",
+    // Error carry forward, in the only form a grader without a rubric
+    // dependency graph can apply: do not double-punish a downstream step.
+    // The structural version of ECF -- knowing which part feeds which -- lives
+    // in the deterministic verifier, which has explicit dependency keys.
+    "Error carry forward: when a criterion uses a value the student computed incorrectly earlier, judge the method and reasoning shown for this criterion and do not withhold its points solely because that inherited value is wrong.",
     "When the response is ambiguous or unsupported, mark the criterion unable_to_determine.",
     "Return only the JSON object that matches the schema.",
   ].join(" ");
@@ -169,6 +188,16 @@ export function buildGradingPrompt(input: {
       `  points_possible: ${criterion.points_possible}`,
     ];
 
+    // Spell out the award range per criterion rather than relying on the
+    // system prompt alone. Multi-point criteria are the minority (20% of the
+    // Production bank), so a global instruction is easy for the model to
+    // overlook on the item where it actually applies.
+    if (criterion.points_possible > 1) {
+      pieces.push(
+        `  award: any whole number of points from 0 to ${criterion.points_possible}; use partially_earned for anything in between`,
+      );
+    }
+
     if (criterion.evidence_requirements) {
       pieces.push(
         `  evidence_requirements: ${criterion.evidence_requirements}`,
@@ -187,6 +216,7 @@ export function buildGradingPrompt(input: {
     `Use only the released content and rubric provided below.`,
     `Do not invent facts, claims, or criteria that are not present in the rubric.`,
     `If evidence is insufficient, mark the relevant criteria unable_to_determine and explain why.`,
+    `points_awarded must match the status: equal to points_possible for earned, strictly between 0 and points_possible for partially_earned, and 0 otherwise.`,
     `The operation is ${input.operation}.`,
     `Prompt version: ${input.promptVersion}.`,
     `Item title: ${input.itemTitle}.`,
@@ -375,6 +405,13 @@ export function normalizeModelResult(
       return pointsAwarded >= pointsPossible
         ? "full_credit"
         : "not_full_credit";
+    case "partially_earned":
+      // Collapses to not_full_credit under the binary v1 scale, exactly as
+      // the `partially_earned` GOLD label already does above. The harness
+      // measures full-credit agreement; scoring partial awards on their own
+      // scale is a separate change to this policy version, not a side effect
+      // of the production schema gaining the status.
+      return "not_full_credit";
     case "not_yet_earned":
       return "not_full_credit";
     case "unable_to_determine":
