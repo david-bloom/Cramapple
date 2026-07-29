@@ -111,6 +111,16 @@ export const gradingSchema = {
     },
     repair_hint: { type: ["string", "null"] },
   },
+  // OpenAI structured outputs run with `strict: true` (see
+  // buildGradingRequestBody), which requires EVERY key in `properties` to also
+  // appear here -- optionality is expressed by making the type nullable, not by
+  // omitting the key. `action_hint` and `repair_hint` were absent, so the API
+  // rejected the request before it reached the model: 4 of the 5 FRQ gradings
+  // ever attempted in Production died with
+  //   "Invalid schema for response_format 'grading_result' ... Missing 'action_hint'"
+  // The error names only the first offender, so both had to be added.
+  // Enforced by a test in grading-contract_test.ts -- adding a property without
+  // adding it here reintroduces the outage.
   required: [
     "status",
     "points_earned",
@@ -121,6 +131,8 @@ export const gradingSchema = {
     "confidence",
     "uncertainty_reason",
     "student_facing_summary",
+    "action_hint",
+    "repair_hint",
   ],
 } as const;
 
@@ -199,6 +211,19 @@ export function buildGradingPrompt(input: {
 // gateway-normalized adapter, if built, is a separate function -- it must
 // not silently reuse this one, since doing so would misrepresent which
 // transport_mode a result was actually measured under.
+// OpenAI accepts the `reasoning` block only on reasoning models (o-series and
+// gpt-5+). Sending it to a non-reasoning model is a hard 400:
+//   "Unsupported parameter: 'reasoning.effort' is not supported with this model."
+// evaluate-attempt never passes reasoningEffort, so it took the `?? "high"`
+// default and sent the block unconditionally -- which rejected every FRQ
+// grading request under Production's OPENAI_MODEL (gpt-4.1-mini), on top of
+// the separate `required`/`properties` defect above. Both had to be fixed for
+// a single grading to succeed.
+export function supportsReasoningEffort(modelId: string) {
+  const m = modelId.toLowerCase().replace(/^openai\//, "");
+  return /^(o\d|gpt-5)/.test(m);
+}
+
 export function buildGradingRequestBody(input: {
   modelId: string;
   maxOutputTokens: number;
@@ -207,6 +232,10 @@ export function buildGradingRequestBody(input: {
   userIdHash: string;
   reasoningEffort?: "low" | "medium" | "high";
 }) {
+  const reasoning = supportsReasoningEffort(input.modelId)
+    ? { reasoning: { effort: input.reasoningEffort ?? "high" } }
+    : {};
+
   return {
     model: input.modelId,
     input: [
@@ -220,7 +249,7 @@ export function buildGradingRequestBody(input: {
       },
     ],
     store: false,
-    reasoning: { effort: input.reasoningEffort ?? "high" },
+    ...reasoning,
     max_output_tokens: input.maxOutputTokens,
     text: {
       format: {

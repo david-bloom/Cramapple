@@ -145,6 +145,83 @@ function searchableResponse(input?: {
   return `${input?.responseText ?? ""}\n${parts}`;
 }
 
+// --- evidence grounding -------------------------------------------------
+//
+// The grounding check exists to stop the grader awarding credit for text the
+// student never wrote, and it does catch that. But it was a raw
+// `response.includes(quote)`, which is far stricter than the thing it is
+// trying to detect: a model that quotes a span crossing a line break almost
+// always collapses the newline to a space, and one that quotes a long span
+// often elides the middle with "...". Neither is a fabricated quote.
+//
+// Measured over 2,973 real grader outputs (Phase C beta-2 corpus):
+//
+//   exact substring        10.19% flagged   <- shipped behaviour
+//   + unicode/whitespace    3.70% flagged
+//   + elision-aware         2.66% flagged
+//
+// ~64% of the original flags were false alarms. That matters because a flag is
+// not advisory: it forces the criterion to unable_to_determine AND zeroes its
+// points, so brittle matching was silently converting correct gradings into
+// withheld credit -- the same under-credit direction beta-1 was fixing at the
+// rubric level.
+//
+// Deliberately NOT relaxed any further: no lowercasing (measured to recover
+// zero additional cases, so it would only weaken the check), no fuzzy or
+// edit-distance matching, and elided fragments must appear in order and be
+// long enough to be meaningful. The 2.66% that still fail are genuine
+// paraphrases and invented quotes, which is exactly what should be caught.
+const EVIDENCE_ELISION = /\s*\[?\s*(?:\.\.\.|…)\s*\]?\s*/;
+const MIN_ELIDED_FRAGMENT = 12;
+
+function normalizeForGrounding(value: string) {
+  let out = value.normalize("NFKC");
+  for (
+    const [from, to] of [
+      ["‘", "'"],
+      ["’", "'"],
+      ["“", '"'],
+      ["”", '"'],
+      ["–", "-"],
+      ["—", "-"],
+      ["…", "..."],
+    ] as const
+  ) {
+    out = out.split(from).join(to);
+  }
+  return out.replace(/\s+/g, " ").trim();
+}
+
+/**
+ * True when `quote` is genuinely present in `response`, tolerating the
+ * formatting a model applies when quoting but not tolerating paraphrase.
+ * Exported so the behaviour is directly testable.
+ */
+export function evidenceIsGrounded(quote: string, response: string) {
+  if (!quote) return false;
+  if (response.includes(quote)) return true;
+
+  const haystack = normalizeForGrounding(response);
+  const needle = normalizeForGrounding(quote);
+  if (!needle) return false;
+  if (haystack.includes(needle)) return true;
+
+  // A quote may elide its middle ("first part ... last part"). Require every
+  // substantial fragment to appear, in order, without overlapping.
+  const fragments = needle.split(EVIDENCE_ELISION).filter((fragment) =>
+    fragment.length >= MIN_ELIDED_FRAGMENT
+  );
+  if (fragments.length < 2) return false;
+
+  let cursor = 0;
+  for (const fragment of fragments) {
+    const at = haystack.indexOf(fragment, cursor);
+    if (at < 0) return false;
+    cursor = at + fragment.length;
+  }
+  return true;
+}
+
 export function sanitizeModelResult(
   parsed: Record<string, unknown>,
   sourceCriteria: FeedbackCriterionRow[],
@@ -205,7 +282,7 @@ export function sanitizeModelResult(
       status = "unable_to_determine";
       points = 0;
       issues.push({ code: "earned_without_evidence", criterion_key: source.criterion_key });
-    } else if (evidence && enforceGrounding && !response.includes(evidence)) {
+    } else if (evidence && enforceGrounding && !evidenceIsGrounded(evidence, response)) {
       status = "unable_to_determine";
       points = 0;
       evidence = null;

@@ -28,6 +28,45 @@ type ContentVersion = {
   prompt_json: Record<string, unknown> | null;
 };
 
+type StructuredPromptPart = {
+  label?: unknown;
+  prompt?: unknown;
+  points?: unknown;
+};
+
+function normalizePromptText(value: string): string {
+  return value.replace(/\s+/g, " ").trim().toLowerCase();
+}
+
+// The current reviewer client renders artifact.stem but does not yet render
+// prompt_json.parts. Build a complete reviewer-only stem at the queue boundary
+// so a structured full-scale FRQ cannot appear as boilerplate plus a rubric.
+// Parts already present verbatim in the stem are not duplicated.
+export function buildReviewerStem(version: ContentVersion): string {
+  const base = version.stem ?? "";
+  const rawParts = version.prompt_json?.parts;
+  if (!Array.isArray(rawParts)) return base;
+
+  const normalizedBase = normalizePromptText(base);
+  const visibleParts = rawParts.flatMap((raw, index) => {
+    if (!raw || typeof raw !== "object") return [];
+    const part = raw as StructuredPromptPart;
+    if (typeof part.prompt !== "string" || !part.prompt.trim()) return [];
+    if (normalizedBase.includes(normalizePromptText(part.prompt))) return [];
+
+    const label = typeof part.label === "string" && part.label.trim()
+      ? part.label.trim()
+      : `Part ${String.fromCharCode(65 + index)}`;
+    const points = typeof part.points === "number" && Number.isFinite(part.points)
+      ? ` (${part.points} ${part.points === 1 ? "point" : "points"})`
+      : "";
+    return [`${label}${points}: ${part.prompt.trim()}`];
+  });
+
+  if (visibleParts.length === 0) return base;
+  return `${base}\n\nMandatory subparts:\n\n${visibleParts.join("\n\n")}`;
+}
+
 const STIMULUS_IMAGE_BUCKET = "content-assets";
 const STIMULUS_IMAGE_URL_TTL_SECONDS = 3600;
 
@@ -359,7 +398,7 @@ Deno.serve(async (req) => {
         content_key: item?.content_key ?? null,
         item_type: item?.item_type ?? null,
         title: item?.title ?? null,
-        stem: version.stem,
+        stem: buildReviewerStem(version),
         stimulus: version.stimulus,
         stimulus_image_path: version.stimulus_image_path,
         stimulus_image_url: version.stimulus_image_path
@@ -373,6 +412,10 @@ Deno.serve(async (req) => {
           ),
         },
         explanation: version.explanation,
+        // Some full-scale FRQs intentionally keep their shared directions in
+        // stem and their mandatory subparts in prompt_json.parts. The review
+        // client must receive both or it cannot evaluate the complete item.
+        prompt_json: version.prompt_json,
         frq_form: item?.frq_form ?? null,
         review_status: version.review_status,
         mcq_choices: versionId

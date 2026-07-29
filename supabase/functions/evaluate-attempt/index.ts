@@ -92,7 +92,29 @@ const OPENAI_DAILY_CAP_USD = requirePositiveNumberEnv("OPENAI_DAILY_CAP_USD");
 const EVALUATE_ATTEMPT_PROMPT_VERSION = requireEnv(
   "EVALUATE_ATTEMPT_PROMPT_VERSION",
 );
-const MATH_VERIFIER_VERSION = "math-verifier-ts-2026-07-08";
+// Entitlement gating ships ahead of its schema. The `authorize_grading_access`
+// RPC lives in migration 20260720122542_free_score_check_growth_funnel.sql,
+// which is NOT applied to Production (verified 2026-07-28) -- so calling it
+// there fails and every non-admin grading request 403s with
+// `entitlement_required`. Deploying this file without the flag took Production
+// grading from "broken by two transport bugs" to "rejects every caller", which
+// is strictly worse.
+//
+// Default OFF, which reproduces the pre-2026-07-28 deployed behaviour (v23 had
+// no gate at all). This is NOT a silent bypass: the check is skipped only when
+// explicitly disabled, and turning it on is a one-line env change once the
+// migration is applied. Code and schema must ship together; until they do, the
+// flag makes the mismatch explicit instead of fatal.
+const GRADING_ENTITLEMENTS_ENABLED =
+  (Deno.env.get("GRADING_ENTITLEMENTS_ENABLED") ?? "false").toLowerCase() ===
+    "true";
+
+// Bumped 2026-07-28: three checker defects fixed (supplied inputs now win over
+// the built-in `e`/`pi` constants; CORRECT_VIA_ECF requires a real upstream
+// divergence; `erf`/`factorial` parse). Verdicts from this build are not
+// comparable to 2026-07-08 ones, so the stamp recorded in
+// grading_results.deterministic_verifier_version has to move with it.
+const MATH_VERIFIER_VERSION = "math-verifier-ts-2026-07-28";
 
 // Timeout is configurable so we can tune for high-reasoning models without
 // a code change. 90s accommodates reasoning: { effort: "high" } latency
@@ -688,7 +710,7 @@ Deno.serve(async (req) => {
   // through; free-score-check users can reserve exactly one initial grade and
   // one repair grade, idempotently by request ID. Admin calls are operational
   // and intentionally bypass learner entitlements.
-  if (profile.role !== "admin") {
+  if (GRADING_ENTITLEMENTS_ENABLED && profile.role !== "admin") {
     const { error: accessError } = await service.schema("app").rpc(
       "authorize_grading_access",
       {
