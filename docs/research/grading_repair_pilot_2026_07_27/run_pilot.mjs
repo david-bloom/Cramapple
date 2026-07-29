@@ -5,21 +5,29 @@ import { appendFileSync, existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 const PROJECT_URL = "https://pcntajvbdfqhbeewmdry.supabase.co";
-const USER_ID = "edc8592c-28df-4094-a2fd-3788652b3536";
 const SESSION_FILE = process.env.PILOT_SESSION_FILE ??
   "/tmp/cramapple_grading_pilot_session.json";
 const OUTPUT_FILE = process.env.PILOT_OUTPUT_FILE ??
   "/tmp/cramapple_grading_pilot_raw.jsonl";
 const API_KEY = process.env.SUPABASE_PUBLISHABLE_KEY;
 
+// Each pilot run creates and then deletes its own synthetic student, so the
+// user id cannot be hardcoded -- the 2026-07-27 identity was removed by that
+// run's cleanup. It is read from the session file instead, and RUN_LABEL keeps
+// the deterministic attempt/response/idempotency UUIDs distinct per run so a
+// re-run never silently collides with (or resumes) an earlier one.
+const RUN_LABEL = process.env.PILOT_RUN_LABEL ?? "20260728";
+
 if (!API_KEY) {
   throw new Error("SUPABASE_PUBLISHABLE_KEY is required");
 }
 
 const session = JSON.parse(readFileSync(SESSION_FILE, "utf8"));
-if (!session.access_token || session.user?.id !== USER_ID) {
+const USER_ID = session.user?.id;
+if (!session.access_token || !USER_ID) {
   throw new Error("Session file is missing the isolated pilot user's bearer token");
 }
+console.log(`pilot user=${USER_ID} run_label=${RUN_LABEL} output=${OUTPUT_FILE}`);
 
 const corpusPath = resolve(
   "docs/research/grading_repair_pilot_2026_07_27/candidate_answers.json",
@@ -27,7 +35,7 @@ const corpusPath = resolve(
 const corpus = JSON.parse(readFileSync(corpusPath, "utf8"));
 
 function deterministicUuid(label) {
-  const hex = createHash("sha256").update(`grading-pilot-20260727:${label}`)
+  const hex = createHash("sha256").update(`grading-pilot-${RUN_LABEL}:${label}`)
     .digest("hex");
   return [
     hex.slice(0, 8),

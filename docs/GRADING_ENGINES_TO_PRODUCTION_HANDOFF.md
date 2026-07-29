@@ -92,11 +92,17 @@ See `docs/research/ENGINE1_PARTIAL_CREDIT_AND_ARM_A_2026_07_29.md`.
   124 published.**
 - **`uncertainty_reason` (item 3) fixed.** The "failed 0 integrity check(s)" string is now
   impossible; abstention and integrity failure are worded separately.
-- **Arm A (item 1) is built but ships DEFAULT OFF** behind `GRADING_ARM`. Measured 3 trials on
-  the production model: **3.34× faster** (7,541 → 2,255 ms) at **1.31× cost** — but it
-  **over-credited a 2-point criterion in 3 of 3 trials** where Arm B was correct in 3 of 3. That
-  is the Phase C +2.8 pp criterion-agreement effect showing up reproducibly. n=1 item, so it sizes
-  nothing; run the A/B before flipping the flag.
+- **PRIORITY ORDER CORRECTED (owner, 2026-07-29): Quality > Speed > Cost.** Not Speed first, as
+  the old grader-priority memo said. Cost is immaterial — real runs land near **$0.002/FRQ**.
+  Treat any doc asserting Speed first as stale.
+- **Arm A (item 1) is built but ships DEFAULT OFF** behind `GRADING_ARM`, and on current evidence
+  **it does not ship at all.** It is **2.5–3.3× faster** on the production model, but scored
+  **0 of 6 correct** across two variants where Arm B scored **5 of 6**. The obvious fix — giving
+  each call the full rubric as context, which cost had been the only reason to omit — was tried
+  and **did not work**. Under Quality-first that is a reject pending a real corpus.
+- **Bigger lever than the arm question: try a stronger model.** Cost is immaterial and quality is
+  first, and `gpt-4.1-mini` is both the slow component and the source of the over-crediting. It is
+  the only lever that can improve quality *and* speed at once.
 - **Repo HEAD was BEHIND Production** — the v26/v25 fixes had never been committed. Fixed first
   (`26859a8`), so trap 2 now has a reference point.
 - **Before deploying any of this: bump `EVALUATE_ATTEMPT_PROMPT_VERSION`.** The grading prompt

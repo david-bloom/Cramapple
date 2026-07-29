@@ -1,0 +1,48 @@
+{
+  "audit_id": "frq02-label-audit-2026-07-27",
+  "source": "docs/research/frq02_generated_answer_labels_codex_provisional.jsonl",
+  "scope": {
+    "responses_reviewed": 100,
+    "criteria_per_response": 4,
+    "labels_reviewed": 400
+  },
+  "status": "promoted_to_adjudicated_final_gold",
+  "policy": {
+    "FRQ02-C1": "Earn only when the response affirmatively identifies genetic drift or a bottleneck; a negated mention does not earn.",
+    "FRQ02-C2": "Earn only when randomness or non-selection is explicitly attached to which plants were destroyed/survived, or survivors are explicitly a random sample. Random allele-frequency change after the event is not enough.",
+    "FRQ02-C3": "Earn when later generations are predicted to have reduced genetic diversity relative to the original population; an initial decrease followed by full recovery does not earn.",
+    "FRQ02-C4": "Earn for a valid small-population mechanism such as random allele-frequency change, allele loss/fixation, reduced heterozygosity, or failure to restore diversity without mutation/gene flow."
+  },
+  "overrides": [
+    {"response_id":"S007","criterion_id":"FRQ02-C1","from":"earned","to":"not_earned","reason":"The response expressly says genetic drift does not apply; a negated term is not an affirmative identification."},
+    {"response_id":"S008","criterion_id":"FRQ02-C2","from":"earned","to":"not_earned","reason":"Randomness is attached to allele loss after the population shrank, not to which plants the event destroyed or spared."},
+    {"response_id":"S011","criterion_id":"FRQ02-C2","from":"earned","to":"not_earned","reason":"Chance is attached to allele loss in a small population, not to the construction event's selection of survivors."},
+    {"response_id":"S013","criterion_id":"FRQ02-C2","from":"earned","to":"not_earned","reason":"The response describes random allele-frequency change without natural selection, but does not describe event-level random survival."},
+    {"response_id":"S014","criterion_id":"FRQ02-C2","from":"earned","to":"not_earned","reason":"Random sampling is attributed to gametes after the bottleneck, not to which plants survived the construction event."},
+    {"response_id":"S017","criterion_id":"FRQ02-C2","from":"earned","to":"not_earned","reason":"Randomness is attached to interbreeding and allele frequencies, not to destruction or survival in the event."},
+    {"response_id":"S018","criterion_id":"FRQ02-C3","from":"not_earned","to":"earned","reason":"The response directly predicts that genetic diversity will decrease in later generations."},
+    {"response_id":"S026","criterion_id":"FRQ02-C3","from":"not_earned","to":"earned","reason":"The response explicitly predicts reduced diversity in later generations."},
+    {"response_id":"S030","criterion_id":"FRQ02-C3","from":"not_earned","to":"earned","reason":"The response explicitly says diversity will decrease in subsequent generations."},
+    {"response_id":"S044","criterion_id":"FRQ02-C3","from":"not_earned","to":"earned","reason":"The response predicts a progressive decrease in genetic diversity over later generations."},
+    {"response_id":"S051","criterion_id":"FRQ02-C2","from":"earned","to":"not_earned","reason":"Chance is attached only to allele loss in the already-small population, not to event-level survival."},
+    {"response_id":"S054","criterion_id":"FRQ02-C2","from":"earned","to":"not_earned","reason":"The answer describes random allele-frequency change after reduction but does not attribute random selection to the event."},
+    {"response_id":"S057","criterion_id":"FRQ02-C2","from":"earned","to":"not_earned","reason":"Randomness is attached to subsequent allele-frequency change, not to which plants were removed."},
+    {"response_id":"S058","criterion_id":"FRQ02-C2","from":"earned","to":"not_earned","reason":"The answer identifies drift after the population shrank but gives no event-level random-survival attribution."},
+    {"response_id":"S058","criterion_id":"FRQ02-C3","from":"not_earned","to":"earned","reason":"The response states that the remaining plants lose genetic diversity."},
+    {"response_id":"S059","criterion_id":"FRQ02-C2","from":"earned","to":"not_earned","reason":"Chance is attached to allele loss after the bottleneck, not to construction selecting survivors randomly."},
+    {"response_id":"S062","criterion_id":"FRQ02-C2","from":"earned","to":"not_earned","reason":"A chance difference in survivor allele frequencies describes the outcome; it does not state that survivor identity was random."},
+    {"response_id":"S069","criterion_id":"FRQ02-C2","from":"earned","to":"not_earned","reason":"The response describes random frequency change in a small population, not random destruction or survival."},
+    {"response_id":"S070","criterion_id":"FRQ02-C2","from":"earned","to":"not_earned","reason":"Randomness is attached to allele-frequency change after population reduction, not to the reduction event."},
+    {"response_id":"S073","criterion_id":"FRQ02-C2","from":"earned","to":"not_earned","reason":"The response discusses drift and later allele elimination but never says the event selected survivors randomly."},
+    {"response_id":"S081","criterion_id":"FRQ02-C2","from":"earned","to":"not_earned","reason":"Allele loss by chance in the smaller population is an outcome/mechanism statement, not event-level random survival."},
+    {"response_id":"S083","criterion_id":"FRQ02-C2","from":"earned","to":"not_earned","reason":"The response attributes randomness to allele-frequency change in the small population, not to which plants survived."},
+    {"response_id":"S098","criterion_id":"FRQ02-C2","from":"earned","to":"not_earned","reason":"The response labels the resulting frequency change random but does not connect randomness to destruction or survivor selection."}
+  ],
+  "close_calls_retained_without_override": [
+    {"response_id":"S020","criterion_id":"FRQ02-C2","label":"not_earned","reason":"\"Not necessarily the most fit\" is hedged and does not affirm that the event was non-selective or survivors were random."},
+    {"response_id":"S028","criterion_id":"FRQ02-C2","label":"not_earned","reason":"Randomness is attached to the frequency outcome, even though natural selection is denied."},
+    {"response_id":"S063","criterion_id":"FRQ02-C3","label":"not_earned","reason":"The answer predicts eventual recovery to original diversity, so it does not predict persistent reduction in later generations."},
+    {"response_id":"S064","criterion_id":"FRQ02-C3","label":"earned","reason":"The answer predicts stabilization at a lower level, which remains reduced relative to the original population."},
+    {"response_id":"S068","criterion_id":"FRQ02-C2","label":"not_earned","reason":"The answer describes a chance allele-frequency outcome but does not explicitly make survivor identity a random sample."}
+  ]
+}

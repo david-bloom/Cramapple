@@ -6,6 +6,13 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Complete Four-Course Physics Review Packet Assigned to Saood — 2026-07-27
+- Cross-Subject 21-Question Repairs Applied; 12 Chemistry Historical Labels Reconciled — 2026-07-27
+- Cross-Subject 21-Question Content-Remediation Pilot Packet Frozen — 2026-07-27
+- All 234 Changes-Requested Questions Audited; 70 Low-Risk Repairs Approved — 2026-07-27
+- Biology Unapproved/Unassigned Paired Review Assigned to Sohail and Adil — 2026-07-27
+- `approve_with_edits` State Logic and Correction-Backed Labels Repaired — 2026-07-27
+- Complete AP Calculus BC Review Packet Assigned to Muhammad Saood — 2026-07-27
 - Grading-Experiment Readiness Re-Verified; Engine 1 Grading+Repair Pilot Spec Authored — 2026-07-27
 - One-Reviewer + AI-QA Publication Reconciliation — 2026-07-27
 - Two-Approval / Executed-Edit Publication Reconciliation — 2026-07-27
@@ -33,6 +40,160 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 ---
+
+## Complete Four-Course Physics Review Packet Assigned to Saood — 2026-07-27
+
+**Task:** Assign every latest active question across AP Physics 1, AP Physics
+2, AP Physics C: Mechanics, and AP Physics C: Electricity and Magnetism to
+Muhammad Saood.
+
+**Outcome:** Verified Saood's active qualification for all four exams and
+resolved 328 latest active questions: 176 MCQ and 152 FRQ. Preserved 248
+existing submitted assignments and added the 80 missing assignments as
+pending. Saood now has complete coverage: 88 Physics 1 questions and 80 each
+for Physics 2, Physics C: Mechanics, and Physics C: E&M. All 328 assignments
+carry the published workflow label `Saood complete Physics review`
+(`saood-complete-physics-review-2026-07-27`) in their owning exam pack.
+Independent reconciliation found zero missing, skipped, or item-type-mismatched
+assignments.
+
+**Files/systems changed:** Production Supabase
+`pcntajvbdfqhbeewmdry`; repo script
+`scripts/content-seed/reviewer-management/20260727_saood_complete_physics_packet.sql`.
+
+## Cross-Subject 21-Question Repairs Applied; 12 Chemistry Historical Labels Reconciled — 2026-07-27
+
+**Task:** Repair the 21-question cross-subject pilot in Production, return
+`APSTAT-MOD8-M004` and `apchem-mcq-050` to draft for second review, and repair
+the stale tutor-pending labels on 12 Chemistry FRQ versions.
+
+**Outcome:** Created immutable draft successors for all 21 pilot questions.
+Nineteen contain the governed rubric, assumption, or substantive repair. The
+Statistics and Chemistry controls are content-identical drafts awaiting
+independent review. Retired all 21 source versions without approving or
+publishing a successor. Reconciled 12 superseded Chemistry FRQ versions: four
+approve outcomes now show `question_review_approved`, eight approve-with-edits
+outcomes show `modification_reserved`, and all 12 historical versions are
+retired.
+
+**Verification:** 21/21 latest pilot successors and parent items are draft;
+21/21 have no decision; 21/21 sources are retired. All 17 substantively
+repaired FRQs reconcile points, all three MCQs retain four unique choices and
+one answer, both controls are content-identical, and all 12 Chemistry outcomes
+match their decision. Production has no second actively qualified Chemistry or
+Statistics reviewer, so the controls remain unassigned.
+
+**Evidence:**
+`docs/research/content_remediation_cross_subject_pilot_2026_07_27/PRODUCTION_REPAIR_REPORT.md`;
+`supabase/migrations/20260728013916_repair_cross_subject_pilot_and_chemistry_labels.sql`.
+
+## Cross-Subject 21-Question Content-Remediation Pilot Packet Frozen — 2026-07-27
+
+**Task:** Begin the author/tutor remediation of the 164 questions intentionally
+left in `changes_requested` with a bounded cross-subject packet covering rubric
+restructuring, assumptions, and substantive rewrites.
+
+**Outcome:** Froze a 21-question packet across AP Biology, AP Chemistry, AP
+Statistics, AP Physics 1, AP Physics 2, AP Physics C: E&M, and AP Physics C:
+Mechanics. The packet contains eight rubric-point restructures, six
+assumption/convention repairs, six substantive rewrite or adjudication cases,
+and one verified-no-change control. Added a repair manifest, author handoff
+prompt, read-only Production source resolver, validation requirements, and
+independent-review exit criteria.
+
+**Verification:** Production resolution found 21/21 current source versions
+matching the frozen version numbers, 21/21 still `changes_requested`, and
+21/21 with active tutor findings. The packet itself makes no Production
+changes and authorizes no approval or publication.
+
+**Evidence:**
+`docs/research/content_remediation_cross_subject_pilot_2026_07_27/README.md`.
+
+## All 234 Changes-Requested Questions Audited; 70 Low-Risk Repairs Approved — 2026-07-27
+
+**Task:** Review every latest question labeled `changes_requested`, apply all
+strictly low-risk corrections, and approve each question only after its defect
+is verified as corrected.
+
+**Outcome:** Audited all 234 questions and distinct tutor notes. Created 64
+immutable corrected versions for exact, tutor-specified stem, choice, and
+rationale edits. Verified that five AP Statistics questions already contained
+their requested corrections and that one AP Precalculus tutor note identified
+no defect, so those six correct current versions were preserved. Added
+immutable approvals for all 70 verified questions. Left 164 questions in
+`changes_requested`: 124 FRQs requiring scoring/task-design judgment and 40
+MCQs requiring non-mechanical subject-matter or rewrite decisions.
+
+**Verification:** 70/70 remediated latest versions and parent items are
+`reviewed_approved`; 164 latest versions remain `changes_requested`. Every
+changed MCQ has exactly one keyed answer and no duplicate choice text. Nothing
+was published.
+
+**Evidence:** `docs/research/CHANGES_REQUESTED_LOW_RISK_REMEDIATION_2026_07_27.md`;
+`supabase/migrations/20260728011701_remediate_low_risk_changes_requested.sql`.
+
+## Biology Unapproved/Unassigned Paired Review Assigned to Sohail and Adil — 2026-07-27
+
+**Task:** Assign every unapproved or unassigned latest active AP Biology
+question to Sarah Sohail and Adil Abbasi, with both reviewers covering the
+same questions.
+
+**Outcome:** Verified active AP Biology qualifications for both reviewers and
+resolved 112 eligible latest active questions from authoritative lifecycle
+state: 75 MCQ and 37 FRQ. Reused their existing assignments and blind groups,
+added the 143 missing reviewer-question assignments, and reopened Adil's two
+skipped assignments as pending. Both reviewers now cover all 112 questions;
+all 112 pairs share matching non-null `blind_group_id` values. Existing
+submitted decisions remain intact. All 224 reviewer-question assignments are
+grouped under the published workflow label
+`Biology unapproved or unassigned paired review`
+(`sohail-adil-biology-unapproved-unassigned-2026-07-27`).
+
+**Files/systems changed:** Production Supabase
+`pcntajvbdfqhbeewmdry`; repo script
+`scripts/content-seed/reviewer-management/20260727_sohail_adil_biology_unapproved_unassigned_pair.sql`.
+
+## `approve_with_edits` State Logic and Correction-Backed Labels Repaired — 2026-07-27
+
+**Task:** Enforce the Product Owner rule that `approve_with_edits` remains
+changes-requested until the defect is corrected, after which the corrected
+question becomes approved.
+
+**Outcome:** Fixed the Production state-machine regression that mapped tutor
+scores 1 and 2 to the same `reviewed_approved` state. Added
+`changes_requested`, corrected blind-pair aggregation, and prevented decisions
+on old versions from changing the current item. Added immutable, auditable
+`approve` decisions for 28 correction-backed latest versions while preserving
+the historical edit requests through `supersedes_id`. Demoted 234 unresolved,
+non-published latest versions from false approval to `changes_requested`.
+Published ambiguous cases were flagged `modification_reserved`, not silently
+removed.
+
+**Verification:** 28/28 repaired latest versions now have `approve` as their
+only active label; all 28 audit assignments are submitted and tagged
+`owner_remediation_approval`. The migration applied to Production
+`pcntajvbdfqhbeewmdry`.
+
+**Evidence:** `docs/research/APPROVE_WITH_EDITS_STATE_REPAIR_2026_07_27.md`;
+`supabase/migrations/20260728005749_correct_approve_with_edits_state.sql`.
+
+## Complete AP Calculus BC Review Packet Assigned to Muhammad Saood — 2026-07-27
+
+**Task:** Create one reviewer packet containing every current AP Calculus BC
+question and assign it to Muhammad Saood.
+
+**Outcome:** Verified that Saood holds an active qualification for AP Calculus
+BC, then created 36 pending `tutor_question` assignments covering every latest
+active BC item: 20 MCQ and 16 FRQ. Grouped all 36 assignments under the
+published workflow label `AP Calculus BC complete review`
+(`saood-ap-calculus-bc-complete-2026-07-27`). Independent reconciliation found
+36 assignments, 36 labels, zero item-type mismatches, and zero missing latest
+items. The two pre-existing pending Carlos Eduardo Hutchings assignments (one
+MCQ and one FRQ, with no decisions) were left intact.
+
+**Files/systems changed:** Production Supabase
+`pcntajvbdfqhbeewmdry`; repo script
+`scripts/content-seed/reviewer-management/20260727_saood_ap_calculus_bc_complete_packet.sql`.
 
 ## Grading-Experiment Readiness Re-Verified; Engine 1 Grading+Repair Pilot Spec Authored — 2026-07-27
 

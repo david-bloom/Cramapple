@@ -175,6 +175,55 @@ fan-out sets the item's latency.
 
 ---
 
+## 5b. Priority order corrected, and the Arm A fix that failed
+
+**Owner, 2026-07-29: Quality > Speed > Cost** — not Speed > Quality > Cost as previously recorded.
+*"The cost is immaterial. We are still at one fifth of a cent."* The docs were already
+inconsistent on this (`ARM_B_ROOT_CAUSE_ANALYSIS.md` §4 flagged that the Stage 6 prompt ordered
+Quality first while the grader-priority memo said the reverse). **Quality first is the standing
+order; treat any doc asserting Speed first as stale.**
+
+Cost was the *only* thing Arm A bought by sending each call only its target criterion. Removing
+that constraint, each call now gets the full rubric marked as do-not-grade context — targeting the
+exact mechanism Phase C proposed.
+
+**It did not work.** Three more trials, same item, correct award 4/7:
+
+| | trial 1 | trial 2 | trial 3 |
+|---|---|---|---|
+| Arm B | 5/7 | 4/7 | 4/7 |
+| Arm A, full rubric | 5/7 | 6/7 | 5/7 |
+
+Pooled across both batches: **Arm B 5 of 6 correct; Arm A 0 of 6**, across both variants. Arm A
+still never scores `C3_graph` correctly, and the full-rubric variant produced a 6/7 — its worst
+result. Verified the sibling criteria really do reach the prompt, so this is a genuine null rather
+than a plumbing bug.
+
+**Two corrections to §5 above.** Arm B is 5 of 6, not 3 of 3 — it is less stable than first
+reported. And criterion-blind Arm A was not uniquely bad; both variants fail the same way.
+
+Context starvation was a plausible mechanism and is now the wrong explanation. Grading a criterion
+in isolation makes the grader more generous for a reason that supplying the other criteria does
+not fix.
+
+### Methodological limit — important under a quality-first order
+
+Ground truth in these runs is **my own reading of a rubric I wrote, on one synthetic item.** That
+is not an adjudicated gold set. It is adequate to show a reproducible *difference between arms*;
+it is **not** adequate to certify either arm's quality. Governance requires 300+ dual-blind
+adjudicated held-out responses and none exists for any production question.
+
+### The larger lever this exposes
+
+Under Quality > Speed > Cost with cost immaterial, **the model is a bigger lever than the request
+architecture.** `gpt-4.1-mini` takes ~2 s for a single 1-point criterion where Phase C measured
+`gemini-2.5-flash` at 1.4 s p50 per call, and it is `gpt-4.1-mini` that is making these
+over-crediting errors. Testing a stronger model is cheap, is now unconstrained by cost, and could
+improve quality *and* speed at once — which no arm choice can do. **This should probably outrank
+the Arm A question.**
+
+---
+
 ## 6. What is NOT done
 
 - **Nothing is deployed.** Repo HEAD is now ahead of Production by this session's three commits.
@@ -190,14 +239,18 @@ fan-out sets the item's latency.
 
 ## 7. Recommended next steps
 
-1. **Bump `EVALUATE_ATTEMPT_PROMPT_VERSION`** and deploy with `GRADING_ARM` unset (Arm B). This
-   ships partial credit and the uncertainty fix with zero architecture change.
-2. **Re-run the narrow pilot with a multi-point corpus**, scoring **both arms**. The pilot's 6
-   items are all single-point and cannot test any of this. This is the measurement that decides
-   Arm A.
-3. **Then** decide Arm A on the evidence. Speed > Quality > Cost argues for taking a 3.3× win; the
-   C3 result argues for knowing the quality cost first. Both are legitimate — the data is missing,
-   not the judgement.
-4. If Arm A is rejected on quality, **the model is the larger lever anyway**: a single 1-point
-   criterion takes ~2 s on `gpt-4.1-mini` versus Phase C's 1.4 s p50 per call on
-   `gemini-2.5-flash`. Provider choice may outweigh request architecture.
+Reordered for **Quality > Speed > Cost**.
+
+1. **Bump `EVALUATE_ATTEMPT_PROMPT_VERSION` and deploy with `GRADING_ARM` unset (Arm B).** This
+   ships partial credit and the uncertainty fix — both pure quality wins — with zero architecture
+   change and no quality risk. Nothing below blocks it.
+2. **Test a stronger model.** Cost is immaterial and quality is first, which makes this the
+   highest-value experiment available: it is the one lever that can improve quality *and* speed
+   together, where no arm choice can. `gpt-4.1-mini` is both the slow component and the thing
+   making the over-crediting errors.
+3. **Build a multi-point pilot corpus with real labels.** The narrow pilot's 6 items are all
+   single-point and cannot test partial credit at all. Under a quality-first order, arm and model
+   decisions cannot rest on self-authored ground truth.
+4. **Only then decide Arm A**, on that corpus. As it stands Arm A is 2.5–3.3× faster and 0 of 6
+   correct where Arm B is 5 of 6. Under Quality > Speed that is a reject, and the obvious fix has
+   already been tried and failed.
