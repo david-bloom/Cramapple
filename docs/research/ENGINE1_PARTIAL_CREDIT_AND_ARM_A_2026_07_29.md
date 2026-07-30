@@ -224,6 +224,21 @@ the Arm A question.**
 
 ---
 
+## 5c. SUPERSEDED: the synthetic-rubric findings
+
+**2026-07-30.** The C3_graph over-crediting used throughout §5 and §5b came from a rubric I wrote
+myself, and that rubric is **not representative of the real bank**. See
+`RUBRIC_DECOMPOSITION_AND_PARTIAL_CREDIT_2026_07_30.md`:
+
+- The overlapping-element defect that made C3 ambiguous is structurally impossible in real
+  Cramapple content, where criteria are partitioned one per question part.
+- On real criteria the grader leans **under**-credit (full marks on only 7 of 10 complete
+  answers), the opposite of the over-crediting seen on the synthetic item.
+
+**Consequence for Arm A:** the quality evidence in §5 is from the discredited instrument. Arm A
+should stay default-off — nothing here argues for shipping it — but the "0 of 6 vs 5 of 6" result
+must be **re-measured on real criteria** before the arm decision is treated as settled.
+
 ## 6. What is NOT done
 
 - **Nothing is deployed.** Repo HEAD is now ahead of Production by this session's three commits.
