@@ -1,4 +1,4 @@
--- The content tables have mutually-referential publication policies. The
+-- The content tables have mutually referential publication policies. The
 -- authenticated invoker cannot safely aggregate them without policy
 -- recursion. This narrowly scoped, non-exposed helper returns one boolean and
 -- permits authenticated callers to evaluate only their own active pack.

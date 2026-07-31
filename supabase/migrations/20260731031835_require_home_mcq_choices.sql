@@ -1,4 +1,4 @@
--- A Home-eligible MCQ must be serveable by the broad practice loader.  A
+-- A Home-eligible MCQ must be serveable by the broad practice loader. A
 -- published stem without answer choices is not compatible content.
 create or replace view public.home_quick_start_subjects
 with (security_invoker = true, security_barrier = true)

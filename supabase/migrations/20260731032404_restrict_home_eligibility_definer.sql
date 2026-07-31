@@ -1,4 +1,4 @@
--- Keep the narrowly scoped RLS-bypass helper and session constructor on the
+-- Keep the narrowly scoped RLS-bypass helper and session constructor server-side.
 -- server side only. Authenticated browser requests enter through a
 -- requireSupabaseAuth server function, which supplies its verified user id to
 -- the service-role-only RPC.

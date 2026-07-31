@@ -1,4 +1,4 @@
--- TASK-0018 authoritative broad Home session lifecycle.
+-- TASK-0018 authoritative broad Home session lifecycle (Development-aligned).
 --
 -- The browser supplies only duration and an idempotency key. The active exam
 -- pack, eligibility, practice format, and user identity are resolved inside
