@@ -58,6 +58,8 @@ begin
   join app.exam_pack_versions epv on epv.exam_pack_id = ep.id
   join app.content_items ci on ci.exam_pack_version_id = epv.id
   join app.content_item_versions civ on civ.content_item_id = ci.id
+  join app.mcq_choices choice on choice.content_item_version_id = civ.id
+  join app.home_release_manifest m on m.exam_pack_version_id = epv.id
   where se.status = 'active'
     and se.starts_at <= now()
     and (se.ends_at is null or se.ends_at > now())
@@ -77,6 +79,15 @@ begin
   if v_user_id is null then
     raise exception 'TASK0019 test requires an entitled user with one published MCQ';
   end if;
+
+  update app.home_release_manifest
+  set quick_start_enabled = true,
+      minimum_published_items = 1
+  where exam_pack_version_id = v_pack_id;
+
+  update app.profiles
+  set active_exam_pack_version_id = v_pack_id
+  where user_id = v_user_id;
 
   select user_id
   into v_other_user_id
