@@ -5,7 +5,7 @@
 **Owner:** Codex (cross-repo: `Cramapple` migrations + `exam-buddy-wireframe` server adapter)  
 **Product Owner:** David Bloom  
 **Tier:** Hard-Gate  
-**Status:** In Progress — Development database verified; frontend activation gated  
+**Status:** In Progress — Claude QA Round 1 remediated in Development; re-QA pending
 **Priority:** High  
 **Created Date:** 2026-07-30  
 **Approved Date:** 2026-07-30 (implementation and Development verification only)
@@ -113,3 +113,65 @@ Remaining before frontend activation:
 4. Exercise content-retirement invalidation end to end with a disposable
    Development fixture; do not mutate reviewed published inventory for this
    test.
+
+## Claude QA Round 1 Remediation — 2026-07-30
+
+Round 1 was accepted as materially correct. The following forward remediation
+was implemented without changing Production:
+
+- Removed the obsolete pending migration that could create a second,
+  conflicting `public.session_targets`. Both sections of that pending draft
+  were already superseded: course position by TASK-0018 and targets by
+  `app.session_targets`.
+- Added a migration assertion that fails closed if a relation named
+  `public.session_targets` exists. The authoritative relation is only
+  `app.session_targets`.
+- Aligned the adapter candidate query with the RPC publication predicate by
+  requiring both the version and its embedded parent content item to be
+  published and in the active exam-pack version.
+- Added coded malformed-UUID, duplicate-item, compatible-item-type, and FRQ-form
+  validation before any target write.
+- Replaced MD5 issuance fingerprints with SHA-256 while allowing existing
+  32-character Development fingerprints during the forward transition.
+- Added a per-user limit of 10 live issued targets. Issuance is serialized per
+  user so concurrent fresh keys cannot bypass the limit.
+- Added a daily Postgres Cron retention sweep: issued targets are marked expired
+  after TTL, terminal expired/invalidated targets are retained 30 days, and
+  consumed targets are retained 90 days.
+- Persisted the first target item's real `practice_format` on the atomic
+  `learning_sessions` insert.
+- Prevented target consumption from creating a second active learning session
+  for the same user.
+- Removed service-role UPDATE and DELETE privileges from target items. The
+  issued plan is immutable through privileges; no mutation trigger was added
+  because a DELETE trigger would also obstruct the intended parent-row cascade
+  used by retention cleanup.
+- Added runtime validation for SQL status, error-code, item-type, and
+  practice-format unions.
+- Replaced client-visible raw database/PostgREST messages and inventory counts
+  with stable error codes and optional correlation IDs. Structured server logs
+  record only a stage and safe database/contract code.
+- Made `target_wrong_pack` explicitly reissuable.
+- Composed target activation with TASK-0018's server-side rollout: the target
+  kill switch, Home global kill switch, and unexpired own-user `home-v2`
+  assignment must all pass.
+- Added a rollback-only SQL integration test and a repeatable two-transaction
+  concurrency harness.
+
+### Round 1 reconsideration notes
+
+No finding was rejected outright. Two points were refined:
+
+1. The stale `public.session_targets` draft was a real deployment footgun even
+   though current Supabase Data API settings may require explicit grants before
+   a new public table is exposed. The file was removed and the forward
+   migration now asserts the namespace invariant.
+2. A row-level immutability trigger was not added to
+   `app.session_target_items`. Least-privilege grants now permit only SELECT and
+   INSERT to `service_role`; UPDATE and DELETE are structurally unavailable to
+   the application role. Parent-target deletion must retain its cascade for
+   scheduled garbage collection.
+
+The retired-content disposable-fixture test and authenticated adapter test with
+a profile carrying `active_exam_pack_version_id` remain activation gates until
+they are executed and recorded.
