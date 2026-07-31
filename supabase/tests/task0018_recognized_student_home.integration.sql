@@ -24,6 +24,15 @@ limit 1;
 insert into task0018_ids (key, id)
 select 'version_a', m.exam_pack_version_id
 from app.home_release_manifest m
+join app.content_items ci
+  on ci.exam_pack_version_id = m.exam_pack_version_id
+ and ci.status = 'published'
+ and ci.item_type = 'mcq'
+join app.content_item_versions civ
+  on civ.content_item_id = ci.id
+ and civ.status = 'published'
+join app.mcq_choices choice
+  on choice.content_item_version_id = civ.id
 order by m.exam_pack_version_id
 limit 1;
 
@@ -51,6 +60,13 @@ set
   active_exam_pack_version_id = (select id from task0018_ids where key = 'version_a'),
   first_run_dismissed_at = null
 where user_id = (select id from task0018_ids where key = 'user_a');
+
+update app.home_release_manifest
+set quick_start_enabled = true,
+    minimum_published_items = 1
+where exam_pack_version_id = (
+  select id from task0018_ids where key = 'version_a'
+);
 
 update app.profiles
 set first_run_dismissed_at = null
@@ -93,7 +109,6 @@ do $$
 declare
   v_timestamp timestamptz;
   v_source text;
-  v_switched uuid;
 begin
   if (select count(*) from public.feature_flag_assignments) <> 1 then
     raise exception 'feature flag RLS exposed another user';
@@ -128,6 +143,49 @@ begin
   end;
 
   perform public.end_active_learning_session();
+end;
+$$;
+
+reset role;
+
+do $$
+declare
+  v_started uuid;
+  v_replayed uuid;
+begin
+  select learning_session_id
+    into v_started
+  from public.start_home_learning_session_for_user(
+    (select id from task0018_ids where key = 'user_a'),
+    15,
+    'qa-home-start-001'
+  );
+  select learning_session_id
+    into v_replayed
+  from public.start_home_learning_session_for_user(
+    (select id from task0018_ids where key = 'user_a'),
+    15,
+    'qa-home-start-001'
+  );
+  if v_started is null or v_replayed <> v_started then
+    raise exception 'authoritative Home start was not idempotent';
+  end if;
+  insert into task0018_ids (key, id) values ('started', v_started);
+end;
+$$;
+
+set local role authenticated;
+
+do $$
+declare
+  v_switched uuid;
+begin
+  if public.complete_learning_session(
+       (select id from task0018_ids where key = 'started')
+     ) <> (select id from task0018_ids where key = 'started') then
+    raise exception 'specific Home session completion returned the wrong id';
+  end if;
+
   v_switched := public.set_active_exam_pack_version(
     (select id from task0018_ids where key = 'version_b')
   );
