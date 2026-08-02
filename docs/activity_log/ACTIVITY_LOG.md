@@ -6,6 +6,9 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- AP Statistics FRQ Remediation Executed — 90 Retired, 68 Reclassified, Discovered All Statistics FRQs Were Unservable — 2026-08-01
+- AP Statistics Reviewer Feedback Triaged; Authoring Prompts Corrected to the 5-Unit CED — 2026-08-01
+- Publication-Trust Second Defect Found; 7 Disapproved Items Unpublished; Reviewer Roster Reshuffled; Rationale Repairs Begun — 2026-07-31
 - Complete Four-Course Physics Review Packet Assigned to Saood — 2026-07-27
 - Cross-Subject 21-Question Repairs Applied; 12 Chemistry Historical Labels Reconciled — 2026-07-27
 - Cross-Subject 21-Question Content-Remediation Pilot Packet Frozen — 2026-07-27
@@ -38,6 +41,192 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## AP Statistics FRQ Remediation Executed — 90 Retired, 68 Reclassified, Discovered All Statistics FRQs Were Unservable — 2026-08-01
+
+**Task:** TASK-0013
+**Status:** Executed against Production. Full record:
+`docs/research/AP_STATISTICS_FRQ_REMEDIATION_PLAN_2026_08_01.md`.
+**Summary:** Followed on from the same-day reviewer-feedback triage. Jill's finding
+that AP Statistics had too many one-off short-answer items (not FRQs, not exam
+format) was scoped into a plan, put through two rounds of independent model review
+(Opus authored, Sonnet reviewed twice), then executed by Sonnet with the Product
+Owner's explicit sign-off on the one remaining judgment call.
+
+The review chain surfaced two things worth recording independent of the remediation
+itself. First: **no AP Statistics FRQ — published or not, all 158 of them — was
+reachable through the app's practice-session serving path before this change.** The
+live RPC `select_practice_frqs` requires an exact `practice_format` match with no
+NULL fallback, and every Statistics FRQ had `practice_format IS NULL`. This had
+nothing to do with content quality; it was a pure metadata gap that made 67 published
+items inert. Second: a database trigger (`prevent_live_frq_reclassification`) blocked
+the straightforward fix for published items, requiring either a 48-item
+unpublish/re-review/re-publish cycle through Jill's queue or a narrow, precisely
+scoped exception to the trigger. The Product Owner chose the latter (option "2c")
+after the trade-off was put to him directly rather than decided by either model.
+
+**Executed as four migrations:** (1) retired 90 single-criterion "not really FRQ"
+items (Jill's actual complaint); (2) backfilled `practice_format='targeted_drill'`
+on 18 items with no guard conflict; (3) amended the reclassification trigger with a
+carve-out scoped to exactly the `practice_format`-from-NULL case, leaving
+`frq_archetype`/`frq_form` protection fully intact; (4) backfilled the remaining 50
+items (48 published + 2 with stale published-version history the review chain
+uncovered mid-execution). Two pre-execution checks the plan had flagged as required
+but undone were closed first: no retiring content_key is hardcoded in app source, and
+the one surface that reads content directly outside the RPC (`free-score-check`) is
+hardcoded to AP Biology and cannot reach Statistics rows.
+
+**Verified end state:** 158 FRQs total (unchanged), **94** retired, 68 tagged
+`targeted_drill`, 48 published and now all 48 servable (up from 0), 0 tagged
+`full_exam_frq`. No archetype was assigned to anything — nothing in the bank is
+exam-shaped, and the constraint enforcing that was left untouched.
+
+**Independent post-execution validation (Opus, same day).** Re-queried Production
+directly. The data changes are correct and complete: all 90 category-A items retired
+and left untagged, all 68 B/C/D items tagged `targeted_drill` with statuses
+preserved, 48 published and 48 servable via `select_practice_frqs`, no deletions, and
+the trigger carve-out confirmed narrow (it bypasses only when `old.practice_format IS
+NULL` **and** `frq_archetype`/`frq_form` are unchanged; every genuine reclassification
+still raises). The 18/50 population correction was verified and is a real catch — the
+guard keys on `content_item_versions.status`, not `content_items.status`, so
+`GRAPH-005` and `SFRQ-018` were blocked despite not being published items.
+
+Two record-keeping corrections from that validation:
+
+1. **The retired count is 94, not 91** (corrected above). 90 category A + 1 category B
+   + 3 category D that were already retired pre-execution. The execution record
+   counted only one pre-existing retired item and missed three hand-drawn ones. The
+   earlier plan projection of 105 was also wrong, and that error originated in the
+   plan document, not the execution — it used 15 (retired *plus* disapproved) as the
+   baseline where the true pre-existing retired count was 7. **The database was right
+   throughout; only the documents were wrong.**
+2. **The four migrations are recorded in Production's ledger but are not in the
+   repository.** `supabase/migrations/` has no corresponding files. This diverges from
+   the plan's §10 (deliver as tracked migrations) and from the governance rule that
+   GitHub is the source of truth. It matters most for the trigger amendment: the repo
+   baseline `20260731160000_schema_baseline.sql` contains no `practice_format is null`
+   carve-out, so a repo-to-Production reconciliation could silently revert it and
+   re-block the backfill path. **Committing the four migration files is the one
+   outstanding action from this execution.**
+
+**Also found and explicitly out of scope for this execution:** `app.content_items_full_exam_archetype_check`'s
+partner validator, `app.validate_full_exam_frq_version`, only checks shape for AP
+Physics exam codes — Statistics items published as `full_exam_frq` currently get zero
+validation, and if Statistics is added to that function's allow-list without also
+adding its archetype branches, every future Statistics `full_exam_frq` publish will
+hard-fail. This must be handled together with the four archetype slugs whenever that
+work starts.
+
+**Next Owner:** David Bloom
+**Next Required Action:** **(0) Commit the four migration files to
+`supabase/migrations/` so the repo matches Production** — the only item where delay
+carries real risk, since the trigger carve-out currently exists in Production alone.
+Then, when ready: (1) extend `validate_full_exam_frq_version` for AP Statistics
+alongside adopting the four archetype slugs; (2) decide the fate of the two
+published/approved out-of-scope-topic items and the 5 defective mosaic items
+(separate triage doc); (3) resume the G0A fact-pack sign-off with Jill, still the
+highest-leverage open item across both documents.
+
+## AP Statistics Reviewer Feedback Triaged; Authoring Prompts Corrected to the 5-Unit CED — 2026-08-01
+
+**Task:** TASK-0013
+**Status:** Prompt fixes applied; six decisions open for the Product Owner
+**Summary:** Jill submitted five AP Statistics content findings. All five were
+verified against the Production database and the authoring prompts, and all five
+are confirmed. Root causes: (a) the reviewer unit picker in the frontend repo is
+still on the retired 9-unit CED — present on `origin/main`, and it hard-blocks
+submission, so Jill was forced to tag items with retired units (19 Statistics
+decisions carry old-CED unit tags, 2 of them pointing at a unit that no longer
+exists); (b) there is no AP Statistics Long FRQ prompt, so every free-response
+authoring run used the Biology-shaped 4-point "Short FRQ" format — which the AP
+Statistics exam does not contain — producing 148 short FRQs against 10 long FRQs;
+(c) the prompts carried no scope-exclusion list, admitting 19 items testing removed
+or never-in-scope content, of which 2 are published and 3 `reviewed_approved`;
+(d) the prompts carried no mosaic-plot rule, and 5 of 7 mosaic items have equal or
+partly equal group totals, collapsing the display into a segmented bar chart.
+Two defects Jill did not name were found: all 7 mosaic items ask students to read a
+raw count off a proportions display, and two published/approved items test
+combining random variables (also removed). Published mix is close to the inverse of
+the exam (42 MCQ + 4×10pt FRQ): 16 MCQs, 66 short FRQs, 1 long FRQ.
+
+**Key finding beyond the feedback itself:** findings 2, 3, and 4 are re-discoveries
+of a problem already diagnosed and planned on 2026-07-13 (`DECISION-0036`,
+`APPROVAL-0036`, target 100 MCQ / 70 FRQ). The sanctioned authoring input,
+`docs/product/AP_STATISTICS_2027_CED_FACT_PACK.md`, exists **only on branch
+`codex/five-subject-harness-and-content`** (commit `e0bf685`) and is invisible from
+`main`. The rebuild is gated on G0A — subject-tutor sign-off on that fact pack — and
+Jill is the AP Statistics subject tutor. She is the gate, and she has been spending
+review cycles on 2025-26 content instead. Her findings answer three of the open G0A
+questions from the reviewer's side.
+
+Corrected both AP Statistics prompts against the fact pack: 5-unit taxonomy with a
+where-the-old-material-went map, a hard-exclusion block covering all five confirmed
+removals plus multiple regression, and mosaic/segmented-bar display rules. An
+earlier over-correction in this session that would have excluded retained residual
+curvature was caught against fact pack §8 and reversed. Placed a hold on new AP
+Statistics Short FRQ batches pointing authors at the 10-point archetypes.
+No content records and no frontend files were modified. Full triage with evidence:
+`docs/research/AP_STATISTICS_REVIEWER_FEEDBACK_2026_08_01.md`.
+
+**Next Owner:** David Bloom
+**Next Required Action:** Rule on the six open decisions — D0 (highest leverage: get
+the fact pack onto a reachable branch and in front of Jill for G0A sign-off);
+D1 taxonomy swap + 19-tag remap; D2 MCQ target and publish push; D3 disposition of
+the 148 short FRQs; D4 retiring 5 out-of-scope live/approved items; D5 regenerating
+5 mosaic items and rewriting the task on all 7.
+
+## Publication-Trust Second Defect Found; 7 Disapproved Items Unpublished; Reviewer Roster Reshuffled; Rationale Repairs Begun — 2026-07-31
+
+**Task:** Content-review session. Reviewer QA sweep over the 126 decisions since
+the prior sweep, reviewer performance assessment, content repair, and publication.
+
+**Outcome:**
+
+*Publication-trust P0, second manifestation.* Published state is decoupled from
+review decisions in both directions. Found 10 items in `reviewed_approved`/
+`published` carrying a reviewer disapproval, including **7 AP Statistics items
+whose only decision on record was a disapproval**. Three (`APSTATS-MCQ-018`,
+`-SFRQ-015`, `-SFRQ-017`) test slope inference and chi-square GOF, both removed
+from the 2027 CED, and had been servable since 2026-07-01. All 7 unpublished to
+`reviewed_disapproved`; reviewer decisions left untouched. A related defect: an
+`approve_with_edits` leaves an item approved with the edit unmade — **78 items**
+are in that state. Triage: 53 substantive, 12 cosmetic, 9 design improvements,
+4 no-ops (notes requesting no change). Three approve/disapprove conflicts remain
+unadjudicated (`APBIO-FRQ-L-034`, `apchem-frq-l-001`, `apchem-mcq-038`).
+
+*Reviewer QA.* Integrity and structural checks over the window: all clean.
+Content QA found 5 defects, all AP Chemistry, all Zeeshan approvals — including
+`apchem-mcq-038` (simple distillation keyed correct for ethanol/water, which
+forms an azeotrope) and two duplicate-answer-value items (`068`, `070`) that the
+string-level distinctness check passes. Roster decisions: Qamar Ul Zaman removed
+(0-for-9 against two peers, 0 notes on 16 approvals); Abdul Hanan retained and
+re-queued (strongest distractor auditor on the roster, 6-0 vs Qamar, was idle);
+Zeeshan retained by owner decision; Gulgeldi Darrynow's first packet QA'd —
+strong on FRQs, 16 note-free MCQ approvals at 2.9 min each.
+
+*Repairs.* 14 of 20 distractor-rationale defects repaired as v2 successors
+(8 Precalculus, 6 Chemistry), 2 Chemistry FRQ rubrics rewritten from bundled
+part-level criteria to 10 single-fact criteria each with points preserved.
+
+*Publication.* 21 items published (11 Precalculus, 8 Chemistry, 2 Physics 2),
+each with 2+ distinct approving reviewers, no disapprovals, no outstanding edits,
+and independently QA'd. `apcalcab-mcq-004` rejected on provenance — its two
+approvals came from a suspended reviewer and a test-fixture account.
+
+**Files/systems changed:** Production Supabase (`pcntajvbdfqhbeewmdry`);
+`scripts/content-seed/reviewer-qa-remediation/20260731_unpublish_disapproved_statistics.sql`,
+`20260731_distractor_rationale_repair_precalculus.sql`,
+`20260731_distractor_rationale_repair_chemistry.sql`;
+`scripts/content-seed/reviewer-management/20260731_abdul_shazia_precalc_split_and_calcab_paired.sql`,
+`20260731_dispose_qamar_pending_assignments.sql`.
+
+**Open:** 18 FRQ rubric rewrites (17 Physics, 1 Calc BC); 6 remaining rationale
+repairs; 4 AP Statistics items needing removal or data regeneration rather than
+repair; `APBIO-MCQ-010` under-specified by its reviewer note. `DECISION-0041`
+(TASK-0010 calibration as a publish gate) is referenced in agent memory but does
+**not** exist in `DECISIONS_LOG.md`, which ends at DECISION-0035 — unresolved.
 
 ---
 
