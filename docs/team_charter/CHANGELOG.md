@@ -2,6 +2,20 @@
 
 Append-only chronological log, one entry per material change to `docs/team_charter/`. Checked on every `SYNC`. Per-doc `Version`/`Last Updated` headers are not used — git history plus the `APPROVAL-NNNN` / `DECISION-NNNN` references below are sufficient.
 
+## 2026-08-01 — Branch hygiene R1–R7 encoded and enforced
+
+**Approval:** APPROVAL-0040
+**Decision:** DECISION-0043
+**Change (summary):**
+- Added a canonical **Branch Hygiene — R1–R7** section to `AI_COLLABORATION_RULES.md`. This is now the authoritative statement of the rules; `docs/proposals/BRANCH_HYGIENE_AND_ANTI_SPRAWL_2026_07_09.md` is demoted to evidence/rationale and must not be restated elsewhere.
+- Amended the **PR policy** paragraph: promotion to `main` is now *always* by PR. Approval state governs whether that PR needs review, not whether a PR is used. This replaces the previous "Standing Approval work can merge directly" allowance, which is incompatible with trunk protection.
+- Recorded trunk protection: no direct commits to `main`, force-push and deletion blocked, emergency access human-only and auditable — explicitly never an agent action.
+- Recorded R6 archive guidance (tag unique unmerged work; do not tag every merged branch) and the R7 three-check removal preflight.
+
+**No CI or repository-settings change.** Verification found steps 5–8 already in force — trunk protection, `minimal-ci.yml` (job `test`) passing and already a required check, auto-delete and auto-merge both enabled. The existing CI is left exactly as-is: proposal §5 calls for one narrow non-blocking-by-breadth check, and broadening a *required* check is how required checks become flaky and get bypassed.
+
+**Still outstanding:** the one-time cleanup of the existing 15 branches (proposal §4), which must run from a clean checkout of `origin/main`.
+
 ## 2026-06-23 — Charter simplification and tiering adoption
 
 **Approval:** APPROVAL-0022

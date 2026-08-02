@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Reviewer Unit Picker Moved to the 5-Unit CED; Retired Content Withdrawn From All Review Queues — 2026-08-01
 - AP Statistics FRQ Remediation Executed — 90 Retired, 68 Reclassified, Discovered All Statistics FRQs Were Unservable — 2026-08-01
 - AP Statistics Reviewer Feedback Triaged; Authoring Prompts Corrected to the 5-Unit CED — 2026-08-01
 - Publication-Trust Second Defect Found; 7 Disapproved Items Unpublished; Reviewer Roster Reshuffled; Rationale Repairs Begun — 2026-07-31
@@ -43,6 +44,101 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 ---
+
+## Reviewer Unit Picker Moved to the 5-Unit CED; Retired Content Withdrawn From All Review Queues — 2026-08-01
+
+**Task:** TASK-0013
+**Status:** Database change applied and verified. Two code changes made but **not
+yet shipped** — see Next Required Action.
+
+**Summary:** Closed Jill's finding 1 (decision D1) and the orphaned-assignment
+defect found during post-execution validation of the FRQ remediation.
+
+**1. Reviewer unit picker (`src/data/taxonomy.ts`, `exam-buddy-wireframe`).**
+`AP_STATISTICS_UNITS` replaced with the 5-unit Fall 2026 CED structure. While
+making the change, found a **second, latent bug**: on `origin/main` the reviewer
+route derives subject keys as `"biology"` / `"ap-statistics"` (hyphens) but
+`SUBJECT_UNITS` is keyed `ap_biology` / `ap_statistics` (underscores), so
+`getUnitsForSubject` returns `[]` and main would render an **empty** picker. Since
+Jill saw a populated nine-item list, `origin/main` is not what is deployed —
+worth knowing before anyone assumes a main-based fix reaches her. The fix
+therefore normalizes the key (both separators, either Biology spelling) rather
+than matching one convention, so it is correct on whichever branch deploys. A
+comment records that unit ids 1–5 now denote different content than ids 1–5 did
+under the retired CED, so historical tags are not comparable and still need the
+D1 remap.
+
+**2. Retired content in review queues.** Migration
+`20260802020000_withdraw_review_assignments_on_retired_content` added a
+`withdrawn` assignment status and withdrew every open assignment pointing at
+retired content: **7 total — 4 AP Statistics (Jill) created by yesterday's
+retirement, plus 3 pre-existing AP Biology (Adil Abbasi)**. Verified afterwards:
+zero retired items remain in any queue, for any reviewer. `withdrawn` was added
+rather than reusing `skipped` because `skipped` is a reviewer-initiated action —
+reusing it would have recorded against two named reviewers that they skipped work
+they were never shown. Assignments are preserved, not deleted, so the audit trail
+survives.
+
+**3. Recurrence fix (`supabase/functions/review-queue/index.ts`).** The queue
+filtered only on assignment status and never on `content_items.status`, which is
+why retiring content left it in queues indefinitely. Added `status` to the
+content-items fetch and a filter that drops retired items at the queue boundary.
+`deno check` passes. Confirmed the deployed function (v26) already contains the
+other uncommitted local change in that file (the MCQ `buildReviewerStem` fix), so
+this filter is the only delta.
+
+**Update — published 2026-08-01 23:56 ET (2026-08-02 03:56 UTC).** The taxonomy fix
+was applied in the Lovable workspace (the production build source) rather than via a
+GitHub PR, because the workspace had already fetched the broken `537b09c` and builds
+from its own state. Lovable confirmed all seven lookup assertions pass and the
+typecheck is clean. **This timestamp is the CED cutover boundary** — AP Statistics
+unit tags written before it use the retired 9-unit numbering, after it the 5-unit
+Fall 2026 numbering, and for unit ids 1–5 the timestamp is currently the only thing
+distinguishing them. Pre-cutover snapshot (200 item labels, 19 decision tags, broken
+down by unit) is recorded in
+`docs/research/AP_STATISTICS_REVIEWER_FEEDBACK_2026_08_01.md`.
+
+**Update 2 — a THIRD defect, found by post-publish verification (2026-08-02).**
+Verifying the publish on a real item exposed a further bug that the first two fixes
+did not touch. `subjectKeyFromContentKey` in the reviewer route matched the
+content_key prefix by exact equality against `"APSTAT"`, but AP Statistics content
+uses **three** prefixes: `APSTAT` (60 items), `APSTATS` (176), `STATS` (40). The
+latter two returned `null`, so **216 of 276 Statistics items — 78% — never rendered a
+unit picker at all.** Production data confirmed it exactly: 100% of Statistics unit
+tags sit on `APSTAT-*`; `APSTATS-*` had 138 decisions and 0 tags, `STATS-*` 21
+decisions and 0 tags. This also explains Jill's original wording — "for *a few*
+questions I have been asked to identify which unit" — she only ever saw the picker on
+the 22% that resolved. Fixed via `prompts/LOVABLE_REVIEWER_SUBJECT_PREFIX_FIX_2026_08_02.md`
+and published; **verified live on `APSTATS-MCQ-002-CAL`, which now shows the 5-unit
+dropdown.** ("No topics available" alongside it is correct — Statistics has no
+subtopic map, and the submit guard only requires a subtopic when options exist.)
+
+**Pattern worth naming.** Three independent defects in the same tagging path in two
+days, all sharing one signature: **a lookup miss returns `[]`, which is
+indistinguishable from "this subject legitimately has no units," and `[]` then
+silently disables the requirement to tag.** No error, no log, no visible difference.
+That is why all three survived. Any further work here should make the tagging
+requirement fail loudly, or at minimum have the UI distinguish "no units configured"
+from "units failed to load."
+
+**Durable fix still outstanding.** Deriving subject from the content_key is the root
+cause; the prefix list is a patch on a patch. `content_item_versions.subject_key` is
+already populated correctly for all 530 items (`ap-statistics` for all three
+prefixes, `biology` for APBIO). Adding `subject_key` to the `review-queue` select and
+payload, then using `artifact.subject_key` and deleting `subjectKeyFromContentKey`,
+retires the whole bug class. Needs an edge-function deploy.
+
+**Next Owner:** David Bloom
+**Next Required Action:** (0) Confirm a tagged decision lands after the cutover on an
+`APSTATS-*` or `STATS-*` item — that is the proof the 78% are now tagging, and it has
+never happened before in this system's history. (1) Ship the `review-queue` change
+through the normal deploy path — deliberately not hand-deployed via MCP, which would require
+re-supplying every shared module by hand and risks breaking the reviewer queue on
+a transcription error. Until it ships, the data is clean but the defect can
+recur on the next retirement. (2) Land the `taxonomy.ts` change in whichever
+branch deploys `cramapple.com` — it is committed nowhere yet and is uncommitted
+in the `consolidate-apstats-ui` worktree. (3) Still outstanding from the prior
+entry: commit the four remediation migrations to `supabase/migrations/`.
 
 ## AP Statistics FRQ Remediation Executed — 90 Retired, 68 Reclassified, Discovered All Statistics FRQs Were Unservable — 2026-08-01
 
