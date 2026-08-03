@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0042 — Lock TASK-0020 Launch Slice and Assessment Baselines
 - APPROVAL-0041 — Execute Image and Drawn-Response Launch-Gating Assessment (TASK-0020)
 - APPROVAL-0040 — Branch-Hygiene Adoption Steps 4–9 (PR #54 Rollout)
 - APPROVAL-0027 — Branch Hygiene Rules (R1–R7) Adoption (Hard Gate)
@@ -18,6 +19,25 @@ Most recent entries (full chronological list follows below):
 - APPROVAL-0018 — Use Official Exam Dates and Confirm Registration
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
+
+## APPROVAL-0042 — Lock TASK-0020 Launch Slice and Assessment Baselines
+
+**Date:** 2026-08-03
+**Approved By:** David Bloom
+**Related Task:** TASK-0020
+**Decision:** Approved with Notes
+
+### Summary
+
+Lock the deep assessment to all 48 published AP Statistics targeted-drill FRQs plus all 41 published AP Biology FRQs. Do not narrow the 89-item assessment scope to manufacture a readiness verdict.
+
+### Notes
+
+- Essential question visuals fail closed and may be replaced only with an already approved construct-equivalent item or representation.
+- Manual review is the launch baseline for hand-drawn responses; automation remains shadow-only until its independent grading and repair evidence bars pass.
+- Every officially supported answering-device class must have a viable paper-photo capture route; use QR/cross-device handoff where the answering device cannot satisfy that requirement.
+- Any later item/archetype removal from launch scope requires a separate Product Owner and Learning Quality decision.
+- Construct-sensitive classification and accessible-equivalence judgments still require Learning Quality validation before final launch verdicts.
 
 ## APPROVAL-0041 — Execute Image and Drawn-Response Launch-Gating Assessment
 

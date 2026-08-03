@@ -51,7 +51,7 @@ The assessment may inspect metadata about content and system configuration using
 
 - [ ] Approval, evidence labels, ownership, and quarantine state are durably recorded.
 - [x] A cheap cross-course candidate scan identifies systemic prompt-visual and drawn-response exposure.
-- [ ] The launch-critical slice and minimum viable content volume are locked before delivery readiness Step 2.
+- [x] The launch-critical slice and minimum viable content volume are locked before delivery readiness Step 2.
 - [ ] Candidate items are manually classified with intersections preserved and ambiguity reviewed.
 - [ ] Prompt-visual readiness is audited from asset/source through student display and failure behavior.
 - [ ] Hand-drawn capture, preservation, authorized review, later access, and supported-device routes are audited.
@@ -72,6 +72,8 @@ The assessment may inspect metadata about content and system configuration using
 
 The read-only cheap cross-course scan is complete. It found 111 published prompt-visual candidates, 38 published drawn-response candidates, and 36 published possible missing-visual/context candidates across 288 published latest-version item pairs. The evidence supports a bounded dual-slice recommendation: 48 published AP Statistics targeted-drill FRQs plus 41 published AP Biology FRQs.
 
+`APPROVAL-0042` locks that 89-item dual slice with no narrowing to manufacture readiness, fail-closed essential visuals, manual review as the launch baseline, and a viable paper-photo capture path for every supported device class.
+
 ## Test Results
 
 - Production aggregate scan executed with SELECT-only SQL.
@@ -81,7 +83,7 @@ The read-only cheap cross-course scan is complete. It found 111 published prompt
 
 ## Risks / Issues
 
-- Launch slice, minimum viable item volume, and precise essential-image failure behavior require Product Owner/Learning Quality decisions before Step 2. The scan recommends an 89-item AP Statistics + AP Biology dual slice.
+- Learning Quality validation remains required for construct-sensitive candidate classifications and accessible-equivalence judgments before final delivery verdicts.
 - The preparer cannot perform the final independent QA.
 - The unapproved code sketch is quarantined on `codex/image-workflows-design-sketch` at `a34a078` and must remain inert.
 

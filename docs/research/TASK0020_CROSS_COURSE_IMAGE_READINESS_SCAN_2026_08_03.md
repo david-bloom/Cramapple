@@ -91,6 +91,17 @@ This 89-item slice contains the 32 operationally concentrated drawn-response ite
 4. **Grading/repair launch path:** recommended baseline is manual review; automation remains shadow-only until its evidence bars pass.
 5. **Supported-device materiality rule:** define whether every officially supported answering-device class must have a viable paper-photo path, or set another measurable threshold before Step 3.
 
+## Product Owner disposition
+
+`APPROVAL-0042` approved the recommended 89-item dual slice and locked the following baselines:
+
+- no scope narrowing to manufacture readiness;
+- fail-closed essential visuals with replacement only by an already approved construct-equivalent item or representation;
+- manual review as the launch baseline, with automation shadow-only until independently qualified; and
+- a viable paper-photo capture route for every officially supported answering-device class.
+
+Learning Quality validation remains required for construct-sensitive classification and equivalence judgments.
+
 ## Limitations
 
 - Mechanical flags intentionally overcapture and undercapture; manual classification has not begun.
