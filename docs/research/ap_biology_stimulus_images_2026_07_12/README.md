@@ -155,6 +155,20 @@ in v3 review page provides learner and reviewer contexts plus missing-image and
 200% layout simulations. Technical browser passes do not substitute for the
 pending independent approval gates or authenticated live delivery.
 
+## Single-asset release candidate
+
+The recovered evidence manifest intentionally remains non-releasable because
+it also contains historical and rejected assets. The current S009 v3 proposal
+is isolated in `APBIO-FRQ-S-009-v3-release-manifest.json`, deterministically
+built from `release_candidates/APBIO-FRQ-S-009-v3-release-config.json` by
+`scripts/prepare_image_release_candidate.py`.
+
+The release validator locks the exact asset/source/config relationships and
+keeps Production object identity, private backup, operational approval,
+authenticated delivery, independent QA, and rollback gates open. See
+`docs/research/IMAGE_RELEASE_CANDIDATE_WORKFLOW_2026_08_03.md`. This is a local
+authorization envelope only; it does not upload or update anything.
+
 `generate.py` is the recovered historical ten-image generator. It is retained
 for audit, but exact reproduction remains unverified because only the original
 Matplotlib version—not the complete transitive environment—was recorded.

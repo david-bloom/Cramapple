@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import re
 import struct
 import sys
 from pathlib import Path
@@ -18,6 +19,18 @@ APPROVAL_FIELDS = (
     "grading",
     "accessibility",
     "visual_layout",
+)
+OPERATIONAL_GATES = (
+    "database_binding",
+    "current_object_identity",
+    "current_object_backup",
+    "storage_policy_review",
+    "product_owner_approval",
+    "authenticated_reviewer_delivery",
+    "authenticated_student_delivery",
+    "independent_qa",
+    "governance_registration",
+    "rollback_readiness",
 )
 
 
@@ -38,6 +51,14 @@ def sha256(path: Path) -> str:
         for block in iter(lambda: handle.read(1024 * 1024), b""):
             digest.update(block)
     return digest.hexdigest()
+
+
+def is_sha256(value: object) -> bool:
+    return isinstance(value, str) and re.fullmatch(r"[0-9a-f]{64}", value) is not None
+
+
+def is_nonempty_string(value: object) -> bool:
+    return isinstance(value, str) and bool(value.strip())
 
 
 def safe_relative(package_dir: Path, value: str, field: str) -> Path:
@@ -111,6 +132,13 @@ def validate_review_packet(package_dir: Path, asset: dict, label: str) -> list[s
                 "pending", "approved", "rejected"
             }:
                 errors.append(f"{label}: review packet has invalid {field} gate")
+            elif gate["status"] == "approved" and (
+                not is_nonempty_string(gate.get("reviewer"))
+                or not is_nonempty_string(gate.get("reviewed_at"))
+            ):
+                errors.append(
+                    f"{label}: approved {field} gate requires reviewer and reviewed_at"
+                )
         asset_review = asset.get("review", {})
         for field in APPROVAL_FIELDS:
             if (
@@ -164,6 +192,245 @@ def validate_review_packet(package_dir: Path, asset: dict, label: str) -> list[s
     return errors
 
 
+def validate_release_candidate(
+    manifest: dict,
+    assets: list,
+    package_dir: Path,
+) -> tuple[list[str], bool]:
+    """Validate a single-asset Production replacement authorization envelope."""
+    errors: list[str] = []
+    ready = True
+    if len(assets) != 1 or not isinstance(assets[0], dict):
+        return ["manifest: release_candidate requires exactly one asset"], False
+    asset = assets[0]
+    envelope = manifest.get("release_candidate")
+    if not isinstance(envelope, dict):
+        return ["manifest: release_candidate object is required"], False
+
+    for field in (
+        "release_candidate_id",
+        "source_package_id",
+        "release_class",
+        "asset_id",
+        "asset_sha256",
+        "content_version_id",
+        "target",
+        "current_production_object",
+        "proposed_object",
+        "operational_gates",
+        "rollback",
+        "execution_status",
+    ):
+        if field not in envelope:
+            errors.append(f"manifest: release_candidate missing {field}")
+            ready = False
+
+    if envelope.get("release_class") not in {"patch", "minor", "major", "emergency"}:
+        errors.append("manifest: release_candidate.release_class is invalid")
+    if envelope.get("release_candidate_id") != manifest.get("package_id"):
+        errors.append("manifest: release_candidate_id must equal package_id")
+    bindings = {
+        "asset_id": asset.get("asset_id"),
+        "asset_sha256": asset.get("sha256"),
+        "content_version_id": asset.get("content_version_id"),
+    }
+    for field, expected in bindings.items():
+        if envelope.get(field) != expected:
+            errors.append(
+                f"manifest: release_candidate.{field}={envelope.get(field)!r}; "
+                f"expected {expected!r}"
+            )
+
+    reference_objects: dict[str, dict] = {}
+    for reference_field in ("source_manifest", "release_config"):
+        value = manifest.get(reference_field)
+        if not isinstance(value, str):
+            errors.append(f"manifest: {reference_field} is required for release_candidate")
+            continue
+        try:
+            reference_path = safe_relative(package_dir, value, f"manifest.{reference_field}")
+            if not reference_path.is_file():
+                errors.append(f"manifest: missing {reference_field} {value}")
+            else:
+                reference_value = json.loads(reference_path.read_text(encoding="utf-8"))
+                if not isinstance(reference_value, dict):
+                    errors.append(f"manifest: {reference_field} must contain an object")
+                else:
+                    reference_objects[reference_field] = reference_value
+        except (ValueError, OSError, json.JSONDecodeError) as exc:
+            errors.append(str(exc))
+
+    source_manifest = reference_objects.get("source_manifest")
+    if source_manifest is not None:
+        if envelope.get("source_package_id") != source_manifest.get("package_id"):
+            errors.append("manifest: source_package_id differs from source manifest")
+        source_matches = [
+            candidate
+            for candidate in source_manifest.get("assets", [])
+            if isinstance(candidate, dict) and candidate.get("asset_id") == asset.get("asset_id")
+        ]
+        if len(source_matches) != 1:
+            errors.append("manifest: release asset does not resolve uniquely in source manifest")
+        elif any(
+            source_matches[0].get(field) != asset.get(field)
+            for field in ("sha256", "content_version_id", "file", "review_packet")
+        ):
+            errors.append("manifest: release asset drifted from source manifest")
+
+    release_config = reference_objects.get("release_config")
+    if release_config is not None:
+        config_bindings = {
+            "release_candidate_id": envelope.get("release_candidate_id"),
+            "asset_id": asset.get("asset_id"),
+            "release_class": envelope.get("release_class"),
+            "target": envelope.get("target"),
+            "current_production_object": envelope.get("current_production_object"),
+            "operational_gates": envelope.get("operational_gates"),
+            "rollback": envelope.get("rollback"),
+            "execution_status": envelope.get("execution_status"),
+        }
+        for field, expected in config_bindings.items():
+            if release_config.get(field) != expected:
+                errors.append(f"manifest: release_candidate.{field} differs from release config")
+
+    target = envelope.get("target")
+    if not isinstance(target, dict):
+        errors.append("manifest: release_candidate.target must be an object")
+        ready = False
+    else:
+        for field in ("project_ref", "bucket_id", "object_path", "stimulus_image_path"):
+            if not str(target.get(field, "")).strip():
+                errors.append(f"manifest: release_candidate.target.{field} is required")
+        object_path = str(target.get("object_path", ""))
+        object_parts = Path(object_path).parts
+        if Path(object_path).is_absolute() or ".." in object_parts or "://" in object_path:
+            errors.append("manifest: release_candidate.target.object_path must be a safe object name")
+        if target.get("stimulus_image_path") != target.get("object_path"):
+            errors.append("manifest: target stimulus_image_path must equal Storage object_path")
+        if (
+            source_manifest is not None
+            and source_manifest.get("live_state_project")
+            and target.get("project_ref") != source_manifest.get("live_state_project")
+        ):
+            errors.append("manifest: target project_ref differs from source live-state project")
+
+    current = envelope.get("current_production_object")
+    if not isinstance(current, dict):
+        errors.append("manifest: current_production_object must be an object")
+        ready = False
+    else:
+        identity_status = current.get("identity_status")
+        if identity_status not in {"pending", "verified", "rejected"}:
+            errors.append("manifest: current object identity_status is invalid")
+        if identity_status != "verified":
+            ready = False
+        current_sha = current.get("sha256")
+        if current_sha is not None and not is_sha256(current_sha):
+            errors.append("manifest: current object sha256 must be null or lowercase SHA-256")
+        if identity_status == "verified" and not is_sha256(current_sha):
+            errors.append("manifest: verified current object requires sha256")
+        byte_length = current.get("observed_byte_length")
+        if byte_length is not None and (
+            not isinstance(byte_length, int) or isinstance(byte_length, bool) or byte_length <= 0
+        ):
+            errors.append("manifest: current object observed_byte_length must be positive")
+        if not is_nonempty_string(current.get("observed_at")):
+            errors.append("manifest: current object observed_at is required")
+        backup_status = current.get("backup_status")
+        if backup_status not in {"pending", "verified", "rejected"}:
+            errors.append("manifest: current object backup_status is invalid")
+        if backup_status != "verified":
+            ready = False
+        backup_ref = current.get("backup_artifact_ref")
+        if backup_ref is not None and (
+            not isinstance(backup_ref, str)
+            or not backup_ref
+            or "://" in backup_ref
+        ):
+            errors.append("manifest: backup_artifact_ref must be a private non-URL reference")
+        if backup_status == "verified" and not backup_ref:
+            errors.append("manifest: verified backup requires backup_artifact_ref")
+
+    proposed = envelope.get("proposed_object")
+    if not isinstance(proposed, dict):
+        errors.append("manifest: proposed_object must be an object")
+    else:
+        proposed_bindings = {
+            "sha256": asset.get("sha256"),
+            "byte_length": (package_dir / asset.get("file", "")).stat().st_size
+            if isinstance(asset.get("file"), str) and (package_dir / asset["file"]).is_file()
+            else None,
+            "pixel_width": asset.get("pixel_width"),
+            "pixel_height": asset.get("pixel_height"),
+        }
+        for field, expected in proposed_bindings.items():
+            if proposed.get(field) != expected:
+                errors.append(
+                    f"manifest: proposed_object.{field}={proposed.get(field)!r}; "
+                    f"expected {expected!r}"
+                )
+
+    gates = envelope.get("operational_gates")
+    if not isinstance(gates, dict):
+        errors.append("manifest: operational_gates must be an object")
+        ready = False
+    else:
+        missing = sorted(set(OPERATIONAL_GATES) - set(gates))
+        extra = sorted(set(gates) - set(OPERATIONAL_GATES))
+        if missing:
+            errors.append(f"manifest: operational_gates missing {missing}")
+        if extra:
+            errors.append(f"manifest: operational_gates has unknown fields {extra}")
+        for field in OPERATIONAL_GATES:
+            gate = gates.get(field)
+            if not isinstance(gate, dict) or gate.get("status") not in {
+                "pending", "approved", "rejected", "not_applicable"
+            }:
+                errors.append(f"manifest: operational gate {field} is invalid")
+                ready = False
+            elif gate["status"] not in {"approved", "not_applicable"}:
+                ready = False
+            elif not is_nonempty_string(gate.get("evidence")):
+                errors.append(
+                    f"manifest: operational gate {field} requires evidence when closed"
+                )
+                ready = False
+
+    rollback = envelope.get("rollback")
+    if not isinstance(rollback, dict) or not str(rollback.get("plan", "")).strip():
+        errors.append("manifest: rollback.plan is required")
+        ready = False
+    elif rollback.get("status") not in {"pending", "approved", "rejected"}:
+        errors.append("manifest: rollback.status is invalid")
+        ready = False
+    elif rollback.get("status") != "approved":
+        ready = False
+
+    execution_status = envelope.get("execution_status")
+    if execution_status not in {
+        "not_started", "authorized", "executed", "rolled_back", "rejected"
+    }:
+        errors.append("manifest: release_candidate.execution_status is invalid")
+        ready = False
+    elif execution_status != "authorized":
+        ready = False
+
+    packet_value = asset.get("review_packet")
+    if not isinstance(packet_value, str):
+        errors.append("manifest: release-candidate asset requires review_packet")
+        ready = False
+    else:
+        try:
+            packet_path = safe_relative(package_dir, packet_value, "asset.review_packet")
+            packet = json.loads(packet_path.read_text(encoding="utf-8"))
+            if packet.get("release_eligible") is not True:
+                ready = False
+        except (ValueError, OSError, json.JSONDecodeError) as exc:
+            errors.append(f"manifest: cannot read release review packet: {exc}")
+            ready = False
+    return errors, ready
+
+
 def validate(manifest_path: Path, require_release_eligible: bool) -> list[str]:
     errors: list[str] = []
     package_dir = manifest_path.resolve().parent
@@ -189,6 +456,7 @@ def validate(manifest_path: Path, require_release_eligible: bool) -> list[str]:
     seen_ids: set[str] = set()
     seen_files: set[str] = set()
     all_approved = True
+    release_candidate_ready = True
 
     for index, asset in enumerate(assets):
         label = f"assets[{index}]"
@@ -329,8 +597,19 @@ def validate(manifest_path: Path, require_release_eligible: bool) -> list[str]:
 
         errors.extend(validate_review_packet(package_dir, asset, label))
 
+    package_kind = manifest.get("package_kind")
+    if package_kind not in {None, "evidence_recovery", "release_candidate"}:
+        errors.append("manifest: package_kind is invalid")
+    if package_kind == "release_candidate":
+        release_errors, release_candidate_ready = validate_release_candidate(
+            manifest, assets, package_dir
+        )
+        errors.extend(release_errors)
+
     if manifest.get("release_eligible") is True and not all_approved:
         errors.append("manifest: release_eligible=true but one or more gates are not approved")
+    if manifest.get("release_eligible") is True and not release_candidate_ready:
+        errors.append("manifest: release_eligible=true but Production preconditions remain open")
     if manifest.get("release_eligible") is True and manifest.get("status") != "approved":
         errors.append("manifest: release_eligible=true requires status=approved")
     if manifest.get("status") == "approved" and manifest.get("release_eligible") is not True:

@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0.0",
+  "release_candidate_id": "apbio-frq-s-009-image-v3-replacement",
+  "prepared_at": "2026-08-03T00:00:00Z",
+  "release_class": "patch",
+  "asset_id": "apbio-frq-s-009-stimulus-v3-candidate",
+  "expected_source": {
+    "package_id": "ap-biology-stimulus-images-2026-07-12-recovered",
+    "asset_sha256": "85c146a2fcf494656635fa32acc7a4d4a050ec6566e71942adcc2f174d1361ea",
+    "content_version_id": "de59d53c-1f80-4b1a-9694-10d9e50dcad0"
+  },
+  "target": {
+    "project_ref": "pcntajvbdfqhbeewmdry",
+    "bucket_id": "content-assets",
+    "object_path": "Biology/FRQ/APBIO-FRQ-S-009.png",
+    "stimulus_image_path": "Biology/FRQ/APBIO-FRQ-S-009.png"
+  },
+  "current_production_object": {
+    "identity_status": "pending",
+    "observed_byte_length": 48400,
+    "sha256": null,
+    "observed_at": "2026-08-03T14:57:34Z",
+    "backup_status": "pending",
+    "backup_artifact_ref": null,
+    "note": "Storage metadata confirmed the object and byte length, but the available eTag did not prove local byte identity. Exact SHA-256 and a private rollback backup are required before replacement."
+  },
+  "operational_gates": {
+    "database_binding": {
+      "status": "approved",
+      "evidence": "Read-only Production verification bound the object path to published content version de59d53c-1f80-4b1a-9694-10d9e50dcad0."
+    },
+    "current_object_identity": { "status": "pending", "evidence": null },
+    "current_object_backup": { "status": "pending", "evidence": null },
+    "storage_policy_review": { "status": "pending", "evidence": null },
+    "product_owner_approval": { "status": "pending", "evidence": null },
+    "authenticated_reviewer_delivery": { "status": "pending", "evidence": null },
+    "authenticated_student_delivery": { "status": "pending", "evidence": null },
+    "independent_qa": { "status": "pending", "evidence": null },
+    "governance_registration": { "status": "pending", "evidence": null },
+    "rollback_readiness": { "status": "pending", "evidence": null }
+  },
+  "rollback": {
+    "status": "pending",
+    "plan": "Before replacement, export the exact current private object, record its SHA-256 and backup artifact reference, retain the unchanged database binding, and restore the prior bytes if either authenticated delivery smoke test fails."
+  },
+  "execution_status": "not_started"
+}

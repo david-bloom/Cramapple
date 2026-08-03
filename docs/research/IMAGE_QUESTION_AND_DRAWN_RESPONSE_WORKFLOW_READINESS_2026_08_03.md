@@ -210,6 +210,13 @@ browser evidence, not independent content approval; actual browser zoom,
 print, assistive-technology, authenticated delivery, and every human gate
 remain open.
 
+The selected v3 asset is now also isolated from the mixed historical recovery
+package in a deterministic, single-asset proposed release manifest. It locks
+the exact Production target and proposed checksum while failing closed on the
+unverified current-object SHA, private rollback backup, human reviews,
+operational approval, authenticated delivery, governance registration, and
+independent QA. See `IMAGE_RELEASE_CANDIDATE_WORKFLOW_2026_08_03.md`.
+
 Acceptance evidence:
 
 - manifest validation passes with `--require-release-eligible`;
@@ -220,6 +227,9 @@ Acceptance evidence:
   behavior are captured;
 - reviewer and student signed-image delivery both pass;
 - independent QA records a proposed verdict.
+
+The first acceptance check intentionally fails for the current proposed
+manifest until the open reviews and Production preconditions are closed.
 
 Approval: content replacement and any Production upload/update are Hard Gates.
 Local recovery, regeneration, validation tooling, and draft review packets are
