@@ -186,6 +186,20 @@ contract and its 27-event synthetic fixture are documented in
 
 ## First approvable implementation slice
 
+### Local research-render progress
+
+The authoring workbench now includes a governed visual-stimulus section for an
+exact candidate/checksum/content-version binding, provenance and rights state,
+accessibility content, answer-leakage review, and fail-closed missing-image
+submission. A new UX-008 frontend-only render demonstrates the synthetic
+paper-response, phone-handoff, review, retake, quality, explicit-submission,
+accepted, expired, and accessible-alternative states without camera, file,
+network, persistence, grader, or human-review operations.
+
+Ten automated contract tests and desktop/narrow browser checks pass. See
+`IMAGE_AUTHORING_AND_CAPTURE_PROTOTYPE_QA_2026_08_03.md` for exact evidence and
+remaining boundaries.
+
 ### Slice A — published question-image integrity repair
 
 Scope:

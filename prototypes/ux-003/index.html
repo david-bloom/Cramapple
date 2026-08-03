@@ -393,6 +393,86 @@
       background: #fff;
     }
 
+    .stimulus-workspace {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(260px, .85fr);
+      gap: 16px;
+      align-items: start;
+    }
+
+    .stimulus-preview {
+      min-width: 0;
+      margin: 0;
+      padding: 14px;
+      border: 1px solid var(--soft-line);
+      border-radius: 14px;
+      background: #f8f6f1;
+    }
+
+    .stimulus-preview img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fff;
+    }
+
+    .stimulus-preview figcaption {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 11px;
+      overflow-wrap: anywhere;
+    }
+
+    .stimulus-controls {
+      display: grid;
+      gap: 12px;
+    }
+
+    .asset-facts {
+      display: grid;
+      gap: 8px;
+      margin: 0;
+    }
+
+    .asset-facts div {
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--soft-line);
+    }
+
+    .asset-facts dt {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+
+    .asset-facts dd {
+      margin: 2px 0 0;
+      font-size: 12px;
+      overflow-wrap: anywhere;
+    }
+
+    .asset-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .stimulus-missing {
+      min-height: 240px;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      border: 2px dashed #c49a4f;
+      border-radius: 10px;
+      background: #fff8e8;
+      color: var(--amber-ink);
+      text-align: center;
+    }
+
     .option-card.flagged { border-color: #dcaa9f; background: #fffbfa; }
     .option-head, .row-between {
       display: flex;
@@ -705,6 +785,7 @@
       .workspace { padding: 12px; }
       .editor-body { padding: 16px; }
       .field-grid { grid-template-columns: 1fr; }
+      .stimulus-workspace { grid-template-columns: 1fr; }
       .field.full { grid-column: auto; }
       .section-heading { display: block; }
       .welcome { grid-template-columns: 1fr; }
@@ -742,8 +823,8 @@
         </button>
         <button class="queue-card" data-task="new">
           <span class="mini-status">Needs acknowledgement</span>
-          <strong>New short FRQ</strong>
-          <span>Gene expression · Due Jun 21</span>
+          <strong>Image-based short FRQ</strong>
+          <span>RNA processing · Due Aug 7</span>
         </button>
         <button class="queue-card" data-task="submitted">
           <span class="mini-status">With tutors</span>
@@ -777,9 +858,9 @@
           <div class="welcome">
             <div>
               <span class="pill blue">New assignment</span>
-              <h1 style="margin-top:12px">Short FRQ authoring task</h1>
-              <p class="lede">Create an original complete package from the approved brief. Acknowledge the task before starting work.</p>
-              <div class="inline-note"><strong>Brief:</strong> AP Biology · Gene expression · Explain regulation from evidence · 3 points · Medium difficulty.</div>
+              <h1 style="margin-top:12px">Image-based FRQ authoring task</h1>
+              <p class="lede">Revise a complete package and bind one governed visual candidate to its exact content version. Acknowledge the task before starting work.</p>
+              <div class="inline-note"><strong>Brief:</strong> AP Biology · RNA processing · Analyze a model · 3 points · Medium difficulty · image required.</div>
               <div style="margin-top:18px;display:flex;gap:8px;flex-wrap:wrap">
                 <button class="btn primary" id="acknowledge-button">Acknowledge and start</button>
                 <button class="btn">Request clarification</button>
@@ -790,7 +871,7 @@
             <div class="stat-grid">
               <div class="stat"><strong>7</strong><span>required package sections</span></div>
               <div class="stat"><strong>3</strong><span>rubric points requested</span></div>
-              <div class="stat"><strong>Jun 21</strong><span>assignment due</span></div>
+              <div class="stat"><strong>Aug 7</strong><span>assignment due</span></div>
               <div class="stat"><strong>Original</strong><span>no predecessor version</span></div>
             </div>
           </div>
@@ -813,6 +894,7 @@
             <article class="editor-card">
               <nav class="section-tabs" aria-label="Package sections">
                 <button class="tab active" data-editor="question">Question <span class="dot">●</span></button>
+                <button class="tab hidden" id="stimulus-tab" data-editor="stimulus">Visual stimulus <span class="dot">!</span></button>
                 <button class="tab" id="answers-tab" data-editor="answers">Answers <span class="dot">!</span></button>
                 <button class="tab" data-editor="hints">Hints <span class="dot">●</span></button>
                 <button class="tab" data-editor="explanation">Explanation <span class="dot">!</span></button>
@@ -859,6 +941,62 @@
                     <div class="field full">
                       <label>Known ambiguity or failure cases</label>
                       <textarea id="ambiguity-notes">Choices must distinguish reduced receptor abundance from downstream kinase inhibition. Avoid two options that both fully eliminate the response.</textarea>
+                    </div>
+                  </div>
+                </section>
+
+                <section class="editor-section hidden" data-section="stimulus">
+                  <div class="section-heading">
+                    <div>
+                      <h1>Visual stimulus</h1>
+                      <p class="lede">Bind one governed image to this exact item version and review it in learner context.</p>
+                    </div>
+                    <span class="pill amber" id="stimulus-status">Review pending</span>
+                  </div>
+                  <div class="inline-note" style="margin-bottom:16px">
+                    <strong>Unpublished candidate:</strong> This deterministic image is local review evidence. It is not approved or release eligible, and this prototype does not upload a file.
+                  </div>
+                  <div class="stimulus-workspace">
+                    <figure class="stimulus-preview">
+                      <img
+                        id="stimulus-image"
+                        src="../../docs/research/ap_biology_stimulus_images_2026_07_12/candidates/APBIO-FRQ-S-009-v3-candidate.png"
+                        alt="Diagram of one pre-mRNA containing exons E1, E2, and E3 and introns I1 and I2, with two arrows to mature mRNA products labeled E1-E2-E3 and E1-E3."
+                        width="1192"
+                        height="774"
+                        data-sha256="85c146a2fcf494656635fa32acc7a4d4a050ec6566e71942adcc2f174d1361ea"
+                        data-content-version-id="de59d53c-1f80-4b1a-9694-10d9e50dcad0"
+                      >
+                      <div class="stimulus-missing hidden" id="stimulus-missing" role="alert">
+                        <div><strong>No visual is bound to this draft.</strong><br>The package cannot be submitted while the prompt depends on the missing image.</div>
+                      </div>
+                      <figcaption>Candidate asset · 1,192 × 774 px · SHA-256 85c146a2…d1361ea · exact content version de59d53c…cad0</figcaption>
+                    </figure>
+                    <div class="stimulus-controls">
+                      <dl class="asset-facts">
+                        <div><dt>Role</dt><dd>Question stimulus</dd></div>
+                        <div><dt>Visual purpose</dt><dd>Model analysis</dd></div>
+                        <div><dt>Source</dt><dd>Independently authored deterministic schematic</dd></div>
+                        <div><dt>Rights state</dt><dd>Pending independent review</dd></div>
+                        <div><dt>Answer leakage</dt><dd>Pending grading review; rejected v2 remains preserved as evidence</dd></div>
+                      </dl>
+                      <div class="field">
+                        <label for="stimulus-dependency">Prompt dependency</label>
+                        <select id="stimulus-dependency">
+                          <option selected>Required to answer</option>
+                          <option>Supplemental</option>
+                          <option>Decorative</option>
+                        </select>
+                      </div>
+                      <div class="field">
+                        <label for="stimulus-author-note">Author note</label>
+                        <textarea id="stimulus-author-note">The prompt asks learners to compare the two mature mRNA products. Preserve independent branches from the pre-mRNA and do not add mechanism language to the figure.</textarea>
+                      </div>
+                      <div class="asset-actions">
+                        <button class="btn small" id="replace-stimulus">Choose replacement</button>
+                        <button class="btn small danger" id="remove-stimulus">Remove from draft</button>
+                        <button class="btn small hidden" id="restore-stimulus">Restore candidate</button>
+                      </div>
                     </div>
                   </div>
                 </section>
@@ -983,6 +1121,10 @@
                     <button class="btn small">Add source</button>
                   </div>
                   <div class="source-list">
+                    <div class="source-row hidden" id="image-source-row">
+                      <div class="row-between"><strong>Visual stimulus candidate v3</strong><span class="pill amber">Rights review pending</span></div>
+                      <p class="help">Deterministic Cramapple schematic · exact SHA-256 and generator recorded · predecessor v2 rejected for answer leakage · no external source image.</p>
+                    </div>
                     <div class="source-row">
                       <div class="row-between"><strong id="source-claim">Signal-transduction factual claim</strong><span class="pill green">Recorded</span></div>
                       <p class="help" id="source-citation">OpenStax Biology 2e · Cell Communication · paraphrase/synthesis · accessed Jun 15, 2026</p>
@@ -1008,10 +1150,10 @@
                     <span class="pill green">Complete</span>
                   </div>
                   <div class="field-grid">
-                    <div class="field full"><label>Plain-language visual description</label><textarea>No visual is required for this item.</textarea></div>
-                    <div class="field"><label>Equation or symbol notes</label><input value="None"></div>
-                    <div class="field"><label>Reading-order concerns</label><input value="None"></div>
-                    <div class="field full"><label>Accessibility review note</label><textarea>Answer options use parallel grammatical structure and do not depend on color, position, or an image.</textarea></div>
+                    <div class="field full"><label for="visual-description">Plain-language visual description</label><textarea id="visual-description">No visual is required for this item.</textarea></div>
+                    <div class="field"><label for="symbol-notes">Equation or symbol notes</label><input id="symbol-notes" value="None"></div>
+                    <div class="field"><label for="reading-order">Reading-order concerns</label><input id="reading-order" value="None"></div>
+                    <div class="field full"><label for="accessibility-note">Accessibility review note</label><textarea id="accessibility-note">Answer options use parallel grammatical structure and do not depend on color, position, or an image.</textarea></div>
                   </div>
                 </section>
 
@@ -1020,7 +1162,7 @@
                     <div><h1>Checks and submit</h1><p class="lede">Resolve blockers before creating immutable version 3.</p></div>
                     <span class="pill red">2 blockers</span>
                   </div>
-                  <div class="check-list">
+                  <div class="check-list" id="standard-checks">
                     <button class="check-row" data-jump="answers">
                       <span class="check-icon fail">!</span><span><strong>Distractor C requires revision</strong><span>Reviewer finding and distinct-mechanism check are unresolved.</span></span>
                     </button>
@@ -1035,6 +1177,23 @@
                     </div>
                     <div class="check-row">
                       <span class="check-icon pass">✓</span><span><strong>Reassessment impact identified</strong><span>Question and all four answers return to two tutors.</span></span>
+                    </div>
+                  </div>
+                  <div class="check-list hidden" id="image-checks">
+                    <button class="check-row" data-jump="stimulus" id="image-binding-check">
+                      <span class="check-icon pass" id="image-binding-icon">✓</span><span><strong id="image-binding-title">Exact asset binding recorded</strong><span id="image-binding-copy">Candidate checksum, dimensions, purpose, and content-version ID are locked.</span></span>
+                    </button>
+                    <button class="check-row" data-jump="stimulus">
+                      <span class="check-icon fail">!</span><span><strong>Scientific and grading review pending</strong><span>Confirm construct fidelity and no answer leakage in exact learner context.</span></span>
+                    </button>
+                    <button class="check-row" data-jump="accessibility">
+                      <span class="check-icon fail">!</span><span><strong>Accessibility approval pending</strong><span>Review short alt text, long description, reading order, zoom, print, and construct equivalence.</span></span>
+                    </button>
+                    <button class="check-row" data-jump="sources">
+                      <span class="check-icon warn">?</span><span><strong>Rights evidence requires independent review</strong><span>Author provenance is recorded but does not clear publication rights.</span></span>
+                    </button>
+                    <div class="check-row">
+                      <span class="check-icon pass">✓</span><span><strong>Previous rejected asset preserved</strong><span>Version 2 remains immutable evidence and cannot be selected for release.</span></span>
                     </div>
                   </div>
                   <div style="margin-top:18px">
@@ -1232,6 +1391,8 @@
     const editorView = document.getElementById("editor-view");
     const queueView = document.getElementById("queue-view");
     const toast = document.getElementById("toast");
+    let currentEditorMode = "mcq";
+    let stimulusAvailable = true;
 
     function showToast(message) {
       toast.textContent = message;
@@ -1247,24 +1408,25 @@
 
     function setEditorMode(mode) {
       const isFrq = mode === "frq";
-      document.getElementById("brief-icon").textContent = isFrq ? "N" : "R";
+      currentEditorMode = mode;
+      document.getElementById("brief-icon").textContent = isFrq ? "I" : "R";
       document.getElementById("brief-title").textContent = isFrq
-        ? "New authoring brief · short FRQ · no predecessor"
+        ? "Image revision brief · APBIO-FRQ-S-009 · candidate v3"
         : "Revision brief · MCQ-BIO-0142 · predecessor v2";
       document.getElementById("brief-meta").textContent = isFrq
-        ? "AP Biology · Unit 6 · Gene expression and regulation · Medium · Teaching"
+        ? "AP Biology · Unit 6 · RNA processing · Medium · Independent practice"
         : "AP Biology · Unit 4 · Cell communication · Medium · Independent practice";
       document.getElementById("brief-trigger").textContent = isFrq
-        ? "Original commission · create a complete three-point package from the governed brief"
+        ? "Image revision · bind one exact asset version and preserve its review history"
         : "Trigger: Tutor aggregate 3 · preserve comments and return new version to two tutors";
-      document.getElementById("brief-due").textContent = isFrq ? "Due Jun 21 · original package" : "Due Jun 18 · 3 comments";
+      document.getElementById("brief-due").textContent = isFrq ? "Due Aug 7 · image revision" : "Due Jun 18 · 3 comments";
       document.getElementById("question-lede").textContent = isFrq
-        ? "Create an original prompt from the approved brief and complete every scoring and teaching dependency."
+        ? "Revise the exact-version prompt and visual together without changing the assessed construct."
         : "Revise the stem without changing the assessed construct unless the brief is reopened.";
       document.getElementById("question-status").textContent = isFrq ? "Draft started" : "Complete";
       document.getElementById("question-status").className = isFrq ? "pill blue" : "pill green";
       document.getElementById("stem-help").textContent = isFrq
-        ? "Original draft · no predecessor wording or reviewer comments"
+        ? "Exact published content version · candidate visual v3"
         : "Reviewer comment attached · revised from version 2";
       document.getElementById("context-card").classList.toggle("hidden", isFrq);
       document.getElementById("workspace").classList.toggle("single", isFrq);
@@ -1280,21 +1442,38 @@
       document.getElementById("mcq-answers").classList.toggle("hidden", isFrq);
       document.getElementById("frq-rubric").classList.toggle("hidden", !isFrq);
       document.getElementById("question-form").value = isFrq ? "Short free-response question · 3 points" : "Multiple-choice question";
-      document.getElementById("topic-field").value = isFrq ? "Gene expression and regulation" : "Cell communication";
-      document.getElementById("skill-field").value = isFrq ? "Explain biological relationships using evidence" : "Predict effects of a system disruption";
+      document.getElementById("topic-field").value = isFrq ? "RNA processing and alternative splicing" : "Cell communication";
+      document.getElementById("skill-field").value = isFrq ? "Analyze a biological model" : "Predict effects of a system disruption";
       document.getElementById("stem").value = isFrq
-        ? "Researchers compare target-gene expression in cells with and without regulatory protein T. Write the original prompt and evidence table required by the approved brief."
+        ? "The diagram represents processing of the same pre-mRNA into two mature mRNA products. Describe one difference between the products and explain how processing of the pre-mRNA produces that difference."
         : "A researcher exposes cultured liver cells to increasing concentrations of hormone Q. The cells respond by activating an intracellular kinase only when membrane receptor R is present. Which change would most directly reduce the cells' response to hormone Q?";
       document.getElementById("reasoning-path").value = isFrq
-        ? "Students identify the regulatory relationship, cite expression evidence, and predict the downstream effect on protein abundance."
+        ? "Students compare the exon combinations shown in the two mature products and connect the difference to selective inclusion or exclusion during RNA processing."
         : "Identify receptor R as required for signal reception, then select the change that disrupts receptor availability before intracellular kinase activation.";
       document.getElementById("ambiguity-notes").value = isFrq
-        ? "The evidence must support the direction of regulation without requiring one exact molecular mechanism."
+        ? "The figure may show the exon combinations literally, but must not state the assessed alternative-splicing mechanism or imply that mature mRNA 1 transforms into mature mRNA 2."
         : "Choices must distinguish reduced receptor abundance from downstream kinase inhibition. Avoid two options that both fully eliminate the response.";
-      document.getElementById("source-claim").textContent = isFrq ? "Gene-regulation factual claim" : "Signal-transduction factual claim";
+      document.getElementById("source-claim").textContent = isFrq ? "RNA-processing factual claim" : "Signal-transduction factual claim";
       document.getElementById("source-citation").textContent = isFrq
-        ? "OpenStax Biology 2e · Gene Expression · paraphrase/synthesis · accessed Jun 15, 2026"
+        ? "OpenStax Biology 2e · RNA Processing · paraphrase/synthesis · accessed Aug 3, 2026"
         : "OpenStax Biology 2e · Cell Communication · paraphrase/synthesis · accessed Jun 15, 2026";
+      document.getElementById("stimulus-tab").classList.toggle("hidden", !isFrq);
+      document.getElementById("image-source-row").classList.toggle("hidden", !isFrq);
+      document.getElementById("standard-checks").classList.toggle("hidden", isFrq);
+      document.getElementById("image-checks").classList.toggle("hidden", !isFrq);
+      document.getElementById("visual-description").value = isFrq
+        ? "A pre-mRNA contains consecutive segments E1, I1, E2, I2, and E3. Separate arrows lead to mature mRNA 1 containing E1-E2-E3 and mature mRNA 2 containing E1-E3."
+        : "No visual is required for this item.";
+      document.getElementById("symbol-notes").value = isFrq ? "E denotes exon; I denotes intron." : "None";
+      document.getElementById("reading-order").value = isFrq
+        ? "Read the pre-mRNA left to right, then follow each branch independently to its mature product."
+        : "None";
+      document.getElementById("accessibility-note").value = isFrq
+        ? "Short alt and long description are drafted. Construct-equivalence, 200% zoom, print, screen-reader, and answer-leakage review remain pending."
+        : "Answer options use parallel grammatical structure and do not depend on color, position, or an image.";
+      document.getElementById("submit-warning").innerHTML = isFrq
+        ? "<strong>Review-candidate boundary:</strong> Submission preserves open scientific, grading, accessibility, layout, and rights gates. It does not approve or publish the visual."
+        : "<strong>Prototype note:</strong> You can complete this scenario even with simulated preflight blockers.";
     }
 
     navButtons.forEach(button => {
@@ -1309,7 +1488,7 @@
         if (card.dataset.task === "new") {
           editorView.classList.add("hidden");
           queueView.classList.remove("hidden");
-          document.getElementById("top-title").textContent = "New short FRQ assignment";
+          document.getElementById("top-title").textContent = "Image-based short FRQ assignment";
           document.getElementById("top-subtitle").textContent = "Acknowledgement required before authoring";
         } else if (card.dataset.task === "submitted") {
           showScreen("submitted-screen");
@@ -1328,8 +1507,9 @@
       setEditorMode("frq");
       queueView.classList.add("hidden");
       editorView.classList.remove("hidden");
-      document.getElementById("top-title").textContent = "New short FRQ draft";
-      document.getElementById("top-subtitle").textContent = "Draft has no predecessor version";
+      document.getElementById("top-title").textContent = "Image-based short FRQ draft";
+      document.getElementById("top-subtitle").textContent = "Candidate v3 bound to one exact content version";
+      showEditorSection("stimulus");
     });
 
     function showEditorSection(name) {
@@ -1359,6 +1539,44 @@
       });
     });
 
+    function setStimulusAvailable(available, message) {
+      stimulusAvailable = available;
+      const image = document.getElementById("stimulus-image");
+      const missing = document.getElementById("stimulus-missing");
+      const status = document.getElementById("stimulus-status");
+      const remove = document.getElementById("remove-stimulus");
+      const restore = document.getElementById("restore-stimulus");
+      const icon = document.getElementById("image-binding-icon");
+      const title = document.getElementById("image-binding-title");
+      const copy = document.getElementById("image-binding-copy");
+      image.classList.toggle("hidden", !available);
+      missing.classList.toggle("hidden", available);
+      remove.classList.toggle("hidden", !available);
+      restore.classList.toggle("hidden", available);
+      status.textContent = available ? "Review pending" : "Blocking · image missing";
+      status.className = available ? "pill amber" : "pill red";
+      icon.textContent = available ? "✓" : "!";
+      icon.className = available ? "check-icon pass" : "check-icon fail";
+      title.textContent = available ? "Exact asset binding recorded" : "Required visual is missing";
+      copy.textContent = available
+        ? "Candidate checksum, dimensions, purpose, and content-version ID are locked."
+        : "Restore or replace the image before this package can enter review.";
+      if (message) showToast(message);
+    }
+
+    document.getElementById("replace-stimulus").addEventListener("click", () => {
+      showToast("Prototype only · replacement selection does not read or upload a file");
+    });
+    document.getElementById("remove-stimulus").addEventListener("click", () => {
+      setStimulusAvailable(false, "Visual removed from the editable draft · source evidence preserved");
+    });
+    document.getElementById("restore-stimulus").addEventListener("click", () => {
+      setStimulusAvailable(true, "Exact candidate binding restored");
+    });
+    document.getElementById("stimulus-image").addEventListener("error", () => {
+      setStimulusAvailable(false, "Image unavailable · submission is blocked");
+    });
+
     document.querySelectorAll(".address-comment").forEach(button => {
       button.addEventListener("click", () => {
         const comment = button.closest(".comment");
@@ -1379,13 +1597,22 @@
       document.getElementById(id).classList.add("open");
     }
 
+    function openSubmitModal() {
+      if (currentEditorMode === "frq" && !stimulusAvailable) {
+        showEditorSection("stimulus");
+        showToast("Restore or replace the required visual before submission");
+        return;
+      }
+      openModal("submit-modal");
+    }
+
     function closeModal(id) {
       document.getElementById(id).classList.remove("open");
     }
 
     document.getElementById("import-button").addEventListener("click", () => openModal("import-modal"));
-    document.getElementById("submit-button").addEventListener("click", () => openModal("submit-modal"));
-    document.querySelectorAll("[data-open-submit]").forEach(button => button.addEventListener("click", () => openModal("submit-modal")));
+    document.getElementById("submit-button").addEventListener("click", openSubmitModal);
+    document.querySelectorAll("[data-open-submit]").forEach(button => button.addEventListener("click", openSubmitModal));
     document.querySelectorAll("[data-close-modal]").forEach(button => button.addEventListener("click", () => closeModal(button.dataset.closeModal)));
 
     document.getElementById("complete-import").addEventListener("click", () => {
@@ -1399,6 +1626,12 @@
     });
 
     document.getElementById("confirm-submit").addEventListener("click", () => {
+      if (currentEditorMode === "frq" && !stimulusAvailable) {
+        closeModal("submit-modal");
+        showEditorSection("stimulus");
+        showToast("Required visual is missing · candidate submission blocked");
+        return;
+      }
       const summary = document.getElementById("change-summary").value.trim();
       const checks = [...document.querySelectorAll(".submit-check")];
       if (!summary || checks.some(check => !check.checked)) {
