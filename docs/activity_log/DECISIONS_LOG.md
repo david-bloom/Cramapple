@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0044 — Universal Publication Rule (Double-Approve + AI QA, or Edit-Request Fixed by AI)
 - DECISION-0043 — Operationalize Branch Hygiene R1–R7 (Trunk Protection, CI, Auto-Delete)
 - DECISION-0039 — Adopt Branch Hygiene Rules (R1–R7) to Resolve and Prevent Branch Sprawl
 - DECISION-0035 — Resolve Phase 0 of the Backend Consolidation Migration (Schema Reconciliation, Option A/A2)
@@ -22,6 +23,44 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~600 lines, archive the older entries to `docs/activity_log/archive/DECISIONS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries. (This log is already well over that threshold — the first archive pass is overdue, not optional.)
 
 (Note: the TASK-0012 branch independently logged its own DECISION-0027/0028 — CORS/ALLOWED_ORIGINS and budget-burn semantics — under different numbers on its own branch. Those land separately when that work merges to `main`; this charter-adoption decision claimed 0027/0028 here because `main` had not yet recorded entries past DECISION-0026 at merge time. If both branches' numbering collides on merge, renumber on whichever side merges second and update this index.)
+
+## DECISION-0044 — Universal Publication Rule (Double-Approve + AI QA, or Edit-Request Fixed by AI)
+
+**Date:** 2026-08-02
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Related Task:** N/A (publication governance; interacts with TASK-0017)
+
+**Decision.** A question's latest active version is published when either:
+
+- **Rule A:** it holds approvals from **two or more distinct, real, actively
+  qualified tutors**, no conflicting tutor decision, **and** an AI QA approval
+  recorded as an admin-profile decision on that same version; or
+- **Rule B:** a tutor filed **approve_with_edits** anywhere in the item's
+  review history **and the fix was applied by AI** (admin-authored successor
+  version), the fix version carries no tutor non-approval, and an AI QA
+  approval is recorded on the fix version.
+
+This is a **universal, standing rule**, generalizing the one-off 2026-07-30
+release (`20260730_publish_double_tutor_ai_qa_approved.sql`). Both rules keep
+that release's structural gates (4 distinct MCQ choices with exactly one key
+matching `canonical_answer_1`; FRQ criteria present with positive total
+points; stimulus assets present; no competing published version). Items
+failing a gate are skipped and reported, never silently published.
+
+**Implementation.**
+`scripts/content-seed/publication/20260802_decision_0044_universal_publish_rule.sql`
+(sections 2–5 are the standing re-runnable rule; section 1 seeds the
+2026-08-02 AI QA decisions). AI QA is represented in-database as an
+admin-profile `approve` decision with `approval_basis` of
+`two_qualified_tutor_approvals_plus_ai_qa` (Rule A) or
+`approve_with_edits_fixed_by_ai_plus_ai_qa` (Rule B), always citing
+`DECISION-0044` in the payload.
+
+**Notes.** Rule B intentionally does not require a human re-read of the AI
+fix; a tutor non-approval on the fix version blocks it. Disapprovals block
+Rule A as conflicting decisions. The rule does not resurrect items whose only
+decisions are disapprovals.
 
 ## DECISION-0043 — Operationalize Branch Hygiene R1–R7 (Trunk Protection, CI, Auto-Delete)
 
