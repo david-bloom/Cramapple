@@ -1,0 +1,304 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apprecalc-frq-024",
+  "content_key": "apprecalc-frq-024",
+  "content_version": 1,
+  "difficulty": "Very Hard",
+  "exam_pack_ref": {
+    "exam_code": "ap_precalculus",
+    "school_year": "2026-27",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "frq",
+  "archetype_ref": {
+    "archetype_key": "ap-precalculus-frq-modeling-nonperiodic",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-precalculus-2026-27",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-1-polynomial-and-rational-functions"
+    },
+    {
+      "scheme_key": "ap-precalculus-2026-27",
+      "scheme_version": "1.0.0",
+      "node_key": "topic-1.14"
+    },
+    {
+      "scheme_key": "ap-precalculus-2026-27",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-3"
+    }
+  ],
+  "frq_form": "long",
+  "canonical_answers": [
+    "P(x)=−0.1(x−20)(x−80). | Uses 90=a(30)(−30) to obtain a=−0.1. | The average rate is [P(60)−P(30)]/30=1 hundred dollars per hundred units. | Interprets the rate as about 1 dollar of profit per additional unit over the interval. | Production 200 is outside the observed or stated operating range, so quadratic extrapolation may be unreliable. | Connects the limitation to model assumptions rather than algebra alone."
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "scenario",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "Daily profit P, in hundreds of dollars, is quadratic in production x, measured in hundreds of units. Profit is zero at x=20 and x=80, and P(50)=90.",
+        "calculator_mode": "calculator"
+      },
+      "source_refs": [
+        "ap-precalculus-ced-effective-fall-2026"
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "part_key": "part-a",
+      "ordinal": 1,
+      "label": "(a)",
+      "prompt": "Construct a quadratic model for P by determining its leading coefficient.",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 2,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "P(x)=−0.1(x−20)(x−80).",
+          "required_evidence": [
+            "P(x)=−0.1(x−20)(x−80)."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent response with the required setup, interpretation, or justification."
+          ],
+          "insufficient_responses": [
+            "A bare answer when the criterion requires construction, supporting work, contextual interpretation, domain restrictions, or model limitations."
+          ],
+          "contradictions": [
+            "Do not award when the response directly contradicts the required function behavior, domain, units, representation, or contextual conclusion."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: P(x)=−0.1(x−20)(x−80).",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        },
+        {
+          "criterion_key": "part-a-criterion-2",
+          "points": 1,
+          "description": "Uses 90=a(30)(−30) to obtain a=−0.1.",
+          "required_evidence": [
+            "Uses 90=a(30)(−30) to obtain a=−0.1."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent response with the required setup, interpretation, or justification."
+          ],
+          "insufficient_responses": [
+            "A bare answer when the criterion requires construction, supporting work, contextual interpretation, domain restrictions, or model limitations."
+          ],
+          "contradictions": [
+            "Do not award when the response directly contradicts the required function behavior, domain, units, representation, or contextual conclusion."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: Uses 90=a(30)(−30) to obtain a=−0.1.",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part_key": "part-b",
+      "ordinal": 2,
+      "label": "(b)",
+      "prompt": "Find the average rate of change of profit from x=30 to x=60, with contextual units.",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 2,
+      "criteria": [
+        {
+          "criterion_key": "part-b-criterion-1",
+          "points": 1,
+          "description": "The average rate is [P(60)−P(30)]/30=1 hundred dollars per hundred units.",
+          "required_evidence": [
+            "The average rate is [P(60)−P(30)]/30=1 hundred dollars per hundred units."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent response with the required setup, interpretation, or justification."
+          ],
+          "insufficient_responses": [
+            "A bare answer when the criterion requires construction, supporting work, contextual interpretation, domain restrictions, or model limitations."
+          ],
+          "contradictions": [
+            "Do not award when the response directly contradicts the required function behavior, domain, units, representation, or contextual conclusion."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: The average rate is [P(60)−P(30)]/30=1 hundred dollars per hundred units.",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        },
+        {
+          "criterion_key": "part-b-criterion-2",
+          "points": 1,
+          "description": "Interprets the rate as about 1 dollar of profit per additional unit over the interval.",
+          "required_evidence": [
+            "Interprets the rate as about 1 dollar of profit per additional unit over the interval."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent response with the required setup, interpretation, or justification."
+          ],
+          "insufficient_responses": [
+            "A bare answer when the criterion requires construction, supporting work, contextual interpretation, domain restrictions, or model limitations."
+          ],
+          "contradictions": [
+            "Do not award when the response directly contradicts the required function behavior, domain, units, representation, or contextual conclusion."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: Interprets the rate as about 1 dollar of profit per additional unit over the interval.",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part_key": "part-c",
+      "ordinal": 3,
+      "label": "(c)",
+      "prompt": "Explain why the model should not automatically be extrapolated to x=200.",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 2,
+      "criteria": [
+        {
+          "criterion_key": "part-c-criterion-1",
+          "points": 1,
+          "description": "Production 200 is outside the observed or stated operating range, so quadratic extrapolation may be unreliable.",
+          "required_evidence": [
+            "Production 200 is outside the observed or stated operating range, so quadratic extrapolation may be unreliable."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent response with the required setup, interpretation, or justification."
+          ],
+          "insufficient_responses": [
+            "A bare answer when the criterion requires construction, supporting work, contextual interpretation, domain restrictions, or model limitations."
+          ],
+          "contradictions": [
+            "Do not award when the response directly contradicts the required function behavior, domain, units, representation, or contextual conclusion."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: Production 200 is outside the observed or stated operating range, so quadratic extrapolation may be unreliable.",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        },
+        {
+          "criterion_key": "part-c-criterion-2",
+          "points": 1,
+          "description": "Connects the limitation to model assumptions rather than algebra alone.",
+          "required_evidence": [
+            "Connects the limitation to model assumptions rather than algebra alone."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent response with the required setup, interpretation, or justification."
+          ],
+          "insufficient_responses": [
+            "A bare answer when the criterion requires construction, supporting work, contextual interpretation, domain restrictions, or model limitations."
+          ],
+          "contradictions": [
+            "Do not award when the response directly contradicts the required function behavior, domain, units, representation, or contextual conclusion."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: Connects the limitation to model assumptions rather than algebra alone.",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "The prompt is complete in text; any graphing work may be described by labeled features during accessibility review."
+  },
+  "scoring_contract": {
+    "total_points": 6,
+    "part_count": 3,
+    "points_per_part": 2,
+    "calculator_mode": "calculator",
+    "carry_forward_rule": "A later criterion may earn when an earlier arithmetic error is carried forward consistently and the later reasoning remains valid.",
+    "rounding_rule": "Accept exact values or values correctly rounded to the precision requested.",
+    "units_rule": "Units are required when the prompt or criterion asks for contextual interpretation.",
+    "ambiguity_rule": "Escalate a valid but unlisted interpretation rather than forcing a score."
+  },
+  "development_cases": {
+    "full_credit": "Provides all six required pieces of mathematical evidence.",
+    "partial_credit": "Provides valid work for some independently decidable criteria but omits at least one required conclusion or justification.",
+    "no_credit": "Provides no relevant function relationship, model, or symbolic reasoning.",
+    "equivalent": "Uses an algebraically or graphically equivalent representation.",
+    "contradictory": "States a correct value but pairs it with an incompatible domain, unit, trend, or interpretation.",
+    "ambiguous": "Uses notation whose mathematical meaning cannot be determined reliably."
+  },
+  "review_notes": {
+    "expected_reasoning": "P(x)=−0.1(x−20)(x−80). | Uses 90=a(30)(−30) to obtain a=−0.1. | The average rate is [P(60)−P(30)]/30=1 hundred dollars per hundred units. | Interprets the rate as about 1 dollar of profit per additional unit over the interval. | Production 200 is outside the observed or stated operating range, so quadratic extrapolation may be unreliable. | Connects the limitation to model assumptions rather than algebra alone.",
+    "teaching_explanation": "Connect every conclusion to the applicable function representation, symbolic relationship, or contextual assumption.",
+    "minimum_fix": "Repair the earliest missing setup, representation, or justification needed for the next unearned criterion.",
+    "transfer_candidate": "Create a new modeling-nonperiodic FRQ for Topic 1.14 with a different function family, data structure, and context.",
+    "delayed_retrieval_candidate": "Reassess Topic 1.14 later with no shared wording, values, or scenario.",
+    "known_boundary_cases": [
+      "Award each one-point criterion independently.",
+      "Carry-forward arithmetic may earn later reasoning credit when the method remains valid.",
+      "Do not award a modeling limitation for a generic statement unrelated to the given context."
+    ],
+    "originality_statement": "Independently authored Cramapple practice item from a blank scope brief; no released, secure, or third-party question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-precalculus-ced-effective-fall-2026"
+    ],
+    "fact_pack_version": "2026-07-28",
+    "authoring_prompt_version": "CODEX_PRECALCULUS_DIFFICULTY_QA_2026_07_28",
+    "generated_by": "codex",
+    "generated_at": "2026-07-28T00:00:00Z",
+    "content_sha256": "48e9f8c1194e25d3f46b2df9a8e5663f42e4b99ebd1ce4b7b26aeafe397ecebe"
+  }
+}

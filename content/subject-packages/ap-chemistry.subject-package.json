@@ -1,0 +1,374 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "ap-chemistry-2025-26-seed",
+  "operation": "create-exam-pack-version",
+  "subject": {
+    "subject_key": "ap-chemistry",
+    "display_name": "AP Chemistry",
+    "existing_subject_key": "ap-chemistry"
+  },
+  "exam_pack": {
+    "exam_code": "ap_chemistry",
+    "exam_name": "AP Chemistry",
+    "school_year": "2025-26",
+    "official_exam_date": "2026-05-05",
+    "exam_pack_version": "1.0.0",
+    "effective_from": "2025-07-01"
+  },
+  "sources": [
+    {
+      "source_key": "ap-chemistry-ced-fact-pack",
+      "source_version": "2026-07-15",
+      "title": "AP Chemistry CED Fact Pack",
+      "publisher": "Cramapple",
+      "authority_tier": 1,
+      "uri": "https://cramapple.local/docs/product/ap-chemistry-ced-fact-pack",
+      "content_sha256": "0a360a2d7c53813c5e2ef73a37b3ca59737fac1291da6ae0fd93abd92b6281ea",
+      "scope": "Public exam structure and taxonomy metadata; no official question content.",
+      "rights_status": "cramapple_owned",
+      "refresh_due_at": "2027-06-01T00:00:00Z"
+    }
+  ],
+  "taxonomy": {
+    "scheme_key": "ap-chemistry-2025-26",
+    "scheme_version": "1.0.0",
+    "nodes": [
+      {
+        "node_key": "unit-1-atomic-structure-and-properties",
+        "node_type": "unit",
+        "label": "Atomic Structure and Properties",
+        "ordinal": 1,
+        "source_refs": [
+          "ap-chemistry-ced-fact-pack"
+        ]
+      },
+      {
+        "node_key": "unit-2-compound-structure-and-properties",
+        "node_type": "unit",
+        "label": "Compound Structure and Properties",
+        "ordinal": 2,
+        "source_refs": [
+          "ap-chemistry-ced-fact-pack"
+        ]
+      },
+      {
+        "node_key": "unit-3-properties-of-substances-and-mixtures",
+        "node_type": "unit",
+        "label": "Properties of Substances and Mixtures",
+        "ordinal": 3,
+        "source_refs": [
+          "ap-chemistry-ced-fact-pack"
+        ]
+      },
+      {
+        "node_key": "unit-4-chemical-reactions",
+        "node_type": "unit",
+        "label": "Chemical Reactions",
+        "ordinal": 4,
+        "source_refs": [
+          "ap-chemistry-ced-fact-pack"
+        ]
+      },
+      {
+        "node_key": "unit-5-kinetics",
+        "node_type": "unit",
+        "label": "Kinetics",
+        "ordinal": 5,
+        "source_refs": [
+          "ap-chemistry-ced-fact-pack"
+        ]
+      },
+      {
+        "node_key": "unit-6-thermochemistry",
+        "node_type": "unit",
+        "label": "Thermochemistry",
+        "ordinal": 6,
+        "source_refs": [
+          "ap-chemistry-ced-fact-pack"
+        ]
+      },
+      {
+        "node_key": "unit-7-equilibrium",
+        "node_type": "unit",
+        "label": "Equilibrium",
+        "ordinal": 7,
+        "source_refs": [
+          "ap-chemistry-ced-fact-pack"
+        ]
+      },
+      {
+        "node_key": "unit-8-acids-and-bases",
+        "node_type": "unit",
+        "label": "Acids and Bases",
+        "ordinal": 8,
+        "source_refs": [
+          "ap-chemistry-ced-fact-pack"
+        ]
+      },
+      {
+        "node_key": "unit-9-thermodynamics-and-electrochemistry",
+        "node_type": "unit",
+        "label": "Thermodynamics and Electrochemistry",
+        "ordinal": 9,
+        "source_refs": [
+          "ap-chemistry-ced-fact-pack"
+        ]
+      },
+      {
+        "node_key": "practice-1",
+        "node_type": "practice",
+        "label": "Models and Representations",
+        "ordinal": 1,
+        "source_refs": [
+          "ap-chemistry-ced-fact-pack"
+        ]
+      },
+      {
+        "node_key": "practice-2",
+        "node_type": "practice",
+        "label": "Question and Method",
+        "ordinal": 2,
+        "source_refs": [
+          "ap-chemistry-ced-fact-pack"
+        ]
+      },
+      {
+        "node_key": "practice-3",
+        "node_type": "practice",
+        "label": "Representing Data and Phenomena",
+        "ordinal": 3,
+        "source_refs": [
+          "ap-chemistry-ced-fact-pack"
+        ]
+      },
+      {
+        "node_key": "practice-4",
+        "node_type": "practice",
+        "label": "Model Analysis",
+        "ordinal": 4,
+        "source_refs": [
+          "ap-chemistry-ced-fact-pack"
+        ]
+      },
+      {
+        "node_key": "practice-5",
+        "node_type": "practice",
+        "label": "Mathematical Routines",
+        "ordinal": 5,
+        "source_refs": [
+          "ap-chemistry-ced-fact-pack"
+        ]
+      },
+      {
+        "node_key": "practice-6",
+        "node_type": "practice",
+        "label": "Argumentation",
+        "ordinal": 6,
+        "source_refs": [
+          "ap-chemistry-ced-fact-pack"
+        ]
+      }
+    ]
+  },
+  "blueprint": {
+    "sections": [
+      {
+        "section_key": "multiple-choice",
+        "duration_minutes": 90,
+        "score_weight": 0.5,
+        "item_count": 60,
+        "item_types": [
+          "mcq"
+        ]
+      },
+      {
+        "section_key": "free-response",
+        "duration_minutes": 105,
+        "score_weight": 0.5,
+        "item_count": 7,
+        "item_types": [
+          "frq"
+        ]
+      }
+    ],
+    "taxonomy_weights": [
+      {
+        "taxonomy_node_key": "unit-1-atomic-structure-and-properties",
+        "minimum": 0.07,
+        "maximum": 0.09
+      },
+      {
+        "taxonomy_node_key": "unit-2-compound-structure-and-properties",
+        "minimum": 0.07,
+        "maximum": 0.09
+      },
+      {
+        "taxonomy_node_key": "unit-3-properties-of-substances-and-mixtures",
+        "minimum": 0.18,
+        "maximum": 0.22
+      },
+      {
+        "taxonomy_node_key": "unit-4-chemical-reactions",
+        "minimum": 0.07,
+        "maximum": 0.09
+      },
+      {
+        "taxonomy_node_key": "unit-5-kinetics",
+        "minimum": 0.07,
+        "maximum": 0.09
+      },
+      {
+        "taxonomy_node_key": "unit-6-thermochemistry",
+        "minimum": 0.07,
+        "maximum": 0.09
+      },
+      {
+        "taxonomy_node_key": "unit-7-equilibrium",
+        "minimum": 0.07,
+        "maximum": 0.09
+      },
+      {
+        "taxonomy_node_key": "unit-8-acids-and-bases",
+        "minimum": 0.11,
+        "maximum": 0.15
+      },
+      {
+        "taxonomy_node_key": "unit-9-thermodynamics-and-electrochemistry",
+        "minimum": 0.07,
+        "maximum": 0.09
+      }
+    ]
+  },
+  "archetypes": [
+    {
+      "archetype_key": "ap-chemistry-mcq",
+      "version": "1.0.0",
+      "item_type": "mcq",
+      "total_points": 1,
+      "practice_refs": [
+        "practice-1",
+        "practice-2",
+        "practice-3",
+        "practice-4",
+        "practice-5",
+        "practice-6"
+      ],
+      "response_modalities": [
+        "choice"
+      ]
+    },
+    {
+      "version": "1.0.0",
+      "practice_refs": [
+        "practice-1",
+        "practice-2",
+        "practice-3",
+        "practice-4",
+        "practice-5",
+        "practice-6"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "archetype_key": "ap-chemistry-frq-long",
+      "item_type": "frq",
+      "total_points": 4
+    },
+    {
+      "version": "1.0.0",
+      "practice_refs": [
+        "practice-1",
+        "practice-2",
+        "practice-3",
+        "practice-4",
+        "practice-5",
+        "practice-6"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "archetype_key": "ap-chemistry-frq-short",
+      "item_type": "frq",
+      "total_points": 2
+    }
+  ],
+  "capabilities": {
+    "required_renderers": [
+      "markdown",
+      "math",
+      "table"
+    ],
+    "required_response_modalities": [
+      "choice",
+      "typed-text",
+      "typed-math"
+    ],
+    "required_graders": [
+      "mcq-key",
+      "science-frq-rubric"
+    ],
+    "calculator_modes": [
+      "approved-handheld"
+    ]
+  },
+  "inventory": {
+    "targets": [
+      {
+        "item_type": "mcq",
+        "archetype_key": "ap-chemistry-mcq",
+        "target_count": 60
+      },
+      {
+        "item_type": "frq",
+        "archetype_key": "ap-chemistry-frq-long",
+        "target_count": 6
+      },
+      {
+        "item_type": "frq",
+        "archetype_key": "ap-chemistry-frq-short",
+        "target_count": 10
+      }
+    ]
+  },
+  "verification": {
+    "profile_version": "1.0.0",
+    "required_check_types": [
+      "schema",
+      "content-correctness",
+      "answer-rubric-consistency",
+      "grading-calibration",
+      "security-privacy"
+    ],
+    "gold_set_required": true,
+    "minimum_gold_items": 20,
+    "calibration_notes": "Draft seed only; independent Tutor review and held-out calibration are required before publication."
+  },
+  "review_policy": {
+    "policy_version": "1.0.0",
+    "required_capabilities": [
+      "ap-chemistry-subject-matter",
+      "assessment-review"
+    ],
+    "independence_required": true,
+    "minimum_reviewers": 2
+  },
+  "release_gates": [
+    "source",
+    "rights",
+    "content_clearance",
+    "grading_calibration",
+    "security_privacy",
+    "release_approval"
+  ],
+  "provenance": {
+    "fact_pack_version": "AP_CHEMISTRY_CED_FACT_PACK@2026-07-15",
+    "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
+    "generated_by": "Codex",
+    "generated_at": "2026-07-15T00:00:00Z"
+  },
+  "supersession": {
+    "strategy": "preserve-prior-pack"
+  }
+}

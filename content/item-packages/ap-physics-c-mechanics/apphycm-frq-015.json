@@ -1,0 +1,152 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apphycm-frq-015",
+  "content_key": "apphycm-frq-015",
+  "content_version": 1,
+  "difficulty": "Very Hard",
+  "frq_form": "short",
+  "canonical_answers": [
+    "Integrating gives x(t)=αt³/3 and differentiating gives a(t)=2αt."
+  ],
+  "exam_pack_ref": {
+    "exam_code": "ap_physics_c_mechanics",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "frq",
+  "archetype_ref": {
+    "archetype_key": "ap-physics-c-mechanics-frq-translation",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-physics-c-mechanics-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-1-kinematics"
+    },
+    {
+      "scheme_key": "ap-physics-c-mechanics-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-3"
+    }
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "scenario",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "A particle moves on the x-axis with velocity v(t)=αt², where α>0 and x(0)=0."
+      },
+      "source_refs": [
+        "ap-physics-c-mechanics-ced-fact-pack"
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "part_key": "part-a",
+      "ordinal": 1,
+      "label": "(a)",
+      "prompt": "Predict how the observable changes when the defining scale parameter is doubled, and justify the prediction quantitatively.",
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion",
+          "points": 1,
+          "description": "Doubling α doubles both x(t)=αt³/3 and a(t)=2αt at any fixed t, since both expressions depend linearly on α.",
+          "required_evidence": [
+            "x and a scale linearly with α",
+            "doubling α doubles x(t)=αt³/3",
+            "doubling α doubles a(t)=2αt"
+          ],
+          "accepted_variants": [
+            "Equivalent scientifically correct notation and reasoning earn credit."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "linear in α",
+                  "doubles x(t)",
+                  "doubles a(t)"
+                ]
+              }
+            }
+          ],
+          "minimum_fix": "To earn this point, explicitly show x and a scale linearly with α; doubling α doubles x(t)=αt³/3; doubling α doubles a(t)=2αt."
+        }
+      ],
+      "stimulus_refs": [
+        "scenario"
+      ]
+    },
+    {
+      "part_key": "part-b",
+      "ordinal": 2,
+      "label": "(b)",
+      "prompt": "Explain how the linear dependence of x(t)=αt³/3 and a(t)=2αt on α, given that the functional form v(t)=αt² is preserved when α changes, justifies the predicted scaling.",
+      "response_modalities": [
+        "typed-text"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-b-criterion",
+          "points": 1,
+          "description": "Explain how the linear dependence of x(t)=αt³/3 and a(t)=2αt on α, given that the functional form v(t)=αt² is preserved when α changes, justifies the predicted scaling.",
+          "required_evidence": [
+            "x(t) and a(t) are linear in α",
+            "functional form v(t)=αt² preserved"
+          ],
+          "accepted_variants": [
+            "Equivalent scientifically correct notation and reasoning earn credit."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "linear in α",
+                  "functional form"
+                ]
+              }
+            }
+          ],
+          "minimum_fix": "To earn this point, explicitly show x(t) and a(t) are linear in α; functional form v(t)=αt² preserved."
+        }
+      ],
+      "stimulus_refs": [
+        "scenario"
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "Text and symbolic notation are fully described."
+  },
+  "review_notes": {
+    "expected_reasoning": "Integrating gives x(t)=αt³/3 and differentiating gives a(t)=2αt.",
+    "known_boundary_cases": [
+      "Award credit only when the conclusion follows from explicit evidence.",
+      "Check units, sign, and stated approximation."
+    ],
+    "originality_statement": "Independently authored synthetic draft for Tutor review; no official question or scoring material used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-physics-c-mechanics-ced-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-15",
+    "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
+    "generated_by": "codex",
+    "generated_at": "2026-07-15T00:00:00Z",
+    "content_sha256": "c39c4a40d4c127df7493e1a95b91213a5a06483c507bbf533049fadddedfbbba"
+  }
+}

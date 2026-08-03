@@ -1,0 +1,381 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apcalcab-frq-033",
+  "content_key": "apcalcab-frq-033",
+  "content_version": 1,
+  "difficulty": "Hard",
+  "exam_pack_ref": {
+    "exam_code": "ap_calculus_ab",
+    "school_year": "2026-27",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "frq",
+  "archetype_ref": {
+    "archetype_key": "ap-calculus-ab-frq-mean-value-theorem",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-calculus-ab-2026-27",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-5-analytical-applications-of-differentiation"
+    },
+    {
+      "scheme_key": "ap-calculus-ab-2026-27",
+      "scheme_version": "1.0.0",
+      "node_key": "topic-5.1"
+    },
+    {
+      "scheme_key": "ap-calculus-ab-mathematical-practices",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-3"
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All assessed mathematical information is available in text; notation requires normal math-reading support."
+  },
+  "frq_form": "long",
+  "canonical_answers": [
+    "Computes the secant slope (9−1)/4=2. | States there is at least one c in (0,4) with f′(c)=2. | Cites the given continuity and differentiability conditions. | Uses the Mean Value Theorem conclusion f′(c)=2. | Identifies the contradiction with the proposed bound. | Concludes the bound cannot hold throughout the interval. | Uses f″>0 to conclude f′ is strictly increasing. | States a strictly increasing function takes the value 2 at most once. | Combines uniqueness with MVT existence to conclude exactly one."
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "scenario",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "A function f is continuous on [0,4], differentiable on (0,4), f(0)=1, and f(4)=9.",
+        "calculator_mode": "no-calculator"
+      },
+      "source_refs": [
+        "ap-calculus-ab-bc-ced-effective-fall-2020-2026-release"
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "part_key": "part-a",
+      "ordinal": 1,
+      "label": "(a)",
+      "prompt": "State the Mean Value Theorem conclusion for f on this interval.",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 3,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "Computes the secant slope (9−1)/4=2.",
+          "required_evidence": [
+            "Computes the secant slope (9−1)/4=2."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+          ],
+          "insufficient_responses": [
+            "A correct number without required setup, justification, interpretation, or units when that evidence is named in the criterion."
+          ],
+          "contradictions": [
+            "Do not award the criterion when the response directly contradicts the required mathematical relationship or contextual meaning."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: Computes the secant slope (9−1)/4=2.",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        },
+        {
+          "criterion_key": "part-a-criterion-2",
+          "points": 1,
+          "description": "States there is at least one c in (0,4) with f′(c)=2.",
+          "required_evidence": [
+            "States there is at least one c in (0,4) with f′(c)=2."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+          ],
+          "insufficient_responses": [
+            "A correct number without required setup, justification, interpretation, or units when that evidence is named in the criterion."
+          ],
+          "contradictions": [
+            "Do not award the criterion when the response directly contradicts the required mathematical relationship or contextual meaning."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: States there is at least one c in (0,4) with f′(c)=2.",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        },
+        {
+          "criterion_key": "part-a-criterion-3",
+          "points": 1,
+          "description": "Cites the given continuity and differentiability conditions.",
+          "required_evidence": [
+            "Cites the given continuity and differentiability conditions."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+          ],
+          "insufficient_responses": [
+            "A correct number without required setup, justification, interpretation, or units when that evidence is named in the criterion."
+          ],
+          "contradictions": [
+            "Do not award the criterion when the response directly contradicts the required mathematical relationship or contextual meaning."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: Cites the given continuity and differentiability conditions.",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part_key": "part-b",
+      "ordinal": 2,
+      "label": "(b)",
+      "prompt": "Explain why it is impossible for f′(x)≤1 for every x in (0,4).",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 3,
+      "criteria": [
+        {
+          "criterion_key": "part-b-criterion-1",
+          "points": 1,
+          "description": "Uses the Mean Value Theorem conclusion f′(c)=2.",
+          "required_evidence": [
+            "Uses the Mean Value Theorem conclusion f′(c)=2."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+          ],
+          "insufficient_responses": [
+            "A correct number without required setup, justification, interpretation, or units when that evidence is named in the criterion."
+          ],
+          "contradictions": [
+            "Do not award the criterion when the response directly contradicts the required mathematical relationship or contextual meaning."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: Uses the Mean Value Theorem conclusion f′(c)=2.",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        },
+        {
+          "criterion_key": "part-b-criterion-2",
+          "points": 1,
+          "description": "Identifies the contradiction with the proposed bound.",
+          "required_evidence": [
+            "Identifies the contradiction with the proposed bound."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+          ],
+          "insufficient_responses": [
+            "A correct number without required setup, justification, interpretation, or units when that evidence is named in the criterion."
+          ],
+          "contradictions": [
+            "Do not award the criterion when the response directly contradicts the required mathematical relationship or contextual meaning."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: Identifies the contradiction with the proposed bound.",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        },
+        {
+          "criterion_key": "part-b-criterion-3",
+          "points": 1,
+          "description": "Concludes the bound cannot hold throughout the interval.",
+          "required_evidence": [
+            "Concludes the bound cannot hold throughout the interval."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+          ],
+          "insufficient_responses": [
+            "A correct number without required setup, justification, interpretation, or units when that evidence is named in the criterion."
+          ],
+          "contradictions": [
+            "Do not award the criterion when the response directly contradicts the required mathematical relationship or contextual meaning."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: Concludes the bound cannot hold throughout the interval.",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part_key": "part-c",
+      "ordinal": 3,
+      "label": "(c)",
+      "prompt": "If f″(x)>0 throughout (0,4), show that exactly one c satisfies f′(c)=2.",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 3,
+      "criteria": [
+        {
+          "criterion_key": "part-c-criterion-1",
+          "points": 1,
+          "description": "Uses f″>0 to conclude f′ is strictly increasing.",
+          "required_evidence": [
+            "Uses f″>0 to conclude f′ is strictly increasing."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+          ],
+          "insufficient_responses": [
+            "A correct number without required setup, justification, interpretation, or units when that evidence is named in the criterion."
+          ],
+          "contradictions": [
+            "Do not award the criterion when the response directly contradicts the required mathematical relationship or contextual meaning."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: Uses f″>0 to conclude f′ is strictly increasing.",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        },
+        {
+          "criterion_key": "part-c-criterion-2",
+          "points": 1,
+          "description": "States a strictly increasing function takes the value 2 at most once.",
+          "required_evidence": [
+            "States a strictly increasing function takes the value 2 at most once."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+          ],
+          "insufficient_responses": [
+            "A correct number without required setup, justification, interpretation, or units when that evidence is named in the criterion."
+          ],
+          "contradictions": [
+            "Do not award the criterion when the response directly contradicts the required mathematical relationship or contextual meaning."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: States a strictly increasing function takes the value 2 at most once.",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        },
+        {
+          "criterion_key": "part-c-criterion-3",
+          "points": 1,
+          "description": "Combines uniqueness with MVT existence to conclude exactly one.",
+          "required_evidence": [
+            "Combines uniqueness with MVT existence to conclude exactly one."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+          ],
+          "insufficient_responses": [
+            "A correct number without required setup, justification, interpretation, or units when that evidence is named in the criterion."
+          ],
+          "contradictions": [
+            "Do not award the criterion when the response directly contradicts the required mathematical relationship or contextual meaning."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: Combines uniqueness with MVT existence to conclude exactly one.",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "scoring_contract": {
+    "total_points": 9,
+    "part_count": 3,
+    "calculator_mode": "no-calculator",
+    "carry_forward_rule": "A later criterion may earn when the student's earlier arithmetic error is carried forward consistently and the later reasoning remains valid.",
+    "rounding_rule": "Accept exact values or values correctly rounded to the precision requested.",
+    "units_rule": "Units are required only when a criterion or prompt explicitly requests contextual units.",
+    "ambiguity_rule": "Escalate responses that use a valid but unlisted interpretation rather than forcing a score."
+  },
+  "development_cases": {
+    "full_credit": "Provides all required setup, values, justifications, interpretations, and units.",
+    "partial_credit": "Shows a valid method for multiple criteria but omits or misstates at least one independently required piece of evidence.",
+    "no_credit": "Provides no relevant calculus relationship or only unsupported answers.",
+    "equivalent": "Uses algebraically equivalent forms or a different valid theorem-based argument.",
+    "contradictory": "States a correct value but also asserts an incompatible sign, interval, unit, or conclusion.",
+    "ambiguous": "Contains notation whose intended mathematical meaning cannot be determined reliably."
+  },
+  "review_notes": {
+    "expected_reasoning": "Computes the secant slope (9−1)/4=2. | States there is at least one c in (0,4) with f′(c)=2. | Cites the given continuity and differentiability conditions. | Uses the Mean Value Theorem conclusion f′(c)=2. | Identifies the contradiction with the proposed bound. | Concludes the bound cannot hold throughout the interval. | Uses f″>0 to conclude f′ is strictly increasing. | States a strictly increasing function takes the value 2 at most once. | Combines uniqueness with MVT existence to conclude exactly one.",
+    "teaching_explanation": "Connect each awarded point to the stated calculus relationship and the evidence shown in the response.",
+    "minimum_fix": "Repair the earliest missing setup or justification needed for the next unearned criterion.",
+    "transfer_candidate": "Create a new mean-value-theorem task with a different context, representation, and numerical structure.",
+    "delayed_retrieval_candidate": "Reassess Topic 5.1 later with a different function family and no shared wording.",
+    "known_boundary_cases": [
+      "Award criteria independently when the exam task permits.",
+      "Do not award interpretation or justification points for a bare numerical answer.",
+      "Use carry-forward only when later reasoning remains mathematically valid."
+    ],
+    "originality_statement": "Independently authored Cramapple practice item from a blank scope brief; no released, secure, or third-party question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-calculus-ab-bc-ced-effective-fall-2020-2026-release"
+    ],
+    "fact_pack_version": "2026-07-27",
+    "authoring_prompt_version": "CALCULUS_AB_CONTENT_BATCH_2026_07_27",
+    "generated_by": "codex",
+    "generated_at": "2026-07-27T00:00:00Z",
+    "content_sha256": "52d3aac0b6cff5ea945346997d5482c16549b3e1a0f0c628cd41753fef56a6e5"
+  }
+}

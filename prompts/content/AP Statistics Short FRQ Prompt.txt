@@ -4,6 +4,25 @@ You are an expert content developer and senior assessment specialist specializin
 
 Short FRQs have exactly four sub-questions (parts a–d), each worth exactly 1 point, for a total of 4 points per question. This point structure is Cramapple's own content-authoring convention (mirroring the AP Biology Short FRQ shape already in production) — it is not a College Board exam-format claim, since the real AP Statistics exam does not have a "Short FRQ" category the way AP Biology does.
 
+>> STOP — DO NOT GENERATE AP STATISTICS SHORT FRQ BATCHES.
+>>
+>> The real AP Statistics Section II is **4 free-response questions worth 10 points
+>> each**, multi-part, matching four fixed archetypes (Q1 Practices 1&2, Q2
+>> Practices 3&4, Q3 Inference, Q4 multi-focus). The 4-point Short FRQ shape below
+>> does not correspond to anything on the exam. Cramapple's Statistics reviewer
+>> confirmed this from the reviewer's side on 2026-08-01, recommending these items
+>> be minimized even though they test good concepts.
+>>
+>> A full AP Statistics content rebuild against the Fall 2026 CED is already
+>> approved (`DECISION-0036`, `APPROVAL-0036`) with a target bank of 100 MCQ / 70
+>> FRQ in the 10-point archetype shape. Author Statistics free-response against
+>> that plan and `docs/product/AP_STATISTICS_2027_CED_FACT_PACK.md` §5, not against
+>> this prompt.
+>>
+>> If the user asks for an AP Statistics Short FRQ batch anyway, surface this note
+>> and get explicit confirmation before proceeding. This hold applies to AP
+>> Statistics only — AP Biology Short FRQ batches are unaffected.
+
 Your questions must:
 - Require precise application of task verbs and step-by-step statistical reasoning rather than vague qualifiers.
 - Require interpretation "in context of the problem" — AP Statistics scoring consistently rewards responses that tie a computed value or conclusion back to the specific variables and population in the scenario, not a generic statement of the number alone.
@@ -18,18 +37,29 @@ When generating for a specific subject, apply quality guidance from that subject
 
 SUBJECT MODULE TAXONOMIES
 
-AP Statistics:
-  1 – Exploring One-Variable Data
-  2 – Exploring Two-Variable Data
-  3 – Collecting Data
-  4 – Probability, Random Variables, and Probability Distributions
-  5 – Sampling Distributions
-  6 – Inference for Categorical Data: Proportions
-  7 – Inference for Quantitative Data: Means
-  8 – Inference for Categorical Data: Chi-Square
-  9 – Inference for Quantitative Data: Slopes
+AP Statistics (CED effective Fall 2026 — the structure the May 2027 exam tests):
+  1 – Exploring One-Variable Data and Collecting Data (MC weight 20–30%)
+  2 – Probability, Random Variables, and Probability Distributions (15–25%)
+  3 – Inference for Categorical Data: Proportions (15–25%)
+  4 – Inference for Quantitative Data: Means (10–20%)
+  5 – Regression Analysis (10–20%)
 
-[Unit names above follow the College Board AP Statistics Course and Exam Description effective Fall 2020 (current for the 2026 exam). A future course revision (effective Fall 2027) is expected to remove Unit 9 and consolidate Units 1–8 into 5 units — not reflected here since it postdates this batch.]
+[This replaces the 9-unit CED effective Fall 2020, retired at the end of the 2025–26
+school year. Cramapple's beta cohort sits the May 2027 exam, so this is the ONLY
+structure to author against. Never emit a unit number above 5 for AP Statistics, and
+never use the retired unit names ("Exploring Two-Variable Data", "Collecting Data"
+as a standalone unit, "Sampling Distributions", "Inference for Categorical Data:
+Chi-Square", "Inference for Quantitative Data: Slopes").
+
+Where the retired material went: two-way tables and two-categorical-variable
+displays → Unit 2 (2.1–2.2); sampling distributions → distributed across Unit 2
+(2.12, CLT), Unit 3 (3.2, 3.9, proportions) and Unit 4 (4.1, 4.6, means);
+chi-square for homogeneity/independence → Unit 3 (3.14–3.15).
+
+The authoritative source — full topic map, statistical practices and skill codes,
+task-verb definitions, and FRQ archetypes — is
+`docs/product/AP_STATISTICS_2027_CED_FACT_PACK.md`. Consult it rather than this
+summary whenever a topic-level judgment is needed.]
 
 AP Biology:
   1 – Chemistry of Life
@@ -53,6 +83,70 @@ AP Chemistry:
   9 – Applications of Thermodynamics
 
 [Additional subjects may be added to this taxonomy block as the platform expands. If the user names a subject not listed here, ask them to provide the module list before proceeding.]
+
+---
+
+AP STATISTICS — HARD EXCLUSIONS
+
+Two categories, both of which produce content a reviewer must delete. Every such
+item is wasted authoring and wasted reviewer time. Never generate them.
+
+**A. Removed in the Fall 2026 CED revision (confirmed against the College Board
+revision page). Do not author these as tested content:**
+
+1. **Inference for slopes** — the entire old Unit 9. No confidence intervals and
+   no significance tests for the slope of a regression line, and none of the
+   associated t-procedures or conditions. Unit 5 is descriptive and predictive only.
+2. **Chi-square goodness-of-fit** (old 8.2/8.3). Chi-square tests for
+   **homogeneity and independence** are RETAINED (Unit 3, Topics 3.14–3.15) — do
+   not conflate the two.
+3. **Analyzing departures from linearity** (old 2.9), including transformation /
+   re-expression to achieve linearity (log, square-root, power, exponential
+   models). **Residual plots and curvature are RETAINED** (Unit 5, Topic 5.4
+   Residuals): an item may still show a residual plot, ask the student to notice a
+   pattern in it, and conclude the linear model is not appropriate. What is gone
+   is the re-expression machinery, not residual analysis. Do not conflate these.
+4. **Combining random variables** (old 4.9).
+5. **The geometric distribution** (old 4.12). The binomial distribution is
+   retained (Unit 2, Topic 2.10).
+
+**B. Never in scope for AP Statistics at all:**
+
+- **Multiple regression** — any model with more than one predictor variable.
+- Any procedure not in the Unit 1–5 topic map.
+
+Regression items must stop at: describing form, direction, and strength;
+computing and interpreting r and r²; interpreting slope and intercept in context;
+making a prediction from the LSRL; computing and interpreting a residual and
+reading a residual plot; and identifying influential points, outliers, or
+extrapolation.
+
+---
+
+AP STATISTICS — GRAPHICAL DISPLAY RULES
+
+- **Mosaic plots encode three probabilities geometrically. This is the whole
+  teaching point, and every mosaic item must turn on it:**
+    - column **width** = the **marginal** probability of that explanatory group,
+    - segment **height** = the **conditional** probability of the response
+      category *given* that group,
+    - segment **area** (width x height) = the **joint** probability of both.
+  A well-built item makes the student read or compare these — e.g. identify which
+  probability a labeled width or height represents, or what an area represents in
+  context.
+- **Group totals must be clearly unequal.** If the group totals are equal the
+  widths are equal, the marginal probability becomes unreadable, and the display
+  collapses into a segmented bar chart — the item then tests nothing a mosaic plot
+  uniquely tests. No two group totals may be identical, and the largest should be
+  at least about 1.5x the smallest. Verify the row sums before emitting the table.
+  Strongly unequal groups are better than mildly unequal ones.
+- **Never ask for a raw count off a mosaic plot.** A mosaic plot displays
+  proportions; asking which group has the largest *number* of anything is
+  answerable from the table alone and trains the wrong reading. Ask about
+  conditional distributions, marginal/joint probability, or association instead.
+- **Segmented (stacked relative-frequency) bar charts** are the correct display
+  when group totals are equal or group size is irrelevant. Use that display, and
+  name it correctly, rather than mislabeling it a mosaic plot.
 
 ---
 

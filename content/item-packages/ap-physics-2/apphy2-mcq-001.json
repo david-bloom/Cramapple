@@ -1,0 +1,109 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apphy2-mcq-001",
+  "content_key": "apphy2-mcq-001",
+  "content_version": 1,
+  "difficulty": "Easy",
+  "exam_pack_ref": {
+    "exam_code": "ap_physics_2",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "mcq",
+  "archetype_ref": {
+    "archetype_key": "ap-physics-2-mcq",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-physics-2-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-9-thermodynamics"
+    },
+    {
+      "scheme_key": "ap-physics-2-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-1"
+    }
+  ],
+  "stimuli": [],
+  "mcq_choices": [
+    {
+      "choice_key": "A",
+      "choice_text": "half",
+      "is_correct": false,
+      "rationale": "Assumes pressure is inversely proportional to temperature, as if it followed a Boyle's-law-style relation instead of the direct proportionality at fixed volume."
+    },
+    {
+      "choice_key": "B",
+      "choice_text": "unchanged",
+      "is_correct": false,
+      "rationale": "Treats pressure as depending only on volume, forgetting that temperature is the variable being changed here."
+    },
+    {
+      "choice_key": "C",
+      "choice_text": "double",
+      "is_correct": true,
+      "rationale": "P is proportional to T at fixed n and V"
+    },
+    {
+      "choice_key": "D",
+      "choice_text": "four times",
+      "is_correct": false,
+      "rationale": "Assumes pressure scales with the square of temperature, mistakenly squaring the temperature ratio instead of applying direct proportionality."
+    }
+  ],
+  "canonical_answers": [
+    "C"
+  ],
+  "parts": [
+    {
+      "part_key": "question",
+      "ordinal": 1,
+      "prompt": "For an ideal gas at fixed volume, doubling absolute temperature makes pressure\n\nA. half\nB. unchanged\nC. double\nD. four times",
+      "response_modalities": [
+        "choice"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-answer",
+          "points": 1,
+          "description": "Select the single scientifically correct answer.",
+          "required_evidence": [
+            "C",
+            "P is proportional to T at fixed n and V"
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "choice-key",
+              "parameters": {
+                "choice": "C"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All information is text-based."
+  },
+  "review_notes": {
+    "expected_reasoning": "P is proportional to T at fixed n and V",
+    "known_boundary_cases": [],
+    "originality_statement": "Independently authored synthetic practice item; no official question or scoring material used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-physics-2-ced-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-15",
+    "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
+    "generated_by": "codex",
+    "generated_at": "2026-07-15T00:00:00Z",
+    "content_sha256": "baec84f60045b8d8a46ea946e7ef8f8d722d062afe1e5d1b5aaef7d6cb8c34b0"
+  }
+}

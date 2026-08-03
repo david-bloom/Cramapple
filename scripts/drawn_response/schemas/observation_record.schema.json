@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cramapple.internal/schemas/drawn_response/observation_record.schema.json",
+  "title": "Drawn-Response Visual Observation Record",
+  "$comment": "Defined by docs/research/TASK-0011_PHASE_1_EXECUTION_SPEC.md section 4.1. An observation describes visible evidence only and must never carry a scoring decision (section 4.1: 'Visual observations and scoring decisions are separate records').",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "observation_id",
+    "source_image_id",
+    "derived_image_id",
+    "feature_label",
+    "state",
+    "transcribed_text",
+    "numeric_value",
+    "evidence_region",
+    "reviewer_note",
+    "reviewer_id",
+    "item_id",
+    "response_id",
+    "timestamp"
+  ],
+  "properties": {
+    "observation_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Unique ID for this observation record."
+    },
+    "source_image_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "ID of the immutable original capture this observation was made from."
+    },
+    "derived_image_id": {
+      "type": ["string", "null"],
+      "description": "ID of the derived (cropped/rotated/normalized) image variant used, or null if the original was used directly. Spec field name: derived_image_id_or_null."
+    },
+    "feature_label": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Item-specific visual feature this observation describes (e.g. 'x_axis_unit_text', 'point_mark_temp_25c'). Not a closed vocabulary -- the feature taxonomy is authored per item package. Use snake_case by convention."
+    },
+    "state": {
+      "type": "string",
+      "enum": ["PRESENT", "ABSENT", "AMBIGUOUS", "NOT_VISIBLE", "NOT_APPLICABLE"],
+      "description": "Spec section 4.1 observation state."
+    },
+    "transcribed_text": {
+      "type": ["string", "null"],
+      "description": "Spec field name: transcribed_text_or_null."
+    },
+    "numeric_value": {
+      "type": ["number", "null"],
+      "description": "Spec field name: numeric_value_or_null."
+    },
+    "evidence_region": {
+      "description": "Spec field name: evidence_region_or_null. Coordinate format is not fixed by phase-1 spec; record null until a localization benchmark approves a coordinate contract (Architecture Review section 4.6).",
+      "anyOf": [
+        { "type": "null" },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["x", "y", "width", "height", "coordinate_space"],
+          "properties": {
+            "x": { "type": "number" },
+            "y": { "type": "number" },
+            "width": { "type": "number" },
+            "height": { "type": "number" },
+            "coordinate_space": {
+              "type": "string",
+              "description": "e.g. 'derived_image_pixels'. Must identify which image the coordinates are relative to."
+            }
+          }
+        }
+      ]
+    },
+    "reviewer_note": {
+      "type": ["string", "null"],
+      "description": "Free-text reviewer annotation."
+    },
+    "reviewer_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Tooling envelope field (not enumerated in spec section 4.1's field list, added for auditability per section 6.1 role separation)."
+    },
+    "item_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Tooling envelope field identifying which of the six DRG-P1 items this observation belongs to."
+    },
+    "response_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Tooling envelope field identifying the underlying learner/expert response, distinct from any single photograph (section 8.1: partition by underlying response, not photo variant)."
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Tooling envelope field; ISO-8601 UTC."
+    }
+  }
+}

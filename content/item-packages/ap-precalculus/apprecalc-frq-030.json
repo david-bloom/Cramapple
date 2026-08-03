@@ -1,0 +1,304 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apprecalc-frq-030",
+  "content_key": "apprecalc-frq-030",
+  "content_version": 1,
+  "difficulty": "Medium",
+  "exam_pack_ref": {
+    "exam_code": "ap_precalculus",
+    "school_year": "2026-27",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "frq",
+  "archetype_ref": {
+    "archetype_key": "ap-precalculus-frq-modeling-periodic",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-precalculus-2026-27",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-3-trigonometric-and-polar-functions"
+    },
+    {
+      "scheme_key": "ap-precalculus-2026-27",
+      "scheme_version": "1.0.0",
+      "node_key": "topic-3.5"
+    },
+    {
+      "scheme_key": "ap-precalculus-2026-27",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-3"
+    }
+  ],
+  "frq_form": "long",
+  "canonical_answers": [
+    "The key points are (0,0),(1/8,6),(1/4,0),(3/8,−6),(1/2,0). | The midline is s=0 and the points support a two-cycle sketch by repetition. | s(t)=6sin(4πt). | Uses amplitude 6, period 1/2, and the upward midline phase. | Displacement is decreasing and its rate of change is decreasing on 1/8<t<1/4. | Uses the second quarter-cycle’s downward, concave-down behavior."
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "scenario",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "A piston oscillates 6 centimeters on each side of equilibrium, has period 0.5 second, and passes equilibrium upward at t=0.",
+        "calculator_mode": "no-calculator"
+      },
+      "source_refs": [
+        "ap-precalculus-ced-effective-fall-2026"
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "part_key": "part-a",
+      "ordinal": 1,
+      "label": "(a)",
+      "prompt": "Give five consecutive key points for one cycle and state the midline.",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 2,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "The key points are (0,0),(1/8,6),(1/4,0),(3/8,−6),(1/2,0).",
+          "required_evidence": [
+            "The key points are (0,0),(1/8,6),(1/4,0),(3/8,−6),(1/2,0)."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent response with the required setup, interpretation, or justification."
+          ],
+          "insufficient_responses": [
+            "A bare answer when the criterion requires construction, supporting work, contextual interpretation, domain restrictions, or model limitations."
+          ],
+          "contradictions": [
+            "Do not award when the response directly contradicts the required function behavior, domain, units, representation, or contextual conclusion."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: The key points are (0,0),(1/8,6),(1/4,0),(3/8,−6),(1/2,0).",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        },
+        {
+          "criterion_key": "part-a-criterion-2",
+          "points": 1,
+          "description": "The midline is s=0 and the points support a two-cycle sketch by repetition.",
+          "required_evidence": [
+            "The midline is s=0 and the points support a two-cycle sketch by repetition."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent response with the required setup, interpretation, or justification."
+          ],
+          "insufficient_responses": [
+            "A bare answer when the criterion requires construction, supporting work, contextual interpretation, domain restrictions, or model limitations."
+          ],
+          "contradictions": [
+            "Do not award when the response directly contradicts the required function behavior, domain, units, representation, or contextual conclusion."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: The midline is s=0 and the points support a two-cycle sketch by repetition.",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part_key": "part-b",
+      "ordinal": 2,
+      "label": "(b)",
+      "prompt": "Construct a sine model s(t) for displacement.",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 2,
+      "criteria": [
+        {
+          "criterion_key": "part-b-criterion-1",
+          "points": 1,
+          "description": "s(t)=6sin(4πt).",
+          "required_evidence": [
+            "s(t)=6sin(4πt)."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent response with the required setup, interpretation, or justification."
+          ],
+          "insufficient_responses": [
+            "A bare answer when the criterion requires construction, supporting work, contextual interpretation, domain restrictions, or model limitations."
+          ],
+          "contradictions": [
+            "Do not award when the response directly contradicts the required function behavior, domain, units, representation, or contextual conclusion."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: s(t)=6sin(4πt).",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        },
+        {
+          "criterion_key": "part-b-criterion-2",
+          "points": 1,
+          "description": "Uses amplitude 6, period 1/2, and the upward midline phase.",
+          "required_evidence": [
+            "Uses amplitude 6, period 1/2, and the upward midline phase."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent response with the required setup, interpretation, or justification."
+          ],
+          "insufficient_responses": [
+            "A bare answer when the criterion requires construction, supporting work, contextual interpretation, domain restrictions, or model limitations."
+          ],
+          "contradictions": [
+            "Do not award when the response directly contradicts the required function behavior, domain, units, representation, or contextual conclusion."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: Uses amplitude 6, period 1/2, and the upward midline phase.",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part_key": "part-c",
+      "ordinal": 3,
+      "label": "(c)",
+      "prompt": "On 1/8<t<1/4, state whether s is increasing or decreasing and whether its rate of change is increasing or decreasing.",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 2,
+      "criteria": [
+        {
+          "criterion_key": "part-c-criterion-1",
+          "points": 1,
+          "description": "Displacement is decreasing and its rate of change is decreasing on 1/8<t<1/4.",
+          "required_evidence": [
+            "Displacement is decreasing and its rate of change is decreasing on 1/8<t<1/4."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent response with the required setup, interpretation, or justification."
+          ],
+          "insufficient_responses": [
+            "A bare answer when the criterion requires construction, supporting work, contextual interpretation, domain restrictions, or model limitations."
+          ],
+          "contradictions": [
+            "Do not award when the response directly contradicts the required function behavior, domain, units, representation, or contextual conclusion."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: Displacement is decreasing and its rate of change is decreasing on 1/8<t<1/4.",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        },
+        {
+          "criterion_key": "part-c-criterion-2",
+          "points": 1,
+          "description": "Uses the second quarter-cycle’s downward, concave-down behavior.",
+          "required_evidence": [
+            "Uses the second quarter-cycle’s downward, concave-down behavior."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent response with the required setup, interpretation, or justification."
+          ],
+          "insufficient_responses": [
+            "A bare answer when the criterion requires construction, supporting work, contextual interpretation, domain restrictions, or model limitations."
+          ],
+          "contradictions": [
+            "Do not award when the response directly contradicts the required function behavior, domain, units, representation, or contextual conclusion."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: Uses the second quarter-cycle’s downward, concave-down behavior.",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "The prompt is complete in text; any graphing work may be described by labeled features during accessibility review."
+  },
+  "scoring_contract": {
+    "total_points": 6,
+    "part_count": 3,
+    "points_per_part": 2,
+    "calculator_mode": "no-calculator",
+    "carry_forward_rule": "A later criterion may earn when an earlier arithmetic error is carried forward consistently and the later reasoning remains valid.",
+    "rounding_rule": "Accept exact values or values correctly rounded to the precision requested.",
+    "units_rule": "Units are required when the prompt or criterion asks for contextual interpretation.",
+    "ambiguity_rule": "Escalate a valid but unlisted interpretation rather than forcing a score."
+  },
+  "development_cases": {
+    "full_credit": "Provides all six required pieces of mathematical evidence.",
+    "partial_credit": "Provides valid work for some independently decidable criteria but omits at least one required conclusion or justification.",
+    "no_credit": "Provides no relevant function relationship, model, or symbolic reasoning.",
+    "equivalent": "Uses an algebraically or graphically equivalent representation.",
+    "contradictory": "States a correct value but pairs it with an incompatible domain, unit, trend, or interpretation.",
+    "ambiguous": "Uses notation whose mathematical meaning cannot be determined reliably."
+  },
+  "review_notes": {
+    "expected_reasoning": "The key points are (0,0),(1/8,6),(1/4,0),(3/8,−6),(1/2,0). | The midline is s=0 and the points support a two-cycle sketch by repetition. | s(t)=6sin(4πt). | Uses amplitude 6, period 1/2, and the upward midline phase. | Displacement is decreasing and its rate of change is decreasing on 1/8<t<1/4. | Uses the second quarter-cycle’s downward, concave-down behavior.",
+    "teaching_explanation": "Connect every conclusion to the applicable function representation, symbolic relationship, or contextual assumption.",
+    "minimum_fix": "Repair the earliest missing setup, representation, or justification needed for the next unearned criterion.",
+    "transfer_candidate": "Create a new modeling-periodic FRQ for Topic 3.5 with a different function family, data structure, and context.",
+    "delayed_retrieval_candidate": "Reassess Topic 3.5 later with no shared wording, values, or scenario.",
+    "known_boundary_cases": [
+      "Award each one-point criterion independently.",
+      "Carry-forward arithmetic may earn later reasoning credit when the method remains valid.",
+      "Do not award a modeling limitation for a generic statement unrelated to the given context."
+    ],
+    "originality_statement": "Independently authored Cramapple practice item from a blank scope brief; no released, secure, or third-party question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-precalculus-ced-effective-fall-2026"
+    ],
+    "fact_pack_version": "2026-07-28",
+    "authoring_prompt_version": "CODEX_PRECALCULUS_DIFFICULTY_QA_2026_07_28",
+    "generated_by": "codex",
+    "generated_at": "2026-07-28T00:00:00Z",
+    "content_sha256": "541aad79bc78ec5be63fa5fb8339cccf66e6e68c908b6a4f8f02852a85f5adb4"
+  }
+}

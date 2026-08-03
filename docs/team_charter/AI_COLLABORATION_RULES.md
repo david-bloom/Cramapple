@@ -130,11 +130,49 @@ Durability (has the work reached GitHub so it isn't trapped on one machine) and 
 - Recording a new `Proposed` decision: Standing Approval; the doc lands on `main` with `Status: Proposed`; approving the proposal itself is a separate, later event.
 - Implementation not covered by an approved task, or material charter changes: Hard Gate before any merge that lands it. The gate is on the work, not the merge.
 
-**PR policy.** Direct pushes to a feature branch are acceptable — no PR required for ongoing work. Promotion to `main` uses a PR only when the underlying work requires review (Hard Gate review or batch-approval verification); Standing Approval work can merge directly.
+**PR policy.** Direct pushes to a feature branch are acceptable — no PR required for ongoing work. Promotion to `main` is **always** by PR (see Trunk protection under R1–R7 below); what the underlying work's approval state changes is whether that PR needs review, not whether a PR is used.
 
 **Push cadence.** Push at the end of each work session; push before any handoff; push before reporting `Ready for Review` or invoking `SYNC` on this work; always verify the remote contains the commit before reporting sync complete.
 
 **What "synchronization complete" means.** Applies to the branch the agent is working on, not necessarily `main`. A sync report must state: the branch name; that the latest commit is verified present on the remote; and, for governed documents in the change, the document's `Status:` value.
+
+### Branch Hygiene — R1–R7 (canonical)
+
+Adopted 2026-07-26 as a Hard Gate under `APPROVAL-0027` / `DECISION-0039` (proposal PR #54, governance PR #55); restated and operationalized under `DECISION-0043` / `APPROVAL-0040`. **This section is the canonical
+statement of R1–R7.** Source proposal (evidence and rationale, not authority):
+`docs/proposals/BRANCH_HYGIENE_AND_ANTI_SPRAWL_2026_07_09.md`. Any other document
+that describes these rules must reference this section rather than restate it.
+
+| # | Rule |
+|---|---|
+| **R1** | A branch is **one independently reviewable task or slice**, named `<agent>/<task-or-work-id>-<slug>`. The `task-or-work-id` covers un-numbered work (proposals, chores) — **no random session suffixes**. A new session on in-flight work **continues that branch; it does not fork a new one.** |
+| **R2** | **Continuation is driven by the canonical task record**, which carries `branch`, `PR`, and `task/status`, and may record an agent task/thread ID. **Machine-local worktree paths and IDs stay ephemeral — never write them into the task record.** |
+| **R3** | **Integrate completed slices regularly via small PRs.** Stacked PRs only for a genuine dependency. **No standing task-family integration branches.** |
+| **R4** | **Session close: commit and *push* checkpoints wherever possible.** If interrupted, write an **explicit dirty-state handoff** into the task or handoff record. A stash is not durable. Never leave silent orphaned changes. |
+| **R5** | **Merge readiness is GitHub-native, not a custom agent.** (a) a human or conductor records governance readiness; (b) GitHub-native automation (auto-merge / merge queue) mechanically executes eligible merges once required checks and reviews pass; (c) **custom privileged automation is contingent and NOT adopted by default** — if ever introduced it starts dry-run, least-privilege, with no branch-protection bypass. |
+| **R6** | **Delete-on-merge for the remote head branch** (GitHub auto-delete). Local branch and worktree cleanup **cannot** be centrally automated across machines — it is client-side, gated by R7. **Archive-tag only unique unmerged or superseded work**, not every merged branch. |
+| **R7** | **Removal preflight — verify all three before deleting a branch or worktree:** (1) no uncommitted changes, (2) no unique commits, (3) no unpushed refs. Only then remove. |
+
+**Trunk protection.** No normal direct commits to `main`; force-push and branch
+deletion are blocked. Emergency access is **human-only, auditable break-glass** —
+never an agent action.
+
+**Why this exists.** Branch sprawl has recurred twice. The failure mode is not
+having many branches; it is that **work stops reaching `main`**, so later sessions
+cannot see it and re-derive it. R1+R2 are the highest-leverage pair. A concrete
+cost, recorded 2026-08-01: the AP Statistics CED fact pack sat unmerged on a
+93-commit branch, invisible from `main`, and was independently re-derived more
+than once as a result.
+
+**Archiving unmerged work.** Preserve it as a tag, not a branch:
+
+```
+git tag archive/<work-id> <branch> && git branch -D <branch>
+```
+
+Operational enforcement (GitHub branch protection, required CI checks, native
+auto-merge, one-time branch/worktree cleanup) is tracked separately from this
+charter text — see the proposal's sequence.
 
 ## Universal Document Format Rule
 

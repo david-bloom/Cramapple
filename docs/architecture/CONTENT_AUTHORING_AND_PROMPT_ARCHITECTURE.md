@@ -143,6 +143,35 @@ components, produces the provider-specific prompt, and records the exact hash.
 Components use explicit identifiers and insertion points. They are not
 unstructured files concatenated in an undocumented order.
 
+### 5.1 Platform vs. Subject-Specific Responsibilities
+
+This architecture intentionally separates shared platform machinery from
+subject-specific data and content.
+
+**Platform-level responsibilities** are reusable across every subject and
+exam pack:
+
+- prompt build manifests and the deterministic compiler;
+- governance policy, rights checks, and failure-card suites;
+- shared grading and verification pipelines;
+- core schema tables and RLS boundaries;
+- attempt/session persistence and audit records; and
+- generic route, session, and content-assembly plumbing.
+
+**Subject-specific responsibilities** vary by exam pack or subject:
+
+- `subject`, `exam_pack`, and `exam_pack_version` rows;
+- taxonomy schemes, nodes, and label sets for a given subject;
+- unit/topic naming, exam facts, and school-year-specific public structure;
+- content briefs, rubrics, sample responses, and prompt components; and
+- subject-specific verification profiles or input modalities when a subject
+  needs something beyond the existing platform capability.
+
+Adding a new subject should generally mean adding or updating subject-specific
+data and content first. Platform code should only change when the subject truly
+requires a new reusable capability, such as a new verification type, response
+format, or model boundary that did not already exist.
+
 ## 6. Multi-Subject Logical Model
 
 The architecture should avoid AP Biology-only names without prematurely

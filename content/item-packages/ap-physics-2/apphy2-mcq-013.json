@@ -1,0 +1,109 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apphy2-mcq-013",
+  "content_key": "apphy2-mcq-013",
+  "content_version": 1,
+  "difficulty": "Medium",
+  "exam_pack_ref": {
+    "exam_code": "ap_physics_2",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "mcq",
+  "archetype_ref": {
+    "archetype_key": "ap-physics-2-mcq",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-physics-2-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-13-geometric-optics"
+    },
+    {
+      "scheme_key": "ap-physics-2-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-1"
+    }
+  ],
+  "stimuli": [],
+  "mcq_choices": [
+    {
+      "choice_key": "A",
+      "choice_text": "increases",
+      "is_correct": false,
+      "rationale": "Assumes frequency changes with speed upon entering a denser medium, when instead only speed and wavelength change."
+    },
+    {
+      "choice_key": "B",
+      "choice_text": "decreases",
+      "is_correct": false,
+      "rationale": "Incorrectly links frequency to the wavelength decrease that occurs when light slows down in glass."
+    },
+    {
+      "choice_key": "C",
+      "choice_text": "stays the same",
+      "is_correct": true,
+      "rationale": "frequency is fixed by the source and boundary continuity"
+    },
+    {
+      "choice_key": "D",
+      "choice_text": "becomes zero",
+      "is_correct": false,
+      "rationale": "Treats refraction as though it halts the light's oscillation entirely, a physically nonsensical extreme."
+    }
+  ],
+  "canonical_answers": [
+    "C"
+  ],
+  "parts": [
+    {
+      "part_key": "question",
+      "ordinal": 1,
+      "prompt": "When light passes from air into glass, its frequency\n\nA. increases\nB. decreases\nC. stays the same\nD. becomes zero",
+      "response_modalities": [
+        "choice"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-answer",
+          "points": 1,
+          "description": "Select the single scientifically correct answer.",
+          "required_evidence": [
+            "C",
+            "frequency is fixed by the source and boundary continuity"
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "choice-key",
+              "parameters": {
+                "choice": "C"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All information is text-based."
+  },
+  "review_notes": {
+    "expected_reasoning": "frequency is fixed by the source and boundary continuity",
+    "known_boundary_cases": [],
+    "originality_statement": "Independently authored synthetic practice item; no official question or scoring material used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-physics-2-ced-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-15",
+    "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
+    "generated_by": "codex",
+    "generated_at": "2026-07-15T00:00:00Z",
+    "content_sha256": "9a7116af6b152e5a20ff7325b42ca4859fee9abbbef907c3e6e35fe0fcbe58c0"
+  }
+}

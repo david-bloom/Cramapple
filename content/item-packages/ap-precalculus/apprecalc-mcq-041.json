@@ -1,0 +1,147 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apprecalc-mcq-041",
+  "content_key": "apprecalc-mcq-041",
+  "content_version": 1,
+  "difficulty": "Easy",
+  "exam_pack_ref": {
+    "exam_code": "ap_precalculus",
+    "school_year": "2026-27",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "mcq",
+  "archetype_ref": {
+    "archetype_key": "ap-precalculus-mcq",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-precalculus-2026-27",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-3-trigonometric-and-polar-functions"
+    },
+    {
+      "scheme_key": "ap-precalculus-2026-27",
+      "scheme_version": "1.0.0",
+      "node_key": "topic-3.3"
+    },
+    {
+      "scheme_key": "ap-precalculus-2026-27",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-1"
+    }
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "directions",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "No calculator is permitted.",
+        "calculator_mode": "no-calculator"
+      },
+      "source_refs": [
+        "ap-precalculus-ced-effective-fall-2026"
+      ]
+    }
+  ],
+  "mcq_choices": [
+    {
+      "choice_key": "A",
+      "choice_text": "−√3/2",
+      "is_correct": true,
+      "rationale": "Correct reference value and sign."
+    },
+    {
+      "choice_key": "B",
+      "choice_text": "−1/2",
+      "is_correct": false,
+      "rationale": "Uses the sine reference value."
+    },
+    {
+      "choice_key": "C",
+      "choice_text": "1/2",
+      "is_correct": false,
+      "rationale": "Uses the sine value with wrong sign."
+    },
+    {
+      "choice_key": "D",
+      "choice_text": "√3/2",
+      "is_correct": false,
+      "rationale": "Uses the cosine value with wrong sign."
+    }
+  ],
+  "canonical_answers": [
+    "A"
+  ],
+  "parts": [
+    {
+      "part_key": "question",
+      "ordinal": 1,
+      "prompt": "What is the exact value of cos(5π/6)?\n\nA. −√3/2\nB. −1/2\nC. 1/2\nD. √3/2",
+      "stimulus_refs": [
+        "directions"
+      ],
+      "response_modalities": [
+        "choice"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-answer",
+          "points": 1,
+          "description": "Select the unique correct response.",
+          "required_evidence": [
+            "A",
+            "The reference angle is π/6 and cosine is negative in Quadrant II."
+          ],
+          "accepted_variants": [
+            "Only a displayed choice that is mathematically identical to the keyed response may be treated as equivalent."
+          ],
+          "insufficient_responses": [
+            "An unkeyed choice without a valid ambiguity finding."
+          ],
+          "contradictions": [
+            "A choice or rationale that conflicts with the governing domain, representation, units, or model conditions."
+          ],
+          "minimum_fix": "Select the keyed response after correcting the first invalid mathematical step.",
+          "deterministic_checks": [
+            {
+              "check_type": "choice-key",
+              "parameters": {
+                "correct_key": "A"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All mathematical information is provided in text."
+  },
+  "review_notes": {
+    "expected_reasoning": "The reference angle is π/6 and cosine is negative in Quadrant II.",
+    "teaching_explanation": "The reference angle is π/6 and cosine is negative in Quadrant II.",
+    "minimum_fix": "Correct the first invalid algebraic, graphical, numerical, or modeling step, then recompute under the stated conditions.",
+    "transfer_candidate": "Create a new Topic 3.3 item with different values, representation, and surface context.",
+    "delayed_retrieval_candidate": "Reassess Topic 3.3 after a delay without reusing this stem or answer choices.",
+    "known_boundary_cases": [
+      "Accept only the keyed choice unless another displayed choice is mathematically identical.",
+      "Reject the item if a reasonable interpretation makes more than one displayed choice correct."
+    ],
+    "originality_statement": "Independently authored Cramapple practice item from a blank scope brief; no released, secure, or third-party question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-precalculus-ced-effective-fall-2026"
+    ],
+    "fact_pack_version": "2026-07-28",
+    "authoring_prompt_version": "CODEX_PRECALCULUS_DIFFICULTY_QA_2026_07_28",
+    "generated_by": "codex",
+    "generated_at": "2026-07-28T00:00:00Z",
+    "content_sha256": "55e3bdf13a768e218d4bd6b353197c8146acf5ca7017d187e377e0f0ef96aca8"
+  }
+}

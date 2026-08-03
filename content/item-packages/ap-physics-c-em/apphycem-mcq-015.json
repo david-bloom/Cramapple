@@ -1,0 +1,109 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apphycem-mcq-015",
+  "content_key": "apphycem-mcq-015",
+  "content_version": 1,
+  "difficulty": "Hard",
+  "exam_pack_ref": {
+    "exam_code": "ap_physics_c_em",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "mcq",
+  "archetype_ref": {
+    "archetype_key": "ap-physics-c-em-mcq",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-physics-c-em-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-12-magnetic-fields-and-electromagnetism"
+    },
+    {
+      "scheme_key": "ap-physics-c-em-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-3"
+    }
+  ],
+  "stimuli": [],
+  "mcq_choices": [
+    {
+      "choice_key": "A",
+      "choice_text": "I dl×B",
+      "is_correct": true,
+      "rationale": "dF=I dl×B"
+    },
+    {
+      "choice_key": "B",
+      "choice_text": "I dl·B",
+      "is_correct": false,
+      "rationale": "This substitutes a dot product for the cross product, losing the force's directional dependence entirely."
+    },
+    {
+      "choice_key": "C",
+      "choice_text": "IB/dl",
+      "is_correct": false,
+      "rationale": "This places dl in the denominator, inverting its role in the force expression."
+    },
+    {
+      "choice_key": "D",
+      "choice_text": "qE",
+      "is_correct": false,
+      "rationale": "This confuses the magnetic force on a current element with the electric force on a point charge."
+    }
+  ],
+  "canonical_answers": [
+    "A"
+  ],
+  "parts": [
+    {
+      "part_key": "question",
+      "ordinal": 1,
+      "prompt": "Magnetic force on a current element is\n\nA. I dl×B\nB. I dl·B\nC. IB/dl\nD. qE",
+      "response_modalities": [
+        "choice"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-answer",
+          "points": 1,
+          "description": "Select the single scientifically correct answer.",
+          "required_evidence": [
+            "A",
+            "dF=I dl×B"
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "choice-key",
+              "parameters": {
+                "choice": "A"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All information is text-based."
+  },
+  "review_notes": {
+    "expected_reasoning": "dF=I dl×B",
+    "known_boundary_cases": [],
+    "originality_statement": "Independently authored synthetic practice item; no official question or scoring material used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-physics-c-em-ced-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-15",
+    "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
+    "generated_by": "codex",
+    "generated_at": "2026-07-15T00:00:00Z",
+    "content_sha256": "3aa5bcd941fa07931d1ff1bf8748bc00daeddb9a26e6e1fb2eb748a26935f2f8"
+  }
+}

@@ -1,0 +1,152 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apphy2-frq-016",
+  "content_key": "apphy2-frq-016",
+  "content_version": 1,
+  "difficulty": "Very Hard",
+  "frq_form": "short",
+  "canonical_answers": [
+    "Doubling the separation to 0.800 m keeps the net field at the midpoint zero (symmetric cancellation), but halves the net potential since V ∝ 1/r."
+  ],
+  "exam_pack_ref": {
+    "exam_code": "ap_physics_2",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "frq",
+  "archetype_ref": {
+    "archetype_key": "ap-physics-2-frq-translation",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-physics-2-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-10-electric-force-field-and-potential"
+    },
+    {
+      "scheme_key": "ap-physics-2-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-1"
+    }
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "scenario",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "Two +2.00 μC point charges are 0.400 m apart; consider their midpoint."
+      },
+      "source_refs": [
+        "ap-physics-2-ced-fact-pack"
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "part_key": "part-a",
+      "ordinal": 1,
+      "label": "(a)",
+      "prompt": "Predict how the observable changes when the defining scale parameter is doubled, and justify the prediction quantitatively.",
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion",
+          "points": 1,
+          "description": "Doubling the separation from 0.400 m to 0.800 m leaves the net field at the midpoint zero (the two fields still cancel by symmetry at any separation), but halves the net potential, since V ∝ 1/r and the midpoint distance to each charge doubles from 0.200 m to 0.400 m.",
+          "required_evidence": [
+            "doubled separation = 0.800 m",
+            "net field at midpoint remains zero (cancellation is symmetry-based, independent of separation)",
+            "net potential halves because V ∝ 1/r and the midpoint distance to each charge doubles"
+          ],
+          "accepted_variants": [
+            "Equivalent scientifically correct notation and reasoning earn credit."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "0.800",
+                  "remains zero",
+                  "halves"
+                ]
+              }
+            }
+          ],
+          "minimum_fix": "To earn this point, explicitly show doubled separation = 0.800 m; net field at midpoint remains zero (cancellation is symmetry-based, independent of separation); net potential halves because V ∝ 1/r and the midpoint distance to each charge doubles."
+        }
+      ],
+      "stimulus_refs": [
+        "scenario"
+      ]
+    },
+    {
+      "part_key": "part-b",
+      "ordinal": 2,
+      "label": "(b)",
+      "prompt": "Explain why doubling the separation while keeping the charges at the midpoint leaves the field cancellation unchanged but changes the potential, referencing the inverse-square dependence of E and inverse-linear dependence of V on distance.",
+      "response_modalities": [
+        "typed-text"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-b-criterion",
+          "points": 1,
+          "description": "Explain why doubling the separation while keeping the charges at the midpoint leaves the field cancellation unchanged but changes the potential, referencing the inverse-square dependence of E and inverse-linear dependence of V on distance.",
+          "required_evidence": [
+            "electric field varies as 1/r²",
+            "electric potential varies as 1/r"
+          ],
+          "accepted_variants": [
+            "Equivalent scientifically correct notation and reasoning earn credit."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "inverse-square",
+                  "inverse-r"
+                ]
+              }
+            }
+          ],
+          "minimum_fix": "To earn this point, explicitly show electric field varies as 1/r²; electric potential varies as 1/r."
+        }
+      ],
+      "stimulus_refs": [
+        "scenario"
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "Text and symbolic notation are fully described."
+  },
+  "review_notes": {
+    "expected_reasoning": "Doubling the separation to 0.800 m keeps the net field at the midpoint zero (symmetric cancellation), but halves the net potential since V ∝ 1/r.",
+    "known_boundary_cases": [
+      "Award credit only when the conclusion follows from explicit evidence.",
+      "Check units, sign, and stated approximation."
+    ],
+    "originality_statement": "Independently authored synthetic draft for Tutor review; no official question or scoring material used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-physics-2-ced-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-15",
+    "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
+    "generated_by": "codex",
+    "generated_at": "2026-07-15T00:00:00Z",
+    "content_sha256": "baa18ca645b6cc62a7a45092cf45693f55a8ca0e468fd66f9a635ae5193507b2"
+  }
+}
