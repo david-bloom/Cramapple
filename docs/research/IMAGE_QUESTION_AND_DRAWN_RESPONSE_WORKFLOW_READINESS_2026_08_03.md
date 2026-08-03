@@ -54,6 +54,10 @@ required reviews pass.
 - Hundreds of local photographed responses and synthetic/reference renders
   exist, but older records warn that provenance, consent, duplicates, and
   corpus partitioning cannot be inferred from folder names alone.
+- A 2026-08-03 aggregate-only scan found 372 structurally readable local
+  images but only 294 unique byte sequences, 78 duplicate pairs, ancillary
+  metadata markers in 271 files, and no file-level declarations. No learner
+  image, path, digest, or metadata value was copied into this branch.
 - `TASK-0011` still lists the low-fidelity QR/camera prototype, representative
   phone testing, privacy/security/accessibility review, usability study, and
   proceed/revise/stop decision as incomplete.
@@ -142,6 +146,15 @@ The validator additionally rejects derivatives without an original, chains of
 derivatives, response/item mismatches, duplicate image IDs, unsafe file names,
 invalid digests, and non-positive dimensions.
 
+`scripts/drawn_response/prepare_capture_corpus.py` now provides the missing
+fail-closed bridge from loose files to those records. Its read-only `audit`
+mode reports file integrity, format/dimension ranges, exact duplicates,
+ancillary-metadata presence, and declaration coverage. Its `build` mode emits
+records only when every image is uniquely declared and the complete output
+passes the capture-image schema and cross-record provenance rules. The local
+corpus result is recorded in
+`HAND_DRAWN_CORPUS_READINESS_AUDIT_2026_08_03.md`.
+
 ### Response workflow
 
 1. Create a narrowly scoped, short-lived submission slot bound to learner,
@@ -228,8 +241,9 @@ release remain separate Hard Gates.
 1. The sole published recovered image has a blocking visual-layout defect; the
    nine others are historical because their content versions are not published.
 2. Student/reviewer live rendering lacks recorded authenticated click-through.
-3. The local hand-drawn corpus needs a consent/provenance/deduplication manifest
-   before it can support claims about real-response accuracy.
+3. The local hand-drawn corpus is confirmed not ingestion-ready: 372 files
+   have no declarations, 78 exact duplicate pairs require authoritative
+   resolution, and 271 files require an ancillary-metadata decision.
 4. Single-violation negative graph cases and adjudicated dual-human gold remain
    incomplete.
 5. External-provider image transfer/retention approval remains a prerequisite

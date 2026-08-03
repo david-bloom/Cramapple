@@ -125,6 +125,13 @@ validated against synthetic fixtures only.
   schemas. The capture-image record closes the previous raw/derived-image
   provenance gap without selecting a production database or storage provider.
 - `scripts/drawn_response/validate_records.py` — structural validation CLI
+- `scripts/drawn_response/prepare_capture_corpus.py` — privacy-preserving,
+  read-only aggregate audit plus fail-closed capture-image manifest builder.
+  The 2026-08-03 local audit confirmed 372 readable images, 78 exact duplicate
+  pairs, ancillary metadata markers in 271 files, and zero authoritative
+  declarations; see
+  `docs/research/HAND_DRAWN_CORPUS_READINESS_AUDIT_2026_08_03.md`. No real
+  response image is tracked or approved for ingestion by this tooling.
 - `scripts/drawn_response/check_partition_manifest.py` — section 8.1
   partition-count and governance-coverage checks
 - `scripts/drawn_response/evaluate_offline.py` /
