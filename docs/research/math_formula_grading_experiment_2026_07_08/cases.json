@@ -1,0 +1,87 @@
+{
+  "meta": {
+    "name": "math_formula_grading_case_battery_v1",
+    "created": "2026-07-08",
+    "tier": "development",
+    "purpose": "Exercise the symbolic formula checker across the math-heavy subject family: AP Calculus AB/BC, AP Precalculus, AP Physics 1/2, AP Physics C (Mechanics, E&M), AP Macro/Microeconomics, AP Statistics. Hand-authored canonical + wrong variants; NOT a quality-claim corpus.",
+    "notation_note": "Responses use student-plausible typed notation (caret powers, implicit multiplication, e^x). Known-ambiguous notations are quarantined in the 'hazard' section and observed, not asserted."
+  },
+  "cases": [
+    { "id": "AB-D1-canon", "subject": "ap-calculus-ab", "kind": "expression", "variables": ["x"], "canonical": "3*x**2 - 4", "response": "3x^2 - 4", "label": "canonical", "expected": "PASS", "note": "power rule, d/dx(x^3-4x+1)" },
+    { "id": "AB-D1-equiv", "subject": "ap-calculus-ab", "kind": "expression", "variables": ["x"], "canonical": "3*x**2 - 4", "response": "3*(x^2) - 4", "label": "equivalent_form", "expected": "PASS", "note": "parenthesized form" },
+    { "id": "AB-D1-wrong", "subject": "ap-calculus-ab", "kind": "expression", "variables": ["x"], "canonical": "3*x**2 - 4", "response": "3x^2 - 4x", "label": "wrong", "expected": "FLAG", "note": "power-rule slip on constant term" },
+    { "id": "AB-D2-canon", "subject": "ap-calculus-ab", "kind": "expression", "variables": ["x"], "canonical": "2*x*cos(x**2)", "response": "2x cos(x^2)", "label": "canonical", "expected": "PASS", "note": "chain rule, d/dx sin(x^2)" },
+    { "id": "AB-D2-wrong", "subject": "ap-calculus-ab", "kind": "expression", "variables": ["x"], "canonical": "2*x*cos(x**2)", "response": "cos(x^2)", "label": "wrong", "expected": "FLAG", "note": "missing chain factor" },
+    { "id": "AB-I1-canon", "subject": "ap-calculus-ab", "kind": "antiderivative", "variables": ["x"], "var": "x", "canonical": "6*x**2", "response": "2x^3 + C", "label": "canonical", "expected": "PASS", "note": "basic antiderivative with +C" },
+    { "id": "AB-I1-missingC", "subject": "ap-calculus-ab", "kind": "antiderivative", "variables": ["x"], "var": "x", "canonical": "6*x**2", "response": "2x^3", "label": "wrong", "expected": "FLAG", "note": "missing +C (AP deducts)" },
+    { "id": "AB-I1-wrongpow", "subject": "ap-calculus-ab", "kind": "antiderivative", "variables": ["x"], "var": "x", "canonical": "6*x**2", "response": "3x^3 + C", "label": "wrong", "expected": "FLAG", "note": "wrong coefficient" },
+    { "id": "AB-I1-shiftedC", "subject": "ap-calculus-ab", "kind": "antiderivative", "variables": ["x"], "var": "x", "canonical": "6*x**2", "response": "2x^3 + 5 + C", "label": "equivalent_form", "expected": "PASS", "note": "constant absorbed into C — same antiderivative family" },
+    { "id": "AB-T1-canon", "subject": "ap-calculus-ab", "kind": "expression", "variables": ["x"], "canonical": "4*x - 3", "response": "4(x - 1) + 1", "label": "equivalent_form", "expected": "PASS", "note": "tangent line in point-slope form" },
+    { "id": "AB-T1-wrong", "subject": "ap-calculus-ab", "kind": "expression", "variables": ["x"], "canonical": "4*x - 3", "response": "3x - 2", "label": "wrong", "expected": "FLAG", "note": "wrong slope; agrees with canonical at the point of tangency x=1 — sampling must not be fooled" },
+    { "id": "AB-L1-limit", "subject": "ap-calculus-ab", "kind": "numeric", "variables": [], "canonical": "1/2", "response": "0.5", "label": "equivalent_form", "expected": "PASS", "note": "limit value, decimal vs fraction" },
+    { "id": "AB-Q1-unsimplified", "subject": "ap-calculus-ab", "kind": "expression", "variables": ["x"], "canonical": "x*(x + 2)/(x + 1)**2", "response": "(2x(x+1) - x^2)/(x+1)^2", "label": "equivalent_form", "expected": "PASS", "note": "quotient rule left unsimplified — AP accepts unsimplified answers" },
+    { "id": "AB-Q1-wrong", "subject": "ap-calculus-ab", "kind": "expression", "variables": ["x"], "canonical": "x*(x + 2)/(x + 1)**2", "response": "2x/(x+1)", "label": "wrong", "expected": "FLAG", "note": "naive term-wise differentiation" },
+
+    { "id": "BC-P1-canon", "subject": "ap-calculus-bc", "kind": "antiderivative", "variables": ["x"], "var": "x", "canonical": "x*exp(x)", "response": "x e^x - e^x + C", "label": "canonical", "expected": "PASS", "note": "integration by parts" },
+    { "id": "BC-P1-factored", "subject": "ap-calculus-bc", "kind": "antiderivative", "variables": ["x"], "var": "x", "canonical": "x*exp(x)", "response": "e^x (x - 1) + C", "label": "equivalent_form", "expected": "PASS", "note": "factored form" },
+    { "id": "BC-P1-wrong", "subject": "ap-calculus-bc", "kind": "antiderivative", "variables": ["x"], "var": "x", "canonical": "x*exp(x)", "response": "x e^x + C", "label": "wrong", "expected": "FLAG", "note": "dropped the second parts term" },
+    { "id": "BC-S1-canon", "subject": "ap-calculus-bc", "kind": "numeric", "variables": [], "canonical": "-1/6", "response": "-1/6", "label": "canonical", "expected": "PASS", "note": "x^3 Maclaurin coefficient of sin x" },
+    { "id": "BC-S1-wrong", "subject": "ap-calculus-bc", "kind": "numeric", "variables": [], "canonical": "-1/6", "response": "1/6", "label": "wrong", "expected": "FLAG", "note": "sign error" },
+    { "id": "BC-PR1-unsimplified", "subject": "ap-calculus-bc", "kind": "expression", "variables": ["t"], "canonical": "3*t/2", "response": "(3t^2)/(2t)", "label": "equivalent_form", "expected": "PASS", "note": "parametric dy/dx unsimplified, parenthesized" },
+    { "id": "BC-PR1-wrong", "subject": "ap-calculus-bc", "kind": "expression", "variables": ["t"], "canonical": "3*t/2", "response": "3t", "label": "wrong", "expected": "FLAG", "note": "dropped denominator" },
+    { "id": "BC-E1-euler", "subject": "ap-calculus-bc", "kind": "numeric", "variables": [], "canonical": "2.2", "response": "2.2", "label": "canonical", "expected": "PASS", "note": "Euler's method two-step value", "tol": 0.01 },
+    { "id": "BC-A1-canon", "subject": "ap-calculus-bc", "kind": "expression", "variables": ["x"], "canonical": "sqrt(1 + 9*x**4)", "response": "(1 + 9x^4)^(1/2)", "label": "equivalent_form", "expected": "PASS", "note": "arc-length integrand" },
+    { "id": "BC-A1-wrong", "subject": "ap-calculus-bc", "kind": "expression", "variables": ["x"], "canonical": "sqrt(1 + 9*x**4)", "response": "1 + 9x^4", "label": "wrong", "expected": "FLAG", "note": "forgot the square root — same class as the Stats SE error" },
+
+    { "id": "PC-T1-identity", "subject": "ap-precalculus", "kind": "expression", "variables": ["x"], "canonical": "sin(x)**2", "response": "1 - cos(x)^2", "label": "equivalent_form", "expected": "PASS", "note": "Pythagorean identity — pure simplify() often fails here; needs sampling" },
+    { "id": "PC-T1-wrong", "subject": "ap-precalculus", "kind": "expression", "variables": ["x"], "canonical": "sin(x)**2", "response": "1 + cos(x)^2", "label": "wrong", "expected": "FLAG", "note": "sign slip in identity" },
+    { "id": "PC-F1-inverse", "subject": "ap-precalculus", "kind": "expression", "variables": ["x"], "canonical": "(x - 3)/2", "response": "x/2 - 3/2", "label": "equivalent_form", "expected": "PASS", "note": "inverse function, distributed form" },
+    { "id": "PC-F1-wrong", "subject": "ap-precalculus", "kind": "expression", "variables": ["x"], "canonical": "(x - 3)/2", "response": "2x + 3", "label": "wrong", "expected": "FLAG", "note": "did not invert" },
+    { "id": "PC-E1-log", "subject": "ap-precalculus", "kind": "expression", "variables": ["x"], "canonical": "log(x) - log(x - 1)", "response": "log(x/(x - 1))", "label": "equivalent_form", "expected": "PASS", "note": "log quotient property; equivalent only on shared domain", "domain": [1.2, 3.0] },
+    { "id": "PC-E1-wrong", "subject": "ap-precalculus", "kind": "expression", "variables": ["x"], "canonical": "log(x) - log(x - 1)", "response": "log(x)/log(x - 1)", "label": "wrong", "expected": "FLAG", "note": "classic log misconception", "domain": [1.2, 3.0] },
+    { "id": "PC-S1-sinusoid", "subject": "ap-precalculus", "kind": "expression", "variables": ["x"], "canonical": "2*sin(3*x - pi/2) + 1", "response": "2 sin(3(x - pi/6)) + 1", "label": "equivalent_form", "expected": "PASS", "note": "phase shift factored vs distributed" },
+    { "id": "PC-S1-wrong", "subject": "ap-precalculus", "kind": "expression", "variables": ["x"], "canonical": "2*sin(3*x - pi/2) + 1", "response": "2 sin(3x + pi/2) + 1", "label": "wrong", "expected": "FLAG", "note": "phase-shift sign error" },
+
+    { "id": "P1-K1-canon", "subject": "ap-physics-1", "kind": "expression", "variables": ["g", "h"], "canonical": "sqrt(2*g*h)", "response": "(2 g h)^(1/2)", "label": "equivalent_form", "expected": "PASS", "note": "energy-conservation speed" },
+    { "id": "P1-K1-wrong", "subject": "ap-physics-1", "kind": "expression", "variables": ["g", "h"], "canonical": "sqrt(2*g*h)", "response": "2 g h^(1/2)", "label": "wrong", "expected": "FLAG", "note": "radical applied to h only — real student error class" },
+    { "id": "P1-R1-canon", "subject": "ap-physics-1", "kind": "expression", "variables": ["v", "g", "q"], "canonical": "v**2*sin(2*q)/g", "response": "2 v^2 sin(q) cos(q) / g", "label": "equivalent_form", "expected": "PASS", "note": "range formula, double-angle expanded (q = theta)" },
+    { "id": "P1-R1-wrong", "subject": "ap-physics-1", "kind": "expression", "variables": ["v", "g", "q"], "canonical": "v**2*sin(2*q)/g", "response": "v^2 sin(q)/g", "label": "wrong", "expected": "FLAG", "note": "missing double angle" },
+    { "id": "P1-N1-canon", "subject": "ap-physics-1", "kind": "numeric", "variables": [], "canonical": "3.2", "response": "3.2", "label": "canonical", "expected": "PASS", "note": "numeric acceleration; UNIT CHECK OUT OF SCOPE for this prototype", "tol": 0.02 },
+    { "id": "P1-N1-wrong", "subject": "ap-physics-1", "kind": "numeric", "variables": [], "canonical": "3.2", "response": "32", "label": "wrong", "expected": "FLAG", "note": "order-of-magnitude / g-multiplication error", "tol": 0.02 },
+
+    { "id": "P2-C1-canon", "subject": "ap-physics-2", "kind": "expression", "variables": ["r", "s"], "canonical": "r*s/(r + s)", "response": "1/(1/r + 1/s)", "label": "equivalent_form", "expected": "PASS", "note": "parallel resistance, reciprocal form" },
+    { "id": "P2-C1-wrong", "subject": "ap-physics-2", "kind": "expression", "variables": ["r", "s"], "canonical": "r*s/(r + s)", "response": "r + s", "label": "wrong", "expected": "FLAG", "note": "series formula used for parallel" },
+    { "id": "P2-G1-canon", "subject": "ap-physics-2", "kind": "expression", "variables": ["k", "Q", "r"], "canonical": "k*Q/r**2", "response": "k Q / r^2", "label": "canonical", "expected": "PASS", "note": "point-charge field" },
+    { "id": "P2-G1-wrong", "subject": "ap-physics-2", "kind": "expression", "variables": ["k", "Q", "r"], "canonical": "k*Q/r**2", "response": "k Q / r", "label": "wrong", "expected": "FLAG", "note": "potential formula given for field" },
+
+    { "id": "PCM-R1-canon", "subject": "ap-physics-c-em", "kind": "expression", "variables": ["k", "Q", "x", "R"], "canonical": "k*Q*x/(x**2 + R**2)**(3/2)", "response": "k Q x (x^2 + R^2)^(-3/2)", "label": "equivalent_form", "expected": "PASS", "note": "on-axis ring field, negative-exponent form" },
+    { "id": "PCM-R1-wrong", "subject": "ap-physics-c-em", "kind": "expression", "variables": ["k", "Q", "x", "R"], "canonical": "k*Q*x/(x**2 + R**2)**(3/2)", "response": "k Q x/(x^2 + R^2)", "label": "wrong", "expected": "FLAG", "note": "wrong exponent from skipped geometry" },
+    { "id": "PCM-M1-canon", "subject": "ap-physics-c-mech", "kind": "expression", "variables": ["m", "g", "b"], "canonical": "m*g/b", "response": "g m / b", "label": "equivalent_form", "expected": "PASS", "note": "terminal velocity, reordered" },
+    { "id": "PCM-M2-canon", "subject": "ap-physics-c-mech", "kind": "expression", "variables": ["m", "g", "b", "t"], "canonical": "(m*g/b)*(1 - exp(-b*t/m))", "response": "m g (1 - e^(-b t/m))/b", "label": "equivalent_form", "expected": "PASS", "note": "drag ODE solution — derivation endpoint" },
+    { "id": "PCM-M2-wrong", "subject": "ap-physics-c-mech", "kind": "expression", "variables": ["m", "g", "b", "t"], "canonical": "(m*g/b)*(1 - exp(-b*t/m))", "response": "(m g / b)(1 - e^(b t/m))", "label": "wrong", "expected": "FLAG", "note": "sign error in exponent — diverges instead of saturating" },
+    { "id": "PCM-E2-canon", "subject": "ap-physics-c-em", "kind": "expression", "variables": ["V", "R", "C", "t"], "canonical": "(V/R)*exp(-t/(R*C))", "response": "V e^(-t/(R C))/R", "label": "equivalent_form", "expected": "PASS", "note": "RC discharge current" },
+    { "id": "PCM-E2-wrong", "subject": "ap-physics-c-em", "kind": "expression", "variables": ["V", "R", "C", "t"], "canonical": "(V/R)*exp(-t/(R*C))", "response": "V e^(-t R C)/R", "label": "wrong", "expected": "FLAG", "note": "time constant inverted" },
+
+    { "id": "EC-M1-canon", "subject": "ap-macroeconomics", "kind": "numeric", "variables": [], "canonical": "5", "response": "5", "label": "canonical", "expected": "PASS", "note": "spending multiplier, MPC=0.8" },
+    { "id": "EC-M1-wrong", "subject": "ap-macroeconomics", "kind": "numeric", "variables": [], "canonical": "5", "response": "1.25", "label": "wrong", "expected": "FLAG", "note": "used 1/MPC instead of 1/(1-MPC)" },
+    { "id": "EC-E1-canon", "subject": "ap-microeconomics", "kind": "numeric", "variables": [], "canonical": "0.6", "response": "0.6", "label": "canonical", "expected": "PASS", "note": "midpoint elasticity", "tol": 0.03 },
+    { "id": "EC-E1-wrong", "subject": "ap-microeconomics", "kind": "numeric", "variables": [], "canonical": "0.6", "response": "1.67", "label": "wrong", "expected": "FLAG", "note": "inverted ratio", "tol": 0.03 },
+    { "id": "EC-F1-canon", "subject": "ap-macroeconomics", "kind": "expression", "variables": ["n", "i"], "canonical": "n - i", "response": "n - i", "label": "canonical", "expected": "PASS", "note": "real rate = nominal - inflation" },
+    { "id": "EC-F1-wrong", "subject": "ap-macroeconomics", "kind": "expression", "variables": ["n", "i"], "canonical": "n - i", "response": "n + i", "label": "wrong", "expected": "FLAG", "note": "sign error" },
+
+    { "id": "ST-SE1-canon", "subject": "ap-statistics", "kind": "expression", "variables": ["s", "n"], "canonical": "s/sqrt(n)", "response": "s/n^(1/2)", "label": "equivalent_form", "expected": "PASS", "note": "standard error, exponent form" },
+    { "id": "ST-SE1-wrong", "subject": "ap-statistics", "kind": "expression", "variables": ["s", "n"], "canonical": "s/sqrt(n)", "response": "s/n", "label": "wrong", "expected": "FLAG", "note": "the known 120/30 vs 120/sqrt(30) class, caught at the formula level" },
+    { "id": "ST-ME1-canon", "subject": "ap-statistics", "kind": "numeric", "variables": [], "canonical": "2.045*8/sqrt(30)", "response": "2.99", "label": "equivalent_form", "expected": "PASS", "note": "margin of error, rounded to 2 decimals", "tol": 0.01 },
+    { "id": "ST-ME1-wrong", "subject": "ap-statistics", "kind": "numeric", "variables": [], "canonical": "2.045*8/sqrt(30)", "response": "0.55", "label": "wrong", "expected": "FLAG", "note": "divided by n instead of sqrt(n)", "tol": 0.01 },
+
+    { "id": "AB-J1-conceptual", "subject": "ap-calculus-ab", "kind": "conceptual", "variables": [], "canonical": null, "response": "f is continuous on [1,2] and f(1) < 0 < f(2), so by IVT f has a root in (1,2).", "label": "canonical", "expected": "ABSTAIN", "note": "justification prompt — LLM grader's job" },
+    { "id": "EC-C1-conceptual", "subject": "ap-microeconomics", "kind": "conceptual", "variables": [], "canonical": null, "response": "Price rises because demand shifts right while supply is fixed.", "label": "canonical", "expected": "ABSTAIN", "note": "verbal reasoning — LLM grader's job" },
+    { "id": "P1-J1-conceptual", "subject": "ap-physics-1", "kind": "conceptual", "variables": [], "canonical": null, "response": "The normal force does no work because it is perpendicular to displacement.", "label": "canonical", "expected": "ABSTAIN", "note": "conceptual physics justification — LLM grader's job" }
+  ],
+  "hazards": [
+    { "id": "HZ-1-concat", "kind": "antiderivative", "variables": ["x"], "var": "x", "canonical": "x*exp(x)", "response": "xe^x - e^x + C", "note": "concatenated 'xe' — does symbol splitting recover x*e^x?" },
+    { "id": "HZ-2-flatfrac", "kind": "expression", "variables": ["t"], "canonical": "3*t/2", "response": "3t^2/2t", "note": "typed flat fraction — parser reads (3t^2/2)*t, student meant (3t^2)/(2t)" },
+    { "id": "HZ-3-trigpow", "kind": "expression", "variables": ["x"], "canonical": "sin(x)**2", "response": "sin^2 x", "note": "sin^2 x notation — function exponentiation transform" },
+    { "id": "HZ-4-halfx", "kind": "expression", "variables": ["x"], "canonical": "x/2", "response": "1/2 x", "note": "1/2 x — parser precedence vs student intent (here they agree)" }
+  ]
+}

@@ -90,7 +90,31 @@ const FUNCTIONS = new Set([
   "log",
   "sqrt",
   "abs",
+  "erf",
+  "factorial",
 ]);
+
+/** Abramowitz & Stegun 7.1.26 — max abs error 1.5e-7, ample for grading tolerances. */
+function erf(x: number): number {
+  const sign = x < 0 ? -1 : 1;
+  const ax = Math.abs(x);
+  const t = 1 / (1 + 0.3275911 * ax);
+  const y = 1 -
+    ((((1.061405429 * t - 1.453152027) * t + 1.421413741) * t - 0.284496736) * t +
+      0.254829592) * t * Math.exp(-ax * ax);
+  return sign * y;
+}
+
+/** Exact for non-negative integers; Lanczos-free gamma is unnecessary here because
+ *  every shipped profile uses integer arguments (binomial coefficients). */
+function factorial(n: number): number {
+  if (!Number.isFinite(n) || n < 0 || Math.abs(n - Math.round(n)) > 1e-9) {
+    throw new Error("factorial_requires_nonnegative_integer");
+  }
+  let acc = 1;
+  for (let i = 2; i <= Math.round(n); i++) acc *= i;
+  return acc;
+}
 const CONSTANT_NAMES = new Set(["e", "pi", "C", "c"]);
 
 function asString(value: unknown) {
@@ -350,14 +374,20 @@ function evaluate(node: ExprNode, env: Record<string, number>): number {
       return node.value;
     case "ident": {
       const key = node.value;
+      // A supplied input ALWAYS wins over a built-in constant name. Data values
+      // named `e` or `pi` are common (e.g. the fifth value of a five-number data
+      // set is routinely named `e`), and binding them to Euler's number / pi
+      // silently corrupted the arithmetic: (a+b+c+d+e)/5 with e=24 evaluated to
+      // 13.7437 instead of 18, marking a correct student INCORRECT.
+      // See docs/research/ENGINE3_HARNESS_RUN1_RESULTS_2026_07_28.md (Bug 1).
+      const supplied = env[key];
+      if (typeof supplied === "number" && Number.isFinite(supplied)) {
+        return supplied;
+      }
       if (key === "pi") return Math.PI;
       if (key === "e") return Math.E;
-      if (key === "C" || key === "c") return env[key] ?? 0;
-      const value = env[key];
-      if (typeof value !== "number" || !Number.isFinite(value)) {
-        throw new Error(`missing_variable:${key}`);
-      }
-      return value;
+      if (key === "C" || key === "c") return 0;
+      throw new Error(`missing_variable:${key}`);
     }
     case "unary": {
       const value: number = evaluate(node.expr, env);
@@ -396,6 +426,15 @@ function evaluate(node: ExprNode, env: Record<string, number>): number {
           return Math.sqrt(arg);
         case "abs":
           return Math.abs(arg);
+        // erf/factorial are used by shipped verification profiles
+        // (APSTAT-MOD6-H007, APSTAT-MOD7-H005). Without them the canonical
+        // formula failed to parse and the failure path emitted NAKED_ANSWER,
+        // telling a fully-correct student "no work shown".
+        // See ENGINE3_HARNESS_RUN1_RESULTS_2026_07_28.md (Bug 3).
+        case "erf":
+          return erf(arg);
+        case "factorial":
+          return factorial(arg);
       }
     }
   }
@@ -745,15 +784,40 @@ export function buildEcfResult(input: EcfQuestion): EcfQuestionResult {
         feedback: `Part ${part.id} correct.`,
       });
     } else {
-      earned += part.points;
-      parts.push({
-        part: part.id,
-        verdict: "CORRECT_VIA_ECF",
-        points_awarded: part.points,
-        points_possible: part.points,
-        feedback:
-          `Your value from an earlier part was off, but your setup for part ${part.id} is the right relationship and you computed it correctly on your own number — full credit for part ${part.id}.`,
+      // ECF credit requires an actual carried-forward error: this part must
+      // depend on an earlier part AND that upstream value must genuinely differ
+      // from canonical. Without this guard a no-dependency part with an empty
+      // shown_subs (so workSupports stays null and the INCORRECT branch is
+      // skipped) fell through to here and was awarded FULL MARKS for a plainly
+      // wrong answer, with feedback inventing an "earlier part" that does not
+      // exist. See ENGINE3_HARNESS_RUN1_RESULTS_2026_07_28.md (Bug 2).
+      const upstreamDiverged = Object.values(deps).some((source) => {
+        const own = studentAnswers.get(source);
+        const canonical = canonAnswers.get(source);
+        return typeof own === "number" && typeof canonical === "number" &&
+          !compareNumbers(own, canonical, ECF_REL_TOL);
       });
+
+      if (!upstreamDiverged) {
+        parts.push({
+          part: part.id,
+          verdict: "INCORRECT",
+          points_awarded: 0,
+          points_possible: part.points,
+          feedback:
+            `Part ${part.id} does not match the expected value, and there is no earlier result to carry forward from.`,
+        });
+      } else {
+        earned += part.points;
+        parts.push({
+          part: part.id,
+          verdict: "CORRECT_VIA_ECF",
+          points_awarded: part.points,
+          points_possible: part.points,
+          feedback:
+            `Your value from an earlier part was off, but your setup for part ${part.id} is the right relationship and you computed it correctly on your own number — full credit for part ${part.id}.`,
+        });
+      }
     }
 
     studentAnswers.set(part.id, y);

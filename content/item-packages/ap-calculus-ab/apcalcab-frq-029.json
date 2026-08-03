@@ -1,0 +1,381 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apcalcab-frq-029",
+  "content_key": "apcalcab-frq-029",
+  "content_version": 1,
+  "difficulty": "Medium",
+  "exam_pack_ref": {
+    "exam_code": "ap_calculus_ab",
+    "school_year": "2026-27",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "frq",
+  "archetype_ref": {
+    "archetype_key": "ap-calculus-ab-frq-related-rates-linearization",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-calculus-ab-2026-27",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-4-contextual-applications-of-differentiation"
+    },
+    {
+      "scheme_key": "ap-calculus-ab-2026-27",
+      "scheme_version": "1.0.0",
+      "node_key": "topic-4.5"
+    },
+    {
+      "scheme_key": "ap-calculus-ab-mathematical-practices",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-4"
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All assessed mathematical information is available in text; notation requires normal math-reading support."
+  },
+  "frq_form": "long",
+  "canonical_answers": [
+    "Uses V=(1/3)πr²h=πr³. | Differentiates to obtain dV/dt=3πr²dr/dt. | Obtains dr/dt=1/2 foot per minute. | Uses h=3r and dh/dt=3dr/dt. | Obtains dh/dt=3/2 feet per minute. | Includes correct rate units. | Uses L(x)=x−1 to obtain 0.04. | Notes (ln x)″<0 for x>0. | Concludes the tangent-line approximation is an overestimate."
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "scenario",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "Water fills an inverted conical tank whose height is always three times the radius of its water surface. The water volume increases at 6π cubic feet per minute.",
+        "calculator_mode": "no-calculator"
+      },
+      "source_refs": [
+        "ap-calculus-ab-bc-ced-effective-fall-2020-2026-release"
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "part_key": "part-a",
+      "ordinal": 1,
+      "label": "(a)",
+      "prompt": "When the water radius is 2 feet, find dr/dt.",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 3,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "Uses V=(1/3)πr²h=πr³.",
+          "required_evidence": [
+            "Uses V=(1/3)πr²h=πr³."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+          ],
+          "insufficient_responses": [
+            "A correct number without required setup, justification, interpretation, or units when that evidence is named in the criterion."
+          ],
+          "contradictions": [
+            "Do not award the criterion when the response directly contradicts the required mathematical relationship or contextual meaning."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: Uses V=(1/3)πr²h=πr³.",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        },
+        {
+          "criterion_key": "part-a-criterion-2",
+          "points": 1,
+          "description": "Differentiates to obtain dV/dt=3πr²dr/dt.",
+          "required_evidence": [
+            "Differentiates to obtain dV/dt=3πr²dr/dt."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+          ],
+          "insufficient_responses": [
+            "A correct number without required setup, justification, interpretation, or units when that evidence is named in the criterion."
+          ],
+          "contradictions": [
+            "Do not award the criterion when the response directly contradicts the required mathematical relationship or contextual meaning."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: Differentiates to obtain dV/dt=3πr²dr/dt.",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        },
+        {
+          "criterion_key": "part-a-criterion-3",
+          "points": 1,
+          "description": "Obtains dr/dt=1/2 foot per minute.",
+          "required_evidence": [
+            "Obtains dr/dt=1/2 foot per minute."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+          ],
+          "insufficient_responses": [
+            "A correct number without required setup, justification, interpretation, or units when that evidence is named in the criterion."
+          ],
+          "contradictions": [
+            "Do not award the criterion when the response directly contradicts the required mathematical relationship or contextual meaning."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: Obtains dr/dt=1/2 foot per minute.",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part_key": "part-b",
+      "ordinal": 2,
+      "label": "(b)",
+      "prompt": "At the same instant, find dh/dt and state units.",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 3,
+      "criteria": [
+        {
+          "criterion_key": "part-b-criterion-1",
+          "points": 1,
+          "description": "Uses h=3r and dh/dt=3dr/dt.",
+          "required_evidence": [
+            "Uses h=3r and dh/dt=3dr/dt."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+          ],
+          "insufficient_responses": [
+            "A correct number without required setup, justification, interpretation, or units when that evidence is named in the criterion."
+          ],
+          "contradictions": [
+            "Do not award the criterion when the response directly contradicts the required mathematical relationship or contextual meaning."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: Uses h=3r and dh/dt=3dr/dt.",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        },
+        {
+          "criterion_key": "part-b-criterion-2",
+          "points": 1,
+          "description": "Obtains dh/dt=3/2 feet per minute.",
+          "required_evidence": [
+            "Obtains dh/dt=3/2 feet per minute."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+          ],
+          "insufficient_responses": [
+            "A correct number without required setup, justification, interpretation, or units when that evidence is named in the criterion."
+          ],
+          "contradictions": [
+            "Do not award the criterion when the response directly contradicts the required mathematical relationship or contextual meaning."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: Obtains dh/dt=3/2 feet per minute.",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        },
+        {
+          "criterion_key": "part-b-criterion-3",
+          "points": 1,
+          "description": "Includes correct rate units.",
+          "required_evidence": [
+            "Includes correct rate units."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+          ],
+          "insufficient_responses": [
+            "A correct number without required setup, justification, interpretation, or units when that evidence is named in the criterion."
+          ],
+          "contradictions": [
+            "Do not award the criterion when the response directly contradicts the required mathematical relationship or contextual meaning."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: Includes correct rate units.",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part_key": "part-c",
+      "ordinal": 3,
+      "label": "(c)",
+      "prompt": "Use the linearization of ln x at x=1 to approximate ln(1.04), and state whether the approximation is an overestimate or underestimate.",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 3,
+      "criteria": [
+        {
+          "criterion_key": "part-c-criterion-1",
+          "points": 1,
+          "description": "Uses L(x)=x−1 to obtain 0.04.",
+          "required_evidence": [
+            "Uses L(x)=x−1 to obtain 0.04."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+          ],
+          "insufficient_responses": [
+            "A correct number without required setup, justification, interpretation, or units when that evidence is named in the criterion."
+          ],
+          "contradictions": [
+            "Do not award the criterion when the response directly contradicts the required mathematical relationship or contextual meaning."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: Uses L(x)=x−1 to obtain 0.04.",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        },
+        {
+          "criterion_key": "part-c-criterion-2",
+          "points": 1,
+          "description": "Notes (ln x)″<0 for x>0.",
+          "required_evidence": [
+            "Notes (ln x)″<0 for x>0."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+          ],
+          "insufficient_responses": [
+            "A correct number without required setup, justification, interpretation, or units when that evidence is named in the criterion."
+          ],
+          "contradictions": [
+            "Do not award the criterion when the response directly contradicts the required mathematical relationship or contextual meaning."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: Notes (ln x)″<0 for x>0.",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        },
+        {
+          "criterion_key": "part-c-criterion-3",
+          "points": 1,
+          "description": "Concludes the tangent-line approximation is an overestimate.",
+          "required_evidence": [
+            "Concludes the tangent-line approximation is an overestimate."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+          ],
+          "insufficient_responses": [
+            "A correct number without required setup, justification, interpretation, or units when that evidence is named in the criterion."
+          ],
+          "contradictions": [
+            "Do not award the criterion when the response directly contradicts the required mathematical relationship or contextual meaning."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: Concludes the tangent-line approximation is an overestimate.",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "scoring_contract": {
+    "total_points": 9,
+    "part_count": 3,
+    "calculator_mode": "no-calculator",
+    "carry_forward_rule": "A later criterion may earn when the student's earlier arithmetic error is carried forward consistently and the later reasoning remains valid.",
+    "rounding_rule": "Accept exact values or values correctly rounded to the precision requested.",
+    "units_rule": "Units are required only when a criterion or prompt explicitly requests contextual units.",
+    "ambiguity_rule": "Escalate responses that use a valid but unlisted interpretation rather than forcing a score."
+  },
+  "development_cases": {
+    "full_credit": "Provides all required setup, values, justifications, interpretations, and units.",
+    "partial_credit": "Shows a valid method for multiple criteria but omits or misstates at least one independently required piece of evidence.",
+    "no_credit": "Provides no relevant calculus relationship or only unsupported answers.",
+    "equivalent": "Uses algebraically equivalent forms or a different valid theorem-based argument.",
+    "contradictory": "States a correct value but also asserts an incompatible sign, interval, unit, or conclusion.",
+    "ambiguous": "Contains notation whose intended mathematical meaning cannot be determined reliably."
+  },
+  "review_notes": {
+    "expected_reasoning": "Uses V=(1/3)πr²h=πr³. | Differentiates to obtain dV/dt=3πr²dr/dt. | Obtains dr/dt=1/2 foot per minute. | Uses h=3r and dh/dt=3dr/dt. | Obtains dh/dt=3/2 feet per minute. | Includes correct rate units. | Uses L(x)=x−1 to obtain 0.04. | Notes (ln x)″<0 for x>0. | Concludes the tangent-line approximation is an overestimate.",
+    "teaching_explanation": "Connect each awarded point to the stated calculus relationship and the evidence shown in the response.",
+    "minimum_fix": "Repair the earliest missing setup or justification needed for the next unearned criterion.",
+    "transfer_candidate": "Create a new related-rates-linearization task with a different context, representation, and numerical structure.",
+    "delayed_retrieval_candidate": "Reassess Topic 4.5 later with a different function family and no shared wording.",
+    "known_boundary_cases": [
+      "Award criteria independently when the exam task permits.",
+      "Do not award interpretation or justification points for a bare numerical answer.",
+      "Use carry-forward only when later reasoning remains mathematically valid."
+    ],
+    "originality_statement": "Independently authored Cramapple practice item from a blank scope brief; no released, secure, or third-party question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-calculus-ab-bc-ced-effective-fall-2020-2026-release"
+    ],
+    "fact_pack_version": "2026-07-27",
+    "authoring_prompt_version": "CALCULUS_AB_CONTENT_BATCH_2026_07_27",
+    "generated_by": "codex",
+    "generated_at": "2026-07-27T00:00:00Z",
+    "content_sha256": "2fd3433c52d108ebd77c6283458cc61adb892560b3a4e43b05c95f2da059055a"
+  }
+}

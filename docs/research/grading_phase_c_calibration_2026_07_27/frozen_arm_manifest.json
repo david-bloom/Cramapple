@@ -1,0 +1,310 @@
+{
+  "meta": {
+    "task": "TASK-0016 Phase C Stage 4 -- freeze the two FRQ grading arms",
+    "run_date": "2026-07-27",
+    "frozen_before_any_scoring": true,
+    "only_intended_difference_between_arms": "request architecture: Arm A = one model call per criterion, run in parallel; Arm B = one model call per response, structured multi-criterion output. Model, provider, temperature, thinking mode, timeouts, retries, criterion contracts, and deterministic-check inputs are IDENTICAL across arms.",
+    "v2_amendment_date": "2026-07-27",
+    "v2_amendment_reason": "Stage 5 v1 low-number gate failed on Arm B p50 latency (3252ms > 3000ms ceiling); root cause confirmed as output-token count scaling with criteria count in a single serial call. Arm A unchanged (passed v1 cleanly). See stage5_v1_burned_run_record.md."
+  },
+  "model_config": {
+    "provider": "google",
+    "model_id": "google/gemini-2.5-flash",
+    "access_path": "Vercel AI Gateway (OIDC/BYOK per scripts/vercel-gateway-check/.env.local)",
+    "thinking": "disabled",
+    "temperature": 0,
+    "max_output_tokens_arm_a": 700,
+    "max_output_tokens_arm_b": 3500,
+    "timeout_ms": 20000,
+    "retries_on_transient_failure": 1,
+    "retry_backoff_ms": 500,
+    "concurrency_cap_arm_a": "min(criteria_count, 16) parallel calls per response",
+    "concurrency_cap_arm_b": "1 call per response (no fan-out)",
+    "note": "Identical model/provider/temperature/thinking/timeout/retry settings for both arms; the ONLY intended difference between Arm A and Arm B is request architecture (per-criterion vs single structured call), per the Stage 4 spec."
+  },
+  "pricing_table": {
+    "source": "Vercel AI Gateway published pricing for google/gemini-2.5-flash as of 2026-07-27; confirm against gateway dashboard before Stage 5/6 spend.",
+    "input_usd_per_1m_tokens": 0.3,
+    "output_usd_per_1m_tokens": 2.5,
+    "note": "Actual per-call cost logged from gateway usage response at run time, not estimated from this table alone -- this table is for pre-run budget projection only."
+  },
+  "deterministic_layer": {
+    "policy": "Deterministic checks run first and own only the checks they can safely decide; abstain (null) otherwise. Never ask the model to override a non-null deterministic verdict.",
+    "keyed_content_reused_from": "docs/research/statistics_phase_b_2026_07_08/statistics_item_keys.json (AP Statistics numeric/ECF verification_profile keys, built 2026-07-09) and docs/research/AP_STATISTICS_VERIFICATION_PROFILE.json",
+    "keyed_items_in_this_100_item_frozen_corpus": [
+      "STATS-MOD3-M006",
+      "STATS-MOD1-E004",
+      "APSTAT-MOD3-E004",
+      "APSTAT-MOD6-M001",
+      "STATS-MOD1-M004"
+    ],
+    "keyed_items_count": 5,
+    "note": "These are the SAME 5 content_keys already wired into supabase/functions/_shared/math-verifier.ts's STATISTICS_ITEM_KEYS map and deployed to Production since 2026-07-12 (PR #37) -- reusing them here, not re-deriving. The remaining 95 of 100 frozen FRQs have no existing verification_profile and will show deterministic_check_result=null for every criterion; the model owns 100% of grading for those. This directly extends the Ledger's open question #2 ('confirm the 5 seeded content_keys correspond to live/published AP Statistics items') using this run's own frozen manifest as independent confirmation."
+  },
+  "arm_a": {
+    "name": "Parallel criterion baseline",
+    "request_shape": "one model call per criterion, criteria run in parallel (concurrency cap min(criteria_count,16))",
+    "prompt_template": "You are grading ONE criterion of an AP free-response question for a fast, single-pass production grader (Arm A: parallel per-criterion baseline).\n\nSubject: {subject}\nItem: {content_key}\nStem: {stem}\nStimulus: {stimulus}\n\nCriterion contract:\n  criterion_key: {criterion_key}\n  points_possible: {points_possible}\n  learner_facing_text: {learner_facing_text}\n  evidence_requirements: {evidence_requirements}\n  minimum_fix (rubric-authored): {rubric_minimum_fix}\n  accepted_variants: {accepted_variants}\n\nDeterministic check result for this criterion (if any; null if none applies): {deterministic_check_result}\nIf a deterministic check result is present and its status is not null, you must accept it AS-IS for the numeric/symbolic sub-decision it covers -- do not override a deterministic verdict, but you may still supply feedback fields (evidence_quote, withheld_point_reason, minimum_fix, improved_answer, error_classification) for it.\n\nApply this criterion-contract discipline to every judgment:\n1. Grade criteria locally/independently unless the rubric explicitly couples them -- one wrong criterion must not contaminate an independent criterion.\n2. Negated, hedged, or merely-adjacent mentions of the right vocabulary are NOT sufficient evidence; the criterion's specific proposition must be actually asserted, correctly scoped (right variable/part/time/population).\n3. Accept equivalent correct wording/forms; do not require canonical phrasing verbatim. Accept any accepted_variants listed for the criterion.\n4. Apply error-carried-forward (ECF) credit where appropriate: if the response correctly carries forward its OWN earlier (possibly wrong) value into a later step, the later step can still earn credit for correct method/execution on that value, unless the criterion explicitly requires the canonical value.\n5. If a later contradiction or self-correction cancels or undermines earlier correct content for THAT SPECIFIC criterion's proposition, reflect that in the verdict; do not let an unrelated contradiction elsewhere contaminate this criterion.\n6. Use status=unable_to_determine (not not_earned) when the response is genuinely ambiguous rather than clearly absent/wrong.\n7. evidence_quote must be an actual substring of the student response, or empty string if status is not_earned/unable_to_determine with no relevant text.\n8. withheld_point_reason must name the specific missing/incorrect element per evidence_requirements -- not a generic restatement of the rubric.\n9. minimum_fix must be the smallest concrete addition/correction that would earn the point under this criterion's evidence_requirements and accepted_variants.\n10. improved_answer must be a concise, concrete rewrite of the relevant portion of the response that would earn the point -- grounded in the student's own work where salvageable, not a full model answer.\n11. error_classification: choose the single best-fitting label from [missing_evidence, conceptual_error, arithmetic_error, wrong_scope, contradiction, equivalent_form_rejected_incorrectly, ambiguous, none] -- \"none\" only when status=earned.\nNo confidence-triggered escalation, no ensemble voting, no retrieval, no post-hoc audit pass. Confidence is for logging only and must never change the verdict.\n\nStudent response:\n\"\"\"\n{response_text}\n\"\"\"\n\nReturn exactly one JSON object matching the required schema for this single criterion.",
+    "prompt_template_sha256": "048766146badba147f500c2deb4aa201bb9027288895aeadee124173e4ca2fb0",
+    "output_schema": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "criterion_key": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "earned",
+            "not_earned",
+            "unable_to_determine"
+          ]
+        },
+        "confidence": {
+          "type": "string",
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ],
+          "description": "logging only, must not affect status"
+        },
+        "evidence_quote": {
+          "type": "string"
+        },
+        "withheld_point_reason": {
+          "type": "string"
+        },
+        "minimum_fix": {
+          "type": "string"
+        },
+        "improved_answer": {
+          "type": "string"
+        },
+        "error_classification": {
+          "type": "string",
+          "enum": [
+            "missing_evidence",
+            "conceptual_error",
+            "arithmetic_error",
+            "wrong_scope",
+            "contradiction",
+            "equivalent_form_rejected_incorrectly",
+            "ambiguous",
+            "none"
+          ]
+        },
+        "gate_schema_status": {
+          "type": "string",
+          "enum": [
+            "valid",
+            "invalid"
+          ],
+          "description": "self-reported schema/gate validity for this criterion's output"
+        }
+      },
+      "required": [
+        "criterion_key",
+        "status",
+        "confidence",
+        "evidence_quote",
+        "withheld_point_reason",
+        "minimum_fix",
+        "improved_answer",
+        "error_classification",
+        "gate_schema_status"
+      ]
+    },
+    "latency_definition": "FRQ end-to-end latency = max completion time across its criterion calls (max-of-N), not average criterion latency, per Stage 6 measurement instructions."
+  },
+  "arm_b": {
+    "name": "Single structured multi-criterion challenger",
+    "request_shape": "one model call per response, returns all criterion verdicts+feedback in one schema",
+    "prompt_template": "You are grading ALL criteria of an AP free-response question in ONE call for a fast, single-pass production grader (Arm B: single structured multi-criterion challenger).\n\nSubject: {subject}\nItem: {content_key}\nStem: {stem}\nStimulus: {stimulus}\n\nCriteria contracts (grade every one independently unless explicitly coupled):\n{criteria_contracts_block}\n\nDeterministic check results (if any; by criterion_key, null where none applies): {deterministic_check_results}\nWhere a deterministic check result is present and non-null for a criterion, accept it AS-IS for the numeric/symbolic sub-decision it covers -- do not override it, but still supply feedback fields for it.\n\nApply this criterion-contract discipline to every judgment:\n1. Grade criteria locally/independently unless the rubric explicitly couples them -- one wrong criterion must not contaminate an independent criterion.\n2. Negated, hedged, or merely-adjacent mentions of the right vocabulary are NOT sufficient evidence; the criterion's specific proposition must be actually asserted, correctly scoped (right variable/part/time/population).\n3. Accept equivalent correct wording/forms; do not require canonical phrasing verbatim. Accept any accepted_variants listed for the criterion.\n4. Apply error-carried-forward (ECF) credit where appropriate: if the response correctly carries forward its OWN earlier (possibly wrong) value into a later step, the later step can still earn credit for correct method/execution on that value, unless the criterion explicitly requires the canonical value.\n5. If a later contradiction or self-correction cancels or undermines earlier correct content for THAT SPECIFIC criterion's proposition, reflect that in the verdict; do not let an unrelated contradiction elsewhere contaminate this criterion.\n6. Use status=unable_to_determine (not not_earned) when the response is genuinely ambiguous rather than clearly absent/wrong.\n7. evidence_quote must be an actual substring of the student response, or empty string if status is not_earned/unable_to_determine with no relevant text.\n8. withheld_point_reason must name the specific missing/incorrect element per evidence_requirements -- not a generic restatement of the rubric.\n9. minimum_fix must be the smallest concrete addition/correction that would earn the point under this criterion's evidence_requirements and accepted_variants.\n10. improved_answer must be a concise, concrete rewrite of the relevant portion of the response that would earn the point -- grounded in the student's own work where salvageable, not a full model answer.\n11. error_classification: choose the single best-fitting label from [missing_evidence, conceptual_error, arithmetic_error, wrong_scope, contradiction, equivalent_form_rejected_incorrectly, ambiguous, none] -- \"none\" only when status=earned.\nNo confidence-triggered escalation, no ensemble voting, no retrieval, no post-hoc audit pass. Confidence is for logging only and must never change the verdict.\n\nStudent response:\n\"\"\"\n{response_text}\n\"\"\"\n\nReturn exactly one JSON object with one entry per criterion_key listed above, in the same order, matching the required schema.",
+    "prompt_template_sha256": "a6e00cebf6e6f6dd980dad9f44c4912883c70bc44d0d7e5d567e3170161754fe",
+    "output_schema": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "criteria": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "criterion_key": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "earned",
+                  "not_earned",
+                  "unable_to_determine"
+                ]
+              },
+              "confidence": {
+                "type": "string",
+                "enum": [
+                  "low",
+                  "medium",
+                  "high"
+                ],
+                "description": "logging only, must not affect status"
+              },
+              "evidence_quote": {
+                "type": "string"
+              },
+              "withheld_point_reason": {
+                "type": "string"
+              },
+              "minimum_fix": {
+                "type": "string"
+              },
+              "improved_answer": {
+                "type": "string"
+              },
+              "error_classification": {
+                "type": "string",
+                "enum": [
+                  "missing_evidence",
+                  "conceptual_error",
+                  "arithmetic_error",
+                  "wrong_scope",
+                  "contradiction",
+                  "equivalent_form_rejected_incorrectly",
+                  "ambiguous",
+                  "none"
+                ]
+              },
+              "gate_schema_status": {
+                "type": "string",
+                "enum": [
+                  "valid",
+                  "invalid"
+                ],
+                "description": "self-reported schema/gate validity for this criterion's output"
+              }
+            },
+            "required": [
+              "criterion_key",
+              "status",
+              "confidence",
+              "evidence_quote",
+              "withheld_point_reason",
+              "minimum_fix",
+              "improved_answer",
+              "error_classification",
+              "gate_schema_status"
+            ]
+          }
+        }
+      },
+      "required": [
+        "criteria"
+      ]
+    },
+    "latency_definition": "FRQ end-to-end latency = single call completion time."
+  },
+  "criterion_contract_instructions_shared_text": "Apply this criterion-contract discipline to every judgment:\n1. Grade criteria locally/independently unless the rubric explicitly couples them -- one wrong criterion must not contaminate an independent criterion.\n2. Negated, hedged, or merely-adjacent mentions of the right vocabulary are NOT sufficient evidence; the criterion's specific proposition must be actually asserted, correctly scoped (right variable/part/time/population).\n3. Accept equivalent correct wording/forms; do not require canonical phrasing verbatim. Accept any accepted_variants listed for the criterion.\n4. Apply error-carried-forward (ECF) credit where appropriate: if the response correctly carries forward its OWN earlier (possibly wrong) value into a later step, the later step can still earn credit for correct method/execution on that value, unless the criterion explicitly requires the canonical value.\n5. If a later contradiction or self-correction cancels or undermines earlier correct content for THAT SPECIFIC criterion's proposition, reflect that in the verdict; do not let an unrelated contradiction elsewhere contaminate this criterion.\n6. Use status=unable_to_determine (not not_earned) when the response is genuinely ambiguous rather than clearly absent/wrong.\n7. evidence_quote must be an actual substring of the student response, or empty string if status is not_earned/unable_to_determine with no relevant text.\n8. withheld_point_reason must name the specific missing/incorrect element per evidence_requirements -- not a generic restatement of the rubric.\n9. minimum_fix must be the smallest concrete addition/correction that would earn the point under this criterion's evidence_requirements and accepted_variants.\n10. improved_answer must be a concise, concrete rewrite of the relevant portion of the response that would earn the point -- grounded in the student's own work where salvageable, not a full model answer.\n11. error_classification: choose the single best-fitting label from [missing_evidence, conceptual_error, arithmetic_error, wrong_scope, contradiction, equivalent_form_rejected_incorrectly, ambiguous, none] -- \"none\" only when status=earned.\nNo confidence-triggered escalation, no ensemble voting, no retrieval, no post-hoc audit pass. Confidence is for logging only and must never change the verdict.",
+  "criterion_contract_instructions_sha256": "ef8d27166cd2f2c5ad7213297ba46415ebe157081c76ae2a0705d95b536a3786",
+  "guardrails": [
+    "No confidence-triggered escalation, ensemble, or retrieval in either arm.",
+    "No post-hoc audit pass in either arm.",
+    "Deterministic verdicts are never overridden by the model.",
+    "Both arms process the SAME 100 frozen candidate_responses.jsonl records from Stage 3, in the same order, at the same concurrency policy per item.",
+    "No prompt/schema tuning after viewing accuracy on the scored set (Stage 5/6 guardrail)."
+  ],
+  "arm_b_v2": {
+    "name": "Single structured multi-criterion challenger (v2 -- brevity-repaired)",
+    "repair_record": "stage5_v1_burned_run_record.md",
+    "request_shape": "one model call per response, returns all criterion verdicts+feedback in one schema",
+    "prompt_template": "You are grading ALL criteria of an AP free-response question in ONE call for a fast, single-pass production grader (Arm B: single structured multi-criterion challenger).\n\nSubject: {subject}\nItem: {content_key}\nStem: {stem}\nStimulus: {stimulus}\n\nCriteria contracts (grade every one independently unless explicitly coupled):\n{criteria_contracts_block}\n\nDeterministic check results (if any; by criterion_key, null where none applies): {deterministic_check_results}\nWhere a deterministic check result is present and non-null for a criterion, accept it AS-IS for the numeric/symbolic sub-decision it covers -- do not override it, but still supply feedback fields for it.\n\nApply this criterion-contract discipline to every judgment:\n1. Grade criteria locally/independently unless the rubric explicitly couples them -- one wrong criterion must not contaminate an independent criterion.\n2. Negated, hedged, or merely-adjacent mentions of the right vocabulary are NOT sufficient evidence; the criterion's specific proposition must be actually asserted, correctly scoped (right variable/part/time/population).\n3. Accept equivalent correct wording/forms; do not require canonical phrasing verbatim. Accept any accepted_variants listed for the criterion.\n4. Apply error-carried-forward (ECF) credit where appropriate: if the response correctly carries forward its OWN earlier (possibly wrong) value into a later step, the later step can still earn credit for correct method/execution on that value, unless the criterion explicitly requires the canonical value.\n5. If a later contradiction or self-correction cancels or undermines earlier correct content for THAT SPECIFIC criterion's proposition, reflect that in the verdict; do not let an unrelated contradiction elsewhere contaminate this criterion.\n6. Use status=unable_to_determine (not not_earned) when the response is genuinely ambiguous rather than clearly absent/wrong.\n7. evidence_quote must be an actual substring of the student response, or empty string if status is not_earned/unable_to_determine with no relevant text.\n8. withheld_point_reason must name the specific missing/incorrect element per evidence_requirements -- not a generic restatement of the rubric.\n9. minimum_fix must be the smallest concrete addition/correction that would earn the point under this criterion's evidence_requirements and accepted_variants.\n10. improved_answer must be a concise, concrete rewrite of the relevant portion of the response that would earn the point -- grounded in the student's own work where salvageable, not a full model answer.\n11. error_classification: choose the single best-fitting label from [missing_evidence, conceptual_error, arithmetic_error, wrong_scope, contradiction, equivalent_form_rejected_incorrectly, ambiguous, none] -- \"none\" only when status=earned.\nNo confidence-triggered escalation, no ensemble voting, no retrieval, no post-hoc audit pass. Confidence is for logging only and must never change the verdict.\n\nStudent response:\n\"\"\"\n{response_text}\n\"\"\"\n\nReturn exactly one JSON object with one entry per criterion_key listed above, in the same order, matching the required schema.\n\nBREVITY CONSTRAINT (Stage 5 v2 repair -- fixes a measured p50-latency gate failure caused by unconstrained multi-criterion output length): keep evidence_quote, withheld_point_reason, minimum_fix, and improved_answer each to roughly 20 words or fewer per criterion. Do not sacrifice correctness or the required grounding/specificity to hit this length -- if a criterion genuinely needs more to state the correct verdict, exceed the target rather than give an unsupported or vague answer. This constraint applies to every criterion in this call, not just the first.",
+    "prompt_template_sha256": "2e3f732a96522f9276295f054de74f2999682ed5e774a5010aa194df834010ba",
+    "output_schema": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "criteria": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "criterion_key": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "earned",
+                  "not_earned",
+                  "unable_to_determine"
+                ]
+              },
+              "confidence": {
+                "type": "string",
+                "enum": [
+                  "low",
+                  "medium",
+                  "high"
+                ],
+                "description": "logging only, must not affect status"
+              },
+              "evidence_quote": {
+                "type": "string"
+              },
+              "withheld_point_reason": {
+                "type": "string"
+              },
+              "minimum_fix": {
+                "type": "string"
+              },
+              "improved_answer": {
+                "type": "string"
+              },
+              "error_classification": {
+                "type": "string",
+                "enum": [
+                  "missing_evidence",
+                  "conceptual_error",
+                  "arithmetic_error",
+                  "wrong_scope",
+                  "contradiction",
+                  "equivalent_form_rejected_incorrectly",
+                  "ambiguous",
+                  "none"
+                ]
+              },
+              "gate_schema_status": {
+                "type": "string",
+                "enum": [
+                  "valid",
+                  "invalid"
+                ],
+                "description": "self-reported schema/gate validity for this criterion's output"
+              }
+            },
+            "required": [
+              "criterion_key",
+              "status",
+              "confidence",
+              "evidence_quote",
+              "withheld_point_reason",
+              "minimum_fix",
+              "improved_answer",
+              "error_classification",
+              "gate_schema_status"
+            ]
+          }
+        }
+      },
+      "required": [
+        "criteria"
+      ]
+    },
+    "max_output_tokens_policy": "min(180 + 160 * n_criteria, 2200) -- dynamic per item, replaces v1's flat 3500",
+    "latency_definition": "FRQ end-to-end latency = single call completion time."
+  }
+}

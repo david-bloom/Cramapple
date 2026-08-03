@@ -1,6 +1,7 @@
 import { createServiceClient } from "../_shared/supabase.ts";
 import { jsonResponse, readJsonBody } from "../_shared/http.ts";
 import { requireProfile } from "../_shared/auth.ts";
+import { checkAnswerLengthParity } from "../_shared/mcq-quality.ts";
 
 type AllowedOperation =
   | "create_draft"
@@ -295,6 +296,7 @@ async function ensureLegacyProjection(
     throw new Error("compatibility_content_version_failed");
   }
 
+  let mcqQualityWarnings: ReturnType<typeof checkAnswerLengthParity>[] = [];
   if (payload.item_type === "mcq" && Array.isArray(payload.mcq_choices)) {
     await service.schema("app").from("mcq_choices").insert(
       payload.mcq_choices.map((choice) => ({
@@ -305,6 +307,16 @@ async function ensureLegacyProjection(
         rationale: choice.rationale ?? null,
       })),
     );
+
+    const lengthParityFinding = checkAnswerLengthParity(
+      payload.mcq_choices.map((choice) => ({
+        choice_text: choice.choice_text,
+        is_correct: Boolean(choice.is_correct),
+      })),
+    );
+    if (lengthParityFinding) {
+      mcqQualityWarnings = [lengthParityFinding];
+    }
   }
 
   if (payload.item_type === "frq") {
@@ -399,6 +411,7 @@ async function ensureLegacyProjection(
     content_item_id: contentItemId,
     content_item_version_id: contentItemVersionId,
     compatibility_status: status,
+    quality_warnings: mcqQualityWarnings,
   };
 }
 
@@ -540,8 +553,10 @@ async function createArtifactDraft(
     throw new Error("artifact_state_event_insert_failed");
   }
 
+  let legacyProjection: Awaited<ReturnType<typeof ensureLegacyProjection>> =
+    null;
   if (compatibility) {
-    await ensureLegacyProjection(
+    legacyProjection = await ensureLegacyProjection(
       service,
       compatibility,
       {
@@ -557,6 +572,7 @@ async function createArtifactDraft(
   return {
     artifact_id: artifactId,
     artifact_version_id: insertedArtifact.artifact_version_id,
+    quality_warnings: legacyProjection?.quality_warnings ?? [],
   };
 }
 

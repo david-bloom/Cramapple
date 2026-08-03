@@ -1,0 +1,147 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apprecalc-mcq-040",
+  "content_key": "apprecalc-mcq-040",
+  "content_version": 1,
+  "difficulty": "Hard",
+  "exam_pack_ref": {
+    "exam_code": "ap_precalculus",
+    "school_year": "2026-27",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "mcq",
+  "archetype_ref": {
+    "archetype_key": "ap-precalculus-mcq",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-precalculus-2026-27",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-2-exponential-and-logarithmic-functions"
+    },
+    {
+      "scheme_key": "ap-precalculus-2026-27",
+      "scheme_version": "1.0.0",
+      "node_key": "topic-2.14"
+    },
+    {
+      "scheme_key": "ap-precalculus-2026-27",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-3"
+    }
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "directions",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "Calculator use is permitted.",
+        "calculator_mode": "calculator"
+      },
+      "source_refs": [
+        "ap-precalculus-ced-effective-fall-2026"
+      ]
+    }
+  ],
+  "mcq_choices": [
+    {
+      "choice_key": "A",
+      "choice_text": "8.4",
+      "is_correct": false,
+      "rationale": "Uses the logarithm value as x."
+    },
+    {
+      "choice_key": "B",
+      "choice_text": "15.2",
+      "is_correct": false,
+      "rationale": "Uses base-10 exponentiation."
+    },
+    {
+      "choice_key": "C",
+      "choice_text": "31.7",
+      "is_correct": false,
+      "rationale": "Divides 12 by 2.3 before exponentiating."
+    },
+    {
+      "choice_key": "D",
+      "choice_text": "22.9",
+      "is_correct": true,
+      "rationale": "Correctly exponentiates with base e."
+    }
+  ],
+  "canonical_answers": [
+    "D"
+  ],
+  "parts": [
+    {
+      "part_key": "question",
+      "ordinal": 1,
+      "prompt": "A logarithmic regression is y=4.8+2.3ln(x). What x gives y=12, to the nearest tenth?\n\nA. 8.4\nB. 15.2\nC. 31.7\nD. 22.9",
+      "stimulus_refs": [
+        "directions"
+      ],
+      "response_modalities": [
+        "choice"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-answer",
+          "points": 1,
+          "description": "Select the unique correct response.",
+          "required_evidence": [
+            "D",
+            "Solve ln x=(12−4.8)/2.3, so x≈22.9."
+          ],
+          "accepted_variants": [
+            "Only a displayed choice that is mathematically identical to the keyed response may be treated as equivalent."
+          ],
+          "insufficient_responses": [
+            "An unkeyed choice without a valid ambiguity finding."
+          ],
+          "contradictions": [
+            "A choice or rationale that conflicts with the governing domain, representation, units, or model conditions."
+          ],
+          "minimum_fix": "Select the keyed response after correcting the first invalid mathematical step.",
+          "deterministic_checks": [
+            {
+              "check_type": "choice-key",
+              "parameters": {
+                "correct_key": "D"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All mathematical information is provided in text."
+  },
+  "review_notes": {
+    "expected_reasoning": "Solve ln x=(12−4.8)/2.3, so x≈22.9.",
+    "teaching_explanation": "Solve ln x=(12−4.8)/2.3, so x≈22.9.",
+    "minimum_fix": "Correct the first invalid algebraic, graphical, numerical, or modeling step, then recompute under the stated conditions.",
+    "transfer_candidate": "Create a new Topic 2.14 item with different values, representation, and surface context.",
+    "delayed_retrieval_candidate": "Reassess Topic 2.14 after a delay without reusing this stem or answer choices.",
+    "known_boundary_cases": [
+      "Accept only the keyed choice unless another displayed choice is mathematically identical.",
+      "Reject the item if a reasonable interpretation makes more than one displayed choice correct."
+    ],
+    "originality_statement": "Independently authored Cramapple practice item from a blank scope brief; no released, secure, or third-party question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-precalculus-ced-effective-fall-2026"
+    ],
+    "fact_pack_version": "2026-07-28",
+    "authoring_prompt_version": "CODEX_PRECALCULUS_DIFFICULTY_QA_2026_07_28",
+    "generated_by": "codex",
+    "generated_at": "2026-07-28T00:00:00Z",
+    "content_sha256": "93e5148077dff72204ee75269e1ae0554fa334cc881221e0729abba642b61b43"
+  }
+}

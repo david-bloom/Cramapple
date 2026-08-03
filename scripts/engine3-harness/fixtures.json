@@ -1,0 +1,3028 @@
+{
+ "generated_by": "scripts/engine3-harness/build_fixtures.py",
+ "expectation_engine": "sympy 1.14.0 (independent of the TypeScript parser under test)",
+ "ecf_rel_tol": 0.001,
+ "profiles_firing_capable": 28,
+ "profiles_covered": 28,
+ "profiles_skipped": [],
+ "cases": [
+  {
+   "content_key": "APSTAT-MOD3-E003",
+   "case_id": "all_correct",
+   "description": "Every part correct with canonical formula and givens",
+   "student": {
+    "z_score": {
+     "stated_formula": "(x - mu) / sd",
+     "shown_subs": {
+      "x": 60,
+      "mu": 50,
+      "sd": 5
+     },
+     "student_answer": 2.0
+    }
+   },
+   "expected": {
+    "z_score": "CORRECT"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD3-E003",
+   "case_id": "naked_answer",
+   "description": "Correct numbers, zero work shown -> no ECF, help triggered",
+   "student": {
+    "z_score": {
+     "stated_formula": null,
+     "shown_subs": null,
+     "student_answer": 2.0
+    }
+   },
+   "expected": {
+    "z_score": "NAKED_ANSWER"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD3-E003",
+   "case_id": "conceptual_collapse",
+   "description": "Part 1 uses non-equivalent formula '(x + mu) / sd'",
+   "student": {
+    "z_score": {
+     "stated_formula": "(x + mu) / sd",
+     "shown_subs": {
+      "x": 60,
+      "mu": 50,
+      "sd": 5
+     },
+     "student_answer": 2.0
+    }
+   },
+   "expected": {
+    "z_score": "CONCEPTUAL_COLLAPSE"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD3-E003",
+   "case_id": "coincidental",
+   "description": "Part 1 answer is canonical but shown_subs['mu'] tampered",
+   "student": {
+    "z_score": {
+     "stated_formula": "(x - mu) / sd",
+     "shown_subs": {
+      "x": 60,
+      "mu": 85.0,
+      "sd": 5
+     },
+     "student_answer": 2.0
+    }
+   },
+   "expected": {
+    "z_score": "COINCIDENTAL"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD3-E003",
+   "case_id": "inconsistent_upstream_reference",
+   "description": "Part 1 arithmetic slip; downstream silently reuses the canonical upstream value",
+   "student": {
+    "z_score": {
+     "stated_formula": "(x - mu) / sd",
+     "shown_subs": {
+      "x": 60,
+      "mu": 50,
+      "sd": 5
+     },
+     "student_answer": 3.4000000000000004
+    }
+   },
+   "expected": {
+    "z_score": "INCORRECT"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD3-E004",
+   "case_id": "all_correct",
+   "description": "Every part correct with canonical formula and givens",
+   "student": {
+    "range": {
+     "stated_formula": "hi - lo",
+     "shown_subs": {
+      "hi": 12,
+      "lo": 3
+     },
+     "student_answer": 9.0
+    }
+   },
+   "expected": {
+    "range": "CORRECT"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD3-E004",
+   "case_id": "naked_answer",
+   "description": "Correct numbers, zero work shown -> no ECF, help triggered",
+   "student": {
+    "range": {
+     "stated_formula": null,
+     "shown_subs": null,
+     "student_answer": 9.0
+    }
+   },
+   "expected": {
+    "range": "NAKED_ANSWER"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD3-E004",
+   "case_id": "conceptual_collapse",
+   "description": "Part 1 uses non-equivalent formula 'hi + lo'",
+   "student": {
+    "range": {
+     "stated_formula": "hi + lo",
+     "shown_subs": {
+      "hi": 12,
+      "lo": 3
+     },
+     "student_answer": 9.0
+    }
+   },
+   "expected": {
+    "range": "CONCEPTUAL_COLLAPSE"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD3-E004",
+   "case_id": "coincidental",
+   "description": "Part 1 answer is canonical but shown_subs['hi'] tampered",
+   "student": {
+    "range": {
+     "stated_formula": "hi - lo",
+     "shown_subs": {
+      "hi": 20.4,
+      "lo": 3
+     },
+     "student_answer": 9.0
+    }
+   },
+   "expected": {
+    "range": "COINCIDENTAL"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD3-E004",
+   "case_id": "inconsistent_upstream_reference",
+   "description": "Part 1 arithmetic slip; downstream silently reuses the canonical upstream value",
+   "student": {
+    "range": {
+     "stated_formula": "hi - lo",
+     "shown_subs": {
+      "hi": 12,
+      "lo": 3
+     },
+     "student_answer": 12.85
+    }
+   },
+   "expected": {
+    "range": "INCORRECT"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD3-H001-INV",
+   "case_id": "all_correct",
+   "description": "Every part correct with canonical formula and givens",
+   "student": {
+    "SE": {
+     "stated_formula": "s / sqrt(n)",
+     "shown_subs": {
+      "s": 120,
+      "n": 30
+     },
+     "student_answer": 21.90890230020664
+    },
+    "CI_low": {
+     "stated_formula": "xbar - z * SE",
+     "shown_subs": {
+      "xbar": 850,
+      "z": 1.96,
+      "SE": 21.90890230020664
+     },
+     "student_answer": 807.0585514915949
+    },
+    "CI_high": {
+     "stated_formula": "xbar + z * SE",
+     "shown_subs": {
+      "xbar": 850,
+      "z": 1.96,
+      "SE": 21.90890230020664
+     },
+     "student_answer": 892.9414485084051
+    },
+    "t_stat": {
+     "stated_formula": "(xbar - mu0) / SE",
+     "shown_subs": {
+      "xbar": 850,
+      "mu0": 800,
+      "SE": 21.90890230020664
+     },
+     "student_answer": 2.282177322938189
+    }
+   },
+   "expected": {
+    "SE": "CORRECT",
+    "CI_low": "CORRECT",
+    "CI_high": "CORRECT",
+    "t_stat": "CORRECT"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD3-H001-INV",
+   "case_id": "naked_answer",
+   "description": "Correct numbers, zero work shown -> no ECF, help triggered",
+   "student": {
+    "SE": {
+     "stated_formula": null,
+     "shown_subs": null,
+     "student_answer": 21.90890230020664
+    },
+    "CI_low": {
+     "stated_formula": null,
+     "shown_subs": null,
+     "student_answer": 807.0585514915949
+    },
+    "CI_high": {
+     "stated_formula": null,
+     "shown_subs": null,
+     "student_answer": 892.9414485084051
+    },
+    "t_stat": {
+     "stated_formula": null,
+     "shown_subs": null,
+     "student_answer": 2.282177322938189
+    }
+   },
+   "expected": {
+    "SE": "NAKED_ANSWER",
+    "CI_low": "NAKED_ANSWER",
+    "CI_high": "NAKED_ANSWER",
+    "t_stat": "NAKED_ANSWER"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD3-H001-INV",
+   "case_id": "conceptual_collapse",
+   "description": "Part 1 uses non-equivalent formula 's / (n)'",
+   "student": {
+    "SE": {
+     "stated_formula": "s / (n)",
+     "shown_subs": {
+      "s": 120,
+      "n": 30
+     },
+     "student_answer": 21.90890230020664
+    },
+    "CI_low": {
+     "stated_formula": "xbar - z * SE",
+     "shown_subs": {
+      "xbar": 850,
+      "z": 1.96,
+      "SE": 21.90890230020664
+     },
+     "student_answer": 807.0585514915949
+    },
+    "CI_high": {
+     "stated_formula": "xbar + z * SE",
+     "shown_subs": {
+      "xbar": 850,
+      "z": 1.96,
+      "SE": 21.90890230020664
+     },
+     "student_answer": 892.9414485084051
+    },
+    "t_stat": {
+     "stated_formula": "(xbar - mu0) / SE",
+     "shown_subs": {
+      "xbar": 850,
+      "mu0": 800,
+      "SE": 21.90890230020664
+     },
+     "student_answer": 2.282177322938189
+    }
+   },
+   "expected": {
+    "SE": "CONCEPTUAL_COLLAPSE",
+    "CI_low": "CORRECT",
+    "CI_high": "CORRECT",
+    "t_stat": "CORRECT"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD3-H001-INV",
+   "case_id": "coincidental",
+   "description": "Part 1 answer is canonical but shown_subs['n'] tampered",
+   "student": {
+    "SE": {
+     "stated_formula": "s / sqrt(n)",
+     "shown_subs": {
+      "s": 120,
+      "n": 51.0
+     },
+     "student_answer": 21.90890230020664
+    },
+    "CI_low": {
+     "stated_formula": "xbar - z * SE",
+     "shown_subs": {
+      "xbar": 850,
+      "z": 1.96,
+      "SE": 21.90890230020664
+     },
+     "student_answer": 807.0585514915949
+    },
+    "CI_high": {
+     "stated_formula": "xbar + z * SE",
+     "shown_subs": {
+      "xbar": 850,
+      "z": 1.96,
+      "SE": 21.90890230020664
+     },
+     "student_answer": 892.9414485084051
+    },
+    "t_stat": {
+     "stated_formula": "(xbar - mu0) / SE",
+     "shown_subs": {
+      "xbar": 850,
+      "mu0": 800,
+      "SE": 21.90890230020664
+     },
+     "student_answer": 2.282177322938189
+    }
+   },
+   "expected": {
+    "SE": "COINCIDENTAL",
+    "CI_low": "CORRECT",
+    "CI_high": "CORRECT",
+    "t_stat": "CORRECT"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD3-H001-INV",
+   "case_id": "inconsistent_upstream_reference",
+   "description": "Part 1 arithmetic slip; downstream silently reuses the canonical upstream value",
+   "student": {
+    "SE": {
+     "stated_formula": "s / sqrt(n)",
+     "shown_subs": {
+      "s": 120,
+      "n": 30
+     },
+     "student_answer": 30.277018105278966
+    },
+    "CI_low": {
+     "stated_formula": "xbar - z * SE",
+     "shown_subs": {
+      "xbar": 850,
+      "z": 1.96,
+      "SE": 21.90890230020664
+     },
+     "student_answer": 807.0585514915949
+    },
+    "CI_high": {
+     "stated_formula": "xbar + z * SE",
+     "shown_subs": {
+      "xbar": 850,
+      "z": 1.96,
+      "SE": 21.90890230020664
+     },
+     "student_answer": 892.9414485084051
+    },
+    "t_stat": {
+     "stated_formula": "(xbar - mu0) / SE",
+     "shown_subs": {
+      "xbar": 850,
+      "mu0": 800,
+      "SE": 21.90890230020664
+     },
+     "student_answer": 2.282177322938189
+    }
+   },
+   "expected": {
+    "SE": "INCORRECT",
+    "CI_low": "INCORRECT",
+    "CI_high": "INCORRECT",
+    "t_stat": "INCORRECT"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD3-H001-INV",
+   "case_id": "ecf_chain",
+   "description": "Wrong upstream value, downstream computed correctly on it -> ECF credit",
+   "student": {
+    "SE": {
+     "stated_formula": "s / sqrt(n)",
+     "shown_subs": {
+      "s": 120,
+      "n": 30
+     },
+     "student_answer": 30.277018105278966
+    },
+    "CI_low": {
+     "stated_formula": "xbar - z * SE",
+     "shown_subs": {
+      "xbar": 850,
+      "z": 1.96,
+      "SE": 30.277018105278966
+     },
+     "student_answer": 790.6570445136532
+    },
+    "CI_high": {
+     "stated_formula": "xbar + z * SE",
+     "shown_subs": {
+      "xbar": 850,
+      "z": 1.96,
+      "SE": 30.277018105278966
+     },
+     "student_answer": 909.3429554863468
+    },
+    "t_stat": {
+     "stated_formula": "(xbar - mu0) / SE",
+     "shown_subs": {
+      "xbar": 850,
+      "mu0": 800,
+      "SE": 30.277018105278966
+     },
+     "student_answer": 1.6514175810226916
+    }
+   },
+   "expected": {
+    "SE": "INCORRECT",
+    "CI_low": "CORRECT_VIA_ECF",
+    "CI_high": "CORRECT_VIA_ECF",
+    "t_stat": "CORRECT_VIA_ECF"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD4-H001-INV",
+   "case_id": "all_correct",
+   "description": "Every part correct with canonical formula and givens",
+   "student": {
+    "SE_diff": {
+     "stated_formula": "sqrt(s1**2 / n1 + s2**2 / n2)",
+     "shown_subs": {
+      "s1": 6,
+      "n1": 25,
+      "s2": 5,
+      "n2": 25
+     },
+     "student_answer": 1.5620499351813308
+    },
+    "t_stat": {
+     "stated_formula": "(m1 - m2) / SEd",
+     "shown_subs": {
+      "m1": 68,
+      "m2": 72,
+      "SEd": 1.5620499351813308
+     },
+     "student_answer": -2.5607375986579157
+    }
+   },
+   "expected": {
+    "SE_diff": "CORRECT",
+    "t_stat": "CORRECT"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD4-H001-INV",
+   "case_id": "naked_answer",
+   "description": "Correct numbers, zero work shown -> no ECF, help triggered",
+   "student": {
+    "SE_diff": {
+     "stated_formula": null,
+     "shown_subs": null,
+     "student_answer": 1.5620499351813308
+    },
+    "t_stat": {
+     "stated_formula": null,
+     "shown_subs": null,
+     "student_answer": -2.5607375986579157
+    }
+   },
+   "expected": {
+    "SE_diff": "NAKED_ANSWER",
+    "t_stat": "NAKED_ANSWER"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD4-H001-INV",
+   "case_id": "conceptual_collapse",
+   "description": "Part 1 uses non-equivalent formula '(s1**2 / n1 + s2**2 / n2)'",
+   "student": {
+    "SE_diff": {
+     "stated_formula": "(s1**2 / n1 + s2**2 / n2)",
+     "shown_subs": {
+      "s1": 6,
+      "n1": 25,
+      "s2": 5,
+      "n2": 25
+     },
+     "student_answer": 1.5620499351813308
+    },
+    "t_stat": {
+     "stated_formula": "(m1 - m2) / SEd",
+     "shown_subs": {
+      "m1": 68,
+      "m2": 72,
+      "SEd": 1.5620499351813308
+     },
+     "student_answer": -2.5607375986579157
+    }
+   },
+   "expected": {
+    "SE_diff": "CONCEPTUAL_COLLAPSE",
+    "t_stat": "CORRECT"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD4-H001-INV",
+   "case_id": "coincidental",
+   "description": "Part 1 answer is canonical but shown_subs['n1'] tampered",
+   "student": {
+    "SE_diff": {
+     "stated_formula": "sqrt(s1**2 / n1 + s2**2 / n2)",
+     "shown_subs": {
+      "s1": 6,
+      "n1": 42.5,
+      "s2": 5,
+      "n2": 25
+     },
+     "student_answer": 1.5620499351813308
+    },
+    "t_stat": {
+     "stated_formula": "(m1 - m2) / SEd",
+     "shown_subs": {
+      "m1": 68,
+      "m2": 72,
+      "SEd": 1.5620499351813308
+     },
+     "student_answer": -2.5607375986579157
+    }
+   },
+   "expected": {
+    "SE_diff": "COINCIDENTAL",
+    "t_stat": "CORRECT"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD4-H001-INV",
+   "case_id": "inconsistent_upstream_reference",
+   "description": "Part 1 arithmetic slip; downstream silently reuses the canonical upstream value",
+   "student": {
+    "SE_diff": {
+     "stated_formula": "sqrt(s1**2 / n1 + s2**2 / n2)",
+     "shown_subs": {
+      "s1": 6,
+      "n1": 25,
+      "s2": 5,
+      "n2": 25
+     },
+     "student_answer": 2.808767412494797
+    },
+    "t_stat": {
+     "stated_formula": "(m1 - m2) / SEd",
+     "shown_subs": {
+      "m1": 68,
+      "m2": 72,
+      "SEd": 1.5620499351813308
+     },
+     "student_answer": -2.5607375986579157
+    }
+   },
+   "expected": {
+    "SE_diff": "INCORRECT",
+    "t_stat": "INCORRECT"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD4-H001-INV",
+   "case_id": "ecf_chain",
+   "description": "Wrong upstream value, downstream computed correctly on it -> ECF credit",
+   "student": {
+    "SE_diff": {
+     "stated_formula": "sqrt(s1**2 / n1 + s2**2 / n2)",
+     "shown_subs": {
+      "s1": 6,
+      "n1": 25,
+      "s2": 5,
+      "n2": 25
+     },
+     "student_answer": 2.808767412494797
+    },
+    "t_stat": {
+     "stated_formula": "(m1 - m2) / SEd",
+     "shown_subs": {
+      "m1": 68,
+      "m2": 72,
+      "SEd": 2.808767412494797
+     },
+     "student_answer": -1.4241122216834334
+    }
+   },
+   "expected": {
+    "SE_diff": "INCORRECT",
+    "t_stat": "CORRECT_VIA_ECF"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD4-M002",
+   "case_id": "all_correct",
+   "description": "Every part correct with canonical formula and givens",
+   "student": {
+    "suburban_n": {
+     "stated_formula": "p * n",
+     "shown_subs": {
+      "p": 0.35,
+      "n": 400
+     },
+     "student_answer": 140.0
+    }
+   },
+   "expected": {
+    "suburban_n": "CORRECT"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD4-M002",
+   "case_id": "naked_answer",
+   "description": "Correct numbers, zero work shown -> no ECF, help triggered",
+   "student": {
+    "suburban_n": {
+     "stated_formula": null,
+     "shown_subs": null,
+     "student_answer": 140.0
+    }
+   },
+   "expected": {
+    "suburban_n": "NAKED_ANSWER"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD4-M002",
+   "case_id": "coincidental",
+   "description": "Part 1 answer is canonical but shown_subs['n'] tampered",
+   "student": {
+    "suburban_n": {
+     "stated_formula": "p * n",
+     "shown_subs": {
+      "p": 0.35,
+      "n": 680.0
+     },
+     "student_answer": 140.0
+    }
+   },
+   "expected": {
+    "suburban_n": "COINCIDENTAL"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD4-M002",
+   "case_id": "inconsistent_upstream_reference",
+   "description": "Part 1 arithmetic slip; downstream silently reuses the canonical upstream value",
+   "student": {
+    "suburban_n": {
+     "stated_formula": "p * n",
+     "shown_subs": {
+      "p": 0.35,
+      "n": 400
+     },
+     "student_answer": 189.7
+    }
+   },
+   "expected": {
+    "suburban_n": "INCORRECT"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD5-M001",
+   "case_id": "all_correct",
+   "description": "Every part correct with canonical formula and givens",
+   "student": {
+    "mean": {
+     "stated_formula": "(a+b+c+d+e)/5",
+     "shown_subs": {
+      "a": 10,
+      "b": 15,
+      "c": 20,
+      "d": 25,
+      "e": 30
+     },
+     "student_answer": 20.0
+    },
+    "sd_population_authored": {
+     "stated_formula": "sqrt(((a-mean)**2+(b-mean)**2+(c-mean)**2+(d-mean)**2+(e-mean)**2)/5)",
+     "shown_subs": {
+      "a": 10,
+      "b": 15,
+      "c": 20,
+      "d": 25,
+      "e": 30,
+      "mean": 20.0
+     },
+     "student_answer": 7.0710678118654755
+    }
+   },
+   "expected": {
+    "mean": "CORRECT",
+    "sd_population_authored": "CORRECT"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD5-M001",
+   "case_id": "naked_answer",
+   "description": "Correct numbers, zero work shown -> no ECF, help triggered",
+   "student": {
+    "mean": {
+     "stated_formula": null,
+     "shown_subs": null,
+     "student_answer": 20.0
+    },
+    "sd_population_authored": {
+     "stated_formula": null,
+     "shown_subs": null,
+     "student_answer": 7.0710678118654755
+    }
+   },
+   "expected": {
+    "mean": "NAKED_ANSWER",
+    "sd_population_authored": "NAKED_ANSWER"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD5-M001",
+   "case_id": "conceptual_collapse",
+   "description": "Part 1 uses non-equivalent formula '(a+b+c+d+e)*5'",
+   "student": {
+    "mean": {
+     "stated_formula": "(a+b+c+d+e)*5",
+     "shown_subs": {
+      "a": 10,
+      "b": 15,
+      "c": 20,
+      "d": 25,
+      "e": 30
+     },
+     "student_answer": 20.0
+    },
+    "sd_population_authored": {
+     "stated_formula": "sqrt(((a-mean)**2+(b-mean)**2+(c-mean)**2+(d-mean)**2+(e-mean)**2)/5)",
+     "shown_subs": {
+      "a": 10,
+      "b": 15,
+      "c": 20,
+      "d": 25,
+      "e": 30,
+      "mean": 20.0
+     },
+     "student_answer": 7.0710678118654755
+    }
+   },
+   "expected": {
+    "mean": "CONCEPTUAL_COLLAPSE",
+    "sd_population_authored": "CORRECT"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD5-M001",
+   "case_id": "coincidental",
+   "description": "Part 1 answer is canonical but shown_subs['a'] tampered",
+   "student": {
+    "mean": {
+     "stated_formula": "(a+b+c+d+e)/5",
+     "shown_subs": {
+      "a": 17.0,
+      "b": 15,
+      "c": 20,
+      "d": 25,
+      "e": 30
+     },
+     "student_answer": 20.0
+    },
+    "sd_population_authored": {
+     "stated_formula": "sqrt(((a-mean)**2+(b-mean)**2+(c-mean)**2+(d-mean)**2+(e-mean)**2)/5)",
+     "shown_subs": {
+      "a": 10,
+      "b": 15,
+      "c": 20,
+      "d": 25,
+      "e": 30,
+      "mean": 20.0
+     },
+     "student_answer": 7.0710678118654755
+    }
+   },
+   "expected": {
+    "mean": "COINCIDENTAL",
+    "sd_population_authored": "CORRECT"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD5-M001",
+   "case_id": "inconsistent_upstream_reference",
+   "description": "Part 1 arithmetic slip; downstream silently reuses the canonical upstream value",
+   "student": {
+    "mean": {
+     "stated_formula": "(a+b+c+d+e)/5",
+     "shown_subs": {
+      "a": 10,
+      "b": 15,
+      "c": 20,
+      "d": 25,
+      "e": 30
+     },
+     "student_answer": 27.7
+    },
+    "sd_population_authored": {
+     "stated_formula": "sqrt(((a-mean)**2+(b-mean)**2+(c-mean)**2+(d-mean)**2+(e-mean)**2)/5)",
+     "shown_subs": {
+      "a": 10,
+      "b": 15,
+      "c": 20,
+      "d": 25,
+      "e": 30,
+      "mean": 20.0
+     },
+     "student_answer": 7.0710678118654755
+    }
+   },
+   "expected": {
+    "mean": "INCORRECT",
+    "sd_population_authored": "INCORRECT"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD5-M001",
+   "case_id": "ecf_chain",
+   "description": "Wrong upstream value, downstream computed correctly on it -> ECF credit",
+   "student": {
+    "mean": {
+     "stated_formula": "(a+b+c+d+e)/5",
+     "shown_subs": {
+      "a": 10,
+      "b": 15,
+      "c": 20,
+      "d": 25,
+      "e": 30
+     },
+     "student_answer": 27.7
+    },
+    "sd_population_authored": {
+     "stated_formula": "sqrt(((a-mean)**2+(b-mean)**2+(c-mean)**2+(d-mean)**2+(e-mean)**2)/5)",
+     "shown_subs": {
+      "a": 10,
+      "b": 15,
+      "c": 20,
+      "d": 25,
+      "e": 30,
+      "mean": 27.7
+     },
+     "student_answer": 10.454185764563398
+    }
+   },
+   "expected": {
+    "mean": "INCORRECT",
+    "sd_population_authored": "CORRECT_VIA_ECF"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD6-H001",
+   "case_id": "all_correct",
+   "description": "Every part correct with canonical formula and givens",
+   "student": {
+    "SE_diff": {
+     "stated_formula": "sqrt(s1**2 / n1 + s2**2 / n2)",
+     "shown_subs": {
+      "s1": 8,
+      "n1": 30,
+      "s2": 7,
+      "n2": 30
+     },
+     "student_answer": 1.9407902170679516
+    },
+    "t_stat": {
+     "stated_formula": "(m1 - m2) / SEd",
+     "shown_subs": {
+      "m1": 72,
+      "m2": 76,
+      "SEd": 1.9407902170679516
+     },
+     "student_answer": -2.0610161597181786
+    }
+   },
+   "expected": {
+    "SE_diff": "CORRECT",
+    "t_stat": "CORRECT"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD6-H001",
+   "case_id": "naked_answer",
+   "description": "Correct numbers, zero work shown -> no ECF, help triggered",
+   "student": {
+    "SE_diff": {
+     "stated_formula": null,
+     "shown_subs": null,
+     "student_answer": 1.9407902170679516
+    },
+    "t_stat": {
+     "stated_formula": null,
+     "shown_subs": null,
+     "student_answer": -2.0610161597181786
+    }
+   },
+   "expected": {
+    "SE_diff": "NAKED_ANSWER",
+    "t_stat": "NAKED_ANSWER"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD6-H001",
+   "case_id": "conceptual_collapse",
+   "description": "Part 1 uses non-equivalent formula '(s1**2 / n1 + s2**2 / n2)'",
+   "student": {
+    "SE_diff": {
+     "stated_formula": "(s1**2 / n1 + s2**2 / n2)",
+     "shown_subs": {
+      "s1": 8,
+      "n1": 30,
+      "s2": 7,
+      "n2": 30
+     },
+     "student_answer": 1.9407902170679516
+    },
+    "t_stat": {
+     "stated_formula": "(m1 - m2) / SEd",
+     "shown_subs": {
+      "m1": 72,
+      "m2": 76,
+      "SEd": 1.9407902170679516
+     },
+     "student_answer": -2.0610161597181786
+    }
+   },
+   "expected": {
+    "SE_diff": "CONCEPTUAL_COLLAPSE",
+    "t_stat": "CORRECT"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD6-H001",
+   "case_id": "coincidental",
+   "description": "Part 1 answer is canonical but shown_subs['n1'] tampered",
+   "student": {
+    "SE_diff": {
+     "stated_formula": "sqrt(s1**2 / n1 + s2**2 / n2)",
+     "shown_subs": {
+      "s1": 8,
+      "n1": 51.0,
+      "s2": 7,
+      "n2": 30
+     },
+     "student_answer": 1.9407902170679516
+    },
+    "t_stat": {
+     "stated_formula": "(m1 - m2) / SEd",
+     "shown_subs": {
+      "m1": 72,
+      "m2": 76,
+      "SEd": 1.9407902170679516
+     },
+     "student_answer": -2.0610161597181786
+    }
+   },
+   "expected": {
+    "SE_diff": "COINCIDENTAL",
+    "t_stat": "CORRECT"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD6-H001",
+   "case_id": "inconsistent_upstream_reference",
+   "description": "Part 1 arithmetic slip; downstream silently reuses the canonical upstream value",
+   "student": {
+    "SE_diff": {
+     "stated_formula": "sqrt(s1**2 / n1 + s2**2 / n2)",
+     "shown_subs": {
+      "s1": 8,
+      "n1": 30,
+      "s2": 7,
+      "n2": 30
+     },
+     "student_answer": 3.320066793041735
+    },
+    "t_stat": {
+     "stated_formula": "(m1 - m2) / SEd",
+     "shown_subs": {
+      "m1": 72,
+      "m2": 76,
+      "SEd": 1.9407902170679516
+     },
+     "student_answer": -2.0610161597181786
+    }
+   },
+   "expected": {
+    "SE_diff": "INCORRECT",
+    "t_stat": "INCORRECT"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD6-H001",
+   "case_id": "ecf_chain",
+   "description": "Wrong upstream value, downstream computed correctly on it -> ECF credit",
+   "student": {
+    "SE_diff": {
+     "stated_formula": "sqrt(s1**2 / n1 + s2**2 / n2)",
+     "shown_subs": {
+      "s1": 8,
+      "n1": 30,
+      "s2": 7,
+      "n2": 30
+     },
+     "student_answer": 3.320066793041735
+    },
+    "t_stat": {
+     "stated_formula": "(m1 - m2) / SEd",
+     "shown_subs": {
+      "m1": 72,
+      "m2": 76,
+      "SEd": 3.320066793041735
+     },
+     "student_answer": -1.2047950385767159
+    }
+   },
+   "expected": {
+    "SE_diff": "INCORRECT",
+    "t_stat": "CORRECT_VIA_ECF"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD6-H003",
+   "case_id": "all_correct",
+   "description": "Every part correct with canonical formula and givens",
+   "student": {
+    "power": {
+     "stated_formula": "1 - beta",
+     "shown_subs": {
+      "beta": 0.1
+     },
+     "student_answer": 0.9
+    }
+   },
+   "expected": {
+    "power": "CORRECT"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD6-H003",
+   "case_id": "naked_answer",
+   "description": "Correct numbers, zero work shown -> no ECF, help triggered",
+   "student": {
+    "power": {
+     "stated_formula": null,
+     "shown_subs": null,
+     "student_answer": 0.9
+    }
+   },
+   "expected": {
+    "power": "NAKED_ANSWER"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD6-H003",
+   "case_id": "conceptual_collapse",
+   "description": "Part 1 uses non-equivalent formula '1 + beta'",
+   "student": {
+    "power": {
+     "stated_formula": "1 + beta",
+     "shown_subs": {
+      "beta": 0.1
+     },
+     "student_answer": 0.9
+    }
+   },
+   "expected": {
+    "power": "CONCEPTUAL_COLLAPSE"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD6-H003",
+   "case_id": "coincidental",
+   "description": "Part 1 answer is canonical but shown_subs['beta'] tampered",
+   "student": {
+    "power": {
+     "stated_formula": "1 - beta",
+     "shown_subs": {
+      "beta": 0.17
+     },
+     "student_answer": 0.9
+    }
+   },
+   "expected": {
+    "power": "COINCIDENTAL"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD6-H003",
+   "case_id": "inconsistent_upstream_reference",
+   "description": "Part 1 arithmetic slip; downstream silently reuses the canonical upstream value",
+   "student": {
+    "power": {
+     "stated_formula": "1 - beta",
+     "shown_subs": {
+      "beta": 0.1
+     },
+     "student_answer": 1.915
+    }
+   },
+   "expected": {
+    "power": "INCORRECT"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD6-H007",
+   "case_id": "all_correct",
+   "description": "Every part correct with canonical formula and givens",
+   "student": {
+    "confidence_level": {
+     "stated_formula": "erf((1.645 / 2) / sqrt(2))",
+     "shown_subs": {},
+     "student_answer": 0.589207613324909
+    }
+   },
+   "expected": {
+    "confidence_level": "CORRECT"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD6-H007",
+   "case_id": "naked_answer",
+   "description": "Correct numbers, zero work shown -> no ECF, help triggered",
+   "student": {
+    "confidence_level": {
+     "stated_formula": null,
+     "shown_subs": null,
+     "student_answer": 0.589207613324909
+    }
+   },
+   "expected": {
+    "confidence_level": "NAKED_ANSWER"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD6-H007",
+   "case_id": "conceptual_collapse",
+   "description": "Part 1 uses non-equivalent formula 'erf((1.645 / 2) / (2))'",
+   "student": {
+    "confidence_level": {
+     "stated_formula": "erf((1.645 / 2) / (2))",
+     "shown_subs": {},
+     "student_answer": 0.589207613324909
+    }
+   },
+   "expected": {
+    "confidence_level": "CONCEPTUAL_COLLAPSE"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD6-H007",
+   "case_id": "inconsistent_upstream_reference",
+   "description": "Part 1 arithmetic slip; downstream silently reuses the canonical upstream value",
+   "student": {
+    "confidence_level": {
+     "stated_formula": "erf((1.645 / 2) / sqrt(2))",
+     "shown_subs": {},
+     "student_answer": 1.495430277988627
+    }
+   },
+   "expected": {
+    "confidence_level": "INCORRECT"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD6-M001",
+   "case_id": "all_correct",
+   "description": "Every part correct with canonical formula and givens",
+   "student": {
+    "n_required": {
+     "stated_formula": "(z**2 * p * (1 - p)) / me**2",
+     "shown_subs": {
+      "z": 1.96,
+      "p": 0.5,
+      "me": 0.05
+     },
+     "student_answer": 384.1599999999999
+    }
+   },
+   "expected": {
+    "n_required": "CORRECT"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD6-M001",
+   "case_id": "naked_answer",
+   "description": "Correct numbers, zero work shown -> no ECF, help triggered",
+   "student": {
+    "n_required": {
+     "stated_formula": null,
+     "shown_subs": null,
+     "student_answer": 384.1599999999999
+    }
+   },
+   "expected": {
+    "n_required": "NAKED_ANSWER"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD6-M001",
+   "case_id": "conceptual_collapse",
+   "description": "Part 1 uses non-equivalent formula '(z**2 * p * (1 - p)) * me**2'",
+   "student": {
+    "n_required": {
+     "stated_formula": "(z**2 * p * (1 - p)) * me**2",
+     "shown_subs": {
+      "z": 1.96,
+      "p": 0.5,
+      "me": 0.05
+     },
+     "student_answer": 384.1599999999999
+    }
+   },
+   "expected": {
+    "n_required": "CONCEPTUAL_COLLAPSE"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD6-M001",
+   "case_id": "coincidental",
+   "description": "Part 1 answer is canonical but shown_subs['me'] tampered",
+   "student": {
+    "n_required": {
+     "stated_formula": "(z**2 * p * (1 - p)) / me**2",
+     "shown_subs": {
+      "z": 1.96,
+      "p": 0.5,
+      "me": 0.085
+     },
+     "student_answer": 384.1599999999999
+    }
+   },
+   "expected": {
+    "n_required": "COINCIDENTAL"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD6-M001",
+   "case_id": "inconsistent_upstream_reference",
+   "description": "Part 1 arithmetic slip; downstream silently reuses the canonical upstream value",
+   "student": {
+    "n_required": {
+     "stated_formula": "(z**2 * p * (1 - p)) / me**2",
+     "shown_subs": {
+      "z": 1.96,
+      "p": 0.5,
+      "me": 0.05
+     },
+     "student_answer": 519.3159999999999
+    }
+   },
+   "expected": {
+    "n_required": "INCORRECT"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD6-M003",
+   "case_id": "all_correct",
+   "description": "Every part correct with canonical formula and givens",
+   "student": {
+    "SE": {
+     "stated_formula": "sd / sqrt(n)",
+     "shown_subs": {
+      "sd": 10,
+      "n": 100
+     },
+     "student_answer": 1.0
+    },
+    "CI_low": {
+     "stated_formula": "xbar - z * SE",
+     "shown_subs": {
+      "xbar": 50,
+      "z": 1.96,
+      "SE": 1.0
+     },
+     "student_answer": 48.04
+    },
+    "CI_high": {
+     "stated_formula": "xbar + z * SE",
+     "shown_subs": {
+      "xbar": 50,
+      "z": 1.96,
+      "SE": 1.0
+     },
+     "student_answer": 51.96
+    }
+   },
+   "expected": {
+    "SE": "CORRECT",
+    "CI_low": "CORRECT",
+    "CI_high": "CORRECT"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD6-M003",
+   "case_id": "naked_answer",
+   "description": "Correct numbers, zero work shown -> no ECF, help triggered",
+   "student": {
+    "SE": {
+     "stated_formula": null,
+     "shown_subs": null,
+     "student_answer": 1.0
+    },
+    "CI_low": {
+     "stated_formula": null,
+     "shown_subs": null,
+     "student_answer": 48.04
+    },
+    "CI_high": {
+     "stated_formula": null,
+     "shown_subs": null,
+     "student_answer": 51.96
+    }
+   },
+   "expected": {
+    "SE": "NAKED_ANSWER",
+    "CI_low": "NAKED_ANSWER",
+    "CI_high": "NAKED_ANSWER"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD6-M003",
+   "case_id": "conceptual_collapse",
+   "description": "Part 1 uses non-equivalent formula 'sd / (n)'",
+   "student": {
+    "SE": {
+     "stated_formula": "sd / (n)",
+     "shown_subs": {
+      "sd": 10,
+      "n": 100
+     },
+     "student_answer": 1.0
+    },
+    "CI_low": {
+     "stated_formula": "xbar - z * SE",
+     "shown_subs": {
+      "xbar": 50,
+      "z": 1.96,
+      "SE": 1.0
+     },
+     "student_answer": 48.04
+    },
+    "CI_high": {
+     "stated_formula": "xbar + z * SE",
+     "shown_subs": {
+      "xbar": 50,
+      "z": 1.96,
+      "SE": 1.0
+     },
+     "student_answer": 51.96
+    }
+   },
+   "expected": {
+    "SE": "CONCEPTUAL_COLLAPSE",
+    "CI_low": "CORRECT",
+    "CI_high": "CORRECT"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD6-M003",
+   "case_id": "coincidental",
+   "description": "Part 1 answer is canonical but shown_subs['n'] tampered",
+   "student": {
+    "SE": {
+     "stated_formula": "sd / sqrt(n)",
+     "shown_subs": {
+      "sd": 10,
+      "n": 170.0
+     },
+     "student_answer": 1.0
+    },
+    "CI_low": {
+     "stated_formula": "xbar - z * SE",
+     "shown_subs": {
+      "xbar": 50,
+      "z": 1.96,
+      "SE": 1.0
+     },
+     "student_answer": 48.04
+    },
+    "CI_high": {
+     "stated_formula": "xbar + z * SE",
+     "shown_subs": {
+      "xbar": 50,
+      "z": 1.96,
+      "SE": 1.0
+     },
+     "student_answer": 51.96
+    }
+   },
+   "expected": {
+    "SE": "COINCIDENTAL",
+    "CI_low": "CORRECT",
+    "CI_high": "CORRECT"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD6-M003",
+   "case_id": "inconsistent_upstream_reference",
+   "description": "Part 1 arithmetic slip; downstream silently reuses the canonical upstream value",
+   "student": {
+    "SE": {
+     "stated_formula": "sd / sqrt(n)",
+     "shown_subs": {
+      "sd": 10,
+      "n": 100
+     },
+     "student_answer": 2.05
+    },
+    "CI_low": {
+     "stated_formula": "xbar - z * SE",
+     "shown_subs": {
+      "xbar": 50,
+      "z": 1.96,
+      "SE": 1.0
+     },
+     "student_answer": 48.04
+    },
+    "CI_high": {
+     "stated_formula": "xbar + z * SE",
+     "shown_subs": {
+      "xbar": 50,
+      "z": 1.96,
+      "SE": 1.0
+     },
+     "student_answer": 51.96
+    }
+   },
+   "expected": {
+    "SE": "INCORRECT",
+    "CI_low": "INCORRECT",
+    "CI_high": "INCORRECT"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD6-M003",
+   "case_id": "ecf_chain",
+   "description": "Wrong upstream value, downstream computed correctly on it -> ECF credit",
+   "student": {
+    "SE": {
+     "stated_formula": "sd / sqrt(n)",
+     "shown_subs": {
+      "sd": 10,
+      "n": 100
+     },
+     "student_answer": 2.05
+    },
+    "CI_low": {
+     "stated_formula": "xbar - z * SE",
+     "shown_subs": {
+      "xbar": 50,
+      "z": 1.96,
+      "SE": 2.05
+     },
+     "student_answer": 45.982
+    },
+    "CI_high": {
+     "stated_formula": "xbar + z * SE",
+     "shown_subs": {
+      "xbar": 50,
+      "z": 1.96,
+      "SE": 2.05
+     },
+     "student_answer": 54.018
+    }
+   },
+   "expected": {
+    "SE": "INCORRECT",
+    "CI_low": "CORRECT_VIA_ECF",
+    "CI_high": "CORRECT_VIA_ECF"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD7-H001",
+   "case_id": "all_correct",
+   "description": "Every part correct with canonical formula and givens",
+   "student": {
+    "P_D": {
+     "stated_formula": "pda*pa + pdb*pb + pdc*pc",
+     "shown_subs": {
+      "pda": 0.02,
+      "pa": 0.3,
+      "pdb": 0.03,
+      "pb": 0.5,
+      "pdc": 0.01,
+      "pc": 0.2
+     },
+     "student_answer": 0.023
+    },
+    "P_BgivenD": {
+     "stated_formula": "(pdb * pb) / PD",
+     "shown_subs": {
+      "pdb": 0.03,
+      "pb": 0.5,
+      "PD": 0.023
+     },
+     "student_answer": 0.6521739130434783
+    }
+   },
+   "expected": {
+    "P_D": "CORRECT",
+    "P_BgivenD": "CORRECT"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD7-H001",
+   "case_id": "naked_answer",
+   "description": "Correct numbers, zero work shown -> no ECF, help triggered",
+   "student": {
+    "P_D": {
+     "stated_formula": null,
+     "shown_subs": null,
+     "student_answer": 0.023
+    },
+    "P_BgivenD": {
+     "stated_formula": null,
+     "shown_subs": null,
+     "student_answer": 0.6521739130434783
+    }
+   },
+   "expected": {
+    "P_D": "NAKED_ANSWER",
+    "P_BgivenD": "NAKED_ANSWER"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD7-H001",
+   "case_id": "conceptual_collapse",
+   "description": "Part 1 uses non-equivalent formula 'pda*pa - pdb*pb + pdc*pc'",
+   "student": {
+    "P_D": {
+     "stated_formula": "pda*pa - pdb*pb + pdc*pc",
+     "shown_subs": {
+      "pda": 0.02,
+      "pa": 0.3,
+      "pdb": 0.03,
+      "pb": 0.5,
+      "pdc": 0.01,
+      "pc": 0.2
+     },
+     "student_answer": 0.023
+    },
+    "P_BgivenD": {
+     "stated_formula": "(pdb * pb) / PD",
+     "shown_subs": {
+      "pdb": 0.03,
+      "pb": 0.5,
+      "PD": 0.023
+     },
+     "student_answer": 0.6521739130434783
+    }
+   },
+   "expected": {
+    "P_D": "CONCEPTUAL_COLLAPSE",
+    "P_BgivenD": "CORRECT"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD7-H001",
+   "case_id": "coincidental",
+   "description": "Part 1 answer is canonical but shown_subs['pa'] tampered",
+   "student": {
+    "P_D": {
+     "stated_formula": "pda*pa + pdb*pb + pdc*pc",
+     "shown_subs": {
+      "pda": 0.02,
+      "pa": 0.51,
+      "pdb": 0.03,
+      "pb": 0.5,
+      "pdc": 0.01,
+      "pc": 0.2
+     },
+     "student_answer": 0.023
+    },
+    "P_BgivenD": {
+     "stated_formula": "(pdb * pb) / PD",
+     "shown_subs": {
+      "pdb": 0.03,
+      "pb": 0.5,
+      "PD": 0.023
+     },
+     "student_answer": 0.6521739130434783
+    }
+   },
+   "expected": {
+    "P_D": "COINCIDENTAL",
+    "P_BgivenD": "CORRECT"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD7-H001",
+   "case_id": "inconsistent_upstream_reference",
+   "description": "Part 1 arithmetic slip; downstream silently reuses the canonical upstream value",
+   "student": {
+    "P_D": {
+     "stated_formula": "pda*pa + pdb*pb + pdc*pc",
+     "shown_subs": {
+      "pda": 0.02,
+      "pa": 0.3,
+      "pdb": 0.03,
+      "pb": 0.5,
+      "pdc": 0.01,
+      "pc": 0.2
+     },
+     "student_answer": 0.73105
+    },
+    "P_BgivenD": {
+     "stated_formula": "(pdb * pb) / PD",
+     "shown_subs": {
+      "pdb": 0.03,
+      "pb": 0.5,
+      "PD": 0.023
+     },
+     "student_answer": 0.6521739130434783
+    }
+   },
+   "expected": {
+    "P_D": "INCORRECT",
+    "P_BgivenD": "INCORRECT"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD7-H001",
+   "case_id": "ecf_chain",
+   "description": "Wrong upstream value, downstream computed correctly on it -> ECF credit",
+   "student": {
+    "P_D": {
+     "stated_formula": "pda*pa + pdb*pb + pdc*pc",
+     "shown_subs": {
+      "pda": 0.02,
+      "pa": 0.3,
+      "pdb": 0.03,
+      "pb": 0.5,
+      "pdc": 0.01,
+      "pc": 0.2
+     },
+     "student_answer": 0.73105
+    },
+    "P_BgivenD": {
+     "stated_formula": "(pdb * pb) / PD",
+     "shown_subs": {
+      "pdb": 0.03,
+      "pb": 0.5,
+      "PD": 0.73105
+     },
+     "student_answer": 0.02051843239176527
+    }
+   },
+   "expected": {
+    "P_D": "INCORRECT",
+    "P_BgivenD": "CORRECT_VIA_ECF"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD7-H005",
+   "case_id": "all_correct",
+   "description": "Every part correct with canonical formula and givens",
+   "student": {
+    "probability_exactly_8": {
+     "stated_formula": "factorial(20) / (factorial(8) * factorial(12)) * (0.4**8) * (0.6**12)",
+     "shown_subs": {},
+     "student_answer": 0.17970578775468934
+    }
+   },
+   "expected": {
+    "probability_exactly_8": "CORRECT"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD7-H005",
+   "case_id": "naked_answer",
+   "description": "Correct numbers, zero work shown -> no ECF, help triggered",
+   "student": {
+    "probability_exactly_8": {
+     "stated_formula": null,
+     "shown_subs": null,
+     "student_answer": 0.17970578775468934
+    }
+   },
+   "expected": {
+    "probability_exactly_8": "NAKED_ANSWER"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD7-H005",
+   "case_id": "conceptual_collapse",
+   "description": "Part 1 uses non-equivalent formula 'factorial(20) * (factorial(8) * factorial(12)) * (0.4**8) * (0.6**12)'",
+   "student": {
+    "probability_exactly_8": {
+     "stated_formula": "factorial(20) * (factorial(8) * factorial(12)) * (0.4**8) * (0.6**12)",
+     "shown_subs": {},
+     "student_answer": 0.17970578775468934
+    }
+   },
+   "expected": {
+    "probability_exactly_8": "CONCEPTUAL_COLLAPSE"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD7-H005",
+   "case_id": "inconsistent_upstream_reference",
+   "description": "Part 1 arithmetic slip; downstream silently reuses the canonical upstream value",
+   "student": {
+    "probability_exactly_8": {
+     "stated_formula": "factorial(20) / (factorial(8) * factorial(12)) * (0.4**8) * (0.6**12)",
+     "shown_subs": {},
+     "student_answer": 0.9426028134688306
+    }
+   },
+   "expected": {
+    "probability_exactly_8": "INCORRECT"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD7-H007",
+   "case_id": "all_correct",
+   "description": "Every part correct with canonical formula and givens",
+   "student": {
+    "n_required": {
+     "stated_formula": "(sigma / se)**2",
+     "shown_subs": {
+      "sigma": 8,
+      "se": 1
+     },
+     "student_answer": 64.0
+    }
+   },
+   "expected": {
+    "n_required": "CORRECT"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD7-H007",
+   "case_id": "naked_answer",
+   "description": "Correct numbers, zero work shown -> no ECF, help triggered",
+   "student": {
+    "n_required": {
+     "stated_formula": null,
+     "shown_subs": null,
+     "student_answer": 64.0
+    }
+   },
+   "expected": {
+    "n_required": "NAKED_ANSWER"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD7-H007",
+   "case_id": "conceptual_collapse",
+   "description": "Part 1 uses non-equivalent formula '(sigma * se)**2'",
+   "student": {
+    "n_required": {
+     "stated_formula": "(sigma * se)**2",
+     "shown_subs": {
+      "sigma": 8,
+      "se": 1
+     },
+     "student_answer": 64.0
+    }
+   },
+   "expected": {
+    "n_required": "CONCEPTUAL_COLLAPSE"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD7-H007",
+   "case_id": "coincidental",
+   "description": "Part 1 answer is canonical but shown_subs['se'] tampered",
+   "student": {
+    "n_required": {
+     "stated_formula": "(sigma / se)**2",
+     "shown_subs": {
+      "sigma": 8,
+      "se": 1.7
+     },
+     "student_answer": 64.0
+    }
+   },
+   "expected": {
+    "n_required": "COINCIDENTAL"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD7-H007",
+   "case_id": "inconsistent_upstream_reference",
+   "description": "Part 1 arithmetic slip; downstream silently reuses the canonical upstream value",
+   "student": {
+    "n_required": {
+     "stated_formula": "(sigma / se)**2",
+     "shown_subs": {
+      "sigma": 8,
+      "se": 1
+     },
+     "student_answer": 87.10000000000001
+    }
+   },
+   "expected": {
+    "n_required": "INCORRECT"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD7-M001",
+   "case_id": "all_correct",
+   "description": "Every part correct with canonical formula and givens",
+   "student": {
+    "prefer_rate": {
+     "stated_formula": "prefer / total",
+     "shown_subs": {
+      "prefer": 80,
+      "total": 200
+     },
+     "student_answer": 0.4
+    }
+   },
+   "expected": {
+    "prefer_rate": "CORRECT"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD7-M001",
+   "case_id": "naked_answer",
+   "description": "Correct numbers, zero work shown -> no ECF, help triggered",
+   "student": {
+    "prefer_rate": {
+     "stated_formula": null,
+     "shown_subs": null,
+     "student_answer": 0.4
+    }
+   },
+   "expected": {
+    "prefer_rate": "NAKED_ANSWER"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD7-M001",
+   "case_id": "conceptual_collapse",
+   "description": "Part 1 uses non-equivalent formula 'prefer * total'",
+   "student": {
+    "prefer_rate": {
+     "stated_formula": "prefer * total",
+     "shown_subs": {
+      "prefer": 80,
+      "total": 200
+     },
+     "student_answer": 0.4
+    }
+   },
+   "expected": {
+    "prefer_rate": "CONCEPTUAL_COLLAPSE"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD7-M001",
+   "case_id": "coincidental",
+   "description": "Part 1 answer is canonical but shown_subs['prefer'] tampered",
+   "student": {
+    "prefer_rate": {
+     "stated_formula": "prefer / total",
+     "shown_subs": {
+      "prefer": 136.0,
+      "total": 200
+     },
+     "student_answer": 0.4
+    }
+   },
+   "expected": {
+    "prefer_rate": "COINCIDENTAL"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD7-M001",
+   "case_id": "inconsistent_upstream_reference",
+   "description": "Part 1 arithmetic slip; downstream silently reuses the canonical upstream value",
+   "student": {
+    "prefer_rate": {
+     "stated_formula": "prefer / total",
+     "shown_subs": {
+      "prefer": 80,
+      "total": 200
+     },
+     "student_answer": 1.24
+    }
+   },
+   "expected": {
+    "prefer_rate": "INCORRECT"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD7-M002",
+   "case_id": "all_correct",
+   "description": "Every part correct with canonical formula and givens",
+   "student": {
+    "p_intersection": {
+     "stated_formula": "pa * pb",
+     "shown_subs": {
+      "pa": 0.3,
+      "pb": 0.4
+     },
+     "student_answer": 0.12
+    }
+   },
+   "expected": {
+    "p_intersection": "CORRECT"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD7-M002",
+   "case_id": "naked_answer",
+   "description": "Correct numbers, zero work shown -> no ECF, help triggered",
+   "student": {
+    "p_intersection": {
+     "stated_formula": null,
+     "shown_subs": null,
+     "student_answer": 0.12
+    }
+   },
+   "expected": {
+    "p_intersection": "NAKED_ANSWER"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD7-M002",
+   "case_id": "coincidental",
+   "description": "Part 1 answer is canonical but shown_subs['pa'] tampered",
+   "student": {
+    "p_intersection": {
+     "stated_formula": "pa * pb",
+     "shown_subs": {
+      "pa": 0.51,
+      "pb": 0.4
+     },
+     "student_answer": 0.12
+    }
+   },
+   "expected": {
+    "p_intersection": "COINCIDENTAL"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD7-M002",
+   "case_id": "inconsistent_upstream_reference",
+   "description": "Part 1 arithmetic slip; downstream silently reuses the canonical upstream value",
+   "student": {
+    "p_intersection": {
+     "stated_formula": "pa * pb",
+     "shown_subs": {
+      "pa": 0.3,
+      "pb": 0.4
+     },
+     "student_answer": 0.862
+    }
+   },
+   "expected": {
+    "p_intersection": "INCORRECT"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD7-M004",
+   "case_id": "all_correct",
+   "description": "Every part correct with canonical formula and givens",
+   "student": {
+    "path_prob": {
+     "stated_formula": "p1 * p2",
+     "shown_subs": {
+      "p1": 0.3,
+      "p2": 0.7
+     },
+     "student_answer": 0.21
+    }
+   },
+   "expected": {
+    "path_prob": "CORRECT"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD7-M004",
+   "case_id": "naked_answer",
+   "description": "Correct numbers, zero work shown -> no ECF, help triggered",
+   "student": {
+    "path_prob": {
+     "stated_formula": null,
+     "shown_subs": null,
+     "student_answer": 0.21
+    }
+   },
+   "expected": {
+    "path_prob": "NAKED_ANSWER"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD7-M004",
+   "case_id": "coincidental",
+   "description": "Part 1 answer is canonical but shown_subs['p1'] tampered",
+   "student": {
+    "path_prob": {
+     "stated_formula": "p1 * p2",
+     "shown_subs": {
+      "p1": 0.51,
+      "p2": 0.7
+     },
+     "student_answer": 0.21
+    }
+   },
+   "expected": {
+    "path_prob": "COINCIDENTAL"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD7-M004",
+   "case_id": "inconsistent_upstream_reference",
+   "description": "Part 1 arithmetic slip; downstream silently reuses the canonical upstream value",
+   "student": {
+    "path_prob": {
+     "stated_formula": "p1 * p2",
+     "shown_subs": {
+      "p1": 0.3,
+      "p2": 0.7
+     },
+     "student_answer": 0.9835
+    }
+   },
+   "expected": {
+    "path_prob": "INCORRECT"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD7-M005",
+   "case_id": "all_correct",
+   "description": "Every part correct with canonical formula and givens",
+   "student": {
+    "expected": {
+     "stated_formula": "n * p",
+     "shown_subs": {
+      "n": 10,
+      "p": 0.5
+     },
+     "student_answer": 5.0
+    }
+   },
+   "expected": {
+    "expected": "CORRECT"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD7-M005",
+   "case_id": "naked_answer",
+   "description": "Correct numbers, zero work shown -> no ECF, help triggered",
+   "student": {
+    "expected": {
+     "stated_formula": null,
+     "shown_subs": null,
+     "student_answer": 5.0
+    }
+   },
+   "expected": {
+    "expected": "NAKED_ANSWER"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD7-M005",
+   "case_id": "coincidental",
+   "description": "Part 1 answer is canonical but shown_subs['n'] tampered",
+   "student": {
+    "expected": {
+     "stated_formula": "n * p",
+     "shown_subs": {
+      "n": 17.0,
+      "p": 0.5
+     },
+     "student_answer": 5.0
+    }
+   },
+   "expected": {
+    "expected": "COINCIDENTAL"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD7-M005",
+   "case_id": "inconsistent_upstream_reference",
+   "description": "Part 1 arithmetic slip; downstream silently reuses the canonical upstream value",
+   "student": {
+    "expected": {
+     "stated_formula": "n * p",
+     "shown_subs": {
+      "n": 10,
+      "p": 0.5
+     },
+     "student_answer": 7.45
+    }
+   },
+   "expected": {
+    "expected": "INCORRECT"
+   }
+  },
+  {
+   "content_key": "STATS-MOD1-E004",
+   "case_id": "all_correct",
+   "description": "Every part correct with canonical formula and givens",
+   "student": {
+    "mean": {
+     "stated_formula": "(a+b+c+d+e)/5",
+     "shown_subs": {
+      "a": 12,
+      "b": 15,
+      "c": 18,
+      "d": 21,
+      "e": 24
+     },
+     "student_answer": 18.0
+    }
+   },
+   "expected": {
+    "mean": "CORRECT"
+   }
+  },
+  {
+   "content_key": "STATS-MOD1-E004",
+   "case_id": "naked_answer",
+   "description": "Correct numbers, zero work shown -> no ECF, help triggered",
+   "student": {
+    "mean": {
+     "stated_formula": null,
+     "shown_subs": null,
+     "student_answer": 18.0
+    }
+   },
+   "expected": {
+    "mean": "NAKED_ANSWER"
+   }
+  },
+  {
+   "content_key": "STATS-MOD1-E004",
+   "case_id": "conceptual_collapse",
+   "description": "Part 1 uses non-equivalent formula '(a+b+c+d+e)*5'",
+   "student": {
+    "mean": {
+     "stated_formula": "(a+b+c+d+e)*5",
+     "shown_subs": {
+      "a": 12,
+      "b": 15,
+      "c": 18,
+      "d": 21,
+      "e": 24
+     },
+     "student_answer": 18.0
+    }
+   },
+   "expected": {
+    "mean": "CONCEPTUAL_COLLAPSE"
+   }
+  },
+  {
+   "content_key": "STATS-MOD1-E004",
+   "case_id": "coincidental",
+   "description": "Part 1 answer is canonical but shown_subs['a'] tampered",
+   "student": {
+    "mean": {
+     "stated_formula": "(a+b+c+d+e)/5",
+     "shown_subs": {
+      "a": 20.4,
+      "b": 15,
+      "c": 18,
+      "d": 21,
+      "e": 24
+     },
+     "student_answer": 18.0
+    }
+   },
+   "expected": {
+    "mean": "COINCIDENTAL"
+   }
+  },
+  {
+   "content_key": "STATS-MOD1-E004",
+   "case_id": "inconsistent_upstream_reference",
+   "description": "Part 1 arithmetic slip; downstream silently reuses the canonical upstream value",
+   "student": {
+    "mean": {
+     "stated_formula": "(a+b+c+d+e)/5",
+     "shown_subs": {
+      "a": 12,
+      "b": 15,
+      "c": 18,
+      "d": 21,
+      "e": 24
+     },
+     "student_answer": 25.0
+    }
+   },
+   "expected": {
+    "mean": "INCORRECT"
+   }
+  },
+  {
+   "content_key": "STATS-MOD1-M002",
+   "case_id": "all_correct",
+   "description": "Every part correct with canonical formula and givens",
+   "student": {
+    "mean": {
+     "stated_formula": "(a+b+c+d+e)/5",
+     "shown_subs": {
+      "a": 2,
+      "b": 4,
+      "c": 6,
+      "d": 8,
+      "e": 10
+     },
+     "student_answer": 6.0
+    },
+    "sample_sd": {
+     "stated_formula": "sqrt(((a-mean)**2+(b-mean)**2+(c-mean)**2+(d-mean)**2+(e-mean)**2)/(5-1))",
+     "shown_subs": {
+      "a": 2,
+      "b": 4,
+      "c": 6,
+      "d": 8,
+      "e": 10,
+      "mean": 6.0
+     },
+     "student_answer": 3.1622776601683795
+    }
+   },
+   "expected": {
+    "mean": "CORRECT",
+    "sample_sd": "CORRECT"
+   }
+  },
+  {
+   "content_key": "STATS-MOD1-M002",
+   "case_id": "naked_answer",
+   "description": "Correct numbers, zero work shown -> no ECF, help triggered",
+   "student": {
+    "mean": {
+     "stated_formula": null,
+     "shown_subs": null,
+     "student_answer": 6.0
+    },
+    "sample_sd": {
+     "stated_formula": null,
+     "shown_subs": null,
+     "student_answer": 3.1622776601683795
+    }
+   },
+   "expected": {
+    "mean": "NAKED_ANSWER",
+    "sample_sd": "NAKED_ANSWER"
+   }
+  },
+  {
+   "content_key": "STATS-MOD1-M002",
+   "case_id": "conceptual_collapse",
+   "description": "Part 1 uses non-equivalent formula '(a+b+c+d+e)*5'",
+   "student": {
+    "mean": {
+     "stated_formula": "(a+b+c+d+e)*5",
+     "shown_subs": {
+      "a": 2,
+      "b": 4,
+      "c": 6,
+      "d": 8,
+      "e": 10
+     },
+     "student_answer": 6.0
+    },
+    "sample_sd": {
+     "stated_formula": "sqrt(((a-mean)**2+(b-mean)**2+(c-mean)**2+(d-mean)**2+(e-mean)**2)/(5-1))",
+     "shown_subs": {
+      "a": 2,
+      "b": 4,
+      "c": 6,
+      "d": 8,
+      "e": 10,
+      "mean": 6.0
+     },
+     "student_answer": 3.1622776601683795
+    }
+   },
+   "expected": {
+    "mean": "CONCEPTUAL_COLLAPSE",
+    "sample_sd": "CORRECT"
+   }
+  },
+  {
+   "content_key": "STATS-MOD1-M002",
+   "case_id": "coincidental",
+   "description": "Part 1 answer is canonical but shown_subs['a'] tampered",
+   "student": {
+    "mean": {
+     "stated_formula": "(a+b+c+d+e)/5",
+     "shown_subs": {
+      "a": 3.4,
+      "b": 4,
+      "c": 6,
+      "d": 8,
+      "e": 10
+     },
+     "student_answer": 6.0
+    },
+    "sample_sd": {
+     "stated_formula": "sqrt(((a-mean)**2+(b-mean)**2+(c-mean)**2+(d-mean)**2+(e-mean)**2)/(5-1))",
+     "shown_subs": {
+      "a": 2,
+      "b": 4,
+      "c": 6,
+      "d": 8,
+      "e": 10,
+      "mean": 6.0
+     },
+     "student_answer": 3.1622776601683795
+    }
+   },
+   "expected": {
+    "mean": "COINCIDENTAL",
+    "sample_sd": "CORRECT"
+   }
+  },
+  {
+   "content_key": "STATS-MOD1-M002",
+   "case_id": "inconsistent_upstream_reference",
+   "description": "Part 1 arithmetic slip; downstream silently reuses the canonical upstream value",
+   "student": {
+    "mean": {
+     "stated_formula": "(a+b+c+d+e)/5",
+     "shown_subs": {
+      "a": 2,
+      "b": 4,
+      "c": 6,
+      "d": 8,
+      "e": 10
+     },
+     "student_answer": 8.8
+    },
+    "sample_sd": {
+     "stated_formula": "sqrt(((a-mean)**2+(b-mean)**2+(c-mean)**2+(d-mean)**2+(e-mean)**2)/(5-1))",
+     "shown_subs": {
+      "a": 2,
+      "b": 4,
+      "c": 6,
+      "d": 8,
+      "e": 10,
+      "mean": 6.0
+     },
+     "student_answer": 3.1622776601683795
+    }
+   },
+   "expected": {
+    "mean": "INCORRECT",
+    "sample_sd": "INCORRECT"
+   }
+  },
+  {
+   "content_key": "STATS-MOD1-M002",
+   "case_id": "ecf_chain",
+   "description": "Wrong upstream value, downstream computed correctly on it -> ECF credit",
+   "student": {
+    "mean": {
+     "stated_formula": "(a+b+c+d+e)/5",
+     "shown_subs": {
+      "a": 2,
+      "b": 4,
+      "c": 6,
+      "d": 8,
+      "e": 10
+     },
+     "student_answer": 8.8
+    },
+    "sample_sd": {
+     "stated_formula": "sqrt(((a-mean)**2+(b-mean)**2+(c-mean)**2+(d-mean)**2+(e-mean)**2)/(5-1))",
+     "shown_subs": {
+      "a": 2,
+      "b": 4,
+      "c": 6,
+      "d": 8,
+      "e": 10,
+      "mean": 8.8
+     },
+     "student_answer": 4.449719092257398
+    }
+   },
+   "expected": {
+    "mean": "INCORRECT",
+    "sample_sd": "CORRECT_VIA_ECF"
+   }
+  },
+  {
+   "content_key": "STATS-MOD3-M006",
+   "case_id": "all_correct",
+   "description": "Every part correct with canonical formula and givens",
+   "student": {
+    "z_score": {
+     "stated_formula": "1",
+     "shown_subs": {},
+     "student_answer": 1.0
+    }
+   },
+   "expected": {
+    "z_score": "CORRECT"
+   }
+  },
+  {
+   "content_key": "STATS-MOD3-M006",
+   "case_id": "naked_answer",
+   "description": "Correct numbers, zero work shown -> no ECF, help triggered",
+   "student": {
+    "z_score": {
+     "stated_formula": null,
+     "shown_subs": null,
+     "student_answer": 1.0
+    }
+   },
+   "expected": {
+    "z_score": "NAKED_ANSWER"
+   }
+  },
+  {
+   "content_key": "STATS-MOD3-M006",
+   "case_id": "inconsistent_upstream_reference",
+   "description": "Part 1 arithmetic slip; downstream silently reuses the canonical upstream value",
+   "student": {
+    "z_score": {
+     "stated_formula": "1",
+     "shown_subs": {},
+     "student_answer": 2.05
+    }
+   },
+   "expected": {
+    "z_score": "INCORRECT"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD3-E001",
+   "case_id": "all_correct",
+   "description": "Every part correct with canonical formula and givens",
+   "student": {
+    "pct_within_1sd": {
+     "stated_formula": "68",
+     "shown_subs": {},
+     "student_answer": 68.0
+    }
+   },
+   "expected": {
+    "pct_within_1sd": "CORRECT"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD3-E001",
+   "case_id": "naked_answer",
+   "description": "Correct numbers, zero work shown -> no ECF, help triggered",
+   "student": {
+    "pct_within_1sd": {
+     "stated_formula": null,
+     "shown_subs": null,
+     "student_answer": 68.0
+    }
+   },
+   "expected": {
+    "pct_within_1sd": "NAKED_ANSWER"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD3-E001",
+   "case_id": "inconsistent_upstream_reference",
+   "description": "Part 1 arithmetic slip; downstream silently reuses the canonical upstream value",
+   "student": {
+    "pct_within_1sd": {
+     "stated_formula": "68",
+     "shown_subs": {},
+     "student_answer": 92.50000000000001
+    }
+   },
+   "expected": {
+    "pct_within_1sd": "INCORRECT"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD7-M003",
+   "case_id": "all_correct",
+   "description": "Every part correct with canonical formula and givens",
+   "student": {
+    "false_positive_rate": {
+     "stated_formula": "1 - specificity",
+     "shown_subs": {
+      "specificity": 0.9
+     },
+     "student_answer": 0.09999999999999998
+    }
+   },
+   "expected": {
+    "false_positive_rate": "CORRECT"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD7-M003",
+   "case_id": "naked_answer",
+   "description": "Correct numbers, zero work shown -> no ECF, help triggered",
+   "student": {
+    "false_positive_rate": {
+     "stated_formula": null,
+     "shown_subs": null,
+     "student_answer": 0.09999999999999998
+    }
+   },
+   "expected": {
+    "false_positive_rate": "NAKED_ANSWER"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD7-M003",
+   "case_id": "conceptual_collapse",
+   "description": "Part 1 uses non-equivalent formula '1 + specificity'",
+   "student": {
+    "false_positive_rate": {
+     "stated_formula": "1 + specificity",
+     "shown_subs": {
+      "specificity": 0.9
+     },
+     "student_answer": 0.09999999999999998
+    }
+   },
+   "expected": {
+    "false_positive_rate": "CONCEPTUAL_COLLAPSE"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD7-M003",
+   "case_id": "coincidental",
+   "description": "Part 1 answer is canonical but shown_subs['specificity'] tampered",
+   "student": {
+    "false_positive_rate": {
+     "stated_formula": "1 - specificity",
+     "shown_subs": {
+      "specificity": 1.53
+     },
+     "student_answer": 0.09999999999999998
+    }
+   },
+   "expected": {
+    "false_positive_rate": "COINCIDENTAL"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD7-M003",
+   "case_id": "inconsistent_upstream_reference",
+   "description": "Part 1 arithmetic slip; downstream silently reuses the canonical upstream value",
+   "student": {
+    "false_positive_rate": {
+     "stated_formula": "1 - specificity",
+     "shown_subs": {
+      "specificity": 0.9
+     },
+     "student_answer": 0.835
+    }
+   },
+   "expected": {
+    "false_positive_rate": "INCORRECT"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD7-H002",
+   "case_id": "all_correct",
+   "description": "Every part correct with canonical formula and givens",
+   "student": {
+    "P_or": {
+     "stated_formula": "pa + pb",
+     "shown_subs": {
+      "pa": 0.2,
+      "pb": 0.3
+     },
+     "student_answer": 0.5
+    },
+    "P_and": {
+     "stated_formula": "0",
+     "shown_subs": {},
+     "student_answer": 0.0
+    }
+   },
+   "expected": {
+    "P_or": "CORRECT",
+    "P_and": "CORRECT"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD7-H002",
+   "case_id": "naked_answer",
+   "description": "Correct numbers, zero work shown -> no ECF, help triggered",
+   "student": {
+    "P_or": {
+     "stated_formula": null,
+     "shown_subs": null,
+     "student_answer": 0.5
+    },
+    "P_and": {
+     "stated_formula": null,
+     "shown_subs": null,
+     "student_answer": 0.0
+    }
+   },
+   "expected": {
+    "P_or": "NAKED_ANSWER",
+    "P_and": "NAKED_ANSWER"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD7-H002",
+   "case_id": "conceptual_collapse",
+   "description": "Part 1 uses non-equivalent formula 'pa - pb'",
+   "student": {
+    "P_or": {
+     "stated_formula": "pa - pb",
+     "shown_subs": {
+      "pa": 0.2,
+      "pb": 0.3
+     },
+     "student_answer": 0.5
+    },
+    "P_and": {
+     "stated_formula": "0",
+     "shown_subs": {},
+     "student_answer": 0.0
+    }
+   },
+   "expected": {
+    "P_or": "CONCEPTUAL_COLLAPSE",
+    "P_and": "CORRECT"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD7-H002",
+   "case_id": "coincidental",
+   "description": "Part 1 answer is canonical but shown_subs['pa'] tampered",
+   "student": {
+    "P_or": {
+     "stated_formula": "pa + pb",
+     "shown_subs": {
+      "pa": 0.34,
+      "pb": 0.3
+     },
+     "student_answer": 0.5
+    },
+    "P_and": {
+     "stated_formula": "0",
+     "shown_subs": {},
+     "student_answer": 0.0
+    }
+   },
+   "expected": {
+    "P_or": "COINCIDENTAL",
+    "P_and": "CORRECT"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD7-H002",
+   "case_id": "inconsistent_upstream_reference",
+   "description": "Part 1 arithmetic slip; downstream silently reuses the canonical upstream value",
+   "student": {
+    "P_or": {
+     "stated_formula": "pa + pb",
+     "shown_subs": {
+      "pa": 0.2,
+      "pb": 0.3
+     },
+     "student_answer": 1.375
+    },
+    "P_and": {
+     "stated_formula": "0",
+     "shown_subs": {},
+     "student_answer": 0.0
+    }
+   },
+   "expected": {
+    "P_or": "INCORRECT",
+    "P_and": "CORRECT"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD8-M002",
+   "case_id": "all_correct",
+   "description": "Every part correct with canonical formula and givens",
+   "student": {
+    "r_squared_pct": {
+     "stated_formula": "r_squared",
+     "shown_subs": {
+      "r_squared": 0.64
+     },
+     "student_answer": 0.64
+    }
+   },
+   "expected": {
+    "r_squared_pct": "CORRECT"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD8-M002",
+   "case_id": "naked_answer",
+   "description": "Correct numbers, zero work shown -> no ECF, help triggered",
+   "student": {
+    "r_squared_pct": {
+     "stated_formula": null,
+     "shown_subs": null,
+     "student_answer": 0.64
+    }
+   },
+   "expected": {
+    "r_squared_pct": "NAKED_ANSWER"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD8-M002",
+   "case_id": "coincidental",
+   "description": "Part 1 answer is canonical but shown_subs['r_squared'] tampered",
+   "student": {
+    "r_squared_pct": {
+     "stated_formula": "r_squared",
+     "shown_subs": {
+      "r_squared": 1.088
+     },
+     "student_answer": 0.64
+    }
+   },
+   "expected": {
+    "r_squared_pct": "COINCIDENTAL"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD8-M002",
+   "case_id": "inconsistent_upstream_reference",
+   "description": "Part 1 arithmetic slip; downstream silently reuses the canonical upstream value",
+   "student": {
+    "r_squared_pct": {
+     "stated_formula": "r_squared",
+     "shown_subs": {
+      "r_squared": 0.64
+     },
+     "student_answer": 1.564
+    }
+   },
+   "expected": {
+    "r_squared_pct": "INCORRECT"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD8-M004",
+   "case_id": "all_correct",
+   "description": "Every part correct with canonical formula and givens",
+   "student": {
+    "slope_value": {
+     "stated_formula": "slope",
+     "shown_subs": {
+      "slope": 3
+     },
+     "student_answer": 3.0
+    }
+   },
+   "expected": {
+    "slope_value": "CORRECT"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD8-M004",
+   "case_id": "naked_answer",
+   "description": "Correct numbers, zero work shown -> no ECF, help triggered",
+   "student": {
+    "slope_value": {
+     "stated_formula": null,
+     "shown_subs": null,
+     "student_answer": 3.0
+    }
+   },
+   "expected": {
+    "slope_value": "NAKED_ANSWER"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD8-M004",
+   "case_id": "coincidental",
+   "description": "Part 1 answer is canonical but shown_subs['slope'] tampered",
+   "student": {
+    "slope_value": {
+     "stated_formula": "slope",
+     "shown_subs": {
+      "slope": 5.1
+     },
+     "student_answer": 3.0
+    }
+   },
+   "expected": {
+    "slope_value": "COINCIDENTAL"
+   }
+  },
+  {
+   "content_key": "APSTAT-MOD8-M004",
+   "case_id": "inconsistent_upstream_reference",
+   "description": "Part 1 arithmetic slip; downstream silently reuses the canonical upstream value",
+   "student": {
+    "slope_value": {
+     "stated_formula": "slope",
+     "shown_subs": {
+      "slope": 3
+     },
+     "student_answer": 4.750000000000001
+    }
+   },
+   "expected": {
+    "slope_value": "INCORRECT"
+   }
+  },
+  {
+   "content_key": "STATS-MOD3-E006",
+   "case_id": "all_correct",
+   "description": "Every part correct with canonical formula and givens",
+   "student": {
+    "pct_within_1sd": {
+     "stated_formula": "68",
+     "shown_subs": {},
+     "student_answer": 68.0
+    }
+   },
+   "expected": {
+    "pct_within_1sd": "CORRECT"
+   }
+  },
+  {
+   "content_key": "STATS-MOD3-E006",
+   "case_id": "naked_answer",
+   "description": "Correct numbers, zero work shown -> no ECF, help triggered",
+   "student": {
+    "pct_within_1sd": {
+     "stated_formula": null,
+     "shown_subs": null,
+     "student_answer": 68.0
+    }
+   },
+   "expected": {
+    "pct_within_1sd": "NAKED_ANSWER"
+   }
+  },
+  {
+   "content_key": "STATS-MOD3-E006",
+   "case_id": "inconsistent_upstream_reference",
+   "description": "Part 1 arithmetic slip; downstream silently reuses the canonical upstream value",
+   "student": {
+    "pct_within_1sd": {
+     "stated_formula": "68",
+     "shown_subs": {},
+     "student_answer": 92.50000000000001
+    }
+   },
+   "expected": {
+    "pct_within_1sd": "INCORRECT"
+   }
+  },
+  {
+   "content_key": "STATS-MOD1-M004",
+   "case_id": "all_correct",
+   "description": "Every part correct with canonical formula and givens",
+   "student": {
+    "freq_A": {
+     "stated_formula": "4",
+     "shown_subs": {},
+     "student_answer": 4.0
+    },
+    "freq_B": {
+     "stated_formula": "3",
+     "shown_subs": {},
+     "student_answer": 3.0
+    },
+    "freq_C": {
+     "stated_formula": "1",
+     "shown_subs": {},
+     "student_answer": 1.0
+    },
+    "rel_freq_A": {
+     "stated_formula": "4/8",
+     "shown_subs": {},
+     "student_answer": 0.5
+    },
+    "rel_freq_B": {
+     "stated_formula": "3/8",
+     "shown_subs": {},
+     "student_answer": 0.375
+    },
+    "rel_freq_C": {
+     "stated_formula": "1/8",
+     "shown_subs": {},
+     "student_answer": 0.125
+    }
+   },
+   "expected": {
+    "freq_A": "CORRECT",
+    "freq_B": "CORRECT",
+    "freq_C": "CORRECT",
+    "rel_freq_A": "CORRECT",
+    "rel_freq_B": "CORRECT",
+    "rel_freq_C": "CORRECT"
+   }
+  },
+  {
+   "content_key": "STATS-MOD1-M004",
+   "case_id": "naked_answer",
+   "description": "Correct numbers, zero work shown -> no ECF, help triggered",
+   "student": {
+    "freq_A": {
+     "stated_formula": null,
+     "shown_subs": null,
+     "student_answer": 4.0
+    },
+    "freq_B": {
+     "stated_formula": null,
+     "shown_subs": null,
+     "student_answer": 3.0
+    },
+    "freq_C": {
+     "stated_formula": null,
+     "shown_subs": null,
+     "student_answer": 1.0
+    },
+    "rel_freq_A": {
+     "stated_formula": null,
+     "shown_subs": null,
+     "student_answer": 0.5
+    },
+    "rel_freq_B": {
+     "stated_formula": null,
+     "shown_subs": null,
+     "student_answer": 0.375
+    },
+    "rel_freq_C": {
+     "stated_formula": null,
+     "shown_subs": null,
+     "student_answer": 0.125
+    }
+   },
+   "expected": {
+    "freq_A": "NAKED_ANSWER",
+    "freq_B": "NAKED_ANSWER",
+    "freq_C": "NAKED_ANSWER",
+    "rel_freq_A": "NAKED_ANSWER",
+    "rel_freq_B": "NAKED_ANSWER",
+    "rel_freq_C": "NAKED_ANSWER"
+   }
+  },
+  {
+   "content_key": "STATS-MOD1-M004",
+   "case_id": "inconsistent_upstream_reference",
+   "description": "Part 1 arithmetic slip; downstream silently reuses the canonical upstream value",
+   "student": {
+    "freq_A": {
+     "stated_formula": "4",
+     "shown_subs": {},
+     "student_answer": 6.1000000000000005
+    },
+    "freq_B": {
+     "stated_formula": "3",
+     "shown_subs": {},
+     "student_answer": 3.0
+    },
+    "freq_C": {
+     "stated_formula": "1",
+     "shown_subs": {},
+     "student_answer": 1.0
+    },
+    "rel_freq_A": {
+     "stated_formula": "4/8",
+     "shown_subs": {},
+     "student_answer": 0.5
+    },
+    "rel_freq_B": {
+     "stated_formula": "3/8",
+     "shown_subs": {},
+     "student_answer": 0.375
+    },
+    "rel_freq_C": {
+     "stated_formula": "1/8",
+     "shown_subs": {},
+     "student_answer": 0.125
+    }
+   },
+   "expected": {
+    "freq_A": "INCORRECT",
+    "freq_B": "CORRECT",
+    "freq_C": "CORRECT",
+    "rel_freq_A": "CORRECT",
+    "rel_freq_B": "CORRECT",
+    "rel_freq_C": "CORRECT"
+   }
+  }
+ ]
+}

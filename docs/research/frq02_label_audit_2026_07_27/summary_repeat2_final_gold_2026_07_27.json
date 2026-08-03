@@ -1,0 +1,53 @@
+{
+  "run": {
+    "date": "2026-07-27",
+    "arm": "SP-FAST-Gemini-NoAudit",
+    "model": "google/gemini-2.5-flash",
+    "labels": "frq02_adjudicated_final_gold_2026_07_27.jsonl",
+    "responses": 40,
+    "criterion_rows": 160,
+    "cost_guardrail_usd": 0.25
+  },
+  "quality": {
+    "correct": 155,
+    "total": 160,
+    "pct": 96.875,
+    "schema_valid": 160,
+    "paired_same_verdict_as_confirmation_1": 156,
+    "paired_total": 160,
+    "pooled_correct_across_two_confirmations": 306,
+    "pooled_total_across_two_confirmations": 320
+  },
+  "quality_by_criterion": {
+    "FRQ02-C1": {"correct": 40, "total": 40},
+    "FRQ02-C2": {"correct": 36, "total": 40},
+    "FRQ02-C3": {"correct": 40, "total": 40},
+    "FRQ02-C4": {"correct": 39, "total": 40}
+  },
+  "latency_ms": {
+    "p50": 1348.11,
+    "p95": 2395.402,
+    "mean": 1530.615775,
+    "max": 3570.488,
+    "responses_at_or_below_1000": 1,
+    "responses_total": 40
+  },
+  "cost_usd": {
+    "total": 0.0559015,
+    "mean_per_frq": 0.0013975375,
+    "two_confirmation_total": 0.1116249
+  },
+  "reliability": {
+    "timeouts": 0,
+    "criterion_rows_retried": 1,
+    "schema_failures": 0
+  },
+  "persistent_error_keys": [
+    "S020:FRQ02-C2",
+    "S028:FRQ02-C2",
+    "S062:FRQ02-C2",
+    "S067:FRQ02-C4",
+    "S068:FRQ02-C2"
+  ],
+  "decision": "quality_and_cost_confirmed_speed_not_confirmed_run_cross_subject_architecture_pilot_before_n100"
+}

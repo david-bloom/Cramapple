@@ -35,7 +35,7 @@ You must adhere to the following distribution constraints across the 55 question
 
 ### QUESTION LAYOUT REQUIREMENTS
 
-Every individual FRQ must be structured with the following metadata header format followed by a stimulus scenario and 4 distinct, multi-point sub-questions ((a), (b), (c), (d)) matching a 4-point rubric capacity:
+Every individual FRQ must be structured with the following metadata header format followed by a stimulus scenario and exactly four distinct parts labeled Part A, Part B, Part C, and Part D. Each part is worth exactly 1 point, for a total of exactly 4 points.
 
 [METADATA START]
 - Question ID: [1 through 55]
@@ -46,19 +46,20 @@ Every individual FRQ must be structured with the following metadata header forma
 [METADATA END]
 
 [STIMULUS]
-Provide a highly descriptive, scientifically accurate data scenario, experimental design summary, or biological model description. Do not copy direct exam questions from the College Board, but ensure they are derivative or deeply inspired by the application style of authentic past exams.
+Provide a highly descriptive, scientifically accurate data scenario, experimental design summary, or biological model description. Author every question independently from the public CED facts and the approved Cramapple brief. Do not view, copy, paraphrase, adapt, derive from, or imitate any released or secure College Board question, scoring guideline, dataset, scenario, or distinctive question structure.
 
 [PROMPTS]
-(a) [Insert Task Verb prompt] (1 point)
-(b) [Insert Task Verb prompt] (1 point)
-(c) [Insert Task Verb prompt] (1 point)
-(d) [Insert Task Verb prompt] (1 point)
+Part A: [Insert Task Verb prompt] (1 point)
+Part B: [Insert Task Verb prompt] (1 point)
+Part C: [Insert Task Verb prompt] (1 point)
+Part D: [Insert Task Verb prompt] (1 point)
 
 ---
 
 ### GENERATION PROTOCOL
 
 - Systematically output all 55 questions from ID 1 to 55 without shortcuts, placeholders, or truncations.
-- Ensure that the 7 "Hand-Drawn Response: 'true'" questions explicitly command the student to draw or sketch inside one of the sub-questions (a, b, c, or d).
+- Ensure that the 7 "Hand-Drawn Response: 'true'" questions explicitly command the student to draw or sketch inside one of Parts A-D.
+- Reject any candidate that does not contain exactly four rubric criteria worth exactly 1 point each or whose visible prompt does not contain Part A, Part B, Part C, and Part D in order.
 - Ensure that "Hard" and "Very Hard" questions require structural synthesis across scales (e.g., predicting how a mutation in Module 6 impacts an allele's frequency change under environmental predation in Module 7).
 - Review your internal counter during generation to guarantee the exact totals match: 10/10/10/5/5/5/5/5 for modules, exactly 7 hand-drawn, and 10/15/20/10 for difficulties.

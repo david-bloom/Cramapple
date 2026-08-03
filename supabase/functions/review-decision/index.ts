@@ -1,6 +1,12 @@
 import { createServiceClient } from "../_shared/supabase.ts";
 import { jsonResponse, readJsonBody } from "../_shared/http.ts";
 import { requireProfile } from "../_shared/auth.ts";
+import {
+  hasExactChoiceKeys,
+  normalizeAnswerApprovals,
+  requiresTutorNote,
+  resolveTutorScore,
+} from "./review-payload.ts";
 
 function asString(value: unknown) {
   return typeof value === "string" && value.trim() ? value.trim() : null;
@@ -323,6 +329,10 @@ Deno.serve(async (req) => {
     return respond({ error: "forbidden" }, { status: 403 });
   }
 
+  if (!["pending", "in_progress"].includes(assignment.status as string)) {
+    return respond({ error: "assignment_locked" }, { status: 409 });
+  }
+
   const reviewStage = assignment.review_stage as string;
 
   const decisionPayload: Record<string, unknown> = { review_stage: reviewStage };
@@ -330,11 +340,15 @@ Deno.serve(async (req) => {
   // ── tutor_question ────────────────────────────────────────────────────────
   // Accept both canonical names and prototype aliases.
 
-  const tutorScore = asInt(b.tutor_score ?? b.score);
+  const tutorScore = resolveTutorScore(
+    b.tutor_score ?? b.score,
+    b.tutor_decision,
+  );
   const difficultyLabel = asString(b.difficulty_label ?? b.difficulty);
   const diagnosticFlag = asBool(b.diagnostic_flag) ?? false;
   const concernCodes = asStringArray(b.concern_codes);
   const note = asString(b.note ?? b.rationale);
+  const answerApprovals = normalizeAnswerApprovals(b.answer_approvals);
   const topicSelections =
     b.topic_selections &&
     typeof b.topic_selections === "object" &&
@@ -371,12 +385,50 @@ Deno.serve(async (req) => {
         { status: 400 },
       );
     }
+    if (assignment.review_kind === "mcq" && !answerApprovals) {
+      return respond(
+        { error: "invalid_answer_approvals" },
+        { status: 400 },
+      );
+    }
+    if (
+      assignment.review_kind === "mcq" &&
+      assignment.content_item_version_id &&
+      answerApprovals
+    ) {
+      const { data: choiceRows, error: choiceError } = await service
+        .schema("app")
+        .from("mcq_choices")
+        .select("choice_key")
+        .eq("content_item_version_id", assignment.content_item_version_id);
+      if (choiceError) {
+        return respond({ error: "choice_lookup_failed" }, { status: 500 });
+      }
+      const expectedChoiceKeys = (choiceRows ?? [])
+        .map((row) => asString(row.choice_key))
+        .filter((key): key is string => Boolean(key));
+      if (!hasExactChoiceKeys(answerApprovals, expectedChoiceKeys)) {
+        return respond(
+          { error: "answer_approvals_do_not_match_choices" },
+          { status: 400 },
+        );
+      }
+    }
+    if (requiresTutorNote(tutorScore, answerApprovals) && !note) {
+      return respond(
+        { error: "note_required_for_revision_or_rejection" },
+        { status: 400 },
+      );
+    }
     decisionPayload.tutor_score = tutorScore;
     decisionPayload.difficulty_label = difficultyLabel;
     decisionPayload.diagnostic_flag = diagnosticFlag;
     decisionPayload.concern_codes = concernCodes;
     decisionPayload.note = note;
     decisionPayload.topic_selections = topicSelections;
+    if (assignment.review_kind === "mcq") {
+      decisionPayload.answer_approvals = answerApprovals;
+    }
   }
 
   // ── tutor_answer ──────────────────────────────────────────────────────────
@@ -511,14 +563,16 @@ Deno.serve(async (req) => {
     .maybeSingle();
 
   if (decisionError || !insertedDecision) {
+    if (
+      decisionError?.message?.includes("review_submission:assignment_locked")
+    ) {
+      return respond({ error: "assignment_locked" }, { status: 409 });
+    }
     return respond({ error: "decision_insert_failed" }, { status: 500 });
   }
 
-  // Mark the assignment submitted.
-  await service.schema("app")
-    .from("content_review_assignments")
-    .update({ status: "submitted" })
-    .eq("content_review_assignment_id", assignmentId);
+  // The database trigger atomically marked the assignment submitted in the
+  // same transaction as the immutable decision insert.
 
   // Advance the workflow server-side. Errors here are non-fatal for the
   // reviewer — the decision is already immutably recorded.

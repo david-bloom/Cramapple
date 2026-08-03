@@ -149,6 +149,19 @@ const Arms = {
   'SP-FAST': { model: 'openai/gpt-4o-mini', boundaryMemory: true, maxOutputTokens: 150, parallelCriteria: true, prefilter: true, escalates: false, criterionTimeoutMs: 4000 },
   'SP-FAST-ESC': { model: 'openai/gpt-4o-mini', boundaryMemory: true, maxOutputTokens: 150, parallelCriteria: true, prefilter: true, escalates: true, criterionTimeoutMs: 4000, escalationTimeoutMs: 8000, escalationModel: 'openai/gpt-5.5', escalationReasoningEffort: 'medium' },
   'SP-FAST-Haiku': { model: 'anthropic/claude-haiku-4-5', boundaryMemory: true, maxOutputTokens: 150, parallelCriteria: true, prefilter: true, escalates: false, criterionTimeoutMs: 4000 },
+  // Frozen reproduction of the original June n=40 result. Keep this arm free
+  // of post-hoc audits/escalation so the comparison is configuration-identical
+  // to the 146/160 baseline.
+  'SP-FAST-Gemini-NoAudit': {
+    model: 'google/gemini-2.5-flash',
+    boundaryMemory: true,
+    maxOutputTokens: 150,
+    parallelCriteria: true,
+    prefilter: true,
+    escalates: false,
+    criterionTimeoutMs: 4000,
+    providerOptions: { google: { thinkingConfig: { thinkingBudget: 0, includeThoughts: false } } },
+  },
   'SP-FAST-Gemini': {
     model: 'google/gemini-2.5-flash',
     boundaryMemory: true,
@@ -171,6 +184,75 @@ const Arms = {
         escalateToMaxOutputTokens: 1000,
       },
     },
+  },
+  // Kimi (Moonshot) grading experiment - does a reasoning-capable open model
+  // help students by grading FRQ criteria more accurately, and at what speed /
+  // cost? Both arms grade with the model alone (no gpt-5.5 escalation, no
+  // misattribution audit) so the numbers are a clean read on Kimi's own
+  // grading, directly paired against BM-Control (gpt-5.5 medium) and
+  // SP-FAST-Gemini on the same FRQ02 corpus. Priority order stays
+  // Speed > Quality > Cost (see the pre-registration doc).
+  //
+  // SP-Kimi-Thinking: the headline arm. kimi-k2-thinking reasons natively -
+  // NOT via the OpenAI `reasoningEffort` knob - so reasoningEffort is left
+  // unset (runOneCall then attaches no openai providerOptions). Two settings
+  // differ deliberately from every fast arm above, and both are required for
+  // the arm to measure anything real rather than time out into garbage:
+  //   - maxOutputTokens is large: thinking tokens are billed and counted as
+  //     output, so a 150-token cap would truncate the model mid-reasoning
+  //     before it ever emits the JSON verdict.
+  //   - criterionTimeoutMs is large: a thinking pass can take tens of seconds;
+  //     a 4-8s cap (tuned for fast models) would time out every call and we'd
+  //     learn nothing about its true latency. This generous bound still catches
+  //     a genuine hang without pre-judging the speed result.
+  'SP-Kimi-Thinking': {
+    model: 'moonshotai/kimi-k2-thinking',
+    boundaryMemory: true,
+    maxOutputTokens: 2000,
+    parallelCriteria: true,
+    prefilter: true,
+    escalates: false,
+    criterionTimeoutMs: 45000,
+  },
+  // SP-FAST-Kimi: same model family WITHOUT native thinking (kimi-k2 instruct),
+  // as the speed/cost baseline that isolates what the reasoning actually buys.
+  // Configured like the other SP-FAST-* provider arms so it is comparable to
+  // them, not just to its thinking sibling.
+  'SP-FAST-Kimi': {
+    model: 'moonshotai/kimi-k2',
+    boundaryMemory: true,
+    maxOutputTokens: 200,
+    parallelCriteria: true,
+    prefilter: true,
+    escalates: false,
+    criterionTimeoutMs: 8000,
+  },
+  // SP-FAST-ESC-Kimi: Kimi-thinking as the SELECTIVE ESCALATION target rather
+  // than a primary grader - the role gpt-5.5 plays in SP-FAST-ESC today. Fast
+  // gpt-4o-mini grades every criterion; only low-confidence / invariant-
+  // violating verdicts escalate to kimi-k2-thinking. This is the arm to reach
+  // for if SP-Kimi-Thinking proves accurate but too slow to be a speed-first
+  // primary: the thinking cost/latency is paid only on the ~10-20% of criteria
+  // that actually need it, so the p50 stays on the fast path while the hard
+  // cluster gets the reasoning model. Identical to SP-FAST-ESC except the
+  // escalation model is Kimi, which forces two thinking-model accommodations:
+  //   - escalationMaxOutputTokens: 2000 (new knob; a thinking model needs room
+  //     to reason + emit JSON, unlike gpt-5.5 at the default 200).
+  //   - escalationTimeoutMs: 45000 (a thinking pass can take tens of seconds;
+  //     SP-FAST-ESC's 8000 ms would time out the escalation and silently fall
+  //     back to the fast verdict on exactly the cases that triggered escalation).
+  // escalationReasoningEffort is left unset - Kimi reasons natively.
+  'SP-FAST-ESC-Kimi': {
+    model: 'openai/gpt-4o-mini',
+    boundaryMemory: true,
+    maxOutputTokens: 150,
+    parallelCriteria: true,
+    prefilter: true,
+    escalates: true,
+    criterionTimeoutMs: 4000,
+    escalationTimeoutMs: 45000,
+    escalationModel: 'moonshotai/kimi-k2-thinking',
+    escalationMaxOutputTokens: 2000,
   },
   // Follow-up to SP-FAST-ESC: that arm's prior run showed FRQ02-C2 escalating on
   // 72.5% of responses, and since criteria run in parallel (end-to-end = max
@@ -304,7 +386,9 @@ function fail(message) {
 function loadRows(filePath) {
   const rows = fs.readFileSync(filePath, 'utf8').split('\n').filter(Boolean).map((line) => JSON.parse(line));
   for (const row of rows) {
-    if (row.label_status !== 'learning_quality_approved' || row.use_as_ground_truth !== true) {
+    const acceptedStatus = row.label_status === 'learning_quality_approved'
+      || row.label_status === 'adjudicated_final_gold';
+    if (!acceptedStatus || row.use_as_ground_truth !== true) {
       fail(`row ${row.response_id} is not approved ground truth`);
     }
   }
@@ -365,6 +449,15 @@ const PRICING = {
   'openai/gpt-4o-mini': { input: 0.15, cached: 0.075, output: 0.6 },
   'anthropic/claude-haiku-4-5': { input: 0.8, cached: 0.08, output: 4.0 },
   'google/gemini-2.5-flash': { input: 0.3, cached: 0.03, output: 2.5 },
+  // Kimi (Moonshot) - PROVISIONAL per-1M-token pricing, must be reconciled
+  // against the actual Vercel AI Gateway Moonshot line items before any cost
+  // number from a Kimi arm is cited (reporting-standard integrity gate). These
+  // are Moonshot's own list prices as of the wiring date; the gateway may mark
+  // them up. kimi-k2-thinking bills its reasoning tokens as output tokens, so
+  // the `output` rate dominates that arm's cost - watch the Avg output tok /
+  // Avg reasoning tok columns in the report.
+  'moonshotai/kimi-k2-thinking': { input: 0.6, cached: 0.15, output: 2.5 },
+  'moonshotai/kimi-k2': { input: 0.6, cached: 0.15, output: 2.5 },
 };
 
 function estimateCost(usage, modelName) {
@@ -556,7 +649,12 @@ async function gradeCriterionModelResolved(row, criterionId, arm, armName) {
             ? 'empty_evidence_invariant'
             : 'low_confidence';
       const escInstructions = buildInstructions(criterionId, true);
-      const escPromise = runOneCall(arm.escalationModel, escInstructions, input, arm.escalationReasoningEffort, 200);
+      // maxOutputTokens defaults to 200 (unchanged for every existing arm), but
+      // is overridable so a thinking model used as the escalation target gets
+      // enough headroom to reason AND emit the JSON verdict - a 200-token cap
+      // would truncate it mid-reasoning, the same failure mode the primary
+      // Kimi-thinking arm avoids.
+      const escPromise = runOneCall(arm.escalationModel, escInstructions, input, arm.escalationReasoningEffort, arm.escalationMaxOutputTokens || 200);
       const escRaced = arm.escalationTimeoutMs ? await withTimeout(escPromise, arm.escalationTimeoutMs) : { timedOut: false, value: await escPromise };
       const escResult = escRaced.value;
       if (escRaced.timedOut) {
@@ -803,15 +901,21 @@ async function mapWithConcurrency(items, limit, fn) {
 }
 
 function parseArgs(argv) {
-  const out = { limit: 40, output: DEFAULT_OUTPUT, arms: Object.keys(Arms) };
+  // maxCostUsd is a hard spend ceiling. The run stops launching new
+  // response x arm units once cumulative estimated cost crosses it. Default $10.
+  // Set to 0 or a negative value to disable the cap entirely.
+  const out = { limit: 40, output: DEFAULT_OUTPUT, labels: LABELS_PATH, arms: Object.keys(Arms), maxCostUsd: 10 };
   for (let i = 2; i < argv.length; i += 1) {
     const arg = argv[i];
     if (arg === '--limit') out.limit = Number(argv[++i]);
     else if (arg === '--output') out.output = argv[++i];
+    else if (arg === '--labels') out.labels = path.resolve(argv[++i]);
     else if (arg === '--arms') out.arms = argv[++i].split(',').map((s) => s.trim()).filter(Boolean);
+    else if (arg === '--max-cost-usd') out.maxCostUsd = Number(argv[++i]);
     else if (arg === '--dry-run') out.dryRun = true;
     else fail(`unknown argument ${arg}`);
   }
+  if (Number.isNaN(out.maxCostUsd)) fail('--max-cost-usd must be a number');
   return out;
 }
 
@@ -820,24 +924,34 @@ async function main() {
   const modelAuthPresent = gatewayAvailable() || Boolean(process.env.OPENAI_API_KEY);
   if (!modelAuthPresent && !args.dryRun) fail('AI_GATEWAY_API_KEY, VERCEL_OIDC_TOKEN, or OPENAI_API_KEY is not set');
 
-  const allRows = loadRows(LABELS_PATH);
+  const allRows = loadRows(args.labels);
   const corpus = selectCorpus(allRows, args.limit);
+
+  const capEnabled = args.maxCostUsd > 0;
+  const capLabel = capEnabled ? `$${args.maxCostUsd.toFixed(2)}` : 'disabled';
 
   if (args.dryRun) {
     console.log(`Dry run OK. Corpus n=${corpus.length}. Cluster present: ${corpus.filter((r) => AMBIGUOUS_CLUSTER.has(r.response_id)).length}/5.`);
     console.log(`Arms: ${args.arms.join(', ')}`);
     console.log(`Planned criterion calls: ${corpus.length * args.arms.length * CRITERION_IDS.length} (excluding escalation/retry)`);
+    console.log(`Cost cap: ${capLabel} (estimated, from the PRICING table; halts new units when crossed)`);
     console.log(`Response IDs: ${corpus.map((r) => r.response_id).join(', ')}`);
+    shutdownMisattributionChecker();
     return;
   }
 
   fs.mkdirSync(path.dirname(args.output), { recursive: true });
   const done = new Set();
+  // Cost already banked in a resumed output file counts against the cap, so a
+  // restart cannot spend the full ceiling a second time.
+  let spentUsd = 0;
   if (fs.existsSync(args.output)) {
     for (const line of fs.readFileSync(args.output, 'utf8').split('\n').filter(Boolean)) {
       const row = JSON.parse(line);
       done.add(`${row.experiment_arm}:${row.response_id}`);
+      spentUsd += Number(row.cost_usd ?? 0);
     }
+    if (spentUsd > 0) console.log(`Resumed: $${spentUsd.toFixed(4)} already spent in ${path.basename(args.output)} (counts against the cap).`);
   }
 
   const stream = fs.createWriteStream(args.output, { flags: 'a' });
@@ -852,24 +966,46 @@ async function main() {
   }
 
   console.log(`Total response x arm units to run: ${work.length} (criteria run within each unit)`);
+  console.log(`Cost cap: ${capLabel} (estimated cost, from the PRICING table).`);
   let completed = 0;
+  let skippedForCap = 0;
+  let capTripped = false;
   await mapWithConcurrency(work, CONCURRENCY, async ({ armName, row }) => {
+    // Soft cap: with CONCURRENCY units in flight, up to CONCURRENCY-1 already-
+    // started units may still finish after the cap trips. Overshoot is bounded
+    // by that many units (single-digit dollars at these per-FRQ costs). The
+    // ceiling is checked against ESTIMATED cost (PRICING table); for Kimi that
+    // pricing is provisional, so treat the cap as a guardrail, not an exact
+    // billing limit - reconcile against the real gateway invoice.
+    if (capEnabled && spentUsd >= args.maxCostUsd) {
+      if (!capTripped) {
+        capTripped = true;
+        console.log(`Cost cap ${capLabel} reached at $${spentUsd.toFixed(4)} - not launching further units.`);
+      }
+      skippedForCap += 1;
+      return;
+    }
     const criterionRows = await gradeResponseForArm(row, armName);
     for (const r of criterionRows) {
       // t6_ms already set by gradeCriterionModelResolved/prefilter path (persistence write only).
       // Do not overwrite here - a prior version of this line measured from before the model
       // call instead of after validation, which double-counted T3+T4 into T6.
       stream.write(`${JSON.stringify(r)}\n`);
+      spentUsd += Number(r.cost_usd ?? 0);
     }
     completed += 1;
     if (completed % 10 === 0 || completed === work.length) {
-      console.log(`${completed}/${work.length} response x arm units complete`);
+      console.log(`${completed}/${work.length} units complete - est. spend $${spentUsd.toFixed(4)}`);
     }
   });
 
   await new Promise((resolve) => stream.end(resolve));
   shutdownMisattributionChecker();
   console.log(`Wrote SP-1 pilot JSONL: ${args.output}`);
+  console.log(`Total estimated spend: $${spentUsd.toFixed(4)} (cap ${capLabel}).`);
+  if (skippedForCap > 0) {
+    console.log(`Stopped early on cost cap: ${skippedForCap} response x arm unit(s) not run. Re-run the same command with a higher --max-cost-usd to finish (already-completed units are skipped).`);
+  }
 }
 
 await main();

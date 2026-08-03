@@ -3,6 +3,7 @@
 **Task ID:** TASK-0011
 **Title:** Research QR-Linked Camera Capture for Handwritten Graph Review
 **Owner:** Product / Technical Owner / Learning Quality Owner
+**Phase D Execution Owner:** Claude (assigned 2026-07-27)
 **Product Owner:** David Bloom
 **Status:** Research
 **Priority:** Medium

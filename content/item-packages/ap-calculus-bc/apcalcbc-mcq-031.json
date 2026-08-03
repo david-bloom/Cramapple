@@ -1,0 +1,147 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apcalcbc-mcq-031",
+  "content_key": "apcalcbc-mcq-031",
+  "content_version": 1,
+  "difficulty": "Hard",
+  "exam_pack_ref": {
+    "exam_code": "ap_calculus_bc",
+    "school_year": "2026-27",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "mcq",
+  "archetype_ref": {
+    "archetype_key": "ap-calculus-bc-mcq",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-calculus-bc-2026-27",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-5-analytical-applications-of-differentiation"
+    },
+    {
+      "scheme_key": "ap-calculus-bc-2026-27",
+      "scheme_version": "1.0.0",
+      "node_key": "topic-5.4"
+    },
+    {
+      "scheme_key": "ap-calculus-bc-mathematical-practices",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-2"
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All assessed mathematical information is available in text; notation requires normal math-reading support."
+  },
+  "stimuli": [
+    {
+      "stimulus_key": "directions",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "A graphing calculator is required.",
+        "calculator_mode": "calculator"
+      },
+      "source_refs": [
+        "ap-calculus-ab-bc-ced-effective-fall-2020-2026-release"
+      ]
+    }
+  ],
+  "mcq_choices": [
+    {
+      "choice_key": "A",
+      "choice_text": "−1.967 and 0.359",
+      "is_correct": true,
+      "rationale": "Correctly identifies both positive-to-negative sign changes."
+    },
+    {
+      "choice_key": "B",
+      "choice_text": "−0.359 and 1.967",
+      "is_correct": false,
+      "rationale": "Selects the two negative-to-positive sign changes."
+    },
+    {
+      "choice_key": "C",
+      "choice_text": "−1.967 and 1.967",
+      "is_correct": false,
+      "rationale": "Chooses the outer roots without checking derivative signs."
+    },
+    {
+      "choice_key": "D",
+      "choice_text": "−0.359 and 0.359",
+      "is_correct": false,
+      "rationale": "Chooses the inner roots without checking derivative signs."
+    }
+  ],
+  "canonical_answers": [
+    "A"
+  ],
+  "parts": [
+    {
+      "part_key": "question",
+      "ordinal": 1,
+      "prompt": "A differentiable function has f′(x)=x⁴−4x²+0.5 on −2≤x≤2. At which x-values does f have local maxima, to the nearest thousandth?\n\nA. −1.967 and 0.359\nB. −0.359 and 1.967\nC. −1.967 and 1.967\nD. −0.359 and 0.359",
+      "stimulus_refs": [
+        "directions"
+      ],
+      "response_modalities": [
+        "choice"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-answer",
+          "points": 1,
+          "description": "Select the unique correct response.",
+          "required_evidence": [
+            "A",
+            "The derivative zeros are approximately ±0.359 and ±1.967; positive-to-negative sign changes occur at x≈−1.967 and x≈0.359."
+          ],
+          "accepted_variants": [
+            "Only a displayed choice that is mathematically identical to the keyed response may be treated as equivalent."
+          ],
+          "insufficient_responses": [
+            "An unkeyed choice without a valid ambiguity finding."
+          ],
+          "contradictions": [
+            "A choice or rationale that conflicts with the governing domain, units, or theorem conditions."
+          ],
+          "minimum_fix": "Select the keyed response after correcting the first invalid mathematical step.",
+          "deterministic_checks": [
+            {
+              "check_type": "choice-key",
+              "parameters": {
+                "correct_key": "A"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "review_notes": {
+    "expected_reasoning": "The derivative zeros are approximately ±0.359 and ±1.967; positive-to-negative sign changes occur at x≈−1.967 and x≈0.359.",
+    "teaching_explanation": "The derivative zeros are approximately ±0.359 and ±1.967; positive-to-negative sign changes occur at x≈−1.967 and x≈0.359.",
+    "minimum_fix": "Correct the first invalid mathematical step, then recompute without changing the problem conditions.",
+    "transfer_candidate": "Create a new item assessing Topic 5.4 with different values and a different representation.",
+    "delayed_retrieval_candidate": "Reassess Topic 5.4 after a delay without reusing this stem or choices.",
+    "known_boundary_cases": [
+      "Reject if more than one displayed choice becomes correct under a reasonable interpretation.",
+      "Check that the keyed choice is not identifiable by length, grammar, or precision alone."
+    ],
+    "originality_statement": "Independently authored Cramapple practice item from a blank scope brief; no released, secure, or third-party question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-calculus-ab-bc-ced-effective-fall-2020-2026-release"
+    ],
+    "fact_pack_version": "2026-07-28",
+    "authoring_prompt_version": "CALCULUS_BC_CONTENT_BATCH_2026_07_28",
+    "generated_by": "codex",
+    "generated_at": "2026-07-28T00:00:00Z",
+    "content_sha256": "3229b14c042b6906050a488836652c57074e4e9ee2ac7fc7565c044e96273050"
+  }
+}

@@ -26,13 +26,18 @@ import {
 } from "../_shared/grading-feedback.ts";
 import {
   type AllowedOperation,
+  buildCriterionGradingPrompt,
+  buildCriterionRequestBody,
+  buildCriterionSystemPrompt,
   buildGradingPrompt,
   buildGradingRequestBody,
   buildSystemPrompt,
+  composeStudentFacingSummary,
   extractOutputText,
   extractUsage,
   type FeedbackCriterionRow,
   isTransientHttpStatus,
+  mergeCriterionResults,
   sanitizeModelResult,
 } from "../_shared/grading-contract.ts";
 import { loadLearningRuntimeContext } from "../_shared/learning-context.ts";
@@ -92,7 +97,46 @@ const OPENAI_DAILY_CAP_USD = requirePositiveNumberEnv("OPENAI_DAILY_CAP_USD");
 const EVALUATE_ATTEMPT_PROMPT_VERSION = requireEnv(
   "EVALUATE_ATTEMPT_PROMPT_VERSION",
 );
-const MATH_VERIFIER_VERSION = "math-verifier-ts-2026-07-08";
+// Entitlement gating ships ahead of its schema. The `authorize_grading_access`
+// RPC lives in migration 20260720122542_free_score_check_growth_funnel.sql,
+// which is NOT applied to Production (verified 2026-07-28) -- so calling it
+// there fails and every non-admin grading request 403s with
+// `entitlement_required`. Deploying this file without the flag took Production
+// grading from "broken by two transport bugs" to "rejects every caller", which
+// is strictly worse.
+//
+// Default OFF, which reproduces the pre-2026-07-28 deployed behaviour (v23 had
+// no gate at all). This is NOT a silent bypass: the check is skipped only when
+// explicitly disabled, and turning it on is a one-line env change once the
+// migration is applied. Code and schema must ship together; until they do, the
+// flag makes the mismatch explicit instead of fatal.
+const GRADING_ENTITLEMENTS_ENABLED =
+  (Deno.env.get("GRADING_ENTITLEMENTS_ENABLED") ?? "false").toLowerCase() ===
+    "true";
+
+// Request architecture for LLM text grading.
+//
+// "b" (default) is what Production runs today: ONE call grading every criterion
+// of an item, measured at 0.58 s + 3.89 s x n_criteria, so ~16 s on a
+// 4-criterion Biology FRQ. "a" grades each criterion in its own parallel call,
+// which is flat in criterion count and should land near Production's own
+// 1-criterion figure of ~4.5 s.
+//
+// Defaulting to "b" so the new path deploys dark. Arm A changes the request
+// shape, the output schema, and the student-facing summary all at once, on a
+// grader that had never completed a Production grading until 2026-07-28 --
+// flipping it blind is how the entitlement-gate outage happened. Deploy, then
+// flip the flag, then measure with the narrow pilot.
+const GRADING_ARM = (Deno.env.get("GRADING_ARM") ?? "b").toLowerCase() === "a"
+  ? "a"
+  : "b";
+
+// Bumped 2026-07-28: three checker defects fixed (supplied inputs now win over
+// the built-in `e`/`pi` constants; CORRECT_VIA_ECF requires a real upstream
+// divergence; `erf`/`factorial` parse). Verdicts from this build are not
+// comparable to 2026-07-08 ones, so the stamp recorded in
+// grading_results.deterministic_verifier_version has to move with it.
+const MATH_VERIFIER_VERSION = "math-verifier-ts-2026-07-28";
 
 // Timeout is configurable so we can tune for high-reasoning models without
 // a code change. 90s accommodates reasoning: { effort: "high" } latency
@@ -114,6 +158,7 @@ type OutputCriterion = {
   criterion_key: string;
   status:
     | "earned"
+    | "partially_earned"
     | "not_yet_earned"
     | "unable_to_determine"
     | "not_applicable";
@@ -417,6 +462,106 @@ async function callOpenAIGrader(input: {
   }
 }
 
+// Arm A: grade each criterion in its own call, in parallel.
+//
+// Aggregation rules that matter:
+//   - latency is the MAX of the calls, not the sum. They overlap; summing them
+//     would report an item as slower than the student experienced and would
+//     make Arm A look like the thing it replaces.
+//   - tokens and cost are the SUM. The stem and stimulus are re-sent once per
+//     criterion, so input tokens rise ~3.6x (Phase C). Accepted under the
+//     standing Speed > Quality > Cost order, but it is a real increase and the
+//     ledger must show it.
+//   - each call gets its own idempotency key. Reusing the item's key across
+//     the fan-out would let the provider serve one criterion's cached response
+//     for every criterion on the item.
+//   - one criterion failing does not fail the item. Its slot resolves to null,
+//     mergeCriterionResults turns that into unable_to_determine, and the
+//     sanitizer marks the grading uncertain. Under Arm B the same failure lost
+//     every criterion.
+async function callOpenAIGraderPerCriterion(input: {
+  modelId: string;
+  maxOutputTokens: number;
+  systemPrompt: string;
+  criteria: FeedbackCriterionRow[];
+  buildUserPrompt: (criterion: FeedbackCriterionRow) => string;
+  userIdHash: string;
+  idempotencyKey: string;
+}) {
+  const settled = await Promise.all(
+    input.criteria.map(async (criterion) => {
+      const body = buildCriterionRequestBody({
+        modelId: input.modelId,
+        // The item-sized cap is reused deliberately. A single criterion cannot
+        // approach it, so truncation is impossible -- and truncation at a
+        // hand-tuned per-criterion cap is exactly what was misdiagnosed as an
+        // architectural failure in Phase C (ARM_B_ROOT_CAUSE_ANALYSIS.md 1).
+        // A cap costs nothing unless it is hit.
+        maxOutputTokens: input.maxOutputTokens,
+        systemPrompt: input.systemPrompt,
+        userPrompt: input.buildUserPrompt(criterion),
+        userIdHash: input.userIdHash,
+      });
+      const idempotencyKey = `${input.idempotencyKey}:${criterion.criterion_key}`;
+
+      try {
+        return await attemptOpenAICall({
+          body,
+          idempotencyKey,
+          timeoutMs: OPENAI_REQUEST_TIMEOUT_MS,
+        });
+      } catch (error) {
+        if (!(error instanceof TransientGraderError)) {
+          return { failed: true as const, error };
+        }
+        await new Promise((resolve) => setTimeout(resolve, 500));
+        try {
+          return await attemptOpenAICall({
+            body,
+            idempotencyKey,
+            timeoutMs: OPENAI_REQUEST_TIMEOUT_MS,
+          });
+        } catch (retryError) {
+          return { failed: true as const, error: retryError };
+        }
+      }
+    }),
+  );
+
+  const parsed: Array<Record<string, unknown> | null> = [];
+  const raws: unknown[] = [];
+  const failures: unknown[] = [];
+  let inputTokens = 0;
+  let outputTokens = 0;
+  let maxElapsedMs = 0;
+
+  for (const outcome of settled) {
+    if ("failed" in outcome) {
+      parsed.push(null);
+      failures.push(outcome.error);
+      continue;
+    }
+    parsed.push(
+      outcome.parsed && typeof outcome.parsed === "object"
+        ? outcome.parsed as Record<string, unknown>
+        : null,
+    );
+    raws.push(outcome.raw);
+    const usage = extractUsage(outcome.raw as Record<string, unknown>);
+    inputTokens += usage.inputTokens ?? 0;
+    outputTokens += usage.outputTokens ?? 0;
+    maxElapsedMs = Math.max(maxElapsedMs, outcome.elapsedMs);
+  }
+
+  // Every criterion failing is an item-level failure, not a gradeable result
+  // with N abstentions. Throwing puts it on the same error path Arm B uses.
+  if (failures.length === input.criteria.length && input.criteria.length > 0) {
+    throw failures[0];
+  }
+
+  return { parsed, raws, inputTokens, outputTokens, elapsedMs: maxElapsedMs };
+}
+
 async function readBodyAsRecord(req: Request) {
   const body = await readJsonBody(req);
   return body && typeof body === "object" && !Array.isArray(body)
@@ -562,6 +707,18 @@ Deno.serve(async (req) => {
       return respond({ error: "idempotency_conflict" }, { status: 409 });
     }
 
+    const { data: existingAttempt } = await service.schema("app")
+      .from("attempts")
+      .select("user_id")
+      .eq("id", existingResult.attempt_id)
+      .maybeSingle();
+    if (
+      !existingAttempt ||
+      (existingAttempt.user_id !== user.id && profile.role !== "admin")
+    ) {
+      return respond({ error: "forbidden" }, { status: 403 });
+    }
+
     return respond(
       {
         status: existingResult.status,
@@ -670,6 +827,30 @@ Deno.serve(async (req) => {
     examPackVersion.status !== "published"
   ) {
     return respond({ error: "content_not_published" }, { status: 409 });
+  }
+
+  // Product access is authoritative on the server. Paid/beta users pass
+  // through; free-score-check users can reserve exactly one initial grade and
+  // one repair grade, idempotently by request ID. Admin calls are operational
+  // and intentionally bypass learner entitlements.
+  if (GRADING_ENTITLEMENTS_ENABLED && profile.role !== "admin") {
+    const { error: accessError } = await service.schema("app").rpc(
+      "authorize_grading_access",
+      {
+        p_user_id: user.id,
+        p_attempt_id: attempt.id,
+        p_operation: operation,
+        p_request_id: idempotencyKey,
+      },
+    );
+
+    if (accessError) {
+      const accessCode = accessError.message.match(
+        /grading_access:([a-z_]+)/,
+      )?.[1] ?? "entitlement_required";
+      const status = accessCode === "attempt_not_found" ? 404 : 403;
+      return respond({ error: accessCode }, { status });
+    }
   }
 
   // Subject-driven grading: examName comes from the exam pack the question
@@ -1133,7 +1314,9 @@ Deno.serve(async (req) => {
       outputTokens = 0;
       actualCost = 0;
     } else {
-      const systemPrompt = buildSystemPrompt(examPack.exam_name as string);
+      const systemPrompt = GRADING_ARM === "a"
+        ? buildCriterionSystemPrompt(examPack.exam_name as string)
+        : buildSystemPrompt(examPack.exam_name as string);
 
       try {
         await service.schema("app").from("grading_results").update({
@@ -1152,25 +1335,72 @@ Deno.serve(async (req) => {
           }).eq("request_id", idempotencyKey);
         }
 
-        modelResponse = await callOpenAIGrader({
-          modelId,
-          maxOutputTokens: OPENAI_MAX_OUTPUT_TOKENS,
-          systemPrompt,
-          userPrompt: buildGradingPrompt(promptBase),
-          userIdHash: await sha256Hex(user.id),
-          idempotencyKey: idempotencyKey,
-        });
+        if (GRADING_ARM === "a") {
+          const fanOut = await callOpenAIGraderPerCriterion({
+            modelId,
+            maxOutputTokens: OPENAI_MAX_OUTPUT_TOKENS,
+            systemPrompt,
+            criteria: promptBase.criteria,
+            buildUserPrompt: (criterion) =>
+              buildCriterionGradingPrompt({ ...promptBase, criterion }),
+            userIdHash: await sha256Hex(user.id),
+            idempotencyKey,
+          });
 
-        finalPayload = sanitizeModelResult(
-          modelResponse.parsed,
-          promptBase.criteria,
-          { responseText, responseParts },
-        );
+          const merged = mergeCriterionResults(
+            fanOut.parsed,
+            promptBase.criteria,
+          );
+          finalPayload = sanitizeModelResult(
+            merged,
+            promptBase.criteria,
+            { responseText, responseParts },
+          );
+          // The summary is composed after sanitization, from the points that
+          // actually survived grounding and partial-credit reconciliation --
+          // not from the model's raw claims, which those checks may have
+          // revised downward.
+          finalPayload = {
+            ...finalPayload,
+            student_facing_summary: composeStudentFacingSummary(
+              finalPayload.criteria,
+              finalPayload.points_earned,
+              finalPayload.points_available,
+              finalPayload.highest_value_gap?.minimum_fix ?? null,
+            ),
+          };
+
+          // One entry per criterion: raw_model_response has to stay auditable,
+          // and an item's grading is now N provider responses, not one.
+          modelResponse = {
+            raw: { arm: "a", criterion_responses: fanOut.raws },
+            parsed: merged as Record<string, unknown>,
+            elapsedMs: fanOut.elapsedMs,
+          };
+          inputTokens = fanOut.inputTokens;
+          outputTokens = fanOut.outputTokens;
+        } else {
+          modelResponse = await callOpenAIGrader({
+            modelId,
+            maxOutputTokens: OPENAI_MAX_OUTPUT_TOKENS,
+            systemPrompt,
+            userPrompt: buildGradingPrompt(promptBase),
+            userIdHash: await sha256Hex(user.id),
+            idempotencyKey: idempotencyKey,
+          });
+
+          finalPayload = sanitizeModelResult(
+            modelResponse.parsed,
+            promptBase.criteria,
+            { responseText, responseParts },
+          );
+
+          const usage = extractUsage(modelResponse.raw);
+          inputTokens = usage.inputTokens ?? inputTokens;
+          outputTokens = usage.outputTokens ?? outputTokens;
+        }
+
         finalStatus = finalPayload.status === "graded" ? "graded" : "uncertain";
-
-        const usage = extractUsage(modelResponse.raw);
-        inputTokens = usage.inputTokens ?? inputTokens;
-        outputTokens = usage.outputTokens ?? outputTokens;
 
         const pricingInputTokens = inputTokens;
         const pricingOutputTokens = outputTokens;
@@ -1199,11 +1429,13 @@ Deno.serve(async (req) => {
             "Your answer is saved, but feedback is taking longer than expected.",
           action_hint: null,
           repair_hint: null,
-          sanitization_version: "grading-sanitizer-v2",
+          sanitization_version: "grading-sanitizer-v3",
           integrity_issues: [{
             code: "criteria_missing" as const,
             criterion_key: null,
           }],
+          // The model never returned, so nothing was reconciled.
+          normalizations: [],
         };
       } finally {
         if (usageRow) {

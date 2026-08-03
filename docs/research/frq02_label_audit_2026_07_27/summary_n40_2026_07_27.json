@@ -1,0 +1,65 @@
+{
+  "run": {
+    "date": "2026-07-27",
+    "arm": "SP-FAST-Gemini-NoAudit",
+    "model": "google/gemini-2.5-flash",
+    "responses": 40,
+    "criterion_rows": 160,
+    "cost_guardrail_usd": 0.25
+  },
+  "audit": {
+    "responses_reviewed": 100,
+    "labels_reviewed": 400,
+    "proposed_overrides": 23,
+    "overrides_by_criterion": {
+      "FRQ02-C1": 1,
+      "FRQ02-C2": 17,
+      "FRQ02-C3": 5,
+      "FRQ02-C4": 0
+    },
+    "status": "promoted_to_adjudicated_final_gold"
+  },
+  "quality": {
+    "original_labels": {
+      "correct": 145,
+      "total": 160,
+      "pct": 90.625
+    },
+    "audited_labels": {
+      "correct": 151,
+      "total": 160,
+      "pct": 94.375
+    },
+    "schema_valid": {
+      "count": 159,
+      "total": 160,
+      "pct": 99.375
+    },
+    "by_criterion": {
+      "FRQ02-C1": {"total": 40, "original_correct": 39, "audited_correct": 40},
+      "FRQ02-C2": {"total": 40, "original_correct": 32, "audited_correct": 33},
+      "FRQ02-C3": {"total": 40, "original_correct": 36, "audited_correct": 40},
+      "FRQ02-C4": {"total": 40, "original_correct": 38, "audited_correct": 38}
+    }
+  },
+  "latency_ms": {
+    "min": 794.713,
+    "p50": 1040.76,
+    "p95": 2411.315,
+    "max": 3163.02,
+    "mean": 1405.656225,
+    "responses_at_or_below_1000": 15,
+    "responses_total": 40
+  },
+  "cost_usd": {
+    "total": 0.0557234,
+    "mean_per_frq": 0.001393085
+  },
+  "reliability": {
+    "timeouts": 0,
+    "criterion_rows_retried": 1,
+    "schema_failures": 1,
+    "schema_failure_key": "S056:FRQ02-C2"
+  },
+  "decision": "repeat_frozen_n40_before_n100"
+}

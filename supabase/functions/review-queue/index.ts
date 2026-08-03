@@ -22,16 +22,92 @@ type ContentVersion = {
   stem: string;
   stimulus: string | null;
   explanation: string | null;
-  frq_form: string | null;
   review_status: string | null;
   status: string;
+  stimulus_image_path: string | null;
+  prompt_json: Record<string, unknown> | null;
 };
+
+type StructuredPromptPart = {
+  label?: unknown;
+  prompt?: unknown;
+  points?: unknown;
+};
+
+function normalizePromptText(value: string): string {
+  return value.replace(/\s+/g, " ").trim().toLowerCase();
+}
+
+// The current reviewer client renders artifact.stem but does not yet render
+// prompt_json.parts. Build a complete reviewer-only stem at the queue boundary
+// so a structured full-scale FRQ cannot appear as boilerplate plus a rubric.
+// MCQ prompt_json.parts represent the single question already supplied by the
+// stem and must never be rendered as an FRQ-style "mandatory subpart."
+// Parts already present verbatim in the stem are not duplicated.
+export function buildReviewerStem(
+  version: ContentVersion,
+  itemType?: string | null,
+): string {
+  const base = version.stem ?? "";
+  if (itemType?.toLowerCase() === "mcq") return base;
+  const rawParts = version.prompt_json?.parts;
+  if (!Array.isArray(rawParts)) return base;
+
+  const normalizedBase = normalizePromptText(base);
+  const visibleParts = rawParts.flatMap((raw, index) => {
+    if (!raw || typeof raw !== "object") return [];
+    const part = raw as StructuredPromptPart;
+    if (typeof part.prompt !== "string" || !part.prompt.trim()) return [];
+    if (normalizedBase.includes(normalizePromptText(part.prompt))) return [];
+
+    const label = typeof part.label === "string" && part.label.trim()
+      ? part.label.trim()
+      : `Part ${String.fromCharCode(65 + index)}`;
+    const points = typeof part.points === "number" && Number.isFinite(part.points)
+      ? ` (${part.points} ${part.points === 1 ? "point" : "points"})`
+      : "";
+    return [`${label}${points}: ${part.prompt.trim()}`];
+  });
+
+  if (visibleParts.length === 0) return base;
+  return `${base}\n\nMandatory subparts:\n\n${visibleParts.join("\n\n")}`;
+}
+
+const STIMULUS_IMAGE_BUCKET = "content-assets";
+const STIMULUS_IMAGE_URL_TTL_SECONDS = 3600;
+
+// Heuristic-only, soft-flag QA aid (not a publish gate): the text implies a
+// figure/diagram/graph/photo the student must read, but there's neither an
+// attached stimulus image nor the corpus's established text-substitute
+// convention ("Figure 1 (described): ..." / "Figure 1 description: ...").
+// False positives are expected and fine — this surfaces a warning in the
+// review payload, it never blocks a tutor's decision. Hand-drawn
+// student-response items are excluded: those describe data the STUDENT
+// draws from, not a pre-supplied figure.
+const FIGURE_REFERENCE_PATTERN =
+  /(figure\s*\d|graph\s*(shown|shows|below)|diagram\s*(shown|shows|below)|image\s*(shown|shows|below)|picture\s*(shown|shows|below)|photograph\s*(shown|shows|below)|chart\s*(shown|shows|below)|the following\s*(figure|diagram|graph|image))/i;
+const DESCRIBED_SUBSTITUTE_PATTERN = /figure\s*\d*\s*\(?descri(bed|ption)\)?[:.]?/i;
+
+function looksLikeMissingStimulusImage(version: ContentVersion): boolean {
+  if (version.stimulus_image_path) return false;
+  const handDrawn = version.prompt_json?.hand_drawn === true ||
+    version.prompt_json?.hand_drawn === "true";
+  if (handDrawn) return false;
+
+  const text = `${version.stem ?? ""} ${version.stimulus ?? ""}`;
+  if (!FIGURE_REFERENCE_PATTERN.test(text)) return false;
+  if (DESCRIBED_SUBSTITUTE_PATTERN.test(text)) return false;
+
+  return true;
+}
 
 type ContentItem = {
   id: string;
   content_key: string;
   item_type: string;
   title: string;
+  frq_form: string | null;
+  status: string;
 };
 
 type McqChoice = {
@@ -48,6 +124,32 @@ type FrqCriterion = {
   learner_facing_text: string;
   points_possible: number;
 };
+
+// Any of these .in() filters can carry hundreds of IDs once admin CC mode
+// (all pending assignments across every reviewer) is in play — 711 pending
+// assignments at last count. A single .in() with that many UUIDs blows past
+// the PostgREST/gateway request-size limit and returns a plain error with no
+// detail (surfaced to the client as "queue_details_failed" /
+// "queue_lookup_failed"). Same failure class as the frontend's content
+// inventory query hit at 818 content items — chunk every large .in() call.
+const IN_CHUNK_SIZE = 150;
+
+async function fetchInChunks<T>(
+  ids: string[],
+  runChunk: (
+    chunk: string[],
+  ) => PromiseLike<{ data: T[] | null; error: { message: string } | null }>,
+): Promise<{ data: T[]; error: string | null }> {
+  if (ids.length === 0) return { data: [], error: null };
+  const out: T[] = [];
+  for (let i = 0; i < ids.length; i += IN_CHUNK_SIZE) {
+    const chunk = ids.slice(i, i + IN_CHUNK_SIZE);
+    const { data, error } = await runChunk(chunk);
+    if (error) return { data: out, error: error.message };
+    out.push(...((data ?? []) as T[]));
+  }
+  return { data: out, error: null };
+}
 
 async function loadProfile(req: Request) {
   const profileResult = await requireProfile(req);
@@ -79,16 +181,35 @@ Deno.serve(async (req) => {
   const service = createServiceClient();
   const reviewerId = profileResult.user.id;
   const reviewerRole = profileResult.profile.role as string;
+  const reviewQueueScope = profileResult.profile.review_queue_scope as
+    | string
+    | null;
+
+  // Admin "CC" mode: an admin whose profile opts into review_queue_scope =
+  // 'all_pending' sees every reviewer's pending assignments, not just their
+  // own. This was already wired into the frontend (reviewer.index.tsx checks
+  // scope === "all_pending" && reviewerRole === "admin") and into the
+  // profiles table, but this function never actually implemented it — it
+  // always filtered to the caller's own reviewer_id regardless of role.
+  const isAdminCC = reviewerRole === "admin" && reviewQueueScope === "all_pending";
+  const scope = isAdminCC ? "all_pending" : "mine";
 
   // ── Assignments ─────────────────────────────────────────────────────────────
 
-  const { data: assignments, error: assignmentsError } = await service
+  let assignmentQuery = service
     .schema("app")
     .from("content_review_assignments")
     .select(
       "content_review_assignment_id, ingest_row_id, content_item_version_id, review_stage, review_kind, reviewer_id, blind_group_id, due_at, status, created_at",
-    )
-    .eq("reviewer_id", reviewerId)
+    );
+
+  assignmentQuery = isAdminCC
+    ? assignmentQuery.eq("status", "pending")
+    : assignmentQuery
+      .eq("reviewer_id", reviewerId)
+      .in("status", ["pending", "in_progress"]);
+
+  const { data: assignments, error: assignmentsError } = await assignmentQuery
     .order("due_at", { ascending: true, nullsFirst: false });
 
   if (assignmentsError) {
@@ -108,7 +229,12 @@ Deno.serve(async (req) => {
       {
         status: "ok",
         function: "review-queue",
-        reviewer: { reviewer_id: reviewerId, reviewer_role: reviewerRole },
+        reviewer: {
+          reviewer_id: reviewerId,
+          reviewer_role: reviewerRole,
+          reviewer_name: profileResult.profile.full_name,
+        },
+        scope,
         queue: [],
         counts: {},
       },
@@ -116,39 +242,59 @@ Deno.serve(async (req) => {
     );
   }
 
-  // ── Parallel fetch: decisions, content versions, labels ─────────────────────
+  // In CC mode the queue spans other reviewers, so fetch their names/roles
+  // to label each card ("Owner: Jill Schmidlkofer · tutor").
+  const otherReviewerIds = Array.from(
+    new Set(assignmentRows.map((r) => r.reviewer_id)),
+  );
+  const reviewerProfileById = new Map<
+    string,
+    { full_name: string | null; role: string | null }
+  >();
+  if (isAdminCC && otherReviewerIds.length) {
+    const { data: reviewerProfiles } = await service
+      .schema("app")
+      .from("profiles")
+      .select("user_id, full_name, role")
+      .in("user_id", otherReviewerIds);
+    for (const p of reviewerProfiles ?? []) {
+      reviewerProfileById.set(p.user_id as string, {
+        full_name: p.full_name as string | null,
+        role: p.role as string | null,
+      });
+    }
+  }
 
-  const [
-    decisionResult,
-    labelResult,
-    contentVersionResult,
-  ] = await Promise.all([
-    service.schema("app").from("content_review_decisions")
-      .select(
-        "content_review_decision_id, content_review_assignment_id, content_item_version_id, review_stage, tutor_score, difficulty_label, concern_codes, note, answer_key, answer_approval, reader_decision, supersedes_id, submitted_at, created_at",
-      )
-      .in("content_review_assignment_id", assignmentIds),
+  // ── Fetch: decisions, content versions, labels (chunked) ────────────────────
 
-    service.schema("app").from("content_review_assignment_labels")
-      .select("content_review_assignment_id, content_label_id, created_at")
-      .in("content_review_assignment_id", assignmentIds),
-
-    contentVersionIds.length
-      ? service.schema("app").from("content_item_versions")
+  const [decisionResult, labelResult, contentVersionResult] = await Promise.all([
+    fetchInChunks<Record<string, unknown>>(assignmentIds, (chunk) =>
+      service.schema("app").from("content_review_decisions")
         .select(
-          "id, content_item_id, version_num, stem, stimulus, explanation, frq_form, review_status, status",
+          "content_review_decision_id, content_review_assignment_id, content_item_version_id, review_stage, tutor_score, difficulty_label, concern_codes, note, answer_key, answer_approval, reader_decision, supersedes_id, submitted_at, created_at",
         )
-        .in("id", contentVersionIds)
-      : Promise.resolve({ data: [], error: null as null }),
+        .in("content_review_assignment_id", chunk)),
+
+    fetchInChunks<Record<string, unknown>>(assignmentIds, (chunk) =>
+      service.schema("app").from("content_review_assignment_labels")
+        .select("content_review_assignment_id, content_label_id, created_at")
+        .in("content_review_assignment_id", chunk)),
+
+    fetchInChunks<ContentVersion>(contentVersionIds, (chunk) =>
+      service.schema("app").from("content_item_versions")
+        .select(
+          "id, content_item_id, version_num, stem, stimulus, explanation, review_status, status, stimulus_image_path, prompt_json",
+        )
+        .in("id", chunk)),
   ]);
 
-  if (decisionResult.error || labelResult.error || (contentVersionResult as { error?: unknown }).error) {
+  if (decisionResult.error || labelResult.error || contentVersionResult.error) {
     return respond({ error: "queue_details_failed" }, { status: 500 });
   }
 
-  const decisions = (decisionResult.data ?? []) as Array<Record<string, unknown>>;
-  const reviewLabels = (labelResult.data ?? []) as Array<Record<string, unknown>>;
-  const contentVersions = ((contentVersionResult as { data?: unknown[] }).data ?? []) as ContentVersion[];
+  const decisions = decisionResult.data;
+  const reviewLabels = labelResult.data;
+  const contentVersions = contentVersionResult.data;
 
   // ── Content items (for item_type, content_key, title) ───────────────────────
 
@@ -158,34 +304,66 @@ Deno.serve(async (req) => {
 
   const [contentItemResult, mcqChoiceResult, frqCriterionResult] =
     await Promise.all([
-      contentItemIds.length
-        ? service.schema("app").from("content_items")
-          .select("id, content_key, item_type, title")
-          .in("id", contentItemIds)
-        : Promise.resolve({ data: [], error: null as null }),
+      fetchInChunks<ContentItem>(contentItemIds, (chunk) =>
+        service.schema("app").from("content_items")
+          .select("id, content_key, item_type, title, frq_form, status")
+          .in("id", chunk)),
 
-      contentVersionIds.length
-        ? service.schema("app").from("mcq_choices")
+      fetchInChunks<McqChoice>(contentVersionIds, (chunk) =>
+        service.schema("app").from("mcq_choices")
           .select(
             "content_item_version_id, choice_key, choice_text, is_correct, rationale",
           )
-          .in("content_item_version_id", contentVersionIds)
-          .order("choice_key", { ascending: true })
-        : Promise.resolve({ data: [], error: null as null }),
+          .in("content_item_version_id", chunk)
+          .order("choice_key", { ascending: true })),
 
-      contentVersionIds.length
-        ? service.schema("app").from("frq_criteria")
+      fetchInChunks<FrqCriterion>(contentVersionIds, (chunk) =>
+        service.schema("app").from("frq_criteria")
           .select(
             "content_item_version_id, criterion_key, learner_facing_text, points_possible",
           )
-          .in("content_item_version_id", contentVersionIds)
-          .order("criterion_key", { ascending: true })
-        : Promise.resolve({ data: [], error: null as null }),
+          .in("content_item_version_id", chunk)
+          .order("criterion_key", { ascending: true })),
     ]);
 
-  const contentItems = ((contentItemResult as { data?: unknown[] }).data ?? []) as ContentItem[];
-  const mcqChoices = ((mcqChoiceResult as { data?: unknown[] }).data ?? []) as McqChoice[];
-  const frqCriteria = ((frqCriterionResult as { data?: unknown[] }).data ?? []) as FrqCriterion[];
+  if (contentItemResult.error || mcqChoiceResult.error || frqCriterionResult.error) {
+    return respond({ error: "queue_details_failed" }, { status: 500 });
+  }
+
+  const contentItems = contentItemResult.data;
+  const mcqChoices = mcqChoiceResult.data;
+  const frqCriteria = frqCriterionResult.data;
+
+  // ── Signed URLs for stimulus images ─────────────────────────────────────────
+  // content-assets is a private bucket (service_role only); reviewers never
+  // call storage-sign-url themselves (their role isn't authorized for that
+  // bucket) — this function signs on their behalf using its own service-role
+  // client, scoped to just the images this reviewer's queue actually needs.
+
+  const stimulusImagePaths = Array.from(
+    new Set(
+      contentVersions
+        .map((v) => v.stimulus_image_path)
+        .filter((path): path is string => Boolean(path)),
+    ),
+  );
+
+  const imageUrlByPath = new Map<string, string>();
+  if (stimulusImagePaths.length) {
+    const { data: signedUrls, error: signError } = await service.storage
+      .from(STIMULUS_IMAGE_BUCKET)
+      .createSignedUrls(stimulusImagePaths, STIMULUS_IMAGE_URL_TTL_SECONDS);
+
+    if (signError) {
+      return respond({ error: "stimulus_image_sign_failed" }, { status: 500 });
+    }
+
+    for (const entry of signedUrls ?? []) {
+      if (entry.path && entry.signedUrl && !entry.error) {
+        imageUrlByPath.set(entry.path, entry.signedUrl);
+      }
+    }
+  }
 
   // ── Index lookups ────────────────────────────────────────────────────────────
 
@@ -214,7 +392,23 @@ Deno.serve(async (req) => {
 
   // ── Build the queue ──────────────────────────────────────────────────────────
 
-  const queue = assignmentRows.map((assignment) => {
+  // Retiring a content item does not touch its review assignments, so an open
+  // assignment can outlive the content it points at and keep surfacing retired
+  // questions in a reviewer's queue. Found 2026-08-01: 4 retired AP Statistics
+  // items were still pending for one reviewer and 3 AP Biology items for another.
+  // The existing rows were withdrawn by migration
+  // 20260802020000_withdraw_review_assignments_on_retired_content, but that only
+  // fixed the data — this filter is what stops it recurring. Retired content is
+  // dropped here rather than at the query above because item status lives on
+  // content_items, which is resolved via the version two fetches later.
+  const servableAssignments = assignmentRows.filter((assignment) => {
+    const versionId = assignment.content_item_version_id;
+    const version = versionId ? versionById.get(versionId) : null;
+    const item = version ? itemById.get(version.content_item_id) : null;
+    return item?.status !== "retired";
+  });
+
+  const queue = servableAssignments.map((assignment) => {
     const versionId = assignment.content_item_version_id;
     const version = versionId ? versionById.get(versionId) : null;
     const item = version ? itemById.get(version.content_item_id) : null;
@@ -227,10 +421,25 @@ Deno.serve(async (req) => {
         content_key: item?.content_key ?? null,
         item_type: item?.item_type ?? null,
         title: item?.title ?? null,
-        stem: version.stem,
+        stem: buildReviewerStem(version, item?.item_type),
         stimulus: version.stimulus,
+        stimulus_image_path: version.stimulus_image_path,
+        stimulus_image_url: version.stimulus_image_path
+          ? imageUrlByPath.get(version.stimulus_image_path) ?? null
+          : null,
+        // Soft QA flag only — see looksLikeMissingStimulusImage. Never blocks
+        // a decision; a tutor can approve right past this.
+        content_flags: {
+          possible_missing_stimulus_image: looksLikeMissingStimulusImage(
+            version,
+          ),
+        },
         explanation: version.explanation,
-        frq_form: version.frq_form,
+        // Some full-scale FRQs intentionally keep their shared directions in
+        // stem and their mandatory subparts in prompt_json.parts. The review
+        // client must receive both or it cannot evaluate the complete item.
+        prompt_json: version.prompt_json,
+        frq_form: item?.frq_form ?? null,
         review_status: version.review_status,
         mcq_choices: versionId
           ? (choicesByVersion.get(versionId) ?? [])
@@ -270,6 +479,10 @@ Deno.serve(async (req) => {
       content_review_assignment_id: assignment.content_review_assignment_id,
       assigned_role: reviewerRole,
       reviewer_id: assignment.reviewer_id,
+      reviewer_name: reviewerProfileById.get(assignment.reviewer_id)?.full_name ??
+        null,
+      reviewer_role: reviewerProfileById.get(assignment.reviewer_id)?.role ??
+        null,
       review_stage: assignment.review_stage,
       review_kind: assignment.review_kind,
       blind_group_id: assignment.blind_group_id,
@@ -307,6 +520,7 @@ Deno.serve(async (req) => {
         reviewer_role: reviewerRole,
         reviewer_name: profileResult.profile.full_name,
       },
+      scope,
       queue,
       counts,
     },

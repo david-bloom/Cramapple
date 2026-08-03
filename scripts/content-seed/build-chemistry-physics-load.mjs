@@ -129,8 +129,11 @@ from app.content_items ci where ci.content_key = ${esc(contentKey)};\n\n`;
       for (const part of item.parts ?? []) {
         const criterion = (part.criteria ?? [])[0];
         if (!criterion) continue;
-        sql += `insert into app.frq_criteria (id, content_item_version_id, criterion_key, learner_facing_text, points_possible)
-select gen_random_uuid(), civ.id, ${esc(part.part_key)}, ${esc(criterion.description)}, ${Number(criterion.points ?? part.points ?? 0)}
+        const evidenceRequirements = Array.isArray(criterion.required_evidence)
+          ? criterion.required_evidence.join("; ")
+          : null;
+        sql += `insert into app.frq_criteria (id, content_item_version_id, criterion_key, learner_facing_text, points_possible, evidence_requirements, minimum_fix, accepted_variants)
+select gen_random_uuid(), civ.id, ${esc(part.part_key)}, ${esc(criterion.description)}, ${Number(criterion.points ?? part.points ?? 0)}, ${esc(evidenceRequirements)}, ${esc(criterion.minimum_fix)}, ${jsonb(criterion.accepted_variants ?? [])}
 from app.content_item_versions civ
 join app.content_items ci on ci.id = civ.content_item_id
 where ci.content_key = ${esc(contentKey)};\n\n`;
