@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Blocked Five-Subject Branch Archived After Three-Way Verification; §3 Skill Anchoring Source-Verified 55/55; Jill Confirmation Deferred — 2026-08-02
 - Reviewer Unit Picker Moved to the 5-Unit CED; Retired Content Withdrawn From All Review Queues — 2026-08-01
 - AP Statistics FRQ Remediation Executed — 90 Retired, 68 Reclassified, Discovered All Statistics FRQs Were Unservable — 2026-08-01
 - AP Statistics Reviewer Feedback Triaged; Authoring Prompts Corrected to the 5-Unit CED — 2026-08-01
@@ -44,6 +45,27 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 ---
+
+## Blocked Five-Subject Branch Archived After Three-Way Verification; §3 Skill Anchoring Source-Verified 55/55; Jill Confirmation Deferred — 2026-08-02
+
+**Task:** Blocked-branch reconciliation (plan: `prompts/FABLE_AP_STATISTICS_BLOCKED_BRANCH_RECONCILIATION_2026_08_02.md`, Revision 3 executed after Fable review)
+**Status:** Archive executed and verified. Fact pack upgraded. One step remains open (Step 0 — landing the working branch on `main`), plus the deferred Jill confirmation and a follow-up branch/PR sweep.
+
+**Summary:** `codex/five-subject-harness-and-content` (forked 2026-07-01, 93 commits, 1176 files, pre-dating the schema-baseline squash `b6559a2`) was archived — not merged — after three independent verifications came back safe. The one asset worth salvaging (§3 per-topic skill/LO anchoring for AP Statistics) had already been ported to the fact pack and is now source-verified.
+
+**1. Provenance check (all subjects, not just Statistics).** All 288 content keys seeded on the branch (Chemistry 36, Physics 1/2/C-Mech/C-E&M 36 each, Calc AB/BC/Precalc 36 each) exist in Production via a separate SQL-loader ingestion documented on the branch itself (`docs/qa/CALCULUS_THREE_SUBJECT_SEED_PRODUCTION_EVIDENCE_2026_07_17.md`; Prod `created_at` 2026-07-18/20 confirms). Spot-checked stems are character-identical, and Production has since evolved *past* the branch (v2 rewrites, M1 minimum_fix work). Archiving loses no content.
+
+**2. Migration end-state diff (declared-DDL analysis; Docker unavailable for a scratch apply).** The baseline is **not** a strict superset of the branch's 27 migrations: (a) most objects are in the baseline ✅; (b) nothing is in live Production beyond the baseline; (c) eight migrations' worth of TASK-0017 harness schema (item-package columns, taxonomy tables, verifier/capability tables, review-pool harness) exist in **Dev only** 🟡; (d) two files declare functions/triggers existing **nowhere** 🔴: `20260718014159_add_atomic_draft_package_adoption.sql` and `202607200001_subject_package_preflight.sql`. These were deliberately **not** ported to the working branch (they depend on Dev-only columns absent from the Production baseline and would break migration application); they are preserved verbatim in the archive tag and should be revisited when TASK-0017 harness work resumes.
+
+**3. §3 skill-anchoring verification.** The local CED PDF turned out to be the **new Fall-2026 edition** (contrary to earlier session belief that no usable source existed). All 55 topic rows in the fact pack's §3 were verified against the five Unit-at-a-Glance tables (pp. 27–28, 59–60, 83–84, 118–119, 146): **zero mismatches** of any kind; Unit 5's LO→skill footnote additionally confirmed against topic pages 151–154. The branch's "60 topics" claim was wrong (55 current + 5 removed = 60 pre-removal). Fact pack confidence flags and §3 header updated from "unverified candidate" to "source-verified, SME confirmation deferred."
+
+**4. Archive executed.** Annotated tag `archive/codex-five-subject-20260727` → `30bc07d`, pushed and verified on origin; remote branch deleted; stale `/private/tmp/cramapple-content-qa2` worktree registration pruned; local branch deleted. The tag message carries the full rationale and names the unique-to-ref files.
+
+**5. Jill confirmation deferred (David's decision, 2026-08-02).** Verifying 55 rows is significant work and she's needed elsewhere. The review Sheet ("AP Statistics — Topic Skill-Tag Review (Jill) v2") exists, unsent. With the source verification done, her eventual pass is exceptions-oriented, not a proofread. Hard deadline remains: before bulk Statistics authoring keys items off these tags. The stale v1 Sheet (alphanumeric codes) still needs David to confirm it's trashed before anything is sent.
+
+**6. G3V vertical-slice question closed on content grounds.** The full delta between the 07-14 draft and the approved fact pack is: §3 (additive), the §8 curvature wording, and the §9 count fix. All Production items touching residuals/curvature were cross-checked against the §8 change on 2026-08-02 (zero edits needed); the §9 fix is doc-only. G3V content needs no rework **regardless of whether the 07-14 relayed sign-off was genuine.** What survives is governance only, feeding the new discipline rule: gate sign-offs must come from the gatekeeper's own hand (edit trail, submitted decision) — never relayed.
+
+**Next Required Action:** (1) **Step 0 — land `claude/cramapple-grading-experiments-9lkjqc` on `main`**; everything from 2026-08-02 (baseline squash, approved fact pack, deployed `review-queue` source, CED-alignment content fixes) exists only on that branch, and the deployed edge-function code currently has no merged source of truth. Awaiting David's answer on what, if anything, blocks the PR. (2) Follow-up sweep of same-era refs, none triaged here: branches `codex/task0018-recognized-home` + `codex/task0019-session-targets` (with `.worktrees/`), `recovery/production-plumbing-storage-20260721` + `recovery/ap-statistics-benchmark-content-20260721` (live `~/.codex/worktrees/`), `origin/recovery/ap-statistics-set04-integration`, `claude/grading-conflict-resolution-ledger` (separate checkout), two detached-HEAD worktrees — plus stale draft PRs #43, #39, #38 from the same era.
 
 ## Reviewer Unit Picker Moved to the 5-Unit CED; Retired Content Withdrawn From All Review Queues — 2026-08-01
 
