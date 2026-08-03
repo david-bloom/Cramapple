@@ -50,7 +50,7 @@ The assessment may inspect metadata about content and system configuration using
 ## Acceptance Criteria
 
 - [ ] Approval, evidence labels, ownership, and quarantine state are durably recorded.
-- [ ] A cheap cross-course candidate scan identifies systemic prompt-visual and drawn-response exposure.
+- [x] A cheap cross-course candidate scan identifies systemic prompt-visual and drawn-response exposure.
 - [ ] The launch-critical slice and minimum viable content volume are locked before delivery readiness Step 2.
 - [ ] Candidate items are manually classified with intersections preserved and ambiguity reviewed.
 - [ ] Prompt-visual readiness is audited from asset/source through student display and failure behavior.
@@ -70,15 +70,18 @@ The assessment may inspect metadata about content and system configuration using
 
 ## Implementation Summary
 
-Pending. This task performs assessment and remediation planning only.
+The read-only cheap cross-course scan is complete. It found 111 published prompt-visual candidates, 38 published drawn-response candidates, and 36 published possible missing-visual/context candidates across 288 published latest-version item pairs. The evidence supports a bounded dual-slice recommendation: 48 published AP Statistics targeted-drill FRQs plus 41 published AP Biology FRQs.
 
 ## Test Results
 
-Pending.
+- Production aggregate scan executed with SELECT-only SQL.
+- Reproducible query artifact: `scripts/image_readiness/cross_course_scan.sql`.
+- Aggregate and per-course counts reconciled to 1,412 latest items and 288 published latest-version pairs.
+- Storage metadata check found all 10 latest image-path references present in private `content-assets`; `learner-uploads` has zero objects.
 
 ## Risks / Issues
 
-- Launch slice, minimum viable item volume, and precise essential-image failure behavior require Product Owner/Learning Quality decisions before Step 2.
+- Launch slice, minimum viable item volume, and precise essential-image failure behavior require Product Owner/Learning Quality decisions before Step 2. The scan recommends an 89-item AP Statistics + AP Biology dual slice.
 - The preparer cannot perform the final independent QA.
 - The unapproved code sketch is quarantined on `codex/image-workflows-design-sketch` at `a34a078` and must remain inert.
 

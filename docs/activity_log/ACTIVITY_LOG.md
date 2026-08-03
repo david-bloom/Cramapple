@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- TASK-0020 Cross-Course Image Readiness Scan Completed — 2026-08-03
 - TASK-0018/0019 Released to Production: 17 Migrations Applied, session-event Deployed, Staff QA Setup Complete — 2026-08-02
 - Blocked Five-Subject Branch Archived After Three-Way Verification; §3 Skill Anchoring Source-Verified 55/55; Jill Confirmation Deferred — 2026-08-02
 - Reviewer Unit Picker Moved to the 5-Unit CED; Retired Content Withdrawn From All Review Queues — 2026-08-01
@@ -50,6 +51,21 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 ---
+
+## TASK-0020 Cross-Course Image Readiness Scan Completed — 2026-08-03
+
+**Task:** TASK-0020
+**Status:** In Progress; cheap scan complete, deep Step 2 awaiting required Product Owner/Learning Quality locks.
+
+**Summary:** Executed the approved SELECT-only Production metadata scan across all 1,412 latest compatibility items. Among 288 published item/latest-version pairs, the scan flagged 111 prompt-visual candidates, 38 drawn-response candidates, and 36 possible missing-visual or missing-context candidates. These are mechanical candidates, not semantic classifications.
+
+**Concentration:** AP Statistics has 32 explicitly marked, published targeted-drill drawn-response items. AP Biology has 31 published FRQ prompt-visual candidates, including 25 possible missing/context candidates and the only published latest-version `stimulus_image_path`. All 41 published Biology FRQs have `practice_format IS NULL`, so the known strict FRQ selector does not currently select them.
+
+**Storage metadata:** `content-assets` is private; all 10 latest image-path references exist, but only one belongs to a published item/latest-version pair. `learner-uploads` is private and empty. No object contents, signed URLs, learner images, or personal data were read.
+
+**Recommendation:** Lock a bounded dual deep-assessment slice of 48 published AP Statistics targeted-drill FRQs plus 41 published AP Biology FRQs. Before Step 2, Product Owner/Learning Quality must also lock minimum viable volume, essential-visual failure behavior, grading/repair launch mode, and the supported-device materiality rule.
+
+**Evidence:** `docs/research/TASK0020_CROSS_COURSE_IMAGE_READINESS_SCAN_2026_08_03.md`; reproducible SQL at `scripts/image_readiness/cross_course_scan.sql`.
 
 ## TASK-0018/0019 Released to Production: 17 Migrations Applied, session-event Deployed, Staff QA Setup Complete — 2026-08-02
 
