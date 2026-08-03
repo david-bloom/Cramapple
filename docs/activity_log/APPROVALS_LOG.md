@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0041 — Execute Image and Drawn-Response Launch-Gating Assessment (TASK-0020)
 - APPROVAL-0040 — Branch-Hygiene Adoption Steps 4–9 (PR #54 Rollout)
 - APPROVAL-0027 — Branch Hygiene Rules (R1–R7) Adoption (Hard Gate)
 - APPROVAL-0024 — AP Statistics Launch (TASK-0013, Phase 0 Decision Gate)
@@ -17,6 +18,26 @@ Most recent entries (full chronological list follows below):
 - APPROVAL-0018 — Use Official Exam Dates and Confirm Registration
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
+
+## APPROVAL-0041 — Execute Image and Drawn-Response Launch-Gating Assessment
+
+**Date:** 2026-08-03
+**Approved By:** David Bloom
+**Related Task:** TASK-0020
+**Decision:** Approved with Notes
+
+### Summary
+
+Execute the read-only assessment in `IMAGE_AND_DRAWN_RESPONSE_LAUNCH_GATING_ASSESSMENT_PLAN_V5_2026_08_03.md`. Determine the launch blockers, safe named scope, and reliable implementation paths for required prompt visuals and hand-drawn response capture, preservation, review, grading, and repair.
+
+### Notes
+
+- Approval covers read-only repository, Production, deployment, storage-metadata, and browser/API assessment; reproducible inventory; launch verdicts; and proportional next-approval remediation handoffs.
+- The cheap cross-course scan may begin immediately. Deep Step 2 requires the Product Owner-selected launch slice and the Product Owner/Learning Quality-approved minimum viable content volume.
+- No schema, API, frontend, deployment, configuration, storage-object, learner-data, or Production mutation is approved.
+- No real learner/minor image access, new vendor/model selection, operational manual-review setup, automated learner-facing grading, risk acceptance, or launch is approved.
+- The quarantined branch `codex/image-workflows-design-sketch` at `a34a078` remains inert and must not be merged or used as baseline architecture.
+- Final QA requires a genuinely fresh independent context before the task reaches an owner decision.
 
 ## APPROVAL-0040 — Branch-Hygiene Adoption Steps 4–9 (PR #54 Rollout)
 
