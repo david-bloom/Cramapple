@@ -1,0 +1,114 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cramapple.internal/schemas/drawn_response/capture_image_record.schema.json",
+  "title": "Drawn-Response Capture Image Record",
+  "$comment": "Logical corpus/prototype record for an immutable original capture or a versioned derived image. It does not define a production database or storage provider. A derived image never replaces its source image.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "image_id",
+    "image_role",
+    "source_image_id",
+    "response_id",
+    "item_id",
+    "file_name",
+    "media_type",
+    "sha256",
+    "byte_length",
+    "pixel_width",
+    "pixel_height",
+    "transformation",
+    "metadata_status",
+    "provenance_status",
+    "consent_status",
+    "storage_scope",
+    "captured_at",
+    "ingested_at"
+  ],
+  "properties": {
+    "image_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Unique immutable ID for this exact byte sequence."
+    },
+    "image_role": {
+      "type": "string",
+      "enum": ["ORIGINAL", "ORIENTATION_CROP", "DOCUMENT_NORMALIZED", "EXPERIMENTAL_ENHANCEMENT"]
+    },
+    "source_image_id": {
+      "type": ["string", "null"],
+      "description": "Null only for ORIGINAL. Every derivative points to the immutable original."
+    },
+    "response_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Underlying response identity; all photo variants share this value and one corpus partition."
+    },
+    "item_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "file_name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Corpus-relative file name or storage object name; never a public URL."
+    },
+    "media_type": {
+      "type": "string",
+      "enum": ["image/jpeg", "image/png", "image/webp", "image/heic"]
+    },
+    "sha256": {
+      "type": "string",
+      "minLength": 64
+    },
+    "byte_length": {
+      "type": "number"
+    },
+    "pixel_width": {
+      "type": "number"
+    },
+    "pixel_height": {
+      "type": "number"
+    },
+    "transformation": {
+      "anyOf": [
+        { "type": "null" },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["method", "version", "parameters"],
+          "properties": {
+            "method": { "type": "string", "minLength": 1 },
+            "version": { "type": "string", "minLength": 1 },
+            "parameters": { "type": "object" }
+          }
+        }
+      ]
+    },
+    "metadata_status": {
+      "type": "string",
+      "enum": ["PRESERVED_PRIVATE", "STRIPPED_IN_DERIVATIVE", "NOT_PRESENT", "UNKNOWN"]
+    },
+    "provenance_status": {
+      "type": "string",
+      "enum": ["VERIFIED", "PENDING", "REJECTED"]
+    },
+    "consent_status": {
+      "type": "string",
+      "enum": ["CONSENTED_RESEARCH", "CONSENTED_PRODUCT", "SYNTHETIC", "PENDING", "REJECTED"]
+    },
+    "storage_scope": {
+      "type": "string",
+      "enum": ["LOCAL_FIXTURE", "PRIVATE_RESEARCH", "PRIVATE_SHADOW", "PRIVATE_PRODUCT"]
+    },
+    "captured_at": {
+      "type": ["string", "null"],
+      "format": "date-time",
+      "description": "May be null for synthetic or historical fixtures whose capture time is unknown."
+    },
+    "ingested_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

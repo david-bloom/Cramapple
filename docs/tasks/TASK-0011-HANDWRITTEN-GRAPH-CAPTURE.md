@@ -121,7 +121,9 @@ offline evaluation harness (sections 4-8 of the phase-1 spec) are built and
 validated against synthetic fixtures only.
 
 - `scripts/drawn_response/schemas/` — observation, criterion-decision,
-  capture-quality, partition-manifest, and method-run-log record schemas
+  capture-image, capture-quality, partition-manifest, and method-run-log record
+  schemas. The capture-image record closes the previous raw/derived-image
+  provenance gap without selecting a production database or storage provider.
 - `scripts/drawn_response/validate_records.py` — structural validation CLI
 - `scripts/drawn_response/check_partition_manifest.py` — section 8.1
   partition-count and governance-coverage checks
