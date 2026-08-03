@@ -1,19 +1,22 @@
-# Image Questions and Drawn Responses — Assessment Plan V2
+# Image Questions and Drawn Responses — Launch-Gating Assessment Plan V3
 
-**Status:** Draft for independent review
+**Status:** Draft for final independent review
 **Date:** 2026-08-03
 **Product Owner:** David Bloom
-**Purpose:** Read-only assessment plan; not implementation approval
+**Purpose:** Launch-gating read-only assessment plan; not implementation approval
 
-## 1. Objective
+## 1. Launch-gating objective
 
-Answer three practical questions for the next launch-critical course or exam:
+This assessment exists to determine whether Cramapple's launch-critical slice is ready to reliably serve required question visuals, accept hand-drawn student responses, preserve them for review, and support grading and repair under approved quality, privacy, accessibility, and operational controls.
 
-1. How many current questions require a visual as part of the question?
-2. Can Cramapple reliably create, approve, and display those visuals to students?
-3. What is the actual readiness of student-drawn response capture, grading, repair feedback, storage, and later review?
+These capabilities are launch-gating. The decision is not whether to support them. The assessment must determine:
 
-The assessment should support a near-term product decision. It should not attempt to redesign every visual capability before that decision can be made.
+1. what blockers remain;
+2. what scope is safe for launch;
+3. which implementation path clears the bar reliably; and
+4. what must be remediated before release.
+
+The assessment should not redesign every visual capability before those questions can be answered.
 
 ## 2. Simplicity rules
 
@@ -24,8 +27,8 @@ Apply Occam's razor throughout:
 - Prefer direct evidence over proposed architecture.
 - Add a control, schema, service, or workflow only when a demonstrated requirement justifies it.
 - Do not build a universal image artifact model in advance.
-- Do not assume QR is necessary when capture on the current device may work.
-- Do not assume automated grading is necessary for useful paper capture.
+- Use current-device capture as the baseline; require QR only where it solves a demonstrated launch-critical need.
+- Use manual review as the baseline launch path until automated grading and repair independently clear their quality bars.
 - Do not use a large aggregate sample to conceal weak coverage of important cases.
 - Stop once the evidence is sufficient for the pending decision.
 
@@ -47,7 +50,7 @@ Primary concerns:
 - responsive rendering;
 - missing-visual behavior.
 
-### Program B — Student response-image capture
+### Program B — Student response-image capture, preservation, and review
 
 Learner-created photographs or uploads bound to an attempt and response.
 
@@ -76,15 +79,14 @@ Primary concerns:
 
 Shared infrastructure should be limited initially to requirements that are clearly common, such as private storage, immutable identifiers, checksums, short-lived access, and audit records. Even these should not force the programs into one record type or lifecycle.
 
-## 4. Required framing decisions
+## 4. Required launch framing
 
 Before the assessment begins, record answers to three questions:
 
 1. What is the first launch-critical content slice?
    - AP Biology, AP Statistics, another course, or a specifically named subset.
-2. What is the first desired drawn-response outcome?
-   - capture only;
-   - capture with human/manual review;
+2. What grading and repair path will support drawn responses at launch?
+   - human/manual review;
    - automated grading in hidden shadow mode;
    - learner-facing automated repair.
 3. What should happen when an essential question visual cannot load?
@@ -96,7 +98,7 @@ Before the assessment begins, record answers to three questions:
 
 A warning without the visual is not an acceptable default when the visual is required to answer. A prose or table alternate is not assumed equivalent when it changes the assessed construct.
 
-If these decisions are not yet available, the assessment may collect the inventory needed to make them, but it should not design implementation around an assumed answer.
+Capture, response binding, preservation, and authorized review are required regardless of the grading path. If the framing decisions are not yet available, the assessment may collect the inventory needed to make them, but it should not design implementation around an assumed answer.
 
 ## 5. Evidence labels
 
@@ -111,7 +113,18 @@ Every finding must use one of these labels:
 
 These labels prevent a prototype, schema field, storage bucket, or successful synthetic experiment from being reported as an end-to-end capability.
 
-## 6. Step 1 — Launch-critical visual inventory
+## 6. Minimum launch bar
+
+The named launch slice clears this assessment only when all four conditions are true:
+
+1. **Question visuals:** every served item that requires a visual has the correct approved visual or an independently approved construct-equivalent item, and the tested failure behavior prevents an unanswerable question from reaching the learner.
+2. **Response capture and preservation:** every in-scope hand-drawn item has at least one validated capture path that binds the immutable response to the correct learner, attempt, response, and question version and makes it available for authorized review and later student access.
+3. **Grading and repair:** every supported hand-drawn archetype has an approved grading and repair path. This may be manual review. Automated grading or repair is allowed only for the named archetypes and criteria that independently clear their evidence bars.
+4. **Hard gates and operations:** required privacy, security, accessibility, learning-quality, retention, reviewer-capacity, and turnaround controls are approved and operational for the launch path.
+
+If any condition fails, the verdict must name the remediation or narrow the served item/archetype scope. The capability itself is not removed from the launch bar.
+
+## 7. Step 1 — Launch-critical visual inventory
 
 ### Scope
 
@@ -150,7 +163,7 @@ Report three headline counts:
 
 Supporting tables should show course, item type, publication/serving state, classification, and the reason for any readiness failure. Do not lead with a count of non-null image paths.
 
-## 7. Step 2 — Question visual delivery readiness
+## 8. Step 2 — Question visual delivery readiness
 
 Assess Program A only for essential visuals in the launch-critical slice.
 
@@ -182,7 +195,7 @@ Define the product behavior by visual class before implementation:
 
 The Product Owner and Learning Quality owner must approve any behavior that changes which question or representation the learner receives.
 
-## 8. Step 3 — Student response-image capture readiness
+## 9. Step 3 — Student response-image capture readiness
 
 Assess Program B independently from grading.
 
@@ -236,7 +249,7 @@ This is a requirements distinction, not approval of a physical schema.
 
 ### Minimal attachment requirements
 
-Only if learner-drawn items are in the launch slice, draft a requirements-level attachment contract covering:
+Draft a requirements-level attachment contract covering:
 
 - exact attempt and response-version binding;
 - immutable original evidence;
@@ -249,7 +262,7 @@ Only if learner-drawn items are in the launch slice, draft a requirements-level 
 
 Do not implement or choose a permanent artifact model during this assessment.
 
-## 9. Step 4 — Grading and repair readiness
+## 10. Step 4 — Grading and repair readiness
 
 Assess Program C only for the first explicitly supported response type. Do not generalize from graphs to diagrams, equations, or all handwriting.
 
@@ -301,35 +314,46 @@ Compare image-based repair with written-answer repair using evidence, not presen
 - is understood by the learner;
 - improves performance on a fresh, structurally equivalent task.
 
-Human/manual review may be a valid first product mode if its privacy, turnaround, cost, and operational expectations are acceptable. Automated grading is not a prerequisite for assessing that option.
+Human/manual review is the simplest launch path unless automated grading and repair independently clear their evidence bars. It must still satisfy approved privacy, accessibility, turnaround, quality, preservation, and operational requirements.
 
-## 10. Step 5 — Decision outputs
+## 11. Step 5 — Launch verdicts
 
-Produce three separate verdicts:
+Use only launch-oriented verdicts:
+
+- **Launch ready for named slice**
+- **Launch blocked by named remediations**
+- **Launch scope must narrow to named archetypes or items**
+- **Manual-review launch path required**
+- **Automated grading and repair blocked; capture, preservation, and review still required**
+- **Hard gate unresolved: privacy, security, accessibility, or learning quality**
+
+Apply the verdicts independently to the three programs.
 
 ### A. Question visual delivery
 
-- Ready for the launch slice.
-- Ready after named blocker remediation.
-- Not ready; affected items must not be served.
+State which named items and visual classes may launch, which must be remediated or removed from serving, and whether an approved equivalent preserves the assessed construct.
 
-### B. Student response-image capture
+### B. Student response-image capture, preservation, and review
 
-- No current product need in the launch slice.
-- Prototype current-device capture only.
-- Prototype current-device capture plus QR comparator.
-- Not ready for a working prototype because privacy/security/product decisions are missing.
+State whether the named launch slice clears the bar through current-device capture alone or requires a QR/cross-device path. If no implementation path clears the bar, launch is blocked or the named item/archetype scope must narrow; the capability is not optional.
 
 ### C. Image grading and repair
 
-- Manual review only.
-- Automated shadow research only.
-- Bounded learner-facing capability for named criteria and archetypes.
-- Not ready; continue or stop research.
+State which named archetypes and criteria can use manual review, hidden automated shadow evaluation, or learner-facing automation. If automation is blocked, capture, preservation, authorized review, and an operational manual-review path remain required.
 
-Each verdict must state its evidence class, unsupported cases, owner decisions, and stop conditions. One program's readiness must not promote another.
+Every verdict must name:
 
-## 11. Independent review
+- the affected items, archetypes, or criteria;
+- the evidence class and unmet launch bar;
+- the required remediation;
+- the accountable owner or hard-gate approver;
+- the evidence needed to clear the blocker;
+- whether unaffected scope may launch; and
+- the required interim behavior.
+
+One program's readiness must not promote another.
+
+## 12. Independent review
 
 Before any implementation task is approved, use a fresh reviewer to challenge:
 
@@ -345,7 +369,7 @@ Before any implementation task is approved, use a fresh reviewer to challenge:
 - unsupported grading or feedback claims;
 - privacy, consent, retention, accessibility, human-review load, and operational cost.
 
-## 12. Quarantine of prior implementation work
+## 13. Quarantine of prior implementation work
 
 The existing `codex/image-workflows-readiness` code and prototype work must remain quarantined:
 
@@ -357,7 +381,7 @@ The existing `codex/image-workflows-readiness` code and prototype work must rema
 
 Existing code does not create a reason to adopt its architecture.
 
-## 13. Explicitly out of scope
+## 14. Explicitly out of scope
 
 This assessment does not authorize:
 
@@ -371,15 +395,15 @@ This assessment does not authorize:
 - automated learner-facing grading;
 - task closure or launch approval.
 
-## 14. Questions for the next reviewer
+## 15. Questions for the next reviewer
 
 1. Is the launch-critical slice the right organizing principle, or could it hide a cross-course systemic blocker?
 2. Are the three programs sufficiently independent, and which infrastructure truly needs to be shared?
 3. Is the inventory taxonomy mutually exclusive and complete enough for reliable counts?
 4. Are the proposed failure behaviors safe, simple, and educationally honest?
-5. Does current-device capture provide the right baseline against which to test QR?
+5. What launch-critical scenarios, if any, require QR beyond current-device capture?
 6. Are the capture and grading state dimensions sufficient without prematurely specifying a schema?
 7. How should corpus size and stratification be determined for the first supported response type?
-8. What evidence should be required before manual-review-first paper capture is offered?
+8. Does the manual-review launch path define sufficient quality, turnaround, privacy, preservation, and operational controls?
 9. Which part of this plan remains unnecessarily complex?
-10. What is the smallest assessment that would still support a responsible next decision?
+10. What is the smallest assessment that can reliably identify launch blockers, safe scope, and the implementation path that clears the bar?
