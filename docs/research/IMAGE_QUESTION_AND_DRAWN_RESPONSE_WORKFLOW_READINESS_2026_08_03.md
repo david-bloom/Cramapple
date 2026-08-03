@@ -42,6 +42,10 @@ required reviews pass.
   3.9.4 produced actual pixel and bounding-box drift across the set, so the
   generator now pins and enforces 3.11.1; exact-environment reproduction is
   still pending and is not being assumed.
+- A 2026-08-03 read-only Production export bound all ten assets to exact content
+  versions. Nine versions are retired or disapproved. The sole published item,
+  `APBIO-FRQ-S-009`, is one of the five layout failures: its second arrow
+  visually branches from product 1 rather than independently from the pre-mRNA.
 
 ### Hand-drawn responses
 
@@ -158,22 +162,31 @@ invalid digests, and non-positive dimensions.
 
 ## First approvable implementation slice
 
-### Slice A — canonical question-image recovery and re-authoring
+### Slice A — published question-image integrity repair
 
 Scope:
 
-- export the exact current versions of the ten AP Biology items;
-- repair the five rejected diagrams;
+- re-author the `APBIO-FRQ-S-009` alternative-splicing diagram against exact
+  published version `de59d53c-1f80-4b1a-9694-10d9e50dcad0`;
+- show two independent branches from the pre-mRNA, with no product-to-product
+  transformation implied;
 - complete item-context scientific, grading, accessibility, and layout review;
 - verify reviewer and student rendering with authenticated click-through;
-- keep database rows and Storage unchanged until the replacement assets pass.
+- keep database rows and Storage unchanged until the replacement asset passes;
+- retain the other nine recovered assets as historical evidence and do not
+  repair them unless their retired/disapproved items are proposed for release.
+
+Local draft progress: a separately versioned S009 replacement candidate now
+implements the corrected branching geometry. Its complete dependency set is
+pinned and two renders were byte-identical. This is build evidence, not content
+approval; every review and live-delivery gate below remains open.
 
 Acceptance evidence:
 
 - manifest validation passes with `--require-release-eligible`;
 - deterministic regeneration is byte-reproducible under the pinned environment,
   or replacement outputs receive new versions and full review;
-- all ten exact item versions and checksums are recorded;
+- the exact published item version and replacement checksum are recorded;
 - narrow viewport, zoom, alt/long-description, answer-leakage, and missing-image
   behavior are captured;
 - reviewer and student signed-image delivery both pass;
@@ -212,18 +225,16 @@ release remain separate Hard Gates.
 
 ## Open risks and blockers
 
-1. Exact current item versions for the ten Production images are not present in
-   the recovered package.
-2. Five recovered diagrams have blocking visual defects; the other five are
-   unapproved, not proven good.
-3. Student/reviewer live rendering lacks recorded authenticated click-through.
-4. The local hand-drawn corpus needs a consent/provenance/deduplication manifest
+1. The sole published recovered image has a blocking visual-layout defect; the
+   nine others are historical because their content versions are not published.
+2. Student/reviewer live rendering lacks recorded authenticated click-through.
+3. The local hand-drawn corpus needs a consent/provenance/deduplication manifest
    before it can support claims about real-response accuracy.
-5. Single-violation negative graph cases and adjudicated dual-human gold remain
+4. Single-violation negative graph cases and adjudicated dual-human gold remain
    incomplete.
-6. External-provider image transfer/retention approval remains a prerequisite
+5. External-provider image transfer/retention approval remains a prerequisite
    for multimodal calls.
-7. QR/camera accessibility and retention/deletion policy require human review.
+6. QR/camera accessibility and retention/deletion policy require human review.
 
 ## Handoff packet
 
@@ -241,5 +252,5 @@ database/storage changes, provider image transfer, authoritative image grading,
 participant use, or launch.
 
 **Next owner action:** approve Slice A, Slice B, both in sequence, revise, or
-stop. Recommended sequence is Slice A first because it repairs a current
-question-delivery integrity risk without collecting new learner data.
+stop. Recommended sequence is Slice A first because it repairs the only current
+published-image integrity risk without collecting new learner data.

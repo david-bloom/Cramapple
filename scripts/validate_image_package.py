@@ -110,6 +110,22 @@ def validate(manifest_path: Path, require_release_eligible: bool) -> list[str]:
 
         if asset.get("role") == "question_stimulus" and not str(asset.get("content_key", "")).strip():
             errors.append(f"{label}: question_stimulus requires a non-empty content_key")
+        if asset.get("role") == "question_stimulus":
+            if not str(asset.get("content_version_id", "")).strip():
+                errors.append(f"{label}: question_stimulus requires content_version_id")
+            version_num = asset.get("content_version_num")
+            if not isinstance(version_num, int) or isinstance(version_num, bool) or version_num <= 0:
+                errors.append(f"{label}: question_stimulus requires a positive content_version_num")
+            if asset.get("content_version_status") not in {
+                "draft",
+                "assigned",
+                "changes_requested",
+                "reviewed_approved",
+                "reviewed_disapproved",
+                "published",
+                "retired",
+            }:
+                errors.append(f"{label}: question_stimulus has invalid content_version_status")
 
         file_value = asset.get("file")
         if not isinstance(file_value, str):
@@ -156,6 +172,23 @@ def validate(manifest_path: Path, require_release_eligible: bool) -> list[str]:
                     errors.append(f"{label}: missing source {source['path']}")
             except ValueError as exc:
                 errors.append(str(exc))
+            environment_value = source.get("environment_path")
+            if environment_value is not None:
+                if not isinstance(environment_value, str):
+                    errors.append(f"{label}: source.environment_path must be a string")
+                else:
+                    try:
+                        environment_path = safe_relative(
+                            package_dir,
+                            environment_value,
+                            f"{label}.source.environment_path",
+                        )
+                        if not environment_path.is_file():
+                            errors.append(
+                                f"{label}: missing source environment {environment_value}"
+                            )
+                    except ValueError as exc:
+                        errors.append(str(exc))
 
         accessibility = asset.get("accessibility")
         if not isinstance(accessibility, dict) or not str(accessibility.get("short_alt", "")).strip():

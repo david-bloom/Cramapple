@@ -115,21 +115,31 @@ The other 7 images were re-checked in the same pass and found correct.
     every review gate in `manifest.json` against the exact current content-item
     versions.
 
+The 2026-08-03 live-state check found that only `APBIO-FRQ-S-009` is currently
+published. A separately versioned replacement candidate and deterministic
+generator now live under `candidates/` and `generate_s009_replacement.py`.
+Nothing in Production was replaced.
+
 ## Reproducible generation
 
 From the repository root:
 
 ```bash
 python3 -m pip install -r \
-  docs/research/ap_biology_stimulus_images_2026_07_12/requirements.txt
-python3 docs/research/ap_biology_stimulus_images_2026_07_12/generate.py \
-  --out /tmp/cramapple-apbio-images
+  docs/research/ap_biology_stimulus_images_2026_07_12/requirements-lock.txt
+python3 \
+  docs/research/ap_biology_stimulus_images_2026_07_12/generate_s009_replacement.py \
+  --out /tmp/cramapple-apbio-s009-candidate
 python3 scripts/validate_image_package.py \
   docs/research/ap_biology_stimulus_images_2026_07_12/manifest.json
 ```
 
-The generator defaults to this package directory when `--out` is omitted.
-Generate to a temporary directory for comparison so unreviewed output does not
-silently replace the recorded PNGs. It refuses to generate canonical candidates
-under a Matplotlib version other than 3.11.1; `--allow-version-drift` is only for
-non-canonical visual comparison.
+The replacement generator defaults to the package's `candidates/` directory
+when `--out` is omitted. Generate to a temporary directory for comparison so
+unreviewed output does not silently replace the recorded PNG. It refuses to
+generate a canonical candidate under a Matplotlib version other than 3.11.1;
+`--allow-version-drift` is only for non-canonical visual comparison.
+
+`generate.py` is the recovered historical ten-image generator. It is retained
+for audit, but exact reproduction remains unverified because only the original
+Matplotlib version—not the complete transitive environment—was recorded.
