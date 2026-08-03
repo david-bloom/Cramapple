@@ -1,0 +1,147 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apprecalc-mcq-039",
+  "content_key": "apprecalc-mcq-039",
+  "content_version": 1,
+  "difficulty": "Very Hard",
+  "exam_pack_ref": {
+    "exam_code": "ap_precalculus",
+    "school_year": "2026-27",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "mcq",
+  "archetype_ref": {
+    "archetype_key": "ap-precalculus-mcq",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-precalculus-2026-27",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-2-exponential-and-logarithmic-functions"
+    },
+    {
+      "scheme_key": "ap-precalculus-2026-27",
+      "scheme_version": "1.0.0",
+      "node_key": "topic-2.5"
+    },
+    {
+      "scheme_key": "ap-precalculus-2026-27",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-3"
+    }
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "directions",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "Calculator use is permitted.",
+        "calculator_mode": "calculator"
+      },
+      "source_refs": [
+        "ap-precalculus-ced-effective-fall-2026"
+      ]
+    }
+  ],
+  "mcq_choices": [
+    {
+      "choice_key": "A",
+      "choice_text": "1,728",
+      "is_correct": false,
+      "rationale": "Uses an incorrect linear increase."
+    },
+    {
+      "choice_key": "B",
+      "choice_text": "2,181",
+      "is_correct": false,
+      "rationale": "Uses a prematurely rounded growth factor."
+    },
+    {
+      "choice_key": "C",
+      "choice_text": "2,248",
+      "is_correct": true,
+      "rationale": "Correct exponential interpolation/extrapolation."
+    },
+    {
+      "choice_key": "D",
+      "choice_text": "3,308",
+      "is_correct": false,
+      "rationale": "Applies the five-hour factor eight times."
+    }
+  ],
+  "canonical_answers": [
+    "C"
+  ],
+  "parts": [
+    {
+      "part_key": "question",
+      "ordinal": 1,
+      "prompt": "A culture has 480 cells at t=0 and 1,260 cells at t=5 hours. Under an exponential model, how many cells are predicted at t=8, to the nearest whole cell?\n\nA. 1,728\nB. 2,181\nC. 2,248\nD. 3,308",
+      "stimulus_refs": [
+        "directions"
+      ],
+      "response_modalities": [
+        "choice"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-answer",
+          "points": 1,
+          "description": "Select the unique correct response.",
+          "required_evidence": [
+            "C",
+            "The hourly factor is (1260/480)^(1/5); 480 times this factor^8 is about 2,248."
+          ],
+          "accepted_variants": [
+            "Only a displayed choice that is mathematically identical to the keyed response may be treated as equivalent."
+          ],
+          "insufficient_responses": [
+            "An unkeyed choice without a valid ambiguity finding."
+          ],
+          "contradictions": [
+            "A choice or rationale that conflicts with the governing domain, representation, units, or model conditions."
+          ],
+          "minimum_fix": "Select the keyed response after correcting the first invalid mathematical step.",
+          "deterministic_checks": [
+            {
+              "check_type": "choice-key",
+              "parameters": {
+                "correct_key": "C"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All mathematical information is provided in text."
+  },
+  "review_notes": {
+    "expected_reasoning": "The hourly factor is (1260/480)^(1/5); 480 times this factor^8 is about 2,248.",
+    "teaching_explanation": "The hourly factor is (1260/480)^(1/5); 480 times this factor^8 is about 2,248.",
+    "minimum_fix": "Correct the first invalid algebraic, graphical, numerical, or modeling step, then recompute under the stated conditions.",
+    "transfer_candidate": "Create a new Topic 2.5 item with different values, representation, and surface context.",
+    "delayed_retrieval_candidate": "Reassess Topic 2.5 after a delay without reusing this stem or answer choices.",
+    "known_boundary_cases": [
+      "Accept only the keyed choice unless another displayed choice is mathematically identical.",
+      "Reject the item if a reasonable interpretation makes more than one displayed choice correct."
+    ],
+    "originality_statement": "Independently authored Cramapple practice item from a blank scope brief; no released, secure, or third-party question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-precalculus-ced-effective-fall-2026"
+    ],
+    "fact_pack_version": "2026-07-28",
+    "authoring_prompt_version": "CODEX_PRECALCULUS_DIFFICULTY_QA_2026_07_28",
+    "generated_by": "codex",
+    "generated_at": "2026-07-28T00:00:00Z",
+    "content_sha256": "609b914ccdf5eafed238adae26f96a42227bb29e8f2a4fafc8008912f529ad54"
+  }
+}

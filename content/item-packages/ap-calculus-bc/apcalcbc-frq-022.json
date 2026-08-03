@@ -1,0 +1,397 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apcalcbc-frq-022",
+  "content_key": "apcalcbc-frq-022",
+  "content_version": 1,
+  "difficulty": "Medium",
+  "exam_pack_ref": {
+    "exam_code": "ap_calculus_bc",
+    "school_year": "2026-27",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "frq",
+  "archetype_ref": {
+    "archetype_key": "ap-calculus-bc-frq-derivative-sign-analysis",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-calculus-bc-2026-27",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-5-analytical-applications-of-differentiation"
+    },
+    {
+      "scheme_key": "ap-calculus-bc-2026-27",
+      "scheme_version": "1.0.0",
+      "node_key": "topic-5.9"
+    },
+    {
+      "scheme_key": "ap-calculus-bc-mathematical-practices",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-3"
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All assessed mathematical information is available in text; notation requires normal math-reading support."
+  },
+  "frq_form": "long",
+  "canonical_answers": [
+    "Identifies x=−1. | Identifies x=2. | Finds f decreases on (−3,−1). | Finds f increases on (−1,2) and (2,3). | Classifies x=−1 as a local minimum and x=2 as neither a maximum nor a minimum. | Finds f″(x)=3x(x−2). | Concludes concave up on (−3,0) and (2,3), and concave down on (0,2). | Compares f at endpoints and critical numbers to obtain an absolute maximum f(−3)=157/4 and an absolute minimum f(−1)=5/4. | States the corresponding input values x=−3 and x=−1."
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "scenario",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "A differentiable function f satisfies f(0)=4 and f′(x)=(x+1)(x−2)² on −3≤x≤3.",
+        "calculator_mode": "no-calculator"
+      },
+      "source_refs": [
+        "ap-calculus-ab-bc-ced-effective-fall-2020-2026-release"
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "part_key": "part-a",
+      "ordinal": 1,
+      "label": "(a)",
+      "prompt": "Find all critical numbers of f.",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 2,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "Identifies x=−1.",
+          "required_evidence": [
+            "Identifies x=−1."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+          ],
+          "insufficient_responses": [
+            "A correct number without required setup, justification, interpretation, or units when that evidence is named in the criterion."
+          ],
+          "contradictions": [
+            "Do not award the criterion when the response directly contradicts the required mathematical relationship or contextual meaning."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: Identifies x=−1.",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        },
+        {
+          "criterion_key": "part-a-criterion-2",
+          "points": 1,
+          "description": "Identifies x=2.",
+          "required_evidence": [
+            "Identifies x=2."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+          ],
+          "insufficient_responses": [
+            "A correct number without required setup, justification, interpretation, or units when that evidence is named in the criterion."
+          ],
+          "contradictions": [
+            "Do not award the criterion when the response directly contradicts the required mathematical relationship or contextual meaning."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: Identifies x=2.",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part_key": "part-b",
+      "ordinal": 2,
+      "label": "(b)",
+      "prompt": "Determine the intervals on which f is increasing and decreasing, and classify the critical numbers.",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 3,
+      "criteria": [
+        {
+          "criterion_key": "part-b-criterion-1",
+          "points": 1,
+          "description": "Finds f decreases on (−3,−1).",
+          "required_evidence": [
+            "Finds f decreases on (−3,−1)."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+          ],
+          "insufficient_responses": [
+            "A correct number without required setup, justification, interpretation, or units when that evidence is named in the criterion."
+          ],
+          "contradictions": [
+            "Do not award the criterion when the response directly contradicts the required mathematical relationship or contextual meaning."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: Finds f decreases on (−3,−1).",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        },
+        {
+          "criterion_key": "part-b-criterion-2",
+          "points": 1,
+          "description": "Finds f increases on (−1,2) and (2,3).",
+          "required_evidence": [
+            "Finds f increases on (−1,2) and (2,3)."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+          ],
+          "insufficient_responses": [
+            "A correct number without required setup, justification, interpretation, or units when that evidence is named in the criterion."
+          ],
+          "contradictions": [
+            "Do not award the criterion when the response directly contradicts the required mathematical relationship or contextual meaning."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: Finds f increases on (−1,2) and (2,3).",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        },
+        {
+          "criterion_key": "part-b-criterion-3",
+          "points": 1,
+          "description": "Classifies x=−1 as a local minimum and x=2 as neither a maximum nor a minimum.",
+          "required_evidence": [
+            "Classifies x=−1 as a local minimum and x=2 as neither a maximum nor a minimum."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+          ],
+          "insufficient_responses": [
+            "A correct number without required setup, justification, interpretation, or units when that evidence is named in the criterion."
+          ],
+          "contradictions": [
+            "Do not award the criterion when the response directly contradicts the required mathematical relationship or contextual meaning."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: Classifies x=−1 as a local minimum and x=2 as neither a maximum nor a minimum.",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part_key": "part-c",
+      "ordinal": 3,
+      "label": "(c)",
+      "prompt": "Determine the intervals of concavity.",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 2,
+      "criteria": [
+        {
+          "criterion_key": "part-c-criterion-1",
+          "points": 1,
+          "description": "Finds f″(x)=3x(x−2).",
+          "required_evidence": [
+            "Finds f″(x)=3x(x−2)."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+          ],
+          "insufficient_responses": [
+            "A correct number without required setup, justification, interpretation, or units when that evidence is named in the criterion."
+          ],
+          "contradictions": [
+            "Do not award the criterion when the response directly contradicts the required mathematical relationship or contextual meaning."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: Finds f″(x)=3x(x−2).",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        },
+        {
+          "criterion_key": "part-c-criterion-2",
+          "points": 1,
+          "description": "Concludes concave up on (−3,0) and (2,3), and concave down on (0,2).",
+          "required_evidence": [
+            "Concludes concave up on (−3,0) and (2,3), and concave down on (0,2)."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+          ],
+          "insufficient_responses": [
+            "A correct number without required setup, justification, interpretation, or units when that evidence is named in the criterion."
+          ],
+          "contradictions": [
+            "Do not award the criterion when the response directly contradicts the required mathematical relationship or contextual meaning."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: Concludes concave up on (−3,0) and (2,3), and concave down on (0,2).",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part_key": "part-d",
+      "ordinal": 4,
+      "label": "(d)",
+      "prompt": "Find the absolute maximum and absolute minimum values of f on [−3,3].",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 2,
+      "criteria": [
+        {
+          "criterion_key": "part-d-criterion-1",
+          "points": 1,
+          "description": "Compares f at endpoints and critical numbers to obtain an absolute maximum f(−3)=157/4 and an absolute minimum f(−1)=5/4.",
+          "required_evidence": [
+            "Compares f at endpoints and critical numbers to obtain an absolute maximum f(−3)=157/4 and an absolute minimum f(−1)=5/4."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+          ],
+          "insufficient_responses": [
+            "A correct number without required setup, justification, interpretation, or units when that evidence is named in the criterion."
+          ],
+          "contradictions": [
+            "Do not award the criterion when the response directly contradicts the required mathematical relationship or contextual meaning."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: Compares f at endpoints and critical numbers to obtain an absolute maximum f(−3)=157/4 and an absolute minimum f(−1)=5/4.",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        },
+        {
+          "criterion_key": "part-d-criterion-2",
+          "points": 1,
+          "description": "States the corresponding input values x=−3 and x=−1.",
+          "required_evidence": [
+            "States the corresponding input values x=−3 and x=−1."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+          ],
+          "insufficient_responses": [
+            "A correct number without required setup, justification, interpretation, or units when that evidence is named in the criterion."
+          ],
+          "contradictions": [
+            "Do not award the criterion when the response directly contradicts the required mathematical relationship or contextual meaning."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: States the corresponding input values x=−3 and x=−1.",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "scoring_contract": {
+    "total_points": 9,
+    "part_count": 4,
+    "calculator_mode": "no-calculator",
+    "carry_forward_rule": "A later criterion may earn when the student's earlier arithmetic error is carried forward consistently and the later reasoning remains valid.",
+    "rounding_rule": "Accept exact values or values correctly rounded to the precision requested.",
+    "units_rule": "Units are required only when a criterion or prompt explicitly requests contextual units.",
+    "ambiguity_rule": "Escalate responses that use a valid but unlisted interpretation rather than forcing a score."
+  },
+  "development_cases": {
+    "full_credit": "Provides all required setup, values, justifications, interpretations, and units.",
+    "partial_credit": "Shows a valid method for multiple criteria but omits or misstates at least one independently required piece of evidence.",
+    "no_credit": "Provides no relevant calculus relationship or only unsupported answers.",
+    "equivalent": "Uses algebraically equivalent forms or a different valid theorem-based argument.",
+    "contradictory": "States a correct value but also asserts an incompatible sign, interval, unit, or conclusion.",
+    "ambiguous": "Contains notation whose intended mathematical meaning cannot be determined reliably."
+  },
+  "review_notes": {
+    "expected_reasoning": "Identifies x=−1. | Identifies x=2. | Finds f decreases on (−3,−1). | Finds f increases on (−1,2) and (2,3). | Classifies x=−1 as a local minimum and x=2 as neither a maximum nor a minimum. | Finds f″(x)=3x(x−2). | Concludes concave up on (−3,0) and (2,3), and concave down on (0,2). | Compares f at endpoints and critical numbers to obtain an absolute maximum f(−3)=157/4 and an absolute minimum f(−1)=5/4. | States the corresponding input values x=−3 and x=−1.",
+    "teaching_explanation": "Connect each awarded point to the stated calculus relationship and the evidence shown in the response.",
+    "minimum_fix": "Repair the earliest missing setup or justification needed for the next unearned criterion.",
+    "transfer_candidate": "Create a new derivative-sign-analysis task with a different context, representation, and numerical structure.",
+    "delayed_retrieval_candidate": "Reassess Topic 5.9 later with a different function family and no shared wording.",
+    "known_boundary_cases": [
+      "Award criteria independently when the exam task permits.",
+      "Do not award interpretation or justification points for a bare numerical answer.",
+      "Use carry-forward only when later reasoning remains mathematically valid."
+    ],
+    "originality_statement": "Independently authored Cramapple practice item from a blank scope brief; no released, secure, or third-party question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-calculus-ab-bc-ced-effective-fall-2020-2026-release"
+    ],
+    "fact_pack_version": "2026-07-28",
+    "authoring_prompt_version": "CALCULUS_BC_CONTENT_BATCH_2026_07_28",
+    "generated_by": "codex",
+    "generated_at": "2026-07-28T00:00:00Z",
+    "content_sha256": "f620406e987b24d5f16f86aca3b25225599d820cc0678f02e9adf81f6d3648ef"
+  }
+}

@@ -1,0 +1,147 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apprecalc-mcq-049",
+  "content_key": "apprecalc-mcq-049",
+  "content_version": 1,
+  "difficulty": "Hard",
+  "exam_pack_ref": {
+    "exam_code": "ap_precalculus",
+    "school_year": "2026-27",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "mcq",
+  "archetype_ref": {
+    "archetype_key": "ap-precalculus-mcq",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-precalculus-2026-27",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-3-trigonometric-and-polar-functions"
+    },
+    {
+      "scheme_key": "ap-precalculus-2026-27",
+      "scheme_version": "1.0.0",
+      "node_key": "topic-3.14"
+    },
+    {
+      "scheme_key": "ap-precalculus-2026-27",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-2"
+    }
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "directions",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "Calculator use is permitted.",
+        "calculator_mode": "calculator"
+      },
+      "source_refs": [
+        "ap-precalculus-ced-effective-fall-2026"
+      ]
+    }
+  ],
+  "mcq_choices": [
+    {
+      "choice_key": "A",
+      "choice_text": "A cardioid symmetric about the polar axis with a cusp at the pole",
+      "is_correct": true,
+      "rationale": "Correct classification, symmetry, and cusp."
+    },
+    {
+      "choice_key": "B",
+      "choice_text": "A circle centered at (2,0) with radius 2 and tangent to the pole",
+      "is_correct": false,
+      "rationale": "Confuses the polar equation with a rectangular circle tangent to the pole."
+    },
+    {
+      "choice_key": "C",
+      "choice_text": "A four-petal rose symmetric about both coordinate axes with petal length 2",
+      "is_correct": false,
+      "rationale": "Confuses the equation with a rose of the form r=a cos(2θ)."
+    },
+    {
+      "choice_key": "D",
+      "choice_text": "A cardioid symmetric about θ=π/2 with a cusp above the pole",
+      "is_correct": false,
+      "rationale": "Uses the symmetry and orientation associated with a sine-based cardioid."
+    }
+  ],
+  "canonical_answers": [
+    "A"
+  ],
+  "parts": [
+    {
+      "part_key": "question",
+      "ordinal": 1,
+      "prompt": "For r=2+2cosθ, which statement best describes the graph?\n\nA. A cardioid symmetric about the polar axis with a cusp at the pole\nB. A circle centered at (2,0) with radius 2 and tangent to the pole\nC. A four-petal rose symmetric about both coordinate axes with petal length 2\nD. A cardioid symmetric about θ=π/2 with a cusp above the pole",
+      "stimulus_refs": [
+        "directions"
+      ],
+      "response_modalities": [
+        "choice"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-answer",
+          "points": 1,
+          "description": "Select the unique correct response.",
+          "required_evidence": [
+            "A",
+            "The form a+a cosθ is a right-facing cardioid with r=0 at θ=π."
+          ],
+          "accepted_variants": [
+            "Only a displayed choice that is mathematically identical to the keyed response may be treated as equivalent."
+          ],
+          "insufficient_responses": [
+            "An unkeyed choice without a valid ambiguity finding."
+          ],
+          "contradictions": [
+            "A choice or rationale that conflicts with the governing domain, representation, units, or model conditions."
+          ],
+          "minimum_fix": "Select the keyed response after correcting the first invalid mathematical step.",
+          "deterministic_checks": [
+            {
+              "check_type": "choice-key",
+              "parameters": {
+                "correct_key": "A"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All mathematical information is provided in text."
+  },
+  "review_notes": {
+    "expected_reasoning": "The form a+a cosθ is a right-facing cardioid with r=0 at θ=π.",
+    "teaching_explanation": "The form a+a cosθ is a right-facing cardioid with r=0 at θ=π.",
+    "minimum_fix": "Correct the first invalid algebraic, graphical, numerical, or modeling step, then recompute under the stated conditions.",
+    "transfer_candidate": "Create a new Topic 3.14 item with different values, representation, and surface context.",
+    "delayed_retrieval_candidate": "Reassess Topic 3.14 after a delay without reusing this stem or answer choices.",
+    "known_boundary_cases": [
+      "Accept only the keyed choice unless another displayed choice is mathematically identical.",
+      "Reject the item if a reasonable interpretation makes more than one displayed choice correct."
+    ],
+    "originality_statement": "Independently authored Cramapple practice item from a blank scope brief; no released, secure, or third-party question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-precalculus-ced-effective-fall-2026"
+    ],
+    "fact_pack_version": "2026-07-28",
+    "authoring_prompt_version": "CODEX_PRECALCULUS_DIFFICULTY_QA_2026_07_28",
+    "generated_by": "codex",
+    "generated_at": "2026-07-28T00:00:00Z",
+    "content_sha256": "3c941eec7b05868229a14dd14f88a4697e45c24f144b9a872c5d109bef5a2c04"
+  }
+}

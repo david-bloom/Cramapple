@@ -1,0 +1,146 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apcalcab-mcq-031",
+  "content_key": "apcalcab-mcq-031",
+  "content_version": 1,
+  "difficulty": "Hard",
+  "exam_pack_ref": {
+    "exam_code": "ap_calculus_ab",
+    "school_year": "2026-27",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "mcq",
+  "archetype_ref": {
+    "archetype_key": "ap-calculus-ab-mcq",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-calculus-ab-2026-27",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-4-contextual-applications-of-differentiation"
+    },
+    {
+      "scheme_key": "ap-calculus-ab-2026-27",
+      "scheme_version": "1.0.0",
+      "node_key": "topic-4.2"
+    },
+    {
+      "scheme_key": "ap-calculus-ab-mathematical-practices",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-1"
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All assessed mathematical information is available in text; notation requires normal math-reading support."
+  },
+  "stimuli": [
+    {
+      "stimulus_key": "directions",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "A graphing calculator is required.",
+        "calculator_mode": "calculator"
+      },
+      "source_refs": [
+        "ap-calculus-ab-bc-ced-effective-fall-2020-2026-release"
+      ]
+    }
+  ],
+  "mcq_choices": [
+    {
+      "choice_key": "A",
+      "choice_text": "−5.34 m/s",
+      "is_correct": false,
+      "rationale": "Evaluates the derivative with an incorrect linear coefficient."
+    },
+    {
+      "choice_key": "B",
+      "choice_text": "−3.81 m/s",
+      "is_correct": false,
+      "rationale": "Evaluates the position rather than the velocity."
+    },
+    {
+      "choice_key": "C",
+      "choice_text": "−3.42 m/s",
+      "is_correct": true,
+      "rationale": "Correctly differentiates and evaluates with units."
+    },
+    {
+      "choice_key": "D",
+      "choice_text": "2.35 m/s",
+      "is_correct": false,
+      "rationale": "Reports the time as though it were a velocity."
+    }
+  ],
+  "canonical_answers": [
+    "C"
+  ],
+  "parts": [
+    {
+      "part_key": "question",
+      "ordinal": 1,
+      "prompt": "A particle has position s(t)=t³−4.7t²+2.1t+6 meters. What is its velocity at t=2.35 seconds, to the nearest hundredth?\n\nA. −5.34 m/s\nB. −3.81 m/s\nC. −3.42 m/s\nD. 2.35 m/s",
+      "stimulus_refs": [
+        "directions"
+      ],
+      "response_modalities": [
+        "choice"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-answer",
+          "points": 1,
+          "description": "Select the unique correct response.",
+          "required_evidence": [
+            "C",
+            "v(t)=3t²−9.4t+2.1, and v(2.35)=−3.4225≈−3.42 meters per second."
+          ],
+          "accepted_variants": [
+            "Only a displayed choice that is mathematically identical to the keyed response may be treated as equivalent."
+          ],
+          "insufficient_responses": [
+            "An unkeyed choice without a valid ambiguity finding."
+          ],
+          "contradictions": [
+            "A choice or rationale that conflicts with the governing domain, units, or theorem conditions."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "choice-key",
+              "parameters": {
+                "correct_key": "C"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "review_notes": {
+    "expected_reasoning": "v(t)=3t²−9.4t+2.1, and v(2.35)=−3.4225≈−3.42 meters per second.",
+    "teaching_explanation": "v(t)=3t²−9.4t+2.1, and v(2.35)=−3.4225≈−3.42 meters per second.",
+    "minimum_fix": "Correct the first invalid mathematical step, then recompute without changing the problem conditions.",
+    "transfer_candidate": "Create a new item assessing Topic 4.2 with different values and a different representation.",
+    "delayed_retrieval_candidate": "Reassess Topic 4.2 after a delay without reusing this stem or choices.",
+    "known_boundary_cases": [
+      "Reject if more than one displayed choice becomes correct under a reasonable interpretation.",
+      "Check that the keyed choice is not identifiable by length, grammar, or precision alone."
+    ],
+    "originality_statement": "Independently authored Cramapple practice item from a blank scope brief; no released, secure, or third-party question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-calculus-ab-bc-ced-effective-fall-2020-2026-release"
+    ],
+    "fact_pack_version": "2026-07-27",
+    "authoring_prompt_version": "CALCULUS_AB_CONTENT_BATCH_2026_07_27",
+    "generated_by": "codex",
+    "generated_at": "2026-07-27T00:00:00Z",
+    "content_sha256": "6e42b0c5af36d1b212067a87e2018e2e4f99ee0eafa30eee780c13ee419c423d"
+  }
+}

@@ -1,0 +1,146 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apcalcab-mcq-040",
+  "content_key": "apcalcab-mcq-040",
+  "content_version": 1,
+  "difficulty": "Medium",
+  "exam_pack_ref": {
+    "exam_code": "ap_calculus_ab",
+    "school_year": "2026-27",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "mcq",
+  "archetype_ref": {
+    "archetype_key": "ap-calculus-ab-mcq",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-calculus-ab-2026-27",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-6-integration-and-accumulation"
+    },
+    {
+      "scheme_key": "ap-calculus-ab-2026-27",
+      "scheme_version": "1.0.0",
+      "node_key": "topic-6.2"
+    },
+    {
+      "scheme_key": "ap-calculus-ab-mathematical-practices",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-2"
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All assessed mathematical information is available in text; notation requires normal math-reading support."
+  },
+  "stimuli": [
+    {
+      "stimulus_key": "directions",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "A graphing calculator is required.",
+        "calculator_mode": "calculator"
+      },
+      "source_refs": [
+        "ap-calculus-ab-bc-ced-effective-fall-2020-2026-release"
+      ]
+    }
+  ],
+  "mcq_choices": [
+    {
+      "choice_key": "A",
+      "choice_text": "6.20",
+      "is_correct": false,
+      "rationale": "Uses incorrect interval widths."
+    },
+    {
+      "choice_key": "B",
+      "choice_text": "7.56",
+      "is_correct": false,
+      "rationale": "Treats the table as equally spaced."
+    },
+    {
+      "choice_key": "C",
+      "choice_text": "8.04",
+      "is_correct": false,
+      "rationale": "Uses left rather than right endpoint values."
+    },
+    {
+      "choice_key": "D",
+      "choice_text": "7.62",
+      "is_correct": true,
+      "rationale": "Correctly uses each nonuniform width and right endpoint."
+    }
+  ],
+  "canonical_answers": [
+    "D"
+  ],
+  "parts": [
+    {
+      "part_key": "question",
+      "ordinal": 1,
+      "prompt": "Values of f are shown: x=0, 0.7, 1.9, 3.0 and f(x)=2.1, 2.8, 1.6, 3.4. What is the right Riemann-sum approximation for ∫₀³ f(x)dx?\n\nA. 6.20\nB. 7.56\nC. 8.04\nD. 7.62",
+      "stimulus_refs": [
+        "directions"
+      ],
+      "response_modalities": [
+        "choice"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-answer",
+          "points": 1,
+          "description": "Select the unique correct response.",
+          "required_evidence": [
+            "D",
+            "The right sum is 0.7(2.8)+1.2(1.6)+1.1(3.4)=7.62."
+          ],
+          "accepted_variants": [
+            "Only a displayed choice that is mathematically identical to the keyed response may be treated as equivalent."
+          ],
+          "insufficient_responses": [
+            "An unkeyed choice without a valid ambiguity finding."
+          ],
+          "contradictions": [
+            "A choice or rationale that conflicts with the governing domain, units, or theorem conditions."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "choice-key",
+              "parameters": {
+                "correct_key": "D"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "review_notes": {
+    "expected_reasoning": "The right sum is 0.7(2.8)+1.2(1.6)+1.1(3.4)=7.62.",
+    "teaching_explanation": "The right sum is 0.7(2.8)+1.2(1.6)+1.1(3.4)=7.62.",
+    "minimum_fix": "Correct the first invalid mathematical step, then recompute without changing the problem conditions.",
+    "transfer_candidate": "Create a new item assessing Topic 6.2 with different values and a different representation.",
+    "delayed_retrieval_candidate": "Reassess Topic 6.2 after a delay without reusing this stem or choices.",
+    "known_boundary_cases": [
+      "Reject if more than one displayed choice becomes correct under a reasonable interpretation.",
+      "Check that the keyed choice is not identifiable by length, grammar, or precision alone."
+    ],
+    "originality_statement": "Independently authored Cramapple practice item from a blank scope brief; no released, secure, or third-party question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-calculus-ab-bc-ced-effective-fall-2020-2026-release"
+    ],
+    "fact_pack_version": "2026-07-27",
+    "authoring_prompt_version": "CALCULUS_AB_CONTENT_BATCH_2026_07_27",
+    "generated_by": "codex",
+    "generated_at": "2026-07-27T00:00:00Z",
+    "content_sha256": "e15564f33a13ce5220e01ea46d598bcadc3d630901a6eb05a21395c20d16d513"
+  }
+}

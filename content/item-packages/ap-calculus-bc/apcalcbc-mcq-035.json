@@ -1,0 +1,147 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apcalcbc-mcq-035",
+  "content_key": "apcalcbc-mcq-035",
+  "content_version": 1,
+  "difficulty": "Hard",
+  "exam_pack_ref": {
+    "exam_code": "ap_calculus_bc",
+    "school_year": "2026-27",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "mcq",
+  "archetype_ref": {
+    "archetype_key": "ap-calculus-bc-mcq",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-calculus-bc-2026-27",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-6-integration-and-accumulation"
+    },
+    {
+      "scheme_key": "ap-calculus-bc-2026-27",
+      "scheme_version": "1.0.0",
+      "node_key": "topic-6.12"
+    },
+    {
+      "scheme_key": "ap-calculus-bc-mathematical-practices",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-1"
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All assessed mathematical information is available in text; notation requires normal math-reading support."
+  },
+  "stimuli": [
+    {
+      "stimulus_key": "directions",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "No calculator is permitted.",
+        "calculator_mode": "no-calculator"
+      },
+      "source_refs": [
+        "ap-calculus-ab-bc-ced-effective-fall-2020-2026-release"
+      ]
+    }
+  ],
+  "mcq_choices": [
+    {
+      "choice_key": "A",
+      "choice_text": "ln|x²−1|+C",
+      "is_correct": false,
+      "rationale": "Differentiating introduces an unwanted factor of 2x."
+    },
+    {
+      "choice_key": "B",
+      "choice_text": "ln|(x−1)/(x+1)|+C",
+      "is_correct": false,
+      "rationale": "Omits the one-half coefficients in the decomposition."
+    },
+    {
+      "choice_key": "C",
+      "choice_text": "(1/2)ln|x²−1|+C",
+      "is_correct": false,
+      "rationale": "Combines logarithms with the wrong signs."
+    },
+    {
+      "choice_key": "D",
+      "choice_text": "(1/2)ln|(x−1)/(x+1)|+C",
+      "is_correct": true,
+      "rationale": "Correctly decomposes into linear partial fractions and integrates."
+    }
+  ],
+  "canonical_answers": [
+    "D"
+  ],
+  "parts": [
+    {
+      "part_key": "question",
+      "ordinal": 1,
+      "prompt": "What is ∫1/(x²−1) dx on an interval not containing ±1?\n\nA. ln|x²−1|+C\nB. ln|(x−1)/(x+1)|+C\nC. (1/2)ln|x²−1|+C\nD. (1/2)ln|(x−1)/(x+1)|+C",
+      "stimulus_refs": [
+        "directions"
+      ],
+      "response_modalities": [
+        "choice"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-answer",
+          "points": 1,
+          "description": "Select the unique correct response.",
+          "required_evidence": [
+            "D",
+            "Since 1/(x²−1)=1/[2(x−1)]−1/[2(x+1)], the integral is (1/2)ln|(x−1)/(x+1)|+C."
+          ],
+          "accepted_variants": [
+            "Only a displayed choice that is mathematically identical to the keyed response may be treated as equivalent."
+          ],
+          "insufficient_responses": [
+            "An unkeyed choice without a valid ambiguity finding."
+          ],
+          "contradictions": [
+            "A choice or rationale that conflicts with the governing domain, units, or theorem conditions."
+          ],
+          "minimum_fix": "Select the keyed response after correcting the first invalid mathematical step.",
+          "deterministic_checks": [
+            {
+              "check_type": "choice-key",
+              "parameters": {
+                "correct_key": "D"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "review_notes": {
+    "expected_reasoning": "Since 1/(x²−1)=1/[2(x−1)]−1/[2(x+1)], the integral is (1/2)ln|(x−1)/(x+1)|+C.",
+    "teaching_explanation": "Since 1/(x²−1)=1/[2(x−1)]−1/[2(x+1)], the integral is (1/2)ln|(x−1)/(x+1)|+C.",
+    "minimum_fix": "Correct the first invalid mathematical step, then recompute without changing the problem conditions.",
+    "transfer_candidate": "Create a new item assessing Topic 6.12 with different values and a different representation.",
+    "delayed_retrieval_candidate": "Reassess Topic 6.12 after a delay without reusing this stem or choices.",
+    "known_boundary_cases": [
+      "Reject if more than one displayed choice becomes correct under a reasonable interpretation.",
+      "Check that the keyed choice is not identifiable by length, grammar, or precision alone."
+    ],
+    "originality_statement": "Independently authored Cramapple practice item from a blank scope brief; no released, secure, or third-party question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-calculus-ab-bc-ced-effective-fall-2020-2026-release"
+    ],
+    "fact_pack_version": "2026-07-28",
+    "authoring_prompt_version": "CALCULUS_BC_CONTENT_BATCH_2026_07_28",
+    "generated_by": "codex",
+    "generated_at": "2026-07-28T00:00:00Z",
+    "content_sha256": "9fb11e35c465966809327960d5340874a922d71d101c44cc2cea03f0966d1889"
+  }
+}
