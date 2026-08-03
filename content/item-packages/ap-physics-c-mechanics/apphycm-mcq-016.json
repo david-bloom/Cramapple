@@ -1,0 +1,109 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apphycm-mcq-016",
+  "content_key": "apphycm-mcq-016",
+  "content_version": 1,
+  "difficulty": "Hard",
+  "exam_pack_ref": {
+    "exam_code": "ap_physics_c_mechanics",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "mcq",
+  "archetype_ref": {
+    "archetype_key": "ap-physics-c-mechanics-mcq",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-physics-c-mechanics-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-7-oscillations"
+    },
+    {
+      "scheme_key": "ap-physics-c-mechanics-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-1"
+    }
+  ],
+  "stimuli": [],
+  "mcq_choices": [
+    {
+      "choice_key": "A",
+      "choice_text": "ω/2π",
+      "is_correct": false,
+      "rationale": "Inverts the correct ratio, computing the frequency f=ω/2π rather than the period T=2π/ω."
+    },
+    {
+      "choice_key": "B",
+      "choice_text": "2πω",
+      "is_correct": false,
+      "rationale": "Multiplies by ω instead of dividing by it, misplacing ω in the numerator alongside 2π."
+    },
+    {
+      "choice_key": "C",
+      "choice_text": "2π/ω",
+      "is_correct": true,
+      "rationale": "one cycle spans angular phase 2π"
+    },
+    {
+      "choice_key": "D",
+      "choice_text": "1/ω²",
+      "is_correct": false,
+      "rationale": "Squares ω in the denominator, confusing the period formula with the ω²=k/m relation from the oscillator equation."
+    }
+  ],
+  "canonical_answers": [
+    "C"
+  ],
+  "parts": [
+    {
+      "part_key": "question",
+      "ordinal": 1,
+      "prompt": "The period for x''+ω²x=0 is\n\nA. ω/2π\nB. 2πω\nC. 2π/ω\nD. 1/ω²",
+      "response_modalities": [
+        "choice"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-answer",
+          "points": 1,
+          "description": "Select the single scientifically correct answer.",
+          "required_evidence": [
+            "C",
+            "one cycle spans angular phase 2π"
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "choice-key",
+              "parameters": {
+                "choice": "C"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All information is text-based."
+  },
+  "review_notes": {
+    "expected_reasoning": "one cycle spans angular phase 2π",
+    "known_boundary_cases": [],
+    "originality_statement": "Independently authored synthetic practice item; no official question or scoring material used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-physics-c-mechanics-ced-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-15",
+    "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
+    "generated_by": "codex",
+    "generated_at": "2026-07-15T00:00:00Z",
+    "content_sha256": "59f1ffe70a0b7ed3ec27b91db936753491d64366fe3fd340e3fc6e625ddf802c"
+  }
+}

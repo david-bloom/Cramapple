@@ -1,0 +1,109 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apphycm-mcq-009",
+  "content_key": "apphycm-mcq-009",
+  "content_version": 1,
+  "difficulty": "Medium",
+  "exam_pack_ref": {
+    "exam_code": "ap_physics_c_mechanics",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "mcq",
+  "archetype_ref": {
+    "archetype_key": "ap-physics-c-mechanics-mcq",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-physics-c-mechanics-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-4-linear-momentum"
+    },
+    {
+      "scheme_key": "ap-physics-c-mechanics-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-3"
+    }
+  ],
+  "stimuli": [],
+  "mcq_choices": [
+    {
+      "choice_key": "A",
+      "choice_text": "F(T)/T",
+      "is_correct": false,
+      "rationale": "Treats impulse as an average rate (force divided by time) rather than the accumulated integral of force over time."
+    },
+    {
+      "choice_key": "B",
+      "choice_text": "∫₀ᵀF(t)dt",
+      "is_correct": true,
+      "rationale": "impulse is the time integral of force"
+    },
+    {
+      "choice_key": "C",
+      "choice_text": "dF/dt",
+      "is_correct": false,
+      "rationale": "Differentiates the force with respect to time instead of integrating it, inverting the required operation."
+    },
+    {
+      "choice_key": "D",
+      "choice_text": "∫F dx",
+      "is_correct": false,
+      "rationale": "Integrates force over displacement instead of time, confusing impulse with work."
+    }
+  ],
+  "canonical_answers": [
+    "B"
+  ],
+  "parts": [
+    {
+      "part_key": "question",
+      "ordinal": 1,
+      "prompt": "For variable force F(t), impulse from 0 to T is\n\nA. F(T)/T\nB. ∫₀ᵀF(t)dt\nC. dF/dt\nD. ∫F dx",
+      "response_modalities": [
+        "choice"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-answer",
+          "points": 1,
+          "description": "Select the single scientifically correct answer.",
+          "required_evidence": [
+            "B",
+            "impulse is the time integral of force"
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "choice-key",
+              "parameters": {
+                "choice": "B"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All information is text-based."
+  },
+  "review_notes": {
+    "expected_reasoning": "impulse is the time integral of force",
+    "known_boundary_cases": [],
+    "originality_statement": "Independently authored synthetic practice item; no official question or scoring material used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-physics-c-mechanics-ced-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-15",
+    "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
+    "generated_by": "codex",
+    "generated_at": "2026-07-15T00:00:00Z",
+    "content_sha256": "f891ae6f322eecc9847a876ac30e0ec2df4afeef776914e9a5b216c1f9070f6a"
+  }
+}

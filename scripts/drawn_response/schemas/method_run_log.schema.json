@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cramapple.internal/schemas/drawn_response/method_run_log.schema.json",
+  "title": "Drawn-Response Method Run Log Record",
+  "$comment": "Not a phase-1 spec label type -- this is harness scaffolding to support docs/research/TASK-0011_PHASE_1_EXECUTION_SPEC.md section 8.3's latency, cost, and reviewer-burden metrics, which need a per-invocation log distinct from the per-criterion decision records (one method call may produce several criterion decisions for one image).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "response_id",
+    "item_id",
+    "method",
+    "criterion_ids_produced",
+    "latency_ms",
+    "cost_usd",
+    "reviewer_minutes",
+    "human_reviewed",
+    "timestamp"
+  ],
+  "properties": {
+    "response_id": { "type": "string", "minLength": 1 },
+    "item_id": { "type": "string", "minLength": 1 },
+    "method": {
+      "type": "string",
+      "enum": [
+        "method_direct_multimodal",
+        "method_multimodal_observation_then_criterion",
+        "method_deterministic_geometry_ocr",
+        "method_hybrid_reconciliation",
+        "human_validator_a",
+        "human_validator_b",
+        "human_lead_adjudication"
+      ]
+    },
+    "criterion_ids_produced": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1,
+      "description": "Which criterion_decision records this single invocation produced."
+    },
+    "latency_ms": {
+      "type": ["number", "null"],
+      "description": "End-to-end latency for this invocation. Null for human labeling rows where wall-clock latency is not the relevant signal (use reviewer_minutes instead)."
+    },
+    "cost_usd": {
+      "type": ["number", "null"],
+      "description": "Provider/compute cost for this invocation. Null for human labeling rows."
+    },
+    "reviewer_minutes": {
+      "type": ["number", "null"],
+      "description": "Human reviewer time for this invocation. Null for unattended automated method rows that were not human-reviewed."
+    },
+    "human_reviewed": {
+      "type": "boolean",
+      "description": "Whether this result passed through human review before being counted as accepted (section 8.3: 'cost per accepted result and per human-reviewed result')."
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

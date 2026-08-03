@@ -1,0 +1,397 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apcalcab-frq-023",
+  "content_key": "apcalcab-frq-023",
+  "content_version": 1,
+  "difficulty": "Hard",
+  "exam_pack_ref": {
+    "exam_code": "ap_calculus_ab",
+    "school_year": "2026-27",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "frq",
+  "archetype_ref": {
+    "archetype_key": "ap-calculus-ab-frq-transcendental-function-analysis",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-calculus-ab-2026-27",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-2-differentiation-fundamental-properties"
+    },
+    {
+      "scheme_key": "ap-calculus-ab-2026-27",
+      "scheme_version": "1.0.0",
+      "node_key": "topic-2.8"
+    },
+    {
+      "scheme_key": "ap-calculus-ab-mathematical-practices",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-1"
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All assessed mathematical information is available in text; notation requires normal math-reading support."
+  },
+  "frq_form": "long",
+  "canonical_answers": [
+    "Solves f′(x)=e^(−x²/4)(1−x²/2)=0. | Obtains x=√2≈1.414 and f(√2)≈0.858. | Compares the critical value with both endpoints. | Uses a numerical solver or graph. | Obtains x≈0.537 and x≈2.554. | Uses (1/5)∫₀⁵xe^(−x²/4)dx. | Obtains approximately 0.399. | Finds f″(x)=xe^(−x²/4)(x²−6)/4. | Obtains x=√6≈2.449 and verifies a concavity change."
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "scenario",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "For 0≤x≤5, let f(x)=xe^(−x²/4).",
+        "calculator_mode": "calculator"
+      },
+      "source_refs": [
+        "ap-calculus-ab-bc-ced-effective-fall-2020-2026-release"
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "part_key": "part-a",
+      "ordinal": 1,
+      "label": "(a)",
+      "prompt": "Find the absolute maximum value of f and where it occurs.",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 3,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "Solves f′(x)=e^(−x²/4)(1−x²/2)=0.",
+          "required_evidence": [
+            "Solves f′(x)=e^(−x²/4)(1−x²/2)=0."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+          ],
+          "insufficient_responses": [
+            "A correct number without required setup, justification, interpretation, or units when that evidence is named in the criterion."
+          ],
+          "contradictions": [
+            "Do not award the criterion when the response directly contradicts the required mathematical relationship or contextual meaning."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: Solves f′(x)=e^(−x²/4)(1−x²/2)=0.",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        },
+        {
+          "criterion_key": "part-a-criterion-2",
+          "points": 1,
+          "description": "Obtains x=√2≈1.414 and f(√2)≈0.858.",
+          "required_evidence": [
+            "Obtains x=√2≈1.414 and f(√2)≈0.858."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+          ],
+          "insufficient_responses": [
+            "A correct number without required setup, justification, interpretation, or units when that evidence is named in the criterion."
+          ],
+          "contradictions": [
+            "Do not award the criterion when the response directly contradicts the required mathematical relationship or contextual meaning."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: Obtains x=√2≈1.414 and f(√2)≈0.858.",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        },
+        {
+          "criterion_key": "part-a-criterion-3",
+          "points": 1,
+          "description": "Compares the critical value with both endpoints.",
+          "required_evidence": [
+            "Compares the critical value with both endpoints."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+          ],
+          "insufficient_responses": [
+            "A correct number without required setup, justification, interpretation, or units when that evidence is named in the criterion."
+          ],
+          "contradictions": [
+            "Do not award the criterion when the response directly contradicts the required mathematical relationship or contextual meaning."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: Compares the critical value with both endpoints.",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part_key": "part-b",
+      "ordinal": 2,
+      "label": "(b)",
+      "prompt": "Solve f(x)=0.5 on the interval.",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 2,
+      "criteria": [
+        {
+          "criterion_key": "part-b-criterion-1",
+          "points": 1,
+          "description": "Uses a numerical solver or graph.",
+          "required_evidence": [
+            "Uses a numerical solver or graph."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+          ],
+          "insufficient_responses": [
+            "A correct number without required setup, justification, interpretation, or units when that evidence is named in the criterion."
+          ],
+          "contradictions": [
+            "Do not award the criterion when the response directly contradicts the required mathematical relationship or contextual meaning."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: Uses a numerical solver or graph.",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        },
+        {
+          "criterion_key": "part-b-criterion-2",
+          "points": 1,
+          "description": "Obtains x≈0.537 and x≈2.554.",
+          "required_evidence": [
+            "Obtains x≈0.537 and x≈2.554."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+          ],
+          "insufficient_responses": [
+            "A correct number without required setup, justification, interpretation, or units when that evidence is named in the criterion."
+          ],
+          "contradictions": [
+            "Do not award the criterion when the response directly contradicts the required mathematical relationship or contextual meaning."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: Obtains x≈0.537 and x≈2.554.",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part_key": "part-c",
+      "ordinal": 3,
+      "label": "(c)",
+      "prompt": "Find the average value of f on [0,5].",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 2,
+      "criteria": [
+        {
+          "criterion_key": "part-c-criterion-1",
+          "points": 1,
+          "description": "Uses (1/5)∫₀⁵xe^(−x²/4)dx.",
+          "required_evidence": [
+            "Uses (1/5)∫₀⁵xe^(−x²/4)dx."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+          ],
+          "insufficient_responses": [
+            "A correct number without required setup, justification, interpretation, or units when that evidence is named in the criterion."
+          ],
+          "contradictions": [
+            "Do not award the criterion when the response directly contradicts the required mathematical relationship or contextual meaning."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: Uses (1/5)∫₀⁵xe^(−x²/4)dx.",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        },
+        {
+          "criterion_key": "part-c-criterion-2",
+          "points": 1,
+          "description": "Obtains approximately 0.399.",
+          "required_evidence": [
+            "Obtains approximately 0.399."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+          ],
+          "insufficient_responses": [
+            "A correct number without required setup, justification, interpretation, or units when that evidence is named in the criterion."
+          ],
+          "contradictions": [
+            "Do not award the criterion when the response directly contradicts the required mathematical relationship or contextual meaning."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: Obtains approximately 0.399.",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part_key": "part-d",
+      "ordinal": 4,
+      "label": "(d)",
+      "prompt": "Find the x-coordinate of the inflection point in (0,5) and justify.",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 2,
+      "criteria": [
+        {
+          "criterion_key": "part-d-criterion-1",
+          "points": 1,
+          "description": "Finds f″(x)=xe^(−x²/4)(x²−6)/4.",
+          "required_evidence": [
+            "Finds f″(x)=xe^(−x²/4)(x²−6)/4."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+          ],
+          "insufficient_responses": [
+            "A correct number without required setup, justification, interpretation, or units when that evidence is named in the criterion."
+          ],
+          "contradictions": [
+            "Do not award the criterion when the response directly contradicts the required mathematical relationship or contextual meaning."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: Finds f″(x)=xe^(−x²/4)(x²−6)/4.",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        },
+        {
+          "criterion_key": "part-d-criterion-2",
+          "points": 1,
+          "description": "Obtains x=√6≈2.449 and verifies a concavity change.",
+          "required_evidence": [
+            "Obtains x=√6≈2.449 and verifies a concavity change."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+          ],
+          "insufficient_responses": [
+            "A correct number without required setup, justification, interpretation, or units when that evidence is named in the criterion."
+          ],
+          "contradictions": [
+            "Do not award the criterion when the response directly contradicts the required mathematical relationship or contextual meaning."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: Obtains x=√6≈2.449 and verifies a concavity change.",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "scoring_contract": {
+    "total_points": 9,
+    "part_count": 4,
+    "calculator_mode": "calculator",
+    "carry_forward_rule": "A later criterion may earn when the student's earlier arithmetic error is carried forward consistently and the later reasoning remains valid.",
+    "rounding_rule": "Accept exact values or values correctly rounded to the precision requested.",
+    "units_rule": "Units are required only when a criterion or prompt explicitly requests contextual units.",
+    "ambiguity_rule": "Escalate responses that use a valid but unlisted interpretation rather than forcing a score."
+  },
+  "development_cases": {
+    "full_credit": "Provides all required setup, values, justifications, interpretations, and units.",
+    "partial_credit": "Shows a valid method for multiple criteria but omits or misstates at least one independently required piece of evidence.",
+    "no_credit": "Provides no relevant calculus relationship or only unsupported answers.",
+    "equivalent": "Uses algebraically equivalent forms or a different valid theorem-based argument.",
+    "contradictory": "States a correct value but also asserts an incompatible sign, interval, unit, or conclusion.",
+    "ambiguous": "Contains notation whose intended mathematical meaning cannot be determined reliably."
+  },
+  "review_notes": {
+    "expected_reasoning": "Solves f′(x)=e^(−x²/4)(1−x²/2)=0. | Obtains x=√2≈1.414 and f(√2)≈0.858. | Compares the critical value with both endpoints. | Uses a numerical solver or graph. | Obtains x≈0.537 and x≈2.554. | Uses (1/5)∫₀⁵xe^(−x²/4)dx. | Obtains approximately 0.399. | Finds f″(x)=xe^(−x²/4)(x²−6)/4. | Obtains x=√6≈2.449 and verifies a concavity change.",
+    "teaching_explanation": "Connect each awarded point to the stated calculus relationship and the evidence shown in the response.",
+    "minimum_fix": "Repair the earliest missing setup or justification needed for the next unearned criterion.",
+    "transfer_candidate": "Create a new transcendental-function-analysis task with a different context, representation, and numerical structure.",
+    "delayed_retrieval_candidate": "Reassess Topic 2.8 later with a different function family and no shared wording.",
+    "known_boundary_cases": [
+      "Award criteria independently when the exam task permits.",
+      "Do not award interpretation or justification points for a bare numerical answer.",
+      "Use carry-forward only when later reasoning remains mathematically valid."
+    ],
+    "originality_statement": "Independently authored Cramapple practice item from a blank scope brief; no released, secure, or third-party question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-calculus-ab-bc-ced-effective-fall-2020-2026-release"
+    ],
+    "fact_pack_version": "2026-07-27",
+    "authoring_prompt_version": "CALCULUS_AB_CONTENT_BATCH_2026_07_27",
+    "generated_by": "codex",
+    "generated_at": "2026-07-27T00:00:00Z",
+    "content_sha256": "447feaf84c001dc7620c96fa8f4f2880247e69c8e1953771517214540eb846ee"
+  }
+}

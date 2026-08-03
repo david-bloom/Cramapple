@@ -1,0 +1,1113 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2822
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica-Light;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 ###student_prompt\
+\
+An artificial membrane-bound structure modeling a plant cell was filled with a solution containing a fixed concentration of total dissolved solutes. Replicate samples of these synthetic tissue structures were weighed to determine their initial mass and then placed into beakers containing sucrose solutions of varying concentrations ($0.0\\text\{ M\}$, $0.2\\text\{ M\}$, $0.4\\text\{ M\}$, $0.6\\text\{ M\}$, and $0.8\\text\{ M\}$) at a constant temperature of $22^\\circ\\text\{C\}$. After $60\\text\{ minutes\}$, the synthetic tissue samples were removed, blotted dry, and reweighed to determine their final mass. The mean percent change in mass for the samples at each external sucrose concentration was calculated.\
+\
+Construct a graph on the axes provided to represent the relationship between the external sucrose concentration and the mean percent change in mass of the synthetic tissue samples. Draw a single straight line of best fit through the data points to illustrate the overall trend. Using your graph, determine the internal osmolarity (solute concentration) of the synthetic tissue samples by identifying the point where no net movement of water occurs. Report this concentration value with appropriate units in the space provided.\
+\
+---\
+\
+### synthetic_data_source\
+\
+The dataset is constructed using a linear relationship describing water potential equilibration where percent mass change ($\\Delta M$) depends on the external sucrose concentration ($C$) via the true generative formula:\
+\
+\
+$$\\Delta M = -35.0 \\cdot C + 10.5$$\
+\
+To simulate real experimental variation without losing exact decimal reproducibility, three explicit synthetic replicates ($R_1, R_2, R_3$) were generated for each concentration group. The final displayed mean is computed as the exact arithmetic mean of these three values:\
+\
+$$\\text\{Mean\} = \\frac\{R_1 + R_2 + R_3\}\{3\}$$\
+\
+#### Replicate Values and Arithmetic Verifications:\
+\
+* **$0.0\\text\{ M\}$ Sucrose:**\
+* Replicates: $11.2\\%$, $9.8\\%$, $10.5\\%$\
+* Arithmetic: $\\frac\{11.2 + 9.8 + 10.5\}\{3\} = \\frac\{31.5\}\{3\} = 10.50 \\rightarrow$ Rounded to one decimal: **$10.5\\%$**\
+\
+\
+* **$0.2\\text\{ M\}$ Sucrose:**\
+* Replicates: $3.1\\%$, $4.0\\%$, $3.4\\%$\
+* Arithmetic: $\\frac\{3.1 + 4.0 + 3.4\}\{3\} = \\frac\{10.5\}\{3\} = 3.50 \\rightarrow$ Rounded to one decimal: **$3.5\\%$**\
+\
+\
+* **$0.4\\text\{ M\}$ Sucrose:**\
+* Replicates: $-3.3\\%$, $-3.8\\%$, $-3.4\\%$\
+* Arithmetic: $\\frac\{-3.3 + -3.8 + -3.4\}\{3\} = \\frac\{-10.5\}\{3\} = -3.50 \\rightarrow$ Rounded to one decimal: **$-3.5\\%$**\
+\
+\
+* **$0.6\\text\{ M\}$ Sucrose:**\
+* Replicates: $-10.1\\%$, $-11.0\\%$, $-10.4\\%$\
+* Arithmetic: $\\frac\{-10.1 + -11.0 + -10.4\}\{3\} = \\frac\{-31.5\}\{3\} = -10.50 \\rightarrow$ Rounded to one decimal: **$-10.5\\%$**\
+\
+\
+* **$0.8\\text\{ M\}$ Sucrose:**\
+* Replicates: $-17.2\\%$, $-17.9\\%$, $-17.4\\%$\
+* Arithmetic: $\\frac\{-17.2 + -17.9 + -17.4\}\{3\} = \\frac\{-52.5\}\{3\} = -17.50 \\rightarrow$ Rounded to one decimal: **$-17.5\\%$**\
+\
+\
+\
+---\
+\
+### display_table\
+\
+**Table 1. Mean percent change in mass of synthetic tissue samples after 60 minutes in various external sucrose solutions**\
+\
+| External Sucrose Concentration (M) | Mean Percent Change in Mass (%) |\
+| --- | --- |\
+| $0.0$ | $10.5$ |\
+| $0.2$ | $3.5$ |\
+| $0.4$ | $-3.5$ |\
+| $0.6$ | $-10.5$ |\
+| $0.8$ | $-17.5$ |\
+\
+---\
+\
+### expected_graph_spec\
+\
+* **Axes and Layout:** A standard coordinate plane grid where the independent variable is assigned to the horizontal x-axis and the dependent variable is assigned to the vertical y-axis. The vertical y-axis must cross zero to accommodate both positive and negative values.\
+* **X-Axis Label and Units:** Labelled as "External Sucrose Concentration (M)" or "External Sucrose Concentration (mol/L)".\
+* **Y-Axis Label and Units:** Labelled as "Mean Percent Change in Mass (%)" or "Percent Change in Mass (%)".\
+* **Scaling:** * The x-axis scales linearly from $0.0$ to at least $0.8\\text\{ M\}$, using consistent grid increments.\
+* The y-axis scales linearly from at least $-20\\%$ to $+15\\%$, with $0\\%$ clearly marked to show the division between mass gain and mass loss.\
+\
+\
+* **Plotted Marks:** Five individual data points plotted accurately as coordinate pairs according to Table 1: $(0.0, 10.5)$, $(0.2, 3.5)$, $(0.4, -3.5)$, $(0.6, -10.5)$, and $(0.8, -17.5)$.\
+* **Relationship Line:** A single, continuous straight line of best fit drawn cleanly through the data points, showing a uniform negative linear slope. The points do not connect in a point-to-point "connect-the-dots" fashion.\
+* **Required Annotation:** A visible circle, arrow, or coordinate callout explicitly highlighting the x-intercept where the line of best fit crosses $0\\%$ on the y-axis.\
+* **Reported Estimate:** A standalone written value stating $0.3\\text\{ M\}$ (or an exactly corresponding value based on the student's drawn line) accompanied by the unit "M" or "mol/L".\
+\
+---\
+\
+### criterion_definitions\
+\
+* **REPRESENTATION_TYPE:** The student must construct a scatter plot or line graph containing individual coordinate data points rather than a bar chart or categorical presentation.\
+* **X_VARIABLE:** The student must place the independent variable, external sucrose concentration, on the horizontal x-axis.\
+* **Y_VARIABLE:** The student must place the dependent variable, mean percent change in mass, on the vertical y-axis.\
+* **X_UNIT:** The horizontal axis label must explicitly include the unit of concentration, "M" or "mol/L".\
+* **Y_UNIT:** The vertical axis label must explicitly include the percentage sign, "%".\
+* **X_SCALE:** The horizontal axis must feature linear, mathematically equal spacing between numeric increments spanning at least $0.0$ to $0.8$.\
+* **Y_SCALE:** The vertical axis must scale linearly and span both positive and negative ranges, placing the $0\\%$ baseline correctly between positive mass changes and negative mass changes.\
+* **PLOT_VALUES:** The student must plot all five data coordinate pairs accurately at their calculated intersecting values from the display table.\
+* **BEST_FIT_RELATIONSHIP:** The student must draw a single linear best-fit line through the coordinates rather than connecting adjacent points using segmented point-to-point lines.\
+* **ZERO_INTERCEPT_ANNOTATION:** The student must visually mark or point to the precise location on the graph where their line of best fit crosses the horizontal axis ($y = 0$).\
+* **ESTIMATE_VALUE:** The student must state a final concentration estimate derived directly from their graph's x-intercept, including the unit "M" or "mol/L".\
+\
+---\
+\
+### accepted_variants\
+\
+* A standard scatter plot with an un-extended best-fit line is acceptable as long as it reaches the x-axis intercept.\
+* Alternative valid units for the independent variable, such as "molarity" or "mol/L", are fully acceptable in place of "M".\
+* If a student draws a best-fit line that is slightly skewed due to manual plotting variance, an estimate value that accurately reflects their specific drawn line's x-intercept will be accepted for the ESTIMATE_VALUE point, even if it deviates slightly from the true value of $0.3\\text\{ M\}$.\
+\
+---\
+\
+### contradictions\
+\
+* **Bar Or Column Representation:** Drawing a bar or column chart instead of a scatter plot with a best-fit line violates `REPRESENTATION_TYPE`, since this is a continuous relationship, not a categorical comparison.\
+* **Point-to-Point Segmented Lines:** Connecting the data points directly from dot to dot instead of drawing a single best-fit line violates `BEST_FIT_RELATIONSHIP`.\
+* **Truncated Y-Axis:** Starting the y-axis at $0\\%$ or omitting the negative coordinate region completely prevents plotting the full dataset and violates `Y_SCALE`.\
+* **Missing Units on Estimate:** Providing the numeric value for the internal osmolarity (e.g., "$0.3$") without its corresponding unit ("M" or "mol/L") violates `ESTIMATE_VALUE`.\
+\
+---\
+\
+### development_tolerances\
+\
+*(Proposed development tolerances, not validated thresholds)*\
+\
+* **Plotting Precision:** Plotted data points must fall within $\\pm0.02\\text\{ M\}$ on the x-axis and $\\pm1.0\\%$ on the y-axis relative to the grid lines.\
+* **Estimate Tolerance:** The reported final value must exactly match the x-intercept of the hand-drawn line within $\\pm0.02\\text\{ M\}$. For a perfectly drawn linear fit, the true mathematical value is $0.30\\text\{ M\}$, making the acceptable target range $0.28\\text\{ M\}$ to $0.32\\text\{ M\}$.\
+\
+---\
+\
+### minimum_feedback\
+\
+* **REPRESENTATION_TYPE:** Change your graph style from a bar graph to a coordinate point graph, as the data represents continuous variables rather than discrete categories.\
+* **X_VARIABLE:** Switch your axes so that the independent variable, external sucrose concentration, is plotted along the horizontal x-axis.\
+* **Y_VARIABLE:** Switch your axes so that the dependent variable, mean percent change in mass, is plotted along the vertical y-axis.\
+* **X_UNIT:** Add the unit label (M or mol/L) to the horizontal axis title.\
+* **Y_UNIT:** Add the percentage unit symbol (%) to the vertical axis title.\
+* **X_SCALE:** Adjust the horizontal axis increments so that the distance between $0.0$, $0.2$, $0.4$, $0.6$, and $0.8$ is uniform and mathematically linear.\
+* **Y_SCALE:** Redraw your vertical axis to include a continuous linear scale that extends below zero to properly plot negative values.\
+* **PLOT_VALUES:** Recheck the coordinates of your data points to ensure that all five pairs from the table match the grid values.\
+* **BEST_FIT_RELATIONSHIP:** Draw a single straight line that trends through the center of all the data points collectively, instead of connecting the points directly together with jagged segments.\
+* **ZERO_INTERCEPT_ANNOTATION:** Circle or place an indicator mark directly on the graph grid where your line of best fit crosses the zero percent mass change line.\
+* **ESTIMATE_VALUE:** Write down the numeric concentration value with its unit (M) where your line intersects the zero-change axis.\
+\
+---\
+\
+### rights_and_similarity_record\
+\
+Original content, independently generated for this draft. Novelty and similarity status: unverified, pending qualified human source-isolation and similarity review.\
+\
+\
+###student_prompt\
+A student investigated the effect of light intensity on the rate of photosynthesis in Elodea densa, an aquatic plant. Replicate branches of the plant were placed in glass chambers filled with a sodium bicarbonate solution to provide an abundant supply of carbon dioxide. The chambers were exposed to seven different light intensities ($0, 100, 200, 300, 400, 500,$ and $600\\text\{ \}\\mu\\text\{mol\}\\cdot\\text\{m\}^\{-2\}\\cdot\\text\{s\}^\{-1\}$) at a constant temperature of $22^\\circ\\text\{C\}$. The rate of photosynthesis was determined by measuring the net rate of oxygen production ($\\mu\\text\{mol O\}_2\\cdot\\text\{g\}^\{-1\}\\cdot\\text\{hr\}^\{-1\}$) for each branch.\
+Construct a graph on the axes provided to accurately represent the relationship between light intensity and the mean photosynthetic rate. Plot the group means, connect adjacent measured values with straight line segments to illustrate the continuous series, and include symmetric error bars representing $\\pm1\\text\{ SEM\}$ around each mean.\
+synthetic_data_source\
+The dataset is generated using a Michaelis-Menten-style saturating hyperbola model to represent the classic light-response curve of photosynthesis ($P(I)$), combined with an explicit variance model to derive the Standard Error of the Mean ($\\text\{SEM\}$).\
+The generative formula for the true mean photosynthetic rate as a function of light intensity ($I$) is:\
+$$P(I) = \\frac\{40.0 \\cdot I\}\{100 + I\}$$\
+To provide the required error bars, explicit synthetic replicate observations ($R_1, R_2, R_3$) for three independent samples ($n=3$) per treatment level are listed below. The sample mean and $\\text\{SEM\}$ are calculated strictly using the standard arithmetic definitions:\
+$$\\text\{Mean\} = \\frac\{\\sum R_i\}\{3\}, \\quad \\text\{SEM\} = \\frac\{s\}\{\\sqrt\{3\}\} = \\sqrt\{\\frac\{\\sum (R_i - \\text\{Mean\})^2\}\{3 \\times 2\}\}$$\
+Replicate Values and Step-by-Step Verifications:\
+	\'95	$0\\text\{ \}\\mu\\text\{mol\}\\cdot\\text\{m\}^\{-2\}\\cdot\\text\{s\}^\{-1\}$:\
+	\uc0\u9702 	Replicates: $0.0, 0.0, 0.0$\
+	\uc0\u9702 	Mean: $\\frac\{0.0\}\{3\} = 0.00 \\rightarrow$ $0.0$\
+	\uc0\u9702 	SEM: $\\sqrt\{0\} = 0.00 \\rightarrow$ $0.0$\
+	\'95	$100\\text\{ \}\\mu\\text\{mol\}\\cdot\\text\{m\}^\{-2\}\\cdot\\text\{s\}^\{-1\}$:\
+	\uc0\u9702 	Replicates: $18.5, 21.0, 20.5$\
+	\uc0\u9702 	Mean: $\\frac\{60.0\}\{3\} = 20.00 \\rightarrow$ $20.0$\
+	\uc0\u9702 	SEM: $\\sqrt\{\\frac\{2.25 + 1.00 + 0.25\}\{6\}\} = \\sqrt\{0.5833\} \\approx 0.763 \\rightarrow$ Rounded to one decimal: $0.8$\
+	\'95	$200\\text\{ \}\\mu\\text\{mol\}\\cdot\\text\{m\}^\{-2\}\\cdot\\text\{s\}^\{-1\}$:\
+	\uc0\u9702 	Replicates: $25.2, 28.1, 26.8$\
+	\uc0\u9702 	Mean: $\\frac\{80.1\}\{3\} = 26.70 \\rightarrow$ $26.7$\
+	\uc0\u9702 	SEM: $\\sqrt\{\\frac\{2.25 + 1.96 + 0.01\}\{6\}\} = \\sqrt\{0.7033\} \\approx 0.838 \\rightarrow$ Rounded to one decimal: $0.8$\
+	\'95	$300\\text\{ \}\\mu\\text\{mol\}\\cdot\\text\{m\}^\{-2\}\\cdot\\text\{s\}^\{-1\}$:\
+	\uc0\u9702 	Replicates: $28.5, 31.2, 30.3$\
+	\uc0\u9702 	Mean: $\\frac\{90.0\}\{3\} = 30.00 \\rightarrow$ $30.0$\
+	\uc0\u9702 	SEM: $\\sqrt\{\\frac\{2.25 + 1.44 + 0.09\}\{6\}\} = \\sqrt\{0.63\} \\approx 0.793 \\rightarrow$ Rounded to one decimal: $0.8$\
+	\'95	$400\\text\{ \}\\mu\\text\{mol\}\\cdot\\text\{m\}^\{-2\}\\cdot\\text\{s\}^\{-1\}$:\
+	\uc0\u9702 	Replicates: $30.8, 33.1, 32.1$\
+	\uc0\u9702 	Mean: $\\frac\{96.0\}\{3\} = 32.00 \\rightarrow$ $32.0$\
+	\uc0\u9702 	SEM: $\\sqrt\{\\frac\{1.44 + 1.21 + 0.01\}\{6\}\} = \\sqrt\{0.4433\} \\approx 0.665 \\rightarrow$ Rounded to one decimal: $0.7$\
+	\'95	$500\\text\{ \}\\mu\\text\{mol\}\\cdot\\text\{m\}^\{-2\}\\cdot\\text\{s\}^\{-1\}$:\
+	\uc0\u9702 	Replicates: $32.1, 34.6, 33.2$\
+	\uc0\u9702 	Mean: $\\frac\{99.9\}\{3\} = 33.30 \\rightarrow$ $33.3$\
+	\uc0\u9702 	SEM: $\\sqrt\{\\frac\{1.44 + 1.69 + 0.01\}\{6\}\} = \\sqrt\{0.5233\} \\approx 0.723 \\rightarrow$ Rounded to one decimal: $0.7$\
+	\'95	$600\\text\{ \}\\mu\\text\{mol\}\\cdot\\text\{m\}^\{-2\}\\cdot\\text\{s\}^\{-1\}$:\
+	\uc0\u9702 	Replicates: $33.3, 35.1, 34.5$\
+	\uc0\u9702 	Mean: $\\frac\{102.9\}\{3\} = 34.30 \\rightarrow$ $34.3$\
+	\uc0\u9702 	SEM: $\\sqrt\{\\frac\{1.00 + 0.64 + 0.04\}\{6\}\} = \\sqrt\{0.28\} \\approx 0.529 \\rightarrow$ Rounded to one decimal: $0.5$\
+display_table\
+Table 1. Effect of light intensity on the mean net photosynthetic rate in Elodea densa\
+Light Intensity (\uc0\u956 mol\u8901 m\u8722 2\u8901 s\u8722 1)\
+Mean Photosynthetic Rate (\uc0\u956 mol\'a0O2 \u8901 g\u8722 1\u8901 hr\u8722 1)\
+Standard Error of the Mean (SEM)\
+$0$\
+$0.0$\
+$0.0$\
+$100$\
+$20.0$\
+$0.8$\
+$200$\
+$26.7$\
+$0.8$\
+$300$\
+$30.0$\
+$0.8$\
+$400$\
+$32.0$\
+$0.7$\
+$500$\
+$33.3$\
+$0.7$\
+$600$\
+$34.3$\
+$0.5$\
+expected_graph_spec\
+	\'95	Axes and Layout: A coordinate grid with the independent variable on the horizontal x-axis and the dependent variable on the vertical y-axis. The origin $(0,0)$ must be positioned at the bottom left.\
+	\'95	X-Axis Label and Units: Labelled as "Light Intensity ($\\mu\\text\{mol\}\\cdot\\text\{m\}^\{-2\}\\cdot\\text\{s\}^\{-1\}$)".\
+	\'95	Y-Axis Label and Units: Labelled as "Mean Photosynthetic Rate ($\\mu\\text\{mol O\}_2\\cdot\\text\{g\}^\{-1\}\\cdot\\text\{hr\}^\{-1\}$)".\
+	\'95	Scaling: * The x-axis must scale linearly from $0$ to at least $600$, with equal spacing given to equal numeric intervals (e.g., tick marks every $100$ units).\
+	\uc0\u9702 	The y-axis must scale linearly from $0$ to at least $40$.\
+	\'95	Plotted Marks: Seven distinct coordinates plotted accurately according to Table 1.\
+	\'95	Uncertainty Marks: Vertical, symmetric error bars drawn through each plotted mean value extending exactly $1\\text\{ SEM\}$ above and $1\\text\{ SEM\}$ below the point (except at $0$ where the value is $0.0$).\
+	\'95	Point Connection: Adjacent data points must be connected sequentially with direct, straight line segments to reflect a true continuous measured series.\
+criterion_definitions\
+	\'95	REPRESENTATION_TYPE: The student must construct a line graph or scatter plot rather than a bar or categorical graph.\
+	\'95	X_VARIABLE: The student must assign light intensity to the horizontal x-axis.\
+	\'95	Y_VARIABLE: The student must assign mean photosynthetic rate to the vertical y-axis.\
+	\'95	X_UNIT: The horizontal axis label must include the unit "$\\mu\\text\{mol\}\\cdot\\text\{m\}^\{-2\}\\cdot\\text\{s\}^\{-1\}$" or "$\\mu\\text\{mol/m\}^2/\\text\{s\}$".\
+	\'95	Y_UNIT: The vertical axis label must include the unit "$\\mu\\text\{mol O\}_2\\cdot\\text\{g\}^\{-1\}\\cdot\\text\{hr\}^\{-1\}$" or "$\\mu\\text\{mol O\}_2/\\text\{g/hr\}$".\
+	\'95	X_SCALE: The horizontal axis must feature mathematically linear scaling where the spatial distance between $0, 100, 200, 300, 400, 500,$ and $600$ is completely uniform.\
+	\'95	Y_SCALE: The vertical axis must feature mathematically linear scaling starting at $0$ and safely containing the maximum value and its upper error boundary.\
+	\'95	PLOT_VALUES: The student must accurately plot all seven mean values at their proper coordinate intersections.\
+	\'95	UNCERTAINTY_MARKS: The student must draw vertical error bars extending symmetrically $\\pm1\\text\{ SEM\}$ from each plotted mean value using the values given in the table.\
+	\'95	POINT_CONNECTION: The student must connect adjacent plotted points using distinct straight line segments from point to point.\
+accepted_variants\
+	\'95	Variations in unit notation style (e.g., using slashes like $\\mu\\text\{mol/m\}^2/\\text\{s\}$ instead of negative exponents) are fully acceptable.\
+	\'95	The absence of an error bar at the $(0,0)$ mark is accepted since the calculated $\\text\{SEM\}$ value is exactly $0.0$.\
+contradictions\
+	\'95	Bar Graph representation: Drawing columns or bars for the light intensity levels instead of coordinates violates REPRESENTATION_TYPE.\
+	\'95	Curved Regression or Trendline: Drawing a smooth, idealized logarithmic or hyperbolic curve that bypasses the exact positions of the empirical data points violates POINT_CONNECTION.\
+	\'95	Unequal X-Axis Spacing: Treating the continuous numeric values on the x-axis as nominal categories by spacing them out without regard to numerical linearity violates X_SCALE.\
+development_tolerances\
+(Proposed development tolerances, not validated thresholds)\
+	\'95	Plotting Precision: Plotted coordinate points must sit within $\\pm10\\text\{ \}\\mu\\text\{mol\}\\cdot\\text\{m\}^\{-2\}\\cdot\\text\{s\}^\{-1\}$ on the horizontal axis and $\\pm0.5\\text\{ \}\\mu\\text\{mol O\}_2\\cdot\\text\{g\}^\{-1\}\\cdot\\text\{hr\}^\{-1\}$ on the vertical axis.\
+	\'95	Error Bar Length: The length of the drawn error whiskers must match the designated $\\text\{SEM\}$ value within a visual tolerance of $\\pm0.2$ grid units.\
+minimum_feedback\
+	\'95	REPRESENTATION_TYPE: Change your graph style from a bar chart to a point-and-line graph to properly display the continuous relationship between these variables.\
+	\'95	X_VARIABLE: Move light intensity so that it is plotted on the horizontal x-axis.\
+	\'95	Y_VARIABLE: Move the mean photosynthetic rate so that it is plotted on the vertical y-axis.\
+	\'95	X_UNIT: Include the unit ($\\mu\\text\{mol\}\\cdot\\text\{m\}^\{-2\}\\cdot\\text\{s\}^\{-1\}$) within your horizontal axis label.\
+	\'95	Y_UNIT: Include the unit ($\\mu\\text\{mol O\}_2\\cdot\\text\{g\}^\{-1\}\\cdot\\text\{hr\}^\{-1\}$) within your vertical axis label.\
+	\'95	X_SCALE: Adjust your horizontal scale so that the numeric intervals are evenly and linearly spaced across the axis.\
+	\'95	Y_SCALE: Revise your vertical axis intervals so that they increase linearly and predictably from zero.\
+	\'95	PLOT_VALUES: Re-verify your plotted points to ensure all seven mean values align precisely with the coordinates listed in Table 1.\
+	\'95	UNCERTAINTY_MARKS: Draw vertical error bars extending both above and below each plotted mean value to represent the $\\pm1\\text\{ SEM\}$ range.\
+	\'95	POINT_CONNECTION: Connect the data points by drawing direct, straight lines from one consecutive point to the next.\
+rights_and_similarity_record\
+Original content, independently generated for this draft. Novelty and similarity status: unverified, pending qualified human source-isolation and similarity review.\
+\
+###student_prompt\
+A student investigated the effect of temperature on the initial reaction rate of a specific carbohydrate-digesting enzyme isolated from a thermophilic bacterium. Replicate assay tubes containing equal concentrations of the enzyme and its substrate were incubated at eight different temperatures (10\uc0\u8728 C,20\u8728 C,30\u8728 C,40\u8728 C,50\u8728 C,60\u8728 C,70\u8728 C, and 80\u8728 C). The initial reaction rate (\u956 mol\'a0product\u8901 min\u8722 1) was determined for each tube, and the mean rate and standard error of the mean (SEM) were calculated for each treatment group.\
+Construct a graph on the axes provided to represent the relationship between temperature and the mean initial reaction rate. Plot the group means, connect adjacent measured values with straight line segments to illustrate the continuous series, and include symmetric error bars representing \'b11\'a0SEM around each mean.\
+synthetic_data_source\
+This dataset is constructed via explicit synthetic replicate observations (Method b). The intended biological pattern is a rise to an interior maximum at 60C followed by a sharp thermal-denaturation drop at higher temperatures, but no closed-form formula is asserted as the generative source -- the displayed means and SEM are derived directly and exactly from the listed replicates below, which is the verifiable source of record.\
+To provide verifiable error bars, three explicit synthetic replicate observations (R1 ,R2 ,R3 ) for n=3 independent samples per treatment level are listed below. The final displayed sample mean and SEM are calculated strictly using standard arithmetic:\
+Mean = (R1+R2+R3)/3\
+SEM = sqrt( sum((Ri-Mean)^2) / (3*2) )\
+\
+Replicate Values and Step-by-Step Verifications:\
+	\'95	10\uc0\u8728 C:\
+	\uc0\u9702 	Replicates: 12.3,14.1,12.6\
+	\uc0\u9702 	Mean: 339.0 =13.00\u8594  13.0\
+	\uc0\u9702 	SEM: 60.49+1.21+0.16 \
+	\uc0\u9702 	=0.31\
+	\uc0\u9702 	\u8776 0.557\u8594  Rounded to one decimal: 0.6\
+	\'95	20\uc0\u8728 C:\
+	\uc0\u9702 	Replicates: 21.5,23.4,21.7\
+	\uc0\u9702 	Mean: 366.6 =22.20\u8594  22.2\
+	\uc0\u9702 	SEM: 60.49+1.44+0.25 \
+	\uc0\u9702 	=0.3633\
+	\uc0\u9702 	\u8776 0.603\u8594  Rounded to one decimal: 0.6\
+	\'95	30\uc0\u8728 C:\
+	\uc0\u9702 	Replicates: 32.4,34.6,33.2\
+	\uc0\u9702 	Mean: 3100.2 =33.40\u8594  33.4\
+	\uc0\u9702 	SEM: 61.00+1.44+0.04 \
+	\uc0\u9702 	=0.4133\
+	\uc0\u9702 	\u8776 0.643\u8594  Rounded to one decimal: 0.6\
+	\'95	40\uc0\u8728 C:\
+	\uc0\u9702 	Replicates: 42.5,45.1,43.8\
+	\uc0\u9702 	Mean: 3131.4 =43.80\u8594  43.8\
+	\uc0\u9702 	SEM: 61.69+1.69+0.00 \
+	\uc0\u9702 	=0.5633\
+	\uc0\u9702 	\u8776 0.751\u8594  Rounded to one decimal: 0.8\
+	\'95	50\uc0\u8728 C:\
+	\uc0\u9702 	Replicates: 50.3,53.0,51.5\
+	\uc0\u9702 	Mean: 3154.8 =51.60\u8594  51.6\
+	\uc0\u9702 	SEM: 61.69+1.96+0.01 \
+	\uc0\u9702 	=0.61\
+	\uc0\u9702 	\u8776 0.781\u8594  Rounded to one decimal: 0.8\
+	\'95	60\uc0\u8728 C (Interior Maximum):\
+	\uc0\u9702 	Replicates: 52.7,55.4,53.9\
+	\uc0\u9702 	Mean: 3162.0 =54.00\u8594  54.0\
+	\uc0\u9702 	SEM: 61.69+1.96+0.01 \
+	\uc0\u9702 	=0.61\
+	\uc0\u9702 	\u8776 0.781\u8594  Rounded to one decimal: 0.8\
+	\'95	70\uc0\u8728 C:\
+	\uc0\u9702 	Replicates: 34.5,36.6,35.1\
+	\uc0\u9702 	Mean: 3106.2 =35.40\u8594  35.4\
+	\uc0\u9702 	SEM: 60.81+1.44+0.09 \
+	\uc0\u9702 	=0.39\
+	\uc0\u9702 	\u8776 0.624\u8594  Rounded to one decimal: 0.6\
+	\'95	80\uc0\u8728 C:\
+	\uc0\u9702 	Replicates: 2.1,3.8,2.5\
+	\uc0\u9702 	Mean: 38.4 =2.80\u8594  2.8\
+	\uc0\u9702 	SEM: 60.49+1.00+0.09 \
+	\uc0\u9702 	=0.2633\
+	\uc0\u9702 	\u8776 0.513\u8594  Rounded to one decimal: 0.5\
+display_table\
+Table 1. Initial reaction rate of a bacterial carbohydrate-digesting enzyme across various temperatures\
+Temperature (\uc0\u8728 C)\
+Mean Initial Reaction Rate (\uc0\u956 mol\'a0product\u8901 min\u8722 1)\
+Standard Error of the Mean (SEM)\
+10\
+13.0\
+0.6\
+20\
+22.2\
+0.6\
+30\
+33.4\
+0.6\
+40\
+43.8\
+0.8\
+50\
+51.6\
+0.8\
+60\
+54.0\
+0.8\
+70\
+35.4\
+0.6\
+80\
+2.8\
+0.5\
+\
+expected_graph_spec\
+	\'95	Axes and Layout: A continuous coordinate grid plane with the independent variable mapped to the horizontal x-axis and the dependent variable mapped to the vertical y-axis.\
+	\'95	X-Axis Label and Units: Labelled as "Temperature (\uc0\u8728 C)".\
+	\'95	Y-Axis Label and Units: Labelled as "Mean Initial Reaction Rate (\uc0\u956 mol\'a0product\u8901 min\u8722 1)" or "Initial Reaction Rate (\u956 mol\'a0product/min)".\
+	\'95	Scaling: * The x-axis must scale linearly from at least 10 to 80, keeping the intervals mathematically uniform.\
+	\uc0\u9702 	The y-axis must scale linearly from 0 to at least 60 to easily contain the maximum mean value and its top error bar.\
+	\'95	Plotted Marks: Eight specific data coordinates plotted accurately according to Table 1, showing a non-monotonic pattern that peaks at 60\uc0\u8728 C before decreasing.\
+	\'95	Uncertainty Marks: Symmetric vertical error bars running cleanly through each coordinate point, extending exactly 1\'a0SEM above and 1\'a0SEM below the plotted mean.\
+	\'95	Point Connection: All consecutive points must be connected sequentially with straight line segments, creating a visible inflection and sharp drop between 60\uc0\u8728 C and 80\u8728 C.\
+criterion_definitions\
+	\'95	REPRESENTATION_TYPE: The student must construct a line graph or scatter plot instead of a discrete bar chart.\
+	\'95	X_VARIABLE: The student must plot the independent variable, temperature, along the horizontal x-axis.\
+	\'95	Y_VARIABLE: The student must plot the dependent variable, mean initial reaction rate, along the vertical y-axis.\
+	\'95	X_UNIT: The horizontal axis label must explicitly include the unit "\uc0\u8728 C".\
+	\'95	Y_UNIT: The vertical axis label must include the unit "\uc0\u956 mol\'a0product\u8901 min\u8722 1" or its explicit equivalent.\
+	\'95	X_SCALE: The horizontal axis must feature linear intervals where the physical spacing between the 10\uc0\u8728 C increments is completely identical.\
+	\'95	Y_SCALE: The vertical axis must feature linear increments starting at 0 that comfortably bound the highest data point.\
+	\'95	PLOT_VALUES: The student must plot all eight coordinates accurately based on the mean values provided in Table 1.\
+	\'95	UNCERTAINTY_MARKS: The student must include vertical error bars that extend symmetrically \'b11\'a0SEM above and below every single plotted mean point.\
+	\'95	POINT_CONNECTION: The student must connect adjacent plotted coordinates sequentially with distinct, straight line segments.\
+accepted_variants\
+	\'95	Standard variations in fractional/rate unit labels (such as using a slash like \uc0\u956 mol/min rather than a negative exponent) are fully accepted.\
+	\'95	A graph that extends the horizontal axis to include 0\uc0\u8728 C is acceptable as long as the scaling remains perfectly linear and the data points are plotted at their correct temperature locations.\
+contradictions\
+	\'95	Categorical or Bar Representation: Rendering the data using vertical bars instead of localized coordinate points violates REPRESENTATION_TYPE.\
+	\'95	Smooth Symmetric Gaussian Curve: Drawing a perfectly symmetrical bell-shaped curve or curve-of-best-fit that deliberately misses or rounds off the sharp drop-off at 70\uc0\u8728 C and 80\u8728 C violates POINT_CONNECTION.\
+	\'95	Omitting Peak Points: Skipping any data points (like failing to plot the peak at 60\uc0\u8728 C or the low point at 80\u8728 C) violates PLOT_VALUES.\
+development_tolerances\
+(Proposed development tolerances, not validated thresholds)\
+	\'95	Plotting Precision: Data points must be placed within \'b11\uc0\u8728 C on the horizontal axis and \'b11.0\'a0\u956 mol\'a0product\u8901 min\u8722 1 on the vertical axis.\
+	\'95	Error Bar Precision: Each vertical error bar segment must accurately reflect the specific table value within a drafting tolerance of \'b10.2 grid units.\
+minimum_feedback\
+	\'95	REPRESENTATION_TYPE: Choose a coordinate point-and-line graph style instead of drawing bars, as temperature and reaction rate are both continuous measurements.\
+	\'95	X_VARIABLE: Swap the axes so that the independent variable, temperature, is positioned along the horizontal x-axis.\
+	\'95	Y_VARIABLE: Swap the axes so that the dependent variable, mean initial reaction rate, is positioned along the vertical y-axis.\
+	\'95	X_UNIT: Add the temperature unit symbol (\uc0\u8728 C) to your horizontal axis title.\
+	\'95	Y_UNIT: Add the reaction rate unit (\uc0\u956 mol\'a0product\u8901 min\u8722 1) to your vertical axis title.\
+	\'95	X_SCALE: Restructure the horizontal axis numbers so they progress with uniform, mathematically linear intervals from 10 to 80.\
+	\'95	Y_SCALE: Adjust the vertical axis to use a linear scale that starts systematically at 0.\
+	\'95	PLOT_VALUES: Check your plotted positions against the data table to ensure all eight mean coordinates are accurately placed.\
+	\'95	UNCERTAINTY_MARKS: Draw a vertical error bar symmetrically through each data point extending above and below by the exact SEM value in the table.\
+	\'95	POINT_CONNECTION: Connect the plotted points together in order using direct, straight line segments rather than a smoothed curve.\
+rights_and_similarity_record\
+Original content, independently generated for this draft. Novelty and similarity status: unverified, pending qualified human source-isolation and similarity review.\
+###student_prompt\
+A student investigated the population growth of a novel non-pathogenic bacterial strain, Micrococcus viridis, in a closed bioreactor containing a fixed volume of nutrient broth. The culture was maintained at a constant incubation temperature of 35\uc0\u8728 C with continuous agitation. Replicate samples were taken from the bioreactor every 4 hours over a 24-hour period. For each time point, the culture density was determined by calculating the mean viable cell count (106\'a0cells/mL).\
+Construct a graph on the axes provided to represent the relationship between incubation time and mean culture density. Plot the paired observations, draw a single smooth trend curve that reflects the overall growth pattern, and explicitly mark the level-off (plateau) region. Using your graph, estimate the population density around which the culture levels off under these conditions. Report this estimated value with appropriate units in the space provided.\
+synthetic_data_source\
+The dataset is generated using a deterministic logistic growth model to simulate a bounded population growth curve that asymptotically approaches a carrying capacity.\
+The generative formula for the true population density (N(t)) as a function of time (t in hours) is defined as:\
+N(t)=K+N0 \uc0\u8901 (exp(r\u8901 t)\u8722 1)K\u8901 N0 \u8901 exp(r\u8901 t)\
+Where the model parameters are fixed at:\
+	\'95	Carrying capacity (K) = 75.0\'d7106\'a0cells/mL\
+	\'95	Initial population (N0 ) = 2.5\'d7106\'a0cells/mL\
+	\'95	Intrinsic growth rate (r) = 0.35\'a0hr\uc0\u8722 1\
+To ensure absolute handwritten mathematical reproducibility for human review, the raw outputs are passed through a deterministic rounding rule (rounded to the nearest single decimal place) to form the final displayed values.\
+Calculation Table and Exact Deterministic Verifications:\
+Time (t, hours)\
+Raw Unrounded Output (106\'a0cells/mL)\
+Rounding Rule\
+Final Displayed Value (106\'a0cells/mL)\
+0\
+2.5000\
+Nearest tenth\
+2.5\
+4\
+9.2010\
+Nearest tenth\
+9.2\
+8\
+27.1396\
+Nearest tenth\
+27.1\
+12\
+52.2695\
+Nearest tenth\
+52.3\
+16\
+67.7361\
+Nearest tenth\
+67.7\
+20\
+73.0678\
+Nearest tenth\
+73.1\
+24\
+74.5141\
+Nearest tenth\
+74.5\
+\
+display_table\
+Table 1. Mean culture density of Micrococcus viridis over a 24-hour incubation period\
+Incubation Time (hours)\
+Mean Culture Density (106\'a0cells/mL)\
+0\
+2.5\
+4\
+9.2\
+8\
+27.1\
+12\
+52.3\
+16\
+67.7\
+20\
+73.1\
+24\
+74.5\
+\
+expected_graph_spec\
+	\'95	Axes and Layout: A linear coordinate grid plane with the independent variable assigned to the horizontal x-axis and the dependent variable assigned to the vertical y-axis. The origin (0,0) sits at the bottom-left corner.\
+	\'95	X-Axis Label and Units: Labelled as "Incubation Time (hours)" or "Time (hours)".\
+	\'95	Y-Axis Label and Units: Labelled as "Mean Culture Density (106\'a0cells/mL)" or "Culture Density (106\'a0cells/mL)".\
+	\'95	Scaling: * The x-axis must scale linearly from 0 to at least 24\'a0hours using uniform intervals.\
+	\uc0\u9702 	The y-axis must scale linearly from 0 to at least 80\'d7106\'a0cells/mL using equal numerical increments (e.g., tick marks every 10 or 20 units). Raw scientific notation (e.g., 7.5\'d7107) should not clutter the axis markers because the scaling unit is rescaled in the axis label.\
+	\'95	Plotted Marks: Seven data coordinates plotted accurately as paired values according to Table 1: (0,2.5), (4,9.2), (8,27.1), (12,52.3), (16,67.7), (20,73.1), and (24,74.5).\
+	\'95	Relationship Line: A single, smooth sigmoidal (S-shaped) trend curve drawn cleanly through the points. It should capture an initial lag phase, an exponential acceleration phase, and an asymptotic deceleration flattening out toward the end. Points must not be connected with jagged point-to-point lines.\
+	\'95	Required Annotation: A bracket, line, or clear shaded block explicitly marking the upper asymptotic region (from t=20 to t=24\'a0hours) where the population growth levels off.\
+	\'95	Reported Estimate: A standalone written value indicating a carrying capacity within the plateau range (e.g., 75.0 or a value corresponding precisely to their drawn asymptote) accompanied by the rescaled unit "106\'a0cells/mL" (or expanded out fully as 75,000,000\'a0cells/mL).\
+criterion_definitions\
+	\'95	REPRESENTATION_TYPE: The student must construct a line graph or continuous coordinate scatter plot rather than a categorical bar chart.\
+	\'95	X_VARIABLE: The student must assign the independent variable, incubation time, to the horizontal x-axis.\
+	\'95	Y_VARIABLE: The student must assign the dependent variable, mean culture density, to the vertical y-axis.\
+	\'95	X_UNIT: The horizontal axis label must include the unit "hours".\
+	\'95	Y_UNIT: The vertical axis label must include the rescaled unit "106\'a0cells/mL".\
+	\'95	X_SCALE: The horizontal axis must feature linear, mathematically equal spacing between numeric increments.\
+	\'95	Y_SCALE: The vertical axis must feature a single linear scale starting at zero, utilizing a rescaled display unit prefix instead of shifting into individual scientific notation values.\
+	\'95	PLOT_VALUES: The student must accurately plot all seven data coordinate pairs from the table.\
+	\'95	BEST_FIT_RELATIONSHIP: The student must draw a single continuous smooth curve showing a clear sigmoidal logistic trend rather than segmented, straight point-to-point line segments.\
+	\'95	PLATEAU_ANNOTATION: The student must visibly mark or label the level-off plateau region directly on the graph near the top right asymptote.\
+	\'95	ESTIMATE_VALUE: The student must report a population density value derived directly from their graph's plateau line, explicitly stating the correct unit ("106\'a0cells/mL" or writing out the full integer value).\
+accepted_variants\
+	\'95	Full expansion of units (e.g., labeling the axis as "cells/mL" and writing out numbers like 70,000,000 on the y-axis grid lines) is fully acceptable, though less efficient than the rescaled display title.\
+	\'95	An estimate value that accurately reads the student's hand-drawn asymptote line will be awarded credit for ESTIMATE_VALUE even if it slightly differs from the true mathematical limit of 75.0\'d7106\'a0cells/mL.\
+contradictions\
+	\'95	Connect-the-Dots segments: Connecting the coordinate points with rigid, straight line segments instead of a smooth trend curve violates BEST_FIT_RELATIONSHIP.\
+	\'95	Logarithmic Y-Axis Scaling: Utilizing a non-linear semi-logarithmic scale on the vertical axis violates Y_SCALE.\
+	\'95	Omitting Units on Final Value: Stating the carrying capacity estimate simply as a number (e.g., "75") without units violates ESTIMATE_VALUE.\
+development_tolerances\
+(Proposed development tolerances, not validated thresholds)\
+	\'95	Plotting Precision: Coordinate marks must fall within \'b10.5\'a0hours on the horizontal axis and \'b11.5\'d7106\'a0cells/mL on the vertical axis.\
+	\'95	Estimate Tolerance: The reported carrying capacity value must align with the student's drawn horizontal asymptote within \'b11.0\'d7106\'a0cells/mL (acceptable target range of 74.0\'d7106 to 76.0\'d7106\'a0cells/mL).\
+minimum_feedback\
+	\'95	REPRESENTATION_TYPE: Present this data as a point-and-curve coordinate graph rather than a bar graph to properly illustrate continuous population growth over time.\
+	\'95	X_VARIABLE: Reposition your axes so that incubation time is plotted along the horizontal x-axis.\
+	\'95	Y_VARIABLE: Reposition your axes so that mean culture density is plotted along the vertical y-axis.\
+	\'95	X_UNIT: Include the unit (hours) in your horizontal axis label.\
+	\'95	Y_UNIT: Include the rescaled unit (106\'a0cells/mL) in your vertical axis label.\
+	\'95	X_SCALE: Set the horizontal axis numbers to progress with completely linear, equal spacing from 0 to 24.\
+	\'95	Y_SCALE: Set up a vertical scale that increases linearly and uniformly from zero using the rescaled factor indicated in the table.\
+	\'95	PLOT_VALUES: Double-check the position of your data marks to ensure all seven coordinate sets match the numbers in the table.\
+	\'95	BEST_FIT_RELATIONSHIP: Sketch a single smooth, S-shaped curve that passes naturally through the coordinates instead of using straight, jagged lines to connect the dots.\
+	\'95	PLATEAU_ANNOTATION: Draw a bracket or label directly on the flat, horizontal trailing edge of your growth curve to highlight the level-off region.\
+	\'95	ESTIMATE_VALUE: Write out the population value along with its unit (106\'a0cells/mL) corresponding to where your graph's curve levels off.\
+rights_and_similarity_record\
+Original content, independently generated for this draft. Novelty and similarity status: unverified, pending qualified human source-isolation and similarity review.\
+	\'95	item_id: DRG-P1-06\
+	\'95	item_version: v0.1-ai-draft\
+###student_prompt\
+An oceanographic research team isolated a novel species of marine microalgae from a deep-sea hydrothermal vent ecosystem. To characterize its growth dynamics under controlled laboratory conditions, scientists inoculated a sterile, resource-bounded bioreactor with a uniform starter culture maintained at an optimal temperature of 28\'b0C.\
+The culture density was monitored at regular intervals over a 48-hour period using automated spectrophotometric cell-counting techniques. The investigators recorded the population density as the number of viable cells per milliliter (\'d7105\'a0cells/mL).\
+Using the data provided in the table, construct an appropriately scaled and labeled graph to represent the culture density over time on linear axes. Draw a smooth trend line to model the overall growth curve of the microalgal population. Visually indicate the plateau region on your graph, and use it to estimate the population density around which the culture levels off under these conditions in this environment. Include units with your estimate.\
+synthetic_data_source\
+This dataset is constructed via a closed-form formula (Method a) representing a classic logistic growth model:\
+f(t)=1+e\uc0\u8722 k(t\u8722 t0 )L\
+Parameters\
+	\'95	Carrying capacity (L): 14.0\'d7105\'a0cells/mL\
+	\'95	Growth rate constant (k): 0.18\'a0hr\uc0\u8722 1\
+	\'95	Inflection point time (t0 ): 16.0\'a0hr\
+Calculation and Rounding Table\
+Time t (hr)\
+Raw Unrounded Model Output (f(t))\
+Rounding Rule\
+Final Displayed Value (\'d7105\'a0cells/mL)\
+0\
+14.0/(1+e\uc0\u8722 0.18(0\u8722 16))=14.0/(1+17.81442)=0.7441\
+Round to nearest tenth\
+0.7\
+6\
+14.0/(1+e\uc0\u8722 0.18(6\u8722 16))=14.0/(1+6.04965)=1.9859\
+Round to nearest tenth\
+2.0\
+12\
+14.0/(1+e\uc0\u8722 0.18(12\u8722 16))=14.0/(1+2.05443)=4.5835\
+Round to nearest tenth\
+4.6\
+18\
+14.0/(1+e\uc0\u8722 0.18(18\u8722 16))=14.0/(1+0.69768)=8.2465\
+Round to nearest tenth\
+8.2\
+24\
+14.0/(1+e\uc0\u8722 0.18(24\u8722 16))=14.0/(1+0.23693)=11.3184\
+Round to nearest tenth\
+11.3\
+36\
+14.0/(1+e\uc0\u8722 0.18(36\u8722 16))=14.0/(1+0.02732)=13.6276\
+Round to nearest tenth\
+13.6\
+48\
+14.0/(1+e\uc0\u8722 0.18(48\u8722 16))=14.0/(1+0.00315)=13.9560\
+Round to nearest tenth\
+14.0\
+\
+display_table\
+Population Density of Marine Microalgae Over Time in a Bounded Bioreactor\
+Time (hr)\
+Culture Density (\'d7105\'a0cells/mL)\
+0\
+0.7\
+6\
+2.0\
+12\
+4.6\
+18\
+8.2\
+24\
+11.3\
+36\
+13.6\
+48\
+14.0\
+\
+expected_graph_spec\
+	\'95	Axes:\
+	\uc0\u9702 	X-axis: Linear, continuous horizontal axis representing time. Note that intervals in the table are uneven (6, 6, 6, 6, 12, 12 hours), so the physical grid spacing must reflect a true numeric scale.\
+	\uc0\u9702 	Y-axis: Linear, continuous vertical axis representing cell density.\
+	\'95	Units & Labels:\
+	\uc0\u9702 	X-axis labeled as "Time (hr)" or "Time (hours)".\
+	\uc0\u9702 	Y-axis labeled using a rescaled display unit: "Culture Density (\'d7105\'a0cells/mL)" or "Population Density (\'d7105\'a0cells/mL)". Scientific notation on individual axis ticks must be avoided.\
+	\'95	Scale Behavior:\
+	\uc0\u9702 	The x-axis must span linearly from 0 to at least 48 hours using regular, equal spatial increments (e.g., tick marks every 6 or 12 hours).\
+	\uc0\u9702 	The y-axis must start at 0.0 and extend to at least 14.0 or 15.0 (\'d7105\'a0cells/mL) with regular, equal linear intervals.\
+	\'95	Plotted Marks: Seven distinct data pairs plotted accurately according to their numeric values: (0,0.7), (6,2.0), (12,4.6), (18,8.2), (24,11.3), (36,13.6), and (48,14.0).\
+	\'95	Relationship Line: A single, smooth, sigmoidal (S-shaped) trend line fitted through the data cloud. It must smoothly transition from exponential acceleration to a leveled-off plateau, rather than connecting points with angular, sharp line segments.\
+	\'95	Annotation & Estimate: A clear visual indicator (e.g., a bracket, a shaded box, an arrow, or a dashed horizontal line) marking the asymptotic asymptote/plateau region at the top of the curve. An explicit text-based estimate of this plateau level must be written down, matching the graph's leveling value and including units.\
+criterion_definitions\
+	\'95	REPRESENTATION_TYPE: The student must construct a continuous scatter or line plot with a smooth curve instead of a bar graph.\
+	\'95	X_VARIABLE: The independent variable on the horizontal axis must be identified as time.\
+	\'95	Y_VARIABLE: The dependent variable on the vertical axis must be identified as culture density (or population density).\
+	\'95	X_UNIT: The horizontal axis label must include the unit "hr" or "hours".\
+	\'95	Y_UNIT: The vertical axis label must include the rescaled unit "\'d7105\'a0cells/mL" or "cells/mL\'d7105".\
+	\'95	X_SCALE: The horizontal axis must feature equal linear spacing where the distance between 24 and 36 is physically twice the distance between 0 and 6.\
+	\'95	Y_SCALE: The vertical axis must feature equal linear intervals starting at 0.0 to properly illustrate population growth scale from baseline.\
+	\'95	PLOT_VALUES: All seven data coordinates from the table must be mapped correctly to their numerical grid intersections.\
+	\'95	BEST_FIT_RELATIONSHIP: The student must draw a single continuous smooth curve showing an S-shape trend line rather than linking dots with rigid straight segments.\
+	\'95	PLATEAU_ANNOTATION: The student must visually mark, circle, bracket, or extend an asymptotic line across the level-off zone at the top right of the curve (t=36 to 48\'a0hr).\
+	\'95	ESTIMATE_VALUE: The student must report an estimated maximum population density value matching their plateau asymptote, expected around 14.0\'d7105\'a0cells/mL (or 1,400,000\'a0cells/mL if expanded fully), complete with correct concentration units.\
+accepted_variants\
+	\'95	Unit Expansion: If a student expands the scale unit manually on the axis or in the final answer instead of writing the multiplier in the label title (e.g., labeling axis ticks as 1,400,000 instead of 14.0), this is completely acceptable.\
+	\'95	Plateau Demarcation: Acceptable methods for highlighting the plateau region include drawing a horizontal dashed line extending to the y-axis, shading the plateau area, or drawing an overarching bracket labeled "plateau region" or "carrying capacity".\
+contradictions\
+	\'95	Ordinal X-Axis Spacing: Spacing the time coordinates evenly across the page (0,6,12,18,24,36,48) ignores the numeric scale change between 24, 36, and 48. This violates X_SCALE and distorts the shape of the growth phase.\
+	\'95	Linear Regression Line: Attempting to force a single straight diagonal best-fit line through this clear sigmoidal data fails BEST_FIT_RELATIONSHIP and obscures the plateau feature entirely.\
+	\'95	Bar Graphs: Plotting each time point as an isolated vertical bar fails REPRESENTATION_TYPE and renders a smooth asymptotic plateau unidentifiable.\
+development_tolerances\
+(Proposed development tolerances, not validated thresholds)\
+	\'95	Plotting Precision: Plotted marks must sit within \'b11.5\'a0hours horizontally and \'b10.3\'a0units vertically relative to their exact mathematical positions on the grid.\
+	\'95	Plateau Value Range: Estimates between 13.8\'d7105\'a0cells/mL and 14.2\'d7105\'a0cells/mL (or equivalent long-form values) are acceptable, provided they match the horizontal flattening of the student's drawn curve.\
+minimum_feedback\
+	\'95	REPRESENTATION_TYPE: Use a continuous coordinate plot with a smooth curve instead of separate bars to model this biological population growth over time.\
+	\'95	X_VARIABLE: Label the horizontal axis to show that it tracks the independent variable, time.\
+	\'95	Y_VARIABLE: Label the vertical axis to clarify that it displays the dependent variable, culture density.\
+	\'95	X_UNIT: Include the unit "hr" or "hours" on your horizontal axis label.\
+	\'95	Y_UNIT: Include the rescaled unit symbol "\'d7105\'a0cells/mL" on your vertical axis label.\
+	\'95	X_SCALE: Adjust your horizontal axis scale so that the grid intervals reflect actual numeric time values; the distance from 24 to 36 hours must be physically wider than the distance from 0 to 6 hours.\
+	\'95	Y_SCALE: Set up your vertical axis to use uniform linear steps starting from zero.\
+	\'95	PLOT_VALUES: Check that all seven coordinate pairs from the data table are precisely aligned on your grid system.\
+	\'95	BEST_FIT_RELATIONSHIP: Connect the trends of the data points with a single, smooth S-shaped curve rather than drawing jagged, straight line segments from point to point.\
+	\'95	PLATEAU_ANNOTATION: Draw a distinct bracket, box, or line over the flat upper section of your growth curve to highlight where the population levels off.\
+	\'95	ESTIMATE_VALUE: Record the final numerical density estimate with its full units (\'d7105\'a0cells/mL) to state the maximum population value shown by your leveled-off line.\
+rights_and_similarity_record\
+Original content, independently generated for this draft. Novelty and similarity status: unverified, pending qualified human source-isolation and similarity review.\
+###student_prompt\
+A team of plant biochemists isolated a novel cytosolic enzyme, malate dehydrogenase-V (MDH-V), from a thermal-vent moss species. To investigate how temperature influences the catalytic efficiency of this enzyme, the researchers conducted in vitro controlled assays across a wide thermal range.\
+Purified enzyme extracts were incubated in a buffered substrate solution for 5 minutes at eight distinct temperatures ranging from 10\'b0C to 80\'b0C. The initial reaction rate was determined by monitoring the conversion of substrate per minute. For each temperature group, multiple independent trials were performed to calculate the mean reaction rate and the standard error of the mean (SEM).\
+Using the data provided in the table, construct an appropriately scaled and labeled graph to represent the relationship between temperature and the mean enzyme reaction rate. Plot the group means, connect adjacent measured values with straight line segments, and include symmetric error bars representing \'b11\'a0SEM around each mean.\
+synthetic_data_source\
+This dataset is constructed via explicit synthetic replicate observations (Method b). Four independent replicate trials (R1 ,R2 ,R3 ,R4 ) were performed for each of the eight temperature points. The displayed mean reaction rate (x\uc0\u713 ) and standard error of the mean (SEM) are computed transparently below.\
+Formulas used:\
+Mean (x-bar) = (R1+R2+R3+R4)/4\
+Standard Deviation (s) = sqrt( sum((Ri-x-bar)^2) / 3 )\
+SEM = s / sqrt(4)\
+Calculation and Rounding Table\
+Temp (\'b0C)\
+Replicates (R1 ,R2 ,R3 ,R4 )\
+Sum\
+x\uc0\u713  (Raw)\
+Mean (Rounded)\
+s (Raw)\
+SEM (Raw)\
+SEM (Rounded)\
+10\
+1.2, 0.9, 1.5, 0.8\
+4.4\
+1.100\
+1.1\
+0.3162\
+0.1581\
+0.2\
+20\
+2.6, 3.1, 2.4, 2.7\
+10.8\
+2.700\
+2.7\
+0.2944\
+0.1472\
+0.1\
+30\
+5.4, 4.8, 5.1, 5.5\
+20.8\
+5.200\
+5.2\
+0.3162\
+0.1581\
+0.2\
+40\
+8.3, 7.6, 8.1, 8.4\
+32.4\
+8.100\
+8.1\
+0.3512\
+0.1756\
+0.2\
+50\
+9.9, 9.3, 9.5, 9.7\
+38.4\
+9.600\
+9.6\
+0.2582\
+0.1291\
+0.1\
+60\
+7.4, 6.6, 6.9, 7.1\
+28.0\
+7.000\
+7.0\
+0.3416\
+0.1708\
+0.2\
+70\
+3.5, 2.9, 3.2, 3.6\
+13.2\
+3.300\
+3.3\
+0.3162\
+0.1581\
+0.2\
+80\
+0.5, 0.2, 0.4, 0.1\
+1.2\
+0.300\
+0.3\
+0.1826\
+0.0913\
+0.1\
+\
+(Rounding Rule: All final displayed values are rounded to the nearest tenth.)\
+display_table\
+Initial Reaction Rate of MDH-V Across a Range of Temperatures\
+Temperature (\'b0C)\
+Mean Enzyme Reaction Rate (\uc0\u956 mol/min)\
+Standard Error of the Mean (\'b11\'a0SEM)\
+10\
+1.1\
+0.2\
+20\
+2.7\
+0.1\
+30\
+5.2\
+0.2\
+40\
+8.1\
+0.2\
+50\
+9.6\
+0.1\
+60\
+7.0\
+0.2\
+70\
+3.3\
+0.2\
+80\
+0.3\
+0.1\
+\
+expected_graph_spec\
+	\'95	Axes:\
+	\uc0\u9702 	X-axis: Linear, continuous horizontal axis representing temperature.\
+	\uc0\u9702 	Y-axis: Linear, continuous vertical axis representing mean reaction rate.\
+	\'95	Units & Labels:\
+	\uc0\u9702 	X-axis labeled as "Temperature (\'b0C)".\
+	\uc0\u9702 	Y-axis labeled as "Mean Enzyme Reaction Rate (\u956 mol/min)" or "Mean Reaction Rate (\u956 mol/min)".\
+	\'95	Scale Behavior:\
+	\uc0\u9702 	The x-axis must range from at least 10\'b0C to 80\'b0C with even linear increments (e.g., tick marks every 10\'b0C or 20\'b0C).\
+	\uc0\u9702 	The y-axis must start exactly at 0.0 and extend to at least 10.0 \u956 mol/min using even linear increments (e.g., intervals of 1.0 or 2.0).\
+	\'95	Plotted Marks: Eight data points plotted accurately according to their coordinates: (10,1.1), (20,2.7), (30,5.2), (40,8.1), (50,9.6), (60,7.0), (70,3.3), and (80,0.3).\
+	\'95	Uncertainty Marks: Vertical error bars drawn symmetrically above and below each plotted mean point. The cap-to-cap total height of each error bar must span exactly from (x\uc0\u713 \u8722 1\'a0SEM) to (x\u713 +1\'a0SEM) based on the table values.\
+	\'95	Point Connection: Straight, direct line segments connecting adjacent coordinate points sequentially from left to right (10\'b0C up to 50\'b0C, then down to 80\'b0C), forming a non-monotonic curve with an interior maximum at 50\'b0C.\
+criterion_definitions\
+	\'95	REPRESENTATION_TYPE: The student must construct a line graph/scatter-line plot mapping continuous variables rather than a bar graph or structural histogram.\
+	\'95	X_VARIABLE: The independent variable on the horizontal axis must be identified as temperature.\
+	\'95	Y_VARIABLE: The dependent variable on the vertical axis must be identified as the mean enzyme reaction rate.\
+	\'95	X_UNIT: The horizontal axis label must explicitly include the temperature unit "\'b0C".\
+	\'95	Y_UNIT: The vertical axis label must explicitly include the rate unit "\uc0\u956 mol/min".\
+	\'95	X_SCALE: The horizontal axis must feature equal, regular linear spacing spanning from at least 10 to 80.\
+	\'95	Y_SCALE: The vertical axis must use a regular linear scale that starts exactly at 0.0 and cleanly encompasses the maximum value (9.6).\
+	\'95	PLOT_VALUES: All eight data pairs from the display table must be mapped to their correct spatial coordinates on the grid canvas.\
+	\'95	UNCERTAINTY_MARKS: The student must draw a vertical error bar through each plotted mean that accurately represents the designated \'b11\'a0SEM value for that point.\
+	\'95	POINT_CONNECTION: The student must connect adjacent plotted points directly to one another using straight line segments in sequential order.\
+accepted_variants\
+	\'95	Error Bar Caps: Error bars may be drawn with flat horizontal caps at the terminals or as simple vertical lines without caps, provided their top and bottom limits are clear and mathematically accurate.\
+	\'95	Zero Baseline Break: While the y-axis must start at zero, a standard axis break symbol between 0 and 10 on the x-axis is acceptable only if the remaining intervals from 10 to 80 maintain strict linear proportionality.\
+contradictions\
+	\'95	Mathematical Curve Smoothing: Drawing a smooth, curvilinear polynomial fit or a bell-shaped spline that intentionally bypasses or alters the exact coordinates of the plotted sample means violates POINT_CONNECTION.\
+	\'95	Bar Charts: Plotting the data as eight separate vertical bars violates REPRESENTATION_TYPE and prevents a proper continuous line series analysis.\
+	\'95	Asymmetric Error Bars: Error bars that extend only upward (+1\'a0SEM) or are drawn with unequal lengths above and below the plotted mean point will fail UNCERTAINTY_MARKS.\
+development_tolerances\
+(Proposed development tolerances, not validated thresholds)\
+	\'95	Plotting and Error Bar Precision: Plotted marks and the endpoints of the SEM bars must fall within \'b10.15\'a0units vertically of their true calculated values on the y-axis grid.\
+	\'95	Line Segments: Line connections must cleanly terminate at the center of each plotted point coordinate, showing no significant overlaps or disconnected gaps.\
+minimum_feedback\
+	\'95	REPRESENTATION_TYPE: Plot your data using a continuous line graph rather than a bar chart to represent this temperature series.\
+	\'95	X_VARIABLE: Label the horizontal axis to clearly show that it represents the independent variable, temperature.\
+	\'95	Y_VARIABLE: Label the vertical axis to clearly show that it represents the dependent variable, mean enzyme reaction rate.\
+	\'95	X_UNIT: Include the unit symbol "\'b0C" in your horizontal axis label.\
+	\'95	Y_UNIT: Include the rate unit "\uc0\u956 mol/min" in your vertical axis label.\
+	\'95	X_SCALE: Ensure your horizontal axis uses a consistent linear scale with equal spacing between each 10\'b0C interval.\
+	\'95	Y_SCALE: Set your vertical axis to begin at 0.0 and rise in equal linear increments to safely fit the maximum data point.\
+	\'95	PLOT_VALUES: Make sure each of the eight mean values from the table is plotted accurately at its specific temperature coordinate.\
+	\'95	UNCERTAINTY_MARKS: Add a vertical error bar to every plotted point that extends both up and down by the exact value listed in the table's SEM column.\
+	\'95	POINT_CONNECTION: Connect adjacent points directly to each other using straight line segments from left to right instead of sketching a rounded, smoothed curve.\
+rights_and_similarity_record\
+Original content, independently generated for this draft. Novelty and similarity status: unverified, pending qualified human source-isolation and similarity review.\
+	\'95	item_id: DRG-P1-01\
+	\'95	item_version: v0.1-ai-draft\
+###student_prompt\
+Plant biologists are studying how the light environment during development shapes leaf anatomy in the broadleaf forest herb Asarum canadense. Clonal segments of the plant were propagated under four distinct, independently managed light treatments in a controlled greenhouse facility: Deep Shade, Partial Shade, Ambient Sun, and High Light.\
+After 60 days of growth, fully expanded leaves were harvested from each treatment group. Clear nail polish impressions of the abaxial (lower) epidermis were prepared and examined under a light microscope to count the number of stomata per square millimeter. For each growth treatment, multiple leaf samples were analyzed to calculate the mean stomatal density and the standard error of the mean (SEM).\
+Using the data provided in the table, construct an appropriately scaled and labeled graph to compare the mean stomatal density across the four light treatments. Plot the group means, and include symmetric error bars representing \'b11\'a0SEM around each mean.\
+synthetic_data_source\
+This dataset is constructed via explicit synthetic replicate observations (Method b). Five independent replicate leaves (R1 ,R2 ,R3 ,R4 ,R5 ) were sampled from each of the four discrete categorical treatment groups. The displayed mean stomatal density (x\uc0\u713 ) and standard error of the mean (SEM) are computed transparently below.\
+Formulas used:\
+Mean (x-bar) = (R1+R2+R3+R4+R5)/5\
+Standard Deviation (s) = sqrt( sum((Ri-x-bar)^2) / 4 )\
+SEM = s / sqrt(5)\
+Calculation and Rounding Table\
+Light Treatment\
+Replicates (R1 ,R2 ,R3 ,R4 ,R5 )\
+Sum\
+x\uc0\u713  (Raw)\
+Mean (Rounded)\
+s (Raw)\
+SEM (Raw)\
+SEM (Rounded)\
+Deep Shade\
+33, 36, 32, 38, 31\
+170\
+34.0\
+34.0\
+2.9155\
+1.3038\
+1.3\
+Partial Shade\
+46, 51, 48, 44, 51\
+240\
+48.0\
+48.0\
+3.0822\
+1.3784\
+1.4\
+Ambient Sun\
+68, 62, 65, 71, 64\
+330\
+66.0\
+66.0\
+3.5355\
+1.5811\
+1.6\
+High Light\
+81, 74, 76, 79, 85\
+395\
+79.0\
+79.0\
+4.1833\
+1.8708\
+1.9\
+\
+(Rounding Rule: All final displayed values are rounded to the nearest tenth.)\
+display_table\
+Stomatal Density of Asarum canadense Under Four Growth-Light Treatments\
+Light Treatment\
+Mean Stomatal Density (stomata/mm2)\
+Standard Error of the Mean (\'b11\'a0SEM)\
+Deep Shade\
+34.0\
+1.3\
+Partial Shade\
+48.0\
+1.4\
+Ambient Sun\
+66.0\
+1.6\
+High Light\
+79.0\
+1.9\
+\
+expected_graph_spec\
+	\'95	Axes:\
+	\uc0\u9702 	X-axis: Discrete, categorical horizontal axis displaying the four independent treatments in the exact sequence given.\
+	\uc0\u9702 	Y-axis: Linear, continuous vertical axis tracking the dependent quantitative variable.\
+	\'95	Units & Labels:\
+	\uc0\u9702 	X-axis labeled clearly with the four treatment category names: "Deep Shade", "Partial Shade", "Ambient Sun", and "High Light". A separate axis title or legend is not required if the categories are cleanly written directly beneath their respective marks.\
+	\uc0\u9702 	Y-axis labeled as "Mean Stomatal Density (stomata/mm2)" or "Stomatal Density (stomata/mm2)".\
+	\'95	Scale Behavior:\
+	\uc0\u9702 	The horizontal category markers should be spaced evenly across the axis width.\
+	\uc0\u9702 	The y-axis must start explicitly at zero (0.0) and extend to at least 90.0 or 100.0 stomata/mm2 using regular, uniform linear intervals (e.g., increments of 10 or 20).\
+	\'95	Plotted Marks: A choice of two structural styles is accepted for plotting the means:\
+	1	Four distinct point symbols (e.g., circles or squares) plotted accurately at the heights: 34.0, 48.0, 66.0, and 79.0.\
+	2	Four discrete vertical bars rising from the zero baseline to those exact heights.\
+	\'95	Uncertainty Marks: Vertical error bars drawn symmetrically through each plotted mean value (either through the point marker or centered atop the bar). The vertical spread must extend precisely from (x\uc0\u713 \u8722 1\'a0SEM) to (x\u713 +1\'a0SEM) using the corresponding values from the data table.\
+	\'95	Point Connection: If point marks are used, they are typically left standalone with their whisker elements; they must not be linked together by continuous sequential trend lines since the x-axis is fundamentally categorical.\
+criterion_definitions\
+	\'95	REPRESENTATION_TYPE: The student must construct either a point-with-whisker plot or a bar-with-whisker graph appropriate for tracking categorical independent treatments.\
+	\'95	X_VARIABLE: The horizontal axis must list or reference the independent growth-light treatments.\
+	\'95	Y_VARIABLE: The dependent variable on the vertical axis must be identified as mean stomatal density.\
+	\'95	Y_UNIT: The vertical axis label must include the biological density unit "stomata/mm2".\
+	\'95	CATEGORY_IDENTITY: The four individual category labels must remain in their original specified order (Deep Shade, Partial Shade, Ambient Sun, High Light) along the horizontal axis, unless an explicit reordering justification is provided.\
+	\'95	Y_SCALE: The vertical axis must use a regular linear scale that starts exactly at 0.0 to avoid structural baseline exaggeration.\
+	\'95	PLOT_VALUES: All four group means (34.0, 48.0, 66.0, and 79.0) must be plotted accurately at their vertical positions.\
+	\'95	UNCERTAINTY_MARKS: The student must include a symmetric vertical error bar centered on each plotted value that accurately reflects its specific \'b11\'a0SEM margin.\
+accepted_variants\
+	\'95	Plot Formats: Both classic vertical bar charts with error whiskers and standalone point-scatter layouts featuring error whiskers are treated as completely correct representation structures.\
+	\'95	Category Reordering: Reordering categories based strictly on an ascending numeric property (e.g., sequencing them by escalating daily photon flux if an unstated parameter was assumed) is acceptable only if the categories remain cleanly identifiable on the axis grid.\
+contradictions\
+	\'95	Line Graphs / Continuous Splines: Drawing continuous line segments or curves that connect the tops of the bars or connect the points sequentially across the treatments is an error because the treatments are discrete categories rather than a single continuous measured scale. This fails REPRESENTATION_TYPE.\
+	\'95	Truncated Y-Axis Scale: Starting the vertical axis at a non-zero baseline value (e.g., starting the y-axis at 30.0 to zoom in on differences) artificially inflates the visual treatment variations and directly violates Y_SCALE.\
+development_tolerances\
+(Proposed development tolerances, not validated thresholds)\
+	\'95	Plotting and Bar Scaling: Plotted points or bar heights must fall within \'b11.0\'a0unit of their true designated position along the vertical axis grid.\
+	\'95	Symmetry Check: The upper and lower arms of each error bar must be visually equivalent in length, projecting identically in both directions from the central mean marker.\
+minimum_feedback\
+	\'95	REPRESENTATION_TYPE: Select a bar graph or a point plot with whiskers instead of a connected line graph, because the light treatments are discrete categories.\
+	\'95	X_VARIABLE: Label your horizontal axis to indicate that it presents the independent light treatments.\
+	\'95	Y_VARIABLE: Label your vertical axis to state that it presents the dependent variable, mean stomatal density.\
+	\'95	Y_UNIT: Include the density unit "stomata/mm2" on your vertical axis label.\
+	\'95	CATEGORY_IDENTITY: Arrange the four growth treatments along the horizontal axis in the exact order shown in the provided data table.\
+	\'95	Y_SCALE: Adjust your vertical axis scale so that it begins exactly at zero (0.0) rather than a higher value.\
+	\'95	PLOT_VALUES: Ensure that all four mean values from the table are plotted at their correct numerical heights on the grid.\
+	\'95	UNCERTAINTY_MARKS: Add a symmetric vertical error bar to each treatment position that spans both up and down by the precise SEM value given for that group.\
+rights_and_similarity_record\
+Original content, independently generated for this draft. Novelty and similarity status: unverified, pending qualified human source-isolation and similarity review.\
+	\'95	item_id: DRG-P1-02\
+	\'95	item_version: v0.1-ai-draft\
+###student_prompt\
+Physiologists are investigating the structural integrity of red blood cell membranes when exposed to varied osmotic environments. When cell membranes are structurally compromised, internal hemoglobin molecules leak across the bilayer into the surrounding solution. The extent of this membrane leakage can be quantified colorimetrically by measuring the absorbance of the cell-free supernatant at 540 nm.\
+In a controlled experiment, uniform samples of equine erythrocytes were incubated for 30 minutes in four distinct, independently prepared chemical solutions: Solution A (Standard Saline), Solution B (High Sucrose), Solution C (Buffered Urea), and Solution D (Deionized Water). Multiple independent replicates were tested for each solution treatment to calculate the mean supernatant absorbance and the standard error of the mean (SEM).\
+Using the data provided in the table, construct an appropriately scaled and labeled graph to compare the mean membrane leakage across the four solution treatments. Plot the group means, and include symmetric error bars representing \'b11\'a0SEM around each mean.\
+synthetic_data_source\
+This dataset is constructed via explicit synthetic replicate observations (Method b). Four independent replicate trials (R1 ,R2 ,R3 ,R4 ) were performed for each of the four discrete solution treatment groups. The displayed mean absorbance (x\uc0\u713 ) and standard error of the mean (SEM) are computed transparently below.\
+Formulas used:\
+Mean (x-bar) = (R1+R2+R3+R4)/4\
+Standard Deviation (s) = sqrt( sum((Ri-x-bar)^2) / 3 )\
+SEM = s / sqrt(4)\
+Calculation and Rounding Table\
+Solution Treatment\
+Replicates (R1 ,R2 ,R3 ,R4 )\
+Sum\
+x\uc0\u713  (Raw)\
+Mean (Rounded)\
+s (Raw)\
+SEM (Raw)\
+SEM (Rounded)\
+Solution A\
+0.04, 0.06, 0.03, 0.07\
+0.20\
+0.050\
+0.05\
+0.01826\
+0.00913\
+0.01\
+Solution B\
+0.07, 0.11, 0.09, 0.09\
+0.36\
+0.090\
+0.09\
+0.01633\
+0.00816\
+0.01\
+Solution C\
+0.74, 0.81, 0.79, 0.78\
+3.12\
+0.780\
+0.78\
+0.02944\
+0.01472\
+0.01\
+Solution D\
+0.84, 0.80, 0.83, 0.81\
+3.28\
+0.820\
+0.82\
+0.01826\
+0.00913\
+0.01\
+\
+(Rounding Rule: All final displayed values are rounded to the nearest hundredth to match standard spectrophotometer readouts.)\
+display_table\
+Erythrocyte Membrane Leakage Across Four Independent Solution Treatments\
+Solution Treatment\
+Mean Supernatant Absorbance at 540 nm (A.U.)\
+Standard Error of the Mean (\'b11\'a0SEM)\
+Solution A\
+0.05\
+0.01\
+Solution B\
+0.09\
+0.01\
+Solution C\
+0.78\
+0.01\
+Solution D\
+0.82\
+0.01\
+\
+expected_graph_spec\
+	\'95	Axes:\
+	\uc0\u9702 	X-axis: Discrete, categorical horizontal axis displaying the four independent treatments in the exact sequence given.\
+	\uc0\u9702 	Y-axis: Linear, continuous vertical axis tracking the dependent quantitative variable.\
+	\'95	Units & Labels:\
+	\uc0\u9702 	X-axis labeled with the four treatment category names: "Solution A", "Solution B", "Solution C", and "Solution D". No external legend or title is necessary if these labels align directly below each plot marker.\
+	\uc0\u9702 	Y-axis labeled as "Mean Supernatant Absorbance at 540 nm (A.U.)" or "Mean Absorbance at 540 nm (arbitrary units)".\
+	\'95	Scale Behavior:\
+	\uc0\u9702 	The horizontal category markers must be spaced evenly along the axis line.\
+	\uc0\u9702 	The y-axis must start exactly at zero (0.00) and extend to at least 0.90 or 1.00 using regular, uniform linear intervals (e.g., increments of 0.10 or 0.20).\
+	\'95	Plotted Marks: The group means must be plotted using one of two accepted structural formats:\
+	1	Four discrete vertical bars rising from the zero baseline to the exact coordinates: 0.05, 0.09, 0.78, and 0.82.\
+	2	Four distinct point symbols plotted precisely at those vertical heights.\
+	\'95	Uncertainty Marks: Vertical error bars drawn symmetrically above and below each plotted mean value. The total vertical spread must span exactly from (x\uc0\u713 \u8722 1\'a0SEM) to (x\u713 +1\'a0SEM) using the corresponding values from the data table (e.g., for Solution A, spanning from 0.04 to 0.06).\
+	\'95	Point Connection: If point marks are chosen, they must remain standalone with their whisker elements; they must not be connected by continuous sequential lines or curves since the independent variables are discrete categories rather than a continuous numeric series.\
+criterion_definitions\
+	\'95	REPRESENTATION_TYPE: The student must construct either a bar graph with whiskers or a point plot with whiskers appropriate for displaying discrete categorical treatments.\
+	\'95	X_VARIABLE: The horizontal axis must list or reference the independent solution treatments.\
+	\'95	Y_VARIABLE: The dependent variable on the vertical axis must be identified as mean supernatant absorbance at 540 nm.\
+	\'95	Y_UNIT: The vertical axis label must include the unit designation "A.U." or "arbitrary units".\
+	\'95	CATEGORY_IDENTITY: The four individual category labels must remain in their original specified order (Solution A, Solution B, Solution C, Solution D) along the horizontal axis, unless an explicit reordering justification is provided.\
+	\'95	Y_SCALE: The vertical axis must use a regular linear scale that starts exactly at 0.00 to avoid structural baseline exaggeration.\
+	\'95	PLOT_VALUES: All four group means (0.05, 0.09, 0.78, and 0.82) must be plotted accurately at their vertical positions, paying close attention to the close-valued pairings (A/B and C/D).\
+	\'95	UNCERTAINTY_MARKS: The student must include a symmetric vertical error bar centered on each plotted value that accurately reflects its specific \'b11\'a0SEM margin.\
+accepted_variants\
+	\'95	Plot Formats: Both vertical bar charts with error whiskers and standalone point-scatter layouts featuring error whiskers are treated as completely correct representation structures.\
+	\'95	Category Reordering: Reordering the categories based strictly on an ascending numeric property (e.g., sequencing them from lowest observed mean absorbance to highest observed mean absorbance: A, B, C, D) is acceptable only if the categories remain cleanly identifiable on the axis grid.\
+contradictions\
+	\'95	Line Graphs / Continuous Splines: Drawing continuous line segments or curves that connect the tops of the bars or connect the points sequentially across the treatments is an error because the treatments are discrete categories rather than a single continuous measured scale. This fails REPRESENTATION_TYPE.\
+	\'95	Truncated Y-Axis Scale: Starting the vertical axis at a non-zero baseline value (e.g., creating an axis break to zoom in exclusively on the 0.70 to 0.90 range) artificially distorts the relative magnitude of membrane damage and directly violates Y_SCALE.\
+development_tolerances\
+(Proposed development tolerances, not validated thresholds)\
+	\'95	Plotting and Bar Scaling: Plotted points or bar heights must fall within \'b10.01\'a0units of their true designated position along the vertical axis grid.\
+	\'95	Symmetry Check: The upper and lower arms of each error bar must be visually equivalent in length, projecting identically in both directions from the central mean marker.\
+minimum_feedback\
+	\'95	REPRESENTATION_TYPE: Select a bar graph or a point plot with whiskers instead of a connected line graph, because the solution treatments are discrete categories.\
+	\'95	X_VARIABLE: Label your horizontal axis to indicate that it presents the independent solution treatments.\
+	\'95	Y_VARIABLE: Label your vertical axis to state that it presents the dependent variable, mean supernatant absorbance at 540 nm.\
+	\'95	Y_UNIT: Include the unit designation "A.U." or "arbitrary units" on your vertical axis label.\
+	\'95	CATEGORY_IDENTITY: Arrange the four solution treatments along the horizontal axis in the exact order shown in the provided data table.\
+	\'95	Y_SCALE: Adjust your vertical axis scale so that it begins exactly at zero (0.00) rather than a higher value.\
+	\'95	PLOT_VALUES: Ensure that all four mean values from the table are plotted at their correct numerical heights on the grid, carefully distinguishing the differences between the two low values and the two high values.\
+	\'95	UNCERTAINTY_MARKS: Add a symmetric vertical error bar to each treatment position that spans both up and down by the precise SEM value given for that group.\
+rights_and_similarity_record\
+Original content, independently generated for this draft. Novelty and similarity status: unverified, pending qualified human source-isolation and similarity review.\
+###student_prompt\
+A researcher investigated the impact of distinct canopy-shading microclimates on the structural leaves of a understory shrub species. Four independent seed cohorts were grown concurrently under localized treatments with varying light exposures: Full Shade (5% ambient light), Deep Understory (15% ambient light), Partial Gap (40% ambient light), and Open Clearing (100% ambient light). After a standard growth period of 12 weeks, epidermal peels were prepared from mature leaves in each treatment cohort to quantify the number of stomata per unit area.\
+Construct a graph on the axes provided to compare the mean stomatal density across the four light environments. Plot the group means using an appropriate representation type, and include symmetric error bars representing \'b11\'a0SEM around each mean.\
+synthetic_data_source\
+This dataset is constructed via explicit synthetic replicate observations (Method b). The intended biological pattern is an upregulation of stomatal differentiation under higher irradiance, consistent with developmental plasticity, but no closed-form formula is asserted as the generative source -- the displayed means and SEM are derived directly and exactly from the listed replicates below, which is the verifiable source of record.\
+To provide the raw source for human validation, five explicit synthetic replicate measurements (R1 ,R2 ,R3 ,R4 ,R5 ) for n=5 samples per categorical group are provided below. The final sample mean and SEM are calculated directly from these replicates using standard arithmetic rules:\
+Mean = (R1+R2+R3+R4+R5)/5\
+SEM = sqrt( sum((Ri-Mean)^2) / (5*4) )\
+\
+Replicate Values and Step-by-Step Verifications:\
+	\'95	Full Shade (5%):\
+	\uc0\u9702 	Replicates: 44.1,46.8,43.5,45.9,44.7\
+	\uc0\u9702 	Mean: 5225.0 =45.00\u8594  45.0\
+	\uc0\u9702 	SEM: 200.81+3.24+2.25+0.81+0.09 \
+	\uc0\u9702 	=207.2 \
+	\uc0\u9702 	=0.36\
+	\uc0\u9702 	=0.60\u8594  0.6\
+	\'95	Deep Understory (15%):\
+	\uc0\u9702 	Replicates: 56.5,59.2,57.0,58.4,56.9\
+	\uc0\u9702 	Mean: 5288.0 =57.60\u8594  57.6\
+	\uc0\u9702 	SEM: 201.21+2.56+0.36+0.64+0.49 \
+	\uc0\u9702 	=205.26 \
+	\uc0\u9702 	=0.263\
+	\uc0\u9702 	\u8776 0.512\u8594  Rounded to one decimal: 0.5\
+	\'95	Partial Gap (40%):\
+	\uc0\u9702 	Replicates: 66.4,69.3,67.1,68.9,67.3\
+	\uc0\u9702 	Mean: 5339.0 =67.80\u8594  67.8\
+	\uc0\u9702 	SEM: 201.96+2.25+0.49+1.21+0.25 \
+	\uc0\u9702 	=206.16 \
+	\uc0\u9702 	=0.308\
+	\uc0\u9702 	\u8776 0.554\u8594  Rounded to one decimal: 0.6\
+	\'95	Open Clearing (100%):\
+	\uc0\u9702 	Replicates: 77.2,79.9,78.1,81.3,79.5\
+	\uc0\u9702 	Mean: 5396.0 =79.20\u8594  79.2\
+	\uc0\u9702 	SEM: 204.00+0.49+1.21+4.41+0.09 \
+	\uc0\u9702 	=2010.2 \
+	\uc0\u9702 	=0.51\
+	\uc0\u9702 	\u8776 0.714\u8594  Rounded to one decimal: 0.7\
+display_table\
+Table 1. Mean stomatal density of structural leaves grown under four distinct canopy-shading microclimates\
+Light Treatment Cohort\
+Mean Stomatal Density (stomata/mm2)\
+Standard Error of the Mean (SEM)\
+Full Shade (5%)\
+45.0\
+0.6\
+Deep Understory (15%)\
+57.6\
+0.5\
+Partial Gap (40%)\
+67.8\
+0.6\
+Open Clearing (100%)\
+79.2\
+0.7\
+\
+expected_graph_spec\
+	\'95	Axes and Layout: A coordinate grid where the horizontal x-axis is reserved for the discrete treatment categories and the vertical y-axis is reserved for the measured dependent values. No independent numeric scaling is required for the x-axis.\
+	\'95	X-Axis Label: Labelled with clear textual indicators for each category: "Full Shade (5%)", "Deep Understory (15%)", "Partial Gap (40%)", and "Open Clearing (100%)".\
+	\'95	Y-Axis Label and Units: Labelled as "Mean Stomatal Density (stomata/mm2)" or "Stomatal Density (stomata/mm2)".\
+	\'95	Scaling: * The x-axis spaces out the four groups evenly in the exact order presented in Table 1 (unless an explicit reordering justification is noted).\
+	\uc0\u9702 	The y-axis must scale linearly and must start at exactly zero (0) to support valid visual area/magnitude comparison for categorical data. The upper bound must reach at least 90.\
+	\'95	Plotted Marks: Plotted either as discrete vertical columns (bar chart) or localized mean coordinate points (point-with-whisker plot) reflecting the exact group means: 45.0,57.6,67.8, and 79.2.\
+	\'95	Uncertainty Marks: Vertical, symmetric error bars drawn cleanly through the top of each bar or point, extending exactly 1\'a0SEM above and 1\'a0SEM below the plotted mean value based on Table 1.\
+criterion_definitions\
+	\'95	REPRESENTATION_TYPE: The student must render the categorical comparison using either a column/bar graph or isolated point-with-whisker symbols, rather than connecting across the categories with a continuous line trend.\
+	\'95	X_VARIABLE: The student must place the independent treatment categories along the horizontal x-axis.\
+	\'95	Y_VARIABLE: The student must place the dependent variable, mean stomatal density, along the vertical y-axis.\
+	\'95	Y_UNIT: The vertical axis label must include the unit "stomata/mm2".\
+	\'95	Y_SCALE: The vertical axis must feature a linear, uniform mathematical scale that begins explicitly at zero (0).\
+	\'95	CATEGORY_IDENTITY: The horizontal axis must clearly identify all four distinct light treatment groups in the written labels.\
+	\'95	PLOT_VALUES: The student must plot all four mean values accurately at their corresponding heights relative to the y-axis grid lines.\
+	\'95	UNCERTAINTY_MARKS: The student must construct vertical error bars that extend symmetrically \'b11\'a0SEM above and below the top of each respective data mark.\
+accepted_variants\
+	\'95	Both traditional column/bar charts and point-with-whisker plots are fully acceptable for categorical groups.\
+	\'95	Writing the category labels horizontally, at a diagonal angle, or directly inside the columns is acceptable as long as the categorical identity remains completely unambiguous.\
+	\'95	Reordering the treatment groups along the x-axis is an accepted variant, provided all data values move correctly with their matching label identity.\
+contradictions\
+	\'95	Line Graph Connection: Connecting the four discrete category averages together with continuous line segments violates REPRESENTATION_TYPE by implying a continuous mathematical gradient along a non-numeric axis.\
+	\'95	Truncated Y-Axis Base: Truncating the vertical axis scale to start at 40 instead of 0 violates Y_SCALE because categorical distributions require a zero baseline to establish true relative magnitude comparisons.\
+	\'95	Missing Error Cap Tails: Drawing error bar segments that only extend upwards (+1\'a0SEM) without their matching downward extensions violates UNCERTAINTY_MARKS.\
+development_tolerances\
+(Proposed development tolerances, not validated thresholds)\
+	\'95	Plotting Precision: The height of the bars or points must align within \'b11.0\'a0stomata/mm2 of the target value on the vertical scale.\
+	\'95	Error Whisker Length: The upper and lower bounds of the error bars must be drafted within \'b10.2 vertical grid blocks of their exact mathematical values.\
+minimum_feedback\
+	\'95	REPRESENTATION_TYPE: Present this data using distinct vertical bars or separate point-and-whisker markers instead of a connected line plot, as the treatments represent separate experimental categories.\
+	\'95	X_VARIABLE: Move the light treatment cohorts to the horizontal x-axis.\
+	\'95	Y_VARIABLE: Move the mean stomatal density to the vertical y-axis.\
+	\'95	Y_UNIT: Ensure the vertical axis label includes the complete measurement unit (stomata/mm2).\
+	\'95	Y_SCALE: Re-scale your vertical axis so that it begins exactly at zero (0) rather than starting at a higher number.\
+	\'95	CATEGORY_IDENTITY: Clearly write out the names or percentages for all four light environments under their respective graph positions.\
+	\'95	PLOT_VALUES: Recheck your plot marks to ensure the heights of all four groups align with the values provided in Table 1.\
+	\'95	UNCERTAINTY_MARKS: Add a vertical error bar that extends equally both above and below the mean value by the designated SEM amount for each treatment category.\
+rights_and_similarity_record\
+Original content, independently generated for this draft. Novelty and similarity status: unverified, pending qualified human source-isolation and similarity review.\
+}

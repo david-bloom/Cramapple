@@ -1,0 +1,147 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apprecalc-mcq-032",
+  "content_key": "apprecalc-mcq-032",
+  "content_version": 1,
+  "difficulty": "Easy",
+  "exam_pack_ref": {
+    "exam_code": "ap_precalculus",
+    "school_year": "2026-27",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "mcq",
+  "archetype_ref": {
+    "archetype_key": "ap-precalculus-mcq",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-precalculus-2026-27",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-2-exponential-and-logarithmic-functions"
+    },
+    {
+      "scheme_key": "ap-precalculus-2026-27",
+      "scheme_version": "1.0.0",
+      "node_key": "topic-2.3"
+    },
+    {
+      "scheme_key": "ap-precalculus-2026-27",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-3"
+    }
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "directions",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "No calculator is permitted.",
+        "calculator_mode": "no-calculator"
+      },
+      "source_refs": [
+        "ap-precalculus-ced-effective-fall-2026"
+      ]
+    }
+  ],
+  "mcq_choices": [
+    {
+      "choice_key": "A",
+      "choice_text": "f decreases by 12% per unit",
+      "is_correct": false,
+      "rationale": "Treats a factor above 1 as decay."
+    },
+    {
+      "choice_key": "B",
+      "choice_text": "f increases by 112% per unit",
+      "is_correct": false,
+      "rationale": "Uses the entire factor as the percent increase."
+    },
+    {
+      "choice_key": "C",
+      "choice_text": "f has a constant increase of 0.12",
+      "is_correct": false,
+      "rationale": "Confuses multiplicative and additive change."
+    },
+    {
+      "choice_key": "D",
+      "choice_text": "f increases by 12% per unit",
+      "is_correct": true,
+      "rationale": "Correctly interprets 1+0.12."
+    }
+  ],
+  "canonical_answers": [
+    "D"
+  ],
+  "parts": [
+    {
+      "part_key": "question",
+      "ordinal": 1,
+      "prompt": "For f(x)=7(1.12)^x, which statement is true?\n\nA. f decreases by 12% per unit\nB. f increases by 112% per unit\nC. f has a constant increase of 0.12\nD. f increases by 12% per unit",
+      "stimulus_refs": [
+        "directions"
+      ],
+      "response_modalities": [
+        "choice"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-answer",
+          "points": 1,
+          "description": "Select the unique correct response.",
+          "required_evidence": [
+            "D",
+            "The growth factor 1.12 means a 12% increase per unit."
+          ],
+          "accepted_variants": [
+            "Only a displayed choice that is mathematically identical to the keyed response may be treated as equivalent."
+          ],
+          "insufficient_responses": [
+            "An unkeyed choice without a valid ambiguity finding."
+          ],
+          "contradictions": [
+            "A choice or rationale that conflicts with the governing domain, representation, units, or model conditions."
+          ],
+          "minimum_fix": "Select the keyed response after correcting the first invalid mathematical step.",
+          "deterministic_checks": [
+            {
+              "check_type": "choice-key",
+              "parameters": {
+                "correct_key": "D"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All mathematical information is provided in text."
+  },
+  "review_notes": {
+    "expected_reasoning": "The growth factor 1.12 means a 12% increase per unit.",
+    "teaching_explanation": "The growth factor 1.12 means a 12% increase per unit.",
+    "minimum_fix": "Correct the first invalid algebraic, graphical, numerical, or modeling step, then recompute under the stated conditions.",
+    "transfer_candidate": "Create a new Topic 2.3 item with different values, representation, and surface context.",
+    "delayed_retrieval_candidate": "Reassess Topic 2.3 after a delay without reusing this stem or answer choices.",
+    "known_boundary_cases": [
+      "Accept only the keyed choice unless another displayed choice is mathematically identical.",
+      "Reject the item if a reasonable interpretation makes more than one displayed choice correct."
+    ],
+    "originality_statement": "Independently authored Cramapple practice item from a blank scope brief; no released, secure, or third-party question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-precalculus-ced-effective-fall-2026"
+    ],
+    "fact_pack_version": "2026-07-28",
+    "authoring_prompt_version": "CODEX_PRECALCULUS_DIFFICULTY_QA_2026_07_28",
+    "generated_by": "codex",
+    "generated_at": "2026-07-28T00:00:00Z",
+    "content_sha256": "de56b712e6ac1d4d5455a87755e29aba5fb707d6bdcaf65bc0d4c148f9a1dd61"
+  }
+}

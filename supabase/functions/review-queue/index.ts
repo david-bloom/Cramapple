@@ -41,9 +41,15 @@ function normalizePromptText(value: string): string {
 // The current reviewer client renders artifact.stem but does not yet render
 // prompt_json.parts. Build a complete reviewer-only stem at the queue boundary
 // so a structured full-scale FRQ cannot appear as boilerplate plus a rubric.
+// MCQ prompt_json.parts represent the single question already supplied by the
+// stem and must never be rendered as an FRQ-style "mandatory subpart."
 // Parts already present verbatim in the stem are not duplicated.
-export function buildReviewerStem(version: ContentVersion): string {
+export function buildReviewerStem(
+  version: ContentVersion,
+  itemType?: string | null,
+): string {
   const base = version.stem ?? "";
+  if (itemType?.toLowerCase() === "mcq") return base;
   const rawParts = version.prompt_json?.parts;
   if (!Array.isArray(rawParts)) return base;
 
@@ -101,6 +107,7 @@ type ContentItem = {
   item_type: string;
   title: string;
   frq_form: string | null;
+  status: string;
 };
 
 type McqChoice = {
@@ -299,7 +306,7 @@ Deno.serve(async (req) => {
     await Promise.all([
       fetchInChunks<ContentItem>(contentItemIds, (chunk) =>
         service.schema("app").from("content_items")
-          .select("id, content_key, item_type, title, frq_form")
+          .select("id, content_key, item_type, title, frq_form, status")
           .in("id", chunk)),
 
       fetchInChunks<McqChoice>(contentVersionIds, (chunk) =>
@@ -385,7 +392,23 @@ Deno.serve(async (req) => {
 
   // ── Build the queue ──────────────────────────────────────────────────────────
 
-  const queue = assignmentRows.map((assignment) => {
+  // Retiring a content item does not touch its review assignments, so an open
+  // assignment can outlive the content it points at and keep surfacing retired
+  // questions in a reviewer's queue. Found 2026-08-01: 4 retired AP Statistics
+  // items were still pending for one reviewer and 3 AP Biology items for another.
+  // The existing rows were withdrawn by migration
+  // 20260802020000_withdraw_review_assignments_on_retired_content, but that only
+  // fixed the data — this filter is what stops it recurring. Retired content is
+  // dropped here rather than at the query above because item status lives on
+  // content_items, which is resolved via the version two fetches later.
+  const servableAssignments = assignmentRows.filter((assignment) => {
+    const versionId = assignment.content_item_version_id;
+    const version = versionId ? versionById.get(versionId) : null;
+    const item = version ? itemById.get(version.content_item_id) : null;
+    return item?.status !== "retired";
+  });
+
+  const queue = servableAssignments.map((assignment) => {
     const versionId = assignment.content_item_version_id;
     const version = versionId ? versionById.get(versionId) : null;
     const item = version ? itemById.get(version.content_item_id) : null;
@@ -398,7 +421,7 @@ Deno.serve(async (req) => {
         content_key: item?.content_key ?? null,
         item_type: item?.item_type ?? null,
         title: item?.title ?? null,
-        stem: buildReviewerStem(version),
+        stem: buildReviewerStem(version, item?.item_type),
         stimulus: version.stimulus,
         stimulus_image_path: version.stimulus_image_path,
         stimulus_image_url: version.stimulus_image_path

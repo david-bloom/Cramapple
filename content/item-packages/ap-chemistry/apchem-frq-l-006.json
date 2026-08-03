@@ -1,0 +1,225 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apchem-frq-l-006",
+  "content_key": "apchem-frq-l-006",
+  "content_version": 1,
+  "difficulty": "Medium",
+  "frq_form": "long",
+  "canonical_answers": [
+    "c=4.19 J g^-1 K^-1 and q is positive."
+  ],
+  "exam_pack_ref": {
+    "exam_code": "ap_chemistry",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "frq",
+  "archetype_ref": {
+    "archetype_key": "ap-chemistry-frq-long",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-chemistry-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-6-thermochemistry"
+    },
+    {
+      "scheme_key": "ap-chemistry-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-6"
+    }
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "scenario",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "A 75.0 g solution absorbs 3.14 kJ and warms 10.0°C."
+      },
+      "source_refs": [
+        "ap-chemistry-ced-fact-pack"
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "part_key": "part-a",
+      "ordinal": 1,
+      "label": "(a)",
+      "prompt": "Calculate its specific heat and state the sign of q for the solution.",
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion",
+          "points": 1,
+          "description": "c=4.19 J g^-1 K^-1 and q is positive.",
+          "required_evidence": [
+            "4.19",
+            "positive"
+          ],
+          "accepted_variants": [
+            "Equivalent scientifically correct notation and reasoning earn credit."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "4.19",
+                  "positive"
+                ]
+              }
+            }
+          ],
+          "minimum_fix": "To earn this point, explicitly show 4.19; positive."
+        }
+      ],
+      "stimulus_refs": [
+        "scenario"
+      ]
+    },
+    {
+      "part_key": "part-b",
+      "ordinal": 2,
+      "label": "(b)",
+      "prompt": "Explain how q=mcΔT (conservation of energy) supports the specific heat calculation, and state the assumption that no heat was lost to the surroundings during warming.",
+      "response_modalities": [
+        "typed-text"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-b-criterion",
+          "points": 1,
+          "description": "q=mcΔT applies conservation of energy to solve for specific heat, assuming no heat was lost to the surroundings during warming.",
+          "required_evidence": [
+            "q=mcΔT conservation of energy",
+            "no heat loss assumption"
+          ],
+          "accepted_variants": [
+            "Equivalent scientifically correct notation and reasoning earn credit."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "q=mcΔT",
+                  "no heat loss"
+                ]
+              }
+            }
+          ],
+          "minimum_fix": "To earn this point, explicitly show q=mcΔT conservation of energy; no heat loss assumption."
+        }
+      ],
+      "stimulus_refs": [
+        "scenario"
+      ]
+    },
+    {
+      "part_key": "part-c",
+      "ordinal": 3,
+      "label": "(c)",
+      "prompt": "Describe how you would verify the specific heat value, identifying the temperature change as the measured variable while holding the solution mass constant.",
+      "response_modalities": [
+        "typed-text"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-c-criterion",
+          "points": 1,
+          "description": "A valid check measures the temperature change with a calorimeter thermometer while holding the solution mass constant.",
+          "required_evidence": [
+            "temperature change measured",
+            "mass held constant"
+          ],
+          "accepted_variants": [
+            "Equivalent scientifically correct notation and reasoning earn credit."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "temperature change",
+                  "mass held constant"
+                ]
+              }
+            }
+          ],
+          "minimum_fix": "To earn this point, explicitly show temperature change measured; mass held constant."
+        }
+      ],
+      "stimulus_refs": [
+        "scenario"
+      ]
+    },
+    {
+      "part_key": "part-d",
+      "ordinal": 4,
+      "label": "(d)",
+      "prompt": "State one systematic error (e.g., heat lost to an uninsulated container) and predict whether the calculated specific heat would be too high or too low.",
+      "response_modalities": [
+        "typed-text"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-d-criterion",
+          "points": 1,
+          "description": "Heat lost to an uninsulated container understates the true ΔT, making the calculated specific heat too high.",
+          "required_evidence": [
+            "uninsulated heat loss",
+            "specific heat too high"
+          ],
+          "accepted_variants": [
+            "Equivalent scientifically correct notation and reasoning earn credit."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "uninsulated",
+                  "too high"
+                ]
+              }
+            }
+          ],
+          "minimum_fix": "To earn this point, explicitly show uninsulated heat loss; specific heat too high."
+        }
+      ],
+      "stimulus_refs": [
+        "scenario"
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "Text and symbolic notation are fully described."
+  },
+  "review_notes": {
+    "expected_reasoning": "c=4.19 J g^-1 K^-1 and q is positive.",
+    "known_boundary_cases": [],
+    "originality_statement": "Independently authored synthetic draft for Tutor review; no official question or scoring material used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-chemistry-ced-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-15",
+    "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
+    "generated_by": "codex",
+    "generated_at": "2026-07-15T00:00:00Z",
+    "content_sha256": "d62481e2122aa2d5fe7922e2fe83eff90139890f1f471b7cc2d8d319f3cfcaba"
+  }
+}

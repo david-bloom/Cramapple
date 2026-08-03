@@ -1,0 +1,149 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apphycem-frq-012",
+  "content_key": "apphycem-frq-012",
+  "content_version": 1,
+  "difficulty": "Hard",
+  "frq_form": "short",
+  "canonical_answers": [
+    "Solving L dI/dt+RI=ℰ gives I=(ℰ/R)(1-e^{-Rt/L}) and time constant L/R."
+  ],
+  "exam_pack_ref": {
+    "exam_code": "ap_physics_c_em",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "frq",
+  "archetype_ref": {
+    "archetype_key": "ap-physics-c-em-frq-experimental",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-physics-c-em-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-13-electromagnetic-induction"
+    },
+    {
+      "scheme_key": "ap-physics-c-em-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-3"
+    }
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "scenario",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "An LR circuit with inductance L and resistance R is connected to constant emf ℰ at t=0 with I(0)=0."
+      },
+      "source_refs": [
+        "ap-physics-c-em-ced-fact-pack"
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "part_key": "part-a",
+      "ordinal": 1,
+      "label": "(a)",
+      "prompt": "Design a feasible measurement that tests the governing relation; identify the independent variable, dependent variable, and one control.",
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion",
+          "points": 1,
+          "description": "A valid design varies the inductance L as the independent variable, measures the resulting time constant τ=L/R (from the current growth curve) as the dependent variable, and holds the resistance R and emf ℰ constant as controls, consistent with I=(ℰ/R)(1-e^{-Rt/L}).",
+          "required_evidence": [
+            "independent variable: inductance L",
+            "dependent variable: measured time constant τ=L/R",
+            "control: constant R and ℰ"
+          ],
+          "accepted_variants": [
+            "Equivalent scientifically correct notation and reasoning earn credit."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "inductance L",
+                  "time constant",
+                  "constant resistance"
+                ]
+              }
+            }
+          ],
+          "minimum_fix": "To earn this point, explicitly show independent variable: inductance L; dependent variable: measured time constant τ=L/R; control: constant R and ℰ."
+        }
+      ],
+      "stimulus_refs": [
+        "scenario"
+      ]
+    },
+    {
+      "part_key": "part-b",
+      "ordinal": 2,
+      "label": "(b)",
+      "prompt": "State the governing principle (Kirchhoff's voltage law) and the initial-condition assumption I(0)=0, and explain why each must hold for the proposed measurement of the time constant L/R to be valid.",
+      "response_modalities": [
+        "typed-text"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-b-criterion",
+          "points": 1,
+          "description": "State the governing principle (Kirchhoff's voltage law) and the initial-condition assumption I(0)=0, and explain why each must hold for the proposed measurement of the time constant L/R to be valid.",
+          "required_evidence": [
+            "Kirchhoff's voltage law",
+            "initial condition I(0)=0"
+          ],
+          "accepted_variants": [
+            "Equivalent scientifically correct notation and reasoning earn credit."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "Kirchhoff's voltage law",
+                  "initial condition I(0)=0"
+                ]
+              }
+            }
+          ],
+          "minimum_fix": "To earn this point, explicitly show Kirchhoff's voltage law; initial condition I(0)=0."
+        }
+      ],
+      "stimulus_refs": [
+        "scenario"
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "Text and symbolic notation are fully described."
+  },
+  "review_notes": {
+    "expected_reasoning": "Solving L dI/dt+RI=ℰ gives I=(ℰ/R)(1-e^{-Rt/L}) and time constant L/R.",
+    "known_boundary_cases": [],
+    "originality_statement": "Independently authored synthetic draft for Tutor review; no official question or scoring material used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-physics-c-em-ced-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-15",
+    "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
+    "generated_by": "codex",
+    "generated_at": "2026-07-15T00:00:00Z",
+    "content_sha256": "89b300ab89edb89c3d3a72cdc7ab8433cd2a4bbef5cec861924a588295a835fa"
+  }
+}

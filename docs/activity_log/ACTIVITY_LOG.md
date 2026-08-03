@@ -6,6 +6,11 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Blocked Five-Subject Branch Archived After Three-Way Verification; §3 Skill Anchoring Source-Verified 55/55; Jill Confirmation Deferred — 2026-08-02
+- Reviewer Unit Picker Moved to the 5-Unit CED; Retired Content Withdrawn From All Review Queues — 2026-08-01
+- AP Statistics FRQ Remediation Executed — 90 Retired, 68 Reclassified, Discovered All Statistics FRQs Were Unservable — 2026-08-01
+- AP Statistics Reviewer Feedback Triaged; Authoring Prompts Corrected to the 5-Unit CED — 2026-08-01
+- Publication-Trust Second Defect Found; 7 Disapproved Items Unpublished; Reviewer Roster Reshuffled; Rationale Repairs Begun — 2026-07-31
 - Complete Four-Course Physics Review Packet Assigned to Saood — 2026-07-27
 - Cross-Subject 21-Question Repairs Applied; 12 Chemistry Historical Labels Reconciled — 2026-07-27
 - Cross-Subject 21-Question Content-Remediation Pilot Packet Frozen — 2026-07-27
@@ -18,10 +23,14 @@ Most recent entries (full reverse-chronological list follows below):
 - Two-Approval / Executed-Edit Publication Reconciliation — 2026-07-27
 - Published-Without-Approval Assignment Backfill — 2026-07-27
 - Saood Precalculus/Physics QA Reconciled; 12 Corrections Forked; 16 False Exclusions Reversed — 2026-07-27
+- AP Statistics Hand-Drawn-Graph Set-04 Calibration Pack Recovered and Integrated — 2026-07-27
+- Rolling 72-Hour Reviewer QA and Remediation — 2026-07-27
 - Two Frontend Bugs Found and Fixed (Stimulus-Table Rendering, Bio Reviewer Unit Availability); AP Statistics Never Assessed for FRQ Structure — 2026-07-26
+- Branch Hygiene Operational Enforcement — 2026-07-26
 - FRQ Structure QA and Repair Across Six Subjects (Bio, Physics, Chemistry, Calc AB/BC, Precalc) — 2026-07-25/26
 - 100 New AP Chemistry Items Authored and Assigned; Calc/Precalc CED+QA Pass; Reviewer Roster Reshuffled — 2026-07-24
 - Fixed Alternating-Residual Artifact in Scatterplot Datasets; CED Verification for Calc/Chem/Bio; Reviewer Tagging-Gap Pipeline Fix; Adil Abbasi Onboarded — 2026-07-24
+- CED Verification and Physics Content Review — Session Handoff — 2026-07-24
 - Shipped review-decision Atomic-Lock Fix; Fixed Unrealistic Scatterplot Correlations Flagged by Jill — 2026-07-22
 - Production Content Reconciled to Tutor Decisions; Reviewer Image Support Shipped — 2026-07-20
 - Kimi Grading Experiment Wired and Pre-Registered — 2026-07-17
@@ -38,6 +47,308 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## Blocked Five-Subject Branch Archived After Three-Way Verification; §3 Skill Anchoring Source-Verified 55/55; Jill Confirmation Deferred — 2026-08-02
+
+**Task:** Blocked-branch reconciliation (plan: `prompts/FABLE_AP_STATISTICS_BLOCKED_BRANCH_RECONCILIATION_2026_08_02.md`, Revision 3 executed after Fable review)
+**Status:** Archive executed and verified. Fact pack upgraded. One step remains open (Step 0 — landing the working branch on `main`), plus the deferred Jill confirmation and a follow-up branch/PR sweep.
+
+**Summary:** `codex/five-subject-harness-and-content` (forked 2026-07-01, 93 commits, 1176 files, pre-dating the schema-baseline squash `b6559a2`) was archived — not merged — after three independent verifications came back safe. The one asset worth salvaging (§3 per-topic skill/LO anchoring for AP Statistics) had already been ported to the fact pack and is now source-verified.
+
+**1. Provenance check (all subjects, not just Statistics).** All 288 content keys seeded on the branch (Chemistry 36, Physics 1/2/C-Mech/C-E&M 36 each, Calc AB/BC/Precalc 36 each) exist in Production via a separate SQL-loader ingestion documented on the branch itself (`docs/qa/CALCULUS_THREE_SUBJECT_SEED_PRODUCTION_EVIDENCE_2026_07_17.md`; Prod `created_at` 2026-07-18/20 confirms). Spot-checked stems are character-identical, and Production has since evolved *past* the branch (v2 rewrites, M1 minimum_fix work). Archiving loses no content.
+
+**2. Migration end-state diff (declared-DDL analysis; Docker unavailable for a scratch apply).** The baseline is **not** a strict superset of the branch's 27 migrations: (a) most objects are in the baseline ✅; (b) nothing is in live Production beyond the baseline; (c) eight migrations' worth of TASK-0017 harness schema (item-package columns, taxonomy tables, verifier/capability tables, review-pool harness) exist in **Dev only** 🟡; (d) two files declare functions/triggers existing **nowhere** 🔴: `20260718014159_add_atomic_draft_package_adoption.sql` and `202607200001_subject_package_preflight.sql`. These were deliberately **not** ported to the working branch (they depend on Dev-only columns absent from the Production baseline and would break migration application); they are preserved verbatim in the archive tag and should be revisited when TASK-0017 harness work resumes.
+
+**3. §3 skill-anchoring verification.** The local CED PDF turned out to be the **new Fall-2026 edition** (contrary to earlier session belief that no usable source existed). All 55 topic rows in the fact pack's §3 were verified against the five Unit-at-a-Glance tables (pp. 27–28, 59–60, 83–84, 118–119, 146): **zero mismatches** of any kind; Unit 5's LO→skill footnote additionally confirmed against topic pages 151–154. The branch's "60 topics" claim was wrong (55 current + 5 removed = 60 pre-removal). Fact pack confidence flags and §3 header updated from "unverified candidate" to "source-verified, SME confirmation deferred."
+
+**4. Archive executed.** Annotated tag `archive/codex-five-subject-20260727` → `30bc07d`, pushed and verified on origin; remote branch deleted; stale `/private/tmp/cramapple-content-qa2` worktree registration pruned; local branch deleted. The tag message carries the full rationale and names the unique-to-ref files.
+
+**5. Jill confirmation deferred (David's decision, 2026-08-02).** Verifying 55 rows is significant work and she's needed elsewhere. The review Sheet ("AP Statistics — Topic Skill-Tag Review (Jill) v2") exists, unsent. With the source verification done, her eventual pass is exceptions-oriented, not a proofread. Hard deadline remains: before bulk Statistics authoring keys items off these tags. The stale v1 Sheet (alphanumeric codes) still needs David to confirm it's trashed before anything is sent.
+
+**6. G3V vertical-slice question closed on content grounds.** The full delta between the 07-14 draft and the approved fact pack is: §3 (additive), the §8 curvature wording, and the §9 count fix. All Production items touching residuals/curvature were cross-checked against the §8 change on 2026-08-02 (zero edits needed); the §9 fix is doc-only. G3V content needs no rework **regardless of whether the 07-14 relayed sign-off was genuine.** What survives is governance only, feeding the new discipline rule: gate sign-offs must come from the gatekeeper's own hand (edit trail, submitted decision) — never relayed.
+
+**Next Required Action:** (1) **Step 0 — land `claude/cramapple-grading-experiments-9lkjqc` on `main`**; everything from 2026-08-02 (baseline squash, approved fact pack, deployed `review-queue` source, CED-alignment content fixes) exists only on that branch, and the deployed edge-function code currently has no merged source of truth. Awaiting David's answer on what, if anything, blocks the PR. (2) Follow-up sweep of same-era refs, none triaged here: branches `codex/task0018-recognized-home` + `codex/task0019-session-targets` (with `.worktrees/`), `recovery/production-plumbing-storage-20260721` + `recovery/ap-statistics-benchmark-content-20260721` (live `~/.codex/worktrees/`), `origin/recovery/ap-statistics-set04-integration`, `claude/grading-conflict-resolution-ledger` (separate checkout), two detached-HEAD worktrees — plus stale draft PRs #43, #39, #38 from the same era.
+
+## Reviewer Unit Picker Moved to the 5-Unit CED; Retired Content Withdrawn From All Review Queues — 2026-08-01
+
+**Task:** TASK-0013
+**Status:** Database change applied and verified. Two code changes made but **not
+yet shipped** — see Next Required Action.
+
+**Summary:** Closed Jill's finding 1 (decision D1) and the orphaned-assignment
+defect found during post-execution validation of the FRQ remediation.
+
+**1. Reviewer unit picker (`src/data/taxonomy.ts`, `exam-buddy-wireframe`).**
+`AP_STATISTICS_UNITS` replaced with the 5-unit Fall 2026 CED structure. While
+making the change, found a **second, latent bug**: on `origin/main` the reviewer
+route derives subject keys as `"biology"` / `"ap-statistics"` (hyphens) but
+`SUBJECT_UNITS` is keyed `ap_biology` / `ap_statistics` (underscores), so
+`getUnitsForSubject` returns `[]` and main would render an **empty** picker. Since
+Jill saw a populated nine-item list, `origin/main` is not what is deployed —
+worth knowing before anyone assumes a main-based fix reaches her. The fix
+therefore normalizes the key (both separators, either Biology spelling) rather
+than matching one convention, so it is correct on whichever branch deploys. A
+comment records that unit ids 1–5 now denote different content than ids 1–5 did
+under the retired CED, so historical tags are not comparable and still need the
+D1 remap.
+
+**2. Retired content in review queues.** Migration
+`20260802020000_withdraw_review_assignments_on_retired_content` added a
+`withdrawn` assignment status and withdrew every open assignment pointing at
+retired content: **7 total — 4 AP Statistics (Jill) created by yesterday's
+retirement, plus 3 pre-existing AP Biology (Adil Abbasi)**. Verified afterwards:
+zero retired items remain in any queue, for any reviewer. `withdrawn` was added
+rather than reusing `skipped` because `skipped` is a reviewer-initiated action —
+reusing it would have recorded against two named reviewers that they skipped work
+they were never shown. Assignments are preserved, not deleted, so the audit trail
+survives.
+
+**3. Recurrence fix (`supabase/functions/review-queue/index.ts`).** The queue
+filtered only on assignment status and never on `content_items.status`, which is
+why retiring content left it in queues indefinitely. Added `status` to the
+content-items fetch and a filter that drops retired items at the queue boundary.
+`deno check` passes. Confirmed the deployed function (v26) already contains the
+other uncommitted local change in that file (the MCQ `buildReviewerStem` fix), so
+this filter is the only delta.
+
+**Update — published 2026-08-01 23:56 ET (2026-08-02 03:56 UTC).** The taxonomy fix
+was applied in the Lovable workspace (the production build source) rather than via a
+GitHub PR, because the workspace had already fetched the broken `537b09c` and builds
+from its own state. Lovable confirmed all seven lookup assertions pass and the
+typecheck is clean. **This timestamp is the CED cutover boundary** — AP Statistics
+unit tags written before it use the retired 9-unit numbering, after it the 5-unit
+Fall 2026 numbering, and for unit ids 1–5 the timestamp is currently the only thing
+distinguishing them. Pre-cutover snapshot (200 item labels, 19 decision tags, broken
+down by unit) is recorded in
+`docs/research/AP_STATISTICS_REVIEWER_FEEDBACK_2026_08_01.md`.
+
+**Update 2 — a THIRD defect, found by post-publish verification (2026-08-02).**
+Verifying the publish on a real item exposed a further bug that the first two fixes
+did not touch. `subjectKeyFromContentKey` in the reviewer route matched the
+content_key prefix by exact equality against `"APSTAT"`, but AP Statistics content
+uses **three** prefixes: `APSTAT` (60 items), `APSTATS` (176), `STATS` (40). The
+latter two returned `null`, so **216 of 276 Statistics items — 78% — never rendered a
+unit picker at all.** Production data confirmed it exactly: 100% of Statistics unit
+tags sit on `APSTAT-*`; `APSTATS-*` had 138 decisions and 0 tags, `STATS-*` 21
+decisions and 0 tags. This also explains Jill's original wording — "for *a few*
+questions I have been asked to identify which unit" — she only ever saw the picker on
+the 22% that resolved. Fixed via `prompts/LOVABLE_REVIEWER_SUBJECT_PREFIX_FIX_2026_08_02.md`
+and published; **verified live on `APSTATS-MCQ-002-CAL`, which now shows the 5-unit
+dropdown.** ("No topics available" alongside it is correct — Statistics has no
+subtopic map, and the submit guard only requires a subtopic when options exist.)
+
+**Pattern worth naming.** Three independent defects in the same tagging path in two
+days, all sharing one signature: **a lookup miss returns `[]`, which is
+indistinguishable from "this subject legitimately has no units," and `[]` then
+silently disables the requirement to tag.** No error, no log, no visible difference.
+That is why all three survived. Any further work here should make the tagging
+requirement fail loudly, or at minimum have the UI distinguish "no units configured"
+from "units failed to load."
+
+**Durable fix still outstanding.** Deriving subject from the content_key is the root
+cause; the prefix list is a patch on a patch. `content_item_versions.subject_key` is
+already populated correctly for all 530 items (`ap-statistics` for all three
+prefixes, `biology` for APBIO). Adding `subject_key` to the `review-queue` select and
+payload, then using `artifact.subject_key` and deleting `subjectKeyFromContentKey`,
+retires the whole bug class. Needs an edge-function deploy.
+
+**Next Owner:** David Bloom
+**Next Required Action:** (0) Confirm a tagged decision lands after the cutover on an
+`APSTATS-*` or `STATS-*` item — that is the proof the 78% are now tagging, and it has
+never happened before in this system's history. (1) Ship the `review-queue` change
+through the normal deploy path — deliberately not hand-deployed via MCP, which would require
+re-supplying every shared module by hand and risks breaking the reviewer queue on
+a transcription error. Until it ships, the data is clean but the defect can
+recur on the next retirement. (2) Land the `taxonomy.ts` change in whichever
+branch deploys `cramapple.com` — it is committed nowhere yet and is uncommitted
+in the `consolidate-apstats-ui` worktree. (3) Still outstanding from the prior
+entry: commit the four remediation migrations to `supabase/migrations/`.
+
+## AP Statistics FRQ Remediation Executed — 90 Retired, 68 Reclassified, Discovered All Statistics FRQs Were Unservable — 2026-08-01
+
+**Task:** TASK-0013
+**Status:** Executed against Production. Full record:
+`docs/research/AP_STATISTICS_FRQ_REMEDIATION_PLAN_2026_08_01.md`.
+**Summary:** Followed on from the same-day reviewer-feedback triage. Jill's finding
+that AP Statistics had too many one-off short-answer items (not FRQs, not exam
+format) was scoped into a plan, put through two rounds of independent model review
+(Opus authored, Sonnet reviewed twice), then executed by Sonnet with the Product
+Owner's explicit sign-off on the one remaining judgment call.
+
+The review chain surfaced two things worth recording independent of the remediation
+itself. First: **no AP Statistics FRQ — published or not, all 158 of them — was
+reachable through the app's practice-session serving path before this change.** The
+live RPC `select_practice_frqs` requires an exact `practice_format` match with no
+NULL fallback, and every Statistics FRQ had `practice_format IS NULL`. This had
+nothing to do with content quality; it was a pure metadata gap that made 67 published
+items inert. Second: a database trigger (`prevent_live_frq_reclassification`) blocked
+the straightforward fix for published items, requiring either a 48-item
+unpublish/re-review/re-publish cycle through Jill's queue or a narrow, precisely
+scoped exception to the trigger. The Product Owner chose the latter (option "2c")
+after the trade-off was put to him directly rather than decided by either model.
+
+**Executed as four migrations:** (1) retired 90 single-criterion "not really FRQ"
+items (Jill's actual complaint); (2) backfilled `practice_format='targeted_drill'`
+on 18 items with no guard conflict; (3) amended the reclassification trigger with a
+carve-out scoped to exactly the `practice_format`-from-NULL case, leaving
+`frq_archetype`/`frq_form` protection fully intact; (4) backfilled the remaining 50
+items (48 published + 2 with stale published-version history the review chain
+uncovered mid-execution). Two pre-execution checks the plan had flagged as required
+but undone were closed first: no retiring content_key is hardcoded in app source, and
+the one surface that reads content directly outside the RPC (`free-score-check`) is
+hardcoded to AP Biology and cannot reach Statistics rows.
+
+**Verified end state:** 158 FRQs total (unchanged), **94** retired, 68 tagged
+`targeted_drill`, 48 published and now all 48 servable (up from 0), 0 tagged
+`full_exam_frq`. No archetype was assigned to anything — nothing in the bank is
+exam-shaped, and the constraint enforcing that was left untouched.
+
+**Independent post-execution validation (Opus, same day).** Re-queried Production
+directly. The data changes are correct and complete: all 90 category-A items retired
+and left untagged, all 68 B/C/D items tagged `targeted_drill` with statuses
+preserved, 48 published and 48 servable via `select_practice_frqs`, no deletions, and
+the trigger carve-out confirmed narrow (it bypasses only when `old.practice_format IS
+NULL` **and** `frq_archetype`/`frq_form` are unchanged; every genuine reclassification
+still raises). The 18/50 population correction was verified and is a real catch — the
+guard keys on `content_item_versions.status`, not `content_items.status`, so
+`GRAPH-005` and `SFRQ-018` were blocked despite not being published items.
+
+Two record-keeping corrections from that validation:
+
+1. **The retired count is 94, not 91** (corrected above). 90 category A + 1 category B
+   + 3 category D that were already retired pre-execution. The execution record
+   counted only one pre-existing retired item and missed three hand-drawn ones. The
+   earlier plan projection of 105 was also wrong, and that error originated in the
+   plan document, not the execution — it used 15 (retired *plus* disapproved) as the
+   baseline where the true pre-existing retired count was 7. **The database was right
+   throughout; only the documents were wrong.**
+2. **The four migrations are recorded in Production's ledger but are not in the
+   repository.** `supabase/migrations/` has no corresponding files. This diverges from
+   the plan's §10 (deliver as tracked migrations) and from the governance rule that
+   GitHub is the source of truth. It matters most for the trigger amendment: the repo
+   baseline `20260731160000_schema_baseline.sql` contains no `practice_format is null`
+   carve-out, so a repo-to-Production reconciliation could silently revert it and
+   re-block the backfill path. **Committing the four migration files is the one
+   outstanding action from this execution.**
+
+**Also found and explicitly out of scope for this execution:** `app.content_items_full_exam_archetype_check`'s
+partner validator, `app.validate_full_exam_frq_version`, only checks shape for AP
+Physics exam codes — Statistics items published as `full_exam_frq` currently get zero
+validation, and if Statistics is added to that function's allow-list without also
+adding its archetype branches, every future Statistics `full_exam_frq` publish will
+hard-fail. This must be handled together with the four archetype slugs whenever that
+work starts.
+
+**Next Owner:** David Bloom
+**Next Required Action:** **(0) Commit the four migration files to
+`supabase/migrations/` so the repo matches Production** — the only item where delay
+carries real risk, since the trigger carve-out currently exists in Production alone.
+Then, when ready: (1) extend `validate_full_exam_frq_version` for AP Statistics
+alongside adopting the four archetype slugs; (2) decide the fate of the two
+published/approved out-of-scope-topic items and the 5 defective mosaic items
+(separate triage doc); (3) resume the G0A fact-pack sign-off with Jill, still the
+highest-leverage open item across both documents.
+
+## AP Statistics Reviewer Feedback Triaged; Authoring Prompts Corrected to the 5-Unit CED — 2026-08-01
+
+**Task:** TASK-0013
+**Status:** Prompt fixes applied; six decisions open for the Product Owner
+**Summary:** Jill submitted five AP Statistics content findings. All five were
+verified against the Production database and the authoring prompts, and all five
+are confirmed. Root causes: (a) the reviewer unit picker in the frontend repo is
+still on the retired 9-unit CED — present on `origin/main`, and it hard-blocks
+submission, so Jill was forced to tag items with retired units (19 Statistics
+decisions carry old-CED unit tags, 2 of them pointing at a unit that no longer
+exists); (b) there is no AP Statistics Long FRQ prompt, so every free-response
+authoring run used the Biology-shaped 4-point "Short FRQ" format — which the AP
+Statistics exam does not contain — producing 148 short FRQs against 10 long FRQs;
+(c) the prompts carried no scope-exclusion list, admitting 19 items testing removed
+or never-in-scope content, of which 2 are published and 3 `reviewed_approved`;
+(d) the prompts carried no mosaic-plot rule, and 5 of 7 mosaic items have equal or
+partly equal group totals, collapsing the display into a segmented bar chart.
+Two defects Jill did not name were found: all 7 mosaic items ask students to read a
+raw count off a proportions display, and two published/approved items test
+combining random variables (also removed). Published mix is close to the inverse of
+the exam (42 MCQ + 4×10pt FRQ): 16 MCQs, 66 short FRQs, 1 long FRQ.
+
+**Key finding beyond the feedback itself:** findings 2, 3, and 4 are re-discoveries
+of a problem already diagnosed and planned on 2026-07-13 (`DECISION-0036`,
+`APPROVAL-0036`, target 100 MCQ / 70 FRQ). The sanctioned authoring input,
+`docs/product/AP_STATISTICS_2027_CED_FACT_PACK.md`, exists **only on branch
+`codex/five-subject-harness-and-content`** (commit `e0bf685`) and is invisible from
+`main`. The rebuild is gated on G0A — subject-tutor sign-off on that fact pack — and
+Jill is the AP Statistics subject tutor. She is the gate, and she has been spending
+review cycles on 2025-26 content instead. Her findings answer three of the open G0A
+questions from the reviewer's side.
+
+Corrected both AP Statistics prompts against the fact pack: 5-unit taxonomy with a
+where-the-old-material-went map, a hard-exclusion block covering all five confirmed
+removals plus multiple regression, and mosaic/segmented-bar display rules. An
+earlier over-correction in this session that would have excluded retained residual
+curvature was caught against fact pack §8 and reversed. Placed a hold on new AP
+Statistics Short FRQ batches pointing authors at the 10-point archetypes.
+No content records and no frontend files were modified. Full triage with evidence:
+`docs/research/AP_STATISTICS_REVIEWER_FEEDBACK_2026_08_01.md`.
+
+**Next Owner:** David Bloom
+**Next Required Action:** Rule on the six open decisions — D0 (highest leverage: get
+the fact pack onto a reachable branch and in front of Jill for G0A sign-off);
+D1 taxonomy swap + 19-tag remap; D2 MCQ target and publish push; D3 disposition of
+the 148 short FRQs; D4 retiring 5 out-of-scope live/approved items; D5 regenerating
+5 mosaic items and rewriting the task on all 7.
+
+## Publication-Trust Second Defect Found; 7 Disapproved Items Unpublished; Reviewer Roster Reshuffled; Rationale Repairs Begun — 2026-07-31
+
+**Task:** Content-review session. Reviewer QA sweep over the 126 decisions since
+the prior sweep, reviewer performance assessment, content repair, and publication.
+
+**Outcome:**
+
+*Publication-trust P0, second manifestation.* Published state is decoupled from
+review decisions in both directions. Found 10 items in `reviewed_approved`/
+`published` carrying a reviewer disapproval, including **7 AP Statistics items
+whose only decision on record was a disapproval**. Three (`APSTATS-MCQ-018`,
+`-SFRQ-015`, `-SFRQ-017`) test slope inference and chi-square GOF, both removed
+from the 2027 CED, and had been servable since 2026-07-01. All 7 unpublished to
+`reviewed_disapproved`; reviewer decisions left untouched. A related defect: an
+`approve_with_edits` leaves an item approved with the edit unmade — **78 items**
+are in that state. Triage: 53 substantive, 12 cosmetic, 9 design improvements,
+4 no-ops (notes requesting no change). Three approve/disapprove conflicts remain
+unadjudicated (`APBIO-FRQ-L-034`, `apchem-frq-l-001`, `apchem-mcq-038`).
+
+*Reviewer QA.* Integrity and structural checks over the window: all clean.
+Content QA found 5 defects, all AP Chemistry, all Zeeshan approvals — including
+`apchem-mcq-038` (simple distillation keyed correct for ethanol/water, which
+forms an azeotrope) and two duplicate-answer-value items (`068`, `070`) that the
+string-level distinctness check passes. Roster decisions: Qamar Ul Zaman removed
+(0-for-9 against two peers, 0 notes on 16 approvals); Abdul Hanan retained and
+re-queued (strongest distractor auditor on the roster, 6-0 vs Qamar, was idle);
+Zeeshan retained by owner decision; Gulgeldi Darrynow's first packet QA'd —
+strong on FRQs, 16 note-free MCQ approvals at 2.9 min each.
+
+*Repairs.* 14 of 20 distractor-rationale defects repaired as v2 successors
+(8 Precalculus, 6 Chemistry), 2 Chemistry FRQ rubrics rewritten from bundled
+part-level criteria to 10 single-fact criteria each with points preserved.
+
+*Publication.* 21 items published (11 Precalculus, 8 Chemistry, 2 Physics 2),
+each with 2+ distinct approving reviewers, no disapprovals, no outstanding edits,
+and independently QA'd. `apcalcab-mcq-004` rejected on provenance — its two
+approvals came from a suspended reviewer and a test-fixture account.
+
+**Files/systems changed:** Production Supabase (`pcntajvbdfqhbeewmdry`);
+`scripts/content-seed/reviewer-qa-remediation/20260731_unpublish_disapproved_statistics.sql`,
+`20260731_distractor_rationale_repair_precalculus.sql`,
+`20260731_distractor_rationale_repair_chemistry.sql`;
+`scripts/content-seed/reviewer-management/20260731_abdul_shazia_precalc_split_and_calcab_paired.sql`,
+`20260731_dispose_qamar_pending_assignments.sql`.
+
+**Open:** 18 FRQ rubric rewrites (17 Physics, 1 Calc BC); 6 remaining rationale
+repairs; 4 AP Statistics items needing removal or data regeneration rather than
+repair; `APBIO-MCQ-010` under-specified by its reviewer note. `DECISION-0041`
+(TASK-0010 calibration as a publish gate) is referenced in agent memory but does
+**not** exist in `DECISIONS_LOG.md`, which ends at DECISION-0035 — unresolved.
 
 ---
 
@@ -338,6 +649,121 @@ Confirmed fixes were implemented as immutable new versions for nine Precalculus 
 
 **Follow-up, same date:** David directed that the second review go back to Saood. Shipped a server-side reviewer-display safeguard in `review-queue` that appends any structured `prompt_json.parts` missing from the visible stem, avoiding both the client-rendering gap and duplicate prompts. Created immutable v2 forks of all 16 full-scale Physics FRQs, cloned all 160 rubric rows, grouped the assignments under the published workflow label `Full-scale Physics FRQ recheck` (one label per owning exam pack), and assigned all 16 to Saood as pending `tutor_question` work. Final reconciliation: 16/16 latest versions carry the pack marker, 16/16 items and versions are assigned, 16/16 hashes match, 16/16 pending Saood assignments have pack labels, and 16/16 original v1 decisions remain preserved.
 
+## AP Statistics Hand-Drawn-Graph Set-04 Calibration Pack Recovered and Integrated — 2026-07-27
+
+**Task:** TASK-0011 (handwritten graph capture); direct follow-on to
+"Hand-Drawn Graph Corpus Realism Fix and Four-Finding Spot-Check — 2026-06-30".
+**Status:** Research artifact integrated onto `main`. No production or
+content-release approval — this is calibration/benchmark material, not
+learner-facing content.
+
+**Summary:** A branch of AP Statistics research work (`recovery/ap-statistics-benchmark-content-20260721`)
+was produced entirely inside a detached/dirty worktree between 2026-06-30 and
+2026-07-02 and was never recorded in this log at the time — it surfaced only
+during a branch/PR-count reduction pass on 2026-07-27, three-plus weeks after
+the fact. Independent re-QA confirmed the work is real, technically sound, and
+still relevant to the active TASK-0011 grader-productionalization effort, so it
+is being landed now rather than discarded, with this entry closing the
+record-keeping gap.
+
+**What `set_04` is:** a hard-case hand-drawn-graph calibration pack
+(`docs/research/hand_drawn_graph_corpus_2026_06_30/trace_sets/set_04/`),
+generated by `scripts/generate_hand_drawn_trace_set_04.py` against the
+corrected v0.2 corpus (`HDG-2026-P2-*`, the realism-fixed generator from the
+2026-06-30 entry) — not the earlier defective v0.1 corpus. It is intentionally
+biased toward the estimate/annotation criteria that an earlier benchmark pass
+found showed rubric drift, while still retaining categorical and series
+controls, and is the concrete follow-through on that 2026-06-30 entry's own
+"Next Required Action" #3 ("point the trace renderer at the v0.2 package").
+
+**Other artifacts integrated from the same recovered branch** (all research/
+prompt material, no schema or production code):
+- `docs/research/hand_drawn_graph_benchmark_2026_06_30/` — an actual completed
+  benchmark run against the v0.2 corpus, including a 150-item fast-escalation
+  result set (`runs/hand_drawn_graph_benchmark_results_fast_esc_150.jsonl`) and
+  two report variants.
+- `docs/research/ap_statistics_graph_response_seed_2026_07_02/` — a 12-item
+  seed set with reference images and a contact sheet.
+- `docs/research/ap_statistics_phase4_mcq_smoke_batch_2026_07_01/` and
+  `docs/research/ap_statistics_phase6_calibration_report_2026-07-01.md` — a
+  content batch and a blocker report from an earlier Phase 4/6 attempt.
+- `prompts/CLAUDE_AP_STATISTICS_PHASE6_CALIBRATION_RUN.md`,
+  `prompts/CODEX_AP_STATISTICS_PHASE4_PILOT_CONTENT_BATCH.md`,
+  `prompts/LOVABLE_AP_STATISTICS_SUBJECT_AWARE_ONBOARDING.md` — drafted,
+  not-yet-executed handoff prompts for those same phases.
+- `prompts/LOVABLE_HOMEPAGE_DEMO_FRQ.md` — extended the homepage demo spec from
+  AP-Biology-only to alternate AP Biology and AP Statistics examples.
+- `docs/architecture/CONTENT_AUTHORING_AND_PROMPT_ARCHITECTURE.md` §5.1 and
+  `docs/product/AP_STATISTICS_PHASE4_CONTENT_AUTHORING_BRIEF.md` — a durable
+  "platform vs. subject-specific responsibilities" clarification, still
+  accurate today and unrelated to any date-specific status claim.
+
+**Deliberately excluded from this integration:**
+- `docs/tasks/TASK-0013-AP-STATISTICS-LAUNCH.md` — the recovered branch's edit
+  is a 2026-07-01 status snapshot (e.g. "Phase 4 smoke batch live... 71-MCQ/
+  33-FRQ pilot pending") that is now stale relative to `main`'s actual current
+  TASK-0013 state; merging it would have regressed the doc's accuracy rather
+  than improved it.
+- `legacy/Blueprint_*` and `legacy/PROJECT_SETUP.md` — `main` does not carry
+  these files at all (they were apparently removed outright, not merely
+  relocated, at some point after this branch diverged); reintroducing them was
+  out of scope for this integration.
+- The recovered branch's own `ACTIVITY_LOG.md` and `docs/README.md` edits —
+  superseded by `main`'s independently-evolved versions of both; this entry
+  replaces them for the `set_04`-relevant history.
+
+**Open items carried forward from the 2026-06-30 entry, still unresolved:**
+pen-type is still uncontrolled; no single-violation true-negative cases exist;
+no adjudicated dual-human gold exists for any image; external multimodal
+grading remains blocked on Product Owner data-transfer approval. These still
+gate any learner-facing automated graph score.
+
+**Next Owner:** David Bloom (Product Owner), or whoever currently owns
+TASK-0011.
+**Next Required Action:** Decide whether to run `set_04` through a reviewer
+blind-scoring pass now that it's landed, given the benchmark results already
+in hand suggest genuine value in resolving the estimate/annotation rubric-drift
+finding it targets.
+
+---
+
+## Rolling 72-Hour Reviewer QA and Remediation — 2026-07-27
+
+**Task:** Independently QA every tutor-question decision submitted from
+2026-07-24 13:19:11 UTC through 2026-07-27 13:19:11 UTC; adjudicate suggested
+edits and disapprovals; apply confirmed fixes without destroying review history.
+
+**Result:** Audited 420 decisions: 197 approved as-is, 200 approved with edits
+(188 distinct questions), and 23 disapproved. Thirty-three distinct
+approve-with-edits questions now have accepted versioned remediation; the other
+155 recommendations were declined because they were optional style preferences,
+restated content already present, or were not supported by the question. The
+final cross-subject tranche created 16 immutable corrected versions and assigned
+each back to the relevant reviewer. Corrections include Biology rubric/content
+alignment, graph stimulus synchronization, Statistics wording and fundraiser
+expected-value realism, and the AP Chemistry real-gas direction error.
+
+**Disapproval adjudication:** Only `APBIO-FRQ-L-018` was a currently live,
+fatally unusable question; it combined a meiosis stimulus, photosynthesis
+questions, and a meiosis rubric, so the item and version were retired. Four
+Physics disapprovals correctly identified defects in old versions that had
+already been superseded. Sixteen full-scale Physics disapprovals were false
+positives caused by the reviewer UI omitting structured FRQ parts; replacement
+versions remain assigned for re-review after the rendering fix.
+`APBIO-FRQ-L-034` and `APBIO-HDG-2026-GRAPH-008` did not substantiate
+retirement; the latter received a narrower rubric/data synchronization fix.
+
+**Evidence:** Production marker
+`prompt_json.qa_remediation = '2026-07-27 rolling 72h reviewer QA'` appears on
+16 corrected versions, each with exactly one pending reviewer assignment.
+The executed idempotent remediation is
+`scripts/content-seed/reviewer-qa-remediation/20260727_last_72h_cross_subject_qa.sql`.
+
+**Next Owner:** Assigned subject reviewers
+**Next Required Action:** Re-review the corrected versions; complete Saood's
+16-item full-scale Physics recheck pack before making retirement decisions on
+those questions.
+
 ## Two Frontend Bugs Found and Fixed (Stimulus-Table Rendering, Bio Reviewer Unit Availability); AP Statistics Never Assessed for FRQ Structure - 2026-07-26
 
 **Task:** Continuation of the FRQ structure QA/repair effort (see entry below). David spotted that the reviewer portal showed no images for `APBIO-FRQ-L-009` despite the item clearly needing tabular data — investigating led to two real, unrelated frontend bugs in the production Lovable app (`d334fed9-5a97-4e76-906e-7c0ad7082212`, `exam-buddy-wireframe`, live at `cramapple.com`), both found and fixed the same way: read the actual rendering code first (not the reviewer portal alone, which needs a real login I don't have), diagnose precisely, send a fully-specified fix request to Lovable's build agent, then independently re-read the committed files to confirm the fix rather than trusting the agent's own "tests pass" report.
@@ -352,6 +778,55 @@ Confirmed fixes were implemented as immutable new versions for nine Precalculus 
 
 **Next Owner:** whoever picks up the paused Chemistry FRQ-structure repair (see the prior entry's continuation prompt, unchanged by this work); David, for deciding whether/when to run the AP Statistics structural assessment.
 **Next Required Action:** confirm with Adil and Sarah that their submissions now go through cleanly now that Units 5 and 8 are selectable (both were told the fix is live; neither has been independently confirmed via an authenticated click-through, which needs their own login). Decide whether to run the AP Statistics FRQ structure assessment next, using the same method as the other six subjects.
+
+---
+
+## Branch Hygiene Operational Enforcement — 2026-07-26
+
+**Task:** Branch-sprawl resolution and prevention (`APPROVAL-0027` /
+`DECISION-0039`)
+**Status:** Charter adopted; repository controls active; first cleanup tranche
+complete. One required-review constraint remains.
+
+**Summary:** PR #55 encoded R1–R7 and was squash-merged as `0c83742` after a
+Codex re-review, source-of-truth status correction, and collision-free
+approval/decision number recheck. `main` is now PR-only; force-push and branch
+deletion are blocked; administrators retain the human-only break-glass bypass.
+PR #56 added `.github/workflows/minimal-ci.yml` and was squash-merged as
+`c11d9b3`. Its `test` job passed on both the PR (Actions run `30227404660`) and
+`main` (run `30227434281`), then became a strict required check. Review
+conversations must be resolved. GitHub-native auto-merge and automatic remote
+head deletion are enabled. Merge queue remains off because no stale-base race
+has been observed.
+
+**Required-review constraint:** David is currently the repository's only
+collaborator. GitHub does not allow an account to approve its own PR, so setting
+`required_approving_review_count: 1` would deadlock native auto-merge and force
+the admin bypass on every PR. The count therefore remains `0` until a second
+eligible reviewer is added; governance readiness remains a recorded
+human/conductor step.
+
+**Cleanup evidence:** Removed five local and four remote refs whose tips were
+fully merged and which had no worktree, unique commits, or unpushed refs.
+Removed the clean stale Physics Option B worktree/local branch after verifying
+all PR #53 paths were byte-equivalent on `main`. Removed the clean detached
+branch-audit worktree at a commit already ancestral to `main`. Removed merged
+PR #55/#56 local and remote heads after byte-equivalence checks, and pruned one
+dead `wt-bh-v3` worktree metadata entry. Six real worktrees remain.
+
+**Protected / not touched:** The grading checkout remains at 62 changed or
+untracked paths. The production-plumbing recovery worktree has 15 untracked
+duplicate-named files and failed R7, so it was not cleaned. Recovery worktrees
+and unmerged branches remain pending their PR disposition. Grading-document
+recovery and executable Phase C artifact recovery remain separate future
+slices. `math-verifier_test.ts` is not in the required CI battery because its
+`cases.json` fixture is part of that still-unrecovered grading work.
+
+**Next Owner:** David Bloom / Main Conductor
+**Next Required Action:** Add a second eligible GitHub reviewer before requiring
+one approval. Resolve PRs #50–#52, then continue R7 cleanup per branch. Recover
+grading documentation and executable Phase C artifacts through separate scoped
+PRs.
 
 ---
 
@@ -444,6 +919,23 @@ Added a permanent guardrail to `docs/architecture/CONTENT_AUTHORING_AND_PROMPT_A
 
 **Next Owner:** Jill Schmidlkofer (re-review the corrected scatterplot items), Adil Abbasi (first review queue), David Bloom.
 **Next Required Action:** decide whether to backfill topic tags on existing content (not done, out of scope for item 2 above); decide whether/how to fix `GRAPH-032`/`-034`/`-035`'s missing review assignments; complete Chemistry/Calculus corpus scope-check against the new fact packs if desired (not attempted this session, out of scope for what was asked).
+
+---
+
+## CED Verification and Physics Content Review — Session Handoff - 2026-07-24
+
+**Task:** No formal TASK-XXXX yet — an outgrowth of the AP Statistics content-quality review, extended per David's instruction to build a primary-source "CED Fact Pack" per subject and check existing content against it. Priority given: physics, then calculus, then chemistry (biology added later).
+**Status:** Physics (all 4 courses) and Precalculus fully verified against primary-source CED PDFs and current. Calculus AB/BC, Chemistry, and Biology still need the same treatment — blocked this session by a Google Drive MCP connector that returned `MCP error -32003: MCP tool call requires approval` on every call, even after multiple reconnects. David is ending this session over the connector issue and starting a new one.
+
+**Full detail, reusable verification method, exact Drive doc titles/IDs, unmatched PDF links, and open engineering bugs are in `docs/reviewer_packets/CED_VERIFICATION_STATUS_2026_07_24.md` — read that file in full before picking this back up.**
+
+**Summary of what's done:** AP Physics 1, Physics 2, Physics C: Mechanics, and Physics C: E&M CEDs were all found to have been substantially restructured for 2024-25 (verified against David-supplied Fall 2024/© 2026 primary-source PDFs, not web search). Notably: Fluids moved from Physics 2 to Physics 1 (added as new Physics 1 Unit 8); Physics 1's unit structure was rewritten to closely mirror Physics C: Mechanics; neither Physics 1 nor Physics C: Mechanics has a standalone "Gravitation" unit anymore (orbital content lives under Unit 6, Topic 6.6); Physics C: E&M and Physics 2 were both renumbered. AP Precalculus got its first-ever fact pack (new subject, Fall 2026 edition, notably Unit 4 is taught but not assessed on the AP Exam). A scope check on the `apphy1-*` corpus found no items needed correction for the restructuring itself, but found two thin/uncovered areas relative to the new CED (orbital mechanics, and fluids density/buoyancy); 8 new content items were authored to close those gaps and assigned to reviewer Muhammad Saood. Four reviewer briefing packets for Saood were written and merged via PR #48.
+
+**Two engineering bugs surfaced but not fixed** (need an engineering session): `prevent_review_decision_mutation` trigger references the wrong PK column (`old.id` vs actual `content_review_decision_id`); `lock_content_review_submission` trigger blocks inserting a superseding decision against any assignment that already has one, even a broken one. Recommend one ticket covering both, bundled with the earlier `GRAPH-009`/`MCQ-078` assignment-locking issue.
+
+**Also outstanding:** several superseded/placeholder Google Drive fact-pack docs need manual deletion by David — no Drive delete tool is available to Claude. Full list in the linked status doc.
+
+**Next Owner:** whichever session picks this up next — start by reading `docs/reviewer_packets/CED_VERIFICATION_STATUS_2026_07_24.md` in full.
 
 ---
 

@@ -1,0 +1,109 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apphy2-mcq-018",
+  "content_key": "apphy2-mcq-018",
+  "content_version": 1,
+  "difficulty": "Hard",
+  "exam_pack_ref": {
+    "exam_code": "ap_physics_2",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "mcq",
+  "archetype_ref": {
+    "archetype_key": "ap-physics-2-mcq",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-physics-2-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-14-waves-sound-and-physical-optics"
+    },
+    {
+      "scheme_key": "ap-physics-2-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-3"
+    }
+  ],
+  "stimuli": [],
+  "mcq_choices": [
+    {
+      "choice_key": "A",
+      "choice_text": "decrease",
+      "is_correct": false,
+      "rationale": "Assumes tension and wave speed are inversely related, reversing the actual square-root proportionality."
+    },
+    {
+      "choice_key": "B",
+      "choice_text": "increase",
+      "is_correct": true,
+      "rationale": "v=sqrt(T/μ)"
+    },
+    {
+      "choice_key": "C",
+      "choice_text": "unchanged",
+      "is_correct": false,
+      "rationale": "Assumes wave speed depends only on linear density, ignoring the role of tension entirely."
+    },
+    {
+      "choice_key": "D",
+      "choice_text": "zero",
+      "is_correct": false,
+      "rationale": "Assumes increasing tension halts wave propagation altogether, an unphysical extreme."
+    }
+  ],
+  "canonical_answers": [
+    "B"
+  ],
+  "parts": [
+    {
+      "part_key": "question",
+      "ordinal": 1,
+      "prompt": "Increasing tension on an ideal string while keeping linear density fixed makes wave speed\n\nA. decrease\nB. increase\nC. unchanged\nD. zero",
+      "response_modalities": [
+        "choice"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-answer",
+          "points": 1,
+          "description": "Select the single scientifically correct answer.",
+          "required_evidence": [
+            "B",
+            "v=sqrt(T/μ)"
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "choice-key",
+              "parameters": {
+                "choice": "B"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All information is text-based."
+  },
+  "review_notes": {
+    "expected_reasoning": "v=sqrt(T/μ)",
+    "known_boundary_cases": [],
+    "originality_statement": "Independently authored synthetic practice item; no official question or scoring material used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-physics-2-ced-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-15",
+    "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
+    "generated_by": "codex",
+    "generated_at": "2026-07-15T00:00:00Z",
+    "content_sha256": "3f6971d5691596e0cd0344ca5f7ebe0717e59cc346b801b13f1671e63ee22e35"
+  }
+}

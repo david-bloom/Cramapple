@@ -1,0 +1,109 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apphycem-mcq-002",
+  "content_key": "apphycem-mcq-002",
+  "content_version": 1,
+  "difficulty": "Easy",
+  "exam_pack_ref": {
+    "exam_code": "ap_physics_c_em",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "mcq",
+  "archetype_ref": {
+    "archetype_key": "ap-physics-c-em-mcq",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-physics-c-em-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-8-electric-charges-fields-and-gauss-s-law"
+    },
+    {
+      "scheme_key": "ap-physics-c-em-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-2"
+    }
+  ],
+  "stimuli": [],
+  "mcq_choices": [
+    {
+      "choice_key": "A",
+      "choice_text": "∫₀ᴿρ(r)4πr²dr",
+      "is_correct": true,
+      "rationale": "integrate density over spherical volume elements"
+    },
+    {
+      "choice_key": "B",
+      "choice_text": "ρ(R)R",
+      "is_correct": false,
+      "rationale": "This evaluates the density only at the outer radius and scales it linearly by R instead of integrating over the volume."
+    },
+    {
+      "choice_key": "C",
+      "choice_text": "∫ρ dr only",
+      "is_correct": false,
+      "rationale": "This drops the 4πr² spherical-shell area factor, treating the volume element as just dr."
+    },
+    {
+      "choice_key": "D",
+      "choice_text": "4πR²/ρ",
+      "is_correct": false,
+      "rationale": "This inverts the relationship, dividing a surface area by density instead of integrating density over volume."
+    }
+  ],
+  "canonical_answers": [
+    "A"
+  ],
+  "parts": [
+    {
+      "part_key": "question",
+      "ordinal": 1,
+      "prompt": "For spherical charge density ρ(r), enclosed charge to radius R is\n\nA. ∫₀ᴿρ(r)4πr²dr\nB. ρ(R)R\nC. ∫ρ dr only\nD. 4πR²/ρ",
+      "response_modalities": [
+        "choice"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-answer",
+          "points": 1,
+          "description": "Select the single scientifically correct answer.",
+          "required_evidence": [
+            "A",
+            "integrate density over spherical volume elements"
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "choice-key",
+              "parameters": {
+                "choice": "A"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All information is text-based."
+  },
+  "review_notes": {
+    "expected_reasoning": "integrate density over spherical volume elements",
+    "known_boundary_cases": [],
+    "originality_statement": "Independently authored synthetic practice item; no official question or scoring material used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-physics-c-em-ced-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-15",
+    "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
+    "generated_by": "codex",
+    "generated_at": "2026-07-15T00:00:00Z",
+    "content_sha256": "749750e52c9e23ec2d3d2f4f49f7f543266098142a6bce7e899c69117cd33586"
+  }
+}

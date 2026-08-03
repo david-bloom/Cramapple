@@ -1,0 +1,775 @@
+{
+ "schema": "provisional_calibration_labels_v2",
+ "subject": "AP Chemistry",
+ "exam_code": "ap_chemistry",
+ "corpus_tier": "calibration",
+ "date": "2026-07-08",
+ "label_authority": "AI provisional (Claude Fable) vs rubric; NOT human-adjudicated gold",
+ "note": "v2: source corpus now carries hand-authored genuinely-wrong-reasoning variants (truncation defect resolved). Each wrong response injects one identifiable misconception (see injected_error).",
+ "items": [
+  {
+   "content_key": "APCHEM-FRQ-L-001",
+   "difficulty": "Easy",
+   "modules": [
+    "1"
+   ],
+   "question_text": "Consider the elements Na, Mg, Al, and Si. (a) Rank them in order of increasing atomic radius and justify your ranking using the concept of effective nuclear charge. (b) Rank them in order of increasing first ionization energy and explain how this ranking relates to your answer in part (a).",
+   "rubric": [
+    {
+     "criterion_key": "radius_ranking",
+     "learner_facing_text": "Correctly ranks Si < Al < Mg < Na and explains via increasing effective nuclear charge across the period",
+     "points_possible": 1
+    },
+    {
+     "criterion_key": "radius_justification",
+     "learner_facing_text": "Explains that added protons are poorly shielded by electrons in the same shell",
+     "points_possible": 1
+    },
+    {
+     "criterion_key": "ie_ranking",
+     "learner_facing_text": "Correctly ranks Na < Mg < Al < Si for increasing first ionization energy (or notes the Mg/Al deviation if invoked)",
+     "points_possible": 1
+    },
+    {
+     "criterion_key": "ie_justification",
+     "learner_facing_text": "Connects ionization energy trend to the same effective-nuclear-charge/radius reasoning from part (a)",
+     "points_possible": 1
+    }
+   ],
+   "responses": [
+    {
+     "synthetic_type": "fully_correct",
+     "injected_error": "",
+     "response_text": "(a) Increasing atomic radius: Si < Al < Mg < Na. Moving left to right across period 3, each added electron enters the same principal shell while an added proton increases nuclear charge; because same-shell electrons shield each other poorly, effective nuclear charge rises across the period, pulling the valence shell inward and shrinking the atom, so Na (leftmost) is largest and Si (rightmost) is smallest. (b) Increasing first ionization energy: Na < Mg < Al < Si (the general trend, ignoring the well-known Mg/Al subshell anomaly). This is the same underlying cause as part (a): as effective nuclear charge increases across the period, electrons are held more tightly, so more energy is required to remove one, in inverse relationship to the shrinking radius.",
+     "criteria": {
+      "radius_ranking": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "note": ""
+      },
+      "radius_justification": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "note": ""
+      },
+      "ie_ranking": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "note": ""
+      },
+      "ie_justification": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "note": ""
+      }
+     }
+    },
+    {
+     "synthetic_type": "borderline",
+     "injected_error": "IE justification attributes the trend to atomic mass rather than effective nuclear charge.",
+     "response_text": "(a) Increasing radius: Si < Al < Mg < Na, because effective nuclear charge rises across period 3 as protons are added but shielding by same-shell electrons stays weak, pulling the valence shell in. (b) Increasing first ionization energy: Na < Mg < Al < Si. Ionization energy increases across the period simply because the atoms become more massive from left to right, so their electrons are harder to pull away.",
+     "criteria": {
+      "radius_ranking": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "note": ""
+      },
+      "radius_justification": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "note": ""
+      },
+      "ie_ranking": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "note": ""
+      },
+      "ie_justification": {
+       "provisional_label": "not_earned",
+       "confidence": "high",
+       "note": "IE trend attributed to atomic mass, not effective nuclear charge"
+      }
+     }
+    },
+    {
+     "synthetic_type": "partially_correct",
+     "injected_error": "Reverses the first-ionization-energy trend across the period (claims IE decreases left-to-right).",
+     "response_text": "(a) Increasing radius: Si < Al < Mg < Na; across period 3 the growing nuclear charge is poorly shielded by same-shell electrons, so effective nuclear charge rises and the atoms shrink. (b) Increasing first ionization energy: Si < Al < Mg < Na. Ionization energy decreases across the period because each added electron adds repulsion that makes the outer electrons easier to remove.",
+     "criteria": {
+      "radius_ranking": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "note": ""
+      },
+      "radius_justification": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "note": ""
+      },
+      "ie_ranking": {
+       "provisional_label": "not_earned",
+       "confidence": "high",
+       "note": "reverses the IE trend across the period"
+      },
+      "ie_justification": {
+       "provisional_label": "not_earned",
+       "confidence": "high",
+       "note": ""
+      }
+     }
+    },
+    {
+     "synthetic_type": "subtly_wrong",
+     "injected_error": "Reverses the radius trend, claiming more electrons make atoms larger across a period; ignores nuclear charge.",
+     "response_text": "(a) Increasing radius: Na < Mg < Al < Si. Atomic radius grows from left to right because each step adds another electron, and more electrons make the electron cloud physically larger. (b) Increasing first ionization energy: Si < Al < Mg < Na, since the larger, more electron-rich atoms on the right hold their electrons loosely and give them up easily.",
+     "criteria": {
+      "radius_ranking": {
+       "provisional_label": "not_earned",
+       "confidence": "high",
+       "note": "reverses radius trend (more electrons = larger)"
+      },
+      "radius_justification": {
+       "provisional_label": "not_earned",
+       "confidence": "high",
+       "note": ""
+      },
+      "ie_ranking": {
+       "provisional_label": "not_earned",
+       "confidence": "high",
+       "note": ""
+      },
+      "ie_justification": {
+       "provisional_label": "not_earned",
+       "confidence": "high",
+       "note": ""
+      }
+     }
+    }
+   ]
+  },
+  {
+   "content_key": "APCHEM-FRQ-L-011",
+   "difficulty": "Medium",
+   "modules": [
+    "3"
+   ],
+   "question_text": "A 0.0500 M aqueous solution of a nonelectrolyte is prepared. (a) Calculate the osmotic pressure of this solution at 25 degrees C (298 K), showing your work. (R = 0.0821 L atm/(mol K)). (b) A second solution is prepared at the same molarity, but the solute is CaCl2, a strong electrolyte. Calculate the expected osmotic pressure of this second solution, showing your work and explaining the role of the van't Hoff factor. (c) Explain why measuring osmotic pressure can be a more sensitive method than measuring freezing point depression for determining the molar mass of a solute at very low concentrations.",
+   "rubric": [
+    {
+     "criterion_key": "osmotic_pressure_1",
+     "learner_facing_text": "Correctly applies pi = MRT to calculate 1.22 atm for the nonelectrolyte",
+     "points_possible": 1
+    },
+    {
+     "criterion_key": "osmotic_pressure_2",
+     "learner_facing_text": "Correctly applies pi = iMRT with i = 3 for CaCl2 to calculate 3.67 atm",
+     "points_possible": 1
+    },
+    {
+     "criterion_key": "van_hoff_explanation",
+     "learner_facing_text": "Explains that CaCl2 dissociates into 3 ions per formula unit, tripling the effective particle concentration",
+     "points_possible": 1
+    },
+    {
+     "criterion_key": "sensitivity_explanation",
+     "learner_facing_text": "Explains that osmotic pressure produces a measurable, larger-magnitude effect at low concentration compared to the very small freezing-point-depression signal, making it easier to measure precisely",
+     "points_possible": 1
+    }
+   ],
+   "responses": [
+    {
+     "synthetic_type": "fully_correct",
+     "injected_error": "",
+     "response_text": "(a) pi = MRT = 0.0500 mol/L x 0.0821 L atm/(mol K) x 298 K = 1.22 atm. (b) CaCl2 dissociates into Ca2+ and 2 Cl-, giving i = 3. pi = iMRT = 3 x 0.0500 x 0.0821 x 298 = 3.67 atm. (c) At very low solute concentrations, osmotic pressure produces a comparatively large, easily measurable pressure difference (on the order of atmospheres), whereas the corresponding freezing point depression would be an extremely small temperature change (a small fraction of a degree) that is much harder to measure precisely with standard thermometry; osmotic pressure's larger measurable signal per unit concentration makes it more sensitive for determining molar mass at low concentration.",
+     "criteria": {
+      "osmotic_pressure_1": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "note": ""
+      },
+      "osmotic_pressure_2": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "note": ""
+      },
+      "van_hoff_explanation": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "note": ""
+      },
+      "sensitivity_explanation": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "note": ""
+      }
+     }
+    },
+    {
+     "synthetic_type": "borderline",
+     "injected_error": "Sensitivity explanation is correct but does not contrast the tiny freezing-point-depression signal.",
+     "response_text": "(a) pi = MRT = 0.0500 x 0.0821 x 298 = 1.22 atm. (b) CaCl2 gives i = 3, so pi = 3 x 0.0500 x 0.0821 x 298 = 3.67 atm. (c) Osmotic pressure is a bigger, easier-to-read signal, so it works better at low concentration.",
+     "criteria": {
+      "osmotic_pressure_1": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "note": ""
+      },
+      "osmotic_pressure_2": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "note": ""
+      },
+      "van_hoff_explanation": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "note": ""
+      },
+      "sensitivity_explanation": {
+       "provisional_label": "partially_earned",
+       "confidence": "med",
+       "note": "correct but does not contrast the tiny freezing-point signal"
+      }
+     }
+    },
+    {
+     "synthetic_type": "partially_correct",
+     "injected_error": "Uses i = 2 for CaCl2 (it dissociates into 3 ions, so i = 3).",
+     "response_text": "(a) pi = MRT = 1.22 atm. (b) CaCl2 splits into Ca2+ and Cl-, so i = 2 and pi = 2 x 0.0500 x 0.0821 x 298 = 2.45 atm. (c) Osmotic pressure gives a larger, more measurable effect than freezing point depression.",
+     "criteria": {
+      "osmotic_pressure_1": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "note": ""
+      },
+      "osmotic_pressure_2": {
+       "provisional_label": "not_earned",
+       "confidence": "high",
+       "note": "uses i=2 for CaCl2 (should be 3)"
+      },
+      "van_hoff_explanation": {
+       "provisional_label": "not_earned",
+       "confidence": "high",
+       "note": "i=2"
+      },
+      "sensitivity_explanation": {
+       "provisional_label": "earned",
+       "confidence": "med",
+       "note": ""
+      }
+     }
+    },
+    {
+     "synthetic_type": "subtly_wrong",
+     "injected_error": "Uses Celsius for T, ignores the van't Hoff factor, and wrongly claims equal sensitivity.",
+     "response_text": "(a) pi = MRT = 0.0500 x 0.0821 x 25 = 0.103 atm, using 25 for the temperature. (b) pi = MRT = 0.103 atm for CaCl2 as well, since the van't Hoff factor only matters for freezing point, not osmotic pressure. (c) Osmotic pressure and freezing point depression are equally sensitive.",
+     "criteria": {
+      "osmotic_pressure_1": {
+       "provisional_label": "not_earned",
+       "confidence": "high",
+       "note": "uses T=25 C not 298 K"
+      },
+      "osmotic_pressure_2": {
+       "provisional_label": "not_earned",
+       "confidence": "high",
+       "note": ""
+      },
+      "van_hoff_explanation": {
+       "provisional_label": "not_earned",
+       "confidence": "high",
+       "note": "ignores i"
+      },
+      "sensitivity_explanation": {
+       "provisional_label": "not_earned",
+       "confidence": "high",
+       "note": "claims equal sensitivity"
+      }
+     }
+    }
+   ]
+  },
+  {
+   "content_key": "APCHEM-FRQ-L-021",
+   "difficulty": "Hard",
+   "modules": [
+    "4"
+   ],
+   "question_text": "A 12.0 g sample of impure calcium carbonate (CaCO3) reacts completely with excess HCl according to: CaCO3 + 2 HCl -> CaCl2 + H2O + CO2. The reaction produces 3.85 g of CO2 (molar mass 44.0 g/mol). (a) Calculate the moles of CO2 produced, showing your work. (b) Calculate the mass of pure CaCO3 (molar mass 100.1 g/mol) that reacted, showing your work. (c) Calculate the percent purity of the original 12.0 g sample (i.e., the percent by mass that was actually CaCO3), showing your work.",
+   "rubric": [
+    {
+     "criterion_key": "moles_co2",
+     "learner_facing_text": "Correctly calculates 0.0875 mol CO2",
+     "points_possible": 1
+    },
+    {
+     "criterion_key": "mass_caco3",
+     "learner_facing_text": "Correctly uses the 1:1 mole ratio to calculate 8.75 g of pure CaCO3",
+     "points_possible": 1
+    },
+    {
+     "criterion_key": "percent_purity",
+     "learner_facing_text": "Correctly calculates percent purity = (8.75/12.0) x 100 = 72.9%",
+     "points_possible": 1
+    }
+   ],
+   "responses": [
+    {
+     "synthetic_type": "fully_correct",
+     "injected_error": "",
+     "response_text": "(a) Moles CO2 = 3.85 g / 44.0 g/mol = 0.0875 mol. (b) By the 1:1 mole ratio of CaCO3 to CO2, moles CaCO3 = 0.0875 mol; mass CaCO3 = 0.0875 mol x 100.1 g/mol = 8.76 g. (c) Percent purity = (mass of pure CaCO3 / mass of impure sample) x 100 = (8.76 g / 12.0 g) x 100 = 73.0%.",
+     "criteria": {
+      "moles_co2": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "note": ""
+      },
+      "mass_caco3": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "note": ""
+      },
+      "percent_purity": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "note": ""
+      }
+     }
+    },
+    {
+     "synthetic_type": "borderline",
+     "injected_error": "Percent-purity answer correct but the division work is not shown as the rubric asks.",
+     "response_text": "(a) Moles CO2 = 3.85/44.0 = 0.0875 mol. (b) 1:1 ratio, so 0.0875 mol CaCO3 x 100.1 = 8.76 g. (c) Percent purity = 8.76/12.0 x 100 = 73%.",
+     "criteria": {
+      "moles_co2": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "note": ""
+      },
+      "mass_caco3": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "note": ""
+      },
+      "percent_purity": {
+       "provisional_label": "partially_earned",
+       "confidence": "med",
+       "note": "answer right, division work not shown"
+      }
+     }
+    },
+    {
+     "synthetic_type": "partially_correct",
+     "injected_error": "Uses a 2:1 CaCO3:CO2 ratio (the correct ratio is 1:1); reports an impossible 146% without flagging it.",
+     "response_text": "(a) Moles CO2 = 0.0875 mol. (b) Using a 2:1 ratio of CaCO3 to CO2: 0.175 mol x 100.1 = 17.5 g. (c) Percent purity = 17.5/12.0 x 100 = 146%.",
+     "criteria": {
+      "moles_co2": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "note": ""
+      },
+      "mass_caco3": {
+       "provisional_label": "not_earned",
+       "confidence": "high",
+       "note": "uses 2:1 CaCO3:CO2 ratio"
+      },
+      "percent_purity": {
+       "provisional_label": "not_earned",
+       "confidence": "high",
+       "note": "146%, impossible, unflagged"
+      }
+     }
+    },
+    {
+     "synthetic_type": "subtly_wrong",
+     "injected_error": "Multiplies mass by molar mass to get moles and treats >100% purity as valid.",
+     "response_text": "(a) Moles CO2 = 3.85 x 44.0 = 169 mol. (b) 169 mol x 100.1 = 16,900 g CaCO3. (c) The sample is over 100% pure, which just means it was extremely high quality CaCO3.",
+     "criteria": {
+      "moles_co2": {
+       "provisional_label": "not_earned",
+       "confidence": "high",
+       "note": "multiplies mass x molar mass"
+      },
+      "mass_caco3": {
+       "provisional_label": "not_earned",
+       "confidence": "high",
+       "note": ""
+      },
+      "percent_purity": {
+       "provisional_label": "not_earned",
+       "confidence": "high",
+       "note": ""
+      }
+     }
+    }
+   ]
+  },
+  {
+   "content_key": "APCHEM-FRQ-L-031",
+   "difficulty": "Easy",
+   "modules": [
+    "7"
+   ],
+   "question_text": "Consider the equilibrium 2 SO2(g) + O2(g) <=> 2 SO3(g), which is exothermic in the forward direction. (a) Predict the direction the equilibrium shifts if the volume of the container is decreased at constant temperature, and explain using Le Chatelier's principle. (b) Predict the direction the equilibrium shifts if the temperature is increased, and explain your reasoning. (c) Predict what happens to the value of Keq (increases, decreases, or stays the same) in each of the two scenarios above, and explain the key difference between how volume changes and temperature changes affect Keq.",
+   "rubric": [
+    {
+     "criterion_key": "volume_shift",
+     "learner_facing_text": "Correctly predicts the equilibrium shifts toward products (fewer moles of gas) when volume decreases",
+     "points_possible": 1
+    },
+    {
+     "criterion_key": "temperature_shift",
+     "learner_facing_text": "Correctly predicts the equilibrium shifts toward reactants (endothermic direction) when temperature increases, since the forward reaction is exothermic",
+     "points_possible": 1
+    },
+    {
+     "criterion_key": "keq_distinction",
+     "learner_facing_text": "Correctly explains that Keq is unchanged by the volume change but does change (decreases here) with the temperature change, since Keq depends only on temperature",
+     "points_possible": 1
+    }
+   ],
+   "responses": [
+    {
+     "synthetic_type": "fully_correct",
+     "injected_error": "",
+     "response_text": "(a) Decreasing the volume increases pressure, and by Le Chatelier's principle, the equilibrium shifts toward the side with fewer moles of gas to partially counteract the pressure increase; the product side (2 mol SO3) has fewer gas moles than the reactant side (2 + 1 = 3 mol), so the equilibrium shifts toward products (right). (b) Since the forward reaction is exothermic, heat can be treated as a product; increasing temperature adds heat, so by Le Chatelier's principle the equilibrium shifts toward the endothermic direction (the reverse reaction) to absorb the added heat, shifting toward reactants (left). (c) In the volume-change scenario, Keq stays exactly the same, because Keq depends only on temperature, and temperature was held constant; only the position of equilibrium (concentrations) shifted, not the value of the constant itself. In the temperature-change scenario, Keq does change (it decreases here), because Keq is fundamentally a function of temperature -- shifting toward reactants at higher temperature for an exothermic reaction corresponds to a genuinely smaller equilibrium constant, not just a repositioning of the same constant.",
+     "criteria": {
+      "volume_shift": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "note": ""
+      },
+      "temperature_shift": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "note": ""
+      },
+      "keq_distinction": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "note": ""
+      }
+     }
+    },
+    {
+     "synthetic_type": "borderline",
+     "injected_error": "Keq distinction correct but the reason Keq is temperature-only is not fully explained.",
+     "response_text": "(a) Decreasing volume raises pressure, so the equilibrium shifts toward the side with fewer gas moles: products (2 mol SO3 vs 3 mol reactants). (b) Increasing temperature adds heat to an exothermic reaction, shifting it toward reactants. (c) Keq is unchanged by the volume change and decreases with the temperature change.",
+     "criteria": {
+      "volume_shift": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "note": ""
+      },
+      "temperature_shift": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "note": ""
+      },
+      "keq_distinction": {
+       "provisional_label": "partially_earned",
+       "confidence": "med",
+       "note": "correct but reason Keq is T-only is thin"
+      }
+     }
+    },
+    {
+     "synthetic_type": "partially_correct",
+     "injected_error": "Wrong temperature-shift direction (an exothermic reaction shifts toward reactants when heated).",
+     "response_text": "(a) Decreasing volume shifts toward products (fewer moles). (b) Increasing temperature shifts toward products, since heat speeds the forward reaction. (c) Keq is unchanged by volume and increases with temperature.",
+     "criteria": {
+      "volume_shift": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "note": ""
+      },
+      "temperature_shift": {
+       "provisional_label": "not_earned",
+       "confidence": "high",
+       "note": "wrong direction for exothermic"
+      },
+      "keq_distinction": {
+       "provisional_label": "not_earned",
+       "confidence": "high",
+       "note": "says Keq increases with T"
+      }
+     }
+    },
+    {
+     "synthetic_type": "subtly_wrong",
+     "injected_error": "Reverses Le Chatelier for the volume change and claims Keq depends on volume rather than temperature.",
+     "response_text": "(a) Decreasing the volume raises pressure, so the equilibrium shifts toward the side with more gas moles (reactants) to relieve the crowding. (b) Heating shifts toward products. (c) Keq changes with the volume change and stays the same with temperature.",
+     "criteria": {
+      "volume_shift": {
+       "provisional_label": "not_earned",
+       "confidence": "high",
+       "note": "reverses Le Chatelier for volume"
+      },
+      "temperature_shift": {
+       "provisional_label": "not_earned",
+       "confidence": "high",
+       "note": ""
+      },
+      "keq_distinction": {
+       "provisional_label": "not_earned",
+       "confidence": "high",
+       "note": "claims Keq depends on volume"
+      }
+     }
+    }
+   ]
+  },
+  {
+   "content_key": "APCHEM-FRQ-L-041",
+   "difficulty": "Hard",
+   "modules": [
+    "8"
+   ],
+   "question_text": "A diprotic acid H2A has Ka1 = 1.0 x 10^-3 and Ka2 = 1.0 x 10^-7. A 0.100 M solution of H2A is prepared. (a) Calculate [H+] and pH using only the first dissociation step (with the small-x approximation, checking its validity). (b) Using your result from part (a), estimate the concentration of A2- in solution, explaining why the second dissociation step can be treated somewhat independently once [H+] and [HA-] are established from the first step. (c) Verify that your assumption that the second dissociation does not significantly affect [H+] is reasonable, by comparing the magnitude of [A2-] to [H+].",
+   "rubric": [
+    {
+     "criterion_key": "first_step_calc",
+     "learner_facing_text": "Sets up x^2/0.100=1.0e-3, checks validity (x=0.01, 10% -- borderline/invalid, quadratic needed), solves for [H+] approximately 0.00916 M, pH approximately 2.04",
+     "points_possible": 1
+    },
+    {
+     "criterion_key": "a2_estimate",
+     "learner_facing_text": "Uses Ka2 = [H+][A2-]/[HA-] with [H+] approx [HA-] from step 1 to estimate [A2-] approximately equal to Ka2 = 1.0e-7 M",
+     "points_possible": 1
+    },
+    {
+     "criterion_key": "verification",
+     "learner_facing_text": "Explains that [A2-] (about 1.0e-7 M) is many orders of magnitude smaller than [H+] (about 0.00916 M), confirming the second step's negligible effect on total [H+]",
+     "points_possible": 1
+    }
+   ],
+   "responses": [
+    {
+     "synthetic_type": "fully_correct",
+     "injected_error": "",
+     "response_text": "(a) Small-x check: x^2 = 1.0e-3(0.100) = 1.0e-4, x = 0.0100; checking 0.0100/0.100 = 10.0%, above the 5% threshold, so a quadratic is more accurate: x^2 = 1.0e-3(0.100-x), x^2+0.0010x-0.0001=0. x = [-0.0010+sqrt(0.0010^2+4(0.0001))]/2 = [-0.0010+sqrt(0.000001+0.0004)]/2 = [-0.0010+sqrt(0.000401)]/2 = [-0.0010+0.02002]/2 = 0.00951. So [H+] is approximately 0.00951 M and pH = -log(0.00951) = 2.02. (b) For the second dissociation step, HA- <=> H+ + A2-, Ka2 = [H+][A2-]/[HA-]. From step 1, [H+] and [HA-] are both approximately equal to x = 0.00951 M (since each ionization event of H2A produces one H+ and one HA-). Since [H+] approximately equals [HA-] in this expression, they approximately cancel: Ka2 = [H+][A2-]/[HA-] is approximately [A2-] when [H+] is approximately [HA-], so [A2-] is approximately equal to Ka2 itself = 1.0 x 10^-7 M. (c) [A2-] (approximately 1.0 x 10^-7 M) is roughly 5 orders of magnitude smaller than [H+] (approximately 0.00951 M), confirming that the tiny additional H+ contributed by the second dissociation step is utterly negligible compared to the H+ already present from the first step -- validating the assumption that only the first dissociation step needs to be considered when calculating the solution's overall pH.",
+     "criteria": {
+      "first_step_calc": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "note": ""
+      },
+      "a2_estimate": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "note": ""
+      },
+      "verification": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "note": ""
+      }
+     }
+    },
+    {
+     "synthetic_type": "borderline",
+     "injected_error": "Correct; the verification comparison is stated without fully spelling out the magnitudes.",
+     "response_text": "(a) small-x gives x = 0.0100 (10%), so the quadratic gives [H+] = 0.00951 M, pH = 2.02. (b) [H+] approx [HA-], so Ka2 approx [A2-] = 1.0e-7 M. (c) [A2-] is ~5 orders of magnitude below [H+], so the second step is negligible.",
+     "criteria": {
+      "first_step_calc": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "note": ""
+      },
+      "a2_estimate": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "note": ""
+      },
+      "verification": {
+       "provisional_label": "partially_earned",
+       "confidence": "med",
+       "note": "comparison stated, magnitudes not fully spelled out"
+      }
+     }
+    },
+    {
+     "synthetic_type": "partially_correct",
+     "injected_error": "Uses the small-x approximation without noting that 10% ionization makes it invalid.",
+     "response_text": "(a) Using small-x, x = sqrt(1.0e-4) = 0.0100 M, pH = 2.00 (I did not flag that 10% exceeds the 5% cutoff). (b) [A2-] approx Ka2 = 1.0e-7 M. (c) [A2-] << [H+], so the second step is negligible.",
+     "criteria": {
+      "first_step_calc": {
+       "provisional_label": "partially_earned",
+       "confidence": "med",
+       "note": "uses small-x without flagging 10% invalid"
+      },
+      "a2_estimate": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "note": ""
+      },
+      "verification": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "note": ""
+      }
+     }
+    },
+    {
+     "synthetic_type": "subtly_wrong",
+     "injected_error": "Computes [A2-] as Ka1 x Ka2 and claims the second step doubles [H+].",
+     "response_text": "(a) pH = 2.02. (b) [A2-] = Ka1 x Ka2 = 1.0e-10 M. (c) The second dissociation roughly doubles [H+], since each HA- also releases an H+.",
+     "criteria": {
+      "first_step_calc": {
+       "provisional_label": "earned",
+       "confidence": "high",
+       "note": "pH 2.02 correct"
+      },
+      "a2_estimate": {
+       "provisional_label": "not_earned",
+       "confidence": "high",
+       "note": "[A2-]=Ka1*Ka2"
+      },
+      "verification": {
+       "provisional_label": "not_earned",
+       "confidence": "high",
+       "note": "claims 2nd step doubles [H+]"
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "adjudication_queue": [
+  {
+   "item": "APCHEM-FRQ-L-001",
+   "response": "borderline",
+   "criterion": "ie_justification",
+   "note": "IE trend attributed to atomic mass, not effective nuclear charge"
+  },
+  {
+   "item": "APCHEM-FRQ-L-001",
+   "response": "partially_correct",
+   "criterion": "ie_ranking",
+   "note": "reverses the IE trend across the period"
+  },
+  {
+   "item": "APCHEM-FRQ-L-001",
+   "response": "subtly_wrong",
+   "criterion": "radius_ranking",
+   "note": "reverses radius trend (more electrons = larger)"
+  },
+  {
+   "item": "APCHEM-FRQ-L-011",
+   "response": "borderline",
+   "criterion": "sensitivity_explanation",
+   "note": "correct but does not contrast the tiny freezing-point signal"
+  },
+  {
+   "item": "APCHEM-FRQ-L-011",
+   "response": "partially_correct",
+   "criterion": "osmotic_pressure_2",
+   "note": "uses i=2 for CaCl2 (should be 3)"
+  },
+  {
+   "item": "APCHEM-FRQ-L-011",
+   "response": "partially_correct",
+   "criterion": "van_hoff_explanation",
+   "note": "i=2"
+  },
+  {
+   "item": "APCHEM-FRQ-L-011",
+   "response": "subtly_wrong",
+   "criterion": "osmotic_pressure_1",
+   "note": "uses T=25 C not 298 K"
+  },
+  {
+   "item": "APCHEM-FRQ-L-011",
+   "response": "subtly_wrong",
+   "criterion": "van_hoff_explanation",
+   "note": "ignores i"
+  },
+  {
+   "item": "APCHEM-FRQ-L-011",
+   "response": "subtly_wrong",
+   "criterion": "sensitivity_explanation",
+   "note": "claims equal sensitivity"
+  },
+  {
+   "item": "APCHEM-FRQ-L-021",
+   "response": "borderline",
+   "criterion": "percent_purity",
+   "note": "answer right, division work not shown"
+  },
+  {
+   "item": "APCHEM-FRQ-L-021",
+   "response": "partially_correct",
+   "criterion": "mass_caco3",
+   "note": "uses 2:1 CaCO3:CO2 ratio"
+  },
+  {
+   "item": "APCHEM-FRQ-L-021",
+   "response": "partially_correct",
+   "criterion": "percent_purity",
+   "note": "146%, impossible, unflagged"
+  },
+  {
+   "item": "APCHEM-FRQ-L-021",
+   "response": "subtly_wrong",
+   "criterion": "moles_co2",
+   "note": "multiplies mass x molar mass"
+  },
+  {
+   "item": "APCHEM-FRQ-L-031",
+   "response": "borderline",
+   "criterion": "keq_distinction",
+   "note": "correct but reason Keq is T-only is thin"
+  },
+  {
+   "item": "APCHEM-FRQ-L-031",
+   "response": "partially_correct",
+   "criterion": "temperature_shift",
+   "note": "wrong direction for exothermic"
+  },
+  {
+   "item": "APCHEM-FRQ-L-031",
+   "response": "partially_correct",
+   "criterion": "keq_distinction",
+   "note": "says Keq increases with T"
+  },
+  {
+   "item": "APCHEM-FRQ-L-031",
+   "response": "subtly_wrong",
+   "criterion": "volume_shift",
+   "note": "reverses Le Chatelier for volume"
+  },
+  {
+   "item": "APCHEM-FRQ-L-031",
+   "response": "subtly_wrong",
+   "criterion": "keq_distinction",
+   "note": "claims Keq depends on volume"
+  },
+  {
+   "item": "APCHEM-FRQ-L-041",
+   "response": "borderline",
+   "criterion": "verification",
+   "note": "comparison stated, magnitudes not fully spelled out"
+  },
+  {
+   "item": "APCHEM-FRQ-L-041",
+   "response": "partially_correct",
+   "criterion": "first_step_calc",
+   "note": "uses small-x without flagging 10% invalid"
+  },
+  {
+   "item": "APCHEM-FRQ-L-041",
+   "response": "subtly_wrong",
+   "criterion": "a2_estimate",
+   "note": "[A2-]=Ka1*Ka2"
+  },
+  {
+   "item": "APCHEM-FRQ-L-041",
+   "response": "subtly_wrong",
+   "criterion": "verification",
+   "note": "claims 2nd step doubles [H+]"
+  }
+ ],
+ "label_distribution": {
+  "earned": 38,
+  "partially_earned": 5,
+  "not_earned": 25
+ }
+}

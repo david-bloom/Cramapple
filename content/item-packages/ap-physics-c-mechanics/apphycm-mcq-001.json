@@ -1,0 +1,109 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apphycm-mcq-001",
+  "content_key": "apphycm-mcq-001",
+  "content_version": 1,
+  "difficulty": "Easy",
+  "exam_pack_ref": {
+    "exam_code": "ap_physics_c_mechanics",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "mcq",
+  "archetype_ref": {
+    "archetype_key": "ap-physics-c-mechanics-mcq",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-physics-c-mechanics-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-1-kinematics"
+    },
+    {
+      "scheme_key": "ap-physics-c-mechanics-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-1"
+    }
+  ],
+  "stimuli": [],
+  "mcq_choices": [
+    {
+      "choice_key": "A",
+      "choice_text": "3 m/s²",
+      "is_correct": false,
+      "rationale": "Mistakes the leading coefficient 3 in v(t)=3t² for the acceleration itself, as in the x=½at² form."
+    },
+    {
+      "choice_key": "B",
+      "choice_text": "6 m/s²",
+      "is_correct": false,
+      "rationale": "Evaluates the correct derivative 6t at t=1 s instead of the requested t=2 s."
+    },
+    {
+      "choice_key": "C",
+      "choice_text": "12 m/s²",
+      "is_correct": true,
+      "rationale": "dv/dt=6t"
+    },
+    {
+      "choice_key": "D",
+      "choice_text": "24 m/s²",
+      "is_correct": false,
+      "rationale": "Multiplies 6t by t again instead of substituting t=2, giving 6t²=6(2)²=24."
+    }
+  ],
+  "canonical_answers": [
+    "C"
+  ],
+  "parts": [
+    {
+      "part_key": "question",
+      "ordinal": 1,
+      "prompt": "If v(t)=3t², the acceleration at t=2 s is\n\nA. 3 m/s²\nB. 6 m/s²\nC. 12 m/s²\nD. 24 m/s²",
+      "response_modalities": [
+        "choice"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-answer",
+          "points": 1,
+          "description": "Select the single scientifically correct answer.",
+          "required_evidence": [
+            "C",
+            "dv/dt=6t"
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "choice-key",
+              "parameters": {
+                "choice": "C"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All information is text-based."
+  },
+  "review_notes": {
+    "expected_reasoning": "dv/dt=6t",
+    "known_boundary_cases": [],
+    "originality_statement": "Independently authored synthetic practice item; no official question or scoring material used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-physics-c-mechanics-ced-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-15",
+    "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
+    "generated_by": "codex",
+    "generated_at": "2026-07-15T00:00:00Z",
+    "content_sha256": "61174581d5a31e95cbfe92c1b5c5eca42adb3d8c5526bb0d5b2c46df606df682"
+  }
+}

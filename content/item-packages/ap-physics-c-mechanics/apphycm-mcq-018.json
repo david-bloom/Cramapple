@@ -1,0 +1,109 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apphycm-mcq-018",
+  "content_key": "apphycm-mcq-018",
+  "content_version": 1,
+  "difficulty": "Hard",
+  "exam_pack_ref": {
+    "exam_code": "ap_physics_c_mechanics",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "mcq",
+  "archetype_ref": {
+    "archetype_key": "ap-physics-c-mechanics-mcq",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-physics-c-mechanics-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-2-force-and-translational-dynamics"
+    },
+    {
+      "scheme_key": "ap-physics-c-mechanics-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-3"
+    }
+  ],
+  "stimuli": [],
+  "mcq_choices": [
+    {
+      "choice_key": "A",
+      "choice_text": "F₀/L",
+      "is_correct": false,
+      "rationale": "Inverts the decay length, dividing by L instead of multiplying, as if the integral shrank rather than scaled by the decay length."
+    },
+    {
+      "choice_key": "B",
+      "choice_text": "F₀L",
+      "is_correct": true,
+      "rationale": "the exponential integral equals L"
+    },
+    {
+      "choice_key": "C",
+      "choice_text": "zero",
+      "is_correct": false,
+      "rationale": "Assumes the force decaying to zero as x→∞ means the enclosed area (work) also vanishes, rather than converging to a finite value."
+    },
+    {
+      "choice_key": "D",
+      "choice_text": "infinite",
+      "is_correct": false,
+      "rationale": "Assumes an infinite integration limit must always produce infinite work, missing that the exponential integrand decays fast enough to converge."
+    }
+  ],
+  "canonical_answers": [
+    "B"
+  ],
+  "parts": [
+    {
+      "part_key": "question",
+      "ordinal": 1,
+      "prompt": "For F(x)=F₀e^{-x/L}, work from 0 to infinity is\n\nA. F₀/L\nB. F₀L\nC. zero\nD. infinite",
+      "response_modalities": [
+        "choice"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-answer",
+          "points": 1,
+          "description": "Select the single scientifically correct answer.",
+          "required_evidence": [
+            "B",
+            "the exponential integral equals L"
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "choice-key",
+              "parameters": {
+                "choice": "B"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All information is text-based."
+  },
+  "review_notes": {
+    "expected_reasoning": "the exponential integral equals L",
+    "known_boundary_cases": [],
+    "originality_statement": "Independently authored synthetic practice item; no official question or scoring material used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-physics-c-mechanics-ced-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-15",
+    "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
+    "generated_by": "codex",
+    "generated_at": "2026-07-15T00:00:00Z",
+    "content_sha256": "f25a9748f4996b5d8a6f6a8d15e19dcd39c87353bffbb056bec293ac3e3f2d0b"
+  }
+}

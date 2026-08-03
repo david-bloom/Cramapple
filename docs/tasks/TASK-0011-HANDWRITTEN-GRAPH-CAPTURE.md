@@ -110,6 +110,46 @@ model inputs, and evaluation cases.
 
 - `docs/research/TASK-0011_PHASE_1_EXECUTION_SPEC.md`
 
+## Phase-1 Labeling And Evaluation Tooling
+
+Internal specification work permitted by the phase-1 spec's section 10
+("item briefs, synthetic-data generators, rubric drafts, label schemas,
+annotation instructions, and offline evaluation harness design"). No
+participant labeling, item content, or real corpus data is included. Label
+schemas, the annotation handbook, partition-manifest checks, and the
+offline evaluation harness (sections 4-8 of the phase-1 spec) are built and
+validated against synthetic fixtures only.
+
+- `scripts/drawn_response/schemas/` — observation, criterion-decision,
+  capture-quality, partition-manifest, and method-run-log record schemas
+- `scripts/drawn_response/validate_records.py` — structural validation CLI
+- `scripts/drawn_response/check_partition_manifest.py` — section 8.1
+  partition-count and governance-coverage checks
+- `scripts/drawn_response/evaluate_offline.py` /
+  `scripts/drawn_response/report_offline_eval.py` — section 8.3-8.5 offline
+  metrics, decision gates, and outcome classification
+- `docs/research/DRAWN_RESPONSE_ANNOTATION_HANDBOOK.md` — versioned human-
+  labeler procedure
+- `docs/research/TASK-0011_OFFLINE_EVALUATION_HARNESS_DESIGN.md` — harness
+  design doc, including every metric-definition choice the spec names but
+  doesn't formula (flagged as harness convention pending Learning Quality
+  confirmation)
+
+Two experiment protocols build on this tooling, structured after
+`docs/research/GRADER_SPEED_SUBTASK_PROTOCOL.md`:
+
+- `docs/research/DRAWN_RESPONSE_RUBRIC_MATCH_PROTOCOL.md` (DR-1) —
+  operationalizes the phase-1 spec's section 8 offline bake-off as a
+  runnable experiment with corpus-state read tiers. Blocked on at least
+  one item passing the section 3.2 authoring/preflight gate.
+- `docs/research/DRAWN_RESPONSE_FEEDBACK_USEFULNESS_PROTOCOL.md` (DR-2) —
+  a new tiered protocol testing whether criterion feedback is grounded,
+  actionable, and produces independent transfer, since rubric-match
+  accuracy alone does not establish useful feedback. Tier 1 (expert
+  review) has no participant gate; Tier 2 (bounded pilot) needs Product
+  Owner approval; Tier 3 (real-student shadow) needs Hard Gate approval
+  and is designed but not authorized.
+
 ## Initial Expert Capture Pilot
 
 David directed preparation for Orly Bloom to complete proposed handwritten

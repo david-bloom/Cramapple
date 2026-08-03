@@ -6,6 +6,8 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0043 — Operationalize Branch Hygiene R1–R7 (Trunk Protection, CI, Auto-Delete)
+- DECISION-0039 — Adopt Branch Hygiene Rules (R1–R7) to Resolve and Prevent Branch Sprawl
 - DECISION-0035 — Resolve Phase 0 of the Backend Consolidation Migration (Schema Reconciliation, Option A/A2)
 - DECISION-0031 — Launch AP Statistics as Subject 2, Reusing the Tutor-Authored Content Model
 - DECISION-0030 — Failed/Rejected Grading Burns the Daily Budget Cap When Cost Is Known
@@ -20,6 +22,97 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~600 lines, archive the older entries to `docs/activity_log/archive/DECISIONS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries. (This log is already well over that threshold — the first archive pass is overdue, not optional.)
 
 (Note: the TASK-0012 branch independently logged its own DECISION-0027/0028 — CORS/ALLOWED_ORIGINS and budget-burn semantics — under different numbers on its own branch. Those land separately when that work merges to `main`; this charter-adoption decision claimed 0027/0028 here because `main` had not yet recorded entries past DECISION-0026 at merge time. If both branches' numbering collides on merge, renumber on whichever side merges second and update this index.)
+
+## DECISION-0043 — Operationalize Branch Hygiene R1–R7 (Trunk Protection, CI, Auto-Delete)
+
+**Date:** 2026-08-01
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Related Task:** N/A (governance)
+**Area:** Operations
+
+### Context
+
+Rules R1–R7 were approved on 2026-07-26 (PR #54, squash `e535f06`). Sprawl recurred
+within a week: 15 local branches, `main` unchanged since 2026-07-27, one branch 93
+commits ahead.
+
+**Audit of what was actually missing (2026-08-01).** Contrary to the working
+assumption that "steps 5–9 are pending," verification against the live repository
+found most of the mechanical enforcement already in place:
+
+| Step | State before this decision |
+| --- | --- |
+| 4 — governance/docs adoption | **Missing.** The only genuine gap. |
+| 5 — trunk protection | Already on: force-push blocked, deletions blocked, conversation resolution required, `enforce_admins: false` preserving human break-glass. |
+| 6 — CI | Already on: `.github/workflows/minimal-ci.yml`, job `test`, passing. |
+| 7 — required checks | Already on: `test` is a required context with `strict: true`. |
+| 8 — auto-delete + auto-merge | Already on: `delete_branch_on_merge: true`, `allow_auto_merge: true`. |
+| 9 — merge queue | Correctly not configured (conditional). |
+
+This reframes the root cause. **Sprawl is not caused by a mechanical block** — no
+gate is misconfigured, and CI passes. Work is not reaching `main` because nobody is
+opening the PRs, which is a behavioural gap that R1–R3 address and that step 4 —
+encoding the rules where agents and humans actually read them — was the missing
+half of.
+
+The cost is concrete, not theoretical. The AP Statistics CED fact pack —
+`docs/product/AP_STATISTICS_2027_CED_FACT_PACK.md`, the sanctioned authoring input
+gating G0A and therefore the entire approved Statistics rebuild — sat only on the
+93-commit branch. It was invisible from `main` and was independently re-derived
+more than once by sessions that could not see it.
+
+The cost is concrete, not theoretical. The AP Statistics CED fact pack —
+`docs/product/AP_STATISTICS_2027_CED_FACT_PACK.md`, the sanctioned authoring input
+gating G0A and therefore the entire approved Statistics rebuild — sat only on the
+93-commit branch. It was invisible from `main` and was independently re-derived
+more than once by sessions that could not see it.
+
+### Decision
+
+Encode R1–R7 canonically in `docs/team_charter/AI_COLLABORATION_RULES.md`, and
+enable the mechanical enforcement the rules assume:
+
+1. **Canonical rules** live in `AI_COLLABORATION_RULES.md`; the proposal is demoted to evidence, not authority. No other document restates them.
+2. **PR policy amended:** promotion to `main` is *always* by PR. The previous "Standing Approval work can merge directly" allowance is withdrawn — it is incompatible with the trunk protection already in force.
+3. **Confirm and retain** the existing repository settings (steps 5–8) as the adopted configuration, now that they are documented rather than tacit.
+4. **No merge queue** unless concurrent merges demonstrably cause stale-base problems.
+5. **No custom privileged merge automation** — R5(c) stands unchanged.
+6. **CI scope stays deliberately narrow.** `minimal-ci.yml` is retained as-is.
+
+### Rationale
+
+The recurrence proves the rules were never the missing piece and — per the audit
+above — neither was enforcement tooling. What was missing is that the rules lived
+in a proposal document nobody reads at session start, while the charter that agents
+*do* read still said Standing Approval work could merge directly to `main`. The
+charter actively contradicted the adopted policy.
+
+CI is left alone on purpose. Proposal §5 specifies "one fast, deterministic,
+secret-free workflow (not every checker blocking)," and `minimal-ci.yml` already
+satisfies that. Broadening a *required* check is how required checks become flaky
+and then get bypassed — the exact failure this decision exists to prevent. A
+broader non-required workflow is available later if wanted: the full
+`supabase/functions/_shared` suite is 83 tests in ~1s and every edge function
+currently typechecks clean, both verified 2026-08-01.
+
+### Consequences
+
+- All work reaches trunk by PR. The charter no longer offers a direct-merge path,
+  so the documented policy and the enforced configuration now agree.
+- Merged remote branches disappear automatically; local cleanup stays manual and
+  gated by the R7 three-check preflight.
+- Unique unmerged work must be archive-tagged before deletion, not simply dropped.
+- `enforce_admins` remains `false`. This is deliberate — it is the human-only
+  break-glass R1–R7 requires. It also means an admin *can* still push directly to
+  `main`, so trunk protection is a guardrail against accident, not a hard
+  guarantee against a determined bypass.
+- The one-time cleanup of the existing 15 branches (proposal §4) is **not** covered
+  by this decision and remains outstanding; it must run from a clean checkout of
+  `origin/main`, not from a dirty working branch.
+- Because no gate was broken, expect no immediate mechanical change in merge
+  throughput. If sprawl persists after this, the next lever is R3 enforcement
+  (small, frequent PRs), not more tooling.
 
 ## Decision Format
 
@@ -1455,3 +1548,55 @@ column).
   `claude/backend-consolidation-migration` (off `main`). `main` is at
   DECISION-0032; branches for DECISION-0033/0034 are outstanding. If numbering
   collides on merge, renumber whichever merges second and update the index.
+
+## DECISION-0039 — Adopt Branch Hygiene Rules (R1–R7) to Resolve and Prevent Branch Sprawl
+
+**Date:** 2026-07-26
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Related Task:** N/A (operating-model / charter change)
+**Area:** Operations
+
+### Context
+
+Recurring branch sprawl (20 local / 21 remote branches, 9 worktrees, per-session
+branch names, unmerged divergence, orphaned uncommitted work) caused real work loss.
+Reconciled across Claude v1 → Codex second opinion → PR #54 review rounds 1–2.
+
+### Decision
+
+Adopt R1–R7: (R1) branch = one reviewable slice named
+`<agent>/<task-or-work-id>-<slug>`, continue-don't-fork; (R2) continuation via the
+canonical task record's `Branch`/`PR` fields, machine-local paths ephemeral; (R3)
+integrate small slices via small PRs, no standing integration branches; (R4) durable
+session close (commit-and-push checkpoint; explicit dirty-state handoff if
+interrupted); (R5) readiness (human) separated from execution (GitHub-native
+auto-merge/merge-queue), custom privileged agent contingent not default; (R6)
+delete-on-merge of the remote head, local cleanup client-side, archive-tag only
+unique unmerged work; (R7) removal preflight = no uncommitted changes + no unique
+commits + no unpushed refs. Trunk protection: no normal direct commits to `main`;
+force-push/deletion blocked; human-only break-glass.
+
+### Rationale
+
+Per-session branching + slow integration + no cleanup was the root cause; branch =
+slice + task-record continuation is the highest-leverage fix. GitHub-native
+automation is preferred over a custom privileged agent for lower privilege/risk.
+See APPROVAL-0027 and the source proposal (merged PR #54).
+
+### Consequences
+
+- Charter + session prompts now require branch-per-slice, task-record continuation,
+  durable session close, and delete-on-merge; agents follow R1–R7 going forward.
+- `main` is the single integrated-truth trunk; active work stays on scoped branches
+  until reviewable.
+
+### Risks / Follow-ups
+
+- Operational enforcement (main branch protection, required CI checks, native
+  auto-merge) is not yet in place — sequenced separately in the proposal (steps 5–9).
+- One-time cleanup of the existing 20 branches / 9 worktrees is a separate phased
+  pass (step 10), from a clean checkout, after recovery PRs #50–#52 finish.
+- Numbering: DECISION-0039 / APPROVAL-0027 were allocated above open-PR claims
+  (#38/#39/#43 claim 0026/0036, #39 up to 0038); recheck open PRs immediately before
+  merge and renumber the later-merging branch on any collision.

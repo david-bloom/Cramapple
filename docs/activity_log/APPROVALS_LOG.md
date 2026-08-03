@@ -6,6 +6,8 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0040 — Branch-Hygiene Adoption Steps 4–9 (PR #54 Rollout)
+- APPROVAL-0027 — Branch Hygiene Rules (R1–R7) Adoption (Hard Gate)
 - APPROVAL-0024 — AP Statistics Launch (TASK-0013, Phase 0 Decision Gate)
 - APPROVAL-0023 — Agent Routing and Automatic QA (Codex Proposal)
 - APPROVAL-0022 — Charter Simplification and Tiering Adoption
@@ -15,6 +17,53 @@ Most recent entries (full chronological list follows below):
 - APPROVAL-0018 — Use Official Exam Dates and Confirm Registration
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
+
+## APPROVAL-0040 — Branch-Hygiene Adoption Steps 4–9 (PR #54 Rollout)
+
+**Date:** 2026-08-01
+**Approved By:** David Bloom
+**Related Task:** N/A (governance — follows PR #54, squash `e535f06`)
+**Decision:** Approved
+**Applies To:** All agents and human contributors working in the Cramapple repository
+**Expires / Review Trigger:** No expiry. Review if trunk protection blocks legitimate emergency work, or if the CI check proves flaky.
+**Status:** Active
+
+### Summary
+
+Approved execution of steps 4–9 of the recommended sequence in
+`docs/proposals/BRANCH_HYGIENE_AND_ANTI_SPRAWL_2026_07_09.md`. Rules R1–R7 were
+already approved on 2026-07-26 (PR #54) but were never operationalized, so branch
+sprawl recurred: 15 local branches, `main` static since 2026-07-27, and one branch
+93 commits ahead holding the AP Statistics CED fact pack that gates G0A.
+
+Steps as approved:
+
+4. Governance/docs-only adoption PR carrying `APPROVAL-0040` + `DECISION-0043`.
+5. Enable PR-only `main`; block force-push and deletion; human-only admin bypass.
+6. Land a minimal CI workflow and let it stabilize on `main`.
+7. Make its checks required, and require review — **only after** step 6 is observed passing.
+8. Enable remote head-branch auto-deletion and GitHub-native auto-merge.
+9. Merge queue **only if** concurrent merges create a real stale-base problem.
+
+### Notes
+
+- **Verification against the live repository found steps 5–8 already in place.**
+  Trunk protection (force-push and deletion blocked, conversation resolution
+  required, `enforce_admins: false`), CI (`minimal-ci.yml`, job `test`, passing),
+  that check already required with `strict: true`, and both
+  `delete_branch_on_merge` and `allow_auto_merge` enabled. See `DECISION-0043` for
+  the full audit table.
+- **Step 4 was the only genuine gap**, and is what this approval lands: R1–R7
+  encoded canonically in `AI_COLLABORATION_RULES.md`, the PR-policy contradiction
+  removed, and this pair of log entries plus the charter changelog.
+- No repository settings were changed. Nothing needed changing.
+- Step 9 is conditional and not triggered; no merge queue configured.
+- R5 unchanged: custom privileged merge automation remains **not adopted**.
+- Consequence worth stating plainly: since no gate was broken, this approval does
+  not mechanically unblock anything. It removes a charter contradiction that told
+  agents they could skip PRs. The one-time cleanup of the existing 15 branches
+  (proposal §4) is still outstanding and is the action that actually reduces the
+  branch count.
 
 ## Approval Format
 
@@ -593,3 +642,27 @@ Database Migrations Hard Gate in `STANDING_APPROVAL_LANES.md`. See
 - Scope is exactly `prompts/CODEX_AP_STATISTICS_PHASE2_SCHEMA_INSTANTIATION.md`
   as drafted — no broader migration authority granted.
 - Publishing the resulting exam pack/content is explicitly not covered.
+
+## APPROVAL-0027 — Branch Hygiene Rules (R1–R7) Adoption (Hard Gate)
+
+**Date:** 2026-07-26
+**Approved By:** David Bloom
+**Related Task:** N/A (charter / operating-model change)
+**Decision:** Approved
+
+### Summary
+
+Approves adoption of branch-hygiene rules R1–R7 (anti branch-sprawl) as a charter /
+operating-model change, encoded in `AI_COLLABORATION_RULES.md` (§In-Progress Drafts
+and Branches) plus `TASK_WORKFLOW.md`, `HANDOFF_PACKET_TEMPLATE.md`, the Claude/Codex
+new-session prompts, and `CLOSE_SESSION_PROMPT.md`. Durable owner approval was
+recorded on PR #54 citing commit `85b1151` (source proposal
+`docs/proposals/BRANCH_HYGIENE_AND_ANTI_SPRAWL_2026_07_09.md`, merged). See DECISION-0039.
+
+### Notes
+
+- Operational enforcement (main branch protection, required CI checks, native
+  auto-merge, one-time branch/worktree cleanup) is separate from this charter
+  adoption and sequenced in the proposal — not in this PR.
+- R5 uses GitHub-native auto-merge/merge-queue with a human/conductor readiness
+  step; a custom privileged merge agent is contingent, not adopted by default.

@@ -1,0 +1,304 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apprecalc-frq-036",
+  "content_key": "apprecalc-frq-036",
+  "content_version": 1,
+  "difficulty": "Hard",
+  "exam_pack_ref": {
+    "exam_code": "ap_precalculus",
+    "school_year": "2026-27",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "frq",
+  "archetype_ref": {
+    "archetype_key": "ap-precalculus-frq-symbolic-manipulations",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-precalculus-2026-27",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-2-exponential-and-logarithmic-functions"
+    },
+    {
+      "scheme_key": "ap-precalculus-2026-27",
+      "scheme_version": "1.0.0",
+      "node_key": "topic-2.13"
+    },
+    {
+      "scheme_key": "ap-precalculus-2026-27",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-1"
+    }
+  ],
+  "frq_form": "long",
+  "canonical_answers": [
+    "x=0 or x=2. | Substitutes u=2^x and factors (u−1)(u−4). | x=1. | Combines logarithms to (x+2)/x=3 and respects x>0. | The expression is 3log_b x+(1/2)log_b y−2log_b z. | Applies product, power, and quotient rules correctly."
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "scenario",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "Use exact exponential and logarithmic methods; show supporting work.",
+        "calculator_mode": "no-calculator"
+      },
+      "source_refs": [
+        "ap-precalculus-ced-effective-fall-2026"
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "part_key": "part-a",
+      "ordinal": 1,
+      "label": "(a)",
+      "prompt": "Solve 4^x−5·2^x+4=0.",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 2,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "x=0 or x=2.",
+          "required_evidence": [
+            "x=0 or x=2."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent response with the required setup, interpretation, or justification."
+          ],
+          "insufficient_responses": [
+            "A bare answer when the criterion requires construction, supporting work, contextual interpretation, domain restrictions, or model limitations."
+          ],
+          "contradictions": [
+            "Do not award when the response directly contradicts the required function behavior, domain, units, representation, or contextual conclusion."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: x=0 or x=2.",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        },
+        {
+          "criterion_key": "part-a-criterion-2",
+          "points": 1,
+          "description": "Substitutes u=2^x and factors (u−1)(u−4).",
+          "required_evidence": [
+            "Substitutes u=2^x and factors (u−1)(u−4)."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent response with the required setup, interpretation, or justification."
+          ],
+          "insufficient_responses": [
+            "A bare answer when the criterion requires construction, supporting work, contextual interpretation, domain restrictions, or model limitations."
+          ],
+          "contradictions": [
+            "Do not award when the response directly contradicts the required function behavior, domain, units, representation, or contextual conclusion."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: Substitutes u=2^x and factors (u−1)(u−4).",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part_key": "part-b",
+      "ordinal": 2,
+      "label": "(b)",
+      "prompt": "Solve ln(x+2)−ln x=ln3.",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 2,
+      "criteria": [
+        {
+          "criterion_key": "part-b-criterion-1",
+          "points": 1,
+          "description": "x=1.",
+          "required_evidence": [
+            "x=1."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent response with the required setup, interpretation, or justification."
+          ],
+          "insufficient_responses": [
+            "A bare answer when the criterion requires construction, supporting work, contextual interpretation, domain restrictions, or model limitations."
+          ],
+          "contradictions": [
+            "Do not award when the response directly contradicts the required function behavior, domain, units, representation, or contextual conclusion."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: x=1.",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        },
+        {
+          "criterion_key": "part-b-criterion-2",
+          "points": 1,
+          "description": "Combines logarithms to (x+2)/x=3 and respects x>0.",
+          "required_evidence": [
+            "Combines logarithms to (x+2)/x=3 and respects x>0."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent response with the required setup, interpretation, or justification."
+          ],
+          "insufficient_responses": [
+            "A bare answer when the criterion requires construction, supporting work, contextual interpretation, domain restrictions, or model limitations."
+          ],
+          "contradictions": [
+            "Do not award when the response directly contradicts the required function behavior, domain, units, representation, or contextual conclusion."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: Combines logarithms to (x+2)/x=3 and respects x>0.",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part_key": "part-c",
+      "ordinal": 3,
+      "label": "(c)",
+      "prompt": "Rewrite log_b((x³√y)/z²) as a sum and difference, where b>0, b≠1, and x,y,z>0.",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 2,
+      "criteria": [
+        {
+          "criterion_key": "part-c-criterion-1",
+          "points": 1,
+          "description": "The expression is 3log_b x+(1/2)log_b y−2log_b z.",
+          "required_evidence": [
+            "The expression is 3log_b x+(1/2)log_b y−2log_b z."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent response with the required setup, interpretation, or justification."
+          ],
+          "insufficient_responses": [
+            "A bare answer when the criterion requires construction, supporting work, contextual interpretation, domain restrictions, or model limitations."
+          ],
+          "contradictions": [
+            "Do not award when the response directly contradicts the required function behavior, domain, units, representation, or contextual conclusion."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: The expression is 3log_b x+(1/2)log_b y−2log_b z.",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        },
+        {
+          "criterion_key": "part-c-criterion-2",
+          "points": 1,
+          "description": "Applies product, power, and quotient rules correctly.",
+          "required_evidence": [
+            "Applies product, power, and quotient rules correctly."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent response with the required setup, interpretation, or justification."
+          ],
+          "insufficient_responses": [
+            "A bare answer when the criterion requires construction, supporting work, contextual interpretation, domain restrictions, or model limitations."
+          ],
+          "contradictions": [
+            "Do not award when the response directly contradicts the required function behavior, domain, units, representation, or contextual conclusion."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: Applies product, power, and quotient rules correctly.",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "The prompt is complete in text; any graphing work may be described by labeled features during accessibility review."
+  },
+  "scoring_contract": {
+    "total_points": 6,
+    "part_count": 3,
+    "points_per_part": 2,
+    "calculator_mode": "no-calculator",
+    "carry_forward_rule": "A later criterion may earn when an earlier arithmetic error is carried forward consistently and the later reasoning remains valid.",
+    "rounding_rule": "Accept exact values or values correctly rounded to the precision requested.",
+    "units_rule": "Units are required when the prompt or criterion asks for contextual interpretation.",
+    "ambiguity_rule": "Escalate a valid but unlisted interpretation rather than forcing a score."
+  },
+  "development_cases": {
+    "full_credit": "Provides all six required pieces of mathematical evidence.",
+    "partial_credit": "Provides valid work for some independently decidable criteria but omits at least one required conclusion or justification.",
+    "no_credit": "Provides no relevant function relationship, model, or symbolic reasoning.",
+    "equivalent": "Uses an algebraically or graphically equivalent representation.",
+    "contradictory": "States a correct value but pairs it with an incompatible domain, unit, trend, or interpretation.",
+    "ambiguous": "Uses notation whose mathematical meaning cannot be determined reliably."
+  },
+  "review_notes": {
+    "expected_reasoning": "x=0 or x=2. | Substitutes u=2^x and factors (u−1)(u−4). | x=1. | Combines logarithms to (x+2)/x=3 and respects x>0. | The expression is 3log_b x+(1/2)log_b y−2log_b z. | Applies product, power, and quotient rules correctly.",
+    "teaching_explanation": "Connect every conclusion to the applicable function representation, symbolic relationship, or contextual assumption.",
+    "minimum_fix": "Repair the earliest missing setup, representation, or justification needed for the next unearned criterion.",
+    "transfer_candidate": "Create a new symbolic-manipulations FRQ for Topic 2.13 with a different function family, data structure, and context.",
+    "delayed_retrieval_candidate": "Reassess Topic 2.13 later with no shared wording, values, or scenario.",
+    "known_boundary_cases": [
+      "Award each one-point criterion independently.",
+      "Carry-forward arithmetic may earn later reasoning credit when the method remains valid.",
+      "Do not award a modeling limitation for a generic statement unrelated to the given context."
+    ],
+    "originality_statement": "Independently authored Cramapple practice item from a blank scope brief; no released, secure, or third-party question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-precalculus-ced-effective-fall-2026"
+    ],
+    "fact_pack_version": "2026-07-28",
+    "authoring_prompt_version": "CODEX_PRECALCULUS_DIFFICULTY_QA_2026_07_28",
+    "generated_by": "codex",
+    "generated_at": "2026-07-28T00:00:00Z",
+    "content_sha256": "3dadff253aaab6882c1c41bb66c48498b0e9400689efa870d99d136f33665f18"
+  }
+}

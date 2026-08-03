@@ -1,0 +1,397 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apcalcbc-frq-035",
+  "content_key": "apcalcbc-frq-035",
+  "content_version": 1,
+  "difficulty": "Very Hard",
+  "exam_pack_ref": {
+    "exam_code": "ap_calculus_bc",
+    "school_year": "2026-27",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "frq",
+  "archetype_ref": {
+    "archetype_key": "ap-calculus-bc-frq-taylor-error",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-calculus-bc-2026-27",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-10-infinite-sequences-and-series"
+    },
+    {
+      "scheme_key": "ap-calculus-bc-2026-27",
+      "scheme_version": "1.0.0",
+      "node_key": "topic-10.12"
+    },
+    {
+      "scheme_key": "ap-calculus-bc-mathematical-practices",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-3"
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All assessed mathematical information is available in text; notation requires normal math-reading support."
+  },
+  "frq_form": "long",
+  "canonical_answers": [
+    "Writes 1+x+x²/2!+x³/3!+x⁴/4!. | Identifies it as the degree-4 polynomial for e^x. | Obtains P₄(0.6)=1.8214. | Uses a fifth-derivative bound M=e^0.6 on [0,0.6]. | Writes |R₄(0.6)|≤e^0.6(0.6)^5/5!. | Obtains a bound of approximately 0.001181. | Tests the successive remainder bounds. | Concludes n=7. | States that the actual absolute error cannot exceed the calculated bound."
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "scenario",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "Use the Maclaurin series for e^x to approximate e^0.6.",
+        "calculator_mode": "calculator"
+      },
+      "source_refs": [
+        "ap-calculus-ab-bc-ced-effective-fall-2020-2026-release"
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "part_key": "part-a",
+      "ordinal": 1,
+      "label": "(a)",
+      "prompt": "Write the degree-4 Maclaurin polynomial P₄(x).",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 2,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "Writes 1+x+x²/2!+x³/3!+x⁴/4!.",
+          "required_evidence": [
+            "Writes 1+x+x²/2!+x³/3!+x⁴/4!."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+          ],
+          "insufficient_responses": [
+            "A correct number without required setup, justification, interpretation, or units when that evidence is named in the criterion."
+          ],
+          "contradictions": [
+            "Do not award the criterion when the response directly contradicts the required mathematical relationship or contextual meaning."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: Writes 1+x+x²/2!+x³/3!+x⁴/4!.",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        },
+        {
+          "criterion_key": "part-a-criterion-2",
+          "points": 1,
+          "description": "Identifies it as the degree-4 polynomial for e^x.",
+          "required_evidence": [
+            "Identifies it as the degree-4 polynomial for e^x."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+          ],
+          "insufficient_responses": [
+            "A correct number without required setup, justification, interpretation, or units when that evidence is named in the criterion."
+          ],
+          "contradictions": [
+            "Do not award the criterion when the response directly contradicts the required mathematical relationship or contextual meaning."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: Identifies it as the degree-4 polynomial for e^x.",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part_key": "part-b",
+      "ordinal": 2,
+      "label": "(b)",
+      "prompt": "Find P₄(0.6).",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-b-criterion-1",
+          "points": 1,
+          "description": "Obtains P₄(0.6)=1.8214.",
+          "required_evidence": [
+            "Obtains P₄(0.6)=1.8214."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+          ],
+          "insufficient_responses": [
+            "A correct number without required setup, justification, interpretation, or units when that evidence is named in the criterion."
+          ],
+          "contradictions": [
+            "Do not award the criterion when the response directly contradicts the required mathematical relationship or contextual meaning."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: Obtains P₄(0.6)=1.8214.",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part_key": "part-c",
+      "ordinal": 3,
+      "label": "(c)",
+      "prompt": "Use the Lagrange error bound to bound |e^0.6−P₄(0.6)|.",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 3,
+      "criteria": [
+        {
+          "criterion_key": "part-c-criterion-1",
+          "points": 1,
+          "description": "Uses a fifth-derivative bound M=e^0.6 on [0,0.6].",
+          "required_evidence": [
+            "Uses a fifth-derivative bound M=e^0.6 on [0,0.6]."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+          ],
+          "insufficient_responses": [
+            "A correct number without required setup, justification, interpretation, or units when that evidence is named in the criterion."
+          ],
+          "contradictions": [
+            "Do not award the criterion when the response directly contradicts the required mathematical relationship or contextual meaning."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: Uses a fifth-derivative bound M=e^0.6 on [0,0.6].",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        },
+        {
+          "criterion_key": "part-c-criterion-2",
+          "points": 1,
+          "description": "Writes |R₄(0.6)|≤e^0.6(0.6)^5/5!.",
+          "required_evidence": [
+            "Writes |R₄(0.6)|≤e^0.6(0.6)^5/5!."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+          ],
+          "insufficient_responses": [
+            "A correct number without required setup, justification, interpretation, or units when that evidence is named in the criterion."
+          ],
+          "contradictions": [
+            "Do not award the criterion when the response directly contradicts the required mathematical relationship or contextual meaning."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: Writes |R₄(0.6)|≤e^0.6(0.6)^5/5!.",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        },
+        {
+          "criterion_key": "part-c-criterion-3",
+          "points": 1,
+          "description": "Obtains a bound of approximately 0.001181.",
+          "required_evidence": [
+            "Obtains a bound of approximately 0.001181."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+          ],
+          "insufficient_responses": [
+            "A correct number without required setup, justification, interpretation, or units when that evidence is named in the criterion."
+          ],
+          "contradictions": [
+            "Do not award the criterion when the response directly contradicts the required mathematical relationship or contextual meaning."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: Obtains a bound of approximately 0.001181.",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part_key": "part-d",
+      "ordinal": 4,
+      "label": "(d)",
+      "prompt": "Find the smallest degree n for which the Lagrange bound guarantees error below 10^(−5), and explain what the bound establishes.",
+      "stimulus_refs": [
+        "scenario"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 3,
+      "criteria": [
+        {
+          "criterion_key": "part-d-criterion-1",
+          "points": 1,
+          "description": "Tests the successive remainder bounds.",
+          "required_evidence": [
+            "Tests the successive remainder bounds."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+          ],
+          "insufficient_responses": [
+            "A correct number without required setup, justification, interpretation, or units when that evidence is named in the criterion."
+          ],
+          "contradictions": [
+            "Do not award the criterion when the response directly contradicts the required mathematical relationship or contextual meaning."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: Tests the successive remainder bounds.",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        },
+        {
+          "criterion_key": "part-d-criterion-2",
+          "points": 1,
+          "description": "Concludes n=7.",
+          "required_evidence": [
+            "Concludes n=7."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+          ],
+          "insufficient_responses": [
+            "A correct number without required setup, justification, interpretation, or units when that evidence is named in the criterion."
+          ],
+          "contradictions": [
+            "Do not award the criterion when the response directly contradicts the required mathematical relationship or contextual meaning."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: Concludes n=7.",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        },
+        {
+          "criterion_key": "part-d-criterion-3",
+          "points": 1,
+          "description": "States that the actual absolute error cannot exceed the calculated bound.",
+          "required_evidence": [
+            "States that the actual absolute error cannot exceed the calculated bound."
+          ],
+          "accepted_variants": [
+            "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+          ],
+          "insufficient_responses": [
+            "A correct number without required setup, justification, interpretation, or units when that evidence is named in the criterion."
+          ],
+          "contradictions": [
+            "Do not award the criterion when the response directly contradicts the required mathematical relationship or contextual meaning."
+          ],
+          "minimum_fix": "Add or correct the evidence needed to establish: States that the actual absolute error cannot exceed the calculated bound.",
+          "deterministic_checks": [
+            {
+              "check_type": "criterion-points",
+              "parameters": {
+                "expected_points": 1
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "scoring_contract": {
+    "total_points": 9,
+    "part_count": 4,
+    "calculator_mode": "calculator",
+    "carry_forward_rule": "A later criterion may earn when the student's earlier arithmetic error is carried forward consistently and the later reasoning remains valid.",
+    "rounding_rule": "Accept exact values or values correctly rounded to the precision requested.",
+    "units_rule": "Units are required only when a criterion or prompt explicitly requests contextual units.",
+    "ambiguity_rule": "Escalate responses that use a valid but unlisted interpretation rather than forcing a score."
+  },
+  "development_cases": {
+    "full_credit": "Provides all required setup, values, justifications, interpretations, and units.",
+    "partial_credit": "Shows a valid method for multiple criteria but omits or misstates at least one independently required piece of evidence.",
+    "no_credit": "Provides no relevant calculus relationship or only unsupported answers.",
+    "equivalent": "Uses algebraically equivalent forms or a different valid theorem-based argument.",
+    "contradictory": "States a correct value but also asserts an incompatible sign, interval, unit, or conclusion.",
+    "ambiguous": "Contains notation whose intended mathematical meaning cannot be determined reliably."
+  },
+  "review_notes": {
+    "expected_reasoning": "Writes 1+x+x²/2!+x³/3!+x⁴/4!. | Identifies it as the degree-4 polynomial for e^x. | Obtains P₄(0.6)=1.8214. | Uses a fifth-derivative bound M=e^0.6 on [0,0.6]. | Writes |R₄(0.6)|≤e^0.6(0.6)^5/5!. | Obtains a bound of approximately 0.001181. | Tests the successive remainder bounds. | Concludes n=7. | States that the actual absolute error cannot exceed the calculated bound.",
+    "teaching_explanation": "Connect each awarded point to the stated calculus relationship and the evidence shown in the response.",
+    "minimum_fix": "Repair the earliest missing setup or justification needed for the next unearned criterion.",
+    "transfer_candidate": "Create a new taylor-error task with a different context, representation, and numerical structure.",
+    "delayed_retrieval_candidate": "Reassess Topic 10.12 later with a different function family and no shared wording.",
+    "known_boundary_cases": [
+      "Award criteria independently when the exam task permits.",
+      "Do not award interpretation or justification points for a bare numerical answer.",
+      "Use carry-forward only when later reasoning remains mathematically valid."
+    ],
+    "originality_statement": "Independently authored Cramapple practice item from a blank scope brief; no released, secure, or third-party question or scoring language was used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-calculus-ab-bc-ced-effective-fall-2020-2026-release"
+    ],
+    "fact_pack_version": "2026-07-28",
+    "authoring_prompt_version": "CALCULUS_BC_CONTENT_BATCH_2026_07_28",
+    "generated_by": "codex",
+    "generated_at": "2026-07-28T00:00:00Z",
+    "content_sha256": "ea1ecfc3284d11c8fb1fd0901309301805e64dc1966e41c1c94e6dcbd03ea483"
+  }
+}
