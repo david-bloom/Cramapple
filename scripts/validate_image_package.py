@@ -50,6 +50,120 @@ def safe_relative(package_dir: Path, value: str, field: str) -> Path:
     return resolved
 
 
+def validate_review_packet(package_dir: Path, asset: dict, label: str) -> list[str]:
+    errors: list[str] = []
+    value = asset.get("review_packet")
+    if value is None:
+        return errors
+    if not isinstance(value, str):
+        return [f"{label}: review_packet must be a string"]
+    try:
+        path = safe_relative(package_dir, value, f"{label}.review_packet")
+    except ValueError as exc:
+        return [str(exc)]
+    if not path.is_file():
+        return [f"{label}: missing review packet {value}"]
+    try:
+        packet = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        return [f"{label}: invalid review packet: {exc}"]
+    if not isinstance(packet, dict):
+        return [f"{label}: review packet must be an object"]
+
+    bindings = {
+        "asset_id": asset.get("asset_id"),
+        "asset_sha256": asset.get("sha256"),
+        "content_key": asset.get("content_key"),
+        "content_version_id": asset.get("content_version_id"),
+        "content_version_num": asset.get("content_version_num"),
+    }
+    for field, expected in bindings.items():
+        if packet.get(field) != expected:
+            errors.append(
+                f"{label}: review packet {field}={packet.get(field)!r}; expected {expected!r}"
+            )
+
+    packet_accessibility = packet.get("accessibility")
+    asset_accessibility = asset.get("accessibility")
+    if not isinstance(packet_accessibility, dict) or not isinstance(asset_accessibility, dict):
+        errors.append(f"{label}: review packet and asset accessibility must be objects")
+    else:
+        for field in (
+            "short_alt",
+            "long_description",
+            "construct_equivalence_status",
+            "answer_leakage_status",
+        ):
+            if not str(packet_accessibility.get(field, "")).strip():
+                errors.append(f"{label}: review packet accessibility.{field} is required")
+            if packet_accessibility.get(field) != asset_accessibility.get(field):
+                errors.append(
+                    f"{label}: review packet accessibility.{field} differs from asset"
+                )
+
+    gates = packet.get("review_gates")
+    if not isinstance(gates, dict):
+        errors.append(f"{label}: review packet review_gates must be an object")
+    else:
+        for field in (*APPROVAL_FIELDS, "rights"):
+            gate = gates.get(field)
+            if not isinstance(gate, dict) or gate.get("status") not in {
+                "pending", "approved", "rejected"
+            }:
+                errors.append(f"{label}: review packet has invalid {field} gate")
+        asset_review = asset.get("review", {})
+        for field in APPROVAL_FIELDS:
+            if (
+                isinstance(gates.get(field), dict)
+                and gates[field].get("status") != asset_review.get(field)
+            ):
+                errors.append(f"{label}: review packet {field} gate differs from asset")
+        if (
+            isinstance(gates.get("rights"), dict)
+            and gates["rights"].get("status") != asset.get("rights", {}).get("status")
+        ):
+            errors.append(f"{label}: review packet rights gate differs from asset")
+
+    matrix = packet.get("render_matrix")
+    if not isinstance(matrix, dict) or not matrix:
+        errors.append(f"{label}: review packet render_matrix must be a non-empty object")
+    elif any(
+        state not in {"pending", "technical_pass", "approved", "rejected", "not_applicable"}
+        for state in matrix.values()
+    ):
+        errors.append(f"{label}: review packet render_matrix has an invalid state")
+
+    if packet.get("release_eligible") is True:
+        gates_approved = isinstance(gates, dict) and all(
+            isinstance(gates.get(field), dict) and gates[field].get("status") == "approved"
+            for field in (*APPROVAL_FIELDS, "rights")
+        )
+        matrix_approved = isinstance(matrix, dict) and bool(matrix) and all(
+            state in {"approved", "not_applicable"} for state in matrix.values()
+        )
+        accessibility_approved = isinstance(packet_accessibility, dict) and all(
+            packet_accessibility.get(field) == "approved"
+            for field in ("construct_equivalence_status", "answer_leakage_status")
+        )
+        if not gates_approved or not matrix_approved or not accessibility_approved:
+            errors.append(
+                f"{label}: review packet release_eligible=true while gates remain open"
+            )
+
+    page_value = asset.get("review_page")
+    if page_value is not None:
+        if not isinstance(page_value, str):
+            errors.append(f"{label}: review_page must be a string")
+        else:
+            try:
+                page_path = safe_relative(package_dir, page_value, f"{label}.review_page")
+                if not page_path.is_file():
+                    errors.append(f"{label}: missing review page {page_value}")
+            except ValueError as exc:
+                errors.append(str(exc))
+    return errors
+
+
 def validate(manifest_path: Path, require_release_eligible: bool) -> list[str]:
     errors: list[str] = []
     package_dir = manifest_path.resolve().parent
@@ -212,6 +326,8 @@ def validate(manifest_path: Path, require_release_eligible: bool) -> list[str]:
             rights_approved = isinstance(rights, dict) and rights.get("status") == "approved"
             if not rights_approved:
                 all_approved = False
+
+        errors.extend(validate_review_packet(package_dir, asset, label))
 
     if manifest.get("release_eligible") is True and not all_approved:
         errors.append("manifest: release_eligible=true but one or more gates are not approved")

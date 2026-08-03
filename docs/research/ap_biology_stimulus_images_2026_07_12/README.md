@@ -116,9 +116,10 @@ The other 7 images were re-checked in the same pass and found correct.
     versions.
 
 The 2026-08-03 live-state check found that only `APBIO-FRQ-S-009` is currently
-published. A separately versioned replacement candidate and deterministic
+published. Immutable v2 and v3 replacement candidates and their deterministic
 generator now live under `candidates/` and `generate_s009_replacement.py`.
-Nothing in Production was replaced.
+Item-context review rejected v2 for answer leakage; v3 removes the leaking
+footer. Nothing in Production was replaced.
 
 ## Reproducible generation
 
@@ -129,9 +130,15 @@ python3 -m pip install -r \
   docs/research/ap_biology_stimulus_images_2026_07_12/requirements-lock.txt
 python3 \
   docs/research/ap_biology_stimulus_images_2026_07_12/generate_s009_replacement.py \
+  --candidate-version 3 \
   --out /tmp/cramapple-apbio-s009-candidate
 python3 scripts/validate_image_package.py \
   docs/research/ap_biology_stimulus_images_2026_07_12/manifest.json
+python3 scripts/build_image_review_packet.py \
+  docs/research/ap_biology_stimulus_images_2026_07_12/manifest.json \
+  docs/research/apbio_frq_tutor_ready_packet.json \
+  docs/research/ap_biology_stimulus_images_2026_07_12/review_packets/APBIO-FRQ-S-009-v3-review.json \
+  /tmp/APBIO-FRQ-S-009-v3-review.html
 ```
 
 The replacement generator defaults to the package's `candidates/` directory
@@ -139,6 +146,14 @@ when `--out` is omitted. Generate to a temporary directory for comparison so
 unreviewed output does not silently replace the recorded PNG. It refuses to
 generate a canonical candidate under a Matplotlib version other than 3.11.1;
 `--allow-version-drift` is only for non-canonical visual comparison.
+`--candidate-version 2` remains available solely to reproduce the rejected v2
+checksum; v3 is the current review candidate.
+
+The review-page builder fails when the manifest asset, exact content version,
+review record, accessibility text, checksum, or dimensions drift. The checked-
+in v3 review page provides learner and reviewer contexts plus missing-image and
+200% layout simulations. Technical browser passes do not substitute for the
+pending independent approval gates or authenticated live delivery.
 
 `generate.py` is the recovered historical ten-image generator. It is retained
 for audit, but exact reproduction remains unverified because only the original

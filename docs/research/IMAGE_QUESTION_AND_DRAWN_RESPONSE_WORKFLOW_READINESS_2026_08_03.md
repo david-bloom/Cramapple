@@ -107,7 +107,9 @@ Every question-image package must contain:
 `scripts/validate_image_package.py` now validates the recovered package without
 third-party dependencies. It verifies safe relative paths, PNG structure,
 dimensions, checksums, deterministic-source existence, accessibility presence,
-and release-gate consistency.
+release-gate consistency, and any linked exact-version review record/page.
+`scripts/build_image_review_packet.py` rejects binding or accessibility drift
+and generates one static learner/reviewer context for local review.
 
 ### Authoring workflow
 
@@ -189,10 +191,15 @@ Scope:
 - retain the other nine recovered assets as historical evidence and do not
   repair them unless their retired/disapproved items are proposed for release.
 
-Local draft progress: a separately versioned S009 replacement candidate now
-implements the corrected branching geometry. Its complete dependency set is
-pinned and two renders were byte-identical. This is build evidence, not content
-approval; every review and live-delivery gate below remains open.
+Local draft progress: v2 corrected the geometry but was rejected during exact-
+item grading preflight because its footer leaked the mechanism assessed by
+criterion b. Immutable v3 removes that footer, remains byte-reproducible, and
+has a generated review page bound to the exact published version and checksum.
+Local desktop, 360-CSS-pixel, in-page 200% simulation, missing-image fail-
+closed, and semantic-structure checks pass technically. These are build and
+browser evidence, not independent content approval; actual browser zoom,
+print, assistive-technology, authenticated delivery, and every human gate
+remain open.
 
 Acceptance evidence:
 

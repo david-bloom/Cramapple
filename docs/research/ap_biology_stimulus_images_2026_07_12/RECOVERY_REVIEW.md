@@ -39,16 +39,26 @@ items are separately proposed for republication.
 
 ### S009 replacement candidate
 
-`candidates/APBIO-FRQ-S-009-v2-candidate.png` fixes the branching defect: two
-separate arrows run from the same pre-mRNA row to two mature products, and no
-arrow runs between products. The deterministic source is
-`generate_s009_replacement.py`. Its complete Python 3.12 dependency set is
-pinned in `requirements-lock.txt`; two independent renders were byte-identical
-at SHA-256 `d32435dc2eb8415dfe4c837df1952ef5d57e289310a43e8820ee2a51e4af4020`.
+`candidates/APBIO-FRQ-S-009-v2-candidate.png` fixed the branching defect, but
+exact-item review found that its footer explicitly states the different-exon-
+combinations mechanism assessed by criterion b. V2 is preserved at SHA-256
+`d32435dc2eb8415dfe4c837df1952ef5d57e289310a43e8820ee2a51e4af4020`
+with grading and answer-leakage state `rejected`; it was not overwritten.
 
-This proves deterministic build repeatability only. Scientific, grading,
-accessibility, answer-leakage, rights, responsive-layout, and live-delivery
-approval remain pending, and no Production object or row was changed.
+`candidates/APBIO-FRQ-S-009-v3-candidate.png` removes that footer while
+preserving the two independent pre-mRNA branches and no product-to-product
+arrow. Two pinned-environment renders were byte-identical at SHA-256
+`85c146a2fcf494656635fa32acc7a4d4a050ec6566e71942adcc2f174d1361ea`.
+The exact-version review record and generated context page live under
+`review_packets/`.
+
+This proves deterministic build repeatability and bounded local technical
+behavior only. The generated page passed desktop, measured 360-CSS-pixel,
+in-page 200% simulation, fail-closed missing-image, and semantic-structure
+checks after two responsive defects were repaired. Actual browser zoom, print,
+assistive-technology review, scientific/grading/accessibility/rights approval,
+and authenticated live delivery remain pending. No Production object or row
+was changed.
 
 ## Blocking visual findings
 

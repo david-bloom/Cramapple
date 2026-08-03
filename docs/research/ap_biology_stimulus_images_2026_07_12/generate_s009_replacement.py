@@ -28,6 +28,16 @@ def main() -> int:
         action="store_true",
         help="Generate a non-canonical visual preview with another Matplotlib version.",
     )
+    parser.add_argument(
+        "--candidate-version",
+        type=int,
+        choices=(2, 3),
+        default=3,
+        help=(
+            "Candidate 2 preserves the first corrected layout, including its "
+            "answer-leaking footer. Candidate 3 omits that footer."
+        ),
+    )
     args = parser.parse_args()
     if matplotlib.__version__ != EXPECTED_MATPLOTLIB and not args.allow_version_drift:
         parser.error(
@@ -121,17 +131,18 @@ def main() -> int:
         ha="center", va="top",
     )
 
-    ax.text(
-        5,
-        0.65,
-        "The same pre-mRNA can be spliced into different exon combinations.",
-        ha="center",
-        color="#555555",
-        fontsize=10,
-    )
+    if args.candidate_version == 2:
+        ax.text(
+            5,
+            0.65,
+            "The same pre-mRNA can be spliced into different exon combinations.",
+            ha="center",
+            color="#555555",
+            fontsize=10,
+        )
 
     args.out.mkdir(parents=True, exist_ok=True)
-    output = args.out / "APBIO-FRQ-S-009-v2-candidate.png"
+    output = args.out / f"APBIO-FRQ-S-009-v{args.candidate_version}-candidate.png"
     fig.savefig(output, dpi=150, bbox_inches="tight", facecolor="white")
     plt.close(fig)
     print(output.resolve())

@@ -74,7 +74,7 @@ response identity.
 ## Tool verification
 
 The builder was verified using the repository's synthetic local fixture
-declaration and an already-versioned PNG test asset. An undeclared corpus
-returned nonzero under `--strict`; the fully declared fixture produced one
-record that passed `validate_records.py capture_image`. No real hand-drawn
+declaration and already-versioned PNG test assets. An undeclared corpus
+returned nonzero under `--strict`; the fully declared fixture produced two
+records that passed `validate_records.py capture_image`. No real hand-drawn
 image was added to git or to the fixture set.

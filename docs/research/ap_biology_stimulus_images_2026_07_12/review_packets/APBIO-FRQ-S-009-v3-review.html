@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>apbio-frq-s-009-v3-item-context-review</title>
+  <style>
+    :root { color-scheme: light; --ink:#172033; --muted:#5e6879; --line:#cad2df; --paper:#fff; --wash:#f2f5f9; --accent:#3159c6; --danger:#a52525; }
+    * { box-sizing:border-box; }
+    body { margin:0; font:16px/1.55 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; color:var(--ink); background:var(--wash); }
+    button,textarea { font:inherit; }
+    button { border:1px solid var(--accent); border-radius:.45rem; padding:.55rem .8rem; color:var(--accent); background:#fff; cursor:pointer; }
+    button:focus-visible,textarea:focus-visible,summary:focus-visible { outline:3px solid #ffbf47; outline-offset:2px; }
+    .page { width:min(1040px,calc(100% - 2rem)); margin:2rem auto 5rem; }
+    .eyebrow { color:var(--accent); font-size:.78rem; font-weight:750; letter-spacing:.08em; text-transform:uppercase; }
+    h1,h2,h3,h4 { line-height:1.2; }
+    h1 { margin:.25rem 0 .6rem; }
+    .lede,.muted { color:var(--muted); }
+    .lede { overflow-wrap:anywhere; }
+    .controls { display:flex; flex-wrap:wrap; gap:.6rem; margin:1.25rem 0; }
+    .card { background:var(--paper); border:1px solid var(--line); border-radius:.8rem; padding:clamp(1rem,3vw,2rem); margin:1rem 0; box-shadow:0 2px 8px rgb(23 32 51 / .06); }
+    .preview { max-width:780px; margin-inline:auto; }
+    .asset { margin:1.5rem 0; }
+    .asset img { display:block; width:100%; height:auto; border:1px solid var(--line); background:#fff; }
+    figcaption { margin-top:.5rem; color:var(--muted); font-size:.9rem; overflow-wrap:anywhere; }
+    .prompt { display:grid; gap:.5rem; margin:1.25rem 0; }
+    textarea { width:100%; resize:vertical; border:1px solid #7d899b; border-radius:.4rem; padding:.65rem; }
+    .blocking { border:2px solid var(--danger); border-radius:.55rem; padding:1rem; color:var(--danger); background:#fff7f7; }
+    .zoomed .preview { font-size:2rem; max-width:none; }
+    .zoomed .asset { overflow:auto; }
+    .zoomed .asset img { width:200%; max-width:none; }
+    dl.meta { display:grid; grid-template-columns:max-content 1fr; gap:.35rem 1rem; }
+    dt { font-weight:700; } dd { margin:0; overflow-wrap:anywhere; }
+    table { width:100%; border-collapse:collapse; margin:1rem 0; }
+    .table-scroll { max-width:100%; overflow-x:auto; }
+    th,td { border:1px solid var(--line); padding:.55rem; text-align:left; vertical-align:top; }
+    thead th { background:var(--wash); }
+    .status { display:inline-block; border-radius:999px; padding:.12rem .55rem; font-size:.8rem; font-weight:700; }
+    .pending { color:#6a4700; background:#fff1bf; }
+    .technical { color:#174c70; background:#dbeeff; }
+    .approved { color:#155b31; background:#dff5e7; }
+    .rejected { color:#8a2020; background:#ffe1e1; }
+    .criterion { border-left:4px solid var(--line); padding-left:1rem; margin:1rem 0; }
+    .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+    [hidden] { display:none !important; }
+    @media (max-width:520px) { .page { width:min(100% - 1rem,1040px); margin-top:.5rem; } .card { border-radius:.5rem; padding:1rem; } dl.meta { grid-template-columns:1fr; } dd { margin-bottom:.5rem; } th,td { padding:.4rem; } }
+    @media print { body { background:#fff; } .page { width:100%; margin:0; } .card { box-shadow:none; break-inside:avoid; } .controls,textarea,.submit-response { display:none; } details { display:block; } details > * { display:block; } }
+  </style>
+</head>
+<body>
+<main class="page" id="review-shell">
+  <p class="eyebrow">Draft item-context review · not release eligible</p>
+  <h1>APBIO-FRQ-S-009</h1>
+  <p class="lede">Exact published version de59d53c-1f80-4b1a-9694-10d9e50dcad0; candidate checksum 85c146a2fcf494656635fa32acc7a4d4a050ec6566e71942adcc2f174d1361ea.</p>
+  <div class="controls" aria-label="Review simulations">
+    <button type="button" id="toggle-missing" aria-pressed="false">Simulate required image unavailable</button>
+    <button type="button" id="toggle-zoom" aria-pressed="false">Toggle 200% review</button>
+  </div>
+
+  <section class="card preview" aria-labelledby="learner-heading">
+    <p class="eyebrow">Learner context</p>
+    <h2 id="learner-heading">Question</h2>
+    <p>In eukaryotic cells, the primary RNA transcript undergoes several modifications in the nucleus before export to the cytoplasm for translation.</p>
+    <p>A diagram shows a pre-mRNA with labeled exons (E1, E2, E3) and introns (I1, I2) before processing, and two alternative mature mRNA products after splicing.</p>
+    <div id="image-missing" class="blocking" role="alert" tabindex="-1" hidden>
+      <strong>Required diagram unavailable.</strong> This response is blocked because the visual evidence and its approved equivalent could not be delivered. Retry or use an approved equivalent item.
+    </div>
+    <figure class="asset" id="asset-figure">
+      <img src="../candidates/APBIO-FRQ-S-009-v3-candidate.png" width="1192" height="774" alt="Diagram of one pre-mRNA containing exons E1, E2, and E3 and introns I1 and I2, with two arrows to mature mRNA products labeled E1-E2-E3 and E1-E3.">
+      <figcaption>Candidate asset apbio-frq-s-009-stimulus-v3-candidate</figcaption>
+    </figure>
+    <details>
+      <summary>Text description of the diagram</summary>
+      <p>A pre-mRNA is shown as five consecutive labeled segments: exon E1, intron I1, exon E2, intron I2, and exon E3. One arrow points to mature mRNA 1, whose consecutive segments are E1, E2, and E3. A separate arrow points to mature mRNA 2, whose consecutive segments are E1 and E3.</p>
+    </details>
+    <label class="prompt"><span><strong>(a)</strong> Identify two modifications made to pre-mRNA during RNA processing in eukaryotes other than splicing.</span><textarea data-response-input rows="5" aria-label="Response for part a"></textarea></label>
+<label class="prompt"><span><strong>(b)</strong> Explain how alternative splicing of a single gene can produce multiple different proteins.</span><textarea data-response-input rows="5" aria-label="Response for part b"></textarea></label>
+    <button class="submit-response" type="button">Submit response (review simulation only)</button>
+  </section>
+
+  <section class="card" aria-labelledby="binding-heading">
+    <p class="eyebrow">Immutable binding</p>
+    <h2 id="binding-heading">Asset and item identity</h2>
+    <dl class="meta">
+      <dt>Content key</dt><dd>APBIO-FRQ-S-009</dd>
+      <dt>Content version</dt><dd>de59d53c-1f80-4b1a-9694-10d9e50dcad0 · version 1</dd>
+      <dt>Asset ID</dt><dd>apbio-frq-s-009-stimulus-v3-candidate</dd>
+      <dt>SHA-256</dt><dd>85c146a2fcf494656635fa32acc7a4d4a050ec6566e71942adcc2f174d1361ea</dd>
+      <dt>Dimensions</dt><dd>1192 × 774 px</dd>
+      <dt>Production changed</dt><dd>No</dd>
+    </dl>
+  </section>
+
+  <section class="card" aria-labelledby="access-heading">
+    <p class="eyebrow">Accessibility draft</p>
+    <h2 id="access-heading">Equivalent description and leakage review</h2>
+    <h3>Short alternative</h3><p>Diagram of one pre-mRNA containing exons E1, E2, and E3 and introns I1 and I2, with two arrows to mature mRNA products labeled E1-E2-E3 and E1-E3.</p>
+    <h3>Long description</h3><p>A pre-mRNA is shown as five consecutive labeled segments: exon E1, intron I1, exon E2, intron I2, and exon E3. One arrow points to mature mRNA 1, whose consecutive segments are E1, E2, and E3. A separate arrow points to mature mRNA 2, whose consecutive segments are E1 and E3.</p>
+    <h3>Answer-leakage note</h3><p>Candidate v2 was rejected because a footer explicitly stated the assessed different-exon-combinations mechanism. Candidate v3 removes that footer while retaining a literal description of the visual relationships. Independent grading and accessibility review remain required.</p>
+  </section>
+
+  <section class="card" aria-labelledby="rubric-heading">
+    <p class="eyebrow">Reviewer-only context</p>
+    <h2 id="rubric-heading">Rubric alignment</h2>
+    <article class="criterion"><h4>Criterion a</h4><p>Identify two modifications made to pre-mRNA during RNA processing in eukaryotes other than splicing.</p><p><strong>Evidence requirements:</strong> Any two of: (1) a 5-prime 7-methylguanosine cap is added to the 5-prime end; (2) a poly-A tail of adenine nucleotides is added to the 3-prime end.</p></article>
+<article class="criterion"><h4>Criterion b</h4><p>Explain how alternative splicing of a single gene can produce multiple different proteins.</p><p><strong>Evidence requirements:</strong> Different exons can be included or excluded from the mature mRNA in different cell types or at different developmental stages; each combination of exons produces a different mRNA, which is translated into a different polypeptide with a different amino acid sequence and potentially different function.</p></article>
+    <details><summary>Canonical answers</summary><ol><li>The pre-mRNA is capped, spliced, and polyadenylated before export from the nucleus.</li><li>Alternative splicing joins different combinations of exons from the same pre-mRNA, so one gene can produce multiple proteins with different amino acid sequences.</li></ol></details>
+  </section>
+
+  <section class="card" aria-labelledby="gates-heading">
+    <p class="eyebrow">Hard gates</p>
+    <h2 id="gates-heading">Independent review state</h2>
+    <div class="table-scroll" tabindex="0" aria-label="Independent review gates"><table><thead><tr><th>Gate</th><th>Status</th><th>Reviewer</th><th>Notes</th></tr></thead><tbody><tr><th scope="row">Scientific</th><td><span class="status pending">pending</span></td><td>Unassigned</td><td>—</td></tr>
+<tr><th scope="row">Grading</th><td><span class="status pending">pending</span></td><td>Unassigned</td><td>—</td></tr>
+<tr><th scope="row">Accessibility</th><td><span class="status pending">pending</span></td><td>Unassigned</td><td>—</td></tr>
+<tr><th scope="row">Visual Layout</th><td><span class="status pending">pending</span></td><td>Unassigned</td><td>—</td></tr>
+<tr><th scope="row">Rights</th><td><span class="status pending">pending</span></td><td>Unassigned</td><td>—</td></tr></tbody></table></div>
+    <h3>Render and delivery matrix</h3>
+    <div class="table-scroll" tabindex="0" aria-label="Render and delivery matrix"><table><thead><tr><th>Scenario</th><th>Status</th></tr></thead><tbody><tr><th scope="row">desktop</th><td><span class="status technical">technical_pass</span></td></tr>
+<tr><th scope="row">narrow 360px</th><td><span class="status technical">technical_pass</span></td></tr>
+<tr><th scope="row">in page 200 percent simulation</th><td><span class="status technical">technical_pass</span></td></tr>
+<tr><th scope="row">browser zoom 200 percent</th><td><span class="status pending">pending</span></td></tr>
+<tr><th scope="row">print</th><td><span class="status pending">pending</span></td></tr>
+<tr><th scope="row">image unavailable fail closed</th><td><span class="status technical">technical_pass</span></td></tr>
+<tr><th scope="row">keyboard semantics</th><td><span class="status technical">technical_pass</span></td></tr>
+<tr><th scope="row">screen reader</th><td><span class="status pending">pending</span></td></tr>
+<tr><th scope="row">authenticated reviewer delivery</th><td><span class="status pending">pending</span></td></tr>
+<tr><th scope="row">authenticated student delivery</th><td><span class="status pending">pending</span></td></tr></tbody></table></div>
+  </section>
+</main>
+<script>
+  const shell = document.getElementById('review-shell');
+  const missingButton = document.getElementById('toggle-missing');
+  const zoomButton = document.getElementById('toggle-zoom');
+  const figure = document.getElementById('asset-figure');
+  const missing = document.getElementById('image-missing');
+  const responseControls = [...document.querySelectorAll('[data-response-input], .submit-response')];
+  missingButton.addEventListener('click', () => {
+    const active = missingButton.getAttribute('aria-pressed') !== 'true';
+    missingButton.setAttribute('aria-pressed', String(active));
+    figure.hidden = active;
+    missing.hidden = !active;
+    responseControls.forEach(control => control.disabled = active);
+    if (active) missing.focus();
+  });
+  zoomButton.addEventListener('click', () => {
+    const active = zoomButton.getAttribute('aria-pressed') !== 'true';
+    zoomButton.setAttribute('aria-pressed', String(active));
+    shell.classList.toggle('zoomed', active);
+  });
+</script>
+</body>
+</html>

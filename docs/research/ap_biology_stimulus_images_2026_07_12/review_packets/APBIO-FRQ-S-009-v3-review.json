@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0.0",
+  "review_packet_id": "apbio-frq-s-009-v3-item-context-review",
+  "prepared_at": "2026-08-03T00:00:00Z",
+  "asset_id": "apbio-frq-s-009-stimulus-v3-candidate",
+  "asset_sha256": "85c146a2fcf494656635fa32acc7a4d4a050ec6566e71942adcc2f174d1361ea",
+  "content_key": "APBIO-FRQ-S-009",
+  "content_version_id": "de59d53c-1f80-4b1a-9694-10d9e50dcad0",
+  "content_version_num": 1,
+  "manifest_source": "docs/research/ap_biology_stimulus_images_2026_07_12/manifest.json",
+  "content_source": "docs/research/apbio_frq_tutor_ready_packet.json",
+  "accessibility": {
+    "short_alt": "Diagram of one pre-mRNA containing exons E1, E2, and E3 and introns I1 and I2, with two arrows to mature mRNA products labeled E1-E2-E3 and E1-E3.",
+    "long_description": "A pre-mRNA is shown as five consecutive labeled segments: exon E1, intron I1, exon E2, intron I2, and exon E3. One arrow points to mature mRNA 1, whose consecutive segments are E1, E2, and E3. A separate arrow points to mature mRNA 2, whose consecutive segments are E1 and E3.",
+    "construct_equivalence_status": "pending",
+    "answer_leakage_status": "pending",
+    "answer_leakage_note": "Candidate v2 was rejected because a footer explicitly stated the assessed different-exon-combinations mechanism. Candidate v3 removes that footer while retaining a literal description of the visual relationships. Independent grading and accessibility review remain required."
+  },
+  "preflight": {
+    "exact_version_binding": "verified",
+    "asset_checksum_and_dimensions": "verified",
+    "deterministic_two_run_reproduction": "verified",
+    "standalone_visual_geometry": "technical_pass",
+    "production_changed": false
+  },
+  "review_gates": {
+    "scientific": { "status": "pending", "reviewer": null, "reviewed_at": null, "notes": null },
+    "grading": { "status": "pending", "reviewer": null, "reviewed_at": null, "notes": null },
+    "accessibility": { "status": "pending", "reviewer": null, "reviewed_at": null, "notes": null },
+    "visual_layout": { "status": "pending", "reviewer": null, "reviewed_at": null, "notes": null },
+    "rights": { "status": "pending", "reviewer": null, "reviewed_at": null, "notes": null }
+  },
+  "render_matrix": {
+    "desktop": "technical_pass",
+    "narrow_360px": "technical_pass",
+    "in_page_200_percent_simulation": "technical_pass",
+    "browser_zoom_200_percent": "pending",
+    "print": "pending",
+    "image_unavailable_fail_closed": "technical_pass",
+    "keyboard_semantics": "technical_pass",
+    "screen_reader": "pending",
+    "authenticated_reviewer_delivery": "pending",
+    "authenticated_student_delivery": "pending"
+  },
+  "technical_evidence": {
+    "surface": "local static review page in the Codex in-app browser",
+    "desktop": "Candidate and exact learner prompts rendered together without observed clipping.",
+    "narrow_360px": "Measured 360 CSS-pixel viewport and 360-pixel document scroll width after remediation; the dense gate table is contained in a keyboard-focusable scroller.",
+    "in_page_200_percent_simulation": "Learner preview font measured 32 px, image scrolled within its figure, and the document retained zero page-level horizontal overflow.",
+    "image_unavailable_fail_closed": "The figure was hidden, a focused role=alert appeared, and both response textareas plus the simulated submit control were disabled.",
+    "keyboard_semantics": "DOM inspection confirmed labeled response controls, semantic headings and tables, a focusable missing-image alert, and focusable overflow containers. Independent assistive-technology review remains open."
+  },
+  "release_eligible": false
+}
