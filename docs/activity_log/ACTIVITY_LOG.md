@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- TASK-0018/0019 Released to Production: 17 Migrations Applied, session-event Deployed, Staff QA Setup Complete — 2026-08-02
 - Blocked Five-Subject Branch Archived After Three-Way Verification; §3 Skill Anchoring Source-Verified 55/55; Jill Confirmation Deferred — 2026-08-02
 - Reviewer Unit Picker Moved to the 5-Unit CED; Retired Content Withdrawn From All Review Queues — 2026-08-01
 - AP Statistics FRQ Remediation Executed — 90 Retired, 68 Reclassified, Discovered All Statistics FRQs Were Unservable — 2026-08-01
@@ -49,6 +50,23 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 ---
+
+## TASK-0018/0019 Released to Production: 17 Migrations Applied, session-event Deployed, Staff QA Setup Complete — 2026-08-02
+
+**Task:** TASK-0018 (Hard-Gate) / TASK-0019
+**Status:** Backend released and verified. The Hard-Gate staff QA scenarios (1-10) are set up and awaiting human execution — QA has NOT passed yet.
+
+**Context:** PRs #61 (session lineage), #62 (TASK-0018 Home backend), #63 (TASK-0019 session targets) all merged to `main` on 2026-08-02, in that order, each through the CI merge gate. #62/#63 were verified pre-merge for zero conflicts and zero pre-baseline migration resurrections.
+
+**1. Migrations applied to Production** (`pcntajvbdfqhbeewmdry`): all 17 unapplied files, in version order — `20260731160100`–`160400` (grading view columns; free-score-check growth funnel including the `subject_entitlements` table and attempts-policy swap; staff entitlement backfill; partially_earned criterion status) then `170100`–`171300` (the full TASK-0018/0019 chain). Each recorded in `supabase_migrations.schema_migrations` under its exact file version, so `db push` parity holds. Also inserted a history-parity row for `20260802020000` (previously applied but recorded under execution-time version `20260802021714`). Independently verified after application: 250 entitlement rows (25 profiles × 10 subjects; the 18-staff lockout-prevention backfill confirmed), `attempts_entitled_owner_insert` live and old policy gone, `session_targets` table + RPCs present, `task0019-sweep-session-targets` cron scheduled.
+
+**2. `session-event` function deployed** from merged `main`.
+
+**3. Staff QA setup (per `TASK-0018-PRODUCTION-STAFF-QA-SCRIPT.md`):** S1 manifest row enabled and eligibility confirmed exactly as scripted (`biology | 56 | 10 | t`); S2 `home-v2` flags assigned (7-day expiry) to Orly Bloom, Micah Bloom, ibtisam mohammed, and David; S3 verified all three testers already at first-run state (no reset needed — no subject, no onboarding, 0 sessions/attempts).
+
+**Remaining before the gate can pass (human-only):** (1) set `HOME_V2_GLOBAL_ENABLED=true` in the Vercel server environment (`exam-buddy-wireframe`) and redeploy — the flag system fails closed until then; (2) staff execute scenarios 1–10 as authenticated testers. Scenarios 3, 4, 5, 7, 8 are non-waivable. A pass authorizes staff validation only — making Home V2 the student default is a separate Hard Gate.
+
+**Also in this commit:** DECISION-0044 (Universal Publication Rule, David 2026-08-02) with its implementation script, and two Gulgeldi reviewer-packet scripts — all from a parallel session, surfaced via file sync. Note for operators: the repo lives in an iCloud-synced directory; sync generated 400+ duplicate " N"-suffixed files during today's heavy git activity (all verified byte-identical and removed). Consider moving the repo out of `~/Documents` or excluding it from sync.
 
 ## Blocked Five-Subject Branch Archived After Three-Way Verification; §3 Skill Anchoring Source-Verified 55/55; Jill Confirmation Deferred — 2026-08-02
 
