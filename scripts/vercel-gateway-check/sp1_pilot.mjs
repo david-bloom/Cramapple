@@ -149,6 +149,19 @@ const Arms = {
   'SP-FAST': { model: 'openai/gpt-4o-mini', boundaryMemory: true, maxOutputTokens: 150, parallelCriteria: true, prefilter: true, escalates: false, criterionTimeoutMs: 4000 },
   'SP-FAST-ESC': { model: 'openai/gpt-4o-mini', boundaryMemory: true, maxOutputTokens: 150, parallelCriteria: true, prefilter: true, escalates: true, criterionTimeoutMs: 4000, escalationTimeoutMs: 8000, escalationModel: 'openai/gpt-5.5', escalationReasoningEffort: 'medium' },
   'SP-FAST-Haiku': { model: 'anthropic/claude-haiku-4-5', boundaryMemory: true, maxOutputTokens: 150, parallelCriteria: true, prefilter: true, escalates: false, criterionTimeoutMs: 4000 },
+  // Frozen reproduction of the original June n=40 result. Keep this arm free
+  // of post-hoc audits/escalation so the comparison is configuration-identical
+  // to the 146/160 baseline.
+  'SP-FAST-Gemini-NoAudit': {
+    model: 'google/gemini-2.5-flash',
+    boundaryMemory: true,
+    maxOutputTokens: 150,
+    parallelCriteria: true,
+    prefilter: true,
+    escalates: false,
+    criterionTimeoutMs: 4000,
+    providerOptions: { google: { thinkingConfig: { thinkingBudget: 0, includeThoughts: false } } },
+  },
   'SP-FAST-Gemini': {
     model: 'google/gemini-2.5-flash',
     boundaryMemory: true,
@@ -373,7 +386,9 @@ function fail(message) {
 function loadRows(filePath) {
   const rows = fs.readFileSync(filePath, 'utf8').split('\n').filter(Boolean).map((line) => JSON.parse(line));
   for (const row of rows) {
-    if (row.label_status !== 'learning_quality_approved' || row.use_as_ground_truth !== true) {
+    const acceptedStatus = row.label_status === 'learning_quality_approved'
+      || row.label_status === 'adjudicated_final_gold';
+    if (!acceptedStatus || row.use_as_ground_truth !== true) {
       fail(`row ${row.response_id} is not approved ground truth`);
     }
   }
@@ -889,11 +904,12 @@ function parseArgs(argv) {
   // maxCostUsd is a hard spend ceiling. The run stops launching new
   // response x arm units once cumulative estimated cost crosses it. Default $10.
   // Set to 0 or a negative value to disable the cap entirely.
-  const out = { limit: 40, output: DEFAULT_OUTPUT, arms: Object.keys(Arms), maxCostUsd: 10 };
+  const out = { limit: 40, output: DEFAULT_OUTPUT, labels: LABELS_PATH, arms: Object.keys(Arms), maxCostUsd: 10 };
   for (let i = 2; i < argv.length; i += 1) {
     const arg = argv[i];
     if (arg === '--limit') out.limit = Number(argv[++i]);
     else if (arg === '--output') out.output = argv[++i];
+    else if (arg === '--labels') out.labels = path.resolve(argv[++i]);
     else if (arg === '--arms') out.arms = argv[++i].split(',').map((s) => s.trim()).filter(Boolean);
     else if (arg === '--max-cost-usd') out.maxCostUsd = Number(argv[++i]);
     else if (arg === '--dry-run') out.dryRun = true;
@@ -908,7 +924,7 @@ async function main() {
   const modelAuthPresent = gatewayAvailable() || Boolean(process.env.OPENAI_API_KEY);
   if (!modelAuthPresent && !args.dryRun) fail('AI_GATEWAY_API_KEY, VERCEL_OIDC_TOKEN, or OPENAI_API_KEY is not set');
 
-  const allRows = loadRows(LABELS_PATH);
+  const allRows = loadRows(args.labels);
   const corpus = selectCorpus(allRows, args.limit);
 
   const capEnabled = args.maxCostUsd > 0;
@@ -920,6 +936,7 @@ async function main() {
     console.log(`Planned criterion calls: ${corpus.length * args.arms.length * CRITERION_IDS.length} (excluding escalation/retry)`);
     console.log(`Cost cap: ${capLabel} (estimated, from the PRICING table; halts new units when crossed)`);
     console.log(`Response IDs: ${corpus.map((r) => r.response_id).join(', ')}`);
+    shutdownMisattributionChecker();
     return;
   }
 
