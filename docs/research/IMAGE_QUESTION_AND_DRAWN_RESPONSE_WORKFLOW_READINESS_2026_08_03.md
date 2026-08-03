@@ -135,7 +135,7 @@ records:
 - exact immutable image ID and SHA-256;
 - original versus approved derivative role;
 - direct parent-original identity;
-- underlying response and item identity;
+- underlying response, item, and exact content-item-version identity;
 - relative/private object name rather than a public URL;
 - byte length and pixel dimensions;
 - transformation method, version, and parameters;
@@ -156,6 +156,15 @@ records only when every image is uniquely declared and the complete output
 passes the capture-image schema and cross-record provenance rules. The local
 corpus result is recorded in
 `HAND_DRAWN_CORPUS_READINESS_AUDIT_2026_08_03.md`.
+
+`capture_session_event.schema.json` and the extended validator now cover the
+append-only response lifecycle before analysis: short-lived single-use pairing,
+QR/direct fallback, replay rejection, immutable capture and retake, learner
+review/removal, quality-gated explicit submission, recovery, cancellation,
+expiry, and duplicate-submission rejection. Captures must link back to an
+eligible original with the same response and exact item version. The executable
+contract and its 27-event synthetic fixture are documented in
+`HAND_DRAWN_CAPTURE_SESSION_CONTRACT_2026_08_03.md`.
 
 ### Response workflow
 

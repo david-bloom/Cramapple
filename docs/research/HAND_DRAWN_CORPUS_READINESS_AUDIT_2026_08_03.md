@@ -56,9 +56,10 @@ response identity.
 
 ## Required remediation
 
-1. Obtain an authoritative file-by-file declaration covering response/item
-   identity, provenance, consent basis, storage scope, and capture/ingestion
-   timestamps. Do not infer these fields from directory or file names.
+1. Obtain an authoritative file-by-file declaration covering response, item,
+   exact content-item-version identity, provenance, consent basis, storage
+   scope, and capture/ingestion timestamps. Do not infer these fields from
+   directory or file names.
 2. Resolve each duplicate group against that declaration. Preserve the
    governed original; do not silently select a copy by path order.
 3. Decide, with privacy/security review, whether original ancillary metadata

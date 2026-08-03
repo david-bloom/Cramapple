@@ -125,6 +125,14 @@ validated against synthetic fixtures only.
   schemas. The capture-image record closes the previous raw/derived-image
   provenance gap without selecting a production database or storage provider.
 - `scripts/drawn_response/validate_records.py` — structural validation CLI
+- `scripts/drawn_response/schemas/capture_session_event.schema.json` plus
+  `scripts/drawn_response/fixtures/capture_session_events.valid.jsonl` —
+  append-only offline session state contract covering pairing, replay,
+  fallback, retake, recovery, learner removal/review, quality-gated explicit
+  submission, duplicate rejection, cancellation, and expiry. It links every
+  capture to an eligible immutable original with the exact content-item
+  version. See
+  `docs/research/HAND_DRAWN_CAPTURE_SESSION_CONTRACT_2026_08_03.md`.
 - `scripts/drawn_response/prepare_capture_corpus.py` — privacy-preserving,
   read-only aggregate audit plus fail-closed capture-image manifest builder.
   The 2026-08-03 local audit confirmed 372 readable images, 78 exact duplicate
