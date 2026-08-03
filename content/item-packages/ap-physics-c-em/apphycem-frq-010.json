@@ -1,0 +1,149 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apphycem-frq-010",
+  "content_key": "apphycem-frq-010",
+  "content_version": 1,
+  "difficulty": "Medium",
+  "frq_form": "short",
+  "canonical_answers": [
+    "Solving RC dV/dt+V=0 gives V=V₀e^{-t/RC} and I=-(V₀/R)e^{-t/RC}."
+  ],
+  "exam_pack_ref": {
+    "exam_code": "ap_physics_c_em",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "frq",
+  "archetype_ref": {
+    "archetype_key": "ap-physics-c-em-frq-experimental",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-physics-c-em-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-11-electric-circuits"
+    },
+    {
+      "scheme_key": "ap-physics-c-em-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-1"
+    }
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "scenario",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "A capacitor C initially at voltage V₀ discharges through resistance R at t=0."
+      },
+      "source_refs": [
+        "ap-physics-c-em-ced-fact-pack"
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "part_key": "part-a",
+      "ordinal": 1,
+      "label": "(a)",
+      "prompt": "Design a feasible measurement that tests the governing relation; identify the independent variable, dependent variable, and one control.",
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion",
+          "points": 1,
+          "description": "A valid design varies the resistance R as the independent variable, measures the resulting time constant τ (from the slope of ln V vs. t) as the dependent variable, and holds the capacitance C and initial voltage V₀ constant as controls, consistent with V=V₀e^{-t/RC}.",
+          "required_evidence": [
+            "independent variable: resistance R",
+            "dependent variable: measured time constant τ=RC",
+            "control: constant C and V₀"
+          ],
+          "accepted_variants": [
+            "Equivalent scientifically correct notation and reasoning earn credit."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "resistance R",
+                  "time constant",
+                  "constant capacitance"
+                ]
+              }
+            }
+          ],
+          "minimum_fix": "To earn this point, explicitly show independent variable: resistance R; dependent variable: measured time constant τ=RC; control: constant C and V₀."
+        }
+      ],
+      "stimulus_refs": [
+        "scenario"
+      ]
+    },
+    {
+      "part_key": "part-b",
+      "ordinal": 2,
+      "label": "(b)",
+      "prompt": "State the governing principle (Kirchhoff's voltage law) and the initial-condition assumption V(0)=V₀ for an ideal RC loop, and explain why each must hold for the measurement to isolate the time constant.",
+      "response_modalities": [
+        "typed-text"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-b-criterion",
+          "points": 1,
+          "description": "State the governing principle (Kirchhoff's voltage law) and the initial-condition assumption V(0)=V₀ for an ideal RC loop, and explain why each must hold for the measurement to isolate the time constant.",
+          "required_evidence": [
+            "Kirchhoff's voltage law",
+            "initial condition V(0)=V₀"
+          ],
+          "accepted_variants": [
+            "Equivalent scientifically correct notation and reasoning earn credit."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "Kirchhoff's voltage law",
+                  "initial condition V(0)=V₀"
+                ]
+              }
+            }
+          ],
+          "minimum_fix": "To earn this point, explicitly show Kirchhoff's voltage law; initial condition V(0)=V₀."
+        }
+      ],
+      "stimulus_refs": [
+        "scenario"
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "Text and symbolic notation are fully described."
+  },
+  "review_notes": {
+    "expected_reasoning": "Solving RC dV/dt+V=0 gives V=V₀e^{-t/RC} and I=-(V₀/R)e^{-t/RC}.",
+    "known_boundary_cases": [],
+    "originality_statement": "Independently authored synthetic draft for Tutor review; no official question or scoring material used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-physics-c-em-ced-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-15",
+    "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
+    "generated_by": "codex",
+    "generated_at": "2026-07-15T00:00:00Z",
+    "content_sha256": "f78e9888b1b25bc9d74beb40fe03b64c29fe0e04e4629b73f4ce14b0ad423484"
+  }
+}

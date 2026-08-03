@@ -138,7 +138,7 @@ Durability (has the work reached GitHub so it isn't trapped on one machine) and 
 
 ### Branch Hygiene — R1–R7 (canonical)
 
-Adopted under `DECISION-0043` / `APPROVAL-0040`. **This section is the canonical
+Adopted 2026-07-26 as a Hard Gate under `APPROVAL-0027` / `DECISION-0039` (proposal PR #54, governance PR #55); restated and operationalized under `DECISION-0043` / `APPROVAL-0040`. **This section is the canonical
 statement of R1–R7.** Source proposal (evidence and rationale, not authority):
 `docs/proposals/BRANCH_HYGIENE_AND_ANTI_SPRAWL_2026_07_09.md`. Any other document
 that describes these rules must reference this section rather than restate it.
@@ -169,6 +169,10 @@ than once as a result.
 ```
 git tag archive/<work-id> <branch> && git branch -D <branch>
 ```
+
+Operational enforcement (GitHub branch protection, required CI checks, native
+auto-merge, one-time branch/worktree cleanup) is tracked separately from this
+charter text — see the proposal's sequence.
 
 ## Universal Document Format Rule
 

@@ -1,0 +1,149 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apphy2-frq-009",
+  "content_key": "apphy2-frq-009",
+  "content_version": 1,
+  "difficulty": "Medium",
+  "frq_form": "short",
+  "canonical_answers": [
+    "Independent variable: position along the line joining the charges. Dependent variable: measured net field magnitude (or potential). Control: charge magnitudes and separation held fixed."
+  ],
+  "exam_pack_ref": {
+    "exam_code": "ap_physics_2",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "frq",
+  "archetype_ref": {
+    "archetype_key": "ap-physics-2-frq-experimental",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-physics-2-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-10-electric-force-field-and-potential"
+    },
+    {
+      "scheme_key": "ap-physics-2-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-3"
+    }
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "scenario",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "Two +2.00 μC point charges are 0.400 m apart; consider their midpoint."
+      },
+      "source_refs": [
+        "ap-physics-2-ced-fact-pack"
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "part_key": "part-a",
+      "ordinal": 1,
+      "label": "(a)",
+      "prompt": "Design a feasible measurement that tests the governing relation; identify the independent variable, dependent variable, and one control.",
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion",
+          "points": 1,
+          "description": "A feasible measurement design: sweep a field probe (or small test charge) along the line joining the two charges and record the net electric field magnitude (or potential) at each position. Independent variable = position along the line joining the two charges; dependent variable = measured net field magnitude (or potential) at that position; control = the charge magnitudes (2.00 μC each) and their 0.400 m separation, held fixed across trials.",
+          "required_evidence": [
+            "independent variable: position along the line joining the charges",
+            "dependent variable: measured net field magnitude or potential",
+            "control: charge magnitudes and separation held fixed"
+          ],
+          "accepted_variants": [
+            "Equivalent scientifically correct notation and reasoning earn credit."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "position along the line",
+                  "net field magnitude",
+                  "held fixed"
+                ]
+              }
+            }
+          ],
+          "minimum_fix": "To earn this point, explicitly show independent variable: position along the line joining the charges; dependent variable: measured net field magnitude or potential; control: charge magnitudes and separation held fixed."
+        }
+      ],
+      "stimulus_refs": [
+        "scenario"
+      ]
+    },
+    {
+      "part_key": "part-b",
+      "ordinal": 2,
+      "label": "(b)",
+      "prompt": "Explain how treating each charge as an ideal point charge in a vacuum justifies using Coulomb's law separately for each charge before superposing the results.",
+      "response_modalities": [
+        "typed-text"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-b-criterion",
+          "points": 1,
+          "description": "Explain how treating each charge as an ideal point charge in a vacuum justifies using Coulomb's law separately for each charge before superposing the results.",
+          "required_evidence": [
+            "point-charge (Coulomb's law) assumption",
+            "superposition of the two individual contributions"
+          ],
+          "accepted_variants": [
+            "Equivalent scientifically correct notation and reasoning earn credit."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "point charge",
+                  "Coulomb's law"
+                ]
+              }
+            }
+          ],
+          "minimum_fix": "To earn this point, explicitly show point-charge (Coulomb's law) assumption; superposition of the two individual contributions."
+        }
+      ],
+      "stimulus_refs": [
+        "scenario"
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "Text and symbolic notation are fully described."
+  },
+  "review_notes": {
+    "expected_reasoning": "Independent variable: position along the line joining the charges. Dependent variable: measured net field magnitude (or potential). Control: charge magnitudes and separation held fixed.",
+    "known_boundary_cases": [],
+    "originality_statement": "Independently authored synthetic draft for Tutor review; no official question or scoring material used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-physics-2-ced-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-15",
+    "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
+    "generated_by": "codex",
+    "generated_at": "2026-07-15T00:00:00Z",
+    "content_sha256": "4010ea600aaddd8f7d7d1ec16ecdfb72a0843a045d0014a411d8d4ed9de1b831"
+  }
+}

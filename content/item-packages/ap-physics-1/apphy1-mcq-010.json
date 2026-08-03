@@ -1,0 +1,109 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apphy1-mcq-010",
+  "content_key": "apphy1-mcq-010",
+  "content_version": 1,
+  "difficulty": "Medium",
+  "exam_pack_ref": {
+    "exam_code": "ap_physics_1",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "mcq",
+  "archetype_ref": {
+    "archetype_key": "ap-physics-1-mcq",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-physics-1-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-4-linear-momentum"
+    },
+    {
+      "scheme_key": "ap-physics-1-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-1"
+    }
+  ],
+  "stimuli": [],
+  "mcq_choices": [
+    {
+      "choice_key": "A",
+      "choice_text": "equal speed changes",
+      "is_correct": false,
+      "rationale": "Assumes equal momentum changes imply equal speed changes, ignoring that unequal masses would give unequal Deltav for the same Deltap."
+    },
+    {
+      "choice_key": "B",
+      "choice_text": "equal mass",
+      "is_correct": false,
+      "rationale": "Treats equal-and-opposite impulses as a statement about the objects' masses rather than about the forces and time of contact they share."
+    },
+    {
+      "choice_key": "C",
+      "choice_text": "equal-magnitude momentum changes",
+      "is_correct": true,
+      "rationale": "impulse equals momentum change"
+    },
+    {
+      "choice_key": "D",
+      "choice_text": "equal kinetic energies",
+      "is_correct": false,
+      "rationale": "Assumes equal momentum changes give equal kinetic energy changes, ignoring that KE depends on v-squared and mass, which can split unevenly between the objects."
+    }
+  ],
+  "canonical_answers": [
+    "C"
+  ],
+  "parts": [
+    {
+      "part_key": "question",
+      "ordinal": 1,
+      "prompt": "During a collision, equal and opposite impulses imply that the two objects have\n\nA. equal speed changes\nB. equal mass\nC. equal-magnitude momentum changes\nD. equal kinetic energies",
+      "response_modalities": [
+        "choice"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-answer",
+          "points": 1,
+          "description": "Select the single scientifically correct answer.",
+          "required_evidence": [
+            "C",
+            "impulse equals momentum change"
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "choice-key",
+              "parameters": {
+                "choice": "C"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All information is text-based."
+  },
+  "review_notes": {
+    "expected_reasoning": "impulse equals momentum change",
+    "known_boundary_cases": [],
+    "originality_statement": "Independently authored synthetic practice item; no official question or scoring material used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-physics-1-ced-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-15",
+    "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
+    "generated_by": "codex",
+    "generated_at": "2026-07-15T00:00:00Z",
+    "content_sha256": "e49aa407ef016c238a679019ab5cc0ad5e6a1fc49a20a950dd929e34ee3e41d1"
+  }
+}

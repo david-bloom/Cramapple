@@ -1,0 +1,109 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apphy1-mcq-002",
+  "content_key": "apphy1-mcq-002",
+  "content_version": 1,
+  "difficulty": "Easy",
+  "exam_pack_ref": {
+    "exam_code": "ap_physics_1",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "mcq",
+  "archetype_ref": {
+    "archetype_key": "ap-physics-1-mcq",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-physics-1-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-1-kinematics"
+    },
+    {
+      "scheme_key": "ap-physics-1-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-2"
+    }
+  ],
+  "stimuli": [],
+  "mcq_choices": [
+    {
+      "choice_key": "A",
+      "choice_text": "acceleration",
+      "is_correct": false,
+      "rationale": "Confuses the area under the curve with its slope; the slope of a v-t graph is acceleration, not the area."
+    },
+    {
+      "choice_key": "B",
+      "choice_text": "displacement",
+      "is_correct": true,
+      "rationale": "integrating velocity over time gives displacement"
+    },
+    {
+      "choice_key": "C",
+      "choice_text": "force",
+      "is_correct": false,
+      "rationale": "Treats the graph as if it plotted force against time, where the area would give impulse rather than force itself."
+    },
+    {
+      "choice_key": "D",
+      "choice_text": "power",
+      "is_correct": false,
+      "rationale": "Mistakes the accumulated area for a rate of energy transfer rather than an accumulated distance."
+    }
+  ],
+  "canonical_answers": [
+    "B"
+  ],
+  "parts": [
+    {
+      "part_key": "question",
+      "ordinal": 1,
+      "prompt": "The area under a velocity-versus-time graph represents\n\nA. acceleration\nB. displacement\nC. force\nD. power",
+      "response_modalities": [
+        "choice"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-answer",
+          "points": 1,
+          "description": "Select the single scientifically correct answer.",
+          "required_evidence": [
+            "B",
+            "integrating velocity over time gives displacement"
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "choice-key",
+              "parameters": {
+                "choice": "B"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All information is text-based."
+  },
+  "review_notes": {
+    "expected_reasoning": "integrating velocity over time gives displacement",
+    "known_boundary_cases": [],
+    "originality_statement": "Independently authored synthetic practice item; no official question or scoring material used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-physics-1-ced-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-15",
+    "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
+    "generated_by": "codex",
+    "generated_at": "2026-07-15T00:00:00Z",
+    "content_sha256": "8d9d21787323ecc928fccaeb3221f4ebdf1b0ee1f0bbf6245f109da954025651"
+  }
+}

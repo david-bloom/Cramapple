@@ -7,6 +7,7 @@ This log records product, architecture, operating, security, design, and workflo
 Most recent entries (full chronological list follows below):
 
 - DECISION-0043 — Operationalize Branch Hygiene R1–R7 (Trunk Protection, CI, Auto-Delete)
+- DECISION-0039 — Adopt Branch Hygiene Rules (R1–R7) to Resolve and Prevent Branch Sprawl
 - DECISION-0035 — Resolve Phase 0 of the Backend Consolidation Migration (Schema Reconciliation, Option A/A2)
 - DECISION-0031 — Launch AP Statistics as Subject 2, Reusing the Tutor-Authored Content Model
 - DECISION-0030 — Failed/Rejected Grading Burns the Daily Budget Cap When Cost Is Known
@@ -1547,3 +1548,55 @@ column).
   `claude/backend-consolidation-migration` (off `main`). `main` is at
   DECISION-0032; branches for DECISION-0033/0034 are outstanding. If numbering
   collides on merge, renumber whichever merges second and update the index.
+
+## DECISION-0039 — Adopt Branch Hygiene Rules (R1–R7) to Resolve and Prevent Branch Sprawl
+
+**Date:** 2026-07-26
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Related Task:** N/A (operating-model / charter change)
+**Area:** Operations
+
+### Context
+
+Recurring branch sprawl (20 local / 21 remote branches, 9 worktrees, per-session
+branch names, unmerged divergence, orphaned uncommitted work) caused real work loss.
+Reconciled across Claude v1 → Codex second opinion → PR #54 review rounds 1–2.
+
+### Decision
+
+Adopt R1–R7: (R1) branch = one reviewable slice named
+`<agent>/<task-or-work-id>-<slug>`, continue-don't-fork; (R2) continuation via the
+canonical task record's `Branch`/`PR` fields, machine-local paths ephemeral; (R3)
+integrate small slices via small PRs, no standing integration branches; (R4) durable
+session close (commit-and-push checkpoint; explicit dirty-state handoff if
+interrupted); (R5) readiness (human) separated from execution (GitHub-native
+auto-merge/merge-queue), custom privileged agent contingent not default; (R6)
+delete-on-merge of the remote head, local cleanup client-side, archive-tag only
+unique unmerged work; (R7) removal preflight = no uncommitted changes + no unique
+commits + no unpushed refs. Trunk protection: no normal direct commits to `main`;
+force-push/deletion blocked; human-only break-glass.
+
+### Rationale
+
+Per-session branching + slow integration + no cleanup was the root cause; branch =
+slice + task-record continuation is the highest-leverage fix. GitHub-native
+automation is preferred over a custom privileged agent for lower privilege/risk.
+See APPROVAL-0027 and the source proposal (merged PR #54).
+
+### Consequences
+
+- Charter + session prompts now require branch-per-slice, task-record continuation,
+  durable session close, and delete-on-merge; agents follow R1–R7 going forward.
+- `main` is the single integrated-truth trunk; active work stays on scoped branches
+  until reviewable.
+
+### Risks / Follow-ups
+
+- Operational enforcement (main branch protection, required CI checks, native
+  auto-merge) is not yet in place — sequenced separately in the proposal (steps 5–9).
+- One-time cleanup of the existing 20 branches / 9 worktrees is a separate phased
+  pass (step 10), from a clean checkout, after recovery PRs #50–#52 finish.
+- Numbering: DECISION-0039 / APPROVAL-0027 were allocated above open-PR claims
+  (#38/#39/#43 claim 0026/0036, #39 up to 0038); recheck open PRs immediately before
+  merge and renumber the later-merging branch on any collision.

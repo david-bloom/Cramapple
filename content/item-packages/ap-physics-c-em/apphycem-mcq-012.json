@@ -1,0 +1,109 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apphycem-mcq-012",
+  "content_key": "apphycem-mcq-012",
+  "content_version": 1,
+  "difficulty": "Medium",
+  "exam_pack_ref": {
+    "exam_code": "ap_physics_c_em",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "mcq",
+  "archetype_ref": {
+    "archetype_key": "ap-physics-c-em-mcq",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-physics-c-em-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-11-electric-circuits"
+    },
+    {
+      "scheme_key": "ap-physics-c-em-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-3"
+    }
+  ],
+  "stimuli": [],
+  "mcq_choices": [
+    {
+      "choice_key": "A",
+      "choice_text": "energy",
+      "is_correct": false,
+      "rationale": "This confuses the junction rule with the loop rule, which follows from energy conservation, not charge conservation."
+    },
+    {
+      "choice_key": "B",
+      "choice_text": "charge",
+      "is_correct": true,
+      "rationale": "current continuity prevents charge accumulation at an ideal junction"
+    },
+    {
+      "choice_key": "C",
+      "choice_text": "angular momentum",
+      "is_correct": false,
+      "rationale": "This invokes an unrelated conservation law with no bearing on current flow at a junction."
+    },
+    {
+      "choice_key": "D",
+      "choice_text": "mass only",
+      "is_correct": false,
+      "rationale": "This misapplies mass conservation, a law irrelevant to the conservation of charge underlying the junction rule."
+    }
+  ],
+  "canonical_answers": [
+    "B"
+  ],
+  "parts": [
+    {
+      "part_key": "question",
+      "ordinal": 1,
+      "prompt": "Kirchhoff's junction rule follows from conservation of\n\nA. energy\nB. charge\nC. angular momentum\nD. mass only",
+      "response_modalities": [
+        "choice"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "correct-answer",
+          "points": 1,
+          "description": "Select the single scientifically correct answer.",
+          "required_evidence": [
+            "B",
+            "current continuity prevents charge accumulation at an ideal junction"
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "choice-key",
+              "parameters": {
+                "choice": "B"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "All information is text-based."
+  },
+  "review_notes": {
+    "expected_reasoning": "current continuity prevents charge accumulation at an ideal junction",
+    "known_boundary_cases": [],
+    "originality_statement": "Independently authored synthetic practice item; no official question or scoring material used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-physics-c-em-ced-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-15",
+    "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
+    "generated_by": "codex",
+    "generated_at": "2026-07-15T00:00:00Z",
+    "content_sha256": "53001fd1796c8ce0528a59090393ea28acb2a7e7ec4a998632348bc5a838b52e"
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cramapple.internal/schemas/drawn_response/partition_manifest.schema.json",
+  "title": "Drawn-Response Corpus Partition Manifest",
+  "$comment": "Defined by docs/research/TASK-0011_PHASE_1_EXECUTION_SPEC.md section 8.1 (partition sizes and governance coverage) and section 6.1 (role access control). Partitioning happens by underlying response before photograph/preprocessing variants are created. Item authors may access development cases but must never access locked_holdout or challenge cases (Architecture Review section 4.11 review-sequence; spec section 6.1).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["corpus_version", "item_id", "archetype", "generated_at", "responses"],
+  "properties": {
+    "corpus_version": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Versioned identifier for this manifest snapshot, e.g. 'phase1-v0.1'."
+    },
+    "item_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "One manifest covers one item's response partitions (e.g. 'DRG-P1-01')."
+    },
+    "archetype": {
+      "type": "string",
+      "enum": [
+        "categorical_comparison_with_supplied_uncertainty",
+        "continuous_measured_series_with_supplied_uncertainty",
+        "continuous_relationship_with_graph_derived_estimate"
+      ],
+      "description": "The three phase-1 archetypes from spec section 1."
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "responses": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "response_id",
+          "partition",
+          "assigned_date",
+          "capture_image_ids",
+          "access_locked",
+          "authorized_roles",
+          "excluded_principals",
+          "characteristic_tags"
+        ],
+        "properties": {
+          "response_id": { "type": "string", "minLength": 1 },
+          "partition": {
+            "type": "string",
+            "enum": ["development", "calibration", "locked_holdout", "challenge"],
+            "description": "Spec section 8.1 table: development=15/item, calibration=10/item, locked_holdout=20/item, challenge=5/item."
+          },
+          "assigned_date": { "type": "string", "format": "date-time" },
+          "capture_image_ids": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "minItems": 2,
+            "description": "Spec section 8.1: at least two captures per response."
+          },
+          "access_locked": {
+            "type": "boolean",
+            "description": "Must be true for locked_holdout and challenge partitions until the one-time comparison opens (section 6.2 step 10; section 8.1)."
+          },
+          "authorized_roles": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "corpus_coordinator",
+                "grading_validator_a",
+                "grading_validator_b",
+                "lead_grading_validator",
+                "capture_reviewer",
+                "learning_quality_owner",
+                "item_author"
+              ]
+            },
+            "description": "Roles from spec section 6.1 permitted to access this response's labels before the partition unlocks."
+          },
+          "excluded_principals": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "description": "Named individuals barred from this response, e.g. the item's own author for locked_holdout/challenge entries, or one of a blind pair's two validators barred from seeing the other's labels (section 6.1: 'same person may not label both sides of a blind pair')."
+          },
+          "characteristic_tags": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "partial_credit",
+                "contradictory_or_inconsistent",
+                "ambiguous_or_adversarial",
+                "capture_defect",
+                "varied_capture_condition"
+              ]
+            },
+            "description": "Used to check the section 8.1 governance coverage minimums (>=15% partial_credit, >=10% contradictory_or_inconsistent, >=10% ambiguous_or_adversarial across the eligible corpus). Not mutually exclusive."
+          }
+        }
+      }
+    }
+  }
+}

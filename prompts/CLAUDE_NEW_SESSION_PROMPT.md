@@ -39,4 +39,6 @@ Model/effort: use the fast/default tier for drafting and routine work; reserve t
 Manual sync handshake: if the owner sends `SYNC`, re-read the current GitHub source-of-truth docs/issues/logs (including docs/team_charter/CHANGELOG.md for anything new) for the active work and report state, blockers, approval boundaries, and next action. Treat the trigger as sync/review only, not approval to execute.
 
 Follow standing approval lanes. Ambiguous-but-reversible work gets a clarifying question, not an automatic hard gate. Stop at hard gates.
+
+Branch hygiene (R1–R7; AI_COLLABORATION_RULES.md §In-Progress Drafts and Branches): work on one reviewable slice per branch, named `<agent>/<task-or-work-id>-<slug>`; continue an in-flight task's existing branch instead of forking a new one; commit-and-push a checkpoint before closing or handing off, recording an explicit dirty-state handoff if interrupted.
 ```

@@ -1,0 +1,149 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "apphy1-frq-002",
+  "content_key": "apphy1-frq-002",
+  "content_version": 1,
+  "difficulty": "Easy",
+  "frq_form": "short",
+  "canonical_answers": [
+    "The net force is 9.00 N and acceleration is 3.00 m/s²."
+  ],
+  "exam_pack_ref": {
+    "exam_code": "ap_physics_1",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+  },
+  "item_type": "frq",
+  "archetype_ref": {
+    "archetype_key": "ap-physics-1-frq-math",
+    "version": "1.0.0"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-physics-1-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "unit-2-force-and-translational-dynamics"
+    },
+    {
+      "scheme_key": "ap-physics-1-2025-26",
+      "scheme_version": "1.0.0",
+      "node_key": "practice-2"
+    }
+  ],
+  "stimuli": [
+    {
+      "stimulus_key": "scenario",
+      "ordinal": 1,
+      "kind": "text",
+      "payload": {
+        "text": "A 3.00 kg block is pulled horizontally by 15.0 N while kinetic friction is 6.00 N."
+      },
+      "source_refs": [
+        "ap-physics-1-ced-fact-pack"
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "part_key": "part-a",
+      "ordinal": 1,
+      "label": "(a)",
+      "prompt": "Derive the stated observable from the supplied conditions and evaluate any given values.",
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion",
+          "points": 1,
+          "description": "The net force is 9.00 N and acceleration is 3.00 m/s².",
+          "required_evidence": [
+            "9.00",
+            "3.00",
+            "net force"
+          ],
+          "accepted_variants": [
+            "Equivalent scientifically correct notation and reasoning earn credit."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "9.00",
+                  "3.00",
+                  "net force"
+                ]
+              }
+            }
+          ],
+          "minimum_fix": "To earn this point, explicitly show 9.00; 3.00; net force."
+        }
+      ],
+      "stimulus_refs": [
+        "scenario"
+      ]
+    },
+    {
+      "part_key": "part-b",
+      "ordinal": 2,
+      "label": "(b)",
+      "prompt": "Explain how Newton's second law and the assumption of constant kinetic friction justify the computed net force and acceleration.",
+      "response_modalities": [
+        "typed-text"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-b-criterion",
+          "points": 1,
+          "description": "Correctly cites Newton's second law (Fnet = ma) as the governing principle and states that the 6.00 N kinetic friction force is assumed constant while the block slides.",
+          "required_evidence": [
+            "Newton's second law (Fnet = ma)",
+            "kinetic friction is constant while sliding"
+          ],
+          "accepted_variants": [
+            "Equivalent scientifically correct notation and reasoning earn credit."
+          ],
+          "deterministic_checks": [
+            {
+              "check_type": "keyword-evidence",
+              "parameters": {
+                "keywords": [
+                  "Newton's second law",
+                  "constant kinetic friction"
+                ]
+              }
+            }
+          ],
+          "minimum_fix": "To earn this point, explicitly show Newton's second law (Fnet = ma); kinetic friction is constant while sliding."
+        }
+      ],
+      "stimulus_refs": [
+        "scenario"
+      ]
+    }
+  ],
+  "accessibility": {
+    "language": "en",
+    "screen_reader_review_required": false,
+    "accommodation_notes": "Text and symbolic notation are fully described."
+  },
+  "review_notes": {
+    "expected_reasoning": "The net force is 9.00 N and acceleration is 3.00 m/s².",
+    "known_boundary_cases": [],
+    "originality_statement": "Independently authored synthetic draft for Tutor review; no official question or scoring material used."
+  },
+  "provenance": {
+    "source_refs": [
+      "ap-physics-1-ced-fact-pack"
+    ],
+    "fact_pack_version": "2026-07-15",
+    "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
+    "generated_by": "codex",
+    "generated_at": "2026-07-15T00:00:00Z",
+    "content_sha256": "312c371aeb6ff098b0466d43627330d2c1637b5fb7366c254ca7f3b268bbf710"
+  }
+}

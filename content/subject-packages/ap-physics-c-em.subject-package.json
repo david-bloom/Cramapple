@@ -1,0 +1,335 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "ap-physics-c-em-2025-26-seed",
+  "operation": "create-subject",
+  "subject": {
+    "subject_key": "ap-physics-c-em",
+    "display_name": "AP Physics C: Electricity and Magnetism"
+  },
+  "exam_pack": {
+    "exam_code": "ap_physics_c_em",
+    "exam_name": "AP Physics C: Electricity and Magnetism",
+    "school_year": "2025-26",
+    "official_exam_date": "2026-05-13",
+    "exam_pack_version": "1.0.0",
+    "effective_from": "2025-07-01"
+  },
+  "sources": [
+    {
+      "source_key": "ap-physics-c-em-ced-fact-pack",
+      "source_version": "2026-07-15",
+      "title": "AP Physics C: Electricity and Magnetism CED Fact Pack",
+      "publisher": "Cramapple",
+      "authority_tier": 1,
+      "uri": "https://cramapple.local/docs/product/ap-physics-c-em-ced-fact-pack",
+      "content_sha256": "44dc67e8773482843c1e84ce29117f2355ed402f9ae832dd947a83f32347d254",
+      "scope": "Public exam structure and taxonomy metadata; no official question content.",
+      "rights_status": "cramapple_owned",
+      "refresh_due_at": "2027-06-01T00:00:00Z"
+    }
+  ],
+  "taxonomy": {
+    "scheme_key": "ap-physics-c-em-2025-26",
+    "scheme_version": "1.0.0",
+    "nodes": [
+      {
+        "node_key": "unit-8-electric-charges-fields-and-gauss-s-law",
+        "node_type": "unit",
+        "label": "Electric Charges, Fields, and Gauss's Law",
+        "ordinal": 8,
+        "source_refs": [
+          "ap-physics-c-em-ced-fact-pack"
+        ]
+      },
+      {
+        "node_key": "unit-9-electric-potential",
+        "node_type": "unit",
+        "label": "Electric Potential",
+        "ordinal": 9,
+        "source_refs": [
+          "ap-physics-c-em-ced-fact-pack"
+        ]
+      },
+      {
+        "node_key": "unit-10-conductors-and-capacitors",
+        "node_type": "unit",
+        "label": "Conductors and Capacitors",
+        "ordinal": 10,
+        "source_refs": [
+          "ap-physics-c-em-ced-fact-pack"
+        ]
+      },
+      {
+        "node_key": "unit-11-electric-circuits",
+        "node_type": "unit",
+        "label": "Electric Circuits",
+        "ordinal": 11,
+        "source_refs": [
+          "ap-physics-c-em-ced-fact-pack"
+        ]
+      },
+      {
+        "node_key": "unit-12-magnetic-fields-and-electromagnetism",
+        "node_type": "unit",
+        "label": "Magnetic Fields and Electromagnetism",
+        "ordinal": 12,
+        "source_refs": [
+          "ap-physics-c-em-ced-fact-pack"
+        ]
+      },
+      {
+        "node_key": "unit-13-electromagnetic-induction",
+        "node_type": "unit",
+        "label": "Electromagnetic Induction",
+        "ordinal": 13,
+        "source_refs": [
+          "ap-physics-c-em-ced-fact-pack"
+        ]
+      },
+      {
+        "node_key": "practice-1",
+        "node_type": "practice",
+        "label": "Creating Representations",
+        "ordinal": 1,
+        "source_refs": [
+          "ap-physics-c-em-ced-fact-pack"
+        ]
+      },
+      {
+        "node_key": "practice-2",
+        "node_type": "practice",
+        "label": "Mathematical Routines",
+        "ordinal": 2,
+        "source_refs": [
+          "ap-physics-c-em-ced-fact-pack"
+        ]
+      },
+      {
+        "node_key": "practice-3",
+        "node_type": "practice",
+        "label": "Scientific Questioning and Argumentation",
+        "ordinal": 3,
+        "source_refs": [
+          "ap-physics-c-em-ced-fact-pack"
+        ]
+      }
+    ]
+  },
+  "blueprint": {
+    "sections": [
+      {
+        "section_key": "multiple-choice",
+        "duration_minutes": 80,
+        "score_weight": 0.5,
+        "item_count": 40,
+        "item_types": [
+          "mcq"
+        ]
+      },
+      {
+        "section_key": "free-response",
+        "duration_minutes": 100,
+        "score_weight": 0.5,
+        "item_count": 4,
+        "item_types": [
+          "frq"
+        ]
+      }
+    ],
+    "taxonomy_weights": [
+      {
+        "taxonomy_node_key": "unit-8-electric-charges-fields-and-gauss-s-law",
+        "minimum": 0.15,
+        "maximum": 0.25
+      },
+      {
+        "taxonomy_node_key": "unit-9-electric-potential",
+        "minimum": 0.1,
+        "maximum": 0.2
+      },
+      {
+        "taxonomy_node_key": "unit-10-conductors-and-capacitors",
+        "minimum": 0.1,
+        "maximum": 0.15
+      },
+      {
+        "taxonomy_node_key": "unit-11-electric-circuits",
+        "minimum": 0.15,
+        "maximum": 0.25
+      },
+      {
+        "taxonomy_node_key": "unit-12-magnetic-fields-and-electromagnetism",
+        "minimum": 0.1,
+        "maximum": 0.2
+      },
+      {
+        "taxonomy_node_key": "unit-13-electromagnetic-induction",
+        "minimum": 0.1,
+        "maximum": 0.2
+      }
+    ]
+  },
+  "archetypes": [
+    {
+      "archetype_key": "ap-physics-c-em-mcq",
+      "version": "1.0.0",
+      "item_type": "mcq",
+      "total_points": 1,
+      "practice_refs": [
+        "practice-1",
+        "practice-2",
+        "practice-3"
+      ],
+      "response_modalities": [
+        "choice"
+      ]
+    },
+    {
+      "version": "1.0.0",
+      "practice_refs": [
+        "practice-1",
+        "practice-2",
+        "practice-3"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "archetype_key": "ap-physics-c-em-frq-math",
+      "item_type": "frq",
+      "total_points": 2
+    },
+    {
+      "version": "1.0.0",
+      "practice_refs": [
+        "practice-1",
+        "practice-2",
+        "practice-3"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "archetype_key": "ap-physics-c-em-frq-representation",
+      "item_type": "frq",
+      "total_points": 2
+    },
+    {
+      "version": "1.0.0",
+      "practice_refs": [
+        "practice-1",
+        "practice-2",
+        "practice-3"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "archetype_key": "ap-physics-c-em-frq-experimental",
+      "item_type": "frq",
+      "total_points": 2
+    },
+    {
+      "version": "1.0.0",
+      "practice_refs": [
+        "practice-1",
+        "practice-2",
+        "practice-3"
+      ],
+      "response_modalities": [
+        "typed-text",
+        "typed-math"
+      ],
+      "archetype_key": "ap-physics-c-em-frq-translation",
+      "item_type": "frq",
+      "total_points": 2
+    }
+  ],
+  "capabilities": {
+    "required_renderers": [
+      "markdown",
+      "math",
+      "table"
+    ],
+    "required_response_modalities": [
+      "choice",
+      "typed-text",
+      "typed-math"
+    ],
+    "required_graders": [
+      "mcq-key",
+      "science-frq-rubric"
+    ],
+    "calculator_modes": [
+      "approved-handheld"
+    ]
+  },
+  "inventory": {
+    "targets": [
+      {
+        "item_type": "mcq",
+        "archetype_key": "ap-physics-c-em-mcq",
+        "target_count": 40
+      },
+      {
+        "item_type": "frq",
+        "archetype_key": "ap-physics-c-em-frq-math",
+        "target_count": 4
+      },
+      {
+        "item_type": "frq",
+        "archetype_key": "ap-physics-c-em-frq-representation",
+        "target_count": 4
+      },
+      {
+        "item_type": "frq",
+        "archetype_key": "ap-physics-c-em-frq-experimental",
+        "target_count": 4
+      },
+      {
+        "item_type": "frq",
+        "archetype_key": "ap-physics-c-em-frq-translation",
+        "target_count": 4
+      }
+    ]
+  },
+  "verification": {
+    "profile_version": "1.0.0",
+    "required_check_types": [
+      "schema",
+      "content-correctness",
+      "answer-rubric-consistency",
+      "grading-calibration",
+      "security-privacy"
+    ],
+    "gold_set_required": true,
+    "minimum_gold_items": 20,
+    "calibration_notes": "Draft seed only; independent Tutor review and held-out calibration are required before publication."
+  },
+  "review_policy": {
+    "policy_version": "1.0.0",
+    "required_capabilities": [
+      "ap-physics-c-em-subject-matter",
+      "assessment-review"
+    ],
+    "independence_required": true,
+    "minimum_reviewers": 2
+  },
+  "release_gates": [
+    "source",
+    "rights",
+    "content_clearance",
+    "grading_calibration",
+    "security_privacy",
+    "release_approval"
+  ],
+  "provenance": {
+    "fact_pack_version": "AP_PHYSICS_C_EM_CED_FACT_PACK@2026-07-15",
+    "authoring_prompt_version": "CODEX_FIVE_SUBJECT_CONTENT_AUTHORING_2026_07_15",
+    "generated_by": "Codex",
+    "generated_at": "2026-07-15T00:00:00Z"
+  },
+  "supersession": {
+    "strategy": "none"
+  }
+}
