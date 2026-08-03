@@ -20,6 +20,10 @@ const allowedOperations = new Set<SessionOperation>([
 const allowedPracticeFormats = new Set([
   "targeted_drill",
   "full_exam_frq",
+  "mcq",
+  "quantitative",
+  "short_frq",
+  "long_frq",
 ]);
 
 function asString(value: unknown) {
@@ -250,6 +254,79 @@ Deno.serve(async (req) => {
       }
       if (practiceFormat && !allowedPracticeFormats.has(practiceFormat)) {
         return respond({ error: "invalid_practice_format" }, { status: 400 });
+      }
+
+      // Broad Home starts are authoritative in Postgres: identity, active
+      // subject, Home eligibility, duplicate prevention, and idempotency are
+      // resolved inside one advisory-locked transaction.
+      if (
+        entryPath === "recommend" &&
+        (!practiceFormat || practiceFormat === "mcq")
+      ) {
+        const { data: rows, error: startError } = await service.rpc(
+          "start_home_learning_session_for_user",
+          {
+            _user_id: profileId,
+            _minutes: availableMinutes,
+            _idempotency_key: idempotencyKey,
+          },
+        );
+        const row = Array.isArray(rows) ? rows[0] : rows;
+        if (
+          startError ||
+          !row ||
+          typeof row !== "object" ||
+          typeof (row as Record<string, unknown>).learning_session_id !== "string"
+        ) {
+          throw new Error("session_start_failed");
+        }
+
+        const sessionId = (row as Record<string, unknown>)
+          .learning_session_id as string;
+        const { data: started, error: readError } = await service.schema("app")
+          .from("learning_sessions")
+          .select(
+            "id, user_id, exam_pack_version_id, entry_path, session_mode, available_minutes, practice_format, status, started_at, ended_at, created_at, updated_at",
+          )
+          .eq("id", sessionId)
+          .maybeSingle();
+        if (readError || !started) {
+          throw new Error("session_start_failed");
+        }
+
+        const result = safeSessionShape(started as Record<string, unknown>);
+        await recordSessionEvent(
+          service,
+          idempotencyKey,
+          requestHash,
+          profileId,
+          operation,
+          result,
+          sessionId,
+          { authoritative_home_start: true },
+        );
+        return respond(
+          {
+            status: "ok",
+            function: "session-event",
+            operation,
+            result,
+          },
+          { status: 200 },
+        );
+      }
+
+      const { data: profile, error: profileError } = await service.schema("app")
+        .from("profiles")
+        .select("active_exam_pack_version_id")
+        .eq("user_id", profileId)
+        .maybeSingle();
+      if (
+        profileError ||
+        !profile ||
+        profile.active_exam_pack_version_id !== examPackVersionId
+      ) {
+        return respond({ error: "active_subject_mismatch" }, { status: 409 });
       }
 
       const { data: inserted, error } = await service.schema("app")
