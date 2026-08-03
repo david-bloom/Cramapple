@@ -35,7 +35,7 @@ You must adhere to the following distribution constraints across the 10 Long que
 
 ### QUESTION LAYOUT REQUIREMENTS
 
-Every individual Long FRQ must be structured with the following metadata header format followed by an extensive stimulus scenario (experimental setup, biological models, or comprehensive data tables) and exactly 4 distinct, multi-part segments ((a), (b), (c), (d)) matching a traditional 8-to-10 point rubric capacity:
+Every individual Long FRQ must be structured with the following metadata header format followed by an extensive stimulus scenario (experimental setup, biological models, or comprehensive data tables) and exactly four parts labeled Part A, Part B, Part C, and Part D. Every question totals exactly 9 points. Use the 1/3/3/2 pattern by default. Use 1/4/2/2 only for the graph-construction archetype in which Part B requires the student to construct the graph.
 
 [METADATA START]
 - Question ID: [1 through 10]
@@ -46,19 +46,27 @@ Every individual Long FRQ must be structured with the following metadata header 
 [METADATA END]
 
 [STIMULUS]
-Provide a detailed, multi-paragraph scientific scenario. This must include an overview of a biological mechanism, an experimental protocol designed to test that mechanism, and an accompanying set of data (such as a numerical matrix, mean values with standard error, or a descriptive structural model).
+Provide a detailed, multi-paragraph scientific scenario. This must include an overview of a biological mechanism, an experimental protocol designed to test that mechanism, and an accompanying set of data (such as a numerical matrix, mean values with standard error, or a descriptive structural model). Author every question independently from the public CED facts and the approved Cramapple brief. Do not view, copy, paraphrase, adapt, derive from, or imitate any released or secure College Board question, scoring guideline, dataset, scenario, or distinctive question structure.
 
 [PROMPTS]
-(a) [Insert Task Verb prompts focusing on describing or explaining biological concepts/processes related to the scenario] (2-3 points)
-(b) [Insert Task Verb prompts focusing on identifying, describing, or constructing elements of experimental design, data analysis, or graphing] (2-3 points)
-(c) [Insert Task Verb prompts focusing on predicting the causes or effects of a specific biological disruption or change to the system] (2 points)
-(d) [Insert Task Verb prompts focusing on justifying predictions or supporting a biological claim using evidence and reasoning] (2 points)
+Default long-FRQ pattern:
+Part A: [Describe or explain a biological concept/process related to the scenario] (1 point)
+Part B: [Identify or describe experimental design or analyze data] (3 points)
+Part C: [Predict and explain causes or effects of a specific biological disruption or change] (3 points)
+Part D: [Justify a prediction or support a biological claim using evidence and reasoning] (2 points)
+
+Graph-construction long-FRQ pattern:
+Part A: [Describe or explain a biological concept/process related to the scenario] (1 point)
+Part B: [Construct the required graph with correct variables, scaling, plotting, and representation of uncertainty] (4 points)
+Part C: [Analyze the displayed or constructed data] (2 points)
+Part D: [Justify a prediction or support a biological claim using evidence and reasoning] (2 points)
 
 ---
 
 ### GENERATION PROTOCOL
 
 - Systematically output all 10 Long questions from ID 1 to 10 without shortcuts, placeholders, or truncations.
-- Ensure that the 3 "Hand-Drawn Response: 'true'" questions explicitly command the student to draw, graph, or sketch inside one of the multi-point sub-questions (typically part b).
+- Ensure that the 3 "Hand-Drawn Response: 'true'" questions explicitly command the student to draw, graph, or sketch inside one of Parts A-D (typically Part B).
+- Reject any candidate that does not contain exactly four rubric criteria, does not total exactly 9 points, uses a point pattern other than 1/3/3/2 or 1/4/2/2 as applicable, or whose visible prompt does not contain Part A, Part B, Part C, and Part D in order.
 - Ensure that "Hard" and "Very Hard" questions require deep cognitive synthesis (e.g., evaluating statistical significance via overlapping or non-overlapping error bars, or analyzing how an epigenetic alteration impacts ecosystem-level trophic interactions).
 - Review your internal counter during generation to guarantee the exact totals match: 2/2/2/1/1/1/1 for modules, exactly 3 hand-drawn, and 2/3/3/2 for difficulties.
