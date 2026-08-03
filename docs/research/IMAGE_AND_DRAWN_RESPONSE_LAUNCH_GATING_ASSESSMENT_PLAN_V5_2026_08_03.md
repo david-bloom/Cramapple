@@ -1,7 +1,7 @@
-# Image Questions and Drawn Responses — Launch-Gating Assessment Plan V4
+# Image Questions and Drawn Responses — Launch-Gating Assessment Plan V5
 
 **Status:** Draft
-**Review Stage:** Incorporating final independent review
+**Review Stage:** Final governance tightening before approval
 **Date:** 2026-08-03
 **Product Owner:** David Bloom
 **Purpose:** Launch-gating read-only assessment plan; not implementation approval
@@ -19,7 +19,7 @@ These capabilities are launch-gating. The decision is not whether to support the
 
 The assessment should not redesign every visual capability before those questions can be answered.
 
-The assessment must not end with findings alone. It must produce separately scoped, approval-ready remediation work for:
+The assessment must not end with findings alone. It must produce separately scoped handoffs containing only the evidence and decisions needed to obtain the next approval for:
 
 - required visuals displayed with question prompts; and
 - hand-drawn response capture, preservation, authorized review, grading, and repair.
@@ -39,6 +39,7 @@ Apply Occam's razor throughout:
 - Use manual review as the baseline launch path until automated grading and repair independently clear their quality bars.
 - Do not use a large aggregate sample to conceal weak coverage of important cases.
 - Stop once the evidence is sufficient for the pending decision.
+- Keep remediation handoffs proportional to the next approval. Do not write implementation-ready specifications before scope and approach are approved.
 
 ## 3. Three separate programs
 
@@ -91,7 +92,7 @@ An item may belong to more than one program. For example, a question may display
 
 ## 4. Required launch framing and ownership
 
-Before the deep assessment begins, record answers to three questions and their decision owners:
+Before the deep assessment begins, record answers to four questions and their decision owners:
 
 1. What is the first launch-critical content slice?
    - AP Biology, AP Statistics, another course, or a specifically named subset.
@@ -108,6 +109,11 @@ Before the deep assessment begins, record answers to three questions and their d
    - retry delivery;
    - another explicitly approved behavior.
    - **Decision owner:** Product Owner for product behavior and Learning Quality for construct-preservation judgment.
+4. What minimum content volume and variation must remain after any launch-scope narrowing?
+   - Define the minimum number of distinct items, archetypes, and repeat-safe practice opportunities needed for the named slice.
+   - **Decision owner:** Product Owner with Learning Quality approval.
+
+The fourth answer must be locked before Step 2 begins. It must not be adjusted after delivery defects are known merely to validate the surviving content.
 
 A warning without the visual is not an acceptable default when the visual is required to answer. A prose or table alternate is not assumed equivalent when it changes the assessed construct.
 
@@ -222,6 +228,8 @@ Assess Program B independently from grading.
 ### Capture routes by answering-device class
 
 Do not assume the answering device has a usable camera. First identify the supported launch device classes and whether each can photograph paper work at acceptable quality.
+
+Before judging whether a cross-device path is required, the Product Owner must predeclare what counts as a material unsupported device segment and the evidence source used to estimate it. Step 3 must report the actual numerator, denominator, percentage, and uncertainty used for the QR decision so the result is falsifiable.
 
 For each device class, assess the simplest viable route:
 
@@ -389,19 +397,19 @@ One program's readiness must not promote another.
 
 ### From verdict to approved execution
 
-For every blocker or narrowing decision, prepare an approval-ready task or handoff containing:
+For every blocker or narrowing decision, prepare a next-approval task or handoff containing only what is needed to approve scope and approach:
 
 - the owning program and named launch scope;
 - exact affected items, archetypes, routes, or controls;
 - task tier and required hard gates;
-- approved implementation path or bounded alternatives still requiring a decision;
+- recommended approach or bounded alternatives requiring a decision;
 - acceptance criteria tied to the unmet launch bar;
 - test and independent-QA plan;
-- reviewer-hour and operational requirements;
+- preliminary reviewer-hour and operational requirements sufficient for approval;
 - revalidation triggers; and
 - explicit exclusions.
 
-Program A must produce executable remediation for required visuals displayed with prompts. Program B must produce executable remediation for hand-drawn capture, attachment, preservation, authorized review, and later student access. Program C must produce the approved manual-review path and any separately gated automated grading/repair work. Execution begins only after the relevant tasks and hard gates are approved.
+Program A must produce the next-approval remediation handoff for required visuals displayed with prompts. Program B must produce the next-approval remediation handoff for hand-drawn capture, attachment, preservation, authorized review, and later student access. Program C must produce the proposed design/task for the manual-review path and any separately gated automated grading/repair work; the assessment does not stand up the queue, assign reviewers, or begin operations. Implementation-ready specifications are created only after the relevant scope and approach are approved. Execution begins only after the relevant tasks and hard gates are approved.
 
 ## 12. Independent review
 
@@ -425,7 +433,9 @@ Before any implementation task is approved, use a fresh reviewer to challenge:
 
 ## 13. Quarantine of prior implementation work
 
-The existing `codex/image-workflows-readiness` code and prototype work must remain quarantined:
+No uncommitted implementation diff may remain ambient in the assessment worktree. Before assessment execution, any such diff must receive an explicit Product Owner disposition: preserve it on a clearly labeled quarantine ref or consciously discard it. Silent cleanup and accidental inclusion are both prohibited.
+
+The previously uncommitted backend sketch has been preserved on `codex/image-workflows-design-sketch` at commit `a34a078` with an explicit quarantine notice. The assessment branch is clean. That quarantine branch and the previously committed prototype history must remain inert:
 
 - do not merge, deploy, or treat it as baseline architecture;
 - preserve it as a design sketch;
@@ -446,6 +456,7 @@ This assessment does not authorize:
 - retention or consent policy decisions;
 - vendor/model selection;
 - a universal image artifact model;
+- operationalizing a manual-review queue or assigning reviewers;
 - automated learner-facing grading;
 - task closure or launch approval.
 
