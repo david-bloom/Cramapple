@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- TASK-0020 Fresh Independent QA Confirmed Verdicts; Changes Reconciled, Content Cross-Check Pending — 2026-08-03
 - TASK-0020 Launch-Readiness Assessment Ready for Independent Review — 2026-08-03
 - TASK-0020 Cross-Course Image Readiness Scan Completed — 2026-08-03
 - TASK-0018/0019 Released to Production: 17 Migrations Applied, session-event Deployed, Staff QA Setup Complete — 2026-08-02
@@ -52,6 +53,19 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 ---
+
+## TASK-0020 Fresh Independent QA Confirmed Verdicts; Changes Reconciled, Content Cross-Check Pending — 2026-08-03
+
+**Task:** TASK-0020
+**Status:** Changes Reconciled; independent Biology construct-risk derivation pending; no implementation or launch approval.
+
+**QA outcome:** Fresh-context QA returned **Changes Required** while independently confirming every checked load-bearing claim and all three launch-blocked verdicts. The inventory reconciles to 89 items: 63 required prompt presentations (one raster plus 62 structured/text representations), 37 construction items nested within the 62, and 26 no-visual candidates.
+
+**Corrections:** Reframed Program A as 63 required presentations with zero delivered end to end; added the prior Statistics missing-display retirement provenance; assigned the QR device-share evidence owner/source; made Program A/C reviewer-hour estimates additive; clarified that Program C is blocked by absent evidence rather than failed evaluation; and bound deployed bundle-hash changes to Program A/B revalidation. A SELECT-only Production query re-confirmed 41 of 41 published AP Biology FRQs have null `practice_format`.
+
+**Evidence correction:** The reviewer referenced `DECISION-0045` for reviewer scarcity, but that identifier is absent from this branch's committed decisions log. The capacity insight was retained without treating the unavailable citation as evidence.
+
+**Remaining action:** A second reviewer must independently re-derive the construct-equivalence-risk list from all 41 Biology candidates before Learning Quality review. Fresh QA did not perform that all-item content derivation. Details: `docs/research/TASK0020_INDEPENDENT_QA_RECONCILIATION_2026_08_03.md`.
 
 ## TASK-0020 Launch-Readiness Assessment Ready for Independent Review — 2026-08-03
 

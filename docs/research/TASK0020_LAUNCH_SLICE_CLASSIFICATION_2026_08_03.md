@@ -1,7 +1,7 @@
 # TASK-0020 Launch-Slice Classification
 
 Date: 2026-08-03  
-Status: provisional semantic classification; Learning Quality validation pending  
+Status: provisional semantic classification; independent risk-list derivation and Learning Quality validation pending
 Environment: Production metadata, read only  
 Locked slice: 48 AP Statistics targeted-drill FRQs plus 41 AP Biology FRQs
 
@@ -25,6 +25,7 @@ This resolves a previously ambiguous count. If “question image” means a rast
 - **Text- or JSON-encoded prompt data/visual structure** means the student needs supplied table values, relationships, or visual structure, but the source is in the stimulus text or structured prompt JSON rather than a raster asset.
 - **Student construction required** means the answer construct explicitly requires a graph or plot and the prompt instructs the learner to submit a photograph. This is Program B scope even when no prompt image exists.
 - **Missing prior context** means the prompt refers to a required figure, table, earlier part, or external source that is absent. Manual review found no such case in the locked slice; named tables and figures were present as data or descriptions.
+- This zero count is consistent with—not independent confirmation against—the 2026-08-02 retirement of all 90 category-A single-criterion Statistics items. The prior remediation documented at least three items with missing displays (`AP_STATISTICS_FRQ_REMEDIATION_PLAN_2026_08_01.md` §2.3), and migration `20260802014841_retire_ap_statistics_single_criterion_frqs.sql` removed that category from the eligible published pool before this assessment.
 - These are multiple-applicable labels. They are not a single permanent artifact taxonomy.
 
 ## AP Biology detail
@@ -56,6 +57,8 @@ No prompt-visual candidate:
 
 Seven Biology items serialize an intended figure, graph, diagram, or photo into words or values: `APBIO-FRQ-L-009`, `APBIO-FRQ-L-011`, `APBIO-FRQ-L-019`, `APBIO-FRQ-L-020`, `APBIO-FRQ-L-021`, `APBIO-FRQ-L-027`, and `APBIO-FRQ-L-028`. These are not missing-context defects, but Learning Quality must decide whether the representation preserves the assessed construct. A textual alternate must not be assumed equivalent merely because it contains the answer-relevant facts.
 
+This seven-item list is a preparer-derived candidate list, not a closed inventory. Before Learning Quality review, a second reviewer must independently classify all 41 Biology candidates and reconcile any additions or removals; checking only these seven is insufficient to detect an omitted eighth risk.
+
 ## AP Statistics detail
 
 The 48-item slice divides cleanly:
@@ -79,7 +82,7 @@ The 32 construction items cover five archetypes:
 2. Program A must separately prove readable, semantically appropriate rendering for the 62 data/structure prompts. A successful image pipeline does not establish this.
 3. Program B is launch-gating for all 37 construction items. Their instruction to submit a photograph is not supported merely by having an expected graph specification.
 4. Program C qualification must be stratified by the five Statistics archetypes and the Biology construction archetypes; an aggregate response count alone cannot establish quality.
-5. “No missing prior context” is provisional until Learning Quality validates the seven construct-sensitive textual representations and student-facing render checks confirm that encoded tables remain legible.
+5. “No missing prior context” is provisional until the independent Biology re-derivation is reconciled, Learning Quality validates the resulting construct-sensitive representations, and student-facing render checks confirm that encoded tables remain legible.
 
 ## Evidence and limitations
 

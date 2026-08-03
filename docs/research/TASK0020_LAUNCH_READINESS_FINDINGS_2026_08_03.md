@@ -1,7 +1,7 @@
 # TASK-0020 Launch-Readiness Findings
 
 Date: 2026-08-03  
-Assessment status: findings complete; fresh independent QA pending  
+Assessment status: fresh independent QA completed; changes reconciled; second construct-risk derivation pending
 Launch decision: not granted by this assessment  
 Production changes: none
 
@@ -11,9 +11,9 @@ The locked 89-item AP Biology/AP Statistics slice is **not launch ready** for pr
 
 | Program | Verdict | Named scope |
 |---|---|---|
-| A — Question visual delivery | **Launch blocked by named remediations**; **Hard gate unresolved: accessibility and Learning Quality** | 1 stored-image item and 62 structured/text visual-data items |
+| A — Question visual delivery | **Launch blocked by named remediations**; **Hard gate unresolved: accessibility and Learning Quality** | **63 required prompt presentations; 0 delivered end to end** |
 | B — Student response-image capture, preservation, and review | **Launch blocked by named remediations**; **Hard gate unresolved: privacy, security, retention, accessibility, and operations** | All 37 construction items |
-| C — Image grading and repair | **Automated grading and repair blocked; capture, preservation, and review still required**; **Manual-review launch path required but not operational** | All 37 construction items and every grading criterion |
+| C — Image grading and repair | **Automated grading and repair blocked; capture, preservation, and review still required**; **Manual-review launch path required but not operational** | All 37 construction items and every grading criterion; blocked by absence of qualifying evidence, not a failed evaluation |
 
 There is no safe narrowing inside the approved slice that preserves the Product Owner's locked requirement: `APPROVAL-0042` explicitly disallows narrowing to manufacture readiness. The 26 items with no prompt-visual candidate are not promoted by this assessment because the deployed session uses placeholder content rather than the locked published items.
 
@@ -26,6 +26,8 @@ The launch slice has:
 3. **37 questions requiring a learner-drawn response**: 32 AP Statistics and 5 AP Biology.
 
 Manual review of the locked slice found no truly absent prior figure/table/context. Several Biology stimuli serialize intended figures into words or values; seven construct-sensitive alternates still require Learning Quality equivalence review.
+
+The one-raster/62-structured split describes representation, not priority or separate launch programs. Program A must deliver all 63 required prompt presentations; treating all 63 as image files would add an unsupported universal-media abstraction.
 
 Detailed classification: `docs/research/TASK0020_LAUNCH_SLICE_CLASSIFICATION_2026_08_03.md`.
 
@@ -50,7 +52,7 @@ Detailed classification: `docs/research/TASK0020_LAUNCH_SLICE_CLASSIFICATION_202
 4. **The published image is not approved for release.** The recovered exact-version manifest records the current image's visual-layout gate as rejected and scientific, grading, accessibility, rights, construct-equivalence, and answer-leakage gates as pending. The v3 replacement is deterministic and technically reviewed locally, but remains `release_eligible=false` with all human and Production delivery gates pending. **Repository/prototype only.**
 5. **Production carries no learner-facing alt or long-description metadata for S009.** Its `prompt_json` contains only `modules`; Storage metadata contains media facts, not accessible representation. **Live verified.**
 6. **Failure behavior is not established in the deployed student product.** The approved rule is fail closed—do not serve, or replace with an independently approved construct-equivalent item. That behavior exists only in local review prototypes. **Not verified / prototype only.**
-7. **AP Biology reachability is separately blocked.** All 41 published Biology FRQs have `practice_format IS NULL`, while the strict selector requires an exact non-null format. This is not an image-specific defect, but it prevents calling the Biology half of the locked slice student-servable. **Live verified.**
+7. **AP Biology reachability is separately blocked.** All 41 published Biology FRQs have `practice_format IS NULL`, while the strict selector requires an exact non-null format. This is not an image-specific defect, but it prevents calling the Biology half of the locked slice student-servable. **Live verified and re-confirmed by SELECT-only Production query during independent-QA reconciliation on 2026-08-03: 41 null, 0 non-null.**
 
 ### Safe interim behavior
 
@@ -81,6 +83,8 @@ Acceptance evidence needed:
 
 Preliminary human review load for approval: at least seven construct-equivalence reviews plus S009 scientific, grading, accessibility, visual-layout, and rights reviews. At 15–30 minutes per review cell, reserve roughly **4–7 specialist-hours**, excluding engineering and independent device QA. This is a planning range, not measured throughput.
 
+Before Learning Quality review, a second reviewer must independently re-derive the construct-equivalence-risk list from all 41 Biology candidates, rather than merely checking the preparer's seven. The Program A estimate and Program C's **10–20 hours per 100 submissions** are additive draws on the same qualified-reviewer pool, not independent budgets. Fresh QA referenced `DECISION-0045` for organization-wide reviewer scarcity, but that decision identifier is not present in this branch's committed `DECISIONS_LOG.md`; do not rely on that citation until the authoritative record is supplied or reconciled.
+
 ## Program B — capture, preservation, and authorized review
 
 ### Findings
@@ -105,6 +109,8 @@ Preliminary human review load for approval: at least seven construct-equivalence
 
 **Tier:** Critical launch blocker with privacy/security hard gates.  
 **Owners:** Technical Owner; Security/Privacy approvers; Product Owner; Accessibility reviewer; Operations owner.
+
+**QR materiality evidence owner and source:** Product Analytics owner, accountable to the Product Owner. Use existing Production device/browser analytics only if they provide a defensible supported-device denominator and camera-capability proxy; otherwise run a Product Owner-approved prospective supported-device survey/test. The resulting matrix and its numerator, denominator, percentage, uncertainty, and decision threshold must be declared before implementation approval.
 
 Approve a bounded attachment-and-capture task using the simplest two routes:
 
@@ -149,6 +155,8 @@ Approve a manual-review-path design that names supported archetypes, reviewer qu
 
 Reviewer capacity is currently unproven because expected launch submissions and timed review minutes are both missing. For approval planning only, a **5–10 minute review plus 20% QA** implies roughly **10–20 qualified reviewer-hours per 100 submissions**. Before commitment, time a consented 20-response sample across the five Statistics archetypes and Biology construction cases, then combine the measured distribution with a declared launch-volume forecast and SLA.
 
+This Program C load is additive to Program A's estimated **4–7 specialist-hours** and competes for the same qualified-reviewer pool. Sequence the approvals against one capacity plan rather than treating the two estimates as separate budgets.
+
 ### Program C remediation handoff — automation research
 
 Keep this separate from the manual launch path. First make the 372-photo corpus governable or assemble a new consented corpus, remove duplicate leakage, and stratify by archetype, criterion, item, handwriting, score state, ambiguity, severe errors, and phone/photo conditions. Keep all photos of one underlying response in one partition. Implement at least two approved bake-off methods, run DR-1 on a locked holdout, require zero severe errors and every per-criterion gate, then run DR-2 grounding/repair/transfer evaluation. Automation remains shadow-only until those gates and 100% human review pass.
@@ -166,6 +174,7 @@ Re-run the affected program's checks after any:
 - capture route, token lifecycle, attachment contract, file-processing, retention/deletion, or supported-device change;
 - rubric, grader, model, prompt, preprocessing, abstention, feedback, reviewer qualification, SLA, or dispute/regrade change;
 - accessibility-equivalence or rights decision affecting an item.
+- a change to any recorded deployed bundle hash below; session-bundle changes require re-running Program A rendering checks and Program B capture/binding checks, while capture-function or phone-bundle changes require re-running Program B security, lifecycle, and device checks.
 
 Any new archetype, criterion, device class, or materially different photo condition is unsupported until its evidence is added; aggregate performance from existing cells does not carry over automatically.
 
@@ -185,4 +194,6 @@ Any new archetype, criterion, device class, or materially different photo condit
 
 ## Independent QA boundary
 
-This report is **Ready for Review**, not independently approved. A fresh AI context or separately assigned reviewer must challenge the inventory, evidence labels, verdicts, remediation sizing, device assumptions, construct-equivalence list, and manual-review estimate before any implementation task is approved.
+Fresh-context independent QA returned **Changes Required**. It independently confirmed the load-bearing evidence and all three launch-blocked verdicts. Its framing, provenance, capacity, device-evidence, absence-of-evaluation, bundle-trigger, and Production-count corrections are reconciled here and recorded in `docs/research/TASK0020_INDEPENDENT_QA_RECONCILIATION_2026_08_03.md`.
+
+One required check remains open before implementation tasks can be approved: a second reviewer must independently re-derive the Biology construct-equivalence-risk list from all 41 candidates. This report is therefore **Changes Reconciled; Independent Content Cross-Check Pending**, not launch- or implementation-approved.

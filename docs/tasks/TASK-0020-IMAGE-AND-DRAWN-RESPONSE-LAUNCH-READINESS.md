@@ -5,7 +5,7 @@
 **Owner:** Main Conductor / Technical Assessment Owner
 **Product Owner:** David Bloom
 **Tier:** Standard
-**Status:** Ready for Review
+**Status:** Changes Reconciled; Independent Content Cross-Check Pending
 **Priority:** Critical
 **Created Date:** 2026-08-03
 **Approved Date:** 2026-08-03
@@ -58,7 +58,8 @@ The assessment may inspect metadata about content and system configuration using
 - [x] Grading and repair readiness separates capture, grading, review/dispute, abstention, feedback, and transfer evidence.
 - [x] Reviewer capacity, hard gates, scope viability, and revalidation triggers are assessed.
 - [x] Separate Program A/B/C launch verdicts and proportional next-approval remediation handoffs are produced.
-- [ ] A fresh independent reviewer completes QA from the evidence packet (packet is `Ready for Review`).
+- [x] A fresh independent reviewer completes QA from the evidence packet.
+- [ ] A second reviewer independently re-derives the Biology construct-equivalence-risk list from all 41 candidates and reconciles it before Learning Quality review.
 
 ## QA Plan
 
@@ -74,7 +75,7 @@ The read-only cheap cross-course scan is complete. It found 111 published prompt
 
 `APPROVAL-0042` locks that 89-item dual slice with no narrowing to manufacture readiness, fail-closed essential visuals, manual review as the launch baseline, and a viable paper-photo capture path for every supported device class.
 
-The deep assessment is complete and ready for fresh-context QA. It found one stored prompt image, 62 additional structured/text visual-data prompts, 37 overlapping construction items, and 26 items with no prompt-visual candidate. Programs A, B, and C are independently launch-blocked: canonical student delivery does not render the required visual/data payloads; the deployed QR UI is placeholder-backed and not attached to canonical responses; and canonical grading is text-only with neither a qualified automation path nor an operational manual image-review path.
+The deep assessment and fresh-context QA are complete. The assessment found 63 required prompt presentations—one stored image and 62 structured/text visual-data prompts—with zero delivering end to end, 37 overlapping construction items, and 26 items with no prompt-visual candidate. Fresh QA independently confirmed that Programs A, B, and C are launch-blocked: canonical student delivery does not render the required visual/data payloads; the deployed QR UI is placeholder-backed and not attached to canonical responses; and canonical grading is text-only with neither a qualified automation path nor an operational manual image-review path.
 
 ## Test Results
 
@@ -90,7 +91,7 @@ The deep assessment is complete and ready for fresh-context QA. It found one sto
 ## Risks / Issues
 
 - Learning Quality validation remains required for construct-sensitive candidate classifications and accessible-equivalence judgments before final delivery verdicts.
-- The preparer cannot perform the final independent QA.
+- A second reviewer must independently re-derive the construct-equivalence-risk list from all 41 Biology candidates; fresh QA did not complete that content-level derivation.
 - The unapproved code sketch is quarantined on `codex/image-workflows-design-sketch` at `a34a078` and must remain inert.
 - Program A, B, and C findings and remediation handoffs are in `docs/research/TASK0020_LAUNCH_READINESS_FINDINGS_2026_08_03.md`.
 
@@ -110,7 +111,7 @@ The cross-course scan may begin before the launch slice is selected. Deep Step 2
 
 ## QA Result
 
-**QA Verdict:** Ready for Review. A genuinely fresh independent context is required.
+**QA Verdict:** Changes Required. Load-bearing claims and all three launch-blocked verdicts were independently confirmed. Corrections are reconciled; independent Biology risk-list derivation remains open.
 
 ## Done Decision
 

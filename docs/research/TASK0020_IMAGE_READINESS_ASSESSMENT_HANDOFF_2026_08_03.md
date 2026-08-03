@@ -5,7 +5,7 @@ Task:
 
 Prompts Included:
 - [x] Implementation Agent (read-only assessment)
-- [x] QA Agent handoff prepared; fresh-context execution pending
+- [x] QA Agent handoff and fresh-context execution completed; reconciliation recorded
 - [ ] UX / Prompt Agent
 
 Current Source:
@@ -14,6 +14,7 @@ Current Source:
 - Primary findings: `docs/research/TASK0020_LAUNCH_READINESS_FINDINGS_2026_08_03.md`
 - Launch-slice classification: `docs/research/TASK0020_LAUNCH_SLICE_CLASSIFICATION_2026_08_03.md`
 - Cross-course scan: `docs/research/TASK0020_CROSS_COURSE_IMAGE_READINESS_SCAN_2026_08_03.md`
+- Independent QA reconciliation: `docs/research/TASK0020_INDEPENDENT_QA_RECONCILIATION_2026_08_03.md`
 - Prior findings: `docs/research/IMAGE_QUESTION_AND_DRAWN_RESPONSE_SECOND_OPINION_PACKET_2026_08_03.md`
 - Related tasks: `TASK-0006`, `TASK-0011`, `UX-003`, `UX-008`, `TASK-0016`
 - Relevant approvals: `APPROVAL-0041`, `APPROVAL-0042`
@@ -38,7 +39,7 @@ Files / Systems Affected:
 - Frontend/routes: non-mutating inspection and browser QA only where authorized.
 
 Open Risks / Blockers:
-- P1: final QA must be performed by a fresh independent context.
+- P1: fresh independent QA confirmed the verdicts, but a second reviewer must still independently re-derive the Biology construct-equivalence-risk list from all 41 candidates.
 - P1: Programs A, B, and C are independently launch-blocked by the named findings.
 - P1: privacy, security, retention, accessibility, Learning Quality, and manual-review operational gates remain unresolved.
 - P2: reviewer capacity is unmeasured; the findings use a clearly labeled planning range only.
@@ -50,10 +51,10 @@ Do Not Touch:
 - Unapproved renderer, QR, model, retention, or universal-artifact decisions.
 
 Next Expected Output:
-- Fresh-context QA verdict challenging inventory completeness, evidence labels, Program A/B/C verdicts, construct-equivalence list, device assumptions, proportional remediation handoffs, and reviewer-hour range.
-- No implementation approval or launch decision until that review is recorded and any findings are reconciled.
+- Independent all-41 Biology construct-risk re-derivation, reconciliation against the current seven-item list, then Learning Quality review of the reconciled list.
+- No implementation approval or launch decision until that remaining check is recorded and reconciled.
 
-Recommended Prompt for QA Agent:
+Completed Prompt for Fresh-Context QA Agent:
 """
 Independently QA TASK-0020 from a fresh context. Start with `docs/research/TASK0020_LAUNCH_READINESS_FINDINGS_2026_08_03.md`, then reconcile its counts to the classification and cross-course query artifacts. Challenge live/deployed/repository/prototype evidence labels; the one-image versus 62 structured/text distinction; the seven construct-sensitive alternates; the placeholder-session and capture-reference findings; canonical response/grading limitations; device/QR assumptions; privacy, retention, accessibility and reviewer-capacity gaps; all three verdicts; and whether each remediation handoff is the smallest approval-sized next step. Do not implement, mutate Production, retrieve learner images, use signed URLs, merge quarantine code, approve launch, or let one program's readiness promote another. Record issues by severity and state whether the packet is Ready for Approval, Changes Required, or Blocked.
 """
