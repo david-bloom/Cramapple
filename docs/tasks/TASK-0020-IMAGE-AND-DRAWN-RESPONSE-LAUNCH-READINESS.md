@@ -5,7 +5,7 @@
 **Owner:** Main Conductor / Technical Assessment Owner
 **Product Owner:** David Bloom
 **Tier:** Standard
-**Status:** In Progress
+**Status:** Ready for Review
 **Priority:** Critical
 **Created Date:** 2026-08-03
 **Approved Date:** 2026-08-03
@@ -52,13 +52,13 @@ The assessment may inspect metadata about content and system configuration using
 - [ ] Approval, evidence labels, ownership, and quarantine state are durably recorded.
 - [x] A cheap cross-course candidate scan identifies systemic prompt-visual and drawn-response exposure.
 - [x] The launch-critical slice and minimum viable content volume are locked before delivery readiness Step 2.
-- [ ] Candidate items are manually classified with intersections preserved and ambiguity reviewed.
-- [ ] Prompt-visual readiness is audited from asset/source through student display and failure behavior.
-- [ ] Hand-drawn capture, preservation, authorized review, later access, and supported-device routes are audited.
-- [ ] Grading and repair readiness separates capture, grading, review/dispute, abstention, feedback, and transfer evidence.
-- [ ] Reviewer capacity, hard gates, scope viability, and revalidation triggers are assessed.
-- [ ] Separate Program A/B/C launch verdicts and proportional next-approval remediation handoffs are produced.
-- [ ] A fresh independent reviewer receives the evidence packet at `Ready for Review`.
+- [x] Candidate items are manually classified with intersections preserved and ambiguity reviewed.
+- [x] Prompt-visual readiness is audited from asset/source through student display and failure behavior.
+- [x] Hand-drawn capture, preservation, authorized review, later access, and supported-device routes are audited.
+- [x] Grading and repair readiness separates capture, grading, review/dispute, abstention, feedback, and transfer evidence.
+- [x] Reviewer capacity, hard gates, scope viability, and revalidation triggers are assessed.
+- [x] Separate Program A/B/C launch verdicts and proportional next-approval remediation handoffs are produced.
+- [ ] A fresh independent reviewer completes QA from the evidence packet (packet is `Ready for Review`).
 
 ## QA Plan
 
@@ -74,18 +74,25 @@ The read-only cheap cross-course scan is complete. It found 111 published prompt
 
 `APPROVAL-0042` locks that 89-item dual slice with no narrowing to manufacture readiness, fail-closed essential visuals, manual review as the launch baseline, and a viable paper-photo capture path for every supported device class.
 
+The deep assessment is complete and ready for fresh-context QA. It found one stored prompt image, 62 additional structured/text visual-data prompts, 37 overlapping construction items, and 26 items with no prompt-visual candidate. Programs A, B, and C are independently launch-blocked: canonical student delivery does not render the required visual/data payloads; the deployed QR UI is placeholder-backed and not attached to canonical responses; and canonical grading is text-only with neither a qualified automation path nor an operational manual image-review path.
+
 ## Test Results
 
 - Production aggregate scan executed with SELECT-only SQL.
 - Reproducible query artifact: `scripts/image_readiness/cross_course_scan.sql`.
 - Aggregate and per-course counts reconciled to 1,412 latest items and 288 published latest-version pairs.
 - Storage metadata check found all 10 latest image-path references present in private `content-assets`; `learner-uploads` has zero objects.
+- Launch-slice classification queries reconcile to 89 items: 63 prompt visual/data dependencies, 37 construction items, and 26 no-visual candidates.
+- Deployed student bundle inspection verified placeholder content, a QR/photo UI, and capture-reference-string submission rather than canonical image attachment.
+- Production schema/function inspection verified no response-image attachment contract and no image input to grading.
+- Image workflow prototype tests: 10 passed. Image release-candidate tests: 9 passed.
 
 ## Risks / Issues
 
 - Learning Quality validation remains required for construct-sensitive candidate classifications and accessible-equivalence judgments before final delivery verdicts.
 - The preparer cannot perform the final independent QA.
 - The unapproved code sketch is quarantined on `codex/image-workflows-design-sketch` at `a34a078` and must remain inert.
+- Program A, B, and C findings and remediation handoffs are in `docs/research/TASK0020_LAUNCH_READINESS_FINDINGS_2026_08_03.md`.
 
 ## Approval State
 
@@ -103,7 +110,7 @@ The cross-course scan may begin before the launch slice is selected. Deep Step 2
 
 ## QA Result
 
-**QA Verdict:** Pending. A genuinely fresh independent context is required.
+**QA Verdict:** Ready for Review. A genuinely fresh independent context is required.
 
 ## Done Decision
 
