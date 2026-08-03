@@ -9,10 +9,10 @@
 --     version), the fix version carries no tutor non-approval, and an AI QA
 --     approval is recorded on the fix version.
 -- Both rules also require the structural gates from the 2026-07-30 release
--- (4 distinct MCQ choices / exactly one key matching canonical_answer_1;
--- FRQ criteria present with positive points; stimulus asset present; no
--- competing published version). Failing items are skipped and reported, not
--- silently dropped.
+-- (4 distinct MCQ choices / exactly one key matching canonical_answer_1 when
+-- populated; FRQ criteria present with positive points; stimulus asset
+-- present; no competing published version). Failing items are skipped and
+-- reported, not silently dropped.
 --
 -- Sections 1a/1b seed the AI QA decisions from the 2026-08-02 QA session
 -- (each listed version was independently re-derived by hand in that session —
@@ -26,7 +26,7 @@ select pg_advisory_xact_lock(hashtext('cramapple-decision-0044-universal-publish
 -- 1a. Seed AI QA approvals: Rule A candidates verified 2026-08-02.
 -- ---------------------------------------------------------------------------
 create temporary table ai_qa_seed on commit drop as
-select ci.content_key, civ.id as vid, civ.item_type,
+select ci.content_key, civ.id as vid, ci.item_type,
        gen_random_uuid() as qa_assignment_id,
        'two_qualified_tutor_approvals_plus_ai_qa'::text as basis
 from app.content_items ci
@@ -49,7 +49,7 @@ where ci.content_key in (
 --     the eight 2026-07-31 Precalculus distractor-rationale repairs (verified
 --     in that sweep) and the two 2026-08-02 Chemistry edit-application fixes.
 insert into ai_qa_seed (content_key, vid, item_type, qa_assignment_id, basis)
-select ci.content_key, civ.id, civ.item_type, gen_random_uuid(),
+select ci.content_key, civ.id, ci.item_type, gen_random_uuid(),
        'approve_with_edits_fixed_by_ai_plus_ai_qa'
 from app.content_items ci
 join app.content_item_versions civ on civ.content_item_id=ci.id
@@ -120,9 +120,10 @@ create temporary table publish_set (
   vid uuid primary key, content_key text, rule text);
 
 insert into publish_set (vid, content_key, rule)
-select civ.id, civ.content_key, 'A'
+select civ.id, ci.content_key, 'A'
 from app.content_item_versions civ
 join app.content_items ci on ci.id=civ.content_item_id
+join app.exam_pack_versions epv on epv.id=ci.exam_pack_version_id
 where civ.status not in ('retired','published')
   and civ.version_num=(select max(n.version_num) from app.content_item_versions n
                        where n.content_item_id=civ.content_item_id)
@@ -145,7 +146,7 @@ where civ.status not in ('retired','published')
              where q.reviewer_id=d.reviewer_id and q.status='active'
                and q.effective_at<=now()
                and (q.expires_at is null or q.expires_at>now())
-               and ci.exam_pack_id=any(q.exam_ids))) >= 2
+               and epv.exam_pack_id=any(q.exam_ids))) >= 2
   and not exists (select 1
        from app.content_review_decisions d
        join app.profiles p on p.user_id=d.reviewer_id and p.role='tutor'
@@ -160,7 +161,7 @@ where civ.status not in ('retired','published')
              where q.reviewer_id=d.reviewer_id and q.status='active'
                and q.effective_at<=now()
                and (q.expires_at is null or q.expires_at>now())
-               and ci.exam_pack_id=any(q.exam_ids)))
+               and epv.exam_pack_id=any(q.exam_ids)))
   and exists (select 1 from app.content_review_decisions d
        join app.profiles p on p.user_id=d.reviewer_id and p.role='admin'
        where d.content_item_version_id=civ.id and d.tutor_decision='approve')
@@ -172,7 +173,7 @@ where civ.status not in ('retired','published')
 -- 3. Rule B: approve_with_edits + AI fix, clean fix version, AI QA on fix.
 -- ---------------------------------------------------------------------------
 insert into publish_set (vid, content_key, rule)
-select civ.id, civ.content_key, 'B'
+select civ.id, ci.content_key, 'B'
 from app.content_item_versions civ
 join app.content_items ci on ci.id=civ.content_item_id
 where civ.status not in ('retired','published')
@@ -208,16 +209,20 @@ create temporary table blocked as
 select ps.content_key, ps.rule,
   case
     when nullif(trim(civ.stem),'') is null then 'blank stem'
-    when civ.item_type='mcq' and (
+    when ci.item_type='mcq' and (
       (select count(*) from app.mcq_choices c where c.content_item_version_id=civ.id)<>4
       or (select count(distinct lower(trim(c.choice_text))) from app.mcq_choices c
           where c.content_item_version_id=civ.id)<>4
       or (select count(*) from app.mcq_choices c
           where c.content_item_version_id=civ.id and c.is_correct)<>1
-      or not coalesce((select bool_or(lower(trim(c.choice_key))=lower(trim(civ.canonical_answer_1)))
-          from app.mcq_choices c where c.content_item_version_id=civ.id and c.is_correct),false))
+      -- canonical_answer_1 is optional metadata (null on 80 of 118 already-published
+      -- MCQs; mcq_choices.is_correct is the serving source of truth). Enforce the
+      -- match only when it is populated.
+      or (civ.canonical_answer_1 is not null
+          and not coalesce((select bool_or(lower(trim(c.choice_key))=lower(trim(civ.canonical_answer_1)))
+              from app.mcq_choices c where c.content_item_version_id=civ.id and c.is_correct),false)))
       then 'mcq structure/key gate'
-    when civ.item_type='frq' and (
+    when ci.item_type='frq' and (
       (select count(*) from app.frq_criteria f where f.content_item_version_id=civ.id)=0
       or coalesce((select sum(f.points_possible) from app.frq_criteria f
           where f.content_item_version_id=civ.id),0)<=0)
@@ -227,14 +232,22 @@ select ps.content_key, ps.rule,
       then 'missing stimulus asset'
   end as reason
 from publish_set ps
-join app.content_item_versions civ on civ.id=ps.vid;
+join app.content_item_versions civ on civ.id=ps.vid
+join app.content_items ci on ci.id=civ.content_item_id;
 
 delete from blocked where reason is null;
 delete from publish_set where content_key in (select content_key from blocked);
 
 -- ---------------------------------------------------------------------------
--- 5. Publish.
+-- 5. Publish. `status` must pass through 'reviewed_approved' before
+--    'published' (enforced by trigger tg_content_pipeline_guard_publish) —
+--    two separate updates, not a bypass of that gate.
 -- ---------------------------------------------------------------------------
+update app.content_item_versions civ
+set status='reviewed_approved', updated_at=now()
+from publish_set ps
+where civ.id=ps.vid and civ.status<>'reviewed_approved';
+
 update app.content_item_versions civ
 set status='published',
     review_status='question_review_approved',

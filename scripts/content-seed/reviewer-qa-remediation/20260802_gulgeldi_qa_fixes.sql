@@ -121,19 +121,19 @@ from fix_map m,
   ('part-a','Writes Ksp = [M⁺][X⁻]; in pure water the only source of ions is MX, so [M⁺] = [X⁻] = s and Ksp = s². Solves s = √(4.0×10⁻¹²) = 2.0×10⁻⁶ M.',1,
    'Correct Ksp expression, the s² substitution, and the value 2.0×10⁻⁶ M.',
    'State Ksp = s² for the 1:1 salt and compute s = 2.0×10⁻⁶ M.',
-   'Any algebraically equivalent setup; 1 significant-figure tolerance on the value.'),
+   '["Ksp = s^2","s = sqrt(Ksp)","2.0e-6 M","2 x 10^-6 M","0.000002 M"]'::jsonb),
   ('part-b','States the required assumption: the pure water initially contains no M⁺ or X⁻ from any other source (no common ion and no side reactions), so the dissolved MX alone fixes [M⁺] = [X⁻] = s; without it the s² substitution is invalid.',1,
    'Identifies the no-other-ion-source (no common ion) assumption and links it to the validity of [M⁺] = [X⁻].',
    'Name the no-common-ion assumption.',
-   'Equivalent phrasing such as "all M⁺ and X⁻ come from dissolving MX" is acceptable.'),
+   '["no common ion","no other source of M+ or X-","all ions come from dissolving MX","no side reactions","pure water"]'::jsonb),
   ('part-c','Sets Ksp = s(0.010 + s), justifies neglecting s because s ≪ 0.010 M, and computes s ≈ Ksp/0.010 = 4.0×10⁻¹²/0.010 = 4.0×10⁻¹⁰ M.',1,
    'The exact expression or its justified approximation, plus the value 4.0×10⁻¹⁰ M.',
    'Compute s = Ksp/0.010 = 4.0×10⁻¹⁰ M with the smallness justification.',
-   'Accept unjustified s(0.010) setup only if the final value is correct and s ≪ 0.010 is stated anywhere.'),
+   '["Ksp = s(0.010 + s)","Ksp = s(0.010)","s << 0.010","4.0e-10 M","4 x 10^-10 M"]'::jsonb),
   ('part-d','Predicts that additional solid MX forms (precipitation): the added X⁻ raises [X⁻], so Qsp = [M⁺][X⁻] > Ksp; the net reaction runs toward solid MX until Qsp = Ksp is restored, leaving a lower dissolved [M⁺] (lower solubility).',1,
    'The Qsp > Ksp comparison, the direction of shift, and the observable outcome (solid forms / solubility decreases).',
    'State Qsp > Ksp after the addition and that MX precipitates until Qsp = Ksp.',
-   'Le Châtelier phrasing acceptable if the Qsp/Ksp comparison is explicit.')
+   '["Qsp > Ksp","precipitate forms","MX precipitates","shifts left","solubility decreases","until Qsp = Ksp","Le Chatelier"]'::jsonb)
 ) v(k,txt,pts,ev,fix,var)
 where m.content_key='apchem-sfrq-008';
 
@@ -145,15 +145,15 @@ from fix_map m,
   ('part-a','Correctly identifies dipole-dipole forces as the strongest intermolecular force in diethyl ether and hydrogen bonding as the strongest intermolecular force in ethanol.',1,
    'Both identifications must be present and correctly paired to the liquids.',
    'Name dipole-dipole for diethyl ether and hydrogen bonding for ethanol.',
-   'Mentioning London dispersion in addition is acceptable and not required.'),
+   '["dipole-dipole","dipole dipole","hydrogen bonding","H-bonding","London dispersion also present"]'::jsonb),
   ('part-b','Explains that ethanol molecules hydrogen bond through the O–H group while diethyl ether molecules cannot act as hydrogen-bond donors and experience only weaker dipole-dipole (plus dispersion) attractions; the stronger attractions in ethanol make escape into the vapor phase less favorable, so ethanol has the far lower vapor pressure even though its molar mass (≈46 g/mol) is smaller than diethyl ether''s (≈74 g/mol).',2,
    'Links the specific intermolecular-force difference to relative ease of escape into the vapor phase; notes the comparison holds despite ethanol''s smaller molar mass.',
    'Attribute the vapor-pressure gap to hydrogen bonding in ethanol vs weaker attractions in diethyl ether.',
-   'The molar-mass contrast may be implicit if the hydrogen-bonding explanation is complete.'),
+   '["hydrogen bonding is stronger","O-H group","cannot donate hydrogen bonds","harder to escape into vapor","stronger IMF means lower vapor pressure"]'::jsonb),
   ('part-c','Predicts that ethanol''s equilibrium vapor pressure increases at 40 °C: higher temperature raises the average kinetic energy so a greater fraction of molecules can escape the liquid; evaporation initially exceeds condensation until a new dynamic equilibrium is established at a higher vapor concentration and pressure.',1,
    'Direction (increase) plus particle-level reasoning that reaches the new evaporation/condensation equilibrium, not evaporation rate alone.',
    'State the increase and the kinetic-energy/escaping-fraction mechanism with the new equilibrium.',
-   'Boltzmann-distribution phrasing acceptable.')
+   '["vapor pressure increases","greater average kinetic energy","larger fraction can escape","new equilibrium at higher pressure","evaporation and condensation rates equalize","Boltzmann distribution"]'::jsonb)
 ) v(k,txt,pts,ev,fix,var)
 where m.content_key='apchem-sfrq-018';
 

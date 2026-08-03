@@ -1,0 +1,344 @@
+[
+  {
+    "subject": "ap_physics_c_em",
+    "unit": 8,
+    "module_topic": "unit-8-electric-charges-fields-and-gauss-s-law",
+    "practice": "practice-1",
+    "archetype": "ap-physics-c-em-frq-experimental",
+    "difficulty": "Easy",
+    "stimulus": "A student holds two small charged spheres, each carrying a fixed charge of magnitude 5.00 nC, at various separations r ranging from 0.10 m to 0.50 m and measures the electrostatic force between them with a force sensor.",
+    "stem": "Answer all parts of the following question.\n\n(a) Describe a procedure for this investigation, identifying the independent variable, the dependent variable, and one quantity that must be held constant (a control) across trials.\n\n(b) Explain why plotting the measured force F versus 1/r^2 should produce a straight line through the origin if Coulomb's law holds, and state what physical quantity determines the slope of that line.",
+    "total_points": 2,
+    "criteria": [
+      {"key": "part-a", "text": "Identifies the separation r as the independent variable, the measured force F as the dependent variable, and the charge magnitude on each sphere as a control held constant.", "points": 1, "evidence": "Names r as varied, F as measured, and charge magnitude (or sphere size) as fixed across trials", "fix": "State that r is deliberately varied, F is measured, and the charges q1, q2 are held fixed."},
+      {"key": "part-b", "text": "Explains that Coulomb's law F = kq1q2/r^2 predicts F is linear in 1/r^2, with slope equal to kq1q2.", "points": 1, "evidence": "References F=kq1q2/r^2 and identifies the slope as kq1q2", "fix": "Rewrite Coulomb's law as F = (kq1q2)(1/r^2) and identify kq1q2 as the slope of F vs 1/r^2."}
+    ]
+  },
+  {
+    "subject": "ap_physics_c_em",
+    "unit": 8,
+    "module_topic": "unit-8-electric-charges-fields-and-gauss-s-law",
+    "practice": "practice-2",
+    "archetype": "ap-physics-c-em-frq-representation",
+    "difficulty": "Easy",
+    "stimulus": "Two identical point charges of +5.00 nC each are fixed at x = 0 and x = 0.600 m on the x-axis.",
+    "stem": "Answer all parts of the following question.\n\n(a) Calculate the net electric field at the midpoint between the two charges.\n\n(b) Explain, using superposition and the direction of each charge's individual field at that point, why the net field there is zero regardless of the common charge magnitude.",
+    "total_points": 2,
+    "criteria": [
+      {"key": "part-a", "text": "Calculates the net electric field at the midpoint as zero, showing the two individual field contributions.", "points": 1, "evidence": "Computes E from each +5.00 nC charge at r=0.300 m (each about 499 N/C) and shows they point in opposite directions, summing to zero", "fix": "Compute E=kq/r^2 for each charge at the midpoint and note the two vectors point in opposite directions with equal magnitude."},
+      {"key": "part-b", "text": "Explains that by superposition, the two equal-magnitude fields point directly away from their respective charges (in opposite directions at the midpoint) and cancel exactly.", "points": 1, "evidence": "References equal magnitude and opposite direction of the two contributions due to symmetry", "fix": "State that since the charges are equal and equidistant from the midpoint, their field vectors are equal in magnitude and opposite in direction, so they cancel."}
+    ]
+  },
+  {
+    "subject": "ap_physics_c_em",
+    "unit": 9,
+    "module_topic": "unit-9-electric-potential",
+    "practice": "practice-3",
+    "archetype": "ap-physics-c-em-frq-translation",
+    "difficulty": "Easy",
+    "stimulus": "Two point charges of +1.50 microC and +2.50 microC are separated by 0.400 m in vacuum.",
+    "stem": "Answer all parts of the following question.\n\n(a) Calculate the electric potential energy of the system at the original separation. Then predict and calculate the potential energy when the separation is tripled to 1.20 m.\n\n(b) Explain why tripling the separation reduces the potential energy to one-third of its original value.",
+    "total_points": 3,
+    "criteria": [
+      {"key": "a-original", "text": "Calculates the correct original potential energy.", "points": 1, "evidence": "U = kq1q2/r gives approximately 0.0843 J at r=0.400 m", "fix": "Apply U=kq1q2/r with the original separation of 0.400 m."},
+      {"key": "a-tripled", "text": "Calculates the correct potential energy after tripling the separation.", "points": 1, "evidence": "Using r=1.20 m gives approximately 0.0281 J, one-third of the original value", "fix": "Apply U=kq1q2/r with the tripled separation of 1.20 m."},
+      {"key": "part-b", "text": "Explains the inverse proportionality between U and r for point charges.", "points": 1, "evidence": "References U proportional to 1/r, so tripling r reduces U to one-third", "fix": "Explain that U=kq1q2/r means U scales inversely with r, so tripling r divides U by 3."}
+    ]
+  },
+  {
+    "subject": "ap_physics_c_em",
+    "unit": 8,
+    "module_topic": "unit-8-electric-charges-fields-and-gauss-s-law",
+    "practice": "practice-4",
+    "archetype": "ap-physics-c-em-frq-math",
+    "difficulty": "Medium",
+    "stimulus": "A thin rod of length L = 0.600 m carries a uniform linear charge density lambda = 4.00 x 10^-9 C/m along the x-axis from x=0 to x=L. Point P lies on the axis of the rod, a distance d = 0.200 m beyond the end at x=L.",
+    "stem": "Answer all parts of the following question.\n\n(a) Using integration, derive an expression for the electric field magnitude at point P in terms of lambda, L, and d.\n\n(b) Evaluate the electric field magnitude at P for the given numeric values.",
+    "total_points": 3,
+    "criteria": [
+      {"key": "a-setup", "text": "Sets up the integral for E with a charge element dq = lambda dx at distance (L+d-x) from P.", "points": 1, "evidence": "Writes dE = k(lambda dx)/(L+d-x)^2 and integrates x from 0 to L", "fix": "Express dq=lambda dx and dE=k dq/(L+d-x)^2, then set up the integral over x from 0 to L."},
+      {"key": "a-integration", "text": "Correctly evaluates the integral to obtain E = k*lambda*L / [d(L+d)].", "points": 1, "evidence": "Antiderivative 1/(L+d-x) evaluated at the limits gives 1/d - 1/(L+d) = L/[d(L+d)]", "fix": "Integrate to get 1/(L+d-x) evaluated from 0 to L, simplify to L/[d(L+d)], and multiply by k*lambda."},
+      {"key": "b-numeric", "text": "Evaluates E numerically as approximately 135 N/C.", "points": 1, "evidence": "E = (8.99e9)(4.00e-9)(0.600)/[(0.200)(0.800)] is approximately 135 N/C", "fix": "Substitute lambda=4.00e-9 C/m, L=0.600 m, d=0.200 m into the derived expression."}
+    ]
+  },
+  {
+    "subject": "ap_physics_c_em",
+    "unit": 8,
+    "module_topic": "unit-8-electric-charges-fields-and-gauss-s-law",
+    "practice": "practice-1",
+    "archetype": "ap-physics-c-em-frq-experimental",
+    "difficulty": "Medium",
+    "stimulus": "A small charged pith ball of known charge q and mass m hangs from an insulating thread inside a region of unknown uniform horizontal electric field created by a pair of parallel plates connected to an adjustable voltage source; the ball hangs at an equilibrium angle theta from vertical.",
+    "stem": "Answer all parts of the following question.\n\n(a) Design a procedure to determine the field magnitude, identifying the independent variable, the dependent variable, and one control quantity held fixed across trials.\n\n(b) Explain how the relation tan(theta) = qE/(mg) is used to determine E from the measured angle.",
+    "total_points": 4,
+    "criteria": [
+      {"key": "a-independent", "text": "Identifies the plate voltage (which sets the field magnitude) as the independent variable.", "points": 1, "evidence": "States that the applied plate voltage is deliberately varied between trials", "fix": "State that the voltage across the plates is varied to change the field."},
+      {"key": "a-dependent", "text": "Identifies the equilibrium deflection angle theta as the dependent variable.", "points": 1, "evidence": "States that theta is measured for each applied voltage", "fix": "State that the equilibrium angle theta is measured at each field setting."},
+      {"key": "a-control", "text": "Identifies the ball's charge q (or mass m, thread length) as a control held constant across trials.", "points": 1, "evidence": "Names q or m as fixed", "fix": "State that the charge on the ball (and its mass) is kept the same across trials."},
+      {"key": "b-analysis", "text": "Explains that equilibrium requires tan(theta)=qE/(mg), so E = mg*tan(theta)/q can be computed from the measured angle.", "points": 1, "evidence": "Sets up horizontal and vertical force balance and solves for E", "fix": "Balance horizontal electric force qE against the horizontal component of tension, and vertical weight mg against the vertical component, then divide to eliminate tension and solve for E."}
+    ]
+  },
+  {
+    "subject": "ap_physics_c_em",
+    "unit": 9,
+    "module_topic": "unit-9-electric-potential",
+    "practice": "practice-2",
+    "archetype": "ap-physics-c-em-frq-translation",
+    "difficulty": "Medium",
+    "stimulus": "A charge moves along the x-axis through a region of non-uniform electric field E(x) = E0(1 - x/L), directed in the +x direction, with E0 = 200 N/C and L = 0.500 m, from x=0 to x=L.",
+    "stem": "Answer all parts of the following question.\n\n(a) Using integration, calculate the potential difference V(0) - V(L) for this field.\n\n(b) Predict and calculate the new potential difference if L is doubled to 1.00 m with E0 unchanged, and justify the result using the integral relationship between V and E.",
+    "total_points": 3,
+    "criteria": [
+      {"key": "a-integral", "text": "Sets up and evaluates the integral V(0)-V(L) = integral of E dx from 0 to L, obtaining E0*L/2 = 50.0 V.", "points": 1, "evidence": "Integral of E0(1-x/L) dx from 0 to L equals E0[x - x^2/(2L)] evaluated at L, giving E0*L/2", "fix": "Integrate E(x) from 0 to L using V(0)-V(L) = integral of E dx, and simplify to E0*L/2."},
+      {"key": "b-prediction", "text": "Predicts and calculates that doubling L doubles the potential difference to 100 V.", "points": 1, "evidence": "New L=1.00 m gives E0*L/2 = 100 V", "fix": "Substitute the doubled L into the derived expression E0*L/2."},
+      {"key": "b-justification", "text": "Justifies the doubling using the linear dependence of the integral result on L.", "points": 1, "evidence": "States that the result E0*L/2 is directly proportional to L", "fix": "Explain that since V(0)-V(L)=E0*L/2 is linear in L, doubling L doubles the potential difference."}
+    ]
+  },
+  {
+    "subject": "ap_physics_c_em",
+    "unit": 9,
+    "module_topic": "unit-9-electric-potential",
+    "practice": "practice-3",
+    "archetype": "ap-physics-c-em-frq-representation",
+    "difficulty": "Medium",
+    "stimulus": "An electric dipole consists of point charges +6.00 nC and -6.00 nC separated by 0.200 m along the x-axis.",
+    "stem": "Answer all parts of the following question.\n\n(a) Calculate the electric potential at the midpoint of the segment joining the charges, and at a point on the axis 0.100 m beyond the +6.00 nC charge (away from the -6.00 nC charge).\n\n(b) Explain why the perpendicular bisector plane of the dipole is an equipotential surface, and describe how the electric field lines are oriented relative to that surface.",
+    "total_points": 3,
+    "criteria": [
+      {"key": "a-midpoint", "text": "Calculates the potential at the midpoint as zero, showing the two equal-and-opposite contributions.", "points": 1, "evidence": "Both charges are 0.100 m from the midpoint, giving V=kq/r + k(-q)/r = 0", "fix": "Compute V from each charge at r=0.100 m and show the contributions cancel exactly."},
+      {"key": "a-axial", "text": "Calculates the potential at the external axial point as approximately 360 V.", "points": 1, "evidence": "V = kq(1/0.100 - 1/0.300) is approximately 360 V", "fix": "Use distances of 0.100 m from +q and 0.300 m from -q in V=kq/r1 + k(-q)/r2."},
+      {"key": "b-equipotential", "text": "Explains that the bisector plane is an equipotential (V=0 everywhere on it) and that field lines, always perpendicular to equipotential surfaces, cross it pointing from the + charge toward the - charge.", "points": 1, "evidence": "References equal distance from both charges giving V=0 on the whole plane, and perpendicularity of field lines to equipotentials", "fix": "State that every point on the bisector plane is equidistant from +q and -q, so V=0 there, and that field lines must cross this equipotential surface perpendicularly, directed from + to -."}
+    ]
+  },
+  {
+    "subject": "ap_physics_c_em",
+    "unit": 10,
+    "module_topic": "unit-10-conductors-and-capacitors",
+    "practice": "practice-4",
+    "archetype": "ap-physics-c-em-frq-representation",
+    "difficulty": "Medium",
+    "stimulus": "A parallel-plate capacitor has plate area A = 0.0200 m^2 and plate separation d = 1.00 mm, completely filled with a dielectric of dielectric constant kappa = 4.50, connected to a 12.0 V battery.",
+    "stem": "Answer all parts of the following question.\n\n(a) Calculate the capacitance, and the charge and energy stored on the capacitor.\n\n(b) Explain, in terms of the induced (bound) surface charge on the dielectric, why inserting the dielectric increases the capacitance compared to the same capacitor with vacuum between the plates.",
+    "total_points": 3,
+    "criteria": [
+      {"key": "a-capacitance", "text": "Calculates the capacitance as approximately 0.797 nF.", "points": 1, "evidence": "C = kappa*epsilon0*A/d = 4.50*(8.85e-12)(0.0200)/(0.00100) is approximately 0.797 nF", "fix": "Apply C=kappa*epsilon0*A/d with the given values."},
+      {"key": "a-charge-energy", "text": "Calculates the stored charge as approximately 9.56 nC and stored energy as approximately 57.4 nJ.", "points": 1, "evidence": "Q=CV is approximately 9.56 nC and U=0.5CV^2 is approximately 57.4 nJ", "fix": "Use Q=CV and U=0.5CV^2 with the capacitance found in part (a)."},
+      {"key": "b-explanation", "text": "Explains that the dielectric's induced bound surface charges create an opposing field that reduces the net field between the plates, allowing more charge to be stored for the same voltage, hence a larger capacitance.", "points": 1, "evidence": "References polarization/bound charge reducing the net internal field", "fix": "Explain that the external field polarizes the dielectric, producing bound surface charges whose field partially cancels the plates' field, reducing E and allowing more free charge Q=CV for the same V."}
+    ]
+  },
+  {
+    "subject": "ap_physics_c_em",
+    "unit": 10,
+    "module_topic": "unit-10-conductors-and-capacitors",
+    "practice": "practice-1",
+    "archetype": "ap-physics-c-em-frq-experimental",
+    "difficulty": "Medium",
+    "stimulus": "An unknown capacitor is charged by a constant current source supplying I = 5.00 microA, while a voltmeter records the capacitor voltage V at various times t.",
+    "stem": "Answer all parts of the following question.\n\n(a) Design a procedure to determine the unknown capacitance, identifying the independent variable, the dependent variable, and one control held constant.\n\n(b) Explain why a graph of V versus t should be a straight line through the origin, and how the capacitance is obtained from its slope.",
+    "total_points": 4,
+    "criteria": [
+      {"key": "a-independent", "text": "Identifies elapsed time t as the independent variable.", "points": 1, "evidence": "States that time is the deliberately varied/recorded quantity", "fix": "State that time is recorded at intervals during charging."},
+      {"key": "a-dependent", "text": "Identifies the capacitor voltage V as the dependent variable.", "points": 1, "evidence": "Names voltage across the capacitor as measured at each time", "fix": "State that voltage is measured as a function of time."},
+      {"key": "a-control", "text": "Identifies the constant charging current I as a control held fixed.", "points": 1, "evidence": "Names the current source setting as held constant across the trial", "fix": "State that the charging current I is held constant throughout."},
+      {"key": "b-analysis", "text": "Explains that since Q=It and V=Q/C, V=(I/C)t is linear in t with slope I/C, so C = I/slope.", "points": 1, "evidence": "Derives V=(I/C)t and identifies slope as I/C", "fix": "Combine Q=It with V=Q/C to get V=(I/C)t, then solve C=I/slope from the measured graph."}
+    ]
+  },
+  {
+    "subject": "ap_physics_c_em",
+    "unit": 8,
+    "module_topic": "unit-8-electric-charges-fields-and-gauss-s-law",
+    "practice": "practice-2",
+    "archetype": "ap-physics-c-em-frq-translation",
+    "difficulty": "Medium",
+    "stimulus": "A point charge of +3.00 nC sits at the center of an imaginary Gaussian sphere of radius R. A second point charge of +7.00 nC is then placed outside the sphere, at a distance 2R from the center.",
+    "stem": "Answer all parts of the following question.\n\n(a) Calculate the total electric flux through the Gaussian sphere before the second charge is added, and state what happens to that total flux after the second charge is placed outside the sphere.\n\n(b) Explain, using Gauss's law, why the external charge does not change the total flux through the sphere even though it changes the electric field at points on the sphere's surface.",
+    "total_points": 3,
+    "criteria": [
+      {"key": "a-flux", "text": "Calculates the flux from the enclosed charge alone as approximately 339 N*m^2/C.", "points": 1, "evidence": "Phi = q_enc/epsilon0 = (3.00e-9)/(8.85e-12) is approximately 339 N*m^2/C", "fix": "Apply Phi=q_enc/epsilon0 using only the enclosed +3.00 nC charge."},
+      {"key": "a-prediction", "text": "States that the total flux through the sphere is unchanged after the external charge is added.", "points": 1, "evidence": "Explicitly states flux remains approximately 339 N*m^2/C", "fix": "State that the total flux depends only on enclosed charge, so it stays the same."},
+      {"key": "b-explanation", "text": "Explains that Gauss's law depends only on enclosed charge; the external charge's field lines enter and exit the closed surface an equal number of times, contributing zero net flux even though it locally alters the field.", "points": 1, "evidence": "References field lines from external charge entering and exiting the surface, netting to zero flux", "fix": "Explain that any field line from an external charge that enters the Gaussian surface must also exit it, so its net contribution to flux is zero, even though it changes the field magnitude/direction at each point."}
+    ]
+  },
+  {
+    "subject": "ap_physics_c_em",
+    "unit": 8,
+    "module_topic": "unit-8-electric-charges-fields-and-gauss-s-law",
+    "practice": "practice-3",
+    "archetype": "ap-physics-c-em-frq-math",
+    "difficulty": "Hard",
+    "stimulus": "A solid sphere of radius R = 0.300 m has non-uniform volume charge density rho(r) = rho0(r/R) for r <= R and zero outside, with rho0 = 6.00 x 10^-6 C/m^3.",
+    "stem": "Answer all parts of the following question.\n\n(a) Using Gauss's law, derive an expression for the electric field magnitude E(r) for r < R, showing the integral used to find the enclosed charge.\n\n(b) Evaluate E(r) at r = R/2 for the given numeric values.",
+    "total_points": 5,
+    "criteria": [
+      {"key": "a-gaussian-surface", "text": "Selects a concentric spherical Gaussian surface of radius r < R and states Gauss's law Phi_E = Q_enc/epsilon0.", "points": 1, "evidence": "Writes E(4*pi*r^2) = Q_enc/epsilon0", "fix": "State Gauss's law with a spherical Gaussian surface of radius r and flux E*4*pi*r^2."},
+      {"key": "a-enclosed-integral", "text": "Sets up the enclosed charge integral Q_enc = integral of rho0(r'/R)*4*pi*r'^2 dr' from 0 to r.", "points": 1, "evidence": "Correctly writes dQ = rho(r')*4*pi*r'^2 dr' with rho(r')=rho0*r'/R", "fix": "Write dQ_enc = rho(r')*(4*pi*r'^2) dr' and integrate from 0 to r."},
+      {"key": "a-integral-evaluation", "text": "Evaluates the integral to obtain Q_enc(r) = pi*rho0*r^4/R.", "points": 1, "evidence": "Integral of r'^3 dr' from 0 to r is r^4/4, giving Q_enc = 4*pi*rho0/R * (r^4/4) = pi*rho0*r^4/R", "fix": "Integrate r'^3 dr' to get r^4/4 and simplify the constants."},
+      {"key": "a-field-expression", "text": "Solves for E(r) = rho0*r^2/(4*epsilon0*R).", "points": 1, "evidence": "Divides Q_enc by (4*pi*r^2*epsilon0) and simplifies", "fix": "Divide Q_enc(r) by 4*pi*epsilon0*r^2 and simplify to E(r) = rho0*r^2/(4*epsilon0*R)."},
+      {"key": "b-numeric", "text": "Evaluates E at r=R/2 as approximately 1.27 x 10^4 N/C.", "points": 1, "evidence": "E(0.150 m) = rho0*R/(16*epsilon0) is approximately 1.27e4 N/C", "fix": "Substitute r=R/2=0.150 m, rho0=6.00e-6 C/m^3, R=0.300 m into the derived expression."}
+    ]
+  },
+  {
+    "subject": "ap_physics_c_em",
+    "unit": 8,
+    "module_topic": "unit-8-electric-charges-fields-and-gauss-s-law",
+    "practice": "practice-4",
+    "archetype": "ap-physics-c-em-frq-translation",
+    "difficulty": "Hard",
+    "stimulus": "A uniformly charged ring of radius a = 0.100 m carries total charge Q = 5.00 nC. Its on-axis field at distance z from the center is produced by integrating the contributions of each charge element around the ring.",
+    "stem": "Answer all parts of the following question.\n\n(a) Using the integral definition of the field from the ring, derive the on-axis field expression E(z) = kQz/(z^2+a^2)^(3/2), and evaluate E at z = 0.150 m.\n\n(b) Predict, and justify using the derived expression, whether E(z) at this fixed z increases or decreases if the ring's radius is doubled to 0.200 m while Q is held fixed.",
+    "total_points": 5,
+    "criteria": [
+      {"key": "a-integral-setup", "text": "Sets up dE_z = k*dq*z/(z^2+a^2)^(3/2) for a charge element dq on the ring, noting only the axial components survive by symmetry.", "points": 1, "evidence": "Writes the z-component of the field from dq and notes perpendicular components cancel by symmetry", "fix": "Write dE_z = k dq z/(z^2+a^2)^(3/2) and argue that the radial components cancel by symmetry around the ring."},
+      {"key": "a-derivation", "text": "Integrates dq around the ring (total dq = Q) to obtain E(z) = kQz/(z^2+a^2)^(3/2).", "points": 1, "evidence": "Since z and a are constant around the ring, the integral of dq is simply Q", "fix": "Pull the constant factor z/(z^2+a^2)^(3/2) out of the integral and integrate dq around the ring to get Q."},
+      {"key": "a-numeric", "text": "Evaluates E at z=0.150 m (a=0.100 m) as approximately 1.15 x 10^3 N/C.", "points": 1, "evidence": "E = (8.99e9)(5.00e-9)(0.150)/(0.0325)^1.5 is approximately 1.15e3 N/C", "fix": "Substitute z=0.150 m, a=0.100 m, Q=5.00 nC into the derived expression."},
+      {"key": "b-prediction", "text": "Predicts that E(z) decreases when the ring radius is doubled to 0.200 m at fixed z.", "points": 1, "evidence": "New field is approximately 4.32 x 10^2 N/C, less than the original 1.15e3 N/C", "fix": "Recompute E with a=0.200 m and compare to the original value."},
+      {"key": "b-justification", "text": "Justifies the decrease by noting the denominator (z^2+a^2)^(3/2) grows faster than the numerator as a increases, reducing E.", "points": 1, "evidence": "References the denominator increasing disproportionately with a", "fix": "Explain that increasing a increases (z^2+a^2)^(3/2) more than it affects the numerator, so E decreases."}
+    ]
+  },
+  {
+    "subject": "ap_physics_c_em",
+    "unit": 9,
+    "module_topic": "unit-9-electric-potential",
+    "practice": "practice-1",
+    "archetype": "ap-physics-c-em-frq-math",
+    "difficulty": "Hard",
+    "stimulus": "A thin rod of length L = 0.800 m and total charge Q = 8.00 nC, uniformly charged, lies along the x-axis centered at the origin. Point P is on the perpendicular bisector of the rod at distance y = 0.300 m.",
+    "stem": "Answer all parts of the following question.\n\n(a) Using integration, derive an expression for the electric potential at point P, and evaluate it numerically.\n\n(b) State the linear charge density used in the derivation.",
+    "total_points": 5,
+    "criteria": [
+      {"key": "a-lambda", "text": "Computes the linear charge density lambda = Q/L = 1.00 x 10^-8 C/m.", "points": 1, "evidence": "lambda = 8.00e-9/0.800 = 1.00e-8 C/m", "fix": "Divide total charge Q by rod length L to get lambda."},
+      {"key": "a-setup", "text": "Sets up the potential integral dV = k*lambda*dx/sqrt(x^2+y^2) with limits from -L/2 to L/2.", "points": 1, "evidence": "Correct geometry with distance sqrt(x^2+y^2) from element to P", "fix": "Write dV=k*lambda*dx/sqrt(x^2+y^2) with x ranging from -L/2 to L/2."},
+      {"key": "a-integration", "text": "Evaluates the integral using the antiderivative involving an inverse hyperbolic sine (or equivalent logarithmic form).", "points": 1, "evidence": "Integral of dx/sqrt(x^2+y^2) is sinh^-1(x/y) or ln(x+sqrt(x^2+y^2)), evaluated at the limits", "fix": "Use the antiderivative sinh^-1(x/y) (or the equivalent log form) and evaluate at x=+L/2 and x=-L/2."},
+      {"key": "a-final-expression", "text": "Uses symmetry to combine the limits into V = 2*k*lambda*sinh^-1(L/(2y)).", "points": 1, "evidence": "Combines the symmetric contributions from -L/2 to L/2 into twice the 0-to-L/2 integral", "fix": "Use symmetry of the odd/even integrand to write V = 2*k*lambda*sinh^-1(L/(2y))."},
+      {"key": "b-numeric", "text": "Evaluates V numerically as approximately 198 V.", "points": 1, "evidence": "V = 2(8.99e9)(1.00e-8)*sinh^-1(1.333) is approximately 198 V", "fix": "Substitute lambda=1.00e-8 C/m, L=0.800 m, y=0.300 m into the derived expression."}
+    ]
+  },
+  {
+    "subject": "ap_physics_c_em",
+    "unit": 9,
+    "module_topic": "unit-9-electric-potential",
+    "practice": "practice-2",
+    "archetype": "ap-physics-c-em-frq-experimental",
+    "difficulty": "Hard",
+    "stimulus": "A student uses a movable voltmeter probe and a fixed reference electrode to map equipotential lines in a conductive gel tray surrounding an irregularly shaped charged conductor held at a fixed applied voltage.",
+    "stem": "Answer all parts of the following question.\n\n(a) Design a procedure to map the equipotential lines, identifying the independent variable, the dependent variable, and one control quantity held fixed.\n\n(b) Explain how the resulting equipotential map can be used to determine the direction and relative magnitude of the electric field near the conductor.",
+    "total_points": 4,
+    "criteria": [
+      {"key": "a-independent", "text": "Identifies the probe's position (coordinates) in the tray as the independent variable.", "points": 1, "evidence": "States that probe location is systematically varied to trace out points of equal potential", "fix": "State that the probe is moved to different positions, and its coordinates are recorded."},
+      {"key": "a-dependent", "text": "Identifies the measured voltage (potential difference relative to the fixed reference) as the dependent variable.", "points": 1, "evidence": "States that voltmeter reading is recorded at each probe position", "fix": "State that the voltmeter reading at each position is the measured quantity."},
+      {"key": "a-control", "text": "Identifies the applied voltage on the conductor (or the fixed reference electrode position) as a control held constant.", "points": 1, "evidence": "Names the source voltage or reference point as fixed throughout mapping", "fix": "State that the voltage applied to the conductor is held constant throughout the mapping."},
+      {"key": "b-analysis", "text": "Explains that field lines are perpendicular to equipotential lines and point from higher to lower potential, with closer-spaced equipotentials indicating a larger field magnitude.", "points": 1, "evidence": "References perpendicularity, direction of decreasing potential, and spacing-magnitude relationship", "fix": "State that E is perpendicular to equipotential lines, points toward lower potential, and its magnitude is larger where equipotential lines are more closely spaced."}
+    ]
+  },
+  {
+    "subject": "ap_physics_c_em",
+    "unit": 10,
+    "module_topic": "unit-10-conductors-and-capacitors",
+    "practice": "practice-3",
+    "archetype": "ap-physics-c-em-frq-math",
+    "difficulty": "Hard",
+    "stimulus": "A capacitor with capacitance C = 2.00 microF is charged from zero charge to its final charge by a 9.00 V battery through a resistor.",
+    "stem": "Answer all parts of the following question.\n\n(a) Using U = integral of (q/C) dq, derive the energy stored on the capacitor once fully charged, and evaluate it numerically.\n\n(b) Calculate the total energy delivered by the battery during the charging process, and explain why it is not equal to the energy stored on the capacitor.",
+    "total_points": 5,
+    "criteria": [
+      {"key": "a-charge", "text": "Calculates the final charge Qf = C*(EMF) = 18.0 microC.", "points": 1, "evidence": "Qf = (2.00e-6)(9.00) = 1.80e-5 C", "fix": "Apply Qf=C*EMF using the given capacitance and battery EMF."},
+      {"key": "a-integral-setup", "text": "Sets up U = integral of (q/C) dq from 0 to Qf.", "points": 1, "evidence": "Correctly writes the incremental work dU=(q/C)dq to move charge dq onto the capacitor against its current voltage q/C", "fix": "Write dU = V(q) dq = (q/C) dq and integrate from 0 to Qf."},
+      {"key": "a-integral-evaluation", "text": "Evaluates the integral to U = Qf^2/(2C), approximately 81.0 microJ.", "points": 1, "evidence": "Qf^2/(2C) = (1.80e-5)^2/(2*2.00e-6) is approximately 8.10e-5 J", "fix": "Integrate (q/C)dq to Qf^2/(2C) and substitute numeric values."},
+      {"key": "b-battery-energy", "text": "Calculates the total energy delivered by the battery as W = EMF*Qf, approximately 162 microJ.", "points": 1, "evidence": "W = (9.00)(1.80e-5) is approximately 1.62e-4 J", "fix": "Apply W=EMF*Qf using the battery voltage and final charge."},
+      {"key": "b-explanation", "text": "Explains that the difference between the battery's energy output and the stored energy (approximately 81.0 microJ) is dissipated as heat in the resistor during charging.", "points": 1, "evidence": "States that exactly half the delivered energy is lost to resistive heating regardless of the resistance value", "fix": "Explain that the missing energy (W minus U_stored) is dissipated as I^2R heating in the resistor during the charging transient."}
+    ]
+  },
+  {
+    "subject": "ap_physics_c_em",
+    "unit": 10,
+    "module_topic": "unit-10-conductors-and-capacitors",
+    "practice": "practice-4",
+    "archetype": "ap-physics-c-em-frq-representation",
+    "difficulty": "Hard",
+    "stimulus": "An isolated conducting sphere of radius r1 = 0.100 m carries charge Q1 = 6.00 nC, and a second isolated conducting sphere of radius r2 = 0.200 m carries charge Q2 = 2.00 nC. The spheres are connected briefly by a thin conducting wire, far apart from each other, then disconnected.",
+    "stem": "Answer all parts of the following question.\n\n(a) Calculate the final charge on each sphere after they are disconnected, and the common final potential of the spheres.\n\n(b) Explain, in terms of the electric field inside a conductor in electrostatic equilibrium, why charge redistributes until both spheres reach the same potential.",
+    "total_points": 4,
+    "criteria": [
+      {"key": "a-charge1", "text": "Calculates the final charge on the r1 sphere as approximately 2.67 nC, using Q1' proportional to r1/(r1+r2) times total charge.", "points": 1, "evidence": "Q1' = 8.00 nC * (0.100/0.300) is approximately 2.67 nC", "fix": "Set V1=V2 (kQ1'/r1 = kQ2'/r2) with Q1'+Q2'=8.00 nC and solve for Q1'."},
+      {"key": "a-charge2", "text": "Calculates the final charge on the r2 sphere as approximately 5.33 nC.", "points": 1, "evidence": "Q2' = 8.00 nC * (0.200/0.300) is approximately 5.33 nC", "fix": "Use Q2' = total charge minus Q1', or the analogous proportional formula with r2."},
+      {"key": "a-potential", "text": "Calculates the common final potential as approximately 240 V.", "points": 1, "evidence": "V = kQ1'/r1 = kQ2'/r2 is approximately 240 V for both spheres", "fix": "Substitute either final charge and its sphere's radius into V=kQ/r."},
+      {"key": "b-explanation", "text": "Explains that E=0 inside a conductor in equilibrium, so charge flows through the connecting wire until the electric potential is equal everywhere on the connected conductors (no field remains to drive further charge flow).", "points": 1, "evidence": "References zero field inside conductors in equilibrium and the resulting equal potential condition", "fix": "Explain that charge continues to flow through the wire as long as a potential difference (and hence field) exists between the spheres, stopping only once both reach the same potential, consistent with E=0 inside conductors at equilibrium."}
+    ]
+  },
+  {
+    "subject": "ap_physics_c_em",
+    "unit": 10,
+    "module_topic": "unit-10-conductors-and-capacitors",
+    "practice": "practice-1",
+    "archetype": "ap-physics-c-em-frq-experimental",
+    "difficulty": "Hard",
+    "stimulus": "A student wants to determine the dielectric constant of an unknown slab by inserting it fully between the plates of a parallel-plate capacitor connected to a battery that holds the voltage constant, using an electrometer to measure the charge on the plates before and after insertion.",
+    "stem": "Answer all parts of the following question.\n\n(a) Design a procedure to determine the dielectric constant, identifying the independent variable, the dependent variable, and one control held constant.\n\n(b) Explain how the dielectric constant is computed from the measured charges with and without the dielectric present.",
+    "total_points": 4,
+    "criteria": [
+      {"key": "a-independent", "text": "Identifies whether the dielectric slab is present or absent as the independent variable.", "points": 1, "evidence": "States that the presence/absence (or identity) of the inserted material is what is changed between trials", "fix": "State that the material inserted between the plates (dielectric present or vacuum/air) is the varied condition."},
+      {"key": "a-dependent", "text": "Identifies the measured plate charge Q (at fixed voltage) as the dependent variable.", "points": 1, "evidence": "States that charge is measured with the electrometer in each condition", "fix": "State that the charge on the plates, read from the electrometer, is measured in each condition."},
+      {"key": "a-control", "text": "Identifies the battery voltage and plate geometry (area, separation) as controls held constant.", "points": 1, "evidence": "Names voltage and/or geometry as fixed across both measurements", "fix": "State that the applied voltage and the plate area/separation are kept the same in both trials."},
+      {"key": "b-analysis", "text": "Explains that since C=kappa*C0 and Q=CV at fixed V, kappa = Q_with_dielectric / Q_without_dielectric.", "points": 1, "evidence": "Derives kappa from the ratio of measured charges at constant voltage", "fix": "Use Q=CV with V fixed to show that the ratio of charges equals the ratio of capacitances, which equals kappa."}
+    ]
+  },
+  {
+    "subject": "ap_physics_c_em",
+    "unit": 8,
+    "module_topic": "unit-8-electric-charges-fields-and-gauss-s-law",
+    "practice": "practice-2",
+    "archetype": "ap-physics-c-em-frq-math",
+    "difficulty": "Very Hard",
+    "stimulus": "A solid sphere of radius R = 0.250 m has non-uniform volume charge density rho(r) = rho0(1 - r/R) for r <= R and zero outside, with rho0 = 6.00 x 10^-6 C/m^3.",
+    "stem": "Answer all parts of the following question.\n\n(a) Using Gauss's law, derive an expression for the electric field magnitude E(r) for r < R, showing the enclosed-charge integral.\n\n(b) Derive an expression for E(r) for r > R.\n\n(c) Evaluate E(r) at r = R/2 and at r = 2R.",
+    "total_points": 7,
+    "criteria": [
+      {"key": "a-gaussian-setup", "text": "Selects a spherical Gaussian surface of radius r < R and states Phi_E = Q_enc/epsilon0.", "points": 1, "evidence": "Writes E(4*pi*r^2) = Q_enc/epsilon0", "fix": "State Gauss's law with a spherical Gaussian surface of radius r < R."},
+      {"key": "a-enclosed-integral", "text": "Sets up and evaluates Q_enc(r) = integral of rho0(1-r'/R)*4*pi*r'^2 dr' from 0 to r, obtaining 4*pi*rho0[r^3/3 - r^4/(4R)].", "points": 1, "evidence": "Integrates r'^2 and r'^3/R terms separately over 0 to r", "fix": "Expand rho(r')*4*pi*r'^2 = 4*pi*rho0(r'^2 - r'^3/R) and integrate term by term from 0 to r."},
+      {"key": "a-field-expression", "text": "Solves for E(r) = (rho0/epsilon0)*(r/3 - r^2/(4R)) for r < R.", "points": 1, "evidence": "Divides Q_enc(r) by 4*pi*epsilon0*r^2 and simplifies", "fix": "Divide the enclosed charge expression by 4*pi*epsilon0*r^2 and simplify."},
+      {"key": "b-total-charge", "text": "Computes the total charge on the sphere Q_total = Q_enc(R) = pi*rho0*R^3/3.", "points": 1, "evidence": "Substitutes r=R into the enclosed charge expression and simplifies (R^3/3 - R^3/4 = R^3/12)", "fix": "Evaluate the enclosed-charge expression at r=R to find the total charge."},
+      {"key": "b-field-expression", "text": "Derives E(r) = rho0*R^3/(12*epsilon0*r^2) for r > R.", "points": 1, "evidence": "Applies E=Q_total/(4*pi*epsilon0*r^2) with the total charge from part (b)", "fix": "Apply Gauss's law outside the sphere using the total enclosed charge found in part (b)."},
+      {"key": "c-numeric-inside", "text": "Evaluates E at r=R/2 as approximately 1.77 x 10^4 N/C.", "points": 1, "evidence": "E(0.125 m) = (rho0/epsilon0)(0.125/3 - 0.015625/1.00) is approximately 1.77e4 N/C", "fix": "Substitute r=R/2=0.125 m into the inside-field expression from part (a)."},
+      {"key": "c-numeric-outside", "text": "Evaluates E at r=2R as approximately 3.53 x 10^3 N/C.", "points": 1, "evidence": "E(0.500 m) = rho0*R^3/(12*epsilon0*(0.500)^2) is approximately 3.53e3 N/C", "fix": "Substitute r=2R=0.500 m into the outside-field expression from part (b)."}
+    ]
+  },
+  {
+    "subject": "ap_physics_c_em",
+    "unit": 10,
+    "module_topic": "unit-10-conductors-and-capacitors",
+    "practice": "practice-3",
+    "archetype": "ap-physics-c-em-frq-math",
+    "difficulty": "Very Hard",
+    "stimulus": "A spherical capacitor consists of an inner conducting sphere of radius a = 0.0400 m carrying charge Q = 4.00 nC and a concentric outer conducting shell of radius b = 0.0800 m carrying charge -Q.",
+    "stem": "Answer all parts of the following question.\n\n(a) Using E(r)=kQ/r^2 between the shells and V = integral of E dr, derive an expression for the capacitance of this configuration.\n\n(b) Evaluate the capacitance and the energy stored numerically.\n\n(c) Using U = integral of (q/C) dq, confirm that this integral yields the same stored energy found in part (b).",
+    "total_points": 7,
+    "criteria": [
+      {"key": "a-field", "text": "States the field between the shells as E(r) = kQ/r^2, from Gauss's law applied to the region a < r < b.", "points": 1, "evidence": "Applies Gauss's law with a concentric Gaussian sphere of radius r between a and b", "fix": "Apply Gauss's law with a spherical surface of radius r (a<r<b) enclosing only the inner charge Q."},
+      {"key": "a-integral", "text": "Integrates to find V = integral of E dr from a to b = kQ(1/a - 1/b).", "points": 1, "evidence": "Integral of kQ/r^2 dr from a to b gives kQ(1/a-1/b)", "fix": "Integrate E(r)=kQ/r^2 from r=a to r=b."},
+      {"key": "a-capacitance-expression", "text": "Derives C = Q/V = 4*pi*epsilon0*a*b/(b-a) (equivalently ab/[k(b-a)]).", "points": 1, "evidence": "Divides Q by the derived V and simplifies using k=1/(4*pi*epsilon0)", "fix": "Divide Q by the expression for V from part (a) and simplify."},
+      {"key": "b-numeric-C", "text": "Evaluates the capacitance numerically as approximately 8.90 pF.", "points": 1, "evidence": "C = 4*pi*epsilon0*(0.0400)(0.0800)/(0.0400) is approximately 8.90e-12 F", "fix": "Substitute a=0.0400 m, b=0.0800 m into the derived capacitance expression."},
+      {"key": "b-numeric-U", "text": "Evaluates the stored energy as U=Q^2/(2C), approximately 0.899 microJ.", "points": 1, "evidence": "U = (4.00e-9)^2/(2*8.90e-12) is approximately 8.99e-7 J", "fix": "Apply U=Q^2/(2C) using the numeric capacitance found above."},
+      {"key": "c-integral-setup", "text": "Sets up U = integral of (q/C) dq from 0 to Q.", "points": 1, "evidence": "Writes the incremental work dU=(q/C)dq to add charge dq to the capacitor", "fix": "Write dU=(q/C)dq and integrate q from 0 to Q, treating C as constant."},
+      {"key": "c-integral-evaluation", "text": "Evaluates the integral to Q^2/(2C) and confirms it matches the numeric value found in part (b).", "points": 1, "evidence": "Integral of (q/C)dq from 0 to Q equals Q^2/(2C), the same as part (b)'s result", "fix": "Integrate to Q^2/(2C) and compare directly to the value computed in part (b)."}
+    ]
+  },
+  {
+    "subject": "ap_physics_c_em",
+    "unit": 9,
+    "module_topic": "unit-9-electric-potential",
+    "practice": "practice-4",
+    "archetype": "ap-physics-c-em-frq-math",
+    "difficulty": "Very Hard",
+    "stimulus": "A uniformly charged disk of radius R = 0.100 m has surface charge density sigma = 5.00 x 10^-6 C/m^2. Point P lies on the disk's central axis at distance z = 0.150 m from its center.",
+    "stem": "Answer all parts of the following question.\n\n(a) Using integration over concentric ring elements, derive an expression for the electric potential V(z) on the axis, and evaluate it numerically.\n\n(b) Differentiate V(z) to obtain the on-axis field E(z) = -dV/dz, evaluate it numerically, and state the direction of the field at P.",
+    "total_points": 6,
+    "criteria": [
+      {"key": "a-setup", "text": "Sets up dV = k*dq/sqrt(s^2+z^2) with a ring element dq = sigma*2*pi*s*ds at radius s.", "points": 1, "evidence": "Correctly expresses the ring's charge and its distance to point P", "fix": "Write dq=sigma*2*pi*s*ds and dV=k*dq/sqrt(s^2+z^2), integrating s from 0 to R."},
+      {"key": "a-integration", "text": "Evaluates the integral to V(z) = (sigma/(2*epsilon0))*(sqrt(R^2+z^2) - z).", "points": 1, "evidence": "Integral of s ds/sqrt(s^2+z^2) from 0 to R gives sqrt(R^2+z^2)-z, combined with k*sigma*2*pi = sigma/(2*epsilon0)", "fix": "Integrate s/sqrt(s^2+z^2) ds from 0 to R using the substitution u=s^2+z^2, then multiply by sigma/(2*epsilon0)."},
+      {"key": "a-numeric", "text": "Evaluates V(z) at z=0.150 m as approximately 8.55 x 10^3 V.", "points": 1, "evidence": "V = (5.00e-6/(2*8.85e-12))*(sqrt(0.0325)-0.150) is approximately 8.55e3 V", "fix": "Substitute sigma=5.00e-6 C/m^2, R=0.100 m, z=0.150 m into the derived expression."},
+      {"key": "b-differentiation", "text": "Differentiates V(z) to obtain E(z) = (sigma/(2*epsilon0))*(1 - z/sqrt(R^2+z^2)).", "points": 1, "evidence": "d/dz[sqrt(R^2+z^2)-z] = z/sqrt(R^2+z^2) - 1, and E=-dV/dz", "fix": "Differentiate sqrt(R^2+z^2)-z with respect to z and negate to get E(z)=-dV/dz."},
+      {"key": "b-numeric", "text": "Evaluates E(z) at z=0.150 m as approximately 4.74 x 10^3 N/C.", "points": 1, "evidence": "E = (5.00e-6/(2*8.85e-12))*(1 - 0.150/0.180278) is approximately 4.74e3 N/C", "fix": "Substitute the same numeric values into the derived field expression."},
+      {"key": "b-direction", "text": "States that the field at P points along the axis away from the disk (in the +z direction), consistent with the disk's positive charge.", "points": 1, "evidence": "Notes the field direction is away from a positively charged disk, along the axis", "fix": "State that since the disk is positively charged, the on-axis field points away from the disk, in the +z direction at P."}
+    ]
+  }
+]

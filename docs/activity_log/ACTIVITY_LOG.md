@@ -6,6 +6,10 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Reviewer Submit Blocker Root-Caused and Fixed: 36 Assignments Reset to Pending On Top of Immutable Decisions by Four Packet Scripts — 2026-08-03
+- Gold-Set Model Replaced: AI Generation + Multi-Model Verification + Reader Certification; Sets Repartitioned by Engine; Stats/Physics Pilot Pre-Registered — 2026-08-03
+- Gulgeldi Reviewer QA, DECISION-0044 Universal Publish Rule Executed, Two New Packets Assigned — 2026-08-03
+- Content-Review Audit, Reviewer-Queue Cleanup, and CED-Alignment Fixes Across Four Subjects; Locked-Assignment Root Cause Found and Fixed — 2026-08-02
 - TASK-0018/0019 Released to Production: 17 Migrations Applied, session-event Deployed, Staff QA Setup Complete — 2026-08-02
 - Blocked Five-Subject Branch Archived After Three-Way Verification; §3 Skill Anchoring Source-Verified 55/55; Jill Confirmation Deferred — 2026-08-02
 - Reviewer Unit Picker Moved to the 5-Unit CED; Retired Content Withdrawn From All Review Queues — 2026-08-01
@@ -50,6 +54,514 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 ---
+
+## Reviewer Submit Blocker Root-Caused and Fixed: 36 Assignments Reset to Pending On Top of Immutable Decisions by Four Packet Scripts — 2026-08-03
+
+**Task:** Ad hoc reviewer incident. **Status:** Data repaired and verified; the four
+scripts that caused it are fixed and the guard is syntax- and behaviour-tested. One
+question outstanding for David (Shazia, below).
+
+**Report.** Abdul Hanan blocked from submitting any question, error
+`assignment_assignment_locked`. Shazia Fazal separately reported an empty "Gold set
+dashboard."
+
+**1. Root cause (Hanan).** All four 2026-08-03 early-year packet scripts
+(`scripts/content-seed/reviewer-management/20260803_early_year_*.sql`) end their
+assignment upsert with `on conflict (content_item_version_id, reviewer_id, review_stage)
+… do update set status = 'pending'` and **no guard on the existing status**. Any item a
+reviewer had already reviewed was flipped back to `pending` while its decision row —
+immutable by design — remained. `app.enforce_review_submission_lock` then correctly
+refuses the resubmit (`review_submission:assignment_locked`) because a decision already
+exists. The reviewer sees an item in their queue that they can open but can never submit.
+
+The re-open those scripts attempted **is not achievable in this schema**: the same
+(item version, reviewer, stage) triple cannot carry a second decision, so an
+already-reviewed item must be *skipped* by a packet, not reset. Noted as a known
+constraint on 2026-08-02 and re-learned here.
+
+**2. Scope — systemic, not one reviewer.** 36 orphaned rows across five reviewers:
+Abdul Hanan 18, Muhammad Saood 8, Ghazanfar Ali 5, Sarah Sohail 4, Shazia Fazal 1. All 18
+of Hanan's were his own genuine decisions submitted 08-01/08-02 against assignments from
+the 2026-07-31 batch. Because the reviewer queue serves oldest-first, the 18 poisoned
+rows sat at the front of his queue — which is why the symptom presented as "blocked on
+*every* question" rather than on 18 of 56.
+
+**3. This is a recurrence.** The 2026-08-02 session corrected 9 rows of exactly this
+class in place (4 Adil/Biology, 5 Jill/Statistics) but did not fix the upsert that
+produces them. Repairing data without fixing the writer is why it came back six days
+later at four times the size.
+
+**4. Repair executed** (`scripts/content-seed/reviewer-qa-remediation/20260803_orphaned_pending_assignment_repair.sql`,
+run against Production). All 36 rows set to `submitted`, restoring the invariant the
+database already enforces — a decision exists if and only if its assignment is closed. No
+decisions created, nothing deleted, only provably inconsistent rows touched. Verified:
+**0 remaining orphans** system-wide; Hanan 38 clean pending, Saood 60. The affected
+packets legitimately shrink, since those items were already reviewed by that reviewer.
+
+**5. Cause fixed.** All four packet scripts now guard the upsert
+(`where app.content_review_assignments.status <> 'submitted' and not exists (…decision…)`).
+Tested against Production inside an aborted transaction: an already-submitted row stays
+`submitted` instead of being reset. Any future packet script must carry this guard.
+
+**6. Cosmetic frontend defect, not fixed.** The reviewer UI renders the error as
+`assignment_assignment_locked` — the edge function returns `assignment_locked` and the
+client prefixes `assignment_`. Harmless but it makes reports harder to search.
+
+**7. Shazia's "empty Gold set dashboard" — unexplained, needs David.** She has **no
+gold-set permission, no feature flags, and zero gold-set assignments**, so the gate
+should render nothing for her at all; `gold_set_verification_next()` denies her with
+`not_authorized`. Her ordinary review queue is **not** empty (56 pending), so this is not
+a queue-visibility problem. Two possibilities: (a) the gold-set screen was built and
+shipped without wiring `gold_set_access()`, in which case the gate is missing and every
+reviewer can see it; or (b) she is describing something other than the gold-set screen.
+Worth noting either way: **the gold-set queue is empty for everyone right now**, including
+Jill and Saood — no answers have been generated and no assignments seeded, so "empty" is
+the correct state today. The bug, if there is one, is that she can see it at all.
+
+**8. Invariant enforcement + detection added** (migration
+`20260803160000_content_review_invariants.sql`, applied to Production). Two layers,
+because they do different jobs:
+
+- **Prevention.** `tg_content_review_assignments_no_reopen_decided` blocks any transition
+  of a decided assignment back to `pending`/`in_progress`, raising
+  `review_assignment:cannot_reopen_decided`. This makes the recurring class impossible
+  rather than merely detectable. It deliberately only blocks the transition *into* an open
+  state, so rows already broken stay updatable and a repair script can still close them —
+  both behaviours tested against Production in an aborted transaction (reopen blocked,
+  status unchanged, repair path unaffected).
+- **Detection.** `app.check_content_review_invariants()` writes to
+  `app.content_review_invariant_violations` (open/resolved tracked, so a fixed violation
+  closes itself and does not re-alert), scheduled daily at 06:05 UTC as cron job
+  `content-review-invariants` — after the overnight window, before the working day, so a
+  break introduced by an evening packet script is visible next morning. Admin-readable via
+  `public.content_review_invariant_report()`. Four invariants: open-with-decision,
+  submitted-without-decision, decision/assignment reviewer mismatch, and open assignment
+  on retired content.
+
+**9. First run found 6 pre-existing violations — two worth acting on.**
+`open_assignment_with_decision` and `submitted_assignment_without_decision` are both
+clean (0), confirming §4's repair held. The rest:
+
+- **`decision_reviewer_mismatch` (3).** Two are decisions authored by **Amjad Ali — the
+  Biology reviewer who was fired** — still attached to live assignments belonging to Adil
+  Abbasi. The 2026-08-02 session withdrew the assignments but the mismatched decision rows
+  survived. **This has publication consequences:** DECISION-0044 publishes on "two or more
+  distinct, real, actively qualified tutor approvals", and approval counting that reads
+  decisions rather than assignment ownership could be counting a fired reviewer's approval
+  toward that bar. Not investigated here — flagged as a governance question, not silently
+  repaired. The third is a David-authored decision on synthetic profile
+  `aaaaaaaa-0002-…`, almost certainly test data.
+- **`open_assignment_on_retired_content` (3).** All **Shazia Fazal**, on retired AP
+  Statistics items (`APSTAT-MOD8-M004`, `APSTAT-MOD4-M004`, `STATS-MOD9-VH002`). The
+  2026-08-02 `withdraw_review_assignments_on_retired_content` migration was meant to drain
+  exactly these; three leaked. Not auto-withdrawn here — that migration's semantics should
+  be re-run deliberately rather than approximated. Does not explain her report (§7), but it
+  is real work stuck in her queue.
+
+**7b. Follow-up report ("reviewers still not seeing their assignments") — not a bug, and
+not the same issue.** Investigated after the §4 repair. The queue is healthy:
+`review-queue` returned 200 throughout the log window, **every** reviewer has a non-empty
+visible queue (Jill 3 … Ghazanfar 198), nothing is dropped by the retired-content filter,
+no null versions, and three reviewers — Sarah Sohail, Shazia Fazal and **Abdul Hanan** —
+submitted decisions successfully within the last two hours, Hanan's most recent *after*
+the repair. `review-decision` last returned 409 at ~16:43 UTC, immediately before the
+repair, and has returned 200 on every submission since.
+
+The queues did not disappear — they were **deliberately emptied**. The fifth script in
+today's batch, `20260803_early_year_reviewers_skip_non_early_year.sql`, sets every
+*non-early-year* pending assignment to `skipped` for five named reviewers, by design, so
+each queue holds only that reviewer's early-year packet. Effect, verified: **Sarah Sohail
+140 skipped / 8 left open**, Shazia Fazal 49 / 33, Ghazanfar Ali 27 / 198, Muhammad Saood
+12 / 60, Abdul Hanan 0 / 37. Every skipped row is non-early-year and carries no decision,
+exactly matching the script's predicate. From a reviewer's seat this is indistinguishable
+from "my assignments vanished" — Sarah lost ~95% of her queue.
+
+**Two real problems this exposes, independent of whether the narrowing was intended:**
+
+1. **`skipped` is semantically overloaded.** It is the reviewer's own "I decline this"
+   action, and it is now also the admin bulk-clear mechanism. After this run nobody can
+   tell which skips were a reviewer's judgement and which were the script.
+2. **`content_review_assignments` has no `updated_at`/`skipped_at`**, so a status change
+   cannot be dated. Shazia's skipped count moved from 29 to 49 *during this session*, and
+   there is no way to tell from the table whether that was the script or Shazia skipping
+   items in the UI while working — she was active throughout. This is why 7b cannot be
+   stated more precisely, and it would make the next incident equally hard to reconstruct.
+
+**Not reversed.** Restoring the skipped rows to `pending` is mechanically safe (none carry
+decisions) but would undo a deliberate operational decision, re-flood queues that were
+intentionally narrowed, and — per (2) — resurrect genuine reviewer skips that cannot be
+separated out. Awaiting David.
+
+**Files/systems changed:** Production `pcntajvbdfqhbeewmdry` (36 assignment rows; migration
+`20260803160000_content_review_invariants.sql` applied; cron job `content-review-invariants`
+scheduled); `supabase/migrations/20260803160000_content_review_invariants.sql` (new);
+`scripts/content-seed/reviewer-qa-remediation/20260803_orphaned_pending_assignment_repair.sql`
+(new); the four `scripts/content-seed/reviewer-management/20260803_early_year_*.sql`
+scripts (guard added); this entry.
+
+**Next Required Action:** (1) confirm with Shazia what screen she is looking at, and
+whether a gold-set route is live in the reviewer portal — if it is, the
+`gold_set_access()` gate needs wiring before anything else; (2) **decide whether Amjad
+Ali's two surviving decisions affect DECISION-0044 approval counts** (§9) — the only
+finding here with publication consequences; (3) re-run the retired-content withdrawal for
+Shazia's three stuck items; (4) fix the doubled error prefix in the reviewer client;
+(5) have Abdul Hanan confirm he can submit again.
+
+---
+
+## Gold-Set Model Replaced: AI Generation + Multi-Model Verification + Reader Certification; Sets Repartitioned by Engine; Stats/Physics Pilot Pre-Registered — 2026-08-03
+
+**Task:** TASK-0016 Phase C (cross-subject grading calibration)
+**Status:** Decision approved and documents landed. Pilot is **pre-registered, not
+yet run** — one blocking Phase-0 gate outstanding (see below).
+
+**Trigger.** David: the all-human gold-set authoring model was too large for the
+reader roster, and since we hold canonical answers and can generate the rest with
+AI, generation should be AI with readers and multiple models validating.
+
+**1. The scale problem, quantified.** `GOLD_SET_AUTHORING_GUIDE.md` v1.0 required
+~330 answers × (12 min write + 5 min verify) ≈ **94 reader-hours**, against the
+roster already bottlenecking content review. Replaced by AI generation + two-family
+blind machine verification + reader certification of the *pipeline*. Reader cost now
+decouples from corpus size: the audit sample is sized by the confidence bound
+(~100 answers per set), not by set size, which is what makes previously-descoped
+subjects affordable.
+
+**2. Independence constraint (the thing that can silently void the whole exercise).**
+The grader under test is OpenAI (`gpt-4.1-mini`, `gpt-5.5`). No OpenAI model may
+write or verify gold-set answers, and no verifier may share a family with the writer
+of the answer it verifies. A same-family writer produces answers in the grader's own
+idiom, destroying the A2 probe (full credit in unconventional phrasing — the probe
+that caught the grader awarding full marks to only 7 of 10 complete answers). A
+same-family verifier encodes the grader's own misreading as ground truth, so the set
+reports the grader accurate regardless of behaviour.
+
+**3. Sets repartitioned — seven subjects collapse to two active sets.** David asked
+whether one set could serve all of physics, or all of calculus, or natural sciences
+vs math, or one per grading engine. Answered from Production
+(`pcntajvbdfqhbeewmdry`) rather than theory: a gold set covers a **code path ×
+rubric shape**, and subject is a stratum inside a set, not a set boundary. Live
+inventory of published non-retired FRQs carrying criteria — Biology 34+7 items /158
+criteria (36 multi-point), Chemistry 8/30 (5), Physics ×4 35/113 (**0**
+multi-point), Precalculus 11/66 (0), Statistics 15/60 (0) `discrete_text` plus
+33/132 `spatial`, Calc AB/BC 3/9 — yields: **Set A** (Engine 1, multi-point:
+Bio+Chem+Calc), **Set B** (Engine 1, single-point: Physics+Stats+Precalc), **Set C**
+(Engine 4 spatial, deferred — `human_shadow`, not automated). "One per engine" was
+the right instinct but collapses further than expected: **every automated FRQ path
+in the bank is Engine 1**, and **Engine 3 (formula/ECF) has zero published items**,
+so it gets no set until content routes there.
+
+**4. Documents landed.**
+`docs/research/GOLD_SET_GENERATION_PROTOCOL.md` (new — set partition, independence
+rules R1–R5, the ordered Phase 0–5 pipeline, the certification gate, failure modes);
+`docs/research/GOLD_SET_AUTHORING_GUIDE.md` **rewritten to v2.0** (reader-facing;
+readers no longer author — they verify cold and confirm element decompositions);
+`docs/research/GOLD_SET_PILOT_STATS_PHYSICS_2026_08_03.md` (new, pre-registered);
+`DECISIONS_LOG.md` DECISION-0045.
+
+**5. Pilot pre-registered — Set B, Statistics + Physics.** Chosen for reader quality
+(Jill sole Statistics reviewer; Saood all four Physics courses) and because
+canonical-answer coverage is complete there (15/15 Stats, 35/35 Physics), so every
+A1 comes from the bank rather than generation. Frozen slice: 14 items / 52 criteria
+/ **112 answers** — 6 Statistics items (Jill, 48 answers, ~4 h) and 8 Physics items,
+two per course balanced on criterion count (Saood, 64 answers, ~5 h). Readers verify
+**100%** in the pilot; sampling starts only after certification, since a false-accept
+rate cannot be estimated from a sample of itself. Gate pre-registered before
+generation: upper 95% bound ≤5% certifies, 5–15% diagnose and re-pilot, >15% rejects
+the automated path. A2 and A6 false-accept rates reported separately — a pipeline
+accurate on A1/A8 but wrong on A2/A6 has failed even if the aggregate clears.
+
+**6. Kimi — the blocking gate.** David recalled a schema incompatibility that ruled
+Kimi out. Searched: **no such finding is recorded anywhere in the repo**; the ledger
+has the Kimi arms as *pre-registered and never run* ("Do not cite Kimi performance as
+measured"), so the belief appears to be unlogged session memory. It likely does not
+transfer either — the constraint that shaped the grading arms was a 5-field verdict
+object under a 4–8 s criterion timeout, whereas verification asks for
+`[{element_id, present, evidence_quote}]` offline in batch, where a parse-repair-retry
+loop is affordable. But it is **load-bearing**: the writer consumes one family and the
+panel needs two, so three non-OpenAI families are required, and Anthropic + Google
+alone cannot produce unanimity-of-two. Resolution is a 20-call schema-conformance
+smoke test (pass ≥19/20 after ≤1 repair retry), DeepSeek as named alternate. If both
+fail the pilot does not run.
+
+**7. Limits recorded up front, so certification is not over-claimed.** Set B has zero
+multi-point criteria, so the pilot never exercises **element decomposition** — the
+highest-judgement, highest-blast-radius reader step (a bad breakdown corrupts all
+eight answers for an item identically). **Set A needs its own certification pass;** a
+Set B pass does not license generating Biology unsupervised. Also: every item
+available is `practice_format='targeted_drill'` — **no `full_exam_frq` content exists
+in any subject** — so certification covers short drill items only, and the AP
+Statistics 2027 form (4 × 10 independently-scored points) cannot be piloted because
+that content does not exist yet.
+
+**8. Why Engines 3 and 4 have no gold set — they have inverse problems, and Engine 3's
+is worse than "not built yet."** David asked. Verified in Production, and it revises the
+Engine 3 status claim in `GRADING_PROGRAM.md` (§1 updated).
+
+- **Engine 3 is an engine with no content.** The only `rubric_type` values that exist
+  in the entire database are `discrete_text`, `mcq`, `spatial`, and NULL — **there is no
+  schema value that routes to Engine 3 at all.** Its deterministic path is reached only
+  through the hardcoded `STATISTICS_ITEM_KEYS` map in `_shared/math-verifier.ts`, and
+  **none of its five `content_key`s was ever published**: `APSTAT-MOD3-H001-INV`,
+  `APSTAT-MOD5-H001-INV`, `APSTAT-MOD6-H001` are `reviewed_approved` but unpublished;
+  `APSTAT-MOD7-H001` is `reviewed_disapproved`; `APSTAT-MOD8-H001` is still `assigned`.
+  All five are from the retired 9-unit AP Statistics taxonomy. **This closes the
+  long-open Phase A question** ("unverified whether the router has ever fired on real
+  traffic; Production logs showed zero invocations" — `GRADING_PROGRAM.md` §2): it cannot
+  fire, because no item it is keyed to is servable. `formula_checker.py` 62/62 and
+  `ecf_engine.py` 6/6 are unit tests, not production evidence, and the Phase A
+  deterministic/symbolic path has therefore never graded a real response.
+- **Engine 4 is content with no engine.** 33 published AP Statistics items already carry
+  `rubric_type='spatial'` on `evaluator_strategy='human_shadow'` — deliberate, since
+  TASK-0011 is still research. The content is waiting on the engine, not the reverse.
+
+**9. Incidental finding.** 8 published FRQ items carry `rubric_type IS NULL` and
+`evaluator_strategy IS NULL` (7 Biology, 1 Statistics; 30 criteria), falling through
+to default routing. They cannot be assigned to a set until backfilled. Not blocking
+the pilot (the Statistics item is outside the slice), but it blocks a complete Set A
+population count.
+
+**10. Verification backend built and APPLIED to Production.** Migration
+`supabase/migrations/20260803120000_gold_set_verification.sql` — four `app.` tables
+(`gold_set_answers`, `gold_set_elements`, `gold_set_verification_assignments`,
+`gold_set_element_marks`), three caller-scoped `public` RPCs, three service_role seeding
+helpers. **The blindness guarantee is enforced in the database, not the UI:** all four
+tables have RLS forced with *zero* policies and no `anon`/`authenticated` grants
+whatsoever, so a reader's only path is `public.gold_set_verification_next()`, which
+projects a fixed safe column list. A frontend bug cannot leak what the contract never
+sends.
+
+Functional test run against Production inside an aborted transaction (nine assertions,
+all passed, zero rows persisted — re-verified empty afterwards): 16 elements seeded from
+4 real Statistics items; 8 answers; **0 adjacent siblings** in the seeded queue; payload
+keys exactly `answer_text, assignment_id, elements, seq, stem, stimulus,
+stimulus_image_path` and nothing else; incomplete marks rejected with `incomplete_marks`;
+submit returns `submitted` with 4 marks written; resubmit returns `already_submitted`
+(idempotent); `UPDATE` on a submitted mark blocked with `gold_set_marks_immutable`.
+
+Two design changes from the drafted Lovable spec, which was updated to match: submit is a
+caller-scoped RPC rather than an edge function (the function body is already one
+transaction, so atomicity is native and a deploy surface disappears); and the marks
+immutability trigger is `BEFORE UPDATE` only, since a `BEFORE DELETE` would also fire on
+the assignment cascade and make an aborted pilot impossible to tear down.
+
+**11. Gold-set access gated behind an explicit permission** (migration
+`20260803140000_gold_set_review_permission.sql`, applied to Production; grants in
+`scripts/content-seed/gold-set/20260803_gold_set_permission_grants.sql`, executed).
+The first migration admitted any `admin`/`tutor`/`reader` profile — too broad, since a
+consumed answer cannot be re-verified cold by anyone else (marks are write-once), so an
+unbriefed tutor wandering into the queue would destroy evidence irreversibly. Access now
+requires `role='admin'` **or** an unexpired `gold-set-review` flag in
+`app.feature_flag_assignments` — reusing the `home-v2` mechanism rather than a parallel
+permission table, so grants and revocations are data changes, not migrations. Granted to
+Jill Schmidlkofer and Muhammad Saood, with no expiry (an expiry firing mid-pilot would
+strand a reader's queue silently); admins qualify by role and get no rows, so a future
+admin needs no provisioning. **Eligible profiles: 4 of 25**, down from 18. Verified:
+Jill `gold_set_access()=true` with an empty queue; a non-permitted tutor gets
+`false` and `not_authorized` from `gold_set_verification_next()`. A new
+`public.gold_set_access()` boolean lets the portal hide the nav entry without the client
+interpreting roles or flag expiry — the Lovable prompt now specifies the gold-set section
+lives inside the existing reviewer portal and renders nothing at all when access is false.
+
+**12. QA coverage authored.** `supabase/tests/gold_set_verification.integration.sql`
+(rollback-only, matching the TASK-0018/0019 convention) — T0–T8 run against Production and
+**all passing**, verified leaving zero rows and the `gold-set-review` flag table still at
+exactly the two real grants. The load-bearing assertion is **T3**, which pins the reader
+projection to exactly `answer_text, assignment_id, elements, seq, stem, stimulus,
+stimulus_image_path`. If a convenience field is ever added to
+`gold_set_verification_next()`, nothing else breaks — no error, readers keep working — and
+every number the pilot produces silently becomes meaningless. T3 is what makes that change
+impossible to land unnoticed. Client-side QA:
+`prompts/LOVABLE_GOLD_SET_GATE_QA_2026_08_03.md` (21 scenarios, 5 non-waivable), which
+carries disposable-fixture setup/teardown because **marks are write-once** — any answer a
+tester submits is burned out of the certification sample forever, so QA must never run
+against Jill's or Saood's queue or against real seeded answers. Note: the SQL integration
+tests are not wired into Minimal CI (which runs Deno/Python only and has no database), so
+they remain a manual pre-release step.
+
+**12b. STAGE 1 GENERATED AND SEEDED — Jill's queue is live (40 answers).**
+
+*Phase 0.2 settled empirically.* 20 calls per candidate against the real verification
+schema: `anthropic/claude-sonnet-4.5` 20/20, `anthropic/claude-haiku-4-5` 20/20,
+`google/gemini-2.5-flash` 20/20, `deepseek/deepseek-v3.2` 20/20, and
+**`moonshotai/kimi-k2` 0/20 — every call rejected "Bad Request"**. David's recollection of
+a Kimi schema problem was right and is now measured rather than remembered. DeepSeek takes
+the third slot as the protocol's named alternate; R5 holds with anthropic + google +
+deepseek.
+
+*Generation* (`scripts/content-seed/gold-set/stage1_generate.mjs`, output
+`stage1_answers.jsonl`). 48 answers, 6 items × A1–A8, writer family rotated round-robin,
+each answer verified blind by the two families that did not write it. The target
+present/absent pattern is assigned by the harness before any text exists, so compliance is
+measured exactly rather than self-reported.
+
+| route | n | meaning |
+|---|---:|---|
+| provisional_accept | 30 | script = V1 = V2 |
+| reader_queue | 10 | verifiers split — rubric-boundary findings |
+| discard | 8 | both verifiers agree the text missed its own script |
+
+**Script compliance 30/48 (62.5%)**, against the only prior measurement of 5/10. By type:
+A1 6/6, **A2 6/6**, A3 4/6, A4 1/6, A5 5/6, **A6 1/6**, A7 4/6, A8 3/6. By writer:
+google 12/16, anthropic 11/16, **deepseek 7/16**. A2 succeeding 6/6 matters most — that is
+the probe the whole exercise exists for, and it produced genuine student-voice
+paraphrase ("that 41 minute student really stretches out the data, making it look all
+lopsided to the right"). A6 at 1/6 is the expected hard case: writing something that
+*sounds* right but should not earn is the hardest instruction to follow, and several A6
+splits are legitimate boundary questions rather than generator failures.
+
+*Seeded:* 40 answers (accepts + splits) to Jill, `status='pending'`. The 8 discards were
+not seeded — the protocol discards and never argues them back in, and their rate is
+already the headline metric.
+
+**Defect found in my own seeding function, fixed** (migration
+`20260803180000_fix_gold_set_sibling_gap.sql`). The first seeding reported success with
+**min sibling gap = 1** against a requested 3. The round-robin interleave only spaces
+siblings when every item contributes equally; dropping 8 discards unevenly collapsed the
+tail rounds. The up-front check validated an *input* (`distinct_items >= gap`) and so
+reported nothing. Replaced with a greedy max-spread that also **verifies the achieved gap
+before returning**. Re-seeded: gap = 3, confirmed.
+
+**13. Migration tooling hazard found — worth fixing before the next release.** The
+Supabase CLI resolves its workdir to `/Users/davidbloom`, not the repo, and
+`~/supabase/` is a **stale checkout linked to Production** holding three pre-baseline
+migrations (`20260710032203`, `20260712141601`, `20260715215726`). A bare
+`supabase db push` from a default shell would therefore attempt to resurrect
+pre-baseline migrations against Production — the exact failure mode the 2026-08-02
+release explicitly checked for. Separately, the repo's own `supabase/.temp` is linked to
+**Development**, whose history has diverged to 72 entries sharing nothing with the repo,
+so `db push --workdir <repo>` targets Dev and is refused. This migration was applied by
+pointing the CLI at a scratch workdir containing only the repo's migrations plus a
+placeholder for the known `20260802021714` history-parity row, with a dry run confirming
+exactly one pending migration before applying. That routed around both traps but did not
+fix either.
+
+**Files/systems changed:** `docs/research/GOLD_SET_GENERATION_PROTOCOL.md` (new),
+`docs/research/GOLD_SET_AUTHORING_GUIDE.md` (v1.0 → v2.0), 
+`docs/research/GOLD_SET_PILOT_STATS_PHYSICS_2026_08_03.md` (new),
+`prompts/LOVABLE_GOLD_SET_VERIFICATION_SCREEN_2026_08_03.md` (new),
+`supabase/migrations/20260803120000_gold_set_verification.sql` and
+`supabase/migrations/20260803140000_gold_set_review_permission.sql` (new, both **applied
+to Production**), `scripts/content-seed/gold-set/20260803_gold_set_permission_grants.sql`
+(new, **executed against Production**), `docs/activity_log/DECISIONS_LOG.md` (DECISION-0045),
+`docs/GRADING_PROGRAM.md` (Engine 3/4 status + hub links), this entry. Production
+inventory queries were read-only; the only Production write was the migration itself.
+
+**SESSION CLOSEOUT — 2026-08-03.**
+
+*Approval state.* DECISION-0045 approved by David. Early-year narrowing confirmed
+intended. Jill confirmed as the gold-set Statistics reader (Shazia remains on
+early-year Statistics *content review* — different job, both stand).
+
+*Live state at close (Production `pcntajvbdfqhbeewmdry`).* 6 migrations applied
+(`20260803120000`, `140000`, `160000`, `180000`, `200000`, `220000`). 40 real Stage-1
+answers, all `pending`, **0 marks recorded — no answer consumed**. 8 QA fixtures on
+Tutor Beta, `is_fixture=true`, excluded from admin views. Gold-set permission: Jill,
+Saood, + admins by role. Cron `content-review-invariants` scheduled 06:05 UTC daily.
+Reviewer portal published at commit `edd65d6e` (Lovable project
+`d334fed9-5a97-4e76-906e-7c0ad7082212`).
+
+*Verified.* Reader projection pinned to exactly 7 safe fields (integration T0–T8, all
+passing, rollback-only). Permission denial confirmed live (`not_authorized` for an
+unflagged tutor). Sibling gap 3. Admin widening server-granted, not caller-asserted.
+36 orphaned assignments repaired, 0 remaining, cause fixed in 4 packet scripts +
+a preventing trigger.
+
+*Open, in priority order.*
+1. **QA scenarios G1 and V2 — browser only, not started.** G1: a non-permitted
+   reviewer (Shazia/Gulgeldi) must see no gold-set entry and be redirected from
+   `/reviewer/gold-set/verify`. V2: nothing leaks into the client. **V2 is
+   stop-the-line — a failure invalidates the pilot, not just the build.**
+   Then run Teardown before Jill starts.
+2. **Tutor Beta has never signed in** — needs a password/magic link before anyone
+   can run QA. Human-only, cannot be done by an agent.
+3. **API log verification incomplete.** Supabase's log endpoint errored twice at
+   close. Expected admin signature after the `edd65d6e` publish: one
+   `gold_set_access`, one `gold_set_verification_progress` with `p_all_reviewers`,
+   one `gold_set_admin_overview`, **zero 404s**. Any 404 means a signature mismatch
+   remains.
+4. **Amjad Ali's two surviving decisions vs DECISION-0044 approval counting** — the
+   only finding with publication consequences. Untouched deliberately.
+5. Three assignments still open on retired content (Shazia). Re-run the
+   2026-08-02 withdrawal deliberately rather than approximating it.
+6. Stage 2 (Physics) after the early-year push. Certification needs Stage 1 + 2
+   combined (~110 answers); **Stage 1's 40 cannot certify on its own** (~8% bound
+   against a ≤5% gate).
+7. Generator quality before Set A: script compliance 30/48. Failures concentrate in
+   A4 and A6, so the fix is prompt-level, not model-level.
+
+*Do not touch next session.* Jill's 40 assignments — write-once, and marking one
+outside the blind flow destroys it for the certification. The reader projection in
+`gold_set_verification_next()` — adding a field silently voids the pilot; integration
+test T3 exists to stop that. `gold_set_verification_next` must never accept
+`p_all_reviewers`.
+
+*Dirty state (branch-hygiene R4).* **28 uncommitted paths on `main`, nothing pushed** —
+6 new migrations, the integration test, 3 new research docs, 2 Lovable prompts, the
+gold-set harness/corpus (`scripts/content-seed/gold-set/`), the repair script, and the
+4 guarded packet scripts. Everything applied to Production exists here only as
+working-tree files. The user asked to close the session, not to commit. **This is the
+single largest risk at close** — a lost working tree would leave Production carrying
+six migrations with no source of truth, repeating the 2026-08-02 finding.
+
+*Next step.* Commit and push the 28 paths, then run G1/V2.
+The Lovable prompt
+(`prompts/LOVABLE_GOLD_SET_VERIFICATION_SCREEN_2026_08_03.md`) is ready to paste — David
+is holding it until the backend landed, which it now has.
+**Separately opened by finding 8, not part of the gold-set work:** decide whether
+Engine 3 gets a real routing path (a `rubric_type` value plus tagged content) or stays
+shelved — today it is unreachable code, and the Phase A "deployed to Production" status
+in `TASK-0016` should be read in that light. **Opened by finding 11:** delete or relink
+the stale `~/supabase/` checkout so a default-shell `supabase db push` cannot reach
+Production with pre-baseline migrations.
+
+---
+
+## Gulgeldi Reviewer QA, DECISION-0044 Universal Publish Rule Executed, Two New Packets Assigned — 2026-08-03
+
+**Task:** Full QA of Gulgeldi Darrynow's 70-decision AP Chemistry review record; on owner retention decision ("adequate, worth continuing"), fix the one confirmed false clear and two dropped edit-requests found during QA, assign him two new 25-item packets, and turn the double-approve+AI-QA publish pattern into a standing rule.
+
+**1. QA (report: `docs/research/REVIEWER_QA_GULGELDI_2026_08_02.md`).** All 70 decisions checked: scientifically accurate, FRQ notes strong (independently reproduced two peer-caught defects), but one confirmed false clear (`apchem-mcq-038` v1, the ethanol/water azeotrope defect Saood had disapproved) and two edit-requests written in note text but filed as plain `approve`, so the edits never entered the workflow (`apchem-sfrq-008`, `apchem-sfrq-018`).
+
+**2. Fixes applied** (`scripts/content-seed/reviewer-qa-remediation/20260802_gulgeldi_qa_fixes.sql`, verified against Production `pcntajvbdfqhbeewmdry`). `apchem-mcq-038` v2 replaces the flawed premise (ethanol/water form a 95.6% azeotrope, making "simple distillation fully separates them" false) with acetone/water, a real no-azeotrope pair — v1 retired, v2 `assigned` and queued for fresh review by both Gulgeldi and Saood (the v1 disapprover), not auto-published since it's a new stem. `apchem-sfrq-008` v3 and `apchem-sfrq-018` v2 apply every previously-stranded edit (his own, plus Saood's and Zeeshan's from earlier reviews of the same items).
+
+**3. DECISION-0044 — universal publish rule, adopted and executed** (`docs/activity_log/DECISIONS_LOG.md`; implementation `scripts/content-seed/publication/20260802_decision_0044_universal_publish_rule.sql`). Standing rule: publish when either (A) ≥2 distinct qualified tutor approvals + no conflict + an AI QA approval, or (B) a tutor approve_with_edits was applied by an AI-authored fix version with no tutor non-approval on the fix + an AI QA approval on the fix. Ran against Production: seeded 29 AI QA decisions (each version independently re-derived by hand in this session, not rubber-stamped), then published 35 items total (29 newly seeded + 6 pre-existing eligible items) — 19 AP Chemistry MCQ/FRQ, 8 AP Precalculus MCQ (the 2026-07-31 distractor-rationale repairs), the two Chemistry edit-application fixes above, 6 AP Statistics MCQs, and 2 AP Biology FRQs already-eligible before this session. A DB trigger (`tg_content_pipeline_guard_publish`) blocks jumping straight to `published` without passing through `reviewed_approved` first — the rule respects this with a two-step update rather than bypassing it. Verified no double-published items, no duplicate AI QA decisions, no duplicate labels.
+
+**4. Two new packets assigned** (`scripts/content-seed/reviewer-management/20260802_gulgeldi_two_packets_25.sql`). Packet A: 25 MCQ third-reads on items where Zeeshan and Saood split decisions. Packet B: `apchem-mcq-038` v2 (direct retest of his one confirmed false clear) + 23 FRQs under open peer edit-requests. 50 new `pending` assignments confirmed, no duplicates against his existing 70 `submitted`.
+
+**5. Known-orphaned gate not treated as blocking.** A memory-only "DECISION-0041" (TASK-0010 calibration required before any publish) was searched for in `DECISIONS_LOG.md` and confirmed never ratified there (numbering jumps 0035→0039→0043→0044) and already known-unmet by prior publishes before this session. David confirmed directly: grading-calibration is intentionally on hold pending reviewer-produced gold sets, not an oversight — this is current expected state, not an open risk.
+
+**6. Git state note.** This branch/repo already had commit `25ee13b` ("release records: TASK-0018/0019 Production release log; DECISION-0044 + implementation; Gulgeldi packet scripts", merged via PR #64, predates this session's Production execution) containing draft versions of the same three SQL scripts and log entries, apparently written by an earlier session on this same long-running branch without being run against Production — that draft had bugs (jsonb type mismatch on `accepted_variants`, wrong join path for `exam_pack_id`, a too-strict `canonical_answer_1` gate, no handling for the `reviewed_approved` pipeline-guard trigger) that this session found and fixed while actually executing. The corrected scripts are staged in the working tree, uncommitted — see Next Required Action.
+
+**Files/systems changed:** Production Supabase (`pcntajvbdfqhbeewmdry`); `scripts/content-seed/reviewer-qa-remediation/20260802_gulgeldi_qa_fixes.sql`, `scripts/content-seed/publication/20260802_decision_0044_universal_publish_rule.sql`, `scripts/content-seed/reviewer-management/20260802_gulgeldi_two_packets_25.sql` (all corrected in working tree vs. the committed draft); `docs/activity_log/DECISIONS_LOG.md` (DECISION-0044, already committed in 25ee13b); this entry.
+
+**Next Required Action:** commit the working-tree corrections to the three SQL scripts (they now match what actually ran against Production; the committed versions in `25ee13b` do not) — hasn't been done since the user asked to close the session, not to commit. Also open: Gulgeldi's `mcq-038` v2 and packets A/B awaiting his and Saood's review submissions.
+
+---
+
+## Content-Review Audit, Reviewer-Queue Cleanup, and CED-Alignment Fixes Across Four Subjects; Locked-Assignment Root Cause Found and Fixed — 2026-08-02
+
+**Task:** Ad hoc content-ops session, no prior task number. Started as a 72-hour content-review audit and expanded into reviewer-queue integrity work across Chemistry, Calculus AB, Precalculus, Statistics, Biology, and Physics.
+**Status:** All actions below verified against Production at the time taken. Not yet landed on `main` — see the blocked-branch entry above and Next Required Action below, which this entry shares.
+
+**1. 72-hour audit (Production, `pcntajvbdfqhbeewmdry`).** Reviewed all questions assigned in the prior 72h across subjects; found David (role=`admin`, not a qualified reviewer) had 180 historical review assignments/decisions system-wide, most predating this session. AI QA performed on all 95 then-pending items in Chemistry/Calc AB/Precalculus: 94/95 clean, one confirmed defect (`apprecalc-mcq-044`, no valid answer among the four choices).
+
+**2. David's reviewer-account cleanup.** All 180 of David's assignments withdrawn (reviewer label removed system-wide). Follow-up investigation found the withdrawal alone was insufficient in 11 cases: 9 rows (4 Adil/Biology, 5 Jill/Statistics) had the reviewer's own genuine decision already recorded but the assignment row never flipped to `submitted` (a bookkeeping bug, corrected in place) — plus 2 rows carrying stale decisions from **Amjad Ali**, the Biology reviewer fired before Adil replaced him; those were withdrawn and the items rerouted to Sarah Sohail since the same (item, reviewer, stage) triple can't be reassigned to the same reviewer twice.
+
+**3. Content fixes.**
+- `apprecalc-mcq-044`: correct choice replaced with the actual solution set `{π/2, 7π/6, 11π/6}` (was `{π/6, 5π/6, 3π/2}`, satisfying none of the four offered choices).
+- 3 Chemistry FRQs failed CED-scope cross-check: `apchem-frq-l-012` (van der Waals equation, off the CED equations sheet, also 1pt under) retired outright; `apchem-frq-l-014` (mass-percent-concentration part, excluded topic) and `apchem-sfrq-014` (sp³d² hybridization, CED caps at sp³) each had the one offending part swapped for in-scope content, same point value, rest of the item untouched.
+- 8 Precalculus FRQs restructured from 6 parts × 1pt to the CED-required 3 parts × 2pt (rubric-only change, no math/stem changes).
+
+**4. Reviewer reassignments** (Production `content_review_assignments`): Zeeshan +25 Chemistry (later +9 more once the 25 turned out to include his own prior rejections; final fresh count was 9, not 25 — Chemistry's fresh-item supply is nearly exhausted for him); Saood +50 Physics/Chemistry/Calc BC (similarly capped by supply — most of his subjects are fully re-reviewed by him already); Shazia +3 Statistics; Abdul Hanan +10 Precalculus; Sarah Sohail +18 / Adil Abbasi +18 Biology (double-review, 13 of Adil's re-offering items he'd previously marked `skipped` — he later disputed ever skipping them; root cause not found, flagged as open).
+
+**5. Locked-assignment bug found and fixed.** Reviewer reports of "assignment is locked" (Adil: partially explained by #2 above; Gulgeldi: all ~27 pending items) traced to a stale React Query cache in the reviewer frontend (`exam-buddy-wireframe`) — post-submit invalidation used query key `["reviewer","tasks"]` while the real keys are `["reviewer","queue"]`/`["reviewer","task",id]`, so the queue/task views never refreshed after any submit, serving stale already-closed items on reopen. Fixed via Lovable: full `["reviewer"]` namespace invalidation on submit, plus an `isLocked` guard reading the assignment's own status (shows an explanatory banner instead of a wasted round-trip). Confirmed fixed live by Gulgeldi on `apchem-sfrq-019` after deploy. Separately, `supabase/functions/review-queue` was fixed and deployed (filters retired-content assignments out of the list query — a related but distinct orphaned-assignment defect) and a stale-test fix landed for `home-snapshot.test.ts` (still asserting the retired 9-unit AP Statistics taxonomy; `AP_STATISTICS_UNITS` itself was already correct, only the test assertion was stale).
+
+**6. AP Statistics fact pack.** Jill (the real subject tutor, via a live Google Doc review) gave two edits — see the blocked-branch entry above for what happened to the document after. Two Google Sheets were built for a separate, deferred ask (per-topic skill/LO tag confirmation): a v1 with alphanumeric codes (stale, needs manual deletion — unconfirmed whether done) and the correct v2 with plain-language skill descriptions (`https://docs.google.com/spreadsheets/d/1T1jsGRfmq-HGHzp9j6ItV5xvWIv9VIhEa7IZdMCSh40/edit`), not yet sent to Jill.
+
+**7. Main-PR blocker investigation (2026-08-02, this session's last action).** No merge conflicts between the working branch and `main`; both `Minimal CI` checks (`deno test` × 2, `python3 -m unittest` × 1) pass locally against the working branch as-is. Real blockers found: (a) 38 modified/untracked paths on the working tree, not yet triaged into real-work-to-commit vs. stray cross-session artifacts (`.worktrees/`, `content/`, `" 2"`-suffixed duplicate files); (b) the branch bundles 6+ unrelated pieces of work into what would be one PR, in tension with the R1 "one reviewable slice" rule adopted 2026-07-26 — not resolved, a judgment call left open for David.
+
+**Next Required Action:** shared with the blocked-branch entry above — Step 0, landing `claude/cramapple-grading-experiments-9lkjqc` on `main`, is the single open item everything in both entries is waiting on. Additionally open, not covered above: confirm the v1 Google Sheet was deleted before sending v2 to Jill; find out why Adil disputes the 13 `skipped` Biology items; the G3V-adjacent question of whether any *other* subject's tutor-review content needs re-checking against today's fixes (Statistics was checked and cleared, see the blocked-branch entry).
 
 ## TASK-0018/0019 Released to Production: 17 Migrations Applied, session-event Deployed, Staff QA Setup Complete — 2026-08-02
 

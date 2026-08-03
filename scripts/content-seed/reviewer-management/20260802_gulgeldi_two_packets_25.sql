@@ -67,18 +67,29 @@ begin
   end if;
 
   -- Gulgeldi must have no existing decision on the item and no open assignment.
+  -- apchem-mcq-038 is deliberately excluded: it is the intentional re-test of
+  -- his prior false clear (v1) on the corrected v2, so a prior decision on
+  -- the item is expected, not a packet-building error.
   select count(*) into v_conflict
   from packet_versions pv
-  where exists (select 1 from app.content_review_decisions d
+  where pv.content_key <> 'apchem-mcq-038'
+    and (exists (select 1 from app.content_review_decisions d
       join app.content_item_versions dv on dv.id=d.content_item_version_id
       where d.reviewer_id='119817d1-96c9-4cbc-8fdc-4962e03b1b12'
         and dv.content_item_id=pv.content_item_id)
      or exists (select 1 from app.content_review_assignments a
       where a.reviewer_id='119817d1-96c9-4cbc-8fdc-4962e03b1b12'
         and a.content_item_version_id=pv.content_item_version_id
-        and a.status in ('pending','in_progress'));
+        and a.status in ('pending','in_progress')));
   if v_conflict <> 0 then
     raise exception '% packet items already have Gulgeldi involvement', v_conflict;
+  end if;
+
+  if exists (select 1 from app.content_review_assignments a
+      where a.reviewer_id='119817d1-96c9-4cbc-8fdc-4962e03b1b12'
+        and a.content_item_version_id=(select content_item_version_id from packet_versions where content_key='apchem-mcq-038')
+        and a.status in ('pending','in_progress')) then
+    raise exception 'apchem-mcq-038 v2 already assigned to Gulgeldi';
   end if;
 
   select exists (

@@ -26,8 +26,31 @@ evidence; where their status text conflicts with this ledger, the ledger wins.
 |---|---|---|---|
 | **1. Discrete/Analytical Text** | point-by-point analytic | **in production** (`evaluate-attempt`); router + deterministic symbolic/ECF path deployed to Production 2026-07-12 but scoped to only 5 seeded AP Stats `content_key`s — everything else still falls through to the single-call LLM grader unchanged (see §2, §7) | `supabase/functions/evaluate-attempt/`, `_shared/grading-router.ts` |
 | **2. Holistic/Evaluative Text** | rubric-matrix essays | **deferred** (serves AP English/History, not in launch set) | rollout plan §Engine 2 |
-| **3. Structured Multi-Modal** | equations/formulas + **ECF** | **built + verified** (typed); hand-drawn transcription validated on synthetic renders | `research/math_formula_grading_experiment_2026_07_08/`, `_shared/math-verifier.ts` |
-| **4. Spatial Multi-Modal** | graphs/curves/diagrams | **research** (TASK-0011) | `research/DRAWN_RESPONSE_ARCHITECTURE_REVIEW.md`, `tasks/TASK-0011-...` |
+| **3. Structured Multi-Modal** | equations/formulas + **ECF** | **built and unit-verified, but unreachable in production** — no content routes to it. See the note below. | `research/math_formula_grading_experiment_2026_07_08/`, `_shared/math-verifier.ts` |
+| **4. Spatial Multi-Modal** | graphs/curves/diagrams | **research** (TASK-0011) — but 33 published AP Statistics items already carry `rubric_type='spatial'` and sit on `evaluator_strategy='human_shadow'`, waiting for it | `research/DRAWN_RESPONSE_ARCHITECTURE_REVIEW.md`, `tasks/TASK-0011-...` |
+
+> **Engine 3 / Engine 4 content status (verified against Production
+> `pcntajvbdfqhbeewmdry`, 2026-08-03).** The two engines have inverse problems.
+>
+> **Engine 3 is an engine with no content.** The only `rubric_type` values that
+> exist in the database are `discrete_text`, `mcq`, `spatial`, and NULL — there is
+> no schema value that routes to Engine 3 at all. Its deterministic path is reached
+> instead through a hardcoded `STATISTICS_ITEM_KEYS` map in `_shared/math-verifier.ts`
+> covering five `content_key`s, and **not one of the five was ever published**:
+> `APSTAT-MOD3-H001-INV`, `APSTAT-MOD5-H001-INV` and `APSTAT-MOD6-H001` are
+> `reviewed_approved` but never published; `APSTAT-MOD7-H001` is
+> `reviewed_disapproved`; `APSTAT-MOD8-H001` is still `assigned`. All five belong to
+> the retired 9-unit AP Statistics taxonomy. This explains §2 Phase A's open question
+> ("unverified whether it has ever actually fired on real traffic; Production logs
+> showed zero invocations") — **it cannot fire**, because no item it is keyed to is
+> servable. `formula_checker.py` 62/62 and `ecf_engine.py` 6/6 are unit-test results,
+> not production evidence.
+>
+> **Engine 4 is content with no engine.** 33 published AP Statistics items carry
+> `rubric_type='spatial'` with `evaluator_strategy='human_shadow'` — deliberately
+> routed to human shadow grading while TASK-0011 is still research.
+
+
 
 Full readiness + gap analysis: [`grading_engine_rollout_plan_2026_07_08.md`](research/grading_engine_rollout_plan_2026_07_08.md).
 
@@ -57,6 +80,15 @@ p50 ≤ 1000 ms (p90/p99 measured), cost ≤ $0.01/item.
   feedback not just score; depth of adjudicated evidence gates launch).
 - **Deterministic layer:** numeric checker (`research/deterministic_check_experiment_2026_07_08/`,
   100% specificity); symbolic + ECF (`research/math_formula_grading_experiment_2026_07_08/`).
+- **Gold sets (DECISION-0045):** protocol
+  [`research/GOLD_SET_GENERATION_PROTOCOL.md`](research/GOLD_SET_GENERATION_PROTOCOL.md) —
+  AI generation + two-family blind machine verification + reader certification of the
+  pipeline; sets partitioned by **engine × criterion structure**, not by subject
+  (Set A = Engine 1 multi-point, Set B = Engine 1 single-point, Set C = Engine 4,
+  deferred). Reader-facing guide:
+  [`research/GOLD_SET_AUTHORING_GUIDE.md`](research/GOLD_SET_AUTHORING_GUIDE.md) v2.0.
+  Pre-registered pilot:
+  [`research/GOLD_SET_PILOT_STATS_PHYSICS_2026_08_03.md`](research/GOLD_SET_PILOT_STATS_PHYSICS_2026_08_03.md).
 
 ## 4. Research index (by engine)
 

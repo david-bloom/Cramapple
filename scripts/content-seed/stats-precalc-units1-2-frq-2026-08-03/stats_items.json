@@ -1,0 +1,939 @@
+[
+  {
+    "content_key": "apstats-frq-u12-001",
+    "subject": "ap_statistics",
+    "unit": 1,
+    "topic": "1.4 Graphical Representations for One Categorical Variable",
+    "title": "After-School Activity Survey",
+    "archetype": "Multi-Focus on Practices 3 and 4",
+    "difficulty": "Easy",
+    "stimulus": "A student council surveyed all 80 students in the tenth grade at Lincoln High School, asking each student to identify the after-school activity in which they participate most.\n\nTable 1: After-School Activity of Tenth-Grade Students\nActivity | Number of Students\nSports | 32\nMusic | 12\nClubs | 20\nNone | 16",
+    "parts": [
+      {
+        "part_key": "part-a",
+        "points": 2,
+        "prompt": "Calculate the relative frequency (proportion) of tenth-grade students in each of the four activity categories. Show the division used for at least one category.",
+        "criteria": [
+          ["States correct relative frequencies for all four categories.", "Sports = 0.40, Music = 0.15, Clubs = 0.25, None = 0.20 (each count divided by 80).", "Recompute each count divided by the total of 80 students."],
+          ["Shows the arithmetic (count ÷ 80) used to obtain at least one relative frequency.", "Work such as 32/80 = 0.40 is displayed, not just a final answer.", "Add the division step for at least one category, e.g., 32 ÷ 80."]
+        ]
+      },
+      {
+        "part_key": "part-b",
+        "points": 3,
+        "prompt": "Construct a bar graph of the distribution of after-school activity.",
+        "criteria": [
+          ["Draws a bar for each of the four categories with heights proportional to the relative frequencies (or counts) found in part A.", "Bar for Sports is tallest, Clubs second, None third, Music shortest, in proportion to 0.40/0.25/0.20/0.15.", "Redraw bars so their heights match the computed relative frequencies or counts in the correct rank order."],
+          ["Labels both axes (activity categories and count or relative frequency) and includes a title.", "Axis labels and a graph title are present.", "Add axis labels identifying the categories and the count/relative-frequency scale, plus a title."],
+          ["Uses equal-width bars with gaps between them (not touching), consistent with a categorical variable.", "Bars are uniform width and separated by visible gaps rather than adjoining.", "Redraw with uniform bar widths and gaps between bars."]
+        ]
+      },
+      {
+        "part_key": "part-c",
+        "points": 2,
+        "prompt": "Describe the distribution of after-school activity based on the graph, identifying the most and least common activities.",
+        "criteria": [
+          ["Correctly identifies Sports as the most common activity and Music as the least common.", "Response names Sports as highest and Music as lowest.", "Reread the counts/relative frequencies and identify the largest (Sports) and smallest (Music) categories."],
+          ["Compares the two using the actual relative frequency or count values.", "Statement such as \"Sports (0.40) occurs more than twice as often as Music (0.15)\" is included.", "Add a numeric comparison between the most and least common categories using the computed values."]
+        ]
+      },
+      {
+        "part_key": "part-d",
+        "points": 3,
+        "prompt": "Classify the type of variable recorded (activity), and justify why a bar graph, rather than a histogram, is the appropriate display for this variable.",
+        "criteria": [
+          ["Identifies \"activity\" as a categorical (qualitative) variable.", "Response explicitly labels the variable as categorical, not quantitative.", "State that activity is a categorical variable since its values are named groups, not numbers."],
+          ["Justifies that a bar graph is appropriate because the categories have no inherent numerical order or scale.", "Explanation references the categories as unordered labels rather than numeric values.", "Explain that bar graphs display counts/frequencies for distinct category labels."],
+          ["Explains why a histogram would be inappropriate here.", "Explanation notes histograms require quantitative data grouped into equal-width numeric intervals, which does not apply to activity names.", "Add that histograms are for quantitative variables with numeric intervals, which activity data does not have."]
+        ]
+      }
+    ]
+  },
+  {
+    "content_key": "apstats-frq-u12-002",
+    "subject": "ap_statistics",
+    "unit": 2,
+    "topic": "2.4 Introduction to Probability",
+    "title": "Carnival Spinner Probabilities",
+    "archetype": "Multi-Focus on Practices 3 and 4",
+    "difficulty": "Easy",
+    "stimulus": "A carnival game uses a spinner divided into 8 equally likely sectors: 3 red, 2 blue, 2 green, and 1 yellow. A player spins the spinner once.",
+    "parts": [
+      {
+        "part_key": "part-a",
+        "points": 2,
+        "prompt": "Calculate the probability that the spinner lands on red or blue.",
+        "criteria": [
+          ["Recognizes that landing on red and landing on blue are mutually exclusive outcomes, so their probabilities can be added.", "Response adds P(red) and P(blue) rather than multiplying or using a joint-probability approach.", "Use the addition rule for mutually exclusive events: P(red or blue) = P(red) + P(blue)."],
+          ["Calculates the correct value.", "P(red or blue) = 3/8 + 2/8 = 5/8 (0.625).", "Recompute 3/8 + 2/8."]
+        ]
+      },
+      {
+        "part_key": "part-b",
+        "points": 2,
+        "prompt": "Calculate the probability that the spinner does not land on green.",
+        "criteria": [
+          ["Uses the complement rule: P(not green) = 1 − P(green).", "Work shows 1 − 2/8 rather than a direct count of non-green sectors alone without reference to the complement.", "Apply the complement rule using P(green) = 2/8."],
+          ["Calculates the correct value.", "P(not green) = 6/8 = 3/4 (0.75).", "Recompute 1 − 2/8."]
+        ]
+      },
+      {
+        "part_key": "part-c",
+        "points": 3,
+        "prompt": "Determine whether the events \"the spinner lands on red\" and \"the spinner lands on blue\" are mutually exclusive, and justify your answer.",
+        "criteria": [
+          ["States that the events are mutually exclusive.", "Response explicitly classifies the two events as mutually exclusive.", "State the classification: mutually exclusive."],
+          ["Justifies using the fact that no sector is both red and blue, since each spin results in exactly one sector.", "Justification references that a single spin can land on only one color.", "Explain that a single spin cannot simultaneously produce two different colors."],
+          ["Connects this to the definition that mutually exclusive events cannot occur together, i.e., P(red and blue) = 0.", "Response states P(red and blue) = 0 as the defining condition.", "State that mutually exclusive events satisfy P(A and B) = 0."]
+        ]
+      },
+      {
+        "part_key": "part-d",
+        "points": 3,
+        "prompt": "Suppose the player spins the spinner twice, and the spins are independent. Calculate the probability that both spins land on red.",
+        "criteria": [
+          ["Recognizes the spins are independent, so probabilities can be multiplied.", "Response multiplies P(red) by P(red) rather than adding or using a conditional adjustment.", "Apply the multiplication rule for independent events: P(A and B) = P(A) × P(B)."],
+          ["Writes the correct expression.", "Expression (3/8) × (3/8) appears in the work.", "Set up the product of the two individual probabilities of red."],
+          ["Calculates the correct final value.", "Final answer is 9/64 (≈0.141).", "Recompute (3/8) × (3/8)."]
+        ]
+      }
+    ]
+  },
+  {
+    "content_key": "apstats-frq-u12-003",
+    "subject": "ap_statistics",
+    "unit": 1,
+    "topic": "1.11 Random Sampling",
+    "title": "Selecting a Random Sample of Students",
+    "archetype": "Multi-Focus on Practices 1 and 2",
+    "difficulty": "Easy",
+    "stimulus": "A school has 400 students enrolled, each assigned a unique ID number from 001 to 400. A researcher wants to select a simple random sample (SRS) of 15 students to survey about cafeteria satisfaction. The researcher has a list of all 400 ID numbers and access to a table of random digits.",
+    "parts": [
+      {
+        "part_key": "part-a",
+        "points": 4,
+        "prompt": "Explain a complete and correct procedure the researcher could use with the random digit table to select an SRS of 15 students from the 400.",
+        "criteria": [
+          ["Reads the random digits in groups of three, since IDs range from 001 to 400 (three-digit labels).", "Procedure specifies reading three-digit groups from the table.", "State that digits should be read in groups of three to match the three-digit ID labels."],
+          ["States a rule for discarding invalid groups (numbers above 400, or 000) as they are read.", "Procedure explicitly skips any three-digit group greater than 400 or equal to 000.", "Add a rule to skip any group outside the range 001–400."],
+          ["States that repeated (duplicate) valid numbers are also skipped, and the process continues until 15 distinct valid numbers are obtained.", "Procedure mentions ignoring a number if it has already been selected.", "Add that already-selected ID numbers are skipped if they reappear."],
+          ["States that the students corresponding to the 15 selected ID numbers make up the sample.", "Procedure ties the final list of numbers back to the specific students holding those IDs.", "Conclude by stating the sample consists of the students whose ID numbers were drawn."]
+        ]
+      },
+      {
+        "part_key": "part-b",
+        "points": 3,
+        "prompt": "Explain why using this SRS procedure to select students reduces bias compared to only surveying whichever students happen to be in the cafeteria line during 5th period.",
+        "criteria": [
+          ["Notes that surveying only students in the cafeteria line during one period is a convenience sample that may not represent the whole school.", "Response identifies that a single lunch period excludes students with other schedules.", "State that surveying only one lunch period is a convenience sample, not representative of all students."],
+          ["States that the SRS procedure gives every student in the school an equal chance of selection, avoiding this systematic exclusion.", "Response explains that all 400 students, regardless of lunch period, could be chosen under the SRS.", "Explain that an SRS gives each of the 400 students an equal chance of being selected."],
+          ["Ties the reasoning to context: because cafeteria satisfaction opinions could plausibly differ by lunch period or schedule, the convenience sample could bias results.", "Response connects the potential difference in opinions across lunch periods to a biased estimate.", "Add that opinions may vary by lunch period, so excluding other periods could bias the results."]
+        ]
+      },
+      {
+        "part_key": "part-c",
+        "points": 3,
+        "prompt": "Calculate the probability that a particular student, Maria, is included in the sample of 15.",
+        "criteria": [
+          ["Uses the correct approach: probability equals sample size divided by population size.", "Work shows 15/400 rather than an unrelated calculation.", "Set up the ratio of sample size to population size."],
+          ["Uses the correct values in the computation.", "Expression 15/400 is shown explicitly.", "Use sample size 15 and population size 400."],
+          ["Calculates the correct final value.", "Final answer is 0.0375 (3.75%).", "Recompute 15 ÷ 400."]
+        ]
+      }
+    ]
+  },
+  {
+    "content_key": "apstats-frq-u12-004",
+    "subject": "ap_statistics",
+    "unit": 1,
+    "topic": "1.6 Descriptions for One Quantitative Variable Distributions",
+    "title": "Marathon Training Distances",
+    "archetype": "Multi-Focus on Practices 3 and 4",
+    "difficulty": "Medium",
+    "stimulus": "A running coach recorded the weekly training distance (in miles) for 12 runners preparing for a marathon:\n\n18, 22, 24, 25, 26, 28, 28, 29, 31, 33, 35, 61",
+    "parts": [
+      {
+        "part_key": "part-a",
+        "points": 3,
+        "prompt": "Calculate the mean and the median weekly training distance for these 12 runners. Show your work.",
+        "criteria": [
+          ["Calculates the correct mean.", "Mean = 360/12 = 30 miles, with the sum of all 12 values shown.", "Recompute the sum of all 12 values and divide by 12."],
+          ["Calculates the correct median.", "Median = 28 miles (average of the 6th and 7th ordered values, both 28).", "Order the data and average the 6th and 7th values."],
+          ["Shows correct method/work for both calculations, including ordering the data for the median.", "Data is listed in sorted order before identifying the middle values.", "Show the sorted list of 12 values before computing the median."]
+        ]
+      },
+      {
+        "part_key": "part-b",
+        "points": 3,
+        "prompt": "Describe the shape of the distribution and explain how the shape is reflected in the relationship between the mean and median found in part A.",
+        "criteria": [
+          ["Correctly describes the shape as skewed to the right (due to the high value of 61).", "Response identifies right skew or a high outlier pulling the distribution.", "Describe the distribution as right-skewed because of the unusually high value of 61."],
+          ["Correctly states that the mean (30) is greater than the median (28) in this distribution.", "Response explicitly compares the two values with mean > median.", "State the numeric relationship: mean 30 is greater than median 28."],
+          ["Explains that the high value of 61 pulls the mean upward while the median is resistant to it.", "Explanation references the mean being sensitive to extreme values/skew, unlike the median.", "Explain that extreme high values inflate the mean but do not affect the median as strongly."]
+        ]
+      },
+      {
+        "part_key": "part-c",
+        "points": 4,
+        "prompt": "A sports reporter wants to summarize the \"typical\" weekly training distance for this group. Justify which measure of center (mean or median) is more appropriate to report, and calculate an appropriate measure of spread to accompany your choice.",
+        "criteria": [
+          ["Chooses the median as the more appropriate measure of typical distance.", "Response explicitly selects median over mean.", "State that the median should be used to describe the typical distance."],
+          ["Justifies the choice by referencing the outlier/skew that reduces the mean's representativeness.", "Justification connects to the 61-mile value distorting the mean.", "Explain that the outlier (61) makes the mean an unrepresentative measure of a typical runner's distance."],
+          ["Selects the interquartile range (IQR) as the resistant measure of spread and correctly computes Q1 and Q3.", "Q1 = 24.5 (median of 18,22,24,25,26,28) and Q3 = 32 (median of 28,29,31,33,35,61) are shown.", "Split the ordered data into lower and upper halves and find the median of each half."],
+          ["Calculates the correct IQR value.", "IQR = 32 − 24.5 = 7.5 miles.", "Recompute Q3 minus Q1."]
+        ]
+      }
+    ]
+  },
+  {
+    "content_key": "apstats-frq-u12-005",
+    "subject": "ap_statistics",
+    "unit": 1,
+    "topic": "1.8 Graphical Representations of Summary Statistics for One Quantitative Variable",
+    "title": "Tomato Plant Heights",
+    "archetype": "Multi-Focus on Practices 3 and 4",
+    "difficulty": "Medium",
+    "stimulus": "A gardener measured the heights (in cm) of 11 tomato plants grown from the same seed batch. The five-number summary of the heights is given below.\n\nTable 1: Five-Number Summary of Tomato Plant Heights (cm)\nMin | Q1 | Median | Q3 | Max\n34 | 42 | 48 | 55 | 90",
+    "parts": [
+      {
+        "part_key": "part-a",
+        "points": 3,
+        "prompt": "Determine whether the maximum value of 90 cm is an outlier using the 1.5×IQR rule. Show all work.",
+        "criteria": [
+          ["Calculates the correct IQR.", "IQR = 55 − 42 = 13.", "Recompute Q3 minus Q1."],
+          ["Calculates the correct upper fence.", "Upper fence = 55 + 1.5(13) = 74.5.", "Recompute Q3 + 1.5 × IQR."],
+          ["States the correct conclusion with comparison shown.", "90 > 74.5, so 90 is an outlier.", "Compare 90 to the computed upper fence and state the conclusion."]
+        ]
+      },
+      {
+        "part_key": "part-b",
+        "points": 3,
+        "prompt": "Construct a modified boxplot for the data that correctly displays the outlier identified in part A.",
+        "criteria": [
+          ["Draws a box from Q1 (42) to Q3 (55) with a line at the median (48).", "Box spans 42 to 55 with an internal line at 48.", "Redraw the box using Q1 = 42, median = 48, and Q3 = 55."],
+          ["Draws whiskers only to the most extreme non-outlier values, not to 90.", "Lower whisker extends to 34; upper whisker extends to the largest value less than 74.5.", "Extend the upper whisker only to the largest non-outlier value, not to 90."],
+          ["Plots 90 as a separate point beyond the whisker, consistent with part A's conclusion.", "A distinct dot or asterisk appears at 90, separated from the whisker.", "Add a separate marker for 90 beyond the upper whisker."]
+        ]
+      },
+      {
+        "part_key": "part-c",
+        "points": 4,
+        "prompt": "Describe the shape of the distribution suggested by the five-number summary and boxplot, and explain how the presence of the outlier affects the choice between the mean/standard deviation and the median/IQR for describing center and spread.",
+        "criteria": [
+          ["Describes the shape as skewed to the right.", "Response states right skew, supported by the boxplot/outlier.", "Describe the distribution as right-skewed."],
+          ["Supports the shape description with a numeric comparison (e.g., median is closer to Q1 than to Q3, and there is a long right tail to 90).", "Response computes median − Q1 = 6 versus Q3 − median = 7, or references the gap up to 90.", "Compare the distances from the median to Q1 and Q3, and note the long tail toward the max."],
+          ["States that median/IQR is preferred over mean/SD for describing this distribution.", "Response explicitly recommends median and IQR.", "State the preference for median/IQR given the outlier."],
+          ["Explains why: mean and SD are sensitive to (not resistant to) outliers/skew, so the outlier would distort them upward.", "Explanation references resistance/non-resistance of the statistics.", "Explain that the mean and SD are pulled upward by extreme values, unlike the median and IQR."]
+        ]
+      }
+    ]
+  },
+  {
+    "content_key": "apstats-frq-u12-006",
+    "subject": "ap_statistics",
+    "unit": 2,
+    "topic": "2.1 Tabular and Graphical Representations for the Distributions of Two Categorical Variables",
+    "title": "Streaming Service Preference by Age Group",
+    "archetype": "Multi-Focus on Practices 3 and 4",
+    "difficulty": "Medium",
+    "stimulus": "A media company surveyed 200 randomly selected adults about their preferred streaming service (A, B, or C) and recorded each respondent's age group.\n\nTable 1: Streaming Preference by Age Group\n | Under 30 | 30 and Over | Total\nService A | 48 | 32 | 80\nService B | 24 | 56 | 80\nService C | 8 | 32 | 40\nTotal | 80 | 120 | 200",
+    "parts": [
+      {
+        "part_key": "part-a",
+        "points": 2,
+        "prompt": "Calculate the marginal distribution of streaming service preference (overall proportions for A, B, and C).",
+        "criteria": [
+          ["States the correct three proportions.", "Service A = 0.40, Service B = 0.40, Service C = 0.20.", "Recompute each row total divided by 200."],
+          ["Shows the correct method (each row total divided by 200).", "Work such as 80/200 is shown.", "Show the division of each service's total count by the grand total of 200."]
+        ]
+      },
+      {
+        "part_key": "part-b",
+        "points": 3,
+        "prompt": "Calculate the conditional distribution of streaming preference for adults Under 30, and separately for adults 30 and Over.",
+        "criteria": [
+          ["Calculates the correct conditional distribution for Under 30.", "Service A = 0.60, Service B = 0.30, Service C = 0.10.", "Divide each Under-30 cell by the Under-30 column total of 80."],
+          ["Calculates the correct conditional distribution for 30 and Over.", "Service A ≈ 0.267, Service B ≈ 0.467, Service C ≈ 0.267.", "Divide each 30-and-Over cell by the column total of 120."],
+          ["Shows the correct conditioning method (dividing by the relevant column total for each group).", "Work shows division by 80 for Under 30 and by 120 for 30 and Over.", "Show the division step using the correct column total for each age group."]
+        ]
+      },
+      {
+        "part_key": "part-c",
+        "points": 3,
+        "prompt": "Compare the two conditional distributions from part B, and use them to determine whether streaming preference and age group appear to be associated.",
+        "criteria": [
+          ["Notes that the Under-30 group strongly favors Service A (60%), while the 30-and-Over group favors Service B (about 47%).", "Response cites both conditional percentages in the comparison.", "Compare the leading service in each conditional distribution using the computed percentages."],
+          ["Concludes there does appear to be an association between age group and streaming preference.", "Response explicitly states an association exists.", "State the conclusion that age group and preference appear associated."],
+          ["Bases the comparison on the conditional distributions (not just the raw marginal totals).", "Reasoning explicitly references the differing conditional percentages between groups, not just row/column totals.", "Ground the comparison in the conditional distributions computed in part B rather than raw counts."]
+        ]
+      },
+      {
+        "part_key": "part-d",
+        "points": 2,
+        "prompt": "Calculate the probability that a randomly selected survey respondent is Under 30 and prefers Service C.",
+        "criteria": [
+          ["Uses the correct approach: joint probability equals the cell count divided by the grand total.", "Work shows 8/200 rather than a conditional probability calculation.", "Use the joint cell count for Under 30 and Service C, divided by 200."],
+          ["Calculates the correct value.", "Final answer is 0.04.", "Recompute 8 ÷ 200."]
+        ]
+      }
+    ]
+  },
+  {
+    "content_key": "apstats-frq-u12-007",
+    "subject": "ap_statistics",
+    "unit": 2,
+    "topic": "2.6 Conditional Probability",
+    "title": "Allergy Test Accuracy",
+    "archetype": "Multi-Focus on Practices 3 and 4",
+    "difficulty": "Medium",
+    "stimulus": "A clinic uses a screening test for a particular allergy. In the population the clinic serves, 15% of people actually have the allergy. Given that a person has the allergy, the test returns a positive result 92% of the time. Given that a person does not have the allergy, the test incorrectly returns a positive result (false positive) 6% of the time.",
+    "parts": [
+      {
+        "part_key": "part-a",
+        "points": 3,
+        "prompt": "Using a hypothetical group of 1000 people, fill in a table showing the four possible outcomes (allergy/no allergy crossed with positive/negative test result), with expected counts.",
+        "criteria": [
+          ["Correctly fills in the allergy row.", "150 people have the allergy: 138 test positive, 12 test negative (0.92 × 150 = 138).", "Recompute 92% and 8% of the 150 people with the allergy."],
+          ["Correctly fills in the no-allergy row.", "850 people do not have the allergy: 51 test positive, 799 test negative (0.06 × 850 = 51).", "Recompute 6% and 94% of the 850 people without the allergy."],
+          ["Correctly fills in the totals.", "189 total positive, 811 total negative, 1000 grand total.", "Sum each column (positive and negative) across both rows."]
+        ]
+      },
+      {
+        "part_key": "part-b",
+        "points": 4,
+        "prompt": "Calculate the probability that a randomly selected person actually has the allergy, given that their test result is positive.",
+        "criteria": [
+          ["Correctly identifies this as the conditional probability P(allergy | positive).", "Response frames the calculation as a conditional probability with positive result as the given condition.", "Set up P(allergy | positive) using the table from part A."],
+          ["Uses the correct numerator (positive AND allergy).", "Numerator of 138 is used.", "Use the allergy-and-positive count of 138 as the numerator."],
+          ["Uses the correct denominator (total positive).", "Denominator of 189 is used.", "Use the total positive count of 189 as the denominator."],
+          ["Calculates the correct final value.", "P(allergy | positive) = 138/189 ≈ 0.730 (73.0%).", "Recompute 138 ÷ 189."]
+        ]
+      },
+      {
+        "part_key": "part-c",
+        "points": 3,
+        "prompt": "Explain why the probability calculated in part B is much lower than 92%, the test's accuracy rate for people who have the allergy, referencing the context.",
+        "criteria": [
+          ["Notes that 92% is P(positive | allergy), a different conditional probability than P(allergy | positive) since the order of conditioning matters.", "Response explicitly distinguishes the two conditional probabilities.", "State that 92% conditions on having the allergy, while part B conditions on testing positive — these are different quantities."],
+          ["Explains that because the allergy is relatively rare (15% prevalence) and the false positive rate is not zero, many positive results come from the much larger no-allergy group.", "Explanation references the low prevalence combined with a nonzero false-positive rate.", "Explain that the small allergy group combined with a nonzero false positive rate produces many false positives among all positives."],
+          ["Ties the conclusion to specific counts (51 false positives vs. 138 true positives) to justify the lower value.", "Response cites the 51 vs. 138 counts from part A.", "Reference the specific counts of false positives and true positives from the table."]
+        ]
+      }
+    ]
+  },
+  {
+    "content_key": "apstats-frq-u12-008",
+    "subject": "ap_statistics",
+    "unit": 2,
+    "topic": "2.9 Parameters of Random Variables",
+    "title": "Carnival Game Payout",
+    "archetype": "Multi-Focus on Practices 3 and 4",
+    "difficulty": "Medium",
+    "stimulus": "In a carnival game, a player pays $5 to play. The player draws one ball from a bag of 20 numbered balls and wins a prize based on the type of ball drawn.\n\nTable 1: Prize Winnings\nOutcome | Number of balls | Winnings (X)\nGrand prize | 1 | $50\nMedium prize | 4 | $10\nSmall prize | 5 | $2\nNo prize | 10 | $0",
+    "parts": [
+      {
+        "part_key": "part-a",
+        "points": 3,
+        "prompt": "Calculate the expected value of the winnings X for one play of the game.",
+        "criteria": [
+          ["Uses the correct probabilities for each outcome.", "P(50)=0.05, P(10)=0.20, P(2)=0.25, P(0)=0.50, based on the ball counts out of 20.", "Recompute each outcome's probability as its ball count divided by 20."],
+          ["Uses the correct expected value expression.", "Sum of x·P(x) across all four outcomes is shown.", "Set up E(X) as the sum of each winnings value times its probability."],
+          ["Calculates the correct final value.", "E(X) = 50(0.05)+10(0.20)+2(0.25)+0(0.50) = $5.00.", "Recompute the weighted sum of the four products."]
+        ]
+      },
+      {
+        "part_key": "part-b",
+        "points": 2,
+        "prompt": "Interpret the value found in part A in the context of whether the game is fair, given that it costs $5 to play.",
+        "criteria": [
+          ["States that since E(X) = $5 equals the cost to play, the game is fair on average (expected net gain of $0 in the long run).", "Response explicitly compares E(X) to the $5 cost and concludes fairness.", "Compare the expected winnings to the $5 cost and state whether the game is fair."],
+          ["Correctly frames this as a long-run average across many plays, not a guarantee for any single play.", "Response notes any individual play could win $0 or $50, but the average over many plays approaches $5.", "Clarify that E(X) describes long-run average behavior, not a single play's outcome."]
+        ]
+      },
+      {
+        "part_key": "part-c",
+        "points": 3,
+        "prompt": "Calculate the standard deviation of the winnings X.",
+        "criteria": [
+          ["Calculates the correct E(X²).", "E(X²) = 2500(0.05)+100(0.20)+4(0.25)+0(0.50) = 146.", "Recompute the weighted sum of the squared winnings values."],
+          ["Calculates the correct variance.", "Var(X) = 146 − 5² = 121.", "Subtract [E(X)]² from E(X²)."],
+          ["Calculates the correct standard deviation.", "SD(X) = √121 = $11.00.", "Take the square root of the variance."]
+        ]
+      },
+      {
+        "part_key": "part-d",
+        "points": 2,
+        "prompt": "Explain what the standard deviation found in part C indicates about the variability of outcomes in this game, compared to a hypothetical game with SD = $2.",
+        "criteria": [
+          ["Notes that SD = $11 indicates high variability in winnings relative to the $5 average, since outcomes range from $0 to $50.", "Response connects the large SD to the wide range of possible winnings.", "Explain that an SD of $11 reflects large swings between possible outcomes relative to the mean of $5."],
+          ["Correctly compares to a game with SD = $2, noting its outcomes would cluster much more tightly around its expected value (less risky/more predictable).", "Response explicitly contrasts the two SDs in terms of spread/predictability.", "State that a smaller SD (like $2) means outcomes are more consistent and less risky than this game."]
+        ]
+      }
+    ]
+  },
+  {
+    "content_key": "apstats-frq-u12-009",
+    "subject": "ap_statistics",
+    "unit": 2,
+    "topic": "2.10 The Binomial Distribution",
+    "title": "Free Throw Shooting",
+    "archetype": "Multi-Focus on Practices 3 and 4",
+    "difficulty": "Medium",
+    "stimulus": "A basketball player makes 75% of her free throws, and each attempt can be considered independent of the others. During a game, she attempts 6 free throws. Let X represent the number of free throws she makes.",
+    "parts": [
+      {
+        "part_key": "part-a",
+        "points": 2,
+        "prompt": "Justify why X, the number of free throws made out of 6 attempts, can be modeled by a binomial random variable.",
+        "criteria": [
+          ["States there is a fixed number of trials (n = 6), each with two possible outcomes (make or miss).", "Response identifies fixed n and binary outcomes per trial.", "State that there are a fixed number of attempts (6), each resulting in make or miss."],
+          ["States the trials are independent with a constant probability of success (p = 0.75) on each attempt.", "Response references independence and constant p across attempts.", "State that each attempt is independent with the same 0.75 probability of success."]
+        ]
+      },
+      {
+        "part_key": "part-b",
+        "points": 4,
+        "prompt": "Calculate the probability that she makes exactly 4 of the 6 free throws.",
+        "criteria": [
+          ["Sets up the correct binomial probability expression.", "Expression C(6,4)(0.75)^4(0.25)^2 is shown.", "Set up P(X=4) using the binomial formula with n=6, p=0.75."],
+          ["Calculates the correct combination value.", "C(6,4) = 15.", "Recompute the number of ways to choose 4 successes out of 6 trials."],
+          ["Calculates the probability portion correctly.", "(0.75)^4 × (0.25)^2 ≈ 0.019775.", "Recompute (0.75)^4 times (0.25)^2."],
+          ["Calculates the correct final probability.", "P(X=4) ≈ 0.297 (29.7%).", "Multiply 15 by the probability portion to get the final answer."]
+        ]
+      },
+      {
+        "part_key": "part-c",
+        "points": 4,
+        "prompt": "Calculate the mean and standard deviation of X, the number of free throws made out of 6.",
+        "criteria": [
+          ["Uses the correct mean formula.", "Mean = np is used.", "Use the binomial mean formula μ = np."],
+          ["Calculates the correct mean value.", "Mean = 6 × 0.75 = 4.5.", "Recompute 6 × 0.75."],
+          ["Uses the correct standard deviation formula.", "SD = √(np(1−p)) is used.", "Use the binomial SD formula σ = √(np(1−p))."],
+          ["Calculates the correct standard deviation value.", "SD = √(6 × 0.75 × 0.25) = √1.125 ≈ 1.06.", "Recompute √(6 × 0.75 × 0.25)."]
+        ]
+      }
+    ]
+  },
+  {
+    "content_key": "apstats-frq-u12-010",
+    "subject": "ap_statistics",
+    "unit": 1,
+    "topic": "1.13 Experimental Design",
+    "title": "Fertilizer Experiment on Bean Plants",
+    "archetype": "Multi-Focus on Practices 1 and 2",
+    "difficulty": "Medium",
+    "stimulus": "A researcher wants to determine whether a new fertilizer increases bean plant yield compared to the standard fertilizer. She has 40 bean plants of the same variety, all similar in initial size, arranged on 4 shelves (10 plants per shelf) at different distances from the greenhouse's light source.",
+    "parts": [
+      {
+        "part_key": "part-a",
+        "points": 3,
+        "prompt": "Explain how the researcher should use random assignment in this experiment and why it is important.",
+        "criteria": [
+          ["Describes randomly assigning plants to treatment groups (e.g., 20 plants to new fertilizer, 20 to standard fertilizer) using a chance mechanism such as random numbers.", "Procedure specifies a random method (e.g., random number generator) to split plants into the two fertilizer groups.", "Describe a specific random mechanism for assigning plants to the two fertilizer groups."],
+          ["States that random assignment balances out other variables (lurking variables like plant vigor or position) between groups on average.", "Explanation references balancing unmeasured differences between plants across groups.", "Explain that randomization tends to balance lurking variables between the two groups."],
+          ["Connects this to the purpose: allows any yield difference to be attributed to fertilizer type rather than confounding factors.", "Response ties random assignment to supporting a cause-and-effect conclusion about fertilizer.", "State that this allows differences in yield to be attributed to the fertilizer rather than other factors."]
+        ]
+      },
+      {
+        "part_key": "part-b",
+        "points": 3,
+        "prompt": "Describe how the researcher could incorporate blocking into the experimental design using the 4 shelves, and explain the potential benefit of doing so.",
+        "criteria": [
+          ["Describes blocking by shelf (grouping the 10 plants on each shelf together before assigning fertilizer within each shelf).", "Procedure groups plants by shelf as blocks prior to treatment assignment.", "Describe treating each of the 4 shelves as a block."],
+          ["States the benefit: reduces variability due to the blocking variable (light exposure) so it does not obscure the treatment effect.", "Explanation references reducing extraneous variability from differing light exposure across shelves.", "Explain that blocking reduces variability caused by differing light exposure between shelves."],
+          ["Notes that random assignment of fertilizer still occurs within each block.", "Response specifies plants within each shelf are randomly split between the two fertilizers.", "State that randomization of fertilizer type still happens within each shelf/block."]
+        ]
+      },
+      {
+        "part_key": "part-c",
+        "points": 2,
+        "prompt": "Identify the explanatory variable and the response variable in this experiment.",
+        "criteria": [
+          ["Correctly identifies the explanatory variable as fertilizer type (new vs. standard).", "Response names fertilizer type as the explanatory variable.", "Identify fertilizer type as the explanatory variable."],
+          ["Correctly identifies the response variable as plant yield (e.g., amount or weight of beans produced).", "Response names bean yield as the response variable.", "Identify bean yield as the response variable."]
+        ]
+      },
+      {
+        "part_key": "part-d",
+        "points": 2,
+        "prompt": "Explain why this study is an experiment rather than an observational study.",
+        "criteria": [
+          ["States that the researcher actively assigns/imposes the treatment (fertilizer type) rather than simply observing existing groups.", "Response notes the researcher controls which fertilizer each plant receives.", "State that the researcher imposes the fertilizer treatment rather than observing pre-existing groups."],
+          ["Ties this to the ability to establish cause-and-effect, unlike observational studies which can only show association.", "Response contrasts experiments (causation) with observational studies (association only).", "Explain that imposing treatment allows for a cause-and-effect conclusion, unlike an observational study."]
+        ]
+      }
+    ]
+  },
+  {
+    "content_key": "apstats-frq-u12-011",
+    "subject": "ap_statistics",
+    "unit": 2,
+    "topic": "2.11 The Normal Distribution",
+    "title": "Standardized Test Scores",
+    "archetype": "Multi-Focus on Practices 3 and 4",
+    "difficulty": "Hard",
+    "stimulus": "Scores on a national standardized test are approximately normally distributed with a mean of 500 and a standard deviation of 90.",
+    "parts": [
+      {
+        "part_key": "part-a",
+        "points": 3,
+        "prompt": "Calculate the probability that a randomly selected test-taker scores above 650.",
+        "criteria": [
+          ["Calculates the correct z-score.", "z = (650 − 500)/90 ≈ 1.67.", "Recompute (650 − 500) ÷ 90."],
+          ["Uses the correct upper-tail normal probability approach.", "Response computes 1 − P(Z < 1.67) rather than P(Z < 1.67).", "Find the area to the right of z = 1.67 under the standard normal curve."],
+          ["Calculates the correct final probability.", "P(score > 650) ≈ 0.048 (4.8%).", "Recompute 1 minus the cumulative probability at z ≈ 1.67."]
+        ]
+      },
+      {
+        "part_key": "part-b",
+        "points": 3,
+        "prompt": "Determine the test score that separates the top 10% of test-takers from the rest.",
+        "criteria": [
+          ["Correctly identifies the z-score for the 90th percentile.", "z ≈ 1.28 is used.", "Find the z-score corresponding to the 90th percentile of the standard normal distribution."],
+          ["Sets up the correct inverse-normal equation.", "Equation score = mean + z × SD is shown.", "Use score = μ + zσ to convert the z-score to a raw score."],
+          ["Calculates the correct final score.", "Score ≈ 615 (500 + 1.28 × 90 = 615.2; accept 613–617).", "Recompute 500 + 1.28 × 90."]
+        ]
+      },
+      {
+        "part_key": "part-c",
+        "points": 4,
+        "prompt": "A random sample of 36 test-takers is selected. Calculate the probability that the sample mean score is above 520.",
+        "criteria": [
+          ["Recognizes that the sampling distribution of the sample mean applies (population is normal, or n = 36 is large enough for the CLT).", "Response explicitly references the sampling distribution of x̄ rather than the distribution of individual scores.", "State that the distribution of the sample mean is used, since the population is normal and/or n is reasonably large."],
+          ["Calculates the correct standard error.", "SE = 90/√36 = 15.", "Recompute 90 divided by the square root of 36."],
+          ["Calculates the correct z-score for the sample mean.", "z = (520 − 500)/15 ≈ 1.33.", "Recompute (520 − 500) ÷ 15."],
+          ["Calculates the correct final probability.", "P(x̄ > 520) ≈ 0.091 (9.1%).", "Recompute 1 minus the cumulative probability at z ≈ 1.33."]
+        ]
+      }
+    ]
+  },
+  {
+    "content_key": "apstats-frq-u12-012",
+    "subject": "ap_statistics",
+    "unit": 1,
+    "topic": "1.9 Comparisons of the Distributions for One Quantitative Variable",
+    "title": "Comparing Commute Times at Two Offices",
+    "archetype": "Multi-Focus on Practices 3 and 4",
+    "difficulty": "Hard",
+    "stimulus": "A company measured one-way commute times (in minutes) for random samples of employees at its Downtown office and its Suburban office.\n\nDowntown (n=9): 12, 15, 18, 20, 22, 25, 28, 30, 55\nSuburban (n=9): 25, 27, 29, 30, 31, 33, 34, 36, 38",
+    "parts": [
+      {
+        "part_key": "part-a",
+        "points": 2,
+        "prompt": "Calculate the mean and median commute time for each office.",
+        "criteria": [
+          ["Calculates the correct Downtown mean and median.", "Downtown mean = 225/9 = 25; median = 22 (5th of 9 sorted values).", "Recompute the Downtown sum divided by 9, and the middle value of the sorted Downtown data."],
+          ["Calculates the correct Suburban mean and median.", "Suburban mean = 283/9 ≈ 31.4; median = 31 (5th of 9 sorted values).", "Recompute the Suburban sum divided by 9, and the middle value of the sorted Suburban data."]
+        ]
+      },
+      {
+        "part_key": "part-b",
+        "points": 4,
+        "prompt": "Compare the distributions of commute times at the two offices in context, addressing shape, center, and spread.",
+        "criteria": [
+          ["Correctly notes Downtown is right-skewed (due to the 55-minute value) while Suburban is fairly symmetric.", "Response identifies the shape difference tied to the Downtown outlier.", "Describe Downtown's shape as right-skewed (due to 55) and Suburban's as roughly symmetric."],
+          ["Compares center, noting Suburban has a higher typical commute time.", "Response compares medians (31 vs. 22) or means (31.4 vs. 25) with correct direction.", "Compare the medians or means of the two offices and state which is higher."],
+          ["Compares spread, noting Downtown has greater spread/range, largely driven by the outlier.", "Response compares ranges: Downtown 55−12=43 vs. Suburban 38−25=13.", "Compute and compare the ranges (or IQRs) of the two data sets."],
+          ["States all comparisons using explicit comparative language (e.g., \"greater than,\" \"less than\") in context, rather than listing two separate descriptions.", "Response directly compares the two offices side-by-side rather than describing each independently.", "Rewrite the comparisons using direct comparative language between the two offices."]
+        ]
+      },
+      {
+        "part_key": "part-c",
+        "points": 2,
+        "prompt": "Determine whether the value of 55 minutes in the Downtown data is an outlier, using the 1.5×IQR rule.",
+        "criteria": [
+          ["Calculates the correct Q1, Q3, IQR, and upper fence for the Downtown data.", "Q1 = 16.5, Q3 = 29, IQR = 12.5, upper fence = 29 + 1.5(12.5) = 47.75.", "Split the Downtown data into lower and upper halves (excluding the median) to find Q1 and Q3, then compute the upper fence."],
+          ["States the correct conclusion.", "55 > 47.75, so 55 is an outlier.", "Compare 55 to the computed upper fence and state the conclusion."]
+        ]
+      },
+      {
+        "part_key": "part-d",
+        "points": 2,
+        "prompt": "Explain why the median is a more appropriate measure to use when comparing \"typical\" commute time between the two offices than the mean.",
+        "criteria": [
+          ["States that the median is resistant to outliers/skew, unlike the mean.", "Response explicitly references resistance of the median compared to the mean.", "State that the median is not affected as strongly by outliers or skewed data as the mean is."],
+          ["Ties this to context: Downtown's outlier (55) inflates its mean, making a mean-based comparison misleading regarding typical commute experience.", "Response connects the Downtown outlier to a distorted mean-based comparison.", "Explain that the 55-minute outlier inflates the Downtown mean, distorting a comparison based on means."]
+        ]
+      }
+    ]
+  },
+  {
+    "content_key": "apstats-frq-u12-013",
+    "subject": "ap_statistics",
+    "unit": 1,
+    "topic": "1.12 Potential Problems with Sampling",
+    "title": "Mall Survey Bias",
+    "archetype": "Multi-Focus on Practices 1 and 2",
+    "difficulty": "Hard",
+    "stimulus": "A shopping mall manager wants to estimate the proportion of all adults in the city who shop online at least once per week. She stands outside a department store on a Tuesday afternoon and surveys the first 100 adults who walk by.",
+    "parts": [
+      {
+        "part_key": "part-a",
+        "points": 2,
+        "prompt": "Identify the sampling method used in this study.",
+        "criteria": [
+          ["Correctly identifies this as a convenience sample.", "Response explicitly names convenience sampling.", "Identify the method as a convenience sample."],
+          ["Notes the sample was not randomly selected, distinguishing it from an SRS.", "Response states adults were not chosen using a chance mechanism.", "State that the adults were selected based on availability/location, not by random selection."]
+        ]
+      },
+      {
+        "part_key": "part-b",
+        "points": 4,
+        "prompt": "Explain two distinct ways this sampling method could lead to bias in estimating the proportion of all city adults who shop online weekly, and describe the likely direction of each bias.",
+        "criteria": [
+          ["Identifies a plausible source of bias tied to location.", "Reasoning notes that surveying at a mall/department store selects for people who prefer in-person shopping, likely underrepresenting frequent online shoppers.", "Explain how sampling at a physical store location could underrepresent frequent online shoppers."],
+          ["States the likely direction for this location-based bias.", "Response states this would tend to underestimate the true proportion who shop online weekly.", "State that this bias would likely cause an underestimate of the online-shopping proportion."],
+          ["Identifies a plausible, distinct source of bias tied to timing.", "Reasoning notes a Tuesday afternoon excludes many working adults, biasing the sample toward retirees or others not employed full-time.", "Explain how sampling on a weekday afternoon excludes many employed adults."],
+          ["States a likely direction/effect for this time-based bias, distinct from the first reason.", "Response describes how the excluded group (employed adults) may have different online shopping habits than those sampled, without simply repeating reason 1.", "State a distinct effect of the time-based bias on the estimate, different from the location-based reasoning."]
+        ]
+      },
+      {
+        "part_key": "part-c",
+        "points": 4,
+        "prompt": "Describe a sampling procedure the manager could use instead to obtain a more representative sample, and explain how it addresses the problems identified in part B.",
+        "criteria": [
+          ["Proposes a specific improved method, such as a random sample of city residents drawn from a citywide list, or a stratified sample across multiple locations and times.", "A concrete alternative method is named, not just \"survey more people.\"", "Propose a specific alternative sampling method, such as a random sample from a citywide resident list."],
+          ["The method includes an explicit random selection mechanism.", "Procedure specifies a chance-based selection process (e.g., random number generator applied to a resident list).", "Add a random selection mechanism to the proposed method."],
+          ["Explains how the new method reduces the location-based bias identified in part B.", "Explanation shows the new method reaches adults who are not mall shoppers.", "Explain how the proposed method includes adults who would not be captured at the mall."],
+          ["Explains how the new method reduces the time-based bias identified in part B.", "Explanation shows the new method reaches adults with varied schedules/employment status.", "Explain how the proposed method includes adults unavailable on a weekday afternoon."]
+        ]
+      }
+    ]
+  },
+  {
+    "content_key": "apstats-frq-u12-014",
+    "subject": "ap_statistics",
+    "unit": 2,
+    "topic": "2.3 Estimating Probabilities Using Simulation",
+    "title": "Simulating Free Kick Success",
+    "archetype": "Multi-Focus on Practices 3 and 4",
+    "difficulty": "Hard",
+    "stimulus": "A soccer player makes a successful free kick 40% of the time. A coach wants to estimate, via simulation, the probability that the player makes at least 2 of her next 5 free kicks.",
+    "parts": [
+      {
+        "part_key": "part-a",
+        "points": 4,
+        "prompt": "Describe a complete simulation process using random digits to estimate this probability, including how digits are assigned to represent \"made\" and \"missed\" outcomes.",
+        "criteria": [
+          ["Assigns digits correctly for a 40% probability.", "Procedure assigns digits 0–3 to \"made\" and 4–9 to \"missed\" (or an equivalent valid assignment).", "Assign 4 of the 10 single digits to represent a made kick, matching the 40% probability."],
+          ["States each trial uses 5 random digits to represent the 5 free-kick attempts.", "Procedure specifies reading a group of 5 digits per trial.", "State that each simulated trial consists of 5 digits, one per attempt."],
+          ["Describes counting the number of \"made\" digits in each group of 5 and recording whether the count is at least 2.", "Procedure explains tallying made-outcomes per trial and comparing to the threshold of 2.", "Describe counting made-digits per trial and checking whether the count is 2 or more."],
+          ["States the process is repeated for many trials, and the estimated probability is the proportion of trials with at least 2 makes.", "Procedure specifies repeating for many trials (e.g., at least 50) and computing (successful trials)/(total trials).", "Add that the simulation is repeated many times and the probability is estimated as the fraction of trials with at least 2 makes."]
+        ]
+      },
+      {
+        "part_key": "part-b",
+        "points": 3,
+        "prompt": "Using the digit assignment from part A (0–3 = made, 4–9 = missed), determine the outcome (number of makes and whether it counts as a success) for each of the following three simulated trials.\n\nTrial 1: 3 8 1 4 6\nTrial 2: 7 2 0 9 5\nTrial 3: 4 4 2 1 3",
+        "criteria": [
+          ["Correctly determines Trial 1.", "Digits 3,8,1,4,6 give makes at 3 and 1 (2 makes total); a success since 2 ≥ 2.", "Recount which digits in Trial 1 fall in the 0–3 range."],
+          ["Correctly determines Trial 2.", "Digits 7,2,0,9,5 give makes at 2 and 0 (2 makes total); a success since 2 ≥ 2.", "Recount which digits in Trial 2 fall in the 0–3 range."],
+          ["Correctly determines Trial 3.", "Digits 4,4,2,1,3 give makes at 2,1,3 (3 makes total); a success since 3 ≥ 2.", "Recount which digits in Trial 3 fall in the 0–3 range."]
+        ]
+      },
+      {
+        "part_key": "part-c",
+        "points": 3,
+        "prompt": "Given that 27 out of 50 total simulated trials resulted in at least 2 makes, estimate the probability that the player makes at least 2 of her next 5 free kicks, and interpret this estimate in context.",
+        "criteria": [
+          ["Calculates the correct estimate.", "27/50 = 0.54.", "Recompute 27 divided by 50."],
+          ["Interprets this as an estimated probability of about 54%.", "Response expresses 0.54 as approximately a 54% chance.", "State the estimate as a probability/percentage in context."],
+          ["Notes this is a simulation-based estimate that would vary with more trials, not an exact theoretical probability.", "Response acknowledges the estimate's variability and connects it to the free-kick context.", "Add that this estimate is approximate and could change with additional simulated trials."]
+        ]
+      }
+    ]
+  },
+  {
+    "content_key": "apstats-frq-u12-015",
+    "subject": "ap_statistics",
+    "unit": 2,
+    "topic": "2.5 Mutually Exclusive Events",
+    "title": "Warranty Claims Independence",
+    "archetype": "Multi-Focus on Practices 3 and 4",
+    "difficulty": "Hard",
+    "stimulus": "For a certain model of laptop, 20% of laptops sold require a warranty repair for the screen, and 15% require a warranty repair for the battery. Records show that 5% of laptops require warranty repairs for both the screen and the battery. Let S = event that a laptop needs a screen repair, and B = event that a laptop needs a battery repair.",
+    "parts": [
+      {
+        "part_key": "part-a",
+        "points": 2,
+        "prompt": "Calculate the probability that a randomly selected laptop needs a warranty repair for the screen or the battery (or both).",
+        "criteria": [
+          ["Uses the general addition rule, subtracting the overlap.", "Expression P(S) + P(B) − P(S and B) is shown.", "Apply the general addition rule: P(S or B) = P(S) + P(B) − P(S and B)."],
+          ["Calculates the correct value.", "P(S or B) = 0.20 + 0.15 − 0.05 = 0.30.", "Recompute 0.20 + 0.15 − 0.05."]
+        ]
+      },
+      {
+        "part_key": "part-b",
+        "points": 3,
+        "prompt": "Determine whether events S and B are mutually exclusive. Justify your answer.",
+        "criteria": [
+          ["States that S and B are not mutually exclusive.", "Response explicitly classifies the events as not mutually exclusive.", "State the classification: not mutually exclusive."],
+          ["Justifies using P(S and B) = 0.05 ≠ 0.", "Response notes that mutually exclusive events would require P(S and B) = 0.", "State that mutually exclusive events require P(S and B) = 0, but here it is 0.05."],
+          ["Connects to context: some laptops need both repairs, so the events can occur together.", "Response explains that a laptop can need both a screen and battery repair simultaneously.", "Explain that laptops needing both repairs exist, so the events are not mutually exclusive."]
+        ]
+      },
+      {
+        "part_key": "part-c",
+        "points": 3,
+        "prompt": "Determine whether events S and B are independent. Justify your answer using probability calculations.",
+        "criteria": [
+          ["States that S and B are not independent.", "Response explicitly classifies the events as not independent.", "State the classification: not independent."],
+          ["Correctly computes P(S) × P(B) and compares it to the actual P(S and B).", "P(S) × P(B) = 0.20 × 0.15 = 0.03, compared with the given P(S and B) = 0.05.", "Compute P(S) × P(B) and compare it to the given joint probability of 0.05."],
+          ["Justifies that since these values are unequal (0.03 ≠ 0.05), the events are not independent.", "Response states that this inequality is the basis for the independence conclusion, and ties it to the context of associated repair needs.", "Explain that unequal values (0.03 vs. 0.05) indicate the two repair needs are associated, not independent."]
+        ]
+      },
+      {
+        "part_key": "part-d",
+        "points": 2,
+        "prompt": "Calculate the probability that a laptop needs a battery repair, given that it needs a screen repair.",
+        "criteria": [
+          ["Uses the correct conditional probability formula.", "P(B|S) = P(B and S)/P(S) is shown.", "Set up the conditional probability formula P(B|S) = P(S and B) / P(S)."],
+          ["Calculates the correct value.", "P(B|S) = 0.05/0.20 = 0.25.", "Recompute 0.05 divided by 0.20."]
+        ]
+      }
+    ]
+  },
+  {
+    "content_key": "apstats-frq-u12-016",
+    "subject": "ap_statistics",
+    "unit": 2,
+    "topic": "2.8 Introduction to Random Variables and Probability Distributions",
+    "title": "Insurance Policy Payout",
+    "archetype": "Multi-Focus on Practices 3 and 4",
+    "difficulty": "Hard",
+    "stimulus": "An insurance company sells a 1-year policy that pays out $20,000 if the policyholder files a covered claim, and $0 otherwise. Based on historical data, the probability that a given policyholder files a covered claim in a year is 0.02. Each policy costs the customer $500 per year.",
+    "parts": [
+      {
+        "part_key": "part-a",
+        "points": 2,
+        "prompt": "Construct the probability distribution table for Y, the amount the insurance company pays out to a single policyholder in a year.",
+        "criteria": [
+          ["Correctly lists both possible payout values.", "Y = 0 and Y = 20,000 are the two listed outcomes.", "List both possible payout amounts: $0 and $20,000."],
+          ["Correctly lists the corresponding probabilities.", "P(Y=0) = 0.98 and P(Y=20000) = 0.02.", "Pair each payout with its correct probability (0.98 and 0.02)."]
+        ]
+      },
+      {
+        "part_key": "part-b",
+        "points": 3,
+        "prompt": "Calculate the expected payout E(Y) for a single policyholder, and use it to determine the company's expected profit per policy.",
+        "criteria": [
+          ["Calculates the correct E(Y).", "E(Y) = 20000(0.02) + 0(0.98) = $400.", "Recompute 20000 × 0.02."],
+          ["Uses the correct profit calculation (revenue minus expected payout).", "Profit = 500 − 400 is shown.", "Subtract the expected payout from the $500 revenue per policy."],
+          ["Calculates the correct final expected profit.", "Expected profit = $100 per policy.", "Recompute 500 − 400."]
+        ]
+      },
+      {
+        "part_key": "part-c",
+        "points": 3,
+        "prompt": "Calculate the standard deviation of Y.",
+        "criteria": [
+          ["Calculates the correct E(Y²).", "E(Y²) = 20000² (0.02) = 8,000,000.", "Recompute 20000 squared times 0.02."],
+          ["Calculates the correct variance.", "Var(Y) = 8,000,000 − 400² = 7,840,000.", "Subtract [E(Y)]² from E(Y²)."],
+          ["Calculates the correct standard deviation.", "SD(Y) = √7,840,000 = $2,800.", "Take the square root of the variance."]
+        ]
+      },
+      {
+        "part_key": "part-d",
+        "points": 2,
+        "prompt": "Explain why the insurance company, unlike an individual policyholder, can rely on the expected value calculated in part B to reliably predict its overall profit.",
+        "criteria": [
+          ["Notes the company sells many policies (a large number of independent policyholders), so the average payout per policy will be close to the expected value.", "Response references the law of large numbers or averaging over many independent policies.", "Explain that with many independent policies, the average outcome converges toward the expected value."],
+          ["Contrasts with a single policyholder, for whom the actual outcome could differ greatly from the expected value.", "Response notes a single policyholder either pays $0 or $20,000, far from the $400 expected value.", "Contrast the high relative variability for one policyholder with the stability across many policies."]
+        ]
+      }
+    ]
+  },
+  {
+    "content_key": "apstats-frq-u12-017",
+    "subject": "ap_statistics",
+    "unit": 1,
+    "topic": "1.3 Tabular Representation and Summary Statistics for One Categorical Variable",
+    "title": "Commuter Transportation Mode Survey",
+    "archetype": "Multi-Focus on Practices 3 and 4",
+    "difficulty": "Hard",
+    "stimulus": "A city transportation department surveyed 250 randomly selected commuters about their primary mode of transportation to work (Car, Bus, Bike, or Walk) and whether they live within 3 miles of downtown or farther than 3 miles.\n\nTable 1: Transportation Mode by Distance from Downtown\n | Within 3 miles | Farther than 3 miles | Total\nCar | 40 | 110 | 150\nBus | 20 | 30 | 50\nBike | 25 | 5 | 30\nWalk | 15 | 5 | 20\nTotal | 100 | 150 | 250",
+    "parts": [
+      {
+        "part_key": "part-a",
+        "points": 2,
+        "prompt": "Classify each of the two recorded variables (transportation mode and distance-from-downtown group) as categorical or quantitative.",
+        "criteria": [
+          ["Correctly classifies transportation mode as categorical.", "Response labels transportation mode as categorical.", "Classify transportation mode as categorical, since its values are named groups."],
+          ["Correctly classifies the distance-from-downtown grouping as categorical, as it is recorded here.", "Response labels the within/farther grouping as categorical since it is presented as two named groups in this table.", "Classify the distance grouping as categorical since it is recorded as two labeled groups (within 3 miles / farther than 3 miles)."]
+        ]
+      },
+      {
+        "part_key": "part-b",
+        "points": 3,
+        "prompt": "Calculate the conditional distribution of transportation mode for commuters who live within 3 miles of downtown.",
+        "criteria": [
+          ["Calculates the correct proportions for all four categories.", "Car = 0.40, Bus = 0.20, Bike = 0.25, Walk = 0.15.", "Recompute each Within-3-miles cell divided by the column total of 100."],
+          ["Uses the correct method (each cell divided by the column total of 100).", "Work such as 40/100 is shown for at least one category.", "Show the division of each cell by the Within-3-miles column total."],
+          ["The reported proportions are internally consistent, summing to 1.", "0.40+0.20+0.25+0.15 = 1.00.", "Check that the four proportions sum to 1 and correct any arithmetic error."]
+        ]
+      },
+      {
+        "part_key": "part-c",
+        "points": 3,
+        "prompt": "Construct a segmented (stacked) bar graph comparing the conditional distributions of transportation mode for the two distance groups.",
+        "criteria": [
+          ["Draws two bars (one per distance group), each with total height 1 (or 100%), segmented by mode in correct relative proportions.", "Within-3 bar segmented roughly 40/20/25/15; farther bar segmented roughly 73/20/3/3.", "Redraw the two full-height bars with segment sizes matching each group's conditional distribution."],
+          ["Uses consistent segment ordering and a legend identifying each transportation mode.", "Segments appear in the same order in both bars, with a legend mapping colors/patterns to modes.", "Add a legend and keep segment order consistent across both bars."],
+          ["Labels both axes and includes a title.", "Distance group is labeled on one axis, percent/proportion on the other, with a graph title.", "Add axis labels (distance group; percent or proportion) and a title."]
+        ]
+      },
+      {
+        "part_key": "part-d",
+        "points": 2,
+        "prompt": "Compare the conditional distributions of transportation mode between the two distance groups, and state whether there appears to be an association between distance from downtown and transportation mode.",
+        "criteria": [
+          ["Notes the substantial contrast between groups, such as car use being much higher farther from downtown (about 73.3%) versus within 3 miles (40%), while bike/walk usage is much higher within 3 miles (40% combined) than farther away (about 6.7% combined).", "Response cites specific conditional percentages in the comparison.", "Compare the conditional percentages for car and bike/walk use between the two groups."],
+          ["Concludes there is an association between distance and transportation mode.", "Response explicitly states the conditional distributions differ substantially, indicating association.", "State the conclusion that distance and transportation mode appear associated."]
+        ]
+      }
+    ]
+  },
+  {
+    "content_key": "apstats-frq-u12-018",
+    "subject": "ap_statistics",
+    "unit": 2,
+    "topic": "2.6 Conditional Probability",
+    "title": "Manufacturing Defect Tree Diagram",
+    "archetype": "Multi-Focus on Practices 3 and 4",
+    "difficulty": "Very Hard",
+    "stimulus": "A factory produces circuit boards using three machines: Machine A produces 50% of all boards, Machine B produces 30%, and Machine C produces 20%. Historical defect rates are: 2% of Machine A's boards are defective, 5% of Machine B's boards are defective, and 8% of Machine C's boards are defective. A board is selected at random from the factory's total output.",
+    "parts": [
+      {
+        "part_key": "part-a",
+        "points": 3,
+        "prompt": "Construct a tree diagram (or equivalent table) showing all machine and defect-status branches with their associated probabilities.",
+        "criteria": [
+          ["Shows correct first-level branch probabilities for the three machines.", "P(A)=0.50, P(B)=0.30, P(C)=0.20.", "Set the first-level branches to the given machine production percentages."],
+          ["Shows correct second-level conditional defect probabilities from each machine.", "From A: 0.02 defective/0.98 not; from B: 0.05/0.95; from C: 0.08/0.92.", "Attach the correct conditional defect and non-defect probabilities under each machine branch."],
+          ["Shows all six joint outcome paths (each machine crossed with defective or not).", "Diagram/table includes six distinct branch endpoints.", "Ensure the diagram or table displays all six machine-by-defect-status combinations."]
+        ]
+      },
+      {
+        "part_key": "part-b",
+        "points": 3,
+        "prompt": "Calculate the overall probability that a randomly selected board is defective.",
+        "criteria": [
+          ["Uses the law of total probability, summing joint probabilities across machines.", "Expression P(A)P(D|A)+P(B)P(D|B)+P(C)P(D|C) is shown.", "Sum the joint defective probabilities from each machine branch."],
+          ["Calculates the correct individual joint probabilities.", "0.5×0.02=0.01, 0.3×0.05=0.015, 0.2×0.08=0.016.", "Recompute each machine's probability times its defect rate."],
+          ["Calculates the correct total.", "P(defective) = 0.01+0.015+0.016 = 0.041.", "Sum the three joint probabilities."]
+        ]
+      },
+      {
+        "part_key": "part-c",
+        "points": 3,
+        "prompt": "Given that a randomly selected board is defective, calculate the probability that it was produced by Machine C.",
+        "criteria": [
+          ["Sets up the correct Bayes'-type ratio.", "P(C|D) = P(C and D)/P(D) is shown.", "Set up the conditional probability as the joint probability for C divided by the total defective probability."],
+          ["Uses the correct values from parts A and B.", "0.016/0.041 is used.", "Use the joint probability for Machine C (0.016) and the total defective probability (0.041) from earlier parts."],
+          ["Calculates the correct final probability.", "P(C|D) ≈ 0.390 (39.0%).", "Recompute 0.016 divided by 0.041."]
+        ]
+      },
+      {
+        "part_key": "part-d",
+        "points": 1,
+        "prompt": "Determine whether the event \"the board was produced by Machine C\" and the event \"the board is defective\" are independent, based on your calculations.",
+        "criteria": [
+          ["Correctly states the events are not independent, referencing that P(defective|C) = 0.08 differs from the overall P(defective) = 0.041 found in part B.", "Response compares 0.08 to 0.041 and concludes non-independence, consistent with earlier work.", "Compare P(defective|C) = 0.08 to the overall P(defective) = 0.041 from part B and state that their inequality shows the events are not independent."]
+        ]
+      }
+    ]
+  },
+  {
+    "content_key": "apstats-frq-u12-019",
+    "subject": "ap_statistics",
+    "unit": 2,
+    "topic": "2.12 Sampling Distributions and the Central Limit Theorem",
+    "title": "Quality Control Sampling of LED Bulbs",
+    "archetype": "Multi-Focus on Practices 3 and 4",
+    "difficulty": "Very Hard",
+    "stimulus": "A manufacturer states that 6% of the LED bulbs it produces are defective. Quality control inspects random samples of 200 bulbs from the production line each day. Let X represent the number of defective bulbs found in a sample of 200.",
+    "parts": [
+      {
+        "part_key": "part-a",
+        "points": 2,
+        "prompt": "Calculate the mean and standard deviation of X, assuming the manufacturer's claim of 6% is correct.",
+        "criteria": [
+          ["Calculates the correct mean.", "Mean = np = 200 × 0.06 = 12.", "Recompute 200 × 0.06."],
+          ["Calculates the correct standard deviation.", "SD = √(200 × 0.06 × 0.94) = √11.28 ≈ 3.36.", "Recompute √(200 × 0.06 × 0.94)."]
+        ]
+      },
+      {
+        "part_key": "part-b",
+        "points": 2,
+        "prompt": "Justify why a Normal distribution can be used to approximate the distribution of X, the number of defective bulbs.",
+        "criteria": [
+          ["States the large counts condition values.", "np = 12 and n(1−p) = 188 are both computed.", "Compute np and n(1−p) for this sample size and defect rate."],
+          ["Concludes that since both values are at least 10, the distribution of X is approximately Normal.", "Response explicitly states both conditions (np ≥ 10 and n(1−p) ≥ 10) are satisfied and draws the conclusion.", "Compare both values to the threshold of 10 and state the Normal approximation is justified."]
+        ]
+      },
+      {
+        "part_key": "part-c",
+        "points": 4,
+        "prompt": "Using the Normal approximation, calculate the probability that a random sample of 200 bulbs contains more than 18 defective bulbs.",
+        "criteria": [
+          ["Sets up the Normal approximation using the mean and SD from part A.", "Mean = 12, SD ≈ 3.36 are used as the Normal parameters.", "Use the mean (12) and SD (≈3.36) from part A as the Normal model's parameters."],
+          ["Applies a continuity correction, using 18.5 as the boundary for \"more than 18.\"", "Calculation uses 18.5 rather than 18 as the cutoff value.", "Adjust the boundary to 18.5 to account for approximating a discrete distribution with a continuous one."],
+          ["Calculates the correct z-score.", "z = (18.5 − 12)/3.36 ≈ 1.94.", "Recompute (18.5 − 12) ÷ 3.36."],
+          ["Calculates the correct final probability.", "P(X > 18) ≈ 0.026 (2.6%).", "Recompute 1 minus the cumulative probability at z ≈ 1.94."]
+        ]
+      },
+      {
+        "part_key": "part-d",
+        "points": 2,
+        "prompt": "The quality control manager observes 22 defective bulbs in one day's sample of 200. Interpret whether this result provides evidence that the true defect rate might be higher than the manufacturer's claimed 6%.",
+        "criteria": [
+          ["Recognizes that 22 defective bulbs is far above the mean of 12 (roughly 3 standard deviations away), corresponding to a very small probability under the claimed rate.", "Response computes or references a z-score around 2.8–3.0 for 22 and notes the resulting probability is very small.", "Compute how many standard deviations 22 is from the mean of 12 and note this is an unusually large deviation."],
+          ["Concludes this provides evidence the true defect rate may be higher than 6%, reasoning informally from the rarity of such an outcome under the stated model (without invoking formal hypothesis-test procedure).", "Response states that because 22 would be a very unusual result if the true rate were 6%, it suggests the true rate could be higher, using informal reasoning only.", "State that because this outcome would be very unlikely under the 6% claim, it suggests the true defect rate may be higher, using informal (non-hypothesis-test) reasoning."]
+        ]
+      }
+    ]
+  },
+  {
+    "content_key": "apstats-frq-u12-020",
+    "subject": "ap_statistics",
+    "unit": 1,
+    "topic": "1.7 Summary Statistics for One Quantitative Variable",
+    "title": "Shipping Package Weight Comparison",
+    "archetype": "Multi-Focus on Practices 3 and 4",
+    "difficulty": "Very Hard",
+    "stimulus": "A distribution center recorded the weights (in pounds) of packages shipped from two of its facilities on the same day. Summary statistics are shown in Table 1. After shipment, the center discovered that one South facility package was mistakenly recorded as 40 pounds when its actual weight was 8.0 pounds (a data entry error).\n\nTable 1: Package Weight Summary Statistics\nFacility | n | Mean | SD | Min | Q1 | Median | Q3 | Max\nNorth | 40 | 12.4 | 3.1 | 4.0 | 10.2 | 12.0 | 14.5 | 22.0\nSouth | 40 | 12.4 | 3.1 | 2.0 | 10.5 | 12.5 | 14.0 | 40.0",
+    "parts": [
+      {
+        "part_key": "part-a",
+        "points": 3,
+        "prompt": "Using the South facility's five-number summary, determine whether the recorded maximum value of 40 pounds is an outlier, using the 1.5×IQR rule.",
+        "criteria": [
+          ["Calculates the correct IQR.", "IQR = 14.0 − 10.5 = 3.5.", "Recompute Q3 minus Q1 for the South facility."],
+          ["Calculates the correct upper fence.", "Upper fence = 14.0 + 1.5(3.5) = 19.25.", "Recompute Q3 + 1.5 × IQR."],
+          ["States the correct conclusion.", "40 > 19.25, so 40 is an outlier.", "Compare 40 to the computed upper fence and state the conclusion."]
+        ]
+      },
+      {
+        "part_key": "part-b",
+        "points": 3,
+        "prompt": "Explain, without recalculating, whether correcting the error (changing 40 to 8.0 pounds) would increase, decrease, or not change each of the following for the South facility: (i) the mean, (ii) the median, (iii) the standard deviation.",
+        "criteria": [
+          ["Correctly states the mean would decrease, with reasoning that the mean is affected by every value, and replacing a very high value (40) with a much smaller one (8.0) reduces the sum and thus the mean.", "Response states \"decrease\" for the mean and explains via sensitivity to every data value.", "State that the mean would decrease because it uses every value, and 8.0 is much smaller than the recorded 40."],
+          ["Correctly states the median would stay the same or change very little, reasoning that the median depends only on the position/rank of the middle value(s), and this correction does not change which values occupy the middle of the ordered list.", "Response states \"no change\" or \"little change\" for the median and explains via the median's dependence on rank rather than magnitude of extreme values.", "Explain that the median depends on which values are in the middle of the ordered data, not on the size of the extreme value being corrected."],
+          ["Correctly states the standard deviation would decrease, reasoning that removing the extreme deviation caused by the 40-pound value reduces the overall variability from the mean.", "Response states \"decrease\" for the SD and explains via reduced squared deviations from the mean.", "State that the standard deviation would decrease because the extreme deviation contributed by the 40-pound value is removed."]
+        ]
+      },
+      {
+        "part_key": "part-c",
+        "points": 4,
+        "prompt": "Assuming the correction described in part B is made, compare the shapes and spreads of the North and South weight distributions, and evaluate whether the two facilities' package weights are now more or less similar than the original (uncorrected) summary statistics suggested.",
+        "criteria": [
+          ["Recognizes that after correcting 40 to 8.0, this value is no longer the maximum of the South data (since 8.0 is below the South median of 12.5), so the true corrected maximum is some other, unknown-from-summary value no greater than the prior second-largest observation.", "Response explicitly notes 8.0 would fall below the median rather than remaining the maximum.", "Note that after correction, 8.0 lands below the median, so it is not the new maximum; the true maximum is unknown from the summary alone."],
+          ["Concludes the corrected South distribution is likely much more symmetric (no extreme high outlier), in contrast to North's shape, which was roughly symmetric already since its mean and median are close.", "Response compares corrected South shape to North's shape using the given mean/median values.", "Compare the corrected South shape (more symmetric without the outlier) to North's already-symmetric shape."],
+          ["Concludes the corrected South spread (SD) would be smaller than North's SD, so despite the identical originally reported SDs (3.1 each), the facilities are actually less similar in spread than the original statistics suggested.", "Response explains that the original SD match was an artifact of the data error, and correction reveals a real difference in spread.", "Explain that the equal original SDs were misleading due to the data error, and the corrected SDs would differ."],
+          ["Notes that the centers (mean/median) of North and South remain fairly similar even after correction, so the facilities remain comparable in typical package weight despite the differing spread/shape.", "Response distinguishes that center comparability is preserved even though spread comparability is not.", "State that centers remain similar between facilities even though spread comparisons change after correction."]
+        ]
+      }
+    ]
+  }
+]

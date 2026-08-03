@@ -1,184 +1,185 @@
-# Writing gold-set answers — tutor and verifier guide
+# Gold-set verification — reader guide
 
-**Version 1.0 — 2026-07-30**
-**Workbook:** `GOLD_SET_ANSWER_WORKBOOK.xlsx` (one copy per tutor)
+**Version 2.0 — 2026-08-03** (supersedes v1.0, 2026-07-30)
+**Operational protocol:** [`GOLD_SET_GENERATION_PROTOCOL.md`](GOLD_SET_GENERATION_PROTOCOL.md)
+**Adopted by:** DECISION-0045
+
+---
+
+## What changed from v1.0, and why
+
+v1.0 asked readers to **write** 330 answers and verify them. That was roughly 94 hours of
+reader time, on the roster that is already the bottleneck on content review. It was not
+going to happen, and a gold set that never exists measures nothing.
+
+**Answers are now written by AI and checked by two independent AI verifiers before you
+see them.** Your job changed completely. You no longer write anything.
+
+This is not a downgrade of your role. It is a concentration of it: reader attention now
+goes entirely to the two places where reader judgement cannot be substituted, and where
+an error would otherwise be invisible. Everything the AI produces is unverified until you
+certify it — you are not checking its homework, you are the reason anyone can trust it.
 
 ---
 
 ## 1. What you are building, and why it is not what you'd expect
 
-You are **not** writing model answers. You are writing a **test for our grader.**
+You are **not** assembling model answers. You are building a **test for our grader.**
 
-Cramapple's AI grader has never been checked against a human on a real student answer. Not once.
-We cannot currently state how accurate it is, because we have nothing to compare it against. You
-are building that comparison.
+Cramapple's AI grader has never been checked against a human on a real student answer.
+Not once. We cannot currently state how accurate it is, because we have nothing to
+compare it against. You are building that comparison.
 
-That changes what a "good" answer is. A polished, complete, textbook answer is almost useless to
-us — the grader gets those right. What we need are answers where **we know in advance exactly
-which rubric points should be awarded**, especially the awkward middle cases. If your answer set
-is too clean, the whole exercise tells us nothing. Deliberately imperfect answers are the product.
+That changes what a "good" answer is. A polished, complete, textbook answer is almost
+useless to us — the grader gets those right. What we need are answers where **we know in
+advance exactly which rubric points should be awarded**, especially the awkward middle
+cases. Deliberately imperfect answers are the product.
 
-**The one thing that makes this work:** every answer is written to a *script* that says which
-rubric elements it contains and which it leaves out. We then check whether the grader's scoring
-matches the script. Where it doesn't, we've found a real grader defect.
-
----
-
-## 2. Two roles, and the rule that cannot bend
-
-| role | does | never does |
-|---|---|---|
-| **Writer** | decomposes the criteria, scripts answers, writes them | verifies or grades their own answers |
-| **Verifier** | reads a finished answer cold and marks what's actually in it | sees the script before marking |
-
-**A writer must never verify their own answers, and the verifier must not see the script.**
-
-This is not bureaucracy. When we ran this with an AI writing to a script, **5 of 10 answers did
-not match their own script** — they included ideas they were explicitly told to leave out. If the
-writer also verifies, that error is invisible, and we end up measuring tutor compliance while
-believing we're measuring grader accuracy. The verifier is the only thing standing between us and
-a gold set that is quietly wrong.
-
-Expect roughly **1 in 5 answers to be discarded** at verification. That is the process working.
-Do not argue discarded answers back in — it is cheaper to write a new one.
+Every answer was written to a *script* saying which rubric elements it contains and which
+it leaves out. Two AI verifiers have already read it cold and marked what's actually in
+it. Where all three agree, it is a candidate. **Your marking is what decides whether that
+agreement can be trusted at all.**
 
 ---
 
-## 3. Before writing anything: decompose the criterion
+## 2. Your two jobs
 
-Most of our multi-point criteria do not say how their points divide. Of 617 criteria worth more
-than one point, **455 (74%) give no breakdown.** For example, a real 3-point criterion reads only:
+### Job 1 — Verify answers cold
 
-> *Diversity and evenness increase from Plot A to Plot C as succession proceeds; explanation
-> connects community assembly and changing habitat or species interactions to the trend.*
+You receive an answer with **no script, no AI verifier output, and no indication of how
+it got to you.** For each criterion on the item, mark **which elements the answer
+actually satisfies**, based only on what is written on the page.
 
-Three points, no statement of what each is for. **Your first job on every multi-point criterion is
-to write down that breakdown** in the `Elements` sheet — one element per point:
+- Be strict. A vague gesture, a hedge, or an adjacent statement does **not** count.
+- Judge only what is present, not what the student probably meant.
+- Do **not** award points or assign a score. Mark elements present or absent — nothing
+  else. Scoring is the grader's job, and doing it here contaminates the comparison.
+- Never look at what the AI grader produced. If you have seen it, hand the answer to
+  someone else.
+
+**Why the blindness matters.** If you know an answer was already auto-accepted, you are
+no longer an independent check on auto-acceptance — you are agreeing with it. The whole
+value of your pass is that it was made without knowing what anyone else concluded.
+
+Your marks are then compared automatically against the script and the AI verifiers. You
+will not be asked to adjudicate disagreements or to justify your marking.
+
+### Job 2 — Confirm element breakdowns *(Biology and Chemistry only)*
+
+Most multi-point criteria do not say how their points divide. Of 617 criteria worth more
+than one point, **455 (74%) give no breakdown.** A real 3-point criterion reads only:
+
+> *Diversity and evenness increase from Plot A to Plot C as succession proceeds;
+> explanation connects community assembly and changing habitat or species interactions to
+> the trend.*
+
+Three points, no statement of what each is for. The AI drafts a breakdown — one element
+per point — and you confirm or correct it:
 
 | criterion | pts | element 1 | element 2 | element 3 |
 |---|---|---|---|---|
 | c | 3 | states diversity increases A→C | states evenness increases A→C | explains via succession mechanism |
 
-You cannot script a 2-of-3 answer until you know what the three things are. Use your subject
-judgement; where the rubric is genuinely ambiguous, **flag it** in the `Notes` column — an
-ambiguous criterion is itself a finding worth having.
+**This is the single highest-value task in the process.** One breakdown is reused across
+all eight answers for that item. If it is wrong, all eight are wrong in exactly the same
+way, and nothing downstream will catch it.
 
-> This decomposition is needed to *build the test*. It is not a request to rewrite the rubric —
-> we measured that adding breakdowns to the rubric does not improve grading, so don't spend time
-> polishing the wording.
+Where the rubric is genuinely ambiguous, **flag it** rather than picking. A criterion two
+qualified readers read differently is a finding in its own right, and we would rather
+capture it than have it silently averaged away.
+
+> This is needed to *build the test*. It is not a request to rewrite the rubric — we
+> measured that adding breakdowns to the rubric does not improve grading, so don't spend
+> time polishing wording.
+
+**Statistics, Physics and Precalculus have no multi-point criteria**, so Job 2 does not
+arise there. Readers on those subjects do Job 1 only.
 
 ---
 
-## 4. The eight answers per question
+## 3. What the answers you'll see are meant to be
 
-Write **8 answers per question**, following this recipe. Each answer is graded against *every*
-criterion on the item, so one answer exercises the whole rubric at once.
+You don't write these, but knowing the recipe makes you a better verifier — particularly
+at spotting an answer that has failed to be what it claims.
 
 | # | type | what it must be |
 |---|---|---|
-| **A1** | Full credit, canonical | Everything, phrased the way the rubric expects. The easy case. |
+| **A1** | Full credit, canonical | Everything, phrased the way the rubric expects. Taken from the item's canonical answer, not generated. |
 | **A2** | **Full credit, unconventional** | Everything, but in **different words, a valid alternative method, or unusual notation**. Must genuinely deserve full marks. |
 | **A3** | Partial — omit | Complete except **one element is simply absent**. Not wrong — missing. |
 | **A4** | Partial — omit differently | A different subset absent, ideally across a different criterion. |
-| **A5** | Partial — attempted and wrong | An element is **addressed but incorrect** (not merely missing). This grades differently from A3 and we need both. |
-| **A6** | Near-miss | Uses adjacent, hedged, or vague wording that sounds right but **should not earn the point**. |
-| **A7** | Error carried forward | An early value is wrong; later work applies **correct method to that wrong value**. Should still earn the method points. *Skip if the item has no dependent parts — write another A3-style answer instead.* |
-| **A8** | Contradiction or near-zero | Either states something then contradicts it later, or addresses almost nothing. |
+| **A5** | Partial — attempted and wrong | An element **addressed but incorrect** (not merely missing). Grades differently from A3. |
+| **A6** | Near-miss | Adjacent, hedged, or vague wording that sounds right but **should not earn the point**. |
+| **A7** | Error carried forward | An early value is wrong; later work applies **correct method to that wrong value**. Should still earn the method points. |
+| **A8** | Contradiction or near-zero | States something then contradicts it, or addresses almost nothing. |
 
-**A2 is the one people skip, and it's the most important.** In testing, the grader gave full marks
-to only **7 of 10 genuinely complete answers** — it under-credits correct work that isn't phrased
-canonically. A1 alone will never expose that. If you write A2 as a lightly reworded A1, we lose
-the single most valuable probe in the set.
-
----
-
-## 5. How to write the answer text
-
-**Sound like a real student under time pressure.** Informal, uneven, sometimes vague. Real answers
-have run-on sentences, hedges, and abbreviations. A tidy paragraph is not what 2,500 teenagers
-will submit, and a grader tuned on tidy paragraphs will fail on real ones.
-
-**Length:** 2–5 sentences for short FRQs; a short paragraph per part for long FRQs. Match what a
-student would actually produce in the time available.
-
-**Express ideas, don't announce them.** Write *"eventually it stops going up no matter how much
-you add"* — not *"Element 2: the rate plateaus."* Signposting makes the answer trivially easy to
-grade and destroys its value as a test.
-
-**Omission means absent, not denied.** To leave an element out, just don't write it. Do **not**
-write *"I don't know about the active sites."* An explicit disclaimer is a different test.
-
-**Do not reference the rubric, the criteria, or the point values inside the answer.**
+**A2 is the most important one, and the easiest to get wrong.** In testing, the grader
+gave full marks to only **7 of 10 genuinely complete answers** — it under-credits correct
+work that isn't phrased canonically. If you see an A2 that is really just A1 with
+synonyms swapped, say so. That's a defect in the corpus worth reporting.
 
 ---
 
-## 6. Five ways this goes wrong — all observed
+## 4. Five ways verification goes wrong
 
-1. **Leaking an omitted element.** By far the most common. Elements that are closely related in
-   meaning slip in through a side remark. If you're told to omit "the curve flattens" but you
-   write "it ends up level at the top", you have included it. **Reread every answer once, hunting
-   only for elements you were supposed to leave out.**
-2. **Writing all eight answers in one voice.** They start to read like one student. Vary register,
-   length and structure deliberately.
-3. **Making partial answers bad answers.** A 2-of-3 answer should be *good work missing a piece*,
-   not a weak answer. If your partial answers are all poor, you're only testing the easy end.
-4. **A2 that isn't really unconventional.** Change the *approach*, not just the synonyms.
-5. **Making near-misses too obviously wrong.** A6 should be genuinely tempting — the kind of thing
-   that starts an argument between two reviewers. If it's clearly wrong, it tests nothing.
-
----
-
-## 7. The verifier's job
-
-You receive an answer with **no script**. For each criterion on the item, mark **which elements
-the answer actually satisfies** — based only on what is written on the page.
-
-- Be strict. A vague gesture, a hedge, or an adjacent statement does **not** count.
-- Judge only what is present, not what the student probably meant.
-- Do **not** award points or assign a score. Mark elements present or absent — nothing else.
-- Never look at what the AI grader produced. If you have seen it, hand the answer to someone else.
-
-Your marks and the writer's script are then compared automatically. Agreement → the answer enters
-the gold set. Disagreement → discarded, and no one needs to adjudicate it.
+1. **Crediting an element that was only gestured at.** The most common. If the answer
+   says *"it ends up level at the top"* and the element is *"the curve flattens"* — that
+   is present. If it says *"the numbers change a lot at first"* — that is not. The line is
+   whether the specific claim is made, not whether the student seems to be near it.
+2. **Reading in what the student meant.** You are an unusually good subject expert
+   marking an answer written to look like a rushed teenager's. The temptation to complete
+   their thought for them is strong and must be resisted.
+3. **Marking points instead of elements.** If you find yourself computing a total, stop.
+4. **Drifting stricter or looser across a batch.** Verification is repetitive. Take
+   breaks between items rather than pushing through a long block.
+5. **Looking at something you shouldn't have.** If you see the script, the AI output, or
+   the grader's score for an answer, that answer is contaminated — say so and pass it on.
+   This costs one answer. Not saying so costs the certification.
 
 ---
 
-## 8. Volume and priority
+## 5. Volume
 
-| batch | subject | questions | answers |
-|---|---|---:|---:|
-| **1** | **AP Biology** (published FRQs) | **30** | **240** |
-| 2 | AP Chemistry | 5 | 30 |
-| 2 | AP Calculus AB | 5 | 30 |
-| 2 | AP Calculus BC | 5 | 30 |
+Readers are certifying a pipeline, not producing a corpus, so the load no longer scales
+with the size of the set.
 
-**Batch 1 is the priority and should be finished first.** AP Biology holds 64% of all multi-point
-criteria and 83% of the published ones, and it is the August 2026 beta subject. Batch 2 subjects
-are canaries — enough to catch subject-specific breakage, not enough to certify them.
+**Pilot — Statistics and Physics, this round:**
 
-Physics, Precalculus and Statistics are **out of scope**: they have no multi-point criteria at all,
-so the behaviour under test does not apply to them.
+| reader | subject | items | answers to verify | est. time |
+|---|---|---:|---:|---:|
+| Jill | AP Statistics | 6 | 48 | ~4 h |
+| Saood | AP Physics 1 / 2 / C-Mech / C-E&M | 8 | 64 | ~5 h |
 
-Roughly **12 minutes per answer** to write, **5 minutes** to verify.
+In the pilot you verify **every** answer that reached you. That is the point: we are
+measuring how often the machine is wrong, and you cannot measure that from a sample of
+itself.
+
+**After the pilot,** if the machine's error rate clears the certification bar, readers
+verify a random sample only — roughly 100 answers per set regardless of how large the set
+is. If it does not clear the bar, we go back to reader verification of everything, and
+the plan gets re-scoped.
+
+Roughly **5 minutes per answer** to verify; element breakdowns (Biology/Chemistry) around
+**3 minutes per criterion**, done once and reused eight times.
 
 ---
 
-## 9. What happens to your work
+## 6. What happens to your work
 
-Every accepted answer is graded by the AI, and its score is compared to your script, criterion by
-criterion. The output is a table of where the grader **over-credits** and where it **under-credits**,
-per criterion and per subject — the first real measurement of grading quality we will have.
+Every certified answer is graded by the AI, and its result is compared to the agreed
+labels, criterion by criterion. The output is a table of where the grader
+**over-credits** and where it **under-credits**, per criterion and per subject — the
+first real measurement of grading quality we will have.
 
-The set is then **frozen** and becomes a permanent regression suite: every future change to the
-grader is re-run against it. Nothing that fails it ships.
+The set is then **frozen** and becomes a permanent regression suite: every future change
+to the grader is re-run against it. Nothing that fails it ships.
 
-**We will never tune the grader on this set.** Anything tuned on its own test data looks excellent
-and means nothing — we have measured that mistake here twice.
+**We will never tune the grader on this set.** Anything tuned on its own test data looks
+excellent and means nothing — we have measured that mistake here twice.
 
 ---
 
 ## Questions
 
-Flag anything ambiguous in the `Notes` column rather than guessing. A criterion two qualified
-tutors read differently is a finding in its own right, and we would rather capture it than have it
-silently averaged away.
+Flag anything ambiguous rather than guessing. Two qualified readers disagreeing is
+information; a guess is not.
