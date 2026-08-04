@@ -1,0 +1,801 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cramapple UX-008 Hand-Drawn Response Capture</title>
+  <style>
+    :root {
+      --ink: #17352d;
+      --muted: #60726c;
+      --canvas: #f3efe6;
+      --paper: #fffdf8;
+      --green: #174f42;
+      --green-2: #2e7563;
+      --mint: #e1eee8;
+      --blue: #e8f0f8;
+      --blue-ink: #315a76;
+      --amber: #fff0cf;
+      --amber-ink: #775314;
+      --red: #f8e5e1;
+      --red-ink: #8f352c;
+      --line: #d8d6ce;
+      --soft-line: #e8e4da;
+      --shadow: 0 16px 44px rgba(34, 53, 47, .1);
+      color-scheme: light;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      background:
+        radial-gradient(circle at 78% 0%, rgba(46, 117, 99, .13), transparent 34rem),
+        var(--canvas);
+      color: var(--ink);
+      line-height: 1.45;
+    }
+
+    button, select, input { font: inherit; }
+
+    button:focus-visible, select:focus-visible, input:focus-visible {
+      outline: 3px solid #6ba792;
+      outline-offset: 3px;
+    }
+
+    .topbar {
+      min-height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 13px 24px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 253, 248, .94);
+    }
+
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 850; }
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      background: #f4ca5b;
+      color: var(--green);
+      font-weight: 900;
+    }
+
+    .research-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 10px;
+      border: 1px solid #c9a85a;
+      border-radius: 999px;
+      background: #fff8e5;
+      color: var(--amber-ink);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .scenario-control { display: flex; align-items: center; gap: 8px; }
+    .scenario-control label { color: var(--muted); font-size: 12px; font-weight: 800; }
+    .scenario-control select {
+      min-height: 40px;
+      max-width: 260px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--paper);
+      color: var(--ink);
+      padding: 8px 10px;
+    }
+
+    main { max-width: 1280px; margin: 0 auto; padding: 22px; }
+
+    .session-strip {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 16px;
+      padding: 11px 14px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--paper);
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .session-strip strong { color: var(--ink); }
+
+    .devices {
+      display: grid;
+      grid-template-columns: minmax(0, 1.42fr) minmax(330px, .58fr);
+      gap: 20px;
+      align-items: start;
+    }
+
+    .primary-device, .phone-device {
+      min-width: 0;
+      border: 1px solid var(--line);
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    .primary-device { border-radius: 18px; overflow: hidden; }
+    .phone-device { max-width: 430px; justify-self: center; border-radius: 28px; overflow: hidden; }
+
+    .device-bar {
+      min-height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 15px;
+      border-bottom: 1px solid var(--soft-line);
+      background: #faf8f2;
+      font-size: 12px;
+    }
+
+    .device-bar strong { font-size: 13px; }
+    .save-state { color: var(--muted); }
+    .primary-content { padding: 22px; }
+    .phone-content { min-height: 590px; padding: 20px; }
+
+    .eyebrow {
+      margin: 0 0 7px;
+      color: var(--green-2);
+      font-size: 11px;
+      font-weight: 850;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { margin-bottom: 8px; font-size: clamp(24px, 3vw, 34px); letter-spacing: -.035em; }
+    h2 { margin-bottom: 8px; font-size: 22px; letter-spacing: -.025em; }
+    h3 { margin-bottom: 6px; font-size: 15px; }
+    .lede { color: var(--muted); }
+
+    .stimulus-grid {
+      display: grid;
+      grid-template-columns: minmax(0, .9fr) minmax(260px, 1.1fr);
+      gap: 16px;
+      margin: 18px 0;
+      align-items: stretch;
+    }
+
+    .stimulus-card, .instruction-card, .status-card, .quality-card {
+      padding: 15px;
+      border: 1px solid var(--soft-line);
+      border-radius: 14px;
+      background: #fff;
+    }
+
+    .stimulus-card figure { margin: 0; }
+    .stimulus-card svg { display: block; width: 100%; height: auto; }
+    .stimulus-card figcaption { margin-top: 8px; color: var(--muted); font-size: 11px; }
+
+    .checklist { margin: 10px 0 0; padding-left: 20px; }
+    .checklist li { margin: 5px 0; }
+
+    .actions { display: flex; gap: 9px; flex-wrap: wrap; margin-top: 16px; }
+    .button {
+      min-height: 43px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      background: var(--paper);
+      color: var(--ink);
+      font-weight: 780;
+      cursor: pointer;
+    }
+
+    .button:hover { border-color: #95aaa3; }
+    .button.primary { border-color: var(--green); background: var(--green); color: #fff; }
+    .button.soft { border-color: #a8c7bb; background: var(--mint); color: var(--green); }
+    .button.warning { border-color: #d2a54d; background: var(--amber); color: var(--amber-ink); }
+    .button.danger { border-color: #d5a098; background: #fff9f7; color: var(--red-ink); }
+    .button.text { border-color: transparent; background: transparent; padding-inline: 4px; }
+    .button:disabled { cursor: not-allowed; opacity: .5; }
+
+    .handoff-card {
+      display: grid;
+      grid-template-columns: 154px minmax(0, 1fr);
+      gap: 16px;
+      align-items: center;
+      margin-top: 16px;
+      padding: 16px;
+      border: 1px solid var(--soft-line);
+      border-radius: 14px;
+      background: #fff;
+    }
+
+    .fake-qr {
+      aspect-ratio: 1;
+      display: grid;
+      grid-template-columns: repeat(9, 1fr);
+      gap: 2px;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .fake-qr span { background: #fff; }
+    .fake-qr span.on { background: var(--ink); }
+
+    .code {
+      display: inline-block;
+      padding: 5px 8px;
+      border-radius: 7px;
+      background: #edf1ef;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-weight: 800;
+      letter-spacing: .08em;
+    }
+
+    .timeline { display: grid; gap: 8px; margin-top: 14px; }
+    .timeline-row { display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: 8px; align-items: start; }
+    .timeline-dot { width: 12px; height: 12px; margin-top: 4px; border: 2px solid #94aaa2; border-radius: 50%; }
+    .timeline-row.active .timeline-dot { border-color: var(--green); background: var(--green); }
+    .timeline-row strong, .timeline-row span { display: block; }
+    .timeline-row span { color: var(--muted); font-size: 11px; }
+
+    .phone-screen { display: none; }
+    .phone-screen.active { display: block; }
+
+    .privacy-note, .info-note, .warning-note, .danger-note {
+      margin: 12px 0;
+      padding: 11px 12px;
+      border-radius: 11px;
+      font-size: 12px;
+    }
+    .privacy-note, .info-note { background: var(--blue); color: var(--blue-ink); }
+    .warning-note { background: var(--amber); color: var(--amber-ink); }
+    .danger-note { background: var(--red); color: var(--red-ink); }
+
+    .camera-frame {
+      position: relative;
+      min-height: 390px;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      border-radius: 16px;
+      background: #26332f;
+      color: #fff;
+    }
+
+    .paper-guide {
+      width: 78%;
+      height: 74%;
+      border: 2px dashed rgba(255,255,255,.78);
+      border-radius: 7px;
+      display: grid;
+      place-items: center;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .camera-hints { margin: 12px 0 0; padding-left: 19px; color: var(--muted); font-size: 12px; }
+
+    .response-preview {
+      min-height: 330px;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #f0ede5;
+    }
+
+    .response-paper {
+      width: 86%;
+      padding: 10px;
+      border: 1px solid #d1cec4;
+      border-radius: 4px;
+      background: #fffef9;
+      box-shadow: 0 8px 20px rgba(0,0,0,.13);
+      transform: rotate(var(--preview-rotation, -2deg)) scale(var(--preview-scale, 1));
+      transition: transform .18s ease;
+    }
+
+    .response-paper svg { display: block; width: 100%; height: auto; }
+    .edit-summary { margin-top: 9px; color: var(--muted); font-size: 11px; }
+
+    .quality-mark {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 10px;
+      border-radius: 50%;
+      background: var(--mint);
+      color: var(--green);
+      font-size: 22px;
+      font-weight: 900;
+    }
+    .quality-card.warning .quality-mark { background: var(--amber); color: var(--amber-ink); }
+    .quality-card.uncertain .quality-mark { background: var(--red); color: var(--red-ink); }
+
+    .confirmation {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      margin-top: 14px;
+      padding: 12px;
+      border: 1px solid var(--soft-line);
+      border-radius: 11px;
+      background: #fff;
+    }
+    .confirmation input { width: auto; margin-top: 4px; }
+
+    .event-line {
+      margin-top: 16px;
+      padding-top: 12px;
+      border-top: 1px solid var(--soft-line);
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .event-line code { color: var(--ink); }
+    .hidden { display: none !important; }
+
+    @media (max-width: 900px) {
+      .devices { grid-template-columns: 1fr; }
+      .phone-device { width: min(100%, 430px); }
+      .scenario-control label { display: none; }
+    }
+
+    @media (max-width: 620px) {
+      .topbar { align-items: flex-start; padding: 12px; flex-wrap: wrap; }
+      .research-label { order: 3; width: 100%; justify-content: center; }
+      .scenario-control { flex: 1; }
+      .scenario-control select { width: 100%; max-width: none; }
+      main { padding: 12px; }
+      .session-strip { align-items: flex-start; flex-direction: column; }
+      .stimulus-grid, .handoff-card { grid-template-columns: 1fr; }
+      .fake-qr { width: 154px; }
+      .primary-content, .phone-content { padding: 16px; }
+      .phone-content { min-height: 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">C</span>Cramapple</div>
+    <span class="research-label">Research UX · No file is uploaded</span>
+    <div class="scenario-control">
+      <label for="scenario">Scenario</label>
+      <select id="scenario">
+        <option value="paper">Paper instructions</option>
+        <option value="handoff">QR ready</option>
+        <option value="connected">Phone connected</option>
+        <option value="permission">Permission explanation</option>
+        <option value="camera">Camera framing</option>
+        <option value="review">Photo review</option>
+        <option value="quality-ready">Looks ready</option>
+        <option value="quality-retake">Retake: cutoff</option>
+        <option value="quality-uncertain">Cannot determine</option>
+        <option value="confirm">Explicit submission</option>
+        <option value="submitted">Submitted</option>
+        <option value="expired">QR expired</option>
+        <option value="alternative">Accessible alternative</option>
+      </select>
+    </div>
+  </header>
+
+  <main>
+    <div class="session-strip">
+      <span><strong>Independent practice</strong> · Synthetic data-analysis item · response slot GRAPH-7K2</span>
+      <span id="event-status" role="status" aria-live="polite">Session event: <code>SESSION_CREATED</code></span>
+    </div>
+
+    <div class="devices">
+      <section class="primary-device" aria-labelledby="attempt-title">
+        <div class="device-bar"><strong>Question 3 of 5</strong><span class="save-state" id="primary-state">Paper response selected · saved</span></div>
+        <div class="primary-content">
+          <p class="eyebrow">Synthetic question · visual required</p>
+          <h1 id="attempt-title">Draw the predicted response curve</h1>
+          <p class="lede">The reference graph shows reaction rate measured at four substrate concentrations. On paper, draw a smooth curve that represents the expected trend through and beyond the measured values. Label both axes and annotate the plateau.</p>
+
+          <div class="stimulus-grid">
+            <div class="stimulus-card">
+              <figure>
+                <svg viewBox="0 0 360 250" role="img" aria-labelledby="stim-title stim-desc">
+                  <title id="stim-title">Reference graph of reaction rate versus substrate concentration</title>
+                  <desc id="stim-desc">Four measured points rise quickly and then approach a plateau as substrate concentration increases.</desc>
+                  <rect width="360" height="250" rx="8" fill="#fffef9"/>
+                  <g stroke="#d8d6ce" stroke-width="1">
+                    <path d="M55 35V205H330" fill="none" stroke="#17352d" stroke-width="2"/>
+                    <path d="M55 165H330M55 125H330M55 85H330M105 35V205M155 35V205M205 35V205M255 35V205M305 35V205"/>
+                  </g>
+                  <g fill="#17352d" font-family="system-ui" font-size="11">
+                    <text x="192" y="235" text-anchor="middle">Substrate concentration (mM)</text>
+                    <text transform="translate(16 125) rotate(-90)" text-anchor="middle">Reaction rate (µmol/min)</text>
+                  </g>
+                  <g fill="#2e7563" stroke="#174f42" stroke-width="2">
+                    <circle cx="95" cy="170" r="6"/><circle cx="145" cy="125" r="6"/><circle cx="205" cy="91" r="6"/><circle cx="280" cy="70" r="6"/>
+                  </g>
+                </svg>
+                <figcaption>Reference image · short alt and long description available · exact synthetic asset binding</figcaption>
+              </figure>
+            </div>
+            <div class="instruction-card">
+              <h3>Include all visible evidence</h3>
+              <ul class="checklist">
+                <li>Both axes, labels, and units</li>
+                <li>All four measured points</li>
+                <li>A smooth predicted curve</li>
+                <li>A labeled plateau region</li>
+              </ul>
+              <p class="info-note">This checklist describes what must be visible. It does not reveal hidden scoring criteria.</p>
+            </div>
+          </div>
+
+          <div id="primary-paper">
+            <div class="actions">
+              <button class="button primary" data-go="handoff" data-event="SESSION_CREATED">Use my phone</button>
+              <button class="button" data-go="alternative">Upload from this device</button>
+              <button class="button text" data-go="alternative">I cannot use a camera or QR code</button>
+            </div>
+          </div>
+
+          <div id="primary-handoff" class="hidden">
+            <div class="handoff-card">
+              <div class="fake-qr" aria-label="Simulated QR code; it contains no usable token" id="fake-qr"></div>
+              <div>
+                <p class="eyebrow">Single response slot · simulation</p>
+                <h2>Continue on your phone</h2>
+                <p>In Production, this code would be single-use, short-lived, and unable to access other records. No personal information is encoded here.</p>
+                <p><strong>Manual code:</strong> <span class="code">GRAPH-7K2</span></p>
+                <p><strong>Expires:</strong> <span id="expiry">04:58</span></p>
+                <div class="actions">
+                  <button class="button soft" data-go="connected" data-event="PAIRING_ACCEPTED">Simulate phone connected</button>
+                  <button class="button" data-go="handoff" data-event="RECOVERY_ISSUED">Refresh code</button>
+                  <button class="button text" data-go="paper" data-event="SESSION_CANCELLED">Cancel</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="primary-status" class="hidden">
+            <div class="status-card">
+              <p class="eyebrow">Cross-device status</p>
+              <h2 id="status-title">Phone connected</h2>
+              <p id="status-copy">Your paper response and this attempt remain saved. The devices do not need to stay open together.</p>
+              <div class="timeline" aria-label="Capture status">
+                <div class="timeline-row active" data-timeline="connected"><span class="timeline-dot"></span><div><strong>Phone connected</strong><span>Bound to GRAPH-7K2 only</span></div></div>
+                <div class="timeline-row" data-timeline="captured"><span class="timeline-dot"></span><div><strong>Photo reviewed</strong><span>Raw image remains unchanged</span></div></div>
+                <div class="timeline-row" data-timeline="submitted"><span class="timeline-dot"></span><div><strong>Explicitly submitted</strong><span>Capture acceptance is not correctness</span></div></div>
+              </div>
+              <div class="actions">
+                <button class="button" data-go="alternative">Use this device instead</button>
+                <button class="button text" data-go="paper" data-event="SESSION_CANCELLED">Cancel handoff</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="phone-device" aria-label="Simulated phone capture flow">
+        <div class="device-bar"><strong>Cramapple capture</strong><span class="save-state" id="phone-state">Not connected</span></div>
+        <div class="phone-content">
+          <section class="phone-screen active" data-phone="idle">
+            <p class="eyebrow">Phone preview</p>
+            <h2>Waiting for a handoff</h2>
+            <p class="lede">Choose “Use my phone” on the question to begin. This prototype never requests camera or file access.</p>
+          </section>
+
+          <section class="phone-screen" data-phone="connected">
+            <p class="eyebrow">Paired · GRAPH-7K2</p>
+            <h2>AP Biology graph response</h2>
+            <p>This phone is paired to one bounded response slot. Check that the paper contains no name, email, school, or unrelated personal information.</p>
+            <div class="privacy-note"><strong>Simulation:</strong> No token was generated and nothing leaves this page.</div>
+            <div class="actions">
+              <button class="button primary" data-go="permission">Continue</button>
+              <button class="button" data-go="alternative">Choose an existing photo</button>
+              <button class="button text" data-go="alternative">Use another method</button>
+            </div>
+          </section>
+
+          <section class="phone-screen" data-phone="permission">
+            <p class="eyebrow">Before camera permission</p>
+            <h2>Photograph this graph</h2>
+            <p>Cramapple would need camera access only to photograph the paper response. You can review, retake, remove, or cancel before explicitly submitting.</p>
+            <div class="privacy-note">The raw capture would remain private response evidence. Derived crop or rotation previews would be recorded separately.</div>
+            <div class="actions">
+              <button class="button primary" data-go="camera">Continue to camera simulation</button>
+              <button class="button" data-go="alternative">Camera unavailable</button>
+              <button class="button text" data-go="connected">Cancel</button>
+            </div>
+          </section>
+
+          <section class="phone-screen" data-phone="camera">
+            <p class="eyebrow">Camera simulation</p>
+            <div class="camera-frame" aria-label="Simulated camera viewport">
+              <div class="paper-guide">Fit the full page inside this guide.<br>Keep the phone parallel and avoid glare.</div>
+            </div>
+            <ul class="camera-hints"><li>Include axes, units, points, and annotation.</li><li>Use even light and a flat surface.</li></ul>
+            <div class="actions">
+              <button class="button primary" data-go="review" data-event="CAPTURE_RECORDED">Take simulated photo</button>
+              <button class="button" data-go="alternative">Choose photo</button>
+              <button class="button text" data-go="connected">Cancel</button>
+            </div>
+          </section>
+
+          <section class="phone-screen" data-phone="review">
+            <p class="eyebrow">Review before quality check</p>
+            <h2>Can you see the whole response?</h2>
+            <div class="response-preview">
+              <div class="response-paper" id="response-paper">
+                <svg viewBox="0 0 360 280" role="img" aria-labelledby="response-title response-desc">
+                  <title id="response-title">Synthetic hand-drawn graph response</title>
+                  <desc id="response-desc">A photographed paper graph with labeled axes, four points, and a hand-drawn curve approaching a labeled plateau.</desc>
+                  <rect width="360" height="280" fill="#fffef9"/>
+                  <g stroke="#3d5360" fill="none" stroke-linecap="round">
+                    <path d="M50 32V230H330" stroke-width="3"/>
+                    <path d="M64 213C102 165 138 111 183 84C222 60 269 56 319 55" stroke="#2f5e85" stroke-width="4"/>
+                    <g fill="#2f5e85" stroke="none"><circle cx="95" cy="174" r="5"/><circle cx="145" cy="126" r="5"/><circle cx="207" cy="79" r="5"/><circle cx="280" cy="58" r="5"/></g>
+                  </g>
+                  <g fill="#34434a" font-family="Comic Sans MS, cursive" font-size="13">
+                    <text x="185" y="260" text-anchor="middle">substrate (mM)</text>
+                    <text transform="translate(18 140) rotate(-90)" text-anchor="middle">rate (µmol/min)</text>
+                    <text x="257" y="42">plateau</text>
+                  </g>
+                </svg>
+              </div>
+            </div>
+            <p class="edit-summary" id="edit-summary">Derived preview: no rotation or crop · raw synthetic capture unchanged</p>
+            <div class="actions">
+              <button class="button" data-edit="rotate-left">Rotate left</button>
+              <button class="button" data-edit="rotate-right">Rotate right</button>
+              <button class="button" data-edit="crop">Crop preview</button>
+              <button class="button" data-edit="reset">Reset</button>
+            </div>
+            <div class="actions">
+              <button class="button primary" data-go="quality-ready" data-event="REVIEW_OPENED">Use this photo</button>
+              <button class="button warning" data-go="camera" data-event="RETAKE_REQUESTED">Retake</button>
+              <button class="button danger" data-go="camera" data-event="CAPTURE_REMOVED">Remove</button>
+            </div>
+          </section>
+
+          <section class="phone-screen" data-phone="quality-ready">
+            <div class="quality-card">
+              <div class="quality-mark">✓</div>
+              <p class="eyebrow">Capture-quality result</p>
+              <h2>Looks ready</h2>
+              <p>The full graph is visible and readable enough to send for review.</p>
+              <div class="info-note"><strong>This checks image quality, not whether the graph is correct.</strong></div>
+              <div class="actions">
+                <button class="button primary" data-go="confirm" data-event="QUALITY_RECORDED">Continue</button>
+                <button class="button" data-go="review" data-event="REVIEW_OPENED">Review image</button>
+                <button class="button text" data-go="camera" data-event="RETAKE_REQUESTED">Retake</button>
+              </div>
+            </div>
+          </section>
+
+          <section class="phone-screen" data-phone="quality-retake">
+            <div class="quality-card warning">
+              <div class="quality-mark">!</div>
+              <p class="eyebrow">Retake recommended</p>
+              <h2>The x-axis label is cut off</h2>
+              <p>A new photo can fix this because the missing label is outside the frame.</p>
+              <div class="warning-note">The current capture cannot be submitted. There is no “continue anyway” path for a fixable blocker.</div>
+              <div class="actions">
+                <button class="button primary" data-go="camera" data-event="RETAKE_REQUESTED">Retake photo</button>
+                <button class="button" data-go="review" data-event="REVIEW_OPENED">Review image</button>
+                <button class="button text" data-go="alternative">Use another method</button>
+              </div>
+            </div>
+          </section>
+
+          <section class="phone-screen" data-phone="quality-uncertain">
+            <div class="quality-card uncertain">
+              <div class="quality-mark">?</div>
+              <p class="eyebrow">Capture-quality result</p>
+              <h2>Cannot determine</h2>
+              <p>We cannot confirm that every required part is readable. This capture needs simulated human review or another submission method.</p>
+              <div class="danger-note">No automated score is shown and no real human-review service is promised.</div>
+              <div class="actions">
+                <button class="button primary" data-go="camera" data-event="RETAKE_REQUESTED">Retake</button>
+                <button class="button" data-go="alternative">Use another method</button>
+                <button class="button text" data-go="review" data-event="REVIEW_OPENED">Review image</button>
+              </div>
+            </div>
+          </section>
+
+          <section class="phone-screen" data-phone="confirm">
+            <p class="eyebrow">Explicit submission</p>
+            <h2>Send this graph response?</h2>
+            <p><strong>Item:</strong> Synthetic reaction-rate graph<br><strong>Slot:</strong> GRAPH-7K2<br><strong>Preview:</strong> rotation/crop recorded separately; raw synthetic capture unchanged</p>
+            <div class="privacy-note">Confirm that this is learner work and the page contains no unnecessary personal information.</div>
+            <label class="confirmation"><input type="checkbox" id="submit-confirmation"><span>I reviewed the selected image and want to submit it for this response slot.</span></label>
+            <div class="actions">
+              <button class="button primary" id="submit-graph" disabled>Submit graph</button>
+              <button class="button" data-go="review" data-event="REVIEW_OPENED">Go back</button>
+            </div>
+          </section>
+
+          <section class="phone-screen" data-phone="submitted">
+            <div class="quality-mark">✓</div>
+            <p class="eyebrow">Submission recorded · simulation</p>
+            <h2>Capture accepted</h2>
+            <p>The image-quality step is complete. This does not mean the graph is correct, graded, or added to progress.</p>
+            <div class="info-note">A real workflow would preserve the immutable submission, exact item version, raw-image identity, derived-preview provenance, and append-only session events.</div>
+            <div class="actions"><button class="button primary" data-go="paper">Return to question</button></div>
+          </section>
+
+          <section class="phone-screen" data-phone="expired">
+            <p class="eyebrow">Handoff expired</p>
+            <h2>This code is no longer active</h2>
+            <p>Your paper response and primary-device attempt are still saved. Expiration never submits or erases work.</p>
+            <div class="actions">
+              <button class="button primary" data-go="handoff" data-event="RECOVERY_ISSUED">Create a new code</button>
+              <button class="button" data-go="alternative">Use another method</button>
+            </div>
+          </section>
+
+          <section class="phone-screen" data-phone="alternative">
+            <p class="eyebrow">Accessible alternatives</p>
+            <h2>Choose another capture path</h2>
+            <p>This research render does not read files. A reviewed implementation could support direct selection, manual code entry, no-crop submission, and keyboard image controls.</p>
+            <div class="status-card">
+              <h3>Equivalent response options</h3>
+              <ul class="checklist"><li>Upload the original image from the primary device.</li><li>Enter a short-lived manual pairing code.</li><li>Submit without crop or rotation.</li><li>Use coordinate or table entry only when it preserves the assessed construct.</li><li>Request an approved accommodation or review path.</li></ul>
+            </div>
+            <div class="warning-note">When an equivalent method is not supported, the product must say so rather than silently replacing graph construction with an easier task.</div>
+            <div class="actions"><button class="button primary" data-go="paper">Back to question</button></div>
+          </section>
+
+          <p class="event-line">Latest append-only event: <code id="latest-event">SESSION_CREATED</code></p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    const scenario = document.getElementById("scenario");
+    const eventStatus = document.getElementById("event-status");
+    const latestEvent = document.getElementById("latest-event");
+    const primaryPaper = document.getElementById("primary-paper");
+    const primaryHandoff = document.getElementById("primary-handoff");
+    const primaryStatus = document.getElementById("primary-status");
+    const primaryState = document.getElementById("primary-state");
+    const phoneState = document.getElementById("phone-state");
+    const statusTitle = document.getElementById("status-title");
+    const statusCopy = document.getElementById("status-copy");
+    const responsePaper = document.getElementById("response-paper");
+    const editSummary = document.getElementById("edit-summary");
+    const submitConfirmation = document.getElementById("submit-confirmation");
+    const submitGraph = document.getElementById("submit-graph");
+
+    const phoneStates = new Set([
+      "connected", "permission", "camera", "review", "quality-ready",
+      "quality-retake", "quality-uncertain", "confirm", "submitted",
+      "expired", "alternative"
+    ]);
+
+    const statusContent = {
+      connected: ["Phone connected", "The paired phone can continue without keeping both devices open."],
+      permission: ["Phone connected", "Camera purpose is being explained before any permission request."],
+      camera: ["Phone connected", "The learner is framing the paper response."],
+      review: ["Photo captured", "The learner is reviewing a derived preview; the raw capture remains unchanged."],
+      "quality-ready": ["Checking image quality", "The capture appears readable. This is not a correctness result."],
+      "quality-retake": ["Retake needed", "A fixable framing defect blocks submission."],
+      "quality-uncertain": ["Review required", "The system cannot safely determine capture quality."],
+      confirm: ["Ready to submit", "Taking a photo did not submit it. Explicit confirmation is required."],
+      submitted: ["Capture accepted", "The immutable response image is submitted; correctness remains unknown."],
+      expired: ["Handoff expired", "The attempt and paper response remain saved."],
+      alternative: ["Alternative method", "The learner is reviewing accessible capture options."]
+    };
+
+    function recordEvent(name) {
+      latestEvent.textContent = name;
+      eventStatus.innerHTML = `Session event: <code>${name}</code>`;
+    }
+
+    function reportPreview(message) {
+      eventStatus.textContent = `${message} · no session event appended`;
+    }
+
+    function render(state, eventName) {
+      scenario.value = state;
+      document.querySelectorAll(".phone-screen").forEach(screen => {
+        const target = phoneStates.has(state) ? state : "idle";
+        screen.classList.toggle("active", screen.dataset.phone === target);
+      });
+
+      primaryPaper.classList.toggle("hidden", state !== "paper" && state !== "alternative");
+      primaryHandoff.classList.toggle("hidden", state !== "handoff" && state !== "expired");
+      primaryStatus.classList.toggle("hidden", state === "paper" || state === "handoff" || state === "expired" || state === "alternative");
+
+      if (state === "paper") {
+        primaryState.textContent = "Paper response selected · saved";
+        phoneState.textContent = "Not connected";
+      } else if (state === "handoff") {
+        primaryState.textContent = "Waiting for phone · attempt saved";
+        phoneState.textContent = "Not connected";
+      } else if (state === "expired") {
+        primaryState.textContent = "Code expired · attempt saved";
+        phoneState.textContent = "Expired";
+      } else if (state === "alternative") {
+        primaryState.textContent = "Alternative method · attempt saved";
+        phoneState.textContent = "Alternative path";
+      } else {
+        const content = statusContent[state] || statusContent.connected;
+        statusTitle.textContent = content[0];
+        statusCopy.textContent = content[1];
+        primaryState.textContent = `${content[0]} · attempt saved`;
+        phoneState.textContent = content[0];
+        document.querySelectorAll("[data-timeline]").forEach(row => {
+          const captured = ["review", "quality-ready", "quality-retake", "quality-uncertain", "confirm", "submitted"].includes(state);
+          const submitted = state === "submitted";
+          row.classList.toggle("active",
+            row.dataset.timeline === "connected" ||
+            (row.dataset.timeline === "captured" && captured) ||
+            (row.dataset.timeline === "submitted" && submitted)
+          );
+        });
+      }
+
+      if (state !== "confirm") {
+        submitConfirmation.checked = false;
+        submitGraph.disabled = true;
+      }
+      if (eventName) recordEvent(eventName);
+    }
+
+    document.querySelectorAll("[data-go]").forEach(button => {
+      button.addEventListener("click", () => render(button.dataset.go, button.dataset.event));
+    });
+
+    scenario.addEventListener("change", () => {
+      render(scenario.value);
+      reportPreview("Scenario preview changed");
+    });
+
+    let rotation = -2;
+    let scale = 1;
+    function updatePreview() {
+      responsePaper.style.setProperty("--preview-rotation", `${rotation}deg`);
+      responsePaper.style.setProperty("--preview-scale", scale);
+      editSummary.textContent = `Derived preview: ${rotation === -2 && scale === 1 ? "no rotation or crop" : `${rotation + 2}° rotation · ${scale > 1 ? "cropped preview" : "no crop"}`} · raw synthetic capture unchanged`;
+    }
+
+    document.querySelectorAll("[data-edit]").forEach(button => {
+      button.addEventListener("click", () => {
+        if (button.dataset.edit === "rotate-left") rotation -= 90;
+        if (button.dataset.edit === "rotate-right") rotation += 90;
+        if (button.dataset.edit === "crop") scale = scale === 1 ? 1.14 : 1;
+        if (button.dataset.edit === "reset") { rotation = -2; scale = 1; }
+        updatePreview();
+        reportPreview("Derived preview changed; raw capture unchanged");
+      });
+    });
+
+    submitConfirmation.addEventListener("change", () => {
+      submitGraph.disabled = !submitConfirmation.checked;
+      reportPreview(submitConfirmation.checked ? "Explicit confirmation checked" : "Explicit confirmation cleared");
+    });
+    submitGraph.addEventListener("click", () => render("submitted", "SUBMISSION_ACCEPTED"));
+
+    const qrPattern = "111010111101110101111010111000101010101110111011101010111010101000101011111010111";
+    const qr = document.getElementById("fake-qr");
+    [...qrPattern].forEach(value => {
+      const cell = document.createElement("span");
+      if (value === "1") cell.className = "on";
+      qr.appendChild(cell);
+    });
+
+    render("paper");
+  </script>
+</body>
+</html>

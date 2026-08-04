@@ -6,6 +6,9 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- TASK-0020 Fresh Independent QA Confirmed Verdicts; Changes Reconciled, Content Cross-Check Pending — 2026-08-03
+- TASK-0020 Launch-Readiness Assessment Ready for Independent Review — 2026-08-03
+- TASK-0020 Cross-Course Image Readiness Scan Completed — 2026-08-03
 - Reviewer Submit Blocker Root-Caused and Fixed: 36 Assignments Reset to Pending On Top of Immutable Decisions by Four Packet Scripts — 2026-08-03
 - Gold-Set Model Replaced: AI Generation + Multi-Model Verification + Reader Certification; Sets Repartitioned by Engine; Stats/Physics Pilot Pre-Registered — 2026-08-03
 - Gulgeldi Reviewer QA, DECISION-0044 Universal Publish Rule Executed, Two New Packets Assigned — 2026-08-03
@@ -54,6 +57,47 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 ---
+
+## TASK-0020 Fresh Independent QA Confirmed Verdicts; Changes Reconciled, Content Cross-Check Pending — 2026-08-03
+
+**Task:** TASK-0020
+**Status:** Changes Reconciled; independent Biology construct-risk derivation pending; no implementation or launch approval.
+
+**QA outcome:** Fresh-context QA returned **Changes Required** while independently confirming every checked load-bearing claim and all three launch-blocked verdicts. The inventory reconciles to 89 items: 63 required prompt presentations (one raster plus 62 structured/text representations), 37 construction items nested within the 62, and 26 no-visual candidates.
+
+**Corrections:** Reframed Program A as 63 required presentations with zero delivered end to end; added the prior Statistics missing-display retirement provenance; assigned the QR device-share evidence owner/source; made Program A/C reviewer-hour estimates additive; clarified that Program C is blocked by absent evidence rather than failed evaluation; and bound deployed bundle-hash changes to Program A/B revalidation. A SELECT-only Production query re-confirmed 41 of 41 published AP Biology FRQs have null `practice_format`.
+
+**Evidence correction:** The reviewer referenced `DECISION-0045` for reviewer scarcity, but that identifier is absent from this branch's committed decisions log. The capacity insight was retained without treating the unavailable citation as evidence.
+
+**Remaining action:** A second reviewer must independently re-derive the construct-equivalence-risk list from all 41 Biology candidates before Learning Quality review. Fresh QA did not perform that all-item content derivation. Details: `docs/research/TASK0020_INDEPENDENT_QA_RECONCILIATION_2026_08_03.md`.
+
+## TASK-0020 Launch-Readiness Assessment Ready for Independent Review — 2026-08-03
+
+**Task:** TASK-0020
+**Status:** Ready for Review; no launch approval and no Production mutation.
+
+**Outcome:** Completed the locked 89-item AP Biology/AP Statistics assessment. The slice contains one stored prompt image, 62 additional structured/text visual-data prompts, 37 hand-drawn construction items, and 26 items with no prompt-visual candidate. Manual review found no truly absent prior context, but seven Biology textual substitutes still require Learning Quality construct-equivalence review.
+
+**Verdicts:** Program A is launch-blocked because the private stored image has no student-authorized delivery path and the deployed session renders placeholder stems rather than canonical stimuli/images/structured data. Program B is launch-blocked because the polished deployed QR/photo interface is placeholder-backed and submits a capture-reference string; canonical Production responses have no image attachment, preservation, later-access, or review contract. Program C automation is blocked because canonical grading is text-only, no DR-1/DR-2 qualifying run exists, the local 372-photo corpus is not governance-ready, and no operational learner-image manual-review path or capacity commitment exists.
+
+**Evidence:** Production was queried with SELECT only; deployed functions and public client bundles were read only; no signed URL, learner image, object content, personal data, submission, or account mutation occurred. Ten image-workflow prototype tests and nine image-release tests passed, establishing only repository/prototype controls. Separate proportional next-approval handoffs and revalidation triggers are recorded in `docs/research/TASK0020_LAUNCH_READINESS_FINDINGS_2026_08_03.md`.
+
+**Next required action:** Fresh-context independent QA must challenge the inventory, evidence labels, verdicts, construct-equivalence list, device assumptions, remediation boundaries, and reviewer-hour estimates. Do not approve implementation or launch from the preparer's report alone.
+
+## TASK-0020 Cross-Course Image Readiness Scan Completed — 2026-08-03
+
+**Task:** TASK-0020
+**Status:** In Progress; cheap scan complete, deep Step 2 awaiting required Product Owner/Learning Quality locks.
+
+**Summary:** Executed the approved SELECT-only Production metadata scan across all 1,412 latest compatibility items. Among 288 published item/latest-version pairs, the scan flagged 111 prompt-visual candidates, 38 drawn-response candidates, and 36 possible missing-visual or missing-context candidates. These are mechanical candidates, not semantic classifications.
+
+**Concentration:** AP Statistics has 32 explicitly marked, published targeted-drill drawn-response items. AP Biology has 31 published FRQ prompt-visual candidates, including 25 possible missing/context candidates and the only published latest-version `stimulus_image_path`. All 41 published Biology FRQs have `practice_format IS NULL`, so the known strict FRQ selector does not currently select them.
+
+**Storage metadata:** `content-assets` is private; all 10 latest image-path references exist, but only one belongs to a published item/latest-version pair. `learner-uploads` is private and empty. No object contents, signed URLs, learner images, or personal data were read.
+
+**Recommendation:** Lock a bounded dual deep-assessment slice of 48 published AP Statistics targeted-drill FRQs plus 41 published AP Biology FRQs. Before Step 2, Product Owner/Learning Quality must also lock minimum viable volume, essential-visual failure behavior, grading/repair launch mode, and the supported-device materiality rule.
+
+**Evidence:** `docs/research/TASK0020_CROSS_COURSE_IMAGE_READINESS_SCAN_2026_08_03.md`; reproducible SQL at `scripts/image_readiness/cross_course_scan.sql`.
 
 ## Reviewer Submit Blocker Root-Caused and Fixed: 36 Assignments Reset to Pending On Top of Immutable Decisions by Four Packet Scripts — 2026-08-03
 

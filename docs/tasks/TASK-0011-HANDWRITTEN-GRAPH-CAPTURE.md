@@ -121,8 +121,25 @@ offline evaluation harness (sections 4-8 of the phase-1 spec) are built and
 validated against synthetic fixtures only.
 
 - `scripts/drawn_response/schemas/` — observation, criterion-decision,
-  capture-quality, partition-manifest, and method-run-log record schemas
+  capture-image, capture-quality, partition-manifest, and method-run-log record
+  schemas. The capture-image record closes the previous raw/derived-image
+  provenance gap without selecting a production database or storage provider.
 - `scripts/drawn_response/validate_records.py` — structural validation CLI
+- `scripts/drawn_response/schemas/capture_session_event.schema.json` plus
+  `scripts/drawn_response/fixtures/capture_session_events.valid.jsonl` —
+  append-only offline session state contract covering pairing, replay,
+  fallback, retake, recovery, learner removal/review, quality-gated explicit
+  submission, duplicate rejection, cancellation, and expiry. It links every
+  capture to an eligible immutable original with the exact content-item
+  version. See
+  `docs/research/HAND_DRAWN_CAPTURE_SESSION_CONTRACT_2026_08_03.md`.
+- `scripts/drawn_response/prepare_capture_corpus.py` — privacy-preserving,
+  read-only aggregate audit plus fail-closed capture-image manifest builder.
+  The 2026-08-03 local audit confirmed 372 readable images, 78 exact duplicate
+  pairs, ancillary metadata markers in 271 files, and zero authoritative
+  declarations; see
+  `docs/research/HAND_DRAWN_CORPUS_READINESS_AUDIT_2026_08_03.md`. No real
+  response image is tracked or approved for ingestion by this tooling.
 - `scripts/drawn_response/check_partition_manifest.py` — section 8.1
   partition-count and governance-coverage checks
 - `scripts/drawn_response/evaluate_offline.py` /
