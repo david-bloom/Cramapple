@@ -6,6 +6,10 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Math Serving Labels Extended to Calc AB/BC and Precalculus; Topic Coverage Deferred — 2026-08-04
+- Unit-Serving Registry and Fail-Closed Selector Executed; Topic Coverage Deferred — 2026-08-04
+- Taxonomy Label Layer Executed; Legacy Unit/Topic Tags Contained — 2026-08-04
+- Multi-Unit Serving Rule Locked; Sarah Sohail Unit 1-3 Queue Refilled — 2026-08-04
 - TASK-0020 Fresh Independent QA Confirmed Verdicts; Changes Reconciled, Content Cross-Check Pending — 2026-08-03
 - TASK-0020 Launch-Readiness Assessment Ready for Independent Review — 2026-08-03
 - TASK-0020 Cross-Course Image Readiness Scan Completed — 2026-08-03
@@ -57,6 +61,130 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 ---
+
+## Math Serving Labels Extended to Calc AB/BC and Precalculus; Topic Coverage Deferred — 2026-08-04
+
+**Task:** Extend the taxonomy serving-label layer to AP Calculus AB, AP
+Calculus BC, and AP Precalculus using verified CED Fact Packs. Scope was
+serving labels only; topic-level coverage labels remain deferred.
+**Status:** Complete in Production for latest `published` and
+`reviewed_approved` items.
+
+**Production migration:** Applied `extend_math_taxonomy_registries` to Supabase
+Production `pcntajvbdfqhbeewmdry` as version `20260804205322`. The migration
+corrected the live `taxonomy_topics.topic_code` regex and seeded verified topic
+registries: AP Calculus AB 85 topics across Units 1-8, AP Calculus BC 111
+topics across Units 1-10, and AP Precalculus 44 assessed topics across Units
+1-3. AB and BC use separate `taxonomy_source_versions` rows while citing the
+same verified AB/BC CED Fact Pack. Precalculus Unit 4 remains course-only and
+not AP-exam assessed.
+
+**Serving labels:** Ran the two-model unit lane with `openai/gpt-5.5` and
+`google/gemini-2.5-flash` through Vercel AI Gateway over 158 target items: 44
+AP Calculus AB, 36 AP Calculus BC, and 78 AP Precalculus. No `validated` labels
+were written. Two-model agreement produced `provisional_model`; model
+disagreement, empty-unit output, rubric-preflight failure, or scope uncertainty
+produced `held`.
+
+**Final active target state:** 117 `provisional_model` serving labels and 41
+`held` serving labels. By subject: AP Calculus AB 28 provisional / 16 held; AP
+Calculus BC 21 provisional / 15 held; AP Precalculus 68 provisional / 10 held.
+All target items now have an active non-legacy serving label. Legacy
+unvalidated rows remain only outside this target status set.
+
+**Report:** `docs/research/MATH_TAXONOMY_SERVING_LABEL_RUN_2026_08_04.md`.
+Raw local run outputs: `/private/tmp/cramapple-math-taxonomy-serving/`.
+
+## Unit-Serving Registry and Fail-Closed Selector Executed; Topic Coverage Deferred — 2026-08-04
+
+**Task:** Execute unit serving only, using the human-verified CED Fact Packs as
+the authoritative unit universe. Do not execute topic-level coverage yet.
+**Status:** Unit-serving infrastructure complete in Production; topic coverage
+deferred.
+
+**Production migrations:** Applied `unit_serving_registry` from
+`supabase/migrations/20260804183000_unit_serving_registry.sql` and
+`unit_gated_serving_selector` from
+`supabase/migrations/20260804190000_unit_gated_serving_selector.sql` to
+Supabase Production `pcntajvbdfqhbeewmdry`.
+
+**Unit registry:** Added `app.taxonomy_units` and seeded verified unit maps for
+AP Biology, AP Statistics, AP Calculus AB, AP Calculus BC, AP Chemistry, AP
+Physics 1, AP Physics 2, AP Physics C Mechanics, AP Physics C E&M, and AP
+Precalculus. AP Precalculus Unit 4 is recorded as not exam-assessed; AP
+Statistics Home allowed units were corrected from `[1,2,3,4,5,6,7,8,9]` to
+`[1,2,3,4,5]`.
+
+**Serving selector:** Added
+`public.select_unit_gated_practice_items(exam_pack_version_id, current_unit,
+practice_format, item_type, limit)`. The selector reads serving-scope taxonomy
+labels only, requires `label_status='validated'`, requires
+`max_required_unit <= current_unit`, requires a matching taxonomy relevance
+hash, ignores topic/coverage labels, and fails closed for missing, legacy,
+provisional, held, stale, or superseded labels.
+
+**Verification:** Registry counts match the verified CED Fact Packs. Home
+manifests now expose AP Biology units 1-8 and AP Statistics units 1-5. The
+selector currently returns 0 items for AP Biology at Unit 8 and AP Statistics at
+Unit 5 because all existing backfilled labels remain `legacy_unvalidated`. This
+is intentional containment; no legacy prompt metadata was promoted into
+validated serving labels.
+
+## Taxonomy Label Layer Executed; Legacy Unit/Topic Tags Contained — 2026-08-04
+
+**Task:** Execute the amended taxonomy-labeling plan groundwork after Claude v3
+review and Product Owner confirmation that MCQ required-unit labeling includes
+knowledge needed to reject distractors.
+**Status:** S0/S1 groundwork complete in Production.
+
+**Production migration:** Applied `taxonomy_label_layer` to Supabase Production
+`pcntajvbdfqhbeewmdry` from
+`supabase/migrations/20260804170000_taxonomy_label_layer.sql`.
+
+**Schema added:** `app.taxonomy_source_versions`, `app.taxonomy_topics`,
+`app.content_taxonomy_labels`, `app.taxonomy_relevant_hash(uuid)`, and staleness
+triggers covering content versions, MCQ choices, and FRQ criteria. Taxonomy is
+now stored outside immutable `content_item_versions.prompt_json`; legacy
+`modules` and `subtopics` are preserved only as raw provenance in
+`source_payload`.
+
+**Verification:** Independent S0.3 check found `app.student_course_positions`
+has 0 rows and the database home/session functions inspected do not use
+`prompt_json.modules` or `prompt_json.subtopics` for unit eligibility. Two
+release manifests have `allowed_unit_numbers`; the course-position setter
+validates selected unit numbers against that manifest list.
+
+**Backfill:** Created 1,677 `legacy_unvalidated` label rows: 1,319 serving-scope
+rows across 1,116 content items and 358 coverage-scope rows across 330 content
+items. No canonical/validated labels were created; validated label count remains
+0, so unit-gated serving fails closed until remediation validates labels.
+
+**Registry:** Seeded verified AP Biology 2026-2027 taxonomy from the Fall 2025
+CED Fact Pack: 60 topics across 8 units. Note: the v3 plan text says 61 topics
+in one explanatory sentence, but the verified Fact Pack and coverage target
+language enumerate 60.
+
+## Multi-Unit Serving Rule Locked; Sarah Sohail Unit 1-3 Queue Refilled — 2026-08-04
+
+**Task:** Ad hoc content operations and taxonomy policy clarification.
+**Status:** Complete.
+
+**Decision:** A question that draws on more than one AP unit is eligible for
+student serving only after the learner has reached the latest required unit.
+Canonical content must track all required units; `primary_unit`, when present,
+is for labeling/coverage only. Course-position serving derives
+`max_required_unit = max(required_units)` and fails closed when the complete
+required-unit set is unavailable.
+
+**Documentation updated:** `docs/architecture/CONTENT_GOVERNANCE_AND_VALIDATION.md`
+and `docs/tasks/TASK-0018-RECOGNIZED-STUDENT-HOME.md`.
+
+**Sarah Sohail queue:** Production already holds the Unit 1-3 refill label
+`unit-1-3-biology-sarah-refill-2026-08-04`. Final verification: 28 pending AP
+Biology Units 1-3 assignments, all published latest items, 19 MCQ and 9 FRQ,
+with zero existing Sarah decisions on the pending rows. The refill used all safe
+eligible items: 18 previously skipped/no-decision rows reactivated plus 10
+brand-new Sarah assignments. It did not reopen any submitted decision.
 
 ## TASK-0020 Fresh Independent QA Confirmed Verdicts; Changes Reconciled, Content Cross-Check Pending — 2026-08-03
 
