@@ -7,7 +7,7 @@ const ROOT = process.cwd();
 const PROD_ENV = "/private/tmp/cramapple-taxonomy-prod-env.local";
 const GATEWAY_ENV = path.join(ROOT, "scripts/vercel-gateway-check/.env.local");
 const OUT_DIR = "/private/tmp/cramapple-math-taxonomy-serving";
-const REPORT = path.join(
+const DEFAULT_REPORT = path.join(
   ROOT,
   "docs/research/MATH_TAXONOMY_SERVING_LABEL_RUN_2026_08_04.md",
 );
@@ -19,11 +19,23 @@ const RUN_ID = `math-serving-units-2026-08-04-${new Date()
   .slice(0, 14)}`;
 
 const SUBJECTS = {
+  ap_statistics: {
+    label: "AP Statistics",
+    minUnit: 1,
+    maxUnit: 5,
+    factPack: "docs/product/AP_STATISTICS_2027_CED_FACT_PACK.md",
+    targetStatuses: ["published"],
+    mode: "confirm_or_correct_legacy",
+    scopeNote:
+      "Use only AP_STATISTICS_2027_CED_FACT_PACK.md. AP Statistics has five assessed units for 2026-27; old nine-unit metadata is legacy only.",
+  },
   ap_calculus_ab: {
     label: "AP Calculus AB",
     minUnit: 1,
     maxUnit: 8,
     factPack: "docs/product/AP_CALCULUS_AB_BC_CED_FACT_PACK.md",
+    targetStatuses: ["published", "reviewed_approved"],
+    mode: "cold_label",
     scopeNote:
       "AB excludes Units 9 and 10 and Calc BC-only Topics 6.12 and 6.13. Any AB item requiring those is held as misscoped.",
   },
@@ -32,6 +44,8 @@ const SUBJECTS = {
     minUnit: 1,
     maxUnit: 10,
     factPack: "docs/product/AP_CALCULUS_AB_BC_CED_FACT_PACK.md",
+    targetStatuses: ["published", "reviewed_approved"],
+    mode: "cold_label",
     scopeNote:
       "BC includes all AB content plus Units 9 and 10 and BC-only Topics 6.12 and 6.13.",
   },
@@ -40,6 +54,8 @@ const SUBJECTS = {
     minUnit: 1,
     maxUnit: 4,
     factPack: "docs/product/AP_PRECALCULUS_CED_FACT_PACK.md",
+    targetStatuses: ["published", "reviewed_approved"],
+    mode: "cold_label",
     scopeNote:
       "The course contains Unit 4, but the AP Exam assesses Units 1-3 only. Any scored-practice item requiring Unit 4 is held.",
   },
@@ -91,8 +107,12 @@ function extractSection(file, startMarker, endMarker) {
 
 function factPackExcerpt(subject) {
   const config = SUBJECTS[subject];
-  const topicMap = extractSection(config.factPack, "## Topic map", "## Authoring");
-  const highRisk = subject === "ap_calculus_ab" || subject === "ap_calculus_bc"
+  const topicMap = subject === "ap_statistics"
+    ? extractSection(config.factPack, "## 3. Topic map", "## 4. Statistical practices")
+    : extractSection(config.factPack, "## Topic map", "## Authoring");
+  const highRisk = subject === "ap_statistics"
+    ? extractSection(config.factPack, "## 2. Units", "## 3. Topic map")
+    : subject === "ap_calculus_ab" || subject === "ap_calculus_bc"
     ? extractSection(
         config.factPack,
         "## High-risk authoring and review boundaries",
@@ -180,7 +200,13 @@ with latest as (
       from app.frq_criteria fc
       where fc.content_item_version_id = latest.id
     ) as frq_criteria,
-    tsv.taxonomy_source_version
+    tsv.taxonomy_source_version,
+    legacy.label_status as legacy_label_status,
+    legacy.required_units as legacy_required_units,
+    legacy.max_required_unit as legacy_max_required_unit,
+    legacy.primary_unit as legacy_primary_unit,
+    legacy.source as legacy_source,
+    legacy.source_payload as legacy_source_payload
   from app.exam_packs ep
   join app.exam_pack_versions epv on epv.exam_pack_id = ep.id
   join app.content_items ci on ci.exam_pack_version_id = epv.id
@@ -188,9 +214,35 @@ with latest as (
   join app.taxonomy_source_versions tsv
     on tsv.subject_key = ep.exam_code
    and tsv.taxonomy_confidence = 'verified'
-  where ep.exam_code in ('ap_calculus_ab', 'ap_calculus_bc', 'ap_precalculus')
-    and ci.status in ('published', 'reviewed_approved')
-    and latest.status in ('published', 'reviewed_approved')
+  left join lateral (
+    select
+      ctl.label_status,
+      ctl.required_units,
+      ctl.max_required_unit,
+      ctl.primary_unit,
+      ctl.source,
+      ctl.source_payload
+    from app.content_taxonomy_labels ctl
+    where ctl.content_item_id = ci.id
+      and ctl.label_scope = 'serving'
+      and ctl.superseded_by is null
+      and ctl.label_status = 'legacy_unvalidated'
+    order by ctl.label_version desc, ctl.created_at desc
+    limit 1
+  ) legacy on true
+  where ep.exam_code in ('ap_statistics', 'ap_calculus_ab', 'ap_calculus_bc', 'ap_precalculus')
+    and (
+      (
+        ep.exam_code = 'ap_statistics'
+        and ci.status = 'published'
+        and latest.status = 'published'
+      )
+      or (
+        ep.exam_code in ('ap_calculus_ab', 'ap_calculus_bc', 'ap_precalculus')
+        and ci.status in ('published', 'reviewed_approved')
+        and latest.status in ('published', 'reviewed_approved')
+      )
+    )
 )
 select coalesce(jsonb_agg(to_jsonb(target) order by exam_code, content_key), '[]'::jsonb)::text as packets
 from target;`;
@@ -214,6 +266,15 @@ function packetForModel(item) {
     canonical_answer_2: item.canonical_answer_2,
     mcq_choices: item.mcq_choices,
     frq_criteria: item.frq_criteria,
+    legacy_serving_label: item.legacy_label_status
+      ? {
+          label_status: item.legacy_label_status,
+          required_units: item.legacy_required_units || [],
+          max_required_unit: item.legacy_max_required_unit,
+          primary_unit: item.legacy_primary_unit,
+          source: item.legacy_source,
+        }
+      : null,
   };
 }
 
@@ -230,6 +291,9 @@ function structuralHold(item) {
 function buildPrompt(item) {
   const config = SUBJECTS[item.exam_code];
   const packet = packetForModel(item);
+  const legacyInstruction = config.mode === "confirm_or_correct_legacy"
+    ? `\nConfirm-or-correct mode:\n- The packet includes legacy_serving_label from old prompt metadata when available.\n- Treat that legacy label as a candidate, not ground truth.\n- If it is correct under the rule below and the 2026-27 AP Statistics fact pack, return the same required_units.\n- If it is incomplete or wrong, return the corrected required_units and explain the correction in criterion_units/evidence or uncertainty_flags.\n- If no legacy label is present or it has an empty unit set, perform cold serving-unit labeling from the fact pack and item packet.\n`
+    : "";
   const criteriaRule =
     "A unit is required if a student who has not covered that unit could not earn full credit — evaluated criterion by criterion against the rubric (or, for MCQ, against the keyed answer and each distractor refutation).";
   return `You are assigning SERVING taxonomy labels for ${config.label}.
@@ -244,6 +308,7 @@ Scope:
 - Decide from the rubric/choices, not from what the question is broadly "about."
 - Scenario dressing that earns no credit is not required.
 - primary_unit is the teaching home only and is not a serving gate.
+${legacyInstruction}
 
 Rubric preflight for FRQs:
 - Every criterion must map to a prompt part or asked operation.
@@ -440,12 +505,24 @@ function classifyOutcome(item, calls) {
     return { status: "held", reason: "model_unit_disagreement", required_units: [], primary_unit: null };
   }
 
+  const legacyUnits = sortedUniqueUnits(item.legacy_required_units || []);
+  let reason = "two_model_unit_agreement";
+  if (SUBJECTS[item.exam_code]?.mode === "confirm_or_correct_legacy") {
+    if (legacyUnits.length === 0) {
+      reason = "two_model_unit_agreement_no_usable_legacy";
+    } else if (sameUnits(a.required_units, legacyUnits)) {
+      reason = "two_model_confirmed_legacy_unit";
+    } else {
+      reason = "two_model_corrected_legacy_unit";
+    }
+  }
+
   const primary = a.primary_unit && a.required_units.includes(a.primary_unit)
     ? a.primary_unit
     : a.required_units[0];
   return {
     status: "provisional_model",
-    reason: "two_model_unit_agreement",
+    reason,
     required_units: a.required_units,
     primary_unit: primary,
     required_units_by_criterion:
@@ -482,6 +559,16 @@ function buildWriteSql(results) {
       reason: outcome.reason,
       scope: "serving_only",
       coverage_deferred: true,
+      mode: SUBJECTS[item.exam_code]?.mode || "cold_label",
+      legacy_serving_label: item.legacy_label_status
+        ? {
+            label_status: item.legacy_label_status,
+            required_units: item.legacy_required_units || [],
+            max_required_unit: item.legacy_max_required_unit,
+            primary_unit: item.legacy_primary_unit,
+            source: item.legacy_source,
+          }
+        : null,
       models: result.calls.map((call) =>
         call.ok
           ? { model: call.model, ok: true, ms: call.ms, output: call.output, usage: call.usage }
@@ -594,7 +681,17 @@ commit;
 `;
 }
 
-function writeReport(items, results) {
+function reportPath(subjectFilter) {
+  if (subjectFilter === "ap_statistics") {
+    return path.join(
+      ROOT,
+      "docs/research/AP_STATISTICS_TAXONOMY_SERVING_LABEL_RUN_2026_08_05.md",
+    );
+  }
+  return DEFAULT_REPORT;
+}
+
+function writeReport(items, results, subjectFilter) {
   const bySubject = {};
   for (const subject of Object.keys(SUBJECTS)) {
     bySubject[subject] = {
@@ -649,7 +746,9 @@ function writeReport(items, results) {
   }
   lines.push("");
   lines.push("Raw model outputs and SQL write file are stored under `/private/tmp/cramapple-math-taxonomy-serving/`.");
-  fs.writeFileSync(REPORT, `${lines.join("\n")}\n`);
+  const outFile = reportPath(subjectFilter);
+  fs.writeFileSync(outFile, `${lines.join("\n")}\n`);
+  return outFile;
 }
 
 async function pool(items, limit, iterator) {
@@ -671,6 +770,8 @@ async function main() {
   const limit = limitArg ? Number(limitArg.slice("--limit=".length)) : null;
   const subjectArg = process.argv.find((arg) => arg.startsWith("--subject="));
   const subjectFilter = subjectArg ? subjectArg.slice("--subject=".length) : null;
+  const keyArg = process.argv.find((arg) => arg.startsWith("--key="));
+  const keyFilter = keyArg ? keyArg.slice("--key=".length) : null;
   fs.mkdirSync(OUT_DIR, { recursive: true });
   fs.rmSync(path.join(OUT_DIR, "model_results.jsonl"), { force: true });
   requireEnv("AI_GATEWAY_API_KEY");
@@ -678,7 +779,10 @@ async function main() {
   const filteredItems = subjectFilter
     ? fetchedItems.filter((item) => item.exam_code === subjectFilter)
     : fetchedItems;
-  const items = Number.isInteger(limit) && limit > 0 ? filteredItems.slice(0, limit) : filteredItems;
+  const keyedItems = keyFilter
+    ? filteredItems.filter((item) => item.content_key === keyFilter)
+    : filteredItems;
+  const items = Number.isInteger(limit) && limit > 0 ? keyedItems.slice(0, limit) : keyedItems;
   fs.writeFileSync(path.join(OUT_DIR, "packets.json"), JSON.stringify(items, null, 2));
   console.log(`run_id=${RUN_ID}`);
   console.log(`items=${items.length}`);
@@ -716,7 +820,7 @@ async function main() {
   );
   const sql = buildWriteSql(modelResults);
   fs.writeFileSync(path.join(OUT_DIR, "write_labels.sql"), sql);
-  writeReport(items, modelResults);
+  const outReport = writeReport(items, modelResults, subjectFilter);
 
   if (mode === "write") {
     runDbQuery(sql);
@@ -724,7 +828,7 @@ async function main() {
   } else {
     console.log("db_write=skipped");
   }
-  console.log(`report=${REPORT}`);
+  console.log(`report=${outReport}`);
 }
 
 main().catch((error) => {

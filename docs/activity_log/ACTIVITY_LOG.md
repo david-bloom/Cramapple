@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- AP Statistics Serving Labels Confirmed/Corrected Against 2027 CED — 2026-08-05
 - Math Serving Labels Extended to Calc AB/BC and Precalculus; Topic Coverage Deferred — 2026-08-04
 - Unit-Serving Registry and Fail-Closed Selector Executed; Topic Coverage Deferred — 2026-08-04
 - Taxonomy Label Layer Executed; Legacy Unit/Topic Tags Contained — 2026-08-04
@@ -61,6 +62,35 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 ---
+
+## AP Statistics Serving Labels Confirmed/Corrected Against 2027 CED — 2026-08-05
+
+**Task:** Extend the taxonomy serving-label lane to published AP Statistics
+items using confirm-or-correct mode against existing legacy unit labels.
+**Status:** Complete in Supabase Production `pcntajvbdfqhbeewmdry` for current
+published AP Statistics targets.
+
+**Source control:** Used only
+`docs/product/AP_STATISTICS_2027_CED_FACT_PACK.md`, verified byte-for-byte
+against GitHub commit `e902db0e4607a0f91ddcca53b3b9593bc461de50` with SHA-256
+`198c67f199f871e24c03a8b83a5268ff9c5f2690454636ca652fb6c16a899703`. Legacy
+9-unit Statistics metadata was used only as a candidate label to confirm or
+correct, not as source authority.
+
+**Serving labels:** Ran `openai/gpt-5.5` and `google/gemini-2.5-flash` through
+Vercel AI Gateway over 70 currently published AP Statistics items. Wrote 60
+two-model-agreed `provisional_model` serving labels and 10 `held` labels. Of
+the 60 provisional labels, 6 confirmed usable legacy units, 25 corrected usable
+legacy units, and 29 were cold-labeled because no usable legacy unit set was
+present. No `validated` labels and no topic labels were written.
+
+**Automation fix:** Updated `scripts/taxonomy/extend_math_serving_labels.mjs`
+so the AP Statistics lane de-duplicates active legacy rows by choosing the
+highest `label_version` before model labeling, preventing duplicate target
+packets when legacy rows are duplicated.
+
+**Report:** `docs/research/AP_STATISTICS_TAXONOMY_SERVING_LABEL_RUN_2026_08_05.md`.
+Raw local run outputs: `/private/tmp/cramapple-math-taxonomy-serving/`.
 
 ## Math Serving Labels Extended to Calc AB/BC and Precalculus; Topic Coverage Deferred — 2026-08-04
 
