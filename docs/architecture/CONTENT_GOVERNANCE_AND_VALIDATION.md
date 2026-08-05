@@ -673,6 +673,33 @@ Constraints:
 - A `topic` scope requires `mcq_target >= 10` and
   `short_frq_prompt_target >= 5`. A `unit` scope records the long-FRQ target and
   initially requires `long_frq_prompt_target >= 8`.
+- A canonical question must record every AP unit required to understand and
+  answer the item, not only a primary or first unit. A single `primary_unit` is
+  allowed for labeling and coverage reporting, but it is not sufficient for
+  student eligibility. Serving and course-position gates derive
+  `max_required_unit` from the complete required-unit set and may serve the item
+  only when the learner has reached at least that highest required unit.
+- As of 2026-08-04, canonical taxonomy labels live outside
+  `content_item_versions.prompt_json` in an independent append-only label layer.
+  Legacy `prompt_json.modules` and `prompt_json.subtopics` are audit
+  provenance only and are not authoritative for serving or coverage.
+- The CED unit universe for each exam pack lives in `app.taxonomy_units`, seeded
+  from the human-verified CED Fact Packs. Course-position validation and
+  unit-gated serving must validate against this registry; hardcoded client
+  taxonomy and legacy label slugs are not authoritative.
+- Serving labels and coverage labels answer different questions and must not
+  substitute for each other. Serving uses `required_units` and
+  `max_required_unit`; coverage uses validated assessed topics. `primary_unit`
+  is a teaching-home convenience only.
+- Unit serving must use validated serving-scope labels through
+  `public.select_unit_gated_practice_items` or an equivalent server-owned
+  selector. The selector must require a current taxonomy relevance hash and fail
+  closed for missing, legacy, provisional, held, stale, or superseded labels.
+  Topic-level coverage labels are explicitly out of scope for unit serving.
+- Required-unit labeling is criterion based. A unit is required if a student who
+  has not covered it could not earn full credit on at least one rubric
+  criterion. For MCQs, the criterion set includes the keyed-answer justification
+  and the knowledge needed to reject each distractor.
 - An AI variant run is invalid unless every base package has the required
   release rights and complete provenance.
 - A question may have only one active `diagnostic_active` or `teaching_active`
@@ -1059,8 +1086,12 @@ Owner approval; it does not silently lower the target.
 Paid Tutor Authors receive an approved authoring brief containing:
 
 - exam pack and school year;
-- module, topic, learning objective, science practice, assessable skill target,
-  task verb, question form, and intended difficulty;
+- all required modules/units, any primary module/unit, topic, learning
+  objective, science practice, assessable skill target, task verb, question
+  form, and intended difficulty;
+- per-unit justification for every required unit, evaluated criterion by
+  criterion; for MCQs, this includes the keyed answer and each distractor
+  refutation;
 - intended use, such as teaching, independent practice, diagnostic candidate,
   transfer, or delayed retrieval;
 - required scientific concepts and approved factual sources;
@@ -1212,8 +1243,8 @@ The failure-card policy and initial catalog are defined in
 Every canonical question contains:
 
 - original question text and assets;
-- exam pack, unit, topic, learning objective, science practice, skill, task verb,
-  archetype, and difficulty;
+- exam pack, all required units, any primary unit, topic, learning objective,
+  science practice, skill, task verb, archetype, and difficulty;
 - expected reasoning path without forcing one wording;
 - required context and assumptions;
 - rubric and independent point criteria;

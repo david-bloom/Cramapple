@@ -87,9 +87,10 @@ submitted MCQ is 2026-07-29 02:01 UTC — the practice path is being exercised,
 but **grading does not write back to `app.attempts`**, and MCQ scoring (which is
 deterministic, `mcq_choices` exists) is not happening either.
 
-### Unit taxonomy does not exist as a joinable structure
+### Unit taxonomy label layer now exists; legacy labels remain unvalidated
 
-There is no units/topics table. Unit membership lives in
+Historical note: at TASK-0018 launch, there was no units/topics table. Unit
+membership lived in
 `app.content_labels` (`label_type='unit'`, 30 labels across 4 exam packs) linked
 by `app.content_item_labels`. Coverage of **published** items:
 
@@ -112,6 +113,35 @@ UI renders comes from a hardcoded client file, `src/data/taxonomy.ts`, with no
 server-side mapping from label to unit number. These are point-in-time inventory
 counts; re-query them immediately before implementation or approval rather than
 treating the table as a durable launch metric.
+
+Execution update 2026-08-04: `taxonomy_label_layer` created
+`app.taxonomy_source_versions`, `app.taxonomy_topics`, and
+`app.content_taxonomy_labels` in Production. The initial registry contains the
+verified AP Biology 2026-2027 CED taxonomy, and legacy
+`prompt_json.modules`/`subtopics` were backfilled as `legacy_unvalidated`
+serving/coverage labels. These rows are not servable for unit-gated practice;
+they are containment/audit records until validated labels supersede them.
+
+Unit-serving update 2026-08-04: `unit_serving_registry` created
+`app.taxonomy_units` and seeded human-verified unit maps for AP Biology,
+Statistics, Calculus AB, Calculus BC, Chemistry, Physics 1, Physics 2, Physics C
+Mechanics, Physics C E&M, and Precalculus. AP Statistics Home allowed units were
+corrected to `[1,2,3,4,5]`; AP Precalculus Unit 4 is recorded as not
+exam-assessed. `unit_gated_serving_selector` added
+`public.select_unit_gated_practice_items`, which reads only validated
+serving-scope labels, requires a matching taxonomy relevance hash, and ignores
+topic/coverage labels. Biology and Statistics currently return 0 eligible items
+at their final units because no serving labels have been validated yet; this is
+the intended fail-closed state.
+
+Serving rule locked 2026-08-04: multi-unit items are eligible only after the
+student has reached the latest required unit. The canonical content record must
+track all required units for an item; `primary_unit`, when present, is a label
+or coverage convenience only. Student serving, reviewer packets that are scoped
+by course position, and Home course-position eligibility derive
+`max_required_unit = max(required_units)` and fail closed when the complete unit
+set is unavailable. For MCQs, the required-unit set includes knowledge needed to
+justify the keyed answer and reject each distractor.
 
 ### Other verified facts
 
@@ -400,8 +430,15 @@ replaces synthetic targets:
 - Add `app.profiles.first_run_dismissed_at` plus a narrow authenticated own-user
   setter if dismissal persistence remains part of the approved journey.
 - Course-position writes must validate that the requested unit exists in the
-  active subject's canonical taxonomy; ownership plus `unit_id > 0` is not
-  sufficient validation.
+  active subject's canonical taxonomy in `app.taxonomy_units`; ownership plus
+  `unit_id > 0` or a client hardcoded unit list is not sufficient validation.
+- Item eligibility against course position must use all required units. For a
+  multi-unit item, serve only when `student_current_unit >= max_required_unit`;
+  never use the first, lowest, or primary unit as the eligibility gate.
+- Unit-gated practice must use validated serving-scope taxonomy labels with a
+  current taxonomy relevance hash, via `public.select_unit_gated_practice_items`
+  or an equivalent server-owned selector. Topic-level coverage labels are not a
+  serving signal.
 - Apply to **Development** first (`wmgjsdkphcyhngaffbqf`), then Production by
   explicit approval. Note the Dev migration-history reconciliation of
   2026-07-15 — do not `db push`.
@@ -442,6 +479,9 @@ Per the 2026-07-28 decision, Release 1 ships the unit strip as **navigation**:
   imply unit-specific targeting.
 - Unit names derive from `src/data/taxonomy.ts` for now; a server-side
   label→unit mapping is Release 2 work and depends on unit labeling.
+- Unit-scoped practice or reviewer packets must use the complete required-unit
+  set. If an item draws on Units 1 and 3, it belongs behind the Unit 3 gate for
+  serving, even if its primary label is Unit 1.
 - Show `SubjectSwitcher` only when two or more published subjects are available.
 - Persist course position per `(user, exam_pack_version)` via
   `setCoursePosition`; `unitId: null` records an honest "Not sure" and never
@@ -531,13 +571,15 @@ Deterministic MCQ scoring is the cheapest first win and should be treated as
 separable from FRQ engine work. That workstream must also define durable repair
 lineage; Home must not infer it from timestamps.
 
-### D2 — AP Biology unit labeling (blocks Release 2 unit evidence)
+### D2 — validated serving labels (blocks Release 2 unit evidence)
 
-0 of 95 published Biology items carry a unit label. Owner: curriculum (Orly).
-Also requires normalizing label-key formats across subjects (`unit_1` vs
-`unit-1-…-slug`) and a server-side label→unit-number mapping. Note the AP
-Statistics 2027 format change reduces Stats from 9 units to 5 — the existing
-`unit_1`…`unit_9` labels will need remapping.
+Production now has a canonical unit registry and fail-closed unit-serving
+selector, but no published Biology or Statistics item is eligible until
+serving-scope labels are validated against current content hashes. Legacy
+`prompt_json.modules`/`subtopics` and historical `content_labels` are
+provenance only. The next blocker is automated unit-label validation that writes
+`required_units`, `primary_unit`, and `max_required_unit` for serving scope; topic
+coverage remains a separate, deferred workstream.
 
 ### Release 1 observability baseline (not a blocker)
 
