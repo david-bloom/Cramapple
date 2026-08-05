@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- AP Physics Serving Labels Generated Across Four Subjects — 2026-08-05
 - AP Chemistry Serving Labels Generated Against Verified 2024 CED — 2026-08-05
 - AP Statistics Serving Labels Confirmed/Corrected Against 2027 CED — 2026-08-05
 - Math Serving Labels Extended to Calc AB/BC and Precalculus; Topic Coverage Deferred — 2026-08-04
@@ -63,6 +64,37 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 ---
+
+## AP Physics Serving Labels Generated Across Four Subjects — 2026-08-05
+
+**Task:** Extend the taxonomy serving-label lane to published AP Physics 1,
+AP Physics 2, AP Physics C: Mechanics, and AP Physics C: E&M items using the
+verified AP Physics CED Fact Packs. **Status:** Complete in Supabase Production
+`pcntajvbdfqhbeewmdry` for current published AP Physics targets.
+
+**Source control:** Used only the four mirrored, primary-source verified fact
+packs in `docs/product/`: `AP_PHYSICS_1_CED_FACT_PACK.md`,
+`AP_PHYSICS_2_CED_FACT_PACK.md`,
+`AP_PHYSICS_C_MECHANICS_CED_FACT_PACK.md`, and
+`AP_PHYSICS_C_EM_CED_FACT_PACK.md`. The run honored the current 2024 CED
+renumbering: Physics 1 Units 1-8 with Fluids in Unit 8; Physics 2 Units 9-15
+with Fluids removed; C: Mechanics Units 1-7 with gravitation/orbital content in
+Unit 6; and C: E&M Units 8-13.
+
+**Serving labels:** Ran `openai/gpt-5.5` and `google/gemini-2.5-flash` through
+Vercel AI Gateway over 53 currently published AP Physics items. Wrote 49
+two-model-agreed `provisional_model` serving labels and 4 `held` labels. No
+published target had a usable legacy unit set, so all provisional labels were
+created from two-model unit agreement with no usable legacy. No `validated`
+labels and no topic labels were written.
+
+**Final active target state:** 53 active serving labels for 53 published AP
+Physics targets, normalizing the previous duplicate active legacy rows over
+those targets.
+
+**Report:** `docs/research/AP_PHYSICS_TAXONOMY_SERVING_LABEL_RUN_2026_08_05.md`.
+Raw local run outputs are preserved per subject under
+`/private/tmp/cramapple-math-taxonomy-serving/`.
 
 ## AP Chemistry Serving Labels Generated Against Verified 2024 CED — 2026-08-05
 

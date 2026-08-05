@@ -39,6 +39,46 @@ const SUBJECTS = {
     scopeNote:
       "Use only AP_CHEMISTRY_CED_FACT_PACK.md. AP Chemistry has nine assessed units under the verified Fall 2024 CED fact pack; superseded Fall 2020 unit/topic metadata is legacy only.",
   },
+  ap_physics_1: {
+    label: "AP Physics 1",
+    minUnit: 1,
+    maxUnit: 8,
+    factPack: "docs/product/AP_PHYSICS_1_CED_FACT_PACK.md",
+    targetStatuses: ["published"],
+    mode: "confirm_or_correct_legacy",
+    scopeNote:
+      "Use only AP_PHYSICS_1_CED_FACT_PACK.md. AP Physics 1 has eight assessed units under the verified Fall 2024 CED fact pack; Fluids is Unit 8 and superseded seven-unit metadata is legacy only.",
+  },
+  ap_physics_2: {
+    label: "AP Physics 2",
+    minUnit: 9,
+    maxUnit: 15,
+    factPack: "docs/product/AP_PHYSICS_2_CED_FACT_PACK.md",
+    targetStatuses: ["published"],
+    mode: "confirm_or_correct_legacy",
+    scopeNote:
+      "Use only AP_PHYSICS_2_CED_FACT_PACK.md. AP Physics 2 uses Units 9-15 under the verified Fall 2024 CED fact pack; Fluids is removed and any old fluids/Unit 1 metadata is legacy only.",
+  },
+  ap_physics_c_mechanics: {
+    label: "AP Physics C: Mechanics",
+    minUnit: 1,
+    maxUnit: 7,
+    factPack: "docs/product/AP_PHYSICS_C_MECHANICS_CED_FACT_PACK.md",
+    targetStatuses: ["published"],
+    mode: "confirm_or_correct_legacy",
+    scopeNote:
+      "Use only AP_PHYSICS_C_MECHANICS_CED_FACT_PACK.md. AP Physics C: Mechanics has seven assessed units under the verified Fall 2024 CED fact pack; gravitation/orbital content belongs in Unit 6, not a standalone legacy unit.",
+  },
+  ap_physics_c_em: {
+    label: "AP Physics C: E&M",
+    minUnit: 8,
+    maxUnit: 13,
+    factPack: "docs/product/AP_PHYSICS_C_EM_CED_FACT_PACK.md",
+    targetStatuses: ["published"],
+    mode: "confirm_or_correct_legacy",
+    scopeNote:
+      "Use only AP_PHYSICS_C_EM_CED_FACT_PACK.md. AP Physics C: E&M uses Units 8-13 under the verified Fall 2024 CED fact pack; old Unit 1-5 E&M metadata is legacy only.",
+  },
   ap_statistics: {
     label: "AP Statistics",
     minUnit: 1,
@@ -132,6 +172,8 @@ function factPackExcerpt(subject) {
     ? extractSection(config.factPack, "## 4. Topic map", "## 5. Science practices")
     : subject === "ap_chemistry"
     ? extractSection(config.factPack, "## Topic map", "## High-risk exclusion boundaries")
+    : subject.startsWith("ap_physics")
+    ? extractSection(config.factPack, "## 3. Topic map", "## 4. Authoring/review guidance")
     : subject === "ap_statistics"
     ? extractSection(config.factPack, "## 3. Topic map", "## 4. Statistical practices")
     : extractSection(config.factPack, "## Topic map", "## Authoring");
@@ -139,6 +181,8 @@ function factPackExcerpt(subject) {
     ? `${extractSection(config.factPack, "## 3. Units and MC weighting", "## 4. Topic map")}\n\n${extractSection(config.factPack, "## 9. Corrections applied 2026-08-04", "## 10. Topic-level Learning Objectives and Essential Knowledge")}`
     : subject === "ap_chemistry"
     ? `${extractSection(config.factPack, "## Multiple-choice unit weighting", "## Science practices")}\n\n${extractSection(config.factPack, "## High-risk exclusion boundaries", "## Change record from superseded fact pack")}`
+    : subject.startsWith("ap_physics")
+    ? `${extractSection(config.factPack, "## Source control", "## 1. Exam structure")}\n\n${extractSection(config.factPack, "## 2. Units and MC exam weighting", "## 3. Topic map")}\n\n${extractSection(config.factPack, "## 4. Authoring/review guidance", null)}`
     : subject === "ap_statistics"
     ? extractSection(config.factPack, "## 2. Units", "## 3. Topic map")
     : subject === "ap_calculus_ab" || subject === "ap_calculus_bc"
@@ -259,10 +303,10 @@ with latest as (
     order by ctl.label_version desc, ctl.created_at desc
     limit 1
   ) legacy on true
-  where ep.exam_code in ('ap_biology', 'ap_chemistry', 'ap_statistics', 'ap_calculus_ab', 'ap_calculus_bc', 'ap_precalculus')
+  where ep.exam_code in ('ap_biology', 'ap_chemistry', 'ap_physics_1', 'ap_physics_2', 'ap_physics_c_mechanics', 'ap_physics_c_em', 'ap_statistics', 'ap_calculus_ab', 'ap_calculus_bc', 'ap_precalculus')
     and (
       (
-        ep.exam_code in ('ap_biology', 'ap_chemistry', 'ap_statistics')
+        ep.exam_code in ('ap_biology', 'ap_chemistry', 'ap_physics_1', 'ap_physics_2', 'ap_physics_c_mechanics', 'ap_physics_c_em', 'ap_statistics')
         and ci.status = 'published'
         and latest.status = 'published'
       )
@@ -727,6 +771,12 @@ function reportPath(subjectFilter) {
     return path.join(
       ROOT,
       "docs/research/AP_CHEMISTRY_TAXONOMY_SERVING_LABEL_RUN_2026_08_05.md",
+    );
+  }
+  if (subjectFilter && subjectFilter.startsWith("ap_physics")) {
+    return path.join(
+      ROOT,
+      "docs/research/AP_PHYSICS_TAXONOMY_SERVING_LABEL_RUN_2026_08_05.md",
     );
   }
   return DEFAULT_REPORT;
