@@ -19,6 +19,26 @@ const RUN_ID = `math-serving-units-2026-08-04-${new Date()
   .slice(0, 14)}`;
 
 const SUBJECTS = {
+  ap_biology: {
+    label: "AP Biology",
+    minUnit: 1,
+    maxUnit: 8,
+    factPack: "docs/product/AP_BIOLOGY_CED_FACT_PACK.md",
+    targetStatuses: ["published"],
+    mode: "confirm_or_correct_legacy",
+    scopeNote:
+      "Use only AP_BIOLOGY_CED_FACT_PACK.md. AP Biology has eight assessed units under the verified Fall 2025 CED fact pack; superseded provisional Bio topic/unit metadata is legacy only.",
+  },
+  ap_chemistry: {
+    label: "AP Chemistry",
+    minUnit: 1,
+    maxUnit: 9,
+    factPack: "docs/product/AP_CHEMISTRY_CED_FACT_PACK.md",
+    targetStatuses: ["published"],
+    mode: "confirm_or_correct_legacy",
+    scopeNote:
+      "Use only AP_CHEMISTRY_CED_FACT_PACK.md. AP Chemistry has nine assessed units under the verified Fall 2024 CED fact pack; superseded Fall 2020 unit/topic metadata is legacy only.",
+  },
   ap_statistics: {
     label: "AP Statistics",
     minUnit: 1,
@@ -98,7 +118,8 @@ function shasum(value) {
 function extractSection(file, startMarker, endMarker) {
   const text = fs.readFileSync(path.join(ROOT, file), "utf8");
   const start = text.indexOf(startMarker);
-  const end = endMarker ? text.indexOf(endMarker, start) : text.length;
+  const foundEnd = endMarker ? text.indexOf(endMarker, start) : -1;
+  const end = foundEnd >= 0 ? foundEnd : text.length;
   if (start < 0 || end < 0 || end <= start) {
     throw new Error(`Could not extract ${startMarker} from ${file}`);
   }
@@ -107,10 +128,18 @@ function extractSection(file, startMarker, endMarker) {
 
 function factPackExcerpt(subject) {
   const config = SUBJECTS[subject];
-  const topicMap = subject === "ap_statistics"
+  const topicMap = subject === "ap_biology"
+    ? extractSection(config.factPack, "## 4. Topic map", "## 5. Science practices")
+    : subject === "ap_chemistry"
+    ? extractSection(config.factPack, "## Topic map", "## High-risk exclusion boundaries")
+    : subject === "ap_statistics"
     ? extractSection(config.factPack, "## 3. Topic map", "## 4. Statistical practices")
     : extractSection(config.factPack, "## Topic map", "## Authoring");
-  const highRisk = subject === "ap_statistics"
+  const highRisk = subject === "ap_biology"
+    ? `${extractSection(config.factPack, "## 3. Units and MC weighting", "## 4. Topic map")}\n\n${extractSection(config.factPack, "## 9. Corrections applied 2026-08-04", "## 10. Topic-level Learning Objectives and Essential Knowledge")}`
+    : subject === "ap_chemistry"
+    ? `${extractSection(config.factPack, "## Multiple-choice unit weighting", "## Science practices")}\n\n${extractSection(config.factPack, "## High-risk exclusion boundaries", "## Change record from superseded fact pack")}`
+    : subject === "ap_statistics"
     ? extractSection(config.factPack, "## 2. Units", "## 3. Topic map")
     : subject === "ap_calculus_ab" || subject === "ap_calculus_bc"
     ? extractSection(
@@ -230,10 +259,10 @@ with latest as (
     order by ctl.label_version desc, ctl.created_at desc
     limit 1
   ) legacy on true
-  where ep.exam_code in ('ap_statistics', 'ap_calculus_ab', 'ap_calculus_bc', 'ap_precalculus')
+  where ep.exam_code in ('ap_biology', 'ap_chemistry', 'ap_statistics', 'ap_calculus_ab', 'ap_calculus_bc', 'ap_precalculus')
     and (
       (
-        ep.exam_code = 'ap_statistics'
+        ep.exam_code in ('ap_biology', 'ap_chemistry', 'ap_statistics')
         and ci.status = 'published'
         and latest.status = 'published'
       )
@@ -292,7 +321,7 @@ function buildPrompt(item) {
   const config = SUBJECTS[item.exam_code];
   const packet = packetForModel(item);
   const legacyInstruction = config.mode === "confirm_or_correct_legacy"
-    ? `\nConfirm-or-correct mode:\n- The packet includes legacy_serving_label from old prompt metadata when available.\n- Treat that legacy label as a candidate, not ground truth.\n- If it is correct under the rule below and the 2026-27 AP Statistics fact pack, return the same required_units.\n- If it is incomplete or wrong, return the corrected required_units and explain the correction in criterion_units/evidence or uncertainty_flags.\n- If no legacy label is present or it has an empty unit set, perform cold serving-unit labeling from the fact pack and item packet.\n`
+    ? `\nConfirm-or-correct mode:\n- The packet includes legacy_serving_label from old prompt metadata when available.\n- Treat that legacy label as a candidate, not ground truth.\n- If it is correct under the rule below and ${config.factPack}, return the same required_units.\n- If it is incomplete or wrong, return the corrected required_units and explain the correction in criterion_units/evidence or uncertainty_flags.\n- If no legacy label is present or it has an empty unit set, perform cold serving-unit labeling from the fact pack and item packet.\n`
     : "";
   const criteriaRule =
     "A unit is required if a student who has not covered that unit could not earn full credit — evaluated criterion by criterion against the rubric (or, for MCQ, against the keyed answer and each distractor refutation).";
@@ -686,6 +715,18 @@ function reportPath(subjectFilter) {
     return path.join(
       ROOT,
       "docs/research/AP_STATISTICS_TAXONOMY_SERVING_LABEL_RUN_2026_08_05.md",
+    );
+  }
+  if (subjectFilter === "ap_biology") {
+    return path.join(
+      ROOT,
+      "docs/research/AP_BIOLOGY_TAXONOMY_SERVING_LABEL_RUN_2026_08_05.md",
+    );
+  }
+  if (subjectFilter === "ap_chemistry") {
+    return path.join(
+      ROOT,
+      "docs/research/AP_CHEMISTRY_TAXONOMY_SERVING_LABEL_RUN_2026_08_05.md",
     );
   }
   return DEFAULT_REPORT;

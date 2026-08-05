@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- AP Chemistry Serving Labels Generated Against Verified 2024 CED — 2026-08-05
 - AP Statistics Serving Labels Confirmed/Corrected Against 2027 CED — 2026-08-05
 - Math Serving Labels Extended to Calc AB/BC and Precalculus; Topic Coverage Deferred — 2026-08-04
 - Unit-Serving Registry and Fail-Closed Selector Executed; Topic Coverage Deferred — 2026-08-04
@@ -62,6 +63,33 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 ---
+
+## AP Chemistry Serving Labels Generated Against Verified 2024 CED — 2026-08-05
+
+**Task:** Extend the taxonomy serving-label lane to published AP Chemistry
+items using the verified AP Chemistry CED Fact Pack. **Status:** Complete in
+Supabase Production `pcntajvbdfqhbeewmdry` for current published AP Chemistry
+targets.
+
+**Source control:** Used only `docs/product/AP_CHEMISTRY_CED_FACT_PACK.md`,
+which records the AP Chemistry Course and Exam Description, Effective Fall
+2024, Course Framework V.1, source SHA-256
+`b5dfe8677ef3d88c613865d2e2a3e8d6125d652e2b24c71ef1e8ce4e011094f0`.
+The pack supersedes the Fall 2020 digest.
+
+**Serving labels:** Ran `openai/gpt-5.5` and `google/gemini-2.5-flash` through
+Vercel AI Gateway over 31 currently published AP Chemistry items. Wrote 26
+two-model-agreed `provisional_model` serving labels and 5 `held` labels. No
+published target had a usable legacy unit set, so all provisional labels were
+created from two-model unit agreement with no usable legacy. No `validated`
+labels and no topic labels were written.
+
+**Final active target state:** 31 active serving labels for 31 published AP
+Chemistry targets, normalizing the previous 41 active legacy rows over those
+targets.
+
+**Report:** `docs/research/AP_CHEMISTRY_TAXONOMY_SERVING_LABEL_RUN_2026_08_05.md`.
+Raw local run outputs: `/private/tmp/cramapple-math-taxonomy-serving/`.
 
 ## AP Statistics Serving Labels Confirmed/Corrected Against 2027 CED — 2026-08-05
 
