@@ -5,7 +5,7 @@
 **Owner:** Main Conductor (Claude)
 **Product Owner:** David Bloom
 **Tier:** Standard
-**Status:** In Progress (pilot slice executed; full-corpus remediation not scoped)
+**Status:** In Progress (pilot + pass 2 executed against all published discrete_text items; publish decision and spatial-item scope still open)
 **Priority:** Medium
 **Created Date:** 2026-08-07
 **Approved Date:** Pending (owner directed the pilot slice in chat, 2026-08-07; no formal APPROVAL/DECISION record yet)
@@ -58,6 +58,64 @@ real exam does for these items.
   false-accept rate can eventually be computed the same way). Removed Jill's
   4 earliest pending single-point Set B assignments to hold her total load
   steady.
+
+## Pass 2 — Full-Corpus Scoping and Remediation (2026-08-07)
+
+Owner asked to "remediate the remaining 178 AP Statistics FRQ items" — that
+178 figure turned out to be **wrong**: it was every AP Statistics FRQ
+item-version carrying `frq_criteria` across *all* statuses (including 94
+retired items that will never be served again). Corrected count, current
+version, by status:
+
+| Status | Items |
+|---|---|
+| published (live) | 49 (4 already fixed in the pilot → 45 remaining) |
+| reviewed_approved (not yet live) | 24 |
+| retired | 94 |
+| reviewed_disapproved | 8 |
+| assigned / draft | 2 |
+| **Total** | 178 |
+
+Of the 45 remaining published items, only **12** are the `discrete_text` /
+`llm_discrete_text` short-FRQ family this defect and methodology actually
+apply to; the other **32** are `rubric_type='spatial'` hand-drawn-graph
+items graded by a different engine (`human_shadow`) and are not affected by
+this rubric-encoding issue — out of scope. Owner confirmed: remediate the
+12, leave the spatial items alone.
+
+**Result: of the 12, 9 got genuine multi-point restructuring; 3 left
+unchanged.** Applied a stricter standard than blanket bundling — only merge
+criteria where real AP Statistics scoring actually combines them into one
+point, most clearly an inference procedure's "mechanics" component (test
+statistic + p-value, or conditions + interval, computed together) and a
+boxplot's holistic graphical construction:
+
+- **Restructured (9):** `apstats-frq-u12-005` (10pt: outlier-determination
+  bundle 3pt, boxplot-construction bundle 3pt, shape+support bundle 2pt,
+  preference+reasoning bundle 2pt), `APSTATS-SFRQ-002/003/004` (regression/
+  z-score items — prediction+residual or dual z-score bundles), `APSTATS-
+  SFRQ-011/012/013/014/016` (inference procedures — mechanics bundle 2pt:
+  test statistic + p-value/interval/expected-count). All totals preserved
+  against their original all-1pt sum. Element decompositions drafted and
+  left unconfirmed for reader review, same as the pilot.
+- **Left unchanged (3):** `APSTATS-SFRQ-001` (median/skew/mean-effect —
+  4 independent qualitative/quantitative skills), `APSTATS-SFRQ-005`
+  (sampling-bias identification+explanation+remedy — 4 independent skills),
+  `APSTATS-SFRQ-006` (experimental-design vocabulary — 4 independent
+  concepts). Each of these already reflects standard atomic AP scoring;
+  bundling them would not correct a defect, it would manufacture one.
+
+Script: `scripts/content-seed/gold-set/20260807_apstats_multipoint_full_corpus_redecomposition.sql`.
+Left at `reviewed_approved`, **not published** — publishing (and whether to
+run a second gold-set generation pass against these 9) is a separate,
+not-yet-requested decision.
+
+**Still open:**
+- Publish decision for these 9 items.
+- Whether/how to address the 32 spatial hand-drawn-graph items (different
+  engine, different kind of defect if any — not assessed here).
+- Whether to also touch the 24 `reviewed_approved`-but-not-yet-published
+  items (not assessed — scope was capped to published items only).
 
 ## Out of Scope
 
