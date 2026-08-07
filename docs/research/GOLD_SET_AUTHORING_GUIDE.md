@@ -147,8 +147,13 @@ with the size of the set.
 
 | reader | subject | items | answers to verify | est. time |
 |---|---|---:|---:|---:|
-| Jill | AP Statistics | 6 | 48 | ~4 h |
-| Saood | AP Physics 1 / 2 / C-Mech / C-E&M | 8 | 64 | ~5 h |
+| Jill | AP Statistics | 6 | 40 | ~3.5 h |
+| Saood | AP Statistics | 6 | 40 | ~3.5 h |
+
+You are both marking **the same 40 answers**, independently. That is deliberate — two cold
+markings of one answer measure the machine better than one marking each of two answers.
+Do not compare notes, and do not discuss an item with the other reader until both queues
+are drained. Physics and the maths wait for reviewers currently being hired.
 
 In the pilot you verify **every** answer that reached you. That is the point: we are
 measuring how often the machine is wrong, and you cannot measure that from a sample of
