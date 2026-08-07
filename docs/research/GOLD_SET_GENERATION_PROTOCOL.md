@@ -41,10 +41,24 @@ non-retired FRQ items carrying criteria):
 
 | Set | Engine / evaluator | Criterion structure | Population | Status |
 |---|---|---|---|---|
-| **A** | 1 — `llm_discrete_text` | multi-point | Biology 36 items / 158 criteria; Chemistry 5 / 30 | Active, after Set B certifies |
-| **B** | 1 — `llm_discrete_text` | single-point independent | Physics ×4 35 / 113; Statistics 15 / 60; Precalculus 11 / 66 | **Active — pilot** |
+| **A** | 1 — `llm_discrete_text` | multi-point | Biology 36 items / 158 criteria; Chemistry 5 / 30; Calculus AB/BC 14 / 42 | Active, after Set B certifies |
+| **B** | 1 — `llm_discrete_text` | single-point independent | Physics ×4 35 / 113; Statistics 15 / 60; Precalculus 11 / 66; Calculus AB/BC 59 / 465 | **Active — pilot** |
 | **C** | 4 — `spatial` / `human_shadow` | single-point | Statistics 33 / 132 | Deferred until Engine 4 leaves shadow |
 | — | 3 — formula/ECF/symbolic | — | **zero published items** | No set until content routes there |
+
+**`[UPDATED 2026-08-04]`** Calculus AB/BC previously read "3 items, all
+multi-point, too small to stratify — folds into Set A" (see the struck text
+below). That was accurate against the population at the time; a same-day
+content-review push took AB from 6 published items to 47 `reviewed_approved`
+and BC from 2 to 34, and re-counting against the current population shows
+Calculus is **92% single-point** (465 of 507 criteria across 59 items) —
+structurally Set B, not Set A. A residual multi-point slice (14 items, 42
+criteria) does belong to Set A. Calculus therefore needs its own subject
+stratum inside **both** sets, sized independently — it does not inherit
+certification from Statistics (Set B) or Biology/Chemistry (Set A) just
+because it shares their rubric shape; §5's subject-effect rule requires each
+subject's own sample. ~~Calculus AB/BC (3 items, all multi-point) is too small
+to stratify; it folds into Set A.~~
 
 Consequences worth stating plainly:
 
@@ -174,6 +188,33 @@ Pre-registered before the pilot runs, so the result cannot be rationalised after
 
 Let *p* be the false-accept rate of the automated path: answers that reached provisional
 accept but that a reader, working cold, marks differently.
+
+**Two readers per answer — how *p* is computed.** Amended 2026-08-04, before any
+disagreement data existed. The Statistics pilot now has both readers marking the same 40
+answers rather than one subject each, which §5 as originally written does not define a
+rule for. Three definitions were available; the one adopted is **reader consensus**:
+
+- An answer counts toward *p* only when **both readers, independently and cold, mark it
+  differently from the script.** That keeps *p* measuring machine-vs-human, which is what
+  the gate is for.
+- Where **the two readers disagree with each other**, the answer does **not** count toward
+  *p*. It is logged as a rubric-ambiguity finding and reported separately, on the same
+  reasoning as Phase 3's `V1 ≠ V2` route: two qualified readers reading a criterion
+  differently is a finding worth having, not noise to be averaged away.
+- Reader-vs-reader disagreement rate is reported alongside *p*, never folded into it. A
+  high rate does not fail the gate — it says the criterion wording is the problem, and a
+  gate that conflated the two would send us to fix the generator when the rubric is at
+  fault.
+
+The rejected alternatives, recorded so the choice cannot be relitigated after the numbers
+land: *either reader disagrees* (strictest — roughly doubles the chance of tripping the
+≤5% bound, and lets a single reader's outlier reading fail a pipeline that is working),
+and *both readers must disagree with each other's marking discarded* (loosest — throws
+away the ambiguity signal entirely).
+
+This is a pilot-stage choice on a single set. If reader-vs-reader disagreement turns out
+to be common enough that consensus rarely forms, the definition is revisited **before**
+Set A, not mid-set.
 
 | Upper 95% bound on *p* | Outcome |
 |---|---|

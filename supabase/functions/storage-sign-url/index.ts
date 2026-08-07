@@ -1,8 +1,10 @@
 import { createServiceClient } from "../_shared/supabase.ts";
 import { jsonResponse, readJsonBody } from "../_shared/http.ts";
 import { requireProfile } from "../_shared/auth.ts";
-
-type StorageMode = "sign_upload" | "sign_download" | "sign_delete";
+import {
+  canAccessBucket,
+  type StorageMode,
+} from "../_shared/storage-access.ts";
 
 const allowedModes = new Set<StorageMode>([
   "sign_upload",
@@ -45,22 +47,6 @@ function isSafeStoragePath(path: string) {
 
 async function loadProfile(req: Request) {
   return await requireProfile(req);
-}
-
-function canAccessBucket(role: string, bucket: string, mode: StorageMode) {
-  if (bucket === "learner-uploads") {
-    return role === "student" || role === "admin";
-  }
-
-  if (bucket === "content-assets") {
-    return role === "admin" || role === "content_author";
-  }
-
-  if (bucket === "validation-artifacts") {
-    return role === "admin" || role === "validator";
-  }
-
-  return mode === "sign_delete" && role === "admin";
 }
 
 function ownsLearnerPath(userId: string, path: string) {
