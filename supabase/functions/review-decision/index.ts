@@ -8,6 +8,31 @@ import {
   resolveTutorScore,
 } from "./review-payload.ts";
 
+// Expand/contract rollout switch for the prompt-visual judgment.
+//
+// FALSE (current): image_needed is accepted and persisted when sent, ignored
+// when absent. This lets this function deploy BEFORE the reviewer frontend
+// that sends the field — flipping it on first would 400 every tutor_question
+// submission from the currently-deployed client, blocking ~150 reviews/day
+// across 3-9 active reviewers.
+//
+// Flip to TRUE only after the reviewer frontend carrying the two radio groups
+// is live and confirmed sending image_needed. Values that ARE sent are fully
+// validated either way, so no bad data can land during the soft window.
+const REQUIRE_IMAGE_NEEDED = false;
+
+// Mirrors app.content_visual_requirements' check constraints.
+// "no" is split into two reasons on purpose: items whose stem says "submit one
+// photograph showing your constructed graph" need the student to BUILD the
+// visual, and giving those a prompt image would hand over the answer.
+const IMAGE_NEEDED_VALUES = new Set(["yes", "no_constructs", "no_not_needed"]);
+const IMAGE_APPROVAL_VALUES = new Set([
+  "approved",
+  "approved_with_edits",
+  "disapproved",
+  "missing",
+]);
+
 function asString(value: unknown) {
   return typeof value === "string" && value.trim() ? value.trim() : null;
 }
@@ -349,6 +374,8 @@ Deno.serve(async (req) => {
   const concernCodes = asStringArray(b.concern_codes);
   const note = asString(b.note ?? b.rationale);
   const answerApprovals = normalizeAnswerApprovals(b.answer_approvals);
+  const imageNeeded = asString(b.image_needed);
+  const imageApproval = asString(b.image_approval);
   const topicSelections =
     b.topic_selections &&
     typeof b.topic_selections === "object" &&
@@ -385,6 +412,48 @@ Deno.serve(async (req) => {
         { status: 400 },
       );
     }
+    // Absent is tolerated only while REQUIRE_IMAGE_NEEDED is false. A value
+    // that IS present is always validated, so the soft window cannot admit a
+    // malformed judgment.
+    if (imageNeeded && !IMAGE_NEEDED_VALUES.has(imageNeeded)) {
+      return respond(
+        { error: "invalid_image_needed", allowed: [...IMAGE_NEEDED_VALUES] },
+        { status: 400 },
+      );
+    }
+    if (!imageNeeded && REQUIRE_IMAGE_NEEDED) {
+      return respond(
+        {
+          error: "missing_required_fields",
+          required: ["image_needed"],
+          allowed: [...IMAGE_NEEDED_VALUES],
+        },
+        { status: 400 },
+      );
+    }
+    // Approval is required exactly when a visual is required. Rejecting the
+    // mismatched pair here keeps the app.content_visual_requirements
+    // approval-iff-needed constraint from surfacing as an opaque 500.
+    if (imageNeeded === "yes") {
+      // Unconditional: if a reviewer says a visual is required, the approval
+      // must come with it regardless of the rollout switch.
+      if (!imageApproval || !IMAGE_APPROVAL_VALUES.has(imageApproval)) {
+        return respond(
+          {
+            error: "missing_required_fields",
+            required: ["image_approval"],
+            allowed: [...IMAGE_APPROVAL_VALUES],
+          },
+          { status: 400 },
+        );
+      }
+    } else if (imageApproval) {
+      return respond(
+        { error: "image_approval_not_applicable" },
+        { status: 400 },
+      );
+    }
+
     if (assignment.review_kind === "mcq" && !answerApprovals) {
       return respond(
         { error: "invalid_answer_approvals" },
@@ -424,6 +493,8 @@ Deno.serve(async (req) => {
     decisionPayload.difficulty_label = difficultyLabel;
     decisionPayload.diagnostic_flag = diagnosticFlag;
     decisionPayload.concern_codes = concernCodes;
+    decisionPayload.image_needed = imageNeeded ?? null;
+    decisionPayload.image_approval = imageNeeded === "yes" ? imageApproval : null;
     decisionPayload.note = note;
     decisionPayload.topic_selections = topicSelections;
     if (assignment.review_kind === "mcq") {
@@ -573,6 +644,32 @@ Deno.serve(async (req) => {
 
   // The database trigger atomically marked the assignment submitted in the
   // same transaction as the immutable decision insert.
+
+  // Project the prompt-visual judgment to current state. The decision row above
+  // is the immutable record; this table is what the student serving path reads,
+  // so it must reflect the newest decision for this version. Non-fatal: the
+  // decision is already durably recorded, and a failure here re-resolves on the
+  // next review of the same version.
+  if (
+    reviewStage === "tutor_question" &&
+    assignment.content_item_version_id &&
+    imageNeeded
+  ) {
+    const { error: visualError } = await service
+      .schema("app")
+      .from("content_visual_requirements")
+      .upsert({
+        content_item_version_id: assignment.content_item_version_id,
+        image_needed: imageNeeded,
+        image_approval: imageNeeded === "yes" ? imageApproval : null,
+        decided_by: profileResult.user.id,
+        decided_at: new Date().toISOString(),
+      }, { onConflict: "content_item_version_id" });
+
+    if (visualError) {
+      console.error("review-decision:content_visual_requirements", visualError);
+    }
+  }
 
   // Advance the workflow server-side. Errors here are non-fatal for the
   // reviewer — the decision is already immutably recorded.
