@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- TASK-0022 Opened: AP Statistics Multi-Point Rubric Defect Found and Piloted; Owner-Adjudicated QA Remediation Batches Published — 2026-08-06/07
 - AP Physics Serving Labels Generated Across Four Subjects — 2026-08-05
 - AP Chemistry Serving Labels Generated Against Verified 2024 CED — 2026-08-05
 - AP Statistics Serving Labels Confirmed/Corrected Against 2027 CED — 2026-08-05
@@ -62,6 +63,70 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## TASK-0022 Opened: AP Statistics Multi-Point Rubric Defect Found and Piloted; Owner-Adjudicated QA Remediation Batches Published — 2026-08-06/07
+
+**Task:** TASK-0022 (new). **Status:** Pilot slice executed against Production
+`pcntajvbdfqhbeewmdry`; full-corpus remediation not scoped. Full record:
+`docs/tasks/TASK-0022-AP-STATISTICS-MULTIPOINT-RUBRIC-DEFECT.md`.
+
+**Fresh independent QA on Saood's gold-set cold set (Set B):** Pass with
+non-blocking notes — 40/40 assignments complete, 0 fabricated evidence
+quotes, discrimination confirmed against answer quality. Blocking finding was
+structural, not Saood's: the entire Set B corpus (Stats, Calc AB/BC, Physics,
+Precalc) uses only 1-point criteria, so the decomposition-confirmation step
+of `DECISION-0045` had never been exercised. Two real gold-set answer errors
+Saood caught (arithmetic mislabeled as 2.0 instead of 2.5; an unevaluated
+"52 + 4.1×6") were corrected in the underlying `gold_set_answers.answer_text`.
+
+**Discovery: AP Statistics FRQ rubrics are uniformly 1pt-atomized.** All 573
+published AP Statistics FRQ criteria (182 items) are `points_possible=1`,
+unlike Biology/Chemistry/Calculus AB/BC, which carry genuine bundled 2-3pt
+criteria. No decision record anywhere authorizes this. TASK-0022 re-decomposed
+a 4-item pilot slice (`APSTATS-SFRQ-007/008/009/010`) into genuine mixed
+1/2/3pt criteria (CED-grounded "compute mean+SD together" and "describe the
+sampling distribution" bundles), drafted the element decomposition, published
+the 4 items, then ran the real `generate_generic.mjs` pipeline (Anthropic +
+Google + DeepSeek per DECISION-0045 R1-R5) against them: 32 answers generated,
+30 kept (25 `provisional_accept`, 5 `reader_queue`, 2 discarded) and loaded to
+`app.gold_set_answers` under `set_key='A'`. All 30 assigned to both Muhammad
+Saood and Jill Schmidlkofer (two-reader-per-answer, matching the Set B
+design); 4 of Jill's earliest single-point Set B assignments removed to hold
+her load steady. Full-corpus remediation of the remaining 178 items is an
+open owner decision, not yet scoped.
+
+**Owner-adjudicated QA remediation, same session:**
+- `apchem-sfrq-005`: tie-break adjudication upheld Muhammad Zeeshan's
+  stoichiometry correction over Gulgeldi Darrynow's clean approve (false
+  1:1 acid:base equivalence claim in stem); published.
+- Folded two more Muhammad Saood findings into the standing AP Calc BC /
+  Physics 1 remediation batch: `apcalcbc-mcq-049` (two-valid-answer Lagrange
+  bound defect) and `apphy1-frq-047` (missing constant-acceleration
+  assumption).
+- AP Biology: confirmed all 4 of Adil Abbasi's disapprovals against the CED
+  fact pack (`APBIO-FRQ-L-016/026/030/036`) — two of the three prior
+  stem-only repairs (L-026, L-030) had left `canonical_answer_1` and the
+  graded rubric answering the *old*, off-CED content (Ne, minimum viable
+  population, the purging hypothesis, MHC-allele counts not even present in
+  the stimulus table for L-026; full island-biogeography species-area math
+  for L-030) — both rewritten to match the corrected stems. L-036 required a
+  full rewrite: relabeled a mislabeled trp operon (repressible, incompatible
+  with the inducing data shown) to the lac operon, fixed backwards
+  repressor-release phrasing, fixed a μM/mM unit mismatch, and remapped the
+  rubric, which was scored in reverse order (criterion a↔d, b↔c) relative to
+  the stem parts it actually covered. Also adjudicated and fixed 5 MCQ
+  reviewer-disagreement/priority items (`APBIO-MCQ-008/011/014/016/026`). All
+  9 items published.
+
+**Housekeeping:** removed Tutor Beta (a QA fixture profile)'s 8 pending
+gold-set verification assignments; 2 `content_review_assignments` on an
+unpublished seed-data item could not be removed (decision-immutability
+trigger by design) and were left in place, flagged.
+
+**PRs:** #69 (Biology remediation + gold-set fixes + Tutor Beta cleanup),
+#70 (apchem-sfrq-005 publish). TASK-0022's scripts are pending push/PR.
 
 ---
 
