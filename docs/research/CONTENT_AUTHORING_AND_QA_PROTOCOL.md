@@ -1,6 +1,11 @@
-# Content authoring & QA protocol — canonical, v0.2 draft
+# Content authoring & QA protocol — canonical, v0.4
 
-**Status:** Draft, not yet adopted. Proposed for the pipeline that produces and reviews
+**Status:** Adopted, 2026-08-08. Promoted from draft after a 212-item run across all 10
+subjects exercised both QA methods (§4 CED-conformance and §9 independent re-derivation)
+at production scale and fed the results back through publish. See the §9.3 revision note
+below — that run also promotes §9 from piloted to a standing, publish-gating requirement
+(hand-verify every FRQ criterion and MCQ answer key by independent computation before
+publication), folded into Phase 6 (§6). Governs the pipeline that produces and reviews
 `app.content_items` (exam questions: MCQ/FRQ stems, choices, rubric criteria). This is a
 different pipeline from `GOLD_SET_GENERATION_PROTOCOL.md`, which produces **student
 answers** to test the grader. The two share conventions (multi-family independence,
@@ -20,11 +25,22 @@ single-`approve_with_edits`-then-repaired, and a targeted structural-pattern sca
 measured yield gap between pools (§9.3) is the load-bearing finding and should drive pool
 selection on future runs, not intuition about which subject "seems risky."
 
+**Revision note (v0.4):** promotes the document from draft to adopted. Triggered by a
+2026-08-08 owner-directed QA/repair/publish pass over all 212 `changes_requested` items
+across all 10 subjects: every item got a §4-style CED-conformance read plus a §9-style
+independent re-derivation (every MCQ answer key and FRQ criterion re-solved from
+first principles, not read-and-trust) before any publish decision. That run surfaced and
+fixed a systemic stem/`mcq_choices` desync bug across four Physics pools (~50 items),
+19 genuine content defects (CED-scope violations, wrong CED-unit tags, contradictory
+stimulus data, mismatched rubric criteria, redundant FRQ parts), and confirmed §9 catches
+defect classes §4 cannot. §9's status line and Phase 6 (§6) are updated accordingly —
+independent re-derivation is no longer optional-pilot, it is a publish precondition.
+
 **Why this document exists:** there is currently no single place that states what has to
 be true before a batch of questions gets written, which model does which job and why,
 what gates a question before it reaches a student, and what closes the loop after
 publish. What exists instead is a set of conventions applied ad hoc, rediscovered
-mid-incident, or written into one-off SQL scripts. This draft is that convention set,
+mid-incident, or written into one-off SQL scripts. This document is that convention set,
 made explicit, plus the gaps that need engineering work before it can be **enforced**
 rather than just followed.
 
@@ -282,8 +298,12 @@ Phase 5  Disagreement         Grep-adjudicate per §5.3. Never repair on a model
          adjudication         citation — confirm the specific claim against the source first.
 
 Phase 6  Publish gate         status='published' allowed ONLY from an allowlist of
-                             terminal-approved review_status values (§7.2). Blocked for any
-                             rejection or in-progress state. [Blocked on P0-B / §7.2.]
+                             terminal-approved review_status values (§7.2), AND ONLY after
+                             §9 independent re-derivation has re-solved every MCQ answer
+                             key and FRQ criterion from first principles and found no
+                             disagreement with the stored content (§9, adopted v0.4).
+                             Blocked for any rejection, in-progress state, or unresolved
+                             §9 disagreement. [Blocked on P0-B / §7.2.]
 
 Phase 7  Event-driven         NOT a periodic resample — published content does not drift.
          re-check             The only things that change are the checker model, the fact
@@ -374,10 +394,12 @@ both erode silently if left to memory.
 
 ## 9. Existing-content QA — independent re-derivation
 
-**Status:** Piloted twice this session (2026-08-08) against Physics content, not yet a
-standing pipeline stage. This is a **second, distinct** QA method from §4's
-CED-conformance check — the two ask different questions, catch different defect classes,
-and neither substitutes for the other.
+**Status:** Adopted, 2026-08-08 — a standing, publish-gating pipeline stage, promoted from
+pilot after a 212-item run across all 10 subjects (not just Physics) confirmed the method
+at production scale (see the v0.4 revision note above and §9.3's updated table). This is a
+**second, distinct** QA method from §4's CED-conformance check — the two ask different
+questions, catch different defect classes, and neither substitutes for the other. Every
+item must clear both before Phase 6 (§6) allows publish.
 
 **9.1 What it is, and how it differs from §4.** §4 asks *"does this item stay inside the
 CED's declared scope?"* — a blind model panel checks the item against the fact pack's text
