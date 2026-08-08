@@ -6,6 +6,22 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- P0-B Publish Gate Implemented; 130 Published-but-Unapproved Items Retired; Gold-Set Rubric-Ordering Defect Found (5 Items) and Fixed — 2026-08-08
+- All 69 Remaining Physics approve_with_edits Items Repaired Against Saood's Notes (Full Backlog Now Zero) — 2026-08-08
+- CONTENT_AUTHORING_AND_QA_PROTOCOL.md v0.3: New §9 Documents Existing-Content QA via Independent Re-derivation, Including the Pool-Selection Yield Data and Remediation-Mechanics Gotchas from This Session — 2026-08-08
+- 25 Single-approve_with_edits Physics Items Repaired Against Saood's Notes and QA'd (New-Protocol Applied to Existing Content); One Misapplied Fix Found and Corrected — 2026-08-08
+- 183 Single-Reviewed Physics Items Assigned to Ahmed Ali for Second Review (213 Total Pending) — 2026-08-08
+- Ghazanfar Withdrawal Orphan Bug Found and Fixed (60 Items Stuck "assigned" Since 2026-08-03); 30 Reassigned to Ahmed; E&M/Mechanics Pasted-Prompt-Rubric Scan Confirms 22-28% Corpus Defect Rate — 2026-08-08
+- New Reviewer Ahmed Ali (Physics) First-Batch QA'd: 20/20 Decisions Verified Clean, Pasted-Prompt-Rubric Defect Pattern Confirmed Cross-Subject — 2026-08-08
+- AP Physics 1 CED Deepened for Units 1-3 (Second Physics Subject Off Bare Tier); 20-Item New-Protocol Batch Authored and Assigned to Saood — 2026-08-08
+- AP Physics C: E&M CED Deepened for Units 8-10 (First Physics Subject Off Bare Tier); 20-Item New-Protocol Batch Authored and Assigned to Saood — 2026-08-08
+- Precalc CED Defects Fixed and Republished; Abdul's np1 Review QA'd (Zero Edits/Disapprovals, Replicating the Same-Day Result); 40-Item Replication Batch (AB + Precalc) Authored and Assigned — 2026-08-08
+- AP Calculus AB/BC CED Fact Pack Deepened Through Unit 8; Arc-Length AB/BC Scope Error Found and Corrected — 2026-08-08
+- Reviewer QA Sweep Re-Run; AP Calculus BC CED Deepened to Units 1-3; 20-Item New-Protocol Comparison Batch Authored and Assigned to Abdul Hanan — 2026-08-08
+- FRQ Criterion Verification-Mode Tagging Protocol Drafted, Verified Against AP Statistics, Calculus AB, and English Literature — 2026-08-07
+- Full-Corpus AP Biology Content-Defect Scan: 99 Published Items Audited, 12 Defects Found and Corrected — 2026-08-07
+- Full-Corpus AP Chemistry Content-Defect Scan: 110 Published Items Audited, 5 FRQ Rubric-Criterion Defects Found and Corrected — 2026-08-07
+- DECISION-0044 Publish-Protocol Scan: 39 AP Calculus AB/BC/Precalculus Items AI-QA'd and Published; TASK-0022 Docs Corrected — 2026-08-07
 - TASK-0022 Opened: AP Statistics Multi-Point Rubric Defect Found and Piloted; Owner-Adjudicated QA Remediation Batches Published — 2026-08-06/07
 - AP Physics Serving Labels Generated Across Four Subjects — 2026-08-05
 - AP Chemistry Serving Labels Generated Against Verified 2024 CED — 2026-08-05
@@ -63,6 +79,892 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## P0-B Publish Gate Implemented; 130 Published-but-Unapproved Items Retired; Gold-Set Rubric-Ordering Defect Found (5 Items) and Fixed — 2026-08-08
+
+**Trigger:** Jill Schmidlkofer found a rubric-answer-ordering defect in gold-set
+question 37 of 66 (`APSTATS-SFRQ-010`) and attached specific renumbering
+instructions. Fixing it and checking other subjects surfaced a second, larger
+finding during the same-day reviewer QA sweep: `APBIO-MCQ-045` was
+`status='published'` while `review_status='excluded'` — a live recurrence of
+the P0-B publish-gate bug documented in
+`docs/research/CONTENT_AUTHORING_AND_QA_PROTOCOL.md` §7.2 (previously fixed
+once, 2026-07-31, "7 Disapproved Items Unpublished," and not enforced by any
+standing constraint since). Owner directed: retire that item, fix the
+underlying bug, then fix all items in the same state.
+
+**Gold-set rubric-ordering defect (fixed first, unrelated root cause).**
+`gold_set_elements.element_index` restarts at 1 per criterion; when a
+multi-point criterion's elements interleaved with a later criterion's single
+element, naive display order (by `element_index` alone) scrambled the
+part-order shown to reviewers. Traced beyond Jill's one item to 4 more
+published AP Statistics items, all from the 2026-08-07 TASK-0022
+redecomposition: `apstats-frq-u12-005`, `APSTATS-SFRQ-007/008/009`. Fixed all
+5 by renumbering `element_index` to be globally sequential per item (two-step
+update to avoid the `(frq_criterion_id, element_index)` unique-constraint
+collision on in-place permutations). Verified against the entire gold set
+afterward: 0 remaining defects among items with genuine multi-element
+criteria. Also verified Muhammad Saood's 30 already-submitted verification
+marks against these same 4 items (submitted before the fix) were not
+corrupted — marks join by stable `gold_set_element_id`, not display position —
+so no rework needed. Jill's 30-item pending queue was entirely against these 4
+items; the fix landed before she resumes.
+
+**P0-B publish gate.** Retired `APBIO-MCQ-045` (`status: published → retired`;
+`review_status` unchanged at `excluded`). Implemented the trigger the protocol
+specifies as one of two valid options (§7.2 Option 1: DB-level
+trigger/constraint, "defense in depth" alongside — not instead of — moving
+the check into `advanceWorkflow`): `supabase/migrations/20260808200000_publish_gate_review_status.sql`
+adds `app.enforce_publish_gate()` and a `BEFORE INSERT OR UPDATE OF status,
+review_status` trigger on `app.content_item_versions` that blocks
+`status='published'` unless `review_status='question_review_approved'`
+(allowlist, not denylist, per the protocol's explicit reasoning: a denylist of
+`('excluded','modification_reserved')` silently passes any future rejection
+state nobody remembered to add). Applied to Production
+(`pcntajvbdfqhbeewmdry`) and verified live: an attempted re-publish of the
+just-retired item was correctly rejected (`P0001: publish_gate: ...got
+excluded`) with no partial side effects.
+
+**Backfill.** Querying the same predicate the trigger enforces found 130
+currently-published items violating it (8 `excluded`, 78
+`modification_reserved`, 17 `ap_reader_pending`, 6 `difficulty_discussion`, 10
+`tutor_review_pending`, 11 `null` review_status) across Biology, Chemistry,
+Calc AB/BC, Precalculus, Physics 1/2/C-Mechanics/C-E&M, and Statistics —
+Biology (46) and AP Statistics (35) carried the largest share. All 130 retired
+(`status → retired`; `review_status` untouched) in one statement matching the
+trigger's exact blocking predicate, then reverified: 0 remaining violations,
+375 properly-approved published items unaffected. This is a **fail-closed
+posture, matching the precedent set for unit-gated serving on 2026-08-04**
+("this makes essentially all Biology and Statistics content non-servable
+under unit gating until remediated — that is the intended conservative
+posture, not a regression") — content is pulled from serving on a review-state
+technicality, not necessarily because it is defective: `ap_reader_pending`
+and `tutor_review_pending` in particular are in-progress, not rejected.
+
+**Known gap not fixed this session, flagged not silently worked around:**
+`supabase/functions/review-decision/index.ts` has no code path that ever
+advances an MCQ item's `review_status` past `answer_tutor_review_pending`
+once its 8 `tutor_answer` sub-reviews (4 choices × 2 tutors) are submitted —
+so no MCQ has a code-driven terminal-approved `review_status` today. The new
+gate is correct per the protocol's own literal spec, but it means any future
+attempt to publish a properly-reviewed MCQ must explicitly set
+`review_status='question_review_approved'` as part of the same operation
+until that aggregation is implemented in the edge function (protocol §7.2
+Option 2).
+
+**Next Owner:** David Bloom
+**Next Required Action:** Decide remediation order for the 130 retired items
+(Biology and Statistics are the largest pools); commit or discard
+`supabase/migrations/20260808200000_publish_gate_review_status.sql` (applied
+to Production, not yet committed to the repo); decide whether to implement
+the missing MCQ tutor_answer-aggregation code path in `review-decision/index.ts`
+before the gate is treated as fully closing P0-B.
+
+---
+
+## All 69 Remaining Physics approve_with_edits Items Repaired Against Saood's Notes (Full Backlog Now Zero) — 2026-08-08
+
+**Trigger:** Owner asked "what are the 63 approve_with_edits items" (following up
+on the earlier 25-item pilot); the exact count turned out to be 69, not the
+approximated 63. Owner then said "repair them" — all 69, not a further
+sample.
+
+**Scope:** every remaining single-decision, single-`approve_with_edits`,
+unrepaired Physics item — 16 AP Physics 1, 13 AP Physics 2, 21 AP Physics C:
+E&M, 19 AP Physics C: Mechanics. All 69 were Muhammad Saood's reviews (the
+only reviewer who has worked this pool). Each fix was authored directly
+against Saood's note, hand-verified computationally before insertion (same
+`owner_remediation_approval` pattern as the 25-item pilot), and confirmed
+against the live DB: 16+13+21+19=69/69.
+
+**Beyond literal note implementation** — independent re-derivation caught
+issues Saood's notes didn't state outright:
+- `apphycem-mcq-017` (LR time constant): choice D's rationale claimed it was
+  "the reciprocal of L/R," which is arithmetically wrong (the reciprocal of
+  L/R is R/L, choice B) — D is actually the reciprocal of the product LR.
+  Corrected to the real relationship.
+- `apphycm-mcq-019` (angular-impulse integral): choice D's text literally
+  said "τ₀/I T² without 1/2," telegraphing the answer in the distractor
+  itself — rewritten as an actual formula, τ₀T²/I, independently
+  re-verified as the correct omitted-1/2 error.
+- Several items had a stated formula handed directly in the stem where the
+  reviewer's note flagged this as reducing diagnostic value (e.g.
+  `apphycem-frq-015`, `apphycm-frq-013/015/016`) — rewritten so the student
+  must identify/derive the relationship rather than being given it.
+
+**Verification note:** double-checked that this batch did not repeat the
+earlier `apphycm-frq-018`/`apphycm-frq-001` mix-up from the 25-item pilot —
+`apphycm-frq-018` still has exactly 3 versions (v1 original, v2 erroneous,
+v3 correction), all predating this batch; nothing in this 69-item run
+touched it again.
+
+**Result:** the Physics `approve_with_edits` backlog that stood at 88 items
+at the start of this session (§9.3's "88 total minus 25 repaired ≈ 63"
+estimate) is now fully cleared — 0 remaining single-`approve_with_edits`,
+unrepaired items in any of the four Physics subjects.
+
+**Next Owner:** David Bloom
+**Next Required Action:** None outstanding. All 94 items touched by the
+new-protocol QA method this session (25 single-approve pilot + 25 + 69
+repair batches) are `status='reviewed_approved'` and available for the next
+review/publish step.
+
+## CONTENT_AUTHORING_AND_QA_PROTOCOL.md v0.3: New §9 Documents Existing-Content QA via Independent Re-derivation, Including the Pool-Selection Yield Data and Remediation-Mechanics Gotchas from This Session — 2026-08-08
+
+**Trigger:** Owner asked whether to create a separate QA protocol document or
+fold this session's existing-content QA method into the existing content
+authoring protocol; owner chose a single doc and asked for the content to be
+authored.
+
+**What was added:** `docs/research/CONTENT_AUTHORING_AND_QA_PROTOCOL.md`
+gained a new §9 ("Existing-content QA — independent re-derivation"),
+distinguished explicitly from §4's CED-conformance check (different
+question asked, different defect class caught, no fact pack required). It
+documents: the method itself (independently re-derive, then diff against
+stored content); the measured pool-selection yield gap from this session's
+three pilots (single-`approve`: 0/25 real defects; single-
+`approve_with_edits`-then-repaired: 2/25 defects found beyond what the
+reviewer's own note said; targeted structural-pattern scan: 31/126, 22-28%
+— by far the highest yield); and the three schema gotchas hit while
+inserting remediations (`lock_content_review_submission` requires a
+`pending`, not `submitted`, assignment; `decision_hash` NOT NULL with no
+default; `content_review_decisions` immutability plus the
+`(content_item_version_id, reviewer_id, review_stage)` uniqueness
+constraint that blocks same-version superseding, requiring a further new
+version instead). Old §8 (Explicit non-goals) renumbered to §10, with a
+non-goal added noting the yield data is directional (one session, one
+subject family), not a statistically settled constant. The one internal
+forward-reference to the old §8 was updated to §10.
+
+**Next Owner:** David Bloom
+**Next Required Action:** None outstanding. §9.5's standing recommendation
+(run this method on named defect hypotheses and repair-verification, not
+blind resampling) should guide any future QA pass before it's scheduled.
+
+## 25 Single-approve_with_edits Physics Items Repaired Against Saood's Notes and QA'd (New-Protocol Applied to Existing Content); One Misapplied Fix Found and Corrected — 2026-08-08
+
+**Trigger:** Owner asked whether the new-protocol authoring discipline
+(ground in real scoring/CED data, hand-verify every computation before
+insertion) could be turned into a QA method for existing content. Piloted
+first on 25 single-`approve` items (0 real defects found, confirming a null
+`canonical_answer_1` gap on `apphy1-mcq-021`), then the owner asked for the
+same treatment on single-`approve_with_edits` items that had been
+**repaired**. None existed anywhere in Physics (confirmed: only 2 exist
+corpus-wide, both AP Precalculus) — the 88-item Physics
+`approve_with_edits` backlog, entirely reviewed by Muhammad Saood, had never
+been repaired at all. Owner chose to have the repairs done first, then
+QA'd.
+
+**Repair batch:** 25 items selected across all four Physics subjects (6
+Physics 1, 6 Physics 2, 7 E&M, 6 Mechanics; mix of FRQ/MCQ). Each fix was
+authored directly against Saood's original review note, with every
+resulting formula/derivation independently hand-computed before insertion —
+the same discipline used for new-protocol authoring, applied here to
+existing content. Inserted as new content_item_versions
+(`owner_remediation_approval` pattern: new version → corrected
+frq_criteria/mcq_choices → `content_review_assignments` +
+`content_review_decisions` with `tutor_score=1` → `content_items.status`
+set to `reviewed_approved`).
+
+**Two real defects were found and fixed beyond what Saood's notes
+literally said**, surfaced only by independently re-deriving the physics:
+- `apphy1-mcq-022`: a distractor rationale claimed "constant orbital speed
+  would give T∝r^(1/2)" — physically wrong (constant v actually gives
+  T∝r, linear). Replaced with a grounded misconception (pattern-matching
+  the pendulum period formula T=2π√(L/g)).
+- `apphycem-mcq-007`: a distractor rationale directly contradicted its own
+  choice text (claimed ε was "in the numerator" for a choice that displays
+  ε in the denominator). Corrected.
+
+**Self-caught, self-corrected error:** mid-batch, `apphycm-frq-018` was
+mistakenly repaired instead of `apphycm-frq-001` (a copy-paste content_key
+error). `frq-018` was never in the approve_with_edits pool — it already had
+a clean single approve from Saood (2026-07-26) and needed no changes. The
+content inserted was not incorrect, but its remediation provenance was
+spurious. `content_review_decisions` is immutable-by-design in this schema
+(delete blocked by trigger; even a same-version "supersede" was blocked by
+a `(content_item_version_id, reviewer_id, review_stage)` uniqueness
+constraint), so the fix was a v3 reverting the content verbatim to v1's
+original wording, with a new decision explicitly documenting the
+correction and referencing the actually-intended fix on `apphycm-frq-001`
+(handled correctly, separately). Reported to the owner in full before
+being asked to fix it.
+
+**Next Owner:** David Bloom
+**Next Required Action:** None outstanding. The remaining ~63 unrepaired
+Physics `approve_with_edits` items (88 total minus the 25 repaired here)
+are a candidate pool for a follow-up batch using the same method.
+
+## 183 Single-Reviewed Physics Items Assigned to Ahmed Ali for Second Review (213 Total Pending) — 2026-08-08
+
+**Trigger:** Owner asked to assign Ahmed all physics questions that have
+exactly one `approve` or `approve_with_edits` decision and have not already
+been reviewed by him. Three reviewers share the surname "Ali" (Ghazanfar,
+Amjad, Ahmed); proceeded with Ahmed given the entire session thread was
+about him, and stated that assumption explicitly rather than blocking.
+
+**Filter applied:** across all four Physics subjects, content items with
+exactly one total `content_review_decisions` row, where that row's
+`tutor_score` is 1 (approve) or 2 (approve_with_edits), where Ahmed is not
+already a reviewer on that item, and where `content_items.status` is
+`changes_requested` or `reviewed_approved` (7 items meeting the decision
+filter but already `status='published'` were excluded — re-reviewing live
+content isn't part of the normal pre-publish flow — and 1 item already
+carrying a pending assignment elsewhere was excluded).
+
+**Result:** 183 new assignments created (`review_stage='tutor_question'`,
+`assignment_purpose='subject_review'`) — AP Physics 1: 58, AP Physics 2: 38,
+AP Physics C: E&M: 42, AP Physics C: Mechanics: 45. 88 of these carried a
+single prior `approve_with_edits`, 95 a single prior `approve`. Combined
+with the 30 assigned earlier the same day (from the Ghazanfar-orphan fix),
+**Ahmed's total pending queue is now 213 items.**
+
+**Next Owner:** David Bloom
+**Next Required Action:** Decide whether Ahmed should work the full 213-item
+queue solo or whether it should be split across other qualified Physics
+reviewers — this is roughly 10x the size of any single batch assigned this
+session.
+
+## Ghazanfar Withdrawal Orphan Bug Found and Fixed (60 Items Stuck "assigned" Since 2026-08-03); 30 Reassigned to Ahmed; E&M/Mechanics Pasted-Prompt-Rubric Scan Confirms 22-28% Corpus Defect Rate — 2026-08-08
+
+**Trigger:** Owner asked to assign Ahmed 30 more Physics questions and to run
+the pasted-prompt-rubric scan (surfaced by his first-batch QA, previous
+entry) against AP Physics C: E&M and AP Physics C: Mechanics. Mid-turn the
+owner also asked what became of the 245 assignments pulled from Ghazanfar
+Ali on 2026-08-04 (see "`approve_with_edits` State Logic..." and the
+withdrawn-status decision earlier this session).
+
+**Ghazanfar orphan bug found:** of his 245 withdrawn assignments, 185 (AP
+Physics 1's 73, all of it) were fully absorbed — reassigned to other
+reviewers and already decided. But 60 items (20 each in AP Physics 2, AP
+Physics C: E&M, AP Physics C: Mechanics) were never actually reassigned:
+`content_items.status` still read `'assigned'` with zero active pending
+`content_review_assignments` row pointing at them — a genuine data-integrity
+gap where the withdrawal action never reset the item's status, leaving them
+invisible-but-stuck in the queue for five days. Confirmed directly (e.g.
+`apphy2-frq-039..058`, all `'withdrawn'`-only, no pending assignment).
+
+**Fixed:** all 60 orphaned items reset to `status='draft'` (the correct
+pre-review state, matching the schema's valid enum). 30 of them
+(`*-frq-039..048` in each of the three subjects, 10 each) assigned to Ahmed
+Ali via `content_review_assignments` (`review_stage='tutor_question'`,
+`assignment_purpose='subject_review'`). The remaining 30
+(`*-frq-049..058`) are now clean `draft` items available for future
+assignment — no longer silently stuck.
+
+**Pasted-prompt-rubric scan (Physics C: E&M and Physics C: Mechanics), per
+owner request:** confirmed corpus-wide, not isolated to the items Ahmed
+happened to review. 15 of 68 E&M FRQs (22%) and 16 of 58 Mechanics FRQs
+(28%) have a part-b `frq_criteria.learner_facing_text` that is the part-b
+prompt instruction copied verbatim rather than an actual scoring criterion —
+the dominant failure mode for part-b across both subjects' FRQ corpus.
+
+**Next Owner:** David Bloom
+**Next Required Action:** Decide on a remediation approach for the
+pasted-prompt-rubric defect (31 confirmed items across E&M/Mechanics) —
+likely an `owner_remediation_approval` batch rewriting each part-b
+criterion into an actual scoring condition, mirroring the pattern used for
+the AP Calculus rubric-architecture fixes earlier this session.
+
+## New Reviewer Ahmed Ali (Physics) First-Batch QA'd: 20/20 Decisions Verified Clean, Pasted-Prompt-Rubric Defect Pattern Confirmed Cross-Subject — 2026-08-08
+
+**Trigger:** Owner asked to QA Ahmed Ali, a reviewer who onboarded 2026-08-07
+with active grading qualifications across all four Physics subjects (Physics
+1, Physics 2, Physics C: Mechanics, Physics C: E&M).
+
+**Structural integrity:** all 20 of his assignments are `status='submitted'`
+with a matching decision; zero orphaned decisions, zero reviewer-ID
+mismatches. Coverage was evenly split, 5 items per subject. Decisions: 16
+`approve_with_edits` (80%), 4 `approve` (20%), 0 `disapprove`. Pace: 20 items
+in 74 minutes.
+
+**Spot-verification (3 of his highest-severity claims checked directly
+against live content, not just read for plausibility):**
+- `apphy1-mcq-027` — he flagged choice C rendering two different values
+  (36 m vs 6 m) as a "hard blocker." Confirmed and actually a distinct root
+  cause: the item has two content_item_versions (v1 and v2) with different
+  choice-C text, a genuine version-mismatch defect of the kind this
+  session's QA protocol is designed to catch.
+- `apphy2-frq-003` — he flagged RC-circuit exponential-charging derivation
+  (time constant via KVL) as off-syllabus for AP Physics 2 (that's Physics
+  C: E&M content). Confirmed: the live stem asks students to "derive the
+  capacitor's time constant" via KVL, which is not Physics 2 CED content.
+- `apphycem-frq-008` — he flagged the part-b rubric criterion as literally
+  the pasted prompt text, not a scoring criterion. Confirmed verbatim:
+  `frq_criteria.learner_facing_text` for part-b is character-for-character
+  identical to the stem's part (b) instruction.
+
+**Cross-subject pattern found:** the "pasted-prompt rubric" defect (an FRQ
+criterion's learner-facing text is the prompt instruction copy-pasted
+instead of an actual scoring condition) appears on at least 6 of his 20
+reviewed items, spanning Physics 2, Physics C: E&M, and Physics C:
+Mechanics — not isolated to one batch or subject. He also independently
+flagged off-CED content in two different E&M MCQs (differential-form
+Gauss's law, `∇·E`, which is not in the Physics C: E&M CED — only the
+integral form is).
+
+**Assessment:** first-batch quality is high — physics-correct, cites the
+specific misconception each proposed distractor change targets, correctly
+distinguishes AP command-term usage (e.g. "Derive" vs "Determine," "Translate"
+is not an AP command term), and surfaced one genuine data-integrity bug and
+one genuine cross-subject content-generation defect pattern in his first 20
+items.
+
+**Next Owner:** David Bloom
+**Next Required Action:** Decide whether to open a full-corpus scan for the
+pasted-prompt-rubric pattern across Physics 2/E&M/Mechanics (mirroring the
+Biology/Chemistry full-corpus defect scans from 2026-08-07), given Ahmed's
+sample already surfaced it in 3 of 4 subjects.
+
+## AP Physics 1 CED Deepened for Units 1-3 (Second Physics Subject Off Bare Tier); 20-Item New-Protocol Batch Authored and Assigned to Saood — 2026-08-08
+
+**Trigger:** Owner asked to update the Physics 1 CED and create 10 FRQs + 10
+MCQs for Units 1-3 (Kinematics; Force and Translational Dynamics; Work,
+Energy, and Power), continuing the same-day pattern established for E&M.
+David initially supplied only 2024 exam-artifact PDFs; owner-question paused
+the work pending the full CED (mirroring the earlier AB/BC Units 4-8
+precedent), and David then supplied the full 220-page primary-source CED PDF.
+
+**CED update:** `docs/product/AP_PHYSICS_1_CED_FACT_PACK.md` gained a new
+"Units 1-3 deep-tier detail" section, grounded in the CED PDF (pages 21-74,
+read via 3 parallel per-unit research passes) plus the 2024 Scoring
+Guidelines, Chief Reader Report, and Q1/Q2 Sample Student Responses booklets.
+Headline finding: the 2024 Chief Reader Report documents that only about half
+of students correctly identified the *downward* direction of the normal
+force at the top of a vertical circular loop — the single strongest
+documented Unit 2 misconception, from over-applying the flat-surface
+"normal force points up" habit to a curved track. Units 4-8 remain topic-map
+tier.
+
+**Content batch:** 20 items fully drafted, content-key scheme
+`apphy1-frq-np1-001..010` / `apphy1-mcq-np1-001..010`
+(`scripts/content-seed/apphy1-newprotocol-2026-08-08/`). Every FRQ criterion
+and MCQ distractor traces to a specific documented misconception or
+CED boundary statement — the vertical-loop normal-force misconception, the
+static-vs-kinetic-friction equality/inequality distinction, the 1-D-only
+relative-velocity restriction, the gravity-only action-at-a-distance
+restriction, the g=10 vs. 9.8/9.81 no-penalty policy, the constant-force-only
+cosine work formula, conservative/nonconservative path-(in)dependence, and
+the documented delta-K=(1/2)m(delta v)^2 algebra error. Every criterion and
+answer key was hand-computed and verified before drafting (worked numbers
+recorded in each SQL file's header).
+
+**Resolved and executed:** the Supabase MCP block turned out to be a stale
+project ID in this session's tool calls, not an auth lapse — reauthorizing
+surfaced the correct Production project ID (`pcntajvbdfqhbeewmdry`), after
+which the three pre-run checks all passed: `exam_name='AP Physics 1'`,
+content_key prefix `apphy1-` (58 existing FRQ + 50 existing MCQ legacy
+items), and Muhammad Saood holds an active `grading` qualification for AP
+Physics 1 (along with AB/BC/Precalc/Physics 2/Physics C Mechanics/E&M/
+Chemistry). All 20 items inserted as `status='draft'` and assigned to Saood
+via `content_review_assignments` (`review_stage='tutor_question'`,
+`assignment_purpose='subject_review'`).
+
+**Next Owner:** David Bloom
+**Next Required Action:** None outstanding for this batch — review will
+surface once Saood works the queue.
+
+## AP Physics C: E&M CED Deepened for Units 8-10 (First Physics Subject Off Bare Tier); 20-Item New-Protocol Batch Authored and Assigned to Saood — 2026-08-08
+
+**Trigger:** Owner asked whether Saood had reviewed any Physics questions —
+answer: 482 across all four Physics variants, and he is effectively the
+sole reviewer for E&M (117 of 117 corpus-wide decisions), Physics 2 (121 of
+121), and Mechanics (109 of 109), with an edits-or-worse rate of 62-91%
+across the four. Owner then supplied the first full primary-source CED PDF
+for any Physics subject (previously all four were confirmed bare-tier with
+no local copy available) and directed the same CED-deepening + new-protocol
+batch process already run for Calculus AB/BC and Precalculus.
+
+**CED deepened, Units 8-10 only.** Read directly from the 189-page CED PDF
+(pages 21-58) plus the 2025 Scoring Guidelines, Chief Reader Report, and Q1
+Sample Student Responses booklet. Real, confirmed exclusion boundaries (more
+exclusion-explicit than Calculus, closer to Chemistry's density): Coulomb's
+law direct force calculations limited to 4 or fewer objects; calculus-based
+field/potential derivations limited to 5 named geometries (infinite
+wire/cylinder, ring on-axis, semicircular arc at center, finite line charge
+on-axis or on perpendicular bisector) — applied identically to both Unit 8
+(field) and Unit 9 (potential); Gauss's law limited to spherical/
+cylindrical/planar symmetry; quantitative capacitor analysis limited to
+parallel-plate, concentric spherical, and coaxial cylindrical geometries
+only (confirmed capacitor series/parallel combination rules are NOT in this
+unit — they belong to Unit 11).
+
+**Headline finding — the single lowest-scoring, most explicitly documented
+failure mode in the unit's real exam content:** capacitance-with-dielectric
+for a non-parallel-plate geometry. On the 2025 exam's only Units-8-10 FRQ,
+the capacitance-derivation part scored means of 0.19-0.26/1 (roughly a
+quarter of students), with the Chief Reader Report stating plainly that "a
+significant number of responses simply used the equation for parallel plate
+capacitance... indicat[ing] a lack of understanding of the different
+geometries." This is now the flagship trap encoded in both a new FRQ
+(deriving cylindrical capacitance with a dielectric, explicitly warned
+against reaching for the parallel-plate formula) and a new MCQ (offering
+`C=κε₀A/d` as a bait answer for a cylindrical capacitor). Also confirmed and
+encoded: Gauss's-law Gaussian-surface-area errors (documented real wrong
+substitutions `∮dA=πr²` and `∮dA=4πr²` for a cylindrical problem, mean
+scores 0.34-0.40/1); the standing "vector notation not required" and
+follow-through/consistency-credit rules; and the real
+field-cancels-but-potential-doesn't contrast at the center of a symmetric
+charge arrangement (vector vs. scalar superposition).
+
+**20-item batch authored and assigned:** 10 FRQ (`apphycem-frq-np1-
+001..010`) + 10 MCQ (`apphycem-mcq-np1-001..010`) — E&M's first
+new-protocol batch (content-key `-np1-` reserved separately per subject; no
+collision with the Calc BC `-np1-` batch since subject prefixes differ).
+Every criterion and answer key independently hand-verified by direct
+computation before insertion, structural gates clean. Assigned to Muhammad
+Saood — chosen both because he is the subject's dominant reviewer and
+because his historically high edits rate there gives real headroom to
+detect a defect-rate shift, matching the same logic used to pick Abdul
+Hanan for the Calculus batches. Scripts/README:
+`scripts/content-seed/apphycem-newprotocol-2026-08-08/`.
+
+**Still open:** whether the zero-defect (or near-zero) result seen on
+Abdul's Calc BC review replicates here, on a subject with historically the
+highest defect rate of any reviewed so far and the thinnest starting CED
+tier before today.
+
+---
+
+## Precalc CED Defects Fixed and Republished; Abdul's np1 Review QA'd (Zero Edits/Disapprovals, Replicating the Same-Day Result); 40-Item Replication Batch (AB + Precalc) Authored and Assigned — 2026-08-08
+
+**Precalc CED conformance-scan defects fixed and republished (owner-directed).**
+Same admin-remediation pattern as the Calc AB/BC fixes earlier this session:
+new admin-authored version per item, old retired, `owner_remediation_approval`
+decision recorded, republished through the standard two-step
+`reviewed_approved`→`published` gate.
+- `apprecalc-frq-006`: replaced a derivative-notation criterion
+  (`C′(t)=−12/(t+3)²<0`) with an algebraic decomposition
+  (`C(t)=2+12/(t+3)`, denominator increases ⇒ term decreases) — the source
+  defect was a calculus-register violation in a course whose CED explicitly
+  excludes calculus.
+- `apprecalc-frq-007`: corrected an arithmetic error, t≈7.91 → t≈7.904, in
+  both dependent criteria.
+- `apprecalc-frq-029`: added an explicit "which is a minimum" statement to
+  the stimulus, resolving a genuinely underdetermined sinusoidal-model setup
+  (two data points half a period apart, without an extremum stated, do not
+  uniquely pin down amplitude and phase).
+
+**Abdul's np1 review QA'd and compared against his baseline.** He completed
+all 20 BC np1 items (10 FRQ + 10 MCQ): **20/20 approve, 0 edits, 0
+disapprove** — versus his prior 88-decision AP Calculus BC baseline (52
+approve / 35 edits / 1 disapprove, 40.9% edits-or-worse). Spot-checked
+several of his notes against the actual item content (e.g. his
+`apcalcbc-frq-np1-002` note correctly identifies the jump-vs-removable
+discontinuity misconception the item was built to test; his
+`apcalcbc-mcq-np1-008` note correctly names the vertical/horizontal-tangent
+inversion distractor) — notes are specific and technically accurate, not
+generic, and his pacing (~60s/item average) is in line with his historical
+median, no rubber-stamp signal. Flagged one real methodological caveat to
+the owner: this batch's authoring included the author's own hand-verification
+pass before ever reaching Abdul, which the legacy `-u13-` comparison batch
+did not get — so the 0%-defect result conflates the CED-deepening effect
+with that extra verification step. Owner directed a second batch to test
+replication rather than treating the first result as denigrated or
+inconclusive.
+
+**40-item replication batch authored and assigned, spanning two subjects.**
+Same protocol as np1, including full hand verification of every criterion
+and answer key before insertion:
+- **AP Calculus AB** — 10 FRQ (`apcalcab-frq-np2-001..010`) + 10 MCQ
+  (`apcalcab-mcq-np2-001..010`), spanning Units 4-8 (the units covered in
+  today's CED deepening, distinct from np1's Units 1-3 focus). Grounded in
+  real documented patterns: the Candidates-Test-vs-local-test justification
+  split (Unit 5), the average-value-vs-average-rate-of-change confusion
+  (Unit 8), FTC derivative-vs-difference-quotient confusion (Unit 6),
+  concavity-driven over/underestimate reasoning (Unit 4/8), and the
+  L'Hospital 0/0-and-∞/∞-only exclusion (Unit 4).
+- **AP Precalculus** — 10 FRQ (`apprecalc-frq-np2-001..010`) + 10 MCQ
+  (`apprecalc-mcq-np2-001..010`), spanning Units 1-3 (the full assessed
+  scope), every FRQ built to the CED's fixed 3-part/6-point structure and
+  distributed across the 4 required task models (3 Function Concepts, 2
+  Modeling Non-Periodic, 2 Modeling Periodic, 3 Symbolic Manipulations).
+  Grounded in the same-day Precalc CED research: the "r-squared is not valid
+  justification" trap (Unit 2), hidden-quadratic-in-eˣ with explicit
+  negative-root rejection (Unit 2), and the frequency-to-sinusoidal-b
+  conversion (Unit 3) — with both periodic-context items stating their
+  extremum explicitly, avoiding the exact underdetermined-stimulus defect
+  just fixed in `apprecalc-frq-029` above.
+
+All 40 inserted as `status='draft'`, structural gates clean (4-choice/1-key
+MCQs, correct FRQ point totals — 6/6/6.../6 for all 10 Precalc FRQs
+specifically, matching the CED's rigid requirement). Assigned to Abdul Hanan
+(confirmed qualified for AB, BC, and Precalculus) via
+`content_review_assignments`. Scripts and index in
+`scripts/content-seed/replication-batch-2026-08-08/`.
+
+**Still open:** whether the zero-defect result replicates on this second,
+larger, two-subject batch — will only be known once Abdul reviews these 40.
+
+---
+
+## AP Calculus AB/BC CED Fact Pack Deepened Through Unit 8; Arc-Length AB/BC Scope Error Found and Corrected — 2026-08-08
+
+**Trigger:** Owner directive after seeing the day's defect-rate findings — "we need to work our way through the CEDs to make sure they are comprehensive and accurate. No wonder the defect rate is so high on so many subjects." Continuation of the same-day Units 1-3 deepening (previous entry) to cover Units 4-8, completing AP Calculus AB's full CED scope (AB is Units 1-8; Units 9-10 are BC-only).
+
+**Sources:** CED PDF pages 77-160 (Units 4-8 unit guides), read directly page-by-page via 4 parallel research passes. New source type beyond the CED and Scoring Guidelines: the 2025 AB Q1 and Q2 **Sample Student Responses and Scoring Commentary** booklets (`ap25-apc-calculus-ab-q1.pdf`, `-q2.pdf`) — these contain 3 real graded student responses per question with reader commentary explaining exactly why each point was or wasn't earned, materially more concrete than the scoring guideline text alone (e.g. a documented real response that computed average rate of change instead of average value and scored 0/2, with the commentary explaining exactly why).
+
+**Real defect found and corrected in the fact pack itself:** the prior version stated arc length (Unit 8, topic 8.13) was shared AB/BC content. Verified directly against the CED: explicitly BC-only in three places (title, Learning Objective CHA-6.A, EK CHA-6.A.1), using its own dedicated Enduring Understanding (CHA-6) separate from the rest of the unit. Checked the live Production corpus for any `apcalcab-*` arc-length item before fixing the claim — none found, so this specific error hadn't yet produced a live content defect, but the pack itself was wrong and any authoring/review guidance built on it would have been too.
+
+**Added to `docs/product/AP_CALCULUS_AB_BC_CED_FACT_PACK.md`, "Units 4-8 deep-tier detail" section:**
+- Confirmed exclusions: L'Hospital's Rule scoped to exactly two indeterminate forms (0/0 and ∞/∞ only — all others, including ∞−∞, explicitly excluded); three Unit 6 techniques BC-only (integration by parts, partial fractions restricted to linear-nonrepeating factors only, improper integrals); two Unit 7 topics BC-only (Euler's method, logistic models); arc length BC-only (the correction above).
+- Real, released-exam-confirmed scoring architecture: the Candidates Test vs. local-test split in Unit 5 (a locally-correct justification for an absolute extremum never earns the justification point but never blocks the answer point either — confirmed identically across three separate 2025 FRQ parts); the related-rates chain-rule-w.r.t.-t requirement (Unit 4, "stating dy/dt = dy/dx · dx/dt alone earns zero points" — must be carried through with values); the trapezoidal-sum 5-of-6-factors threshold (Unit 6); volume-setup credit split between structural form, numeric correctness, and the limits/constant/differential (Unit 8) — a missing π costs exactly one point, not the whole part.
+- Two real documented student errors with direct distractor-design value: average-value-vs-average-rate-of-change confusion (2025 Q1 sample response, scored 0/2) and a washer-method item that dropped the required constant-shift term entirely (2025 Q2 sample response, scored 0/3 despite an otherwise-correct setup skeleton).
+- Flagged Unit 7 as lower-confidence than the other four units: neither 2025 nor 2026's released AB FRQ set has an official-scoring-guide-backed item covering slope fields, Euler's method, or separation of variables.
+
+**Scope note:** this is AB's full deep-tier scope now (Units 1-8). BC's additional units (9-10, already BC-only) and BC's own possible extension beyond what AB shares were not touched this pass. Biology and Chemistry remain the only genuinely complete deep-tier packs; Statistics, Precalculus, and now Calculus AB/BC's shared Units 1-8 are partial-to-deep; Physics (all 4 variants) remains bare tier and was confirmed to have no better-tiered fallback within Physics itself (checked and reported earlier in this session).
+
+**Still open:** whether to run a conformance/defect scan of the existing published AB/BC corpus against this newly-deepened pack (the same kind of scan already run for Biology and Chemistry) — not requested this pass, but the natural next step given the owner's stated motivation.
+
+---
+
+## Reviewer QA Sweep Re-Run; AP Calculus BC CED Deepened to Units 1-3; 20-Item New-Protocol Comparison Batch Authored and Assigned to Abdul Hanan — 2026-08-08
+
+**Reviewer QA sweep (protocol re-run).** Ran the standing sweep methodology
+(`docs/Q&A/REVIEWER_QA_SWEEP_*.md` series) against window
+`2026-08-06 22:09:36+00` → `2026-08-08 02:06:24+00`: 110 decisions across 5
+reviewers, 0 integrity/structure defects. AP Biology accounted for 6 of 9
+disapprovals (33% of Adil Abbasi + Sarah Sohail's combined decisions),
+including a genuine rubric/genetics mismatch on `APBIO-FRQ-L-003` (rubric
+expects a 3:1 chi-square ratio; the stated cross implies 1:1). Chisom Anuba
+submitted her first 4 decisions this window (all independently verified
+correct), closing the "0 of 20 assignments touched" gap flagged earlier in
+the session. Full writeup: `docs/Q&A/REVIEWER_QA_SWEEP_2026_08_08.md`.
+
+**Jill Schmidlkofer gold-set corrections (owner-directed, mid-session).**
+Two rounds of returning submitted gold-set verification assignments to
+`pending` status after finding marking errors on re-audit: (1) 2 assignments
+tied to a mindfulness-app item Jill flagged as submitted in error (owner
+framed this as fixing an error in constructing the set, not revising
+after-the-fact marking); (2) 6 assignments where hand-verification against
+the literal answer text found 7 element marks incorrectly marked
+`present=false` despite direct textual matches (e.g. an answer stating "the
+mean is about 23.7 minutes, which is greater than the median" marked absent
+for exactly that criterion). Both rounds: deleted the existing
+`gold_set_element_marks` rows and reset `status`/`submitted_at`/
+`completed_by` so Jill can re-mark with owner feedback. No code change —
+`gold_set_element_marks` is deliberately write-once by design
+(`supabase/migrations/20260803120000_gold_set_verification.sql`); DELETE
+(not UPDATE) is the sanctioned admin path for this exact correction case.
+
+**Ghazanfar Ali reassignment prep.** Withdrew all 245 of his non-submitted
+`content_review_assignments` (217 pending + 28 skipped) to `status='withdrawn'`
+per owner instruction, opening those content-item-versions for reassignment
+to other qualified Physics reviewers. His 26 submitted decisions (last
+active 2026-07-29, a 9-day gap) were left untouched.
+
+**AP Calculus AB/BC CED fact pack deepened, Units 1-3 only.** Per
+`docs/research/CONTENT_AUTHORING_AND_QA_PROTOCOL.md` §1.6 this pack was
+"partial tier" — thinner than Biology/Chemistry's deep tier (no per-topic
+inline exclusions, no equation blocks). Brought Units 1-3 to deep tier using
+David-supplied primary-source PDFs read directly page-by-page: the CED PDF
+itself (pages 27-76), the 2025 AP Calculus Chief Reader Report, the 2025
+AB/BC Scoring Guidelines, and the 2025/2026 released FRQ booklets. Added a
+new "Units 1-3 deep-tier detail" section to
+`docs/product/AP_CALCULUS_AB_BC_CED_FACT_PACK.md` with per-topic exclusion
+language (only one boxed exclusion exists in this range: epsilon-delta is
+not assessed, topic 1.2), real documented misconceptions (IVT
+hypothesis-checking as the single lowest-scoring point pattern on the 2025
+exam; MVT/IVT confusion; chain-rule-on-exponentials mistaken for a
+product-rule pattern; vertical-vs-horizontal tangent inversion; five
+specific implicit-differentiation notation errors), and cross-unit scoring
+conventions (setup/execution/conclusion as separable points; the
+one-rounding-point-per-question cap; unsimplified answers earn full credit).
+Units 4-10 remain at partial tier — this was a scoped update to ground one
+authoring batch, not a ten-unit rebuild.
+
+**Investigated whether Physics had a comparable fact pack first (it does
+not).** Owner asked whether any of the four Physics CEDs (1, 2, C:
+Mechanics, C: E&M) were better-tiered than E&M before settling on Calculus.
+Read all four fact packs directly: identical thin structure (55-64 lines
+each, topic map + MC weighting + a short renumbering-guidance section), zero
+exclusion boundaries, zero equation blocks in any of the four — confirmed
+this is a Physics-wide gap, not E&M-specific, before recommending Calculus
+AB/BC (partial tier, real topic-level exclusion rules, sourced local PDF
+with a SHA-256 hash) as the fallback subject.
+
+**20-item new-protocol comparison batch authored: AP Calculus BC, Units
+1-3.** Purpose: compare approve-with-edits/disapprove rates against the
+existing legacy batch (`apcalcbc-frq-u13-001..020`, from
+`calc-ab-bc-units1-3-frq-2026-08-03/`, authored without deep-tier CED
+grounding) — chosen after confirming Physics's fact-pack gap made a Physics
+comparison meaningless, and after confirming Biology's corpus is already
+large enough that adding more published content has low marginal value.
+Authored 10 FRQs (`apcalcbc-frq-np1-001..010`) and 10 MCQs
+(`apcalcbc-mcq-np1-001..010`), every FRQ criterion and MCQ distractor
+traceable to a specific documented misconception or scoring convention from
+the research above — not invented arbitrarily (e.g. MCQ distractor "10x"
+for `d/dx[e^(5x^2)]` mirrors the Chief Reader Report's documented `u·e^u`
+vs. `e^u·u′` confusion; FRQ criteria for the implicit-differentiation item
+score the full differentiation step as all-or-nothing per real AP scoring,
+not uniformly-atomized 1pt pieces — the same defect TASK-0022 found and
+fixed for AP Statistics). All math independently hand-verified before
+insertion (including an exact match on `apcalcbc-frq-np1-008`'s
+implicit-differentiation algebra). Structural gates clean: all 10 MCQs have
+4 choices/1 correct key, all 10 FRQs have positive-point criteria. Inserted
+as `status='draft'` — scripts in
+`scripts/content-seed/calc-bc-units1-3-newprotocol-2026-08-08/`. Assigned
+all 20 to Abdul Hanan (88 prior AP Calc BC adjudications, 1 disapprove, per
+the reviewer QA sweep above) via `content_review_assignments`
+(`review_stage='tutor_question'`, `assignment_purpose='subject_review'`).
+
+**Provenance gap acknowledged, not solved.** The protocol's own P0-A gap
+(§7.1: no authoring-model/fact-pack-hash column exists on `content_items` or
+`content_item_versions`) means this batch's "authored under the new
+protocol" claim isn't machine-queryable — it's recorded in this log entry
+and the batch script's header comment instead. A future comparison query
+will need to identify the two cohorts by content_key prefix (`-u13-` vs.
+`-np1-`), not by a provenance field.
+
+**Still open:** the comparison itself — Abdul's approve/edits/disapprove
+rate on the `np1` batch vs. the legacy `u13` batch — will only be
+measurable once his review of these 20 items completes.
+
+---
+
+## FRQ Criterion Verification-Mode Tagging Protocol Drafted, Verified Against AP Statistics, Calculus AB, and English Literature — 2026-08-07
+
+**Trigger:** Jill (gold-set reader) asked whether a "compute the residual"
+instruction is satisfied by a bare correct numeric answer with no shown
+calculation. The answer turned out to depend on subject and point type in a
+way that's a real College Board scoring pattern, not free-form house style —
+worth encoding structurally rather than leaving to free-text
+`evidence_requirements` alone.
+
+**Investigation, in order:**
+- **AP Statistics** (2025/2026 released FRQs + 2025 AP Central sample-response
+  packets for Q1/Q2): no residual-type item found in the packets checked, but
+  the general exam Directions ("correct answers without supporting work may
+  not receive credit") and component-based E/P/I scoring notes point to a
+  `process_required`/`holistic` default for this subject.
+- **AP Calculus AB** (2025/2026 released FRQs + 2025 official Scoring
+  Guidelines + 2025 AP Central sample-response packets for Q1/Q2): confirmed
+  atomic point-based scoring where many "answer" points are explicitly
+  earnable "with or without supporting work" once a preceding "setup" point
+  is secured (verified point-by-point in the guideline text and in scored
+  student samples) — genuinely different from Statistics' holistic
+  component model, not the same rule restated.
+- **AP English Literature and Composition** (2025/2026 released FRQs +
+  2025 official Scoring Guidelines Set 1 + 2025 AP Central sample-response
+  packet for Q1 + full CED): confirmed a third, non-computational pattern —
+  Row A (Thesis) explicitly does not require the student to cite supporting
+  evidence to earn the point; Row B (Evidence and Commentary) requires a
+  specific textual citation connected to the argument; Row C (Sophistication)
+  is a bundled quality judgment with no decomposable "did you show X" check.
+
+**Output:** a 4-value, migration-gated enum (`conclusion_only`,
+`process_required`, `evidence_required`, `holistic`), each value backed by a
+specific citation from the above materials — no value added on inference
+alone. Documented in
+`docs/research/FRQ_CRITERION_VERIFICATION_MODE_PROTOCOL.md`, including a
+governance rule (a new value requires a primary-source citation plus a
+migration, never an ad hoc authoring choice) and an explicit non-goal: English
+Lit's Row B turned out to be scored on a continuous 0-4 band rather than a
+binary present/absent point, which is a structurally separate
+graduated-vs-binary axis that was deliberately kept out of this enum rather
+than folded in as a fifth value.
+
+**Grading-engine connection:** per
+`docs/research/RUBRIC_DECOMPOSITION_AND_PARTIAL_CREDIT_2026_07_30.md`, the
+automated judge workflow already invents missing structure when a criterion
+doesn't state it (74% of multi-point criteria have no stated point
+decomposition, and the grader fills the gap itself, with some observed
+non-monotonic scoring). A criterion's `verification_mode` would remove the
+same class of invented judgment call one level up — telling the grading
+prompt directly whether a bare correct answer suffices or specific supporting
+content must be located in the response — rather than requiring the model to
+guess it from the criterion's prose.
+
+**Status:** protocol document only; no schema changes applied. AP Physics,
+AP Chemistry (for this specific axis), AP Biology, and AP Precalculus remain
+unverified and should not be assumed to follow either the Calculus AB or
+English Lit pattern.
+
+**Addendum, same day — grading-engine integration confirmed against real
+code:** the Product Owner asked whether the tags could actually inform the
+grading engine. Traced the live implementation rather than speculating:
+`supabase/functions/_shared/grading-contract.ts` is the single shared
+prompt-building module used by both the production edge function
+(`evaluate-attempt/index.ts`) and the offline `grading-model-assessment`
+harness — no duplicated implementation to keep in sync. Both of its prompt
+variants (Arm B `buildGradingPrompt`, Arm A `buildCriterionGradingPrompt`)
+already carry an optional-field slot per criterion
+(`evidence_requirements`/`minimum_fix`, free text); `verification_mode`
+would occupy the same slot, translated to an instruction sentence rather
+than passed as a raw enum value to the model. The criterion fetch in
+`evaluate-attempt/index.ts` (~line 807-812) already selects the sibling
+fields from `app.frq_criteria`, so adding `verification_modes` is the same
+shape of change, not a new fetch path. Confirmed via `grading-router.ts`'s
+`resolveGradingRoute` that this only applies to the `discrete_text`/
+`llm_discrete_text` engine (Engine 1, the only one live in production) —
+`mcq` and `structured_formula` are deterministic/code-based with no prompt,
+and `human_shadow` (spatial/holistic rubric_type) is graded by a human, not
+an LLM, so tagging those criteria would currently have no effect. Full
+integration detail, including the proposed instruction-sentence mapping and
+a self-referential validation plan (paired bare-answer vs. shown-work test
+cases through the harness, no adjudicated gold needed, following the same
+method as `RUBRIC_DECOMPOSITION_AND_PARTIAL_CREDIT_2026_07_30.md`), added to
+`docs/research/FRQ_CRITERION_VERIFICATION_MODE_PROTOCOL.md` §6. Still no
+code changes made — this remains a protocol/design document.
+
+---
+
+## Full-Corpus AP Biology Content-Defect Scan: 99 Published Items Audited, 12 Defects Found and Corrected — 2026-08-07
+
+**Trigger:** Owner asked to scan any never-scanned subject; AP Biology (99
+published items, 58 MCQ + 41 FRQ) had never had a full-corpus defect scan.
+
+**Scan:** 7 parallel review agents (one per batch of ~14 items) independently
+re-derived correctness against the actual AP Biology CED content
+(evolution, cell biology/energetics, genetics, information transfer,
+ecology), not just trusting the stored answer key. 12 of 99 items flagged —
+a materially higher defect rate than the same-day AP Chemistry scan (5/110),
+consistent with this corpus never having been systematically audited before.
+
+**Defects found and corrected (all via new admin-authored versions, old
+versions retired, never edited in place; total rubric points verified
+unchanged except two metadata-only point-total corrections):**
+- `APBIO-MCQ-018`: distractor C was scientifically true (real HMG-CoA
+  reductase feedback-inhibition physiology), not a clean wrong answer —
+  replaced with a genuinely incorrect distractor.
+- `APBIO-FRQ-L-017`: stem asked about protein structure/enzyme kinetics
+  while stimulus/canonical answer/rubric were entirely about insulin
+  signaling — two unrelated questions stitched together. Rewrote the stem
+  to match the already-correct signaling content.
+- `APBIO-FRQ-L-004`: part (c)(iii) had a codon-identification error
+  (claimed codon 3 = UCC/Ser, actually GGA/Gly; correct mutation consequence
+  is Gly->Glu, not Ser->Tyr), and the `frq_criteria` row for that part
+  contained **unfinished AI scratchpad text** ("Wait — let me reconsider...
+  I'm overthinking this... confirmed by Orly during review") left live in
+  the published rubric. Corrected the codon math and rewrote the criterion.
+- `APBIO-FRQ-L-030`: Part C stem said "a threatened bird species" but the
+  stimulus/answer/rubric were about black-footed ferrets; the rubric also
+  referenced a nonexistent "Patch B" and Part D's answer/rubric cited a
+  specific plant elevation dataset (800-1200m -> 1000-1400m) never present
+  in the stem/stimulus. Fixed the species reference, removed the phantom
+  Patch B and dataset, generalized Part D to the actual (non-numeric)
+  question asked. Also corrected a `prompt_json.total_points` metadata
+  mismatch (10 vs. actual criteria sum of 9).
+- `APBIO-FRQ-L-006`: part (b)'s rubric ran a chi-square test directly on
+  raw genotype proportions (never multiplying by N=642), understating the
+  statistic ~425x and reaching the opposite Hardy-Weinberg conclusion
+  (fails to reject) from the canonical answer's correct count-based
+  calculation (chi-square=9.35, rejects). Fixed the rubric to match the
+  correct math.
+- `APBIO-FRQ-L-003`: part (d)'s canonical answer addressed a different
+  fertilization scenario (an n-1 gamete, explaining uniparental isodisomy)
+  than what the stem and rubric actually ask (an n+1 gamete fertilized by a
+  normal gamete -> trisomic zygote). Rewrote the answer to match.
+- `APBIO-FRQ-L-019`: part (a)(iii)'s canonical answer silently substituted
+  an unaffected genotype (X^A Y) for II-3, who the stem explicitly states is
+  an affected male (X^a Y), yielding 0% where the stem and the item's own
+  rubric both correctly require 25%. Corrected the cross and probability.
+- `APBIO-FRQ-S-089`, `APBIO-FRQ-S-061`, `APBIO-FRQ-S-009`: each canonical
+  answer only addressed criterion (a) of a two-criterion rubric, leaving 2
+  of 4 rubric points (criterion b) with no corresponding answer content —
+  species classification under the biological species concept, a
+  reproductive-isolation mechanism, and alternative splicing, respectively.
+  Wrote the missing content for each.
+- `APBIO-FRQ-L-031`: criterion (c) assumed "50x Km," a quantity never
+  stated in the stem (which says "50x the original level used in Part A" —
+  the lowest tested concentration, 0.5 mM). Reworded the criterion to match
+  the stem's actual language (50x0.5mM=25mM) without changing the
+  conclusion.
+
+**Also flagged, not corrected (not a content defect):** all 5
+`APBIO-HDG-2026-GRAPH-*` hand-drawn-graph items are tagged
+`rubric_type='discrete_text'`/`evaluator_strategy='llm_discrete_text'`
+despite criteria (`SEGMENTED_BARS`, `CURVE_SHAPE`, `DOT_COUNTS`,
+`X_LOCATION`) that only make sense evaluated against a photographed graph
+image — flagged for engineering to confirm whether this is intentional
+(e.g. a secretly-multimodal evaluator) or a mistag; out of scope for a
+content-only correction.
+
+Executed against Production `pcntajvbdfqhbeewmdry`. No double-published
+items detected across the AP Biology corpus after the batch.
+AP Physics 1/2/C:Mechanics/C:E&M remain unscanned (deferred at owner
+request pending discussion of these findings).
+
+---
+
+## Full-Corpus AP Chemistry Content-Defect Scan: 110 Published Items Audited, 5 FRQ Rubric-Criterion Defects Found and Corrected — 2026-08-07
+
+**Trigger:** Owner asked to scan the published AP Chemistry corpus for content
+defects.
+
+**Scan:** All 110 published items (68 MCQ, 42 FRQ) independently re-derived
+against the actual chemistry (stoichiometry, equilibrium, thermodynamics,
+electrochemistry, kinetics, bonding/structure, acid-base), not just trusting
+the stored answer key. MCQs verified directly; FRQs split across 3 parallel
+review agents (14 items each). All 68 MCQs and 37/42 FRQs came back clean —
+canonical answers correct throughout.
+
+**Defects found (5, all `frq_criteria` rubric-coverage mismatches, not wrong
+answer keys):**
+- `apchem-frq-l-010` (`e1`): criterion used metallic-bonding/malleability
+  language copy-pasted from the item's brass sub-question to grade an
+  unrelated molten-vs-solid-NaCl-conductivity sub-question.
+- `apchem-frq-l-011` (`part-e`): criterion only required naming the
+  ideal-gas assumption, never the Charles's-Law volume calculation (7.50 L)
+  the stem actually asks for.
+- `apchem-frq-l-016` (`a1`): `learner_facing_text`/`evidence_requirements`
+  referenced "Fe2O3," which does not exist anywhere in this Al + CuSO4
+  problem — a copy-paste artifact from a different stoichiometry item.
+  (`minimum_fix` was already correct/generic, so this was scoped to the two
+  reviewer/grading-facing fields.)
+- `apchem-sfrq-007` (`part-c`): criterion described the crossover-temperature
+  concept (ΔG=0) instead of grading the stem's actual part-(c) question
+  (calculate ΔG at T=310 K).
+- `apchem-sfrq-032` (`c1`): `minimum_fix` already correctly required stating
+  the equivalence-point pH (~7.00), but `learner_facing_text`/
+  `evidence_requirements` only covered curve shape — brought in line with
+  `minimum_fix` rather than adding a new criterion, so no point-value change.
+
+**Correction and republish:** each item got a new admin-authored version
+(old version retired, never edited in place) with only the flagged
+criterion's text corrected; total rubric points verified unchanged for all
+5. Recorded an `owner_remediation_approval` admin-approve decision citing
+DECISION-0044 on each new version, then published through the same
+structural-gate checks as the standing publish rule. All 5 now published
+with a single live version each (verified no double-publishes). Executed
+against Production `pcntajvbdfqhbeewmdry`.
+
+---
+
+## DECISION-0044 Publish-Protocol Scan: 39 AP Calculus AB/BC/Precalculus Items AI-QA'd and Published; TASK-0022 Docs Corrected — 2026-08-07
+
+**Trigger:** Owner asked to run the DECISION-0044 universal publish protocol
+against Production to find publishable items or items with two tutor
+approvals stuck pending further action.
+
+**Scan result:** Nothing currently satisfies the full Rule A/B + structural
+gates (the two prior publish runs already cleared what qualified). A broader
+scan found **39 items** — 17 AP Calculus AB, 10 AP Calculus BC, 12 AP
+Precalculus (MCQ and FRQ) — sitting at `reviewed_approved` with 2 distinct
+qualified tutor approvals and no conflicting decision, but no admin/AI-QA
+decision recorded: the missing leg of Rule A.
+
+**AI QA and publish:** Independently re-derived correctness for all 39 items
+by direct computation (limits, derivatives via product/chain/quotient/implicit
+differentiation, factoring, trig identities, table lookups) against the full
+stem/stimulus/prompt_json/frq_criteria content, not just the stored answer
+key. All 39 verified correct — no defects found. Recorded admin-profile AI-QA
+`approve` decisions (`approval_basis=two_qualified_tutor_approvals_plus_ai_qa`,
+`decision_ref=DECISION-0044`) and ran the standing Rule A publish logic; all
+39 published (0 blocked by structural gates). Executed against Production
+`pcntajvbdfqhbeewmdry`.
+
+**TASK-0022 doc/log correction:** the task doc and this log still read
+"not published" for TASK-0022's 9 pass-2 AP Statistics items, but they were
+actually published on 2026-08-07 (commit `99e923d`, prior entry below) —
+just never reflected back into the task doc. Corrected
+`docs/tasks/TASK-0022-AP-STATISTICS-MULTIPOINT-RUBRIC-DEFECT.md` status,
+"Still open" list, and acceptance criteria accordingly. The 32 spatial
+hand-drawn-graph items and the 24 `reviewed_approved`-but-unpublished AP
+Statistics items remain genuinely open (deliberately out of scope, not
+resolved).
 
 ---
 
