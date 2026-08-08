@@ -97,9 +97,12 @@ async function loadProfile(req: Request) {
 // tutor_question, aggregate 3 (Yes+Maybe)  → flag modification_reserved
 // tutor_question, aggregate 4-6            → flag excluded
 //
-// reader_question, score 1 (Approve)       → MCQ: flag question_review_approved (same as
-//                                            FRQ) and fan out optional tutor_answer ×4
-//                                            options ×2 tutors as non-blocking secondary QA
+// reader_question, score 1 (Approve)       → MCQ: flag mcq_answer_review_complete (the
+//                                            schema's own MCQ-terminal ready-to-ship state;
+//                                            see app.content_item_versions_review_status_check
+//                                            and the ready_to_ship_versions_count view) and
+//                                            fan out optional tutor_answer ×4 options ×2
+//                                            tutors as non-blocking secondary QA
 //                                            FRQ: flag question_review_approved
 // reader_question, score 2 (Edit+recycle)  → flag modification_reserved
 // reader_question, score 3 (Exclude)       → flag excluded
@@ -240,13 +243,17 @@ async function advanceWorkflow(
         // mcq_choices (hasExactChoiceKeys). Previously this branch left
         // review_status at "answer_tutor_review_pending" with no code path
         // anywhere that ever advanced it further — every approved MCQ was
-        // permanently stuck below the publish gate's
-        // review_status='question_review_approved' allowlist
-        // (docs/research/CONTENT_AUTHORING_AND_QA_PROTOCOL.md §7.2). Set the
-        // terminal status immediately, same as FRQ, instead of gating on a
-        // stage nothing ever completes. The fan-out below still runs, so a
-        // reviewer CAN still do the secondary per-choice pass if someone
-        // wants to use it later; it just no longer blocks publish.
+        // permanently stuck below the publish gate's allowlist
+        // (docs/research/CONTENT_AUTHORING_AND_QA_PROTOCOL.md §7.2).
+        // "mcq_answer_review_complete" is the schema's own pre-existing
+        // MCQ-terminal ready-to-ship value (content_item_versions_review_status_check,
+        // ready_to_ship_versions_count) — caught by review on PR #73 that an
+        // earlier version of this fix wrongly reused question_review_approved
+        // (the FRQ-specific value) here instead. Set the terminal status
+        // immediately instead of gating on a stage nothing ever completes.
+        // The fan-out below still runs, so a reviewer CAN still do the
+        // secondary per-choice pass if someone wants to use it later; it
+        // just no longer blocks publish.
         const { data: originalTutorAssignments } = await service
           .schema("app")
           .from("content_review_assignments")
@@ -295,7 +302,7 @@ async function advanceWorkflow(
         }
 
         await service.schema("app").from("content_item_versions")
-          .update({ review_status: "question_review_approved" })
+          .update({ review_status: "mcq_answer_review_complete" })
           .eq("id", versionId);
       } else {
         // FRQ: question review approved.
