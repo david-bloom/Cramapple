@@ -5,7 +5,7 @@
 **Owner:** Main Conductor (Claude)
 **Product Owner:** David Bloom
 **Tier:** Standard
-**Status:** In Progress (pilot + pass 2 executed against all published discrete_text items; publish decision and spatial-item scope still open)
+**Status:** In Progress (pilot + pass 2 executed and published against all published discrete_text items; spatial-item and reviewed_approved-backlog scope still open)
 **Priority:** Medium
 **Created Date:** 2026-08-07
 **Approved Date:** Pending (owner directed the pilot slice in chat, 2026-08-07; no formal APPROVAL/DECISION record yet)
@@ -106,12 +106,13 @@ boxplot's holistic graphical construction:
   bundling them would not correct a defect, it would manufacture one.
 
 Script: `scripts/content-seed/gold-set/20260807_apstats_multipoint_full_corpus_redecomposition.sql`.
-Left at `reviewed_approved`, **not published** — publishing (and whether to
-run a second gold-set generation pass against these 9) is a separate,
-not-yet-requested decision.
+
+**Publish decision resolved (2026-08-07):** all 9 items published to
+Production. Script: `scripts/content-seed/publication/20260807_publish_apstats_multipoint_pass2.sql`
+(commit `99e923d`). Whether to run a second gold-set generation pass against
+these 9 is a separate, not-yet-requested decision.
 
 **Still open:**
-- Publish decision for these 9 items.
 - Whether/how to address the 32 spatial hand-drawn-graph items (different
   engine, different kind of defect if any — not assessed here).
 - Whether to also touch the 24 `reviewed_approved`-but-not-yet-published
@@ -158,10 +159,13 @@ not-yet-requested decision.
 - [x] Answers loaded to Production under set_key='A'.
 - [x] Both Saood and Jill assigned all 30 new answers.
 - [x] 4 single-point assignments removed from Jill's queue.
+- [x] Pass-2 9-item publish decision resolved; all 9 published to Production
+      (commit `99e923d`).
 - [ ] Jill confirms (or corrects) the element decomposition during her pass.
 - [ ] False-accept rate computed once both readers complete their pass.
-- [ ] Owner decision on whether to remediate the remaining 178 AP Statistics
-      FRQ items.
+- [ ] Owner decision on the 32 spatial hand-drawn-graph items and the 24
+      `reviewed_approved`-but-unpublished items (both explicitly out of
+      scope for this task's pass 2).
 
 ## QA Plan
 

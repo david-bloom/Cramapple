@@ -14,6 +14,12 @@ Phase 7(b) after David's observation that **published content does not drift** �
 checker model, the fact pack, or a re-authored version can change, so re-checking is
 event-driven, not periodic (§6 Phase 7, §7 P0 ranking).
 
+**Revision note (v0.3):** adds §9, a second QA method distinct from §4's CED-conformance
+check. Piloted 2026-08-08 on 75 Physics items across three pools (single-`approve`,
+single-`approve_with_edits`-then-repaired, and a targeted structural-pattern scan) — the
+measured yield gap between pools (§9.3) is the load-bearing finding and should drive pool
+selection on future runs, not intuition about which subject "seems risky."
+
 **Why this document exists:** there is currently no single place that states what has to
 be true before a batch of questions gets written, which model does which job and why,
 what gates a question before it reaches a student, and what closes the loop after
@@ -352,7 +358,7 @@ exclusion lists** and can be conformance-checked against those today (partial co
 deepening them to per-topic inline exclusions is a later improvement, not a blocker. Do
 not fund a five-subject rebuild — it is a four-subject build plus a three-subject deepen,
 sequenced by which subject has the most content already published against its current
-pack (uncounted — see §8).
+pack (uncounted — see §10).
 
 ### P2 — No standing model-roster smoke test (§7.4), and no bias re-validation
 
@@ -366,7 +372,99 @@ both erode silently if left to memory.
 
 ---
 
-## 8. Explicit non-goals
+## 9. Existing-content QA — independent re-derivation
+
+**Status:** Piloted twice this session (2026-08-08) against Physics content, not yet a
+standing pipeline stage. This is a **second, distinct** QA method from §4's
+CED-conformance check — the two ask different questions, catch different defect classes,
+and neither substitutes for the other.
+
+**9.1 What it is, and how it differs from §4.** §4 asks *"does this item stay inside the
+CED's declared scope?"* — a blind model panel checks the item against the fact pack's text
+and needs at minimum a partial-tier pack to have anything to check against (§1.6). §9 asks
+*"is the stored stem/stimulus/rubric/answer-key actually correct?"* — an agent independently
+re-derives the item's answer from first principles (the physics/math/reasoning, not the
+fact pack) and diffs the result against what is stored. It requires no fact pack at all,
+works at any tier including bare, and catches a different class of defect: not scope
+overreach, but wrong distractor rationales, self-contradictory rubric text, physically
+false claims embedded in "correct" reasoning, and rubric criteria that don't actually
+grade what the stem asks. It is the QA-direction application of the same discipline
+Phase 1 (§6) requires of authoring: ground every claim, hand-verify every computation,
+before trusting it — applied to content someone else already wrote, not content being
+drafted now.
+
+**9.2 Method.**
+
+1. Select a pool (§9.3 — this is the step that determines whether the pass is worth
+   running at all).
+2. For each item, read the stem/stimulus/rubric-criteria-or-choices exactly as stored, plus
+   (if repairing against a specific reviewer note) the note itself.
+3. **Independently re-solve the item from scratch** — do not read the stored answer key
+   first and check it "looks right." Derive the numeric or logical answer, show the work,
+   then compare to what is stored.
+4. Where they disagree, determine whether the stored version or the independent derivation
+   is correct — this can itself surface a *third* possibility: both are wrong in different
+   ways (found twice this session, §9.3 examples).
+5. Any fix goes through the same insertion discipline as new authoring (§9.4) — never edit
+   a `content_item_versions` row in place; insert a new version.
+
+**9.3 Pool selection matters more than the method — measured this session.**
+
+| Pool | n | Real defects found | What this means |
+|---|---|---|---|
+| Single `approve`, never edited, never repaired | 25 | 0 confirmed defects (1 minor data-completeness gap: `apphy1-mcq-021` had a null `canonical_answer_1`, though the actual answer key in `mcq_choices.is_correct` was right) | Content that already cleared one human reviewer has a **low** independent-defect rate. Resampling this pool blind is expensive per real finding. |
+| Single `approve_with_edits`, repaired against the reviewer's own note | 25 | 2, **beyond what the note itself said** — `apphy1-mcq-022`'s distractor rationale asserted a physically false claim ("constant orbital speed gives T∝r^(1/2)"; it actually gives T∝r), and `apphycem-mcq-007`'s distractor rationale directly contradicted its own choice text | A human reviewer's note tells you *where* to look, but re-deriving the physics independently — not just implementing the requested edit literally — is what catches defects the reviewer themselves didn't articulate. |
+| Targeted structural-pattern scan (a specific hypothesis — "is the pasted-prompt-rubric defect systemic?" — checked with a SQL substring match, not model re-derivation) | 126 (68 E&M + 58 Mechanics FRQs) | 31 confirmed (22–28% of the pool) | By far the highest yield of the three. A **named, specific defect hypothesis** checked mechanically beats blind re-derivation over an unfiltered pool. |
+
+**The actionable takeaway:** do not spend this method's cost on blanket resampling of
+already-approved content — the yield is low. Spend it on (a) content that has never been
+independently checked at all, (b) repair work, where re-deriving from scratch catches more
+than literally implementing the requested edit, or (c) a specific, named defect-pattern
+hypothesis (the way §5 catches DeepSeek's verbatim-matching bias or Haiku's
+visible-and-rationalized bias by name) — pattern-hunting outperforms undirected sampling
+by roughly an order of magnitude on this session's numbers.
+
+**9.4 Remediation mechanics, and the schema gotchas that only surface once you try to
+correct something.** Every fix uses the `owner_remediation_approval` pattern already
+established for defect-fix batches: insert a new `content_item_versions` row
+(`version_num` + 1, never edit the existing row), insert its `frq_criteria` /
+`mcq_choices`, insert a `content_review_assignments` row
+(`assignment_purpose='owner_remediation_approval'`) and a matching
+`content_review_decisions` row (`tutor_score=1`), then set `content_items.status` to
+`reviewed_approved`. Three constraints bit this session's remediation batch and are worth
+recording so they don't have to be rediscovered:
+
+- **`lock_content_review_submission` requires the assignment to be `pending` or
+  `in_progress` at insert time**, not `submitted` — it flips the assignment to `submitted`
+  itself as a side effect of the decision insert. Inserting the assignment as
+  already-`submitted` and then trying to attach a decision fails with
+  `review_submission:assignment_locked`.
+- **`content_review_decisions.decision_hash` is `NOT NULL`** with no default — supply one
+  (`md5(version_id::text || reviewer_id::text || batch_tag)` is sufficient; it does not
+  need to be cryptographically meaningful, just present).
+- **`content_review_decisions` is immutable by design** — a trigger
+  (`prevent_review_decision_mutation`) unconditionally blocks `UPDATE`/`DELETE`, by the
+  same write-once philosophy as `gold_set_element_marks`. The documented correction path is
+  `supersedes_id`, but **superseding still needs a fresh `pending` assignment on the same
+  version**, and a uniqueness constraint (`content_item_version_id, reviewer_id,
+  review_stage`) blocks a second assignment for the same reviewer+version+stage. In
+  practice this means a wrong remediation cannot be undone by superseding on the same
+  version — it requires **a further new version** (found and executed live this session,
+  correcting a misapplied fix on `apphycm-frq-018`: reverted the content verbatim to the
+  pre-mistake version, then inserted a normal new decision on that reverted version
+  explaining the correction and pointing at the item that was actually supposed to be
+  fixed). Write this down once here rather than rediscovering it under time pressure again.
+
+**9.5 Standing recommendation.** Do not run §9 as a periodic full-corpus sweep — §9.3's
+yield table is the argument against it. Run it (a) whenever a defect *pattern* is
+hypothesized (a reviewer note, a QA finding, or a spot-check surfaces something that might
+recur — check whether it does, mechanically, before assuming it's isolated), and (b) as
+the verification step whenever repairing flagged content, never as a blind resample of
+content that already cleared review.
+
+---
+
+## 10. Explicit non-goals
 
 - Does not cover the grading/gold-set pipeline (`GOLD_SET_GENERATION_PROTOCOL.md` governs
   that) — shared conventions, not shared process.
@@ -375,3 +473,7 @@ both erode silently if left to memory.
   conformance findings: `apchem-frq-l-010`, `-021`, `-035`) — a scheduling decision.
 - Does not pick which Physics pack is built first, or which partial pack is deepened first
   (§7.3) — depends on published-item counts per subject, which nobody has counted yet.
+- Does not claim §9's three-pool comparison (n=25, n=25, n=126, one session, one subject
+  family) is a statistically settled yield ratio — it is a directional finding strong
+  enough to guide pool selection, not a constant to cite without re-checking on a
+  different subject or a larger sample.
