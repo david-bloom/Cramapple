@@ -143,8 +143,23 @@ where r.content_key='APSTATS-SFRQ-010';
 
 -- Draft the element decomposition for each new multi-point criterion (Phase
 -- 0.5's AI-draft step). Left unconfirmed for Jill to confirm.
+--
+-- element_index is computed as a running sequence GLOBAL to the item
+-- (row_number() partitioned by content_item_version_id, ordered by
+-- criterion_key then each criterion's own authoring-time local_index) --
+-- never hand-typed per criterion. Hand-typed per-criterion indices (1,2,...
+-- restarting at each criterion) are exactly the TASK-0022 gold-set
+-- rubric-ordering defect fixed 2026-08-08 (see
+-- docs/activity_log/ACTIVITY_LOG.md, "Gold-Set Rubric-Ordering Defect Found
+-- (5 Items) and Fixed"): naive display order by element_index alone
+-- scrambled part order whenever a later criterion's index collided with an
+-- earlier criterion's. Computing it here removes the possibility of
+-- reintroducing that defect in any future redecomposition copied from this
+-- script.
 insert into app.gold_set_elements (frq_criterion_id, content_item_version_id, element_index, element_label)
-select fc.id, r.new_version_id, x.element_index, x.element_label
+select fc.id, r.new_version_id,
+  row_number() over (partition by r.new_version_id order by x.criterion_key, x.local_index),
+  x.element_label
 from repaired r
 join app.frq_criteria fc on fc.content_item_version_id=r.new_version_id
 join (values
@@ -164,7 +179,7 @@ join (values
   ('APSTATS-SFRQ-010','a',2,'Computes the standard deviation as 0.3 hours.'),
   ('APSTATS-SFRQ-010','a',3,'Explains that the sample size is large enough for the CLT to apply.'),
   ('APSTATS-SFRQ-010','b',1,'Explains that the standard deviation would increase to 0.6 hours because the sample size is smaller.')
-) as x(content_key, criterion_key, element_index, element_label)
+) as x(content_key, criterion_key, local_index, element_label)
   on x.content_key=r.content_key and x.criterion_key=fc.criterion_key;
 
 update app.content_item_versions civ
