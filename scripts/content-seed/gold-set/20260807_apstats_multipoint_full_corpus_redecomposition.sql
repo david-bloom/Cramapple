@@ -240,8 +240,24 @@ from repaired r, (values
 where r.content_key='APSTATS-SFRQ-016';
 
 -- Draft the element decomposition for each new multi-point criterion.
+--
+-- element_index is computed as a running sequence GLOBAL to the item
+-- (row_number() partitioned by content_item_version_id, ordered by
+-- criterion_key then each criterion's own authoring-time local_index) --
+-- never hand-typed per criterion. Hand-typed per-criterion indices (1,2,...
+-- restarting at each criterion) are exactly the TASK-0022 gold-set
+-- rubric-ordering defect fixed 2026-08-08 (see
+-- docs/activity_log/ACTIVITY_LOG.md, "Gold-Set Rubric-Ordering Defect Found
+-- (5 Items) and Fixed"): naive display order by element_index alone
+-- scrambled part order whenever a later criterion's index collided with an
+-- earlier criterion's -- exactly the failure mode this item's four
+-- multi-point criteria (a/b/c1/c2, each restarting at 1) would otherwise
+-- reproduce. Computing it here removes the possibility of reintroducing
+-- that defect in any future redecomposition copied from this script.
 insert into app.gold_set_elements (frq_criterion_id, content_item_version_id, element_index, element_label)
-select fc.id, r.new_version_id, x.element_index, x.element_label
+select fc.id, r.new_version_id,
+  row_number() over (partition by r.new_version_id order by x.criterion_key, x.local_index),
+  x.element_label
 from repaired r
 join app.frq_criteria fc on fc.content_item_version_id=r.new_version_id
 join (values
@@ -271,7 +287,7 @@ join (values
   ('APSTATS-SFRQ-014','b',2,'States that the p-value is very small and rejects H0 at alpha = 0.05.'),
   ('APSTATS-SFRQ-016','b',1,'Computes the expected count for freshmen who like the app as 15.'),
   ('APSTATS-SFRQ-016','b',2,'Computes chi-square as 2.40.')
-) as x(content_key, criterion_key, element_index, element_label)
+) as x(content_key, criterion_key, local_index, element_label)
   on x.content_key=r.content_key and x.criterion_key=fc.criterion_key;
 
 update app.content_item_versions civ
