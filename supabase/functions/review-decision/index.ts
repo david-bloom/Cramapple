@@ -5,6 +5,7 @@ import {
   hasExactChoiceKeys,
   normalizeAnswerApprovals,
   requiresTutorNote,
+  resolveTutorDecisionLabel,
   resolveTutorScore,
 } from "./review-payload.ts";
 
@@ -397,6 +398,10 @@ Deno.serve(async (req) => {
     b.tutor_score ?? b.score,
     b.tutor_decision,
   );
+  const tutorDecisionLabel = resolveTutorDecisionLabel(
+    tutorScore,
+    b.tutor_decision,
+  );
   const difficultyLabel = asString(b.difficulty_label ?? b.difficulty);
   const diagnosticFlag = asBool(b.diagnostic_flag) ?? false;
   const concernCodes = asStringArray(b.concern_codes);
@@ -518,6 +523,7 @@ Deno.serve(async (req) => {
       );
     }
     decisionPayload.tutor_score = tutorScore;
+    decisionPayload.tutor_decision = tutorDecisionLabel;
     decisionPayload.difficulty_label = difficultyLabel;
     decisionPayload.diagnostic_flag = diagnosticFlag;
     decisionPayload.concern_codes = concernCodes;
@@ -642,6 +648,7 @@ Deno.serve(async (req) => {
       supersedes_id: supersedes,
       review_stage: reviewStage,
       tutor_score: tutorScore,
+      tutor_decision: tutorDecisionLabel,
       difficulty_label: difficultyLabel,
       diagnostic_flag: diagnosticFlag,
       concern_codes: concernCodes,
