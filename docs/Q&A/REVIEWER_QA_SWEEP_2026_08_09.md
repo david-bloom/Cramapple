@@ -84,7 +84,7 @@ way isn't meaningful on its own.
      mismatch rather than a wrong answer key.
 3. **A recurring, low-severity pattern, concentrated in E&M, not spread evenly across the
    batch: unstated sign/reference conventions.** Keyword-verified re-scan of all 28
-   non-clean `-np1-` notes: 9 of 16 non-clean E&M items (56%) cite a missing convention
+   non-clean `-np1-` notes: 10 of 18 non-clean E&M items (56%) cite a missing convention
    (state `ρ>0`/`λ>0`/`|·|`, the `V(∞)=0` reference, the Coulomb's-constant value used, or
    a "long cylinder / negligible end effects" assumption) vs. **0 of 10** non-clean Physics
    1 items. This answers the "is this a source-fixable bug, not independent findings"
@@ -92,6 +92,21 @@ way isn't meaningful on its own.
    not to diverse independently-discovered defects — pin a "state your sign/reference
    conventions explicitly" instruction for the E&M `-np1-` pool specifically (Physics 1
    doesn't need it; its edits are a different mix, see next point).
+
+   **Impact of this systemic gap on how to read the top-line rate table above:** E&M's raw
+   `-np1-` row (10% approve / 80% edits / 10% disapprove) reads as flat-to-slightly-worse
+   than its historical rate (15.4% / 76.9% / 7.7%) — but that comparison treats all 16 edits
+   as 16 independent findings. They aren't: 10 of them are the *same* missing instruction
+   counted once per item. Strip the convention-only edits out and E&M's genuine,
+   non-duplicate defect rate is 6 of 20 items (30%) needing an edit for a reason other than
+   the convention gap, plus the 2 disapprovals — closer to Physics 1's profile than the raw
+   80% suggests. The systemic error doesn't change the honest per-item Approve/Edit/
+   Disapprove tally reviewers should keep recording (that's the real audit trail), but it
+   means the raw rate *overstates* how rough the `-np1-` E&M authoring pass actually is:
+   fix the one instruction and the batch's effective quality converges toward Physics 1's,
+   not toward "E&M is systematically worse than usual." Physics 1's row needs no such
+   correction — 0 of its 10 non-clean items share a common root cause, so its 50%/50%/0%
+   is 10 independent judgment calls, not one gap repeated.
 4. **One specific bug recurs twice in the same 40-item batch, independent of the convention
    pattern above:** the normal-force-direction-at-minimum-speed ambiguity (a ball/car on a
    vertical circular track at the exact minimum speed has `N=0`, so "state the normal
