@@ -154,23 +154,53 @@ a different wording for the same lettered choice in whatever surface reads
 `app.mcq_choices` directly (or vice versa) — confusing, and a real defect, but not one that
 changes which choice is scored correct.
 
-## 7. Follow-ups
+## 7. Follow-ups — all executed 2026-08-09, same day
 
-- **Remediate the 25 stem/`mcq_choices` desync items** (§5's list) through the same
-  new-version → review → approval → publish path already used for the prior 63-item
-  desync-fix batch — same defect class, different instances.
-- **Fix at the source, not just the instances:** since 100% of flagged items are
-  `version_num >= 2`, whatever code path creates a new content version during repair
-  should either (a) stop letting stems embed a duplicate option list at all — render
-  options from `mcq_choices` only — or (b) if the embedded list is intentional, regenerate
-  it from `mcq_choices` on every version bump instead of hand-editing both independently.
-  Option (a) removes the defect class entirely rather than requiring discipline to keep two
-  copies in sync.
-- **Pool 1's 0/25 result (now 0/50 across two runs, 4 subjects added) supports the
+- **Remediated all 25 stem/`mcq_choices` desync items.** Cross-checked every mismatch
+  against its own `rationale` field first (in all 25, `mcq_choices.choice_text` was
+  internally consistent with its rationale — the rationale was clearly written against
+  that exact wording — confirming `mcq_choices` is the authoritative side and the stem's
+  embedded copy is the stale leftover in every case, including the one item,
+  `apchem-mcq-063`, where the mismatch was pure scientific-notation spacing rather than a
+  content difference). Script:
+  `scripts/content-seed/reviewer-qa-remediation/20260809_stem_choice_desync_repair.sql` —
+  new version → resynced stem → copy `mcq_choices` unchanged → `owner_remediation_approval`
+  assignment/decision → `reviewed_approved` → `published`, the same insertion discipline as
+  every prior remediation batch. All 25 committed; post-repair scan confirms **0 remaining
+  desyncs across all 360 published MCQs, all 10 subjects** (up from 25/360 before this
+  run).
+- **Fixed at the source.** Added a standing Postgres trigger,
+  `supabase/migrations/20260809130000_mcq_stem_choice_sync_gate.sql`
+  (`app.enforce_mcq_stem_choice_sync`, firing `BEFORE INSERT OR UPDATE OF status, stem ON
+  app.content_item_versions`), that blocks any future `status='published'` transition for
+  an MCQ whose stem embeds option text that doesn't match `app.mcq_choices` for the same
+  letter — regardless of which code path (app, a future hand-written repair script, or
+  manual SQL) creates the version. This is "defense in depth" alongside the P0-B publish
+  gate, not a substitute. The migration also adds `app.mcq_stem_choice_desync()` (detector,
+  reused by the trigger and by any future scan) and `app.mcq_stem_choice_resync()` (the
+  repair helper the remediation script above used) as standing, reusable functions —
+  verified correct against the known-mismatched items before being applied to Production.
+  The 25-item remediation batch itself was the first thing to pass through this new gate
+  (it would have blocked publish on any leftover mismatch — it didn't fire, confirming the
+  repair was complete).
+- **Repaired and republished the two Pool 2 minor notes.**
+  `scripts/content-seed/reviewer-qa-remediation/20260809_pool2_minor_notes_repair.sql`:
+  `apcalcbc-frq-u13-014` retagged from `unit: 2` / `"2.1 Defining Average and Instantaneous
+  Rates of Change at a Point"` to `unit: 5` / `"5.1 Using the Mean Value Theorem"` (verified
+  against `docs/product/AP_CALCULUS_AB_BC_CED_FACT_PACK.md` line 105 — the QA agent's
+  original "5.9" citation was itself wrong; 5.9 is a different topic, MVT is 5.1) to match
+  what Part C actually requires. `apchem-sfrq-015`'s part-c rubric (2 points) tightened from
+  a purely qualitative "frequency isn't simply mole count" requirement to explicitly
+  require the quantitative conclusion (rate ratio He:Ar ≈ 2.1, so He collides *more*
+  frequently than Ar despite fewer moles) for full credit, split into two explicit
+  1-point elements. Both republished; point totals verified unchanged (9 and 4
+  respectively).
+- **Pool 1's 0/25 result (now 0/50 across two runs, 4 subjects added) still supports the
   protocol's standing recommendation**: don't spend more of this method's cost on blind
-  Pool-1 resampling. If more §9 budget is available, spend it on more Pool 2 sampling
-  (298-item population, only 8% sampled so far) or on named-pattern scans like §5's, not on
-  Pool 1.
-- Route `apcalcbc-frq-u13-014`'s topic-tag correction and `apchem-sfrq-015`'s rubric
-  tightening as low-priority content-ops cleanup — neither is student-facing wrong, both
-  are worth fixing opportunistically.
+  Pool-1 resampling. The 298-item Pool 2 population is only 8% sampled — more §9 budget, if
+  any, should go there or into named-pattern scans like §5's, not into Pool 1.
+
+**Final re-verification, same session:** 0 remaining stem/`mcq_choices` desyncs (any
+subject), 0 disapproved-but-published items (P0-B net), 0 content items with more than one
+`published` version, both DB-level gates (`content_item_versions_publish_gate` and
+`content_item_versions_mcq_stem_choice_sync`) confirmed active.
