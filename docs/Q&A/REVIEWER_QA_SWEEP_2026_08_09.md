@@ -165,11 +165,15 @@ content row. Re-querying Production today confirms none of that ever landed, for
 subject — and **AP Biology is now the worst subject in Production by this measure**: 27 of
 42 published MCQs (64%) carry a correct/distractor length ratio ≥ 1.4, the highest rate of
 any subject (next-worst: AP Chemistry at 19/68 = 28%). Full 27-item list and per-item
-balanced-distractor drafts are being produced now in
-`docs/research/AP_BIOLOGY_MCQ_LENGTH_PARITY_REMEDIATION_2026_08_09.md` (in progress) —
-drafts only, per the same insertion discipline as §9.4: no content row will be touched
-without qualified AP Biology subject-matter review and the new-version → review → approval
-→ publish flow.
+balanced-distractor drafts are complete in
+`docs/research/AP_BIOLOGY_MCQ_LENGTH_PARITY_REMEDIATION_2026_08_09.md` — all 27 simulate to
+a ratio below 1.4 after the rewrite (range 0.61x-1.25x), correct answers left completely
+unchanged, each rewritten distractor keeping its original misconception but expanded to
+comparable length/specificity. Drafting also surfaced (incidentally, not from a targeted
+audit) that none of the 27 items has a wrong-keyed answer or an internally contradictory
+stem. **Still drafts only**, per the same insertion discipline as §9.4: no content row has
+been touched, and none should be without qualified AP Biology subject-matter review and the
+new-version → review → approval → publish flow.
 
 ## TASK-0022 source fix
 
@@ -205,9 +209,10 @@ submitted; Chisom Anuba 7 pending. No new submissions this window.
 - Remediate the 5 still-published pasted-prompt-rubric FRQs (`apphy2-frq-002/003/005`,
   `apphycem-frq-008/009`) — same defect class as the 63 already fixed, just missed by that
   pass.
-- Publish the AP Biology length-parity remediation once drafted (in progress,
-  `docs/research/AP_BIOLOGY_MCQ_LENGTH_PARITY_REMEDIATION_2026_08_09.md`) through qualified
-  subject-matter review — 27 published items, worst rate of any subject.
+- Route the completed AP Biology length-parity drafts
+  (`docs/research/AP_BIOLOGY_MCQ_LENGTH_PARITY_REMEDIATION_2026_08_09.md`, all 27 items)
+  through qualified subject-matter review and the new-version → approval → publish flow —
+  drafted, not yet reviewed or published.
 - Review coverage this window was thin (1 blind reviewer vs. 5 on 08-08) — confirm whether
   that's a scheduling gap or the other reviewers are between assignments before treating it
   as a trend.
