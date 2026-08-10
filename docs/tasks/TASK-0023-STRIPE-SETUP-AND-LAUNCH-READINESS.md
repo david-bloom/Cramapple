@@ -30,8 +30,9 @@ work implied across multiple documents.
   anything, is actually configured in the Stripe dashboard and in the
   Lovable/Supabase codebase today, since this repository contains no Stripe
   account IDs, product/price IDs, or webhook code.
-- Define the product/price catalog in Stripe for the AP Biology one-time
-  purchase (depends on `BIZ-001` price and access-duration decisions).
+- Implement the product/price/coupon catalog per the settled
+  **Pricing and Catalog Design** section below (depends on `BIZ-001` for the
+  actual price and discount amounts; the catalog shape itself is decided).
 - Define and implement the Stripe Checkout flow (session creation, success/
   cancel routes, referral/promo-code metadata per
   `CRAMAPPLE_MARKETING_STACK_REPORT_2026.md` referral section).
@@ -55,6 +56,80 @@ work implied across multiple documents.
   blockers already tracked elsewhere (`BIZ-001` pricing/refund policy,
   `GTM-001` launch messaging, `TASK-0012` cutover blockers) so this task can
   serve as the single pre-launch gate index rather than duplicating them.
+
+## Pricing and Catalog Design (Settled 2026-08-10)
+
+Cramapple sells per-subject access, with three additional multi-subject
+options: a 2-subject bundle, a 3-subject bundle, and an unlimited-subjects
+option. The catalog and purchase-flow shape below is settled; the actual
+Stripe Product/Price/Coupon objects ("product codes") have not been created
+in Stripe yet — that setup work is deferred to implementation and is owned
+by David Bloom.
+
+**Catalog shape — no combinatorial SKUs.** The catalog holds `N + 3` Prices,
+not one per subject-combination:
+
+- one Product+Price per subject (the single-subject SKU), e.g. AP Biology,
+  AP Chemistry, AP Statistics;
+- one flat Price for the 2-subject bundle;
+- one flat Price for the 3-subject bundle;
+- one flat Price for unlimited access.
+
+Bundle Prices are priced by subject **count**, not subject **identity**.
+Stripe never encodes which specific subjects are in a bundle. When a student
+buys a bundle, the app collects which subjects they want (a checkbox picker
+built in-app, not a Stripe UI) and the Checkout Session is created
+server-side with one bundle-price line item plus `subject_ids` metadata
+(e.g. `"biology,chemistry"`) and a `bundle_tier` metadata value. The
+`checkout.session.completed` webhook reads `subject_ids` and grants one
+Supabase entitlement row per listed subject — the app-side entitlement
+check never needs to know whether a subject came from a bundle or a single
+purchase. Unlimited access should be stored as a wildcard
+(`all_subjects_access`-style) entitlement rather than an explicit subject
+list, so it automatically covers subjects added after purchase; confirm this
+policy (does "unlimited" cover future subjects, or only subjects that exist
+at purchase time?) before implementation.
+
+**Single-subject purchases always pay the individual price.** There is no
+bundle-building-up-from-singles path and no dynamically computed "upgrade"
+price. A student who already owns one subject and buys a second pays the
+same single-subject Price as their first purchase (subject to the coupon
+mechanism below). This removes the need for any ad-hoc/computed pricing,
+per-owned-subject-count Price tiers, or upgrade-specific refund attribution
+that earlier drafts of this design considered.
+
+**"Add another subject" incentive uses a Stripe Coupon/Promotion Code, not a
+special price tier.** The marketing nudge ("add another subject and use
+coupon code `upgrade123` for a special price") is implemented as:
+
+- a Stripe **Coupon** (percent-off or amount-off), scoped via
+  `applies_to.products` to the single-subject Prices only, so it cannot be
+  applied to a bundle purchase;
+- a Stripe **Promotion Code** (the human-typeable code, e.g. `upgrade123`)
+  pointing at that coupon;
+- `allow_promotion_codes: true` on the relevant Checkout Sessions so the
+  student can redeem it directly in Stripe Checkout.
+
+Entitlement-granting logic needs no special case for a coupon-discounted
+purchase — it is a normal single-subject `checkout.session.completed` event
+at a lower `amount_total`, same `subject_ids` metadata contract as any other
+single-subject buy.
+
+**Two open items, deferred to the product-code build:**
+
+1. **Shared vs. per-customer promo code.** A single shared code (e.g.
+   `upgrade123` for everyone) is simplest but can leak or be reused by
+   students who don't qualify, since Stripe promo codes don't know about
+   Cramapple's own entitlement state — the app controls *who sees* the
+   prompt, not *who can redeem* the code. A per-customer one-time code
+   (generated via the Stripe API when the upgrade prompt is shown, with
+   `max_redemptions: 1`) closes that gap at the cost of more implementation
+   work. Not yet decided.
+2. **Bundle-vs-discounted-singles economics.** Confirm the discounted
+   second-subject price (single price + coupon discount) does not end up
+   cheaper than the 2-subject bundle price, or the bundle stops making sense
+   as an option. This is a `BIZ-001` pricing decision, not a Stripe
+   mechanics question.
 
 ## Out of Scope
 
