@@ -1,0 +1,94 @@
+{
+  "schema": "exemplar_grading_pilot_item_pool_split_v1",
+  "subject": "AP Statistics",
+  "generated_at_note": "Manually derived from a read-only Production audit, 2026-08-10. content_taxonomy_labels.primary_unit is null for all 10 items (taxonomy labeling never ran on this corpus) and content_item_versions.stem is generic boilerplate ('Answer all parts of the following question.') for every item, so the actual question topic was read from content_item_versions.stimulus and used as the module proxy instead. This is the one confound-check dimension available; no difficulty/form metadata differentiates these items (all frq_form='short').",
+  "topic_pairs": [
+    {
+      "topic": "descriptive stats / outliers and standardized scores (Unit 1 proxy)",
+      "exemplar_item": { "content_key": "APSTATS-SFRQ-002", "content_item_version_id": "03d4a598-d027-449a-896a-205d982f12c5", "n_answers": 8, "n_verified_answers": 6 },
+      "held_out_item": { "content_key": "APSTATS-SFRQ-001", "content_item_version_id": "ec218044-fa22-45a3-9371-7fce48c108e8", "n_answers": 10, "n_verified_answers": 8 }
+    },
+    {
+      "topic": "bivariate data / least-squares regression (Unit 2 proxy)",
+      "exemplar_item": { "content_key": "APSTATS-SFRQ-004", "content_item_version_id": "2e959510-8bab-4db6-8089-043329693934", "n_answers": 9, "n_verified_answers": 7 },
+      "held_out_item": { "content_key": "APSTATS-SFRQ-003", "content_item_version_id": "b0bd8a7f-333e-45c8-8cf4-07a13fb6b4f4", "n_answers": 9, "n_verified_answers": 7 }
+    },
+    {
+      "topic": "sampling bias / experimental design (Unit 3 proxy)",
+      "exemplar_item": { "content_key": "APSTATS-SFRQ-006", "content_item_version_id": "6b092324-ceeb-4541-93ee-509ca8bf6a62", "n_answers": 6, "n_verified_answers": 6 },
+      "held_out_item": { "content_key": "APSTATS-SFRQ-005", "content_item_version_id": "0838c753-d383-48c5-a22f-aab1672eae4f", "n_answers": 6, "n_verified_answers": 6 }
+    },
+    {
+      "topic": "probability / random variables (Unit 4 proxy)",
+      "exemplar_item": { "content_key": "APSTATS-SFRQ-007", "content_item_version_id": "07ef9bbb-739d-4807-9928-ef02b7d7583f", "n_answers": 6, "n_verified_answers": 6 },
+      "held_out_item": { "content_key": "APSTATS-SFRQ-008", "content_item_version_id": "efc05957-06a3-4b0e-8097-9926841fdaff", "n_answers": 8, "n_verified_answers": 8 }
+    },
+    {
+      "topic": "sampling distributions (Unit 5 proxy)",
+      "exemplar_item": { "content_key": "APSTATS-SFRQ-010", "content_item_version_id": "7abbb85e-a697-4db6-bea8-b363bea8f36e", "n_answers": 8, "n_verified_answers": 8 },
+      "held_out_item": { "content_key": "APSTATS-SFRQ-009", "content_item_version_id": "22c1824d-b601-4050-83ae-edb18b8e98bb", "n_answers": 8, "n_verified_answers": 8 }
+    }
+  ],
+  "exemplar_pool_item_version_ids": [
+    "03d4a598-d027-449a-896a-205d982f12c5",
+    "2e959510-8bab-4db6-8089-043329693934",
+    "6b092324-ceeb-4541-93ee-509ca8bf6a62",
+    "07ef9bbb-739d-4807-9928-ef02b7d7583f",
+    "7abbb85e-a697-4db6-bea8-b363bea8f36e"
+  ],
+  "held_out_item_version_ids": [
+    "ec218044-fa22-45a3-9371-7fce48c108e8",
+    "b0bd8a7f-333e-45c8-8cf4-07a13fb6b4f4",
+    "0838c753-d383-48c5-a22f-aab1672eae4f",
+    "efc05957-06a3-4b0e-8097-9926841fdaff",
+    "22c1824d-b601-4050-83ae-edb18b8e98bb"
+  ],
+  "selection_rule": "Within each of the 5 naturally-occurring topic pairs, the item with the higher (or tied) verified-answer count was assigned to the held-out test pool (more ground-truth responses to test against); its topic-mate became the exemplar source. This is a within-topic split, not a random one -- given n=10 there was no basis for randomization, so pairing by shared topic was used to maximize exemplar relevance while keeping exemplar and test items strictly disjoint.",
+  "exemplar_selection": [
+    {
+      "held_out_item_version_id": "ec218044-fa22-45a3-9371-7fce48c108e8",
+      "exemplar_answer_id": "e04b95a8-0868-4761-ac27-bb9cdd07e6f1",
+      "exemplar_item_version_id": "03d4a598-d027-449a-896a-205d982f12c5",
+      "writer_family": "anthropic",
+      "marks": "8/8 present",
+      "quality_check": "Independently re-verified 2026-08-10: z=(86-74)/8=1.5 and z=(62-52)/4=2.5 both correct; conclusion that Quiz B (higher z) was relatively better is correct. Clean."
+    },
+    {
+      "held_out_item_version_id": "b0bd8a7f-333e-45c8-8cf4-07a13fb6b4f4",
+      "exemplar_answer_id": "e497abb7-371c-42e2-9686-1956e66b20b3",
+      "exemplar_item_version_id": "2e959510-8bab-4db6-8089-043329693934",
+      "writer_family": "anthropic",
+      "marks": "8/8 present",
+      "quality_check": "Independently re-verified 2026-08-10: prediction 9.8-0.65(7)=5.25, residual 5.0-5.25=-0.25, extrapolation flag for x=12 outside [1,8], slope interpretation (-0.65/hr) all correct. Clean."
+    },
+    {
+      "held_out_item_version_id": "0838c753-d383-48c5-a22f-aab1672eae4f",
+      "exemplar_answer_id": "e589c789-21d9-4aab-b35c-4558cdec8af0",
+      "exemplar_item_version_id": "6b092324-ceeb-4541-93ee-509ca8bf6a62",
+      "writer_family": "deepseek",
+      "marks": "8/8 present",
+      "quality_check": "Independently re-verified 2026-08-10: experimental-design reasoning (explanatory/response variable ID, blocking description, experiment-vs-observational, random assignment reducing confounding) is sound throughout -- no anthropic 8/8 candidate existed for this item, deepseek used instead. Clean."
+    },
+    {
+      "held_out_item_version_id": "efc05957-06a3-4b0e-8097-9926841fdaff",
+      "exemplar_answer_id": "51da21d5-eb89-47ca-b66a-92d45e73389f",
+      "exemplar_item_version_id": "07ef9bbb-739d-4807-9928-ef02b7d7583f",
+      "writer_family": "anthropic",
+      "marks": "8/8 present",
+      "quality_check": "Independently re-verified 2026-08-10: binomial mean np=5, SD sqrt(20*.25*.75)=1.94, P(X=5)=C(20,5)(.25)^5(.75)^15=0.202, all recomputed and correct. Clean."
+    },
+    {
+      "held_out_item_version_id": "22c1824d-b601-4050-83ae-edb18b8e98bb",
+      "exemplar_answer_id": "54eaa617-4fc0-4a46-8701-220b1661628d",
+      "exemplar_item_version_id": "7abbb85e-a697-4db6-bea8-b363bea8f36e",
+      "writer_family": "anthropic",
+      "marks": "8/8 present",
+      "quality_check": "Independently re-verified 2026-08-10: mean of sampling distribution 7.2, SE=1.8/sqrt(36)=0.3, CLT applicability (n=36>30), and SE at n=9 -> 0.6 all recomputed and correct. Clean."
+    }
+  ],
+  "known_limitations": [
+    "No taxonomy/difficulty metadata exists for this corpus; topic pairing was inferred by manually reading each item's stimulus text, not from a validated label -- treat the 'topic' field as a best-effort proxy, not ground truth.",
+    "Each held-out item is matched to exactly one exemplar item for the whole pilot (see Phase 2's exemplar-selection policy) -- this tests whether *this specific* exemplar helps, not exemplars in general.",
+    "n=5 held-out items/clusters is small; expect a wide confidence interval on any accuracy comparison (see REPORT.md's limitations section once Phase 5 runs)."
+  ]
+}

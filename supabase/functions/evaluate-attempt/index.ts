@@ -36,6 +36,7 @@ import {
   extractOutputText,
   extractUsage,
   type FeedbackCriterionRow,
+  type GradingExemplar,
   isTransientHttpStatus,
   mergeCriterionResults,
   sanitizeModelResult,
@@ -623,6 +624,25 @@ Deno.serve(async (req) => {
   const assistanceCondition = asString(
     getBodyField(body, "assistance_condition", "assistanceCondition"),
   ) ?? "independent";
+  // Per-request opt-in for the exemplar-grading pilot
+  // (docs/research/exemplar_grading_pilot_2026_08/). Deliberately per-request,
+  // not env-based like GRADING_ARM: the pilot's capture script needs to flip
+  // between "off" and "with_exemplar" call-to-call without a redeploy.
+  // Defaults to "off" and any unrecognized value collapses to "off", so
+  // existing callers (which never send this field) are byte-for-byte
+  // unaffected. Exemplar payloads are supplied directly by the pilot's
+  // capture script (sourced from that pilot's own materialized fixtures, not
+  // a DB fetch here) to avoid adding a DB round-trip to a latency-sensitive
+  // grading path for what is currently pilot-only usage.
+  const exemplarModeRaw = asString(
+    getBodyField(body, "exemplar_mode", "exemplarMode"),
+  );
+  const exemplarMode = exemplarModeRaw === "with_exemplar" ? "with_exemplar" : "off";
+  const requestExemplars = exemplarMode === "with_exemplar"
+    ? (Array.isArray(getBodyField(body, "exemplars"))
+      ? getBodyField(body, "exemplars") as GradingExemplar[]
+      : undefined)
+    : undefined;
 
   if (
     !idempotencyKey || !attemptId || !responseVersionId ||
@@ -896,6 +916,7 @@ Deno.serve(async (req) => {
     criteria: Array.isArray(criteriaRows)
       ? criteriaRows as FeedbackCriterionRow[]
       : [],
+    exemplars: requestExemplars,
   };
 
   const gradingRuntimeContext = attempt.learning_session_id

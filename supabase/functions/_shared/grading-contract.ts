@@ -249,6 +249,7 @@ export function buildCriterionGradingPrompt(input: {
   responseParts: unknown;
   criteria: FeedbackCriterionRow[];
   criterion: FeedbackCriterionRow;
+  exemplars?: GradingExemplar[];
 }) {
   const criterion = input.criterion;
 
@@ -321,12 +322,13 @@ export function buildCriterionGradingPrompt(input: {
         `Use them only to judge whether the response's treatment of YOUR criterion is complete, rather than assuming any relevant statement it makes was aimed at your criterion.`,
       ].join("\n")
       : `This item has no other criteria.`,
+    renderExemplarSection(input.exemplars),
     `Student response text:`,
     input.responseText ?? "",
     `Student response parts JSON:`,
     JSON.stringify(input.responseParts ?? {}, null, 2),
     `Return JSON matching the schema exactly, with criterion_key set to ${criterion.criterion_key}.`,
-  ].join("\n\n");
+  ].filter(Boolean).join("\n\n");
 }
 
 export function buildCriterionRequestBody(input: {
@@ -498,6 +500,40 @@ export function buildSystemPrompt(examName: string) {
 
 // The production user-prompt builder. Moved verbatim (logic unchanged) from
 // evaluate-attempt's former local `buildGradingPrompt`.
+export type GradingExemplar = {
+  answer_text: string;
+  criteria: Array<
+    { criterion_key: string; gold_label: string; evidence_quote?: string | null }
+  >;
+};
+
+// Renders a small set of verified exemplar answers as a labelled few-shot
+// section. Exemplars come from a DIFFERENT item than the one being graded
+// (never the item's own answer key) -- see
+// docs/research/exemplar_grading_pilot_2026_08/ for the pilot this exists for.
+// Returns "" when there are no exemplars, so callers can splice it in
+// unconditionally without an extra branch.
+function renderExemplarSection(exemplars: GradingExemplar[] | undefined) {
+  if (!exemplars?.length) return "";
+  const blocks = exemplars.map((exemplar, index) => {
+    const criteriaLines = exemplar.criteria.map((criterion) =>
+      criterion.evidence_quote
+        ? `  - ${criterion.criterion_key}: ${criterion.gold_label} (evidence: "${criterion.evidence_quote}")`
+        : `  - ${criterion.criterion_key}: ${criterion.gold_label}`
+    ).join("\n");
+    return [
+      `Exemplar ${index + 1} (a verified answer to a DIFFERENT question on the same topic -- reference only, do not compare the student response to it directly):`,
+      `  Answer: ${exemplar.answer_text}`,
+      `  Verified per-criterion outcome:`,
+      criteriaLines,
+    ].join("\n");
+  }).join("\n\n");
+  return [
+    `Worked exemplars (for calibration only -- these grade a different question; judge the actual rubric below on its own terms):`,
+    blocks,
+  ].join("\n\n");
+}
+
 export function buildGradingPrompt(input: {
   operation: AllowedOperation;
   promptVersion: string;
@@ -509,6 +545,7 @@ export function buildGradingPrompt(input: {
   responseText: string | null;
   responseParts: unknown;
   criteria: FeedbackCriterionRow[];
+  exemplars?: GradingExemplar[];
 }) {
   const rubricLines = input.criteria.map((criterion) => {
     const pieces = [
@@ -553,13 +590,14 @@ export function buildGradingPrompt(input: {
     input.stimulus ? `Stimulus: ${input.stimulus}` : "Stimulus: none",
     `Rubric:`,
     rubricLines,
+    renderExemplarSection(input.exemplars),
     `Student response text:`,
     input.responseText ?? "",
     `Student response parts JSON:`,
     JSON.stringify(input.responseParts ?? {}, null, 2),
     `Return JSON matching the schema exactly.`,
     `For select_repair, make highest_value_gap the single highest-value missing criterion and keep repair_prompt narrow and actionable.`,
-  ].join("\n\n");
+  ].filter(Boolean).join("\n\n");
 }
 
 // The production request-body builder (production_exact transport --
