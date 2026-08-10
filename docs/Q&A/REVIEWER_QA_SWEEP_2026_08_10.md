@@ -164,3 +164,65 @@ Ahmed Ali 4 pending (new).
   consecutive sweeps — confirm whether this is a scheduling gap.
 - Abdul Hanan (3 pending) and Ahmed Ali (4 pending) are new to the gold-set-verification
   roster this window — watch for first submissions next sweep.
+
+## Addendum — gold-set verification activity, 12-hour trailing window (2026-08-10, post-sweep)
+
+**Scope:** a separate, narrower sweep at owner request, covering only
+`app.gold_set_verification_assignments` / `app.gold_set_element_marks` activity (not the
+`subject_review`/`tutor_question` decisions covered above). Sweep time
+`2026-08-10 11:03:31.117139+00`; window `2026-08-09 23:03:31+00` → sweep (trailing 12h).
+Read-only Production queries; nothing was modified as part of the sweep itself.
+
+**Activity found:** 3 gold-set-verification submissions, all from **Abdul Hanan**, all
+`status='submitted'` — his entire assigned queue (assigned 08-09, 15:26–16:36; submitted
+08-10, 05:09–05:27). No other reviewer had gold-set activity in this window.
+
+| content_key | Subject | Elements | Present | Not present |
+|---|---|---:|---:|---:|
+| `apcalcab-frq-023` | AP Calculus AB | 9 | 9 | 0 |
+| `apcalcbc-frq-017` | AP Calculus BC | 9 | 9 | 0 |
+| `apprecalc-frq-001` | AP Precalculus | 6 | 6 | 0 |
+
+**Integrity/structure checks (all 3 assignments):** element-mark coverage is complete —
+9/9, 9/9, 6/6 marks against each item's defined `gold_set_elements`, no gaps and no
+duplicate marks. Every `evidence_quote` is substantive and item-specific (not
+boilerplate), and several explicitly show independent recomputation ("Independently
+recalculated: ...", "Verified independently: ...") rather than a check-it-looks-right pass
+— the same discipline protocol §9.1 asks for, consistent with how Abdul's regular
+`subject_review` notes read in the main sweep above.
+
+**QA signal — a genuine numeric error caught mid-mark, correctly not treated as a missing
+element.** On `apcalcab-frq-023`, element "Compares the critical value with both
+endpoints," Abdul's evidence quote flags that the gold-set answer's stated `f(5) ≈ 0.144`
+is wrong — independently recomputing `f(5) = 5e^(-25/4) ≈ 0.00965`, a difference of >10×,
+not a rounding slip. He still correctly marked the element `present=true`, since the
+*element* only requires that the response compares the critical value against both
+endpoints, not that every intermediate number be right, and the erroneous number doesn't
+change which point is the max. Independently re-verified here: `5·e^(-6.25) ≈
+5×0.0019305 ≈ 0.00965`, confirming Abdul's correction and the stored `0.144` is a genuine
+authoring-time arithmetic error in that gold-set answer's text (`gold_set_answers.
+gold_set_answer_id = 98960690-c953-45ad-a939-91abd113774e`, `writer_family='anthropic'`).
+Cross-checking this item's other 5 sibling gold-set answers (independently model-generated
+answers to the same FRQ, not hand-authored perturbation fixtures) shows the same `f(5)`
+computation landing anywhere from a vague "super small" to `≈0.014` to a correct `≈0.0095`
+— i.e., this is model-generation noise across answers, not a deliberately-injected test
+fixture, and not a defect in the *item* (stem/rubric) itself, only in one immutable
+gold-set answer's stored text. No action taken — `gold_set_answers` rows are immutable by
+design (same write-once philosophy as `content_review_decisions`), and the discrepancy
+doesn't affect grading correctness for the one element it touches. Flagged here for the
+owner to decide whether it's worth a note for future gold-set-answer generation QA.
+
+**Gold-set roster, updated:** Abdul Hanan is now **0 pending / 3 submitted** (was 3
+pending as of the main sweep above, a few hours earlier). Ahmed Ali (4 pending), Chisom
+Anuba (7 pending), Jill Schmidlkofer (66 submitted), and Muhammad Saood (70 submitted) are
+unchanged from the main sweep — no activity from them in this 12-hour window.
+
+**Follow-ups:**
+- Abdul Hanan's gold-set queue is now fully cleared — no outstanding follow-up for him.
+- Consider whether gold-set answer generation should get an independent-recomputation QA
+  pass before insertion, given this window's finding (one answer's `f(5)` value is off by
+  >10×) — low-severity since it didn't affect element grading here, but worth a spot-check
+  of other gold-set answers for the same kind of slip if generation-time QA isn't already
+  covering it.
+- Ahmed Ali (4 pending) and Chisom Anuba (7 pending) still have no gold-set activity;
+  continue watching per the main sweep's follow-ups above.
