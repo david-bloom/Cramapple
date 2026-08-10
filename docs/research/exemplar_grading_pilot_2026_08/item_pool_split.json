@@ -89,6 +89,7 @@
   "known_limitations": [
     "No taxonomy/difficulty metadata exists for this corpus; topic pairing was inferred by manually reading each item's stimulus text, not from a validated label -- treat the 'topic' field as a best-effort proxy, not ground truth.",
     "Each held-out item is matched to exactly one exemplar item for the whole pilot (see Phase 2's exemplar-selection policy) -- this tests whether *this specific* exemplar helps, not exemplars in general.",
-    "n=5 held-out items/clusters is small; expect a wide confidence interval on any accuracy comparison (see REPORT.md's limitations section once Phase 5 runs)."
+    "n=5 held-out items/clusters is small; expect a wide confidence interval on any accuracy comparison (see REPORT.md's limitations section once Phase 5 runs).",
+    "CORRECTION (2026-08-10, discovered during the first real Phase 4 run): this audit checked app.content_items.status (item-level; all 10 items say 'published') but not the separate, version-level app.content_item_versions.status, which is what evaluate-attempt actually enforces (409 content_not_published otherwise). 'APSTATS-SFRQ-003' (held-out, content_item_version_id b0bd8a7f-333e-45c8-8cf4-07a13fb6b4f4) and its topic-mate 'APSTATS-SFRQ-004' (exemplar source) are both content_item_versions.status='retired' and cannot be graded. The actual n for this pilot is 4 held-out items / 30 responses, not 5/37 -- see held_out_items.json's 'excluded' entry. The other 4 held-out items and their exemplar sources were re-verified as content_item_versions.status='published' before the full run."
   ]
 }

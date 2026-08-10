@@ -150,8 +150,15 @@ if (MODE === "size") {
     `SIZE MODE: ${SIZE_REPEATS} repeats of ${sizeCase.content_key}:${sizeCase.response_index} arm=${SIZE_ARM}`,
   );
 } else {
+  const gradableCases = goldCases.filter((goldCase) => itemByContentKey.has(goldCase.content_key));
+  const allKeys = [...new Set(goldCases.map((c) => c.content_key))];
+  for (const key of allKeys) {
+    if (!itemByContentKey.has(key)) {
+      console.log(`SKIP-ITEM ${key}: not in held_out_items.json (see its "excluded" entry)`);
+    }
+  }
   const flat = [];
-  for (const goldCase of goldCases) {
+  for (const goldCase of gradableCases) {
     for (const arm of ARMS) {
       for (let trial = 0; trial < TRIALS; trial += 1) {
         flat.push(buildCall(goldCase, arm, trial));
@@ -160,17 +167,22 @@ if (MODE === "size") {
   }
   calls = shuffle(flat, SEED);
   console.log(
-    `FULL MODE: ${goldCases.length} cases x ${ARMS.length} arms x ${TRIALS} trials = ${calls.length} calls (seed=${SEED})`,
+    `FULL MODE: ${gradableCases.length} cases (of ${goldCases.length} in gold_cases.json) x ${ARMS.length} arms x ${TRIALS} trials = ${calls.length} calls (seed=${SEED})`,
   );
 }
 calls.forEach((call, index) => { call.ordinal = index + 1; });
 
+// Only a genuinely successful (2xx) call counts as "completed" for resume
+// purposes -- a call that failed (e.g. content_not_published, a transient
+// 5xx) must be retried on the next run, not silently treated as done.
 const completed = new Set();
 if (existsSync(OUTPUT_FILE)) {
   for (const line of readFileSync(OUTPUT_FILE, "utf8").split("\n")) {
     if (!line.trim()) continue;
     const record = JSON.parse(line);
-    if (record.idempotency_key) completed.add(record.idempotency_key);
+    if (record.idempotency_key && (record.http_status === 200 || record.http_status === 202)) {
+      completed.add(record.idempotency_key);
+    }
   }
 }
 
@@ -312,6 +324,7 @@ async function runCall(call) {
 }
 
 console.log(`pilot user=${USER_ID} mode=${MODE} output=${OUTPUT_FILE}`);
+const failures = [];
 for (const call of calls) {
   if (completed.has(call.idempotency_key)) {
     console.log(
@@ -319,7 +332,23 @@ for (const call of calls) {
     );
     continue;
   }
-  await runCall(call);
+  // A single call's failure (transient 5xx, a rate limit, one bad item) must
+  // not abort a run of hundreds of other independent calls -- record it and
+  // move on. The failed call is still written to OUTPUT_FILE with its real
+  // http_status by runCall itself, and (per the resume logic above) will be
+  // retried on the next invocation rather than silently skipped.
+  try {
+    await runCall(call);
+  } catch (error) {
+    console.error(`FAILED ${call.content_key}#${call.response_index} arm=${call.arm} trial=${call.trial}: ${error.message}`);
+    failures.push({ content_key: call.content_key, response_index: call.response_index, arm: call.arm, trial: call.trial, error: error.message });
+  }
 }
 
-console.log(`COMPLETE output=${OUTPUT_FILE}`);
+console.log(`COMPLETE output=${OUTPUT_FILE} failures=${failures.length}`);
+if (failures.length) {
+  console.log("Failed calls (retry by re-running the same command):");
+  for (const failure of failures) {
+    console.log(`  ${failure.content_key}#${failure.response_index} arm=${failure.arm} trial=${failure.trial}: ${failure.error}`);
+  }
+}
