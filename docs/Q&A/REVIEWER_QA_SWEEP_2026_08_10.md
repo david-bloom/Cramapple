@@ -122,11 +122,14 @@ than random noise: it's binary (0% or 100%) across every reviewer, not partial c
 - **Closed:** Jill Schmidlkofer's gold-set-verification queue, unchanged for two sweeps at
   30 pending / 36 submitted, is now **0 pending / 66 submitted** — she cleared it this
   window.
-- **Still open:** the 5 still-published pasted-prompt-rubric FRQs
-  (`apphy2-frq-002/003/005`, `apphycem-frq-008/009`) are unchanged —
-  `status='published'`, `review_status='question_review_approved'`, `updated_at`
-  timestamps from 08-08, no remediation landed this window. Same defect class as the 63
-  already fixed; still missed.
+- **Closed (2026-08-10, post-sweep):** the 5 still-published pasted-prompt-rubric FRQs
+  (`apphy2-frq-002/003/005`, `apphycem-frq-008/009`) — repaired via
+  `scripts/content-seed/reviewer-qa-remediation/20260810_pasted_prompt_rubric_frq_repair.sql`.
+  Each item's part-b `frq_criteria.learner_facing_text` was rewritten from a stem-echoing
+  instruction to a declarative statement of the graded content (evidence_requirements and
+  minimum_fix were already fine and are unchanged); a new version was inserted, approved,
+  and published per the standard `owner_remediation_approval` insertion discipline. Post-
+  repair scan: 0 of 5 still match the pasted-prompt detection signature.
 - **Not independently checked this sweep:** the sign/reference-convention instruction for
   the E&M `-np1-` pool, the normal-force-at-N=0 template scan, and the
   `apphycem-frq-np1-004` 124.680-vs-124.666 recomputation — no new `-np1-` activity
@@ -149,9 +152,6 @@ Ahmed Ali 4 pending (new).
   P0-B net check (table above) — 8 AP Biology MCQs/1 FRQ from Adil, 1 Calc AB FRQ from
   Chisom, 1 Statistics FRQ from Shazia — all currently live to students with an
   unaddressed modification finding.
-- Remediate the still-open 5 pasted-prompt-rubric FRQs
-  (`apphy2-frq-002/003/005`, `apphycem-frq-008/009`) — carried over from 08-09, still
-  untouched.
 - Owner-adjudicate this window's 4 disapprovals (`APBIO-MCQ-094`, `apphy2-frq-041/043/045`)
   — all independently checkable and block-worthy as written.
 - Investigate the topic-selection-compliance gap now affecting 4 of 6 active reviewers
