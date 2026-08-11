@@ -7,6 +7,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 Most recent entries (full reverse-chronological list follows below):
 
 - Cross-Subject Gold-Set Verification Assignments Paused (15 Pending Rows Removed); AP Statistics Exemplar-Grading Pilot Closed Inconclusive — 2026-08-11
+- AP Statistics Exemplar-Grading Pilot Run: Verified Gold-Set Answer as Few-Shot Exemplar Produces a Small, Statistically Unconfirmed Accuracy Gain — 2026-08-10
 - P0-B Publish Gate Implemented; 130 Published-but-Unapproved Items Retired; Gold-Set Rubric-Ordering Defect Found (5 Items) and Fixed — 2026-08-08
 - All 69 Remaining Physics approve_with_edits Items Repaired Against Saood's Notes (Full Backlog Now Zero) — 2026-08-08
 - CONTENT_AUTHORING_AND_QA_PROTOCOL.md v0.3: New §9 Documents Existing-Content QA via Independent Re-derivation, Including the Pool-Selection Yield Data and Remediation-Mechanics Gotchas from This Session — 2026-08-08
@@ -133,6 +134,74 @@ content-QA re-derivation use case (which has a separately measured yield, per
 `docs/research/CONTENT_AUTHORING_AND_QA_PROTOCOL.md` §9) rather than left
 idle, and whether/when a smaller, incremental follow-up exemplar-grading
 experiment (larger held-out sample, added placebo arm) is worth running.
+
+## AP Statistics Exemplar-Grading Pilot Run: Verified Gold-Set Answer as Few-Shot Exemplar Produces a Small, Statistically Unconfirmed Accuracy Gain — 2026-08-10
+
+**Task:** Test whether injecting a verified gold-set answer into
+`evaluate-attempt`'s grading prompt as a few-shot exemplar improves grading
+accuracy, before committing to mass gold-set authoring for this purpose.
+Full plan, code, and data: `docs/research/exemplar_grading_pilot_2026_08/`.
+
+**Method:** Added an opt-in, per-request `exemplar_mode` field (`"off"`
+default / `"with_exemplar"`) to `evaluate-attempt` and `grading-contract.ts`
+— zero behavior change for existing traffic. Split AP Statistics's 10
+distinct FRQ items into an exemplar pool and a held-out test pool by topic
+pairing (never the same item in both). For each held-out item, selected one
+independently re-vetted, fully-clean (all rubric elements present) verified
+answer from its topic-mate as the exemplar. Captured 300 real grading calls
+against a synthetic pilot student in Production: 4 held-out items / 30
+verified responses (ground truth from `app.gold_set_answers`/
+`gold_set_element_marks`) × 2 arms (`off`/`with_exemplar`) × 5 trials each,
+sized from a 20-repeat check showing 100% trial agreement on one response.
+Trials were aggregated to one majority-vote result per response per arm
+*before* scoring, specifically to keep the paired bootstrap's cluster count
+at one-per-response rather than inflated by repeated trials.
+
+**Results:** `with_exemplar` moved every point-estimate metric in its favor
+on the 30 held-out responses — overall accuracy 52.4% → 58.3% (+5.9 points),
+fewer false positives (11.1% → 7.4%) and false negatives (36.8% → 29.8%),
+higher coverage (56.0% → 60.7%) — at +11% cost ($0.107 → $0.119 total) and a
+flat p50 / +1.6s p95 latency. The paired-bootstrap 95% CI on the accuracy
+difference is `[0, 0.122]` (30 independent clusters, matching the 30 held-out
+responses exactly) — the lower bound sits exactly on zero, so the gain is not
+statistically distinguishable from noise at this sample size. Full tables,
+the raw per-trial variance diagnostic, and every limitation:
+`docs/research/exemplar_grading_pilot_2026_08/REPORT.md`.
+
+**Key learnings worth keeping, beyond the headline number:**
+
+1. **Prior art existed and wasn't checked before scoping this pilot.**
+   `docs/research/bio_reference_layer_exemplar_test_report.md` (2026-06-17)
+   tested the same exemplar-injection idea on Biology grading and found the
+   same shape of result (a small, mixed gain at real cost/latency penalty),
+   with an explicit recommendation against building a larger exemplar
+   corpus. Any future prompt-augmentation experiment (exemplars, retrieval,
+   reference material) should search prior research for this pattern first
+   — it has now failed to clear a bar twice, on two different subjects.
+2. **`app.content_items.status` and `app.content_item_versions.status` are
+   different fields with different enforcement.** Phase 0's corpus audit
+   checked only the item-level field (all 10 items showed `'published'`);
+   `evaluate-attempt` actually enforces the version-level field, which
+   returned `409 content_not_published` for `APSTATS-SFRQ-003` mid-run
+   (`content_item_versions.status = 'retired'`). Any future audit of
+   "is this content gradable" needs to check both fields — this cost the
+   pilot one of its five held-out items.
+3. **`evaluate-attempt`'s API response does not echo `points_possible` per
+   criterion** — only `criterion_key`/`status`/`points_awarded`/
+   `evidence_quote`/`decision_explanation`/`minimum_fix`. Any future capture
+   script scoring against this endpoint needs to source `points_possible`
+   from the rubric (`app.frq_criteria`) directly, not the API response.
+4. **A pilot session's Supabase access token expires in 1 hour** — a
+   300-call sequential capture run can cross that boundary mid-run. Future
+   capture scripts against this endpoint should either refresh the token
+   proactively or treat `401` as retryable-after-refresh, not fatal.
+
+**Status:** Complete and scored. See the following entry
+(2026-08-11) for the owner's resulting pause decision.
+
+**Next Owner:** David Bloom
+**Next Required Action:** None on this pilot itself — see the 2026-08-11
+pause entry above for the open follow-up decisions.
 
 ## P0-B Publish Gate Implemented; 130 Published-but-Unapproved Items Retired; Gold-Set Rubric-Ordering Defect Found (5 Items) and Fixed — 2026-08-08
 
