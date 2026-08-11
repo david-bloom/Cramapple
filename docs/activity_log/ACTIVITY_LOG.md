@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Cross-Subject Gold-Set Verification Assignments Paused (15 Pending Rows Removed); AP Statistics Exemplar-Grading Pilot Closed Inconclusive — 2026-08-11
 - P0-B Publish Gate Implemented; 130 Published-but-Unapproved Items Retired; Gold-Set Rubric-Ordering Defect Found (5 Items) and Fixed — 2026-08-08
 - All 69 Remaining Physics approve_with_edits Items Repaired Against Saood's Notes (Full Backlog Now Zero) — 2026-08-08
 - CONTENT_AUTHORING_AND_QA_PROTOCOL.md v0.3: New §9 Documents Existing-Content QA via Independent Re-derivation, Including the Pool-Selection Yield Data and Remediation-Mechanics Gotchas from This Session — 2026-08-08
@@ -81,6 +82,57 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 ---
+
+## Cross-Subject Gold-Set Verification Assignments Paused (15 Pending Rows Removed); AP Statistics Exemplar-Grading Pilot Closed Inconclusive — 2026-08-11
+
+**Trigger:** The exemplar-grading pilot (`docs/research/exemplar_grading_pilot_2026_08/REPORT.md`)
+— testing whether injecting a verified gold-set answer as a few-shot exemplar
+improves `evaluate-attempt` grading accuracy — closed with a modest, statistically
+inconclusive result: overall accuracy +5.9 percentage points on 30 held-out AP
+Statistics responses, but the paired-bootstrap 95% CI on that difference is
+`[0, 0.122]` — the lower bound sits exactly on zero. Reviewing why this pilot was
+scoped surfaced that a structurally identical hypothesis (scored-exemplar
+injection into a grading prompt) had already been tested in
+`docs/research/bio_reference_layer_exemplar_test_report.md` (2026-06-17) and its
+follow-up planning memo, with a near-identical outcome (+1 criterion agreement out
+of 60, +24.5% cost, +18.2% latency) and an explicit prior recommendation *against*
+building a larger exemplar corpus. This pilot's plan did not cite that prior
+finding when scoping the work.
+
+**Owner decision:** Pause all work on gold-set-answer-as-grading-exemplar,
+effective immediately. Given the modest and now twice-observed weak signal, the
+production-scale gold-set build-out underway across every subject (291 answers
+total: 144 AP Statistics, 45 Precalculus, 25/23 Calculus BC/AB, 17/15/12/10
+Physics 2/C-E&M/1/C-Mechanics) is disproportionate to the demonstrated
+opportunity for this specific use case. Future work in this area should be scoped
+as small, incremental experiments, not a production-scale authoring commitment,
+and should explicitly reconcile with the Biology precedent before re-proposing
+the same technique.
+
+**Action taken:** Removed the 15 *pending* (not yet submitted)
+`app.gold_set_verification_assignments` rows spanning AP Calculus AB (1), AP
+Calculus BC (1), AP Precalculus (1), and all four AP Physics courses (3 each:
+Physics 1, Physics 2, C-Mechanics, C-E&M) — reviewers Chisom Anuba, Ahmed Ali,
+and Muhammad Saood. This stops those reviewers' in-flight verification work now.
+**Not touched:** the 139 already-`submitted` assignments (136 AP Statistics + 3
+others) and the underlying `app.gold_set_answers` rows themselves (291 total,
+unassigned ones included) — this is completed work and generated content with
+value independent of this pilot's outcome, not part of what's being paused.
+
+**Task:** Exemplar-grading pilot (branch `claude/gold-set-answer-assignments-o3ibgi`)
+**Status:** Closed — inconclusive, paused
+**Summary:** See `docs/research/exemplar_grading_pilot_2026_08/REPORT.md` for the
+full pilot methodology, results, and decision-gate write-up. This entry records
+the owner's subsequent pause-and-descope decision and the specific database
+change it required.
+
+**Next Owner:** David Bloom
+**Next Required Action:** Decide whether the 291 already-generated gold-set
+answers and 139 completed verifications should be redirected toward the
+content-QA re-derivation use case (which has a separately measured yield, per
+`docs/research/CONTENT_AUTHORING_AND_QA_PROTOCOL.md` §9) rather than left
+idle, and whether/when a smaller, incremental follow-up exemplar-grading
+experiment (larger held-out sample, added placebo arm) is worth running.
 
 ## P0-B Publish Gate Implemented; 130 Published-but-Unapproved Items Retired; Gold-Set Rubric-Ordering Defect Found (5 Items) and Fixed — 2026-08-08
 

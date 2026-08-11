@@ -1,5 +1,11 @@
 # Exemplar-grading pilot — AP Statistics — Results (2026-08-10)
 
+**Status (2026-08-11): closed, inconclusive, work paused by the owner.** See
+`docs/activity_log/ACTIVITY_LOG.md`'s 2026-08-11 entry — the owner paused all
+gold-set-as-grading-exemplar work and removed the 15 pending cross-subject
+verification assignments given this modest result, disproportionate to the
+production-scale gold-set build-out underway.
+
 ## tl;dr
 
 Injecting a verified gold-set answer as a few-shot exemplar (`exemplar_mode:
@@ -10,6 +16,18 @@ exclude zero. Per this pilot's pre-registered decision gate, that is
 **inconclusive, leaning positive** — not a clean "proceed," and not a "stop."
 Cost and latency both increased modestly with the exemplar, as expected from
 a longer prompt.
+
+**This is not a new finding.** `docs/research/bio_reference_layer_exemplar_test_report.md`
+(2026-06-17) already tested a structurally identical hypothesis — injecting
+scored exemplar answers into a grading prompt — on Biology FRQ grading, and
+found the same shape of result: a small, mixed movement (+1 criterion
+agreement out of 60) at +24.5% cost and +18.2% latency, with an explicit
+recommendation *against* investing in a larger exemplar corpus and a
+follow-up memo concluding "raw exemplar retrieval... should be treated as
+[a] diagnostic, not the core production strategy." This AP Statistics pilot's
+plan did not cite that prior work when scoping it. In retrospect this result
+should have been the low-prior-probability expectation going in, not a fresh
+50/50 test — see the Decision gate section below.
 
 ## Corpus and confound disclosure
 
@@ -155,15 +173,29 @@ Per the plan's pre-registered criteria:
   This run's point estimate (+0.047) and every individual metric moved in
   the exemplar's favor, which is not "near zero" in direction, even though
   the CI's lower edge touches it.
-- **Recommendation: inconclusive, lean toward a second, larger/de-confounded
-  pilot before a production decision** — specifically: (a) restore
-  `APSTATS-SFRQ-003`/`004`'s topic pair once un-retired (or substitute
-  another Unit-2 item) to get back to the original 5-item scope, (b) add the
-  placebo arm the plan flagged as deferred, and (c) consider a second
-  exemplar per item to check the single-exemplar-per-item limitation doesn't
-  flip the direction. None of this requires new tooling — Phases 1, 3, 4,
-  and 5 here are already reusable as-is; only Phase 0's item selection and
-  Phase 2's exemplar vetting would need to be redone for a widened corpus.
-- This result is **not** a basis for mass gold-set authoring on its own —
-  the directional signal is positive enough to justify a second, cheap pilot
-  before that decision, not to greenlight it outright.
+- **Statistically: inconclusive, leaning positive.** A second, larger pilot
+  (~50 held-out responses, per the SE implied by this run's CI) could settle
+  whether the +0.047 point estimate is real — restoring `APSTATS-SFRQ-003`/
+  `004`'s topic pair once un-retired, adding the placebo arm the plan flagged
+  as deferred, and checking a second exemplar per item. None of that requires
+  new tooling — Phases 1, 3, 4, and 5 here are reusable as-is.
+- **But that statistical framing is incomplete on its own — see the Biology
+  precedent noted above.** A structurally identical exemplar-injection test
+  already produced the same shape of weak, mixed result on a different
+  subject, with an explicit recommendation against building a larger
+  exemplar corpus there. Two independent tests of the same technique landing
+  in the same place is a *stronger* signal than either result's own
+  confidence interval — it's not "we need one more pilot to know," it's "this
+  specific technique has now shown a small, cost-negative effect twice."
+- **Owner decision (2026-08-11): paused, not pursued further.** Given the
+  now-twice-observed weak signal, continuing to build a gold-set corpus at
+  production scale across every subject for this specific use case is
+  disproportionate to the demonstrated opportunity. The 15 pending
+  cross-subject verification assignments this pilot's context surfaced were
+  removed; see `docs/activity_log/ACTIVITY_LOG.md`'s 2026-08-11 entry. This
+  result is **not** a basis for mass gold-set authoring for grading
+  calibration — if a second pilot is run at all, it should be scoped as a
+  small, incremental experiment, not a precursor to a production-scale
+  authoring commitment. The already-generated gold-set answers and completed
+  verifications retain value for the separately-proven content-QA
+  re-derivation use case and were not touched.
