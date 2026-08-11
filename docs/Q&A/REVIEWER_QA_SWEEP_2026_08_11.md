@@ -142,14 +142,14 @@ shape.
 
 ## Follow-ups
 
-- Remediate the growing published-but-`modification_reserved` list — now 16 items across
-  AP Biology, AP Calculus AB, AP Statistics, AP Physics 1, AP Physics 2, and AP Physics C:
-  Mechanics, all live to students with unaddressed findings.
-- Close out `APBIO-MCQ-094` — the one 08-10 disapproval that never got owner-adjudicated
-  (its three physics siblings from the same window did); low urgency since it was never
-  published, but it's been sitting for two sweep windows.
-- Owner-adjudicate this window's 1 disapproval (`apphycm-frq-044`) — independently
-  checkable and block-worthy as written.
+- ~~Remediate the growing published-but-`modification_reserved` list~~ — **closed
+  2026-08-11**, same day: all 16 items repaired and republished. See the ACTIVITY_LOG.md
+  entry "08-11 Reviewer QA Sweep Remediated" and
+  `scripts/content-seed/reviewer-qa-remediation/20260811_{mcq,frq}_batch_repair.sql`.
+- ~~Close out `APBIO-MCQ-094`~~ — **closed 2026-08-11**: assessed and repaired (CED-scope
+  claim independently grep-verified against the fact pack first), not retired.
+- ~~Owner-adjudicate `apphycm-frq-044`~~ — **closed 2026-08-11**: math independently
+  re-verified correct; repaired the single ambiguous phrase and published.
 - Continue watching the topic-selection-compliance gap — unresolved for six consecutive
   sweeps now (08-06 through 08-11).
 - Watch for Shazia Fazal's and Adil Abbasi's return to activity next window; both were

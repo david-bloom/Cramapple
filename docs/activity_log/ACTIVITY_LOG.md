@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- 08-11 Reviewer QA Sweep Remediated: 18 Items Repaired and Published (16 Sweep Findings + 2 Retire-or-Repair Assessments, Both Repaired); 6 Stuck-Clean Physics FRQs Published via Publishing-Protocol Sweep; Half of Ahmed Ali's Physics Queue (51 Items) Reassigned to Ghazanfar Ali — 2026-08-11
 - Reviewer QA Sweep (2026-08-11): 16 Published-but-`modification_reserved` Items (up from 9); Confirmed the 08-11 Gold-Set-Assignment Pause Explains Ahmed Ali/Chisom Anuba's Missing Rows — 2026-08-11
 - Cross-Subject Gold-Set Verification Assignments Paused (15 Pending Rows Removed); AP Statistics Exemplar-Grading Pilot Closed Inconclusive — 2026-08-11
 - AP Statistics Exemplar-Grading Pilot Run: Verified Gold-Set Answer as Few-Shot Exemplar Produces a Small, Statistically Unconfirmed Accuracy Gain — 2026-08-10
@@ -82,6 +83,96 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## 08-11 Reviewer QA Sweep Remediated: 18 Items Repaired and Published (16 Sweep Findings + 2 Retire-or-Repair Assessments, Both Repaired); 6 Stuck-Clean Physics FRQs Published via Publishing-Protocol Sweep; Half of Ahmed Ali's Physics Queue (51 Items) Reassigned to Ghazanfar Ali — 2026-08-11
+
+**Task:** Owner-directed follow-through on the 08-11 sweep (`docs/Q&A/REVIEWER_QA_SWEEP_2026_08_11.md`): "Run the 16 item remediation. Assess apphycm-frq-044... Assess APBIO-MCQ-094... Use the publishing protocol to identify and publish any items which fits the criteria. Assign half of the In Review physics questions to Ghazanfar Ali."
+**Status:** All four requested actions complete.
+
+**1. 16-item remediation, plus the two retire-or-repair assessments (both REPAIRED, not
+retired).** Every fix independently re-derived per protocol §9.2 (`docs/research/
+CONTENT_AUTHORING_AND_QA_PROTOCOL.md`) — re-solved from first principles, not a literal
+transcription of the flagging reviewer's note; several fixes go beyond or narrow what the
+note asked, with reasoning recorded in each script. Insertion discipline per §9.4: new
+`content_item_versions` row per item, `owner_remediation_approval` assignment + decision,
+publish gated on structural QA.
+
+- **13 MCQs** (9 AP Biology, 3 AP Physics, plus `APBIO-MCQ-094`):
+  `scripts/content-seed/reviewer-qa-remediation/20260811_mcq_batch_repair.sql`.
+  `APBIO-MCQ-094` — Adil Abbasi's 08-09 disapproval ("succession is not CED content") was
+  independently grep-verified against `docs/product/AP_BIOLOGY_CED_FACT_PACK.md` Unit 8
+  (zero hits for succession/climax/pioneer species anywhere in the pack) before acting on
+  it, confirming the claim rather than trusting it. Repaired by retargeting the same
+  volcanic-island stimulus onto real CED content (LO 8.6.A biodiversity/resilience, LO
+  8.5.B community change over time) instead of retiring a workable item; also fixed the
+  flagged 100-vs-25-word length-cue defect.
+- **5 FRQs** (`APBIO-FRQ-L-025`, `apcalcab-frq-012`, `apphy1-frq-048`,
+  `APSTAT-MOD4-M001`, plus `apphycm-frq-044`):
+  `scripts/content-seed/reviewer-qa-remediation/20260811_frq_batch_repair.sql`. Three of
+  the four sweep-flagged FRQs de-bundle every rubric criterion to 1-point-per-task,
+  applying the reviewers' own stated principle ("AP is 1 point per task, no
+  partial-credit bundling") consistently across every part of an item, not only the part
+  a note called out — `APBIO-FRQ-L-025` moves 10→13 points (Parts A/B genuinely had 4
+  sub-tasks bundled into 2/3 points; Parts C/D had correct totals but still bundled
+  multiple tasks into one all-or-nothing criterion). `apphy1-frq-048` instead *merges*
+  two criteria the reviewer flagged as redundant (correctly computing the new catch-up
+  time already demonstrates the inverse-proportionality insight). `apphycm-frq-044` —
+  Saood's 08-10 disapproval was independently re-verified: all energy-conservation math
+  confirmed correct (1.00 J → 2.00 m/s; quadrupling energy via doubled compression →
+  speed doubles to 4.00 m/s, `U_s∝x²` so `v∝x`, both re-derived and matched exactly).
+  The only defect was one ambiguous phrase ("after leaving the spring" contradicting the
+  stimulus's "on a spring," i.e. an attached oscillator) — repaired with a one-clause
+  fix rather than retiring a mathematically sound item.
+- **Scope decisions recorded, not silently dropped:** three requested additions
+  (a diagram for `APBIO-MCQ-069`, a rebuilt target-sequence stimulus for
+  `APBIO-MCQ-074`, a position-vs-time graph part for `apphy1-frq-048`) and one requested
+  structural split (`APBIO-FRQ-L-025` into two separate short FRQs) were **not** applied
+  — each is a new-asset or new-authoring-scale change outside a QA remediation pass, not
+  a repair. Flagged as open follow-ups in both scripts' comments and below, not dropped.
+
+**2. Publishing-protocol sweep**
+(`scripts/content-seed/publication/20260811_publish_protocol_sweep.sql`). Re-ran
+DECISION-0044's standing Rule A/B query (sections 2–5 of the 2026-08-02 script, unchanged)
+against the full corpus: 0 newly eligible items — everything else unpublished either
+lacks the 2-qualified-tutor + admin-QA combination or sits in a genuine intermediate
+review state. Investigating that null result surfaced 6 AP Physics C FRQs
+(`apphycem-frq-040/042/048/056`, `apphycm-frq-047/049`) stuck at
+`status='reviewed_approved'`/`review_status='question_review_approved'` — the correct
+terminal FRQ state on protocol §7.2's own publish allowlist — each with one clean tutor
+approval (Saood ×4, Ahmed Ali ×2) and no conflicts, never published for lack of an admin
+QA decision. Independently re-derived every criterion from first principles before
+treating them as clean: superposition (`apphycem-frq-040`), field-integral derivation and
+135 N/C numeric check (`-042`), Gauss's-law flux invariance under an external charge
+(`-048`), full `E(r)` derivation both inside and outside a non-uniformly charged sphere
+with two numeric checks (`-056`), kinematics integration/differentiation (`apphycm-frq-047`),
+and work-energy-theorem derivation with a calculus-based KE-maximum justification
+(`-049`). All six confirmed correct, zero defects found. QA-seeded and published.
+
+**3. Reviewer reassignment**
+(`scripts/content-seed/reviewer-management/20260811_ahmed_physics_half_to_ghazanfar.sql`).
+Ahmed Ali held all 102 pending physics `subject_review` assignments (34 Physics 1, 19
+Physics 2, 23 C:E&M, 26 C:Mechanics) — the entire "In Review" physics queue; no other
+reviewer had any pending physics assignment. Moved the oldest half per subject to
+Ghazanfar Ali (actively qualified for all four physics subjects): 17/34, 10/19, 11/23,
+13/26 = 51 of 102, an exact half. Hit the same "Ghazanfar withdrawal orphan" shape as the
+2026-08-08 log entry — 51 of the 102 candidates already carried a `withdrawn` assignment
+row for him from his earlier withdrawal, blocking a direct reviewer_id repoint on the
+unique `(content_item_version_id, reviewer_id, review_stage)` constraint. For those,
+revived the existing withdrawn row to `pending` and marked Ahmed's row `skipped` (same
+convention as superseded assignments elsewhere); the rest were reassigned directly. Final
+state verified: Ghazanfar 51 pending (17/10/11/13 by subject), Ahmed 51 pending
+(remaining half) + 30 `skipped`.
+
+**Next Owner:** David Bloom
+**Next Required Action:** None blocking. Open, non-blocking follow-ups carried from the
+scope decisions above: `APBIO-MCQ-069` still needs its three-group exon diagram,
+`APBIO-MCQ-074` could still take the fuller "predict whether a point mutation prevents
+cutting" rebuild, `apphy1-frq-048` could still take an added position-vs-time graph part,
+and `APBIO-FRQ-L-025`'s Long-FRQ-vs-experiment/graphing-archetype format mismatch is
+unresolved (would require splitting it into two separate content items, an authoring-scale
+decision, not a QA remediation one).
 
 ---
 
