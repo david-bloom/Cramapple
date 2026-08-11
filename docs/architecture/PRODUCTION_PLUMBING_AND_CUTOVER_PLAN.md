@@ -134,6 +134,7 @@ Migration note:
 | Domain/DNS | Production domain control | Cutover routing | Required for public launch. |
 | Observability | Logging/error alerting account | Production monitoring | Provider can be finalized later if not already chosen. |
 | Lovable | None in the target state | No privileged runtime role | If Lovable is still executing backend logic today, that must be resolved as a cutover blocker. |
+| Stripe | Production account `acct_1TddjmLwoRHzBJ1O` (live mode), `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET` | Checkout, entitlement grants, webhook verification | Per `TASK-0023`. Server-only; never exposed to the browser. Live-mode keys for production, test-mode keys for beta/preview — never cross-wired. |
 
 ### 4.2 Conditional / Future-Cutover Accounts
 
@@ -173,6 +174,10 @@ Migration note:
 | `SUPABASE_SERVICE_ROLE_KEY` | Platform owner | Beta server routes and Edge Functions | Server-only. |
 | `OPENAI_API_KEY` or Vercel AI Gateway config | Platform owner | Beta server routes | Only if beta uses live model calls. |
 | Monitoring tokens | Operations owner | Beta logging and error reporting | Must be separate from production where practical. |
+| `STRIPE_SECRET_KEY` | Platform owner | `create-checkout-session`, `stripe-webhook` Edge Functions | **Not yet set in Supabase.** Test-mode secret key for the sandbox account `acct_1U3K3SLrvKNd9sBp` (confirmed `livemode: false`, `TASK-0023`) — value must be pulled from the Stripe dashboard, not available via the MCP connector. |
+| `STRIPE_WEBHOOK_SECRET` | Platform owner | `stripe-webhook` Edge Function | **Not yet provisioned.** Signing secret for the beta Stripe webhook endpoint, generated when the sandbox webhook endpoint is registered against the deployed `stripe-webhook` function URL. |
+| `STRIPE_PRICE_CATALOG_JSON` | Platform owner | `create-checkout-session` Edge Function | **Not yet set in Supabase.** Test-mode value is the full sandbox catalog recorded in `TASK-0023`'s Sandbox (Test-Mode) Catalog Inventory: `{"subjects":{"biology":"price_1U3K8YLrvKNd9sBpxWXkeLrY","ap-chemistry":"price_1U3K90LrvKNd9sBpRLF53BDY","ap-calculus-ab":"price_1U3K9SLrvKNd9sBpEa2DGRKS","ap-calculus-bc":"price_1U3K9uLrvKNd9sBpuynttET4","ap-precalculus":"price_1U3KALLrvKNd9sBpWJ7JtFVS","ap-physics-1":"price_1U3KAkLrvKNd9sBpYN4rV3k3","ap-physics-2":"price_1U3KBELrvKNd9sBpzIIjp6Eb","ap-physics-c-em":"price_1U3KBpLrvKNd9sBpTBgu6Cpw","ap-physics-c-mechanics":"price_1U3KCHLrvKNd9sBppivXoWWz","ap-statistics":"price_1U3KCfLrvKNd9sBpJaqrzf7m"},"bundle_2":"price_1U3KDDLrvKNd9sBpkZVzARmd","bundle_3":"price_1U3KE0LrvKNd9sBpB8oSe9qL","unlimited":"price_1U3KEXLrvKNd9sBp4BJ44dRg"}`. Six of these ten `subject_key` values have no matching row in `Cramapple-Development`'s `app.subjects` table yet (`ap-calculus-ab`, `ap-calculus-bc`, `ap-precalculus`, `ap-physics-2`, `ap-physics-c-em`, `ap-physics-c-mechanics`) — Checkout will succeed for them but entitlement grant will fail at the webhook until those subject rows are backfilled. |
+| `APP_BASE_URL` | Platform owner | `create-checkout-session` Edge Function | Beta app origin, used to build the Checkout Session `success_url`/`cancel_url`. |
 
 ### 5.4 Production
 
@@ -184,6 +189,10 @@ Migration note:
 | `OPENAI_API_KEY` or gateway OIDC config | Production platform owner | Server-side model calls | Prefer gateway-based auth where approved. |
 | `SENTRY_DSN` or equivalent | Production ops owner | Server and client error reporting | Must avoid raw learner data in payloads. |
 | Support/contact integration secrets | Operations owner | Support workflows | Optional, if support tooling is live. |
+| `STRIPE_SECRET_KEY` | Production platform owner | `create-checkout-session`, `stripe-webhook` Edge Functions | **Not yet provisioned in Supabase.** Live-mode secret key for `acct_1TddjmLwoRHzBJ1O`. Protected secret. |
+| `STRIPE_WEBHOOK_SECRET` | Production platform owner | `stripe-webhook` Edge Function | **Not yet provisioned.** Signing secret for the live Stripe webhook endpoint once it is registered against the deployed `stripe-webhook` function URL. |
+| `STRIPE_PRICE_CATALOG_JSON` | Production platform owner | `create-checkout-session` Edge Function | **Not yet provisioned.** Live-mode value is the full catalog recorded in `TASK-0023`'s Live Catalog Inventory: `{"subjects":{"biology":"price_1U3INlLwoRHzBJ1OyQ39k1pa","ap-chemistry":"price_1U3IOKLwoRHzBJ1OFiAhGBSp","ap-calculus-ab":"price_1U3IPVLwoRHzBJ1ORy4CtabU","ap-calculus-bc":"price_1U3IPvLwoRHzBJ1OD3HluYsw","ap-precalculus":"price_1U3IQQLwoRHzBJ1Oyt5XMyww","ap-physics-1":"price_1U3IQuLwoRHzBJ1O0amAJ5AI","ap-physics-2":"price_1U3IRmLwoRHzBJ1OdjKrTZMK","ap-physics-c-em":"price_1U3ISaLwoRHzBJ1OrHupALNo","ap-physics-c-mechanics":"price_1U3IT5LwoRHzBJ1OGNddcGk1","ap-statistics":"price_1U3ITWLwoRHzBJ1O4WFXqTsj"},"bundle_2":"price_1U3IVNLwoRHzBJ1OFc4H9iVD","bundle_3":"price_1U3IW8LwoRHzBJ1Oxew8VHHI","unlimited":"price_1U3Ia0LwoRHzBJ1OBG1vlN1b"}`. Subject keys match `app.subjects.subject_key` in `Cramapple-Production`, confirmed 2026-08-11. |
+| `APP_BASE_URL` | Production platform owner | `create-checkout-session` Edge Function | Production app origin, used to build the Checkout Session `success_url`/`cancel_url`. |
 
 ## 6. Server-Side Trust Boundaries
 
