@@ -192,6 +192,67 @@ $19.99.
   dashboard to confirm it's intentionally retired and not something a
   Checkout Session could still accidentally reference.
 
+## Sandbox (Test-Mode) Catalog Inventory (Confirmed 2026-08-11)
+
+David Bloom set up a separate Stripe **sandbox account**
+(`acct_1U3K3SLrvKNd9sBp`, confirmed `livemode: false`) and built a full
+test-mode catalog there, structurally identical to the live catalog — same
+10 single-subject Products at $39.99 each, same 2-subject/3-subject/
+unlimited bundles at $69.99/$89.99/$139.99. This resolves the "no test-mode
+Stripe catalog exists" gap flagged below and in the `TASK-0012`
+environment-variable matrix. No Promotion Code exists in the sandbox either
+(same gap as live — `GET /v1/promotion_codes` returned zero results).
+
+Sandbox `subject_key`-mapped catalog (`STRIPE_PRICE_CATALOG_JSON` value for
+beta), matched against `app.subjects.subject_key` in `Cramapple-Production`
+since that's the full 10-subject reference:
+
+```json
+{
+  "subjects": {
+    "biology": "price_1U3K8YLrvKNd9sBpxWXkeLrY",
+    "ap-chemistry": "price_1U3K90LrvKNd9sBpRLF53BDY",
+    "ap-calculus-ab": "price_1U3K9SLrvKNd9sBpEa2DGRKS",
+    "ap-calculus-bc": "price_1U3K9uLrvKNd9sBpuynttET4",
+    "ap-precalculus": "price_1U3KALLrvKNd9sBpWJ7JtFVS",
+    "ap-physics-1": "price_1U3KAkLrvKNd9sBpYN4rV3k3",
+    "ap-physics-2": "price_1U3KBELrvKNd9sBpzIIjp6Eb",
+    "ap-physics-c-em": "price_1U3KBpLrvKNd9sBpTBgu6Cpw",
+    "ap-physics-c-mechanics": "price_1U3KCHLrvKNd9sBppivXoWWz",
+    "ap-statistics": "price_1U3KCfLrvKNd9sBpJaqrzf7m"
+  },
+  "bundle_2": "price_1U3KDDLrvKNd9sBpkZVzARmd",
+  "bundle_3": "price_1U3KE0LrvKNd9sBpB8oSe9qL",
+  "unlimited": "price_1U3KEXLrvKNd9sBp4BJ44dRg"
+}
+```
+
+**The subject-parity gap is narrower than originally flagged, and doesn't
+block all testing.** `Cramapple-Development`'s `app.subjects` table still
+only has 4 of these 10 rows (`biology`, `ap-chemistry`, `ap-physics-1`,
+`ap-statistics`). Concretely, in beta:
+
+- **Single-subject and bundle purchases** for those 4 subject keys will
+  complete end-to-end (Checkout → webhook → entitlement grant) once secrets
+  are set and the functions are deployed.
+- **Single-subject or bundle purchases** for the other 6 subject keys
+  (Calc AB/BC, Precalculus, Physics 2, Physics C E&M/Mechanics) will create
+  a valid Checkout Session — the Stripe catalog has all 10 — but the
+  webhook's `app.subjects` lookup will fail with
+  `checkout_session_unknown_subject_keys` and the entitlement grant for
+  that subject will not be created, since `Cramapple-Development` doesn't
+  have a matching row yet.
+- **Unlimited purchases work regardless**, since the webhook grants access
+  by querying `app.subjects` directly (not the Stripe catalog) — in beta
+  today that correctly grants the 4 subjects that actually exist there, not
+  10, which is expected scoping rather than a bug.
+
+Backfilling the missing 6 subject rows into `Cramapple-Development` would
+close this gap, but that's a content/course-readiness decision (does a
+`subjects` row without the underlying content pipeline being ready create a
+misleading "available" subject?), not a Stripe or schema question — flagging
+it rather than doing it as part of this task.
+
 ## Entitlement Schema, Webhook, and Checkout Implementation (2026-08-11)
 
 Code-complete; **not yet deployed or configured with live secrets**. Nothing
@@ -289,13 +350,13 @@ this change:**
   production `STRIPE_PRICE_CATALOG_JSON` value is recorded verbatim in the
   `TASK-0012` environment-variable matrix update.
 - **`Cramapple-Development` (beta) only has 4 of the 10 subjects seeded**
-  (`biology`, `ap-chemistry`, `ap-physics-1`, `ap-statistics`) and **no
-  test-mode Stripe catalog exists at all** — only the live-mode catalog
-  does. Beta cannot safely exercise Checkout/webhook/entitlement code until
-  both a test-mode Stripe catalog is built and the subject parity gap is
-  closed; setting a live-mode `STRIPE_SECRET_KEY` in the beta project to
-  work around this would violate the "never cross-wire test/live keys"
-  rule and is not an acceptable shortcut.
+  (`biology`, `ap-chemistry`, `ap-physics-1`, `ap-statistics`). A full
+  test-mode Stripe catalog now exists (see **Sandbox (Test-Mode) Catalog
+  Inventory** above, `acct_1U3K3SLrvKNd9sBp`) — that half of the gap is
+  closed. What remains is narrower: purchases of the other 6 subject keys
+  will create a valid test-mode Checkout Session but fail entitlement grant
+  at the webhook's `app.subjects` lookup until those rows are backfilled in
+  `Cramapple-Development`. Unlimited purchases are unaffected by this gap.
 
 **Not built in this pass, and why:**
 
