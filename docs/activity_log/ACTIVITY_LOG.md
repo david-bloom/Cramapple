@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Reviewer QA Sweep (2026-08-11): 16 Published-but-`modification_reserved` Items (up from 9); Confirmed the 08-11 Gold-Set-Assignment Pause Explains Ahmed Ali/Chisom Anuba's Missing Rows — 2026-08-11
 - Cross-Subject Gold-Set Verification Assignments Paused (15 Pending Rows Removed); AP Statistics Exemplar-Grading Pilot Closed Inconclusive — 2026-08-11
 - AP Statistics Exemplar-Grading Pilot Run: Verified Gold-Set Answer as Few-Shot Exemplar Produces a Small, Statistically Unconfirmed Accuracy Gain — 2026-08-10
 - P0-B Publish Gate Implemented; 130 Published-but-Unapproved Items Retired; Gold-Set Rubric-Ordering Defect Found (5 Items) and Fixed — 2026-08-08
@@ -81,6 +82,56 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## Reviewer QA Sweep (2026-08-11): 16 Published-but-`modification_reserved` Items (up from 9); Confirmed the 08-11 Gold-Set-Assignment Pause Explains Ahmed Ali/Chisom Anuba's Missing Rows — 2026-08-11
+
+**Task:** Standing reviewer QA sweep (see `docs/Q&A/README.md`)
+**Status:** Sweep complete, read-only. Two items need owner attention; see Next Required
+Action.
+**Summary:** Ran the periodic reviewer QA sweep over `app.content_review_decisions`
+(`tutor_question` stage) for the window since the 08-10 sweep (51 decisions, 4 active
+blind reviewers plus David's 5 owner-remediation approvals). All integrity and structure
+checks came back clean (0 mismatches, 0 missing stems, 0 malformed MCQ/FRQ structure, 0
+cross-reviewer double coverage). One disapproval this window (`apphycm-frq-044`,
+Muhammad Saood) is genuine and independently checkable — a mass-on-a-spring "leaves the
+spring" ambiguity, math verified correct.
+
+The P0-B published-but-`modification_reserved` net check (open since the 08-09 gate fix
+started letting re-review findings against already-published content get recorded) grew
+from 9 items (08-10 sweep) to 16: the original 9 are unremediated and unchanged, plus 7
+new findings this window from Sarah Sohail (3 AP Biology MCQs), Ahmed Ali (1 AP Physics 1
+FRQ, 2 AP Physics MCQs), and Chisom Anuba (1 AP Physics 2 MCQ) — spread across three
+reviewers/subjects, not a concentrated pass. All 16 are live to students with an open
+finding.
+
+Of the 08-10 sweep's 4 flagged disapprovals, 3 physics items were owner-adjudicated to
+`reviewed_disapproved`/`excluded`; `APBIO-MCQ-094` was not — it's been sitting at
+`status='assigned'` since 07-28 (never published, so no student exposure, but two sweep
+windows unactioned).
+
+**Gold-set roster reconciled, not a bug:** the sweep's DB query initially found Ahmed
+Ali's 4 and Chisom Anuba's 7 pending gold-set-verification assignments (reported present
+in the 08-10 sweep/addendum) completely absent from `app.gold_set_verification_assignments`,
+with no `app.audit_events` row to explain it. Merging this report against the branch's
+concurrent commit history resolved it: the immediately-preceding entry below (**Cross-
+Subject Gold-Set Verification Assignments Paused**, same day, timestamped 00:30 UTC — this
+sweep ran at 12:58 UTC) is an owner-approved pause of gold-set-answer-as-grading-exemplar
+work that deliberately removed 15 pending assignment rows, including Ahmed Ali's and
+Chisom Anuba's. Not a data-integrity defect; no further investigation needed on this
+point. (`app.audit_events` still has no row for it, since the removal was a direct,
+documented DB action rather than one routed through the normal assignment-lifecycle
+application path — worth noting for anyone who hits the same "no audit trail" dead end on
+a future sweep.)
+
+Full detail, per-reviewer tables, and the complete P0-B item list:
+`docs/Q&A/REVIEWER_QA_SWEEP_2026_08_11.md`.
+
+**Next Owner:** David Bloom
+**Next Required Action:** (1) Decide remediation ordering for the 16
+published-but-`modification_reserved` items. (2) Adjudicate `apphycm-frq-044` and close
+out the stuck `APBIO-MCQ-094` disapproval.
 
 ---
 
