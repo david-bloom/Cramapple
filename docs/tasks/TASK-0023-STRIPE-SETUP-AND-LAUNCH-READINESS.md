@@ -5,7 +5,7 @@
 **Owner:** Main Conductor (Claude)
 **Product Owner:** David Bloom
 **Tier:** Standard
-**Status:** Not Started
+**Status:** In Progress
 **Priority:** P1
 **Created Date:** 2026-08-10
 **Approved Date:** Pending
@@ -28,11 +28,13 @@ work implied across multiple documents.
 - Inventory the current state of the "existing Stripe integration" referenced
   in `CRAMAPPLE_MARKETING_STACK_REPORT_2026.md` (line 438): confirm what, if
   anything, is actually configured in the Stripe dashboard and in the
-  Lovable/Supabase codebase today, since this repository contains no Stripe
-  account IDs, product/price IDs, or webhook code.
-- Implement the product/price/coupon catalog per the settled
-  **Pricing and Catalog Design** section below (depends on `BIZ-001` for the
-  actual price and discount amounts; the catalog shape itself is decided).
+  Lovable/Supabase codebase today. **Done for the Stripe-side catalog** — see
+  **Live Catalog Inventory** below; the Lovable/Supabase codebase side is
+  still unconfirmed.
+- Product/price catalog is built (see **Live Catalog Inventory**). Remaining:
+  create the Coupon/Promotion Code for the "add another subject" incentive,
+  and consider adding `lookup_key`/`metadata` to existing Prices so
+  Checkout/webhook code isn't hardcoding opaque Price IDs.
 - Define and implement the Stripe Checkout flow (session creation, success/
   cancel routes, referral/promo-code metadata per
   `CRAMAPPLE_MARKETING_STACK_REPORT_2026.md` referral section).
@@ -61,10 +63,10 @@ work implied across multiple documents.
 
 Cramapple sells per-subject access, with three additional multi-subject
 options: a 2-subject bundle, a 3-subject bundle, and an unlimited-subjects
-option. The catalog and purchase-flow shape below is settled; the actual
-Stripe Product/Price/Coupon objects ("product codes") have not been created
-in Stripe yet — that setup work is deferred to implementation and is owned
-by David Bloom.
+option. The catalog and purchase-flow shape below is settled, and the
+Product/Price catalog has now been built live in Stripe by David Bloom (see
+**Live Catalog Inventory** below); the Coupon/Promotion Code for the
+"add another subject" incentive has not been built yet.
 
 **Catalog shape — no combinatorial SKUs.** The catalog holds `N + 3` Prices,
 not one per subject-combination:
@@ -131,6 +133,62 @@ single-subject buy.
    as an option. This is a `BIZ-001` pricing decision, not a Stripe
    mechanics question.
 
+## Live Catalog Inventory (Confirmed 2026-08-10)
+
+Read directly from the Stripe account (`acct_1TddjmLwoRHzBJ1O`, **live
+mode** — this is the production account, not a test/sandbox account).
+Confirms the "current Stripe account state" acceptance criterion below for
+the catalog piece specifically.
+
+**Single-subject Products/Prices — all $39.99, matching the catalog-shape
+design (uniform single-subject pricing):**
+
+| Subject | Product ID | Price ID |
+| --- | --- | --- |
+| AP Biology | `prod_V3PCLFKw9P2cq8` | `price_1U3INlLwoRHzBJ1OyQ39k1pa` |
+| AP Chemistry | `prod_V3PCYJ3LVzwQoX` | `price_1U3IOKLwoRHzBJ1OFiAhGBSp` |
+| AP Calculus AB | `prod_V3PD2wvS3QgXfd` | `price_1U3IPVLwoRHzBJ1ORy4CtabU` |
+| AP Calculus BC | `prod_V3PEED57royCpT` | `price_1U3IPvLwoRHzBJ1OD3HluYsw` |
+| AP Precalculus | `prod_V3PEOrdKvybQk5` | `price_1U3IQQLwoRHzBJ1Oyt5XMyww` |
+| AP Physics 1 | `prod_V3PFChjrxgp8HC` | `price_1U3IQuLwoRHzBJ1O0amAJ5AI` |
+| AP Physics 2 | `prod_V3PGwdj56Fx7Eo` | `price_1U3IRmLwoRHzBJ1OdjKrTZMK` |
+| AP Physics C (E&M) | `prod_V3PHmt2mR8vjtV` | `price_1U3ISaLwoRHzBJ1OrHupALNo` |
+| AP Physics C (Mechanics) | `prod_V3PHAMr9IgCdip` | `price_1U3IT5LwoRHzBJ1OGNddcGk1` |
+| AP Statistics | `prod_V3PIFj8Wsbsf0A` | `price_1U3ITWLwoRHzBJ1O4WFXqTsj` |
+
+**Bundle Products/Prices:**
+
+| Bundle | Price | Product ID | Price ID | vs. buying singles |
+| --- | --- | --- | --- | --- |
+| Two-subject | $69.99 | `prod_V3PKr0pjRGW2pX` | `price_1U3IVNLwoRHzBJ1OFc4H9iVD` | saves $9.99 vs. $79.98 |
+| Three-subject | $89.99 | `prod_V3PKIt6XwjeDsm` | `price_1U3IW8LwoRHzBJ1Oxew8VHHI` | saves $29.98 vs. $119.97 |
+| Unlimited | $139.99 | `prod_V3PObx87qoA9x8` | `price_1U3Ia0LwoRHzBJ1OBG1vlN1b` | flat, no per-subject comparison |
+
+**Other existing product (pre-dates this task, not part of the AP-subject
+catalog):** Parent Portal, `prod_Uctlu9DThoL5LQ` / `price_1TddxjLwoRHzBJ1OIhFbAkko`,
+$19.99.
+
+**Gaps found against the settled design:**
+
+- **No Coupon or Promotion Code exists yet** (`GET /v1/promotion_codes`
+  returned zero results). The "add another subject, use code `upgrade123`"
+  incentive described above is designed but not built. This is the
+  remaining catalog-side gap before Checkout/webhook work can exercise the
+  full purchase-flow design.
+- **No `lookup_key` set on any Price and no `metadata` on any Product or
+  Price.** Checkout/webhook code will currently have to hardcode Price IDs
+  or maintain a separate ID-to-subject mapping table in Supabase. Setting a
+  `lookup_key` (e.g. `subject_ap_biology`) and/or `metadata.subject_code` on
+  each Price would let that code reference subjects by stable key instead
+  of opaque Price IDs — worth doing before Checkout-session code is
+  written, since it is far cheaper to add now than to retrofit later.
+- **One orphaned active Price**: `price_1TddwxLwoRHzBJ1OXK7XDGhZ` ($29.99)
+  references product `prod_UctkNAK45kubxy`, which did not appear in the
+  active-products list — likely an inactive/archived product with a
+  still-active Price attached. Not blocking; worth a look in the Stripe
+  dashboard to confirm it's intentionally retired and not something a
+  Checkout Session could still accidentally reference.
+
 ## Out of Scope
 
 - Setting the actual AP Biology launch price or refund policy — that is
@@ -167,11 +225,14 @@ issuance before the refund window closes.
 
 ## Acceptance Criteria
 
-- [ ] Current Stripe account/integration state is confirmed and documented
-      (what exists today vs. what `CRAMAPPLE_MARKETING_STACK_REPORT_2026.md`
-      assumed exists).
-- [ ] Stripe product/price catalog matches the approved `BIZ-001` pricing
-      decision.
+- [x] Current Stripe account/integration state is confirmed and documented
+      for the catalog (Live Catalog Inventory, 2026-08-10); Lovable/Supabase
+      codebase side still unconfirmed.
+- [x] Stripe product/price catalog is built and matches the settled
+      catalog-shape design (10 single-subject Prices + 3 bundle Prices, all
+      uniform single pricing). Confirmation against a formally approved
+      `BIZ-001` price is still open since `BIZ-001` itself is still
+      "Proposed" in `MASTER_TODO.md`.
 - [ ] Checkout flow creates sessions server-side with referral metadata
       attached.
 - [ ] Webhook handler verifies signatures and is the sole trigger for
@@ -212,19 +273,34 @@ issuance before the refund window closes.
 
 ## Implementation Notes
 
-This task is being opened as a scoping/inventory record first. No live
-Stripe account, key, or webhook changes have been made under this task yet.
-This repository is documentation- and Supabase-migration-first; the actual
-Stripe integration code (if any already exists) lives in the Lovable-managed
-frontend and/or Supabase Edge Functions referenced in
-`docs/architecture/SUPABASE_EDGE_FUNCTIONS_DRAFT.md`, which is outside this
-repository's direct edit surface per `LOVABLE_FREE_SCORE_CHECK_FUNNEL.md`
-("Do not create or alter ... Stripe logic ... in Lovable").
+This task opened as a scoping/inventory record. David Bloom has since built
+the live Stripe Product/Price catalog directly (Product Owner action, not
+executed through this repository) — see **Live Catalog Inventory** above,
+read directly from the Stripe account on 2026-08-10. No writes have been
+made to the live Stripe account from this task; all catalog inspection was
+read-only.
 
-Next step is to confirm with David Bloom what currently exists in the live
-Stripe dashboard and Lovable/Supabase codebase before drafting the detailed
-execution plan, since `CRAMAPPLE_MARKETING_STACK_REPORT_2026.md` assumes an
-"existing Stripe integration" that this repository has no record of.
+This repository is documentation- and Supabase-migration-first; the actual
+Checkout/webhook integration code (if any already exists) lives in the
+Lovable-managed frontend and/or Supabase Edge Functions referenced in
+`docs/architecture/SUPABASE_EDGE_FUNCTIONS_DRAFT.md`. Backend logic
+specifically (webhook receiver, Checkout Session creation, entitlement
+grants) belongs in Supabase Edge Functions per the `TASK-0012` rule against
+authoritative logic living in Lovable-hosted `_serverFn` infrastructure —
+this repository owns that surface (`supabase/functions/`,
+`supabase/migrations/`), so those pieces can be built here once scoped.
+
+Remaining before Checkout/webhook implementation can start:
+
+1. Build the Coupon + Promotion Code for the "add another subject" incentive
+   (not yet created).
+2. Decide the shared-vs-per-customer promo code question (open item above).
+3. Add an entitlement schema migration (`subject_entitlements`-style table
+   with a wildcard flag for unlimited access) — not yet started.
+4. Build the webhook receiver Edge Function and the Checkout Session
+   creation Edge Function — not yet started.
+5. Fold Stripe secrets into the `TASK-0012` environment-variable matrix —
+   not yet started.
 
 ## QA Review
 
