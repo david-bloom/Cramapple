@@ -255,11 +255,11 @@ it rather than doing it as part of this task.
 
 ## Entitlement Schema, Webhook, and Checkout Implementation (2026-08-11)
 
-Code-complete; **not yet deployed or configured with live secrets**. Nothing
-in this section has touched the live Stripe account or been applied to
-either Supabase project — it is committed migrations and Edge Function
-code only. Deployment (`supabase db push`, `supabase functions deploy`,
-setting the actual secret values) is a separate, later step.
+Code-complete, and now deployed to both Supabase projects — see **Dev/Beta
+Deployment Log** and **Production Deployment Log** below for exactly what
+was applied where and what secrets are still missing
+(`STRIPE_WEBHOOK_SECRET` in both environments, pending webhook endpoint
+registration in each Stripe account).
 
 **Entitlement table: extended `app.subject_entitlements`, not a new table.**
 That table already existed (`supabase/migrations/20260731160200_free_score_check_growth_funnel.sql`,
@@ -398,10 +398,36 @@ requires registering the URL above as a webhook endpoint against the
 `checkout.session.completed` event, which only produces a signing secret
 once the endpoint exists; and `APP_BASE_URL`, not yet confirmed set.
 
-**Production has not been touched by this task.** `STRIPE_SECRET_KEY` was
-set on `Cramapple-Production` by David Bloom directly (restricted key,
-outside this task's tool access), but the migrations are not applied and
-the Edge Functions are not deployed there.
+## Production Deployment Log (2026-08-11)
+
+Deployed to `Cramapple-Production` (`pcntajvbdfqhbeewmdry`) with David
+Bloom's explicit go-ahead, after the same sequence had already been
+verified working in dev.
+
+- `STRIPE_SECRET_KEY` (live-mode restricted key, `acct_1TddjmLwoRHzBJ1O`)
+  set as a Supabase Edge Function secret by David Bloom directly (outside
+  this task's tool access).
+- Both migrations applied by David Bloom directly via the Supabase SQL
+  Editor (the MCP `apply_migration` write path was blocked by a stuck
+  permission-approval prompt in this session, so the SQL was pasted and
+  run manually instead). Verified by direct read-only query:
+  `app.subject_entitlements` has all three Stripe columns
+  (`stripe_checkout_session_id`, `stripe_event_id`, `all_subjects`), the
+  `subjects_grant_unlimited_holders` trigger exists, and
+  `app.stripe_webhook_events` exists.
+- Both Edge Functions deployed via the Supabase MCP (this path worked,
+  unlike `apply_migration`): `create-checkout-session` (`verify_jwt: true`)
+  and `stripe-webhook` (`verify_jwt: false`, same reasoning as dev).
+- Live production webhook URL: `https://pcntajvbdfqhbeewmdry.supabase.co/functions/v1/stripe-webhook`.
+
+**Still open before production is fully wired:** `STRIPE_WEBHOOK_SECRET`
+— requires registering the URL above as a webhook endpoint against the
+**live** Stripe account (`acct_1TddjmLwoRHzBJ1O`, real money) for the
+`checkout.session.completed` event; and confirming
+`STRIPE_PRICE_CATALOG_JSON` (the live catalog value from **Live Catalog
+Inventory** above) and `APP_BASE_URL` are set. Until `STRIPE_WEBHOOK_SECRET`
+exists, every webhook delivery is rejected with `invalid_signature` and no
+entitlement can be granted — the correct fail-closed state, not a defect.
 
 ## Out of Scope
 
@@ -454,12 +480,15 @@ issuance before the refund window closes.
       `BIZ-001` price is still open since `BIZ-001` itself is still
       "Proposed" in `MASTER_TODO.md`.
 - [x] Checkout flow creates sessions server-side (`create-checkout-session`
-      Edge Function, code-complete, not yet deployed). Referral metadata is
-      **not** attached yet — the referral ledger this depends on doesn't
-      exist yet; tracked as follow-up, not closed.
+      Edge Function, deployed to both `Cramapple-Development` and
+      `Cramapple-Production`). Referral metadata is **not** attached yet —
+      the referral ledger this depends on doesn't exist yet; tracked as
+      follow-up, not closed.
 - [x] Webhook handler verifies signatures and is the sole trigger for
       entitlement grants and `purchase_completed` (`stripe-webhook` Edge
-      Function, code-complete, not yet deployed). `referred_purchase` is
+      Function, deployed to both Supabase projects, but not yet exercisable
+      in either — `STRIPE_WEBHOOK_SECRET` isn't set anywhere yet, so every
+      delivery is currently rejected fail-closed). `referred_purchase` is
       not yet handled — same referral-ledger dependency as above.
 - [ ] Refund handling is implemented and reconciled against referral
       rewards per the refund-window rule. Explicitly deferred.
