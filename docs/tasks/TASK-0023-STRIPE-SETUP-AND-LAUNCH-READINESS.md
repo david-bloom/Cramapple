@@ -366,15 +366,42 @@ this change:**
 - The Coupon/Promotion Code for the "add another subject" incentive, and
   `lookup_key`/`metadata` on existing Prices — both still open from the
   Live Catalog Inventory gaps above; unrelated to schema/Edge Function work.
-- Deployment itself: applying the two new migrations to either Supabase
-  project, setting the four new secrets, deploying the two new Edge
-  Functions, and registering the live webhook endpoint URL with Stripe.
-  This is a Hard-Gate financial system — deployment should happen as a
-  reviewed step, not bundled silently into a docs/code PR.
 - The Lovable-side frontend changes needed to actually call
   `create-checkout-session` and handle the `/checkout/success` and
   `/checkout/cancel` routes — outside this repository's edit surface per
   `LOVABLE_FREE_SCORE_CHECK_FUNNEL.md`.
+
+## Dev/Beta Deployment Log (2026-08-11)
+
+Deployed to `Cramapple-Development` (`wmgjsdkphcyhngaffbqf`) with David
+Bloom's explicit go-ahead. **This is the first live deployment under this
+task** — everything before this point was code/docs only.
+
+- `STRIPE_SECRET_KEY` (sandbox test-mode restricted key, scoped to
+  Checkout Sessions write) and `STRIPE_PRICE_CATALOG_JSON` (the sandbox
+  catalog value from **Sandbox (Test-Mode) Catalog Inventory** above) set
+  as Supabase Edge Function secrets by David Bloom.
+- Both migrations applied directly via the Supabase SQL Editor:
+  `20260811160000_stripe_entitlement_support.sql` and
+  `20260811160100_stripe_webhook_events.sql`. `app.subject_entitlements`
+  now has the Stripe columns; `app.stripe_webhook_events` exists.
+- Both Edge Functions deployed: `create-checkout-session` (`verify_jwt:
+  true` — students authenticate via Supabase JWT) and `stripe-webhook`
+  (`verify_jwt: false` — Stripe's request carries its own HMAC signature,
+  not a Supabase JWT, so requiring one would make Supabase's gateway
+  reject every legitimate webhook delivery before the function ever runs).
+- Live dev webhook URL: `https://wmgjsdkphcyhngaffbqf.supabase.co/functions/v1/stripe-webhook`.
+
+**Still open before dev is fully wired:** `STRIPE_WEBHOOK_SECRET` — this
+requires registering the URL above as a webhook endpoint against the
+**sandbox** Stripe account (`acct_1U3K3SLrvKNd9sBp`, test mode) for the
+`checkout.session.completed` event, which only produces a signing secret
+once the endpoint exists; and `APP_BASE_URL`, not yet confirmed set.
+
+**Production has not been touched by this task.** `STRIPE_SECRET_KEY` was
+set on `Cramapple-Production` by David Bloom directly (restricted key,
+outside this task's tool access), but the migrations are not applied and
+the Edge Functions are not deployed there.
 
 ## Out of Scope
 
