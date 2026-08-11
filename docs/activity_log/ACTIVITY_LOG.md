@@ -6,6 +6,8 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Reviewer QA Sweep (2026-08-11): 16 Published-but-`modification_reserved` Items (up from 9); Ahmed Ali and Chisom Anuba's Gold-Set-Verification Assignments (11 Items) Found Missing With No Audit Trail — 2026-08-11
+- Exemplar-Injection Grading Pilot (AP Statistics) Scored: Inconclusive — Item-Level Cluster Bootstrap Invalid in `harness.ts`, Do Not Ship — 2026-08-10
 - P0-B Publish Gate Implemented; 130 Published-but-Unapproved Items Retired; Gold-Set Rubric-Ordering Defect Found (5 Items) and Fixed — 2026-08-08
 - All 69 Remaining Physics approve_with_edits Items Repaired Against Saood's Notes (Full Backlog Now Zero) — 2026-08-08
 - CONTENT_AUTHORING_AND_QA_PROTOCOL.md v0.3: New §9 Documents Existing-Content QA via Independent Re-derivation, Including the Pool-Selection Yield Data and Remediation-Mechanics Gotchas from This Session — 2026-08-08
@@ -81,6 +83,132 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 ---
+
+## Reviewer QA Sweep (2026-08-11): 16 Published-but-`modification_reserved` Items (up from 9); Ahmed Ali and Chisom Anuba's Gold-Set-Verification Assignments (11 Items) Found Missing With No Audit Trail — 2026-08-11
+
+**Task:** Standing reviewer QA sweep (see `docs/Q&A/README.md`)
+**Status:** Sweep complete, read-only. Two items need owner attention; see Next Required
+Action.
+**Summary:** Ran the periodic reviewer QA sweep over `app.content_review_decisions`
+(`tutor_question` stage) for the window since the 08-10 sweep (51 decisions, 4 active
+blind reviewers plus David's 5 owner-remediation approvals). All integrity and structure
+checks came back clean (0 mismatches, 0 missing stems, 0 malformed MCQ/FRQ structure, 0
+cross-reviewer double coverage). One disapproval this window (`apphycm-frq-044`,
+Muhammad Saood) is genuine and independently checkable — a mass-on-a-spring "leaves the
+spring" ambiguity, math verified correct.
+
+The P0-B published-but-`modification_reserved` net check (open since the 08-09 gate fix
+started letting re-review findings against already-published content get recorded) grew
+from 9 items (08-10 sweep) to 16: the original 9 are unremediated and unchanged, plus 7
+new findings this window from Sarah Sohail (3 AP Biology MCQs), Ahmed Ali (1 AP Physics 1
+FRQ, 2 AP Physics MCQs), and Chisom Anuba (1 AP Physics 2 MCQ) — spread across three
+reviewers/subjects, not a concentrated pass. All 16 are live to students with an open
+finding.
+
+Of the 08-10 sweep's 4 flagged disapprovals, 3 physics items were owner-adjudicated to
+`reviewed_disapproved`/`excluded`; `APBIO-MCQ-094` was not — it's been sitting at
+`status='assigned'` since 07-28 (never published, so no student exposure, but two sweep
+windows unactioned).
+
+**New finding:** Ahmed Ali's 4 and Chisom Anuba's 7 pending gold-set-verification
+assignments, both reported present in the 08-10 sweep/addendum, are now completely absent
+from `app.gold_set_verification_assignments` — not zero-pending, zero rows at all for
+either reviewer's `user_id`. Table total (139) reconciles exactly to the three remaining
+reviewers (Abdul Hanan 3, Jill Schmidlkofer 66, Muhammad Saood 70) with no remainder, and
+`app.audit_events` has no rows referencing either reviewer under `gold_set`-related
+`object_type`/`metadata`, so there's no logged reassignment or withdrawal event to explain
+it. Same general shape as the previously-fixed Ghazanfar withdrawal-orphan bug
+(2026-08-08 log entry) but a different failure mode — rows gone rather than stuck — so not
+assumed to be the same root cause. Not diagnosable further from read-only queries.
+
+Full detail, per-reviewer tables, and the complete P0-B item list:
+`docs/Q&A/REVIEWER_QA_SWEEP_2026_08_11.md`.
+
+**Next Owner:** David Bloom
+**Next Required Action:** (1) Investigate the missing Ahmed Ali/Chisom Anuba gold-set
+assignments — determine whether this is a hard-delete bug or an unlogged reassignment, and
+whether the 11 items need to be recreated. (2) Decide remediation ordering for the 16
+published-but-`modification_reserved` items. (3) Adjudicate `apphycm-frq-044` and close out
+the stuck `APBIO-MCQ-094` disapproval.
+
+---
+
+## Exemplar-Injection Grading Pilot (AP Statistics) Scored: Inconclusive — Item-Level Cluster Bootstrap Invalid in `harness.ts`, Do Not Ship — 2026-08-10
+
+**Task:** TASK-0016 Phase C (cross-subject grading calibration)
+**Status:** Pilot complete. Result **inconclusive**, not negative or positive.
+`exemplar_mode: "with_exemplar"` should not ship on this evidence. Production
+cleanup (synthetic pilot student's rows) **not yet performed** — see Next
+Required Action.
+
+**Trigger:** the 2026-08-03 gold-set-model decision (see that entry) included
+a pre-registered exemplar-injection pilot as a follow-on test:
+inject a verified gold-set answer into the grading prompt as a few-shot
+exemplar (`exemplar_mode: "with_exemplar"`) and measure whether it beats
+today's production prompt (`exemplar_mode: "off"`) on 4 AP Statistics
+held-out items. Phase 4's capture script ran and committed
+`raw_calls.jsonl` (300 calls, commit `efb16c5`), but Phase 5 (map to
+`ResultCase[]`, score, write `REPORT.md`) had not been run yet this session.
+
+**What running Phase 5 found.** `to_result_cases.mjs` and
+`scripts/grading-model-assessment/main.ts` were run for the first time
+against the real capture. Headline: candidate (`with_exemplar`) 58.3%
+overall accuracy vs. baseline (`off`) 52.4%, a +4.7pp point estimate with
+bootstrap 95% CI **[0.0pp, 12.2pp]** — every secondary metric (selective
+accuracy, coverage, false-negative rate) also favors the candidate. Read at
+face value this looks like a marginal win. It is not trustworthy:
+
+- **`report.json` reports `"clusters": 30`.** The pilot's own execution plan
+  pre-registered that a valid run needs cluster count = number of held-out
+  items (4), not the number of scored responses (30), because responses to
+  the same item share rubric, exemplar, and prompt scaffolding and are not
+  independent draws. `to_result_cases.mjs` correctly aggregates the 5
+  per-cell trials before scoring (the pseudoreplication fix it was built
+  for), but `harness.ts`'s `clusterBootstrapDifference` has no item-level
+  grouping above that — it treats every `content_key#response_index` key in
+  `item_correctness` as its own independent cluster. This is a harness gap,
+  not a pilot-invocation mistake: nothing in the harness has ever needed
+  cluster-granularity coarser than the scored case before. **No accuracy
+  claim survives this** — the reported CI is anti-conservative, and a
+  correctly item-clustered bootstrap over the true n=4 would almost
+  certainly be too wide to resolve a 4.7pp difference.
+- **Held-out pool audit gap, already partially fixed.** Phase 0 checked
+  `content_items.status` (item-level, all published) but not
+  `content_item_versions.status` (version-level, what `evaluate-attempt`
+  enforces). `APSTATS-SFRQ-003` (and its exemplar-source topic-mate
+  `APSTATS-SFRQ-004`) turned out version-`retired`, discovered mid-run via a
+  live `409`. Commit `cf88a0e` fixed `held_out_items.json`/
+  `item_pool_split.json` and made `run_pilot.mjs` resilient, correcting the
+  pool to 4 items/30 responses — but never regenerated `gold_cases.json`/
+  `gold_cases_internal.json`, which still carried the excluded item's 7
+  responses and blocked `main.ts` (`missing result case`) until this
+  session dropped them.
+- **Data collection itself held up.** 29/330 calls (8.8%) hit `401`
+  (mid-run session expiry) and 1 hit `409`; `run_pilot.mjs`'s resumability
+  recovered all of them — `raw_trial_variance.json` confirms all 188
+  (case × arm × criterion) cells reached the full pre-registered
+  `trial_count: 5`, mean modal agreement 97.2%. Not a contributing cause of
+  the inconclusive verdict.
+
+**Documents landed:** `docs/research/exemplar_grading_pilot_2026_08/REPORT.md`
+(new — full writeup, verdict, and the harness-fix condition for re-running
+this question); `README.md` status banner; `gold_cases.json`/
+`gold_cases_internal.json` (SFRQ-003 dropped, 37→30 responses, completing
+`cf88a0e`'s correction); `report.json`, `results_with_exemplar.json`,
+`results_without_exemplar.json`, `raw_trial_variance.json` (generated, not
+previously committed). `GRADING_PROGRAM_LEDGER_2026_07_27.md` experiment
+register (§A) gets a new row citing this result alongside the existing Bio
+reference-layer/exemplar null results, with an explicit note that this one
+is inconclusive-by-design-defect rather than a clean replication.
+
+**Next Owner:** David Bloom
+**Next Required Action:** Run the pilot's required Production cleanup
+(README.md §5 — delete the synthetic pilot student's `grading_results`,
+`response_versions`, `attempts`, `student_memory` rows, its `app.profiles`
+row, and its Supabase Auth user; confirm via a final query that no `app.*`
+rows reference its user id) and record what was deleted. Separately: decide
+whether item-level cluster-bootstrap support in `harness.ts` is worth
+building before this question is asked again — not currently scheduled.
 
 ## P0-B Publish Gate Implemented; 130 Published-but-Unapproved Items Retired; Gold-Set Rubric-Ordering Defect Found (5 Items) and Fixed — 2026-08-08
 
