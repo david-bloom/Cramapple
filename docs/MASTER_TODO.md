@@ -80,7 +80,7 @@ records.
 | `TASK-0009` | Schema and Governance Reconciliation | High | Proposed | Conceptual-model approval |
 | `TASK-0010` | Grader Confidence and Calibration | Critical | Proposed | Learning Quality and Product Owner release gates |
 | `TASK-0011` | Handwritten Graph Capture | Medium | Research | Prototype and feasibility decision |
-| `TASK-0023` | Stripe Setup and Commercial Launch Readiness | High | Not Started | Confirm current Stripe/Lovable integration state; `BIZ-001` pricing decision |
+| `TASK-0023` | Stripe Setup and Commercial Launch Readiness | High | In Progress | Deploy migrations/secrets/functions; close beta test-mode catalog gap; `BIZ-001` pricing decision |
 | `UX-001` | Initial Product UX Decisions | High | In Progress | Learning, Marketing, accessibility, and Product Owner review |
 | `UX-002` | Question and Answer Review Portal | High | In Progress | Tutor, AP Reader, Learning Quality, accessibility, security, and Product Owner review |
 | `UX-003` | Content Authoring and Revision Workbench | High | In Progress | Author, Learning Quality, accessibility, security, rights, and Product Owner review |

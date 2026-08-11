@@ -35,22 +35,25 @@ work implied across multiple documents.
   create the Coupon/Promotion Code for the "add another subject" incentive,
   and consider adding `lookup_key`/`metadata` to existing Prices so
   Checkout/webhook code isn't hardcoding opaque Price IDs.
-- Define and implement the Stripe Checkout flow (session creation, success/
-  cancel routes, referral/promo-code metadata per
-  `CRAMAPPLE_MARKETING_STACK_REPORT_2026.md` referral section).
-- Define and implement the Stripe webhook handler as the sole source of
-  truth for `purchase_completed`, `referred_purchase`, and refund events,
-  per the event contract in `CRAMAPPLE_FREE_SCORE_CHECK_IMPLEMENTATION_2026.md`
-  §Events and `growth-events.ts`'s `"stripe"` event source.
-- Define entitlement-granting logic triggered only by the verified webhook
-  (never by client-side checkout completion).
-- Define the Stripe secret/key inventory (publishable key, secret key,
-  webhook signing secret) and where each lives across local, beta, preview,
-  and production, folding into the environment-variable matrix owned by
-  `TASK-0012`.
-- Define refund handling and its interaction with referral-reward
-  reconciliation (`CRAMAPPLE_MARKETING_STACK_REPORT_2026.md` referral
-  section: rewards reconcile only after the refund window).
+- Stripe Checkout flow is implemented (`create-checkout-session` Edge
+  Function). **Referral metadata is not yet wired in** — see
+  **Entitlement Schema, Webhook, and Checkout Implementation** below.
+- Stripe webhook handler is implemented (`stripe-webhook` Edge Function) as
+  the sole trigger for entitlement grants and the `purchase_completed`
+  growth event. `referred_purchase` and refund events are not yet handled
+  — see below.
+- Entitlement-granting logic is implemented, triggered only by the verified
+  webhook signature — never by client-side checkout completion.
+- Stripe secret/key inventory (`STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`,
+  `STRIPE_PRICE_CATALOG_JSON`, `APP_BASE_URL`) has been added to the
+  `TASK-0012` environment-variable matrix
+  (`docs/architecture/PRODUCTION_PLUMBING_AND_CUTOVER_PLAN.md` §5.3/§5.4).
+  None of these secrets have actually been set in either Supabase project
+  yet — that remains a deployment step.
+- Refund handling and its interaction with referral-reward reconciliation
+  (`CRAMAPPLE_MARKETING_STACK_REPORT_2026.md` referral section: rewards
+  reconcile only after the refund window) is **not yet built** — explicitly
+  deferred until Checkout/webhook/entitlements are deployed and exercised.
 - Define reconciliation checks so Stripe-reported revenue and
   Supabase-recorded entitlements stay within the 5% tolerance target in
   `CRAMAPPLE_MARKETING_STACK_REPORT_2026.md`.
@@ -189,6 +192,129 @@ $19.99.
   dashboard to confirm it's intentionally retired and not something a
   Checkout Session could still accidentally reference.
 
+## Entitlement Schema, Webhook, and Checkout Implementation (2026-08-11)
+
+Code-complete; **not yet deployed or configured with live secrets**. Nothing
+in this section has touched the live Stripe account or been applied to
+either Supabase project — it is committed migrations and Edge Function
+code only. Deployment (`supabase db push`, `supabase functions deploy`,
+setting the actual secret values) is a separate, later step.
+
+**Entitlement table: extended `app.subject_entitlements`, not a new table.**
+That table already existed (`supabase/migrations/20260731160200_free_score_check_growth_funnel.sql`,
+built for the beta/free-score-check flow) with exactly the shape this task
+needed — `user_id`, `subject_id`, `access_tier`, `status`, `source`, plus a
+unique `(user_id, subject_id, access_tier, source)` constraint that already
+gives entitlement grants natural idempotency. Migration
+`supabase/migrations/20260811160000_stripe_entitlement_support.sql` adds:
+
+- `stripe_checkout_session_id` and `stripe_event_id` columns, so every
+  Stripe-granted row traces back to the purchase that created it;
+- `all_subjects boolean not null default false`, tagging rows created by an
+  unlimited purchase.
+
+**Unlimited access: per-subject expansion at purchase time, not a nullable
+wildcard row.** The design doc originally floated a wildcard entitlement row
+with a null `subject_id`. Built it instead as one entitlement row *per
+existing subject* (all tagged `all_subjects = true`), because: (1) it
+requires zero changes to any existing reader of `subject_entitlements`,
+including whatever Lovable-side code already queries this table expecting
+one row per owned subject; (2) it keeps `subject_id not null`, so no FK/check
+constraint rework. The "does unlimited cover subjects added after purchase"
+policy question is answered by a trigger
+(`app.grant_unlimited_holders_new_subject`, same migration): whenever a new
+row is inserted into `app.subjects`, every user with an active
+`all_subjects = true` entitlement is automatically backfilled with an
+entitlement for it. Unlimited genuinely means unlimited, including future
+subjects, without any Lovable-side change required.
+
+**Webhook idempotency: an explicit ledger table, in addition to the
+entitlement unique constraint.** Migration
+`supabase/migrations/20260811160100_stripe_webhook_events.sql` adds
+`app.stripe_webhook_events` (Stripe event id as primary key). The webhook
+receiver inserts a row keyed by `event.id` before doing any entitlement
+writes; a primary-key conflict on redelivery means the event was already
+handled, and the receiver acknowledges without reprocessing. This matches
+the idempotency rule in `PRODUCTION_PLUMBING_AND_CUTOVER_PLAN.md` ("retry
+paths must be idempotent") and gives an audit trail Postgres can be queried
+against directly.
+
+**New Edge Functions** (`supabase/functions/`):
+
+- `create-checkout-session/index.ts` — authenticated (student/admin only,
+  via the existing `requireProfile` helper), takes
+  `{ mode: "single"|"bundle_2"|"bundle_3"|"unlimited", subject_keys?: string[] }`,
+  resolves the Price ID from the environment-provided catalog (see below),
+  creates the Checkout Session server-side with `client_reference_id` set to
+  the Supabase user id, `allow_promotion_codes: true`, and
+  `metadata.mode`/`metadata.subject_ids`, and fires the `checkout_started`
+  growth event. Returns `{ url }` for the frontend to redirect to — no
+  Stripe.js/publishable key needed, since this uses hosted Stripe Checkout
+  rather than Stripe Elements.
+- `stripe-webhook/index.ts` — verifies the raw-body signature
+  (`Stripe-Signature` header) via `stripe.webhooks.constructEventAsync`
+  (the async variant, required because Deno has no synchronous Node
+  crypto), records the event in the idempotency ledger, and on
+  `checkout.session.completed` grants one entitlement row per subject (or
+  expands to all active subjects for `unlimited`), then fires
+  `purchase_completed`. All other event types are acknowledged with no
+  action taken (so Stripe doesn't retry them), including refund events —
+  refund handling is explicitly deferred, not silently dropped.
+- `_shared/stripe.ts` — Stripe client (fails fast on missing
+  `STRIPE_SECRET_KEY` at module load, matching `_shared/supabase.ts`'s
+  pattern) and the signature-verification wrapper (`STRIPE_WEBHOOK_SECRET`
+  required lazily, only when the webhook receiver actually calls it, so
+  `create-checkout-session` doesn't need that secret defined).
+- `_shared/stripe-catalog.ts` (+ `_shared/stripe-catalog_test.ts`) — parses
+  and validates the `STRIPE_PRICE_CATALOG_JSON` environment variable into a
+  `{ subjects: Record<subject_key, price_id>, bundle_2, bundle_3, unlimited }`
+  shape. The catalog is read from an environment variable, not a database
+  table or hardcoded IDs, because the mapping is environment-specific (test
+  vs. live Stripe Price IDs) and must never be cross-wired between beta and
+  production — see the `TASK-0012` environment-variable matrix update below.
+
+**Referral metadata is not yet wired in.** `create-checkout-session` does
+not currently accept or forward a referral code/identifier into Checkout
+metadata. This was explicitly scoped out of this pass — the referral ledger
+design (`CRAMAPPLE_MARKETING_STACK_REPORT_2026.md` referral section) hasn't
+been built yet on the Supabase side, so there's nothing to attribute to.
+Follow-up work, not forgotten scope.
+
+**Two environment gaps found while wiring the config, not introduced by
+this change:**
+
+- **Production's `app.subjects` table has all 10 launch subjects with
+  `subject_key` values matching the Stripe catalog exactly** (confirmed by
+  direct read-only query against `Cramapple-Production`, 2026-08-11) — the
+  production `STRIPE_PRICE_CATALOG_JSON` value is recorded verbatim in the
+  `TASK-0012` environment-variable matrix update.
+- **`Cramapple-Development` (beta) only has 4 of the 10 subjects seeded**
+  (`biology`, `ap-chemistry`, `ap-physics-1`, `ap-statistics`) and **no
+  test-mode Stripe catalog exists at all** — only the live-mode catalog
+  does. Beta cannot safely exercise Checkout/webhook/entitlement code until
+  both a test-mode Stripe catalog is built and the subject parity gap is
+  closed; setting a live-mode `STRIPE_SECRET_KEY` in the beta project to
+  work around this would violate the "never cross-wire test/live keys"
+  rule and is not an acceptable shortcut.
+
+**Not built in this pass, and why:**
+
+- Refund handling and referral-reward reconciliation — explicitly deferred;
+  depends on Checkout/webhook/entitlements actually being deployed and
+  exercised first.
+- The Coupon/Promotion Code for the "add another subject" incentive, and
+  `lookup_key`/`metadata` on existing Prices — both still open from the
+  Live Catalog Inventory gaps above; unrelated to schema/Edge Function work.
+- Deployment itself: applying the two new migrations to either Supabase
+  project, setting the four new secrets, deploying the two new Edge
+  Functions, and registering the live webhook endpoint URL with Stripe.
+  This is a Hard-Gate financial system — deployment should happen as a
+  reviewed step, not bundled silently into a docs/code PR.
+- The Lovable-side frontend changes needed to actually call
+  `create-checkout-session` and handle the `/checkout/success` and
+  `/checkout/cancel` routes — outside this repository's edit surface per
+  `LOVABLE_FREE_SCORE_CHECK_FUNNEL.md`.
+
 ## Out of Scope
 
 - Setting the actual AP Biology launch price or refund policy — that is
@@ -204,13 +330,19 @@ $19.99.
 
 ## Routes / Components / Systems Affected
 
-- Checkout initiation (frontend, wherever it is hosted — Lovable/Vercel).
-- Stripe Checkout Session creation (server-side function).
-- Stripe webhook receiver (Supabase Edge Function per
-  `growth-events.ts` conventions).
-- Supabase entitlement and purchase-attribution tables.
-- Environment-variable matrix defined under `TASK-0012`.
-- Referral ledger (student/parent "refer a friend" system).
+- Checkout initiation (frontend, wherever it is hosted — Lovable/Vercel;
+  not yet built — needs to call `create-checkout-session`).
+- `supabase/functions/create-checkout-session/index.ts` (built).
+- `supabase/functions/stripe-webhook/index.ts` (built).
+- `supabase/functions/_shared/stripe.ts`,
+  `supabase/functions/_shared/stripe-catalog.ts` (built).
+- `app.subject_entitlements` (extended, not replaced) and
+  `app.stripe_webhook_events` (new) — see
+  `supabase/migrations/20260811160000_stripe_entitlement_support.sql` and
+  `supabase/migrations/20260811160100_stripe_webhook_events.sql`.
+- Environment-variable matrix defined under `TASK-0012` (updated).
+- Referral ledger (student/parent "refer a friend" system) — not yet built,
+  referral metadata plumbing depends on it.
 
 ## Data / Security / Integration Impact
 
@@ -233,15 +365,22 @@ issuance before the refund window closes.
       uniform single pricing). Confirmation against a formally approved
       `BIZ-001` price is still open since `BIZ-001` itself is still
       "Proposed" in `MASTER_TODO.md`.
-- [ ] Checkout flow creates sessions server-side with referral metadata
-      attached.
-- [ ] Webhook handler verifies signatures and is the sole trigger for
-      entitlement grants and `purchase_completed`/`referred_purchase`
-      events.
+- [x] Checkout flow creates sessions server-side (`create-checkout-session`
+      Edge Function, code-complete, not yet deployed). Referral metadata is
+      **not** attached yet — the referral ledger this depends on doesn't
+      exist yet; tracked as follow-up, not closed.
+- [x] Webhook handler verifies signatures and is the sole trigger for
+      entitlement grants and `purchase_completed` (`stripe-webhook` Edge
+      Function, code-complete, not yet deployed). `referred_purchase` is
+      not yet handled — same referral-ledger dependency as above.
 - [ ] Refund handling is implemented and reconciled against referral
-      rewards per the refund-window rule.
-- [ ] All Stripe secrets are inventoried in the `TASK-0012`
-      environment-variable matrix with correct environment scoping.
+      rewards per the refund-window rule. Explicitly deferred.
+- [x] All Stripe secrets are inventoried in the `TASK-0012`
+      environment-variable matrix with correct environment scoping
+      (`STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`,
+      `STRIPE_PRICE_CATALOG_JSON`, `APP_BASE_URL`, beta and production
+      tables). None of the actual secret values have been set yet — the
+      matrix documents what's needed, not that it's live.
 - [ ] A reconciliation check (manual or automated) confirms Supabase
       entitlement records match Stripe purchase records within the 5%
       target.
@@ -252,8 +391,14 @@ issuance before the refund window closes.
 
 - Manual QA: Full checkout-to-entitlement walkthrough in Stripe test mode,
   including a simulated webhook failure/retry and a simulated refund.
-- Automated tests: Webhook signature verification unit tests; entitlement
-  grant idempotency tests (duplicate webhook delivery must not double-grant).
+  **Not yet run** — blocked on the beta test-mode-catalog gap noted above;
+  nothing has been exercised against a live Stripe endpoint.
+- Automated tests: `supabase/functions/_shared/stripe-catalog_test.ts`
+  covers the price-catalog parsing/validation logic (added). Webhook
+  signature verification and entitlement-grant idempotency (duplicate
+  webhook delivery must not double-grant) still need tests — signature
+  verification specifically needs a real webhook secret to test against, so
+  it's realistically a post-deployment check rather than a pure unit test.
 - Regression areas: Free-score-check funnel (`LOVABLE_FREE_SCORE_CHECK_FUNNEL.md`
   explicitly excludes Stripe logic from Lovable-side changes), referral
   attribution, growth-event outbox.
@@ -290,17 +435,33 @@ authoritative logic living in Lovable-hosted `_serverFn` infrastructure —
 this repository owns that surface (`supabase/functions/`,
 `supabase/migrations/`), so those pieces can be built here once scoped.
 
-Remaining before Checkout/webhook implementation can start:
+The entitlement schema, webhook receiver, and Checkout Session creation
+function are now code-complete — see **Entitlement Schema, Webhook, and
+Checkout Implementation** above for what was built and the design decisions
+made (extending the existing `subject_entitlements` table rather than a new
+one, per-subject expansion plus a backfill trigger for unlimited access
+instead of a nullable wildcard row, and an explicit idempotency ledger for
+the webhook).
 
-1. Build the Coupon + Promotion Code for the "add another subject" incentive
-   (not yet created).
-2. Decide the shared-vs-per-customer promo code question (open item above).
-3. Add an entitlement schema migration (`subject_entitlements`-style table
-   with a wildcard flag for unlimited access) — not yet started.
-4. Build the webhook receiver Edge Function and the Checkout Session
-   creation Edge Function — not yet started.
-5. Fold Stripe secrets into the `TASK-0012` environment-variable matrix —
-   not yet started.
+Remaining, in rough order:
+
+1. Deploy: apply the two new migrations, set the four new secrets per
+   environment, deploy the two new Edge Functions, register the live
+   webhook endpoint with Stripe. Not done in this pass — see the "Not built
+   in this pass" list above for why.
+2. Close the beta/dev environment gaps found while wiring this up: seed the
+   remaining 6 subjects into `Cramapple-Development`, and build a test-mode
+   Stripe catalog before beta can safely exercise Checkout.
+3. Build the Coupon + Promotion Code for the "add another subject" incentive
+   (not yet created), and decide the shared-vs-per-customer promo code
+   question.
+4. Build the Lovable-side frontend calls to `create-checkout-session` and
+   the `/checkout/success` / `/checkout/cancel` routes — outside this
+   repository's edit surface.
+5. Build the referral ledger, then wire referral metadata into
+   `create-checkout-session` and handle `referred_purchase` in the webhook.
+6. Refund handling and referral-reward reconciliation, last, since it
+   depends on all of the above existing and being exercised first.
 
 ## QA Review
 
