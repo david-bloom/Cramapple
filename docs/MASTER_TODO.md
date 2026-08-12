@@ -245,6 +245,13 @@ records.
 - [ ] Define and validate learner-created graphing and scoring.
 - [ ] Research QR-linked handwritten graph capture through `TASK-0011`.
 - [ ] Select a renderer only after the bounded prototype and architecture gate.
+- [ ] **Deferred 2026-08-12:** gold-set coverage for graph-construction FRQ
+  criteria and their grading (e.g. AP Biology Q2 Part B, worth 4 of 9 points
+  per the CED — currently zero 4-point criteria exist in the Biology bank).
+  A written student answer can't stand in for "the student drew this graph,"
+  so this needs the HDG capture path above, not the text-answer
+  `generate_gold_set.mjs` pipeline. Revisit once this backlog item's core
+  rendering/capture questions are resolved.
 
 ## 7. P1 Product and Teaching Design Backlog
 

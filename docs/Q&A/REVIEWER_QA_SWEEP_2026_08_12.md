@@ -212,3 +212,27 @@ unaddressed — out of scope for this remediation pass, which targeted only the 
 sweep's findings. The Physics MCQ dimensional-analysis defect-pattern scan (follow-up
 above) was not run against the rest of the bank; this pass fixed only the 8 items Ahmed
 already found by hand.
+
+## Gold-set generation follow-through (2026-08-12)
+
+Generating Biology/Chemistry gold-set element decomposition (`GOLD_SET_GENERATION_PROTOCOL.md`
+§0.5) surfaced two corpus defects unrelated to the gold set itself, found while
+cross-checking the AP Biology and AP Chemistry CEDs against the bank's actual point
+structure:
+
+- **AP Biology Short-FRQ point structure.** 58 of 111 Short-FRQ criteria (29 of 42
+  items) used a 2-point `a`/`b` structure, but the CED specifies every short-FRQ part
+  (A–D, 4 points total) is worth exactly 1 point, no exceptions — a convention the bank
+  already used correctly elsewhere (13 items). Fixed via
+  `scripts/content-seed/reviewer-qa-remediation/20260812_apbio_shortfrq_1pt_repair.sql`:
+  split each item's `a`/`b` criteria into `a1`/`a2`/`b1`/`b2` at 1 point each, reusing
+  this session's own gold-set element-decomposition drafts for the split text (no new
+  content invented). Executed against production: 29 repaired, 29 published, 0 blocked,
+  0 duplicate-published — matching the script's own assertions.
+- **AP Chemistry `canonical_answer_1` gap.** 37 of 50 published Chemistry FRQs (74%)
+  are missing `canonical_answer_1`, blocking Set A/B gold-set eligibility for most of
+  the bank. Not yet remediated — requires authoring real canonical answers, tracked as
+  the next piece of this follow-through.
+- **Deferred, not part of this pass:** graph-construction FRQ criteria (e.g. AP Biology
+  Q2 Part B, 4 of 9 points) and their grading — logged in `docs/MASTER_TODO.md` under
+  `DESIGN-007` pending the HDG capture-path work.
