@@ -189,3 +189,26 @@ assignments reviewed** (fully generated, essentially unstarted on the reader sid
 - Confirm with Shazia Fazal or Abdul Hanan directly whether topic selections are being
   made and dropped somewhere, since they're the only two reviewers who have ever shown
   100% compliance and both were inactive this window.
+
+## Remediation (2026-08-12, post-sweep)
+
+The 17 published-but-flagged items and this window's 3 disapprovals are closed.
+`scripts/content-seed/reviewer-qa-remediation/20260812_p0b_flagged_batch_repair.sql`
+repaired and republished 17 items (9 AP Biology MCQs — Sarah Sohail's requested wording
+softenings, plus a full rewrite of `APBIO-MCQ-086` fixing the lamprey/vertebrate factual
+error and removing out-of-scope cladistics jargon; 8 Physics MCQs — Ahmed Ali's own
+specified dimensionally-consistent distractor replacements, transcribed verbatim rather
+than re-derived) and closed a 19th item (`apphycem-mcq-012`) with a no-content-change
+re-approval (Ahmed flagged it with no stated defect). `apphycm-mcq-011`'s disapproval had
+landed on an already-superseded version (created 07-20, superseded 08-08 before his
+08-11 review) — the live content carried the identical bare-symbol-recall defect, rebuilt
+as an applied RC-discharge computation per his spec. `apphycm-frq-044` was already
+independently repaired 2026-08-11 (confirmed, no action needed). Post-repair: the P0-B
+net check (`status='published'` AND `review_status IN ('excluded','modification_reserved')`)
+is 0 rows across the entire corpus, not just this window's items.
+
+**Not done, carried forward:** the 08-10 sweep's 9 P0-B items and 4 disapprovals remain
+unaddressed — out of scope for this remediation pass, which targeted only the 08-12
+sweep's findings. The Physics MCQ dimensional-analysis defect-pattern scan (follow-up
+above) was not run against the rest of the bank; this pass fixed only the 8 items Ahmed
+already found by hand.
