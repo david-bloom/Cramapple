@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Owner Decisions Executed: APBIO-MCQ-074 Retargeted CRISPR→PCR-Primer-Annealing (Still CED-Off-Scope Otherwise); Ahmed Ali (50) and Jill Schmidlkofer (8) Given Fresh Gold-Set Set B Queues — 2026-08-11
 - APBIO-FRQ-L-025 Split Into Three Short FRQs (Format-Mismatch Follow-up); CRISPR-Scope and Gold-Set-Set-A Assignment Questions Raised for Owner Decision — 2026-08-11
 - 08-11 Reviewer QA Sweep Remediated: 18 Items Repaired and Published (16 Sweep Findings + 2 Retire-or-Repair Assessments, Both Repaired); 6 Stuck-Clean Physics FRQs Published via Publishing-Protocol Sweep; Half of Ahmed Ali's Physics Queue (51 Items) Reassigned to Ghazanfar Ali — 2026-08-11
 - Reviewer QA Sweep (2026-08-11): 16 Published-but-`modification_reserved` Items (up from 9); Confirmed the 08-11 Gold-Set-Assignment Pause Explains Ahmed Ali/Chisom Anuba's Missing Rows — 2026-08-11
@@ -84,6 +85,42 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## Owner Decisions Executed: APBIO-MCQ-074 Retargeted CRISPR→PCR-Primer-Annealing (Still CED-Off-Scope Otherwise); Ahmed Ali (50) and Jill Schmidlkofer (8) Given Fresh Gold-Set Set B Queues — 2026-08-11
+
+**Task:** Execution of the two owner decisions from the immediately preceding entry.
+**Status:** Both executed.
+
+**`APBIO-MCQ-074` — retargeted to a CED-covered technique.** Owner chose "retarget"
+over rebuild-anyway/retire/leave-as-is.
+`scripts/content-seed/reviewer-qa-remediation/20260811_apbio_mcq_074_ced_retarget.sql`.
+Kept Adil Abbasi's requested SP1/SP6 point-mutation-prediction mechanic but rebuilt it
+around PCR primer/target base-pairing (EK 6.8.A.1: "PCR (denature/anneal/extend
+amplification)") instead of CRISPR guide-RNA/Cas9 targeting. A 20-nt target/primer
+base-pairing table was independently verified letter-by-letter (all 20 Watson-Crick DNA
+pairs correct) before use, both pre- and post-mutation. `prompt_json.subtopics` corrected
+from the mistagged "6.5 Biotechnology and Gene Editing" to "6.8 Biotechnology" to match
+the fact pack's actual unit numbering. Published as version 4.
+
+**Gold-set Set B assignment.** Owner chose "use Set B instead, ensure everyone has a
+queue" over the Set A / third-reader / no-action alternatives.
+`scripts/content-seed/reviewer-management/20260811_goldset_setb_assign_ahmed_jill.sql`.
+Of Set B's 58 zero-reader answers: **Ahmed Ali** (0 gold-set assignments of any status
+going in — the literal violation the owner's original instruction was catching) received
+all 50 in his qualified subjects (Physics 1/2, C:Mechanics, C:E&M). **Jill Schmidlkofer**
+(0 pending, 40 already submitted) received the 8 Statistics answers, her only qualified
+subject. **Abdul Hanan** (also 0 pending, 46 submitted) got nothing — he is qualified
+only for Calc AB/BC/Precalculus, and zero unassigned Set B answers exist in those
+subjects; noted rather than force-matched to an unqualified subject. Chisom Anuba (45
+pending), Ghazanfar Ali (54 pending), and Muhammad Saood (34 pending) already had
+substantial active queues and were left alone.
+
+**Next Owner:** David Bloom
+**Next Required Action:** None blocking. `APBIO-MCQ-069`'s diagram and
+`apphy1-frq-048`'s graph part remain gated on TASK-0021's Hard-Gate image pipeline, not
+reopened by this entry.
 
 ---
 
