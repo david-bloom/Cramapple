@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- APBIO-FRQ-L-025 Split Into Three Short FRQs (Format-Mismatch Follow-up); CRISPR-Scope and Gold-Set-Set-A Assignment Questions Raised for Owner Decision — 2026-08-11
 - 08-11 Reviewer QA Sweep Remediated: 18 Items Repaired and Published (16 Sweep Findings + 2 Retire-or-Repair Assessments, Both Repaired); 6 Stuck-Clean Physics FRQs Published via Publishing-Protocol Sweep; Half of Ahmed Ali's Physics Queue (51 Items) Reassigned to Ghazanfar Ali — 2026-08-11
 - Reviewer QA Sweep (2026-08-11): 16 Published-but-`modification_reserved` Items (up from 9); Confirmed the 08-11 Gold-Set-Assignment Pause Explains Ahmed Ali/Chisom Anuba's Missing Rows — 2026-08-11
 - Cross-Subject Gold-Set Verification Assignments Paused (15 Pending Rows Removed); AP Statistics Exemplar-Grading Pilot Closed Inconclusive — 2026-08-11
@@ -83,6 +84,77 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## APBIO-FRQ-L-025 Split Into Three Short FRQs (Format-Mismatch Follow-up); CRISPR-Scope and Gold-Set-Set-A Assignment Questions Raised for Owner Decision — 2026-08-11
+
+**Task:** Owner-directed "execute the follow ups" (from the 08-11 remediation entry's open, non-blocking follow-up list) plus "Make sure All gold set reviewers have a corpus of answers to complete from set A."
+**Status:** One follow-up executed; two other follow-ups blocked by real infrastructure/governance (not skipped by choice); one item needs an owner scope decision before proceeding; the Set A instruction conflicts with observed database state and needs owner clarification before any assignment is made.
+
+**Executed — `APBIO-FRQ-L-025` split**
+(`scripts/content-seed/reviewer-qa-remediation/20260811_apbio_frq_l025_split.sql`). Per
+Adil Abbasi's 08-09 format-mismatch note, split the retired Long FRQ into three
+self-contained Short FRQs, reusing the already-de-bundled 08-11 criteria verbatim (no
+content rewritten, only regrouped):
+- `APBIO-FRQ-S-101` "Phylogenetic Cladogram Construction and Parsimony" (Analyze
+  Model/Visual Representation) — original Part A, 4 pts.
+- `APBIO-FRQ-S-102` "Molecular Clock Divergence-Time Calculation" (Analyze Data) —
+  original Part B, 4 pts.
+- `APBIO-FRQ-S-103` "Homoplasy, Molecular Reliability, and Species-Delimitation
+  Evidence" (Conceptual Analysis) — original Parts C+D combined, 5 pts (grouped rather
+  than force-split to exactly 4, since both parts share the same underlying question and
+  neither is large enough to stand alone).
+
+All 13 original points preserved across the three new items (4+4+5); `APBIO-FRQ-L-025`
+retired, not left live in parallel.
+
+**Blocked, not executed — the two image/asset-dependent follow-ups.** Read
+`docs/tasks/TASK-0021-BIOLOGY-PROMPT-VISUAL-STUDENT-DELIVERY.md` before attempting
+either: stimulus images are a Hard-Gate-tier pipeline (accessibility metadata,
+Learning-Quality construct-equivalence review, an explicit QA-visible/student-visible
+approval gate — `approved_at` deliberately unset until Learning Quality signs off) that
+this session has no standing to short-circuit. Adding a `stimulus_image_path` without
+that governance would either leave the item stuck at `asset_metadata_missing` or bypass a
+review step the org has explicitly required. Neither `APBIO-MCQ-069`'s three-group exon
+diagram nor `apphy1-frq-048`'s position-vs-time graph part was built. These remain open,
+now explicitly gated on TASK-0021's approval chain rather than merely deferred.
+
+**Needs an owner decision before proceeding — `APBIO-MCQ-074` (CRISPR-Cas9 rebuild).**
+Before building Adil's suggested fuller point-mutation-prediction rebuild, grep-checked
+`docs/product/AP_BIOLOGY_CED_FACT_PACK.md` for CRISPR the way `APBIO-MCQ-094`'s
+succession claim was checked earlier the same day: **zero hits for "CRISPR" anywhere in
+the fact pack.** Unit 6.8 Biotechnology's documented technique list is narrower —
+"Gel electrophoresis... PCR... bacterial transformation... DNA sequencing → fingerprint
+comparison," with an explicit "*Exclusion: technique-detail knowledge beyond scope*"
+tag right on that line. This is the same class of finding that got `APBIO-MCQ-094`
+retargeted rather than merely polished. Building a harder, better CRISPR item would
+entrench more off-CED content rather than less, so this was not attempted pending an
+owner decision: keep and rebuild (accepting the scope question), retarget the same
+guide-RNA/point-mutation concept onto a CED-covered technique, or retire.
+
+**Needs owner clarification — "all gold set reviewers have a corpus of answers to
+complete from set A."** Live-queried `app.gold_set_answers`/`app.gold_set_verification_assignments`:
+Set A is **30 answers, 60 assignment rows (2 readers each), 60/60 submitted, 0 pending,
+0 unassigned — fully complete**, and was, by design, a fixed 2-reader pilot pair (Jill
+Schmidlkofer and Muhammad Saood only; `GOLD_SET_GENERATION_PROTOCOL.md` §4's "two readers
+per answer" inter-reader-agreement methodology, not a general reviewer pool). Abdul
+Hanan, Chisom Anuba, and Ghazanfar Ali have **never** been assigned Set A work, and there
+is no unfinished Set A content left to assign them — the instruction cannot be satisfied
+literally without either manufacturing a third-reader assignment against a set whose
+statistics already depend on exactly two, or reopening writeonce-immutable rows. Set B
+(384 answers) does have real unfinished work: 105 unassigned, 133 pending — and
+critically, **Ahmed Ali currently holds zero gold-set rows of any status**, the direct,
+literal violation of "all gold set reviewers have... a corpus to complete," a side effect
+of the 08-11 pause's 15-row removal. Flagged for the owner rather than guessed at, since
+substituting Set B for Set A, or expanding Set A's reader pool, are both consequential,
+different decisions.
+
+**Next Owner:** David Bloom
+**Next Required Action:** Decide `APBIO-MCQ-074`'s disposition (rebuild in scope /
+retarget / retire) and clarify the Set A instruction (Set B instead? Ahmed Ali's empty
+queue specifically? Or something else meant by "Set A"?). Both raised directly with the
+owner in-session; not acted on further without an answer.
 
 ---
 
