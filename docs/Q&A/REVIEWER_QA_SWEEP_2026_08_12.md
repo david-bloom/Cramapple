@@ -230,9 +230,15 @@ structure:
   content invented). Executed against production: 29 repaired, 29 published, 0 blocked,
   0 duplicate-published — matching the script's own assertions.
 - **AP Chemistry `canonical_answer_1` gap.** 37 of 50 published Chemistry FRQs (74%)
-  are missing `canonical_answer_1`, blocking Set A/B gold-set eligibility for most of
-  the bank. Not yet remediated — requires authoring real canonical answers, tracked as
-  the next piece of this follow-through.
+  were missing `canonical_answer_1`, blocking Set A/B gold-set eligibility for most of
+  the bank. Fixed via
+  `scripts/content-seed/reviewer-qa-remediation/20260812_apchem_canonical_answer_backfill.sql`:
+  backfilled a complete, part-by-part model answer per item, synthesized from each
+  item's own `frq_criteria` (which already specified the expected content/values in
+  detail) and independently spot-checked before execution — `frq_criteria` itself is
+  untouched, copied verbatim into each new version. Executed against production: 37
+  repaired, 37 published, 0 blocked. AP Chemistry FRQs are now fully eligible for
+  gold-set generation.
 - **Deferred, not part of this pass:** graph-construction FRQ criteria (e.g. AP Biology
   Q2 Part B, 4 of 9 points) and their grading — logged in `docs/MASTER_TODO.md` under
   `DESIGN-007` pending the HDG capture-path work.
