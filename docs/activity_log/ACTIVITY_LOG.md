@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Grading-Engine Replan Step 3 Run A Complete: SFRQ-008 Off 0%, 100% Selective Accuracy on Recovered Criteria, $0.40 Real Spend — 2026-08-13
 - O2 Authenticated Smoke Test Passed: Scoping Confirmed Live Against a Real Model Call, Surfaced a Pre-Existing (Not New) Evidence-Grounding False-Alarm — 2026-08-13
 - O2 Deploy Bug Found and Fixed Same-Session: Criterion-Key Mapping Used the Wrong Namespace, Would Have Silently No-Op'd Scoping on 7 of 8 Items — 2026-08-13
 - Grading-Engine Replan O2 Deployed: Per-Criterion Deterministic Flag Scoping Live for 8 AP Statistics Items — 2026-08-13
@@ -92,6 +93,56 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 ---
+
+## Grading-Engine Replan Step 3 Run A Complete: SFRQ-008 Off 0%, 100% Selective Accuracy on Recovered Criteria, $0.40 Real Spend — 2026-08-13
+
+**Task:** TASK-0016 (grading engine) — Step 3 Run A
+(`docs/research/GRADING_ENGINE_REPLAN_EXECUTION_PLAN_2026_08_10.md` §3.1).
+Full method, execution log, and identity/cleanup record:
+`docs/research/exemplar_grading_pilot_2026_08/EXECUTION_LOG.md`
+("Execution log — grading-engine replan Step 3, Run A — 2026-08-13").
+**Status:** Complete. Real, authenticated, paid run against the corrected
+O1 (SFRQ-008 keys) + O2 (per-criterion scoping) build (`evaluate-attempt`
+v39). Data cleaned up; identity kept for possible Run B/C reuse.
+
+**What ran:** the 13 responses the deterministic gate short-circuited in
+the original 2026-08-10 pilot's `arm=off` capture (`APSTATS-SFRQ-001#6/#7`,
+`APSTATS-SFRQ-008#0..#7` all 8, `APSTATS-SFRQ-009#0/#1/#4` — verified by
+scanning the original `raw_calls.jsonl` for the deterministic-prefilter
+model_id, not assumed from the writeup's "~14" estimate) × 5 trials × 1 arm
+(`off`, production prompt) = 65 real calls, scored with the actual harness
+(`main.ts --policy partial-v2`) against a 13-case gold subset.
+
+**Result — the pre-registered expectation confirmed:**
+- **Zero** of the 13 cases hit the deterministic gate. SFRQ-008 moved
+  completely off its prior 0% floor.
+- **Selective accuracy: 100%** — every criterion the grader committed a
+  verdict on was correct; all measured inaccuracy (overall accuracy 61.3%
+  vs selective 100%) is abstention (`unable_to_determine`), not a wrong
+  grade.
+- Exact-case accuracy 30.8% (4/13 cases fully correct); FP/FN rate 0%/12.5%.
+- Real spend: **$0.4041** across 65 calls (`app.model_usage_ledger`,
+  verified by direct query) — within the plan's $0.50–1 estimate.
+
+**Reading it together with the same-session O2 smoke test:** both point at
+the same conclusion from different angles — the grading logic itself
+(deterministic keys, per-criterion scoping) is now working correctly, and
+the remaining accuracy gap is bottlenecked by the evidence-grounding
+false-alarm rate (`grading-feedback_test.ts`'s documented ~10% class),
+**not** by anything Steps 1/2/O2 touched. That's a different, separate
+problem with its own fix surface — worth its own investigation, not
+something to chase inside this replan.
+
+**Next Owner:** David Bloom
+**Next Required Action:** decide whether Run B (prompt-caching A/B) and
+Run C (Arm A latency on the production model) are still worth running
+given Run A's finding — they measure speed/caching, not accuracy, so
+they're unaffected by the abstention-rate finding above, but it's a
+natural moment to also decide whether to open a separate investigation
+into the evidence-grounding false-alarm rate before spending further on
+this pilot's accuracy angle specifically. Pilot identity
+(`e5b041cb-9d4f-497c-b6c8-f66af4cf8152`) still exists, entitled for
+AP Statistics, ready for reuse or final cleanup.
 
 ## O2 Authenticated Smoke Test Passed: Scoping Confirmed Live Against a Real Model Call, Surfaced a Pre-Existing (Not New) Evidence-Grounding False-Alarm — 2026-08-13
 
