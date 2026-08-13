@@ -105,3 +105,40 @@ today's backlog-publish task. Flagged as a follow-up below.
   follow-ups remains open and untouched by this pass (08-10 P0-B items, 08-10
   disapprovals, AP Physics C: Mechanics gold-set review backlog, topic-selection-
   compliance gap, the 18-item intermediate-review-status backlog from §1 above).
+
+## 7. Follow-up remediation (2026-08-13, same day) — the 3-item P0-B finding closed
+
+Pulled each of the 3 items' actual `content_review_decisions` note and independently
+assessed whether the finding was real before fixing anything.
+
+- **`APBIO-HDG-2026-GRAPH-010`** (Sarah Sohail, `disapprove`) — **confirmed real.** The
+  item (a hand-drawn-graph FRQ: plot 9 points, label axes, sketch a trend line, describe
+  the correlation) tested only generic scatterplot mechanics, with no AP-Biology-specific
+  reasoning required anywhere in the rubric. Added a 5th criterion
+  (`BIOLOGICAL_INTERPRETATION`, 1pt) requiring the student to explain forage biomass as a
+  limiting resource for the rabbit population's carrying capacity; reworded the
+  stem/stimulus to ask for it; total points 4 → 5.
+- **`APBIO-MCQ-095`** (Sarah Sohail, `approve_with_edits`) — **confirmed real, two
+  issues.** Choice A's rationale claimed "conservation of energy applies to physics, not
+  ecological energy transfer efficiency" — false; energy is always conserved, ecological
+  efficiency describes how much is *retained as biomass* (~10%) vs. lost as heat/waste at
+  each trophic transfer. Corrected the rationale to state this accurately without changing
+  the choice text (the misconception it represents is still the intended distractor).
+  Separately, choice D's stated value (0.1 kcal/m²/year) was arithmetically inconsistent
+  with its own (flawed) reasoning — "one extra 10% step from the sun" actually yields 1
+  kcal/m²/year, not 0.1; corrected the choice text and rationale to be internally
+  consistent.
+- **`apphy2-mcq-015`** (Ahmed Ali, `approve_with_edits`, "revise stem and option C
+  rationale") — **no factual defect found** on independent re-derivation; the physics was
+  already correct. Treated the vague note as a clarity request rather than force a
+  correctness fix with no confirmed error behind it: reworded the stem as a complete
+  question instead of a fill-in-the-blank continuation, and tightened choice C's rationale
+  for precision.
+
+**Migration:** `scripts/content-seed/reviewer-qa-remediation/20260813_p0b_second_wave_repair.sql`
+— same insertion discipline as every remediation this session (new version, never edit in
+place), owner-remediation-approved, republished directly (these were live P0-B items, not
+sitting in review limbo). Structural QA gate passed clean before republish.
+
+**Result:** all 3 republished. Re-verified: P0-B net check back to **0**, 0 duplicate
+published versions, 0 MCQ choice-count desyncs.
