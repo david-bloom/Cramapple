@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- O2 Authenticated Smoke Test Passed: Scoping Confirmed Live Against a Real Model Call, Surfaced a Pre-Existing (Not New) Evidence-Grounding False-Alarm — 2026-08-13
 - O2 Deploy Bug Found and Fixed Same-Session: Criterion-Key Mapping Used the Wrong Namespace, Would Have Silently No-Op'd Scoping on 7 of 8 Items — 2026-08-13
 - Grading-Engine Replan O2 Deployed: Per-Criterion Deterministic Flag Scoping Live for 8 AP Statistics Items — 2026-08-13
 - Grading-Engine Replan Step 2 Deployed: SFRQ-008 Deterministic-Key Fix and Passive Telemetry Live in Production (O1 Approved) — 2026-08-13
@@ -91,6 +92,69 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 ---
+
+## O2 Authenticated Smoke Test Passed: Scoping Confirmed Live Against a Real Model Call, Surfaced a Pre-Existing (Not New) Evidence-Grounding False-Alarm — 2026-08-13
+
+**Task:** TASK-0016 (grading engine) — the authenticated smoke test flagged
+as outstanding in the two entries below. Owner created the synthetic pilot
+identity per `create_pilot_session.mjs` (per the plan's create→run→cleanup
+protocol); assistant confirmed the email, ran `--signin`, granted a
+`beta`-tier `app.subject_entitlements` row for `ap-statistics` (needed to
+satisfy `attempts_entitled_owner_insert`'s RLS policy, same requirement the
+2026-08-10 pilot's `EXECUTION_LOG.md` documents), then ran one real,
+authenticated request against the live `evaluate-attempt` endpoint (v39,
+the corrected O2 build).
+
+**Test design:** an `APSTATS-SFRQ-008` response deliberately never states
+the keyed values (-1.40, 4.477) anywhere — triggers the deterministic
+flag on criterion `"a"` (2 pts, the compute-E(X)/SD criterion) — while
+correctly and clearly addressing criterion `"c"` (1 pt, "expected value
+describes many repetitions, not one ticket") in prose, to test whether that
+unrelated criterion still reaches real model grading instead of being
+zeroed alongside `"a"`.
+
+**Result: scoping confirmed working exactly as designed.**
+- Criterion `"a"`: forced to `unable_to_determine`/0, `decision_explanation`
+  is verbatim the deterministic check's reason string — confirms the O2
+  override fired, not a model verdict.
+- Criteria `"b"` and `"c"`: both went through **independent, real model
+  grading** — confirmed by different `decision_explanation` text and
+  different `integrity_issues` codes (`evidence_not_found`, a pre-existing
+  sanitizer mechanism, not part of O2's override at all). Both ended at 0
+  points, but for two unrelated, real reasons: `"b"`'s own rubric text
+  requires stating -1.40 (deliberately omitted by the test), and `"c"` hit
+  a pre-existing evidence-grounding rejection — the model's own
+  `decision_explanation` for `"c"` reads "The student clearly explains that
+  expected value describes the long-run average over many repetitions...
+  which meets the criterion requirements," i.e. the model judged it
+  correct, but the sanitizer rejected the credit because the evidence
+  quote it supplied wasn't found as an exact grounded substring in the
+  response text.
+- This is the **same false-alarm class** `grading-feedback_test.ts`'s own
+  header comment documents (measured 10.19% of graded criteria pre-fix,
+  ~64% of those false alarms from formatting, not invention) — not a new
+  defect O2 introduced. It does mean real point-recovery on "unrelated"
+  criteria is bottlenecked by this separate, already-known mechanism as
+  much as by O2's own correctness; worth remembering when reading future
+  O2 recovery numbers as a floor, not a ceiling.
+
+**Cost and cleanup:** one real `gpt-4.1-mini` call, $0.0078
+(`model_usage_ledger`, kept per the 2026-08-10 pilot's O3 precedent —
+billing/audit ledger, no user linkage after cleanup). The test's `attempts`
+(1), `response_versions` (1), and `grading_results` (1) rows were deleted
+immediately after capture and confirmed zero via count query. The pilot
+identity itself (`app.profiles`, `auth.users`,
+`app.subject_entitlements`) was left intact, not cleaned up yet, in case
+Step 3 (the paid runs, still fully unstarted) reuses it — clean up when
+that work concludes or is abandoned, per the create→run→cleanup protocol.
+
+**Next Owner:** David Bloom
+**Next Required Action:** none blocking on O2 — it's confirmed correct
+end-to-end. Open: Step 3 (Run A/B/C, still fully unstarted — the pilot
+identity now exists and is ready); whether the evidence-grounding
+false-alarm rate is worth another look given it directly caps how much
+credit per-criterion scoping can actually recover in practice; final
+cleanup of the pilot identity once Step 3 concludes.
 
 ## O2 Deploy Bug Found and Fixed Same-Session: Criterion-Key Mapping Used the Wrong Namespace, Would Have Silently No-Op'd Scoping on 7 of 8 Items — 2026-08-13
 
