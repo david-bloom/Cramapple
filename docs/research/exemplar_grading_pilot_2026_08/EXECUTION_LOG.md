@@ -158,3 +158,130 @@ user linkage after `attempts`/`response_versions` cleanup).
 `report_runA.json`, `gold_cases_runA.json` — all in this directory, all
 derived from a synthetic account's grading calls against real published
 content, no real student data involved.
+
+---
+
+# Execution log — grading-engine replan Step 3, Run B/C — 2026-08-13
+
+Same session, same pilot identity as Run A above
+(`e5b041cb-9d4f-497c-b6c8-f66af4cf8152`).
+
+## Run B — closed without spending, per owner decision
+
+**Purpose (plan §3.2):** measure prompt-caching hit rate and TTFB/cost
+deltas from a byte-stable ≥1024-token prompt prefix.
+
+**Finding, structural, zero cost:** checked `buildGradingPrompt` +
+`buildSystemPrompt` (`grading-contract.ts`) directly against a real
+item's actual stem/stimulus/rubric (`APSTATS-SFRQ-008`). The prefix (system
+prompt + everything before the student's response text) **is** byte-stable
+across different responses to the same item — confirmed by direct
+comparison, not assumed. But it is only **~540 tokens** (char-count
+estimate), well under OpenAI's **1024-token minimum** for automatic prompt
+caching to activate at all. The plan's own Run B design already
+anticipated needing "a byte-stable ≥1024-token prefix," i.e. assumed a
+prompt-restructuring change would land before this measurement — that
+change was never made.
+
+**Decision (owner, informed by this finding):** skip the paid ~$1 batch.
+Running it as originally scoped would, with high confidence, just
+reconfirm the zero-cached-tokens baseline already on record from the
+2026-08-10/11 capture — not a new data point. Direction closed per the
+plan's own decision rule ("otherwise close the direction with the
+measurement recorded") until/unless the prompt is deliberately consolidated
+to cross the 1024-token floor, at which point this measurement should be
+redone for real.
+
+**No Production writes, no cost, nothing to clean up.**
+
+## Run C — Arm A (per-criterion fan-out) latency + quality on gpt-4.1-mini
+
+**Purpose (plan §3.3):** Phase C (2026-07-27) validated Arm A on
+`gemini-2.5-flash` (handoff trap 1 — wrong model). Re-measure on the actual
+production model, `gpt-4.1-mini`: confirm/refute the "~16s → ~4s" latency
+expectation and check quality parity (2026-07-29 found Arm A 0/6 correct
+in an earlier narrow test).
+
+**Mechanism:** `GRADING_ARM` is a module-level env var read once at
+function cold-start (`evaluate-attempt/index.ts`) — no per-request
+override exists. Set as a live Production secret for the test window,
+confirmed by owner before doing it:
+```
+supabase secrets set GRADING_ARM=a --project-ref pcntajvbdfqhbeewmdry
+```
+Confirmed live by inspecting the first call's `grading_result.raw_model_response.arm`
+(`"a"`) before running the full batch. Unset immediately after the run:
+```
+supabase secrets unset GRADING_ARM --project-ref pcntajvbdfqhbeewmdry
+```
+confirmed absent via `supabase secrets list` afterward. Zero live student
+traffic existed during the ~5-minute window this was set (app has no
+launched users yet, per the O2-deploy-bug entry's verification).
+
+**What ran:** 4 held-out items spanning the full available criterion-count
+range (`APSTATS-SFRQ-009`: 2 criteria, `APSTATS-SFRQ-008`: 3,
+`APSTATS-SFRQ-001`/`APSTATS-SFRQ-005`: 4), 2 responses each, 3 trials =
+24 calls, arm=off (exemplar_mode; unrelated to `GRADING_ARM`).
+
+**Result — contradicts the plan's pre-registered latency expectation:**
+
+| criteria | n | mean latency | median | min | max |
+|---|---|---|---|---|---|
+| 2 | 6 | 30.8s | 31.7s | 19.6s | 44.6s |
+| 3 | 6 | 29.9s | 31.3s | 15.5s | 42.8s |
+| 4 | 12 | 22.0s | 23.7s | 5.8s | 34.0s |
+
+Not flat, not ~4s on 4-criterion items — the opposite of the pre-registered
+"~16s → ~4s" expectation. The fan-out **is** genuinely parallel (confirmed
+in code: `Promise.all` over per-criterion calls, wall time taken as
+`max(elapsedMs)` across them — not summed), so this isn't a serialization
+bug; individual OpenAI call latency itself is high and highly variable
+(5.8s–44.6s) at this sample size, and that variance dominates any
+criterion-count signal. The n=6/6/12 split is too small to call the
+2-vs-4-criterion direction (4-criterion items measuring faster than
+2-criterion here) anything other than noise — the one non-noisy
+conclusion is: **none of the three buckets are close to the ~4s target,
+and most individual calls are slower than Arm B's typical single-call
+latency** (~8–12s, per the same-session Run A/O2-smoke-test calls).
+
+**Quality (the other half of the gate):** scored with the actual harness
+(`main.ts --policy partial-v2`) against an 8-case gold subset — overall
+accuracy 82.6%, selective accuracy 95%, exact-case accuracy 50% (4/8).
+Not the 0/6 catastrophic failure the 2026-07-29 note recorded (different
+item/response sample, not a like-for-like comparison — but nothing here
+suggests a quality collapse this time). Full report: `report_runC.json`;
+per-case: `results_runC.json`; variance: `raw_trial_variance_runC.json`;
+gold subset: `gold_cases_runC.json`; raw capture: `raw_calls_runC.jsonl`
+(24 records).
+
+**Reading it together:** Arm A's core promise — faster grading via
+parallel per-criterion calls — does not hold up empirically on the
+production model. Quality wasn't clearly bad this round, but the latency
+result alone is a real strike against shipping it as currently built; the
+speed case would need to be remade with a much larger sample (n=6/bucket
+is too small to rule out "still genuinely faster, just noisy here") before
+it's worth revisiting.
+
+**Real spend:** $0.2062 across 24 calls (`app.model_usage_ledger`, verified
+by direct query on the 24 idempotency keys) — under the plan's $1–2
+estimate.
+
+## Cleanup (completed 2026-08-13, same session as the run)
+
+Deleted, scoped strictly to the 8 `attempt_id`/`response_version_id` pairs
+and their `grading_results` rows Run C created:
+- `app.grading_results`: 0 remaining
+- `app.response_versions`: 0 remaining
+- `app.attempts`: 0 remaining
+
+Verified via count query scoped to the 8 IDs — confirmed 0/0/0.
+
+**Not cleaned up:** the pilot identity itself, same as after Run A — left
+intact. `app.model_usage_ledger` rows for the 24 calls kept, same
+precedent as Run A.
+
+## Data kept (Run B/C)
+
+Run B: nothing (no calls made). Run C: `raw_calls_runC.jsonl`,
+`results_runC.json`, `raw_trial_variance_runC.json`, `report_runC.json`,
+`gold_cases_runC.json`.

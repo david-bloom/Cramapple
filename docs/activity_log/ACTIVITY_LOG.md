@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Grading-Engine Replan Step 3 Run B/C Complete: Run B Closed Pre-Spend (Prompt Too Short to Cache), Run C Found Arm A Slower Than Arm B on gpt-4.1-mini, Not Faster as Pre-Registered — 2026-08-13
 - Grading-Engine Replan Step 3 Run A Complete: SFRQ-008 Off 0%, 100% Selective Accuracy on Recovered Criteria, $0.40 Real Spend — 2026-08-13
 - O2 Authenticated Smoke Test Passed: Scoping Confirmed Live Against a Real Model Call, Surfaced a Pre-Existing (Not New) Evidence-Grounding False-Alarm — 2026-08-13
 - O2 Deploy Bug Found and Fixed Same-Session: Criterion-Key Mapping Used the Wrong Namespace, Would Have Silently No-Op'd Scoping on 7 of 8 Items — 2026-08-13
@@ -93,6 +94,66 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 ---
+
+## Grading-Engine Replan Step 3 Run B/C Complete: Run B Closed Pre-Spend (Prompt Too Short to Cache), Run C Found Arm A Slower Than Arm B on gpt-4.1-mini, Not Faster as Pre-Registered — 2026-08-13
+
+**Task:** TASK-0016 (grading engine) — Step 3 Run B
+(`docs/research/GRADING_ENGINE_REPLAN_EXECUTION_PLAN_2026_08_10.md` §3.2)
+and Run C (§3.3). Full method and execution log:
+`docs/research/exemplar_grading_pilot_2026_08/EXECUTION_LOG.md`
+("Execution log — grading-engine replan Step 3, Run B/C — 2026-08-13").
+**Status:** Both closed. Run B: no spend, structural finding recorded.
+Run C: real paid run, real negative-vs-expectation finding. Live
+Production `GRADING_ARM` env var was temporarily set to `a` for Run C
+(owner-confirmed before doing it) and unset immediately after, verified
+absent via `supabase secrets list`.
+
+**Run B — closed before spending, on a free structural check.** Checked
+the actual rendered prompt (`buildGradingPrompt`/`buildSystemPrompt`)
+against a real item's real stem/stimulus/rubric: the prefix (system prompt
++ everything before the student's response) **is** byte-stable across
+different responses to the same item, but only **~540 tokens** — half of
+OpenAI's 1024-token minimum for automatic caching to activate at all. The
+plan's own Run B design assumed a prompt-consolidation change would land
+first; it never did. Running the ~$1 batch as originally scoped would,
+with high confidence, have just reconfirmed the existing zero-cached-tokens
+baseline. Owner confirmed skipping the spend; direction closed per the
+plan's own rule until the prompt is deliberately restructured to cross the
+token floor.
+
+**Run C — real, decisive negative finding.** Phase C (2026-07-27) validated
+Arm A's per-criterion parallel-fan-out grading on `gemini-2.5-flash`
+(wrong model, a known handoff trap). Re-measured on the actual production
+model (`gpt-4.1-mini`), 24 real calls across 4 held-out items spanning
+2–4 criteria: **latency was 22–31 seconds across all criterion-count
+buckets — not flat, and nowhere near the pre-registered "~16s → ~4s"
+expectation.** Most individual calls were slower than Arm B's typical
+single-call latency (~8–12s, measured the same session in Run A). The
+parallel fan-out itself is real (confirmed in code: genuine `Promise.all`,
+wall time taken as the max of per-criterion elapsed times, not summed) —
+the finding is that individual OpenAI call latency on this model is high
+and variable enough (5.8s–44.6s) that Arm A's parallelization isn't
+delivering the win it's designed for. Quality was NOT clearly bad this
+round (overall accuracy 82.6%, selective accuracy 95%, scored with the
+actual harness against an 8-case gold subset) — unlike the 2026-07-29
+note's 0/6 finding, though that was a different, non-comparable sample.
+Real spend: $0.2062 across 24 calls (verified in `model_usage_ledger`).
+
+**Reading Run C plainly:** Arm A's core value proposition — parallel
+fan-out makes grading faster — does not currently hold up on the model
+Production actually uses. This is a real strike against shipping it, not
+a measurement artifact; the sample (n=6–12 per bucket) is too small to
+rule out "genuinely faster on average, just noisy here," but it's also
+too small to support shipping on the current evidence. A confident
+speed verdict either way would need a substantially larger sample.
+
+**Next Owner:** David Bloom
+**Next Required Action:** decide whether to (a) close Arm A's rebuild
+register entry as "not shipping, latency case unproven" for now, or
+(b) fund a larger Run C-style sample before deciding. Both Run B and
+Run C conclude Step 3 as scoped in the 2026-08-10 plan — all of Steps
+1–3 are now executed. Step 4 (handoff redesign) is the one piece of the
+original plan still untouched.
 
 ## Grading-Engine Replan Step 3 Run A Complete: SFRQ-008 Off 0%, 100% Selective Accuracy on Recovered Criteria, $0.40 Real Spend — 2026-08-13
 
