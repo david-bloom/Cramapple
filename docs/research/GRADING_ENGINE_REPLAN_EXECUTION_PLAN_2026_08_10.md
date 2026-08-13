@@ -244,12 +244,22 @@ grounds in either direction.
 
 | Completed work | Trigger evidence | Decision space |
 |---|---|---|
-| Arm A conversion (built, default-off, 0/6 quality finding) | Run C quality + latency on `gpt-4.1-mini` | ship / rebuild / discard |
-| `STATISTICS_TARGETS` as bare constants | 1.1 audit failure count across entries/subjects | keep value-fix only vs rebuild to derived formula+givens keys (Phase B shape) |
-| Engine 3 hardcoded profile map | already settled (008 incident class) | schedule the governed-loader build |
-| Deterministic-flag blast radius (sanitizer path) | 1.3 recovery bound + Run A, gated on O2 | scope flags per-criterion vs keep item-wide |
+| Arm A conversion (built, default-off, 0/6 quality finding) | **DECIDED 2026-08-13, Run C** (`exemplar_grading_pilot_2026_08/EXECUTION_LOG.md`): 24 real calls on `gpt-4.1-mini`, 22–31s across all criterion counts (not flat, not the ~4s pre-registered expectation, mostly slower than Arm B). Quality not clearly bad this round (82.6%/95% selective). | **Keep default-off, do not ship on this evidence.** Not a full discard — sample (n=6–12/bucket) is too small to rule out "genuinely faster, just noisy here." Re-open only with a substantially larger sample; do not re-run at this size. |
+| `STATISTICS_TARGETS` as bare constants | **DONE 2026-08-13.** 1.1's audit found one failure (`APSTATS-SFRQ-008`, retired-canonical values); fixed as a value-only correction with per-entry provenance comments, not rebuilt to derived formula+givens keys. | Closed as value-fix-only; revisit the Phase B derived-key shape only if a second key defect is found. |
+| Engine 3 hardcoded profile map | already settled (008 incident class) | schedule the governed-loader build — **still not scheduled as of 2026-08-13** |
+| Deterministic-flag blast radius (sanitizer path) | **DONE 2026-08-13 ("O2").** Scoped per-criterion for the 8 items with a known criterion mapping (real `app.frq_criteria.criterion_key`, not the gold-fixture ids `NUMERIC_ELEMENT_CRITERIA` uses for audit — conflating the two was a same-session bug, caught before it reached real traffic). Unmapped items keep item-wide. | Closed as shipped. Extending to a new item requires verifying its criterion-key mapping against a live query first — see the ledger's "Engineering pitfall" row. |
 | Assessment harness, replay parsing, partial credit, clustering | already rebuilt in Step 1 | record only |
 | Gold-set corpora with the A3/A6 same-element collision (Stats/Calc/Precalc) | gold-set program's own call | **out of scope here** — cross-reference only; owned by the gold-set certification track |
+
+**New row, 2026-08-13:** evidence-grounding false-alarm rate
+(`grading-feedback.ts`'s sanitizer, `evidence_not_found`) | Run A + the O2
+smoke test both found selective accuracy ≈100% with the entire accuracy
+gap sitting in abstention from this mechanism — not scoped by this plan,
+found as a byproduct of verifying it. | **Not decided — this plan didn't
+scope it. Recommended as the next investigation** (ledger §5, new top
+priority); ranked above further deterministic-key coverage, gold-set
+volume, or another model/arm evaluation, since none of those move a
+number whose gap is abstention.
 
 Handoff sections that survive unchanged are listed explicitly in the revision
 (verified-facts table, §6 traps, §7 runbook, Engine 3 shadow ceiling, Engine 4

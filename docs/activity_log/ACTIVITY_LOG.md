@@ -6,6 +6,8 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Grading-Engine Replan Consolidated Into the Three "Read First" Docs: Ledger, Cross-Subject Lessons, and Handoff All Updated So Today's Findings Are Discoverable, Not Just Logged — 2026-08-13
+- TASK-0024 Opened: Free Score Check Launch Package Verified Locally; Production Remains Fail-Closed Pending Visual Gate, Edge Function, Candidate Selection, OTP/Report Smoke, and Rollback Evidence — 2026-08-13
 - Grading-Engine Replan Step 3 Run B/C Complete: Run B Closed Pre-Spend (Prompt Too Short to Cache), Run C Found Arm A Slower Than Arm B on gpt-4.1-mini, Not Faster as Pre-Registered — 2026-08-13
 - Grading-Engine Replan Step 3 Run A Complete: SFRQ-008 Off 0%, 100% Selective Accuracy on Recovered Criteria, $0.40 Real Spend — 2026-08-13
 - O2 Authenticated Smoke Test Passed: Scoping Confirmed Live Against a Real Model Call, Surfaced a Pre-Existing (Not New) Evidence-Grounding False-Alarm — 2026-08-13
@@ -94,6 +96,101 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 ---
+
+## Grading-Engine Replan Consolidated Into the Three "Read First" Docs: Ledger, Cross-Subject Lessons, and Handoff All Updated So Today's Findings Are Discoverable, Not Just Logged — 2026-08-13
+
+**Task:** TASK-0016 (grading engine) — Step 4 of the 2026-08-10 replan
+(`docs/research/GRADING_ENGINE_REPLAN_EXECUTION_PLAN_2026_08_10.md`), done
+same-day as a set of targeted updates rather than a separate rewrite pass.
+**Trigger:** owner asked explicitly that today's tests be documented with
+findings so the program moves forward instead of repeating work — pointed
+directly at the gap that Steps 1–3 were all logged in `ACTIVITY_LOG.md`
+and `EXECUTION_LOG.md` (narrative, chronological) but never folded into
+the three documents a new session is told to read first
+(`GRADING_ENGINES_TO_PRODUCTION_HANDOFF.md`,
+`grading_cross_subject_takeaways.md`,
+`GRADING_PROGRAM_LEDGER_2026_07_27.md`) — exactly the gap Step 4 exists to
+close.
+
+**Found in the process: a durable "Lesson" was already wrong and would have
+caused a repeat.** Lesson 26 in the takeaways doc states Arm A is the
+largest speed lever, "~16s → ~4s," as settled fact — measured on
+`gemini-2.5-flash`, not `gpt-4.1-mini`. Today's Run C directly falsified
+this on the real production model. Any future session reading Lesson 26 at
+face value would have re-scheduled Arm A work on a false premise — this is
+the concrete version of the exact risk the owner was flagging.
+
+**Changes made, four files:**
+1. `GRADING_PROGRAM_LEDGER_2026_07_27.md` (§3B, §2, §3A, §4, §5) — added
+   experiment-register rows for the `STATISTICS_TARGETS` fix, O2 scoping,
+   the O2 key-namespace bug (as a named, generalizable "engineering
+   pitfall," not just a grading result), Run A, and Run B; appended a
+   correction block to the Phase C "Arm A retained" claim; added Lesson 11
+   (evidence-grounding is the binding constraint) to the durable-conclusions
+   list; added a new top-priority item to "next work" ahead of the existing
+   numbered list.
+2. `grading_cross_subject_takeaways.md` — annotated Lesson 26 with a
+   pointer to its correction; added Lesson 27 (Arm A doesn't replicate on
+   the production model — generalized to "re-validate architectural speed
+   claims on the actual production model before relying on them") and
+   Lesson 28 (evidence-grounding false alarms are the binding accuracy
+   constraint, generalized to "check the grounding/abstention breakdown
+   before proposing new grading work when overall accuracy trails
+   selective accuracy").
+3. `docs/GRADING_ENGINES_TO_PRODUCTION_HANDOFF.md` — new dated "UPDATE
+   2026-08-13" section (matching the existing 2026-08-11 section's
+   convention), a 6-point summary a new session can read in under a
+   minute, explicitly stating the priority order (evidence-grounding
+   investigation ahead of more gold-set volume, more deterministic
+   coverage, or another model/arm test).
+4. `GRADING_ENGINE_REPLAN_EXECUTION_PLAN_2026_08_10.md` — rebuild register
+   updated: Arm A's row now carries Run C's actual verdict instead of
+   "awaiting evidence"; `STATISTICS_TARGETS` and the deterministic-flag
+   blast-radius rows marked done; added a new row for the evidence-grounding
+   finding (out of this plan's original scope, surfaced as a byproduct of
+   executing it).
+
+**What this does NOT do:** rewrite any of the four documents wholesale —
+all changes are additive/annotating, following each document's own
+established correction convention (append + cross-reference + struck-through
+old claims where directly superseded, never silently delete). No new
+experiments were run for this entry; it is pure consolidation of
+already-completed work.
+
+**Next Owner:** David Bloom
+**Next Required Action:** none blocking. The next grading-program session
+should start by reading the updated handoff doc's 2026-08-13 section, then
+act on its stated priority (evidence-grounding investigation) rather than
+re-deriving today's findings.
+
+## TASK-0024 Opened: Free Score Check Launch Package Verified Locally; Production Remains Fail-Closed Pending Visual Gate, Edge Function, Candidate Selection, OTP/Report Smoke, and Rollback Evidence — 2026-08-13
+
+**Task:** `docs/tasks/TASK-0024-FREE-SCORE-CHECK-LAUNCH-READINESS.md`
+opened as the dedicated hard-gate record for AP Biology Free Score Check
+launch readiness. The implementation/runbook package now includes the
+backend contract, frontend handoff/report behavior, static launch audit,
+deterministic Edge Function deploy-package verifier, read-only production
+preflight SQL, candidate-selection/worklist SQL, enable/disable config
+templates, and post-enable smoke SQL.
+
+**Verified locally:** `node scripts/verify-free-score-check-local.mjs` passed
+the static launch audit, deploy-package closure check, `deno check`, focused
+Deno tests, frontend FSC Vitest tests, and frontend typecheck. The
+Docker-backed local SQL integration test is still deferred until local
+Supabase is available.
+
+**Production state from read-only checks:** no production writes were made.
+The `free-score-check` Edge Function is not deployed; `growth.free_score_check.v1`
+is `enabled=false` with null content/rubric IDs; live
+`app.start_free_score_check` does not yet contain the visual fail-closed gate;
+strict typed AP Biology FRQ eligible candidate count is `0`; and the typed
+APBIO-FRQ visual-classification worklist count is `64`.
+
+**Next Owner:** David Bloom / Main Conductor
+**Next Required Action:** apply the visual gate migration, deploy the Edge
+Function with JWT verification, review and mark one no-visual published
+candidate, enable the config only through the guarded template, run mobile
+OTP/report smoke, and preserve rollback evidence before allowing paid traffic.
 
 ## Grading-Engine Replan Step 3 Run B/C Complete: Run B Closed Pre-Spend (Prompt Too Short to Cache), Run C Found Arm A Slower Than Arm B on gpt-4.1-mini, Not Faster as Pre-Registered — 2026-08-13
 

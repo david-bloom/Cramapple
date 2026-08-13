@@ -54,6 +54,25 @@ tutor-approved and published across Production today (35 and 7 respectively
 for AP Statistics). A 100-item run through the authenticated Production
 `evaluate-attempt` path therefore still requires publication or a harness that
 does not require published status.
+
+> **Correction (2026-08-13), applies to "Arm A retained" and its flat-latency
+> claim above.** Phase C's Arm A numbers (agreement, the "flat ~1,700 ms"
+> latency, "≈16s → ≈4s") were measured on **`gemini-2.5-flash`**, not the
+> model Production actually runs (`gpt-4.1-mini`) — a known handoff trap.
+> The grading-engine replan's Run C (2026-08-13,
+> `exemplar_grading_pilot_2026_08/EXECUTION_LOG.md`) re-measured Arm A on
+> the real production model: 24 authenticated calls, 4 items spanning
+> 2–4 criteria. **Latency was 22–31 seconds across every criterion-count
+> bucket — not flat, and 5–8× the ~4s figure this row cites.** Quality was
+> not clearly bad in that re-run (82.6% overall / 95% selective accuracy on
+> an 8-case gold subset), so this is a **speed correction, not a full
+> reversal** — but "Arm A retained" as a speed-motivated decision does not
+> survive being tested on the model it was meant to justify. Do not cite
+> this row's "~16s → ~4s" or "flat ~1,700ms" figures for `gpt-4.1-mini`
+> without new evidence; do not re-run this exact test without first
+> increasing the sample (n=6–12/bucket was enough to falsify "flat" but too
+> small to fully characterize the real distribution). See also
+> `grading_cross_subject_takeaways.md` Lesson 26's correction.
 | **D — Spatial engine** | QR capture → observation → calibrated abstention → shadow | **Pending / longest pole. Execution owner: Claude (assigned 2026-07-27).** | Architecture, three quantitative-graph archetypes, reproducible development corpora, trace images, and historical smoke/bake-off artifacts exist. | Audit and reuse prior artifacts; QR flow; real handwritten dual-human gold; observation bake-off on mixed positive/negative cases; abstention calibration; 100%-human-reviewed shadow operation. |
 | **E — Frontend grading experience** | Submit, render criterion/ECF feedback, help flow, QR capture | **In progress; no completion claim in recovered evidence** | Feedback envelope/runtime-context work exists. | Confirm live end-to-end Statistics experience and rendered-latency instrumentation. |
 | **F — Launch review** | Evaluate all launch gates and approve rollout | **Pending** | None claimed. | Depends on C–E and real end-to-end measurements. |
@@ -93,6 +112,9 @@ does not require published status.
 > 2026-08-11"; policy re-analyses:
 > `exemplar_grading_pilot_2026_08/POLICY_SIMULATIONS_2026_08_11.md`.
 
+| Run A — recovered accuracy after the `STATISTICS_TARGETS`/O2 fix (2026-08-13) | 13 previously-gated responses (the exact set that hit the deterministic gate in the 2026-08-10 capture, verified by scanning `raw_calls.jsonl`, not estimated) × 5 trials, `arm=off` | **All 13 cases now reach real model grading — zero still gated.** Selective accuracy **100%**: every criterion the grader committed a verdict on was correct; all measured inaccuracy (overall 61.3% vs selective 100%) is abstention, not a wrong grade. $0.4041 real spend. | Confirms the key fix + scoping work correctly, not just in isolation but end-to-end on real (previously-broken) traffic. **Do not treat 61.3% "overall accuracy" as a grading-quality ceiling** — it's an abstention-rate number. The actual accuracy lever now is the evidence-grounding false-alarm rate (see the next row and Lesson 28 in the takeaways doc), not the deterministic layer. |
+| Run B — prompt-caching prerequisite check (2026-08-13) | Direct inspection of the real rendered prompt (`buildGradingPrompt`/`buildSystemPrompt`) against a real item, $0 | Prefix (system + everything before the student response) **is** byte-stable across responses to the same item, but only **~540 tokens** — half of OpenAI's 1024-token minimum for automatic caching. | **Do not run a paid caching measurement until the prompt is deliberately restructured to cross the 1024-token floor** — running it as-is would just reconfirm the already-on-record zero-cached-tokens baseline. This is a real, cheap, structural check anyone can rerun before spending on this direction again. |
+
 Primary records:
 
 - `frq_grading_status_2026-06-18.md`
@@ -114,6 +136,9 @@ Primary records:
 | ECF reference engine | Reference battery and Statistics templates | Two-universe ECF behavior validated; Statistics templates progressed to 7/7 chain checks. | Preserve downstream credit on the student's own upstream value when the rubric permits it; keep explicit chain/guardrail policy. |
 | Formula transcription bake-off | 9 lines, synthetic renders, three models | All models 9/9 faithful, zero silent corruption; Phase B architecture work completed. | This proves pipeline mechanics. Do not rerun synthetic renders. Real-handwriting performance is a separate follow-up claim. |
 | AP Statistics full deterministic triage | 100 FRQs | 28 numeric/keyed, 68 conceptual, 4 corpus-defect/method-only; 44/44 canonical integrity, 7/7 ECF. | Do not rescan/reclassify the same 100 items. Extend only when content changes or a new checker type is added. |
+| `STATISTICS_TARGETS` key defect + invariant harness (2026-08-11/13) | Full audit against 18 keyed entries × repo gold answers + re-derived canonical values; standing `deno test` harness | `APSTATS-SFRQ-008` keyed `[1.8, 4.9]` — the item's **retired v1 canonical's values**, not the published v3's (`[-1.40, 4.477]`). Every correct response was deterministically flagged and zeroed; in the exemplar pilot capture, all 80 SFRQ-008 calls short-circuited this way. Fixed and deployed 2026-08-13 (`evaluate-attempt` v37); confirmed via the same-session Run A (13 previously-gated responses, 0 still gated, selective accuracy 100% on what reached the model). | **Any hand-transcribed deterministic key is an unreviewed defect until proven otherwise — this class of bug is silent and catastrophic (whole-item zeroing), not a minor miscalibration.** The invariant harness (`scripts/grading-model-assessment/verify_deterministic_keys.ts`) now runs in `deno test` permanently; do not add or edit a `STATISTICS_TARGETS`/equivalent entry without it passing against real gold answers. |
+| Per-criterion deterministic flag scoping ("O2", 2026-08-13) | 8 items with gold-derived criterion mappings; 1 authenticated smoke call + Run A (65 calls) | Item-wide zeroing on a deterministic flag was destroying credit on criteria unrelated to the flagged numeric value (37% of the 2026-08-10 pilot's criterion denominator, per `POLICY_SIMULATIONS_2026_08_11.md`). Scoped the hold to just the implicated criteria for the 8 items where the mapping is known; unmapped items keep the conservative item-wide fallback. **Shipped with a same-session, self-caught defect worth recording as its own lesson (below).** | Confirmed working end-to-end: unaffected criteria now reach real model grading instead of being force-zeroed. Do not extend scoping to a new item without first verifying its criterion-key mapping against a live `app.frq_criteria` query — see the next row. |
+| **Engineering pitfall, not a grading result: two data structures sharing a name, different key namespaces (2026-08-13)** | Same-session self-catch, before any real traffic | The O2 scoping map was first built by reusing `NUMERIC_ELEMENT_CRITERIA` — an existing, audit-only map already in the codebase that indexes into gold-answer **fixture** element ids (`a-1`, `b1`, ...). O2 needed real `app.frq_criteria.criterion_key` values (plain letters: `a`, `b`, `c`) — a different namespace that happened to coincide on exactly one of eight items (`SFRQ-001`), which is what let the mismatch slip past a first read-through. The bug's effect was silent and *worse than doing nothing*: a non-null-but-wrong mapping caused the code to skip the safe item-wide fallback while matching zero real criteria, so flagged responses on 7 of 8 items would have graded with no deterministic override applied at all. Caught before deploy became live traffic, by writing the authenticated smoke test rather than trusting the unit tests (which used synthetic criteria and couldn't have caught a real-schema mismatch). | **When two code paths need "the same" per-item mapping but consume it against different real-world identifier spaces, they need two separately-named data structures, not one reused constant** — even when reuse looks obviously correct on inspection. A unit test using synthetic/hand-built fixtures cannot catch a real-schema key mismatch; only a check against the actual consuming schema (here: a live `app.frq_criteria` query, or an integration/smoke test using real IDs) can. Applies directly to Engine 3/4 work: any future criterion-key mapping (ECF dependency chains, spatial-region-to-criterion maps) needs the same live-schema verification before being trusted, not just internal consistency. |
 
 Primary records:
 
@@ -122,6 +147,7 @@ Primary records:
 - `statistics_phase_b_2026_07_08/`
 - `AP_STATISTICS_PHASE_C_TRIAGE_2026_07_10.md`
 - `AP_STATISTICS_PHASE_C_REMEDIATION_LOG_2026_07_09.md`
+- `../../docs/activity_log/ACTIVITY_LOG.md` — 2026-08-13 entries, "Grading-Engine Replan Step 2/O2/Step 3" series (full method, numbers, cleanup records)
 
 ### C. Gold-set and production-path experiments
 
@@ -163,6 +189,24 @@ These are the lessons that should shape all subjects:
 9. **Measure feedback quality and repair efficacy, not just point agreement.**
 10. **Latency is architectural.** Multiple parallel criterion calls produce a
     max-of-N tail; escalation makes it worse.
+11. **The evidence-grounding check can reject a correct grade, and this is now
+    the binding accuracy constraint, not model judgment.** (2026-08-13, Run A
+    + the O2 smoke test, converging independently.) Once the deterministic
+    layer and per-criterion scoping work correctly, the grader's own verdicts
+    are highly reliable when it commits to one (Run A selective accuracy
+    100%) — but the sanitizer's grounding check (`grading-feedback.ts`,
+    `evidence_not_found`) rejects some fraction of genuinely correct model
+    judgments because the supplied evidence quote isn't an exact substring
+    match, forcing them to `unable_to_determine`. This is the same
+    false-alarm class `grading-feedback_test.ts`'s header already documents
+    (measured 10.19% pre-fix, ~64% of those from formatting not invention) —
+    not new, but now confirmed as the thing actually capping recovered
+    credit, ahead of anything Steps 1–3 of the 2026-08-10 replan touched.
+    **Do not attribute future "still not 95%" results to the deterministic
+    layer, key coverage, or model capability without first checking the
+    abstention/grounding breakdown** — coverage vs selective accuracy in the
+    harness report separates these; if selective accuracy is high and
+    coverage is the gap, this is the lever, not a new grader/model.
 
 The reusable criterion-contract fields are recorded in
 `frq02_label_audit_2026_07_27/RESULTS_REPEAT2_FINAL_GOLD_2026_07_27.md`.
@@ -181,6 +225,22 @@ The reusable criterion-contract fields are recorded in
 > targeting the binding latency constraint (TTFB = 59% of the 1,000 ms budget).
 
 In order:
+
+**NEW TOP PRIORITY (2026-08-13), ahead of the numbered list below:**
+**investigate the evidence-grounding false-alarm rate directly** (Lesson
+11 in §4 above). Steps 1–3 of the 2026-08-10 grading-engine replan
+(deterministic key fix, per-criterion flag scoping, three paid
+verification runs) are all complete and all converge on the same
+conclusion: the deterministic layer and the grader's own judgment are
+both now working correctly, and the remaining accuracy gap is the
+sanitizer rejecting genuinely correct verdicts for lack of an
+exact-substring evidence quote. This is a smaller, more tractable, more
+directly fixable problem than anything the replan touched — closer to
+the evidence-grounding work `grading-feedback_test.ts` already did once
+(10.19% → its current rate) than to a new architecture question. Do not
+schedule more gold-set volume, more deterministic-key coverage, or a new
+model/arm evaluation before this is at least measured on a real sample;
+none of those move this number.
 
 1. ~~Execute **Phase C on a bounded cross-subject slice**, comparing one
    structured multi-criterion call with the current parallel-per-criterion
