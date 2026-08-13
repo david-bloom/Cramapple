@@ -112,41 +112,44 @@ UI/workflow gap rather than inconsistent individual behavior.
 - Chisom Anuba's/Abdul Hanan's/Ahmed Ali's gold-set queues — see below; this turned into
   the sweep's most significant finding.
 
-## Gold-set verification — status check, and a new finding
+## Gold-set verification — status check, reconciled against a concurrent owner decision
 
 Roster comparison against the 08-10 sweep (main + addendum): Jill Schmidlkofer (66
 submitted) and Muhammad Saood (70 submitted) are unchanged. Abdul Hanan is unchanged at 3
 submitted (cleared to 0 pending in the 08-10 addendum, still 0 pending / 3 submitted now).
 
 **Ahmed Ali (4 pending as of 08-10) and Chisom Anuba (7 pending as of 08-10) no longer
-appear in `app.gold_set_verification_assignments` at all.** A direct query for their
-`reviewer_id`s returns zero rows — not zero *pending*, zero total, including their
-previously-submitted history if any existed. Total table row count is 139, matching
-exactly Abdul Hanan (3) + Jill Schmidlkofer (66) + Muhammad Saood (70) with no remainder,
-so this isn't a join or lookup artifact. `app.audit_events` has no rows for either
-reviewer's `user_id` under `object_type ilike '%gold_set%'` or in `metadata`, so there is
-no audit trail explaining the removal — no reassignment event, no withdrawal event,
-nothing. This has the same shape as the previously-fixed "Ghazanfar withdrawal orphan"
-class of bug (60 items stuck `assigned` after a withdrawal, per the 2026-08-08 log entry),
-except here the rows are gone entirely rather than stuck — a different failure mode,
-possibly a different cause. Not independently diagnosable further from read-only queries;
-flagged as a follow-up, not fixed.
+appear in `app.gold_set_verification_assignments` at all** — a direct query for their
+`reviewer_id`s returns zero rows, not zero *pending*. Table total (139) reconciles exactly
+to Abdul Hanan (3) + Jill Schmidlkofer (66) + Muhammad Saood (70) with no remainder. This
+DB query alone, with `app.audit_events` showing no row for either reviewer under any
+`gold_set`-related `object_type`/`metadata`, would read as an unexplained hard-delete —
+the same shape as the previously-fixed "Ghazanfar withdrawal orphan" bug (2026-08-08 log
+entry), except rows gone entirely rather than stuck.
+
+**It isn't a bug.** This branch (`claude/gold-set-answer-assignments-o3ibgi`) had a
+concurrent commit land mid-window (`c60f22c`, 2026-08-11 00:30 UTC, ~12.5 hours before
+this sweep's query): an owner decision to pause all gold-set-answer-as-grading-exemplar
+work after the exemplar-grading pilot closed inconclusive, which explicitly removed 15
+*pending* `app.gold_set_verification_assignments` rows across AP Calculus AB/BC,
+Precalculus, and all four AP Physics courses — including Ahmed Ali's and Chisom Anuba's.
+See `docs/activity_log/ACTIVITY_LOG.md`, "Cross-Subject Gold-Set Verification Assignments
+Paused," for the full rationale. `audit_events` still has nothing for it, since the
+removal was a direct, documented DB action outside the normal assignment-lifecycle
+application path rather than a reviewer-triggered event — worth remembering as a
+non-bug explanation the next time a sweep hits this exact "rows gone, no audit trail"
+shape.
 
 ## Follow-ups
 
-- **New, highest priority:** investigate why Ahmed Ali's 4 and Chisom Anuba's 7
-  gold-set-verification assignments are entirely absent from
-  `app.gold_set_verification_assignments` with no corresponding `audit_events` row —
-  determine whether this is a hard-delete bug, a reassignment that failed to log, or
-  something else, and whether the 11 items need to be re-assigned.
-- Remediate the growing published-but-`modification_reserved` list — now 16 items across
-  AP Biology, AP Calculus AB, AP Statistics, AP Physics 1, AP Physics 2, and AP Physics C:
-  Mechanics, all live to students with unaddressed findings.
-- Close out `APBIO-MCQ-094` — the one 08-10 disapproval that never got owner-adjudicated
-  (its three physics siblings from the same window did); low urgency since it was never
-  published, but it's been sitting for two sweep windows.
-- Owner-adjudicate this window's 1 disapproval (`apphycm-frq-044`) — independently
-  checkable and block-worthy as written.
+- ~~Remediate the growing published-but-`modification_reserved` list~~ — **closed
+  2026-08-11**, same day: all 16 items repaired and republished. See the ACTIVITY_LOG.md
+  entry "08-11 Reviewer QA Sweep Remediated" and
+  `scripts/content-seed/reviewer-qa-remediation/20260811_{mcq,frq}_batch_repair.sql`.
+- ~~Close out `APBIO-MCQ-094`~~ — **closed 2026-08-11**: assessed and repaired (CED-scope
+  claim independently grep-verified against the fact pack first), not retired.
+- ~~Owner-adjudicate `apphycm-frq-044`~~ — **closed 2026-08-11**: math independently
+  re-verified correct; repaired the single ambiguous phrase and published.
 - Continue watching the topic-selection-compliance gap — unresolved for six consecutive
   sweeps now (08-06 through 08-11).
 - Watch for Shazia Fazal's and Adil Abbasi's return to activity next window; both were

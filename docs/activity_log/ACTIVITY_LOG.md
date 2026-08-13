@@ -6,9 +6,13 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
-- Reviewer QA Sweep (2026-08-11): 16 Published-but-`modification_reserved` Items (up from 9); Ahmed Ali and Chisom Anuba's Gold-Set-Verification Assignments (11 Items) Found Missing With No Audit Trail — 2026-08-11
+- Owner Decisions Executed: APBIO-MCQ-074 Retargeted CRISPR→PCR-Primer-Annealing (Still CED-Off-Scope Otherwise); Ahmed Ali (50) and Jill Schmidlkofer (8) Given Fresh Gold-Set Set B Queues — 2026-08-11
+- APBIO-FRQ-L-025 Split Into Three Short FRQs (Format-Mismatch Follow-up); CRISPR-Scope and Gold-Set-Set-A Assignment Questions Raised for Owner Decision — 2026-08-11
+- 08-11 Reviewer QA Sweep Remediated: 18 Items Repaired and Published (16 Sweep Findings + 2 Retire-or-Repair Assessments, Both Repaired); 6 Stuck-Clean Physics FRQs Published via Publishing-Protocol Sweep; Half of Ahmed Ali's Physics Queue (51 Items) Reassigned to Ghazanfar Ali — 2026-08-11
+- Reviewer QA Sweep (2026-08-11): 16 Published-but-`modification_reserved` Items (up from 9); Confirmed the 08-11 Gold-Set-Assignment Pause Explains Ahmed Ali/Chisom Anuba's Missing Rows — 2026-08-11
+- Cross-Subject Gold-Set Verification Assignments Paused (15 Pending Rows Removed); AP Statistics Exemplar-Grading Pilot Closed Inconclusive — 2026-08-11
+- AP Statistics Exemplar-Grading Pilot Run: Verified Gold-Set Answer as Few-Shot Exemplar Produces a Small, Statistically Unconfirmed Accuracy Gain — 2026-08-10
 - Exemplar Pilot Corrected: Replay-Parsing Defect Inflated Headline; Deterministic-Key Defect Found in APSTATS-SFRQ-008 — 2026-08-11
-- Exemplar-Injection Grading Pilot (AP Statistics) Scored: Inconclusive — Item-Level Cluster Bootstrap Invalid in `harness.ts`, Do Not Ship — 2026-08-10
 - P0-B Publish Gate Implemented; 130 Published-but-Unapproved Items Retired; Gold-Set Rubric-Ordering Defect Found (5 Items) and Fixed — 2026-08-08
 - All 69 Remaining Physics approve_with_edits Items Repaired Against Saood's Notes (Full Backlog Now Zero) — 2026-08-08
 - CONTENT_AUTHORING_AND_QA_PROTOCOL.md v0.3: New §9 Documents Existing-Content QA via Independent Re-derivation, Including the Pool-Selection Yield Data and Remediation-Mechanics Gotchas from This Session — 2026-08-08
@@ -85,7 +89,204 @@ Most recent entries (full reverse-chronological list follows below):
 
 ---
 
-## Reviewer QA Sweep (2026-08-11): 16 Published-but-`modification_reserved` Items (up from 9); Ahmed Ali and Chisom Anuba's Gold-Set-Verification Assignments (11 Items) Found Missing With No Audit Trail — 2026-08-11
+## Owner Decisions Executed: APBIO-MCQ-074 Retargeted CRISPR→PCR-Primer-Annealing (Still CED-Off-Scope Otherwise); Ahmed Ali (50) and Jill Schmidlkofer (8) Given Fresh Gold-Set Set B Queues — 2026-08-11
+
+**Task:** Execution of the two owner decisions from the immediately preceding entry.
+**Status:** Both executed.
+
+**`APBIO-MCQ-074` — retargeted to a CED-covered technique.** Owner chose "retarget"
+over rebuild-anyway/retire/leave-as-is.
+`scripts/content-seed/reviewer-qa-remediation/20260811_apbio_mcq_074_ced_retarget.sql`.
+Kept Adil Abbasi's requested SP1/SP6 point-mutation-prediction mechanic but rebuilt it
+around PCR primer/target base-pairing (EK 6.8.A.1: "PCR (denature/anneal/extend
+amplification)") instead of CRISPR guide-RNA/Cas9 targeting. A 20-nt target/primer
+base-pairing table was independently verified letter-by-letter (all 20 Watson-Crick DNA
+pairs correct) before use, both pre- and post-mutation. `prompt_json.subtopics` corrected
+from the mistagged "6.5 Biotechnology and Gene Editing" to "6.8 Biotechnology" to match
+the fact pack's actual unit numbering. Published as version 4.
+
+**Gold-set Set B assignment.** Owner chose "use Set B instead, ensure everyone has a
+queue" over the Set A / third-reader / no-action alternatives.
+`scripts/content-seed/reviewer-management/20260811_goldset_setb_assign_ahmed_jill.sql`.
+Of Set B's 58 zero-reader answers: **Ahmed Ali** (0 gold-set assignments of any status
+going in — the literal violation the owner's original instruction was catching) received
+all 50 in his qualified subjects (Physics 1/2, C:Mechanics, C:E&M). **Jill Schmidlkofer**
+(0 pending, 40 already submitted) received the 8 Statistics answers, her only qualified
+subject. **Abdul Hanan** (also 0 pending, 46 submitted) got nothing — he is qualified
+only for Calc AB/BC/Precalculus, and zero unassigned Set B answers exist in those
+subjects; noted rather than force-matched to an unqualified subject. Chisom Anuba (45
+pending), Ghazanfar Ali (54 pending), and Muhammad Saood (34 pending) already had
+substantial active queues and were left alone.
+
+**Next Owner:** David Bloom
+**Next Required Action:** None blocking. `APBIO-MCQ-069`'s diagram and
+`apphy1-frq-048`'s graph part remain gated on TASK-0021's Hard-Gate image pipeline, not
+reopened by this entry.
+
+---
+
+## APBIO-FRQ-L-025 Split Into Three Short FRQs (Format-Mismatch Follow-up); CRISPR-Scope and Gold-Set-Set-A Assignment Questions Raised for Owner Decision — 2026-08-11
+
+**Task:** Owner-directed "execute the follow ups" (from the 08-11 remediation entry's open, non-blocking follow-up list) plus "Make sure All gold set reviewers have a corpus of answers to complete from set A."
+**Status:** One follow-up executed; two other follow-ups blocked by real infrastructure/governance (not skipped by choice); one item needs an owner scope decision before proceeding; the Set A instruction conflicts with observed database state and needs owner clarification before any assignment is made.
+
+**Executed — `APBIO-FRQ-L-025` split**
+(`scripts/content-seed/reviewer-qa-remediation/20260811_apbio_frq_l025_split.sql`). Per
+Adil Abbasi's 08-09 format-mismatch note, split the retired Long FRQ into three
+self-contained Short FRQs, reusing the already-de-bundled 08-11 criteria verbatim (no
+content rewritten, only regrouped):
+- `APBIO-FRQ-S-101` "Phylogenetic Cladogram Construction and Parsimony" (Analyze
+  Model/Visual Representation) — original Part A, 4 pts.
+- `APBIO-FRQ-S-102` "Molecular Clock Divergence-Time Calculation" (Analyze Data) —
+  original Part B, 4 pts.
+- `APBIO-FRQ-S-103` "Homoplasy, Molecular Reliability, and Species-Delimitation
+  Evidence" (Conceptual Analysis) — original Parts C+D combined, 5 pts (grouped rather
+  than force-split to exactly 4, since both parts share the same underlying question and
+  neither is large enough to stand alone).
+
+All 13 original points preserved across the three new items (4+4+5); `APBIO-FRQ-L-025`
+retired, not left live in parallel.
+
+**Blocked, not executed — the two image/asset-dependent follow-ups.** Read
+`docs/tasks/TASK-0021-BIOLOGY-PROMPT-VISUAL-STUDENT-DELIVERY.md` before attempting
+either: stimulus images are a Hard-Gate-tier pipeline (accessibility metadata,
+Learning-Quality construct-equivalence review, an explicit QA-visible/student-visible
+approval gate — `approved_at` deliberately unset until Learning Quality signs off) that
+this session has no standing to short-circuit. Adding a `stimulus_image_path` without
+that governance would either leave the item stuck at `asset_metadata_missing` or bypass a
+review step the org has explicitly required. Neither `APBIO-MCQ-069`'s three-group exon
+diagram nor `apphy1-frq-048`'s position-vs-time graph part was built. These remain open,
+now explicitly gated on TASK-0021's approval chain rather than merely deferred.
+
+**Needs an owner decision before proceeding — `APBIO-MCQ-074` (CRISPR-Cas9 rebuild).**
+Before building Adil's suggested fuller point-mutation-prediction rebuild, grep-checked
+`docs/product/AP_BIOLOGY_CED_FACT_PACK.md` for CRISPR the way `APBIO-MCQ-094`'s
+succession claim was checked earlier the same day: **zero hits for "CRISPR" anywhere in
+the fact pack.** Unit 6.8 Biotechnology's documented technique list is narrower —
+"Gel electrophoresis... PCR... bacterial transformation... DNA sequencing → fingerprint
+comparison," with an explicit "*Exclusion: technique-detail knowledge beyond scope*"
+tag right on that line. This is the same class of finding that got `APBIO-MCQ-094`
+retargeted rather than merely polished. Building a harder, better CRISPR item would
+entrench more off-CED content rather than less, so this was not attempted pending an
+owner decision: keep and rebuild (accepting the scope question), retarget the same
+guide-RNA/point-mutation concept onto a CED-covered technique, or retire.
+
+**Needs owner clarification — "all gold set reviewers have a corpus of answers to
+complete from set A."** Live-queried `app.gold_set_answers`/`app.gold_set_verification_assignments`:
+Set A is **30 answers, 60 assignment rows (2 readers each), 60/60 submitted, 0 pending,
+0 unassigned — fully complete**, and was, by design, a fixed 2-reader pilot pair (Jill
+Schmidlkofer and Muhammad Saood only; `GOLD_SET_GENERATION_PROTOCOL.md` §4's "two readers
+per answer" inter-reader-agreement methodology, not a general reviewer pool). Abdul
+Hanan, Chisom Anuba, and Ghazanfar Ali have **never** been assigned Set A work, and there
+is no unfinished Set A content left to assign them — the instruction cannot be satisfied
+literally without either manufacturing a third-reader assignment against a set whose
+statistics already depend on exactly two, or reopening writeonce-immutable rows. Set B
+(384 answers) does have real unfinished work: 105 unassigned, 133 pending — and
+critically, **Ahmed Ali currently holds zero gold-set rows of any status**, the direct,
+literal violation of "all gold set reviewers have... a corpus to complete," a side effect
+of the 08-11 pause's 15-row removal. Flagged for the owner rather than guessed at, since
+substituting Set B for Set A, or expanding Set A's reader pool, are both consequential,
+different decisions.
+
+**Next Owner:** David Bloom
+**Next Required Action:** Decide `APBIO-MCQ-074`'s disposition (rebuild in scope /
+retarget / retire) and clarify the Set A instruction (Set B instead? Ahmed Ali's empty
+queue specifically? Or something else meant by "Set A"?). Both raised directly with the
+owner in-session; not acted on further without an answer.
+
+---
+
+## 08-11 Reviewer QA Sweep Remediated: 18 Items Repaired and Published (16 Sweep Findings + 2 Retire-or-Repair Assessments, Both Repaired); 6 Stuck-Clean Physics FRQs Published via Publishing-Protocol Sweep; Half of Ahmed Ali's Physics Queue (51 Items) Reassigned to Ghazanfar Ali — 2026-08-11
+
+**Task:** Owner-directed follow-through on the 08-11 sweep (`docs/Q&A/REVIEWER_QA_SWEEP_2026_08_11.md`): "Run the 16 item remediation. Assess apphycm-frq-044... Assess APBIO-MCQ-094... Use the publishing protocol to identify and publish any items which fits the criteria. Assign half of the In Review physics questions to Ghazanfar Ali."
+**Status:** All four requested actions complete.
+
+**1. 16-item remediation, plus the two retire-or-repair assessments (both REPAIRED, not
+retired).** Every fix independently re-derived per protocol §9.2 (`docs/research/
+CONTENT_AUTHORING_AND_QA_PROTOCOL.md`) — re-solved from first principles, not a literal
+transcription of the flagging reviewer's note; several fixes go beyond or narrow what the
+note asked, with reasoning recorded in each script. Insertion discipline per §9.4: new
+`content_item_versions` row per item, `owner_remediation_approval` assignment + decision,
+publish gated on structural QA.
+
+- **13 MCQs** (9 AP Biology, 3 AP Physics, plus `APBIO-MCQ-094`):
+  `scripts/content-seed/reviewer-qa-remediation/20260811_mcq_batch_repair.sql`.
+  `APBIO-MCQ-094` — Adil Abbasi's 08-09 disapproval ("succession is not CED content") was
+  independently grep-verified against `docs/product/AP_BIOLOGY_CED_FACT_PACK.md` Unit 8
+  (zero hits for succession/climax/pioneer species anywhere in the pack) before acting on
+  it, confirming the claim rather than trusting it. Repaired by retargeting the same
+  volcanic-island stimulus onto real CED content (LO 8.6.A biodiversity/resilience, LO
+  8.5.B community change over time) instead of retiring a workable item; also fixed the
+  flagged 100-vs-25-word length-cue defect.
+- **5 FRQs** (`APBIO-FRQ-L-025`, `apcalcab-frq-012`, `apphy1-frq-048`,
+  `APSTAT-MOD4-M001`, plus `apphycm-frq-044`):
+  `scripts/content-seed/reviewer-qa-remediation/20260811_frq_batch_repair.sql`. Three of
+  the four sweep-flagged FRQs de-bundle every rubric criterion to 1-point-per-task,
+  applying the reviewers' own stated principle ("AP is 1 point per task, no
+  partial-credit bundling") consistently across every part of an item, not only the part
+  a note called out — `APBIO-FRQ-L-025` moves 10→13 points (Parts A/B genuinely had 4
+  sub-tasks bundled into 2/3 points; Parts C/D had correct totals but still bundled
+  multiple tasks into one all-or-nothing criterion). `apphy1-frq-048` instead *merges*
+  two criteria the reviewer flagged as redundant (correctly computing the new catch-up
+  time already demonstrates the inverse-proportionality insight). `apphycm-frq-044` —
+  Saood's 08-10 disapproval was independently re-verified: all energy-conservation math
+  confirmed correct (1.00 J → 2.00 m/s; quadrupling energy via doubled compression →
+  speed doubles to 4.00 m/s, `U_s∝x²` so `v∝x`, both re-derived and matched exactly).
+  The only defect was one ambiguous phrase ("after leaving the spring" contradicting the
+  stimulus's "on a spring," i.e. an attached oscillator) — repaired with a one-clause
+  fix rather than retiring a mathematically sound item.
+- **Scope decisions recorded, not silently dropped:** three requested additions
+  (a diagram for `APBIO-MCQ-069`, a rebuilt target-sequence stimulus for
+  `APBIO-MCQ-074`, a position-vs-time graph part for `apphy1-frq-048`) and one requested
+  structural split (`APBIO-FRQ-L-025` into two separate short FRQs) were **not** applied
+  — each is a new-asset or new-authoring-scale change outside a QA remediation pass, not
+  a repair. Flagged as open follow-ups in both scripts' comments and below, not dropped.
+
+**2. Publishing-protocol sweep**
+(`scripts/content-seed/publication/20260811_publish_protocol_sweep.sql`). Re-ran
+DECISION-0044's standing Rule A/B query (sections 2–5 of the 2026-08-02 script, unchanged)
+against the full corpus: 0 newly eligible items — everything else unpublished either
+lacks the 2-qualified-tutor + admin-QA combination or sits in a genuine intermediate
+review state. Investigating that null result surfaced 6 AP Physics C FRQs
+(`apphycem-frq-040/042/048/056`, `apphycm-frq-047/049`) stuck at
+`status='reviewed_approved'`/`review_status='question_review_approved'` — the correct
+terminal FRQ state on protocol §7.2's own publish allowlist — each with one clean tutor
+approval (Saood ×4, Ahmed Ali ×2) and no conflicts, never published for lack of an admin
+QA decision. Independently re-derived every criterion from first principles before
+treating them as clean: superposition (`apphycem-frq-040`), field-integral derivation and
+135 N/C numeric check (`-042`), Gauss's-law flux invariance under an external charge
+(`-048`), full `E(r)` derivation both inside and outside a non-uniformly charged sphere
+with two numeric checks (`-056`), kinematics integration/differentiation (`apphycm-frq-047`),
+and work-energy-theorem derivation with a calculus-based KE-maximum justification
+(`-049`). All six confirmed correct, zero defects found. QA-seeded and published.
+
+**3. Reviewer reassignment**
+(`scripts/content-seed/reviewer-management/20260811_ahmed_physics_half_to_ghazanfar.sql`).
+Ahmed Ali held all 102 pending physics `subject_review` assignments (34 Physics 1, 19
+Physics 2, 23 C:E&M, 26 C:Mechanics) — the entire "In Review" physics queue; no other
+reviewer had any pending physics assignment. Moved the oldest half per subject to
+Ghazanfar Ali (actively qualified for all four physics subjects): 17/34, 10/19, 11/23,
+13/26 = 51 of 102, an exact half. Hit the same "Ghazanfar withdrawal orphan" shape as the
+2026-08-08 log entry — 51 of the 102 candidates already carried a `withdrawn` assignment
+row for him from his earlier withdrawal, blocking a direct reviewer_id repoint on the
+unique `(content_item_version_id, reviewer_id, review_stage)` constraint. For those,
+revived the existing withdrawn row to `pending` and marked Ahmed's row `skipped` (same
+convention as superseded assignments elsewhere); the rest were reassigned directly. Final
+state verified: Ghazanfar 51 pending (17/10/11/13 by subject), Ahmed 51 pending
+(remaining half) + 30 `skipped`.
+
+**Next Owner:** David Bloom
+**Next Required Action:** None blocking. Open, non-blocking follow-ups carried from the
+scope decisions above: `APBIO-MCQ-069` still needs its three-group exon diagram,
+`APBIO-MCQ-074` could still take the fuller "predict whether a point mutation prevents
+cutting" rebuild, `apphy1-frq-048` could still take an added position-vs-time graph part,
+and `APBIO-FRQ-L-025`'s Long-FRQ-vs-experiment/graphing-archetype format mismatch is
+unresolved (would require splitting it into two separate content items, an authoring-scale
+decision, not a QA remediation one).
+
+---
+
+## Reviewer QA Sweep (2026-08-11): 16 Published-but-`modification_reserved` Items (up from 9); Confirmed the 08-11 Gold-Set-Assignment Pause Explains Ahmed Ali/Chisom Anuba's Missing Rows — 2026-08-11
 
 **Task:** Standing reviewer QA sweep (see `docs/Q&A/README.md`)
 **Status:** Sweep complete, read-only. Two items need owner attention; see Next Required
@@ -111,28 +312,148 @@ Of the 08-10 sweep's 4 flagged disapprovals, 3 physics items were owner-adjudica
 `status='assigned'` since 07-28 (never published, so no student exposure, but two sweep
 windows unactioned).
 
-**New finding:** Ahmed Ali's 4 and Chisom Anuba's 7 pending gold-set-verification
-assignments, both reported present in the 08-10 sweep/addendum, are now completely absent
-from `app.gold_set_verification_assignments` — not zero-pending, zero rows at all for
-either reviewer's `user_id`. Table total (139) reconciles exactly to the three remaining
-reviewers (Abdul Hanan 3, Jill Schmidlkofer 66, Muhammad Saood 70) with no remainder, and
-`app.audit_events` has no rows referencing either reviewer under `gold_set`-related
-`object_type`/`metadata`, so there's no logged reassignment or withdrawal event to explain
-it. Same general shape as the previously-fixed Ghazanfar withdrawal-orphan bug
-(2026-08-08 log entry) but a different failure mode — rows gone rather than stuck — so not
-assumed to be the same root cause. Not diagnosable further from read-only queries.
+**Gold-set roster reconciled, not a bug:** the sweep's DB query initially found Ahmed
+Ali's 4 and Chisom Anuba's 7 pending gold-set-verification assignments (reported present
+in the 08-10 sweep/addendum) completely absent from `app.gold_set_verification_assignments`,
+with no `app.audit_events` row to explain it. Merging this report against the branch's
+concurrent commit history resolved it: the immediately-preceding entry below (**Cross-
+Subject Gold-Set Verification Assignments Paused**, same day, timestamped 00:30 UTC — this
+sweep ran at 12:58 UTC) is an owner-approved pause of gold-set-answer-as-grading-exemplar
+work that deliberately removed 15 pending assignment rows, including Ahmed Ali's and
+Chisom Anuba's. Not a data-integrity defect; no further investigation needed on this
+point. (`app.audit_events` still has no row for it, since the removal was a direct,
+documented DB action rather than one routed through the normal assignment-lifecycle
+application path — worth noting for anyone who hits the same "no audit trail" dead end on
+a future sweep.)
 
 Full detail, per-reviewer tables, and the complete P0-B item list:
 `docs/Q&A/REVIEWER_QA_SWEEP_2026_08_11.md`.
 
 **Next Owner:** David Bloom
-**Next Required Action:** (1) Investigate the missing Ahmed Ali/Chisom Anuba gold-set
-assignments — determine whether this is a hard-delete bug or an unlogged reassignment, and
-whether the 11 items need to be recreated. (2) Decide remediation ordering for the 16
-published-but-`modification_reserved` items. (3) Adjudicate `apphycm-frq-044` and close out
-the stuck `APBIO-MCQ-094` disapproval.
+**Next Required Action:** (1) Decide remediation ordering for the 16
+published-but-`modification_reserved` items. (2) Adjudicate `apphycm-frq-044` and close
+out the stuck `APBIO-MCQ-094` disapproval.
 
 ---
+
+## Cross-Subject Gold-Set Verification Assignments Paused (15 Pending Rows Removed); AP Statistics Exemplar-Grading Pilot Closed Inconclusive — 2026-08-11
+
+**Trigger:** The exemplar-grading pilot (`docs/research/exemplar_grading_pilot_2026_08/REPORT.md`)
+— testing whether injecting a verified gold-set answer as a few-shot exemplar
+improves `evaluate-attempt` grading accuracy — closed with a modest, statistically
+inconclusive result: overall accuracy +5.9 percentage points on 30 held-out AP
+Statistics responses, but the paired-bootstrap 95% CI on that difference is
+`[0, 0.122]` — the lower bound sits exactly on zero. Reviewing why this pilot was
+scoped surfaced that a structurally identical hypothesis (scored-exemplar
+injection into a grading prompt) had already been tested in
+`docs/research/bio_reference_layer_exemplar_test_report.md` (2026-06-17) and its
+follow-up planning memo, with a near-identical outcome (+1 criterion agreement out
+of 60, +24.5% cost, +18.2% latency) and an explicit prior recommendation *against*
+building a larger exemplar corpus. This pilot's plan did not cite that prior
+finding when scoping the work.
+
+**Owner decision:** Pause all work on gold-set-answer-as-grading-exemplar,
+effective immediately. Given the modest and now twice-observed weak signal, the
+production-scale gold-set build-out underway across every subject (291 answers
+total: 144 AP Statistics, 45 Precalculus, 25/23 Calculus BC/AB, 17/15/12/10
+Physics 2/C-E&M/1/C-Mechanics) is disproportionate to the demonstrated
+opportunity for this specific use case. Future work in this area should be scoped
+as small, incremental experiments, not a production-scale authoring commitment,
+and should explicitly reconcile with the Biology precedent before re-proposing
+the same technique.
+
+**Action taken:** Removed the 15 *pending* (not yet submitted)
+`app.gold_set_verification_assignments` rows spanning AP Calculus AB (1), AP
+Calculus BC (1), AP Precalculus (1), and all four AP Physics courses (3 each:
+Physics 1, Physics 2, C-Mechanics, C-E&M) — reviewers Chisom Anuba, Ahmed Ali,
+and Muhammad Saood. This stops those reviewers' in-flight verification work now.
+**Not touched:** the 139 already-`submitted` assignments (136 AP Statistics + 3
+others) and the underlying `app.gold_set_answers` rows themselves (291 total,
+unassigned ones included) — this is completed work and generated content with
+value independent of this pilot's outcome, not part of what's being paused.
+
+**Task:** Exemplar-grading pilot (branch `claude/gold-set-answer-assignments-o3ibgi`)
+**Status:** Closed — inconclusive, paused
+**Summary:** See `docs/research/exemplar_grading_pilot_2026_08/REPORT.md` for the
+full pilot methodology, results, and decision-gate write-up. This entry records
+the owner's subsequent pause-and-descope decision and the specific database
+change it required.
+
+**Next Owner:** David Bloom
+**Next Required Action:** Decide whether the 291 already-generated gold-set
+answers and 139 completed verifications should be redirected toward the
+content-QA re-derivation use case (which has a separately measured yield, per
+`docs/research/CONTENT_AUTHORING_AND_QA_PROTOCOL.md` §9) rather than left
+idle, and whether/when a smaller, incremental follow-up exemplar-grading
+experiment (larger held-out sample, added placebo arm) is worth running.
+
+## AP Statistics Exemplar-Grading Pilot Run: Verified Gold-Set Answer as Few-Shot Exemplar Produces a Small, Statistically Unconfirmed Accuracy Gain — 2026-08-10
+
+**Task:** Test whether injecting a verified gold-set answer into
+`evaluate-attempt`'s grading prompt as a few-shot exemplar improves grading
+accuracy, before committing to mass gold-set authoring for this purpose.
+Full plan, code, and data: `docs/research/exemplar_grading_pilot_2026_08/`.
+
+**Method:** Added an opt-in, per-request `exemplar_mode` field (`"off"`
+default / `"with_exemplar"`) to `evaluate-attempt` and `grading-contract.ts`
+— zero behavior change for existing traffic. Split AP Statistics's 10
+distinct FRQ items into an exemplar pool and a held-out test pool by topic
+pairing (never the same item in both). For each held-out item, selected one
+independently re-vetted, fully-clean (all rubric elements present) verified
+answer from its topic-mate as the exemplar. Captured 300 real grading calls
+against a synthetic pilot student in Production: 4 held-out items / 30
+verified responses (ground truth from `app.gold_set_answers`/
+`gold_set_element_marks`) × 2 arms (`off`/`with_exemplar`) × 5 trials each,
+sized from a 20-repeat check showing 100% trial agreement on one response.
+Trials were aggregated to one majority-vote result per response per arm
+*before* scoring, specifically to keep the paired bootstrap's cluster count
+at one-per-response rather than inflated by repeated trials.
+
+**Results:** `with_exemplar` moved every point-estimate metric in its favor
+on the 30 held-out responses — overall accuracy 52.4% → 58.3% (+5.9 points),
+fewer false positives (11.1% → 7.4%) and false negatives (36.8% → 29.8%),
+higher coverage (56.0% → 60.7%) — at +11% cost ($0.107 → $0.119 total) and a
+flat p50 / +1.6s p95 latency. The paired-bootstrap 95% CI on the accuracy
+difference is `[0, 0.122]` (30 independent clusters, matching the 30 held-out
+responses exactly) — the lower bound sits exactly on zero, so the gain is not
+statistically distinguishable from noise at this sample size. Full tables,
+the raw per-trial variance diagnostic, and every limitation:
+`docs/research/exemplar_grading_pilot_2026_08/REPORT.md`.
+
+**Key learnings worth keeping, beyond the headline number:**
+
+1. **Prior art existed and wasn't checked before scoping this pilot.**
+   `docs/research/bio_reference_layer_exemplar_test_report.md` (2026-06-17)
+   tested the same exemplar-injection idea on Biology grading and found the
+   same shape of result (a small, mixed gain at real cost/latency penalty),
+   with an explicit recommendation against building a larger exemplar
+   corpus. Any future prompt-augmentation experiment (exemplars, retrieval,
+   reference material) should search prior research for this pattern first
+   — it has now failed to clear a bar twice, on two different subjects.
+2. **`app.content_items.status` and `app.content_item_versions.status` are
+   different fields with different enforcement.** Phase 0's corpus audit
+   checked only the item-level field (all 10 items showed `'published'`);
+   `evaluate-attempt` actually enforces the version-level field, which
+   returned `409 content_not_published` for `APSTATS-SFRQ-003` mid-run
+   (`content_item_versions.status = 'retired'`). Any future audit of
+   "is this content gradable" needs to check both fields — this cost the
+   pilot one of its five held-out items.
+3. **`evaluate-attempt`'s API response does not echo `points_possible` per
+   criterion** — only `criterion_key`/`status`/`points_awarded`/
+   `evidence_quote`/`decision_explanation`/`minimum_fix`. Any future capture
+   script scoring against this endpoint needs to source `points_possible`
+   from the rubric (`app.frq_criteria`) directly, not the API response.
+4. **A pilot session's Supabase access token expires in 1 hour** — a
+   300-call sequential capture run can cross that boundary mid-run. Future
+   capture scripts against this endpoint should either refresh the token
+   proactively or treat `401` as retryable-after-refresh, not fatal.
+
+**Status:** Complete and scored. See the following entry
+(2026-08-11) for the owner's resulting pause decision.
+
+**Next Owner:** David Bloom
+**Next Required Action:** None on this pilot itself — see the 2026-08-11
+pause entry above for the open follow-up decisions.
 
 ## Exemplar Pilot Corrected: Replay-Parsing Defect Inflated Headline; Deterministic-Key Defect Found in APSTATS-SFRQ-008 — 2026-08-11
 
@@ -148,7 +469,7 @@ uncommitted pending morning review
 
 **Trigger:** the 2026-08-10 second-opinion review of the exemplar pilot
 (`prompts/FABLE_EXEMPLAR_PILOT_AND_GOLD_SET_SECOND_OPINION_2026_08_10.md`)
-found two defects the 2026-08-10 entry below does not know about.
+found two defects the pilot-run entry above does not know about (written first, before this correction landed).
 
 **1. Replay-parsing defect corrected — the pilot's headline was inflated.**
 5 of `raw_calls.jsonl`'s 300 successful calls (SFRQ-001#0, arm=off, all 5
@@ -206,87 +527,11 @@ package). Handoff doc annotated with already-settled corrections
 **Next Owner:** David Bloom
 **Next Required Action:** work through
 `docs/research/GRADING_ENGINE_REPLAN_MORNING_PACKAGE_2026_08_11.md` — O1
-(approve corrected key set; gates the Step 2 deploy bundle), O2
-(per-criterion flag scoping), O3 (exemplar-pilot Production cleanup, still
-outstanding from the 2026-08-10 entry); then the owner-run morning steps
-listed there (deploy bundle, Run A).
-
-## Exemplar-Injection Grading Pilot (AP Statistics) Scored: Inconclusive — Item-Level Cluster Bootstrap Invalid in `harness.ts`, Do Not Ship — 2026-08-10
-
-**Task:** TASK-0016 Phase C (cross-subject grading calibration)
-**Status:** Pilot complete. Result **inconclusive**, not negative or positive.
-`exemplar_mode: "with_exemplar"` should not ship on this evidence. Production
-cleanup (synthetic pilot student's rows) **not yet performed** — see Next
-Required Action.
-
-**Trigger:** the 2026-08-03 gold-set-model decision (see that entry) included
-a pre-registered exemplar-injection pilot as a follow-on test:
-inject a verified gold-set answer into the grading prompt as a few-shot
-exemplar (`exemplar_mode: "with_exemplar"`) and measure whether it beats
-today's production prompt (`exemplar_mode: "off"`) on 4 AP Statistics
-held-out items. Phase 4's capture script ran and committed
-`raw_calls.jsonl` (300 calls, commit `efb16c5`), but Phase 5 (map to
-`ResultCase[]`, score, write `REPORT.md`) had not been run yet this session.
-
-**What running Phase 5 found.** `to_result_cases.mjs` and
-`scripts/grading-model-assessment/main.ts` were run for the first time
-against the real capture. Headline: candidate (`with_exemplar`) 58.3%
-overall accuracy vs. baseline (`off`) 52.4%, a +4.7pp point estimate with
-bootstrap 95% CI **[0.0pp, 12.2pp]** — every secondary metric (selective
-accuracy, coverage, false-negative rate) also favors the candidate. Read at
-face value this looks like a marginal win. It is not trustworthy:
-
-- **`report.json` reports `"clusters": 30`.** The pilot's own execution plan
-  pre-registered that a valid run needs cluster count = number of held-out
-  items (4), not the number of scored responses (30), because responses to
-  the same item share rubric, exemplar, and prompt scaffolding and are not
-  independent draws. `to_result_cases.mjs` correctly aggregates the 5
-  per-cell trials before scoring (the pseudoreplication fix it was built
-  for), but `harness.ts`'s `clusterBootstrapDifference` has no item-level
-  grouping above that — it treats every `content_key#response_index` key in
-  `item_correctness` as its own independent cluster. This is a harness gap,
-  not a pilot-invocation mistake: nothing in the harness has ever needed
-  cluster-granularity coarser than the scored case before. **No accuracy
-  claim survives this** — the reported CI is anti-conservative, and a
-  correctly item-clustered bootstrap over the true n=4 would almost
-  certainly be too wide to resolve a 4.7pp difference.
-- **Held-out pool audit gap, already partially fixed.** Phase 0 checked
-  `content_items.status` (item-level, all published) but not
-  `content_item_versions.status` (version-level, what `evaluate-attempt`
-  enforces). `APSTATS-SFRQ-003` (and its exemplar-source topic-mate
-  `APSTATS-SFRQ-004`) turned out version-`retired`, discovered mid-run via a
-  live `409`. Commit `cf88a0e` fixed `held_out_items.json`/
-  `item_pool_split.json` and made `run_pilot.mjs` resilient, correcting the
-  pool to 4 items/30 responses — but never regenerated `gold_cases.json`/
-  `gold_cases_internal.json`, which still carried the excluded item's 7
-  responses and blocked `main.ts` (`missing result case`) until this
-  session dropped them.
-- **Data collection itself held up.** 29/330 calls (8.8%) hit `401`
-  (mid-run session expiry) and 1 hit `409`; `run_pilot.mjs`'s resumability
-  recovered all of them — `raw_trial_variance.json` confirms all 188
-  (case × arm × criterion) cells reached the full pre-registered
-  `trial_count: 5`, mean modal agreement 97.2%. Not a contributing cause of
-  the inconclusive verdict.
-
-**Documents landed:** `docs/research/exemplar_grading_pilot_2026_08/REPORT.md`
-(new — full writeup, verdict, and the harness-fix condition for re-running
-this question); `README.md` status banner; `gold_cases.json`/
-`gold_cases_internal.json` (SFRQ-003 dropped, 37→30 responses, completing
-`cf88a0e`'s correction); `report.json`, `results_with_exemplar.json`,
-`results_without_exemplar.json`, `raw_trial_variance.json` (generated, not
-previously committed). `GRADING_PROGRAM_LEDGER_2026_07_27.md` experiment
-register (§A) gets a new row citing this result alongside the existing Bio
-reference-layer/exemplar null results, with an explicit note that this one
-is inconclusive-by-design-defect rather than a clean replication.
-
-**Next Owner:** David Bloom
-**Next Required Action:** Run the pilot's required Production cleanup
-(README.md §5 — delete the synthetic pilot student's `grading_results`,
-`response_versions`, `attempts`, `student_memory` rows, its `app.profiles`
-row, and its Supabase Auth user; confirm via a final query that no `app.*`
-rows reference its user id) and record what was deleted. Separately: decide
-whether item-level cluster-bootstrap support in `harness.ts` is worth
-building before this question is asked again — not currently scheduled.
+(approve corrected key set; gates the Step 2 deploy bundle) and O2
+(per-criterion flag scoping); then the owner-run morning steps listed there
+(deploy bundle, Run A). **O3 (exemplar-pilot Production cleanup) is already
+resolved** — see `exemplar_grading_pilot_2026_08/EXECUTION_LOG.md`, added by
+concurrent work on this branch after this entry was originally drafted.
 
 ## P0-B Publish Gate Implemented; 130 Published-but-Unapproved Items Retired; Gold-Set Rubric-Ordering Defect Found (5 Items) and Fixed — 2026-08-08
 
