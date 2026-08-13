@@ -103,22 +103,85 @@ Calculus Set A decomposition` (draft, CI green, not yet merged).
   to the wrong team scope. None of these are diagnosable from a terminal — they need
   checking directly in the Vercel dashboard.
 
-## 5. State left for next session
+## 6. Follow-on session (2026-08-13, separate Claude Code session) — gateway resolved, decomposition certified
 
-- **`app.gold_set_elements`**: 90 draft (unconfirmed) rows for the 10 Calculus items
-  above, sitting idle until the blind-review script actually runs somewhere with
-  working gateway access.
-- **PR #87**: open, draft, CI green, contains only the review script — no content
-  changes, no risk sitting open.
+The §4 gateway blocker did not reproduce in a third session run from the owner's local
+machine. `curl -H "Authorization: Bearer $AI_GATEWAY_API_KEY" https://ai-gateway.vercel.sh/v1/models`
+returned `200` with a full model list using the exact same `scripts/vercel-gateway-check/.env.local`
+key referenced in §4, and `node --env-file=.env.local verify_calc_setA_decomposition.mjs`
+ran end-to-end with 0 errors across all 30 criteria. Root cause of the earlier
+`GatewayAuthenticationError` was not identified (never reproduced to diagnose) — treat
+as environment/session-transient rather than a real key/team-scope problem, but note
+this if it recurs.
+
+**Blind review result (`google/gemini-2.5-flash`, `calc_setA_decomposition_review.json`):
+23/30 criteria approved as drafted, 7 flagged.** All 7 flags were the same failure
+pattern — an element describing *how* a step was done (e.g. "shows correct application
+of the power rule") rather than a distinct, checkable *fact*, making it redundant with
+a sibling element and under-covering a 3-point criterion with only 2 real facts.
+
+**Correction pass:** drafted fixes for all 7 (6 using the reviewer's own
+`corrected_label` suggestion verbatim; 1 — `apcalcbc-frq-003` part-c — hand-drafted,
+since the flag was a missing-alternate-method coverage gap with no suggested wording:
+the criterion allows "differentiating again OR using a local expansion," but the
+original 3 elements covered only the differentiation path, so the fix rewrote elements
+1-2 to be method-agnostic). Re-ran all 7 through the same blind check via a second
+script, `verify_calc_setA_decomposition_recheck.mjs` (same model, same prompt/schema,
+new script only because the corrected criteria needed to be re-embedded) —
+**6/7 passed on the corrected wording.**
+
+**1 criterion could not be certified: `apcalcab-frq-011` part-a**
+(`F′(x)=3x²−4x+1 and F″(x)=6x−4`). The reviewer's own suggested fix for the flagged
+3rd element ("differentiates the constant term in F'(x) to 0") was re-submitted on
+recheck and the *same model* flagged it again, this time calling that exact fix "too
+granular... not distinct from Element 1... AP Calculus rubrics typically award a single
+point for the complete, correct derivative expression F''(x) rather than breaking it
+down into individual term differentiations." This is the protocol's own
+"genuine rubric ambiguity, flag don't resolve" case (§6): the criterion is worth 3
+points but appears to contain only 2 independently-checkable facts (F'(x), F''(x)).
+**Left unconfirmed on purpose** rather than force a 3rd element through — needs either
+a human reader's judgment call or an owner decision to re-scope the criterion to 2
+points before it can go into Set A generation.
+
+**Production writes:** 87 of 90 `app.gold_set_elements` rows now have
+`confirmed_by`/`confirmed_at` set (23 criteria confirmed as-drafted, 6 confirmed with
+corrected `element_label` text applied). The 3 rows for `apcalcab-frq-011` part-a
+remain `confirmed_by IS NULL`, with the finding above as the reason. `confirmed_by` is
+David Bloom's admin profile (`f5a26c6b-3566-4d58-9e97-979fbb947564`) — the protocol's
+"reader confirms" role, exercised here as the accountable owner directing an
+independent-model certification pass rather than a human line-by-line read.
+
+**Note on process:** the first attempt at the DB update in this session included a
+copy-paste bug — a flagged criterion's ID was accidentally left in the "approved"
+confirm list and briefly got `confirmed_by` set incorrectly. Caught immediately via a
+post-write count check (69 confirmed / 30 expected exact match failed), reverted before
+the corrected-elements pass ran, and the final state was independently re-verified by
+count (87/90 elements, 29/30 criteria) and by listing the 3 still-NULL rows by name.
+Documented here so it isn't mistaken for evidence the certification itself was
+sloppy — the certification (blind model review) and the DB bookkeeping (which rows to
+write) are separate steps, and only the second had a transient error, caught before
+being left in that state.
+
+Artifacts added this session: `scripts/vercel-gateway-check/verify_calc_setA_decomposition_recheck.mjs`,
+`calc_setA_decomposition_review.json` (original 30-criteria review), `calc_setA_decomposition_recheck.json`
+(7-criteria recheck).
+
+## 7. State left for next session
+
+- **`app.gold_set_elements`**: Calculus Set A decomposition is certified — 87/90
+  elements confirmed, ready for Phase 1 (script + answer-text generation) generation
+  against those 29 criteria. **`apcalcab-frq-011` part-a (3 elements) is not
+  certified and should not be used for generation** until the 3-points-vs-2-facts
+  question above is resolved by a human reader or the owner.
+- **PR #87**: still open/draft; now also contains the recheck script and both JSON
+  result files. Ready to mark ready-for-review / merge — no further content or schema
+  changes anticipated, and the gateway blocker that was the reason it stayed in draft
+  is resolved.
 - **Shazia/Jill AP Statistics Set A assignment**: still not executed; needs a decision
   per §3 above (audit pass on already-reviewed content, or drop it).
-- **Gateway credential**: needs to be sorted on the owner's end (Vercel dashboard
-  checks per §4) before Calculus Set A — or any future gateway-dependent work — can
-  proceed. Once a working key exists, running
-  `node --env-file=.env.local verify_calc_setA_decomposition.mjs` from
-  `scripts/vercel-gateway-check/` (on the `claude/cramapple-reviewer-sweep-chart-kwke07`
-  branch, or wherever PR #87 lands) is the next concrete step; its JSON/console output
-  feeds directly into confirming or correcting the 90 drafted elements.
+- **Gateway credential**: works now; no action needed unless the `GatewayAuthenticationError`
+  recurs, in which case it's worth actually diagnosing (this run didn't need to, since
+  it just worked) rather than re-assuming a key/team-scope problem.
 - **Carried forward, untouched this session**: everything already logged as open in
   `REVIEWER_QA_SWEEP_2026_08_12.md`'s follow-ups (08-10 P0-B items, 08-10 disapprovals,
   AP Physics C: Mechanics gold-set review backlog, topic-selection-compliance gap).
