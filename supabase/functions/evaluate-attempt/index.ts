@@ -141,14 +141,16 @@ const GRADING_ARM = (Deno.env.get("GRADING_ARM") ?? "b").toLowerCase() === "a"
 // divergence; `erf`/`factorial` parse). Verdicts from this build are not
 // comparable to 2026-07-08 ones, so the stamp recorded in
 // grading_results.deterministic_verifier_version has to move with it.
-const MATH_VERIFIER_VERSION = "math-verifier-ts-2026-07-28";
-// PENDING BUMP (comment only -- the actual bump ships with the Step 2
-// deploy): when the corrected APSTATS-SFRQ-008 statistics key and the
-// audited provenance annotations in _shared/statistics-verifier.ts deploy
-// (O1 approval required), stamp this as "stats-verifier-ts-2026-08-11" so
-// deterministic verdicts from the corrected keys are distinguishable from
-// pre-fix ones in grading_results.deterministic_verifier_version. See
-// docs/research/DETERMINISTIC_KEY_AUDIT_2026_08_11.md.
+// Bumped 2026-08-11 (O1 approved): the corrected APSTATS-SFRQ-008
+// statistics key and the audited provenance annotations in
+// _shared/statistics-verifier.ts ship with this build, so deterministic
+// verdicts from the corrected keys are distinguishable from pre-fix ones in
+// grading_results.deterministic_verifier_version. See
+// docs/research/DETERMINISTIC_KEY_AUDIT_2026_08_11.md. This stamp covers
+// the deterministic layer as a whole (both math-verifier.ts and
+// statistics-verifier.ts share one version tag here), not math-verifier.ts
+// alone -- the math-verifier itself is unchanged since 2026-07-28.
+const MATH_VERIFIER_VERSION = "stats-verifier-ts-2026-08-11";
 
 // Timeout is configurable so we can tune for high-reasoning models without
 // a code change. 90s accommodates reasoning: { effort: "high" } latency

@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Grading-Engine Replan Step 2 Deployed: SFRQ-008 Deterministic-Key Fix and Passive Telemetry Live in Production (O1 Approved) — 2026-08-13
 - Owner Decisions Executed: APBIO-MCQ-074 Retargeted CRISPR→PCR-Primer-Annealing (Still CED-Off-Scope Otherwise); Ahmed Ali (50) and Jill Schmidlkofer (8) Given Fresh Gold-Set Set B Queues — 2026-08-11
 - APBIO-FRQ-L-025 Split Into Three Short FRQs (Format-Mismatch Follow-up); CRISPR-Scope and Gold-Set-Set-A Assignment Questions Raised for Owner Decision — 2026-08-11
 - 08-11 Reviewer QA Sweep Remediated: 18 Items Repaired and Published (16 Sweep Findings + 2 Retire-or-Repair Assessments, Both Repaired); 6 Stuck-Clean Physics FRQs Published via Publishing-Protocol Sweep; Half of Ahmed Ali's Physics Queue (51 Items) Reassigned to Ghazanfar Ali — 2026-08-11
@@ -88,6 +89,85 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 ---
+
+## Grading-Engine Replan Step 2 Deployed: SFRQ-008 Deterministic-Key Fix and Passive Telemetry Live in Production (O1 Approved) — 2026-08-13
+
+**Task:** TASK-0016 (grading engine) — Step 2 of the grading-engine replan
+(`docs/research/GRADING_ENGINE_REPLAN_EXECUTION_PLAN_2026_08_10.md`); see the
+2026-08-11 entry below for Step 1 (the analysis and in-repo fix this deploy
+ships) and `docs/research/GRADING_ENGINE_REPLAN_MORNING_PACKAGE_2026_08_11.md`
+§6/§9 for the O1 decision sheet and deploy checklist this session followed.
+**Status:** O1 approved by the owner; Step 2 bundle deployed to Production.
+O2 (per-criterion flag scoping) and O3 (exemplar-pilot cleanup — already
+resolved via `EXECUTION_LOG.md` per concurrent work) are unaffected by this
+deploy; O2 remains a separate, not-yet-approved decision.
+
+**What shipped, in one `evaluate-attempt` deploy + one migration:**
+
+1. **`statistics-verifier.ts` fix (already committed 2026-08-11, now live):**
+   `APSTATS-SFRQ-008`'s deterministic keys corrected from `[1.8, 4.9]`
+   (the item's retired v1 canonical values) to `[-1.40, 4.477]` (derived
+   from the published payoff table, matches the current canonical and all 8
+   gold answers). Every correct student answer to this published item was
+   previously flagged uncertain/0 points by this check before any model
+   call — now it passes.
+2. **`MATH_VERIFIER_VERSION` bumped** from `math-verifier-ts-2026-07-28` to
+   `stats-verifier-ts-2026-08-11` (this stamp tags the deterministic layer
+   as a whole — both math-verifier.ts and statistics-verifier.ts share it —
+   not math-verifier.ts alone, which is unchanged since 07-28). Pre-fix and
+   post-fix deterministic verdicts are now distinguishable in
+   `grading_results.deterministic_verifier_version`.
+3. **Passive telemetry columns** added to `app.grading_results` via
+   migration `20260813120000_grading_telemetry.sql` (renamed from the
+   drafted `20260811TBD_...` placeholder, applied via the Supabase MCP
+   `apply_migration` tool against `pcntajvbdfqhbeewmdry` directly — avoids
+   the repo-CLI-linked-to-Dev / stale-Prod-linked-`~/supabase` hazard from
+   the 2026-08-03 note): `normalized_response_sha256` (replay-rate
+   telemetry), `cached_tokens` (provider cache-hit telemetry), `stage_timings`
+   (per-stage wall-clock breakdown attacking the measured ~691ms non-model
+   floor). All nullable, no behavior change, `evaluate-attempt` writes them
+   best-effort and degrades gracefully if absent.
+
+**Deploy mechanics:** `supabase functions deploy evaluate-attempt
+--project-ref pcntajvbdfqhbeewmdry --use-api --workdir <repo>` — the exact
+command the runbook specified, run from this repo checkout rather than via
+the MCP `deploy_edge_function` tool (which would have required hand-copying
+~5,900 lines across 17 files into a tool call; the CLI's asset upload is the
+lower-risk path for a change this size). Function version 36→37,
+`ezbr_sha256` `d83e504c…` → `145619c8…` (confirms new code actually
+deployed, not a no-op).
+
+**Post-deploy verification performed (no auth-required smoke — the O1/1.1
+invariant harness is the pre-deploy check, already run and green):**
+- `deno test` — 137/137 passing, both before and after this deploy.
+- `deno run --allow-read scripts/grading-model-assessment/verify_deterministic_keys.ts`
+  — reproduces SFRQ-008 at 4/4 pass, 4/4 flag, zero false flags/passes,
+  against this deploy's exact `statistics-verifier.ts`.
+- Migration columns confirmed present on `app.grading_results`
+  (`information_schema.columns` query).
+- Unauthenticated `POST /functions/v1/evaluate-attempt` returns
+  `401 UNAUTHORIZED_NO_AUTH_HEADER` (not a 500/crash) — confirms the
+  function boots and its request path is intact post-deploy.
+
+**Deliberately not done this session:** an authenticated end-to-end smoke
+test replaying a real SFRQ-008 gold answer through the live function (the
+morning package's §9.4 step). That requires a synthetic pilot identity
+(email/password sign-in) per the plan's own "create→run→cleanup" protocol
+(3.0) — marked **owner-run** in the runbook because it handles a password,
+which is outside what this session performs. The deterministic-check logic
+itself is already verified against the identical fixed code via the
+invariant harness above; what's unverified is only the full request path
+(auth → routing → the check) under a real token.
+
+**Next Owner:** David Bloom
+**Next Required Action:** Run the authenticated smoke test per
+`GRADING_ENGINE_REPLAN_MORNING_PACKAGE_2026_08_11.md` §9.4 (a real SFRQ-008
+gold answer through the live endpoint, plus a canary on the other keyed
+items) using the create→run→cleanup pilot-identity flow, and confirm
+telemetry rows land with real traffic. Then: O2 decision (per-criterion flag
+scoping — evidence already computed in `POLICY_SIMULATIONS_2026_08_11.md`,
+~+8pp residual recovery bound), followed by Step 3 (Run A/B/C, still fully
+unstarted).
 
 ## Owner Decisions Executed: APBIO-MCQ-074 Retargeted CRISPR→PCR-Primer-Annealing (Still CED-Off-Scope Otherwise); Ahmed Ali (50) and Jill Schmidlkofer (8) Given Fresh Gold-Set Set B Queues — 2026-08-11
 
