@@ -164,48 +164,36 @@ async function advanceWorkflow(
     const aggregate = scoreA + scoreB;
 
     if (aggregate === 2) {
-      // Yes + Yes → create AP Reader assignment.
-      // Find the original creator of the assignments (admin) to use as created_by.
-      const { data: firstAssignment } = await service
-        .schema("app")
-        .from("content_review_assignments")
-        .select("created_by")
-        .eq("content_review_assignment_id", groupIds[0])
-        .maybeSingle();
-
-      // Find a reader profile to assign. For the pilot, pick the first
-      // available reader. Production will use an explicit reader assignment.
-      const { data: readers } = await service
-        .schema("app")
-        .from("profiles")
-        .select("user_id")
-        .eq("role", "reader")
-        .limit(1);
-
-      const readerId = readers?.[0]?.user_id;
-      if (readerId) {
-        await service.schema("app").from("content_review_assignments").insert({
-          content_item_version_id: versionId,
-          reviewer_id: readerId,
-          review_stage: "reader_question",
-          review_kind: reviewKind,
-          status: "pending",
-          created_by: firstAssignment?.created_by ?? null,
-        });
-      }
-
-      await service.schema("app").from("content_item_versions")
-        .update({ review_status: "ap_reader_pending" })
-        .eq("id", versionId);
-
-      // Check difficulty label agreement; flag discussion if they differ.
-      const labelA = latestDecisions[0].difficulty_label as string | null;
-      const labelB = latestDecisions[1].difficulty_label as string | null;
-      if (labelA && labelB && labelA !== labelB) {
+      // Yes + Yes → approved. This operation does not staff an AP-reader role
+      // (owner-directed, 2026-08-13) -- the code here used to look up a
+      // `profiles` row with role='reader', and even when none was found (the
+      // role has never once been staffed in Production) it STILL set
+      // review_status to 'ap_reader_pending' unconditionally. That value has
+      // no code path anywhere that ever advances it further, so every item
+      // that reached this branch got permanently stuck below the publish
+      // gate's allowlist (docs/research/CONTENT_AUTHORING_AND_QA_PROTOCOL.md
+      // §7.2) -- same failure shape as the pre-2026-08-08 bug fixed below in
+      // the reader_question/mcq branch, just one step earlier in the state
+      // machine. Skip the reader stage entirely; go straight to the terminal
+      // review_status the reader_question branch would have set on approval.
+      if (reviewKind === "mcq") {
         await service.schema("app").from("content_item_versions")
-          .update({ review_status: "difficulty_discussion" })
+          .update({ review_status: "mcq_answer_review_complete" })
+          .eq("id", versionId);
+      } else {
+        await service.schema("app").from("content_item_versions")
+          .update({ review_status: "question_review_approved" })
           .eq("id", versionId);
       }
+
+      // Difficulty label disagreement is no longer a publish-blocking state
+      // (owner-directed, 2026-08-13: "when in doubt, use the harder level of
+      // difficulty" -- previously this flagged 'difficulty_discussion', a
+      // review_status with the same dead-end problem as 'ap_reader_pending'
+      // above: nothing ever resolves it back out. Two tutors agreeing the
+      // content itself is correct (aggregate 2) is sufficient to approve;
+      // a difficulty-label disagreement is metadata to note, not a reason to
+      // block publish.
     } else if (aggregate === 3) {
       await service.schema("app").from("content_item_versions")
         .update({ review_status: "modification_reserved" })
