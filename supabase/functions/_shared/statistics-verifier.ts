@@ -16,6 +16,44 @@ type NumericTarget = {
 
 const DEFAULT_REL_TOL = 0.02;
 
+// Which criterion keys carry the keyed numeric values, per item (replan O2,
+// 2026-08-13). Derived by reading each item's element decomposition in
+// scripts/content-seed/gold-set/stage1_fixture.json (SFRQ-001..006) and
+// apstats_multipoint_fixture.json (SFRQ-007..010) against the keyed values
+// -- e.g. SFRQ-001 keys [22, 23.7] are criterion a1 ("States the median is
+// 22 minutes.") and c1 ("Computes the mean as about 23.7 minutes ..."). Single
+// source of truth: scripts/grading-model-assessment/verify_deterministic_keys.ts
+// imports this rather than defining its own copy.
+//
+// A content_key with NO entry here means "we don't know which criteria the
+// keyed values belong to" -- on a flag, the caller must fall back to the
+// conservative item-wide behavior (buildStatisticsDeterministicFallback),
+// not attempt to scope. This is deliberately narrower than STATISTICS_TARGETS:
+// only items with gold-answer-derived element decompositions are covered
+// today (SFRQ-001..004, 007..010); SFRQ-011..018 and the MOD items are keyed
+// but have no gold answers to derive a mapping from, so they stay unscoped.
+export const NUMERIC_ELEMENT_CRITERIA: Record<string, string[]> = {
+  "APSTATS-SFRQ-001": ["a1", "c1"], // median 22 / mean 23.7
+  "APSTATS-SFRQ-002": ["a1", "b1"], // z = 1.5 / z = 2.5
+  "APSTATS-SFRQ-003": ["c1", "d1"], // prediction 76.6 / residual -2.6
+  "APSTATS-SFRQ-004": ["b1", "c1"], // prediction 5.25 / residual -0.25
+  "APSTATS-SFRQ-007": ["b-1", "b-2", "c"], // mean 5 / sd 1.94 / P(X=5) 0.202
+  "APSTATS-SFRQ-008": ["a-1", "a-2"], // E(X) -1.40 / sd 4.477
+  "APSTATS-SFRQ-009": ["a-1", "a-2"], // mean 0.28 / sd 0.0225
+  "APSTATS-SFRQ-010": ["a-1", "a-2"], // mean 7.2 / sd 0.3
+};
+
+// Returns the criterion keys the deterministic check's numeric values
+// belong to, or null if there's no known mapping for this item (meaning:
+// the caller must not attempt per-criterion scoping and should fall back
+// to the item-wide buildStatisticsDeterministicFallback instead).
+export function getStatisticsScopedCriteria(
+  contentKey: string | null | undefined,
+): string[] | null {
+  if (!contentKey) return null;
+  return NUMERIC_ELEMENT_CRITERIA[contentKey] ?? null;
+}
+
 // Exported (2026-08-11) so scripts/grading-model-assessment/
 // verify_deterministic_keys.ts can audit every entry against the repo
 // gold-set answers and the item's canonical answer -- the standing

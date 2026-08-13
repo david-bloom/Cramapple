@@ -38,27 +38,16 @@
 
 import {
   checkStatisticsDeterministicEvidence,
+  NUMERIC_ELEMENT_CRITERIA,
   STATISTICS_TARGETS,
 } from "../../supabase/functions/_shared/statistics-verifier.ts";
 
-// Which criterion keys carry the keyed numeric values, per item. Derived
-// by reading each item's element decomposition in
-// scripts/content-seed/gold-set/stage1_fixture.json (SFRQ-001..006) and
-// apstats_multipoint_fixture.json (SFRQ-007..010) against the keyed values
-// -- e.g. SFRQ-001 keys [22, 23.7] are criterion a1 ("States the median is
-// 22 minutes.") and c1 ("Computes the mean as about 23.7 minutes ...").
-// An answer is expected to PASS the checker iff its script marks every
-// criterion listed here present.
-export const NUMERIC_ELEMENT_CRITERIA: Record<string, string[]> = {
-  "APSTATS-SFRQ-001": ["a1", "c1"], // median 22 / mean 23.7
-  "APSTATS-SFRQ-002": ["a1", "b1"], // z = 1.5 / z = 2.5
-  "APSTATS-SFRQ-003": ["c1", "d1"], // prediction 76.6 / residual -2.6
-  "APSTATS-SFRQ-004": ["b1", "c1"], // prediction 5.25 / residual -0.25
-  "APSTATS-SFRQ-007": ["b-1", "b-2", "c"], // mean 5 / sd 1.94 / P(X=5) 0.202
-  "APSTATS-SFRQ-008": ["a-1", "a-2"], // E(X) -1.40 / sd 4.477
-  "APSTATS-SFRQ-009": ["a-1", "a-2"], // mean 0.28 / sd 0.0225
-  "APSTATS-SFRQ-010": ["a-1", "a-2"], // mean 7.2 / sd 0.3
-};
+// NUMERIC_ELEMENT_CRITERIA now lives in statistics-verifier.ts (replan O2,
+// 2026-08-13) -- it's runtime-consumed there (per-criterion flag scoping),
+// not just an audit input, so that's the single source of truth. Re-exported
+// here so this script's own imports (and existing callers of this module)
+// don't need to change.
+export { NUMERIC_ELEMENT_CRITERIA };
 
 // Documented detector limitations with the current gold corpus: answers
 // whose script marks a keyed element absent but whose text still trips the

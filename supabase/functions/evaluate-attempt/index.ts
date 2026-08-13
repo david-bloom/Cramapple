@@ -18,6 +18,7 @@ import {
 import {
   buildStatisticsDeterministicFallback,
   checkStatisticsDeterministicEvidence,
+  getStatisticsScopedCriteria,
 } from "../_shared/statistics-verifier.ts";
 import {
   buildFallbackCriteria,
@@ -26,6 +27,7 @@ import {
 } from "../_shared/grading-feedback.ts";
 import {
   type AllowedOperation,
+  applyDeterministicFlagScope,
   buildCriterionGradingPrompt,
   buildCriterionRequestBody,
   buildCriterionSystemPrompt,
@@ -967,6 +969,15 @@ Deno.serve(async (req) => {
     contentKey: contentItem.content_key as string | null,
     responseText,
   });
+  // O2 (2026-08-13): when a flag has a known per-criterion mapping, scope
+  // the deterministic hold to just those criteria instead of the whole
+  // item -- see getStatisticsScopedCriteria for which items qualify. Null
+  // means "no mapping known," so the caller must fall back to the
+  // item-wide behavior below (statisticsDeterministicFallback), unchanged
+  // from before this change.
+  const statisticsScopedCriteriaKeys = statisticsCheck?.status === "flag"
+    ? getStatisticsScopedCriteria(contentItem.content_key as string | null)
+    : null;
   stageTimer.mark("deterministic");
   // Replay-rate telemetry (passive): hash of the normalized response text.
   const normalizedResponseSha256 = await sha256Hex(
@@ -1018,14 +1029,19 @@ Deno.serve(async (req) => {
     (sum, criterion) => sum + Number(criterion.points_possible || 0),
     0,
   ) || (contentItem.item_type === "mcq" ? 1 : 0);
-  const statisticsDeterministicFallback = routing.target === "llm_text"
-    ? buildStatisticsDeterministicFallback({
-      contentKey: contentItem.content_key as string | null,
-      responseText,
-      criteria: promptBase.criteria,
-      pointsAvailable: defaultPointsAvailable,
-    })
-    : null;
+  // Scoped flags skip the item-wide fallback entirely -- they proceed to
+  // the normal model call below, and the flagged criteria are overridden
+  // afterward (search statisticsScopedCriteriaKeys further down). Only an
+  // unscoped flag (no known criterion mapping) still short-circuits here.
+  const statisticsDeterministicFallback =
+    routing.target === "llm_text" && !statisticsScopedCriteriaKeys
+      ? buildStatisticsDeterministicFallback({
+        contentKey: contentItem.content_key as string | null,
+        responseText,
+        criteria: promptBase.criteria,
+        pointsAvailable: defaultPointsAvailable,
+      })
+      : null;
   stageTimer.mark("deterministic");
 
   const routedModelId = routing.target === "mcq_rule"
@@ -1506,6 +1522,22 @@ Deno.serve(async (req) => {
           outputTokens = usage.outputTokens ?? outputTokens;
           cachedTokensTelemetry = usage.cachedTokens;
           stageTimer.mark("sanitize");
+        }
+
+        // O2 (2026-08-13): the model graded the whole item normally above --
+        // now force just the deterministic-flagged criteria back to
+        // unable_to_determine, leaving every other criterion's real,
+        // model-graded verdict (and points) intact.
+        if (statisticsScopedCriteriaKeys && finalPayload && statisticsCheck) {
+          finalPayload = {
+            ...finalPayload,
+            ...applyDeterministicFlagScope(
+              finalPayload,
+              promptBase.criteria,
+              statisticsScopedCriteriaKeys,
+              statisticsCheck.reason,
+            ),
+          };
         }
 
         finalStatus = finalPayload.status === "graded" ? "graded" : "uncertain";

@@ -11,6 +11,8 @@
 import {
   type FeedbackCriterionRow,
   type FeedbackCriterionResult,
+  overrideCriteriaAsUnresolved,
+  pickHighestGap,
   sanitizeModelResult,
 } from "./grading-feedback.ts";
 
@@ -405,6 +407,59 @@ export function composeStudentFacingSummary(
     );
   }
   return parts.join(" ");
+}
+
+// Per-criterion deterministic flag scoping (replan O2, 2026-08-13). Applied
+// AFTER a normal, successful model grading -- takes the model's real,
+// sanitized verdicts and forces only the criteria a deterministic check's
+// numeric evidence belongs to back to unable_to_determine, recomputing
+// everything that depends on the criteria array so the result is internally
+// consistent (a stale points_earned or highest_value_gap pointing at a
+// criterion that no longer reflects reality would be worse than not scoping
+// at all). This replaces zeroing every criterion on the item regardless of
+// which ones the flagged evidence actually concerns.
+export function applyDeterministicFlagScope(
+  payload: {
+    criteria: FeedbackCriterionResult[];
+    points_available: number;
+    status: "graded" | "uncertain";
+  },
+  sourceCriteria: FeedbackCriterionRow[],
+  criterionKeys: string[],
+  reason: string,
+) {
+  const criteria = overrideCriteriaAsUnresolved(
+    payload.criteria,
+    criterionKeys,
+    reason,
+  );
+  const pointsEarned = criteria.reduce(
+    (sum, criterion) => sum + criterion.points_awarded,
+    0,
+  );
+  const highestValueGap = pickHighestGap(criteria, sourceCriteria);
+  // Matches sanitizeModelResult's own rule: any unable_to_determine
+  // criterion makes the whole item "uncertain," even when every other
+  // criterion resolved cleanly -- scoping narrows WHICH criteria are held,
+  // not whether an item with a live hold can still claim to be fully graded.
+  const status = criteria.some((criterion) =>
+      criterion.status === "unable_to_determine"
+    )
+    ? "uncertain" as const
+    : payload.status;
+
+  return {
+    criteria,
+    points_earned: pointsEarned,
+    status,
+    highest_value_gap: highestValueGap,
+    student_facing_summary: composeStudentFacingSummary(
+      criteria,
+      pointsEarned,
+      payload.points_available,
+      highestValueGap?.minimum_fix ?? null,
+    ),
+  };
 }
 
 // Folds N per-criterion model results into the object shape sanitizeModelResult

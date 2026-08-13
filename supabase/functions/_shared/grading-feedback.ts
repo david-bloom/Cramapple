@@ -117,6 +117,32 @@ export function buildFallbackCriteria(
   }));
 }
 
+// Per-criterion flag scoping (replan O2, 2026-08-13). Forces ONLY the named
+// criteria to unable_to_determine/0 -- unlike buildFallbackCriteria, this
+// takes already-sanitized model results (not source rows) and leaves every
+// other criterion's real, model-graded verdict untouched. Used when a
+// deterministic check flags an item but the caller knows (via
+// statistics-verifier.ts's NUMERIC_ELEMENT_CRITERIA) which specific
+// criteria the flagged numeric evidence belongs to, so criteria unrelated
+// to that evidence don't get zeroed along with it.
+export function overrideCriteriaAsUnresolved(
+  criteria: FeedbackCriterionResult[],
+  criterionKeys: string[],
+  reason: string,
+): FeedbackCriterionResult[] {
+  const keys = new Set(criterionKeys);
+  return criteria.map((criterion) =>
+    keys.has(criterion.criterion_key)
+      ? {
+        ...criterion,
+        status: "unable_to_determine" as const,
+        points_awarded: 0,
+        decision_explanation: reason,
+      }
+      : criterion
+  );
+}
+
 function positiveOr(value: number | undefined, fallback: number) {
   return Number.isFinite(value) && Number(value) > 0 ? Number(value) : fallback;
 }

@@ -1,9 +1,10 @@
--- DRAFT -- DO NOT APPLY -- filename version is deliberately "20260811TBD"
--- (not a valid timestamp) so `supabase db push` / `migration up` cannot pick
--- it up accidentally. Rename to a real 14-digit timestamp as part of the
--- Step 2 deploy bundle, after O1 approval, via the scratch-workdir procedure
--- (the repo CLI is linked to Dev and ~/supabase is a stale Prod-linked
--- checkout -- 2026-08-03 migration-hazard note).
+-- APPLIED to Production (pcntajvbdfqhbeewmdry) 2026-08-13 via the Supabase
+-- MCP apply_migration tool (avoids the repo-CLI-linked-to-Dev /
+-- stale-Prod-linked-~/supabase hazard noted below). Originally drafted as
+-- 20260811TBD_grading_telemetry.sql -- the TBD placeholder kept it
+-- unappliable by `supabase db push` until O1 approval; renamed to this real
+-- timestamp as part of the Step 2 deploy bundle, after O1 approval
+-- (2026-08-13).
 --
 -- Purpose (replan 2026-08-10 item 2.2 -- all passive, no behavior change):
 -- give evaluate-attempt somewhere to log the telemetry the replan's speed

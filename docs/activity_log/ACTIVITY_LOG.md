@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Grading-Engine Replan O2 Deployed: Per-Criterion Deterministic Flag Scoping Live for 8 AP Statistics Items — 2026-08-13
 - Grading-Engine Replan Step 2 Deployed: SFRQ-008 Deterministic-Key Fix and Passive Telemetry Live in Production (O1 Approved) — 2026-08-13
 - Owner Decisions Executed: APBIO-MCQ-074 Retargeted CRISPR→PCR-Primer-Annealing (Still CED-Off-Scope Otherwise); Ahmed Ali (50) and Jill Schmidlkofer (8) Given Fresh Gold-Set Set B Queues — 2026-08-11
 - APBIO-FRQ-L-025 Split Into Three Short FRQs (Format-Mismatch Follow-up); CRISPR-Scope and Gold-Set-Set-A Assignment Questions Raised for Owner Decision — 2026-08-11
@@ -89,6 +90,82 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 ---
+
+## Grading-Engine Replan O2 Deployed: Per-Criterion Deterministic Flag Scoping Live for 8 AP Statistics Items — 2026-08-13
+
+**Task:** TASK-0016 (grading engine) — O2 decision from the grading-engine
+replan (`docs/research/GRADING_ENGINE_REPLAN_EXECUTION_PLAN_2026_08_10.md`
+§2.1, decision sheet in
+`GRADING_ENGINE_REPLAN_MORNING_PACKAGE_2026_08_11.md` §7). See the entry
+immediately below for O1 (the SFRQ-008 key fix and telemetry this deploy
+builds on).
+**Status:** Owner approved and executed same-session as O1's follow-up.
+
+**What changed:** the deterministic Statistics check's "flag" fallback
+previously zeroed **every** criterion on an item, including ones unrelated
+to the specific numeric evidence it checks (§4 item 3 of the
+2026-08-11 morning package measured this as 37% of the pilot's criterion
+denominator zeroed, 17 of 31 points unrelated to the keyed values). This
+deploy scopes the hold to only the criteria the keyed evidence actually
+concerns, for the 8 items where that mapping is known from gold-set element
+decompositions (`APSTATS-SFRQ-001/002/003/004/007/008/009/010` —
+`NUMERIC_ELEMENT_CRITERIA` in `statistics-verifier.ts`). Items without a
+known mapping (SFRQ-011..018, the MOD items) are unaffected and keep the
+prior item-wide behavior — scoping only ever activates when the mapping is
+known, never guessed.
+
+**Mechanism:** on a scoped flag, the response now goes through **normal
+model grading** for all criteria (previously: flagged items never reached
+the model at all, $0 cost). Afterward, `applyDeterministicFlagScope`
+(`grading-contract.ts`) forces just the mapped criteria back to
+`unable_to_determine`/0, leaving the model's real verdicts and points on
+every other criterion intact, and recomputes `points_earned`,
+`highest_value_gap`, and `student_facing_summary` from the corrected
+criteria set — not reused from the pre-override sanitize() result. Overall
+item `status` still becomes `"uncertain"` whenever any criterion is held
+(matching `sanitizeModelResult`'s existing any-abstention rule, unchanged
+by this deploy), so this narrows *which* criteria are held, not whether a
+partially-held item can claim to be fully graded.
+
+**Cost note:** the 8 scoped items now incur a real model call on a flag
+(previously free, short-circuited before the model). This trade was
+pre-registered in the replan (§4 item 3): recovering real credit on the
+unrelated criteria requires actually grading them.
+
+**Verified before deploy:**
+- `deno check` clean on `evaluate-attempt/index.ts` and the new/changed
+  shared modules.
+- 15 new tests (152 total, up from 137): `overrideCriteriaAsUnresolved`
+  (grading-feedback_test.ts, 3 tests — forces only named criteria, no-op on
+  empty/unmatched keys), `getStatisticsScopedCriteria` +
+  `NUMERIC_ELEMENT_CRITERIA` integrity (new `statistics-verifier_test.ts`,
+  6 tests — known/unknown items, every mapped entry points at a real keyed
+  `STATISTICS_TARGETS` entry), `applyDeterministicFlagScope`
+  (grading-contract_test.ts, 6 tests — end-to-end: points recovered on the
+  unaffected criterion, flagged criteria forced correctly, status/summary/
+  highest_value_gap all recomputed, stays uncertain if already uncertain
+  pre-override).
+- `NUMERIC_ELEMENT_CRITERIA` moved from
+  `scripts/grading-model-assessment/verify_deterministic_keys.ts` (audit-only
+  copy) into `statistics-verifier.ts` (now runtime-consumed, single source
+  of truth; the assessment script re-exports it, confirmed unchanged output
+  on re-run).
+- Deployed: `evaluate-attempt` v37 → v38, `ezbr_sha256` `145619c8…` →
+  `0922f63d…`. Unauthenticated smoke request returns the expected
+  `401 UNAUTHORIZED_NO_AUTH_HEADER` (function boots cleanly).
+- **Not done:** an authenticated end-to-end request through the live
+  endpoint (needs the same owner-run pilot-identity flow as O1's smoke
+  test — not performed for the same reason: it requires creating an
+  account and handling a password, which is outside what this session
+  does under any circumstance).
+
+**Next Owner:** David Bloom
+**Next Required Action:** when convenient, run an authenticated smoke test
+against one of the 8 scoped items (e.g. an SFRQ-008 gold answer with a
+correct non-keyed criterion and a wrong/missing keyed value) to confirm the
+live request path matches this session's unit-tested composition. Step 3
+(the paid runs) remains fully unstarted and requires the same pilot-identity
+step.
 
 ## Grading-Engine Replan Step 2 Deployed: SFRQ-008 Deterministic-Key Fix and Passive Telemetry Live in Production (O1 Approved) — 2026-08-13
 
