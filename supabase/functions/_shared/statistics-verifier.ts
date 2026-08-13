@@ -16,22 +16,20 @@ type NumericTarget = {
 
 const DEFAULT_REL_TOL = 0.02;
 
-// Which criterion keys carry the keyed numeric values, per item (replan O2,
-// 2026-08-13). Derived by reading each item's element decomposition in
-// scripts/content-seed/gold-set/stage1_fixture.json (SFRQ-001..006) and
-// apstats_multipoint_fixture.json (SFRQ-007..010) against the keyed values
-// -- e.g. SFRQ-001 keys [22, 23.7] are criterion a1 ("States the median is
-// 22 minutes.") and c1 ("Computes the mean as about 23.7 minutes ..."). Single
-// source of truth: scripts/grading-model-assessment/verify_deterministic_keys.ts
-// imports this rather than defining its own copy.
-//
-// A content_key with NO entry here means "we don't know which criteria the
-// keyed values belong to" -- on a flag, the caller must fall back to the
-// conservative item-wide behavior (buildStatisticsDeterministicFallback),
-// not attempt to scope. This is deliberately narrower than STATISTICS_TARGETS:
-// only items with gold-answer-derived element decompositions are covered
-// today (SFRQ-001..004, 007..010); SFRQ-011..018 and the MOD items are keyed
-// but have no gold answers to derive a mapping from, so they stay unscoped.
+// Which GOLD-ANSWER SCRIPT element ids carry the keyed numeric values, per
+// item. This is an AUDIT-ONLY map: its keys index into each gold answer's
+// own `script.present: Record<string, boolean>` (see
+// scripts/content-seed/gold-set/stage1_fixture.json,
+// apstats_multipoint_fixture.json), which uses the fixture's own internal
+// element-decomposition ids (a1, b-1, a-2, ...) -- a DIFFERENT namespace
+// from the real app.frq_criteria.criterion_key values Production stores
+// (plain single letters). Do not use this for anything that consults real
+// criterion_key values -- see PRODUCTION_NUMERIC_ELEMENT_CRITERIA below for
+// that. Exported so scripts/grading-model-assessment/
+// verify_deterministic_keys.ts can audit every entry against the repo
+// gold-set answers and the item's canonical answer -- the standing
+// invariant harness added after the APSTATS-SFRQ-008 key defect (values
+// transcribed from a retired canonical answer, see that entry).
 export const NUMERIC_ELEMENT_CRITERIA: Record<string, string[]> = {
   "APSTATS-SFRQ-001": ["a1", "c1"], // median 22 / mean 23.7
   "APSTATS-SFRQ-002": ["a1", "b1"], // z = 1.5 / z = 2.5
@@ -43,7 +41,72 @@ export const NUMERIC_ELEMENT_CRITERIA: Record<string, string[]> = {
   "APSTATS-SFRQ-010": ["a-1", "a-2"], // mean 7.2 / sd 0.3
 };
 
-// Returns the criterion keys the deterministic check's numeric values
+// Which REAL app.frq_criteria.criterion_key values carry the keyed numeric
+// values, per item (replan O2, 2026-08-13). Unlike NUMERIC_ELEMENT_CRITERIA
+// above, this indexes into the actual criteria Production grades against
+// (single letters: "a", "b", "c") -- this is the map
+// getStatisticsScopedCriteria uses to decide which of the MODEL's
+// already-graded criteria to force back to unable_to_determine on a flag.
+// The two maps were originally (wrongly) merged into one same-day: an
+// earlier version of this code reused NUMERIC_ELEMENT_CRITERIA's fixture
+// keys directly for scoping, which matched ZERO real criteria on 7 of 8
+// items (only SFRQ-001's fixture keys happened to coincide with its real
+// ones) -- silently making the scoping a no-op while ALSO skipping the old
+// item-wide fallback, worse than pre-O2 behavior. Caught before any real
+// traffic exercised it, while preparing a smoke test.
+//
+// Verified 2026-08-13 via a live query against every listed item's
+// published app.frq_criteria.criterion_key:
+//   select ci.content_key, fc.criterion_key, fc.learner_facing_text, fc.points_possible
+//   from app.frq_criteria fc
+//   join app.content_item_versions civ on civ.id = fc.content_item_version_id
+//   join app.content_items ci on ci.id = civ.content_item_id
+//   where ci.content_key in (...) and civ.status = 'published';
+//
+// Each entry lists only the criterion(criteria) whose learner_facing_text
+// is unambiguously the compute-this-specific-number instruction the
+// checker verifies. Where a second criterion's text also happens to
+// restate the same number in prose (e.g. SFRQ-008's "b": "explains the
+// long-run average net gain is -1.40 dollars"), it is deliberately left
+// OUT of scope rather than guessed into it -- the model's own
+// evidence-grounding check (grading-feedback.ts) already catches "claims
+// credit, no matching quote in the response" on its own, so leaving it to
+// normal grading is safe; forcing it here on an assumption would not be.
+// A content_key with NO entry here means "we don't know which criteria the
+// keyed values belong to" -- on a flag, the caller must fall back to the
+// conservative item-wide behavior (buildStatisticsDeterministicFallback),
+// not attempt to scope.
+export const PRODUCTION_NUMERIC_ELEMENT_CRITERIA: Record<string, string[]> = {
+  // "States the median is 22 minutes." / "Computes the mean as about 23.7
+  // minutes ..." -- the only item in this map with a multi-character
+  // criterion_key scheme (a1/c1); real, verified, not a coincidence.
+  "APSTATS-SFRQ-001": ["a1", "c1"],
+  // "Computes the z-score for both quizzes." (2 pts, covers both keyed
+  // z-scores 1.5 and 2.5 in one criterion).
+  "APSTATS-SFRQ-002": ["a"],
+  // "Computes the predicted score and the resulting residual." (2 pts,
+  // covers keyed prediction 76.6 / residual -2.6).
+  "APSTATS-SFRQ-003": ["c"],
+  // "Computes the predicted sleep and the resulting residual." (2 pts,
+  // covers keyed prediction 5.25 / residual -0.25).
+  "APSTATS-SFRQ-004": ["b"],
+  // "Computes the mean and standard deviation of X." (2 pts, covers keyed
+  // mean 5 / sd 1.94). "Computes P(X = 5) as about 0.202." (1 pt).
+  "APSTATS-SFRQ-007": ["b", "c"],
+  // "Computes the expected value and standard deviation of the payoff X."
+  // (2 pts, covers keyed E(X) -1.40 / sd 4.477).
+  "APSTATS-SFRQ-008": ["a"],
+  // "Describes the sampling distribution of p-hat: states the mean,
+  // computes the standard deviation, and verifies the Normal approximation
+  // conditions." (3 pts, covers keyed mean 0.28 / sd 0.0225).
+  "APSTATS-SFRQ-009": ["a"],
+  // "Describes the sampling distribution of x-bar: states the mean,
+  // computes the standard deviation, and verifies the condition for the
+  // CLT to apply." (3 pts, covers keyed mean 7.2 / sd 0.3).
+  "APSTATS-SFRQ-010": ["a"],
+};
+
+// Returns the REAL criterion keys the deterministic check's numeric values
 // belong to, or null if there's no known mapping for this item (meaning:
 // the caller must not attempt per-criterion scoping and should fall back
 // to the item-wide buildStatisticsDeterministicFallback instead).
@@ -51,7 +114,7 @@ export function getStatisticsScopedCriteria(
   contentKey: string | null | undefined,
 ): string[] | null {
   if (!contentKey) return null;
-  return NUMERIC_ELEMENT_CRITERIA[contentKey] ?? null;
+  return PRODUCTION_NUMERIC_ELEMENT_CRITERIA[contentKey] ?? null;
 }
 
 // Exported (2026-08-11) so scripts/grading-model-assessment/

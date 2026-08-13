@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- O2 Deploy Bug Found and Fixed Same-Session: Criterion-Key Mapping Used the Wrong Namespace, Would Have Silently No-Op'd Scoping on 7 of 8 Items — 2026-08-13
 - Grading-Engine Replan O2 Deployed: Per-Criterion Deterministic Flag Scoping Live for 8 AP Statistics Items — 2026-08-13
 - Grading-Engine Replan Step 2 Deployed: SFRQ-008 Deterministic-Key Fix and Passive Telemetry Live in Production (O1 Approved) — 2026-08-13
 - Owner Decisions Executed: APBIO-MCQ-074 Retargeted CRISPR→PCR-Primer-Annealing (Still CED-Off-Scope Otherwise); Ahmed Ali (50) and Jill Schmidlkofer (8) Given Fresh Gold-Set Set B Queues — 2026-08-11
@@ -90,6 +91,100 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 ---
+
+## O2 Deploy Bug Found and Fixed Same-Session: Criterion-Key Mapping Used the Wrong Namespace, Would Have Silently No-Op'd Scoping on 7 of 8 Items — 2026-08-13
+
+**Task:** TASK-0016 (grading engine) — correction to the O2 deploy in the
+entry immediately below, found while preparing its authenticated smoke test
+(itself gated on the owner creating a synthetic pilot identity, per
+`docs/research/GRADING_ENGINE_REPLAN_EXECUTION_PLAN_2026_08_10.md`'s
+create→run→cleanup protocol).
+**Status:** Fixed and redeployed same-session, before any real traffic
+exercised the buggy version. No student-visible impact — see confidence
+note below.
+
+**The bug:** `NUMERIC_ELEMENT_CRITERIA` (in `statistics-verifier.ts`,
+already existed as an *audit-only* map used by
+`scripts/grading-model-assessment/verify_deterministic_keys.ts`) indexes
+into each **gold answer's own script**
+(`answer.present["a-1"]`/`["b-1"]`/etc.) — a fixture-internal element-id
+namespace, e.g. `scripts/content-seed/gold-set/apstats_multipoint_fixture.json`.
+O2's runtime scoping (the entry below) reused this exact map directly, on
+the unverified assumption that those same ids matched real
+`app.frq_criteria.criterion_key` values that Production actually grades
+against. They don't — Production's real criterion keys for these items are
+plain single letters (`"a"`, `"b"`, `"c"`), confirmed by direct query:
+
+```sql
+select ci.content_key, fc.criterion_key, fc.learner_facing_text, fc.points_possible
+from app.frq_criteria fc
+join app.content_item_versions civ on civ.id = fc.content_item_version_id
+join app.content_items ci on ci.id = civ.content_item_id
+where ci.content_key in (...) and civ.status = 'published';
+```
+
+Of the 8 items O2 scoped, only `APSTATS-SFRQ-001`'s fixture ids (`a1`,
+`c1`) happened to coincide with its real criterion keys — a coincidence, not
+a signal the mapping was right. The other 7 (`SFRQ-002/003/004/007/008/009/010`)
+used ids (`a-1`, `b-1`, `a1`, `b1`, `d1`, ...) that match **zero** real
+criteria on those items.
+
+**Why this is worse than a no-op, not just a no-op:** on a flag,
+`getStatisticsScopedCriteria` returning a non-empty (but wrong) array made
+`evaluate-attempt` believe a scoped mapping existed, so it skipped the OLD
+item-wide `buildStatisticsDeterministicFallback` short-circuit entirely and
+proceeded to normal model grading — then tried to force-override criteria
+by keys that don't exist on the item, matching nothing.  Net effect for
+these 7 items: **a flagged response would have gone through completely
+normal model grading with no deterministic override applied at all** —
+strictly less protected than the pre-O2 behavior (which safely zeroed
+everything on a flag), not merely "scoping didn't help."
+
+**Fix:** split into two explicitly-separate, distinctly-named maps in
+`statistics-verifier.ts` — `NUMERIC_ELEMENT_CRITERIA` (unchanged, restored
+to its original fixture-id values, audit-script-only) and the new
+`PRODUCTION_NUMERIC_ELEMENT_CRITERIA` (real `criterion_key` values,
+verified against the query above; `getStatisticsScopedCriteria` now reads
+this one). Added a regression test
+(`statistics-verifier_test.ts`, "does not reuse NUMERIC_ELEMENT_CRITERIA's
+fixture-id values") specifically asserting the two maps can never be
+collapsed back into one without a live-query re-verification. Corrected
+mapping:
+
+| Item | Real criterion(s) | Comment |
+|---|---|---|
+| SFRQ-001 | a1, c1 | genuinely identical to the fixture ids |
+| SFRQ-002 | a | z-scores for both quizzes, one 2-pt criterion |
+| SFRQ-003 | c | predicted score + residual, one 2-pt criterion |
+| SFRQ-004 | b | predicted sleep + residual, one 2-pt criterion |
+| SFRQ-007 | b, c | mean/sd (2pt) + P(X=5) (1pt), two criteria |
+| SFRQ-008 | a | E(X) + sd, one 2-pt criterion |
+| SFRQ-009 | a | sampling distribution mean/sd, one 3-pt criterion |
+| SFRQ-010 | a | sampling distribution mean/sd, one 3-pt criterion |
+
+Redeployed (`evaluate-attempt` v38 → v39, `ezbr_sha256` `0922f63d…` →
+`d45b7bac…`). 154 tests green (2 new: the mapping snapshot against the
+verified query, and the two-maps-must-differ regression guard). Clean
+unauthenticated boot check post-deploy.
+
+**Confirmed the buggy version (v38, live ~20 minutes) caused zero real
+harm — not just unlikely, verified:** `select count(*), max(created_at)
+from app.grading_results` returns 39 total rows across the table's entire
+history, most recent 2026-07-29 — two weeks before this deploy. The app has
+not launched to real students yet (matches
+`docs/tasks/TASK-0023-STRIPE-SETUP-AND-LAUNCH-READINESS.md` being
+in-progress); there was no traffic of any kind, on any item, in the buggy
+window to have been affected. Worth noting for whenever real traffic does
+exist: the buggy behavior's worst case was "grades as if O2 didn't exist"
+(falls through to normal model grading with no deterministic override),
+which is strictly milder than a wrong score — a missed catch, not a new
+source of incorrect points.
+
+**Next Owner:** David Bloom
+**Next Required Action:** none blocking — this is now the corrected,
+verified version. Still pending: the authenticated smoke test itself
+(needs the pilot identity), and the same open items from the entry below
+(Step 3 paid runs, O2's own live confirmation).
 
 ## Grading-Engine Replan O2 Deployed: Per-Criterion Deterministic Flag Scoping Live for 8 AP Statistics Items — 2026-08-13
 
