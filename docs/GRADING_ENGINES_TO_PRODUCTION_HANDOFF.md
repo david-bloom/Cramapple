@@ -13,6 +13,53 @@ a new session without re-deriving context.
 
 ---
 
+## UPDATE 2026-08-11 — corrections from the exemplar-pilot second-opinion review
+
+Appended per replan item 1.5
+(`docs/research/GRADING_ENGINE_REPLAN_EXECUTION_PLAN_2026_08_10.md`). The
+2026-07-28 text below is retained unchanged as the comparison baseline;
+where this section contradicts it, this section wins. Only already-decided
+items are listed — no new data was required for any of them.
+
+1. **The deterministic text layer is live and decisive, not "effectively
+   absent (0.7%)."** Phase C measured 0.7% deterministic firing on its
+   cross-subject corpus; on the 2026-08-10 exemplar-pilot capture the
+   Statistics keyed gate short-circuited **130 of 300 calls (43% of cases)**
+   before any model call. It is a decision-making production layer and is
+   now under Engine 3-grade governance: a standing invariant harness audits
+   every `STATISTICS_TARGETS` key against gold answers + re-derived
+   canonical values (`scripts/grading-model-assessment/
+   verify_deterministic_keys.ts`, in `deno test`;
+   `docs/research/DETERMINISTIC_KEY_AUDIT_2026_08_11.md`). The audit found
+   `APSTATS-SFRQ-008` keyed with the retired v1 canonical's values —
+   every correct response deterministically zeroed. Corrected values are
+   in-repo pending O1.
+2. **"Engine 1 never abstains" is now half-obsolete.** The grader-call
+   finding stands (prompt text cannot buy abstention — ledger §5.3), but at
+   the SYSTEM level abstention is common: deterministic flags plus
+   sanitizer integrity checks put 13.5% of the pilot's LLM-path trials and
+   43% of its cases into `uncertain`. The escalation problem is now
+   "convert system abstentions," not "create abstention."
+3. **Non-model end-to-end overhead is measured: ~691 ms p50 / 953 ms p95**
+   (deterministic-gate calls in the pilot capture — full HTTP/auth/DB/render
+   path, no model). §11's "unmeasured non-model latency" is closed as a
+   question; against the 1,000 ms bar, the non-model floor alone consumes
+   ~69% of budget. Stage-timing telemetry to attack it is pre-staged in the
+   Step 2 deploy bundle.
+4. **Engine 3 owner-decision #3 is resolved toward wiring the profile
+   loader.** The hardcoded-map pattern (bare constants keyed by
+   content_key) is the exact class that just failed in production via
+   SFRQ-008; the governed-loader build is scheduled in the replan's rebuild
+   register.
+5. **Prompt-content experiment direction is closed.** The exemplar few-shot
+   pilot, corrected for its replay-parsing defect, reads +1.4pp with CIs
+   straddling zero at both cluster granularities
+   (`exemplar_grading_pilot_2026_08/REPORT.md` §"Correction — 2026-08-11").
+   Remaining prompt-adjacent work is `accepted_variants` authoring only
+   (ledger §5.1).
+
+---
+
 ## 0. One-paragraph state of the world
 
 Engine 1 is deployed and, as of 2026-07-28, **works end-to-end for the first time** — it had never

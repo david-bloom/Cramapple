@@ -1,4 +1,9 @@
-import { scoreCriterionPair } from "../../supabase/functions/_shared/grading-contract.ts";
+import {
+  type CriterionScoreOutcome,
+  type FeedbackCriterionResult,
+  type GoldLabel,
+  scoreCriterionPair,
+} from "../../supabase/functions/_shared/grading-contract.ts";
 
 export type GoldCriterion = {
   criterion_key: string;
@@ -37,6 +42,100 @@ export function caseId(value: { content_key: string; response_index: number }) {
   return `${value.content_key}#${value.response_index}`;
 }
 
+// --- Scoring policies ----------------------------------------------------
+//
+// "binary-v1" is the production contract's scoreCriterionPair: everything
+// collapses to full_credit / not_full_credit, so a gold `partially_earned`
+// can never be matched exactly -- any prediction short of full credit
+// "agrees" with it. That collapse cannot evaluate the partial-credit
+// behavior shipped 2026-07-28 (gradingSchema's `partially_earned` status).
+//
+// "partial-v2" scores three credit classes instead of two. Classes are
+// derived from POINTS relative to points_possible, with status used only to
+// detect abstention/not_applicable -- this makes the policy robust to
+// status/points mismatches (the sanitizer reconciles those in production;
+// the harness should not re-litigate them):
+//   gold:      earned -> full | not_earned -> zero | partially_earned -> partial
+//   predicted: points_awarded >= points_possible -> full
+//              points_awarded <= 0               -> zero
+//              otherwise                          -> partial
+//   correct iff the classes are equal.
+// Gold `unable_to_determine` is excluded from the accuracy denominator and
+// predicted `unable_to_determine`/`not_applicable` count as incorrect
+// non-selective outcomes, exactly as in v1 (the abstention-gaming rule is
+// policy-independent).
+export type ScoringPolicy = "binary-v1" | "partial-v2";
+
+export function scoreCriterionPairV2(
+  gold: GoldLabel,
+  modelStatus: FeedbackCriterionResult["status"],
+  pointsAwarded: number,
+  pointsPossible: number,
+): CriterionScoreOutcome {
+  if (gold === "unable_to_determine") {
+    return {
+      inOverallDenominator: false,
+      overallCorrect: null,
+      inSelectiveDenominator: false,
+      selectiveCorrect: null,
+      goldAbstained: true,
+      correctAbstention: modelStatus === "unable_to_determine",
+    };
+  }
+
+  const goldClass = gold === "earned"
+    ? "full"
+    : gold === "partially_earned"
+    ? "partial"
+    : "zero";
+
+  const predictionIsCreditDecision = modelStatus === "earned" ||
+    modelStatus === "partially_earned" || modelStatus === "not_yet_earned";
+  const predictedClass = !predictionIsCreditDecision
+    ? null
+    : pointsAwarded >= pointsPossible
+    ? "full"
+    : pointsAwarded <= 0
+    ? "zero"
+    : "partial";
+
+  return {
+    inOverallDenominator: true,
+    overallCorrect: predictedClass !== null ? predictedClass === goldClass : false,
+    inSelectiveDenominator: predictionIsCreditDecision,
+    selectiveCorrect: predictedClass !== null
+      ? predictedClass === goldClass
+      : null,
+    goldAbstained: false,
+    correctAbstention: null,
+  };
+}
+
+// Collapses per-response correctness (keys "CONTENT_KEY#response_index") to
+// per-item correctness (keys "CONTENT_KEY", value = unweighted mean of the
+// item's responses). This is the caller-side grouping layer the 2026-08-10
+// exemplar pilot was missing: clusterBootstrapDifference resamples whatever
+// keys it is handed, so handing it response-level keys treats responses to
+// the same held-out item as independent draws (pseudoreplication; see
+// exemplar_grading_pilot_2026_08/REPORT.md). Feed it THIS map when the
+// design's sampling unit is the item.
+export function collapseToItemClusters(
+  itemCorrectness: Record<string, number>,
+): Record<string, number> {
+  const sums = new Map<string, { sum: number; n: number }>();
+  for (const [key, value] of Object.entries(itemCorrectness)) {
+    const hash = key.lastIndexOf("#");
+    const itemKey = hash === -1 ? key : key.slice(0, hash);
+    const entry = sums.get(itemKey) ?? { sum: 0, n: 0 };
+    entry.sum += value;
+    entry.n += 1;
+    sums.set(itemKey, entry);
+  }
+  const collapsed: Record<string, number> = {};
+  for (const [key, { sum, n }] of sums) collapsed[key] = sum / n;
+  return collapsed;
+}
+
 export function validateCases(gold: GoldCase[], results: ResultCase[]) {
   const errors: string[] = [];
   const goldIds = new Set<string>();
@@ -67,9 +166,16 @@ function percentile(values: number[], fraction: number) {
   return sorted[Math.min(sorted.length - 1, Math.ceil(fraction * sorted.length) - 1)];
 }
 
-export function scoreRun(gold: GoldCase[], results: ResultCase[]) {
+export function scoreRun(
+  gold: GoldCase[],
+  results: ResultCase[],
+  policy: ScoringPolicy = "binary-v1",
+) {
   const errors = validateCases(gold, results);
   if (errors.length) throw new Error(errors.join("\n"));
+  const scorePair = policy === "partial-v2"
+    ? scoreCriterionPairV2
+    : scoreCriterionPair;
   const resultMap = new Map(results.map((item) => [caseId(item), item]));
   let overallCorrect = 0;
   let overallN = 0;
@@ -94,7 +200,7 @@ export function scoreRun(gold: GoldCase[], results: ResultCase[]) {
     let caseHits = 0;
     for (const goldCriterion of goldCase.criteria) {
       const prediction = predicted.get(goldCriterion.criterion_key);
-      const scored = scoreCriterionPair(
+      const scored = scorePair(
         goldCriterion.gold_label,
         resultStatus(prediction?.status),
         prediction?.points_awarded ?? 0,
@@ -134,6 +240,7 @@ export function scoreRun(gold: GoldCase[], results: ResultCase[]) {
 
   const latencies = results.map((item) => item.latency_ms).filter((value): value is number => Number.isFinite(value));
   return {
+    scoring_policy: policy,
     criterion_count: overallN,
     case_count: gold.length,
     overall_accuracy: overallN ? overallCorrect / overallN : null,

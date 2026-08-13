@@ -48,7 +48,13 @@ worse.
   (`bio_reference_layer_exemplar_test_report.md`,
   `bio_reference_layer_oracle_boundary_test_report.md`,
   `bio_reference_layer_gated_prompt_test_report.md`,
-  `bio_reference_layer_flywheel_volume_test_report.md`).
+  `bio_reference_layer_flywheel_volume_test_report.md`). A later AP
+  Statistics few-shot exemplar pilot (`exemplar_grading_pilot_2026_08/REPORT.md`)
+  did **not** independently confirm this — its result is inconclusive
+  because the scoring harness's bootstrap clustered on responses (n=30)
+  instead of the held-out items the design required (n=4), not because
+  exemplars were shown to help or hurt. Do not cite it as a fifth
+  confirmation of this lesson.
 - Confidence-triggered escalation wrecked tail latency (8-11s on ~10% of cases)
   for a small, criterion-concentrated quality gain (`grader_speed_sp1_report.md`).
 

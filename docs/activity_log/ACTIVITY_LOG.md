@@ -7,6 +7,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 Most recent entries (full reverse-chronological list follows below):
 
 - Reviewer QA Sweep (2026-08-11): 16 Published-but-`modification_reserved` Items (up from 9); Ahmed Ali and Chisom Anuba's Gold-Set-Verification Assignments (11 Items) Found Missing With No Audit Trail — 2026-08-11
+- Exemplar Pilot Corrected: Replay-Parsing Defect Inflated Headline; Deterministic-Key Defect Found in APSTATS-SFRQ-008 — 2026-08-11
 - Exemplar-Injection Grading Pilot (AP Statistics) Scored: Inconclusive — Item-Level Cluster Bootstrap Invalid in `harness.ts`, Do Not Ship — 2026-08-10
 - P0-B Publish Gate Implemented; 130 Published-but-Unapproved Items Retired; Gold-Set Rubric-Ordering Defect Found (5 Items) and Fixed — 2026-08-08
 - All 69 Remaining Physics approve_with_edits Items Repaired Against Saood's Notes (Full Backlog Now Zero) — 2026-08-08
@@ -132,6 +133,83 @@ published-but-`modification_reserved` items. (3) Adjudicate `apphycm-frq-044` an
 the stuck `APBIO-MCQ-094` disapproval.
 
 ---
+
+## Exemplar Pilot Corrected: Replay-Parsing Defect Inflated Headline; Deterministic-Key Defect Found in APSTATS-SFRQ-008 — 2026-08-11
+
+**Task:** TASK-0016 (grading engine) — Step 1 of the grading-engine replan
+(`docs/research/GRADING_ENGINE_REPLAN_EXECUTION_PLAN_2026_08_10.md`)
+**Status:** Step 1 executed (free re-analysis + tooling fixes; no model
+spend, no Production writes, Production reads read-only). Step 2 is
+**pre-staged in the working tree only** — corrected key values and passive
+telemetry code exist in-repo, nothing deployed, migration drafted with a
+TBD-marked filename so it cannot be applied accidentally. All changes are
+uncommitted pending morning review
+(`docs/research/GRADING_ENGINE_REPLAN_MORNING_PACKAGE_2026_08_11.md`).
+
+**Trigger:** the 2026-08-10 second-opinion review of the exemplar pilot
+(`prompts/FABLE_EXEMPLAR_PILOT_AND_GOLD_SET_SECOND_OPINION_2026_08_10.md`)
+found two defects the 2026-08-10 entry below does not know about.
+
+**1. Replay-parsing defect corrected — the pilot's headline was inflated.**
+5 of `raw_calls.jsonl`'s 300 successful calls (SFRQ-001#0, arm=off, all 5
+trials) are idempotency replays whose verdicts sit under
+`result.criterion_results`; `to_result_cases.mjs` read only
+`result.criteria` and scored the fully-correct case (4/4 criteria earned,
+5/5 trials) as empty — in the baseline arm only. Corrected numbers
+(repaired script, verified by a scratch-directory re-run): baseline overall
+accuracy 52.4% → **57.1%**; point estimate +4.7pp → **+1.39pp**;
+response-level CI [0, +12.2] → **[−2.5, +6.7]pp**; new item-level cluster
+bootstrap (the gap the original verdict named, now built) **+2.0pp,
+[−2.3, +8.3]pp over 4 clusters**; coverage/abstentions/exact-case/FNR
+equalize between arms. Verdict unchanged — do not ship; exemplar direction
+closed. Corrections are appended (not rewritten) to the pilot `REPORT.md`
+and the ledger's experiment-register row.
+
+**2. Deterministic-key defect in `APSTATS-SFRQ-008` — production-impacting.**
+`statistics-verifier.ts` keyed `[1.8, 4.9]`; those are the item's **retired
+v1** canonical values. The published item's payoff table gives E(X) = −1.40,
+SD = √20.04 ≈ 4.477 (all 8 gold answers agree; published v3 canonical
+states the same). Every correct response was therefore deterministically
+flagged and zeroed with the model never called — in the pilot capture, all
+80 SFRQ-008 calls short-circuited this way in both arms. A standing
+invariant harness now audits every `STATISTICS_TARGETS` entry against the
+repo gold answers + re-derived canonical values
+(`scripts/grading-model-assessment/verify_deterministic_keys.ts` + 6 tests
+in `deno test`): SFRQ-008 was the only value failure; all other keyed
+entries validate by derivation; 4 keys point at unpublished/retired items;
+2 keys equal stimulus givens (weak-key class). Full table:
+`docs/research/DETERMINISTIC_KEY_AUDIT_2026_08_11.md`. Corrected values
+applied in-repo **pending O1 — not deployed**.
+
+**3. Deterministic-gate confound on the pilot.** 130 of 300 calls (13/30
+cases, both arms, arm-invariant) never reached the model — the gate decided
+them, and item-wide zeroing took 31 gold-determinable criteria (37% of the
+denominator) with it. Policy re-analyses from the existing capture
+(`exemplar_grading_pilot_2026_08/POLICY_SIMULATIONS_2026_08_11.md`):
+retry-once converts ~33% of integrity abstentions with a 5.9% systematic
+floor; modal-of-3/5 voting is flat (≤ +1.4pp for 3–5× cost) — escalation
+belongs on the unstable slice only; per-criterion flag scoping (O2) bounds
+at ~+19pp on this capture (~+8pp once the 008 key fix removes the spurious
+gatings). Small-n caveats throughout: 4 items, one subject.
+
+**Also executed:** assessment-harness repairs with tests (replay-shape
+parsing that fails loudly on unknown shapes; partial-credit scoring policy
+v2 behind `--policy`; item-level cluster bootstrap reported alongside
+response-level; `request_body_sha256` capture in `run_pilot.mjs`) — suite
+now 134 tests, green. Stage-1 gold-set false-accept computed read-only per
+protocol §5 (consensus false-accepts 2/28 dual-read provisional accepts =
+7.1%, Clopper–Pearson upper 95% ≈ 20.8% — pilot-scale, not certifiable;
+reader-vs-reader disagreement 13/36 answers; details in the morning
+package). Handoff doc annotated with already-settled corrections
+(`docs/GRADING_ENGINES_TO_PRODUCTION_HANDOFF.md` §UPDATE 2026-08-11).
+
+**Next Owner:** David Bloom
+**Next Required Action:** work through
+`docs/research/GRADING_ENGINE_REPLAN_MORNING_PACKAGE_2026_08_11.md` — O1
+(approve corrected key set; gates the Step 2 deploy bundle), O2
+(per-criterion flag scoping), O3 (exemplar-pilot Production cleanup, still
+outstanding from the 2026-08-10 entry); then the owner-run morning steps
+listed there (deploy bundle, Run A).
 
 ## Exemplar-Injection Grading Pilot (AP Statistics) Scored: Inconclusive — Item-Level Cluster Bootstrap Invalid in `harness.ts`, Do Not Ship — 2026-08-10
 

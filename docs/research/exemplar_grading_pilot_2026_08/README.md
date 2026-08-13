@@ -1,5 +1,14 @@
 # Exemplar-grading pilot — AP Statistics — 2026-08
 
+**Status (2026-08-10): COMPLETE — result INCONCLUSIVE, do not ship.** See
+`REPORT.md` for the full writeup. Headline: the bootstrap CI in
+`report.json` is computed over 30 response-level clusters, not the 4
+held-out-item clusters this design requires — `harness.ts`'s
+`clusterBootstrapDifference` has no item-level grouping, so no accuracy
+claim can be made from this run regardless of the (marginal, CI-straddling-
+zero) point estimate. **Production cleanup (§5 below) has not been
+performed yet** — do that before considering this pilot closed.
+
 ## Purpose
 
 Tests whether injecting a verified gold-set answer into the grading prompt as

@@ -31,6 +31,23 @@
 import { createHash } from "node:crypto";
 import { appendFileSync, existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
+import { pathToFileURL } from "node:url";
+
+// SHA-256 of the exact serialized request body sent to evaluate-attempt,
+// recorded per call as `request_body_sha256`. This is the smallest capture
+// change that makes future arm-diff verification possible offline: two
+// calls with the same hash provably sent byte-identical requests, and an
+// arm=off vs arm=with_exemplar pair differing only in the exemplar section
+// can be verified without re-rendering prompts. (Added 2026-08-11 per the
+// replan's 1.2 capture-tooling item; the 2026-08-10 capture predates it, so
+// its records do not carry the field.)
+export function requestBodySha256(serializedBody) {
+  return createHash("sha256").update(serializedBody, "utf8").digest("hex");
+}
+
+const IS_MAIN = globalThis.Deno
+  ? import.meta.main
+  : import.meta.url === pathToFileURL(globalThis.process?.argv?.[1] ?? "").href;
 
 const PROJECT_URL = "https://pcntajvbdfqhbeewmdry.supabase.co";
 const SESSION_FILE = process.env.PILOT_SESSION_FILE ??
@@ -50,6 +67,9 @@ const OUTPUT_FILE = process.env.PILOT_OUTPUT_FILE ??
     ? "/tmp/cramapple_exemplar_pilot_size_raw.jsonl"
     : "docs/research/exemplar_grading_pilot_2026_08/raw_calls.jsonl");
 
+// Everything below runs only when executed as a script -- the guard lets
+// tests import requestBodySha256 without needing env/session files.
+if (IS_MAIN) {
 if (!API_KEY) throw new Error("SUPABASE_PUBLISHABLE_KEY is required");
 
 const session = JSON.parse(readFileSync(SESSION_FILE, "utf8"));
@@ -270,10 +290,11 @@ async function runCall(call) {
   };
   if (call.exemplars) requestBody.exemplars = call.exemplars;
 
+  const serializedBody = JSON.stringify(requestBody);
   const response = await fetch(`${PROJECT_URL}/functions/v1/evaluate-attempt`, {
     method: "POST",
     headers,
-    body: JSON.stringify(requestBody),
+    body: serializedBody,
   });
   const responseText = await response.text();
   let responseBody = null;
@@ -303,6 +324,7 @@ async function runCall(call) {
     attempt_id: call.attempt_id,
     response_version_id: call.response_version_id,
     idempotency_key: call.idempotency_key,
+    request_body_sha256: requestBodySha256(serializedBody),
     response_length_chars: call.response_text.length,
     started_at: startedAt.toISOString(),
     finished_at: finishedAt.toISOString(),
@@ -352,3 +374,4 @@ if (failures.length) {
     console.log(`  ${failure.content_key}#${failure.response_index} arm=${failure.arm} trial=${failure.trial}: ${failure.error}`);
   }
 }
+} // end IS_MAIN

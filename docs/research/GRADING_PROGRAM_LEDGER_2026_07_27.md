@@ -72,6 +72,26 @@ does not require published status.
 | DeepSeek V4 Pro primary grader | Same nuanced Bio packet | 68.75% vs GPT-4o-mini 72.5%; about 5.9× slower median and 2.5× costlier. | Do not promote DeepSeek V4 Pro as the default grader on this evidence. |
 | Reference layers, exemplars, oracle precedents, gated prompting, online flywheel | Multiple Bio reference-layer experiments | None beat the no-card boundary-contract baseline; some worsened quality or latency. | Do not rebuild retrieval/reference complexity until a new, adjudicated error class specifically requires it. |
 | Kimi grading protocol | Pre-registered only | The repository contains an experiment design, not a completed result. | Do not cite Kimi performance as measured. Execute only if it answers a still-open question after the speed architecture test. |
+| `exemplar_mode: "with_exemplar"` few-shot injection (AP Statistics, held-out gold set, 2026-08-10) | 4 held-out items / 30 responses / 5 trials per case×arm, `grading-model-assessment` harness | **Inconclusive, not a clean replication of the Bio row above.** Point estimate ~~+4.7pp overall accuracy (58.3% vs 52.4%), bootstrap CI [0, 12.2]pp~~ *(corrected 2026-08-11, see note below this table)* — but `clusterBootstrapDifference` has no item-level grouping and reported 30 (response-level) clusters against the design's true n=4, so the CI is anti-conservative and no claim, positive or negative, is supported. Full writeup: `exemplar_grading_pilot_2026_08/REPORT.md`. | Do not ship on this evidence. Do not re-cite the +4.7pp/CI as a real effect. If this question is re-asked, fix item-level cluster-bootstrap support in `harness.ts` first — do not re-run with the same scoring code. |
+
+> **Correction (2026-08-11), applies to the `exemplar_mode` row above — old
+> numbers retained struck-through, not deleted.** The +4.7pp / [0, 12.2]pp
+> figures were corrupted by a replay-parsing defect in `to_result_cases.mjs`
+> (idempotency-replay responses carry `result.criterion_results`, not
+> `result.criteria`; 5 fully-correct baseline-arm trials were scored as
+> empty). Corrected: baseline 57.1% vs candidate 58.3%, point estimate
+> **+1.4pp**, response-level CI **[−2.5, +6.7]pp**; the item-level cluster
+> bootstrap the row's do-not-repeat column demanded now exists
+> (`harness.ts` `collapseToItemClusters`) and gives +2.0pp,
+> **[−2.3, +8.3]pp** over the correct 4 clusters. Coverage, abstentions,
+> exact-case accuracy, and FNR equalize between arms. A further confound:
+> 13/30 cases were decided arm-invariantly by the deterministic Statistics
+> gate, 8 of them through the defective `APSTATS-SFRQ-008` key
+> (`DETERMINISTIC_KEY_AUDIT_2026_08_11.md`). Verdict unchanged: do not
+> ship; the exemplar/few-shot prompt-content direction is **closed**. Full
+> correction: `exemplar_grading_pilot_2026_08/REPORT.md` §"Correction —
+> 2026-08-11"; policy re-analyses:
+> `exemplar_grading_pilot_2026_08/POLICY_SIMULATIONS_2026_08_11.md`.
 
 Primary records:
 
@@ -83,6 +103,7 @@ Primary records:
 - `apbio_nuanced_boundary_calibration_takeaways.md`
 - `apbio_deepseek_v4_pro_boundary_test_takeaways.md`
 - `apbio_kimi_grading_experiment_2026-07-17.md`
+- `exemplar_grading_pilot_2026_08/REPORT.md`
 
 ### B. Deterministic, symbolic, and multi-modal experiments
 

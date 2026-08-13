@@ -55,6 +55,10 @@ import {
   buildRepairPlan,
   lockGradeDecision,
 } from "../_shared/grading-repair.ts";
+import {
+  createStageTimer,
+  normalizeResponseText,
+} from "../_shared/grading-telemetry.ts";
 
 function requireEnv(name: string) {
   const value = Deno.env.get(name);
@@ -138,6 +142,13 @@ const GRADING_ARM = (Deno.env.get("GRADING_ARM") ?? "b").toLowerCase() === "a"
 // comparable to 2026-07-08 ones, so the stamp recorded in
 // grading_results.deterministic_verifier_version has to move with it.
 const MATH_VERIFIER_VERSION = "math-verifier-ts-2026-07-28";
+// PENDING BUMP (comment only -- the actual bump ships with the Step 2
+// deploy): when the corrected APSTATS-SFRQ-008 statistics key and the
+// audited provenance annotations in _shared/statistics-verifier.ts deploy
+// (O1 approval required), stamp this as "stats-verifier-ts-2026-08-11" so
+// deterministic verdicts from the corrected keys are distinguishable from
+// pre-fix ones in grading_results.deterministic_verifier_version. See
+// docs/research/DETERMINISTIC_KEY_AUDIT_2026_08_11.md.
 
 // Timeout is configurable so we can tune for high-reasoning models without
 // a code change. 90s accommodates reasoning: { effort: "high" } latency
@@ -219,6 +230,38 @@ function parseJsonSafe(value: string | null | undefined) {
     return JSON.parse(value);
   } catch {
     return null;
+  }
+}
+
+// Best-effort write of the passive telemetry fields (stage timings,
+// cached_tokens, normalized-response hash). The columns come from the
+// 20260811TBD_grading_telemetry migration, which may not be applied yet --
+// a failed write (e.g. 42703 undefined column) is logged and swallowed so
+// telemetry can NEVER fail a grading. Kept separate from the main
+// grading_results update for the same reason: the main update's payload
+// must keep working against the pre-migration schema.
+async function persistGradingTelemetry(
+  service: ReturnType<typeof createServiceClient>,
+  requestId: string,
+  telemetry: {
+    normalized_response_sha256: string | null;
+    cached_tokens: number | null;
+    stage_timings: Record<string, number>;
+  },
+) {
+  try {
+    const { error } = await service.schema("app")
+      .from("grading_results")
+      .update(telemetry)
+      .eq("request_id", requestId);
+    if (error) {
+      console.warn(
+        "grading_telemetry_write_skipped",
+        error.message ?? String(error),
+      );
+    }
+  } catch (error) {
+    console.warn("grading_telemetry_write_skipped", error);
   }
 }
 
@@ -534,6 +577,10 @@ async function callOpenAIGraderPerCriterion(input: {
   const failures: unknown[] = [];
   let inputTokens = 0;
   let outputTokens = 0;
+  // Null until any call reports the field: "the provider said 0 cached"
+  // and "the provider said nothing" must stay distinguishable (extractUsage
+  // convention).
+  let cachedTokens: number | null = null;
   let maxElapsedMs = 0;
 
   for (const outcome of settled) {
@@ -551,6 +598,9 @@ async function callOpenAIGraderPerCriterion(input: {
     const usage = extractUsage(outcome.raw as Record<string, unknown>);
     inputTokens += usage.inputTokens ?? 0;
     outputTokens += usage.outputTokens ?? 0;
+    if (usage.cachedTokens !== null) {
+      cachedTokens = (cachedTokens ?? 0) + usage.cachedTokens;
+    }
     maxElapsedMs = Math.max(maxElapsedMs, outcome.elapsedMs);
   }
 
@@ -560,7 +610,14 @@ async function callOpenAIGraderPerCriterion(input: {
     throw failures[0];
   }
 
-  return { parsed, raws, inputTokens, outputTokens, elapsedMs: maxElapsedMs };
+  return {
+    parsed,
+    raws,
+    inputTokens,
+    outputTokens,
+    cachedTokens,
+    elapsedMs: maxElapsedMs,
+  };
 }
 
 async function readBodyAsRecord(req: Request) {
@@ -663,10 +720,16 @@ Deno.serve(async (req) => {
     );
   }
 
+  // Passive stage timings (replan 2.2): wall-clock per stage, written
+  // best-effort at the end. Attacks the measured ~691 ms p50 non-model
+  // floor with data; never affects the grading itself.
+  const stageTimer = createStageTimer();
+
   const profileResult = await requireProfile(req);
   if (!profileResult) {
     return respond({ error: "unauthorized" }, { status: 401 });
   }
+  stageTimer.mark("auth");
 
   const { user, profile } = profileResult;
   if (profile.role !== "student" && profile.role !== "admin") {
@@ -888,6 +951,7 @@ Deno.serve(async (req) => {
   if (examPackError || !examPack) {
     return respond({ error: "exam_pack_not_found" }, { status: 404 });
   }
+  stageTimer.mark("db");
 
   const responseParts = parseJsonSafe(
     typeof responseVersion.response_parts === "string"
@@ -901,6 +965,11 @@ Deno.serve(async (req) => {
     contentKey: contentItem.content_key as string | null,
     responseText,
   });
+  stageTimer.mark("deterministic");
+  // Replay-rate telemetry (passive): hash of the normalized response text.
+  const normalizedResponseSha256 = await sha256Hex(
+    normalizeResponseText(responseText),
+  );
 
   const attemptKind = attempt.attempt_mode as string;
   const promptBase = {
@@ -925,6 +994,7 @@ Deno.serve(async (req) => {
       attempt.learning_session_id as string,
     )
     : null;
+  stageTimer.mark("db");
   const gradingRuntimeSubject = asRecord(
     asRecord(gradingRuntimeContext?.subject_defaults).subject,
   );
@@ -954,6 +1024,7 @@ Deno.serve(async (req) => {
       pointsAvailable: defaultPointsAvailable,
     })
     : null;
+  stageTimer.mark("deterministic");
 
   const routedModelId = routing.target === "mcq_rule"
     ? "rule-based-mcq"
@@ -1152,6 +1223,12 @@ Deno.serve(async (req) => {
       result_summary: finalResult.student_facing_summary,
     }).eq("id", attempt.id);
 
+    await persistGradingTelemetry(service, idempotencyKey, {
+      normalized_response_sha256: normalizedResponseSha256,
+      cached_tokens: null,
+      stage_timings: stageTimer.finish(),
+    });
+
     const runtimeContext = await persistGradingMemory({
       service,
       sessionId: attempt.learning_session_id as string | null,
@@ -1197,6 +1274,8 @@ Deno.serve(async (req) => {
   let inputTokens = estimatedInputTokens;
   let outputTokens = 0;
   let actualCost = 0;
+  // Passive telemetry only -- null means "provider reported nothing".
+  let cachedTokensTelemetry: number | null = null;
 
   if (routing.target === "symbolic_ecf") {
     const statisticsItem = findStatisticsItem(
@@ -1367,6 +1446,8 @@ Deno.serve(async (req) => {
             userIdHash: await sha256Hex(user.id),
             idempotencyKey,
           });
+          stageTimer.mark("model");
+          cachedTokensTelemetry = fanOut.cachedTokens;
 
           const merged = mergeCriterionResults(
             fanOut.parsed,
@@ -1400,6 +1481,7 @@ Deno.serve(async (req) => {
           };
           inputTokens = fanOut.inputTokens;
           outputTokens = fanOut.outputTokens;
+          stageTimer.mark("sanitize");
         } else {
           modelResponse = await callOpenAIGrader({
             modelId,
@@ -1409,6 +1491,7 @@ Deno.serve(async (req) => {
             userIdHash: await sha256Hex(user.id),
             idempotencyKey: idempotencyKey,
           });
+          stageTimer.mark("model");
 
           finalPayload = sanitizeModelResult(
             modelResponse.parsed,
@@ -1419,6 +1502,8 @@ Deno.serve(async (req) => {
           const usage = extractUsage(modelResponse.raw);
           inputTokens = usage.inputTokens ?? inputTokens;
           outputTokens = usage.outputTokens ?? outputTokens;
+          cachedTokensTelemetry = usage.cachedTokens;
+          stageTimer.mark("sanitize");
         }
 
         finalStatus = finalPayload.status === "graded" ? "graded" : "uncertain";
@@ -1560,6 +1645,15 @@ Deno.serve(async (req) => {
     .from("grading_results")
     .update(updatePayload)
     .eq("request_id", idempotencyKey);
+
+  // Passive telemetry, best-effort: separate write so the main update above
+  // keeps working against the pre-migration schema (see
+  // 20260811TBD_grading_telemetry.sql).
+  await persistGradingTelemetry(service, idempotencyKey, {
+    normalized_response_sha256: normalizedResponseSha256,
+    cached_tokens: cachedTokensTelemetry,
+    stage_timings: stageTimer.finish(),
+  });
 
   await service.schema("app")
     .from("attempts")

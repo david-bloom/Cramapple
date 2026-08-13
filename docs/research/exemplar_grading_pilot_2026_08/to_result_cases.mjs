@@ -39,17 +39,69 @@
 
 import { readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
+import { pathToFileURL } from "node:url";
 
-const RAW_PATH = process.argv[2] ??
+// Extracts a trial's per-criterion verdicts from a raw_calls.jsonl record.
+//
+// Two shapes are live in the capture:
+//   - the normal evaluate-attempt response: result.criteria (the sanitized
+//     criterion array);
+//   - the idempotency-replay response: when a (case, arm, trial) idempotency
+//     key already has a completed grading_results row, evaluate-attempt
+//     returns THAT ROW as `result`, and the row's column is
+//     `criterion_results`, not `criteria`.
+// The first version of this script read only result.criteria, so the 5
+// replay records in the 2026-08-10 capture (APSTATS-SFRQ-001#0, arm=off,
+// all 5 trials -- all four criteria earned) were silently scored as EMPTY
+// criteria, zeroing that case in the baseline arm and inflating the pilot's
+// headline difference (+4.7pp reported; +1.4pp corrected). See REPORT.md's
+// 2026-08-11 correction section.
+//
+// A 2xx record carrying NEITHER shape is a capture/contract change this
+// script does not understand -- fail loudly (throw, so the process exits
+// nonzero and names the record) instead of emitting empty criteria, which
+// is exactly the silent corruption mode this function exists to close.
+export function extractTrialCriteria(record) {
+  const result = record?.api_response?.result;
+  const criteria = result?.criteria;
+  if (Array.isArray(criteria) && criteria.length > 0) return criteria;
+  const criterionResults = result?.criterion_results;
+  if (Array.isArray(criterionResults) && criterionResults.length > 0) {
+    return criterionResults;
+  }
+  throw new Error(
+    `raw_calls record has neither result.criteria nor result.criterion_results: ` +
+      `${record?.content_key}#${record?.response_index} arm=${record?.arm} ` +
+      `trial=${record?.trial} http=${record?.http_status} ` +
+      `idempotency_key=${record?.idempotency_key}`,
+  );
+}
+
+const IS_MAIN = globalThis.Deno
+  ? import.meta.main
+  : import.meta.url ===
+    pathToFileURL(globalThis.process?.argv?.[1] ?? "").href;
+
+const RAW_PATH = (globalThis.process?.argv?.[2]) ??
   resolve("docs/research/exemplar_grading_pilot_2026_08/raw_calls.jsonl");
-const OUT_DIR = resolve("docs/research/exemplar_grading_pilot_2026_08");
+// Inputs (held_out_items.json) always come from the pilot directory;
+// outputs default to it but can be redirected (e.g. to a scratch dir for a
+// verification re-run that must not overwrite the committed artifacts) via
+// PILOT_OUT_DIR.
+const PILOT_DIR = resolve("docs/research/exemplar_grading_pilot_2026_08");
+const OUT_DIR = globalThis.process?.env?.PILOT_OUT_DIR
+  ? resolve(globalThis.process.env.PILOT_OUT_DIR)
+  : PILOT_DIR;
 
+// Main body runs only when executed as a script (node or deno); the guard
+// lets tests import extractTrialCriteria without side effects.
+if (IS_MAIN) {
 const lines = readFileSync(RAW_PATH, "utf8").split("\n").filter((line) => line.trim());
 const records = lines.map((line) => JSON.parse(line));
 if (records.length === 0) throw new Error(`No records in ${RAW_PATH}`);
 
 const heldOutItems = JSON.parse(
-  readFileSync(resolve(OUT_DIR, "held_out_items.json"), "utf8"),
+  readFileSync(resolve(PILOT_DIR, "held_out_items.json"), "utf8"),
 ).items;
 const pointsPossibleByContentKey = new Map(
   heldOutItems.map((item) => [item.content_key, item.criteria_points_possible]),
@@ -91,7 +143,7 @@ for (const [key, trials] of groups) {
 
   const byCriterion = new Map(); // criterion_key -> {statuses: [], points: []}
   for (const trial of trials) {
-    const criteria = trial.api_response?.result?.criteria ?? [];
+    const criteria = extractTrialCriteria(trial);
     for (const criterion of criteria) {
       if (!byCriterion.has(criterion.criterion_key)) {
         byCriterion.set(criterion.criterion_key, { statuses: [], points: [] });
@@ -188,3 +240,4 @@ if (lowAgreement.length) {
     );
   }
 }
+} // end IS_MAIN
