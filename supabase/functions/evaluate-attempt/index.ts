@@ -61,6 +61,7 @@ import {
   createStageTimer,
   normalizeResponseText,
 } from "../_shared/grading-telemetry.ts";
+import { recordGrowthEvent } from "../_shared/growth-events.ts";
 
 function requireEnv(name: string) {
   const value = Deno.env.get(name);
@@ -104,19 +105,18 @@ const OPENAI_DAILY_CAP_USD = requirePositiveNumberEnv("OPENAI_DAILY_CAP_USD");
 const EVALUATE_ATTEMPT_PROMPT_VERSION = requireEnv(
   "EVALUATE_ATTEMPT_PROMPT_VERSION",
 );
-// Entitlement gating ships ahead of its schema. The `authorize_grading_access`
-// RPC lives in migration 20260720122542_free_score_check_growth_funnel.sql,
-// which is NOT applied to Production (verified 2026-07-28) -- so calling it
-// there fails and every non-admin grading request 403s with
-// `entitlement_required`. Deploying this file without the flag took Production
-// grading from "broken by two transport bugs" to "rejects every caller", which
-// is strictly worse.
+// Entitlement gating (TASK-0026, 2026-08-15): set to true in Production.
+// `authorize_grading_access` (20260731160200_free_score_check_growth_funnel.sql,
+// simplified by 20260815140000_retire_free_score_check.sql) now only checks
+// app.subject_entitlements -- the FSC one-FRQ-cap fallback it used to have was
+// removed along with the retired Free Score Check offer. Every supported
+// access path (beta/paid/7-day trial via app.start_trial) is a
+// subject_entitlements row, so any caller without one gets a clean
+// `entitlement_required` 403 instead of the old FSC branch logic.
 //
-// Default OFF, which reproduces the pre-2026-07-28 deployed behaviour (v23 had
-// no gate at all). This is NOT a silent bypass: the check is skipped only when
-// explicitly disabled, and turning it on is a one-line env change once the
-// migration is applied. Code and schema must ship together; until they do, the
-// flag makes the mismatch explicit instead of fatal.
+// Kept as an env-gated const (not hardcoded true) so a bad rollout can be
+// reverted with a secrets change instead of a redeploy -- see the 2026-07-28
+// outage note in git history for why this flag exists at all.
 const GRADING_ENTITLEMENTS_ENABLED =
   (Deno.env.get("GRADING_ENTITLEMENTS_ENABLED") ?? "false").toLowerCase() ===
     "true";
@@ -1674,6 +1674,36 @@ Deno.serve(async (req) => {
     latency_ms: modelResponse?.elapsedMs ?? 0,
     raw_model_response: modelResponse?.raw ?? null,
   };
+
+  // Fired before this update commits, so the "prior graded results" count
+  // below can't see this request's own row (still status='processing').
+  if (
+    profile.role === "student" &&
+    (finalStatus === "graded" || finalStatus === "uncertain")
+  ) {
+    const { data: priorAttempts } = await service.schema("app")
+      .from("attempts")
+      .select("id")
+      .eq("user_id", user.id);
+    const priorAttemptIds = (priorAttempts ?? []).map((row) => row.id);
+    let isFirstGradedResponse = true;
+    if (priorAttemptIds.length > 0) {
+      const { count } = await service.schema("app")
+        .from("grading_results")
+        .select("id", { count: "exact", head: true })
+        .in("attempt_id", priorAttemptIds)
+        .in("status", ["graded", "uncertain"]);
+      isFirstGradedResponse = (count ?? 0) === 0;
+    }
+    if (isFirstGradedResponse) {
+      await recordGrowthEvent(service, {
+        eventName: "first_response_graded",
+        userId: user.id,
+        source: "web",
+        dedupeKey: `first_response_graded:${user.id}`,
+      });
+    }
+  }
 
   await service.schema("app")
     .from("grading_results")

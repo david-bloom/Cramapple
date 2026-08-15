@@ -2,6 +2,12 @@
 
 **Decision record | July 20, 2026**
 
+> **Superseded 2026-08-15 by TASK-0026 (7-Day Full-Access Trial).** This
+> doc's core design principle -- "the offer does not expire after a number of
+> days" -- was reversed for the current early-school-year window, in favor of
+> a time-boxed, full-catalog, no-usage-cap trial. Retained for history; the
+> event taxonomy and privacy rules below are still the ones in force.
+
 ## Executive recommendation
 
 Launch a passwordless, activation-limited **Free Score Check** for AP Biology. A student receives:
