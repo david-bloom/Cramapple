@@ -1,8 +1,9 @@
 # Gold-set verification — reader guide
 
-**Version 2.0 — 2026-08-03** (supersedes v1.0, 2026-07-30)
+**Version 2.1 — 2026-08-13** (v2.0 adopted 2026-08-03; supersedes v1.0, 2026-07-30)
 **Operational protocol:** [`GOLD_SET_GENERATION_PROTOCOL.md`](GOLD_SET_GENERATION_PROTOCOL.md)
-**Adopted by:** DECISION-0045
+**Disagreement queue:** [`GOLD_DISAGREEMENT_ADJUDICATION_QUEUE.md`](GOLD_DISAGREEMENT_ADJUDICATION_QUEUE.md)
+**Adopted by:** DECISION-0045; v2.1 disagreement addendum owner-directed 2026-08-13
 
 ---
 
@@ -16,9 +17,14 @@ going to happen, and a gold set that never exists measures nothing.
 see them.** Your job changed completely. You no longer write anything.
 
 This is not a downgrade of your role. It is a concentration of it: reader attention now
-goes entirely to the two places where reader judgement cannot be substituted, and where
-an error would otherwise be invisible. Everything the AI produces is unverified until you
+goes entirely to the two places where reader judgement cannot be substituted, and where an
+error would otherwise be invisible. Everything the AI produces is unverified until you
 certify it — you are not checking its homework, you are the reason anyone can trust it.
+
+**v2.1 clarification:** the two original cold readers still do not discuss or adjudicate
+their own disagreements. After both reads are locked, a different qualified reviewer may
+receive a small third-reader adjudication assignment. That process is defined in
+`GOLD_DISAGREEMENT_ADJUDICATION_QUEUE.md`.
 
 ---
 
@@ -42,7 +48,7 @@ agreement can be trusted at all.**
 
 ---
 
-## 2. Your two jobs
+## 2. Your jobs
 
 ### Job 1 — Verify answers cold
 
@@ -61,8 +67,9 @@ actually satisfies**, based only on what is written on the page.
 no longer an independent check on auto-acceptance — you are agreeing with it. The whole
 value of your pass is that it was made without knowing what anyone else concluded.
 
-Your marks are then compared automatically against the script and the AI verifiers. You
-will not be asked to adjudicate disagreements or to justify your marking.
+Your marks are then compared automatically against the script and the AI verifiers. As an
+original cold reader, you will **not** be asked to negotiate or adjudicate a disagreement
+with the other original reader. Your submitted mark remains independent evidence.
 
 ### Job 2 — Confirm element breakdowns *(Biology and Chemistry only)*
 
@@ -94,6 +101,25 @@ capture it than have it silently averaged away.
 
 **Statistics, Physics and Precalculus have no multi-point criteria**, so Job 2 does not
 arise there. Readers on those subjects do Job 1 only.
+
+### Job 3 — Third-reader disagreement adjudication *(assigned only)*
+
+A small number of qualified reviewers may receive a disagreement case **after two other
+readers have completed their cold reads**. If you are assigned one:
+
+1. You are not shown either original reader's mark, the writer script, machine-verifier
+   output, or grader output.
+2. Read the question, answer and relevant rubric element cold and record `present` or
+   `absent` with evidence.
+3. Lock that mark first. Only then may the disagreement history be revealed for final
+   classification.
+4. Classify the case as `FINAL_PRESENT`, `FINAL_ABSENT`, `RUBRIC_AMBIGUOUS`,
+   `GOLD_ANSWER_DEFECT`, or `RUBRIC_OR_CONTENT_DEFECT`.
+5. If the answer/rubric is genuinely ambiguous or defective, do not force a binary label;
+   escalate it instead.
+
+The operational queue, current cases, and closure rules are in
+`GOLD_DISAGREEMENT_ADJUDICATION_QUEUE.md`.
 
 ---
 
@@ -164,6 +190,9 @@ verify a random sample only — roughly 100 answers per set regardless of how la
 is. If it does not clear the bar, we go back to reader verification of everything, and
 the plan gets re-scoped.
 
+Third-reader adjudication is expected to be much smaller than the ordinary verification
+queue: it is created only from actual two-reader element disagreements.
+
 Roughly **5 minutes per answer** to verify; element breakdowns (Biology/Chemistry) around
 **3 minutes per criterion**, done once and reused eight times.
 
@@ -175,6 +204,11 @@ Every certified answer is graded by the AI, and its result is compared to the ag
 labels, criterion by criterion. The output is a table of where the grader
 **over-credits** and where it **under-credits**, per criterion and per subject — the
 first real measurement of grading quality we will have.
+
+Where two original readers disagree, the disagreement remains part of the certification
+record even after third-reader adjudication. Adjudication establishes the authoritative
+label for the frozen regression set; it does not erase the fact that the original readers
+disagreed.
 
 The set is then **frozen** and becomes a permanent regression suite: every future change
 to the grader is re-run against it. Nothing that fails it ships.
