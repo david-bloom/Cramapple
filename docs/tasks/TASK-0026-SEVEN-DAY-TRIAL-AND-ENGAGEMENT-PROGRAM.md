@@ -5,7 +5,7 @@
 **Owner:** Main Conductor
 **Product Owner:** David Bloom
 **Tier:** Hard-Gate
-**Status:** Backend live in Production; frontend live on a feature branch (not merged); Loops integration and decision-log entry not started
+**Status:** Backend and frontend both live in Production; PostHog keys set but live delivery not yet confirmed; Loops integration and decision-log entry not started
 **Priority:** P0
 **Created Date:** 2026-08-15
 **Approved Date:** 2026-08-15
@@ -77,17 +77,29 @@ fit the current point in the school year.
   job cannot reach PostHog without either enabling `pg_net` or having cron
   call an Edge Function. Scoped as follow-up, not blocking trial launch.
 
-**Frontend (live on a feature branch, not merged to main):**
-- `exam-buddy-wireframe` branch `codex/task0026-trial-start`:
-  `src/lib/trial.ts`, `src/routes/trial.tsx` (OTP landing page),
-  `src/routes/trial.verify.tsx` (magic-link callback → grants trial →
-  routes into `/setup`, the normal practice flow — not a bespoke one-FRQ UI).
-- **Done:** the dead `/free-score-check/*` routes and lib code were removed
-  directly from `main` (commit `08f20f9`, fast-forward push) — they called a
-  backend that no longer exists. `codex/task0026-trial-start` predates that
-  removal and will need a rebase on `main` before merging.
-- **Not yet done:** merging `codex/task0026-trial-start` to `main` and
-  deploying.
+**Frontend (merged to main, deployed):**
+- `exam-buddy-wireframe`, live on `main`: `src/lib/trial.ts`,
+  `src/routes/trial.tsx` (OTP landing page), `src/routes/trial.verify.tsx`
+  (magic-link callback → grants trial → routes into `/setup`, the normal
+  practice flow — not a bespoke one-FRQ UI).
+- Dead `/free-score-check/*` routes and lib code removed from `main`
+  (`08f20f9`).
+- Global PostHog init added to the root layout (`239cacc`) — `initPostHog()`
+  previously had no caller on any normal page route (its last caller was the
+  now-deleted FSC landing page, and that call was itself silently no-op'd by
+  `shouldDisableOnRoute`), so real traffic never loaded the SDK regardless of
+  key configuration. Fixed as part of getting PostHog delivery actually
+  working end to end, discovered while debugging "Waiting for events" during
+  PostHog project setup.
+- `codex/task0026-trial-start` rebased onto the FSC-removal + PostHog-init
+  commits and merged to `main` (`a079cf1`, fast-forward push); the feature
+  branch was deleted after merge.
+- `VITE_POSTHOG_KEY` (Vercel) and `POSTHOG_PROJECT_API_KEY` (Supabase
+  secret) both set to the same PostHog Project API Key (`phc_...`). Backend
+  delivery not yet confirmed live — no growth event has fired since the
+  secret was set; the two stale `growth_event_outbox` rows predate the key
+  entirely (`delivery_attempts: 0`). `/trial` going live on `main` is the
+  next real opportunity to confirm delivery end to end.
 
 **Lifecycle engagement (not started — Loops, entirely greenfield):**
 - No email-provider integration exists anywhere in the codebase today
@@ -174,14 +186,21 @@ fit the current point in the school year.
 - [x] `GRADING_ENTITLEMENTS_ENABLED=true` in Production, with regression
       confirmed for existing entitled accounts.
 - [x] `trial_started` and `first_response_graded` growth events wired.
-- [x] Frontend trial-start flow built and pushed
-      (`codex/task0026-trial-start`).
-- [ ] Frontend trial-start flow merged to `main` and deployed.
+- [x] Frontend trial-start flow built, merged to `main`, and deployed
+      (`a079cf1`).
 - [x] Dead `/free-score-check/*` routes removed from `main` (also fixed a
       latent bug found in passing: `posthog.ts`'s `shouldDisableOnRoute`
       disabled PostHog entirely on `/free-score-check`, so that funnel's own
       `landing_view`/`demo_started` captures were silently no-ops the whole
       time it was live — confirmed `/trial` is not added to that list).
+- [x] Global PostHog init added to the root layout, so real page traffic
+      actually loads the SDK (previously only two narrow funnel-specific
+      call sites existed, both now gone/rarely hit).
+- [x] `VITE_POSTHOG_KEY` / `POSTHOG_PROJECT_API_KEY` both set to the
+      PostHog Project API Key.
+- [ ] Live delivery confirmed end to end (no growth event has fired since
+      the key was set — next real trial-start or grading event should
+      confirm `growth_event_outbox.delivered_at` populates).
 - [ ] `returned_day_2`/`returned_day_7` scheduled job (blocked on a `pg_net`
       decision).
 - [ ] Loops account, client module, and the five lifecycle trigger points.
@@ -221,8 +240,11 @@ as lifecycle vendor)
 
 - Backend commit: `9ca9047` on `claude/gold-set-answer-assignments-o3ibgi`
   (Cramapple repo), pushed.
-- Frontend commit: `97b06a0` on `codex/task0026-trial-start`
-  (exam-buddy-wireframe repo), pushed.
+- Frontend: `08f20f9` (dead FSC route removal), `239cacc` (global PostHog
+  init), `a079cf1` (trial-start flow, rebased and merged) — all on
+  `main` (exam-buddy-wireframe repo), pushed directly since that branch
+  deploys. The `codex/task0026-trial-start` feature branch was deleted
+  after merge.
 - FSC archive: `archive/free-score-check-2026-08-15` on both repos, pushed.
 - All production database changes were verified against Dev first, then
   applied to Production with immediate smoke tests; no migration was applied
