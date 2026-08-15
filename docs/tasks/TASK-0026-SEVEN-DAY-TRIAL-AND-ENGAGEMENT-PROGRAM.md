@@ -82,9 +82,10 @@ fit the current point in the school year.
   `src/lib/trial.ts`, `src/routes/trial.tsx` (OTP landing page),
   `src/routes/trial.verify.tsx` (magic-link callback → grants trial →
   routes into `/setup`, the normal practice flow — not a bespoke one-FRQ UI).
-- **Not yet done:** removing the dead `/free-score-check/*` routes from
-  `main` — they call a backend that no longer exists and will error for any
-  visitor who lands on them.
+- **Done:** the dead `/free-score-check/*` routes and lib code were removed
+  directly from `main` (commit `08f20f9`, fast-forward push) — they called a
+  backend that no longer exists. `codex/task0026-trial-start` predates that
+  removal and will need a rebase on `main` before merging.
 - **Not yet done:** merging `codex/task0026-trial-start` to `main` and
   deploying.
 
@@ -176,7 +177,11 @@ fit the current point in the school year.
 - [x] Frontend trial-start flow built and pushed
       (`codex/task0026-trial-start`).
 - [ ] Frontend trial-start flow merged to `main` and deployed.
-- [ ] Dead `/free-score-check/*` routes removed from `main`.
+- [x] Dead `/free-score-check/*` routes removed from `main` (also fixed a
+      latent bug found in passing: `posthog.ts`'s `shouldDisableOnRoute`
+      disabled PostHog entirely on `/free-score-check`, so that funnel's own
+      `landing_view`/`demo_started` captures were silently no-ops the whole
+      time it was live — confirmed `/trial` is not added to that list).
 - [ ] `returned_day_2`/`returned_day_7` scheduled job (blocked on a `pg_net`
       decision).
 - [ ] Loops account, client module, and the five lifecycle trigger points.
