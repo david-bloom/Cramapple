@@ -1,4 +1,12 @@
 import { requireProfile } from "../_shared/auth.ts";
+import {
+  asString,
+  asUuid,
+  normalizeGradingResult,
+  pointsGained,
+  rpcErrorCode,
+  sanitizeTouch,
+} from "../_shared/free-score-check-contract.ts";
 import { jsonResponse, readJsonBody } from "../_shared/http.ts";
 import { recordGrowthEvent } from "../_shared/growth-events.ts";
 import { createServiceClient } from "../_shared/supabase.ts";
@@ -11,57 +19,95 @@ const OPERATIONS = new Set<Operation>([
   "report",
 ]);
 
-const TOUCH_KEYS = new Set([
-  "utm_source",
-  "utm_medium",
-  "utm_campaign",
-  "utm_content",
-  "utm_term",
-  "landing_path",
-  "referrer_host",
-  "reddit_click_id",
-]);
-
-function asString(value: unknown) {
-  return typeof value === "string" && value.trim() ? value.trim() : null;
-}
-
-function asUuid(value: unknown) {
-  return typeof value === "string" &&
-      /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
-        .test(value)
-    ? value
-    : null;
-}
-
-function sanitizeTouch(value: unknown) {
-  if (!value || typeof value !== "object" || Array.isArray(value)) return {};
-  const result: Record<string, string> = {};
-  for (const [key, raw] of Object.entries(value as Record<string, unknown>)) {
-    if (TOUCH_KEYS.has(key) && typeof raw === "string" && raw.trim()) {
-      result[key] = raw.trim().slice(0, 300);
-    }
-  }
-  return result;
-}
-
-function rpcErrorCode(message: string | undefined) {
-  return message?.match(/(?:free_score_check|grading_access):([a-z_]+)/)?.[1] ??
-    "free_score_check_failed";
-}
-
-async function loadCheck(service: ReturnType<typeof createServiceClient>, userId: string) {
-  const { data, error } = await service.schema("app")
+async function loadCheck(
+  service: ReturnType<typeof createServiceClient>,
+  userId: string,
+  subjectKey?: string | null,
+) {
+  let query = service.schema("app")
     .from("free_score_checks")
     .select(
       "id, user_id, subject_id, exam_pack_version_id, content_item_version_id, rubric_version_id, learning_session_id, attempt_id, repair_attempt_id, initial_response_version_id, repair_response_version_id, initial_grading_result_id, repair_grading_result_id, state, started_at, initial_graded_at, repair_graded_at, completed_at, report_version",
     )
-    .eq("user_id", userId)
+    .eq("user_id", userId);
+
+  if (subjectKey) {
+    const { data: subject, error: subjectError } = await service.schema("app")
+      .from("subjects")
+      .select("id")
+      .eq("subject_key", subjectKey)
+      .eq("status", "active")
+      .maybeSingle();
+    if (subjectError) throw subjectError;
+    if (!subject) return null;
+    query = query.eq("subject_id", subject.id);
+  }
+
+  const { data, error } = await query
     .order("created_at", { ascending: false })
     .limit(1)
     .maybeSingle();
   if (error) throw error;
   return data;
+}
+
+async function loadGradingRows(
+  service: ReturnType<typeof createServiceClient>,
+  resultIds: string[],
+) {
+  if (resultIds.length === 0) return [];
+  const { data, error } = await service.schema("app").from("grading_results")
+    .select(
+      "id, operation, status, points_earned, points_available, criterion_results, highest_value_gap, confidence, uncertainty_reason, feedback_preview, action_hint, repair_hint, created_at",
+    )
+    .in("id", resultIds);
+  if (error) throw error;
+  return data ?? [];
+}
+
+async function hydrateCheck(
+  service: ReturnType<typeof createServiceClient>,
+  check: Record<string, unknown> | null,
+) {
+  if (!check) return { state: "available" };
+
+  const initialId = typeof check.initial_grading_result_id === "string"
+    ? check.initial_grading_result_id
+    : null;
+  const repairId = typeof check.repair_grading_result_id === "string"
+    ? check.repair_grading_result_id
+    : null;
+  const rows = await loadGradingRows(
+    service,
+    [initialId, repairId].filter(Boolean) as string[],
+  );
+  const initialRow = rows.find((row) => row.id === initialId) ?? null;
+  const repairRow = rows.find((row) => row.id === repairId) ?? null;
+
+  return {
+    ...check,
+    initial_result: normalizeGradingResult(initialRow),
+    repair_result: normalizeGradingResult(repairRow),
+  };
+}
+
+async function loadSubject(
+  service: ReturnType<typeof createServiceClient>,
+  subjectId: unknown,
+) {
+  if (typeof subjectId !== "string") return null;
+  const { data, error } = await service.schema("app").from("subjects")
+    .select("subject_key, display_name")
+    .eq("id", subjectId)
+    .maybeSingle();
+  if (error) throw error;
+  return data;
+}
+
+function filenameSubjectPart(subjectKey: string | null | undefined) {
+  const safe = subjectKey?.toLowerCase().replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+  return safe || "subject";
 }
 
 Deno.serve(async (req) => {
@@ -95,6 +141,7 @@ Deno.serve(async (req) => {
   try {
     if (operation === "start") {
       const privacyNoticeVersion = asString(input.privacy_notice_version);
+      const subjectKey = asString(input.subject_key);
       if (!privacyNoticeVersion) {
         return respond(
           { error: "missing_privacy_notice_version" },
@@ -110,18 +157,25 @@ Deno.serve(async (req) => {
           p_last_touch: sanitizeTouch(input.last_touch),
           p_marketing_email_opt_in: input.marketing_email_opt_in === true,
           p_privacy_notice_version: privacyNoticeVersion,
+          p_subject_key: subjectKey,
         },
       );
       if (error || !data) {
         const code = rpcErrorCode(error?.message);
-        const status = code === "not_available" || code === "not_configured"
-          ? 503
-          : 409;
+        const unavailable = new Set([
+          "not_available",
+          "not_configured",
+          "subject_required",
+          "content_not_published",
+          "content_not_student_visible",
+        ]);
+        const status = unavailable.has(code) ? 503 : 409;
         return respond({ error: code }, { status });
       }
 
       const result = data as Record<string, unknown>;
       const checkId = String(result.free_score_check_id);
+      const resultSubjectKey = asString(result.subject_key) ?? subjectKey;
       await recordGrowthEvent(service, {
         eventName: "trial_started",
         userId,
@@ -129,7 +183,7 @@ Deno.serve(async (req) => {
         source: "free_score_check",
         dedupeKey: `trial_started:${checkId}`,
         properties: {
-          subject_key: "biology",
+          subject_key: resultSubjectKey,
           offer: "free_score_check_v1",
           access_tier: "free_score_check",
           ...sanitizeTouch(input.last_touch),
@@ -140,11 +194,11 @@ Deno.serve(async (req) => {
     }
 
     if (operation === "status") {
-      const check = await loadCheck(service, userId);
+      const check = await loadCheck(service, userId, asString(input.subject_key));
       return respond({
         status: "ok",
         operation,
-        result: check ?? { state: "available" },
+        result: await hydrateCheck(service, check),
       });
     }
 
@@ -159,20 +213,26 @@ Deno.serve(async (req) => {
         { p_user_id: userId, p_grading_result_id: gradingResultId },
       );
       if (error || !data) {
-        return respond({ error: rpcErrorCode(error?.message) }, { status: 409 });
+        return respond({ error: rpcErrorCode(error?.message) }, {
+          status: 409,
+        });
       }
 
       const result = data as Record<string, unknown>;
       const checkId = String(result.free_score_check_id);
       const completed = result.state === "completed";
+      const check = await loadCheck(service, userId);
+      const subject = await loadSubject(service, check?.subject_id);
       await recordGrowthEvent(service, {
         eventName: completed ? "repair_completed" : "first_response_graded",
         userId,
         freeScoreCheckId: checkId,
         source: "free_score_check",
-        dedupeKey: `${completed ? "repair_completed" : "first_response_graded"}:${checkId}`,
+        dedupeKey: `${
+          completed ? "repair_completed" : "first_response_graded"
+        }:${checkId}`,
         properties: {
-          subject_key: "biology",
+          subject_key: subject?.subject_key ?? null,
           offer: "free_score_check_v1",
           access_tier: "free_score_check",
         },
@@ -181,8 +241,13 @@ Deno.serve(async (req) => {
       return respond({ status: "ok", operation, result });
     }
 
-    const check = await loadCheck(service, userId);
-    if (!check || !check.initial_grading_result_id) {
+    const check = await loadCheck(service, userId, asString(input.subject_key));
+    if (
+      !check ||
+      check.state !== "completed" ||
+      !check.initial_grading_result_id ||
+      !check.repair_grading_result_id
+    ) {
       return respond({ error: "report_not_ready" }, { status: 409 });
     }
 
@@ -190,17 +255,16 @@ Deno.serve(async (req) => {
       check.initial_grading_result_id,
       check.repair_grading_result_id,
     ].filter(Boolean) as string[];
-    const [{ data: gradingRows, error: gradingError }, { data: contentVersion }] =
-      await Promise.all([
-        service.schema("app").from("grading_results").select(
-          "id, operation, status, points_earned, points_available, criterion_results, highest_value_gap, confidence, uncertainty_reason, feedback_preview, action_hint, repair_hint, created_at",
-        ).in("id", resultIds),
-        service.schema("app").from("content_item_versions")
-          .select("id, content_item_id")
-          .eq("id", check.content_item_version_id)
-          .maybeSingle(),
-      ]);
-    if (gradingError || !gradingRows) throw gradingError ?? new Error("report_load_failed");
+    const [
+      gradingRows,
+      { data: contentVersion },
+    ] = await Promise.all([
+      loadGradingRows(service, resultIds),
+      service.schema("app").from("content_item_versions")
+        .select("id, content_item_id")
+        .eq("id", check.content_item_version_id)
+        .maybeSingle(),
+    ]);
 
     let title: string | null = null;
     if (contentVersion?.content_item_id) {
@@ -210,25 +274,44 @@ Deno.serve(async (req) => {
         .maybeSingle();
       title = item?.title ?? null;
     }
+    const subject = await loadSubject(service, check.subject_id);
+    const subjectName = subject?.display_name ?? "AP subject";
+    const subjectKey = subject?.subject_key ?? null;
 
-    const initial = gradingRows.find((row) => row.id === check.initial_grading_result_id) ?? null;
-    const repair = gradingRows.find((row) => row.id === check.repair_grading_result_id) ?? null;
+    const initial = normalizeGradingResult(
+      gradingRows.find((row) => row.id === check.initial_grading_result_id) ??
+        null,
+    );
+    const repair = normalizeGradingResult(
+      gradingRows.find((row) => row.id === check.repair_grading_result_id) ??
+        null,
+    );
+    if (!initial || !repair) {
+      return respond({ error: "report_not_ready" }, { status: 409 });
+    }
+
     return respond({
       status: "ok",
       operation,
       result: {
         report_version: check.report_version,
         free_score_check_id: check.id,
-        subject_key: "biology",
+        subject: subjectName,
+        subject_key: subjectKey,
         title,
         state: check.state,
         started_at: check.started_at,
         completed_at: check.completed_at,
         initial,
         repair,
+        points_gained: pointsGained(initial, repair),
+        next_action: repair
+          ? `Use the full ${subjectName} practice set to keep repairing point-losing gaps.`
+          : null,
         export: {
           format: "print_to_pdf",
-          suggested_filename: "cramapple-ap-biology-score-check.pdf",
+          suggested_filename:
+            `cramapple-${filenameSubjectPart(subjectKey)}-score-check.pdf`,
         },
       },
     });
