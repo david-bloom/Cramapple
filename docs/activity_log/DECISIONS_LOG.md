@@ -6,6 +6,8 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0047 — Replace Activation-Limited Free Score Check with a 7-Day Full-Access Trial (TASK-0026)
+- DECISION-0046 — Retire the ≤1000ms p50 Grading Latency Hard Gate; Launch Engines 1/3 Now and Iterate in Production Rather Than Wait for the Full Gold-Set Certification Gate
 - DECISION-0045 — Gold Sets Are Built by AI Generation + Multi-Model Verification + Reader Certification, and Partitioned by Grading Engine × Criterion Structure
 - DECISION-0044 — Universal Publication Rule (Double-Approve + AI QA, or Edit-Request Fixed by AI)
 - DECISION-0043 — Operationalize Branch Hygiene R1–R7 (Trunk Protection, CI, Auto-Delete)
@@ -24,6 +26,159 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~600 lines, archive the older entries to `docs/activity_log/archive/DECISIONS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries. (This log is already well over that threshold — the first archive pass is overdue, not optional.)
 
 (Note: the TASK-0012 branch independently logged its own DECISION-0027/0028 — CORS/ALLOWED_ORIGINS and budget-burn semantics — under different numbers on its own branch. Those land separately when that work merges to `main`; this charter-adoption decision claimed 0027/0028 here because `main` had not yet recorded entries past DECISION-0026 at merge time. If both branches' numbering collides on merge, renumber on whichever side merges second and update this index.)
+
+## DECISION-0047 — Replace Activation-Limited Free Score Check with a 7-Day Full-Access Trial (TASK-0026)
+
+**Date:** 2026-08-15
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Related Task:** TASK-0026 (supersedes TASK-0024)
+**Area:** Product / Growth
+
+### Context
+
+The Free Score Check strategy doc
+(`docs/strategy/CRAMAPPLE_FREE_SCORE_CHECK_IMPLEMENTATION_2026.md`,
+2026-07-20) designed an activation-limited public offer (one FRQ, one
+guided repair, one report, then paywall) around a student with roughly ten
+days before an exam -- deliberately usage-limited rather than time-limited
+("the offer does not expire after a number of days"). TASK-0024's
+implementation of that offer never reached production
+(`growth.free_score_check.v1.enabled` stayed `false` throughout its
+build). By mid-August, with the school year just starting, that urgency
+premise no longer held: there is no cramming scarcity to gate against, so
+an activation-limited offer mostly added friction against a purchase
+decision that has not become urgent yet.
+
+### Decision
+
+1. Replace the activation-limited Free Score Check with a 7-day,
+   full-catalog (all 10 launch subjects), no-usage-cap trial, implemented
+   as a new `access_tier='trial'` row on the existing
+   `app.subject_entitlements` table / `app.authorize_grading_access` gate
+   rather than a bespoke one-FRQ state machine.
+2. Retire the FSC-specific machinery it replaces (`app.free_score_checks`
+   table, `start_free_score_check` / `record_free_score_grade` RPCs, the
+   `free-score-check` Edge Function and frontend routes) rather than run
+   both models in parallel. Code preserved on
+   `archive/free-score-check-2026-08-15` (both the Cramapple and
+   exam-buddy-wireframe repos) for a future revival closer to exam season,
+   not deleted outright.
+3. Post-trial-expiry access is grace/read-only by design, not a new build:
+   `attempts` / `response_versions` / `grading_results` SELECT policies are
+   owner-scoped only (no entitlement check), so past work stays visible
+   while new attempt creation is blocked by the existing entitlement-gated
+   INSERT policy -- confirmed via production read-only verification before
+   relying on it.
+4. Lifecycle email (Loops) triggers off this event and its `ends_at`
+   property, so trial-length changes do not require server-side timing
+   logic to change in lockstep.
+
+### Rationale
+
+The report's original design already flagged the "unlimited trial could
+satisfy the whole urgent use case before payment" risk as the reason to
+avoid a time-only trial -- that risk is genuinely lower right now (low
+urgency, early season) than it will be in spring, which is exactly why the
+trade is being made now rather than as a permanent design. Reusing
+`subject_entitlements` / `authorize_grading_access` unchanged (rather than
+building new gating logic) meant the entire cutover required zero changes
+to the actual grading-access gate -- verified directly against a real
+production attempt from an existing `beta` account both before and after
+the retirement migration.
+
+### Consequences / Follow-ups
+
+- `GRADING_ENTITLEMENTS_ENABLED` flipped to `true` in Production as part of
+  this change -- see `APPROVAL-0044` for the corresponding approval and its
+  relationship to `APPROVAL-0043`'s prior note on this flag.
+- `docs/tasks/TASK-0024-FREE-SCORE-CHECK-LAUNCH-READINESS.md`, its
+  cutover-evidence doc, and the FSC strategy doc are marked superseded, not
+  deleted.
+- The `returned_day_2` / `returned_day_7` PostHog cohort events (distinct
+  from Loops' own journey timing) remain unimplemented, blocked on a
+  `pg_net` enablement decision -- tracked in TASK-0026, not blocking trial
+  launch.
+- Full implementation detail, evidence, and open items in
+  `docs/tasks/TASK-0026-SEVEN-DAY-TRIAL-AND-ENGAGEMENT-PROGRAM.md`.
+
+## DECISION-0046 — Retire the ≤1000ms p50 Grading Latency Hard Gate; Launch Engines 1/3 Now and Iterate in Production Rather Than Wait for the Full Gold-Set Certification Gate
+
+**Date:** 2026-08-14
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Related Task:** TASK-0016
+**Area:** Product / Architecture
+
+### Context
+
+TASK-0016's original launch bar (owner-approved 2026-07-08, `APPROVAL-0033`)
+set two hard numeric gates before any grading engine could go authoritative:
+end-to-end latency ≤1000ms p50, and a 300+ dual-adjudicated gold-set
+accuracy certification (per `CONTENT_GOVERNANCE_AND_VALIDATION.md` §12.2).
+Neither has been met, and by 2026-08-13 there was direct measured evidence
+that the latency target specifically is not reachable with the current
+architecture and model: non-model request overhead alone measures ~691ms
+p50 (auth/DB/render, before any model call), and Arm A — the
+per-criterion-parallel architecture expected to bring a 4-criterion FRQ from
+~16s to ~4s — measured 22–31s medians on the actual production model
+(`gpt-4.1-mini`) once tested on it directly (the original ~4s figure was
+validated only on `gemini-2.5-flash`, a substitute model, per the handoff
+doc's own "trap 1").
+
+A second-opinion review (codex,
+`prompts/SECOND_OPINION_ENGINE1_ENGINE3_GO_LIVE_PLAN_2026_08_13.md`)
+identified this and four other structural problems with continuing to plan
+around the original launch bar, and the owner reviewed that critique
+directly in this session.
+
+### Decision
+
+1. **The ≤1000ms p50 hard gate is retired**, not merely deferred. Replaced
+   with a two-SLA framing: time-to-acknowledgement (student sees a progress
+   state immediately) and time-to-complete-feedback (full graded result
+   rendered). Quality > Speed > Cost (owner decision, 2026-07-29) remains the
+   governing priority order — this does not reopen that ordering, it
+   accepts that the specific numeric latency target under that ordering was
+   wrong given the actual model/architecture combination in use.
+2. **Engine 1 and Engine 3 go live now** (Engine 1 authoritative once its
+   evidence-grounding P0 fix ships; Engine 3 shadow-only, per its own
+   structural ceiling — see TASK-0016's 2026-08-13 addendum) rather than
+   waiting for the full 300+ dual-adjudicated gold-set certification. That
+   certification continues in parallel as a dependency for later authority
+   stages (per the addendum's five-stage production model), not as a
+   pacing item blocking initial launch.
+3. Recorded here, rather than only inside `docs/tasks/TASK-0016-GRADING-ENGINE-ROLLOUT.md`'s
+   addendum, because item 1 reverses a numeric target from an original Hard
+   Gate approval (`APPROVAL-0033`) — a durable, independently-findable
+   decision record, not only a task-file edit. See `APPROVAL-0043` for the
+   corresponding approval entry.
+
+### Rationale
+
+Continuing to plan around a latency target the system's own measurements
+show is unreachable wastes engineering effort chasing a number rather than
+the thing that number was a proxy for (a good student experience). The
+two-SLA framing keeps the actual product concern (does the student know
+something is happening; do they get their grade in a reasonable time)
+without pretending a number invalidated by direct measurement is still the
+bar. Waiting for full gold-set certification before any real-world signal
+exists is also self-defeating on the current evidence: the two most
+consequential accuracy findings this program has had (the `SFRQ-008` keyed
+value defect, the evidence-grounding false-abstention pattern) were both
+found through targeted live testing, not through gold-set volume — more
+volume was not what moved either number.
+
+### Consequences / Follow-ups
+
+- `docs/tasks/TASK-0016-GRADING-ENGINE-ROLLOUT.md` amended in place
+  (2026-08-13 addendum) with acceptance criteria struck/annotated
+  accordingly.
+- Non-model latency overhead (~691ms p50) becomes a Stage C/D-adjacent
+  optimization workstream, not a launch blocker.
+- The formal gold-set gate's cadence and what specifically unblocks each
+  later authority stage is tracked in the addendum's five-stage model, not
+  restated here.
 
 ## DECISION-0045 — Gold Sets Are Built by AI Generation + Multi-Model Verification + Reader Certification, and Partitioned by Grading Engine × Criterion Structure
 
