@@ -2,6 +2,7 @@ import { requireProfile } from "../_shared/auth.ts";
 import { asString, sanitizeTouch } from "../_shared/trial-contract.ts";
 import { jsonResponse, readJsonBody } from "../_shared/http.ts";
 import { recordGrowthEvent } from "../_shared/growth-events.ts";
+import { sendLoopsEvent } from "../_shared/loops-client.ts";
 import { createServiceClient } from "../_shared/supabase.ts";
 
 Deno.serve(async (req) => {
@@ -63,6 +64,19 @@ Deno.serve(async (req) => {
           ...sanitizeTouch(input.last_touch),
         },
       });
+
+      // Loops owns journey timing entirely -- the day-5/6 urgency nudge and
+      // day-7 win-back are scheduled in the Loops dashboard off this event's
+      // ends_at property, not by a separate server-side scheduled job.
+      if (input.marketing_email_opt_in === true && auth.user.email) {
+        await sendLoopsEvent({
+          email: auth.user.email,
+          eventName: "trial_started",
+          eventProperties: {
+            ends_at: String(result.ends_at ?? ""),
+          },
+        });
+      }
     }
 
     return respond({
