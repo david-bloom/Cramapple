@@ -94,10 +94,36 @@ reader-stage dead end:
 - **`APSTATS-HDG-2026-GRAPH-005`** is a genuine, different gap: it has only
   ever had **one** assigned tutor (Jill Schmidlkofer), never paired with a
   second reviewer, so the two-reviewer blind-check the state machine requires
-  can never complete for it as-is. **Not touched by this remediation** —
-  needs either a second reviewer assigned or an explicit owner decision to
-  accept single-reviewer approval for this item, which is a bigger policy
-  call than a data-consistency fix.
+  can never complete for it as-is. **Not touched by the first remediation
+  pass** — see §4a below for the resolution.
+
+### 3a. `APSTATS-HDG-2026-GRAPH-005` resolved (owner-directed, same day)
+
+Owner explicitly accepted single-reviewer approval for this item rather than
+requiring a second tutor. Before publishing, checked whether that was safe:
+Jill's decision was `approve` (score 1), but her note — carried over near-
+verbatim between her two submissions (07-16, 07-21) — describes a specific,
+credible data-quality problem (an unrealistically perfect correlation, r =
+.997, with unrealistic "hours studied" values of 2 through 10, one student
+each).
+
+**The currently stored stimulus does not match that complaint.** The data
+now on file is hours 0–5 with repeated values and scores 58–94 with real
+scatter (independently recomputed r ≈ 0.77 — a defensible "strong positive"
+association, not a suspiciously perfect one) — essentially the exact fix
+Jill's own note suggested (hours 0–5 with multiple occurrences, scores in the
+60s–90s). The data was evidently revised at some point after her review; her
+note is stale commentary on a superseded version, not a live concern against
+what's actually stored. Safe to approve as-is.
+
+Owner-adjudicated: approved and published, same insertion discipline as
+everywhere else this session (stale version-status corrected first — same
+pattern as every other item in this doc). Logged in the decision note.
+
+**Corpus-wide re-verification after this: P0-B net 0, 0 duplicate published
+versions, 0 remaining `reviewed_approved` items stuck below the terminal
+`review_status` allowlist.** This closes out the entire backlog traced in
+this document.
 
 ## 4. Remediation
 
@@ -120,14 +146,14 @@ reader-stage dead end:
 - **1 item** (`APBIO-FRQ-S-031`) owner-adjudicated per §3 above.
 
 **Result:** P0-B net check **0**, 0 duplicate published versions, all 17
-confirmed published. `APSTATS-HDG-2026-GRAPH-005` is the sole remaining
-non-terminal `reviewed_approved` item corpus-wide, left for an owner
-decision.
+confirmed published. `APSTATS-HDG-2026-GRAPH-005` was the sole remaining
+non-terminal `reviewed_approved` item corpus-wide — resolved same-day, see
+§3a. Corpus-wide, this backlog is now fully closed: 0 remaining
+`reviewed_approved` items stuck below the terminal `review_status`
+allowlist.
 
 ## 5. Follow-ups
 
-- **Decide `APSTATS-HDG-2026-GRAPH-005`**: assign a second reviewer, or
-  accept Jill's single review as sufficient and adjust policy/code to match.
 - **`content_items.status` is not a trustworthy standalone signal.** Nothing
   in the application code ever sets it to `reviewed_approved` — every
   instance in Production came from a script. Worth deciding whether this
