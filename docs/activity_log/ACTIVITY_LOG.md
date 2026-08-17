@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Gold-Set Exemplar Grading Pipeline Reviewed for AP Statistics: Reader Data Complete But False-Accept-Rate Certification Never Computed — 2026-08-17
 - P0-B Publish Gate Implemented; 130 Published-but-Unapproved Items Retired; Gold-Set Rubric-Ordering Defect Found (5 Items) and Fixed — 2026-08-08
 - All 69 Remaining Physics approve_with_edits Items Repaired Against Saood's Notes (Full Backlog Now Zero) — 2026-08-08
 - CONTENT_AUTHORING_AND_QA_PROTOCOL.md v0.3: New §9 Documents Existing-Content QA via Independent Re-derivation, Including the Pool-Selection Yield Data and Remediation-Mechanics Gotchas from This Session — 2026-08-08
@@ -79,6 +80,81 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## Gold-Set Exemplar Grading Pipeline Reviewed for AP Statistics: Reader Data Complete But False-Accept-Rate Certification Never Computed — 2026-08-17
+
+**Task:** Read-only review, requested by David: assess the DECISION-0045
+gold-set exemplar-grading pilot as run against AP Statistics, summarize
+learnings and actions taken, and recommend what should run next to tell
+whether the work is productive. No code, data, or Production changes made.
+Full record: `docs/research/GOLD_SET_STATISTICS_EXEMPLAR_REVIEW_2026_08_17.md`.
+
+**Headline finding.** AP Statistics reader data is now 100% complete and is
+the only subject in the corpus in that state — Set A 60/60 assignments
+reviewed, Set B 80/80 reviewed, both 0 pending, per
+`GOLD_SET_GENERATION_PROTOCOL.md` §8's 2026-08-12 snapshot. But the
+pre-registered decision rule the whole pilot exists to produce — the
+reader-measured false-accept rate against DECISION-0045's ≤5%/5–15%/>15%
+certification gate — **has never been computed.**
+`TASK-0022-AP-STATISTICS-MULTIPOINT-RUBRIC-DEFECT.md`'s own acceptance
+criteria still show "False-accept rate computed once both readers complete
+their pass" unchecked, and no certification report or `pilot_results.jsonl`
+exists anywhere in the repo. The expensive step (AI generation, blind
+two-family verification, 100% cold reader marking across 140 answers) is
+done and paid for; the analytical step that turns it into a certified/
+not-certified decision was never taken, despite requiring no new API calls
+or reader time.
+
+**Learnings recorded in the review, condensed:**
+- Stage 1 (2026-08-03) script compliance was 30/48 (62.5%), worse than the
+  prior informal 5/10 measurement, concentrated in A4 (1/6) and A6 (1/6—
+  the "sounds right but shouldn't earn credit" probe); A2 (unconventional-
+  phrasing full credit, the probe DECISION-0045 exists to protect) hit 6/6.
+  DeepSeek was the weak writer family (7/16) against Google/Anthropic
+  (~12,11/16).
+- Kimi was empirically eliminated as a verifier-family candidate (0/20 valid
+  schema calls, settling a previously unwritten recollection); DeepSeek took
+  the third slot by elimination, not by testing well.
+- The pilot surfaced, not just tested against, a real structural defect:
+  all 573 published AP Statistics FRQ criteria were uniformly
+  `points_possible=1`, meaning the element-decomposition-confirmation step
+  had never run for this subject. TASK-0022 fixed this for a 4-item pilot
+  slice plus 9 more items in a pass-2 full-corpus scoping pass (published),
+  leaving 3 items deliberately unchanged as genuinely atomic.
+- The reader step caught a live, real defect (rubric-element display-order
+  scrambling across 5 published items, found by Jill 2026-08-08, fixed and
+  verified not to have corrupted Saood's already-submitted marks) — direct
+  evidence the cold-reader-verification design is doing real work, not
+  ceremony.
+
+**Recommended next steps, in priority order (detail in the linked review):**
+1. Compute the false-accept rate on the existing 140-answer Statistics
+   sample now — no new cost, and overdue relative to the data on hand.
+   Report A2/A6 separately per the pilot's own emphasis, plus by writer
+   family and Set A vs. Set B.
+2. Re-check whether Statistics-only data (140 reviewed, up from 48 when the
+   original ~110-combined-with-Physics target was set) can support its own
+   certification bound, rather than assuming Physics completion is still a
+   blocking prerequisite.
+3. If Physics is still required, finish Stage 2 — Physics C: Mechanics is at
+   0/28 reviewed and the other three Physics courses are 20-30% reviewed;
+   this is reader-time-bound on Saood, not a pipeline question.
+4. A prompt-level A4/A6 regeneration test, checked only against the existing
+   blind two-verifier harness (no reader cost), to test the standing
+   hypothesis that the compliance gap is prompt-level, not model-level.
+5. Gate any full-corpus remediation of the remaining ~169 uniformly-1pt
+   Statistics items on the certification result landing first, not ahead
+   of it.
+
+**Files/systems changed:**
+`docs/research/GOLD_SET_STATISTICS_EXEMPLAR_REVIEW_2026_08_17.md` (new),
+this entry. No Production, migration, or code changes.
+
+**Next Owner:** David Bloom (decide priority against reader/agent time);
+whoever picks up the false-accept-rate computation as the concrete next
+action.
 
 ---
 
