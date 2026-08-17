@@ -11,6 +11,7 @@ export const GROWTH_EVENT_NAMES = [
   "returned_day_7",
   "checkout_started",
   "purchase_completed",
+  "purchase_refunded",
   "referral_shared",
   "referred_trial_started",
   "referred_purchase",
