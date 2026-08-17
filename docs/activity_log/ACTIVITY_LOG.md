@@ -6,6 +6,30 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Session Closeout (2026-08-16 → 2026-08-17): UAT → TASK-0018 Execution → Onboarding Redesign → Design-System Restyle — Six Production Bugs Found and Fixed, Two DB Migrations, Nine Frontend Deploys, All Owner-Approved Before Publish — 2026-08-17
+- Restyled HomeV2 onto the Real Cramapple Design System — It Was the Only Real Page Not Using --ca-*/--cv-* Tokens; Half Its CSS Referenced Custom Properties That Don't Exist Anywhere in the Codebase; Also Found a Lightning CSS Comment-Parsing Bug Along the Way — 2026-08-17
+- Found and Fixed the Reason Every Real Practice Session Was Failing: entry_path CHECK Constraint Never Matched the Frontend's Values, for Any Student, Ever; Also Fixed /session/setup Silently Ignoring Its Own URL Params — 2026-08-17
+- /home Layout Bug Fixed: CSS Grid Sizing Overflow Only Triggered by Real Unit Data (First Time Any Environment Had Enough Units to Hit It) — Reproduced and Verified in Isolation Before Publishing — 2026-08-17
+- Onboarding Funnel Redesign: Fixed a Real Bug Making /home Always Show "Choose Your Subject" (profiles.id vs .user_id); Purchase/Trial Now Land on /home Directly, Subject Persists Server-Side at Checkout, One-Question Inline Picker Replaces the /setup/subject Wizard, /setup-paused Retired — 2026-08-17
+- HomeV2 Fixed to Show Student Name and Exam Countdown for First-Time Visitors, Not Just Returning Students — Matches TASK-0018's Own North-Star Goal; Published Live — 2026-08-16/17
+- TASK-0018 Status Check: Migration Batch and Staff-QA Setup From 2026-08-02 Confirmed Still in Place (Flags Now Expired); Gated the Publicly-Reachable `/proto/*` Prototype Behind Reviewer Auth; Found and Corrected the Real cramapple.com Deploy Path (Lovable/Cloudflare, Not Vercel-on-Push) — 2026-08-16
+- UAT of the Trial Signup Flow (TASK-0026) Found and Fixed a Stale "Free Score Check" Nav Label on `/trial` and `/trial/verify`; OTP Send Confirmed Working via Production Auth Logs — 2026-08-16
+- QR-Materiality Round 1 Instrumentation Built and Shipped — Device-Class/Camera-Capability Signal Now Fires on Real Hand-Drawn Capture Steps; Discovered PostHog Never Actually Loaded in Production Before This — 2026-08-15
+- QR-Materiality Scoped + `/session` Real-Content Rewire Shipped — Found select_unit_gated_practice_items Returns Zero Rows Everywhere (Unvalidated Taxonomy Labels), Fell Back to the Proven FRQ Selector Per Owner Direction — 2026-08-15
+- TASK-0025: Real Submit-to-Graded-Response Pilot Built End-to-End — Production Migration + Functions Deployed, Manual-Grading Operation Verified Against Real Content, Frontend Pilot Routes Built (Uncommitted) — 2026-08-15
+- TASK-0025: Response-Attachment Migration Applied to Development and Integration Test Passed (7/7 Checks) — Production Still Untouched, Pending Explicit Go-Ahead — 2026-08-15
+- TASK-0025 Opened: Hand-Drawn Capture Attachment Schema and Binding Implemented (Repository Only) — Response-Image Table, Immutability/Retake-Lineage Enforcement, Server-Side Upload Validation — 2026-08-15
+- Engine 4 Stage D1 Complete: Found 6 of 7 Spatial Record-Type Contracts Already Built (Undocumented), Closed the Gap (feedback_result) and the Citation-Integrity Fail-Closed Requirement — 2026-08-14
+- APBIO-HDG-2026-GRAPH Mistagging Fixed: 18 Rows (12 Content Keys, 4 Published) Retagged discrete_text→spatial, Closing the Engine-1-Grades-Spatial-Content Gap Found in the Engine 4 Scope Note — 2026-08-14
+- Engine 4 Scope Note (Stage D0): Zero Evidence Above Development-Only Exists; Found 12 (Not 5) Mistagged Published AP Biology Spatial Items Still Routing to Engine 1 — 2026-08-14
+- Engine 3 Stage B: First Real Published Item (APSTATS-SFRQ-003) Routed to Production Shadow, Full ECF Cascade Verified End-to-End with Structured Input — 2026-08-14
+- Engine 3 P0 Shipped: Governed prompt_json.verification_profile Loader + Publish-Time Validator + Shadow-Result Capture Column (evaluate-attempt v50) — 2026-08-14
+- QA (Codex) Caught Two Real Errors in the Engine-1 Go-Live Round: cramapple.com (the Real Production Domain) Still Had No CORS Access, and the Entitlements Claim Was Factually Wrong; Both Corrected and Reverified — 2026-08-14
+- Frontend Verification Found a Real Production-Blocking CORS Bug (ALLOWED_ORIGINS Missing cramapple.vercel.app), Fixed and Confirmed End-to-End Through the Live App — 2026-08-14
+- Two Engine-1 Go-Live Decisions Resolved: Entitlements Flag Stays Off (Turning It On Would Currently Block All Real Students, Not Gate Them), and No Runtime Escalation to a Human Ever, Firm Policy — 2026-08-14
+- Codex QA Caught a Real Regression in the P0 Grounding Fix (Single-Fragment Elision False-Positive) Plus a Log-Privacy Issue; Both Remediated and Redeployed (v46→v47); Governance Recorded as DECISION-0046/APPROVAL-0043 — 2026-08-14
+- P0 Evidence-Grounding False-Alarm Repair Shipped (evaluate-attempt v44→v45): 6 of 10 Classified False Alarms Fixed via Punctuation/LaTeX/Truncation Normalization, Zero Fabrication Risk, Verified Live On/Off — 2026-08-14
+- TASK-0016 Amended: Codex Second-Opinion Review Adopted — Criterion-Level Router Framing, Five Production Authority Stages, Latency Hard Gate Retired, Evidence-Grounding Repair Named P0 — 2026-08-13
 - Grading-Engine Replan Consolidated Into the Three "Read First" Docs: Ledger, Cross-Subject Lessons, and Handoff All Updated So Today's Findings Are Discoverable, Not Just Logged — 2026-08-13
 - TASK-0024 Opened: Free Score Check Launch Package Verified Locally; Production Remains Fail-Closed Pending Visual Gate, Edge Function, Candidate Selection, OTP/Report Smoke, and Rollback Evidence — 2026-08-13
 - Grading-Engine Replan Step 3 Run B/C Complete: Run B Closed Pre-Spend (Prompt Too Short to Cache), Run C Found Arm A Slower Than Arm B on gpt-4.1-mini, Not Faster as Pre-Registered — 2026-08-13
@@ -96,6 +120,890 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 ---
+
+## Session Closeout (2026-08-16 → 2026-08-17): UAT → TASK-0018 → Onboarding Redesign → Design-System Restyle — 2026-08-17
+
+**Arc of the session, in order:** started as a UAT pass on TASK-0026's trial signup flow, which surfaced a stale nav label; pivoted into executing TASK-0018 (found its own doc stale — migrations already applied 2026-08-02, staff-QA flags now expired — and gated the publicly-reachable `/proto/*` prototype); a personalization gap in `HomeV2` led to fixing a real `profiles.id`-vs-`user_id` bug that had `/home` permanently stuck in its empty state; the owner then redirected the onboarding funnel (purchase/trial land on `/home` directly, no redundant subject wizard); a follow-up screenshot found a CSS Grid overflow bug only triggered by real unit data; clicking through from `/home` found that **every real practice session was failing** (an `entry_path` CHECK constraint that never matched the frontend, for any student, ever) plus a `/session/setup` route that silently ignored its own URL; and the session closed with a full restyle of `HomeV2` onto the real, documented Cramapple design system after the owner pointed at the live `/style-guide` page.
+
+**Bugs found and fixed, all pre-existing (not introduced this session), all confirmed via direct evidence (logs, schema, or reproduction) rather than guessed:**
+1. Stale "Free Score Check" nav label on `/trial`/`/trial/verify` (TASK-0026 leftover).
+2. `/proto/*` publicly reachable with zero auth, serving fabricated student data.
+3. `HomeV2`'s zero-evidence state hid the student's name and exam countdown.
+4. `home.functions.ts` filtered `profiles` on a column (`id`) that doesn't exist — `/home` always showed "Choose your subject" regardless of real state.
+5. `.home2` CSS Grid had no explicit column sizing — real unit data (8 units) overflowed the whole grid past its container.
+6. `app.learning_sessions.entry_path` CHECK constraint never matched any value the frontend has ever sent — every session-start failed, unconditionally, for every student.
+7. `/session/setup` had no `validateSearch` — the URL params `/home`'s diagnostic button sends were completely inert.
+8. `HomeV2`'s CSS referenced `--card`/`--border`/`--card-foreground`/`--foreground`/`--background` — undefined anywhere in the codebase — plus a locally-invented dark palette matching no other real page.
+
+**Also found, not a Cramapple bug:** the actual `cramapple.com` deploy path is Lovable's own publish action (Cloudflare), not a Vercel git-integration build and not automatic on `git push` — corrected in memory after one fix sat live-on-`main`-but-unpublished for hours early in the session.
+
+**Production changes:** 2 additive DB migrations (`widen_learning_sessions_entry_path` on Dev then Prod; the entitlement/trial work predates this session). 9 frontend commits to `exam-buddy-wireframe` `main`, each typechecked/built/tested before push, each published individually via Lovable's `deploy_project` with explicit owner approval beforehand and live-bundle verification afterward — never assumed "pushed" meant "deployed" after the first false claim was caught and corrected.
+
+**Explicitly deferred, not silently dropped:** `returned_day_2`/`returned_day_7` growth events and the Loops lifecycle program (TASK-0026, pre-existing gaps, untouched); staff QA and the `HOME_V2_GLOBAL_ENABLED` Vercel flag for TASK-0018 (human-only steps, flag assignments now need refreshing); `session.setup.tsx`'s mode/minutes preference (pre-existing `TODO`, local-only); `src/routes/account.tsx`'s apparent pre-migration schema references (flagged, not fixed — outside what was asked).
+
+**Next Owner:** David Bloom.
+**Next Required Action:** confirm `/home` and the diagnostic flow look and work right in a real click-through; decide whether to refresh the `home-v2` staff-QA flag assignments to resume TASK-0018's staff-validation gate.
+
+## HomeV2 Restyled onto the Real Cramapple Design System — 2026-08-17
+
+**Task:** Owner follow-up after the layout/bug fixes: "The home page design looks unfinished. That is not how it was visually designed."
+
+**Investigation:** the owner separately pointed at `https://cramapple.com/style-guide` — a real, live, authoritative "Cramapple Design System" page documenting the `--ca-*` token set (Newsprint: cream `--ca-bg-base`, ink text, cobalt `--ca-action` for primary CTAs, Plus Jakarta Sans). Cross-referenced against `HomeV2`'s CSS (`.home2-*` in `src/styles.css`) and found two compounding problems: (1) the hero used a locally-invented, one-off oklch palette (dark gradient card) that matched neither `/style-guide` nor `/proto/home`'s own reference mock nor any other real page (trial, checkout, login all correctly theme off `--ca-*`/`--cv-*`); (2) the cards and unit strip referenced `var(--card)`, `var(--border)`, `var(--card-foreground)`, `var(--foreground)`, `var(--background)` — confirmed via repo-wide search that **none of these custom properties are defined anywhere in this codebase** — so those surfaces silently rendered with no real background, border, or text color at all. That combination is what read as "unfinished."
+
+**Fix:** rewrote every `.home2-*` rule to use the same `--ca-*`/`--cv-*` recipe already used correctly elsewhere — `--ca-bg-elevated` + `--ca-border` + `--cv-shadow-sm` for card surfaces, `--ca-action`/`--ca-action-emphasis` for the primary CTA (cobalt, "primary CTAs and 'do this next' moments" per the style guide), `--ca-font-sans` throughout. Verified by serving the actual compiled `styles.css` locally against representative HomeV2 markup and screenshotting before/after — not just reasoning about the CSS.
+
+**Build bug found and fixed along the way (unrelated to the design work itself, but blocked shipping it):** the first version of this change failed `npm run build` with `[@tailwindcss/vite:generate:build] Invalid custom property, expected a value` — no line number, and `tsc`/dev-server/lint all stayed clean, making it look unrelated to the CSS edit. Bisected via bracket-depth-aware chunk splitting and bisection to the true cause: a `/* comment */` containing slash-separated custom-property-looking text (`--card/--border/--card-foreground/--foreground/--background`) breaks Lightning CSS's parser even though it's inside a comment. Simplifying the comment fixed the build with no other changes. Recorded as a memory note — this will recur if a future comment uses the same slash-separated `--foo/--bar` pattern, and `npm run dev` will not catch it.
+
+**Shipped:** `a8cbd14`, published live via Lovable `deploy_project`, owner-approved; confirmed live via the deployed CSS bundle directly.
+
+## Every Real Practice Session Was Failing to Start: entry_path Never Matched Between Frontend and DB — 2026-08-17
+
+**Task:** Owner-reported bugs from clicking through the just-fixed `/home`: the "Start diagnostic" CTA sent `mode=starter&minutes=10` in the URL but `/session/setup` rendered a hardcoded "Focused, 30 min" instead, and a direct `/session` visit showed "Could not start a session: Edge Function returned a non-2xx status code."
+
+**Root cause of the crash, confirmed via production edge function logs cross-referenced against the schema (not guessed):** `session-event` inserts into `app.learning_sessions`, whose `entry_path` CHECK constraint only ever allowed `'recommend' | 'topic' | 'check_work' | 'bring_question'`. `exam-buddy-wireframe`'s `SessionContract.entryPath` type has only ever produced `'recommendation' | 'self_guided_topic' | 'self_guided_format'` — zero overlap. Every session-start insert violated the constraint, on every entry path, for every student, unconditionally — this is not scoped to the new Home diagnostic flow, it's the entire practice-session pipeline. A separate, apparently-dead legacy `sessions` table (distinct from `learning_sessions`) has its own `entry_path` constraint that matches the frontend's spelling exactly, suggesting `session-event` was migrated to `learning_sessions` at some point without the frontend being updated to match. Verified via `pg_get_constraintdef` directly, and via the real 400 in `function_edge_logs` for `auth_user f5a26c6b-...` (the owner's real account) at `2026-08-17T01:45:35Z`.
+
+**Fix (owner chose: widen the DB, not remap the frontend):** additive migration `20260817015400_widen_learning_sessions_entry_path` adds the frontend's three real values to the existing four-value constraint. Verified on Development first, then applied to Production; confirmed both via `pg_get_constraintdef`. Also checked `session_mode` and `practice_format` constraints on the same table for the same class of drift — both already matched the frontend exactly, so no further gaps on this table.
+
+**Separate, compounding bug:** `/session/setup` had no `validateSearch` and never called `useSearch()` — the query string HomeV2 sends (`minutes`, `mode=starter`, `unit`, `frqLength`) was completely inert; the page always fell back to its own hardcoded `useState` defaults. Fixed by adding `validateSearch` and, when `mode=starter`, skipping the interactive wizard entirely and constructing a `SessionContract` directly from the URL — Home already decided unit/minutes/format; re-asking via the wizard was the actual bug, not just a cosmetic mismatch. `"starter"` isn't a real `SessionMode` (the DB only knows `quick`/`focused`/`buckle_down`) so it's stored as `"quick"`; the real duration always comes from the URL regardless of bucket label.
+
+**Also, per owner request:** removed the redundant unit-selector dropdown from `HomeV2`'s hero (duplicate of the "Jump to a unit" section directly below), and renamed the first-session CTA from "Start first practice" to "Start diagnostic" — that first session *is* the diagnostic, named as such.
+
+**Not done — explicitly scoped separately per owner direction:** bringing `/home`'s visual design in line with the `/proto/home` reference ("looks unfinished," in the owner's words). Needs its own investigation before a plan, not a same-session guess.
+
+**Shipped:** DB migration applied directly to Prod (blocking bug, additive/low-risk). Frontend: `ef4e530`, published live via Lovable `deploy_project`, owner-approved.
+
+## /home Layout Bug: CSS Grid Overflow Only Visible Once Real Unit Data Existed — 2026-08-17
+
+**Task:** Owner-reported "/home is not rendering correctly, the components look busted," with a screenshot from a real authenticated session (David's own account, AP Biology active) showing the hero card and "Jump to a unit" strip overflowing off the right edge of the browser with no visible scroll affordance.
+
+**Investigation detour, reported honestly rather than left implicit:** before finding the real bug, spent time chasing what looked like a session/auth-persistence failure (`loadStudentHome` returning `"Unauthorized: No authorization header provided"`, empty `localStorage`) while trying to reproduce `/home` myself with disposable trial test accounts (`dbloom01+uattest{2,3}@gmail.com`, magic links fetched via Gmail search and replayed). Root cause of *that* dead end: the plaintext/HTML email body extraction tool garbled the `=` character in the magic-link token (rendered as a control character or `%3f`), so every reconstructed link used a corrupted token and failed with `otp_expired`/`access_denied` — confirmed via `location.href` showing the Supabase error fragment. This was a test-tooling artifact, not a production bug; David's own real session clearly authenticates fine. Flagging so a future session doesn't waste time on the same false lead — when replaying a magic-link URL fetched via the Gmail tool, verify the token substring some other way (e.g., length/charset sanity check) rather than trusting the extracted `=` is really an `=`.
+
+**The real bug:** `.home2` (`src/styles.css`) is a CSS grid with `display: grid` and no explicit `grid-template-columns` — defaults to a single implicit track sized by `auto`, which takes the *min-content width of its widest child* as a floor, not the parent's available space. The horizontally-scrollable "Jump to a unit" strip (`.home2-units`, one 190px flex item per unit) has a large min-content width once a subject has real published units — AP Biology now has 8. That pushed the entire `.home2` grid track, hero card included, past `.cm-content`'s `max-width: 760px` box instead of staying inside it and letting `.home2-units` scroll internally as its own `overflow-x: auto` was designed to do. No dev/test environment had ever had enough real units on a subject to make the min-content width exceed 760px, so this had never been visually triggered before — same pattern as tonight's other two bugs (`profiles.id` vs `user_id`, the stale FSC nav label): each one only became visible once a real end-to-end path with real data finally ran.
+
+**Fix:** `grid-template-columns: minmax(0, 1fr)` on `.home2` (the standard fix for this exact CSS Grid sizing trap — caps the track at available space instead of the content's natural minimum) plus `min-width: 0` on the two grid-item sections (`.home2-hero`, `.home2-card`) to remove the same default-minimum trap at that level. **Verified before publishing**, not just reasoned about: reproduced the exact markup/CSS structure in a local static HTML file served over `http://localhost`, screenshotted the overflow with the old CSS, then screenshotted it resolved with the new CSS — both matching the reported screenshot and its fix precisely.
+
+**Shipped:** `b615546`, published live via Lovable `deploy_project`, owner-approved.
+
+## Onboarding Funnel Redesign: Real /home Bug Fixed, Purchase/Trial Land on /home Directly, /setup/subject and /setup-paused Retired From the Primary Path — 2026-08-17
+
+**Task:** Owner feedback after screenshots of `/home` showing "Choose your subject" (despite AP Biology already selected in the nav) and `/setup-paused` showing "Subject: —". Owner directive: purchase/trial should land on `/home` directly (not `/account-created`, not a subject-picker wizard), the diagnostic should launch from home, and students should never need to explicitly "save their place."
+
+**Root cause of the reported bug (confirmed, not architectural):** `loadStudentHome`/`setCoursePosition` (`src/lib/home.functions.ts`) filtered `public.profiles` on `.eq("id", userId)` — that column does not exist on the view (only `user_id` does, per `20260731160000_schema_baseline.sql` and every later profiles-touching migration). The Supabase error was silently discarded, so the query always resolved to `null` and `/home` always fell into `status: "no_subject"`, regardless of what `profiles.active_exam_pack_version_id` actually held. The nav's `SubjectSwitcher` and the `/setup` wizard both correctly used `user_id` the whole time, which is why the subject looked "selected" everywhere except `/home` itself. Fixed both occurrences; errors now throw instead of being swallowed.
+
+**What else the investigation found**, before making any further change:
+- Real durable persistence already exists for the pieces that matter — `profiles.active_exam_pack_version_id` (subject), `student_course_position` (unit), `sessions`/`attempts` (live-session resume, evidence). `/setup-paused` ("Your setup is saved… Resume setup") was backed by nothing real — just a `localStorage` flag (`setupStatus: "deferred"`) around state that was already sitting in `localStorage` the entire time. Its "Subject: —" bug was a second, related symptom: it read `usePrototypeState.activeSubject` (local-only, rarely populated) instead of the real `active_exam_pack_version_id`.
+- Checkout already lets a student pick a subject in the cart, but that choice only ever reached `localStorage` (`checkout.success.tsx`), never `profiles.active_exam_pack_version_id` — so routing to `/setup/subject` afterward was asking the student to re-confirm a choice already made, not filling a real gap.
+- Trial is different: it intentionally grants every subject at once (TASK-0026 pivot), so there genuinely is no "the subject" at trial-signup time — confirmed via owner direction to ask once, inline, on `/home` itself rather than a separate wizard page.
+- `/account-created` (default post-login landing with no `?redirect=`) was never actually in the checkout or trial path — but its own CTA still pointed at `/setup/subject`, worth aligning for consistency.
+
+**Shipped** (`exam-buddy-wireframe`, 4 commits — `6267d8c`, `b7d1555`, `a19bb7b`, all reviewed for `tsc`/build/vitest clean, formatting diffed against pre-existing baseline to avoid bundling the repo's known ~4,170-error prettier debt into this change):
+- `home.functions.ts`: `id` → `user_id` fix, errors no longer swallowed.
+- `checkout.success.tsx`: persists the cart-chosen subject to the real profile column via the same `completeOnboarding`/`setActive` RPCs `/setup/subject` used (normalized through `canonicalSubjectKey` — the checkout subject-slug space and the RPC's `subjectKey` space use different spellings, e.g. `"biology"` vs `"ap_biology"`); routes straight to `/home`.
+- `HomeV2.tsx`: `NeedsSubject` is now an inline one-question picker (reuses `useActiveSubject()`, auto-selects silently when only one subject is available, same as the old wizard) instead of a link to `/setup/subject`.
+- `_ux.setup.index.tsx` / `_ux.setup-paused.tsx`: removed the "Finish setup later" button; `/setup-paused` now redirects to `/home` (kept as a redirect, not deleted, so old links/bookmarks don't 404).
+- `trial.tsx`, `trial.verify.tsx`, `account-created.tsx`: all three post-signup landing points now route to `/home` instead of `/setup`/`/setup/subject`.
+
+**Not done / explicitly out of scope this round:** `session.setup.tsx`'s mode/minutes preference is still local-only (pre-existing `TODO`, not touched); `src/routes/account.tsx` appears to reference a pre-migration `profiles` schema and is likely also broken, flagged but not fixed (outside what was asked). One pre-existing, already-uncommitted, unrelated failing test (`src/lib/__tests__/session-setup.test.ts`, present in the working tree before this session started) was left alone — not touched by any of these changes.
+
+**Published:** confirmed live via Lovable `deploy_project`, owner-approved before each publish per the corrected deploy path from the prior TASK-0018 entry.
+
+## HomeV2 Fixed to Show Student Name and Exam Countdown for First-Time Visitors — 2026-08-16/17
+
+**Task:** TASK-0018 follow-up, prompted by owner feedback that `/home?home=v2` wasn't showing "the student's name, selected subject, test date and days until the test, expected unit, and all personalization shown in the design."
+
+**Investigation:** `StudentHomeSnapshot` (`src/lib/home-snapshot.ts`) and `loadStudentHome` (`src/lib/home.functions.ts`) already compute all of this from real data — student first name, subject display name, `official_exam_date`/days-to-exam, and course position/expected unit. `HomeV2.tsx` already renders subject name, unit position, and point capture unconditionally. The actual gap: the `experienceStage === "new"` branch (zero graded evidence — the state QA/staff accounts are deliberately reset to) replaced the days-to-exam eyebrow with generic "You're ready to begin" copy and dropped the student's name from the heading entirely ("Let's get your first useful signal." with no greeting). Neither omission was a "no invented progress" safeguard — identity and exam date are real facts known regardless of evidence level — so first-time visitors, which is most test accounts, got a page that didn't meet TASK-0018's own stated goal ("knows who they are... how long until their exam").
+
+**Also found in passing:** the client-side `home-v2` rollout mechanism actually in the code (`src/lib/feature-flags.ts`, `?home=v2` query override + localStorage + `VITE_HOME_V2`) is simpler than and different from what `TASK-0018-PROTO-TO-HOME-MIGRATION-AND-V1-DEPRECATION.md` describes (`resolveHomeV2Rollout`, `readHomeV2ClientOverride`, server-gated via `HOME_V2_GLOBAL_ENABLED` + `feature_flag_assignments`) — those named functions don't exist anywhere in the repo. Another confirmation the migration doc describes an earlier or different design than what actually shipped; don't trust its implementation details without checking current code.
+
+**Fix:** eyebrow now always shows the real exam countdown (or off-season state) regardless of stage; the "new"-stage heading now greets the student by name. The stage-conditional CTA label and "what happens next" vs "where you are" cards are unchanged — that differentiation is intentional, not a personalization gap. `tsc --noEmit` and `npm run build` clean. Pushed to `main` (`26caadd`).
+
+**Published:** owner confirmed publish via the Lovable `deploy_project` action (same corrected deploy path found in the prior entry); verified live by fetching the deployed `_ux.home` JS chunk directly and confirming the new copy string is present and the old placeholder string is gone.
+
+---
+
+## TASK-0018 Status Check: Confirmed Prior Progress, Gated the Public Prototype, Corrected the Production Deploy Path — 2026-08-16
+
+**Task:** TASK-0018 (Hard-Gate). **Status:** Unchanged at the Hard-Gate boundary — still blocked on human-only steps. One non-gated urgent fix (Stage 6.1) shipped.
+
+**Doc is stale — re-verified against live state before acting.** `TASK-0018-PROTO-TO-HOME-MIGRATION-AND-V1-DEPRECATION.md` is dated 2026-07-31 and reads as if Stage 1 (apply migration batch) hasn't happened; the Activity Log already shows it was applied 2026-08-02 (17 migrations, `TASK-0018/0019 Released to Production`). Re-checked current Production state directly rather than trusting either document:
+
+- `app.home_release_manifest`: AP Biology row has `quick_start_enabled=true`, 8 allowed units, set up 2026-08-03/04. Statistics row still `quick_start_enabled=false`.
+- `app.feature_flag_assignments` (`home-v2`): 4 rows (David, Orly Bloom, Micah Bloom, ibtisam mohammed) — all **expired 2026-08-10**. Staff QA (`TASK-0018-PRODUCTION-STAFF-QA-SCRIPT.md`, 10 scenarios, 5 non-waivable) was never recorded as completed before the 7-day window closed.
+- No tool access to read or set Vercel's `HOME_V2_GLOBAL_ENABLED` — this remains a human-only step, as the 2026-08-02 entry already flagged.
+
+**What's actually blocking:** the same two items named 2026-08-02 — setting the Vercel/Cloudflare env flag, and a human running authenticated staff QA as one of the four named testers (their credentials, can't be done by an agent). Both are outside what this session can execute. Flag assignments will need refreshing (new `expires_at`) before staff QA can run again.
+
+**Non-gated fix shipped:** the plan's own Stage 6.1 calls for gating `/proto/*` "now, ahead of the other stages" — confirmed live and exploitable: `https://cramapple.com/proto/home` was publicly reachable with zero auth, rendering a fabricated "Maya" student ("268 days to AP Bio exam", fake progress/points) inside the real product shell. Moved all seven `proto.*` route files under the existing `_authenticated` pathless layout (same guard already protecting `reviewer.*` and `prototype.dashboard.*` — redirects to `/tutor-login`); URLs unchanged. `tsc --noEmit` and `npm run build` clean; confirmed locally that unauthenticated `/proto/home` now redirects to the Reader & Tutor Portal sign-in. Pushed to `main` (`5c560e0`).
+
+**Real finding: the production deploy path was wrong in this session's own assumptions and in stored memory.** Discovered when neither `5c560e0` nor the earlier trial nav-label fix (`9dd0885`) showed up on `cramapple.com` after pushing to `main` and waiting for what looked like a normal Vercel build to go `READY`. Root cause: `cramapple.com` resolves to Cloudflare (`server: cloudflare` header, `x-deployment-id` header) via **Lovable's own publish pipeline**, not the `bloom-llc/cramapple` Vercel project — that Vercel project's domain list doesn't include `cramapple.com` at all; it's a parallel GitHub-integration build that isn't what's actually live. Pushing to `main` does not auto-publish the custom domain. Confirmed via the Lovable MCP (`list_projects` → `exam-buddy-wireframe`, `d334fed9-5a97-4e76-906e-7c0ad7082212`) and fixed by calling its `deploy_project` action (owner-approved before calling, since publishing to a live custom domain is a real production action) — both fixes verified live immediately after (fresh browser tab, bypassing a stale-JS-bundle false negative in the first check). **Follow-up needed:** the memory note on frontend deploy topology says "merging to main deploys production" — wrong, or at least incomplete, and should be corrected so future sessions don't repeat the false "deployed" claim this session initially made.
+
+## UAT of the Trial Signup Flow (TASK-0026) Found and Fixed a Stale "Free Score Check" Nav Label — 2026-08-16
+
+**Task:** TASK-0026 UAT. **Status:** Fix live on Production (`cramapple.com`), confirmed by direct re-check.
+
+**What was tested:** live click-through of `cramapple.com` → `/trial` (email + consent form) against Production. Submitted with a real disposable-alias test address; confirmed via `pcntajvbdfqhbeewmdry` auth logs that Supabase returned `200` on `POST /otp` (`user_confirmation_requested`) — the OTP send itself works end to end. Did not complete `/trial/verify` (no inbox access to click the real magic link).
+
+**Bug found:** `src/components/score-check/Shell.tsx` — the shared shell used by both `/trial` and `/trial/verify` still hardcoded the retired Free Score Check funnel's nav label (`<span>Free Score Check</span>`), visible to every new trial visitor on the page that's supposed to be selling the trial. Leftover from TASK-0026 repurposing this shell for the new flow without updating its copy.
+
+**Fix:** label changed to "7-Day Free Trial"; comment updated to note the shell now serves the trial funnel. `tsc --noEmit` clean, `npm run build` clean. Pushed to `main` (`9dd0885`).
+
+**Correction (found during the TASK-0018 session immediately after):** this entry originally claimed the fix was "deployed via Vercel" on push — wrong. `cramapple.com` is actually served by **Cloudflare Workers via Lovable's own publish pipeline**, not the Vercel git-integration project (that Vercel project has no `cramapple.com` in its domain list at all — it's a separate, effectively-unused build). Pushing to `main` does not auto-publish the custom domain; an explicit publish (Lovable's `deploy_project`) is required. This fix sat unpublished on `main` for several hours until that was discovered and corrected — see the TASK-0018 entry below for the full finding and the publish that shipped both fixes together. **Repo-wide implication:** any future frontend fix claimed "deployed" on push alone should be re-verified live, not assumed — until this deploy topology is written up as a memory/doc correction.
+
+**Not yet covered by this UAT pass:** the `/trial/verify` → `startTrial()` → `/setup` leg (needs a real magic-link click), and confirming `growth_event_outbox.delivered_at` populates for `trial_started` (flagged as open in TASK-0026 before this session).
+
+## QR-Materiality Round 1 Instrumentation Built and Shipped — 2026-08-15
+
+**Task:** QR-materiality question (TASK-0020 Program B handoff). **Status:** Round 1 instrumentation live in `main` (`exam-buddy-wireframe`); zero data collected yet (needs real traffic + a later query pass). Round 2 and the decision itself not started.
+
+**What shipped:** `src/lib/device-capability.ts` (`getDeviceClass` — mobile/tablet/desktop via Client Hints with a UA-regex fallback, no raw UA ever captured; `supportsCameraCaptureAttribute`) and a new PostHog event `hand_drawn_capture_reached` (allow-listed `device_class`/`camera_input_supported` only), fired once per session from `CaptureItem.tsx`'s mount — the one place every hand-drawn capture path (the `hand_drawn` question kind and the optional-photo FRQ attach flow) reaches a capture step. This is live on real student traffic today even though the underlying question content is still the mock `/session` pipeline — the device is real regardless of whether the question is.
+
+**Real finding along the way:** `initPostHog()` had no caller on any route where PostHog isn't explicitly disabled — its only existing call site was `free-score-check.index.tsx`, and `/free-score-check` is on `posthog.ts`'s own disabled-route list. So the PostHog SDK effectively never loaded in production before this change, on any route. `captureHandDrawnCaptureReached()` now triggers `initPostHog()` itself, closing that gap incidentally.
+
+**Verification:** 9 new unit tests (device classification) + 2 new allow-list tests, all passing; `tsc --noEmit` clean; dev-server console-error check showed no new errors (no live PostHog project key in this environment, so the actual network capture call itself is unverified end-to-end). Pushed to `main` clean, no upstream conflicts this round. Full detail: `docs/research/QR_MATERIALITY_DEVICE_MATRIX_SCOPE_2026_08_15.md`.
+
+## QR-Materiality Scoped + `/session` Real-Content Rewire Shipped — 2026-08-15
+
+**Task:** TASK-0025 extension (QR-materiality scoping) + `/session` real-content fix. **Status:** QR-materiality scoped (not built). `/session` backend deployed to Dev and Production; frontend rewrite uncommitted; not click-through verified (no credentials).
+
+**QR-materiality scope:** `docs/research/QR_MATERIALITY_DEVICE_MATRIX_SCOPE_2026_08_15.md`. Zero existing device/camera analytics anywhere in the frontend (PostHog captures 4 marketing events only, explicitly disabled on the one route with real camera interaction) — needs new instrumentation, not a query. Two-round method proposed (UA device-class proxy, then a small consented follow-up only if desktop share is non-trivial), ~10% threshold proposed for Product Owner sign-off.
+
+**`/session` real-content fix — the actual finding that reshaped the plan:** `public.select_unit_gated_practice_items` (built 2026-08-04, migration `20260804190000_unit_gated_serving_selector.sql`) is real, MCQ+FRQ-capable, unit-gated — and has zero callers. Verified against Production with real data: it returns **zero rows for every subject and unit**, because it requires `label_status = 'validated'` taxonomy labels and across all 2,401 Production serving-scope labels, zero are validated (219 held, 1,319 legacy_unvalidated, 415 provisional_model, 90 stale — validation requires a real reviewer per a DB constraint). Also found Dev is missing the entire taxonomy-label-layer migration this RPC depends on. Surfaced this to the Product Owner before wiring anything in (would have shipped a real-looking selector that serves empty sessions to every real student); directed to fall back to the older, proven `select_practice_frqs` (FRQ-only, no unit-gating) for now, confirmed returning real rows on Production for a real exam pack.
+
+**What shipped:** `student-session-items` gained a `mode: "unit_gated"` branch (unused today, ready once labels are validated) plus MCQ choice-serving support (`_shared/student-item-delivery.ts`: `RenderItem.item_type`/`choices`, choice_key/choice_text only, never is_correct/rationale — 2 new tests plus the existing answer-leakage allow-list test updated, 192 total `_shared` tests passing); default `frq_only` behavior is byte-for-byte unchanged for existing callers. Deployed to Dev (first time — only existed on Production before) and Production (byte-identical, SHA-256-verified). `exam-buddy-wireframe`'s `src/hooks/use-session.ts` rewritten end-to-end: real `session-event`, real `attempt-response` (create/save/submit), real `student-session-items` (frq_only) for content, real `evaluate-attempt` for grading — replacing the placeholder `attempts`/`sessions`-table pipeline and the dead `GRADER_FUNCTION_VERIFIED`/`grade-frq` stub entirely. `rubric_version_id` passed as `content_item_version_id` (no separate rubric-versioning table exists; `evaluate-attempt` never validates this field, only records it — same pattern `free-score-check` uses with a pinned config value). `SessionFrame.tsx` gained honest `contentUnavailableReason` messaging instead of an infinite loading spinner.
+
+**Known real limitations, not silently dropped:** MCQ shows an honest fallback notice (FRQ-only selector); no unit-gating or topic targeting yet; no cross-session repeat-avoidance; not click-through verified by an authenticated user (no credentials available). Verified instead via `deno test`/`check`/`fmt` (192 passing), `tsc --noEmit` clean, real SQL confirmation of `select_practice_frqs` returning real Production rows, and a dev-server render check. Full detail: `docs/tasks/TASK-0025-HAND-DRAWN-CAPTURE-ATTACHMENT-SCHEMA.md`.
+
+## TASK-0025: Real Submit-to-Graded-Response Pilot Built End-to-End — 2026-08-15
+
+**Task:** TASK-0025 (extension). **Status:** Backend live on Development and Production; frontend pilot built and locally verified but uncommitted in `exam-buddy-wireframe`; no real end-to-end click-through yet.
+
+**Why:** the Product Owner's actual goal was narrower and more concrete than finishing Program A/B/C: get to where a real student can submit a hand-drawn answer and receive a real graded response. Investigation found no live frontend route does this for *any* item today — `/session` (`SessionFrame`/`use-session.ts`) writes to a placeholder `attempts`/`sessions` table unrelated to `app.attempts`, calls a `grade-frq` edge function that doesn't exist server-side, and serves hardcoded mock questions (confirmed live on cramapple.com — clicked through to a hardcoded enzyme-inhibitor question from `use-session.ts`'s fixture array). The QR capture flow deletes the photo on submit. None of that was fixed here; instead this built a separate, honest, narrow pilot.
+
+**Backend:** new `record_manual_grade` operation on `attempt-response` (admin-only) writes `app.grading_results` in the exact shape `evaluate-attempt` would (sentinel `model_id: 'manual-review'`) and updates `app.attempts` to `graded`, so `public.grading_results` keeps working unmodified. New `_shared/manual-grading.ts` (`scoreManualGrade`, 14 unit tests, fails closed on missing/duplicate/unknown criterion keys and status/points inconsistency). Deployed to Development and Production, verified byte-identical via matching SHA-256 hashes in both. `20260814220000_response_attachments.sql` (from earlier this session) also applied to Production for the first time, with explicit Product Owner go-ahead.
+
+**Verification:** a full rolled-back SQL simulation on Production exercised the entire real chain against the real pilot item `APBIO-HDG-2026-GRAPH-002` (4 one-point criteria) — attempt creation, a response version with a `capture_only` marker, a `response_attachments` insert, the real `submit_response` RPC, `record_manual_grade`'s exact write shape, and owner-visible reads through `public.grading_results`/`app.attempts`/`app.response_attachments` with correct cross-user RLS isolation. No data persisted (transaction rolled back). A prior mistake was caught and fixed in-session: a hand-typed `storage-sign-url` deploy payload had two corrupted lines; caught by diffing the deployed source against local files programmatically before trusting it, not by assuming success from a clean deploy response.
+
+**Frontend (repo `exam-buddy-wireframe`, all uncommitted):** new unlinked route `/hand-drawn-pilot` drives the real pipeline (`session-event` → `attempt-response` create_attempt/save_response/attach_capture/submit_response → poll `public.grading_results`). New `SameDeviceCapture.tsx` component (plain file/camera input, no QR). New admin-only `/admin/grade-response/$attemptId` page for the human grading step. Both routes gate to `role = 'admin'` client-side, on top of the real server-side check — the pilot item's own `prompt_json` still carries `label_status: "ai_provisional_unapproved"`, so it must not be reachable by real students yet. `tsc --noEmit` clean on all new files; both routes render correctly under a real local dev server (after fixing an unrelated pre-existing `@rollup/rollup-darwin-arm64` optional-dependency install issue) and correctly redirect an unauthenticated visitor to `/login`. No real admin credentials were available in this session, so the authenticated happy path was not clicked through.
+
+**Not done, not silently dropped:** frontend changes are uncommitted and not deployed to Vercel; no independent QA; QR-materiality matrix, capture-quality mechanism, and the placeholder `/session` pipeline itself remain unfixed; manual grading is a single-purpose pilot tool, not the operationalized reviewer queue TASK-0020 Program C requires before real launch. Full detail: `docs/tasks/TASK-0025-HAND-DRAWN-CAPTURE-ATTACHMENT-SCHEMA.md`.
+
+## TASK-0025: Response-Attachment Migration Applied to Development and Integration Test Passed — 2026-08-15
+
+**Task:** TASK-0025. **Status:** Migration live on Development (`wmgjsdkphcyhngaffbqf`); Production untouched.
+
+**Summary:** Applied `20260814220000_response_attachments.sql` to Development via the Supabase MCP `apply_migration` tool, then ran `supabase/tests/response_attachments.integration.sql` against it via `execute_sql`. The script completed to its final `rollback` with no exception raised, meaning all 7 assertions held: (1) a normal service-role original insert succeeds; (2) a second concurrent-current original for the same response_version hits the `response_attachments_one_current_original` unique-index violation; (3) mutating `storage_path` after insert is rejected by the immutable-fields trigger, including for the administration role; (4) `capture_quality_state` remains a legal mutation; (5) an owner sees exactly their own attachment via RLS; (6) a direct authenticated-client insert is denied (no insert policy exists); (7) a second learner sees zero rows for an attempt they don't own. The whole test transaction rolled back, so Development carries no leftover fixture data.
+
+**Not covered by this run:** the `storage.objects` policy tightening (owner update/delete blocked once an object is bound) — noted in the test file's header as unverified here, since it needs a real object in the `learner-uploads` bucket rather than fixture rows in `app` tables. Production was not touched; applying there remains a separate, explicit decision per this task's Hard-Gate tier.
+
+## TASK-0025 Opened: Hand-Drawn Capture Attachment Schema and Binding Implemented (Repository Only) — 2026-08-15
+
+**Task:** TASK-0025 (new); direct follow-on to TASK-0020's Program B findings (`docs/research/TASK0020_LAUNCH_READINESS_FINDINGS_2026_08_03.md`) and `docs/research/HAND_DRAWN_CORPUS_READINESS_AUDIT_2026_08_03.md`, which the Product Owner asked to be reviewed for production readiness this session.
+**Status:** Implemented (Repository Only); migration not applied; independent QA and Product Owner approval pending.
+
+**Summary:** TASK-0020 found that a hand-drawn capture becomes a text placeholder string (`[hand-drawn capture submitted -- capture:<id>]`) with no image ever preserved, because `app.response_versions` has no attachment column and nothing validates an uploaded object. This task adds the missing binding, scoped to schema + storage only per the Product Owner's explicit sequencing choice (current-device capture route and the QR-materiality device matrix are deferred, not silently dropped).
+
+**What was built:**
+- `supabase/migrations/20260814220000_response_attachments.sql` — new `app.response_attachments` table binding one uploaded image to its exact response version/attempt/content-item version. Enforces (a) at most one current `original` per response version via a partial unique index (the session contract's "a capture-image original cannot be bound to two capture sessions" invariant), and (b) immutability of every field except `capture_quality_state`/`is_current`/`reviewed_at` via a trigger that applies even to `service_role`. RLS grants owner-select only; no client insert/update/delete policy exists, so all writes must go through the edge function's validation path. Also tightens `storage.objects` policy on `learner-uploads` so a bound object can no longer be updated/deleted directly by its owner.
+- `supabase/functions/_shared/capture-attachment.ts` — pure-function trust boundary: re-derives PNG/JPEG/WEBP media type, real pixel dimensions (own from-scratch IHDR/SOF/VP8X parsers, no external library), byte size, and SHA-256 from the actual downloaded object bytes rather than trusting client-declared values; rejects a declared media type or digest that doesn't match. 21 unit tests, including a spoofed-extension case and a truncated/malformed-header case for each format.
+- `supabase/functions/_shared/storage-paths.ts` — path-safety/ownership checks extracted out of `storage-sign-url` so `attempt-response` reuses the identical rules rather than a second copy.
+- `supabase/functions/attempt-response/index.ts` — new `attach_capture` operation: validates attempt/response-version ownership and editability, downloads and validates the real object, plans retake lineage (`planAttachmentInsert`, 8 unit cases covering first-capture/retake/stale-target/derived-image rules), and writes the row with the service role.
+- `supabase/tests/response_attachments.integration.sql` — a Development-only pgTAP-style integration test covering the unique-current-original constraint, the immutability trigger, and owner-scoped RLS select/no-insert. **Not run this session** — no local Postgres/Docker and no authenticated Supabase MCP were available in this environment; it needs to run against real Development before the migration is trusted.
+
+**Explicitly not done, and not silently dropped:** current-device (non-QR) capture route; QR-materiality device matrix; automated or learner-attested capture-quality mechanism (`capture_quality_state` stays `'pending'` by default with no new way to move it); `submit_response` gating on an accepted attachment for construction items (needs a content-classification flag that doesn't exist yet); frontend wiring in the separate `exam-buddy-wireframe` repo; Program C (grading) and the offline photo-corpus remediation from the corpus-readiness audit; applying this migration to Development or Production. Full list and rationale: `docs/tasks/TASK-0025-HAND-DRAWN-CAPTURE-ATTACHMENT-SCHEMA.md`.
+
+**Verification performed:** `deno test` on the new and existing `_shared` suites (197 cases total, 0 failures, no regressions); `deno check` and `deno fmt --check` clean on every changed file. No database, storage, or Production access was used or available in this session.
+
+**Next required action:** run the new integration test against Development, then independent QA of this task before the migration is applied anywhere; this is a Hard-Gate task per TASK-0020's Program B classification.
+
+## Engine 4 Stage D1 Complete: Found 6 of 7 Spatial Record-Type Contracts Already Built (Undocumented), Closed the Gap (feedback_result) and the Citation-Integrity Fail-Closed Requirement — 2026-08-14
+
+**Task:** Engine 4, Stage D1 (freeze the spatial contracts) per
+`prompts/CLAUDE_TASK0016_PHASE_D_SPATIAL_ENGINE_2026_07_27.md`. Owner
+approved proceeding on D1/D2 immediately after the scope note.
+
+**Found before building anything: most of D1 already existed.**
+`scripts/drawn_response/schemas/` (dated 2026-08-02/03) already had 6 of the
+Phase D prompt's 7 required record-type contracts — `capture_quality_record`,
+`observation_record`, `criterion_decision_record`, `capture_session_event`,
+`capture_image_record`, `method_run_log`, `partition_manifest` — plus a real,
+dependency-free JSON Schema validator (`validate_records.py`) and an
+existing test suite (`test_capture_session_contract.py`, 10 tests). None of
+this had been documented as fulfilling Stage D1; the Engine 4 scope note
+written earlier today under-characterized it as generic scaffolding. This
+entry corrects that in `CURRENT_STATE.md`.
+
+**The one genuine gap:** no `feedback_result` schema existed. Added
+`feedback_result.schema.json` (cites `criterion_decision_record` ids;
+`points_earned`/`points_available` recomputed from cited decisions, never
+an independent fifth source of truth for the score).
+
+**The other genuine gap, and the more important one:** every citation field
+(`cited_observation_ids`, `cited_criterion_decision_ids`) was required to be
+*present* by its schema, but nothing checked a cited ID actually *resolved*
+to a real record — the Phase D prompt's explicit Stage D1 requirement ("a
+criterion decision that cites a missing observation must fail closed") was
+unmet. Added `validate_criterion_decision_citations()` and
+`validate_feedback_citations()` to `validate_records.py`, wired into the CLI
+via new `--observations`/`--criterion-decisions` flags, both failing closed
+(reported as errors, not silently accepted) on a citation to a nonexistent
+record or a feedback record citing a decision at a mismatched
+`rubric_version`. Adversarial fixtures added proving this:
+`criterion_decision_records.invalid_citation.jsonl`,
+`feedback_results.invalid_citation.jsonl`.
+
+**Also written this session:** `SPATIAL_CONTRACT.md` (indexes the seven
+record types, explains why `confidence_and_abstention_result` didn't need a
+separate schema — folded into `criterion_decision_record`'s
+`decision=ABSTAIN`/`reason_code`, consistent with the prompt's own rule that
+model self-reported confidence is never a release control) and
+`CROSS_SUBJECT_MAPPING.md` (the required extensibility evidence: the
+observation vocabulary maps cleanly to Statistics/Biology/Physics-kinematics
+plotted relationships, only partially to Chemistry titration curves and
+Economics multi-curve diagrams, and not at all to non-plot diagrams like
+Physics force vectors or Biology pedigrees — verified AP Economics has zero
+content/subject rows in Production before asserting that gap, not assumed).
+
+**Verified:** `python3 -m unittest discover -p "test_*.py"` in
+`scripts/drawn_response/`: 17 passed, 0 failed (10 pre-existing + 7 new).
+CLI smoke-tested directly (`validate_records.py feedback_result ... --criterion-decisions ...`
+on both the valid and invalid-citation fixtures, confirmed exit codes 0 and
+1 respectively).
+
+**Next Owner:** David Bloom
+**Next Required Action:** none blocking. Stage D2 (QR-handoff capture MVP,
+local/isolated, not deployed to Production without separate approval) is
+next per the owner's decision — a substantially larger scope (routes,
+capability tokens, full security/privacy/accessibility review per the Phase
+D prompt's explicit checklist) than D1 was, and not started this pass.
+
+## APBIO-HDG-2026-GRAPH Mistagging Fixed: 18 Rows (12 Content Keys, 4 Published) Retagged discrete_text→spatial, Closing the Engine-1-Grades-Spatial-Content Gap Found in the Engine 4 Scope Note — 2026-08-14
+
+**Task:** Engine 4 scope note follow-up. Owner approved fixing the
+mistagging found in the scope note immediately, separate from the rest of
+Phase D. Migration
+`20260814210000_retag_apbio_hdg_graph_spatial.sql`: retagged all 18
+`APBIO-HDG-2026-GRAPH-*` rows (12 content_keys, every version — 4 currently
+published: `-002`, `-003`, one version each of `-008`/`-010`) from
+`rubric_type='discrete_text'`/`evaluator_strategy='llm_discrete_text'` to
+`spatial`/`human_shadow`, matching the shape of the original 2026-07-12 AP
+Statistics spatial flip. Retagged all versions, not just published ones, so
+a retired version republished later doesn't reintroduce the same defect.
+Applied directly to Production; verified via direct query (all 18 rows
+confirmed `spatial`/`human_shadow`, zero remaining mistagged); migration
+version registered in `supabase_migrations.schema_migrations`.
+
+**Next Owner:** David Bloom
+**Next Required Action:** none blocking. Engine 4 Stage D1 (spatial
+contracts) work follows, per the owner's decision to proceed on D1/D2 now.
+
+## Engine 4 Scope Note (Stage D0): Zero Evidence Above Development-Only Exists; Found 12 (Not 5) Mistagged Published AP Biology Spatial Items Still Routing to Engine 1 — 2026-08-14
+
+**Task:** Engine 4 (spatial/hand-drawn), per its standing instruction ("read
+those docs and write a scope note before any build work" — handoff doc §4)
+and the already-written but never-executed
+`prompts/CLAUDE_TASK0016_PHASE_D_SPATIAL_ENGINE_2026_07_27.md`. This is Stage
+D0 (recover and freeze actual state) — first execution of that prompt;
+`docs/research/grading_phase_d_spatial_2026_07_27/` did not exist before
+this pass. Produced `CURRENT_STATE.md` and `DECISIONS_AND_BLOCKERS.md`
+(full `ARTIFACT_INVENTORY.json` with per-file hashes deferred as mechanical
+fast-follow work, not requiring judgment).
+
+**Headline finding: nothing above `DEVELOPMENT_ONLY`/`REGRESSION_FIXTURE`
+evidence tier exists.** 40 AP Statistics content items are tagged
+`rubric_type='spatial'`/`evaluator_strategy='human_shadow'` (19 published),
+zero `app.attempts` rows have ever been created against any of them, the
+`learner-uploads` storage bucket exists and is empty, and no QR-handoff or
+spatial-intake edge function exists anywhere. Real design work and tooling
+exist (3 June 2026 design/review docs, a synthetic corpus generator, a
+benchmark harness, real capture-pipeline scaffolding in
+`scripts/drawn_response/`), but every quantitative result on record is
+either synthetic/traced or a small non-independent spot-check whose own
+writeup says it "does not yet justify learner-facing automated grading."
+
+**Found and independently confirmed a bigger, still-live version of a
+previously-recorded finding.** The handoff doc's §4 cites "5
+`HDG-2026-GRAPH` items" miscounted as text-graded, inflating Engine 1's
+apparent ambiguity rate. Direct query found this actually refers to two
+distinct findings that were conflated: (1)
+`grading_phase_c_calibration_2026_07_27/B2_AMBIGUITY_CORPUS_CONSTRUCTION.md`'s
+11-of-14 discordant-pair finding (AP Statistics, already resolved via the
+spatial retag those items received), and (2) a separate
+`ACTIVITY_LOG.md` finding of 5 mistagged `APBIO-HDG-2026-GRAPH-*` items.
+Checking finding (2) directly against live data found **12 distinct
+content_keys, not 5, all still mistagged today** —
+`rubric_type='discrete_text'`, `evaluator_strategy='llm_discrete_text'` —
+and **4 of them currently published** (`-002`, `-003`, one version each of
+`-008`/`-010`). This is a live content-tagging defect on published content,
+not a historical footnote: any real student submitting to one of these four
+items would get an LLM text-grading pass run against what should be a
+hand-drawn graph response. Currently latent (zero real traffic, entitlements
+off) but concrete and cheap to fix — recommended as an immediate, separately-
+approvable action, not gated on the rest of Phase D.
+
+**Recommendation recorded, not yet decided:** Stages D1 (spatial contracts)
+and D2 (QR capture MVP, local/isolated, not deployed to Production) have no
+blocker and could start now. Stage D3 onward (real capture, paid bake-off,
+calibration, shadow) is blocked on external-provider data-transfer approval
+(named blocker since 2026-06-29, still open) and real Learning-Quality-
+sourced adjudicated captures — neither is an engineering task. Flagged
+explicitly: the "launch now, iterate in production" posture from the Engine
+1/3 program (`DECISION-0046`) does not obviously transfer to Engine 4, which
+has no working system to iterate on — recommend treating this as a separate
+decision if it comes up, not an automatic extension.
+
+**Verified:** all live-state claims above from direct SQL against
+Production (`pcntajvbdfqhbeewmdry`), independent of and cross-checked
+against the design docs (an Explore agent read the design-doc corpus in
+parallel; the mistagging scale and the empty-bucket/zero-attempts facts
+were confirmed by direct query, not taken from any prior doc).
+
+**Next Owner:** David Bloom
+**Next Required Action:** two decisions needed — (1) approve the
+12-item AP Biology mistagging fix now (separate from the rest of Phase D),
+(2) proceed on Stage D1/D2 now in parallel with arranging the D3 blockers,
+or treat Engine 4 as paused until those blockers have an owner/timeline.
+
+## Engine 3 Stage B: First Real Published Item (APSTATS-SFRQ-003) Routed to Production Shadow, Full ECF Cascade Verified End-to-End with Structured Input — 2026-08-14
+
+**Task:** TASK-0016 addendum, Engine 3 Stage B. Candidate selection:
+searched `statistics-verifier.ts`'s already-audited `STATISTICS_TARGETS`
+map for a published item with a clean ECF dependency chain, rather than
+deriving fresh values from scratch — found `APSTATS-SFRQ-003`
+(y-hat → residual, O1-approved 2026-08-11, gold-validated 4/4 expect-pass).
+Cross-checked the real `app.frq_criteria` for this item (single-letter
+`a`/`b`/`c` keys, `c` worth 2pts covering both ECF steps) against
+`prompt_json`'s own internal `parts`/`criteria` array, which turned out
+stale/mismatched (4-way `a1`/`b1`/`c1`/`d1` split not used by real
+grading) — the same class of fixture-vs-real-namespace mismatch that
+caused the O2 same-session bug earlier this program. Built the profile from
+the real criteria, not the stale prompt_json array.
+
+**Owner sign-off obtained before writing anything to Production** (the
+derived values, criterion mapping, and routing flip were presented and
+approved before the migration was written) — same discipline as O1.
+
+**Migration** `20260814200000_engine3_route_apstats_sfrq003_shadow.sql`:
+adds `prompt_json.verification_profile` (additive key, existing
+stem/stimulus/parts/criteria untouched) and flips
+`rubric_type`/`evaluator_strategy` to `structured_formula`/
+`python_symbolic_ecf`, scoped to this one content_item_version's primary
+key. Checked both triggers on `content_item_versions` that fire on this
+kind of update (`content_pipeline_guard_publish`,
+`enforce_full_exam_frq_version`) before applying — both no-ops for this
+change (status unchanged; the full-exam-FRQ constraint only applies to AP
+Physics practice_format). Applied directly via the Management API, same
+mechanism as the P0 migration; verified via direct query afterward.
+
+**Smoke test, two rounds** (`engine3_shadow_smoke_test.mjs`, pilot account,
+create→run→cleanup each round):
+1. Prose-only `response_parts: {}` — correctly returned `ecf_result: null`,
+   no crash, fell back to the existing Engine-1-style numeric-flag check.
+   This is the documented ceiling (no typed-math input producer exists yet)
+   working as designed, not a defect — but it meant the ECF pathway itself
+   wasn't exercised. Cleaned up.
+2. Structured `response_parts` (the shape a future typed-math UI would
+   send: `{student: {yhat: {...}, residual: {...}}}`) — the real ECF
+   cascade fired: both parts `CORRECT`, 2/2, captured in the new
+   `shadow_result` column with `profile_source: "governed"` (proof it used
+   the profile just authored, not the fixture map). `finalStatus` stayed
+   `"uncertain"` throughout — shadow, non-authoritative, exactly as
+   designed. Cleaned up; confirmed zero rows remaining via count query.
+
+**Standing consequence, recorded prominently in TASK-0016:** this item is
+now held out of normal (Engine 1) grading — any future prose-only student
+submission to `APSTATS-SFRQ-003` routes to Engine 3's shadow path and gets
+no authoritative grade, until Engine 3 gains authority or the item is
+explicitly reverted. Low-risk today (zero real traffic, entitlements off),
+but a real, standing state change to live content, not a throwaway
+experiment.
+
+**Verified:**
+- `deno test --allow-read --allow-env supabase/functions/_shared/`: 155
+  passed (was 153; +2 new `formula-notation_test.ts` cases exercising
+  `detectAmbiguousTypedFormulaText` against this item's actual formula
+  shape, per the handoff doc's standing note that this guardrail was
+  previously unexercised for any real routed item).
+- Both smoke-test rounds' `grading_route` confirmed `target: "symbolic_ecf"`
+  reaching the real governed profile.
+- Migration applied and independently confirmed via direct query.
+- All test rows from both rounds deleted; zero remaining, confirmed by
+  count query.
+
+**Next Owner:** David Bloom / Main Conductor
+**Next Required Action:** none blocking. Both Engine 3 P0 items (task 3) and
+Stage B (task 4) are complete — Engine 3 has one real item live in
+Production shadow, verified end-to-end including the full ECF cascade.
+Expanding to more items, building the typed-math input UI, and lifting the
+hardcoded `finalStatus = "uncertain"` toward Engine 3 authority are all
+future work, not started.
+
+## Engine 3 P0 Shipped: Governed prompt_json.verification_profile Loader + Publish-Time Validator + Shadow-Result Capture Column (evaluate-attempt v50) — 2026-08-14
+
+**Task:** TASK-0016 addendum, Engine 3 P0 (parallel track alongside the
+Engine 1 go-live work). Replaces the hardcoded, never-published
+`STATISTICS_ITEM_KEYS` map as the sole source of ECF profiles with a
+governed loader, per the codex second-opinion review's recommendation
+("build the Engine 3 production contract now, not later — the SFRQ-008
+incident is direct evidence hardcoded, content-key-bound constants are the
+wrong ownership model").
+
+**Changes, `supabase/functions/_shared/math-verifier.ts`:**
+1. `findStatisticsItem(contentKey, promptJson?)` — new optional second
+   parameter. Prefers a governed profile at
+   `prompt_json.verification_profile` on the item itself; falls back to the
+   hardcoded fixture map (kept for tests/fixtures only — none of its 5
+   entries is a published item). Backward-compatible: existing
+   single-argument callers/tests unaffected.
+2. `validateVerificationProfile()` — new exported validator. For every
+   `ecf_part`: parses `canonical_formula`, evaluates it with its own
+   `givens` + resolved `deps` chain, and — if a `canonical_answer` is
+   declared — requires the computed value to match within tolerance. This
+   is the actual authoring check: the exact defect class behind
+   `APSTATS-SFRQ-008` (a keyed value that doesn't match the canonical
+   answer) fails to validate here instead of silently mis-grading the first
+   real response routed to it. Also catches malformed formulas, unsupported
+   functions (via `evaluate()`'s existing exhaustive-switch fallthrough),
+   duplicate part ids, and `deps` referencing a nonexistent part id.
+   Reserved-name collisions (`e`/`pi` as supplied inputs) need no separate
+   check — already fixed at the `evaluate()` level (BUG1, supplied value
+   always wins over the built-in constant).
+3. An invalid governed profile does **not** silently fall back to the
+   fixture map — returns `null` and logs `verification_profile_invalid`
+   with the validation errors. If a content author declared a profile, a
+   defect in it must surface, not silently grade against unrelated fixture
+   data.
+
+**Shadow-capture column, `app.grading_results.shadow_result` (jsonb,
+additive/nullable — migration `20260814190000_engine3_shadow_result.sql`,
+applied directly to Production via the Management API, same mechanism as
+`20260813120000_grading_telemetry.sql`).** The `symbolic_ecf` routing
+branch already computes a real ECF verdict internally
+(`buildShadowReviewPayload`'s `deterministicCheck.result`), but it was
+previously only reachable, if at all, by parsing it back out of a
+`JSON.stringify` embedded in `uncertainty_reason` — the student-facing
+`finalStatus` correctly stays `"uncertain"` (shadow, non-authoritative)
+either way, but the actual verdict was effectively discarded for any
+offline comparison against gold/ground truth. Now captured directly:
+`{engine, verifier_version, profile_source, profile_version, content_key,
+ambiguous_notation, ecf_result}`. No behavior change — passive capture,
+same category as the grading_telemetry columns.
+
+**Verified:**
+- `deno test --allow-read --allow-env supabase/functions/_shared/`: 153
+  passed, 0 failed (was 143; +10 new tests covering the validator's accept/
+  reject cases and the loader's governed/fixture/invalid/backward-compat
+  paths).
+- `deno check` clean on both changed files.
+- `scripts/engine3-harness/run_harness.ts`: 211/211 part-level expectations
+  still pass, unaffected (harness exercises `checkFormulaCase`/
+  `buildEcfResult` directly, not the new loader/validator layer).
+- Deployed: `evaluate-attempt` v50, diffed against HEAD first (surgical —
+  only the loader call-site change, the `shadowResult` capture, and its
+  inclusion in the `grading_results` update).
+- Migration applied and independently confirmed via
+  `information_schema.columns`.
+
+**Not yet done (task 4, next):** no real content item has been routed to
+Engine 3 yet — `findStatisticsItem` will still fall back to the fixture map
+for every currently-published item, since none has a
+`prompt_json.verification_profile` populated. Routing one real published
+item into Production shadow (author a profile, migrate the item's
+`rubric_type`/`evaluator_strategy`, Dev integration test, Production smoke)
+is the next step.
+
+**Next Owner:** David Bloom / Main Conductor
+**Next Required Action:** none blocking. Proceed to task 4 (route one real
+item to Engine 3 shadow).
+
+## QA (Codex) Caught Two Real Errors in the Engine-1 Go-Live Round: cramapple.com (the Real Production Domain) Still Had No CORS Access, and the Entitlements Claim Was Factually Wrong; Both Corrected and Reverified — 2026-08-14
+
+**Task:** TASK-0016. An independent QA pass
+(`prompts/CODEX_QA_TASK0016_ENGINE1_GOLIVE_ITEMS_2026_08_14.md`, per
+`AGENT_OPERATING_MODEL.md`'s QA Agent role) reviewed the prior entry's
+three items and returned an overall Fail verdict with one confirmed live
+blocker. Both root findings verified independently before acting; both
+real; both fixed and reverified same-session.
+
+**Finding 1 (blocking, confirmed): `cramapple.com` — the actual canonical
+production domain — still had no CORS access after the prior "frontend
+verified" entry.** The prior round checked and fixed
+`https://cramapple.vercel.app` (the Vercel project's own primary alias) and
+declared the frontend verified. QA reproduced that test (passed) and
+separately tried `https://cramapple.com`, which failed identically to the
+original bug: `session-event` CORS-rejected, MCQ submit showed "Couldn't
+score that — try again." Independently confirmed: `cramapple.com` resolves,
+serves the identical app (`<link rel="canonical" href="https://cramapple.com/">`,
+matching meta/OG tags), and is **not listed in the Vercel project's own
+`domains`** (`cramapple.vercel.app`, `cramapple-bloom-llc.vercel.app`,
+`cramapple-git-main-bloom-llc.vercel.app` only) — it's fronted by
+Cloudflare directly, invisible to a Vercel-API-only check. Checking "the
+Vercel project's reported domains" was not the same as checking "the domain
+real students actually use," and that gap wasn't caught before declaring
+the item done.
+
+**Fix:** added `https://cramapple.com` to `ALLOWED_ORIGINS` (apex only —
+`www.cramapple.com` 302-redirects to it). Also added three live Lovable
+editor/preview domains QA flagged as plausibly omitted
+(`cramapple-beta.lovable.app`, `preview--exam-buddy-wireframe.lovable.app`,
+`exam-buddy-wireframe.lovable.app` — confirmed live by HTTP probe, and
+consistent with the active Lovable-based editing workflow visible in Vercel
+deployment history) — this addition was a judgment call, not pre-approved
+the way the round-1 value was; flagged in TASK-0016's addendum for the
+owner to confirm. Reverified end-to-end on `cramapple.com` itself: login →
+AP Biology → session start → MCQ submit → **"1 / 1 points — Correct."**,
+same result as round 1 but now on the domain that matters.
+
+**Finding 2 (non-blocking as stated, but the underlying claim was wrong):
+the entitlements decision's factual basis was inaccurate.** The prior entry
+claimed `app.subject_entitlements` had no rows for any real student. QA
+counted `subject_entitlements_total=252`, `71` active rows across `8`
+`student`-role accounts. Independently reproduced by direct SQL — confirmed
+exact match. Checked who those 8 accounts are: family/co-founder emails
+(`orlyvbloom@gmail.com`, `mbloom29@solebury.org`), the owner's own alternate
+addresses, and `@cramapple-internal.test` pilot accounts — none is an
+unrelated real customer, so the *substantive* conclusion (no path for a
+**new, unprovisioned** student to get entitled) still holds. But the
+specific claims "neither exists for any real student today" and "would
+make it fully inaccessible to every non-admin user" were false as written —
+the 8 provisioned accounts would work fine with the flag on. Corrected in
+both `TASK-0016-GRADING-ENGINE-ROLLOUT.md` (addendum item 4) and
+`APPROVALS_LOG.md` (`APPROVAL-0043`'s notes), rather than silently edited,
+since the original inaccurate version is what the owner's hold-off decision
+was based on (the decision itself doesn't change, the stated reasoning for
+it needed correcting).
+
+**Also verified from QA's other findings:**
+- `quick_start_enabled` claim (AP Statistics `false`, AP Biology `true`,
+  intentional not a bug) — QA independently confirmed the values; did not
+  find a contradicting decision record. No correction needed.
+- Cleanup: QA's own control-run test rows (1 `learning_sessions`, 2
+  `attempts`, associated `response_versions`/`grading_results`) were left
+  in place per their role restriction (QA must not alter live state) —
+  deleted in this entry along with this session's own new test row;
+  confirmed zero remaining via count query.
+
+**Verified:**
+- `curl -X OPTIONS` against `session-event`, `attempt-response`,
+  `evaluate-attempt` with `Origin: https://cramapple.com` — all three now
+  return `access-control-allow-origin: https://cramapple.com`.
+- Live browser round trip on `https://cramapple.com`: real login, subject
+  selection, session start, MCQ submit, correct grade rendered.
+- `app.subject_entitlements` counts independently reproduced via direct SQL
+  (252 total, 71 active student-role).
+- All test rows from both this round and QA's control run deleted; zero
+  remaining, confirmed by count query.
+
+**Next Owner:** David Bloom / Main Conductor
+**Next Required Action:** confirm whether the three Lovable domains added to
+`ALLOWED_ORIGINS` in this fix are correct/wanted (judgment call, not
+pre-approved the way the rest of the value was). Otherwise none blocking —
+Engine 1's frontend path is now verified against the domain real students
+actually use.
+
+## Frontend Verification Found a Real Production-Blocking CORS Bug (ALLOWED_ORIGINS Missing cramapple.vercel.app), Fixed and Confirmed End-to-End Through the Live App — 2026-08-14
+
+**Task:** TASK-0016, remaining Engine-1 go-live item (frontend verification,
+never previously done). Confirmed via Vercel MCP: `cramapple` project,
+deployed from `exam-buddy-wireframe` main branch, latest deployment READY,
+domain `cramapple.vercel.app` reachable without SSO/password blocking
+(despite `ssoProtection.enabled: true` — applies to preview/non-primary
+deployments, the live production alias loads freely), built JS bundle
+references `pcntajvbdfqhbeewmdry.supabase.co` (Production, correct).
+
+**Real end-to-end test, not just config inspection.** Logged into the live
+app as the existing pilot account
+(`e5b041cb-9d4f-497c-b6c8-f66af4cf8152`), attempted to start an AP
+Statistics practice session — failed with a generic "Couldn't start a
+practice session" error. Root-caused via browser console + fetch
+interception + direct SQL against Production (Management API, since
+Supabase MCP isn't authenticated this session):
+
+1. First failure: `session-event`'s CORS preflight rejected —
+   `ALLOWED_ORIGINS` (the Supabase secret shared by every Edge Function via
+   `_shared/cors.ts`) did not include `https://cramapple.vercel.app`. This
+   blocked **every** function call from the live app, not just grading —
+   confirmed by independently checking `attempt-response` and
+   `evaluate-attempt`'s preflight, both equally blocked before the fix.
+   Flagged to the owner before touching the Production secret (couldn't
+   read the current value to safely extend it, only overwrite); owner
+   approved setting it to `cramapple.vercel.app` + its Vercel aliases +
+   localhost dev origins. Fixed via `supabase secrets set`; verified via
+   direct `curl -X OPTIONS` (server-side fix confirmed immediately) and a
+   fresh browser tab (the original tab kept showing the stale error —
+   browser-cached failed preflight, not a real ongoing failure).
+2. Second failure, after CORS: AP Statistics specifically returned
+   `session_start_failed`. Traced through
+   `start_home_learning_session_for_user` → `home_exam_pack_is_eligible` →
+   `app.home_release_manifest`: Statistics has `quick_start_enabled: false`
+   (Biology: `true`), despite 63 published MCQs comfortably clearing the
+   10-item minimum. **Not a bug** — matches the marketing page's own claim
+   ("AP Biology available now · Statistics ... next"). Switched the test to
+   AP Biology.
+
+**Full round trip confirmed working:** login → subject selection (AP
+Biology) → session start → real MCQ (`APBIO-MCQ-017`) rendered → answer
+submitted → **"1 / 1 points — Correct."** rendered by the actual deployed
+app against Production. This is the first confirmed real (non-synthetic,
+non-direct-REST-call) grading round trip through the live frontend this
+program has recorded.
+
+**Not directly clicked through the UI:** an FRQ submission specifically
+(the Home quick-start flow used here is MCQ-only by design,
+`practice_format = 'mcq'` hardcoded in the RPC). `evaluate-attempt`'s FRQ
+path itself has been extensively verified all session via direct API calls
+(same function, same code) — the gap closed here is frontend
+connectivity/CORS, not FRQ grading correctness.
+
+**Cleanup:** the one real `learning_sessions` row and one `attempts` /
+`response_versions` row created during this test deleted immediately after
+capture; confirmed zero remaining via count query.
+
+**Next Owner:** David Bloom / Main Conductor
+**Next Required Action:** none blocking. All three items from "what's left
+to get Engine 1 into production" are now resolved (entitlements: hold off;
+human escalation: never, by policy; frontend: verified, CORS bug found and
+fixed). Engine 1 is technically reachable end-to-end for real students as
+of this fix — remaining work is Engine 3 (parallel track, not started) and
+continued grounding-fix iteration per its own "what's still open" section.
+
+## Two Engine-1 Go-Live Decisions Resolved: Entitlements Flag Stays Off (Turning It On Would Currently Block All Real Students, Not Gate Them), and No Runtime Escalation to a Human Ever, Firm Policy — 2026-08-14
+
+**Task:** TASK-0016 addendum. Owner asked what remained to get Engine 1 into
+Production; two of the three named items resolved this round (the third,
+frontend verification, is a separate entry).
+
+**`GRADING_ENTITLEMENTS_ENABLED`.** Owner's initial instruction was to turn
+it on now. Before executing, checked `app.authorize_grading_access`'s actual
+definition (direct SQL via the Management API) — it requires either an
+active `app.subject_entitlements` row or an `app.free_score_checks` row tied
+to the specific attempt. Neither exists for any real student today: only
+manually-provisioned pilot/beta accounts have entitlement rows, and the
+free-score-check funnel is TASK-0024's own still-fail-closed track. Turning
+the flag on now would not gate grading — it would make `evaluate-attempt`
+fail with `grading_access:entitlement_required` for every non-admin caller,
+i.e. block all real grading rather than meter it. Flagged before acting;
+owner confirmed: **hold off, stays `false`**, until an entitlement-granting
+path exists. Recorded in TASK-0016's addendum (item 4) and
+`APPROVALS_LOG.md`'s `APPROVAL-0043` notes.
+
+**Runtime human escalation.** Owner: there is no case, ever, in actual
+student use where a hard grading case reaches a human — humans are in the
+loop only for engine development and optimization (audit, calibration, gold
+labeling, QA), never in the live path, at any production authority stage.
+This is a firm, permanent decision, not "not built yet." It directly
+contradicts a standing recommendation in
+`docs/GRADING_ENGINES_TO_PRODUCTION_HANDOFF.md` §5 ("ship
+disagreement-routing anyway") — annotated as superseded there (measurement
+value retained for offline audit/calibration use, but not to be built as a
+live escalation path) and recorded as a new bullet in TASK-0016's addendum
+production-stages section.
+
+**Next Owner:** David Bloom / Main Conductor
+**Next Required Action:** none blocking. Remaining Engine-1 go-live item is
+frontend verification (separate entry, this session).
+
+## Codex QA Caught a Real Regression in the P0 Grounding Fix (Single-Fragment Elision False-Positive) Plus a Log-Privacy Issue; Both Remediated and Redeployed (v46→v47); Governance Recorded as DECISION-0046/APPROVAL-0043 — 2026-08-14
+
+**Task:** TASK-0016 addendum, P0. A fresh, independent QA pass
+(`prompts/CODEX_QA_TASK0016_AMENDMENT_AND_P0_GROUNDING_FIX_2026_08_14.md`,
+per `AGENT_OPERATING_MODEL.md`'s QA Agent role) reviewed the prior two
+entries' work and returned Fail-leaning verdicts on both pieces, with two
+blocking findings on the grounding fix. Both verified independently before
+acting, both real, both fixed same-session. Full writeup in the amended
+`docs/research/EVIDENCE_GROUNDING_FALSE_ALARM_CLASSIFICATION_2026_08_14.md`
+("QA-caught remediation" section).
+
+**Finding 1 (blocking, confirmed): the single-fragment elision relaxation's
+safety claim was false.** QA constructed
+`evidenceIsGrounded("The graph is increasing over the interval ... not", "The graph is increasing over the interval.")`
+and it returned `true` — independently reproduced before any fix. The
+length filter meant to drop only genuinely-empty truncation fragments was
+also silently dropping short-but-real ones (like "not," which reverses a
+claim's meaning) from verification entirely. Fixed: single-fragment matching
+now only applies when the *other* side of the elision split is genuinely
+empty (true boundary truncation); any split with real content on both
+sides — however short one side is — falls through to the original
+≥2-substantial-fragment requirement, unchanged from before this whole P0
+pass. Verified: QA's counterexample now returns `false`; all four
+previously-fixed real corpus cases still return `true`; full suite green.
+
+**Finding 2 (blocking, accepted): the diagnostic hook logged full student
+response text to Production Edge Function logs**, a different and
+less-controlled surface than `app.grading_results.raw_model_response` (which
+already covers the same diagnostic need). The hook had already been
+identified as unnecessary in the prior entry but left in as "harmless" —
+QA correctly identified that framing missed the actual exposure. Removed
+entirely: the `onGroundingRejected` hook mechanism from
+`grading-feedback.ts` and both wiring call sites in
+`evaluate-attempt/index.ts`, plus the 2 tests that tested only the hook's
+own mechanics.
+
+**Exposure window:** the vulnerable logic and the logging were live in
+Production (v44/v45 through v46) for roughly one hour, 17:31–18:27 UTC
+2026-08-14. Zero real students exist in Production this session
+(`GRADING_ENTITLEMENTS_ENABLED=false`, TASK-0016's standing "0 student
+attempts" baseline), so no student grading was actually affected — recorded
+for completeness, not as an excuse.
+
+**Also fixed from QA's non-blocking findings:**
+- Corrected an accuracy error in the prior writeup/log: the deploy sequence
+  was actually v44→v45→v46 (three deploys), not "v44→v45" as originally
+  reported — now v44→v45→v46→v47 including this remediation.
+- `docs/tasks/TASK-0016-GRADING-ENGINE-ROLLOUT.md` had one remaining
+  unstruck reference to the retired ≤1000ms p50 gate (QA Plan section, the
+  "primary lever to hold p50 ≤ 1000 ms" sentence) — now annotated
+  consistently with the rest of the addendum.
+- The evidence-grounding classification corpus (12 real quote/response
+  pairs, redacted of user/attempt IDs) is now committed as
+  `docs/research/evidence_grounding_corpus_2026_08_14.json` — QA correctly
+  noted the underlying DB rows were deleted per the standing
+  create→run→cleanup protocol, so without this artifact the classification
+  claims weren't independently reproducible after the fact.
+- The actual codex second-opinion review response (previously only the
+  prompt asking for it was in the repo, not the response itself) is now
+  saved as
+  `docs/research/CODEX_SECOND_OPINION_RESPONSE_ENGINE1_ENGINE3_GO_LIVE_2026_08_13.md`,
+  verbatim.
+- The latency-gate retirement is now durably recorded as `DECISION-0046` /
+  `APPROVAL-0043` (`docs/activity_log/DECISIONS_LOG.md` /
+  `APPROVALS_LOG.md`), not only inside the TASK-0016 addendum — it reverses
+  a numeric target from the original Hard Gate `APPROVAL-0033` and QA
+  correctly flagged that this deserved a durable, independently-findable
+  decision record.
+
+**Verified:**
+- `deno test --allow-read --allow-env supabase/functions/_shared/`: 143
+  passed, 0 failed (net −2 from removing 2 hook-mechanics tests, +1 new
+  adversarial regression using QA's exact counterexample).
+- `deno check` clean on both changed files.
+- `supabase functions list`: `evaluate-attempt` v47, confirmed live.
+- Corpus artifact: 12 rows, valid JSON, confirmed readable.
+
+**What QA could not verify / flagged as unverified:** whether amending
+TASK-0016 in place (vs. a fresh charter-level record) is fully consistent
+with repo governance precedent for a Hard-Gate task's scope change —
+addressed by adding the DECISION/APPROVAL pair above rather than relying on
+the in-task addendum alone. QA's DB-access-dependent checks (deploy version,
+cleanup confirmation) were independently re-verifiable and matched.
+
+**Next Owner:** David Bloom / Main Conductor
+**Next Required Action:** none blocking. The grounding investigation remains
+open per its own "what's still open" section (further phrasing variants,
+larger-scale remeasurement) — this entry closes the QA remediation cycle,
+not the investigation. Remaining P0 work is the Engine 3 governed
+profile-loader (parallel track, not yet started).
+
+## P0 Evidence-Grounding False-Alarm Repair Shipped (evaluate-attempt v44→v45): 6 of 10 Classified False Alarms Fixed via Punctuation/LaTeX/Truncation Normalization, Zero Fabrication Risk, Verified Live On/Off — 2026-08-14
+
+**Task:** TASK-0016 addendum (2026-08-13), P0 — the first concrete work
+against the addendum's top-priority item. Full writeup:
+`docs/research/EVIDENCE_GROUNDING_FALSE_ALARM_CLASSIFICATION_2026_08_14.md`.
+
+**Method change from the original plan:** the plan (this session's earlier
+draft) assumed raw rejected quotes would need new logging instrumentation to
+capture, since every prior captured `evidence_not_found` case has
+`evidence_quote: null` in sanitized output. A `console.log` hook was built
+and deployed (v44) for this, but turned out unnecessary once
+`app.grading_results.raw_model_response` was checked directly via SQL
+(Management API `database/query`, since the Supabase MCP server isn't
+authenticated this session) — it already stores the full pre-sanitization
+model output, including the quote before nulling, for every grading call
+ever made. The hook stays in (harmless, diagnostic-only) but the actual
+classification corpus came from `raw_model_response`.
+
+**Corpus:** 10 real `evidence_not_found` instances (6 freshly captured
+against `APSTATS-SFRQ-008` via a one-off authenticated smoke run, 4
+pre-existing), run through the real `evidenceIsGrounded()` function via a
+new diagnostic script rather than eyeballed. **Zero were fabricated content
+unrelated to the response** — 6 traced to mechanical formatting gaps (fixed:
+quote-wrapping punctuation, LaTeX/`$`-notation stripping, single-fragment
+truncation, truncation-boundary period/semicolon substitution), 2 to genuine
+paraphrase/compression (correctly still rejected — the check is working as
+intended there). A follow-up live re-run after the first fix surfaced one
+more real pattern (semicolon-for-period at a fragment boundary, fixed) and
+one deferred one (symbol-for-words substitution, left rejected).
+
+**Fixes are symmetric normalizations or punctuation-boundary tolerances
+only** — none loosen matching on content. The single-fragment-elision
+relaxation is provably safe: any case it newly accepts was already covered
+by the whole-string check that runs before it, so it can only recover
+genuine truncations, never admit a new false positive.
+
+**Verified:**
+- `deno test`: 136 → 144 passed, 0 failed (8 new tests: 6 from this
+  investigation's real captures — including one deliberately-still-failing
+  adversarial case, locked in with a test so future work can't silently make
+  the matcher more permissive than intended — plus 2 from the earlier hook).
+- Live before/after on the identical trigger scenario: criteria `b`/`c` went
+  from frequently flagged to zero flags across two follow-up rounds (12
+  calls); criterion `a` improved from every-call to ~4-of-6 (new phrasing
+  variants not yet in the classified set — expected, not a regression).
+- Two incremental deploys (`evaluate-attempt` v44, v45), each diffed against
+  repo HEAD before deploying.
+- All 18 test attempt/response_version rows created across three capture
+  rounds deleted; zero remaining, confirmed by count query
+  (create→run→cleanup protocol).
+
+**Not done / explicitly deferred:** a large-scale (Run-A-shaped) re-measurement
+to get a real population-level acceptance rate — this session's numbers are
+diagnostic (n≤12 per round), not the certified ≥99.5%/~0%-fabrication rate
+the TASK-0016 addendum's gate describes. The addendum's own "launch now,
+iterate in production" framing anticipates more rounds of this as real
+traffic surfaces new phrasing variants, not one pass reaching 100% coverage.
+
+**Next Owner:** David Bloom / Main Conductor
+**Next Required Action:** none blocking. Recommended next: either continue
+into the Engine 3 governed profile-loader (TASK-0016 addendum P0, parallel
+track) or run a larger grounding re-measurement before calling this
+investigation closed.
+
+## TASK-0016 Amended: Codex Second-Opinion Review Adopted — Criterion-Level Router Framing, Five Production Authority Stages, Latency Hard Gate Retired, Evidence-Grounding Repair Named P0 — 2026-08-13
+
+**Task:** TASK-0016 (grading engine). **Trigger:** owner directed getting
+Engine 1 and Engine 3 "live and active," to be improved iteratively in
+production. An initial go-live plan was drafted this session, then sent to
+codex for a second opinion (`prompts/SECOND_OPINION_ENGINE1_ENGINE3_GO_LIVE_PLAN_2026_08_13.md`).
+The critique identified five structural problems with treating Engine 1 and
+Engine 3 as separate go-live tracks; the owner reviewed it and made two
+explicit calls, both now recorded directly in TASK-0016 rather than left
+implicit in a session-local plan file.
+
+**Decisions recorded in TASK-0016's new 2026-08-13 addendum:**
+1. Go-live direction confirmed: launch now, iterate in production; the
+   original 300+ dual-adjudicated gold-set certification gate becomes a
+   dependency for later authority stages, not a pacing item for starting.
+2. **≤1000ms end-to-end p50 hard gate retired**, struck through in place
+   rather than deleted (history preserved). Evidence: ~691ms p50 non-model
+   overhead alone, and Arm A measured 22–31s medians on the real production
+   model (`gpt-4.1-mini`) against a ~4s expectation validated only on
+   `gemini-2.5-flash`. Replaced with two SLAs (time-to-acknowledgement,
+   time-to-complete-feedback) under the standing Quality > Speed > Cost
+   priority order.
+3. Engine 3 confirmed shadow-only for now (structural ceiling: hardcoded
+   `finalStatus = "uncertain"`, no typed-math frontend) — "shadow" to become
+   a real captured state (`shadow_result` field), not a synonym for "no
+   engine wired."
+4. `GRADING_ENTITLEMENTS_ENABLED` left as an explicitly open decision, not
+   silently assumed either way.
+
+**Framing changes:** Technical Scope now states the router dispatches
+per-criterion, not per-engine — Engine 1/3 are verification strategies
+behind one pipeline. Acceptance criteria's single ≥95%-agreement number is
+superseded by over/under-credit measured separately, selective accuracy
+reported alongside coverage, and `uncertain_rate` decomposed by cause. New
+P0: evidence-grounding false-abstention repair (Run A: 100% selective
+accuracy, 61.3% overall — the gap is abstention, not wrong grading), gated
+on ≥99.5% true-grounding acceptance with ~0% fabricated-evidence acceptance
+on an adversarial corpus, not simply "fewer abstentions."
+
+**Not yet done:** none of the engineering work itself (grounding-corpus
+classification, Engine 3 profile-loader, shadow-capture field, migrations,
+deploys) — this entry covers the governance/task-record amendment only.
+
+**Next Owner:** David Bloom / Main Conductor
+**Next Required Action:** none blocking — proceed into the P0 engineering
+work (evidence-grounding repair; Engine 3 governed profile-loader) per the
+addendum's sequencing.
 
 ## Grading-Engine Replan Consolidated Into the Three "Read First" Docs: Ledger, Cross-Subject Lessons, and Handoff All Updated So Today's Findings Are Discoverable, Not Just Logged — 2026-08-13
 
