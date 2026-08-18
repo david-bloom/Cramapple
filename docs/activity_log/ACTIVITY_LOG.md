@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Real-Photo Hand-Drawn Grading Accuracy Measured Against Genuine Per-Image Gold (200 Photos, 20 Independent Graders): Fails All Four DR-1 Thresholds — 23% Exact Match, 30.6% False-Accept Rate; Also Found a Systematic Axis-Tick-Corruption Corpus Defect on 11 EST-Archetype Items — 2026-08-18
 - Session Closeout (2026-08-16 → 2026-08-17): UAT → TASK-0018 Execution → Onboarding Redesign → Design-System Restyle — Six Production Bugs Found and Fixed, Two DB Migrations, Nine Frontend Deploys, All Owner-Approved Before Publish — 2026-08-17
 - Restyled HomeV2 onto the Real Cramapple Design System — It Was the Only Real Page Not Using --ca-*/--cv-* Tokens; Half Its CSS Referenced Custom Properties That Don't Exist Anywhere in the Codebase; Also Found a Lightning CSS Comment-Parsing Bug Along the Way — 2026-08-17
 - Found and Fixed the Reason Every Real Practice Session Was Failing: entry_path CHECK Constraint Never Matched the Frontend's Values, for Any Student, Ever; Also Fixed /session/setup Silently Ignoring Its Own URL Params — 2026-08-17
@@ -121,6 +122,21 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 ---
+
+## Real-Photo Hand-Drawn Grading Accuracy Measured Against Genuine Per-Image Gold: Fails All Four DR-1 Thresholds — 2026-08-18
+
+**Task:** TASK-0020 Program C / the "open it up" question paused earlier this session — is automated grading of hand-drawn responses ready for real students?
+
+**Summary:** A 2026-06-30 benchmark validated the production-candidate grading method (`VISION_FAST_ESC`: `gpt-4o-mini` escalating to `gpt-5.5`) against clean, computer-rendered trace-set pages and passed all four DR-1 thresholds. That was never accepted as sufficient because real capture conditions (phone photos, lighting, paper texture) were untested. This session built the missing piece — genuine per-image gold labels for all 200 real `HDG-2026-P1` photos in `docs/hand drawn samples/`, produced by 20 independent single-pass agent graders checking each photo against its item's `display_table`/`expected_graph_spec`, not assumed correct (the earlier assumption "gold = all earned" was wrong, corrected in-session by the owner) — then re-ran the same production-candidate method against it.
+
+**Result:** fails every DR-1 threshold, not narrowly: exact-match 23.0% (need ≥95%), per-criterion F1 84.5% (need ≥90%), false-accept rate 30.6% (need ≤2%), false-reject rate 20.5% (need ≤5%). The false-accept number is new information — the trace-set benchmark had no known-incorrect items to measure it against at all. **Conclusion: automated hand-drawn grading is not ready for real students today; the existing shadow-only, non-authoritative routing (`grading-router.ts`: `rubric_type: spatial` → `human_shadow`) should stay in place.**
+
+**Also found (separate, actionable):** a systematic axis-tick-value corruption defect on 11 `EST`-archetype items (titles correct, tick numbers swapped with the other axis's data — confirmed as a source/template defect since duplicate independent photos of the same item share the identical corruption), 29/200 photos missing a required axis unit, and at least 7 likely-misfiled photos (page header doesn't match drawn content). These are pre-existing corpus defects, not introduced this session, and should be triaged before this corpus is reused for another accuracy measurement.
+
+**Full write-up:** [`docs/research/HAND_DRAWN_REAL_PHOTO_GRADING_ACCURACY_2026_08_18.md`](../research/HAND_DRAWN_REAL_PHOTO_GRADING_ACCURACY_2026_08_18.md).
+
+**Next Owner:** David Bloom.
+**Next Required Action:** decide whether to invest in fixing the production-candidate grading method's real-photo accuracy (a substantial gap to close) or continue treating hand-drawn/spatial grading as shadow-only/non-authoritative for the foreseeable future; separately, decide whether to triage the corpus defects (axis-tick corruption, misfiled photos) before this corpus is used for any other benchmark.
 
 ## Session Closeout (2026-08-16 → 2026-08-17): UAT → TASK-0018 → Onboarding Redesign → Design-System Restyle — 2026-08-17
 
