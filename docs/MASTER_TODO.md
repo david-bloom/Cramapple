@@ -80,6 +80,7 @@ records.
 | `TASK-0009` | Schema and Governance Reconciliation | High | Proposed | Conceptual-model approval |
 | `TASK-0010` | Grader Confidence and Calibration | Critical | Proposed | Learning Quality and Product Owner release gates |
 | `TASK-0011` | Handwritten Graph Capture | Medium | Research | Prototype and feasibility decision |
+| `TASK-0023` | Stripe Setup and Commercial Launch Readiness | High | In Progress | Register Stripe webhook endpoints (dev + prod) for `STRIPE_WEBHOOK_SECRET`; close beta subject-parity gap; `BIZ-001` pricing decision |
 | `UX-001` | Initial Product UX Decisions | High | In Progress | Learning, Marketing, accessibility, and Product Owner review |
 | `UX-002` | Question and Answer Review Portal | High | In Progress | Tutor, AP Reader, Learning Quality, accessibility, security, and Product Owner review |
 | `UX-003` | Content Authoring and Revision Workbench | High | In Progress | Author, Learning Quality, accessibility, security, rights, and Product Owner review |
@@ -244,6 +245,13 @@ records.
 - [ ] Define and validate learner-created graphing and scoring.
 - [ ] Research QR-linked handwritten graph capture through `TASK-0011`.
 - [ ] Select a renderer only after the bounded prototype and architecture gate.
+- [ ] **Deferred 2026-08-12:** gold-set coverage for graph-construction FRQ
+  criteria and their grading (e.g. AP Biology Q2 Part B, worth 4 of 9 points
+  per the CED — currently zero 4-point criteria exist in the Biology bank).
+  A written student answer can't stand in for "the student drew this graph,"
+  so this needs the HDG capture path above, not the text-answer
+  `generate_gold_set.mjs` pipeline. Revisit once this backlog item's core
+  rendering/capture questions are resolved.
 
 ## 7. P1 Product and Teaching Design Backlog
 
@@ -614,6 +622,10 @@ planning target. Physical Supabase DDL remains deferred.
 - [ ] Define refunds, discounts, and future bundles.
 - [ ] Prevent sales of subject bundles before each pack passes quality gates.
 - [ ] Define parent-purchaser handling without granting parent data access.
+
+Feeds `TASK-0023` (Stripe Setup and Commercial Launch Readiness), which
+implements the Stripe product/price catalog and checkout flow once this
+policy is decided.
 
 ### OPS-001 - Economics and Staffing Plan
 

@@ -279,3 +279,43 @@ and that pass is the one where the reader bill is real.
    unhashed run is unattributable.
 5. **The set being used to tune.** §5.4. Structural, not a matter of discipline —
    the frozen set should live where tuning workflows cannot reach it.
+
+---
+
+## 8. Live corpus status by subject
+
+Snapshot against Production `pcntajvbdfqhbeewmdry` (`app.gold_set_answers` /
+`app.gold_set_verification_assignments`), taken during the 2026-08-12 reviewer QA sweep
+(`docs/Q&A/REVIEWER_QA_SWEEP_2026_08_12.md`). "Answers created" is distinct rows in
+`gold_set_answers`; "Assigned" is verification-assignment rows against those answers
+(an answer can carry more than one reviewer assignment); "Reviewed" is the subset with
+`status='submitted'`. This table is a point-in-time reading, not part of the protocol
+itself — refresh it each sweep rather than editing the pipeline sections above.
+
+| Subject | Criterion structure | Answers created | Assigned | Reviewed | Pending |
+|---|---|---:|---:|---:|---:|
+| AP Statistics | Multiple (Set A) | 30 | 60 | 60 | 0 |
+| AP Calculus AB | Single (Set B) | 22 | 44 | 22 | 22 |
+| AP Calculus BC | Single (Set B) | 27 | 46 | 23 | 23 |
+| AP Physics 1 | Single (Set B) | 23 | 24 | 8 | 16 |
+| AP Physics 2 | Single (Set B) | 29 | 26 | 8 | 18 |
+| AP Physics C: Electricity and Magnetism | Single (Set B) | 29 | 30 | 4 | 26 |
+| AP Physics C: Mechanics | Single (Set B) | 23 | 28 | 0 | 28 |
+| AP Precalculus | Single (Set B) | 44 | 1 | 1 | 0 |
+| AP Statistics | Single (Set B) | 48 | 80 | 80 | 0 |
+| **Set A total** | Multiple | **30** | **60** | **60** | **0** |
+| **Set B total** | Single | **245** | **279** | **146** | **133** |
+
+Two things worth flagging from this reading, not just reporting it:
+
+- **AP Precalculus (Set B) has 44 answers created but only 1 assignment.** 43 written
+  answers are sitting with no reviewer assigned at all — the largest unassigned backlog
+  in the corpus by a wide margin, and worth a targeted assignment pass rather than
+  waiting for it to surface again next sweep.
+- **AP Physics C: Mechanics (Set B) has 0 of 28 assignments reviewed** — every assigned
+  answer for that subject is still pending; combined with AP Physics C: E&M (4/30
+  reviewed) and AP Physics 1/2 (8/24, 8/26), the Set B physics subjects are the least
+  caught-up of the corpus even though generation for them is essentially complete.
+- Set A is currently AP Statistics only (30/30 answers, fully reviewed) — Biology and
+  Chemistry, called out in §2's Set A population, have no rows in `gold_set_answers` yet;
+  Set A generation for those subjects has not started.
