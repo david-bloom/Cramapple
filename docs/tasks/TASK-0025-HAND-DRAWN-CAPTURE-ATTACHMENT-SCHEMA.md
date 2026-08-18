@@ -5,7 +5,7 @@
 **Owner:** Claude (implementation), Technical Owner (review)
 **Product Owner:** David Bloom
 **Tier:** Hard-Gate
-**Status:** Implemented and Applied to Development and Production; Frontend Pilot Committed, Pushed, and Live; Independent QA Complete (Fail -- 8 findings), Fixed in Code, and Fix Migration Deployed + Verified on Development (2026-08-17/18) -- Production deployment of the fix still pending; Formal Approval Pending
+**Status:** Implemented and Applied to Development and Production; Frontend Pilot Committed, Pushed, and Live; Independent QA Complete (Fail -- 8 findings), Fixed in Code, and Fix Migration + `attempt-response` Deployed and Verified on BOTH Development and Production (2026-08-17/18, explicit Product Owner go-ahead given in-session); Formal Approval Still Pending (independent QA review recorded findings and fixes, but a real authenticated admin click-through has still never been done)
 **Priority:** Critical
 **Created Date:** 2026-08-15
 **Approved Date:** Pending
@@ -478,39 +478,58 @@ before deploying:
   task's practice of Development-first verification before a Production
   go-ahead).
 
-### Production status check (2026-08-18) -- NOT production-ready for real students
+### Production deployment (2026-08-18) -- fix is live; pipeline still admin-pilot-only
 
-Checked directly against Production (`pcntajvbdfqhbeewmdry`), not assumed
-from prior log entries:
+**2026-08-18, explicit Product Owner go-ahead ("Let's get this into
+production") given in-session:**
 
-- **The fix is not deployed to Production.** `app.bind_response_attachment`
-  and `app.record_manual_grade` do not exist there; `DELETE` is still
-  granted to `service_role` on `app.response_attachments`. Production's
-  deployed `attempt-response` function hash matches Development's
-  *pre-fix* build. All 8 QA findings -- including the retake-breaks-every-
-  time bug and the manual/auto-grade race -- are still live in Production
-  today.
-- **No real student can reach this pipeline regardless.** The pilot's one
-  content item (`APBIO-HDG-2026-GRAPH-002`) still carries
-  `prompt_json.label_status = 'ai_provisional_unapproved'` in Production,
-  and the frontend routes (`/hand-drawn-pilot`,
-  `/admin/grade-response/$attemptId`) remain admin-gated and unlinked, as
-  designed for this pilot slice.
-  - `app.response_attachments`: **0 rows ever** in Production (no capture,
-    real or test, has gone through this pipeline there).
-  - `app.grading_results` with `model_id = 'manual-review'`: **0 rows
-    ever** in Production.
-- **Net: accepting, grading, and repairing (retaking) a hand-drawn
-  response is not live for real students in Production, and the
-  admin-only pilot backend that exists there is still the pre-fix, buggy
-  build.** Getting this genuinely production-ready needs, in order: (1)
-  deploy the fix migration + `attempt-response` to Production (blocked
-  only on a Production go-ahead, since Development verification is done),
-  (2) a real end-to-end authenticated admin click-through (still never
-  done, per this task's own open acceptance criteria), (3) a Product Owner
-  decision to move the pilot item off `ai_provisional_unapproved` and
-  build a real (non-pilot, non-admin-only) delivery path -- explicitly out
-  of this task's scope per "Out of Scope" above.
+- `20260818011720_response_attachments_fixes.sql` applied to Production
+  (`pcntajvbdfqhbeewmdry`) via `apply_migration`. Re-ran the exact same two
+  rolled-back SQL verification suites used on Development, this time
+  directly against Production, both passing clean (no fixture data
+  persists): `bind_response_attachment` (first-original insert, a retake
+  correctly succeeding -- the exact sequence that previously threw
+  `unique_violation` -- exactly one current original afterward, a stale
+  retake target still rejected, `DELETE` now blocked) and
+  `record_manual_grade` (first grade claims the attempt, a racing second
+  call is cleanly rejected with `attempt_not_gradable`, the first grade's
+  score is not clobbered).
+- `attempt-response` redeployed to Production (version 23). Confirmed
+  content-identical to the Development deploy: `get_edge_function` on both
+  projects returned identical `files[].content` for every file (only the
+  function-id/path/timestamp metadata line differed -- the `ezbr_sha256`
+  field is evidently not a pure content hash across projects, e.g. it
+  incorporates the project-specific entrypoint path, so a differing hash
+  between environments should not on its own be read as differing source;
+  a real file-content diff is the reliable check). Smoke-tested live: an
+  authenticated-but-unauthorized request against the real Production
+  endpoint returns the function's own `{"error":"unauthorized"}`,
+  confirming the function and all its shared-module imports load and
+  execute cleanly.
+- Confirmed post-deploy: `app.bind_response_attachment` and
+  `app.record_manual_grade` both exist in Production; `DELETE` is
+  confirmed revoked from `service_role` on `app.response_attachments`.
+
+**Still true, unchanged by this deploy -- no real student can reach this
+pipeline regardless of the fix.** The pilot's one content item
+(`APBIO-HDG-2026-GRAPH-002`) still carries
+`prompt_json.label_status = 'ai_provisional_unapproved'` in Production,
+and the frontend routes (`/hand-drawn-pilot`,
+`/admin/grade-response/$attemptId`) remain admin-gated and unlinked, as
+designed for this pilot slice. `app.response_attachments` and
+`app.grading_results` with `model_id = 'manual-review'` both still show
+**0 rows ever** in Production (checked immediately before this deploy) --
+this pipeline has never actually been used there, by anyone, real or
+test.
+
+**Net: the fixed backend is now live in Production, but this remains an
+admin-only pilot, not a real student-facing capability.** What's left to
+call this genuinely done: (1) a real end-to-end authenticated admin
+click-through (still never done, per this task's own open acceptance
+criteria), (2) a Product Owner decision to move the pilot item off
+`ai_provisional_unapproved` and build a real (non-pilot, non-admin-only)
+delivery path -- explicitly out of this task's scope per "Out of Scope"
+above.
 
 ## Done Decision
 

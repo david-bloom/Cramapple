@@ -34,7 +34,7 @@ const ALLOWED_OPERATIONS = new Set<Operation>([
 ]);
 const ATTACHMENT_KINDS = new Set<AttachmentKind>(["original", "derived"]);
 
-// Row shapes returned by the RPCs in 20260817120000_response_attachments_fixes.sql
+// Row shapes returned by the RPCs in 20260818011720_response_attachments_fixes.sql
 // (`.rpc()` isn't typed against a generated Database schema here, so these
 // annotate what the SQL functions actually return).
 type ResponseAttachmentRow = {
@@ -772,7 +772,7 @@ Deno.serve(async (req) => {
       // the new row in one transaction under a row lock, closing both the
       // insert-before-supersede ordering bug and the concurrent-retake race
       // that separate insert/update calls had. See
-      // 20260817120000_response_attachments_fixes.sql.
+      // 20260818011720_response_attachments_fixes.sql.
       const { data: boundAttachment, error: bindError } = await service
         .schema("app")
         .rpc("bind_response_attachment", {
@@ -945,7 +945,7 @@ Deno.serve(async (req) => {
       // on it still being 'submitted') and inserts the grading_results row
       // in one transaction, so this can't race evaluate-attempt (the
       // automated grading path) for the same attempt -- see
-      // 20260817120000_response_attachments_fixes.sql.
+      // 20260818011720_response_attachments_fixes.sql.
       const { data: gradingResult, error: gradeError } = await service
         .schema("app")
         .rpc("record_manual_grade", {
