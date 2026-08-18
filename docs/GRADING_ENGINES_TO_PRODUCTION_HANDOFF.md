@@ -13,6 +13,113 @@ a new session without re-deriving context.
 
 ---
 
+## UPDATE 2026-08-11 — corrections from the exemplar-pilot second-opinion review
+
+Appended per replan item 1.5
+(`docs/research/GRADING_ENGINE_REPLAN_EXECUTION_PLAN_2026_08_10.md`). The
+2026-07-28 text below is retained unchanged as the comparison baseline;
+where this section contradicts it, this section wins. Only already-decided
+items are listed — no new data was required for any of them.
+
+1. **The deterministic text layer is live and decisive, not "effectively
+   absent (0.7%)."** Phase C measured 0.7% deterministic firing on its
+   cross-subject corpus; on the 2026-08-10 exemplar-pilot capture the
+   Statistics keyed gate short-circuited **130 of 300 calls (43% of cases)**
+   before any model call. It is a decision-making production layer and is
+   now under Engine 3-grade governance: a standing invariant harness audits
+   every `STATISTICS_TARGETS` key against gold answers + re-derived
+   canonical values (`scripts/grading-model-assessment/
+   verify_deterministic_keys.ts`, in `deno test`;
+   `docs/research/DETERMINISTIC_KEY_AUDIT_2026_08_11.md`). The audit found
+   `APSTATS-SFRQ-008` keyed with the retired v1 canonical's values —
+   every correct response deterministically zeroed. Corrected values are
+   in-repo pending O1.
+2. **"Engine 1 never abstains" is now half-obsolete.** The grader-call
+   finding stands (prompt text cannot buy abstention — ledger §5.3), but at
+   the SYSTEM level abstention is common: deterministic flags plus
+   sanitizer integrity checks put 13.5% of the pilot's LLM-path trials and
+   43% of its cases into `uncertain`. The escalation problem is now
+   "convert system abstentions," not "create abstention."
+3. **Non-model end-to-end overhead is measured: ~691 ms p50 / 953 ms p95**
+   (deterministic-gate calls in the pilot capture — full HTTP/auth/DB/render
+   path, no model). §11's "unmeasured non-model latency" is closed as a
+   question; against the 1,000 ms bar, the non-model floor alone consumes
+   ~69% of budget. Stage-timing telemetry to attack it is pre-staged in the
+   Step 2 deploy bundle.
+4. **Engine 3 owner-decision #3 is resolved toward wiring the profile
+   loader.** The hardcoded-map pattern (bare constants keyed by
+   content_key) is the exact class that just failed in production via
+   SFRQ-008; the governed-loader build is scheduled in the replan's rebuild
+   register.
+5. **Prompt-content experiment direction is closed.** The exemplar few-shot
+   pilot, corrected for its replay-parsing defect, reads +1.4pp with CIs
+   straddling zero at both cluster granularities
+   (`exemplar_grading_pilot_2026_08/REPORT.md` §"Correction — 2026-08-11").
+   Remaining prompt-adjacent work is `accepted_variants` authoring only
+   (ledger §5.1).
+
+---
+
+## UPDATE 2026-08-13 — Steps 1–3 of the replan executed; the real accuracy lever identified
+
+Steps 1–3 of `GRADING_ENGINE_REPLAN_EXECUTION_PLAN_2026_08_10.md` are now
+all complete (the 2026-08-11 update above covers Step 1's analysis only).
+Full detail across `docs/activity_log/ACTIVITY_LOG.md`'s 2026-08-13 entries
+and `exemplar_grading_pilot_2026_08/EXECUTION_LOG.md`. **The single most
+important thing for a new session to know: the deterministic layer and the
+grader's own judgment are both now confirmed working correctly — the
+accuracy work that still matters is a different, smaller problem (item 6
+below), not more of what Steps 1–2 fixed.**
+
+1. **`APSTATS-SFRQ-008`'s deterministic keys were wrong and are now fixed
+   and deployed.** Keyed to the item's retired v1 canonical, not the
+   published v3 — every correct response was zeroed. Fixed, deployed
+   (`evaluate-attempt` v37+), and a standing invariant harness now audits
+   every keyed entry against real gold answers in `deno test` permanently.
+   Ledger §3B has the full record; do not re-derive this.
+2. **Per-criterion deterministic flag scoping ("O2") is deployed for 8
+   items.** A flag used to zero every criterion on the item regardless of
+   which one the numeric evidence concerned; now only the implicated
+   criteria are held, confirmed working end-to-end against a real
+   authenticated call. **Shipped with a same-session, self-caught defect**
+   worth reading even if you don't touch this code: reusing an existing
+   "similar" data structure across two different key namespaces (gold-fixture
+   ids vs real `frq_criteria.criterion_key`) silently no-op'd on 7 of 8
+   items before being caught. Ledger §3B, "Engineering pitfall" row — the
+   lesson generalizes to any future criterion-key mapping (Engine 3/4
+   included).
+3. **Run A confirms the fix works on the exact previously-broken traffic.**
+   13 responses that used to hit the deterministic gate now all reach real
+   grading; selective accuracy 100%. $0.40 real spend.
+4. **Run B (prompt caching) closed without spending.** The prompt's
+   cacheable prefix is byte-stable but only ~540 tokens — half of OpenAI's
+   1024-token minimum. Don't measure this again until the prompt is
+   deliberately restructured to cross that floor.
+5. **Run C found Arm A does not deliver its speed claim on `gpt-4.1-mini`.**
+   Phase C's "~16s → ~4s" figure (§0 below, and Lesson 26 in the takeaways
+   doc) was measured on `gemini-2.5-flash`. Re-measured on the real
+   production model: 22–31 seconds across every criterion count, not flat,
+   mostly slower than Arm B. Quality wasn't clearly bad this round. **Do
+   not cite the old Arm A latency figures for `gpt-4.1-mini`** — see
+   takeaways Lesson 27 and ledger's Phase C correction block.
+6. **The actual binding accuracy constraint, found independently twice the
+   same session: evidence-grounding false alarms, not model judgment or
+   deterministic coverage.** Both the O2 smoke test and Run A found
+   selective accuracy at or near 100% (every committed verdict correct)
+   with the entire accuracy gap sitting in abstention — the sanitizer
+   rejecting a correct verdict because its evidence quote isn't an exact
+   substring match. Ledger §4 Lesson 11, takeaways Lesson 28. **This is
+   the next real lever, ranked above more gold-set volume, more
+   deterministic-key coverage, or another model/arm evaluation** — none of
+   those move a number whose gap is abstention.
+
+**Not done:** Step 4 as originally scoped (a full handoff rewrite) — this
+update section is the practical equivalent, written same-day rather than
+as a separate rebuild. The rebuild register in the replan doc has Arm A's
+row updated with Run C's verdict; nothing else in that register changed.
+
+---
+
 ## 0. One-paragraph state of the world
 
 Engine 1 is deployed and, as of 2026-07-28, **works end-to-end for the first time** — it had never

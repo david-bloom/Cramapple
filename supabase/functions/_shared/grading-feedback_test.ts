@@ -12,7 +12,7 @@
 // asserted below; loosening it until the second group passes would defeat the
 // purpose of having it.
 
-import { evidenceIsGrounded } from "./grading-feedback.ts";
+import { evidenceIsGrounded, overrideCriteriaAsUnresolved } from "./grading-feedback.ts";
 
 const RESPONSE = [
   "(a) The four corners are the ones given: (V0, P0), (V0, 3P0), (2V0, 3P0).",
@@ -75,6 +75,92 @@ Deno.test("elision cannot be abused with trivially short fragments", () => {
   // "a ... b ... c" must not match merely because single characters occur.
   if (evidenceIsGrounded("a ... b ... c", RESPONSE)) {
     throw new Error("short fragments should not satisfy the elision path");
+  }
+});
+
+// --- overrideCriteriaAsUnresolved (replan O2, 2026-08-13) ------------------
+//
+// This is the per-criterion flag-scoping helper: given the model's real,
+// already-sanitized verdicts, force ONLY the named criteria to
+// unable_to_determine/0 -- the blast-radius bug this replaces zeroed every
+// criterion on an item regardless of which ones the deterministic flag's
+// numeric evidence actually belonged to.
+
+const THREE_CRITERIA = [
+  {
+    criterion_key: "a-1",
+    status: "earned" as const,
+    points_awarded: 1,
+    evidence_quote: "E(X) = -1.40",
+    decision_explanation: "Correctly computed the expected value.",
+    minimum_fix: null,
+  },
+  {
+    criterion_key: "a-2",
+    status: "not_yet_earned" as const,
+    points_awarded: 0,
+    evidence_quote: null,
+    decision_explanation: "Standard deviation is missing.",
+    minimum_fix: "Compute the standard deviation from the payoff table.",
+  },
+  {
+    criterion_key: "b-1",
+    status: "earned" as const,
+    points_awarded: 2,
+    evidence_quote: "the distribution is symmetric",
+    decision_explanation: "Correctly identified the distribution shape.",
+    minimum_fix: null,
+  },
+];
+
+Deno.test("overrideCriteriaAsUnresolved forces only the named criteria, leaving others untouched", () => {
+  const result = overrideCriteriaAsUnresolved(
+    THREE_CRITERIA,
+    ["a-1", "a-2"],
+    "Deterministic check flagged the keyed evidence.",
+  );
+
+  const a1 = result.find((c) => c.criterion_key === "a-1")!;
+  if (a1.status !== "unable_to_determine" || a1.points_awarded !== 0) {
+    throw new Error("a-1 (in the scoped list, was earned) must be forced to unable_to_determine/0");
+  }
+  if (a1.decision_explanation !== "Deterministic check flagged the keyed evidence.") {
+    throw new Error("forced criteria must carry the deterministic check's reason, not the model's original explanation");
+  }
+
+  const a2 = result.find((c) => c.criterion_key === "a-2")!;
+  if (a2.status !== "unable_to_determine" || a2.points_awarded !== 0) {
+    throw new Error("a-2 (in the scoped list, was already not_yet_earned) must also be forced");
+  }
+
+  const b1 = result.find((c) => c.criterion_key === "b-1")!;
+  if (b1.status !== "earned" || b1.points_awarded !== 2) {
+    throw new Error("b-1 (NOT in the scoped list) must keep its real, model-graded verdict and points -- this is the whole point of scoping over the old item-wide zeroing");
+  }
+  if (b1.decision_explanation !== "Correctly identified the distribution shape.") {
+    throw new Error("untouched criteria must keep their original decision_explanation");
+  }
+});
+
+Deno.test("overrideCriteriaAsUnresolved with an empty key list is a no-op", () => {
+  const result = overrideCriteriaAsUnresolved(THREE_CRITERIA, [], "unused");
+  for (let i = 0; i < THREE_CRITERIA.length; i++) {
+    if (JSON.stringify(result[i]) !== JSON.stringify(THREE_CRITERIA[i])) {
+      throw new Error(`criterion ${THREE_CRITERIA[i].criterion_key} should be unchanged with an empty scope`);
+    }
+  }
+});
+
+Deno.test("overrideCriteriaAsUnresolved ignores keys that don't match any criterion", () => {
+  const result = overrideCriteriaAsUnresolved(
+    THREE_CRITERIA,
+    ["nonexistent-key"],
+    "unused",
+  );
+  for (let i = 0; i < THREE_CRITERIA.length; i++) {
+    if (JSON.stringify(result[i]) !== JSON.stringify(THREE_CRITERIA[i])) {
+      throw new Error("an unmatched scope key must not alter any real criterion");
+    }
   }
 });
 

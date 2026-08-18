@@ -14,9 +14,12 @@
 // class cannot return via a nested object either.
 
 import {
+  applyDeterministicFlagScope,
   buildCriterionRequestBody,
   buildGradingRequestBody,
   criterionGradingSchema,
+  type FeedbackCriterionResult,
+  type FeedbackCriterionRow,
   gradingSchema,
   supportsReasoningEffort,
 } from "./grading-contract.ts";
@@ -204,6 +207,165 @@ Deno.test("reasoning block is still sent for reasoning models", () => {
     if (body.reasoning?.effort !== "low") {
       throw new Error(`expected reasoning.effort=low for ${model}, got ${JSON.stringify(body.reasoning)}`);
     }
+  }
+});
+
+// --- applyDeterministicFlagScope (replan O2, 2026-08-13) -------------------
+//
+// The end-to-end composition used when a deterministic check flags a
+// SUBSET of an item's criteria (per NUMERIC_ELEMENT_CRITERIA in
+// statistics-verifier.ts): the model graded the whole item normally, and
+// this forces just the flagged criteria back to unable_to_determine while
+// recomputing everything downstream (points, status, highest_value_gap,
+// summary) from the real, model-graded criteria that weren't touched.
+
+const SOURCE_CRITERIA: FeedbackCriterionRow[] = [
+  {
+    criterion_key: "a-1",
+    learner_facing_text: "States E(X) = -1.40.",
+    points_possible: 1,
+    evidence_requirements: null,
+    minimum_fix: "State the expected value from the payoff table.",
+    accepted_variants: [],
+  },
+  {
+    criterion_key: "a-2",
+    learner_facing_text: "States SD ~ 4.477.",
+    points_possible: 1,
+    evidence_requirements: null,
+    minimum_fix: "Compute the standard deviation from the payoff table.",
+    accepted_variants: [],
+  },
+  {
+    criterion_key: "b-1",
+    learner_facing_text: "Correctly identifies the distribution shape.",
+    points_possible: 2,
+    evidence_requirements: null,
+    minimum_fix: "Describe whether the distribution is symmetric or skewed.",
+    accepted_variants: [],
+  },
+];
+
+function gradedCriteria(
+  overrides: Partial<Record<string, Partial<FeedbackCriterionResult>>> = {},
+): FeedbackCriterionResult[] {
+  const base: FeedbackCriterionResult[] = [
+    {
+      criterion_key: "a-1",
+      status: "earned",
+      points_awarded: 1,
+      evidence_quote: "E(X) = -1.40",
+      decision_explanation: "Correct expected value.",
+      minimum_fix: null,
+    },
+    {
+      criterion_key: "a-2",
+      status: "earned",
+      points_awarded: 1,
+      evidence_quote: "SD = 4.477",
+      decision_explanation: "Correct standard deviation.",
+      minimum_fix: null,
+    },
+    {
+      criterion_key: "b-1",
+      status: "earned",
+      points_awarded: 2,
+      evidence_quote: "the distribution is roughly symmetric",
+      decision_explanation: "Correctly described the distribution shape.",
+      minimum_fix: null,
+    },
+  ];
+  return base.map((c) => ({ ...c, ...(overrides[c.criterion_key] ?? {}) }));
+}
+
+Deno.test("applyDeterministicFlagScope recovers points on the unaffected criterion", () => {
+  const result = applyDeterministicFlagScope(
+    { criteria: gradedCriteria(), points_available: 4, status: "graded" },
+    SOURCE_CRITERIA,
+    ["a-1", "a-2"],
+    "Deterministic check flagged the keyed evidence.",
+  );
+
+  // b-1 was correctly earned by the model and is NOT in the flagged list --
+  // this is the entire point of scoping over the old item-wide zeroing.
+  if (result.points_earned !== 2) {
+    throw new Error(`expected 2 points recovered from b-1 alone, got ${result.points_earned}`);
+  }
+  const b1 = result.criteria.find((c) => c.criterion_key === "b-1")!;
+  if (b1.status !== "earned" || b1.points_awarded !== 2) {
+    throw new Error("b-1 must keep its real model-graded verdict");
+  }
+});
+
+Deno.test("applyDeterministicFlagScope forces the flagged criteria to unable_to_determine/0", () => {
+  const result = applyDeterministicFlagScope(
+    { criteria: gradedCriteria(), points_available: 4, status: "graded" },
+    SOURCE_CRITERIA,
+    ["a-1", "a-2"],
+    "Deterministic check flagged the keyed evidence.",
+  );
+  for (const key of ["a-1", "a-2"]) {
+    const c = result.criteria.find((x) => x.criterion_key === key)!;
+    if (c.status !== "unable_to_determine" || c.points_awarded !== 0) {
+      throw new Error(`${key} must be forced to unable_to_determine/0, got ${c.status}/${c.points_awarded}`);
+    }
+  }
+});
+
+Deno.test("applyDeterministicFlagScope marks the item uncertain even though every OTHER criterion resolved cleanly", () => {
+  const result = applyDeterministicFlagScope(
+    { criteria: gradedCriteria(), points_available: 4, status: "graded" },
+    SOURCE_CRITERIA,
+    ["a-1", "a-2"],
+    "unused",
+  );
+  if (result.status !== "uncertain") {
+    throw new Error(`expected "uncertain" (matches sanitizeModelResult's own any-abstention rule), got ${result.status}`);
+  }
+});
+
+Deno.test("applyDeterministicFlagScope stays uncertain if the pre-override status already was", () => {
+  const result = applyDeterministicFlagScope(
+    {
+      criteria: gradedCriteria({
+        "b-1": { status: "unable_to_determine", points_awarded: 0 },
+      }),
+      points_available: 4,
+      status: "uncertain",
+    },
+    SOURCE_CRITERIA,
+    ["a-1", "a-2"],
+    "unused",
+  );
+  if (result.status !== "uncertain") {
+    throw new Error("a payload that was already uncertain must stay uncertain");
+  }
+});
+
+Deno.test("applyDeterministicFlagScope recomputes highest_value_gap from the post-override criteria", () => {
+  const result = applyDeterministicFlagScope(
+    { criteria: gradedCriteria(), points_available: 4, status: "graded" },
+    SOURCE_CRITERIA,
+    ["a-1", "a-2"],
+    "Deterministic check flagged the keyed evidence.",
+  );
+  if (!result.highest_value_gap || result.highest_value_gap.criterion_key === "b-1") {
+    throw new Error("highest_value_gap must point at one of the newly-forced criteria (b-1 is resolved and earned, not a gap)");
+  }
+});
+
+Deno.test("applyDeterministicFlagScope's summary reflects the forced hold, not the model's original 'fully scored' claim", () => {
+  const result = applyDeterministicFlagScope(
+    { criteria: gradedCriteria(), points_available: 4, status: "graded" },
+    SOURCE_CRITERIA,
+    ["a-1", "a-2"],
+    "unused",
+  );
+  if (!/could not be decided/.test(result.student_facing_summary)) {
+    throw new Error(`summary must mention the held criteria, got: ${result.student_facing_summary}`);
+  }
+  if (!/earned 2 of 4/.test(result.student_facing_summary)) {
+    throw new Error(`summary must state the recomputed points (2 of 4), got: ${result.student_facing_summary}`);
   }
 });
 

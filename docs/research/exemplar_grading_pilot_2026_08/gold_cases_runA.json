@@ -1,0 +1,245 @@
+[
+  {
+    "content_key": "APSTATS-SFRQ-001",
+    "response_index": 6,
+    "response_text": "The distribution is right-skewed because most values are clustered in the 18-24 range but then there's 41 way out there which is definitely a potential outlier. If we remove the 41-minute value the mean would go down since we're taking out the highest number, and the standard deviation would also decrease because there would be less spread in the data without that extreme value.",
+    "criteria": [
+      {
+        "criterion_key": "a1",
+        "gold_label": "not_earned"
+      },
+      {
+        "criterion_key": "b1",
+        "gold_label": "earned"
+      },
+      {
+        "criterion_key": "c1",
+        "gold_label": "not_earned"
+      },
+      {
+        "criterion_key": "d1",
+        "gold_label": "earned"
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-SFRQ-001",
+    "response_index": 7,
+    "response_text": "The median time is 22 minutes. The distribution is kind of symmetric, I think, and there isn't really an outlier to worry about. Removing the 41-minute value wouldn't change things much.",
+    "criteria": [
+      {
+        "criterion_key": "a1",
+        "gold_label": "earned"
+      },
+      {
+        "criterion_key": "b1",
+        "gold_label": "not_earned"
+      },
+      {
+        "criterion_key": "c1",
+        "gold_label": "not_earned"
+      },
+      {
+        "criterion_key": "d1",
+        "gold_label": "not_earned"
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-SFRQ-008",
+    "response_index": 0,
+    "response_text": "To find the expected value I multiply each payoff by its probability and add them up. So E(X) = 0.10(10) + 0.20(2) + 0.70(-4) = 1 + 0.4 - 2.8 = -1.40 dollars. Wait actually I think the expected value should be positive since there's a chance to win money, so maybe I calculated wrong but I'm not sure where the mistake is.",
+    "criteria": [
+      {
+        "criterion_key": "a",
+        "gold_label": "partially_earned"
+      },
+      {
+        "criterion_key": "b",
+        "gold_label": "not_earned"
+      },
+      {
+        "criterion_key": "c",
+        "gold_label": "not_earned"
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-SFRQ-008",
+    "response_index": 1,
+    "response_text": "Okay, so like, for the expected value, you multiply each payoff by its probability and add them up. (10 * 0.10) + (2 * 0.20) + (-4 * 0.70) = 1.00 + 0.40 - 2.80 = -1.40 dollars. This means, in the long run, a buyer would expect to lose about $1.40 per ticket. For the standard deviation, I calculated the variance first: (10^2 * 0.10) + (2^2 * 0.20) + ((-4)^2 * 0.70) - (-1.40)^2 = 10 + 0.8 + 11.2 - 1.96 = 22 - 1.96 = 20.04. The standard deviation is the square root of that, so sqrt(20.04) which is about 4.48 dollars.",
+    "criteria": [
+      {
+        "criterion_key": "a",
+        "gold_label": "earned"
+      },
+      {
+        "criterion_key": "b",
+        "gold_label": "earned"
+      },
+      {
+        "criterion_key": "c",
+        "gold_label": "unable_to_determine"
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-SFRQ-008",
+    "response_index": 2,
+    "response_text": "The expected value is calculated as E(X) = 10(0.1) + 2(0.2) + (-4)(0.7) = 1 + 0.4 - 2.8 = -1.40 dollars. This doesn't mean you'll lose $1.40 on one ticket; it's more like what happens over a large number of purchases, the net outcome typically trends negatively. The standard deviation is sqrt((10 - (-1.4))^2 * 0.1 + (2 - (-1.4))^2 * 0.2 + (-4 - (-1.4))^2 * 0.7) = sqrt(129.96*0.1 + 11.56*0.2 + 6.76*0.7) = sqrt(12.996 + 2.312 + 4.732) = sqrt(20.04) which is about $4.48.",
+    "criteria": [
+      {
+        "criterion_key": "a",
+        "gold_label": "earned"
+      },
+      {
+        "criterion_key": "b",
+        "gold_label": "unable_to_determine"
+      },
+      {
+        "criterion_key": "c",
+        "gold_label": "unable_to_determine"
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-SFRQ-008",
+    "response_index": 3,
+    "response_text": "So first the expected value is 0.10(10) + 0.20(2) + 0.70(-4) = 1 + 0.4 - 2.8 = -1.4, so like on average you lose $1.40 per ticket over many tickets. But that\u2019s just the long-run average, not what happens if you buy one ticket \u2014 you either win 10, win 2, or lose 4, so the expected value doesn\u2019t predict your single outcome.",
+    "criteria": [
+      {
+        "criterion_key": "a",
+        "gold_label": "partially_earned"
+      },
+      {
+        "criterion_key": "b",
+        "gold_label": "earned"
+      },
+      {
+        "criterion_key": "c",
+        "gold_label": "earned"
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-SFRQ-008",
+    "response_index": 4,
+    "response_text": "The expected value is 0.10(10) + 0.20(2) + 0.70(-4) = 1 + 0.4 - 2.8 = -1.40 dollars. The standard deviation is sqrt(0.10(10+1.4)^2 + 0.20(2+1.4)^2 + 0.70(-4+1.4)^2) which is about 4.48. So in the long run, over many tickets, the buyer averages losing $1.40 per ticket, but that doesn't mean any single ticket will lose exactly that\u2014it's just the average over lots of sales.",
+    "criteria": [
+      {
+        "criterion_key": "a",
+        "gold_label": "earned"
+      },
+      {
+        "criterion_key": "b",
+        "gold_label": "earned"
+      },
+      {
+        "criterion_key": "c",
+        "gold_label": "unable_to_determine"
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-SFRQ-008",
+    "response_index": 5,
+    "response_text": "The mean here is -0.40, but that\u2019s not really the point. The standard deviation is about 4.48 dollars, which shows how much the payoff varies ticket to ticket. The expected value only matters if you buy the ticket a bunch of times\u2014like over many raffles\u2014but for a single ticket, you either win 10, win 2, or lose 4, and the mean doesn\u2019t predict what you\u2019ll get.",
+    "criteria": [
+      {
+        "criterion_key": "a",
+        "gold_label": "unable_to_determine"
+      },
+      {
+        "criterion_key": "b",
+        "gold_label": "not_earned"
+      },
+      {
+        "criterion_key": "c",
+        "gold_label": "earned"
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-SFRQ-008",
+    "response_index": 6,
+    "response_text": "The expected value is (0.10)(10) + (0.20)(2) + (0.70)(-4) = 1 + 0.4 - 2.8 = -1.40 dollars. This means in the long run if you buy many tickets the average net gain per ticket would be losing $1.40. So for just one ticket you can't really say what will happen since you'll either win $10, win $2, or lose $4, but over many many tickets it averages out to -$1.40.",
+    "criteria": [
+      {
+        "criterion_key": "a",
+        "gold_label": "partially_earned"
+      },
+      {
+        "criterion_key": "b",
+        "gold_label": "earned"
+      },
+      {
+        "criterion_key": "c",
+        "gold_label": "unable_to_determine"
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-SFRQ-008",
+    "response_index": 7,
+    "response_text": "Looking at this I need the mean first so that's $10(0.10) + 2(0.20) + (-4)(0.70) = 1 + 0.4 - 2.8 = -1.40$ dollars. For variance I'll use the formula with $(x - \\mu)^2$ times each probability: $(10-(-1.4))^2(0.1) + (2-(-1.4))^2(0.2) + (-4-(-1.4))^2(0.7) = (11.4)^2(0.1) + (3.4)^2(0.2) + (-2.6)^2(0.7) = 12.996 + 2.312 + 4.732 = 20.04$ so the SD is $\\sqrt{20.04} \\approx 4.48$ dollars. What the -1.40 means is if you bought a whole bunch of these tickets over time you'd be losing on average $1.40 each time, though obviously on just one ticket you're getting either $10, $2, or losing $4 not -$1.40 exactly.",
+    "criteria": [
+      {
+        "criterion_key": "a",
+        "gold_label": "earned"
+      },
+      {
+        "criterion_key": "b",
+        "gold_label": "earned"
+      },
+      {
+        "criterion_key": "c",
+        "gold_label": "unable_to_determine"
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-SFRQ-009",
+    "response_index": 0,
+    "response_text": "The mean of the sampling distribution is just p, so it\u2019s 0.28. We can use the normal approximation because np = 112 and n(1-p) = 288, both way bigger than 10. If we doubled the sample size, the standard deviation would get smaller since it\u2019s \u03c3/\u221an, so bigger n means dividing by a bigger number.",
+    "criteria": [
+      {
+        "criterion_key": "a",
+        "gold_label": "partially_earned"
+      },
+      {
+        "criterion_key": "b",
+        "gold_label": "earned"
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-SFRQ-009",
+    "response_index": 1,
+    "response_text": "The mean of the sampling distribution would be 0.28. The conditions for using a normal model are met because np = 400 * 0.28 = 112 and n(1-p) = 400 * 0.72 = 288, both are definitely bigger than 10, so it's fine. The standard deviation is around 0.021. If we doubled the sample size to 800, the standard deviation would be reduced by a factor of 1/sqrt(2) because n is in the denominator under the square root, making the spread smaller.",
+    "criteria": [
+      {
+        "criterion_key": "a",
+        "gold_label": "partially_earned"
+      },
+      {
+        "criterion_key": "b",
+        "gold_label": "earned"
+      }
+    ]
+  },
+  {
+    "content_key": "APSTATS-SFRQ-009",
+    "response_index": 4,
+    "response_text": "The mean of p-hat would be 0.28 since the sample is unbiased. The standard deviation is like 0.025 or something, not too sure exactly but it\u2019s small. With 400 kids, it\u2019s probably fine to use the normal approximation.",
+    "criteria": [
+      {
+        "criterion_key": "a",
+        "gold_label": "partially_earned"
+      },
+      {
+        "criterion_key": "b",
+        "gold_label": "not_earned"
+      }
+    ]
+  }
+]

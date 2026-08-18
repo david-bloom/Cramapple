@@ -1,0 +1,41 @@
+{
+  "schema": "exemplar_grading_pilot_held_out_items_v1",
+  "note": "content_item_id, exam_pack_version_id, and per-criterion points_possible for the held-out item versions in item_pool_split.json, read from a read-only Production audit on 2026-08-10 (app.content_item_versions/content_items/frq_criteria). Consumed by run_pilot.mjs (exam_pack_version_id, avoiding its own DB round-trip per call) and to_result_cases.mjs (points_possible -- evaluate-attempt's API response does not echo this back per criterion, only points_awarded/status, so it has to come from the rubric directly).",
+  "excluded": [
+    {
+      "content_key": "APSTATS-SFRQ-003",
+      "content_item_version_id": "b0bd8a7f-333e-45c8-8cf4-07a13fb6b4f4",
+      "reason": "app.content_item_versions.status = 'retired' (discovered 2026-08-10 during the first real full-matrix run: evaluate-attempt returned 409 content_not_published). Phase 0's item_pool_split.json audit only checked app.content_items.status (item-level, all 10 items say 'published') -- it did not check the separate, version-level app.content_item_versions.status that evaluate-attempt actually enforces. This item's own exemplar-source topic-mate (APSTATS-SFRQ-004) is also retired, so this topic pair is excluded entirely, not swapped to a substitute -- see item_pool_split.json's known_limitations for the corrected held-out pool (4 items, 30 responses, not 5/37)."
+    }
+  ],
+  "items": [
+    {
+      "content_key": "APSTATS-SFRQ-001",
+      "content_item_version_id": "ec218044-fa22-45a3-9371-7fce48c108e8",
+      "content_item_id": "cbe1dae5-51e8-4b26-87ff-9e457f3f054e",
+      "exam_pack_version_id": "548f06be-ccf4-426d-b82b-b424137a4438",
+      "criteria_points_possible": { "a1": 1, "b1": 1, "c1": 1, "d1": 1 }
+    },
+    {
+      "content_key": "APSTATS-SFRQ-005",
+      "content_item_version_id": "0838c753-d383-48c5-a22f-aab1672eae4f",
+      "content_item_id": "41f14ace-afaa-4882-9902-99207ac705ac",
+      "exam_pack_version_id": "548f06be-ccf4-426d-b82b-b424137a4438",
+      "criteria_points_possible": { "a1": 1, "b1": 1, "c1": 1, "d1": 1 }
+    },
+    {
+      "content_key": "APSTATS-SFRQ-008",
+      "content_item_version_id": "efc05957-06a3-4b0e-8097-9926841fdaff",
+      "content_item_id": "af56da0a-d966-4882-bafb-d47d10b0b9fd",
+      "exam_pack_version_id": "548f06be-ccf4-426d-b82b-b424137a4438",
+      "criteria_points_possible": { "a": 2, "b": 1, "c": 1 }
+    },
+    {
+      "content_key": "APSTATS-SFRQ-009",
+      "content_item_version_id": "22c1824d-b601-4050-83ae-edb18b8e98bb",
+      "content_item_id": "6117e0c1-110a-42de-b2a5-10f719c1cd5d",
+      "exam_pack_version_id": "548f06be-ccf4-426d-b82b-b424137a4438",
+      "criteria_points_possible": { "a": 3, "b": 1 }
+    }
+  ]
+}

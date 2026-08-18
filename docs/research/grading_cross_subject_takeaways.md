@@ -48,7 +48,13 @@ worse.
   (`bio_reference_layer_exemplar_test_report.md`,
   `bio_reference_layer_oracle_boundary_test_report.md`,
   `bio_reference_layer_gated_prompt_test_report.md`,
-  `bio_reference_layer_flywheel_volume_test_report.md`).
+  `bio_reference_layer_flywheel_volume_test_report.md`). A later AP
+  Statistics few-shot exemplar pilot (`exemplar_grading_pilot_2026_08/REPORT.md`)
+  did **not** independently confirm this — its result is inconclusive
+  because the scoring harness's bootstrap clustered on responses (n=30)
+  instead of the held-out items the design required (n=4), not because
+  exemplars were shown to help or hurt. Do not cite it as a fifth
+  confirmation of this lesson.
 - Confidence-triggered escalation wrecked tail latency (8-11s on ~10% of cases)
   for a small, criterion-concentrated quality gain (`grader_speed_sp1_report.md`).
 
@@ -628,4 +634,68 @@ depends on.
 Ranked speed levers, largest first: **(1)** Arm B → Arm A in Production (≈0.58 s + 3.89 s ×
 n_criteria → flat; ~16 s → ~4 s on a 4-criterion FRQ); **(2)** lean output schema (~355 ms p50);
 **(3)** model choice. Rubric authoring is not on this list — it is a speed *cost* (Lesson 23).
+
+> **Correction (2026-08-13) — item (1) above does not replicate on the production
+> model.** This ranking's Arm A figures were measured on `gemini-2.5-flash`
+> (a known handoff trap — Phase C never validated Arm A on `gpt-4.1-mini`,
+> what Production actually runs). See Lesson 27 below for the re-measurement
+> and the corrected ranking. Items (2) and (3) are unaffected — they were
+> not re-tested and nothing here contradicts them.
+
+## Lesson 27 — Arm A's speed claim was measured on the wrong model, and doesn't hold on the right one (2026-08-13)
+
+Re-measured Lesson 26 item (1) — "Arm B → Arm A, ~16s → ~4s on a 4-criterion
+FRQ" — on `gpt-4.1-mini`, the model Production actually runs (grading-engine
+replan Run C, `exemplar_grading_pilot_2026_08/EXECUTION_LOG.md`). 24
+authenticated calls, 4 real held-out items spanning 2–4 criteria:
+
+| criteria | n | mean latency | median |
+|---|---:|---:|---:|
+| 2 | 6 | 30.8s | 31.7s |
+| 3 | 6 | 29.9s | 31.3s |
+| 4 | 12 | 22.0s | 23.7s |
+
+Not flat, not ~4s on 4-criterion items, and most individual calls slower
+than Arm B's typical single-call latency measured the same session
+(~8–12s). The fan-out itself is genuinely parallel (confirmed in code —
+`Promise.all`, wall time taken as the max of per-criterion elapsed times,
+not summed) — the finding is that per-call latency on this model is high
+and variable enough (5.8s–44.6s observed) that the parallelization doesn't
+pay off the way it did on the model Phase C actually tested. Quality was
+not clearly bad in this re-run (82.6% overall / 95% selective accuracy on
+an 8-case gold subset, scored with the real harness) — this is a speed
+correction, not a full reversal.
+
+**Rule this generalizes to: an architectural speed claim is scoped to the
+model it was measured on. Re-validate on the actual production model
+before relying on it for a shipping decision, especially when the original
+measurement is known to have used a substitute model (Phase C's own
+handoff doc already flagged this as "trap 1" before Run C confirmed the
+consequence).** Sample size caveat: n=6–12/bucket is enough to falsify
+"flat and ~4s," not enough to fully characterize the real latency
+distribution or rule out "genuinely faster on average, just noisy here" —
+a confident ship/discard call needs a larger sample, not a re-run of this
+exact size.
+
+## Lesson 28 — Evidence-grounding false alarms, not model judgment or deterministic coverage, are the binding accuracy constraint (2026-08-13)
+
+Two independent same-session checks converged on this: an authenticated O2
+smoke test and Run A (13 previously-gated responses re-graded after the
+`STATISTICS_TARGETS` fix). Both found **selective accuracy at or near
+100%** — every criterion the grader committed a verdict on was correct —
+while overall/coverage accuracy sat far lower (Run A: 61.3% overall vs
+100% selective). The entire gap was abstention (`unable_to_determine`),
+and the mechanism producing it was the sanitizer's evidence-grounding
+check (`grading-feedback.ts`) rejecting a criterion the model judged
+correct because its supplied quote wasn't an exact grounded substring —
+the same false-alarm class `grading-feedback_test.ts`'s own header
+documents (10.19% pre-fix, ~64% of those from formatting, not invention).
+
+**This is now the highest-leverage lever on measured accuracy** — ahead
+of further deterministic-key coverage, ahead of gold-set corpus volume,
+ahead of a new model/arm evaluation. None of those move a number whose
+gap is abstention, not wrong answers. **When a future accuracy report
+shows overall accuracy well below selective accuracy, that is this
+mechanism, not a new problem — check the grounding/integrity-issue
+breakdown before proposing new grading work.**
 

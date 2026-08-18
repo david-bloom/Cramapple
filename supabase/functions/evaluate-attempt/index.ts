@@ -18,6 +18,7 @@ import {
 import {
   buildStatisticsDeterministicFallback,
   checkStatisticsDeterministicEvidence,
+  getStatisticsScopedCriteria,
 } from "../_shared/statistics-verifier.ts";
 import {
   buildFallbackCriteria,
@@ -26,6 +27,7 @@ import {
 } from "../_shared/grading-feedback.ts";
 import {
   type AllowedOperation,
+  applyDeterministicFlagScope,
   buildCriterionGradingPrompt,
   buildCriterionRequestBody,
   buildCriterionSystemPrompt,
@@ -36,6 +38,7 @@ import {
   extractOutputText,
   extractUsage,
   type FeedbackCriterionRow,
+  type GradingExemplar,
   isTransientHttpStatus,
   mergeCriterionResults,
   sanitizeModelResult,
@@ -54,6 +57,12 @@ import {
   buildRepairPlan,
   lockGradeDecision,
 } from "../_shared/grading-repair.ts";
+import {
+  createStageTimer,
+  normalizeResponseText,
+} from "../_shared/grading-telemetry.ts";
+import { recordGrowthEvent } from "../_shared/growth-events.ts";
+import { persistGradingMemory } from "../_shared/grading-memory.ts";
 
 function requireEnv(name: string) {
   const value = Deno.env.get(name);
@@ -97,19 +106,18 @@ const OPENAI_DAILY_CAP_USD = requirePositiveNumberEnv("OPENAI_DAILY_CAP_USD");
 const EVALUATE_ATTEMPT_PROMPT_VERSION = requireEnv(
   "EVALUATE_ATTEMPT_PROMPT_VERSION",
 );
-// Entitlement gating ships ahead of its schema. The `authorize_grading_access`
-// RPC lives in migration 20260720122542_free_score_check_growth_funnel.sql,
-// which is NOT applied to Production (verified 2026-07-28) -- so calling it
-// there fails and every non-admin grading request 403s with
-// `entitlement_required`. Deploying this file without the flag took Production
-// grading from "broken by two transport bugs" to "rejects every caller", which
-// is strictly worse.
+// Entitlement gating (TASK-0026, 2026-08-15): set to true in Production.
+// `authorize_grading_access` (20260731160200_free_score_check_growth_funnel.sql,
+// simplified by 20260815140000_retire_free_score_check.sql) now only checks
+// app.subject_entitlements -- the FSC one-FRQ-cap fallback it used to have was
+// removed along with the retired Free Score Check offer. Every supported
+// access path (beta/paid/7-day trial via app.start_trial) is a
+// subject_entitlements row, so any caller without one gets a clean
+// `entitlement_required` 403 instead of the old FSC branch logic.
 //
-// Default OFF, which reproduces the pre-2026-07-28 deployed behaviour (v23 had
-// no gate at all). This is NOT a silent bypass: the check is skipped only when
-// explicitly disabled, and turning it on is a one-line env change once the
-// migration is applied. Code and schema must ship together; until they do, the
-// flag makes the mismatch explicit instead of fatal.
+// Kept as an env-gated const (not hardcoded true) so a bad rollout can be
+// reverted with a secrets change instead of a redeploy -- see the 2026-07-28
+// outage note in git history for why this flag exists at all.
 const GRADING_ENTITLEMENTS_ENABLED =
   (Deno.env.get("GRADING_ENTITLEMENTS_ENABLED") ?? "false").toLowerCase() ===
     "true";
@@ -136,7 +144,16 @@ const GRADING_ARM = (Deno.env.get("GRADING_ARM") ?? "b").toLowerCase() === "a"
 // divergence; `erf`/`factorial` parse). Verdicts from this build are not
 // comparable to 2026-07-08 ones, so the stamp recorded in
 // grading_results.deterministic_verifier_version has to move with it.
-const MATH_VERIFIER_VERSION = "math-verifier-ts-2026-07-28";
+// Bumped 2026-08-11 (O1 approved): the corrected APSTATS-SFRQ-008
+// statistics key and the audited provenance annotations in
+// _shared/statistics-verifier.ts ship with this build, so deterministic
+// verdicts from the corrected keys are distinguishable from pre-fix ones in
+// grading_results.deterministic_verifier_version. See
+// docs/research/DETERMINISTIC_KEY_AUDIT_2026_08_11.md. This stamp covers
+// the deterministic layer as a whole (both math-verifier.ts and
+// statistics-verifier.ts share one version tag here), not math-verifier.ts
+// alone -- the math-verifier itself is unchanged since 2026-07-28.
+const MATH_VERIFIER_VERSION = "stats-verifier-ts-2026-08-11";
 
 // Timeout is configurable so we can tune for high-reasoning models without
 // a code change. 90s accommodates reasoning: { effort: "high" } latency
@@ -221,108 +238,36 @@ function parseJsonSafe(value: string | null | undefined) {
   }
 }
 
-async function persistGradingMemory(input: {
-  service: ReturnType<typeof createServiceClient>;
-  sessionId: string | null;
-  attemptId: string;
-  attemptMode: string;
-  assistanceState: string;
-  finalStatus: string;
-  pointsEarned: number;
-  pointsAvailable: number;
-  confidence: string | null;
-  highestValueGap: {
-    criterion_key: string;
-    minimum_fix: string;
-    repair_prompt: string;
-  } | null;
-  criteria: Array<{
-    criterion_key: string;
-    status: string;
-    points_awarded: number;
-  }>;
-  summary: string;
-  examPackVersionId: string;
-  gradingRoute?: Record<string, unknown> | null;
-  verificationProfile?: Record<string, unknown> | null;
-  verificationProfileSummary?: Record<string, unknown> | null;
-  feedbackPreview?: string | null;
-  actionHint?: string | null;
-  repairHint?: string | null;
-  deterministicCheck?: Record<string, unknown> | null;
-}) {
-  if (!input.sessionId) {
-    return null;
-  }
-
-  const context = await loadLearningRuntimeContext(input.service, input.sessionId);
-  if (!context) {
-    return null;
-  }
-
-  const subjectDefaults = asRecord(context.subject_defaults);
-  const subject = asRecord(subjectDefaults.subject);
-  const examPack = asRecord(subjectDefaults.exam_pack);
-  const memory = asRecord(context.student_memory);
-  const sessionState = asRecord(context.session_state);
-
-  if (!subject.id || !sessionState.user_id) {
-    return context;
-  }
-
-  const memoryState = buildGradingMemoryState({
-    currentMemoryState: asRecord(memory.memory_state),
-    subjectId: String(subject.id),
-    subjectKey: String(subject.subject_key ?? ""),
-    subjectName: String(subject.display_name ?? ""),
-    examPackVersionId: input.examPackVersionId,
-    sessionId: input.sessionId,
-    attemptId: input.attemptId,
-    attemptMode: input.attemptMode,
-    assistanceState: input.assistanceState,
-    finalStatus: input.finalStatus,
-    pointsEarned: input.pointsEarned,
-    pointsAvailable: input.pointsAvailable,
-    confidence: input.confidence,
-    highestValueGap: input.highestValueGap,
-    criteria: input.criteria,
-    summary: input.summary,
-  });
-
+// Best-effort write of the passive telemetry fields (stage timings,
+// cached_tokens, normalized-response hash). The columns come from the
+// 20260811TBD_grading_telemetry migration, which may not be applied yet --
+// a failed write (e.g. 42703 undefined column) is logged and swallowed so
+// telemetry can NEVER fail a grading. Kept separate from the main
+// grading_results update for the same reason: the main update's payload
+// must keep working against the pre-migration schema.
+async function persistGradingTelemetry(
+  service: ReturnType<typeof createServiceClient>,
+  requestId: string,
+  telemetry: {
+    normalized_response_sha256: string | null;
+    cached_tokens: number | null;
+    stage_timings: Record<string, number>;
+  },
+) {
   try {
-    await recordStudentMemoryEvent(input.service, {
-      userId: String(sessionState.user_id),
-      subjectId: String(subject.id),
-      eventKind: "grading_result",
-      sourceSessionId: input.sessionId,
-      sourceAttemptId: input.attemptId,
-      memoryState,
-      eventPayload: {
-        exam_pack: examPack,
-        session_state: context.session_state,
-        grading_route: input.gradingRoute ?? null,
-        verification_profile: input.verificationProfile ?? null,
-        verification_profile_summary: input.verificationProfileSummary ?? null,
-        feedback_preview: input.feedbackPreview ?? null,
-        action_hint: input.actionHint ?? null,
-        repair_hint: input.repairHint ?? null,
-        deterministic_check: input.deterministicCheck ?? null,
-        grading_result: {
-          attempt_id: input.attemptId,
-          final_status: input.finalStatus,
-          points_earned: input.pointsEarned,
-          points_available: input.pointsAvailable,
-          confidence: input.confidence,
-          highest_value_gap: input.highestValueGap,
-          summary: input.summary,
-        },
-      },
-    });
+    const { error } = await service.schema("app")
+      .from("grading_results")
+      .update(telemetry)
+      .eq("request_id", requestId);
+    if (error) {
+      console.warn(
+        "grading_telemetry_write_skipped",
+        error.message ?? String(error),
+      );
+    }
   } catch (error) {
-    console.error("grading_memory_persist_failed", error);
+    console.warn("grading_telemetry_write_skipped", error);
   }
-
-  return (await loadLearningRuntimeContext(input.service, input.sessionId)) ?? context;
 }
 
 function summarizeSelectedChoice(responseJson: Record<string, unknown>) {
@@ -533,6 +478,10 @@ async function callOpenAIGraderPerCriterion(input: {
   const failures: unknown[] = [];
   let inputTokens = 0;
   let outputTokens = 0;
+  // Null until any call reports the field: "the provider said 0 cached"
+  // and "the provider said nothing" must stay distinguishable (extractUsage
+  // convention).
+  let cachedTokens: number | null = null;
   let maxElapsedMs = 0;
 
   for (const outcome of settled) {
@@ -550,6 +499,9 @@ async function callOpenAIGraderPerCriterion(input: {
     const usage = extractUsage(outcome.raw as Record<string, unknown>);
     inputTokens += usage.inputTokens ?? 0;
     outputTokens += usage.outputTokens ?? 0;
+    if (usage.cachedTokens !== null) {
+      cachedTokens = (cachedTokens ?? 0) + usage.cachedTokens;
+    }
     maxElapsedMs = Math.max(maxElapsedMs, outcome.elapsedMs);
   }
 
@@ -559,7 +511,14 @@ async function callOpenAIGraderPerCriterion(input: {
     throw failures[0];
   }
 
-  return { parsed, raws, inputTokens, outputTokens, elapsedMs: maxElapsedMs };
+  return {
+    parsed,
+    raws,
+    inputTokens,
+    outputTokens,
+    cachedTokens,
+    elapsedMs: maxElapsedMs,
+  };
 }
 
 async function readBodyAsRecord(req: Request) {
@@ -623,6 +582,25 @@ Deno.serve(async (req) => {
   const assistanceCondition = asString(
     getBodyField(body, "assistance_condition", "assistanceCondition"),
   ) ?? "independent";
+  // Per-request opt-in for the exemplar-grading pilot
+  // (docs/research/exemplar_grading_pilot_2026_08/). Deliberately per-request,
+  // not env-based like GRADING_ARM: the pilot's capture script needs to flip
+  // between "off" and "with_exemplar" call-to-call without a redeploy.
+  // Defaults to "off" and any unrecognized value collapses to "off", so
+  // existing callers (which never send this field) are byte-for-byte
+  // unaffected. Exemplar payloads are supplied directly by the pilot's
+  // capture script (sourced from that pilot's own materialized fixtures, not
+  // a DB fetch here) to avoid adding a DB round-trip to a latency-sensitive
+  // grading path for what is currently pilot-only usage.
+  const exemplarModeRaw = asString(
+    getBodyField(body, "exemplar_mode", "exemplarMode"),
+  );
+  const exemplarMode = exemplarModeRaw === "with_exemplar" ? "with_exemplar" : "off";
+  const requestExemplars = exemplarMode === "with_exemplar"
+    ? (Array.isArray(getBodyField(body, "exemplars"))
+      ? getBodyField(body, "exemplars") as GradingExemplar[]
+      : undefined)
+    : undefined;
 
   if (
     !idempotencyKey || !attemptId || !responseVersionId ||
@@ -643,10 +621,16 @@ Deno.serve(async (req) => {
     );
   }
 
+  // Passive stage timings (replan 2.2): wall-clock per stage, written
+  // best-effort at the end. Attacks the measured ~691 ms p50 non-model
+  // floor with data; never affects the grading itself.
+  const stageTimer = createStageTimer();
+
   const profileResult = await requireProfile(req);
   if (!profileResult) {
     return respond({ error: "unauthorized" }, { status: 401 });
   }
+  stageTimer.mark("auth");
 
   const { user, profile } = profileResult;
   if (profile.role !== "student" && profile.role !== "admin") {
@@ -868,6 +852,7 @@ Deno.serve(async (req) => {
   if (examPackError || !examPack) {
     return respond({ error: "exam_pack_not_found" }, { status: 404 });
   }
+  stageTimer.mark("db");
 
   const responseParts = parseJsonSafe(
     typeof responseVersion.response_parts === "string"
@@ -881,6 +866,20 @@ Deno.serve(async (req) => {
     contentKey: contentItem.content_key as string | null,
     responseText,
   });
+  // O2 (2026-08-13): when a flag has a known per-criterion mapping, scope
+  // the deterministic hold to just those criteria instead of the whole
+  // item -- see getStatisticsScopedCriteria for which items qualify. Null
+  // means "no mapping known," so the caller must fall back to the
+  // item-wide behavior below (statisticsDeterministicFallback), unchanged
+  // from before this change.
+  const statisticsScopedCriteriaKeys = statisticsCheck?.status === "flag"
+    ? getStatisticsScopedCriteria(contentItem.content_key as string | null)
+    : null;
+  stageTimer.mark("deterministic");
+  // Replay-rate telemetry (passive): hash of the normalized response text.
+  const normalizedResponseSha256 = await sha256Hex(
+    normalizeResponseText(responseText),
+  );
 
   const attemptKind = attempt.attempt_mode as string;
   const promptBase = {
@@ -896,6 +895,7 @@ Deno.serve(async (req) => {
     criteria: Array.isArray(criteriaRows)
       ? criteriaRows as FeedbackCriterionRow[]
       : [],
+    exemplars: requestExemplars,
   };
 
   const gradingRuntimeContext = attempt.learning_session_id
@@ -904,6 +904,7 @@ Deno.serve(async (req) => {
       attempt.learning_session_id as string,
     )
     : null;
+  stageTimer.mark("db");
   const gradingRuntimeSubject = asRecord(
     asRecord(gradingRuntimeContext?.subject_defaults).subject,
   );
@@ -925,14 +926,20 @@ Deno.serve(async (req) => {
     (sum, criterion) => sum + Number(criterion.points_possible || 0),
     0,
   ) || (contentItem.item_type === "mcq" ? 1 : 0);
-  const statisticsDeterministicFallback = routing.target === "llm_text"
-    ? buildStatisticsDeterministicFallback({
-      contentKey: contentItem.content_key as string | null,
-      responseText,
-      criteria: promptBase.criteria,
-      pointsAvailable: defaultPointsAvailable,
-    })
-    : null;
+  // Scoped flags skip the item-wide fallback entirely -- they proceed to
+  // the normal model call below, and the flagged criteria are overridden
+  // afterward (search statisticsScopedCriteriaKeys further down). Only an
+  // unscoped flag (no known criterion mapping) still short-circuits here.
+  const statisticsDeterministicFallback =
+    routing.target === "llm_text" && !statisticsScopedCriteriaKeys
+      ? buildStatisticsDeterministicFallback({
+        contentKey: contentItem.content_key as string | null,
+        responseText,
+        criteria: promptBase.criteria,
+        pointsAvailable: defaultPointsAvailable,
+      })
+      : null;
+  stageTimer.mark("deterministic");
 
   const routedModelId = routing.target === "mcq_rule"
     ? "rule-based-mcq"
@@ -1131,6 +1138,12 @@ Deno.serve(async (req) => {
       result_summary: finalResult.student_facing_summary,
     }).eq("id", attempt.id);
 
+    await persistGradingTelemetry(service, idempotencyKey, {
+      normalized_response_sha256: normalizedResponseSha256,
+      cached_tokens: null,
+      stage_timings: stageTimer.finish(),
+    });
+
     const runtimeContext = await persistGradingMemory({
       service,
       sessionId: attempt.learning_session_id as string | null,
@@ -1176,10 +1189,19 @@ Deno.serve(async (req) => {
   let inputTokens = estimatedInputTokens;
   let outputTokens = 0;
   let actualCost = 0;
+  // Passive telemetry only -- null means "provider reported nothing".
+  let cachedTokensTelemetry: number | null = null;
+  // Engine 3 shadow capture (TASK-0016 addendum, 2026-08-14): the
+  // symbolic_ecf path's real ECF verdict was previously discarded --
+  // finalStatus stays "uncertain" either way (shadow, non-authoritative),
+  // but the actual computed result is now retained here instead of only
+  // surviving as a substring inside uncertainty_reason's JSON.stringify.
+  let shadowResult: Record<string, unknown> | null = null;
 
   if (routing.target === "symbolic_ecf") {
     const statisticsItem = findStatisticsItem(
       contentItem.content_key as string | null,
+      contentVersion.prompt_json,
     );
     const typedFormulaAmbiguity = detectAmbiguousTypedFormulaText(responseText);
     const ecfQuestion = coerceEcfQuestion(
@@ -1240,6 +1262,18 @@ Deno.serve(async (req) => {
         : "No symbolic verification profile was available for this item, so the response is routed for follow-up.",
       typedFormulaAmbiguity.ambiguous ? typedFormulaAmbiguity.reason : null,
     ].filter(Boolean).join(" ");
+
+    shadowResult = {
+      engine: "symbolic_ecf",
+      verifier_version: MATH_VERIFIER_VERSION,
+      profile_source: statisticsItem?.source ?? null,
+      profile_version: statisticsItem?.profile_version ?? null,
+      content_key: contentItem.content_key,
+      ambiguous_notation: typedFormulaAmbiguity.ambiguous
+        ? { reason: typedFormulaAmbiguity.reason }
+        : null,
+      ecf_result: ecfResult,
+    };
 
     finalPayload = buildShadowReviewPayload({
       criteria: ecfCriteria,
@@ -1346,6 +1380,8 @@ Deno.serve(async (req) => {
             userIdHash: await sha256Hex(user.id),
             idempotencyKey,
           });
+          stageTimer.mark("model");
+          cachedTokensTelemetry = fanOut.cachedTokens;
 
           const merged = mergeCriterionResults(
             fanOut.parsed,
@@ -1379,6 +1415,7 @@ Deno.serve(async (req) => {
           };
           inputTokens = fanOut.inputTokens;
           outputTokens = fanOut.outputTokens;
+          stageTimer.mark("sanitize");
         } else {
           modelResponse = await callOpenAIGrader({
             modelId,
@@ -1388,6 +1425,7 @@ Deno.serve(async (req) => {
             userIdHash: await sha256Hex(user.id),
             idempotencyKey: idempotencyKey,
           });
+          stageTimer.mark("model");
 
           finalPayload = sanitizeModelResult(
             modelResponse.parsed,
@@ -1398,6 +1436,24 @@ Deno.serve(async (req) => {
           const usage = extractUsage(modelResponse.raw);
           inputTokens = usage.inputTokens ?? inputTokens;
           outputTokens = usage.outputTokens ?? outputTokens;
+          cachedTokensTelemetry = usage.cachedTokens;
+          stageTimer.mark("sanitize");
+        }
+
+        // O2 (2026-08-13): the model graded the whole item normally above --
+        // now force just the deterministic-flagged criteria back to
+        // unable_to_determine, leaving every other criterion's real,
+        // model-graded verdict (and points) intact.
+        if (statisticsScopedCriteriaKeys && finalPayload && statisticsCheck) {
+          finalPayload = {
+            ...finalPayload,
+            ...applyDeterministicFlagScope(
+              finalPayload,
+              promptBase.criteria,
+              statisticsScopedCriteriaKeys,
+              statisticsCheck.reason,
+            ),
+          };
         }
 
         finalStatus = finalPayload.status === "graded" ? "graded" : "uncertain";
@@ -1533,12 +1589,52 @@ Deno.serve(async (req) => {
       : 0,
     latency_ms: modelResponse?.elapsedMs ?? 0,
     raw_model_response: modelResponse?.raw ?? null,
+    shadow_result: shadowResult,
   };
+
+  // Fired before this update commits, so the "prior graded results" count
+  // below can't see this request's own row (still status='processing').
+  if (
+    profile.role === "student" &&
+    (finalStatus === "graded" || finalStatus === "uncertain")
+  ) {
+    const { data: priorAttempts } = await service.schema("app")
+      .from("attempts")
+      .select("id")
+      .eq("user_id", user.id);
+    const priorAttemptIds = (priorAttempts ?? []).map((row) => row.id);
+    let isFirstGradedResponse = true;
+    if (priorAttemptIds.length > 0) {
+      const { count } = await service.schema("app")
+        .from("grading_results")
+        .select("id", { count: "exact", head: true })
+        .in("attempt_id", priorAttemptIds)
+        .in("status", ["graded", "uncertain"]);
+      isFirstGradedResponse = (count ?? 0) === 0;
+    }
+    if (isFirstGradedResponse) {
+      await recordGrowthEvent(service, {
+        eventName: "first_response_graded",
+        userId: user.id,
+        source: "web",
+        dedupeKey: `first_response_graded:${user.id}`,
+      });
+    }
+  }
 
   await service.schema("app")
     .from("grading_results")
     .update(updatePayload)
     .eq("request_id", idempotencyKey);
+
+  // Passive telemetry, best-effort: separate write so the main update above
+  // keeps working against the pre-migration schema (see
+  // 20260811TBD_grading_telemetry.sql).
+  await persistGradingTelemetry(service, idempotencyKey, {
+    normalized_response_sha256: normalizedResponseSha256,
+    cached_tokens: cachedTokensTelemetry,
+    stage_timings: stageTimer.finish(),
+  });
 
   await service.schema("app")
     .from("attempts")

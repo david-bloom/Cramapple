@@ -1,0 +1,63 @@
+{
+  "schema": "exemplar_grading_pilot_exemplars_v1",
+  "note": "One clean (all-elements-present), independently re-verified exemplar per held-out item, keyed by held_out_item_version_id. Each exemplar's criteria are all 'earned' by construction (only fully-clean 8/8 candidates were selected in Phase 2). Consumed by Phase 3's evaluate-attempt exemplar_mode='with_exemplar' path and Phase 4's capture script.",
+  "exemplars": {
+    "ec218044-fa22-45a3-9371-7fce48c108e8": {
+      "held_out_content_key": "APSTATS-SFRQ-001",
+      "exemplar_content_key": "APSTATS-SFRQ-002",
+      "exemplar_answer_id": "e04b95a8-0868-4761-ac27-bb9cdd07e6f1",
+      "answer_text": "For Quiz A: (86-74)/8 = 12/8 which gives me 1.5\n\nFor Quiz B I get (62-52)/4 = 10/4 = 2.5\n\nSo Quiz B was actually better for this student since 2.5 standard deviations above average is more impressive than 1.5 standard deviations above. The z-scores let you compare them because they both measure how many SDs away from the mean you are, so even though the quizzes had totally different means and spreads you can still see which performance was relatively stronger.",
+      "criteria": [
+        { "criterion_key": "a1", "gold_label": "earned", "evidence_quote": "For Quiz A: (86-74)/8 = 12/8 which gives me 1.5" },
+        { "criterion_key": "b1", "gold_label": "earned", "evidence_quote": "For Quiz B I get (62-52)/4 = 10/4 = 2.5" },
+        { "criterion_key": "c1", "gold_label": "earned", "evidence_quote": "So Quiz B was actually better for this student since 2.5 standard deviations above average is more impressive than 1.5 standard deviations above" },
+        { "criterion_key": "d1", "gold_label": "earned", "evidence_quote": "The z-scores let you compare them because they both measure how many SDs away from the mean you are" }
+      ]
+    },
+    "b0bd8a7f-333e-45c8-8cf4-07a13fb6b4f4": {
+      "held_out_content_key": "APSTATS-SFRQ-003",
+      "exemplar_content_key": "APSTATS-SFRQ-004",
+      "exemplar_answer_id": "e497abb7-371c-42e2-9686-1956e66b20b3",
+      "answer_text": "For the slope, each additional hour of screen time is associated with about 0.65 fewer hours of sleep on average. To predict for 7 hours I plug in: 9.8 - 0.65(7) = 9.8 - 4.55 = 5.25 hours of sleep. The residual is the actual minus predicted so 5.0 - 5.25 = -0.25 hours, which means this student slept less than what the model predicted. Using the line for 12 hours of screen time would be extrapolation because 12 is outside the observed range of 1 to 8 hours that the study actually collected data from.",
+      "criteria": [
+        { "criterion_key": "a1", "gold_label": "earned", "evidence_quote": "each additional hour of screen time is associated with about 0.65 fewer hours of sleep on average" },
+        { "criterion_key": "b1", "gold_label": "earned", "evidence_quote": "9.8 - 0.65(7) = 9.8 - 4.55 = 5.25 hours of sleep" },
+        { "criterion_key": "c1", "gold_label": "earned", "evidence_quote": "5.0 - 5.25 = -0.25 hours, which means this student slept less than what the model predicted" },
+        { "criterion_key": "d1", "gold_label": "earned", "evidence_quote": "12 is outside the observed range of 1 to 8 hours that the study actually collected data from" }
+      ]
+    },
+    "0838c753-d383-48c5-a22f-aab1672eae4f": {
+      "held_out_content_key": "APSTATS-SFRQ-005",
+      "exemplar_content_key": "APSTATS-SFRQ-006",
+      "exemplar_answer_id": "e589c789-21d9-4aab-b35c-4558cdec8af0",
+      "answer_text": "So the app usage is the explanatory thing, and the quiz anxiety after the 10 minutes is what we’re measuring. Random assignment is key because otherwise people who are already calm might choose the app, and we couldn’t tell if the app or their calmness caused the drop—it controls for lurking variables so we can say cause and effect. For blocking, we’d sort all 60 by their baseline anxiety scores, then make groups of similar scores (like low, medium, high) and randomly assign half of each group to the app and half to no app. It’s an experiment, not observational, because the researcher is actively deciding who gets the treatment.",
+      "criteria": [
+        { "criterion_key": "a1", "gold_label": "earned", "evidence_quote": "the app usage is the explanatory thing, and the quiz anxiety after the 10 minutes is what we're measuring" },
+        { "criterion_key": "b1", "gold_label": "earned", "evidence_quote": "Random assignment is key because otherwise people who are already calm might choose the app...it controls for lurking variables so we can say cause and effect" },
+        { "criterion_key": "c1", "gold_label": "earned", "evidence_quote": "sort all 60 by their baseline anxiety scores, then make groups of similar scores...and randomly assign half of each group to the app and half to no app" },
+        { "criterion_key": "d1", "gold_label": "earned", "evidence_quote": "It's an experiment, not observational, because the researcher is actively deciding who gets the treatment" }
+      ]
+    },
+    "efc05957-06a3-4b0e-8097-9926841fdaff": {
+      "held_out_content_key": "APSTATS-SFRQ-008",
+      "exemplar_content_key": "APSTATS-SFRQ-007",
+      "exemplar_answer_id": "51da21d5-eb89-47ca-b66a-92d45e73389f",
+      "answer_text": "This is a binomial distribution because we have n = 20 fixed trials, each question has two outcomes (correct or incorrect), the trials are independent, and the probability of success is constant at p = 0.25. The mean number of correct answers is np = 20(0.25) = 5, and the standard deviation is √(np(1-p)) = √(20 × 0.25 × 0.75) = √3.75 ≈ 1.94. Using the binomial probability formula or calculator, P(X = 5) = (20 choose 5)(0.25)^5(0.75)^15 which comes out to about 0.202.",
+      "criteria": [
+        { "criterion_key": "a", "gold_label": "earned", "evidence_quote": "we have n = 20 fixed trials, each question has two outcomes (correct or incorrect), the trials are independent, and the probability of success is constant at p = 0.25" },
+        { "criterion_key": "b", "gold_label": "earned", "evidence_quote": "The mean number of correct answers is np = 20(0.25) = 5, and the standard deviation is sqrt(np(1-p)) = sqrt(20 x 0.25 x 0.75) = sqrt(3.75) ~= 1.94" },
+        { "criterion_key": "c", "gold_label": "earned", "evidence_quote": "P(X = 5) = (20 choose 5)(0.25)^5(0.75)^15 which comes out to about 0.202" }
+      ]
+    },
+    "22c1824d-b601-4050-83ae-edb18b8e98bb": {
+      "held_out_content_key": "APSTATS-SFRQ-009",
+      "exemplar_content_key": "APSTATS-SFRQ-010",
+      "exemplar_answer_id": "54eaa617-4fc0-4a46-8701-220b1661628d",
+      "answer_text": "The mean of the sampling distribution of x-bar is still 7.2 hours, same as the population mean. The standard deviation of the sampling distribution (standard error) is sigma divided by square root of n, so 1.8/√36 = 1.8/6 = 0.3 hours. Since n=36 is greater than 30, the sample size is large enough so the Central Limit Theorem tells us the sampling distribution will be approximately normal. If the sample size was only 9 instead, the standard error would be 1.8/√9 = 1.8/3 = 0.6 hours, which is bigger because we have fewer observations.",
+      "criteria": [
+        { "criterion_key": "a", "gold_label": "earned", "evidence_quote": "The mean of the sampling distribution of x-bar is still 7.2 hours...1.8/sqrt(36) = 1.8/6 = 0.3 hours...Since n=36 is greater than 30, the Central Limit Theorem tells us the sampling distribution will be approximately normal" },
+        { "criterion_key": "b", "gold_label": "earned", "evidence_quote": "If the sample size was only 9 instead, the standard error would be 1.8/sqrt(9) = 1.8/3 = 0.6 hours, which is bigger because we have fewer observations" }
+      ]
+    }
+  }
+}

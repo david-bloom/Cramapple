@@ -6,6 +6,8 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0044 — Replace Free Score Check with 7-Day Trial; Enable GRADING_ENTITLEMENTS_ENABLED (TASK-0026)
+- APPROVAL-0043 — Retire the ≤1000ms p50 Grading Latency Gate; Approve Engine 1/3 Go-Live Ahead of Full Gold-Set Certification
 - APPROVAL-0042 — Lock TASK-0020 Launch Slice and Assessment Baselines
 - APPROVAL-0041 — Execute Image and Drawn-Response Launch-Gating Assessment (TASK-0020)
 - APPROVAL-0040 — Branch-Hygiene Adoption Steps 4–9 (PR #54 Rollout)
@@ -19,6 +21,82 @@ Most recent entries (full chronological list follows below):
 - APPROVAL-0018 — Use Official Exam Dates and Confirm Registration
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
+
+## APPROVAL-0044 — Replace Free Score Check with 7-Day Trial; Enable GRADING_ENTITLEMENTS_ENABLED (TASK-0026)
+
+**Date:** 2026-08-15
+**Approved By:** David Bloom
+**Related Task:** TASK-0026
+**Decision:** Approved
+
+### Summary
+
+Approves `DECISION-0047`: replaces the never-launched activation-limited
+Free Score Check with a 7-day full-catalog trial, and authorizes enabling
+`GRADING_ENTITLEMENTS_ENABLED=true` in Production as part of that change.
+
+### Notes
+
+- Resolves the gap `APPROVAL-0043`'s notes identified: that flag stayed
+  `false` specifically because "no path for a new, unprovisioned student to
+  get entitled" existed. `app.start_trial` is that path -- verified via
+  direct RPC test against a real production attempt (both a pre-existing
+  `beta` account, confirming no regression, and a freshly granted trial
+  row, confirming the new path works) before flipping the flag.
+- The flip was sequenced deliberately: migration + Edge Function deployed
+  first, smoke-tested, then the flag set as a discrete, reversible secrets
+  change -- not bundled with any other production change, given the
+  documented history of an outage from flipping a related flag blind.
+- FSC entitlement machinery (table, RPCs, Edge Function) was dropped from
+  Production and Dev only after the trial path was verified working, so
+  there was no window where neither model granted access.
+- Does not itself approve the Loops lifecycle-email vendor choice or the
+  day-2/day-7 PostHog scheduled-job gap -- those are tracked separately in
+  TASK-0026, not launch-blocking.
+
+## APPROVAL-0043 — Retire the ≤1000ms p50 Grading Latency Gate; Approve Engine 1/3 Go-Live Ahead of Full Gold-Set Certification
+
+**Date:** 2026-08-14
+**Approved By:** David Bloom
+**Related Task:** TASK-0016
+**Decision:** Approved
+
+### Summary
+
+Approves `DECISION-0046`: retires the ≤1000ms end-to-end p50 grading-latency
+hard gate (originally set under `APPROVAL-0033`, 2026-07-08) in favor of a
+two-SLA framing (time-to-acknowledgement / time-to-complete-feedback), and
+authorizes Engine 1 (once its evidence-grounding P0 fix ships) and Engine 3
+(shadow-only) to go live in Production ahead of the full 300+
+dual-adjudicated gold-set certification originally required as a launch
+gate. Full rationale and evidence in `DECISION-0046`.
+
+### Notes
+
+- Does not reopen the Quality > Speed > Cost priority order (2026-07-29
+  owner decision) — the numeric latency target is what changed, not the
+  ordering.
+- The gold-set certification program continues in parallel as a dependency
+  for later production-authority stages (per TASK-0016's 2026-08-13
+  addendum, the five-stage model: offline → shadow → beta-audited →
+  sampled-audit → broad), not waived outright.
+- `GRADING_ENTITLEMENTS_ENABLED` (whether to gate grading behind
+  entitlements at initial go-live) is explicitly **not** covered by this
+  approval. **Resolved 2026-08-14, separately from this approval: stays
+  `false`.** Investigation found `app.authorize_grading_access` requires an
+  entitlement-granting path (`subject_entitlements` or `free_score_checks`).
+  **Corrected 2026-08-14 (QA-caught, codex):** the original note here said
+  this path "doesn't yet exist for any real student" — inaccurate;
+  `subject_entitlements` has 71 active rows across 8 `student`-role
+  accounts (all internal/family/test, none an unrelated real customer). The
+  operative point stands — no path for a *new, unprovisioned* student to
+  get entitled — but turning the flag on would not "block all grading,"
+  it would leave the 8 already-provisioned accounts working. See TASK-0016
+  addendum item 4 for the full correction.
+- This approval covers the launch-bar scope change only. Each actual
+  Production deploy/migration under this work still follows its own
+  deploy discipline (diff-before-deploy, create→run→cleanup for any live
+  test data) as already practiced in this program.
 
 ## APPROVAL-0042 — Lock TASK-0020 Launch Slice and Assessment Baselines
 

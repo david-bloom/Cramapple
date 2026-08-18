@@ -10,7 +10,11 @@ export const GROWTH_EVENT_NAMES = [
   "returned_day_2",
   "returned_day_7",
   "checkout_started",
+  "checkout_payment_pending",
+  "checkout_async_payment_failed",
+  "checkout_expired",
   "purchase_completed",
+  "purchase_refunded",
   "referral_shared",
   "referred_trial_started",
   "referred_purchase",
@@ -34,6 +38,11 @@ const ALLOWED_PROPERTY_KEYS = new Set([
   "creative_id",
   "currency",
   "value_bucket",
+  "checkout_session_id",
+  "payment_status",
+  "stripe_event_id",
+  "stripe_event_type",
+  "amount_discount",
   "is_referred",
 ]);
 
@@ -120,7 +129,9 @@ export async function recordGrowthEvent(
   } catch (error) {
     await service.schema("app").from("growth_event_outbox").update({
       delivery_attempts: Number(existing.delivery_attempts ?? 0) + 1,
-      last_error: error instanceof Error ? error.message.slice(0, 500) : "delivery_failed",
+      last_error: error instanceof Error
+        ? error.message.slice(0, 500)
+        : "delivery_failed",
     }).eq("id", existing.id);
   }
 }
