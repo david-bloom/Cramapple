@@ -478,6 +478,40 @@ before deploying:
   task's practice of Development-first verification before a Production
   go-ahead).
 
+### Production status check (2026-08-18) -- NOT production-ready for real students
+
+Checked directly against Production (`pcntajvbdfqhbeewmdry`), not assumed
+from prior log entries:
+
+- **The fix is not deployed to Production.** `app.bind_response_attachment`
+  and `app.record_manual_grade` do not exist there; `DELETE` is still
+  granted to `service_role` on `app.response_attachments`. Production's
+  deployed `attempt-response` function hash matches Development's
+  *pre-fix* build. All 8 QA findings -- including the retake-breaks-every-
+  time bug and the manual/auto-grade race -- are still live in Production
+  today.
+- **No real student can reach this pipeline regardless.** The pilot's one
+  content item (`APBIO-HDG-2026-GRAPH-002`) still carries
+  `prompt_json.label_status = 'ai_provisional_unapproved'` in Production,
+  and the frontend routes (`/hand-drawn-pilot`,
+  `/admin/grade-response/$attemptId`) remain admin-gated and unlinked, as
+  designed for this pilot slice.
+  - `app.response_attachments`: **0 rows ever** in Production (no capture,
+    real or test, has gone through this pipeline there).
+  - `app.grading_results` with `model_id = 'manual-review'`: **0 rows
+    ever** in Production.
+- **Net: accepting, grading, and repairing (retaking) a hand-drawn
+  response is not live for real students in Production, and the
+  admin-only pilot backend that exists there is still the pre-fix, buggy
+  build.** Getting this genuinely production-ready needs, in order: (1)
+  deploy the fix migration + `attempt-response` to Production (blocked
+  only on a Production go-ahead, since Development verification is done),
+  (2) a real end-to-end authenticated admin click-through (still never
+  done, per this task's own open acceptance criteria), (3) a Product Owner
+  decision to move the pilot item off `ai_provisional_unapproved` and
+  build a real (non-pilot, non-admin-only) delivery path -- explicitly out
+  of this task's scope per "Out of Scope" above.
+
 ## Done Decision
 
 **Decision:** Pending
