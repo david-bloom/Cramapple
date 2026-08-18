@@ -10,7 +10,6 @@ import {
   planAttachmentInsert,
   validateCaptureObject,
 } from "../_shared/capture-attachment.ts";
-import { runCaptureQualityCheck } from "../_shared/capture-quality-check.ts";
 import {
   type CriterionStatus,
   scoreManualGrade,
@@ -34,17 +33,6 @@ const ALLOWED_OPERATIONS = new Set<Operation>([
   "record_manual_grade",
 ]);
 const ATTACHMENT_KINDS = new Set<AttachmentKind>(["original", "derived"]);
-
-// Capture-quality checking (Layer A of "explain why ungradable", see
-// docs/research/DRAWN_RESPONSE_ANNOTATION_HANDBOOK.md section 3) is best-
-// effort, not a hard dependency of attach_capture: if the key isn't
-// configured, the attachment still binds with the default 'pending' state,
-// exactly as it does today. This must never be the reason an upload fails.
-const CAPTURE_QUALITY_API_KEY = Deno.env.get("OPENAI_API_KEY") ?? null;
-const CAPTURE_QUALITY_MODEL = Deno.env.get("CAPTURE_QUALITY_MODEL") ??
-  "gpt-4o-mini";
-const CAPTURE_QUALITY_TIMEOUT_MS =
-  Number(Deno.env.get("CAPTURE_QUALITY_TIMEOUT_MS")) || 15_000;
 
 // Row shapes returned by the RPCs in 20260818011720_response_attachments_fixes.sql
 // (`.rpc()` isn't typed against a generated Database schema here, so these
@@ -723,21 +711,6 @@ Deno.serve(async (req) => {
         return respond({ error: validation.reason }, { status: 422 });
       }
 
-      // Run before the DB write below (not after) so a slow/failed vision
-      // call never risks leaving a bound attachment half-updated -- the
-      // result is folded into the same insert-adjacent flow, and on any
-      // failure runCaptureQualityCheck itself resolves to a safe
-      // HUMAN_REVIEW/indeterminate result rather than throwing.
-      const captureQuality = CAPTURE_QUALITY_API_KEY && kind === "original"
-        ? await runCaptureQualityCheck({
-          bytes,
-          mediaType: validation.mediaType,
-          apiKey: CAPTURE_QUALITY_API_KEY,
-          modelId: CAPTURE_QUALITY_MODEL,
-          timeoutMs: CAPTURE_QUALITY_TIMEOUT_MS,
-        })
-        : null;
-
       // Snapshot the object's storage-side identity right after we finished
       // reading it, so we can detect (immediately before binding) whether
       // the owner swapped or deleted the object out from under the bytes we
@@ -822,22 +795,6 @@ Deno.serve(async (req) => {
         return respond(mapped.body, { status: mapped.status });
       }
 
-      // capture_quality_state defaults to 'pending' at insert (bind_response_
-      // attachment takes no such param) and is one of the three columns the
-      // immutability trigger allows to change afterward -- this is a normal
-      // in-place update, not a rewrite of an immutable row.
-      let resolvedCaptureQualityState = boundAttachment.capture_quality_state;
-      if (captureQuality) {
-        const { error: qualityUpdateError } = await service
-          .schema("app")
-          .from("response_attachments")
-          .update({ capture_quality_state: captureQuality.captureQualityState })
-          .eq("id", boundAttachment.id);
-        if (!qualityUpdateError) {
-          resolvedCaptureQualityState = captureQuality.captureQualityState;
-        }
-      }
-
       const attachment = {
         id: boundAttachment.id,
         response_version_id: boundAttachment.response_version_id,
@@ -852,12 +809,8 @@ Deno.serve(async (req) => {
         byte_size: boundAttachment.byte_size,
         pixel_width: boundAttachment.pixel_width,
         pixel_height: boundAttachment.pixel_height,
-        capture_quality_state: resolvedCaptureQualityState,
+        capture_quality_state: boundAttachment.capture_quality_state,
         created_at: boundAttachment.created_at,
-        // Present only when a RETAKE was detected -- never populated for
-        // ACCEPT/HUMAN_REVIEW, and never describes the drawn content, only
-        // the photo itself.
-        capture_retake_reason: captureQuality?.retakeMessage ?? null,
       };
 
       const result = { response_attachment: attachment };
