@@ -10,14 +10,22 @@ export type FeedbackCriterionRow = {
   estimated_repair_effort?: number;
 };
 
+// Canonical criterion-status vocabulary. Exported as a runtime array (not
+// just a type) so other modules that need a validation Set -- e.g.
+// manual-grading.ts's human-entered-grade path -- can build it from this
+// single source instead of re-listing the values and silently drifting if
+// this list ever changes.
+export const CRITERION_STATUS_VALUES = [
+  "earned",
+  "partially_earned",
+  "not_yet_earned",
+  "unable_to_determine",
+  "not_applicable",
+] as const;
+
 export type FeedbackCriterionResult = {
   criterion_key: string;
-  status:
-    | "earned"
-    | "partially_earned"
-    | "not_yet_earned"
-    | "unable_to_determine"
-    | "not_applicable";
+  status: typeof CRITERION_STATUS_VALUES[number];
   points_awarded: number;
   evidence_quote: string | null;
   decision_explanation: string | null;
@@ -275,7 +283,31 @@ function normalizeForGrounding(value: string) {
   ) {
     out = out.split(from).join(to);
   }
+  // LaTeX renders the same math two ways depending on which side wrote it --
+  // \sqrt{20.04} vs sqrt{20.04}, $-1.40$ vs -1.40. Stripping backslash
+  // commands and bare math/currency $ delimiters is applied symmetrically to
+  // both the response and the quote, so it can only remove a mismatch that
+  // was purely notational, never create a false match out of unrelated text
+  // (both sides still have to line up on everything else).
+  out = out.replace(/\\([a-zA-Z]+)/g, "$1").replace(/\$/g, "");
   return out.replace(/\s+/g, " ").trim();
+}
+
+// A model sometimes wraps its own quote in quotation marks it invented for
+// the citation itself ("the quoted span"), not text the student wrote. That
+// wrapping is punctuation the check should see through -- classified
+// 2026-08-14 from real evidence_not_found captures (P0, TASK-0016 addendum):
+// 2 of 8 unresolved false alarms in the classified corpus were exactly this.
+function stripWrappingQuote(value: string) {
+  const trimmed = value.trim();
+  for (const quote of ['"', "'"]) {
+    if (
+      trimmed.length > 2 && trimmed.startsWith(quote) && trimmed.endsWith(quote)
+    ) {
+      return trimmed.slice(1, -1).trim();
+    }
+  }
+  return trimmed;
 }
 
 /**
@@ -288,24 +320,83 @@ export function evidenceIsGrounded(quote: string, response: string) {
   if (response.includes(quote)) return true;
 
   const haystack = normalizeForGrounding(response);
-  const needle = normalizeForGrounding(quote);
+  let needle = normalizeForGrounding(quote);
   if (!needle) return false;
   if (haystack.includes(needle)) return true;
 
-  // A quote may elide its middle ("first part ... last part"). Require every
-  // substantial fragment to appear, in order, without overlapping.
-  const fragments = needle.split(EVIDENCE_ELISION).filter((fragment) =>
-    fragment.length >= MIN_ELIDED_FRAGMENT
+  const unwrapped = stripWrappingQuote(needle);
+  if (unwrapped !== needle) {
+    needle = unwrapped;
+    if (!needle) return false;
+    if (haystack.includes(needle)) return true;
+  }
+
+  // FIX 2026-08-14 (QA-caught regression, codex): a quote may elide its
+  // middle ("first part ... last part") or simply truncate at one end
+  // ("first part ..."). Those are NOT the same shape and must not share a
+  // code path. A prior version of this function treated "fewer than 2
+  // fragments survived the length filter" as always-safe-to-relax, on the
+  // theory that anything a single fragment would match was already caught
+  // by the whole-string check above. That reasoning only holds when nothing
+  // was actually elided away -- it silently dropped short-but-real trailing
+  // content instead (e.g. quote = "X ... not", where "not" reverses the
+  // claim): `evidenceIsGrounded("X ... not", "X.")` returned true even
+  // though "not" appears nowhere in the response, because "not" (3 chars)
+  // never got checked at all. Splitting genuine boundary truncation
+  // (nothing on the far side) from genuine mid-quote elision (real content
+  // on both sides) fixes this: a truncation's one real side is checked
+  // directly; an elision's fragments go through the original >=2-substantial
+  // rule, so a short-but-real fragment can no longer be silently exempted.
+  const rawParts = needle.split(EVIDENCE_ELISION).map((part) => part.trim());
+  const nonEmptyParts = rawParts.filter((part) => part.length > 0);
+  if (!nonEmptyParts.length) return false;
+
+  if (nonEmptyParts.length === 1) {
+    // Pure truncation: the split found an elision marker, but everything on
+    // the other side of it was genuinely empty -- nothing was elided away
+    // for this single remaining piece to be excused from matching in full.
+    const only = nonEmptyParts[0];
+    if (only.length < MIN_ELIDED_FRAGMENT) return false;
+    return findFragment(haystack, only, 0) >= 0;
+  }
+
+  // 2+ non-empty parts: genuine mid-quote elision. Only fragments meeting
+  // MIN_ELIDED_FRAGMENT count toward the requirement (guards the classic
+  // "a ... b ... c" abuse, where no single piece is specific enough to be a
+  // real citation) -- but unlike the truncation case above, a short
+  // fragment here is simply excluded from the count, same as before this
+  // fix; it is never separately required *or* silently trusted, so this
+  // multi-fragment path keeps its original, already-audited behaviour.
+  const fragments = nonEmptyParts.filter((part) =>
+    part.length >= MIN_ELIDED_FRAGMENT
   );
   if (fragments.length < 2) return false;
 
   let cursor = 0;
   for (const fragment of fragments) {
-    const at = haystack.indexOf(fragment, cursor);
+    const at = findFragment(haystack, fragment, cursor);
     if (at < 0) return false;
-    cursor = at + fragment.length;
+    cursor = at;
   }
   return true;
+}
+
+// Finds `fragment` in `haystack` at or after `cursor`, tolerating the model
+// closing a fragment with connecting punctuation the source doesn't have at
+// that exact point -- a period where the source has none, or its own
+// semicolon/colon in place of the source's period, as it stitches an elided
+// or truncated quote back together. That trailing mark is punctuation the
+// model chose, not content it invented. Returns the position just past the
+// match (for cursor advancement), or -1 if not found either way.
+function findFragment(haystack: string, fragment: string, cursor: number) {
+  const at = haystack.indexOf(fragment, cursor);
+  if (at >= 0) return at + fragment.length;
+  if (/[.!?;:]$/.test(fragment)) {
+    const withoutPunctuation = fragment.slice(0, -1);
+    const retryAt = haystack.indexOf(withoutPunctuation, cursor);
+    if (retryAt >= 0) return retryAt + withoutPunctuation.length;
+  }
+  return -1;
 }
 
 // A grading goes `uncertain` for two unrelated reasons, and the shipped message
@@ -400,6 +491,14 @@ export function sanitizeModelResult(
       points = 0;
       issues.push({ code: "earned_without_evidence", criterion_key: source.criterion_key });
     } else if (evidence && enforceGrounding && !evidenceIsGrounded(evidence, response)) {
+      // The rejected quote is not persisted here (2026-08-14: an earlier
+      // version logged it via a hook for false-alarm classification, but
+      // app.grading_results.raw_model_response already retains the full
+      // pre-sanitization model output -- including this quote -- with the
+      // grading row's existing access controls, so a second copy in Edge
+      // Function logs was redundant exposure of student response text with
+      // no offsetting diagnostic value. Classification work reads
+      // raw_model_response directly instead.)
       status = "unable_to_determine";
       points = 0;
       evidence = null;

@@ -62,6 +62,7 @@ import {
   normalizeResponseText,
 } from "../_shared/grading-telemetry.ts";
 import { recordGrowthEvent } from "../_shared/growth-events.ts";
+import { persistGradingMemory } from "../_shared/grading-memory.ts";
 
 function requireEnv(name: string) {
   const value = Deno.env.get(name);
@@ -267,110 +268,6 @@ async function persistGradingTelemetry(
   } catch (error) {
     console.warn("grading_telemetry_write_skipped", error);
   }
-}
-
-async function persistGradingMemory(input: {
-  service: ReturnType<typeof createServiceClient>;
-  sessionId: string | null;
-  attemptId: string;
-  attemptMode: string;
-  assistanceState: string;
-  finalStatus: string;
-  pointsEarned: number;
-  pointsAvailable: number;
-  confidence: string | null;
-  highestValueGap: {
-    criterion_key: string;
-    minimum_fix: string;
-    repair_prompt: string;
-  } | null;
-  criteria: Array<{
-    criterion_key: string;
-    status: string;
-    points_awarded: number;
-  }>;
-  summary: string;
-  examPackVersionId: string;
-  gradingRoute?: Record<string, unknown> | null;
-  verificationProfile?: Record<string, unknown> | null;
-  verificationProfileSummary?: Record<string, unknown> | null;
-  feedbackPreview?: string | null;
-  actionHint?: string | null;
-  repairHint?: string | null;
-  deterministicCheck?: Record<string, unknown> | null;
-}) {
-  if (!input.sessionId) {
-    return null;
-  }
-
-  const context = await loadLearningRuntimeContext(input.service, input.sessionId);
-  if (!context) {
-    return null;
-  }
-
-  const subjectDefaults = asRecord(context.subject_defaults);
-  const subject = asRecord(subjectDefaults.subject);
-  const examPack = asRecord(subjectDefaults.exam_pack);
-  const memory = asRecord(context.student_memory);
-  const sessionState = asRecord(context.session_state);
-
-  if (!subject.id || !sessionState.user_id) {
-    return context;
-  }
-
-  const memoryState = buildGradingMemoryState({
-    currentMemoryState: asRecord(memory.memory_state),
-    subjectId: String(subject.id),
-    subjectKey: String(subject.subject_key ?? ""),
-    subjectName: String(subject.display_name ?? ""),
-    examPackVersionId: input.examPackVersionId,
-    sessionId: input.sessionId,
-    attemptId: input.attemptId,
-    attemptMode: input.attemptMode,
-    assistanceState: input.assistanceState,
-    finalStatus: input.finalStatus,
-    pointsEarned: input.pointsEarned,
-    pointsAvailable: input.pointsAvailable,
-    confidence: input.confidence,
-    highestValueGap: input.highestValueGap,
-    criteria: input.criteria,
-    summary: input.summary,
-  });
-
-  try {
-    await recordStudentMemoryEvent(input.service, {
-      userId: String(sessionState.user_id),
-      subjectId: String(subject.id),
-      eventKind: "grading_result",
-      sourceSessionId: input.sessionId,
-      sourceAttemptId: input.attemptId,
-      memoryState,
-      eventPayload: {
-        exam_pack: examPack,
-        session_state: context.session_state,
-        grading_route: input.gradingRoute ?? null,
-        verification_profile: input.verificationProfile ?? null,
-        verification_profile_summary: input.verificationProfileSummary ?? null,
-        feedback_preview: input.feedbackPreview ?? null,
-        action_hint: input.actionHint ?? null,
-        repair_hint: input.repairHint ?? null,
-        deterministic_check: input.deterministicCheck ?? null,
-        grading_result: {
-          attempt_id: input.attemptId,
-          final_status: input.finalStatus,
-          points_earned: input.pointsEarned,
-          points_available: input.pointsAvailable,
-          confidence: input.confidence,
-          highest_value_gap: input.highestValueGap,
-          summary: input.summary,
-        },
-      },
-    });
-  } catch (error) {
-    console.error("grading_memory_persist_failed", error);
-  }
-
-  return (await loadLearningRuntimeContext(input.service, input.sessionId)) ?? context;
 }
 
 function summarizeSelectedChoice(responseJson: Record<string, unknown>) {
@@ -1294,10 +1191,17 @@ Deno.serve(async (req) => {
   let actualCost = 0;
   // Passive telemetry only -- null means "provider reported nothing".
   let cachedTokensTelemetry: number | null = null;
+  // Engine 3 shadow capture (TASK-0016 addendum, 2026-08-14): the
+  // symbolic_ecf path's real ECF verdict was previously discarded --
+  // finalStatus stays "uncertain" either way (shadow, non-authoritative),
+  // but the actual computed result is now retained here instead of only
+  // surviving as a substring inside uncertainty_reason's JSON.stringify.
+  let shadowResult: Record<string, unknown> | null = null;
 
   if (routing.target === "symbolic_ecf") {
     const statisticsItem = findStatisticsItem(
       contentItem.content_key as string | null,
+      contentVersion.prompt_json,
     );
     const typedFormulaAmbiguity = detectAmbiguousTypedFormulaText(responseText);
     const ecfQuestion = coerceEcfQuestion(
@@ -1358,6 +1262,18 @@ Deno.serve(async (req) => {
         : "No symbolic verification profile was available for this item, so the response is routed for follow-up.",
       typedFormulaAmbiguity.ambiguous ? typedFormulaAmbiguity.reason : null,
     ].filter(Boolean).join(" ");
+
+    shadowResult = {
+      engine: "symbolic_ecf",
+      verifier_version: MATH_VERIFIER_VERSION,
+      profile_source: statisticsItem?.source ?? null,
+      profile_version: statisticsItem?.profile_version ?? null,
+      content_key: contentItem.content_key,
+      ambiguous_notation: typedFormulaAmbiguity.ambiguous
+        ? { reason: typedFormulaAmbiguity.reason }
+        : null,
+      ecf_result: ecfResult,
+    };
 
     finalPayload = buildShadowReviewPayload({
       criteria: ecfCriteria,
@@ -1673,6 +1589,7 @@ Deno.serve(async (req) => {
       : 0,
     latency_ms: modelResponse?.elapsedMs ?? 0,
     raw_model_response: modelResponse?.raw ?? null,
+    shadow_result: shadowResult,
   };
 
   // Fired before this update commits, so the "prior graded results" count
