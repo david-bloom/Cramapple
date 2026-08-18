@@ -386,6 +386,29 @@ even when the model says it's confident about them, which is consistent
 with spikes 1-3's finding that fine numeric reading is the harder core
 problem.
 
+**Correction (2026-08-18): the 70% coverage figure overstates what this
+delivers at the response level, and shouldn't be read as "70% of responses
+can be graded hands-off."** It's a per-*criterion*-judgment statistic (1078
+of 1539 individual criterion decisions across all 200 responses), and a
+typical response has 6-9 criteria that all need to land in the safe bucket
+for the *whole response* to be gradeable without a human touching it. Recomputed
+directly at the response level, from the same underlying `gpt-5.2` data: only
+**40.5%** of responses (81/200) have every one of their own criteria fall
+into the "safe to auto-decide" bucket -- and of those, only **65.4%** are
+actually fully correct (**26.5% of all 200 responses**). The other 35% of
+that "confident" subset (14% of all responses) get auto-graded *wrong*
+despite the policy flagging them as safe -- false confidence, not just
+missed coverage. The remaining **59.5% of all responses** need at least one
+criterion routed to human review under this policy. Compare against grading
+every response unconditionally with no gating at all: 38.5% exact match --
+higher than the "hands-off and correct" rate above, because some genuinely
+correct responses still get routed to review by an overcautious criterion,
+while some incorrect ones slip through as falsely confident. The takeaway:
+this system can correctly auto-decide roughly a quarter to two-fifths of
+real responses, not "most" of them, and the per-criterion coverage number is
+the wrong statistic to cite for "how many students get a hands-off accurate
+grade."
+
 ### `ZERO_INTERCEPT_ANNOTATION` diagnosis -- two distinct, separable causes
 
 This was the one criterion that got *worse* in absolute terms with the
@@ -512,6 +535,227 @@ criterion stayed flat or improved: `REPRESENTATION_TYPE` (1/67 both),
 consistent with normal run-to-run LLM variance rather than a systematic
 regression, and neither criterion's instructions were touched by the
 clarification. No evidence the fix caused collateral damage elsewhere.
+
+### `PLOT_VALUES` prompt-clarification retest -- tried, reverted (2026-08-18)
+
+`PLOT_VALUES` was `gpt-5.2`'s largest-volume remaining error (57/200 wrong,
+28.5%, spanning all three archetypes). Diagnosed the same way as
+`ZERO_INTERCEPT_ANNOTATION`: read a sample of false-rejects and false-accepts,
+then directly inspected one underlying photo (`CAT-008`) to check whether the
+model's stated reasoning matched what was actually drawn.
+
+**Finding: the model's perception was accurate; the disagreement was about
+tolerance.** `CAT-008`'s true values are 23/25/40/42; the model read the
+drawn points as ~20/~40-ish and failed the criterion for not matching --
+correctly, as drawn. Gold credited the same photo, consistent with the
+rubric's literal wording ("recoverable positions", not "exact positions").
+Checking the false-accept side confirmed gold's real standard has two parts:
+small offsets (~1 gridline-subdivision, normal drawing imprecision) are fine,
+but deviations large enough to invert or erase the REQUIRED RELATIVE
+ordering between points (e.g. `CAT-004`: a point that should sit clearly
+above another is drawn at or below it -- gold explicitly calls this "a
+genuine value mismatch rather than just imprecision") correctly fail. The fix
+taught this two-part standard explicitly, scoped to `PLOT_VALUES` only, and
+ran on the full 200-photo corpus (all three archetypes, unlike the EST-only
+ZIA fix). Script: `scripts/vercel-gateway-check/hand_drawn_graph_real_photo_benchmark_gpt52_plot_values_prompt_run.mjs`;
+output: `docs/research/hand_drawn_graph_real_photo_benchmark_2026_08_18/runs/real_photo_benchmark_gpt52_plot_values_prompt_results.jsonl`.
+
+| | Baseline | Clarified prompt |
+|---|---|---|
+| `PLOT_VALUES` wrong | 57/200 (28.5%) | 56/200 (28.0%) -- essentially flat |
+| — false-accepts | 13 | 7 (real improvement) |
+| — false-rejects | 32 | 40 (worse) |
+| Overall exact match | 38.5% | 39.5% |
+| Overall F1 | 93.3% | 92.9% |
+| Overall FAR | 18.4% | **19.0% (worse)** |
+| Overall FRR | 7.9% | 8.4% (worse) |
+
+**Not a clean win, unlike ZIA -- decision: reverted, not adopted.** Several
+criteria the fix wasn't meant to touch shifted worse (`X_UNIT` 3->8,
+`Y_UNIT` 10->14, `BEST_FIT_RELATIONSHIP` 8->10, `ESTIMATE_VALUE` 8->10),
+alongside the direct rebalancing within `PLOT_VALUES` itself (fewer false-
+accepts, more false-rejects, net wash on raw count). Likely explanation for
+the difference from ZIA: that fix corrected a narrow, mechanical bug (one
+criterion's judgment leaking a requirement that belonged to a different,
+specifically-named criterion). This fix instead taught a general tolerance-
+calibration principle, which is exactly the kind of thing plausibly bleeding
+into how the model judges *other* nearby "is this close enough" numeric
+criteria -- some of the shift may be ordinary run-to-run variance rather than
+a real effect, but there was no second run to separate the two, and the
+metric that most needed to move the right direction (FAR) moved the wrong
+one. Plain `gpt-5.2` (spike 4 prompt, no `PLOT_VALUES` clarification)
+remains the current-best reference. The script and its output are kept as a
+historical record of what was tried, not deleted.
+
+## Escalation controlled test (2026-08-18) -- confirms escalation genuinely works
+
+The original `VISION_FAST_ESC` benchmark's escalation design (`gpt-4o-mini`
+primary -> `gpt-5.5` on low confidence) looked bad in the very first result
+of this whole investigation (escalated cases scored 11.1% vs. 53.6% non-
+escalated), but that comparison was confounded: escalation only ever ran on
+the hard subset by construction, so it never isolated escalation's actual
+effect from the fact that the escalated subset was already harder going in.
+This test isolates it properly: selected a deterministic 21-photo subsample
+(`scripts/vercel-gateway-check/select_escalation_test_subsample.mjs`, 7 per
+archetype) from exactly `gpt-5.2`'s medium-confidence responses -- the real
+population a confidence-gated escalation policy would route -- and ran a
+second-pass model on those SAME photos, so the before/after comparison holds
+the item set fixed and only the model varies.
+
+**Two reliability bugs found and fixed along the way, before the clean
+result:**
+1. `google/gemini-3.1-pro-preview` (the model that scored highest raw
+   quality in spike 3's narrower extraction-only probe) failed all 3 photos
+   in a pilot run, even with 2 retries each and at multiple token budgets
+   (600/1200/2000) -- the raw output stream showed premature termination
+   after only a few dozen tokens, not truncation. Its reliability problem is
+   worse on this heavier joint-judgment schema than the simpler extraction
+   schema it was tested on before (~52% success there). Not worth debugging
+   further as part of this test; pivoted the escalation candidate to
+   `openai/gpt-5.2-pro` -- a genuinely heavier tier from the same family
+   `gpt-5.2` already proved 100% reliable on this exact task.
+2. `gpt-5.2-pro` itself then hit the same token-budget truncation bug found
+   and fixed once already for `gpt-5.2` (see spike 4) -- 11/21 failed at
+   `maxOutputTokens: 600`, isolated entirely to `SER`/`EST` archetypes (7-9
+   criteria) with zero failures on `CAT` (6 criteria), the same signature as
+   before. Confirmed the fix on one failing photo (600/1200/2000 tokens: the
+   first failed, the other two succeeded) before re-running the full batch
+   at 1200.
+
+Script: `scripts/vercel-gateway-check/hand_drawn_graph_escalation_gemini_run.mjs`
+(name predates the gemini->gpt-5.2-pro pivot); output:
+`docs/research/hand_drawn_graph_real_photo_benchmark_2026_08_18/runs/escalation_gemini_results.jsonl`.
+Final run: 21/21 succeeded.
+
+| | `gpt-5.2` alone (same 21 medium-confidence photos) | Escalated to `gpt-5.2-pro` |
+|---|---|---|
+| Exact match | **0.0%** | **33.3%** (7/21) |
+| F1 | 86.6% | 93.1% |
+| FAR | 50.0% | 18.8% |
+| FRR | 13.4% | 8.7% |
+
+**Verdict: escalation genuinely works, cleanly demonstrated for the first
+time in this investigation.** On its own medium-confidence subset, `gpt-5.2`
+gets literally zero responses fully correct and false-accepts half of
+everything it should reject. Escalating to `gpt-5.2-pro` on that exact same
+subset more than halves FAR and recovers a third of these responses to
+fully correct. Because the item set is held fixed, this isolates escalation
+as the cause -- not, as in the original benchmark, a restatement of "the
+escalated subset was already harder." Combined with the confidence-gating
+result (spike/free-re-analysis section above), this suggests the most
+promising near-term architecture is `gpt-5.2` primary on everything, with
+medium-confidence responses escalated to `gpt-5.2-pro` rather than routed
+straight to human review -- recovering coverage instead of only protecting
+quality on a shrinking safe subset. Not yet tested: whether this actually
+beats the confidence-gating policy's numbers end-to-end on the full 200-photo
+corpus (this test used the escalation subset only, not a full-corpus re-run
+with escalation wired in), and whether `gemini-3.1-pro-preview` could still
+be a stronger escalation candidate once its reliability problem is solved
+separately.
+
+## Dedicated-OCR probe (2026-08-18) -- confirms the hypothesis, but the automated metric is misleading
+
+Every model tested so far (`gpt-4o-mini` through `gpt-5.2-pro`) does this
+task as one forward pass that never explicitly measures anything -- it
+never detects axis lines, reads tick numbers as a distinct step, or
+calculates a pixel-to-data-value conversion; it just produces a plausible-
+sounding answer, which is consistent with the fabrication failure mode
+diagnosed in the extraction probe (spike 1). Tested whether a genuinely
+different tool -- dedicated OCR, not another vision-language model --
+reads the printed axis tick numbers more reliably. Used macOS's built-in
+Vision framework (`VNRecognizeTextRequest`, `.accurate` level, language
+correction off since these are numbers not words) via a small Swift binary
+(`scripts/vercel-gateway-check/vision_ocr.swift`) -- real, dedicated text
+recognition, entirely local, no API key, no network call, no cost. Scored
+with `scripts/vercel-gateway-check/ocr_axis_probe.mjs` on the same 42-photo
+subsample as the original extraction probe, against the same `axis_range_ok`/
+`estimate_ok` definitions, for a fair comparison to the VLM baseline
+(spike 1: 67.9%/28.6%). OCR has no point/marker-detection step, so it
+cannot answer `PLOT_VALUES` at all, only axis calibration and the written
+estimate annotation.
+
+**Hand-verified on 3 photos: OCR reading is excellent, essentially
+error-free.** Manually cross-checked every tick number OCR produced against
+the true table values for `EST-016` (6 y-ticks + 7 x-ticks + the written
+estimate, all exactly correct or off by a trivial, systematic formatting
+quirk -- reading a decimal point as "•" or as a stray "-"), `SER-002` (6
+ticks, every single one exactly correct, several at confidence 1.0), and
+`SER-001` (both axes' tick sets -- 20/34/42/50/58 and 20/40/60/80/100 --
+exactly correct, comfortably bracketing the true data ranges 10-58 and
+21.64-50). This is a dramatically cleaner read than any VLM produced on the
+same category of task all session.
+
+**But the automated `axis_range_ok` score came back at 25.0% (7/28)** --
+*worse* than the VLM baseline, which would be a very different conclusion.
+Investigated `SER-001` specifically, since it scored `false`: the OCR text
+itself was completely correct (confirmed above), but my scoring script's
+axis-role heuristic (assume y-axis-tick text sits along the left edge, low
+x; x-axis-tick text sits along the bottom, low y) doesn't hold for this
+photo -- its axes run along the left and right edges instead, a content-
+orientation variation independent of EXIF (already corrected via the same
+`sharp().rotate()` step proven in spike 2) that a fixed positional rule
+doesn't generalize to. `SER` archetype scored far worse than `EST` under
+this heuristic (2/14 vs. 5/14), consistent with `SER` photos more often
+having this non-standard layout. **The low automated score measures a bug
+in this scoring script's layout-parsing logic, not a failure of OCR to
+read the numbers.**
+
+**Verdict: the underlying hypothesis is strongly supported by direct
+evidence, but this quick test isn't yet a fair, fully-automated
+measurement of it.** A robust, orientation-invariant way to determine which
+detected numbers belong to which axis (not a fixed left/bottom position
+rule) is real additional engineering -- exactly the "bigger bet" caveat
+raised before starting this test, now concretely located: not in OCR's
+raw reading accuracy, which looks excellent, but in the layout/role-
+assignment step needed to turn detected text into a scored axis calibration
+automatically. Worth investing in if the goal is a genuine hybrid pipeline
+(OCR-based axis/estimate reading feeding into or replacing the VLM's
+weakest sub-tasks); not worth trusting the 25.0% figure as a real
+capability ceiling for OCR on this corpus.
+
+### OCR on real handwritten equations (Calc/Chem) -- possibly a better fit than graphs
+
+Owner observation, worth recording: equation transcription is purely
+symbolic/text recognition -- no spatial point-detection step needed at all,
+unlike graphs, where OCR only ever solved the axis-calibration half of the
+problem and left `PLOT_VALUES` (point position) unaddressed. This maps
+much more directly onto OCR's demonstrated strength. It also connects to
+Engine 3 (equations/formulas with ECF), which already uses a transcribe-
+then-deterministically-check architecture (`formula_checker.py`/
+`ecf_engine.py`) and whose own transcription-fidelity bake-off was flagged
+incomplete -- synthetic renders only (9/9 faithful), with the real human-
+handwriting gating run still outstanding per TASK-0016.
+
+Ran the same local, free `vision_ocr` tool against real handwritten
+equation photos already in the repo but out of scope all session (no
+grading rubric linkage) -- `docs/hand drawn samples/Calc AB HDR/` and
+`Chem HDR/` -- 4 Calc + 2 Chem photos (~7-8 distinct equations), hand-
+verified against the actual handwritten content.
+
+**Core content -- excellent**, including on a complex 3-line quotient-rule
+derivation (`f'(x) = [2(x^2+3) - (2x+1)(2x)] / (x^2+3)^2`, worked
+through several algebraic steps): digits, operators, parentheses, and
+structure consistently read correctly.
+
+**One specific, recurring weakness: exponent/superscript notation is
+inconsistent**, not absent -- sometimes exactly right (`K = [NO2]^2/([NO]^2
+[O2])` read with both `^2`s intact; most `^2`s in the quotient-rule
+derivation preserved), sometimes not (`3x^2` -> `3x 2`; `[x^3]` -> `[x*3`;
+`10^-4` -> `10'-4`). General OCR has no notion of superscript semantics, so
+it occasionally collapses "raised digit" into an adjacent plain digit or a
+nearby symbol. Also the expected, well-known letter/digit confusion
+(`[O2]` -> `[02]`), fixable with domain-aware post-processing (e.g. "O"
+after "N" in a chemical formula is almost never zero).
+
+**Not formally scored (no gold/rubric exists for this corpus, same
+out-of-scope status as all session) -- a qualitative, hand-verified read,
+not a benchmark number.** But directionally, this looks like a stronger
+match for OCR than the graph-reading problem was, and gives real (if
+informal) signal toward Engine 3's own outstanding gating requirement.
+Formalizing this into an actual Engine 3 pilot -- building real gold data,
+a proper benchmark, and deciding whether OCR-only or an OCR+VLM hybrid is
+the right architecture -- is a separate, larger scope than this session's
+quick probe.
 
 ## Corpus-quality defects found during gold-labeling (separate, actionable finding)
 

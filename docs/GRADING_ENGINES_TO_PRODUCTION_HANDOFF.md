@@ -120,6 +120,173 @@ row updated with Run C's verdict; nothing else in that register changed.
 
 ---
 
+## UPDATE 2026-08-18 — Engine 4 real-photo grading accuracy measured for the first time; escalation confirmed to work; concrete pilot-to-production gap identified
+
+**§11 below said "Engine 4 essentially everything" is unmeasured. That's no
+longer true.** A full session was spent building genuine per-photo gold
+labels for the 200 real `HDG-2026-P1` photos (`docs/hand drawn samples/`)
+and measuring the production-candidate grading method against them for the
+first time — previously only a clean, computer-rendered synthetic proxy had
+ever been tested (97-100% exact match, `hand_drawn_graph_benchmark_2026_06_30/`),
+which turned out to hide the entire real failure mode. **Primary reference
+for everything below: `docs/research/HAND_DRAWN_REAL_PHOTO_GRADING_ACCURACY_2026_08_18.md`**
+— the full narrative, every number, and every reverted/failed experiment
+documented honestly (read that document fully before starting new Engine 4
+work; this section is a synthesized roadmap, not a replacement for it).
+
+### What's now known
+
+1. **The `gpt-4o-mini`-based production candidate (`VISION_FAST_ESC`) fails
+   all four DR-1 thresholds on real photos, by a wide margin** (23.0% exact
+   match / 84.5% F1 / 30.6% FAR / 20.5% FRR against ≥95%/≥90%/≤2%/≤5%). This
+   is the first real measurement of false-accept rate for this method ever
+   — the synthetic benchmark had no known-incorrect items, so it was
+   literally unmeasurable before now.
+2. **Model backbone is the single biggest lever found.** Swapping only the
+   model to `openai/gpt-5.2` (same images, same prompt) raises F1 to 93.3%
+   — clearing DR-1 for the first time in this investigation — and improves
+   every other metric substantially without clearing them (38.5% exact /
+   18.4% FAR / 7.9% FRR).
+3. **Escalation is now causally confirmed to work, not just correlated with
+   difficulty.** A controlled test (same 21-photo medium-confidence subset,
+   `gpt-5.2` alone vs. escalated to `gpt-5.2-pro`) found FAR more than
+   halved (50.0% → 18.8%) and exact match went from 0% to 33.3% on
+   previously-unsolved responses. **This has NOT been run on the full
+   corpus** — only 21 of `gpt-5.2`'s 105 medium-confidence responses have
+   been escalated. Running the remaining 84 and recomputing across all 200
+   is the single highest-value next step to get a real, complete number.
+4. **Confidence-gated selective prediction is a real lever, but read it at
+   the response level, not per-criterion.** A criterion-level policy showed
+   70% "coverage," but that's a per-criterion-judgment statistic; at the
+   response level (what a student's actual grade depends on) only 40.5% of
+   responses land fully in the safe bucket, and only 26.5% of all 200 are
+   both hands-off and actually correct. Don't cite the 70% number as
+   "70% of students get a hands-off accurate grade" — it isn't that.
+5. **Two rubric-clarity bugs investigated with the same method (read false-
+   rejects/accepts, visually inspect real photos, check the literal rubric
+   text) — one fixed cleanly, one reverted.** `ZERO_INTERCEPT_ANNOTATION`
+   was a real, narrow bug (the model was importing a different criterion's
+   requirement into its judgment) — fixed, verified via full 67-photo
+   retest, zero collateral damage, error rate cut >60%. `PLOT_VALUES` (the
+   largest remaining error source, 28.5% wrong across all archetypes) got
+   a similarly-diagnosed fix, but it taught a general tolerance-calibration
+   principle rather than correcting a narrow bug, and the retest showed
+   small regressions in adjacent criteria plus a net FAR increase — reverted,
+   not adopted. **`PLOT_VALUES` remains open and is the best next accuracy
+   target**, with the lesson learned: a second controlled run (or a more
+   surgically-scoped fix) is needed before trying again, not another
+   general leniency instruction.
+6. **A dedicated (non-LLM) OCR probe found real, if not-yet-fully-automated,
+   evidence for a different kind of fix.** macOS's built-in Vision framework
+   (local, free, no API) reads printed/handwritten axis numbers with
+   near-perfect accuracy on hand-verified spot checks — dramatically
+   cleaner than any VLM tested. The automated scoring script's 25.0% number
+   is misleading (it measures a bug in this session's own left/bottom
+   axis-role heuristic, confirmed by hand-checking a "failing" case where
+   the OCR text was actually perfect) — a real engineering task (robust,
+   orientation-invariant axis-role assignment), not yet done. Separately,
+   the same tool tested against real handwritten Calc/Chem equations
+   (`docs/hand drawn samples/Calc AB HDR/`, `Chem HDR/` — out of scope all
+   session, no rubric linkage) showed strong core-content transcription
+   with one specific, recurring weakness (exponent/superscript notation
+   inconsistently preserved) — this may be a better-fitting problem for OCR
+   than graphs are (pure symbolic recognition, no point-detection needed),
+   and gives real signal toward Engine 3's own outstanding "real human-
+   handwriting transcription gating run" requirement (§3 below / TASK-0016).
+   This is a separate, unscoped opportunity, not a continuation of the
+   Engine 4 graph work.
+7. **Real, pre-existing corpus defects found and documented, independent of
+   grading accuracy:** systematic axis-tick-value corruption on 11+ `EST`
+   items (a shared template/printing defect, not a drawer error — confirmed
+   via duplicate photos sharing identical corruption), near-universal
+   missing axis units, and several misfiled photos (wrong item's content
+   under a given item's filename). Should be triaged before this corpus is
+   trusted as an official launch-gate benchmark.
+8. **One open governance question, deliberately not resolved unilaterally:**
+   whether `ZERO_INTERCEPT_ANNOTATION` should credit a corrupted-axis item
+   when the student's demonstrated work is otherwise correct. Real
+   arguments both ways (documented in the research doc); flagged for
+   owner/adjudicator decision, gold left unchanged pending that call.
+
+### Concrete gap to production — ordered
+
+1. **Finish the escalation validation at full scale.** Run `gpt-5.2-pro`
+   (fix already known: `maxOutputTokens: 1200`, not 600 — a real token-
+   budget bug found and fixed mid-session, isolated to `SER`/`EST`'s longer
+   criterion lists) on the remaining 84 medium-confidence photos, recompute
+   exact match/F1/FAR/FRR across the full 200. This is the single most
+   valuable next number — everything cited above from the escalation test
+   is real but partial (21/105).
+2. **Formal gold-set adjudication.** Current gold (200 photos) is single-
+   pass `ai_provisional`-tier (20 independent AI graders, one pass each),
+   not the dual-human-adjudicated standard §11 already requires for any
+   production question (`CONTENT_GOVERNANCE_AND_VALIDATION.md` §12.2). This
+   gap, already flagged generically in §11, is now concretely true for
+   Engine 4's real-photo gold specifically. Needed before any of these
+   numbers can support an actual launch decision, not just R&D direction.
+3. **Resolve the open `ZERO_INTERCEPT_ANNOTATION` policy question** (item 8
+   above) via real adjudication, not further unilateral AI judgment calls.
+4. **Corpus cleanup.** Fix or exclude the 11+ corrupted-axis `EST` items
+   (item 7 above) before treating this corpus as an official benchmark
+   reference for a go/no-go decision.
+5. **Decide the deployment/authority model — this is a product/policy
+   decision, not yet made.** Options quantified in the research doc, each
+   with real coverage/accuracy/cost/latency tradeoffs: (a) unconditional
+   single-model grading (simplest, worst accuracy), (b) confidence-gated
+   selective automation + human review for the rest (protects quality,
+   costs coverage), (c) escalation-augmented (recovers coverage instead of
+   just protecting quality on a shrinking safe subset, per item 3 above,
+   but only tested on a partial subsample so far), (d) some hybrid. None of
+   these currently clears all four DR-1 thresholds outright at full
+   coverage — the real question is whether a *partial*-coverage authoritative
+   slice (whichever policy) is an acceptable interim launch shape, which is
+   an owner call, not something to assume.
+6. **Latency/cost engineering for any escalation-based design.**
+   `gpt-5.2-pro` ran 23-36s per call in testing — 4-5x slower than `gpt-5.2`.
+   Cannot block the student-facing request path the way this session's
+   diagnostic scripts ran serially; needs async/background grading and a
+   "still checking" UX pattern, or the latency budget this doc already
+   cares about (§0/§11) gets blown badly. Not designed yet.
+7. **`PLOT_VALUES` fix, take two** (item 5 above) — the largest remaining
+   error source, one attempt already tried and reverted. Needs either a
+   second controlled run to separate real signal from run-to-run noise in
+   the adjacent-criteria regressions, or a more narrowly-scoped fix than
+   "teach a general tolerance principle."
+8. **Optional, separate track: formalize the OCR-for-equations finding into
+   a real Engine 3 pilot** (item 6 above) — needs its own gold data and
+   benchmark; not a continuation of Engine 4's graph work, don't conflate
+   the two scopes.
+
+### Artifacts
+
+- **Committed and pushed to `origin/main`:** commit `8b8b8e5` — real gold
+  labels, the original benchmark harness, the extraction-only/resolution-
+  crop/model-backbone spikes, and the first full `gpt-5.2` run. Covers
+  everything through item 2 above's baseline.
+- **NOT yet committed** (all in the working tree as of 2026-08-18, session
+  end): the `PLOT_VALUES` fix attempt and its revert documentation, the
+  escalation controlled test (`hand_drawn_graph_escalation_gemini_run.mjs` —
+  name predates a mid-session pivot from `gemini-3.1-pro-preview` to
+  `gpt-5.2-pro`, see the research doc for why), `select_escalation_test_subsample.mjs`,
+  and the OCR probe (`ocr_axis_probe.mjs`, `vision_ocr.swift` + compiled
+  binary). Commit these (or ask for review first) before a new session
+  builds further on top, so `git status` in the next session isn't a
+  surprise.
+- **Gold data:** `docs/research/hand_drawn_graph_real_photo_benchmark_2026_08_18/gold/`
+  (`real_photo_gold_labels_2026_08_18.json` — the 200-photo gold set;
+  `extraction_probe_subsample_2026_08_18.json`,
+  `escalation_test_subsample_2026_08_18.json` — deterministic, reproducible
+  stratified selections, see the select_*.mjs scripts for exact logic).
+- **All run outputs:** `docs/research/hand_drawn_graph_real_photo_benchmark_2026_08_18/runs/`
+  — every experiment's raw JSONL, kept even for reverted/failed attempts as
+  a historical record (never deleted, per this session's own practice).
+- **Scripts:** `scripts/vercel-gateway-check/hand_drawn_graph_*.mjs` (one
+  per spike/experiment, each with a header comment explaining what it tests
+  and why), `select_*.mjs` (subsample selection, deterministic), `ocr_axis_probe.mjs`
+  + `vision_ocr.swift` (the local OCR probe).
+
+---
+
 ## 0. One-paragraph state of the world
 
 Engine 1 is deployed and, as of 2026-07-28, **works end-to-end for the first time** — it had never
@@ -519,4 +686,12 @@ results. Read the relevant prior report before interpreting a new one.
 - **Engine 1 end-to-end request latency** outside the model call (app shell, auth, DB I/O).
 - **Partial credit behaviour** on multi-point criteria.
 - **Engine 3 in any integration context.**
-- **Engine 4 essentially everything.**
+- **Engine 4 real-photo grading accuracy is now measured (2026-08-18 UPDATE
+  above) — update this line, don't cite "essentially everything" anymore.**
+  Still genuinely unmeasured for Engine 4: the full-200-photo escalation
+  number (only 21/105 medium-confidence photos escalated so far), any
+  dual-human-adjudicated gold (same gap as the line above, now concretely
+  true here too), end-to-end request latency with an escalation call in the
+  path, and anything about Engine 4 in an actual integration/deployment
+  context (this was all offline benchmarking against a static photo corpus,
+  never a real request path).
