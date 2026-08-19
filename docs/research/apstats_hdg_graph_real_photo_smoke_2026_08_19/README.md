@@ -393,6 +393,135 @@ gain. Worth checking per-criterion whether the reproducible-contradiction
 pattern is actually present before applying this fix elsewhere, rather than
 assuming it will help anywhere a table-derived fact exists.
 
+## Full-corpus baseline noise floor (n=20, run twice): FAR holds, FRR doesn't, and the dotplot gap is filled
+
+The earlier noise check only covered the 10 tier-1 photos (mosaic +
+scatterplot). Reran the full, unmodified 20-photo baseline a second time
+(`runs/apstats_smoke_gpt52_full_rerun2_results.jsonl`) — same prompt, same
+gold, no changes — to get a real noise floor across every archetype,
+including dotplot, whose `DOT_COUNTS` noise band was previously
+unmeasured (flagged explicitly above as a gap).
+
+| | exact/20 | F1 | FAR | FRR |
+|---|---:|---:|---:|---:|
+| run 1 (original baseline) | 65.0% | 93.8% | 0/11 = **0.0%** | 8/69 = 11.6% |
+| run 2 (identical prompt, rerun) | 60.0% | 89.6% | 0/11 = **0.0%** | 13/69 = 18.8% |
+
+**FAR is now confirmed at 0% across two independent full runs, not one** —
+this is the strongest evidence yet that gpt-5.2's error on this corpus is
+concentrated entirely in false rejects, not false accepts, and it's no
+longer resting on a single-sample fluke. Exact-match and FRR are noisier
+(65.0%→60.0%, 11.6%→18.8%), consistent with the tier-1 noise check above —
+across all 80 criteria, 5 flipped between runs (6.2%), and in this
+particular pair **all 5 flips went the same direction** (run 1 correct →
+run 2 wrong), which is a property of this one pair of runs, not a proven
+directional bias — a third run would be needed to know if FRR-ward drift
+is a real tendency or just what happened to come up twice.
+
+`DOT_COUNTS` noise floor, now measurable (previously only 1 baseline
+sample existed for dotplots):
+
+| item | gold | baseline run 1 | baseline run 2 |
+|---|---|---|---|
+| `028` | earned | earned | earned |
+| `029` | earned | earned | **not_earned** |
+| `030` | earned | earned | earned |
+| `031` | earned | **not_earned** | **not_earned** |
+
+This changes the read on `031` specifically: wrong in **both** independent
+baseline runs, which looks more like a small reproducible miss than pure
+noise (its own gold rationale already noted a plausible cause — dots
+stacked closely near value 1-2, a genuinely crowded/ambiguous region of
+that specific photo) — worth a closer look on its own, separate from the
+`DOT_COUNTS`-in-general question this section was checking. `029` flipping
+between the two runs (and also flipping in one of the two precomputed-facts
+runs above) does read as ordinary noise on a closer call, not a
+reproducible defect.
+
+## GRAPH-031 investigated directly: same defect family as WIDTHS_BY_TOTAL, not a genuine crowding issue
+
+Flagged above as newly-looking-reproducible once the dotplot baseline noise
+floor was filled in (wrong in 2/2 baseline runs). Pulled the `DOT_COUNTS`
+rationale text from all 4 available gpt-5.2 runs on this photo (2 baseline,
+2 precomputed-facts) and re-inspected the photo directly against the
+corpus table (`1,2,2,2,3,3,3,3,4,4,5,11` — 12 values).
+
+**In all 4 runs, the model's own stated tally is identical and correct**:
+"1 dot at 1, 3 dots at 2, 4 dots at 3, 2 dots at 4, 1 dot at 5, 1 dot at 11
+(12 total)" — matching gold exactly, matching this session's own original
+gold-labeling pass. But in 3 of the 4 runs it then invents an *additional*
+13th dot beyond that already-complete, already-correct list, at three
+different phantom locations across the three runs ("near the top-left,
+not aligned with any labeled value" / "the dot at 1 should not be present"
+/ "an extra dot at 0") — each contradicting its own tally, not agreeing
+with each other on what the phantom element even is. Only the one run that
+dropped this claim landed on `earned`.
+
+**Confirmed directly by the user against the actual photo: the true counts
+are 1/3/4/2/1/1 at values 1/2/3/4/5/11 — 12 points, no 13th dot anywhere.**
+This settles it: there is no genuine ambiguity or crowding artifact behind
+the model's phantom-dot claims — it is fabricating a disqualifying element
+against a photo that has none, not resolving a real close call the way
+`GRAPH-023`'s narrower-Bike-column judgment was.
+
+**This is the same defect family as `WIDTHS_BY_TOTAL`** (reliable stated
+facts, unreliable final verdict), manifesting as a fabricated disqualifying
+element instead of a stated-then-contradicted premise. It is not a genuine
+image-crowding issue — there's no real ambiguity in the dot count itself,
+which is presumably why the precomputed-facts fix only partially worked
+here (1 of 2 runs fixed) instead of the clean 2/2 seen on mosaic plots:
+handing over the correct count doesn't stop the model from also claiming
+it sees an extra mark that isn't there.
+
+## Tier 2 (n=28, all real Stats photos, run twice): the honest full-corpus number
+
+Extended gold to the 8 previously-unused `Stats-HRD-2` photos (5
+`boxplot_construction_interpretation` — filling the one archetype that had
+zero coverage all session — and 3 more `segmented_bar_graph_construction`),
+built the same way as every other gold record this session (direct visual
+inspection against `student_prompt`/`display_table`/`criterion_definitions`).
+This is now **every real Stats photo that exists** — 28 of 28, the ceiling
+this program can reach without new photo capture.
+
+Ran `openai/gpt-5.2` across all 28 with the precompute fix applied wherever
+targetable (mosaic `WIDTHS_BY_TOTAL`, dotplot `DOT_COUNTS`) and the plain
+baseline prompt everywhere else, twice, same noise-check discipline as
+every other result in this report.
+
+| | exact/28 | F1 | FAR | FRR |
+|---|---:|---:|---:|---:|
+| tier-2 run 1 | 18/28 = 64.3% | 94.8% | 2/13 = 15.4% | 8/99 = 8.1% |
+| tier-2 run 2 | 18/28 = 64.3% | 94.2% | 2/13 = 15.4% | 9/99 = 9.1% |
+
+Remarkably stable in aggregate — identical exact-match count, F1 within 0.6
+points, **and the exact same two false accepts in both runs**:
+`GRAPH-023 WIDTHS_BY_TOTAL` (the genuinely-narrower-Bike-column case, wrong
+in every run of this photo all session regardless of fix) and
+`GRAPH-014 VARIABILITY_COMPARISON` (the garbled-but-directionally-correct
+numbers case — a legitimate grading-strictness dispute, not a clear
+defect). A stable, reproduced FAR source is a much stronger finding than a
+single-run FAR number — **this supersedes the earlier "FAR confirmed 0%"
+claim**, which only held on the 20-item corpus before boxplot/segmented-bar
+coverage existed. 9 of 112 criteria (8.0%) flipped between the two runs,
+consistent with every other noise measurement in this report.
+
+**The precompute fix looks real but weaker on this larger, more diverse
+set than tier-1 suggested**: targeted criteria (`WIDTHS_BY_TOTAL` +
+`DOT_COUNTS`, 9 judgments) were correct 6/9 and 8/9 across the two tier-2
+runs (~78% average) — clearly better than the ~0-33% baseline correct rate
+established earlier, but well below tier-1's 8/8 and 7/9. Consistent with
+`GRAPH-025` and `GRAPH-029` (the two dotplot/mosaic items that flipped
+between runs here) being genuinely harder cases, not a sign the fix stopped
+working — but a real, honest downgrade from the tier-1 read, which is
+exactly why this scale-up was worth doing before trusting tier-1's numbers
+as final.
+
+The 8 new boxplot/segmented-bar items' mismatches (`013` five-number-value
+precision, `014` above, `019` relative-frequencies) continue to read as
+genuine close calls rather than the fabrication pattern found in
+mosaic/dotplot — no `WIDTHS_BY_TOTAL`-style self-contradiction observed in
+either new archetype so far.
+
 ## Recommended next step
 
 Run the full 40-item Statistics corpus (all `human_shadow` Stats content, not

@@ -254,7 +254,13 @@ async function main() {
 
   const corpus = loadCorpus();
   const goldByFilePath = loadGold();
-  const subsample = JSON.parse(fs.readFileSync(SUBSAMPLE_JSON, 'utf8')).filter((p) => TARGET_ITEM_IDS.has(p.item_id));
+  // Tier-2 default: run the FULL subsample (precompute fix applied only to
+  // mosaic/dotplot items via buildPrompt's per-criterion check; every other
+  // item gets the plain, unmodified baseline prompt). Set
+  // SMOKE_TARGET_ONLY=1 to restrict to just the fixable items, as earlier
+  // tier-1 runs did.
+  const subsample = JSON.parse(fs.readFileSync(SUBSAMPLE_JSON, 'utf8'))
+    .filter((p) => (process.env.SMOKE_TARGET_ONLY ? TARGET_ITEM_IDS.has(p.item_id) : true));
 
   // Print the computed facts up front so they're auditable in the log.
   for (const iid of MOSAIC_ITEM_IDS) {
