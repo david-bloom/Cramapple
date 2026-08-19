@@ -1,3 +1,34 @@
+## UPDATE 2026-08-19 — Statistics gets its first accuracy measurement: 20-photo smoke test
+
+Direct response to UPDATE 2026-08-18d §8 item 3 ("start real Statistics
+benchmark work — biggest remaining blind spot"). Full detail:
+`docs/research/apstats_hdg_graph_real_photo_smoke_2026_08_19/README.md`.
+
+20 of the 28 available real `Stats-HRD-2` photos (5 of 6 archetypes), gold
+built by direct visual inspection (same method as Biology's), graded with
+`gpt-5.2` single-pass. **65.0% exact match, F1 93.8%, FAR 0.0% (11
+not-earned instances), FRR 11.6%** — a different error shape than Biology's
+`gpt-5.2` result (18.4%/7.9%), but on too small a sample to trust FAR=0% yet.
+
+Two concrete findings: (1) a real, reproducible mosaic-plot defect — on 2 of
+4 `WIDTHS_BY_TOTAL` mismatches the model's own rationale text reasons to the
+correct "equal widths are correct here" conclusion and then still emits
+`not_earned` as the verdict (rationale/verdict self-contradiction, not a
+defensible stricter reading); (2) 3 of 4 dotplot responses in this specific
+photo batch describe skew direction backwards from the AP Statistics
+convention (name the bulk's side, not the tail's) — a response-authoring
+pattern to watch for, not a model error (the model didn't false-accept on
+any of them). Also caught and fixed a gold-labeling arithmetic error
+(GRAPH-023's Bike row sums to 80, not 100 like its peers — unequal widths
+are actually correct there) via the model's disagreement prompting a
+recheck.
+
+**Not yet done:** the full 40-item Statistics corpus, the missing 6th
+archetype (boxplot), or any FAR-scale confirmation — see the README's
+"Recommended next step."
+
+---
+
 # Grading Engines → Production: Session Handoff
 
 **Written:** 2026-07-28
