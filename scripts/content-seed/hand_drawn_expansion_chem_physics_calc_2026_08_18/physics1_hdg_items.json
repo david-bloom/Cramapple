@@ -1,0 +1,78 @@
+{
+  "batch": "hand_drawn_expansion_chem_physics_calc_2026_08_18",
+  "subject": "AP Physics 1",
+  "rows": [
+    {
+      "item_id": "HDG-2026-PHYS1-001",
+      "item_version": "v0.1-draft",
+      "question_type": "frq",
+      "frq_form": "short",
+      "archetype": "free_body_diagram_incline_with_friction",
+      "review_stage": "draft",
+      "rights_status": "independently_authored_synthetic_research_seed_unverified",
+      "modules": ["AP Physics 1", "Newtonian mechanics", "free-body diagram", "graph construction"],
+      "stem": "A block slides down a rough incline at angle theta = 30 degrees above the horizontal. The coefficient of kinetic friction between the block and the incline is 0.20. The block is modeled as a point (a dot).\n\nWrite the item ID HDG-2026-PHYS1-001 at the top of your page. Draw a complete free-body diagram of the block, showing every force acting on it while it slides down.",
+      "capture_instruction": "Draw one free-body diagram on one page. Write only the item ID at the top of the page, then photograph the full page with all diagram evidence visible.",
+      "canonical_answer": "Three individual force vectors, each drawn as a straight arrow originating on the dot: (1) gravity (weight, Fg = mg) pointing straight down; (2) the normal force (Fn) pointing perpendicular to and away from the incline surface; (3) the kinetic friction force (Ff) acting along the incline surface, pointing up the incline (opposing the block's down-the-incline sliding motion). No net-force vector and no component (x/y-resolved) vectors should be drawn -- only the three individual forces, each labeled.",
+      "display_table": null,
+      "expected_graph_spec": {
+        "representation": "free-body diagram: point (dot) with individual straight-line force-vector arrows",
+        "x_axis": null,
+        "y_axis": null,
+        "accepted_variants": ["vector lengths are not graded for exact scale -- only presence, direction, and correct originating point matter"]
+      },
+      "criterion_definitions": [
+        {"criterion_id": "ARROWS_FROM_DOT", "met_rule": "Every force is drawn as a straight arrow that originates on the dot and points away from it (not resolved into components, not double-headed)."},
+        {"criterion_id": "GRAVITY_DOWN", "met_rule": "A force vector labeled gravity/weight/Fg/mg points straight down from the dot."},
+        {"criterion_id": "NORMAL_PERPENDICULAR", "met_rule": "A force vector labeled normal/Fn points away from and perpendicular to the incline surface (not straight up)."},
+        {"criterion_id": "FRICTION_UP_THE_INCLINE", "met_rule": "A force vector labeled friction/Ff points up along the incline surface, opposing the block's down-the-incline motion."},
+        {"criterion_id": "NO_EXTRA_VECTORS", "met_rule": "No net-force vector, no gravity-component vectors, and no other forces (e.g. an unspecified applied force) are drawn -- exactly the three forces above."},
+        {"criterion_id": "LABELS_PRESENT", "met_rule": "Each of the three vectors is labeled with a name or symbol identifying which force it represents."}
+      ],
+      "expected_image_filename": "HDG-2026-PHYS1-001__response-01.jpg",
+      "relation_subtype": null,
+      "notes": "New hand-drawn capture item authored 2026-08-18 to close the Physics hand-drawn coverage gap identified in HAND_DRAWN_RESPONSE_MIX_AUDIT_2026_08_18.md. Free-body-diagram convention (arrows originate on the dot, forces in the same direction drawn side by side, individual forces not net force) taken directly from the vector-diagram convention documented in AP_PHYSICS_1_CED_FACT_PACK.md / AP_PHYSICS_2_CED_FACT_PACK.md, confirmed as a standing Physics 1/2/C-family rule, not unit-specific. Scenario numbers are illustrative (not used in grading criteria, which are direction/presence-only) and were not cross-checked against a released FRQ this session. Do not expose criterion definitions to the person drawing the diagram.",
+      "provenance": {
+        "source_refs": ["ap-physics-1-ced-fact-pack", "hand_drawn_response_mix_audit_2026_08_18"],
+        "generated_by": "claude",
+        "generated_at": "2026-08-18T00:00:00Z"
+      }
+    },
+    {
+      "item_id": "HDG-2026-PHYS1-002",
+      "item_version": "v0.1-draft",
+      "question_type": "frq",
+      "frq_form": "short",
+      "archetype": "velocity_time_graph_vertical_projectile",
+      "review_stage": "draft",
+      "rights_status": "independently_authored_synthetic_research_seed_unverified",
+      "modules": ["AP Physics 1", "kinematics", "graph construction"],
+      "stem": "A ball is thrown straight up from the ground with an initial speed of 20 m/s. Take up as the positive direction and use g = 10 m/s^2. The ball returns to the ground 4.0 s after it is thrown.\n\nWrite the item ID HDG-2026-PHYS1-002 at the top of your page. Sketch the velocity-vs-time graph of the ball from t = 0 s to t = 4.0 s.",
+      "capture_instruction": "Draw one graph on one page. Write only the item ID at the top of the page, then photograph the full page with all graph evidence visible.",
+      "canonical_answer": "A single straight line with constant negative slope (-10 m/s^2, i.e. -g) throughout the entire interval, since the only acceleration is gravity, both while rising and while falling. The line starts at v = +20 m/s at t = 0 s, crosses v = 0 at t = 2.0 s (the peak of the ball's flight), and reaches v = -20 m/s at t = 4.0 s (just before landing). No kink, curve, or change of slope occurs at t = 2.0 s -- only the sign of v changes, not the slope.",
+      "display_table": null,
+      "expected_graph_spec": {
+        "representation": "single straight line, velocity (m/s) vs. time (s)",
+        "x_axis": "time (s), 0 to 4.0",
+        "y_axis": "velocity (m/s), roughly -20 to +20, with up as positive",
+        "accepted_variants": ["exact numeric slope/points are not required to be plotted to scale, but the straight-line shape, sign of the intercepts, and the zero-crossing at t = 2.0 s must be shown"]
+      },
+      "criterion_definitions": [
+        {"criterion_id": "AXES_LABELED", "met_rule": "X-axis labeled time (s) spanning at least 0-4; Y-axis labeled velocity (m/s), with the positive direction (up) noted or implied by a labeled positive intercept."},
+        {"criterion_id": "SINGLE_STRAIGHT_LINE", "met_rule": "The entire graph is one straight line with constant slope -- no curvature and no change of slope anywhere on the interval."},
+        {"criterion_id": "INITIAL_VALUE", "met_rule": "The line starts at v = +20 m/s (or a value recognizably close to it) at t = 0."},
+        {"criterion_id": "ZERO_CROSSING_AT_PEAK", "met_rule": "The line crosses v = 0 at t = 2.0 s, marking the top of the flight."},
+        {"criterion_id": "FINAL_VALUE", "met_rule": "The line reaches v = -20 m/s (or a value recognizably close to it) at t = 4.0 s."},
+        {"criterion_id": "NEGATIVE_SLOPE_THROUGHOUT", "met_rule": "The slope is negative and unchanged across the entire interval, including through the v = 0 crossing (no flattening or kink at the peak)."}
+      ],
+      "expected_image_filename": "HDG-2026-PHYS1-002__response-01.jpg",
+      "relation_subtype": null,
+      "notes": "New hand-drawn capture item authored 2026-08-18, same batch as HDG-2026-PHYS1-001. Directly exercises the graphical-relationships skill named in AP_PHYSICS_1_CED_FACT_PACK.md (instantaneous velocity = slope of position-time graph; students expected to sketch appropriate graphs from qualitative/quantitative motion descriptions). Kinematics numbers are simple, exact, and independently verifiable (v = v0 - g t); not cross-checked against a released FRQ this session. Do not expose criterion definitions to the person drawing the graph.",
+      "provenance": {
+        "source_refs": ["ap-physics-1-ced-fact-pack", "hand_drawn_response_mix_audit_2026_08_18"],
+        "generated_by": "claude",
+        "generated_at": "2026-08-18T00:00:00Z"
+      }
+    }
+  ]
+}

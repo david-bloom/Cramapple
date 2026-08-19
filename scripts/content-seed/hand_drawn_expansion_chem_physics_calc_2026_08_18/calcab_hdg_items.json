@@ -1,0 +1,86 @@
+{
+  "batch": "hand_drawn_expansion_chem_physics_calc_2026_08_18",
+  "subject": "AP Calculus AB",
+  "rows": [
+    {
+      "item_id": "HDG-2026-CALCAB-001",
+      "item_version": "v0.1-draft",
+      "question_type": "frq",
+      "frq_form": "short",
+      "archetype": "sketch_f_from_first_and_second_derivative_signs",
+      "review_stage": "draft",
+      "rights_status": "independently_authored_synthetic_research_seed_unverified",
+      "modules": ["AP Calculus AB", "curve sketching", "graph construction"],
+      "stem": "f is a continuous function defined for all real x, with f(0) = 2. The sign of f'(x) and f''(x) are given below.\n\n| Interval | f'(x) | f''(x) |\n|---|---|---|\n| x < 1 | positive | negative |\n| 1 < x < 2 | negative | negative |\n| 2 < x < 3 | negative | positive |\n| x > 3 | positive | positive |\n\nWrite the item ID HDG-2026-CALCAB-001 at the top of your page. Sketch a possible graph of f(x) for -1 <= x <= 5 that is consistent with this table and with f(0) = 2.",
+      "capture_instruction": "Draw one graph on one page. Write only the item ID at the top of the page, then photograph the full page with all graph evidence visible.",
+      "canonical_answer": "The curve increases and is concave down for x < 1, reaching a local maximum at x = 1 (horizontal tangent, since f' changes from positive to negative). It then decreases from x = 1 to x = 3, remaining concave down until x = 2 and then switching to concave up from x = 2 to x = 3 (an inflection point at x = 2, visible as a change in curvature while the curve is still falling). At x = 3 the curve reaches a local minimum (horizontal tangent, since f' changes from negative to positive) and then increases and is concave up for x > 3. The curve passes through the point (0, 2).",
+      "display_table": [
+        {"Interval": "x < 1", "f'(x)": "positive", "f''(x)": "negative"},
+        {"Interval": "1 < x < 2", "f'(x)": "negative", "f''(x)": "negative"},
+        {"Interval": "2 < x < 3", "f'(x)": "negative", "f''(x)": "positive"},
+        {"Interval": "x > 3", "f'(x)": "positive", "f''(x)": "positive"}
+      ],
+      "expected_graph_spec": {
+        "representation": "single smooth curve, f(x) vs. x",
+        "x_axis": "x, at least -1 to 5",
+        "y_axis": "f(x), any consistent scale passing through (0, 2)",
+        "accepted_variants": ["exact y-values other than f(0)=2 are not graded -- only the shape (monotonicity, extrema locations, concavity, inflection location) must match"]
+      },
+      "criterion_definitions": [
+        {"criterion_id": "INCREASING_BEFORE_1", "met_rule": "The curve is rising (increasing) for all x < 1."},
+        {"criterion_id": "LOCAL_MAX_AT_1", "met_rule": "The curve has a local maximum (horizontal tangent / turning point from rising to falling) at x = 1."},
+        {"criterion_id": "DECREASING_1_TO_3", "met_rule": "The curve is falling (decreasing) continuously from x = 1 to x = 3."},
+        {"criterion_id": "LOCAL_MIN_AT_3", "met_rule": "The curve has a local minimum (horizontal tangent / turning point from falling to rising) at x = 3."},
+        {"criterion_id": "INCREASING_AFTER_3", "met_rule": "The curve is rising (increasing) for all x > 3."},
+        {"criterion_id": "INFLECTION_AT_2", "met_rule": "A visible change in concavity (from concave down to concave up) occurs at x = 2, while the curve is still decreasing on both sides of it."},
+        {"criterion_id": "CONCAVITY_BEFORE_1", "met_rule": "The curve is concave down for x < 1 (bending toward the local max at x = 1)."},
+        {"criterion_id": "PASSES_THROUGH_POINT", "met_rule": "The curve passes through or very near the point (0, 2)."}
+      ],
+      "expected_image_filename": "HDG-2026-CALCAB-001__response-01.jpg",
+      "relation_subtype": null,
+      "notes": "New hand-drawn capture item authored 2026-08-18 to close the Calculus hand-drawn coverage gap identified in HAND_DRAWN_RESPONSE_MIX_AUDIT_2026_08_18.md (Practice 2, Connecting Representations: translate across graphical/analytical representations, 10-20% FRQ weight; prior corpus had zero hand-drawn items in Calculus). Sign-chart-to-sketch is a standard AP Calculus AB Unit 5 task (5.8 Sketching Graphs of Functions and Their Derivatives, per AP_CALCULUS_AB_BC_CED_FACT_PACK.md's topic map). Sign table constructed to be internally consistent (extrema exactly where f' changes sign, inflection exactly where f'' changes sign); not cross-checked against a released FRQ this session. Do not expose criterion definitions to the person drawing the graph.",
+      "provenance": {
+        "source_refs": ["ap-calculus-ab-bc-ced-fact-pack", "hand_drawn_response_mix_audit_2026_08_18"],
+        "generated_by": "claude",
+        "generated_at": "2026-08-18T00:00:00Z"
+      }
+    },
+    {
+      "item_id": "HDG-2026-CALCAB-002",
+      "item_version": "v0.1-draft",
+      "question_type": "frq",
+      "frq_form": "short",
+      "archetype": "sketch_derivative_from_function_behavior",
+      "review_stage": "draft",
+      "rights_status": "independently_authored_synthetic_research_seed_unverified",
+      "modules": ["AP Calculus AB", "derivatives", "graph construction"],
+      "stem": "f is a smooth, differentiable function for -2 <= x <= 4 with the following behavior: f is decreasing on (-2, 0), has a relative minimum at x = 0, is increasing on (0, 2), has a relative maximum at x = 2, and is decreasing on (2, 4). f has no other critical points on this interval.\n\nWrite the item ID HDG-2026-CALCAB-002 at the top of your page. Sketch the graph of f'(x) for -2 <= x <= 4, using the behavior of f described above. You do not need to find a formula for f or f'.",
+      "capture_instruction": "Draw one graph on one page. Write only the item ID at the top of the page, then photograph the full page with all graph evidence visible.",
+      "canonical_answer": "Since f is decreasing on (-2, 0), f'(x) < 0 there. Since f has a relative minimum at x = 0, f'(0) = 0 and f' changes from negative to positive there. Since f is increasing on (0, 2), f'(x) > 0 there. Since f has a relative maximum at x = 2, f'(2) = 0 and f' changes from positive to negative there. Since f is decreasing on (2, 4), f'(x) < 0 there. The sketch of f' is therefore a curve that is negative on (-2, 0), crosses zero (going upward) at x = 0, positive on (0, 2), crosses zero (going downward) at x = 2, and negative on (2, 4) -- with no other zero crossings on the interval.",
+      "display_table": null,
+      "expected_graph_spec": {
+        "representation": "single curve, f'(x) vs. x",
+        "x_axis": "x, from -2 to 4",
+        "y_axis": "f'(x), any consistent scale showing the correct sign in each region",
+        "accepted_variants": ["exact curve shape between zeros is not graded -- only the sign of f' in each interval and the location/direction of the two zero crossings must match"]
+      },
+      "criterion_definitions": [
+        {"criterion_id": "NEGATIVE_BEFORE_0", "met_rule": "f' is drawn below the x-axis (negative) for all x in (-2, 0)."},
+        {"criterion_id": "ZERO_CROSSING_UP_AT_0", "met_rule": "f' crosses the x-axis at x = 0, going from negative to positive (upward crossing)."},
+        {"criterion_id": "POSITIVE_0_TO_2", "met_rule": "f' is drawn above the x-axis (positive) for all x in (0, 2)."},
+        {"criterion_id": "ZERO_CROSSING_DOWN_AT_2", "met_rule": "f' crosses the x-axis at x = 2, going from positive to negative (downward crossing)."},
+        {"criterion_id": "NEGATIVE_AFTER_2", "met_rule": "f' is drawn below the x-axis (negative) for all x in (2, 4)."},
+        {"criterion_id": "NO_EXTRA_ZEROS", "met_rule": "f' does not cross the x-axis anywhere else on (-2, 4) besides x = 0 and x = 2."},
+        {"criterion_id": "AXES_LABELED", "met_rule": "The horizontal axis is labeled x and the vertical axis is labeled f'(x), spanning at least -2 to 4."}
+      ],
+      "expected_image_filename": "HDG-2026-CALCAB-002__response-01.jpg",
+      "relation_subtype": null,
+      "notes": "New hand-drawn capture item authored 2026-08-18, same batch as HDG-2026-CALCAB-001. Verbal-description-of-f-to-sketch-of-f' is the inverse of HDG-2026-CALCAB-001 and directly exercises AP_CALCULUS_AB_BC_CED_FACT_PACK.md's Unit 5 topic 5.9 (Connecting a Function, Its First Derivative, and Its Second Derivative) under Practice 2. Described behavior is internally consistent (relative extrema exactly where monotonicity changes, no other critical points asserted); not cross-checked against a released FRQ this session. Do not expose criterion definitions to the person drawing the graph.",
+      "provenance": {
+        "source_refs": ["ap-calculus-ab-bc-ced-fact-pack", "hand_drawn_response_mix_audit_2026_08_18"],
+        "generated_by": "claude",
+        "generated_at": "2026-08-18T00:00:00Z"
+      }
+    }
+  ]
+}

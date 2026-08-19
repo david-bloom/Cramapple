@@ -1,0 +1,88 @@
+{
+  "batch": "hand_drawn_expansion_chem_physics_calc_2026_08_18",
+  "subject": "AP Chemistry",
+  "rows": [
+    {
+      "item_id": "HDG-2026-CHEM-001",
+      "item_version": "v0.1-draft",
+      "question_type": "frq",
+      "frq_form": "short",
+      "archetype": "titration_curve_weak_acid_strong_base",
+      "review_stage": "draft",
+      "rights_status": "independently_authored_synthetic_research_seed_unverified",
+      "modules": ["AP Chemistry", "acid-base equilibrium", "titration", "graph construction"],
+      "stem": "A 25.0 mL sample of 0.100 M acetic acid (CH3COOH, Ka = 1.8 x 10^-5) is titrated with 0.100 M NaOH. Use the data below to sketch the titration curve (pH on the y-axis, volume of NaOH added in mL on the x-axis, from 0 to 50 mL).\n\nWrite the item ID HDG-2026-CHEM-001 at the top of your page.\n\n| Volume NaOH added (mL) | pH |\n|---|---|\n| 0.0 | 2.87 |\n| 12.5 (half-equivalence) | 4.74 |\n| 20.0 | 5.35 |\n| 24.0 | 6.44 |\n| 25.0 (equivalence) | 8.72 |\n| 26.0 | 11.29 |\n| 35.0 | 12.22 |\n| 50.0 | 12.52 |\n\nLabel the half-equivalence point and the equivalence point on your sketch.",
+      "capture_instruction": "Draw one graph on one page. Write only the item ID at the top of the page, then photograph the full page with all graph evidence visible.",
+      "canonical_answer": "Curve starts at pH 2.87 (higher than a strong acid of the same concentration would show), rises gradually through a relatively flat buffer region centered at the half-equivalence point (12.5 mL, pH = pKa = 4.74), then rises steeply through a near-vertical jump centered at the equivalence point (25.0 mL, pH = 8.72, basic because the conjugate base CH3COO- hydrolyzes), then levels off in the basic region (approaching pH ~12.5 as excess NaOH dominates).",
+      "display_table": [
+        {"Volume NaOH added (mL)": 0.0, "pH": 2.87},
+        {"Volume NaOH added (mL)": 12.5, "pH": 4.74},
+        {"Volume NaOH added (mL)": 20.0, "pH": 5.35},
+        {"Volume NaOH added (mL)": 24.0, "pH": 6.44},
+        {"Volume NaOH added (mL)": 25.0, "pH": 8.72},
+        {"Volume NaOH added (mL)": 26.0, "pH": 11.29},
+        {"Volume NaOH added (mL)": 35.0, "pH": 12.22},
+        {"Volume NaOH added (mL)": 50.0, "pH": 12.52}
+      ],
+      "expected_graph_spec": {
+        "representation": "single continuous line graph, pH vs. volume NaOH added",
+        "x_axis": "volume of NaOH added (mL), 0 to 50",
+        "y_axis": "pH, 0 to 14",
+        "accepted_variants": ["smooth freehand curve through/near the plotted points; exact point-plotting not required if the shape and labeled features are correct"]
+      },
+      "criterion_definitions": [
+        {"criterion_id": "REPRESENTATION_TYPE", "met_rule": "Draws a single continuous pH-vs-volume line/curve, not a bar chart or discrete unconnected points."},
+        {"criterion_id": "AXES_LABELED", "met_rule": "X-axis labeled volume NaOH (mL) spanning at least 0-50; Y-axis labeled pH spanning at least 0-14."},
+        {"criterion_id": "INITIAL_PH_NOT_STRONG_ACID", "met_rule": "Curve begins between roughly pH 2 and 4 (not near pH 1, which would be a strong-acid start), consistent with a weak acid's higher initial pH."},
+        {"criterion_id": "BUFFER_REGION", "met_rule": "A visibly flatter (lower-slope) region appears near the 12.5 mL half-equivalence point, at a pH near 4.7-4.8."},
+        {"criterion_id": "EQUIVALENCE_POINT_LABELED", "met_rule": "A steep, near-vertical rise is drawn centered at 25.0 mL and is labeled as the equivalence point."},
+        {"criterion_id": "EQUIVALENCE_PH_ABOVE_7", "met_rule": "The curve crosses the equivalence point above pH 7 (basic), not at pH 7."},
+        {"criterion_id": "POST_EQUIVALENCE_LEVELING", "met_rule": "After roughly 30 mL, the curve's slope decreases and approaches a plateau in the basic region rather than continuing to rise steeply."}
+      ],
+      "expected_image_filename": "HDG-2026-CHEM-001__response-01.jpg",
+      "relation_subtype": null,
+      "notes": "New hand-drawn capture item authored 2026-08-18 to close the Chemistry hand-drawn coverage gap identified in HAND_DRAWN_RESPONSE_MIX_AUDIT_2026_08_18.md (Practice 3 'create graphs/diagrams' is FRQ-only, 8-16% weight; prior corpus had only apchem-sfrq-032, a strong-acid/strong-base curve accepting a typed description as an alternative to a sketch). This item is genuinely capture-only (rubric_type: spatial), distinct from apchem-sfrq-032's typed-or-sketch format, and covers the weak-acid buffer-region skill apchem-sfrq-032 does not. Numeric values (Ka, pH at each volume) computed directly via Henderson-Hasselbalch through the buffer region and standard weak-acid/weak-base equilibrium at the equivalence point; not independently checked against a CED primary source or scoring guideline in this session. Do not expose criterion definitions to the person drawing the graph.",
+      "provenance": {
+        "source_refs": ["ap-chemistry-ced-fact-pack", "hand_drawn_response_mix_audit_2026_08_18"],
+        "generated_by": "claude",
+        "generated_at": "2026-08-18T00:00:00Z"
+      }
+    },
+    {
+      "item_id": "HDG-2026-CHEM-002",
+      "item_version": "v0.1-draft",
+      "question_type": "frq",
+      "frq_form": "short",
+      "archetype": "reaction_energy_diagram_catalyst_comparison",
+      "review_stage": "draft",
+      "rights_status": "independently_authored_synthetic_research_seed_unverified",
+      "modules": ["AP Chemistry", "thermochemistry", "kinetics", "graph construction"],
+      "stem": "The exothermic reaction A -> B has delta H = -50 kJ/mol. Without a catalyst, the activation energy is 80 kJ/mol above the energy of A. A catalyst provides an alternative pathway with an activation energy of only 40 kJ/mol above the energy of A, while A and B keep the same energies as in the uncatalyzed reaction.\n\nWrite the item ID HDG-2026-CHEM-002 at the top of your page. Sketch a single potential energy diagram (reaction progress on the x-axis, potential energy in kJ/mol on the y-axis) showing both the catalyzed and uncatalyzed pathways on the same axes. Label A, B, both activation energies, and delta H.",
+      "capture_instruction": "Draw one diagram on one page. Write only the item ID at the top of the page, then photograph the full page with all graph evidence visible.",
+      "canonical_answer": "Both curves start at the same energy level (A) and end at the same, lower energy level (B), since the reaction is exothermic (delta H = -50 kJ/mol) and a catalyst does not change the energies of reactants or products. The uncatalyzed curve rises to a peak 80 kJ/mol above A; the catalyzed curve rises to a lower peak, only 40 kJ/mol above A, drawn as a distinct (e.g. dashed or differently labeled) hump between the same start and end points. The vertical drop from A's level to B's level is labeled delta H = -50 kJ/mol.",
+      "display_table": null,
+      "expected_graph_spec": {
+        "representation": "potential energy vs. reaction progress diagram with two superimposed curves (catalyzed and uncatalyzed)",
+        "x_axis": "reaction progress / reaction coordinate (no numeric scale required)",
+        "y_axis": "potential energy (kJ/mol), numeric scale required for the labeled values",
+        "accepted_variants": ["catalyzed peak may be drawn as a shoulder, dashed line, or separate labeled curve, provided both pathways share identical start (A) and end (B) energy levels"]
+      },
+      "criterion_definitions": [
+        {"criterion_id": "AXES_LABELED", "met_rule": "X-axis labeled reaction progress/coordinate; Y-axis labeled potential energy with units (kJ/mol)."},
+        {"criterion_id": "REACTANTS_PRODUCTS_LEVELS", "met_rule": "Both curves start at the same reactant (A) energy level and end at the same, lower product (B) energy level, consistent with an exothermic reaction."},
+        {"criterion_id": "EA_UNCATALYZED_LABELED", "met_rule": "One curve peaks 80 kJ/mol above A's level, and this peak/gap is labeled as the uncatalyzed activation energy."},
+        {"criterion_id": "EA_CATALYZED_LABELED", "met_rule": "A second, visibly lower curve peaks 40 kJ/mol above A's level, and this peak/gap is labeled as the catalyzed activation energy."},
+        {"criterion_id": "SAME_ENDPOINTS", "met_rule": "The catalyzed and uncatalyzed curves clearly share the same starting (A) and ending (B) energy levels -- only the peak height/pathway differs."},
+        {"criterion_id": "DELTA_H_LABELED", "met_rule": "The vertical difference between the A level and the B level is labeled delta H = -50 kJ/mol (or -50 kJ/mol equivalent notation)."}
+      ],
+      "expected_image_filename": "HDG-2026-CHEM-002__response-01.jpg",
+      "relation_subtype": null,
+      "notes": "New hand-drawn capture item authored 2026-08-18, same batch as HDG-2026-CHEM-001. Reaction-energy-diagram construction and catalyst pathway comparison are standard AP Chemistry Unit 4/5 (kinetics/thermochemistry) skills under Practice 3 (create graphs/diagrams). Values chosen for a clean, unambiguous diagram, not drawn from a specific CED example or released FRQ; not independently checked against a primary source this session. Do not expose criterion definitions to the person drawing the graph.",
+      "provenance": {
+        "source_refs": ["ap-chemistry-ced-fact-pack", "hand_drawn_response_mix_audit_2026_08_18"],
+        "generated_by": "claude",
+        "generated_at": "2026-08-18T00:00:00Z"
+      }
+    }
+  ]
+}

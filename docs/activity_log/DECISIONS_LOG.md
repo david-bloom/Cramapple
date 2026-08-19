@@ -6,6 +6,8 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0049 — Hand-Drawn Capture Becomes an Added Submission Option for Typed-Math FRQs (Retroactive to All 36 Published Calculus FRQs), Graded via the Same Criteria as Typed Answers Through an OCR-Transcription Step
+- DECISION-0048 — AP Statistics Hand-Drawn Practice Stays Supplemental (Simulating Desmos Construction, Not the Real Exam); Chemistry/Physics/Calculus Get New Genuine Hand-Drawn-Capture Items
 - DECISION-0047 — Replace Activation-Limited Free Score Check with a 7-Day Full-Access Trial (TASK-0026)
 - DECISION-0046 — Retire the ≤1000ms p50 Grading Latency Hard Gate; Launch Engines 1/3 Now and Iterate in Production Rather Than Wait for the Full Gold-Set Certification Gate
 - DECISION-0045 — Gold Sets Are Built by AI Generation + Multi-Model Verification + Reader Certification, and Partitioned by Grading Engine × Criterion Structure
@@ -26,6 +28,202 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~600 lines, archive the older entries to `docs/activity_log/archive/DECISIONS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries. (This log is already well over that threshold — the first archive pass is overdue, not optional.)
 
 (Note: the TASK-0012 branch independently logged its own DECISION-0027/0028 — CORS/ALLOWED_ORIGINS and budget-burn semantics — under different numbers on its own branch. Those land separately when that work merges to `main`; this charter-adoption decision claimed 0027/0028 here because `main` had not yet recorded entries past DECISION-0026 at merge time. If both branches' numbering collides on merge, renumber on whichever side merges second and update this index.)
+
+## DECISION-0049 — Hand-Drawn Capture Becomes an Added Submission Option for Typed-Math FRQs, Retroactive to All 36 Published Calculus FRQs
+
+**Date:** 2026-08-18
+**Decision Owner:** David Bloom
+**Status:** Approved (product direction); grading capability not yet built
+**Related Docs:** `DECISION-0048` (above/below), `docs/GRADING_ENGINES_TO_PRODUCTION_HANDOFF.md`
+(same-day, uncommitted-as-of-this-decision OCR probe finding),
+`docs/tasks/TASK-0016-GRADING-ENGINE-ROLLOUT.md` (Engine 3's existing
+"real human-handwriting transcription gating run" requirement)
+**Area:** Content / Product / Grading Engineering
+
+### Context
+
+Same-day follow-up to `DECISION-0048`. Working through Calculus's typed-math
+response modality surfaced that there is no equation editor
+("structured equation editor is post-MVP" per `TASK-0016-GRADING-ENGINE-
+ROLLOUT.md`) — `typed-text`/`typed-math` today means raw keyboard entry of
+math notation (e.g. `a(t) = v′(t) = 3t²−10t+4`), with no confirmed frontend
+guidance on notation and no dedicated math-notation-normalization layer on
+the production grading path Calculus actually uses (`discrete_text` →
+`llm_discrete_text`, not the not-yet-live `structured_formula`/`symbolic_ecf`
+path). The Owner's read: keyboard math entry is too complicated for student
+practice.
+
+### Decision
+
+1. **Hand-drawn capture becomes an added submission option, not a
+   replacement,** for FRQs currently requiring typed equation/derivation
+   work. Students write on paper and submit via photo capture, same
+   mechanism as the existing hand-drawn graph items.
+2. **Applies retroactively to all 36 already-published Calculus FRQs**
+   (`apcalcab-*`, `apcalcbc-*`), not just new content — the same keyboard-
+   complexity problem applies equally to existing items; there's no
+   principled reason to treat them differently.
+3. **Grading target: reuse the existing typed-answer criteria**, not build a
+   separate rubric. The Owner's framing — "we will grade and offer repair
+   just like FRQs with typed answers" — means the intended architecture is
+   capture → OCR-transcribe the handwriting to text → run the *same*
+   `criterion_definitions`/`required_evidence` grading each item already has
+   for its typed-math form, not a new spatial/graph-shape-style rubric.
+4. **UI enhancement to make hand-drawn submission more obvious** is a
+   separate, Lovable-frontend-side task, not addressed here.
+
+### Why this is more buildable than it first looked
+
+A same-day (uncommitted at the time of this decision) OCR probe using
+macOS's built-in Vision framework was tested against real handwritten
+Calculus/Chemistry equation samples (`docs/hand drawn samples/Calc AB HDR/`,
+`Chem HDR/`) and found "strong core-content transcription with one specific,
+recurring weakness (exponent/superscript notation inconsistently
+preserved)" — flagged in `GRADING_ENGINES_TO_PRODUCTION_HANDOFF.md` as
+"a better-fitting problem for OCR than graphs are (pure symbolic
+recognition, no point-detection needed)." This is real, positive signal for
+exactly the architecture in point 3 above — but it is explicitly a probe,
+not a qualified pilot: "needs its own gold data and benchmark; not a
+continuation of Engine 4's graph work, don't conflate the two scopes."
+
+### What is NOT true yet — read before assuming this is close to shipping
+
+- **No real student has ever been graded by any engine in Production**
+  (0 `attempts`, 0 `attempt_responses`, per the same handoff doc) — this is
+  true of the existing typed-math grading path too, not just hand-drawn.
+  "Grade just like typed FRQs" is a reasonable target; it is not yet a
+  proven, live baseline to match.
+- The OCR-for-equations finding is a probe result on a small out-of-scope
+  sample, not a benchmarked, gold-verified capability.
+- Per the standing policy (`ACTIVITY_LOG.md`, 2026-08-14; also see
+  [[feedback_no_human_grading_in_production]]), there is no human-graded
+  fallback if this isn't ready — these items stay ungradable for real
+  students, not "gradable by a person," until it's built and qualified.
+- No schema/migration work to add a hand-drawn submission option to the 36
+  existing item packages has been done — this decision records the product
+  direction; the retroactive content/schema change is separate follow-up
+  work.
+
+**Next Owner:** David Bloom.
+**Next Required Action:** Scope the OCR-transcription-to-existing-criteria
+pilot as its own tracked effort (natural home: Engine 3's outstanding "real
+human-handwriting transcription gating run" requirement in
+`TASK-0016-GRADING-ENGINE-ROLLOUT.md`) with its own gold data and benchmark;
+separately, scope the schema/migration work to add a hand-drawn submission
+option to the 36 existing Calculus FRQ items; separately, brief the Lovable
+frontend work for the UI prominence change.
+
+### Follow-up, same day: submission path already universal, no schema change needed there
+
+Owner direction refined the rollout shape: every question should carry the
+image-capture/submission option by default (not curated per item), with a
+per-item **suppression** override added later once specific items are known
+non-viable for hand-drawn capture — explicitly to avoid having to label
+every FRQ up front. Checked the actual backend before assuming this needed
+schema work:
+
+- `attempt-response/index.ts`'s `attach_capture` operation has **zero
+  gating on item type, rubric type, or `response_modalities`** — it only
+  checks attempt ownership/status, response-version match, storage-path
+  validity, and capture-object validation. It already accepts a photo
+  capture for any attempt on any item today.
+- No migration, function, or content record anywhere currently gates or
+  allowlists capture eligibility per item. Every published item's
+  `response_modalities` has only ever contained `typed-text`, `typed-math`,
+  or `choice` — nothing capture-related has ever been set on any item, and
+  nothing reads such a value to decide whether to allow a capture.
+
+**Conclusion:** the default-everywhere posture requires no backend or
+schema change — it's already true at the database level. The only place it
+could still be missing is the Lovable frontend not rendering the capture
+option on every FRQ, which is outside this repo/session's visibility. The
+**suppression** mechanism the Owner described for later is genuinely new —
+nothing today can suppress capture on a specific item — and is deferred,
+correctly, as a small follow-up (e.g. a `capture_suppressed`-style flag on
+`content_item_versions` or in `prompt_json`) rather than something needed
+now.
+
+**Engine 4/OCR-at-scale testing is being run on a separate thread** — this
+decision and its content-authoring follow-ups stay out of that work's way;
+nothing here duplicates it.
+
+**Next Owner:** David Bloom.
+**Next Required Action (revised):** confirm the Lovable frontend renders the
+capture option unconditionally across FRQs (no repository access to verify
+this session); build the per-item suppression flag when the first
+known-non-viable item is identified, not before.
+
+## DECISION-0048 — AP Statistics Hand-Drawn Practice Stays Supplemental; Chemistry/Physics/Calculus Get New Genuine Hand-Drawn-Capture Items
+
+**Date:** 2026-08-18
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Related Docs:** `docs/research/HAND_DRAWN_RESPONSE_MIX_AUDIT_2026_08_18.md`, `scripts/content-seed/hand_drawn_expansion_chem_physics_calc_2026_08_18/`
+**Area:** Content / Learning Quality
+
+### Context
+
+The same-day mix audit found AP Statistics' published hand-drawn item share
+(57% of FRQs) far exceeds its real-exam exposure (the real exam is fully
+digital with a built-in Desmos grapher, zero hand-drawn graphing), while
+Chemistry (2.4%), Physics (~11% by a looser count, effectively 0% by genuine
+capture-item count), and Calculus (0%) sit well under CED-documented weight
+on graph/diagram-construction skills (Chemistry Practice 3, 8-16% FRQ weight;
+Physics Translation-Between-Representations archetype, ~25% of FRQs, plus
+every Physics FRQ being handwritten on the real exam; Calculus Practice 2,
+10-20% FRQ weight).
+
+### Decision
+
+1. **AP Statistics' hand-drawn volume is not a defect and is not being
+   reduced.** The Owner's framing: Cramapple's hand-drawn capture pipeline is
+   being used deliberately as a stand-in for the real exam's digital Desmos
+   graph-construction skill, since Cramapple has no Desmos-equivalent tool.
+   The existing `supplemental_hand_drawn` tagging (documented in
+   `AP_STATISTICS_2027_CED_FACT_PACK.md` §7) already captures this correctly
+   — no change needed there.
+2. **Chemistry, Physics, and Calculus need more hand-drawn-component
+   questions.** Six new items authored this session (two per subject,
+   `scripts/content-seed/hand_drawn_expansion_chem_physics_calc_2026_08_18/`)
+   as a first, targeted batch — draft/unreviewed, not applied to any
+   database (no live Supabase access this session).
+
+### Scope note surfaced during authoring
+
+The mix audit's Physics/Chemistry "hand-drawn" counts had conflated two
+different things: genuine photograph-and-grade capture items
+(`HDG-2026-*`, `expected_graph_spec`/vision-graded, the AP Biology/Statistics
+pattern) versus older typed-text "describe or sketch the construct" items
+(`apchem-sfrq-032`, several Physics `no_constructs` items) that accept a
+typed derivation instead of a photo. Only Biology and Statistics had any
+genuine capture items before this decision — this batch is the first
+genuine hand-drawn capture content in Chemistry, Physics, or Calculus, not
+an expansion of an existing capture pool in those subjects.
+
+### Still open
+
+Authoring ahead of the grading fix is accepted as fine; making these items
+reachable by real students is not, per two combined findings: (1) the
+same-day finding that the production-candidate grading method fails all four
+DR-1 accuracy thresholds on real photos
+(`HAND_DRAWN_REAL_PHOTO_GRADING_ACCURACY_2026_08_18.md`), and (2) the firm,
+standing policy that real student grading is always automated end-to-end —
+there is no human-graded interim path. Humans are in the loop only for
+engine development and calibration (audit, gold labeling, QA), never in the
+live path, at any production authority stage (`ACTIVITY_LOG.md`, 2026-08-14).
+`rubric_type: spatial` routing to `evaluator_strategy: human_shadow` in
+`grading-router.ts` is a development/calibration shadow path despite its
+name, not a way of serving real students. These six items therefore stay
+fully unreachable by any student-facing selector until Engine 4 (automated
+spatial grading) passes its accuracy bar — there is no safer intermediate
+state to route them to instead.
+
+**Next Owner:** David Bloom.
+**Next Required Action:** Route the six draft items through Learning
+Quality/subject-matter review, then apply via a proper migration once
+approved; decide `practice_format`/taxonomy tagging, keeping them excluded
+from any student-facing selector until Engine 4's automated spatial grading
+is qualified.
 
 ## DECISION-0047 — Replace Activation-Limited Free Score Check with a 7-Day Full-Access Trial (TASK-0026)
 

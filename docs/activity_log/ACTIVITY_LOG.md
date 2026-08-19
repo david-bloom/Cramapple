@@ -6,6 +6,9 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Hand-Drawn Capture Set to Become an Added Submission Option for All 36 Existing Typed-Math Calculus FRQs (DECISION-0049), Graded via the Same Criteria as Typed Answers Through an OCR-Transcription Step — Connected to a Same-Day OCR Probe Showing Promising Handwritten-Equation Transcription — 2026-08-18
+- Six New Genuine Hand-Drawn-Capture Items Authored for Chemistry, Physics 1, and Calculus AB (DECISION-0048): First True `HDG-*` Capture Content in Any of the Three Subjects, Draft/Unreviewed, Not Yet Applied to Any Database — 2026-08-18
+- Hand-Drawn vs. Non-Hand-Drawn Question Mix Audited Against Subject CEDs: Statistics Far Above Its Real-Exam Exposure by Design (Supplemental, Real Exam Is Fully Digital), Chemistry/Physics/Calculus/Precalculus Near-Zero Despite Non-Trivial CED Weight on Graphical/Diagram Skills — 2026-08-18
 - "Explain Why Ungradable" (Idea 1) Layer A Shipped Then Same-Day Reverted by Owner: Capture-Quality Check Built, Tested, Deployed to Backend + Lovable Frontend, Then `git revert`'d on `main` — Frontend Still Live Against the Pre-Revert API Contract — 2026-08-18
 - Real-Photo Hand-Drawn Grading Accuracy Measured Against Genuine Per-Image Gold (200 Photos, 20 Independent Graders): Fails All Four DR-1 Thresholds — 23% Exact Match, 30.6% False-Accept Rate; Also Found a Systematic Axis-Tick-Corruption Corpus Defect on 11 EST-Archetype Items — 2026-08-18
 - Session Closeout (2026-08-16 → 2026-08-17): UAT → TASK-0018 Execution → Onboarding Redesign → Design-System Restyle — Six Production Bugs Found and Fixed, Two DB Migrations, Nine Frontend Deploys, All Owner-Approved Before Publish — 2026-08-17
@@ -123,6 +126,171 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 ---
+
+## Hand-Drawn Capture Set to Become an Added Submission Option for All 36 Existing Typed-Math Calculus FRQs — 2026-08-18
+
+**Task:** Untracked — same-session follow-up to the entry below. Owner
+direction: keyboard math entry is too complicated for student practice;
+students will get the option to submit typed-math FRQs via hand-drawn
+capture instead, graded and repaired "just like FRQs with typed answers,"
+with a UI change to make the option more visible. Recorded as `DECISION-0049`.
+
+**Summary:** Working through why Calculus needed hand-drawn expansion
+surfaced that there's no equation editor (`typed-text`/`typed-math` is raw
+keyboard entry today, confirmed via `TASK-0016-GRADING-ENGINE-ROLLOUT.md`'s
+"structured equation editor is post-MVP") and no notation-normalization
+layer on the grading path Calculus actually uses. The Owner's resolution
+scopes this precisely: hand-drawn becomes an *added option* (not a
+replacement) for typed-math FRQs, **retroactive to all 36 already-published
+Calculus FRQs**, graded by reusing each item's *existing* typed-answer
+criteria — meaning the intended architecture is capture → OCR-transcribe
+the handwriting → run the same grading criteria already authored, not a new
+rubric.
+
+**Connected to an existing same-day finding that wasn't linked to this
+question until now:** a local, non-LLM OCR probe (macOS Vision framework)
+tested against real handwritten Calculus/Chemistry equation samples
+(`docs/hand drawn samples/Calc AB HDR/`, `Chem HDR/`) found "strong
+core-content transcription with one specific, recurring weakness
+(exponent/superscript notation inconsistently preserved)" — flagged in
+`docs/GRADING_ENGINES_TO_PRODUCTION_HANDOFF.md` (same day, was uncommitted
+at the time of this decision) as "a better-fitting problem for OCR than
+graphs are." This is real positive signal for the OCR-transcribe-then-reuse-
+existing-criteria architecture the Owner described, though it's explicitly a
+probe, not a benchmarked pilot.
+
+**What's still not true:** per the same handoff doc, Production has 0 real
+student `attempts` and 0 `attempt_responses` across *any* grading engine —
+the typed-math path this is meant to match isn't a proven live baseline
+either. No schema/migration work exists yet to add a hand-drawn submission
+option to the 36 existing items. Per standing policy, there's no human-
+graded fallback in the meantime — these items stay ungradable for real
+students until the OCR-transcription pilot is built and qualified.
+
+**Full write-up:** `DECISION-0049` in `DECISIONS_LOG.md`.
+
+**Next Owner:** David Bloom.
+**Next Required Action:** scope the OCR-transcription pilot as its own
+tracked effort under Engine 3's existing "real human-handwriting
+transcription gating run" requirement; scope the schema/migration work to
+add hand-drawn submission to the 36 existing Calculus FRQ items; brief the
+Lovable frontend UI-prominence work separately.
+
+## Six New Genuine Hand-Drawn-Capture Items Authored for Chemistry, Physics 1, and Calculus AB — 2026-08-18
+
+**Task:** Untracked — same session as the mix audit below, in direct response
+to Owner direction: "stats is fully digital but we will use the hand drawn
+capture solution to mimic hand drawn through [Desmos]. Chemistry, physics and
+calculus need more questions with hand drawn components." Recorded as
+`DECISION-0048`.
+
+**Summary:** While authoring, found that the mix audit's Physics/Chemistry
+"hand-drawn" counts had conflated two different things: genuine
+photograph-and-grade capture items (`HDG-2026-*`, vision-graded against
+`expected_graph_spec`, the AP Biology/Statistics pattern) versus older
+typed-text "describe or sketch the construct" items (`apchem-sfrq-032`,
+several Physics `no_constructs` items) that accept a typed derivation instead
+of an actual photo. **Only Biology and Statistics had any genuine capture
+items before today** — Chemistry, Physics, and Calculus had zero.
+
+Authored six new genuine `HDG-2026-*` capture items, two per subject, in the
+same JSON schema as the existing hand-drawn corpus
+(`scripts/content-seed/hand_drawn_expansion_chem_physics_calc_2026_08_18/`):
+- **Chemistry:** `HDG-2026-CHEM-001` (weak-acid/strong-base titration curve —
+  buffer region distinct from the existing strong-acid `apchem-sfrq-032`),
+  `HDG-2026-CHEM-002` (catalyzed vs. uncatalyzed reaction-energy diagram).
+- **Physics 1:** `HDG-2026-PHYS1-001` (free-body diagram, block on an incline
+  with friction — using the FBD vector convention documented in the Physics
+  1/2 CED fact packs), `HDG-2026-PHYS1-002` (velocity-time graph for a
+  vertical projectile).
+- **Calculus AB:** `HDG-2026-CALCAB-001` (sketch f from a sign table of
+  f'/f''), `HDG-2026-CALCAB-002` (sketch f' from a verbal description of f's
+  behavior — the inverse task).
+
+Each item includes a stem, capture instruction, canonical answer, and
+per-criterion grading definitions grounded in the relevant subject's
+`docs/product/*_CED_FACT_PACK.md`. **Status: draft, unreviewed, not applied
+to any database** — Supabase MCP is unauthenticated in this headless session,
+so this is local JSON content only, matching the established
+author-locally-then-apply-via-migration workflow. Numeric content (titration
+pH values, kinematics, calculus sign tables) was computed directly and is
+internally consistent but not cross-checked against a released FRQ or a
+second reviewer this session.
+
+**Full write-up and decision record:**
+[`scripts/content-seed/hand_drawn_expansion_chem_physics_calc_2026_08_18/README.md`](../../scripts/content-seed/hand_drawn_expansion_chem_physics_calc_2026_08_18/README.md),
+`DECISION-0048` in `DECISIONS_LOG.md`.
+
+**Next Owner:** David Bloom.
+**Next Required Action:** route these six items through Learning
+Quality/subject-matter review before they go anywhere near a student; once
+approved, apply via a proper migration and decide `practice_format`/taxonomy
+tagging. **Correction to this entry's original framing:** there is no
+human-graded interim path for real students — per the standing 2026-08-14
+policy elsewhere in this log ("no case, ever, in actual student use where a
+hard grading case reaches a human"), grading a real student's submission is
+always automated; humans are only ever in the loop for engine development
+and calibration. These items stay fully excluded from any student-facing
+selector, not routed to "shadow/human review," until Engine 4's automated
+spatial grading passes its accuracy bar.
+
+## Hand-Drawn vs. Non-Hand-Drawn Question Mix Audited Against Subject CEDs — 2026-08-18
+
+**Task:** Untracked — new session, Owner request to check the mix of
+hand-drawn-response vs. non-hand-drawn questions against each subject CED and
+other sources.
+
+**Summary:** Compared each subject's real-exam hand-drawn/graph-construction
+exposure (freshly re-derived from `docs/product/*_CED_FACT_PACK.md`: FRQ
+archetypes, point structure, and digital-vs-handwritten modality) against
+Cramapple's currently published hand-drawn-tagged item counts (reused from the
+2026-08-05 `IMAGE_REQUIREMENT_SWEEP` full-corpus read — Supabase MCP is
+unauthenticated in this headless session, so the Cramapple-side numbers are
+13 days stale, not live-reconfirmed).
+
+**Findings, by subject:**
+- **AP Statistics:** 57% of published FRQs (40/70) are tagged hand-drawn, but
+  the real exam is fully digital with a built-in Desmos grapher — the CED
+  fact pack itself already labels Cramapple's hand-drawn Stats practice
+  `supplemental_hand_drawn`, never exam-simulating. Not a CED-alignment gap,
+  but worth an Owner call on right-sizing that supplemental volume given
+  hand-drawn grading is currently failing accuracy thresholds (same-day
+  finding, prior entry).
+- **AP Biology:** 17% of published FRQs (7/41) tagged hand-drawn, matching
+  the real exam's FRQ Q2 Part B graph-construction point weight (4 of 9
+  points, 1 of 6 FRQs) closely — but this reading depends on an assumption
+  the fact pack itself flags `Not CED-verified` (hybrid MCQ-digital/
+  FRQ-handwritten modality). Separately, all 36 published Biology FRQs still
+  have `practice_format IS NULL`, so none of them — hand-drawn or not — are
+  actually reachable by a real student session yet (pre-existing, known gap).
+- **AP Chemistry:** only 2.4% of published FRQs (1/42) tagged hand-drawn,
+  vs. an 8-16% FRQ-practice weight on "create graphs/diagrams" (Practice 3).
+  Possible undercount — flagged as an open construct-equivalence question,
+  not asserted as a defect, since the prior sweep's choice to make every item
+  text-answerable may or may not preserve the tested skill.
+- **AP Physics 1/2/C (all four subcourses):** only ~11% of published items
+  (6/53) tagged hand-drawn, despite ~25% of real FRQs using an archetype
+  ("Translation Between Representations") that routinely requires sketching
+  a graph or diagram, and every Physics FRQ being handwritten on paper in the
+  real exam (confirmed, not assumed, for Physics 1/2). Likely undercount.
+- **AP Precalculus / Calculus AB/BC:** 0% of published items (0/64, 0/36)
+  tagged hand-drawn. Precalculus's FRQ task models don't name graph
+  construction, so this looks defensible; Calculus's Practice 2 ("Connecting
+  Representations") carries 10-20% FRQ weight on graphical translation, and
+  the prior sweep already self-flagged one item (`apcalcab-frq-u13-002`) as a
+  "borderline design smell" for text-substituting a graph. Same open
+  construct-equivalence question as Chemistry.
+
+**Full write-up:** [`docs/research/HAND_DRAWN_RESPONSE_MIX_AUDIT_2026_08_18.md`](../research/HAND_DRAWN_RESPONSE_MIX_AUDIT_2026_08_18.md).
+
+**Next Owner:** David Bloom.
+**Next Required Action:** decide whether to (a) authorize live re-verification
+of the Cramapple-side counts against production, (b) route the
+Chemistry/Physics/Calculus/Precalculus construct-equivalence question to
+Learning Quality, and (c) set a policy on AP Statistics' supplemental
+hand-drawn volume given the current grading-accuracy failure. No mix changes
+should ship before the hand-drawn grading accuracy fix lands, independent of
+this audit's findings.
 
 ## "Explain Why Ungradable" (Idea 1) Layer A Shipped Then Same-Day Reverted by Owner — 2026-08-18
 
