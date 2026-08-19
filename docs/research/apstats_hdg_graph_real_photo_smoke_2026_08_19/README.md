@@ -242,21 +242,156 @@ and still lands on the wrong verdict despite explicitly stating the correct
 premise twice. Adding more rubric text gave it more to hedge around, not a
 resolution.
 
-**Conclusion: this specific disagreement is not a rubric-boundary-clarity
-problem, contrary to the working hypothesis.** It looks like a
-verdict-consistency defect — the final categorical status isn't reliably
-tracking the model's own stated reasoning — which is a different problem
-needing a different fix (e.g. forcing the numeric comparison to be extracted
-as a structured field before the categorical verdict is emitted, or a
-self-consistency/majority-vote pass, rather than clearer criterion wording).
-The `ASSOCIATION_DESCRIPTION` and `AREA_OR_COUNT_REASONING` disagreements
-from the cross-model section above may still be genuine boundary-clarity
-issues (they're disputes over what the rubric *should* require, not
-contradictions within one model's own output) — this result narrows the
-hypothesis rather than closing it. **Do not extend the tolerance-clause fix
-to tier 2 (n=25-30) as currently written; it has already failed to survive
-a 2x scale-up (5→10) in the wrong direction, which is itself the fast, cheap
-signal the tiered-testing approach was for.**
+**Conclusion, corrected after checking the noise floor:** the original
+write-up compared each condition from a single run per model and attributed
+the whole accuracy swing to the tolerance clause. That's not supportable —
+re-running the *unmodified* baseline prompt a second time on the same 10
+photos (`runs/apstats_smoke_gpt52_rerun2_results.jsonl`,
+`runs/apstats_smoke_sonnet45_rerun2_results.jsonl`) shows real run-to-run
+noise from the model alone, with no prompt change at all:
+
+| | exact/10 | F1 |
+|---|---:|---:|
+| gpt-5.2 run 1 | 4/10 | 87.7% |
+| gpt-5.2 run 2 (same prompt, rerun) | 4/10 | **77.8%** |
+| gpt-5.2 + tolerance clause | 2/10 | 84.2% |
+| sonnet-4.5 run 1 | 3/10 | 84.7% |
+| sonnet-4.5 run 2 (same prompt, rerun) | 3/10 | 82.1% |
+| sonnet-4.5 + tolerance clause | 1/10 | 70.6% |
+
+For gpt-5.2, the two identical-prompt runs disagree with each other on 5 of
+40 criteria (12.5%) and swing F1 by nearly 10 points on their own — bigger
+than the tolerance clause's apparent effect (87.7%→84.2%). **The original
+claim that the tolerance clause made gpt-5.2 measurably worse is not
+supported; that swing is within the model's own noise band.**
+
+What *does* survive the noise check: `WIDTHS_BY_TOTAL` on `GRAPH-024/025/
+026/027` was wrong in **all three** independent gpt-5.2 runs (both
+baselines and the tolerance-fixed one) — 12/12 consistent wrong verdicts.
+That specific defect is real and reproducible, not noise, and the tolerance
+clause specifically did not fix it. `GRAPH-023` flipped only in the
+tolerance run (both baselines got it right) — with just one tolerance-run
+sample that single flip can't be cleanly separated from noise either.
+
+For Sonnet, the picture is different: the two baseline runs disagree on
+only 2 of 5 `WIDTHS_BY_TOTAL` judgments (023, 024), but the tolerance run
+flips **all five** to `not_earned`, in a uniform direction neither baseline
+run showed. That's a larger, more directional shift than the observed
+noise band — plausibly a real (if crude, over-triggered) effect of the
+tolerance clause on Sonnet specifically, unlike gpt-5.2 where the same
+clause produced no detectable change beyond noise. This is still a
+single tolerance-run sample per model, not a repeated-tolerance-run
+confirmation — treat it as directional, not settled.
+
+**Net, corrected conclusion:** the tolerance clause did not fix gpt-5.2's
+`WIDTHS_BY_TOTAL` defect (which is real and reproducible on its own,
+independent of the clause) and plausibly made Sonnet's version of the same
+judgment worse in a specific, directional way — but the aggregate
+exact-match/F1 comparisons from the original single-run A/B are not
+reliable evidence on their own; several of the individual criterion flips
+attributed to the intervention are within normal run-to-run noise. The
+verdict-consistency-defect hypothesis for gpt-5.2 still stands (it's the
+part confirmed stable across 3 runs); the "tolerance clause actively harms
+accuracy" framing does not, at least not for gpt-5.2. **Do not extend the
+tolerance-clause fix to tier 2 (n=25-30) as currently written** — not
+because it's confirmed harmful, but because it's confirmed *not helpful*
+for the one thing it was designed to fix, which is reason enough to not
+scale it up.
+
+## Tier-1 fix, take 2 (n=5, run twice): precompute the expected widths instead of describing tolerance
+
+Motivation: every `WIDTHS_BY_TOTAL` rationale across all 15 prior gpt-5.2
+samples computed the group totals correctly — the model's arithmetic was
+never the problem. So instead of asking the model to both derive the
+correct ratio *and* visually judge the drawn widths in one pass (and
+describing the tolerance more precisely, which didn't help — see above),
+`apstats_hdg_graph_smoke_precomputed_widths_run.mjs` computes the exact
+expected width percentages from `display_table` in plain code (no model
+call) and hands them to the model as a given fact, narrowing its job to
+just the visual comparison.
+
+Run twice (not once) specifically because of the noise-floor lesson above:
+
+| | exact/5 | F1 |
+|---|---:|---:|
+| baseline run 1 | 1/5 | 84.8% |
+| baseline run 2 | 1/5 | 69.0% |
+| tolerance-clause run | 0/5 | 82.4% |
+| **precomputed-widths run 1** | **4/5** | **97.3%** |
+| **precomputed-widths run 2** | **4/5** | **97.4%** |
+
+`WIDTHS_BY_TOTAL` specifically, across all 5 runs (3 old + 2 new):
+
+| item | gold | baseline×2, tolerance×1 | precomputed×2 |
+|---|---|---|---|
+| `GRAPH-024/025/026/027` | earned | **wrong in all 12** | **correct in all 8** |
+| `GRAPH-023` | not_earned | not_earned, not_earned, earned | not_earned, earned (still noisy) |
+
+The reproducible defect (024-027 wrong in every prior run, 12/12) is now
+reproducibly fixed (correct in both new runs, 8/8) — a clean reversal, not
+a single-sample fluke, confirmed the same way the previous fix's failure
+was confirmed: by rerunning before trusting it. `GRAPH-023` — the one item
+where widths genuinely *should* differ (Bike totals 80 vs Car/Bus's 100,
+a real but modest ~8-point gap, 35.7%/35.7%/28.6%) — is still inconsistent
+across runs; this is the same item that was already the noisiest across
+every previous test in this report, consistent with it being a genuinely
+harder visual call (a smaller, subtler true difference) rather than a new
+problem this fix introduced.
+
+**This confirms the specific hypothesis from the "resolve in repair, not
+grading" discussion**: the model's descriptive/arithmetic content was
+already reliable; the failure was in re-deriving that content visually
+inside the same call as the judgment. Moving the arithmetic out of the
+model's job (not just describing it more carefully) fixed the reproducible
+part of the defect. Not yet tested on Sonnet, on the other criteria with
+similar undefined-tolerance shapes (`POINTS_PLOTTED`, `ASSOCIATION_
+DESCRIPTION`), or at tier-2 scale.
+
+## Does the precompute fix generalize to a different image type? Mechanism yes, result no — because the target wasn't actually broken
+
+Extended `apstats_hdg_graph_smoke_precomputed_widths_run.mjs` to also handle
+`dotplot_distribution_shape`'s `DOT_COUNTS` criterion — same mechanism
+(count occurrences per value from `display_table` in plain code, hand the
+model the exact expected histogram instead of asking it to tally the raw
+list itself), applied to a genuinely different archetype (points on a
+number line, not proportional column widths), on the 4 dotplot photos
+(`028`-`031`). Run twice, same noise-check discipline as the mosaic test.
+
+| | exact/9 (5 mosaic + 4 dotplot) | F1 |
+|---|---:|---:|
+| baseline (single sample, n=1 for dotplot) | 4/9 | 89.7% |
+| precomputed facts, run 1 | 7/9 | 96.8% |
+| precomputed facts, run 2 | 8/9 | 98.4% |
+
+The combined number looks good, but it's entirely the mosaic fix carrying
+it. `DOT_COUNTS` specifically:
+
+| item | gold | baseline (n=1) | precomputed run 1 | precomputed run 2 |
+|---|---|---|---|---|
+| `028` | earned | earned | earned | earned |
+| `029` | earned | earned | earned | **not_earned** |
+| `030` | earned | earned | earned | earned |
+| `031` | earned | not_earned | **not_earned** | earned |
+
+3 of 4 correct in the one baseline sample, 3 of 4 correct in each
+precomputed run — same hit rate, just a different item wrong each time.
+That's the shape of ordinary noise, not a reproducible defect and not a
+fix. **`DOT_COUNTS` was never broken the way `WIDTHS_BY_TOTAL` was** — the
+mosaic defect was specifically that the model's rationale reliably computed
+the right answer and then contradicted itself; dotplot counting didn't show
+that pattern in the baseline, so there was nothing for the precompute step
+to fix. Only 1 baseline sample exists for dotplots (the `rerun2` baseline
+was scoped to mosaic+scatterplot only), so this reads as suggestive, not
+conclusive — a second dotplot baseline run would be needed to confirm
+`DOT_COUNTS`'s baseline noise band precisely.
+
+**Lesson: "precompute the deterministic fact" is a fix for a specific kind
+of failure (model's stated reasoning is reliable, its final verdict isn't),
+not a general-purpose accuracy lever.** Applying it where that specific
+failure isn't present costs a prompt-complexity increase for no measurable
+gain. Worth checking per-criterion whether the reproducible-contradiction
+pattern is actually present before applying this fix elsewhere, rather than
+assuming it will help anywhere a table-derived fact exists.
 
 ## Recommended next step
 
