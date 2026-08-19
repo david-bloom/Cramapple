@@ -31,10 +31,10 @@ const GOLD_JSONL = path.join(
 );
 const SUBSAMPLE_JSON = path.join(
   ROOT, 'docs', 'research', 'hand_drawn_graph_real_photo_benchmark_2026_08_18',
-  'gold', 'extraction_probe_subsample_2026_08_18.json',
+  'gold', process.env.OCR_PROBE_SUBSAMPLE || 'extraction_probe_subsample_2026_08_18.json',
 );
 const OUT_DIR = path.join(ROOT, 'docs', 'research', 'hand_drawn_graph_real_photo_benchmark_2026_08_18');
-const OUTPUT_JSONL = path.join(OUT_DIR, 'runs', 'ocr_axis_probe_results.jsonl');
+const OUTPUT_JSONL = path.join(OUT_DIR, 'runs', process.env.OCR_PROBE_OUTPUT || 'ocr_axis_probe_results.jsonl');
 const OCR_BINARY = process.argv[2] || path.join(ROOT, 'scripts', 'vercel-gateway-check', 'vision_ocr');
 
 function loadCorpusById() {

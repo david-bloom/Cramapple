@@ -653,6 +653,107 @@ with escalation wired in), and whether `gemini-3.1-pro-preview` could still
 be a stronger escalation candidate once its reliability problem is solved
 separately.
 
+## Escalation at full scale (2026-08-18, later same day) -- the 21-photo read does NOT hold; the effect is archetype-dependent, net negative on F1
+
+Ran the remaining 84 of `gpt-5.2`'s 105 medium-confidence responses through
+the same `gpt-5.2-pro` escalation call (`maxOutputTokens: 1200`,
+`scripts/vercel-gateway-check/hand_drawn_graph_escalation_full_run.mjs`,
+seeded from the already-paid-for 21-photo run, checkpointed per call).
+105/105 succeeded, 0 failures, $4.85 total spend across the full escalation
+population. Recomputed with
+`scripts/vercel-gateway-check/hand_drawn_graph_escalation_full_scale_report.mjs`.
+
+**The 21-photo controlled test's verdict does not generalize.** At full
+scale, on the exact same 105-photo medium-confidence population:
+
+| | `gpt-5.2` alone | Escalated to `gpt-5.2-pro` (full 105) | 21-photo subsample (for comparison) |
+|---|---:|---:|---:|
+| Exact match | 19.0% (20/105) | **24.8%** (26/105) | 0.0% -> 33.3% |
+| F1 | 90.5% | **85.9% (worse)** | 86.6% -> 93.1% |
+| FAR | 25.3% | **14.8% (better)** | 50.0% -> 18.8% |
+| FRR | 11.5% | **21.5% (worse, nearly doubled)** | 13.4% -> 8.7% |
+
+FAR improves, roughly consistent in direction with the 21-photo read (though
+smaller in magnitude). **FRR moves the wrong way** -- `gpt-5.2-pro` is
+broadly more conservative than `gpt-5.2` on this task, and at full scale
+that shows up as a large increase in false-rejects that the 21-photo sample
+did not surface. Net effect on F1 is negative, not positive.
+
+**Whole-corpus effect (all 200 photos, medium-confidence substituted with
+escalated results, everything else unchanged):**
+
+| | `gpt-5.2` alone (baseline) | + escalation on medium-confidence |
+|---|---:|---:|
+| Exact match | 38.5% (77/200) | **41.5%** (83/200) |
+| F1 | 93.3% | **91.0%** (still nominally clears the >=90% DR-1 bar, barely) |
+| FAR | 19.0% | **13.6%** (still ~7x over the <=2% ceiling) |
+| FRR | 8.0% | **13.3%** (now further from the <=5% ceiling, not closer) |
+
+**Per-archetype breakdown explains the reversal -- the effect is not
+uniform:**
+
+| Archetype (medium-confidence subset, n) | FP: baseline -> escalated | FN: baseline -> escalated | Read |
+|---|---|---|---|
+| `continuous_relationship_graph_derived_estimate` (EST, n=38) | 25 -> 8 | 22 -> 34 | **Real win.** FAR drops hard, FRR cost is smaller than the FAR gain. Exact match on this slice: 8/38 -> 14/38. |
+| `categorical_comparison_supplied_uncertainty` (CAT, n=29) | 10 -> 7 | 10 -> 21 | **Net loss.** Small FAR improvement, FN roughly doubles. |
+| `continuous_measured_series_supplied_uncertainty` (SER, n=38) | 8 -> 11 | 39 -> 79 | **Large net loss.** FP barely moves, FN roughly doubles -- this archetype alone accounts for most of the whole-corpus FRR increase. |
+
+**Read:** escalation is a real, targeted lever for `EST` -- the archetype
+that also carries `PLOT_VALUES`, the single largest remaining error source
+(§ above) -- but is net-negative for `CAT` and especially `SER` at full
+scale. The 21-photo test (7/archetype) was too small to catch this
+archetype-dependent split; treat any future small-n escalation read the
+same way (Lesson: check per-archetype breakdown before trusting an
+aggregate delta from a <30-per-archetype sample -- this generalizes the
+handoff doc's trap #5 "check baseline error count before spending on any
+boundary experiment" to escalation specifically).
+
+**Consequence for the architecture recommendation above:** blanket
+escalation on all medium-confidence responses is not supported by the
+full-scale number. An archetype-gated escalation policy (escalate `EST`
+only, or escalate `EST` always and gate `CAT`/`SER` some other way) is the
+next thing to test before committing to escalation as part of the
+production design -- not yet done. Do not cite the 21-photo table above
+("escalation genuinely works, cleanly demonstrated") as the final word;
+this section supersedes it for any full-corpus or deployment-model
+decision. The 21-photo section is left in place, unedited, as an honest
+record of what was believed before the full-scale run, per this
+investigation's own practice of never deleting a superseded result.
+
+Raw results: `docs/research/hand_drawn_graph_real_photo_benchmark_2026_08_18/runs/escalation_full_results.jsonl`
+(105 rows: the original 21 + 84 new). Selection:
+`scripts/vercel-gateway-check/select_escalation_full_subsample.mjs` ->
+`docs/research/hand_drawn_graph_real_photo_benchmark_2026_08_18/gold/escalation_full_subsample_2026_08_18.json`.
+
+### Archetype-gated escalation (EST only) -- the real policy, confirmed as a clean win, zero additional spend
+
+Immediate follow-up, no new API calls (the escalation results for all 105 medium-confidence
+photos already existed): instead of escalating every medium-confidence response, escalate
+only `continuous_relationship_graph_derived_estimate` (`EST`) medium-confidence responses --
+the one archetype the full-scale breakdown showed a real win for -- and leave `CAT`/`SER` on
+`gpt-5.2`'s primary call. Script:
+`scripts/vercel-gateway-check/hand_drawn_graph_escalation_archetype_gated_report.mjs`.
+
+| | `gpt-5.2` alone (baseline, full 200) | EST-gated escalation (full 200) |
+|---|---:|---:|
+| Exact match | 38.5% | **41.5%** |
+| F1 | 93.3% | **93.4%** (flat, still clears the >=90% DR-1 bar) |
+| Precision | 94.6% | 96.0% |
+| Recall | 92.0% | 91.0% |
+| FAR | 19.0% | **13.6%** (real improvement, still ~7x over the <=2% ceiling) |
+| FRR | 8.0% | **9.0%** (nearly flat -- none of blanket escalation's FRR damage) |
+
+**This is a clean, unambiguous improvement over the `gpt-5.2`-alone baseline on every metric
+except a trivial 1pp FRR cost**, and avoids blanket escalation's FRR regression entirely
+(13.3% under blanket vs. 9.0% here). **This is now the recommended escalation policy for
+Engine 4** -- not blanket escalation on all medium-confidence responses, and not no
+escalation at all. FAR still fails DR-1 by a wide margin regardless of policy; escalation
+alone does not close that gap, only narrows it. `PLOT_VALUES` (the largest remaining error
+source, itself concentrated in `EST`) remains the more direct lever on FAR specifically --
+see the reverted fix attempt above; a second, better-scoped attempt is still the top
+remaining accuracy lever, now with escalation as a complementary (not competing) fix already
+banked for the same archetype.
+
 ## Dedicated-OCR probe (2026-08-18) -- confirms the hypothesis, but the automated metric is misleading
 
 Every model tested so far (`gpt-4o-mini` through `gpt-5.2-pro`) does this
@@ -712,6 +813,43 @@ automatically. Worth investing in if the goal is a genuine hybrid pipeline
 (OCR-based axis/estimate reading feeding into or replacing the VLM's
 weakest sub-tasks); not worth trusting the 25.0% figure as a real
 capability ceiling for OCR on this corpus.
+
+### OCR axis probe at full scale (2026-08-18, later same day) -- confirms the bug is structural, not sample noise
+
+Re-ran the same probe, same scoring script, same known left/bottom axis-role heuristic,
+against all 200 real photos instead of the original 42-photo subsample (local, free, ~1
+minute wall time, 1 Swift-binary JSON-parse failure on a single `CAT` photo that doesn't
+affect any score). Selection:
+`scripts/vercel-gateway-check/select_ocr_full_subsample.mjs` ->
+`gold/ocr_full_subsample_2026_08_18.json`; results:
+`runs/ocr_axis_probe_full_results.jsonl`.
+
+| | 42-photo subsample | **Full 200-photo scale** |
+|---|---:|---:|
+| `axis_range_ok` (SER+EST only, `CAT` has no numeric axis to score) | 25.0% (7/28) | **18.4%** (25/136) |
+| `estimate_ok` (`EST` only) | 28.6% | **19.4%** (13/67) |
+| `axis_range_ok` by archetype | not broken out | `EST` 20.9% (14/67), `SER` 15.9% (11/69) |
+
+**This does NOT newly measure OCR's real-world reading accuracy** -- it reproduces the same
+low score at 5x the sample size, which is exactly what the existing diagnosis predicts: the
+scoring bug (a fixed left/bottom position rule for assigning OCR'd numbers to an axis, which
+doesn't generalize to photos where the axes run along different edges) is structural, not an
+artifact of the small 42-photo sample. `SER` scoring lower than `EST` again (15.9% vs. 20.9%)
+is consistent with the earlier finding that `SER` photos more often have this non-standard
+layout. **The underlying claim from the 3-photo hand-verification --  that OCR itself reads
+axis tick numbers essentially correctly -- was never retested at scale here and still stands
+on its original, narrower evidence.** Running the probe at full scale without first fixing
+the axis-role heuristic answers "does the bug reproduce at scale" (yes), not "how good is OCR
+actually" -- that second question still requires either a larger hand-verification pass or,
+more directly, fixing the orientation-invariant axis-role assignment gap already identified
+as the real remaining engineering task.
+
+**No `gpt-5.2` + OCR or `gpt-5.2-pro` + OCR joint grading result exists anywhere in this
+investigation.** OCR has never been wired into either model's grading call -- every OCR
+number in this document, including this full-scale run, comes from OCR running completely
+standalone, scored against the same axis-calibration/estimate-only sub-task the original probe
+used. There is no basis yet for a three-way `gpt-5.2` / `gpt-5.2`+escalation / `gpt-5.2`+OCR
+comparison table.
 
 ### OCR on real handwritten equations (Calc/Chem) -- possibly a better fit than graphs
 

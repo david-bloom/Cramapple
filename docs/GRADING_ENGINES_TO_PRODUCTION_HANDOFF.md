@@ -120,6 +120,25 @@ row updated with Run C's verdict; nothing else in that register changed.
 
 ---
 
+## UPDATE 2026-08-18b — Engine 1/3 production-usage re-check: still zero real students
+
+Re-verified against the live Production project (`pcntajvbdfqhbeewmdry`), same day as the
+update below. **Nothing has changed on the "0 real students graded" fact from §0/§1.**
+`app.attempt_responses` and `public.student_attempts` are still **0**. `app.attempts` grew
+30→44 and `app.grading_results` grew 38→41, but every one of those rows traces to exactly
+two accounts: the known synthetic pilot user and David's own account — no other user_id has
+ever produced an attempt. 17 new signups since 2026-07-28 exist in `auth.users` (mixed
+real-looking and obvious test emails) but **none of them have any attempt or grading_result
+row** — they signed up, nobody has been graded. One content item (`eb74b80e-...`, published
+2026-08-07) is now tagged `python_symbolic_ecf` (Engine 3), up from the prior 0 — but it has
+zero attempts against it, so Engine 3 moved from "unreachable" to "reachable but never
+invoked," not to "in use." `evaluate-attempt` is at edge function v53 (continued active
+development). Re-verify with the same queries in §1's table before citing production-usage
+claims in any future session — do not assume growth in `attempts`/`grading_results` implies
+real student traffic without checking `user_id` distribution first.
+
+---
+
 ## UPDATE 2026-08-18 — Engine 4 real-photo grading accuracy measured for the first time; escalation confirmed to work; concrete pilot-to-production gap identified
 
 **§11 below said "Engine 4 essentially everything" is unmeasured. That's no
@@ -210,13 +229,21 @@ work; this section is a synthesized roadmap, not a replacement for it).
 
 ### Concrete gap to production — ordered
 
-1. **Finish the escalation validation at full scale.** Run `gpt-5.2-pro`
-   (fix already known: `maxOutputTokens: 1200`, not 600 — a real token-
-   budget bug found and fixed mid-session, isolated to `SER`/`EST`'s longer
-   criterion lists) on the remaining 84 medium-confidence photos, recompute
-   exact match/F1/FAR/FRR across the full 200. This is the single most
-   valuable next number — everything cited above from the escalation test
-   is real but partial (21/105).
+1. **DONE 2026-08-18, and it reverses the earlier read.** Ran `gpt-5.2-pro`
+   on the remaining 84 medium-confidence photos (105/105 total, 0 failures,
+   $4.85 spend). **The 21-photo controlled test's "escalation genuinely
+   works" verdict does not hold at full scale.** FAR improves (25.3%→14.8%
+   on the medium-confidence subset) but FRR nearly doubles (11.5%→21.5%),
+   and whole-corpus F1 goes DOWN (93.3%→91.0%) with escalation applied, not
+   up. Per-archetype breakdown shows why the small sample missed it: it's a
+   real, clean win for `EST` (FP 25→8, the archetype that also carries the
+   `PLOT_VALUES` problem) but a net loss for `CAT` and especially `SER`
+   (FN roughly doubles in both). Full detail, tables, and the corrected
+   architecture read: `docs/research/HAND_DRAWN_REAL_PHOTO_GRADING_ACCURACY_2026_08_18.md`
+   §"Escalation at full scale." **Next step is now archetype-gated
+   escalation (escalate `EST` only, or gate `CAT`/`SER` some other way),
+   not blanket escalation on all medium-confidence responses** — not yet
+   tested.
 2. **Formal gold-set adjudication.** Current gold (200 photos) is single-
    pass `ai_provisional`-tier (20 independent AI graders, one pass each),
    not the dual-human-adjudicated standard §11 already requires for any
@@ -234,9 +261,11 @@ work; this section is a synthesized roadmap, not a replacement for it).
    with real coverage/accuracy/cost/latency tradeoffs: (a) unconditional
    single-model grading (simplest, worst accuracy), (b) confidence-gated
    selective automation + human review for the rest (protects quality,
-   costs coverage), (c) escalation-augmented (recovers coverage instead of
-   just protecting quality on a shrinking safe subset, per item 3 above,
-   but only tested on a partial subsample so far), (d) some hybrid. None of
+   costs coverage), (c) blanket escalation-augmented — **now tested at full
+   scale (item 1 above) and NOT clearly better**: whole-corpus F1 goes down
+   (93.3%→91.0%), FRR gets worse, only FAR improves; the archetype-gated
+   variant (escalate `EST` only) looks more promising but is untested, (d)
+   some hybrid. None of
    these currently clears all four DR-1 thresholds outright at full
    coverage — the real question is whether a *partial*-coverage authoritative
    slice (whichever policy) is an acceptable interim launch shape, which is
@@ -284,6 +313,194 @@ work; this section is a synthesized roadmap, not a replacement for it).
   per spike/experiment, each with a header comment explaining what it tests
   and why), `select_*.mjs` (subsample selection, deterministic), `ocr_axis_probe.mjs`
   + `vision_ocr.swift` (the local OCR probe).
+
+---
+
+## UPDATE 2026-08-18d — Session close: FAR investigation, OCR value assessment closed out,
+## Statistics/formula ground truth located, vendor exploration paused pending a call
+
+Written at the end of a very long single session, deliberately closing it out so a fresh
+context window can resume cleanly. Everything below happened after the 2026-08-18/08-18b/08-18c
+updates above. **Read `docs/research/OCR_VALUE_ASSESSMENT_EXPERIMENT_DESIGN_2026_08_18.md` and
+`docs/research/HAND_DRAWN_REAL_PHOTO_GRADING_ACCURACY_2026_08_18.md` in full for the complete
+detail** — this section is a synthesized index, not a replacement.
+
+### 1. OCR as a grading decision-maker: closed out, negative, three ways
+
+Tested rigorously, not just once:
+- **OCR alone**, on the ~2-5 criteria per archetype it can structurally ever answer
+  (axis scale/unit, written estimate): F1 82.7% vs. `gpt-5.2`'s 94.8-95.9% on the exact same
+  criteria — `gpt-5.2` wins clearly even on OCR's own narrow turf.
+- **"Publish OCR when confident, wait for `gpt-5.2` otherwise"**: tested directly (free, full
+  200-photo corpus) — whole-corpus F1 93.3%→86.8%, exact match 38.5%→23.5%. Of 177 cases where
+  OCR's verdict differed from `gpt-5.2`'s, OCR was wrong 156 times, right only 21 — an ~88%
+  wrong rate exactly where this scheme would act.
+- **OCR primary, `gpt-5.2` escalation**: same negative conclusion, and structurally can't save
+  latency either — `gpt-5.2` (or any VLM) is unconditionally required on every response anyway,
+  since every archetype has criteria (shape/mark/category judgment) OCR can never answer. There
+  is no call to skip.
+- **OCR confidence field**: only 3 discrete values ever observed (0.3/0.5/1.0), confirmed at
+  n=730 tokens across 59 photos — not a real probability. Spot-checked against known ground
+  truth and found weakly/unreliably correlated with actual correctness (a genuine misread got
+  0.5; several correct-but-oddly-formatted reads got the lowest tier, 0.3). Don't gate anything
+  on this field directly.
+- **Trace-overlay (OCR-calibrated expected-point rendering) for `PLOT_VALUES`**: real premise
+  (axis-tick pixel positions can be fit to a value transform, R²>0.98 once axis-role assignment
+  is fixed via label-text proximity, not shape-orientation guessing — that fix itself caught a
+  real bug). **But the actual point-placement still has an unresolved systematic offset**, tried
+  twice (label-box center, then nearest-corner), neither converged. Root cause is believed to be
+  that OCR text bounding boxes are the wrong signal for true tick-*mark* position — needs real
+  edge/line detection, not text geometry. **Parked, not solved, real engineering task for later**
+  (`scripts/vercel-gateway-check/ocr_expected_trace_overlay_spike.mjs`,
+  `docs/research/hand_drawn_graph_real_photo_benchmark_2026_08_18/overlay_spike/`).
+
+**Net verdict: OCR's only confirmed value in this pipeline is speed/cost as a side-channel
+(300ms, free, local) — not as a decision-maker, publish-gate, or (yet) a geometric calibration
+tool.** Full experiment design and every number: `docs/research/OCR_VALUE_ASSESSMENT_EXPERIMENT_DESIGN_2026_08_18.md`.
+
+### 2. FAR is the real target — and it's not where anyone assumed
+
+Broken down by criterion (full 200-photo corpus, `gpt-5.2` baseline): `UNCERTAINTY_MARKS`
+(39.1% FAR) and `Y_SCALE` (37.1%, tied with `PLOT_VALUES` for most false-accept volume at 13
+each) are **worse than `PLOT_VALUES`** (23.6%), which had been treated as *the* problem all
+session. Excluding the 11 known-corrupted-axis `EST` items makes FAR **worse**, not better
+(19.0%→24.3%, `Y_SCALE` alone jumps to 53.3%) — ruling out "it's just the corpus defects."
+This is genuine, pervasive over-crediting, concentrated differently than assumed. Recompute
+this breakdown (`criterion_results` already has gold+predicted per criterion in
+`real_photo_benchmark_gpt52_results.jsonl` — no new API calls needed) before trusting any prior
+"`PLOT_VALUES` is the problem" framing in older docs.
+
+**Two FAR-reduction ideas piloted (39-photo stratified subsample,
+`far_experiment_subsample_2026_08_18.json`), with opposite results:**
+
+| | F1 | FAR | FRR | Exact match |
+|---|---:|---:|---:|---:|
+| Baseline (same 39 photos) | 92.9% | 33.3% | 8.4% | 38.5% |
+| **Self-consistency, majority-earned (2 of 3 runs)** | **93.2%** | **21.4%** | 9.6% | **38.5%** |
+| Self-consistency, unanimous-earned (3 of 3) | 92.5% | 16.7% | 11.6% | 35.9% |
+| Adversarial re-check ("earned" verdicts only) | **77.8%** | 0.0% | **36.4%** | **2.6%** |
+
+- **Self-consistency (majority vote) is a real, clean win** — run `gpt-5.2` 3x independently per
+  photo (asymmetric gating: "earned" needs 2-of-3 agreement, "not_earned" needs no consensus),
+  FAR drops a third with no cost elsewhere. **Not yet confirmed at full 200-photo scale** — this
+  session already learned once (the escalation test) that a ~20-photo pilot can reverse at
+  scale; 39 photos is bigger but still worth confirming before treating as final. Cheap to do
+  (~$8-10, 2 extra `gpt-5.2` calls × 200 photos).
+  Scripts: `hand_drawn_graph_self_consistency_run.mjs` + `self_consistency_report.mjs`.
+- **Adversarial re-check is a decisive failure, not worth tuning further.** Overturned 84
+  "earned" verdicts; only 14 were real catches (gold said not_earned), 70 were wrong (gold said
+  earned, correctly-credited work got talked out of credit anyway) — 5:1 collateral damage.
+  Fully solves FAR by destroying almost everything else (exact match 38.5%→2.6%). The mechanism
+  itself looks broken (the model is too persuadable by its own induced skepticism), not just
+  miscalibrated — a milder prompt is not expected to fix this ratio.
+  Scripts: `hand_drawn_graph_adversarial_recheck_run.mjs` + `adversarial_recheck_report.mjs`.
+
+**Recommended next step for a fresh session:** confirm self-consistency majority-vote at full
+200-photo scale; if it holds, it's a real, cheap, additive lever alongside the already-confirmed
+EST-gated escalation policy (§ "Escalation at full scale" in the accuracy doc). Both can likely
+compose (escalate `EST` + apply self-consistency gating everywhere) — untested combination.
+
+### 3. Statistics: ground truth located, accuracy still completely unmeasured
+
+Pulled all 40 `APSTATS-HDG-2026-GRAPH-001..040` items' canonical data directly from production
+(`app.content_item_versions.prompt_json.stimulus_table` + `expected_graph_spec`) into a local
+corpus file, same shape as the Biology corpus so existing scripts work unmodified:
+`docs/research/apstats_hdg_graph_corpus_2026_08_18/apstats_hdg_graph_questions_2026_08_18.jsonl`.
+**Stats is far more archetype-diverse than Bio** — 6 distinct types (boxplots, segmented bar
+graphs, mosaic plots, dotplots, scatterplots, marked-value curves), roughly 6-7 each, vs. Bio's
+3. **Zero benchmark work has been run on this corpus** — no gold labels beyond the raw
+`stimulus_table`, no `gpt-5.2` baseline, no accuracy number of any kind. This is still the
+single biggest blind spot in the whole Engine 4 program — Stats has more `human_shadow` items
+than Bio (40 vs ~59-total-but-mixed) and we know nothing about how well it grades.
+
+### 4. Photo-to-item-ID matching: real gaps found in the sample corpus itself
+
+Built an OCR-based scanner (`scan_unlabeled_photos.mjs`) for `docs/hand drawn samples/` — 172 of
+372 total photos had no item code in their filename. Matched 112 of 172 (65%) to real canonical
+data via retried local OCR + regex extraction, cross-checked against every known corpus (Bio
+P1/P2, Stats, Calc/Chem). Manifest:
+`docs/research/hand_drawn_samples_item_id_manifest_2026_08_18.json`.
+**Found 4 real gaps — items with no canonical data anywhere in this system**: `HDG-2026-P1-CAT-108`,
+`HDG-2026-P1-SER-108` (same photo, `IMG_0796.jpeg`, duplicated in two folders), `HDG-2026-P1-SER-612`,
+`HDG-2026-P1-EST-000` — confirmed via exhaustive search (both Bio corpora cap at item 050,
+no production `content_key` match). Not an OCR failure; genuinely missing source data. **56
+photos remain unreadable** even after 3 retries each (OCR confirmed non-deterministic run-to-run
+on this hardware/binary) — needs human eyes, not more regex tuning.
+
+### 5. Calc/Chem formula ground truth recovered from git history
+
+`docs/research/trace_image_set_chemistry_calculus_2026_07_10/` (commit `a7438da`, was on no
+current branch) restored via `git checkout a7438da -- <path>` — safe, non-destructive, nothing
+overwritten. Contains `items.json` with `canonical_lines` ground truth for `CALC-E1/E2/E3`,
+`CHEM-E1/E2/E3`, plus harder `H1-H5` items each subject. Verified against a real photo:
+`CALC-E1`'s canonical answer matches exactly. **This restores the missing piece for a formula-
+transcription experiment, which still has not been run** — Engine 3's symbolic verifier is
+validated (211/211 harness) but nothing has tested OCR/VLM transcription of real handwritten
+formulas against this real gold end-to-end. Still just an informal, unscored glance from an
+earlier session.
+
+### 6. Vendor/tool exploration — three dry holes, one paused pending vendor evidence
+
+- **TrOCR**: not tested. `torch` is installed but broken here (x86_64 build on this arm64 Mac),
+  `transformers` isn't installed. Real environment setup needed, not a quick swap. Also: would
+  not fix the trace-overlay's actual bug (axis-role/tick-mark geometry, not character-recognition
+  accuracy) — only relevant if we specifically need better-than-Vision confidence scoring.
+- **HandwritingOCR.com**: verified via their own OpenAPI spec — **no confidence scores, no
+  bounding boxes at all** in the documented API. Worse than Vision framework for the graph work
+  (which needs token pixel positions). Possibly relevant for the *formula*-transcription track
+  specifically (no spatial data needed there), not tested.
+- **Qwen2.5-VL**: untested; wrong category of tool for OCR-confidence questions (it's a VLM, not
+  an OCR engine). `alibaba/qwen3-vl-instruct` (newer, same family) already failed reliability
+  testing earlier this session (empty output under schema-constrained calls) — not predictive of
+  Qwen2.5-VL specifically, but tempers expectations.
+- **LlamaParse**: real bounding boxes (word/line/cell), unlike HandwritingOCR.com. But its
+  chart-parsing is confirmed VLM-based ("agentic visual reasoning reconstructing data values"),
+  not a categorically different technology from what's already been extensively tested — and
+  its only public chart-parsing example is a **PDF-embedded/printed** chart, not hand-drawn. A
+  full pilot plan is designed and ready (reuse the existing `scoreExtraction()` function from
+  `hand_drawn_graph_extraction_probe_multimodel_run.mjs` unmodified, same 42-photo subsample
+  used for every other model candidate, ~$0.50-2.50) but **deliberately not run yet** — owner is
+  calling LlamaIndex directly tomorrow morning to ask for hand-drawn-specific evidence/case
+  studies before spending pilot budget. Check in on that outcome before proceeding.
+
+### 7. Uncommitted artifacts from this session
+
+Everything below is new/modified in the working tree, not yet committed. A large amount of
+concurrent, unrelated work from another session was also present in the tree at various points
+this session (`ACTIVITY_LOG.md`, `DECISIONS_LOG.md`, `HAND_DRAWN_RESPONSE_MIX_AUDIT_2026_08_18.md`,
+`scripts/content-seed/hand_drawn_expansion_chem_physics_calc_2026_08_18/`) — **do not commit
+those as part of this session's work**; confirm with the owner or check their current state
+before touching them. This session's own files: `docs/GRADING_ENGINES_TO_PRODUCTION_HANDOFF.md`
+(this file), `docs/research/HAND_DRAWN_REAL_PHOTO_GRADING_ACCURACY_2026_08_18.md`,
+`docs/research/ENGINE4_PRODUCTION_DESIGN_2026_08_18.md`,
+`docs/research/OCR_VALUE_ASSESSMENT_EXPERIMENT_DESIGN_2026_08_18.md`, the restored
+`trace_image_set_chemistry_calculus_2026_07_10/` directory, the new
+`apstats_hdg_graph_corpus_2026_08_18/` and `hand_drawn_samples_item_id_manifest_2026_08_18.json`,
+and ~20 new scripts under `scripts/vercel-gateway-check/` (self-consistency, adversarial
+recheck, OCR decider/overlay/scanner, corpus builders — each has its own header comment).
+
+### 8. Ordered next steps for a fresh session
+
+1. **Confirm self-consistency (majority-vote) at full 200-photo scale** — cheap, high-value,
+   directly actionable right now.
+2. **Check the LlamaIndex call outcome** before deciding whether to run the LlamaParse pilot.
+3. **Start real Statistics benchmark work** — biggest remaining blind spot; ground truth is
+   ready, nothing else is.
+4. **`UNCERTAINTY_MARKS`-specific investigation** — now known to be the single worst FAR
+   offender by rate, never directly investigated (unlike `PLOT_VALUES`, which got one attempt).
+5. **`PLOT_VALUES` fix, take two** — still open, one attempt reverted.
+6. **Trace-overlay calibration fix** — needs real tick-mark/edge detection, not text-box
+   heuristics; real CV engineering, not a quick patch.
+7. **Async escalation architecture** — still completely unbuilt; `gpt-5.2-pro` at 55s p50 cannot
+   sit in a synchronous request path.
+8. **Formula-transcription experiment** — ground truth is now available; nothing has tested OCR
+   transcription against it.
+9. **Corpus cleanup** — 11 corrupted-axis `EST` items, the 4 confirmed-missing item codes, the 56
+   unreadable photos needing human eyes.
+10. **Dual-human-adjudicated gold set** — still the governance floor under every number in this
+    entire program, for both Bio and (once it exists) Stats.
+11. Get everything in §7 reviewed and committed, separately from the other concurrent session's
+    unrelated changes.
 
 ---
 
@@ -485,6 +702,17 @@ the integration test.
 **First action for Engine 4: read those docs and write a scope note before any build work.**
 Treat the "ASAP to Production" goal with care here — Engine 4 is furthest from ready and involves
 learner-visible spatial judgement.
+
+**UPDATE 2026-08-18c:** that scope note is now written —
+`docs/research/ENGINE4_PRODUCTION_DESIGN_2026_08_18.md`. Covers recommended architecture
+(gpt-5.2 primary + gpt-5.2-pro escalation, pending the full-scale run), the deployment/authority
+model options with current numbers, a proposed async-escalation architecture (genuine greenfield
+gap — no async/background-job pattern exists anywhere in `supabase/functions/` today), the
+dual-human-adjudicated gold-set requirement (§12.2, not yet started, likely the longest pole),
+corpus cleanup items, and a current-state mapping onto the QR→observation→gold→abstention→shadow
+sequence. Also live-reverified the `human_shadow` count: **59** content item versions (24
+published), not the stale "40" cited above. It is a Proposed synthesis, not an owner-approved
+plan — no DECISION/APPROVAL entry exists for it yet.
 
 ---
 
