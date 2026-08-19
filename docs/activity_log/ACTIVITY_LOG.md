@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Session Closeout (2026-08-19): AP Statistics Gets Its First Hand-Drawn Grading Accuracy Measurement, Scaled to All 28 Real Photos That Exist — Two Reproducible Model Defects Found, One Partially Fixed and Folded Into Engine 4's Production Design as Standing Guidance — 2026-08-19
 - Hand-Drawn Capture Set to Become an Added Submission Option for All 36 Existing Typed-Math Calculus FRQs (DECISION-0049), Graded via the Same Criteria as Typed Answers Through an OCR-Transcription Step — Connected to a Same-Day OCR Probe Showing Promising Handwritten-Equation Transcription — 2026-08-18
 - Six New Genuine Hand-Drawn-Capture Items Authored for Chemistry, Physics 1, and Calculus AB (DECISION-0048): First True `HDG-*` Capture Content in Any of the Three Subjects, Draft/Unreviewed, Not Yet Applied to Any Database — 2026-08-18
 - Hand-Drawn vs. Non-Hand-Drawn Question Mix Audited Against Subject CEDs: Statistics Far Above Its Real-Exam Exposure by Design (Supplemental, Real Exam Is Fully Digital), Chemistry/Physics/Calculus/Precalculus Near-Zero Despite Non-Trivial CED Weight on Graphical/Diagram Skills — 2026-08-18
@@ -124,6 +125,81 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## Session Closeout (2026-08-19): AP Statistics Gets Its First Hand-Drawn Grading Accuracy Measurement — 2026-08-19
+
+**Task:** Open-ended continuation of the Engine 4 (hand-drawn grading) program, focused per
+owner direction on AP Statistics specifically — the subject with the most `human_shadow`
+content (40 of 59 items) and, per the prior session's own closeout, "zero benchmark work run
+on this corpus."
+
+**Arc of the session:** reconciled and committed a large uncommitted footprint from the prior
+session first (Engine 4 research files, plus the separate DECISION-0048/0049 hand-drawn-
+capture-expansion work, verified legitimate and split into its own commit). Then ran a
+20-photo Statistics smoke test (genuine gold built by direct visual inspection, same method
+as Biology's), which surfaced a real methodological gap when the owner pushed on it: single
+small-sample runs weren't trustworthy enough to act on. Escalated through a deliberate
+small-then-large testing ladder (5 → 10 → 20 → 28 photos, most conditions run twice) rather
+than one big test, catching two would-be false conclusions before they were written down as
+findings — a tolerance-clause rubric fix that looked like it helped at n=5 and reversed at
+n=10, and a "cross-model disagreement, trust the more generous verdict" heuristic that looked
+strong on 20 items but was shown, by tracing exactly which cases it resolved, to be silently
+inheriting Sonnet's false-accept tendency rather than adding real signal.
+
+**Two reproducible model defects found, independent of prompt wording:**
+1. On criteria requiring `gpt-5.2` to compare a hand-drawn image against a fact computable
+   from the stimulus table (mosaic-plot column-width proportions, dotplot dot counts), the
+   model's own stated reasoning was reliably correct (100% arithmetically correct across
+   every sample checked) while its final categorical verdict frequently contradicted that
+   same reasoning outright, or — on one dotplot item, confirmed against the actual photo by
+   the owner directly — fabricated an extra disqualifying element not present in its own
+   already-correct count.
+2. **Fix, confirmed real but not universal:** precomputing the fact in plain code (from data
+   already in the prompt) and handing it to the model as a given, instead of asking it to
+   both derive and visually verify it in one pass, raised targeted-criteria accuracy from
+   ~0-33% (baseline, reproducibly wrong across three independent runs) to ~78% average
+   (confirmed across two full 28-photo runs) on mosaic plots; had no measurable effect on a
+   dotplot criterion without the same failure shape (axis scale) — not a general accuracy
+   lever, a fix for one specific, now well-characterized failure mode.
+
+**Headline number, confirmed stable across two independent full runs on all 28 real Stats
+photos that exist (the ceiling without new photo capture):** 64.3% exact criterion-vector
+match (both runs), F1 94.8%/94.2%, false-accept rate 15.4% (the *same two* cases in both
+runs, not different ones each time), false-reject rate 8.1%/9.1%. Roughly comparable in shape
+and magnitude to Biology's own `gpt-5.2` result — Statistics is not meaningfully easier or
+harder to grade than Biology with this architecture. This supersedes an earlier, smaller-
+sample read (20 photos) that had shown a 0% false-accept rate; that number did not survive
+the scale-up to the full corpus and is explicitly corrected in the research record rather than
+left standing.
+
+**Extended gold coverage to all 28 real Stats-HRD-2 photos**, including the one archetype
+(`boxplot_construction_interpretation`) that had zero real-photo coverage all session.
+
+**Findings folded into standing production design, not left as one-off research:**
+`docs/research/ENGINE4_PRODUCTION_DESIGN_2026_08_18.md` §1b now records "precompute
+deterministic facts from the stimulus table" as a design principle for whichever criteria the
+real production grading path ends up building, logs the Statistics work as a deliberate,
+owner-directed exception to that document's own Biology-first sequencing mandate (not a
+silent scope drift), and adds four new ordered next-steps items. The parent handoff doc's
+2026-08-19 update section was corrected in place to the final, confirmed numbers.
+
+**Explicitly not done, per direct question this session:** Engine 4 has no deployed grading
+path for any subject — "production improvement" here means binding design guidance for a
+future real build, not a code change to anything currently running. Also not done: dual-
+human-adjudicated gold (same governance gap as Biology's), the handful of Statistics corpus
+items still lacking a real photo, and testing the precompute-fix pattern on free-text
+descriptive criteria (only numeric/countable ones were tried).
+
+**Full detail:** `docs/research/apstats_hdg_graph_real_photo_smoke_2026_08_19/README.md`
+(complete experiment log, every run's numbers, every reversed/corrected claim documented
+honestly rather than quietly replaced).
+
+**Next Owner:** David Bloom.
+**Next Required Action:** decide whether Statistics is worth a dual-human-adjudicated gold
+pass next, or whether the precompute-fix principle should be validated on Biology's corpus
+before either subject moves toward a real production build.
 
 ---
 
