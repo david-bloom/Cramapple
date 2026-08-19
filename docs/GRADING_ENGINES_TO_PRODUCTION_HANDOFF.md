@@ -1,31 +1,44 @@
-## UPDATE 2026-08-19 — Statistics gets its first accuracy measurement: 20-photo smoke test
+## UPDATE 2026-08-19 — Statistics gets its first accuracy measurement, scaled to every real photo that exists
 
 Direct response to UPDATE 2026-08-18d §8 item 3 ("start real Statistics
 benchmark work — biggest remaining blind spot"). Full detail:
-`docs/research/apstats_hdg_graph_real_photo_smoke_2026_08_19/README.md`.
+`docs/research/apstats_hdg_graph_real_photo_smoke_2026_08_19/README.md`;
+production-design implications folded into
+`docs/research/ENGINE4_PRODUCTION_DESIGN_2026_08_18.md` §1b.
 
-20 of the 28 available real `Stats-HRD-2` photos (5 of 6 archetypes), gold
-built by direct visual inspection (same method as Biology's), graded with
-`gpt-5.2` single-pass. **65.0% exact match, F1 93.8%, FAR 0.0% (11
-not-earned instances), FRR 11.6%** — a different error shape than Biology's
-`gpt-5.2` result (18.4%/7.9%), but on too small a sample to trust FAR=0% yet.
+Started at 20 photos, scaled to **all 28 real `Stats-HRD-2` photos that
+exist** (every archetype now has real coverage) once the smaller sample's
+numbers turned out not to hold under a second run — confirmed stable across
+two independent full runs: **64.3% exact match (both runs), F1 94.8%/94.2%,
+FAR 15.4% (2/13, the *same two* cases in both runs), FRR 8.1%/9.1%.** This
+supersedes the earlier 20-photo read (which had shown FAR at 0%, an
+artifact of a smaller, less diverse sample) — roughly comparable in shape
+and magnitude to Biology's `gpt-5.2` result (18.4% FAR / 7.9% FRR), i.e.
+Statistics is not meaningfully easier or harder to grade than Biology with
+this architecture.
 
-Two concrete findings: (1) a real, reproducible mosaic-plot defect — on 2 of
-4 `WIDTHS_BY_TOTAL` mismatches the model's own rationale text reasons to the
-correct "equal widths are correct here" conclusion and then still emits
-`not_earned` as the verdict (rationale/verdict self-contradiction, not a
-defensible stricter reading); (2) 3 of 4 dotplot responses in this specific
-photo batch describe skew direction backwards from the AP Statistics
-convention (name the bulk's side, not the tail's) — a response-authoring
-pattern to watch for, not a model error (the model didn't false-accept on
-any of them). Also caught and fixed a gold-labeling arithmetic error
-(GRAPH-023's Bike row sums to 80, not 100 like its peers — unequal widths
-are actually correct there) via the model's disagreement prompting a
-recheck.
+**Found and partially fixed a reproducible model defect, generalizable
+beyond this corpus:** on criteria requiring the model to compare a drawing
+against a fact computable from the stimulus table (mosaic-plot column
+widths, dotplot dot counts), the model's own stated reasoning was reliably
+correct while its final verdict frequently contradicted it or fabricated an
+extra disqualifying detail. Precomputing the fact in plain code and handing
+it to the model as a given (instead of asking it to derive-and-verify in
+one pass) raised targeted-criteria accuracy from ~0-33% to ~78% average,
+confirmed across two full-corpus runs — but is not a general lever: applied
+to a criterion without this specific failure shape, it did nothing. Now a
+recommended standing design principle for the real production build, not
+just a one-off fix.
 
-**Not yet done:** the full 40-item Statistics corpus, the missing 6th
-archetype (boxplot), or any FAR-scale confirmation — see the README's
-"Recommended next step."
+Also confirmed: cross-model disagreement (gpt-5.2 vs. claude-sonnet-4.5) is
+a real, usable escalation-routing signal (96.7% selective accuracy at 75%
+coverage) — but resolving disagreements toward the more generous verdict is
+a trap, confirmed by data, not just argued.
+
+**Not yet done:** dual-human-adjudicated gold (same gap as Biology), the
+handful of still-unphotographed corpus items (28 of 40 have a real photo),
+and the precompute-fix pattern hasn't been tried on free-text descriptive
+criteria (`ASSOCIATION_DESCRIPTION`/`SHAPE_DESCRIPTION`), only numeric ones.
 
 ---
 

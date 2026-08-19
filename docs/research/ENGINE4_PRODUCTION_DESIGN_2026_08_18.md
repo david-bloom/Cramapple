@@ -14,6 +14,11 @@ verdict — see §1 below, now corrected in place, and
 `docs/research/HAND_DRAWN_REAL_PHOTO_GRADING_ACCURACY_2026_08_18.md` §"Escalation at full
 scale" for full detail.
 
+**UPDATE 2026-08-19:** Statistics got its first accuracy measurement — see new §1b. A
+deliberate, owner-directed exception to this document's own Biology-first sequencing (§9);
+findings and a new standing design principle (precompute deterministic facts) folded into
+§8's next steps as items 11-14.
+
 Evidence-class labels follow repo convention (Live verified / Deployed verified /
 Repository only / Prototype-research only / Proposed / Not verified).
 
@@ -88,6 +93,70 @@ to — not competing with — this escalation policy.
 - `PLOT_VALUES` tolerance-calibration prompt fix — reverted (net FAR/FRR regression). The
   largest remaining error source is still open; needs a second controlled run or a narrower
   fix, not a repeat of the same general-leniency instruction.
+
+---
+
+## 1b. Statistics — first accuracy measurement (2026-08-19), a deliberate deviation from the Biology-first sequencing mandate
+
+§9 below records the original architecture review's mandate: Biology quantitative graphs
+first, other archetypes explicitly out of scope for this design pass. This section is a
+deliberate, logged exception — done at the owner's direct request in the same session, not a
+scope drift — because Statistics turned out to hold the majority of `human_shadow` content
+(the biggest blind spot cited in the handoff doc) with zero accuracy work of any kind.
+Full detail: `docs/research/apstats_hdg_graph_real_photo_smoke_2026_08_19/README.md`.
+
+**Method:** genuine per-photo gold (direct visual inspection, same standard as Biology's),
+`openai/gpt-5.2`, single-pass joint-judgment — same architecture as §1 recommends for
+Biology. Scaled in two tiers (10 → 28 photos) specifically to avoid trusting a small-sample
+directional read, the same lesson §1's escalation reversal already taught this program once.
+
+**Result, confirmed stable across two independent full runs on all 28 real Stats photos that
+exist (the ceiling without new photo capture):**
+
+| Metric | Value |
+|---|---:|
+| Exact criterion-vector match | 64.3% (both runs) |
+| Per-criterion F1 | 94.8% / 94.2% |
+| False-accept rate | **15.4% (2/13)**, identical two cases in both runs |
+| False-reject rate | 8.1% / 9.1% |
+
+Against the same DR-1 thresholds §1/§2 use for Biology (≥95% exact / ≥90% F1 / ≤2% FAR /
+≤5% FRR): F1 clears, the other three do not — same overall shape as Biology (F1 is the
+easiest bar, FAR is the hard one), and roughly comparable magnitude to Biology's `gpt-5.2`
+result (18.4% FAR / 7.9% FRR there vs. 15.4%/8.1-9.1% here). **Statistics is not meaningfully
+easier or harder than Biology to grade with this architecture** — worth knowing before
+assuming either subject needs a different approach.
+
+**A distinct, reproducible model defect found and partially fixed, generalizable beyond this
+one corpus:** on criteria requiring the model to compare a drawn image against a fact
+computable from the stimulus table (mosaic-plot column-width proportions, dotplot dot
+counts), the model's own stated reasoning was reliably correct (100% arithmetically correct
+across every sample checked) while its final categorical verdict frequently contradicted that
+same reasoning, or fabricated an extra disqualifying detail not present in its own stated
+observations. **Precomputing the fact in plain code (from the same table already in the
+prompt) and handing it to the model as a given, rather than asking it to both derive and
+visually verify it in one pass, is a real, reproducible fix** — targeted-criteria accuracy
+rose from ~0-33% (baseline, reproducibly wrong) to ~78% average (fixed, confirmed across two
+full-corpus runs) — but it is not a general accuracy lever: applied to a criterion that didn't
+have this specific failure shape (dotplot axis scale), it produced no measurable change,
+positive or negative. **Recommendation: any production Statistics grading path should
+precompute deterministic facts from the stimulus data for every criterion where that's
+possible, not just pass the raw table and rely on the model to do the arithmetic itself** —
+this is a design principle for the eventual real build, not just a research finding.
+
+**Also confirmed, not yet exploited:** cross-model disagreement between `gpt-5.2` and
+`claude-sonnet-4.5` is a real, usable escalation-routing signal at small scale (96.7%
+selective accuracy at 75% coverage when only auto-grading on agreement) — but naively
+resolving disagreements toward the more generous verdict is a trap that silently inherits
+whichever model is more lenient, confirmed by data, not just argued.
+
+**Not yet done for Statistics, mirroring §4/§5 below for Biology:** dual-human-adjudicated
+gold (this smoke test's gold is single-pass, same `ai_provisional` tier as Biology's), the
+6th archetype (`boxplot_construction_interpretation` — wait, this is now covered, 5 of 7 items
+photographed and graded; 2 boxplot items and roughly 1-2 items in several other archetypes
+still lack a real photo), and the precompute-fix pattern has not been tried on
+`ASSOCIATION_DESCRIPTION`/`SHAPE_DESCRIPTION`-style free-text criteria, only on
+numeric/countable ones.
 
 ---
 
@@ -255,6 +324,20 @@ Supersedes/refines handoff §"Concrete gap to production" with this design pass 
     written estimate value, never shape/mark/category judgment). Blocked on an
     orientation-invariant axis-role-assignment fix (the same bug the full-scale OCR probe
     reproduced) before any of the three configurations produce a trustworthy number.
+11. **Statistics (§1b): adopt "precompute deterministic facts from the stimulus table" as a
+    standing design principle** for any production grading prompt-builder, not just a one-off
+    fix for mosaic plots — apply it wherever a criterion asks the model to compare a drawing
+    against something arithmetically derivable from data already in the prompt.
+12. **Statistics: dual-human-adjudicated gold**, same requirement and same gap as Biology's
+    §4 — the 28-photo smoke-test gold is single-pass, not the governance-required standard.
+13. **Statistics: photograph the remaining uncaptured items** (2 boxplot items, a handful
+    across other archetypes) — 28 of 40 corpus items have a real photo today; this smoke test
+    already used every one that exists.
+14. **Statistics: extend the precompute-facts fix to `ASSOCIATION_DESCRIPTION`/
+    `SHAPE_DESCRIPTION`-style criteria** — untested territory; the fix so far only covers
+    numeric/countable criteria (`WIDTHS_BY_TOTAL`, `DOT_COUNTS`), not free-text descriptive
+    ones, which showed their own (different, boundary-clarity-shaped) disagreements this
+    session.
 
 ## 9. Explicit non-goals for this design pass
 
@@ -262,6 +345,10 @@ Supersedes/refines handoff §"Concrete gap to production" with this design pass 
   review pending a localization benchmark that has never been run. Not reconsidered here.
 - Non-Biology archetypes (e.g. Econ multi-curve graphs) — explicitly out of scope per the
   original architecture review's sequencing mandate (AP Biology quantitative graphs first).
+  **Exception, logged: Statistics was measured 2026-08-19 at the owner's direct request —
+  see §1b. That was a deliberate, in-session deviation from this sequencing mandate, not a
+  reversal of it; other non-Biology archetypes remain out of scope until the owner extends
+  the exception explicitly.**
 - Vendor lock to any single model provider before a held-out bake-off — the model-backbone
   ablation in this investigation is real evidence but was run on one corpus with AI-provisional
   gold; do not treat "gpt-5.2/gpt-5.2-pro" as a permanent commitment ahead of the adjudicated
