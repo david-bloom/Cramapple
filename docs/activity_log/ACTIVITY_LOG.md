@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Session Closeout (2026-08-20): TASK-0016 Phase D Stage D2 Shipped to Production After 5 Rounds of Independent QA and 3 Rework Passes — QR Hand-Drawn Capture Live on cramapple.com; Engine 4 Rollout Next Steps for D3-D7 — 2026-08-20
 - Stage D2 QR Capture Rework Pass 2: Round-3 Independent QA Found the (All-15-Fixed) Rework Close-But-Not-Clean — Fixed Its 4 Must-Fix + 5 Recommended Findings, Including Adding a Real `is_submitted` Guard Inside `bind_response_attachment` (Confirmed Live Prod Had None) So the "Open Capability Can't Corrupt a Submitted Response" Claim Is Now DB-Enforced; 290 Backend + 232 Frontend Tests, Nothing Merged/Deployed/Applied, Round-4 QA Prompt Written — 2026-08-20
 - Stage D2 QR Capture Reworked: An Independent Re-Review Found the Rework Had Never Actually Been Done (Branches Byte-Identical to the Failed Commits), So It Was Both Re-Verified From Scratch and Then Executed — All 15 Round-1 QA Findings Fixed, 282 Backend + 230 Frontend Tests Green, Nothing Merged/Deployed/Applied, a Fresh Round-3 QA Prompt Written — 2026-08-20
 - Session Closeout (2026-08-19): TASK-0016 Phase D Stages D0/D1 Executed for the First Time, DECISION-0050 Retires the Dual-Human Gold Bar, DECISION-0051 Settles QR-vs-Direct-Upload, Stage D2's QR Capture Build Fails Independent QA (6 Blocking Findings, Hold for Rework) — 2026-08-19
@@ -128,6 +129,135 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## Session Closeout (2026-08-20): TASK-0016 Phase D Stage D2 Shipped to Production — 2026-08-20
+
+**Task:** Opened with "start a new session with a goal of moving engine four from design into
+production." The two entries immediately below (Rework Pass 2, and the rework/re-verification
+before it) cover the middle of this arc; this entry covers the whole session end to end and closes
+it out, including the final QA rounds, the production deploy, and next steps for Engine 4 as a
+whole (not just Stage D2).
+
+**Arc:** Scoped down from "move Engine 4 to production" (too broad) to QR capture wiring, which
+surfaced that the controlling document was `TASK-0016`'s Hard-Gate task record and its Phase D
+execution prompt, not the downstream research/synthesis docs read first — a correction the owner
+made directly, now standing guidance in memory. From there: executed Stage D0 (state freeze) for
+the first time ever, finding System A (QR) broken against live Production and no corpus meeting
+the old dual-human gold bar; `DECISION-0050` retired that bar in favor of `DECISION-0045`'s
+AI-verification model, which was then actually run against both the 200-photo Biology and
+28-photo Statistics corpora; a second `PLOT_VALUES` fix attempt was confirmed a dead end in both
+directions; corpus consent/provenance was resolved directly by the owner (all creators are
+owner/family/contracted freelancers under standard rights-transferring ToS); Stage D1 (spatial
+contracts) was executed and completed; `DECISION-0051` settled QR-vs-direct-upload (QR wins, no
+fallback) and defined capture-failure handling (generic retake vs. bug-logged); D3/D4/D5's
+existing evidence was mapped onto Phase D's structure rather than re-running settled experiments.
+
+**Stage D2 (QR capture MVP) — built, then went through 5 rounds of independent QA and 3 rework
+passes before shipping:**
+
+1. **Round 1 QA** (2026-08-19): 6 blocking + 8 serious findings, verdict HOLD FOR REWORK. Trust
+   boundary/security architecture verified sound; defects concentrated in lifecycle edges.
+2. **Rework pass 1**: all 15 findings addressed (after independently re-confirming no rework had
+   actually happened yet on the branches).
+3. **Round 3 QA**: found the "all 15 fixed" rework close but not clean — 4 new must-fix issues, 2
+   of them introduced by the rework itself.
+4. **Rework pass 2**: fixed all 9 (4 must + 5 recommended), including adding a real `is_submitted`
+   guard *inside* `bind_response_attachment` (confirmed live Production had none) so the "an open
+   capability can't corrupt a submitted response" claim became a database invariant, not a
+   check-then-act race.
+5. **Round 4 QA**: found this round's highest-risk change — the new database guard — introduced a
+   **real, empirically-confirmed deadlock** against the already-deployed `submit_response`
+   (verified via `EXPLAIN` on Development: the two functions locked their shared tables in
+   opposite order), plus an error code mapped in only one of two callers. One blocking item, small
+   and mechanical to fix.
+6. **Rework pass 3**: fixed both (reordered the lock acquisition to match `submit_response`;
+   mapped the missing error code in `attempt-response` too), plus three smaller recommended items.
+7. **Round 5 QA**: independently re-derived every claimed fix from scratch — including re-running
+   the lock-order `EXPLAIN` fresh on both Development *and* Production rather than trusting the
+   prior round's output — and returned **MERGE WITH MINOR FIXES**: no blocking findings, no
+   regressions, one small pre-existing classification bug found and recommended (not gating).
+
+**Shipped to production, 2026-08-20, on explicit owner authorization at each stage:**
+the one remaining fix (`attach_capture_failed` misclassified as a student-facing refusal instead
+of a logged bug) was applied and verified green; both rework branches were merged into `main`
+locally in both repos (backend `4b3527c`, frontend `320ea3f`), no conflicts; both migrations
+(`capture_pairing`, the `bind_response_attachment` writability guard) were applied to Development
+then Production, each verified via read-only query; the `capture-pairing` (new) and
+`attempt-response` (redeployed) edge functions were deployed to Development then Production,
+Development smoke-tested; both `main` branches were pushed to GitHub and verified via `gh api`;
+the Lovable frontend was published and `cramapple.com` verified live and healthy (page loads
+correctly, zero console errors). One step was reported rather than forced through: the auto-mode
+safety classifier blocked a direct curl smoke-test against the live Production Supabase URL —
+Development's equivalent test had already passed and independent read-only Production queries had
+already confirmed both migrations and functions correct before the frontend publish, so nothing
+was skipped in substance, only one redundant verification method.
+
+**This is Engine 4 Phase D Stage D2's first real production deploy** — `app.capture_pairing_tokens`/
+`capture_pairing_events` had zero rows and `capture-pairing` had never been deployed anywhere
+before this session. Worth keeping as the reference case for how much scrutiny a capture/auth
+bridge touching a shared, already-deployed database function deserves before "tests pass" is
+treated as "safe to ship" — the two most serious defects found across all five rounds (the budget
+leak in Round 1, the lock-order deadlock in Round 4) were both invisible to the test suites at the
+time, caught only by adversarial tracing and live-database verification.
+
+**Full detail:** `docs/research/grading_phase_d_spatial_2026_07_27/` — `CURRENT_STATE.md` and
+`DECISIONS_AND_BLOCKERS.md` (running state, item 8 for the full D2 saga),
+`QR_MVP_QA_REVIEW_ROUND{1,3,4,5}_2026_08_20.md` (each review in full), `QR_MVP_REWORK_ROUND{2,3}_2026_08_20.md`
+(each rework pass in full), `D3_D4_D5_STATUS.md` (evidence-mapping for the remaining stages),
+`ARTIFACT_INVENTORY.json`, `SPATIAL_CONTRACT.md`, `CROSS_SUBJECT_MAPPING.md`. Also
+`docs/research/HAND_DRAWN_CAPTURE_PATH_RECONCILIATION_2026_08_19.md` (the System A/B investigation
+that started the session) and `docs/research/hand_drawn_corpus_readiness_2026_08_19/` (consent
+resolution + duplicate/metadata groundwork).
+
+### Engine 4 rollout — where things stand and what's next, beyond Stage D2
+
+Stage D2 shipping is real progress but is one piece of a longer sequence. Current state by stage:
+
+- **D0 (state freeze):** Done.
+- **D1 (spatial contracts):** Done.
+- **D2 (QR capture MVP):** **Shipped to production this session.** Live, but 0 real student
+  traffic has used it yet — the pilot content item is still `ai_provisional_unapproved`, and no
+  general (non-admin) route serves it. **Next: get real content in front of this path** — resolve
+  the pilot item's content-review status through normal review, and decide/build the general
+  student-facing entry point (the current `/session` QR step exists, but confirm it's wired to
+  this shipped backend rather than a stale reference — worth a quick live check before assuming).
+- **D3 (real handwritten evidence + gold):** Method-resolved (`DECISION-0050`/`DECISION-0045`),
+  AI-verification done for both subjects. **Still blocked on two things no engineering session can
+  close:** (1) human reader-certification (cold verification against a ≤5% false-accept-rate gate
+  — ready-to-run sample packages exist for both Biology and Statistics); (2) corpus *volume* —
+  current real-photo counts (200 Biology, 28 Statistics) are well short of the 300-response/
+  100-per-archetype release target, and closing that gap needs more real people drawing more real
+  responses. Both are scheduling/resourcing decisions for the owner, not open technical questions.
+- **D4 (observation bake-off) / D5 (abstention calibration):** Substantially answered in substance
+  by the 2026-08-18/19 accuracy investigation (joint-vs-decomposed architecture, escalation
+  policy, selective-coverage tradeoffs) — recommend repackaging that evidence into D4/D5's formal
+  artifacts rather than re-running settled experiments. The one genuine gap: a real *locked
+  holdout* pass and the untested "hybrid reconciliation" arm, both of which need D3's volume gap
+  closed first to mean anything.
+- **D6 (100%-human-reviewed shadow):** Fully blocked — zero real students have ever reached any
+  grading engine, and no reviewer capacity has been established for this specifically. This is a
+  product/ops decision (turn on real traffic, recruit/assign reviewers), not engineering.
+- **D7 (decision packet):** Not started; should be written once D3's volume/certification
+  questions have at least a scheduling answer, so it reflects a real state rather than a snapshot
+  that goes stale immediately.
+- **Also still open, not D-stage-specific:** the `human_review_pending`-with-nothing-to-resolve-it
+  product gap (flagged repeatedly across QA rounds — a captured response currently has no path to
+  an actual grade, automated or human, once Program C's manual-grading queue is out of pilot
+  scope); and Program C itself (reviewer queue, qualifications, SLA, dispute path) remains a
+  separate Hard Gate per `TASK-0020`, not touched this session.
+
+**Immediate next-session recommendation, in priority order:** (1) verify the shipped D2 path is
+actually reachable end-to-end from a real (even if still admin-gated) route, since nothing this
+session clicked through it as a real user with a real phone; (2) get an owner scheduling decision
+on the D3 reader-certification audits (cheap, ready-to-run, the most leveraged next step); (3)
+separately, an owner decision on corpus-volume collection timing, since that's the actual long
+pole for D3-D5.
+
+**Next Owner:** David Bloom.
+**Next Required Action:** decide reader-certification and corpus-volume timing for D3; separately,
+click through the shipped D2 capture flow with a real phone/session before trusting it further.
 
 ---
 
