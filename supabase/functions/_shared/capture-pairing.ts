@@ -243,7 +243,16 @@ export function evaluatePairingUsability(params: {
       reason: "EXPIRED_PAIRING_HANDLE",
     };
   }
-  if (params.redemptionAttempts >= maxAttempts) {
+  // STRICTLY GREATER THAN, not >=, so it agrees with the authoritative budget
+  // gate in `claim_capture_pairing_upload`. That SQL gate refuses the (max+1)th
+  // CLAIM (`redemption_attempts >= max` before incrementing), so a legitimately
+  // issued upload leaves `redemption_attempts` at most `max` (e.g. 5). Using
+  // `>=` here refused the *submit* of that max-th photo after its upload URL had
+  // already been issued and the bytes uploaded — an off-by-one that stranded a
+  // photo the student was allowed to take (`max=5` behaved like 4). A submit
+  // only ever runs after a successful claim, so `redemption_attempts` can never
+  // exceed `max`; this guard is now a backstop, and the claim owns the budget.
+  if (params.redemptionAttempts > maxAttempts) {
     return {
       ok: false,
       code: "pairing_attempts_exhausted",

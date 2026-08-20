@@ -86,6 +86,12 @@ class FakeDb {
   budgets: Row[] = [];
   storage = new Map<string, Uint8Array>();
   uploadShouldFail = false;
+  // Simulates a failed response_attachments.capture_quality_state annotation
+  // write, to prove keepOpen no longer depends on it (N2).
+  updateAttachmentShouldFail = false;
+  // Simulates a storage sign-upload failure, to test the technical-failure
+  // classification persisting to the token (N6).
+  signUploadShouldFail = false;
 
   table(name: string): Row[] {
     // deno-lint-ignore no-explicit-any
@@ -194,6 +200,9 @@ class QueryBuilder {
     }
     const matched = table.filter((r) => matches(r, this.eqs, this.inn, this.gtes));
     if (this.op.kind === "update") {
+      if (this.name === "response_attachments" && this.db.updateAttachmentShouldFail) {
+        return { rows: [], error: { message: "update_failed" } };
+      }
       for (const r of matched) Object.assign(r, this.op.vals);
     }
     return { rows: matched, error: null };
@@ -215,8 +224,19 @@ class QueryBuilder {
   }
 }
 
-function makeService(db: FakeDb, hooks: { afterBind?: () => void } = {}) {
+function makeService(
+  db: FakeDb,
+  hooks: { afterBind?: () => void; beforeBind?: () => void } = {},
+) {
   const rpc = (name: string, p: Row) => {
+    // Lets a test simulate a concurrent write landing between the edge
+    // function's writability check and the bind itself (the N7 race).
+    if (
+      name === "bind_response_attachment" && p.p_kind === "original" &&
+      hooks.beforeBind
+    ) {
+      hooks.beforeBind();
+    }
     const result = runRpc(db, name, p);
     // Lets a test simulate a concurrent write landing right after the bind but
     // before the finalize CAS (e.g. a desktop "Cancel pairing").
@@ -265,10 +285,17 @@ function makeService(db: FakeDb, hooks: { afterBind?: () => void } = {}) {
         });
       },
       createSignedUploadUrl: (path: string) =>
-        Promise.resolve({
-          data: { signedUrl: `https://storage/${path}`, token: "upload-token" },
-          error: null,
-        }),
+        Promise.resolve(
+          db.signUploadShouldFail
+            ? { data: null, error: { message: "sign_failed" } }
+            : {
+              data: {
+                signedUrl: `https://storage/${path}`,
+                token: "upload-token",
+              },
+              error: null,
+            },
+        ),
       createSignedUrl: (path: string) =>
         Promise.resolve({
           data: { signedUrl: `https://storage/${path}` },
@@ -332,6 +359,17 @@ function runRpc(db: FakeDb, name: string, p: Row) {
       return { data: { ...row }, error: null };
     }
     case "bind_response_attachment": {
+      // N7: mirror the DB-level writability guard (20260819120100) so the fake
+      // can actually exercise it. A submitted response version or a
+      // non-editable attempt refuses the bind.
+      const rv = db.response_versions.find((r) =>
+        r.id === p.p_response_version_id
+      );
+      const at = rv && db.attempts.find((a) => a.id === rv.attempt_id);
+      if (!rv || !at) return err("attach_capture:response_not_found");
+      if (rv.is_submitted || !["draft", "failed"].includes(at.status)) {
+        return err("attach_capture:response_not_writable");
+      }
       if (p.p_kind === "derived") {
         const id = crypto.randomUUID();
         db.response_attachments.push({
@@ -403,9 +441,13 @@ function runRpc(db: FakeDb, name: string, p: Row) {
       return { data: { ...row }, error: null };
     }
     case "append_capture_pairing_event": {
-      const seq = db.capture_pairing_events.filter((e) =>
-        e.pairing_id === p.p_pairing_id
-      ).length + 1;
+      // Model the REAL row-locked max(sequence)+1 the SQL function uses, not a
+      // count(*)+1 (the pre-fix formula F11 replaced). These differ whenever the
+      // sequence set has a gap, so a regression to count-based logic is now
+      // catchable (see the F11 gap test).
+      const seq = db.capture_pairing_events
+        .filter((e) => e.pairing_id === p.p_pairing_id)
+        .reduce((m, e) => Math.max(m, e.sequence), 0) + 1;
       db.capture_pairing_events.push({
         event_id: p.p_event_id,
         pairing_id: p.p_pairing_id,
@@ -1046,4 +1088,192 @@ Deno.test("finding 11: provenance events get unique, gap-free sequences across a
   for (const e of db.capture_pairing_events) {
     assertEquals(e.event.sequence, e.sequence);
   }
+});
+
+/* -------------------------------------------------------------------------- */
+/* Rework pass 2 (Round-3 QA): N1, N2, N6, N7, F6 branches, idempotency, F11    */
+/* -------------------------------------------------------------------------- */
+
+async function claimUploadPath(db: FakeDb, handle: string): Promise<string> {
+  const res = await handleCapturePairing(
+    post({ operation: "create_capture_upload", pairing_handle: handle }),
+    { service: makeService(db) },
+  );
+  if (res.status !== 200) throw new Error(`claim failed: ${res.status}`);
+  return (await res.json()).result.storage_path as string;
+}
+
+Deno.test("N1: all five retakes upload AND submit; only the sixth claim is refused", async () => {
+  const db = new FakeDb();
+  const s = await seedPairedCapability(db);
+  // Reset to a fresh, phone-connected capability with no attempts spent.
+  db.capture_pairing_tokens[0].redemption_attempts = 0;
+  for (let n = 1; n <= 5; n++) {
+    const path = await claimUploadPath(db, s.handle);
+    db.storage.set(path, PNG_3X2);
+    assertEquals(db.capture_pairing_tokens[0].redemption_attempts, n);
+    const submit = await handleCapturePairing(
+      post({
+        operation: "submit_capture",
+        pairing_handle: s.handle,
+        storage_path: path,
+        explicit_confirmation: true,
+      }),
+      { service: makeService(db), runQualityCheck: qualityStub(assessed("RETAKE")).fn },
+    );
+    // The 5th submit must NOT 409 — that was the off-by-one (N1).
+    assertEquals(submit.status, 200, `submit for attempt ${n} should succeed`);
+    assertEquals((await submit.json()).result.failure_class, "image_quality");
+  }
+  // The 6th upload URL is refused at claim time (before any bytes upload).
+  const sixth = await handleCapturePairing(
+    post({ operation: "create_capture_upload", pairing_handle: s.handle }),
+    { service: makeService(db) },
+  );
+  assertEquals(sixth.status, 409);
+  assertEquals((await sixth.json()).error, "pairing_attempts_exhausted");
+  assertEquals(db.capture_pairing_tokens[0].state, "rejected");
+});
+
+Deno.test("F6: create_capture_upload on a just-expired token commits 'expired' and 409s (not raised)", async () => {
+  const db = new FakeDb();
+  const s = await seedPairedCapability(db);
+  db.capture_pairing_tokens[0].expires_at = new Date(Date.now() - 1000).toISOString();
+  const res = await handleCapturePairing(
+    post({ operation: "create_capture_upload", pairing_handle: s.handle }),
+    { service: makeService(db) },
+  );
+  assertEquals(res.status, 409);
+  assertEquals((await res.json()).error, "pairing_expired");
+  // The terminal transition COMMITTED (F6) rather than rolling back.
+  assertEquals(db.capture_pairing_tokens[0].state, "expired");
+});
+
+Deno.test("F6: create_capture_upload on an attempts-exhausted token commits 'rejected' and 409s", async () => {
+  const db = new FakeDb();
+  const s = await seedPairedCapability(db);
+  db.capture_pairing_tokens[0].redemption_attempts = 5; // == max
+  const res = await handleCapturePairing(
+    post({ operation: "create_capture_upload", pairing_handle: s.handle }),
+    { service: makeService(db) },
+  );
+  assertEquals(res.status, 409);
+  assertEquals((await res.json()).error, "pairing_attempts_exhausted");
+  assertEquals(db.capture_pairing_tokens[0].state, "rejected");
+});
+
+Deno.test("idempotency: re-submitting the same path returns the recorded result without re-binding", async () => {
+  const db = new FakeDb();
+  const s = await seedPairedCapability(db);
+  const first = await handleCapturePairing(
+    post({
+      operation: "submit_capture",
+      pairing_handle: s.handle,
+      storage_path: s.storagePath,
+      explicit_confirmation: true,
+    }),
+    { service: makeService(db), runQualityCheck: qualityStub(assessed("RETAKE")).fn },
+  );
+  const firstBody = await first.json();
+  const attachmentsAfterFirst = db.response_attachments.length;
+  // Same path again on the still-open ('uploaded') capability.
+  const second = await handleCapturePairing(
+    post({
+      operation: "submit_capture",
+      pairing_handle: s.handle,
+      storage_path: s.storagePath,
+      explicit_confirmation: true,
+    }),
+    { service: makeService(db), runQualityCheck: qualityStub(assessed("ACCEPT")).fn },
+  );
+  assertEquals(second.status, 200);
+  const secondBody = await second.json();
+  // Returns the recorded outcome (image_quality), NOT a fresh ACCEPT, and binds
+  // nothing new — the short-circuit fired.
+  assertEquals(secondBody.result.attachment_id, firstBody.result.attachment_id);
+  assertEquals(secondBody.result.failure_class, "image_quality");
+  assertEquals(db.response_attachments.length, attachmentsAfterFirst);
+});
+
+Deno.test("N2: keepOpen survives a failed attachment annotation write (verdict, not the write, decides)", async () => {
+  const db = new FakeDb();
+  const s = await seedPairedCapability(db);
+  db.updateAttachmentShouldFail = true; // the capture_quality_state annotation fails
+  const res = await handleCapturePairing(
+    post({
+      operation: "submit_capture",
+      pairing_handle: s.handle,
+      storage_path: s.storagePath,
+      explicit_confirmation: true,
+    }),
+    { service: makeService(db), runQualityCheck: qualityStub(assessed("RETAKE")).fn },
+  );
+  assertEquals(res.status, 200);
+  assertEquals((await res.json()).result.failure_class, "image_quality");
+  // The capability stayed OPEN despite the failed annotation write — before N2
+  // this silently consumed and reinstated the F1 dead end.
+  assertEquals(db.capture_pairing_tokens[0].state, "uploaded");
+});
+
+Deno.test("N6: a sign-upload failure persists failure_class 'technical' on the token", async () => {
+  const db = new FakeDb();
+  const s = await seedPairedCapability(db);
+  db.capture_pairing_tokens[0].redemption_attempts = 0;
+  db.signUploadShouldFail = true;
+  const res = await handleCapturePairing(
+    post({ operation: "create_capture_upload", pairing_handle: s.handle }),
+    { service: makeService(db) },
+  );
+  assertEquals(res.status, 502);
+  assertEquals((await res.json()).failure_class, "technical");
+  // The desktop (which only polls pairing_status) can now render the technical
+  // screen because the class is on the token, not only in the phone's response.
+  assertEquals(db.capture_pairing_tokens[0].failure_class, "technical");
+});
+
+Deno.test("N7: a response submitted during the bind window is refused at the bind, not silently written", async () => {
+  const db = new FakeDb();
+  const s = await seedPairedCapability(db);
+  const service = makeService(db, {
+    beforeBind: () => {
+      // The response is submitted after assertAttemptStillWritable passed but
+      // before the bind — the check-then-act race N7 closes at the DB level.
+      db.response_versions[0].is_submitted = true;
+    },
+  });
+  const res = await handleCapturePairing(
+    post({
+      operation: "submit_capture",
+      pairing_handle: s.handle,
+      storage_path: s.storagePath,
+      explicit_confirmation: true,
+    }),
+    { service, runQualityCheck: qualityStub(assessed("ACCEPT")).fn },
+  );
+  assertEquals(res.status, 409);
+  assertEquals((await res.json()).error, "response_already_submitted");
+  // Nothing was bound.
+  assertEquals(db.response_attachments.length, 0);
+});
+
+Deno.test("F11: the sequence is max+1, not count+1 (regression guard for the row-locked assignment)", async () => {
+  const db = new FakeDb();
+  const s = await seedPairedCapability(db);
+  db.capture_pairing_tokens[0].state = "issued";
+  // Two existing events with a GAP: count is 2, max is 5.
+  db.capture_pairing_events.push(
+    { pairing_id: s.pairingId, sequence: 1, event_type: "SESSION_CREATED", actor: "SYSTEM", occurred_at: "t", event: { sequence: 1 } },
+    { pairing_id: s.pairingId, sequence: 5, event_type: "PAIRING_ACCEPTED", actor: "SYSTEM", occurred_at: "t", event: { sequence: 5 } },
+  );
+  await handleCapturePairing(
+    post({ operation: "describe_capture", pairing_handle: s.handle }),
+    { service: makeService(db) },
+  );
+  const seqs = db.capture_pairing_events
+    .filter((e) => e.pairing_id === s.pairingId)
+    .map((e) => e.sequence)
+    .sort((a, b) => a - b);
+  // max+1 = 6 (count+1 would have been 3 and collided-adjacent).
+  assert(seqs.includes(6), `expected a max+1 sequence of 6, got ${seqs.join(",")}`);
+  assert(!seqs.includes(3), "count+1 (3) must not be used");
 });

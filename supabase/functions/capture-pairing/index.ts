@@ -300,6 +300,24 @@ async function logAuditEvent(
   return auditEventId;
 }
 
+/**
+ * Persists a technical failure_class on the token (N6). The finalise RPCs set
+ * failure_class for quality-check outcomes, but a sign-upload failure (502) or a
+ * bind failure (500) returns before finalise, so without this the primary
+ * device -- which only ever sees `pairing_status` -- could not render the
+ * DECISION-0051 technical screen for those two failure sources. Best-effort;
+ * never throws.
+ */
+async function markTokenTechnicalFailure(service: Service, pairingId: string) {
+  const { error } = await service.schema("app")
+    .from("capture_pairing_tokens")
+    .update({ failure_class: "technical" satisfies CaptureFailureClass })
+    .eq("id", pairingId);
+  if (error) {
+    console.error("capture_pairing_mark_failure_failed", error.message);
+  }
+}
+
 /** Appends one contract-shaped provenance event. Never throws. */
 async function appendProvenanceEvent(
   service: Service,
@@ -489,6 +507,11 @@ function mapBindError(message: string | undefined) {
     case "original_already_current":
     case "derived_cannot_replace":
       return { status: 409, code: `attach_capture_${match[1]}` };
+    case "response_not_writable":
+      // N7: the DB-level is_submitted/attempt-editable backstop fired (the
+      // response was submitted during the edge-function's check-then-bind
+      // window). A legitimate refusal, not our bug -> 409/blocked.
+      return { status: 409, code: "response_already_submitted" };
     default:
       return { status: 500, code: "attach_capture_failed" };
   }
@@ -1006,6 +1029,7 @@ export async function handleCapturePairing(
             detail: signError?.message?.slice(0, 300) ?? "sign_upload_failed",
           },
         });
+        await markTokenTechnicalFailure(service, row.id);
         return respond({
           error: "capture_upload_unavailable",
           failure_class: "technical" satisfies CaptureFailureClass,
@@ -1269,6 +1293,12 @@ export async function handleCapturePairing(
           detail: bindError?.message?.slice(0, 300) ?? "bind_failed",
         },
       });
+      // Persist the technical classification on the token for a genuine bug
+      // (500), so the desktop can render the technical screen too (N6). A 409 is
+      // a legitimate lineage/writability refusal, not a technical failure.
+      if (mapped.status !== 409) {
+        await markTokenTechnicalFailure(service, row.id);
+      }
       return respond({
         error: mapped.code,
         // A 409 here is a legitimate refusal (lineage conflict); a 500 is
@@ -1411,7 +1441,20 @@ export async function handleCapturePairing(
     }
 
     /* ---- Record the quality verdict on the attachment ---- */
-    let captureQualityState = bound.capture_quality_state;
+    // captureQualityState (and, below, keepOpen) is derived from the VERDICT,
+    // not from whether the best-effort response_attachments annotation write
+    // succeeds (N2). The prior version only advanced it `if (!updateError)`, so
+    // a failed annotation write silently reverted a retake-eligible capture to
+    // consume-on-first-submit -- reinstating the F1 dead end while
+    // failure_class still said 'image_quality'. The token's own
+    // capture_quality_state is written authoritatively by the finalise RPC
+    // below from this value regardless of the annotation write.
+    let captureQualityState: string = bound.capture_quality_state; // 'pending'
+    if (qualityOutcome.kind === "assessed") {
+      captureQualityState = qualityOutcome.captureQualityState;
+    } else if (qualityOutcome.kind === "technical_failure") {
+      captureQualityState = "indeterminate";
+    }
     let failureClass: CaptureFailureClass | null = null;
     let studentMessage: string | null = null;
     let incidentId: string | null = null;
@@ -1419,14 +1462,12 @@ export async function handleCapturePairing(
     if (qualityOutcome.kind === "assessed") {
       // capture_quality_state is one of the three columns the immutability
       // trigger permits changing after insert -- this is a normal in-place
-      // update, not a rewrite of an immutable row.
-      const { error: updateError } = await service.schema("app")
+      // update, not a rewrite of an immutable row. Best-effort: keepOpen and the
+      // finalise write no longer depend on it succeeding.
+      await service.schema("app")
         .from("response_attachments")
         .update({ capture_quality_state: qualityOutcome.captureQualityState })
         .eq("id", bound.id);
-      if (!updateError) {
-        captureQualityState = qualityOutcome.captureQualityState;
-      }
       if (qualityOutcome.disposition === "RETAKE") {
         // DECISION-0051: image-quality failure -> generic retake guidance.
         // The specific failing labels are audited below but deliberately
@@ -1495,16 +1536,39 @@ export async function handleCapturePairing(
         },
       });
       // 'indeterminate' is the honest state: the photo was preserved and
-      // nothing is known about its quality.
-      const { error: updateError } = await service.schema("app")
+      // nothing is known about its quality. Best-effort annotation (see N2).
+      await service.schema("app")
         .from("response_attachments")
         .update({ capture_quality_state: "indeterminate" })
         .eq("id", bound.id);
-      if (!updateError) captureQualityState = "indeterminate";
+    } else {
+      // qualityOutcome.kind === "unavailable": the check did not run (no key,
+      // or the daily cap is unset/exhausted). No verdict means no basis to
+      // prompt a retake, so the photo is accepted as-is (keepOpen stays false)
+      // -- the same behaviour as attach_capture's best-effort quality slot.
+      //
+      // N11: this is now LOAD-BEARING for F1 (with no verdict there is no
+      // retake flow), and `OPENAI_DAILY_CAP_USD` unset silently disables it, so
+      // flag it in the audit log. A key present with no daily cap is a deploy
+      // misconfiguration (should be rare and loud); an actual cap-hit is an
+      // expected transient. Both are recorded so the checker silently not
+      // running is visible rather than invisible.
+      await logAuditEvent(service, {
+        action: "capture_pairing.capture_quality_unavailable",
+        actorId: row.user_id,
+        actorType: "system",
+        objectType: "response_attachment",
+        objectId: bound.id,
+        requestId: idempotencyKey,
+        reasonCode: "capture_quality_unavailable",
+        metadata: {
+          stage: "capture_quality_check",
+          failure: qualityOutcome.failure,
+          misconfigured: CAPTURE_QUALITY_API_KEY !== null &&
+            CAPTURE_QUALITY_DAILY_CAP_USD <= 0,
+        },
+      });
     }
-    // qualityOutcome.kind === "unavailable": no claim is made, the
-    // attachment keeps 'pending', and nothing is shown to the student. Not
-    // a bug and not a retake.
 
     /* ---- Finalise: consume a clean capture, or keep it open for retake ---- */
     // A retake-eligible outcome (the photo failed the quality check, or could

@@ -221,20 +221,32 @@ Deno.test("cancellation and revocation are distinguishable terminal refusals", (
   assertEquals(rejected.code, "pairing_rejected");
 });
 
-Deno.test("attempt budget: retakes are allowed up to the cap, then refused", () => {
-  for (let attempts = 0; attempts < PAIRING_MAX_REDEMPTION_ATTEMPTS; attempts++) {
+Deno.test("attempt budget agrees with the claim gate: the max-th photo is still submittable (N1)", () => {
+  // `claim_capture_pairing_upload` refuses the (max+1)th CLAIM (it checks
+  // `redemption_attempts >= max` BEFORE incrementing), so a legitimately issued
+  // upload leaves `redemption_attempts` at most `max`. The submit-side usability
+  // check must therefore ALLOW `redemption_attempts` up to and INCLUDING `max` —
+  // the max-th photo was already allowed to be taken and uploaded — and refuse
+  // only a value that could never have been issued (> max). Refusing at
+  // `== max` was the off-by-one (N1) that let the 5th photo upload and then
+  // 409'd its submit, orphaning the bytes.
+  for (let attempts = 0; attempts <= PAIRING_MAX_REDEMPTION_ATTEMPTS; attempts++) {
     const result = evaluatePairingUsability({
       state: "paired",
       expiresAt: LIVE,
       redemptionAttempts: attempts,
       now: NOW,
     });
-    assertEquals(result.ok, true, `attempt ${attempts} should be allowed`);
+    assertEquals(
+      result.ok,
+      true,
+      `attempt ${attempts} (<= max) should be submittable`,
+    );
   }
   const exhausted = evaluatePairingUsability({
     state: "paired",
     expiresAt: LIVE,
-    redemptionAttempts: PAIRING_MAX_REDEMPTION_ATTEMPTS,
+    redemptionAttempts: PAIRING_MAX_REDEMPTION_ATTEMPTS + 1,
     now: NOW,
   });
   assertEquals(exhausted.ok, false);
