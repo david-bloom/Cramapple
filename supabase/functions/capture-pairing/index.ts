@@ -149,6 +149,7 @@ interface PairingRow {
   upload_storage_path: string | null;
   bound_attachment_id: string | null;
   capture_quality_state: string | null;
+  failure_class: CaptureFailureClass | null;
   created_at: string;
 }
 
@@ -206,6 +207,11 @@ function publicPairingView(row: PairingRow) {
       PAIRING_MAX_REDEMPTION_ATTEMPTS - row.redemption_attempts,
     ),
     capture_quality_state: row.capture_quality_state,
+    // DECISION-0051 split, surfaced to the primary device (which never sees
+    // the phone's submit response). Lets the desktop tell an image-quality
+    // retake ('image_quality') apart from a broken checker ('technical')
+    // instead of collapsing both into the single 'indeterminate' quality state.
+    failure_class: row.failure_class,
     has_bound_attachment: Boolean(row.bound_attachment_id),
   };
 }
@@ -249,9 +255,20 @@ async function logAuditEvent(
     reasonCode: string;
     metadata: Record<string, unknown>;
   },
-): Promise<string> {
+): Promise<string | null> {
   const auditEventId = crypto.randomUUID();
   const now = new Date().toISOString();
+  // request_id is UNIQUE per audit row on purpose. app.audit_events has a
+  // UNIQUE(request_id, reason_code) partial index; the previous version reused
+  // the request's idempotency key across every audit site, so a second event
+  // with the same reason_code in one request (e.g. a derive failure AND a
+  // capture-quality technical failure) collided on that index and was silently
+  // dropped -- while still returning a fabricated incident_id. Worse, that key
+  // came from the unauthenticated phone leg, so a caller could pin it to
+  // suppress its own subsequent error logs. A server-generated per-event
+  // request_id makes both the accidental collision and the deliberate
+  // suppression impossible; the HTTP-request correlation id is preserved in
+  // metadata.correlation_id for cross-referencing.
   const { error } = await service.schema("app").from("audit_events").insert({
     audit_event_id: auditEventId,
     occurred_at: now,
@@ -260,9 +277,9 @@ async function logAuditEvent(
     action: params.action,
     object_type: params.objectType,
     object_id: params.objectId,
-    request_id: params.requestId,
+    request_id: auditEventId,
     reason_code: params.reasonCode,
-    metadata: params.metadata,
+    metadata: { ...params.metadata, correlation_id: params.requestId },
     event_sha256: await sha256Hex(
       JSON.stringify({
         action: params.action,
@@ -273,8 +290,13 @@ async function logAuditEvent(
     created_at: now,
   });
   // Audit failure must not take down the capture path, but it must not be
-  // silent either -- the function log is the last resort.
-  if (error) console.error("capture_pairing_audit_failed", error.message);
+  // silent either -- the function log is the last resort. Return null rather
+  // than a fabricated id so a caller never hands the student an incident_id
+  // that points at no row.
+  if (error) {
+    console.error("capture_pairing_audit_failed", error.message);
+    return null;
+  }
   return auditEventId;
 }
 
@@ -500,7 +522,24 @@ function mapClaimError(message: string | undefined) {
 /* Handler                                                                    */
 /* -------------------------------------------------------------------------- */
 
-Deno.serve(async (req) => {
+// Seams the handler-level tests inject. All default to the real
+// implementations, so production behaviour is unchanged when `deps` is omitted.
+export interface CapturePairingDeps {
+  service?: Service;
+  requireProfile?: typeof requireProfile;
+  runQualityCheck?: typeof runCaptureQualityCheck;
+}
+
+// Exported so the request-handling logic (auth, operation routing, the
+// single-use/quality/consume sequence) can be exercised by index_test.ts with
+// a synthetic Request and an injected service client, rather than only through
+// its pure helpers. `Deno.serve` wires it up at the bottom of the file.
+export async function handleCapturePairing(
+  req: Request,
+  deps: CapturePairingDeps = {},
+): Promise<Response> {
+  const authenticate = deps.requireProfile ?? requireProfile;
+  const runQuality = deps.runQualityCheck ?? runCaptureQualityCheck;
   const respond = (body: unknown, init: ResponseInit = {}) =>
     jsonResponse(body, init, req);
 
@@ -528,14 +567,14 @@ Deno.serve(async (req) => {
     b.idempotency_key ?? b.idempotencyKey ?? b.request_id ?? b.requestId,
   ) ?? crypto.randomUUID();
 
-  const service = createServiceClient();
+  const service = deps.service ?? createServiceClient();
 
   try {
     /* ---------------------------------------------------------------- */
     /* Authenticated leg -- the student's own primary device            */
     /* ---------------------------------------------------------------- */
     if (isAuthed) {
-      const profileResult = await requireProfile(req);
+      const profileResult = await authenticate(req);
       if (!profileResult) {
         return respond({ error: "unauthorized" }, { status: 401 });
       }
@@ -886,6 +925,15 @@ Deno.serve(async (req) => {
         return respond({ error: mapped.code }, { status: mapped.status });
       }
       const row = claimed;
+      // A capability that expired or exhausted its attempts ON this call now
+      // commits that terminal state and is RETURNED (not raised), so the
+      // bookkeeping survives. Detect it by the returned state.
+      if (row.state === "expired") {
+        return respond({ error: "pairing_expired" }, { status: 409 });
+      }
+      if (row.state === "rejected") {
+        return respond({ error: "pairing_attempts_exhausted" }, { status: 409 });
+      }
 
       const writable = await assertAttemptStillWritable(service, row);
       if (!writable.ok) {
@@ -1020,6 +1068,41 @@ Deno.serve(async (req) => {
       return respond({ error: "invalid_storage_path" }, { status: 400 });
     }
 
+    // Idempotent replay of an already-processed upload. This exact object was
+    // already validated, bound, quality-checked, and recorded against this
+    // capability, so re-binding it or spending another paid quality call on it
+    // is pure waste -- and, left unguarded, a loop of re-POSTing the same path
+    // is an unbounded paid-call channel. A genuine retake uses a NEW object
+    // path (create_capture_upload increments the attempt and rebuilds the
+    // path), so it does not match here and is processed fresh. Bounded overall
+    // by the redemption budget, which caps the number of distinct valid paths.
+    if (
+      row.bound_attachment_id &&
+      row.upload_storage_path === declaredStoragePath
+    ) {
+      return respond({
+        status: "ok",
+        function: "capture-pairing",
+        operation,
+        result: {
+          attachment_id: row.bound_attachment_id,
+          derived_attachment_id: null,
+          capture_quality_state: row.capture_quality_state,
+          failure_class: row.failure_class,
+          retake_guidance: row.failure_class === "image_quality"
+            ? GENERIC_RETAKE_GUIDANCE
+            : null,
+          technical_message: row.failure_class === "technical"
+            ? TECHNICAL_FAILURE_GUIDANCE
+            : null,
+          // The original incident (if any) was logged on the first submit;
+          // a replay does not mint a new one.
+          incident_id: null,
+          pairing: publicPairingView(row),
+        },
+      });
+    }
+
     const writable = await assertAttemptStillWritable(service, row);
     if (!writable.ok) {
       return respond({ error: writable.code }, { status: writable.status });
@@ -1060,31 +1143,6 @@ Deno.serve(async (req) => {
       service,
       declaredStoragePath,
     );
-
-    // Capture-quality check. Runs BEFORE the bind so a slow model call can
-    // never leave a half-written attachment, and its outcome only ever
-    // annotates the row -- it never blocks preservation of the image.
-    const qualityOutcome: CaptureQualityOutcome = await runCaptureQualityCheck({
-      bytes,
-      mediaType: validation.mediaType,
-      apiKey: CAPTURE_QUALITY_API_KEY,
-      modelId: CAPTURE_QUALITY_MODEL,
-      timeoutMs: CAPTURE_QUALITY_TIMEOUT_MS,
-      reserveCost: async () => {
-        if (CAPTURE_QUALITY_DAILY_CAP_USD <= 0) return false;
-        const { data } = await service.schema("app").rpc(
-          "reserve_model_usage",
-          {
-            p_request_id: `capture_quality:${row.id}:${row.redemption_attempts}`,
-            p_request_hash: validation.sha256,
-            p_model_id: CAPTURE_QUALITY_MODEL,
-            p_reserved_cost_usd: CAPTURE_QUALITY_RESERVED_COST_USD,
-            p_cap_usd: CAPTURE_QUALITY_DAILY_CAP_USD,
-          },
-        );
-        return Boolean(data);
-      },
-    });
 
     // Fast-fail an obviously invalid retake before the DB write. Not relied
     // on for correctness: bind_response_attachment re-derives and enforces
@@ -1176,6 +1234,64 @@ Deno.serve(async (req) => {
       }, { status: mapped.status });
     }
 
+    // Capture-quality check runs AFTER the bind, not before. The bind is the
+    // point of no return -- and the point after which a repeat submit of the
+    // same object short-circuits as a replay above -- so gating the paid model
+    // call on a successful bind means a pre-bind failure (a bogus retake
+    // target, a changed object, a lineage conflict) can never drive a paid
+    // call. The check only annotates the already-preserved attachment; it never
+    // blocks preservation.
+    const qualityRequestId =
+      `capture_quality:${row.id}:${row.redemption_attempts}`;
+    const qualityOutcome: CaptureQualityOutcome = await runQuality({
+      bytes,
+      mediaType: validation.mediaType,
+      apiKey: CAPTURE_QUALITY_API_KEY,
+      modelId: CAPTURE_QUALITY_MODEL,
+      timeoutMs: CAPTURE_QUALITY_TIMEOUT_MS,
+      reserveCost: async () => {
+        if (CAPTURE_QUALITY_DAILY_CAP_USD <= 0) return false;
+        const { data } = await service.schema("app").rpc(
+          "reserve_model_usage",
+          {
+            p_request_id: qualityRequestId,
+            p_request_hash: validation.sha256,
+            p_model_id: CAPTURE_QUALITY_MODEL,
+            p_reserved_cost_usd: CAPTURE_QUALITY_RESERVED_COST_USD,
+            p_cap_usd: CAPTURE_QUALITY_DAILY_CAP_USD,
+          },
+        );
+        return Boolean(data);
+      },
+    });
+    // Release the reservation on every path where one was actually taken.
+    // `unavailable` means reserveCost returned false (cap unset or reached) --
+    // no ledger row exists, nothing to complete. `assessed` and
+    // `technical_failure` both mean the model was called under a reservation,
+    // which MUST be reconciled or it leaks against the SHARED daily cap and
+    // eventually makes evaluate-attempt falsely reject unrelated students.
+    // (evaluate-attempt releases the same way, in a finally.) Best-effort: a
+    // completion failure must not fail an upload that already bound.
+    if (qualityOutcome.kind !== "unavailable") {
+      const { error: completeError } = await service.schema("app").rpc(
+        "complete_model_usage",
+        {
+          p_request_id: qualityRequestId,
+          p_request_hash: validation.sha256,
+          p_status: "completed",
+          p_actual_cost_usd: CAPTURE_QUALITY_RESERVED_COST_USD,
+          p_input_tokens: null,
+          p_output_tokens: null,
+        },
+      );
+      if (completeError) {
+        console.error(
+          "capture_pairing_reservation_release_failed",
+          completeError.message,
+        );
+      }
+    }
+
     /* ---- Derived, metadata-stripped copy (never overwrites the raw) ---- */
     // The original above is bound first and left byte-for-byte untouched,
     // including its EXIF: Stage D2 requires the immutable original be
@@ -1265,13 +1381,20 @@ Deno.serve(async (req) => {
       if (!updateError) {
         captureQualityState = qualityOutcome.captureQualityState;
       }
-      if (qualityOutcome.disposition !== "ACCEPT") {
+      if (qualityOutcome.disposition === "RETAKE") {
         // DECISION-0051: image-quality failure -> generic retake guidance.
         // The specific failing labels are audited below but deliberately
         // NOT sent to the student.
         failureClass = "image_quality";
         studentMessage = GENERIC_RETAKE_GUIDANCE;
       }
+      // disposition === "HUMAN_REVIEW" -> capture_quality_state 'indeterminate'
+      // with failure_class left null: the photo was preserved and MIGHT be
+      // fine (an uncertain label, or a possible incidental identifier), so it
+      // is neither blamed on the student as a bad photo (image_quality) nor
+      // logged as our bug (technical). The primary device shows a blameless
+      // "we couldn't check this -- continue or retake" screen, kept distinct
+      // from the 'technical' screen precisely because failure_class differs.
       await appendProvenanceEvent(service, row, {
         eventType: "QUALITY_RECORDED",
         actor: "SYSTEM",
@@ -1337,28 +1460,46 @@ Deno.serve(async (req) => {
     // attachment keeps 'pending', and nothing is shown to the student. Not
     // a bug and not a retake.
 
-    /* ---- Single-use consumption (compare-and-set) ---- */
-    const { data: consumed, error: consumeError } = await service.schema("app")
-      .rpc("consume_capture_pairing", {
+    /* ---- Finalise: consume a clean capture, or keep it open for retake ---- */
+    // A retake-eligible outcome (the photo failed the quality check, or could
+    // not be judged) must NOT consume the capability. The blurry-photo dead end
+    // DECISION-0051 exists to prevent came from consuming unconditionally: once
+    // consumed, a retake against the same QR hit "link already used" with no
+    // way forward, and PAIRING_MAX_REDEMPTION_ATTEMPTS was unreachable. So a
+    // retake-eligible capture is RECORDED (bound attachment + verdict kept,
+    // capability left live in 'uploaded'), and only a clean/accepted capture is
+    // consumed. In both cases the response version's is_submitted guard
+    // (assertAttemptStillWritable) is what ultimately stops a write after the
+    // desktop commits the answer, so leaving a capability open is safe.
+    const keepOpen = captureQualityState === "retake_required" ||
+      captureQualityState === "indeterminate";
+    const finaliseRpc = keepOpen
+      ? "record_capture_upload"
+      : "consume_capture_pairing";
+    const { data: finalised, error: finaliseError } = await service
+      .schema("app").rpc(finaliseRpc, {
         p_pairing_id: row.id,
         p_attachment_id: bound.id,
         p_capture_quality_state: captureQualityState,
+        p_failure_class: failureClass,
         p_storage_path: declaredStoragePath,
       }).single<PairingRow>();
-    if (consumeError || !consumed) {
-      // Losing this CAS means another request already consumed the
-      // capability -- i.e. a replay. The attachment bind above is
-      // idempotency-protected by the one-current-original index, so this is
-      // reported rather than compensated.
-      const mapped = mapClaimError(consumeError?.message);
+    if (finaliseError || !finalised) {
+      // Losing this compare-and-set means another request already consumed or
+      // cancelled the capability -- i.e. a replay/race. The attachment bind
+      // above is idempotency-protected by the one-current-original index, so
+      // this is reported rather than compensated.
+      const mapped = mapClaimError(finaliseError?.message);
       return respond({
         error: mapped.code,
         failure_class: "blocked" satisfies CaptureFailureClass,
       }, { status: mapped.status });
     }
 
-    await appendProvenanceEvent(service, consumed as PairingRow, {
-      eventType: "SUBMISSION_ACCEPTED",
+    await appendProvenanceEvent(service, finalised, {
+      // A recorded-but-not-consumed capture is CAPTURE_RECORDED, not
+      // SUBMISSION_ACCEPTED: the student may still retake it.
+      eventType: keepOpen ? "CAPTURE_RECORDED" : "SUBMISSION_ACCEPTED",
       actor: "LEARNER",
       itemId: writable.itemId,
       imageId: bound.id,
@@ -1386,6 +1527,8 @@ Deno.serve(async (req) => {
         metadata_strip: metadataSummary,
         capture_quality_state: captureQualityState,
         quality_outcome_kind: qualityOutcome.kind,
+        failure_class: failureClass,
+        finalised_state: finalised.state,
       },
     });
 
@@ -1404,7 +1547,7 @@ Deno.serve(async (req) => {
         retake_guidance: failureClass === "image_quality" ? studentMessage : null,
         technical_message: failureClass === "technical" ? studentMessage : null,
         incident_id: incidentId,
-        pairing: publicPairingView(consumed as PairingRow),
+        pairing: publicPairingView(finalised),
       },
     });
   } catch (error) {
@@ -1417,4 +1560,6 @@ Deno.serve(async (req) => {
       failure_class: "technical" satisfies CaptureFailureClass,
     }, { status: 500 });
   }
-});
+}
+
+Deno.serve((req) => handleCapturePairing(req));

@@ -89,6 +89,12 @@ create table app.capture_pairing_tokens (
   bound_attachment_id uuid references app.response_attachments(id),
   capture_quality_state text
     check (capture_quality_state is null or capture_quality_state in ('pending', 'acceptable', 'retake_required', 'indeterminate')),
+  -- DECISION-0051 failure split, persisted so the primary device (which only
+  -- ever sees `pairing_status`, never the phone's submit response) can tell an
+  -- image-quality retake apart from a broken-checker technical failure. Null
+  -- until a submit records a verdict; null again means "no problem to report".
+  failure_class text
+    check (failure_class is null or failure_class in ('image_quality', 'technical', 'blocked')),
 
   created_at timestamptz not null default now(),
   paired_at timestamptz,
@@ -190,6 +196,15 @@ comment on table app.capture_pairing_events is
 create index capture_pairing_events_pairing_idx
   on app.capture_pairing_events (pairing_id, sequence);
 
+-- Append-only means "never rewritten", enforced on UPDATE. It deliberately
+-- does NOT fire on DELETE: a row-level BEFORE DELETE trigger also fires for
+-- referential-action (ON DELETE CASCADE) deletes, so blocking DELETE here
+-- would make the `pairing_id ... on delete cascade` below unreachable and, in
+-- turn, make any attempt / learning session / response version that ever used
+-- QR capture undeletable (a data-retention / erasure trap). Direct deletes are
+-- instead prevented by privilege: no role is granted DELETE (below), while a
+-- parent cascade -- performed as the table owner, not the caller -- still
+-- cleans these child rows up as intended.
 create function app.capture_pairing_events_guard_append_only()
 returns trigger
 language plpgsql
@@ -201,11 +216,14 @@ end;
 $$;
 
 create trigger capture_pairing_events_guard_append_only
-  before update or delete on app.capture_pairing_events
+  before update on app.capture_pairing_events
   for each row execute function app.capture_pairing_events_guard_append_only();
 
 alter table app.capture_pairing_events enable row level security;
 grant select, insert on table app.capture_pairing_events to service_role;
+-- Belt and braces on top of "no DELETE grant": make the absence explicit so a
+-- future blanket GRANT cannot silently re-open direct deletes of history.
+revoke delete, truncate on table app.capture_pairing_events from service_role;
 
 -- ---------------------------------------------------------------------------
 -- Atomic redemption claim.
@@ -243,6 +261,7 @@ begin
       message = 'capture_pairing:not_found';
   end if;
 
+  -- Already-terminal capabilities: nothing to record, so raise directly.
   if v_row.state = 'consumed' then
     raise exception using errcode = 'P0001',
       message = 'capture_pairing:already_used';
@@ -255,20 +274,30 @@ begin
     raise exception using errcode = 'P0001',
       message = 'capture_pairing:rejected';
   end if;
-  if v_row.state = 'expired' or v_row.expires_at <= now() then
-    -- Record the expiry rather than leaving a live-looking row behind.
-    update app.capture_pairing_tokens
-      set state = 'expired', closed_at = coalesce(closed_at, now())
-      where id = v_row.id;
+  if v_row.state = 'expired' then
     raise exception using errcode = 'P0001',
       message = 'capture_pairing:expired';
+  end if;
+
+  -- Just-now-terminal transitions COMMIT their bookkeeping by RETURNING the
+  -- updated row rather than raising. A `RAISE` here would abort the function's
+  -- own transaction and roll the UPDATE back -- the original defect, which
+  -- made `state = 'rejected'` unreachable dead code and the "record the
+  -- expiry" comment false. The caller distinguishes these from a live claim by
+  -- inspecting the returned `state` (a live claim returns 'paired'/'uploaded').
+  if v_row.expires_at <= now() then
+    update app.capture_pairing_tokens
+      set state = 'expired', closed_at = coalesce(closed_at, now())
+      where id = v_row.id
+      returning * into v_row;
+    return v_row;
   end if;
   if v_row.redemption_attempts >= p_max_attempts then
     update app.capture_pairing_tokens
       set state = 'rejected', closed_at = coalesce(closed_at, now())
-      where id = v_row.id;
-    raise exception using errcode = 'P0001',
-      message = 'capture_pairing:attempts_exhausted';
+      where id = v_row.id
+      returning * into v_row;
+    return v_row;
   end if;
 
   update app.capture_pairing_tokens
@@ -284,19 +313,23 @@ end;
 $$;
 
 comment on function app.claim_capture_pairing_upload(text, integer, text) is
-  'Atomically validates a capture capability (existence, state, expiry, attempt budget) under a row lock and consumes one redemption attempt. Raises capture_pairing:<reason> on refusal. This is the authoritative replay/rate-limit check; the JS equivalents in _shared/capture-pairing.ts are a fast path only.';
+  'Atomically validates a capture capability (existence, state, expiry, attempt budget) under a row lock and consumes one redemption attempt. Raises capture_pairing:<reason> for an already-terminal or missing capability; for a capability that expires or exhausts its attempts on THIS call it commits the terminal state and RETURNS the row (state=expired/rejected) so the bookkeeping is not rolled back. A live claim returns state paired/uploaded. This is the authoritative replay/rate-limit check; the JS equivalents in _shared/capture-pairing.ts are a fast path only.';
 
 -- ---------------------------------------------------------------------------
 -- Single-use consumption.
 --
 -- The compare-and-set that makes a capability single-use: only a row still
 -- in 'paired'/'uploaded' can become 'consumed', so a second submit for the
--- same capability updates zero rows and is reported as a replay.
+-- same capability updates zero rows and is reported as a replay. Used only for
+-- a FINAL capture (an accepted photo, or one whose quality could not be
+-- checked): a retake-eligible outcome takes app.record_capture_upload instead,
+-- which records the bound attachment without closing the capability.
 -- ---------------------------------------------------------------------------
 create function app.consume_capture_pairing(
   p_pairing_id uuid,
   p_attachment_id uuid,
   p_capture_quality_state text,
+  p_failure_class text,
   p_storage_path text
 )
 returns app.capture_pairing_tokens
@@ -314,6 +347,54 @@ begin
         uploaded_at = coalesce(uploaded_at, now()),
         bound_attachment_id = p_attachment_id,
         capture_quality_state = p_capture_quality_state,
+        failure_class = p_failure_class,
+        upload_storage_path = p_storage_path
+    where id = p_pairing_id
+      and state in ('paired', 'uploaded')
+    returning * into v_row;
+
+  if v_row.id is null then
+    raise exception using errcode = 'P0001',
+      message = 'capture_pairing:not_consumable';
+  end if;
+  return v_row;
+end;
+$$;
+
+-- ---------------------------------------------------------------------------
+-- Retake-eligible upload record (the fix for the "blurry photo dead-ends"
+-- defect DECISION-0051 exists to prevent).
+--
+-- A photo that failed the quality check (retake_required) or could not be
+-- judged (indeterminate) must NOT consume the capability: the student has to
+-- be able to retake against the same QR without re-minting. This records the
+-- bound attachment and the verdict, moves the capability to the live
+-- 'uploaded' state (still claimable, so another create_capture_upload can
+-- issue the next attempt until the redemption budget is spent), and leaves it
+-- open. The same compare-and-set guard as consume protects it against a
+-- concurrent consume/cancel.
+-- ---------------------------------------------------------------------------
+create function app.record_capture_upload(
+  p_pairing_id uuid,
+  p_attachment_id uuid,
+  p_capture_quality_state text,
+  p_failure_class text,
+  p_storage_path text
+)
+returns app.capture_pairing_tokens
+language plpgsql
+security definer
+set search_path = 'app', 'public'
+as $$
+declare
+  v_row app.capture_pairing_tokens;
+begin
+  update app.capture_pairing_tokens
+    set state = 'uploaded',
+        uploaded_at = coalesce(uploaded_at, now()),
+        bound_attachment_id = p_attachment_id,
+        capture_quality_state = p_capture_quality_state,
+        failure_class = p_failure_class,
         upload_storage_path = p_storage_path
     where id = p_pairing_id
       and state in ('paired', 'uploaded')
@@ -366,10 +447,12 @@ end;
 $$;
 
 revoke all on function app.claim_capture_pairing_upload(text, integer, text) from public;
-revoke all on function app.consume_capture_pairing(uuid, uuid, text, text) from public;
+revoke all on function app.consume_capture_pairing(uuid, uuid, text, text, text) from public;
+revoke all on function app.record_capture_upload(uuid, uuid, text, text, text) from public;
 revoke all on function app.expire_capture_pairing_tokens(integer) from public;
 grant execute on function app.claim_capture_pairing_upload(text, integer, text) to service_role;
-grant execute on function app.consume_capture_pairing(uuid, uuid, text, text) to service_role;
+grant execute on function app.consume_capture_pairing(uuid, uuid, text, text, text) to service_role;
+grant execute on function app.record_capture_upload(uuid, uuid, text, text, text) to service_role;
 grant execute on function app.expire_capture_pairing_tokens(integer) to service_role;
 
 commit;
