@@ -148,10 +148,25 @@ human-reader-certification step remains.
    doc) / frontend `668a2cd`. Tests: 260 `_shared` + 30 handler = 290 pass; 232 vitest; deno
    check/lint + tsc/build clean. Discipline re-verified: neither pass-2 commit on any remote; live
    Prod shows 0 of the two capture migrations applied and 0 capture functions present. Detail:
-   `QR_MVP_REWORK_ROUND2_2026_08_20.md`. **Next step: a Round-4 independent QA of `5ce92ec` /
-   `668a2cd` (prompt: `prompts/CLAUDE_TASK0016_PHASE_D2_QR_CAPTURE_INDEPENDENT_QA_ROUND4_2026_08_20.md`);
-   this feature has now held for two consecutive independent reviews, so do not self-certify.**
-   Still an engineering gate, not a product decision.
+   `QR_MVP_REWORK_ROUND2_2026_08_20.md`. **Round 4 QA complete (2026-08-20): HOLD, one blocking
+   item, narrowly scoped (3 files) — very close.** 8 of 9 claimed fixes confirmed genuinely fixed.
+   **N7 (the shared-function guard, this round's highest-risk change) is not safe as written: B1**
+   — the new guard's lock acquisition order (response_versions, then attempts) is inverted against
+   the already-deployed `submit_response` (attempts, then response_versions), a real deadlock
+   empirically confirmed via `EXPLAIN` on Dev — if the victim is `submit_response`, a capture-
+   feature bug can make the student's actual answer submission fail. **S1** — the new error code
+   is mapped in the new function's caller but not in the already-deployed `attempt-response`'s
+   error handler, so applying the migration alone would silently change live `attach_capture`
+   behavior with no accompanying fix. Both fixes are small (lock-order swap; two new error-code
+   cases), not a redesign. Also: S2/S3 (N3's new failure path misclassifies legitimate refusals as
+   bugs, and a lost-response retry can loop the student on an error for an answer that actually
+   submitted) and several lower-severity items. Deployment discipline reconfirmed clean, including
+   confirming live `bind_response_attachment` is still byte-identical (matching `md5`) on both
+   projects. Full findings: `QR_MVP_QA_REVIEW_ROUND4_2026_08_20.md`. **Next step: a small rework
+   pass 3 (B1 + S1 must-fix, S2/S3 recommended), prompt
+   `prompts/CLAUDE_TASK0016_PHASE_D2_QR_CAPTURE_REWORK_ROUND3_2026_08_20.md`, then Round 5 QA.**
+   Still an engineering gate, not a product decision. This feature has now held for three
+   consecutive independent reviews — each closer than the last; do not self-certify.
 
 ## Decisions needed from the Product Owner
 
