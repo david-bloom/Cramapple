@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Stage D2 QR Capture Reworked: An Independent Re-Review Found the Rework Had Never Actually Been Done (Branches Byte-Identical to the Failed Commits), So It Was Both Re-Verified From Scratch and Then Executed — All 15 Round-1 QA Findings Fixed, 282 Backend + 230 Frontend Tests Green, Nothing Merged/Deployed/Applied, a Fresh Round-3 QA Prompt Written — 2026-08-20
 - Session Closeout (2026-08-19): TASK-0016 Phase D Stages D0/D1 Executed for the First Time, DECISION-0050 Retires the Dual-Human Gold Bar, DECISION-0051 Settles QR-vs-Direct-Upload, Stage D2's QR Capture Build Fails Independent QA (6 Blocking Findings, Hold for Rework) — 2026-08-19
 - Session Closeout (2026-08-19): AP Statistics Gets Its First Hand-Drawn Grading Accuracy Measurement, Scaled to All 28 Real Photos That Exist — Two Reproducible Model Defects Found, One Partially Fixed and Folded Into Engine 4's Production Design as Standing Guidance — 2026-08-19
 - Hand-Drawn Capture Set to Become an Added Submission Option for All 36 Existing Typed-Math Calculus FRQs (DECISION-0049), Graded via the Same Criteria as Typed Answers Through an OCR-Transcription Step — Connected to a Same-Day OCR Probe Showing Promising Handwritten-Equation Transcription — 2026-08-18
@@ -126,6 +127,75 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## Stage D2 QR Capture Rework: Re-Verified From Scratch, Then All 15 QA Findings Fixed — 2026-08-20
+
+**Task:** TASK-0016 Phase D Stage D2 (QR hand-drawn capture MVP). Continuation of the 2026-08-19
+closeout, whose next required action was "(1) fix Stage D2's blocking QA findings, then (2) run a
+fresh independent QA before considering it mergeable."
+
+**Correction worth recording as its own lesson.** This session was launched to run step (2) — a
+Round-2 *re-review* of a rework a prior session was said to have performed. It didn't exist. An
+independent check found both branches byte-identical to the failed-QA commits (`768b1bb` backend /
+`6dd89ff` frontend): each branch's reflog held a single commit, no dangling commits touched the
+feature, nothing was on any remote, and the pointer docs themselves never claimed the rework was
+done — only the Round-2 prompt assumed it. **Lesson:** verify the premise of a re-review before
+performing it; a prompt asserting "fixes have landed" is a claim to check against git, not a fact.
+Only after establishing this — and re-deriving all 6 blocking findings against the actual current
+code (concrete citations, not the prior review's snapshot) — was the rework itself executed, at the
+owner's direction ("Fix the six original findings, finding 7, 8 and 15" → then "Knock out 9-14").
+
+**The rework — all 15 Round-1 findings addressed.** Blocking: retake-eligible captures now RECORD
+(new `record_capture_upload`, capability left live in `uploaded`) instead of consuming, so an
+in-place retake works and the redemption budget is reachable (F1); Cancel re-mints a fresh QR (F2);
+the paid capture-quality call moved AFTER the bind, `complete_model_usage` releases the reservation
+on every path, and a same-path idempotency short-circuit bounds paid calls — closing the shared-cap
+leak that could break `evaluate-attempt` for uninvolved students (F3/F4); `logAuditEvent` uses a
+server-unique `request_id` and returns null on failure — no collision, no phone-driven suppression,
+no fabricated `incident_id` (F5); `claim_capture_pairing_upload` COMMITs its terminal transitions by
+returning instead of UPDATE-then-RAISE, making `state='rejected'` reachable (F6). Non-blocking: the
+append-only guard is UPDATE-only so parent cascades (attempt/session/response-version → token →
+events) succeed, closing an erasure trap (F7); a `failure_class` column is surfaced through
+`pairing_status` and the desktop keys on it with a distinct blameless screen, ending the
+technical-vs-ambiguous conflation (F8); a synchronous `committedRef` double-submit guard (F9); a
+retryable HEIC `unsupported_file` screen (F10); provenance `sequence` assigned under a parent-row
+lock via new `append_capture_pairing_event` (F11); auto-supersede fails closed for a non-default
+slot (F12); the bind/consume race returns the accurate terminal reason + audit with a self-healing
+orphan (F13); `describe_capture` advances issued→paired for "phone connected" (F14); and a new
+`capture-pairing/index_test.ts` drives the exported handler through an in-memory fake — the
+request-handling coverage Round-1's F15 said was missing (F15).
+
+**Verification.** Backend `deno test`: 260 `_shared` + 22 handler = 282 pass / 0 fail; `deno check`
+and `deno lint` clean. Frontend `vitest`: 230 pass; `tsc --noEmit` and `vite build` clean. Migration
+structure sanity-checked (balanced transaction, all callable functions granted) but NOT executed.
+
+**Commits (branches only — deliberately NOT on `main`).** Backend
+`worktree-agent-ac9429c5f676cfd4f` @ `c45b838` (findings 1-8,15 in `2dcaf95`; 9-14 in `c45b838`),
+on top of `768b1bb`. Frontend `phase-d2-qr-capture-rebuild` @ `b01d3b0` (findings 2,8 in `7bab9aa`;
+9,10 in `b01d3b0`), on top of `6dd89ff`, in `exam-buddy-wireframe`.
+
+**Deployment/mutation discipline, re-verified independently:** neither rework commit is on any
+remote (`git branch -r --contains` → 0 for both); migration `20260819120000_capture_pairing` is
+applied to neither Development (`wmgjsdkphcyhngaffbqf`) nor Production (`pcntajvbdfqhbeewmdry`) —
+confirmed via the Supabase migration lists, both still ending at `20260818…response_attachments_fixes`;
+no `capture-pairing` edge function exists on either project (Supabase function lists). Nothing was
+merged, pushed, deployed, or applied.
+
+**Documentation committed to `main` this session:** the rework record
+`QR_MVP_REWORK_2026_08_20.md` (per-finding, with file/function citations and test coverage);
+`CURRENT_STATE.md` and `DECISIONS_AND_BLOCKERS.md` item 8 updated to point at the reworked commits
+and the "awaiting fresh QA" state; and a Round-3 independent-QA prompt
+`prompts/CLAUDE_TASK0016_PHASE_D2_QR_CAPTURE_INDEPENDENT_QA_ROUND3_2026_08_20.md` that reviews the
+reworked branches and specifically re-reviews the new code the rework introduced (new RPCs, the
+reordered flow, the keep-open lifecycle, the unauthenticated describe→paired transition, and the
+fidelity of the new test fake).
+
+**Next Owner:** David Bloom, next session.
+**Next Required Action:** run the Round-3 independent QA (the prompt above) against `c45b838` /
+`b01d3b0` before considering the rework mergeable — do not trust this session's account of its own
+fixes.
 
 ---
 

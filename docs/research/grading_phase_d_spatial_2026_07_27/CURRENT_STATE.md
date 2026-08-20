@@ -261,6 +261,29 @@ NOT reintroduced. The defects are concentrated in lifecycle edges and the two-ca
 protocol, not the security architecture — fixable without a redesign, per the reviewer.
 Neither branch has been merged, pushed, or deployed.
 
+**Reworked 2026-08-20 — awaiting a fresh independent QA.** The next session first re-verified,
+independently, that no rework had been done (the branches were byte-identical to the failed
+commits `768b1bb`/`6dd89ff`), then re-ran the full Round-1 checklist against the actual code and
+executed the rework: **all 15 findings addressed.** Blocking: retake-eligible captures now RECORD
+(new `record_capture_upload`, capability left live in `uploaded`) instead of consuming, so in-place
+retake works (F1); Cancel re-mints a fresh QR (F2); the paid quality call moved AFTER the bind,
+`complete_model_usage` releases the reservation on every path, and a same-path idempotency
+short-circuit bounds paid calls (F3/F4); `logAuditEvent` uses a server-unique `request_id` and
+returns null on failure — no collision, no phone-driven suppression, no fabricated `incident_id`
+(F5); the claim function RETURNS its terminal transitions instead of UPDATE-then-RAISE (F6).
+Non-blocking: `ON DELETE CASCADE` reachable (guard is UPDATE-only) (F7); `failure_class` surfaced
+through `pairing_status`, desktop keys on it with a distinct blameless screen (F8); synchronous
+double-submit guard (F9); retryable HEIC screen (F10); provenance `sequence` assigned under a
+parent-row lock via `append_capture_pairing_event` (F11); auto-supersede fails closed for a
+non-default slot (F12); finalize-race returns the accurate reason + audit, orphan self-heals (F13);
+`describe_capture` advances issued→paired for "phone connected" (F14); new
+`capture-pairing/index_test.ts` covers the endpoint (F15). Backend
+`worktree-agent-ac9429c5f676cfd4f` @ `c45b838` (260 `_shared` + 22 handler tests, check/lint
+clean); frontend `phase-d2-qr-capture-rebuild` @ `b01d3b0` (230 vitest, tsc/build clean).
+**Still not merged, pushed, or deployed; migration still applied to neither Dev nor Prod.** Rework
+detail: `QR_MVP_REWORK_2026_08_20.md`. The reworked branches need a fresh independent QA before
+merge — prompt: `prompts/CLAUDE_TASK0016_PHASE_D2_QR_CAPTURE_INDEPENDENT_QA_ROUND3_2026_08_20.md`.
+
 D3/D4/D5 status mapped against
 existing evidence — see `D3_D4_D5_STATUS.md`. Summary: D3 is method-satisfied (DECISION-0050) but
 volume- and reader-time-blocked, neither closeable by an AI agent; D4/D5 are substantially

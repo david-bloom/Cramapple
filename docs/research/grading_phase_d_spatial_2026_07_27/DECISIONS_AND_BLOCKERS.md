@@ -108,15 +108,23 @@ human-reader-certification step remains.
    `docs/research/hand_drawn_graph_real_photo_benchmark_2026_08_18/plot_values_fix_v2_2026_08_19/`.
    ($1.12 spend, neither gold nor DECISION-0045 outputs modified, nothing deployed.)
 
-8. **Stage D2's QR capture build (`768b1bb` backend / `6dd89ff` frontend) failed independent QA —
-   hold for rework, not merge.** 6 blocking findings, all confirmed: the blurry-photo retake path
-   is a dead end (the exact case DECISION-0051 exists to guarantee), Cancel strands the desktop
-   permanently, and a capture-quality-check budget leak can break `evaluate-attempt` for students
-   who never used capture. Full findings and the suggested fix gate:
-   `QR_MVP_QA_REVIEW_2026_08_19.md`. Trust boundary/security architecture verified sound —
-   defects are in lifecycle edges, fixable without redesign. Neither branch merged, pushed, or
-   deployed. **Next step is a rework pass against the 6 blocking findings, then re-review** —
-   not a product decision, an engineering one.
+8. **Stage D2's QR capture build failed independent QA (`768b1bb`/`6dd89ff`), was REWORKED
+   2026-08-20 (`c45b838` backend / `b01d3b0` frontend), and now awaits a fresh independent QA
+   before merge.** Round 1 (2026-08-19, `QR_MVP_QA_REVIEW_2026_08_19.md`): 6 blocking findings +
+   8 serious-non-blocking + several lower-severity, verdict HOLD FOR REWORK; trust
+   boundary/security architecture verified sound, defects in lifecycle edges. The next session
+   (2026-08-20) first re-verified — independently — that no rework had actually been done (the
+   branches were byte-identical to the failed commits), then executed the rework: **all findings
+   1-15 addressed.** Backend branch `worktree-agent-ac9429c5f676cfd4f` @ `c45b838`, frontend
+   branch `phase-d2-qr-capture-rebuild` @ `b01d3b0`. Tests: backend 260 `_shared` + 22 handler
+   (new `capture-pairing/index_test.ts` covers the endpoint), frontend 230 vitest; deno
+   check/lint + tsc/build clean. **Neither rework commit is on any remote; migration
+   `20260819120000_capture_pairing` still applied to neither Dev nor Prod; no `capture-pairing`
+   edge function deployed.** Rework detail: `QR_MVP_REWORK_2026_08_20.md` (this directory).
+   **Next step is a fresh, independent QA of `c45b838`/`b01d3b0` (do not trust the rework
+   session's own account); the review prompt is
+   `prompts/CLAUDE_TASK0016_PHASE_D2_QR_CAPTURE_INDEPENDENT_QA_ROUND3_2026_08_20.md`.** Still an
+   engineering gate, not a product decision.
 
 ## Decisions needed from the Product Owner
 
