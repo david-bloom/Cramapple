@@ -30,6 +30,13 @@ fallback; System A's frontend gets rewired onto System B's already-working
 `capture_sessions`/`capture-research` objects. New guidance: image-quality capture failures get
 generic retake copy, technical failures get bug-logged. See `DECISIONS_AND_BLOCKERS.md` items 1-2.
 
+**Updated 2026-08-20 — STAGE D2 SHIPPED.** After the S-1 fix and 5 rounds of independent QA, the
+owner authorized the full deployment sequence. Both migrations and both edge functions
+(`capture-pairing`, `attempt-response`) are now live on Development and Production; both `main`
+branches (backend `4b3527c`, frontend `320ea3f`) are pushed; the Lovable frontend is published and
+`cramapple.com` verified live and healthy. Full deployment record: `DECISIONS_AND_BLOCKERS.md`
+item 8. This is the first Stage D2 traffic ever to reach a real deploy.
+
 **Updated again, same day:** Stage D1 (freeze the spatial contracts) is now **complete** —
 `SPATIAL_CONTRACT.md`, `CROSS_SUBJECT_MAPPING.md`, and `schemas/` now exist in this directory. A
 second `PLOT_VALUES` prompt-tuning attempt was also tried and confirmed a dead end (worse than

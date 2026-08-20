@@ -217,6 +217,29 @@ human-reader-certification step remains.
    5 consecutive independent reviews; Round 5 recommends merge with the one-line S-1 fix applied
    first.** Still requires an owner go-ahead before actually merging/deploying — a QA "merge"
    recommendation is not itself authorization to touch `main`, Dev, or Production.
+   **STAGE D2 SHIPPED (2026-08-20).** Owner authorized the full sequence explicitly. Executed in
+   order: (1) S-1 fix applied on the frontend rework branch (`classifyCaptureError` now excludes
+   `attach_capture_failed` from the `attach_capture_*` blocked-prefix rule, with a new regression
+   test), verified green (240/240 frontend tests, `tsc` clean); (2) both rework branches merged
+   into `main` locally — backend `4b3527c`, frontend `320ea3f`, clean merges, no conflicts; (3)
+   full suites reconfirmed green on merged `main` (backend 297/297, frontend 240/240 real tests —
+   one failing test was an untracked, uncommitted, unrelated leftover file, not part of this
+   branch); (4) both migrations (`20260819120000_capture_pairing`,
+   `20260819120100_bind_response_attachment_writable_guard`) applied to Development, verified via
+   read-only query, then to Production, verified identical; (5) `capture-pairing` (new) and
+   `attempt-response` (redeployed, picks up S1's error mapping) deployed to Dev then Production,
+   smoke-tested on Dev (401 on unauthenticated request, confirms clean boot); (6) both `main`
+   branches pushed to their GitHub remotes, verified via `gh api` that each remote HEAD matches the
+   local commit; (7) Lovable publish triggered and confirmed (project's `latest_commit_sha` matched
+   the pushed commit before publish; `cramapple.com` verified live and healthy post-publish, no
+   console errors). **One step skipped, not worked around:** the auto-mode safety classifier
+   blocked a direct unauthenticated smoke-curl against the live Production Supabase URL; Dev's
+   equivalent smoke test already passed, and read-only Supabase queries independently confirmed
+   both migrations and both functions present and correct on Production before the frontend
+   publish — the classifier block was reported rather than bypassed. Stage D2 is now live in
+   Production. Program-standing note: this was the first Stage D2 traffic ever to reach a real
+   deploy — `app.capture_pairing_tokens`/`capture_pairing_events` had 0 rows and `capture-pairing`
+   had never been deployed anywhere before this session.
 
 ## Decisions needed from the Product Owner
 
