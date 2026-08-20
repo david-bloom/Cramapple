@@ -235,6 +235,19 @@ retryable validation failures still hitting a dead-end screen) plus 5 recommende
 detail: `QR_MVP_QA_REVIEW_ROUND3_2026_08_20.md`. See `DECISIONS_AND_BLOCKERS.md` item 8 for the
 complete disposition and next-step pointer.
 
+**Updated again 2026-08-20 — rework pass 2 executed.** All four must-fix (N1-N4) and all five
+recommended (N6, N7, N8, N11, N14) Round-3 findings addressed; N5/N9/N10/N12/N13 and the F13 orphan
+gap deferred with recorded reasoning. Notably N7 added an `is_submitted` guard INSIDE
+`bind_response_attachment` (new migration `20260819120100`) after confirming against live Prod that
+the deployed function has none, making the "open capability can't corrupt a submitted response"
+guarantee a real DB invariant rather than an edge-function race. Reworked to backend `5ce92ec` /
+frontend `668a2cd`; 290 backend + 232 frontend tests pass, check/lint/tsc/build clean; nothing
+merged, pushed, deployed, or applied (live Prod shows 0 of the two capture migrations applied, 0
+capture functions present). Detail: `QR_MVP_REWORK_ROUND2_2026_08_20.md`. **Awaiting a Round-4
+independent QA** (prompt
+`prompts/CLAUDE_TASK0016_PHASE_D2_QR_CAPTURE_INDEPENDENT_QA_ROUND4_2026_08_20.md`) — two consecutive
+independent reviews have held this, so it stays owner-gated, not self-certified.
+
 **Original Round 1 build/QA record, preserved below:** D2 (QR capture MVP) was **built and
 unit-tested** as of 2026-08-19. Backend: a new `capture-pairing` edge function bridges the
 unauthenticated, token-paired phone leg into the existing `attach_capture`/

@@ -138,9 +138,20 @@ human-reader-certification step remains.
    review in a row handed this). Deployment discipline reconfirmed clean via `gh api` (neither
    commit on any remote) and live read-only Supabase queries (migration on neither project, no
    edge function deployed to either). Full findings:
-   `QR_MVP_QA_REVIEW_ROUND3_2026_08_20.md`. **Next step: one more short rework pass against
-   N1-N4 (minimum) and N6/N7/N8/N11/N14 (recommended), then a Round 4 QA.** Still an engineering
-   gate, not a product decision.
+   `QR_MVP_QA_REVIEW_ROUND3_2026_08_20.md`. **Rework pass 2 executed (2026-08-20):** all four
+   must-fix (N1-N4) and all five recommended (N6, N7, N8, N11, N14) addressed; N5/N9/N10/N12/N13 and
+   the F13 orphan gap deferred with recorded reasoning. N7 added an `is_submitted` guard INSIDE
+   `bind_response_attachment` (new migration `20260819120100`, body copied verbatim from
+   `20260818011720` + the guard under its row lock) after confirming against live Prod that the
+   deployed function has none — the "open capability can't corrupt a submitted response" guarantee
+   is now a DB invariant for both callers. Reworked to backend `5ce92ec` (`89c6aa7` code + the N14
+   doc) / frontend `668a2cd`. Tests: 260 `_shared` + 30 handler = 290 pass; 232 vitest; deno
+   check/lint + tsc/build clean. Discipline re-verified: neither pass-2 commit on any remote; live
+   Prod shows 0 of the two capture migrations applied and 0 capture functions present. Detail:
+   `QR_MVP_REWORK_ROUND2_2026_08_20.md`. **Next step: a Round-4 independent QA of `5ce92ec` /
+   `668a2cd` (prompt: `prompts/CLAUDE_TASK0016_PHASE_D2_QR_CAPTURE_INDEPENDENT_QA_ROUND4_2026_08_20.md`);
+   this feature has now held for two consecutive independent reviews, so do not self-certify.**
+   Still an engineering gate, not a product decision.
 
 ## Decisions needed from the Product Owner
 

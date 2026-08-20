@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Stage D2 QR Capture Rework Pass 2: Round-3 Independent QA Found the (All-15-Fixed) Rework Close-But-Not-Clean — Fixed Its 4 Must-Fix + 5 Recommended Findings, Including Adding a Real `is_submitted` Guard Inside `bind_response_attachment` (Confirmed Live Prod Had None) So the "Open Capability Can't Corrupt a Submitted Response" Claim Is Now DB-Enforced; 290 Backend + 232 Frontend Tests, Nothing Merged/Deployed/Applied, Round-4 QA Prompt Written — 2026-08-20
 - Stage D2 QR Capture Reworked: An Independent Re-Review Found the Rework Had Never Actually Been Done (Branches Byte-Identical to the Failed Commits), So It Was Both Re-Verified From Scratch and Then Executed — All 15 Round-1 QA Findings Fixed, 282 Backend + 230 Frontend Tests Green, Nothing Merged/Deployed/Applied, a Fresh Round-3 QA Prompt Written — 2026-08-20
 - Session Closeout (2026-08-19): TASK-0016 Phase D Stages D0/D1 Executed for the First Time, DECISION-0050 Retires the Dual-Human Gold Bar, DECISION-0051 Settles QR-vs-Direct-Upload, Stage D2's QR Capture Build Fails Independent QA (6 Blocking Findings, Hold for Rework) — 2026-08-19
 - Session Closeout (2026-08-19): AP Statistics Gets Its First Hand-Drawn Grading Accuracy Measurement, Scaled to All 28 Real Photos That Exist — Two Reproducible Model Defects Found, One Partially Fixed and Folded Into Engine 4's Production Design as Standing Guidance — 2026-08-19
@@ -127,6 +128,70 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## Stage D2 QR Capture Rework Pass 2: Round-3 QA's 4 Must-Fix + 5 Recommended Findings Fixed — 2026-08-20
+
+**Task:** TASK-0016 Phase D Stage D2 (QR hand-drawn capture MVP). Continuation: rework pass 1 fixed
+all 15 Round-1 findings; a Round-3 independent QA then confirmed all 15 genuinely fixed but found
+the rework "close, not clean" — 4 new must-fix (two introduced by the rework itself) + 5
+recommended. This session fixed that list, at the owner's direction ("QA feedback … execute the
+scoped rework-pass-2 prompt").
+
+**What was fixed.** Must-fix: **N1** — a redemption-budget off-by-one (`evaluatePairingUsability`
+refused the submit at `>= max` while the claim gate allows `redemption_attempts` to reach `max`,
+so the 5th photo uploaded then 409'd; changed to `> max` so the two agree, `max=5` now means 5).
+**N2** — `keepOpen` was derived from whether a best-effort DB annotation write succeeded, so a
+failed write silently reinstated the F1 dead end; now derived from the quality verdict directly.
+**N3** — the F9 double-submit guard never cleared on submit failure, permanently locking every
+control; `handleCommit` now awaits `onSubmitted`, and on failure clears the guard and routes the
+error through `handleError` (`onSubmitted` returns a promise/boolean; `SessionFrame` propagates the
+`false` from a non-ok submit). **N4** — six other retryable server-side validation refusals still
+hit the buttonless screen; a `RETRYABLE_CAPTURE_CODES` set routes them to the retryable screen while
+dead-capability refusals stay on the blocked screen. Recommended: **N6** (persist
+`failure_class='technical'` on the sign-upload/bind failure paths + desktop renders the technical
+screen without a bound attachment), **N7**, **N8** (test-fake fidelity: row-locked max+1 sequence,
+F6 branch + idempotency + N7 tests), **N11** (flag an unavailable/misconfigured quality checker),
+**N14** (superseded banner + corrected counts on the stale build doc). N5/N9/N10/N12/N13 and the
+F13 orphan gap deferred with recorded reasoning.
+
+**N7 — the load-bearing one, worth recording.** Round 3 found the "an open capability can't corrupt
+an already-submitted response" guarantee was NOT database-enforced — `bind_response_attachment` had
+only lineage checks, not an `is_submitted` check, so the guarantee rested on an edge-function
+check-then-act window (a download + byte validation + storage fingerprinting + a vision call all sit
+between the check and the bind). Confirmed the same directly against **live Production** (read-only
+`pg_get_functiondef`: no `is_submitted`, no writable check). Fix: a new migration
+(`20260819120100`) `create or replace`s `bind_response_attachment` — body copied verbatim from its
+defining migration `20260818011720`, grants preserved (verified live Prod grants execute to
+`service_role` only) — adding the writability check under the function's existing row lock. This
+strengthens BOTH callers (the token-paired capture bridge and the authenticated `attach_capture`
+path), so the guarantee is now a DB invariant, not a race.
+
+**Verification.** Backend `deno test`: 260 `_shared` + 30 handler = 290 pass / 0 fail; `deno check`
++ `deno lint` clean. Frontend `vitest`: 232 pass; `tsc --noEmit` + `vite build` clean.
+
+**Commits (branches only — NOT on `main`).** Backend `worktree-agent-ac9429c5f676cfd4f` @ `5ce92ec`
+(`89c6aa7` code + `5ce92ec` the N14 doc), on top of pass-1 `c45b838`. Frontend
+`phase-d2-qr-capture-rebuild` @ `668a2cd`, on top of pass-1 `b01d3b0`.
+
+**Deployment/mutation discipline, re-verified independently:** neither pass-2 commit is on any
+remote; a live read-only Production query confirms 0 of the two capture migrations
+(`20260819120000`, `20260819120100`) applied and 0 capture functions present in `pg_proc`, and that
+live `bind_response_attachment` is unchanged (still no `is_submitted` check). Nothing merged, pushed,
+deployed, or applied.
+
+**Documentation committed to `main`:** `QR_MVP_REWORK_ROUND2_2026_08_20.md` (per-finding pass-2
+record); `CURRENT_STATE.md` and `DECISIONS_AND_BLOCKERS.md` item 8 updated; and a Round-4
+independent-QA prompt (`prompts/CLAUDE_TASK0016_PHASE_D2_QR_CAPTURE_INDEPENDENT_QA_ROUND4_2026_08_20.md`)
+that focuses the reviewer on the highest-blast-radius change (the shared `bind_response_attachment`
+modification and its effect on the authenticated `attach_capture` path). The N14 superseded banner
+is on the branch with the code it describes.
+
+**Next Owner:** David Bloom, next session.
+**Next Required Action:** run the Round-4 independent QA against `5ce92ec` / `668a2cd`. This feature
+has now held for two consecutive independent reviews — do not merge/deploy on any rework session's
+own account.
 
 ---
 
