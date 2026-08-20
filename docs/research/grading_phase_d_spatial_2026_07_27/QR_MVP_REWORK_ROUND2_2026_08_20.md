@@ -115,7 +115,9 @@ remains an owner decision, not engineering.
 ## Test summary
 
 - Backend: `deno test` — 260 `_shared` + 30 handler = **290 pass, 0 fail**; `deno check` +
-  `deno lint` clean.
+  `deno lint` clean **on the changed files**. (Corrected 2026-08-20, Round-4 QA L5: the original
+  wording read as a blanket claim. `deno lint supabase/functions/_shared/` reports 5 pre-existing
+  `no-unused-vars` problems in `math-verifier.ts`, unrelated to Stage D2 and untouched by it.)
 - Frontend: `vitest` — **232 pass**; `tsc --noEmit` + `vite build` clean.
 
 ## Next step

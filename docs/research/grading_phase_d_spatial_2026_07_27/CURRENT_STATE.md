@@ -248,6 +248,28 @@ independent QA** (prompt
 `prompts/CLAUDE_TASK0016_PHASE_D2_QR_CAPTURE_INDEPENDENT_QA_ROUND4_2026_08_20.md`) — two consecutive
 independent reviews have held this, so it stays owner-gated, not self-certified.
 
+**Updated again 2026-08-20 — Round 4 QA ran, then rework pass 3.** Round 4 verdict: **HOLD, one
+blocking item, narrowly scoped** — 8 of 9 pass-2 fixes held up, but N7's shared-function guard was
+not safe as written: **B1**, its lock acquisition order (`response_versions` then `attempts`) was
+inverted against the already-deployed `app.submit_response` (`attempts` then `response_versions`),
+a real deadlock empirically confirmed by `EXPLAIN` on Dev — and if `submit_response` were the
+victim, a capture-feature guard would be breaking core answer submission; and **S1**, the guard's
+new error code was mapped in only one of the shared function's two callers, so applying the
+migration alone would have turned a legitimate refusal into a 500 on the live `attach_capture`
+path. Detail: `QR_MVP_QA_REVIEW_ROUND4_2026_08_20.md`. **Rework pass 3 (backend `ad3cd5a`,
+frontend `7d09188`) fixed both must-fix items and all five should-fix items (S2, S3, L1, L2, L5)
+with nothing deferred.** B1's fix was re-verified the same way it was found — read-only `EXPLAIN`
+on Dev showing each new lock statement as its own single-relation `LockRows`, taken in
+`submit_response`'s order, with the unlocked attempt-id resolve planning with no `LockRows` at all.
+Tests: backend 297 pass / 0 fail (295 before), frontend 239 pass / 0 fail (was 232);
+check/lint/tsc/build clean on changed files. Nothing merged, pushed, deployed, or applied —
+re-confirmed read-only that live `bind_response_attachment` is still byte-identical on both Dev and
+Prod and that neither capture migration is in `schema_migrations` on either project. Detail:
+`QR_MVP_REWORK_ROUND3_2026_08_20.md`; disposition in `DECISIONS_AND_BLOCKERS.md` item 8.
+**Awaiting a Round-5 independent QA — this pass is explicitly not self-certified as mergeable**;
+three consecutive independent reviews have held this feature, which is the established practice
+here, not a formality.
+
 **Original Round 1 build/QA record, preserved below:** D2 (QR capture MVP) was **built and
 unit-tested** as of 2026-08-19. Backend: a new `capture-pairing` edge function bridges the
 unauthenticated, token-paired phone leg into the existing `attach_capture`/

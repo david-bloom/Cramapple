@@ -167,6 +167,44 @@ human-reader-certification step remains.
    `prompts/CLAUDE_TASK0016_PHASE_D2_QR_CAPTURE_REWORK_ROUND3_2026_08_20.md`, then Round 5 QA.**
    Still an engineering gate, not a product decision. This feature has now held for three
    consecutive independent reviews — each closer than the last; do not self-certify.
+   **Rework pass 3 executed (2026-08-20) — backend `ad3cd5a`, frontend `7d09188`.** Both must-fix
+   items and all five should-fix items addressed; nothing deferred. **B1:** the guard now takes its
+   two row locks explicitly in `submit_response`'s order — unlocked resolve of `rv.attempt_id`
+   (used only to choose which attempt row to lock), then `attempts … for update`, then
+   `response_versions … for update`, with `rv.attempt_id` re-checked under the locks so a
+   concurrent re-point can't leave the decision resting on a stale lock. Re-verified the same way
+   Round 4 found it: `EXPLAIN (verbose)` on Dev, read-only. The old joined statement plans as a
+   single `LockRows` over a Nested Loop whose OUTER side is `response_versions`
+   (`Output: … rv.ctid, a.ctid`) — the inversion, reproduced; each new statement plans as its own
+   single-relation `LockRows`, so order is now fixed by statement order, and the unlocked resolve
+   has no `LockRows` node at all. Live Prod `prosrc` confirms `submit_response`'s order (attempts
+   at offset 726, response_versions at 1745). **S1:** `response_not_writable` → 409
+   `response_already_submitted` in `attempt-response`'s `mapAttachCaptureError`, matching
+   `capture-pairing`'s `mapBindError`; `response_not_found` → 404 added to **both** callers (it fell
+   to a 500 in each). **S2:** `submitCapturedResponse` now returns `CaptureSubmitOutcome`
+   (`{ ok } | { ok, code }`) carrying the edge function's own code, so a legitimate refusal is
+   classified as `blocked` instead of hitting `classifyCaptureError`'s technical default — and the
+   codes `attempt-response`'s submit leg actually returns (`attempt_not_submittable`, `not_found`)
+   were missing from the blocked set, so they were added too; `idempotency_conflict` is
+   deliberately left technical. **S3:** the capture submit's idempotency key is now cached per
+   (attempt, response version) so a retry replays instead of double-submitting. **L1** annotation-
+   write failures now log; **L2** the two retryable codes with contradictory copy
+   (`capture_digest_mismatch`, `unsupported_media_type`) now have their own cases; **L5** the
+   "seven callable" doc claim corrected to 5 callable + 2 trigger functions, and the earlier
+   `deno lint` claim is scoped to changed files (5 pre-existing `no-unused-vars` in
+   `_shared/math-verifier.ts` are unrelated and untouched). Tests: backend 297 pass / 0 fail (295
+   on the parent commit; the capture-pairing handler suite 30 → 32), frontend 239 pass / 0 fail
+   (was 232); `deno check`/`deno lint` on changed files, `tsc --noEmit`, and `vite build` all clean.
+   Discipline re-verified read-only: `bind_response_attachment` still byte-identical
+   (`md5(prosrc)` `d7848572d06d246340d0b4a94fd892d3`) on **both** Dev and Prod, neither D2 migration
+   in `schema_migrations` on either project, neither commit pushed, nothing merged or deployed.
+   Known coverage gap carried forward: `attempt-response/index.ts` has no test file (it calls
+   `Deno.serve` at module scope and exports no handler), so S1's mapping there is verified by
+   reading + `deno check`, not by a test; and this repo's frontend test setup has no renderer, so
+   S2/S3 are pinned at the pure-function level (`classifyCaptureError`,
+   `makeCaptureSubmitKeyCache`), not through the UI — the same limitation Round 4 recorded as L7.
+   Detail: `QR_MVP_REWORK_ROUND3_2026_08_20.md`. **Next step: Round 5 independent QA — this pass is
+   explicitly NOT self-certified as mergeable.**
 
 ## Decisions needed from the Product Owner
 
