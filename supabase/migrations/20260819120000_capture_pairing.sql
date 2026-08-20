@@ -225,6 +225,44 @@ grant select, insert on table app.capture_pairing_events to service_role;
 -- future blanket GRANT cannot silently re-open direct deletes of history.
 revoke delete, truncate on table app.capture_pairing_events from service_role;
 
+-- Atomic provenance-event append.
+--
+-- Assigns `sequence` under a lock on the parent token row so two concurrent
+-- appends for the same pairing cannot compute the same next value and have one
+-- silently rejected by UNIQUE(pairing_id, sequence) and dropped from a stream
+-- that is meant to be complete. The caller builds the record with a placeholder
+-- sequence; this patches the real one into BOTH the column and the stored JSON
+-- via jsonb_set so the two never disagree.
+create function app.append_capture_pairing_event(
+  p_pairing_id uuid,
+  p_event_id uuid,
+  p_event_type text,
+  p_actor text,
+  p_occurred_at timestamptz,
+  p_event jsonb
+)
+returns integer
+language plpgsql
+security definer
+set search_path = 'app', 'public'
+as $$
+declare
+  v_seq integer;
+begin
+  -- Serialise appends for this pairing on the parent row lock.
+  perform 1 from app.capture_pairing_tokens where id = p_pairing_id for update;
+  select coalesce(max(sequence), 0) + 1 into v_seq
+    from app.capture_pairing_events where pairing_id = p_pairing_id;
+  insert into app.capture_pairing_events
+    (event_id, pairing_id, sequence, event_type, actor, occurred_at, event)
+  values (
+    p_event_id, p_pairing_id, v_seq, p_event_type, p_actor, p_occurred_at,
+    jsonb_set(p_event, '{sequence}', to_jsonb(v_seq))
+  );
+  return v_seq;
+end;
+$$;
+
 -- ---------------------------------------------------------------------------
 -- Atomic redemption claim.
 --
@@ -449,10 +487,12 @@ $$;
 revoke all on function app.claim_capture_pairing_upload(text, integer, text) from public;
 revoke all on function app.consume_capture_pairing(uuid, uuid, text, text, text) from public;
 revoke all on function app.record_capture_upload(uuid, uuid, text, text, text) from public;
+revoke all on function app.append_capture_pairing_event(uuid, uuid, text, text, timestamptz, jsonb) from public;
 revoke all on function app.expire_capture_pairing_tokens(integer) from public;
 grant execute on function app.claim_capture_pairing_upload(text, integer, text) to service_role;
 grant execute on function app.consume_capture_pairing(uuid, uuid, text, text, text) to service_role;
 grant execute on function app.record_capture_upload(uuid, uuid, text, text, text) to service_role;
+grant execute on function app.append_capture_pairing_event(uuid, uuid, text, text, timestamptz, jsonb) to service_role;
 grant execute on function app.expire_capture_pairing_tokens(integer) to service_role;
 
 commit;

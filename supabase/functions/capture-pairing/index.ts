@@ -316,17 +316,20 @@ async function appendProvenanceEvent(
   },
 ) {
   try {
-    const { count } = await service.schema("app")
-      .from("capture_pairing_events")
-      .select("event_id", { count: "exact", head: true })
-      .eq("pairing_id", row.id);
-    const sequence = (count ?? 0) + 1;
     const eventId = crypto.randomUUID();
     const occurredAt = new Date();
+    // The `sequence` here is a placeholder: app.append_capture_pairing_event
+    // assigns the real one atomically under a lock on the parent token row and
+    // patches it into the stored record. The previous version computed the
+    // sequence from an UNLOCKED count(*) and then inserted against
+    // UNIQUE(pairing_id, sequence), so two concurrent appends for the same
+    // pairing computed the same next value and one insert was rejected and
+    // silently swallowed -- a dropped event in a stream that is supposed to be
+    // complete. Doing the read+insert inside one locked function closes that.
     const event = buildPairingProvenanceEvent({
       eventId,
       pairingId: row.id,
-      sequence,
+      sequence: 1,
       eventType: params.eventType,
       occurredAt,
       actor: params.actor,
@@ -343,15 +346,13 @@ async function appendProvenanceEvent(
       reason: params.reason ?? null,
     });
     const { error } = await service.schema("app")
-      .from("capture_pairing_events")
-      .insert({
-        event_id: eventId,
-        pairing_id: row.id,
-        sequence,
-        event_type: params.eventType,
-        actor: params.actor,
-        occurred_at: occurredAt.toISOString(),
-        event,
+      .rpc("append_capture_pairing_event", {
+        p_pairing_id: row.id,
+        p_event_id: eventId,
+        p_event_type: params.eventType,
+        p_actor: params.actor,
+        p_occurred_at: occurredAt.toISOString(),
+        p_event: event,
       });
     if (error) {
       console.error("capture_pairing_event_insert_failed", error.message);
@@ -877,12 +878,39 @@ export async function handleCapturePairing(
       }
       // Reading the capability does not consume an attempt, so a phone that
       // reloads its page mid-capture is not punished for it.
+      let describeRow = loaded.row;
+      // "Phone connected" detection. Opening the capture page IS the pairing
+      // moment, so advance 'issued' -> 'paired' here rather than waiting for the
+      // first upload (create_capture_upload). Without this the primary device
+      // showed "Waiting for your phone" for the entire time the student framed
+      // the shot. Idempotent and attempt-free: only 'issued' advances, and a
+      // reload while already 'paired' is a no-op.
+      if (describeRow.state === "issued") {
+        const { data: paired } = await service.schema("app")
+          .from("capture_pairing_tokens")
+          .update({
+            state: "paired",
+            paired_at: new Date().toISOString(),
+            access_path: describeRow.access_path ?? "QR",
+          })
+          .eq("id", describeRow.id)
+          .eq("state", "issued")
+          .select("*").maybeSingle();
+        if (paired) {
+          describeRow = paired as PairingRow;
+          await appendProvenanceEvent(service, describeRow, {
+            eventType: "PAIRING_ACCEPTED",
+            actor: "CAPTURE_DEVICE",
+            itemId: describeRow.content_item_version_id,
+          });
+        }
+      }
       return respond({
         status: "ok",
         function: "capture-pairing",
         operation,
         result: {
-          pairing: publicPairingView(loaded.row),
+          pairing: publicPairingView(describeRow),
           accepted_media_types: ["image/jpeg", "image/png", "image/webp"],
           guidance: {
             // Static capture coaching, shown before any photo exists.
@@ -986,11 +1014,11 @@ export async function handleCapturePairing(
         }, { status: 502 });
       }
 
-      await appendProvenanceEvent(service, row, {
-        eventType: "PAIRING_ACCEPTED",
-        actor: "CAPTURE_DEVICE",
-        itemId: writable.itemId,
-      });
+      // No provenance event here. "Phone connected" is PAIRING_ACCEPTED, now
+      // emitted by describe_capture when the phone opens the page; the actual
+      // capture is recorded at submit (CAPTURE_RECORDED / SUBMISSION_ACCEPTED).
+      // Issuing an upload URL is neither, so it gets no event rather than a
+      // mislabelled one.
 
       return respond({
         status: "ok",
@@ -1159,6 +1187,24 @@ export async function handleCapturePairing(
     // now. The client may name it explicitly; if it does not, we resolve it
     // server-side rather than failing a legitimate retake on a missing
     // field the phone has no way to know.
+    //
+    // Auto-resolving to "the response version's current original" is
+    // unambiguous ONLY because each submission slot maps to its own response
+    // version today (one 'slot-1' per response version, and the
+    // one-current-original index guarantees at most one current original per
+    // response version). If a multi-slot-per-response-version model is ever
+    // introduced, "the current original" would span slots and a silent
+    // auto-supersede could hide a DIFFERENT slot's page. Fail closed for that
+    // future: a non-default slot must name its target explicitly.
+    if (
+      !replacesAttachmentId && priorCurrent?.id &&
+      row.submission_slot_id !== "slot-1"
+    ) {
+      return respond({
+        error: "attach_capture_ambiguous_supersede_target",
+        failure_class: "blocked" satisfies CaptureFailureClass,
+      }, { status: 409 });
+    }
     const supersedes = replacesAttachmentId ?? priorCurrent?.id ?? null;
     try {
       planAttachmentInsert({
@@ -1485,15 +1531,48 @@ export async function handleCapturePairing(
         p_storage_path: declaredStoragePath,
       }).single<PairingRow>();
     if (finaliseError || !finalised) {
-      // Losing this compare-and-set means another request already consumed or
-      // cancelled the capability -- i.e. a replay/race. The attachment bind
-      // above is idempotency-protected by the one-current-original index, so
-      // this is reported rather than compensated.
-      const mapped = mapClaimError(finaliseError?.message);
+      // The finalize compare-and-set matched no live row: the capability went
+      // terminal between the bind and now -- a desktop "Cancel pairing" (or an
+      // expiry) racing this submit. Re-read the token and report the ACCURATE
+      // reason (cancelled / expired / attempts-exhausted / already-used) rather
+      // than a blanket "already used" or, worse, an unmapped 500 the frontend
+      // can't classify. The attachment we just bound is the student's own
+      // current original on an as-yet-unsubmitted response version; it is
+      // superseded by the next successful capture and gated by is_submitted, so
+      // it cannot reach grading on its own -- it is left in place rather than
+      // force-unbound (response_attachments are immutable by design).
+      const { data: current } = await service.schema("app")
+        .from("capture_pairing_tokens")
+        .select("state, expires_at, redemption_attempts")
+        .eq("id", row.id).maybeSingle();
+      const usability = current
+        ? evaluatePairingUsability({
+          state: current.state as PairingState,
+          expiresAt: new Date(current.expires_at as string),
+          redemptionAttempts: current.redemption_attempts as number,
+        })
+        : null;
+      const code = usability && !usability.ok
+        ? usability.code
+        : "pairing_already_used";
+      await logAuditEvent(service, {
+        action: "capture_pairing.finalize_lost_race",
+        actorId: row.user_id,
+        actorType: "system",
+        objectType: "capture_pairing_token",
+        objectId: row.id,
+        requestId: idempotencyKey,
+        reasonCode: "finalize_lost_race",
+        metadata: {
+          bound_attachment_id: bound.id,
+          resolved_code: code,
+          finalise_error: finaliseError?.message ?? "no_row",
+        },
+      });
       return respond({
-        error: mapped.code,
+        error: code,
         failure_class: "blocked" satisfies CaptureFailureClass,
-      }, { status: mapped.status });
+      }, { status: 409 });
     }
 
     await appendProvenanceEvent(service, finalised, {

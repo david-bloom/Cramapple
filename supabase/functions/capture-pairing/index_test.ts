@@ -215,9 +215,17 @@ class QueryBuilder {
   }
 }
 
-function makeService(db: FakeDb) {
+function makeService(db: FakeDb, hooks: { afterBind?: () => void } = {}) {
   const rpc = (name: string, p: Row) => {
     const result = runRpc(db, name, p);
+    // Lets a test simulate a concurrent write landing right after the bind but
+    // before the finalize CAS (e.g. a desktop "Cancel pairing").
+    if (
+      name === "bind_response_attachment" && p.p_kind === "original" &&
+      !result.error && hooks.afterBind
+    ) {
+      hooks.afterBind();
+    }
     return {
       single: () => Promise.resolve(result),
       // deno-lint-ignore no-explicit-any
@@ -394,6 +402,23 @@ function runRpc(db: FakeDb, name: string, p: Row) {
       row.status = p.p_status;
       return { data: { ...row }, error: null };
     }
+    case "append_capture_pairing_event": {
+      const seq = db.capture_pairing_events.filter((e) =>
+        e.pairing_id === p.p_pairing_id
+      ).length + 1;
+      db.capture_pairing_events.push({
+        event_id: p.p_event_id,
+        pairing_id: p.p_pairing_id,
+        sequence: seq,
+        event_type: p.p_event_type,
+        actor: p.p_actor,
+        occurred_at: p.p_occurred_at,
+        // Mirrors the SQL's jsonb_set: the real sequence is patched into the
+        // stored record so column and JSON never disagree.
+        event: { ...p.p_event, sequence: seq },
+      });
+      return { data: seq, error: null };
+    }
     default:
       return err(`unknown_rpc:${name}`);
   }
@@ -416,8 +441,9 @@ interface Scenario {
 
 async function seedPairedCapability(
   db: FakeDb,
-  opts: { attemptUserMismatch?: boolean } = {},
+  opts: { attemptUserMismatch?: boolean; slot?: string } = {},
 ): Promise<Scenario> {
+  const slot = opts.slot ?? "slot-1";
   const userId = crypto.randomUUID();
   const attemptId = crypto.randomUUID();
   const responseVersionId = crypto.randomUUID();
@@ -449,7 +475,7 @@ async function seedPairedCapability(
     attempt_id: attemptId,
     response_version_id: responseVersionId,
     content_item_version_id: contentItemVersionId,
-    submission_slot_id: "slot-1",
+    submission_slot_id: slot,
     generation: 1,
     state: "paired",
     access_path: "QR",
@@ -878,4 +904,146 @@ Deno.test("finding 8: pairing_status surfaces failure_class so the desktop can t
   const view = (await res.json()).result.pairing;
   assertEquals(view.capture_quality_state, "indeterminate");
   assertEquals(view.failure_class, "technical");
+});
+
+/* -------------------------------------------------------------------------- */
+/* Finding 14 -- "phone connected" is detected when the phone opens the page   */
+/* -------------------------------------------------------------------------- */
+
+Deno.test("finding 14: describe_capture advances issued -> paired so the desktop sees the phone connect", async () => {
+  const db = new FakeDb();
+  const s = await seedPairedCapability(db);
+  // Put it back to the pre-connection state.
+  db.capture_pairing_tokens[0].state = "issued";
+  const res = await handleCapturePairing(
+    post({ operation: "describe_capture", pairing_handle: s.handle }),
+    { service: makeService(db) },
+  );
+  assertEquals(res.status, 200);
+  assertEquals((await res.json()).result.pairing.state, "paired");
+  assertEquals(db.capture_pairing_tokens[0].state, "paired");
+  // The connection is recorded once in provenance.
+  const accepted = db.capture_pairing_events.filter((e) =>
+    e.event_type === "PAIRING_ACCEPTED"
+  );
+  assertEquals(accepted.length, 1);
+});
+
+Deno.test("finding 14: a phone page reload while already paired does not re-emit or consume", async () => {
+  const db = new FakeDb();
+  const s = await seedPairedCapability(db); // already 'paired'
+  await handleCapturePairing(
+    post({ operation: "describe_capture", pairing_handle: s.handle }),
+    { service: makeService(db) },
+  );
+  assertEquals(db.capture_pairing_tokens[0].state, "paired");
+  assertEquals(db.capture_pairing_tokens[0].redemption_attempts, 1); // unchanged
+  assertEquals(
+    db.capture_pairing_events.filter((e) => e.event_type === "PAIRING_ACCEPTED")
+      .length,
+    0,
+  );
+});
+
+/* -------------------------------------------------------------------------- */
+/* Finding 12 -- multi-slot supersede is fail-closed                           */
+/* -------------------------------------------------------------------------- */
+
+Deno.test("finding 12: a non-default slot with a prior original refuses to auto-supersede", async () => {
+  const db = new FakeDb();
+  const s = await seedPairedCapability(db, { slot: "slot-2" });
+  // A current original already exists on this response version.
+  db.response_attachments.push({
+    id: crypto.randomUUID(),
+    response_version_id: s.responseVersionId,
+    kind: "original",
+    is_current: true,
+    storage_path: "prior",
+    capture_quality_state: "acceptable",
+  });
+  const res = await handleCapturePairing(
+    post({
+      operation: "submit_capture",
+      pairing_handle: s.handle,
+      storage_path: s.storagePath,
+      explicit_confirmation: true,
+    }),
+    { service: makeService(db), runQualityCheck: qualityStub(assessed("ACCEPT")).fn },
+  );
+  assertEquals(res.status, 409);
+  assertEquals(
+    (await res.json()).error,
+    "attach_capture_ambiguous_supersede_target",
+  );
+});
+
+/* -------------------------------------------------------------------------- */
+/* Finding 13 -- a cancel racing the finalize is accurate, not a 500           */
+/* -------------------------------------------------------------------------- */
+
+Deno.test("finding 13: a cancel landing between bind and finalize returns the accurate reason", async () => {
+  const db = new FakeDb();
+  const s = await seedPairedCapability(db);
+  const service = makeService(db, {
+    afterBind: () => {
+      // The desktop "Cancel pairing" lands after the bind, before finalize.
+      const token = db.capture_pairing_tokens[0];
+      token.state = "cancelled";
+      token.closed_at = new Date().toISOString();
+    },
+  });
+  const res = await handleCapturePairing(
+    post({
+      operation: "submit_capture",
+      pairing_handle: s.handle,
+      storage_path: s.storagePath,
+      explicit_confirmation: true,
+    }),
+    { service, runQualityCheck: qualityStub(assessed("ACCEPT")).fn },
+  );
+  assertEquals(res.status, 409);
+  // Accurate cause, not a blanket "already used" and not an unmapped 500.
+  assertEquals((await res.json()).error, "pairing_cancelled");
+  // The bound original is left in place (self-healing: superseded next capture,
+  // gated by is_submitted), and the race is audited.
+  assert(
+    db.response_attachments.some((a) =>
+      a.kind === "original" && a.is_current === true
+    ),
+  );
+  assert(db.audit_events.some((r) => r.reason_code === "finalize_lost_race"));
+});
+
+/* -------------------------------------------------------------------------- */
+/* Finding 11 -- provenance sequences are assigned without gaps or collisions  */
+/* -------------------------------------------------------------------------- */
+
+Deno.test("finding 11: provenance events get unique, gap-free sequences across a full flow", async () => {
+  const db = new FakeDb();
+  const s = await seedPairedCapability(db);
+  db.capture_pairing_tokens[0].state = "issued";
+  await handleCapturePairing(
+    post({ operation: "describe_capture", pairing_handle: s.handle }),
+    { service: makeService(db) },
+  );
+  await handleCapturePairing(
+    post({
+      operation: "submit_capture",
+      pairing_handle: s.handle,
+      storage_path: s.storagePath,
+      explicit_confirmation: true,
+    }),
+    { service: makeService(db), runQualityCheck: qualityStub(assessed("ACCEPT")).fn },
+  );
+  const seqs = db.capture_pairing_events
+    .filter((e) => e.pairing_id === s.pairingId)
+    .map((e) => e.sequence)
+    .sort((a, b) => a - b);
+  assert(seqs.length >= 2, "several events were recorded");
+  // Contiguous 1..N with no duplicates -- the atomic assignment leaves no gaps.
+  assertEquals(seqs, seqs.map((_, i) => i + 1));
+  // And the sequence stamped into the stored record matches its column.
+  for (const e of db.capture_pairing_events) {
+    assertEquals(e.event.sequence, e.sequence);
+  }
 });
