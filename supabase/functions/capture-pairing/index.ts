@@ -512,6 +512,12 @@ function mapBindError(message: string | undefined) {
       // response was submitted during the edge-function's check-then-bind
       // window). A legitimate refusal, not our bug -> 409/blocked.
       return { status: 409, code: "response_already_submitted" };
+    case "response_not_found":
+      // Round-4 QA S1 (same guard, other leg): the response version -- or the
+      // attempt row it points at -- is gone. A 404 is the honest answer and
+      // matches attempt-response's mapAttachCaptureError; previously this fell
+      // through to a 500 and would have been logged as a technical failure.
+      return { status: 404, code: "response_not_found" };
     default:
       return { status: 500, code: "attach_capture_failed" };
   }
@@ -1464,10 +1470,22 @@ export async function handleCapturePairing(
       // trigger permits changing after insert -- this is a normal in-place
       // update, not a rewrite of an immutable row. Best-effort: keepOpen and the
       // finalise write no longer depend on it succeeding.
-      await service.schema("app")
+      const { error: annotateError } = await service.schema("app")
         .from("response_attachments")
         .update({ capture_quality_state: qualityOutcome.captureQualityState })
         .eq("id", bound.id);
+      if (annotateError) {
+        // L1: best-effort does not mean invisible. Nothing downstream depends
+        // on this write (the token's own capture_quality_state is written
+        // authoritatively by the finalise RPC), so it must not fail the
+        // request -- but a persistent failure here means the attachment row's
+        // quality annotation is silently drifting from the verdict, and that
+        // should be diagnosable.
+        console.error(
+          "capture_pairing_quality_annotation_failed",
+          annotateError.message,
+        );
+      }
       if (qualityOutcome.disposition === "RETAKE") {
         // DECISION-0051: image-quality failure -> generic retake guidance.
         // The specific failing labels are audited below but deliberately
@@ -1537,10 +1555,17 @@ export async function handleCapturePairing(
       });
       // 'indeterminate' is the honest state: the photo was preserved and
       // nothing is known about its quality. Best-effort annotation (see N2).
-      await service.schema("app")
+      const { error: indeterminateError } = await service.schema("app")
         .from("response_attachments")
         .update({ capture_quality_state: "indeterminate" })
         .eq("id", bound.id);
+      if (indeterminateError) {
+        // L1, second leg -- same reasoning as the assessed branch above.
+        console.error(
+          "capture_pairing_quality_annotation_failed",
+          indeterminateError.message,
+        );
+      }
     } else {
       // qualityOutcome.kind === "unavailable": the check did not run (no key,
       // or the daily cap is unset/exhausted). No verdict means no basis to

@@ -362,6 +362,11 @@ function runRpc(db: FakeDb, name: string, p: Row) {
       // N7: mirror the DB-level writability guard (20260819120100) so the fake
       // can actually exercise it. A submitted response version or a
       // non-editable attempt refuses the bind.
+      //
+      // KNOWN LIMIT (Round-4 QA B1): this fake has no locking model, so it
+      // cannot reproduce lock ORDER and did not catch B1's deadlock. It mirrors
+      // the guard's decision logic only. Lock ordering is verified against the
+      // real planner via EXPLAIN, not here.
       const rv = db.response_versions.find((r) =>
         r.id === p.p_response_version_id
       );
@@ -1253,6 +1258,56 @@ Deno.test("N7: a response submitted during the bind window is refused at the bin
   assertEquals(res.status, 409);
   assertEquals((await res.json()).error, "response_already_submitted");
   // Nothing was bound.
+  assertEquals(db.response_attachments.length, 0);
+});
+
+Deno.test("N7/B1: the guard's ATTEMPT leg also refuses (attempt left an editable status)", async () => {
+  const db = new FakeDb();
+  const s = await seedPairedCapability(db);
+  const service = makeService(db, {
+    beforeBind: () => {
+      // is_submitted is still false; it is the ATTEMPT that moved. After B1 the
+      // two are read under separately-acquired locks (attempts first, then
+      // response_versions), so this leg must still refuse on its own.
+      db.attempts[0].status = "submitted";
+    },
+  });
+  const res = await handleCapturePairing(
+    post({
+      operation: "submit_capture",
+      pairing_handle: s.handle,
+      storage_path: s.storagePath,
+      explicit_confirmation: true,
+    }),
+    { service, runQualityCheck: qualityStub(assessed("ACCEPT")).fn },
+  );
+  assertEquals(res.status, 409);
+  assertEquals((await res.json()).error, "response_already_submitted");
+  assertEquals(db.response_attachments.length, 0);
+});
+
+Deno.test("S1: a response version that vanishes during the bind window maps to 404, not 500", async () => {
+  const db = new FakeDb();
+  const s = await seedPairedCapability(db);
+  const service = makeService(db, {
+    beforeBind: () => {
+      db.response_versions.length = 0;
+    },
+  });
+  const res = await handleCapturePairing(
+    post({
+      operation: "submit_capture",
+      pairing_handle: s.handle,
+      storage_path: s.storagePath,
+      explicit_confirmation: true,
+    }),
+    { service, runQualityCheck: qualityStub(assessed("ACCEPT")).fn },
+  );
+  // Before S1 both callers' bind-error mappers fell through to a 500
+  // "attach_capture_failed" for this code, i.e. reported a legitimate
+  // not-found as our bug.
+  assertEquals(res.status, 404);
+  assertEquals((await res.json()).error, "response_not_found");
   assertEquals(db.response_attachments.length, 0);
 });
 

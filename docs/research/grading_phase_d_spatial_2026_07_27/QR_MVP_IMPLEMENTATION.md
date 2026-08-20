@@ -5,8 +5,16 @@
 > Round-1 QA and has since been reworked TWICE. Its line counts and
 > function-count claims are stale (Round 1 and Round 3 both flagged this — N14):
 > e.g. it calls `capture-pairing/index.ts` "1,100 lines" (now **1,708**) and the
-> migration "three functions" (now **seven** callable, plus the
-> `bind_response_attachment` writable guard in a second migration). For the
+> migration "three functions" — `20260819120000_capture_pairing.sql` actually
+> defines **seven** functions, of which **five are callable**
+> (`append_capture_pairing_event`, `claim_capture_pairing_upload`,
+> `consume_capture_pairing`, `record_capture_upload`,
+> `expire_capture_pairing_tokens`) and **two are trigger functions**
+> (`capture_pairing_tokens_guard_immutable_fields`,
+> `capture_pairing_events_guard_append_only`) — plus the
+> `bind_response_attachment` writable guard in a second migration.
+> (Corrected 2026-08-20, Round-4 QA L5: the earlier "seven callable" wording
+> counted the two trigger functions as callable.) For the
 > authoritative, current record read, in order:
 > `QR_MVP_REWORK_2026_08_20.md` (rework pass 1, all 15 Round-1 findings) and
 > `QR_MVP_REWORK_ROUND2_2026_08_20.md` (rework pass 2, Round-3 findings N1-N4,

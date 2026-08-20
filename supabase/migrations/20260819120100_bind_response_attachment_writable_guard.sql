@@ -23,6 +23,35 @@
 -- verbatim from that migration with exactly one addition: the writability guard
 -- at the top of the block. `create or replace` preserves the existing grants;
 -- they are restated below for explicitness.
+--
+-- LOCK ORDER (Round-4 QA finding B1)
+-- ---------------------------------
+-- The first version of this guard used a single
+--   select ... from response_versions rv join attempts a ... for update
+-- which locks `response_versions` first and `attempts` second. The deployed
+-- app.submit_response (20260731160000_schema_baseline.sql) locks in the
+-- OPPOSITE order: `attempts` (line "select id, user_id, status into v_attempt
+-- from app.attempts ... for update") and only then `response_versions`. Two
+-- transactions taking the same two rows in opposite orders is a textbook
+-- deadlock, and it is reachable on exactly the race this guard exists to close
+-- (a desktop commit submitting while a phone capture binds). Postgres would
+-- kill one side; if the victim were submit_response, a capture-feature guard
+-- would be breaking core answer submission.
+--
+-- So the guard now acquires the two row locks explicitly, in submit_response's
+-- order: attempts first, then response_versions. The owning attempt id is
+-- resolved with an UNLOCKED read first, used ONLY to decide which attempt row
+-- to lock. No server-side statement anywhere in the schema updates
+-- response_versions.attempt_id, but the RLS policy
+-- response_versions_owner_update_draft does not pin the column, so a
+-- concurrent re-point by the row's owner is not structurally impossible;
+-- after both locks are held the guard re-reads rv.attempt_id and refuses the
+-- write if it no longer matches the attempt actually locked, rather than
+-- deciding from a stale lock. The authoritative reads of the two mutable
+-- fields (attempts.status and response_versions.is_submitted) both happen
+-- after their own row is locked. app.response_attachments is locked after
+-- both, which is consistent with submit_response (which never touches that
+-- table).
 
 begin;
 
@@ -48,25 +77,66 @@ as $$
 declare
   v_prior_current_id uuid;
   v_new_row app.response_attachments;
-  v_writable boolean;
+  v_attempt_id uuid;
+  v_locked_attempt_id uuid;
+  v_attempt_status text;
+  v_is_submitted boolean;
 begin
   -- N7: DB-level enforcement of "the response must still be writable", under a
   -- row lock, BEFORE any attachment is written. This makes the guarantee an
   -- invariant of the write itself rather than an edge-function check-then-act
   -- window. A submitted response version, or an attempt no longer in an
   -- editable status, cannot receive a new (or superseding) attachment.
-  select (rv.is_submitted = false and a.status in ('draft', 'failed'))
-    into v_writable
-  from app.response_versions rv
-  join app.attempts a on a.id = rv.attempt_id
-  where rv.id = p_response_version_id
-  for update;
+  --
+  -- B1: the locks below are taken in app.submit_response's order (attempts,
+  -- then response_versions) so the two functions can never deadlock against
+  -- each other. See the LOCK ORDER note in this migration's header.
 
-  if v_writable is null then
+  -- Unlocked resolve of the owning attempt. Nothing is decided from this read
+  -- except WHICH attempt row to lock; it is re-validated under the locks below.
+  select rv.attempt_id into v_attempt_id
+  from app.response_versions rv
+  where rv.id = p_response_version_id;
+  if not found then
     raise exception using errcode = 'P0001',
       message = 'attach_capture:response_not_found';
   end if;
-  if not v_writable then
+
+  -- 1) attempts first -- same as submit_response.
+  select a.status into v_attempt_status
+  from app.attempts a
+  where a.id = v_attempt_id
+  for update;
+  if not found then
+    -- Unreachable while response_versions.attempt_id stays FK-constrained;
+    -- treated as "the response isn't a valid write target" rather than
+    -- silently proceeding.
+    raise exception using errcode = 'P0001',
+      message = 'attach_capture:response_not_found';
+  end if;
+
+  -- 2) response_versions second -- same as submit_response. is_submitted is
+  -- re-read here (not from the unlocked select above) so the value the decision
+  -- uses is the one protected by this lock.
+  select rv.is_submitted, rv.attempt_id
+    into v_is_submitted, v_locked_attempt_id
+  from app.response_versions rv
+  where rv.id = p_response_version_id
+  for update;
+  if not found then
+    raise exception using errcode = 'P0001',
+      message = 'attach_capture:response_not_found';
+  end if;
+
+  -- The response version was re-pointed at a different attempt between the
+  -- unlocked resolve and the locks: the attempt whose status we hold is not
+  -- this response's attempt any more, so refuse rather than decide from it.
+  if v_locked_attempt_id is distinct from v_attempt_id then
+    raise exception using errcode = 'P0001',
+      message = 'attach_capture:response_not_writable';
+  end if;
+
+  if v_is_submitted or v_attempt_status not in ('draft', 'failed') then
     raise exception using errcode = 'P0001',
       message = 'attach_capture:response_not_writable';
   end if;
