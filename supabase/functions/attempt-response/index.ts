@@ -218,6 +218,22 @@ function mapAttachCaptureError(message: string | undefined) {
     case "original_already_current":
     case "derived_cannot_replace":
       return { status: 409, body: { error: `attach_capture_${code}` } };
+    case "response_not_writable":
+      // Round-4 QA S1: app.bind_response_attachment's DB-level writability
+      // guard (migration 20260819120100) is shared by BOTH callers of the
+      // function, so this code is reachable here too -- not just from
+      // capture-pairing. The response version was submitted, or its attempt
+      // left an editable status, between this request's own writability check
+      // and the bind. That is a legitimate refusal, not a server fault, so it
+      // must be a 409 with the same code capture-pairing's mapBindError
+      // returns; without this case it fell through to a 500
+      // "attach_capture_failed" and would have been reported as our bug.
+      return { status: 409, body: { error: "response_already_submitted" } };
+    case "response_not_found":
+      // Also newly raised by the same guard (the response version disappeared,
+      // or its attempt row is gone). A 404 matches how every other
+      // response-not-found path in this function answers.
+      return { status: 404, body: { error: "response_not_found" } };
     default:
       return { status: 500, body: { error: "attach_capture_failed" } };
   }
