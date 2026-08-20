@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0046 — Confirm QR Handoff as Engine 4's Sole Capture Path; Approve Capture-Failure Handling Split
 - APPROVAL-0045 — Retire Engine 4's Dual-Human-Adjudicated Gold Requirement; Adopt the DECISION-0045 Gold Model
 - APPROVAL-0044 — Replace Free Score Check with 7-Day Trial; Enable GRADING_ENTITLEMENTS_ENABLED (TASK-0026)
 - APPROVAL-0043 — Retire the ≤1000ms p50 Grading Latency Gate; Approve Engine 1/3 Go-Live Ahead of Full Gold-Set Certification
@@ -22,6 +23,29 @@ Most recent entries (full chronological list follows below):
 - APPROVAL-0018 — Use Official Exam Dates and Confirm Registration
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
+
+## APPROVAL-0046 — Confirm QR Handoff as Engine 4's Sole Capture Path; Approve Capture-Failure Handling Split
+
+**Date:** 2026-08-19
+**Approved By:** David Bloom
+**Related Task:** TASK-0016 Phase D, TASK-0025
+**Decision:** Approved
+
+### Summary
+
+Approves `DECISION-0051`: reaffirms QR handoff (System A) as Engine 4's sole capture path with no
+direct-upload fallback, resolving the System A/System B ambiguity in favor of TASK-0016's original
+decision #10. System B's `SameDeviceCapture` frontend stays superseded/pilot-only; its
+`attach_capture`/`app.response_attachments` backend is approved for reuse as System A's storage
+layer. Also approves the capture-failure handling split: generic retake guidance on image-quality
+failures, bug-logged on technical failures.
+
+### Notes
+
+- Does not itself authorize any Production deployment or migration — Stage D2 implementation
+  still follows this program's normal deploy discipline (diff-before-deploy, Dev-before-Prod).
+- Does not resolve the pre-existing `capture_quality_state`/`capture_retake_reason` frontend/
+  backend contract mismatch — separate follow-up.
 
 ## APPROVAL-0045 — Retire Engine 4's Dual-Human-Adjudicated Gold Requirement; Adopt the DECISION-0045 Gold Model
 

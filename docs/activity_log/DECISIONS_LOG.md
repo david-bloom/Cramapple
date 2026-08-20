@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0051 — Confirm QR Handoff (System A) as Engine 4's Sole Capture Path, No Direct-Upload Fallback; Define Capture-Failure Handling (Generic Retake Guidance vs. Bug Logging)
 - DECISION-0050 — Retire the Dual-Human-Adjudicated Gold-Set Requirement for Engine 4 (Spatial); Adopt the DECISION-0045 AI-Generation + Multi-Model-Verification + Reader-Certification Model Instead
 - DECISION-0049 — Hand-Drawn Capture Becomes an Added Submission Option for Typed-Math FRQs (Retroactive to All 36 Published Calculus FRQs), Graded via the Same Criteria as Typed Answers Through an OCR-Transcription Step
 - DECISION-0048 — AP Statistics Hand-Drawn Practice Stays Supplemental (Simulating Desmos Construction, Not the Real Exam); Chemistry/Physics/Calculus Get New Genuine Hand-Drawn-Capture Items
@@ -29,6 +30,70 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~600 lines, archive the older entries to `docs/activity_log/archive/DECISIONS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries. (This log is already well over that threshold — the first archive pass is overdue, not optional.)
 
 (Note: the TASK-0012 branch independently logged its own DECISION-0027/0028 — CORS/ALLOWED_ORIGINS and budget-burn semantics — under different numbers on its own branch. Those land separately when that work merges to `main`; this charter-adoption decision claimed 0027/0028 here because `main` had not yet recorded entries past DECISION-0026 at merge time. If both branches' numbering collides on merge, renumber on whichever side merges second and update this index.)
+
+## DECISION-0051 — Confirm QR Handoff (System A) as Engine 4's Sole Capture Path, No Direct-Upload Fallback; Define Capture-Failure Handling (Generic Retake Guidance vs. Bug Logging)
+
+**Date:** 2026-08-19
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Related Task:** TASK-0016 Phase D, TASK-0025
+**Related Docs:** `docs/research/HAND_DRAWN_CAPTURE_PATH_RECONCILIATION_2026_08_19.md` (the
+options this resolves), `docs/research/grading_phase_d_spatial_2026_07_27/DECISIONS_AND_BLOCKERS.md`
+items 1-2 (the blockers this closes)
+**Area:** Product / Grading Engineering
+
+### Context
+
+TASK-0016's decision #10 (`APPROVAL-0033`, 2026-07-08) already named QR handoff as Engine 4's MVP
+capture method, direct upload post-MVP. TASK-0025 (2026-08-15) built and deployed a same-device
+direct-upload pilot (`SameDeviceCapture.tsx`) without amending that decision — a real deviation
+from the approved plan, flagged during Stage D0 execution
+(`docs/research/grading_phase_d_spatial_2026_07_27/`). The two systems otherwise split
+capabilities: System A (QR/`CaptureItem.tsx`) has the only working cross-device UX and capture-
+quality check but is currently non-functional against live Production (its backing table/bucket
+don't exist) and, even working, deleted the photo instead of saving it; System B has the only
+working image-preservation backend (`attach_capture`/`app.response_attachments`) but no QR/
+quality-check UX and is admin-gated/unlinked.
+
+### Decision
+
+1. **QR handoff (System A) is confirmed as Engine 4's sole capture path.** This reaffirms
+   TASK-0016 decision #10 rather than reversing it. Reasoning given: QR is a familiar interaction
+   pattern; using a laptop's own camera for this task is awkward compared to a phone.
+2. **No direct-upload fallback.** System B's same-device upload does not become a general,
+   non-pilot capture option. Its frontend (`SameDeviceCapture.tsx`, the `/hand-drawn-pilot` route)
+   stays pilot-scoped/superseded, not promoted — consistent with option (a) in the reconciliation
+   note. Its backend (`attach_capture`/`app.response_attachments`) is real, working,
+   already-deployed infrastructure and should be reused as System A's storage/validation layer
+   rather than recreating the broken `capture_sessions`/`capture-research` system from scratch.
+3. **Capture-failure handling, split by cause:**
+   - **Image-quality failure** (blur, glare, cutoff, poor framing — the domain of a capture-quality
+     check): show the student a **graceful, generic** suggestion for improving the photo. Not a
+     itemized/diagnostic defect callout as a hard requirement — generic retake guidance is the
+     baseline; more specific messaging (e.g. naming the exact defect) is a UX refinement, not a
+     requirement of this decision.
+   - **Technical failure** (API error, missing infrastructure, timeout, upload failure, any
+     failure that isn't about the photo itself): **log a bug** — this must be captured as an
+     error/telemetry event for engineering triage, not silently retried or shown to the student as
+     if it were their fault.
+
+### Consequences / Follow-ups
+
+- Resolves `docs/research/grading_phase_d_spatial_2026_07_27/DECISIONS_AND_BLOCKERS.md` items 1
+  and 2 (System A vs. B, and the missing `capture_sessions`/`capture-research` DB objects) —
+  updated in place.
+- Concrete engineering implication: Stage D2 (QR capture MVP) resumes by rewiring System A's
+  frontend to call `attach_capture` (which today only accepts authenticated calls — the phone
+  leg's token-pairing model needs a bridge into that authenticated path) rather than recreating
+  `capture_sessions`/`capture-research`.
+- Error-handling split (image-quality vs. technical failure) is new design guidance not previously
+  specified anywhere in the Phase D prompt or `HANDWRITTEN_GRAPH_CAPTURE_EXPERIENCE_DESIGN.md` —
+  should be folded into those documents' capture-failure sections when Stage D2 engineering
+  actually implements this.
+- Does not resolve the still-open `capture_quality_state`/`capture_retake_reason` frontend/backend
+  contract mismatch (`project_idea1_capture_quality_check_status`) — that's a separate, smaller
+  fix needed regardless of which capture system wins.
+- See `APPROVAL-0046` for the corresponding approval entry.
 
 ## DECISION-0050 — Retire the Dual-Human-Adjudicated Gold-Set Requirement for Engine 4 (Spatial); Adopt the DECISION-0045 AI-Generation + Multi-Model-Verification + Reader-Certification Model Instead
 

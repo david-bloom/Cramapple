@@ -58,21 +58,28 @@ chunk. As with the 2026-08-03 audit, this flag only means the file *may* carry a
 (e.g. EXIF) — the scanner does not read or classify the metadata's contents, so this is not proof
 of what, if anything, personal is embedded.
 
-## 4. Provenance-declaration template — ready for a human — `provenance_declaration_template.csv`
+## 4. Provenance-declaration template — partially filled — `provenance_declaration_template.csv`
 
-One row per image file (372 rows), pre-populated with `file_name` from the current corpus scan,
-with empty columns for every field the audit's required declaration calls for
-(`METADATA_REQUIRED` in `prepare_capture_corpus.py`):
+One row per image file (372 rows), pre-populated with `file_name` from the current corpus scan.
+
+**`provenance_status`/`consent_status` filled in for all 372 rows (2026-08-19), on the Product
+Owner's direct statement**, not inferred: all images were created by the owner, Orly Bloom, Micah
+Bloom, or freelancers contracted via Fiverr/Upwork, each operating under the standard platform
+ToS, which transfers full rights in the delivered work to the buyer. This covers the corpus-wide
+consent/rights question — there is no third-party (e.g. student) content in this corpus, and no
+per-creator consent variance to track. Values used: `provenance_status =
+owner_or_contracted_creator`, `consent_status = rights_transferred_via_standard_platform_tos`.
+
+**Still empty, and still needing per-file human input** — a genuinely different kind of gap than
+consent, this is data-*linking* (which photo answers which item/response), not a legal/rights
+question:
 
 `image_id, image_role, source_image_id, response_id, item_id, content_item_version_id,
-transformation, metadata_status, provenance_status, consent_status, storage_scope, captured_at,
-ingested_at`
+transformation, metadata_status, storage_scope, captured_at, ingested_at`
 
-All value columns are genuinely empty — nothing was inferred or guessed from directory names,
-file names, or any other signal, per the audit's explicit instruction. A human with real
-knowledge of who captured each photo and under what consent needs to fill this in; once filled,
-it can be converted to the JSONL format `prepare_capture_corpus.py build --metadata` expects
-(one JSON object per line, matching `METADATA_REQUIRED`).
+Once these are filled, the file can be converted to the JSONL format
+`prepare_capture_corpus.py build --metadata` expects (one JSON object per line, matching
+`METADATA_REQUIRED`).
 
 ## 5. Metadata-stripping prototype — demonstrated, NOT applied — `scripts/drawn_response/strip_capture_metadata.py`
 
@@ -123,30 +130,32 @@ must not be treated as, or promoted to, an approved derivative without that revi
 
 ## What remains blocked — and why an AI agent cannot supply it
 
-The audit's remediation item 1 requires an **authoritative human declaration** per file, covering
-response identity, item identity, exact content-item-version identity, provenance, consent basis,
-storage scope, and capture/ingestion timestamps — and explicitly forbids inferring these fields
-from directory or file names. This requires real-world knowledge of who captured each photo, in
-what context, and under what consent basis — none of which exists in any file, filename,
-directory structure, or metadata value in this corpus today. No AI agent has access to that
-information, and fabricating or guessing it (even as a "placeholder") would silently manufacture
-consent/provenance data — exactly what the audit says not to do. Item 2 (resolving the 78
-duplicate groups) explicitly depends on that declaration existing first, since it says not to
-select a copy by path order. Item 3 (the metadata-stripping decision) requires a privacy/security
-review that also has not happened; this session only prototyped and demonstrated one possible
-mechanism for that review to evaluate.
+**Consent/provenance rights are now resolved** (2026-08-19, per the Product Owner's direct
+statement above) — that part of remediation item 1 no longer needs a human declaration beyond
+what's already recorded in the CSV.
+
+**Still blocked: per-file identity linking** — which photo corresponds to which
+response/item/content-item-version, and its capture/ingestion timestamps. This still requires
+real-world knowledge (which photo is whose answer to which question) that doesn't exist in any
+filename, directory structure, or metadata value today, and the audit explicitly forbids
+inferring it from directory/file names. This is a data-organization task, not a legal one, but it
+still needs a human (or a defined, non-inferred mapping process) to complete.
+
+Item 2 (resolving the 78 duplicate groups) can now proceed once identity linking is done — it no
+longer needs to wait on the consent question, only on which exact response each duplicate's
+original belongs to. Item 3 (the metadata-stripping decision) still requires a privacy/security
+review that hasn't happened; this session only prototyped and demonstrated one possible mechanism
+for that review to evaluate — the rights confirmation above doesn't substitute for that separate
+review.
 
 ## What a human needs to do next
 
-1. Fill in `provenance_declaration_template.csv` (372 rows, all real, all sourced from actual
-   knowledge of the capture — not inferred). This is the one blocking artifact; everything else
-   in this directory is either already done (the audit rerun, the duplicate/metadata detail
-   files) or ready to execute the moment the declaration exists (duplicate resolution using
-   `duplicate_groups.json`, and a privacy/security decision on the stripping mechanism prototyped
-   in `strip_capture_metadata.py`).
-2. Once the declaration is complete, convert it to the JSONL format
-   `prepare_capture_corpus.py build --metadata` expects and rerun `audit --strict` to confirm
-   `ingestion_ready: true` before ever running `build`.
+1. Fill in the remaining empty columns of `provenance_declaration_template.csv` — per-file
+   identity (`response_id`/`item_id`/`content_item_version_id`) and timestamps. Consent/
+   provenance columns are already filled.
+2. Once complete, convert it to the JSONL format `prepare_capture_corpus.py build --metadata`
+   expects and rerun `audit --strict` to confirm `ingestion_ready: true` before ever running
+   `build`.
 3. Separately, get a privacy/security review decision on whether/how to strip ancillary metadata,
    using `strip_capture_metadata.py` as a starting point if useful — it is not pre-approved.
 

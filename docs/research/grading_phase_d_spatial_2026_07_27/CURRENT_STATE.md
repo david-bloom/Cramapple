@@ -23,6 +23,13 @@ against the 200-photo corpus — see §3a below and
 `docs/research/hand_drawn_graph_real_photo_benchmark_2026_08_18/decision_0045_verification_2026_08_19/`.
 Only the human reader-certification step remains outstanding.
 
+**Updated again, same day:** `DECISION-0051`/`APPROVAL-0046` resolved the System A/B capture
+question — QR handoff (System A) confirmed as Engine 4's sole capture path, no direct-upload
+fallback; System A's frontend gets rewired onto System B's already-working
+`attach_capture`/`app.response_attachments` backend rather than recreating the missing
+`capture_sessions`/`capture-research` objects. New guidance: image-quality capture failures get
+generic retake copy, technical failures get bug-logged. See `DECISIONS_AND_BLOCKERS.md` items 1-2.
+
 **Updated again, same day:** Stage D1 (freeze the spatial contracts) is now **complete** —
 `SPATIAL_CONTRACT.md`, `CROSS_SUBJECT_MAPPING.md`, and `schemas/` now exist in this directory. A
 second `PLOT_VALUES` prompt-tuning attempt was also tried and confirmed a dead end (worse than

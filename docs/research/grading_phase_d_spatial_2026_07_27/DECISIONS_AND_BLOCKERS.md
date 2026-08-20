@@ -21,15 +21,14 @@ human-reader-certification step remains.
 
 ## Blockers (no owner decision needed to acknowledge; needed to proceed)
 
-1. **System A (`CaptureItem.tsx`/QR path) is currently broken against live Production**, not
-   merely research-scoped. It calls `capture_sessions`, a table that does not exist in Dev or
-   Prod today (it existed in Prod as of 2026-07-09, created outside any committed migration, and
-   was later removed with no migration recording either event). Its target storage bucket
-   (`capture-research`) also does not exist. Any resumption of Stage D2 must account for this —
-   the fix is not "wire the delete-on-submit call to something else," the table/bucket need to
-   be re-created (ideally under a committed migration this time) or the flow needs to be rebuilt
-   against System B's `response_attachments`/`learner-uploads` infrastructure instead, per the
-   reconciliation note's recommendation.
+1. ~~**System A (`CaptureItem.tsx`/QR path) is currently broken against live Production**~~
+   **Resolved by `DECISION-0051`/`APPROVAL-0046` (2026-08-19):** QR handoff is confirmed as
+   Engine 4's sole capture path, no direct-upload fallback. The fix is **not** re-creating
+   `capture_sessions`/`capture-research` — System A's frontend gets rewired onto System B's
+   already-working, already-deployed `attach_capture`/`app.response_attachments` backend instead.
+   Concrete remaining engineering gap: the phone leg is token-paired/unauthenticated, but
+   `attach_capture` only accepts authenticated calls — a bridge between the two is the actual
+   Stage D2 work item now, not a DB-recreation task.
 2. ~~**The frontend worktree used for all route/component inspection is 16 commits stale.**~~
    **Resolved (2026-08-19):** reviewed the full 16-commit gap via `git diff` against
    `origin/main`. The one capture-relevant commit ("Added capture quality check," `e8b65e9`) is
@@ -57,10 +56,14 @@ human-reader-certification step remains.
    drift). A full duplicate-group listing, a pre-populated 372-row provenance-declaration template
    (every required field genuinely empty, none inferred/fabricated), and a working
    metadata-stripping prototype (`scripts/drawn_response/strip_capture_metadata.py`, demoed on 3
-   files, originals untouched) are now ready. **What remains blocked is unchanged in kind**: the
-   audit's own remediation item 1 requires an authoritative human provenance/consent declaration
-   per file that no AI agent can supply — filling in the template is the actual next step, not
-   more tooling. No file in the samples directory was modified.
+   files, originals untouched) are now ready. **Consent/provenance resolved (2026-08-19)**: all
+   images were created by the owner, Orly Bloom, Micah Bloom, or Fiverr/Upwork freelancers under
+   standard platform ToS transferring full rights to the buyer — no third-party/student content,
+   no per-creator consent variance. Filled into `provenance_declaration_template.csv` for all 372
+   rows. **What remains blocked is narrower now**: per-file identity linking
+   (response/item/content-item-version + timestamps) still needs real human knowledge the
+   template can't infer, and duplicate resolution (item 2) still needs that identity linking, but
+   neither is a legal/consent question anymore. No file in the samples directory was modified.
 5. **AP Statistics — the actual launch subject per TASK-0016 — has almost no real-photo
    evidence.** The 28-photo smoke-test corpus is confirmed sourced from `Stats-HRD-2/` (resolving
    the earlier ambiguity about two separate Statistics photo sets — it's essentially the same 29
@@ -107,21 +110,20 @@ human-reader-certification step remains.
 
 ## Decisions needed from the Product Owner
 
-1. **Formally acknowledge System B's deviation from the canonical sequence, or explicitly amend
-   TASK-0016 decision #10.** As things stand, TASK-0016 (Hard-Gate, `APPROVAL-0033`) still says
-   QR handoff is the MVP capture method and direct upload is post-MVP. TASK-0025 built and
-   deployed a same-device-upload pilot without that amendment being made. Two legitimate paths
-   forward: (a) keep decision #10 as-is and treat TASK-0025's frontend as a superseded prototype
-   whose *backend* gets reused for the QR path (the reconciliation note's recommendation), or (b)
-   decide the QR requirement should change now that a real, working same-device path exists, and
-   log that as a new decision the same way `DECISION-0046` retired the latency gate. Either is
-   fine; leaving it unstated is not — it's the reason two systems currently coexist with no
-   record of which one wins.
-2. **Decide whether to re-create `capture_sessions`/`capture-research`, or retire System A's
-   storage layer outright** now that it's confirmed non-functional. This is a smaller, more
-   concrete version of decision 1 — whatever the QR-vs-direct-upload call is, the actual DB
-   objects need to exist somewhere, under a committed migration this time (the same
-   migration-history discipline TASK-0025 established for `response_attachments`).
+1. ~~Formally acknowledge System B's deviation... or explicitly amend TASK-0016 decision #10.~~
+   **Resolved by `DECISION-0051`/`APPROVAL-0046` (2026-08-19):** option (a) — decision #10 stands
+   as-is, System B's frontend is superseded/pilot-only, its backend is reused. See blocker 1
+   above for the concrete engineering implication.
+2. ~~Decide whether to re-create `capture_sessions`/`capture-research`, or retire System A's
+   storage layer outright.~~ **Resolved by the same decision**: neither — System A's storage
+   layer is retired in favor of reusing System B's `response_attachments`/`learner-uploads`
+   infrastructure, not recreated under a new migration.
+2a. **New from `DECISION-0051`, not yet built:** capture-failure handling split — generic retake
+    guidance to the student on image-quality failures (blur/glare/cutoff/framing), a logged bug on
+    technical failures (API/infra errors). Not previously specified in the Phase D prompt or
+    `HANDWRITTEN_GRAPH_CAPTURE_EXPERIENCE_DESIGN.md`; needs folding into both when Stage D2
+    engineering actually implements this, and needs an actual bug-logging mechanism identified
+    (this repo's existing error-tracking convention, if one exists — not investigated here).
 3. ~~Decide whether the real-photo accuracy investigation... should be formally reclassified~~
    **Executed for Biology same day.** The AI-verification half of the `DECISION-0045` pass is
    done for the 200-photo Biology corpus (results above); the Statistics corpora (28+29 photos)
