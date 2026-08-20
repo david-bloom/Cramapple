@@ -225,8 +225,18 @@ Highlights that bear on Phase D specifically:
   demonstrated (not applied) metadata-stripping tool. Blocked, unchanged in kind, on an actual
   human provenance/consent declaration — see `DECISIONS_AND_BLOCKERS.md` item 4.
 
-**Updated again, same day:** D2 (QR capture MVP) is **built and unit-tested, not yet merged,
-deployed, or independently reviewed.** Backend: a new `capture-pairing` edge function bridges the
+**Updated 2026-08-20:** a separate session reworked all 15 Round-1 findings (backend `c45b838`,
+frontend `b01d3b0`, on top of the commits described just below) and a Round 3 independent QA
+review has now run against that rework. **Verdict: HOLD FOR FURTHER REWORK, close — not a
+redesign.** All 6 blocking findings confirmed genuinely fixed (one empirically probed live), but
+4 new must-fix issues surfaced (a redemption-budget off-by-one, `keepOpen` derived from DB state
+instead of the quality verdict, the new double-submit guard never clearing on failure, and 6
+retryable validation failures still hitting a dead-end screen) plus 5 recommended fixes. Full
+detail: `QR_MVP_QA_REVIEW_ROUND3_2026_08_20.md`. See `DECISIONS_AND_BLOCKERS.md` item 8 for the
+complete disposition and next-step pointer.
+
+**Original Round 1 build/QA record, preserved below:** D2 (QR capture MVP) was **built and
+unit-tested** as of 2026-08-19. Backend: a new `capture-pairing` edge function bridges the
 unauthenticated, token-paired phone leg into the existing `attach_capture`/
 `app.response_attachments` path (reuses `validateCaptureObject`, `bind_response_attachment`, the
 storage TOCTOU guard, `audit_events` — no parallel validation path or table). On branch
