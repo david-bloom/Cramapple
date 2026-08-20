@@ -1,5 +1,18 @@
 # TASK-0016 Phase D — Stage D2: QR Capture MVP Implementation
 
+> **⚠️ SUPERSEDED (2026-08-20) — do not trust the counts and shapes below.**
+> This describes the ORIGINAL Stage D2 build (`768b1bb`/`6dd89ff`), which failed
+> Round-1 QA and has since been reworked TWICE. Its line counts and
+> function-count claims are stale (Round 1 and Round 3 both flagged this — N14):
+> e.g. it calls `capture-pairing/index.ts` "1,100 lines" (now **1,708**) and the
+> migration "three functions" (now **seven** callable, plus the
+> `bind_response_attachment` writable guard in a second migration). For the
+> authoritative, current record read, in order:
+> `QR_MVP_REWORK_2026_08_20.md` (rework pass 1, all 15 Round-1 findings) and
+> `QR_MVP_REWORK_ROUND2_2026_08_20.md` (rework pass 2, Round-3 findings N1-N4,
+> N6, N7, N8, N11), with the disposition trail in `DECISIONS_AND_BLOCKERS.md`
+> item 8. This file is retained only as the original design narrative.
+
 **Written:** 2026-08-19. **Executed by:** Claude, per
 `prompts/CLAUDE_TASK0016_PHASE_D_SPATIAL_ENGINE_2026_07_27.md` "## Stage D2 — Implement and verify
 the QR capture MVP", and per `DECISION-0051`/`APPROVAL-0046`.
