@@ -108,6 +108,16 @@ human-reader-certification step remains.
    `docs/research/hand_drawn_graph_real_photo_benchmark_2026_08_18/plot_values_fix_v2_2026_08_19/`.
    ($1.12 spend, neither gold nor DECISION-0045 outputs modified, nothing deployed.)
 
+8. **Stage D2's QR capture build (`768b1bb` backend / `6dd89ff` frontend) failed independent QA —
+   hold for rework, not merge.** 6 blocking findings, all confirmed: the blurry-photo retake path
+   is a dead end (the exact case DECISION-0051 exists to guarantee), Cancel strands the desktop
+   permanently, and a capture-quality-check budget leak can break `evaluate-attempt` for students
+   who never used capture. Full findings and the suggested fix gate:
+   `QR_MVP_QA_REVIEW_2026_08_19.md`. Trust boundary/security architecture verified sound —
+   defects are in lifecycle edges, fixable without redesign. Neither branch merged, pushed, or
+   deployed. **Next step is a rework pass against the 6 blocking findings, then re-review** —
+   not a product decision, an engineering one.
+
 ## Decisions needed from the Product Owner
 
 1. ~~Formally acknowledge System B's deviation... or explicitly amend TASK-0016 decision #10.~~

@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Session Closeout (2026-08-19): TASK-0016 Phase D Stages D0/D1 Executed for the First Time, DECISION-0050 Retires the Dual-Human Gold Bar, DECISION-0051 Settles QR-vs-Direct-Upload, Stage D2's QR Capture Build Fails Independent QA (6 Blocking Findings, Hold for Rework) — 2026-08-19
 - Session Closeout (2026-08-19): AP Statistics Gets Its First Hand-Drawn Grading Accuracy Measurement, Scaled to All 28 Real Photos That Exist — Two Reproducible Model Defects Found, One Partially Fixed and Folded Into Engine 4's Production Design as Standing Guidance — 2026-08-19
 - Hand-Drawn Capture Set to Become an Added Submission Option for All 36 Existing Typed-Math Calculus FRQs (DECISION-0049), Graded via the Same Criteria as Typed Answers Through an OCR-Transcription Step — Connected to a Same-Day OCR Probe Showing Promising Handwritten-Equation Transcription — 2026-08-18
 - Six New Genuine Hand-Drawn-Capture Items Authored for Chemistry, Physics 1, and Calculus AB (DECISION-0048): First True `HDG-*` Capture Content in Any of the Three Subjects, Draft/Unreviewed, Not Yet Applied to Any Database — 2026-08-18
@@ -125,6 +126,214 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## Session Closeout (2026-08-19): TASK-0016 Phase D Stages D0/D1 Executed, DECISION-0050/0051, Stage D2 Fails Independent QA — 2026-08-19
+
+**Task:** Open-ended continuation of the Engine 4 (hand-drawn/spatial grading) program, opened
+with "start a new session with a goal of moving engine four from design into production." Scope
+narrowed through the session, at the owner's direction, from "move to production" (too broad,
+several sub-questions genuinely open) down to a specific starting point (QR capture wiring), then
+expanded back out to executing the formal `TASK-0016` Phase D sequence once its existence was
+pointed out.
+
+**Correction early in the session, worth recording as its own lesson:** the first hour was spent
+scoping hand-drawn capture as if the QR-vs-direct-upload capture method were an open product
+question, based on `docs/research/ENGINE4_PRODUCTION_DESIGN_2026_08_18.md` (a synthesis doc) and
+a `docs/GRADING_ENGINES_TO_PRODUCTION_HANDOFF.md` framing. The owner corrected this directly:
+`docs/tasks/TASK-0016-GRADING-ENGINE-ROLLOUT.md` (Hard-Gate, `APPROVAL-0033`, 2026-07-08) and its
+Phase D execution prompt (`prompts/CLAUDE_TASK0016_PHASE_D_SPATIAL_ENGINE_2026_07_27.md`) are the
+actual controlling documents, and had already resolved QR-vs-direct-upload as decision #10
+("Engine 4 MVP: QR handoff capture. Direct upload... post-MVP"). **Lesson, now in memory:** for
+this program, check the numbered Hard-Gate `TASK-XXXX` file and its execution prompt before
+treating any capture-design or architecture question as open — downstream research/synthesis docs
+are not a substitute for checking the controlling task record first.
+
+### Stage D0 (state freeze) — executed for the first time
+
+Phase D's own Stage D0 had never been run despite being the mandatory first step. Executed via
+three parallel investigations. Key findings, all in
+`docs/research/grading_phase_d_spatial_2026_07_27/{CURRENT_STATE.md,ARTIFACT_INVENTORY.json,DECISIONS_AND_BLOCKERS.md,EXECUTION_LOG.md}`:
+
+- **Two independently-built, never-reconciled hand-drawn capture systems existed**: "System A"
+  (`CaptureItem.tsx`, real QR pairing + a real Gemini vision quality check, live on `/session`)
+  and "System B" (`SameDeviceCapture.tsx`, TASK-0025's admin-only pilot, real image-preservation
+  backend via `attach_capture`/`app.response_attachments`). System B's direct-upload frontend was
+  itself a deviation from TASK-0016 decision #10, built without amending it.
+- **System A was confirmed broken against live Production**, not merely research-scoped as its
+  own code comments claimed: its backing table (`capture_sessions`) and storage bucket
+  (`capture-research`) do not exist in Dev or Prod — the table existed in Prod as of 2026-07-09,
+  created outside any committed migration, and was later removed with no migration recording
+  either event.
+- **No corpus anywhere meets the dual-human-adjudicated gold standard** Stage D3 (and governance
+  §12.2) required — everything is synthetic, traced-from-synthetic, self-graded, or single-pass-
+  AI-graded, including the 200-photo real-Biology corpus whose accuracy claims were independently
+  reverified against raw result files and confirmed numerically correct (97.33%/99.478% etc. on
+  the historical synthetic benchmark; 23.0%/84.5%/30.6%/20.5% on the real-photo baseline).
+- 3-archetype freeze and 300-response/100-per-archetype corpus target were already correctly set
+  in a 2026-06-15 spec — confirmed, not redone.
+- AP Statistics (TASK-0016's actual launch subject) has almost no real-photo evidence (28-29
+  photos vs. a 300-response target); most existing corpus work is Biology development evidence.
+
+### DECISION-0050/APPROVAL-0045 — retire the dual-human gold bar; DECISION-0045 AI-verification executed
+
+At direct owner instruction ("Ignore the dual-human-adjudicated gold standard" → clarified as "a
+formal decision, log it"): retired that requirement for Engine 4 specifically, un-deferring
+`DECISION-0045`'s existing AI-generation + two-independent-non-OpenAI-model-verification +
+reader-certification model (previously named "Set C, deferred until Engine 4 leaves shadow").
+
+The AI-verification half was then actually **run** against both real-photo corpora (writer =
+Anthropic/Claude in both cases, confirmed from source docs, not assumed — required since the
+grader under test is OpenAI and the writer family is thereby "consumed"):
+
+- **Biology (200 photos):** verifiers `google/gemini-2.5-flash` + `alibaba/qwen3-vl-235b-a22b-instruct`
+  (Kimi/Moonshot probed and rejected — no vision support / unreliable structured output, not
+  substituted with a disallowed model). ~$2.15 spend, 423 calls. 91.5%/89.7% agreement with the
+  existing gold (n=133 usable photos — Qwen returned empty judgments on 67, concentrated in two
+  archetypes, a Qwen reliability finding not a content disagreement), 88.5% verifier-vs-verifier
+  unanimity, 31 flagged criterion-level discrepancies across 26 photos (not applied to gold —
+  candidates for human review).
+- **Statistics (28 photos):** same verifier pair, ~$0.26 spend. 87.5%/72.3% agreement,
+  **71.4% verifier unanimity — notably lower than Biology's 88.5%**, concentrated in mosaic-plot
+  and scatterplot/dotplot criteria (a real Statistics-specific ambiguity, not corpus noise). 6
+  flagged discrepancies.
+- **Outstanding for both:** human reader-certification (cold verification of a sample, ≤5%
+  false-accept-rate gate) — cannot be done by an AI agent. Ready-to-run stratified sample
+  proposals exist in each corpus's `decision_0045_verification_2026_08_19/README.md`.
+
+Full detail: `docs/research/hand_drawn_graph_real_photo_benchmark_2026_08_18/decision_0045_verification_2026_08_19/`
+and the equivalent Statistics-corpus directory.
+
+### `PLOT_VALUES` fix, second attempt — confirmed dead end, do not retry
+
+A second, narrower prompt-tuning attempt (opposite tuning direction from an earlier reverted
+attempt) was tried against the 17 `PLOT_VALUES`/`X_SCALE` flagged discrepancies plus a 30-photo
+control set. Result: worse than both the unmodified grader and the first attempt on the flagged
+set, plus a new 20% regression on the control set concentrated in the `EST` archetype. **Real
+diagnosis: on 7 of 11 relevant flagged cases, the unmodified production grader already agrees
+with both independent verifiers — the disagreement lives in the original single-pass gold, not a
+grader tolerance gap.** Two attempts in opposite directions have now failed; do not attempt a
+third without new evidence. Full detail:
+`docs/research/hand_drawn_graph_real_photo_benchmark_2026_08_18/plot_values_fix_v2_2026_08_19/`.
+
+### Corpus-readiness groundwork, and consent/provenance resolved by the owner directly
+
+Prepared (not applied) the groundwork the 2026-08-03 readiness audit's remediation requires: a
+full 78-group duplicate listing, a fillable 372-row provenance-declaration template, and a
+demonstrated (not applied) metadata-stripping prototype
+(`scripts/drawn_response/strip_capture_metadata.py`) — all confirmed to leave the original photo
+corpus completely untouched. **The owner then directly resolved the consent/provenance question**
+that had been flagged as blocked on human input: all 372 photos were created by the owner, Orly
+Bloom, Micah Bloom, or Fiverr/Upwork freelancers, all under standard platform ToS transferring
+full rights to the buyer — no third-party/student content. Filled into the template's
+`provenance_status`/`consent_status` columns for all 372 rows. Remaining corpus gap narrowed to
+per-file identity linking (which photo answers which item/response), a data-organization task,
+not a legal one. Full detail: `docs/research/hand_drawn_corpus_readiness_2026_08_19/README.md`.
+
+### Stage D1 (freeze the spatial contracts) — executed, complete
+
+9 versioned (`v1`) JSON Schemas for the record types the Phase D prompt's "non-negotiable
+architecture" requires (`capture_quality_result`, `visual_observation_result`,
+`criterion_decision_result`, `confidence_and_abstention_result`, `feedback_result`, etc.), a
+citation-integrity checker, and a 13-test suite confirming fail-closed behavior on a criterion
+decision citing a missing observation. 5 of 9 schemas reuse pre-existing drafts from
+`scripts/drawn_response/schemas/`; two (`confidence_and_abstention_result`, `feedback_result`)
+were genuinely new. Honest known gap, not hidden: the DECISION-0045 verification output isn't yet
+a conforming record (no observation citations) — flagged as follow-up. Full detail:
+`docs/research/grading_phase_d_spatial_2026_07_27/{SPATIAL_CONTRACT.md,CROSS_SUBJECT_MAPPING.md,schemas/}`.
+
+### D3/D4/D5 evidence mapping — honest reconciliation, not new experiments
+
+Mapped existing 2026-08-18/19 research onto Phase D's D3 (evidence)/D4 (bake-off)/D5 (abstention
+calibration) structure rather than re-running experiments that already have clear answers. D4's
+core question (joint perception+judgment beats decomposed perception-then-judgment) and D5's
+core question (coverage-vs-error tradeoffs, escalation policy) both have real evidence already,
+just not packaged under Phase D's exact artifact names — recommended repackaging over re-running,
+with the one genuine gap (a real locked-holdout pass, the untested "hybrid reconciliation" arm)
+correctly sequenced after D3's volume gap closes. **D6 (100%-human-reviewed shadow) remains fully
+blocked** on real student traffic and reviewer capacity, neither of which exists — a product/ops
+decision for the owner, not engineering. Full detail: `D3_D4_D5_STATUS.md`, same directory.
+
+### DECISION-0051/APPROVAL-0046 — QR handoff confirmed, no fallback; capture-failure handling defined
+
+Owner decision, direct: **QR handoff (System A) is Engine 4's sole capture path, no direct-upload
+fallback** (reaffirms TASK-0016 decision #10 rather than reopening it — reasoning given: QR is
+familiar, laptop-camera capture is awkward). System B's frontend stays superseded/pilot-only; its
+`attach_capture`/`app.response_attachments` backend is approved for reuse as System A's storage
+layer, replacing the missing `capture_sessions`/`capture-research` rather than recreating it. New
+design guidance, not previously specified anywhere: **image-quality capture failures get generic
+retake copy; technical failures get logged as a bug**, not shown to the student as a retake
+prompt.
+
+### Stage D2 (QR capture MVP) — built, then failed independent QA; hold for rework
+
+Real, substantial implementation across two repos, neither deployed:
+
+- **Backend** (`768b1bb`, this repo, branch `worktree-agent-ac9429c5f676cfd4f`): new
+  `capture-pairing` edge function bridges the unauthenticated, token-paired phone leg into the
+  existing `attach_capture` path — deliberately reuses `validateCaptureObject`,
+  `bind_response_attachment`, the storage TOCTOU guard, and `app.audit_events`, rather than
+  duplicating logic. 82 new tests, full `_shared` suite 260/260. New migration
+  (`20260819120000_capture_pairing.sql`) written but **not applied to any database**.
+- **Frontend** (`6dd89ff`, durable in `/Users/davidbloom/Documents/exam-buddy-wireframe`, branch
+  `phase-d2-qr-capture-rebuild` off fresh `origin/main`): rewires `CaptureItem.tsx`/
+  `capture.functions.ts` off the dead `capture_sessions` table onto the new bridge. 229 tests
+  passing, build clean. **Not pushed, no PR, no Lovable publish.**
+
+**Independent QA review (5 finder angles, each finding independently re-verified before being
+reported) returned: HOLD FOR REWORK, not mergeable as-is.** 6 blocking findings, all CONFIRMED:
+
+1. The mandated blurry-photo retake is a guaranteed dead end on first use — `consume_capture_pairing`
+   fires even on quality-rejected binds, so retaking hits a buttonless "link already used" screen.
+   This is the exact user journey `DECISION-0051` was written to guarantee.
+2. "Cancel pairing" strands the desktop permanently at "Loading…" (calls `reset()` with no
+   `start()`; the auto-start effect can never re-fire).
+3. **Cross-tenant production hazard:** the capture-quality vision call reserves against the
+   *shared* daily grading budget (`OPENAI_DAILY_CAP_USD`) but never releases the reservation on
+   failure — enough failed captures in a day can make `evaluate-attempt` falsely tell unrelated
+   students they've "reached today's research limit."
+4. An unmetered-in-practice retry loop lets one capture capability drive unlimited paid vision
+   calls via a trivially triggerable error path.
+5. The DECISION-0051 bug-logging mechanism itself silently drops rows under a UNIQUE-constraint
+   collision and returns a fabricated `incident_id` to the student.
+6. Two SQL housekeeping `UPDATE`s are always rolled back by their own exception handling —
+   `state='rejected'` is dead code nothing ever reaches.
+
+8 further serious-but-non-blocking findings and several lower-severity ones are recorded in full,
+including a broken DECISION-0051 failure-classification split on the desktop leg, an inert
+double-submit guard, HEIC photos hitting the wrong error screen, and an unlocked audit-sequence
+counter. **Positive finding, load-bearing for the rework decision:** the reviewer actively tried
+to break the security/trust boundary (token replay, cross-user access, single-use-under-
+concurrency, service-role leakage) and could not — RLS, the compare-and-set semantics, and 7 of 8
+prior `attach_capture` QA findings being correctly not-reintroduced all held. The defects are
+concentrated in lifecycle edges and the two-call budget protocol, assessed as fixable without a
+redesign. Full findings and the suggested fix gate:
+`docs/research/grading_phase_d_spatial_2026_07_27/QR_MVP_QA_REVIEW_2026_08_19.md`.
+
+### What's committed vs. not
+
+Two commits landed on `main` this session: `ebbbe2d` (Stage D0/D1, DECISION-0050/APPROVAL-0045,
+both DECISION-0045 verification runs, `PLOT_VALUES` v2, corpus-readiness groundwork) and `45a9c8c`
+(DECISION-0051/APPROVAL-0046, the consent/provenance resolution). **The Stage D2 build (backend
+branch `768b1bb`, frontend branch `6dd89ff`) is deliberately NOT committed to `main`** — it failed
+QA and needs rework first, per the finding above. `D3_D4_D5_STATUS.md` and
+`QR_MVP_QA_REVIEW_2026_08_19.md` are also uncommitted as of this closeout.
+
+### Explicitly not done
+
+Dual-human-adjudicated gold (superseded by DECISION-0050, not simply skipped); the human
+reader-certification audits for either subject; corpus volume scaling toward the 300-response
+release target (needs real people drawing real responses); D4's locked-holdout pass and hybrid-
+reconciliation arm; D5's formal abstention-thresholds artifact; D6 in any form (blocked on real
+students/reviewers); the Stage D2 rework itself.
+
+**Next Owner:** David Bloom, next session.
+**Next Required Action, as scoped by the owner for the next session:** (1) fix Stage D2's 6
+blocking QA findings (`QR_MVP_QA_REVIEW_2026_08_19.md` has the suggested fix gate — the 6 findings
+plus the missing request-handling test coverage for `capture-pairing/index.ts` plus correcting the
+doc-precision errors so the next reviewer isn't working from false claims); (2) run a fresh,
+independent QA review session against the reworked code before considering it mergeable.
 
 ---
 

@@ -225,5 +225,51 @@ Highlights that bear on Phase D specifically:
   demonstrated (not applied) metadata-stripping tool. Blocked, unchanged in kind, on an actual
   human provenance/consent declaration — see `DECISIONS_AND_BLOCKERS.md` item 4.
 
+**Updated again, same day:** D2 (QR capture MVP) is **built and unit-tested, not yet merged,
+deployed, or independently reviewed.** Backend: a new `capture-pairing` edge function bridges the
+unauthenticated, token-paired phone leg into the existing `attach_capture`/
+`app.response_attachments` path (reuses `validateCaptureObject`, `bind_response_attachment`, the
+storage TOCTOU guard, `audit_events` — no parallel validation path or table). On branch
+`worktree-agent-ac9429c5f676cfd4f` in this repo, commit `768b1bb`, 82 new tests passing, full
+`_shared` suite 260/260, **migration not applied, nothing deployed**. Frontend: rewires
+`CaptureItem.tsx`/`capture.functions.ts` off `capture_sessions` onto the new bridge, implements
+DECISION-0051's failure-handling split (backend has no error-tracking system — used
+`app.audit_events`, not alerting; frontend has one — `reportLovableError`). Branch
+`phase-d2-qr-capture-rebuild` in `exam-buddy-wireframe` (`/Users/davidbloom/Documents/exam-buddy-wireframe`,
+durable — commit `6dd89ff`), 229 vitest passing, `tsc`/build clean, **not pushed, no PR, no
+Lovable publish.** Full detail, including everything explicitly NOT yet verified (DB-level
+atomicity, end-to-end real-phone run, cutoff/blur/glare model accuracy, per-IP rate limiting,
+accessibility beyond structural review): `QR_MVP_IMPLEMENTATION.md`,
+`SECURITY_PRIVACY_ACCESSIBILITY_REVIEW.md`, `QR_MVP_TEST_RESULTS.md` in this directory.
+**Independent QA review completed 2026-08-19 — Verdict: HOLD FOR REWORK, not merged.** 5 finder
+angles, 6 blocking findings (each independently re-verified), 8 serious non-blocking, several
+lower-severity. The two primary user journeys are dead ends on first use: a blurry photo cannot
+be retaken without walking back to a fresh QR scan (the exact behavior DECISION-0051 exists to
+guarantee), and "Cancel pairing" strands the desktop permanently at "Loading…". Most serious: the
+capture-quality vision call reserves against the *shared* daily grading budget
+(`OPENAI_DAILY_CAP_USD`) but never releases it on failure — a capture bug can silently break
+`evaluate-attempt` for students who never touched capture that day. Also confirmed: an
+unmetered-in-practice paid-call retry loop, the DECISION-0051 bug-logging mechanism silently
+drops rows under a UNIQUE-constraint collision and returns a fabricated `incident_id`, two SQL
+housekeeping updates are always rolled back by their own exception handling, and an
+`ON DELETE CASCADE` is unreachable because of an unconditional guard trigger. Full findings: `QR_MVP_QA_REVIEW_2026_08_19.md`, this directory.
+**Positive finding, not to be lost in the above:** the trust boundary itself held under adversarial
+review — token design, RLS posture, cross-user denial, single-use-under-concurrency (a real
+compare-and-set, not check-then-act), and reuse of `attach_capture`'s byte-validation were all
+verified correct, and 7 of 8 defects from `attach_capture`'s own prior QA history were confirmed
+NOT reintroduced. The defects are concentrated in lifecycle edges and the two-call budget
+protocol, not the security architecture — fixable without a redesign, per the reviewer.
+Neither branch has been merged, pushed, or deployed.
+
+D3/D4/D5 status mapped against
+existing evidence — see `D3_D4_D5_STATUS.md`. Summary: D3 is method-satisfied (DECISION-0050) but
+volume- and reader-time-blocked, neither closeable by an AI agent; D4/D5 are substantially
+answered in substance by existing 2026-08-18/19 research even though not packaged in Phase D's
+exact artifact format — recommend repackaging over re-running. **D6 (100%-human-reviewed shadow)
+remains fully blocked**: zero real students have ever reached any grading engine
+([[project_production_zero_real_students]]), and no reviewer capacity has been established for
+this specifically — this needs a product/ops decision from the owner, not engineering. (Zero-real-students
+finding re-verified 2026-08-18, `docs/GRADING_ENGINES_TO_PRODUCTION_HANDOFF.md` UPDATE 2026-08-18b.)
+
 See `DECISIONS_AND_BLOCKERS.md` for the concrete list of open blockers and owner decisions this
 state implies, and `ARTIFACT_INVENTORY.json` for the full per-artifact classification.
