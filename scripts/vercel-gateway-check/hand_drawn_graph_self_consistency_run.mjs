@@ -118,20 +118,24 @@ async function main() {
 
   const gold = loadGold();
   const realGoldByFilePath = new Map(JSON.parse(fs.readFileSync(REAL_GOLD_JSON, 'utf8')).map((r) => [path.resolve(r.file_path), r]));
-  let subsample = JSON.parse(fs.readFileSync(SUBSAMPLE_JSON, "utf8"));
+  // Optional full-corpus override (2026-08-20): point at all 200 photos + a
+  // separate output file, leaving the n=39 pilot invocation untouched when unset.
+  const inputJson = process.env.SC_INPUT_JSON ? path.resolve(process.env.SC_INPUT_JSON) : SUBSAMPLE_JSON;
+  const outputJsonl = process.env.SC_OUTPUT_JSONL ? path.resolve(process.env.SC_OUTPUT_JSONL) : OUTPUT_JSONL;
+  let subsample = JSON.parse(fs.readFileSync(inputJson, "utf8"));
   if (process.env.FAR_TEST_LIMIT) subsample = subsample.slice(0, Number(process.env.FAR_TEST_LIMIT));
 
-  fs.mkdirSync(path.dirname(OUTPUT_JSONL), { recursive: true });
+  fs.mkdirSync(path.dirname(outputJsonl), { recursive: true });
   const done = new Set();
-  if (fs.existsSync(OUTPUT_JSONL)) {
-    for (const line of fs.readFileSync(OUTPUT_JSONL, 'utf8').trim().split('\n').filter(Boolean)) {
+  if (fs.existsSync(outputJsonl)) {
+    for (const line of fs.readFileSync(outputJsonl, 'utf8').trim().split('\n').filter(Boolean)) {
       const rec = JSON.parse(line);
       done.add(photoKey(rec.item_id, rec.file_name, rec.run_index));
     }
   }
   console.log(`${done.size} already completed (resume), ${subsample.length} photos x ${RUNS_PER_PHOTO} extra runs = ${subsample.length * RUNS_PER_PHOTO} total needed`);
 
-  const output = fs.createWriteStream(OUTPUT_JSONL, { flags: 'a' });
+  const output = fs.createWriteStream(outputJsonl, { flags: 'a' });
   let completed = 0;
   const totalNeeded = subsample.length * RUNS_PER_PHOTO;
 
@@ -164,7 +168,7 @@ async function main() {
   }
   output.end();
   await new Promise((resolve) => output.on('finish', resolve));
-  console.log(`wrote ${OUTPUT_JSONL}`);
+  console.log(`wrote ${outputJsonl}`);
 }
 
 main().catch((e) => { console.error(e); process.exit(1); });

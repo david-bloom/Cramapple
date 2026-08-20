@@ -1,0 +1,66 @@
+{
+  "note": "R&D-tier; ai_provisional gold; no locked holdout. Zero new spend (reuses existing runs).",
+  "arm4_reading": "design-doc option (d): EST-gated escalation, then confidence-gate the result",
+  "full_corpus_gpt52_baseline": {
+    "response_n": 200,
+    "exact_match": 0.385,
+    "far": 0.1902,
+    "frr": 0.08,
+    "f1": 0.9327,
+    "tp": 1081,
+    "fp": 62,
+    "fn": 94,
+    "tn": 264
+  },
+  "option_c_prime_EST_gated_full_corpus": {
+    "response_n": 200,
+    "exact_match": 0.415,
+    "far": 0.1355,
+    "frr": 0.0901,
+    "f1": 0.9341,
+    "tp": 1070,
+    "fp": 45,
+    "fn": 106,
+    "tn": 287
+  },
+  "post_escalation_confidence_distribution": {
+    "medium": 101,
+    "high": 99
+  },
+  "option_d_autograde_slice": {
+    "response_n": 99,
+    "exact_match": 0.596,
+    "far": 0.1205,
+    "frr": 0.041,
+    "f1": 0.9623,
+    "tp": 561,
+    "fp": 20,
+    "fn": 24,
+    "tn": 146,
+    "response_coverage": 0.495
+  },
+  "option_d_routed_to_human_slice": {
+    "response_n": 101,
+    "exact_match": 0.2376,
+    "far": 0.1506,
+    "frr": 0.1387,
+    "f1": 0.9049,
+    "tp": 509,
+    "fp": 25,
+    "fn": 82,
+    "tn": 141,
+    "response_coverage": 0.505
+  },
+  "option_b_reference_autograde_raw_primary": {
+    "response_n": 95,
+    "exact_match": 0.6,
+    "far": 0.1218,
+    "frr": 0.0411,
+    "f1": 0.9623,
+    "tp": 536,
+    "fp": 19,
+    "fn": 23,
+    "tn": 137,
+    "response_coverage": 0.475
+  }
+}

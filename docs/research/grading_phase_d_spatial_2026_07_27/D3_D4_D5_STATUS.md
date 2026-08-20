@@ -73,9 +73,16 @@ means the numbers above are good engineering evidence, not a certified release n
 **Recommendation: do not re-run D4a-c from scratch** (that would be spending real money to
 reproduce a conclusion — joint beats decomposed — that's already answered with a clear margin).
 **Do** treat a genuinely locked, held-out D4d-style pass (once D3's volume/reader-certification
-gaps close and a real holdout partition can be frozen) as the actual remaining D4 work, and
-optionally try arm 4 (hybrid reconciliation) then, since it's the one arm with zero evidence
-either way.
+gaps close and a real holdout partition can be frozen) as the actual remaining D4 work.
+
+**Update 2026-08-20 — arm 4 packaged (`BAKEOFF_RESULTS.md`).** Owner selected arm 4's reading =
+design-doc option (d), gate-on-escalation (EST-gated escalation, then confidence-gate the result).
+Computed at zero new spend: **near-neutral vs. gating the raw primary** — auto-slice FAR 12.05% vs
+12.2%, identical F1/FRR, +2pp coverage. Escalation and confidence-gating are redundant levers on the
+auto slice, not complementary; neither clears FAR. The prompt's *literal* arm 4 (perception
+reconciliation) remains untested — the only arm with zero evidence either way — and arm 2's result
+predicts it loses. That, plus a locked D4d holdout, is the genuine remaining D4 work, still gated on
+D3.
 
 ---
 
@@ -88,11 +95,12 @@ form, but the coverage-vs-error tradeoff analysis it asks for has real data behi
   ~40.5% response-level hands-off coverage, F1 97.4% and FRR 2.8% clear the DR-1 bar on that
   automated slice, FAR 10.9% still fails it. This is a real coverage-vs-error curve point, not a
   single aggregate number.
-- Self-consistency (3x majority-vote) as an alternative/complementary lever: FAR 33.3%→21.4% at
-  a measured cost, piloted at n=39, **not yet confirmed at full corpus scale** — this program
-  already learned once (the 21-photo escalation pilot) that small-sample directional reads can
-  reverse at scale, so this specific number should not be cited past pilot tier without a
-  full-corpus confirmation run.
+- Self-consistency (3x majority-vote) as an alternative/complementary lever: piloted at n=39
+  (FAR 33.3%→21.4%). **Full-corpus confirmation now run (2026-08-20, n=200, $6.64):** the directional
+  read **holds but attenuates and did NOT reverse** — majority-earned (2/3) FAR 19.0→14.7, unanimous
+  (3/3) →9.5, both still failing the ≤2% gate; helps CAT/EST, nothing for SER. See
+  `ABSTENTION_CALIBRATION.md` §4 and `analysis/self_consistency_fullcorpus_report.json`. The
+  small-sample-reversal caveat was honored and the effect survived it (unlike escalation).
 - Adversarial re-check as a candidate abstention/re-verification mechanism was tested and
   **decisively rejected** — solves FAR but destroys F1/exact-match (5:1 collateral damage). Do
   not revisit this without new evidence; the failure looks mechanistic, not tunable.

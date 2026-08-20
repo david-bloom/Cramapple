@@ -131,3 +131,47 @@ sequence D1 against the corpus-collection blockers.
 QR capture MVP) — not started; Stage D0's blockers 1/2 (System A currently broken against live
 Production, no owner decision yet on QR-vs-direct-upload) remain the relevant precondition to
 resolve before D2 work can proceed cleanly.
+
+## Stages D4 + D5 — packaged from existing evidence, one paid confirmation run — 2026-08-20
+
+- Owner directive: "do the first two options, D4 and D5." Both stages packaged into their
+  prompt-named artifacts from the already-collected 2026-08-18/19 evidence (per
+  `D3_D4_D5_STATUS.md`'s "repackage over re-run" recommendation), plus two new re-analyses and one
+  bounded paid confirmation run. **Owner selected arm 4's reading** = design-doc option (d)
+  (gate-on-escalation), the ~$0 reading, over the prompt's literal perception-reconciliation arm.
+- **D4 → `BAKEOFF_RESULTS.md`.** All four arms mapped to existing evidence; primary run's aggregate
+  independently recomputed from raw rows and reproduces the source doc exactly (38.5% exact / 93.3%
+  F1 / 19.0% FAR / 8.0% FRR). New zero-spend arm-4 re-analysis
+  (`analysis/arm4_gate_on_escalation.py`): gate-on-escalation is **near-neutral vs. gating the raw
+  primary** (auto-slice FAR 12.05% vs 12.2%, identical F1/FRR, +2pp coverage) — escalation and
+  confidence-gating are redundant levers, neither clears FAR. Honestly flags the real remaining D4
+  gap: no pre-registered locked holdout (D4d), gold is `ai_provisional`.
+- **D5 → `ABSTENTION_CALIBRATION.md` + `abstention_thresholds.json`.** Thresholds built from
+  OBSERVED per-(archetype,criterion) false-accept rates (`analysis/d4_d5_evidence_repackage.py` →
+  `analysis/d4_d5_summary.json`), not model confidence. `abstention_thresholds.json` generated
+  deterministically (`analysis/gen_abstention_thresholds.py`): **only 3 of 24 (archetype,criterion)
+  cells are provisionally auto-eligible** even at a generous R&D bar (FAR ≤5%, ≥8 negative support);
+  11 fail on high FAR, 10 lack negative support. Encodes the required behaviors (withhold total on
+  any point-bearing abstention; retake only for fixable capture defects).
+- **Paid confirmation run: self-consistency full-corpus (the one outstanding D5 paid item).**
+  Extended the n=39 pilot to all 200 photos — 2 extra `gpt-5.2` passes each, 322 new calls,
+  **$6.64, 0 errors** (under the ~$10 autonomous research cap). Harness patched non-destructively
+  (`SC_INPUT_JSON`/`SC_OUTPUT_JSONL` env overrides; the pilot's n=39 invocation and its output file
+  are untouched). Report: `analysis/self_consistency_fullcorpus_report.json`. Result — the pilot's
+  directional read **holds at scale but attenuates, did NOT reverse** (contrast the escalation
+  reversal): majority-earned (2 of 3) FAR 19.0→14.7 (FRR 8.0→9.4, F1 flat); unanimous 3/3 FAR
+  →9.5 (FRR →11.7). Helps CAT/EST, does nothing for SER. Still fails ≤2% DR-1; a candidate
+  shadow-mode lever at 3× cost, not adopted as default.
+- Verification: primary-run aggregate reproduced exactly (harness validated); SC baseline row
+  reproduces the canonical 19.0/8.0/93.3/38.5 baseline exactly; SC run 400/400 rows, 0 `ok:false`,
+  all 200 photos have both extra runs. `abstention_thresholds.json` re-validated as parseable JSON.
+- Evidence tier change: **none.** Every number remains R&D-tier — `ai_provisional` gold, iterated
+  corpus, no locked holdout. Both artifacts label themselves shadow-only throughout. Nothing here
+  advances any corpus's gold tier or authorizes automated authoritative grading.
+- Approval dependency: none for the analysis/packaging itself. The paid run fell under the
+  established ~$10 autonomous research-spend precedent. No DB, migration, capture UI, or grading
+  integration touched.
+
+**Stages D4/D5 status: packaged (R&D-tier).** The genuine remaining work in both is gated on D3
+(reader-certified gold + corpus volume) before a locked D4d holdout can be frozen — not closeable
+by an AI agent. See `BAKEOFF_RESULTS.md` §5–6 and `ABSTENTION_CALIBRATION.md` §7.

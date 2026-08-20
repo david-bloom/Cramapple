@@ -1,0 +1,269 @@
+{
+  "artifact": "abstention_thresholds.json",
+  "stage": "TASK-0016 Phase D \u2014 Stage D5",
+  "generated": "2026-08-20",
+  "generator": "analysis/gen_abstention_thresholds.py (deterministic from analysis/d4_d5_summary.json)",
+  "evidence_tier": "ai_provisional gold, iterated corpus, no locked holdout \u2014 R&D-tier ONLY, SHADOW-ONLY policy",
+  "source_run": "hand_drawn_graph_real_photo_benchmark_2026_08_18/runs/real_photo_benchmark_gpt52_results.jsonl (openai/gpt-5.2, 200 photos)",
+  "honest_ceiling": "No (archetype,criterion) cell clears the DR-1 FAR gate (<=2%) with real negative support. Even the best response-level auto slice (high-confidence gate) sits at ~12% FAR. This policy is NOT launch-authoritative; it defines what would go to human review in a 100%-human-reviewed shadow (Stage D6), and where automated output is least untrustworthy. All thresholds are provisional pending reader-certified gold (D3).",
+  "global_rules": {
+    "withhold_total_if_any_point_bearing_criterion_abstains": true,
+    "all_rubric_criteria_treated_as_point_bearing": true,
+    "retake_new_photo_only_for_fixable_capture_defect": true,
+    "non_fixable_or_ambiguous_defect_routes_to": "human_review",
+    "response_level_confidence_gate": {
+      "auto_grade_only_if_response_confidence": "high",
+      "observed_auto_slice": {
+        "coverage": 0.475,
+        "far": 0.1218,
+        "frr": 0.0411,
+        "f1": 0.9623,
+        "exact_match": 0.6
+      },
+      "note": "auto slice still fails DR-1 FAR by ~6x; shadow-only"
+    }
+  },
+  "escalation_policy": {
+    "EST_medium_confidence_to_gpt_5_2_pro": true,
+    "rationale": "archetype-gated escalation (option c') \u2014 confirmed clean win on EST only; blanket escalation rejected at full scale",
+    "effect_full_corpus": {
+      "exact": "38.5->41.5",
+      "f1": "93.3->93.4",
+      "far": "19.0->13.6",
+      "frr": "8.0->9.0"
+    },
+    "hybrid_gate_on_escalation_arm4_option_d": "near-neutral vs gate-alone (see BAKEOFF_RESULTS.md \u00a74); does not clear FAR"
+  },
+  "self_consistency_policy": {
+    "method": "asymmetric majority-earned (2 of 3 gpt-5.2 runs must say 'earned'; 'not_earned' never overridden)",
+    "status": "CONFIRMED at full corpus (n=200, 0 missing, 2026-08-20) \u2014 directional read holds, magnitude attenuates vs pilot; did NOT reverse",
+    "cost": "2 extra gpt-5.2 calls per response (~3x primary cost); $6.64 for the 322-call confirmation run",
+    "full_corpus_result": {
+      "baseline_run1": {
+        "far": 19.0,
+        "frr": 8.0,
+        "f1": 93.3,
+        "exact": 38.5
+      },
+      "majority_earned_2of3": {
+        "far": 14.7,
+        "frr": 9.4,
+        "f1": 93.0,
+        "exact": 38.0
+      },
+      "unanimous_earned_3of3": {
+        "far": 9.5,
+        "frr": 11.7,
+        "f1": 92.5,
+        "exact": 36.0
+      },
+      "per_archetype_majority_far": {
+        "CAT": "46.9->37.5",
+        "EST": "12.3->7.8",
+        "SER": "33.3->33.3 (no effect \u2014 SER errors are not lone-earned-vote shaped)"
+      },
+      "pilot_n39_for_reference": "FAR 33.3->21.4 on a hand-picked medium-confidence subsample (harder population than full corpus)"
+    },
+    "note": "Real FAR lever (19.0->14.7 majority; ->9.5 unanimous) but still fails the <=2% DR-1 gate; costs 3x. Candidate shadow-mode lever, not adopted as default."
+  },
+  "criterion_dispositions_summary": {
+    "auto_eligible_provisional": 3,
+    "human_review_required_high_far": 11,
+    "human_review_required_insufficient_support": 10,
+    "total_cells": 24
+  },
+  "criterion_dispositions": {
+    "CAT:CATEGORY_IDENTITY": {
+      "action": "human_review_required",
+      "observed_far": 0.0,
+      "observed_frr": 0.0323,
+      "negative_support_fp_plus_tn": 2,
+      "n_scored": 64,
+      "reason": "insufficient negative support (fp+tn=2<8) \u2014 cannot certify FAR"
+    },
+    "CAT:PLOT_VALUES": {
+      "action": "human_review_required",
+      "observed_far": 0.7143,
+      "observed_frr": 0.125,
+      "negative_support_fp_plus_tn": 7,
+      "n_scored": 63,
+      "reason": "insufficient negative support (fp+tn=7<8) \u2014 cannot certify FAR"
+    },
+    "CAT:REPRESENTATION_TYPE": {
+      "action": "human_review_required",
+      "observed_far": 0.0,
+      "observed_frr": 0.0,
+      "negative_support_fp_plus_tn": 2,
+      "n_scored": 64,
+      "reason": "insufficient negative support (fp+tn=2<8) \u2014 cannot certify FAR"
+    },
+    "CAT:UNCERTAINTY_MARKS": {
+      "action": "human_review_required",
+      "observed_far": 0.6667,
+      "observed_frr": 0.1111,
+      "negative_support_fp_plus_tn": 12,
+      "n_scored": 57,
+      "reason": "observed FAR=0.6667 > R&D bar 0.05"
+    },
+    "CAT:Y_SCALE": {
+      "action": "human_review_required",
+      "observed_far": 1.0,
+      "observed_frr": 0.0,
+      "negative_support_fp_plus_tn": 1,
+      "n_scored": 63,
+      "reason": "insufficient negative support (fp+tn=1<8) \u2014 cannot certify FAR"
+    },
+    "CAT:Y_UNIT": {
+      "action": "human_review_required",
+      "observed_far": 0.125,
+      "observed_frr": 0.0179,
+      "negative_support_fp_plus_tn": 8,
+      "n_scored": 64,
+      "reason": "observed FAR=0.125 > R&D bar 0.05"
+    },
+    "EST:BEST_FIT_RELATIONSHIP": {
+      "action": "human_review_required",
+      "observed_far": 0.0556,
+      "observed_frr": 0.1429,
+      "negative_support_fp_plus_tn": 18,
+      "n_scored": 67,
+      "reason": "observed FAR=0.0556 > R&D bar 0.05"
+    },
+    "EST:ESTIMATE_VALUE": {
+      "action": "human_review_required",
+      "observed_far": 0.1194,
+      "observed_frr": null,
+      "negative_support_fp_plus_tn": 67,
+      "n_scored": 67,
+      "reason": "observed FAR=0.1194 > R&D bar 0.05"
+    },
+    "EST:PLATEAU_ANNOTATION": {
+      "action": "auto_eligible_provisional",
+      "observed_far": 0.0,
+      "observed_frr": 0.0,
+      "negative_support_fp_plus_tn": 27,
+      "n_scored": 35,
+      "reason": "observed FAR=0.0 <= R&D bar 0.05 with negative support 27"
+    },
+    "EST:PLOT_VALUES": {
+      "action": "human_review_required",
+      "observed_far": 0.1351,
+      "observed_frr": 0.2222,
+      "negative_support_fp_plus_tn": 37,
+      "n_scored": 64,
+      "reason": "observed FAR=0.1351 > R&D bar 0.05"
+    },
+    "EST:REPRESENTATION_TYPE": {
+      "action": "human_review_required",
+      "observed_far": 0.1667,
+      "observed_frr": 0.0,
+      "negative_support_fp_plus_tn": 6,
+      "n_scored": 67,
+      "reason": "insufficient negative support (fp+tn=6<8) \u2014 cannot certify FAR"
+    },
+    "EST:X_SCALE": {
+      "action": "human_review_required",
+      "observed_far": 0.1111,
+      "observed_frr": 0.0,
+      "negative_support_fp_plus_tn": 36,
+      "n_scored": 66,
+      "reason": "observed FAR=0.1111 > R&D bar 0.05"
+    },
+    "EST:X_UNIT": {
+      "action": "auto_eligible_provisional",
+      "observed_far": 0.0,
+      "observed_frr": 0.0345,
+      "negative_support_fp_plus_tn": 9,
+      "n_scored": 67,
+      "reason": "observed FAR=0.0 <= R&D bar 0.05 with negative support 9"
+    },
+    "EST:Y_SCALE": {
+      "action": "human_review_required",
+      "observed_far": 0.3438,
+      "observed_frr": 0.1034,
+      "negative_support_fp_plus_tn": 32,
+      "n_scored": 61,
+      "reason": "observed FAR=0.3438 > R&D bar 0.05"
+    },
+    "EST:Y_UNIT": {
+      "action": "auto_eligible_provisional",
+      "observed_far": 0.0,
+      "observed_frr": 0.0847,
+      "negative_support_fp_plus_tn": 8,
+      "n_scored": 67,
+      "reason": "observed FAR=0.0 <= R&D bar 0.05 with negative support 8"
+    },
+    "EST:ZERO_INTERCEPT_ANNOTATION": {
+      "action": "human_review_required",
+      "observed_far": 0.0,
+      "observed_frr": 0.4286,
+      "negative_support_fp_plus_tn": 3,
+      "n_scored": 31,
+      "reason": "insufficient negative support (fp+tn=3<8) \u2014 cannot certify FAR"
+    },
+    "SER:PLOT_VALUES": {
+      "action": "human_review_required",
+      "observed_far": 0.2727,
+      "observed_frr": 0.38,
+      "negative_support_fp_plus_tn": 11,
+      "n_scored": 61,
+      "reason": "observed FAR=0.2727 > R&D bar 0.05"
+    },
+    "SER:POINT_CONNECTION": {
+      "action": "human_review_required",
+      "observed_far": 0.6667,
+      "observed_frr": 0.0152,
+      "negative_support_fp_plus_tn": 3,
+      "n_scored": 69,
+      "reason": "insufficient negative support (fp+tn=3<8) \u2014 cannot certify FAR"
+    },
+    "SER:REPRESENTATION_TYPE": {
+      "action": "human_review_required",
+      "observed_far": 1.0,
+      "observed_frr": 0.0,
+      "negative_support_fp_plus_tn": 1,
+      "n_scored": 69,
+      "reason": "insufficient negative support (fp+tn=1<8) \u2014 cannot certify FAR"
+    },
+    "SER:UNCERTAINTY_MARKS": {
+      "action": "human_review_required",
+      "observed_far": 0.0909,
+      "observed_frr": 0.25,
+      "negative_support_fp_plus_tn": 11,
+      "n_scored": 63,
+      "reason": "observed FAR=0.0909 > R&D bar 0.05"
+    },
+    "SER:X_SCALE": {
+      "action": "human_review_required",
+      "observed_far": 0.6364,
+      "observed_frr": 0.1228,
+      "negative_support_fp_plus_tn": 11,
+      "n_scored": 68,
+      "reason": "observed FAR=0.6364 > R&D bar 0.05"
+    },
+    "SER:X_UNIT": {
+      "action": "human_review_required",
+      "observed_far": 0.0,
+      "observed_frr": 0.0154,
+      "negative_support_fp_plus_tn": 4,
+      "n_scored": 69,
+      "reason": "insufficient negative support (fp+tn=4<8) \u2014 cannot certify FAR"
+    },
+    "SER:Y_SCALE": {
+      "action": "human_review_required",
+      "observed_far": 0.5,
+      "observed_frr": 0.0312,
+      "negative_support_fp_plus_tn": 2,
+      "n_scored": 66,
+      "reason": "insufficient negative support (fp+tn=2<8) \u2014 cannot certify FAR"
+    },
+    "SER:Y_UNIT": {
+      "action": "human_review_required",
+      "observed_far": 0.25,
+      "observed_frr": 0.0164,
+      "negative_support_fp_plus_tn": 8,
+      "n_scored": 69,
+      "reason": "observed FAR=0.25 > R&D bar 0.05"
+    }
+  }
+}

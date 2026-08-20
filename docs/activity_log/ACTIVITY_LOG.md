@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- TASK-0016 Phase D Stages D4 + D5 Packaged From Existing Evidence: Bake-Off and Abstention-Calibration Artifacts Written, Arm-4 (Gate-on-Escalation) Computed as Near-Neutral, and the One Outstanding Paid Run — Full-Corpus Self-Consistency (322 Calls, $6.64) — Confirmed the FAR Lever Holds at Scale (19.0→14.7) Without Reversing; Only 3 of 24 Criterion Cells Provisionally Auto-Eligible, Everything Still R&D-Tier / Shadow-Only — 2026-08-20
 - Session Closeout (2026-08-20): TASK-0016 Phase D Stage D2 Shipped to Production After 5 Rounds of Independent QA and 3 Rework Passes — QR Hand-Drawn Capture Live on cramapple.com; Engine 4 Rollout Next Steps for D3-D7 — 2026-08-20
 - Stage D2 QR Capture Rework Pass 2: Round-3 Independent QA Found the (All-15-Fixed) Rework Close-But-Not-Clean — Fixed Its 4 Must-Fix + 5 Recommended Findings, Including Adding a Real `is_submitted` Guard Inside `bind_response_attachment` (Confirmed Live Prod Had None) So the "Open Capability Can't Corrupt a Submitted Response" Claim Is Now DB-Enforced; 290 Backend + 232 Frontend Tests, Nothing Merged/Deployed/Applied, Round-4 QA Prompt Written — 2026-08-20
 - Stage D2 QR Capture Reworked: An Independent Re-Review Found the Rework Had Never Actually Been Done (Branches Byte-Identical to the Failed Commits), So It Was Both Re-Verified From Scratch and Then Executed — All 15 Round-1 QA Findings Fixed, 282 Backend + 230 Frontend Tests Green, Nothing Merged/Deployed/Applied, a Fresh Round-3 QA Prompt Written — 2026-08-20
@@ -131,6 +132,47 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 ---
+
+## TASK-0016 Phase D Stages D4 + D5 Packaged From Existing Evidence; Full-Corpus Self-Consistency Confirmed — 2026-08-20
+
+**Task:** TASK-0016 (Engine 4 / Phase D). Owner directive: "do the first two options, D4 and D5" —
+i.e. package the observation bake-off (D4) and abstention calibration (D5) from the already-collected
+2026-08-18/19 evidence, per `D3_D4_D5_STATUS.md`'s "repackage over re-run" recommendation, and run
+the paid halves. Owner selected arm 4's reading = design-doc option (d), gate-on-escalation.
+
+**Status:** Packaged (R&D-tier). Not release-grade; nothing merged/deployed.
+
+**Summary:** Wrote the two prompt-named D4/D5 artifacts and their machine-readable companion, added
+two deterministic re-analyses, and ran the one outstanding bounded paid confirmation.
+- **D4 → `BAKEOFF_RESULTS.md`:** four arms mapped to existing evidence; primary-run aggregate
+  independently recomputed from raw rows, reproducing the source doc exactly (38.5% exact / 93.3% F1
+  / 19.0% FAR / 8.0% FRR). New zero-spend **arm-4 (gate-on-escalation)** result: near-neutral vs.
+  gating the raw primary (auto-slice FAR 12.05% vs 12.2%, identical F1/FRR, +2pp coverage) —
+  escalation and confidence-gating are redundant levers, neither clears FAR.
+- **D5 → `ABSTENTION_CALIBRATION.md` + `abstention_thresholds.json`:** thresholds built from OBSERVED
+  per-(archetype,criterion) false-accept rates, generated deterministically. Only **3 of 24 cells**
+  are provisionally auto-eligible even at a generous R&D bar — the data itself says Engine 4 is
+  shadow-only. Encodes the withhold-total-on-any-abstention and retake-only-for-fixable-capture-defect
+  rules.
+- **Paid run — full-corpus self-consistency (the one outstanding D5 item):** extended the n=39 pilot
+  to all 200 photos, 322 new `gpt-5.2` calls, **$6.64, 0 errors** (under the ~$10 autonomous cap).
+  The pilot's FAR-reduction **holds at scale but attenuates and did NOT reverse** (contrast the
+  escalation reversal): majority-earned (2/3) FAR 19.0→14.7, unanimous (3/3) →9.5; helps CAT/EST,
+  nothing for SER. A candidate shadow-mode lever at 3× cost, still failing the ≤2% gate — not
+  adopted as default.
+
+**Evidence tier:** unchanged. Everything remains `ai_provisional` gold, iterated corpus, no locked
+holdout — R&D-tier / shadow-only throughout. The genuine remaining D4/D5 work (a locked D4d holdout)
+is gated on D3 (reader-certified gold + corpus volume), which no AI agent can supply.
+
+**Artifacts:** `docs/research/grading_phase_d_spatial_2026_07_27/{BAKEOFF_RESULTS.md,
+ABSTENTION_CALIBRATION.md, abstention_thresholds.json, analysis/*}`; run data under
+`docs/research/hand_drawn_graph_real_photo_benchmark_2026_08_18/runs/self_consistency_fullcorpus_extra_runs_2026_08_20.jsonl`.
+
+**Next Owner:** David Bloom
+**Next Required Action:** Optional review of the two artifacts. The blocking Engine 4 items are
+unchanged and owner/human-gated: reader-certification time (D3), corpus volume (D3), the archetype
+freeze confirmation, and the D6 shadow product decision.
 
 ## Session Closeout (2026-08-20): TASK-0016 Phase D Stage D2 Shipped to Production — 2026-08-20
 

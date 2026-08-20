@@ -46,6 +46,18 @@ verifier unanimity — lower than Biology's, concentrated in mosaic/scatterplot 
 discrepancies). Both subjects are now at the same state: AI-verified, awaiting human
 reader-certification. See `DECISIONS_AND_BLOCKERS.md` items 5 and 7.
 
+**Updated 2026-08-20 — STAGES D4 + D5 PACKAGED (R&D-tier).** Per owner directive, the observation
+bake-off (D4 → `BAKEOFF_RESULTS.md`) and abstention calibration (D5 → `ABSTENTION_CALIBRATION.md` +
+`abstention_thresholds.json`) were packaged from existing 2026-08-18/19 evidence, with two new
+deterministic re-analyses (`analysis/`) and one bounded paid run. New findings: **arm 4
+(gate-on-escalation) is near-neutral** vs. gating alone (neither clears FAR); the **full-corpus
+self-consistency confirmation** ($6.64, 322 calls, 0 errors) shows the FAR lever **holds at scale
+without reversing** (majority-earned 19.0→14.7) but still fails ≤2%; and **only 3 of 24
+(archetype,criterion) cells are provisionally auto-eligible** — the data confirms Engine 4 is
+shadow-only. Everything remains `ai_provisional`-gold / no-locked-holdout / R&D-tier; the genuine
+remaining D4/D5 work (a locked D4d holdout) stays gated on D3. Full record: `EXECUTION_LOG.md`
+(Stages D4+D5 entry), `D3_D4_D5_STATUS.md` updates.
+
 ---
 
 ## 1. Where Phase D actually stands
