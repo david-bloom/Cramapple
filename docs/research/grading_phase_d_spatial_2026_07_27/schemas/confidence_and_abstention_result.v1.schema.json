@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cramapple.internal/schemas/phase_d_spatial/v1/confidence_and_abstention_result.schema.json",
+  "title": "Spatial Contract v1 -- Confidence and Abstention Result",
+  "contract_version": "v1",
+  "$comment": "New in Stage D1 -- no prior draft schema covered this record type. This is the fourth non-negotiable record type (Phase D prompt: 'calibrated abstention/retake/human-review signals'). It is the ONLY record type authorized to gate whether a result is released as an authoritative automated score versus routed to retake / human review / abstain. It must be backed by measured calibration evidence (calibration_policy_id + measured_false_accept_rate_at_decision), never by a criterion_decision_result.confidence value alone -- see the release_gate_is_calibrated_not_self_reported semantic rule enforced by validate_phase_d_contracts.py, which fails any RELEASE_AUTOMATED record missing that evidence. This directly operationalizes the Phase D prompt's non-negotiable: 'Model self-reported confidence is diagnostic metadata, never a release control.'",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "confidence_and_abstention_result_id",
+    "scope",
+    "criterion_decision_id",
+    "cited_criterion_decision_ids",
+    "input_signals",
+    "calibration_policy_id",
+    "measured_false_accept_rate_at_decision",
+    "decision",
+    "reason_code",
+    "item_id",
+    "response_id",
+    "timestamp"
+  ],
+  "properties": {
+    "contract_version": { "const": "v1" },
+    "confidence_and_abstention_result_id": { "type": "string", "minLength": 1 },
+    "scope": {
+      "type": "string",
+      "enum": ["CRITERION", "RESPONSE"],
+      "description": "CRITERION: this decision covers one criterion_decision_result. RESPONSE: this decision covers a whole response's release status (e.g. capture-quality-driven retake, or 'too many unable_to_determine criteria to release any automated score')."
+    },
+    "criterion_decision_id": {
+      "type": ["string", "null"],
+      "description": "Required (non-null) when scope is CRITERION; must be null when scope is RESPONSE."
+    },
+    "cited_criterion_decision_ids": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 0,
+      "description": "For scope=RESPONSE, the full set of criterion_decision_result IDs this response-level decision aggregates over. Empty only for scope=CRITERION (which uses criterion_decision_id instead) or for a capture-quality-only abstention made before any criterion decision exists."
+    },
+    "input_signals": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "model_self_reported_confidence_echo",
+        "self_consistency_agreement_rate",
+        "verifier_agreement_rate",
+        "capture_quality_disposition"
+      ],
+      "properties": {
+        "model_self_reported_confidence_echo": {
+          "type": ["string", "null"],
+          "enum": ["low", "medium", "high", null],
+          "description": "Echoed from criterion_decision_result.confidence purely for audit traceability. Must NOT be the sole or primary input the calibration_policy weighs -- see $comment. Null when scope=RESPONSE and no single criterion confidence applies."
+        },
+        "self_consistency_agreement_rate": {
+          "type": ["number", "null"],
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Majority-vote/self-consistency agreement rate, if the calibration_policy used it (Engine 4 FAR investigation found this signal works; see project_engine4_far_investigation_2026_08_18). Null if not computed for this decision."
+        },
+        "verifier_agreement_rate": {
+          "type": ["number", "null"],
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Independent-verifier agreement rate, if available (e.g. the DECISION-0045 Gemini/Qwen verification pass). Null if not computed for this decision."
+        },
+        "capture_quality_disposition": {
+          "type": ["string", "null"],
+          "enum": ["ACCEPT", "RETAKE", "HUMAN_REVIEW", null],
+          "description": "Echoed from the response's capture_quality_result.CAPTURE_DISPOSITION, if relevant to this decision."
+        }
+      },
+      "description": "Raw signals the calibration_policy consumed. This object records what fed the decision; it is not itself the release gate."
+    },
+    "calibration_policy_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Versioned identifier for the calibration function/thresholds applied (e.g. a policy fit against a held-out calibration partition). Every RELEASE_AUTOMATED decision must cite a real, measured policy -- an ad hoc or hardcoded threshold with no calibration_policy_id is not a conforming v1 record."
+    },
+    "measured_false_accept_rate_at_decision": {
+      "type": ["number", "null"],
+      "minimum": 0,
+      "maximum": 1,
+      "description": "The held-out-measured false-accept rate associated with this policy/threshold combination at the time this decision was made. Required (non-null) whenever decision is RELEASE_AUTOMATED. May be null only for ABSTAIN_* / RETAKE_REQUIRED decisions, where no release claim is being made."
+    },
+    "decision": {
+      "type": "string",
+      "enum": ["RELEASE_AUTOMATED", "ABSTAIN_HUMAN_REVIEW", "RETAKE_REQUIRED", "ABSTAIN_INSUFFICIENT_EVIDENCE"],
+      "description": "RELEASE_AUTOMATED: an authoritative automated score may be shown. Per program-wide policy (see docs/research/grading_phase_d_spatial_2026_07_27 CROSS_SUBJECT_MAPPING.md / SPATIAL_CONTRACT.md and memory feedback_no_human_grading_in_production), this value must never be produced by V1 tooling in a live AP Statistics shadow deployment -- Stage D1 defines the record shape now so D6/D7's 100%-human-reviewed shadow gate can measure calibration against it without redefining the schema later; the shadow rollout itself will not set decision=RELEASE_AUTOMATED for any real learner response until an owner-approved bake-off says otherwise."
+    },
+    "reason_code": {
+      "type": "string",
+      "enum": [
+        "CALIBRATED_THRESHOLD_MET", "CALIBRATED_THRESHOLD_NOT_MET",
+        "LOW_SELF_CONSISTENCY", "LOW_VERIFIER_AGREEMENT",
+        "CAPTURE_QUALITY_BLOCKED", "UNSUPPORTED_ARCHETYPE",
+        "INSUFFICIENT_CALIBRATION_DATA", "PROGRAM_POLICY_NO_AUTOMATED_RELEASE"
+      ]
+    },
+    "item_id": { "type": "string", "minLength": 1 },
+    "response_id": { "type": "string", "minLength": 1 },
+    "timestamp": { "type": "string", "format": "date-time" }
+  }
+}

@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0045 — Retire Engine 4's Dual-Human-Adjudicated Gold Requirement; Adopt the DECISION-0045 Gold Model
 - APPROVAL-0044 — Replace Free Score Check with 7-Day Trial; Enable GRADING_ENTITLEMENTS_ENABLED (TASK-0026)
 - APPROVAL-0043 — Retire the ≤1000ms p50 Grading Latency Gate; Approve Engine 1/3 Go-Live Ahead of Full Gold-Set Certification
 - APPROVAL-0042 — Lock TASK-0020 Launch Slice and Assessment Baselines
@@ -21,6 +22,33 @@ Most recent entries (full chronological list follows below):
 - APPROVAL-0018 — Use Official Exam Dates and Confirm Registration
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
+
+## APPROVAL-0045 — Retire Engine 4's Dual-Human-Adjudicated Gold Requirement; Adopt the DECISION-0045 Gold Model
+
+**Date:** 2026-08-19
+**Approved By:** David Bloom
+**Related Task:** TASK-0016 Phase D, TASK-0011
+**Decision:** Approved
+
+### Summary
+
+Approves `DECISION-0050`: retires the ≥300-response, ≥40-per-archetype dual-human-adjudicated
+gold-set requirement as a hard gate specifically for Engine 4 (spatial/hand-drawn grading), and
+un-defers `DECISION-0045`'s Set C — Engine 4 gold-set construction now follows the same
+AI-generation + two-independent-non-OpenAI-model-verification + reader-certification protocol
+already governing every other engine, with the same independence constraints.
+
+### Notes
+
+- Does not waive corpus-readiness requirements (consent/provenance manifest, deduplication,
+  metadata stripping) the existing photo corpus still needs per its own 2026-08-03 readiness
+  audit.
+- Does not retroactively certify the existing 200-photo real-Biology corpus's single-pass-AI gold
+  as meeting the new standard — a `DECISION-0045`-protocol pass still needs to actually run
+  against it before it's launch-qualifying evidence.
+- Surfaced and requested during Stage D0 execution of TASK-0016 Phase D
+  (`docs/research/grading_phase_d_spatial_2026_07_27/`), which had identified the old requirement
+  as Engine 4's largest concrete blocker.
 
 ## APPROVAL-0044 — Replace Free Score Check with 7-Day Trial; Enable GRADING_ENTITLEMENTS_ENABLED (TASK-0026)
 

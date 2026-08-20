@@ -1,0 +1,150 @@
+{
+  "_meta": {
+    "generated": "2026-08-19",
+    "generated_by": "Stage D0 execution, TASK-0016 Phase D",
+    "classification_taxonomy": ["REGRESSION_FIXTURE", "DEVELOPMENT_ONLY", "CALIBRATION_ELIGIBLE", "HOLDOUT_ELIGIBLE", "SHADOW_ELIGIBLE", "RETIRED"],
+    "note": "Classification reflects gold/label provenance, not corpus size or photo realism. A real handwritten photo with single-pass AI or self-graded labels is DEVELOPMENT_ONLY, not HOLDOUT_ELIGIBLE, until dual-human adjudication exists."
+  },
+  "corpora": [
+    {
+      "path": "docs/research/hand_drawn_graph_corpus_2026_06_29/",
+      "kind": "synthetic prompts + traceable pages",
+      "count": "150 graph-question specs (CAT/SER/EST x50) + trace_sets/set_01-03 (50 pages each)",
+      "provenance": "AI-generated prompts, not Learning-Quality-reviewed",
+      "classification": "DEVELOPMENT_ONLY"
+    },
+    {
+      "path": "docs/research/hand_drawn_graph_corpus_2026_06_30/",
+      "kind": "synthetic prompts + traceable pages",
+      "count": "57 files, adds trace_sets/set_04 (50 pages)",
+      "provenance": "same as 06_29",
+      "classification": "DEVELOPMENT_ONLY"
+    },
+    {
+      "path": "docs/research/hand_drawn_graph_benchmark_2026_06_30/",
+      "kind": "benchmark run + raw results (VISION_FAST_ESC, n=150)",
+      "count": "12 files (6 unique + 6 '_2' exact duplicates)",
+      "provenance": "synthetic-by-construction, all-earned gold",
+      "verified_claims": {
+        "exact_match_pct": 97.33,
+        "criterion_accuracy_pct": 99.478,
+        "p50_latency_ms": 3393.5,
+        "avg_cost_usd": 0.003943,
+        "verification_method": "reverified against runs/hand_drawn_graph_benchmark_results_fast_esc_150.jsonl (150 rows), all four numbers confirmed correct"
+      },
+      "classification": "REGRESSION_FIXTURE"
+    },
+    {
+      "path": "docs/research/hand_drawn_graph_batch_50_grading_test_2026_06_29/",
+      "kind": "local smoke test, 50 images",
+      "provenance": "self-graded, no external model API used, not independent",
+      "verified_claims": { "captured": "50/50", "full_credit": "50/50", "note": "confirmed against README + CSV" },
+      "classification": "DEVELOPMENT_ONLY"
+    },
+    {
+      "path": "docs/research/hand_drawn_sample_grading_experiment_2026-06-29.md",
+      "kind": "23-image sample report",
+      "provenance": "provisional self-assigned labels, single-pass Codex judgment, no manifest",
+      "verified_claims": { "coarse_agreement_pct": 87.0, "note": "20/23 confirmed exact match to doc's own claim; doc itself states result does not justify learner-facing automated grading" },
+      "classification": "DEVELOPMENT_ONLY"
+    },
+    {
+      "path": "docs/research/hand_drawn_graph_real_photo_benchmark_2026_08_18/",
+      "kind": "real-photo corpus + gold + ablation runs",
+      "count": "200 unique real photos (deduped by sha256 from 372 raw); gold/, runs/ (~13 ablation result files), overlay_spike/",
+      "provenance": "real handwriting, but gold is single-pass AI (20 batches of 10, one model call per batch) mislabeled 'genuine gold' in a companion doc -- not dual-human adjudicated",
+      "verified_claims": {
+        "baseline_exact_match_pct": 23.0,
+        "baseline_f1_pct": 84.5,
+        "baseline_false_accept_pct": 30.6,
+        "baseline_false_reject_pct": 20.5,
+        "note": "fails all four DR-1-style thresholds on the baseline arm; later architecture work in the same corpus improves but does not clear all four (see ENGINE4_PRODUCTION_DESIGN_2026_08_18.md)"
+      },
+      "classification": "HOLDOUT_ELIGIBLE_PENDING_DUAL_HUMAN_ADJUDICATION"
+    },
+    {
+      "path": "docs/research/hand_drawn_samples_item_id_manifest_2026_08_18.json",
+      "kind": "item-ID to file-path manifest",
+      "count": "1891 lines",
+      "provenance": "infrastructure asset, not a labeled corpus",
+      "classification": "DEVELOPMENT_ONLY"
+    },
+    {
+      "path": "docs/hand drawn samples/",
+      "kind": "raw photo archive",
+      "count": "382 files (corrected from stale '372' -- audit count predates later additions), subfolders: Bio-HRD(51 real), Calc AB HDR(6 real, off-subject), Chem HDR(10 real, off-subject, 1 dup), Stats-HRD-2(29 real, only in-scope Stats real captures found), Other Bio HDR(181, split Biology Packet 2/3 real photos + App Graphs from Pdf 1 duplicate set), plus 105 loose top-level files (50 synthetic HDG-*response-02.png renders + ~52 real IMG_* duplicates + manifest/contact-sheet files)",
+      "provenance": "real handwriting of traced synthetic templates (not independent responses) mixed with pure synthetic renders",
+      "readiness": "NOT ingestion-ready per HAND_DRAWN_CORPUS_READINESS_AUDIT_2026_08_03.md -- exact duplicates present, no consent/provenance manifest, embedded metadata unstripped",
+      "classification": "DEVELOPMENT_ONLY"
+    },
+    {
+      "path": "docs/research/ap_statistics_graph_response_seed_2026_07_02/",
+      "kind": "AP Statistics launch-subject seed (12 items, 6 archetypes) + reference_images",
+      "provenance": "research seed content only, not Learning-Quality-approved; reference_images are clean synthetic PNGs, each duplicated as '_2'",
+      "classification": "DEVELOPMENT_ONLY"
+    }
+  ],
+  "scripts": [
+    { "path": "scripts/generate_hand_drawn_graph_corpus.py", "purpose": "corpus generator", "classification": "DEVELOPMENT_ONLY" },
+    { "path": "scripts/generate_hand_drawn_trace_sets.py", "purpose": "trace-set generator", "classification": "DEVELOPMENT_ONLY" },
+    { "path": "scripts/generate_hand_drawn_trace_set_04.py", "purpose": "trace-set-04 generator", "classification": "DEVELOPMENT_ONLY" },
+    { "path": "scripts/build_hand_drawn_graph_benchmark.py", "purpose": "benchmark assembler", "classification": "DEVELOPMENT_ONLY" },
+    { "path": "scripts/evaluate_hand_drawn_graph_benchmark.py", "purpose": "benchmark scorer", "classification": "DEVELOPMENT_ONLY" },
+    { "path": "scripts/drawn_response/", "purpose": "contract schemas (partition_manifest, capture_quality_record, observation_record, capture_image_record, criterion_decision_record, method_run_log, capture_session_event) + prepare_capture_corpus.py (privacy-preserving audit tool, produced the 372/382 counts)", "classification": "DEVELOPMENT_ONLY", "note": "directly reusable for Stage D1 contract work" },
+    { "path": "scripts/vercel-gateway-check/hand_drawn_graph_benchmark_run.mjs", "purpose": "original trace-set VISION_FAST_ESC benchmark runner", "classification": "DEVELOPMENT_ONLY" },
+    { "path": "scripts/vercel-gateway-check/hand_drawn_graph_real_photo_benchmark_run.mjs", "purpose": "real-photo extension of the benchmark", "classification": "DEVELOPMENT_ONLY" },
+    { "path": "scripts/vercel-gateway-check/hand_drawn_graph_real_photo_benchmark_gpt52_run.mjs", "purpose": "gpt-5.2 model-backbone swap on real photos", "classification": "DEVELOPMENT_ONLY" },
+    { "path": "scripts/vercel-gateway-check/hand_drawn_graph_real_photo_benchmark_gpt52_crop_run.mjs", "purpose": "crop+upscale preprocessing ablation", "classification": "DEVELOPMENT_ONLY" },
+    { "path": "scripts/vercel-gateway-check/hand_drawn_graph_real_photo_benchmark_gpt52_zia_prompt_run.mjs", "purpose": "ZERO_INTERCEPT_ANNOTATION prompt-fix retest", "classification": "DEVELOPMENT_ONLY" },
+    { "path": "scripts/vercel-gateway-check/hand_drawn_graph_real_photo_benchmark_gpt52_plot_values_prompt_run.mjs", "purpose": "PLOT_VALUES prompt-fix retest", "classification": "DEVELOPMENT_ONLY" },
+    { "path": "scripts/vercel-gateway-check/hand_drawn_graph_extraction_probe_run.mjs", "purpose": "perception-vs-judgment diagnostic", "classification": "DEVELOPMENT_ONLY" },
+    { "path": "scripts/vercel-gateway-check/hand_drawn_graph_extraction_probe_crop_run.mjs", "purpose": "resolution/crop ablation of extraction probe", "classification": "DEVELOPMENT_ONLY" },
+    { "path": "scripts/vercel-gateway-check/hand_drawn_graph_extraction_probe_multimodel_run.mjs", "purpose": "model-backbone ablation of extraction probe", "classification": "DEVELOPMENT_ONLY" },
+    { "path": "scripts/vercel-gateway-check/hand_drawn_graph_extraction_probe_gemini_retry.mjs", "purpose": "retry pass for failed Gemini extraction calls", "classification": "DEVELOPMENT_ONLY" },
+    { "path": "scripts/vercel-gateway-check/hand_drawn_graph_escalation_gemini_run.mjs", "purpose": "controlled second-pass-model escalation test", "classification": "DEVELOPMENT_ONLY" },
+    { "path": "scripts/vercel-gateway-check/hand_drawn_graph_escalation_full_run.mjs", "purpose": "full-scale escalation run (105/105)", "classification": "DEVELOPMENT_ONLY" },
+    { "path": "scripts/vercel-gateway-check/hand_drawn_graph_escalation_full_scale_report.mjs", "purpose": "recomputes metrics for escalation-augmented policy", "classification": "DEVELOPMENT_ONLY" },
+    { "path": "scripts/vercel-gateway-check/hand_drawn_graph_escalation_archetype_gated_report.mjs", "purpose": "archetype-gated escalation policy check, zero new spend", "classification": "DEVELOPMENT_ONLY" },
+    { "path": "scripts/vercel-gateway-check/hand_drawn_graph_self_consistency_run.mjs", "purpose": "3-run ensemble consensus experiment", "classification": "DEVELOPMENT_ONLY" },
+    { "path": "scripts/vercel-gateway-check/hand_drawn_graph_adversarial_recheck_run.mjs", "purpose": "asymmetric re-check pass; confirmed a decisive failure mode, do not retry", "classification": "DEVELOPMENT_ONLY" }
+  ],
+  "duplicate_files_suffix_2": [
+    "docs/research/hand_drawn_graph_benchmark_2026_06_30/README 2.md",
+    "docs/research/hand_drawn_graph_benchmark_2026_06_30/benchmark_manifest 2.csv",
+    "docs/research/hand_drawn_graph_benchmark_2026_06_30/benchmark_manifest 2.json",
+    "docs/research/hand_drawn_graph_benchmark_2026_06_30/hand_drawn_graph_benchmark_report 2.md",
+    "docs/research/hand_drawn_graph_benchmark_2026_06_30/hand_drawn_graph_benchmark_report_fast_esc_150 2.md",
+    "docs/research/ap_statistics_graph_response_seed_2026_07_02/reference_images/*__reference 2.png (12 files)",
+    "docs/research/ap_statistics_graph_response_seed_2026_07_02/reference_images/contact_sheet 2.png",
+    "scripts/drawn_response/upload_reference_images_to_storage 2.mjs",
+    "docs/hand drawn samples/Chem HDR/IMG_7084 2.jpeg"
+  ],
+  "duplicate_files_note": "all confirmed byte-identical via diff -q; canonical copy is the unsuffixed filename in every case; no deletion performed per D0 instructions",
+  "database_objects": [
+    { "object": "app.response_attachments", "dev_rows": 0, "prod_rows": 0, "status": "table exists, deployed, QA'd (TASK-0025); never used end-to-end", "classification": "SHADOW_ELIGIBLE_INFRASTRUCTURE" },
+    { "object": "capture_sessions", "dev_status": "does not exist", "prod_status": "does not exist", "note": "existed in Prod as of 2026-07-09 (per stale generated types file), created outside any committed migration, since removed from both projects with no migration recording creation or removal. System A's capture.functions.ts (11 call sites) currently calls a non-existent table -- broken against live Prod, not just research-scoped.", "classification": "RETIRED_OR_NEVER_MIGRATED" },
+    { "object": "capture-research storage bucket", "dev_status": "does not exist", "prod_status": "does not exist", "classification": "RETIRED_OR_NEVER_MIGRATED" },
+    { "object": "learner-uploads storage bucket", "dev_objects": 0, "prod_objects": 0, "classification": "SHADOW_ELIGIBLE_INFRASTRUCTURE" },
+    { "object": "app.grading_results (model_id='manual-review')", "dev_rows": 0, "prod_rows": 0 },
+    { "object": "app.content_item_versions (evaluator_strategy='human_shadow')", "prod_total": 59, "breakdown": { "assigned": 2, "published": 24, "retired": 27, "reviewed_disapproved": 6 }, "note": "unchanged since 2026-08-18" }
+  ],
+  "frontend_routes": [
+    { "path": "src/routes/capture-demo.tsx", "purpose": "QR-mint/status demo for System A", "linked": false, "depends_on": "capture_sessions (non-existent table)" },
+    { "path": "src/routes/capture-phone.tsx", "purpose": "phone-side capture page, QR target", "linked": true, "depends_on": "capture_sessions (non-existent table)" },
+    { "path": "src/routes/hand-drawn-pilot.tsx", "purpose": "System B pilot capture flow", "linked": false, "admin_gated": true },
+    { "path": "src/routes/hand-drawn-responses.tsx", "purpose": "marketing/informational page, unrelated to capture mechanics", "linked": true },
+    { "path": "src/routes/admin.grade-response.$attemptId.tsx", "purpose": "manual grading UI for System B pilot", "linked": false, "admin_gated": true },
+    { "path": "src/routes/session.index.tsx + session.setup.tsx", "purpose": "main session runner, hosts System A's CaptureItem inline", "linked": true }
+  ],
+  "frontend_snapshot_caveat": "all frontend_routes entries read from .worktrees/task0019-frontend at commit 369e4e8 (2026-08-16); origin/main of exam-buddy-wireframe is confirmed 16 commits ahead including a commit titled 'Added capture quality check' not yet reviewed. Re-verify against origin/main before relying on this for Stage D2 decisions.",
+  "required_reading_status": [
+    { "doc": "docs/tasks/TASK-0011-HANDWRITTEN-GRAPH-CAPTURE.md", "status": "Research, Approval Pending" },
+    { "doc": "docs/research/DRAWN_RESPONSE_ARCHITECTURE_REVIEW.md", "status": "Research review, not implementation approval; foundational, not superseded" },
+    { "doc": "docs/research/TASK-0011_PHASE_1_EXECUTION_SPEC.md", "status": "Proposed spec v0.1; archetype/corpus-split numbers confirmed consistent with Phase D prompt" },
+    { "doc": "docs/research/ORLY_DRAWN_RESPONSE_PILOT_PROTOCOL.md", "status": "Draft protocol; pilot never completed" },
+    { "doc": "docs/research/DRAWN_RESPONSE_PILOT_V0_REVIEW.md", "status": "QA Blocked - Revision Required; no v0.2 approval on record" },
+    { "doc": "docs/research/GRADING_RESEARCH_CANONICAL_PROCESS.md", "status": "Draft canonical process; active, cited by the ledger" },
+    { "doc": "docs/research/grading_cross_subject_takeaways.md", "status": "Durable lesson layer, updated through 2026-08-13; mostly Engine 1/3, limited direct Engine 4 content" },
+    { "doc": "docs/GRADING_PROGRAM.md", "status": "Master index, reconciled 2026-07-27; confirms ledger is authoritative on status conflicts" }
+  ]
+}

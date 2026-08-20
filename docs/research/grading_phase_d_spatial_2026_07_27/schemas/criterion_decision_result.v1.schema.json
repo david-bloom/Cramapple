@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cramapple.internal/schemas/phase_d_spatial/v1/criterion_decision_result.schema.json",
+  "title": "Spatial Contract v1 -- Criterion Decision Result",
+  "contract_version": "v1",
+  "$comment": "Stage D1 frozen contract. Reconciles two prior, structurally different shapes rather than picking one blind: (a) scripts/drawn_response/schemas/criterion_decision_record.schema.json's research-protocol shape (decision: MET/NOT_MET/ABSTAIN/NOT_APPLICABLE, reason_code, cited_observation_ids, method, rubric_version), defined by TASK-0011_PHASE_1_EXECUTION_SPEC.md sections 4.1/4.2/6.3/7.2; and (b) the criterion_statuses[] shape actually used by the running grading calls verified in decision_0045_verification_2026_08_19 (status: earned/not_earned/unable_to_determine, confidence, rationale). This v1 contract adopts (b)'s status vocabulary as canonical (it is what production grading calls already emit) and layers (a)'s citation/rubric-contract discipline on top, since (b) as measured had NO observation citation at all -- see SPATIAL_CONTRACT.md section 2.5 for the full mapping table (MET->earned, NOT_MET->not_earned, ABSTAIN->unable_to_determine, NOT_APPLICABLE->not_applicable) and the explicit statement that decision_0045_verification's raw JSONL output is NOT itself a conforming criterion_decision_result until backfit with cited_observation_ids and a rubric_contract reference (it has neither today). This is the third non-negotiable record type: it MUST cite locked visual_observation_result IDs and the applicable rubric_contract; it must never assert a fact about the image directly. confidence here is model self-reported diagnostic metadata only (per the Phase D prompt's non-negotiable architecture) and must never be read by any downstream system as a release control -- confidence_and_abstention_result.v1 is the only record type authorized to gate release, and it must be backed by measured calibration evidence, not this field.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "criterion_decision_id",
+    "criterion_id",
+    "criterion_label",
+    "archetype",
+    "status",
+    "cited_observation_ids",
+    "rubric_contract",
+    "reason_code",
+    "confidence",
+    "rationale",
+    "reviewer_id",
+    "method",
+    "item_id",
+    "response_id",
+    "timestamp"
+  ],
+  "properties": {
+    "contract_version": { "const": "v1" },
+    "criterion_decision_id": { "type": "string", "minLength": 1, "description": "Unique ID for this decision record." },
+    "criterion_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Item-specific criterion instance ID from that item's authored criterion_definitions package (e.g. 'DRG-P1-01-UNCERTAINTY_MARKS')."
+    },
+    "criterion_label": {
+      "type": "string",
+      "enum": [
+        "REPRESENTATION_TYPE", "X_VARIABLE", "Y_VARIABLE", "X_UNIT", "Y_UNIT",
+        "X_SCALE", "Y_SCALE", "CATEGORY_IDENTITY", "PLOT_VALUES",
+        "UNCERTAINTY_MARKS", "POINT_CONNECTION", "BEST_FIT_RELATIONSHIP",
+        "ZERO_INTERCEPT_ANNOTATION", "PLATEAU_ANNOTATION", "ESTIMATE_VALUE"
+      ],
+      "description": "Shared cross-item criterion taxonomy, used for by-criterion rollups. Not a closed vocabulary forever -- CROSS_SUBJECT_MAPPING.md documents which of these already generalize across subjects and which subject-specific extensions would need a new versioned criterion_label set before use."
+    },
+    "archetype": {
+      "type": "string",
+      "enum": [
+        "categorical_comparison_supplied_uncertainty",
+        "continuous_measured_series_supplied_uncertainty",
+        "continuous_relationship_graph_derived_estimate"
+      ],
+      "description": "The exactly-3 V1-frozen archetypes confirmed in Stage D0 (matching the naming used by decision_0045_verification_2026_08_19 and ENGINE4_PRODUCTION_DESIGN_2026_08_18.md; equivalent to the *_with_* naming in partition_manifest.schema.json). A criterion decision for any response outside these 3 archetypes must not exist -- see CROSS_SUBJECT_MAPPING.md; unsupported forms abstain at capture/observation triage, before a criterion_decision_result is ever created."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["earned", "not_earned", "unable_to_determine", "not_applicable"],
+      "description": "Canonical status vocabulary, matching production grading-call output (criterion_statuses[]). Maps 1:1 from the research-protocol 'decision' enum: MET->earned, NOT_MET->not_earned, ABSTAIN->unable_to_determine, NOT_APPLICABLE->not_applicable."
+    },
+    "cited_observation_ids": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 0,
+      "description": "observation_id values from visual_observation_result.v1 records this decision relies on. Empty only when status is 'not_applicable'. Citation-integrity tests (validate_phase_d_contracts.py) fail closed if any cited ID does not resolve to a real observation in the same evaluation batch."
+    },
+    "rubric_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["rubric_id", "rubric_version"],
+      "properties": {
+        "rubric_id": { "type": "string", "minLength": 1, "description": "The item's authored criterion_definitions package ID this decision was scored against." },
+        "rubric_version": { "type": "string", "minLength": 1, "description": "Must match an item's locked criterion_definitions version. A rubric defect invalidates affected decisions and requires a new rubric_version, not a silent edit." }
+      },
+      "description": "The applicable rubric contract this decision cites, per the Phase D prompt's non-negotiable architecture ('criterion decisions must cite ... the applicable rubric contract')."
+    },
+    "reason_code": {
+      "type": "string",
+      "enum": [
+        "EVIDENCE_SATISFIES", "VISIBLE_OMISSION", "VISIBLE_INCORRECT",
+        "VISIBLE_CONTRADICTION", "UNREADABLE_CAPTURE", "CUTOFF_EVIDENCE",
+        "AMBIGUOUS_MARK", "AMBIGUOUS_TEXT", "UNSUPPORTED_REPRESENTATION",
+        "RUBRIC_AMBIGUITY", "OUT_OF_DISTRIBUTION", "NOT_REQUIRED"
+      ]
+    },
+    "confidence": {
+      "type": "string",
+      "enum": ["low", "medium", "high"],
+      "description": "Model or human self-reported confidence. Diagnostic metadata ONLY -- never a release control (Phase D prompt, non-negotiable architecture). Downstream release gating must read confidence_and_abstention_result.v1 instead, never this field."
+    },
+    "rationale": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Free-text explanation, matching the production grading-call shape. Not a substitute for cited_observation_ids -- rationale is for human legibility, citations are what other records may rely on programmatically."
+    },
+    "reviewer_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "For automated method output, use the method/run identifier (see 'method') rather than a human reviewer ID."
+    },
+    "method": {
+      "type": "string",
+      "enum": [
+        "human_validator_a", "human_validator_b", "human_lead_adjudication",
+        "method_direct_multimodal", "method_multimodal_observation_then_criterion",
+        "method_deterministic_geometry_ocr", "method_hybrid_reconciliation",
+        "method_decision_0045_verifier"
+      ],
+      "description": "Distinguishes gold human labels from the candidate automated methods and the DECISION-0045 AI-verification pass. 'method_decision_0045_verifier' added in v1 to accommodate the already-executed Gemini/Qwen verification pass once it is backfit with citations (see $comment)."
+    },
+    "item_id": { "type": "string", "minLength": 1 },
+    "response_id": { "type": "string", "minLength": 1 },
+    "timestamp": { "type": "string", "format": "date-time" }
+  }
+}

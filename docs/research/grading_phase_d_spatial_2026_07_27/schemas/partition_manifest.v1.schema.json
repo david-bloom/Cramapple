@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cramapple.internal/schemas/phase_d_spatial/v1/partition_manifest.schema.json",
+  "title": "Spatial Contract v1 -- Corpus Partition Manifest",
+  "contract_version": "v1",
+  "$comment": "Stage D1 frozen contract, version-stamped from scripts/drawn_response/schemas/partition_manifest.schema.json (structurally unchanged). Not one of the Phase D prompt's 8 primary Stage-D1 bullets, but directly supporting infrastructure already confirmed correct in Stage D0 (archetype freeze + 300-response/100-per-archetype release-corpus target both already specified and unchanged). Included here so the full corpus-governance picture is versioned alongside the record types it governs access to.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["contract_version", "corpus_version", "item_id", "archetype", "generated_at", "responses"],
+  "properties": {
+    "contract_version": { "const": "v1" },
+    "corpus_version": { "type": "string", "minLength": 1 },
+    "item_id": { "type": "string", "minLength": 1 },
+    "archetype": {
+      "type": "string",
+      "enum": [
+        "categorical_comparison_with_supplied_uncertainty",
+        "continuous_measured_series_with_supplied_uncertainty",
+        "continuous_relationship_with_graph_derived_estimate"
+      ]
+    },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "responses": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "response_id", "partition", "assigned_date", "capture_image_ids",
+          "access_locked", "authorized_roles", "excluded_principals", "characteristic_tags"
+        ],
+        "properties": {
+          "response_id": { "type": "string", "minLength": 1 },
+          "partition": { "type": "string", "enum": ["development", "calibration", "locked_holdout", "challenge"] },
+          "assigned_date": { "type": "string", "format": "date-time" },
+          "capture_image_ids": { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 2 },
+          "access_locked": { "type": "boolean" },
+          "authorized_roles": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "corpus_coordinator", "grading_validator_a", "grading_validator_b",
+                "lead_grading_validator", "capture_reviewer", "learning_quality_owner", "item_author"
+              ]
+            }
+          },
+          "excluded_principals": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+          "characteristic_tags": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["partial_credit", "contradictory_or_inconsistent", "ambiguous_or_adversarial", "capture_defect", "varied_capture_condition"]
+            }
+          }
+        }
+      }
+    }
+  }
+}

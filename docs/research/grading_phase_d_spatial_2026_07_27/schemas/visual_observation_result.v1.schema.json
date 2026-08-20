@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cramapple.internal/schemas/phase_d_spatial/v1/visual_observation_result.schema.json",
+  "title": "Spatial Contract v1 -- Visual Observation Result",
+  "contract_version": "v1",
+  "$comment": "Stage D1 frozen contract, version-stamped and renamed from scripts/drawn_response/schemas/observation_record.schema.json to match the non-negotiable-architecture name 'visual_observation_result'. Structurally unchanged: still defined by TASK-0011_PHASE_1_EXECUTION_SPEC.md section 4.1. This is the second non-negotiable record type: the image pipeline OBSERVES evidence here and must never assert a scoring decision in this record. criterion_decision_result.v1 (a separate record) cites observation_id values from here; it must never restate raw image facts inline.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "observation_id",
+    "source_image_id",
+    "derived_image_id",
+    "feature_label",
+    "state",
+    "transcribed_text",
+    "numeric_value",
+    "evidence_region",
+    "reviewer_note",
+    "reviewer_id",
+    "item_id",
+    "response_id",
+    "timestamp"
+  ],
+  "properties": {
+    "contract_version": { "const": "v1" },
+    "observation_id": { "type": "string", "minLength": 1 },
+    "source_image_id": { "type": "string", "minLength": 1 },
+    "derived_image_id": { "type": ["string", "null"] },
+    "feature_label": { "type": "string", "minLength": 1 },
+    "state": { "type": "string", "enum": ["PRESENT", "ABSENT", "AMBIGUOUS", "NOT_VISIBLE", "NOT_APPLICABLE"] },
+    "transcribed_text": { "type": ["string", "null"] },
+    "numeric_value": { "type": ["number", "null"] },
+    "evidence_region": {
+      "anyOf": [
+        { "type": "null" },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["x", "y", "width", "height", "coordinate_space"],
+          "properties": {
+            "x": { "type": "number" },
+            "y": { "type": "number" },
+            "width": { "type": "number" },
+            "height": { "type": "number" },
+            "coordinate_space": { "type": "string" }
+          }
+        }
+      ]
+    },
+    "reviewer_note": { "type": ["string", "null"] },
+    "reviewer_id": { "type": "string", "minLength": 1 },
+    "item_id": { "type": "string", "minLength": 1 },
+    "response_id": { "type": "string", "minLength": 1 },
+    "timestamp": { "type": "string", "format": "date-time" }
+  }
+}

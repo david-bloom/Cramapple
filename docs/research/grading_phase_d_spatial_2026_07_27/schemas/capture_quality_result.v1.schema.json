@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cramapple.internal/schemas/phase_d_spatial/v1/capture_quality_result.schema.json",
+  "title": "Spatial Contract v1 -- Capture Quality Result",
+  "contract_version": "v1",
+  "$comment": "Stage D1 frozen contract, version-stamped and renamed from scripts/drawn_response/schemas/capture_quality_record.schema.json to match the non-negotiable-architecture name 'capture_quality_result'. Structurally unchanged: still defined by TASK-0011_PHASE_1_EXECUTION_SPEC.md sections 5/7.1. This record is the first of the five non-negotiable separate record types (Phase D prompt 'Non-negotiable architecture'): it describes the IMAGE, never the student's graph correctness ('Missing axis labels on a clear photograph are a scoring observation, not a capture failure'). It never awards points and is not itself a release control -- CAPTURE_DISPOSITION only gates whether the image proceeds to observation/decision at all.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "PAGE_COMPLETE",
+    "GRAPH_REGION_COMPLETE",
+    "FOCUS_LEGIBILITY",
+    "GLARE_OCCLUSION",
+    "PERSPECTIVE_READABILITY",
+    "RESOLUTION_READABILITY",
+    "ORIENTATION_USABLE",
+    "INCIDENTAL_IDENTIFIER",
+    "CAPTURE_DISPOSITION",
+    "source_image_id",
+    "item_id",
+    "response_id",
+    "capture_reviewer_id",
+    "timestamp"
+  ],
+  "properties": {
+    "contract_version": { "const": "v1" },
+    "PAGE_COMPLETE": { "$ref": "#/$defs/passFailUncertain" },
+    "GRAPH_REGION_COMPLETE": { "$ref": "#/$defs/passFailUncertain" },
+    "FOCUS_LEGIBILITY": { "$ref": "#/$defs/passFailUncertain" },
+    "GLARE_OCCLUSION": { "$ref": "#/$defs/passFailUncertain" },
+    "PERSPECTIVE_READABILITY": { "$ref": "#/$defs/passFailUncertain" },
+    "RESOLUTION_READABILITY": { "$ref": "#/$defs/passFailUncertain" },
+    "ORIENTATION_USABLE": { "$ref": "#/$defs/passFailUncertain" },
+    "INCIDENTAL_IDENTIFIER": { "type": "string", "enum": ["NONE", "PRESENT", "UNCERTAIN"] },
+    "CAPTURE_DISPOSITION": {
+      "type": "string",
+      "enum": ["ACCEPT", "RETAKE", "HUMAN_REVIEW"],
+      "description": "RETAKE only when recapture can plausibly fix the defect; otherwise HUMAN_REVIEW."
+    },
+    "source_image_id": { "type": "string", "minLength": 1 },
+    "item_id": { "type": "string", "minLength": 1 },
+    "response_id": { "type": "string", "minLength": 1 },
+    "capture_reviewer_id": { "type": "string", "minLength": 1 },
+    "timestamp": { "type": "string", "format": "date-time" }
+  },
+  "$defs": {
+    "passFailUncertain": { "type": "string", "enum": ["PASS", "FAIL", "UNCERTAIN"] }
+  }
+}

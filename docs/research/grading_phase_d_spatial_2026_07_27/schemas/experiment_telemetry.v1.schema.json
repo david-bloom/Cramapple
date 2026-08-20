@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cramapple.internal/schemas/phase_d_spatial/v1/experiment_telemetry.schema.json",
+  "title": "Spatial Contract v1 -- Experiment Telemetry Record",
+  "contract_version": "v1",
+  "$comment": "Stage D1 frozen contract, version-stamped and renamed from scripts/drawn_response/schemas/method_run_log.schema.json (structurally unchanged; the draft's own $comment already frames it as harness scaffolding for latency/cost/reviewer-burden metrics -- exactly the Phase D prompt's 'experiment telemetry' bullet). One method invocation may produce several criterion_decision_result rows; this is the per-invocation log distinct from those per-criterion records.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "response_id",
+    "item_id",
+    "method",
+    "criterion_decision_ids_produced",
+    "latency_ms",
+    "cost_usd",
+    "reviewer_minutes",
+    "human_reviewed",
+    "timestamp"
+  ],
+  "properties": {
+    "contract_version": { "const": "v1" },
+    "response_id": { "type": "string", "minLength": 1 },
+    "item_id": { "type": "string", "minLength": 1 },
+    "method": {
+      "type": "string",
+      "enum": [
+        "method_direct_multimodal", "method_multimodal_observation_then_criterion",
+        "method_deterministic_geometry_ocr", "method_hybrid_reconciliation",
+        "method_decision_0045_verifier",
+        "human_validator_a", "human_validator_b", "human_lead_adjudication"
+      ]
+    },
+    "criterion_decision_ids_produced": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1,
+      "description": "criterion_decision_result IDs (see criterion_decision_result.v1.schema.json) this single invocation produced. Renamed from the draft's criterion_ids_produced to avoid ambiguity with criterion_id (the item-authored criterion instance) -- this field lists decision record IDs, not criterion IDs."
+    },
+    "latency_ms": { "type": ["number", "null"] },
+    "cost_usd": { "type": ["number", "null"] },
+    "reviewer_minutes": { "type": ["number", "null"] },
+    "human_reviewed": { "type": "boolean" },
+    "timestamp": { "type": "string", "format": "date-time" }
+  }
+}

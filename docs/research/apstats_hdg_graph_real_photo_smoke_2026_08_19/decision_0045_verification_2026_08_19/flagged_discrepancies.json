@@ -1,0 +1,62 @@
+[
+  {
+    "item_id": "APSTATS-HDG-2026-GRAPH-036",
+    "file_path": "/Users/davidbloom/Documents/Cramapple.nosync/docs/hand drawn samples/Stats-HRD-2/IMG_7050.jpeg",
+    "criterion_id": "POINTS_PLOTTED",
+    "gold_status": "not_earned",
+    "gold_rationale": "Item ID confirmed. Points sit almost exactly on a single monotonic decreasing line; the real table is noisy/non-monotonic (e.g. irrigation 1.5in gives 38% loss, higher than 1.0in's 30%), which this drawing does not reproduce -- points read as an idealized line rather than the actual supplied pairs. Axes correctly labeled (Irrigation x, Yield loss y). Trend line is a reasonable decreasing line through the (idealized) cloud. Interpretation text: 'negatively correlated with strong -r' -- direction and strength both match the rubric's 'strong negative'.",
+    "verifier_status": "earned",
+    "gemini_rationale": "POINTS_PLOTTED: All nine ordered pairs are plotted at recoverable locations.\nAXIS_LABELS: The x-axis is labeled 'Irrigation (inches)' and the y-axis is labeled 'Yield Loss Due to Drought'. These are correct and on the appropriate axes.\nTREND_LINE: A decreasing line is sketched through the point cloud, which appears reasonable.\nASSOCIATION_DESCRIPTION: The description states 'The graph is negatively correlated with strong r'. While 'negatively correlated' addresses direction and 'strong r' addresses strength, it does not describe the form (e.g., 'roughly linear') and does not explicitly put the association in context of 'irrigation amount' and 'crop yield loss'.",
+    "qwen_rationale": "The scatterplot correctly plots all nine data points, labels the axes appropriately with 'Irrigation (Inches)' on the x-axis and 'Yield Loss Due to Drought' on the y-axis, sketches a reasonable decreasing trend line through the point cloud, and includes a written description stating that the graph shows a strong negative correlation in context."
+  },
+  {
+    "item_id": "APSTATS-HDG-2026-GRAPH-035",
+    "file_path": "/Users/davidbloom/Documents/Cramapple.nosync/docs/hand drawn samples/Stats-HRD-2/IMG_7051.jpeg",
+    "criterion_id": "POINTS_PLOTTED",
+    "gold_status": "not_earned",
+    "gold_rationale": "Item ID confirmed. Points read as a smooth monotonic increasing line; the real table has a clear dip at distance=13 (y=20, well below neighbors 37 and 45) that this drawing does not show -- same idealization pattern as GRAPH-036. Axes correctly labeled (Distance x, Commute time y). Trend line reasonable increasing line. Interpretation text says 'positive correlation with a moderate r score' -- rubric requires 'strong positive'; response says moderate, not strong.",
+    "verifier_status": "earned",
+    "gemini_rationale": "All nine ordered pairs from the table are plotted at recoverable locations. Both axes are correctly labeled with 'Distance (miles)' on the x-axis and 'Commute Time (min)' on the y-axis. A reasonable increasing trend line is sketched through the point cloud. However, the description of the association states 'positive correlation with a moderate r score'. This does not match 'strong positive roughly linear association in context' because it uses 'moderate' instead of 'strong', does not specify 'linear' or 'roughly linear' form, and does not fully put the description into context beyond a generic 'the graph'.",
+    "qwen_rationale": "All nine points are plotted at recoverable locations, and the axes are correctly labeled with 'Distance (miles)' and 'Commute Time (min)'. A reasonable increasing trend line is sketched through the point cloud. However, the association description mentions a 'moderate r score' instead of describing a strong positive roughly linear association in context as required."
+  },
+  {
+    "item_id": "APSTATS-HDG-2026-GRAPH-032",
+    "file_path": "/Users/davidbloom/Documents/Cramapple.nosync/docs/hand drawn samples/Stats-HRD-2/IMG_7055.jpeg",
+    "criterion_id": "POINTS_PLOTTED",
+    "gold_status": "not_earned",
+    "gold_rationale": "Item ID confirmed. Points read as smooth monotonic increasing line x=2 to x=10; real table has a large spike at x=4 (y=60, higher than x=5's 45 and x=6's 53) not shown. Axes correctly labeled (Ad Spend x, Monthly Sales y). Trend line reasonable. Interpretation: 'strong positive correlation and strength (r)' -- matches rubric.",
+    "verifier_status": "earned",
+    "gemini_rationale": "For POINTS_PLOTTED, all nine ordered pairs from the provided data table are accurately plotted on the scatterplot at recoverable locations. For AXIS_LABELS, the x-axis is correctly labeled 'Ad Spend ($000s)' and the y-axis is correctly labeled 'Monthly Sales (000s)', matching the prompt's context. For TREND_LINE, while the line is increasing, it does not appear to be a reasonable least-squares trend line through the entire point cloud. Several points, such as (4, 60), (7, 41), and (8, 49), are quite far from the drawn line, suggesting it's not a good fit for minimizing residuals. For ASSOCIATION_DESCRIPTION, the student states 'The graph has strong positive correlation'. This description lacks the 'roughly linear' aspect of the form of association and does not explicitly describe the association *in context* (i.e., mentioning advertising spend and monthly sales).",
+    "qwen_rationale": "All nine points are plotted accurately on the scatterplot, axis labels for 'Ad Spend ($000s)' and 'Monthly Sales (000s)' are correctly placed, a reasonable increasing trend line is sketched through the data, and the association is described as having a strong positive correlation in context."
+  },
+  {
+    "item_id": "APSTATS-HDG-2026-GRAPH-023",
+    "file_path": "/Users/davidbloom/Documents/Cramapple.nosync/docs/hand drawn samples/Stats-HRD-2/IMG_7063.jpeg",
+    "criterion_id": "HEIGHTS_BY_CONDITIONAL_PROPORTION",
+    "gold_status": "earned",
+    "gold_rationale": "Item ID confirmed. All three modes sum to 100, equal widths correct and drawn equal. Segment heights track given percentages (Bus shows large dissatisfied segment, Bike shows large satisfied segment). All mode/satisfaction labels present. Interpretation correctly identifies Bus riders as most dissatisfied. CORRECTION 2026-08-19: Bike row (45+25+10=80) does not sum to 100 like Car and Bus (100 each) -- widths should be ~5:5:4, not equal. Gold originally mis-scored this as earned from an unverified assumption that all mosaic rows summed to 100; caught via gpt-5.2 smoke-test disagreement, re-verified against the corpus table directly.",
+    "verifier_status": "not_earned",
+    "gemini_rationale": "The widths of the columns for 'Car', 'Bus', and 'Bike' appear approximately equal in the drawing, but should be proportional to their total counts (100, 100, and 80 respectively). The segment heights within each mode are not proportional to the conditional distributions; for instance, the 'Dissatisfied' segment for 'Bus' should be 50% of its column height (50/100), but it is drawn to be approximately 25% (ending at 0.25 on the y-axis). Similarly, the 'Dissatisfied' segment for 'Bike' should be 12.5% (10/80), but it's also drawn to be approximately 25%. However, all necessary labels for modes ('CAR', 'BUS', 'BIKE') and satisfaction categories ('SATISFIED', 'NEUTRAL', 'DISSATISFIED') are present and clearly identifiable. The final interpretation correctly identifies 'Bus' as having the largest number of dissatisfied students (50) from the provided table data.",
+    "qwen_rationale": "The hand-drawn mosaic plot does not reflect proportional widths for each mode based on their totals (e.g., Car should be widest, followed by Bus and Bike). Additionally, the heights of segments do not accurately represent within-mode conditional proportions. However, the labels for modes and satisfaction categories are clearly identifiable, and the interpretation correctly identifies Bus as having the largest number of dissatisfied students."
+  },
+  {
+    "item_id": "APSTATS-HDG-2026-GRAPH-013",
+    "file_path": "/Users/davidbloom/Documents/Cramapple.nosync/docs/hand drawn samples/Stats-HRD-2/IMG_7073.jpeg",
+    "criterion_id": "FIVE_NUMBER_VALUES",
+    "gold_status": "earned",
+    "gold_rationale": "Item ID confirmed. Common scale used (uneven but consistent ticks). Both boxplots' whisker/box/median positions plausibly match the five-number summaries (Standard 45/62/78/95/130, Low-Sugar 20/28/35/44/58). Correctly compares medians (35 vs 78, less than half). Variability claim cites 'much lower peak consumption (58g v 130g)' -- this compares max only, not IQR or range as the rubric requires; conflating a lower single peak with less variability is not a valid IQR/range comparison.",
+    "verifier_status": "not_earned",
+    "gemini_rationale": "BOXPLOT_SCALE: A single, consistent vertical scale labeled 'Daily Sugar Intake' is used for both boxplots, making them comparable. The scale increments are uniform.FIVE_NUMBER_VALUES: For the 'Standard' group, the boxplot accurately represents the five-number summary (Min 45, Q1 62, Median 78, Q3 95, Max 130) relative to the scale. However, for the 'Low-sugar' group, the minimum (20) and Q1 (28) are drawn significantly higher than their actual positions on the given scale. The whisker end for Min=20 appears to be around 30-32, and the Q1=28 appears to be close to 34.08, indicating a misrepresentation.CENTER_COMPARISON: The student correctly compares the medians of the two groups: 'The low Sugar diet group consumes less than half the Sugar of the standard diet group (35g v 78g)'. This statement is accurate (35 is less than half of 78) and provides context.VARIABILITY_COMPARISON: The student compares 'peak consumption (58 v. 130g)', which refers to the maximum values. While this gives some indication of spread, the rubric specifically asks for a comparison of 'IQR or range'. Comparing only the maximums does not constitute a comparison of the full range (Max - Min) or the Interquartile Range (Q3 - Q1).",
+    "qwen_rationale": "The boxplots are drawn on a common scale, satisfying BOXPLOT_SCALE. However, the five-number summaries are not accurately represented in the boxplots (e.g., incorrect placement of Q1, median, Q3, min, and max values), so FIVE_NUMBER_VALUES is not earned. The written interpretation correctly compares medians (center) and mentions lower peak consumption (variability), earning CENTER_COMPARISON and VARIABILITY_COMPARISON."
+  },
+  {
+    "item_id": "APSTATS-HDG-2026-GRAPH-014",
+    "file_path": "/Users/davidbloom/Documents/Cramapple.nosync/docs/hand drawn samples/Stats-HRD-2/IMG_7072.jpeg",
+    "criterion_id": "VARIABILITY_COMPARISON",
+    "gold_status": "not_earned",
+    "gold_rationale": "Item ID confirmed. Both boxplots have every five-number value explicitly numerically labeled on the drawing (Daily: 68/78/85/91/99; Weekly: 40/55/66/76/90), exact match to table. Common scale used. Correctly compares medians (85 vs 66). Variability claim cites 'variability (99/108 v. 90/46)' -- 99 and 90 are the two groups' maxes, but 108 and 46 do not correspond to any real value in either five-number summary (real IQRs are 13 and 21; real ranges are 31 and 50) -- garbled/incorrect supporting numbers despite a directionally-true claim.",
+    "verifier_status": "earned",
+    "gemini_rationale": "The graph uses a single, consistent vertical scale for both boxplots. All five-number summaries (Min, Q1, Median, Q3, Max) for both the Daily (68, 78, 85, 91, 99) and Weekly (40, 55, 66, 76, 90) groups are correctly plotted and labeled on their respective boxplots. The interpretation section correctly compares the typical scores by stating 'Students who study daily on average outperform the weekly Studiers (85 v. 66)', which compares their medians. It also correctly compares the spread by stating 'with less Variability (99/68 v. 90/40)', which correctly indicates that the daily group has less variability based on the range (99-68=31 vs 90-40=50) in context.",
+    "qwen_rationale": "The hand-drawn response includes side-by-side boxplots with a common scale (Quiz Score) ranging from 32.9 to 106.8, satisfying BOXPLOT_SCALE. The five-number summaries for both Daily and Weekly groups are accurately represented in the boxplots, satisfying FIVE_NUMBER_VALUES. The interpretation correctly compares medians (85 vs. 66) in context, satisfying CENTER_COMPARISON. It also correctly compares variability using range (99-68 vs. 90-40), satisfying VARIABILITY_COMPARISON."
+  }
+]

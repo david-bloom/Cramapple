@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cramapple.internal/schemas/phase_d_spatial/v1/pairing_submission_provenance_event.schema.json",
+  "title": "Spatial Contract v1 -- Pairing and Submission Provenance Event",
+  "contract_version": "v1",
+  "$comment": "Stage D1 frozen contract. This is a direct rename+version-freeze of scripts/drawn_response/schemas/capture_session_event.schema.json -- that draft already IS the pairing/submission-provenance event contract Stage D1 asks for (append-only, hashed pairing handle, learner_subject_ref opaque reference, submission acceptance/rejection with explicit_confirmation). No structural change was needed; see SPATIAL_CONTRACT.md section 2.1 for the reuse rationale. Field semantics, enums, and the append-only/fail-closed session-ordering invariants are unchanged from the draft and remain enforced by scripts/drawn_response/validate_records.py's validate_capture_session_event_semantics/validate_capture_session_stream.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "event_id",
+    "capture_session_id",
+    "sequence",
+    "event_type",
+    "occurred_at",
+    "actor",
+    "binding",
+    "pairing",
+    "image_id",
+    "replaces_image_id",
+    "quality_status",
+    "explicit_confirmation",
+    "reason"
+  ],
+  "properties": {
+    "contract_version": { "const": "v1" },
+    "event_id": { "type": "string", "minLength": 1 },
+    "capture_session_id": { "type": "string", "minLength": 1 },
+    "sequence": { "type": "number" },
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "SESSION_CREATED",
+        "PAIRING_ACCEPTED",
+        "PAIRING_REJECTED",
+        "RECOVERY_ISSUED",
+        "CAPTURE_RECORDED",
+        "QUALITY_RECORDED",
+        "RETAKE_REQUESTED",
+        "CAPTURE_REMOVED",
+        "REVIEW_OPENED",
+        "SUBMISSION_ACCEPTED",
+        "SUBMISSION_REJECTED",
+        "SESSION_CANCELLED",
+        "SESSION_EXPIRED"
+      ]
+    },
+    "occurred_at": { "type": "string", "format": "date-time" },
+    "actor": {
+      "type": "string",
+      "enum": ["SYSTEM", "LEARNER", "PRIMARY_DEVICE", "CAPTURE_DEVICE", "STAFF"]
+    },
+    "binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "learner_subject_ref",
+        "learning_session_id",
+        "content_item_version_id",
+        "item_id",
+        "response_id",
+        "submission_slot_id",
+        "capture_expires_at",
+        "upload_purpose"
+      ],
+      "properties": {
+        "learner_subject_ref": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Opaque internal subject reference; never an email, name, or raw external identifier."
+        },
+        "learning_session_id": { "type": "string", "minLength": 1 },
+        "content_item_version_id": { "type": "string", "minLength": 1 },
+        "item_id": { "type": "string", "minLength": 1 },
+        "response_id": { "type": "string", "minLength": 1 },
+        "submission_slot_id": { "type": "string", "minLength": 1 },
+        "capture_expires_at": { "type": "string", "format": "date-time" },
+        "upload_purpose": { "type": "string", "enum": ["DRAWN_RESPONSE"] }
+      }
+    },
+    "pairing": {
+      "anyOf": [
+        { "type": "null" },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["generation", "handle_sha256", "expires_at", "access_path"],
+          "properties": {
+            "generation": { "type": "number" },
+            "handle_sha256": { "type": "string", "minLength": 64 },
+            "expires_at": { "type": "string", "format": "date-time" },
+            "access_path": { "type": ["string", "null"], "enum": ["QR", "FALLBACK_DIRECT", null] }
+          }
+        }
+      ]
+    },
+    "image_id": { "type": ["string", "null"] },
+    "replaces_image_id": { "type": ["string", "null"] },
+    "quality_status": {
+      "type": ["string", "null"],
+      "enum": ["ACCEPTABLE", "RETAKE_REQUIRED", "CANNOT_DETERMINE", null]
+    },
+    "explicit_confirmation": { "type": ["boolean", "null"] },
+    "reason": {
+      "type": ["string", "null"],
+      "enum": [
+        "USED_PAIRING_HANDLE", "EXPIRED_PAIRING_HANDLE", "SESSION_TERMINAL",
+        "DEVICE_DISCONNECTED", "PAIRING_LOST", "BLUR", "GLARE", "CUTOFF",
+        "PERSPECTIVE", "UNREADABLE", "CANNOT_DETERMINE", "LEARNER_CHOICE",
+        "DUPLICATE_SUBMISSION", "NO_ACTIVE_CAPTURE", "QUALITY_NOT_ACCEPTABLE",
+        "REVIEW_REQUIRED", "USER_CANCELLED", "STAFF_CANCELLED",
+        "SESSION_REVOKED", "PAIRING_EXPIRED", null
+      ]
+    }
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cramapple.internal/schemas/phase_d_spatial/v1/feedback_result.schema.json",
+  "title": "Spatial Contract v1 -- Feedback Result",
+  "contract_version": "v1",
+  "$comment": "New in Stage D1 -- no prior draft schema covered this record type. This is the fifth non-negotiable record type (Phase D prompt: 'feedback must cite locked criterion decisions'). A feedback_result must cite the criterion_decision_result IDs it is explaining and, when the response was not released for automated scoring, must cite the confidence_and_abstention_result that explains why. Citation-integrity tests fail closed if any cited ID does not resolve.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "feedback_result_id",
+    "release_status",
+    "cited_criterion_decision_ids",
+    "cited_confidence_and_abstention_result_id",
+    "per_criterion_feedback",
+    "summary_text",
+    "reviewer_id",
+    "method",
+    "item_id",
+    "response_id",
+    "timestamp"
+  ],
+  "properties": {
+    "contract_version": { "const": "v1" },
+    "feedback_result_id": { "type": "string", "minLength": 1 },
+    "release_status": {
+      "type": "string",
+      "enum": ["RELEASED_TO_LEARNER", "SUPPRESSED_PENDING_HUMAN_REVIEW", "SUPPRESSED_RETAKE_REQUIRED"],
+      "description": "Must be consistent with the cited confidence_and_abstention_result.decision -- RELEASED_TO_LEARNER requires that record's decision to be RELEASE_AUTOMATED; the other two require ABSTAIN_*/RETAKE_REQUIRED. Enforced by validate_phase_d_contracts.py's citation-integrity check, not just documented here."
+    },
+    "cited_criterion_decision_ids": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 0,
+      "description": "criterion_decision_result IDs this feedback explains. May be empty only when release_status is a SUPPRESSED_* value and no per-criterion detail is being shown yet."
+    },
+    "cited_confidence_and_abstention_result_id": {
+      "type": ["string", "null"],
+      "description": "Required (non-null) when release_status is a SUPPRESSED_* value, so learners/reviewers see a calibrated reason rather than an unexplained withholding. May be null only when release_status is RELEASED_TO_LEARNER and every cited criterion decision already carries sufficient context on its own (item-author judgment call, not the common case)."
+    },
+    "per_criterion_feedback": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["criterion_decision_id", "learner_facing_text"],
+        "properties": {
+          "criterion_decision_id": { "type": "string", "minLength": 1 },
+          "learner_facing_text": { "type": "string", "minLength": 1 }
+        }
+      },
+      "description": "Each entry's criterion_decision_id must also appear in cited_criterion_decision_ids."
+    },
+    "summary_text": { "type": ["string", "null"] },
+    "reviewer_id": { "type": "string", "minLength": 1 },
+    "method": {
+      "type": "string",
+      "enum": ["human_authored", "method_feedback_generation", "method_template_from_reason_code"]
+    },
+    "item_id": { "type": "string", "minLength": 1 },
+    "response_id": { "type": "string", "minLength": 1 },
+    "timestamp": { "type": "string", "format": "date-time" }
+  }
+}

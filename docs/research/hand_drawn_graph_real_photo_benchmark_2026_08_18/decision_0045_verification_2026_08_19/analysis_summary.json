@@ -1,0 +1,240 @@
+{
+  "generated_at": "2026-08-19T22:28:57.315Z",
+  "corpus": {
+    "gold_total_photos": 200,
+    "usable_photos_both_verifiers_full_judgment": 133,
+    "gemini_api_or_parse_failures": 0,
+    "qwen_api_or_parse_failures": 0,
+    "qwen_empty_or_partial_judgment_ok_true_schema_invalid": 67,
+    "qwen_empty_response_by_archetype": {
+      "continuous_relationship_graph_derived_estimate": 53,
+      "continuous_measured_series_supplied_uncertainty": 14
+    },
+    "gemini_empty_or_partial_judgment_ok_true_schema_invalid": 0
+  },
+  "verifier_vs_gold": {
+    "google/gemini-2.5-flash": {
+      "overallAgreementRate": 0.9147368421052632,
+      "totalCriteriaJudgments": 950,
+      "agreeCount": 869,
+      "exactMatchPhotoRate": 0.5639097744360902,
+      "exactMatchPhotos": 75,
+      "perCriterion": {
+        "REPRESENTATION_TYPE": {
+          "total": 133,
+          "agree": 132,
+          "rate": 0.9924812030075187
+        },
+        "CATEGORY_IDENTITY": {
+          "total": 64,
+          "agree": 64,
+          "rate": 1
+        },
+        "Y_UNIT": {
+          "total": 133,
+          "agree": 125,
+          "rate": 0.9398496240601504
+        },
+        "Y_SCALE": {
+          "total": 133,
+          "agree": 131,
+          "rate": 0.9849624060150376
+        },
+        "PLOT_VALUES": {
+          "total": 133,
+          "agree": 114,
+          "rate": 0.8571428571428571
+        },
+        "UNCERTAINTY_MARKS": {
+          "total": 119,
+          "agree": 95,
+          "rate": 0.7983193277310925
+        },
+        "X_UNIT": {
+          "total": 69,
+          "agree": 64,
+          "rate": 0.927536231884058
+        },
+        "X_SCALE": {
+          "total": 69,
+          "agree": 55,
+          "rate": 0.7971014492753623
+        },
+        "BEST_FIT_RELATIONSHIP": {
+          "total": 14,
+          "agree": 10,
+          "rate": 0.7142857142857143
+        },
+        "ZERO_INTERCEPT_ANNOTATION": {
+          "total": 6,
+          "agree": 4,
+          "rate": 0.6666666666666666
+        },
+        "ESTIMATE_VALUE": {
+          "total": 14,
+          "agree": 14,
+          "rate": 1
+        },
+        "PLATEAU_ANNOTATION": {
+          "total": 8,
+          "agree": 8,
+          "rate": 1
+        },
+        "POINT_CONNECTION": {
+          "total": 55,
+          "agree": 53,
+          "rate": 0.9636363636363636
+        }
+      }
+    },
+    "alibaba/qwen3-vl-235b-a22b-instruct": {
+      "overallAgreementRate": 0.8968421052631579,
+      "totalCriteriaJudgments": 950,
+      "agreeCount": 852,
+      "exactMatchPhotoRate": 0.5263157894736842,
+      "exactMatchPhotos": 70,
+      "perCriterion": {
+        "REPRESENTATION_TYPE": {
+          "total": 133,
+          "agree": 127,
+          "rate": 0.9548872180451128
+        },
+        "CATEGORY_IDENTITY": {
+          "total": 64,
+          "agree": 64,
+          "rate": 1
+        },
+        "Y_UNIT": {
+          "total": 133,
+          "agree": 124,
+          "rate": 0.9323308270676691
+        },
+        "Y_SCALE": {
+          "total": 133,
+          "agree": 129,
+          "rate": 0.9699248120300752
+        },
+        "PLOT_VALUES": {
+          "total": 133,
+          "agree": 114,
+          "rate": 0.8571428571428571
+        },
+        "UNCERTAINTY_MARKS": {
+          "total": 119,
+          "agree": 80,
+          "rate": 0.6722689075630253
+        },
+        "X_UNIT": {
+          "total": 69,
+          "agree": 65,
+          "rate": 0.9420289855072463
+        },
+        "X_SCALE": {
+          "total": 69,
+          "agree": 62,
+          "rate": 0.8985507246376812
+        },
+        "BEST_FIT_RELATIONSHIP": {
+          "total": 14,
+          "agree": 11,
+          "rate": 0.7857142857142857
+        },
+        "ZERO_INTERCEPT_ANNOTATION": {
+          "total": 6,
+          "agree": 2,
+          "rate": 0.3333333333333333
+        },
+        "ESTIMATE_VALUE": {
+          "total": 14,
+          "agree": 13,
+          "rate": 0.9285714285714286
+        },
+        "PLATEAU_ANNOTATION": {
+          "total": 8,
+          "agree": 8,
+          "rate": 1
+        },
+        "POINT_CONNECTION": {
+          "total": 55,
+          "agree": 53,
+          "rate": 0.9636363636363636
+        }
+      }
+    }
+  },
+  "verifier_vs_verifier_unanimity": {
+    "overallUnanimityRate": 0.8852631578947369,
+    "totalCriteriaJudgments": 950,
+    "agreeCount": 841,
+    "exactMatchPhotoRate": 0.47368421052631576,
+    "exactMatchPhotos": 63,
+    "perCriterion": {
+      "REPRESENTATION_TYPE": {
+        "total": 133,
+        "agree": 126,
+        "rate": 0.9473684210526315
+      },
+      "CATEGORY_IDENTITY": {
+        "total": 64,
+        "agree": 64,
+        "rate": 1
+      },
+      "Y_UNIT": {
+        "total": 133,
+        "agree": 116,
+        "rate": 0.8721804511278195
+      },
+      "Y_SCALE": {
+        "total": 133,
+        "agree": 128,
+        "rate": 0.9624060150375939
+      },
+      "PLOT_VALUES": {
+        "total": 133,
+        "agree": 118,
+        "rate": 0.8872180451127819
+      },
+      "UNCERTAINTY_MARKS": {
+        "total": 119,
+        "agree": 81,
+        "rate": 0.680672268907563
+      },
+      "X_UNIT": {
+        "total": 69,
+        "agree": 62,
+        "rate": 0.8985507246376812
+      },
+      "X_SCALE": {
+        "total": 69,
+        "agree": 59,
+        "rate": 0.855072463768116
+      },
+      "BEST_FIT_RELATIONSHIP": {
+        "total": 14,
+        "agree": 11,
+        "rate": 0.7857142857142857
+      },
+      "ZERO_INTERCEPT_ANNOTATION": {
+        "total": 6,
+        "agree": 2,
+        "rate": 0.3333333333333333
+      },
+      "ESTIMATE_VALUE": {
+        "total": 14,
+        "agree": 13,
+        "rate": 0.9285714285714286
+      },
+      "PLATEAU_ANNOTATION": {
+        "total": 8,
+        "agree": 8,
+        "rate": 1
+      },
+      "POINT_CONNECTION": {
+        "total": 55,
+        "agree": 53,
+        "rate": 0.9636363636363636
+      }
+    }
+  },
+  "discrepancy_count": 31
+}

@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0050 — Retire the Dual-Human-Adjudicated Gold-Set Requirement for Engine 4 (Spatial); Adopt the DECISION-0045 AI-Generation + Multi-Model-Verification + Reader-Certification Model Instead
 - DECISION-0049 — Hand-Drawn Capture Becomes an Added Submission Option for Typed-Math FRQs (Retroactive to All 36 Published Calculus FRQs), Graded via the Same Criteria as Typed Answers Through an OCR-Transcription Step
 - DECISION-0048 — AP Statistics Hand-Drawn Practice Stays Supplemental (Simulating Desmos Construction, Not the Real Exam); Chemistry/Physics/Calculus Get New Genuine Hand-Drawn-Capture Items
 - DECISION-0047 — Replace Activation-Limited Free Score Check with a 7-Day Full-Access Trial (TASK-0026)
@@ -28,6 +29,79 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~600 lines, archive the older entries to `docs/activity_log/archive/DECISIONS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries. (This log is already well over that threshold — the first archive pass is overdue, not optional.)
 
 (Note: the TASK-0012 branch independently logged its own DECISION-0027/0028 — CORS/ALLOWED_ORIGINS and budget-burn semantics — under different numbers on its own branch. Those land separately when that work merges to `main`; this charter-adoption decision claimed 0027/0028 here because `main` had not yet recorded entries past DECISION-0026 at merge time. If both branches' numbering collides on merge, renumber on whichever side merges second and update this index.)
+
+## DECISION-0050 — Retire the Dual-Human-Adjudicated Gold-Set Requirement for Engine 4 (Spatial); Adopt the DECISION-0045 AI-Generation + Multi-Model-Verification + Reader-Certification Model Instead
+
+**Date:** 2026-08-19
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Related Task:** TASK-0016 Phase D, TASK-0011
+**Related Docs:** `DECISION-0045` (the model this decision extends to Engine 4),
+`docs/architecture/CONTENT_GOVERNANCE_AND_VALIDATION.md` §12.2 (the requirement being retired
+for Engine 4 specifically), `prompts/CLAUDE_TASK0016_PHASE_D_SPATIAL_ENGINE_2026_07_27.md`
+(Stage D3, whose "dual-human-adjudicated" language is superseded by this decision),
+`docs/research/grading_phase_d_spatial_2026_07_27/` (Stage D0, executed same day, which
+surfaced this as the largest blocker to Engine 4 progress)
+**Area:** Grading / Governance
+
+### Context
+
+TASK-0011/TASK-0016 Phase D's Stage D3 requires ≥300 dual-human-adjudicated responses (≥40 per
+archetype, per governance §12.2) before any Engine 4 gold-backed accuracy claim. `DECISION-0045`
+(2026-08-03) already replaced all-human gold authoring program-wide with an AI-generation +
+multi-model-verification + reader-certification model — but explicitly deferred applying it to
+Engine 4 ("Set C — spatial/`human_shadow` — deferred until Engine 4 leaves shadow"), leaving
+Phase D's older dual-human-adjudicated language as the operative Engine 4-specific standard.
+Stage D0 (executed 2026-08-19, same session) found this is currently Engine 4's single largest
+blocker: no corpus in the repo meets it, and the one human-pilot attempt aimed at building
+one (Orly Bloom, 2026-06-13) stalled on data-reproducibility defects and was never resumed.
+
+### Decision
+
+1. The dual-human-adjudicated gold-set requirement is **retired as a hard gate specifically for
+   Engine 4** — not merely deferred again.
+2. **`DECISION-0045`'s Set C deferral is lifted.** Engine 4 gold-set construction follows the
+   same protocol as every other engine: answers/labels generated or graded by AI, checked by two
+   independent non-OpenAI model families, with reader effort spent certifying the pipeline (cold
+   verification of rubric-element presence on an audit sample, a pre-registered false-accept-rate
+   gate) rather than dual-blind adjudicating every response. `DECISION-0045`'s independence
+   constraints (no OpenAI model may write or verify; three non-OpenAI families required since the
+   writer consumes one) apply identically here — this is the same standard already load-bearing
+   for Engines 1/3, not a weaker one invented for Engine 4.
+3. **This does not waive real-photo corpus-readiness requirements.** The existing photo corpus
+   still needs the fixes its own 2026-08-03 readiness audit found (consent/provenance manifest,
+   deduplication, metadata stripping) before it's an eligible input — this decision changes what
+   "gold" means for the labels attached to that corpus, not the corpus-collection bar itself.
+4. **The existing 200-photo real-Biology corpus's single-pass-AI gold does not automatically
+   become certified gold under this decision.** It still needs an actual `DECISION-0045`-protocol
+   pass — two independent non-OpenAI model families checking it, plus a reader-certified
+   false-accept-rate sample — before it counts as launch-qualifying evidence. This decision
+   changes the target standard going forward; it does not retroactively certify work already
+   done under the old, unmet standard.
+5. Applies to both AP Biology (development evidence under Phase D) and AP Statistics (the actual
+   TASK-0016 launch subject).
+
+### Rationale
+
+Requiring literal dual-human adjudication for Engine 4 while every other engine moved to the
+DECISION-0045 model in 2026-08-03 left Engine 4 held to a standard nothing else in the program
+meets either — and one whose only concrete attempt to satisfy it (the Orly pilot) failed for
+reasons unrelated to whether dual-human adjudication itself is the right bar (data errors, a
+rights-claim overstatement), not for lack of trying. Un-deferring Set C removes a blocker that
+was never really a deliberate Engine-4-specific safety decision, just an unresolved carry-over
+from before DECISION-0045 existed.
+
+### Consequences / Follow-ups
+
+- `docs/tasks/TASK-0016-GRADING-ENGINE-ROLLOUT.md`, `docs/tasks/TASK-0011-HANDWRITTEN-GRAPH-CAPTURE.md`,
+  and the Phase D execution prompt's Stage D3 language should be read as amended by this decision
+  going forward — a future session should not refuse to proceed by citing their literal
+  "dual-human-adjudicated" wording.
+- `docs/research/grading_phase_d_spatial_2026_07_27/DECISIONS_AND_BLOCKERS.md` items 3 and 6 are
+  updated in place to reflect this decision.
+- Someone still needs to actually run the DECISION-0045 protocol against Engine 4's corpus — this
+  decision removes the blocker, it does not itself certify any existing corpus as gold.
+- See `APPROVAL-0045` for the corresponding approval entry.
 
 ## DECISION-0049 — Hand-Drawn Capture Becomes an Added Submission Option for Typed-Math FRQs, Retroactive to All 36 Published Calculus FRQs
 
