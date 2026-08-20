@@ -175,3 +175,25 @@ resolve before D2 work can proceed cleanly.
 **Stages D4/D5 status: packaged (R&D-tier).** The genuine remaining work in both is gated on D3
 (reader-certified gold + corpus volume) before a locked D4d holdout can be frozen — not closeable
 by an AI agent. See `BAKEOFF_RESULTS.md` §5–6 and `ABSTENTION_CALIBRATION.md` §7.
+
+## D3 reader-certification packets built (unblocking the human step) — 2026-08-20
+
+- Prompted by the owner noticing the two `decision_0045_verification_2026_08_19/README.md` files
+  described a "ready-to-run audit-sample package" that did not actually exist — only a prose
+  *proposal* (sampling plan + cold format), no assembled packet, which is why there were no images
+  to look at. Built the real packets: `reader_certification_2026_08_20/{biology,statistics}/`.
+- **Biology:** stratified 100-of-200 (archetype quotas CAT 32/SER 34/EST 34, over-weighted on the
+  weak criteria — sample averages 1.64 weak-negative cases/photo vs 0.87 corpus-wide). **Statistics:**
+  whole corpus, all 28. Each packet: images copied under **opaque IDs** (real filenames leak
+  archetype via CAT/SER/EST), per-photo rubric worksheet (criterion_id + met_rule only), viewer
+  `index.html`, reader instructions — **verified zero gold/grader/archetype leakage in `packet/`**.
+  Gold held back as a separate `*_scoring_key.hidden.json`; a scorer computes gold false-accept rate
+  + 95% upper bound + the DECISION-0045 gate. Deterministic builder (sha256-seeded, no RNG);
+  `packet/` git-ignored (281 MB, regenerable).
+- **Scorer self-tested** (reader==gold → 100% agreement, FAR 0%, certifies), validating the pipeline.
+- **Sizing finding surfaced:** Statistics' 28 photos give only 99 gold-`earned` judgments → even a
+  perfect audit bounds at ~3.7% (certifies, but 1 false-accept fails); certifying Statistics with
+  margin needs more real photos (the D3 volume gap). Biology (484 gold-`earned` judgments) bounds at
+  ~0.8% perfect and tolerates several disagreements. Folded into both verification READMEs.
+- Evidence tier change: none — this assembles the audit instrument; it does not run the audit or
+  change any gold. Only a qualified reader's time now stands between here and a certified gold tier.

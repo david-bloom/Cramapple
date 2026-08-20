@@ -173,7 +173,16 @@ multi-model-verification step this document covers — cold verification of rubr
 by an actual qualified human reader, gated at ≤5% upper-95%-bound FAR to certify. This was
 explicitly out of scope for this session (no AI agent can stand in for a qualified human reader).
 
-**Proposed audit-sample package, ready to hand to a reader:**
+**UPDATE 2026-08-20 — the packet is now actually built.** The section below describes the *plan*;
+the concrete reader-ready packet (the specific 100 photos pulled out under opaque IDs, each with its
+rubric, gold hidden, plus a blank worksheet, viewer HTML, and a scorer) now exists at
+`docs/research/grading_phase_d_spatial_2026_07_27/reader_certification_2026_08_20/biology/`. It
+implements exactly the sampling and cold format below (stratified 100, over-weighted on the weak
+criteria; sample averages 1.64 weak-negative cases/photo vs 0.87 corpus-wide). Only the reader's
+time remains. Prior to that build, "ready to hand to a reader" overstated it — a proposal existed,
+the packet did not.
+
+**Proposed audit-sample package (now built — see update above):**
 
 - **Sample size:** ~100 photos (per `DECISION-0045`'s "~100 answers per set" sizing note),
   stratified across the 4 corpus archetypes (`categorical_comparison_supplied_uncertainty`,

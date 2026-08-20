@@ -185,6 +185,15 @@ step. Given the Statistics corpus is small (28 photos total), a reader audit her
 to cover most or all of the corpus rather than a stratified sample, unlike Biology's 200-photo
 corpus where a ~100-photo stratified sample was proposed.
 
+**UPDATE 2026-08-20 — the reader packet is now built** (whole corpus, all 28 photos):
+`docs/research/grading_phase_d_spatial_2026_07_27/reader_certification_2026_08_20/statistics/`.
+**Important sizing finding surfaced while building it:** 28 photos yield only 99 gold-`earned`
+judgments, so even a *perfect* audit (0 false-accepts) produces a 95% upper bound of ~3.7% — it
+certifies, but a single reader-vs-gold false-accept (1/99) fails the ≤5% gate. Statistics
+certification on this corpus is effectively all-or-nothing; certifying with real margin needs more
+real Statistics photos (the D3 volume gap). Biology's 100-photo packet has genuine room (484
+gold-`earned` judgments, perfect-audit bound ~0.8%).
+
 ## Files in this directory
 
 - `README.md` — this file.
