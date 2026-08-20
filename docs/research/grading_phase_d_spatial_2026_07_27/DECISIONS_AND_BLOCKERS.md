@@ -203,8 +203,20 @@ human-reader-certification step remains.
    reading + `deno check`, not by a test; and this repo's frontend test setup has no renderer, so
    S2/S3 are pinned at the pure-function level (`classifyCaptureError`,
    `makeCaptureSubmitKeyCache`), not through the UI — the same limitation Round 4 recorded as L7.
-   Detail: `QR_MVP_REWORK_ROUND3_2026_08_20.md`. **Next step: Round 5 independent QA — this pass is
-   explicitly NOT self-certified as mergeable.**
+   Detail: `QR_MVP_REWORK_ROUND3_2026_08_20.md`. **Round 5 QA complete (2026-08-20): MERGE WITH
+   MINOR FIXES — first clean verdict after 4 rounds of rework.** All 7 claimed fixes independently
+   re-derived and confirmed (B1's lock-order evidence re-derived from scratch via fresh `EXPLAIN`
+   on both Dev and Production, not reused from Round 4) — **no blocking findings, no
+   regressions.** One serious pre-existing (not introduced this pass) item found: `attach_capture_failed`
+   (a genuine 500) is misclassified as a student-facing `blocked` refusal rather than `technical`,
+   so a real bind fault never gets bug-logged — a one-line fix, recommended before merge, not a
+   gate. `create or replace` compatibility, predicate equivalence, and the untouched 54-line
+   remainder of the shared function were all re-verified fresh (not assumed from Round 4) given
+   the function body changed again this pass. Deployment discipline reconfirmed independently
+   clean. Full findings: `QR_MVP_QA_REVIEW_ROUND5_2026_08_20.md`. **This feature has now held for
+   5 consecutive independent reviews; Round 5 recommends merge with the one-line S-1 fix applied
+   first.** Still requires an owner go-ahead before actually merging/deploying — a QA "merge"
+   recommendation is not itself authorization to touch `main`, Dev, or Production.
 
 ## Decisions needed from the Product Owner
 
