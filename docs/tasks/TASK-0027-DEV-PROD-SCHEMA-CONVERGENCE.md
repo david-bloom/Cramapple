@@ -160,12 +160,39 @@ not an infrastructure repair.
   governance implications; recreating them wholesale without deciding whether
   Dev should mirror Production's content pipeline would be guessing.
 - **No Dev-only object was removed.** 65 objects representing real prior work.
-- **Development still lacks the Calculus AB / BC / Precalculus topics (240
-  rows).** Biology's 60 were seeded into Development on 2026-08-21 from the
-  repository's own migration. The remaining 240 need
-  `20260804203000_extend_math_taxonomy_registries.sql`, which Development
-  cannot yet run because it lacks `app.seed_taxonomy_topics` — one of the 46
-  objects in the section above.
+- **Development's taxonomy gap is CLOSED (2026-08-21).** Development now holds
+  all 607 taxonomy topics across all ten subjects, matching Production exactly.
+
+  Closed in two steps: Biology's 60 were seeded from the repository's own block
+  in `20260804170000_taxonomy_label_layer.sql`; then
+  `app.seed_taxonomy_topics` (one of the 46 Production-only objects) was created
+  in Development from `20260804203000_extend_math_taxonomy_registries.sql`, and
+  the 240 Calculus AB / BC / Precalculus topics were loaded.
+
+  **Verified by hash, per subject and in total:**
+
+  | | Topics | Hash (Dev == Prod) |
+  | --- | --- | --- |
+  | ap_biology | 60 | `373823b5e4e432c8` |
+  | ap_calculus_ab | 85 | `8e9d834dbf96cf39` |
+  | ap_calculus_bc | 111 | `25471db0e98bbc9a` |
+  | ap_chemistry | 91 | `fb1a27721be67349` |
+  | ap_physics_1 | 43 | `00ead9a6282f3992` |
+  | ap_physics_2 | 46 | `b26d9d6db6b1c039` |
+  | ap_physics_c_em | 31 | `266cda11cb72b1e1` |
+  | ap_physics_c_mechanics | 41 | `10e49197d1bcee3d` |
+  | ap_precalculus | 44 | `0afb3dc26e10e8a6` |
+  | ap_statistics | 55 | `f588b12887966812` |
+  | **TOTAL** | **607** | **`0ddc76de97168eaf`** |
+
+  Post-checks in Development: `get_student_taxonomy` returns 10 subjects and 10
+  units for Calculus BC; per-unit alignment and topic-code/unit-number
+  consistency both pass.
+
+  Development is therefore now at **full taxonomy parity** with Production, and
+  holds 45 of the 46 previously Production-only objects' worth of taxonomy
+  capability (`seed_taxonomy_topics` was the one adopted; the other 45 remain
+  open under P1-P4 of the Codex query).
 
 ### CORRECTION (2026-08-21): the "300 topics have no repo migration" finding was wrong
 
