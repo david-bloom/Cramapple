@@ -220,27 +220,70 @@ Current topic coverage, Production:
 | ap_physics_c_mechanics | 7 | **0** |
 | ap_physics_c_em | 6 | **0** |
 
-## Dev-only objects: what the repository says about them
+## Dev-only objects: origin established, 2026-08-21
 
-Searched `docs/` and `prompts/` for the 65 Dev-only objects
-(`execution_approvals`, `reviewer_capability_*`, `item_archetypes`,
-`verifier_plugins`, `taxonomy_schemes`, and the rest). **The only documents
-that mention any of them are the ones written for this task on 2026-08-21.**
-There is no DECISION, no TASK, no approval and no design note covering that
-architecture anywhere in the repository.
+Codex was asked a narrow factual origin question
+(`prompts/CODEX_DEV_ONLY_SCHEMA_ORIGIN_2026_08_21.md`) and answered. **Every
+checkable claim was independently verified.**
 
-Combined with the row counts — **36 of the 39 Dev-only tables are completely
-empty**, and the three that are not hold only seeded lookups
-(`platform_capabilities` 15, `validation_suite_types` 9,
-`deterministic_check_types` 6) — the disposition question is much smaller than
-the object count suggests. There is no operational data to preserve or migrate.
+### Codex's answer
 
-**Recommendation: do not drop, do not adopt, document and defer.** Leaving 39
-empty tables in a development project costs nothing operationally; dropping
-them is irreversible. The only real cost is confusing future drift audits,
-which this note addresses. Revisit only if someone proposes adopting that
-governance architecture into Production, at which point the question is a
-design decision, not a cleanup.
+The objects are **TASK-0017, the five-subject subject-onboarding harness**,
+built roughly 13-18 July 2026. Clusters:
+
+| Cluster | Purpose |
+| --- | --- |
+| `execution_approvals`, `governance_role_assignments` | Dev-only approval to apply generated subject packages, with actor/role/package-hash checks |
+| `reviewer_capability_*`, `eligibility_evaluations`, `qualification_evidence_records` | reviewer qualifications and review-scope eligibility |
+| `item_archetypes`, `item_package_applications`, `subject_package_applications`, `apply_*_package_atomic` | atomic application of generated content packages with provenance |
+| `verifier_plugins`, `deterministic_check_types`, `validation_suite_types`, `platform_capabilities` | validation capabilities a package requires vs. what the platform supports |
+| `taxonomy_schemes`, `taxonomy_node_*`, `taxonomy_crosswalks` | an **earlier** versioned taxonomy model, scoped to exam pack versions |
+
+Intended at the time as a possible governed content-ingestion path, but Dev-only
+in practice and never adopted into the Production lineage. Not live work. No
+known Production dependency. The taxonomy model was an earlier alternative,
+**never approved to replace** the live Production model. The repo record was
+stranded during branch consolidation.
+
+### Verification performed
+
+| Claim | Result |
+| --- | --- |
+| Tag `archive/codex-five-subject-20260727` exists | **Verified — present locally AND on `origin`**, so the record is durable, not machine-local |
+| The six cited files exist in that tag | **Verified** — all six, 106KB of SQL across the four migrations plus the design doc and prompt |
+| Those migrations create the Dev-only objects | **Verified** — 18 of 18 sampled Dev-only objects are created there |
+| No Production dependency | **Verified** — 0 Production functions reference any harness or `taxonomy_schemes` object |
+| Repo record stranded | **Verified** — `docs/tasks/TASK-0017-SUBJECT-ONBOARDING-HARNESS.md` exists in the tag but **not on mainline**; its archived status reads "Repository Build Complete — Ready for Dev Hard-Gate" |
+
+### Revised recommendation: dropping is now safe
+
+The earlier recommendation in this task was **document and defer**, and the
+stated reason was that the origin was unknown. **That condition no longer
+holds.** All four preconditions for a safe drop are now met:
+
+1. **The design record is durable** — tag on `origin`, containing the
+   migrations, the physical-design doc, the authoring prompt and the task
+   record.
+2. **There is no operational data** — 36 of 39 tables empty; the other three
+   hold only seeded lookups (15 / 9 / 6 rows).
+3. **The author confirms it is not live**, was never adopted, and has no
+   Production dependency — independently confirmed against Production.
+4. **The drop is reversible.** The four migrations are recoverable from the tag
+   and could be re-applied to Dev if the harness is ever revived.
+
+Dropping removes 65 phantom objects that will otherwise distort every future
+drift audit and keep Dev from being a meaningful pre-production mirror.
+
+**Still requires explicit Product Owner approval before execution** — it is
+destructive, and the approval gate below is unchanged.
+
+### Separate gap this surfaced
+
+**TASK-0017 has no record on mainline.** The task number is simply absent from
+`docs/tasks/`, so the repository silently skips from TASK-0016 to TASK-0018.
+Restoring the archived record (marked superseded/not-adopted) is cheap and
+would close a hole in the governance trail regardless of what happens to the
+objects themselves.
 
 ## Approval State
 
