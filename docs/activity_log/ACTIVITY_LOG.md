@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- AP Calculus BC Repair: Unit 6 (Integration and Accumulation of Change) Done, Including the BC-Only "Moved" Topic 6.11 — 63 of 85 Debt Explainers Now Repaired — 2026-08-21
 - AP Calculus BC Repair: Unit 5 (Analytical Applications of Differentiation) Done — 51 of 85 Debt Explainers Now Repaired, Zero Corpus-Wide Distinctness Collisions on Dev or Prod — 2026-08-21
 - AP Calculus BC Repair: Unit 4 Done, and Its Own Corpus-Wide Distinctness Check Caught a Real Cross-Subject Duplicate Against the AB Unit 4 Batch (Fixed Before Production) — 46 of 91 Debt Rows Now Repaired — 2026-08-21
 - AP Calculus BC Repair Continues: Units 2 and 3 Done (16 More Explainers Fixed, Plus Unit 3's 6 Briefs Which Turned Out to Be a SECOND, Independent Template-Debt Pattern) — 53 of 69 Debt Rows Remain (Units 4-8) — 2026-08-21
@@ -145,6 +146,28 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## AP Calculus BC Unit 6 Repaired — Includes the BC-Only "Moved" Topic 6.11 — 2026-08-21
+
+**Task:** Unassigned (topic-guide content quality; continuing the BC-wide repair per Owner instruction: 'do the repair, do not make any new content'; Owner clarification this session — 'AB and BC cover many of the same topics so duplicate content is to be expected. All content should conform to the protocol' — confirms the bar is protocol conformance, not origin.)
+**Status:** Published to Development and Production. 12 explainers repaired.
+
+**Unit 6 (Integration and Accumulation of Change)** — explainers only; briefs (including 6.11's, which is BC-only/moved rather than duplicated) were already good, confirmed via SQL before starting. 11 topics (6.1-6.10, 6.14) are duplicated-from-AB; topic 6.11 (Integration by Parts) is the CED's own BC-only content, moved rather than duplicated, but its explainer carried the identical template-debt pattern (`core_idea` verbatim-matching its brief) so it was repaired in this same batch. The two other Unit 6 BC-only topics, 6.12 and 6.13, have zero coverage at all and remain explicitly out of scope for this pass.
+
+**Grounded in:** the exact Riemann-sum-to-definite-integral limit form (6.3, quoted verbatim from the CED), the Fundamental Theorem's statement point (`g'(x) = f(x)`) being scored separately from and in addition to the final-answer point (6.4 — using the documented `g'(8) = f(8) - f(6)` difference-quotient confusion as the anchor error, a real near-miss pattern from the 2025 scoring guidelines), and the requirement that a by-parts remaining integral (6.11) be evaluated to a completed closed form rather than left as a dangling `∫v du` term.
+
+**AB Unit 6 checked first:** still grandfathered debt (not yet repaired), so no collision risk with an existing AB hand-authored batch, same situation as Unit 5.
+
+Before-state: `docs/research/topic_guide_source_note_grandfather_2026_08_21/ap_calculus_bc_unit6_explainer_before_state.json`. Migration: `supabase/migrations/20260821240000_repair_ap_calculus_bc_unit6_explainers.sql`.
+
+**Verification, Dev then Prod:** C1/C3/C4/C5/C7 (n/a, briefs untouched) all zero violations. C8 corpus-wide distinctness re-run scoped to the new batch against every other published row — zero collisions on `mini_example_question`, `weak_answer`, `point_attaining_answer`, and `practice_bridge`, on both Dev and Prod. Corpus totals unchanged (380/380, an update not an insert).
+
+**Running BC repair total:** 63 of 85 debt explainers repaired (Units 1-6: 16+6+10+7+12+12), plus 6 debt briefs (Unit 3). Remaining: 22 explainers across Units 7-8 — 19 duplicated-from-AB rows (7+12) plus the 3 BC-only 'moved' topics (7.5, 7.9, 8.13).
+
+**Next Owner:** David Bloom
+**Next Required Action:** Continue Units 7-8 repair (22 rows). The 26 zero-coverage topics (6.12, 6.13, and all of Units 9-10) remain explicitly out of scope for this pass.
 
 ---
 
