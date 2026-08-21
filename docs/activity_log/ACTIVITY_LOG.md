@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Session Closeout (2026-08-21): /progress Rebuilt Backend-First and Wired in Lovable; Two Silent /home Defects Fixed; TASK-0027 Opened and Largely Executed (65 Dev-Only Objects Retired, Full Taxonomy Parity); 261 Taxonomy Topics Seeded Across 5 Subjects; AP Calculus AB/BC Realigned to the CED — 2026-08-21
 - AP Calculus AB's Four BC-Only Topics Moved to BC, Not Deleted: Content Was Valid BC Material Filed Under AB and Served to AB Students; AB Now 81/81/81 With Zero Orphans, BC Briefs 22 -> 26 — 2026-08-21
 - Correction: the "300 Taxonomy Topics Have No Repo Migration" Finding Was Wrong (Line Count Mistaken for Content); Row-Level Diff Instead Found a Single Real Defect — Production's Calculus BC 10.7 Title Was Truncated Against Its Own Migration and the CED — 2026-08-21
 - QA Scripts Split Per Workstream, and Two Defects They Immediately Found: AP Calculus AB's Taxonomy Carries Four BC-Only Topics (With Published Student Content), and the Dev/Prod Object Counts Were Undercounted — 2026-08-21
@@ -136,6 +137,83 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 ---
+
+## Session Closeout (2026-08-21): /progress Rebuilt, /home Repaired, Dev/Prod Convergence Executed, Calculus AB/BC Realigned
+
+**Status:** All work merged to `main` and applied to both Supabase projects. `/progress` is built end to end but **not yet published** to cramapple.com. No student-facing deploy was made this session.
+
+### 1. `/progress` — rebuilt backend-first
+
+`/progress` was previously 100% fixtures: every number came from `getReturningCase()` selected by a `?case=` param, with no student data at all. It now runs on one live-computed, display-only RPC.
+
+- `public.get_student_progress_dashboard(_subject_key)` — `STABLE SECURITY DEFINER`, auth + subject-entitlement enforced, returns data only for `auth.uid()`. Contract version `progress_dashboard_v1_2026_08_21`.
+- Lovable built the frontend against it: one RPC call, no client-side math, semantic status tokens mapped to colour client-side.
+
+**Four departures from the draft plan, each evidence-driven:** live compute rather than snapshot-backed (the draft's "newest snapshot else empty state" would show an empty page to a student who *has* evidence); metrics read `app.grading_results` rather than `app.attempts` (all 44 production attempts have null `graded_at`/`score_points`); `topics[]` cut; and no colours or "red" in the contract.
+
+**Unit attribution deliberately omitted** (Product Owner decision). `app.content_taxonomy_labels` does provide a path — 415 `provisional_model` rows covering ~19% of items — but they are unvalidated model output, and presenting them as evidence is what the honest-empty-state principle forbids.
+
+**`estimatedScore1To5` shipped at owner direction** after being flagged, gated at ≥3 graded FRQ items and ≥10 points, confidence capped at `low` while DECISION-0003's calibration follow-up is open, and always carrying `isOfficial: false`, a qualifier, evidence gaps and a next action.
+
+### 2. `/home` — two silent defects fixed
+
+`src/lib/home.functions.ts` queried `mcq_item_id`/`frq_package_id` (neither exists on `app.attempts`) and `student_course_position` (singular; the real table is plural). Neither query checked its error, so both degraded to empty and **every production student resolved to `experienceStage: "new"` regardless of history**. Both fixed and now surfacing errors. Note this does not by itself make `/home` show evidence: nothing writes grading back to `app.attempts`, so `/home` and `/progress` will disagree until that lands or `/home` moves onto the RPC.
+
+### 3. QA — five scripts, one per workstream
+
+`scripts/qa/` now holds separate scripts for the `/progress` backend, the `/progress` display contract, taxonomy topic maps, Dev/Prod drift, and the `/home` loader schema contract, with a README explaining why they are not one suite. All were run against both projects before commit. They immediately found two real defects and two bugs in themselves.
+
+### 4. TASK-0027 — Dev/Prod convergence
+
+Development and Production were not one schema at two depths: **Production 214 objects, Development 233, only 168 shared.** The migration ledger could not be trusted — Development recorded migrations as applied whose objects did not exist.
+
+Codex confirmed the 65 Development-only objects were TASK-0017's five-subject harness, Dev-only in practice and never adopted. Every claim was verified independently (tag present on `origin`, all six cited files present, 18/18 sampled objects created there, zero Production references). With Product Owner approval they were dropped, along with three harness-era FK columns on retained tables that a naive `CASCADE` would have stripped silently.
+
+**Development is now a strict subset of Production** — 168 objects, zero Dev-only — and holds **full taxonomy parity**, all 603 topics with identical per-subject and total hashes. TASK-0017's stranded task record was restored to mainline.
+
+### 5. Taxonomy topic maps — 261 topics seeded across five subjects
+
+AP Statistics (55), AP Chemistry (91), AP Physics 1 (43), Physics C Mechanics (41), Physics 2 (46) and Physics C E&M (31) had verified unit maps and **zero topics**. All seeded from primary sources. Validation: across all ten subjects there are now **zero orphan briefs and zero orphan explainers** — every published brief and explainer matches a taxonomy topic code, and those were authored independently of the transcription.
+
+### 6. AP Calculus AB/BC realigned to the CED
+
+AB carried four topics the CED marks **BC ONLY** (`6.11`, `7.5`, `7.9`, `8.13`) with published briefs and explainers for all four — AB students could be served Learn More content not on their exam. The content was valid BC material filed under AB, so it was **moved, not deleted**. Then 59 shared AB topics were duplicated into BC-owned rows per the Product Owner's rule that AB and BC each own their content even when identical.
+
+| | Topics | Briefs | Explainers |
+| --- | --- | --- | --- |
+| AP Calculus AB | 81 | 81 | 81 |
+| AP Calculus BC | 111 | 85 | 85 |
+
+Identical in both projects (BC content hash `a7244e913030487b`); 365 published briefs and 365 explainers overall.
+
+### 7. Corrections made to this session's own reporting
+
+Four claims were published and later found wrong. All are corrected in place with the reason recorded:
+
+1. **"70 published briefs are dark/unreachable"** — wrong. `get_topic_point_guides` reads the brief tables directly and never touches `taxonomy_topics`.
+2. **"`get_student_taxonomy` powers the live topic-guide surface"** — wrong; it has zero consumers anywhere.
+3. **"The 300 taxonomy topics have no repo migration"** — wrong (flagged by Codex). Both files were judged by `wc -l` from a `head`-truncated grep; one is 80 lines but 39,454 bytes.
+4. **Object counts 184/199/135** — undercounted from hand-transcribed lists; the reproducible query gives 214/233/168.
+
+Three of the four share one root cause: **concluding from a partial view instead of opening the thing**. The QA scripts now encode the corrective — check call sites before claiming reachability, and diff rows rather than infer from file shape.
+
+A fifth, smaller error: the AB/BC split was reported as "63 copyable, 22 needing authoring". The four mis-filed topics were part of the 63, not the 26 — the authoring gap was always **26**.
+
+### 8. Real defects found and fixed along the way
+
+- Production's Calculus BC `10.7` held a truncated title (`Alternating Series Test`) against its own migration and the CED; corrected.
+- The progress RPC was `anon`-executable — `revoke ... from public` does not remove Supabase's default `anon` grant.
+- `attempt_mode = 'quantitative'` and `coached`/`exam_practice` attempts were silently dropped from progress figures; now counted and surfaced.
+- Uncertain grades shipped point scores; now withheld.
+
+### Open, not done
+
+1. **`/progress` is not published.** Built and wired, never deployed to cramapple.com.
+2. **Grading write-back** to `app.attempts` / `app.attempt_criterion_results` (still 0 rows) — the reason `/home` and `/progress` disagree and criterion-level progress is impossible.
+3. **26 AP Calculus BC topics need authoring** — `6.12`, `6.13`, and all of Units 9 and 10. No AB counterpart exists.
+4. **45 Production-only objects** remain absent from Development, awaiting Codex's answers to P1-P4 in `prompts/CODEX_TAXONOMY_SEED_PROVENANCE_AND_PROD_ONLY_OBJECTS_2026_08_21.md`. P4 matters most: the publish-gate and content-review-invariant clusters are missing from Dev, which may mean Dev can publish content Production would reject.
+5. **UX-007's remaining scope** — review queue, recommendation cards, recommendation history, skill/criterion detail — all still unbuilt; its two open acceptance criteria stand.
+6. **`src/lib/progress-queries.ts`** still targets the dead `sessions` table. Unused, but a landmine.
 
 ## AP Calculus AB's Four BC-Only Topics Moved to BC — 2026-08-21
 
