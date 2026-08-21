@@ -174,8 +174,12 @@ RPC smoke test: `get_topic_point_guides('ap_statistics', 4, '4.1')` and hyphenat
 
 **Coverage after this batch:** AP Statistics moves from 40/55 (72.7%) to 50/55 (90.9%) published topics. Corpus-wide published total: 365 -> 375 briefs and 375 explainers.
 
+**Frontend verification (protocol step 11):** Owner confirmed the render is successful. Unit 4 topic cards and Learn More content display correctly in the live frontend, closing the last open item in the protocol's Student-Ready Definition for this batch.
+
+**Student-ready:** Yes -- content reviewed and approved, published in Production, live authenticated RPC verification passed, frontend renders correctly, practice routing uses the same subject/unit/topic, release evidence recorded.
+
 **Next Owner:** David Bloom
-**Next Required Action:** None blocking. Frontend smoke test (protocol step 11) not yet run in this session -- confirm Unit 4 renders in Lovable before calling this student-ready per the protocol's Student-Ready Definition. AP Statistics Unit 5 (Regression Analysis, 5 topics) remains uncovered.
+**Next Required Action:** None blocking. AP Statistics Unit 5 (Regression Analysis, 5 topics) remains uncovered -- the only gap left in AP Statistics.
 
 ---
 
