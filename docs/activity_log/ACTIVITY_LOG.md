@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- AP Calculus BC Repair Pass Complete: Unit 8 (Applications of Integration) Done, All 85 of 85 Debt Explainers (Units 1-8) Now Repaired — 2026-08-21
 - AP Calculus BC Repair: Unit 7 (Differential Equations) Done, Including Both BC-Only "Moved" Topics 7.5 and 7.9 — 72 of 85 Debt Explainers Now Repaired — 2026-08-21
 - AP Calculus BC Repair: Unit 6 (Integration and Accumulation of Change) Done, Including the BC-Only "Moved" Topic 6.11 — 63 of 85 Debt Explainers Now Repaired — 2026-08-21
 - AP Calculus BC Repair: Unit 5 (Analytical Applications of Differentiation) Done — 51 of 85 Debt Explainers Now Repaired, Zero Corpus-Wide Distinctness Collisions on Dev or Prod — 2026-08-21
@@ -147,6 +148,32 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## AP Calculus BC Explainer Repair Pass Complete — Unit 8 Done, 85 of 85 — 2026-08-21
+
+**Task:** Unassigned (topic-guide content quality; final batch of the BC-wide repair per Owner instruction: 'do the repair, do not make any new content'; Owner asked to stop after this unit and publish)
+**Status:** Published to Development and Production. 13 explainers repaired. This closes the BC explainer-debt repair pass opened earlier today.
+
+**Unit 8 (Applications of Integration)** — explainers only; briefs were already good, confirmed via SQL before starting. 12 topics (8.1-8.12) are duplicated-from-AB; topic 8.13 (Arc Length) is the CED's own BC-only content, moved rather than duplicated, but carried the identical template-debt pattern so it was repaired in this same batch.
+
+**Grounded in:** the documented real 2025 Q1 error computing average rate of change instead of average value, scored 0/2 (8.1); a stricter antiderivative-leading-constant gatekeeping rule for motion problems (2025 Q5 Part D) — a wrong leading constant disqualifies the final position value outright, distinct from the more forgiving wrong-value-but-consistent-process pattern used in Units 4/5 (8.2); the cross-part consistency/follow-through convention, where a later part may import an earlier, even wrong, value and still earn credit (8.3); the missing-constant-pi-costs-exactly-one-point rule for volume setups (8.9); the self-correcting reversed-difference-of-squares washer pattern (8.11); the documented real 2025 Q2 washer error omitting the required constant shift for a non-axis rotation line, scored 0/3 (8.12); and the boxed BC-only arc-length exclusion carrying its own dedicated Enduring Understanding, CHA-6 (8.13).
+
+**One self-caught defect before this reached the database:** the first draft of 8.6's mini-example used only 3 intersection points (x=0, 2, 5), which mathematically produce only 2 sub-intervals — meaning the "weak" example (splitting only at x=2) was actually already correct, not a defect. Caught during a pre-write review of the generated SQL, not by the automated validator (which only checks length/C7/distinctness, not mathematical soundness of the narrative). Rewrote the example with 4 intersection points (0, 2, 4, 6) to correctly demonstrate a genuine missed-split error, re-validated, and regenerated the migration before any database was touched.
+
+**AB Unit 8 checked first:** still grandfathered debt (not yet repaired), so no collision risk with an existing AB hand-authored batch.
+
+Before-state: `docs/research/topic_guide_source_note_grandfather_2026_08_21/ap_calculus_bc_unit8_explainer_before_state.json`. Migration: `supabase/migrations/20260821260000_repair_ap_calculus_bc_unit8_explainers.sql`.
+
+**Verification, Dev then Prod:** C1/C3/C4/C5/C7 (n/a, briefs untouched) all zero violations. C8 corpus-wide distinctness re-run scoped to the new batch against every other published row — zero collisions on all four checked fields, on both Dev and Prod. Final corpus-wide check confirms: 85 of 85 targeted BC Unit 1-8 explainers now carry a `repaired 2026-08-21` source_note, 0 remaining rows match their brief verbatim, and corpus totals are unchanged at 380 briefs / 380 explainers (all updates, no inserts).
+
+**Repair pass total, final:** 85 of 85 debt explainers repaired across AP Calculus BC Units 1-8 (16+6+10+7+12+12+9+13), plus 6 debt briefs (Unit 3's second, independent template pattern). Combined with AB Unit 4's 7-explainer repair earlier the same day, 92 explainer rows and 6 brief rows were repaired across both Calculus subjects this session.
+
+**Explicitly out of scope, unaddressed, and still open:** the 26 zero-coverage topics identified in the original BC audit — 6.12 (Linear Partial Fractions, BC-only), 6.13 (Improper Integrals, BC-only), and all of Units 9 (Parametric/Polar/Vector) and 10 (Infinite Series). These have no brief and no explainer at all. Per Owner instruction this session ("do the repair, do not make any new content"), no content was authored for them. AP Calculus AB's own Unit 4 explainers were the only AB-side repair done today (Units 1-3, 5-8 in AB remain grandfathered debt, not yet repaired).
+
+**Next Owner:** David Bloom
+**Next Required Action:** None required — Owner asked to stop after this unit and publish, which is now done (Dev + Prod applied, verified, migration committed, activity log updated). Future work, if resumed: (1) AP Calculus AB's Units 1-3 and 5-8 explainer debt (still grandfathered, same pattern as BC), (2) the 26 zero-coverage BC topics as genuine New Coverage authoring (a different change type requiring the CED fact pack's Units 9-10 deep-tier detail, not yet as deeply mined as Units 1-8), (3) a frontend/RPC smoke test across the newly repaired BC units, not yet run this session.
 
 ---
 
