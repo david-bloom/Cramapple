@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- AP Calculus AB's Four BC-Only Topics Moved to BC, Not Deleted: Content Was Valid BC Material Filed Under AB and Served to AB Students; AB Now 81/81/81 With Zero Orphans, BC Briefs 22 -> 26 — 2026-08-21
 - Correction: the "300 Taxonomy Topics Have No Repo Migration" Finding Was Wrong (Line Count Mistaken for Content); Row-Level Diff Instead Found a Single Real Defect — Production's Calculus BC 10.7 Title Was Truncated Against Its Own Migration and the CED — 2026-08-21
 - QA Scripts Split Per Workstream, and Two Defects They Immediately Found: AP Calculus AB's Taxonomy Carries Four BC-Only Topics (With Published Student Content), and the Dev/Prod Object Counts Were Undercounted — 2026-08-21
 - Progress Dashboard v1 Backend Built and Shipped to Production: One Live-Computed, Display-Only RPC Replaces Client-Side Progress Math; Topics Cut as Unbuildable and Unit Attribution Declared Unavailable for Every Subject After the AP Statistics Labels Were Found to Sit on the Retired 9-Unit CED; Two Silent `/home` Loader Defects Fixed; Dev/Prod Taxonomy Schema Drift Discovered — 2026-08-21
@@ -135,6 +136,27 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 ---
+
+## AP Calculus AB's Four BC-Only Topics Moved to BC — 2026-08-21
+
+**Defect:** AP Calculus AB's registry carried four topics the CED marks **BC ONLY** — `6.11` Integrating Using Integration by Parts, `7.5` Approximating Solutions Using Euler's Method, `7.9` Logistic Models with Differential Equations, `8.13` Arc Length of a Smooth Planar Curve. AB correctly excluded `6.12` and `6.13`, so the BC filter had been applied inconsistently. It was student-visible: AB had **published briefs and published explainers for all four**, served through `get_topic_point_guides`, so AP Calculus AB students could be shown Learn More content for material not on their exam. Found by the new contiguity check in `scripts/qa/taxonomy_topic_seeds_qa.sql`; confirmed against the CED Course at a Glance, printed p. 20.
+
+**Moved rather than deleted.** The content itself was valid — it is BC material that was filed under AB, and BC had a taxonomy topic for each of the four but no brief or explainer. Deleting would have discarded eight usable pieces of content that BC needs. `20260821130000_move_bc_only_topics_from_ab_to_bc.sql` copies to BC first, verifies BC holds all eight, and only then removes from AB. The delete step raises rather than proceeds if the copy did not land.
+
+**Per the Product Owner's content architecture rule (2026-08-21):** AB and BC each own their own rows, duplicated rather than shared, so either can be edited without touching the other. The four copies are BC-owned rows. On copy, `subject_key`, `practice_subject_key` and `learn_more_path` were rewritten (`/learn/ap-calculus-ab/...` → `/learn/ap-calculus-bc/...`); `practice_bridge` on explainers is generic and needed no change. Each copied row's `source_note` records the move and its reason.
+
+**Result, identical in Production and Development:**
+
+| | Before | After |
+| --- | --- | --- |
+| AB taxonomy topics | 85 | **81** |
+| AB published briefs / explainers | 85 / 85 | **81 / 81** |
+| BC published briefs / explainers | 22 / 22 | **26 / 26** |
+| Total taxonomy topics | 607 | 603 |
+
+Verified: AB hash `5435872f27178bb1` and the all-subject hash `b17f846e97666dab` are identical across Production and Development; zero BC-only topics remain in AB; **zero orphaned briefs or explainers across all ten subjects**.
+
+**Still open on Calculus BC:** 111 topics against 26 briefs. Of the 85 still missing, 63 are duplicable from AB under the one-row-per-subject rule; the remaining 22 — BC Units 9-10 plus `6.12` and `6.13` — have no AB counterpart and need genuine authoring.
 
 ## Correction: the "300 Topics Have No Repo Migration" Finding Was Wrong; a Row-Level Diff Found One Real Defect Instead — 2026-08-21
 
