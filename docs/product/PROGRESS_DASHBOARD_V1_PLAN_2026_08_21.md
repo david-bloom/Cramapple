@@ -31,7 +31,7 @@ the truthful answer is "we cannot compute this".
 | Snapshot-backed, read newest from `app.progress_snapshots`, else empty state | **Live compute on every call** | Read-or-empty would show an empty page to a student who *has* evidence. At 41 grading rows and 2 users there is no performance case for a cache. `progress_snapshots` is left untouched for a later history/trend version, and its index still ships. |
 | `app.build_..._snapshot(_user_id, …)` writer function | **Not built** | Nothing to write yet, and a `SECURITY DEFINER` writer taking `_user_id` is an escalation surface with no current benefit. |
 | Metrics from "authoritative backend tables" | **`app.grading_results` joined via `app.attempts`** | `app.attempts.score_points` / `graded_at` are null on all 44 production rows — the grading path never writes back. Reading `attempts` alone returns all zeros. |
-| `topics[]` + `topicsCovered` | **Cut entirely** | No join path exists from a student attempt to a taxonomy topic. `topic_code` lives only on `app.taxonomy_topics`, `app.topic_explainers`, `app.topic_point_briefs`. Any topic figure would be invented. |
+| `topics[]` + `topicsCovered` | **Cut entirely** | See the corrected rationale below. |
 | `statusColor: "gray" \| "red" \| …` | **Semantic `status` token + `statusLabel`** | Colour in the data contract breaks theming, dark mode and accessibility, and cannot be changed without a coordinated frontend release. Lovable owns the colour mapping. |
 | `red` = "low performance or sparse weak evidence" | **No red at all** | It conflated weak performance with thin evidence, and UX-007's approved principle is that incomplete work is never framed as learner failure. |
 | Single `minutes`, falling back to `available_minutes` | **`actualMinutes` + `sessionsWithoutDuration`** | `available_minutes` is *planned* time. Summing planned and actual yields a number nobody can interpret, source marker or not. |
@@ -143,10 +143,20 @@ tables exist):
   (`20260804170000`), Prod's carries generated ones (`20260804193850`). The two
   ledgers are not comparable by version id over that window.
 
-**This is not specific to the new RPC.** `public.get_student_taxonomy` — which
-powers the live topic-guide / Learn More surface — fails in Dev with the same
-`42P01` on `app.taxonomy_source_versions`. Dev's entire student taxonomy
-surface is non-functional and was already so before this work.
+**This is not specific to the new RPC.** `public.get_student_taxonomy` fails in
+Dev with the same `42P01` on `app.taxonomy_source_versions`, and did so before
+this work.
+
+**Correction (2026-08-21, after checking call sites):** an earlier version of
+this section said that RPC "powers the live topic-guide / Learn More surface".
+That is wrong. `get_student_taxonomy` has **zero consumers** — not the Lovable
+frontend, not edge functions, not scripts. The topic-guide surface is served by
+`public.get_topic_point_guides`, which reads `app.topic_point_briefs` and
+`app.topic_explainers` directly and never touches the taxonomy tables
+(`src/lib/topic-content.ts:300`). The Dev failure therefore had no
+user-visible effect. The only real consumer of the taxonomy tables today is
+`get_student_progress_dashboard`, which reads `app.taxonomy_units` for its
+`units[]`.
 
 Because the progress RPC is read-only, `STABLE`, and inert until Lovable calls
 it, it was applied to Production and QA'd there.
@@ -211,3 +221,31 @@ Prod — this will recur.
 **Interim rule:** until Step 3 lands, Dev cannot validate anything that touches
 taxonomy, and "QA passed on Dev" is not evidence for those paths. Say so
 explicitly in any QA record.
+
+## 10. Correction: attempt → unit/topic attribution does exist, provisionally
+
+An earlier version of this document, the migration comments and the Lovable
+brief all stated that "no join path exists from a student attempt to a taxonomy
+topic anywhere in the schema." **That is wrong.**
+
+`app.content_taxonomy_labels` (2,401 rows) carries `content_item_id`,
+`primary_unit`, `required_units` and `assessed_topics`. Breakdown:
+
+| `label_status` | Rows | Usable |
+| --- | --- | --- |
+| `legacy_unvalidated` | 1,677 | No — `primary_unit` null, `assessed_topics` empty |
+| `provisional_model` | 415 | **Yes** — 414 with `primary_unit`, 297 distinct items |
+| `held` | 219 | No — `primary_unit` null |
+| `stale` | 90 | No — superseded |
+
+So attribution exists as **unvalidated, model-generated labels covering ~19% of
+content items** (297 of 1,535), spread thinly across all ten subjects (4 items
+for Physics C Mechanics, 66 for Statistics).
+
+The v1 decision to omit unit and topic attribution still stands — presenting
+model guesses at 19% coverage as evidence of what a student can do is exactly
+what the honest-empty-state principle forbids. But the correct justification is
+"we chose not to use unvalidated provisional labels", **not** "no path exists".
+
+Whether to expose them behind an explicit provisional status is an open
+Product Owner decision.

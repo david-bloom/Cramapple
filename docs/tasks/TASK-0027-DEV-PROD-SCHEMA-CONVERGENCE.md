@@ -66,9 +66,14 @@ are applied to neither database.
 ## Impact
 
 - **`public.get_student_taxonomy` fails in Dev** with `42P01` on
-  `app.taxonomy_source_versions`. That RPC powers the live topic-guide /
-  Learn More surface. Dev's student taxonomy surface is entirely
-  non-functional and was so before this task opened.
+  `app.taxonomy_source_versions`, and did so before this task opened.
+  **Correction (2026-08-21):** this was first written as "that RPC powers the
+  live topic-guide / Learn More surface". It does not. `get_student_taxonomy`
+  has **zero consumers** anywhere — the topic-guide surface is served by
+  `public.get_topic_point_guides`, which reads `app.topic_point_briefs` and
+  `app.topic_explainers` directly and never touches the taxonomy tables. The
+  Dev failure had no user-visible effect. Its only real consumer today is
+  `get_student_progress_dashboard`, via `app.taxonomy_units`.
 - Any QA performed in Dev is not evidence about Production behaviour for the
   49 objects Dev lacks. "Dev QA passed" has been, for those paths, a
   meaningless statement.
@@ -129,6 +134,13 @@ not an infrastructure repair.
    AP Statistics had units but zero topics; the units were seeded 2026-08-04
    and the topics never were.
 
+   **Scope of the effect, corrected:** this seed fills a genuine gap in the
+   verified CED reference map, but it changes nothing a student sees today.
+   AP Statistics' 40 published briefs and 40 explainers were already being
+   served through `get_topic_point_guides`, which does not read
+   `taxonomy_topics`. An earlier note claiming the seed "turned on" previously
+   unreachable content was wrong.
+
 ## Not Executed, and Why
 
 - **The five 0-row `taxonomy_scheme*` / `taxonomy_node*` / `taxonomy_crosswalks`
@@ -150,9 +162,14 @@ not an infrastructure repair.
 `app.taxonomy_topics` is still empty for **five subjects in both
 environments** — AP Chemistry (9 units) and all four AP Physics subjects
 (28 units between them). Those courses have a verified unit map and no topic
-map at all. Seeding them needs the same CED transcription treatment AP
-Statistics just received, and should be tracked as content work rather than
-infrastructure.
+map at all.
+
+**This does not mean their content is unreachable.** Their published briefs and
+explainers are served today by `get_topic_point_guides` independently of the
+taxonomy tables — AP Chemistry alone has 26 published briefs and 26 explainers
+covering Units 1-3 (1.1-1.8, 2.1-2.7, 3.1-3.11), all currently served. The gap
+is in the reference map only, and is worth closing for correctness rather than
+to unblock anything.
 
 Current topic coverage, Production:
 

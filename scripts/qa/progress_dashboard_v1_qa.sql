@@ -12,7 +12,9 @@
 -- as applied. The ledger and the schema disagree. Dev also carries five 0-row
 -- taxonomy_scheme*/taxonomy_node* tables that exist in no repo migration.
 -- This is pre-existing drift, not caused by the progress work:
--- public.get_student_taxonomy fails in Dev with the same 42P01.
+-- public.get_student_taxonomy fails in Dev with the same 42P01. (That RPC has
+-- no consumers; the topic-guide surface is served by get_topic_point_guides,
+-- which does not read the taxonomy tables.)
 -- QA-UNITS below therefore cannot pass on Dev until that is reconciled; see
 -- docs/product/PROGRESS_DASHBOARD_V1_PLAN_2026_08_21.md section 9.
 
