@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- AP Calculus BC Repair: Unit 4 Done, and Its Own Corpus-Wide Distinctness Check Caught a Real Cross-Subject Duplicate Against the AB Unit 4 Batch (Fixed Before Production) — 46 of 91 Debt Rows Now Repaired — 2026-08-21
 - AP Calculus BC Repair Continues: Units 2 and 3 Done (16 More Explainers Fixed, Plus Unit 3's 6 Briefs Which Turned Out to Be a SECOND, Independent Template-Debt Pattern) — 53 of 69 Debt Rows Remain (Units 4-8) — 2026-08-21
 - AP Calculus BC Found to Carry the AP Calculus AB Explainer-Debt Pattern at Full-Corpus Scale — 85 of 85 Published Explainers (Units 1-8) Match Their Brief Verbatim, Plus 26 Topics With Zero Coverage; Unit 1 (16 Rows) Repaired as the First Installment — 2026-08-21
 - AP Statistics Reaches Full Topic-Guide Coverage (55/55): Unit 5 (Regression Analysis) Authored From Scratch, Closing the Only Remaining Gap for the Subject — 2026-08-21
@@ -143,6 +144,28 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## AP Calculus BC Unit 4 Repaired — Caught and Fixed a Real Cross-Batch Duplicate — 2026-08-21
+
+**Task:** Unassigned (topic-guide content quality; continuing the BC-wide repair)
+**Status:** Published to Development and Production, after a fix. 7 explainers repaired.
+
+**Unit 4 (Contextual Applications of Differentiation)** -- explainers only; briefs duplicated from AB were already good. AB's own Unit 4 explainers were repaired earlier the same day (commit 9772b62) using the same grounding material, so every mini-example here was deliberately written as a fresh scenario (coffee temperature, an elevator, a water tank, two different implicit curves, a different linearization pair, a 0/0-form L'Hospital limit) rather than reusing the AB batch's examples.
+
+**The corpus-wide distinctness check (C8) caught a real miss anyway.** After applying to Production, the standard check found 2 shared values: topic 4.6's 'weak_answer' ('No credit, since the slope value is wrong.') and its 'point_attaining_answer' closing sentence were byte-identical between the AB and BC Unit 4 batches -- the underlying teaching point (a wrong-but-consistently-applied slope still earns the mechanics point) is the same fact in both subjects, and the generic wrap-up sentence got typed the same way twice. Caught because the check compares every repaired row against the *entire* corpus, not just the current batch. Both fields were rewritten with different phrasing, re-verified as zero shared values corpus-wide, and re-applied to both Development and Production before this entry was written.
+
+**Grounded in:** the boxed L'Hospital's exclusion (only 0/0 and infinity/infinity in scope), the related-rates rule that a cited chain-rule identity must be carried through to a computed value, the product/chain-rule term-counting requirement for related-rates execution, and the linearization independent-scoring rule.
+
+Before-state: 'docs/research/topic_guide_source_note_grandfather_2026_08_21/ap_calculus_bc_unit4_explainer_before_state.json'. Migration: 'supabase/migrations/20260821220000_repair_ap_calculus_bc_unit4_explainers.sql' (reflects the corrected, as-applied content).
+
+**Verification:** C1/C3/C4/C5/C7 (n/a, briefs untouched)/C8 all zero violations after the fix, corpus-wide. Corpus totals unchanged (380/380).
+
+**Running BC repair total:** 39 of 85 debt explainers repaired (Units 1-4: 16+6+10+7), plus 6 debt briefs (Unit 3). Remaining: 46 explainers across Units 5-8 -- 42 duplicated-from-AB rows (12+11+7+12) plus the 4 BC-only 'moved' topics (6.11, 7.5, 7.9, 8.13).
+
+**Next Owner:** David Bloom
+**Next Required Action:** Continue Units 5-8 repair. Given the AB/BC cross-batch duplicate found here, future repair batches should check distinctness against the *specific* AB unit already repaired (where one exists) as an explicit step, not just rely on the general corpus-wide query, since generic closing sentences for the same underlying fact are the likely failure mode.
 
 ---
 
