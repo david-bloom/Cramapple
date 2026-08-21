@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- AP Calculus BC Repair: Unit 7 (Differential Equations) Done, Including Both BC-Only "Moved" Topics 7.5 and 7.9 — 72 of 85 Debt Explainers Now Repaired — 2026-08-21
 - AP Calculus BC Repair: Unit 6 (Integration and Accumulation of Change) Done, Including the BC-Only "Moved" Topic 6.11 — 63 of 85 Debt Explainers Now Repaired — 2026-08-21
 - AP Calculus BC Repair: Unit 5 (Analytical Applications of Differentiation) Done — 51 of 85 Debt Explainers Now Repaired, Zero Corpus-Wide Distinctness Collisions on Dev or Prod — 2026-08-21
 - AP Calculus BC Repair: Unit 4 Done, and Its Own Corpus-Wide Distinctness Check Caught a Real Cross-Subject Duplicate Against the AB Unit 4 Batch (Fixed Before Production) — 46 of 91 Debt Rows Now Repaired — 2026-08-21
@@ -146,6 +147,30 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## AP Calculus BC Unit 7 Repaired — Includes Both BC-Only "Moved" Topics — 2026-08-21
+
+**Task:** Unassigned (topic-guide content quality; continuing the BC-wide repair per Owner instruction: 'do the repair, do not make any new content'. Owner has since asked to stop after Unit 8 and publish — this is the second-to-last unit in scope for this pass.)
+**Status:** Published to Development and Production. 9 explainers repaired.
+
+**Unit 7 (Differential Equations)** — explainers only; briefs were already good, confirmed via SQL before starting. 7 topics (7.1-7.4, 7.6-7.8) are duplicated-from-AB; topics 7.5 (Euler's Method) and 7.9 (Logistic Models) are the CED's own BC-only content, moved rather than duplicated, but both explainers carried the identical template-debt pattern so both were repaired in this same batch.
+
+**Grounded in:** the CED's own note that Euler's Method has no mandated formula or step-size notation — it is defined only conceptually as repeated tangent-line approximation, so credit rests on recomputing the slope at the current point every step, not any specific symbolic convention (7.5); the CED-documented misconception that every fraction-form differential equation is assumed to have a logarithmic solution, when the correct antiderivative depends on the separated expression's actual structure (7.6); domain restrictions on particular solutions per EK FUN-7.E.3 — a solution found by separation of variables may be valid only on the connected piece of its algebraic domain containing the initial point (7.7); and the CED's explicit permission to use the exponential model's solution form directly without re-deriving it from the differential equation each time (7.8).
+
+**Lower-confidence unit, flagged honestly:** per the fact pack, neither the 2025 nor 2026 released AB FRQ set has an official scoring guide covering a slope-field, Euler's-method, or separable-equation item, so this batch is grounded in the CED's own quoted unit-level guidance rather than a specific released-FRQ scoring split, unlike Units 4-6's released-scoring-guideline grounding.
+
+**AB Unit 7 checked first:** still grandfathered debt (not yet repaired), so no collision risk with an existing AB hand-authored batch.
+
+Before-state: `docs/research/topic_guide_source_note_grandfather_2026_08_21/ap_calculus_bc_unit7_explainer_before_state.json`. Migration: `supabase/migrations/20260821250000_repair_ap_calculus_bc_unit7_explainers.sql`.
+
+**Verification, Dev then Prod:** C1/C3/C4/C5/C7 (n/a, briefs untouched) all zero violations. C8 corpus-wide distinctness re-run scoped to the new batch against every other published row — zero collisions on all four checked fields, on both Dev and Prod. Corpus totals unchanged (380/380, an update not an insert).
+
+**Running BC repair total:** 72 of 85 debt explainers repaired (Units 1-7: 16+6+10+7+12+12+9), plus 6 debt briefs (Unit 3). Remaining: 13 explainers in Unit 8 — 12 duplicated-from-AB rows plus the 1 BC-only 'moved' topic (8.13, Arc Length).
+
+**Next Owner:** David Bloom
+**Next Required Action:** Owner has asked to stop after Unit 8 and publish. Unit 8 is next; after it, this repair pass ends — the 26 zero-coverage topics (6.12, 6.13, and all of Units 9-10) remain explicitly out of scope and unaddressed.
 
 ---
 
