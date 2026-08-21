@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- AP Calculus BC Repair Continues: Units 2 and 3 Done (16 More Explainers Fixed, Plus Unit 3's 6 Briefs Which Turned Out to Be a SECOND, Independent Template-Debt Pattern) — 53 of 69 Debt Rows Remain (Units 4-8) — 2026-08-21
 - AP Calculus BC Found to Carry the AP Calculus AB Explainer-Debt Pattern at Full-Corpus Scale — 85 of 85 Published Explainers (Units 1-8) Match Their Brief Verbatim, Plus 26 Topics With Zero Coverage; Unit 1 (16 Rows) Repaired as the First Installment — 2026-08-21
 - AP Statistics Reaches Full Topic-Guide Coverage (55/55): Unit 5 (Regression Analysis) Authored From Scratch, Closing the Only Remaining Gap for the Subject — 2026-08-21
 - AP Calculus AB Unit 4's Seven Learn More Explainers Repaired: All Were Template-Generated Debt (Verbatim-Matching Their Own Brief, Sharing a Generic Mini-Example With ~150 Other Rows) Despite the Briefs Themselves Already Being Hand-Authored and Correct — Replaced With Content Grounded in Real 2025 Released-FRQ Scoring Architecture, Verified Clean on All Applicable Acceptance Criteria — 2026-08-21
@@ -142,6 +143,34 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## AP Calculus BC Repair Continues: Units 2 and 3 — 2026-08-21
+
+**Task:** Unassigned (topic-guide content quality; continuing the BC-wide repair per Owner instruction: 'do the repair, do not make any new content')
+**Status:** Published to Development and Production. 22 of 85 debt explainers now repaired (Units 1-3). 6 of those rows also required a brief repair (Unit 3).
+
+**Unit 3 (Differentiation: Composite, Implicit, and Inverse Functions) — briefs AND explainers, 6 topics:**
+
+A second, independent quality defect was found while pulling this unit's briefs to anchor the explainer repair: all 6 Unit 3 briefs were themselves template filler -- 'X is the Differentiation: Composite, Implicit, and Inverse Functions topic where you turn the concept into an AP-ready action: Y', repeated verbatim across all 6 topics with only Y swapped. This is a different, earlier template than the explainer debt, and is isolated to BC's own Unit 3 authoring pass -- AB's Unit 3 briefs and every other BC unit's duplicated-from-AB briefs are genuinely good. Both briefs and explainers were repaired since this is the same category of existing debt (Repair, not New Coverage).
+
+Grounded in the highest-error-density section of the fact pack: AB6 (implicit differentiation FRQ) had a mean score of 4.12/9 per the Chief Reader Report. Used the CED's own chain-rule misapplication note and, most concretely, the vertical-vs-horizontal tangent inversion (setting dy/dx's numerator to zero when the denominator was required) as the anchor example for 3.2.
+
+Before-state for both briefs and explainers: 'docs/research/topic_guide_source_note_grandfather_2026_08_21/ap_calculus_bc_unit3_before_state.json'. Migration: 'supabase/migrations/20260821200000_repair_ap_calculus_bc_unit3_briefs_and_explainers.sql'.
+
+**Unit 2 (Differentiation: Definition and Fundamental Properties) — explainers only, 10 topics:**
+
+Briefs here were duplicated from AB and already good. Grounded in the fact pack's Unit 2 detail: the product-rule structural-scoring requirement (the two terms are scored as separate, independent points; the CED's own notes state failing to show the structure costs the setup point even with a correct final answer), the documented e^u chain-rule misapplication (differentiating e^(x^2) as x^2 times e^(x^2) instead of 2x times e^(x^2)), and the documented parenthesization error (a multi-term coefficient written without grouping parentheses).
+
+Before-state: 'docs/research/topic_guide_source_note_grandfather_2026_08_21/ap_calculus_bc_unit2_explainer_before_state.json'. Migration: 'supabase/migrations/20260821210000_repair_ap_calculus_bc_unit2_explainers.sql'.
+
+**Verification, both units, Dev then Prod:** C1/C3/C4/C5/C7 (where applicable) and C8 all zero violations. All mini-examples' arithmetic independently verified correct before writing to the database (e.g. 2.8's product-rule value, 2.9's quotient-rule sign-reversal pair, 3.6's velocity-vs-acceleration values). Corpus totals unchanged both times (380/380), since these are updates, not inserts.
+
+**Running BC repair total:** 22 of 85 debt explainers repaired (Units 1-3), plus 6 debt briefs repaired (Unit 3). Remaining: 53 explainers across Units 4-8 (7+12+11+7+12=49 duplicated, plus the 4 'moved' BC-only topics 6.11/7.5/7.9/8.13), continuing next.
+
+**Next Owner:** David Bloom
+**Next Required Action:** Continue Units 4-8 repair (53 rows). Per Owner instruction, the 26 zero-coverage topics (6.12, 6.13, and all of Units 9-10) remain explicitly out of scope for this pass -- repair only, no new content.
 
 ---
 
