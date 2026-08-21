@@ -6,6 +6,9 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Topic Briefs Protocol Iterated to v2 (Sampling Rule, Coverage Policy, Provenance Migration Format, Weak/PA Contrast Mandatory) and the 349 Legacy Template-Generated Explainers Grandfathered in Dev + Prod: `source_note` Backfilled so the Debt Is Visible at the Row Level, No Student-Facing Field Changed — 2026-08-21
+- Topic Briefs / Learn More Production Protocol Assessed and Revised: Plumbing Rules Verified Accurate Against Live Production, but the Protocol Had No Accuracy Review at All — and Its "Subject-Specific" Escape Hatch Had Already Shipped a Learn More Surface Where 349 of 365 Pages Restate the Card Verbatim and One Weak Answer Covers 150 Topics — 2026-08-21
+- Session Addendum (2026-08-21): Physics/Precalculus Topic Guides Verified Live in Dev and Prod; Failure Is Lovable Frontend Wiring, Not Missing Supabase Data; Focused Lovable Fix Prompt Written — 2026-08-21
 - Session Closeout (2026-08-21): /progress Rebuilt Backend-First and Wired in Lovable; Two Silent /home Defects Fixed; TASK-0027 Opened and Largely Executed (65 Dev-Only Objects Retired, Full Taxonomy Parity); 261 Taxonomy Topics Seeded Across 5 Subjects; AP Calculus AB/BC Realigned to the CED — 2026-08-21
 - AP Calculus AB's Four BC-Only Topics Moved to BC, Not Deleted: Content Was Valid BC Material Filed Under AB and Served to AB Students; AB Now 81/81/81 With Zero Orphans, BC Briefs 22 -> 26 — 2026-08-21
 - Correction: the "300 Taxonomy Topics Have No Repo Migration" Finding Was Wrong (Line Count Mistaken for Content); Row-Level Diff Instead Found a Single Real Defect — Production's Calculus BC 10.7 Title Was Truncated Against Its Own Migration and the CED — 2026-08-21
@@ -135,6 +138,111 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## Topic Briefs Protocol v2 Landed and 349 Legacy Explainers Grandfathered — 2026-08-21
+
+**Task:** Unassigned (topic-guide content quality; follow-on to today's earlier assessment)
+**Status:** Applied to Development and Production. F2 from the assessment is closed. F1 (stale QA script) remains open.
+
+**Protocol edits (four small changes on top of the v1 revision):**
+
+1. §5 Accuracy Review — added a sampling rule for batches of 30+ rows (at least 20% of the batch, floor 20 rows; random plus every row flagged low-confidence by the authoring pass). A sampled batch that surfaces a factual defect returns to full review.
+2. Provenance table — replaced the vague "generation method" for generated-from-brief rows with a concrete format: `generated-from-brief:<migration-filename-without-extension>` plus the source brief scope.
+3. New Coverage Policy section — subjects below a Product-Owner-approved coverage floor are either accepted as a known gap (student sees "Point brief coming soon", gap named in activity log) or the subject is not offered in the student picker until coverage rises. Default floor is 100% until a lower floor is recorded for the subject.
+4. Content Standard — dropped the "when available" qualifier on the weak-answer / point-attaining-answer contrast now that C8 treats those fields as first-class distinctness checks. Contrast is now always required.
+
+The main-repo protocol was consolidated onto the tighter 548-line worktree version before the edits landed; the final file is 569 lines at `docs/product/TOPIC_BRIEFS_AND_LEARN_MORE_PRODUCTION_PROTOCOL.md`.
+
+**Grandfather batch (F2 closed):**
+
+- Before-state captured to `docs/research/topic_guide_source_note_grandfather_2026_08_21/before_state.{csv,json}` — 349 rows.
+- Migration: `supabase/migrations/20260821150000_grandfather_generated_from_brief_source_notes.sql`. Idempotency and post-checks built in; content columns untouched.
+- Applied to Development (`wmgjsdkphcyhngaffbqf`) first, then Production (`pcntajvbdfqhbeewmdry`). 349 rows updated in each. All three post-checks (286 plain, 59 duplicated, 4 moved) passed on both.
+
+**Post-state in Production (identical in Development):**
+
+| `source_note` | Rows |
+| --- | ---: |
+| `generated-from-brief:legacy; grandfathered-2026-08-21` | 286 |
+| `<prior Duplicated note>; upstream-generated-from-brief; grandfathered-2026-08-21` | 59 |
+| `<prior Moved note>; upstream-generated-from-brief; grandfathered-2026-08-21` | 4 |
+| `cramapple-authored` (unchanged) | 16 (hand-authored AP Calculus AB Unit 1 explainers) |
+| **Total published explainers** | **365** |
+
+**Effect on acceptance criteria:** C7, C8, and C9 still fail *against the grandfathered debt* — the underlying content is unchanged. What changed is that a new batch authored to v2 can now be distinguished from the debt at the row level by filtering `source_note not like '%grandfathered%'`. Re-authoring the 349 rows against the CED fact packs remains a separate future batch.
+
+**Next Owner:** David Bloom
+**Next Required Action:** F1 — update `scripts/qa/topic_guides_database_qa.sql` (still hard-codes 306 rows; Production has 365) and add the C1–C11 assertions. The spawned task chip earlier in the session tracks it.
+
+---
+
+## Topic Briefs / Learn More Production Protocol Assessed and Revised — 2026-08-21
+
+**Task:** Unassigned (topic-guide content quality)
+**Status:** Documentation revised; two follow-ups open
+**Trigger:** Owner asked for an assessment of the draft topic-guide content-creation protocol for quality and accuracy.
+
+**Method:** Read the draft protocol against the migrations that define the objects it governs, `scripts/qa/topic_guides_database_qa.sql`, the Lovable wiring prompt, and read-only SQL against Production (`pcntajvbdfqhbeewmdry`). No environment was written to.
+
+**Verdict: pass on plumbing, fail on content.**
+
+Plumbing rules verified accurate and currently satisfied in Production: 0 briefs outside the taxonomy, 0 unit mismatches against the taxonomy, 0 brief/explainer unit mismatches, 0 `practice_*` mismatches, 0 `learn_more_path` mismatches, 0 orphans in either direction, 0 rows behind an inactive subject. The AP Biology 1.1 smoke string is real. The RPC, grant, and camelCase claims all match the migrations.
+
+**What the protocol was missing:** any check that the content is *correct*. The review gate covered originality, IP, and routing only, and never referenced the ten `AP_*_CED_FACT_PACK.md` documents already in the repo. Its §3 permitted generated-from-brief explainers on a "subject-specific" bar while §4 demanded "topic-specific" — a direct contradiction, and the weaker rule is the one that ran.
+
+**What that produced, measured live in Production (365 published briefs / 365 explainers):**
+
+| Metric | Value |
+| --- | ---: |
+| `core_idea` byte-identical to the paired brief's `what_it_is` | 349 / 365 (96%) |
+| Distinct `weak_answer` strings across 365 rows | 22 |
+| Rows sharing the single most common `weak_answer` | 150 (2 subjects) |
+| Distinct `mini_example_question` 60-char prefixes | 78 |
+| Topic coverage against ~603 taxonomy topics | 365 (60.5%) |
+
+For most topics `Learn more` restates the card the student just read. AP Biology 1.1's mini-example is a meta-question with the title interpolated into a template, not a biology question.
+
+**Also found:** the stated pairing key was wrong (DB is `(subject_key, topic_code)`, `unit_number` unenforced); the `app.subjects` active RLS gate was undocumented and silently hides published content; no enum values, regexes, or namespace rules were given; the RPC and the public views return different subject-key namespaces by design and this was unstated; the rollback path depended on a before-state file no step required capturing; and `scripts/qa/topic_guides_database_qa.sql:77` still asserts 306 published rows when Production holds 365, so the checked-in QA script fails today.
+
+**Baseline against the new criteria:** all eleven acceptance criteria were run read-only against Production. C1–C6 and C10–C11 (every plumbing criterion) pass. C7 (`core_idea <> what_it_is`) fails on 349 rows, C8 (no shared explainer text) fails on 314 rows sharing 20 values, and C9 (length budgets) fails on 31 briefs and 35 explainers. All three trace to the same template-generated batch.
+
+**Artifacts:**
+
+- `docs/research/TOPIC_GUIDE_PROTOCOL_ASSESSMENT_2026_08_21.md` — full assessment with every query result, including the C1–C11 baseline table.
+- `docs/product/TOPIC_BRIEFS_AND_LEARN_MORE_PRODUCTION_PROTOCOL.md` — protocol promoted to `main` and revised: new grounding step, separate accuracy-review gate, generated-from-brief loophole closed, Database Contract section, Provenance table, length budgets, coverage reporting, before-state capture, and 11 machine-checkable acceptance criteria (C8 is the one that catches template generation).
+- `docs/README.md` — protocol indexed.
+
+**Next Owner:** David Bloom
+**Next Required Action:** Decide the two open follow-ups — (F1) update `scripts/qa/topic_guides_database_qa.sql` to 365 and add the new C1–C11 assertions; (F2) rule on the 302 template-generated explainers: re-author against the CED fact packs, or accept them with `source_note = 'generated-from-brief'` backfilled so the debt is visible at the row level.
+
+---
+
+## Session Addendum (2026-08-21): Physics/Precalculus Topic Guides Verified Live; Lovable Wiring Prompt Written
+
+**Trigger:** Owner reported that units, topics, and topic briefs still do not populate for AP Physics subjects or AP Precalculus, despite AP Biology working.
+
+**Backend finding:** both Supabase environments contain the required data. Read-only checks against Development and Production showed:
+
+| Subject | Units | Topics | Published briefs | Published explainers |
+| --- | ---: | ---: | ---: | ---: |
+| AP Precalculus | 4 | 44 | 29 | 29 |
+| AP Physics 1 | 8 | 43 | 10 | 10 |
+| AP Physics 2 | 7 | 46 | 14 | 14 |
+| AP Physics C: Mechanics | 7 | 41 | 10 | 10 |
+| AP Physics C: E&M | 6 | 31 | 10 | 10 |
+
+Authenticated Production RPC smoke tests also passed:
+
+- `public.get_student_taxonomy(subject_key)` returns one subject with units and topics for Precalculus and all four Physics subjects.
+- `public.get_topic_point_guides(subject_key, unit_number, topic_code)` returns one brief and one explainer for AP Precalculus 3.1, AP Physics 1 3.1, AP Physics 2 11.1, AP Physics C: Mechanics 3.1, and AP Physics C: E&M 10.1.
+
+**Diagnosis:** this is not missing Supabase content. The likely defect is Lovable/frontend routing or mapping: AP Biology has a working special path while other subjects still use static fallback data, old unit arrays, display-name keys, or sequential unit assumptions. Physics 2 starts at Unit 9 and Physics C: E&M starts at Unit 8, so any UI that remaps units to 1..N or assumes "Unit 3" across every subject will drop valid content.
+
+**Artifact written:** `prompts/LOVABLE_PHYSICS_PRECALC_TOPIC_GUIDES_FIX_2026_08_21.md`. It gives Lovable the exact RPC contract, subject-key rules, unit-number edge cases, likely bugs to remove, smoke tests, and acceptance criteria.
+
+**Workspace note:** Supabase CLI was temporarily linked to Production for read-only checks and then restored to Development (`wmgjsdkphcyhngaffbqf`).
 
 ---
 
