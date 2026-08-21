@@ -150,3 +150,46 @@ Most students will see mostly-empty sections, and that is correct. Unit
 attribution is unavailable for every subject, so the units list always renders
 with `attribution_unavailable`. Build the empty states as first-class UI, not
 as afterthoughts — they are what v1 mostly shows.
+
+---
+
+## Reconciling with `public/progress-mock-v2.html`
+
+The repo contains a static mock (`public/progress-mock-v2.html`, commit
+"Built AP Progress V2 mock") that is the visual direction for this page. Build
+toward its **look and layout**, but not all of its sections have data behind
+them. Two were cut by Product Owner decision on 2026-08-21, and three more
+cannot be populated because the evidence does not exist.
+
+**Do not invent data to fill a section.** If the payload has no field for it,
+the section does not ship in v1.
+
+| Mock section | v1 status | What to do |
+| --- | --- | --- |
+| Summary — "Estimated AP readiness (1–5)" | **Supported, gated** | `summary.frq.estimatedScore1To5`. Often `null`; render the `evidenceGaps` explanation instead. Always show `qualifier` + `nextAction`. |
+| Summary — "Last 10 graded items" | **Supported** | `recentActivity` (already capped at 10). Respect `pointsWithheld`. |
+| Summary — "On the 3 / 4 line" | **Not supported** | v1 returns a single integer band, not a boundary or a "between two scores" claim. Do not render band-edge language. |
+| "Where the gaps are" / **Unit readiness heatmap** | **Not supported** | Unit-level evidence attribution does not exist for **any** subject. Every unit returns `status: "attribution_unavailable"`. Render the unit list as structure with an explicit "we can't break your work down by unit yet" state — **never** a heatmap coloured by invented status. |
+| "Recommended next" | **Not supported** | There is no recommendation engine behind this RPC. Omit in v1. |
+| "Unit detail" / "Topic mastery" | **Cut** | No attempt → topic join path exists. Omit entirely; no placeholder. |
+| "Your story" / "Most improved: Unit 4 …, MCQ 51% → 70% over 4 sessions" | **Not supported** | Requires per-unit attribution *and* trend history; v1 has neither. Omit. |
+| "Scoring moves" | **Cut** | Criterion-level data (`attempt_criterion_results`) has 0 rows. Omit. |
+| Activity figures | **Supported** | `summary.activity`. Remember `actualMinutes` excludes planned time, and surface the `excluded*` counts. |
+
+### Status vocabulary
+
+The mock uses **Not started → Needs work → Developing → Point-ready → Strong**.
+The shipped contract uses a different, deliberately smaller set. Use the
+contract's `status` / `statusLabel`, not the mock's wording.
+
+In particular, **do not reintroduce "Needs work"**. It reads as a failure
+verdict, and it would be applied to students whose evidence is merely thin
+rather than weak — exactly the conflation UX-007 forbids. `insufficient_evidence`
+("Not enough evidence yet") is the honest label for that state.
+
+### What v1 actually is
+
+A summary block, an activity block, a unit list that openly says it cannot yet
+attribute work, and a recent-items list. That is a smaller page than the mock.
+It is the page the data can currently support honestly, and the empty states
+are the main design problem to solve — not a detail to add at the end.
