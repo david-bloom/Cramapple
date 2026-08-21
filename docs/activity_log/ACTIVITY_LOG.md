@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- AP Statistics Reaches Full Topic-Guide Coverage (55/55): Unit 5 (Regression Analysis) Authored From Scratch, Closing the Only Remaining Gap for the Subject — 2026-08-21
 - AP Calculus AB Unit 4's Seven Learn More Explainers Repaired: All Were Template-Generated Debt (Verbatim-Matching Their Own Brief, Sharing a Generic Mini-Example With ~150 Other Rows) Despite the Briefs Themselves Already Being Hand-Authored and Correct — Replaced With Content Grounded in Real 2025 Released-FRQ Scoring Architecture, Verified Clean on All Applicable Acceptance Criteria — 2026-08-21
 - AP Statistics Unit 4 (Inference for Means) Gets Its First Topic Guide Coverage — 10 Topic Point Briefs + 10 Learn More Explainers, Genuinely Topic-Specific and Grounded in the CED Fact Pack, Authored and Verified Against All 11 of the Revised Protocol's Acceptance Criteria Before Publishing to Dev Then Production — 2026-08-21
 - Topic Briefs Protocol Iterated to v2 (Sampling Rule, Coverage Policy, Provenance Migration Format, Weak/PA Contrast Mandatory) and the 349 Legacy Template-Generated Explainers Grandfathered in Dev + Prod: `source_note` Backfilled so the Debt Is Visible at the Row Level, No Student-Facing Field Changed — 2026-08-21
@@ -140,6 +141,43 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## AP Statistics Unit 5 Topic Guides Authored — Subject Reaches 100% Coverage — 2026-08-21
+
+**Task:** Unassigned (topic-guide content authoring; third batch under the revised protocol)
+**Status:** Published to Development and Production. New coverage, C1-C8 verified clean.
+
+**Trigger:** Owner asked to keep going with topic-guide authoring, discovering coverage and quality issues in the moment rather than via a separate upfront audit.
+
+**Finding before any write:** Unit 5 (Regression Analysis, 5 topics) had zero published briefs and zero explainers -- a clean New Coverage batch, same shape as Unit 4 three batches ago.
+
+**Grounding, with an honest caveat:** 'docs/product/AP_STATISTICS_2027_CED_FACT_PACK.md' Sec10 explicitly flags Unit 5 as the thinnest of the five units for misconception data -- no 2025 Chief Reader Report question and no released FRQ covered regression in that pass. Rather than inventing a misconception, this batch grounds in the CED's own documented EK/formula-sheet facts: r and the LSRL slope/intercept are technology-computed only (the CED never gives a hand formula for either, a verified absence per the fact pack); the residual sign convention the fact pack itself calls out as 'easily flipped' (positive residual = underpredicted, negative = overpredicted); interpolation vs. extrapolation; and EK 5.5.B.3's explicit 'do not interpret this intercept' pattern. This is weaker grounding than the Unit 4 batches (which quoted real released-FRQ scoring architecture) and is stated plainly in 'source_note' on every row.
+
+**Authoring:** 5 briefs + 5 explainers, each explainer with a distinct mini-example (a scatterplot of study hours/test scores, an ice-cream/drowning correlation-vs-causation scenario, an advertising-spend extrapolation, a house-price residual, and a age-in-months height model with a meaningless intercept) and a distinct weak/point-attaining answer pair. All content passed length budgets, C7, and within-batch distinctness on the first draft (no fixes needed this time). Verified programmatically before touching the database, and reverified corpus-wide after applying.
+
+**Migration:** 'supabase/migrations/20260821180000_ap_statistics_unit5_topic_point_briefs_seed.sql'. Pure insert, idempotent, in-migration count assertion.
+
+**Verified in Development first, then Production:**
+
+| Criterion | Dev | Prod |
+| --- | --- | --- |
+| C1 pairing orphans | 0 | 0 |
+| C2 unit_number equality | 0 | 0 |
+| C3 taxonomy orphans | 0 | 0 |
+| C4 practice_* mismatch | 0 | 0 |
+| C5 learn_more_path mismatch | 0 | 0 |
+| C6 inactive-subject rows | 0 | 0 |
+| C7 core_idea == what_it_is | 0 | 0 |
+| C8 shared distinctness values (whole corpus) | 0 | 0 |
+
+RPC smoke test: 'get_topic_point_guides' returns 5 briefs + 5 explainers for Unit 5 in both canonical and hyphenated subject-key form; authenticated view now returns all 55 AP Statistics briefs.
+
+**Coverage: AP Statistics is now 55/55 (100%).** Corpus-wide published total: 375 -> 380 briefs and 380 explainers.
+
+**Next Owner:** David Bloom
+**Next Required Action:** Frontend smoke test not yet run this session for either the Unit 5 new-coverage batch or the Unit 4 Calc AB repair. Other subjects remain well below full coverage (AP Calculus BC 77%, Precalculus 66%, Chemistry 29%, all four Physics variants 23-32%) and, per the Calc AB Unit 4 finding, may have existing briefs whose paired explainers are template debt -- continuing unit by unit as directed, discovering issues in the moment.
 
 ---
 
