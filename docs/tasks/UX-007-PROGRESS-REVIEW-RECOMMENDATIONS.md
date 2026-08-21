@@ -99,6 +99,23 @@ Primary records:
 
 No prototype is authorized by this task.
 
+**2026-08-21 — Progress Dashboard v1 backend implemented.** A first
+implementation slice of this task's Progress overview shipped to the
+Production database as a live-computed, display-only RPC
+(`public.get_student_progress_dashboard`). It deliberately implements only
+what the data can honestly support: the review queue, recommendation cards,
+recommendation history, skill/criterion detail and topic-level progress
+defined in this task are all still unbuilt, and unit-level evidence
+attribution is explicitly reported as unavailable. The frontend is not wired,
+so nothing here is student-visible yet, and the two open acceptance criteria
+(expert review; Product Owner approval of the final UX) remain open.
+
+- `docs/product/PROGRESS_DASHBOARD_V1_PLAN_2026_08_21.md`
+- `docs/research/PROGRESS_EXPERIENCE_STATE_OF_PLAY_2026_08_21.md`
+- `prompts/LOVABLE_PROGRESS_DASHBOARD_V1_2026_08_21.md`
+- `supabase/migrations/20260821080000_progress_dashboard_v1.sql`
+- `scripts/qa/progress_dashboard_v1_qa.sql`
+
 ## QA Review
 
 Pending expert and Product Owner review.
