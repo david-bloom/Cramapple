@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- AP Calculus BC Found to Carry the AP Calculus AB Explainer-Debt Pattern at Full-Corpus Scale — 85 of 85 Published Explainers (Units 1-8) Match Their Brief Verbatim, Plus 26 Topics With Zero Coverage; Unit 1 (16 Rows) Repaired as the First Installment — 2026-08-21
 - AP Statistics Reaches Full Topic-Guide Coverage (55/55): Unit 5 (Regression Analysis) Authored From Scratch, Closing the Only Remaining Gap for the Subject — 2026-08-21
 - AP Calculus AB Unit 4's Seven Learn More Explainers Repaired: All Were Template-Generated Debt (Verbatim-Matching Their Own Brief, Sharing a Generic Mini-Example With ~150 Other Rows) Despite the Briefs Themselves Already Being Hand-Authored and Correct — Replaced With Content Grounded in Real 2025 Released-FRQ Scoring Architecture, Verified Clean on All Applicable Acceptance Criteria — 2026-08-21
 - AP Statistics Unit 4 (Inference for Means) Gets Its First Topic Guide Coverage — 10 Topic Point Briefs + 10 Learn More Explainers, Genuinely Topic-Specific and Grounded in the CED Fact Pack, Authored and Verified Against All 11 of the Revised Protocol's Acceptance Criteria Before Publishing to Dev Then Production — 2026-08-21
@@ -141,6 +142,51 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## AP Calculus BC Unit 1 Explainers Repaired; Full-Corpus Debt Scope Discovered — 2026-08-21
+
+**Task:** Unassigned (topic-guide content quality; fourth batch under the revised protocol)
+**Status:** Published to Development and Production. Repair change type, C1/C2/C3/C6/C7/C8 verified clean. Larger BC-wide scope discovered and recorded as open work.
+
+**Trigger:** Owner asked to check whether AP Calculus BC carries the same explainer-debt pattern found in AP Calculus AB Unit 4.
+
+**Finding, corpus-wide, before any write:** it does, and at much larger scale than AB. A per-unit query across all of BC found:
+
+| Finding | Count |
+| --- | ---: |
+| Explainers matching their brief verbatim (Units 1-8) | 85 of 85 (100%) |
+| -- of which genuinely BC-authored (Units 1, 3) | 22 |
+| -- of which duplicated/moved from AB (Units 2, 4-8) | 63 |
+| Topics with zero coverage: 6.12, 6.13 (BC-only techniques) | 2 |
+| Topics with zero coverage: Units 9-10 (BC-only units) | 24 |
+
+Every single published BC explainer was the same template-generated debt as the Calc AB Unit 4 finding -- not an isolated unit, the entire existing corpus. This was reported to the Owner in full before any content was written, then work began unit by unit, starting with Unit 1 (BC's own Limits and Continuity, the largest genuinely-BC-authored group).
+
+**Grounding:** 'docs/product/AP_CALCULUS_AB_BC_CED_FACT_PACK.md' Units 1-3 deep-tier detail, which is unusually rich for this unit: the boxed epsilon-delta exclusion (not assessed on this exam), the 3 canonical DNE patterns, and -- the strongest single piece of grounding used yet -- the IVT 3-part scoring pattern (state continuity with a reason, show the target value between the actual endpoints, then conclude existence) documented by the 2025 Chief Reader Report as **the single lowest-scoring point on the entire AB/BC exam** (mean approximately 0.27-0.28/1), plus the same report's documented MVT-vs-IVT confusion and end-behavior-vs-near-zero confusion (writing lim(t->0) instead of lim(t->infinity)).
+
+**Authoring:** 16 explainers repaired, each with a distinct mini-example (a balloon-volume instantaneous-rate question, an epsilon-delta-is-not-assessed check, a one-sided-limit graph, a four-point table, a quotient-property-with-zero-denominator trap, a factor-and-cancel limit, an absolute-value one-sided case, a squeeze-theorem bound, a table/graph representation match, a jump-discontinuity classification, a three-condition continuity check, a domain-restriction continuity-over-an-interval case, a parameter-solving removable discontinuity, an unbounded-behavior vertical asymptote, an end-behavior-vs-near-zero notation trap, and an MVT-vs-IVT misattribution). Checked directly against the existing hand-authored AP Calculus AB Unit 1 explainers (same 16 topic titles) to confirm no accidental text reuse.
+
+**Before-state captured** (protocol step 7) to 'docs/research/topic_guide_source_note_grandfather_2026_08_21/ap_calculus_bc_unit1_explainer_before_state.json' -- all 16 rows' full field values before the repair.
+
+**Migration:** 'supabase/migrations/20260821190000_repair_ap_calculus_bc_unit1_explainers.sql'. Pure UPDATE targeting the 16 explainer rows; the 16 point briefs (already genuinely BC-authored) are untouched.
+
+**Verified in Development first, then Production:**
+
+| Criterion | Dev | Prod |
+| --- | --- | --- |
+| C1 pairing orphans | 0 | 0 |
+| C2 unit_number equality | 0 | 0 |
+| C3 taxonomy orphans | 0 | 0 |
+| C6 inactive-subject rows | 0 | 0 |
+| C7 core_idea == what_it_is | 0 | 0 |
+| C8 shared distinctness values (whole corpus, incl. AB Unit 1) | 0 | 0 |
+
+RPC smoke test: 'get_topic_point_guides('ap_calculus_bc', 1, '1.16')' returns the correct paired brief/explainer with the MVT-vs-IVT distinction reflected. Corpus totals unchanged (380/380, an update not an insert).
+
+**Next Owner:** David Bloom
+**Next Required Action:** BC repair work continues unit by unit: 69 explainers still need repair (Unit 3's 6 genuinely-BC rows, then the 63 duplicated/moved rows across Units 2, 4-8), plus 26 topics with zero coverage at all (6.12, 6.13, and the two entirely-uncovered BC-only Units 9-10). Frontend smoke test not yet run this session for any of today's batches.
 
 ---
 
