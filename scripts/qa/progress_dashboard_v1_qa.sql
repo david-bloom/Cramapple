@@ -6,17 +6,16 @@
 -- emits a PASS notice otherwise. Substitute the two user UUIDs below for the
 -- environment under test.
 --
--- KNOWN ENVIRONMENT LIMITATION (2026-08-21): the Development project
--- wmgjsdkphcyhngaffbqf does NOT have app.taxonomy_source_versions, even though
--- its migration ledger records 20260804170000 (the migration that creates it)
--- as applied. The ledger and the schema disagree. Dev also carries five 0-row
--- taxonomy_scheme*/taxonomy_node* tables that exist in no repo migration.
--- This is pre-existing drift, not caused by the progress work:
--- public.get_student_taxonomy fails in Dev with the same 42P01. (That RPC has
--- no consumers; the topic-guide surface is served by get_topic_point_guides,
--- which does not read the taxonomy tables.)
--- QA-UNITS below therefore cannot pass on Dev until that is reconciled; see
--- docs/product/PROGRESS_DASHBOARD_V1_PLAN_2026_08_21.md section 9.
+-- ENVIRONMENT NOTE (updated 2026-08-21): Development previously could not run
+-- this script — app.taxonomy_source_versions did not exist there even though
+-- the ledger recorded the migration that creates it as applied. TASK-0027
+-- restored the taxonomy layer in Dev (10 source versions, 72 units), so
+-- QA-UNITS now passes in both projects.
+--
+-- Still divergent: Dev holds no taxonomy topics for ap_biology,
+-- ap_calculus_ab, ap_calculus_bc or ap_precalculus (300 rows that exist only
+-- in Production and have no repository migration). That does not affect any
+-- check here, which reads units rather than topics.
 
 \set user_with_evidence '76705295-a203-4ce3-a2d4-218183024f05'
 \set user_without_evidence 'f5a26c6b-3566-4d58-9e97-979fbb947564'

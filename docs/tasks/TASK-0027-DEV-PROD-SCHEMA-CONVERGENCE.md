@@ -22,15 +22,22 @@ Object inventory, `app` + `public` schemas, measured 2026-08-21
 
 | | Count |
 | --- | --- |
-| Production objects | 184 |
-| Development objects | 199 |
-| **Shared** | **135** |
-| Present in Prod, absent in Dev | 49 |
-| Present in Dev, absent in Prod | 64 |
+| Production objects | 214 |
+| Development objects | 233 |
+| **Shared** | **168** |
+| Present in Prod, absent in Dev | 46 |
+| Present in Dev, absent in Prod | 65 |
 
-Roughly a quarter of each database does not exist in the other.
+Roughly a fifth of each database does not exist in the other.
 
-**Missing from Dev (49)** includes whole shipped subsystems: the gold-set
+**Numbers corrected 2026-08-21.** This table first read 184 / 199 / 135 / 49 /
+64. Those came from hand-transcribed object lists and undercounted. The figures
+above are produced by `scripts/qa/dev_prod_drift_qa.sql`, are reproducible, and
+count distinct qualified names (overloaded functions collapse to one entry).
+The conclusion is unchanged and the named object clusters below were each
+verified individually; only the totals moved.
+
+**Missing from Dev (46)** includes whole shipped subsystems: the gold-set
 verification layer (`gold_set_answers`, `gold_set_elements`,
 `gold_set_element_marks`, `gold_set_verification_assignments` and their five
 RPCs), the taxonomy layer (`taxonomy_source_versions`, `taxonomy_units`,
@@ -41,7 +48,7 @@ publish gate (`enforce_publish_gate`, `content_item_is_published`,
 and visual-requirement metadata, and the practice selection RPCs
 (`select_practice_frqs`, `select_unit_gated_practice_items`).
 
-**Dev-only (64)** is a parallel governance and packaging architecture that
+**Dev-only (65)** is a parallel governance and packaging architecture that
 Production never adopted: `execution_approvals` (+ consumptions, revocations),
 `reviewer_capability_*`, `governance_role_assignments`, `item_archetypes`,
 `verifier_plugins`, `calibration_sets`, `content_clearance_exceptions`,
@@ -91,7 +98,8 @@ not an infrastructure repair.
 
 ## Acceptance Criteria
 
-- [x] Object-level inventory diff produced for both projects.
+- [x] Object-level inventory diff produced for both projects, and made
+      reproducible as `scripts/qa/dev_prod_drift_qa.sql`.
 - [x] Root cause of the taxonomy failure identified (ledger/schema mismatch,
       not migration lag).
 - [x] Taxonomy layer restored in Dev; `get_student_taxonomy` returns subjects.
@@ -151,7 +159,7 @@ not an infrastructure repair.
   Stripe checkout, the publish gate and MCQ sync carry data-model and
   governance implications; recreating them wholesale without deciding whether
   Dev should mirror Production's content pipeline would be guessing.
-- **No Dev-only object was removed.** 64 objects representing real prior work.
+- **No Dev-only object was removed.** 65 objects representing real prior work.
 - **The 300 taxonomy topics for AP Biology, Calculus AB, Calculus BC and
   Precalculus were NOT copied to Dev.** Dev now holds all 72 units and 307
   topics (Statistics 55, Chemistry 91, the four Physics subjects 161); those
@@ -214,7 +222,7 @@ Current topic coverage, Production:
 
 ## Dev-only objects: what the repository says about them
 
-Searched `docs/` and `prompts/` for the 64 Dev-only objects
+Searched `docs/` and `prompts/` for the 65 Dev-only objects
 (`execution_approvals`, `reviewer_capability_*`, `item_archetypes`,
 `verifier_plugins`, `taxonomy_schemes`, and the rest). **The only documents
 that mention any of them are the ones written for this task on 2026-08-21.**

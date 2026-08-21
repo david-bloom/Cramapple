@@ -1,4 +1,4 @@
-# Codex Query — Origin and Intent of 64 Dev-Only Database Objects
+# Codex Query — Origin and Intent of the Dev-Only Database Objects
 
 **Date:** 2026-08-21
 **From:** Claude, working TASK-0027 (Dev/Prod schema convergence)
@@ -14,11 +14,15 @@ schema at two migration depths. Object inventory across `app` + `public`:
 
 | | Count |
 | --- | --- |
-| Production objects | 184 |
-| Development objects | 199 |
-| Shared | 135 |
-| Prod-only | 49 |
-| **Dev-only** | **64** |
+| Production objects | 214 |
+| Development objects | 233 |
+| Shared | 168 |
+| Prod-only | 46 |
+| **Dev-only** | **65** |
+
+(Measured by `scripts/qa/dev_prod_drift_qa.sql`, counting distinct qualified
+names. The object lists below were enumerated separately and are what matter;
+one Dev-only object is not itemised in them.)
 
 The 64 Dev-only objects form a coherent governance/packaging architecture that
 Production never received. **They appear in no DECISION, no TASK, no approval
@@ -118,7 +122,7 @@ acceptable and more useful than reconstruction.
    `taxonomy_schemes`/`node_versions`/`crosswalks` intended to *replace*
    `taxonomy_source_versions`/`units`/`topics`, or to coexist with it? If
    replace, was that ever approved?
-8. **What is lost if these 64 objects are dropped from Development?** Given all
+8. **What is lost if these objects are dropped from Development?** Given all
    are empty or lookup-only, we assume "nothing but the design record" —
    correct us if that is wrong.
 

@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- QA Scripts Split Per Workstream, and Two Defects They Immediately Found: AP Calculus AB's Taxonomy Carries Four BC-Only Topics (With Published Student Content), and the Dev/Prod Object Counts Were Undercounted — 2026-08-21
 - Progress Dashboard v1 Backend Built and Shipped to Production: One Live-Computed, Display-Only RPC Replaces Client-Side Progress Math; Topics Cut as Unbuildable and Unit Attribution Declared Unavailable for Every Subject After the AP Statistics Labels Were Found to Sit on the Retired 9-Unit CED; Two Silent `/home` Loader Defects Fixed; Dev/Prod Taxonomy Schema Drift Discovered — 2026-08-21
 - TASK-0016 Phase D Stages D4 + D5 Packaged From Existing Evidence: Bake-Off and Abstention-Calibration Artifacts Written, Arm-4 (Gate-on-Escalation) Computed as Near-Neutral, and the One Outstanding Paid Run — Full-Corpus Self-Consistency (322 Calls, $6.64) — Confirmed the FAR Lever Holds at Scale (19.0→14.7) Without Reversing; Only 3 of 24 Criterion Cells Provisionally Auto-Eligible, Everything Still R&D-Tier / Shadow-Only — 2026-08-20
 - Session Closeout (2026-08-20): TASK-0016 Phase D Stage D2 Shipped to Production After 5 Rounds of Independent QA and 3 Rework Passes — QR Hand-Drawn Capture Live on cramapple.com; Engine 4 Rollout Next Steps for D3-D7 — 2026-08-20
@@ -133,6 +134,30 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 ---
+
+## QA Scripts Split Per Workstream; Two Defects Found on First Run — 2026-08-21
+
+**Task:** Write QA coverage for the work executed this session, as separate scripts rather than one combined suite.
+
+**Five scripts, one per system**, under `scripts/qa/` with a `README.md` explaining the split:
+
+| Script | Covers |
+| --- | --- |
+| `progress_dashboard_v1_qa.sql` | `/progress` backend RPC (existing; environment note refreshed) |
+| `progress_display_contract_qa.sh` | `/progress` frontend display-only contract, plus unit tests |
+| `taxonomy_topic_seeds_qa.sql` | `app.taxonomy_topics` counts, unit alignment, numbering, orphans |
+| `dev_prod_drift_qa.sql` | TASK-0027 ledger-vs-schema honesty and object inventory |
+| `home_loader_schema_contract_qa.sql` | the columns and table names `/home`'s loader depends on |
+
+They were kept separate deliberately: different systems, different owners, different failure modes. All were run against Production and Development before being committed — a QA script that has not been run is a hypothesis, not coverage.
+
+**Defect found (content, live, needs a decision): AP Calculus AB's taxonomy contains four BC-only topics.** A new contiguity check flagged AB Unit 6 as holding 12 topics numbered 6.1-6.11 plus 6.14. Reading the AP Calculus AB/BC CED Course at a Glance (printed p. 20) confirmed 6.11, 6.12 and 6.13 are all marked **BC ONLY**, as are 7.5, 7.9 and 8.13. AB's taxonomy correctly excludes 6.12 and 6.13 but **includes 6.11, 7.5, 7.9 and 8.13** — the AB filter was applied inconsistently. AB should hold 81 topics, not 85. This is student-visible: AP Calculus AB has **published point briefs and published explainers for all four**, served today through `get_topic_point_guides`, so AB students can be shown Learn More content for material that is not on their exam. Not fixed — deleting taxonomy rows and unpublishing content is Learning Quality's call, not a QA fix. Units 1-5 were not visually verified against the CED; AB and BC hold identical sets there, which is consistent with no BC-only topics existing in those units but would not reveal one wrongly present in both.
+
+**Defect found (own reporting): the Dev/Prod object counts published earlier today were wrong.** TASK-0027 and the Codex prompt cited Production 184 / Development 199 / 135 shared / 49 Prod-only / 64 Dev-only. Those came from hand-transcribed object lists and undercounted by roughly 30 on each side. The reproducible query in `dev_prod_drift_qa.sql` gives **Production 214, Development 233, 168 shared, 46 Prod-only, 65 Dev-only**. The divergence conclusion is unchanged (about a fifth of each database absent from the other rather than a quarter), and the named object clusters were each verified individually, but the totals have been corrected in both documents with the reason recorded.
+
+**Two bugs were also found in the QA scripts themselves by running them:** the frontend contract check flagged `"error"` as a failure colour when it is an error-*state* discriminator, and its status-token loop only asserted the last token. Both fixed; the script now reports 11 passed, 0 failed.
+
+**Also encoded:** `taxonomy_topic_seeds_qa.sql` T4 was softened from a hard contiguity failure to a warning, because AP Calculus AB legitimately has gaps where BC-only topics are excluded, and a new hard check T4b asserts AB contains no CED-designated BC-only topic. `home_loader_schema_contract_qa.sql` H6 reports, without failing, that grading write-back to `app.attempts` is still missing (45 attempts, 0 with `graded_at`, 41 grading results), so that standing gap is never mistaken for a regression in the loader fix.
 
 ## Progress Dashboard v1 Backend Built and Shipped to Production; Topics Cut, Unit Attribution Declared Unavailable, Two `/home` Defects Fixed, Dev/Prod Drift Found — 2026-08-21
 
