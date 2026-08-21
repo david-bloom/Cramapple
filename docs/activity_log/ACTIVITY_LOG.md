@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- AP Calculus BC Repair: Unit 5 (Analytical Applications of Differentiation) Done — 51 of 85 Debt Explainers Now Repaired, Zero Corpus-Wide Distinctness Collisions on Dev or Prod — 2026-08-21
 - AP Calculus BC Repair: Unit 4 Done, and Its Own Corpus-Wide Distinctness Check Caught a Real Cross-Subject Duplicate Against the AB Unit 4 Batch (Fixed Before Production) — 46 of 91 Debt Rows Now Repaired — 2026-08-21
 - AP Calculus BC Repair Continues: Units 2 and 3 Done (16 More Explainers Fixed, Plus Unit 3's 6 Briefs Which Turned Out to Be a SECOND, Independent Template-Debt Pattern) — 53 of 69 Debt Rows Remain (Units 4-8) — 2026-08-21
 - AP Calculus BC Found to Carry the AP Calculus AB Explainer-Debt Pattern at Full-Corpus Scale — 85 of 85 Published Explainers (Units 1-8) Match Their Brief Verbatim, Plus 26 Topics With Zero Coverage; Unit 1 (16 Rows) Repaired as the First Installment — 2026-08-21
@@ -144,6 +145,30 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## AP Calculus BC Unit 5 Repaired — Zero Distinctness Collisions — 2026-08-21
+
+**Task:** Unassigned (topic-guide content quality; continuing the BC-wide repair per Owner instruction: 'do the repair, do not make any new content')
+**Status:** Published to Development and Production. 12 explainers repaired.
+
+**Unit 5 (Analytical Applications of Differentiation)** — explainers only; briefs duplicated from AB were already good, confirmed via SQL before starting. The fact pack calls this "the single highest-value unit in the whole fact pack for scoring-architecture precision."
+
+**Grounded in:** the Candidates Test vs. local-test scoring split (5.5 — a correct First/Second Derivative Test argument never justifies an absolute extremum, even with a correct final numeric answer; only comparing values at every critical point and both endpoints does), the rule that presenting a bare critical x-value is not enough — the derivative-setting work must be shown as its own step even when the value is correct (5.2), and the common f/f'/f'' graph-identification confusion (5.9, reading a shown f' graph as if it directly were f).
+
+**Math independently verified before writing to the database:** 5.2 (f(x)=(x-4)^2 → f'(x)=2(x-4)=0 → x=4), 5.11 (A(x)=x(20-x): A(10)=100 vs. endpoints A(0)=0, A(20)=0), 5.12 (implicit differentiation of x^2+xy=10 requires the product rule on the xy term: 2x + x(dy/dx) + y = 0, not the incomplete 2x+y=0 that drops the product-rule term).
+
+**No collision risk with AB Unit 5:** checked first — AP Calculus AB's own Unit 5 explainers are still grandfathered debt (not yet repaired), so there was no hand-authored AB batch to accidentally duplicate against, unlike the Unit 4 case.
+
+Before-state: `docs/research/topic_guide_source_note_grandfather_2026_08_21/ap_calculus_bc_unit5_explainer_before_state.json`. Migration: `supabase/migrations/20260821230000_repair_ap_calculus_bc_unit5_explainers.sql`.
+
+**Verification, Dev then Prod:** C1/C3/C4/C5/C7 (n/a, briefs untouched) all zero violations. C8 corpus-wide distinctness re-run scoped precisely to the new batch against every other published row (not just an aggregate corpus count, which is expected to show shared values from the still-grandfathered template debt) — zero collisions on `mini_example_question`, `weak_answer`, `point_attaining_answer`, and `practice_bridge`, on both Dev and Prod. Corpus totals unchanged (380/380, an update not an insert).
+
+**Running BC repair total:** 51 of 85 debt explainers repaired (Units 1-5: 16+6+10+7+12), plus 6 debt briefs (Unit 3). Remaining: 34 explainers across Units 6-8 — 30 duplicated-from-AB rows (11+7+12) plus the 4 BC-only 'moved' topics (6.11, 7.5, 7.9, 8.13).
+
+**Next Owner:** David Bloom
+**Next Required Action:** Continue Units 6-8 repair (34 rows). Per Owner clarification this session, duplication between AB and BC is expected and not itself a defect — the standard for all content, regardless of origin, is full protocol conformance. The 26 zero-coverage topics (6.12, 6.13, and all of Units 9-10) remain explicitly out of scope for this pass.
 
 ---
 
