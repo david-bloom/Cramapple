@@ -123,20 +123,35 @@ All checks in `scripts/qa/progress_dashboard_v1_qa.sql` pass:
 ## 7. Deviation from the draft rollout sequence
 
 The draft sequenced Dev → QA → Prod. **Dev could not serve as the QA
-environment.** Both projects record migration `20260820192400`, but Dev built a
-divergent taxonomy design (`taxonomy_schemes`, `taxonomy_scheme_versions`,
-`taxonomy_node_versions`, `taxonomy_node_relations`, `taxonomy_crosswalks`)
-while Production built `taxonomy_source_versions` / `taxonomy_units` /
-`taxonomy_topics`. The RPC therefore raises `42P01` on Dev.
+environment**, for a reason that predates this work.
 
-Each project also carries migrations absent from the repo (Lovable-applied),
-and repo migrations `20260821060000`–`20260821072000` are applied to neither.
+Corrected diagnosis (2026-08-21, after fuller investigation — an earlier note
+in this file blamed migration `20260820192400`, which was wrong: that migration
+creates `topic_point_briefs`/`topic_explainers` and only *assumes* taxonomy
+tables exist):
 
-Because the RPC is read-only, `STABLE`, and inert until Lovable calls it, it
-was applied to Production and QA'd there. Nothing is student-visible.
+- The taxonomy tables are created by `20260804170000_taxonomy_label_layer.sql`.
+- **Dev's ledger records `20260804170000` as applied, but
+  `app.taxonomy_source_versions` does not exist in Dev.** The migration ledger
+  and the actual schema disagree.
+- Dev additionally carries five taxonomy tables that exist in **no repo
+  migration** — `taxonomy_schemes`, `taxonomy_scheme_versions`,
+  `taxonomy_node_versions`, `taxonomy_node_relations`, `taxonomy_crosswalks` —
+  all with **0 rows**. An abandoned out-of-repo experiment.
+- From 2026-08-04 to 2026-08-19 the two environments were fed by different
+  channels: Dev's ledger carries repo-style round timestamps
+  (`20260804170000`), Prod's carries generated ones (`20260804193850`). The two
+  ledgers are not comparable by version id over that window.
 
-**This drift is a standing problem beyond this work and needs its own task.**
-Until it is reconciled, Dev cannot validate anything taxonomy-dependent.
+**This is not specific to the new RPC.** `public.get_student_taxonomy` — which
+powers the live topic-guide / Learn More surface — fails in Dev with the same
+`42P01` on `app.taxonomy_source_versions`. Dev's entire student taxonomy
+surface is non-functional and was already so before this work.
+
+Because the progress RPC is read-only, `STABLE`, and inert until Lovable calls
+it, it was applied to Production and QA'd there.
+
+**Convergence needs its own task — see §9.**
 
 ## 8. Not done / next
 
@@ -155,3 +170,44 @@ Until it is reconciled, Dev cannot validate anything taxonomy-dependent.
    confidence rises above `low`.
 7. **`src/lib/progress-queries.ts`** still queries the dead `sessions` table
    (0 rows, wrong column names). Unused by the route, but a landmine.
+
+## 9. Dev/Prod convergence plan
+
+Ordered, each step verifiable before the next. Nothing here should be bundled
+into feature work.
+
+**Step 1 — Establish which environment is authoritative.** Production matches
+the repo's taxonomy design and holds the real data (10 verified subjects,
+306 topic point briefs). Production is the reference. Dev must be made to match
+Production, not the reverse.
+
+**Step 2 — Reconcile the Dev ledger with Dev's actual schema.** For every
+migration Dev records as applied, verify its objects exist. `20260804170000` is
+one known false positive; assume there are others until checked. Produce the
+list before changing anything — the ledger cannot be trusted as an input.
+
+**Step 3 — Apply the missing taxonomy layer to Dev.** Run
+`20260804170000_taxonomy_label_layer.sql` (and whichever migration creates
+`app.taxonomy_units`, which that file does not) against Dev, then re-seed the
+taxonomy source versions, units and topics from the repo seeds. Verify by
+calling `public.get_student_taxonomy` in Dev and getting 10 subjects.
+
+**Step 4 — Remove the abandoned experiment.** Drop the five empty
+`taxonomy_scheme*` / `taxonomy_node*` / `taxonomy_crosswalks` tables from Dev
+once confirmed unreferenced. They are 0-row and in no repo migration. Owner
+confirmation required before any drop.
+
+**Step 5 — Reconcile repo-vs-database drift in both directions.** Repo
+migrations `20260821060000`–`20260821072000` are applied to neither database.
+Both databases carry migrations that exist in no repo file. Each needs a
+disposition: adopt into the repo, or re-apply from the repo, or retire.
+
+**Step 6 — Close the hole that caused this.** Lovable applies migrations
+directly to a database through its own channel, which is what produced two
+incomparable ledgers. Until there is a single application path — or at minimum
+a scheduled drift check comparing objects (not ledger rows) between Dev and
+Prod — this will recur.
+
+**Interim rule:** until Step 3 lands, Dev cannot validate anything that touches
+taxonomy, and "QA passed on Dev" is not evidence for those paths. Say so
+explicitly in any QA record.
