@@ -18,51 +18,65 @@ has that Development lacks.** That is question 2 below.
 
 ---
 
-## Question 1 — the 300 taxonomy topics with no repo migration
+## Question 1 — provenance of the taxonomy topic seeds (CORRECTED)
 
-`app.taxonomy_topics` in Production holds 300 rows for AP Biology (60),
-Calculus AB (85), Calculus BC (111) and Precalculus (44) that **no repository
-migration creates**. Development has none of them.
+**An earlier version of this prompt claimed the 300 Biology / Calculus AB /
+Calculus BC / Precalculus taxonomy topics had no repository migration. That was
+wrong, and you were right to flag it.** The seeds are in the repo:
 
-**I have already located the source, so this is a narrow question.** The seed
-SQL is preserved in Production's own migration ledger:
+- Biology, `20260804170000_taxonomy_label_layer.sql:379`
+- Calculus AB/BC and Precalculus, `20260804203000_extend_math_taxonomy_registries.sql:71,73,75`
 
-| Prod ledger version | name | size | contains |
-| --- | --- | --- | --- |
-| `20260804193850` | `taxonomy_label_layer` | 21,216 chars | Biology topic titles |
-| `20260804201932` | `unit_serving_registry` | 11,403 chars | Biology + Precalculus titles |
-| `20260804205322` | `extend_math_taxonomy_registries` | 39,437 chars | Calculus + Precalculus titles; calls `seed_taxonomy_topics` |
+My error: I judged both files by `wc -l` output taken from a `head`-truncated
+grep. `extend_math_taxonomy_registries.sql` is 80 *lines* but **39,454 bytes** —
+line 71 alone is 13,304 characters of jsonb. Line count was a meaningless proxy
+for content, and I never opened the lines in question.
 
-The repository has files with **the same names but different version ids and
-very different sizes**:
+**I have since done the row-level diff you suggested, so this question is now
+narrow.** Method: parse the jsonb payloads out of the repo migration, unescape
+SQL `''`, and hash `topic_code:topic_title` ordered by
+`(unit_number, topic_code, topic_title)`; compare against the same hash computed
+in Production. Biology was verified differently — by applying the repo's seed
+block to Development and comparing Development's hash to Production's.
 
-| Repo file | Lines | Contains topic data? |
-| --- | --- | --- |
-| `20260804170000_taxonomy_label_layer.sql` | 588 | No — creates tables/functions only |
-| `20260804203000_extend_math_taxonomy_registries.sql` | **80** | No — alters a constraint and defines `seed_taxonomy_topics` |
+| Subject | Repo vs Production |
+| --- | --- |
+| AP Biology (60) | **identical** (`373823b5e4e432c8`) |
+| AP Calculus AB (85) | **identical** (`8e9d834dbf96cf39`) |
+| AP Precalculus (44) | **identical** (`0afb3dc26e10e8a6`) |
+| AP Calculus BC (111) | **one row differs** |
 
-So the repo file is roughly 80 lines where Production's same-named migration is
-~39KB. The data lives only in the Production ledger.
+Excluding that one row, Calculus BC also hashes identically
+(`1ac02b5aa5151d4f` on both sides), so it is the only difference in all 300:
+
+| | `10.7` topic_title |
+| --- | --- |
+| Repo migration | `Alternating Series Test for Convergence` |
+| Production | `Alternating Series Test` |
+
+The CED is unambiguous — *AP Calculus AB and BC Course and Exam Description*,
+Course at a Glance, printed p. 21, Unit 10: **"Alternating Series Test for
+Convergence"**. So the repository is correct and Production carries a truncated
+title.
 
 **Questions:**
 
-1. **Was the repo file deliberately reduced** — data intentionally moved out,
-   or intended to be applied by a separate script or manual step — or was it
-   **truncated/diverged during the same branch consolidation** that stranded
-   TASK-0017?
-2. **Is the Production ledger version authoritative?** I plan to extract those
-   three migrations' SQL from the ledger into proper repository migrations, so
-   the topic maps are reproducible and Development can be brought level. Any
-   reason not to, or anything in them that should not be replayed verbatim
-   (environment-specific ids, one-time backfills, hard-coded UUIDs)?
-3. **Is there a script or branch** that was the real source of these seeds,
-   which would be a better extraction source than the ledger?
+1. **Do you know how Production came to hold the truncated title** when the repo
+   migration it was applied from carries the full one? Was the repo file edited
+   after Production was seeded, or was Production patched separately?
+2. **Any objection to correcting Production's `10.7` to match the repo and the
+   CED?** It is a one-row title change; no brief or explainer references the
+   title text.
+3. Development still lacks the Calculus AB/BC/Precalculus topics (240 rows)
+   because it lacks `app.seed_taxonomy_topics` — one of the 46 in Question 2.
+   **Any reason not to close that by applying
+   `20260804203000_extend_math_taxonomy_registries.sql` to Development?**
 
 ## Question 2 — the 46 objects Production has and Development lacks
 
 Grouped by apparent subsystem:
 
-**Gold-set verification (9)** — `app.gold_set_answers`,
+**Gold-set verification (13)** — `app.gold_set_answers`,
 `app.gold_set_elements`, `app.gold_set_element_marks`,
 `app.gold_set_verification_assignments`, `app.gold_set_marks_are_immutable`,
 `app.gold_set_reader_is_eligible`, `app.seed_gold_set_elements_single_point`,
@@ -70,7 +84,7 @@ Grouped by apparent subsystem:
 `public.gold_set_admin_overview`, `public.gold_set_verification_next`,
 `public.gold_set_verification_progress`, `public.submit_gold_set_verification`
 
-**Taxonomy labelling layer (7)** — `app.content_taxonomy_labels`,
+**Taxonomy labelling layer (8)** — `app.content_taxonomy_labels`,
 `app.seed_taxonomy_topics`, `app.seed_taxonomy_units`,
 `app.taxonomy_relevant_hash`, `app.set_content_taxonomy_label_derived_fields`,
 `app.mark_content_taxonomy_labels_stale_for_version`, and its two trigger
@@ -102,6 +116,8 @@ variants
 
 **Other (1)** — `public.question_reports`
 
+Group counts sum to 46: 13 + 8 + 10 + 5 + 4 + 2 + 3 + 1.
+
 **Questions:**
 
 4. **Which of these are intentionally Production-only**, and which simply never
@@ -127,8 +143,14 @@ replay hazards — so the judgment can be made with them.
 
 ## Standing position
 
-Nothing blocks on your answer. The current plan is to extract the three
-taxonomy seed migrations from the Production ledger into repository files
-(closing both the reproducibility gap and Development's 300-topic gap), and to
-leave the 46 alone until questions 4-7 are answered. If any of that is wrong,
-say so.
+Nothing blocks on your answer. The reproducibility gap I thought existed does
+not — the repository already reproduces Production for 299 of 300 topics, and
+the 300th is a Production defect rather than a repo gap. The current plan is
+therefore:
+
+1. correct Production's Calculus BC `10.7` title to match the repo and the CED;
+2. close Development's remaining 240-topic gap by applying the existing repo
+   migration once `seed_taxonomy_topics` is present there;
+3. leave the 46 alone until questions 4-7 are answered.
+
+If any of that is wrong, say so.

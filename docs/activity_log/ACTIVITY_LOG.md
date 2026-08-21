@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Correction: the "300 Taxonomy Topics Have No Repo Migration" Finding Was Wrong (Line Count Mistaken for Content); Row-Level Diff Instead Found a Single Real Defect — Production's Calculus BC 10.7 Title Was Truncated Against Its Own Migration and the CED — 2026-08-21
 - QA Scripts Split Per Workstream, and Two Defects They Immediately Found: AP Calculus AB's Taxonomy Carries Four BC-Only Topics (With Published Student Content), and the Dev/Prod Object Counts Were Undercounted — 2026-08-21
 - Progress Dashboard v1 Backend Built and Shipped to Production: One Live-Computed, Display-Only RPC Replaces Client-Side Progress Math; Topics Cut as Unbuildable and Unit Attribution Declared Unavailable for Every Subject After the AP Statistics Labels Were Found to Sit on the Retired 9-Unit CED; Two Silent `/home` Loader Defects Fixed; Dev/Prod Taxonomy Schema Drift Discovered — 2026-08-21
 - TASK-0016 Phase D Stages D4 + D5 Packaged From Existing Evidence: Bake-Off and Abstention-Calibration Artifacts Written, Arm-4 (Gate-on-Escalation) Computed as Near-Neutral, and the One Outstanding Paid Run — Full-Corpus Self-Consistency (322 Calls, $6.64) — Confirmed the FAR Lever Holds at Scale (19.0→14.7) Without Reversing; Only 3 of 24 Criterion Cells Provisionally Auto-Eligible, Everything Still R&D-Tier / Shadow-Only — 2026-08-20
@@ -134,6 +135,20 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 ---
+
+## Correction: the "300 Topics Have No Repo Migration" Finding Was Wrong; a Row-Level Diff Found One Real Defect Instead — 2026-08-21
+
+**Reported earlier today, and wrong:** that the 300 AP Biology / Calculus AB / Calculus BC / Precalculus taxonomy topics existed in Production with no repository migration, and that Production could not be rebuilt from the repo. Codex flagged it. The seeds are in the repo — Biology at `20260804170000_taxonomy_label_layer.sql:379`, the math subjects at `20260804203000_extend_math_taxonomy_registries.sql:71,73,75`.
+
+**Root cause:** both files were judged by `wc -l` taken from a `head`-truncated grep. `extend_math_taxonomy_registries.sql` is 80 *lines* but **39,454 bytes** — line 71 alone is 13,304 characters of jsonb. Line count was a meaningless proxy for content and the cited lines were never opened. Same failure mode as the `get_student_taxonomy` error earlier in the session: concluding from a partial view rather than reading the thing. Two instances in one session; the corrective is to open the file before characterising it.
+
+**The row-level diff Codex suggested was then run**, comparing repo-parsed jsonb against Production by hash of `topic_code:topic_title`. Biology (60), Calculus AB (85) and Precalculus (44) were **identical**. Calculus BC (111) differed by exactly one row — excluding it, BC also hashed identically on both sides (`1ac02b5aa5151d4f`).
+
+**That one row was a real Production defect.** Calculus BC `10.7` held the truncated `Alternating Series Test` where the repo migration carried `Alternating Series Test for Convergence`. The CED (*AP Calculus AB and BC CED*, Course at a Glance, printed p. 21) confirms the full title. The repository was right and Production was wrong. Production was corrected; BC now hashes `25471db0e98bbc9a` on both sides, and **all 300 topics now match between repository and Production**.
+
+**Also done:** Biology's 60 topics were seeded into Development from the repo's own migration block, and Development's hash matches Production exactly. Development still lacks the 240 Calculus/Precalculus topics because it lacks `app.seed_taxonomy_topics`, one of the 46 objects Production has and Development does not.
+
+**The Codex prompt was corrected** on all three points Codex raised: Question 1 rewritten around the verified diff rather than the false premise, object group counts fixed (they claimed 41 while listing 46 — gold-set said 9 for 13 objects, taxonomy labelling 7 for 8), and the standing plan updated since there is no ledger extraction to perform.
 
 ## QA Scripts Split Per Workstream; Two Defects Found on First Run — 2026-08-21
 

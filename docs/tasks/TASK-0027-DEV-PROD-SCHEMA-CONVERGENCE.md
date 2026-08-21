@@ -160,19 +160,49 @@ not an infrastructure repair.
   governance implications; recreating them wholesale without deciding whether
   Dev should mirror Production's content pipeline would be guessing.
 - **No Dev-only object was removed.** 65 objects representing real prior work.
-- **The 300 taxonomy topics for AP Biology, Calculus AB, Calculus BC and
-  Precalculus were NOT copied to Dev.** Dev now holds all 72 units and 307
-  topics (Statistics 55, Chemistry 91, the four Physics subjects 161); those
-  four subjects still have units but no topics there.
+- **Development still lacks the Calculus AB / BC / Precalculus topics (240
+  rows).** Biology's 60 were seeded into Development on 2026-08-21 from the
+  repository's own migration. The remaining 240 need
+  `20260804203000_extend_math_taxonomy_registries.sql`, which Development
+  cannot yet run because it lacks `app.seed_taxonomy_topics` — one of the 46
+  objects in the section above.
 
-  **New finding (2026-08-21):** those 300 topics exist in Production with **no
-  repository migration**. `20260804170000_taxonomy_label_layer.sql` and
-  `20260804203000_extend_math_taxonomy_registries.sql` create the tables and
-  the `seed_taxonomy_topics` function but contain none of the Biology,
-  Calculus or Precalculus topic data. It was applied through some other
-  channel. **If Production were rebuilt from the repository, those 300 topics
-  would be lost.** Closing this means extracting them from Production into a
-  repo migration, which then also closes the Dev gap.
+### CORRECTION (2026-08-21): the "300 topics have no repo migration" finding was wrong
+
+An earlier version of this task recorded that the 300 Biology / Calculus /
+Precalculus taxonomy topics existed in Production with **no repository
+migration**, and that Production could not be rebuilt from the repo. **That was
+false.** Codex flagged it and was right. The seeds are in the repo:
+
+- Biology — `20260804170000_taxonomy_label_layer.sql:379`
+- Calculus AB/BC, Precalculus — `20260804203000_extend_math_taxonomy_registries.sql:71,73,75`
+
+**Root cause of the error:** both files were judged by `wc -l` taken from a
+`head`-truncated grep. `extend_math_taxonomy_registries.sql` is 80 *lines* but
+**39,454 bytes** — line 71 alone is 13,304 characters of jsonb. Line count was
+a meaningless proxy for content, and the cited lines were never opened. This is
+the same failure mode as the earlier `get_student_taxonomy` error: concluding
+from a partial view instead of reading the thing.
+
+**Row-level verification then performed** (hash of `topic_code:topic_title`
+ordered by `unit_number, topic_code, topic_title`, repo-parsed vs Production):
+
+| Subject | Result |
+| --- | --- |
+| AP Biology (60) | identical — `373823b5e4e432c8` |
+| AP Calculus AB (85) | identical — `8e9d834dbf96cf39` |
+| AP Precalculus (44) | identical — `0afb3dc26e10e8a6` |
+| AP Calculus BC (111) | **one row differed** |
+
+Calculus BC `10.7`: the repo carried `Alternating Series Test for Convergence`,
+Production carried the truncated `Alternating Series Test`. The CED (*AP
+Calculus AB and BC CED*, Course at a Glance, printed p. 21) confirms the full
+title, so the **repository was correct and Production was wrong**. Production
+was corrected on 2026-08-21; Calculus BC now hashes `25471db0e98bbc9a` on both
+sides.
+
+**All 300 topics now match between the repository and Production.** The
+repository does reproduce Production. There is no reproducibility gap.
 
 ## Open Content Gap (separate from convergence)
 
