@@ -247,5 +247,9 @@ model guesses at 19% coverage as evidence of what a student can do is exactly
 what the honest-empty-state principle forbids. But the correct justification is
 "we chose not to use unvalidated provisional labels", **not** "no path exists".
 
-Whether to expose them behind an explicit provisional status is an open
-Product Owner decision.
+**Product Owner decision, 2026-08-21: unit attribution stays OUT of /progress.**
+The provisional labels are not exposed, not even behind a provisional status.
+`units[]` continues to render every unit as `attribution_unavailable`, with
+`unitsWithEvidence: null` and `unitAttributionAvailable: false`. No code change
+was required — this is what v1 already ships. Revisit only if the labels are
+human-validated and coverage rises well above 19%.

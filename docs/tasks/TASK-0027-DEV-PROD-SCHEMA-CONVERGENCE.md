@@ -212,6 +212,28 @@ Current topic coverage, Production:
 | ap_physics_c_mechanics | 7 | **0** |
 | ap_physics_c_em | 6 | **0** |
 
+## Dev-only objects: what the repository says about them
+
+Searched `docs/` and `prompts/` for the 64 Dev-only objects
+(`execution_approvals`, `reviewer_capability_*`, `item_archetypes`,
+`verifier_plugins`, `taxonomy_schemes`, and the rest). **The only documents
+that mention any of them are the ones written for this task on 2026-08-21.**
+There is no DECISION, no TASK, no approval and no design note covering that
+architecture anywhere in the repository.
+
+Combined with the row counts — **36 of the 39 Dev-only tables are completely
+empty**, and the three that are not hold only seeded lookups
+(`platform_capabilities` 15, `validation_suite_types` 9,
+`deterministic_check_types` 6) — the disposition question is much smaller than
+the object count suggests. There is no operational data to preserve or migrate.
+
+**Recommendation: do not drop, do not adopt, document and defer.** Leaving 39
+empty tables in a development project costs nothing operationally; dropping
+them is irreversible. The only real cost is confusing future drift audits,
+which this note addresses. Revisit only if someone proposes adopting that
+governance architecture into Production, at which point the question is a
+design decision, not a cleanup.
+
 ## Approval State
 
 **Approval Required:** Yes
