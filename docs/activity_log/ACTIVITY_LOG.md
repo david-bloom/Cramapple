@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- AP Calculus BC Unit 6 Reaches 14/14 Topics: New Coverage Authored for 6.12 (Linear Partial Fractions) and 6.13 (Improper Integrals), the Unit's Only Two Zero-Coverage Topics — 2026-08-21
 - AP Calculus BC Repair Pass Complete: Unit 8 (Applications of Integration) Done, All 85 of 85 Debt Explainers (Units 1-8) Now Repaired — 2026-08-21
 - AP Calculus BC Repair: Unit 7 (Differential Equations) Done, Including Both BC-Only "Moved" Topics 7.5 and 7.9 — 72 of 85 Debt Explainers Now Repaired — 2026-08-21
 - AP Calculus BC Repair: Unit 6 (Integration and Accumulation of Change) Done, Including the BC-Only "Moved" Topic 6.11 — 63 of 85 Debt Explainers Now Repaired — 2026-08-21
@@ -148,6 +149,28 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## AP Calculus BC Unit 6 Reaches Full Coverage — 6.12 and 6.13 Authored From Scratch — 2026-08-21
+
+**Task:** Unassigned (topic-guide content authoring; New Coverage change type, per Owner instruction to address Unit 6's zero-coverage topics specifically, out of the 26 identified during the earlier BC-wide audit)
+**Status:** Published to Development and Production. 2 new briefs + 2 new explainers (4 rows total, pure insert — no existing rows touched).
+
+**Unit 6, topics 6.12 (Integrating Using Linear Partial Fractions) and 6.13 (Evaluating Improper Integrals)** — both BC-only, both had zero prior content (no brief, no explainer) as identified in the earlier BC-wide audit this session. This is the New Coverage change type, not Repair: both a brief and an explainer were authored from scratch for each topic.
+
+**Grounded in:** the CED's own scope language restricting 6.12 to linear, nonrepeating denominator factors only — repeated linear factors and irreducible quadratics are explicitly out of scope even for BC — used directly as the anchor for 6.12's mini-example (a denominator with a repeated linear factor, (x+2)^2, correctly identified as out of scope, with a properly-scoped two-distinct-factor alternative shown); and the standard limit-based definition of an improper integral for 6.13, anchored on the point that substituting infinity directly into an antiderivative skips the required limit step even when it happens to produce the correct numeric answer.
+
+**Math independently verified before writing to the database:** 6.12's partial-fraction setup for 1/((x-1)(x+2)) = A/(x-1) + B/(x+2), solvable via 1 = A(x+2) + B(x-1) at x=1 and x=-2; 6.13's improper integral, the integral of 1/x^2 from 1 to infinity, correctly evaluates via limit to 1 (confirming the mini-example's claim that the direct-substitution shortcut coincidentally lands on the right number here, which is exactly the point being illustrated).
+
+**Titles matched to the taxonomy** (`app.taxonomy_topics`) with the "(BC only)" qualifier stripped, consistent with how every other BC-only topic (e.g. 6.11, 8.13) is titled in the published briefs.
+
+Migration: `supabase/migrations/20260821270000_ap_calculus_bc_unit6_new_coverage_seed.sql`. No before-state applicable — these rows did not exist prior to this migration; rollback is deleting the two rows from each table.
+
+**Verification, Dev then Prod:** pairing orphans (C1), unit_number agreement (C2), practice_* field match (C4), and `learn_more_path` format (C5) all zero violations. Corpus-wide distinctness (C8) on `mini_example_question` / `weak_answer` / `point_attaining_answer` / `practice_bridge` — zero collisions against the rest of the corpus, on both Dev and Prod. Corpus totals: 380/380 → 382/382 (a genuine insert, not an update). AP Calculus BC's Unit 6 is now 14 of 14 topics covered.
+
+**Next Owner:** David Bloom
+**Next Required Action:** None required for Unit 6, which is now fully covered. The remaining 24 zero-coverage BC topics (all of Units 9 and 10) remain explicitly out of scope unless requested.
 
 ---
 
