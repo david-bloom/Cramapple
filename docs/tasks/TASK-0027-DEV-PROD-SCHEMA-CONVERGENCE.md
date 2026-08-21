@@ -105,8 +105,8 @@ not an infrastructure repair.
 - [x] Taxonomy layer restored in Dev; `get_student_taxonomy` returns subjects.
 - [x] `get_student_progress_dashboard` executes end-to-end in Dev.
 - [x] AP Statistics taxonomy topics seeded from the CED (55) in both projects.
-- [ ] Disposition decided for the 64 Dev-only objects (adopt / retire /
-      keep as Dev-only experiment).
+- [x] Disposition decided for the Dev-only objects: **retired**. Approved by
+      the Product Owner and executed 2026-08-21.
 - [ ] Disposition decided for the remaining 46 objects missing from Dev.
 - [ ] Repo migrations `20260821060000`–`20260821072000` applied or retired.
 - [ ] Single migration application path agreed, or a scheduled object-level
@@ -277,13 +277,60 @@ drift audit and keep Dev from being a meaningful pre-production mirror.
 **Still requires explicit Product Owner approval before execution** — it is
 destructive, and the approval gate below is unchanged.
 
+### Executed 2026-08-21 — approved and complete
+
+Migration `20260821120000_task0027_drop_task0017_harness_dev_only.sql`, applied
+to **Development only**. Every statement is `IF EXISTS`, so it is a safe no-op
+against Production.
+
+Removed: 39 tables, 25 functions (all overloads), 1 view
+(`app.validation_suite_versions`), plus **three harness-era FK columns on
+retained tables** — `content_item_versions.archetype_version_id`,
+`validation_suites.suite_type_key` and
+`exam_pack_manifests.content_clearance_exception_id`. None of the three exist
+in Production and all were 100% NULL in Development, so dropping them converged
+the schemas and lost nothing.
+
+The safety analysis was load-bearing. It found three foreign keys pointing from
+**retained** tables into harness tables, which a naive `DROP ... CASCADE` would
+have stripped silently. The migration asserts its preconditions before touching
+anything: zero operational harness rows, and no retained row using any harness
+FK column.
+
+The first attempt **failed and rolled back cleanly** — the column drops were
+ordered before the view and functions, and a trigger
+(`validation_suites_assign_type`) depended on `suite_type_key`. Nothing was
+partially applied. Reordered to view → functions (CASCADE removes the trigger)
+→ columns → tables, and re-applied successfully.
+
+Result:
+
+| | Before | After |
+| --- | --- | --- |
+| Development objects | 233 | **168** |
+| Dev-only objects | 65 | **0** |
+| Production objects | 214 | 214 |
+
+**Development is now a strict subset of Production.** The remaining divergence
+is one-directional — 46 objects Production has that Development lacks — which
+is tractable rather than a two-way fork.
+
+Verified intact after the drop: `get_student_taxonomy` returns 10 subjects,
+`get_student_progress_dashboard` returns `ready`, 307 taxonomy topics unchanged,
+all `content_item_versions` rows unchanged, and only the 3 canonical taxonomy
+tables remain (the 5 alternative-model tables are gone).
+
+Restore path, recorded in the migration header: re-apply the four harness
+migrations from `archive/codex-five-subject-20260727`.
+
 ### Separate gap this surfaced
 
-**TASK-0017 has no record on mainline.** The task number is simply absent from
-`docs/tasks/`, so the repository silently skips from TASK-0016 to TASK-0018.
-Restoring the archived record (marked superseded/not-adopted) is cheap and
-would close a hole in the governance trail regardless of what happens to the
-objects themselves.
+**TASK-0017 had no record on mainline** — the repository silently skipped from
+TASK-0016 to TASK-0018. **Closed 2026-08-21:** the archived record was restored
+to `docs/tasks/TASK-0017-SUBJECT-ONBOARDING-HARNESS.md` from the tag, with a
+banner recording that it was never adopted into Production, that its Dev
+objects were dropped under this task, and that the implementation is preserved
+in the tag. Approved by the Product Owner.
 
 ## Approval State
 
