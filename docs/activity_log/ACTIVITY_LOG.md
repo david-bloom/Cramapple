@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- AP Calculus AB Unit 4's Seven Learn More Explainers Repaired: All Were Template-Generated Debt (Verbatim-Matching Their Own Brief, Sharing a Generic Mini-Example With ~150 Other Rows) Despite the Briefs Themselves Already Being Hand-Authored and Correct — Replaced With Content Grounded in Real 2025 Released-FRQ Scoring Architecture, Verified Clean on All Applicable Acceptance Criteria — 2026-08-21
 - AP Statistics Unit 4 (Inference for Means) Gets Its First Topic Guide Coverage — 10 Topic Point Briefs + 10 Learn More Explainers, Genuinely Topic-Specific and Grounded in the CED Fact Pack, Authored and Verified Against All 11 of the Revised Protocol's Acceptance Criteria Before Publishing to Dev Then Production — 2026-08-21
 - Topic Briefs Protocol Iterated to v2 (Sampling Rule, Coverage Policy, Provenance Migration Format, Weak/PA Contrast Mandatory) and the 349 Legacy Template-Generated Explainers Grandfathered in Dev + Prod: `source_note` Backfilled so the Debt Is Visible at the Row Level, No Student-Facing Field Changed — 2026-08-21
 - Topic Briefs / Learn More Production Protocol Assessed and Revised: Plumbing Rules Verified Accurate Against Live Production, but the Protocol Had No Accuracy Review at All — and Its "Subject-Specific" Escape Hatch Had Already Shipped a Learn More Surface Where 349 of 365 Pages Restate the Card Verbatim and One Weak Answer Covers 150 Topics — 2026-08-21
@@ -139,6 +140,43 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## AP Calculus AB Unit 4 Explainers Repaired — 2026-08-21
+
+**Task:** Unassigned (topic-guide content quality; second batch under the revised protocol)
+**Status:** Published to Development and Production. Repair change type, C1/C2/C3/C6/C7/C8 verified clean.
+
+**Trigger:** Owner asked to use the topic-guide production protocol to author AP Calculus AB Unit 4 (Contextual Applications of Differentiation) content.
+
+**Finding before any write:** Unit 4 already had all 7 point briefs published, and they were genuinely hand-authored ('cramapple-authored', correct, no debt markers) -- there was nothing to newly author for the briefs. All 7 explainers, however, were exactly the template-generated debt described in 'docs/research/TOPIC_GUIDE_PROTOCOL_ASSESSMENT_2026_08_21.md': 'core_idea' byte-identical to the paired brief's 'what_it_is' on every row, and a meta-question mini-example ('A calculus prompt asks you to justify a conclusion involving <title>. What should your work and sentence make clear?') whose 'weak_answer' ('I would write the final value or conclusion without showing why it follows.') is shared with roughly 150 rows corpus-wide. This was surfaced to the Owner before any write, and treated as a **Repair** under the protocol's Change Types, not New Coverage: the briefs were left untouched, only the 7 explainers were replaced.
+
+**Grounding:** 'docs/product/AP_CALCULUS_AB_BC_CED_FACT_PACK.md' Units 4-8 deep-tier detail, which is richer than the Statistics fact pack for this unit -- it quotes real 2025 released-FRQ scoring architecture directly: Q6 Part D's related-rates point ladder (setup tolerates at most one error; execution requires both the product-rule and chain-rule terms; 'stating dy/dt = dy/dx times dx/dt alone does not earn any points'), Q6 Part B's linearization scoring (slope-value point and mechanics point scored independently, with follow-through on a wrong-but-consistent slope), and the boxed verbatim CED exclusion for topic 4.7 ('There are many other indeterminate forms, such as infinity minus infinity... these will not be assessed' -- only 0/0 and infinity/infinity are in scope for L'Hospital's Rule).
+
+**Authoring:** All 7 new explainers are genuinely topic-specific, each with a distinct mini-example (tank water depth, particle velocity/acceleration signs, bacteria population, an implicit curve with a cited-but-uncomputed chain-rule shortcut, an implicit curve carried to a full computation, a linearization with a wrong-but-consistent slope, and an e^x/x^2 L'Hospital limit) and a distinct weak/point-attaining answer pair. Two point-attaining answers were extended during validation for falling under the 120-character length floor. Verified programmatically before touching the database: every 'core_idea' differs from its paired 'what_it_is', and no 'mini_example_question' / 'weak_answer' / 'point_attaining_answer' / 'practice_bridge' value repeats within the batch.
+
+**Before-state captured** (protocol step 7, required for any update) to 'docs/research/topic_guide_source_note_grandfather_2026_08_21/ap_calculus_ab_unit4_explainer_before_state.json' -- full field values for all 7 rows prior to the repair.
+
+**Migration:** 'supabase/migrations/20260821170000_repair_ap_calculus_ab_unit4_explainers.sql'. Pure UPDATE targeting only the 7 explainer rows by '(subject_key, unit_number, topic_code)'; briefs untouched. 'source_note' records the prior debt note, the repair reason, the grounding sections, the batch id, and the author=reviewer disclosure per the Provenance table.
+
+**Verified in Development first, then Production:**
+
+| Criterion | Dev | Prod |
+| --- | --- | --- |
+| C1 pairing orphans | 0 | 0 |
+| C2 unit_number equality | 0 | 0 |
+| C3 taxonomy orphans | 0 | 0 |
+| C6 inactive-subject rows | 0 | 0 |
+| C7 core_idea == what_it_is | 0 | 0 |
+| C8 shared distinctness values (whole corpus) | 0 | 0 |
+
+RPC smoke test: 'get_topic_point_guides('ap_calculus_ab', 4, '4.7')' returns the correct paired brief/explainer with the boxed L'Hospital's exclusion reflected in the explainer text.
+
+**Corpus totals unchanged** (375 briefs / 375 explainers) since this batch updates existing rows rather than adding new ones.
+
+**Next Owner:** David Bloom
+**Next Required Action:** Frontend smoke test (protocol step 11) not yet run in this session. AP Statistics Unit 5 (5 topics) remains the only uncovered AP Statistics gap; other subjects (Chemistry, Physics x4, Precalculus) remain well below full coverage and likely carry similar generated-from-brief explainer debt on whatever briefs they do have -- not yet audited unit by unit.
 
 ---
 
