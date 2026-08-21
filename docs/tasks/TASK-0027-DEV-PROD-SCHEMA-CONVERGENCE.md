@@ -153,9 +153,18 @@ not an infrastructure repair.
   Dev should mirror Production's content pipeline would be guessing.
 - **No Dev-only object was removed.** 64 objects representing real prior work.
 - **The 300 taxonomy topics for AP Biology, Calculus AB, Calculus BC and
-  Precalculus were NOT copied to Dev.** Dev now holds all 72 units and the 55
-  AP Statistics topics; the other four subjects have units but no topics there.
-  Production is unaffected. This is a data-copy chore, not a schema question.
+  Precalculus were NOT copied to Dev.** Dev now holds all 72 units and 307
+  topics (Statistics 55, Chemistry 91, the four Physics subjects 161); those
+  four subjects still have units but no topics there.
+
+  **New finding (2026-08-21):** those 300 topics exist in Production with **no
+  repository migration**. `20260804170000_taxonomy_label_layer.sql` and
+  `20260804203000_extend_math_taxonomy_registries.sql` create the tables and
+  the `seed_taxonomy_topics` function but contain none of the Biology,
+  Calculus or Precalculus topic data. It was applied through some other
+  channel. **If Production were rebuilt from the repository, those 300 topics
+  would be lost.** Closing this means extracting them from Production into a
+  repo migration, which then also closes the Dev gap.
 
 ## Open Content Gap (separate from convergence)
 
@@ -164,7 +173,24 @@ environments** — AP Chemistry (9 units) and all four AP Physics subjects
 (28 units between them). Those courses have a verified unit map and no topic
 map at all.
 
-**This does not mean their content is unreachable.** Their published briefs and
+**Closed 2026-08-21.** All five were seeded from primary sources:
+AP Chemistry 91 (from the CED fact pack's verified topic map), AP Physics 1 43,
+AP Physics C: Mechanics 41, AP Physics 2 46, AP Physics C: E&M 31 (all read
+directly from each CED's "Course at a Glance", PDF pp. 20-22). Applied to both
+projects; repo-file content hashes match deployed Production exactly for all
+four Physics subjects.
+
+Validation: across all ten subjects there are now **zero orphan briefs and zero
+orphan explainers** — every one of the 306 published topic point briefs and 306
+published explainers matches a taxonomy `topic_code`. Since those were authored
+independently of this transcription, a mistyped code would have surfaced.
+
+Note on numbering: AP Physics 2 units are numbered 9-15 and AP Physics C: E&M
+8-13 **by the College Board itself**, continuing from AP Physics 1's 1-8. That
+is CED numbering, not a Cramapple renumbering — an earlier assumption that an
+offset had to be applied was wrong.
+
+**The original concern was also overstated:** Their published briefs and
 explainers are served today by `get_topic_point_guides` independently of the
 taxonomy tables — AP Chemistry alone has 26 published briefs and 26 explainers
 covering Units 1-3 (1.1-1.8, 2.1-2.7, 3.1-3.11), all currently served. The gap
