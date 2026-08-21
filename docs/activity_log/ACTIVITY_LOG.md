@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Topic Briefs and Learn More Production Protocol Created and Tightened After Independent Assessment; Two Follow-Ups Opened for QA Script Drift and Template-Generated Learn More Content Debt — 2026-08-21
 - Session Closeout (2026-08-21): /progress Rebuilt Backend-First and Wired in Lovable; Two Silent /home Defects Fixed; TASK-0027 Opened and Largely Executed (65 Dev-Only Objects Retired, Full Taxonomy Parity); 261 Taxonomy Topics Seeded Across 5 Subjects; AP Calculus AB/BC Realigned to the CED — 2026-08-21
 - AP Calculus AB's Four BC-Only Topics Moved to BC, Not Deleted: Content Was Valid BC Material Filed Under AB and Served to AB Students; AB Now 81/81/81 With Zero Orphans, BC Briefs 22 -> 26 — 2026-08-21
 - Correction: the "300 Taxonomy Topics Have No Repo Migration" Finding Was Wrong (Line Count Mistaken for Content); Row-Level Diff Instead Found a Single Real Defect — Production's Calculus BC 10.7 Title Was Truncated Against Its Own Migration and the CED — 2026-08-21
@@ -137,6 +138,35 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 ---
+
+## Topic Briefs and Learn More Production Protocol Created and Tightened — 2026-08-21
+
+`docs/product/TOPIC_BRIEFS_AND_LEARN_MORE_PRODUCTION_PROTOCOL.md` was created
+as the canonical operating protocol for student-facing topic point briefs and
+Learn More explainers. It defines authoring, source grounding, accuracy review,
+originality/routing review, production application, live RPC verification,
+frontend consumption, release evidence, rollback, and student-ready criteria.
+
+The protocol was then tightened after independent assessment against the real
+Supabase schema, checked-in QA scripts, Lovable wiring prompt, and read-only
+Production queries. Adopted changes include the real `(subject_key, topic_code)`
+pairing key, required `unit_number` equality checks, active `app.subjects`
+precondition, the three subject-key namespaces, `source_note` provenance
+requirements, CED fact-pack grounding, explicit author/reviewer/approval-role
+overlap disclosure, no-shared-value distinctness criteria for published
+explainers except approved duplication rows, before-state capture, and a rule
+that count-changing batches update automated QA expectations in the same
+commit.
+
+Open follow-ups:
+
+- `scripts/qa/topic_guides_database_qa.sql` has hard-coded published-count
+  expectations that are stale after later topic-guide batches. The next QA
+  script change should update the counts and add the protocol's
+  machine-checkable criteria.
+- Existing template-generated Learn More explainers may need re-authoring or an
+  explicit Product Owner acceptance/backfill record if they do not meet the new
+  distinctness, `source_note`, and topic-specific mini-example standards.
 
 ## Session Closeout (2026-08-21): /progress Rebuilt, /home Repaired, Dev/Prod Convergence Executed, Calculus AB/BC Realigned
 

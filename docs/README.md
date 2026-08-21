@@ -44,6 +44,9 @@ The universal rule is defined in
 - `product/`: Vision, product doctrine, and later product requirements.
 - `product/CONTENT_QUANTITY_AND_DISTRIBUTION.md`: Approved-direction AP Biology
   topic matrix, inventory definition, and quantity targets.
+- `product/TOPIC_BRIEFS_AND_LEARN_MORE_PRODUCTION_PROTOCOL.md`: Canonical
+  protocol for creating, reviewing, publishing, verifying, and retiring topic
+  point briefs and Learn More explainers.
 - `product/CONTENT_AUTHORING_MODEL_EXPERIMENT.md`: Controlled comparison of the
   tutor-first baseline and alternative AI-led authoring models.
 - `architecture/`: Canonical system architecture, technical boundaries, and later detailed technical designs.
