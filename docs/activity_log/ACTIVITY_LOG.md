@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- AP Statistics Unit 4 (Inference for Means) Gets Its First Topic Guide Coverage — 10 Topic Point Briefs + 10 Learn More Explainers, Genuinely Topic-Specific and Grounded in the CED Fact Pack, Authored and Verified Against All 11 of the Revised Protocol's Acceptance Criteria Before Publishing to Dev Then Production — 2026-08-21
 - Topic Briefs Protocol Iterated to v2 (Sampling Rule, Coverage Policy, Provenance Migration Format, Weak/PA Contrast Mandatory) and the 349 Legacy Template-Generated Explainers Grandfathered in Dev + Prod: `source_note` Backfilled so the Debt Is Visible at the Row Level, No Student-Facing Field Changed — 2026-08-21
 - Topic Briefs / Learn More Production Protocol Assessed and Revised: Plumbing Rules Verified Accurate Against Live Production, but the Protocol Had No Accuracy Review at All — and Its "Subject-Specific" Escape Hatch Had Already Shipped a Learn More Surface Where 349 of 365 Pages Restate the Card Verbatim and One Weak Answer Covers 150 Topics — 2026-08-21
 - Session Addendum (2026-08-21): Physics/Precalculus Topic Guides Verified Live in Dev and Prod; Failure Is Lovable Frontend Wiring, Not Missing Supabase Data; Focused Lovable Fix Prompt Written — 2026-08-21
@@ -138,6 +139,43 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## AP Statistics Unit 4 Topic Guides Authored and Published — 2026-08-21
+
+**Task:** Unassigned (topic-guide content authoring; first batch run under the revised protocol)
+**Status:** Published to Development and Production. New coverage, C1-C11 verified clean.
+
+**Trigger:** Owner asked to use the topic-guide production protocol to author AP Statistics Unit 4 (Inference for Quantitative Data: Means) content -- 0/10 topics had published coverage.
+
+**Grounding (protocol step 2):** `docs/product/AP_STATISTICS_2027_CED_FACT_PACK.md` Sec3 (topic map) and Sec10 (Unit 4 deep-tier detail: formulas, df rules, and 2025 Chief Reader Report misconception patterns for t-vs-z, matched-pairs-vs-two-sample, non-pooled Welch-style df, and non-definitive conclusion language). **Caveat surfaced per the protocol's reviewer-independence acknowledgement:** both fact-pack sections are marked UNREVIEWED pending Jill/Orly subject-matter-expert sign-off; content is faithful to the fact pack as written, but the fact pack itself has not cleared SME review. Author and reviewer were the same session -- no independent human review.
+
+**Authoring:** All 10 explainers are genuinely topic-specific, not generated-from-brief -- each has a distinct mini-example (shipping packages, runner heart rates, coffee caffeine, cereal boxes, battery life, sample A/B, plant heights, Method A/B timing, tutoring study hours, commute times) and a distinct weak-answer/point-attaining-answer pair. Verified programmatically before touching the database: every `core_idea` differs from its paired `what_it_is`, and no `mini_example_question` / `weak_answer` / `point_attaining_answer` / `practice_bridge` value repeats within the batch. One brief (`4.6`) exceeded its length budget on first draft and was shortened to fit; a class/exam-importance asymmetry between structurally parallel one-sample and two-sample topics (`4.1`/`4.6`, `4.4`/`4.9`) was caught and corrected before publishing since it wasn't grounded in the fact pack.
+
+**Migration:** `supabase/migrations/20260821160000_ap_statistics_unit4_topic_point_briefs_seed.sql`. Pure insert (no existing rows touched), idempotent, with an in-migration count assertion. `source_note` records the grounding sections, the UNREVIEWED caveat, the batch id, and the author=reviewer disclosure on every row.
+
+**Verified in Development first, then Production** (protocol steps 8-10):
+
+| Criterion | Dev | Prod |
+| --- | --- | --- |
+| C1 pairing orphans | 0 | 0 |
+| C2 unit_number equality | 0 violations | 0 violations |
+| C3 taxonomy orphans | 0 | 0 |
+| C4 practice_* mismatch | 0 | 0 |
+| C5 learn_more_path mismatch | 0 | 0 |
+| C6 inactive-subject rows | 0 | 0 |
+| C7 core_idea == what_it_is | 0 | 0 |
+| C8 shared distinctness values (whole corpus) | 0 | 0 |
+| C10 authenticated view matches app.* | pass | 375 = 375 both tables |
+| C11 anon locked out | pass | pass (false/false on both views) |
+
+RPC smoke test: `get_topic_point_guides('ap_statistics', 4, '4.1')` and hyphenated `'ap-statistics'` both return 10 briefs + 10 explainers for the unit; single-topic call for `4.7` returns exactly one paired brief/explainer with the correct camelCase `whatItIs`/`practiceParams`/`miniExample` shape.
+
+**Coverage after this batch:** AP Statistics moves from 40/55 (72.7%) to 50/55 (90.9%) published topics. Corpus-wide published total: 365 -> 375 briefs and 375 explainers.
+
+**Next Owner:** David Bloom
+**Next Required Action:** None blocking. Frontend smoke test (protocol step 11) not yet run in this session -- confirm Unit 4 renders in Lovable before calling this student-ready per the protocol's Student-Ready Definition. AP Statistics Unit 5 (Regression Analysis, 5 topics) remains uncovered.
 
 ---
 
