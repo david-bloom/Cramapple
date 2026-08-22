@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- AP Precalculus Unit 1 (Polynomial and Rational Functions) Explainer Debt Repaired: All 14 Grandfathered Template Explainers Replaced — 2026-08-22
 - AP Precalculus Unit 2 (Exponential and Logarithmic Functions) New Coverage: 15 Briefs + 15 Explainers Authored From Scratch — the Unit Was Fully Exam-Assessed but Had Zero Content, the Real Cause Behind "Topics Not Rendering" — 2026-08-21
 - AP Precalculus Unit 4 Taxonomy Gap Found and Fixed: 0 of 14 Topics Existed (Fact Pack's Deep-Tier Pass Never Transcribed the Non-Exam-Assessed Unit); Seeded From the Primary-Source CED PDF, Dev + Prod — 2026-08-21
 - AP Calculus BC Unit 6 Reaches 14/14 Topics: New Coverage Authored for 6.12 (Linear Partial Fractions) and 6.13 (Improper Integrals), the Unit's Only Two Zero-Coverage Topics — 2026-08-21
@@ -151,6 +152,26 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## AP Precalculus Unit 1 Explainer Debt Repaired — 2026-08-22
+
+**Task:** Unassigned (topic-guide content quality; Owner instruction to repair Units 1 and 3's grandfathered explainer debt, found while investigating the earlier "topics not rendering" report — Units 1 and 3 do have briefs/explainers, but they're the same template-generated debt pattern repaired for Calculus AB/BC and Statistics earlier this session)
+**Status:** Published to Development and Production. 14 explainers repaired. Briefs for this unit are genuinely hand-authored and were confirmed good before starting — not touched.
+
+**Unit 1 (Polynomial and Rational Functions)** — explainers only, all 14 topics were template-generated debt (core_idea verbatim-matching the paired brief's what_it_is).
+
+**Grounded in:** the CED's own boxed exclusion that open-vs-closed interval distinctions for increasing/decreasing behavior are outside this course's scope (1.1); a real documented scoring rule that calculus-flavored "rate of change of the rate of change" language never earns credit in this course, even describing the same graph feature a calculus student would call concavity (1.3); the finite-differences method for identifying a polynomial's degree from tabulated data, requiring successive rounds until a constant round is reached (1.4); the Complex Conjugate Root Theorem for real-coefficient polynomials (1.5); the documented real reciprocal/ratio-confusion error, describing a computed ratio of 0.5 as "a factor of 2" (1.13); and the polynomial-division identity's remainder-degree-must-be-strictly-less-than-the-divisor requirement (1.11).
+
+**Math independently verified before writing to the database:** the finite-differences example (2,6,12,20 → 4,6,8 → 2,2, confirming degree 3); the polynomial division (x²+3)/(x-1) = x+1 + 4/(x-1); the end-behavior leading-term example -2x³+100x²+5; the transformation-direction example f(x+3) shifting left, not right.
+
+Before-state: `docs/research/topic_guide_source_note_grandfather_2026_08_21/ap_precalculus_unit1_explainer_before_state.json`. Migration: `supabase/migrations/20260822100000_repair_ap_precalculus_unit1_explainers.sql`.
+
+**Verification, Dev then Prod:** C1/C3/C4/C5/C7 (n/a, briefs untouched) all zero violations. C8 corpus-wide distinctness re-run scoped to the new batch against every other published row — zero collisions on all four checked fields, on both Dev and Prod. Corpus totals unchanged (397/397, an update not an insert).
+
+**Next Owner:** David Bloom
+**Next Required Action:** Continue to Unit 3 (Trigonometric and Polar Functions) — but note Unit 3's briefs are ALSO template debt (the same "X is the [Unit Title] topic where you turn the concept into an AP-ready action: Y" filler pattern found in Calculus BC's Unit 3), so Unit 3 needs both briefs and explainers repaired, not explainers alone.
 
 ---
 
