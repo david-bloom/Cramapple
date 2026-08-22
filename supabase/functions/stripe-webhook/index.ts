@@ -3,6 +3,18 @@ import { createServiceClient } from "../_shared/supabase.ts";
 import { recordGrowthEvent } from "../_shared/growth-events.ts";
 import { stripe, verifyStripeWebhookEvent } from "../_shared/stripe.ts";
 
+function requireEnv(name: string) {
+  const value = Deno.env.get(name);
+  if (!value) {
+    throw new Error(`Missing required environment variable: ${name}`);
+  }
+  return value;
+}
+
+// Used only as the redirectTo for parent-gift student invites (see
+// resolveGiftStudentUserId below).
+const APP_BASE_URL = requireEnv("APP_BASE_URL").replace(/\/$/, "");
+
 // This function is the sole authority for granting and revoking
 // Stripe-purchased entitlements, and for the purchase_completed/
 // purchase_refunded/referred_purchase growth events - never the
@@ -193,18 +205,85 @@ async function grantEntitlement(service: Service, params: {
   if (error) throw error;
 }
 
+// Same account-per-email lookup used by reviewer-invite: page through
+// auth.users rather than relying on a students table, since the invited
+// student may not have any app.profiles row yet.
+async function findAuthUserByEmail(service: Service, email: string) {
+  const target = email.toLowerCase();
+  const perPage = 1000;
+
+  // Bounded at 50 pages (50k users) as a runaway-loop backstop, not a
+  // real ceiling - the loop already exits early via the length check below
+  // once a page comes back short.
+  for (let page = 1; page <= 50; page += 1) {
+    const { data, error } = await service.auth.admin.listUsers({
+      page,
+      perPage,
+    });
+    if (error) throw new Error(`auth_user_lookup_failed:${error.message}`);
+
+    const user = data.users.find((entry) =>
+      (entry.email ?? "").toLowerCase() === target
+    );
+    if (user) return user;
+    if (data.users.length < perPage) break;
+  }
+
+  return null;
+}
+
+// Parent-gift checkout has no client_reference_id - the buyer never signed
+// in. This resolves (or creates, via a branded Supabase invite email) the
+// student's own account so entitlements land on the student, not the
+// parent. app.handle_new_user grants the default 'student' role and seeds
+// full_name from raw_user_meta_data.full_name, so no separate profile
+// write is needed here.
+async function resolveGiftStudentUserId(
+  service: Service,
+  metadata: Record<string, string>,
+) {
+  const studentEmail = metadata.student_email;
+  if (!studentEmail) {
+    throw new Error("checkout_session_missing_student_email");
+  }
+
+  const existing = await findAuthUserByEmail(service, studentEmail);
+  if (existing) return existing.id;
+
+  const { data, error } = await service.auth.admin.inviteUserByEmail(
+    studentEmail,
+    {
+      data: { full_name: metadata.student_name ?? studentEmail.split("@")[0] },
+      redirectTo: `${APP_BASE_URL}/welcome`,
+    },
+  );
+  if (error) {
+    throw new Error(`student_invite_failed:${error.message}`);
+  }
+  if (data.user) return data.user.id;
+
+  // The invite call can succeed without echoing the user back in rare
+  // races - fall back to a fresh lookup rather than failing the webhook.
+  const invited = await findAuthUserByEmail(service, studentEmail);
+  if (!invited) throw new Error("student_invite_user_not_found");
+  return invited.id;
+}
+
 async function handleCheckoutSessionCompleted(
   service: Service,
   session: CheckoutSessionObject,
   eventId: string,
   eventType: CheckoutStatus,
 ) {
-  const userId = session.client_reference_id;
+  const metadata = session.metadata ?? {};
+  const userId = session.client_reference_id ??
+    (metadata.purchase_type === "parent_gift"
+      ? await resolveGiftStudentUserId(service, metadata)
+      : null);
   if (!userId) {
     throw new Error("checkout_session_missing_client_reference_id");
   }
 
-  const metadata = session.metadata ?? {};
   const mode = metadata.mode ?? "single";
   const checkoutSessionId = session.id;
 
@@ -283,6 +362,8 @@ async function handleCheckoutSessionCompleted(
       amount_discount: session.total_details?.amount_discount ?? 0,
     },
   });
+
+  return userId;
 }
 
 async function handleCheckoutSessionEvent(
@@ -310,7 +391,24 @@ async function handleCheckoutSessionEvent(
       });
       return;
     }
-    await handleCheckoutSessionCompleted(service, session, eventId, status);
+    const userId = await handleCheckoutSessionCompleted(
+      service,
+      session,
+      eventId,
+      status,
+    );
+    // recordCheckoutSession above ran before the gift student's account was
+    // resolved (client_reference_id is null for parent-gift checkouts), so
+    // the row it wrote still has user_id null for that case - backfill it
+    // now that the real recipient is known.
+    if (userId !== session.client_reference_id) {
+      const { error } = await service.schema("app").from(
+        "stripe_checkout_sessions",
+      )
+        .update({ user_id: userId, updated_at: new Date().toISOString() })
+        .eq("id", session.id);
+      if (error) throw error;
+    }
     return;
   }
 

@@ -389,13 +389,244 @@ banner recording that it was never adopted into Production, that its Dev
 objects were dropped under this task, and that the implementation is preserved
 in the tag. Approved by the Product Owner.
 
+## Codex answered T1-T3 and P1-P4, 2026-08-22
+
+Response to `prompts/CODEX_TAXONOMY_SEED_PROVENANCE_AND_PROD_ONLY_OBJECTS_2026_08_21.md`.
+
+**T1-T3 (taxonomy provenance): closed, no new action.** Codex had no audit
+trail for how Production's Calculus BC `10.7` title was truncated, but agreed
+the repo/CED was authoritative (T1/T2) and had no objection to closing
+Development's 240-topic gap via the existing migration (T3). Both were already
+executed 2026-08-21 per the Execution Log above, before Codex's answer arrived
+- this confirms the calls made at the time rather than changing them.
+
+**P1-P4 (the 45 remaining Production-only objects, after `seed_taxonomy_topics`
+was adopted into Dev): no wholesale replay.** Codex's verdict, subsystem by
+subsystem:
+
+| Subsystem | Count | Verdict |
+| --- | --- | --- |
+| Gold-set verification | 13 | Data-model + seeded-data dependent - needs a deliberate Dev fixture/seed strategy, not blind replay |
+| Taxonomy labelling layer (remaining) | 7 | Partly resolved by adopting `seed_taxonomy_topics`; the rest belongs to the broader taxonomy/content-labeling QA lane, not an automatic replay |
+| **Publish gate + FRQ pipeline** | **10** | **Governance-critical - should exist in Dev before Dev is trusted for content-pipeline QA** |
+| **Content-review invariants** | **5** | **Governance-critical - same bucket as publish gate** |
+| Content asset / visual metadata | 4 | Potentially safe to mirror, after confirming grants/RLS/search_path and whether dependent data exists |
+| Stripe checkout | 2 | Intentional/environment-specific - do NOT replay; Dev should not receive Production's live checkout state or live-mode assumptions |
+| Practice selection | 3 | Potentially safe to mirror, same caveats as content asset/visual metadata |
+| Other (`question_reports`) | 1 | Potentially safe to mirror, same caveats |
+
+**Codex's disposition-matrix recommendation:** before acting on the remaining 45,
+build a table with columns `object | subsystem | repo migration source |
+dependencies | data required | environment-specific risk | safe replay verdict
+| Product Owner decision needed` rather than deciding subsystem-by-subsystem
+from memory.
+
+**Codex's policy recommendation:** *"Development is not yet a trustworthy
+content-pipeline QA mirror until the publish-gate and content-review invariant
+clusters are either mirrored into Dev or explicitly accepted as Production-only
+with a documented testing alternative."* This directly narrows the open
+question from "what about all 46 objects" to one concrete call: the 15 objects
+in those two clusters.
+
+## Publish-gate + FRQ pipeline cluster mirrored into Dev — 2026-08-22
+
+Approved by the Product Owner: mirror the 10-object "Publish gate + FRQ
+pipeline" cluster into Development (the content-review-invariants cluster of
+5 was left for a separate decision - not included here).
+
+Migration `20260822180000_mirror_publish_gate_cluster_into_dev.sql`, applied
+to **Development only** (every statement is `IF NOT EXISTS`/`OR
+REPLACE`/`DROP ... IF EXISTS`, so it is a no-op if re-run or run against
+Production, where all ten objects already exist unchanged). Definitions were
+pulled verbatim from Production via `pg_get_functiondef`/`pg_get_triggerdef`,
+not retyped from the original 2026-08-08/09 repo migrations, so Dev now has
+the refinements Production received afterward (the wider `review_status`
+allowlist, the re-publish guard, today's search_path hardening).
+
+**Prerequisite gap found and closed:** `app.content_items` in Development was
+missing `practice_format`/`frq_archetype` entirely - the Physics
+full-exam-FRQ columns that `validate_full_exam_frq_version`,
+`prevent_live_frq_reclassification` and `tg_require_practice_format_at_publish`
+all depend on. Both nullable, no default, so adding them touched no existing
+row.
+
+**Pre-flight check:** only 1 of Development's 8 published
+`content_item_versions` rows has a `review_status` outside the publish-gate
+allowlist. The gate is not retroactive - that row stays published; it would
+need `review_status` fixed before its next re-publish.
+
+**Verified after applying:** all 10 functions present in Dev
+(`content_item_is_published`, `validate_full_exam_frq_version`,
+`enforce_full_exam_frq_version`, `enforce_full_exam_frq_criteria`,
+`prevent_live_frq_reclassification`, `tg_require_practice_format_at_publish`,
+`enforce_publish_gate`, `mcq_stem_choice_desync`, `mcq_stem_choice_resync`,
+`enforce_mcq_stem_choice_sync`), all 6 triggers wired, `content_item_versions`
+unchanged and readable (8 rows).
+
+## Content-review invariants cluster mirrored into Dev — 2026-08-22
+
+Approved by the Product Owner: mirror the 5-object "Content-review
+invariants" cluster into Development, completing the governance-critical
+pair Codex identified alongside publish-gate.
+
+Migration
+`20260822190000_mirror_content_review_invariants_cluster_into_dev.sql`,
+applied to **Development only** (same idempotent pattern as the publish-gate
+migration - no-op against Production). Definitions pulled verbatim from
+Production.
+
+**Prerequisite gap found and closed:** `app.content_review_assignments` in
+Development was missing `assignment_purpose` entirely (the
+owner-remediation-approval self-assignment path). `NOT NULL` with a default
+in Production, so adding it backfilled Development's 1 existing row to
+`'subject_review'` - the correct value, since it's a routine subject-review
+assignment, not an owner-remediation approval. `app.validator_qualifications`,
+which the qualification trigger reads, already existed in both environments.
+
+**Verified after applying:** the table
+(`app.content_review_invariant_violations`, RLS enabled/no policy, matching
+Production) and all 4 functions
+(`check_content_review_invariants`, `content_review_invariant_report`,
+`tg_enforce_content_review_qualification`, `prevent_reopen_decided_assignment`)
+present in Dev, all 3 triggers wired, `content_review_assignments` unchanged
+and readable (1 row).
+
+## Disposition matrix — the remaining 30 objects, 2026-08-22
+
+Built per Codex's recommended structure. All facts below were verified
+directly against Production (row counts, `pg_get_functiondef`, dependency
+checks) and against Development (confirmed absent) on 2026-08-22, not
+assumed from the original 46-object list.
+
+### Gold-set verification (13 objects)
+
+| Object | Repo migration source | Dependencies | Data in Production | Environment-specific risk | Safe replay verdict |
+| --- | --- | --- | --- | --- | --- |
+| `app.gold_set_answers` (table) | `20260803120000_gold_set_verification.sql` | `app.content_item_versions`, `app.attempts` | 275 rows | None - portable schema | Schema: yes. Data: no (see below) |
+| `app.gold_set_elements` (table) | same | `app.frq_criteria` | 601 rows | None | Schema: yes |
+| `app.gold_set_element_marks` (table) | same | `app.gold_set_elements`, `app.gold_set_verification_assignments` | 1,838 rows | None | Schema: yes |
+| `app.gold_set_verification_assignments` (table) | same | `app.profiles`, `app.gold_set_answers` | 492 rows | None | Schema: yes |
+| `app.gold_set_marks_are_immutable` (trigger fn) | same | none beyond the table | n/a | None | Yes |
+| `app.gold_set_reader_is_eligible` (fn) | same | `app.profiles`, `app.feature_flag_assignments` (confirmed present in Dev) | n/a | None | Yes |
+| `app.seed_gold_set_elements_single_point` (fn) | same | `app.frq_criteria` | n/a | None | Yes |
+| `app.seed_gold_set_verification_assignments` (fn) | same | `app.gold_set_answers`, `app.gold_set_verification_assignments` | n/a | None | Yes |
+| `public.gold_set_access` (fn) | `20260803140000_gold_set_review_permission.sql` | `app.gold_set_reader_is_eligible` | n/a | None | Yes |
+| `public.gold_set_admin_overview` (fn) | `20260803200000_gold_set_admin_scope.sql` | `app.profiles`, the 4 tables above | n/a | None | Yes |
+| `public.gold_set_verification_next` (fn) | `20260803120000_gold_set_verification.sql` (+ later scope fixes) | same | n/a | None | Yes |
+| `public.gold_set_verification_progress` (fn) | same | same | n/a | None | Yes |
+| `public.submit_gold_set_verification` (fn) | same | same | n/a | None | Yes |
+
+**Schema replay verdict: safe, mechanical, all dependencies already present in
+Dev.** The actual decision is about the **data**, per Codex: replaying all
+275 answers / 601 elements / 1,838 marks / 492 assignments would import real
+reviewer work product wholesale rather than give Dev a deliberately-sized QA
+fixture. **Product Owner decision needed:** (a) approve the schema-only
+replay now; (b) separately decide the data strategy - copy a small subset,
+copy everything, or seed synthetic fixtures - which is a content-QA-strategy
+call, not an infrastructure one.
+
+### Taxonomy labelling layer, remaining (7 objects)
+
+| Object | Repo migration source | Dependencies | Data in Production | Environment-specific risk | Safe replay verdict |
+| --- | --- | --- | --- | --- | --- |
+| `app.content_taxonomy_labels` (table) | `20260804170000_taxonomy_label_layer.sql` | `app.content_items` | 2,401 rows | None | Schema: yes |
+| `app.seed_taxonomy_units` (fn) | `20260804183000_unit_serving_registry.sql` | `app.taxonomy_source_versions`, `app.taxonomy_units` (both already in Dev per the 2026-08-21 taxonomy-parity work) | n/a | None | Yes |
+| `app.taxonomy_relevant_hash` (fn) | `20260804170000_taxonomy_label_layer.sql` | `extensions.digest` (pgcrypto - confirmed available in Dev), `app.mcq_choices`, `app.frq_criteria` | n/a | None | Yes |
+| `app.set_content_taxonomy_label_derived_fields` (trigger fn) | same | none beyond the table | n/a | None | Yes |
+| `app.mark_content_taxonomy_labels_stale_for_version` (fn) | same | `app.taxonomy_relevant_hash`, `app.content_taxonomy_labels` | n/a | None | Yes |
+| 2 trigger variants on `content_taxonomy_labels` / `content_item_versions` | same | the two functions above | n/a | None | Yes |
+
+**Schema replay verdict: safe** - every dependency this cluster needs
+(`taxonomy_source_versions`, `taxonomy_units`, pgcrypto) already exists in
+Dev from the 2026-08-21 taxonomy-parity work. Same data question as
+gold-set: the 2,401 rows are real derived-label judgments produced by the
+content pipeline, not reference data. **Product Owner decision needed:**
+approve schema replay; decide whether Dev needs the label data at all, or
+whether it should regenerate labels by running its own (now-restorable)
+pipeline once the publish-gate cluster - already mirrored - starts producing
+content to label.
+
+### Content asset / visual metadata (4 objects)
+
+| Object | Repo migration source | Dependencies | Data in Production | Environment-specific risk | Safe replay verdict |
+| --- | --- | --- | --- | --- | --- |
+| `app.content_asset_metadata` (table) | `20260805100000_content_asset_metadata.sql` | `app.content_items`, `app.content_item_versions` | 9 rows | None | Yes, data included - trivially small |
+| `app.content_visual_requirements` (table) | `20260805120000_content_visual_requirements.sql` | `app.content_review_decisions` (immutable capture lives there) | 1,118 rows | None | Schema: yes. Data: real reviewer judgment, larger call |
+| `app.touch_content_asset_metadata` (trigger fn) | `20260805100000_content_asset_metadata.sql` | none - trivial `updated_at` stamper | n/a | None | Yes |
+| `app.touch_content_visual_requirements` (trigger fn) | `20260805120000_content_visual_requirements.sql` | none - trivial `updated_at` stamper | n/a | None | Yes |
+
+**Verdict: lowest-risk cluster of the remaining 30.** Both trigger functions
+are one-line `updated_at` stampers with no external dependency. Unlike
+gold-set/taxonomy-labels, this data is not sensitive and `content_asset_metadata`
+is small enough (9 rows) to copy outright without a separate strategy
+decision. **Product Owner decision needed:** approve schema + full data
+replay for `content_asset_metadata`; decide only on `content_visual_requirements`
+(1,118 rows) - copy or leave empty.
+
+### Stripe checkout (2 objects)
+
+| Object | Repo migration source | Dependencies | Data in Production | Environment-specific risk | Safe replay verdict |
+| --- | --- | --- | --- | --- | --- |
+| `app.stripe_checkout_sessions` (table) | `20260813113918_stripe_setup_and_launch_readiness.sql` | none beyond core tables | 3 rows | **High** - rows are real Stripe Checkout session records tied to real payment attempts | Schema only, never the data |
+| `app.stripe_checkout_session_attempts` (table) | same | none | 13 rows | Same | Schema only, never the data |
+
+**Codex's verdict stands unchanged: do NOT replay the data.** Both `create-checkout-session`
+and `stripe-webhook` (see the parent-purchase-funnel work earlier this session)
+already read `STRIPE_PRICE_CATALOG_JSON`/`STRIPE_SECRET_KEY`/`STRIPE_WEBHOOK_SECRET`
+as per-environment secrets specifically because test-mode and live-mode price
+IDs must never cross-wire (`_shared/stripe-catalog.ts:1-6`). **Product Owner
+decision needed:** whether Dev needs Stripe checkout tables *at all* - this
+cluster isn't required for the content-pipeline QA that motivated TASK-0027,
+so the live option is to leave it Production-only unless/until Dev needs its
+own checkout-flow testing with Dev's own test-mode Stripe keys.
+
+### Practice selection (3 objects)
+
+| Object | Repo migration source | Dependencies | Data in Production | Environment-specific risk | Safe replay verdict |
+| --- | --- | --- | --- | --- | --- |
+| `public.select_practice_frqs` (fn) | `20260731160000_schema_baseline.sql` | `app.content_items`, `app.content_item_versions` | n/a | None | Yes |
+| `public.select_unit_gated_practice_items` (fn) | `20260804190000_unit_gated_serving_selector.sql` | `app.home_release_manifest` (confirmed present in Dev), `app.content_taxonomy_labels` (see taxonomy cluster above), `app.taxonomy_relevant_hash` | n/a | None | Yes, once the taxonomy-labelling cluster is also replayed |
+| `public._epv_is_selectable` (fn) | `20260731160000_schema_baseline.sql` | `app.exam_pack_versions`, `app.subjects` | n/a | None | Yes |
+
+**Note on `select_practice_frqs` and `_epv_is_selectable`:** both are defined
+in `schema_baseline.sql`, the migration recorded as applied to *both*
+environments - yet both are absent from Dev. Same ledger-cannot-be-trusted
+pattern the taxonomy layer investigation already found; the baseline file's
+content diverged from what Dev actually received. **Product Owner decision
+needed:** approve replay (no data, no risk) - `select_unit_gated_practice_items`
+should be sequenced after the taxonomy-labelling cluster since it depends on
+`content_taxonomy_labels`.
+
+### Other (1 object)
+
+| Object | Repo migration source | Dependencies | Data in Production | Environment-specific risk | Safe replay verdict |
+| --- | --- | --- | --- | --- | --- |
+| `public.question_reports` (table) | **None found in the repository** | none beyond core tables (`question_id`, `session_id`, `student_id` are unconstrained text/uuid, no FK) | 0 rows | None (data is empty) | Schema: yes, but must be hand-authored since no migration exists to replay from |
+
+**This is a different and stronger finding than every other row in this
+matrix: `question_reports` has no repository migration at all** - not a
+Dev/Prod ledger mismatch, an actual reproducibility gap in the repo itself.
+The frontend's `ReportQuestionButton` component (`src/components/session/ReportQuestionButton.tsx`,
+seen during the FRQ-formatting work earlier this session) is presumably its
+only writer. **Product Owner decision needed:** approve backfilling a proper
+migration for this table into the repo (from Production's live DDL, captured
+above) before replaying it into Dev - replaying into Dev without first
+fixing the repo gap would just relocate the same problem.
+
 ## Approval State
 
 **Approval Required:** Yes
 **Approval Type:** Hard gate before any destructive step (dropping Dev-only
 objects) or before declaring Dev a valid QA environment for content-pipeline
 work.
-**Decision:** Pending
+**Decision:** Both governance-critical clusters Codex flagged - publish-gate
++ FRQ pipeline (10 objects) and content-review invariants (5 objects) -
+**done**, 2026-08-22. Disposition matrix for the remaining 30 objects
+**built**, 2026-08-22 (six subsystem tables above). Still open: Product
+Owner decisions on each subsystem's data-replay strategy (gold-set,
+taxonomy-labels, content-visual-requirements, Stripe, question_reports repo
+gap) - schema-only replay is assessed as safe for all 30 objects except
+Stripe, which should stay Production-only pending a specific need.
 
 ## Done Decision
 
