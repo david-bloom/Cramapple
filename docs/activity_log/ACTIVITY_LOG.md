@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- AP Precalculus Unit 2 (Exponential and Logarithmic Functions) New Coverage: 15 Briefs + 15 Explainers Authored From Scratch — the Unit Was Fully Exam-Assessed but Had Zero Content, the Real Cause Behind "Topics Not Rendering" — 2026-08-21
 - AP Precalculus Unit 4 Taxonomy Gap Found and Fixed: 0 of 14 Topics Existed (Fact Pack's Deep-Tier Pass Never Transcribed the Non-Exam-Assessed Unit); Seeded From the Primary-Source CED PDF, Dev + Prod — 2026-08-21
 - AP Calculus BC Unit 6 Reaches 14/14 Topics: New Coverage Authored for 6.12 (Linear Partial Fractions) and 6.13 (Improper Integrals), the Unit's Only Two Zero-Coverage Topics — 2026-08-21
 - AP Calculus BC Repair Pass Complete: Unit 8 (Applications of Integration) Done, All 85 of 85 Debt Explainers (Units 1-8) Now Repaired — 2026-08-21
@@ -150,6 +151,28 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## AP Precalculus Unit 2 New Coverage — the Real Cause of "Topics Not Rendering" — 2026-08-21
+
+**Task:** Unassigned (bug investigation continued; New Coverage change type, per Owner's confirmation to author the missing content once found)
+**Status:** Published to Development and Production. 15 new briefs + 15 new explainers (30 rows total, pure insert). This closes the Owner's original "Precalculus topics not rendering" report.
+
+**Investigation conclusion, before this batch:** dispatched a background agent to read the live Lovable frontend source directly (units/topics adapter, remote RPC client, subject-key normalizer, TopicHome.tsx). Found zero precalculus-specific gating, allowlists, or legacy code paths anywhere — the frontend is genuinely subject-agnostic. Independently re-ran `get_student_taxonomy`'s exact query logic by hand against Production and confirmed it always correctly returned Units 1-3's topic counts (14/15/15), both before and after the Unit 4 fix earlier in this session. Also confirmed via edge logs that every real `get_student_taxonomy`/`get_topic_point_guides` call in the last 24 hours returned 200 OK. **Conclusion: no frontend bug exists.** The Lovable MCP fix-prompt path was therefore not used.
+
+**The real cause:** AP Precalculus Unit 2 (Exponential and Logarithmic Functions) — fully exam-assessed, 25-40% MC weighting — had zero published topic point briefs or explainers across all 15 topics. Every one of Unit 2's topic chips would have shown "Point brief coming soon," which is what most plausibly read as "topics not rendering" to a student browsing the subject (Units 1 and 3 do have content, though it's still grandfathered template debt, a separate known issue not addressed in this batch).
+
+**Grounded in:** `docs/product/AP_PRECALCULUS_CED_FACT_PACK.md`'s Unit 2 deep-tier detail — the documented real 2025 finding that citing a calculator's regression r-squared value is explicitly NOT sufficient reasoning to justify exponential data (mean 0.30/1 reasoning point; used for 2.2 and 2.6); the hidden-quadratic-in-e^x pattern (e^(2x)-e^x-12=0), the two lowest-scoring points on the entire 2025 exam (0.14/0.10), from failing to reject the impossible negative e^x root (2.13); topic 2.10's narrower initial-value-of-1 scope for the exponential-inverse derivation versus 2.11's general a·log_b(x) form; the quotient-of-logs property being derivable from the product/power properties but never given as its own separate Essential Knowledge statement (2.12); and the semi-log linearization's n>1 log-base restriction, stricter than the more casual n≠1 (2.15).
+
+**Math independently verified before writing to the database:** the hidden-quadratic factoring (u-4)(u+3)=0 → u=4 (valid, since e^x>0) or u=-3 (rejected); the exponent-rule counterexample 2^(x+3) at x=0 (8 vs. the incorrect rewrite's 9); the semi-log slope/intercept identities log_n(b) and log_n(a).
+
+Migration: `supabase/migrations/20260821290000_ap_precalculus_unit2_new_coverage_seed.sql`. Pure insert — no existing rows touched.
+
+**Verification, Dev then Prod:** pairing orphans (C1), unit_number agreement (C2), practice_* field match (C4), `learn_more_path` format (C5) all zero violations. Corpus-wide distinctness (C8) on all four checked fields — zero collisions against the rest of the corpus, on both Dev and Prod. Corpus totals: 382/382 → 397/397. AP Precalculus now has 44 published briefs (Units 1-3 fully covered; Unit 4 remains brief-free by design, not exam-assessed).
+
+**Next Owner:** David Bloom
+**Next Required Action:** None required for the original report. Remaining, explicitly out of scope unless requested: Precalculus Units 1 and 3's existing content is still grandfathered template-generated debt (same pattern repaired for Calculus AB/BC and Statistics earlier this session) and has not been repaired; Unit 4 (not exam-assessed) has taxonomy topics but no briefs, matching how other non-assessed zero-coverage units are handled elsewhere in the corpus.
 
 ---
 
