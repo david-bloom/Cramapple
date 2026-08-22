@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- AP Precalculus Unit 4 Taxonomy Gap Found and Fixed: 0 of 14 Topics Existed (Fact Pack's Deep-Tier Pass Never Transcribed the Non-Exam-Assessed Unit); Seeded From the Primary-Source CED PDF, Dev + Prod — 2026-08-21
 - AP Calculus BC Unit 6 Reaches 14/14 Topics: New Coverage Authored for 6.12 (Linear Partial Fractions) and 6.13 (Improper Integrals), the Unit's Only Two Zero-Coverage Topics — 2026-08-21
 - AP Calculus BC Repair Pass Complete: Unit 8 (Applications of Integration) Done, All 85 of 85 Debt Explainers (Units 1-8) Now Repaired — 2026-08-21
 - AP Calculus BC Repair: Unit 7 (Differential Equations) Done, Including Both BC-Only "Moved" Topics 7.5 and 7.9 — 72 of 85 Debt Explainers Now Repaired — 2026-08-21
@@ -149,6 +150,24 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## AP Precalculus Unit 4 Taxonomy Gap Found and Fixed — 2026-08-21
+
+**Task:** Unassigned (bug investigation: Owner reported AP Precalculus is the only subject where topics don't render on the student home page, with only the 4 unit tabs showing)
+**Status:** Backend gap identified and fixed, Dev + Prod. Frontend investigation (whether Units 1-3's topics also fail to render, a separate possible Lovable-side bug) still in progress via a background agent as of this entry.
+
+**Finding:** `app.taxonomy_topics` had zero rows for AP Precalculus Unit 4 (Functions Involving Parameters, Vectors, and Matrices), while Units 1-3 correctly held 14/15/15 topics (44 total, matching the corpus's existing 44 published briefs/explainers). Root cause: `docs/product/AP_PRECALCULUS_CED_FACT_PACK.md`'s Unit 4 is explicitly not assessed on the AP Exam (0% weighting; the CED's own "Course and exam scope" section states Unit 4 content must not appear in scored practice), so the fact pack's 2026-08-08 deep-tier pass scoped itself to "all three assessed units" and never transcribed Unit 4's topic list at all — not even the taxonomy-level topic codes/titles, which is a different and smaller gap than "no student content," but still meant Unit 4 rendered as an empty unit.
+
+**Owner supplied the ground-truth topic count** (14, 15, 15, 14 across Units 1-4) before this was fixed, which matched exactly once verified independently against the primary source.
+
+**Fix:** Read `docs/teaching/ap-precalculus-course-and-exam-description.pdf` directly (the CED's own "UNIT AT A GLANCE" table for Unit 4, cross-checked against its "Course at a Glance" summary table) and transcribed the real 14 topic titles (4.1 Parametric Functions through 4.14 Matrices Modeling Contexts). Seeded only the taxonomy row (topic_code + topic_title) for each — no point briefs or Learn More explainers were authored, since Unit 4 is not exam-assessed and authoring new student-facing content for it is a separate, larger decision than fixing a rendering gap, consistent with how other out-of-scope zero-coverage topics are handled elsewhere in the corpus (e.g. AP Calculus BC's Units 9-10).
+
+Migration: `supabase/migrations/20260821280000_ap_precalculus_unit4_taxonomy_topics_seed.sql`. Applied to Development first, then Production. Verified post-migration: Units 1-4 now hold 14/15/15/14 topics respectively (58 total), exactly matching the Owner-supplied count.
+
+**Next Owner:** David Bloom
+**Next Required Action:** A background code-reading agent is checking whether Units 1-3 (which already had full taxonomy + brief/explainer coverage before this fix) also fail to render topics in the live app — i.e. whether there's a separate Lovable frontend bug beyond the Unit 4 taxonomy gap. If that agent finds a frontend defect, a focused Lovable fix prompt will be sent via the Lovable MCP next, per Owner instruction not to silently work around a frontend issue.
 
 ---
 
