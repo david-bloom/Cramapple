@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- AP Precalculus Unit 3 (Trigonometric and Polar Functions) Fully Repaired: 15 Briefs AND 15 Explainers Replaced — a Second Independent Template-Filler Pattern in the Briefs Themselves, Same as AP Calculus BC's Unit 3 Earlier This Session — 2026-08-22
 - AP Precalculus Unit 1 (Polynomial and Rational Functions) Explainer Debt Repaired: All 14 Grandfathered Template Explainers Replaced — 2026-08-22
 - AP Precalculus Unit 2 (Exponential and Logarithmic Functions) New Coverage: 15 Briefs + 15 Explainers Authored From Scratch — the Unit Was Fully Exam-Assessed but Had Zero Content, the Real Cause Behind "Topics Not Rendering" — 2026-08-21
 - AP Precalculus Unit 4 Taxonomy Gap Found and Fixed: 0 of 14 Topics Existed (Fact Pack's Deep-Tier Pass Never Transcribed the Non-Exam-Assessed Unit); Seeded From the Primary-Source CED PDF, Dev + Prod — 2026-08-21
@@ -152,6 +153,28 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## AP Precalculus Unit 3 Fully Repaired — Briefs and Explainers Both — 2026-08-22
+
+**Task:** Unassigned (topic-guide content quality; Owner instruction to repair Units 1 and 3's debt; this closes that instruction)
+**Status:** Published to Development and Production. 15 briefs + 15 explainers repaired (30 rows total).
+
+**Unit 3 (Trigonometric and Polar Functions)** — a second, independent template-debt pattern was found here, this time in the BRIEFS themselves, not just the explainers: all 15 briefs followed the filler pattern "X is the Trigonometric and Polar Functions topic where you turn the concept into an AP-ready action: Y" (the identical pattern found in AP Calculus BC's own Unit 3 earlier this session). The paired explainers were generated-from-brief off those same filler briefs, so both tables needed repair. Notably, each row's existing `common_point_loss` field was already genuinely accurate (e.g. "Using 2pi as tangent's base period instead of pi," "Plotting negative r as if it were positive at the same angle") — these were used as confirmation of real misconceptions to ground fresh content around, not copied forward verbatim.
+
+**Grounded in:** the documented real low-scoring frequency-to-b conversion (200 cycles/sec → b=2π·200) that was one of the hardest points on an actual administered exam (3.7); the reciprocal-vs-inverse distinction for secant/cosecant/cotangent, a genuinely different operation from arcsine/arccosine/arctangent (3.11); the arctan quadrant-adjustment rule for rectangular-to-polar conversion, requiring +π when x<0 (3.13); the difference and double-angle identities being fully derivable from the given sum identities rather than separately provided (3.12, the same "derivable-but-not-an-EK" nuance pattern used for Calculus BC's quotient-of-logs and AP Precalculus Unit 2's own logarithm properties); and the average-rate-of-change-only, never-derivative scope for polar rates of change (3.15).
+
+**Math independently verified before writing to the database:** the arctan quadrant adjustment for the point (-3,3) (θ=3π/4, not -π/4); the frequency-to-b conversion (400π); the difference-identity derivation cos(α-β)=cos(α)cos(β)+sin(α)sin(β) from the sum identity by substituting -β; the tangent-period contrast (π/2 for tan(2θ), not π); the average-rate-of-change computation for r(θ)=3+cos(θ) on [0,π/2] (-2/π).
+
+Before-state (both briefs and explainers): `docs/research/topic_guide_source_note_grandfather_2026_08_21/ap_precalculus_unit3_before_state.json`. Migration: `supabase/migrations/20260822200000_repair_ap_precalculus_unit3_briefs_and_explainers.sql`.
+
+**Verification, Dev then Prod:** C1/C2/C4/C5 (pairing, unit agreement, practice_* match, path format) all zero violations. C7 (core_idea vs. what_it_is) zero matches. C8 corpus-wide distinctness re-run scoped to the new batch against every other published row — zero collisions on all four checked fields, on both Dev and Prod. Corpus totals unchanged (397/397, updates not inserts).
+
+**Precalculus repair status, final:** Units 1 and 3's explainer debt (and Unit 3's brief debt) are both fully repaired — zero remaining debt rows confirmed across both units. Combined with the earlier Unit 2 New Coverage and Unit 4 taxonomy fix this session, AP Precalculus's full exam-assessed scope (Units 1-3, 44 topics) now carries genuinely topic-specific, CED-grounded content throughout, and Unit 4 (not exam-assessed) has complete taxonomy coverage without new student content, matching how other non-assessed zero-coverage units are handled elsewhere in the corpus.
+
+**Next Owner:** David Bloom
+**Next Required Action:** None required — this closes the Owner's "repair Units 1 and 3" instruction and the broader Precalculus investigation opened earlier this session.
 
 ---
 
