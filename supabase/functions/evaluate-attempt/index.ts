@@ -566,10 +566,10 @@ Deno.serve(async (req) => {
   const artifactVersionId = asUuid(
     getBodyField(body, "artifact_version_id", "artifactVersionId"),
   );
-  const contentItemVersionId = asUuid(
+  const requestedContentItemVersionId = asUuid(
     getBodyField(body, "content_item_version_id", "contentItemVersionId"),
   );
-  const rubricVersionId = asUuid(
+  const requestedRubricVersionId = asUuid(
     getBodyField(body, "rubric_version_id", "rubricVersionId"),
   );
   // Prompt rollout is server-controlled. The version comes from
@@ -602,10 +602,7 @@ Deno.serve(async (req) => {
       : undefined)
     : undefined;
 
-  if (
-    !idempotencyKey || !attemptId || !responseVersionId ||
-    !contentItemVersionId || !rubricVersionId
-  ) {
+  if (!idempotencyKey || !attemptId || !responseVersionId) {
     return respond(
       {
         error: "missing_required_fields",
@@ -613,8 +610,6 @@ Deno.serve(async (req) => {
           "idempotency_key",
           "attempt_id",
           "response_version_id",
-          "content_item_version_id",
-          "rubric_version_id",
         ],
       },
       { status: 400 },
@@ -667,14 +662,83 @@ Deno.serve(async (req) => {
     );
   }
 
+  const [
+    { data: attempt, error: attemptError },
+    { data: responseVersion, error: responseError },
+  ] = await Promise.all([
+    service.schema("app")
+      .from("attempts")
+      .select(
+        "id, user_id, learning_session_id, exam_pack_version_id, content_item_version_id, artifact_version_id, attempt_mode, status, assistance_state, started_at, submitted_at, graded_at, score_points, score_possible",
+      )
+      .eq("id", attemptId)
+      .maybeSingle(),
+    service.schema("app")
+      .from("response_versions")
+      .select(
+        "id, attempt_id, parent_response_version_id, response_text, response_parts, version_number, is_submitted, created_at",
+      )
+      .eq("id", responseVersionId)
+      .maybeSingle(),
+  ]);
+
+  if (attemptError || responseError || !attempt || !responseVersion) {
+    return respond({ error: "not_found" }, { status: 404 });
+  }
+
+  if (attempt.user_id !== user.id && profile.role !== "admin") {
+    return respond({ error: "forbidden" }, { status: 403 });
+  }
+
+  if (responseVersion.attempt_id !== attempt.id) {
+    return respond({ error: "response_attempt_mismatch" }, { status: 409 });
+  }
+
+  if (!responseVersion.is_submitted) {
+    return respond({ error: "response_not_submitted" }, { status: 409 });
+  }
+
+  const effectiveContentItemVersionId =
+    requestedContentItemVersionId ?? attempt.content_item_version_id as string;
+  const effectiveRubricVersionId =
+    requestedRubricVersionId ?? effectiveContentItemVersionId;
+
+  if (!effectiveContentItemVersionId || !effectiveRubricVersionId) {
+    return respond({ error: "missing_content_version" }, { status: 409 });
+  }
+
+  const { data: contentVersion, error: contentError } = await service
+    .schema("app")
+    .from("content_item_versions")
+    .select(
+      "id, content_item_id, version_num, stem, stimulus, prompt_json, rubric_type, evaluator_strategy, explanation, help_text, content_hash, status, approved_at, approved_by, published_at",
+    )
+    .eq("id", effectiveContentItemVersionId)
+    .maybeSingle();
+
+  if (contentError || !contentVersion) {
+    return respond({ error: "not_found" }, { status: 404 });
+  }
+
+  if (
+    requestedContentItemVersionId &&
+    attempt.content_item_version_id !== contentVersion.id
+  ) {
+    return respond({ error: "content_version_mismatch" }, { status: 409 });
+  }
+
+  if (artifactVersionId && attempt.artifact_version_id !== artifactVersionId) {
+    return respond({ error: "artifact_version_mismatch" }, { status: 409 });
+  }
+
   const requestHashPayload = {
     operation,
     idempotencyKey,
     attemptId,
     responseVersionId,
     artifactVersionId,
-    contentItemVersionId,
-    rubricVersionId,
+    contentItemVersionId: effectiveContentItemVersionId,
+    rubricVersionId: effectiveRubricVersionId,
     assistanceCondition,
     promptVersion,
   };
@@ -691,18 +755,6 @@ Deno.serve(async (req) => {
       return respond({ error: "idempotency_conflict" }, { status: 409 });
     }
 
-    const { data: existingAttempt } = await service.schema("app")
-      .from("attempts")
-      .select("user_id")
-      .eq("id", existingResult.attempt_id)
-      .maybeSingle();
-    if (
-      !existingAttempt ||
-      (existingAttempt.user_id !== user.id && profile.role !== "admin")
-    ) {
-      return respond({ error: "forbidden" }, { status: 403 });
-    }
-
     return respond(
       {
         status: existingResult.status,
@@ -712,63 +764,6 @@ Deno.serve(async (req) => {
       },
       { status: existingResult.status === "processing" ? 202 : 200 },
     );
-  }
-
-  const [
-    { data: attempt, error: attemptError },
-    { data: responseVersion, error: responseError },
-    { data: contentVersion, error: contentError },
-  ] = await Promise.all([
-    service.schema("app")
-      .from("attempts")
-      .select(
-        "id, user_id, learning_session_id, exam_pack_version_id, content_item_version_id, artifact_version_id, attempt_mode, status, assistance_state, started_at, submitted_at, graded_at, score_points, score_possible",
-      )
-      .eq("id", attemptId)
-      .maybeSingle(),
-    service.schema("app")
-      .from("response_versions")
-      .select(
-        "id, attempt_id, parent_response_version_id, response_text, response_parts, version_number, is_submitted, created_at",
-      )
-      .eq("id", responseVersionId)
-      .maybeSingle(),
-    service.schema("app")
-      .from("content_item_versions")
-      .select(
-        "id, content_item_id, version_num, stem, stimulus, prompt_json, rubric_type, evaluator_strategy, explanation, help_text, content_hash, status, approved_at, approved_by, published_at",
-      )
-      .eq("id", contentItemVersionId)
-      .maybeSingle(),
-  ]);
-
-  if (
-    attemptError || responseError || contentError || !attempt ||
-    !responseVersion || !contentVersion
-  ) {
-    return respond({ error: "not_found" }, { status: 404 });
-  }
-
-  if (attempt.user_id !== user.id && profile.role !== "admin") {
-    return respond({ error: "forbidden" }, { status: 403 });
-  }
-
-  if (responseVersion.attempt_id !== attempt.id) {
-    return respond({ error: "response_attempt_mismatch" }, { status: 409 });
-  }
-
-  if (!responseVersion.is_submitted) {
-    return respond({ error: "response_not_submitted" }, { status: 409 });
-  }
-
-  if (
-    contentItemVersionId && attempt.content_item_version_id !== contentVersion.id
-  ) {
-    return respond({ error: "content_version_mismatch" }, { status: 409 });
-  }
-
-  if (artifactVersionId && attempt.artifact_version_id !== artifactVersionId) {
-    return respond({ error: "artifact_version_mismatch" }, { status: 409 });
   }
 
   const [
@@ -974,7 +969,7 @@ Deno.serve(async (req) => {
     confidence: "medium",
     model_id: routedModelId,
     prompt_version: promptVersion,
-    rubric_version_id: rubricVersionId,
+    rubric_version_id: effectiveRubricVersionId,
     estimated_cost_usd: statisticsDeterministicFallback ? 0 : reservedCost,
     deterministic_verifier_version: MATH_VERIFIER_VERSION,
     boundary_contract_version: verificationProfile?.profile_version ?? null,
@@ -1117,7 +1112,7 @@ Deno.serve(async (req) => {
       uncertainty_reason: null,
       model_id: "rule-based-mcq",
       prompt_version: promptVersion,
-      rubric_version_id: rubricVersionId,
+      rubric_version_id: effectiveRubricVersionId,
       deterministic_verifier_version: MATH_VERIFIER_VERSION,
       boundary_contract_version: verificationProfile?.profile_version ?? null,
       feedback_preview: finalResult.student_facing_summary,
@@ -1201,7 +1196,6 @@ Deno.serve(async (req) => {
   if (routing.target === "symbolic_ecf") {
     const statisticsItem = findStatisticsItem(
       contentItem.content_key as string | null,
-      contentVersion.prompt_json,
     );
     const typedFormulaAmbiguity = detectAmbiguousTypedFormulaText(responseText);
     const ecfQuestion = coerceEcfQuestion(
@@ -1266,8 +1260,6 @@ Deno.serve(async (req) => {
     shadowResult = {
       engine: "symbolic_ecf",
       verifier_version: MATH_VERIFIER_VERSION,
-      profile_source: statisticsItem?.source ?? null,
-      profile_version: statisticsItem?.profile_version ?? null,
       content_key: contentItem.content_key,
       ambiguous_notation: typedFormulaAmbiguity.ambiguous
         ? { reason: typedFormulaAmbiguity.reason }
@@ -1358,7 +1350,7 @@ Deno.serve(async (req) => {
           model_id: routedModelId,
           estimated_cost_usd: reservedCost,
           prompt_version: promptVersion,
-          rubric_version_id: rubricVersionId,
+          rubric_version_id: effectiveRubricVersionId,
           deterministic_verifier_version: MATH_VERIFIER_VERSION,
           boundary_contract_version: verificationProfile?.profile_version ?? null,
         }).eq("request_id", idempotencyKey);
@@ -1553,7 +1545,7 @@ Deno.serve(async (req) => {
   );
   const repairPlan = buildRepairPlan({
     lockedGrade: lockGradeDecision({
-      gradeFingerprint: `${idempotencyKey}:${promptVersion}:${rubricVersionId}`,
+      gradeFingerprint: `${idempotencyKey}:${promptVersion}:${effectiveRubricVersionId}`,
       pointsEarned: finalPayload.points_earned,
       pointsAvailable: finalPayload.points_available,
       criteria: finalPayload.criteria,
@@ -1576,7 +1568,7 @@ Deno.serve(async (req) => {
     uncertainty_reason: finalPayload.uncertainty_reason,
     model_id: routedModelId,
     prompt_version: promptVersion,
-    rubric_version_id: rubricVersionId,
+    rubric_version_id: effectiveRubricVersionId,
     deterministic_verifier_version: MATH_VERIFIER_VERSION,
     boundary_contract_version: verificationProfile?.profile_version ?? null,
     feedback_preview: feedbackPreview,
@@ -1682,7 +1674,7 @@ Deno.serve(async (req) => {
         predictionOutcome,
         routedModelId,
         promptVersion,
-        rubricVersionId,
+        rubricVersionId: effectiveRubricVersionId,
         gradingRoute: routing,
         verificationProfile,
         verificationProfileSummary,
