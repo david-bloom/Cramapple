@@ -20,6 +20,14 @@ export function deriveCellEvent(input: {
   pointsAvailable: number;
 }): CellEvent {
   if (input.finalStatus !== "graded") return "content_uncertain";
+  // A non-finite score (NaN/Infinity from a malformed payload) is not a
+  // trustworthy signal — never let it fall through to a false "incorrect"/miss.
+  if (
+    !Number.isFinite(input.pointsEarned) ||
+    !Number.isFinite(input.pointsAvailable)
+  ) {
+    return "content_uncertain";
+  }
   if (!(input.pointsAvailable > 0)) return "content_uncertain";
   return input.pointsEarned >= input.pointsAvailable ? "correct" : "incorrect";
 }
@@ -76,7 +84,14 @@ export async function paramsHash(
   if (params !== undefined && params !== null) {
     return await sha256Hex(canonicalJson(params));
   }
-  if (seed !== undefined && seed !== null) return `seed:${String(seed)}`;
+  if (seed !== undefined && seed !== null) {
+    // Generators emit an int seed today, but guard against a non-primitive seed
+    // collapsing to "seed:[object Object]" (collision-prone): hash it canonically.
+    const seedKey = typeof seed === "object"
+      ? canonicalJson(seed)
+      : String(seed);
+    return `seed:${seedKey}`;
+  }
   return null;
 }
 

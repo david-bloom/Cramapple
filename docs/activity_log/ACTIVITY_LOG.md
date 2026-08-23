@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Course Mode Live Write Hook (PR #101) Passed an Independent Fable QA Round and Had All 14 Findings Remediated in the Same PR — 2 BLOCKER (Transient-Read Demotion; Re-Grade Evidence Double-Count), 3 MAJOR (No-Provenance Over-Promotion; Unauditable Graded Path; Dropped-Criteria Over-Grade), Plus 9 MINOR/NIT; One Additive `last_attempt_id` Migration Added, Deno Suite 62→101 Green — 2026-08-23
 - Course Mode Live Write Hook Built and Opened as Draft PR #101: the F4 `data_driven` Real-Grading Branch (Abstain Still Holds for Shadow Review) and `persistCellState` Now Connect a Graded Attempt to a Cell-State Write — Code-Only, No Migration, Full Course-Mode Deno Suite 62/62 Green, Pending Review/Merge + Dev Deploy + Fable QA; Zero Learner-Visible Effect Until Release (D8/CM-D19) — 2026-08-23
 - AP Precalculus Unit 3 (Trigonometric and Polar Functions) Fully Repaired: 15 Briefs AND 15 Explainers Replaced — a Second Independent Template-Filler Pattern in the Briefs Themselves, Same as AP Calculus BC's Unit 3 Earlier This Session — 2026-08-22
 - AP Precalculus Unit 1 (Polynomial and Rational Functions) Explainer Debt Repaired: All 14 Grandfathered Template Explainers Replaced — 2026-08-22
@@ -154,6 +155,31 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## Course Mode Live Write Hook (PR #101) — Fable QA Round-1 and Full 14-Finding Remediation — 2026-08-23
+
+**Task:** Unassigned (Course Mode backend QA; Owner directed "kick off the Fable QA. Remediate any findings, including non-blocking findings").
+**Status:** Independent Fable-model adversarial QA run against the PR #101 diff; verdict **GO-WITH-CONDITIONS, 14 findings** (2 BLOCKER, 3 MAJOR, 9 MINOR/NIT). **All 14 remediated in the same PR.** Full course-mode Deno suite **101/101 green** (was 62). Nothing merged/deployed/applied; Prod/Dev untouched (code + one unapplied migration).
+
+The QA agent traced the full diff, read the governing invariants/schemas/engine contracts, ran the suite and typechecks, and wrote adversarial probes against the pure functions. It also confirmed a set of properties CORRECT (mutually-exclusive call sites / no double-fire per request; abstain never writes proficiency; INV-2 no cross-cell pooling; same-session inputs correct; the graded payload is finalize-compatible).
+
+**BLOCKERs (fixed):**
+- **F1 — transient read demotion.** `persistCellState` discarded the `error` on every query; a momentary DB error on the `student_cell_state` read looked like "first attempt ever" and the write then overwrote a real `confirmed`/high-evidence row from `initialCellState()`. Fix: every read now destructures and checks `error` and SKIPS the write (best-effort must mean "skip", never "write from fabricated inputs").
+- **F2 — re-grade evidence double-count.** The idempotency short-circuit only dedupes per `request_id`; a re-grade of the same attempt under a new key (client retry, admin re-run, repair flow) re-fired the hook and added evidence again. Fix: a new nullable `last_attempt_id` column (`supabase/migrations/20260823150000_course_mode_live_write_hook_cell_state_last_attempt.sql`); the hook skips when the row's `last_attempt_id` already equals this attempt — at-most-once per (cell, attempt), first grade wins.
+
+**MAJORs (fixed):**
+- **F3 — no-provenance over-promotion.** Items lacking generator provenance (all authored items) treated every attempt as a changed surface → weight 1.0 even on a byte-identical repeat → `unseen → independent → confirmed` in two repeats. Fix: fall back to the `content_item_version_id` as the (template, params) identity, so a same-version repeat scores 0.35 and never promotes past `supported`.
+- **F4 — unauditable graded path.** The graded `data_driven` result persisted no verdict record and stamped the *math* verifier version. Fix: write the full deterministic verdicts to `grading_results.shadow_result` and stamp `deterministic_verifier_version = data-driven-deterministic-1.0` for the route.
+- **F5 — dropped-criteria over-grade.** A criterion in `frq_criteria` with no persisted check silently vanished (graded on a shrunken denominator = full marks on partial verification). Fix: any uncovered criterion → hold for shadow review, matching the branch's "never guess" posture.
+
+**MINOR/NIT (fixed):** F6 uncertain attempts no longer shift the changed-surface reference; F7 cross-subject writes guarded by a normalized subject-key compare (skip+log); F8 the cell write is optimistic-concurrent (read `updated_at` → guarded update/insert → one retry) against lost updates; F10 verdict `reason` strings (which embed the expected value/tolerance) redacted from student-facing payloads, full detail only server-side in `shadow_result`; F11 added tests (`buildDeterministicGradedPayload`; same-surface-never-confirmed; partial-provenance; non-finite scores) and wired `grading-feedback_test.ts` + `grading-partial-credit_test.ts` into CI; F12 `submitted_at` used as the event time rather than grading wall-clock; F14 nits (log a failed checks read, robust non-primitive seed hash, `subject_id` passthrough from the existing exam_packs fetch).
+
+**Design decisions recorded (COURSE_MODE_STATUS_AND_HANDOFF §2):** partial credit on a multi-point item is a conservative full **miss** (revisit before multi-point tagged items ship — 601 prod criteria are multi-point); mastery is **at-most-once per (attempt, cell)** (a later re-grade does not reconcile the tier); the F8 optimistic guard is adequate at pilot volume but a server-side atomic transition is the scale fix; a crash between the grade commit and the hook drops that one cell write (at-most-once best-effort).
+
+**Next Owner:** David Bloom
+**Next Required Action:** Review PR #101 + a re-QA of the remediation. Before the Dev edge-function deploy, **apply the `last_attempt_id` migration to Dev first** (the edge function reads/writes that column). D8 release bars remain the student-visibility gate.
 
 ---
 

@@ -385,3 +385,97 @@ Deno.test("signals -> engine: an uncertain grade records no evidence and no tier
     "uncertain grade adds no evidence",
   );
 });
+
+// --- Fable QA remediation coverage (PR #101) -------------------------------
+
+Deno.test("deriveCellEvent: non-finite or negative scores never fabricate a correct/miss", () => {
+  // NaN/Infinity -> content_uncertain (F11 hardening), not a silent "incorrect".
+  assert(
+    deriveCellEvent({
+      finalStatus: "graded",
+      pointsEarned: NaN,
+      pointsAvailable: 1,
+    }) ===
+      "content_uncertain",
+    "NaN earned -> content_uncertain",
+  );
+  assert(
+    deriveCellEvent({
+      finalStatus: "graded",
+      pointsEarned: 1,
+      pointsAvailable: NaN,
+    }) ===
+      "content_uncertain",
+    "NaN available -> content_uncertain",
+  );
+  assert(
+    deriveCellEvent({
+      finalStatus: "graded",
+      pointsEarned: Infinity,
+      pointsAvailable: 1,
+    }) ===
+      "content_uncertain",
+    "Infinity earned -> content_uncertain",
+  );
+  // A negative earned is a (real) miss; over-full (earned > available) is correct.
+  assert(
+    deriveCellEvent({
+      finalStatus: "graded",
+      pointsEarned: -1,
+      pointsAvailable: 2,
+    }) ===
+      "incorrect",
+    "negative earned -> incorrect",
+  );
+  assert(
+    deriveCellEvent({
+      finalStatus: "graded",
+      pointsEarned: 2,
+      pointsAvailable: 1,
+    }) ===
+      "correct",
+    "earned above available -> correct",
+  );
+});
+
+Deno.test("deriveChangedSurface: template known but params unknown counts as changed (partial provenance)", () => {
+  // The pure contract: only a positive match on BOTH ids is "not changed".
+  assert(
+    deriveChangedSurface(
+      { templateId: "T", paramsHash: "p" },
+      { templateId: "T", paramsHash: null },
+    ) === true,
+    "same template, unknown current params -> changed (never the identical item)",
+  );
+});
+
+Deno.test("signals -> engine: a SAME-surface repeat never reaches `independent`/`confirmed` (F3)", () => {
+  // The exact property Findings 3 & 6 break: repeating the byte-identical item
+  // (changedSurface=false -> weight 0.35) caps the cell at `supported`, forever.
+  let state = initialCellState();
+  let t = new Date("2026-03-01T09:00:00Z");
+  for (let i = 0; i < 5; i++) {
+    const r = applyAttempt(
+      state,
+      deriveCellEvent({
+        finalStatus: "graded",
+        pointsEarned: 1,
+        pointsAvailable: 1,
+      }),
+      {
+        assisted: false,
+        uncertain: false,
+        changedSurface: false,
+        sameSession: false,
+      },
+      t,
+    );
+    assert(r.weight === 0.35, "same-surface success = weight 0.35");
+    assert(
+      r.state.tier === "supported",
+      "a same-item repeat never advances past supported, however many times",
+    );
+    state = r.state;
+    t = new Date(t.getTime() + 5 * 86_400_000);
+  }
+});

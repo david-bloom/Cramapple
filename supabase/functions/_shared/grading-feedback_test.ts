@@ -12,7 +12,12 @@
 // asserted below; loosening it until the second group passes would defeat the
 // purpose of having it.
 
-import { evidenceIsGrounded, overrideCriteriaAsUnresolved } from "./grading-feedback.ts";
+import {
+  buildDeterministicGradedPayload,
+  evidenceIsGrounded,
+  type FeedbackCriterionRow,
+  overrideCriteriaAsUnresolved,
+} from "./grading-feedback.ts";
 
 const RESPONSE = [
   "(a) The four corners are the ones given: (V0, P0), (V0, 3P0), (2V0, 3P0).",
@@ -171,4 +176,82 @@ Deno.test("fragments must not overlap when matched in order", () => {
   if (evidenceIsGrounded("alpha beta gamma ... alpha beta gamma", text)) {
     throw new Error("the same span was reused to satisfy two fragments");
   }
+});
+
+// --- buildDeterministicGradedPayload (Course Mode F4 live grading, PR #101) ---
+
+function mkCriterion(
+  key: string,
+  points: number,
+  minimumFix: string | null = "fix it",
+): FeedbackCriterionRow {
+  return {
+    criterion_key: key,
+    learner_facing_text: key,
+    points_possible: points,
+    evidence_requirements: null,
+    minimum_fix: minimumFix,
+    accepted_variants: [],
+  };
+}
+
+function assert(cond: boolean, msg: string) {
+  if (!cond) throw new Error(msg);
+}
+
+Deno.test("buildDeterministicGradedPayload: multi-point aggregation + gap selection", () => {
+  const payload = buildDeterministicGradedPayload({
+    criteria: [mkCriterion("a", 2), mkCriterion("b", 3, "recompute b")],
+    verdictByKey: new Map([["a", "pass"], ["b", "fail"]]),
+    summary: "Not quite.",
+  });
+  assert(payload.status === "graded", "status graded");
+  assert(payload.points_available === 5, "available = 2 + 3");
+  assert(payload.points_earned === 2, "earned = passing 2-pt criterion only");
+  assert(payload.confidence === "high", "deterministic grade is high-confidence");
+  assert(payload.criteria[0].status === "earned", "a earned");
+  assert(payload.criteria[1].status === "not_yet_earned", "b not earned");
+  assert(
+    payload.highest_value_gap?.criterion_key === "b",
+    "the failing criterion is the gap",
+  );
+  assert(
+    payload.highest_value_gap?.minimum_fix === "recompute b",
+    "gap carries the source minimum_fix",
+  );
+});
+
+Deno.test("buildDeterministicGradedPayload: all pass -> full marks, no gap, no repair hint", () => {
+  const payload = buildDeterministicGradedPayload({
+    criteria: [mkCriterion("a", 1), mkCriterion("b", 1)],
+    verdictByKey: new Map([["a", "pass"], ["b", "pass"]]),
+    summary: "Correct.",
+  });
+  assert(payload.points_earned === 2 && payload.points_available === 2, "full marks");
+  assert(payload.highest_value_gap === null, "no gap when all earned");
+  assert(payload.repair_hint === null, "no repair hint when all earned");
+});
+
+Deno.test("buildDeterministicGradedPayload: an empty/absent verdict map fails every criterion (never silent-passes)", () => {
+  const payload = buildDeterministicGradedPayload({
+    criteria: [mkCriterion("a", 1), mkCriterion("b", 2)],
+    verdictByKey: new Map(),
+    summary: "held",
+  });
+  assert(payload.points_earned === 0, "no verdict -> no credit");
+  assert(
+    payload.criteria.every((c) => c.status === "not_yet_earned"),
+    "a missing verdict is a not-yet-earned, never earned by default",
+  );
+});
+
+Deno.test("buildDeterministicGradedPayload: a verdict key not among the criteria is ignored", () => {
+  const payload = buildDeterministicGradedPayload({
+    criteria: [mkCriterion("a", 1)],
+    verdictByKey: new Map([["a", "pass"], ["ghost", "pass"]]),
+    summary: "Correct.",
+  });
+  assert(payload.criteria.length === 1, "only declared criteria drive the output");
+  assert(payload.points_available === 1, "the phantom key adds no points");
+  assert(payload.points_earned === 1, "the declared criterion still scores");
 });
