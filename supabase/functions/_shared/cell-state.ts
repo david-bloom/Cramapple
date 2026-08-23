@@ -214,10 +214,12 @@ export function nextCellState(prev: CellState, input: RuleInput): CellState {
     return next;
   }
 
-  // weight 0.35 (same/near-identical item) OR weight 0 (assisted/uncertain):
-  // a SUPPORTED success -- provisional (INV-5). Advances up to `supported` only;
-  // never reaches independent (which needs an unassisted, changed-surface retry).
-  // Schedules a short cold re-test to attempt advancement.
+  // weight 0.35 (same/near-identical item) OR weight 0 (assisted): a SUPPORTED
+  // success -- provisional (INV-5). Advances up to `supported` only; never reaches
+  // independent (which needs an unassisted, changed-surface retry). Schedules a
+  // short cold re-test. NOTE: uncertain grades never reach here -- applyAttempt
+  // routes them to the content_uncertain event (no evidence); only a caller using
+  // nextCellState directly with a raw weight-0 'correct' would land here.
   next.tier = atLeast(prev.tier, "supported");
   // an assisted/near-identical success does not advance a cell already past
   // `supported`; keep the higher tier, but still schedule the confirm re-test.
