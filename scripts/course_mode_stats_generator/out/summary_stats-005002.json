@@ -1,0 +1,117 @@
+{
+  "schema_version": "course-mode-generated-0.1",
+  "package_id": "summary_stats-005002",
+  "content_key": "apstat-summary_stats-005002",
+  "item_type": "mcq",
+  "difficulty": "Easy",
+  "exam_pack_ref": {
+    "exam_code": "ap_statistics",
+    "cycle": "2026-27"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "unit-1"
+    },
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "topic-1.7"
+    },
+    {
+      "scheme_key": "ap-statistics-skills",
+      "node_key": "skill-3.B",
+      "practice": 3
+    }
+  ],
+  "cells": [
+    {
+      "topic": "1.7",
+      "skill": "3.B"
+    }
+  ],
+  "prompt": "Consider the data set: 10, 14, 23, 34, 42, 44, 49, 58, 67, 82, 86. Calculate the sample mean.",
+  "numeric_form": {
+    "answer_desc": "mean = 46.2727",
+    "deterministic_checks": [
+      {
+        "kind": "numeric",
+        "value": 46.2727,
+        "tol": 0.001
+      }
+    ]
+  },
+  "mcq_form": {
+    "options": [
+      {
+        "text": "46.27",
+        "correct": true,
+        "misconception": null
+      },
+      {
+        "text": "44.00",
+        "correct": false,
+        "misconception": "reported_median_not_mean"
+      },
+      {
+        "text": "24.31",
+        "correct": false,
+        "misconception": "reported_pop_sd"
+      },
+      {
+        "text": "50.90",
+        "correct": false,
+        "misconception": "divided_by_n_minus_1"
+      }
+    ]
+  },
+  "worked_solution": "mean = sum/n = 509/11 = 46.2727.",
+  "parts": [
+    {
+      "part_key": "part-a",
+      "prompt": "Consider the data set: 10, 14, 23, 34, 42, 44, 49, 58, 67, 82, 86. Calculate the sample mean.",
+      "response_modalities": [
+        "mcq",
+        "numeric"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "mean = 46.2727",
+          "required_evidence": "mean = sum/n = 509/11 = 46.2727.",
+          "deterministic_checks": [
+            {
+              "kind": "numeric",
+              "value": 46.2727,
+              "tol": 0.001
+            }
+          ],
+          "accepted_variants": []
+        }
+      ]
+    }
+  ],
+  "provenance": {
+    "generator": "course_mode_stats_generator/generator.py",
+    "template_id": "summary_stats",
+    "params": {
+      "data": [
+        10,
+        14,
+        23,
+        34,
+        42,
+        44,
+        49,
+        58,
+        67,
+        82,
+        86
+      ]
+    },
+    "seed": 5002,
+    "release_status": "unreleased_generated_pending_review",
+    "note": "Synthetic; not official CB content. Requires CM-D19 template-release + review."
+  }
+}

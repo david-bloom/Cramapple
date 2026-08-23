@@ -1,0 +1,107 @@
+{
+  "schema_version": "course-mode-generated-0.1",
+  "package_id": "normal_prob-005000",
+  "content_key": "apstat-normal_prob-005000",
+  "item_type": "mcq",
+  "difficulty": "Easy",
+  "exam_pack_ref": {
+    "exam_code": "ap_statistics",
+    "cycle": "2026-27"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "unit-2"
+    },
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "topic-2.11"
+    },
+    {
+      "scheme_key": "ap-statistics-skills",
+      "node_key": "skill-3.C",
+      "practice": 3
+    }
+  ],
+  "cells": [
+    {
+      "topic": "2.11",
+      "skill": "3.C"
+    }
+  ],
+  "prompt": "A quantity is Normally distributed with mean 100 and standard deviation 15. Find the probability that a randomly chosen value is less than 115.",
+  "numeric_form": {
+    "answer_desc": "P = 0.8413",
+    "deterministic_checks": [
+      {
+        "kind": "numeric",
+        "value": 0.8413,
+        "tol": 0.005
+      }
+    ]
+  },
+  "mcq_form": {
+    "options": [
+      {
+        "text": "0.8413",
+        "correct": true,
+        "misconception": null
+      },
+      {
+        "text": "0.1587",
+        "correct": false,
+        "misconception": "used_upper_tail"
+      },
+      {
+        "text": "0.3413",
+        "correct": false,
+        "misconception": "reported_area_mean_to_z"
+      },
+      {
+        "text": "0.3173",
+        "correct": false,
+        "misconception": "reported_two_sided_area"
+      }
+    ]
+  },
+  "worked_solution": "z = (115 - 100)/15 = 1.0000. P(Z < 1.0000) = 0.8413.",
+  "parts": [
+    {
+      "part_key": "part-a",
+      "prompt": "A quantity is Normally distributed with mean 100 and standard deviation 15. Find the probability that a randomly chosen value is less than 115.",
+      "response_modalities": [
+        "mcq",
+        "numeric"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "P = 0.8413",
+          "required_evidence": "z = (115 - 100)/15 = 1.0000. P(Z < 1.0000) = 0.8413.",
+          "deterministic_checks": [
+            {
+              "kind": "numeric",
+              "value": 0.8413,
+              "tol": 0.005
+            }
+          ],
+          "accepted_variants": []
+        }
+      ]
+    }
+  ],
+  "provenance": {
+    "generator": "course_mode_stats_generator/generator.py",
+    "template_id": "normal_prob",
+    "params": {
+      "mu": 100,
+      "sigma": 15,
+      "x": 115
+    },
+    "seed": 5000,
+    "release_status": "unreleased_generated_pending_review",
+    "note": "Synthetic; not official CB content. Requires CM-D19 template-release + review."
+  }
+}

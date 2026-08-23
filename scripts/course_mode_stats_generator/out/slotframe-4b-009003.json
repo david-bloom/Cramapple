@@ -1,0 +1,95 @@
+{
+  "schema_version": "course-mode-generated-0.1",
+  "package_id": "slotframe-4b-009003",
+  "content_key": "apstat-4b-compare-009003",
+  "item_type": "mcq",
+  "difficulty": "Medium",
+  "exam_pack_ref": {
+    "exam_code": "ap_statistics",
+    "cycle": "2026-27"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "unit-1"
+    },
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "topic-1.9"
+    },
+    {
+      "scheme_key": "ap-statistics-skills",
+      "node_key": "skill-4.B",
+      "practice": 4
+    }
+  ],
+  "cells": [
+    {
+      "topic": "1.9",
+      "skill": "4.B"
+    }
+  ],
+  "prompt": "In a survey of eating habits, self-described high-fiber eaters had a mean daily satiety score of 58 points (SD about 12) and self-described low-fiber eaters had a mean of 55 points (SD about 12). A student claims: \"self-described high-fiber eaters always have a higher daily satiety score than self-described low-fiber eaters.\" Which statement best justifies whether the data support this claim?",
+  "mcq_form": {
+    "options": [
+      {
+        "text": "On average self-described high-fiber eaters had a higher daily satiety score (mean 58 vs 55), so the data support a typical difference; but because both SDs are about 12, the distributions overlap substantially, so the data do not support a claim that self-described high-fiber eaters are always higher.",
+        "correct": true,
+        "misconception": null
+      },
+      {
+        "text": "Since the mean for self-described high-fiber eaters (58) is greater than for self-described low-fiber eaters (55), every member of self-described high-fiber eaters must have a higher daily satiety score than every member of self-described low-fiber eaters.",
+        "correct": false,
+        "misconception": "ignores_variability_claims_every_value"
+      },
+      {
+        "text": "Because self-described high-fiber eaters had a higher mean daily satiety score, being in self-described high-fiber eaters causes a higher daily satiety score.",
+        "correct": false,
+        "misconception": "association_implies_causation"
+      },
+      {
+        "text": "The claim is correct because self-described high-fiber eaters clearly did better on daily satiety score.",
+        "correct": false,
+        "misconception": "restates_claim_without_evidence"
+      }
+    ]
+  },
+  "parts": [
+    {
+      "part_key": "part-a",
+      "prompt": "In a survey of eating habits, self-described high-fiber eaters had a mean daily satiety score of 58 points (SD about 12) and self-described low-fiber eaters had a mean of 55 points (SD about 12). A student claims: \"self-described high-fiber eaters always have a higher daily satiety score than self-described low-fiber eaters.\" Which statement best justifies whether the data support this claim?",
+      "response_modalities": [
+        "mcq"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "Selects the justification that affirms the on-average difference while rejecting the over-strong 'always' claim due to overlap.",
+          "required_evidence": "Correct justification type: affirms_average_rejects_overstrong_via_overlap",
+          "deterministic_checks": [
+            {
+              "kind": "mcq_key",
+              "correct_type": "affirms_average_rejects_overstrong_via_overlap"
+            }
+          ],
+          "accepted_variants": []
+        }
+      ]
+    }
+  ],
+  "provenance": {
+    "generator": "course_mode_stats_generator/slot_frames.py",
+    "frame_id": "FB-4B-COMPARE-01",
+    "params": {
+      "scenario": "a survey of eating habits",
+      "mA": 58,
+      "mB": 55,
+      "sd": 12
+    },
+    "seed": 9003,
+    "release_status": "unreleased_generated_pending_review",
+    "note": "Authored conceptual frame; correctness from authored justification taxonomy."
+  }
+}

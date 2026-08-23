@@ -1,0 +1,108 @@
+{
+  "schema_version": "course-mode-generated-0.1",
+  "package_id": "two_prop_ztest-005001",
+  "content_key": "apstat-two_prop_ztest-005001",
+  "item_type": "mcq",
+  "difficulty": "Hard",
+  "exam_pack_ref": {
+    "exam_code": "ap_statistics",
+    "cycle": "2026-27"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "unit-3"
+    },
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "topic-3.13"
+    },
+    {
+      "scheme_key": "ap-statistics-skills",
+      "node_key": "skill-3.E",
+      "practice": 3
+    }
+  ],
+  "cells": [
+    {
+      "topic": "3.13",
+      "skill": "3.E"
+    }
+  ],
+  "prompt": "In Airline X, 36 of 150 passengers checked a bag. In Airline Y, 24 of 80 passengers checked a bag. Calculate the pooled two-proportion z test statistic for H0: p1 = p2.",
+  "numeric_form": {
+    "answer_desc": "z = -0.9870",
+    "deterministic_checks": [
+      {
+        "kind": "numeric",
+        "value": -0.987,
+        "tol": 0.01
+      }
+    ]
+  },
+  "mcq_form": {
+    "options": [
+      {
+        "text": "z = -0.99",
+        "correct": true,
+        "misconception": null
+      },
+      {
+        "text": "z = 0.99",
+        "correct": false,
+        "misconception": "reversed_group_order_sign"
+      },
+      {
+        "text": "z = -0.85",
+        "correct": false,
+        "misconception": "forgot_1_minus_p_in_se"
+      },
+      {
+        "text": "z = -2.07",
+        "correct": false,
+        "misconception": "wrong_se_combined_n"
+      }
+    ]
+  },
+  "worked_solution": "p1 = 0.2400, p2 = 0.3000, pooled p = (36+24)/(150+80) = 0.2609. SE = sqrt(p(1-p)(1/n1+1/n2)) = 0.0608. z = (p1-p2)/SE = -0.9870.",
+  "parts": [
+    {
+      "part_key": "part-a",
+      "prompt": "In Airline X, 36 of 150 passengers checked a bag. In Airline Y, 24 of 80 passengers checked a bag. Calculate the pooled two-proportion z test statistic for H0: p1 = p2.",
+      "response_modalities": [
+        "mcq",
+        "numeric"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "z = -0.9870",
+          "required_evidence": "p1 = 0.2400, p2 = 0.3000, pooled p = (36+24)/(150+80) = 0.2609. SE = sqrt(p(1-p)(1/n1+1/n2)) = 0.0608. z = (p1-p2)/SE = -0.9870.",
+          "deterministic_checks": [
+            {
+              "kind": "numeric",
+              "value": -0.987,
+              "tol": 0.01
+            }
+          ],
+          "accepted_variants": []
+        }
+      ]
+    }
+  ],
+  "provenance": {
+    "generator": "course_mode_stats_generator/generator.py",
+    "template_id": "two_prop_ztest",
+    "params": {
+      "x1": 36,
+      "n1": 150,
+      "x2": 24,
+      "n2": 80
+    },
+    "seed": 5001,
+    "release_status": "unreleased_generated_pending_review",
+    "note": "Synthetic; not official CB content. Requires CM-D19 template-release + review."
+  }
+}

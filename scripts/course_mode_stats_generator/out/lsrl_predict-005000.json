@@ -1,0 +1,107 @@
+{
+  "schema_version": "course-mode-generated-0.1",
+  "package_id": "lsrl_predict-005000",
+  "content_key": "apstat-lsrl_predict-005000",
+  "item_type": "mcq",
+  "difficulty": "Easy",
+  "exam_pack_ref": {
+    "exam_code": "ap_statistics",
+    "cycle": "2026-27"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "unit-5"
+    },
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "topic-5.3"
+    },
+    {
+      "scheme_key": "ap-statistics-skills",
+      "node_key": "skill-3.B",
+      "practice": 3
+    }
+  ],
+  "cells": [
+    {
+      "topic": "5.3",
+      "skill": "3.B"
+    }
+  ],
+  "prompt": "A dealership analyst fits a least-squares line predicting price ($1000s) from age of a used car (years). The line is y-hat = 60.464 - 1.618x. Predict price ($1000s) when age of a used car (years) = 15.",
+  "numeric_form": {
+    "answer_desc": "y-hat = 36.188",
+    "deterministic_checks": [
+      {
+        "kind": "numeric",
+        "value": 36.188,
+        "tol": 0.05
+      }
+    ]
+  },
+  "mcq_form": {
+    "options": [
+      {
+        "text": "36.19",
+        "correct": true,
+        "misconception": null
+      },
+      {
+        "text": "58.85",
+        "correct": false,
+        "misconception": "plugged_in_1_not_x"
+      },
+      {
+        "text": "905.34",
+        "correct": false,
+        "misconception": "swapped_slope_intercept"
+      },
+      {
+        "text": "-24.28",
+        "correct": false,
+        "misconception": "dropped_intercept"
+      }
+    ]
+  },
+  "worked_solution": "y-hat = 60.464 - 1.618(15) = 36.188.",
+  "parts": [
+    {
+      "part_key": "part-a",
+      "prompt": "A dealership analyst fits a least-squares line predicting price ($1000s) from age of a used car (years). The line is y-hat = 60.464 - 1.618x. Predict price ($1000s) when age of a used car (years) = 15.",
+      "response_modalities": [
+        "mcq",
+        "numeric"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "y-hat = 36.188",
+          "required_evidence": "y-hat = 60.464 - 1.618(15) = 36.188.",
+          "deterministic_checks": [
+            {
+              "kind": "numeric",
+              "value": 36.188,
+              "tol": 0.05
+            }
+          ],
+          "accepted_variants": []
+        }
+      ]
+    }
+  ],
+  "provenance": {
+    "generator": "course_mode_stats_generator/generator.py",
+    "template_id": "lsrl_predict",
+    "params": {
+      "slope": -1.618398876404494,
+      "intercept": 60.463764044943815,
+      "x_new": 15
+    },
+    "seed": 5000,
+    "release_status": "unreleased_generated_pending_review",
+    "note": "Synthetic; not official CB content. Requires CM-D19 template-release + review."
+  }
+}

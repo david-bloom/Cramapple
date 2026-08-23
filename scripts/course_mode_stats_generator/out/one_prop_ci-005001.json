@@ -1,0 +1,109 @@
+{
+  "schema_version": "course-mode-generated-0.1",
+  "package_id": "one_prop_ci-005001",
+  "content_key": "apstat-one_prop_ci-005001",
+  "item_type": "mcq",
+  "difficulty": "Medium",
+  "exam_pack_ref": {
+    "exam_code": "ap_statistics",
+    "cycle": "2026-27"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "unit-3"
+    },
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "topic-3.3"
+    },
+    {
+      "scheme_key": "ap-statistics-skills",
+      "node_key": "skill-3.E",
+      "practice": 3
+    }
+  ],
+  "cells": [
+    {
+      "topic": "3.3",
+      "skill": "3.E"
+    }
+  ],
+  "prompt": "A marketing team takes a random sample of 250 customers and finds that 145 of them opened the email. Construct a 95% confidence interval for the true proportion of customers that opened the email.",
+  "numeric_form": {
+    "answer_desc": "(0.5188, 0.6412)",
+    "deterministic_checks": [
+      {
+        "kind": "interval",
+        "low": 0.5188,
+        "high": 0.6412,
+        "tol": 0.001
+      }
+    ]
+  },
+  "mcq_form": {
+    "options": [
+      {
+        "text": "(0.519, 0.641)",
+        "correct": true,
+        "misconception": null
+      },
+      {
+        "text": "(0.549, 0.611)",
+        "correct": false,
+        "misconception": "forgot_z_star_used_se_only"
+      },
+      {
+        "text": "(0.578, 0.582)",
+        "correct": false,
+        "misconception": "forgot_sqrt_in_se"
+      },
+      {
+        "text": "(0.580, 0.641)",
+        "correct": false,
+        "misconception": "one_sided_only_added_me"
+      }
+    ]
+  },
+  "worked_solution": "p-hat = 145/250 = 0.5800. Conditions: 145 >= 10 and 105 >= 10. SE = sqrt(p-hat(1-p-hat)/n) = 0.0312. z* = 1.960. ME = z*\u00b7SE = 0.0612. Interval = 0.5800 +/- 0.0612 = (0.5188, 0.6412).",
+  "parts": [
+    {
+      "part_key": "part-a",
+      "prompt": "A marketing team takes a random sample of 250 customers and finds that 145 of them opened the email. Construct a 95% confidence interval for the true proportion of customers that opened the email.",
+      "response_modalities": [
+        "mcq",
+        "numeric"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "(0.5188, 0.6412)",
+          "required_evidence": "p-hat = 145/250 = 0.5800. Conditions: 145 >= 10 and 105 >= 10. SE = sqrt(p-hat(1-p-hat)/n) = 0.0312. z* = 1.960. ME = z*\u00b7SE = 0.0612. Interval = 0.5800 +/- 0.0612 = (0.5188, 0.6412).",
+          "deterministic_checks": [
+            {
+              "kind": "interval",
+              "low": 0.5188,
+              "high": 0.6412,
+              "tol": 0.001
+            }
+          ],
+          "accepted_variants": []
+        }
+      ]
+    }
+  ],
+  "provenance": {
+    "generator": "course_mode_stats_generator/generator.py",
+    "template_id": "one_prop_ci",
+    "params": {
+      "n": 250,
+      "x": 145,
+      "conf": 0.95
+    },
+    "seed": 5001,
+    "release_status": "unreleased_generated_pending_review",
+    "note": "Synthetic; not official CB content. Requires CM-D19 template-release + review."
+  }
+}
