@@ -1294,7 +1294,15 @@ Deno.serve(async (req) => {
     inputTokens = 0;
     outputTokens = 0;
     actualCost = 0;
-  } else if (routing.target === "shadow_review") {
+  } else if (
+    routing.target === "shadow_review" || routing.target === "data_driven"
+  ) {
+    // F4 guard: the data_driven_deterministic strategy has a verifier
+    // (_shared/deterministic-verifier.ts) but it is NOT yet wired to fetch an
+    // item's persisted content_item_checks in this live path. Until it is, HOLD
+    // such items for shadow review rather than letting them fall through to the
+    // LLM grader below (which would violate INV-3/INV-4 for exactly the content
+    // class those invariants protect). Fable QA finding #1.
     const verificationProfileSummary = summarizeVerificationProfile(
       verificationProfile,
     );

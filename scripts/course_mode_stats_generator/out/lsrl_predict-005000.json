@@ -43,9 +43,27 @@
   "mcq_form": {
     "options": [
       {
-        "text": "36.19",
-        "correct": true,
-        "misconception": null
+        "text": "-24.28",
+        "correct": false,
+        "misconception": "dropped_intercept",
+        "misconception_source": {
+          "tag": "dropped_intercept",
+          "label": "Omitted the intercept when predicting (used b*x only)",
+          "evidence": "external_corroborated",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 5 (5.3)",
+              "note": "y-hat = a + bx -- the intercept a is part of every prediction"
+            },
+            {
+              "kind": "khanacademy.org",
+              "url": "https://www.khanacademy.org/math/ap-statistics/bivariate-data-ap/least-squares-regression/v/interpreting-slope-of-regression-line",
+              "note": "prediction uses the full line a + bx, not the slope term alone"
+            }
+          ]
+        }
       },
       {
         "text": "58.85",
@@ -99,27 +117,9 @@
         }
       },
       {
-        "text": "-24.28",
-        "correct": false,
-        "misconception": "dropped_intercept",
-        "misconception_source": {
-          "tag": "dropped_intercept",
-          "label": "Omitted the intercept when predicting (used b*x only)",
-          "evidence": "external_corroborated",
-          "ek_codes": [],
-          "sources": [
-            {
-              "kind": "fact_pack",
-              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 5 (5.3)",
-              "note": "y-hat = a + bx -- the intercept a is part of every prediction"
-            },
-            {
-              "kind": "khanacademy.org",
-              "url": "https://www.khanacademy.org/math/ap-statistics/bivariate-data-ap/least-squares-regression/v/interpreting-slope-of-regression-line",
-              "note": "prediction uses the full line a + bx, not the slope term alone"
-            }
-          ]
-        }
+        "text": "36.19",
+        "correct": true,
+        "misconception": null
       }
     ]
   },

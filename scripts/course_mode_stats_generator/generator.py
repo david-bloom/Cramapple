@@ -28,6 +28,7 @@ from __future__ import annotations
 
 import json
 import random
+import re
 from pathlib import Path
 from typing import Callable, Dict, List, Optional, Tuple
 
@@ -55,6 +56,27 @@ def _rid(prefix: str, seed: int) -> str:
 def _fmt_line(intercept: float, slope: float) -> str:
     sign = "+" if slope >= 0 else "-"
     return f"y-hat = {intercept:.3f} {sign} {abs(slope):.3f}x"
+
+
+# Number extraction MUST match the runtime verifier (_shared/deterministic-verifier.ts):
+# integers, decimals, and leading-decimal forms. Used to assert the correct MCQ
+# option's DISPLAYED text actually passes the item's own deterministic checks
+# (Fable QA #2: a 2dp key display was failing a 0.001-tol check).
+_NUM_RE = re.compile(r"-?(?:\d+(?:\.\d+)?|\.\d+)")
+
+
+def _display_passes_checks(display_text: str, det_checks: List[Dict]) -> bool:
+    nums = [float(m) for m in _NUM_RE.findall(display_text)]
+    for c in det_checks:
+        kind = c.get("kind")
+        if kind == "numeric":
+            if len(nums) != 1 or abs(nums[0] - c["value"]) > c["tol"]:
+                return False
+        elif kind == "interval":
+            if len(nums) != 2 or abs(nums[0] - c["low"]) > c["tol"] or abs(nums[1] - c["high"]) > c["tol"]:
+                return False
+        # other kinds (e.g. mcq_key) are not graded by the data-driven verifier
+    return True
 
 
 # ===========================================================================
@@ -218,10 +240,10 @@ def gen_summary_stats(rng: random.Random, seed: int) -> Dict:
     n = rng.choice([7, 9, 11])
     data = sorted(rng.randint(10, 90) for _ in range(n))
     m = S.sample_mean(data)
-    tol = 0.001
+    tol = 0.01  # accommodates the 2dp key display (Fable QA #2: 0.001 rejected "51.14")
     prompt = (f"Consider the data set: {', '.join(str(d) for d in data)}. Calculate the sample mean.")
     worked = f"mean = sum/n = {sum(data)}/{n} = {m:.4f}."
-    _, _, med, _, _ = S.five_number_summary(data)
+    mn, q1, med, q3, mx = S.five_number_summary(data)
     distractors = [
         (f"{med:.2f}", "reported_median_not_mean", med),
         (f"{S.population_sd(data):.2f}", "reported_pop_sd", S.population_sd(data)),
@@ -231,7 +253,7 @@ def gen_summary_stats(rng: random.Random, seed: int) -> Dict:
     ]
     checks = [
         ("mean_correct", abs(m - sum(data) / n) < 1e-9),
-        ("five_num_ordered", True),
+        ("five_num_ordered", mn <= q1 <= med <= q3 <= mx),
     ]
     return _package("summary_stats", seed, "1.7", ["3.B"], "Easy", prompt,
                     f"mean = {m:.4f}", worked,
@@ -274,7 +296,12 @@ def _package(proc, seed, topic, skills, difficulty, prompt, answer_desc, worked,
                         "misconception_source": MISC.provenance(tag)})
         if len(options) == 4:
             break
+    # Shuffle so the correct option is not always first (Fable QA #3). Seed with
+    # proc+seed (not seed alone) so the correct-answer letter is not identical
+    # across all procedures for a shared seed (re-QA finding); still deterministic.
+    random.Random(f"{proc}-{seed}").shuffle(options)
     checks = list(checks) + [
+        ("correct_option_passes_own_checks", _display_passes_checks(mcq_correct, det_checks)),
         ("mcq_option_texts_unique", len({o["text"] for o in options}) == len(options)),
         ("mcq_exactly_one_correct", sum(1 for o in options if o["correct"]) == 1),
         ("mcq_has_3_distractors", len(options) == 4),
@@ -332,6 +359,18 @@ def _valid(inst: Dict) -> bool:
     return all(ok for _n, ok in inst["_property_checks"])
 
 
+def _correct_positions_vary(per_proc: int = 40) -> bool:
+    """After shuffling (Fable QA #3), the correct option must not sit at a fixed
+    index across a batch. Returns True if >= 2 distinct correct-answer positions
+    appear across the computational procedures."""
+    positions = set()
+    for proc in PROCEDURES:
+        for inst in generate(proc, per_proc):
+            opts = inst["mcq_form"]["options"]
+            positions.add(next(i for i, o in enumerate(opts) if o["correct"]))
+    return len(positions) >= 2
+
+
 def generate(proc: str, count: int, base_seed: int = 1000) -> List[Dict]:
     """Raw generation (may include instances that fail their own checks — used to
     measure the true reject rate)."""
@@ -376,6 +415,7 @@ def property_report(per_proc: int = 80) -> Dict:
         ("lsrl_perfect_line_r1", abs(S.lsrl([1, 2, 3, 4], [3, 5, 7, 9])[2] - 1.0) < 1e-9),
         ("misconception_catalog_selfcheck", not MISC.validate_catalog()),
         ("scenario_catalog_selfcheck", not SCN.validate_scenarios()),
+        ("correct_answer_position_varies", _correct_positions_vary()),
     ]
     report["meta_failures"] = [n for n, ok in meta if not ok]
     report["ok"] = not report["failures"] and not report["meta_failures"]

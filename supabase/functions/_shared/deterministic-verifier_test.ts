@@ -23,6 +23,17 @@ Deno.test("extractNumbers pulls decimals in order, ignoring surrounding text", (
     "negative",
   );
   assert(JSON.stringify(extractNumbers("no numbers")) === "[]", "none");
+  // leading-decimal forms must parse as < 1, not as an integer (Fable QA #4)
+  assert(JSON.stringify(extractNumbers(".8413")) === JSON.stringify([0.8413]), "leading dot");
+  assert(JSON.stringify(extractNumbers("-.85")) === JSON.stringify([-0.85]), "neg leading dot");
+});
+
+Deno.test("leading-decimal probability grades correctly, not mis-scored (Fable QA #4)", () => {
+  const checks = [{ kind: "numeric", value: 0.8413, tol: 0.005 }];
+  assert(gradeAgainstChecks(checks, ".8413").status === "correct", "leading-dot correct");
+  assert(gradeAgainstChecks(checks, ".20").status === "incorrect", "leading-dot wrong value");
+  const negChecks = [{ kind: "numeric", value: -0.85, tol: 0.01 }];
+  assert(gradeAgainstChecks(negChecks, "-.85").status === "correct", "neg leading-dot");
 });
 
 // --- numeric checks ---------------------------------------------------------
