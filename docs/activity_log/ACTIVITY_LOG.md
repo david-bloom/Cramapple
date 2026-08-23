@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Course Mode Generator Coverage Extended (Overnight, No Sign-Off Needed): Two New Computational Procedures Built With the Realistic-Distractor Guardrail — One-Sample t-Test Statistic (cell 4.5×3.E) and One-Sample t Confidence Interval (cell 4.2×3.E), Using a Standard Tabulated t* (No scipy/Special Functions); Cell Coverage 6→8; Full χ² Scaffolding (statlib chi_square, Categorical Contexts, Framing, Catalog) Landed for the Next Procedure; Harness 0 Rejects, 25 Packages Validate — 2026-08-23
 - Course Mode lsrl_predict Distractors Made Realistic Per the Content-Authoring Protocol (David's SME Review Flagged Them): Removed the Off-Scale `swapped_slope_intercept` (a "$905k car"), Added the On-Scale `predicted_intercept_ignored_x` Diagnostic, and Added a Plausibility Guardrail (Distractors Positive + On-Scale; Key Floored to a Realistic Value) in Code + Property Tests; Harness 0/80, Other 4 Templates Spot-Checked Clean; 20 Fixed Instances Presented for SME Re-Review (Awaiting Attestation) — 2026-08-23
 - Course Mode D8 Release Bars Approved (SME 20/0-defects · ≥100 Property Instances/0 Rejects · 0 Verifier Disagreements · 5/Template/Month Spot-Audit) and CM-D19 Template-Release Stamping BUILT + Applied to Dev (migration 20260823160000: bars table + release ledger + fail-closed `cm_d19_release_template`/revoke functions); Fail-Closed Gate Verified (a Sub-Bar Attestation Is Rejected, 0 Items Stamped); Actual Release Still Needs David's Real 20-Instance SME Attestation + Cycle Serving Switches — 2026-08-23
 - Course Mode Dev Launch Path Started (David: Launch Dev-First, Numeric-Entry, Exam Date May 11 2027): the `last_attempt_id` Migration APPLIED to Dev and the `ap_statistics 2026-27` Exam-Pack Version CREATED (Loader's Two `into strict` Resolutions Now Both Pass) — but the `evaluate-attempt` Hook Deploy + Smoke-Test + 184KB Loader Run Are BLOCKED: This Session Has No Supabase CLI / Access Token / psql, and the MCP Deploy Can't Take the 23-File/287KB Function Inline; Needs a Token or a Human to Run Two Commands — 2026-08-23
@@ -160,6 +161,20 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## Course Mode — Generator Coverage: One-Sample t Procedures (Overnight) — 2026-08-23
+
+While awaiting David's SME review of `lsrl_predict`, executed the unblocked Workstream-2 generator coverage (no sign-off needed; produces unreleased drafts only).
+
+- **statlib:** added a standard AP **t\*-table** (df 1–30 × {90, 95, 99}) + `t_star`, `t_statistic`, `one_mean_t_interval`, `chi_square_expected`/`chi_square_stat` — all **verified against known values**. Key design: items ask for the **statistic / interval** (pure arithmetic + tabulated t\*), never a tail p-value, so **no scipy / special-function dependency** is introduced (the env is stdlib-only; scipy was approved but avoided as unnecessary).
+- **New procedures (both with the realistic-distractor guardrail from the lsrl fix):**
+  - `t_test_mean` → **cell 4.5×3.E** (one-sample t test statistic). Distractors are all genuine t-values from documented SE/sign errors (`flipped_t_numerator`, `used_s_not_se`, `se_divided_by_n_not_sqrt_n`), capped to a realistic |t| ≤ 9.
+  - `t_interval_mean` → **cell 4.2×3.E** (one-sample t confidence interval; t\*, never z\* — CED convention). Distractor **intervals** are all centered at x̄ and differ only in width (`used_z_star_not_t_star`, `se_divided_by_n_not_sqrt_n`, `used_s_not_se`), each positive-bounded; the subtle z-vs-t error is the hardest distractor.
+- **scenarios:** `MEAN_CONTEXTS` + `CATEGORICAL_CONTEXTS` + framing for `t_test_mean` / `t_interval_mean` / `chi_square_test`, with self-check validation. **misconceptions:** catalog entries for the t and χ² distractors.
+- **Validation:** property harness **0 rejects / 80** per procedure, catalog + scenario self-checks clean, **25 packages validate** (0 problems), `f4_load_DRAFT.sql` rebuilt. Cell coverage **6 → 8**.
+- **Remaining (scaffolded, not yet built):** `chi_square_test` → cell 3.15×3.E. Its statlib/context/framing/catalog are in place; deferred so its distractors get the same careful realism design (the naïve "forgot to square" / "no divide by E" transforms produce off-scale or negative χ² values — need on-scale variants like wrong-expected-counts).
 
 ---
 
