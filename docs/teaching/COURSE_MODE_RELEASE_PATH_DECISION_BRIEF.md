@@ -5,6 +5,8 @@ This brief lays out the path from "the write hook is merged" to "a student sees 
 
 Companion docs: `COURSE_MODE_STATUS_AND_HANDOFF.md` (living map), `COURSE_MODE_LEARNING_MODEL.md` (decisions/invariants), `COURSE_MODE_PILOT_BUILD_PLAN.md` (D-numbers).
 
+> **EXECUTION UPDATE — 2026-08-23 (later): decision taken — launch on DEV first; serving form = numeric-entry (David).** Dev path started. **DONE in Dev:** (1) `last_attempt_id` migration applied (`student_cell_state.last_attempt_id` now present); (4) the `ap_statistics 2026-27` exam-pack version created — exam date **2027-05-11 (Tue)**, `status='draft'`, id `4e54bb4f-695f-41be-ac06-745fe9ad8bcc` — and the loader's two `into strict` resolutions now both return one row (loader unblocked). **BLOCKED on tooling** (no Supabase CLI / access token / psql / deno in this session; the MCP `deploy_edge_function` can't reliably take the 23-file / 287 KB function inline, and `execute_sql` can't take the 184 KB loader inline): (2) deploy `evaluate-attempt` with the hook, (3) smoke-test one cell write, (5) run the loader. **Unblock:** a Supabase personal access token (then `supabase functions deploy evaluate-attempt --project-ref wmgjsdkphcyhngaffbqf --use-api`, and apply `out/f4_load_DRAFT.sql`), or a human runs those two. RELEASE still gated on D8 + CM-D19 regardless.
+
 ---
 
 ## 0. TL;DR — what I need from you, and what is safe to do now

@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Course Mode Dev Launch Path Started (David: Launch Dev-First, Numeric-Entry, Exam Date May 11 2027): the `last_attempt_id` Migration APPLIED to Dev and the `ap_statistics 2026-27` Exam-Pack Version CREATED (Loader's Two `into strict` Resolutions Now Both Pass) — but the `evaluate-attempt` Hook Deploy + Smoke-Test + 184KB Loader Run Are BLOCKED: This Session Has No Supabase CLI / Access Token / psql, and the MCP Deploy Can't Take the 23-File/287KB Function Inline; Needs a Token or a Human to Run Two Commands — 2026-08-23
 - Course Mode Release-Path Decision Brief Written (Surface, Not Execute): PR #101 Found Already Merged to `main` (Handoff Was Stale), and Verified Live Dev State Shows the Deploy-Gate Is Real — the `last_attempt_id` Migration Is Unapplied and `evaluate-attempt` Still Runs the Pre-Hook v14, So a Deploy-Before-Migration Would Silently No-Op the Whole Hook; the `app.grading_results` Answer-Key Exposure Confirmed as a Real Surface; the 2026-27 Exam-Pack Version Still Missing (Loader Blocked). Nothing Executed — Decisions (D8 Bars, Exam-Pack Version, Serving Form) Surfaced for David — 2026-08-23
 - Course Mode Live Write Hook (PR #101) Passed Fable QA Round-2 Re-QA: All 14 Round-1 Fixes Verified Genuine, and the 2 MAJOR Regressions the Fixes Introduced (Idempotent-Replay Leaked the shadow_result Answer Key; the F2 Stamp Blocked the Uncertain→Graded Upgrade) Both Fixed — Plus 4 Minor/Nit; Deno Suite 101→105 Green — 2026-08-23
 - Course Mode Live Write Hook (PR #101) Passed an Independent Fable QA Round and Had All 14 Findings Remediated in the Same PR — 2 BLOCKER (Transient-Read Demotion; Re-Grade Evidence Double-Count), 3 MAJOR (No-Provenance Over-Promotion; Unauditable Graded Path; Dropped-Criteria Over-Grade), Plus 9 MINOR/NIT; One Additive `last_attempt_id` Migration Added, Deno Suite 62→101 Green — 2026-08-23
@@ -157,6 +158,23 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## Course Mode Dev Launch Path — Started (Migration + Exam-Pack Applied; Deploy/Load Blocked on Tooling) — 2026-08-23
+
+**Decisions taken this session (David).** Launch **Dev-first** (prove the whole path in Dev before promoting to Prod); **serving form = numeric-entry** for the computational items; **AP Stats 2026-27 exam date = Tuesday 2027-05-11**. Rationale for Dev-first: Course Mode currently exists only in Dev (Prod has none of the objects); pushing an unproven pipeline straight to the live site is the risky move.
+
+**Executed in Dev (`wmgjsdkphcyhngaffbqf`), both reversible; Prod untouched:**
+1. **`last_attempt_id` migration applied** — `app.student_cell_state.last_attempt_id uuid` now present (was the deploy-gate prerequisite; must precede the function deploy).
+2. **`ap_statistics 2026-27` exam-pack version created** — `exam_pack_id a568c9fb-…`, version id `4e54bb4f-695f-41be-ac06-745fe9ad8bcc`, `official_exam_date 2027-05-11`, `status='draft'` (mirrors the 2025-26 row; nothing auto-serves). The loader's two `into strict` resolutions (exam-pack version + taxonomy version with seeded cells → `dae3c72e-…`) now each return exactly one row, so `build_load_sql.py`'s output is unblocked.
+
+**Blocked on tooling (NOT on logic or decisions):** this session has **no Supabase CLI, no `SUPABASE_ACCESS_TOKEN`, no psql, no deno**. The remaining steps move files, which the MCP tools can't ingest at size:
+- Deploy `evaluate-attempt` with the merged hook — 23-file / 287 KB transitive closure; the MCP `deploy_edge_function` would need every file inlined by hand (unsafe for executable code). Dev's deployed function is still the pre-hook **v14**.
+- Smoke-test one cell write — depends on the deploy.
+- Run the loader — `out/f4_load_DRAFT.sql` is 184 KB; `execute_sql` can't reliably take it inline.
+
+**Unblock (one of):** (a) provide a Supabase personal access token → install the CLI in-session and run `supabase functions deploy evaluate-attempt --project-ref wmgjsdkphcyhngaffbqf --use-api` + apply `out/f4_load_DRAFT.sql`; or (b) a human runs those two locally. RELEASE remains gated on D8 bars + CM-D19 regardless (this path stops at "content loaded + one graded attempt proven to update a cell").
 
 ---
 
