@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Course Mode lsrl_predict Distractors Made Realistic Per the Content-Authoring Protocol (David's SME Review Flagged Them): Removed the Off-Scale `swapped_slope_intercept` (a "$905k car"), Added the On-Scale `predicted_intercept_ignored_x` Diagnostic, and Added a Plausibility Guardrail (Distractors Positive + On-Scale; Key Floored to a Realistic Value) in Code + Property Tests; Harness 0/80, Other 4 Templates Spot-Checked Clean; 20 Fixed Instances Presented for SME Re-Review (Awaiting Attestation) — 2026-08-23
 - Course Mode D8 Release Bars Approved (SME 20/0-defects · ≥100 Property Instances/0 Rejects · 0 Verifier Disagreements · 5/Template/Month Spot-Audit) and CM-D19 Template-Release Stamping BUILT + Applied to Dev (migration 20260823160000: bars table + release ledger + fail-closed `cm_d19_release_template`/revoke functions); Fail-Closed Gate Verified (a Sub-Bar Attestation Is Rejected, 0 Items Stamped); Actual Release Still Needs David's Real 20-Instance SME Attestation + Cycle Serving Switches — 2026-08-23
 - Course Mode Dev Launch Path Started (David: Launch Dev-First, Numeric-Entry, Exam Date May 11 2027): the `last_attempt_id` Migration APPLIED to Dev and the `ap_statistics 2026-27` Exam-Pack Version CREATED (Loader's Two `into strict` Resolutions Now Both Pass) — but the `evaluate-attempt` Hook Deploy + Smoke-Test + 184KB Loader Run Are BLOCKED: This Session Has No Supabase CLI / Access Token / psql, and the MCP Deploy Can't Take the 23-File/287KB Function Inline; Needs a Token or a Human to Run Two Commands — 2026-08-23
 - Course Mode Release-Path Decision Brief Written (Surface, Not Execute): PR #101 Found Already Merged to `main` (Handoff Was Stale), and Verified Live Dev State Shows the Deploy-Gate Is Real — the `last_attempt_id` Migration Is Unapplied and `evaluate-attempt` Still Runs the Pre-Hook v14, So a Deploy-Before-Migration Would Silently No-Op the Whole Hook; the `app.grading_results` Answer-Key Exposure Confirmed as a Real Surface; the 2026-27 Exam-Pack Version Still Missing (Loader Blocked). Nothing Executed — Decisions (D8 Bars, Exam-Pack Version, Serving Form) Surfaced for David — 2026-08-23
@@ -159,6 +160,17 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## Course Mode — lsrl_predict Distractor Realism Fix (Authoring-Protocol Compliance) — 2026-08-23
+
+David's SME review of the first 20 `lsrl_predict` instances flagged the distractors as unrealistic. He is right and the content-authoring protocol backs it: `CONTENT_AUTHORING_AND_QA_PROTOCOL` / `TASK-0008` require **"every distractor maps to a distinct plausible error,"** and the reviewer QA sweeps repeatedly reject "non-plausible throwaway" / off-scale distractors as defects.
+
+- **Root cause:** the `swapped_slope_intercept` distractor computed `b + a*x` (slope + intercept·x), which for these params lands 10–40× off-scale — a "$905k used car" a student eliminates on sight.
+- **Fix (`generator.py` + `misconceptions.py`):** removed `swapped_slope_intercept` from `lsrl_predict`; added `predicted_intercept_ignored_x` (predicts ŷ = a — a real, on-scale diagnostic error; `ced_structural`) to the catalog. The candidate pool is now sign-flip / used-x=1 / dropped-intercept / ignored-x, and each item selects the **3 that are positive, on the data's scale, and clear of the key's grading band**. Added a plausibility **guardrail in code + property tests**, and **floored the KEY** to a realistic value (the earlier $30 prediction is gone; min key now ~$2.9k).
+- **Validation:** property harness **0 rejects / 80 instances**, catalog self-check clean. **Spot-checked the other four computational templates** (one_prop_ci, two_prop_ztest, normal_prob, summary_stats) — their distractors are already on-scale (probabilities in [0,1], plausible z-stats, means within the data range, valid CI bounds), so `lsrl_predict` was the sole offender (its "swapped" transform multiplied rather than staying additive).
+- Re-emitted the `lsrl_predict` samples + rebuilt `f4_load_DRAFT.sql`. **20 fixed instances presented to David for SME re-review** (artifact); the loaded Dev drafts still carry the old distractors and will be **reloaded at release time**. Awaiting attestation.
 
 ---
 
