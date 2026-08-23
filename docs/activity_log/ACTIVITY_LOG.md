@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Course Mode Live Write Hook Built and Opened as Draft PR #101: the F4 `data_driven` Real-Grading Branch (Abstain Still Holds for Shadow Review) and `persistCellState` Now Connect a Graded Attempt to a Cell-State Write — Code-Only, No Migration, Full Course-Mode Deno Suite 62/62 Green, Pending Review/Merge + Dev Deploy + Fable QA; Zero Learner-Visible Effect Until Release (D8/CM-D19) — 2026-08-23
 - AP Precalculus Unit 3 (Trigonometric and Polar Functions) Fully Repaired: 15 Briefs AND 15 Explainers Replaced — a Second Independent Template-Filler Pattern in the Briefs Themselves, Same as AP Calculus BC's Unit 3 Earlier This Session — 2026-08-22
 - AP Precalculus Unit 1 (Polynomial and Rational Functions) Explainer Debt Repaired: All 14 Grandfathered Template Explainers Replaced — 2026-08-22
 - AP Precalculus Unit 2 (Exponential and Logarithmic Functions) New Coverage: 15 Briefs + 15 Explainers Authored From Scratch — the Unit Was Fully Exam-Assessed but Had Zero Content, the Real Cause Behind "Topics Not Rendering" — 2026-08-21
@@ -153,6 +154,26 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## Course Mode Live Write Hook Built — F4 Real Grading + persistCellState, Opened as Draft PR #101 — 2026-08-23
+
+**Task:** Unassigned (Course Mode backend; Owner directed this session to build the live write hook — the "makes everything else move" backend milestone in `COURSE_MODE_STATUS_AND_HANDOFF.md` §3/§7, staged out of the F2/F3 PR #99).
+**Status:** Opened as **draft PR #101** on `david-bloom/cramapple` (branch `claude/course-mode-live-write-hook`). **Code only — nothing merged, deployed, or applied to any environment.** Full course-mode Deno suite **62/62 green**; both Supabase-importing edge files `deno check` clean under a stubbed client. No migration (the F2/F4 tables already exist in Dev).
+
+The learner-state runtime landed as two staged, pure, tested pieces (the tier engine `cell-state.ts` and the generic verifier `deterministic-verifier.ts`) but nothing in the request path called either. This PR wires them in, so a graded attempt now updates cell mastery. It stays behind the release gate: **zero learner-visible effect until content is released (D8/CM-D19)**, so it is safe to land ahead of release exactly like F4 core and F2/F3.
+
+**Two connected pieces (INV-3/4/5/6):**
+- **F4 live grading** (`supabase/functions/evaluate-attempt/index.ts`): `data_driven` is split out of the shadow-hold into a real branch — fetch `app.content_item_checks` for the version → `gradeAgainstChecks` (`_shared/deterministic-verifier.ts`) → graded through the existing finalize path (writes `grading_results`/`attempts`). An **ABSTAIN still HOLDS** for shadow review (no single parseable number / an unhandled check kind / no persisted checks) — INV-3/INV-4 preserved; nothing falls through to the LLM grader for the content class those invariants protect. New model id `data-driven-deterministic-verifier`; stamps a `data-driven-deterministic-1.0` deterministic_check. Graded payload built by the new `buildDeterministicGradedPayload` (`_shared/grading-feedback.ts`).
+- **persistCellState** (new `_shared/cell-state-persist.ts`): called after every graded/uncertain attempt (the MCQ early-return AND the common finalize). Resolves item→cell(s) via `content_item_cells`; `subject_id` **by UUID** via the attempt's `exam_packs` (never the hyphen/underscore `subject_key` — CM-FACT-20/§6); derives the deterministic event (`graded`+full → correct / +partial → miss / non-graded or zero-point → `content_uncertain`) and the `AttemptSignal` (`assisted` from `assistance_state`; `changedSurface` from the item-package `provenance.template_id`+params-hash vs the cell's stored last attempt; `sameSession` via `classifySameSession`); runs `applyAttempt`; UPSERTs `student_cell_state`. Routed on **ATTEMPT/ITEM identity, not session presence**; a **no-op for untagged (legacy/non-course-mode) items**; **best-effort** (try/catch — a mastery-write failure never fails the grade).
+
+**Testing:** the pure signal derivation is factored into `_shared/cell-state-signals.ts` so it is unit-testable offline (the Supabase client can't be resolved in the sandbox — the same constraint CI's pure-test list works under). `cell-state-signals_test.ts` (18 tests, incl. a signals→engine ladder walk proving correct→independent→confirmed, assisted→supported, miss→fragile-without-demotion, and uncertain→no-evidence) is wired into `minimal-ci.yml`.
+
+**Environments:** Prod (`pcntajvbdfqhbeewmdry`) and Dev (`wmgjsdkphcyhngaffbqf`) both untouched by this session. No edge function deployed. No SQL applied.
+
+**Next Owner:** David Bloom
+**Next Required Action:** Review + a **Fable QA** pass on PR #101, then a **Dev edge-function deploy** of `evaluate-attempt` and an end-to-end proof once a released instance exists. Resolve the **§4 serving-form decision** (numeric-entry vs MCQ) — the branch grades `responseText` as numeric-entry; if these serve as MCQ the choice must map to a numeric response or the item route to `mcq_rule`, else grading correctly abstains and holds. Do not merge until reviewed. **D8 release bars remain the gate** before anything is student-visible.
 
 ---
 
