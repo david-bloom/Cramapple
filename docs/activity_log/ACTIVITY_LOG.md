@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Course Mode Release-Path Decision Brief Written (Surface, Not Execute): PR #101 Found Already Merged to `main` (Handoff Was Stale), and Verified Live Dev State Shows the Deploy-Gate Is Real — the `last_attempt_id` Migration Is Unapplied and `evaluate-attempt` Still Runs the Pre-Hook v14, So a Deploy-Before-Migration Would Silently No-Op the Whole Hook; the `app.grading_results` Answer-Key Exposure Confirmed as a Real Surface; the 2026-27 Exam-Pack Version Still Missing (Loader Blocked). Nothing Executed — Decisions (D8 Bars, Exam-Pack Version, Serving Form) Surfaced for David — 2026-08-23
 - Course Mode Live Write Hook (PR #101) Passed Fable QA Round-2 Re-QA: All 14 Round-1 Fixes Verified Genuine, and the 2 MAJOR Regressions the Fixes Introduced (Idempotent-Replay Leaked the shadow_result Answer Key; the F2 Stamp Blocked the Uncertain→Graded Upgrade) Both Fixed — Plus 4 Minor/Nit; Deno Suite 101→105 Green — 2026-08-23
 - Course Mode Live Write Hook (PR #101) Passed an Independent Fable QA Round and Had All 14 Findings Remediated in the Same PR — 2 BLOCKER (Transient-Read Demotion; Re-Grade Evidence Double-Count), 3 MAJOR (No-Provenance Over-Promotion; Unauditable Graded Path; Dropped-Criteria Over-Grade), Plus 9 MINOR/NIT; One Additive `last_attempt_id` Migration Added, Deno Suite 62→101 Green — 2026-08-23
 - Course Mode Live Write Hook Built and Opened as Draft PR #101: the F4 `data_driven` Real-Grading Branch (Abstain Still Holds for Shadow Review) and `persistCellState` Now Connect a Graded Attempt to a Cell-State Write — Code-Only, No Migration, Full Course-Mode Deno Suite 62/62 Green, Pending Review/Merge + Dev Deploy + Fable QA; Zero Learner-Visible Effect Until Release (D8/CM-D19) — 2026-08-23
@@ -156,6 +157,32 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## Course Mode Release-Path Decision Brief (Surface, Not Execute) — 2026-08-23
+
+**Context.** Picked up the course-mode extension for a new session. Caught up on the full handoff + companion docs, then — per David's choice of the RELEASE-PATH workstream — surfaced the path from "the live write hook is merged" to "a student sees a graded cell update," **without executing any governance or release step**. Deliverable: `docs/teaching/COURSE_MODE_RELEASE_PATH_DECISION_BRIEF.md`.
+
+**What changed since the handoff was written (discovered).** PR #101 (the live write hook) is **already MERGED to `main`** (merge commit `571f6a0`, 2026-08-23 17:13) — the handoff header/§2/§7 still described it as draft/open. Corrected the handoff.
+
+**Verified live Dev state (`wmgjsdkphcyhngaffbqf`, read-only).**
+- The `last_attempt_id` migration (`20260823150000`) is **UNAPPLIED** — `app.student_cell_state.last_attempt_id` is absent.
+- `evaluate-attempt` in Dev is still **v14** (last updated ~mid-July 2026, before the hook existed) — the merged code is **not deployed**.
+- ⇒ the deploy-gate ordering hazard is **live**: deploying `evaluate-attempt` before applying the migration would make every `student_cell_state` read/write error → the hook's guard SKIPs them → the whole hook silently no-ops (grades unaffected, failure invisible). Migration MUST go first.
+- Dev has only the `ap_statistics 2025-26` exam-pack version; **no `2026-27`** → the loader's `into strict` resolution still aborts (loader blocked on a governance object).
+- `taxonomy_cells` = 131 (F1 intact); `content_item_cells` / `content_item_checks` / `student_cell_state` all = 0 (nothing loaded/written).
+- **Security surface confirmed:** `public.grading_results` correctly excludes `shadow_result`/`raw_model_response`, but `app.grading_results` carries a direct `authenticated: SELECT` grant + the `shadow_result` column + an owner-select RLS policy → a student could REST-read their own row's answer key **if** PostgREST exposes the `app` schema. Exposed-schemas config must be verified in the dashboard; recommended revoking the direct grant as belt-and-suspenders.
+
+**What the brief lays out (decisions David owns, surfaced not set):**
+- **Decision A — D8 release bars** (ON HOLD): the pass/fail predicate CM-D19 stamping must encode; no defaults invented.
+- **Decision B — the `ap_statistics 2026-27` exam-pack version** (David/Orly governance; needs the official exam date): the loader's hard blocker.
+- **Decision C — serving form** (numeric-entry vs MCQ): the merged branch grades `responseText` as numeric-entry, so MCQ serving would abstain-and-hold unless the choice maps to a number. Recommended numeric-entry for the computational templates.
+- **Deploy-gate G1–G3** (safe now, release-independent, zero learner-visible effect): apply migration → deploy `evaluate-attempt` → smoke-test with a throwaway cell-tagged draft.
+- **Security gate S** (before any release): verify `app` not REST-exposed + revoke the direct grant.
+- **CM-D19 stamping**: design sketch, blocked on Decision A.
+
+**Executed nothing.** No migration applied, no function deployed, no exam-pack version created, loader not run, CM-D19 not built, no Dev/PostgREST config changed. All Dev queries read-only; Prod untouched. Work landed on branch `claude/cramapple-course-mode-next-d420oh` (docs only).
 
 ---
 
