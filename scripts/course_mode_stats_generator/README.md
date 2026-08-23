@@ -20,7 +20,8 @@ CM-D19 template-release + review gate (David reviewer of record) before any serv
 - `generator.py` — Track A: 5 computational procedures × scenario × form, catalog-cited misconception distractors, item-package emission, property harness. `python3 generator.py` runs checks; `emit` writes samples.
 - `slot_frames.py` — Track B: authored 4.B slot-frame (cell 1.9 × 4.B), observational-only scenarios, catalog-cited justification distractors. `python3 slot_frames.py` runs checks; `emit` writes samples.
 - `f1_build.py` — emits `out/f1_cell_registry_seed.json` + `f1_migration_DRAFT.sql` (DRAFT, not applied).
-- `out/` — sample emitted item-packages + F1 seed.
+- `build_load_sql.py` — **F4 intake/loader**. Reads the emitted packages and writes `out/f4_load_DRAFT.sql`: a fail-closed, transactional load that lands each item as an UNRELEASED draft plus its `content_item_checks` (persisted deterministic checks) and `content_item_cells` (item→cell tags). `python3 build_load_sql.py --check` validates packages without writing. Does not apply anything — the SQL is for review + later Dev application.
+- `out/` — sample emitted item-packages + F1 seed + the F4 load SQL.
 
 ## What is validated
 - Registry: 55 topics, 131 cells (U1:28 U2:21 U3:42 U4:30 U5:10); skills/practice P1:1 P2:5 P3:5 P4:7.
@@ -44,7 +45,7 @@ Rights: sources record *documented error patterns* and CED *structure* only — 
 
 ## Scope / deferred (for morning review)
 - t- and χ²-based procedures need special functions → a **scipy dependency decision** (env is stdlib-only). Procedures currently cover the normal/proportion/regression/descriptive computational cells.
-- The generator emits its own draft package schema (`schema_version: course-mode-generated-0.1`). Mapping to the exact production item-package + DB ingestion is part of the deferred F4 (drifted tables).
+- The generator emits its own draft package schema (`schema_version: course-mode-generated-0.1`). F4 core (the `content_item_checks` / `content_item_cells` tables + the `data_driven_deterministic` verifier) is now merged, and `build_load_sql.py` produces the load SQL; the DB ingestion still needs to be APPLIED to Dev, and the live `evaluate-attempt` wiring is the remaining F4 step.
 - F1 migration is DRAFT and NOT applied to Dev. taxonomy_* are in sync, so it is safe to apply after review.
 - Track B is n=1 frame family; it confirms the mechanism and gives an authoring-cost estimate (≈1 frame family per P4 skill), not full P4 coverage.
 
