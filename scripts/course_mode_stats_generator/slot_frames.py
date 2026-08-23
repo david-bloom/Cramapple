@@ -24,6 +24,7 @@ from pathlib import Path
 from typing import Dict, List
 
 import misconceptions as MISC
+import scenarios as SCN
 
 OUT_DIR = Path(__file__).resolve().parent / "out"
 
@@ -34,14 +35,16 @@ OUT_DIR = Path(__file__).resolve().parent / "out"
 # Track-B build, 2026-08-23).
 SCENARIOS: List[Dict[str, str]] = [
     {"ctx": "a survey of eating habits", "a": "self-described high-fiber eaters",
-     "b": "self-described low-fiber eaters", "quantity": "daily satiety score", "unit": "points"},
+     "b": "self-described low-fiber eaters", "quantity": "daily satiety score", "unit": "points",
+     "domain": "health"},
     {"ctx": "a commuting survey", "a": "people who bike to work", "b": "people who take the bus",
-     "quantity": "commute time", "unit": "minutes"},
+     "quantity": "commute time", "unit": "minutes", "domain": "social"},
     {"ctx": "an observational garden study", "a": "plants in sunny spots",
-     "b": "plants in shaded spots", "quantity": "recorded height", "unit": "cm"},
+     "b": "plants in shaded spots", "quantity": "recorded height", "unit": "cm",
+     "domain": "biology"},
     {"ctx": "a survey of study habits", "a": "students who study mostly at night",
      "b": "students who study mostly in the morning", "quantity": "self-reported focus rating",
-     "unit": "points"},
+     "unit": "points", "domain": "education"},
 ]
 
 # Authored justification taxonomy. Exactly one type is valid for this frame.
@@ -75,6 +78,7 @@ def _justification_text(kind: str, s: Dict[str, str], mA: float, mB: float, sd: 
 
 def gen_4b_instance(rng: random.Random, seed: int) -> Dict:
     s = rng.choice(SCENARIOS)
+    scenario_prov = SCN.framing("slotframe_4b", s.get("domain"))  # raises if framing missing
     # guardrail: A mean > B mean, but SD large relative to the gap (=> overlap),
     # so the authored correct/incorrect justifications remain valid for this instance.
     diff = rng.choice([3, 4, 5, 6])
@@ -109,6 +113,10 @@ def gen_4b_instance(rng: random.Random, seed: int) -> Dict:
          all(o["misconception"] in MISC.CATALOG for o in options if not o["correct"])),
         ("all_distractors_cite_source",
          all(o.get("misconception_source", {}).get("sources") for o in options if not o["correct"])),
+        ("scenario_framing_present",
+         bool(scenario_prov.get("archetype")) and bool(scenario_prov.get("sources"))),
+        ("scenario_observational_rule",
+         any("OBSERVATIONAL" in r for r in scenario_prov.get("validity_rules", []))),
     ]
     return {
         "schema_version": "course-mode-generated-0.1",
@@ -123,6 +131,7 @@ def gen_4b_instance(rng: random.Random, seed: int) -> Dict:
             {"scheme_key": "ap-statistics-skills", "node_key": "skill-4.B", "practice": 4},
         ],
         "cells": [{"topic": "1.9", "skill": "4.B"}],
+        "scenario_provenance": scenario_prov,
         "prompt": prompt,
         "mcq_form": {"options": options},
         "parts": [{
