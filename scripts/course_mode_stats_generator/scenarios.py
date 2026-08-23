@@ -126,6 +126,24 @@ FRAMING: Dict[str, Framing] = {
         ["OBSERVATIONAL comparison only (no random assignment -> no causal claim)",
          "means differ but spreads overlap so an over-strong claim is refutable"],
         [_SEC5, _SEC6, _SEC7]),
+    "t_test_mean": Framing(
+        "t_test_mean", "Q4", "Calculate", 3, "exam_aligned_digital",
+        ["a random sample of a quantitative variable (population roughly Normal or n large)",
+         "a hypothesized mean mu0 and a positive sample SD",
+         "the t-statistic magnitude stays in a realistic range"],
+        [_SEC5, _SEC6, _SEC7]),
+    "t_interval_mean": Framing(
+        "t_interval_mean", "Q4", "Construct", 3, "exam_aligned_digital",
+        ["df = n-1 within the standard t-table (n <= 31)",
+         "confidence in {90%, 95%, 99%}",
+         "t (for a mean), never z -- CED convention; interval bounds realistic for the quantity"],
+        [_SEC5, _SEC6, _SEC7]),
+    "chi_square_test": Framing(
+        "chi_square_test", "Q4", "Calculate", 3, "exam_aligned_digital",
+        ["a two-way table of counts for two categorical variables",
+         "every EXPECTED count >= 5 (the large-counts condition)",
+         "chi-square for independence/homogeneity only; statistic stays in a realistic range"],
+        [_SEC5, _SEC6, _SEC7]),
 }
 
 
@@ -171,6 +189,35 @@ NORMAL_CONTEXTS: List[Dict[str, object]] = [
      "mu_choices": [200, 500, 1000], "sigma_choices": [5, 10, 15]},
 ]
 
+# means (t procedures): a quantitative variable with a hypothesized/claimed mean.
+# Each context carries its OWN plausible mu0 / sample-SD / sample-size pools so the
+# generated summary statistics fit the setting (per-context guardrail). n<=30 keeps
+# df=n-1 inside the standard t-table.
+MEAN_CONTEXTS: List[Dict[str, object]] = [
+    {"quantity": "cups of coffee sold per hour", "unit": "cups", "who": "a cafe manager", "domain": "business",
+     "mu0_choices": [18, 22, 25, 30], "s_choices": [3, 4, 5, 6], "n_choices": [10, 12, 15, 20, 25]},
+    {"quantity": "battery life", "unit": "hours", "who": "a quality engineer", "domain": "manufacturing",
+     "mu0_choices": [10, 12, 20, 24], "s_choices": [1, 2, 3], "n_choices": [8, 10, 12, 16, 20]},
+    {"quantity": "one-way commute time", "unit": "minutes", "who": "a transit analyst", "domain": "social",
+     "mu0_choices": [25, 30, 40, 45], "s_choices": [4, 6, 8], "n_choices": [10, 15, 20, 25, 30]},
+    {"quantity": "seedling height after three weeks", "unit": "cm", "who": "a botanist", "domain": "biology",
+     "mu0_choices": [8, 10, 12, 15], "s_choices": [1, 2, 3], "n_choices": [9, 12, 16, 20]},
+]
+
+# categorical (chi-square independence/homogeneity): two categorical variables ->
+# a two-way table. rows = groups/categories of one variable, cols = the other.
+CATEGORICAL_CONTEXTS: List[Dict[str, object]] = [
+    {"desc": "adults in three cities and their preferred hot drink",
+     "rows": ["City A", "City B", "City C"], "cols": ["Tea", "Coffee", "Neither"],
+     "row_noun": "adults", "domain": "social"},
+    {"desc": "students in two grade levels and how they get to school",
+     "rows": ["9th grade", "12th grade"], "cols": ["Bus", "Car", "Bike/Walk"],
+     "row_noun": "students", "domain": "education"},
+    {"desc": "devices from two production lines and their inspection outcome",
+     "rows": ["Line 1", "Line 2"], "cols": ["Pass", "Rework", "Fail"],
+     "row_noun": "devices", "domain": "manufacturing"},
+]
+
 
 # ==============================================================================
 # Access + validation helpers
@@ -213,6 +260,16 @@ def validate_scenarios() -> List[str]:
             problems.append(f"normal context missing fields: {ctx}")
         elif not ctx["mu_choices"] or not ctx["sigma_choices"]:
             problems.append(f"normal context has empty mu/sigma choices: {ctx}")
+    for ctx in MEAN_CONTEXTS:
+        if not all(k in ctx for k in ("quantity", "unit", "who", "domain", "mu0_choices", "s_choices", "n_choices")):
+            problems.append(f"mean context missing fields: {ctx}")
+        elif any(n > 31 for n in ctx["n_choices"]):
+            problems.append(f"mean context n exceeds t-table (df=n-1 must be <=30): {ctx}")
+    for ctx in CATEGORICAL_CONTEXTS:
+        if not all(k in ctx for k in ("desc", "rows", "cols", "row_noun", "domain")):
+            problems.append(f"categorical context missing fields: {ctx}")
+        elif len(ctx["rows"]) < 2 or len(ctx["cols"]) < 2:
+            problems.append(f"categorical context needs >=2 rows and cols: {ctx}")
     return problems
 
 

@@ -4,9 +4,12 @@ computational item generator.
 
 Every routine here is computed exactly with the standard library (math /
 statistics) so that generated item answers are independently verifiable by
-recomputation. No numpy/scipy. Procedures that require the t or chi-square
-distributions (special functions) are deliberately NOT implemented here and are
-tracked as a scipy-dependency decision (see README / build report).
+recomputation. No numpy/scipy. The t and chi-square PROCEDURES here compute
+statistics and CIs by arithmetic and a standard tabulated t* table (the tool AP
+students use) -- no special functions needed. Tail probabilities / p-values
+(which would need the t or chi-square CDF) are intentionally NOT generated, so
+no special-function dependency is introduced; items ask for the statistic, the
+interval, or the expected counts.
 
 This is independently authored synthetic tooling, not a source of official
 College Board exam claims.
@@ -188,6 +191,92 @@ def two_prop_ztest(x1: int, n1: int, x2: int, n2: int) -> Tuple[float, float, fl
     z = (p1 - p2) / se
     p = 2 * norm_sf(abs(z))
     return (p1, p2, pooled, z, p)
+
+
+# ---------------------------------------------------------------------------
+# Inference for means (t procedures). t* comes from the standard AP t-table --
+# exact tabulated values, the tool students actually use -- so no special
+# function (and no scipy) is needed for CI construction.
+# ---------------------------------------------------------------------------
+
+# Two-sided t* critical values by df, keyed to confidence level (upper-tail
+# area (1-C)/2). Standard AP Statistics t-table; df 1-30 covers samples n<=31.
+T_STAR: Dict[int, Dict[int, float]] = {
+    1:  {90: 6.314, 95: 12.706, 99: 63.657},
+    2:  {90: 2.920, 95: 4.303,  99: 9.925},
+    3:  {90: 2.353, 95: 3.182,  99: 5.841},
+    4:  {90: 2.132, 95: 2.776,  99: 4.604},
+    5:  {90: 2.015, 95: 2.571,  99: 4.032},
+    6:  {90: 1.943, 95: 2.447,  99: 3.707},
+    7:  {90: 1.895, 95: 2.365,  99: 3.499},
+    8:  {90: 1.860, 95: 2.306,  99: 3.355},
+    9:  {90: 1.833, 95: 2.262,  99: 3.250},
+    10: {90: 1.812, 95: 2.228,  99: 3.169},
+    11: {90: 1.796, 95: 2.201,  99: 3.106},
+    12: {90: 1.782, 95: 2.179,  99: 3.055},
+    13: {90: 1.771, 95: 2.160,  99: 3.012},
+    14: {90: 1.761, 95: 2.145,  99: 2.977},
+    15: {90: 1.753, 95: 2.131,  99: 2.947},
+    16: {90: 1.746, 95: 2.120,  99: 2.921},
+    17: {90: 1.740, 95: 2.110,  99: 2.898},
+    18: {90: 1.734, 95: 2.101,  99: 2.878},
+    19: {90: 1.729, 95: 2.093,  99: 2.861},
+    20: {90: 1.725, 95: 2.086,  99: 2.845},
+    21: {90: 1.721, 95: 2.080,  99: 2.831},
+    22: {90: 1.717, 95: 2.074,  99: 2.819},
+    23: {90: 1.714, 95: 2.069,  99: 2.807},
+    24: {90: 1.711, 95: 2.064,  99: 2.797},
+    25: {90: 1.708, 95: 2.060,  99: 2.787},
+    26: {90: 1.706, 95: 2.056,  99: 2.779},
+    27: {90: 1.703, 95: 2.052,  99: 2.771},
+    28: {90: 1.701, 95: 2.048,  99: 2.763},
+    29: {90: 1.699, 95: 2.045,  99: 2.756},
+    30: {90: 1.697, 95: 2.042,  99: 2.750},
+}
+
+
+def t_star(df: int, confidence: float) -> float:
+    """Two-sided t* critical value from the standard table. df must be tabulated
+    and confidence in {0.90, 0.95, 0.99}."""
+    key = int(round(confidence * 100))
+    row = T_STAR.get(df)
+    if row is None or key not in row:
+        raise ValueError(f"t_star: no table value for df={df}, confidence={confidence}")
+    return row[key]
+
+
+def t_statistic(xbar: float, mu0: float, s: float, n: int) -> float:
+    """One-sample t test statistic: (xbar - mu0) / (s / sqrt(n))."""
+    return (xbar - mu0) / (s / math.sqrt(n))
+
+
+def one_mean_t_interval(xbar: float, s: float, n: int,
+                        confidence: float) -> Tuple[float, float, float]:
+    """One-sample t confidence interval for a mean. Returns (moe, low, high)."""
+    se = s / math.sqrt(n)
+    moe = t_star(n - 1, confidence) * se
+    return (moe, xbar - moe, xbar + moe)
+
+
+# ---------------------------------------------------------------------------
+# Chi-square test statistic (expected counts from the marginal totals).
+# The statistic is pure arithmetic; no special function is needed.
+# ---------------------------------------------------------------------------
+
+def chi_square_expected(observed: Sequence[Sequence[float]]) -> List[List[float]]:
+    """Expected counts E_ij = (row_total_i * col_total_j) / grand_total."""
+    row_tot = [sum(r) for r in observed]
+    col_tot = [sum(c) for c in zip(*observed)]
+    total = sum(row_tot)
+    return [[(rt * ct) / total for ct in col_tot] for rt in row_tot]
+
+
+def chi_square_stat(observed: Sequence[Sequence[float]]) -> float:
+    """Chi-square test statistic: sum (O - E)^2 / E over all cells."""
+    exp = chi_square_expected(observed)
+    return sum((o - e) ** 2 / e
+               for orow, erow in zip(observed, exp)
+               for o, e in zip(orow, erow))
 
 
 # ---------------------------------------------------------------------------

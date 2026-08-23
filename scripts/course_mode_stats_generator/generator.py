@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Course-Mode AP Statistics computational item generator (v1.1).
+"""Course-Mode AP Statistics computational item generator (v1.2).
 
 Architecture (COURSE_MODE_LEARNING_MODEL.md CM-D15): procedure library x
 scenario layer x question-form layer. Each PROCEDURE is a deterministic function
@@ -18,8 +18,11 @@ v1.1 (post Fable QA 2026-08-23) hardening:
 - Cells tag ONLY the assessed skill (CM-D05): CI->3.3x3.E, two-prop->3.13x3.E,
   LSRL predict->5.3x3.B, normal->2.11x3.C, summary->1.7x3.B.
 
-v1 scope: stdlib-exact, normal-based procedures only (no t / chi-square — those
-need special functions and a scipy dependency decision).
+v1.2 scope: stdlib-exact. Normal/proportion/regression procedures + one-sample t
+test statistic for a mean (t via the standard t-table; no special functions).
+Tail p-values (which need the t/chi-square CDF) are intentionally not generated,
+so no scipy dependency is introduced. t-interval and chi-square procedures have
+their statlib/scenario/catalog scaffolding in place and are the next additions.
 
 Synthetic tooling; NOT official College Board content. release_status=
 'unreleased_generated_pending_review'; requires CM-D19 template-release + review.
@@ -27,6 +30,7 @@ Synthetic tooling; NOT official College Board content. release_status=
 from __future__ import annotations
 
 import json
+import math
 import random
 import re
 from pathlib import Path
@@ -47,6 +51,8 @@ CONTEXTS = SCN.PROPORTION_CONTEXTS
 TWO_GROUP = SCN.TWO_GROUP_CONTEXTS
 REG_CONTEXTS = SCN.REGRESSION_CONTEXTS
 NORMAL_CONTEXTS = SCN.NORMAL_CONTEXTS
+MEAN_CONTEXTS = SCN.MEAN_CONTEXTS
+CATEGORICAL_CONTEXTS = SCN.CATEGORICAL_CONTEXTS
 
 
 def _rid(prefix: str, seed: int) -> str:
@@ -293,12 +299,67 @@ def gen_summary_stats(rng: random.Random, seed: int) -> Dict:
                     {"data": data}, checks, scenario_domain=None)
 
 
+def gen_t_test_mean(rng: random.Random, seed: int) -> Dict:
+    """One-sample t test statistic for a mean (cell 4.5 x 3.E). t (for means),
+    never z (CED convention). Distractors are all genuine t-values from documented
+    SE / sign errors, kept in a realistic |t| range."""
+    c = rng.choice(MEAN_CONTEXTS)
+    tol = 0.01
+    plausible: List[Tuple[str, str, float]] = []
+    for _ in range(400):
+        mu0 = float(rng.choice(c["mu0_choices"]))
+        s = float(rng.choice(c["s_choices"]))
+        n = int(rng.choice(c["n_choices"]))
+        se = s / math.sqrt(n)
+        target_t = rng.choice([-2.5, -2.0, -1.5, -1.2, 1.2, 1.5, 2.0, 2.5])
+        xbar = round(mu0 + target_t * se, 2)
+        t = S.t_statistic(xbar, mu0, s, n)
+        # Distractor candidates: each a documented, on-scale t-value error.
+        cand = [
+            (-t,                    "flipped_t_numerator"),          # (mu0 - xbar)
+            ((xbar - mu0) / s,      "used_s_not_se"),                # forgot /sqrt(n)  (smaller |t|)
+            ((xbar - mu0) / (s / n), "se_divided_by_n_not_sqrt_n"),  # SE = s/n         (larger |t|)
+        ]
+        plausible = []
+        chosen: List[float] = []
+        for val, tag in cand:
+            if abs(val) > 9:               # realistic: keep every option in a sane t-range
+                continue
+            if abs(val - t) <= 3 * tol:    # clear of the key's grading band
+                continue
+            if any(abs(val - v) <= 3 * tol for v in chosen):
+                continue                   # distinct from the other distractors
+            plausible.append((f"{val:.2f}", tag, val))
+            chosen.append(val)
+        if 1.0 <= abs(t) <= 5.0 and len(plausible) >= 3:
+            break
+    prompt = (f"{c['who'].capitalize()} claims the mean {c['quantity']} is {mu0:g} {c['unit']}. "
+              f"A random sample of n = {n} has sample mean {xbar:g} {c['unit']} and sample standard "
+              f"deviation s = {s:g} {c['unit']}. Calculate the one-sample t test statistic for H0: mu = {mu0:g}.")
+    worked = f"t = ({xbar:g} - {mu0:g}) / ({s:g} / sqrt({n})) = {t:.3f}."
+    distractors = plausible[:3]
+    checks = [
+        ("t_formula", abs(t - (xbar - mu0) / (s / math.sqrt(n))) < 1e-9),
+        ("t_realistic", 1.0 <= abs(t) <= 5.0),
+        ("three_plausible_distractors", len(distractors) == 3),
+        ("distractors_in_t_range", all(abs(v) <= 9 for _, _, v in distractors)),
+        ("distractors_clear_of_key", all(abs(v - t) > 2 * tol for _, _, v in distractors)),
+        ("distractors_distinct", len({d for d, _, _ in distractors}) == 3),
+    ]
+    return _package("t_test_mean", seed, "4.5", ["3.E"], "Medium", prompt,
+                    f"t = {t:.3f}", worked,
+                    [{"kind": "numeric", "value": round(t, 3), "tol": tol}],
+                    f"{t:.2f}", t, tol, distractors,
+                    {"mu0": mu0, "xbar": xbar, "s": s, "n": n}, checks, scenario_domain=c["domain"])
+
+
 PROCEDURES: Dict[str, Callable[[random.Random, int], Dict]] = {
     "one_prop_ci": gen_one_prop_ci,
     "two_prop_ztest": gen_two_prop_ztest,
     "lsrl_predict": gen_lsrl_predict,
     "normal_prob": gen_normal_prob,
     "summary_stats": gen_summary_stats,
+    "t_test_mean": gen_t_test_mean,
 }
 
 
