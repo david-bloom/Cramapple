@@ -1,0 +1,179 @@
+{
+  "schema_version": "course-mode-generated-0.1",
+  "package_id": "t_interval_mean-005000",
+  "content_key": "apstat-t_interval_mean-005000",
+  "item_type": "mcq",
+  "difficulty": "Medium",
+  "exam_pack_ref": {
+    "exam_code": "ap_statistics",
+    "cycle": "2026-27"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "unit-4"
+    },
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "topic-4.2"
+    },
+    {
+      "scheme_key": "ap-statistics-skills",
+      "node_key": "skill-3.E",
+      "practice": 3
+    }
+  ],
+  "cells": [
+    {
+      "topic": "4.2",
+      "skill": "3.E"
+    }
+  ],
+  "prompt": "A quality engineer takes a random sample of n = 16 and measures battery life, obtaining sample mean 10 hours and sample standard deviation s = 2 hours. Construct a 95% confidence interval for the population mean battery life.",
+  "numeric_form": {
+    "answer_desc": "(8.934, 11.066)",
+    "deterministic_checks": [
+      {
+        "kind": "interval",
+        "low": 8.934,
+        "high": 11.066,
+        "tol": 0.01
+      }
+    ]
+  },
+  "mcq_form": {
+    "options": [
+      {
+        "text": "(8.93, 11.07)",
+        "correct": true,
+        "misconception": null
+      },
+      {
+        "text": "(9.73, 10.27)",
+        "correct": false,
+        "misconception": "se_divided_by_n_not_sqrt_n",
+        "misconception_source": {
+          "tag": "se_divided_by_n_not_sqrt_n",
+          "label": "Used SE = s/n instead of s/sqrt(n)",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S3/S4 (t procedures)",
+              "note": "SE of a sample mean is s/sqrt(n), not s/n"
+            }
+          ]
+        }
+      },
+      {
+        "text": "(5.74, 14.26)",
+        "correct": false,
+        "misconception": "used_s_not_se",
+        "misconception_source": {
+          "tag": "used_s_not_se",
+          "label": "Used the sample SD s as the standard error (forgot /sqrt(n))",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S3/S4 (t procedures)",
+              "note": "the SD of x-bar is s/sqrt(n); s alone overstates the SE"
+            }
+          ]
+        }
+      },
+      {
+        "text": "(9.02, 10.98)",
+        "correct": false,
+        "misconception": "used_z_star_not_t_star",
+        "misconception_source": {
+          "tag": "used_z_star_not_t_star",
+          "label": "Used a z* critical value instead of t* for a mean",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S8/S3 (CED convention)",
+              "note": "means use t (df = n-1); z is for proportions, so a t interval must use t*"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "worked_solution": "df = 16 - 1 = 15. t* = 2.131. SE = s/sqrt(n) = 0.5000. ME = t*\u00b7SE = 1.0655. Interval = 10 +/- 1.0655 = (8.934, 11.066).",
+  "parts": [
+    {
+      "part_key": "part-a",
+      "prompt": "A quality engineer takes a random sample of n = 16 and measures battery life, obtaining sample mean 10 hours and sample standard deviation s = 2 hours. Construct a 95% confidence interval for the population mean battery life.",
+      "response_modalities": [
+        "mcq",
+        "numeric"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "(8.934, 11.066)",
+          "required_evidence": "df = 16 - 1 = 15. t* = 2.131. SE = s/sqrt(n) = 0.5000. ME = t*\u00b7SE = 1.0655. Interval = 10 +/- 1.0655 = (8.934, 11.066).",
+          "deterministic_checks": [
+            {
+              "kind": "interval",
+              "low": 8.934,
+              "high": 11.066,
+              "tol": 0.01
+            }
+          ],
+          "accepted_variants": []
+        }
+      ]
+    }
+  ],
+  "scenario_provenance": {
+    "archetype": "Q4",
+    "archetype_label": "Multi-focus on Practices 2, 3 & 4 (spans multiple content areas)",
+    "task_verb": "Construct",
+    "practice": 3,
+    "modality": "exam_aligned_digital",
+    "validity_rules": [
+      "df = n-1 within the standard t-table (n <= 31)",
+      "confidence in {90%, 95%, 99%}",
+      "t (for a mean), never z -- CED convention; interval bounds realistic for the quantity"
+    ],
+    "sources": [
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S5 (Free-response archetypes)",
+        "note": "Section II question archetypes Q1-Q4"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S6 (Task verbs)",
+        "note": "the item stem's verb must match the scored demand"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S7 (Response modality)",
+        "note": "digital Bluebook; text/numeric entry -> exam_aligned_digital"
+      }
+    ],
+    "domain": "manufacturing"
+  },
+  "provenance": {
+    "generator": "course_mode_stats_generator/generator.py",
+    "template_id": "t_interval_mean",
+    "params": {
+      "xbar": 10.0,
+      "s": 2.0,
+      "n": 16,
+      "conf": 0.95
+    },
+    "seed": 5000,
+    "release_status": "unreleased_generated_pending_review",
+    "note": "Synthetic; not official CB content. Requires CM-D19 template-release + review."
+  }
+}

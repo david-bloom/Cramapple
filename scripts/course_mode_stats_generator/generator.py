@@ -353,6 +353,64 @@ def gen_t_test_mean(rng: random.Random, seed: int) -> Dict:
                     {"mu0": mu0, "xbar": xbar, "s": s, "n": n}, checks, scenario_domain=c["domain"])
 
 
+def gen_t_interval_mean(rng: random.Random, seed: int) -> Dict:
+    """One-sample t confidence interval for a mean (cell 4.2 x 3.E). t*, never z*
+    (CED convention). Distractor intervals are all centered at x-bar and differ
+    only in width (from documented SE / z-vs-t errors), so each is a realistic,
+    positive-bounded interval -- no off-scale option."""
+    c = rng.choice(MEAN_CONTEXTS)
+    tol = 0.02
+    plausible: List[Tuple[str, str, None]] = []
+    for _ in range(400):
+        s = float(rng.choice(c["s_choices"]))
+        n = int(rng.choice(c["n_choices"]))          # n <= 30 keeps df = n-1 in the table
+        conf = rng.choice([0.90, 0.95, 0.99])
+        xbar = float(rng.choice(c["mu0_choices"]))
+        df = n - 1
+        moe, lo, hi = S.one_mean_t_interval(xbar, s, n, conf)
+        se = s / math.sqrt(n)
+        cand = [
+            (S.z_star(conf) * se,          "used_z_star_not_t_star"),      # z* not t* (narrower)
+            (S.t_star(df, conf) * (s / n), "se_divided_by_n_not_sqrt_n"),  # SE = s/n (much narrower)
+            (S.t_star(df, conf) * s,       "used_s_not_se"),               # forgot /sqrt(n) (much wider)
+        ]
+        plausible = []
+        chosen: List[float] = []
+        for m, tag in cand:
+            if m <= 0 or (xbar - m) <= 0:      # realistic: positive margin AND positive lower bound
+                continue
+            if abs(m - moe) <= tol:            # a visibly different interval from the key
+                continue
+            if any(abs(m - mm) <= tol for mm in chosen):
+                continue                       # distinct from the other distractor intervals
+            plausible.append((f"({xbar - m:.2f}, {xbar + m:.2f})", tag, None))
+            chosen.append(m)
+        if lo > 0 and len(plausible) >= 3:
+            break
+    tstar = S.t_star(df, conf)
+    prompt = (f"{c['who'].capitalize()} takes a random sample of n = {n} and measures {c['quantity']}, "
+              f"obtaining sample mean {xbar:g} {c['unit']} and sample standard deviation s = {s:g} {c['unit']}. "
+              f"Construct a {int(conf * 100)}% confidence interval for the population mean {c['quantity']}.")
+    worked = (f"df = {n} - 1 = {df}. t* = {tstar:.3f}. SE = s/sqrt(n) = {se:.4f}. "
+              f"ME = t*·SE = {moe:.4f}. Interval = {xbar:g} +/- {moe:.4f} = ({lo:.3f}, {hi:.3f}).")
+    distractors = plausible[:3]
+    checks = [
+        ("interval_uses_t_star", abs(moe - tstar * (s / math.sqrt(n))) < 1e-9),
+        ("interval_centered", abs((lo + hi) / 2 - xbar) < 1e-9),
+        ("lower_bound_positive", lo > 0),
+        ("df_in_table", df in S.T_STAR),
+        ("three_plausible_distractors", len(distractors) == 3),
+        ("distractor_intervals_distinct", len({d for d, _, _ in distractors}) == 3),
+        ("distractor_lower_bounds_positive",
+         all(float(d.strip("()").split(",")[0]) > 0 for d, _, _ in distractors)),
+    ]
+    return _package("t_interval_mean", seed, "4.2", ["3.E"], "Medium", prompt,
+                    f"({lo:.3f}, {hi:.3f})", worked,
+                    [{"kind": "interval", "low": round(lo, 3), "high": round(hi, 3), "tol": 0.01}],
+                    f"({lo:.2f}, {hi:.2f})", None, 0.01, distractors,
+                    {"xbar": xbar, "s": s, "n": n, "conf": conf}, checks, scenario_domain=c["domain"])
+
+
 PROCEDURES: Dict[str, Callable[[random.Random, int], Dict]] = {
     "one_prop_ci": gen_one_prop_ci,
     "two_prop_ztest": gen_two_prop_ztest,
@@ -360,6 +418,7 @@ PROCEDURES: Dict[str, Callable[[random.Random, int], Dict]] = {
     "normal_prob": gen_normal_prob,
     "summary_stats": gen_summary_stats,
     "t_test_mean": gen_t_test_mean,
+    "t_interval_mean": gen_t_interval_mean,
 }
 
 
