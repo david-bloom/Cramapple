@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Course Mode D8 Release Bars Approved (SME 20/0-defects · ≥100 Property Instances/0 Rejects · 0 Verifier Disagreements · 5/Template/Month Spot-Audit) and CM-D19 Template-Release Stamping BUILT + Applied to Dev (migration 20260823160000: bars table + release ledger + fail-closed `cm_d19_release_template`/revoke functions); Fail-Closed Gate Verified (a Sub-Bar Attestation Is Rejected, 0 Items Stamped); Actual Release Still Needs David's Real 20-Instance SME Attestation + Cycle Serving Switches — 2026-08-23
 - Course Mode Dev Launch Path Started (David: Launch Dev-First, Numeric-Entry, Exam Date May 11 2027): the `last_attempt_id` Migration APPLIED to Dev and the `ap_statistics 2026-27` Exam-Pack Version CREATED (Loader's Two `into strict` Resolutions Now Both Pass) — but the `evaluate-attempt` Hook Deploy + Smoke-Test + 184KB Loader Run Are BLOCKED: This Session Has No Supabase CLI / Access Token / psql, and the MCP Deploy Can't Take the 23-File/287KB Function Inline; Needs a Token or a Human to Run Two Commands — 2026-08-23
 - Course Mode Release-Path Decision Brief Written (Surface, Not Execute): PR #101 Found Already Merged to `main` (Handoff Was Stale), and Verified Live Dev State Shows the Deploy-Gate Is Real — the `last_attempt_id` Migration Is Unapplied and `evaluate-attempt` Still Runs the Pre-Hook v14, So a Deploy-Before-Migration Would Silently No-Op the Whole Hook; the `app.grading_results` Answer-Key Exposure Confirmed as a Real Surface; the 2026-27 Exam-Pack Version Still Missing (Loader Blocked). Nothing Executed — Decisions (D8 Bars, Exam-Pack Version, Serving Form) Surfaced for David — 2026-08-23
 - Course Mode Live Write Hook (PR #101) Passed Fable QA Round-2 Re-QA: All 14 Round-1 Fixes Verified Genuine, and the 2 MAJOR Regressions the Fixes Introduced (Idempotent-Replay Leaked the shadow_result Answer Key; the F2 Stamp Blocked the Uncertain→Graded Upgrade) Both Fixed — Plus 4 Minor/Nit; Deno Suite 101→105 Green — 2026-08-23
@@ -158,6 +159,22 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## Course Mode — D8 Bars Approved + CM-D19 Template-Release Stamping Built — 2026-08-23
+
+**D8 release bars — approved by David (Phase-1 pilot).** SME validation sample **20** instances/template, **0** defects; property-test coverage **≥100** instances/template, **0** rejects; gold-behavior regression **0** verifier disagreements; ongoing spot-audit **5** served instances/template/month. Recorded as `bars_version='cm-d19-phase1-2026-08-23'`.
+
+**CM-D19 template-release stamping — built + applied to Dev** (migration `20260823160000_course_mode_cm_d19_template_release.sql`; in the repo on the branch and applied to Dev via MCP):
+- `app.template_release_bars` — the approved bars, versioned + auditable.
+- `app.template_releases` — release ledger: one row per (template_id, exam_pack_version) with the attestation, spot-audit rate, released_by/at, revoked_by/at, instances_stamped. RLS service_role-only.
+- `app.cm_d19_release_template(template_id, exam_pack_version_id, attestation, released_by, bars_version)` — **fail-closed** on the bars (raises if any of sme_sample_n/sme_defects/property_instances/property_rejects/verifier_disagreements misses), guards that the template has instances in the pack, records the release, then stamps every matching instance (`item_package_payload->'provenance'->>'template_id'`) to `review_status='question_review_approved'` + `status='published'` (both `content_items` and `content_item_versions`, satisfying the publish gate in one update). Idempotent per (template, pack).
+- `app.cm_d19_revoke_template_release(...)` — reverses it (un-stamps to draft/null), so a release is reversible per template.
+
+**Verified:** the fail-closed gate rejects a sub-bar attestation (SME sample 5 < 20) with **0 items stamped and 0 release rows** created. An *honest* attestation today would also fail the gate — the 20-instance SME review is David's and hasn't happened — so the gate correctly refuses to release a not-yet-SME-validated template.
+
+**Still required to actually serve an item to a student:** (1) David's real SME attestation (review 20 sampled instances, 0 defects); (2) cycle-level serving switches — publish the `2026-27` exam_pack_version (currently `draft`) + an active `subject_entitlement` for the test account. The live "answer it → watch the cell update" firing is also egress-blocked from the agent session (must be driven from a host that can reach the function).
 
 ---
 

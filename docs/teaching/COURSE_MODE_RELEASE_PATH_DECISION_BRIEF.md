@@ -160,7 +160,9 @@ Once you set these four, CM-D19 becomes a well-defined build.
 
 ---
 
-## 9. Build item — CM-D19 template-release stamping (blocked on Decision A)
+> **BUILT 2026-08-23:** D8 bars **approved by David** (SME sample 20/0-defects; ≥100 property instances/0 rejects; 0 verifier disagreements; 5/template/month spot-audit) and CM-D19 stamping **built + applied to Dev** (migration `20260823160000`): `app.template_release_bars` (the approved bars, versioned) + `app.template_releases` (release ledger) + `app.cm_d19_release_template(...)` / `app.cm_d19_revoke_template_release(...)`. The release function is **fail-closed** on the bars (verified: a sub-bar attestation is rejected, 0 items stamped) and reversible. It stamps a template's instances to `review_status='question_review_approved'` + `status='published'` (both `content_items` and `content_item_versions`), matching instances by `item_package_payload->'provenance'->>'template_id'`. **Still required to serve to a student:** a real SME attestation (David's 20-instance review), plus the cycle-level switches — publish the `2026-27` exam_pack_version + an active `subject_entitlement`.
+
+## 9. Build item — CM-D19 template-release stamping (BUILT — see banner above)
 
 **What it is:** the machine that, for an approved template that has cleared its D8 bars, stamps each conforming instance's `review_status='question_review_approved'` + a `validated` serving label, recording `template_id + params` as provenance — replacing per-instance human approval (CM-D19, which you approved 2026-08-23 with the sampled spot-audit).
 
