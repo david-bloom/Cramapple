@@ -33,35 +33,19 @@ from typing import Callable, Dict, List, Optional, Tuple
 
 import statlib as S
 import misconceptions as MISC
+import scenarios as SCN
 from cells import practice_of, unit_of
 
 OUT_DIR = Path(__file__).resolve().parent / "out"
 SCHEME_TAXONOMY = "ap-statistics-2026-27"
 SCHEME_SKILLS = "ap-statistics-skills"
 
-CONTEXTS = [  # (source, trait phrase, unit noun)
-    ("a school newspaper", "bike to school", "students"),
-    ("a city parks survey", "visited a park last month", "residents"),
-    ("a quality-control team", "pass inspection", "microchips"),
-    ("a biologist", "germinated", "seeds"),
-    ("a marketing team", "opened the email", "customers"),
-]
-
-# two-group contexts get their own phrasing pool (avoids "residents are residents...")
-TWO_GROUP = [  # (noun, verb phrase, groupA, groupB)
-    ("voters", "support the measure", "County A", "County B"),
-    ("households", "own a pet", "the suburb", "the city"),
-    ("passengers", "checked a bag", "Airline X", "Airline Y"),
-    ("online orders", "shipped on time", "warehouse 1", "warehouse 2"),
-]
-
-# regression contexts carry an expected slope SIGN so keyed predictions are sensible
-REG_CONTEXTS = [  # (xlab, ylab, who, sign)
-    ("hours studied", "exam score", "a tutor", +1),
-    ("age of a used car (years)", "price ($1000s)", "a dealership analyst", -1),
-    ("outside temperature (F)", "daily ice-cream sales ($)", "a shop owner", +1),
-    ("fertilizer (g/plant)", "plant height (cm)", "a gardener", +1),
-]
+# Context banks now live in scenarios.py (canonically framed by FRQ archetype /
+# task verb / modality, per fact pack S5-S7). Aliased here for brevity.
+CONTEXTS = SCN.PROPORTION_CONTEXTS
+TWO_GROUP = SCN.TWO_GROUP_CONTEXTS
+REG_CONTEXTS = SCN.REGRESSION_CONTEXTS
+NORMAL_CONTEXTS = SCN.NORMAL_CONTEXTS
 
 
 def _rid(prefix: str, seed: int) -> str:
@@ -79,7 +63,8 @@ def _fmt_line(intercept: float, slope: float) -> str:
 # ===========================================================================
 
 def gen_one_prop_ci(rng: random.Random, seed: int) -> Dict:
-    src, trait, noun = rng.choice(CONTEXTS)
+    c = rng.choice(CONTEXTS)
+    src, trait, noun = c["src"], c["trait"], c["noun"]
     conf = rng.choice([0.90, 0.95, 0.99])
     while True:
         n = rng.choice([80, 100, 120, 150, 200, 250])
@@ -113,11 +98,12 @@ def gen_one_prop_ci(rng: random.Random, seed: int) -> Dict:
                     f"({lo:.4f}, {hi:.4f})", worked,
                     [{"kind": "interval", "low": round(lo, 4), "high": round(hi, 4), "tol": 0.001}],
                     f"({lo:.3f}, {hi:.3f})", None, 0.001, distractors,
-                    {"n": n, "x": x, "conf": conf}, checks)
+                    {"n": n, "x": x, "conf": conf}, checks, scenario_domain=c["domain"])
 
 
 def gen_two_prop_ztest(rng: random.Random, seed: int) -> Dict:
-    noun, verb, gA, gB = rng.choice(TWO_GROUP)
+    c = rng.choice(TWO_GROUP)
+    noun, verb, gA, gB = c["noun"], c["verb"], c["gA"], c["gB"]
     while True:
         n1 = rng.choice([80, 100, 120, 150])
         n2 = rng.choice([80, 100, 120, 150])
@@ -153,11 +139,12 @@ def gen_two_prop_ztest(rng: random.Random, seed: int) -> Dict:
                     f"z = {z:.4f}", worked,
                     [{"kind": "numeric", "value": round(z, 4), "tol": tol}],
                     f"z = {z:.2f}", z, tol, distractors,
-                    {"x1": x1, "n1": n1, "x2": x2, "n2": n2}, checks)
+                    {"x1": x1, "n1": n1, "x2": x2, "n2": n2}, checks, scenario_domain=c["domain"])
 
 
 def gen_lsrl_predict(rng: random.Random, seed: int) -> Dict:
-    xlab, ylab, who, sign = rng.choice(REG_CONTEXTS)
+    c = rng.choice(REG_CONTEXTS)
+    xlab, ylab, who, sign = c["xlab"], c["ylab"], c["who"], c["sign"]
     tol = 0.05
     for _ in range(200):  # reject non-plausible (negative y-hat / y_i)
         slope = sign * rng.choice([0.8, 1.2, 1.5, 2.0, 3.0])
@@ -190,19 +177,21 @@ def gen_lsrl_predict(rng: random.Random, seed: int) -> Dict:
                     f"y-hat = {yhat:.3f}", worked,
                     [{"kind": "numeric", "value": round(yhat, 3), "tol": tol}],
                     f"{yhat:.2f}", yhat, tol, distractors,
-                    {"slope": b, "intercept": a, "x_new": x_new}, checks)
+                    {"slope": b, "intercept": a, "x_new": x_new}, checks, scenario_domain=c["domain"])
 
 
 def gen_normal_prob(rng: random.Random, seed: int) -> Dict:
-    mu = rng.choice([50, 100, 200, 500])
-    sigma = rng.choice([5, 10, 15, 25])
+    c = rng.choice(NORMAL_CONTEXTS)
+    mu = rng.choice(c["mu_choices"])       # per-context ranges keep the numbers realistic
+    sigma = rng.choice(c["sigma_choices"])
     mult = rng.choice([-2, -1.5, -1, 1, 1.5, 2])
     x = round(mu + mult * sigma, 1)
     tol = 0.005
     z = S.z_score(x, mu, sigma)
     below = S.norm_cdf(z)
-    prompt = (f"A quantity is Normally distributed with mean {mu} and standard deviation {sigma}. "
-              f"Find the probability that a randomly chosen value is less than {x}.")
+    prompt = (f"In a large population, {c['quantity']} ({c['unit']}) is modeled by a Normal "
+              f"distribution with mean {mu} and standard deviation {sigma}. Find the probability "
+              f"that a randomly chosen value is less than {x} {c['unit']}.")
     worked = f"z = ({x} - {mu})/{sigma} = {z:.4f}. P(Z < {z:.4f}) = {below:.4f}."
     upper = 1 - below
     body = abs(below - 0.5)          # area between mean and z (table misread)
@@ -222,7 +211,7 @@ def gen_normal_prob(rng: random.Random, seed: int) -> Dict:
                     f"P = {below:.4f}", worked,
                     [{"kind": "numeric", "value": round(below, 4), "tol": tol}],
                     f"{below:.4f}", below, tol, distractors,
-                    {"mu": mu, "sigma": sigma, "x": x}, checks)
+                    {"mu": mu, "sigma": sigma, "x": x}, checks, scenario_domain=c["domain"])
 
 
 def gen_summary_stats(rng: random.Random, seed: int) -> Dict:
@@ -248,7 +237,7 @@ def gen_summary_stats(rng: random.Random, seed: int) -> Dict:
                     f"mean = {m:.4f}", worked,
                     [{"kind": "numeric", "value": round(m, 4), "tol": tol}],
                     f"{m:.2f}", m, tol, distractors,
-                    {"data": data}, checks)
+                    {"data": data}, checks, scenario_domain=None)
 
 
 PROCEDURES: Dict[str, Callable[[random.Random, int], Dict]] = {
@@ -266,8 +255,10 @@ PROCEDURES: Dict[str, Callable[[random.Random, int], Dict]] = {
 
 def _package(proc, seed, topic, skills, difficulty, prompt, answer_desc, worked,
              det_checks, mcq_correct, mcq_key_value: Optional[float], tol: float,
-             mcq_distractors: List[Tuple[str, str, Optional[float]]], params, checks) -> Dict:
+             mcq_distractors: List[Tuple[str, str, Optional[float]]], params, checks,
+             scenario_domain: Optional[str] = None) -> Dict:
     unit = unit_of(topic)
+    scenario_prov = SCN.framing(proc, scenario_domain)  # raises if proc lacks canonical framing
     options = [{"text": mcq_correct, "correct": True, "misconception": None}]
     seen = {mcq_correct}
     for disp, tag, val in mcq_distractors:
@@ -292,6 +283,9 @@ def _package(proc, seed, topic, skills, difficulty, prompt, answer_desc, worked,
          all(o["misconception"] in MISC.CATALOG for o in options if not o["correct"])),
         ("all_distractors_cite_source",
          all(o.get("misconception_source", {}).get("sources") for o in options if not o["correct"])),
+        ("scenario_framing_present",
+         bool(scenario_prov.get("archetype")) and bool(scenario_prov.get("sources"))),
+        ("scenario_modality_exam_aligned", scenario_prov.get("modality") == "exam_aligned_digital"),
     ]
     taxonomy_refs = [
         {"scheme_key": SCHEME_TAXONOMY, "node_key": f"unit-{unit}"},
@@ -319,6 +313,7 @@ def _package(proc, seed, topic, skills, difficulty, prompt, answer_desc, worked,
                 "deterministic_checks": det_checks, "accepted_variants": [],
             }],
         }],
+        "scenario_provenance": scenario_prov,
         "provenance": {
             "generator": "course_mode_stats_generator/generator.py",
             "template_id": proc, "params": params, "seed": seed,
@@ -380,6 +375,7 @@ def property_report(per_proc: int = 80) -> Dict:
         ("two_prop_equal_groups_z0", abs(S.two_prop_ztest(50, 100, 50, 100)[3]) < 1e-9),
         ("lsrl_perfect_line_r1", abs(S.lsrl([1, 2, 3, 4], [3, 5, 7, 9])[2] - 1.0) < 1e-9),
         ("misconception_catalog_selfcheck", not MISC.validate_catalog()),
+        ("scenario_catalog_selfcheck", not SCN.validate_scenarios()),
     ]
     report["meta_failures"] = [n for n, ok in meta if not ok]
     report["ok"] = not report["failures"] and not report["meta_failures"]

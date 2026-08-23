@@ -29,7 +29,7 @@
       "skill": "3.C"
     }
   ],
-  "prompt": "A quantity is Normally distributed with mean 100 and standard deviation 15. Find the probability that a randomly chosen value is less than 115.",
+  "prompt": "In a large population, adult resting heart rate (bpm) is modeled by a Normal distribution with mean 76 and standard deviation 8. Find the probability that a randomly chosen value is less than 84 bpm.",
   "numeric_form": {
     "answer_desc": "P = 0.8413",
     "deterministic_checks": [
@@ -138,11 +138,11 @@
       }
     ]
   },
-  "worked_solution": "z = (115 - 100)/15 = 1.0000. P(Z < 1.0000) = 0.8413.",
+  "worked_solution": "z = (84 - 76)/8 = 1.0000. P(Z < 1.0000) = 0.8413.",
   "parts": [
     {
       "part_key": "part-a",
-      "prompt": "A quantity is Normally distributed with mean 100 and standard deviation 15. Find the probability that a randomly chosen value is less than 115.",
+      "prompt": "In a large population, adult resting heart rate (bpm) is modeled by a Normal distribution with mean 76 and standard deviation 8. Find the probability that a randomly chosen value is less than 84 bpm.",
       "response_modalities": [
         "mcq",
         "numeric"
@@ -153,7 +153,7 @@
           "criterion_key": "part-a-criterion-1",
           "points": 1,
           "description": "P = 0.8413",
-          "required_evidence": "z = (115 - 100)/15 = 1.0000. P(Z < 1.0000) = 0.8413.",
+          "required_evidence": "z = (84 - 76)/8 = 1.0000. P(Z < 1.0000) = 0.8413.",
           "deterministic_checks": [
             {
               "kind": "numeric",
@@ -166,13 +166,42 @@
       ]
     }
   ],
+  "scenario_provenance": {
+    "archetype": "Q4",
+    "archetype_label": "Multi-focus on Practices 2, 3 & 4 (spans multiple content areas)",
+    "task_verb": "Calculate",
+    "practice": 3,
+    "modality": "exam_aligned_digital",
+    "validity_rules": [
+      "a quantity modeled as Normal",
+      "probability must lie in [0, 1]"
+    ],
+    "sources": [
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S5 (Free-response archetypes)",
+        "note": "Section II question archetypes Q1-Q4"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S6 (Task verbs)",
+        "note": "the item stem's verb must match the scored demand"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S7 (Response modality)",
+        "note": "digital Bluebook; text/numeric entry -> exam_aligned_digital"
+      }
+    ],
+    "domain": "health"
+  },
   "provenance": {
     "generator": "course_mode_stats_generator/generator.py",
     "template_id": "normal_prob",
     "params": {
-      "mu": 100,
-      "sigma": 15,
-      "x": 115
+      "mu": 76,
+      "sigma": 8,
+      "x": 84
     },
     "seed": 5000,
     "release_status": "unreleased_generated_pending_review",

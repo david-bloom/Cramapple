@@ -16,6 +16,7 @@ CM-D19 template-release + review gate (David reviewer of record) before any serv
 - `statlib.py` — stdlib-exact stats primitives (normal via erf; Acklam inverse; regression; proportion inference). Verified against known values.
 - `cells.py` — F1 skill taxonomy + 131-cell registry (topic × skill) from fact pack §3. `python3 cells.py` prints invariants.
 - `misconceptions.py` — **canonical misconception catalog** (A5). Single source of truth for every distractor tag, each with a cited source (fact-pack §10 / CED / trusted study guides) and an evidence tier. Generators fail if a distractor references a non-catalog tag. `python3 misconceptions.py` prints a summary + self-check.
+- `scenarios.py` — **canonical scenario/framing catalog**. Per-procedure framing (FRQ archetype §5, task verb §6, digital modality §7, practice, validity rules) with citations, plus the context banks (proportion / two-group / regression / normal), each tagged with domain + per-context guardrails. Contexts are original synthetic settings (rights: no CB content). Generators fail if a procedure lacks canonical framing. `python3 scenarios.py` prints a summary + self-check.
 - `generator.py` — Track A: 5 computational procedures × scenario × form, catalog-cited misconception distractors, item-package emission, property harness. `python3 generator.py` runs checks; `emit` writes samples.
 - `slot_frames.py` — Track B: authored 4.B slot-frame (cell 1.9 × 4.B), observational-only scenarios, catalog-cited justification distractors. `python3 slot_frames.py` runs checks; `emit` writes samples.
 - `f1_build.py` — emits `out/f1_cell_registry_seed.json` + `f1_migration_DRAFT.sql` (DRAFT, not applied).
@@ -23,8 +24,16 @@ CM-D19 template-release + review gate (David reviewer of record) before any serv
 
 ## What is validated
 - Registry: 55 topics, 131 cells (U1:28 U2:21 U3:42 U4:30 U5:10); skills/practice P1:1 P2:5 P3:5 P4:7.
-- Track A: 5 procedures — one-proportion z-interval (3.3×3.E), two-proportion z-test (3.13×3.E), LSRL predict (5.3×3.B), normal probability (2.11×3.C), summary statistics (1.7×3.B). Default `python3 generator.py` = 400 instances / 3,840 per-instance invariant checks + 6 meta-property tests (incl. the misconception-catalog self-check), all pass; every MCQ has 1 key + 3 distinct misconception distractors, each carrying a canonical `misconception_source` (catalog tag + citation) and enforced key/distractor separation (>2× grading tolerance); emission is gated (resample until valid); deterministic_checks populated. Hardened 2026-08-23 per Fable QA (impossible predictions, throwaway/degenerate distractors, cell over-tagging, ungated emission all fixed; a real LSRL predict argument-order bug was caught by the property harness).
-- Track B: 1 frame, 60 instances / 480 checks pass; scenarios observational; each distractor a catalog-cited misconception.
+- Track A: 5 procedures — one-proportion z-interval (3.3×3.E), two-proportion z-test (3.13×3.E), LSRL predict (5.3×3.B), normal probability (2.11×3.C), summary statistics (1.7×3.B). Default `python3 generator.py` = 400 instances / 4,640 per-instance invariant checks + 7 meta-property tests (incl. the misconception- and scenario-catalog self-checks), all pass; every MCQ has 1 key + 3 distinct misconception distractors, each carrying a canonical `misconception_source` (catalog tag + citation); every item carries `scenario_provenance` (FRQ archetype + task verb + modality + citations); enforced key/distractor separation (>2× grading tolerance); emission is gated (resample until valid); deterministic_checks populated. Hardened 2026-08-23 per Fable QA (impossible predictions, throwaway/degenerate distractors, cell over-tagging, ungated emission all fixed; a real LSRL predict argument-order bug was caught by the property harness).
+- Track B: 1 frame, 60 instances / 600 checks pass; scenarios observational; each distractor a catalog-cited misconception; each item scenario-framed (Q2 / Justify, observational-only).
+
+## Scenario grounding (§5/§6/§7)
+Scenarios are no longer bare tuples in code. `scenarios.py` gives each procedure a canonical **framing** and each item emits `scenario_provenance`:
+- **FRQ archetype** (§5) — which Section II question type the item mirrors (Q1–Q4).
+- **task verb** (§6) — Calculate / Construct / Justify, matching the item's scored demand.
+- **modality** (§7) — all pilot items are text/numeric → `exam_aligned_digital` (no Desmos/hand-drawn dependency).
+- **validity rules** — the constraints an instance must satisfy (e.g. two distinct groups; plausible slope sign; observational-only for 4.B; per-context μ/σ so Normal numbers stay realistic).
+Rights: contexts are original synthetic settings — no official College Board questions or structures as source/exemplar (Phase-4 authoring brief rule 2, DECISION-0031/0033).
 
 ## Canonical grounding (A5)
 Distractors are no longer invented in code. Every MCQ distractor references a tag in `misconceptions.py`, whose entry cites its source and evidence tier:
