@@ -23,6 +23,8 @@ import random
 from pathlib import Path
 from typing import Dict, List
 
+import misconceptions as MISC
+
 OUT_DIR = Path(__file__).resolve().parent / "out"
 
 # Authored slot pool. NOTE: all scenarios are OBSERVATIONAL comparisons (no random
@@ -89,8 +91,11 @@ def gen_4b_instance(rng: random.Random, seed: int) -> Dict:
     options = [{"text": _justification_text(CORRECT_TYPE, s, mA, mB, sd),
                 "correct": True, "misconception": None}]
     for mis in rng.sample(MISCONCEPTION_TYPES, 3):
+        # MISC.provenance() raises if the justification-misconception type is not
+        # in the canonical catalog, keeping distractors grounded + cited.
         options.append({"text": _justification_text(mis, s, mA, mB, sd),
-                        "correct": False, "misconception": mis})
+                        "correct": False, "misconception": mis,
+                        "misconception_source": MISC.provenance(mis)})
     rng.shuffle(options)
 
     checks = [
@@ -100,6 +105,10 @@ def gen_4b_instance(rng: random.Random, seed: int) -> Dict:
         ("four_options", len(options) == 4),
         ("option_texts_unique", len({o["text"] for o in options}) == 4),
         ("all_distractors_tagged", all(o["misconception"] for o in options if not o["correct"])),
+        ("all_distractor_tags_canonical",
+         all(o["misconception"] in MISC.CATALOG for o in options if not o["correct"])),
+        ("all_distractors_cite_source",
+         all(o.get("misconception_source", {}).get("sources") for o in options if not o["correct"])),
     ]
     return {
         "schema_version": "course-mode-generated-0.1",

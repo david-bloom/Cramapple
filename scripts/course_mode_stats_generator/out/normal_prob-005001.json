@@ -50,17 +50,91 @@
       {
         "text": "0.0228",
         "correct": false,
-        "misconception": "used_upper_tail"
+        "misconception": "used_upper_tail",
+        "misconception_source": {
+          "tag": "used_upper_tail",
+          "label": "Reported the upper-tail area instead of the requested lower-tail area",
+          "evidence": "external_corroborated",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 2 (2.11)",
+              "note": "standard normal + interval-probability notation (lower/upper bounds) define which tail is requested"
+            },
+            {
+              "kind": "albert.io",
+              "url": "https://www.albert.io/blog/ap-statistics-the-normal-distribution-revisited/",
+              "note": "'at least'/'more than' point to the right tail; 'at most'/'less than' to the left -- picking the wrong direction is a common student error"
+            },
+            {
+              "kind": "fiveable.me",
+              "url": "https://fiveable.me/ap-stats/unit-2/normal-distribution-revisited/study-guide/dx4vMcx3WjSw68f1Ov66",
+              "note": "match the tail (left vs right) to the inequality in the prompt"
+            },
+            {
+              "kind": "khanacademy.org",
+              "url": "https://www.khanacademy.org/math/ap-statistics/density-curves-normal-distribution-ap/normal-distributions-calculations/e/z_scores_2",
+              "note": "area above vs below a point: choose the correct region"
+            }
+          ]
+        }
       },
       {
         "text": "0.4772",
         "correct": false,
-        "misconception": "reported_area_mean_to_z"
+        "misconception": "reported_area_mean_to_z",
+        "misconception_source": {
+          "tag": "reported_area_mean_to_z",
+          "label": "Reported the area between the mean and z (table misread)",
+          "evidence": "external_corroborated",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 2 (2.11)",
+              "note": "cumulative area under the standard normal vs the mean-to-z body area are distinct regions"
+            },
+            {
+              "kind": "albert.io",
+              "url": "https://www.albert.io/blog/ap-statistics-the-normal-distribution-revisited/",
+              "note": "area under the curve over an interval, read from the correct region -- mean-to-z body area is not the cumulative probability"
+            },
+            {
+              "kind": "khanacademy.org",
+              "url": "https://www.khanacademy.org/math/ap-statistics/density-curves-normal-distribution-ap/normal-distributions-calculations/e/z_scores_2",
+              "note": "distinguish cumulative area from the area between the mean and z"
+            }
+          ]
+        }
       },
       {
         "text": "0.0455",
         "correct": false,
-        "misconception": "reported_two_sided_area"
+        "misconception": "reported_two_sided_area",
+        "misconception_source": {
+          "tag": "reported_two_sided_area",
+          "label": "Reported a two-sided (symmetric) area instead of a one-sided probability",
+          "evidence": "external_corroborated",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 2 (2.11)",
+              "note": "a one-sided probability is a single tail/region, distinct from a symmetric two-sided area"
+            },
+            {
+              "kind": "albert.io",
+              "url": "https://www.albert.io/blog/ap-statistics-the-normal-distribution-revisited/",
+              "note": "for the most extreme p% of values the area is split in half -- conflating one- and two-sided areas is a documented error"
+            },
+            {
+              "kind": "fiveable.me",
+              "url": "https://fiveable.me/ap-stats/unit-2/normal-distribution-revisited/study-guide/dx4vMcx3WjSw68f1Ov66",
+              "note": "one-sided vs two-sided area must match the question"
+            }
+          ]
+        }
       }
     ]
   },

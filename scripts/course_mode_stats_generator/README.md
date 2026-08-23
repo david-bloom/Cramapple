@@ -15,15 +15,23 @@ CM-D19 template-release + review gate (David reviewer of record) before any serv
 ## Files
 - `statlib.py` — stdlib-exact stats primitives (normal via erf; Acklam inverse; regression; proportion inference). Verified against known values.
 - `cells.py` — F1 skill taxonomy + 131-cell registry (topic × skill) from fact pack §3. `python3 cells.py` prints invariants.
-- `generator.py` — Track A: 5 computational procedures × scenario × form, misconception-tagged distractors, item-package emission, property harness. `python3 generator.py` runs checks; `emit` writes samples.
-- `slot_frames.py` — Track B: authored 4.B slot-frame (cell 1.9 × 4.B), observational-only scenarios. `python3 slot_frames.py` runs checks; `emit` writes samples.
+- `misconceptions.py` — **canonical misconception catalog** (A5). Single source of truth for every distractor tag, each with a cited source (fact-pack §10 / CED / trusted study guides) and an evidence tier. Generators fail if a distractor references a non-catalog tag. `python3 misconceptions.py` prints a summary + self-check.
+- `generator.py` — Track A: 5 computational procedures × scenario × form, catalog-cited misconception distractors, item-package emission, property harness. `python3 generator.py` runs checks; `emit` writes samples.
+- `slot_frames.py` — Track B: authored 4.B slot-frame (cell 1.9 × 4.B), observational-only scenarios, catalog-cited justification distractors. `python3 slot_frames.py` runs checks; `emit` writes samples.
 - `f1_build.py` — emits `out/f1_cell_registry_seed.json` + `f1_migration_DRAFT.sql` (DRAFT, not applied).
 - `out/` — sample emitted item-packages + F1 seed.
 
 ## What is validated
 - Registry: 55 topics, 131 cells (U1:28 U2:21 U3:42 U4:30 U5:10); skills/practice P1:1 P2:5 P3:5 P4:7.
-- Track A: 5 procedures — one-proportion z-interval (3.3×3.E), two-proportion z-test (3.13×3.E), LSRL predict (5.3×3.B), normal probability (2.11×3.C), summary statistics (1.7×3.B). Default `python3 generator.py` = 400 instances / 3,040 per-instance invariant checks + 5 meta-property tests, all pass; every MCQ has 1 key + 3 distinct misconception-tagged distractors with enforced key/distractor separation (>2× grading tolerance); emission is gated (resample until valid); deterministic_checks populated. Hardened 2026-08-23 per Fable QA (impossible predictions, throwaway/degenerate distractors, cell over-tagging, ungated emission all fixed; a real LSRL predict argument-order bug was caught by the property harness).
-- Track B: 1 frame, 60 instances / 360 checks pass; scenarios observational; each distractor a tagged misconception.
+- Track A: 5 procedures — one-proportion z-interval (3.3×3.E), two-proportion z-test (3.13×3.E), LSRL predict (5.3×3.B), normal probability (2.11×3.C), summary statistics (1.7×3.B). Default `python3 generator.py` = 400 instances / 3,840 per-instance invariant checks + 6 meta-property tests (incl. the misconception-catalog self-check), all pass; every MCQ has 1 key + 3 distinct misconception distractors, each carrying a canonical `misconception_source` (catalog tag + citation) and enforced key/distractor separation (>2× grading tolerance); emission is gated (resample until valid); deterministic_checks populated. Hardened 2026-08-23 per Fable QA (impossible predictions, throwaway/degenerate distractors, cell over-tagging, ungated emission all fixed; a real LSRL predict argument-order bug was caught by the property harness).
+- Track B: 1 frame, 60 instances / 480 checks pass; scenarios observational; each distractor a catalog-cited misconception.
+
+## Canonical grounding (A5)
+Distractors are no longer invented in code. Every MCQ distractor references a tag in `misconceptions.py`, whose entry cites its source and evidence tier:
+- `documented_cr` — documented in the 2025 Chief Reader Report via fact-pack §10 (in-repo, primary).
+- `ced_structural` — follows directly from a CED formula / EK / exam-wide convention (fact-pack §10).
+- `external_corroborated` — documented as a common error in trusted study guides (Albert.io, Fiveable, Khan Academy), used only for the topics §10 flags as thin (2.11 normal tails; Unit-5 regression prediction); each still carries an in-repo (§10/CED) anchor.
+Rights: sources record *documented error patterns* and CED *structure* only — never verbatim College Board questions, keys, or scoring guidelines (DECISION-0031/0033). Adding a catalog entry releases nothing; items stay `unreleased_generated_pending_review` under CM-D19, and §3/§10 remain under the D2 SME gate.
 
 ## Scope / deferred (for morning review)
 - t- and χ²-based procedures need special functions → a **scipy dependency decision** (env is stdlib-only). Procedures currently cover the normal/proportion/regression/descriptive computational cells.
