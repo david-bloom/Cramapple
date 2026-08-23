@@ -203,6 +203,13 @@ CATALOG: Dict[str, Misconception] = {m.tag: m for m in [
        [_fp("S10 Unit 5 (5.3)", "the requested x-value must be substituted into y-hat = a + bx"),
         _ext("fiveable.me", _FIVEABLE_LSRL, "substitute the given x-value, not a placeholder, into the model")]),
 
+    _M("predicted_intercept_ignored_x",
+       "Predicted the intercept, ignoring the explanatory variable",
+       "Reported the y-intercept a as the prediction (y-hat = a), dropping the b*x term "
+       "and treating the response as if it did not depend on x.",
+       "ced_structural", ["lsrl_predict"], ["5.3"], ["3.B"],
+       [_fp("S10 Unit 5 (5.3)", "the model y-hat = a + bx depends on x; using a alone drops the explanatory variable")]),
+
     # --- normal_prob (2.11 x 3.C) : normal-distribution probability ------------
     # Section 10 flags 2.11 misconception coverage as thin; corroborated via
     # trusted study guides (documented tail/area error patterns).

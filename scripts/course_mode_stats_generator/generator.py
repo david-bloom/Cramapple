@@ -168,7 +168,8 @@ def gen_lsrl_predict(rng: random.Random, seed: int) -> Dict:
     c = rng.choice(REG_CONTEXTS)
     xlab, ylab, who, sign = c["xlab"], c["ylab"], c["who"], c["sign"]
     tol = 0.05
-    for _ in range(200):  # reject non-plausible (negative y-hat / y_i)
+    plausible: List[Tuple[str, str, float]] = []
+    for _ in range(400):  # resample until y-hat/y_i are non-negative AND >=3 realistic distractors exist
         slope = sign * rng.choice([0.8, 1.2, 1.5, 2.0, 3.0])
         n = rng.choice([6, 7, 8])
         xs = sorted(rng.sample(range(1, 16), n))
@@ -177,23 +178,53 @@ def gen_lsrl_predict(rng: random.Random, seed: int) -> Dict:
         b, a, r = S.lsrl(xs, ys)  # b = slope, a = intercept
         x_new = rng.choice(list(range(max(xs) + 1, max(xs) + 5)))
         yhat = S.predict(b, a, x_new)  # predict(slope, intercept, x)
-        if yhat >= 0 and all(y >= 0 for y in ys):
+        # Distractor candidates -- each a DISTINCT, documented misconception. Per the
+        # authoring protocol ("every distractor maps to a distinct PLAUSIBLE error"), a
+        # candidate is kept only if its value is REALISTIC: strictly positive, on the
+        # response's own scale, and clear of the key's grading band. swapped_slope_intercept
+        # (b + a*x) is intentionally NOT a candidate here: for these params it lands ~10-40x
+        # off-scale (e.g. a "car price" of $905k), an implausible throwaway a student
+        # eliminates on sight -- exactly the defect reviewers reject.
+        p_max = 2.0 * max(ys + [yhat, a])
+        cand = [
+            (a - b * x_new, "sign_error_on_slope"),           # flipped the slope's sign
+            (a + b,         "plugged_in_1_not_x"),            # substituted x = 1
+            (b * x_new,     "dropped_intercept"),             # omitted the intercept
+            (a,             "predicted_intercept_ignored_x"),  # used y-hat = a, ignored x
+        ]
+        plausible = []
+        chosen_vals: List[float] = []
+        for val, tag in cand:
+            if not (0.0 < val <= p_max):
+                continue                                       # realistic: positive, on-scale
+            if abs(val - yhat) <= 3 * tol:
+                continue                                       # clear of the key's tolerance
+            if any(abs(val - v) <= 3 * tol for v in chosen_vals):
+                continue                                       # distinct from the other distractors
+            plausible.append((f"{val:.2f}", tag, val))
+            chosen_vals.append(val)
+        # The KEY must also be realistic: an extrapolated near-zero prediction (e.g. a
+        # "$30 car") is an implausible correct answer and makes the tiny key the obvious
+        # odd-one-out. Floor it to a real fraction of the data's scale.
+        yhat_floor = max(2.0, 0.10 * max(ys))
+        if yhat >= yhat_floor and all(y >= 0 for y in ys) and len(plausible) >= 3:
             break
     prompt = (f"{who.capitalize()} fits a least-squares line predicting {ylab} from {xlab}. "
               f"The line is {_fmt_line(a, b)}. Predict {ylab} when {xlab} = {x_new}.")
     worked = f"{_fmt_line(a, b).replace('x', f'({x_new})')} = {yhat:.3f}."
-    distractors = [
-        (f"{a + b:.2f}", "plugged_in_1_not_x", a + b),
-        (f"{b + a * x_new:.2f}", "swapped_slope_intercept", b + a * x_new),
-        (f"{b * x_new:.2f}", "dropped_intercept", b * x_new),
-        (f"{a - b * x_new:.2f}", "sign_error_on_slope", a - b * x_new),
-    ]
+    distractors = plausible[:3]
+    p_max = 2.0 * max(ys + [yhat, a])
     checks = [
         ("predict_formula", abs(yhat - (a + b * x_new)) < 1e-9),
         ("yhat_nonneg", yhat >= 0),
+        ("yhat_realistic", yhat >= max(2.0, 0.10 * max(ys))),
         ("all_y_nonneg", all(y >= 0 for y in ys)),
         ("r_in_range", -1.0 <= r <= 1.0),
         ("slope_sign_matches_context", (b > 0) == (sign > 0)),
+        ("three_plausible_distractors", len(distractors) == 3),
+        ("distractors_positive", all(v > 0 for _, _, v in distractors)),
+        ("distractors_on_scale", all(v <= p_max for _, _, v in distractors)),
+        ("distractors_clear_of_key", all(abs(v - yhat) > 2 * tol for _, _, v in distractors)),
     ]
     return _package("lsrl_predict", seed, "5.3", ["3.B"], "Easy", prompt,
                     f"y-hat = {yhat:.3f}", worked,

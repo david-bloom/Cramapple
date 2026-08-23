@@ -43,24 +43,42 @@
   "mcq_form": {
     "options": [
       {
-        "text": "-24.28",
+        "text": "60.46",
         "correct": false,
-        "misconception": "dropped_intercept",
+        "misconception": "predicted_intercept_ignored_x",
         "misconception_source": {
-          "tag": "dropped_intercept",
-          "label": "Omitted the intercept when predicting (used b*x only)",
-          "evidence": "external_corroborated",
+          "tag": "predicted_intercept_ignored_x",
+          "label": "Predicted the intercept, ignoring the explanatory variable",
+          "evidence": "ced_structural",
           "ek_codes": [],
           "sources": [
             {
               "kind": "fact_pack",
               "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 5 (5.3)",
-              "note": "y-hat = a + bx -- the intercept a is part of every prediction"
+              "note": "the model y-hat = a + bx depends on x; using a alone drops the explanatory variable"
+            }
+          ]
+        }
+      },
+      {
+        "text": "84.74",
+        "correct": false,
+        "misconception": "sign_error_on_slope",
+        "misconception_source": {
+          "tag": "sign_error_on_slope",
+          "label": "Sign error on the slope term when predicting",
+          "evidence": "external_corroborated",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 5 (5.4)",
+              "note": "sign discipline: a positive/negative slope direction is easily flipped"
             },
             {
-              "kind": "khanacademy.org",
-              "url": "https://www.khanacademy.org/math/ap-statistics/bivariate-data-ap/least-squares-regression/v/interpreting-slope-of-regression-line",
-              "note": "prediction uses the full line a + bx, not the slope term alone"
+              "kind": "albert.io",
+              "url": "https://www.albert.io/blog/ap-statistics-least-squares-regression/",
+              "note": "slope sign carries direction; mishandling it is a common prediction error"
             }
           ]
         }
@@ -84,34 +102,6 @@
               "kind": "fiveable.me",
               "url": "https://fiveable.me/ap-stats/unit-2/linear-regression-models/study-guide/PSt5cfDuvB5nu60DHulR",
               "note": "substitute the given x-value, not a placeholder, into the model"
-            }
-          ]
-        }
-      },
-      {
-        "text": "905.34",
-        "correct": false,
-        "misconception": "swapped_slope_intercept",
-        "misconception_source": {
-          "tag": "swapped_slope_intercept",
-          "label": "Swapped slope and intercept when substituting into y-hat = a + bx",
-          "evidence": "external_corroborated",
-          "ek_codes": [],
-          "sources": [
-            {
-              "kind": "fact_pack",
-              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 5 (5.3)",
-              "note": "prediction model is y-hat = a + bx (a = intercept, b = slope)"
-            },
-            {
-              "kind": "albert.io",
-              "url": "https://www.albert.io/blog/ap-statistics-least-squares-regression/",
-              "note": "predict by substituting x into y-hat = a + bx; slope/intercept roles are fixed"
-            },
-            {
-              "kind": "fiveable.me",
-              "url": "https://fiveable.me/ap-stats/unit-2/linear-regression-models/study-guide/PSt5cfDuvB5nu60DHulR",
-              "note": "linear regression model y-hat = a + bx; correct substitution of x"
             }
           ]
         }
