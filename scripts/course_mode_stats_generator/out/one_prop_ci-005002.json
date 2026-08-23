@@ -1,0 +1,109 @@
+{
+  "schema_version": "course-mode-generated-0.1",
+  "package_id": "one_prop_ci-005002",
+  "content_key": "apstat-one_prop_ci-005002",
+  "item_type": "mcq",
+  "difficulty": "Medium",
+  "exam_pack_ref": {
+    "exam_code": "ap_statistics",
+    "cycle": "2026-27"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "unit-3"
+    },
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "topic-3.3"
+    },
+    {
+      "scheme_key": "ap-statistics-skills",
+      "node_key": "skill-3.E",
+      "practice": 3
+    }
+  ],
+  "cells": [
+    {
+      "topic": "3.3",
+      "skill": "3.E"
+    }
+  ],
+  "prompt": "A quality-control team takes a random sample of 80 microchips and finds that 60 of them pass inspection. Construct a 90% confidence interval for the true proportion of microchips that pass inspection.",
+  "numeric_form": {
+    "answer_desc": "(0.6704, 0.8296)",
+    "deterministic_checks": [
+      {
+        "kind": "interval",
+        "low": 0.6704,
+        "high": 0.8296,
+        "tol": 0.001
+      }
+    ]
+  },
+  "mcq_form": {
+    "options": [
+      {
+        "text": "(0.670, 0.830)",
+        "correct": true,
+        "misconception": null
+      },
+      {
+        "text": "(0.702, 0.798)",
+        "correct": false,
+        "misconception": "forgot_z_star_used_se_only"
+      },
+      {
+        "text": "(0.746, 0.754)",
+        "correct": false,
+        "misconception": "forgot_sqrt_in_se"
+      },
+      {
+        "text": "(0.750, 0.830)",
+        "correct": false,
+        "misconception": "one_sided_only_added_me"
+      }
+    ]
+  },
+  "worked_solution": "p-hat = 60/80 = 0.7500. Conditions: 60 >= 10 and 20 >= 10. SE = sqrt(p-hat(1-p-hat)/n) = 0.0484. z* = 1.645. ME = z*\u00b7SE = 0.0796. Interval = 0.7500 +/- 0.0796 = (0.6704, 0.8296).",
+  "parts": [
+    {
+      "part_key": "part-a",
+      "prompt": "A quality-control team takes a random sample of 80 microchips and finds that 60 of them pass inspection. Construct a 90% confidence interval for the true proportion of microchips that pass inspection.",
+      "response_modalities": [
+        "mcq",
+        "numeric"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "(0.6704, 0.8296)",
+          "required_evidence": "p-hat = 60/80 = 0.7500. Conditions: 60 >= 10 and 20 >= 10. SE = sqrt(p-hat(1-p-hat)/n) = 0.0484. z* = 1.645. ME = z*\u00b7SE = 0.0796. Interval = 0.7500 +/- 0.0796 = (0.6704, 0.8296).",
+          "deterministic_checks": [
+            {
+              "kind": "interval",
+              "low": 0.6704,
+              "high": 0.8296,
+              "tol": 0.001
+            }
+          ],
+          "accepted_variants": []
+        }
+      ]
+    }
+  ],
+  "provenance": {
+    "generator": "course_mode_stats_generator/generator.py",
+    "template_id": "one_prop_ci",
+    "params": {
+      "n": 80,
+      "x": 60,
+      "conf": 0.9
+    },
+    "seed": 5002,
+    "release_status": "unreleased_generated_pending_review",
+    "note": "Synthetic; not official CB content. Requires CM-D19 template-release + review."
+  }
+}

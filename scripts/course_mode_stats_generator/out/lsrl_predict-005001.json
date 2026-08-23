@@ -1,0 +1,107 @@
+{
+  "schema_version": "course-mode-generated-0.1",
+  "package_id": "lsrl_predict-005001",
+  "content_key": "apstat-lsrl_predict-005001",
+  "item_type": "mcq",
+  "difficulty": "Easy",
+  "exam_pack_ref": {
+    "exam_code": "ap_statistics",
+    "cycle": "2026-27"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "unit-5"
+    },
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "topic-5.3"
+    },
+    {
+      "scheme_key": "ap-statistics-skills",
+      "node_key": "skill-3.B",
+      "practice": 3
+    }
+  ],
+  "cells": [
+    {
+      "topic": "5.3",
+      "skill": "3.B"
+    }
+  ],
+  "prompt": "A shop owner fits a least-squares line predicting daily ice-cream sales ($) from outside temperature (F). The line is y-hat = 60.200 + 2.041x. Predict daily ice-cream sales ($) when outside temperature (F) = 17.",
+  "numeric_form": {
+    "answer_desc": "y-hat = 94.893",
+    "deterministic_checks": [
+      {
+        "kind": "numeric",
+        "value": 94.893,
+        "tol": 0.05
+      }
+    ]
+  },
+  "mcq_form": {
+    "options": [
+      {
+        "text": "94.89",
+        "correct": true,
+        "misconception": null
+      },
+      {
+        "text": "62.24",
+        "correct": false,
+        "misconception": "plugged_in_1_not_x"
+      },
+      {
+        "text": "1025.45",
+        "correct": false,
+        "misconception": "swapped_slope_intercept"
+      },
+      {
+        "text": "34.69",
+        "correct": false,
+        "misconception": "dropped_intercept"
+      }
+    ]
+  },
+  "worked_solution": "y-hat = 60.200 + 2.041(17) = 94.893.",
+  "parts": [
+    {
+      "part_key": "part-a",
+      "prompt": "A shop owner fits a least-squares line predicting daily ice-cream sales ($) from outside temperature (F). The line is y-hat = 60.200 + 2.041x. Predict daily ice-cream sales ($) when outside temperature (F) = 17.",
+      "response_modalities": [
+        "mcq",
+        "numeric"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "y-hat = 94.893",
+          "required_evidence": "y-hat = 60.200 + 2.041(17) = 94.893.",
+          "deterministic_checks": [
+            {
+              "kind": "numeric",
+              "value": 94.893,
+              "tol": 0.05
+            }
+          ],
+          "accepted_variants": []
+        }
+      ]
+    }
+  ],
+  "provenance": {
+    "generator": "course_mode_stats_generator/generator.py",
+    "template_id": "lsrl_predict",
+    "params": {
+      "slope": 2.040737148399612,
+      "intercept": 60.20048496605238,
+      "x_new": 17
+    },
+    "seed": 5001,
+    "release_status": "unreleased_generated_pending_review",
+    "note": "Synthetic; not official CB content. Requires CM-D19 template-release + review."
+  }
+}
