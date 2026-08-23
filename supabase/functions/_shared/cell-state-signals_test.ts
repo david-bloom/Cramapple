@@ -6,6 +6,7 @@
 // -- the same staged posture as grading-memory.ts.
 
 import {
+  attemptIdempotency,
   canonicalJson,
   deriveCellEvent,
   deriveChangedSurface,
@@ -447,6 +448,67 @@ Deno.test("deriveChangedSurface: template known but params unknown counts as cha
     ) === true,
     "same template, unknown current params -> changed (never the identical item)",
   );
+});
+
+// --- attemptIdempotency (re-QA finding 2) ---------------------------------
+
+Deno.test("attemptIdempotency: a re-grade of the same attempt is skipped, whatever the event", () => {
+  for (const event of ["correct", "incorrect", "content_uncertain"] as const) {
+    const r = attemptIdempotency({
+      priorAttemptId: "A",
+      attemptId: "A",
+      event,
+    });
+    assert(r.skip === true, `same attempt (${event}) -> skip`);
+  }
+});
+
+Deno.test("attemptIdempotency: an evidence-bearing grade stamps the attempt id", () => {
+  for (const event of ["correct", "incorrect"] as const) {
+    const r = attemptIdempotency({
+      priorAttemptId: null,
+      attemptId: "A",
+      event,
+    });
+    assert(r.skip === false, "new attempt -> not skipped");
+    assert(r.stampAttemptId === "A", `${event} stamps its attempt id`);
+  }
+});
+
+Deno.test("attemptIdempotency: an uncertain write does NOT consume the idempotency budget (the New-2 fix)", () => {
+  // Uncertain-first: preserves the prior stamp (null here) so a later graded
+  // re-grade of the SAME attempt is NOT skipped and its mastery write lands.
+  const uncertain = attemptIdempotency({
+    priorAttemptId: null,
+    attemptId: "A",
+    event: "content_uncertain",
+  });
+  assert(uncertain.skip === false, "first uncertain is written");
+  assert(
+    uncertain.stampAttemptId === null,
+    "uncertain preserves the prior stamp (null)",
+  );
+
+  // The graded re-grade of the same attempt now proceeds (prior stamp is still
+  // null because the uncertain write didn't claim it).
+  const graded = attemptIdempotency({
+    priorAttemptId: uncertain.stampAttemptId,
+    attemptId: "A",
+    event: "correct",
+  });
+  assert(graded.skip === false, "uncertain-then-graded upgrade is NOT skipped");
+  assert(graded.stampAttemptId === "A", "the graded write claims the attempt");
+});
+
+Deno.test("attemptIdempotency: an uncertain re-grade of an already-graded attempt is skipped (no clobber)", () => {
+  // Graded A stamped last_attempt_id=A; a later uncertain re-grade of A must not
+  // overwrite the good evidence.
+  const r = attemptIdempotency({
+    priorAttemptId: "A",
+    attemptId: "A",
+    event: "content_uncertain",
+  });
+  assert(r.skip === true, "uncertain re-grade of a claimed attempt -> skip");
 });
 
 Deno.test("signals -> engine: a SAME-surface repeat never reaches `independent`/`confirmed` (F3)", () => {

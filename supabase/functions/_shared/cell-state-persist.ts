@@ -36,6 +36,7 @@ import {
   initialCellState,
 } from "./cell-state.ts";
 import {
+  attemptIdempotency,
   deriveCellEvent,
   deriveChangedSurface,
   paramsHash,
@@ -77,9 +78,12 @@ export type PersistCellStateResult = {
 
 // Canonicalize a subject key across the hyphen/underscore namespace split
 // (subjects.subject_key uses hyphens, taxonomy_source_versions.subject_key uses
-// underscores — §6). Compare on this, never raw text.
+// underscores — §6). Map ONLY separators (hyphen/underscore/whitespace) to a
+// single underscore rather than stripping all punctuation, so `ap-statistics`
+// and `ap_statistics` match while genuinely distinct keys that differ only in
+// digit-adjacency (`ap-stats-2` vs `apstats2`) do NOT collide (re-QA finding 9).
 function normalizeSubjectKey(key: string): string {
-  return key.toLowerCase().replace(/[^a-z0-9]/g, "");
+  return key.trim().toLowerCase().replace(/[-_\s]+/g, "_");
 }
 
 export async function persistCellState(
@@ -159,6 +163,7 @@ export async function persistCellState(
       String(subjectRow.subject_key),
     );
     const taxonomySubjectKeyCache = new Map<string, string | null>();
+    const taxonomyReadFailed = new Set<string>();
 
     const event = deriveCellEvent({
       finalStatus: input.finalStatus,
@@ -189,10 +194,13 @@ export async function persistCellState(
           .eq("taxonomy_source_version", taxonomyVersion)
           .maybeSingle();
         if (tsvErr) {
+          // A read error is a SKIP (F1 posture), not a cross-subject mismatch —
+          // logged here once, and not re-logged as a phantom mismatch below (F6).
           console.error("cell_state_persist_taxonomy_subject_read_failed", {
             taxonomy_source_version: taxonomyVersion,
             error: tsvErr.message,
           });
+          taxonomyReadFailed.add(taxonomyVersion);
           taxonomySubjectKeyCache.set(taxonomyVersion, null);
         } else {
           taxonomySubjectKeyCache.set(
@@ -201,6 +209,8 @@ export async function persistCellState(
           );
         }
       }
+      // A failed taxonomy read already logged its own reason — skip quietly.
+      if (taxonomyReadFailed.has(taxonomyVersion)) continue;
       const cellSubjectKey = taxonomySubjectKeyCache.get(taxonomyVersion) ??
         null;
       if (
@@ -306,9 +316,14 @@ async function applyToCell(args: {
       return null;
     }
 
-    // F2: this exact attempt already produced this cell's current state -> a
-    // re-grade of the same attempt. Skip (at-most-once per (cell, attempt)).
-    if (existing?.last_attempt_id === attemptId) return null;
+    // F2 + re-QA finding 2: skip a re-grade of the same attempt; stamp
+    // last_attempt_id only on an evidence-bearing (graded) write.
+    const idem = attemptIdempotency({
+      priorAttemptId: (existing?.last_attempt_id as string | null) ?? null,
+      attemptId,
+      event,
+    });
+    if (idem.skip) return null;
 
     const prior = existing ? rowToCellState(existing) : initialCellState();
 
@@ -340,13 +355,15 @@ async function applyToCell(args: {
       now,
     );
 
+    const uncertain = event === "content_uncertain";
+
     // F6: an untrusted (content_uncertain) attempt records recency but must NOT
     // shift the changed-surface reference — otherwise a later trusted re-serve of
     // the SAME item is judged "changed" (weight 1.0) against the uncertain item.
-    const surfaceTemplateId = event === "content_uncertain"
+    const surfaceTemplateId = uncertain
       ? ((existing?.last_template_id as string | null) ?? null)
       : currentTemplateId;
-    const surfaceParamsHash = event === "content_uncertain"
+    const surfaceParamsHash = uncertain
       ? ((existing?.last_params_hash as string | null) ?? null)
       : currentParamsHash;
 
@@ -370,7 +387,7 @@ async function applyToCell(args: {
       last_session_id: sessionId,
       last_template_id: surfaceTemplateId,
       last_params_hash: surfaceParamsHash,
-      last_attempt_id: attemptId,
+      last_attempt_id: idem.stampAttemptId,
     };
 
     if (existing) {

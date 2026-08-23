@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Course Mode Live Write Hook (PR #101) Passed Fable QA Round-2 Re-QA: All 14 Round-1 Fixes Verified Genuine, and the 2 MAJOR Regressions the Fixes Introduced (Idempotent-Replay Leaked the shadow_result Answer Key; the F2 Stamp Blocked the Uncertain→Graded Upgrade) Both Fixed — Plus 4 Minor/Nit; Deno Suite 101→105 Green — 2026-08-23
 - Course Mode Live Write Hook (PR #101) Passed an Independent Fable QA Round and Had All 14 Findings Remediated in the Same PR — 2 BLOCKER (Transient-Read Demotion; Re-Grade Evidence Double-Count), 3 MAJOR (No-Provenance Over-Promotion; Unauditable Graded Path; Dropped-Criteria Over-Grade), Plus 9 MINOR/NIT; One Additive `last_attempt_id` Migration Added, Deno Suite 62→101 Green — 2026-08-23
 - Course Mode Live Write Hook Built and Opened as Draft PR #101: the F4 `data_driven` Real-Grading Branch (Abstain Still Holds for Shadow Review) and `persistCellState` Now Connect a Graded Attempt to a Cell-State Write — Code-Only, No Migration, Full Course-Mode Deno Suite 62/62 Green, Pending Review/Merge + Dev Deploy + Fable QA; Zero Learner-Visible Effect Until Release (D8/CM-D19) — 2026-08-23
 - AP Precalculus Unit 3 (Trigonometric and Polar Functions) Fully Repaired: 15 Briefs AND 15 Explainers Replaced — a Second Independent Template-Filler Pattern in the Briefs Themselves, Same as AP Calculus BC's Unit 3 Earlier This Session — 2026-08-22
@@ -155,6 +156,22 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## Course Mode Live Write Hook (PR #101) — Fable QA Round-2 Re-QA and Regression Remediation — 2026-08-23
+
+**Task:** Unassigned (Course Mode backend QA; Owner directed "run the round-2 re-QA").
+**Status:** Independent Fable-model re-QA of the round-1 remediation. Verdict **GO-WITH-CONDITIONS**: all 14 round-1 findings verified genuinely fixed, but the remediation introduced **2 MAJOR regressions** (found via a 12-scenario fake-client probe of the persist layer) — **both fixed**, plus 4 minor/nit. Full course-mode Deno suite **105/105 green**. Nothing merged/deployed/applied; Prod/Dev untouched (code + the one unapplied migration).
+
+**Regression 1 (MAJOR, leak) — the F4 audit fix undone by idempotent replay.** Round-1's F4 wrote the data-driven verifier's per-check verdicts to `grading_results.shadow_result`; those verdict `reason` strings embed the expected value/tolerance (the answer key). The two idempotent-replay paths (`select("*")` then return the row on a same-key re-POST) handed the whole row back, leaking `shadow_result` (and `raw_model_response`) — defeating exactly what round-1's F10 redaction protected. Fix: `sanitizeGradingResultForClient` strips both columns on both replay returns. **Release-gate follow-up (config-dependent, flagged in the handoff):** verify students read grading results only via the curated `public.grading_results` view (which excludes `shadow_result`) and that PostgREST does not expose `app.*` to `authenticated`, or add column-level grants — otherwise a direct REST read of one's own row still exposes it. Zero blast radius today (no released data_driven content).
+
+**Regression 2 (MAJOR, lost write) — the F2 idempotency stamp consumed the budget on zero-evidence writes.** Round-1's F2 stamped `last_attempt_id` on EVERY write, including `content_uncertain` (which carries no evidence). So an uncertain hold — e.g. a transient `content_item_checks` read error → abstain, or an LLM-timeout `failed` — followed by a successful re-grade of the SAME attempt was skipped forever, permanently losing the mastery write. Fix: extracted a pure, unit-tested `attemptIdempotency(priorAttemptId, attemptId, event)` in `cell-state-signals.ts` — SKIP a re-grade of the same attempt; STAMP `last_attempt_id` only on an evidence-bearing (graded) write; a `content_uncertain` write preserves the prior stamp (a duplicate uncertain delivery only rewrites recency). The pilot's real path (transient checks-read error → hold → retry) is now safe.
+
+**MINOR/NIT fixed:** a failed `frq_criteria` read now fails the request (`criteria_read_failed`) instead of flattening point weights and bypassing the F5 uncovered-criteria hold; `normalizeSubjectKey` maps only separators (hyphen/underscore/space→`_`) so genuinely distinct keys can't digit-adjacency-collide; the taxonomy-read-failure skip no longer double-logs as a phantom `subject_mismatch`; the persist layer's idempotency/stamp decision now has automated coverage (the exact gap that let Regression 2 through — the round-1 tests covered only the pure signals/payload layer). **Accepted-as-documented:** the bounded 2-try optimistic-concurrency loop can drop one evidence write under 3-way contention (pilot-adequate; a server-side atomic transition is the named scale fix); at-most-once best-effort on a crash between the grade commit and the hook.
+
+**Next Owner:** David Bloom
+**Next Required Action:** Review PR #101 (rounds 1–2 both remediated, 105/105 green). Before the Dev deploy, **apply the `last_attempt_id` migration to Dev first** and smoke-verify one cell write lands (a deploy-before-migration silently no-ops the whole hook via the F1 skip). Verify the `grading_results` read path / grants per the release-gate follow-up above before any content release. D8 remains the student-visibility gate.
 
 ---
 

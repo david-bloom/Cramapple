@@ -228,6 +228,19 @@ function sha256Hex(value: string) {
   );
 }
 
+// re-QA finding 1: the idempotent-replay paths return the whole grading_results
+// row. `shadow_result` now carries the data-driven verifier's per-check verdicts,
+// whose reason strings embed the expected value/tolerance (the answer key), and
+// `raw_model_response` carries the raw grader output — neither is ever
+// student-facing (the curated public.grading_results view excludes them). Strip
+// them from any replayed row so a re-POST of the same request can't leak them.
+function sanitizeGradingResultForClient(
+  row: Record<string, unknown>,
+): Record<string, unknown> {
+  const { shadow_result: _shadow, raw_model_response: _raw, ...safe } = row;
+  return safe;
+}
+
 function estimateTokens(text: string) {
   return Math.max(32, Math.ceil(text.length / 4));
 }
@@ -767,7 +780,7 @@ Deno.serve(async (req) => {
         status: existingResult.status,
         function: "evaluate-attempt",
         operation,
-        result: existingResult,
+        result: sanitizeGradingResultForClient(existingResult),
       },
       { status: existingResult.status === "processing" ? 202 : 200 },
     );
@@ -776,7 +789,7 @@ Deno.serve(async (req) => {
   const [
     { data: contentItem },
     { data: examPackVersion },
-    { data: criteriaRows },
+    { data: criteriaRows, error: criteriaError },
     { data: mcqChoices },
   ] = await Promise.all([
     service.schema("app")
@@ -805,6 +818,15 @@ Deno.serve(async (req) => {
 
   if (!contentItem || !examPackVersion) {
     return respond({ error: "content_not_found" }, { status: 404 });
+  }
+
+  // re-QA finding 4: a frq_criteria READ ERROR must not masquerade as "no
+  // criteria" (empty rows). An empty result is legitimate (MCQ / generated
+  // data_driven items carry no frq_criteria); a genuine error would silently
+  // flatten point weights and bypass the data_driven uncovered-criteria hold, so
+  // fail loudly instead of grading against a fabricated empty rubric.
+  if (criteriaError) {
+    return respond({ error: "criteria_read_failed" }, { status: 500 });
   }
 
   if (
@@ -1005,7 +1027,7 @@ Deno.serve(async (req) => {
           status: conflictResult.status,
           function: "evaluate-attempt",
           operation,
-          result: conflictResult,
+          result: sanitizeGradingResultForClient(conflictResult),
         },
         { status: conflictResult.status === "processing" ? 202 : 200 },
       );
@@ -1396,6 +1418,12 @@ Deno.serve(async (req) => {
     // would leak the answer key through uncertainty_reason / the client payload.
     // Everything reaching the student carries statuses only; the full verdicts
     // stay in shadow_result above.
+    // NOTE (re-QA finding 7): this redacted check flows into the finalPayload
+    // builders (uncertainty_reason on the hold path; the graded payload's
+    // deterministic_check field). The top-level response's `deterministic_check`
+    // stays the content-key-specific `statisticsCheck` (null here) — the client
+    // reads the per-criterion outcomes from `criterion_results`, which carries
+    // them for this route. Intentional: statuses reach the student, values don't.
     const redactedCheck = {
       engine: "data_driven_deterministic",
       version: DATA_DRIVEN_VERIFIER_VERSION,

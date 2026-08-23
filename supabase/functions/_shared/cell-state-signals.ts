@@ -32,6 +32,30 @@ export function deriveCellEvent(input: {
   return input.pointsEarned >= input.pointsAvailable ? "correct" : "incorrect";
 }
 
+/** Per-(cell, attempt) idempotency + stamp decision (re-QA findings 2 & round-1
+ *  F2). Two rules, deliberately pure so they're exhaustively testable:
+ *   - SKIP when this exact attempt already produced the row's current state (a
+ *     re-grade of the same attempt) — at-most-once, first *evidence-bearing*
+ *     grade wins.
+ *   - STAMP `last_attempt_id` only on an evidence-bearing (graded correct/
+ *     incorrect) write. A `content_uncertain` write carries no evidence, so it
+ *     preserves the prior stamp — otherwise an uncertain hold (or a "failed"
+ *     grade) would consume the idempotency budget and permanently skip a later
+ *     successful re-grade of the same attempt. */
+export function attemptIdempotency(input: {
+  priorAttemptId: string | null;
+  attemptId: string;
+  event: CellEvent;
+}): { skip: boolean; stampAttemptId: string | null } {
+  if (input.priorAttemptId === input.attemptId) {
+    return { skip: true, stampAttemptId: input.priorAttemptId };
+  }
+  const stampAttemptId = input.event === "content_uncertain"
+    ? input.priorAttemptId
+    : input.attemptId;
+  return { skip: false, stampAttemptId };
+}
+
 /** "changed surface" = NOT the same (template, params) as the cell's last
  *  attempt (CM-D07 / F3 pin: "same template + DIFFERENT params"; same params =
  *  not changed). Only a POSITIVE match on both ids counts as unchanged, so a
