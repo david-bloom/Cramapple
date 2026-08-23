@@ -43,7 +43,9 @@ export type GradeResult = {
   verdicts: CheckVerdict[];
 };
 
-const NUMBER_RE = /-?\d+(?:\.\d+)?/g;
+// Matches integers, decimals, AND leading-decimal forms (".84", "-.85") so a
+// natural sub-1 probability entry is parsed, not silently mis-scored. Fable QA #4.
+const NUMBER_RE = /-?(?:\d+(?:\.\d+)?|\.\d+)/g;
 
 /** Extract the decimal numbers appearing in a response string, in order. */
 export function extractNumbers(response: string): number[] {

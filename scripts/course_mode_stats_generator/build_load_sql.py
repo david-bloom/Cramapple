@@ -276,7 +276,8 @@ begin
 end
 $verify$;
 
--- Review the counts above, then COMMIT. Left open so a dry run can ROLLBACK.
+-- This script COMMITS. For a dry run, apply it inside a transaction you control
+-- (or change the line below to `rollback;`) and inspect the NOTICE counts first.
 commit;
 """
 
@@ -292,8 +293,13 @@ def build_sql(pkgs: list[dict]) -> str:
         p["item_package_payload_self"] = {k: v for k, v in p.items()
                                           if k not in ("_load", "item_package_payload_self")}
     payload = json.dumps(pkgs, separators=(",", ":"))
-    if "$payload$" in payload:
-        raise SystemExit("payload contains the dollar-quote delimiter; aborting")
+    # The payload is embedded inside the $load$-quoted DO body, itself alongside a
+    # $verify$ block, so a literal occurrence of ANY of these delimiters would end
+    # a dollar-quoted string early and turn the rest into raw SQL. Abort on all
+    # three, not just $payload$ (Fable QA #5).
+    for delim in ("$payload$", "$load$", "$verify$"):
+        if delim in payload:
+            raise SystemExit(f"payload contains the dollar-quote delimiter {delim}; aborting")
     return SQL_TEMPLATE.format(
         n_items=len(pkgs), school_year=school_years.pop(), payload=payload
     )
