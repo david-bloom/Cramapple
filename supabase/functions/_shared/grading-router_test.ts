@@ -133,6 +133,33 @@ Deno.test("honors prompt_json evaluator strategy when rubric_type is absent", ()
   }
 });
 
+Deno.test("routes explicit data_driven_deterministic strategy to the data-driven verifier", () => {
+  const route = resolveGradingRoute({
+    evaluatorStrategy: "data_driven_deterministic",
+    itemType: "quantitative",
+  });
+
+  if (route.target !== "data_driven") throw new Error("expected data_driven");
+  if (route.evaluatorStrategy !== "data_driven_deterministic") {
+    throw new Error("expected data_driven_deterministic");
+  }
+  if (route.source !== "explicit") throw new Error("expected explicit source");
+});
+
+Deno.test("honors prompt_json data_driven_deterministic strategy when rubric_type is absent", () => {
+  const route = resolveGradingRoute({
+    itemType: "mcq",
+    promptJson: {
+      evaluator_strategy: "data_driven_deterministic",
+    },
+  });
+
+  if (route.target !== "data_driven") throw new Error("expected data_driven");
+  if (route.evaluatorStrategy !== "data_driven_deterministic") {
+    throw new Error("expected data_driven_deterministic");
+  }
+});
+
 Deno.test("prefers prompt_json rubric_type over evaluator strategy when both are present", () => {
   const route = resolveGradingRoute({
     itemType: "frq",

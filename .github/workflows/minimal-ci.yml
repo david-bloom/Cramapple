@@ -38,6 +38,7 @@ jobs:
           deno test
           supabase/functions/_shared/grading-router_test.ts
           supabase/functions/_shared/formula-notation_test.ts
+          supabase/functions/_shared/deterministic-verifier_test.ts
 
       - name: Run AP Statistics checker tests
         run: python -m unittest scripts/ap_statistics_calculation_check/test_checker.py
