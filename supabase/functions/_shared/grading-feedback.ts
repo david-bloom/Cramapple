@@ -229,6 +229,68 @@ export function buildShadowReviewPayload(input: {
   };
 }
 
+// Course Mode F4 live grading (2026-08-23). Builds a GRADED payload from the
+// generic deterministic verifier's per-criterion pass/fail verdicts, so a
+// generated instance graded against its persisted content_item_checks produces
+// the same finalPayload shape the LLM/shadow paths do (points, per-criterion
+// status, highest_value_gap) -- letting the common finalize path in
+// evaluate-attempt write grading_results/attempts unchanged. Determinism (INV-4):
+// no evidence-grounding step is needed because credit derives from a recomputed
+// numeric check, not a model quote; an ABSTAIN never reaches here (the caller
+// holds those for shadow review, INV-3), so every criterion is a real pass/fail.
+export function buildDeterministicGradedPayload(input: {
+  criteria: FeedbackCriterionRow[];
+  verdictByKey: Map<string, "pass" | "fail">;
+  summary: string;
+  deterministicCheck?: Record<string, unknown> | null;
+}) {
+  const criteria: FeedbackCriterionResult[] = input.criteria.map((source) => {
+    const pass = input.verdictByKey.get(source.criterion_key) === "pass";
+    return {
+      criterion_key: source.criterion_key,
+      status: (pass ? "earned" : "not_yet_earned") as
+        FeedbackCriterionResult["status"],
+      points_awarded: pass ? source.points_possible : 0,
+      evidence_quote: null,
+      decision_explanation: pass
+        ? "The response matches the item's persisted deterministic checks."
+        : "The response does not match the item's persisted deterministic checks.",
+      minimum_fix: pass ? null : source.minimum_fix,
+    };
+  });
+  const points_available = input.criteria.reduce(
+    (sum, criterion) => sum + Number(criterion.points_possible || 0),
+    0,
+  );
+  const points_earned = criteria.reduce(
+    (sum, criterion) => sum + Number(criterion.points_awarded || 0),
+    0,
+  );
+  const firstGap = criteria.find((criterion) => criterion.status !== "earned");
+  const highest_value_gap = firstGap
+    ? {
+      criterion_key: firstGap.criterion_key,
+      minimum_fix: firstGap.minimum_fix ??
+        "Recompute the value and enter the correct result.",
+      repair_prompt: "Recompute the value and enter it again.",
+    }
+    : null;
+  return {
+    status: "graded" as const,
+    points_earned,
+    points_available,
+    criteria,
+    highest_value_gap,
+    predicted_improvement: null,
+    confidence: "high" as const,
+    uncertainty_reason: null,
+    student_facing_summary: input.summary,
+    action_hint: null as string | null,
+    repair_hint: highest_value_gap?.repair_prompt ?? null,
+    deterministic_check: input.deterministicCheck ?? null,
+  };
+}
+
 function searchableResponse(input?: {
   responseText?: string | null;
   responseParts?: unknown;

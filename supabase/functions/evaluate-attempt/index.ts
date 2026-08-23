@@ -21,10 +21,13 @@ import {
   getStatisticsScopedCriteria,
 } from "../_shared/statistics-verifier.ts";
 import {
+  buildDeterministicGradedPayload,
   buildFallbackCriteria,
   buildShadowReviewPayload,
   pickHighestGap,
 } from "../_shared/grading-feedback.ts";
+import { gradeAgainstChecks } from "../_shared/deterministic-verifier.ts";
+import { persistCellState } from "../_shared/cell-state-persist.ts";
 import {
   type AllowedOperation,
   applyDeterministicFlagScope,
@@ -154,6 +157,10 @@ const GRADING_ARM = (Deno.env.get("GRADING_ARM") ?? "b").toLowerCase() === "a"
 // statistics-verifier.ts share one version tag here), not math-verifier.ts
 // alone -- the math-verifier itself is unchanged since 2026-07-28.
 const MATH_VERIFIER_VERSION = "stats-verifier-ts-2026-08-11";
+// Course Mode F4: the generic data-driven deterministic verifier's schema
+// version, stamped into grading_results.shadow-adjacent deterministic_check so a
+// grade produced by reading persisted content_item_checks is auditable.
+const DATA_DRIVEN_VERIFIER_VERSION = "data-driven-deterministic-1.0";
 
 // Timeout is configurable so we can tune for high-reasoning models without
 // a code change. 90s accommodates reasoning: { effort: "high" } latency
@@ -219,6 +226,19 @@ function sha256Hex(value: string) {
       return bytes.map((byte) => byte.toString(16).padStart(2, "0")).join("");
     },
   );
+}
+
+// re-QA finding 1: the idempotent-replay paths return the whole grading_results
+// row. `shadow_result` now carries the data-driven verifier's per-check verdicts,
+// whose reason strings embed the expected value/tolerance (the answer key), and
+// `raw_model_response` carries the raw grader output — neither is ever
+// student-facing (the curated public.grading_results view excludes them). Strip
+// them from any replayed row so a re-POST of the same request can't leak them.
+function sanitizeGradingResultForClient(
+  row: Record<string, unknown>,
+): Record<string, unknown> {
+  const { shadow_result: _shadow, raw_model_response: _raw, ...safe } = row;
+  return safe;
 }
 
 function estimateTokens(text: string) {
@@ -760,7 +780,7 @@ Deno.serve(async (req) => {
         status: existingResult.status,
         function: "evaluate-attempt",
         operation,
-        result: existingResult,
+        result: sanitizeGradingResultForClient(existingResult),
       },
       { status: existingResult.status === "processing" ? 202 : 200 },
     );
@@ -769,7 +789,7 @@ Deno.serve(async (req) => {
   const [
     { data: contentItem },
     { data: examPackVersion },
-    { data: criteriaRows },
+    { data: criteriaRows, error: criteriaError },
     { data: mcqChoices },
   ] = await Promise.all([
     service.schema("app")
@@ -798,6 +818,15 @@ Deno.serve(async (req) => {
 
   if (!contentItem || !examPackVersion) {
     return respond({ error: "content_not_found" }, { status: 404 });
+  }
+
+  // re-QA finding 4: a frq_criteria READ ERROR must not masquerade as "no
+  // criteria" (empty rows). An empty result is legitimate (MCQ / generated
+  // data_driven items carry no frq_criteria); a genuine error would silently
+  // flatten point weights and bypass the data_driven uncovered-criteria hold, so
+  // fail loudly instead of grading against a fabricated empty rubric.
+  if (criteriaError) {
+    return respond({ error: "criteria_read_failed" }, { status: 500 });
   }
 
   if (
@@ -840,7 +869,7 @@ Deno.serve(async (req) => {
   const { data: examPack, error: examPackError } = await service
     .schema("app")
     .from("exam_packs")
-    .select("id, exam_code, exam_name")
+    .select("id, exam_code, exam_name, subject_id")
     .eq("id", examPackVersion.exam_pack_id)
     .maybeSingle();
 
@@ -944,6 +973,8 @@ Deno.serve(async (req) => {
       : OPENAI_MODEL
     : routing.target === "symbolic_ecf"
     ? "symbolic-ecf-verifier"
+    : routing.target === "data_driven"
+    ? "data-driven-deterministic-verifier"
     : "shadow-review-placeholder";
 
   const estimatedInputTokens = estimateTokens(
@@ -996,7 +1027,7 @@ Deno.serve(async (req) => {
           status: conflictResult.status,
           function: "evaluate-attempt",
           operation,
-          result: conflictResult,
+          result: sanitizeGradingResultForClient(conflictResult),
         },
         { status: conflictResult.status === "processing" ? 202 : 200 },
       );
@@ -1159,6 +1190,23 @@ Deno.serve(async (req) => {
       examPackVersionId: attempt.exam_pack_version_id as string,
     });
 
+    // Course Mode F2/F3: update cell mastery for a cell-tagged item. No-op for
+    // untagged (legacy/non-course-mode) items; routed on item identity, never
+    // session presence. Best-effort -- never fails the grade.
+    await persistCellState({
+      service,
+      userId: attempt.user_id as string,
+      contentItemVersionId: contentVersion.id as string,
+      attemptId: attempt.id as string,
+      subjectId: examPack.subject_id as string,
+      sessionId: attempt.learning_session_id as string | null,
+      assistanceState: attempt.assistance_state as string | null,
+      finalStatus: "graded",
+      pointsEarned: finalResult.points_earned,
+      pointsAvailable: finalResult.points_available,
+      submittedAt: attempt.submitted_at as string | null,
+    });
+
     return respond(
       {
         status: "graded",
@@ -1179,6 +1227,7 @@ Deno.serve(async (req) => {
   let finalStatus: "graded" | "uncertain" | "failed" = "failed";
   let finalPayload: ReturnType<typeof sanitizeModelResult> |
     ReturnType<typeof buildShadowReviewPayload> |
+    ReturnType<typeof buildDeterministicGradedPayload> |
     NonNullable<ReturnType<typeof buildStatisticsDeterministicFallback>> |
     null = null;
   let inputTokens = estimatedInputTokens;
@@ -1192,6 +1241,10 @@ Deno.serve(async (req) => {
   // but the actual computed result is now retained here instead of only
   // surviving as a substring inside uncertainty_reason's JSON.stringify.
   let shadowResult: Record<string, unknown> | null = null;
+  // Stamped into grading_results.deterministic_verifier_version. Defaults to the
+  // math/ECF verifier; the data_driven branch overrides it so a generated grade
+  // is attributed to the verifier that actually produced it (Fable QA #4).
+  let deterministicVerifierVersion = MATH_VERIFIER_VERSION;
 
   if (routing.target === "symbolic_ecf") {
     const statisticsItem = findStatisticsItem(
@@ -1294,15 +1347,141 @@ Deno.serve(async (req) => {
     inputTokens = 0;
     outputTokens = 0;
     actualCost = 0;
-  } else if (
-    routing.target === "shadow_review" || routing.target === "data_driven"
-  ) {
-    // F4 guard: the data_driven_deterministic strategy has a verifier
-    // (_shared/deterministic-verifier.ts) but it is NOT yet wired to fetch an
-    // item's persisted content_item_checks in this live path. Until it is, HOLD
-    // such items for shadow review rather than letting them fall through to the
-    // LLM grader below (which would violate INV-3/INV-4 for exactly the content
-    // class those invariants protect). Fable QA finding #1.
+  } else if (routing.target === "data_driven") {
+    // Course Mode F4 LIVE grading (2026-08-23). Grade the response against the
+    // item's PERSISTED content_item_checks with the generic deterministic
+    // verifier (_shared/deterministic-verifier.ts) -- no per-content_key code
+    // (CM-FACT-20). Determinism (INV-4). An ABSTAIN (no parseable number, an
+    // unhandled check kind, or no checks at all) still HOLDS for shadow review
+    // rather than guessing (INV-3), preserving the pre-wiring safe posture for
+    // exactly the content class those invariants protect.
+    const { data: checkRows, error: checkErr } = await service.schema("app")
+      .from("content_item_checks")
+      .select("criterion_key, checks")
+      .eq("content_item_version_id", contentVersion.id)
+      .order("criterion_key", { ascending: true });
+    // A read error must NOT masquerade as "no checks" (which would silently
+    // convert a gradeable submission into a shadow hold). Log it (Fable QA #14);
+    // it still routes to the abstain hold below, which is the safe outcome.
+    if (checkErr) {
+      console.error("data_driven_checks_read_failed", {
+        content_item_version_id: contentVersion.id,
+        error: checkErr.message,
+      });
+    }
+
+    const checkList = Array.isArray(checkRows) ? checkRows : [];
+    const checkKeys = new Set(checkList.map((row) => row.criterion_key as string));
+    const sourceByKey = new Map(
+      promptBase.criteria.map((criterion) => [criterion.criterion_key, criterion]),
+    );
+    // F5: a criterion declared in frq_criteria but with NO persisted check would
+    // otherwise vanish from grading (graded on a shrunken denominator = over-grade).
+    // Hold the whole item for review instead.
+    const uncoveredCriteria = promptBase.criteria.filter(
+      (criterion) => !checkKeys.has(criterion.criterion_key),
+    );
+    // Generated items may carry no frq_criteria rows (the loader persists checks
+    // + cells, not frq_criteria) -- derive the graded criteria from the check
+    // rows themselves, defaulting a missing source to a 1-point criterion.
+    const gradeCriteria: FeedbackCriterionRow[] = checkList.map((row) =>
+      sourceByKey.get(row.criterion_key as string) ?? {
+        criterion_key: row.criterion_key as string,
+        learner_facing_text: row.criterion_key as string,
+        points_possible: 1,
+        evidence_requirements: null,
+        minimum_fix: "Recompute the value and enter the correct result.",
+        accepted_variants: [],
+      }
+    );
+    const criterionResults = checkList.map((row) => ({
+      criterion_key: row.criterion_key as string,
+      result: gradeAgainstChecks(
+        Array.isArray(row.checks) ? row.checks : [],
+        responseText ?? "",
+      ),
+    }));
+    // Full audit record -> grading_results.shadow_result (server-side only, F4).
+    const deterministicCheck = {
+      engine: "data_driven_deterministic",
+      version: DATA_DRIVEN_VERIFIER_VERSION,
+      content_item_version_id: contentVersion.id,
+      uncovered_criteria: uncoveredCriteria.map((c) => c.criterion_key),
+      results: criterionResults.map((entry) => ({
+        criterion_key: entry.criterion_key,
+        status: entry.result.status,
+        verdicts: entry.result.verdicts,
+      })),
+    };
+    // Student-facing REDACTION (F10): the verdict `reason` strings embed the
+    // expected value/tolerance (e.g. "0.5 is not within +/-0.01 of 0.62"), which
+    // would leak the answer key through uncertainty_reason / the client payload.
+    // Everything reaching the student carries statuses only; the full verdicts
+    // stay in shadow_result above.
+    // NOTE (re-QA finding 7): this redacted check flows into the finalPayload
+    // builders (uncertainty_reason on the hold path; the graded payload's
+    // deterministic_check field). The top-level response's `deterministic_check`
+    // stays the content-key-specific `statisticsCheck` (null here) — the client
+    // reads the per-criterion outcomes from `criterion_results`, which carries
+    // them for this route. Intentional: statuses reach the student, values don't.
+    const redactedCheck = {
+      engine: "data_driven_deterministic",
+      version: DATA_DRIVEN_VERIFIER_VERSION,
+      results: criterionResults.map((entry) => ({
+        criterion_key: entry.criterion_key,
+        status: entry.result.status,
+      })),
+    };
+    shadowResult = deterministicCheck;
+    deterministicVerifierVersion = DATA_DRIVEN_VERIFIER_VERSION;
+    // Any abstain, an uncovered criterion, or nothing to grade -> hold; never let
+    // it fall through to the LLM grader, and never award/deny credit off an
+    // unparseable response or a partially-checked item.
+    const anyAbstain = criterionResults.length === 0 ||
+      uncoveredCriteria.length > 0 ||
+      criterionResults.some((entry) => entry.result.status === "abstain");
+
+    if (anyAbstain) {
+      finalPayload = buildShadowReviewPayload({
+        criteria: promptBase.criteria,
+        pointsAvailable: defaultPointsAvailable,
+        reason:
+          `${routing.reason} The data-driven verifier abstained (no single parseable number in the response, an unhandled check kind, no persisted checks, or a criterion with no check), so the item is held for shadow review instead of guessing.`,
+        actionHint: null,
+        repairHint: null,
+        deterministicCheck: redactedCheck,
+        summary:
+          "Your answer is saved. This item needs a reviewer before it can be scored automatically.",
+        verificationProfileSummary,
+      });
+      finalStatus = "uncertain";
+    } else {
+      const verdictByKey = new Map<string, "pass" | "fail">(
+        criterionResults.map((entry) => [
+          entry.criterion_key,
+          entry.result.status === "correct" ? "pass" : "fail",
+        ]),
+      );
+      const allCorrect = criterionResults.every(
+        (entry) => entry.result.status === "correct",
+      );
+      finalPayload = buildDeterministicGradedPayload({
+        criteria: gradeCriteria,
+        verdictByKey,
+        summary: allCorrect
+          ? "Correct."
+          : "Not quite. Recompute the value and check it against the expected answer.",
+        deterministicCheck: redactedCheck,
+      });
+      finalStatus = "graded";
+    }
+    modelResponse = null;
+    inputTokens = 0;
+    outputTokens = 0;
+    actualCost = 0;
+  } else if (routing.target === "shadow_review") {
+    // Shadow-review hold for the symbolic/formula boundary that is declared but
+    // not wired in this phase -- routed here instead of guessing (Fable QA #1).
     const verificationProfileSummary = summarizeVerificationProfile(
       verificationProfile,
     );
@@ -1577,7 +1756,7 @@ Deno.serve(async (req) => {
     model_id: routedModelId,
     prompt_version: promptVersion,
     rubric_version_id: effectiveRubricVersionId,
-    deterministic_verifier_version: MATH_VERIFIER_VERSION,
+    deterministic_verifier_version: deterministicVerifierVersion,
     boundary_contract_version: verificationProfile?.profile_version ?? null,
     feedback_preview: feedbackPreview,
     action_hint: actionHint,
@@ -1670,6 +1849,25 @@ Deno.serve(async (req) => {
     verificationProfileSummary,
     actionHint,
     deterministicCheck: statisticsCheck,
+  });
+
+  // Course Mode F2/F3: update cell mastery for a cell-tagged item (covers the
+  // data_driven, LLM-text, and shadow paths). No-op for untagged items; routed
+  // on item identity, never session presence. Best-effort -- never fails the
+  // grade. content_uncertain (uncertain/shadow) records the attempt without
+  // writing false proficiency (CM-D07 / INV-3).
+  await persistCellState({
+    service,
+    userId: attempt.user_id as string,
+    contentItemVersionId: contentVersion.id as string,
+    attemptId: attempt.id as string,
+    subjectId: examPack.subject_id as string,
+    sessionId: attempt.learning_session_id as string | null,
+    assistanceState: attempt.assistance_state as string | null,
+    finalStatus,
+    pointsEarned: finalPayload.points_earned,
+    pointsAvailable: finalPayload.points_available,
+    submittedAt: attempt.submitted_at as string | null,
   });
 
   return respond(
