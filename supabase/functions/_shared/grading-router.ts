@@ -1,4 +1,9 @@
-type GradingTarget = "mcq_rule" | "llm_text" | "symbolic_ecf" | "shadow_review";
+type GradingTarget =
+  | "mcq_rule"
+  | "llm_text"
+  | "symbolic_ecf"
+  | "shadow_review"
+  | "data_driven";
 
 export type RubricType =
   | "mcq"
@@ -57,7 +62,8 @@ function normalizeEvaluatorStrategy(value: unknown) {
   return strategy === "rule_based_mcq" ||
       strategy === "llm_discrete_text" ||
       strategy === "python_symbolic_ecf" ||
-      strategy === "human_shadow"
+      strategy === "human_shadow" ||
+      strategy === "data_driven_deterministic"
     ? strategy
     : null;
 }
@@ -167,6 +173,15 @@ export function resolveGradingRoute(input: {
         return routeFromRubricType("discrete_text");
       case "python_symbolic_ecf":
         return routeFromRubricType("structured_formula");
+      case "data_driven_deterministic":
+        return {
+          rubricType: "structured_formula",
+          evaluatorStrategy: "data_driven_deterministic",
+          target: "data_driven",
+          source: "explicit",
+          reason:
+            "Generated instance graded by the data-driven deterministic verifier, which reads the item's persisted content_item_checks (no per-content_key code).",
+        };
       case "human_shadow":
         return {
           ...fallbackFromItemType(input.itemType ?? null),
