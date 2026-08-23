@@ -48,6 +48,16 @@ create table if not exists app.student_cell_state (
   last_weight numeric,
   rule_engine_version text,
 
+  -- Classifier inputs the F3 rule engine needs on the NEXT attempt, carried on
+  -- the row so the write hook doesn't have to re-query attempt history per grade
+  -- (Fable QA finding 5). last_exposure_at is kept distinct from last_attempt_at
+  -- so a new-exposure trigger never masquerades as an attempt in the same-session
+  -- / changed-surface derivation (finding 4).
+  last_session_id uuid,
+  last_template_id text,
+  last_params_hash text,
+  last_exposure_at timestamptz,
+
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
 
@@ -66,6 +76,11 @@ comment on table app.student_cell_state is
 
 alter table app.student_cell_state enable row level security;
 grant select, insert, update, delete on app.student_cell_state to service_role;
+
+-- Repo convention: keep updated_at fresh on every update (Fable QA finding 6).
+create trigger student_cell_state_set_updated_at
+  before update on app.student_cell_state
+  for each row execute function app.set_updated_at();
 
 -- The spaced-retrieval due-queue selection (CM-D11: "cells due now, ordered by
 -- priority"): one row per cell, look up by user + due time.

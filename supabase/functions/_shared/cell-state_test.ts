@@ -75,12 +75,62 @@ Deno.test("independent -> confirmed only on delayed, fully-informative (1.0) suc
   // same-session/again-soon success (weight 0.65) does NOT confirm
   const soon = nextCellState(first, { event: "correct", weight: 0.65, now: laterDays(0) });
   assert(soon.tier === "independent", "0.65 does not confirm");
+  // DELAYED 0.65 still does NOT confirm -- isolates the weight gate from the delay
+  // gate (Fable QA finding 2: without this, deleting `weight>=1.0` still passes).
+  const delayed065 = nextCellState(first, { event: "correct", weight: 0.65, now: laterDays(2) });
+  assert(delayed065.tier === "independent", "delayed 0.65 stays independent (weight gate)");
   // delayed weight-1.0 success DOES confirm
   const confirmed = nextCellState(first, { event: "correct", weight: 1.0, now: laterDays(2) });
   assert(confirmed.tier === "confirmed", "delayed 1.0 -> confirmed");
   // an immediate 1.0 (not delayed enough) does NOT confirm
   const immediate = nextCellState(first, { event: "correct", weight: 1.0, now: T0 });
   assert(immediate.tier === "independent", "not-delayed 1.0 stays independent");
+  // exact confirm-delay boundary: exactly confirmMinDelayDays confirms; just under does not
+  const atBoundary = nextCellState(first, { event: "correct", weight: 1.0, now: new Date(T0.getTime() + TUNABLES.confirmMinDelayDays * 86_400_000) });
+  assert(atBoundary.tier === "confirmed", "delay == confirmMinDelayDays confirms (>=)");
+  const underBoundary = nextCellState(first, { event: "correct", weight: 1.0, now: new Date(T0.getTime() + TUNABLES.confirmMinDelayDays * 86_400_000 - 1000) });
+  assert(underBoundary.tier === "independent", "delay just under boundary stays independent");
+});
+
+Deno.test("content_uncertain records the attempt but adds no evidence and no tier change (finding 1)", () => {
+  // from unseen: an uncertain grade must NOT reach `supported` (that is the
+  // assisted-0 path); it stays unseen with the attempt recorded.
+  const s = applyAttempt(initialCellState(), "correct", { assisted: false, uncertain: true, changedSurface: true, sameSession: false }, T0).state;
+  assert(s.tier === "unseen", "uncertain does not advance from unseen");
+  assert(s.weighted_evidence === 0, "uncertain adds no evidence");
+  assert(s.last_attempt_at === T0.toISOString(), "attempt still recorded");
+  assert(s.due_reason === null, "no due stamp");
+  // contrast: assisted (weight 0, NOT uncertain) DOES reach supported
+  const assisted = applyAttempt(initialCellState(), "correct", { assisted: true, changedSurface: true, sameSession: false }, T0).state;
+  assert(assisted.tier === "supported", "assisted-0 still reaches supported (distinct from uncertain)");
+});
+
+Deno.test("unseen + correct advances by weight (matrix gap)", () => {
+  const varied = nextCellState(initialCellState(), { event: "correct", weight: 1.0, now: T0 });
+  assert(varied.tier === "independent", "unseen + 1.0 -> independent");
+  const sameItem = nextCellState(initialCellState(), { event: "correct", weight: 0.35, now: T0 });
+  assert(sameItem.tier === "supported", "unseen + 0.35 -> supported");
+});
+
+Deno.test("0.65 (same-session varied) advances up to independent from below (matrix gap)", () => {
+  for (const tier of ["exposed_unverified", "supported"] as const) {
+    const s = nextCellState({ ...initialCellState(), tier }, { event: "correct", weight: 0.65, now: T0 });
+    assert(s.tier === "independent", `${tier} + 0.65 -> independent`);
+  }
+});
+
+Deno.test("new_exposure stamps last_exposure_at, not last_attempt_at (finding 4)", () => {
+  const s = nextCellState(initialCellState(), { event: "new_exposure", weight: 0, now: T0 });
+  assert(s.last_exposure_at === T0.toISOString(), "exposure timestamp set");
+  assert(s.last_attempt_at === null, "attempt timestamp NOT set by exposure");
+});
+
+Deno.test("classifySameSession treats clock-skew (future prior) as same-session (finding 3)", () => {
+  const future = new Date(T0.getTime() + 5 * 60_000); // prior stamped 5 min in the future
+  assert(classifySameSession(null, null, T0, future) === true, "negative interval -> same-session (conservative)");
+  // exact 30-min window boundary is NOT same-session
+  const exactly30 = new Date(T0.getTime() - TUNABLES.sameSessionWindowMinutes * 60_000);
+  assert(classifySameSession(null, null, T0, exactly30) === false, "exactly window -> not same-session");
 });
 
 Deno.test("confirmed stays confirmed on refresh; decay is the long interval", () => {

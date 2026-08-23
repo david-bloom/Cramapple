@@ -27,7 +27,12 @@ export type DueReason =
   | "provisional_confirm"
   | "new_exposure";
 
-export type CellEvent = "correct" | "incorrect" | "new_exposure";
+// content_uncertain: grading/content could not be trusted (CM-D07 -> weight 0
+// AND excluded from mastery evidence, "route to content_uncertain"). It is a
+// distinct event, NOT a weight-0 'correct', so an uncertain grade never advances
+// a tier (Fable QA finding 1: uncertain-0 must be distinguishable from assisted-0,
+// which legitimately reaches `supported`).
+export type CellEvent = "correct" | "incorrect" | "new_exposure" | "content_uncertain";
 
 // Tunable constants (CM-D13): bounded, explainable defaults; calibrate on
 // outcomes. NOT correctness-critical -- changing them changes cadence, not the
@@ -99,7 +104,11 @@ export function classifySameSession(
   }
   if (!priorAttemptAt) return false;
   const minutes = (now.getTime() - priorAttemptAt.getTime()) / 60_000;
-  return minutes >= 0 && minutes < TUNABLES.sameSessionWindowMinutes;
+  // Clock skew / out-of-order backfill (prior stamp in the "future"): treat as
+  // same-session, the CONSERVATIVE choice -- never award the fully-informative
+  // 1.0 weight off a negative interval (Fable QA finding 3).
+  if (minutes < 0) return true;
+  return minutes < TUNABLES.sameSessionWindowMinutes;
 }
 
 // ---------------------------------------------------------------------------
@@ -110,7 +119,9 @@ export type CellState = {
   fragile: boolean;
   weighted_evidence: number;
   last_independent_success_at: string | null; // ISO
-  last_attempt_at: string | null; // ISO
+  last_attempt_at: string | null; // ISO -- set only by a real attempt (not exposure)
+  last_exposure_at: string | null; // ISO -- set by new_exposure; kept distinct so a
+  // consolidation trigger never masquerades as an attempt in the classifier
   next_due_at: string | null; // ISO
   due_reason: DueReason | null;
 };
@@ -128,6 +139,7 @@ export function initialCellState(): CellState {
     weighted_evidence: 0,
     last_independent_success_at: null,
     last_attempt_at: null,
+    last_exposure_at: null,
     next_due_at: null,
     due_reason: null,
   };
@@ -136,16 +148,27 @@ export function initialCellState(): CellState {
 export function nextCellState(prev: CellState, input: RuleInput): CellState {
   const { event, weight, now } = input;
   const iso = now.toISOString();
-  const next: CellState = { ...prev, last_attempt_at: iso };
 
   if (event === "new_exposure") {
-    // Class advanced into this cell's material (CM-D10 consolidation). Only
+    // Class advanced into this cell's material (CM-D10 consolidation). This is NOT
+    // an attempt -> stamp last_exposure_at, not last_attempt_at (finding 4). Only
     // meaningful from unseen; never downgrades an already-verified cell.
+    const next: CellState = { ...prev, last_exposure_at: iso };
     if (prev.tier === "unseen") {
       next.tier = "exposed_unverified";
       next.next_due_at = addDays(now, TUNABLES.newExposureConsolidationDays).toISOString();
       next.due_reason = "new_exposure";
     }
+    return next;
+  }
+
+  // correct / incorrect / content_uncertain are real attempts.
+  const next: CellState = { ...prev, last_attempt_at: iso };
+
+  if (event === "content_uncertain") {
+    // Grading/content untrusted (CM-D07): record the attempt for recency, but add
+    // NO evidence and change NO tier/due -- the item is routed out for review,
+    // never writing false proficiency (finding 1).
     return next;
   }
 
@@ -211,7 +234,13 @@ export function applyAttempt(
   signal: AttemptSignal,
   now: Date,
 ): { state: CellState; weight: number; version: string } {
-  const weight = event === "correct" ? classifyWeight(signal) : 0;
-  const state = nextCellState(prev, { event, weight, now });
+  // An uncertain grade on a real attempt is routed to content_uncertain (no
+  // evidence, no tier change) rather than a weight-0 'correct' (finding 1).
+  const effectiveEvent: CellEvent =
+    (event === "correct" || event === "incorrect") && signal.uncertain
+      ? "content_uncertain"
+      : event;
+  const weight = effectiveEvent === "correct" ? classifyWeight(signal) : 0;
+  const state = nextCellState(prev, { event: effectiveEvent, weight, now });
   return { state, weight, version: RULE_ENGINE_VERSION };
 }
