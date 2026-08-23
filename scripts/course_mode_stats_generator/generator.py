@@ -32,6 +32,7 @@ from pathlib import Path
 from typing import Callable, Dict, List, Optional, Tuple
 
 import statlib as S
+import misconceptions as MISC
 from cells import practice_of, unit_of
 
 OUT_DIR = Path(__file__).resolve().parent / "out"
@@ -276,7 +277,10 @@ def _package(proc, seed, topic, skills, difficulty, prompt, answer_desc, worked,
             continue  # separation guard: keep distractors clear of the key's grading tolerance
                       # (3x margin so rounded display never lands within 2x tol either)
         seen.add(disp)
-        options.append({"text": disp, "correct": False, "misconception": tag})
+        # MISC.provenance() raises if the tag is not in the canonical catalog,
+        # so every emitted distractor is guaranteed to cite a canonical source.
+        options.append({"text": disp, "correct": False, "misconception": tag,
+                        "misconception_source": MISC.provenance(tag)})
         if len(options) == 4:
             break
     checks = list(checks) + [
@@ -284,6 +288,10 @@ def _package(proc, seed, topic, skills, difficulty, prompt, answer_desc, worked,
         ("mcq_exactly_one_correct", sum(1 for o in options if o["correct"]) == 1),
         ("mcq_has_3_distractors", len(options) == 4),
         ("all_distractors_tagged", all(o["misconception"] for o in options if not o["correct"])),
+        ("all_distractor_tags_canonical",
+         all(o["misconception"] in MISC.CATALOG for o in options if not o["correct"])),
+        ("all_distractors_cite_source",
+         all(o.get("misconception_source", {}).get("sources") for o in options if not o["correct"])),
     ]
     taxonomy_refs = [
         {"scheme_key": SCHEME_TAXONOMY, "node_key": f"unit-{unit}"},
@@ -371,6 +379,7 @@ def property_report(per_proc: int = 80) -> Dict:
         ("normal_cdf_monotone", S.norm_cdf(0.0) < S.norm_cdf(1.0) < S.norm_cdf(2.0)),
         ("two_prop_equal_groups_z0", abs(S.two_prop_ztest(50, 100, 50, 100)[3]) < 1e-9),
         ("lsrl_perfect_line_r1", abs(S.lsrl([1, 2, 3, 4], [3, 5, 7, 9])[2] - 1.0) < 1e-9),
+        ("misconception_catalog_selfcheck", not MISC.validate_catalog()),
     ]
     report["meta_failures"] = [n for n, ok in meta if not ok]
     report["ok"] = not report["failures"] and not report["meta_failures"]
