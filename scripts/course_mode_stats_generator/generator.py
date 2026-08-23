@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Course-Mode AP Statistics computational item generator (v1.2).
+"""Course-Mode AP Statistics computational item generator (v1.3).
 
 Architecture (COURSE_MODE_LEARNING_MODEL.md CM-D15): procedure library x
 scenario layer x question-form layer. Each PROCEDURE is a deterministic function
@@ -18,11 +18,13 @@ v1.1 (post Fable QA 2026-08-23) hardening:
 - Cells tag ONLY the assessed skill (CM-D05): CI->3.3x3.E, two-prop->3.13x3.E,
   LSRL predict->5.3x3.B, normal->2.11x3.C, summary->1.7x3.B.
 
-v1.2 scope: stdlib-exact. Normal/proportion/regression procedures + one-sample t
-test statistic for a mean (t via the standard t-table; no special functions).
-Tail p-values (which need the t/chi-square CDF) are intentionally not generated,
-so no scipy dependency is introduced. t-interval and chi-square procedures have
-their statlib/scenario/catalog scaffolding in place and are the next additions.
+v1.3 scope: stdlib-exact, 7 procedures. Proportion CI + two-proportion z-test,
+LSRL predict, normal probability, summary stats, one-sample t-test statistic
+(4.5x3.E), one-sample t confidence interval (4.2x3.E), and chi-square test for
+independence/homogeneity (3.15x3.E). t procedures use the standard tabulated t*;
+chi-square uses the statistic + expected counts -- all pure arithmetic, so NO
+scipy/special-function dependency. Tail p-values (which would need the t/chi-square
+CDF) are intentionally not generated. Two-sample t procedures are the next add.
 
 Synthetic tooling; NOT official College Board content. release_status=
 'unreleased_generated_pending_review'; requires CM-D19 template-release + review.
@@ -411,6 +413,83 @@ def gen_t_interval_mean(rng: random.Random, seed: int) -> Dict:
                     {"xbar": xbar, "s": s, "n": n, "conf": conf}, checks, scenario_domain=c["domain"])
 
 
+def _fmt_table(rows: List[str], cols: List[str], obs: List[List[int]]) -> str:
+    """Readable inline rendering of a two-way count table (no monospace needed)."""
+    parts = []
+    for rlab, orow in zip(rows, obs):
+        parts.append(f"{rlab}: " + ", ".join(f"{clab} {v}" for clab, v in zip(cols, orow)))
+    return "; ".join(parts)
+
+
+def gen_chi_square_test(rng: random.Random, seed: int) -> Dict:
+    """Chi-square test statistic for a two-way table (cell 3.15 x 3.E), for
+    independence/homogeneity only. Distractors are POSITIVE, on-scale chi-square
+    values from documented WRONG-EXPECTED-COUNTS / wrong-denominator errors -- not
+    the naive 'forgot to square' / 'no divide by E' transforms, which produce
+    off-scale or negative values a student rules out on sight."""
+    c = rng.choice(CATEGORICAL_CONTEXTS)
+    rows, cols = c["rows"], c["cols"]
+    nrows, ncols, ncells = len(rows), len(cols), len(rows) * len(cols)
+    tol = 0.01
+    plausible: List[Tuple[str, str, float]] = []
+    for _ in range(800):
+        obs = [[rng.randint(10, 45) for _ in range(ncols)] for _ in range(nrows)]
+        exp = S.chi_square_expected(obs)
+        if any(e < 5 for erow in exp for e in erow):     # large-counts condition (all E >= 5)
+            continue
+        x2 = S.chi_square_stat(obs)
+        grand = sum(sum(r) for r in obs)
+        row_tot = [sum(r) for r in obs]
+        eu = grand / ncells                              # uniform (equal-split) expected
+        d_uniform = sum((o - eu) ** 2 / eu for orow in obs for o in orow)
+        d_rowonly = sum((o - (row_tot[i] / ncols)) ** 2 / (row_tot[i] / ncols)
+                        for i, orow in enumerate(obs) for o in orow)
+        d_byO = sum((o - e) ** 2 / o for orow, erow in zip(obs, exp) for o, e in zip(orow, erow))
+        cand = [
+            (d_byO,     "chi_divided_by_O_not_E"),   # correct E, divided by O
+            (d_uniform, "chi_uniform_expected"),     # E = grand/#cells
+            (d_rowonly, "chi_expected_row_only"),    # E = row_total/#cols
+        ]
+        p_max = 4.0 * max(x2, 3.0)                        # on-scale: no wild outlier option
+        plausible = []
+        chosen: List[float] = []
+        for val, tag in cand:
+            if not (0.0 < val <= p_max):
+                continue
+            if abs(val - x2) <= 3 * tol:
+                continue
+            if any(abs(val - v) <= 3 * tol for v in chosen):
+                continue
+            plausible.append((f"{val:.2f}", tag, val))
+            chosen.append(val)
+        if 2.0 <= x2 <= 25.0 and len(plausible) >= 3:
+            break
+    df = (nrows - 1) * (ncols - 1)
+    prompt = (f"A researcher records {c['desc']}, obtaining these observed counts -- "
+              f"{_fmt_table(rows, cols, obs)}. Calculate the chi-square test statistic for the "
+              f"test of {'homogeneity' if nrows > 1 else 'independence'} (df = {df}).")
+    ex0 = exp[0][0]
+    worked = (f"Expected count E = (row total x column total)/grand total; e.g. E[{rows[0]},{cols[0]}] = "
+              f"({row_tot[0]} x {sum(obs[i][0] for i in range(nrows))})/{grand} = {ex0:.3f}. "
+              f"chi-square = sum (O - E)^2/E = {x2:.3f}.")
+    distractors = plausible[:3]
+    checks = [
+        ("chi_square_formula", abs(x2 - S.chi_square_stat(obs)) < 1e-9),
+        ("chi_square_nonneg", x2 >= 0),
+        ("chi_square_realistic", 2.0 <= x2 <= 25.0),
+        ("all_expected_at_least_5", all(e >= 5 for erow in exp for e in erow)),
+        ("three_plausible_distractors", len(distractors) == 3),
+        ("distractors_positive", all(v > 0 for _, _, v in distractors)),
+        ("distractors_on_scale", all(v <= 4.0 * max(x2, 3.0) for _, _, v in distractors)),
+        ("distractors_clear_of_key", all(abs(v - x2) > 2 * tol for _, _, v in distractors)),
+    ]
+    return _package("chi_square_test", seed, "3.15", ["3.E"], "Hard", prompt,
+                    f"chi-square = {x2:.2f}", worked,
+                    [{"kind": "numeric", "value": round(x2, 3), "tol": tol}],
+                    f"{x2:.2f}", x2, tol, distractors,
+                    {"observed": obs}, checks, scenario_domain=c["domain"])
+
+
 PROCEDURES: Dict[str, Callable[[random.Random, int], Dict]] = {
     "one_prop_ci": gen_one_prop_ci,
     "two_prop_ztest": gen_two_prop_ztest,
@@ -419,6 +498,7 @@ PROCEDURES: Dict[str, Callable[[random.Random, int], Dict]] = {
     "summary_stats": gen_summary_stats,
     "t_test_mean": gen_t_test_mean,
     "t_interval_mean": gen_t_interval_mean,
+    "chi_square_test": gen_chi_square_test,
 }
 
 

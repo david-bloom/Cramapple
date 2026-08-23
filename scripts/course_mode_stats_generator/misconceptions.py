@@ -358,6 +358,18 @@ CATALOG: Dict[str, Misconception] = {m.tag: m for m in [
        "Computed sum of (O - E)^2/O, dividing by the observed rather than expected count.",
        "ced_structural", ["chi_square_test"], ["3.15"], ["3.E"],
        [_fp("S3 (chi-square)", "the denominator in chi-square is the EXPECTED count E, not the observed O")]),
+    _M("chi_uniform_expected",
+       "Used equal expected counts (grand total / number of cells)",
+       "Computed each expected count as grand_total / (#cells) -- an equal split across all "
+       "cells -- instead of E = row_total * col_total / grand_total, then summed (O - E)^2/E.",
+       "ced_structural", ["chi_square_test"], ["3.15"], ["3.E"],
+       [_fp("S3 (chi-square)", "expected counts come from the MARGINAL totals (row*col/grand), not an equal split")]),
+    _M("chi_expected_row_only",
+       "Built expected counts from the row total only (ignored column marginals)",
+       "Computed each expected count as row_total / (#columns) -- splitting each row equally "
+       "across columns and ignoring the column marginals -- then summed (O - E)^2/E.",
+       "ced_structural", ["chi_square_test"], ["3.15"], ["3.E"],
+       [_fp("S3 (chi-square)", "expected counts use BOTH marginals (row*col/grand); a row-only split ignores the column distribution")]),
 ]}
 
 
