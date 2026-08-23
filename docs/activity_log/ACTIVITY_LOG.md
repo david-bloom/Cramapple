@@ -176,6 +176,8 @@ Most recent entries (full reverse-chronological list follows below):
 
 **Unblock (one of):** (a) provide a Supabase personal access token → install the CLI in-session and run `supabase functions deploy evaluate-attempt --project-ref wmgjsdkphcyhngaffbqf --use-api` + apply `out/f4_load_DRAFT.sql`; or (b) a human runs those two locally. RELEASE remains gated on D8 bars + CM-D19 regardless (this path stops at "content loaded + one graded attempt proven to update a cell").
 
+**RESOLVED same session (David ran the two commands):** the loader ran via the Supabase SQL Editor → **19 items / 19 check rows / 19 cell tags / 6 distinct cells, all `review_status NULL`** (15 `data_driven_deterministic` + 4 `rule_based_mcq`), verified from Dev. The deploy initially failed repeatedly because a stray `~/supabase` folder made the CLI pick `/Users/davidbloom` as its workdir no matter the CWD; fixed by cloning fresh and forcing `--workdir "$PWD"` → `evaluate-attempt` **deployed to v15** (`ezbr_sha256 2d1f53df…`), confirmed via `list_edge_functions`. Dev backend pipeline now complete; only the live "graded attempt → cell write" proof remains (needs one authenticated attempt through the deployed function).
+
 ---
 
 ## Course Mode Release-Path Decision Brief (Surface, Not Execute) — 2026-08-23
