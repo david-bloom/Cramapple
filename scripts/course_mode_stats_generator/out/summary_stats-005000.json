@@ -48,19 +48,24 @@
         "misconception": null
       },
       {
-        "text": "20.87",
+        "text": "60.00",
         "correct": false,
-        "misconception": "reported_pop_sd",
+        "misconception": "reported_median_not_mean",
         "misconception_source": {
-          "tag": "reported_pop_sd",
-          "label": "Reported a standard deviation instead of the mean",
-          "evidence": "ced_structural",
+          "tag": "reported_median_not_mean",
+          "label": "Reported the median instead of the mean",
+          "evidence": "documented_cr",
           "ek_codes": [],
           "sources": [
             {
               "kind": "fact_pack",
               "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 1 (1.7)",
-              "note": "mean is a measure of center; SD is a measure of spread -- distinct statistics"
+              "note": "mean = (1/n) sum x_i vs median = middle ordered value; both defined distinctly"
+            },
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 1 (1.6)",
+              "note": "2025 CR Report Q1 documents mean-vs-median reasoning errors"
             }
           ]
         }
@@ -84,24 +89,19 @@
         }
       },
       {
-        "text": "60.00",
+        "text": "20.87",
         "correct": false,
-        "misconception": "reported_median_not_mean",
+        "misconception": "reported_pop_sd",
         "misconception_source": {
-          "tag": "reported_median_not_mean",
-          "label": "Reported the median instead of the mean",
-          "evidence": "documented_cr",
+          "tag": "reported_pop_sd",
+          "label": "Reported a standard deviation instead of the mean",
+          "evidence": "ced_structural",
           "ek_codes": [],
           "sources": [
             {
               "kind": "fact_pack",
               "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 1 (1.7)",
-              "note": "mean = (1/n) sum x_i vs median = middle ordered value; both defined distinctly"
-            },
-            {
-              "kind": "fact_pack",
-              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 1 (1.6)",
-              "note": "2025 CR Report Q1 documents mean-vs-median reasoning errors"
+              "note": "mean is a measure of center; SD is a measure of spread -- distinct statistics"
             }
           ]
         }

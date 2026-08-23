@@ -296,9 +296,10 @@ def _package(proc, seed, topic, skills, difficulty, prompt, answer_desc, worked,
                         "misconception_source": MISC.provenance(tag)})
         if len(options) == 4:
             break
-    # Shuffle so the correct option is not always first (Fable QA #3). Seeded by
-    # the instance seed -> deterministic, so re-emission stays byte-identical.
-    random.Random(seed).shuffle(options)
+    # Shuffle so the correct option is not always first (Fable QA #3). Seed with
+    # proc+seed (not seed alone) so the correct-answer letter is not identical
+    # across all procedures for a shared seed (re-QA finding); still deterministic.
+    random.Random(f"{proc}-{seed}").shuffle(options)
     checks = list(checks) + [
         ("correct_option_passes_own_checks", _display_passes_checks(mcq_correct, det_checks)),
         ("mcq_option_texts_unique", len({o["text"] for o in options}) == len(options)),
