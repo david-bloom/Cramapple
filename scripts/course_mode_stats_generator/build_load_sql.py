@@ -74,6 +74,7 @@ LOAD_SQL = OUT_DIR / "f4_load_DRAFT.sql"
 COMPUTATIONAL_PREFIXES = (
     "one_prop_ci", "two_prop_ztest", "lsrl_predict", "normal_prob", "summary_stats",
     "t_test_mean", "t_interval_mean", "chi_square_test",
+    "two_sample_t_test", "two_sample_t_interval",
 )
 # cycle (in exam_pack_ref) -> exam_pack_versions.school_year
 CYCLE_TO_SCHOOL_YEAR = {"2026-27": "2026-27"}

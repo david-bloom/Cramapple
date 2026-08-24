@@ -49,6 +49,51 @@ Rights: sources record *documented error patterns* and CED *structure* only — 
 - F1 migration is DRAFT and NOT applied to Dev. taxonomy_* are in sync, so it is safe to apply after review.
 - Track B is n=1 frame family; it confirms the mechanism and gives an authoring-cost estimate (≈1 frame family per P4 skill), not full P4 coverage.
 
+## Authoring a new computational procedure (protocol)
+
+Add a procedure by strict analogy to an existing one (e.g. two-sample t mirrors the
+one-sample t procedures). Register it in **all** of these — a miss in any one ships a
+broken or mis-tagged item:
+
+1. `generator.py` — the `gen_*` function **and** the `PROCEDURES` dict.
+2. `build_load_sql.py` — add the `package_id` prefix to **`COMPUTATIONAL_PREFIXES`**
+   (else the item loads `is_computational=false` and carries the wrong
+   `evaluator_strategy` data-marker — it still grades as MCQ under Fix 1, but the F4
+   numeric-verification marker is lost).
+3. `scenarios.py` — a context bank + a `FRAMING` entry, and extend `validate_scenarios()`.
+4. `misconceptions.py` — reuse an existing tag where the error already exists; only add
+   a NEW tag when the misconception is genuinely new.
+
+**⚠️ The property harness does NOT validate distractor fidelity.** The per-instance
+checks confirm a distractor is *on-scale, distinct, and clear of the key* — they do
+**not** check that a distractor's VALUE equals the algebraic transform its misconception
+tag names. A garbled-but-on-scale distractor formula passes the harness at any N. (Real
+example caught in review: a two-sample `used_s_not_se` distractor written as
+`sqrt(s1**2 + s2**2/(n1+n2))` — nonsense — passed 1000/1000 instances.) Therefore:
+
+- Give every distractor an inline comment stating the **exact wrong formula** it encodes,
+  and make the code match that comment (mind operator precedence).
+- A reviewer (a stronger model or a human) MUST hand-recompute the key **and every
+  distractor** of at least one emitted instance per procedure against the named
+  misconception — the harness cannot do this for you. (See the spot-check one-liners used
+  in review: recompute each misconception's value and diff against the emitted option.)
+- The statlib math primitive is the other harness blind spot: a self-consistent wrong
+  convention (e.g. the wrong df rule) passes. Verify the primitive against a worked
+  example / table, not just the harness.
+
+**Misconception citations.** `ced_structural` tags must cite the precise §10 unit detail
+that states the formula/convention (e.g. `S10 Unit 4 (4.6-4.10)` for two-sample t SE and
+the pooled-df error), **not** the §3/§4 skill/topic map. Every new tag must be USED by at
+least one distractor — no dead catalog entries.
+
+**Feasibility note.** The `T_STAR` table only covers `df ≤ 30`, so df-based distractors
+whose df exceeds the table (e.g. a pooled `df = n1+n2-2` on two ~n=25 samples) are not
+computable and should not be authored against this table.
+
+Recommended future hardening: encode each misconception's transform once (in the catalog
+or a shared map) and add a property check that recomputes every distractor from it — this
+would close the fidelity blind spot structurally.
+
 ## Run everything
 ```
 python3 cells.py && python3 generator.py && python3 slot_frames.py && \

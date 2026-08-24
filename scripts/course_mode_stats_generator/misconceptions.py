@@ -329,13 +329,13 @@ CATALOG: Dict[str, Misconception] = {m.tag: m for m in [
        "Used SE = s/n instead of s/sqrt(n)",
        "Divided the sample SD by n rather than sqrt(n) when forming the standard "
        "error of the mean.",
-       "ced_structural", ["t_test_mean", "t_interval_mean"], ["4.5", "4.2"], ["3.E"],
+       "ced_structural", ["t_test_mean", "t_interval_mean", "two_sample_t_test", "two_sample_t_interval"], ["4.5", "4.2", "4.7", "4.10"], ["3.E"],
        [_fp("S3/S4 (t procedures)", "SE of a sample mean is s/sqrt(n), not s/n")]),
     _M("used_s_not_se",
        "Used the sample SD s as the standard error (forgot /sqrt(n))",
        "Treated s itself as the standard error, omitting the /sqrt(n) that turns a "
        "spread into the SD of the sample mean.",
-       "ced_structural", ["t_test_mean", "t_interval_mean"], ["4.5", "4.2"], ["3.E"],
+       "ced_structural", ["t_test_mean", "t_interval_mean", "two_sample_t_test", "two_sample_t_interval"], ["4.5", "4.2", "4.7", "4.10"], ["3.E"],
        [_fp("S3/S4 (t procedures)", "the SD of x-bar is s/sqrt(n); s alone overstates the SE")]),
     _M("flipped_t_numerator",
        "Flipped the sign of the t-statistic numerator",
@@ -345,9 +345,9 @@ CATALOG: Dict[str, Misconception] = {m.tag: m for m in [
     _M("used_z_star_not_t_star",
        "Used a z* critical value instead of t* for a mean",
        "Used a Normal critical value (e.g. 1.96 at 95%) instead of the larger t* with "
-       "df = n-1 -- a documented z-vs-t confusion for means.",
-       "ced_structural", ["t_interval_mean"], ["4.2"], ["3.E"],
-       [_fp("S8/S3 (CED convention)", "means use t (df = n-1); z is for proportions, so a t interval must use t*")]),
+       "df = n-1 (or df = min(n1-1, n2-1) for two-sample) -- a documented z-vs-t confusion for means.",
+       "ced_structural", ["t_interval_mean", "two_sample_t_interval"], ["4.2", "4.10"], ["3.E"],
+       [_fp("S8/S3 (CED convention)", "means use t (df = n-1 or min(n1-1,n2-1)); z is for proportions, so a t interval must use t*")]),
 
     # --- chi-square (independence/homogeneity): 3.15 x 3.E test statistic ------
     _M("chi_forgot_square",
@@ -377,6 +377,27 @@ CATALOG: Dict[str, Misconception] = {m.tag: m for m in [
        "across columns and ignoring the column marginals -- then summed (O - E)^2/E.",
        "ced_structural", ["chi_square_test"], ["3.15"], ["3.E"],
        [_fp("S3 (chi-square)", "expected counts use BOTH marginals (row*col/grand); a row-only split ignores the column distribution")]),
+
+    # --- two-sample t procedures (4.7 x 3.E test, 4.10 x 3.E interval) -----------
+    # Sources: fact pack S10 Unit 4 (4.6-4.10) states the unpooled/Welch SE
+    # sqrt(s1^2/n1 + s2^2/n2) and the (xbar1-xbar2)-0 numerator, and explicitly flags
+    # the pooled df = n1+n2-2 as a legacy-materials error the CED does NOT use.
+    _M("used_pooled_se_for_means",
+       "Used pooled SE formula instead of unpooled (Welch) SE for means",
+       "Computed SE = sqrt(s_p^2 * (1/n1 + 1/n2)) where s_p is a pooled SD, instead of "
+       "the unpooled/Welch SE = sqrt(s1^2/n1 + s2^2/n2). This is the incorrect SE for a "
+       "difference of means; the CED specifies the unpooled form.",
+       "ced_structural", ["two_sample_t_test", "two_sample_t_interval"], ["4.7", "4.10"], ["3.E"],
+       [_fp("S10 Unit 4 (4.6-4.10, difference of two means)",
+            "the two-sample t uses unpooled SE = sqrt(s1^2/n1 + s2^2/n2); the CED does NOT use a pooled variance")]),
+
+    _M("reversed_group_order_means",
+       "Reversed the order of subtraction for the difference of means (sign flipped)",
+       "Computed (xbar2 - xbar1) instead of (xbar1 - xbar2), flipping the sign of the "
+       "test statistic or the center of the confidence interval.",
+       "ced_structural", ["two_sample_t_test", "two_sample_t_interval"], ["4.7", "4.10"], ["3.E"],
+       [_fp("S10 Unit 4 (4.9-4.10, test for difference of two means)",
+            "test statistic numerator is (xbar1 - xbar2) - 0; the order of subtraction sets the sign")]),
 ]}
 
 
