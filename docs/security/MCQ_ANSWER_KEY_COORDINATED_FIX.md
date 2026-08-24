@@ -1,6 +1,29 @@
 # MCQ Answer-Key Exposure — Coordinated Fix
 
-STATUS: verified & ready to sequence (PART 1 written + verified, PART 3 staged; nothing applied) | DATE: 2026-08-24 | OWNER: David
+STATUS: DEV COMPLETE + verified; PROD held for David | DATE: 2026-08-24 | OWNER: David
+
+## Applied to Dev (2026-08-24, session 3) — Prod NOT touched
+
+The full three-part sequence was executed and verified on Dev (`wmgjsdkphcyhngaffbqf`):
+- **PART 1** — RPC `public.get_review_mcq_choices` applied; verified (SECURITY DEFINER,
+  pinned search_path, correct return shape, `authenticated` may execute / `anon` may not,
+  runs without error). NB: the MCQ reviewer *happy path* could not be positively tested
+  on Dev because the only active review assignment is an FRQ; the RPC's reviewer predicate
+  is logically identical to the live-working RLS `mcq_choices_select_assigned_reviewer`.
+- **PART 2** — the `review.functions.ts` reviewer read was repointed at the RPC in Lovable
+  (project `d334fed9`, commit `963aa34`); one-line diff confirmed. **Not published/deployed**
+  (the live app points at Prod, whose RPC doesn't exist yet — publishing would break the
+  Prod reviewer UI).
+- **PART 3** — the CORRECTED revoke+regrant applied. Verified as the `authenticated` role:
+  `is_correct` → permission denied (leak closed), `choice_key` → readable (student path intact).
+
+**Discovery (important):** the originally-staged PART 3 (a column-level revoke) was a
+**no-op** — see the corrected PART 3 below.
+
+**Prod remains fully held.** To close it: (1) apply PART 1 to Prod, (2) publish PART 2,
+(3) verify a reviewer still sees the key in the reviewer UI, (4) apply the corrected
+PART 3 to Prod. Steps must be in that order (publishing PART 2 before PART 1 exists on
+Prod breaks the live reviewer UI).
 
 ## Verification (2026-08-24, session 3 — read-only, nothing applied)
 
@@ -106,28 +129,44 @@ RPC returns the identical row shape, so the downstream mapping is unchanged.
 Verify in the reviewer UI that an assigned item still shows the keyed-correct choice
 and rationales before proceeding to PART 3.
 
-### PART 3 — revoke the broad grant (apply LAST, after PART 2 is live)
-The revoke is staged, ready to run, at `docs/security/part3_revoke_mcq_answer_key.sql`
-(kept OUT of `supabase/migrations/` on purpose so it can't be db-pushed to Prod before
-PART 2 lands). Promote it to a migration (e.g.
-`20260824060000_revoke_mcq_answer_key_from_authenticated.sql`) or run it directly, on
-Dev + Prod, only AFTER the repointed reviewer front-end is published. Contents:
+### PART 3 — close the leak (apply LAST, after PART 2 is live) — CORRECTED
+**A column-level revoke does NOT work here.** `authenticated` holds a **table-level**
+SELECT grant (ACL `authenticated=r`, on both Dev and Prod), which confers every column;
+`revoke select (is_correct, rationale) ... from authenticated` is a no-op against it
+(proven live on Dev — the column read still succeeded after it). The correct fix drops
+the table-wide SELECT and re-grants only the non-secret columns.
+
+The corrected SQL is staged at `docs/security/part3_revoke_mcq_answer_key.sql` (kept OUT
+of `supabase/migrations/` so it can't be db-pushed to Prod before PART 2 lands). Promote
+to a migration or run directly, on Dev + Prod, only AFTER the repointed reviewer
+front-end is published:
 
 ```sql
 begin;
--- Close the student answer-key leak. Reviewers now read is_correct/rationale via
--- public.get_review_mcq_choices (SECURITY DEFINER), so this no longer blinds them.
-revoke select (is_correct, rationale) on app.mcq_choices from authenticated, anon;
+revoke select on app.mcq_choices from authenticated;
+grant select (id, content_item_version_id, choice_key, choice_text, created_at)
+  on app.mcq_choices to authenticated;
 commit;
 ```
 
-Post-check (should return no `authenticated` grant on the two columns):
+`anon` holds no grant on this table (no-op there). On **Prod** an extra role
+`content_reviewer` also has table-level SELECT — a reviewer/back-office role, NOT
+student-assumable, so left as-is (confirm its purpose).
+
+Post-checks (A: no table-level grant; B: secret columns absent; C: functional):
 ```sql
-select grantee, string_agg(privilege_type||':'||column_name, ', ')
-from information_schema.column_privileges
+-- A
+select privilege_type from information_schema.role_table_grants
+where table_schema='app' and table_name='mcq_choices' and grantee='authenticated';  -- expect: none
+-- B
+select column_name from information_schema.column_privileges
 where table_schema='app' and table_name='mcq_choices'
-  and grantee in ('authenticated','anon') and column_name in ('is_correct','rationale')
-group by grantee;
+  and grantee='authenticated' and privilege_type='SELECT' order by column_name;      -- expect: no is_correct/rationale
+-- C
+set local role authenticated;
+select is_correct from app.mcq_choices limit 1;   -- expect: permission denied
+select choice_key from app.mcq_choices limit 1;   -- expect: OK
+reset role;
 ```
 
 ## Verification after all three parts
