@@ -57,6 +57,7 @@ ARCHETYPES = {
 TASK_VERBS = {
     "Calculate": "perform the steps to a final numeric answer",
     "Construct": "build a representation / interval",
+    "Describe": "identify or characterize a statistical method or design",
     "Justify": "give statistical reasoning to support or qualify a claim",
 }
 
@@ -134,6 +135,12 @@ FRAMING: Dict[str, Framing] = {
         "slotframe_4b", "Q2", "Justify", 4, "exam_aligned_digital",
         ["OBSERVATIONAL comparison only (no random assignment -> no causal claim)",
          "means differ but spreads overlap so an over-strong claim is refutable"],
+        [_SEC5, _SEC6, _SEC7]),
+    "slotframe_u1_11_sampling": Framing(
+        "slotframe_u1_11_sampling", "Q1", "Describe", 2, "exam_aligned_digital",
+        ["Unit 1 random-sampling methods only: SRS, stratified, cluster, systematic",
+         "non-random convenience and voluntary-response plans must be identified as non-random",
+         "stratified samples units within every stratum; cluster samples all units in selected clusters"],
         [_SEC5, _SEC6, _SEC7]),
     "t_test_mean": Framing(
         "t_test_mean", "Q4", "Calculate", 3, "exam_aligned_digital",
@@ -296,6 +303,72 @@ U1_9_COMPARE_CONTEXTS: List[Dict[str, object]] = [
      "group_a": "north trail", "group_b": "south trail", "domain": "civic", "low": 15, "high": 140},
 ]
 
+# Unit 1.11 sampling method contexts. Each id is cell-namespaced so parallel
+# agents can append without collisions. Contexts are original synthetic school /
+# civic / operations settings, not College Board prompts.
+U1_11_SAMPLING_CONTEXTS: List[Dict[str, object]] = [
+    {
+        "id": "u1_11__school_clubs",
+        "population": "all students at a high school",
+        "units": "students",
+        "measure": "how many hours they spend in school clubs each week",
+        "frame": "an alphabetized roster of all students",
+        "strata": "grade level",
+        "clusters": "homerooms",
+        "location": "the cafeteria during one lunch period",
+        "voluntary_channel": "a link posted in the school announcements",
+        "domain": "education",
+    },
+    {
+        "id": "u1_11__city_bus_riders",
+        "population": "weekday bus riders in a city",
+        "units": "riders",
+        "measure": "their satisfaction with bus arrival times",
+        "frame": "a numbered list of riders from transit-card records",
+        "strata": "bus route",
+        "clusters": "bus trips",
+        "location": "the downtown terminal between 8:00 and 8:30 a.m.",
+        "voluntary_channel": "a survey QR code on posters inside buses",
+        "domain": "civic",
+    },
+    {
+        "id": "u1_11__library_patrons",
+        "population": "adult patrons of a county library system",
+        "units": "patrons",
+        "measure": "which library services they used last month",
+        "frame": "a numbered membership list",
+        "strata": "branch library",
+        "clusters": "library-card signup batches",
+        "location": "the front desk of the main branch on Saturday morning",
+        "voluntary_channel": "an email invitation asking interested patrons to respond",
+        "domain": "civic",
+    },
+    {
+        "id": "u1_11__online_store_orders",
+        "population": "orders placed with an online store last month",
+        "units": "orders",
+        "measure": "whether the delivery arrived by the promised date",
+        "frame": "a numbered export of all order IDs",
+        "strata": "shipping region",
+        "clusters": "delivery-driver routes",
+        "location": "the first 80 orders visible in the customer-service queue",
+        "voluntary_channel": "a feedback form sent only to customers who chose to click it",
+        "domain": "business",
+    },
+    {
+        "id": "u1_11__campus_trees",
+        "population": "trees on a college campus",
+        "units": "trees",
+        "measure": "whether they show signs of insect damage",
+        "frame": "a numbered campus tree inventory",
+        "strata": "tree species",
+        "clusters": "campus quadrants",
+        "location": "trees along the walkway nearest the science building",
+        "voluntary_channel": "reports submitted by anyone who noticed a damaged tree",
+        "domain": "biology",
+    },
+]
+
 
 # ==============================================================================
 # Access + validation helpers
@@ -373,6 +446,17 @@ def validate_scenarios() -> List[str]:
             problems.append(f"u1_9 compare context groups are not distinct: {ctx}")
         if ctx.get("low", 0) >= ctx.get("high", 0):
             problems.append(f"u1_9 compare context has inverted range: {ctx}")
+    seen_sampling_ids = set()
+    for ctx in U1_11_SAMPLING_CONTEXTS:
+        required = ("id", "population", "units", "measure", "frame", "strata",
+                    "clusters", "location", "voluntary_channel", "domain")
+        if not all(k in ctx for k in required):
+            problems.append(f"u1_11 sampling context missing fields: {ctx}")
+        if ctx.get("id") in seen_sampling_ids:
+            problems.append(f"duplicate u1_11 sampling context id: {ctx.get('id')}")
+        seen_sampling_ids.add(ctx.get("id"))
+        if not str(ctx.get("id", "")).startswith("u1_11__"):
+            problems.append(f"u1_11 sampling context id is not namespaced: {ctx.get('id')}")
     return problems
 
 
@@ -390,6 +474,7 @@ if __name__ == "__main__":
             "mean": len(MEAN_CONTEXTS),
             "two_mean": len(TWO_MEAN_CONTEXTS),
             "u1_9_compare": len(U1_9_COMPARE_CONTEXTS),
+            "u1_11_sampling": len(U1_11_SAMPLING_CONTEXTS),
         },
         "framing": {p: {"archetype": f.archetype, "task_verb": f.task_verb,
                         "modality": f.modality} for p, f in FRAMING.items()},
