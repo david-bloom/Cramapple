@@ -90,6 +90,27 @@ requires ALL of:
 `student_cell_state` row get written (the end-to-end proof). Do NOT flip any of
 these without David's explicit go.
 
+**UPDATE 2026-08-24 (Dev switches FLIPPED, with David's explicit go):** conditions
+1–3 are now done on Dev (epv `4e54bb4f` `published`; `home_release_manifest` row
+`quick_start_enabled=true, minimum_published_items=3, allowed_unit_numbers={5}`;
+David's Dev `profiles.active_exam_pack_version_id=4e54bb4f`); condition 4 was
+already active. Gate proven OPEN at the DB level by simulating David's `auth.uid()`:
+`exam_pack_version_is_selectable=true`, `home_exam_pack_is_eligible=true`,
+compatible published MCQ count `=3`. **Prod untouched.** Rollback = un-flip the 3.
+
+**But three serving-path gaps were found (surfaced, not patched):** (a) there is
+**no server-side MCQ item-selector RPC on Dev** — the serving edge fn
+`student-session-items` calls `select_practice_frqs`, which is **FRQ-only** and is
+**absent from Dev**; `select_unit_gated_practice_items` (migration 20260804190000)
+is also not deployed on Dev; (b) the 3 lsrl items have **no `serving`-scope
+`content_taxonomy_labels` row** (only the `content_item_cells` cell tag, which
+drives the hook, not serving selection); (c) so **how the app actually fetches an
+MCQ item to display is a front-end-repo concern** (`exam-buddy-wireframe`), not
+confirmable from the backend. The live `student_cell_state` write itself still
+requires David authenticated in the app (evaluate-attempt = `requireProfile`, no
+JWT minting). **Next: confirm the front-end's Dev MCQ fetch path (or add a server
+selector + serving labels) before the answer-an-item step can succeed.**
+
 ## 4. Deferred / backlog (not blocking)
 
 - **Release more templates.** The generator has 8 procedures; only `lsrl_predict`
