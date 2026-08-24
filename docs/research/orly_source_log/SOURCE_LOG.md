@@ -28,3 +28,23 @@ proper independent re-derivation of all 8 answers
 (`supabase/migrations/20260824140000_record_independent_re_derivation_orly_protocol_items.sql`)
 per the newly-added protocol §6 step 4. See the protocol's revision notes for
 both fixes and the going-forward requirements.
+
+**Taxonomy labeling note (2026-08-24, same day):** ran
+`scripts/taxonomy/extend_math_serving_labels.mjs --write-db` against
+Production once per content_key for all 8 items (the script only accepts a
+single `--key` filter). Required temporarily relinking the Supabase CLI from
+Dev to Production and back per run set — see the script's reliance on
+`supabase db query --linked`. All 8 got `label_status='provisional_model'`
+(two-model agreement between `openai/gpt-5.5` and `google/gemini-2.5-flash`),
+matching this session's originally-authored `taxonomy_refs` exactly: AB items
+-> unit 1, BC's 1.10/1.15 items -> unit 1, BC's 2.2/2.9 items -> unit 2.
+`provisional_model` is not the same as `validated` (that requires a formal
+validation decision per `content_taxonomy_labels_validation_check`) - these
+items are now serving-eligible but still awaiting that validation pass. Note:
+the script writes its run report to a fixed path per subject
+(`docs/research/MATH_TAXONOMY_SERVING_LABEL_RUN_2026_08_04.md` for calc/precalc)
+via overwrite, not append - running it once per content_key clobbered that
+shared doc 8 times in a row; restored via `git checkout` since no data was
+lost (only the DB writes matter, and those were verified independently
+after). A batch mode that accepts multiple `--key` values (or writes an
+append-only per-run log) would avoid this next time.
