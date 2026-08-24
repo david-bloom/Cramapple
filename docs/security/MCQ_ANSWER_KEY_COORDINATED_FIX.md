@@ -1,6 +1,89 @@
 # MCQ Answer-Key Exposure — Coordinated Fix
 
-STATUS: staged (PART 1 written, not applied) | DATE: 2026-08-24 | OWNER: David
+STATUS: ✅ COMPLETE on Dev AND Prod — leak closed & verified | DATE: 2026-08-24 | OWNER: David
+
+## Done — Dev + Prod (2026-08-24, session 3)
+
+The full three-part sequence was executed and verified on **both** Dev
+(`wmgjsdkphcyhngaffbqf`) and Prod (`pcntajvbdfqhbeewmdry`), in order (PART 1 → publish
+PART 2 → PART 3):
+- **PART 1** — RPC `public.get_review_mcq_choices` applied to both envs; verified
+  (SECURITY DEFINER, pinned search_path, correct return shape, `authenticated` may
+  execute / `anon` may not, runs clean). Migration
+  `20260824040000_reviewer_mcq_answer_key_rpc.sql`.
+- **PART 2** — `review.functions.ts` reviewer read repointed at the RPC in Lovable
+  (project `d334fed9`, commit `963aa34`, one-line diff) and **published** to
+  `exam-buddy-wireframe.lovable.app`.
+- **PART 3** — the CORRECTED revoke+regrant applied to both envs; promoted to migration
+  `20260824060000_revoke_mcq_answer_key_from_authenticated.sql`.
+
+**Verification (both envs), as the `authenticated` role:** `is_correct` → permission
+denied (**leak closed**); `choice_key` → readable (**student serving path intact**).
+Reviewer RPC still returns the key — positively confirmed on Prod against a real assigned
+MCQ reviewer (RPC returned the full 4-row key post-revoke; Prod has 1,621 active MCQ
+review assignments).
+
+**Discovery (important):** the originally-staged PART 3 (a column-level revoke) was a
+**no-op** — `authenticated` held a TABLE-level SELECT (`authenticated=r`) on both envs,
+which a column revoke can't subtract from (proven live on Dev). The corrected fix (below)
+drops the table-wide grant and re-grants only the non-secret columns.
+
+**Note:** on Prod, a separate `content_reviewer` role also holds table-level SELECT — a
+reviewer/back-office role, not student-assumable — left untouched.
+
+**`content_reviewer` reachability CONFIRMED not student-exposed (2026-08-24, verified live
+on Prod).** `content_reviewer` has `rolcanlogin = false`, and the PostgREST login role
+`authenticator` is **not** a member of it, so no client JWT (`"role":"content_reviewer"`)
+can `SET ROLE` into it — a request claiming that role fails at the gateway. Its only
+members are `postgres` (owner/superuser). So its residual table-level SELECT on
+`app.mcq_choices` is an owner/back-office grant, not a student-reachable path to the
+answer key. Nothing to change.
+
+**Post-fix re-verification (2026-08-24, read-only).** Re-confirmed the closed state
+directly against both envs: no table-level SELECT for `authenticated`/`anon` on
+`app.mcq_choices`; `authenticated` holds column SELECT on exactly the 5 non-secret
+columns (`id, content_item_version_id, choice_key, choice_text, created_at`) and **not**
+`is_correct`/`rationale`; as the `authenticated` role, `has_column_privilege` returns
+false for `is_correct`/`rationale` and true for `choice_key`; and
+`public.get_review_mcq_choices(uuid)` exists (SECURITY DEFINER, `authenticated` EXECUTE /
+`anon` no). Leak remains closed on Prod and Dev.
+
+## Verification (2026-08-24, session 3 — read-only, nothing applied)
+
+All three parts were checked against live Dev (`wmgjsdkphcyhngaffbqf`), live Prod
+(`pcntajvbdfqhbeewmdry`), and the `exam-buddy-wireframe` frontend (`HEAD a9b2c0c`):
+
+- **Exposure still live on BOTH envs.** `authenticated` holds `SELECT` on
+  `is_correct` + `rationale` on `app.mcq_choices` in Dev and Prod. `anon` holds no
+  such grant (the PART 3 `anon` clause is a harmless no-op).
+- **PART 1 RPC verified correct.** Referenced objects all exist on both envs:
+  `content_review_assignments(reviewer_id, status, content_item_version_id)`,
+  `profiles.role`, and the four `mcq_choices` columns. `profiles.role` is a **text**
+  column whose CHECK includes `admin`, so `role = 'admin'` is safe (no enum-cast
+  error). The RPC's reviewer branch (`status in pending/in_progress/submitted`) is
+  **behavior-identical to the existing RLS** policy `mcq_choices_select_assigned_reviewer`
+  (same three statuses) → no reviewer regression. The added admin branch matches the
+  frontend's own admin-can-open-any auth (`review.functions.ts:202-208`) and closes a
+  latent gap (an admin opening another reviewer's assignment is currently blinded by
+  RLS). The RPC does **not** yet exist on either env. Security hygiene is sound
+  (SECURITY DEFINER, `search_path` pinned to `app,pg_temp`, execute revoked from
+  `public`/`anon`, granted to `authenticated`/`service_role`).
+- **PART 2 target confirmed as the SOLE authenticated reader.** A full frontend grep
+  shows the only client-side `authenticated` DB read of `is_correct`/`rationale` is
+  `review.functions.ts:221-224` (the exact query the Lovable prompt targets). The two
+  other `mcq_choices` mapping sites (`review.functions.ts:80-88`, and the artifact
+  path via `normalizeArtifact`) consume data returned by a **service_role edge
+  function** (`invokeEdge`), not the column grant, so they are unaffected. The RPC
+  returns the identical `{choice_key, choice_text, is_correct, rationale}` shape, so
+  the `.map()` at `:252-257` is unchanged → clean drop-in.
+- **PART 3 proven safe once PART 2 is live.** The student serving path
+  (`use-published-mcq.ts:57`) selects only `mcq_choices!inner(id, choice_key,
+  choice_text)` — it never reads the secret columns, so the revoke does not touch
+  student serving. No other authenticated reader exists.
+
+Ready-to-apply artifacts: PART 1 is `migrations/20260824040000_reviewer_mcq_answer_key_rpc.sql`;
+PART 3 is staged at `docs/security/part3_revoke_mcq_answer_key.sql` (kept OUT of
+`migrations/` on purpose). Applies are held for David's explicit per-step go.
 
 ## The exposure
 
@@ -69,25 +152,44 @@ RPC returns the identical row shape, so the downstream mapping is unchanged.
 Verify in the reviewer UI that an assigned item still shows the keyed-correct choice
 and rationales before proceeding to PART 3.
 
-### PART 3 — revoke the broad grant (apply LAST, after PART 2 is live)
-Promote this to a migration (e.g. `20260824060000_revoke_mcq_answer_key_from_authenticated.sql`)
-and apply to Dev + Prod only AFTER the repointed reviewer front-end is published:
+### PART 3 — close the leak (apply LAST, after PART 2 is live) — CORRECTED
+**A column-level revoke does NOT work here.** `authenticated` holds a **table-level**
+SELECT grant (ACL `authenticated=r`, on both Dev and Prod), which confers every column;
+`revoke select (is_correct, rationale) ... from authenticated` is a no-op against it
+(proven live on Dev — the column read still succeeded after it). The correct fix drops
+the table-wide SELECT and re-grants only the non-secret columns.
+
+The corrected SQL is staged at `docs/security/part3_revoke_mcq_answer_key.sql` (kept OUT
+of `supabase/migrations/` so it can't be db-pushed to Prod before PART 2 lands). Promote
+to a migration or run directly, on Dev + Prod, only AFTER the repointed reviewer
+front-end is published:
 
 ```sql
 begin;
--- Close the student answer-key leak. Reviewers now read is_correct/rationale via
--- public.get_review_mcq_choices (SECURITY DEFINER), so this no longer blinds them.
-revoke select (is_correct, rationale) on app.mcq_choices from authenticated, anon;
+revoke select on app.mcq_choices from authenticated;
+grant select (id, content_item_version_id, choice_key, choice_text, created_at)
+  on app.mcq_choices to authenticated;
 commit;
 ```
 
-Post-check (should return no `authenticated` grant on the two columns):
+`anon` holds no grant on this table (no-op there). On **Prod** an extra role
+`content_reviewer` also has table-level SELECT — a reviewer/back-office role, NOT
+student-assumable, so left as-is (confirm its purpose).
+
+Post-checks (A: no table-level grant; B: secret columns absent; C: functional):
 ```sql
-select grantee, string_agg(privilege_type||':'||column_name, ', ')
-from information_schema.column_privileges
+-- A
+select privilege_type from information_schema.role_table_grants
+where table_schema='app' and table_name='mcq_choices' and grantee='authenticated';  -- expect: none
+-- B
+select column_name from information_schema.column_privileges
 where table_schema='app' and table_name='mcq_choices'
-  and grantee in ('authenticated','anon') and column_name in ('is_correct','rationale')
-group by grantee;
+  and grantee='authenticated' and privilege_type='SELECT' order by column_name;      -- expect: no is_correct/rationale
+-- C
+set local role authenticated;
+select is_correct from app.mcq_choices limit 1;   -- expect: permission denied
+select choice_key from app.mcq_choices limit 1;   -- expect: OK
+reset role;
 ```
 
 ## Verification after all three parts

@@ -147,6 +147,21 @@ FRAMING: Dict[str, Framing] = {
          "every EXPECTED count >= 5 (the large-counts condition)",
          "chi-square for independence/homogeneity only; statistic stays in a realistic range"],
         [_SEC5, _SEC6, _SEC7]),
+    "two_sample_t_test": Framing(
+        "two_sample_t_test", "Q4", "Calculate", 3, "exam_aligned_digital",
+        ["two DISTINCT independent samples of a quantitative variable",
+         "populations roughly Normal or both samples large",
+         "df = min(n1-1, n2-1) within the standard t-table (n <= 31)",
+         "the t-statistic magnitude stays in a realistic range"],
+        [_SEC5, _SEC6, _SEC7]),
+    "two_sample_t_interval": Framing(
+        "two_sample_t_interval", "Q4", "Construct", 3, "exam_aligned_digital",
+        ["two DISTINCT independent samples of a quantitative variable",
+         "populations roughly Normal or both samples large",
+         "df = min(n1-1, n2-1) within the standard t-table (n <= 31)",
+         "confidence in {90%, 95%, 99%}",
+         "t (for means), never z -- CED convention; interval bounds realistic for the quantity"],
+        [_SEC5, _SEC6, _SEC7]),
 }
 
 
@@ -227,6 +242,24 @@ MEAN_CONTEXTS: List[Dict[str, object]] = [
      "mu0_choices": [8, 10, 12, 15], "s_choices": [1, 2, 3], "n_choices": [9, 12, 16, 20]},
 ]
 
+# two-sample means (two-sample t procedures): two independent samples of a
+# quantitative variable. Each context carries plausible per-group mu / SD / n
+# pools for a two-group comparison. n <= 30 keeps df = min(n1-1, n2-1) inside
+# the standard t-table. Two DISTINCT groups gA, gB.
+TWO_MEAN_CONTEXTS: List[Dict[str, object]] = [
+    {"quantity": "daily steps", "unit": "steps", "gA": "office workers", "gB": "construction workers",
+     "domain": "health", "mu_choices": [8000, 10000, 12000, 14000], "s_choices": [2000, 3000, 4000],
+     "n_choices": [12, 15, 18, 20, 25]},
+    {"quantity": "time to resolve a customer issue", "unit": "minutes", "gA": "experienced staff", "gB": "new hires",
+     "domain": "business", "mu_choices": [15, 20, 25, 30], "s_choices": [4, 5, 6], "n_choices": [10, 12, 15, 20]},
+    {"quantity": "battery life under heavy use", "unit": "hours", "gA": "brand A", "gB": "brand B",
+     "domain": "manufacturing", "mu_choices": [8, 10, 12, 14], "s_choices": [1.5, 2, 2.5], "n_choices": [10, 14, 18, 22]},
+    {"quantity": "test score", "unit": "points", "gA": "morning class", "gB": "afternoon class",
+     "domain": "education", "mu_choices": [72, 76, 80, 84], "s_choices": [6, 8, 10], "n_choices": [12, 15, 18, 20, 25]},
+    {"quantity": "plant height after six weeks", "unit": "cm", "gA": "with fertilizer", "gB": "control group",
+     "domain": "biology", "mu_choices": [20, 25, 30, 35], "s_choices": [3, 4, 5], "n_choices": [10, 12, 16, 20]},
+]
+
 # categorical (chi-square independence/homogeneity): two categorical variables ->
 # a two-way table. rows = groups/categories of one variable, cols = the other.
 CATEGORICAL_CONTEXTS: List[Dict[str, object]] = [
@@ -292,6 +325,13 @@ def validate_scenarios() -> List[str]:
             problems.append(f"mean context missing fields: {ctx}")
         elif any(n > 31 for n in ctx["n_choices"]):
             problems.append(f"mean context n exceeds t-table (df=n-1 must be <=30): {ctx}")
+    for ctx in TWO_MEAN_CONTEXTS:
+        if not all(k in ctx for k in ("quantity", "unit", "gA", "gB", "domain", "mu_choices", "s_choices", "n_choices")):
+            problems.append(f"two-mean context missing fields: {ctx}")
+        elif ctx.get("gA") == ctx.get("gB"):
+            problems.append(f"two-mean context is not two distinct groups: {ctx}")
+        elif any(n > 31 for n in ctx["n_choices"]):
+            problems.append(f"two-mean context n exceeds t-table (df=min(n1-1,n2-1) must be <=30): {ctx}")
     for ctx in CATEGORICAL_CONTEXTS:
         if not all(k in ctx for k in ("desc", "rows", "cols", "row_noun", "domain")):
             problems.append(f"categorical context missing fields: {ctx}")
@@ -311,6 +351,8 @@ if __name__ == "__main__":
             "two_group": len(TWO_GROUP_CONTEXTS),
             "regression": len(REGRESSION_CONTEXTS),
             "normal": len(NORMAL_CONTEXTS),
+            "mean": len(MEAN_CONTEXTS),
+            "two_mean": len(TWO_MEAN_CONTEXTS),
         },
         "framing": {p: {"archetype": f.archetype, "task_verb": f.task_verb,
                         "modality": f.modality} for p, f in FRAMING.items()},

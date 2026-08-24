@@ -258,6 +258,28 @@ def one_mean_t_interval(xbar: float, s: float, n: int,
     return (moe, xbar - moe, xbar + moe)
 
 
+def two_sample_t_statistic(xbar1: float, s1: float, n1: int,
+                           xbar2: float, s2: float, n2: int) -> float:
+    """Two-sample (independent) t test statistic for a difference of means (unpooled/Welch).
+    Uses the conservative df = min(n1-1, n2-1).
+    Returns: t = (xbar1 - xbar2) / sqrt(s1^2/n1 + s2^2/n2)."""
+    se = math.sqrt((s1 ** 2 / n1) + (s2 ** 2 / n2))
+    return (xbar1 - xbar2) / se
+
+
+def two_sample_t_interval(xbar1: float, s1: float, n1: int,
+                          xbar2: float, s2: float, n2: int,
+                          confidence: float) -> Tuple[float, float, float]:
+    """Two-sample t confidence interval for a difference of means (unpooled/Welch).
+    Uses the conservative df = min(n1-1, n2-1).
+    Returns (moe, low, high)."""
+    df = min(n1 - 1, n2 - 1)
+    se = math.sqrt((s1 ** 2 / n1) + (s2 ** 2 / n2))
+    moe = t_star(df, confidence) * se
+    diff = xbar1 - xbar2
+    return (moe, diff - moe, diff + moe)
+
+
 # ---------------------------------------------------------------------------
 # Chi-square test statistic (expected counts from the marginal totals).
 # The statistic is pure arithmetic; no special function is needed.

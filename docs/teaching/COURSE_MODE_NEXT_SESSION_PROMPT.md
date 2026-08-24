@@ -1,10 +1,51 @@
 # Course Mode — Next-Session Resume Guide
 
-STATUS: resume guide | DATE: 2026-08-24 (session 2) | AUDIENCE: the next session (LLM), and David.
+STATUS: resume guide | DATE: 2026-08-24 (session 3) | AUDIENCE: the next session (LLM), and David.
 
 Read this first, then `COURSE_MODE_STATUS_AND_HANDOFF.md` (the living map) and
 `COURSE_MODE_LEARNING_MODEL.md` (decisions/invariants). This file is the "where
 we left off + how to pick up" summary.
+
+**SESSION-3 UPDATE (2026-08-24):** generator **Fix 1 landed** — the loader
+(`scripts/course_mode_stats_generator/build_load_sql.py`) now stamps **every**
+generated item `rubric_type='mcq'` (was NULL for computational items), so future
+MCQ-served items route to `mcq_rule` and grade on choice-match without the manual
+DB touch session 2 needed. `evaluator_strategy` stays split as an inert data marker
+(computational items keep `data_driven_deterministic`; the persisted
+`content_item_checks` are untouched, preserving a future numeric-entry option). This
+matches the proven-live Dev config exactly. Regenerated `out/f4_load_DRAFT.sql` +
+patched `out/lsrl_reload_DRAFT.sql` so a re-run can't reintroduce the bug. Code-only;
+**no DB, no Dev/Prod touch** — the 3 released Dev lsrl items already carry the manual
+`rubric_type='mcq'` from session 2, so nothing needs re-running there. §6.1 below is
+now DONE; §6.3 (Prod `rubric_type='mcq'` on `7c5a2975`) is the remaining place the old
+NULL still lives, gated behind the held Prod work.
+
+**SESSION-3 UPDATE #2 (2026-08-24) — mcq_choices answer-key leak CLOSED on Dev + Prod
+(§5 fix, PR #106):** the coordinated fix is fully applied and verified on **both** envs
+(David gave the go for the whole Prod sequence). PART 1 RPC `public.get_review_mcq_choices`
+applied to Dev+Prod; PART 2 (reviewer read → RPC) published to `exam-buddy-wireframe.lovable.app`
+(Lovable commit `963aa34`); PART 3 revoke+regrant applied to both. **Key discovery:** the
+originally-staged PART 3 (a column-level revoke) was a **no-op** — `authenticated` held a
+TABLE-level `SELECT` (`authenticated=r`) that a column revoke can't subtract from; the
+corrected fix drops the table grant and re-grants only the non-secret columns. Verified as
+the `authenticated` role on both envs: `is_correct` → permission denied, `choice_key` →
+readable; reviewer RPC still returns the key (positively tested on Prod, 4-row key, 1,621
+active MCQ assignments). PART 3 promoted to migration `20260824060000`. Flag: Prod has an
+extra `content_reviewer` role with table-level SELECT (reviewer/back-office, not
+student-assumable) — left as-is, confirm its purpose. §5 below is now DONE.
+
+**SESSION-3 UPDATE #3 (2026-08-24) — 2nd generator template released to review (PR #105,
+two-sample t):** Haiku authored two new procedures (`two_sample_t_test` 4.7×3.E,
+`two_sample_t_interval` 4.10×3.E) by analogy to the one-sample t procedures; reviewed and
+remediated here. Haiku's statlib math + scenarios were correct; the review caught and fixed
+(a) **garbled distractor formulas** that the property harness structurally can't catch (it
+checks on-scale/distinct/clear, NOT that a distractor equals its misconception's transform);
+(b) a missing `COMPUTATIONAL_PREFIXES` registration in `build_load_sql.py`; (c) an unused,
+impractical `used_wrong_df_pooled` catalog entry (removed); (d) imprecise §3/§4 citations
+(→ §10 Unit 4). Harness green at per_proc=100 (1000/14700, 0 fail); two emitted items
+hand-verified. The gaps are now captured as an **authoring protocol** in the generator
+`README.md`. PR #105 is code-only (no DB); still needs the D8 SME 20-sample review +
+CM-D19 release before serving.
 
 ---
 
@@ -14,8 +55,11 @@ The **full course-mode loop is proven live on Dev**: a real MCQ answered in the
 app grades deterministically and promotes a mastery cell. Getting there this
 session unblocked serving (an RLS recursion fix), figured out how to actually run
 the app against Dev (local, port 5173), and fixed an MCQ-vs-numeric grading
-mismatch. **Prod is untouched** — all Prod serving/hook work remains held for
-David. A couple of security fixes are **staged but not applied**.
+mismatch. (Session-2 snapshot; see the three SESSION-3 UPDATE blocks above for what
+changed since: generator Fix 1 landed, the mcq_choices answer-key leak was CLOSED on
+Dev **and Prod**, and a 2nd generator template was reviewed. Prod **serving/hook** work
+— the epv publish, manifest, profile, and the `evaluate-attempt` hook deploy — remains
+held for David; the only Prod writes so far are the security fix.)
 
 ## 1. What was accomplished — session 2 (2026-08-24)
 
@@ -107,40 +151,44 @@ to **`/session/mcq`** (NOT the generic `/session`, which is FRQ-only via the abs
 `useGradePractice` (→ `evaluate-attempt`). Answer an lsrl item → verify a
 `student_cell_state` write for user `cda34c9d…`.
 
-## 5. Staged security fix — mcq_choices answer-key (NOT applied)
+## 5. mcq_choices answer-key fix — ✅ DONE on Dev + Prod (PR #106)
 
-Full plan in `docs/security/MCQ_ANSWER_KEY_COORDINATED_FIX.md`. Three parts,
-sequenced (do NOT reorder):
-- **PART 1** — `migration 20260824040000_reviewer_mcq_answer_key_rpc.sql` (additive,
-  written, NOT applied): SECURITY DEFINER RPC `public.get_review_mcq_choices(uuid)`
-  returns is_correct/rationale only to an assigned reviewer/admin.
-- **PART 2** — repoint the `exam-buddy-wireframe` reviewer read (`review.functions.ts`)
-  at the RPC (Lovable prompt in the doc), publish.
-- **PART 3** — `REVOKE SELECT (is_correct, rationale) ON app.mcq_choices FROM
-  authenticated, anon` (SQL staged in the doc, deliberately NOT in `migrations/` so it
-  can't be db-pushed to Prod before PART 2 lands). Apply Dev + Prod LAST.
+Full record in `docs/security/MCQ_ANSWER_KEY_COORDINATED_FIX.md` (STATUS: COMPLETE).
+All three parts applied + verified on both envs (see SESSION-3 UPDATE #2 above):
+PART 1 RPC (`20260824040000`), PART 2 published to Lovable, PART 3 revoke+regrant
+(`20260824060000`). The corrected PART 3 drops the table-wide `authenticated` SELECT
+and re-grants only the non-secret columns (a plain column revoke was a no-op against
+the table grant). Leftover to confirm: Prod's `content_reviewer` table-level SELECT.
 
 ## 6. Next steps / open decisions (David's call)
 
-1. **Generator fix** — stamp future MCQ-served items with `rubric_type='mcq'` (or set
-   `evaluator_strategy='rule_based_mcq'`) in `scripts/course_mode_stats_generator/` so
-   they route to `mcq_rule` without a manual DB touch. Decide whether to re-release.
-   Also consider making `resolveGradingRoute` **fail loud** on a `rubric_type`↔`evaluator_strategy`
-   conflict rather than silently letting `rubric_type` win — the first live Dev attempt graded
-   `content_uncertain` only because it ran in the ~6-min window *before* Fix 1's `rubric_type`
-   backfill landed (a one-time timing race, not a persistent bug; a fail-loud router would have
-   surfaced the mis-tag at grade time instead). See the PR #103 comment / activity-log entry
-   "Serving Milestone Independently Re-Verified … Timing-Race Diagnosed" (2026-08-24).
+1. **Generator fix — ✅ DONE (session 3).** The loader now stamps every generated item
+   `rubric_type='mcq'`, so future MCQ-served items route to `mcq_rule` without a manual
+   DB touch. `evaluator_strategy` kept split as an inert data marker (computational →
+   `data_driven_deterministic`); `content_item_checks` unchanged. No re-release needed
+   for the 3 Dev lsrl items — they already carry the manual `rubric_type='mcq'`.
+   Still worth considering: make `resolveGradingRoute` **fail loud** on a
+   `rubric_type`↔`evaluator_strategy` conflict rather than silently letting `rubric_type`
+   win — the first live Dev attempt graded `content_uncertain` only because it ran in the
+   ~6-min window *before* Fix 1's `rubric_type` backfill landed (a one-time timing race,
+   not a persistent bug; a fail-loud router would have surfaced the mis-tag at grade time
+   instead). See the PR #103 comment / activity-log entry "Serving Milestone Independently
+   Re-Verified … Timing-Race Diagnosed" (2026-08-24).
 2. **Design question** — these items now grade purely on choice-match; their numeric
    `content_item_checks` verification is unused. Fine if course-mode practice stays
    **MCQ**; revisit if you want **numeric-entry** serving (your earlier stated intent —
    would need a front-end change + conflicts with the MCQ serving gate).
 3. **Prod propagation** — when ready: Prod hook deploy + Prod serving switches + Prod
    `rubric_type='mcq'` on `7c5a2975`'s 3 items.
-4. **Sequence the mcq_choices coordinated fix** (§5).
-5. **Release more templates** — generator has 8 procedures; only `lsrl_predict` is
-   released. Each needs SME 20-sample review + ≥100 property attestation + CM-D19
-   release. (Re-run property harness at ≥100; default per-proc 80 is below the bar.)
+4. **mcq_choices coordinated fix — ✅ DONE Dev + Prod (§5, PR #106).** Remaining: confirm
+   Prod's `content_reviewer` role purpose.
+5. **Release more templates** — generator now has **10** procedures: the 8 originals +
+   the 2 two-sample t added in PR #105 (reviewed/fixed, code-only, not yet released).
+   Only `lsrl_predict` is CM-D19-released. Each new one needs SME 20-sample review +
+   ≥100 property attestation + CM-D19 release. **Authoring protocol + harness blind spots
+   are now documented in `scripts/course_mode_stats_generator/README.md`** — read it
+   before authoring or reviewing the next procedure (the harness does NOT validate
+   distractor-formula fidelity; hand-verify every distractor).
 6. **F2/F3 tunables** in `cell-state.ts` are Phase-1 defaults — calibrate once real
    attempts flow.
 
