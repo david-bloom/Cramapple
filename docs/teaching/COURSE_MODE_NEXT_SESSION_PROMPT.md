@@ -167,6 +167,13 @@ the table grant). Leftover to confirm: Prod's `content_reviewer` table-level SEL
    DB touch. `evaluator_strategy` kept split as an inert data marker (computational →
    `data_driven_deterministic`); `content_item_checks` unchanged. No re-release needed
    for the 3 Dev lsrl items — they already carry the manual `rubric_type='mcq'`.
+   Still worth considering: make `resolveGradingRoute` **fail loud** on a
+   `rubric_type`↔`evaluator_strategy` conflict rather than silently letting `rubric_type`
+   win — the first live Dev attempt graded `content_uncertain` only because it ran in the
+   ~6-min window *before* Fix 1's `rubric_type` backfill landed (a one-time timing race,
+   not a persistent bug; a fail-loud router would have surfaced the mis-tag at grade time
+   instead). See the PR #103 comment / activity-log entry "Serving Milestone Independently
+   Re-Verified … Timing-Race Diagnosed" (2026-08-24).
 2. **Design question** — these items now grade purely on choice-match; their numeric
    `content_item_checks` verification is unused. Fine if course-mode practice stays
    **MCQ**; revisit if you want **numeric-entry** serving (your earlier stated intent —
