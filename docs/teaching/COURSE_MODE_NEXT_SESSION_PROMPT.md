@@ -1,145 +1,162 @@
 # Course Mode — Next-Session Resume Guide
 
-STATUS: resume guide | DATE: 2026-08-24 | AUDIENCE: the next session (LLM), and David.
+STATUS: resume guide | DATE: 2026-08-24 (session 2) | AUDIENCE: the next session (LLM), and David.
 
 Read this first, then `COURSE_MODE_STATUS_AND_HANDOFF.md` (the living map) and
 `COURSE_MODE_LEARNING_MODEL.md` (decisions/invariants). This file is the "where
-we left off + how to pick up" summary for the 2026-08-24 session.
+we left off + how to pick up" summary.
 
 ---
 
-## 1. What was accomplished (2026-08-24)
+## 0. TL;DR — where we are
 
-The pilot template `lsrl_predict` (LSRL prediction, cell 5.3×3.B) went from
-draft to **released on BOTH Dev and Prod**, and the whole course-mode backend
-reached **Dev↔Prod parity**. Specifically:
+The **full course-mode loop is proven live on Dev**: a real MCQ answered in the
+app grades deterministically and promotes a mastery cell. Getting there this
+session unblocked serving (an RLS recursion fix), figured out how to actually run
+the app against Dev (local, port 5173), and fixed an MCQ-vs-numeric grading
+mismatch. **Prod is untouched** — all Prod serving/hook work remains held for
+David. A couple of security fixes are **staged but not applied**.
 
-1. **First live CM-D19 release.** David SME-reviewed the 20-instance sample
-   (two credibility passes) and approved 3 rebuilt credible items
-   (`apstat-lsrl_predict-005000/1/2`: seedling-height cm, used-car $7.68k @ age 8,
-   ad-spend→revenue — all inside their credibility envelopes). They were loaded
-   and CM-D19-stamped to `published` + `review_status='question_review_approved'`.
-2. **CM-D19 two-phase publish bugfix** (`migration 20260824010000`). The first real
-   stamp exposed that the function jumped `draft→published` in one UPDATE, which
-   the standing `app.tg_content_pipeline_guard_publish` blocks (must go through
-   `reviewed_approved`). The original fail-closed test only exercised the
-   *rejection* path. Fixed with a two-phase `draft→reviewed_approved→published`
-   stamp; idempotent; D8 gate/ledger/scoping unchanged.
-3. **Security gate closed on Dev + Prod** (`migration 20260824020000`).
-   `app.grading_results.shadow_result` (embeds the answer) and `raw_model_response`
-   were client-readable via an `authenticated` table grant + owner-RLS. Because
-   `public.grading_results` is `security_invoker=true` the grant is load-bearing,
-   so the fix is surgical: revoke the table grant, re-grant SELECT on every column
-   **except** those two. View still works; `service_role` untouched.
-4. **Full Prod sync.** All 6 new-to-Prod course-mode migrations applied to Prod
-   (F1 taxonomy, F4 checks/cells, F2/F3 `student_cell_state`, `last_attempt_id`,
-   CM-D19, two-phase fix). The 3 `converge_*` migrations were already satisfied on
-   Prod. David chose an **isolated** content home: a new Prod ap_statistics
-   `2026-27` `exam_pack_version` (separate from the live 296-item `2026` pack),
-   into which the 3 items were loaded + released.
+## 1. What was accomplished — session 2 (2026-08-24)
 
-**Nothing serves a student yet.** All released content sits behind the held
-serving switches (below).
+Prereq from session 1 (same day): `lsrl_predict` (cell 5.3×3.B, items
+`apstat-lsrl_predict-005000/1/2`) was CM-D19-released on Dev **and** Prod, and the
+backend reached Dev↔Prod parity. Nothing served a student yet. Session 2:
 
-## 2. Key IDs / facts (verified this session)
+1. **Dev serving switches flipped** (David's explicit go, Dev-only, reversible):
+   epv `4e54bb4f` `draft→published`; `home_release_manifest` row added
+   (`quick_start_enabled=true, minimum_published_items=3, allowed_unit_numbers={5}`);
+   David's Dev `profiles.active_exam_pack_version_id=4e54bb4f`; entitlement already
+   active. Gate proven open (`exam_pack_version_is_selectable` /
+   `home_exam_pack_is_eligible` both true, compatible MCQ count = 3).
+2. **RLS recursion fix — the real serving blocker** (`migration 20260824030000`,
+   applied to Dev). Dev's `content_item_versions_select_published` policy used an
+   INLINE subquery into `content_items`, whose `ci_select_assigned_reviewer` policy
+   subqueries back → `42P17 infinite recursion` on EVERY authenticated read of
+   published content (broke the student read path Dev-wide). Prod was fine because
+   its version delegates to the SECURITY DEFINER helper `app.content_item_is_published()`.
+   Fix converges Dev's policy to that Prod form (helper already existed on Dev).
+   Verified: the front-end's exact `usePublishedMcqs` query now returns the 3 items.
+3. **Figured out how to actually run the app against Dev** (see §4). The published
+   app + ALL Vercel deploys point at **Prod** via the committed `.env`, so there is
+   **no Dev-hosted app** — you must run `exam-buddy-wireframe` locally. Also: Dev
+   edge functions enforce a CORS `ALLOWED_ORIGINS` allowlist that includes
+   `localhost:5173`/`:3000` but NOT Vite's default `:8080` — run the dev server on
+   **:5173** or every `functions.invoke` is browser-blocked.
+4. **Proved the live write.** David logged in locally, answered `005000` → the loop
+   fired: serve → `evaluate-attempt` (Dev v15) → `persistCellState` → a
+   `student_cell_state` row on cell **5.3×3.B**.
+5. **Fixed the MCQ grading mismatch (Fix 1).** The first graded answer came back
+   `content_uncertain` (no evidence). Root cause (traced in `grading-router.ts`):
+   `resolveGradingRoute` prioritizes explicit `evaluator_strategy` above `item_type`,
+   and these items are `item_type='mcq'` but `evaluator_strategy='data_driven_deterministic'`
+   (numeric), so a choice answer routed to the numeric verifier, which abstains
+   ("no parseable number"). Fix: set **`rubric_type='mcq'`** on the 3 Dev items
+   (rubric_type wins router priority 1 → `mcq_rule` → choice vs `mcq_choices.is_correct`).
+   Confirmed: re-answered `005000` correctly → grade `status=graded` 1/1, cell
+   promoted **`unseen → independent`** (weighted_evidence 0→1, event `correct`,
+   last_attempt_id populated, next-due `decay`). **End-to-end loop fully proven.**
+6. **Found a live answer-key exposure** (checked, staged fix, NOT applied):
+   `app.mcq_choices` grants column SELECT on `is_correct`/`rationale` to
+   `authenticated` on **Dev AND Prod** (`public.mcq_choices` is security_invoker), so
+   any logged-in student can read the answer key for every published MCQ (proven live
+   on Prod). A plain revoke would blind the reviewer UI (it reads those columns via
+   the same grant), so the fix is coordinated — see §5.
+
+## 2. Key IDs / facts
 
 | Thing | Dev (`wmgjsdkphcyhngaffbqf`) | Prod (`pcntajvbdfqhbeewmdry`) |
 |---|---|---|
-| ap_statistics taxonomy_source_version | `dae3c72e-82ca-4960-9552-1b034bd347e5` | **same** `dae3c72e-…` |
+| ap_statistics taxonomy_source_version | `dae3c72e-82ca-4960-9552-1b034bd347e5` | **same** |
 | course-mode exam_pack_version (2026-27) | `4e54bb4f-695f-41be-ac06-745fe9ad8bcc` | `7c5a2975-8f0e-45b9-8fcc-7ec9b8d81ada` |
-| David's user_id (for `released_by`/profile) | `cda34c9d-80f3-43bb-b359-8413bad3ee2e` | `f5a26c6b-3566-4d58-9e97-979fbb947564` |
+| David's user_id | `cda34c9d-80f3-43bb-b359-8413bad3ee2e` | `f5a26c6b-3566-4d58-9e97-979fbb947564` |
 | `evaluate-attempt` edge fn | **v15, hook DEPLOYED** | **v54, hook NOT deployed** |
-| lsrl_predict release | done (release `edde7473`) | done (release `9728aad1`) |
-| ap-statistics subject_entitlement (David) | active | (check before serving) |
-| D8 bars version | `cm-d19-phase1-2026-08-23` (SME 20/0, ≥100 prop/0, 0 verifier, 5/mo audit) | same |
+| Serving switches (epv/manifest/profile) | **FLIPPED — serving live on Dev** | held (untouched) |
+| lsrl items `rubric_type` | **`mcq` (Fix 1 applied)** | still `NULL` (numeric route) |
+| Dev publishable key (client-side, safe) | `sb_publishable_75zU2AprWByjZi83_Mzmqw_VdtqaAZt` | — |
+| David's cell state | 5.3×3.B `tier=independent` (proven) | none |
 
-Attestation used (truthful): `{sme_sample_n:20, sme_defects:0,
-property_instances:200, property_rejects:0, verifier_disagreements:0}`. The 200
-is lsrl-specific from the harness (`property_report(per_proc=200)` → 0/200); the
-default per-proc 80 is below the ≥100 bar, so re-run at ≥100 for any new template.
+## 3. What is DONE / proven vs still held
 
-**Gotcha:** `released_by`/`approved_by` must be a user_id present in *that env's*
-`app.profiles` (Prod rejected David's Dev id via the `approved_by` FK). Look it
-up per env by email `dbloom01@gmail.com`.
+**Done + proven on Dev:** serving gate open, RLS read path fixed, local run recipe,
+end-to-end graded MCQ + cell promotion. `main` is at the session's last commit
+(RLS fix `51f7a4c`, staged security fix `0bb6ed9`, milestone logs `2cb39f0`/`f57956d`).
 
-## 3. Two things still owned by David (both held on purpose)
+**Held / owned by David (do NOT do without explicit go):**
+- **Prod serving switches** (epv `7c5a2975` publish + manifest + profile).
+- **Prod `evaluate-attempt` hook deploy** (CLI-only; MCP can't — 23 files/287KB):
+  `supabase functions deploy evaluate-attempt --project-ref pcntajvbdfqhbeewmdry --use-api --workdir "$PWD"`
+- **Prod Fix 1** (`rubric_type='mcq'` on Prod's 3 items in `7c5a2975`) — Prod items
+  still route to the numeric verifier and would grade `uncertain`.
 
-### A. Deploy the `evaluate-attempt` hook to Prod (CLI-only)
-Prod's function is v54 without the live-write hook; MCP can't deploy it
-(23 files/287 KB). From inside the repo on `main`:
+## 4. How to run the Dev app locally (re-demo recipe)
+
+There is no hosted Dev app. In a clone of `david-bloom/exam-buddy-wireframe`, create
+`.env`:
 ```
-supabase functions deploy evaluate-attempt --project-ref pcntajvbdfqhbeewmdry --use-api --workdir "$PWD"
+VITE_SUPABASE_URL=https://wmgjsdkphcyhngaffbqf.supabase.co
+VITE_SUPABASE_PUBLISHABLE_KEY=sb_publishable_75zU2AprWByjZi83_Mzmqw_VdtqaAZt
+SUPABASE_URL=https://wmgjsdkphcyhngaffbqf.supabase.co
+SUPABASE_PUBLISHABLE_KEY=sb_publishable_75zU2AprWByjZi83_Mzmqw_VdtqaAZt
+SUPABASE_SERVICE_ROLE_KEY=<Dev service-role, from Supabase dashboard — the MCQ demo does NOT need it>
 ```
-(Dev already has the hook at v15.) Until this, a graded Prod attempt won't write
-`student_cell_state`.
+Then `npm install && npm run dev -- --port 5173 --strictPort` (MUST be an
+allowlisted port — 5173 or 3000, NOT 8080). Log in as David's Dev account, then go
+to **`/session/mcq`** (NOT the generic `/session`, which is FRQ-only via the absent
+`select_practice_frqs`). The MCQ route uses `usePublishedMcqs` (direct RLS read) +
+`useGradePractice` (→ `evaluate-attempt`). Answer an lsrl item → verify a
+`student_cell_state` write for user `cda34c9d…`.
 
-### B. Flip the serving switches (front-end enablement)
-Held because David said he is "not ready for the front-end experience." The
-serving gate (verified from `public.issue_session_target` +
-`app.start_home_learning_session_for_user` + `enforce_session_target_home_eligibility`)
-requires ALL of:
-1. the course-mode `exam_pack_version.status = 'published'` (currently `draft`);
-2. a row in `app.home_release_manifest` for that epv with `quick_start_enabled=true`
-   and `minimum_published_items` ≤ the published count (only 3 lsrl items are
-   published, so set the minimum ≤ 3) — **no manifest row exists yet**;
-3. `app.profiles.active_exam_pack_version_id` = that epv for the user (currently null);
-4. an active `app.subject_entitlement` for ap-statistics (Dev: David's is active).
+## 5. Staged security fix — mcq_choices answer-key (NOT applied)
 
-**Fastest live demo = Dev** (hook already deployed): flip 1–4 for the Dev epv
-`4e54bb4f` + David's Dev profile, answer one lsrl item in the app, and watch a
-`student_cell_state` row get written (the end-to-end proof). Do NOT flip any of
-these without David's explicit go.
+Full plan in `docs/security/MCQ_ANSWER_KEY_COORDINATED_FIX.md`. Three parts,
+sequenced (do NOT reorder):
+- **PART 1** — `migration 20260824040000_reviewer_mcq_answer_key_rpc.sql` (additive,
+  written, NOT applied): SECURITY DEFINER RPC `public.get_review_mcq_choices(uuid)`
+  returns is_correct/rationale only to an assigned reviewer/admin.
+- **PART 2** — repoint the `exam-buddy-wireframe` reviewer read (`review.functions.ts`)
+  at the RPC (Lovable prompt in the doc), publish.
+- **PART 3** — `REVOKE SELECT (is_correct, rationale) ON app.mcq_choices FROM
+  authenticated, anon` (SQL staged in the doc, deliberately NOT in `migrations/` so it
+  can't be db-pushed to Prod before PART 2 lands). Apply Dev + Prod LAST.
 
-**UPDATE 2026-08-24 (Dev switches FLIPPED, with David's explicit go):** conditions
-1–3 are now done on Dev (epv `4e54bb4f` `published`; `home_release_manifest` row
-`quick_start_enabled=true, minimum_published_items=3, allowed_unit_numbers={5}`;
-David's Dev `profiles.active_exam_pack_version_id=4e54bb4f`); condition 4 was
-already active. Gate proven OPEN at the DB level by simulating David's `auth.uid()`:
-`exam_pack_version_is_selectable=true`, `home_exam_pack_is_eligible=true`,
-compatible published MCQ count `=3`. **Prod untouched.** Rollback = un-flip the 3.
+## 6. Next steps / open decisions (David's call)
 
-**But three serving-path gaps were found (surfaced, not patched):** (a) there is
-**no server-side MCQ item-selector RPC on Dev** — the serving edge fn
-`student-session-items` calls `select_practice_frqs`, which is **FRQ-only** and is
-**absent from Dev**; `select_unit_gated_practice_items` (migration 20260804190000)
-is also not deployed on Dev; (b) the 3 lsrl items have **no `serving`-scope
-`content_taxonomy_labels` row** (only the `content_item_cells` cell tag, which
-drives the hook, not serving selection); (c) so **how the app actually fetches an
-MCQ item to display is a front-end-repo concern** (`exam-buddy-wireframe`), not
-confirmable from the backend. The live `student_cell_state` write itself still
-requires David authenticated in the app (evaluate-attempt = `requireProfile`, no
-JWT minting). **Next: confirm the front-end's Dev MCQ fetch path (or add a server
-selector + serving labels) before the answer-an-item step can succeed.**
+1. **Generator fix** — stamp future MCQ-served items with `rubric_type='mcq'` (or set
+   `evaluator_strategy='rule_based_mcq'`) in `scripts/course_mode_stats_generator/` so
+   they route to `mcq_rule` without a manual DB touch. Decide whether to re-release.
+2. **Design question** — these items now grade purely on choice-match; their numeric
+   `content_item_checks` verification is unused. Fine if course-mode practice stays
+   **MCQ**; revisit if you want **numeric-entry** serving (your earlier stated intent —
+   would need a front-end change + conflicts with the MCQ serving gate).
+3. **Prod propagation** — when ready: Prod hook deploy + Prod serving switches + Prod
+   `rubric_type='mcq'` on `7c5a2975`'s 3 items.
+4. **Sequence the mcq_choices coordinated fix** (§5).
+5. **Release more templates** — generator has 8 procedures; only `lsrl_predict` is
+   released. Each needs SME 20-sample review + ≥100 property attestation + CM-D19
+   release. (Re-run property harness at ≥100; default per-proc 80 is below the bar.)
+6. **F2/F3 tunables** in `cell-state.ts` are Phase-1 defaults — calibrate once real
+   attempts flow.
 
-## 4. Deferred / backlog (not blocking)
+## 7. Gotchas
 
-- **Release more templates.** The generator has 8 procedures; only `lsrl_predict`
-  is released. The rest (one-prop CI, two-prop z, normal prob, summary stats,
-  one-sample t-test, one-sample t-interval, chi-square) need their own SME
-  20-sample review + a ≥100 property attestation + CM-D19 release (same flow).
-  Two-sample t (4.7/4.10×3.E) and more Practice-4 slot-frames are the next
-  generator adds.
-- **F2/F3 tunables** in `cell-state.ts` are Phase-1 defaults, not calibrated —
-  review once real attempts flow.
-- **Home manifest / quick-start UX** and the per-cell micro-experience live in the
-  **separate Lovable frontend repo** (`david-bloom/exam-buddy-wireframe`), not here.
+- Published app / all Vercel deploys = **Prod**; no Dev-hosted app (run locally, §4).
+- Dev edge-fn CORS allowlist = `localhost:5173`/`:3000` only (not `:8080`).
+- `/session/mcq` is the course-mode MCQ path; `/session` (use-session.ts) is FRQ-only.
+- Dev migration ledger can't be trusted — verify objects directly (e.g. the
+  unit-gated selector & `select_practice_frqs` are absent on Dev; serving uses the
+  front-end's direct RLS read instead).
+- `released_by`/`approved_by` must be a user_id in *that env's* `app.profiles`.
 
-## 5. Open PRs / branch state
-
-- **PR #102** — merged to `main` (David). All 9 course-mode migrations now on main.
-- **PR #103** (draft, open) — the `grading_results` security migration
-  (`20260824020000`) + these docs, based on current `main`. CI green. Watched.
-- Branch `claude/cramapple-course-mode-next-d420oh` currently carries the #103 work.
-
-## 6. How to resume (copy-paste prompt)
+## 8. How to resume (copy-paste prompt)
 
 > Continue the Cramapple Course Mode work. Read
 > `docs/teaching/COURSE_MODE_NEXT_SESSION_PROMPT.md` first for the 2026-08-24
-> state. `lsrl_predict` is released on Dev + Prod and the backend is at Dev↔Prod
-> parity; nothing serves a student yet. Do NOT flip serving switches or deploy the
-> Prod hook without my explicit go. Pick up with: [choose one] (a) enable the
-> front-end serving demo on Dev end-to-end (publish epv `4e54bb4f`, add a
-> `home_release_manifest` row, set my Dev `profiles.active_exam_pack_version_id`,
-> confirm entitlement, then prove a live `student_cell_state` write); or
-> (b) release the next generator template through the same D8/CM-D19 flow; or
-> (c) something else I'll specify. PR #103 is the open follow-up.
+> (session 2) state. The full loop is proven live on Dev (serving works, an MCQ
+> grades and promotes cell 5.3×3.B); Prod is untouched and all Prod serving/hook
+> work is held for me. Do NOT touch Prod or apply the staged mcq_choices fix without
+> my explicit go. Pick up with: [choose one] (a) apply Fix 1 in the generator
+> (`rubric_type='mcq'` for MCQ-served items) so new items grade without a manual
+> touch; or (b) release the next generator template through the D8/CM-D19 flow; or
+> (c) sequence the mcq_choices answer-key coordinated fix
+> (`docs/security/MCQ_ANSWER_KEY_COORDINATED_FIX.md`); or (d) something I'll specify.
