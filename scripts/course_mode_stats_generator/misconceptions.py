@@ -339,6 +339,34 @@ CATALOG: Dict[str, Misconception] = {m.tag: m for m in [
        "ced_structural", ["slotframe_u1_2_variables"], ["1.2"], ["2.A"],
        [_fp("S10 Unit 1 (1.2)",
             "quantitative variables record numerical measurements or counts for which arithmetic comparisons are meaningful")]),
+    # --- slot-frame FB-U1-6-4A-DISTRIBUTION-01 (1.6 x 4.A) : descriptions ---
+    _M("u1_6__skew_direction_reversed",
+       "Reversed the direction of skew",
+       "Identified the long right tail as left skew, or the long left tail as right skew.",
+       "documented_cr", ["slotframe_u1_6_distribution"], ["1.6"], ["4.A"],
+       [_fp("S10 Unit 1 (1.6)",
+            "2025 CR Report Q1 documents shape-description errors; skew direction must follow the longer tail")]),
+
+    _M("u1_6__center_spread_confused",
+       "Confused center and spread",
+       "Reported a spread measure as the center or a center measure as the spread when describing a distribution.",
+       "ced_structural", ["slotframe_u1_6_distribution"], ["1.6"], ["4.A"],
+       [_fp("S10 Unit 1 (1.6/1.7)",
+            "distribution descriptions distinguish center from variability/spread")]),
+
+    _M("u1_6__outlier_from_range_not_fences",
+       "Called an outlier from range alone instead of the 1.5 x IQR rule",
+       "Labeled an endpoint as an outlier merely because it is far from the minimum or maximum, without checking the fences.",
+       "ced_structural", ["slotframe_u1_6_distribution"], ["1.6"], ["4.A"],
+       [_fp("S10 Unit 1 (1.6/1.7)",
+            "outliers are assessed from quartiles and IQR fences, not from range alone")]),
+
+    _M("u1_6__ignores_shape_reports_center_only",
+       "Reported center but ignored shape",
+       "Gave a true center statement but omitted the required description of distribution shape.",
+       "documented_cr", ["slotframe_u1_6_distribution"], ["1.6"], ["4.A"],
+       [_fp("S10 Unit 1 (1.6)",
+            "describing a quantitative distribution requires shape, center, spread, and unusual features as appropriate")]),
 
     # --- slot-frame FB-4B-COMPARE-01 (1.9 x 4.B) : justify a claim -------------
     _M("ignores_variability_claims_every_value",

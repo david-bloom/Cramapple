@@ -57,8 +57,7 @@ ARCHETYPES = {
 TASK_VERBS = {
     "Calculate": "perform the steps to a final numeric answer",
     "Construct": "build a representation / interval",
-    "Describe": "identify or characterize a statistical method or design",
-    "Describe": "identify or characterize a statistical variable, method, or design",
+    "Describe": "identify or characterize a statistical variable, method, distribution, or design",
     "Justify": "give statistical reasoning to support or qualify a claim",
 }
 
@@ -148,6 +147,12 @@ FRAMING: Dict[str, Framing] = {
         ["Unit 1 variable classification only: categorical vs quantitative",
          "quantitative variables may be discrete counts or continuous measurements",
          "numeric labels/codes are categorical when arithmetic on the values is not meaningful"],
+        [_SEC5, _SEC6, _SEC7]),
+    "slotframe_u1_6_distribution": Framing(
+        "slotframe_u1_6_distribution", "Q2", "Describe", 4, "exam_aligned_digital",
+        ["one-variable quantitative distribution described from text and five-number summary",
+         "shape, center, spread, and outlier claims must match the supplied summary",
+         "outlier claims use the 1.5 x IQR fences"],
         [_SEC5, _SEC6, _SEC7]),
     "t_test_mean": Framing(
         "t_test_mean", "Q4", "Calculate", 3, "exam_aligned_digital",
@@ -500,6 +505,15 @@ U1_2_VARIABLE_CONTEXTS: List[Dict[str, object]] = [
      ]},
 ]
 
+# Unit 1.6 distribution-description contexts. Each id is cell-namespaced.
+U1_6_DISTRIBUTION_CONTEXTS: List[Dict[str, object]] = [
+    {"id": "u1_6__commute_times", "quantity": "one-way commute times", "unit": "minutes", "domain": "social"},
+    {"id": "u1_6__quiz_scores", "quantity": "quiz scores", "unit": "points", "domain": "education"},
+    {"id": "u1_6__seedling_heights", "quantity": "seedling heights", "unit": "cm", "domain": "biology"},
+    {"id": "u1_6__order_totals", "quantity": "online order totals", "unit": "dollars", "domain": "business"},
+    {"id": "u1_6__battery_life", "quantity": "battery life", "unit": "hours", "domain": "manufacturing"},
+]
+
 
 # ==============================================================================
 # Access + validation helpers
@@ -600,6 +614,16 @@ def validate_scenarios() -> List[str]:
             problems.append(f"u1_2 variable context id is not namespaced: {ctx.get('id')}")
         if len(ctx.get("distractors", [])) != 3:
             problems.append(f"u1_2 variable context needs exactly 3 distractors: {ctx}")
+    seen_distribution_ids = set()
+    for ctx in U1_6_DISTRIBUTION_CONTEXTS:
+        required = ("id", "quantity", "unit", "domain")
+        if not all(k in ctx for k in required):
+            problems.append(f"u1_6 distribution context missing fields: {ctx}")
+        if ctx.get("id") in seen_distribution_ids:
+            problems.append(f"duplicate u1_6 distribution context id: {ctx.get('id')}")
+        seen_distribution_ids.add(ctx.get("id"))
+        if not str(ctx.get("id", "")).startswith("u1_6__"):
+            problems.append(f"u1_6 distribution context id is not namespaced: {ctx.get('id')}")
     return problems
 
 
@@ -619,6 +643,7 @@ if __name__ == "__main__":
             "u1_9_compare": len(U1_9_COMPARE_CONTEXTS),
             "u1_11_sampling": len(U1_11_SAMPLING_CONTEXTS),
             "u1_2_variables": len(U1_2_VARIABLE_CONTEXTS),
+            "u1_6_distribution": len(U1_6_DISTRIBUTION_CONTEXTS),
         },
         "framing": {p: {"archetype": f.archetype, "task_verb": f.task_verb,
                         "modality": f.modality} for p, f in FRAMING.items()},
