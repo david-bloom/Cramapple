@@ -1,10 +1,24 @@
 # Course Mode — Next-Session Resume Guide
 
-STATUS: resume guide | DATE: 2026-08-24 (session 2) | AUDIENCE: the next session (LLM), and David.
+STATUS: resume guide | DATE: 2026-08-24 (session 3) | AUDIENCE: the next session (LLM), and David.
 
 Read this first, then `COURSE_MODE_STATUS_AND_HANDOFF.md` (the living map) and
 `COURSE_MODE_LEARNING_MODEL.md` (decisions/invariants). This file is the "where
 we left off + how to pick up" summary.
+
+**SESSION-3 UPDATE (2026-08-24):** generator **Fix 1 landed** — the loader
+(`scripts/course_mode_stats_generator/build_load_sql.py`) now stamps **every**
+generated item `rubric_type='mcq'` (was NULL for computational items), so future
+MCQ-served items route to `mcq_rule` and grade on choice-match without the manual
+DB touch session 2 needed. `evaluator_strategy` stays split as an inert data marker
+(computational items keep `data_driven_deterministic`; the persisted
+`content_item_checks` are untouched, preserving a future numeric-entry option). This
+matches the proven-live Dev config exactly. Regenerated `out/f4_load_DRAFT.sql` +
+patched `out/lsrl_reload_DRAFT.sql` so a re-run can't reintroduce the bug. Code-only;
+**no DB, no Dev/Prod touch** — the 3 released Dev lsrl items already carry the manual
+`rubric_type='mcq'` from session 2, so nothing needs re-running there. §6.1 below is
+now DONE; §6.3 (Prod `rubric_type='mcq'` on `7c5a2975`) is the remaining place the old
+NULL still lives, gated behind the held Prod work.
 
 ---
 
@@ -122,9 +136,11 @@ sequenced (do NOT reorder):
 
 ## 6. Next steps / open decisions (David's call)
 
-1. **Generator fix** — stamp future MCQ-served items with `rubric_type='mcq'` (or set
-   `evaluator_strategy='rule_based_mcq'`) in `scripts/course_mode_stats_generator/` so
-   they route to `mcq_rule` without a manual DB touch. Decide whether to re-release.
+1. **Generator fix — ✅ DONE (session 3).** The loader now stamps every generated item
+   `rubric_type='mcq'`, so future MCQ-served items route to `mcq_rule` without a manual
+   DB touch. `evaluator_strategy` kept split as an inert data marker (computational →
+   `data_driven_deterministic`); `content_item_checks` unchanged. No re-release needed
+   for the 3 Dev lsrl items — they already carry the manual `rubric_type='mcq'`.
 2. **Design question** — these items now grade purely on choice-match; their numeric
    `content_item_checks` verification is unused. Fine if course-mode practice stays
    **MCQ**; revisit if you want **numeric-entry** serving (your earlier stated intent —

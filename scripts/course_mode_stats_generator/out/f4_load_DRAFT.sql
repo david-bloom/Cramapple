@@ -74,7 +74,10 @@ begin
         'scenario_provenance', coalesce(v_item->'scenario_provenance','{}'::jsonb)
       ),
       v_item->>'worked_solution',
-      case when v_is_comp then null else 'mcq' end,
+      -- Fix 1: always 'mcq' -> the router's rule_based_mcq/mcq_rule path grades the
+      -- chosen option (rubric_type wins over evaluator_strategy). See loader docstring.
+      'mcq',
+      -- evaluator_strategy kept split as a data marker (inert while rubric_type='mcq').
       case when v_is_comp then 'data_driven_deterministic' else 'rule_based_mcq' end,
       'draft',
       null,  -- review_status NULL: not approved, not served (CM-D19 gated)
