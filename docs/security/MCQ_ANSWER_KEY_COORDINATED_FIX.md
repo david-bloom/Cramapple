@@ -29,7 +29,24 @@ which a column revoke can't subtract from (proven live on Dev). The corrected fi
 drops the table-wide grant and re-grants only the non-secret columns.
 
 **Note:** on Prod, a separate `content_reviewer` role also holds table-level SELECT — a
-reviewer/back-office role, not student-assumable — left untouched. Confirm its purpose.
+reviewer/back-office role, not student-assumable — left untouched.
+
+**`content_reviewer` reachability CONFIRMED not student-exposed (2026-08-24, verified live
+on Prod).** `content_reviewer` has `rolcanlogin = false`, and the PostgREST login role
+`authenticator` is **not** a member of it, so no client JWT (`"role":"content_reviewer"`)
+can `SET ROLE` into it — a request claiming that role fails at the gateway. Its only
+members are `postgres` (owner/superuser). So its residual table-level SELECT on
+`app.mcq_choices` is an owner/back-office grant, not a student-reachable path to the
+answer key. Nothing to change.
+
+**Post-fix re-verification (2026-08-24, read-only).** Re-confirmed the closed state
+directly against both envs: no table-level SELECT for `authenticated`/`anon` on
+`app.mcq_choices`; `authenticated` holds column SELECT on exactly the 5 non-secret
+columns (`id, content_item_version_id, choice_key, choice_text, created_at`) and **not**
+`is_correct`/`rationale`; as the `authenticated` role, `has_column_privilege` returns
+false for `is_correct`/`rationale` and true for `choice_key`; and
+`public.get_review_mcq_choices(uuid)` exists (SECURITY DEFINER, `authenticated` EXECUTE /
+`anon` no). Leak remains closed on Prod and Dev.
 
 ## Verification (2026-08-24, session 3 — read-only, nothing applied)
 
