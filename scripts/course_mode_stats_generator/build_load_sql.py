@@ -22,16 +22,29 @@ DESIGN DECISIONS THIS LOADER ENCODES (flagged for review; conservative + reversi
   1. Everything lands as status='draft' with review_status NULL -> nothing is
      served. Releasing is the CM-D19 machine-stamping step, which is GATED on D8
      (on hold) and deliberately NOT done here.
-  2. evaluator_strategy:
-       - computational procedures (numeric/interval answers) ->
-         'data_driven_deterministic' with rubric_type NULL, so a numeric response
-         is graded by the F4 generic verifier reading content_item_checks (the
-         whole point of F4). rubric_type is left NULL on purpose: an explicit
-         'mcq' rubric_type would route to rule_based_mcq and bypass the verifier.
-       - the conceptual 4.B slot-frame (no numeric answer) -> rubric_type='mcq' /
-         'rule_based_mcq' (option selection); its checks are still persisted.
-     mcq_choices are inserted for every item so it can ALSO be served as MCQ once
-     released; the strategy only decides how a free-entry response is graded.
+  2. rubric_type / evaluator_strategy (Course Mode "Fix 1", 2026-08-24):
+       Course-mode practice is SERVED and GRADED as MCQ (front-end route
+       /session/mcq -> usePublishedMcqs). The grading router (grading-router.ts)
+       prioritizes rubric_type above evaluator_strategy, so EVERY loaded item is
+       stamped rubric_type='mcq' -> the deterministic exact-match path
+       (rule_based_mcq / mcq_rule) grades the chosen option against
+       mcq_choices.is_correct.
+       This fixes the session-2 mismatch: computational items were loaded with
+       rubric_type NULL + evaluator_strategy='data_driven_deterministic', so a
+       CHOICE answer routed to the NUMERIC verifier, which abstained ("no
+       parseable number") -> the attempt graded content_uncertain and promoted no
+       cell. rubric_type='mcq' was applied by hand to the 3 released Dev lsrl
+       items to prove the loop end-to-end; this loader now stamps it so future
+       items grade without a manual DB touch.
+       evaluator_strategy is still split and preserved as a data marker (it no
+       longer decides routing while rubric_type='mcq' wins):
+       - computational procedures keep 'data_driven_deterministic' -- the honest
+         description of their free-entry verification substrate (the persisted
+         content_item_checks), kept so a future NUMERIC-ENTRY serving mode could
+         NULL rubric_type and fall back to the F4 verifier without a reload.
+       - the conceptual 4.B slot-frame keeps 'rule_based_mcq' (option selection).
+     mcq_choices + content_item_checks are inserted for every item regardless; the
+     strategy only records how a free-entry (non-MCQ) response would be graded.
   3. exam_pack_version + taxonomy_source_version are resolved with `into strict`
      (fail-closed): if the ap_statistics exam-pack version for the package's cycle,
      or the F1 cell registry, is missing in the target DB, the load ABORTS with a
@@ -198,7 +211,10 @@ begin
         'scenario_provenance', coalesce(v_item->'scenario_provenance','{{}}'::jsonb)
       ),
       v_item->>'worked_solution',
-      case when v_is_comp then null else 'mcq' end,
+      -- Fix 1: always 'mcq' -> the router's rule_based_mcq/mcq_rule path grades the
+      -- chosen option (rubric_type wins over evaluator_strategy). See loader docstring.
+      'mcq',
+      -- evaluator_strategy kept split as a data marker (inert while rubric_type='mcq').
       case when v_is_comp then 'data_driven_deterministic' else 'rule_based_mcq' end,
       'draft',
       null,  -- review_status NULL: not approved, not served (CM-D19 gated)
