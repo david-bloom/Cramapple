@@ -29,13 +29,13 @@
       "skill": "3.B"
     }
   ],
-  "prompt": "A shop owner fits a least-squares line predicting daily ice-cream sales ($) from outside temperature (F). The line is y-hat = 19.484 + 0.822x. Predict daily ice-cream sales ($) when outside temperature (F) = 16.",
+  "prompt": "A business analyst fits a least-squares line predicting monthly revenue (thousands of dollars) from monthly ad spend (thousands of dollars). The line is y-hat = 29.110 + 12.130x. Predict monthly revenue (thousands of dollars) when monthly ad spend (thousands of dollars) = 18.",
   "numeric_form": {
-    "answer_desc": "y-hat = 32.632",
+    "answer_desc": "y-hat = 247.450",
     "deterministic_checks": [
       {
         "kind": "numeric",
-        "value": 32.632,
+        "value": 247.45,
         "tol": 0.05
       }
     ]
@@ -43,35 +43,30 @@
   "mcq_form": {
     "options": [
       {
-        "text": "32.63",
+        "text": "247.45",
         "correct": true,
         "misconception": null
       },
       {
-        "text": "13.15",
+        "text": "29.11",
         "correct": false,
-        "misconception": "dropped_intercept",
+        "misconception": "predicted_intercept_ignored_x",
         "misconception_source": {
-          "tag": "dropped_intercept",
-          "label": "Omitted the intercept when predicting (used b*x only)",
-          "evidence": "external_corroborated",
+          "tag": "predicted_intercept_ignored_x",
+          "label": "Predicted the intercept, ignoring the explanatory variable",
+          "evidence": "ced_structural",
           "ek_codes": [],
           "sources": [
             {
               "kind": "fact_pack",
               "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 5 (5.3)",
-              "note": "y-hat = a + bx -- the intercept a is part of every prediction"
-            },
-            {
-              "kind": "khanacademy.org",
-              "url": "https://www.khanacademy.org/math/ap-statistics/bivariate-data-ap/least-squares-regression/v/interpreting-slope-of-regression-line",
-              "note": "prediction uses the full line a + bx, not the slope term alone"
+              "note": "the model y-hat = a + bx depends on x; using a alone drops the explanatory variable"
             }
           ]
         }
       },
       {
-        "text": "20.31",
+        "text": "41.24",
         "correct": false,
         "misconception": "plugged_in_1_not_x",
         "misconception_source": {
@@ -94,35 +89,35 @@
         }
       },
       {
-        "text": "6.34",
+        "text": "218.34",
         "correct": false,
-        "misconception": "sign_error_on_slope",
+        "misconception": "dropped_intercept",
         "misconception_source": {
-          "tag": "sign_error_on_slope",
-          "label": "Sign error on the slope term when predicting",
+          "tag": "dropped_intercept",
+          "label": "Omitted the intercept when predicting (used b*x only)",
           "evidence": "external_corroborated",
           "ek_codes": [],
           "sources": [
             {
               "kind": "fact_pack",
-              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 5 (5.4)",
-              "note": "sign discipline: a positive/negative slope direction is easily flipped"
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 5 (5.3)",
+              "note": "y-hat = a + bx -- the intercept a is part of every prediction"
             },
             {
-              "kind": "albert.io",
-              "url": "https://www.albert.io/blog/ap-statistics-least-squares-regression/",
-              "note": "slope sign carries direction; mishandling it is a common prediction error"
+              "kind": "khanacademy.org",
+              "url": "https://www.khanacademy.org/math/ap-statistics/bivariate-data-ap/least-squares-regression/v/interpreting-slope-of-regression-line",
+              "note": "prediction uses the full line a + bx, not the slope term alone"
             }
           ]
         }
       }
     ]
   },
-  "worked_solution": "y-hat = 19.484 + 0.822(16) = 32.632.",
+  "worked_solution": "y-hat = 29.110 + 12.130(18) = 247.450.",
   "parts": [
     {
       "part_key": "part-a",
-      "prompt": "A shop owner fits a least-squares line predicting daily ice-cream sales ($) from outside temperature (F). The line is y-hat = 19.484 + 0.822x. Predict daily ice-cream sales ($) when outside temperature (F) = 16.",
+      "prompt": "A business analyst fits a least-squares line predicting monthly revenue (thousands of dollars) from monthly ad spend (thousands of dollars). The line is y-hat = 29.110 + 12.130x. Predict monthly revenue (thousands of dollars) when monthly ad spend (thousands of dollars) = 18.",
       "response_modalities": [
         "mcq",
         "numeric"
@@ -132,12 +127,12 @@
         {
           "criterion_key": "part-a-criterion-1",
           "points": 1,
-          "description": "y-hat = 32.632",
-          "required_evidence": "y-hat = 19.484 + 0.822(16) = 32.632.",
+          "description": "y-hat = 247.450",
+          "required_evidence": "y-hat = 29.110 + 12.130(18) = 247.450.",
           "deterministic_checks": [
             {
               "kind": "numeric",
-              "value": 32.632,
+              "value": 247.45,
               "tol": 0.05
             }
           ],
@@ -154,7 +149,8 @@
     "modality": "exam_aligned_digital",
     "validity_rules": [
       "plausible slope SIGN for the context",
-      "non-negative predictions for non-negative quantities"
+      "the requested x is in the context's realistic range (no absurd extrapolation)",
+      "the prediction AND every distractor land inside the response's credible envelope (y_lo..y_hi) -- e.g. exam score <= 100, a >10-year-old car is cheap, temperature in Celsius"
     ],
     "sources": [
       {
@@ -179,9 +175,9 @@
     "generator": "course_mode_stats_generator/generator.py",
     "template_id": "lsrl_predict",
     "params": {
-      "slope": 0.8217081850533805,
-      "intercept": 19.48434163701068,
-      "x_new": 16
+      "slope": 12.13,
+      "intercept": 29.11,
+      "x_new": 18
     },
     "seed": 5002,
     "release_status": "unreleased_generated_pending_review",

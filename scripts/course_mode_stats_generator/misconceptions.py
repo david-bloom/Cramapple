@@ -210,6 +210,13 @@ CATALOG: Dict[str, Misconception] = {m.tag: m for m in [
        "ced_structural", ["lsrl_predict"], ["5.3"], ["3.B"],
        [_fp("S10 Unit 5 (5.3)", "the model y-hat = a + bx depends on x; using a alone drops the explanatory variable")]),
 
+    _M("used_x_minus_one",
+       "Substituted x - 1 instead of the requested x-value",
+       "Evaluated the line at x - 1 rather than the requested x -- an off-by-one slip in "
+       "substituting the explanatory value into y-hat = a + bx.",
+       "ced_structural", ["lsrl_predict"], ["5.3"], ["3.B"],
+       [_fp("S10 Unit 5 (5.3)", "the requested x-value must be substituted exactly into y-hat = a + bx")]),
+
     # --- normal_prob (2.11 x 3.C) : normal-distribution probability ------------
     # Section 10 flags 2.11 misconception coverage as thin; corroborated via
     # trusted study guides (documented tail/area error patterns).

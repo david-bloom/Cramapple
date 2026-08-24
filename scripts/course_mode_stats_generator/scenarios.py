@@ -111,7 +111,10 @@ FRAMING: Dict[str, Framing] = {
         [_SEC5, _SEC6, _SEC7]),
     "lsrl_predict": Framing(
         "lsrl_predict", "Q2", "Calculate", 3, "exam_aligned_digital",
-        ["plausible slope SIGN for the context", "non-negative predictions for non-negative quantities"],
+        ["plausible slope SIGN for the context",
+         "the requested x is in the context's realistic range (no absurd extrapolation)",
+         "the prediction AND every distractor land inside the response's credible envelope "
+         "(y_lo..y_hi) -- e.g. exam score <= 100, a >10-year-old car is cheap, temperature in Celsius"],
         [_SEC5, _SEC6, _SEC7]),
     "normal_prob": Framing(
         "normal_prob", "Q4", "Calculate", 3, "exam_aligned_digital",
@@ -167,12 +170,32 @@ TWO_GROUP_CONTEXTS: List[Dict[str, str]] = [
     {"noun": "online orders", "verb": "shipped on time", "gA": "warehouse 1", "gB": "warehouse 2", "domain": "operations"},
 ]
 
-# regression: (xlab, ylab, who, sign) -- sign encodes a plausible slope direction
+# regression (predict from an LSRL). Each context carries a CREDIBILITY ENVELOPE so
+# every generated instance is real-world plausible (SME review 2026-08-24):
+#   x_lo/x_hi  -- realistic range for the prediction point (the requested x)
+#   y_lo/y_hi  -- credible range for the response; the KEY *and every DISTRACTOR*
+#                 must land inside it (e.g. an exam score can't exceed 100; a used
+#                 car isn't worth $36k; ice-cream temperature is in Celsius, not a
+#                 freezing Fahrenheit value)
+#   a_choices  -- intercept pool (the response's baseline at x=0)
+#   b_mag      -- |slope| pool; actual slope = sign * b_mag (+ small jitter for a
+#                 realistic non-round least-squares coefficient)
 REGRESSION_CONTEXTS: List[Dict[str, object]] = [
-    {"xlab": "hours studied", "ylab": "exam score", "who": "a tutor", "sign": +1, "domain": "education"},
-    {"xlab": "age of a used car (years)", "ylab": "price ($1000s)", "who": "a dealership analyst", "sign": -1, "domain": "business"},
-    {"xlab": "outside temperature (F)", "ylab": "daily ice-cream sales ($)", "who": "a shop owner", "sign": +1, "domain": "business"},
-    {"xlab": "fertilizer (g/plant)", "ylab": "plant height (cm)", "who": "a gardener", "sign": +1, "domain": "biology"},
+    {"xlab": "the day's high temperature (°C)", "ylab": "ice-cream sales (dollars)",
+     "who": "a shop owner", "sign": +1, "domain": "business",
+     "x_lo": 17, "x_hi": 34, "y_lo": 0, "y_hi": 700, "a_choices": [40, 60, 80], "b_mag": [8, 10, 12, 15]},
+    {"xlab": "weeks since planting", "ylab": "seedling height (centimeters)",
+     "who": "a botanist", "sign": +1, "domain": "biology",
+     "x_lo": 6, "x_hi": 16, "y_lo": 0, "y_hi": 180, "a_choices": [6, 10, 14], "b_mag": [4, 5, 6]},
+    {"xlab": "monthly ad spend (thousands of dollars)", "ylab": "monthly revenue (thousands of dollars)",
+     "who": "a business analyst", "sign": +1, "domain": "business",
+     "x_lo": 4, "x_hi": 20, "y_lo": 0, "y_hi": 500, "a_choices": [30, 50, 70], "b_mag": [8, 10, 12]},
+    {"xlab": "hours studied", "ylab": "exam score (points, out of 100)",
+     "who": "a tutor", "sign": +1, "domain": "education",
+     "x_lo": 4, "x_hi": 12, "y_lo": 65, "y_hi": 100, "a_choices": [62, 66, 70], "b_mag": [2, 2.5, 3]},
+    {"xlab": "age (years)", "ylab": "price of a used car (thousands of dollars)",
+     "who": "a dealership analyst", "sign": -1, "domain": "business",
+     "x_lo": 3, "x_hi": 11, "y_lo": 1, "y_hi": 32, "a_choices": [28, 30, 34], "b_mag": [2, 2.5, 3]},
 ]
 
 # normal: a light, realistic quantity for the Normal model. Each context carries
@@ -255,6 +278,10 @@ def validate_scenarios() -> List[str]:
     for ctx in REGRESSION_CONTEXTS:
         if ctx.get("sign") not in (+1, -1):
             problems.append(f"regression context missing plausible slope sign: {ctx}")
+        elif not all(k in ctx for k in ("x_lo", "x_hi", "y_lo", "y_hi", "a_choices", "b_mag")):
+            problems.append(f"regression context missing credibility-envelope fields: {ctx}")
+        elif ctx["x_lo"] >= ctx["x_hi"] or ctx["y_lo"] >= ctx["y_hi"]:
+            problems.append(f"regression context has an inverted x/y range: {ctx}")
     for ctx in NORMAL_CONTEXTS:
         if not all(k in ctx for k in ("quantity", "unit", "domain", "mu_choices", "sigma_choices")):
             problems.append(f"normal context missing fields: {ctx}")

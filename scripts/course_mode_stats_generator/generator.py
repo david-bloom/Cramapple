@@ -173,66 +173,68 @@ def gen_two_prop_ztest(rng: random.Random, seed: int) -> Dict:
 
 
 def gen_lsrl_predict(rng: random.Random, seed: int) -> Dict:
+    """Predict a response from a least-squares line (cell 5.3 x 3.B). The item shows
+    the LINE (not raw data), so the generator picks a, b directly (with small jitter
+    for a realistic non-round coefficient). Every value -- the KEY and each distractor
+    -- must land inside the context's CREDIBILITY ENVELOPE (y_lo..y_hi) with the
+    requested x in a realistic range, so no instance produces an absurd scenario (an
+    exam score > 100, a $36k 15-year-old car, or freezing ice-cream weather)."""
     c = rng.choice(REG_CONTEXTS)
     xlab, ylab, who, sign = c["xlab"], c["ylab"], c["who"], c["sign"]
+    y_lo, y_hi = float(c["y_lo"]), float(c["y_hi"])
     tol = 0.05
     plausible: List[Tuple[str, str, float]] = []
-    for _ in range(400):  # resample until y-hat/y_i are non-negative AND >=3 realistic distractors exist
-        slope = sign * rng.choice([0.8, 1.2, 1.5, 2.0, 3.0])
-        n = rng.choice([6, 7, 8])
-        xs = sorted(rng.sample(range(1, 16), n))
-        intercept = rng.choice([20, 30, 40, 60, 80])  # large enough to keep y>=0
-        ys = [round(intercept + slope * x + rng.uniform(-2, 2), 1) for x in xs]
-        b, a, r = S.lsrl(xs, ys)  # b = slope, a = intercept
-        x_new = rng.choice(list(range(max(xs) + 1, max(xs) + 5)))
-        yhat = S.predict(b, a, x_new)  # predict(slope, intercept, x)
-        # Distractor candidates -- each a DISTINCT, documented misconception. Per the
-        # authoring protocol ("every distractor maps to a distinct PLAUSIBLE error"), a
-        # candidate is kept only if its value is REALISTIC: strictly positive, on the
-        # response's own scale, and clear of the key's grading band. swapped_slope_intercept
-        # (b + a*x) is intentionally NOT a candidate here: for these params it lands ~10-40x
-        # off-scale (e.g. a "car price" of $905k), an implausible throwaway a student
-        # eliminates on sight -- exactly the defect reviewers reject.
-        p_max = 2.0 * max(ys + [yhat, a])
+    a = b = 0.0
+    x_new = 0
+    yhat = 0.0
+    for _ in range(600):
+        a = round(rng.choice(c["a_choices"]) + rng.uniform(-0.9, 0.9), 2)      # intercept (baseline)
+        b = round(sign * (rng.choice(c["b_mag"]) + rng.uniform(-0.3, 0.3)), 2)  # realistic non-round slope
+        x_new = rng.randint(c["x_lo"], c["x_hi"])                              # realistic prediction point
+        yhat = a + b * x_new
+        # Candidate distractors -- each a DISTINCT, documented misconception. A candidate
+        # is kept only if its value is a CREDIBLE value for this quantity (inside the
+        # y_lo..y_hi envelope) and clear of / distinct from the key. The envelope is what
+        # keeps every option believable (an exam-score distractor stays <=100 and >=65; a
+        # used-car distractor stays a real price), and it naturally drops the transforms
+        # that would overshoot (e.g. sign-flip on a steep negative slope).
         cand = [
-            (a - b * x_new, "sign_error_on_slope"),           # flipped the slope's sign
-            (a + b,         "plugged_in_1_not_x"),            # substituted x = 1
-            (b * x_new,     "dropped_intercept"),             # omitted the intercept
-            (a,             "predicted_intercept_ignored_x"),  # used y-hat = a, ignored x
+            (b * x_new,           "dropped_intercept"),            # omitted the intercept
+            (a - b * x_new,       "sign_error_on_slope"),          # flipped the slope's sign
+            (a + b,               "plugged_in_1_not_x"),           # substituted x = 1
+            (a,                   "predicted_intercept_ignored_x"),  # used y-hat = a, ignored x
+            (a + b * (x_new - 1), "used_x_minus_one"),             # off-by-one on x
         ]
         plausible = []
         chosen_vals: List[float] = []
         for val, tag in cand:
-            if not (0.0 < val <= p_max):
-                continue                                       # realistic: positive, on-scale
-            if abs(val - yhat) <= 3 * tol:
-                continue                                       # clear of the key's tolerance
+            if not (y_lo <= val <= y_hi):                 # credible value for THIS quantity
+                continue
+            if abs(val - yhat) <= 3 * tol:                # clear of the key's grading band
+                continue
             if any(abs(val - v) <= 3 * tol for v in chosen_vals):
-                continue                                       # distinct from the other distractors
+                continue                                  # distinct from the other distractors
             plausible.append((f"{val:.2f}", tag, val))
             chosen_vals.append(val)
-        # The KEY must also be realistic: an extrapolated near-zero prediction (e.g. a
-        # "$30 car") is an implausible correct answer and makes the tiny key the obvious
-        # odd-one-out. Floor it to a real fraction of the data's scale.
-        yhat_floor = max(2.0, 0.10 * max(ys))
-        if yhat >= yhat_floor and all(y >= 0 for y in ys) and len(plausible) >= 3:
+        # The KEY must be a credible, non-boundary value (not hugging y_lo/y_hi, so it is
+        # not the obvious odd-one-out and never exceeds a hard cap like a 100-point exam).
+        key_ok = (y_lo + 0.05 * (y_hi - y_lo)) <= yhat <= (y_hi - 0.02 * (y_hi - y_lo))
+        if key_ok and len(plausible) >= 3:
             break
     prompt = (f"{who.capitalize()} fits a least-squares line predicting {ylab} from {xlab}. "
               f"The line is {_fmt_line(a, b)}. Predict {ylab} when {xlab} = {x_new}.")
     worked = f"{_fmt_line(a, b).replace('x', f'({x_new})')} = {yhat:.3f}."
     distractors = plausible[:3]
-    p_max = 2.0 * max(ys + [yhat, a])
     checks = [
         ("predict_formula", abs(yhat - (a + b * x_new)) < 1e-9),
-        ("yhat_nonneg", yhat >= 0),
-        ("yhat_realistic", yhat >= max(2.0, 0.10 * max(ys))),
-        ("all_y_nonneg", all(y >= 0 for y in ys)),
-        ("r_in_range", -1.0 <= r <= 1.0),
+        ("key_in_envelope", y_lo <= yhat <= y_hi),
+        ("key_not_at_boundary", (y_lo + 0.05 * (y_hi - y_lo)) <= yhat <= (y_hi - 0.02 * (y_hi - y_lo))),
+        ("x_new_in_realistic_range", c["x_lo"] <= x_new <= c["x_hi"]),
         ("slope_sign_matches_context", (b > 0) == (sign > 0)),
         ("three_plausible_distractors", len(distractors) == 3),
-        ("distractors_positive", all(v > 0 for _, _, v in distractors)),
-        ("distractors_on_scale", all(v <= p_max for _, _, v in distractors)),
+        ("distractors_in_envelope", all(y_lo <= v <= y_hi for _, _, v in distractors)),
         ("distractors_clear_of_key", all(abs(v - yhat) > 2 * tol for _, _, v in distractors)),
+        ("distractors_distinct", len({d for d, _, _ in distractors}) == 3),
     ]
     return _package("lsrl_predict", seed, "5.3", ["3.B"], "Easy", prompt,
                     f"y-hat = {yhat:.3f}", worked,
