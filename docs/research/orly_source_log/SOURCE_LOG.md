@@ -48,3 +48,18 @@ shared doc 8 times in a row; restored via `git checkout` since no data was
 lost (only the DB writes matter, and those were verified independently
 after). A batch mode that accepts multiple `--key` values (or writes an
 append-only per-run log) would avoid this next time.
+
+**Validation note (2026-08-24, same day):** per
+`docs/architecture/TAXONOMY_LABELING_PLAN_V3_2026_08_04.md` §T6, a model may
+never write `label_status='validated'` unsupervised, and no
+`validation_decision`-tracking table exists in this schema
+(`validation_decision_id` is an unreferenced bare `uuid` column - a gap, not
+a mistake in this write). David reviewed the primary_unit/required_units
+table for all 8 items directly in chat and confirmed them explicitly; applied
+via `supabase/migrations/20260824150000_validate_orly_protocol_taxonomy_labels.sql`
+(`validated_by`=David, a generated placeholder `validation_decision_id`, gap
+documented in each row's `source_payload.human_validation`). Verified
+end-to-end: `public.select_unit_gated_practice_items` now actually returns
+all 8 items at their correct unit (AB items and BC's 060/070 at unit 1, BC's
+080/090 at unit 2) - the real student-facing selector, not just the label
+table.
