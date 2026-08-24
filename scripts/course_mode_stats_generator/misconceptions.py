@@ -324,6 +324,39 @@ CATALOG: Dict[str, Misconception] = {m.tag: m for m in [
             "2025 CR Report: conclusions must use non-definitive language ('convincing evidence'), never 'proves'/'always'; "
             "and must not generalize beyond the studied population")]),
 
+    # --- slot-frame FB-U1-11-2A-SAMPLING-01 (1.11 x 2.A) : sampling methods ----
+    _M("u1_11__stratified_cluster_confusion",
+       "Confused stratified sampling with cluster sampling",
+       "Treated sampling some units from every subgroup and sampling all units from selected "
+       "natural groups as interchangeable, missing the within-every-stratum vs whole-selected-cluster distinction.",
+       "ced_structural", ["slotframe_u1_11_sampling"], ["1.11"], ["2.A"],
+       [_fp("S10 Unit 1 (1.10-1.13)",
+            "CED vocabulary distinguishes SRS, stratified, cluster, and systematic sampling; cluster samples all units within selected clusters, while stratified samples within every stratum")]),
+
+    _M("u1_11__convenience_or_voluntary_called_random",
+       "Called a convenience or voluntary-response sample random",
+       "Labeled a sample as random even though units entered because they were easy to reach "
+       "or chose to respond, not because a random mechanism selected them.",
+       "documented_cr", ["slotframe_u1_11_sampling"], ["1.11", "1.12"], ["2.A"],
+       [_fp("S10 Unit 1 (1.10-1.13)",
+            "2025 CR Report Q2 flags sampling-method/bias vocabulary errors and incomplete random-sampling procedures; convenience and voluntary response are non-random biased methods")]),
+
+    _M("u1_11__systematic_srs_conflation",
+       "Conflated systematic random sampling with SRS",
+       "Treated a random start followed by every kth unit as the same as an SRS, ignoring "
+       "that systematic sampling uses a fixed interval after the start rather than independently selecting all units.",
+       "ced_structural", ["slotframe_u1_11_sampling"], ["1.11"], ["2.A"],
+       [_fp("S10 Unit 1 (1.10-1.13)",
+            "CED vocabulary distinguishes systematic random sampling from SRS as separate random-sampling methods")]),
+
+    _M("u1_11__stratified_samples_whole_groups",
+       "Thought stratified sampling means sampling whole groups",
+       "Chose a stratified label for a design that randomly selects entire groups and surveys "
+       "everyone in them, reversing the stratified-vs-cluster rule.",
+       "ced_structural", ["slotframe_u1_11_sampling"], ["1.11"], ["2.A"],
+       [_fp("S10 Unit 1 (1.10-1.13)",
+            "stratified sampling takes a random sample within every stratum; sampling all observational units in selected clusters is cluster sampling")]),
+
     # --- t procedures (means): 4.2 x 3.E interval, 4.5 x 3.E test statistic ----
     _M("se_divided_by_n_not_sqrt_n",
        "Used SE = s/n instead of s/sqrt(n)",
