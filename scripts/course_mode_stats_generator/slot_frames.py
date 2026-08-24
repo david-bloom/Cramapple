@@ -56,6 +56,13 @@ MISCONCEPTION_TYPES = [
     "over_generalizes_beyond_data",
 ]
 
+VARIABLE_TYPES = {"categorical", "categorical ordinal", "quantitative discrete", "quantitative continuous"}
+VARIABLE_TAGS = {
+    "u1_2__numeric_codes_called_quantitative",
+    "u1_2__counts_or_ordinal_miscategorized",
+    "u1_2__quantitative_called_categorical",
+}
+
 
 def _justification_text(kind: str, s: Dict[str, str], mA: float, mB: float, sd: float) -> str:
     a, b, q = s["a"], s["b"], s["quantity"]
@@ -158,12 +165,82 @@ def gen_4b_instance(rng: random.Random, seed: int) -> Dict:
     }
 
 
-def generate(count: int, base_seed: int = 7000) -> List[Dict]:
+def gen_u1_2_variables_instance(rng: random.Random, seed: int) -> Dict:
+    s = rng.choice(SCN.U1_2_VARIABLE_CONTEXTS)
+    scenario_prov = SCN.framing("slotframe_u1_2_variables", s.get("domain"))
+    correct = str(s["correct"])
+    prompt = (f"In {s['ctx']}, the variable recorded for each {s['unit']} is {s['variable']}. "
+              "Which choice best classifies this variable?")
+    options = [{"text": f"{correct}, because {s['why']}.", "correct": True, "misconception": None}]
+    for text, tag in s["distractors"]:
+        options.append({"text": text, "correct": False, "misconception": tag,
+                        "misconception_source": MISC.provenance(tag)})
+    rng.shuffle(options)
+    checks = [
+        ("known_correct_type", correct in VARIABLE_TYPES),
+        ("exactly_one_correct", sum(1 for o in options if o["correct"]) == 1),
+        ("four_options", len(options) == 4),
+        ("option_texts_unique", len({o["text"] for o in options}) == 4),
+        ("all_distractors_tagged", all(o["misconception"] for o in options if not o["correct"])),
+        ("all_distractor_tags_canonical", all(o["misconception"] in MISC.CATALOG for o in options if not o["correct"])),
+        ("all_distractors_cite_source", all(o.get("misconception_source", {}).get("sources") for o in options if not o["correct"])),
+        ("scenario_framing_present", bool(scenario_prov.get("archetype")) and bool(scenario_prov.get("sources"))),
+        ("scenario_is_variable_classification", any("variable classification" in r for r in scenario_prov.get("validity_rules", []))),
+        ("distractor_tags_subset", all(o.get("misconception") in VARIABLE_TAGS for o in options if not o["correct"])),
+    ]
+    return {
+        "schema_version": "course-mode-generated-0.1",
+        "package_id": f"slotframe-u1_2-2a-{seed:06d}",
+        "content_key": f"apstat-u1-2-2a-variables-{seed:06d}",
+        "item_type": "mcq",
+        "difficulty": "Easy-Medium",
+        "exam_pack_ref": {"exam_code": "ap_statistics", "cycle": "2026-27"},
+        "taxonomy_refs": [
+            {"scheme_key": "ap-statistics-2026-27", "node_key": "unit-1"},
+            {"scheme_key": "ap-statistics-2026-27", "node_key": "topic-1.2"},
+            {"scheme_key": "ap-statistics-skills", "node_key": "skill-2.A", "practice": 2},
+        ],
+        "cells": [{"topic": "1.2", "skill": "2.A"}],
+        "scenario_provenance": scenario_prov,
+        "prompt": prompt,
+        "mcq_form": {"options": options},
+        "parts": [{
+            "part_key": "part-a", "prompt": prompt,
+            "response_modalities": ["mcq"], "points": 1,
+            "criteria": [{
+                "criterion_key": "part-a-criterion-1", "points": 1,
+                "description": "Selects the variable classification that matches what the recorded values mean.",
+                "required_evidence": f"Correct variable type: {correct}",
+                "deterministic_checks": [{"kind": "mcq_key", "correct_type": correct}],
+                "accepted_variants": [],
+            }],
+        }],
+        "provenance": {
+            "generator": "course_mode_stats_generator/slot_frames.py",
+            "frame_id": "FB-U1-2-2A-VARIABLES-01",
+            "template_id": "slotframe_u1_2_variables",
+            "params": {"scenario_id": s["id"], "correct": correct},
+            "seed": seed,
+            "release_status": "unreleased_generated_pending_review",
+            "note": "Authored conceptual frame; correctness from variable-type taxonomy.",
+        },
+        "_property_checks": checks,
+    }
+
+
+def generate_4b(count: int, base_seed: int = 7000) -> List[Dict]:
     return [gen_4b_instance(random.Random(base_seed + i), base_seed + i) for i in range(count)]
 
 
-def property_report(count: int = 60) -> Dict:
-    insts = generate(count)
+def generate_u1_2_variables(count: int, base_seed: int = 12000) -> List[Dict]:
+    return [gen_u1_2_variables_instance(random.Random(base_seed + i), base_seed + i) for i in range(count)]
+
+
+def generate(count: int, base_seed: int = 7000) -> List[Dict]:
+    return generate_4b(count, base_seed)
+
+
+def _report_frame(frame_id: str, cell: str, insts: List[Dict], note: str) -> Dict:
     failures = []
     nchecks = 0
     for inst in insts:
@@ -171,29 +248,62 @@ def property_report(count: int = 60) -> Dict:
             nchecks += 1
             if not ok:
                 failures.append(f"{inst['provenance']['seed']}/{name}")
+    correct_positions = [
+        next(idx for idx, opt in enumerate(inst["mcq_form"]["options"]) if opt["correct"])
+        for inst in insts
+    ]
     return {
-        "frame_id": "FB-4B-COMPARE-01", "cell": "1.9 x 4.B",
+        "frame_id": frame_id, "cell": cell,
         "instances": len(insts), "checks": nchecks,
         "distinct_prompts": len({i["prompt"] for i in insts}),
+        "correct_answer_positions": sorted(set(correct_positions)),
+        "correct_answer_position_varies": len(set(correct_positions)) >= 2,
         "failures": failures, "ok": len(failures) == 0,
-        "authoring_cost_note": (
-            "1 authored frame + 4 scenario slots + 5 justification-type templates "
-            f"-> {len(insts)} validated instances (x scenario x numeric slots). "
-            "Coverage: 1 of Practice-4's 7 skills (4.B). Scaling estimate: each P4 skill "
-            "needs its own frame family; 4.A/4.C/4.D/4.F/4.G differ structurally, so budget "
-            "~1 frame family per skill, not one frame for all of P4."
-        ),
+        "authoring_cost_note": note,
+    }
+
+
+def property_report(count: int = 120) -> Dict:
+    variable_insts = generate_u1_2_variables(count, 12000)
+    variable_tags_used = {
+        opt["misconception"]
+        for inst in variable_insts
+        for opt in inst["mcq_form"]["options"]
+        if opt.get("misconception")
+    }
+    frames = [
+        _report_frame("FB-4B-COMPARE-01", "1.9 x 4.B", generate_4b(count, 7000),
+                      "Existing authored 4.B comparison frame."),
+        _report_frame("FB-U1-2-2A-VARIABLES-01", "1.2 x 2.A", variable_insts,
+                      "1 authored frame + 15 variable slots across 5 study contexts, covering categorical, ordinal, discrete, and continuous variables."),
+    ]
+    meta_tests = [
+        ("all_frames_ok", all(f["ok"] for f in frames)),
+        ("correct_answer_position_varies", all(f["correct_answer_position_varies"] for f in frames)),
+        ("misconception_catalog_self_check", not MISC.validate_catalog()),
+        ("scenario_catalog_self_check", not SCN.validate_scenarios()),
+        ("u1_2_all_new_misconception_tags_used", VARIABLE_TAGS.issubset(variable_tags_used)),
+    ]
+    return {
+        "frames": frames,
+        "instances": sum(f["instances"] for f in frames),
+        "checks": sum(f["checks"] for f in frames),
+        "meta_tests": [{"name": name, "ok": ok} for name, ok in meta_tests],
+        "ok": all(f["ok"] for f in frames) and all(ok for _name, ok in meta_tests),
     }
 
 
 def emit_samples(count: int = 4, base_seed: int = 9000) -> int:
     OUT_DIR.mkdir(parents=True, exist_ok=True)
-    for inst in generate(count, base_seed):
+    sample_sets = [generate_4b(count, base_seed), generate_u1_2_variables(count, 12100)]
+    emitted = 0
+    for inst in [item for sample in sample_sets for item in sample]:
         assert all(ok for _n, ok in inst["_property_checks"]), \
             f"invalid slot-frame instance reached emit: {inst['package_id']}"
         pkg = {k: v for k, v in inst.items() if k != "_property_checks"}
         (OUT_DIR / f"{inst['package_id']}.json").write_text(json.dumps(pkg, indent=2))
-    return count
+        emitted += 1
+    return emitted
 
 
 if __name__ == "__main__":
