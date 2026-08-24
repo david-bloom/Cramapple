@@ -517,10 +517,10 @@ def gen_two_sample_t_test(rng: random.Random, seed: int) -> Dict:
         df = min(n1 - 1, n2 - 1)
         se_pooled = math.sqrt(((n1 - 1) * s1 ** 2 + (n2 - 1) * s2 ** 2) / (n1 + n2 - 2)) * math.sqrt(1 / n1 + 1 / n2)
         cand = [
-            (-t,                        "reversed_group_order_means"),     # (xbar2 - xbar1)
-            ((xbar1 - xbar2) / (math.sqrt(s1 ** 2 + s2 ** 2 / (n1 + n2))), "used_s_not_se"),  # forgot /sqrt(n)
+            (-t,                        "reversed_group_order_means"),     # (xbar2 - xbar1): sign flip
+            ((xbar1 - xbar2) / math.sqrt(s1 ** 2 + s2 ** 2), "used_s_not_se"),  # SE = sqrt(s1^2+s2^2): SDs used as SE, no /n
             ((xbar1 - xbar2) / se_pooled, "used_pooled_se_for_means"),     # pooled SE instead of unpooled
-            ((xbar1 - xbar2) / math.sqrt((s1 / n1) + (s2 / n2)), "se_divided_by_n_not_sqrt_n"),  # SE = sqrt(s/n) not sqrt(s/sqrt(n))
+            ((xbar1 - xbar2) / math.sqrt(s1 ** 2 / n1 ** 2 + s2 ** 2 / n2 ** 2), "se_divided_by_n_not_sqrt_n"),  # divided variance by n^2 (s/n not s/sqrt(n))
         ]
         plausible = []
         chosen: List[float] = []
@@ -581,7 +581,7 @@ def gen_two_sample_t_interval(rng: random.Random, seed: int) -> Dict:
         cand = [
             (S.z_star(conf) * se,           "used_z_star_not_t_star"),       # z* not t*
             (S.t_star(df, conf) * se_pooled, "used_pooled_se_for_means"),    # pooled SE not unpooled
-            (S.t_star(df, conf) * math.sqrt((s1 / n1) + (s2 / n2)), "se_divided_by_n_not_sqrt_n"),  # SE = sqrt(s/n)
+            (S.t_star(df, conf) * math.sqrt(s1 ** 2 / n1 ** 2 + s2 ** 2 / n2 ** 2), "se_divided_by_n_not_sqrt_n"),  # divided variance by n^2 (s/n not s/sqrt(n))
         ]
         plausible = []
         chosen: List[float] = []

@@ -379,31 +379,25 @@ CATALOG: Dict[str, Misconception] = {m.tag: m for m in [
        [_fp("S3 (chi-square)", "expected counts use BOTH marginals (row*col/grand); a row-only split ignores the column distribution")]),
 
     # --- two-sample t procedures (4.7 x 3.E test, 4.10 x 3.E interval) -----------
+    # Sources: fact pack S10 Unit 4 (4.6-4.10) states the unpooled/Welch SE
+    # sqrt(s1^2/n1 + s2^2/n2) and the (xbar1-xbar2)-0 numerator, and explicitly flags
+    # the pooled df = n1+n2-2 as a legacy-materials error the CED does NOT use.
     _M("used_pooled_se_for_means",
        "Used pooled SE formula instead of unpooled (Welch) SE for means",
        "Computed SE = sqrt(s_p^2 * (1/n1 + 1/n2)) where s_p is a pooled SD, instead of "
        "the unpooled/Welch SE = sqrt(s1^2/n1 + s2^2/n2). This is the incorrect SE for a "
-       "difference of means when the two-sample t test is conducted with unequal variances.",
+       "difference of means; the CED specifies the unpooled form.",
        "ced_structural", ["two_sample_t_test", "two_sample_t_interval"], ["4.7", "4.10"], ["3.E"],
-       [_fp("S3/S4 (two-sample t procedures)",
-            "the two-sample t statistic uses unpooled SE = sqrt(s1^2/n1 + s2^2/n2), not a pooled variance formula")]),
-
-    _M("used_wrong_df_pooled",
-       "Used pooled df = n1 + n2 - 2 instead of conservative df = min(n1 - 1, n2 - 1)",
-       "Applied the degrees of freedom from the pooled two-sample t procedure (df = n1 + n2 - 2) "
-       "instead of the AP-table conservative method (df = min(n1-1, n2-1)), giving a larger, "
-       "less conservative critical value t*.",
-       "ced_structural", ["two_sample_t_test", "two_sample_t_interval"], ["4.7", "4.10"], ["3.E"],
-       [_fp("S3/S4 (two-sample t procedures)",
-            "df = min(n1-1, n2-1) is the conservative approximation recommended in the AP Statistics curriculum")]),
+       [_fp("S10 Unit 4 (4.6-4.10, difference of two means)",
+            "the two-sample t uses unpooled SE = sqrt(s1^2/n1 + s2^2/n2); the CED does NOT use a pooled variance")]),
 
     _M("reversed_group_order_means",
        "Reversed the order of subtraction for the difference of means (sign flipped)",
        "Computed (xbar2 - xbar1) instead of (xbar1 - xbar2), flipping the sign of the "
        "test statistic or the center of the confidence interval.",
        "ced_structural", ["two_sample_t_test", "two_sample_t_interval"], ["4.7", "4.10"], ["3.E"],
-       [_fp("S3/S4 (two-sample t procedures)",
-            "test statistic numerator is (xbar1 - xbar2) - 0; the order of subtraction matters for the sign")]),
+       [_fp("S10 Unit 4 (4.9-4.10, test for difference of two means)",
+            "test statistic numerator is (xbar1 - xbar2) - 0; the order of subtraction sets the sign")]),
 ]}
 
 

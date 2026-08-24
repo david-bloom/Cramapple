@@ -29,13 +29,13 @@
       "skill": "3.E"
     }
   ],
-  "prompt": "Brand a has sample mean 13.03 hours (s = 2.5, n = 14) and Brand b has sample mean 10 hours (s = 2, n = 14). Calculate the two-sample t test statistic for H0: mu1 = mu2.",
+  "prompt": "Brand a has sample mean 9.84 hours (s = 2.5, n = 10) and Brand b has sample mean 8 hours (s = 2, n = 18). Calculate the two-sample t test statistic for H0: mu1 = mu2.",
   "numeric_form": {
-    "answer_desc": "t = 3.541",
+    "answer_desc": "t = 1.999",
     "deterministic_checks": [
       {
         "kind": "numeric",
-        "value": 3.541,
+        "value": 1.999,
         "tol": 0.01
       }
     ]
@@ -43,7 +43,7 @@
   "mcq_form": {
     "options": [
       {
-        "text": "1.20",
+        "text": "0.57",
         "correct": false,
         "misconception": "used_s_not_se",
         "misconception_source": {
@@ -61,7 +61,7 @@
         }
       },
       {
-        "text": "-3.54",
+        "text": "-2.00",
         "correct": false,
         "misconception": "reversed_group_order_means",
         "misconception_source": {
@@ -72,42 +72,42 @@
           "sources": [
             {
               "kind": "fact_pack",
-              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S3/S4 (two-sample t procedures)",
-              "note": "test statistic numerator is (xbar1 - xbar2) - 0; the order of subtraction matters for the sign"
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 4 (4.9-4.10, test for difference of two means)",
+              "note": "test statistic numerator is (xbar1 - xbar2) - 0; the order of subtraction sets the sign"
             }
           ]
         }
       },
       {
-        "text": "5.34",
+        "text": "2.13",
         "correct": false,
-        "misconception": "se_divided_by_n_not_sqrt_n",
+        "misconception": "used_pooled_se_for_means",
         "misconception_source": {
-          "tag": "se_divided_by_n_not_sqrt_n",
-          "label": "Used SE = s/n instead of s/sqrt(n)",
+          "tag": "used_pooled_se_for_means",
+          "label": "Used pooled SE formula instead of unpooled (Welch) SE for means",
           "evidence": "ced_structural",
           "ek_codes": [],
           "sources": [
             {
               "kind": "fact_pack",
-              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S3/S4 (t procedures)",
-              "note": "SE of a sample mean is s/sqrt(n), not s/n"
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 4 (4.6-4.10, difference of two means)",
+              "note": "the two-sample t uses unpooled SE = sqrt(s1^2/n1 + s2^2/n2); the CED does NOT use a pooled variance"
             }
           ]
         }
       },
       {
-        "text": "3.54",
+        "text": "2.00",
         "correct": true,
         "misconception": null
       }
     ]
   },
-  "worked_solution": "t = (13.03 - 10) / sqrt(2.5^2/14 + 2^2/14) = 3.541.",
+  "worked_solution": "t = (9.84 - 8) / sqrt(2.5^2/10 + 2^2/18) = 1.999.",
   "parts": [
     {
       "part_key": "part-a",
-      "prompt": "Brand a has sample mean 13.03 hours (s = 2.5, n = 14) and Brand b has sample mean 10 hours (s = 2, n = 14). Calculate the two-sample t test statistic for H0: mu1 = mu2.",
+      "prompt": "Brand a has sample mean 9.84 hours (s = 2.5, n = 10) and Brand b has sample mean 8 hours (s = 2, n = 18). Calculate the two-sample t test statistic for H0: mu1 = mu2.",
       "response_modalities": [
         "mcq",
         "numeric"
@@ -117,12 +117,12 @@
         {
           "criterion_key": "part-a-criterion-1",
           "points": 1,
-          "description": "t = 3.541",
-          "required_evidence": "t = (13.03 - 10) / sqrt(2.5^2/14 + 2^2/14) = 3.541.",
+          "description": "t = 1.999",
+          "required_evidence": "t = (9.84 - 8) / sqrt(2.5^2/10 + 2^2/18) = 1.999.",
           "deterministic_checks": [
             {
               "kind": "numeric",
-              "value": 3.541,
+              "value": 1.999,
               "tol": 0.01
             }
           ],
@@ -166,14 +166,14 @@
     "generator": "course_mode_stats_generator/generator.py",
     "template_id": "two_sample_t_test",
     "params": {
-      "mu1": 12.0,
-      "xbar1": 13.03,
+      "mu1": 8.0,
+      "xbar1": 9.84,
       "s1": 2.5,
-      "n1": 14,
-      "mu2": 10.0,
-      "xbar2": 10.0,
+      "n1": 10,
+      "mu2": 8.0,
+      "xbar2": 8.0,
       "s2": 2.0,
-      "n2": 14
+      "n2": 18
     },
     "seed": 5002,
     "release_status": "unreleased_generated_pending_review",
