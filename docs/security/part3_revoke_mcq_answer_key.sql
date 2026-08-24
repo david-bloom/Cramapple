@@ -1,5 +1,9 @@
 -- Coordinated answer-key-exposure fix — PART 3 of 3 (close the leak). CORRECTED.
 --
+-- ✅ PROMOTED + APPLIED: this is now the canonical migration
+--    supabase/migrations/20260824060000_revoke_mcq_answer_key_from_authenticated.sql,
+--    APPLIED + VERIFIED on Dev AND Prod on 2026-08-24. This copy is kept as reference.
+--
 -- ⚠️  CORRECTION (2026-08-24, session 3): the original PART 3 was
 --       revoke select (is_correct, rationale) on app.mcq_choices from authenticated, anon;
 --     That is a NO-OP here. `authenticated` holds a TABLE-LEVEL SELECT grant

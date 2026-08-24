@@ -1,29 +1,35 @@
 # MCQ Answer-Key Exposure — Coordinated Fix
 
-STATUS: DEV COMPLETE + verified; PROD held for David | DATE: 2026-08-24 | OWNER: David
+STATUS: ✅ COMPLETE on Dev AND Prod — leak closed & verified | DATE: 2026-08-24 | OWNER: David
 
-## Applied to Dev (2026-08-24, session 3) — Prod NOT touched
+## Done — Dev + Prod (2026-08-24, session 3)
 
-The full three-part sequence was executed and verified on Dev (`wmgjsdkphcyhngaffbqf`):
-- **PART 1** — RPC `public.get_review_mcq_choices` applied; verified (SECURITY DEFINER,
-  pinned search_path, correct return shape, `authenticated` may execute / `anon` may not,
-  runs without error). NB: the MCQ reviewer *happy path* could not be positively tested
-  on Dev because the only active review assignment is an FRQ; the RPC's reviewer predicate
-  is logically identical to the live-working RLS `mcq_choices_select_assigned_reviewer`.
-- **PART 2** — the `review.functions.ts` reviewer read was repointed at the RPC in Lovable
-  (project `d334fed9`, commit `963aa34`); one-line diff confirmed. **Not published/deployed**
-  (the live app points at Prod, whose RPC doesn't exist yet — publishing would break the
-  Prod reviewer UI).
-- **PART 3** — the CORRECTED revoke+regrant applied. Verified as the `authenticated` role:
-  `is_correct` → permission denied (leak closed), `choice_key` → readable (student path intact).
+The full three-part sequence was executed and verified on **both** Dev
+(`wmgjsdkphcyhngaffbqf`) and Prod (`pcntajvbdfqhbeewmdry`), in order (PART 1 → publish
+PART 2 → PART 3):
+- **PART 1** — RPC `public.get_review_mcq_choices` applied to both envs; verified
+  (SECURITY DEFINER, pinned search_path, correct return shape, `authenticated` may
+  execute / `anon` may not, runs clean). Migration
+  `20260824040000_reviewer_mcq_answer_key_rpc.sql`.
+- **PART 2** — `review.functions.ts` reviewer read repointed at the RPC in Lovable
+  (project `d334fed9`, commit `963aa34`, one-line diff) and **published** to
+  `exam-buddy-wireframe.lovable.app`.
+- **PART 3** — the CORRECTED revoke+regrant applied to both envs; promoted to migration
+  `20260824060000_revoke_mcq_answer_key_from_authenticated.sql`.
+
+**Verification (both envs), as the `authenticated` role:** `is_correct` → permission
+denied (**leak closed**); `choice_key` → readable (**student serving path intact**).
+Reviewer RPC still returns the key — positively confirmed on Prod against a real assigned
+MCQ reviewer (RPC returned the full 4-row key post-revoke; Prod has 1,621 active MCQ
+review assignments).
 
 **Discovery (important):** the originally-staged PART 3 (a column-level revoke) was a
-**no-op** — see the corrected PART 3 below.
+**no-op** — `authenticated` held a TABLE-level SELECT (`authenticated=r`) on both envs,
+which a column revoke can't subtract from (proven live on Dev). The corrected fix (below)
+drops the table-wide grant and re-grants only the non-secret columns.
 
-**Prod remains fully held.** To close it: (1) apply PART 1 to Prod, (2) publish PART 2,
-(3) verify a reviewer still sees the key in the reviewer UI, (4) apply the corrected
-PART 3 to Prod. Steps must be in that order (publishing PART 2 before PART 1 exists on
-Prod breaks the live reviewer UI).
+**Note:** on Prod, a separate `content_reviewer` role also holds table-level SELECT — a
+reviewer/back-office role, not student-assumable — left untouched. Confirm its purpose.
 
 ## Verification (2026-08-24, session 3 — read-only, nothing applied)
 
