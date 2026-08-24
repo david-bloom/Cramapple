@@ -1,9 +1,9 @@
 {
   "schema_version": "course-mode-generated-0.1",
-  "package_id": "t_interval_mean-005001",
-  "content_key": "apstat-t_interval_mean-005001",
+  "package_id": "two_sample_t_test-005001",
+  "content_key": "apstat-two_sample_t_test-005001",
   "item_type": "mcq",
-  "difficulty": "Medium",
+  "difficulty": "Hard",
   "exam_pack_ref": {
     "exam_code": "ap_statistics",
     "cycle": "2026-27"
@@ -15,7 +15,7 @@
     },
     {
       "scheme_key": "ap-statistics-2026-27",
-      "node_key": "topic-4.2"
+      "node_key": "topic-4.7"
     },
     {
       "scheme_key": "ap-statistics-skills",
@@ -25,18 +25,17 @@
   ],
   "cells": [
     {
-      "topic": "4.2",
+      "topic": "4.7",
       "skill": "3.E"
     }
   ],
-  "prompt": "A transit analyst takes a random sample of n = 25 and measures one-way commute time, obtaining sample mean 25 minutes and sample standard deviation s = 8 minutes. Construct a 99% confidence interval for the population mean one-way commute time.",
+  "prompt": "With fertilizer has sample mean 17.82 cm (s = 4, n = 20) and Control group has sample mean 25 cm (s = 5, n = 10). Calculate the two-sample t test statistic for H0: mu1 = mu2.",
   "numeric_form": {
-    "answer_desc": "(20.525, 29.475)",
+    "answer_desc": "t = -3.952",
     "deterministic_checks": [
       {
-        "kind": "interval",
-        "low": 20.525,
-        "high": 29.475,
+        "kind": "numeric",
+        "value": -3.952,
         "tol": 0.01
       }
     ]
@@ -44,48 +43,7 @@
   "mcq_form": {
     "options": [
       {
-        "text": "(20.88, 29.12)",
-        "correct": false,
-        "misconception": "used_z_star_not_t_star",
-        "misconception_source": {
-          "tag": "used_z_star_not_t_star",
-          "label": "Used a z* critical value instead of t* for a mean",
-          "evidence": "ced_structural",
-          "ek_codes": [],
-          "sources": [
-            {
-              "kind": "fact_pack",
-              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S8/S3 (CED convention)",
-              "note": "means use t (df = n-1 or min(n1-1,n2-1)); z is for proportions, so a t interval must use t*"
-            }
-          ]
-        }
-      },
-      {
-        "text": "(24.10, 25.90)",
-        "correct": false,
-        "misconception": "se_divided_by_n_not_sqrt_n",
-        "misconception_source": {
-          "tag": "se_divided_by_n_not_sqrt_n",
-          "label": "Used SE = s/n instead of s/sqrt(n)",
-          "evidence": "ced_structural",
-          "ek_codes": [],
-          "sources": [
-            {
-              "kind": "fact_pack",
-              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S3/S4 (t procedures)",
-              "note": "SE of a sample mean is s/sqrt(n), not s/n"
-            }
-          ]
-        }
-      },
-      {
-        "text": "(20.52, 29.48)",
-        "correct": true,
-        "misconception": null
-      },
-      {
-        "text": "(2.62, 47.38)",
+        "text": "-1.75",
         "correct": false,
         "misconception": "used_s_not_se",
         "misconception_source": {
@@ -101,14 +59,55 @@
             }
           ]
         }
+      },
+      {
+        "text": "-4.27",
+        "correct": false,
+        "misconception": "used_pooled_se_for_means",
+        "misconception_source": {
+          "tag": "used_pooled_se_for_means",
+          "label": "Used pooled SE formula instead of unpooled (Welch) SE for means",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S3/S4 (two-sample t procedures)",
+              "note": "the two-sample t statistic uses unpooled SE = sqrt(s1^2/n1 + s2^2/n2), not a pooled variance formula"
+            }
+          ]
+        }
+      },
+      {
+        "text": "3.95",
+        "correct": false,
+        "misconception": "reversed_group_order_means",
+        "misconception_source": {
+          "tag": "reversed_group_order_means",
+          "label": "Reversed the order of subtraction for the difference of means (sign flipped)",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S3/S4 (two-sample t procedures)",
+              "note": "test statistic numerator is (xbar1 - xbar2) - 0; the order of subtraction matters for the sign"
+            }
+          ]
+        }
+      },
+      {
+        "text": "-3.95",
+        "correct": true,
+        "misconception": null
       }
     ]
   },
-  "worked_solution": "df = 25 - 1 = 24. t* = 2.797. SE = s/sqrt(n) = 1.6000. ME = t*\u00b7SE = 4.4752. Interval = 25 +/- 4.4752 = (20.525, 29.475).",
+  "worked_solution": "t = (17.82 - 25) / sqrt(4^2/20 + 5^2/10) = -3.952.",
   "parts": [
     {
       "part_key": "part-a",
-      "prompt": "A transit analyst takes a random sample of n = 25 and measures one-way commute time, obtaining sample mean 25 minutes and sample standard deviation s = 8 minutes. Construct a 99% confidence interval for the population mean one-way commute time.",
+      "prompt": "With fertilizer has sample mean 17.82 cm (s = 4, n = 20) and Control group has sample mean 25 cm (s = 5, n = 10). Calculate the two-sample t test statistic for H0: mu1 = mu2.",
       "response_modalities": [
         "mcq",
         "numeric"
@@ -118,13 +117,12 @@
         {
           "criterion_key": "part-a-criterion-1",
           "points": 1,
-          "description": "(20.525, 29.475)",
-          "required_evidence": "df = 25 - 1 = 24. t* = 2.797. SE = s/sqrt(n) = 1.6000. ME = t*\u00b7SE = 4.4752. Interval = 25 +/- 4.4752 = (20.525, 29.475).",
+          "description": "t = -3.952",
+          "required_evidence": "t = (17.82 - 25) / sqrt(4^2/20 + 5^2/10) = -3.952.",
           "deterministic_checks": [
             {
-              "kind": "interval",
-              "low": 20.525,
-              "high": 29.475,
+              "kind": "numeric",
+              "value": -3.952,
               "tol": 0.01
             }
           ],
@@ -136,13 +134,14 @@
   "scenario_provenance": {
     "archetype": "Q4",
     "archetype_label": "Multi-focus on Practices 2, 3 & 4 (spans multiple content areas)",
-    "task_verb": "Construct",
+    "task_verb": "Calculate",
     "practice": 3,
     "modality": "exam_aligned_digital",
     "validity_rules": [
-      "df = n-1 within the standard t-table (n <= 31)",
-      "confidence in {90%, 95%, 99%}",
-      "t (for a mean), never z -- CED convention; interval bounds realistic for the quantity"
+      "two DISTINCT independent samples of a quantitative variable",
+      "populations roughly Normal or both samples large",
+      "df = min(n1-1, n2-1) within the standard t-table (n <= 31)",
+      "the t-statistic magnitude stays in a realistic range"
     ],
     "sources": [
       {
@@ -161,16 +160,20 @@
         "note": "digital Bluebook; text/numeric entry -> exam_aligned_digital"
       }
     ],
-    "domain": "social"
+    "domain": "biology"
   },
   "provenance": {
     "generator": "course_mode_stats_generator/generator.py",
-    "template_id": "t_interval_mean",
+    "template_id": "two_sample_t_test",
     "params": {
-      "xbar": 25.0,
-      "s": 8.0,
-      "n": 25,
-      "conf": 0.99
+      "mu1": 20.0,
+      "xbar1": 17.82,
+      "s1": 4.0,
+      "n1": 20,
+      "mu2": 25.0,
+      "xbar2": 25.0,
+      "s2": 5.0,
+      "n2": 10
     },
     "seed": 5001,
     "release_status": "unreleased_generated_pending_review",

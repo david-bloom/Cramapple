@@ -54,6 +54,7 @@ TWO_GROUP = SCN.TWO_GROUP_CONTEXTS
 REG_CONTEXTS = SCN.REGRESSION_CONTEXTS
 NORMAL_CONTEXTS = SCN.NORMAL_CONTEXTS
 MEAN_CONTEXTS = SCN.MEAN_CONTEXTS
+TWO_MEAN_CONTEXTS = SCN.TWO_MEAN_CONTEXTS
 CATEGORICAL_CONTEXTS = SCN.CATEGORICAL_CONTEXTS
 
 
@@ -492,6 +493,140 @@ def gen_chi_square_test(rng: random.Random, seed: int) -> Dict:
                     {"observed": obs}, checks, scenario_domain=c["domain"])
 
 
+def gen_two_sample_t_test(rng: random.Random, seed: int) -> Dict:
+    """Two-sample (independent) t test statistic for a difference of means
+    (cell 4.7 x 3.E). Uses unpooled (Welch) SE and conservative df = min(n1-1, n2-1).
+    Distractors are all genuine t-values from documented SE / sign errors,
+    kept in a realistic |t| range."""
+    c = rng.choice(TWO_MEAN_CONTEXTS)
+    tol = 0.01
+    plausible: List[Tuple[str, str, float]] = []
+    for _ in range(400):
+        s1 = float(rng.choice(c["s_choices"]))
+        n1 = int(rng.choice(c["n_choices"]))
+        s2 = float(rng.choice(c["s_choices"]))
+        n2 = int(rng.choice(c["n_choices"]))
+        mu1 = float(rng.choice(c["mu_choices"]))
+        mu2 = float(rng.choice(c["mu_choices"]))
+        se = math.sqrt((s1 ** 2 / n1) + (s2 ** 2 / n2))
+        target_t = rng.choice([-2.5, -2.0, -1.5, -1.2, 1.2, 1.5, 2.0, 2.5])
+        xbar1 = round(mu1 + target_t * se, 2)
+        xbar2 = round(mu2, 2)
+        t = S.two_sample_t_statistic(xbar1, s1, n1, xbar2, s2, n2)
+        # Distractor candidates: each a documented, on-scale t-value error.
+        df = min(n1 - 1, n2 - 1)
+        se_pooled = math.sqrt(((n1 - 1) * s1 ** 2 + (n2 - 1) * s2 ** 2) / (n1 + n2 - 2)) * math.sqrt(1 / n1 + 1 / n2)
+        cand = [
+            (-t,                        "reversed_group_order_means"),     # (xbar2 - xbar1)
+            ((xbar1 - xbar2) / (math.sqrt(s1 ** 2 + s2 ** 2 / (n1 + n2))), "used_s_not_se"),  # forgot /sqrt(n)
+            ((xbar1 - xbar2) / se_pooled, "used_pooled_se_for_means"),     # pooled SE instead of unpooled
+            ((xbar1 - xbar2) / math.sqrt((s1 / n1) + (s2 / n2)), "se_divided_by_n_not_sqrt_n"),  # SE = sqrt(s/n) not sqrt(s/sqrt(n))
+        ]
+        plausible = []
+        chosen: List[float] = []
+        for val, tag in cand:
+            if abs(val) > 9:               # realistic: keep every option in a sane t-range
+                continue
+            if abs(val - t) <= 3 * tol:    # clear of the key's grading band
+                continue
+            if any(abs(val - v) <= 3 * tol for v in chosen):
+                continue                   # distinct from the other distractors
+            plausible.append((f"{val:.2f}", tag, val))
+            chosen.append(val)
+        if 1.0 <= abs(t) <= 5.0 and len(plausible) >= 3:
+            break
+    prompt = (f"{c['gA'].capitalize()} has sample mean {xbar1:g} {c['unit']} (s = {s1:g}, n = {n1}) "
+              f"and {c['gB'].capitalize()} has sample mean {xbar2:g} {c['unit']} (s = {s2:g}, n = {n2}). "
+              f"Calculate the two-sample t test statistic for H0: mu1 = mu2.")
+    worked = f"t = ({xbar1:g} - {xbar2:g}) / sqrt({s1:g}^2/{n1} + {s2:g}^2/{n2}) = {t:.3f}."
+    distractors = plausible[:3]
+    checks = [
+        ("t_formula", abs(t - (xbar1 - xbar2) / math.sqrt((s1 ** 2 / n1) + (s2 ** 2 / n2))) < 1e-9),
+        ("t_realistic", 1.0 <= abs(t) <= 5.0),
+        ("df_in_table", df in S.T_STAR),
+        ("three_plausible_distractors", len(distractors) == 3),
+        ("distractors_in_t_range", all(abs(v) <= 9 for _, _, v in distractors)),
+        ("distractors_clear_of_key", all(abs(v - t) > 2 * tol for _, _, v in distractors)),
+        ("distractors_distinct", len({d for d, _, _ in distractors}) == 3),
+    ]
+    return _package("two_sample_t_test", seed, "4.7", ["3.E"], "Hard", prompt,
+                    f"t = {t:.3f}", worked,
+                    [{"kind": "numeric", "value": round(t, 3), "tol": tol}],
+                    f"{t:.2f}", t, tol, distractors,
+                    {"mu1": mu1, "xbar1": xbar1, "s1": s1, "n1": n1, "mu2": mu2, "xbar2": xbar2, "s2": s2, "n2": n2},
+                    checks, scenario_domain=c["domain"])
+
+
+def gen_two_sample_t_interval(rng: random.Random, seed: int) -> Dict:
+    """Two-sample t confidence interval for a difference of means (cell 4.10 x 3.E).
+    Uses unpooled (Welch) SE and conservative df = min(n1-1, n2-1).
+    t*, never z* (CED convention). Distractor intervals are all centered at
+    (xbar1 - xbar2) and differ only in width (from documented SE / z-vs-t errors),
+    so each is a realistic interval -- no off-scale option."""
+    c = rng.choice(TWO_MEAN_CONTEXTS)
+    tol = 0.02
+    plausible: List[Tuple[str, str, None]] = []
+    for _ in range(400):
+        s1 = float(rng.choice(c["s_choices"]))
+        n1 = int(rng.choice(c["n_choices"]))
+        s2 = float(rng.choice(c["s_choices"]))
+        n2 = int(rng.choice(c["n_choices"]))
+        conf = rng.choice([0.90, 0.95, 0.99])
+        xbar1 = float(rng.choice(c["mu_choices"]))
+        xbar2 = float(rng.choice(c["mu_choices"]))
+        df = min(n1 - 1, n2 - 1)
+        moe, lo, hi = S.two_sample_t_interval(xbar1, s1, n1, xbar2, s2, n2, conf)
+        se = math.sqrt((s1 ** 2 / n1) + (s2 ** 2 / n2))
+        se_pooled = math.sqrt(((n1 - 1) * s1 ** 2 + (n2 - 1) * s2 ** 2) / (n1 + n2 - 2)) * math.sqrt(1 / n1 + 1 / n2)
+        cand = [
+            (S.z_star(conf) * se,           "used_z_star_not_t_star"),       # z* not t*
+            (S.t_star(df, conf) * se_pooled, "used_pooled_se_for_means"),    # pooled SE not unpooled
+            (S.t_star(df, conf) * math.sqrt((s1 / n1) + (s2 / n2)), "se_divided_by_n_not_sqrt_n"),  # SE = sqrt(s/n)
+        ]
+        plausible = []
+        chosen: List[float] = []
+        for m, tag in cand:
+            if m <= 0:                      # realistic: positive margin
+                continue
+            if abs(m - moe) <= tol:         # a visibly different interval from the key
+                continue
+            if any(abs(m - mm) <= tol for mm in chosen):
+                continue                    # distinct from the other distractor intervals
+            diff = xbar1 - xbar2
+            lo_d = diff - m
+            if lo_d <= 0:                   # realistic: positive lower bound for this context
+                continue
+            plausible.append((f"({lo_d:.2f}, {diff + m:.2f})", tag, None))
+            chosen.append(m)
+        if lo > 0 and len(plausible) >= 3:
+            break
+    tstar = S.t_star(df, conf)
+    diff = xbar1 - xbar2
+    prompt = (f"{c['gA'].capitalize()} has sample mean {xbar1:g} {c['unit']} (s = {s1:g}, n = {n1}) "
+              f"and {c['gB'].capitalize()} has sample mean {xbar2:g} {c['unit']} (s = {s2:g}, n = {n2}). "
+              f"Construct a {int(conf * 100)}% confidence interval for the difference in population means (mu1 - mu2).")
+    worked = (f"df = min({n1} - 1, {n2} - 1) = {df}. t* = {tstar:.3f}. "
+              f"SE = sqrt({s1:g}^2/{n1} + {s2:g}^2/{n2}) = {se:.4f}. "
+              f"ME = t*·SE = {moe:.4f}. Interval = {diff:g} +/- {moe:.4f} = ({lo:.3f}, {hi:.3f}).")
+    distractors = plausible[:3]
+    checks = [
+        ("interval_uses_t_star", abs(moe - tstar * se) < 1e-9),
+        ("interval_centered", abs((lo + hi) / 2 - diff) < 1e-9),
+        ("lower_bound_positive", lo > 0),
+        ("df_in_table", df in S.T_STAR),
+        ("three_plausible_distractors", len(distractors) == 3),
+        ("distractor_intervals_distinct", len({d for d, _, _ in distractors}) == 3),
+        ("distractor_lower_bounds_positive",
+         all(float(d.strip("()").split(",")[0]) > 0 for d, _, _ in distractors)),
+    ]
+    return _package("two_sample_t_interval", seed, "4.10", ["3.E"], "Hard", prompt,
+                    f"({lo:.3f}, {hi:.3f})", worked,
+                    [{"kind": "interval", "low": round(lo, 3), "high": round(hi, 3), "tol": 0.01}],
+                    f"({lo:.2f}, {hi:.2f})", None, 0.01, distractors,
+                    {"xbar1": xbar1, "s1": s1, "n1": n1, "xbar2": xbar2, "s2": s2, "n2": n2, "conf": conf},
+                    checks, scenario_domain=c["domain"])
+
+
 PROCEDURES: Dict[str, Callable[[random.Random, int], Dict]] = {
     "one_prop_ci": gen_one_prop_ci,
     "two_prop_ztest": gen_two_prop_ztest,
@@ -501,6 +636,8 @@ PROCEDURES: Dict[str, Callable[[random.Random, int], Dict]] = {
     "t_test_mean": gen_t_test_mean,
     "t_interval_mean": gen_t_interval_mean,
     "chi_square_test": gen_chi_square_test,
+    "two_sample_t_test": gen_two_sample_t_test,
+    "two_sample_t_interval": gen_two_sample_t_interval,
 }
 
 

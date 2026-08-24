@@ -1,9 +1,9 @@
 {
   "schema_version": "course-mode-generated-0.1",
-  "package_id": "t_interval_mean-005001",
-  "content_key": "apstat-t_interval_mean-005001",
+  "package_id": "two_sample_t_interval-005000",
+  "content_key": "apstat-two_sample_t_interval-005000",
   "item_type": "mcq",
-  "difficulty": "Medium",
+  "difficulty": "Hard",
   "exam_pack_ref": {
     "exam_code": "ap_statistics",
     "cycle": "2026-27"
@@ -15,7 +15,7 @@
     },
     {
       "scheme_key": "ap-statistics-2026-27",
-      "node_key": "topic-4.2"
+      "node_key": "topic-4.10"
     },
     {
       "scheme_key": "ap-statistics-skills",
@@ -25,18 +25,18 @@
   ],
   "cells": [
     {
-      "topic": "4.2",
+      "topic": "4.10",
       "skill": "3.E"
     }
   ],
-  "prompt": "A transit analyst takes a random sample of n = 25 and measures one-way commute time, obtaining sample mean 25 minutes and sample standard deviation s = 8 minutes. Construct a 99% confidence interval for the population mean one-way commute time.",
+  "prompt": "Experienced staff has sample mean 25 minutes (s = 4, n = 12) and New hires has sample mean 15 minutes (s = 5, n = 20). Construct a 90% confidence interval for the difference in population means (mu1 - mu2).",
   "numeric_form": {
-    "answer_desc": "(20.525, 29.475)",
+    "answer_desc": "(7.113, 12.887)",
     "deterministic_checks": [
       {
         "kind": "interval",
-        "low": 20.525,
-        "high": 29.475,
+        "low": 7.113,
+        "high": 12.887,
         "tol": 0.01
       }
     ]
@@ -44,7 +44,25 @@
   "mcq_form": {
     "options": [
       {
-        "text": "(20.88, 29.12)",
+        "text": "(6.95, 13.05)",
+        "correct": false,
+        "misconception": "used_pooled_se_for_means",
+        "misconception_source": {
+          "tag": "used_pooled_se_for_means",
+          "label": "Used pooled SE formula instead of unpooled (Welch) SE for means",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S3/S4 (two-sample t procedures)",
+              "note": "the two-sample t statistic uses unpooled SE = sqrt(s1^2/n1 + s2^2/n2), not a pooled variance formula"
+            }
+          ]
+        }
+      },
+      {
+        "text": "(7.36, 12.64)",
         "correct": false,
         "misconception": "used_z_star_not_t_star",
         "misconception_source": {
@@ -62,7 +80,7 @@
         }
       },
       {
-        "text": "(24.10, 25.90)",
+        "text": "(8.63, 11.37)",
         "correct": false,
         "misconception": "se_divided_by_n_not_sqrt_n",
         "misconception_source": {
@@ -80,35 +98,17 @@
         }
       },
       {
-        "text": "(20.52, 29.48)",
+        "text": "(7.11, 12.89)",
         "correct": true,
         "misconception": null
-      },
-      {
-        "text": "(2.62, 47.38)",
-        "correct": false,
-        "misconception": "used_s_not_se",
-        "misconception_source": {
-          "tag": "used_s_not_se",
-          "label": "Used the sample SD s as the standard error (forgot /sqrt(n))",
-          "evidence": "ced_structural",
-          "ek_codes": [],
-          "sources": [
-            {
-              "kind": "fact_pack",
-              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S3/S4 (t procedures)",
-              "note": "the SD of x-bar is s/sqrt(n); s alone overstates the SE"
-            }
-          ]
-        }
       }
     ]
   },
-  "worked_solution": "df = 25 - 1 = 24. t* = 2.797. SE = s/sqrt(n) = 1.6000. ME = t*\u00b7SE = 4.4752. Interval = 25 +/- 4.4752 = (20.525, 29.475).",
+  "worked_solution": "df = min(12 - 1, 20 - 1) = 11. t* = 1.796. SE = sqrt(4^2/12 + 5^2/20) = 1.6073. ME = t*\u00b7SE = 2.8867. Interval = 10 +/- 2.8867 = (7.113, 12.887).",
   "parts": [
     {
       "part_key": "part-a",
-      "prompt": "A transit analyst takes a random sample of n = 25 and measures one-way commute time, obtaining sample mean 25 minutes and sample standard deviation s = 8 minutes. Construct a 99% confidence interval for the population mean one-way commute time.",
+      "prompt": "Experienced staff has sample mean 25 minutes (s = 4, n = 12) and New hires has sample mean 15 minutes (s = 5, n = 20). Construct a 90% confidence interval for the difference in population means (mu1 - mu2).",
       "response_modalities": [
         "mcq",
         "numeric"
@@ -118,13 +118,13 @@
         {
           "criterion_key": "part-a-criterion-1",
           "points": 1,
-          "description": "(20.525, 29.475)",
-          "required_evidence": "df = 25 - 1 = 24. t* = 2.797. SE = s/sqrt(n) = 1.6000. ME = t*\u00b7SE = 4.4752. Interval = 25 +/- 4.4752 = (20.525, 29.475).",
+          "description": "(7.113, 12.887)",
+          "required_evidence": "df = min(12 - 1, 20 - 1) = 11. t* = 1.796. SE = sqrt(4^2/12 + 5^2/20) = 1.6073. ME = t*\u00b7SE = 2.8867. Interval = 10 +/- 2.8867 = (7.113, 12.887).",
           "deterministic_checks": [
             {
               "kind": "interval",
-              "low": 20.525,
-              "high": 29.475,
+              "low": 7.113,
+              "high": 12.887,
               "tol": 0.01
             }
           ],
@@ -140,9 +140,11 @@
     "practice": 3,
     "modality": "exam_aligned_digital",
     "validity_rules": [
-      "df = n-1 within the standard t-table (n <= 31)",
+      "two DISTINCT independent samples of a quantitative variable",
+      "populations roughly Normal or both samples large",
+      "df = min(n1-1, n2-1) within the standard t-table (n <= 31)",
       "confidence in {90%, 95%, 99%}",
-      "t (for a mean), never z -- CED convention; interval bounds realistic for the quantity"
+      "t (for means), never z -- CED convention; interval bounds realistic for the quantity"
     ],
     "sources": [
       {
@@ -161,18 +163,21 @@
         "note": "digital Bluebook; text/numeric entry -> exam_aligned_digital"
       }
     ],
-    "domain": "social"
+    "domain": "business"
   },
   "provenance": {
     "generator": "course_mode_stats_generator/generator.py",
-    "template_id": "t_interval_mean",
+    "template_id": "two_sample_t_interval",
     "params": {
-      "xbar": 25.0,
-      "s": 8.0,
-      "n": 25,
-      "conf": 0.99
+      "xbar1": 25.0,
+      "s1": 4.0,
+      "n1": 12,
+      "xbar2": 15.0,
+      "s2": 5.0,
+      "n2": 20,
+      "conf": 0.9
     },
-    "seed": 5001,
+    "seed": 5000,
     "release_status": "unreleased_generated_pending_review",
     "note": "Synthetic; not official CB content. Requires CM-D19 template-release + review."
   }
