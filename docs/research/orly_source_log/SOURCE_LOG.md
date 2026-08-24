@@ -63,3 +63,11 @@ end-to-end: `public.select_unit_gated_practice_items` now actually returns
 all 8 items at their correct unit (AB items and BC's 060/070 at unit 1, BC's
 080/090 at unit 2) - the real student-facing selector, not just the label
 table.
+
+**Gap closed (2026-08-24, same day):** spawned and executed
+`docs/tasks/TASK-0028-CONTENT-TAXONOMY-VALIDATION-DECISION-TABLE.md`, adding
+`app.content_taxonomy_validation_decisions` and a real foreign key for
+`validation_decision_id`. The 8 placeholder UUIDs above are now backed by
+real decision rows (backfilled with the same IDs, so nothing was
+re-validated) instead of being unreferenced. Future validations get a real
+decision record from the start.
