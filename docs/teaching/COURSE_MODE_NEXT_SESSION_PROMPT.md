@@ -125,6 +125,12 @@ sequenced (do NOT reorder):
 1. **Generator fix** — stamp future MCQ-served items with `rubric_type='mcq'` (or set
    `evaluator_strategy='rule_based_mcq'`) in `scripts/course_mode_stats_generator/` so
    they route to `mcq_rule` without a manual DB touch. Decide whether to re-release.
+   Also consider making `resolveGradingRoute` **fail loud** on a `rubric_type`↔`evaluator_strategy`
+   conflict rather than silently letting `rubric_type` win — the first live Dev attempt graded
+   `content_uncertain` only because it ran in the ~6-min window *before* Fix 1's `rubric_type`
+   backfill landed (a one-time timing race, not a persistent bug; a fail-loud router would have
+   surfaced the mis-tag at grade time instead). See the PR #103 comment / activity-log entry
+   "Serving Milestone Independently Re-Verified … Timing-Race Diagnosed" (2026-08-24).
 2. **Design question** — these items now grade purely on choice-match; their numeric
    `content_item_checks` verification is unused. Fine if course-mode practice stays
    **MCQ**; revisit if you want **numeric-entry** serving (your earlier stated intent —
