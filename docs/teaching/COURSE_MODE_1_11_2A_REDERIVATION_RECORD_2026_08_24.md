@@ -29,6 +29,18 @@ FB-U1-11-2A-SAMPLING-01 | cell 1.11 x 2.A | 120 instances | 1440 checks | 0 fail
 
 Meta-tests also passed: all frames OK, correct-answer position varies, misconception catalog self-check clean, scenario catalog self-check clean, and all four new `u1_11__` misconception tags are used by at least one distractor.
 
+Cell-specific QA command:
+
+```bash
+python3 scripts/course_mode_stats_generator/qa_u1_11_2a_sampling.py
+```
+
+Result:
+
+```text
+QA PASS: FB-U1-11-2A-SAMPLING-01 (1.11 x 2.A) | 120 instances | 1440 checks | tags=u1_11__convenience_or_voluntary_called_random, u1_11__stratified_cluster_confusion, u1_11__stratified_samples_whole_groups, u1_11__systematic_srs_conflation
+```
+
 ## Gate 2 Independent Re-Derivation
 
 I re-derived the key and every new distractor type from the stem logic, not from the stored `correct` flags.
