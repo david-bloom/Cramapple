@@ -124,6 +124,12 @@ FRAMING: Dict[str, Framing] = {
         "summary_stats", "Q2", "Calculate", 3, "exam_aligned_digital",
         ["a raw quantitative data set (no real-world causal claim implied)"],
         [_SEC5, _SEC6, _SEC7]),
+    "compare_stats": Framing(
+        "compare_stats", "Q2", "Calculate", 3, "exam_aligned_digital",
+        ["two one-variable quantitative data sets for distinct groups",
+         "the requested statistic is stated explicitly as Group A minus Group B",
+         "answer is a single numeric comparison: mean difference, median difference, or IQR difference"],
+        [_SEC5, _SEC6, _SEC7]),
     "slotframe_4b": Framing(
         "slotframe_4b", "Q2", "Justify", 4, "exam_aligned_digital",
         ["OBSERVATIONAL comparison only (no random assignment -> no causal claim)",
@@ -274,6 +280,22 @@ CATEGORICAL_CONTEXTS: List[Dict[str, object]] = [
      "row_noun": "devices", "domain": "manufacturing"},
 ]
 
+# Unit 1.9 two-distribution comparison contexts. Each id is cell-namespaced so
+# parallel agents can append without collisions. Contexts are original synthetic
+# settings, not College Board prompts.
+U1_9_COMPARE_CONTEXTS: List[Dict[str, object]] = [
+    {"id": "u1_9__garden_seedlings", "quantity": "seedling heights after four weeks", "unit": "cm",
+     "group_a": "sunlit bed", "group_b": "shaded bed", "domain": "biology", "low": 12, "high": 48},
+    {"id": "u1_9__delivery_times", "quantity": "delivery times", "unit": "minutes",
+     "group_a": "Route A", "group_b": "Route B", "domain": "operations", "low": 18, "high": 85},
+    {"id": "u1_9__study_sessions", "quantity": "study-session lengths", "unit": "minutes",
+     "group_a": "weekday sessions", "group_b": "weekend sessions", "domain": "education", "low": 20, "high": 120},
+    {"id": "u1_9__store_receipts", "quantity": "customer receipt totals", "unit": "dollars",
+     "group_a": "morning customers", "group_b": "evening customers", "domain": "business", "low": 8, "high": 95},
+    {"id": "u1_9__trail_counts", "quantity": "daily trail-user counts", "unit": "people",
+     "group_a": "north trail", "group_b": "south trail", "domain": "civic", "low": 15, "high": 140},
+]
+
 
 # ==============================================================================
 # Access + validation helpers
@@ -337,6 +359,20 @@ def validate_scenarios() -> List[str]:
             problems.append(f"categorical context missing fields: {ctx}")
         elif len(ctx["rows"]) < 2 or len(ctx["cols"]) < 2:
             problems.append(f"categorical context needs >=2 rows and cols: {ctx}")
+    seen_compare_ids = set()
+    for ctx in U1_9_COMPARE_CONTEXTS:
+        required = ("id", "quantity", "unit", "group_a", "group_b", "domain", "low", "high")
+        if not all(k in ctx for k in required):
+            problems.append(f"u1_9 compare context missing fields: {ctx}")
+        if ctx.get("id") in seen_compare_ids:
+            problems.append(f"duplicate u1_9 compare context id: {ctx.get('id')}")
+        seen_compare_ids.add(ctx.get("id"))
+        if not str(ctx.get("id", "")).startswith("u1_9__"):
+            problems.append(f"u1_9 compare context id is not namespaced: {ctx.get('id')}")
+        if ctx.get("group_a") == ctx.get("group_b"):
+            problems.append(f"u1_9 compare context groups are not distinct: {ctx}")
+        if ctx.get("low", 0) >= ctx.get("high", 0):
+            problems.append(f"u1_9 compare context has inverted range: {ctx}")
     return problems
 
 
@@ -353,6 +389,7 @@ if __name__ == "__main__":
             "normal": len(NORMAL_CONTEXTS),
             "mean": len(MEAN_CONTEXTS),
             "two_mean": len(TWO_MEAN_CONTEXTS),
+            "u1_9_compare": len(U1_9_COMPARE_CONTEXTS),
         },
         "framing": {p: {"archetype": f.archetype, "task_verb": f.task_verb,
                         "modality": f.modality} for p, f in FRAMING.items()},

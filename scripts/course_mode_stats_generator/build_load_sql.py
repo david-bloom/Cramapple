@@ -73,6 +73,7 @@ LOAD_SQL = OUT_DIR / "f4_load_DRAFT.sql"
 # data-driven verifier) vs. the conceptual slot-frame (graded as an MCQ).
 COMPUTATIONAL_PREFIXES = (
     "one_prop_ci", "two_prop_ztest", "lsrl_predict", "normal_prob", "summary_stats",
+    "compare_stats",
     "t_test_mean", "t_interval_mean", "chi_square_test",
     "two_sample_t_test", "two_sample_t_interval",
 )

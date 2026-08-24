@@ -56,6 +56,7 @@ NORMAL_CONTEXTS = SCN.NORMAL_CONTEXTS
 MEAN_CONTEXTS = SCN.MEAN_CONTEXTS
 TWO_MEAN_CONTEXTS = SCN.TWO_MEAN_CONTEXTS
 CATEGORICAL_CONTEXTS = SCN.CATEGORICAL_CONTEXTS
+U1_9_COMPARE_CONTEXTS = SCN.U1_9_COMPARE_CONTEXTS
 
 
 def _rid(prefix: str, seed: int) -> str:
@@ -302,6 +303,104 @@ def gen_summary_stats(rng: random.Random, seed: int) -> Dict:
                     [{"kind": "numeric", "value": round(m, 4), "tol": tol}],
                     f"{m:.2f}", m, tol, distractors,
                     {"data": data}, checks, scenario_domain=None)
+
+
+def _compare_stat(data: List[int], stat: str) -> float:
+    if stat == "mean":
+        return float(S.sample_mean(data))
+    if stat == "median":
+        return float(S.five_number_summary(data)[2])
+    if stat == "iqr":
+        return float(S.iqr(data))
+    if stat == "range":
+        return float(max(data) - min(data))
+    raise ValueError(stat)
+
+
+def _fmt_data(data: List[int], unit: str) -> str:
+    return ", ".join(f"{x:g}" for x in data) + f" {unit}"
+
+
+def gen_compare_stats(rng: random.Random, seed: int) -> Dict:
+    """Compare two one-variable quantitative distributions (cell 1.9 x 3.B).
+    The requested statistic is explicit and the answer is always Group A minus
+    Group B, so a numeric-entry verifier can grade a single parseable number."""
+    c = rng.choice(U1_9_COMPARE_CONTEXTS)
+    tol = 0.01
+    stat = rng.choice(["mean", "median", "iqr"])
+    stat_label = {"mean": "mean", "median": "median", "iqr": "IQR"}[stat]
+    data_a: List[int] = []
+    data_b: List[int] = []
+    key = 0.0
+    distractors: List[Tuple[str, str, float]] = []
+    for _ in range(600):
+        n = rng.choice([7, 9])
+        lo, hi = int(c["low"]), int(c["high"])
+        center_a = rng.randint(lo + 18, hi - 12)
+        offset = rng.choice([-14, -10, -7, 7, 10, 14])
+        center_b = max(lo + 14, min(hi - 14, center_a - offset))
+        spread_a = rng.choice([3, 4, 5, 6, 8])
+        spread_b = rng.choice([3, 4, 5, 6, 8])
+        data_a = sorted(max(lo, min(hi, round(rng.gauss(center_a, spread_a)))) for _ in range(n))
+        data_b = sorted(max(lo, min(hi, round(rng.gauss(center_b, spread_b)))) for _ in range(n))
+        mean_a, mean_b = _compare_stat(data_a, "mean"), _compare_stat(data_b, "mean")
+        med_a, med_b = _compare_stat(data_a, "median"), _compare_stat(data_b, "median")
+        iqr_a, iqr_b = _compare_stat(data_a, "iqr"), _compare_stat(data_b, "iqr")
+        range_a, range_b = _compare_stat(data_a, "range"), _compare_stat(data_b, "range")
+        stat_a, stat_b = _compare_stat(data_a, stat), _compare_stat(data_b, stat)
+        key = stat_a - stat_b
+        if abs(key) < 2.0:
+            continue
+        candidates: List[Tuple[float, str]] = []
+        if stat == "mean":
+            candidates.append((med_a - med_b, "u1_9__used_mean_not_median"))  # wrong formula: median(A)-median(B) instead of mean(A)-mean(B)
+        elif stat == "median":
+            candidates.append((mean_a - mean_b, "u1_9__used_mean_not_median"))  # wrong formula: mean(A)-mean(B) instead of median(A)-median(B)
+        else:
+            candidates.append((range_a - range_b, "u1_9__used_range_not_iqr"))  # wrong formula: range(A)-range(B) instead of IQR(A)-IQR(B)
+            candidates.append((mean_a - mean_b, "u1_9__used_mean_not_median"))  # wrong formula: mean(A)-mean(B) instead of IQR(A)-IQR(B)
+        candidates.extend([
+            (-key, "u1_9__sign_reversed_difference"),                         # wrong formula: statistic(B)-statistic(A)
+            (stat_a, "u1_9__reported_single_group_stat"),                      # wrong formula: statistic(A) only, no subtraction
+            (stat_b, "u1_9__reported_single_group_stat"),                      # wrong formula: statistic(B) only, no subtraction
+        ])
+        distractors = []
+        chosen: List[float] = []
+        chosen_tags = set()
+        for val, tag in candidates:
+            if tag in chosen_tags:
+                continue
+            if abs(val - key) <= 3 * tol:
+                continue
+            if any(abs(val - prior) <= 3 * tol for prior in chosen):
+                continue
+            distractors.append((f"{val:.2f}", tag, val))
+            chosen.append(val)
+            chosen_tags.add(tag)
+            if len(distractors) == 3:
+                break
+        if len(distractors) == 3:
+            break
+    prompt = (f"A researcher records {c['quantity']} for two groups. {c['group_a']} (Group A): "
+              f"{_fmt_data(data_a, c['unit'])}. {c['group_b']} (Group B): {_fmt_data(data_b, c['unit'])}. "
+              f"Calculate Group A's {stat_label} minus Group B's {stat_label}.")
+    worked = (f"Group A {stat_label} = {stat_a:.4f}; Group B {stat_label} = {stat_b:.4f}; "
+              f"A - B = {stat_a:.4f} - {stat_b:.4f} = {key:.4f}.")
+    checks = [
+        ("key_formula", abs(key - (_compare_stat(data_a, stat) - _compare_stat(data_b, stat))) < 1e-9),
+        ("data_sets_same_odd_length", len(data_a) == len(data_b) and len(data_a) in (7, 9)),
+        ("key_not_trivial", abs(key) >= 2.0),
+        ("three_plausible_distractors", len(distractors) == 3),
+        ("distractors_clear_of_key", all(abs(v - key) > 2 * tol for _, _, v in distractors)),
+        ("distractors_distinct", len({d for d, _, _ in distractors}) == 3),
+        ("distractor_tags_distinct", len({tag for _, tag, _ in distractors}) == 3),
+    ]
+    return _package("compare_stats", seed, "1.9", ["3.B"], "Medium", prompt,
+                    f"{stat_label} difference = {key:.4f}", worked,
+                    [{"kind": "numeric", "value": round(key, 4), "tol": tol}],
+                    f"{key:.2f}", key, tol, distractors,
+                    {"scenario_id": c["id"], "stat": stat, "data_a": data_a, "data_b": data_b},
+                    checks, scenario_domain=c["domain"])
 
 
 def gen_t_test_mean(rng: random.Random, seed: int) -> Dict:
@@ -633,6 +732,7 @@ PROCEDURES: Dict[str, Callable[[random.Random, int], Dict]] = {
     "lsrl_predict": gen_lsrl_predict,
     "normal_prob": gen_normal_prob,
     "summary_stats": gen_summary_stats,
+    "compare_stats": gen_compare_stats,
     "t_test_mean": gen_t_test_mean,
     "t_interval_mean": gen_t_interval_mean,
     "chi_square_test": gen_chi_square_test,

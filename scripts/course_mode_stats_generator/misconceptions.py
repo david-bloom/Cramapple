@@ -289,6 +289,36 @@ CATALOG: Dict[str, Misconception] = {m.tag: m for m in [
        "ced_structural", ["summary_stats"], ["1.7"], ["3.B"],
        [_fp("S10 Unit 1 (1.7)", "mean = (1/n) sum x_i -- the division by n is required")]),
 
+    # --- compare_stats (1.9 x 3.B) : compare one-variable distributions -------
+    _M("u1_9__used_mean_not_median",
+       "Used the wrong statistic for a comparison",
+       "Computed a difference of means when a median or IQR comparison was requested, "
+       "or a difference of medians when a mean comparison was requested.",
+       "ced_structural", ["compare_stats"], ["1.9"], ["3.B"],
+       [_fp("S10 Unit 1 (1.7/1.9)",
+            "mean, median, and IQR are distinct summary statistics; comparing distributions requires the named statistic")]),
+
+    _M("u1_9__used_range_not_iqr",
+       "Used range instead of IQR for a spread comparison",
+       "Computed the difference in ranges instead of the difference in IQRs, confusing "
+       "two measures of spread.",
+       "ced_structural", ["compare_stats"], ["1.9"], ["3.B"],
+       [_fp("S10 Unit 1 (1.7/1.9)",
+            "range and IQR are distinct measures of spread; IQR = Q3 - Q1, not max - min")]),
+
+    _M("u1_9__sign_reversed_difference",
+       "Reversed the order of the requested difference",
+       "Computed Group B minus Group A instead of the requested Group A minus Group B.",
+       "ced_structural", ["compare_stats"], ["1.9"], ["3.B"],
+       [_fp("S10 Unit 1 (1.9)", "comparison calculations must follow the stated group order")]),
+
+    _M("u1_9__reported_single_group_stat",
+       "Reported one group's statistic instead of the difference",
+       "Computed the requested statistic for one group but forgot the subtraction step "
+       "needed to compare the two distributions.",
+       "ced_structural", ["compare_stats"], ["1.9"], ["3.B"],
+       [_fp("S10 Unit 1 (1.9)", "comparing distributions involves contrasting the groups, not reporting one group alone")]),
+
     # --- slot-frame FB-4B-COMPARE-01 (1.9 x 4.B) : justify a claim -------------
     _M("ignores_variability_claims_every_value",
        "Treated a difference in means as a claim about every individual value",
