@@ -58,6 +58,7 @@ TASK_VERBS = {
     "Calculate": "perform the steps to a final numeric answer",
     "Construct": "build a representation / interval",
     "Describe": "identify or characterize a statistical method or design",
+    "Describe": "identify or characterize a statistical variable, method, or design",
     "Justify": "give statistical reasoning to support or qualify a claim",
 }
 
@@ -141,6 +142,12 @@ FRAMING: Dict[str, Framing] = {
         ["Unit 1 random-sampling methods only: SRS, stratified, cluster, systematic",
          "non-random convenience and voluntary-response plans must be identified as non-random",
          "stratified samples units within every stratum; cluster samples all units in selected clusters"],
+        [_SEC5, _SEC6, _SEC7]),
+    "slotframe_u1_2_variables": Framing(
+        "slotframe_u1_2_variables", "Q1", "Describe", 2, "exam_aligned_digital",
+        ["Unit 1 variable classification only: categorical vs quantitative",
+         "quantitative variables may be discrete counts or continuous measurements",
+         "numeric labels/codes are categorical when arithmetic on the values is not meaningful"],
         [_SEC5, _SEC6, _SEC7]),
     "t_test_mean": Framing(
         "t_test_mean", "Q4", "Calculate", 3, "exam_aligned_digital",
@@ -369,6 +376,130 @@ U1_11_SAMPLING_CONTEXTS: List[Dict[str, object]] = [
     },
 ]
 
+# Unit 1.2 variable-classification slots. Each id is cell-namespaced.
+U1_2_VARIABLE_CONTEXTS: List[Dict[str, object]] = [
+    {"id": "u1_2__jersey_number", "ctx": "a youth soccer roster", "unit": "player",
+     "variable": "jersey number", "correct": "categorical", "domain": "education",
+     "why": "the number is an identifier, not a measurement",
+     "distractors": [
+         ("quantitative discrete, because jersey numbers are whole numbers", "u1_2__numeric_codes_called_quantitative"),
+         ("quantitative continuous, because larger jersey numbers are greater values", "u1_2__numeric_codes_called_quantitative"),
+         ("ordinal categorical, because the numbers put players in ranked order", "u1_2__counts_or_ordinal_miscategorized"),
+     ]},
+    {"id": "u1_2__zip_code", "ctx": "a city-services survey", "unit": "household",
+     "variable": "home ZIP code", "correct": "categorical", "domain": "civic",
+     "why": "the value labels a location category",
+     "distractors": [
+         ("quantitative discrete, because ZIP codes are written as numbers", "u1_2__numeric_codes_called_quantitative"),
+         ("quantitative continuous, because ZIP codes can be averaged", "u1_2__numeric_codes_called_quantitative"),
+         ("quantitative discrete, because each household has exactly one ZIP code", "u1_2__counts_or_ordinal_miscategorized"),
+     ]},
+    {"id": "u1_2__absences", "ctx": "a school attendance study", "unit": "student",
+     "variable": "number of absences this semester", "correct": "quantitative discrete", "domain": "education",
+     "why": "the value is a count",
+     "distractors": [
+         ("categorical, because students can be grouped by absence count", "u1_2__quantitative_called_categorical"),
+         ("categorical ordinal, because a larger count means worse attendance", "u1_2__counts_or_ordinal_miscategorized"),
+         ("quantitative continuous, because absence totals can be averaged", "u1_2__counts_or_ordinal_miscategorized"),
+     ]},
+    {"id": "u1_2__wait_time", "ctx": "a clinic operations study", "unit": "patient visit",
+     "variable": "waiting time before being called back", "correct": "quantitative continuous", "domain": "health",
+     "why": "the value is a time measurement",
+     "distractors": [
+         ("categorical, because visits can be sorted into short and long waits", "u1_2__quantitative_called_categorical"),
+         ("quantitative discrete, because the time is usually rounded to whole minutes", "u1_2__counts_or_ordinal_miscategorized"),
+         ("categorical ordinal, because longer waits rank above shorter waits", "u1_2__counts_or_ordinal_miscategorized"),
+     ]},
+    {"id": "u1_2__satisfaction_rating", "ctx": "a library service survey", "unit": "patron",
+     "variable": "satisfaction rating from very dissatisfied to very satisfied", "correct": "categorical ordinal", "domain": "civic",
+     "why": "the value is an ordered label",
+     "distractors": [
+         ("quantitative discrete, because the response choices can be coded 1 through 5", "u1_2__numeric_codes_called_quantitative"),
+         ("quantitative continuous, because averages of ratings can be reported", "u1_2__counts_or_ordinal_miscategorized"),
+         ("categorical nominal, because the responses are words", "u1_2__counts_or_ordinal_miscategorized"),
+     ]},
+    {"id": "u1_2__battery_life", "ctx": "a device quality-control study", "unit": "phone",
+     "variable": "battery life on one charge", "correct": "quantitative continuous", "domain": "manufacturing",
+     "why": "the value is a duration measurement",
+     "distractors": [
+         ("categorical, because phones can be labeled low, medium, or high battery life", "u1_2__quantitative_called_categorical"),
+         ("quantitative discrete, because battery life is often rounded to hours", "u1_2__counts_or_ordinal_miscategorized"),
+         ("categorical ordinal, because longer battery life is better", "u1_2__counts_or_ordinal_miscategorized"),
+     ]},
+    {"id": "u1_2__commute_mode", "ctx": "a school attendance study", "unit": "student",
+     "variable": "usual way of getting to school", "correct": "categorical", "domain": "education",
+     "why": "the value names a transportation category",
+     "distractors": [
+         ("quantitative discrete, because each category can be assigned a code", "u1_2__numeric_codes_called_quantitative"),
+         ("categorical ordinal, because some transportation methods take longer than others", "u1_2__counts_or_ordinal_miscategorized"),
+         ("quantitative continuous, because commute time could be measured", "u1_2__quantitative_called_categorical"),
+     ]},
+    {"id": "u1_2__household_size", "ctx": "a city-services survey", "unit": "household",
+     "variable": "number of people living in the household", "correct": "quantitative discrete", "domain": "civic",
+     "why": "the value is a count of people",
+     "distractors": [
+         ("categorical, because households can be grouped as small or large", "u1_2__quantitative_called_categorical"),
+         ("categorical ordinal, because larger households rank above smaller households", "u1_2__counts_or_ordinal_miscategorized"),
+         ("quantitative continuous, because the average household size can be a decimal", "u1_2__counts_or_ordinal_miscategorized"),
+     ]},
+    {"id": "u1_2__service_request_type", "ctx": "a city-services survey", "unit": "household",
+     "variable": "type of city-service request submitted most recently", "correct": "categorical", "domain": "civic",
+     "why": "the value names a request category",
+     "distractors": [
+         ("quantitative discrete, because request types can be numbered in a database", "u1_2__numeric_codes_called_quantitative"),
+         ("categorical ordinal, because some requests are more urgent than others", "u1_2__counts_or_ordinal_miscategorized"),
+         ("quantitative continuous, because response time could be measured for requests", "u1_2__quantitative_called_categorical"),
+     ]},
+    {"id": "u1_2__visits_last_year", "ctx": "a clinic operations study", "unit": "patient",
+     "variable": "number of clinic visits last year", "correct": "quantitative discrete", "domain": "health",
+     "why": "the value is a count of visits",
+     "distractors": [
+         ("categorical, because patients can be grouped by visit frequency", "u1_2__quantitative_called_categorical"),
+         ("categorical ordinal, because more visits can indicate higher need", "u1_2__counts_or_ordinal_miscategorized"),
+         ("quantitative continuous, because the mean number of visits can be a decimal", "u1_2__counts_or_ordinal_miscategorized"),
+     ]},
+    {"id": "u1_2__insurance_type", "ctx": "a clinic operations study", "unit": "patient",
+     "variable": "primary insurance type", "correct": "categorical", "domain": "health",
+     "why": "the value names an insurance category",
+     "distractors": [
+         ("quantitative discrete, because insurance types can be stored as billing codes", "u1_2__numeric_codes_called_quantitative"),
+         ("categorical ordinal, because some plans cost more than others", "u1_2__counts_or_ordinal_miscategorized"),
+         ("quantitative continuous, because insurance cost is numerical", "u1_2__quantitative_called_categorical"),
+     ]},
+    {"id": "u1_2__library_visits", "ctx": "a library service survey", "unit": "patron",
+     "variable": "number of library visits last month", "correct": "quantitative discrete", "domain": "civic",
+     "why": "the value is a count of visits",
+     "distractors": [
+         ("categorical, because patrons can be labeled frequent or infrequent", "u1_2__quantitative_called_categorical"),
+         ("categorical ordinal, because more visits ranks a patron higher", "u1_2__counts_or_ordinal_miscategorized"),
+         ("quantitative continuous, because monthly averages can be decimals", "u1_2__counts_or_ordinal_miscategorized"),
+     ]},
+    {"id": "u1_2__library_card_number", "ctx": "a library service survey", "unit": "patron",
+     "variable": "library-card number", "correct": "categorical", "domain": "civic",
+     "why": "the value is an identifier",
+     "distractors": [
+         ("quantitative discrete, because card numbers are whole numbers", "u1_2__numeric_codes_called_quantitative"),
+         ("quantitative continuous, because card numbers can be averaged", "u1_2__numeric_codes_called_quantitative"),
+         ("categorical ordinal, because larger card numbers came later", "u1_2__counts_or_ordinal_miscategorized"),
+     ]},
+    {"id": "u1_2__defect_count", "ctx": "a device quality-control study", "unit": "phone",
+     "variable": "number of cosmetic defects found during inspection", "correct": "quantitative discrete", "domain": "manufacturing",
+     "why": "the value is a count of defects",
+     "distractors": [
+         ("categorical, because phones can be labeled acceptable or unacceptable", "u1_2__quantitative_called_categorical"),
+         ("categorical ordinal, because more defects means worse condition", "u1_2__counts_or_ordinal_miscategorized"),
+         ("quantitative continuous, because the average defect count can be a decimal", "u1_2__counts_or_ordinal_miscategorized"),
+     ]},
+    {"id": "u1_2__model_code", "ctx": "a device quality-control study", "unit": "phone",
+     "variable": "model code", "correct": "categorical", "domain": "manufacturing",
+     "why": "the value labels the phone model",
+     "distractors": [
+         ("quantitative discrete, because model codes may contain numbers", "u1_2__numeric_codes_called_quantitative"),
+         ("categorical ordinal, because newer model codes are better", "u1_2__counts_or_ordinal_miscategorized"),
+         ("quantitative continuous, because model performance can be measured", "u1_2__quantitative_called_categorical"),
+     ]},
+]
+
 
 # ==============================================================================
 # Access + validation helpers
@@ -457,6 +588,18 @@ def validate_scenarios() -> List[str]:
         seen_sampling_ids.add(ctx.get("id"))
         if not str(ctx.get("id", "")).startswith("u1_11__"):
             problems.append(f"u1_11 sampling context id is not namespaced: {ctx.get('id')}")
+    seen_variable_ids = set()
+    for ctx in U1_2_VARIABLE_CONTEXTS:
+        required = ("id", "ctx", "unit", "variable", "correct", "domain", "why", "distractors")
+        if not all(k in ctx for k in required):
+            problems.append(f"u1_2 variable context missing fields: {ctx}")
+        if ctx.get("id") in seen_variable_ids:
+            problems.append(f"duplicate u1_2 variable context id: {ctx.get('id')}")
+        seen_variable_ids.add(ctx.get("id"))
+        if not str(ctx.get("id", "")).startswith("u1_2__"):
+            problems.append(f"u1_2 variable context id is not namespaced: {ctx.get('id')}")
+        if len(ctx.get("distractors", [])) != 3:
+            problems.append(f"u1_2 variable context needs exactly 3 distractors: {ctx}")
     return problems
 
 
@@ -475,6 +618,7 @@ if __name__ == "__main__":
             "two_mean": len(TWO_MEAN_CONTEXTS),
             "u1_9_compare": len(U1_9_COMPARE_CONTEXTS),
             "u1_11_sampling": len(U1_11_SAMPLING_CONTEXTS),
+            "u1_2_variables": len(U1_2_VARIABLE_CONTEXTS),
         },
         "framing": {p: {"archetype": f.archetype, "task_verb": f.task_verb,
                         "modality": f.modality} for p, f in FRAMING.items()},

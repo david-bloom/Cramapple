@@ -318,6 +318,27 @@ CATALOG: Dict[str, Misconception] = {m.tag: m for m in [
        "needed to compare the two distributions.",
        "ced_structural", ["compare_stats"], ["1.9"], ["3.B"],
        [_fp("S10 Unit 1 (1.9)", "comparing distributions involves contrasting the groups, not reporting one group alone")]),
+    # --- slot-frame FB-U1-2-2A-VARIABLES-01 (1.2 x 2.A) : variable types ------
+    _M("u1_2__numeric_codes_called_quantitative",
+       "Treated numeric labels or codes as quantitative variables",
+       "Classified a categorical identifier or coded label as quantitative merely because it uses numbers.",
+       "ced_structural", ["slotframe_u1_2_variables"], ["1.2"], ["2.A"],
+       [_fp("S10 Unit 1 (1.2)",
+            "categorical variables can be represented by labels or codes; quantitative variables are meaningful numerical measurements or counts")]),
+
+    _M("u1_2__counts_or_ordinal_miscategorized",
+       "Misclassified counts or ordered categories",
+       "Confused a count, which is quantitative discrete, with an ordered category, or treated an ordered category as a measurement.",
+       "ced_structural", ["slotframe_u1_2_variables"], ["1.2"], ["2.A"],
+       [_fp("S10 Unit 1 (1.2)",
+            "variable type depends on what the values mean: categories classify units; counts and measurements are quantitative")]),
+
+    _M("u1_2__quantitative_called_categorical",
+       "Called a genuine numerical measurement categorical",
+       "Classified a measurement or count as categorical because the values are grouped, rounded, or have few distinct values.",
+       "ced_structural", ["slotframe_u1_2_variables"], ["1.2"], ["2.A"],
+       [_fp("S10 Unit 1 (1.2)",
+            "quantitative variables record numerical measurements or counts for which arithmetic comparisons are meaningful")]),
 
     # --- slot-frame FB-4B-COMPARE-01 (1.9 x 4.B) : justify a claim -------------
     _M("ignores_variability_claims_every_value",
