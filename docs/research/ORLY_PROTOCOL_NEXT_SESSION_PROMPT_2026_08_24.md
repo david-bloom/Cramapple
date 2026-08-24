@@ -110,14 +110,23 @@ notes):
   rows reusing their existing placeholder IDs, real FK added and verified
   clean (`20260824160000_content_taxonomy_validation_decisions.sql`).
 
-**One known, pre-existing issue noticed but not touched this session** (found
-by a parallel session, not this thread of work): `app.mcq_choices` grants
-`authenticated` column `SELECT` on `is_correct`/`rationale` for every
-published MCQ on both Prod and Dev — a live answer-key exposure affecting the
-entire item bank including these 8 new items. Recommended fix
-(`REVOKE SELECT (is_correct, rationale) ON app.mcq_choices FROM authenticated, anon`)
-is held for David's explicit go. See the relevant `ACTIVITY_LOG.md` entries
-if picking this up.
+**One pre-existing issue flagged here — now CONFIRMED CLOSED (2026-08-24).**
+`app.mcq_choices` had granted `authenticated` `SELECT` on
+`is_correct`/`rationale` for every published MCQ on both Prod and Dev — a live
+answer-key exposure affecting the entire item bank including these 8 new items.
+A plain column revoke could not fix it (a table-level grant conferred every
+column), so it was closed by the coordinated 3-part fix documented in
+`docs/security/MCQ_ANSWER_KEY_COORDINATED_FIX.md` (reviewer RPC
+`public.get_review_mcq_choices` + drop the table grant, re-grant only the 5
+non-secret columns). **Verified live on both Prod (`pcntajvbdfqhbeewmdry`) and
+Dev (`wmgjsdkphcyhngaffbqf`) 2026-08-24:** as the `authenticated` role,
+`is_correct`/`rationale` are now permission-denied while `choice_key` still
+reads (student serving path intact), and the reviewer RPC exists (SECURITY
+DEFINER, `authenticated` may execute / `anon` may not). The residual
+table-level SELECT still held by Prod's `content_reviewer` role was checked and
+is **not** student-reachable (`content_reviewer` cannot log in, and the
+PostgREST `authenticator` login role is not a member of it, so no client JWT
+can assume it). **No further action needed — do not re-run the revoke.**
 
 ## 2. Key IDs / facts (verified this session, Production `pcntajvbdfqhbeewmdry`)
 
@@ -153,6 +162,7 @@ if picking this up.
   has one real value in use (`chat_review`) — the schema also allows
   `ui_review` and `automated_spot_check` for whenever those actual workflows
   get built. Don't assume they exist yet.
-- **The live `mcq_choices` answer-key exposure** (§1 above) is unrelated to
-  this protocol but affects these 8 items too. Worth asking David about
-  directly if it hasn't been resolved by another session already.
+- **The `mcq_choices` answer-key exposure** (§1 above) is unrelated to this
+  protocol but affected these 8 items too. **RESOLVED and verified live on
+  Prod + Dev 2026-08-24** — see the updated §1 note and
+  `docs/security/MCQ_ANSWER_KEY_COORDINATED_FIX.md`. Nothing left to do here.
