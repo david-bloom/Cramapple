@@ -56,6 +56,14 @@ MISCONCEPTION_TYPES = [
     "over_generalizes_beyond_data",
 ]
 
+DISTRIBUTION_SHAPES = ["right-skewed", "left-skewed", "roughly symmetric"]
+DISTRIBUTION_TAGS = {
+    "u1_6__skew_direction_reversed",
+    "u1_6__center_spread_confused",
+    "u1_6__outlier_from_range_not_fences",
+    "u1_6__ignores_shape_reports_center_only",
+}
+
 
 def _justification_text(kind: str, s: Dict[str, str], mA: float, mB: float, sd: float) -> str:
     a, b, q = s["a"], s["b"], s["quantity"]
@@ -158,12 +166,128 @@ def gen_4b_instance(rng: random.Random, seed: int) -> Dict:
     }
 
 
-def generate(count: int, base_seed: int = 7000) -> List[Dict]:
+def _distribution_summary(shape: str, shift: int) -> Dict[str, float]:
+    if shape == "right-skewed":
+        vals = {"min": 10, "q1": 20, "median": 24, "q3": 34, "max": 52, "mean": 29}
+    elif shape == "left-skewed":
+        vals = {"min": 22, "q1": 40, "median": 50, "q3": 54, "max": 64, "mean": 45}
+    else:
+        vals = {"min": 25, "q1": 40, "median": 50, "q3": 60, "max": 75, "mean": 50}
+    return {k: float(v + shift) for k, v in vals.items()}
+
+
+def _reverse_shape(shape: str) -> str:
+    if shape == "right-skewed":
+        return "left-skewed"
+    if shape == "left-skewed":
+        return "right-skewed"
+    return "right-skewed"
+
+
+def _distribution_option(shape: str, median: float, iqr: float, outlier_phrase: str) -> str:
+    return (f"The distribution is {shape}, centered near the median {median:g}, "
+            f"with IQR {iqr:g}, and {outlier_phrase}.")
+
+
+def gen_u1_6_distribution_instance(rng: random.Random, seed: int) -> Dict:
+    c = rng.choice(SCN.U1_6_DISTRIBUTION_CONTEXTS)
+    shape = rng.choice(DISTRIBUTION_SHAPES)
+    shift = rng.choice([0, 5, 10, 15])
+    vals = _distribution_summary(shape, shift)
+    iqr = vals["q3"] - vals["q1"]
+    low_fence = vals["q1"] - 1.5 * iqr
+    high_fence = vals["q3"] + 1.5 * iqr
+    has_outliers = vals["min"] < low_fence or vals["max"] > high_fence
+    outlier_phrase = "there are no outliers by the 1.5 x IQR rule"
+    prompt = (f"A summary of {c['quantity']} ({c['unit']}) is: min {vals['min']:g}, Q1 {vals['q1']:g}, "
+              f"median {vals['median']:g}, Q3 {vals['q3']:g}, max {vals['max']:g}, and mean about {vals['mean']:g}. "
+              "Which description is best supported by the summary?")
+    correct_text = _distribution_option(shape, vals["median"], iqr, outlier_phrase)
+    distractors = [
+        (_distribution_option(_reverse_shape(shape), vals["median"], iqr, outlier_phrase),
+         "u1_6__skew_direction_reversed"),
+        (f"The distribution is {shape}, centered near the IQR {iqr:g}, with spread about the median {vals['median']:g}, and {outlier_phrase}.",
+         "u1_6__center_spread_confused"),
+        (f"The distribution is {shape}, centered near the median {vals['median']:g}, with IQR {iqr:g}, and the maximum is an outlier because it is far from the minimum.",
+         "u1_6__outlier_from_range_not_fences"),
+        (f"The median is about {vals['median']:g} {c['unit']} and the IQR is about {iqr:g} {c['unit']}.",
+         "u1_6__ignores_shape_reports_center_only"),
+    ]
+    chosen = rng.sample(distractors, 3)
+    options = [{"text": correct_text, "correct": True, "misconception": None}]
+    for text, tag in chosen:
+        options.append({"text": text, "correct": False, "misconception": tag,
+                        "misconception_source": MISC.provenance(tag)})
+    rng.shuffle(options)
+    scenario_prov = SCN.framing("slotframe_u1_6_distribution", c.get("domain"))
+    checks = [
+        ("known_shape", shape in DISTRIBUTION_SHAPES),
+        ("iqr_positive", iqr > 0),
+        ("fences_correct", low_fence == vals["q1"] - 1.5 * iqr and high_fence == vals["q3"] + 1.5 * iqr),
+        ("no_outliers_by_fences", not has_outliers),
+        ("exactly_one_correct", sum(1 for o in options if o["correct"]) == 1),
+        ("four_options", len(options) == 4),
+        ("option_texts_unique", len({o["text"] for o in options}) == 4),
+        ("all_distractors_tagged", all(o["misconception"] for o in options if not o["correct"])),
+        ("all_distractor_tags_canonical", all(o["misconception"] in MISC.CATALOG for o in options if not o["correct"])),
+        ("all_distractors_cite_source", all(o.get("misconception_source", {}).get("sources") for o in options if not o["correct"])),
+        ("scenario_framing_present", bool(scenario_prov.get("archetype")) and bool(scenario_prov.get("sources"))),
+        ("scenario_uses_iqr_fences", any("1.5 x IQR" in r for r in scenario_prov.get("validity_rules", []))),
+        ("distractor_tags_subset", all(o.get("misconception") in DISTRIBUTION_TAGS for o in options if not o["correct"])),
+    ]
+    return {
+        "schema_version": "course-mode-generated-0.1",
+        "package_id": f"slotframe-u1_6-4a-{seed:06d}",
+        "content_key": f"apstat-u1-6-4a-distribution-{seed:06d}",
+        "item_type": "mcq",
+        "difficulty": "Medium",
+        "exam_pack_ref": {"exam_code": "ap_statistics", "cycle": "2026-27"},
+        "taxonomy_refs": [
+            {"scheme_key": "ap-statistics-2026-27", "node_key": "unit-1"},
+            {"scheme_key": "ap-statistics-2026-27", "node_key": "topic-1.6"},
+            {"scheme_key": "ap-statistics-skills", "node_key": "skill-4.A", "practice": 4},
+        ],
+        "cells": [{"topic": "1.6", "skill": "4.A"}],
+        "scenario_provenance": scenario_prov,
+        "prompt": prompt,
+        "mcq_form": {"options": options},
+        "parts": [{
+            "part_key": "part-a", "prompt": prompt,
+            "response_modalities": ["mcq"], "points": 1,
+            "criteria": [{
+                "criterion_key": "part-a-criterion-1", "points": 1,
+                "description": "Selects the distribution description matching shape, center, spread, and outlier evidence.",
+                "required_evidence": f"Correct shape: {shape}; median {vals['median']:g}; IQR {iqr:g}; no outliers by fences",
+                "deterministic_checks": [{"kind": "mcq_key", "correct_shape": shape}],
+                "accepted_variants": [],
+            }],
+        }],
+        "provenance": {
+            "generator": "course_mode_stats_generator/slot_frames.py",
+            "frame_id": "FB-U1-6-4A-DISTRIBUTION-01",
+            "template_id": "slotframe_u1_6_distribution",
+            "params": {"scenario_id": c["id"], "shape": shape, "summary": vals},
+            "seed": seed,
+            "release_status": "unreleased_generated_pending_review",
+            "note": "Authored conceptual frame; correctness from distribution-summary taxonomy.",
+        },
+        "_property_checks": checks,
+    }
+
+
+def generate_4b(count: int, base_seed: int = 7000) -> List[Dict]:
     return [gen_4b_instance(random.Random(base_seed + i), base_seed + i) for i in range(count)]
 
 
-def property_report(count: int = 60) -> Dict:
-    insts = generate(count)
+def generate_u1_6_distribution(count: int, base_seed: int = 16000) -> List[Dict]:
+    return [gen_u1_6_distribution_instance(random.Random(base_seed + i), base_seed + i) for i in range(count)]
+
+
+def generate(count: int, base_seed: int = 7000) -> List[Dict]:
+    return generate_4b(count, base_seed)
+
+
+def _report_frame(frame_id: str, cell: str, insts: List[Dict], note: str) -> Dict:
     failures = []
     nchecks = 0
     for inst in insts:
@@ -171,29 +295,62 @@ def property_report(count: int = 60) -> Dict:
             nchecks += 1
             if not ok:
                 failures.append(f"{inst['provenance']['seed']}/{name}")
+    correct_positions = [
+        next(idx for idx, opt in enumerate(inst["mcq_form"]["options"]) if opt["correct"])
+        for inst in insts
+    ]
     return {
-        "frame_id": "FB-4B-COMPARE-01", "cell": "1.9 x 4.B",
+        "frame_id": frame_id, "cell": cell,
         "instances": len(insts), "checks": nchecks,
         "distinct_prompts": len({i["prompt"] for i in insts}),
+        "correct_answer_positions": sorted(set(correct_positions)),
+        "correct_answer_position_varies": len(set(correct_positions)) >= 2,
         "failures": failures, "ok": len(failures) == 0,
-        "authoring_cost_note": (
-            "1 authored frame + 4 scenario slots + 5 justification-type templates "
-            f"-> {len(insts)} validated instances (x scenario x numeric slots). "
-            "Coverage: 1 of Practice-4's 7 skills (4.B). Scaling estimate: each P4 skill "
-            "needs its own frame family; 4.A/4.C/4.D/4.F/4.G differ structurally, so budget "
-            "~1 frame family per skill, not one frame for all of P4."
-        ),
+        "authoring_cost_note": note,
+    }
+
+
+def property_report(count: int = 120) -> Dict:
+    dist_insts = generate_u1_6_distribution(count, 16000)
+    dist_tags_used = {
+        opt["misconception"]
+        for inst in dist_insts
+        for opt in inst["mcq_form"]["options"]
+        if opt.get("misconception")
+    }
+    frames = [
+        _report_frame("FB-4B-COMPARE-01", "1.9 x 4.B", generate_4b(count, 7000),
+                      "Existing authored 4.B comparison frame."),
+        _report_frame("FB-U1-6-4A-DISTRIBUTION-01", "1.6 x 4.A", dist_insts,
+                      "1 authored frame + 5 contexts x 3 shape surfaces, with varied summary values."),
+    ]
+    meta_tests = [
+        ("all_frames_ok", all(f["ok"] for f in frames)),
+        ("correct_answer_position_varies", all(f["correct_answer_position_varies"] for f in frames)),
+        ("misconception_catalog_self_check", not MISC.validate_catalog()),
+        ("scenario_catalog_self_check", not SCN.validate_scenarios()),
+        ("u1_6_all_new_misconception_tags_used", DISTRIBUTION_TAGS.issubset(dist_tags_used)),
+    ]
+    return {
+        "frames": frames,
+        "instances": sum(f["instances"] for f in frames),
+        "checks": sum(f["checks"] for f in frames),
+        "meta_tests": [{"name": name, "ok": ok} for name, ok in meta_tests],
+        "ok": all(f["ok"] for f in frames) and all(ok for _name, ok in meta_tests),
     }
 
 
 def emit_samples(count: int = 4, base_seed: int = 9000) -> int:
     OUT_DIR.mkdir(parents=True, exist_ok=True)
-    for inst in generate(count, base_seed):
+    sample_sets = [generate_4b(count, base_seed), generate_u1_6_distribution(count, 16100)]
+    emitted = 0
+    for inst in [item for sample in sample_sets for item in sample]:
         assert all(ok for _n, ok in inst["_property_checks"]), \
             f"invalid slot-frame instance reached emit: {inst['package_id']}"
         pkg = {k: v for k, v in inst.items() if k != "_property_checks"}
         (OUT_DIR / f"{inst['package_id']}.json").write_text(json.dumps(pkg, indent=2))
-    return count
+        emitted += 1
+    return emitted
 
 
 if __name__ == "__main__":

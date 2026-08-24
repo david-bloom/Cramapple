@@ -57,6 +57,7 @@ ARCHETYPES = {
 TASK_VERBS = {
     "Calculate": "perform the steps to a final numeric answer",
     "Construct": "build a representation / interval",
+    "Describe": "identify or characterize a statistical variable, method, distribution, or design",
     "Justify": "give statistical reasoning to support or qualify a claim",
 }
 
@@ -128,6 +129,12 @@ FRAMING: Dict[str, Framing] = {
         "slotframe_4b", "Q2", "Justify", 4, "exam_aligned_digital",
         ["OBSERVATIONAL comparison only (no random assignment -> no causal claim)",
          "means differ but spreads overlap so an over-strong claim is refutable"],
+        [_SEC5, _SEC6, _SEC7]),
+    "slotframe_u1_6_distribution": Framing(
+        "slotframe_u1_6_distribution", "Q2", "Describe", 4, "exam_aligned_digital",
+        ["one-variable quantitative distribution described from text and five-number summary",
+         "shape, center, spread, and outlier claims must match the supplied summary",
+         "outlier claims use the 1.5 x IQR fences"],
         [_SEC5, _SEC6, _SEC7]),
     "t_test_mean": Framing(
         "t_test_mean", "Q4", "Calculate", 3, "exam_aligned_digital",
@@ -274,6 +281,15 @@ CATEGORICAL_CONTEXTS: List[Dict[str, object]] = [
      "row_noun": "devices", "domain": "manufacturing"},
 ]
 
+# Unit 1.6 distribution-description contexts. Each id is cell-namespaced.
+U1_6_DISTRIBUTION_CONTEXTS: List[Dict[str, object]] = [
+    {"id": "u1_6__commute_times", "quantity": "one-way commute times", "unit": "minutes", "domain": "social"},
+    {"id": "u1_6__quiz_scores", "quantity": "quiz scores", "unit": "points", "domain": "education"},
+    {"id": "u1_6__seedling_heights", "quantity": "seedling heights", "unit": "cm", "domain": "biology"},
+    {"id": "u1_6__order_totals", "quantity": "online order totals", "unit": "dollars", "domain": "business"},
+    {"id": "u1_6__battery_life", "quantity": "battery life", "unit": "hours", "domain": "manufacturing"},
+]
+
 
 # ==============================================================================
 # Access + validation helpers
@@ -337,6 +353,16 @@ def validate_scenarios() -> List[str]:
             problems.append(f"categorical context missing fields: {ctx}")
         elif len(ctx["rows"]) < 2 or len(ctx["cols"]) < 2:
             problems.append(f"categorical context needs >=2 rows and cols: {ctx}")
+    seen_distribution_ids = set()
+    for ctx in U1_6_DISTRIBUTION_CONTEXTS:
+        required = ("id", "quantity", "unit", "domain")
+        if not all(k in ctx for k in required):
+            problems.append(f"u1_6 distribution context missing fields: {ctx}")
+        if ctx.get("id") in seen_distribution_ids:
+            problems.append(f"duplicate u1_6 distribution context id: {ctx.get('id')}")
+        seen_distribution_ids.add(ctx.get("id"))
+        if not str(ctx.get("id", "")).startswith("u1_6__"):
+            problems.append(f"u1_6 distribution context id is not namespaced: {ctx.get('id')}")
     return problems
 
 
@@ -353,6 +379,7 @@ if __name__ == "__main__":
             "normal": len(NORMAL_CONTEXTS),
             "mean": len(MEAN_CONTEXTS),
             "two_mean": len(TWO_MEAN_CONTEXTS),
+            "u1_6_distribution": len(U1_6_DISTRIBUTION_CONTEXTS),
         },
         "framing": {p: {"archetype": f.archetype, "task_verb": f.task_verb,
                         "modality": f.modality} for p, f in FRAMING.items()},
