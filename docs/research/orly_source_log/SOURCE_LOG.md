@@ -19,3 +19,12 @@ is `answer_approved`, recording a Product Owner approval rather than a
 standard second-reviewer pass. Not inserted into Dev. No
 `content_taxonomy_labels` rows created yet, so these won't surface through
 taxonomy-gated serving paths until the normal labeling pipeline runs.
+
+**Correction note (2026-08-24, same day):** David caught that all 8 items had
+their correct answer at choice key `A`. Fixed via
+`supabase/migrations/20260824130000_randomize_orly_protocol_mcq_correct_keys.sql`
+(random per-item reassignment of A/B/C/D). Also performed and recorded a
+proper independent re-derivation of all 8 answers
+(`supabase/migrations/20260824140000_record_independent_re_derivation_orly_protocol_items.sql`)
+per the newly-added protocol §6 step 4. See the protocol's revision notes for
+both fixes and the going-forward requirements.

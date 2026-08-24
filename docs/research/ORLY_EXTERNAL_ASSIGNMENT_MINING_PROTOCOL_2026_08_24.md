@@ -2,8 +2,10 @@
 
 **Status:** Draft operating protocol, proposed 2026-08-24.
 **Related Tasks:** none yet — first applications are the AP Calculus AB, AP
-Chemistry, and AP Calculus BC summer-assignment reviews this session; no
-`content_items` inserted under this protocol yet.
+Chemistry, and AP Calculus BC summer-assignment reviews this session. 8
+`content_items` published under this protocol so far
+(`apcalcab-mcq-060/070/080/090`, `apcalcbc-mcq-060/070/080/090`); see the
+revision notes below for two corrections found after that first batch.
 **Product Owner:** David Bloom
 **Learning Quality Owner / Source:** Orly Bloom
 **Founding case study:** `AP Chemistry Summer Assignment.pdf` and `AP Calc AB
@@ -15,6 +17,16 @@ Summer Assignment 26.pdf` (Solebury School, teacher Michelle Gavin), reviewed
 source type the original draft didn't name: a licensed third-party platform's
 own auto-generated content (DeltaMath "Corrective Assignment" exports), as
 opposed to a teacher's original worksheet. Added to §2 below.
+
+**Revision note (2026-08-24, later same day):** the first published batch (8
+items above) had two defects, both caught by David after publish, not before:
+(1) every item's correct answer sat at choice key `A` — a predictable pattern,
+now fixed live (`20260824130000_randomize_orly_protocol_mcq_correct_keys.sql`)
+and required going forward (§6 step 2); (2) all 8 went straight to
+`published` on Product Owner topic/pacing approval alone, without a separate
+independent re-derivation pass — §6 step 4 now makes
+`CONTENT_AUTHORING_AND_QA_PROTOCOL.md` §9 verification a hard precondition
+for every future item regardless of how the authoring was approved.
 
 ## 1. Purpose
 
@@ -179,6 +191,14 @@ it does not replace it:
    schema of a real published item (`content_items` / `content_item_versions`
    / `mcq_choices` or `frq_criteria`, `content_taxonomy_labels`) — see the
    worked example from this session (`apcalcab-mcq-060` through `-090`).
+   For MCQ items, **randomly assign which choice key (A/B/C/D) holds the
+   correct answer** — do not default to `A`, and do not eyeball a "varied
+   enough" distribution by hand. The first published batch under this
+   protocol put the correct answer at `A` on all 8 items (an obvious,
+   guessable pattern, caught by David and fixed in
+   `20260824130000_randomize_orly_protocol_mcq_correct_keys.sql`); use an
+   actual random draw (e.g. SQL `random()`, or any equivalent source of
+   randomness) per item, not a fixed or manually-chosen letter.
 3. Tag full metadata at authoring time, not after:
    - `taxonomy_refs`: unit node key, topic node key (`topic-X.Y`), and the
      relevant AP practice/skill node key(s);
@@ -187,11 +207,25 @@ it does not replace it:
      mirrored into Dev this week);
    - `difficulty` and `calculator_mode` in `prompt_json`;
    - `review_notes.originality_statement` naming the source document per §2.
-4. Insert as `status = 'draft'` only. Never insert directly as `published` —
-   run through the standard taxonomy-labeling and content-review pipeline
-   (`CONTENT_AUTHORING_AND_QA_PROTOCOL.md`), which now enforces the
-   publish-gate and content-review-invariant triggers in both Dev and Prod.
-5. Record the resulting `content_key`s back in the source log (§3) so the
+4. **Every item authored under this protocol must pass
+   `CONTENT_AUTHORING_AND_QA_PROTOCOL.md`'s QA checks — specifically §9's
+   independent re-derivation (re-solve the answer from first principles,
+   don't read-and-trust the drafted key) — before `status` moves to
+   `published`.** This is a hard precondition, not a suggestion: a Product
+   Owner's approval of topic scope, pacing fit, or "these are simple
+   questions" is approval to *author and publish*, it is not itself the QA
+   pass and does not substitute for it. The first published batch under this
+   protocol treated Product Owner approval as sufficient and skipped a
+   separate independent re-derivation step; going forward, do the
+   re-derivation regardless of how confident the item looks, and record it
+   (what was independently re-checked, and that it matched) alongside the
+   `originality_statement` in `review_notes`.
+5. Insert as `status = 'draft'` first. Walk the real
+   `draft -> reviewed_approved -> published` state machine (per the
+   `content_pipeline_guard_publish` and `enforce_publish_gate` triggers) so
+   the pipeline's own guards apply normally — do not hand-set
+   `status = 'published'` directly on insert.
+6. Record the resulting `content_key`s back in the source log (§3) so the
    provenance chain (school → document → items) stays intact.
 
 If a document reveals a **category gap** — a skill or checkpoint type
