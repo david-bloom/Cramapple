@@ -1,0 +1,177 @@
+{
+  "schema_version": "course-mode-generated-0.1",
+  "package_id": "t_test_mean-005001",
+  "content_key": "apstat-t_test_mean-005001",
+  "item_type": "mcq",
+  "difficulty": "Medium",
+  "exam_pack_ref": {
+    "exam_code": "ap_statistics",
+    "cycle": "2026-27"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "unit-4"
+    },
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "topic-4.5"
+    },
+    {
+      "scheme_key": "ap-statistics-skills",
+      "node_key": "skill-3.E",
+      "practice": 3
+    }
+  ],
+  "cells": [
+    {
+      "topic": "4.5",
+      "skill": "3.E"
+    }
+  ],
+  "prompt": "A transit analyst claims the mean one-way commute time is 25 minutes. A random sample of n = 30 has sample mean 24.12 minutes and sample standard deviation s = 4 minutes. Calculate the one-sample t test statistic for H0: mu = 25.",
+  "numeric_form": {
+    "answer_desc": "t = -1.205",
+    "deterministic_checks": [
+      {
+        "kind": "numeric",
+        "value": -1.205,
+        "tol": 0.01
+      }
+    ]
+  },
+  "mcq_form": {
+    "options": [
+      {
+        "text": "-6.60",
+        "correct": false,
+        "misconception": "se_divided_by_n_not_sqrt_n",
+        "misconception_source": {
+          "tag": "se_divided_by_n_not_sqrt_n",
+          "label": "Used SE = s/n instead of s/sqrt(n)",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S3/S4 (t procedures)",
+              "note": "SE of a sample mean is s/sqrt(n), not s/n"
+            }
+          ]
+        }
+      },
+      {
+        "text": "-1.20",
+        "correct": true,
+        "misconception": null
+      },
+      {
+        "text": "1.20",
+        "correct": false,
+        "misconception": "flipped_t_numerator",
+        "misconception_source": {
+          "tag": "flipped_t_numerator",
+          "label": "Flipped the sign of the t-statistic numerator",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S3/S4 (t procedures)",
+              "note": "t = (x-bar - mu0)/(s/sqrt(n)); numerator is observed minus hypothesized"
+            }
+          ]
+        }
+      },
+      {
+        "text": "-0.22",
+        "correct": false,
+        "misconception": "used_s_not_se",
+        "misconception_source": {
+          "tag": "used_s_not_se",
+          "label": "Used the sample SD s as the standard error (forgot /sqrt(n))",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S3/S4 (t procedures)",
+              "note": "the SD of x-bar is s/sqrt(n); s alone overstates the SE"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "worked_solution": "t = (24.12 - 25) / (4 / sqrt(30)) = -1.205.",
+  "parts": [
+    {
+      "part_key": "part-a",
+      "prompt": "A transit analyst claims the mean one-way commute time is 25 minutes. A random sample of n = 30 has sample mean 24.12 minutes and sample standard deviation s = 4 minutes. Calculate the one-sample t test statistic for H0: mu = 25.",
+      "response_modalities": [
+        "mcq",
+        "numeric"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "t = -1.205",
+          "required_evidence": "t = (24.12 - 25) / (4 / sqrt(30)) = -1.205.",
+          "deterministic_checks": [
+            {
+              "kind": "numeric",
+              "value": -1.205,
+              "tol": 0.01
+            }
+          ],
+          "accepted_variants": []
+        }
+      ]
+    }
+  ],
+  "scenario_provenance": {
+    "archetype": "Q4",
+    "archetype_label": "Multi-focus on Practices 2, 3 & 4 (spans multiple content areas)",
+    "task_verb": "Calculate",
+    "practice": 3,
+    "modality": "exam_aligned_digital",
+    "validity_rules": [
+      "a random sample of a quantitative variable (population roughly Normal or n large)",
+      "a hypothesized mean mu0 and a positive sample SD",
+      "the t-statistic magnitude stays in a realistic range"
+    ],
+    "sources": [
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S5 (Free-response archetypes)",
+        "note": "Section II question archetypes Q1-Q4"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S6 (Task verbs)",
+        "note": "the item stem's verb must match the scored demand"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S7 (Response modality)",
+        "note": "digital Bluebook; text/numeric entry -> exam_aligned_digital"
+      }
+    ],
+    "domain": "social"
+  },
+  "provenance": {
+    "generator": "course_mode_stats_generator/generator.py",
+    "template_id": "t_test_mean",
+    "params": {
+      "mu0": 25.0,
+      "xbar": 24.12,
+      "s": 4.0,
+      "n": 30
+    },
+    "seed": 5001,
+    "release_status": "unreleased_generated_pending_review",
+    "note": "Synthetic; not official CB content. Requires CM-D19 template-release + review."
+  }
+}

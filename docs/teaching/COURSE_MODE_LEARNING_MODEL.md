@@ -168,8 +168,10 @@ OPEN:
 - The student EXPERIENCE layer is NOT yet designed: per-cell micro-experience flavored by trigger `reason` (maintenance / consolidation / reopened-miss / confirm); session assembly ("your 20 minutes"); the fortress/progress surface. Deferred until supply is proven.
 
 RESOLVED 2026-08-23 (David):
-- CM-D19 template-level release mechanism — APPROVED (with sampled spot-audit).
+- CM-D19 template-level release mechanism — APPROVED (with sampled spot-audit). **BUILT 2026-08-23** as `app.cm_d19_release_template()` / `app.cm_d19_revoke_template_release()` (migration `20260823160000`), fail-closed on the D8 bars and reversible per template. See `COURSE_MODE_RELEASE_PATH_DECISION_BRIEF.md`.
+- **D8 release bars — APPROVED 2026-08-23 (David), `bars_version='cm-d19-phase1-2026-08-23'`:** SME validation sample **20** instances/template with **0** defects; property-test coverage **≥100** instances/template with **0** rejects; gold-behavior regression **0** verifier disagreements; ongoing spot-audit **5** served instances/template/month. Phase-1 defaults, tunable; recorded in `app.template_release_bars`. Resolves the CM-D17 "sample sizes / gold-set regression thresholds" OPEN item for the pilot and the pilot plan's D8.
 - SME gate on §3 skill anchoring — David is the reviewer/SME of record for the pilot and will consult Jill as necessary. He consciously makes the fact-pack §3/§9 amendment: bulk authoring proceeds keyed off these tags; §10 is usable as a candidate under his review. Student-facing serving is under David's review authority.
+- **Distractor realism is a release-blocking quality bar (2026-08-23):** every generated MCQ distractor must be a *distinct, plausible, on-scale* error (per `CONTENT_AUTHORING_AND_QA_PROTOCOL` / `TASK-0008`), not merely a mechanically-derived wrong value. The computational generator enforces this with per-procedure plausibility guardrails + property tests (added for `lsrl_predict` after David's SME review; other computational templates spot-checked on-scale).
 
 DEFERRED (post-pilot / later phase):
 - Phase 2 graph triggers (prereq, thread-sibling) and the CED-extracted principle graph (vertical + lateral edges).

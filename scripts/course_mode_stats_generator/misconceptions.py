@@ -203,6 +203,20 @@ CATALOG: Dict[str, Misconception] = {m.tag: m for m in [
        [_fp("S10 Unit 5 (5.3)", "the requested x-value must be substituted into y-hat = a + bx"),
         _ext("fiveable.me", _FIVEABLE_LSRL, "substitute the given x-value, not a placeholder, into the model")]),
 
+    _M("predicted_intercept_ignored_x",
+       "Predicted the intercept, ignoring the explanatory variable",
+       "Reported the y-intercept a as the prediction (y-hat = a), dropping the b*x term "
+       "and treating the response as if it did not depend on x.",
+       "ced_structural", ["lsrl_predict"], ["5.3"], ["3.B"],
+       [_fp("S10 Unit 5 (5.3)", "the model y-hat = a + bx depends on x; using a alone drops the explanatory variable")]),
+
+    _M("used_x_minus_one",
+       "Substituted x - 1 instead of the requested x-value",
+       "Evaluated the line at x - 1 rather than the requested x -- an off-by-one slip in "
+       "substituting the explanatory value into y-hat = a + bx.",
+       "ced_structural", ["lsrl_predict"], ["5.3"], ["3.B"],
+       [_fp("S10 Unit 5 (5.3)", "the requested x-value must be substituted exactly into y-hat = a + bx")]),
+
     # --- normal_prob (2.11 x 3.C) : normal-distribution probability ------------
     # Section 10 flags 2.11 misconception coverage as thin; corroborated via
     # trusted study guides (documented tail/area error patterns).
@@ -309,6 +323,60 @@ CATALOG: Dict[str, Misconception] = {m.tag: m for m in [
        [_fp("S10 'General exam-wide conventions'",
             "2025 CR Report: conclusions must use non-definitive language ('convincing evidence'), never 'proves'/'always'; "
             "and must not generalize beyond the studied population")]),
+
+    # --- t procedures (means): 4.2 x 3.E interval, 4.5 x 3.E test statistic ----
+    _M("se_divided_by_n_not_sqrt_n",
+       "Used SE = s/n instead of s/sqrt(n)",
+       "Divided the sample SD by n rather than sqrt(n) when forming the standard "
+       "error of the mean.",
+       "ced_structural", ["t_test_mean", "t_interval_mean"], ["4.5", "4.2"], ["3.E"],
+       [_fp("S3/S4 (t procedures)", "SE of a sample mean is s/sqrt(n), not s/n")]),
+    _M("used_s_not_se",
+       "Used the sample SD s as the standard error (forgot /sqrt(n))",
+       "Treated s itself as the standard error, omitting the /sqrt(n) that turns a "
+       "spread into the SD of the sample mean.",
+       "ced_structural", ["t_test_mean", "t_interval_mean"], ["4.5", "4.2"], ["3.E"],
+       [_fp("S3/S4 (t procedures)", "the SD of x-bar is s/sqrt(n); s alone overstates the SE")]),
+    _M("flipped_t_numerator",
+       "Flipped the sign of the t-statistic numerator",
+       "Computed (mu0 - x-bar) instead of (x-bar - mu0), reversing the sign of t.",
+       "ced_structural", ["t_test_mean"], ["4.5"], ["3.E"],
+       [_fp("S3/S4 (t procedures)", "t = (x-bar - mu0)/(s/sqrt(n)); numerator is observed minus hypothesized")]),
+    _M("used_z_star_not_t_star",
+       "Used a z* critical value instead of t* for a mean",
+       "Used a Normal critical value (e.g. 1.96 at 95%) instead of the larger t* with "
+       "df = n-1 -- a documented z-vs-t confusion for means.",
+       "ced_structural", ["t_interval_mean"], ["4.2"], ["3.E"],
+       [_fp("S8/S3 (CED convention)", "means use t (df = n-1); z is for proportions, so a t interval must use t*")]),
+
+    # --- chi-square (independence/homogeneity): 3.15 x 3.E test statistic ------
+    _M("chi_forgot_square",
+       "Summed (O - E)/E without squaring",
+       "Computed sum of (O - E)/E instead of (O - E)^2/E, omitting the square.",
+       "ced_structural", ["chi_square_test"], ["3.15"], ["3.E"],
+       [_fp("S3 (chi-square)", "chi-square = sum (O - E)^2 / E; the deviation is squared")]),
+    _M("chi_no_divide_by_E",
+       "Summed (O - E)^2 without dividing by E",
+       "Computed sum of (O - E)^2 and never divided each squared deviation by E.",
+       "ced_structural", ["chi_square_test"], ["3.15"], ["3.E"],
+       [_fp("S3 (chi-square)", "each squared deviation is standardized by dividing by its expected count")]),
+    _M("chi_divided_by_O_not_E",
+       "Divided the squared deviation by O instead of E",
+       "Computed sum of (O - E)^2/O, dividing by the observed rather than expected count.",
+       "ced_structural", ["chi_square_test"], ["3.15"], ["3.E"],
+       [_fp("S3 (chi-square)", "the denominator in chi-square is the EXPECTED count E, not the observed O")]),
+    _M("chi_uniform_expected",
+       "Used equal expected counts (grand total / number of cells)",
+       "Computed each expected count as grand_total / (#cells) -- an equal split across all "
+       "cells -- instead of E = row_total * col_total / grand_total, then summed (O - E)^2/E.",
+       "ced_structural", ["chi_square_test"], ["3.15"], ["3.E"],
+       [_fp("S3 (chi-square)", "expected counts come from the MARGINAL totals (row*col/grand), not an equal split")]),
+    _M("chi_expected_row_only",
+       "Built expected counts from the row total only (ignored column marginals)",
+       "Computed each expected count as row_total / (#columns) -- splitting each row equally "
+       "across columns and ignoring the column marginals -- then summed (O - E)^2/E.",
+       "ced_structural", ["chi_square_test"], ["3.15"], ["3.E"],
+       [_fp("S3 (chi-square)", "expected counts use BOTH marginals (row*col/grand); a row-only split ignores the column distribution")]),
 ]}
 
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Course-Mode AP Statistics computational item generator (v1.1).
+"""Course-Mode AP Statistics computational item generator (v1.3).
 
 Architecture (COURSE_MODE_LEARNING_MODEL.md CM-D15): procedure library x
 scenario layer x question-form layer. Each PROCEDURE is a deterministic function
@@ -18,8 +18,13 @@ v1.1 (post Fable QA 2026-08-23) hardening:
 - Cells tag ONLY the assessed skill (CM-D05): CI->3.3x3.E, two-prop->3.13x3.E,
   LSRL predict->5.3x3.B, normal->2.11x3.C, summary->1.7x3.B.
 
-v1 scope: stdlib-exact, normal-based procedures only (no t / chi-square — those
-need special functions and a scipy dependency decision).
+v1.3 scope: stdlib-exact, 7 procedures. Proportion CI + two-proportion z-test,
+LSRL predict, normal probability, summary stats, one-sample t-test statistic
+(4.5x3.E), one-sample t confidence interval (4.2x3.E), and chi-square test for
+independence/homogeneity (3.15x3.E). t procedures use the standard tabulated t*;
+chi-square uses the statistic + expected counts -- all pure arithmetic, so NO
+scipy/special-function dependency. Tail p-values (which would need the t/chi-square
+CDF) are intentionally not generated. Two-sample t procedures are the next add.
 
 Synthetic tooling; NOT official College Board content. release_status=
 'unreleased_generated_pending_review'; requires CM-D19 template-release + review.
@@ -27,6 +32,7 @@ Synthetic tooling; NOT official College Board content. release_status=
 from __future__ import annotations
 
 import json
+import math
 import random
 import re
 from pathlib import Path
@@ -47,6 +53,8 @@ CONTEXTS = SCN.PROPORTION_CONTEXTS
 TWO_GROUP = SCN.TWO_GROUP_CONTEXTS
 REG_CONTEXTS = SCN.REGRESSION_CONTEXTS
 NORMAL_CONTEXTS = SCN.NORMAL_CONTEXTS
+MEAN_CONTEXTS = SCN.MEAN_CONTEXTS
+CATEGORICAL_CONTEXTS = SCN.CATEGORICAL_CONTEXTS
 
 
 def _rid(prefix: str, seed: int) -> str:
@@ -165,35 +173,68 @@ def gen_two_prop_ztest(rng: random.Random, seed: int) -> Dict:
 
 
 def gen_lsrl_predict(rng: random.Random, seed: int) -> Dict:
+    """Predict a response from a least-squares line (cell 5.3 x 3.B). The item shows
+    the LINE (not raw data), so the generator picks a, b directly (with small jitter
+    for a realistic non-round coefficient). Every value -- the KEY and each distractor
+    -- must land inside the context's CREDIBILITY ENVELOPE (y_lo..y_hi) with the
+    requested x in a realistic range, so no instance produces an absurd scenario (an
+    exam score > 100, a $36k 15-year-old car, or freezing ice-cream weather)."""
     c = rng.choice(REG_CONTEXTS)
     xlab, ylab, who, sign = c["xlab"], c["ylab"], c["who"], c["sign"]
+    y_lo, y_hi = float(c["y_lo"]), float(c["y_hi"])
     tol = 0.05
-    for _ in range(200):  # reject non-plausible (negative y-hat / y_i)
-        slope = sign * rng.choice([0.8, 1.2, 1.5, 2.0, 3.0])
-        n = rng.choice([6, 7, 8])
-        xs = sorted(rng.sample(range(1, 16), n))
-        intercept = rng.choice([20, 30, 40, 60, 80])  # large enough to keep y>=0
-        ys = [round(intercept + slope * x + rng.uniform(-2, 2), 1) for x in xs]
-        b, a, r = S.lsrl(xs, ys)  # b = slope, a = intercept
-        x_new = rng.choice(list(range(max(xs) + 1, max(xs) + 5)))
-        yhat = S.predict(b, a, x_new)  # predict(slope, intercept, x)
-        if yhat >= 0 and all(y >= 0 for y in ys):
+    plausible: List[Tuple[str, str, float]] = []
+    a = b = 0.0
+    x_new = 0
+    yhat = 0.0
+    for _ in range(600):
+        a = round(rng.choice(c["a_choices"]) + rng.uniform(-0.9, 0.9), 2)      # intercept (baseline)
+        b = round(sign * (rng.choice(c["b_mag"]) + rng.uniform(-0.3, 0.3)), 2)  # realistic non-round slope
+        x_new = rng.randint(c["x_lo"], c["x_hi"])                              # realistic prediction point
+        yhat = a + b * x_new
+        # Candidate distractors -- each a DISTINCT, documented misconception. A candidate
+        # is kept only if its value is a CREDIBLE value for this quantity (inside the
+        # y_lo..y_hi envelope) and clear of / distinct from the key. The envelope is what
+        # keeps every option believable (an exam-score distractor stays <=100 and >=65; a
+        # used-car distractor stays a real price), and it naturally drops the transforms
+        # that would overshoot (e.g. sign-flip on a steep negative slope).
+        cand = [
+            (b * x_new,           "dropped_intercept"),            # omitted the intercept
+            (a - b * x_new,       "sign_error_on_slope"),          # flipped the slope's sign
+            (a + b,               "plugged_in_1_not_x"),           # substituted x = 1
+            (a,                   "predicted_intercept_ignored_x"),  # used y-hat = a, ignored x
+            (a + b * (x_new - 1), "used_x_minus_one"),             # off-by-one on x
+        ]
+        plausible = []
+        chosen_vals: List[float] = []
+        for val, tag in cand:
+            if not (y_lo <= val <= y_hi):                 # credible value for THIS quantity
+                continue
+            if abs(val - yhat) <= 3 * tol:                # clear of the key's grading band
+                continue
+            if any(abs(val - v) <= 3 * tol for v in chosen_vals):
+                continue                                  # distinct from the other distractors
+            plausible.append((f"{val:.2f}", tag, val))
+            chosen_vals.append(val)
+        # The KEY must be a credible, non-boundary value (not hugging y_lo/y_hi, so it is
+        # not the obvious odd-one-out and never exceeds a hard cap like a 100-point exam).
+        key_ok = (y_lo + 0.05 * (y_hi - y_lo)) <= yhat <= (y_hi - 0.02 * (y_hi - y_lo))
+        if key_ok and len(plausible) >= 3:
             break
     prompt = (f"{who.capitalize()} fits a least-squares line predicting {ylab} from {xlab}. "
               f"The line is {_fmt_line(a, b)}. Predict {ylab} when {xlab} = {x_new}.")
     worked = f"{_fmt_line(a, b).replace('x', f'({x_new})')} = {yhat:.3f}."
-    distractors = [
-        (f"{a + b:.2f}", "plugged_in_1_not_x", a + b),
-        (f"{b + a * x_new:.2f}", "swapped_slope_intercept", b + a * x_new),
-        (f"{b * x_new:.2f}", "dropped_intercept", b * x_new),
-        (f"{a - b * x_new:.2f}", "sign_error_on_slope", a - b * x_new),
-    ]
+    distractors = plausible[:3]
     checks = [
         ("predict_formula", abs(yhat - (a + b * x_new)) < 1e-9),
-        ("yhat_nonneg", yhat >= 0),
-        ("all_y_nonneg", all(y >= 0 for y in ys)),
-        ("r_in_range", -1.0 <= r <= 1.0),
+        ("key_in_envelope", y_lo <= yhat <= y_hi),
+        ("key_not_at_boundary", (y_lo + 0.05 * (y_hi - y_lo)) <= yhat <= (y_hi - 0.02 * (y_hi - y_lo))),
+        ("x_new_in_realistic_range", c["x_lo"] <= x_new <= c["x_hi"]),
         ("slope_sign_matches_context", (b > 0) == (sign > 0)),
+        ("three_plausible_distractors", len(distractors) == 3),
+        ("distractors_in_envelope", all(y_lo <= v <= y_hi for _, _, v in distractors)),
+        ("distractors_clear_of_key", all(abs(v - yhat) > 2 * tol for _, _, v in distractors)),
+        ("distractors_distinct", len({d for d, _, _ in distractors}) == 3),
     ]
     return _package("lsrl_predict", seed, "5.3", ["3.B"], "Easy", prompt,
                     f"y-hat = {yhat:.3f}", worked,
@@ -262,12 +303,204 @@ def gen_summary_stats(rng: random.Random, seed: int) -> Dict:
                     {"data": data}, checks, scenario_domain=None)
 
 
+def gen_t_test_mean(rng: random.Random, seed: int) -> Dict:
+    """One-sample t test statistic for a mean (cell 4.5 x 3.E). t (for means),
+    never z (CED convention). Distractors are all genuine t-values from documented
+    SE / sign errors, kept in a realistic |t| range."""
+    c = rng.choice(MEAN_CONTEXTS)
+    tol = 0.01
+    plausible: List[Tuple[str, str, float]] = []
+    for _ in range(400):
+        mu0 = float(rng.choice(c["mu0_choices"]))
+        s = float(rng.choice(c["s_choices"]))
+        n = int(rng.choice(c["n_choices"]))
+        se = s / math.sqrt(n)
+        target_t = rng.choice([-2.5, -2.0, -1.5, -1.2, 1.2, 1.5, 2.0, 2.5])
+        xbar = round(mu0 + target_t * se, 2)
+        t = S.t_statistic(xbar, mu0, s, n)
+        # Distractor candidates: each a documented, on-scale t-value error.
+        cand = [
+            (-t,                    "flipped_t_numerator"),          # (mu0 - xbar)
+            ((xbar - mu0) / s,      "used_s_not_se"),                # forgot /sqrt(n)  (smaller |t|)
+            ((xbar - mu0) / (s / n), "se_divided_by_n_not_sqrt_n"),  # SE = s/n         (larger |t|)
+        ]
+        plausible = []
+        chosen: List[float] = []
+        for val, tag in cand:
+            if abs(val) > 9:               # realistic: keep every option in a sane t-range
+                continue
+            if abs(val - t) <= 3 * tol:    # clear of the key's grading band
+                continue
+            if any(abs(val - v) <= 3 * tol for v in chosen):
+                continue                   # distinct from the other distractors
+            plausible.append((f"{val:.2f}", tag, val))
+            chosen.append(val)
+        if 1.0 <= abs(t) <= 5.0 and len(plausible) >= 3:
+            break
+    prompt = (f"{c['who'].capitalize()} claims the mean {c['quantity']} is {mu0:g} {c['unit']}. "
+              f"A random sample of n = {n} has sample mean {xbar:g} {c['unit']} and sample standard "
+              f"deviation s = {s:g} {c['unit']}. Calculate the one-sample t test statistic for H0: mu = {mu0:g}.")
+    worked = f"t = ({xbar:g} - {mu0:g}) / ({s:g} / sqrt({n})) = {t:.3f}."
+    distractors = plausible[:3]
+    checks = [
+        ("t_formula", abs(t - (xbar - mu0) / (s / math.sqrt(n))) < 1e-9),
+        ("t_realistic", 1.0 <= abs(t) <= 5.0),
+        ("three_plausible_distractors", len(distractors) == 3),
+        ("distractors_in_t_range", all(abs(v) <= 9 for _, _, v in distractors)),
+        ("distractors_clear_of_key", all(abs(v - t) > 2 * tol for _, _, v in distractors)),
+        ("distractors_distinct", len({d for d, _, _ in distractors}) == 3),
+    ]
+    return _package("t_test_mean", seed, "4.5", ["3.E"], "Medium", prompt,
+                    f"t = {t:.3f}", worked,
+                    [{"kind": "numeric", "value": round(t, 3), "tol": tol}],
+                    f"{t:.2f}", t, tol, distractors,
+                    {"mu0": mu0, "xbar": xbar, "s": s, "n": n}, checks, scenario_domain=c["domain"])
+
+
+def gen_t_interval_mean(rng: random.Random, seed: int) -> Dict:
+    """One-sample t confidence interval for a mean (cell 4.2 x 3.E). t*, never z*
+    (CED convention). Distractor intervals are all centered at x-bar and differ
+    only in width (from documented SE / z-vs-t errors), so each is a realistic,
+    positive-bounded interval -- no off-scale option."""
+    c = rng.choice(MEAN_CONTEXTS)
+    tol = 0.02
+    plausible: List[Tuple[str, str, None]] = []
+    for _ in range(400):
+        s = float(rng.choice(c["s_choices"]))
+        n = int(rng.choice(c["n_choices"]))          # n <= 30 keeps df = n-1 in the table
+        conf = rng.choice([0.90, 0.95, 0.99])
+        xbar = float(rng.choice(c["mu0_choices"]))
+        df = n - 1
+        moe, lo, hi = S.one_mean_t_interval(xbar, s, n, conf)
+        se = s / math.sqrt(n)
+        cand = [
+            (S.z_star(conf) * se,          "used_z_star_not_t_star"),      # z* not t* (narrower)
+            (S.t_star(df, conf) * (s / n), "se_divided_by_n_not_sqrt_n"),  # SE = s/n (much narrower)
+            (S.t_star(df, conf) * s,       "used_s_not_se"),               # forgot /sqrt(n) (much wider)
+        ]
+        plausible = []
+        chosen: List[float] = []
+        for m, tag in cand:
+            if m <= 0 or (xbar - m) <= 0:      # realistic: positive margin AND positive lower bound
+                continue
+            if abs(m - moe) <= tol:            # a visibly different interval from the key
+                continue
+            if any(abs(m - mm) <= tol for mm in chosen):
+                continue                       # distinct from the other distractor intervals
+            plausible.append((f"({xbar - m:.2f}, {xbar + m:.2f})", tag, None))
+            chosen.append(m)
+        if lo > 0 and len(plausible) >= 3:
+            break
+    tstar = S.t_star(df, conf)
+    prompt = (f"{c['who'].capitalize()} takes a random sample of n = {n} and measures {c['quantity']}, "
+              f"obtaining sample mean {xbar:g} {c['unit']} and sample standard deviation s = {s:g} {c['unit']}. "
+              f"Construct a {int(conf * 100)}% confidence interval for the population mean {c['quantity']}.")
+    worked = (f"df = {n} - 1 = {df}. t* = {tstar:.3f}. SE = s/sqrt(n) = {se:.4f}. "
+              f"ME = t*·SE = {moe:.4f}. Interval = {xbar:g} +/- {moe:.4f} = ({lo:.3f}, {hi:.3f}).")
+    distractors = plausible[:3]
+    checks = [
+        ("interval_uses_t_star", abs(moe - tstar * (s / math.sqrt(n))) < 1e-9),
+        ("interval_centered", abs((lo + hi) / 2 - xbar) < 1e-9),
+        ("lower_bound_positive", lo > 0),
+        ("df_in_table", df in S.T_STAR),
+        ("three_plausible_distractors", len(distractors) == 3),
+        ("distractor_intervals_distinct", len({d for d, _, _ in distractors}) == 3),
+        ("distractor_lower_bounds_positive",
+         all(float(d.strip("()").split(",")[0]) > 0 for d, _, _ in distractors)),
+    ]
+    return _package("t_interval_mean", seed, "4.2", ["3.E"], "Medium", prompt,
+                    f"({lo:.3f}, {hi:.3f})", worked,
+                    [{"kind": "interval", "low": round(lo, 3), "high": round(hi, 3), "tol": 0.01}],
+                    f"({lo:.2f}, {hi:.2f})", None, 0.01, distractors,
+                    {"xbar": xbar, "s": s, "n": n, "conf": conf}, checks, scenario_domain=c["domain"])
+
+
+def _fmt_table(rows: List[str], cols: List[str], obs: List[List[int]]) -> str:
+    """Readable inline rendering of a two-way count table (no monospace needed)."""
+    parts = []
+    for rlab, orow in zip(rows, obs):
+        parts.append(f"{rlab}: " + ", ".join(f"{clab} {v}" for clab, v in zip(cols, orow)))
+    return "; ".join(parts)
+
+
+def gen_chi_square_test(rng: random.Random, seed: int) -> Dict:
+    """Chi-square test statistic for a two-way table (cell 3.15 x 3.E), for
+    independence/homogeneity only. Distractors are POSITIVE, on-scale chi-square
+    values from documented WRONG-EXPECTED-COUNTS / wrong-denominator errors -- not
+    the naive 'forgot to square' / 'no divide by E' transforms, which produce
+    off-scale or negative values a student rules out on sight."""
+    c = rng.choice(CATEGORICAL_CONTEXTS)
+    rows, cols = c["rows"], c["cols"]
+    nrows, ncols, ncells = len(rows), len(cols), len(rows) * len(cols)
+    tol = 0.01
+    plausible: List[Tuple[str, str, float]] = []
+    for _ in range(800):
+        obs = [[rng.randint(10, 45) for _ in range(ncols)] for _ in range(nrows)]
+        exp = S.chi_square_expected(obs)
+        if any(e < 5 for erow in exp for e in erow):     # large-counts condition (all E >= 5)
+            continue
+        x2 = S.chi_square_stat(obs)
+        grand = sum(sum(r) for r in obs)
+        row_tot = [sum(r) for r in obs]
+        eu = grand / ncells                              # uniform (equal-split) expected
+        d_uniform = sum((o - eu) ** 2 / eu for orow in obs for o in orow)
+        d_rowonly = sum((o - (row_tot[i] / ncols)) ** 2 / (row_tot[i] / ncols)
+                        for i, orow in enumerate(obs) for o in orow)
+        d_byO = sum((o - e) ** 2 / o for orow, erow in zip(obs, exp) for o, e in zip(orow, erow))
+        cand = [
+            (d_byO,     "chi_divided_by_O_not_E"),   # correct E, divided by O
+            (d_uniform, "chi_uniform_expected"),     # E = grand/#cells
+            (d_rowonly, "chi_expected_row_only"),    # E = row_total/#cols
+        ]
+        p_max = 4.0 * max(x2, 3.0)                        # on-scale: no wild outlier option
+        plausible = []
+        chosen: List[float] = []
+        for val, tag in cand:
+            if not (0.0 < val <= p_max):
+                continue
+            if abs(val - x2) <= 3 * tol:
+                continue
+            if any(abs(val - v) <= 3 * tol for v in chosen):
+                continue
+            plausible.append((f"{val:.2f}", tag, val))
+            chosen.append(val)
+        if 2.0 <= x2 <= 25.0 and len(plausible) >= 3:
+            break
+    df = (nrows - 1) * (ncols - 1)
+    prompt = (f"A researcher records {c['desc']}, obtaining these observed counts -- "
+              f"{_fmt_table(rows, cols, obs)}. Calculate the chi-square test statistic for the "
+              f"test of {'homogeneity' if nrows > 1 else 'independence'} (df = {df}).")
+    ex0 = exp[0][0]
+    worked = (f"Expected count E = (row total x column total)/grand total; e.g. E[{rows[0]},{cols[0]}] = "
+              f"({row_tot[0]} x {sum(obs[i][0] for i in range(nrows))})/{grand} = {ex0:.3f}. "
+              f"chi-square = sum (O - E)^2/E = {x2:.3f}.")
+    distractors = plausible[:3]
+    checks = [
+        ("chi_square_formula", abs(x2 - S.chi_square_stat(obs)) < 1e-9),
+        ("chi_square_nonneg", x2 >= 0),
+        ("chi_square_realistic", 2.0 <= x2 <= 25.0),
+        ("all_expected_at_least_5", all(e >= 5 for erow in exp for e in erow)),
+        ("three_plausible_distractors", len(distractors) == 3),
+        ("distractors_positive", all(v > 0 for _, _, v in distractors)),
+        ("distractors_on_scale", all(v <= 4.0 * max(x2, 3.0) for _, _, v in distractors)),
+        ("distractors_clear_of_key", all(abs(v - x2) > 2 * tol for _, _, v in distractors)),
+    ]
+    return _package("chi_square_test", seed, "3.15", ["3.E"], "Hard", prompt,
+                    f"chi-square = {x2:.2f}", worked,
+                    [{"kind": "numeric", "value": round(x2, 3), "tol": tol}],
+                    f"{x2:.2f}", x2, tol, distractors,
+                    {"observed": obs}, checks, scenario_domain=c["domain"])
+
+
 PROCEDURES: Dict[str, Callable[[random.Random, int], Dict]] = {
     "one_prop_ci": gen_one_prop_ci,
     "two_prop_ztest": gen_two_prop_ztest,
     "lsrl_predict": gen_lsrl_predict,
     "normal_prob": gen_normal_prob,
     "summary_stats": gen_summary_stats,
+    "t_test_mean": gen_t_test_mean,
+    "t_interval_mean": gen_t_interval_mean,
+    "chi_square_test": gen_chi_square_test,
 }
 
 

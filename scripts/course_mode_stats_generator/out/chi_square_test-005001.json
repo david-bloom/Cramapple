@@ -1,0 +1,185 @@
+{
+  "schema_version": "course-mode-generated-0.1",
+  "package_id": "chi_square_test-005001",
+  "content_key": "apstat-chi_square_test-005001",
+  "item_type": "mcq",
+  "difficulty": "Hard",
+  "exam_pack_ref": {
+    "exam_code": "ap_statistics",
+    "cycle": "2026-27"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "unit-3"
+    },
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "topic-3.15"
+    },
+    {
+      "scheme_key": "ap-statistics-skills",
+      "node_key": "skill-3.E",
+      "practice": 3
+    }
+  ],
+  "cells": [
+    {
+      "topic": "3.15",
+      "skill": "3.E"
+    }
+  ],
+  "prompt": "A researcher records devices from two production lines and their inspection outcome, obtaining these observed counts -- Line 1: Pass 34, Rework 35, Fail 13; Line 2: Pass 35, Rework 45, Fail 43. Calculate the chi-square test statistic for the test of homogeneity (df = 2).",
+  "numeric_form": {
+    "answer_desc": "chi-square = 9.52",
+    "deterministic_checks": [
+      {
+        "kind": "numeric",
+        "value": 9.517,
+        "tol": 0.01
+      }
+    ]
+  },
+  "mcq_form": {
+    "options": [
+      {
+        "text": "9.52",
+        "correct": true,
+        "misconception": null
+      },
+      {
+        "text": "11.68",
+        "correct": false,
+        "misconception": "chi_divided_by_O_not_E",
+        "misconception_source": {
+          "tag": "chi_divided_by_O_not_E",
+          "label": "Divided the squared deviation by O instead of E",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S3 (chi-square)",
+              "note": "the denominator in chi-square is the EXPECTED count E, not the observed O"
+            }
+          ]
+        }
+      },
+      {
+        "text": "12.66",
+        "correct": false,
+        "misconception": "chi_expected_row_only",
+        "misconception_source": {
+          "tag": "chi_expected_row_only",
+          "label": "Built expected counts from the row total only (ignored column marginals)",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S3 (chi-square)",
+              "note": "expected counts use BOTH marginals (row*col/grand); a row-only split ignores the column distribution"
+            }
+          ]
+        }
+      },
+      {
+        "text": "18.87",
+        "correct": false,
+        "misconception": "chi_uniform_expected",
+        "misconception_source": {
+          "tag": "chi_uniform_expected",
+          "label": "Used equal expected counts (grand total / number of cells)",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S3 (chi-square)",
+              "note": "expected counts come from the MARGINAL totals (row*col/grand), not an equal split"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "worked_solution": "Expected count E = (row total x column total)/grand total; e.g. E[Line 1,Pass] = (82 x 69)/205 = 27.600. chi-square = sum (O - E)^2/E = 9.517.",
+  "parts": [
+    {
+      "part_key": "part-a",
+      "prompt": "A researcher records devices from two production lines and their inspection outcome, obtaining these observed counts -- Line 1: Pass 34, Rework 35, Fail 13; Line 2: Pass 35, Rework 45, Fail 43. Calculate the chi-square test statistic for the test of homogeneity (df = 2).",
+      "response_modalities": [
+        "mcq",
+        "numeric"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "chi-square = 9.52",
+          "required_evidence": "Expected count E = (row total x column total)/grand total; e.g. E[Line 1,Pass] = (82 x 69)/205 = 27.600. chi-square = sum (O - E)^2/E = 9.517.",
+          "deterministic_checks": [
+            {
+              "kind": "numeric",
+              "value": 9.517,
+              "tol": 0.01
+            }
+          ],
+          "accepted_variants": []
+        }
+      ]
+    }
+  ],
+  "scenario_provenance": {
+    "archetype": "Q4",
+    "archetype_label": "Multi-focus on Practices 2, 3 & 4 (spans multiple content areas)",
+    "task_verb": "Calculate",
+    "practice": 3,
+    "modality": "exam_aligned_digital",
+    "validity_rules": [
+      "a two-way table of counts for two categorical variables",
+      "every EXPECTED count >= 5 (the large-counts condition)",
+      "chi-square for independence/homogeneity only; statistic stays in a realistic range"
+    ],
+    "sources": [
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S5 (Free-response archetypes)",
+        "note": "Section II question archetypes Q1-Q4"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S6 (Task verbs)",
+        "note": "the item stem's verb must match the scored demand"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S7 (Response modality)",
+        "note": "digital Bluebook; text/numeric entry -> exam_aligned_digital"
+      }
+    ],
+    "domain": "manufacturing"
+  },
+  "provenance": {
+    "generator": "course_mode_stats_generator/generator.py",
+    "template_id": "chi_square_test",
+    "params": {
+      "observed": [
+        [
+          34,
+          35,
+          13
+        ],
+        [
+          35,
+          45,
+          43
+        ]
+      ]
+    },
+    "seed": 5001,
+    "release_status": "unreleased_generated_pending_review",
+    "note": "Synthetic; not official CB content. Requires CM-D19 template-release + review."
+  }
+}

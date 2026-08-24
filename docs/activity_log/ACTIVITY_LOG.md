@@ -6,6 +6,13 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Course Mode lsrl_predict RELEASED (First Live CM-D19 Template Release; David Approved the Credible Items — "these are credible for a high schooler"): Applied the Credible Reload MYSELF via Supabase MCP (David Couldn't Locate the Branch-Only `out/lsrl_reload_DRAFT.sql`) and VERIFIED Byte-Fidelity Against the Local File — 3 Items' Prompts, All 12 Choices, 3 Deterministic Checks, and All 3 content_sha256 Match Exactly; Keys Independently Recomputed (67.75 / 7.68 / 247.45). First Real CM-D19 Stamp EXPOSED a Latent Bug: the Function Jumped `draft→published` in One UPDATE, Blocked by the Standing `content_pipeline_guard_publish` (Both content_items + content_item_versions Require `reviewed_approved` Before `published`) — the Fail-Closed Unit Test Had Only Exercised the GATE-REJECTION Path, Never a Successful Publish. FIXED via migration `20260824010000` (Two-Phase `draft→reviewed_approved→published` Stamp That Satisfies Every Guard — publish_gate, mcq_stem_choice_sync, FRQ-Only practice_format Skip; Idempotent; D8 Gate/Ledger/Scoping Unchanged). Re-Ran: `cm_d19_release_template('lsrl_predict', 2026-27 epv, {sme 20/0, property 200/0, verifier 0}, released_by=David)` → **ok, 3 instances_stamped**, All 3 Now `status=published` + `review_status=question_review_approved` + published_at Set; template_releases Ledger Recorded (release edde7473, spot-audit 5/mo, not revoked). Property Attestation Corrected to a TRUTHFUL 200 lsrl-Specific Instances/0 Rejects (Official Harness; the Prior "400" Was Across All 8 Procedures, and the Per-Proc Default of 80 Is Below the ≥100 Bar). David's ap-statistics Entitlement Already Active; the Front-End Serving Switches (Publish the 2026-27 epv, Add a `home_release_manifest` Row, Set `profiles.active_exam_pack_version_id`) Are STAGED and HELD for David's Explicit Go Since He's Said He's "Not Ready for Front-End Experience" — 2026-08-24
+- Course Mode lsrl_predict Scenario CREDIBILITY Rebuilt (2nd SME Pass by David): the Scenarios Failed the Real-World Plausibility Test (a $36k 15-Year-Old Car, Ice-Cream Temperature in Freezing Fahrenheit, Exam Scores >100 and Distractors Far Below Passing). Fix: Each Regression Context Now Carries a Credibility ENVELOPE (Units + Realistic x-Range + y_lo..y_hi) That the Key AND Every Distractor Must Satisfy — Cars 3–11yr / Old Cars ~$5–6k, Ice Cream in °C, Exam Capped [65,100], Plus Seedling-Height/Revenue Contexts; New On-Scale `used_x_minus_one` Distractor; Harness 0/80; Review Sheet Rev 3 — 2026-08-24
+- Course Mode Generator Coverage Extended (Unblocked Backend Work): Three New Computational Procedures Built With the Realistic-Distractor Guardrail — One-Sample t-Test Statistic (4.5×3.E), One-Sample t Confidence Interval (4.2×3.E), and χ² Test for Independence/Homogeneity (3.15×3.E), All Stdlib-Only Via a Standard Tabulated t* + Arithmetic (No scipy); Cell Coverage 6→9, 8 Procedures Total; χ² Distractors Use On-Scale Wrong-Expected-Counts Errors (Not the Off-Scale Naïve Ones); Harness 0 Rejects/80 Each, 28 Packages Validate — 2026-08-23
+- Course Mode lsrl_predict Distractors Made Realistic Per the Content-Authoring Protocol (David's SME Review Flagged Them): Removed the Off-Scale `swapped_slope_intercept` (a "$905k car"), Added the On-Scale `predicted_intercept_ignored_x` Diagnostic, and Added a Plausibility Guardrail (Distractors Positive + On-Scale; Key Floored to a Realistic Value) in Code + Property Tests; Harness 0/80, Other 4 Templates Spot-Checked Clean; 20 Fixed Instances Presented for SME Re-Review (Awaiting Attestation) — 2026-08-23
+- Course Mode D8 Release Bars Approved (SME 20/0-defects · ≥100 Property Instances/0 Rejects · 0 Verifier Disagreements · 5/Template/Month Spot-Audit) and CM-D19 Template-Release Stamping BUILT + Applied to Dev (migration 20260823160000: bars table + release ledger + fail-closed `cm_d19_release_template`/revoke functions); Fail-Closed Gate Verified (a Sub-Bar Attestation Is Rejected, 0 Items Stamped); Actual Release Still Needs David's Real 20-Instance SME Attestation + Cycle Serving Switches — 2026-08-23
+- Course Mode Dev Launch Path Started (David: Launch Dev-First, Numeric-Entry, Exam Date May 11 2027): the `last_attempt_id` Migration APPLIED to Dev and the `ap_statistics 2026-27` Exam-Pack Version CREATED (Loader's Two `into strict` Resolutions Now Both Pass) — but the `evaluate-attempt` Hook Deploy + Smoke-Test + 184KB Loader Run Are BLOCKED: This Session Has No Supabase CLI / Access Token / psql, and the MCP Deploy Can't Take the 23-File/287KB Function Inline; Needs a Token or a Human to Run Two Commands — 2026-08-23
+- Course Mode Release-Path Decision Brief Written (Surface, Not Execute): PR #101 Found Already Merged to `main` (Handoff Was Stale), and Verified Live Dev State Shows the Deploy-Gate Is Real — the `last_attempt_id` Migration Is Unapplied and `evaluate-attempt` Still Runs the Pre-Hook v14, So a Deploy-Before-Migration Would Silently No-Op the Whole Hook; the `app.grading_results` Answer-Key Exposure Confirmed as a Real Surface; the 2026-27 Exam-Pack Version Still Missing (Loader Blocked). Nothing Executed — Decisions (D8 Bars, Exam-Pack Version, Serving Form) Surfaced for David — 2026-08-23
 - Course Mode Live Write Hook (PR #101) Passed Fable QA Round-2 Re-QA: All 14 Round-1 Fixes Verified Genuine, and the 2 MAJOR Regressions the Fixes Introduced (Idempotent-Replay Leaked the shadow_result Answer Key; the F2 Stamp Blocked the Uncertain→Graded Upgrade) Both Fixed — Plus 4 Minor/Nit; Deno Suite 101→105 Green — 2026-08-23
 - Course Mode Live Write Hook (PR #101) Passed an Independent Fable QA Round and Had All 14 Findings Remediated in the Same PR — 2 BLOCKER (Transient-Read Demotion; Re-Grade Evidence Double-Count), 3 MAJOR (No-Provenance Over-Promotion; Unauditable Graded Path; Dropped-Criteria Over-Grade), Plus 9 MINOR/NIT; One Additive `last_attempt_id` Migration Added, Deno Suite 62→101 Green — 2026-08-23
 - Course Mode Live Write Hook Built and Opened as Draft PR #101: the F4 `data_driven` Real-Grading Branch (Abstain Still Holds for Shadow Review) and `persistCellState` Now Connect a Graded Attempt to a Cell-State Write — Code-Only, No Migration, Full Course-Mode Deno Suite 62/62 Green, Pending Review/Merge + Dev Deploy + Fable QA; Zero Learner-Visible Effect Until Release (D8/CM-D19) — 2026-08-23
@@ -156,6 +163,107 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## Course Mode — lsrl_predict Scenario Credibility Envelopes (2nd SME Pass) — 2026-08-24
+
+David's second SME pass on the 20 `lsrl_predict` items flagged **scenario credibility** failures (real-world plausibility of the numbers, distinct from the earlier distractor-math fix): a 15-year-old car predicted at $36k; ice-cream sales vs a *freezing* Fahrenheit temperature; a tutor scenario with a predicted exam score > 100 and a distractor at 11.49 (a passing score band is ~65–100).
+
+**Root cause:** the generator drew generic intercepts/slopes and extrapolated x to 13–19 with no per-scenario reality constraint.
+
+**Fix (`scenarios.py` + `generator.py` + `misconceptions.py`):** each regression context now carries a **credibility envelope** — units, a realistic x-range for the prediction point, and a response envelope `y_lo..y_hi`. The **key and every distractor** must land inside it, and the key must be a non-boundary value. Enforced in code + property tests.
+- Contexts: ice-cream sales vs temperature **in °C**; used-car price vs age with **realistic ages 3–11** so a 10-yr car predicts **~$5–6k** (not $36k); **exam score capped at 100 and floored at 65** (all options in [65,100]); plus **seedling height** and **monthly revenue** (naturally wide envelopes). The old bounded-and-broken exam framing was reworked rather than dropped.
+- The item shows only the LINE, so `a,b` are now chosen directly (small jitter for a realistic non-round coefficient) instead of fitting throwaway data.
+- Added on-scale distractor `used_x_minus_one` so the tighter-envelope contexts still yield three credible options.
+- **Validation:** harness **0 rejects / 80**, catalog + scenario self-checks clean, 28 packages validate. Review sheet **rev 3** regenerated for David's re-review. **Open judgment calls flagged to David:** car unit kept as "thousands of dollars" (vs hundreds); for depreciation the correct answer is legitimately the lowest option.
+
+---
+
+## Course Mode — Generator Coverage: One-Sample t Procedures (Overnight) — 2026-08-23
+
+While awaiting David's SME review of `lsrl_predict`, executed the unblocked Workstream-2 generator coverage (no sign-off needed; produces unreleased drafts only).
+
+- **statlib:** added a standard AP **t\*-table** (df 1–30 × {90, 95, 99}) + `t_star`, `t_statistic`, `one_mean_t_interval`, `chi_square_expected`/`chi_square_stat` — all **verified against known values**. Key design: items ask for the **statistic / interval** (pure arithmetic + tabulated t\*), never a tail p-value, so **no scipy / special-function dependency** is introduced (the env is stdlib-only; scipy was approved but avoided as unnecessary).
+- **New procedures (both with the realistic-distractor guardrail from the lsrl fix):**
+  - `t_test_mean` → **cell 4.5×3.E** (one-sample t test statistic). Distractors are all genuine t-values from documented SE/sign errors (`flipped_t_numerator`, `used_s_not_se`, `se_divided_by_n_not_sqrt_n`), capped to a realistic |t| ≤ 9.
+  - `t_interval_mean` → **cell 4.2×3.E** (one-sample t confidence interval; t\*, never z\* — CED convention). Distractor **intervals** are all centered at x̄ and differ only in width (`used_z_star_not_t_star`, `se_divided_by_n_not_sqrt_n`, `used_s_not_se`), each positive-bounded; the subtle z-vs-t error is the hardest distractor.
+- **scenarios:** `MEAN_CONTEXTS` + `CATEGORICAL_CONTEXTS` + framing for `t_test_mean` / `t_interval_mean` / `chi_square_test`, with self-check validation. **misconceptions:** catalog entries for the t and χ² distractors.
+  - `chi_square_test` → **cell 3.15×3.E** (χ² statistic for independence/homogeneity; all-expected-counts ≥ 5 guardrail). Distractors are POSITIVE, on-scale χ² values from documented **wrong-expected-counts / wrong-denominator** errors (`chi_divided_by_O_not_E`, `chi_uniform_expected`, `chi_expected_row_only`) — deliberately NOT the naïve "forgot to square" / "no divide by E" transforms, which produce off-scale or negative χ² (the realism defect from David's lsrl review); cap tightened to 4× the key.
+- **Validation:** property harness **0 rejects / 80** per procedure (all 8), catalog + scenario self-checks clean, **28 packages validate** (0 problems), `f4_load_DRAFT.sql` rebuilt. Cell coverage **6 → 9**.
+- **Next coverage adds (unblocked):** two-sample t procedures (4.7 / 4.10 × 3.E) and more Practice-4 slot-frames (Track B — the load-bearing conceptual engine). All produce unreleased drafts; each new template still needs the D8 SME sign-off before release.
+
+---
+
+## Course Mode — lsrl_predict Distractor Realism Fix (Authoring-Protocol Compliance) — 2026-08-23
+
+David's SME review of the first 20 `lsrl_predict` instances flagged the distractors as unrealistic. He is right and the content-authoring protocol backs it: `CONTENT_AUTHORING_AND_QA_PROTOCOL` / `TASK-0008` require **"every distractor maps to a distinct plausible error,"** and the reviewer QA sweeps repeatedly reject "non-plausible throwaway" / off-scale distractors as defects.
+
+- **Root cause:** the `swapped_slope_intercept` distractor computed `b + a*x` (slope + intercept·x), which for these params lands 10–40× off-scale — a "$905k used car" a student eliminates on sight.
+- **Fix (`generator.py` + `misconceptions.py`):** removed `swapped_slope_intercept` from `lsrl_predict`; added `predicted_intercept_ignored_x` (predicts ŷ = a — a real, on-scale diagnostic error; `ced_structural`) to the catalog. The candidate pool is now sign-flip / used-x=1 / dropped-intercept / ignored-x, and each item selects the **3 that are positive, on the data's scale, and clear of the key's grading band**. Added a plausibility **guardrail in code + property tests**, and **floored the KEY** to a realistic value (the earlier $30 prediction is gone; min key now ~$2.9k).
+- **Validation:** property harness **0 rejects / 80 instances**, catalog self-check clean. **Spot-checked the other four computational templates** (one_prop_ci, two_prop_ztest, normal_prob, summary_stats) — their distractors are already on-scale (probabilities in [0,1], plausible z-stats, means within the data range, valid CI bounds), so `lsrl_predict` was the sole offender (its "swapped" transform multiplied rather than staying additive).
+- Re-emitted the `lsrl_predict` samples + rebuilt `f4_load_DRAFT.sql`. **20 fixed instances presented to David for SME re-review** (artifact); the loaded Dev drafts still carry the old distractors and will be **reloaded at release time**. Awaiting attestation.
+
+---
+
+## Course Mode — D8 Bars Approved + CM-D19 Template-Release Stamping Built — 2026-08-23
+
+**D8 release bars — approved by David (Phase-1 pilot).** SME validation sample **20** instances/template, **0** defects; property-test coverage **≥100** instances/template, **0** rejects; gold-behavior regression **0** verifier disagreements; ongoing spot-audit **5** served instances/template/month. Recorded as `bars_version='cm-d19-phase1-2026-08-23'`.
+
+**CM-D19 template-release stamping — built + applied to Dev** (migration `20260823160000_course_mode_cm_d19_template_release.sql`; in the repo on the branch and applied to Dev via MCP):
+- `app.template_release_bars` — the approved bars, versioned + auditable.
+- `app.template_releases` — release ledger: one row per (template_id, exam_pack_version) with the attestation, spot-audit rate, released_by/at, revoked_by/at, instances_stamped. RLS service_role-only.
+- `app.cm_d19_release_template(template_id, exam_pack_version_id, attestation, released_by, bars_version)` — **fail-closed** on the bars (raises if any of sme_sample_n/sme_defects/property_instances/property_rejects/verifier_disagreements misses), guards that the template has instances in the pack, records the release, then stamps every matching instance (`item_package_payload->'provenance'->>'template_id'`) to `review_status='question_review_approved'` + `status='published'` (both `content_items` and `content_item_versions`, satisfying the publish gate in one update). Idempotent per (template, pack).
+- `app.cm_d19_revoke_template_release(...)` — reverses it (un-stamps to draft/null), so a release is reversible per template.
+
+**Verified:** the fail-closed gate rejects a sub-bar attestation (SME sample 5 < 20) with **0 items stamped and 0 release rows** created. An *honest* attestation today would also fail the gate — the 20-instance SME review is David's and hasn't happened — so the gate correctly refuses to release a not-yet-SME-validated template.
+
+**Still required to actually serve an item to a student:** (1) David's real SME attestation (review 20 sampled instances, 0 defects); (2) cycle-level serving switches — publish the `2026-27` exam_pack_version (currently `draft`) + an active `subject_entitlement` for the test account. The live "answer it → watch the cell update" firing is also egress-blocked from the agent session (must be driven from a host that can reach the function).
+
+---
+
+## Course Mode Dev Launch Path — Started (Migration + Exam-Pack Applied; Deploy/Load Blocked on Tooling) — 2026-08-23
+
+**Decisions taken this session (David).** Launch **Dev-first** (prove the whole path in Dev before promoting to Prod); **serving form = numeric-entry** for the computational items; **AP Stats 2026-27 exam date = Tuesday 2027-05-11**. Rationale for Dev-first: Course Mode currently exists only in Dev (Prod has none of the objects); pushing an unproven pipeline straight to the live site is the risky move.
+
+**Executed in Dev (`wmgjsdkphcyhngaffbqf`), both reversible; Prod untouched:**
+1. **`last_attempt_id` migration applied** — `app.student_cell_state.last_attempt_id uuid` now present (was the deploy-gate prerequisite; must precede the function deploy).
+2. **`ap_statistics 2026-27` exam-pack version created** — `exam_pack_id a568c9fb-…`, version id `4e54bb4f-695f-41be-ac06-745fe9ad8bcc`, `official_exam_date 2027-05-11`, `status='draft'` (mirrors the 2025-26 row; nothing auto-serves). The loader's two `into strict` resolutions (exam-pack version + taxonomy version with seeded cells → `dae3c72e-…`) now each return exactly one row, so `build_load_sql.py`'s output is unblocked.
+
+**Blocked on tooling (NOT on logic or decisions):** this session has **no Supabase CLI, no `SUPABASE_ACCESS_TOKEN`, no psql, no deno**. The remaining steps move files, which the MCP tools can't ingest at size:
+- Deploy `evaluate-attempt` with the merged hook — 23-file / 287 KB transitive closure; the MCP `deploy_edge_function` would need every file inlined by hand (unsafe for executable code). Dev's deployed function is still the pre-hook **v14**.
+- Smoke-test one cell write — depends on the deploy.
+- Run the loader — `out/f4_load_DRAFT.sql` is 184 KB; `execute_sql` can't reliably take it inline.
+
+**Unblock (one of):** (a) provide a Supabase personal access token → install the CLI in-session and run `supabase functions deploy evaluate-attempt --project-ref wmgjsdkphcyhngaffbqf --use-api` + apply `out/f4_load_DRAFT.sql`; or (b) a human runs those two locally. RELEASE remains gated on D8 bars + CM-D19 regardless (this path stops at "content loaded + one graded attempt proven to update a cell").
+
+**RESOLVED same session (David ran the two commands):** the loader ran via the Supabase SQL Editor → **19 items / 19 check rows / 19 cell tags / 6 distinct cells, all `review_status NULL`** (15 `data_driven_deterministic` + 4 `rule_based_mcq`), verified from Dev. The deploy initially failed repeatedly because a stray `~/supabase` folder made the CLI pick `/Users/davidbloom` as its workdir no matter the CWD; fixed by cloning fresh and forcing `--workdir "$PWD"` → `evaluate-attempt` **deployed to v15** (`ezbr_sha256 2d1f53df…`), confirmed via `list_edge_functions`. Dev backend pipeline now complete; only the live "graded attempt → cell write" proof remains (needs one authenticated attempt through the deployed function).
+
+---
+
+## Course Mode Release-Path Decision Brief (Surface, Not Execute) — 2026-08-23
+
+**Context.** Picked up the course-mode extension for a new session. Caught up on the full handoff + companion docs, then — per David's choice of the RELEASE-PATH workstream — surfaced the path from "the live write hook is merged" to "a student sees a graded cell update," **without executing any governance or release step**. Deliverable: `docs/teaching/COURSE_MODE_RELEASE_PATH_DECISION_BRIEF.md`.
+
+**What changed since the handoff was written (discovered).** PR #101 (the live write hook) is **already MERGED to `main`** (merge commit `571f6a0`, 2026-08-23 17:13) — the handoff header/§2/§7 still described it as draft/open. Corrected the handoff.
+
+**Verified live Dev state (`wmgjsdkphcyhngaffbqf`, read-only).**
+- The `last_attempt_id` migration (`20260823150000`) is **UNAPPLIED** — `app.student_cell_state.last_attempt_id` is absent.
+- `evaluate-attempt` in Dev is still **v14** (last updated ~mid-July 2026, before the hook existed) — the merged code is **not deployed**.
+- ⇒ the deploy-gate ordering hazard is **live**: deploying `evaluate-attempt` before applying the migration would make every `student_cell_state` read/write error → the hook's guard SKIPs them → the whole hook silently no-ops (grades unaffected, failure invisible). Migration MUST go first.
+- Dev has only the `ap_statistics 2025-26` exam-pack version; **no `2026-27`** → the loader's `into strict` resolution still aborts (loader blocked on a governance object).
+- `taxonomy_cells` = 131 (F1 intact); `content_item_cells` / `content_item_checks` / `student_cell_state` all = 0 (nothing loaded/written).
+- **Security surface confirmed:** `public.grading_results` correctly excludes `shadow_result`/`raw_model_response`, but `app.grading_results` carries a direct `authenticated: SELECT` grant + the `shadow_result` column + an owner-select RLS policy → a student could REST-read their own row's answer key **if** PostgREST exposes the `app` schema. Exposed-schemas config must be verified in the dashboard; recommended revoking the direct grant as belt-and-suspenders.
+
+**What the brief lays out (decisions David owns, surfaced not set):**
+- **Decision A — D8 release bars** (ON HOLD): the pass/fail predicate CM-D19 stamping must encode; no defaults invented.
+- **Decision B — the `ap_statistics 2026-27` exam-pack version** (David/Orly governance; needs the official exam date): the loader's hard blocker.
+- **Decision C — serving form** (numeric-entry vs MCQ): the merged branch grades `responseText` as numeric-entry, so MCQ serving would abstain-and-hold unless the choice maps to a number. Recommended numeric-entry for the computational templates.
+- **Deploy-gate G1–G3** (safe now, release-independent, zero learner-visible effect): apply migration → deploy `evaluate-attempt` → smoke-test with a throwaway cell-tagged draft.
+- **Security gate S** (before any release): verify `app` not REST-exposed + revoke the direct grant.
+- **CM-D19 stamping**: design sketch, blocked on Decision A.
+
+**Executed nothing.** No migration applied, no function deployed, no exam-pack version created, loader not run, CM-D19 not built, no Dev/PostgREST config changed. All Dev queries read-only; Prod untouched. Work landed on branch `claude/cramapple-course-mode-next-d420oh` (docs only).
 
 ---
 
