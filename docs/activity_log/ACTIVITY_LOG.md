@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Course Mode lsrl_predict Scenario CREDIBILITY Rebuilt (2nd SME Pass by David): the Scenarios Failed the Real-World Plausibility Test (a $36k 15-Year-Old Car, Ice-Cream Temperature in Freezing Fahrenheit, Exam Scores >100 and Distractors Far Below Passing). Fix: Each Regression Context Now Carries a Credibility ENVELOPE (Units + Realistic x-Range + y_lo..y_hi) That the Key AND Every Distractor Must Satisfy — Cars 3–11yr / Old Cars ~$5–6k, Ice Cream in °C, Exam Capped [65,100], Plus Seedling-Height/Revenue Contexts; New On-Scale `used_x_minus_one` Distractor; Harness 0/80; Review Sheet Rev 3 — 2026-08-24
 - Course Mode Generator Coverage Extended (Unblocked Backend Work): Three New Computational Procedures Built With the Realistic-Distractor Guardrail — One-Sample t-Test Statistic (4.5×3.E), One-Sample t Confidence Interval (4.2×3.E), and χ² Test for Independence/Homogeneity (3.15×3.E), All Stdlib-Only Via a Standard Tabulated t* + Arithmetic (No scipy); Cell Coverage 6→9, 8 Procedures Total; χ² Distractors Use On-Scale Wrong-Expected-Counts Errors (Not the Off-Scale Naïve Ones); Harness 0 Rejects/80 Each, 28 Packages Validate — 2026-08-23
 - Course Mode lsrl_predict Distractors Made Realistic Per the Content-Authoring Protocol (David's SME Review Flagged Them): Removed the Off-Scale `swapped_slope_intercept` (a "$905k car"), Added the On-Scale `predicted_intercept_ignored_x` Diagnostic, and Added a Plausibility Guardrail (Distractors Positive + On-Scale; Key Floored to a Realistic Value) in Code + Property Tests; Harness 0/80, Other 4 Templates Spot-Checked Clean; 20 Fixed Instances Presented for SME Re-Review (Awaiting Attestation) — 2026-08-23
 - Course Mode D8 Release Bars Approved (SME 20/0-defects · ≥100 Property Instances/0 Rejects · 0 Verifier Disagreements · 5/Template/Month Spot-Audit) and CM-D19 Template-Release Stamping BUILT + Applied to Dev (migration 20260823160000: bars table + release ledger + fail-closed `cm_d19_release_template`/revoke functions); Fail-Closed Gate Verified (a Sub-Bar Attestation Is Rejected, 0 Items Stamped); Actual Release Still Needs David's Real 20-Instance SME Attestation + Cycle Serving Switches — 2026-08-23
@@ -161,6 +162,20 @@ Most recent entries (full reverse-chronological list follows below):
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## Course Mode — lsrl_predict Scenario Credibility Envelopes (2nd SME Pass) — 2026-08-24
+
+David's second SME pass on the 20 `lsrl_predict` items flagged **scenario credibility** failures (real-world plausibility of the numbers, distinct from the earlier distractor-math fix): a 15-year-old car predicted at $36k; ice-cream sales vs a *freezing* Fahrenheit temperature; a tutor scenario with a predicted exam score > 100 and a distractor at 11.49 (a passing score band is ~65–100).
+
+**Root cause:** the generator drew generic intercepts/slopes and extrapolated x to 13–19 with no per-scenario reality constraint.
+
+**Fix (`scenarios.py` + `generator.py` + `misconceptions.py`):** each regression context now carries a **credibility envelope** — units, a realistic x-range for the prediction point, and a response envelope `y_lo..y_hi`. The **key and every distractor** must land inside it, and the key must be a non-boundary value. Enforced in code + property tests.
+- Contexts: ice-cream sales vs temperature **in °C**; used-car price vs age with **realistic ages 3–11** so a 10-yr car predicts **~$5–6k** (not $36k); **exam score capped at 100 and floored at 65** (all options in [65,100]); plus **seedling height** and **monthly revenue** (naturally wide envelopes). The old bounded-and-broken exam framing was reworked rather than dropped.
+- The item shows only the LINE, so `a,b` are now chosen directly (small jitter for a realistic non-round coefficient) instead of fitting throwaway data.
+- Added on-scale distractor `used_x_minus_one` so the tighter-envelope contexts still yield three credible options.
+- **Validation:** harness **0 rejects / 80**, catalog + scenario self-checks clean, 28 packages validate. Review sheet **rev 3** regenerated for David's re-review. **Open judgment calls flagged to David:** car unit kept as "thousands of dollars" (vs hundreds); for depreciation the correct answer is legitimately the lowest option.
 
 ---
 
