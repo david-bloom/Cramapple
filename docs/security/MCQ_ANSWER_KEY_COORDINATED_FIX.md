@@ -1,6 +1,43 @@
 # MCQ Answer-Key Exposure — Coordinated Fix
 
-STATUS: staged (PART 1 written, not applied) | DATE: 2026-08-24 | OWNER: David
+STATUS: verified & ready to sequence (PART 1 written + verified, PART 3 staged; nothing applied) | DATE: 2026-08-24 | OWNER: David
+
+## Verification (2026-08-24, session 3 — read-only, nothing applied)
+
+All three parts were checked against live Dev (`wmgjsdkphcyhngaffbqf`), live Prod
+(`pcntajvbdfqhbeewmdry`), and the `exam-buddy-wireframe` frontend (`HEAD a9b2c0c`):
+
+- **Exposure still live on BOTH envs.** `authenticated` holds `SELECT` on
+  `is_correct` + `rationale` on `app.mcq_choices` in Dev and Prod. `anon` holds no
+  such grant (the PART 3 `anon` clause is a harmless no-op).
+- **PART 1 RPC verified correct.** Referenced objects all exist on both envs:
+  `content_review_assignments(reviewer_id, status, content_item_version_id)`,
+  `profiles.role`, and the four `mcq_choices` columns. `profiles.role` is a **text**
+  column whose CHECK includes `admin`, so `role = 'admin'` is safe (no enum-cast
+  error). The RPC's reviewer branch (`status in pending/in_progress/submitted`) is
+  **behavior-identical to the existing RLS** policy `mcq_choices_select_assigned_reviewer`
+  (same three statuses) → no reviewer regression. The added admin branch matches the
+  frontend's own admin-can-open-any auth (`review.functions.ts:202-208`) and closes a
+  latent gap (an admin opening another reviewer's assignment is currently blinded by
+  RLS). The RPC does **not** yet exist on either env. Security hygiene is sound
+  (SECURITY DEFINER, `search_path` pinned to `app,pg_temp`, execute revoked from
+  `public`/`anon`, granted to `authenticated`/`service_role`).
+- **PART 2 target confirmed as the SOLE authenticated reader.** A full frontend grep
+  shows the only client-side `authenticated` DB read of `is_correct`/`rationale` is
+  `review.functions.ts:221-224` (the exact query the Lovable prompt targets). The two
+  other `mcq_choices` mapping sites (`review.functions.ts:80-88`, and the artifact
+  path via `normalizeArtifact`) consume data returned by a **service_role edge
+  function** (`invokeEdge`), not the column grant, so they are unaffected. The RPC
+  returns the identical `{choice_key, choice_text, is_correct, rationale}` shape, so
+  the `.map()` at `:252-257` is unchanged → clean drop-in.
+- **PART 3 proven safe once PART 2 is live.** The student serving path
+  (`use-published-mcq.ts:57`) selects only `mcq_choices!inner(id, choice_key,
+  choice_text)` — it never reads the secret columns, so the revoke does not touch
+  student serving. No other authenticated reader exists.
+
+Ready-to-apply artifacts: PART 1 is `migrations/20260824040000_reviewer_mcq_answer_key_rpc.sql`;
+PART 3 is staged at `docs/security/part3_revoke_mcq_answer_key.sql` (kept OUT of
+`migrations/` on purpose). Applies are held for David's explicit per-step go.
 
 ## The exposure
 
@@ -70,8 +107,11 @@ Verify in the reviewer UI that an assigned item still shows the keyed-correct ch
 and rationales before proceeding to PART 3.
 
 ### PART 3 — revoke the broad grant (apply LAST, after PART 2 is live)
-Promote this to a migration (e.g. `20260824060000_revoke_mcq_answer_key_from_authenticated.sql`)
-and apply to Dev + Prod only AFTER the repointed reviewer front-end is published:
+The revoke is staged, ready to run, at `docs/security/part3_revoke_mcq_answer_key.sql`
+(kept OUT of `supabase/migrations/` on purpose so it can't be db-pushed to Prod before
+PART 2 lands). Promote it to a migration (e.g.
+`20260824060000_revoke_mcq_answer_key_from_authenticated.sql`) or run it directly, on
+Dev + Prod, only AFTER the repointed reviewer front-end is published. Contents:
 
 ```sql
 begin;
