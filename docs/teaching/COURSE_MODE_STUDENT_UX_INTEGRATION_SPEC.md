@@ -333,7 +333,10 @@ never model-generated on the fly.
   read the problem then **discarded** (no retention); **name/PII sweep** per the user-provided-
   question rules (`TEACHING_AND_PEDAGOGY_DESIGN.md` §14.2); the academic-integrity stance is a
   **feature**, not a limitation.
-- **Status: EXPERIMENT / Phase-2 track.** The vision-classification step is directly testable now
-  (Claude has image analysis); the intake + serving plumbing is new build.
+- **Status: FILED FOR A LATER RELEASE (David, 2026-08-25).** A live feasibility test confirmed the
+  vision-classification step works (correct subject/unit/topic/skill on an out-of-pilot proxy, with
+  honest gaps flagged, teach-not-solve held) — but it is **not** built in the Unit-1 pilot. Full
+  record + the two-gate finding (classification generalizes broadly; vetted-content coverage is the
+  binding gate): `docs/research/HOMEWORK_IMAGE_CLASSIFICATION_EXPERIMENT_2026_08_25.md`.
 - **Open question:** granularity when a homework problem spans multiple cells or a cell outside
   the pilot scope → honest "we can help with the part that's in range," never a fabricated stretch.
