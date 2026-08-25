@@ -231,6 +231,7 @@ def gen_4b_instance(rng: random.Random, seed: int) -> Dict:
         "provenance": {
             "generator": "course_mode_stats_generator/slot_frames.py",
             "frame_id": "FB-4B-COMPARE-01",
+            "template_id": "slotframe_u1_9_compare_justify",
             "params": {"scenario": s["ctx"], "mA": mA, "mB": mB, "sd": sd},
             "seed": seed,
             "release_status": "unreleased_generated_pending_review",
