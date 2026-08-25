@@ -51,7 +51,7 @@ INTEGRATION_SPEC §11.2): the *reason the student arrived* decides whether the f
 |---|---|---|---|---|
 | E1 | **"Start"** (primary card — the assembled session) | An **assembled multi-item session** built from the due-queue | **COLD** (due-review) | §2 assembly, §3 run |
 | E2 | **A single previewed queued item** (each of the ~3 preview rows on the Start card is individually startable) | A **one-item session** on that cell | **COLD** (due-review) | §3 run, single item |
-| E3 | **Click a skill** in the "Unit 1 Skills" rail (to *learn* it) | A **learn-first entry**: skill explainer → open-hand worked example → the student's own cold attempt | **COACHED** first item, zero evidence (INV-5); only the cold attempt that follows counts | §5 |
+| E3 | **Click a skill** in the "Unit 1 Skills" rail (to *learn* it) | A **learn-first entry**: skill orientation (what it's about / the skill you need / the move that earns the points) → open-hand worked example → the student's own cold attempt | **COACHED** first item, zero evidence (INV-5); only the cold attempt that follows counts | §5 |
 | E4 | **Resume** a live/interrupted session | Re-enters the in-progress session at the next unfinished beat | unchanged from when paused | §3.5 |
 | E5 | **"Homework helper"** camera stub (demand probe) | Records an interest click, reveals "coming soon" | n/a | Deferred (INTEGRATION_SPEC §11.3/§11.4); no session |
 
@@ -265,20 +265,38 @@ honest fortress-vs-decay frame (UX_DEFINITION §11).
 Clicking a skill in the "Unit 1 Skills" rail to **learn** it (INTEGRATION_SPEC §11.2) opens a
 teaching-first entry — a distinct assembly from the due-review session:
 
-1. **Skill explainer** — NEW authored content (a per-skill explainer, analogous to the per-topic
-   `TopicBrief` but at skill grain; authored/vetted, INV-3, never model-generated on the fly).
-2. **A first question played "open hand"** — worked in full; we show how to solve it. **COACHED →
-   zero mastery evidence (INV-5).**
+1. **Skill orientation — the "what this is and how it scores" header (leads the session).** Before
+   any worked example, the learn-first entry opens with a short, plain-language orientation to the
+   skill, in three beats — the skill-grain, **points-led** sibling of the existing per-topic
+   `TopicBrief` point brief (which already carries *what it is / why it matters / how points are
+   earned / answer move / common point loss*, INTEGRATION_SPEC §11.4). The register is David's
+   framing:
+   - **What this is about** — the concept in plain language. *"This is about comparing two
+     distributions…"*
+   - **The skill you need** — name the move the skill requires (plain language, never a `4.B` code,
+     INV-1). *"You need to read center, spread, and shape for each group and line them up…"*
+   - **The move that earns the points** — the concrete, point-earning action the AP exam rewards.
+     *"You earn points when you use this skill by making an explicit comparison in context —
+     'Group A's median is higher than Group B's' — not by describing each group on its own."*
+     (Optionally: the common point-loss to avoid, mirroring the point brief's last field.)
+   This is **NEW authored content at skill grain** (authored/vetted, INV-3, never model-generated on
+   the fly). **Honesty guardrail:** "the move that earns the points" describes the *general* skill
+   move only — it must never reveal the answer to the open-hand example or to any served item (the
+   live no-answer-key security invariant, §8).
+2. **A first question played "open hand"** — worked in full; we show how to solve it, demonstrating
+   the point-earning move from beat 1 on a concrete instance. **COACHED → zero mastery evidence
+   (INV-5).**
 3. **Handoff to the student's own cold attempt** ("now you try, no help") — this is the first beat
    that *counts*, and it runs the normal per-item loop (§3.2) including confirm-transfer.
 
 This reuses existing machinery: `/session/mcq` already tracks `attempt_condition` cold|coached and
-zeroes evidence when help is used — the explainer + open-hand example simply set `coached` for that
-first item (INTEGRATION_SPEC §11.2).
+zeroes evidence when help is used — the orientation + open-hand example simply set `coached` for
+that first item (INTEGRATION_SPEC §11.2).
 
-**New content dependency (flag for David):** the per-skill explainer + open-hand worked example do
-not exist yet; they are authored content on the critical path for E3 (not for E1/E2, which serve
-existing published items).
+**New content dependency (flag for David):** the per-skill orientation (the three-beat header above)
++ the open-hand worked example do not exist yet; they are authored content on the critical path for
+E3 (not for E1/E2, which serve existing published items). The orientation is authored once per
+pilot skill, analogous to how `TopicBrief` point briefs are authored per topic.
 
 ---
 
@@ -368,7 +386,10 @@ discipline as MOCKS_REVIEW §2.
   `persistCellState`; the session layer wraps, it does not replace, that.
 - **Confidence field** — bundled into the grade-submit input on every cold attempt (already
   identified, INTEGRATION_SPEC §6); its evidence-weight effect depends on §7.1.
-- **Per-skill explainer + open-hand example content** — the E3 dependency (§5); authored, vetted.
+- **Per-skill orientation + open-hand example content** — the E3 dependency (§5): a skill-grain,
+  points-led orientation (what it's about / the skill you need / the move that earns the points),
+  the skill-grain sibling of the per-topic `TopicBrief` point brief, plus an open-hand worked
+  example. Authored, vetted (INV-3).
 - **Mode** — `learn | points` preference already specified (INTEGRATION_SPEC §2/§6); drives
   assembly ranking language + wrap-up value language only, not the mechanics.
 
