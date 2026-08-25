@@ -125,6 +125,19 @@ Swap-in candidates if David wants different coverage: 1.3×4.A (categorical prop
 
 ## 6. Serving-path question to resolve FIRST (before scaling authoring)
 
+> **RESOLVED 2026-08-25 — Course Mode pilot serves via the DIRECT RLS READ
+> (`usePublishedMcqs`-style), NOT the unit-gated selector.** Rationale: it is the path the
+> Unit-5 Dev proof already used, it is what the shipped front-end route (`/session/mcq`) already
+> calls, and it needs only **cell tags + publish** — no `validated` serving label. The unit-gated
+> `select_unit_gated_practice_items` lane requires a `label_scope='serving', label_status='validated'`
+> label that has **never been produced at scale** (8 items product-wide, 0 Stats) and that even the
+> released Unit-5 items lack — building toward it would put an unbuilt validation lane on the
+> critical path for no pilot benefit. **Consequence:** the validated-label pipeline is OFF the pilot
+> critical path; the front-end build is unblocked (it uses the existing `usePublishedMcqs` direct
+> read + `useGradePractice`); Phase-1 authoring only has to land **published, cell-tagged**
+> `rubric_type='mcq'` items in the active pack. Reversible per-pilot if a later phase wants the
+> unit-gated lane. (David delegated this resolution 2026-08-25.)
+
 Two serving paths exist and they impose different requirements — this must be settled in
 Phase 1, because it determines whether the validated-label pipeline is even on the critical path:
 
