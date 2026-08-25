@@ -160,6 +160,11 @@ route family; MCQ items render the `/session/mcq` loop, numeric-entry items a va
 - **No forced completion, no time cap, no countdown clock** on the session (a soft "~7 min"
   estimate is fine; a ticking timer is banned — it manufactures the pressure the product is
   fighting).
+- **No pre-session setup page (DECISION, David 2026-08-25).** There is **no `/session/setup`**
+  step. Session size, unit/topic scope, and Learn/Points mode are chosen on `/home` (the doors +
+  selectors already there); their **changeable defaults are surfaced inline on `/session`** — an
+  unobtrusive, adjustable line (e.g. "3 questions · Unit 1") the student can tweak in-flow — not on
+  a separate config screen. A `/home` door opens straight into the running session.
 
 ### 3.2 The per-item loop (rendered inside the container)
 
@@ -171,7 +176,9 @@ missed] → Confirm transfer → Schedule next review → advance to next item.*
 
 - **Orient stays cold** and, for MCQ, **must not pre-render the choices** (the misconception-encoded
   distractors appear at the attempt beat, not orient) — the one UI-enforceable part of coldness
-  (MOCKS_REVIEW §6).
+  (MOCKS_REVIEW §6). During a cold attempt the skill rail (§3.6) shows **only** the topic +
+  plain-language skill name and *what this is about* — never the point-earning move or the
+  point-loss (those are repair-only, §3.4 / §3.6).
 - **Confidence is bundled into submit** ("Sure / Think so / Guessing" *is* the submit control),
   captured before feedback, on **every** cold attempt — the initial one **and** the confirm-transfer
   one (MOCKS_REVIEW §6). "Guessing" is a safe, non-stigmatized choice.
@@ -207,6 +214,16 @@ missed] → Confirm transfer → Schedule next review → advance to next item.*
 
 A miss must not eject the student from the session or dead-end them:
 
+- **The point-earning move + "where students lose it" surface HERE, in repair — not before the cold
+  attempt (DECISION, David 2026-08-25).** The two "money" lines of the skill orientation (§5) are
+  held back from the cold attempt and delivered as Teach content when the student misses (or
+  deliberately pulls help): **Tighten** delivers the *where-students-lose-it* nudge aimed at the
+  exact gap (e.g. *"Two descriptions side by side isn't a comparison yet — say which is higher"*),
+  and the *move that earns the points* frames the **Show** worked example. This keeps the cold
+  attempt honest — the move is answer-shaped help, so surfacing it flips the attempt to assisted and
+  drops its evidence weight (INV-5) — while putting the highest-value coaching exactly where it
+  lands. One authored source (the per-skill orientation record, §5) feeds both the learn-first
+  opener and this repair content.
 - **Default: inline least-revealing teach**, in-session. The `HelpPanel` ladder — **Tighten**
   (targeted nudge at the exact gap) → **Show** (a worked example: full → faded → **parallel**) —
   runs inside the item, always ending in a fresh independent retry (UX_DEFINITION §4;
@@ -231,6 +248,35 @@ A miss must not eject the student from the session or dead-end them:
   evidence — the engine already enforces this (`last_attempt_id`, first terminal grade wins;
   STATUS_AND_HANDOFF §2 Fable F2). The UI must not present a resumed item as a fresh cold attempt
   if it was already graded.
+
+### 3.6 Session layout & the skill rail
+
+The `/session` screen is a **two-column shell** (DECISION direction, David 2026-08-25; the visual
+design is Claude Design's to render). It replaces the current single-column "YOUR TASK / Answer"
+screen.
+
+- **Header — name the skill, not "Your Task."** Replace the generic *"Your Task"* label with the
+  **topic + plain-language skill name** (e.g. *"Comparing distributions · Compare two groups from a
+  graph or summary"*, INV-1 — never a `4.B` code). Honest to show on any attempt; the skill *name*
+  leaks nothing.
+- **Left rail — the "skill card," gated by beat / entry:**
+  - **Cold attempt** (due-review E1/E2, and learn-first's "now you try" beat): rail shows **only**
+    the skill name + *what this is about*. The **move that earns the points** and **where students
+    lose it** are **absent** — repair-only (§3.4).
+  - **Learn-first coached beats** (E3 opener): rail shows the **full** points-led orientation (all
+    four beats, §5), pinned as reference while the student works the coached example — teaching-first
+    door, coached, zero evidence.
+  - **Repair** (after a miss / on help): the move + point-loss enter as Teach content (§3.4); the
+    rail may expand to keep them visible through the retry.
+- **Right column — the attempt:** stem + stimulus, then the answer control. **MCQ is first-class**
+  (choice buttons); the two computational cells (1.7×3.B, 1.9×3.B) use a **numeric-entry** field.
+  **Open free-text is out of pilot scope** (open-FRQ grading needs the unbuilt R&D grader) — the
+  live FRQ screen's free-text box + "~30 min remaining" timer are **not** the Course-Mode pilot
+  loop.
+- **No session countdown timer** (§3.1) — replace "~N min remaining" with the items-primary
+  progress ("Question k of N").
+- **Mobile reflow:** the two columns stack; the skill rail collapses to a top accordion so it can
+  never push the answer control off-screen (accessibility: keyboard/focus order, `aria` labels).
 
 ---
 
@@ -292,6 +338,12 @@ teaching-first entry — a distinct assembly from the due-review session:
 This reuses existing machinery: `/session/mcq` already tracks `attempt_condition` cold|coached and
 zeroes evidence when help is used — the orientation + open-hand example simply set `coached` for
 that first item (INTEGRATION_SPEC §11.2).
+
+**Two homes for the same content, gated by coldness (DECISION, David 2026-08-25).** *What this is
+about* / *the skill you need* are safe to show ambiently. The **move that earns the points** and
+**where students lose it** appear up front **only here, in the learn-first opener** (teaching-first,
+coached). On a **cold / due-review attempt they are held back and surface only in repair** (§3.4) —
+the same authored per-skill record, two placements decided by whether the attempt counts.
 
 **New content dependency (flag for David):** the per-skill orientation (the three-beat header above)
 + the open-hand worked example do not exist yet; they are authored content on the critical path for
