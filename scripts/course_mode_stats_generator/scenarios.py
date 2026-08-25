@@ -164,6 +164,11 @@ FRAMING: Dict[str, Framing] = {
         ["five-number summary for one quantitative variable",
          "modified boxplot description uses Q1/median/Q3 and 1.5 x IQR outlier fences"],
         [_SEC5, _SEC6, _SEC7]),
+    "slotframe_u1_12_bias": Framing(
+        "slotframe_u1_12_bias", "Q1", "Describe", 2, "exam_aligned_digital",
+        ["realistic data-collection scenario",
+         "bias classification must follow the source of error stated in the stem"],
+        [_SEC5, _SEC6, _SEC7]),
     "t_test_mean": Framing(
         "t_test_mean", "Q4", "Calculate", 3, "exam_aligned_digital",
         ["a random sample of a quantitative variable (population roughly Normal or n large)",
@@ -545,6 +550,59 @@ U1_8_BOXPLOT_CONTEXTS: List[Dict[str, object]] = [
 ]
 
 
+# Unit 1.12 sampling-bias contexts. Each id is cell-namespaced.
+U1_12_BIAS_CONTEXTS: List[Dict[str, object]] = [
+    {"id": "u1_12__landline_city_survey", "domain": "civic",
+     "stem": "A city surveys residents about bus service by randomly calling numbers from a landline phone directory.",
+     "correct": "Undercoverage bias, because residents without landlines are left out of the sampling frame.",
+     "distractors": [
+         ("Nonresponse bias, because some selected residents might not answer the phone.", "u1_12__bias_type_confused"),
+         ("Response bias, because the wording of the bus-service question must be leading.", "u1_12__sampling_vs_nonsampling_error"),
+         ("Voluntary-response bias, because people choose whether to have a landline.", "u1_12__bias_type_confused"),
+     ]},
+    {"id": "u1_12__mailed_parent_survey", "domain": "education",
+     "stem": "A school mails a survey to 600 randomly selected families, but only 94 families send it back.",
+     "correct": "Nonresponse bias, because many selected families did not respond.",
+     "distractors": [
+         ("Undercoverage bias, because the sample was too small to include everyone.", "u1_12__bias_type_confused"),
+         ("Response bias, because families must have misunderstood every question.", "u1_12__sampling_vs_nonsampling_error"),
+         ("Voluntary-response bias, because the original 600 families were randomly selected.", "u1_12__bias_type_confused"),
+     ]},
+    {"id": "u1_12__website_click_poll", "domain": "media",
+     "stem": "A news website posts an open poll asking visitors to click if they support a proposed rule.",
+     "correct": "Voluntary-response bias, because people decide for themselves whether to participate.",
+     "distractors": [
+         ("Simple random sampling, because every website visitor can click the poll.", "u1_12__bias_type_confused"),
+         ("Nonresponse bias, because visitors who never see the website do not answer.", "u1_12__bias_type_confused"),
+         ("Response bias only, because the issue may be controversial.", "u1_12__sampling_vs_nonsampling_error"),
+     ]},
+    {"id": "u1_12__loaded_wording_question", "domain": "civic",
+     "stem": "A survey asks, 'Do you support the wasteful plan to raise parking fees?'",
+     "correct": "Response or wording bias, because the question pushes respondents toward a negative answer.",
+     "distractors": [
+         ("Undercoverage bias, because people who like parking fees are excluded.", "u1_12__sampling_vs_nonsampling_error"),
+         ("Voluntary-response bias, because respondents may have strong opinions.", "u1_12__bias_type_confused"),
+         ("Nonresponse bias, because some people may refuse to answer a rude question.", "u1_12__bias_type_confused"),
+     ]},
+    {"id": "u1_12__student_roster_srs", "domain": "education",
+     "stem": "A registrar uses a random-number generator to select 80 students from the complete school roster and all selected students answer the neutral survey question.",
+     "correct": "No clear bias is described; the frame is complete, selection is random, everyone responds, and the wording is neutral.",
+     "distractors": [
+         ("Undercoverage bias, because 80 students is fewer than the whole school.", "u1_12__no_bias_called_biased"),
+         ("Voluntary-response bias, because students were allowed to answer the question.", "u1_12__no_bias_called_biased"),
+         ("Nonresponse bias, because not every student in the school was selected.", "u1_12__no_bias_called_biased"),
+     ]},
+    {"id": "u1_12__clinic_waiting_room", "domain": "health",
+     "stem": "A clinic estimates patient satisfaction by asking only patients in the waiting room on Tuesday morning.",
+     "correct": "Undercoverage bias, because patients with appointments at other times are not represented.",
+     "distractors": [
+         ("Voluntary-response bias, because patients are physically present at the clinic.", "u1_12__bias_type_confused"),
+         ("Response bias, because satisfaction cannot be measured by a survey.", "u1_12__sampling_vs_nonsampling_error"),
+         ("Nonresponse bias, because Tuesday patients are different from Monday patients.", "u1_12__bias_type_confused"),
+     ]},
+]
+
+
 # ==============================================================================
 # Access + validation helpers
 # ==============================================================================
@@ -681,6 +739,18 @@ def validate_scenarios() -> List[str]:
         keys = ("min", "q1", "median", "q3", "max", "low_whisker", "high_whisker")
         if not all(k in summ for k in keys):
             problems.append(f"u1_8 summary missing fields: {ctx}")
+    seen_bias_ids = set()
+    for ctx in U1_12_BIAS_CONTEXTS:
+        required = ("id", "domain", "stem", "correct", "distractors")
+        if not all(k in ctx for k in required):
+            problems.append(f"u1_12 bias context missing fields: {ctx}")
+        if ctx.get("id") in seen_bias_ids:
+            problems.append(f"duplicate u1_12 bias context id: {ctx.get('id')}")
+        seen_bias_ids.add(ctx.get("id"))
+        if not str(ctx.get("id", "")).startswith("u1_12__"):
+            problems.append(f"u1_12 bias context id is not namespaced: {ctx.get('id')}")
+        if len(ctx.get("distractors", [])) < 3:
+            problems.append(f"u1_12 bias context needs at least 3 distractors: {ctx}")
     return problems
 
 
@@ -703,6 +773,7 @@ if __name__ == "__main__":
             "u1_6_distribution": len(U1_6_DISTRIBUTION_CONTEXTS),
             "u1_5_graphs": len(U1_5_GRAPH_CONTEXTS),
             "u1_8_boxplots": len(U1_8_BOXPLOT_CONTEXTS),
+            "u1_12_bias": len(U1_12_BIAS_CONTEXTS),
         },
         "framing": {p: {"archetype": f.archetype, "task_verb": f.task_verb,
                         "modality": f.modality} for p, f in FRAMING.items()},

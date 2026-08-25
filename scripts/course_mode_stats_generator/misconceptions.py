@@ -406,6 +406,25 @@ CATALOG: Dict[str, Misconception] = {m.tag: m for m in [
        "ced_structural", ["slotframe_u1_8_boxplots"], ["1.8"], ["3.A"],
        [_fp("S10 Unit 1 (1.8)", "the box spans the interquartile range from Q1 to Q3, not the full range")]),
 
+    # --- slot-frame FB-U1-12-2A-BIAS-01 (1.12 x 2.A) : sampling bias ---
+    _M("u1_12__bias_type_confused",
+       "Confused the type of sampling bias",
+       "Identified the scenario as the wrong bias type, such as undercoverage versus nonresponse or voluntary response.",
+       "documented_cr", ["slotframe_u1_12_bias"], ["1.12"], ["2.A"],
+       [_fp("S10 Unit 1 (1.10-1.13)", "collecting data requires distinguishing sampling methods, bias, and study-design flaws")]),
+
+    _M("u1_12__sampling_vs_nonsampling_error",
+       "Confused sampling bias with nonsampling error",
+       "Treated a measurement or wording/response problem as if it were fixed by changing only the random sampling method, or vice versa.",
+       "ced_structural", ["slotframe_u1_12_bias"], ["1.12"], ["2.A"],
+       [_fp("S10 Unit 1 (1.10-1.13)", "sampling design errors and response/measurement errors are distinct data-collection problems")]),
+
+    _M("u1_12__no_bias_called_biased",
+       "Called an unbiased described plan biased",
+       "Claimed bias from a described random sampling plan even though the scenario gives no undercoverage, nonresponse, voluntary-response, or wording problem.",
+       "ced_structural", ["slotframe_u1_12_bias"], ["1.12"], ["2.A"],
+       [_fp("S10 Unit 1 (1.10-1.13)", "bias claims must be supported by the sampling scenario rather than assumed from sample size alone")]),
+
     # --- slot-frame FB-4B-COMPARE-01 (1.9 x 4.B) : justify a claim -------------
     _M("ignores_variability_claims_every_value",
        "Treated a difference in means as a claim about every individual value",
