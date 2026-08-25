@@ -379,3 +379,24 @@ Density and clarity pass on the Learn-mode `/home` (canvas `Main`):
   already uses PostHog) — no new backend.
 - **Mode consistency.** The subject toggle and the simplified new/building/strong dots (with the
   unit stepper) are carried into the **Points-mode** home too, so the two modes share one chrome.
+
+### 11.5 Pilot scoping decision — Learn-first, Points as fast-follow (David, 2026-08-25)
+
+**Decision: the pilot ships Learn mode as the core experience; Points mode is a fast-follow.**
+
+- **Why.** Points mode's real value depends on the **deferred declared-assessment** (student names a
+  quiz/test with a date + scope, §7 Phase-2). Without it, Points is only "mixed exam-shaped practice +
+  a point-capture framing" — a thinner value prop — and building heavy Points UI now risks designing
+  around a capability that isn't there. A Fable QA pass (2026-08-25) confirmed the earlier Points
+  mock had drifted into depicting that deferred feature as live.
+- **What ships in the pilot:** Learn mode, full. The **Learn↔Points toggle stays** (it's cheap and
+  sets up the horizon story), but pilot Points is a **thin** view — mixed practice + point-capture
+  framing — **not** the full test-prep experience. The full, scoped/dated Points experience lands
+  with the Phase-2 declared-assessment.
+- **Points-mode honesty rules (applied to the canvas 2026-08-25):** no fabricated declared test / no
+  specific "your test on <day>"; **no predicted point numbers** (§8 no-projected-score guardrail —
+  rank by "highest-value on this unit," not a "+N pts" gain); exam-shaped mixed practice; a generic
+  "test coming up? switch to Points" trigger.
+- **Build order (for Lovable):** (1) Learn-home framing flip; (2) `/session/mcq` confidence-bundled
+  submit + the prove-it beat; (3) learn-first skill entry; (4) `/learn` + `/progress`; the Points
+  thin-toggle last / as the fast-follow.
