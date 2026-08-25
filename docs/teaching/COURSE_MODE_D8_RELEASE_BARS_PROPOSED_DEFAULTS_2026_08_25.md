@@ -1,13 +1,14 @@
-# Course Mode — D8 Release Bars: Proposed Defaults (for David's ratification)
+# Course Mode — D8 Release Bars: Defaults (RATIFIED)
 
-STATUS: PROPOSAL — not ratified, nothing executed | DATE: 2026-08-25 | OWNER OF DECISION: David |
-DRAFTED BY: integration session (LLM), from the current harness numbers + the CM-D17 gold-corpus
-constraint.
+STATUS: **RATIFIED as proposed — David, 2026-08-25.** D8 is no longer ON HOLD. | DATE: 2026-08-25 |
+OWNER OF DECISION: David | DRAFTED BY: integration session (LLM), from the current harness numbers
++ the CM-D17 gold-corpus constraint.
 
-D8 has been ON HOLD with the numbers deliberately left blank ("no defaults should be invented").
-This fills that blank with a **concrete slate** so you have something to approve, adjust, or
-reject rather than a blank page. It sets no bar by itself — ratifying it is your call, and CM-D19
-stamping is built only once you do.
+D8 was ON HOLD with the numbers deliberately left blank ("no defaults should be invented"). This
+doc filled that blank with a concrete slate; **David ratified it as proposed on 2026-08-25.** The
+four bars (§1–§4) plus the Gate-2 re-derivation bar (§5) are now the release predicate. CM-D19
+stamping can now be built against them. Nothing is *served* by this ratification — release of any
+instance still runs each template through these bars first, and Prod remains untouched.
 
 Companion: `COURSE_MODE_RELEASE_PATH_DECISION_BRIEF.md` §5 (the decision *shape*).
 
@@ -109,9 +110,10 @@ Rationale and the "why this number" for each below.
 
 ## 6. What ratifying this unblocks
 
-Once you set §1–§4 (and, recommended, §5), CM-D19 stamping becomes a well-defined build: a
-template that clears these bars → the pipeline machine-stamps its conforming instances'
-review/serving/cell labels with provenance. D8 is the single highest-leverage gate on the path;
-this slate is meant to make saying "yes, with these numbers" a five-minute decision.
+With §1–§4 (and §5) now ratified, CM-D19 stamping becomes a well-defined build: a template that
+clears these bars → the pipeline machine-stamps its conforming instances' review/serving/cell
+labels with provenance. D8 was the single highest-leverage gate on the path; it is now set.
 
-**Nothing here is executed.** These are proposals. Adjust any number; the shape holds.
+**Ratified 2026-08-25 (David), as proposed.** The next build step is CM-D19 stamping against these
+bars; it remains a separate, David-gated step and nothing is served until a template is actually
+run through them. Prod untouched.
