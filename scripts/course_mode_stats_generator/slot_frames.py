@@ -115,6 +115,12 @@ DISTRIBUTION_TAGS = {
     "u1_6__ignores_shape_reports_center_only",
 }
 
+DESIGN_TAGS = {
+    "u1_13__confounding_vs_lurking_confused",
+    "u1_13__control_blinding_randomization_confused",
+    "u1_13__observational_treated_as_experiment",
+}
+
 BIAS_TAGS = {
     "u1_12__bias_type_confused",
     "u1_12__sampling_vs_nonsampling_error",
@@ -769,6 +775,48 @@ def generate_u1_12_bias(count: int, base_seed: int = 11200) -> List[Dict]:
     return [gen_u1_12_bias_instance(random.Random(base_seed + i), base_seed + i) for i in range(count)]
 
 
+def gen_u1_13_design_instance(rng: random.Random, seed: int) -> Dict:
+    c = rng.choice(SCN.U1_13_DESIGN_CONTEXTS)
+    prompt = f"{c['stem']} Which statement best identifies the design element or flaw?"
+    options = [{"text": c["correct"], "correct": True, "misconception": None}]
+    for text, tag in c["distractors"]:
+        options.append({"text": text, "correct": False, "misconception": tag,
+                        "misconception_source": MISC.provenance(tag)})
+    rng.shuffle(options)
+    scenario_prov = SCN.framing("slotframe_u1_13_design", c.get("domain"))
+    checks = [("exactly_one_correct", sum(1 for o in options if o["correct"]) == 1),
+              ("four_options", len(options) == 4),
+              ("option_texts_unique", len({o["text"] for o in options}) == 4),
+              ("all_distractors_tagged", all(o["misconception"] for o in options if not o["correct"])),
+              ("all_distractor_tags_canonical", all(o["misconception"] in MISC.CATALOG for o in options if not o["correct"])),
+              ("all_distractors_cite_source", all(o.get("misconception_source", {}).get("sources") for o in options if not o["correct"])),
+              ("scenario_framing_present", bool(scenario_prov.get("archetype")) and bool(scenario_prov.get("sources"))),
+              ("design_tags_subset", all(o.get("misconception") in DESIGN_TAGS for o in options if not o["correct"]))]
+    return {"schema_version": "course-mode-generated-0.1", "package_id": f"slotframe-u1_13-2a-{seed:06d}",
+            "content_key": f"apstat-u1-13-2a-design-{seed:06d}", "item_type": "mcq", "difficulty": "Medium",
+            "exam_pack_ref": {"exam_code": "ap_statistics", "cycle": "2026-27"},
+            "taxonomy_refs": [{"scheme_key": "ap-statistics-2026-27", "node_key": "unit-1"},
+                              {"scheme_key": "ap-statistics-2026-27", "node_key": "topic-1.13"},
+                              {"scheme_key": "ap-statistics-skills", "node_key": "skill-2.A", "practice": 2}],
+            "cells": [{"topic": "1.13", "skill": "2.A"}], "scenario_provenance": scenario_prov,
+            "prompt": prompt, "mcq_form": {"options": options},
+            "parts": [{"part_key": "part-a", "prompt": prompt, "response_modalities": ["mcq"], "points": 1,
+                       "criteria": [{"criterion_key": "part-a-criterion-1", "points": 1,
+                                      "description": "Selects the study-design statement supported by the scenario.",
+                                      "required_evidence": c["correct"],
+                                      "deterministic_checks": [{"kind": "mcq_key", "correct_design_statement": c["correct"]}],
+                                      "accepted_variants": []}]}],
+            "provenance": {"generator": "course_mode_stats_generator/slot_frames.py", "frame_id": "FB-U1-13-2A-DESIGN-01",
+                           "template_id": "slotframe_u1_13_design", "params": {"scenario_id": c["id"]},
+                           "seed": seed, "release_status": "unreleased_generated_pending_review",
+                           "note": "Authored conceptual frame; correctness from study-design taxonomy."},
+            "_property_checks": checks}
+
+
+def generate_u1_13_design(count: int, base_seed: int = 11300) -> List[Dict]:
+    return [gen_u1_13_design_instance(random.Random(base_seed + i), base_seed + i) for i in range(count)]
+
+
 # ==============================================================================
 # Frame registry + harness. Each Track B cell appends ONE entry to FRAMES below
 # (append-only) — no harness rewrite needed. (Integration lesson from batch 2.)
@@ -815,6 +863,9 @@ FRAMES = [
     {"frame_id": "FB-U1-12-2A-BIAS-01", "cell": "1.12 x 2.A", "gen": generate_u1_12_bias,
      "base_seed": 11200, "expected_tags": set(BIAS_TAGS),
      "note": "Sampling bias classification. Coverage: Unit 1 topic 1.12."},
+    {"frame_id": "FB-U1-13-2A-DESIGN-01", "cell": "1.13 x 2.A", "gen": generate_u1_13_design,
+     "base_seed": 11300, "expected_tags": set(DESIGN_TAGS),
+     "note": "Experimental design classification. Coverage: Unit 1 topic 1.13."},
 ]
 
 

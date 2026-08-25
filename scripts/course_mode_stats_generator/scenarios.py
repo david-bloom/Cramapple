@@ -169,6 +169,11 @@ FRAMING: Dict[str, Framing] = {
         ["realistic data-collection scenario",
          "bias classification must follow the source of error stated in the stem"],
         [_SEC5, _SEC6, _SEC7]),
+    "slotframe_u1_13_design": Framing(
+        "slotframe_u1_13_design", "Q1", "Describe", 2, "exam_aligned_digital",
+        ["realistic study-design scenario",
+         "classification must distinguish imposed treatments, randomization, control/placebo/blinding, and confounding"],
+        [_SEC5, _SEC6, _SEC7]),
     "t_test_mean": Framing(
         "t_test_mean", "Q4", "Calculate", 3, "exam_aligned_digital",
         ["a random sample of a quantitative variable (population roughly Normal or n large)",
@@ -603,6 +608,59 @@ U1_12_BIAS_CONTEXTS: List[Dict[str, object]] = [
 ]
 
 
+# Unit 1.13 study-design contexts. Each id is cell-namespaced.
+U1_13_DESIGN_CONTEXTS: List[Dict[str, object]] = [
+    {"id": "u1_13__caffeine_study_habit", "domain": "education",
+     "stem": "Students who choose to drink caffeine before studying are compared with students who choose not to; the caffeine group also tends to study later at night.",
+     "correct": "This is observational and has possible confounding, because caffeine use is mixed with study time and was not randomly assigned.",
+     "distractors": [
+         ("This is a randomized experiment because the students naturally fell into two groups.", "u1_13__observational_treated_as_experiment"),
+         ("Blinding would remove the confounding because students would not know their own study time.", "u1_13__control_blinding_randomization_confused"),
+         ("There is only a lurking variable and no confounding, because study time was measured.", "u1_13__confounding_vs_lurking_confused"),
+     ]},
+    {"id": "u1_13__pain_relief_placebo", "domain": "health",
+     "stem": "A researcher randomly assigns volunteers with headaches to receive a new pill or an identical-looking inactive pill, then compares pain ratings.",
+     "correct": "The inactive pill is a placebo control, helping separate the pill effect from expectation or natural improvement.",
+     "distractors": [
+         ("The inactive pill is the randomization method because it decides which group each person joins.", "u1_13__control_blinding_randomization_confused"),
+         ("The study is observational because pain ratings are observed after treatment.", "u1_13__observational_treated_as_experiment"),
+         ("The main flaw is confounding because one group receives an inactive pill.", "u1_13__confounding_vs_lurking_confused"),
+     ]},
+    {"id": "u1_13__fertilizer_random_assignment", "domain": "biology",
+     "stem": "A botanist assigns similar seedlings at random to fertilizer A or fertilizer B and grows all seedlings in the same greenhouse.",
+     "correct": "Random assignment helps balance other variables between treatment groups so differences can be attributed more credibly to fertilizer type.",
+     "distractors": [
+         ("Random assignment guarantees both fertilizers produce exactly the same spread of plant heights.", "u1_13__control_blinding_randomization_confused"),
+         ("This is observational because the botanist records plant heights instead of controlling the outcome.", "u1_13__observational_treated_as_experiment"),
+         ("The greenhouse is a lurking variable that proves the fertilizers are confounded.", "u1_13__confounding_vs_lurking_confused"),
+     ]},
+    {"id": "u1_13__app_notification_control", "domain": "business",
+     "stem": "A company randomly assigns users either to receive a new app notification or to receive no notification, then compares next-day app use.",
+     "correct": "The no-notification group is a control group, providing a baseline for comparison with the new notification treatment.",
+     "distractors": [
+         ("The no-notification group is blinding, because users know they did not get a notification.", "u1_13__control_blinding_randomization_confused"),
+         ("This is observational because the company compares existing users.", "u1_13__observational_treated_as_experiment"),
+         ("There must be confounding because people use apps for many reasons.", "u1_13__confounding_vs_lurking_confused"),
+     ]},
+    {"id": "u1_13__sleep_screen_observation", "domain": "health",
+     "stem": "A researcher records students' usual screen time and usual sleep hours, then compares sleep between students with high and low screen time.",
+     "correct": "This is an observational study, because the researcher records existing habits and does not assign screen-time treatments.",
+     "distractors": [
+         ("This is an experiment because the researcher compares two screen-time groups.", "u1_13__observational_treated_as_experiment"),
+         ("The comparison group is a placebo group because it has lower screen time.", "u1_13__control_blinding_randomization_confused"),
+         ("Randomization is present because students' usual schedules vary naturally.", "u1_13__control_blinding_randomization_confused"),
+     ]},
+    {"id": "u1_13__teacher_method_sections", "domain": "education",
+     "stem": "One teacher uses a new review method in the morning class and the old method in the afternoon class, then compares exam scores.",
+     "correct": "Class time is confounded with review method, because each method is tied to a different class period.",
+     "distractors": [
+         ("There is no confounding because both classes have the same teacher.", "u1_13__confounding_vs_lurking_confused"),
+         ("This is randomized because the teacher chose which period got each method.", "u1_13__control_blinding_randomization_confused"),
+         ("This is only observational because exam scores are observed after class.", "u1_13__observational_treated_as_experiment"),
+     ]},
+]
+
+
 # ==============================================================================
 # Access + validation helpers
 # ==============================================================================
@@ -751,6 +809,18 @@ def validate_scenarios() -> List[str]:
             problems.append(f"u1_12 bias context id is not namespaced: {ctx.get('id')}")
         if len(ctx.get("distractors", [])) < 3:
             problems.append(f"u1_12 bias context needs at least 3 distractors: {ctx}")
+    seen_design_ids = set()
+    for ctx in U1_13_DESIGN_CONTEXTS:
+        required = ("id", "domain", "stem", "correct", "distractors")
+        if not all(k in ctx for k in required):
+            problems.append(f"u1_13 design context missing fields: {ctx}")
+        if ctx.get("id") in seen_design_ids:
+            problems.append(f"duplicate u1_13 design context id: {ctx.get('id')}")
+        seen_design_ids.add(ctx.get("id"))
+        if not str(ctx.get("id", "")).startswith("u1_13__"):
+            problems.append(f"u1_13 design context id is not namespaced: {ctx.get('id')}")
+        if len(ctx.get("distractors", [])) < 3:
+            problems.append(f"u1_13 design context needs at least 3 distractors: {ctx}")
     return problems
 
 
@@ -774,6 +844,7 @@ if __name__ == "__main__":
             "u1_5_graphs": len(U1_5_GRAPH_CONTEXTS),
             "u1_8_boxplots": len(U1_8_BOXPLOT_CONTEXTS),
             "u1_12_bias": len(U1_12_BIAS_CONTEXTS),
+            "u1_13_design": len(U1_13_DESIGN_CONTEXTS),
         },
         "framing": {p: {"archetype": f.archetype, "task_verb": f.task_verb,
                         "modality": f.modality} for p, f in FRAMING.items()},
