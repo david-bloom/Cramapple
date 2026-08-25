@@ -363,4 +363,15 @@ Density and clarity pass on the Learn-mode `/home` (canvas `Main`):
   a graceful fallback when we have no guess (`coursePosition.source = unknown` → "Where's your class
   right now?"). This **sets the default learning experience** and is grounded in the existing
   `coursePosition` / `setCoursePosition` machinery (the v1 home's ReconfirmCard, evolved). It is
-  recommendation-with-override: the guess is never a lock.
+  recommendation-with-override: the guess is never a lock. **No confirm buttons** — editing a chip
+  *is* the correction; leaving it alone accepts the guess. The **"Welcome, <name>"** greeting stays.
+- **Subject toggle (upper-right).** For students with more than one subject, a subject switcher sits
+  in the top bar (reusing `useActiveSubject` / `setActive`); the whole home re-scopes to the chosen
+  subject.
+- **Topic point brief stays.** Below the Unit Topics strip, the selected topic's point brief
+  (`what it is / why it matters / how points are earned / answer move / common point loss`) renders
+  as it does in `TopicHome` — cut in the density pass, restored here.
+- **"Homework helper" stub (demand probe).** The deferred homework-image feature (§11.3) surfaces
+  now as an **inactive camera affordance labeled "Homework helper · Coming soon."** Clicking it is a
+  no-op that **records the click** (an interest signal) and shows "coming soon" — a cheap way to
+  measure pull before building the real intake.
