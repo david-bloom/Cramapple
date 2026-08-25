@@ -1,0 +1,163 @@
+{
+  "schema_version": "course-mode-generated-0.1",
+  "package_id": "slotframe-u1_11-2a-101003",
+  "content_key": "apstat-u1-11-2a-sampling-101003",
+  "item_type": "mcq",
+  "difficulty": "Medium",
+  "exam_pack_ref": {
+    "exam_code": "ap_statistics",
+    "cycle": "2026-27"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "unit-1"
+    },
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "topic-1.11"
+    },
+    {
+      "scheme_key": "ap-statistics-skills",
+      "node_key": "skill-2.A",
+      "practice": 2
+    }
+  ],
+  "cells": [
+    {
+      "topic": "1.11",
+      "skill": "2.A"
+    }
+  ],
+  "scenario_provenance": {
+    "archetype": "Q1",
+    "archetype_label": "Multi-focus on Practices 1 & 2 (formulate questions; collect/represent data)",
+    "task_verb": "Describe",
+    "practice": 2,
+    "modality": "exam_aligned_digital",
+    "validity_rules": [
+      "Unit 1 random-sampling methods only: SRS, stratified, cluster, systematic",
+      "non-random convenience and voluntary-response plans must be identified as non-random",
+      "stratified samples units within every stratum; cluster samples all units in selected clusters"
+    ],
+    "sources": [
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S5 (Free-response archetypes)",
+        "note": "Section II question archetypes Q1-Q4"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S6 (Task verbs)",
+        "note": "the item stem's verb must match the scored demand"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S7 (Response modality)",
+        "note": "digital Bluebook; text/numeric entry -> exam_aligned_digital"
+      }
+    ],
+    "domain": "education"
+  },
+  "prompt": "A researcher wants to study how many hours they spend in school clubs each week among all students at a high school. Sampling plan: The researcher uses an alphabetized roster of all students and a random number generator to select 40 students from the entire population. Which choice best describes the sampling method?",
+  "mcq_form": {
+    "options": [
+      {
+        "text": "Systematic random sample, because the researcher uses random selection after organizing the population.",
+        "correct": false,
+        "misconception": "u1_11__systematic_srs_conflation",
+        "misconception_source": {
+          "tag": "u1_11__systematic_srs_conflation",
+          "label": "Conflated systematic random sampling with SRS",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 1 (1.10-1.13)",
+              "note": "CED vocabulary distinguishes systematic random sampling from SRS as separate random-sampling methods"
+            }
+          ]
+        }
+      },
+      {
+        "text": "SRS, because individuals are randomly selected from a list of the whole population.",
+        "correct": true,
+        "misconception": null
+      },
+      {
+        "text": "Cluster sample, because the population is divided into groups such as grade level before the sample is chosen.",
+        "correct": false,
+        "misconception": "u1_11__stratified_cluster_confusion",
+        "misconception_source": {
+          "tag": "u1_11__stratified_cluster_confusion",
+          "label": "Confused stratified sampling with cluster sampling",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 1 (1.10-1.13)",
+              "note": "CED vocabulary distinguishes SRS, stratified, cluster, and systematic sampling; cluster samples all units within selected clusters, while stratified samples within every stratum"
+            }
+          ]
+        }
+      },
+      {
+        "text": "Convenience sample, because the randomly selected units are the ones the researcher contacts.",
+        "correct": false,
+        "misconception": "u1_11__convenience_or_voluntary_called_random",
+        "misconception_source": {
+          "tag": "u1_11__convenience_or_voluntary_called_random",
+          "label": "Called a convenience or voluntary-response sample random",
+          "evidence": "documented_cr",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 1 (1.10-1.13)",
+              "note": "2025 CR Report Q2 flags sampling-method/bias vocabulary errors and incomplete random-sampling procedures; convenience and voluntary response are non-random biased methods"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "parts": [
+    {
+      "part_key": "part-a",
+      "prompt": "A researcher wants to study how many hours they spend in school clubs each week among all students at a high school. Sampling plan: The researcher uses an alphabetized roster of all students and a random number generator to select 40 students from the entire population. Which choice best describes the sampling method?",
+      "response_modalities": [
+        "mcq"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "Selects the sampling-method classification that matches the described plan.",
+          "required_evidence": "Correct sampling method: srs",
+          "deterministic_checks": [
+            {
+              "kind": "mcq_key",
+              "correct_method": "srs"
+            }
+          ],
+          "accepted_variants": []
+        }
+      ]
+    }
+  ],
+  "provenance": {
+    "generator": "course_mode_stats_generator/slot_frames.py",
+    "frame_id": "FB-U1-11-2A-SAMPLING-01",
+    "template_id": "slotframe_u1_11_sampling",
+    "params": {
+      "scenario_id": "u1_11__school_clubs",
+      "method": "srs"
+    },
+    "seed": 101003,
+    "release_status": "unreleased_generated_pending_review",
+    "note": "Authored conceptual frame; correctness from sampling-method taxonomy."
+  }
+}

@@ -1,0 +1,163 @@
+{
+  "schema_version": "course-mode-generated-0.1",
+  "package_id": "slotframe-u1_11-2a-101011",
+  "content_key": "apstat-u1-11-2a-sampling-101011",
+  "item_type": "mcq",
+  "difficulty": "Medium",
+  "exam_pack_ref": {
+    "exam_code": "ap_statistics",
+    "cycle": "2026-27"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "unit-1"
+    },
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "topic-1.11"
+    },
+    {
+      "scheme_key": "ap-statistics-skills",
+      "node_key": "skill-2.A",
+      "practice": 2
+    }
+  ],
+  "cells": [
+    {
+      "topic": "1.11",
+      "skill": "2.A"
+    }
+  ],
+  "scenario_provenance": {
+    "archetype": "Q1",
+    "archetype_label": "Multi-focus on Practices 1 & 2 (formulate questions; collect/represent data)",
+    "task_verb": "Describe",
+    "practice": 2,
+    "modality": "exam_aligned_digital",
+    "validity_rules": [
+      "Unit 1 random-sampling methods only: SRS, stratified, cluster, systematic",
+      "non-random convenience and voluntary-response plans must be identified as non-random",
+      "stratified samples units within every stratum; cluster samples all units in selected clusters"
+    ],
+    "sources": [
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S5 (Free-response archetypes)",
+        "note": "Section II question archetypes Q1-Q4"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S6 (Task verbs)",
+        "note": "the item stem's verb must match the scored demand"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S7 (Response modality)",
+        "note": "digital Bluebook; text/numeric entry -> exam_aligned_digital"
+      }
+    ],
+    "domain": "civic"
+  },
+  "prompt": "A researcher wants to study which library services they used last month among adult patrons of a county library system. Sampling plan: The researcher records responses from patrons at the front desk of the main branch on Saturday morning. Which choice best describes the sampling method?",
+  "mcq_form": {
+    "options": [
+      {
+        "text": "Stratified random sample, because the researcher should randomly choose whole branch library groups and include everyone in them.",
+        "correct": false,
+        "misconception": "u1_11__stratified_samples_whole_groups",
+        "misconception_source": {
+          "tag": "u1_11__stratified_samples_whole_groups",
+          "label": "Thought stratified sampling means sampling whole groups",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 1 (1.10-1.13)",
+              "note": "stratified sampling takes a random sample within every stratum; sampling all observational units in selected clusters is cluster sampling"
+            }
+          ]
+        }
+      },
+      {
+        "text": "Cluster sample, because the population is divided into groups such as branch library before the sample is chosen.",
+        "correct": false,
+        "misconception": "u1_11__stratified_cluster_confusion",
+        "misconception_source": {
+          "tag": "u1_11__stratified_cluster_confusion",
+          "label": "Confused stratified sampling with cluster sampling",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 1 (1.10-1.13)",
+              "note": "CED vocabulary distinguishes SRS, stratified, cluster, and systematic sampling; cluster samples all units within selected clusters, while stratified samples within every stratum"
+            }
+          ]
+        }
+      },
+      {
+        "text": "Not a random sample; it is a convenience sample because the units are easy to reach.",
+        "correct": true,
+        "misconception": null
+      },
+      {
+        "text": "SRS, because any member of the population could have ended up in the response group.",
+        "correct": false,
+        "misconception": "u1_11__convenience_or_voluntary_called_random",
+        "misconception_source": {
+          "tag": "u1_11__convenience_or_voluntary_called_random",
+          "label": "Called a convenience or voluntary-response sample random",
+          "evidence": "documented_cr",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 1 (1.10-1.13)",
+              "note": "2025 CR Report Q2 flags sampling-method/bias vocabulary errors and incomplete random-sampling procedures; convenience and voluntary response are non-random biased methods"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "parts": [
+    {
+      "part_key": "part-a",
+      "prompt": "A researcher wants to study which library services they used last month among adult patrons of a county library system. Sampling plan: The researcher records responses from patrons at the front desk of the main branch on Saturday morning. Which choice best describes the sampling method?",
+      "response_modalities": [
+        "mcq"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "Selects the sampling-method classification that matches the described plan.",
+          "required_evidence": "Correct sampling method: convenience",
+          "deterministic_checks": [
+            {
+              "kind": "mcq_key",
+              "correct_method": "convenience"
+            }
+          ],
+          "accepted_variants": []
+        }
+      ]
+    }
+  ],
+  "provenance": {
+    "generator": "course_mode_stats_generator/slot_frames.py",
+    "frame_id": "FB-U1-11-2A-SAMPLING-01",
+    "template_id": "slotframe_u1_11_sampling",
+    "params": {
+      "scenario_id": "u1_11__library_patrons",
+      "method": "convenience"
+    },
+    "seed": 101011,
+    "release_status": "unreleased_generated_pending_review",
+    "note": "Authored conceptual frame; correctness from sampling-method taxonomy."
+  }
+}

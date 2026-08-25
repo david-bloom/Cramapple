@@ -1,0 +1,175 @@
+{
+  "schema_version": "course-mode-generated-0.1",
+  "package_id": "slotframe-u1_8-3a-108000",
+  "content_key": "apstat-u1-8-3a-boxplots-108000",
+  "item_type": "mcq",
+  "difficulty": "Medium",
+  "exam_pack_ref": {
+    "exam_code": "ap_statistics",
+    "cycle": "2026-27"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "unit-1"
+    },
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "topic-1.8"
+    },
+    {
+      "scheme_key": "ap-statistics-skills",
+      "node_key": "skill-3.A",
+      "practice": 3
+    }
+  ],
+  "cells": [
+    {
+      "topic": "1.8",
+      "skill": "3.A"
+    }
+  ],
+  "scenario_provenance": {
+    "archetype": "Q2",
+    "archetype_label": "Multi-focus on Practices 3 & 4 (analyze data; interpret results)",
+    "task_verb": "Describe",
+    "practice": 3,
+    "modality": "exam_aligned_digital",
+    "validity_rules": [
+      "five-number summary for one quantitative variable",
+      "modified boxplot description uses Q1/median/Q3 and 1.5 x IQR outlier fences"
+    ],
+    "sources": [
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S5 (Free-response archetypes)",
+        "note": "Section II question archetypes Q1-Q4"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S6 (Task verbs)",
+        "note": "the item stem's verb must match the scored demand"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S7 (Response modality)",
+        "note": "digital Bluebook; text/numeric entry -> exam_aligned_digital"
+      }
+    ],
+    "domain": "biology"
+  },
+  "prompt": "For seedling heights (cm), a summary is min 7, Q1 12, median 15, Q3 19, max 31. Using the 1.5 x IQR rule, the non-outlier whisker endpoints are 7 and 25. Which modified boxplot description matches this summary?",
+  "mcq_form": {
+    "options": [
+      {
+        "text": "Box from 15 to 19 cm, median line at 12, whiskers to 7 and 25, with plotted outlier(s) at 31.",
+        "correct": false,
+        "misconception": "u1_8__quartile_median_positions_swapped",
+        "misconception_source": {
+          "tag": "u1_8__quartile_median_positions_swapped",
+          "label": "Swapped quartile and median positions",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 1 (1.8)",
+              "note": "boxplots encode Q1, median, Q3, whiskers, and possible outliers in specific positions"
+            }
+          ]
+        }
+      },
+      {
+        "text": "Box from 12 to 19 cm, median line at 15, whiskers to 7 and 25, with plotted outlier(s) at 31.",
+        "correct": true,
+        "misconception": null
+      },
+      {
+        "text": "Box from 12 to 19 cm, median line at 15, whiskers to 7 and 31, with no plotted outliers.",
+        "correct": false,
+        "misconception": "u1_8__whisker_to_extreme_ignores_outlier",
+        "misconception_source": {
+          "tag": "u1_8__whisker_to_extreme_ignores_outlier",
+          "label": "Drew a whisker to an outlier",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 1 (1.8)",
+              "note": "modified boxplots use whiskers to the most extreme non-outliers, not beyond-fence outliers"
+            }
+          ]
+        }
+      },
+      {
+        "text": "Box from 7 to 31 cm, median line at 15, whiskers to 7 and 31, with plotted outlier(s) at 31.",
+        "correct": false,
+        "misconception": "u1_8__box_spans_range_not_iqr",
+        "misconception_source": {
+          "tag": "u1_8__box_spans_range_not_iqr",
+          "label": "Made the box span the full range",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 1 (1.8)",
+              "note": "the box spans the interquartile range from Q1 to Q3, not the full range"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "parts": [
+    {
+      "part_key": "part-a",
+      "prompt": "For seedling heights (cm), a summary is min 7, Q1 12, median 15, Q3 19, max 31. Using the 1.5 x IQR rule, the non-outlier whisker endpoints are 7 and 25. Which modified boxplot description matches this summary?",
+      "response_modalities": [
+        "mcq"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "Selects the modified boxplot description matching quartiles, whiskers, and outliers.",
+          "required_evidence": "Box from 12 to 19 cm, median line at 15, whiskers to 7 and 25, with plotted outlier(s) at 31.",
+          "deterministic_checks": [
+            {
+              "kind": "mcq_key",
+              "correct_representation": "modified_boxplot"
+            }
+          ],
+          "accepted_variants": []
+        }
+      ]
+    }
+  ],
+  "provenance": {
+    "generator": "course_mode_stats_generator/slot_frames.py",
+    "frame_id": "FB-U1-8-3A-BOXPLOT-01",
+    "template_id": "slotframe_u1_8_boxplots",
+    "params": {
+      "scenario_id": "u1_8__seedling_cm",
+      "summary": {
+        "min": 7,
+        "q1": 12,
+        "median": 15,
+        "q3": 19,
+        "max": 31,
+        "low_whisker": 7,
+        "high_whisker": 25
+      },
+      "iqr": 7,
+      "fences": [
+        1.5,
+        29.5
+      ]
+    },
+    "seed": 108000,
+    "release_status": "unreleased_generated_pending_review",
+    "note": "Authored conceptual frame; correctness from modified-boxplot summary rules."
+  }
+}
