@@ -340,3 +340,27 @@ never model-generated on the fly.
   binding gate): `docs/research/HOMEWORK_IMAGE_CLASSIFICATION_EXPERIMENT_2026_08_25.md`.
 - **Open question:** granularity when a homework problem spans multiple cells or a cell outside
   the pilot scope → honest "we can help with the part that's in range," never a fabricated stretch.
+
+### 11.4 Learn-home layout refinements (2026-08-25)
+
+Density and clarity pass on the Learn-mode `/home` (canvas `Main`):
+
+- **Unit toggle.** The skills list carries a **unit stepper** (‹ Unit 1 ›) so the student can move
+  through units — reusing the unit selection `TopicHome` already has (`selectUnit` / `coursePosition`).
+- **Simplified skill state.** The per-skill state collapses to **a coloured dot + three labels —
+  new (pink) / building (blue) / strong (green)** — with a **legend** so it is *never colour
+  alone* (accessibility; also expose the label on hover/`aria`). Honesty preserved: **strong =
+  `confirmed` only** (never a hinted win). Tier mapping: new = `unseen`/`exposed_unverified`,
+  building = `supported`/`independent`, strong = `confirmed`. **Decay / "due" is no longer a dot** —
+  it surfaces in the Start queue as an *action*, which is where "practice this now" belongs.
+- **Obvious entry points.** The page resolves to **two clear doors**: one prominent **"Start"**
+  card (the assembled session — the main entry, with the three queued items previewed and each
+  individually startable) and the **skills list** (tap a skill → learn it, §11.2). Ambient copy
+  and the multi-section stack were cut to let those two read at a glance.
+- **Madlib course-position confirm replaces the personalized message.** Instead of a
+  "Welcome back, <name>" lede (hollow for a new student), the top of `/home` asks *"Your class is
+  on **Unit __ · Topic __** — right?"* pre-filled with our **best guess** and editable inline, with
+  a graceful fallback when we have no guess (`coursePosition.source = unknown` → "Where's your class
+  right now?"). This **sets the default learning experience** and is grounded in the existing
+  `coursePosition` / `setCoursePosition` machinery (the v1 home's ReconfirmCard, evolved). It is
+  recommendation-with-override: the guess is never a lock.
