@@ -183,4 +183,12 @@ Re-verify §1 live before running any step — Dev state drifts.
   open for the SME pass.
 - **Prod:** untouched.
 
-Nothing beyond [C]/[D] was written to Dev. [A] full apply and [B] release remain pending.
+- **Load-path smoke — PASS (rolled back, zero residue).** Ran a 2-item subset (1 computational +
+  1 slot-frame) through the real loader body inside a `begin … rollback` on Dev: fail-closed epv +
+  taxonomy resolution succeeded, and the transaction-local proof showed **2 unreleased versions, 2
+  `rubric_type='mcq'`, 2 cell-tags (composite FK to `taxonomy_cells` held), 2 check rows, 8
+  mcq_choices**, then rolled back — confirmed 0 `-SMOKE` rows persisted. Proves the F4 load path for
+  the new pilot content end-to-end (DB plumbing); the full serve→grade→cell-promotion loop still
+  needs [B] release + the front-end.
+
+Nothing beyond [C]/[D] was written to Dev ([A] smoke was rolled back). [A] full apply and [B] release remain pending.
