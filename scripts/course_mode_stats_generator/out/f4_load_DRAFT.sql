@@ -25,6 +25,11 @@ declare
   v_choice_idx int;
   v_is_comp boolean;
 begin
+  -- Track exactly the content_item_versions THIS load inserts, so the post-load
+  -- invariant and counts are scoped to this load's rows only -- not pre-existing
+  -- released apstat content (e.g. the already-approved lsrl proof cell on Dev).
+  create temporary table _f4_loaded_civ (civ_id uuid) on commit drop;
+
   -- Resolve the ap_statistics exam-pack version (2026-27). Fail-closed.
   select epv.id into strict v_exam_pack_version_id
   from app.exam_pack_versions epv
@@ -87,6 +92,8 @@ begin
       v_item#>>'{_load,content_sha256}'
     ) returning id into v_civ;
 
+    insert into _f4_loaded_civ (civ_id) values (v_civ);
+
     -- MCQ options -> mcq_choices (distractor rationale = its misconception label)
     v_choice_idx := 0;
     for v_opt in select value from jsonb_array_elements(v_item#>'{mcq_form,options}')
@@ -137,17 +144,22 @@ do $verify$
 declare
   v_items int; v_checks int; v_cells int; v_unreleased int;
 begin
-  select count(*) into v_items from app.content_items ci
-  join app.exam_pack_versions epv on epv.id = ci.exam_pack_version_id
-  join app.exam_packs ep on ep.id = epv.exam_pack_id
-  where ep.exam_code = 'ap_statistics' and ci.content_key like 'apstat-%';
+  -- Scoped to THIS load's inserted rows (see _f4_loaded_civ), so a Dev that already
+  -- carries released apstat content does not trip the fail-closed invariant.
+  select count(*) into v_items from _f4_loaded_civ;
 
-  select count(*) into v_checks from app.content_item_checks;
-  select count(*) into v_cells from app.content_item_cells;
+  select count(*) into v_checks
+    from app.content_item_checks c
+    join _f4_loaded_civ l on l.civ_id = c.content_item_version_id;
 
-  select count(*) into v_unreleased from app.content_item_versions civ
-  join app.content_items ci on ci.id = civ.content_item_id
-  where ci.content_key like 'apstat-%' and civ.review_status is distinct from null;
+  select count(*) into v_cells
+    from app.content_item_cells cc
+    join _f4_loaded_civ l on l.civ_id = cc.content_item_version_id;
+
+  select count(*) into v_unreleased
+    from app.content_item_versions civ
+    join _f4_loaded_civ l on l.civ_id = civ.id
+   where civ.review_status is distinct from null;
 
   raise notice 'F4 load: % items, % check rows, % cell rows', v_items, v_checks, v_cells;
   if v_unreleased > 0 then
