@@ -57,6 +57,7 @@ ARCHETYPES = {
 TASK_VERBS = {
     "Calculate": "perform the steps to a final numeric answer",
     "Construct": "build a representation / interval",
+    "Describe": "identify or characterize a statistical variable, method, distribution, design, or representation",
     "Justify": "give statistical reasoning to support or qualify a claim",
 }
 
@@ -124,10 +125,54 @@ FRAMING: Dict[str, Framing] = {
         "summary_stats", "Q2", "Calculate", 3, "exam_aligned_digital",
         ["a raw quantitative data set (no real-world causal claim implied)"],
         [_SEC5, _SEC6, _SEC7]),
+    "compare_stats": Framing(
+        "compare_stats", "Q2", "Calculate", 3, "exam_aligned_digital",
+        ["two one-variable quantitative data sets for distinct groups",
+         "the requested statistic is stated explicitly as Group A minus Group B",
+         "answer is a single numeric comparison: mean difference, median difference, or IQR difference"],
+        [_SEC5, _SEC6, _SEC7]),
     "slotframe_4b": Framing(
         "slotframe_4b", "Q2", "Justify", 4, "exam_aligned_digital",
         ["OBSERVATIONAL comparison only (no random assignment -> no causal claim)",
          "means differ but spreads overlap so an over-strong claim is refutable"],
+        [_SEC5, _SEC6, _SEC7]),
+    "slotframe_u1_11_sampling": Framing(
+        "slotframe_u1_11_sampling", "Q1", "Describe", 2, "exam_aligned_digital",
+        ["Unit 1 random-sampling methods only: SRS, stratified, cluster, systematic",
+         "non-random convenience and voluntary-response plans must be identified as non-random",
+         "stratified samples units within every stratum; cluster samples all units in selected clusters"],
+        [_SEC5, _SEC6, _SEC7]),
+    "slotframe_u1_2_variables": Framing(
+        "slotframe_u1_2_variables", "Q1", "Describe", 2, "exam_aligned_digital",
+        ["Unit 1 variable classification only: categorical vs quantitative",
+         "quantitative variables may be discrete counts or continuous measurements",
+         "numeric labels/codes are categorical when arithmetic on the values is not meaningful"],
+        [_SEC5, _SEC6, _SEC7]),
+    "slotframe_u1_6_distribution": Framing(
+        "slotframe_u1_6_distribution", "Q2", "Describe", 4, "exam_aligned_digital",
+        ["one-variable quantitative distribution described from text and five-number summary",
+         "shape, center, spread, and outlier claims must match the supplied summary",
+         "outlier claims use the 1.5 x IQR fences"],
+        [_SEC5, _SEC6, _SEC7]),
+    "slotframe_u1_5_graphs": Framing(
+        "slotframe_u1_5_graphs", "Q2", "Describe", 3, "exam_aligned_digital",
+        ["one-variable quantitative data set represented from text/numbers",
+         "graph description preserves frequencies, scale, and quantitative variable type"],
+        [_SEC5, _SEC6, _SEC7]),
+    "slotframe_u1_8_boxplots": Framing(
+        "slotframe_u1_8_boxplots", "Q2", "Describe", 3, "exam_aligned_digital",
+        ["five-number summary for one quantitative variable",
+         "modified boxplot description uses Q1/median/Q3 and 1.5 x IQR outlier fences"],
+        [_SEC5, _SEC6, _SEC7]),
+    "slotframe_u1_12_bias": Framing(
+        "slotframe_u1_12_bias", "Q1", "Describe", 2, "exam_aligned_digital",
+        ["realistic data-collection scenario",
+         "bias classification must follow the source of error stated in the stem"],
+        [_SEC5, _SEC6, _SEC7]),
+    "slotframe_u1_13_design": Framing(
+        "slotframe_u1_13_design", "Q1", "Describe", 2, "exam_aligned_digital",
+        ["realistic study-design scenario",
+         "classification must distinguish imposed treatments, randomization, control/placebo/blinding, and confounding"],
         [_SEC5, _SEC6, _SEC7]),
     "t_test_mean": Framing(
         "t_test_mean", "Q4", "Calculate", 3, "exam_aligned_digital",
@@ -274,6 +319,347 @@ CATEGORICAL_CONTEXTS: List[Dict[str, object]] = [
      "row_noun": "devices", "domain": "manufacturing"},
 ]
 
+# Unit 1.9 two-distribution comparison contexts. Each id is cell-namespaced so
+# parallel agents can append without collisions. Contexts are original synthetic
+# settings, not College Board prompts.
+U1_9_COMPARE_CONTEXTS: List[Dict[str, object]] = [
+    {"id": "u1_9__garden_seedlings", "quantity": "seedling heights after four weeks", "unit": "cm",
+     "group_a": "sunlit bed", "group_b": "shaded bed", "domain": "biology", "low": 12, "high": 48},
+    {"id": "u1_9__delivery_times", "quantity": "delivery times", "unit": "minutes",
+     "group_a": "Route A", "group_b": "Route B", "domain": "operations", "low": 18, "high": 85},
+    {"id": "u1_9__study_sessions", "quantity": "study-session lengths", "unit": "minutes",
+     "group_a": "weekday sessions", "group_b": "weekend sessions", "domain": "education", "low": 20, "high": 120},
+    {"id": "u1_9__store_receipts", "quantity": "customer receipt totals", "unit": "dollars",
+     "group_a": "morning customers", "group_b": "evening customers", "domain": "business", "low": 8, "high": 95},
+    {"id": "u1_9__trail_counts", "quantity": "daily trail-user counts", "unit": "people",
+     "group_a": "north trail", "group_b": "south trail", "domain": "civic", "low": 15, "high": 140},
+]
+
+# Unit 1.11 sampling method contexts. Each id is cell-namespaced so parallel
+# agents can append without collisions. Contexts are original synthetic school /
+# civic / operations settings, not College Board prompts.
+U1_11_SAMPLING_CONTEXTS: List[Dict[str, object]] = [
+    {
+        "id": "u1_11__school_clubs",
+        "population": "all students at a high school",
+        "units": "students",
+        "measure": "how many hours they spend in school clubs each week",
+        "frame": "an alphabetized roster of all students",
+        "strata": "grade level",
+        "clusters": "homerooms",
+        "location": "the cafeteria during one lunch period",
+        "voluntary_channel": "a link posted in the school announcements",
+        "domain": "education",
+    },
+    {
+        "id": "u1_11__city_bus_riders",
+        "population": "weekday bus riders in a city",
+        "units": "riders",
+        "measure": "their satisfaction with bus arrival times",
+        "frame": "a numbered list of riders from transit-card records",
+        "strata": "bus route",
+        "clusters": "bus trips",
+        "location": "the downtown terminal between 8:00 and 8:30 a.m.",
+        "voluntary_channel": "a survey QR code on posters inside buses",
+        "domain": "civic",
+    },
+    {
+        "id": "u1_11__library_patrons",
+        "population": "adult patrons of a county library system",
+        "units": "patrons",
+        "measure": "which library services they used last month",
+        "frame": "a numbered membership list",
+        "strata": "branch library",
+        "clusters": "library-card signup batches",
+        "location": "the front desk of the main branch on Saturday morning",
+        "voluntary_channel": "an email invitation asking interested patrons to respond",
+        "domain": "civic",
+    },
+    {
+        "id": "u1_11__online_store_orders",
+        "population": "orders placed with an online store last month",
+        "units": "orders",
+        "measure": "whether the delivery arrived by the promised date",
+        "frame": "a numbered export of all order IDs",
+        "strata": "shipping region",
+        "clusters": "delivery-driver routes",
+        "location": "the first 80 orders visible in the customer-service queue",
+        "voluntary_channel": "a feedback form sent only to customers who chose to click it",
+        "domain": "business",
+    },
+    {
+        "id": "u1_11__campus_trees",
+        "population": "trees on a college campus",
+        "units": "trees",
+        "measure": "whether they show signs of insect damage",
+        "frame": "a numbered campus tree inventory",
+        "strata": "tree species",
+        "clusters": "campus quadrants",
+        "location": "trees along the walkway nearest the science building",
+        "voluntary_channel": "reports submitted by anyone who noticed a damaged tree",
+        "domain": "biology",
+    },
+]
+
+# Unit 1.2 variable-classification slots. Each id is cell-namespaced.
+U1_2_VARIABLE_CONTEXTS: List[Dict[str, object]] = [
+    {"id": "u1_2__jersey_number", "ctx": "a youth soccer roster", "unit": "player",
+     "variable": "jersey number", "correct": "categorical", "domain": "education",
+     "why": "the number is an identifier, not a measurement",
+     "distractors": [
+         ("quantitative discrete, because jersey numbers are whole numbers", "u1_2__numeric_codes_called_quantitative"),
+         ("quantitative continuous, because larger jersey numbers are greater values", "u1_2__numeric_codes_called_quantitative"),
+         ("ordinal categorical, because the numbers put players in ranked order", "u1_2__counts_or_ordinal_miscategorized"),
+     ]},
+    {"id": "u1_2__zip_code", "ctx": "a city-services survey", "unit": "household",
+     "variable": "home ZIP code", "correct": "categorical", "domain": "civic",
+     "why": "the value labels a location category",
+     "distractors": [
+         ("quantitative discrete, because ZIP codes are written as numbers", "u1_2__numeric_codes_called_quantitative"),
+         ("quantitative continuous, because ZIP codes can be averaged", "u1_2__numeric_codes_called_quantitative"),
+         ("quantitative discrete, because each household has exactly one ZIP code", "u1_2__counts_or_ordinal_miscategorized"),
+     ]},
+    {"id": "u1_2__absences", "ctx": "a school attendance study", "unit": "student",
+     "variable": "number of absences this semester", "correct": "quantitative discrete", "domain": "education",
+     "why": "the value is a count",
+     "distractors": [
+         ("categorical, because students can be grouped by absence count", "u1_2__quantitative_called_categorical"),
+         ("categorical ordinal, because a larger count means worse attendance", "u1_2__counts_or_ordinal_miscategorized"),
+         ("quantitative continuous, because absence totals can be averaged", "u1_2__counts_or_ordinal_miscategorized"),
+     ]},
+    {"id": "u1_2__wait_time", "ctx": "a clinic operations study", "unit": "patient visit",
+     "variable": "waiting time before being called back", "correct": "quantitative continuous", "domain": "health",
+     "why": "the value is a time measurement",
+     "distractors": [
+         ("categorical, because visits can be sorted into short and long waits", "u1_2__quantitative_called_categorical"),
+         ("quantitative discrete, because the time is usually rounded to whole minutes", "u1_2__counts_or_ordinal_miscategorized"),
+         ("categorical ordinal, because longer waits rank above shorter waits", "u1_2__counts_or_ordinal_miscategorized"),
+     ]},
+    {"id": "u1_2__satisfaction_rating", "ctx": "a library service survey", "unit": "patron",
+     "variable": "satisfaction rating from very dissatisfied to very satisfied", "correct": "categorical ordinal", "domain": "civic",
+     "why": "the value is an ordered label",
+     "distractors": [
+         ("quantitative discrete, because the response choices can be coded 1 through 5", "u1_2__numeric_codes_called_quantitative"),
+         ("quantitative continuous, because averages of ratings can be reported", "u1_2__counts_or_ordinal_miscategorized"),
+         ("categorical nominal, because the responses are words", "u1_2__counts_or_ordinal_miscategorized"),
+     ]},
+    {"id": "u1_2__battery_life", "ctx": "a device quality-control study", "unit": "phone",
+     "variable": "battery life on one charge", "correct": "quantitative continuous", "domain": "manufacturing",
+     "why": "the value is a duration measurement",
+     "distractors": [
+         ("categorical, because phones can be labeled low, medium, or high battery life", "u1_2__quantitative_called_categorical"),
+         ("quantitative discrete, because battery life is often rounded to hours", "u1_2__counts_or_ordinal_miscategorized"),
+         ("categorical ordinal, because longer battery life is better", "u1_2__counts_or_ordinal_miscategorized"),
+     ]},
+    {"id": "u1_2__commute_mode", "ctx": "a school attendance study", "unit": "student",
+     "variable": "usual way of getting to school", "correct": "categorical", "domain": "education",
+     "why": "the value names a transportation category",
+     "distractors": [
+         ("quantitative discrete, because each category can be assigned a code", "u1_2__numeric_codes_called_quantitative"),
+         ("categorical ordinal, because some transportation methods take longer than others", "u1_2__counts_or_ordinal_miscategorized"),
+         ("quantitative continuous, because commute time could be measured", "u1_2__quantitative_called_categorical"),
+     ]},
+    {"id": "u1_2__household_size", "ctx": "a city-services survey", "unit": "household",
+     "variable": "number of people living in the household", "correct": "quantitative discrete", "domain": "civic",
+     "why": "the value is a count of people",
+     "distractors": [
+         ("categorical, because households can be grouped as small or large", "u1_2__quantitative_called_categorical"),
+         ("categorical ordinal, because larger households rank above smaller households", "u1_2__counts_or_ordinal_miscategorized"),
+         ("quantitative continuous, because the average household size can be a decimal", "u1_2__counts_or_ordinal_miscategorized"),
+     ]},
+    {"id": "u1_2__service_request_type", "ctx": "a city-services survey", "unit": "household",
+     "variable": "type of city-service request submitted most recently", "correct": "categorical", "domain": "civic",
+     "why": "the value names a request category",
+     "distractors": [
+         ("quantitative discrete, because request types can be numbered in a database", "u1_2__numeric_codes_called_quantitative"),
+         ("categorical ordinal, because some requests are more urgent than others", "u1_2__counts_or_ordinal_miscategorized"),
+         ("quantitative continuous, because response time could be measured for requests", "u1_2__quantitative_called_categorical"),
+     ]},
+    {"id": "u1_2__visits_last_year", "ctx": "a clinic operations study", "unit": "patient",
+     "variable": "number of clinic visits last year", "correct": "quantitative discrete", "domain": "health",
+     "why": "the value is a count of visits",
+     "distractors": [
+         ("categorical, because patients can be grouped by visit frequency", "u1_2__quantitative_called_categorical"),
+         ("categorical ordinal, because more visits can indicate higher need", "u1_2__counts_or_ordinal_miscategorized"),
+         ("quantitative continuous, because the mean number of visits can be a decimal", "u1_2__counts_or_ordinal_miscategorized"),
+     ]},
+    {"id": "u1_2__insurance_type", "ctx": "a clinic operations study", "unit": "patient",
+     "variable": "primary insurance type", "correct": "categorical", "domain": "health",
+     "why": "the value names an insurance category",
+     "distractors": [
+         ("quantitative discrete, because insurance types can be stored as billing codes", "u1_2__numeric_codes_called_quantitative"),
+         ("categorical ordinal, because some plans cost more than others", "u1_2__counts_or_ordinal_miscategorized"),
+         ("quantitative continuous, because insurance cost is numerical", "u1_2__quantitative_called_categorical"),
+     ]},
+    {"id": "u1_2__library_visits", "ctx": "a library service survey", "unit": "patron",
+     "variable": "number of library visits last month", "correct": "quantitative discrete", "domain": "civic",
+     "why": "the value is a count of visits",
+     "distractors": [
+         ("categorical, because patrons can be labeled frequent or infrequent", "u1_2__quantitative_called_categorical"),
+         ("categorical ordinal, because more visits ranks a patron higher", "u1_2__counts_or_ordinal_miscategorized"),
+         ("quantitative continuous, because monthly averages can be decimals", "u1_2__counts_or_ordinal_miscategorized"),
+     ]},
+    {"id": "u1_2__library_card_number", "ctx": "a library service survey", "unit": "patron",
+     "variable": "library-card number", "correct": "categorical", "domain": "civic",
+     "why": "the value is an identifier",
+     "distractors": [
+         ("quantitative discrete, because card numbers are whole numbers", "u1_2__numeric_codes_called_quantitative"),
+         ("quantitative continuous, because card numbers can be averaged", "u1_2__numeric_codes_called_quantitative"),
+         ("categorical ordinal, because larger card numbers came later", "u1_2__counts_or_ordinal_miscategorized"),
+     ]},
+    {"id": "u1_2__defect_count", "ctx": "a device quality-control study", "unit": "phone",
+     "variable": "number of cosmetic defects found during inspection", "correct": "quantitative discrete", "domain": "manufacturing",
+     "why": "the value is a count of defects",
+     "distractors": [
+         ("categorical, because phones can be labeled acceptable or unacceptable", "u1_2__quantitative_called_categorical"),
+         ("categorical ordinal, because more defects means worse condition", "u1_2__counts_or_ordinal_miscategorized"),
+         ("quantitative continuous, because the average defect count can be a decimal", "u1_2__counts_or_ordinal_miscategorized"),
+     ]},
+    {"id": "u1_2__model_code", "ctx": "a device quality-control study", "unit": "phone",
+     "variable": "model code", "correct": "categorical", "domain": "manufacturing",
+     "why": "the value labels the phone model",
+     "distractors": [
+         ("quantitative discrete, because model codes may contain numbers", "u1_2__numeric_codes_called_quantitative"),
+         ("categorical ordinal, because newer model codes are better", "u1_2__counts_or_ordinal_miscategorized"),
+         ("quantitative continuous, because model performance can be measured", "u1_2__quantitative_called_categorical"),
+     ]},
+]
+
+# Unit 1.6 distribution-description contexts. Each id is cell-namespaced.
+U1_6_DISTRIBUTION_CONTEXTS: List[Dict[str, object]] = [
+    {"id": "u1_6__commute_times", "quantity": "one-way commute times", "unit": "minutes", "domain": "social"},
+    {"id": "u1_6__quiz_scores", "quantity": "quiz scores", "unit": "points", "domain": "education"},
+    {"id": "u1_6__seedling_heights", "quantity": "seedling heights", "unit": "cm", "domain": "biology"},
+    {"id": "u1_6__order_totals", "quantity": "online order totals", "unit": "dollars", "domain": "business"},
+    {"id": "u1_6__battery_life", "quantity": "battery life", "unit": "hours", "domain": "manufacturing"},
+]
+
+
+# Unit 1.5 one-variable graph contexts. Each id is cell-namespaced.
+U1_5_GRAPH_CONTEXTS: List[Dict[str, object]] = [
+    {"id": "u1_5__commute_minutes", "quantity": "one-way commute times", "unit": "minutes", "domain": "social", "values": [12, 14, 18, 21, 23, 24, 27, 31, 34, 36, 39, 42]},
+    {"id": "u1_5__quiz_points", "quantity": "quiz scores", "unit": "points", "domain": "education", "values": [61, 65, 67, 70, 72, 76, 78, 81, 85, 87, 90, 94]},
+    {"id": "u1_5__seedling_cm", "quantity": "seedling heights", "unit": "cm", "domain": "biology", "values": [8, 9, 11, 12, 12, 13, 15, 17, 18, 20, 22, 23]},
+    {"id": "u1_5__order_dollars", "quantity": "online order totals", "unit": "dollars", "domain": "business", "values": [18, 22, 25, 29, 31, 33, 38, 41, 45, 48, 52, 57]},
+    {"id": "u1_5__battery_hours", "quantity": "battery life", "unit": "hours", "domain": "manufacturing", "values": [6, 7, 7, 8, 9, 9, 10, 11, 12, 13, 13, 14]},
+]
+
+
+# Unit 1.8 boxplot contexts. Each id is cell-namespaced.
+U1_8_BOXPLOT_CONTEXTS: List[Dict[str, object]] = [
+    {"id": "u1_8__commute_minutes", "quantity": "one-way commute times", "unit": "minutes", "domain": "social", "summary": {"min": 12, "q1": 18, "median": 22, "q3": 28, "max": 48, "low_whisker": 12, "high_whisker": 36}},
+    {"id": "u1_8__quiz_points", "quantity": "quiz scores", "unit": "points", "domain": "education", "summary": {"min": 36, "q1": 68, "median": 74, "q3": 82, "max": 94, "low_whisker": 58, "high_whisker": 94}},
+    {"id": "u1_8__seedling_cm", "quantity": "seedling heights", "unit": "cm", "domain": "biology", "summary": {"min": 7, "q1": 12, "median": 15, "q3": 19, "max": 31, "low_whisker": 7, "high_whisker": 25}},
+    {"id": "u1_8__order_dollars", "quantity": "online order totals", "unit": "dollars", "domain": "business", "summary": {"min": 14, "q1": 24, "median": 31, "q3": 38, "max": 67, "low_whisker": 14, "high_whisker": 55}},
+    {"id": "u1_8__battery_hours", "quantity": "battery life", "unit": "hours", "domain": "manufacturing", "summary": {"min": 5, "q1": 8, "median": 10, "q3": 12, "max": 20, "low_whisker": 5, "high_whisker": 15}},
+]
+
+
+# Unit 1.12 sampling-bias contexts. Each id is cell-namespaced.
+U1_12_BIAS_CONTEXTS: List[Dict[str, object]] = [
+    {"id": "u1_12__landline_city_survey", "domain": "civic",
+     "stem": "A city surveys residents about bus service by randomly calling numbers from a landline phone directory.",
+     "correct": "Undercoverage bias, because residents without landlines are left out of the sampling frame.",
+     "distractors": [
+         ("Nonresponse bias, because some selected residents might not answer the phone.", "u1_12__bias_type_confused"),
+         ("Response bias, because the wording of the bus-service question must be leading.", "u1_12__sampling_vs_nonsampling_error"),
+         ("Voluntary-response bias, because people choose whether to have a landline.", "u1_12__bias_type_confused"),
+     ]},
+    {"id": "u1_12__mailed_parent_survey", "domain": "education",
+     "stem": "A school mails a survey to 600 randomly selected families, but only 94 families send it back.",
+     "correct": "Nonresponse bias, because many selected families did not respond.",
+     "distractors": [
+         ("Undercoverage bias, because the sample was too small to include everyone.", "u1_12__bias_type_confused"),
+         ("Response bias, because families must have misunderstood every question.", "u1_12__sampling_vs_nonsampling_error"),
+         ("Voluntary-response bias, because the original 600 families were randomly selected.", "u1_12__bias_type_confused"),
+     ]},
+    {"id": "u1_12__website_click_poll", "domain": "media",
+     "stem": "A news website posts an open poll asking visitors to click if they support a proposed rule.",
+     "correct": "Voluntary-response bias, because people decide for themselves whether to participate.",
+     "distractors": [
+         ("Simple random sampling, because every website visitor can click the poll.", "u1_12__bias_type_confused"),
+         ("Nonresponse bias, because visitors who never see the website do not answer.", "u1_12__bias_type_confused"),
+         ("Response bias only, because the issue may be controversial.", "u1_12__sampling_vs_nonsampling_error"),
+     ]},
+    {"id": "u1_12__loaded_wording_question", "domain": "civic",
+     "stem": "A survey asks, 'Do you support the wasteful plan to raise parking fees?'",
+     "correct": "Response or wording bias, because the question pushes respondents toward a negative answer.",
+     "distractors": [
+         ("Undercoverage bias, because people who like parking fees are excluded.", "u1_12__sampling_vs_nonsampling_error"),
+         ("Voluntary-response bias, because respondents may have strong opinions.", "u1_12__bias_type_confused"),
+         ("Nonresponse bias, because some people may refuse to answer a rude question.", "u1_12__bias_type_confused"),
+     ]},
+    {"id": "u1_12__student_roster_srs", "domain": "education",
+     "stem": "A registrar uses a random-number generator to select 80 students from the complete school roster and all selected students answer the neutral survey question.",
+     "correct": "No clear bias is described; the frame is complete, selection is random, everyone responds, and the wording is neutral.",
+     "distractors": [
+         ("Undercoverage bias, because 80 students is fewer than the whole school.", "u1_12__no_bias_called_biased"),
+         ("Voluntary-response bias, because students were allowed to answer the question.", "u1_12__no_bias_called_biased"),
+         ("Nonresponse bias, because not every student in the school was selected.", "u1_12__no_bias_called_biased"),
+     ]},
+    {"id": "u1_12__clinic_waiting_room", "domain": "health",
+     "stem": "A clinic estimates patient satisfaction by asking only patients in the waiting room on Tuesday morning.",
+     "correct": "Undercoverage bias, because patients with appointments at other times are not represented.",
+     "distractors": [
+         ("Voluntary-response bias, because patients are physically present at the clinic.", "u1_12__bias_type_confused"),
+         ("Response bias, because satisfaction cannot be measured by a survey.", "u1_12__sampling_vs_nonsampling_error"),
+         ("Nonresponse bias, because Tuesday patients are different from Monday patients.", "u1_12__bias_type_confused"),
+     ]},
+]
+
+
+# Unit 1.13 study-design contexts. Each id is cell-namespaced.
+U1_13_DESIGN_CONTEXTS: List[Dict[str, object]] = [
+    {"id": "u1_13__caffeine_study_habit", "domain": "education",
+     "stem": "Students who choose to drink caffeine before studying are compared with students who choose not to; the caffeine group also tends to study later at night.",
+     "correct": "This is observational and has possible confounding, because caffeine use is mixed with study time and was not randomly assigned.",
+     "distractors": [
+         ("This is a randomized experiment because the students naturally fell into two groups.", "u1_13__observational_treated_as_experiment"),
+         ("Blinding would remove the confounding because students would not know their own study time.", "u1_13__control_blinding_randomization_confused"),
+         ("There is only a lurking variable and no confounding, because study time was measured.", "u1_13__confounding_vs_lurking_confused"),
+     ]},
+    {"id": "u1_13__pain_relief_placebo", "domain": "health",
+     "stem": "A researcher randomly assigns volunteers with headaches to receive a new pill or an identical-looking inactive pill, then compares pain ratings.",
+     "correct": "The inactive pill is a placebo control, helping separate the pill effect from expectation or natural improvement.",
+     "distractors": [
+         ("The inactive pill is the randomization method because it decides which group each person joins.", "u1_13__control_blinding_randomization_confused"),
+         ("The study is observational because pain ratings are observed after treatment.", "u1_13__observational_treated_as_experiment"),
+         ("The main flaw is confounding because one group receives an inactive pill.", "u1_13__confounding_vs_lurking_confused"),
+     ]},
+    {"id": "u1_13__fertilizer_random_assignment", "domain": "biology",
+     "stem": "A botanist assigns similar seedlings at random to fertilizer A or fertilizer B and grows all seedlings in the same greenhouse.",
+     "correct": "Random assignment helps balance other variables between treatment groups so differences can be attributed more credibly to fertilizer type.",
+     "distractors": [
+         ("Random assignment guarantees both fertilizers produce exactly the same spread of plant heights.", "u1_13__control_blinding_randomization_confused"),
+         ("This is observational because the botanist records plant heights instead of controlling the outcome.", "u1_13__observational_treated_as_experiment"),
+         ("The greenhouse is a lurking variable that proves the fertilizers are confounded.", "u1_13__confounding_vs_lurking_confused"),
+     ]},
+    {"id": "u1_13__app_notification_control", "domain": "business",
+     "stem": "A company randomly assigns users either to receive a new app notification or to receive no notification, then compares next-day app use.",
+     "correct": "The no-notification group is a control group, providing a baseline for comparison with the new notification treatment.",
+     "distractors": [
+         ("The no-notification group is blinding, because users know they did not get a notification.", "u1_13__control_blinding_randomization_confused"),
+         ("This is observational because the company compares existing users.", "u1_13__observational_treated_as_experiment"),
+         ("There must be confounding because people use apps for many reasons.", "u1_13__confounding_vs_lurking_confused"),
+     ]},
+    {"id": "u1_13__sleep_screen_observation", "domain": "health",
+     "stem": "A researcher records students' usual screen time and usual sleep hours, then compares sleep between students with high and low screen time.",
+     "correct": "This is an observational study, because the researcher records existing habits and does not assign screen-time treatments.",
+     "distractors": [
+         ("This is an experiment because the researcher compares two screen-time groups.", "u1_13__observational_treated_as_experiment"),
+         ("The comparison group is a placebo group because it has lower screen time.", "u1_13__control_blinding_randomization_confused"),
+         ("Randomization is present because students' usual schedules vary naturally.", "u1_13__control_blinding_randomization_confused"),
+     ]},
+    {"id": "u1_13__teacher_method_sections", "domain": "education",
+     "stem": "One teacher uses a new review method in the morning class and the old method in the afternoon class, then compares exam scores.",
+     "correct": "Class time is confounded with review method, because each method is tied to a different class period.",
+     "distractors": [
+         ("There is no confounding because both classes have the same teacher.", "u1_13__confounding_vs_lurking_confused"),
+         ("This is randomized because the teacher chose which period got each method.", "u1_13__control_blinding_randomization_confused"),
+         ("This is only observational because exam scores are observed after class.", "u1_13__observational_treated_as_experiment"),
+     ]},
+]
+
 
 # ==============================================================================
 # Access + validation helpers
@@ -337,6 +723,104 @@ def validate_scenarios() -> List[str]:
             problems.append(f"categorical context missing fields: {ctx}")
         elif len(ctx["rows"]) < 2 or len(ctx["cols"]) < 2:
             problems.append(f"categorical context needs >=2 rows and cols: {ctx}")
+    seen_compare_ids = set()
+    for ctx in U1_9_COMPARE_CONTEXTS:
+        required = ("id", "quantity", "unit", "group_a", "group_b", "domain", "low", "high")
+        if not all(k in ctx for k in required):
+            problems.append(f"u1_9 compare context missing fields: {ctx}")
+        if ctx.get("id") in seen_compare_ids:
+            problems.append(f"duplicate u1_9 compare context id: {ctx.get('id')}")
+        seen_compare_ids.add(ctx.get("id"))
+        if not str(ctx.get("id", "")).startswith("u1_9__"):
+            problems.append(f"u1_9 compare context id is not namespaced: {ctx.get('id')}")
+        if ctx.get("group_a") == ctx.get("group_b"):
+            problems.append(f"u1_9 compare context groups are not distinct: {ctx}")
+        if ctx.get("low", 0) >= ctx.get("high", 0):
+            problems.append(f"u1_9 compare context has inverted range: {ctx}")
+    seen_sampling_ids = set()
+    for ctx in U1_11_SAMPLING_CONTEXTS:
+        required = ("id", "population", "units", "measure", "frame", "strata",
+                    "clusters", "location", "voluntary_channel", "domain")
+        if not all(k in ctx for k in required):
+            problems.append(f"u1_11 sampling context missing fields: {ctx}")
+        if ctx.get("id") in seen_sampling_ids:
+            problems.append(f"duplicate u1_11 sampling context id: {ctx.get('id')}")
+        seen_sampling_ids.add(ctx.get("id"))
+        if not str(ctx.get("id", "")).startswith("u1_11__"):
+            problems.append(f"u1_11 sampling context id is not namespaced: {ctx.get('id')}")
+    seen_variable_ids = set()
+    for ctx in U1_2_VARIABLE_CONTEXTS:
+        required = ("id", "ctx", "unit", "variable", "correct", "domain", "why", "distractors")
+        if not all(k in ctx for k in required):
+            problems.append(f"u1_2 variable context missing fields: {ctx}")
+        if ctx.get("id") in seen_variable_ids:
+            problems.append(f"duplicate u1_2 variable context id: {ctx.get('id')}")
+        seen_variable_ids.add(ctx.get("id"))
+        if not str(ctx.get("id", "")).startswith("u1_2__"):
+            problems.append(f"u1_2 variable context id is not namespaced: {ctx.get('id')}")
+        if len(ctx.get("distractors", [])) != 3:
+            problems.append(f"u1_2 variable context needs exactly 3 distractors: {ctx}")
+    seen_distribution_ids = set()
+    for ctx in U1_6_DISTRIBUTION_CONTEXTS:
+        required = ("id", "quantity", "unit", "domain")
+        if not all(k in ctx for k in required):
+            problems.append(f"u1_6 distribution context missing fields: {ctx}")
+        if ctx.get("id") in seen_distribution_ids:
+            problems.append(f"duplicate u1_6 distribution context id: {ctx.get('id')}")
+        seen_distribution_ids.add(ctx.get("id"))
+        if not str(ctx.get("id", "")).startswith("u1_6__"):
+            problems.append(f"u1_6 distribution context id is not namespaced: {ctx.get('id')}")
+    seen_graph_ids = set()
+    for ctx in U1_5_GRAPH_CONTEXTS:
+        required = ("id", "quantity", "unit", "domain", "values")
+        if not all(k in ctx for k in required):
+            problems.append(f"u1_5 graph context missing fields: {ctx}")
+        if ctx.get("id") in seen_graph_ids:
+            problems.append(f"duplicate u1_5 graph context id: {ctx.get('id')}")
+        seen_graph_ids.add(ctx.get("id"))
+        if not str(ctx.get("id", "")).startswith("u1_5__"):
+            problems.append(f"u1_5 graph context id is not namespaced: {ctx.get('id')}")
+        vals = ctx.get("values", [])
+        if len(vals) < 8 or vals != sorted(vals):
+            problems.append(f"u1_5 graph context values must be sorted with enough observations: {ctx}")
+    seen_boxplot_ids = set()
+    for ctx in U1_8_BOXPLOT_CONTEXTS:
+        required = ("id", "quantity", "unit", "domain", "summary")
+        if not all(k in ctx for k in required):
+            problems.append(f"u1_8 boxplot context missing fields: {ctx}")
+        if ctx.get("id") in seen_boxplot_ids:
+            problems.append(f"duplicate u1_8 boxplot context id: {ctx.get('id')}")
+        seen_boxplot_ids.add(ctx.get("id"))
+        if not str(ctx.get("id", "")).startswith("u1_8__"):
+            problems.append(f"u1_8 boxplot context id is not namespaced: {ctx.get('id')}")
+        summ = ctx.get("summary", {})
+        keys = ("min", "q1", "median", "q3", "max", "low_whisker", "high_whisker")
+        if not all(k in summ for k in keys):
+            problems.append(f"u1_8 summary missing fields: {ctx}")
+    seen_bias_ids = set()
+    for ctx in U1_12_BIAS_CONTEXTS:
+        required = ("id", "domain", "stem", "correct", "distractors")
+        if not all(k in ctx for k in required):
+            problems.append(f"u1_12 bias context missing fields: {ctx}")
+        if ctx.get("id") in seen_bias_ids:
+            problems.append(f"duplicate u1_12 bias context id: {ctx.get('id')}")
+        seen_bias_ids.add(ctx.get("id"))
+        if not str(ctx.get("id", "")).startswith("u1_12__"):
+            problems.append(f"u1_12 bias context id is not namespaced: {ctx.get('id')}")
+        if len(ctx.get("distractors", [])) < 3:
+            problems.append(f"u1_12 bias context needs at least 3 distractors: {ctx}")
+    seen_design_ids = set()
+    for ctx in U1_13_DESIGN_CONTEXTS:
+        required = ("id", "domain", "stem", "correct", "distractors")
+        if not all(k in ctx for k in required):
+            problems.append(f"u1_13 design context missing fields: {ctx}")
+        if ctx.get("id") in seen_design_ids:
+            problems.append(f"duplicate u1_13 design context id: {ctx.get('id')}")
+        seen_design_ids.add(ctx.get("id"))
+        if not str(ctx.get("id", "")).startswith("u1_13__"):
+            problems.append(f"u1_13 design context id is not namespaced: {ctx.get('id')}")
+        if len(ctx.get("distractors", [])) < 3:
+            problems.append(f"u1_13 design context needs at least 3 distractors: {ctx}")
     return problems
 
 
@@ -353,6 +837,14 @@ if __name__ == "__main__":
             "normal": len(NORMAL_CONTEXTS),
             "mean": len(MEAN_CONTEXTS),
             "two_mean": len(TWO_MEAN_CONTEXTS),
+            "u1_9_compare": len(U1_9_COMPARE_CONTEXTS),
+            "u1_11_sampling": len(U1_11_SAMPLING_CONTEXTS),
+            "u1_2_variables": len(U1_2_VARIABLE_CONTEXTS),
+            "u1_6_distribution": len(U1_6_DISTRIBUTION_CONTEXTS),
+            "u1_5_graphs": len(U1_5_GRAPH_CONTEXTS),
+            "u1_8_boxplots": len(U1_8_BOXPLOT_CONTEXTS),
+            "u1_12_bias": len(U1_12_BIAS_CONTEXTS),
+            "u1_13_design": len(U1_13_DESIGN_CONTEXTS),
         },
         "framing": {p: {"archetype": f.archetype, "task_verb": f.task_verb,
                         "modality": f.modality} for p, f in FRAMING.items()},

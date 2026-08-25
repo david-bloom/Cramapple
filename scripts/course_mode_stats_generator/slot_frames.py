@@ -56,6 +56,88 @@ MISCONCEPTION_TYPES = [
     "over_generalizes_beyond_data",
 ]
 
+SAMPLING_METHODS = ["srs", "stratified", "cluster", "systematic", "convenience", "voluntary"]
+SAMPLING_DISTRACTOR_TAGS = [
+    "u1_11__stratified_cluster_confusion",
+    "u1_11__convenience_or_voluntary_called_random",
+    "u1_11__systematic_srs_conflation",
+    "u1_11__stratified_samples_whole_groups",
+]
+SAMPLING_DISTRACTOR_TAGS_BY_METHOD = {
+    "srs": [
+        "u1_11__systematic_srs_conflation",
+        "u1_11__stratified_cluster_confusion",
+        "u1_11__convenience_or_voluntary_called_random",
+    ],
+    "stratified": [
+        "u1_11__stratified_cluster_confusion",
+        "u1_11__stratified_samples_whole_groups",
+        "u1_11__systematic_srs_conflation",
+    ],
+    "cluster": [
+        "u1_11__stratified_samples_whole_groups",
+        "u1_11__stratified_cluster_confusion",
+        "u1_11__convenience_or_voluntary_called_random",
+    ],
+    "systematic": [
+        "u1_11__systematic_srs_conflation",
+        "u1_11__convenience_or_voluntary_called_random",
+        "u1_11__stratified_cluster_confusion",
+    ],
+    "convenience": [
+        "u1_11__convenience_or_voluntary_called_random",
+        "u1_11__stratified_cluster_confusion",
+        "u1_11__stratified_samples_whole_groups",
+    ],
+    "voluntary": [
+        "u1_11__convenience_or_voluntary_called_random",
+        "u1_11__stratified_cluster_confusion",
+        "u1_11__stratified_samples_whole_groups",
+    ],
+}
+
+
+
+VARIABLE_TYPES = {"categorical", "categorical ordinal", "quantitative discrete", "quantitative continuous"}
+VARIABLE_TAGS = {
+    "u1_2__numeric_codes_called_quantitative",
+    "u1_2__counts_or_ordinal_miscategorized",
+    "u1_2__quantitative_called_categorical",
+}
+
+
+
+DISTRIBUTION_SHAPES = ["right-skewed", "left-skewed", "roughly symmetric"]
+DISTRIBUTION_TAGS = {
+    "u1_6__skew_direction_reversed",
+    "u1_6__center_spread_confused",
+    "u1_6__outlier_from_range_not_fences",
+    "u1_6__ignores_shape_reports_center_only",
+}
+
+DESIGN_TAGS = {
+    "u1_13__confounding_vs_lurking_confused",
+    "u1_13__control_blinding_randomization_confused",
+    "u1_13__observational_treated_as_experiment",
+}
+
+BIAS_TAGS = {
+    "u1_12__bias_type_confused",
+    "u1_12__sampling_vs_nonsampling_error",
+    "u1_12__no_bias_called_biased",
+}
+
+BOXPLOT_TAGS = {
+    "u1_8__quartile_median_positions_swapped",
+    "u1_8__whisker_to_extreme_ignores_outlier",
+    "u1_8__box_spans_range_not_iqr",
+}
+
+GRAPH_TAGS = {
+    "u1_5__miscounted_bin_frequency",
+    "u1_5__stem_leaf_place_value_error",
+    "u1_5__wrong_plot_type_for_data",
+}
 
 def _justification_text(kind: str, s: Dict[str, str], mA: float, mB: float, sd: float) -> str:
     a, b, q = s["a"], s["b"], s["quantity"]
@@ -158,12 +240,636 @@ def gen_4b_instance(rng: random.Random, seed: int) -> Dict:
     }
 
 
-def generate(count: int, base_seed: int = 7000) -> List[Dict]:
+def _sampling_plan_text(method: str, s: Dict[str, object], rng: random.Random) -> str:
+    n = rng.choice([30, 40, 50, 60])
+    groups = rng.choice([3, 4, 5])
+    start = rng.choice([4, 7, 11])
+    every = rng.choice([8, 10, 12])
+    units = str(s["units"])
+    if method == "srs":
+        return (f"The researcher uses {s['frame']} and a random number generator to select "
+                f"{n} {units} from the entire population.")
+    if method == "stratified":
+        return (f"The researcher separates the population by {s['strata']}, then uses a random "
+                f"number generator to select some {units} from every {s['strata']} group.")
+    if method == "cluster":
+        return (f"The researcher divides the population into {s['clusters']}, randomly selects "
+                f"{groups} {s['clusters']}, and records data from every {s['units'][:-1] if units.endswith('s') else s['units']} "
+                f"in the selected {s['clusters']}.")
+    if method == "systematic":
+        return (f"The researcher chooses a random starting position, {start}, in {s['frame']} "
+                f"and then selects that entry and every {every}th entry after it.")
+    if method == "convenience":
+        return f"The researcher records responses from {units} at {s['location']}."
+    if method == "voluntary":
+        return f"The researcher uses responses from {units} who choose to answer after seeing {s['voluntary_channel']}."
+    raise ValueError(method)
+
+
+def _sampling_correct_text(method: str, s: Dict[str, object]) -> str:
+    if method == "srs":
+        return "SRS, because individuals are randomly selected from a list of the whole population."
+    if method == "stratified":
+        return (f"Stratified random sample, because the population is grouped by {s['strata']} "
+                f"and some {s['units']} are randomly selected from every group.")
+    if method == "cluster":
+        return (f"Cluster sample, because whole {s['clusters']} are randomly selected and every "
+                f"{s['units'][:-1] if str(s['units']).endswith('s') else s['units']} in those selected groups is included.")
+    if method == "systematic":
+        return "Systematic random sample, because a random start is followed by a fixed interval."
+    if method == "convenience":
+        return "Not a random sample; it is a convenience sample because the units are easy to reach."
+    if method == "voluntary":
+        return "Not a random sample; it is a voluntary-response sample because units choose whether to respond."
+    raise ValueError(method)
+
+
+def _sampling_distractor_text(tag: str, method: str, s: Dict[str, object]) -> str:
+    if tag == "u1_11__stratified_cluster_confusion":
+        if method == "cluster":
+            return (f"Stratified random sample, because the population is divided into {s['clusters']} "
+                    "before the sample is chosen.")
+        return (f"Cluster sample, because the population is divided into groups such as {s['strata']} "
+                "before the sample is chosen.")
+    if tag == "u1_11__convenience_or_voluntary_called_random":
+        if method in ("convenience", "voluntary"):
+            return "SRS, because any member of the population could have ended up in the response group."
+        return "Convenience sample, because the randomly selected units are the ones the researcher contacts."
+    if tag == "u1_11__systematic_srs_conflation":
+        if method == "systematic":
+            return "SRS, because the researcher uses a random starting point from a list."
+        return "Systematic random sample, because the researcher uses random selection after organizing the population."
+    if tag == "u1_11__stratified_samples_whole_groups":
+        if method == "cluster":
+            return (f"Stratified random sample, because all {s['units']} in the selected "
+                    f"{s['clusters']} are included.")
+        return (f"Stratified random sample, because the researcher should randomly choose whole "
+                f"{s['strata']} groups and include everyone in them.")
+    raise ValueError(tag)
+
+
+def gen_u1_11_sampling_instance(rng: random.Random, seed: int) -> Dict:
+    s = rng.choice(SCN.U1_11_SAMPLING_CONTEXTS)
+    method = rng.choice(SAMPLING_METHODS)
+    scenario_prov = SCN.framing("slotframe_u1_11_sampling", s.get("domain"))
+    plan = _sampling_plan_text(method, s, rng)
+    prompt = (f"A researcher wants to study {s['measure']} among {s['population']}. "
+              f"Sampling plan: {plan} Which choice best describes the sampling method?")
+
+    options = [{"text": _sampling_correct_text(method, s), "correct": True, "misconception": None}]
+    for tag in rng.sample(SAMPLING_DISTRACTOR_TAGS_BY_METHOD[method], 3):
+        options.append({"text": _sampling_distractor_text(tag, method, s),
+                        "correct": False, "misconception": tag,
+                        "misconception_source": MISC.provenance(tag)})
+    rng.shuffle(options)
+
+    correct_text = next(o["text"] for o in options if o["correct"])
+    checks = [
+        ("method_known", method in SAMPLING_METHODS),
+        ("four_options", len(options) == 4),
+        ("exactly_one_correct", sum(1 for o in options if o["correct"]) == 1),
+        ("option_texts_unique", len({o["text"] for o in options}) == 4),
+        ("all_distractors_tagged", all(o["misconception"] for o in options if not o["correct"])),
+        ("all_distractor_tags_canonical",
+         all(o["misconception"] in MISC.CATALOG for o in options if not o["correct"])),
+        ("all_distractors_cite_source",
+         all(o.get("misconception_source", {}).get("sources") for o in options if not o["correct"])),
+        ("scenario_framing_present",
+         bool(scenario_prov.get("archetype")) and bool(scenario_prov.get("sources"))),
+        ("scenario_is_unit_1_11_sampling",
+         any("Unit 1 random-sampling methods" in r for r in scenario_prov.get("validity_rules", []))),
+        ("nonrandom_methods_marked_nonrandom",
+         method not in ("convenience", "voluntary") or correct_text.startswith("Not a random sample")),
+        ("stratified_rule_correct",
+         method != "stratified" or "every group" in correct_text),
+        ("cluster_rule_correct",
+         method != "cluster" or "every" in correct_text and "selected groups" in correct_text),
+    ]
+    return {
+        "schema_version": "course-mode-generated-0.1",
+        "package_id": f"slotframe-u1_11-2a-{seed:06d}",
+        "content_key": f"apstat-u1-11-2a-sampling-{seed:06d}",
+        "item_type": "mcq",
+        "difficulty": "Medium",
+        "exam_pack_ref": {"exam_code": "ap_statistics", "cycle": "2026-27"},
+        "taxonomy_refs": [
+            {"scheme_key": "ap-statistics-2026-27", "node_key": "unit-1"},
+            {"scheme_key": "ap-statistics-2026-27", "node_key": "topic-1.11"},
+            {"scheme_key": "ap-statistics-skills", "node_key": "skill-2.A", "practice": 2},
+        ],
+        "cells": [{"topic": "1.11", "skill": "2.A"}],
+        "scenario_provenance": scenario_prov,
+        "prompt": prompt,
+        "mcq_form": {"options": options},
+        "parts": [{
+            "part_key": "part-a", "prompt": prompt,
+            "response_modalities": ["mcq"], "points": 1,
+            "criteria": [{
+                "criterion_key": "part-a-criterion-1", "points": 1,
+                "description": "Selects the sampling-method classification that matches the described plan.",
+                "required_evidence": f"Correct sampling method: {method}",
+                "deterministic_checks": [{"kind": "mcq_key", "correct_method": method}],
+                "accepted_variants": [],
+            }],
+        }],
+        "provenance": {
+            "generator": "course_mode_stats_generator/slot_frames.py",
+            "frame_id": "FB-U1-11-2A-SAMPLING-01",
+            "template_id": "slotframe_u1_11_sampling",
+            "params": {"scenario_id": s["id"], "method": method},
+            "seed": seed,
+            "release_status": "unreleased_generated_pending_review",
+            "note": "Authored conceptual frame; correctness from sampling-method taxonomy.",
+        },
+        "_property_checks": checks,
+    }
+
+
+
+def gen_u1_2_variables_instance(rng: random.Random, seed: int) -> Dict:
+    s = rng.choice(SCN.U1_2_VARIABLE_CONTEXTS)
+    scenario_prov = SCN.framing("slotframe_u1_2_variables", s.get("domain"))
+    correct = str(s["correct"])
+    prompt = (f"In {s['ctx']}, the variable recorded for each {s['unit']} is {s['variable']}. "
+              "Which choice best classifies this variable?")
+    options = [{"text": f"{correct}, because {s['why']}.", "correct": True, "misconception": None}]
+    for text, tag in s["distractors"]:
+        options.append({"text": text, "correct": False, "misconception": tag,
+                        "misconception_source": MISC.provenance(tag)})
+    rng.shuffle(options)
+    checks = [
+        ("known_correct_type", correct in VARIABLE_TYPES),
+        ("exactly_one_correct", sum(1 for o in options if o["correct"]) == 1),
+        ("four_options", len(options) == 4),
+        ("option_texts_unique", len({o["text"] for o in options}) == 4),
+        ("all_distractors_tagged", all(o["misconception"] for o in options if not o["correct"])),
+        ("all_distractor_tags_canonical", all(o["misconception"] in MISC.CATALOG for o in options if not o["correct"])),
+        ("all_distractors_cite_source", all(o.get("misconception_source", {}).get("sources") for o in options if not o["correct"])),
+        ("scenario_framing_present", bool(scenario_prov.get("archetype")) and bool(scenario_prov.get("sources"))),
+        ("scenario_is_variable_classification", any("variable classification" in r for r in scenario_prov.get("validity_rules", []))),
+        ("distractor_tags_subset", all(o.get("misconception") in VARIABLE_TAGS for o in options if not o["correct"])),
+    ]
+    return {
+        "schema_version": "course-mode-generated-0.1",
+        "package_id": f"slotframe-u1_2-2a-{seed:06d}",
+        "content_key": f"apstat-u1-2-2a-variables-{seed:06d}",
+        "item_type": "mcq",
+        "difficulty": "Easy-Medium",
+        "exam_pack_ref": {"exam_code": "ap_statistics", "cycle": "2026-27"},
+        "taxonomy_refs": [
+            {"scheme_key": "ap-statistics-2026-27", "node_key": "unit-1"},
+            {"scheme_key": "ap-statistics-2026-27", "node_key": "topic-1.2"},
+            {"scheme_key": "ap-statistics-skills", "node_key": "skill-2.A", "practice": 2},
+        ],
+        "cells": [{"topic": "1.2", "skill": "2.A"}],
+        "scenario_provenance": scenario_prov,
+        "prompt": prompt,
+        "mcq_form": {"options": options},
+        "parts": [{
+            "part_key": "part-a", "prompt": prompt,
+            "response_modalities": ["mcq"], "points": 1,
+            "criteria": [{
+                "criterion_key": "part-a-criterion-1", "points": 1,
+                "description": "Selects the variable classification that matches what the recorded values mean.",
+                "required_evidence": f"Correct variable type: {correct}",
+                "deterministic_checks": [{"kind": "mcq_key", "correct_type": correct}],
+                "accepted_variants": [],
+            }],
+        }],
+        "provenance": {
+            "generator": "course_mode_stats_generator/slot_frames.py",
+            "frame_id": "FB-U1-2-2A-VARIABLES-01",
+            "template_id": "slotframe_u1_2_variables",
+            "params": {"scenario_id": s["id"], "correct": correct},
+            "seed": seed,
+            "release_status": "unreleased_generated_pending_review",
+            "note": "Authored conceptual frame; correctness from variable-type taxonomy.",
+        },
+        "_property_checks": checks,
+    }
+
+
+
+def _distribution_summary(shape: str, shift: int) -> Dict[str, float]:
+    if shape == "right-skewed":
+        vals = {"min": 10, "q1": 20, "median": 24, "q3": 34, "max": 52, "mean": 29}
+    elif shape == "left-skewed":
+        vals = {"min": 22, "q1": 40, "median": 50, "q3": 54, "max": 64, "mean": 45}
+    else:
+        vals = {"min": 25, "q1": 40, "median": 50, "q3": 60, "max": 75, "mean": 50}
+    return {k: float(v + shift) for k, v in vals.items()}
+
+
+def _reverse_shape(shape: str) -> str:
+    if shape == "right-skewed":
+        return "left-skewed"
+    if shape == "left-skewed":
+        return "right-skewed"
+    return "right-skewed"
+
+
+def _distribution_option(shape: str, median: float, iqr: float, outlier_phrase: str) -> str:
+    return (f"The distribution is {shape}, centered near the median {median:g}, "
+            f"with IQR {iqr:g}, and {outlier_phrase}.")
+
+
+def gen_u1_6_distribution_instance(rng: random.Random, seed: int) -> Dict:
+    c = rng.choice(SCN.U1_6_DISTRIBUTION_CONTEXTS)
+    shape = rng.choice(DISTRIBUTION_SHAPES)
+    shift = rng.choice([0, 5, 10, 15])
+    vals = _distribution_summary(shape, shift)
+    iqr = vals["q3"] - vals["q1"]
+    low_fence = vals["q1"] - 1.5 * iqr
+    high_fence = vals["q3"] + 1.5 * iqr
+    has_outliers = vals["min"] < low_fence or vals["max"] > high_fence
+    outlier_phrase = "there are no outliers by the 1.5 x IQR rule"
+    prompt = (f"A summary of {c['quantity']} ({c['unit']}) is: min {vals['min']:g}, Q1 {vals['q1']:g}, "
+              f"median {vals['median']:g}, Q3 {vals['q3']:g}, max {vals['max']:g}, and mean about {vals['mean']:g}. "
+              "Which description is best supported by the summary?")
+    correct_text = _distribution_option(shape, vals["median"], iqr, outlier_phrase)
+    distractors = [
+        (_distribution_option(_reverse_shape(shape), vals["median"], iqr, outlier_phrase),
+         "u1_6__skew_direction_reversed"),
+        (f"The distribution is {shape}, centered near the IQR {iqr:g}, with spread about the median {vals['median']:g}, and {outlier_phrase}.",
+         "u1_6__center_spread_confused"),
+        (f"The distribution is {shape}, centered near the median {vals['median']:g}, with IQR {iqr:g}, and the maximum is an outlier because it is far from the minimum.",
+         "u1_6__outlier_from_range_not_fences"),
+        (f"The median is about {vals['median']:g} {c['unit']} and the IQR is about {iqr:g} {c['unit']}.",
+         "u1_6__ignores_shape_reports_center_only"),
+    ]
+    chosen = rng.sample(distractors, 3)
+    options = [{"text": correct_text, "correct": True, "misconception": None}]
+    for text, tag in chosen:
+        options.append({"text": text, "correct": False, "misconception": tag,
+                        "misconception_source": MISC.provenance(tag)})
+    rng.shuffle(options)
+    scenario_prov = SCN.framing("slotframe_u1_6_distribution", c.get("domain"))
+    checks = [
+        ("known_shape", shape in DISTRIBUTION_SHAPES),
+        ("iqr_positive", iqr > 0),
+        ("fences_correct", low_fence == vals["q1"] - 1.5 * iqr and high_fence == vals["q3"] + 1.5 * iqr),
+        ("no_outliers_by_fences", not has_outliers),
+        ("exactly_one_correct", sum(1 for o in options if o["correct"]) == 1),
+        ("four_options", len(options) == 4),
+        ("option_texts_unique", len({o["text"] for o in options}) == 4),
+        ("all_distractors_tagged", all(o["misconception"] for o in options if not o["correct"])),
+        ("all_distractor_tags_canonical", all(o["misconception"] in MISC.CATALOG for o in options if not o["correct"])),
+        ("all_distractors_cite_source", all(o.get("misconception_source", {}).get("sources") for o in options if not o["correct"])),
+        ("scenario_framing_present", bool(scenario_prov.get("archetype")) and bool(scenario_prov.get("sources"))),
+        ("scenario_uses_iqr_fences", any("1.5 x IQR" in r for r in scenario_prov.get("validity_rules", []))),
+        ("distractor_tags_subset", all(o.get("misconception") in DISTRIBUTION_TAGS for o in options if not o["correct"])),
+    ]
+    return {
+        "schema_version": "course-mode-generated-0.1",
+        "package_id": f"slotframe-u1_6-4a-{seed:06d}",
+        "content_key": f"apstat-u1-6-4a-distribution-{seed:06d}",
+        "item_type": "mcq",
+        "difficulty": "Medium",
+        "exam_pack_ref": {"exam_code": "ap_statistics", "cycle": "2026-27"},
+        "taxonomy_refs": [
+            {"scheme_key": "ap-statistics-2026-27", "node_key": "unit-1"},
+            {"scheme_key": "ap-statistics-2026-27", "node_key": "topic-1.6"},
+            {"scheme_key": "ap-statistics-skills", "node_key": "skill-4.A", "practice": 4},
+        ],
+        "cells": [{"topic": "1.6", "skill": "4.A"}],
+        "scenario_provenance": scenario_prov,
+        "prompt": prompt,
+        "mcq_form": {"options": options},
+        "parts": [{
+            "part_key": "part-a", "prompt": prompt,
+            "response_modalities": ["mcq"], "points": 1,
+            "criteria": [{
+                "criterion_key": "part-a-criterion-1", "points": 1,
+                "description": "Selects the distribution description matching shape, center, spread, and outlier evidence.",
+                "required_evidence": f"Correct shape: {shape}; median {vals['median']:g}; IQR {iqr:g}; no outliers by fences",
+                "deterministic_checks": [{"kind": "mcq_key", "correct_shape": shape}],
+                "accepted_variants": [],
+            }],
+        }],
+        "provenance": {
+            "generator": "course_mode_stats_generator/slot_frames.py",
+            "frame_id": "FB-U1-6-4A-DISTRIBUTION-01",
+            "template_id": "slotframe_u1_6_distribution",
+            "params": {"scenario_id": c["id"], "shape": shape, "summary": vals},
+            "seed": seed,
+            "release_status": "unreleased_generated_pending_review",
+            "note": "Authored conceptual frame; correctness from distribution-summary taxonomy.",
+        },
+        "_property_checks": checks,
+    }
+
+
+
+def _hist_counts(values: List[int], width: int) -> List[tuple]:
+    start = (min(values) // width) * width
+    stop = ((max(values) // width) + 1) * width
+    bins = []
+    lo = start
+    while lo <= stop:
+        hi = lo + width - 1
+        bins.append((lo, hi, sum(1 for v in values if lo <= v <= hi)))
+        lo += width
+    return bins
+
+
+def _hist_text(bins: List[tuple], unit: str) -> str:
+    return "; ".join(f"{lo}-{hi} {unit}: {count}" for lo, hi, count in bins)
+
+
+def _stemplot_text(values: List[int]) -> str:
+    stems = {}
+    for value in values:
+        stems.setdefault(value // 10, []).append(value % 10)
+    return "; ".join(f"{stem} | {' '.join(str(leaf) for leaf in leaves)}" for stem, leaves in sorted(stems.items()))
+
+
+def gen_u1_5_graph_instance(rng: random.Random, seed: int) -> Dict:
+    c = rng.choice(SCN.U1_5_GRAPH_CONTEXTS)
+    values = [v + rng.choice([0, 1, 2, 3]) for v in c["values"]]
+    width = rng.choice([5, 10])
+    bins = _hist_counts(values, width)
+    correct_text = "Histogram with counts " + _hist_text(bins, c["unit"])
+    wrong_bins = list(bins)
+    idx = rng.randrange(len(wrong_bins) - 1)
+    lo, hi, count = wrong_bins[idx]
+    lo2, hi2, count2 = wrong_bins[idx + 1]
+    if count > 0:
+        wrong_bins[idx] = (lo, hi, count - 1)
+        wrong_bins[idx + 1] = (lo2, hi2, count2 + 1)
+    else:
+        wrong_bins[idx] = (lo, hi, count + 1)
+        wrong_bins[idx + 1] = (lo2, hi2, max(0, count2 - 1))
+    prompt = (f"The {c['quantity']} ({c['unit']}) are {', '.join(str(v) for v in values)}. "
+              "Which representation correctly displays these quantitative data?")
+    distractors = [
+        ("Histogram with counts " + _hist_text(wrong_bins, c["unit"]), "u1_5__miscounted_bin_frequency"),
+        ("Stemplot " + _stemplot_text([v * 10 for v in values]), "u1_5__stem_leaf_place_value_error"),
+        (f"Bar chart with one bar for each named category of {c['quantity']}, rather than a numeric axis", "u1_5__wrong_plot_type_for_data"),
+    ]
+    options = [{"text": correct_text, "correct": True, "misconception": None}]
+    for text, tag in distractors:
+        options.append({"text": text, "correct": False, "misconception": tag,
+                        "misconception_source": MISC.provenance(tag)})
+    rng.shuffle(options)
+    scenario_prov = SCN.framing("slotframe_u1_5_graphs", c.get("domain"))
+    checks = [
+        ("exactly_one_correct", sum(1 for o in options if o["correct"]) == 1),
+        ("four_options", len(options) == 4),
+        ("option_texts_unique", len({o["text"] for o in options}) == 4),
+        ("all_distractors_tagged", all(o["misconception"] for o in options if not o["correct"])),
+        ("all_distractor_tags_canonical", all(o["misconception"] in MISC.CATALOG for o in options if not o["correct"])),
+        ("all_distractors_cite_source", all(o.get("misconception_source", {}).get("sources") for o in options if not o["correct"])),
+        ("scenario_framing_present", bool(scenario_prov.get("archetype")) and bool(scenario_prov.get("sources"))),
+        ("graph_tags_used", {o.get("misconception") for o in options if o.get("misconception")} == GRAPH_TAGS),
+    ]
+    return {
+        "schema_version": "course-mode-generated-0.1",
+        "package_id": f"slotframe-u1_5-3a-{seed:06d}",
+        "content_key": f"apstat-u1-5-3a-graphs-{seed:06d}",
+        "item_type": "mcq",
+        "difficulty": "Medium",
+        "exam_pack_ref": {"exam_code": "ap_statistics", "cycle": "2026-27"},
+        "taxonomy_refs": [
+            {"scheme_key": "ap-statistics-2026-27", "node_key": "unit-1"},
+            {"scheme_key": "ap-statistics-2026-27", "node_key": "topic-1.5"},
+            {"scheme_key": "ap-statistics-skills", "node_key": "skill-3.A", "practice": 3},
+        ],
+        "cells": [{"topic": "1.5", "skill": "3.A"}],
+        "scenario_provenance": scenario_prov,
+        "prompt": prompt,
+        "mcq_form": {"options": options},
+        "parts": [{"part_key": "part-a", "prompt": prompt, "response_modalities": ["mcq"], "points": 1,
+                   "criteria": [{"criterion_key": "part-a-criterion-1", "points": 1,
+                                  "description": "Selects the graph description that preserves the quantitative values and frequencies.",
+                                  "required_evidence": correct_text,
+                                  "deterministic_checks": [{"kind": "mcq_key", "correct_representation": "histogram_counts"}],
+                                  "accepted_variants": []}]}],
+        "provenance": {"generator": "course_mode_stats_generator/slot_frames.py",
+                       "frame_id": "FB-U1-5-3A-GRAPH-01", "template_id": "slotframe_u1_5_graphs",
+                       "params": {"scenario_id": c["id"], "values": values, "bin_width": width, "bins": bins},
+                       "seed": seed, "release_status": "unreleased_generated_pending_review",
+                       "note": "Authored conceptual frame; correctness from quantitative graph representation taxonomy."},
+        "_property_checks": checks,
+    }
+
+
+def generate_u1_5_graphs(count: int, base_seed: int = 15000) -> List[Dict]:
+    return [gen_u1_5_graph_instance(random.Random(base_seed + i), base_seed + i) for i in range(count)]
+
+
+def _shift_summary(summary: Dict[str, int], shift: int) -> Dict[str, int]:
+    return {k: v + shift for k, v in summary.items()}
+
+
+def _boxplot_text(summ: Dict[str, int], unit: str, box_lo: int, line_at: int, box_hi: int,
+                  low_whisker: int, high_whisker: int, outlier_text: str) -> str:
+    return (f"Box from {box_lo:g} to {box_hi:g} {unit}, median line at {line_at:g}, "
+            f"whiskers to {low_whisker:g} and {high_whisker:g}, {outlier_text}.")
+
+
+def gen_u1_8_boxplot_instance(rng: random.Random, seed: int) -> Dict:
+    c = rng.choice(SCN.U1_8_BOXPLOT_CONTEXTS)
+    shift = rng.choice([0, 2, 4, 6])
+    summ = _shift_summary(c["summary"], shift)
+    iqr = summ["q3"] - summ["q1"]
+    low_fence = summ["q1"] - 1.5 * iqr
+    high_fence = summ["q3"] + 1.5 * iqr
+    outliers = []
+    if summ["min"] < low_fence:
+        outliers.append(summ["min"])
+    if summ["max"] > high_fence:
+        outliers.append(summ["max"])
+    outlier_text = "with no plotted outliers" if not outliers else "with plotted outlier(s) at " + ", ".join(f"{v:g}" for v in outliers)
+    correct_text = _boxplot_text(summ, c["unit"], summ["q1"], summ["median"], summ["q3"],
+                                 summ["low_whisker"], summ["high_whisker"], outlier_text)
+    prompt = (f"For {c['quantity']} ({c['unit']}), a summary is min {summ['min']:g}, Q1 {summ['q1']:g}, "
+              f"median {summ['median']:g}, Q3 {summ['q3']:g}, max {summ['max']:g}. "
+              f"Using the 1.5 x IQR rule, the non-outlier whisker endpoints are {summ['low_whisker']:g} and {summ['high_whisker']:g}. "
+              "Which modified boxplot description matches this summary?")
+    distractors = [
+        (_boxplot_text(summ, c["unit"], summ["median"], summ["q1"], summ["q3"], summ["low_whisker"], summ["high_whisker"], outlier_text), "u1_8__quartile_median_positions_swapped"),
+        (_boxplot_text(summ, c["unit"], summ["q1"], summ["median"], summ["q3"], summ["min"], summ["max"], "with no plotted outliers"), "u1_8__whisker_to_extreme_ignores_outlier"),
+        (_boxplot_text(summ, c["unit"], summ["min"], summ["median"], summ["max"], summ["min"], summ["max"], outlier_text), "u1_8__box_spans_range_not_iqr"),
+    ]
+    options = [{"text": correct_text, "correct": True, "misconception": None}]
+    for text, tag in distractors:
+        options.append({"text": text, "correct": False, "misconception": tag,
+                        "misconception_source": MISC.provenance(tag)})
+    rng.shuffle(options)
+    scenario_prov = SCN.framing("slotframe_u1_8_boxplots", c.get("domain"))
+    checks = [("iqr_positive", iqr > 0),
+              ("whiskers_inside_fences", summ["low_whisker"] >= low_fence and summ["high_whisker"] <= high_fence),
+              ("endpoint_outlier_present", bool(outliers)),
+              ("exactly_one_correct", sum(1 for o in options if o["correct"]) == 1),
+              ("four_options", len(options) == 4),
+              ("option_texts_unique", len({o["text"] for o in options}) == 4),
+              ("all_distractors_tagged", all(o["misconception"] for o in options if not o["correct"])),
+              ("all_distractor_tags_canonical", all(o["misconception"] in MISC.CATALOG for o in options if not o["correct"])),
+              ("all_distractors_cite_source", all(o.get("misconception_source", {}).get("sources") for o in options if not o["correct"])),
+              ("scenario_framing_present", bool(scenario_prov.get("archetype")) and bool(scenario_prov.get("sources"))),
+              ("boxplot_tags_used", {o.get("misconception") for o in options if o.get("misconception")} == BOXPLOT_TAGS)]
+    return {"schema_version": "course-mode-generated-0.1", "package_id": f"slotframe-u1_8-3a-{seed:06d}",
+            "content_key": f"apstat-u1-8-3a-boxplots-{seed:06d}", "item_type": "mcq", "difficulty": "Medium",
+            "exam_pack_ref": {"exam_code": "ap_statistics", "cycle": "2026-27"},
+            "taxonomy_refs": [{"scheme_key": "ap-statistics-2026-27", "node_key": "unit-1"},
+                              {"scheme_key": "ap-statistics-2026-27", "node_key": "topic-1.8"},
+                              {"scheme_key": "ap-statistics-skills", "node_key": "skill-3.A", "practice": 3}],
+            "cells": [{"topic": "1.8", "skill": "3.A"}], "scenario_provenance": scenario_prov,
+            "prompt": prompt, "mcq_form": {"options": options},
+            "parts": [{"part_key": "part-a", "prompt": prompt, "response_modalities": ["mcq"], "points": 1,
+                       "criteria": [{"criterion_key": "part-a-criterion-1", "points": 1,
+                                      "description": "Selects the modified boxplot description matching quartiles, whiskers, and outliers.",
+                                      "required_evidence": correct_text,
+                                      "deterministic_checks": [{"kind": "mcq_key", "correct_representation": "modified_boxplot"}],
+                                      "accepted_variants": []}]}],
+            "provenance": {"generator": "course_mode_stats_generator/slot_frames.py", "frame_id": "FB-U1-8-3A-BOXPLOT-01",
+                           "template_id": "slotframe_u1_8_boxplots", "params": {"scenario_id": c["id"], "summary": summ, "iqr": iqr, "fences": [low_fence, high_fence]},
+                           "seed": seed, "release_status": "unreleased_generated_pending_review",
+                           "note": "Authored conceptual frame; correctness from modified-boxplot summary rules."},
+            "_property_checks": checks}
+
+
+def generate_u1_8_boxplots(count: int, base_seed: int = 18000) -> List[Dict]:
+    return [gen_u1_8_boxplot_instance(random.Random(base_seed + i), base_seed + i) for i in range(count)]
+
+
+def gen_u1_12_bias_instance(rng: random.Random, seed: int) -> Dict:
+    c = rng.choice(SCN.U1_12_BIAS_CONTEXTS)
+    prompt = f"{c['stem']} Which statement best identifies the bias, if any?"
+    options = [{"text": c["correct"], "correct": True, "misconception": None}]
+    for text, tag in c["distractors"]:
+        options.append({"text": text, "correct": False, "misconception": tag,
+                        "misconception_source": MISC.provenance(tag)})
+    rng.shuffle(options)
+    scenario_prov = SCN.framing("slotframe_u1_12_bias", c.get("domain"))
+    checks = [("exactly_one_correct", sum(1 for o in options if o["correct"]) == 1),
+              ("four_options", len(options) == 4),
+              ("option_texts_unique", len({o["text"] for o in options}) == 4),
+              ("all_distractors_tagged", all(o["misconception"] for o in options if not o["correct"])),
+              ("all_distractor_tags_canonical", all(o["misconception"] in MISC.CATALOG for o in options if not o["correct"])),
+              ("all_distractors_cite_source", all(o.get("misconception_source", {}).get("sources") for o in options if not o["correct"])),
+              ("scenario_framing_present", bool(scenario_prov.get("archetype")) and bool(scenario_prov.get("sources"))),
+              ("bias_tags_subset", all(o.get("misconception") in BIAS_TAGS for o in options if not o["correct"]))]
+    return {"schema_version": "course-mode-generated-0.1", "package_id": f"slotframe-u1_12-2a-{seed:06d}",
+            "content_key": f"apstat-u1-12-2a-bias-{seed:06d}", "item_type": "mcq", "difficulty": "Medium",
+            "exam_pack_ref": {"exam_code": "ap_statistics", "cycle": "2026-27"},
+            "taxonomy_refs": [{"scheme_key": "ap-statistics-2026-27", "node_key": "unit-1"},
+                              {"scheme_key": "ap-statistics-2026-27", "node_key": "topic-1.12"},
+                              {"scheme_key": "ap-statistics-skills", "node_key": "skill-2.A", "practice": 2}],
+            "cells": [{"topic": "1.12", "skill": "2.A"}], "scenario_provenance": scenario_prov,
+            "prompt": prompt, "mcq_form": {"options": options},
+            "parts": [{"part_key": "part-a", "prompt": prompt, "response_modalities": ["mcq"], "points": 1,
+                       "criteria": [{"criterion_key": "part-a-criterion-1", "points": 1,
+                                      "description": "Selects the bias classification supported by the data-collection scenario.",
+                                      "required_evidence": c["correct"],
+                                      "deterministic_checks": [{"kind": "mcq_key", "correct_bias_statement": c["correct"]}],
+                                      "accepted_variants": []}]}],
+            "provenance": {"generator": "course_mode_stats_generator/slot_frames.py", "frame_id": "FB-U1-12-2A-BIAS-01",
+                           "template_id": "slotframe_u1_12_bias", "params": {"scenario_id": c["id"]},
+                           "seed": seed, "release_status": "unreleased_generated_pending_review",
+                           "note": "Authored conceptual frame; correctness from sampling-bias taxonomy."},
+            "_property_checks": checks}
+
+
+def generate_u1_12_bias(count: int, base_seed: int = 11200) -> List[Dict]:
+    return [gen_u1_12_bias_instance(random.Random(base_seed + i), base_seed + i) for i in range(count)]
+
+
+def gen_u1_13_design_instance(rng: random.Random, seed: int) -> Dict:
+    c = rng.choice(SCN.U1_13_DESIGN_CONTEXTS)
+    prompt = f"{c['stem']} Which statement best identifies the design element or flaw?"
+    options = [{"text": c["correct"], "correct": True, "misconception": None}]
+    for text, tag in c["distractors"]:
+        options.append({"text": text, "correct": False, "misconception": tag,
+                        "misconception_source": MISC.provenance(tag)})
+    rng.shuffle(options)
+    scenario_prov = SCN.framing("slotframe_u1_13_design", c.get("domain"))
+    checks = [("exactly_one_correct", sum(1 for o in options if o["correct"]) == 1),
+              ("four_options", len(options) == 4),
+              ("option_texts_unique", len({o["text"] for o in options}) == 4),
+              ("all_distractors_tagged", all(o["misconception"] for o in options if not o["correct"])),
+              ("all_distractor_tags_canonical", all(o["misconception"] in MISC.CATALOG for o in options if not o["correct"])),
+              ("all_distractors_cite_source", all(o.get("misconception_source", {}).get("sources") for o in options if not o["correct"])),
+              ("scenario_framing_present", bool(scenario_prov.get("archetype")) and bool(scenario_prov.get("sources"))),
+              ("design_tags_subset", all(o.get("misconception") in DESIGN_TAGS for o in options if not o["correct"]))]
+    return {"schema_version": "course-mode-generated-0.1", "package_id": f"slotframe-u1_13-2a-{seed:06d}",
+            "content_key": f"apstat-u1-13-2a-design-{seed:06d}", "item_type": "mcq", "difficulty": "Medium",
+            "exam_pack_ref": {"exam_code": "ap_statistics", "cycle": "2026-27"},
+            "taxonomy_refs": [{"scheme_key": "ap-statistics-2026-27", "node_key": "unit-1"},
+                              {"scheme_key": "ap-statistics-2026-27", "node_key": "topic-1.13"},
+                              {"scheme_key": "ap-statistics-skills", "node_key": "skill-2.A", "practice": 2}],
+            "cells": [{"topic": "1.13", "skill": "2.A"}], "scenario_provenance": scenario_prov,
+            "prompt": prompt, "mcq_form": {"options": options},
+            "parts": [{"part_key": "part-a", "prompt": prompt, "response_modalities": ["mcq"], "points": 1,
+                       "criteria": [{"criterion_key": "part-a-criterion-1", "points": 1,
+                                      "description": "Selects the study-design statement supported by the scenario.",
+                                      "required_evidence": c["correct"],
+                                      "deterministic_checks": [{"kind": "mcq_key", "correct_design_statement": c["correct"]}],
+                                      "accepted_variants": []}]}],
+            "provenance": {"generator": "course_mode_stats_generator/slot_frames.py", "frame_id": "FB-U1-13-2A-DESIGN-01",
+                           "template_id": "slotframe_u1_13_design", "params": {"scenario_id": c["id"]},
+                           "seed": seed, "release_status": "unreleased_generated_pending_review",
+                           "note": "Authored conceptual frame; correctness from study-design taxonomy."},
+            "_property_checks": checks}
+
+
+def generate_u1_13_design(count: int, base_seed: int = 11300) -> List[Dict]:
+    return [gen_u1_13_design_instance(random.Random(base_seed + i), base_seed + i) for i in range(count)]
+
+
+# ==============================================================================
+# Frame registry + harness. Each Track B cell appends ONE entry to FRAMES below
+# (append-only) — no harness rewrite needed. (Integration lesson from batch 2.)
+# ==============================================================================
+def generate_4b(count: int, base_seed: int = 7000) -> List[Dict]:
     return [gen_4b_instance(random.Random(base_seed + i), base_seed + i) for i in range(count)]
 
 
-def property_report(count: int = 60) -> Dict:
-    insts = generate(count)
+def generate_u1_11_sampling(count: int, base_seed: int = 11000) -> List[Dict]:
+    return [gen_u1_11_sampling_instance(random.Random(base_seed + i), base_seed + i) for i in range(count)]
+
+
+def generate_u1_2_variables(count: int, base_seed: int = 12000) -> List[Dict]:
+    return [gen_u1_2_variables_instance(random.Random(base_seed + i), base_seed + i) for i in range(count)]
+
+
+def generate_u1_6_distribution(count: int, base_seed: int = 16000) -> List[Dict]:
+    return [gen_u1_6_distribution_instance(random.Random(base_seed + i), base_seed + i) for i in range(count)]
+
+
+def generate(count: int, base_seed: int = 7000) -> List[Dict]:
+    return generate_4b(count, base_seed)
+
+
+FRAMES = [
+    {"frame_id": "FB-4B-COMPARE-01", "cell": "1.9 x 4.B", "gen": generate_4b,
+     "base_seed": 7000, "expected_tags": set(),
+     "note": "1 authored frame + scenario/justification slots. Coverage: Practice-4 skill 4.B."},
+    {"frame_id": "FB-U1-11-2A-SAMPLING-01", "cell": "1.11 x 2.A", "gen": generate_u1_11_sampling,
+     "base_seed": 11000, "expected_tags": set(SAMPLING_DISTRACTOR_TAGS),
+     "note": "Sampling-method identification. Coverage: Unit 1 random-sampling methods."},
+    {"frame_id": "FB-U1-2-2A-VARIABLES-01", "cell": "1.2 x 2.A", "gen": generate_u1_2_variables,
+     "base_seed": 12000, "expected_tags": set(VARIABLE_TAGS),
+     "note": "Variable classification (categorical vs quantitative). Coverage: Unit 1 topic 1.2."},
+    {"frame_id": "FB-U1-6-4A-DISTRIBUTION-01", "cell": "1.6 x 4.A", "gen": generate_u1_6_distribution,
+     "base_seed": 16000, "expected_tags": set(DISTRIBUTION_TAGS),
+     "note": "Distribution description (shape/center/spread/outliers). Coverage: Unit 1 topic 1.6."},
+    {"frame_id": "FB-U1-5-3A-GRAPH-01", "cell": "1.5 x 3.A", "gen": generate_u1_5_graphs,
+     "base_seed": 15000, "expected_tags": set(GRAPH_TAGS),
+     "note": "Quantitative graph representation (histogram/dotplot/stemplot). Coverage: Unit 1 topic 1.5."},
+    {"frame_id": "FB-U1-8-3A-BOXPLOT-01", "cell": "1.8 x 3.A", "gen": generate_u1_8_boxplots,
+     "base_seed": 18000, "expected_tags": set(BOXPLOT_TAGS),
+     "note": "Boxplot from five-number summary. Coverage: Unit 1 topic 1.8."},
+    {"frame_id": "FB-U1-12-2A-BIAS-01", "cell": "1.12 x 2.A", "gen": generate_u1_12_bias,
+     "base_seed": 11200, "expected_tags": set(BIAS_TAGS),
+     "note": "Sampling bias classification. Coverage: Unit 1 topic 1.12."},
+    {"frame_id": "FB-U1-13-2A-DESIGN-01", "cell": "1.13 x 2.A", "gen": generate_u1_13_design,
+     "base_seed": 11300, "expected_tags": set(DESIGN_TAGS),
+     "note": "Experimental design classification. Coverage: Unit 1 topic 1.13."},
+]
+
+
+def _report_frame(frame_id: str, cell: str, insts: List[Dict], note: str) -> Dict:
     failures = []
     nchecks = 0
     for inst in insts:
@@ -171,34 +877,59 @@ def property_report(count: int = 60) -> Dict:
             nchecks += 1
             if not ok:
                 failures.append(f"{inst['provenance']['seed']}/{name}")
+    positions = [
+        next(idx for idx, opt in enumerate(inst["mcq_form"]["options"]) if opt["correct"])
+        for inst in insts
+    ]
     return {
-        "frame_id": "FB-4B-COMPARE-01", "cell": "1.9 x 4.B",
+        "frame_id": frame_id, "cell": cell,
         "instances": len(insts), "checks": nchecks,
         "distinct_prompts": len({i["prompt"] for i in insts}),
+        "correct_answer_positions": sorted(set(positions)),
+        "correct_answer_position_varies": len(set(positions)) >= 2,
         "failures": failures, "ok": len(failures) == 0,
-        "authoring_cost_note": (
-            "1 authored frame + 4 scenario slots + 5 justification-type templates "
-            f"-> {len(insts)} validated instances (x scenario x numeric slots). "
-            "Coverage: 1 of Practice-4's 7 skills (4.B). Scaling estimate: each P4 skill "
-            "needs its own frame family; 4.A/4.C/4.D/4.F/4.G differ structurally, so budget "
-            "~1 frame family per skill, not one frame for all of P4."
-        ),
+        "authoring_cost_note": note,
+    }
+
+
+def property_report(count: int = 120) -> Dict:
+    frames = []
+    tags_ok = True
+    for spec in FRAMES:
+        insts = spec["gen"](count, spec["base_seed"])
+        frames.append(_report_frame(spec["frame_id"], spec["cell"], insts, spec["note"]))
+        used = {opt.get("misconception") for inst in insts
+                for opt in inst["mcq_form"]["options"] if opt.get("misconception")}
+        if not spec["expected_tags"].issubset(used):
+            tags_ok = False
+    meta = [
+        ("all_frames_ok", all(f["ok"] for f in frames)),
+        ("correct_answer_position_varies", all(f["correct_answer_position_varies"] for f in frames)),
+        ("misconception_catalog_self_check", not MISC.validate_catalog()),
+        ("scenario_catalog_self_check", not SCN.validate_scenarios()),
+        ("all_frame_expected_tags_used", tags_ok),
+    ]
+    return {
+        "frames": frames,
+        "instances": sum(f["instances"] for f in frames),
+        "checks": sum(f["checks"] for f in frames),
+        "meta_tests": [{"name": n, "ok": ok} for n, ok in meta],
+        "ok": all(f["ok"] for f in frames) and all(ok for _n, ok in meta),
     }
 
 
 def emit_samples(count: int = 4, base_seed: int = 9000) -> int:
     OUT_DIR.mkdir(parents=True, exist_ok=True)
-    for inst in generate(count, base_seed):
-        assert all(ok for _n, ok in inst["_property_checks"]), \
-            f"invalid slot-frame instance reached emit: {inst['package_id']}"
-        pkg = {k: v for k, v in inst.items() if k != "_property_checks"}
-        (OUT_DIR / f"{inst['package_id']}.json").write_text(json.dumps(pkg, indent=2))
-    return count
+    emitted = 0
+    for i, spec in enumerate(FRAMES):
+        for inst in spec["gen"](count, base_seed + 100 * i):
+            assert all(ok for _n, ok in inst["_property_checks"]), \
+                f"invalid slot-frame instance reached emit: {inst['package_id']}"
+            pkg = {k: v for k, v in inst.items() if k != "_property_checks"}
+            (OUT_DIR / f"{inst['package_id']}.json").write_text(json.dumps(pkg, indent=2))
+            emitted += 1
+    return emitted
 
 
 if __name__ == "__main__":
-    import sys
-    if len(sys.argv) > 1 and sys.argv[1] == "emit":
-        print("emitted", emit_samples(), "slot-frame samples")
-    else:
-        print(json.dumps(property_report(), indent=2))
+    print(json.dumps(property_report(), indent=2))
