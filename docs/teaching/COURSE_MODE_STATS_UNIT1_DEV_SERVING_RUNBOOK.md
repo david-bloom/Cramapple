@@ -157,4 +157,30 @@ lsrl proof widened to a real unit.
 - **Needs a human/CLI:** [E] hook deploy (if not current); SME sign-off (D2).
 - **Not in scope here:** any Prod switch (held); the front-end build (Lovable).
 
-Nothing in this runbook was executed. Re-verify §1 live before running any step — Dev state drifts.
+Re-verify §1 live before running any step — Dev state drifts.
+
+---
+
+## 7. Execution log
+
+**2026-08-25 (David approved the safe/reversible Dev steps).**
+- **[A] load — BUILT, not applied.** `emit_pilot.py` + `out/f4_load_DRAFT.sql` regenerated = 200
+  pilot packages (10 cells × 20, seeds matched to the D8 pack so served==reviewed; fresh seeds so no
+  content_key collision). Loader `--check`: 200 packages, 0 problems. **Not applied to Dev** — the
+  1.8 MB load SQL exceeds the Supabase MCP inline limit; apply via CLI/psql (or a small MCP smoke
+  subset). Correction to §3[C]: the loader stamps `rubric_type='mcq'` on **all** items (incl. the two
+  computational cells) — the proven-live choice-match config; the numeric checks are the inert
+  substrate.
+- **[C] security audit — PASS.** `authenticated` has **no** direct SELECT on `app.grading_results`;
+  `public.grading_results` view exists and does **not** expose `shadow_result`. No answer-key
+  serve-blocker.
+- **[D] manifest — APPLIED.** `home_release_manifest` for epv `4e54bb4f`:
+  `allowed_unit_numbers` **{5} → {1,5}** (quick_start=true, min_items=3). Reversible: `set
+  allowed_unit_numbers='{5}'`. Inert until Unit-1 items publish (step B).
+- **[F] profile — no change needed.** David's Dev `active_exam_pack_version_id` already `4e54bb4f`.
+- **[B] CM-D19 release — HELD.** Not run; gated on David's explicit D8 SME sign-off (the call records
+  a 20/0 attestation under his name). Distractor-plausibility flag on the 2 computational cells still
+  open for the SME pass.
+- **Prod:** untouched.
+
+Nothing beyond [C]/[D] was written to Dev. [A] full apply and [B] release remain pending.
