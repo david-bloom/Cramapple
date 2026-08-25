@@ -372,6 +372,10 @@ Density and clarity pass on the Learn-mode `/home` (canvas `Main`):
   (`what it is / why it matters / how points are earned / answer move / common point loss`) renders
   as it does in `TopicHome` — cut in the density pass, restored here.
 - **"Homework helper" stub (demand probe).** The deferred homework-image feature (§11.3) surfaces
-  now as an **inactive camera affordance labeled "Homework helper · Coming soon."** Clicking it is a
-  no-op that **records the click** (an interest signal) and shows "coming soon" — a cheap way to
-  measure pull before building the real intake.
+  now as a camera affordance that **looks like a live feature — no "coming soon" badge at rest.**
+  Only **on click** does it record the click (an interest signal) and reveal "coming soon." A badge
+  up front would prime curiosity and pollute the signal; the goal is to measure *genuine pull*
+  before building the real intake. Trivially wireable now as a single analytics event (the app
+  already uses PostHog) — no new backend.
+- **Mode consistency.** The subject toggle and the simplified new/building/strong dots (with the
+  unit stepper) are carried into the **Points-mode** home too, so the two modes share one chrome.
