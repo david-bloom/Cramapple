@@ -58,6 +58,7 @@ TASK_VERBS = {
     "Calculate": "perform the steps to a final numeric answer",
     "Construct": "build a representation / interval",
     "Justify": "give statistical reasoning to support or qualify a claim",
+    "Describe": "identify or characterize a statistical variable, method, distribution, design, or representation",
 }
 
 _VALID_MODALITY = {"exam_aligned_digital", "supplemental_hand_drawn"}
@@ -128,6 +129,11 @@ FRAMING: Dict[str, Framing] = {
         "slotframe_4b", "Q2", "Justify", 4, "exam_aligned_digital",
         ["OBSERVATIONAL comparison only (no random assignment -> no causal claim)",
          "means differ but spreads overlap so an over-strong claim is refutable"],
+        [_SEC5, _SEC6, _SEC7]),
+    "slotframe_u1_5_graphs": Framing(
+        "slotframe_u1_5_graphs", "Q2", "Describe", 3, "exam_aligned_digital",
+        ["one-variable quantitative data set represented from text/numbers",
+         "graph description preserves frequencies, scale, and quantitative variable type"],
         [_SEC5, _SEC6, _SEC7]),
     "t_test_mean": Framing(
         "t_test_mean", "Q4", "Calculate", 3, "exam_aligned_digital",
@@ -275,6 +281,16 @@ CATEGORICAL_CONTEXTS: List[Dict[str, object]] = [
 ]
 
 
+# Unit 1.5 one-variable graph contexts. Each id is cell-namespaced.
+U1_5_GRAPH_CONTEXTS: List[Dict[str, object]] = [
+    {"id": "u1_5__commute_minutes", "quantity": "one-way commute times", "unit": "minutes", "domain": "social", "values": [12, 14, 18, 21, 23, 24, 27, 31, 34, 36, 39, 42]},
+    {"id": "u1_5__quiz_points", "quantity": "quiz scores", "unit": "points", "domain": "education", "values": [61, 65, 67, 70, 72, 76, 78, 81, 85, 87, 90, 94]},
+    {"id": "u1_5__seedling_cm", "quantity": "seedling heights", "unit": "cm", "domain": "biology", "values": [8, 9, 11, 12, 12, 13, 15, 17, 18, 20, 22, 23]},
+    {"id": "u1_5__order_dollars", "quantity": "online order totals", "unit": "dollars", "domain": "business", "values": [18, 22, 25, 29, 31, 33, 38, 41, 45, 48, 52, 57]},
+    {"id": "u1_5__battery_hours", "quantity": "battery life", "unit": "hours", "domain": "manufacturing", "values": [6, 7, 7, 8, 9, 9, 10, 11, 12, 13, 13, 14]},
+]
+
+
 # ==============================================================================
 # Access + validation helpers
 # ==============================================================================
@@ -337,6 +353,19 @@ def validate_scenarios() -> List[str]:
             problems.append(f"categorical context missing fields: {ctx}")
         elif len(ctx["rows"]) < 2 or len(ctx["cols"]) < 2:
             problems.append(f"categorical context needs >=2 rows and cols: {ctx}")
+    seen_graph_ids = set()
+    for ctx in U1_5_GRAPH_CONTEXTS:
+        required = ("id", "quantity", "unit", "domain", "values")
+        if not all(k in ctx for k in required):
+            problems.append(f"u1_5 graph context missing fields: {ctx}")
+        if ctx.get("id") in seen_graph_ids:
+            problems.append(f"duplicate u1_5 graph context id: {ctx.get('id')}")
+        seen_graph_ids.add(ctx.get("id"))
+        if not str(ctx.get("id", "")).startswith("u1_5__"):
+            problems.append(f"u1_5 graph context id is not namespaced: {ctx.get('id')}")
+        vals = ctx.get("values", [])
+        if len(vals) < 8 or vals != sorted(vals):
+            problems.append(f"u1_5 graph context values must be sorted with enough observations: {ctx}")
     return problems
 
 
@@ -353,6 +382,7 @@ if __name__ == "__main__":
             "normal": len(NORMAL_CONTEXTS),
             "mean": len(MEAN_CONTEXTS),
             "two_mean": len(TWO_MEAN_CONTEXTS),
+            "u1_5_graphs": len(U1_5_GRAPH_CONTEXTS),
         },
         "framing": {p: {"archetype": f.archetype, "task_verb": f.task_verb,
                         "modality": f.modality} for p, f in FRAMING.items()},

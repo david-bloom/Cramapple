@@ -289,6 +289,26 @@ CATALOG: Dict[str, Misconception] = {m.tag: m for m in [
        "ced_structural", ["summary_stats"], ["1.7"], ["3.B"],
        [_fp("S10 Unit 1 (1.7)", "mean = (1/n) sum x_i -- the division by n is required")]),
 
+
+    # --- slot-frame FB-U1-5-3A-GRAPH-01 (1.5 x 3.A) : one-variable graphs ---
+    _M("u1_5__miscounted_bin_frequency",
+       "Miscounted a bin frequency",
+       "Chose a graph description with one or more observations placed in the wrong interval or counted with the wrong endpoint convention.",
+       "ced_structural", ["slotframe_u1_5_graphs"], ["1.5"], ["3.A"],
+       [_fp("S10 Unit 1 (1.5)", "graphical displays for one quantitative variable require accurate frequencies and scale reading")]),
+
+    _M("u1_5__stem_leaf_place_value_error",
+       "Misread stem-and-leaf place value",
+       "Interpreted stems or leaves at the wrong place value, changing the represented observations.",
+       "ced_structural", ["slotframe_u1_5_graphs"], ["1.5"], ["3.A"],
+       [_fp("S10 Unit 1 (1.5)", "stemplots represent quantitative values using stem/leaf place value")]),
+
+    _M("u1_5__wrong_plot_type_for_data",
+       "Used a categorical display for quantitative data",
+       "Selected a bar-chart or category-count display when the task calls for a quantitative dotplot/stemplot/histogram representation.",
+       "ced_structural", ["slotframe_u1_5_graphs"], ["1.5"], ["3.A"],
+       [_fp("S10 Unit 1 (1.5)", "quantitative variables are represented with dotplots, stemplots, histograms, and similar numeric displays")]),
+
     # --- slot-frame FB-4B-COMPARE-01 (1.9 x 4.B) : justify a claim -------------
     _M("ignores_variability_claims_every_value",
        "Treated a difference in means as a claim about every individual value",

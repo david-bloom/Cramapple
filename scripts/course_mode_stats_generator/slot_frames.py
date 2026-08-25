@@ -49,6 +49,13 @@ SCENARIOS: List[Dict[str, str]] = [
 
 # Authored justification taxonomy. Exactly one type is valid for this frame.
 CORRECT_TYPE = "affirms_average_rejects_overstrong_via_overlap"
+
+GRAPH_TAGS = {
+    "u1_5__miscounted_bin_frequency",
+    "u1_5__stem_leaf_place_value_error",
+    "u1_5__wrong_plot_type_for_data",
+}
+
 MISCONCEPTION_TYPES = [
     "ignores_variability_claims_every_value",
     "association_implies_causation",
@@ -158,12 +165,112 @@ def gen_4b_instance(rng: random.Random, seed: int) -> Dict:
     }
 
 
-def generate(count: int, base_seed: int = 7000) -> List[Dict]:
+
+def _hist_counts(values: List[int], width: int) -> List[tuple]:
+    start = (min(values) // width) * width
+    stop = ((max(values) // width) + 1) * width
+    bins = []
+    lo = start
+    while lo <= stop:
+        hi = lo + width - 1
+        bins.append((lo, hi, sum(1 for v in values if lo <= v <= hi)))
+        lo += width
+    return bins
+
+
+def _hist_text(bins: List[tuple], unit: str) -> str:
+    return "; ".join(f"{lo}-{hi} {unit}: {count}" for lo, hi, count in bins)
+
+
+def _stemplot_text(values: List[int]) -> str:
+    stems = {}
+    for value in values:
+        stems.setdefault(value // 10, []).append(value % 10)
+    return "; ".join(f"{stem} | {' '.join(str(leaf) for leaf in leaves)}" for stem, leaves in sorted(stems.items()))
+
+
+def gen_u1_5_graph_instance(rng: random.Random, seed: int) -> Dict:
+    c = rng.choice(SCN.U1_5_GRAPH_CONTEXTS)
+    values = [v + rng.choice([0, 1, 2, 3]) for v in c["values"]]
+    width = rng.choice([5, 10])
+    bins = _hist_counts(values, width)
+    correct_text = "Histogram with counts " + _hist_text(bins, c["unit"])
+    wrong_bins = list(bins)
+    idx = rng.randrange(len(wrong_bins) - 1)
+    lo, hi, count = wrong_bins[idx]
+    lo2, hi2, count2 = wrong_bins[idx + 1]
+    if count > 0:
+        wrong_bins[idx] = (lo, hi, count - 1)
+        wrong_bins[idx + 1] = (lo2, hi2, count2 + 1)
+    else:
+        wrong_bins[idx] = (lo, hi, count + 1)
+        wrong_bins[idx + 1] = (lo2, hi2, max(0, count2 - 1))
+    prompt = (f"The {c['quantity']} ({c['unit']}) are {', '.join(str(v) for v in values)}. "
+              "Which representation correctly displays these quantitative data?")
+    distractors = [
+        ("Histogram with counts " + _hist_text(wrong_bins, c["unit"]), "u1_5__miscounted_bin_frequency"),
+        ("Stemplot " + _stemplot_text([v * 10 for v in values]), "u1_5__stem_leaf_place_value_error"),
+        (f"Bar chart with one bar for each named category of {c['quantity']}, rather than a numeric axis", "u1_5__wrong_plot_type_for_data"),
+    ]
+    options = [{"text": correct_text, "correct": True, "misconception": None}]
+    for text, tag in distractors:
+        options.append({"text": text, "correct": False, "misconception": tag,
+                        "misconception_source": MISC.provenance(tag)})
+    rng.shuffle(options)
+    scenario_prov = SCN.framing("slotframe_u1_5_graphs", c.get("domain"))
+    checks = [
+        ("exactly_one_correct", sum(1 for o in options if o["correct"]) == 1),
+        ("four_options", len(options) == 4),
+        ("option_texts_unique", len({o["text"] for o in options}) == 4),
+        ("all_distractors_tagged", all(o["misconception"] for o in options if not o["correct"])),
+        ("all_distractor_tags_canonical", all(o["misconception"] in MISC.CATALOG for o in options if not o["correct"])),
+        ("all_distractors_cite_source", all(o.get("misconception_source", {}).get("sources") for o in options if not o["correct"])),
+        ("scenario_framing_present", bool(scenario_prov.get("archetype")) and bool(scenario_prov.get("sources"))),
+        ("graph_tags_used", {o.get("misconception") for o in options if o.get("misconception")} == GRAPH_TAGS),
+    ]
+    return {
+        "schema_version": "course-mode-generated-0.1",
+        "package_id": f"slotframe-u1_5-3a-{seed:06d}",
+        "content_key": f"apstat-u1-5-3a-graphs-{seed:06d}",
+        "item_type": "mcq",
+        "difficulty": "Medium",
+        "exam_pack_ref": {"exam_code": "ap_statistics", "cycle": "2026-27"},
+        "taxonomy_refs": [
+            {"scheme_key": "ap-statistics-2026-27", "node_key": "unit-1"},
+            {"scheme_key": "ap-statistics-2026-27", "node_key": "topic-1.5"},
+            {"scheme_key": "ap-statistics-skills", "node_key": "skill-3.A", "practice": 3},
+        ],
+        "cells": [{"topic": "1.5", "skill": "3.A"}],
+        "scenario_provenance": scenario_prov,
+        "prompt": prompt,
+        "mcq_form": {"options": options},
+        "parts": [{"part_key": "part-a", "prompt": prompt, "response_modalities": ["mcq"], "points": 1,
+                   "criteria": [{"criterion_key": "part-a-criterion-1", "points": 1,
+                                  "description": "Selects the graph description that preserves the quantitative values and frequencies.",
+                                  "required_evidence": correct_text,
+                                  "deterministic_checks": [{"kind": "mcq_key", "correct_representation": "histogram_counts"}],
+                                  "accepted_variants": []}]}],
+        "provenance": {"generator": "course_mode_stats_generator/slot_frames.py",
+                       "frame_id": "FB-U1-5-3A-GRAPH-01", "template_id": "slotframe_u1_5_graphs",
+                       "params": {"scenario_id": c["id"], "values": values, "bin_width": width, "bins": bins},
+                       "seed": seed, "release_status": "unreleased_generated_pending_review",
+                       "note": "Authored conceptual frame; correctness from quantitative graph representation taxonomy."},
+        "_property_checks": checks,
+    }
+
+def generate_4b(count: int, base_seed: int = 7000) -> List[Dict]:
     return [gen_4b_instance(random.Random(base_seed + i), base_seed + i) for i in range(count)]
 
 
-def property_report(count: int = 60) -> Dict:
-    insts = generate(count)
+def generate_u1_5_graphs(count: int, base_seed: int = 15000) -> List[Dict]:
+    return [gen_u1_5_graph_instance(random.Random(base_seed + i), base_seed + i) for i in range(count)]
+
+
+def generate(count: int, base_seed: int = 7000) -> List[Dict]:
+    return generate_4b(count, base_seed)
+
+
+def _report_frame(frame_id: str, cell: str, insts: List[Dict], note: str) -> Dict:
     failures = []
     nchecks = 0
     for inst in insts:
@@ -171,24 +278,35 @@ def property_report(count: int = 60) -> Dict:
             nchecks += 1
             if not ok:
                 failures.append(f"{inst['provenance']['seed']}/{name}")
-    return {
-        "frame_id": "FB-4B-COMPARE-01", "cell": "1.9 x 4.B",
-        "instances": len(insts), "checks": nchecks,
-        "distinct_prompts": len({i["prompt"] for i in insts}),
-        "failures": failures, "ok": len(failures) == 0,
-        "authoring_cost_note": (
-            "1 authored frame + 4 scenario slots + 5 justification-type templates "
-            f"-> {len(insts)} validated instances (x scenario x numeric slots). "
-            "Coverage: 1 of Practice-4's 7 skills (4.B). Scaling estimate: each P4 skill "
-            "needs its own frame family; 4.A/4.C/4.D/4.F/4.G differ structurally, so budget "
-            "~1 frame family per skill, not one frame for all of P4."
-        ),
-    }
+    correct_positions = [next(idx for idx, opt in enumerate(inst["mcq_form"]["options"]) if opt["correct"]) for inst in insts]
+    return {"frame_id": frame_id, "cell": cell, "instances": len(insts), "checks": nchecks,
+            "distinct_prompts": len({i["prompt"] for i in insts}),
+            "correct_answer_positions": sorted(set(correct_positions)),
+            "correct_answer_position_varies": len(set(correct_positions)) >= 2,
+            "failures": failures, "ok": len(failures) == 0, "authoring_cost_note": note}
+
+
+def property_report(count: int = 120) -> Dict:
+    graph_insts = generate_u1_5_graphs(count, 15000)
+    graph_tags_used = {opt["misconception"] for inst in graph_insts for opt in inst["mcq_form"]["options"] if opt.get("misconception")}
+    frames = [
+        _report_frame("FB-4B-COMPARE-01", "1.9 x 4.B", generate_4b(count, 7000), "Existing authored 4.B comparison frame."),
+        _report_frame("FB-U1-5-3A-GRAPH-01", "1.5 x 3.A", graph_insts, "1 authored frame + 5 contexts x varied value/bin surfaces."),
+    ]
+    meta_tests = [("all_frames_ok", all(f["ok"] for f in frames)),
+                  ("correct_answer_position_varies", all(f["correct_answer_position_varies"] for f in frames)),
+                  ("misconception_catalog_self_check", not MISC.validate_catalog()),
+                  ("scenario_catalog_self_check", not SCN.validate_scenarios()),
+                  ("u1_5_all_new_misconception_tags_used", GRAPH_TAGS.issubset(graph_tags_used))]
+    return {"frames": frames, "instances": sum(f["instances"] for f in frames),
+            "checks": sum(f["checks"] for f in frames),
+            "meta_tests": [{"name": name, "ok": ok} for name, ok in meta_tests],
+            "ok": all(f["ok"] for f in frames) and all(ok for _name, ok in meta_tests)}
 
 
 def emit_samples(count: int = 4, base_seed: int = 9000) -> int:
     OUT_DIR.mkdir(parents=True, exist_ok=True)
-    for inst in generate(count, base_seed):
+    for inst in generate_4b(count, base_seed) + generate_u1_5_graphs(count, 15100):
         assert all(ok for _n, ok in inst["_property_checks"]), \
             f"invalid slot-frame instance reached emit: {inst['package_id']}"
         pkg = {k: v for k, v in inst.items() if k != "_property_checks"}
