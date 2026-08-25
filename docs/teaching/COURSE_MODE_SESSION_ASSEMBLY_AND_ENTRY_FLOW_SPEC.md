@@ -278,6 +278,15 @@ screen.
 - **Mobile reflow:** the two columns stack; the skill rail collapses to a top accordion so it can
   never push the answer control off-screen (accessibility: keyboard/focus order, `aria` labels).
 
+**Visual reference (2026-08-25).** A three-artboard mockup renders the two-column shell in each rail
+state on the AP Stats **1.9 Comparing distributions** cell — **cold attempt** (rail = skill name +
+"what this is about" only; MCQ + confidence-as-submit; no timer), **learn-first** (full points-led
+rail beside the open-hand worked example), and **repair** (the move + "where students lose it"
+surfaced as Tighten + a parallel Show). Newsprint palette, illustrative content; exact type/color
+tokens to be confirmed against the front-end at build time. Canvas:
+`https://claude.ai/code/artifact/80d0284d-4050-40f0-b701-7224241dbe37`. This is the **Stats-pilot**
+design handed to Lovable for build + feedback; expand after the pilot.
+
 ---
 
 ## 4. Session completion — the wrap-up
@@ -468,3 +477,7 @@ the wrap-up, the learn-first entry, the miss→teach fold-in) and Lovable builds
 existing `/home` doors and the `/session` container** — not a new destination (CM-D02 anti-fork).
 It composes with INTEGRATION_SPEC §4 (the surfaces) and depends on David resolving §7 (especially
 §7.1, the guess-floor decision) before the confirm-transfer placement (§3.3) is finalized.
+
+**Status (2026-08-25):** the three-state `/session` skill-rail mockup (§3.6 Visual reference) is the
+**AP Stats pilot** design and has been sent to the Lovable front-end project for build + feedback.
+Treat this as the pilot cut — gather student/reviewer feedback, then expand beyond Unit 1.
