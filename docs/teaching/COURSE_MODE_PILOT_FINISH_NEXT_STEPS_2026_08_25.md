@@ -40,9 +40,12 @@ Nothing is served yet; Prod is untouched.
    **0 defects** each. Explicitly resolve the flagged concern: some **computational distractors are
    wrong-statistic values** (e.g. an SD offered against a *mean* question on 1.7×3.B / 1.9×3.B) —
    decide if they're on-scale/plausible or need a generator tweak. Sign-off is what unblocks release.
-2. **§7.1 guess-floor decision** (spec §7.1) — does a "Guessing" + correct MCQ earn full
-   `independent`? Recommended: (b) require confirm-transfer before MCQ `independent`. Decides whether
-   the confirm-transfer beat is mandatory and whether confidence affects tiering.
+2. **§7.1 guess-floor decision** — **RESOLVED (David, 2026-08-25): option (b).** An MCQ cell cannot
+   reach `independent` on a single cold-correct attempt; the confirm-transfer beat (spec §3.3) is
+   **mandatory** for every MCQ cell (a fresh changed-surface question that must also grade correct).
+   Numeric-entry cells unchanged. Enforced in session assembly, not yet an engine change; a
+   "Guessing" evidence-weight discount (option a) stays a CM-D07 candidate, not required for the
+   pilot. This is now a front-end/assembly build requirement, not an open gate.
 3. **[A] apply the full load to Dev** — `out/f4_load_DRAFT.sql` (1.8 MB) via **CLI/psql** (too large
    for the Supabase MCP): `psql "$DEV_DB_URL" -f scripts/course_mode_stats_generator/out/f4_load_DRAFT.sql`.
    Lands 200 unreleased drafts, cell-tagged, `rubric_type='mcq'`.

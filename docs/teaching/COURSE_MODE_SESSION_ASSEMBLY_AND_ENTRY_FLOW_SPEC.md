@@ -206,9 +206,10 @@ missed] → Confirm transfer → Schedule next review → advance to next item.*
 - **Honest grain of the claim:** an MCQ transfer is *recognition* transfer; the two numeric-entry
   cells (1.7×3.B, 1.9×3.B) are where *production* transfer lives — make those the visible showcase
   of "prove it," and don't let an MCQ recognition read as the same strength of proof
-  (MOCKS_REVIEW §3). Whether an MCQ single-hop to `independent` is even allowed is the open
-  guess-floor decision (§7.1) — if David gates MCQ `independent` behind confirm-transfer, this beat
-  becomes *mandatory* for MCQ, not optional.
+  (MOCKS_REVIEW §3). **RESOLVED (David, 2026-08-25, §7.1 option b): an MCQ cell CANNOT reach
+  `independent` on a single cold-correct attempt — this confirm-transfer beat is MANDATORY for every
+  MCQ cell** (a fresh changed-surface question that must also grade correct before the cell closes as
+  `independent`). Numeric-entry cells are unchanged (production transfer already lives there).
 
 ### 3.4 When an item is missed — folding teach back into the session
 
@@ -380,15 +381,23 @@ changed-surface signal from each attempt (INTEGRATION_SPEC §4.2 — `assistance
 
 ## 7. Open decisions for David (these change the flow, not just pixels)
 
-1. **MCQ guess-floor / confidence-in-tier** *(the load-bearing one, carried from
-   INTEGRATION_SPEC §9 / MOCKS_REVIEW §3, §7-1).* A "Guessing" + correct MCQ currently earns full
-   `independent` evidence (`classifyWeight` ignores confidence; the engine promotes
-   `unseen→independent` on one correct attempt). Options, all deterministic/INV-4-safe: (a) discount
-   evidence weight when confidence = "Guessing" (a CM-D07 change, not built); (b) **require the
-   confirm-transfer beat before `independent` for MCQ items** even on a first-try correct
-   (recommended default here — makes §3.3 mandatory for MCQ and keeps the "prove it" claim honest);
-   (c) accept it and rely on the delayed `confirmed` gate. **This decides whether confirm-transfer
-   is mandatory (b) or optional (a/c) in the flow.**
+1. **MCQ guess-floor / confidence-in-tier** — **RESOLVED (David, 2026-08-25): option (b).**
+   *(The load-bearing one, carried from INTEGRATION_SPEC §9 / MOCKS_REVIEW §3, §7-1.)* Context: a
+   "Guessing" + correct MCQ currently earns full `independent` evidence (`classifyWeight` ignores
+   confidence; the engine promotes `unseen→independent` on one correct attempt). The options were:
+   (a) discount evidence weight when confidence = "Guessing" (a CM-D07 change, not built); (b)
+   **require the confirm-transfer beat before `independent` for MCQ items** even on a first-try
+   correct; (c) accept it and rely on the delayed `confirmed` gate. **David chose (b): an MCQ item
+   cannot reach `independent` on a single cold-correct attempt — the confirm-transfer beat (§3.3) is
+   MANDATORY for MCQ, on a different-surface question, before the cell is closed as `independent`.**
+   This keeps the "prove it" claim honest (a single MCQ hit is recognition, not proof) and makes the
+   §3.3 beat non-optional for every MCQ cell. It does NOT change the numeric-entry cells (which
+   already showcase production transfer) and is orthogonal to the confidence *capture* (still bundled
+   into submit on every cold attempt). Build implication — this is a flow/gate rule, not yet an
+   engine change: the mandatory beat is enforced in session assembly (an MCQ cell is not marked
+   `independent` until its confirm-transfer attempt also grades correct); revisit whether to *also*
+   fold a "Guessing" discount (a) into `classifyWeight` once real attempts flow (it stays a CM-D07
+   candidate, not required for the pilot).
 2. **Session size N.** Default 3 (§2.1). Confirm, or set per-mode (e.g. Learn 3, Points 5).
 3. **"Keep going" after N** (§2.1) — offer an optional one-more pull, or end cleanly at N.
 4. **Interleave vs. block** (§2.4) — recommended interleave; confirm.
