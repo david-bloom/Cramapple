@@ -276,3 +276,64 @@ This spec is the brief Claude Design builds screens against, and Lovable builds 
 original mocks are re-scoped as **component changes** to `TopicHome`, `/session/mcq`,
 `GradeResultView`/`HelpPanel`, `/learn/...`, and `/progress` — not standalone pages. React
 implementation remains a separate approval after the screens are reviewed.
+
+---
+
+## 11. Addendum — 2026-08-25 (Unit 1 Skills rail, learn-first entry, homework experiment)
+
+Three directions from David, folded into the design (see the canvas artboards `SkillLink`,
+`SkillEntry`, `Homework`).
+
+### 11.1 "Unit 1 Skills" rail + skill ↔ topic linkage
+
+- The `/home` learning-state rail (§4.1) is titled **"Unit 1 Skills"** (was "Where your learning
+  stands"). Each row is a plain-language skill carrying its learning-state word.
+- **Hover a skill →** (a) a short description of the skill; (b) the **topics it appears in light
+  up** in the existing topic selector — topics stay on `/home`. A skill is the atom you learn;
+  topics are where you meet it in class. This is INV-1 ("store fine, present coarse") made
+  tangible, and the loss-aversion payoff is legible ("one skill, two topics — locking it in pays
+  off twice").
+- **Click a skill →** the learn-first session (11.2).
+- Contract: needs the item→cell tags that already exist (`content_item_cells`) rolled up to a
+  plain-language skill **plus** the set of topics each skill appears in (a skill→topics map).
+
+### 11.2 Learn-first skill entry (explainer + "open hand")
+
+Clicking a skill to **learn** it opens `/session` in a **teaching-first** entry:
+1. a **skill explainer** — NEW authored content;
+2. a first question played **"open hand"** — worked in full, we show how to solve it;
+3. handoff to the student's **own cold attempt** ("now you try, no help").
+
+**The honesty rule — entry context decides coldness:**
+- **Learn-entry** (student clicks a skill to learn it; tiers `unseen`/`exposed_unverified`) →
+  explainer + open-hand worked example → **COACHED, zero mastery evidence (INV-5)**. Only the
+  cold attempt that follows counts.
+- **Due-review / prove-it entry** (the skill surfaces from the queue) → **COLD**, exactly as the
+  loop already does (§4.2).
+
+This reuses existing machinery: `/session/mcq` already tracks `attempt_condition` cold|coached and
+zeroes evidence when help is used — the explainer/worked example simply set `coached` for that
+first item. **New content dependency:** a per-skill explainer + a worked first example, analogous
+to the existing per-topic point briefs (`TopicBrief`) but at skill grain — authored/vetted (INV-3),
+never model-generated on the fly.
+
+### 11.3 Homework-image experiment — teach, don't solve
+
+- **Intake:** the student photographs a homework page (extends the existing **`/bring-question`**
+  flow with image intake).
+- **Vision parse → classify** to subject → unit → topic → **skill (cell)**, reusing the
+  taxonomy/cell registry (F1 `taxonomy_cells`). Honest confidence; **fail-closed when unsure**
+  ("tell us if we read it wrong").
+- **Output is NEVER the answer to their problem.** It routes into the learn-first entry (11.2) on
+  a **parallel** problem, then prove-it on a fresh item — the student learns the skill and does
+  their own homework. This is the "prove it transferred, don't just answer" differentiator (§7)
+  applied to the student's real work.
+- **Guardrails (non-negotiable):** never the answer to the student's item; practice only on
+  **vetted, checkable** content (INV-3), never an LLM answer to their photo; the photo is used to
+  read the problem then **discarded** (no retention); **name/PII sweep** per the user-provided-
+  question rules (`TEACHING_AND_PEDAGOGY_DESIGN.md` §14.2); the academic-integrity stance is a
+  **feature**, not a limitation.
+- **Status: EXPERIMENT / Phase-2 track.** The vision-classification step is directly testable now
+  (Claude has image analysis); the intake + serving plumbing is new build.
+- **Open question:** granularity when a homework problem spans multiple cells or a cell outside
+  the pilot scope → honest "we can help with the part that's in range," never a fabricated stretch.
