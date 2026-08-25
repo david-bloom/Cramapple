@@ -450,7 +450,9 @@ discipline as MOCKS_REVIEW §2.
 - **Per-skill orientation + open-hand example content** — the E3 dependency (§5): a skill-grain,
   points-led orientation (what it's about / the skill you need / the move that earns the points),
   the skill-grain sibling of the per-topic `TopicBrief` point brief, plus an open-hand worked
-  example. Authored, vetted (INV-3).
+  example. Authored, vetted (INV-3). **The ten pilot orientations are drafted in
+  `COURSE_MODE_STATS_UNIT1_SKILL_ORIENTATIONS.md` (DRAFT, pending David D8/SME review);** the
+  open-hand worked examples (one parallel item per skill) are the next authoring step.
 - **Mode** — `learn | points` preference already specified (INTEGRATION_SPEC §2/§6); drives
   assembly ranking language + wrap-up value language only, not the mechanics.
 
