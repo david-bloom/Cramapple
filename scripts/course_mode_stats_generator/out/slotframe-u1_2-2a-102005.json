@@ -1,0 +1,163 @@
+{
+  "schema_version": "course-mode-generated-0.1",
+  "package_id": "slotframe-u1_2-2a-102005",
+  "content_key": "apstat-u1-2-2a-variables-102005",
+  "item_type": "mcq",
+  "difficulty": "Easy-Medium",
+  "exam_pack_ref": {
+    "exam_code": "ap_statistics",
+    "cycle": "2026-27"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "unit-1"
+    },
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "topic-1.2"
+    },
+    {
+      "scheme_key": "ap-statistics-skills",
+      "node_key": "skill-2.A",
+      "practice": 2
+    }
+  ],
+  "cells": [
+    {
+      "topic": "1.2",
+      "skill": "2.A"
+    }
+  ],
+  "scenario_provenance": {
+    "archetype": "Q1",
+    "archetype_label": "Multi-focus on Practices 1 & 2 (formulate questions; collect/represent data)",
+    "task_verb": "Describe",
+    "practice": 2,
+    "modality": "exam_aligned_digital",
+    "validity_rules": [
+      "Unit 1 variable classification only: categorical vs quantitative",
+      "quantitative variables may be discrete counts or continuous measurements",
+      "numeric labels/codes are categorical when arithmetic on the values is not meaningful"
+    ],
+    "sources": [
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S5 (Free-response archetypes)",
+        "note": "Section II question archetypes Q1-Q4"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S6 (Task verbs)",
+        "note": "the item stem's verb must match the scored demand"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S7 (Response modality)",
+        "note": "digital Bluebook; text/numeric entry -> exam_aligned_digital"
+      }
+    ],
+    "domain": "health"
+  },
+  "prompt": "In a clinic operations study, the variable recorded for each patient is number of clinic visits last year. Which choice best classifies this variable?",
+  "mcq_form": {
+    "options": [
+      {
+        "text": "quantitative discrete, because the value is a count of visits.",
+        "correct": true,
+        "misconception": null
+      },
+      {
+        "text": "categorical, because patients can be grouped by visit frequency",
+        "correct": false,
+        "misconception": "u1_2__quantitative_called_categorical",
+        "misconception_source": {
+          "tag": "u1_2__quantitative_called_categorical",
+          "label": "Called a genuine numerical measurement categorical",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 1 (1.2)",
+              "note": "quantitative variables record numerical measurements or counts for which arithmetic comparisons are meaningful"
+            }
+          ]
+        }
+      },
+      {
+        "text": "quantitative continuous, because the mean number of visits can be a decimal",
+        "correct": false,
+        "misconception": "u1_2__counts_or_ordinal_miscategorized",
+        "misconception_source": {
+          "tag": "u1_2__counts_or_ordinal_miscategorized",
+          "label": "Misclassified counts or ordered categories",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 1 (1.2)",
+              "note": "variable type depends on what the values mean: categories classify units; counts and measurements are quantitative"
+            }
+          ]
+        }
+      },
+      {
+        "text": "categorical ordinal, because more visits can indicate higher need",
+        "correct": false,
+        "misconception": "u1_2__counts_or_ordinal_miscategorized",
+        "misconception_source": {
+          "tag": "u1_2__counts_or_ordinal_miscategorized",
+          "label": "Misclassified counts or ordered categories",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 1 (1.2)",
+              "note": "variable type depends on what the values mean: categories classify units; counts and measurements are quantitative"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "parts": [
+    {
+      "part_key": "part-a",
+      "prompt": "In a clinic operations study, the variable recorded for each patient is number of clinic visits last year. Which choice best classifies this variable?",
+      "response_modalities": [
+        "mcq"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "Selects the variable classification that matches what the recorded values mean.",
+          "required_evidence": "Correct variable type: quantitative discrete",
+          "deterministic_checks": [
+            {
+              "kind": "mcq_key",
+              "correct_type": "quantitative discrete"
+            }
+          ],
+          "accepted_variants": []
+        }
+      ]
+    }
+  ],
+  "provenance": {
+    "generator": "course_mode_stats_generator/slot_frames.py",
+    "frame_id": "FB-U1-2-2A-VARIABLES-01",
+    "template_id": "slotframe_u1_2_variables",
+    "params": {
+      "scenario_id": "u1_2__visits_last_year",
+      "correct": "quantitative discrete"
+    },
+    "seed": 102005,
+    "release_status": "unreleased_generated_pending_review",
+    "note": "Authored conceptual frame; correctness from variable-type taxonomy."
+  }
+}

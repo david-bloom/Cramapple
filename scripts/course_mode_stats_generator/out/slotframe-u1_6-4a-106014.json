@@ -1,0 +1,171 @@
+{
+  "schema_version": "course-mode-generated-0.1",
+  "package_id": "slotframe-u1_6-4a-106014",
+  "content_key": "apstat-u1-6-4a-distribution-106014",
+  "item_type": "mcq",
+  "difficulty": "Medium",
+  "exam_pack_ref": {
+    "exam_code": "ap_statistics",
+    "cycle": "2026-27"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "unit-1"
+    },
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "topic-1.6"
+    },
+    {
+      "scheme_key": "ap-statistics-skills",
+      "node_key": "skill-4.A",
+      "practice": 4
+    }
+  ],
+  "cells": [
+    {
+      "topic": "1.6",
+      "skill": "4.A"
+    }
+  ],
+  "scenario_provenance": {
+    "archetype": "Q2",
+    "archetype_label": "Multi-focus on Practices 3 & 4 (analyze data; interpret results)",
+    "task_verb": "Describe",
+    "practice": 4,
+    "modality": "exam_aligned_digital",
+    "validity_rules": [
+      "one-variable quantitative distribution described from text and five-number summary",
+      "shape, center, spread, and outlier claims must match the supplied summary",
+      "outlier claims use the 1.5 x IQR fences"
+    ],
+    "sources": [
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S5 (Free-response archetypes)",
+        "note": "Section II question archetypes Q1-Q4"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S6 (Task verbs)",
+        "note": "the item stem's verb must match the scored demand"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S7 (Response modality)",
+        "note": "digital Bluebook; text/numeric entry -> exam_aligned_digital"
+      }
+    ],
+    "domain": "manufacturing"
+  },
+  "prompt": "A summary of battery life (hours) is: min 40, Q1 55, median 65, Q3 75, max 90, and mean about 65. Which description is best supported by the summary?",
+  "mcq_form": {
+    "options": [
+      {
+        "text": "The distribution is right-skewed, centered near the median 65, with IQR 20, and there are no outliers by the 1.5 x IQR rule.",
+        "correct": false,
+        "misconception": "u1_6__skew_direction_reversed",
+        "misconception_source": {
+          "tag": "u1_6__skew_direction_reversed",
+          "label": "Reversed the direction of skew",
+          "evidence": "documented_cr",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 1 (1.6)",
+              "note": "2025 CR Report Q1 documents shape-description errors; skew direction must follow the longer tail"
+            }
+          ]
+        }
+      },
+      {
+        "text": "The median is about 65 hours and the IQR is about 20 hours.",
+        "correct": false,
+        "misconception": "u1_6__ignores_shape_reports_center_only",
+        "misconception_source": {
+          "tag": "u1_6__ignores_shape_reports_center_only",
+          "label": "Reported center but ignored shape",
+          "evidence": "documented_cr",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 1 (1.6)",
+              "note": "describing a quantitative distribution requires shape, center, spread, and unusual features as appropriate"
+            }
+          ]
+        }
+      },
+      {
+        "text": "The distribution is roughly symmetric, centered near the IQR 20, with spread about the median 65, and there are no outliers by the 1.5 x IQR rule.",
+        "correct": false,
+        "misconception": "u1_6__center_spread_confused",
+        "misconception_source": {
+          "tag": "u1_6__center_spread_confused",
+          "label": "Confused center and spread",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 1 (1.6/1.7)",
+              "note": "distribution descriptions distinguish center from variability/spread"
+            }
+          ]
+        }
+      },
+      {
+        "text": "The distribution is roughly symmetric, centered near the median 65, with IQR 20, and there are no outliers by the 1.5 x IQR rule.",
+        "correct": true,
+        "misconception": null
+      }
+    ]
+  },
+  "parts": [
+    {
+      "part_key": "part-a",
+      "prompt": "A summary of battery life (hours) is: min 40, Q1 55, median 65, Q3 75, max 90, and mean about 65. Which description is best supported by the summary?",
+      "response_modalities": [
+        "mcq"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "Selects the distribution description matching shape, center, spread, and outlier evidence.",
+          "required_evidence": "Correct shape: roughly symmetric; median 65; IQR 20; no outliers by fences",
+          "deterministic_checks": [
+            {
+              "kind": "mcq_key",
+              "correct_shape": "roughly symmetric"
+            }
+          ],
+          "accepted_variants": []
+        }
+      ]
+    }
+  ],
+  "provenance": {
+    "generator": "course_mode_stats_generator/slot_frames.py",
+    "frame_id": "FB-U1-6-4A-DISTRIBUTION-01",
+    "template_id": "slotframe_u1_6_distribution",
+    "params": {
+      "scenario_id": "u1_6__battery_life",
+      "shape": "roughly symmetric",
+      "summary": {
+        "min": 40.0,
+        "q1": 55.0,
+        "median": 65.0,
+        "q3": 75.0,
+        "max": 90.0,
+        "mean": 65.0
+      }
+    },
+    "seed": 106014,
+    "release_status": "unreleased_generated_pending_review",
+    "note": "Authored conceptual frame; correctness from distribution-summary taxonomy."
+  }
+}

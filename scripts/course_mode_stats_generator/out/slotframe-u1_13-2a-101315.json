@@ -1,0 +1,161 @@
+{
+  "schema_version": "course-mode-generated-0.1",
+  "package_id": "slotframe-u1_13-2a-101315",
+  "content_key": "apstat-u1-13-2a-design-101315",
+  "item_type": "mcq",
+  "difficulty": "Medium",
+  "exam_pack_ref": {
+    "exam_code": "ap_statistics",
+    "cycle": "2026-27"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "unit-1"
+    },
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "topic-1.13"
+    },
+    {
+      "scheme_key": "ap-statistics-skills",
+      "node_key": "skill-2.A",
+      "practice": 2
+    }
+  ],
+  "cells": [
+    {
+      "topic": "1.13",
+      "skill": "2.A"
+    }
+  ],
+  "scenario_provenance": {
+    "archetype": "Q1",
+    "archetype_label": "Multi-focus on Practices 1 & 2 (formulate questions; collect/represent data)",
+    "task_verb": "Describe",
+    "practice": 2,
+    "modality": "exam_aligned_digital",
+    "validity_rules": [
+      "realistic study-design scenario",
+      "classification must distinguish imposed treatments, randomization, control/placebo/blinding, and confounding"
+    ],
+    "sources": [
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S5 (Free-response archetypes)",
+        "note": "Section II question archetypes Q1-Q4"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S6 (Task verbs)",
+        "note": "the item stem's verb must match the scored demand"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S7 (Response modality)",
+        "note": "digital Bluebook; text/numeric entry -> exam_aligned_digital"
+      }
+    ],
+    "domain": "biology"
+  },
+  "prompt": "A botanist assigns similar seedlings at random to fertilizer A or fertilizer B and grows all seedlings in the same greenhouse. Which statement best identifies the design element or flaw?",
+  "mcq_form": {
+    "options": [
+      {
+        "text": "Random assignment helps balance other variables between treatment groups so differences can be attributed more credibly to fertilizer type.",
+        "correct": true,
+        "misconception": null
+      },
+      {
+        "text": "This is observational because the botanist records plant heights instead of controlling the outcome.",
+        "correct": false,
+        "misconception": "u1_13__observational_treated_as_experiment",
+        "misconception_source": {
+          "tag": "u1_13__observational_treated_as_experiment",
+          "label": "Treated an observational study as an experiment",
+          "evidence": "documented_cr",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 1 (1.10-1.13)",
+              "note": "observational studies do not impose treatments; experiments do"
+            }
+          ]
+        }
+      },
+      {
+        "text": "The greenhouse is a lurking variable that proves the fertilizers are confounded.",
+        "correct": false,
+        "misconception": "u1_13__confounding_vs_lurking_confused",
+        "misconception_source": {
+          "tag": "u1_13__confounding_vs_lurking_confused",
+          "label": "Confused confounding with a lurking variable or unrelated association",
+          "evidence": "documented_cr",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 1 (1.10-1.13)",
+              "note": "experimental and observational designs require identifying confounding and other design flaws"
+            }
+          ]
+        }
+      },
+      {
+        "text": "Random assignment guarantees both fertilizers produce exactly the same spread of plant heights.",
+        "correct": false,
+        "misconception": "u1_13__control_blinding_randomization_confused",
+        "misconception_source": {
+          "tag": "u1_13__control_blinding_randomization_confused",
+          "label": "Confused control, blinding, placebo, and randomization",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 1 (1.10-1.13)",
+              "note": "randomization, control, placebo, and blinding serve different roles in experimental design"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "parts": [
+    {
+      "part_key": "part-a",
+      "prompt": "A botanist assigns similar seedlings at random to fertilizer A or fertilizer B and grows all seedlings in the same greenhouse. Which statement best identifies the design element or flaw?",
+      "response_modalities": [
+        "mcq"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "Selects the study-design statement supported by the scenario.",
+          "required_evidence": "Random assignment helps balance other variables between treatment groups so differences can be attributed more credibly to fertilizer type.",
+          "deterministic_checks": [
+            {
+              "kind": "mcq_key",
+              "correct_design_statement": "Random assignment helps balance other variables between treatment groups so differences can be attributed more credibly to fertilizer type."
+            }
+          ],
+          "accepted_variants": []
+        }
+      ]
+    }
+  ],
+  "provenance": {
+    "generator": "course_mode_stats_generator/slot_frames.py",
+    "frame_id": "FB-U1-13-2A-DESIGN-01",
+    "template_id": "slotframe_u1_13_design",
+    "params": {
+      "scenario_id": "u1_13__fertilizer_random_assignment"
+    },
+    "seed": 101315,
+    "release_status": "unreleased_generated_pending_review",
+    "note": "Authored conceptual frame; correctness from study-design taxonomy."
+  }
+}

@@ -52,8 +52,9 @@ Four surfaces. Design may combine or sequence them, but each job must be met.
   how long it will take.
 - Must offer agency: start the suggested session, or choose otherwise. A recommendation must never
   be disguised as a requirement.
-- **Note:** session assembly UX is named as required but explicitly *not yet designed* — this is
-  the single biggest open design job (§12).
+- **Note:** session assembly UX is named as required but was explicitly *not yet designed* — the
+  single biggest open design job (§12). Now specified in
+  `COURSE_MODE_SESSION_ASSEMBLY_AND_ENTRY_FLOW_SPEC.md` (2026-08-25).
 
 ### 3.2 The practice surface — *the core loop* (§4)
 Where an item is served, attempted cold, evaluated, taught if needed, and re-proven. This is the
@@ -209,6 +210,8 @@ key or full rationale is ever reachable by the student.
 
 ## 12. Open questions for Claude Design (where the latitude is)
 1. **Session assembly** — how "your 20 minutes" is presented and paced (the biggest undesigned job).
+   → now specified in `COURSE_MODE_SESSION_ASSEMBLY_AND_ENTRY_FLOW_SPEC.md` (2026-08-25): the
+   entry points, top-N assembly from the due-queue, the beat-by-beat run, and the wrap-up.
 2. **The fortress-vs-decay visualization** — how "locked / slipping / at risk" reads at a glance at
    the topic grain without a cell grid or codes, and without implying false precision.
 3. **The confidence-capture UI** — the small consistent scale, fast enough to not tax the cold

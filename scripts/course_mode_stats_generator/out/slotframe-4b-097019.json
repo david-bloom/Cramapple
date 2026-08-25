@@ -1,0 +1,170 @@
+{
+  "schema_version": "course-mode-generated-0.1",
+  "package_id": "slotframe-4b-097019",
+  "content_key": "apstat-4b-compare-097019",
+  "item_type": "mcq",
+  "difficulty": "Medium",
+  "exam_pack_ref": {
+    "exam_code": "ap_statistics",
+    "cycle": "2026-27"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "unit-1"
+    },
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "topic-1.9"
+    },
+    {
+      "scheme_key": "ap-statistics-skills",
+      "node_key": "skill-4.B",
+      "practice": 4
+    }
+  ],
+  "cells": [
+    {
+      "topic": "1.9",
+      "skill": "4.B"
+    }
+  ],
+  "scenario_provenance": {
+    "archetype": "Q2",
+    "archetype_label": "Multi-focus on Practices 3 & 4 (analyze data; interpret results)",
+    "task_verb": "Justify",
+    "practice": 4,
+    "modality": "exam_aligned_digital",
+    "validity_rules": [
+      "OBSERVATIONAL comparison only (no random assignment -> no causal claim)",
+      "means differ but spreads overlap so an over-strong claim is refutable"
+    ],
+    "sources": [
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S5 (Free-response archetypes)",
+        "note": "Section II question archetypes Q1-Q4"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S6 (Task verbs)",
+        "note": "the item stem's verb must match the scored demand"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S7 (Response modality)",
+        "note": "digital Bluebook; text/numeric entry -> exam_aligned_digital"
+      }
+    ],
+    "domain": "education"
+  },
+  "prompt": "In a survey of study habits, students who study mostly at night had a mean self-reported focus rating of 51 points (SD about 10) and students who study mostly in the morning had a mean of 45 points (SD about 10). A student claims: \"students who study mostly at night always have a higher self-reported focus rating than students who study mostly in the morning.\" Which statement best justifies whether the data support this claim?",
+  "mcq_form": {
+    "options": [
+      {
+        "text": "Because students who study mostly at night had a higher mean self-reported focus rating, being in students who study mostly at night causes a higher self-reported focus rating.",
+        "correct": false,
+        "misconception": "association_implies_causation",
+        "misconception_source": {
+          "tag": "association_implies_causation",
+          "label": "Interpreted an observational association as causation",
+          "evidence": "documented_cr",
+          "ek_codes": [
+            "5.2.A.4"
+          ],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 5 (5.2)",
+              "note": "EK 5.2.A.4: correlation does not imply causation (stated explicitly)"
+            },
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 1 (1.10-1.13)",
+              "note": "observational studies (no random assignment) do not support causal claims"
+            }
+          ]
+        }
+      },
+      {
+        "text": "On average students who study mostly at night had a higher self-reported focus rating (mean 51 vs 45), so the data support a typical difference; but because both SDs are about 10, the distributions overlap substantially, so the data do not support a claim that students who study mostly at night are always higher.",
+        "correct": true,
+        "misconception": null
+      },
+      {
+        "text": "These results prove that students who study mostly at night will always outperform students who study mostly in the morning on self-reported focus rating in any future study or population.",
+        "correct": false,
+        "misconception": "over_generalizes_beyond_data",
+        "misconception_source": {
+          "tag": "over_generalizes_beyond_data",
+          "label": "Over-generalized beyond the data using definitive language",
+          "evidence": "documented_cr",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 'General exam-wide conventions'",
+              "note": "2025 CR Report: conclusions must use non-definitive language ('convincing evidence'), never 'proves'/'always'; and must not generalize beyond the studied population"
+            }
+          ]
+        }
+      },
+      {
+        "text": "The claim is correct because students who study mostly at night clearly did better on self-reported focus rating.",
+        "correct": false,
+        "misconception": "restates_claim_without_evidence",
+        "misconception_source": {
+          "tag": "restates_claim_without_evidence",
+          "label": "Restated the claim without citing statistical evidence",
+          "evidence": "documented_cr",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S4/S6 (skill 4.B; task verbs) + S10 'General exam-wide conventions'",
+              "note": "a justification must reference the statistical evidence, not merely restate the claim"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "parts": [
+    {
+      "part_key": "part-a",
+      "prompt": "In a survey of study habits, students who study mostly at night had a mean self-reported focus rating of 51 points (SD about 10) and students who study mostly in the morning had a mean of 45 points (SD about 10). A student claims: \"students who study mostly at night always have a higher self-reported focus rating than students who study mostly in the morning.\" Which statement best justifies whether the data support this claim?",
+      "response_modalities": [
+        "mcq"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "Selects the justification that affirms the on-average difference while rejecting the over-strong 'always' claim due to overlap.",
+          "required_evidence": "Correct justification type: affirms_average_rejects_overstrong_via_overlap",
+          "deterministic_checks": [
+            {
+              "kind": "mcq_key",
+              "correct_type": "affirms_average_rejects_overstrong_via_overlap"
+            }
+          ],
+          "accepted_variants": []
+        }
+      ]
+    }
+  ],
+  "provenance": {
+    "generator": "course_mode_stats_generator/slot_frames.py",
+    "frame_id": "FB-4B-COMPARE-01",
+    "params": {
+      "scenario": "a survey of study habits",
+      "mA": 51,
+      "mB": 45,
+      "sd": 10
+    },
+    "seed": 97019,
+    "release_status": "unreleased_generated_pending_review",
+    "note": "Authored conceptual frame; correctness from authored justification taxonomy."
+  }
+}

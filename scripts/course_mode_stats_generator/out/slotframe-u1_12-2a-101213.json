@@ -1,0 +1,161 @@
+{
+  "schema_version": "course-mode-generated-0.1",
+  "package_id": "slotframe-u1_12-2a-101213",
+  "content_key": "apstat-u1-12-2a-bias-101213",
+  "item_type": "mcq",
+  "difficulty": "Medium",
+  "exam_pack_ref": {
+    "exam_code": "ap_statistics",
+    "cycle": "2026-27"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "unit-1"
+    },
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "topic-1.12"
+    },
+    {
+      "scheme_key": "ap-statistics-skills",
+      "node_key": "skill-2.A",
+      "practice": 2
+    }
+  ],
+  "cells": [
+    {
+      "topic": "1.12",
+      "skill": "2.A"
+    }
+  ],
+  "scenario_provenance": {
+    "archetype": "Q1",
+    "archetype_label": "Multi-focus on Practices 1 & 2 (formulate questions; collect/represent data)",
+    "task_verb": "Describe",
+    "practice": 2,
+    "modality": "exam_aligned_digital",
+    "validity_rules": [
+      "realistic data-collection scenario",
+      "bias classification must follow the source of error stated in the stem"
+    ],
+    "sources": [
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S5 (Free-response archetypes)",
+        "note": "Section II question archetypes Q1-Q4"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S6 (Task verbs)",
+        "note": "the item stem's verb must match the scored demand"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S7 (Response modality)",
+        "note": "digital Bluebook; text/numeric entry -> exam_aligned_digital"
+      }
+    ],
+    "domain": "education"
+  },
+  "prompt": "A registrar uses a random-number generator to select 80 students from the complete school roster and all selected students answer the neutral survey question. Which statement best identifies the bias, if any?",
+  "mcq_form": {
+    "options": [
+      {
+        "text": "No clear bias is described; the frame is complete, selection is random, everyone responds, and the wording is neutral.",
+        "correct": true,
+        "misconception": null
+      },
+      {
+        "text": "Nonresponse bias, because not every student in the school was selected.",
+        "correct": false,
+        "misconception": "u1_12__no_bias_called_biased",
+        "misconception_source": {
+          "tag": "u1_12__no_bias_called_biased",
+          "label": "Called an unbiased described plan biased",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 1 (1.10-1.13)",
+              "note": "bias claims must be supported by the sampling scenario rather than assumed from sample size alone"
+            }
+          ]
+        }
+      },
+      {
+        "text": "Undercoverage bias, because 80 students is fewer than the whole school.",
+        "correct": false,
+        "misconception": "u1_12__no_bias_called_biased",
+        "misconception_source": {
+          "tag": "u1_12__no_bias_called_biased",
+          "label": "Called an unbiased described plan biased",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 1 (1.10-1.13)",
+              "note": "bias claims must be supported by the sampling scenario rather than assumed from sample size alone"
+            }
+          ]
+        }
+      },
+      {
+        "text": "Voluntary-response bias, because students were allowed to answer the question.",
+        "correct": false,
+        "misconception": "u1_12__no_bias_called_biased",
+        "misconception_source": {
+          "tag": "u1_12__no_bias_called_biased",
+          "label": "Called an unbiased described plan biased",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 1 (1.10-1.13)",
+              "note": "bias claims must be supported by the sampling scenario rather than assumed from sample size alone"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "parts": [
+    {
+      "part_key": "part-a",
+      "prompt": "A registrar uses a random-number generator to select 80 students from the complete school roster and all selected students answer the neutral survey question. Which statement best identifies the bias, if any?",
+      "response_modalities": [
+        "mcq"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "Selects the bias classification supported by the data-collection scenario.",
+          "required_evidence": "No clear bias is described; the frame is complete, selection is random, everyone responds, and the wording is neutral.",
+          "deterministic_checks": [
+            {
+              "kind": "mcq_key",
+              "correct_bias_statement": "No clear bias is described; the frame is complete, selection is random, everyone responds, and the wording is neutral."
+            }
+          ],
+          "accepted_variants": []
+        }
+      ]
+    }
+  ],
+  "provenance": {
+    "generator": "course_mode_stats_generator/slot_frames.py",
+    "frame_id": "FB-U1-12-2A-BIAS-01",
+    "template_id": "slotframe_u1_12_bias",
+    "params": {
+      "scenario_id": "u1_12__student_roster_srs"
+    },
+    "seed": 101213,
+    "release_status": "unreleased_generated_pending_review",
+    "note": "Authored conceptual frame; correctness from sampling-bias taxonomy."
+  }
+}

@@ -1,0 +1,175 @@
+{
+  "schema_version": "course-mode-generated-0.1",
+  "package_id": "slotframe-u1_8-3a-108010",
+  "content_key": "apstat-u1-8-3a-boxplots-108010",
+  "item_type": "mcq",
+  "difficulty": "Medium",
+  "exam_pack_ref": {
+    "exam_code": "ap_statistics",
+    "cycle": "2026-27"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "unit-1"
+    },
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "topic-1.8"
+    },
+    {
+      "scheme_key": "ap-statistics-skills",
+      "node_key": "skill-3.A",
+      "practice": 3
+    }
+  ],
+  "cells": [
+    {
+      "topic": "1.8",
+      "skill": "3.A"
+    }
+  ],
+  "scenario_provenance": {
+    "archetype": "Q2",
+    "archetype_label": "Multi-focus on Practices 3 & 4 (analyze data; interpret results)",
+    "task_verb": "Describe",
+    "practice": 3,
+    "modality": "exam_aligned_digital",
+    "validity_rules": [
+      "five-number summary for one quantitative variable",
+      "modified boxplot description uses Q1/median/Q3 and 1.5 x IQR outlier fences"
+    ],
+    "sources": [
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S5 (Free-response archetypes)",
+        "note": "Section II question archetypes Q1-Q4"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S6 (Task verbs)",
+        "note": "the item stem's verb must match the scored demand"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S7 (Response modality)",
+        "note": "digital Bluebook; text/numeric entry -> exam_aligned_digital"
+      }
+    ],
+    "domain": "social"
+  },
+  "prompt": "For one-way commute times (minutes), a summary is min 14, Q1 20, median 24, Q3 30, max 50. Using the 1.5 x IQR rule, the non-outlier whisker endpoints are 14 and 38. Which modified boxplot description matches this summary?",
+  "mcq_form": {
+    "options": [
+      {
+        "text": "Box from 14 to 50 minutes, median line at 24, whiskers to 14 and 50, with plotted outlier(s) at 50.",
+        "correct": false,
+        "misconception": "u1_8__box_spans_range_not_iqr",
+        "misconception_source": {
+          "tag": "u1_8__box_spans_range_not_iqr",
+          "label": "Made the box span the full range",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 1 (1.8)",
+              "note": "the box spans the interquartile range from Q1 to Q3, not the full range"
+            }
+          ]
+        }
+      },
+      {
+        "text": "Box from 20 to 30 minutes, median line at 24, whiskers to 14 and 38, with plotted outlier(s) at 50.",
+        "correct": true,
+        "misconception": null
+      },
+      {
+        "text": "Box from 20 to 30 minutes, median line at 24, whiskers to 14 and 50, with no plotted outliers.",
+        "correct": false,
+        "misconception": "u1_8__whisker_to_extreme_ignores_outlier",
+        "misconception_source": {
+          "tag": "u1_8__whisker_to_extreme_ignores_outlier",
+          "label": "Drew a whisker to an outlier",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 1 (1.8)",
+              "note": "modified boxplots use whiskers to the most extreme non-outliers, not beyond-fence outliers"
+            }
+          ]
+        }
+      },
+      {
+        "text": "Box from 24 to 30 minutes, median line at 20, whiskers to 14 and 38, with plotted outlier(s) at 50.",
+        "correct": false,
+        "misconception": "u1_8__quartile_median_positions_swapped",
+        "misconception_source": {
+          "tag": "u1_8__quartile_median_positions_swapped",
+          "label": "Swapped quartile and median positions",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 1 (1.8)",
+              "note": "boxplots encode Q1, median, Q3, whiskers, and possible outliers in specific positions"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "parts": [
+    {
+      "part_key": "part-a",
+      "prompt": "For one-way commute times (minutes), a summary is min 14, Q1 20, median 24, Q3 30, max 50. Using the 1.5 x IQR rule, the non-outlier whisker endpoints are 14 and 38. Which modified boxplot description matches this summary?",
+      "response_modalities": [
+        "mcq"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "Selects the modified boxplot description matching quartiles, whiskers, and outliers.",
+          "required_evidence": "Box from 20 to 30 minutes, median line at 24, whiskers to 14 and 38, with plotted outlier(s) at 50.",
+          "deterministic_checks": [
+            {
+              "kind": "mcq_key",
+              "correct_representation": "modified_boxplot"
+            }
+          ],
+          "accepted_variants": []
+        }
+      ]
+    }
+  ],
+  "provenance": {
+    "generator": "course_mode_stats_generator/slot_frames.py",
+    "frame_id": "FB-U1-8-3A-BOXPLOT-01",
+    "template_id": "slotframe_u1_8_boxplots",
+    "params": {
+      "scenario_id": "u1_8__commute_minutes",
+      "summary": {
+        "min": 14,
+        "q1": 20,
+        "median": 24,
+        "q3": 30,
+        "max": 50,
+        "low_whisker": 14,
+        "high_whisker": 38
+      },
+      "iqr": 10,
+      "fences": [
+        5.0,
+        45.0
+      ]
+    },
+    "seed": 108010,
+    "release_status": "unreleased_generated_pending_review",
+    "note": "Authored conceptual frame; correctness from modified-boxplot summary rules."
+  }
+}
