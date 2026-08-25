@@ -121,6 +121,10 @@ Because Track B items are conceptual, the "changed surface" that Course Mode's m
 (same template, different params) must come from the slot pools — design pools deep enough that two
 served instances are genuinely different surfaces, not cosmetic swaps.
 
+**Before authoring a Track B frame, read §11 (authoring quality lessons from reviewed cells).** Those
+are concrete rules the harness does not enforce — stem readability, per-context distractor
+plausibility, and same-prefix option confusability — that an independent review will otherwise catch.
+
 ## 5. QA gates — ALL mandatory, in order
 
 An agent's cell is not done until every gate passes and the evidence is written down.
@@ -151,7 +155,10 @@ wording.
 
 **Gate 4 — Realistic distractors.** Every distractor is a plausible student mistake inside the scenario
 envelope, tagged to a cited misconception. No "throwaway" wrong options. (This is the SME-review failure
-mode that has bitten prior batches — off-scale distractors, absurd scenarios.)
+mode that has bitten prior batches — off-scale distractors, absurd scenarios.) **Plausibility is
+per-context, not just per-tag:** a distractor that is tempting for one scenario/method can be obviously
+wrong (nothing in the stem to support it) for another — see §11.2. Check that each distractor is
+*tempting* in the specific instance it appears in, not merely a wrong classification.
 
 ## 6. Integration (orchestrator step, after parallel agents return)
 
@@ -210,3 +217,36 @@ gated flow (see the pilot plan §7 and `CONTENT_AUTHORING_AND_QA_PROTOCOL.md`):
   not change how a template is *authored*, only how it's served.
 - **Track B depth:** conceptual slot-frames must vary the surface enough to satisfy the mastery model's
   "changed surface" requirement; shallow pools will under-credit transfer.
+
+## 11. Authoring quality lessons (from reviewed cells)
+
+Append-only. Each entry is a concrete rule the automated harness does **not** enforce, learned from an
+independent review of a real cell. Read this before authoring; it is where review findings accumulate so
+they are not re-discovered per cell.
+
+**11.1 — No dangling pronouns in the stem (from `1.11×2.A`, 2026-08-24).** A `{measure}` slot phrased as
+"how many hours **they** spend…" reads as a dangling pronoun when dropped into a stem like "study
+{measure} among {population}" → *"study how many hours they spend… among all students."* Write slot text
+that composes into clean prose: phrase measures as noun phrases ("weekly hours spent in clubs"), or
+restructure the stem so the subject is introduced before the pronoun. Read three fully-rendered
+instances aloud before declaring done — the harness cannot hear awkward prose.
+
+**11.2 — Distractor plausibility is per-context, not per-tag (from `1.11×2.A`).** Reusing one distractor
+tag across many surfaces (e.g. one `stratified_cluster_confusion` tag applied to all six sampling
+methods) yields distractors that are *tempting* for the natural case but *obviously wrong* for others
+(a grouping-based distractor on a plan with no grouping). This is pilot-acceptable but weakens the item.
+Prefer per-context distractor selection where the wrong option is genuinely tempting *in that instance*;
+where a tag is reused across contexts, confirm each rendering is still a believable mistake for that
+specific stem, not just a valid wrong label.
+
+**11.3 — Tag names must match the misconception's direction (from `1.11×2.A`).** A tag named
+`convenience_or_voluntary_called_random` should render the "convenience/voluntary → labeled random"
+error; if the same tag is reused to render the inverse ("a random plan labeled convenience"), the option
+is still wrong but the tag mislabels the misconception. Either name the tag for the general confusion or
+add a direction-specific tag. Tags are the product's misconception vocabulary — keep them honest.
+
+**11.4 — Same-prefix options are allowed but must be intentional (from `1.11×2.A`).** Two options that
+both begin "Stratified random sample, because…" (correct reasoning vs cluster-style reasoning) is a
+rigorous, legitimate discrimination — but it raises difficulty and can read as a trick. Use it
+deliberately to test a specific boundary (stratified-vs-cluster), not by accident, and flag it for the
+SME so difficulty is a choice, not a side effect.

@@ -115,6 +115,12 @@ DISTRIBUTION_TAGS = {
     "u1_6__ignores_shape_reports_center_only",
 }
 
+GRAPH_TAGS = {
+    "u1_5__miscounted_bin_frequency",
+    "u1_5__stem_leaf_place_value_error",
+    "u1_5__wrong_plot_type_for_data",
+}
+
 def _justification_text(kind: str, s: Dict[str, str], mA: float, mB: float, sd: float) -> str:
     a, b, q = s["a"], s["b"], s["quantity"]
     if kind == CORRECT_TYPE:
@@ -536,6 +542,103 @@ def gen_u1_6_distribution_instance(rng: random.Random, seed: int) -> Dict:
 
 
 
+def _hist_counts(values: List[int], width: int) -> List[tuple]:
+    start = (min(values) // width) * width
+    stop = ((max(values) // width) + 1) * width
+    bins = []
+    lo = start
+    while lo <= stop:
+        hi = lo + width - 1
+        bins.append((lo, hi, sum(1 for v in values if lo <= v <= hi)))
+        lo += width
+    return bins
+
+
+def _hist_text(bins: List[tuple], unit: str) -> str:
+    return "; ".join(f"{lo}-{hi} {unit}: {count}" for lo, hi, count in bins)
+
+
+def _stemplot_text(values: List[int]) -> str:
+    stems = {}
+    for value in values:
+        stems.setdefault(value // 10, []).append(value % 10)
+    return "; ".join(f"{stem} | {' '.join(str(leaf) for leaf in leaves)}" for stem, leaves in sorted(stems.items()))
+
+
+def gen_u1_5_graph_instance(rng: random.Random, seed: int) -> Dict:
+    c = rng.choice(SCN.U1_5_GRAPH_CONTEXTS)
+    values = [v + rng.choice([0, 1, 2, 3]) for v in c["values"]]
+    width = rng.choice([5, 10])
+    bins = _hist_counts(values, width)
+    correct_text = "Histogram with counts " + _hist_text(bins, c["unit"])
+    wrong_bins = list(bins)
+    idx = rng.randrange(len(wrong_bins) - 1)
+    lo, hi, count = wrong_bins[idx]
+    lo2, hi2, count2 = wrong_bins[idx + 1]
+    if count > 0:
+        wrong_bins[idx] = (lo, hi, count - 1)
+        wrong_bins[idx + 1] = (lo2, hi2, count2 + 1)
+    else:
+        wrong_bins[idx] = (lo, hi, count + 1)
+        wrong_bins[idx + 1] = (lo2, hi2, max(0, count2 - 1))
+    prompt = (f"The {c['quantity']} ({c['unit']}) are {', '.join(str(v) for v in values)}. "
+              "Which representation correctly displays these quantitative data?")
+    distractors = [
+        ("Histogram with counts " + _hist_text(wrong_bins, c["unit"]), "u1_5__miscounted_bin_frequency"),
+        ("Stemplot " + _stemplot_text([v * 10 for v in values]), "u1_5__stem_leaf_place_value_error"),
+        (f"Bar chart with one bar for each named category of {c['quantity']}, rather than a numeric axis", "u1_5__wrong_plot_type_for_data"),
+    ]
+    options = [{"text": correct_text, "correct": True, "misconception": None}]
+    for text, tag in distractors:
+        options.append({"text": text, "correct": False, "misconception": tag,
+                        "misconception_source": MISC.provenance(tag)})
+    rng.shuffle(options)
+    scenario_prov = SCN.framing("slotframe_u1_5_graphs", c.get("domain"))
+    checks = [
+        ("exactly_one_correct", sum(1 for o in options if o["correct"]) == 1),
+        ("four_options", len(options) == 4),
+        ("option_texts_unique", len({o["text"] for o in options}) == 4),
+        ("all_distractors_tagged", all(o["misconception"] for o in options if not o["correct"])),
+        ("all_distractor_tags_canonical", all(o["misconception"] in MISC.CATALOG for o in options if not o["correct"])),
+        ("all_distractors_cite_source", all(o.get("misconception_source", {}).get("sources") for o in options if not o["correct"])),
+        ("scenario_framing_present", bool(scenario_prov.get("archetype")) and bool(scenario_prov.get("sources"))),
+        ("graph_tags_used", {o.get("misconception") for o in options if o.get("misconception")} == GRAPH_TAGS),
+    ]
+    return {
+        "schema_version": "course-mode-generated-0.1",
+        "package_id": f"slotframe-u1_5-3a-{seed:06d}",
+        "content_key": f"apstat-u1-5-3a-graphs-{seed:06d}",
+        "item_type": "mcq",
+        "difficulty": "Medium",
+        "exam_pack_ref": {"exam_code": "ap_statistics", "cycle": "2026-27"},
+        "taxonomy_refs": [
+            {"scheme_key": "ap-statistics-2026-27", "node_key": "unit-1"},
+            {"scheme_key": "ap-statistics-2026-27", "node_key": "topic-1.5"},
+            {"scheme_key": "ap-statistics-skills", "node_key": "skill-3.A", "practice": 3},
+        ],
+        "cells": [{"topic": "1.5", "skill": "3.A"}],
+        "scenario_provenance": scenario_prov,
+        "prompt": prompt,
+        "mcq_form": {"options": options},
+        "parts": [{"part_key": "part-a", "prompt": prompt, "response_modalities": ["mcq"], "points": 1,
+                   "criteria": [{"criterion_key": "part-a-criterion-1", "points": 1,
+                                  "description": "Selects the graph description that preserves the quantitative values and frequencies.",
+                                  "required_evidence": correct_text,
+                                  "deterministic_checks": [{"kind": "mcq_key", "correct_representation": "histogram_counts"}],
+                                  "accepted_variants": []}]}],
+        "provenance": {"generator": "course_mode_stats_generator/slot_frames.py",
+                       "frame_id": "FB-U1-5-3A-GRAPH-01", "template_id": "slotframe_u1_5_graphs",
+                       "params": {"scenario_id": c["id"], "values": values, "bin_width": width, "bins": bins},
+                       "seed": seed, "release_status": "unreleased_generated_pending_review",
+                       "note": "Authored conceptual frame; correctness from quantitative graph representation taxonomy."},
+        "_property_checks": checks,
+    }
+
+
+def generate_u1_5_graphs(count: int, base_seed: int = 15000) -> List[Dict]:
+    return [gen_u1_5_graph_instance(random.Random(base_seed + i), base_seed + i) for i in range(count)]
+
+
 # ==============================================================================
 # Frame registry + harness. Each Track B cell appends ONE entry to FRAMES below
 # (append-only) — no harness rewrite needed. (Integration lesson from batch 2.)
@@ -573,6 +676,9 @@ FRAMES = [
     {"frame_id": "FB-U1-6-4A-DISTRIBUTION-01", "cell": "1.6 x 4.A", "gen": generate_u1_6_distribution,
      "base_seed": 16000, "expected_tags": set(DISTRIBUTION_TAGS),
      "note": "Distribution description (shape/center/spread/outliers). Coverage: Unit 1 topic 1.6."},
+    {"frame_id": "FB-U1-5-3A-GRAPH-01", "cell": "1.5 x 3.A", "gen": generate_u1_5_graphs,
+     "base_seed": 15000, "expected_tags": set(GRAPH_TAGS),
+     "note": "Quantitative graph representation (histogram/dotplot/stemplot). Coverage: Unit 1 topic 1.5."},
 ]
 
 
