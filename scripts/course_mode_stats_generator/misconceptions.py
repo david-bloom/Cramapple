@@ -289,6 +289,26 @@ CATALOG: Dict[str, Misconception] = {m.tag: m for m in [
        "ced_structural", ["summary_stats"], ["1.7"], ["3.B"],
        [_fp("S10 Unit 1 (1.7)", "mean = (1/n) sum x_i -- the division by n is required")]),
 
+
+    # --- slot-frame FB-U1-8-3A-BOXPLOT-01 (1.8 x 3.A) : boxplots ---
+    _M("u1_8__quartile_median_positions_swapped",
+       "Swapped quartile and median positions",
+       "Chose a boxplot description that places Q1, the median, or Q3 in the wrong position.",
+       "ced_structural", ["slotframe_u1_8_boxplots"], ["1.8"], ["3.A"],
+       [_fp("S10 Unit 1 (1.8)", "boxplots encode Q1, median, Q3, whiskers, and possible outliers in specific positions")]),
+
+    _M("u1_8__whisker_to_extreme_ignores_outlier",
+       "Drew a whisker to an outlier",
+       "Extended the whisker to the minimum or maximum even though that endpoint is beyond the 1.5 x IQR fence and should be plotted as an outlier.",
+       "ced_structural", ["slotframe_u1_8_boxplots"], ["1.8"], ["3.A"],
+       [_fp("S10 Unit 1 (1.8)", "modified boxplots use whiskers to the most extreme non-outliers, not beyond-fence outliers")]),
+
+    _M("u1_8__box_spans_range_not_iqr",
+       "Made the box span the full range",
+       "Used the minimum and maximum as the ends of the box instead of using Q1 and Q3.",
+       "ced_structural", ["slotframe_u1_8_boxplots"], ["1.8"], ["3.A"],
+       [_fp("S10 Unit 1 (1.8)", "the box spans the interquartile range from Q1 to Q3, not the full range")]),
+
     # --- slot-frame FB-4B-COMPARE-01 (1.9 x 4.B) : justify a claim -------------
     _M("ignores_variability_claims_every_value",
        "Treated a difference in means as a claim about every individual value",

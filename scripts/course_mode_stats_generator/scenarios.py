@@ -58,6 +58,7 @@ TASK_VERBS = {
     "Calculate": "perform the steps to a final numeric answer",
     "Construct": "build a representation / interval",
     "Justify": "give statistical reasoning to support or qualify a claim",
+    "Describe": "identify or characterize a statistical variable, method, distribution, design, or representation",
 }
 
 _VALID_MODALITY = {"exam_aligned_digital", "supplemental_hand_drawn"}
@@ -128,6 +129,11 @@ FRAMING: Dict[str, Framing] = {
         "slotframe_4b", "Q2", "Justify", 4, "exam_aligned_digital",
         ["OBSERVATIONAL comparison only (no random assignment -> no causal claim)",
          "means differ but spreads overlap so an over-strong claim is refutable"],
+        [_SEC5, _SEC6, _SEC7]),
+    "slotframe_u1_8_boxplots": Framing(
+        "slotframe_u1_8_boxplots", "Q2", "Describe", 3, "exam_aligned_digital",
+        ["five-number summary for one quantitative variable",
+         "modified boxplot description uses Q1/median/Q3 and 1.5 x IQR outlier fences"],
         [_SEC5, _SEC6, _SEC7]),
     "t_test_mean": Framing(
         "t_test_mean", "Q4", "Calculate", 3, "exam_aligned_digital",
@@ -275,6 +281,16 @@ CATEGORICAL_CONTEXTS: List[Dict[str, object]] = [
 ]
 
 
+# Unit 1.8 boxplot contexts. Each id is cell-namespaced.
+U1_8_BOXPLOT_CONTEXTS: List[Dict[str, object]] = [
+    {"id": "u1_8__commute_minutes", "quantity": "one-way commute times", "unit": "minutes", "domain": "social", "summary": {"min": 12, "q1": 18, "median": 22, "q3": 28, "max": 48, "low_whisker": 12, "high_whisker": 36}},
+    {"id": "u1_8__quiz_points", "quantity": "quiz scores", "unit": "points", "domain": "education", "summary": {"min": 36, "q1": 68, "median": 74, "q3": 82, "max": 94, "low_whisker": 58, "high_whisker": 94}},
+    {"id": "u1_8__seedling_cm", "quantity": "seedling heights", "unit": "cm", "domain": "biology", "summary": {"min": 7, "q1": 12, "median": 15, "q3": 19, "max": 31, "low_whisker": 7, "high_whisker": 25}},
+    {"id": "u1_8__order_dollars", "quantity": "online order totals", "unit": "dollars", "domain": "business", "summary": {"min": 14, "q1": 24, "median": 31, "q3": 38, "max": 67, "low_whisker": 14, "high_whisker": 55}},
+    {"id": "u1_8__battery_hours", "quantity": "battery life", "unit": "hours", "domain": "manufacturing", "summary": {"min": 5, "q1": 8, "median": 10, "q3": 12, "max": 20, "low_whisker": 5, "high_whisker": 15}},
+]
+
+
 # ==============================================================================
 # Access + validation helpers
 # ==============================================================================
@@ -337,6 +353,20 @@ def validate_scenarios() -> List[str]:
             problems.append(f"categorical context missing fields: {ctx}")
         elif len(ctx["rows"]) < 2 or len(ctx["cols"]) < 2:
             problems.append(f"categorical context needs >=2 rows and cols: {ctx}")
+    seen_boxplot_ids = set()
+    for ctx in U1_8_BOXPLOT_CONTEXTS:
+        required = ("id", "quantity", "unit", "domain", "summary")
+        if not all(k in ctx for k in required):
+            problems.append(f"u1_8 boxplot context missing fields: {ctx}")
+        if ctx.get("id") in seen_boxplot_ids:
+            problems.append(f"duplicate u1_8 boxplot context id: {ctx.get('id')}")
+        seen_boxplot_ids.add(ctx.get("id"))
+        if not str(ctx.get("id", "")).startswith("u1_8__"):
+            problems.append(f"u1_8 boxplot context id is not namespaced: {ctx.get('id')}")
+        summ = ctx.get("summary", {})
+        keys = ("min", "q1", "median", "q3", "max", "low_whisker", "high_whisker")
+        if not all(k in summ for k in keys):
+            problems.append(f"u1_8 summary missing fields: {ctx}")
     return problems
 
 
@@ -353,6 +383,7 @@ if __name__ == "__main__":
             "normal": len(NORMAL_CONTEXTS),
             "mean": len(MEAN_CONTEXTS),
             "two_mean": len(TWO_MEAN_CONTEXTS),
+            "u1_8_boxplots": len(U1_8_BOXPLOT_CONTEXTS),
         },
         "framing": {p: {"archetype": f.archetype, "task_verb": f.task_verb,
                         "modality": f.modality} for p, f in FRAMING.items()},

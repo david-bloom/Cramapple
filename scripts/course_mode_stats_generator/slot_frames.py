@@ -49,6 +49,13 @@ SCENARIOS: List[Dict[str, str]] = [
 
 # Authored justification taxonomy. Exactly one type is valid for this frame.
 CORRECT_TYPE = "affirms_average_rejects_overstrong_via_overlap"
+
+BOXPLOT_TAGS = {
+    "u1_8__quartile_median_positions_swapped",
+    "u1_8__whisker_to_extreme_ignores_outlier",
+    "u1_8__box_spans_range_not_iqr",
+}
+
 MISCONCEPTION_TYPES = [
     "ignores_variability_claims_every_value",
     "association_implies_causation",
@@ -158,12 +165,91 @@ def gen_4b_instance(rng: random.Random, seed: int) -> Dict:
     }
 
 
-def generate(count: int, base_seed: int = 7000) -> List[Dict]:
+
+def _shift_summary(summary: Dict[str, int], shift: int) -> Dict[str, int]:
+    return {k: v + shift for k, v in summary.items()}
+
+
+def _boxplot_text(summ: Dict[str, int], unit: str, box_lo: int, line_at: int, box_hi: int,
+                  low_whisker: int, high_whisker: int, outlier_text: str) -> str:
+    return (f"Box from {box_lo:g} to {box_hi:g} {unit}, median line at {line_at:g}, "
+            f"whiskers to {low_whisker:g} and {high_whisker:g}, {outlier_text}.")
+
+
+def gen_u1_8_boxplot_instance(rng: random.Random, seed: int) -> Dict:
+    c = rng.choice(SCN.U1_8_BOXPLOT_CONTEXTS)
+    shift = rng.choice([0, 2, 4, 6])
+    summ = _shift_summary(c["summary"], shift)
+    iqr = summ["q3"] - summ["q1"]
+    low_fence = summ["q1"] - 1.5 * iqr
+    high_fence = summ["q3"] + 1.5 * iqr
+    outliers = []
+    if summ["min"] < low_fence:
+        outliers.append(summ["min"])
+    if summ["max"] > high_fence:
+        outliers.append(summ["max"])
+    outlier_text = "with no plotted outliers" if not outliers else "with plotted outlier(s) at " + ", ".join(f"{v:g}" for v in outliers)
+    correct_text = _boxplot_text(summ, c["unit"], summ["q1"], summ["median"], summ["q3"],
+                                 summ["low_whisker"], summ["high_whisker"], outlier_text)
+    prompt = (f"For {c['quantity']} ({c['unit']}), a summary is min {summ['min']:g}, Q1 {summ['q1']:g}, "
+              f"median {summ['median']:g}, Q3 {summ['q3']:g}, max {summ['max']:g}. "
+              f"Using the 1.5 x IQR rule, the non-outlier whisker endpoints are {summ['low_whisker']:g} and {summ['high_whisker']:g}. "
+              "Which modified boxplot description matches this summary?")
+    distractors = [
+        (_boxplot_text(summ, c["unit"], summ["median"], summ["q1"], summ["q3"], summ["low_whisker"], summ["high_whisker"], outlier_text), "u1_8__quartile_median_positions_swapped"),
+        (_boxplot_text(summ, c["unit"], summ["q1"], summ["median"], summ["q3"], summ["min"], summ["max"], "with no plotted outliers"), "u1_8__whisker_to_extreme_ignores_outlier"),
+        (_boxplot_text(summ, c["unit"], summ["min"], summ["median"], summ["max"], summ["min"], summ["max"], outlier_text), "u1_8__box_spans_range_not_iqr"),
+    ]
+    options = [{"text": correct_text, "correct": True, "misconception": None}]
+    for text, tag in distractors:
+        options.append({"text": text, "correct": False, "misconception": tag,
+                        "misconception_source": MISC.provenance(tag)})
+    rng.shuffle(options)
+    scenario_prov = SCN.framing("slotframe_u1_8_boxplots", c.get("domain"))
+    checks = [("iqr_positive", iqr > 0),
+              ("whiskers_inside_fences", summ["low_whisker"] >= low_fence and summ["high_whisker"] <= high_fence),
+              ("endpoint_outlier_present", bool(outliers)),
+              ("exactly_one_correct", sum(1 for o in options if o["correct"]) == 1),
+              ("four_options", len(options) == 4),
+              ("option_texts_unique", len({o["text"] for o in options}) == 4),
+              ("all_distractors_tagged", all(o["misconception"] for o in options if not o["correct"])),
+              ("all_distractor_tags_canonical", all(o["misconception"] in MISC.CATALOG for o in options if not o["correct"])),
+              ("all_distractors_cite_source", all(o.get("misconception_source", {}).get("sources") for o in options if not o["correct"])),
+              ("scenario_framing_present", bool(scenario_prov.get("archetype")) and bool(scenario_prov.get("sources"))),
+              ("boxplot_tags_used", {o.get("misconception") for o in options if o.get("misconception")} == BOXPLOT_TAGS)]
+    return {"schema_version": "course-mode-generated-0.1", "package_id": f"slotframe-u1_8-3a-{seed:06d}",
+            "content_key": f"apstat-u1-8-3a-boxplots-{seed:06d}", "item_type": "mcq", "difficulty": "Medium",
+            "exam_pack_ref": {"exam_code": "ap_statistics", "cycle": "2026-27"},
+            "taxonomy_refs": [{"scheme_key": "ap-statistics-2026-27", "node_key": "unit-1"},
+                              {"scheme_key": "ap-statistics-2026-27", "node_key": "topic-1.8"},
+                              {"scheme_key": "ap-statistics-skills", "node_key": "skill-3.A", "practice": 3}],
+            "cells": [{"topic": "1.8", "skill": "3.A"}], "scenario_provenance": scenario_prov,
+            "prompt": prompt, "mcq_form": {"options": options},
+            "parts": [{"part_key": "part-a", "prompt": prompt, "response_modalities": ["mcq"], "points": 1,
+                       "criteria": [{"criterion_key": "part-a-criterion-1", "points": 1,
+                                      "description": "Selects the modified boxplot description matching quartiles, whiskers, and outliers.",
+                                      "required_evidence": correct_text,
+                                      "deterministic_checks": [{"kind": "mcq_key", "correct_representation": "modified_boxplot"}],
+                                      "accepted_variants": []}]}],
+            "provenance": {"generator": "course_mode_stats_generator/slot_frames.py", "frame_id": "FB-U1-8-3A-BOXPLOT-01",
+                           "template_id": "slotframe_u1_8_boxplots", "params": {"scenario_id": c["id"], "summary": summ, "iqr": iqr, "fences": [low_fence, high_fence]},
+                           "seed": seed, "release_status": "unreleased_generated_pending_review",
+                           "note": "Authored conceptual frame; correctness from modified-boxplot summary rules."},
+            "_property_checks": checks}
+
+def generate_4b(count: int, base_seed: int = 7000) -> List[Dict]:
     return [gen_4b_instance(random.Random(base_seed + i), base_seed + i) for i in range(count)]
 
 
-def property_report(count: int = 60) -> Dict:
-    insts = generate(count)
+def generate_u1_8_boxplots(count: int, base_seed: int = 18000) -> List[Dict]:
+    return [gen_u1_8_boxplot_instance(random.Random(base_seed + i), base_seed + i) for i in range(count)]
+
+
+def generate(count: int, base_seed: int = 7000) -> List[Dict]:
+    return generate_4b(count, base_seed)
+
+
+def _report_frame(frame_id: str, cell: str, insts: List[Dict], note: str) -> Dict:
     failures = []
     nchecks = 0
     for inst in insts:
@@ -171,24 +257,32 @@ def property_report(count: int = 60) -> Dict:
             nchecks += 1
             if not ok:
                 failures.append(f"{inst['provenance']['seed']}/{name}")
-    return {
-        "frame_id": "FB-4B-COMPARE-01", "cell": "1.9 x 4.B",
-        "instances": len(insts), "checks": nchecks,
-        "distinct_prompts": len({i["prompt"] for i in insts}),
-        "failures": failures, "ok": len(failures) == 0,
-        "authoring_cost_note": (
-            "1 authored frame + 4 scenario slots + 5 justification-type templates "
-            f"-> {len(insts)} validated instances (x scenario x numeric slots). "
-            "Coverage: 1 of Practice-4's 7 skills (4.B). Scaling estimate: each P4 skill "
-            "needs its own frame family; 4.A/4.C/4.D/4.F/4.G differ structurally, so budget "
-            "~1 frame family per skill, not one frame for all of P4."
-        ),
-    }
+    correct_positions = [next(idx for idx, opt in enumerate(inst["mcq_form"]["options"]) if opt["correct"]) for inst in insts]
+    return {"frame_id": frame_id, "cell": cell, "instances": len(insts), "checks": nchecks,
+            "distinct_prompts": len({i["prompt"] for i in insts}),
+            "correct_answer_positions": sorted(set(correct_positions)),
+            "correct_answer_position_varies": len(set(correct_positions)) >= 2,
+            "failures": failures, "ok": len(failures) == 0, "authoring_cost_note": note}
+
+
+def property_report(count: int = 120) -> Dict:
+    box_insts = generate_u1_8_boxplots(count, 18000)
+    box_tags_used = {opt["misconception"] for inst in box_insts for opt in inst["mcq_form"]["options"] if opt.get("misconception")}
+    frames = [_report_frame("FB-4B-COMPARE-01", "1.9 x 4.B", generate_4b(count, 7000), "Existing authored 4.B comparison frame."),
+              _report_frame("FB-U1-8-3A-BOXPLOT-01", "1.8 x 3.A", box_insts, "1 authored frame + 5 contexts x varied summary surfaces.")]
+    meta_tests = [("all_frames_ok", all(f["ok"] for f in frames)),
+                  ("correct_answer_position_varies", all(f["correct_answer_position_varies"] for f in frames)),
+                  ("misconception_catalog_self_check", not MISC.validate_catalog()),
+                  ("scenario_catalog_self_check", not SCN.validate_scenarios()),
+                  ("u1_8_all_new_misconception_tags_used", BOXPLOT_TAGS.issubset(box_tags_used))]
+    return {"frames": frames, "instances": sum(f["instances"] for f in frames), "checks": sum(f["checks"] for f in frames),
+            "meta_tests": [{"name": name, "ok": ok} for name, ok in meta_tests],
+            "ok": all(f["ok"] for f in frames) and all(ok for _name, ok in meta_tests)}
 
 
 def emit_samples(count: int = 4, base_seed: int = 9000) -> int:
     OUT_DIR.mkdir(parents=True, exist_ok=True)
-    for inst in generate(count, base_seed):
+    for inst in generate_4b(count, base_seed) + generate_u1_8_boxplots(count, 18100):
         assert all(ok for _n, ok in inst["_property_checks"]), \
             f"invalid slot-frame instance reached emit: {inst['package_id']}"
         pkg = {k: v for k, v in inst.items() if k != "_property_checks"}
