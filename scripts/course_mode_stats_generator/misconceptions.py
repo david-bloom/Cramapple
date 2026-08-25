@@ -289,6 +289,26 @@ CATALOG: Dict[str, Misconception] = {m.tag: m for m in [
        "ced_structural", ["summary_stats"], ["1.7"], ["3.B"],
        [_fp("S10 Unit 1 (1.7)", "mean = (1/n) sum x_i -- the division by n is required")]),
 
+
+    # --- slot-frame FB-U1-13-2A-DESIGN-01 (1.13 x 2.A) : experimental design ---
+    _M("u1_13__confounding_vs_lurking_confused",
+       "Confused confounding with a lurking variable or unrelated association",
+       "Misidentified whether an explanatory variable is mixed with another variable in the design, or claimed confounding without a plausible mixed effect.",
+       "documented_cr", ["slotframe_u1_13_design"], ["1.13"], ["2.A"],
+       [_fp("S10 Unit 1 (1.10-1.13)", "experimental and observational designs require identifying confounding and other design flaws")]),
+
+    _M("u1_13__control_blinding_randomization_confused",
+       "Confused control, blinding, placebo, and randomization",
+       "Attributed the role of random assignment, a control group, placebo, or blinding to the wrong design element.",
+       "ced_structural", ["slotframe_u1_13_design"], ["1.13"], ["2.A"],
+       [_fp("S10 Unit 1 (1.10-1.13)", "randomization, control, placebo, and blinding serve different roles in experimental design")]),
+
+    _M("u1_13__observational_treated_as_experiment",
+       "Treated an observational study as an experiment",
+       "Called a study an experiment even though researchers only observed existing conditions and did not impose treatments.",
+       "documented_cr", ["slotframe_u1_13_design"], ["1.13"], ["2.A"],
+       [_fp("S10 Unit 1 (1.10-1.13)", "observational studies do not impose treatments; experiments do")]),
+
     # --- slot-frame FB-4B-COMPARE-01 (1.9 x 4.B) : justify a claim -------------
     _M("ignores_variability_claims_every_value",
        "Treated a difference in means as a claim about every individual value",

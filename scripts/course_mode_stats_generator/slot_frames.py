@@ -49,6 +49,13 @@ SCENARIOS: List[Dict[str, str]] = [
 
 # Authored justification taxonomy. Exactly one type is valid for this frame.
 CORRECT_TYPE = "affirms_average_rejects_overstrong_via_overlap"
+
+DESIGN_TAGS = {
+    "u1_13__confounding_vs_lurking_confused",
+    "u1_13__control_blinding_randomization_confused",
+    "u1_13__observational_treated_as_experiment",
+}
+
 MISCONCEPTION_TYPES = [
     "ignores_variability_claims_every_value",
     "association_implies_causation",
@@ -158,12 +165,57 @@ def gen_4b_instance(rng: random.Random, seed: int) -> Dict:
     }
 
 
-def generate(count: int, base_seed: int = 7000) -> List[Dict]:
+
+def gen_u1_13_design_instance(rng: random.Random, seed: int) -> Dict:
+    c = rng.choice(SCN.U1_13_DESIGN_CONTEXTS)
+    prompt = f"{c['stem']} Which statement best identifies the design element or flaw?"
+    options = [{"text": c["correct"], "correct": True, "misconception": None}]
+    for text, tag in c["distractors"]:
+        options.append({"text": text, "correct": False, "misconception": tag,
+                        "misconception_source": MISC.provenance(tag)})
+    rng.shuffle(options)
+    scenario_prov = SCN.framing("slotframe_u1_13_design", c.get("domain"))
+    checks = [("exactly_one_correct", sum(1 for o in options if o["correct"]) == 1),
+              ("four_options", len(options) == 4),
+              ("option_texts_unique", len({o["text"] for o in options}) == 4),
+              ("all_distractors_tagged", all(o["misconception"] for o in options if not o["correct"])),
+              ("all_distractor_tags_canonical", all(o["misconception"] in MISC.CATALOG for o in options if not o["correct"])),
+              ("all_distractors_cite_source", all(o.get("misconception_source", {}).get("sources") for o in options if not o["correct"])),
+              ("scenario_framing_present", bool(scenario_prov.get("archetype")) and bool(scenario_prov.get("sources"))),
+              ("design_tags_subset", all(o.get("misconception") in DESIGN_TAGS for o in options if not o["correct"]))]
+    return {"schema_version": "course-mode-generated-0.1", "package_id": f"slotframe-u1_13-2a-{seed:06d}",
+            "content_key": f"apstat-u1-13-2a-design-{seed:06d}", "item_type": "mcq", "difficulty": "Medium",
+            "exam_pack_ref": {"exam_code": "ap_statistics", "cycle": "2026-27"},
+            "taxonomy_refs": [{"scheme_key": "ap-statistics-2026-27", "node_key": "unit-1"},
+                              {"scheme_key": "ap-statistics-2026-27", "node_key": "topic-1.13"},
+                              {"scheme_key": "ap-statistics-skills", "node_key": "skill-2.A", "practice": 2}],
+            "cells": [{"topic": "1.13", "skill": "2.A"}], "scenario_provenance": scenario_prov,
+            "prompt": prompt, "mcq_form": {"options": options},
+            "parts": [{"part_key": "part-a", "prompt": prompt, "response_modalities": ["mcq"], "points": 1,
+                       "criteria": [{"criterion_key": "part-a-criterion-1", "points": 1,
+                                      "description": "Selects the study-design statement supported by the scenario.",
+                                      "required_evidence": c["correct"],
+                                      "deterministic_checks": [{"kind": "mcq_key", "correct_design_statement": c["correct"]}],
+                                      "accepted_variants": []}]}],
+            "provenance": {"generator": "course_mode_stats_generator/slot_frames.py", "frame_id": "FB-U1-13-2A-DESIGN-01",
+                           "template_id": "slotframe_u1_13_design", "params": {"scenario_id": c["id"]},
+                           "seed": seed, "release_status": "unreleased_generated_pending_review",
+                           "note": "Authored conceptual frame; correctness from study-design taxonomy."},
+            "_property_checks": checks}
+
+def generate_4b(count: int, base_seed: int = 7000) -> List[Dict]:
     return [gen_4b_instance(random.Random(base_seed + i), base_seed + i) for i in range(count)]
 
 
-def property_report(count: int = 60) -> Dict:
-    insts = generate(count)
+def generate_u1_13_design(count: int, base_seed: int = 11300) -> List[Dict]:
+    return [gen_u1_13_design_instance(random.Random(base_seed + i), base_seed + i) for i in range(count)]
+
+
+def generate(count: int, base_seed: int = 7000) -> List[Dict]:
+    return generate_4b(count, base_seed)
+
+
+def _report_frame(frame_id: str, cell: str, insts: List[Dict], note: str) -> Dict:
     failures = []
     nchecks = 0
     for inst in insts:
@@ -171,24 +223,31 @@ def property_report(count: int = 60) -> Dict:
             nchecks += 1
             if not ok:
                 failures.append(f"{inst['provenance']['seed']}/{name}")
-    return {
-        "frame_id": "FB-4B-COMPARE-01", "cell": "1.9 x 4.B",
-        "instances": len(insts), "checks": nchecks,
-        "distinct_prompts": len({i["prompt"] for i in insts}),
-        "failures": failures, "ok": len(failures) == 0,
-        "authoring_cost_note": (
-            "1 authored frame + 4 scenario slots + 5 justification-type templates "
-            f"-> {len(insts)} validated instances (x scenario x numeric slots). "
-            "Coverage: 1 of Practice-4's 7 skills (4.B). Scaling estimate: each P4 skill "
-            "needs its own frame family; 4.A/4.C/4.D/4.F/4.G differ structurally, so budget "
-            "~1 frame family per skill, not one frame for all of P4."
-        ),
-    }
+    correct_positions = [next(idx for idx, opt in enumerate(inst["mcq_form"]["options"]) if opt["correct"]) for inst in insts]
+    return {"frame_id": frame_id, "cell": cell, "instances": len(insts), "checks": nchecks,
+            "distinct_prompts": len({i["prompt"] for i in insts}), "correct_answer_positions": sorted(set(correct_positions)),
+            "correct_answer_position_varies": len(set(correct_positions)) >= 2, "failures": failures,
+            "ok": len(failures) == 0, "authoring_cost_note": note}
+
+
+def property_report(count: int = 120) -> Dict:
+    design_insts = generate_u1_13_design(count, 11300)
+    design_tags_used = {opt["misconception"] for inst in design_insts for opt in inst["mcq_form"]["options"] if opt.get("misconception")}
+    frames = [_report_frame("FB-4B-COMPARE-01", "1.9 x 4.B", generate_4b(count, 7000), "Existing authored 4.B comparison frame."),
+              _report_frame("FB-U1-13-2A-DESIGN-01", "1.13 x 2.A", design_insts, "1 authored frame + 6 scenario surfaces spanning design elements/flaws.")]
+    meta_tests = [("all_frames_ok", all(f["ok"] for f in frames)),
+                  ("correct_answer_position_varies", all(f["correct_answer_position_varies"] for f in frames)),
+                  ("misconception_catalog_self_check", not MISC.validate_catalog()),
+                  ("scenario_catalog_self_check", not SCN.validate_scenarios()),
+                  ("u1_13_all_new_misconception_tags_used", DESIGN_TAGS.issubset(design_tags_used))]
+    return {"frames": frames, "instances": sum(f["instances"] for f in frames), "checks": sum(f["checks"] for f in frames),
+            "meta_tests": [{"name": name, "ok": ok} for name, ok in meta_tests],
+            "ok": all(f["ok"] for f in frames) and all(ok for _name, ok in meta_tests)}
 
 
 def emit_samples(count: int = 4, base_seed: int = 9000) -> int:
     OUT_DIR.mkdir(parents=True, exist_ok=True)
-    for inst in generate(count, base_seed):
+    for inst in generate_4b(count, base_seed) + generate_u1_13_design(count, 11400):
         assert all(ok for _n, ok in inst["_property_checks"]), \
             f"invalid slot-frame instance reached emit: {inst['package_id']}"
         pkg = {k: v for k, v in inst.items() if k != "_property_checks"}
