@@ -1,0 +1,86 @@
+{
+  "_note": "Real Dev fixtures pulled 2026-08-26 from exam_pack_version 4e54bb4f-695f-41be-ac06-745fe9ad8bcc (project wmgjsdkphcyhngaffbqf). Two distinct published instances per pilot cell, with their real generator provenance (params + seed). Used to drive the REAL cell-state-1.0 rule engine (supabase/functions/_shared/cell-state.ts) offline. NOT a substitute for the end-to-end HTTP harness, which exercises the deployed evaluate-attempt grader.",
+  "exam_pack_version_id": "4e54bb4f-695f-41be-ac06-745fe9ad8bcc",
+  "cells": [
+    {
+      "template_id": "summary_stats", "topic_code": "1.7", "skill_code": "3.B",
+      "taxonomy_source_version": "dae3c72e-82ca-4960-9552-1b034bd347e5",
+      "instances": [
+        {"civ_id": "02c91336-2281-4bab-9885-1809981fb8ed", "seed": 90002, "params": {"data": [13,24,29,31,50,55,61,65,73,78,88]}},
+        {"civ_id": "08de9a25-9ed0-442a-9580-9929699a151c", "seed": 90005, "params": {"data": [17,24,55,56,57,58,58,74,78,82,89]}}
+      ]
+    },
+    {
+      "template_id": "compare_stats", "topic_code": "1.9", "skill_code": "3.B",
+      "taxonomy_source_version": "dae3c72e-82ca-4960-9552-1b034bd347e5",
+      "instances": [
+        {"civ_id": "016c8050-da96-4e70-a824-56f07b12e288", "seed": 90014, "params": {"stat": "median", "data_a": [105,105,111,111,114,115,116,117,120], "data_b": [99,103,106,106,107,108,109,111,127], "scenario_id": "u1_9__trail_counts"}},
+        {"civ_id": "0708cfa9-9e3f-4afb-9b4c-f226bdce5054", "seed": 90007, "params": {"stat": "mean", "data_a": [47,48,48,49,50,51,57,59,60], "data_b": [58,58,62,62,64,64,65,66,70], "scenario_id": "u1_9__store_receipts"}}
+      ]
+    },
+    {
+      "template_id": "slotframe_u1_2_variables", "topic_code": "1.2", "skill_code": "2.A",
+      "taxonomy_source_version": "dae3c72e-82ca-4960-9552-1b034bd347e5",
+      "instances": [
+        {"civ_id": "07315353-9b70-444a-90d8-002cfa96ed40", "seed": 102011, "params": {"correct": "quantitative discrete", "scenario_id": "u1_2__household_size"}},
+        {"civ_id": "118e1e24-770e-4652-9192-383601961f71", "seed": 102007, "params": {"correct": "quantitative discrete", "scenario_id": "u1_2__absences"}}
+      ]
+    },
+    {
+      "template_id": "slotframe_u1_5_graphs", "topic_code": "1.5", "skill_code": "3.A",
+      "taxonomy_source_version": "dae3c72e-82ca-4960-9552-1b034bd347e5",
+      "instances": [
+        {"civ_id": "06b35da2-c437-45b6-8df4-7ca777ea3ebb", "seed": 105004, "params": {"bins": [[60,69,3],[70,79,4],[80,89,3],[90,99,2],[100,109,0]], "values": [63,68,69,72,74,79,79,81,86,87,92,95], "bin_width": 10, "scenario_id": "u1_5__quiz_points"}},
+        {"civ_id": "10fefc89-e7c2-4c1a-b6d9-bae530569675", "seed": 105010, "params": {"bins": [[60,64,1],[65,69,2],[70,74,2],[75,79,2],[80,84,1],[85,89,2],[90,94,2],[95,99,0]], "values": [62,68,67,72,73,76,79,84,86,87,91,94], "bin_width": 5, "scenario_id": "u1_5__quiz_points"}}
+      ]
+    },
+    {
+      "template_id": "slotframe_u1_6_distribution", "topic_code": "1.6", "skill_code": "4.A",
+      "taxonomy_source_version": "dae3c72e-82ca-4960-9552-1b034bd347e5",
+      "instances": [
+        {"civ_id": "02337bbe-a1e6-441c-a7f5-3b1bcb363ed5", "seed": 106000, "params": {"shape": "roughly symmetric", "summary": {"q1": 45, "q3": 65, "max": 80, "min": 30, "mean": 55, "median": 55}, "scenario_id": "u1_6__order_totals"}},
+        {"civ_id": "054396ac-5295-4212-a1dd-24dcff7c1a60", "seed": 106006, "params": {"shape": "left-skewed", "summary": {"q1": 55, "q3": 69, "max": 79, "min": 37, "mean": 60, "median": 65}, "scenario_id": "u1_6__commute_times"}}
+      ]
+    },
+    {
+      "template_id": "slotframe_u1_8_boxplots", "topic_code": "1.8", "skill_code": "3.A",
+      "taxonomy_source_version": "dae3c72e-82ca-4960-9552-1b034bd347e5",
+      "instances": [
+        {"civ_id": "034d0420-aa5f-4c95-bcff-566d4d7ac2e2", "seed": 108015, "params": {"iqr": 14, "fences": [3,59], "summary": {"q1": 24, "q3": 38, "max": 67, "min": 14, "median": 31, "low_whisker": 14, "high_whisker": 55}, "scenario_id": "u1_8__order_dollars"}},
+        {"civ_id": "0da49809-91a2-4c61-8196-08574abe8d0c", "seed": 108001, "params": {"iqr": 10, "fences": [9,49], "summary": {"q1": 24, "q3": 34, "max": 54, "min": 18, "median": 28, "low_whisker": 18, "high_whisker": 42}, "scenario_id": "u1_8__commute_minutes"}}
+      ]
+    },
+    {
+      "template_id": "slotframe_u1_11_sampling", "topic_code": "1.11", "skill_code": "2.A",
+      "taxonomy_source_version": "dae3c72e-82ca-4960-9552-1b034bd347e5",
+      "instances": [
+        {"civ_id": "03add9e2-3fa7-42d6-8c1a-e6215af1770c", "seed": 101010, "params": {"method": "srs", "scenario_id": "u1_11__online_store_orders"}},
+        {"civ_id": "0585476a-6bc6-4ac2-b6d0-8a1824609efa", "seed": 101015, "params": {"method": "cluster", "scenario_id": "u1_11__city_bus_riders"}}
+      ]
+    },
+    {
+      "template_id": "slotframe_u1_12_bias", "topic_code": "1.12", "skill_code": "2.A",
+      "taxonomy_source_version": "dae3c72e-82ca-4960-9552-1b034bd347e5",
+      "instances": [
+        {"civ_id": "0ee9c96c-5784-4e9e-9325-d9e2489d6bf1", "seed": 101215, "params": {"scenario_id": "u1_12__landline_city_survey"}},
+        {"civ_id": "1cce2c8d-3426-4409-a8d1-4888f8bd3cf8", "seed": 101211, "params": {"scenario_id": "u1_12__mailed_parent_survey"}}
+      ]
+    },
+    {
+      "template_id": "slotframe_u1_13_design", "topic_code": "1.13", "skill_code": "2.A",
+      "taxonomy_source_version": "dae3c72e-82ca-4960-9552-1b034bd347e5",
+      "instances": [
+        {"civ_id": "04342a72-ea2e-446f-b506-8189a82773aa", "seed": 101313, "params": {"scenario_id": "u1_13__pain_relief_placebo"}},
+        {"civ_id": "1664505f-a279-4e04-ba10-96e793894b76", "seed": 101307, "params": {"scenario_id": "u1_13__pain_relief_placebo"}}
+      ]
+    },
+    {
+      "template_id": "slotframe_4b_compare", "topic_code": "1.9", "skill_code": "4.B",
+      "taxonomy_source_version": "dae3c72e-82ca-4960-9552-1b034bd347e5",
+      "instances": [
+        {"civ_id": "0a609183-8037-4687-b478-d431a87331bc", "seed": 97005, "params": {"mA": 51, "mB": 45, "sd": 14, "scenario": "a survey of study habits"}},
+        {"civ_id": "1b9829ee-c916-48d6-97ea-a815c2c15b50", "seed": 97011, "params": {"mA": 48, "mB": 45, "sd": 12, "scenario": "a survey of eating habits"}}
+      ]
+    }
+  ]
+}
