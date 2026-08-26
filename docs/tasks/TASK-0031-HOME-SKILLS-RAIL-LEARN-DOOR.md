@@ -5,7 +5,7 @@
 **Owner:** Claude, with David
 **Product Owner:** David Bloom
 **Tier:** Standard
-**Status:** In Progress (brief sent to Lovable; build pending review)
+**Status:** Ready for Review (build landed + diff-verified; preview QA + republish pending)
 **Priority:** High (unblocks the learn experience's UI path; companion to TASK-0029/0030)
 **Created Date:** 2026-08-26
 **Approved Date:** 2026-08-26 (David: "go ahead and send the rail-wiring brief to Lovable")
@@ -65,8 +65,21 @@ rail currently apologizes for.
 
 ## Implementation Summary
 
-- 2026-08-26 ~21:3x UTC — brief sent (`umsg_01m0zzjvemfmstah9g2y15d325`);
-  build pending.
+- 2026-08-26 21:2x UTC — brief sent (`umsg_01m0zzjvemfmstah9g2y15d325`).
+- 2026-08-26 21:31 UTC — **build landed** (`exam-buddy-wireframe` `bba5cfe`
+  "Wired home skills rail to pilot"). Diff-verified against the brief:
+  - New single-source helper `src/lib/course-mode/home-skills-rail.ts`:
+    `homeSkillsForSubject()` returns the ten `STATS_UNIT1_SKILLS` rows
+    (slug/name/descriptor) for any ap-statistics spelling, `[]` for every
+    other subject — "never placeholder content".
+  - `TopicHome.tsx`: rail gated on `isPilotSubject`, labeled
+    "Skills · Unit 1"; each row navigates to `/session` with
+    `{ intent: "learn", skill: slug }`; `PLACEHOLDER_SKILLS`, the fake
+    `new/building/strong` dots, legend, and the "Preview only" caption all
+    removed (net −69 lines in the component).
+  - New vitest `src/lib/__tests__/home-skills-rail.test.ts` (4 cases): ten
+    skills for statistics spellings with no letter-codes in names, pilot
+    order preserved, empty for non-pilot subjects and null/unknown keys.
 
 ## Risks / Issues
 
