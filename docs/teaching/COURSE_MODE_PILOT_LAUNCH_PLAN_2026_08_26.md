@@ -25,8 +25,29 @@ Rendered view: a formatted version of this plan is published as a private Artifa
 >   (tier unchanged, INV-6), and the §7.1(b) confirm-transfer beat: the 8 non-numeric cells serve a
 >   different same-cell MCQ that grades correct (cell stays independent); the 2 numeric cells
 >   (1.7×3.B, 1.9×3.B) fail closed. See `COURSE_MODE_STATS_UNIT1_LOOP_PROOF_2026_08_26.md`.
-> - **Next executable step:** Phase 3 — the Lovable front-end build (per
->   `COURSE_MODE_CONFIRM_TRANSFER_FRONTEND_BRIEF.md`). Prod stays untouched until Phase 4.
+> - **Phase 3 (front-end build, Lovable `exam-buddy` / cramapple.com) — BUILT; live QA moved to Prod.**
+>   Dispatched the frontend-only brief (no Lovable Cloud). The confirm-transfer beat is now wired into
+>   the **real** `/session` (`session.index.tsx → SessionFrame → use-session.ts`): a `use-session`
+>   state machine (`beginConfirmTransfer`/`finishConfirmTransfer`) calls `student-session-items`
+>   `confirm_transfer` and grades via `grade_transfer_attempt`, replacing the old queue-advance
+>   workaround (cursor pinned, advance exactly once, miss→repair, no-match→honest close); MCQ choices
+>   are fetched client-side (`is_correct` never projected). A second fix corrected pilot **skill
+>   resolution** — it now parses the real content-key format so all 10 cells resolve (keyed by
+>   topic+skill; 1.9×4.B non-numeric, so the beat fires; 1.7/1.9-3.B excluded). 313 + 328 tests green.
+>   Also fixed: the confirm-transfer brief's `grade_attempt` → `grade_transfer_attempt` bug (PR #134).
+> - **Phase 4 (promote to Prod) — IN PROGRESS (2026-08-26).** Doing live QA on **Prod** (cramapple.com)
+>   rather than Dev, since cramapple.com already points at Prod and there are no students (rollback
+>   intact). Done on Prod (`pcntajvbdfqhbeewmdry`): confirm-transfer RPC applied; `student-session-items`
+>   reconciled (Prod's `unit_gated` + mcq-choices **plus** the confirm-transfer branch — repo had
+>   diverged; PR #135) and deployed; `evaluate-attempt` + `grade_transfer_attempt` prompt-version + the
+>   two delivery tables already present; **200 pilot items loaded** (psql) into the **draft** 2026-27
+>   pack `7c5a2975` (isolated from the live "2026" pack `548f06be`); **10 templates CM-D19 released**
+>   (20 each) under David's Prod user; pack `7c5a2975` **published**; front-end `.env` repointed to Prod
+>   (legacy anon JWT). **Remaining:** entitle a throwaway Prod test student, confirm Prod
+>   `ALLOWED_ORIGINS` lists cramapple.com, then run the live confirm-transfer QA.
+> - **Deferred (Phase 4 completeness, not blocking QA):** the pilot pack's home/unit manifest
+>   (`allowed_units {1,5}`) — the confirm-transfer MCQ path serves published items directly and does
+>   not read it; and the Prod security re-audit.
 
 ---
 
@@ -124,29 +145,44 @@ harness to confirm green, and grep the load SQL for the 4B id (see the resolutio
   `COURSE_MODE_STATS_UNIT1_LOOP_PROOF_2026_08_26.md`.
 - **Exit gate:** ✓ all 10 cells pass both grading paths live · ✓ confirm-transfer beat verified e2e.
 
-### Phase 3 — Front-end build (Lovable) — the long pole · Owner: Lovable + David · no Lovable Cloud
-- Build the `/session` skill-rail, the `StudentHomeSnapshot` learning-state layer, and
-  confidence-on-submit. Reuse app tokens/components — not the mock's palette.
-- Implement the confirm-transfer flow per `COURSE_MODE_CONFIRM_TRANSFER_FRONTEND_BRIEF.md`
-  (`beginConfirmTransfer`/`finishConfirmTransfer`, don't reuse `moveOn()`, progress stays
-  `Question k of N` and advances once).
-- Enforce §7.1(b): confirm-transfer is **mandatory** before a cell counts as independent; a
-  fail-closed no-match closes the item honestly, never a false "same skill" claim.
-- **Exit gate:** a test student completes a real Course Mode session on Dev end to end.
+### Phase 3 — Front-end build (Lovable `exam-buddy` / cramapple.com) · ◑ BUILT — live QA moved to Prod · no Lovable Cloud
+- ✓ Confirm-transfer flow wired into the **real** `/session` (`session.index.tsx → SessionFrame →
+  use-session.ts`): `beginConfirmTransfer`/`finishConfirmTransfer` call `student-session-items`
+  `confirm_transfer` and grade via `grade_transfer_attempt` — **replacing the queue-advance
+  workaround** that had shipped (which just relabeled the next queued item). Cursor pinned during the
+  beat, advances exactly once, miss→repair, no-match→honest close. MCQ choices fetched client-side
+  (`is_correct` never projected).
+- ✓ **Skill resolution fixed** — parses the real content-key format (`apstat-u1-<t>-<s><letter>` + the
+  named keys) keyed by (topic, skill), so all 10 pilot cells resolve; 1.9×4.B is non-numeric (beat
+  fires), 1.7/1.9-3.B excluded. Without this the beat never fired on a normal session.
+- ✓ Brief bug fixed: call 5 `grade_attempt` → `grade_transfer_attempt` (PR #134).
+- Vitest suites green (313, then 328). Not yet built out: the broader `StudentHomeSnapshot` /
+  confidence-on-submit polish and some session-setup routing nits (tracked, non-blocking for the beat).
+- **Exit gate:** a test student completes a real Course Mode session **on Prod (cramapple.com)** end
+  to end — moved from Dev because the Dev Supabase host CORS-blocks the Lovable origins and cramapple.com
+  already points at Prod (no students, rollback intact).
 
-### Phase 4 — Promote to Prod · *held for David's explicit go* · Owner: Eng (CLI)
-- Deploy migrations + `evaluate-attempt` + `student-session-items` to Prod.
-- **Pre-flight the delivery tables on Prod:** confirm `app.content_asset_metadata` and
-  `app.content_visual_requirements` actually exist as objects (the Dev drift showed a ledger row is
-  not proof) — `select to_regclass('app.content_asset_metadata'), to_regclass('app.content_visual_requirements');`
-  must return both, else `student-session-items` will 500 on serve.
-- Apply the F4 load to Prod via `psql`, then CM-D19 release the 10 templates with the flat
-  attestation under David's Prod user.
-- Flip Prod governance: publish the exam-pack version, manifest `allowed_units {1,5}`, pilot
-  users' active-epv + entitlements.
-- Re-run the security audit on Prod (no `grading_results` answer-key leak; students never see
-  `is_correct`).
-- **Exit gate:** Prod readiness audit green · 200/200 loop-ready · access still gated.
+### Phase 4 — Promote to Prod · ◑ IN PROGRESS (2026-08-26) · Owner: Eng (CLI + Supabase)
+- ✓ **Pre-flight:** the two delivery tables (`content_asset_metadata`, `content_visual_requirements`)
+  already exist on Prod (no drift here); `evaluate-attempt` already accepts `grade_transfer_attempt`
+  and the prompt-version is published.
+- ✓ Confirm-transfer RPC `select_confirm_transfer_item` applied to Prod.
+- ✓ `student-session-items` **reconciled** — Prod's deployed v16 had `unit_gated` + mcq-choices that
+  the repo lacked, so a straight deploy would have regressed it; merged both lineages (superset; PR
+  #135) and deployed to Prod.
+- ✓ **200 pilot items loaded** (psql) into the **draft 2026-27 pack `7c5a2975`** — isolated from the
+  live "2026" pack `548f06be`. Fail-closed loader; distinct content-keys.
+- ✓ **CM-D19 released** all 10 templates (20 instances each) under David's Prod user, flat attestation,
+  bars `cm-d19-phase1-2026-08-23`.
+- ✓ Pack `7c5a2975` **published**; front-end `.env` repointed to Prod (legacy anon JWT — Prod's auth,
+  like Dev's, is safest with the legacy JWT).
+- ◻ **Remaining:** entitle a throwaway Prod student (active-epv `7c5a2975` + beta Statistics); confirm
+  Prod `ALLOWED_ORIGINS` lists `https://cramapple.com`; run the live confirm-transfer QA on cramapple.com.
+- ◻ **Deferred (not blocking QA):** home/unit manifest `allowed_units {1,5}` (the MCQ path serves
+  published items directly, ignoring it) and the Prod security re-audit (no `grading_results`
+  answer-key leak; students never see `is_correct`).
+- **Exit gate:** a real Prod session runs the beat end-to-end · access still gated (only pilot testers
+  entitled) · rollback rehearsed (`cm_d19_revoke_template_release` per template · unpublish `7c5a2975`).
 
 ### Phase 5 — Run the pilot & observe · Owner: David + Eng
 - Grant entitlements to the pilot cohort; open access.
