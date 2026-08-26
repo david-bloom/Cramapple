@@ -2,6 +2,14 @@
 
 STATUS: resume guide | DATE: 2026-08-25 | AUDIENCE: the next session (LLM) + David.
 
+> **UPDATE 2026-08-26 — read `COURSE_MODE_STATS_UNIT1_LOOP_PROOF_2026_08_26.md` first.**
+> Verified live on Dev: **[A] load and [B] CM-D19 release are already COMPLETE** (200
+> published items, 10 releases at 20 stamped each; attestation is **flat**, not the
+> nested shape in §2.4 below), and **[E]** hook is ACTIVE v16. The loop's promotion
+> engine is proven locally for all 10 cells; the deployed end-to-end harness is
+> delivered under `scripts/course_mode_loop_proof/` (run where egress allows). The
+> §2 items below marked done there are historical.
+
 Read this first, then — for detail — `COURSE_MODE_STATS_UNIT1_DEV_SERVING_RUNBOOK.md` (the wiring
 steps + verified live Dev state), `COURSE_MODE_SESSION_ASSEMBLY_AND_ENTRY_FLOW_SPEC.md` (the session
 UX), and `COURSE_MODE_STATS_UNIT1_PILOT_PLAN_2026_08_24.md` (the phased plan). All of this session's

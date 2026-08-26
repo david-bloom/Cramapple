@@ -192,3 +192,21 @@ Re-verify §1 live before running any step — Dev state drifts.
   needs [B] release + the front-end.
 
 Nothing beyond [C]/[D] was written to Dev ([A] smoke was rolled back). [A] full apply and [B] release remain pending.
+
+**2026-08-26 (verified live; corrects the line above).**
+- **[A] load — DONE.** 200 published pilot items across the 10 templates in epv
+  `4e54bb4f`, `item_type='mcq'`, all 4-choice (1 correct + 3 distractors, 0 malformed).
+- **[B] CM-D19 release — DONE.** 10 `app.template_releases`, `revoked_at IS NULL`,
+  `instances_stamped=20` each, released by David's Dev user on 2026-08-25. Attestation
+  is **flat**: `{sme_sample_n:20, sme_defects:0, property_instances:120, property_rejects:0,
+  verifier_disagreements:0}`, bars `cm-d19-phase1-2026-08-23`. (Re-running was avoided:
+  the load is fail-closed on existing keys, and the release RPC stamps only `draft` items.)
+- **[E] hook — DONE.** `evaluate-attempt` edge function ACTIVE v16 (≥ the doc's v15).
+- **Prove-the-loop (§5) — engine PASS locally; deployed harness delivered.** The
+  `cell-state-1.0` promotion engine passes for all 10 cells offline
+  (`scripts/course_mode_loop_proof/run_local_engine_proof.ts`): correct→independent,
+  miss→fragile/tier-unchanged. The deployed end-to-end path (real `attempt-response`
+  + `evaluate-attempt`) is packaged as `run_e2e_harness.ts` — run from an
+  egress-allowed environment; the authoring session's egress policy blocked the Dev
+  Supabase host. See `COURSE_MODE_STATS_UNIT1_LOOP_PROOF_2026_08_26.md`.
+- **Prod:** untouched.
