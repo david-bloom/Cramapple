@@ -103,6 +103,7 @@ async function provisionStudent(): Promise<{ userId: string }> {
   const { error: pErr } = await svc.schema("app").from("profiles").upsert({
     user_id: userId,
     role: "student",
+    full_name: "Course Mode Loop Proof",   // app.profiles.full_name is NOT NULL, no default
     active_exam_pack_version_id: EPV,
     onboarding_completed_at: new Date().toISOString(),
   }, { onConflict: "user_id" });
