@@ -4,6 +4,13 @@ DATE: 2026-08-26 · AUDIENCE: whoever has CLI + egress to the Dev Supabase host.
 Companion to `COURSE_MODE_PILOT_LAUNCH_PLAN_2026_08_26.md`. Dev project ref
 `wmgjsdkphcyhngaffbqf`. **Prod untouched.**
 
+> **✓ COMPLETED 2026-08-26.** Part A (`student-session-items` deployed to Dev, v3 ACTIVE) and
+> Part B (`run_e2e_harness.ts` — **10/10 cells PASS**) are both done. One extra Dev repair was
+> needed mid-run: `app.content_asset_metadata` + `app.content_visual_requirements` were
+> ledger-stamped but missing as objects, so the confirm-transfer serve 500'd (`item_details_failed`);
+> both were recreated from their in-repo migrations. Kept below as the procedure of record and for
+> Prod (Phase 4). Result table + root-cause in `COURSE_MODE_STATS_UNIT1_LOOP_PROOF_2026_08_26.md`.
+
 ## Where this picks up
 
 Already done on Dev (verified live):

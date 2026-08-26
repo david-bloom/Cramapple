@@ -58,21 +58,50 @@ under `scripts/course_mode_loop_proof/`:
   promotes `unseen → independent` (weight 1.0); later serve→**wrong** sets
   `fragile=true` with **tier unchanged** (INV-6). Matches the existing lsrl
   proof row shape.
-- **`run_e2e_harness.ts` — READY, run where egress allows.** Provisions a
-  throwaway entitled test student, drives the deployed
-  `attempt-response` → `evaluate-attempt` path for all 10 cells × both outcomes,
-  and reads back `app.student_cell_state`. See the directory `README.md`.
+- **`run_e2e_harness.ts` — RAN 2026-08-26 (local CLI), all 10 cells PASS.**
+  Provisions a throwaway entitled test student, drives the deployed
+  `attempt-response` → `evaluate-attempt` → `student-session-items` path for all
+  10 cells, reads back `app.student_cell_state`, and deletes the student. Wrapped
+  by `run.sh` (one command; prompts for the legacy service_role JWT).
 
-Current Dev cell-state: 1 row — the pre-existing **lsrl_predict** proof
-(1.5×3.B, from 2026-08-24); none of the 10 pilot cells has a cell-state row yet
-(no student has attempted them). Running script 2 creates them under its test
-student.
+### Live result — 10/10 PASS (Dev, deployed functions)
+
+```
+cell      | correct→     | confirm-transfer   | miss→        | fragile  | verdict
+1.7×3.B   | independent  | excluded✓          | independent  | true     | PASS
+1.9×3.B   | independent  | excluded✓          | independent  | true     | PASS
+1.2×2.A   | independent  | confirmed✓         | independent  | true     | PASS
+1.5×3.A   | independent  | confirmed✓         | independent  | true     | PASS
+1.6×4.A   | independent  | confirmed✓         | independent  | true     | PASS
+1.8×3.A   | independent  | confirmed✓         | independent  | true     | PASS
+1.11×2.A  | independent  | confirmed✓         | independent  | true     | PASS
+1.12×2.A  | independent  | confirmed✓         | independent  | true     | PASS
+1.13×2.A  | independent  | confirmed✓         | independent  | true     | PASS
+1.9×4.B   | independent  | confirmed✓         | independent  | true     | PASS
+```
+
+Each cell: cold serve→**correct** promotes to `independent`; the **§7.1(b)
+confirm-transfer beat** serves a *different* same-cell MCQ that grades correct
+(cell stays `independent`) for the 8 non-numeric cells, and **fails closed**
+(no item) for the 2 numeric cells (1.7×3.B, 1.9×3.B); a later serve→**wrong**
+sets `fragile=true` with **tier unchanged** (INV-6).
+
+### One Dev fix was required to get here
+
+The confirm-transfer serve initially 500'd with `item_details_failed`. Root
+cause was **Dev schema drift, not the code**: `app.content_asset_metadata` and
+`app.content_visual_requirements` (migrations `20260805100000` /
+`20260805120000`) were recorded in Dev's migration ledger but did not exist as
+objects, and the delivery layer (`deliverRows`) reads both. Recreated both from
+their in-repo migrations (idempotent; RLS forced; service-role-only). No code
+change, no function redeploy. **A ledger row is not proof the object exists —
+pre-flight both tables on Prod before Phase 4.**
 
 ## 3. What still remains for the pilot
 
-- Run `run_e2e_harness.ts` from an egress-allowed environment (or allow-list the
-  Dev Supabase host for a session) to prove the deployed loop live.
+- ~~Prove the deployed loop live.~~ **Done 2026-08-26 (above).**
 - Front-end build (Lovable) — the `/session` skill-rail, `StudentHomeSnapshot`,
-  confidence-on-submit (unchanged; the long pole).
-- §7.1 guess-floor decision (unchanged).
-- Prod promotion (Phase 4) — held for David's explicit go.
+  confidence-on-submit, and the confirm-transfer flow per
+  `COURSE_MODE_CONFIRM_TRANSFER_FRONTEND_BRIEF.md` (the long pole).
+- Prod promotion (Phase 4) — held for David's explicit go; pre-flight the two
+  delivery tables on Prod.
