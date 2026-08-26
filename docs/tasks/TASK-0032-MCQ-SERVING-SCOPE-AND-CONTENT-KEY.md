@@ -5,7 +5,7 @@
 **Owner:** Claude, with David
 **Product Owner:** David Bloom
 **Tier:** Standard
-**Status:** In Progress (fix brief sent to Lovable; build pending review)
+**Status:** Ready for Review (fix landed + diff-verified; preview QA + republish pending)
 **Priority:** High (both defects break the pilot session experience)
 **Created Date:** 2026-08-26
 **Approved Date:** 2026-08-26 (David relayed Lovable's findings for action)
@@ -56,6 +56,20 @@
 ## Implementation Summary
 
 - 2026-08-26 ~21:5x UTC — both findings verified in code; fix brief sent.
+- 2026-08-26 21:58 UTC — **fix landed** (`exam-buddy-wireframe` `e653bac`
+  "Fixed MCQ content_key faking"). Diff-verified:
+  - `PUBLISHED_MCQ_SELECT` now selects `content_key`; mapped through
+    `EmbeddedRow` → `McqItem.contentKey`; `use-session` sets
+    `content_key: m.contentKey ?? m.contentItemVersionId` (title fallback
+    gone) → skill rail / brief / confirm-transfer resolve again.
+  - New pure helper `src/lib/course-mode/scope-mcqs.ts`
+    (`scopeMcqItems`, `MCQ_SESSION_LIMIT = 8`): topic filter first, else
+    unit (derived from the cell's topicCode); unresolvable keys EXCLUDED
+    under a scoped request; scoped-empty → honest "No published
+    multiple-choice items match that unit/topic yet."; cap applied scoped
+    or not. Effect deps include the scope fields.
+  - Tests: `scope-mcqs.test.ts` (72 lines) + `mcq-query.test.ts` extended
+    (+19 lines, select-string + mapping assertions).
 
 ## Approval State
 
