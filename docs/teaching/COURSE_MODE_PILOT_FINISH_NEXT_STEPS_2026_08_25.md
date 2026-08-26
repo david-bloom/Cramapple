@@ -69,7 +69,7 @@ Nothing is served yet; Prod is untouched.
      template IDs (verified against the payloads), NOT the `FB-…` frame ids:
      `summary_stats` (1.7×3.B), `compare_stats` (1.9×3.B), `slotframe_u1_2_variables` (1.2×2.A),
      `slotframe_u1_5_graphs` (1.5×3.A), `slotframe_u1_6_distribution` (1.6×4.A),
-     `slotframe_u1_8_boxplots` (1.8×3.A), `slotframe_u1_9_compare_justify` (1.9×4.B),
+     `slotframe_u1_8_boxplots` (1.8×3.A), `slotframe_4b_compare` (1.9×4.B),
      `slotframe_u1_11_sampling` (1.11×2.A), `slotframe_u1_12_bias` (1.12×2.A),
      `slotframe_u1_13_design` (1.13×2.A).
 
@@ -86,8 +86,9 @@ Nothing is served yet; Prod is untouched.
 
    **Session-6 prerequisite fix (DONE, in the branch):** the `FB-4B-COMPARE-01` frame emitted no
    `provenance.template_id` — so cell 1.9×4.B would have been unreleasable (the RPC found no matching
-   instances). Fixed in `slot_frames.py` (added `template_id='slotframe_u1_9_compare_justify'`),
-   pilot packages regenerated, load rebuilt. The 1.9×4.B **questions are byte-identical** to the D8
+   instances). Fixed in `slot_frames.py` (added `template_id='slotframe_4b_compare'` — the id used
+   by the live Dev release; PR #125's `slotframe_u1_9_compare_justify` was superseded at merge, see
+   `COURSE_MODE_PILOT_MERGE_RESOLUTION_2026_08_26.md`), pilot packages regenerated, load rebuilt. The 1.9×4.B **questions are byte-identical** to the D8
    pack (only provenance metadata added), so the SME sign-off still holds; harness re-run GREEN.
 5. **[E] confirm the `evaluate-attempt` hook is deployed on Dev** (docs: v15) — redeploy is CLI-only.
 6. **Front-end build (Lovable, the long pole)** — review the plan the agent returned; build the
