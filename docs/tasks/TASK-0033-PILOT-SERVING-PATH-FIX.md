@@ -5,7 +5,20 @@
 **Owner:** Claude, with David
 **Product Owner:** David Bloom
 **Tier:** Standard
-**Status:** In Progress (follow-up: quick-start topic-scope dead-end; second build pending)
+**Status:** Ready for Review (all three fixes landed + diff-verified; REPUBLISH REQUIRED)
+
+**Builds landed (2026-08-26 22:29, `exam-buddy-wireframe` `219478a`), diff-verified:**
+- **Scope fallback:** `scopeMcqItemsWithFallback()` — topic → unit → none,
+  returning `EffectiveScope`; `use-session` exposes it and `session.index`
+  drops topic names when the session actually serves unit-wide (no false
+  scope claim on the params line). +64 test lines.
+- **Resume guard:** new pure `decideResume()` (`src/lib/session/resume-guard.ts`)
+  — discard on failed resume, missing/non-`active` session, or pack mismatch
+  vs the profile's actual active pack; wired into BOTH
+  `runtime-context-store.tsx` (hard-reload hydration now reads the profile's
+  active pack to compare) and `parked-sessions.ts`; on discard the stored ids
+  are cleared and the load proceeds as if no stored session existed. 52-line
+  test file + extended parked-sessions tests.
 
 **Follow-up (2026-08-26, post-republish):** David's retest confirmed both
 entries work and confirm-transfer fired — but the quick-start URL
