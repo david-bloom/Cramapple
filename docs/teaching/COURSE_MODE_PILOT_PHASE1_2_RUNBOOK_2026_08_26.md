@@ -30,20 +30,23 @@ calls is already live (Part 0 above), so this is the last piece of the serving c
   `SUPABASE_SERVICE_ROLE_KEY` / `ALLOWED_ORIGINS`, already set on Dev from the current deploy;
   a redeploy preserves them.
 
-**Deploy** — run from the **repo root** (the CLI resolves `supabase/functions/<name>/index.ts`
-relative to your current directory; running from `~` fails with
-`Entrypoint path does not exist … supabase/functions/student-session-items/index.ts`).
+**Deploy** — run from the **repo root**, and always pass `--use-api --workdir "$PWD"`. This repo
+has no `supabase/config.toml`, so the CLI's project-root auto-detection walks up and a stray
+`~/supabase` folder hijacks it (`Using workdir /Users/<you>` →
+`Entrypoint path does not exist … supabase/functions/student-session-items/index.ts`, even from the
+repo root). `--workdir "$PWD"` pins it to the repo; `--use-api` skips Docker. This is the same form
+used to deploy `evaluate-attempt` here.
 ```bash
 cd <your Cramapple clone>        # the folder that contains the supabase/ directory
 git checkout main && git pull    # ensure the confirm-transfer code is present
 ls supabase/functions/student-session-items/index.ts   # sanity: should print the path
 
-supabase functions deploy student-session-items --project-ref wmgjsdkphcyhngaffbqf
-# If it says Docker is required for bundling, deploy via the API instead (no Docker):
-#   supabase functions deploy student-session-items --project-ref wmgjsdkphcyhngaffbqf --use-api
+supabase functions deploy student-session-items --project-ref wmgjsdkphcyhngaffbqf --use-api --workdir "$PWD"
 ```
-Harmless warnings you can ignore: a Bun "AVX support" note and "Docker is not running" (a hosted
-deploy doesn't need Docker).
+Harmless warnings you can ignore: a Bun "AVX support" note and "Docker is not running" (a hosted,
+`--use-api` deploy doesn't need Docker). Optional durable cleanup: remove the stray init folder with
+`rm -rf ~/supabase` **only** if `ls ~/supabase` shows a leftover scaffold (a `config.toml` + empty
+`functions/`) and nothing you rely on.
 
 **Verify**
 ```bash
@@ -69,7 +72,8 @@ git checkout main -- supabase/functions   # restore the working tree
 
 **Prereqs**
 - An environment whose egress allows the Dev Supabase host.
-- Bun (or Node ≥18 + `tsx`) and the client lib: `bun add @supabase/supabase-js`.
+- Node ≥18 (for global `fetch`) **or** Bun. The repo has no `package.json`, so install the client
+  lib locally first: `npm i @supabase/supabase-js tsx` (Node) or `bun add @supabase/supabase-js` (Bun).
 - Part A deployed (the confirm-transfer beat calls the updated `student-session-items`).
 
 **Env** (never commit these)
@@ -81,9 +85,17 @@ export SB_SERVICE_ROLE_KEY="<Dev service_role key>"   # setup + verification onl
 
 **Run**
 ```bash
+# Bun:
 bun run scripts/course_mode_loop_proof/run_e2e_harness.ts
-# Node: npx tsx scripts/course_mode_loop_proof/run_e2e_harness.ts
+
+# Node (via tsx): the harness uses top-level await, so the throwaway package.json
+# npm just created must be ESM — otherwise tsx compiles it as CommonJS and fails with
+# "Top-level await is currently not supported with the 'cjs' output format".
+npm pkg set type=module
+npx tsx scripts/course_mode_loop_proof/run_e2e_harness.ts
 ```
+Key-format note: the env var is named `SB_SERVICE_ROLE_KEY`, but a modern `sb_secret_…` key works
+(it replaces `service_role`); `SB_ANON_KEY` accepts the legacy anon JWT or a `sb_publishable_…` key.
 
 **What it does, per cell** (as a throwaway `cm-loop-proof+<ts>@example.com` student it provisions
 and deletes; pass `KEEP_STUDENT=1` to retain):

@@ -14,7 +14,7 @@ Rendered view: a formatted version of this plan is published as a private Artifa
 >   (`app.select_confirm_transfer_item`) **applied + verified on Dev** (ledger version aligned;
 >   service-role-only ACL; 1.2×2.A returns a same-cell MCQ; 1.7×3.B & 1.9×3.B fail closed; 1.9×4.B
 >   not excluded). **Remaining:** deploy the `student-session-items` edge function via CLI
->   (`supabase functions deploy student-session-items --project-ref wmgjsdkphcyhngaffbqf`).
+>   (`supabase functions deploy student-session-items --project-ref wmgjsdkphcyhngaffbqf --use-api --workdir "$PWD"`).
 > - **Next executable step:** Phase 2 (prove the loop on Dev) needs an egress-allowed environment
 >   to reach the Dev Supabase host — hand off to a local/CLI run.
 
@@ -90,7 +90,7 @@ harness to confirm green, and grep the load SQL for the 4B id (see the resolutio
   (service-role-only ACL; 1.2×2.A returns a same-cell MCQ; 1.7×3.B & 1.9×3.B fail closed; 1.9×4.B not
   excluded).
 - **Remaining (CLI)** — deploy the `student-session-items` edge function (confirm-transfer branch):
-  `supabase functions deploy student-session-items --project-ref wmgjsdkphcyhngaffbqf`.
+  `supabase functions deploy student-session-items --project-ref wmgjsdkphcyhngaffbqf --use-api --workdir "$PWD"`.
   `evaluate-attempt` is already v16 — no redeploy.
 - The Deno handler tests + `supabase/tests/confirm_transfer_item_selector.integration.sql` run in CI;
   the selector's assertions were also executed directly against live Dev (passed).
