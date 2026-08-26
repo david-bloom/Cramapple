@@ -174,6 +174,12 @@ FRAMING: Dict[str, Framing] = {
         ["realistic study-design scenario",
          "classification must distinguish imposed treatments, randomization, control/placebo/blinding, and confounding"],
         [_SEC5, _SEC6, _SEC7]),
+    "slotframe_u2_5_mutually_exclusive": Framing(
+        "slotframe_u2_5_mutually_exclusive", "Q2", "Justify", 4, "exam_aligned_digital",
+        ["one chance process or one selected unit defines the trial",
+         "mutually exclusive means no single outcome can satisfy both event definitions",
+         "overlapping events have at least one shared outcome and are not mutually exclusive"],
+        [_SEC5, _SEC6, _SEC7]),
     "t_test_mean": Framing(
         "t_test_mean", "Q4", "Calculate", 3, "exam_aligned_digital",
         ["a random sample of a quantitative variable (population roughly Normal or n large)",
@@ -661,6 +667,59 @@ U1_13_DESIGN_CONTEXTS: List[Dict[str, object]] = [
 ]
 
 
+# Unit 2.5 mutually-exclusive-event contexts. Each id is cell-namespaced.
+U2_5_MUTUALLY_EXCLUSIVE_CONTEXTS: List[Dict[str, object]] = [
+    {"id": "u2_5__single_card_red_and_spade", "domain": "games",
+     "trial": "one card selected from a standard deck",
+     "event_a": "the card is red", "event_b": "the card is a spade",
+     "relationship": "mutually_exclusive",
+     "shared_outcome": None,
+     "correct_reason": "a spade is black, so one selected card cannot be both red and a spade"},
+    {"id": "u2_5__single_card_face_and_heart", "domain": "games",
+     "trial": "one card selected from a standard deck",
+     "event_a": "the card is a face card", "event_b": "the card is a heart",
+     "relationship": "overlap",
+     "shared_outcome": "a jack, queen, or king of hearts",
+     "correct_reason": "some hearts are face cards, such as a queen of hearts"},
+    {"id": "u2_5__one_student_grade9_and_grade10", "domain": "education",
+     "trial": "one student selected from the school roster",
+     "event_a": "the student is in grade 9", "event_b": "the student is in grade 10",
+     "relationship": "mutually_exclusive",
+     "shared_outcome": None,
+     "correct_reason": "one selected student cannot be in two different grade levels at the same time"},
+    {"id": "u2_5__one_student_senior_and_band", "domain": "education",
+     "trial": "one student selected from the school roster",
+     "event_a": "the student is a senior", "event_b": "the student is in band",
+     "relationship": "overlap",
+     "shared_outcome": "a senior who is in band",
+     "correct_reason": "a selected student could be both a senior and a band member"},
+    {"id": "u2_5__single_order_pickup_and_delivery", "domain": "business",
+     "trial": "one restaurant order selected from today's receipts",
+     "event_a": "the order was picked up in person", "event_b": "the order was delivered",
+     "relationship": "mutually_exclusive",
+     "shared_outcome": None,
+     "correct_reason": "one order cannot be both picked up in person and delivered"},
+    {"id": "u2_5__single_order_coupon_and_large", "domain": "business",
+     "trial": "one restaurant order selected from today's receipts",
+     "event_a": "the order used a coupon", "event_b": "the order total was more than $30",
+     "relationship": "overlap",
+     "shared_outcome": "an order over $30 that used a coupon",
+     "correct_reason": "an order can use a coupon and still have a total above $30"},
+    {"id": "u2_5__one_roll_even_and_odd", "domain": "games",
+     "trial": "one roll of a fair six-sided die",
+     "event_a": "the result is even", "event_b": "the result is odd",
+     "relationship": "mutually_exclusive",
+     "shared_outcome": None,
+     "correct_reason": "a single die result cannot be both even and odd"},
+    {"id": "u2_5__one_roll_even_and_greater_than_three", "domain": "games",
+     "trial": "one roll of a fair six-sided die",
+     "event_a": "the result is even", "event_b": "the result is greater than 3",
+     "relationship": "overlap",
+     "shared_outcome": "rolling a 4 or a 6",
+     "correct_reason": "a result of 4 or 6 is both even and greater than 3"},
+]
+
+
 # ==============================================================================
 # Access + validation helpers
 # ==============================================================================
@@ -821,6 +880,26 @@ def validate_scenarios() -> List[str]:
             problems.append(f"u1_13 design context id is not namespaced: {ctx.get('id')}")
         if len(ctx.get("distractors", [])) < 3:
             problems.append(f"u1_13 design context needs at least 3 distractors: {ctx}")
+    seen_u2_5_ids = set()
+    relationships = set()
+    for ctx in U2_5_MUTUALLY_EXCLUSIVE_CONTEXTS:
+        required = ("id", "domain", "trial", "event_a", "event_b", "relationship", "shared_outcome", "correct_reason")
+        if not all(k in ctx for k in required):
+            problems.append(f"u2_5 mutually exclusive context missing fields: {ctx}")
+        if ctx.get("id") in seen_u2_5_ids:
+            problems.append(f"duplicate u2_5 context id: {ctx.get('id')}")
+        seen_u2_5_ids.add(ctx.get("id"))
+        if not str(ctx.get("id", "")).startswith("u2_5__"):
+            problems.append(f"u2_5 context id is not namespaced: {ctx.get('id')}")
+        if ctx.get("relationship") not in {"mutually_exclusive", "overlap"}:
+            problems.append(f"u2_5 context has unknown relationship: {ctx}")
+        relationships.add(ctx.get("relationship"))
+        if ctx.get("relationship") == "overlap" and not ctx.get("shared_outcome"):
+            problems.append(f"u2_5 overlapping context needs a shared outcome: {ctx}")
+        if ctx.get("relationship") == "mutually_exclusive" and ctx.get("shared_outcome") is not None:
+            problems.append(f"u2_5 disjoint context should not name a shared outcome: {ctx}")
+    if relationships != {"mutually_exclusive", "overlap"}:
+        problems.append("u2_5 contexts must include both mutually exclusive and overlapping examples")
     return problems
 
 
@@ -845,6 +924,7 @@ if __name__ == "__main__":
             "u1_8_boxplots": len(U1_8_BOXPLOT_CONTEXTS),
             "u1_12_bias": len(U1_12_BIAS_CONTEXTS),
             "u1_13_design": len(U1_13_DESIGN_CONTEXTS),
+            "u2_5_mutually_exclusive": len(U2_5_MUTUALLY_EXCLUSIVE_CONTEXTS),
         },
         "framing": {p: {"archetype": f.archetype, "task_verb": f.task_verb,
                         "modality": f.modality} for p, f in FRAMING.items()},

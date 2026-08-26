@@ -127,6 +127,13 @@ BIAS_TAGS = {
     "u1_12__no_bias_called_biased",
 }
 
+MUTUALLY_EXCLUSIVE_TAGS = {
+    "u2_5__uses_independent_for_disjoint",
+    "u2_5__overlap_wording_ignored",
+    "u2_5__different_labels_mean_disjoint",
+    "u2_5__same_trial_condition_missed",
+}
+
 BOXPLOT_TAGS = {
     "u1_8__quartile_median_positions_swapped",
     "u1_8__whisker_to_extreme_ignores_outlier",
@@ -734,6 +741,125 @@ def generate_u1_8_boxplots(count: int, base_seed: int = 18000) -> List[Dict]:
     return [gen_u1_8_boxplot_instance(random.Random(base_seed + i), base_seed + i) for i in range(count)]
 
 
+def _u2_5_correct_text(c: Dict[str, object]) -> str:
+    if c["relationship"] == "mutually_exclusive":
+        return f"The events are mutually exclusive, because {c['correct_reason']}."
+    return (f"The events are not mutually exclusive, because {c['shared_outcome']} is an outcome "
+            "that satisfies both event definitions.")
+
+
+def _u2_5_distractor_text(tag: str, c: Dict[str, object]) -> str:
+    event_a = str(c["event_a"])
+    event_b = str(c["event_b"])
+    if tag == "u2_5__uses_independent_for_disjoint":
+        if c["relationship"] == "mutually_exclusive":
+            return "The events are independent, because if Event A occurs, then Event B cannot also occur."
+        return ("The events are independent, because the two event definitions describe different "
+                "features of the selected outcome.")
+    if tag == "u2_5__overlap_wording_ignored":
+        if c["relationship"] == "overlap":
+            return ("The events are mutually exclusive, because the two event names are stated separately "
+                    "in the problem.")
+        return ("The events are not mutually exclusive, because both are possible somewhere in the sample space.")
+    if tag == "u2_5__different_labels_mean_disjoint":
+        return ("The events are mutually exclusive, because the two descriptions use different labels "
+                "for the selected outcome.")
+    if tag == "u2_5__same_trial_condition_missed":
+        return ("The events are not mutually exclusive, because over many repetitions of the chance process "
+                "one event could occur on one trial and the other could occur on another trial.")
+    raise ValueError(tag)
+
+
+def gen_u2_5_mutually_exclusive_instance(rng: random.Random, seed: int) -> Dict:
+    c = rng.choice(SCN.U2_5_MUTUALLY_EXCLUSIVE_CONTEXTS)
+    scenario_prov = SCN.framing("slotframe_u2_5_mutually_exclusive", c.get("domain"))
+    relationship = str(c["relationship"])
+    prompt = (f"For {c['trial']}, let Event A be that {c['event_a']} and Event B be that "
+              f"{c['event_b']}. Which statement best justifies whether Events A and B are "
+              "mutually exclusive?")
+
+    if relationship == "mutually_exclusive":
+        tag_pool = [
+            "u2_5__uses_independent_for_disjoint",
+            "u2_5__different_labels_mean_disjoint",
+            "u2_5__same_trial_condition_missed",
+        ]
+    elif relationship == "overlap":
+        tag_pool = [
+            "u2_5__overlap_wording_ignored",
+            "u2_5__different_labels_mean_disjoint",
+            "u2_5__same_trial_condition_missed",
+        ]
+    else:
+        raise ValueError(f"unknown Unit 2.5 relationship {relationship!r}")
+
+    options = [{"text": _u2_5_correct_text(c), "correct": True, "misconception": None}]
+    for tag in rng.sample(tag_pool, 3):
+        options.append({"text": _u2_5_distractor_text(tag, c), "correct": False,
+                        "misconception": tag, "misconception_source": MISC.provenance(tag)})
+    rng.shuffle(options)
+
+    correct_text = next(o["text"] for o in options if o["correct"])
+    checks = [
+        ("known_relationship", relationship in {"mutually_exclusive", "overlap"}),
+        ("same_trial_in_prompt", str(c["trial"]).startswith("one ")),
+        ("overlap_has_shared_outcome", relationship != "overlap" or bool(c.get("shared_outcome"))),
+        ("disjoint_has_no_shared_outcome", relationship != "mutually_exclusive" or c.get("shared_outcome") is None),
+        ("correct_text_matches_relationship",
+         (relationship == "mutually_exclusive" and correct_text.startswith("The events are mutually exclusive"))
+         or (relationship == "overlap" and correct_text.startswith("The events are not mutually exclusive"))),
+        ("exactly_one_correct", sum(1 for o in options if o["correct"]) == 1),
+        ("four_options", len(options) == 4),
+        ("option_texts_unique", len({o["text"] for o in options}) == 4),
+        ("all_distractors_tagged", all(o["misconception"] for o in options if not o["correct"])),
+        ("all_distractor_tags_canonical", all(o["misconception"] in MISC.CATALOG for o in options if not o["correct"])),
+        ("all_distractors_cite_source", all(o.get("misconception_source", {}).get("sources") for o in options if not o["correct"])),
+        ("scenario_framing_present", bool(scenario_prov.get("archetype")) and bool(scenario_prov.get("sources"))),
+        ("scenario_is_unit_2_5_mutual_exclusivity",
+         any("mutually exclusive" in r for r in scenario_prov.get("validity_rules", []))),
+        ("distractor_tags_subset", all(o.get("misconception") in MUTUALLY_EXCLUSIVE_TAGS for o in options if not o["correct"])),
+        ("context_id_namespaced", str(c.get("id", "")).startswith("u2_5__")),
+    ]
+    return {
+        "schema_version": "course-mode-generated-0.1",
+        "package_id": f"slotframe-u2_5-4b-{seed:06d}",
+        "content_key": f"apstat-u2-5-4b-mutually-exclusive-{seed:06d}",
+        "item_type": "mcq",
+        "difficulty": "Medium",
+        "exam_pack_ref": {"exam_code": "ap_statistics", "cycle": "2026-27"},
+        "taxonomy_refs": [
+            {"scheme_key": "ap-statistics-2026-27", "node_key": "unit-2"},
+            {"scheme_key": "ap-statistics-2026-27", "node_key": "topic-2.5"},
+            {"scheme_key": "ap-statistics-skills", "node_key": "skill-4.B", "practice": 4},
+        ],
+        "cells": [{"topic": "2.5", "skill": "4.B"}],
+        "scenario_provenance": scenario_prov,
+        "prompt": prompt,
+        "mcq_form": {"options": options},
+        "parts": [{
+            "part_key": "part-a", "prompt": prompt,
+            "response_modalities": ["mcq"], "points": 1,
+            "criteria": [{
+                "criterion_key": "part-a-criterion-1", "points": 1,
+                "description": "Selects the justification that correctly identifies whether the two events can occur on the same trial.",
+                "required_evidence": _u2_5_correct_text(c),
+                "deterministic_checks": [{"kind": "mcq_key", "correct_relationship": relationship}],
+                "accepted_variants": [],
+            }],
+        }],
+        "provenance": {
+            "generator": "course_mode_stats_generator/slot_frames.py",
+            "frame_id": "FB-U2-5-4B-MUTUALLY-EXCLUSIVE-01",
+            "template_id": "slotframe_u2_5_mutually_exclusive",
+            "params": {"scenario_id": c["id"], "relationship": relationship},
+            "seed": seed,
+            "release_status": "unreleased_generated_pending_review",
+            "note": "Authored conceptual frame; correctness from same-trial mutually-exclusive-event taxonomy.",
+        },
+        "_property_checks": checks,
+    }
+
+
 def gen_u1_12_bias_instance(rng: random.Random, seed: int) -> Dict:
     c = rng.choice(SCN.U1_12_BIAS_CONTEXTS)
     prompt = f"{c['stem']} Which statement best identifies the bias, if any?"
@@ -818,6 +944,10 @@ def generate_u1_13_design(count: int, base_seed: int = 11300) -> List[Dict]:
     return [gen_u1_13_design_instance(random.Random(base_seed + i), base_seed + i) for i in range(count)]
 
 
+def generate_u2_5_mutually_exclusive(count: int, base_seed: int = 22500) -> List[Dict]:
+    return [gen_u2_5_mutually_exclusive_instance(random.Random(base_seed + i), base_seed + i) for i in range(count)]
+
+
 # ==============================================================================
 # Frame registry + harness. Each Track B cell appends ONE entry to FRAMES below
 # (append-only) — no harness rewrite needed. (Integration lesson from batch 2.)
@@ -867,6 +997,9 @@ FRAMES = [
     {"frame_id": "FB-U1-13-2A-DESIGN-01", "cell": "1.13 x 2.A", "gen": generate_u1_13_design,
      "base_seed": 11300, "expected_tags": set(DESIGN_TAGS),
      "note": "Experimental design classification. Coverage: Unit 1 topic 1.13."},
+    {"frame_id": "FB-U2-5-4B-MUTUALLY-EXCLUSIVE-01", "cell": "2.5 x 4.B", "gen": generate_u2_5_mutually_exclusive,
+     "base_seed": 22500, "expected_tags": set(MUTUALLY_EXCLUSIVE_TAGS),
+     "note": "Mutually exclusive event relationship justification. Coverage: Unit 2 topic 2.5."},
 ]
 
 
