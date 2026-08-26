@@ -61,6 +61,22 @@ search encoding, parsed back to `1.1` in-app — not a bug.)
   (2) learn-first threads the clicked skill's **cell** (topicCode+skillCode)
   and scopes served items to that exact cell (1.9 hosts two cells).
 
+**Follow-up 2 (2026-08-26, ~22:3x):** the "topic 1.1/1.2 URL not rendering"
+reports were NOT the scope filter (content keys parse; 1.2 has 20 items) —
+prod logs showed the failing loads made **only a `session_resume` call** (the
+hard-reload hydration in `runtime-context-store.tsx`) which revived the
+localStorage-stored session `cc87341b`: **stale (20:17), still `active`, on
+the general pack** — and the serve effect's `session_start` never ran →
+eternal "Loading session…". David's account had **29 leaked `active`
+learning_sessions** (Aug 24–26, all general pack) — exit paths don't reliably
+end sessions. **Actions:** all 29 archived server-side (`status='archived'`,
+`ended_at=now()`); resume-robustness fix brief sent
+(`umsg_01m102w2qxf8z9q2ewa0k78fqb`): validate-or-fall-through on resume
+(pack mismatch / non-active / failure → clear stored id + fresh
+`session_start`), hydration can never block the serve effect, exit paths
+verified. Immediate user unblock: clear site data / hard reload so the stale
+stored id drops.
+
 ## Out of Scope
 
 - Backend changes (labels for pilot items, v17 defaults, pack merge) — the
