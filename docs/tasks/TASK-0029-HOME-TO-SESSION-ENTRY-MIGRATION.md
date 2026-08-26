@@ -8,7 +8,7 @@
 **Status:** In Progress
 **Priority:** High (pilot-blocking polish — flagged in the 2026-08-26 pilot session log and the Fable QA prompt as a known issue)
 **Created Date:** 2026-08-26
-**Approved Date:** — (underlying UX decision approved 2026-08-25; see Approval State)
+**Approved Date:** 2026-08-26 (scope go given by David in-session; see Approval State)
 **Branch:** `claude/home-to-session-migration-e65jmk` (this repo — docs/brief); build lands in the Lovable project (`exam-buddy-wireframe`)
 **PR:** (recorded on open)
 **Source:** `COURSE_MODE_PILOT_SESSION_LOG_2026_08_26.md` Next steps #2; `COURSE_MODE_SESSION_ASSEMBLY_AND_ENTRY_FLOW_SPEC.md` §3.1 (DECISION, David 2026-08-25); `COURSE_MODE_PILOT_QA_PROMPT_FABLE.md` Known issues ("Routing").
@@ -85,7 +85,9 @@ serving invariants are untouched.
 
 ## Implementation Summary
 
-(to be completed)
+- 2026-08-26 20:55 UTC — brief sent to the Lovable project (`d334fed9`,
+  message `main:user#00000000001022#usr:GAGBSMCZ`) after David's explicit
+  scope go. Build in progress; report/diff review pending.
 
 ## Test Results
 
@@ -105,10 +107,10 @@ serving invariants are untouched.
 - The underlying UX decision is **already approved**: spec §3.1 "No
   pre-session setup page (DECISION, David 2026-08-25)"; the scoped fix is
   listed as next step #2 in `COURSE_MODE_PILOT_SESSION_LOG_2026_08_26.md`.
-- This task spec + the Lovable brief are drafted under Standing Approval
-  (Lane 1). **Sending the brief to Lovable (implementation) awaits David's
-  go on this task's scope** (Standard tier — Lane 2 silence-is-consent SLA,
-  24h from this spec's push, applies unless David objects).
+- This task spec + the Lovable brief were drafted under Standing Approval
+  (Lane 1). **Scope go: David, 2026-08-26 (explicit, in-session — "Send it
+  now")**; the brief was sent to Lovable the same evening. The Lane-2 SLA
+  fallback is superseded by the explicit approval.
 - Republish to cramapple.com: Hard-Gate (production), David only.
 
 ## QA Result
