@@ -39,6 +39,15 @@ export type SelectedRow = {
   stimulus_image_path: string | null;
   frq_form: string | null;
   practice_format: string | null;
+  // Present when rows come from select_unit_gated_practice_items (mcq /
+  // quantitative / frq); absent (treated as "frq") for the older
+  // select_practice_frqs path, which only ever selects FRQs.
+  item_type?: string;
+};
+
+export type McqChoice = {
+  choice_key: string;
+  choice_text: string;
 };
 
 export type AssetMetadata = {
@@ -102,6 +111,7 @@ export type RenderItem = {
   title: string | null;
   stem: string;
   stimulus: string | null;
+  item_type: string;
   frq_form: string | null;
   practice_format: string | null;
   parts: Array<{
@@ -109,6 +119,10 @@ export type RenderItem = {
     prompt_text: string;
     points_possible: number | null;
   }>;
+  // Only for item_type mcq/quantitative. Deliberately choice_key/choice_text
+  // only -- is_correct and rationale are answer-bearing and must never reach
+  // a student, same rule toLearnerFacingParts already applies to criteria.
+  choices: McqChoice[] | null;
   media: RenderMedia[];
 };
 
@@ -265,6 +279,7 @@ export function buildRenderItem(
   signedUrl: string | null,
   expiresAt: string,
   criteria: readonly LearnerFacingCriterion[],
+  choices: readonly McqChoice[] | null = null,
 ): RenderItem | null {
   let media: RenderMedia[] = [];
 
@@ -291,9 +306,11 @@ export function buildRenderItem(
     title: row.title,
     stem: row.stem,
     stimulus: row.stimulus,
+    item_type: row.item_type ?? "frq",
     frq_form: row.frq_form,
     practice_format: row.practice_format,
     parts: toLearnerFacingParts(criteria),
+    choices: choices && choices.length ? [...choices] : null,
     media,
   };
 }

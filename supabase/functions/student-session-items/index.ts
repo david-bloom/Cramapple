@@ -49,6 +49,7 @@ import {
   isStaffQaRole,
   type LearnerFacingCriterion,
   MAX_ITEMS,
+  type McqChoice,
   type Omission,
   partitionDeliverable,
   type RenderItem,
@@ -116,22 +117,33 @@ async function deliverRows(
     return { ok: true, items: [], omitted: [], expiresAt };
   }
 
-  const [criteriaResult, assetResult, visualResult] = await Promise.all([
-    service.schema("app").from("frq_criteria")
-      .select(LEARNER_FACING_CRITERION_COLUMNS)
-      .in("content_item_version_id", versionIds)
-      .order("criterion_key", { ascending: true }),
-    service.schema("app").from("content_asset_metadata")
-      .select(
-        "content_item_version_id, storage_bucket, storage_path, alt_text, long_description, approved_at",
-      )
-      .in("content_item_version_id", versionIds),
-    service.schema("app").from("content_visual_requirements")
-      .select("content_item_version_id, image_needed, image_approval")
-      .in("content_item_version_id", versionIds),
-  ]);
+  const [criteriaResult, assetResult, visualResult, choicesResult] =
+    await Promise.all([
+      service.schema("app").from("frq_criteria")
+        .select(LEARNER_FACING_CRITERION_COLUMNS)
+        .in("content_item_version_id", versionIds)
+        .order("criterion_key", { ascending: true }),
+      service.schema("app").from("content_asset_metadata")
+        .select(
+          "content_item_version_id, storage_bucket, storage_path, alt_text, long_description, approved_at",
+        )
+        .in("content_item_version_id", versionIds),
+      service.schema("app").from("content_visual_requirements")
+        .select("content_item_version_id, image_needed, image_approval")
+        .in("content_item_version_id", versionIds),
+      // Only choice_key/choice_text -- is_correct and rationale are
+      // answer-bearing and must never reach a student (same rule as
+      // frq_criteria's evidence_requirements/minimum_fix above).
+      service.schema("app").from("mcq_choices")
+        .select("content_item_version_id, choice_key, choice_text")
+        .in("content_item_version_id", versionIds)
+        .order("choice_key", { ascending: true }),
+    ]);
 
-  if (criteriaResult.error || assetResult.error || visualResult.error) {
+  if (
+    criteriaResult.error || assetResult.error || visualResult.error ||
+    choicesResult.error
+  ) {
     return { ok: false, error: "item_details_failed" };
   }
 
@@ -140,6 +152,17 @@ async function deliverRows(
     const list = criteriaByVersion.get(row.content_item_version_id) ?? [];
     list.push(row);
     criteriaByVersion.set(row.content_item_version_id, list);
+  }
+
+  const choicesByVersion = new Map<string, McqChoice[]>();
+  for (
+    const row of (choicesResult.data ?? []) as Array<
+      McqChoice & { content_item_version_id: string }
+    >
+  ) {
+    const list = choicesByVersion.get(row.content_item_version_id) ?? [];
+    list.push({ choice_key: row.choice_key, choice_text: row.choice_text });
+    choicesByVersion.set(row.content_item_version_id, list);
   }
 
   const assetByKey = indexAssets(
@@ -190,6 +213,7 @@ async function deliverRows(
       asset ? signedByPath.get(asset.storage_path) ?? null : null,
       expiresAt,
       criteriaByVersion.get(row.content_item_version_id) ?? [],
+      choicesByVersion.get(row.content_item_version_id) ?? null,
     );
     if (!item) {
       // Survived the gates but could not be signed. Still a missing required
@@ -238,6 +262,18 @@ export async function handleStudentSessionItems(
     );
   }
   const limit = asPositiveInt(input.limit, MAX_ITEMS);
+
+  // "unit_gated" additionally serves mcq/quantitative alongside frq, scoped by
+  // the student's real course-position unit via select_unit_gated_practice_items
+  // (TASK-0025). Default "frq_only" keeps the original TASK-0021 behaviour
+  // (select_practice_frqs) unchanged for existing callers. The confirm-transfer
+  // branch ignores mode entirely -- it always serves one same-cell item.
+  const ordinaryMode = input.mode === "unit_gated"
+    ? "unit_gated" as const
+    : "frq_only" as const;
+  const itemTypeFilter = typeof input.item_type === "string"
+    ? input.item_type
+    : null;
 
   // Confirm-transfer is requested by a nested object so the ordinary contract is
   // byte-for-byte unchanged for callers that never send it.
@@ -324,7 +360,13 @@ export async function handleStudentSessionItems(
         return respond({ error: "item_selection_failed" }, { status: 500 });
       }
 
-      const rows = (selected ?? []) as SelectedRow[];
+      // select_confirm_transfer_item only ever returns MCQs (item_type='mcq'
+      // filter in the RPC); tag them so the delivery layer marks them mcq and
+      // the client renders answer choices rather than an FRQ textarea.
+      const rows = ((selected ?? []) as SelectedRow[]).map((r) => ({
+        ...r,
+        item_type: "mcq",
+      }));
       // Fail-closed: no valid parallel item (no same-cell approved MCQ, a
       // numeric-answer cell that is excluded, or an untagged source).
       if (!rows.length) {
@@ -363,30 +405,65 @@ export async function handleStudentSessionItems(
     }
 
     // ── Ordinary queue path ─────────────────────────────────────────────────
-    // select_practice_frqs has no NULL fallback by design. Mirror that here
-    // rather than substituting a default -- a session with no format must
-    // serve nothing, not quietly serve targeted drills.
-    if (!session.practice_format) {
-      return respond({
-        status: "ok",
-        function: "student-session-items",
-        result: {
-          learning_session_id: learningSessionId,
-          items: [],
-          omitted: [],
-          reason: "session_practice_format_unset",
-        },
-      });
-    }
+    let selected: unknown[] | null;
+    let selectError: { message: string } | null;
 
-    const { data: selected, error: selectError } = await service.rpc(
-      "select_practice_frqs",
-      {
-        _exam_pack_version_id: session.exam_pack_version_id,
-        _practice_format: session.practice_format,
-        _limit: limit,
-      },
-    );
+    if (ordinaryMode === "unit_gated") {
+      // Real course position drives real unit-gating. A student who has never
+      // set one (unit_id null, source 'unknown') defaults to unit 1 -- the
+      // conservative "start from the beginning" reading -- rather than passing
+      // null and letting the RPC's not-null requirement surface as an opaque
+      // 500.
+      const { data: positionRow, error: positionError } = await service
+        .schema("app")
+        .from("student_course_positions")
+        .select("unit_id")
+        .eq("user_id", session.user_id)
+        .eq("exam_pack_version_id", session.exam_pack_version_id)
+        .maybeSingle();
+      if (positionError) {
+        return respond({ error: "course_position_lookup_failed" }, {
+          status: 500,
+        });
+      }
+      const currentUnit = positionRow?.unit_id ?? 1;
+
+      ({ data: selected, error: selectError } = await service.rpc(
+        "select_unit_gated_practice_items",
+        {
+          _exam_pack_version_id: session.exam_pack_version_id,
+          _current_unit: currentUnit,
+          _practice_format: session.practice_format ?? null,
+          _item_type: itemTypeFilter,
+          _limit: limit,
+        },
+      ));
+    } else {
+      // select_practice_frqs has no NULL fallback by design. Mirror that here
+      // rather than substituting a default -- a session with no format must
+      // serve nothing, not quietly serve targeted drills.
+      if (!session.practice_format) {
+        return respond({
+          status: "ok",
+          function: "student-session-items",
+          result: {
+            learning_session_id: learningSessionId,
+            items: [],
+            omitted: [],
+            reason: "session_practice_format_unset",
+          },
+        });
+      }
+
+      ({ data: selected, error: selectError } = await service.rpc(
+        "select_practice_frqs",
+        {
+          _exam_pack_version_id: session.exam_pack_version_id,
+          _practice_format: session.practice_format,
+          _limit: limit,
+        },
+      ));
+    }
     if (selectError) {
       return respond({ error: "item_selection_failed" }, { status: 500 });
     }
