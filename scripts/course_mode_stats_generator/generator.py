@@ -56,6 +56,7 @@ NORMAL_CONTEXTS = SCN.NORMAL_CONTEXTS
 MEAN_CONTEXTS = SCN.MEAN_CONTEXTS
 TWO_MEAN_CONTEXTS = SCN.TWO_MEAN_CONTEXTS
 CATEGORICAL_CONTEXTS = SCN.CATEGORICAL_CONTEXTS
+TWO_WAY_PROP_CONTEXTS = SCN.TWO_WAY_PROP_CONTEXTS
 U1_9_COMPARE_CONTEXTS = SCN.U1_9_COMPARE_CONTEXTS
 
 
@@ -515,6 +516,135 @@ def gen_t_interval_mean(rng: random.Random, seed: int) -> Dict:
                     {"xbar": xbar, "s": s, "n": n, "conf": conf}, checks, scenario_domain=c["domain"])
 
 
+def _table_totals(obs: List[List[int]]) -> Tuple[List[int], List[int], int]:
+    row_totals = [sum(orow) for orow in obs]
+    col_totals = [sum(obs[i][j] for i in range(len(obs))) for j in range(len(obs[0]))]
+    return row_totals, col_totals, sum(row_totals)
+
+
+def gen_two_way_proportions(rng: random.Random, seed: int) -> Dict:
+    """Marginal and conditional proportions from a two-way table (cell 2.2 x 3.B).
+    Served as MCQ, but stored with the deterministic numeric answer so the same
+    package remains verifier-backed. Every distractor is a concrete denominator
+    or event-swap error from the two-way table, not a throwaway option."""
+    tol = 0.001
+
+    def fmt_prop(v: float) -> str:
+        return f"{v:.3f}"
+
+    for _ in range(300):
+        c = rng.choice(TWO_WAY_PROP_CONTEXTS)
+        rows, cols = list(c["rows"]), list(c["cols"])
+        base_obs = c["obs"]
+        shift = rng.choice([0, 2, 4, 6, 8])
+        obs = [[int(v + shift) for v in orow] for orow in base_obs]
+        row_totals, col_totals, grand = _table_totals(obs)
+        ri = rng.randrange(len(rows))
+        cj = rng.randrange(len(cols))
+        qtype = rng.choice(["row_cond", "col_cond", "row_marg", "col_marg"])
+
+        if qtype == "row_cond":
+            num = obs[ri][cj]
+            denom = row_totals[ri]
+            key = num / denom
+            prompt = (f"The table shows {c['desc']}: {_fmt_table(rows, cols, obs)}. "
+                      f"Calculate the proportion of {rows[ri]} who are in the {cols[cj]} category.")
+            worked = f"Condition on {rows[ri]}: {num}/{denom} = {key:.4f}."
+            # wrong formulas: num/grand, num/column total, row complement/row total,
+            # and marginal summaries substituted for the requested conditional proportion.
+            candidates = [
+                (num / grand, "u2_2__used_grand_total_for_conditional"),
+                (num / col_totals[cj], "u2_2__swapped_conditioning_denominator"),
+                ((denom - num) / denom, "u2_2__used_complement_category"),
+                (row_totals[ri] / grand, "u2_2__reported_marginal_instead_of_conditional"),
+                (col_totals[cj] / grand, "u2_2__reported_marginal_instead_of_conditional"),
+            ]
+        elif qtype == "col_cond":
+            num = obs[ri][cj]
+            denom = col_totals[cj]
+            key = num / denom
+            prompt = (f"The table shows {c['desc']}: {_fmt_table(rows, cols, obs)}. "
+                      f"Calculate the proportion of the {cols[cj]} category who are {rows[ri]}.")
+            worked = f"Condition on {cols[cj]}: {num}/{denom} = {key:.4f}."
+            # wrong formulas: num/grand, num/row total, column complement/column total,
+            # and marginal summaries substituted for the requested conditional proportion.
+            candidates = [
+                (num / grand, "u2_2__used_grand_total_for_conditional"),
+                (num / row_totals[ri], "u2_2__swapped_conditioning_denominator"),
+                ((denom - num) / denom, "u2_2__used_complement_category"),
+                (row_totals[ri] / grand, "u2_2__reported_marginal_instead_of_conditional"),
+                (col_totals[cj] / grand, "u2_2__reported_marginal_instead_of_conditional"),
+            ]
+        elif qtype == "row_marg":
+            num = row_totals[ri]
+            key = num / grand
+            prompt = (f"The table shows {c['desc']}: {_fmt_table(rows, cols, obs)}. "
+                      f"Calculate the marginal proportion that are {rows[ri]}.")
+            worked = f"Use the row total over the grand total: {num}/{grand} = {key:.4f}."
+            other_row = (ri + 1) % len(rows)
+            candidates = [
+                (obs[ri][cj] / row_totals[ri], "u2_2__reported_conditional_instead_of_marginal"),
+                (obs[ri][cj] / grand, "u2_2__used_joint_cell_as_margin"),
+                (row_totals[other_row] / grand, "u2_2__used_complement_category"),
+                (col_totals[cj] / grand, "u2_2__mixed_row_and_column_margins"),
+                (obs[other_row][cj] / grand, "u2_2__used_joint_cell_as_margin"),
+            ]
+        else:
+            num = col_totals[cj]
+            key = num / grand
+            prompt = (f"The table shows {c['desc']}: {_fmt_table(rows, cols, obs)}. "
+                      f"Calculate the marginal proportion in the {cols[cj]} category.")
+            worked = f"Use the column total over the grand total: {num}/{grand} = {key:.4f}."
+            other_col = (cj + 1) % len(cols)
+            candidates = [
+                (obs[ri][cj] / col_totals[cj], "u2_2__reported_conditional_instead_of_marginal"),
+                (obs[ri][cj] / grand, "u2_2__used_joint_cell_as_margin"),
+                ((grand - num) / grand, "u2_2__used_complement_category"),
+                (row_totals[ri] / grand, "u2_2__mixed_row_and_column_margins"),
+                (col_totals[other_col] / grand, "u2_2__mixed_row_and_column_margins"),
+            ]
+
+        distractors: List[Tuple[str, str, float]] = []
+        used_displays = {fmt_prop(key)}
+        used_values: List[float] = []
+        for val, tag in candidates:
+            if not (0.0 <= val <= 1.0):
+                continue
+            if abs(val - key) <= 3 * tol:
+                continue
+            disp = fmt_prop(val)
+            if disp in used_displays:
+                continue
+            if any(abs(val - prev) <= 3 * tol for prev in used_values):
+                continue
+            distractors.append((disp, tag, val))
+            used_displays.add(disp)
+            used_values.append(val)
+            if len(distractors) == 3:
+                break
+        if len(distractors) == 3:
+            break
+    else:
+        raise RuntimeError("two_way_proportions could not build three distinct distractors")
+
+    checks = [
+        ("proportion_in_0_1", 0.0 <= key <= 1.0),
+        ("table_totals_positive", grand > 0 and all(t > 0 for t in row_totals + col_totals)),
+        ("row_column_totals_match_grand", sum(row_totals) == grand and sum(col_totals) == grand),
+        ("conditional_or_marginal_type_valid", qtype in {"row_cond", "col_cond", "row_marg", "col_marg"}),
+        ("three_plausible_distractors", len(distractors) == 3),
+        ("distractors_in_0_1", all(0.0 <= v <= 1.0 for _, _, v in distractors)),
+        ("distractors_clear_of_key", all(abs(v - key) > 2 * tol for _, _, v in distractors)),
+        ("distractors_distinct", len({d for d, _, _ in distractors}) == 3),
+    ]
+    return _package("two_way_proportions", seed, "2.2", ["3.B"], "Medium", prompt,
+                    f"proportion = {key:.3f}", worked,
+                    [{"kind": "numeric", "value": round(key, 3), "tol": tol}],
+                    fmt_prop(key), key, tol, distractors,
+                    {"scenario_id": c["id"], "observed": obs, "query_type": qtype,
+                     "row": rows[ri], "column": cols[cj]}, checks, scenario_domain=c["domain"])
+
+
 def _fmt_table(rows: List[str], cols: List[str], obs: List[List[int]]) -> str:
     """Readable inline rendering of a two-way count table (no monospace needed)."""
     parts = []
@@ -731,6 +861,7 @@ PROCEDURES: Dict[str, Callable[[random.Random, int], Dict]] = {
     "two_prop_ztest": gen_two_prop_ztest,
     "lsrl_predict": gen_lsrl_predict,
     "normal_prob": gen_normal_prob,
+    "two_way_proportions": gen_two_way_proportions,
     "summary_stats": gen_summary_stats,
     "compare_stats": gen_compare_stats,
     "t_test_mean": gen_t_test_mean,
