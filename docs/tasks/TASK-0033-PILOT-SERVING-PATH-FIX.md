@@ -5,7 +5,7 @@
 **Owner:** Claude, with David
 **Product Owner:** David Bloom
 **Tier:** Standard
-**Status:** In Progress (fix brief sent to Lovable)
+**Status:** Ready for Review (build landed + diff-verified; REPUBLISH REQUIRED)
 **Priority:** Critical (live prod failure — both session entries broken after republish)
 **Created Date:** 2026-08-26
 **Branch:** `claude/home-to-session-migration-e65jmk` (docs); build in the Lovable project
@@ -66,7 +66,21 @@
 
 ## Implementation Summary
 
-- (pending build)
+- 2026-08-26 22:12 UTC — **build landed** (`exam-buddy-wireframe` `29d6d5a`
+  "Fixed course mode serving path"). Diff-verified:
+  - New `src/lib/course-mode/serving-path.ts`: `resolveServingPath()` —
+    pilot subject (`ap-statistics`, prod's exact `subject_key`, verified) +
+    anything other than explicit `short_frq`/`long_frq` → the direct
+    published-MCQ path; non-pilot subjects keep the old behavior (server
+    path unless explicit `mcq`).
+  - `use-session.ts` decides via `resolveServingPath(activeSubject.…subjectKey,
+    selectedFormat)`; the published-MCQ branch reuses TASK-0032's
+    content_key + scoping + cap.
+  - New `scopeMcqItemsToCell()` — learn-first serves the clicked skill's
+    EXACT cell (topicCode AND skillCode; 1.9's two cells disambiguated);
+    empty cell → empty list, never a fallback.
+  - `serving-path.test.ts` (89 lines, 8 cases) covers all path-selection
+    branches + cell scoping + the empty-cell honesty rule.
 
 ## Approval State
 
