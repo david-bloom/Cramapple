@@ -5,7 +5,7 @@
 **Owner:** Claude, with David
 **Product Owner:** David Bloom
 **Tier:** Standard
-**Status:** In Progress (brief sent to Lovable; build pending review)
+**Status:** Ready for Review (build landed; preview QA + republish pending)
 **Priority:** High (pilot session-experience polish; companion to TASK-0029)
 **Created Date:** 2026-08-26
 **Approved Date:** 2026-08-26 (David's direct instruction, in-session)
@@ -79,8 +79,20 @@ None — display + existing client-side actions only.
 
 ## Implementation Summary
 
-- 2026-08-26 ~21:0x UTC — brief sent to Lovable (`umsg_01m0zyw97cfc1afkddavmrma6e`);
-  build pending.
+- 2026-08-26 21:16 UTC — brief sent to Lovable (`umsg_01m0zyw97cfc1afkddavmrma6e`).
+- 2026-08-26 21:21 UTC — **build landed** (`exam-buddy-wireframe` `8a08db8`
+  "Added session params bar"). Verified in the repo:
+  - New `SessionParamsBar.tsx` (~300 lines): params line + items-primary
+    progress bar + the single inline "Adjust" popover (minutes "this session
+    only", change topic, end session — promoted from the hamburger).
+  - New pure helpers `src/lib/session/session-params.ts`
+    (`lengthLabel`/`scopeLabel`/`displayedIndex`/`completedItems`/
+    `progressFraction`) with an 80-line vitest file; the bar uses the SAME
+    pinned index as `progressLabel()`, so confirm-transfer/teach sub-beats
+    cannot advance it.
+  - `SessionShell`/`SessionFrame`/`use-session`/`session.index` wired; topic
+    names rendered plain-language, minutes shown as the student's estimate,
+    no countdown anywhere.
 
 ## Test Results
 
