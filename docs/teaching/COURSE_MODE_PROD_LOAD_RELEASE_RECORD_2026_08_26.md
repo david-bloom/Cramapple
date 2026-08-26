@@ -6,6 +6,12 @@ Prod project `pcntajvbdfqhbeewmdry`. Companion to `COURSE_MODE_PILOT_LAUNCH_PLAN
 
 ## 0. TL;DR
 
+> **SESSION CLOSEOUT (2026-08-26).** All of this session's repo work is merged and the tree is
+> clean: **#135 merged** (student-session-items reconciled with Prod — do deploy that function
+> from `main` only, it is now the superset), **#137 merged** (this record), **#136 closed as
+> superseded** (notes ported into §5), all stale branches deleted (only `main` + `archive/*`
+> remain). Next session picks up at §5: Lovable republish → one real Prod session → Phase 5.
+>
 > **UPDATE — Phase 4 COMPLETE (2026-08-26 ~20:37 UTC).** David ran the §3 deploy:
 > `evaluate-attempt` is now **v55 ACTIVE** on Prod, and its bundle sha
 > (`2d1f53df…d544`) is **byte-identical to Dev v16** — the exact hook bundle the
