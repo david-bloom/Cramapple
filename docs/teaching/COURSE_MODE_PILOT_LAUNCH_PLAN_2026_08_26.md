@@ -6,6 +6,18 @@ Verified live against Dev (`wmgjsdkphcyhngaffbqf`, 2026-08-26). Prod (`pcntajvbd
 Rendered view: a formatted version of this plan is published as a private Artifact
 ("Course Mode Pilot Launch"). This markdown file is the canonical, self-contained copy.
 
+> **STATUS UPDATE — 2026-08-26**
+> - **Phase 0 (merge & reconcile) — DONE.** Integration PR #128 merged to `main`; the 1.9×4.B
+>   `template_id` reconciled to `slotframe_4b_compare` (matches live Dev); #125/#126/#127 closed as
+>   superseded. No Dev re-load needed (load SQL byte-identical to Dev's source).
+> - **Phase 1 (deploy serving to Dev) — IN PROGRESS.** Migration `20260826120000`
+>   (`app.select_confirm_transfer_item`) **applied + verified on Dev** (ledger version aligned;
+>   service-role-only ACL; 1.2×2.A returns a same-cell MCQ; 1.7×3.B & 1.9×3.B fail closed; 1.9×4.B
+>   not excluded). **Remaining:** deploy the `student-session-items` edge function via CLI
+>   (`supabase functions deploy student-session-items --project-ref wmgjsdkphcyhngaffbqf`).
+> - **Next executable step:** Phase 2 (prove the loop on Dev) needs an egress-allowed environment
+>   to reach the Dev Supabase host — hand off to a local/CLI run.
+
 ---
 
 ## 0. Where the pilot stands (verified live on Dev)
@@ -21,9 +33,9 @@ Rendered view: a formatted version of this plan is published as a private Artifa
   withhold "counted independent" until confirm-transfer passes.
 - **D8 SME sign-off — cleared, 0 defects** (PR #125). Flagged wrong-statistic distractors accepted
   as faithful-to-misconception.
-- **Confirm-transfer serving — built (PR #127), not deployed.** `app.select_confirm_transfer_item`
-  + a `student-session-items` branch + tests + a frontend-only Lovable brief. Validated against
-  live Dev data (rolled back, zero residue).
+- **Confirm-transfer serving — RPC deployed to Dev (2026-08-26).** `app.select_confirm_transfer_item`
+  is live and verified on Dev; the `student-session-items` confirm-transfer branch (in `main`) still
+  needs a CLI function deploy. Tests + a frontend-only Lovable brief shipped in #127 (via #128).
 - **Loop — engine-proven, deployed loop not yet run.** `cell-state-1.0` proof passes for all 10
   cells offline (`scripts/course_mode_loop_proof/run_local_engine_proof.ts`). The deployed
   serve→grade→promote path (`run_e2e_harness.ts`) needs an egress-allowed environment.
@@ -31,7 +43,11 @@ Rendered view: a formatted version of this plan is published as a private Artifa
 
 ---
 
-## 1. RESOLVE BEFORE MERGING — 1.9×4.B template-id conflict
+## 1. RESOLVED — 1.9×4.B template-id conflict (integrated in #128)
+
+**Done 2026-08-26:** reconciled to `slotframe_4b_compare` and merged via #128; verified no
+`slotframe_u1_9_compare_justify` remains in `scripts/`/`supabase/`. The original problem, for the
+record:
 
 PR #125 tags the 4B frame `template_id = slotframe_u1_9_compare_justify`; PR #126 tags it
 `slotframe_4b_compare`. Both edit `slot_frames.py` (same line) and regenerate the load, so the
@@ -40,7 +56,7 @@ the value in the live `template_releases` row and in every 4B item's provenance.
 `slotframe_u1_9_compare_justify` reaches `main`, the generator diverges from the live release and
 the 4B cell breaks (no serve/release match; confirm-transfer + loop fail for that cell).
 
-**Resolution: keep `slotframe_4b_compare` everywhere.** Exact steps in
+**Resolution (applied): kept `slotframe_4b_compare` everywhere.** Full rationale in
 `COURSE_MODE_PILOT_MERGE_RESOLUTION_2026_08_26.md`.
 
 ---
@@ -60,7 +76,7 @@ harness to confirm green, and grep the load SQL for the 4B id (see the resolutio
 
 ## 3. Launch sequence
 
-### Phase 0 — Merge & reconcile · *blocker-gated* · Owner: Eng (repo)
+### Phase 0 — Merge & reconcile · ✓ DONE (2026-08-26 · #128) · Owner: Eng (repo)
 - Merge **#126 → #125 → #127**, resolving 4B to `slotframe_4b_compare` and keeping #126's
   load-scoped invariant (per the resolution playbook).
 - Keep both sides' additive edits in `COURSE_MODE_PILOT_FINISH_NEXT_STEPS_2026_08_25.md`.
@@ -68,14 +84,18 @@ harness to confirm green, and grep the load SQL for the 4B id (see the resolutio
 - **Exit gate:** `main` green · `out/f4_load_DRAFT.sql` consistent with live Dev · no
   `slotframe_u1_9_compare_justify` anywhere.
 
-### Phase 1 — Deploy the serving change to Dev · Owner: Eng (CLI · Supabase)
-- Apply migration `20260826120000_course_mode_confirm_transfer_item_selector.sql` to Dev.
-- Deploy the `student-session-items` edge function (confirm-transfer branch). `evaluate-attempt`
-  is already v16 — no redeploy.
-- Run the backend tests on Dev: the Deno handler tests and
-  `supabase/tests/confirm_transfer_item_selector.integration.sql`.
+### Phase 1 — Deploy the serving change to Dev · ◑ IN PROGRESS · Owner: Eng (CLI · Supabase)
+- ✓ **Done (2026-08-26)** — migration `20260826120000_course_mode_confirm_transfer_item_selector.sql`
+  applied to Dev (ledger version aligned); `app.select_confirm_transfer_item` verified live
+  (service-role-only ACL; 1.2×2.A returns a same-cell MCQ; 1.7×3.B & 1.9×3.B fail closed; 1.9×4.B not
+  excluded).
+- **Remaining (CLI)** — deploy the `student-session-items` edge function (confirm-transfer branch):
+  `supabase functions deploy student-session-items --project-ref wmgjsdkphcyhngaffbqf`.
+  `evaluate-attempt` is already v16 — no redeploy.
+- The Deno handler tests + `supabase/tests/confirm_transfer_item_selector.integration.sql` run in CI;
+  the selector's assertions were also executed directly against live Dev (passed).
 - Do **not** re-run the load/release — already applied and verified on Dev.
-- **Exit gate:** migration applied · function deployed · selector integration test passes on Dev.
+- **Exit gate:** ✓ migration applied + verified · ◻ `student-session-items` deployed (CLI).
 
 ### Phase 2 — Prove the loop on Dev · Owner: Eng (egress-allowed environment)
 - Run `scripts/course_mode_loop_proof/run_e2e_harness.ts` against Dev (needs network to the
