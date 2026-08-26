@@ -119,3 +119,13 @@ Exit gate for Phase 4 is then met (readiness green, 200/200 loop-ready, access
 entitlement-gated). Next: David republishes the Lovable app (Prod URL bake) + signs in
 against Prod, runs a real Course Mode session end-to-end, then Phase 5 (pilot cohort
 entitlements + observation) per the launch plan.
+
+Two pre-QA notes carried over from the parallel session's status PR (#136, closed as
+superseded by this record):
+- **QA identity:** for live Prod QA, prefer an entitled **throwaway Prod student** over
+  David's admin account where role-gated behavior matters (`qa_mode` in delivery, admin
+  session-ownership bypass) — an admin session can render items a student would be denied.
+- **CORS:** Prod edge functions enforce `ALLOWED_ORIGINS`; `cramapple.com` already works
+  against these functions in the live product and redeploys preserve function env, so no
+  change is expected — but if a browser call is blocked after the republish, check that
+  variable first.
