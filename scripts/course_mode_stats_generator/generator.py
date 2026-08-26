@@ -53,6 +53,7 @@ CONTEXTS = SCN.PROPORTION_CONTEXTS
 TWO_GROUP = SCN.TWO_GROUP_CONTEXTS
 REG_CONTEXTS = SCN.REGRESSION_CONTEXTS
 NORMAL_CONTEXTS = SCN.NORMAL_CONTEXTS
+PROBABILITY_CONTEXTS = SCN.U2_4_PROBABILITY_CONTEXTS
 MEAN_CONTEXTS = SCN.MEAN_CONTEXTS
 TWO_MEAN_CONTEXTS = SCN.TWO_MEAN_CONTEXTS
 CATEGORICAL_CONTEXTS = SCN.CATEGORICAL_CONTEXTS
@@ -243,6 +244,56 @@ def gen_lsrl_predict(rng: random.Random, seed: int) -> Dict:
                     [{"kind": "numeric", "value": round(yhat, 3), "tol": tol}],
                     f"{yhat:.2f}", yhat, tol, distractors,
                     {"slope": b, "intercept": a, "x_new": x_new}, checks, scenario_domain=c["domain"])
+
+
+def _fmt_probability_counts(categories: List[Tuple[str, int]]) -> str:
+    return "; ".join(f"{name}: {count}" for name, count in categories)
+
+
+def gen_basic_probability(rng: random.Random, seed: int) -> Dict:
+    """Basic probability for a finite sample space with equally likely outcomes
+    (cell 2.4 x 3.C). The item stays inside Topic 2.4: favorable outcomes over
+    total outcomes, probability in [0,1], and complement as a distractor -- no
+    conditional probability, independence, or binomial machinery."""
+    c = rng.choice(PROBABILITY_CONTEXTS)
+    tol = 0.001
+    count_shift = rng.choice([0, 2, 4, 6])
+    categories = [(name, int(count) + count_shift) for name, count in c["categories"]]
+    event_categories = set(c["event_categories"])
+    total = sum(count for _name, count in categories)
+    favorable = sum(count for name, count in categories if name in event_categories)
+    non_event = total - favorable
+    first_non_event_count = next(count for name, count in categories if name not in event_categories)
+    prob = favorable / total
+    complement = non_event / total
+    odds_in_favor = favorable / non_event
+    partial_denominator = favorable / (favorable + first_non_event_count)
+    distractors = [
+        (f"P = {complement:.3f}", "u2_4__used_complement_probability", complement),
+        (f"P = {odds_in_favor:.3f}", "u2_4__used_odds_instead_of_probability", odds_in_favor),
+        (f"P = {partial_denominator:.3f}", "u2_4__used_partial_sample_space_denominator", partial_denominator),
+    ]
+    prompt = (f"{c['setting']}: {_fmt_probability_counts(categories)}. If one {c['unit']} is selected at random "
+              f"from this pool, what is the probability of selecting {c['event_label']}?")
+    worked = (f"The favorable count is {favorable} and the total number of equally likely outcomes is {total}. "
+              f"P(E) = favorable/total = {favorable}/{total} = {prob:.4f}.")
+    checks = [
+        ("probability_formula", abs(prob - favorable / total) < 1e-12),
+        ("probability_in_0_1", 0.0 <= prob <= 1.0),
+        ("complement_sums_to_one", abs(prob + complement - 1.0) < 1e-12),
+        ("finite_sample_space_positive_total", total > favorable > 0),
+        ("odds_distractor_in_0_1", 0.0 <= odds_in_favor <= 1.0),
+        ("partial_denominator_distractor_in_0_1", 0.0 <= partial_denominator <= 1.0),
+        ("distractors_clear_of_key", all(abs(v - prob) > 2 * tol for _d, _tag, v in distractors)),
+        ("distractors_distinct", len({d for d, _tag, _v in distractors}) == len(distractors)),
+    ]
+    return _package("basic_probability", seed, "2.4", ["3.C"], "Easy", prompt,
+                    f"P = {prob:.4f}", worked,
+                    [{"kind": "numeric", "value": round(prob, 4), "tol": tol}],
+                    f"P = {prob:.3f}", prob, tol, distractors,
+                    {"scenario_id": c["id"], "categories": categories,
+                     "event_categories": sorted(event_categories), "favorable": favorable, "total": total},
+                    checks, scenario_domain=c["domain"])
 
 
 def gen_normal_prob(rng: random.Random, seed: int) -> Dict:
@@ -730,6 +781,7 @@ PROCEDURES: Dict[str, Callable[[random.Random, int], Dict]] = {
     "one_prop_ci": gen_one_prop_ci,
     "two_prop_ztest": gen_two_prop_ztest,
     "lsrl_predict": gen_lsrl_predict,
+    "basic_probability": gen_basic_probability,
     "normal_prob": gen_normal_prob,
     "summary_stats": gen_summary_stats,
     "compare_stats": gen_compare_stats,
