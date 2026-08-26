@@ -43,10 +43,15 @@ It does **not** exercise the deployed grader or the DB write — that is script 
 ## 2. `run_e2e_harness.ts` — end-to-end proof against deployed Dev
 
 Drives the actual deployed edge functions — `attempt-response`
-(create → save → submit) then `evaluate-attempt` (deterministic MCQ
-choice-match grade → `persistCellState`) — as a throwaway entitled test
-student, then reads back `app.student_cell_state` to confirm the transition,
-for all 10 cells × both outcomes.
+(create → save → submit), `evaluate-attempt` (deterministic MCQ
+choice-match grade → `persistCellState`), and `student-session-items`
+(`confirm_transfer` → `app.select_confirm_transfer_item`) — as a throwaway
+entitled test student, then reads back `app.student_cell_state` to confirm the
+transition, for all 10 cells × both outcomes, **including the §7.1(b)
+confirm-transfer beat** (a same-cell parallel item served + graded; numeric
+cells 1.7×3.B / 1.9×3.B must fail closed). Requires the `student-session-items`
+confirm-transfer branch to be deployed — see
+`docs/teaching/COURSE_MODE_PILOT_PHASE1_2_RUNBOOK_2026_08_26.md`.
 
 **Must run where egress allows `https://<project-ref>.supabase.co`.** The
 authoring session could reach Dev only over SQL (Supabase MCP); the org egress
