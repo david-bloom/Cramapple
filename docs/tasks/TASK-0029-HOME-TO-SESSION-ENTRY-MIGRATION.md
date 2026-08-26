@@ -5,7 +5,7 @@
 **Owner:** Claude, with David
 **Product Owner:** David Bloom
 **Tier:** Standard
-**Status:** In Progress
+**Status:** Ready for Review (build landed; preview QA + republish pending)
 **Priority:** High (pilot-blocking polish — flagged in the 2026-08-26 pilot session log and the Fable QA prompt as a known issue)
 **Created Date:** 2026-08-26
 **Approved Date:** 2026-08-26 (scope go given by David in-session; see Approval State)
@@ -87,7 +87,43 @@ serving invariants are untouched.
 
 - 2026-08-26 20:55 UTC — brief sent to the Lovable project (`d334fed9`,
   message `main:user#00000000001022#usr:GAGBSMCZ`) after David's explicit
-  scope go. Build in progress; report/diff review pending.
+  scope go.
+- 2026-08-26 20:57 UTC — **build landed** (`exam-buddy-wireframe` commit
+  `a6f0c6e` "Fixed home quick-start routing"; 328 tests green). Per the
+  agent's report + verified in the repo:
+  - `TopicHome.tsx` `startPractice()` / `startDiagnostic()` now navigate
+    straight to `/session` with the same `practiceSearch()` payload.
+  - The param translation `/session/setup` did for quick-start moved into
+    `contractFromSearch()` on `session.index.tsx`'s own load path (no
+    visible screen). `starter`→`quick`, minutes verbatim, unit→
+    `selectedUnit`, topic→`selectedTopicIds`.
+  - **Defect fixed in passing:** the old interstitial *dropped* the door's
+    `topic` param (it only auto-skipped for `mode=starter` and otherwise
+    re-asked everything with generic defaults — Focused/30 min); the new
+    path honors the topic. The dead `isFirstSession` sessions-lookup (no
+    runner code reads it) was not carried over.
+  - `/session/setup` kept — remaining consumers: `resume`, `attempt.$id`,
+    `plan`, `onboard`, `dashboard`, `byoq`, the `/learn` deep-link route,
+    and `/session`'s "Change topic" action.
+- 2026-08-26 20:59 UTC — follow-up build (David, directly in Lovable):
+  a bare `/session` visit (e.g. `/session?intent=review`) no longer bounces
+  to setup — it builds a default recommendation-scoped quick contract.
+
+## Studying-intent analysis (David's question, 2026-08-26)
+
+Q: on `/home` in Learn or Points mode, do we know enough about studying
+intent to skip `/session/setup`? **Yes.** The wizard collects length
+(mode+minutes), entry path, and scope (unit/topics/format). At door-click
+time all are already determined: subject (active subject), unit (the
+student's server-persisted confirmed position, adjustable on `/home`),
+topic (the exact row/brief clicked — `practiceParams` carries the canonical
+code), minutes+mode (encoded by the door), entry path (the click itself:
+topic row = self-guided, Start card = recommendation). Learn vs Points
+changes framing/ranking only, not required inputs. The interstitial added
+no information — it ignored the incoming params and dropped the topic. The
+one thing it offered (changing length/scope in-flow, format practice) is
+per §3.1 an inline `/session` affordance (separate session-shell build);
+format practice remains reachable via the surfaces still linking setup.
 
 ## Test Results
 
