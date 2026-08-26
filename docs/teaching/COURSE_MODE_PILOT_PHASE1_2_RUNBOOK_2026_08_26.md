@@ -30,10 +30,20 @@ calls is already live (Part 0 above), so this is the last piece of the serving c
   `SUPABASE_SERVICE_ROLE_KEY` / `ALLOWED_ORIGINS`, already set on Dev from the current deploy;
   a redeploy preserves them.
 
-**Deploy**
+**Deploy** — run from the **repo root** (the CLI resolves `supabase/functions/<name>/index.ts`
+relative to your current directory; running from `~` fails with
+`Entrypoint path does not exist … supabase/functions/student-session-items/index.ts`).
 ```bash
+cd <your Cramapple clone>        # the folder that contains the supabase/ directory
+git checkout main && git pull    # ensure the confirm-transfer code is present
+ls supabase/functions/student-session-items/index.ts   # sanity: should print the path
+
 supabase functions deploy student-session-items --project-ref wmgjsdkphcyhngaffbqf
+# If it says Docker is required for bundling, deploy via the API instead (no Docker):
+#   supabase functions deploy student-session-items --project-ref wmgjsdkphcyhngaffbqf --use-api
 ```
+Harmless warnings you can ignore: a Bun "AVX support" note and "Docker is not running" (a hosted
+deploy doesn't need Docker).
 
 **Verify**
 ```bash
