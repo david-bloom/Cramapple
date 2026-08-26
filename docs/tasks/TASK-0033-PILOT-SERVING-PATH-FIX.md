@@ -5,7 +5,18 @@
 **Owner:** Claude, with David
 **Product Owner:** David Bloom
 **Tier:** Standard
-**Status:** Ready for Review (build landed + diff-verified; REPUBLISH REQUIRED)
+**Status:** In Progress (follow-up: quick-start topic-scope dead-end; second build pending)
+
+**Follow-up (2026-08-26, post-republish):** David's retest confirmed both
+entries work and confirm-transfer fired — but the quick-start URL
+`?mode=quick&unit=1&topic="1.1"` dead-ends: Home encodes the student's
+*position* topic (1.1), which has **no pilot cell** (pilot starts at 1.2), so
+exact-topic scoping honestly serves nothing on the primary door. Fix brief
+sent (`umsg_01m102fp28ejfvgs69tr6e6nz4`): topic scope → unit-scope fallback →
+honest empty only when the unit has nothing, with the params line showing the
+**effective** scope (no false topic claim); learn-first exact-cell scoping
+unchanged. (Checked: the `%22` quoting in the URL is TanStack's normal JSON
+search encoding, parsed back to `1.1` in-app — not a bug.)
 **Priority:** Critical (live prod failure — both session entries broken after republish)
 **Created Date:** 2026-08-26
 **Branch:** `claude/home-to-session-migration-e65jmk` (docs); build in the Lovable project
