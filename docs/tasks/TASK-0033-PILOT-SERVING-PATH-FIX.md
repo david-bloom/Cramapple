@@ -90,6 +90,19 @@ end sessions. **Actions:** all 29 archived server-side (`status='archived'`,
 verified. Immediate user unblock: clear site data / hard reload so the stale
 stored id drops.
 
+**Correction (2026-08-26 ~23:3x):** David's topic-1.2 quick-start URL still
+hung. Logs showed the SAME stale-resume signature (`cc87341b` revived at
+23:27) because (a) **cramapple.com still runs the pre-guard bundle** — the
+22:29 fixes are not yet republished — and (b) the earlier cleanup set the
+stale sessions to `'archived'`, which in this schema is the **parked,
+resume-revivable** state (per `parked-sessions.ts`: "Archive (parked) — NOT
+completed. session_resume can revive it"), so the server kept handing the
+stale session back. Corrected: **44** of David's general-pack sessions
+(the 29 + 15 previously-archived) set to `'completed'` — the terminal state.
+Remaining to clear the failure: republish (picks up the resume guard + scope
+fallback), plus a one-time site-data clear if the browser still holds the
+stale id.
+
 ## Out of Scope
 
 - Backend changes (labels for pilot items, v17 defaults, pack merge) — the
