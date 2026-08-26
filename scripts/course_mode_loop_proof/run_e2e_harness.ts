@@ -2,10 +2,16 @@
  * Course Mode — END-TO-END loop proof harness (Dev), the REAL deployed path.
  *
  * Proves serve -> grade -> cell promotion for all 10 AP Stats Unit-1 pilot cells,
- * both grading outcomes, by driving the actual deployed edge functions:
- *   attempt-response (create_attempt -> save_response -> submit_response)
- *   evaluate-attempt (deterministic MCQ choice-match grade -> persistCellState)
+ * including the §7.1(b) confirm-transfer beat, by driving the actual deployed
+ * edge functions:
+ *   attempt-response      (create_attempt -> save_response -> submit_response)
+ *   evaluate-attempt      (deterministic MCQ choice-match grade -> persistCellState)
+ *   student-session-items (confirm_transfer -> app.select_confirm_transfer_item)
  * then reading back app.student_cell_state to confirm the tier transition.
+ *
+ * Per cell: [1] correct -> independent; [1b] confirm-transfer serves a DIFFERENT
+ * same-cell item (numeric cells 1.7×3.B / 1.9×3.B must fail closed with no item),
+ * graded correct -> cell stays independent; [2] a miss -> fragile, tier unchanged.
  *
  * WHY THIS IS A SEPARATE, RUN-ELSEWHERE SCRIPT
  * The session that authored it could reach Dev only over SQL (Supabase MCP); the
@@ -203,6 +209,28 @@ async function gradeOne(jwt: string, sessionId: string, civ: string, selectedCho
   return { attemptId, pointsEarned: graded?.result?.points_earned ?? null, status: graded?.status };
 }
 
+// ── confirm-transfer beat (§7.1 b) — the deployed student-session-items branch ─
+// Cells excluded from confirm-transfer (numeric-answer cells): the selector must
+// fail closed and return no item for these.
+const NUMERIC_EXCLUDED = new Set(["1.7×3.B", "1.9×3.B"]);
+
+// Ask the deployed student-session-items function for one same-cell parallel item,
+// out-of-band from the ordinary queue. Returns the `result` object
+// { mode, item, reason, ... } — `item` is null when fail-closed.
+async function confirmTransfer(jwt: string, sessionId: string, sourceCiv: string) {
+  const resp = await callFn("student-session-items", {
+    learning_session_id: sessionId,
+    confirm_transfer: { source_content_item_version_id: sourceCiv },
+  }, jwt);
+  return resp?.result ?? null;
+}
+
+async function correctKeyFor(civ: string): Promise<string | null> {
+  const { data } = await svc.schema("app").from("mcq_choices")
+    .select("choice_key, is_correct").eq("content_item_version_id", civ);
+  return (data ?? []).find((c: any) => c.is_correct)?.choice_key ?? null;
+}
+
 async function readCellState(userId: string, tsv: string, topic: string, skill: string) {
   const { data } = await svc.schema("app").from("student_cell_state")
     .select("tier, fragile, last_event, last_weight, due_reason")
@@ -223,7 +251,10 @@ async function cleanup(userId: string) {
 // ── main ─────────────────────────────────────────────────────────────────────
 const rows: string[] = [];
 let failures = 0;
-rows.push(["cell (topic×skill)".padEnd(20), "correct→tier".padEnd(14), "pts".padEnd(4), "miss→tier".padEnd(12), "fragile".padEnd(8), "verdict"].join(" | "));
+rows.push([
+  "cell".padEnd(9), "correct→".padEnd(12), "confirm-transfer".padEnd(18),
+  "miss→".padEnd(12), "fragile".padEnd(8), "verdict",
+].join(" | "));
 
 const { userId } = await provisionStudent();
 try {
@@ -234,19 +265,47 @@ try {
 
   for (const c of cells) {
     const label = `${c.topic_code}×${c.skill_code}`;
-    // [1] correct -> promotion
+    const excluded = NUMERIC_EXCLUDED.has(label);
+
+    // [1] serve → CORRECT → cell promotes to independent.
     const g1 = await gradeOne(jwt, sessionId, c.a.civ, c.a.correct);
     const s1 = await readCellState(userId, c.tsv, c.topic_code, c.skill_code);
-    // [2] wrong -> fragile + tier unchanged
+
+    // [1b] CONFIRM-TRANSFER beat (§7.1 b): the deployed student-session-items
+    // branch serves a same-cell parallel item; grade it and re-check the cell.
+    // Numeric cells must fail closed (no item).
+    const xfer = await confirmTransfer(jwt, sessionId, c.a.civ);
+    const xItem = (xfer?.item ?? null) as { content_item_version_id?: string } | null;
+    let cxferOk: boolean;
+    let cxferNote: string;
+    if (excluded) {
+      cxferOk = xItem === null;               // must be withheld for numeric cells
+      cxferNote = xItem === null ? "excluded✓" : "LEAK!";
+    } else if (!xItem?.content_item_version_id) {
+      cxferOk = false; cxferNote = "no-item!";
+    } else if (xItem.content_item_version_id === c.a.civ) {
+      cxferOk = false; cxferNote = "same-item!";
+    } else {
+      const xKey = await correctKeyFor(xItem.content_item_version_id);
+      const gX = xKey
+        ? await gradeOne(jwt, sessionId, xItem.content_item_version_id, xKey)
+        : { pointsEarned: null };
+      const sX = await readCellState(userId, c.tsv, c.topic_code, c.skill_code);
+      cxferOk = gX.pointsEarned === 1 && sX?.tier === "independent" && sX?.fragile === false;
+      cxferNote = cxferOk ? "confirmed✓" : "FAIL";
+    }
+
+    // [2] serve → WRONG → fragile, tier unchanged (INV-6).
     const g2 = await gradeOne(jwt, sessionId, c.b.civ, c.b.distractor);
     const s2 = await readCellState(userId, c.tsv, c.topic_code, c.skill_code);
 
     const ok =
       g1.pointsEarned === 1 && s1?.tier === "independent" && s1?.fragile === false &&
+      cxferOk &&
       g2.pointsEarned === 0 && s2?.tier === s1?.tier && s2?.fragile === true;
     if (!ok) failures++;
     rows.push([
-      label.padEnd(20), String(s1?.tier).padEnd(14), String(g1.pointsEarned).padEnd(4),
+      label.padEnd(9), String(s1?.tier).padEnd(12), cxferNote.padEnd(18),
       String(s2?.tier).padEnd(12), String(s2?.fragile).padEnd(8), ok ? "PASS" : "FAIL",
     ].join(" | "));
   }
@@ -254,8 +313,8 @@ try {
   await cleanup(userId);
 }
 
-console.log("\nCourse Mode — END-TO-END loop proof (deployed attempt-response + evaluate-attempt on Dev)\n");
+console.log("\nCourse Mode — END-TO-END loop proof (deployed attempt-response + evaluate-attempt + confirm-transfer on Dev)\n");
 console.log(rows.join("\n"));
 console.log("");
-if (failures) { console.error(`FAILED — ${failures} cell(s) did not complete serve→grade→promotion as expected.`); process.exit(1); }
-console.log(`OK — all ${TEMPLATE_IDS.length} cells: correct→independent, miss→fragile (tier unchanged), via the deployed grader.`);
+if (failures) { console.error(`FAILED — ${failures} cell(s) did not complete serve→grade→(confirm-transfer)→promotion as expected.`); process.exit(1); }
+console.log(`OK — all ${TEMPLATE_IDS.length} cells: correct→independent; confirm-transfer serves a same-cell item (numeric cells fail closed) and grades correct; miss→fragile (tier unchanged). All via the deployed functions.`);
