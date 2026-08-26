@@ -6,13 +6,22 @@ Prod project `pcntajvbdfqhbeewmdry`. Companion to `COURSE_MODE_PILOT_LAUNCH_PLAN
 
 ## 0. TL;DR
 
-Phase 4 (Prod promotion) is **complete except ONE step**: the `evaluate-attempt`
-**hook deploy** (CLI-only — see §3). David ran the Prod load + CM-D19 release and the
+> **UPDATE — Phase 4 COMPLETE (2026-08-26 ~20:37 UTC).** David ran the §3 deploy:
+> `evaluate-attempt` is now **v55 ACTIVE** on Prod, and its bundle sha
+> (`2d1f53df…d544`) is **byte-identical to Dev v16** — the exact hook bundle the
+> 10/10 Dev loop proof ran against. The Phase-4 exit gate is met. Remaining before a
+> real session: Lovable **republish** + fresh Prod login (§1 caveat), then answer one
+> item and confirm a `student_cell_state` row (§3 verify query). Phase 5 (pilot
+> cohort entitlements + observation) is next.
+
+Phase 4 (Prod promotion) was **complete except ONE step**: the `evaluate-attempt`
+**hook deploy** (CLI-only — see §3; now DONE, see the update above). David ran the Prod
+load + CM-D19 release and the
 `student-session-items` deploy himself this evening; this session verified all of it live,
 applied the three remaining serving switches (lsrl `rubric_type` backfill, manifest row,
-profile flip), and passed the readiness + security audits. **Until §3 is run, an answered
-MCQ on Prod grades correctly but writes NO `student_cell_state` row** — the mastery loop
-is broken at its last step, exactly the pre-hook state Dev was in before 2026-08-24.
+profile flip), and passed the readiness + security audits. Until §3 ran, an answered
+MCQ on Prod graded correctly but wrote NO `student_cell_state` row — the mastery loop
+was broken at its last step, exactly the pre-hook state Dev was in before 2026-08-24.
 
 ## 1. What David executed (verified live, not re-run)
 
@@ -98,7 +107,7 @@ pre-hook grader byte-for-byte. Content/serving rollback stays as documented:
 | Manifest `7c5a2975` | quick_start, min 3, **units {1,5}** (added this session) |
 | David's profile | active_epv = **`7c5a2975`** (flipped this session) |
 | `student-session-items` | **v17 ACTIVE — confirm-transfer branch confirmed** |
-| `evaluate-attempt` | **v54 — PRE-HOOK. §3 pending** |
+| `evaluate-attempt` | **v55 ACTIVE — hook deployed (sha = Dev v16 bundle)** |
 | `select_confirm_transfer_item` | live; numeric cells fail closed ✓ |
 | Delivery tables (`content_asset_metadata`, `content_visual_requirements`) | both exist ✓ |
 | `app.student_cell_state` | exists, `last_attempt_id` present, 0 rows |

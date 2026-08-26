@@ -39,9 +39,11 @@ Rendered view: a formatted version of this plan is published as a private Artifa
 >   confirmed in the read-back source). This session then verified everything live, backfilled
 >   `rubric_type='mcq'` on the 3 Prod lsrl items, added the `7c5a2975` manifest row
 >   (units {1,5}, min 3), flipped David's profile to `7c5a2975`, and passed the readiness +
->   security + selector audits (numeric cells fail closed). **Remaining: the CLI-only
->   `evaluate-attempt` deploy — until then Prod answers grade but write NO cell state.**
->   Full record + the one command: `COURSE_MODE_PROD_LOAD_RELEASE_RECORD_2026_08_26.md`.
+>   security + selector audits (numeric cells fail closed). ~~Remaining: the CLI-only
+>   `evaluate-attempt` deploy.~~ **DONE ~20:37 UTC — v55 ACTIVE, bundle sha byte-identical to
+>   the proven Dev v16 hook. Phase 4 exit gate MET.** Before a real session: Lovable republish
+>   + fresh Prod login. Next: Phase 5 (pilot cohort entitlements + observation).
+>   Full record: `COURSE_MODE_PROD_LOAD_RELEASE_RECORD_2026_08_26.md`.
 
 ---
 
