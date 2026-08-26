@@ -184,7 +184,7 @@ async function discoverCells(): Promise<CellPick[]> {
 }
 
 // ── one graded attempt through the deployed functions ─────────────────────────
-async function gradeOne(jwt: string, sessionId: string, civ: string, selectedChoiceKey: string) {
+async function gradeOne(jwt: string, sessionId: string, civ: string, selectedChoiceKey: string, operation: string = "grade_initial_attempt") {
   const created = await callFn("attempt-response", {
     operation: "create_attempt", idempotency_key: uid(),
     learning_session_id: sessionId, content_item_version_id: civ,
@@ -204,7 +204,7 @@ async function gradeOne(jwt: string, sessionId: string, civ: string, selectedCho
   }, jwt);
 
   const graded = await callFn("evaluate-attempt", {
-    operation: "grade_attempt", idempotency_key: uid(),
+    operation, idempotency_key: uid(),
     attempt_id: attemptId, response_version_id: responseVersionId,
   }, jwt);
   return { attemptId, pointsEarned: graded?.result?.points_earned ?? null, status: graded?.status };
@@ -289,7 +289,7 @@ try {
     } else {
       const xKey = await correctKeyFor(xItem.content_item_version_id);
       const gX = xKey
-        ? await gradeOne(jwt, sessionId, xItem.content_item_version_id, xKey)
+        ? await gradeOne(jwt, sessionId, xItem.content_item_version_id, xKey, "grade_transfer_attempt")
         : { pointsEarned: null };
       const sX = await readCellState(userId, c.tsv, c.topic_code, c.skill_code);
       cxferOk = gX.pointsEarned === 1 && sX?.tier === "independent" && sX?.fragile === false;
