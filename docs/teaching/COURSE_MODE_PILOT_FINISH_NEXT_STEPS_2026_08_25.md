@@ -40,18 +40,47 @@ Nothing is served yet; Prod is untouched.
    **0 defects** each. Explicitly resolve the flagged concern: some **computational distractors are
    wrong-statistic values** (e.g. an SD offered against a *mean* question on 1.7×3.B / 1.9×3.B) —
    decide if they're on-scale/plausible or need a generator tweak. Sign-off is what unblocks release.
-2. **§7.1 guess-floor decision** (spec §7.1) — does a "Guessing" + correct MCQ earn full
-   `independent`? Recommended: (b) require confirm-transfer before MCQ `independent`. Decides whether
-   the confirm-transfer beat is mandatory and whether confidence affects tiering.
-3. **[A] apply the full load to Dev** — `out/f4_load_DRAFT.sql` (1.8 MB) via **CLI/psql** (too large
-   for the Supabase MCP): `psql "$DEV_DB_URL" -f scripts/course_mode_stats_generator/out/f4_load_DRAFT.sql`.
-   Lands 200 unreleased drafts, cell-tagged, `rubric_type='mcq'`.
-4. **[B] CM-D19 release per template** — after sign-off, `app.cm_d19_release_template(<id>, '4e54bb4f…',
-   '{"sme":{"n":20,"defects":0},"property":{"n":120,"rejects":0},"verifier":0}'::jsonb, '<David Dev
-   user_id>')` for each of the 10 (ids: `summary_stats`, `compare_stats`, `FB-U1-2-2A-VARIABLES-01`,
-   `FB-U1-5-3A-GRAPH-01`, `FB-U1-6-4A-DISTRIBUTION-01`, `FB-U1-8-3A-BOXPLOT-01`,
-   `FB-U1-11-2A-SAMPLING-01`, `FB-U1-12-2A-BIAS-01`, `FB-U1-13-2A-DESIGN-01`, `FB-4B-COMPARE-01`).
-   Verify with the runbook §3[C] readiness audit.
+2. **§7.1 guess-floor decision** — **RESOLVED (David, 2026-08-25): option (b).** An MCQ cell cannot
+   reach `independent` on a single cold-correct attempt; the confirm-transfer beat (spec §3.3) is
+   **mandatory** for every MCQ cell (a fresh changed-surface question that must also grade correct).
+   Numeric-entry cells unchanged. Enforced in session assembly, not yet an engine change; a
+   "Guessing" evidence-weight discount (option a) stays a CM-D07 candidate, not required for the
+   pilot. This is now a front-end/assembly build requirement, not an open gate.
+3. **[A] apply the full load to Dev** — `out/f4_load_DRAFT.sql` (~1.82 MB) via **CLI/psql** (too large
+   for the Supabase MCP — it is one atomic `do $load$` block, not chunkable):
+   `psql "$DEV_DB_URL" -f scripts/course_mode_stats_generator/out/f4_load_DRAFT.sql`.
+   Lands 200 unreleased drafts, cell-tagged, `rubric_type='mcq'`. (Needs `DEV_DB_URL` — the Dev
+   session-pooler URI; not present in a default web session env.)
+4. **[B] CM-D19 release per template** — after sign-off, call the RPC (via psql or the Supabase MCP)
+   for each of the 10 templates. **IMPORTANT — two corrections found in session 6:**
+   - The RPC reads a **FLAT** attestation shape (an earlier nested example here was wrong):
+     `{"sme_sample_n":20,"sme_defects":0,"property_instances":<N>,"property_rejects":0,"verifier_disagreements":0}`
+     (`property_instances` must be ≥100; use **100** for the two computational templates, **120** for
+     the eight slot-frames — the D8 harness counts).
+   - It stamps by matching `item_package_payload->'provenance'->>'template_id'`, so pass the REAL
+     template IDs (verified against the payloads), NOT the `FB-…` frame ids:
+     `summary_stats` (1.7×3.B), `compare_stats` (1.9×3.B), `slotframe_u1_2_variables` (1.2×2.A),
+     `slotframe_u1_5_graphs` (1.5×3.A), `slotframe_u1_6_distribution` (1.6×4.A),
+     `slotframe_u1_8_boxplots` (1.8×3.A), `slotframe_u1_9_compare_justify` (1.9×4.B),
+     `slotframe_u1_11_sampling` (1.11×2.A), `slotframe_u1_12_bias` (1.12×2.A),
+     `slotframe_u1_13_design` (1.13×2.A).
+
+     Call shape (per template):
+     ```sql
+     select app.cm_d19_release_template(
+       '<template_id>',
+       '4e54bb4f-695f-41be-ac06-745fe9ad8bcc'::uuid,
+       '{"sme_sample_n":20,"sme_defects":0,"property_instances":120,"property_rejects":0,"verifier_disagreements":0}'::jsonb,
+       'cda34c9d-80f3-43bb-b359-8413bad3ee2e'::uuid);
+     ```
+   Expect `instances_stamped=20` each. Verify with the runbook §3[C] readiness audit. Reversible per
+   template via `app.cm_d19_revoke_template_release(...)`.
+
+   **Session-6 prerequisite fix (DONE, in the branch):** the `FB-4B-COMPARE-01` frame emitted no
+   `provenance.template_id` — so cell 1.9×4.B would have been unreleasable (the RPC found no matching
+   instances). Fixed in `slot_frames.py` (added `template_id='slotframe_u1_9_compare_justify'`),
+   pilot packages regenerated, load rebuilt. The 1.9×4.B **questions are byte-identical** to the D8
+   pack (only provenance metadata added), so the SME sign-off still holds; harness re-run GREEN.
 5. **[E] confirm the `evaluate-attempt` hook is deployed on Dev** (docs: v15) — redeploy is CLI-only.
 6. **Front-end build (Lovable, the long pole)** — review the plan the agent returned; build the
    `/session` skill-rail + the new `StudentHomeSnapshot` learning-state layer + confidence-on-submit.
