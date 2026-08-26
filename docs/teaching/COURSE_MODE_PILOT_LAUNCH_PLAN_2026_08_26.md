@@ -27,6 +27,21 @@ Rendered view: a formatted version of this plan is published as a private Artifa
 >   (1.7×3.B, 1.9×3.B) fail closed. See `COURSE_MODE_STATS_UNIT1_LOOP_PROOF_2026_08_26.md`.
 > - **Next executable step:** Phase 3 — the Lovable front-end build (per
 >   `COURSE_MODE_CONFIRM_TRANSFER_FRONTEND_BRIEF.md`). Prod stays untouched until Phase 4.
+>
+> **STATUS UPDATE #2 — 2026-08-26 (evening)**
+> - **Phase 3 (front-end) — BUILT by David via Lovable** (project `d334fed9`): the real
+>   confirm-transfer beat replaced the queue-advance workaround (17:05–17:28 UTC) and the app's
+>   `.env` was repointed at **Prod** (18:47 UTC). Outstanding: **republish** (Vite bakes the
+>   Supabase URL at build time — the published site calls Dev until rebuilt) + fresh Prod login.
+> - **Phase 4 (Prod promotion) — David gave the go by executing it: COMPLETE except the
+>   `evaluate-attempt` hook deploy.** David ran the F4 load + CM-D19 release (10 templates × 20,
+>   18:43 UTC, his Prod user) and deployed `student-session-items` v17 (confirm-transfer branch
+>   confirmed in the read-back source). This session then verified everything live, backfilled
+>   `rubric_type='mcq'` on the 3 Prod lsrl items, added the `7c5a2975` manifest row
+>   (units {1,5}, min 3), flipped David's profile to `7c5a2975`, and passed the readiness +
+>   security + selector audits (numeric cells fail closed). **Remaining: the CLI-only
+>   `evaluate-attempt` deploy — until then Prod answers grade but write NO cell state.**
+>   Full record + the one command: `COURSE_MODE_PROD_LOAD_RELEASE_RECORD_2026_08_26.md`.
 
 ---
 
