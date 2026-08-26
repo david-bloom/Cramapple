@@ -2,6 +2,46 @@
 
 STATUS: build brief | DATE: 2026-08-26 | TARGET: `exam-buddy-wireframe` (Lovable) front-end.
 
+## Integration target & current state (pinned by 2026-08-26 audit — READ FIRST)
+
+**Target surface — the live Course Mode session, NOT the legacy routes:**
+- `src/routes/session.index.tsx` (`/session`) → `src/components/session/SessionFrame.tsx` →
+  `src/hooks/use-session.ts` (`useSession`). `session.index.tsx` already resolves the pilot skill
+  and threads `courseModeCell`, `skillName`, and `numericEntry` into `SessionFrame`.
+- Do **NOT** target `src/routes/_ux.session.mcq.tsx` / `_ux.session.frq.tsx` (legacy, use
+  `useGradePractice`) — they are a separate, older session UI and are out of scope here.
+
+**What already exists on the branch (keep, do not rebuild):**
+- `src/lib/course-mode/confirm-transfer.ts` — `needsConfirmTransfer()` (MCQ-only, numeric-excluded,
+  not-assisted, once-per-item) and `progressLabel()` (pins the displayed index). Correct; reuse as-is.
+- `src/components/session/ConfirmTransferBeat.tsx` — the presentational "different question, same
+  skill" panel (`onContinue` callback). Reuse.
+- `SessionFrame` already renders `ConfirmTransferBeat` on a cold-correct pilot MCQ and pins the label.
+
+**What is WRONG and must be replaced (this is the whole job):** `SessionFrame`'s
+`startConfirmTransfer()` and `advance()` both call `session.moveOn()`, i.e. the transfer "item" is
+just the **next item in the ordinary queue** (`items[itemCursor+1]`), only *relabeled* "same skill."
+That is the queue-advance workaround this brief exists to delete. Concretely, today it:
+1. never calls `student-session-items` with `confirm_transfer`, so the follow-up is **not** a
+   same-cell parallel item (violates the core requirement and the "no false same-skill claim" rule);
+2. never grades with `grade_transfer_attempt` — the follow-up is graded as an ordinary
+   `grade_initial_attempt`;
+3. has **no fail-closed path** (it never asks the server, so "no parallel item" cannot be handled);
+4. **double-advances**: two `moveOn()` calls push the displayed index `k → k+2` and consume two real
+   queue slots per counted item (must be exactly one advance).
+
+**Prerequisite the runner must satisfy:** `use-session.ts` currently serves items via
+`callStudentSessionItems({ learning_session_id, limit })`, which returns **FRQ** today (its own note:
+"Real MCQ practice isn't wired up yet"). The confirm-transfer beat is MCQ-only, so it is currently
+**unreachable** on `/session`. The runner must serve the pilot **MCQ** cells (the 200 published
+Unit-1 items) so the beat fires. Serving the pilot MCQs is in scope for this build.
+
+**The fix, in `useSession`:** add real `beginConfirmTransfer(sourceItem)` / `finishConfirmTransfer(result)`
+transitions per the state machine below — fetch the same-cell item out-of-band, hold it separately
+from `items[itemCursor]` (do **not** `moveOn` to start the beat), grade it with
+`grade_transfer_attempt`, handle miss→repair and `item:null`→honest-close, and advance the ordinary
+queue **exactly once** at the end. `SessionFrame` then calls these instead of `moveOn()`.
+
 ## Why this is frontend-only (no Lovable Cloud)
 
 The backend serving change is **already done in the Cramapple repo** and deploys through
@@ -112,9 +152,16 @@ Three calls, each returns `{ status: "ok", result: … }`:
 
 ### 5. Grade the transfer attempt — `evaluate-attempt`
 ```jsonc
-{ "operation": "grade_attempt", "idempotency_key": "<uuid>",
+{ "operation": "grade_transfer_attempt", "idempotency_key": "<uuid>",
   "attempt_id": "<step 2>", "response_version_id": "<step 3>" }
 ```
+**`operation` MUST be `"grade_transfer_attempt"`** (the transfer beat), not the counted item's
+`"grade_initial_attempt"`. The deployed `evaluate-attempt` allowlist is exactly
+`grade_initial_attempt` / `grade_transfer_attempt` / `select_repair` / `grade_revision`; any other
+value (e.g. a bare `"grade_attempt"`) returns **`400 invalid_operation`**. Both operations are
+published in `app.prompt_versions` on Dev, so `grade_transfer_attempt` grades the same deterministic
+MCQ way as the initial attempt.
+
 Response: `{ "status": "graded", "result": { "points_earned": 0|1, "points_available": 1,
 "student_facing_summary": "…", … } }`. `points_earned === 1` ⇒ correct (transfer confirmed);
 `0` ⇒ miss. Cell mastery is updated server-side automatically (the same cell as the source),
