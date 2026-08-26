@@ -30,20 +30,23 @@ calls is already live (Part 0 above), so this is the last piece of the serving c
   `SUPABASE_SERVICE_ROLE_KEY` / `ALLOWED_ORIGINS`, already set on Dev from the current deploy;
   a redeploy preserves them.
 
-**Deploy** — run from the **repo root** (the CLI resolves `supabase/functions/<name>/index.ts`
-relative to your current directory; running from `~` fails with
-`Entrypoint path does not exist … supabase/functions/student-session-items/index.ts`).
+**Deploy** — run from the **repo root**, and always pass `--use-api --workdir "$PWD"`. This repo
+has no `supabase/config.toml`, so the CLI's project-root auto-detection walks up and a stray
+`~/supabase` folder hijacks it (`Using workdir /Users/<you>` →
+`Entrypoint path does not exist … supabase/functions/student-session-items/index.ts`, even from the
+repo root). `--workdir "$PWD"` pins it to the repo; `--use-api` skips Docker. This is the same form
+used to deploy `evaluate-attempt` here.
 ```bash
 cd <your Cramapple clone>        # the folder that contains the supabase/ directory
 git checkout main && git pull    # ensure the confirm-transfer code is present
 ls supabase/functions/student-session-items/index.ts   # sanity: should print the path
 
-supabase functions deploy student-session-items --project-ref wmgjsdkphcyhngaffbqf
-# If it says Docker is required for bundling, deploy via the API instead (no Docker):
-#   supabase functions deploy student-session-items --project-ref wmgjsdkphcyhngaffbqf --use-api
+supabase functions deploy student-session-items --project-ref wmgjsdkphcyhngaffbqf --use-api --workdir "$PWD"
 ```
-Harmless warnings you can ignore: a Bun "AVX support" note and "Docker is not running" (a hosted
-deploy doesn't need Docker).
+Harmless warnings you can ignore: a Bun "AVX support" note and "Docker is not running" (a hosted,
+`--use-api` deploy doesn't need Docker). Optional durable cleanup: remove the stray init folder with
+`rm -rf ~/supabase` **only** if `ls ~/supabase` shows a leftover scaffold (a `config.toml` + empty
+`functions/`) and nothing you rely on.
 
 **Verify**
 ```bash
