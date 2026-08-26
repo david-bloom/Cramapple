@@ -72,7 +72,8 @@ git checkout main -- supabase/functions   # restore the working tree
 
 **Prereqs**
 - An environment whose egress allows the Dev Supabase host.
-- Bun (or Node ≥18 + `tsx`) and the client lib: `bun add @supabase/supabase-js`.
+- Node ≥18 (for global `fetch`) **or** Bun. The repo has no `package.json`, so install the client
+  lib locally first: `npm i @supabase/supabase-js tsx` (Node) or `bun add @supabase/supabase-js` (Bun).
 - Part A deployed (the confirm-transfer beat calls the updated `student-session-items`).
 
 **Env** (never commit these)
@@ -84,9 +85,17 @@ export SB_SERVICE_ROLE_KEY="<Dev service_role key>"   # setup + verification onl
 
 **Run**
 ```bash
+# Bun:
 bun run scripts/course_mode_loop_proof/run_e2e_harness.ts
-# Node: npx tsx scripts/course_mode_loop_proof/run_e2e_harness.ts
+
+# Node (via tsx): the harness uses top-level await, so the throwaway package.json
+# npm just created must be ESM — otherwise tsx compiles it as CommonJS and fails with
+# "Top-level await is currently not supported with the 'cjs' output format".
+npm pkg set type=module
+npx tsx scripts/course_mode_loop_proof/run_e2e_harness.ts
 ```
+Key-format note: the env var is named `SB_SERVICE_ROLE_KEY`, but a modern `sb_secret_…` key works
+(it replaces `service_role`); `SB_ANON_KEY` accepts the legacy anon JWT or a `sb_publishable_…` key.
 
 **What it does, per cell** (as a throwaway `cm-loop-proof+<ts>@example.com` student it provisions
 and deletes; pass `KEEP_STUDENT=1` to retain):
