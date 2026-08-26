@@ -5,7 +5,7 @@
 **Owner:** Claude, with David
 **Product Owner:** David Bloom
 **Tier:** Standard (frontend) + a prod-data unblock (recorded below)
-**Status:** In Progress (data unblock applied; frontend fix brief sent)
+**Status:** Ready for Review (data unblock applied + frontend fix landed & diff-verified; republish gets the code fix live)
 **Priority:** Critical (live prod hang — every pilot session on the pilot pack)
 **Created Date:** 2026-08-26
 **Branch:** `claude/home-to-session-migration-e65jmk` (docs); build in the Lovable project
@@ -72,6 +72,16 @@ republish required**.
   (`umsg_01m107kybbf48tpm7nhej6ekmj`): resolve the active subject from the
   profile's active pack against the full published list, not the deduped
   `available`.
+- 2026-08-26 23:56 — **fix landed** (`exam-buddy-wireframe` `f57d35b`),
+  diff-verified: new `resolveActiveAgainstPublishedPacks(id, packs,
+  available)` matches the profile's active id against the full published-pack
+  index (`QK_PUBLISHED_PACKS`) first, falling back to the deduped catalog;
+  active subject resolves `ready` on that exact pack; picker still one-per-
+  subject, preferring the active pack when it isn't the deduped newest;
+  unknown/unpublished id → `invalid`. Six T34 vitest cases incl. the exact
+  two-pack scenario (non-newest active → ready). Once this ships, the
+  data date-bump is **no longer required** — safe to revert the pilot pack's
+  date after republish if desired.
 
 ## Approval State
 
