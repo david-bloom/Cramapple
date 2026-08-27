@@ -174,6 +174,12 @@ FRAMING: Dict[str, Framing] = {
         ["realistic study-design scenario",
          "classification must distinguish imposed treatments, randomization, control/placebo/blinding, and confounding"],
         [_SEC5, _SEC6, _SEC7]),
+    "u2_6_cond_prob": Framing(
+        "u2_6_cond_prob", "Q4", "Calculate", 3, "exam_aligned_digital",
+        ["two events with an explicit conditioning event",
+         "answer uses the count in both events divided by the count in the condition",
+         "all probabilities and distractors stay within [0, 1]"],
+        [_SEC5, _SEC6, _SEC7]),
     "t_test_mean": Framing(
         "t_test_mean", "Q4", "Calculate", 3, "exam_aligned_digital",
         ["a random sample of a quantitative variable (population roughly Normal or n large)",
@@ -661,6 +667,21 @@ U1_13_DESIGN_CONTEXTS: List[Dict[str, object]] = [
 ]
 
 
+# Unit 2.6 conditional-probability contexts. Each id is cell-namespaced.
+U2_6_COND_PROB_CONTEXTS: List[Dict[str, object]] = [
+    {"id": "u2_6__sports_music", "domain": "education", "population": "students",
+     "event_a": "plays a sport", "event_b": "plays a musical instrument", "total": 120, "a": 48, "b": 30, "both": 18},
+    {"id": "u2_6__coupon_return", "domain": "business", "population": "customers",
+     "event_a": "used a coupon", "event_b": "returned to the store within a month", "total": 200, "a": 70, "b": 50, "both": 30},
+    {"id": "u2_6__clinic_portal_followup", "domain": "health", "population": "patients",
+     "event_a": "used the online portal", "event_b": "scheduled a follow-up visit", "total": 160, "a": 64, "b": 56, "both": 24},
+    {"id": "u2_6__app_tutorial_retention", "domain": "technology", "population": "new app users",
+     "event_a": "completed the tutorial", "event_b": "used the app again the next week", "total": 240, "a": 96, "b": 84, "both": 60},
+    {"id": "u2_6__library_ebook_event", "domain": "civic", "population": "library patrons",
+     "event_a": "borrowed an e-book", "event_b": "attended a library event", "total": 150, "a": 45, "b": 36, "both": 15},
+]
+
+
 # ==============================================================================
 # Access + validation helpers
 # ==============================================================================
@@ -821,6 +842,19 @@ def validate_scenarios() -> List[str]:
             problems.append(f"u1_13 design context id is not namespaced: {ctx.get('id')}")
         if len(ctx.get("distractors", [])) < 3:
             problems.append(f"u1_13 design context needs at least 3 distractors: {ctx}")
+    seen_u2_6_ids = set()
+    for ctx in U2_6_COND_PROB_CONTEXTS:
+        required = ("id", "domain", "population", "event_a", "event_b", "total", "a", "b", "both")
+        if not all(k in ctx for k in required):
+            problems.append(f"u2_6 conditional probability context missing fields: {ctx}")
+        if ctx.get("id") in seen_u2_6_ids:
+            problems.append(f"duplicate u2_6 conditional probability context id: {ctx.get('id')}")
+        seen_u2_6_ids.add(ctx.get("id"))
+        if not str(ctx.get("id", "")).startswith("u2_6__"):
+            problems.append(f"u2_6 conditional probability context id is not namespaced: {ctx.get('id')}")
+        total, a, b, both = (ctx.get("total", 0), ctx.get("a", 0), ctx.get("b", 0), ctx.get("both", 0))
+        if not (0 < both < a < total and 0 < both < b < total and a + b - both <= total):
+            problems.append(f"u2_6 context counts violate event bounds: {ctx}")
     return problems
 
 
@@ -845,6 +879,7 @@ if __name__ == "__main__":
             "u1_8_boxplots": len(U1_8_BOXPLOT_CONTEXTS),
             "u1_12_bias": len(U1_12_BIAS_CONTEXTS),
             "u1_13_design": len(U1_13_DESIGN_CONTEXTS),
+            "u2_6_cond_prob": len(U2_6_COND_PROB_CONTEXTS),
         },
         "framing": {p: {"archetype": f.archetype, "task_verb": f.task_verb,
                         "modality": f.modality} for p, f in FRAMING.items()},
