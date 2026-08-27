@@ -4,7 +4,7 @@
 **Owner:** Claude, with David
 **Product Owner:** David Bloom
 **Tier:** Standard
-**Status:** In Progress (fix brief sent to Lovable)
+**Status:** Ready for Review (build landed + diff-verified; republish gets it live)
 **Priority:** High (student-facing defect on the live pilot)
 **Created:** 2026-08-27
 **PR:** #138
@@ -48,7 +48,17 @@ confirm-transfer pinning unchanged. Tests on the reducer + progress math.
 
 ## Implementation Summary
 
-- 2026-08-27 — brief sent (`umsg_01m10dgpfafqhv8qpkm19pd25c`); build pending.
+- 2026-08-27 — brief sent (`umsg_01m10dgpfafqhv8qpkm19pd25c`).
+- 2026-08-27 01:35 — **build landed** (`exam-buddy-wireframe` `a711e7c`),
+  diff-verified: reducer `advance` terminates (`complete: true`) when
+  `itemCursor + 1 >= itemsLength` — no clamp-and-re-serve, `questionIndex`
+  never climbs past total, and `if (state.complete) return state` guards
+  further advances; `completedItems` returns `total` on complete so the bar
+  reaches 1.0; SessionFrame renders a completion screen
+  (`Done — N of N`, bar 100%, "Back to home", "One more?" gated on real
+  inventory only — no auto-extension). Tests T36-1 (completes vs re-serves),
+  T36-2 (index never exceeds count), T36-5 (completes only after a transfer
+  sub-beat resolves) + session-params fraction→1.0.
 
 ## Approval State
 
