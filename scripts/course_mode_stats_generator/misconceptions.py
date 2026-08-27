@@ -425,6 +425,28 @@ CATALOG: Dict[str, Misconception] = {m.tag: m for m in [
        "ced_structural", ["slotframe_u1_12_bias"], ["1.12"], ["2.A"],
        [_fp("S10 Unit 1 (1.10-1.13)", "bias claims must be supported by the sampling scenario rather than assumed from sample size alone")]),
 
+    # --- computational sample_prop_distribution (3.2 x 3.D) : sampling distribution of p-hat ---
+    _M("u3_2__used_observed_count_as_mean",
+       "Used an observed count or sample size as the mean of p-hat",
+       "Reported the number of successes or the sample size instead of the population proportion p as the mean of the sampling distribution.",
+       "ced_structural", ["sample_prop_distribution"], ["3.2"], ["3.D"],
+       [_fp("S10 Unit 3 (3.2)",
+            "for sample proportions, the mean of the sampling distribution of p-hat is p")]),
+
+    _M("u3_2__omitted_sqrt_in_sd",
+       "Omitted the square root in the SD of p-hat",
+       "Computed p(1-p)/n instead of sqrt(p(1-p)/n) for the standard deviation of p-hat.",
+       "ced_structural", ["sample_prop_distribution"], ["3.2"], ["3.D"],
+       [_fp("S10 Unit 3 (3.2)",
+            "the SD of p-hat is sqrt(p(1-p)/n) when the 10 percent condition is met")]),
+
+    _M("u3_2__used_count_sd_instead_of_proportion_sd",
+       "Used the count standard deviation instead of the proportion standard deviation",
+       "Computed sqrt(np(1-p)), the SD of a count, instead of sqrt(p(1-p)/n), the SD of a sample proportion.",
+       "ced_structural", ["sample_prop_distribution"], ["3.2"], ["3.D"],
+       [_fp("S10 Unit 3 (3.2)",
+            "sampling distributions for counts and proportions have different standard deviations")]),
+
     # --- slot-frame FB-U1-13-2A-DESIGN-01 (1.13 x 2.A) : experimental design ---
     _M("u1_13__confounding_vs_lurking_confused",
        "Confused confounding with a lurking variable or unrelated association",

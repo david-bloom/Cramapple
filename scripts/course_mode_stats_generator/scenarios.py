@@ -174,6 +174,12 @@ FRAMING: Dict[str, Framing] = {
         ["realistic study-design scenario",
          "classification must distinguish imposed treatments, randomization, control/placebo/blinding, and confounding"],
         [_SEC5, _SEC6, _SEC7]),
+    "sample_prop_distribution": Framing(
+        "sample_prop_distribution", "Q4", "Calculate", 3, "exam_aligned_digital",
+        ["population proportion p and sample size n are supplied",
+         "mean is p and SD is sqrt(p(1-p)/n)",
+         "large-counts and 10 percent conditions must hold"],
+        [_SEC5, _SEC6, _SEC7]),
     "t_test_mean": Framing(
         "t_test_mean", "Q4", "Calculate", 3, "exam_aligned_digital",
         ["a random sample of a quantitative variable (population roughly Normal or n large)",
@@ -661,6 +667,21 @@ U1_13_DESIGN_CONTEXTS: List[Dict[str, object]] = [
 ]
 
 
+# Unit 3.2 sampling-distribution contexts for sample proportions. Each id is cell-namespaced.
+U3_2_SAMPLE_PROP_CONTEXTS: List[Dict[str, object]] = [
+    {"id": "u3_2__commute_bike", "domain": "civic", "population": "city residents",
+     "trait": "bike to work at least once a week", "p_choices": [0.18, 0.22, 0.30], "n_choices": [120, 160, 200]},
+    {"id": "u3_2__app_paid", "domain": "technology", "population": "app users",
+     "trait": "have a paid subscription", "p_choices": [0.25, 0.35, 0.40], "n_choices": [100, 150, 180]},
+    {"id": "u3_2__seed_germ", "domain": "biology", "population": "seeds from a supplier",
+     "trait": "germinate within seven days", "p_choices": [0.55, 0.62, 0.70], "n_choices": [80, 120, 160]},
+    {"id": "u3_2__clinic_portal", "domain": "health", "population": "clinic patients",
+     "trait": "use the online portal", "p_choices": [0.32, 0.44, 0.58], "n_choices": [90, 140, 180]},
+    {"id": "u3_2__quality_pass", "domain": "manufacturing", "population": "assembled devices",
+     "trait": "pass first inspection", "p_choices": [0.72, 0.78, 0.84], "n_choices": [100, 125, 150]},
+]
+
+
 # ==============================================================================
 # Access + validation helpers
 # ==============================================================================
@@ -821,6 +842,20 @@ def validate_scenarios() -> List[str]:
             problems.append(f"u1_13 design context id is not namespaced: {ctx.get('id')}")
         if len(ctx.get("distractors", [])) < 3:
             problems.append(f"u1_13 design context needs at least 3 distractors: {ctx}")
+    seen_u3_2_ids = set()
+    for ctx in U3_2_SAMPLE_PROP_CONTEXTS:
+        required = ("id", "domain", "population", "trait", "p_choices", "n_choices")
+        if not all(k in ctx for k in required):
+            problems.append(f"u3_2 sample proportion context missing fields: {ctx}")
+        if ctx.get("id") in seen_u3_2_ids:
+            problems.append(f"duplicate u3_2 sample proportion context id: {ctx.get('id')}")
+        seen_u3_2_ids.add(ctx.get("id"))
+        if not str(ctx.get("id", "")).startswith("u3_2__"):
+            problems.append(f"u3_2 sample proportion context id is not namespaced: {ctx.get('id')}")
+        for p in ctx.get("p_choices", []):
+            for n in ctx.get("n_choices", []):
+                if not (0 < p < 1 and n * p >= 10 and n * (1 - p) >= 10):
+                    problems.append(f"u3_2 context violates large-counts condition: {ctx}")
     return problems
 
 
@@ -845,6 +880,7 @@ if __name__ == "__main__":
             "u1_8_boxplots": len(U1_8_BOXPLOT_CONTEXTS),
             "u1_12_bias": len(U1_12_BIAS_CONTEXTS),
             "u1_13_design": len(U1_13_DESIGN_CONTEXTS),
+            "u3_2_sample_prop": len(U3_2_SAMPLE_PROP_CONTEXTS),
         },
         "framing": {p: {"archetype": f.archetype, "task_verb": f.task_verb,
                         "modality": f.modality} for p, f in FRAMING.items()},
