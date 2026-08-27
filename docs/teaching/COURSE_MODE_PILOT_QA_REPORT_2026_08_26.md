@@ -14,14 +14,22 @@ commissioned tonight's frontend builds; the browser re-run should be a fresh con
 
 ## Headline
 
-**Overall: NOT PASSED — the pilot behavior under test is currently unreachable on
-prod.** Live testing (David, ~22:01 UTC) and root-cause analysis found the session
-runner never serves the pilot MCQs (TASK-0033, fix in flight), and the bundle that was
-live at test time still faked `content_key` (TASK-0032, fixed in the project, awaiting
-republish) — so the confirm-transfer beat cannot trigger at all. No false-mastery
-claim can occur in this state (nothing serves), but nothing under test runs either.
-**Everything provable server-side PASSED.** Re-run scenarios A–D in a browser after
-the TASK-0033 build + republish.
+**UPDATE 2026-08-27 01:04 UTC — PILOT SERVES LIVE ON PROD; full loop proven.** After a
+five-fault chain was cleared (TASK-0029..0035), David confirmed the pilot session serves
+and confirm-transfer fired. Prod edge logs show the complete loop end-to-end at
+01:02–01:04: `session-event` (session_start) → the direct published-MCQ read scoped to
+pilot pack `7c5a2975` with the 3-column embed (`id,choice_key,choice_text` — **200, no
+answer key**) → `attempt-response` ×3 → `evaluate-attempt` **200 (graded)**. This is the
+**first full pilot loop ever on production** (`pilot_sessions_ever` was 0). Scenario D
+(ordinary serve + grade + advance) and Scenario A (confirm-transfer) are **PROVEN LIVE**;
+the fine-grained browser invariants (1,2,5,6) and scenarios B/C still want a formal
+scripted browser pass for the record.
+
+**Original headline (2026-08-26, superseded):** NOT PASSED — the pilot was unreachable on
+prod. Root-caused to a chain of five independent faults, all now fixed: TASK-0029 (routing),
+0032 (content_key + scope), 0033 (serving path + resume guard + scope fallback), 0034
+(active-subject resolver dropping the pilot pack), 0035 (mcq_choices view answer-key
+regression blocking the serving read). Everything provable server-side PASSED throughout.
 
 ## Pass/fail table
 
