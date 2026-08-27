@@ -1,0 +1,177 @@
+{
+  "cells": [
+    {
+      "skill": "3.C",
+      "topic": "2.7"
+    }
+  ],
+  "content_key": "apstat-u2-7-3c-independent_union-027015",
+  "difficulty": "Medium",
+  "exam_pack_ref": {
+    "cycle": "2026-27",
+    "exam_code": "ap_statistics"
+  },
+  "item_type": "mcq",
+  "mcq_form": {
+    "options": [
+      {
+        "correct": true,
+        "misconception": null,
+        "text": "0.592"
+      },
+      {
+        "correct": false,
+        "misconception": "u2_7__added_without_subtracting_overlap",
+        "misconception_source": {
+          "ek_codes": [],
+          "evidence": "ced_structural",
+          "label": "Added probabilities without subtracting the overlap",
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "note": "for unions, P(A or B)=P(A)+P(B)-P(A and B); independent events have overlap P(A)P(B)",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 2 (2.7)"
+            }
+          ],
+          "tag": "u2_7__added_without_subtracting_overlap"
+        },
+        "text": "0.720"
+      },
+      {
+        "correct": false,
+        "misconception": "u2_7__reported_not_both_instead_of_at_least_one",
+        "misconception_source": {
+          "ek_codes": [],
+          "evidence": "ced_structural",
+          "label": "Reported the probability that both events do not jointly occur",
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "note": "the complement of at least one event is neither event, not the event that A and B do not both occur",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 2 (2.7)"
+            }
+          ],
+          "tag": "u2_7__reported_not_both_instead_of_at_least_one"
+        },
+        "text": "0.872"
+      },
+      {
+        "correct": false,
+        "misconception": "u2_7__reported_intersection_instead_of_union",
+        "misconception_source": {
+          "ek_codes": [],
+          "evidence": "ced_structural",
+          "label": "Reported the intersection instead of the union",
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "note": "independence supports multiplying for the intersection, while a union also includes outcomes in exactly one event",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 2 (2.7)"
+            }
+          ],
+          "tag": "u2_7__reported_intersection_instead_of_union"
+        },
+        "text": "0.128"
+      }
+    ]
+  },
+  "numeric_form": {
+    "answer_desc": "P = 0.592",
+    "deterministic_checks": [
+      {
+        "kind": "numeric",
+        "tol": 0.005,
+        "value": 0.592
+      }
+    ]
+  },
+  "package_id": "u2_7_independent_union-027015",
+  "parts": [
+    {
+      "criteria": [
+        {
+          "accepted_variants": [],
+          "criterion_key": "part-a-criterion-1",
+          "description": "P = 0.592",
+          "deterministic_checks": [
+            {
+              "kind": "numeric",
+              "tol": 0.005,
+              "value": 0.592
+            }
+          ],
+          "points": 1,
+          "required_evidence": "For independent events, P(A and B)=(0.40)(0.32)=0.128. P(A or B)=P(A)+P(B)-P(A and B)=0.40+0.32-0.128=0.592."
+        }
+      ],
+      "part_key": "part-a",
+      "points": 1,
+      "prompt": "For members of a large group, the event that a member uses the search feature has probability 0.40, and the event that a member turns on notifications has probability 0.32. The two events are independent. What is the probability that a randomly selected member has at least one of these two events occur?",
+      "response_modalities": [
+        "mcq",
+        "numeric"
+      ]
+    }
+  ],
+  "prompt": "For members of a large group, the event that a member uses the search feature has probability 0.40, and the event that a member turns on notifications has probability 0.32. The two events are independent. What is the probability that a randomly selected member has at least one of these two events occur?",
+  "provenance": {
+    "generator": "course_mode_stats_generator/generator.py",
+    "note": "Synthetic; not official CB content. Requires CM-D19 template-release + review.",
+    "params": {
+      "intersection": 0.128,
+      "p_a": 0.4,
+      "p_b": 0.32,
+      "scenario_id": "u2_7__app_features"
+    },
+    "release_status": "unreleased_generated_pending_review",
+    "seed": 27015,
+    "template_id": "u2_7_independent_union"
+  },
+  "scenario_provenance": {
+    "archetype": "Q4",
+    "archetype_label": "Multi-focus on Practices 2, 3 & 4 (spans multiple content areas)",
+    "domain": "technology",
+    "modality": "exam_aligned_digital",
+    "practice": 3,
+    "sources": [
+      {
+        "kind": "fact_pack",
+        "note": "Section II question archetypes Q1-Q4",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S5 (Free-response archetypes)"
+      },
+      {
+        "kind": "fact_pack",
+        "note": "the item stem's verb must match the scored demand",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S6 (Task verbs)"
+      },
+      {
+        "kind": "fact_pack",
+        "note": "digital Bluebook; text/numeric entry -> exam_aligned_digital",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S7 (Response modality)"
+      }
+    ],
+    "task_verb": "Calculate",
+    "validity_rules": [
+      "two independent events with probabilities between 0 and 1",
+      "answer computes P(A or B)=P(A)+P(B)-P(A)P(B)",
+      "the events are not described as mutually exclusive"
+    ]
+  },
+  "schema_version": "course-mode-generated-0.1",
+  "taxonomy_refs": [
+    {
+      "node_key": "unit-2",
+      "scheme_key": "ap-statistics-2026-27"
+    },
+    {
+      "node_key": "topic-2.7",
+      "scheme_key": "ap-statistics-2026-27"
+    },
+    {
+      "node_key": "skill-3.C",
+      "practice": 3,
+      "scheme_key": "ap-statistics-skills"
+    }
+  ],
+  "worked_solution": "For independent events, P(A and B)=(0.40)(0.32)=0.128. P(A or B)=P(A)+P(B)-P(A and B)=0.40+0.32-0.128=0.592."
+}
