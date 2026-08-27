@@ -512,6 +512,29 @@ CATALOG: Dict[str, Misconception] = {m.tag: m for m in [
        [_fp("S10 Unit 1 (1.10-1.13)",
             "stratified sampling takes a random sample within every stratum; sampling all observational units in selected clusters is cluster sampling")]),
 
+
+    # --- slotframe_u2_8_random_variable_distributions (2.8 x 3.A) ---------------
+    _M("u2_8__probabilities_do_not_sum_to_one",
+       "Accepted a probability distribution whose probabilities do not sum to 1",
+       "Treated a table of nonnegative probabilities as valid without checking that the total probability equals 1.",
+       "ced_structural", ["slotframe_u2_8_random_variable_distributions"], ["2.8"], ["3.A"],
+       [_fp("S10 Unit 2 (2.8-2.9)",
+            "a probability distribution lists possible random-variable values with probabilities that sum to 1")]),
+
+    _M("u2_8__negative_probability_allowed",
+       "Allowed a negative probability in a distribution",
+       "Focused on the total or the table format while missing that an individual probability was negative, violating the probability range 0 <= P <= 1.",
+       "ced_structural", ["slotframe_u2_8_random_variable_distributions"], ["2.8"], ["3.A"],
+       [_fp("S10 Unit 2 (2.8-2.9)",
+            "probabilities in a distribution must be between 0 and 1 inclusive")]),
+
+    _M("u2_8__cumulative_probability_confused_with_point_probability",
+       "Confused cumulative probabilities with point probabilities",
+       "Read increasing cumulative values such as P(X <= x) as if they were point probabilities P(X = x), so the listed values no longer form a valid probability distribution.",
+       "ced_structural", ["slotframe_u2_8_random_variable_distributions"], ["2.8"], ["3.A"],
+       [_fp("S10 Unit 2 (2.8-2.9)",
+            "a probability distribution gives each value's probability; cumulative probabilities answer a different representation question")]),
+
     # --- t procedures (means): 4.2 x 3.E interval, 4.5 x 3.E test statistic ----
     _M("se_divided_by_n_not_sqrt_n",
        "Used SE = s/n instead of s/sqrt(n)",
