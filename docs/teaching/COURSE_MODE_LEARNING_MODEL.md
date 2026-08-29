@@ -124,7 +124,7 @@ A template/frame is trusted via: human review of the template + a sample of inst
 CM-D19 — Template-level release mechanism. STATUS: APPROVED 2026-08-23 (David); the sampled spot-audit mitigation is adopted.
 For generated content to be servable at all, an approved *template* must be able to machine-stamp its *instances'* review status and serving/cell labels, rather than requiring a human on every instance. Proposed: human approves the template + a validation sample (CM-D17); the pipeline then machine-stamps each conforming instance as review-approved and serving-labeled, recording the template id + params as provenance. This CHANGES the current review invariant (per-instance human approval; today no MCQ can even reach approved status via code — CM-FACT-20). Final approval is David's; recorded here so it can be reviewed, not to pre-empt it.
 
-## 7. Homework Mode (cross-cutting extension)
+## 7. Grounded dynamic content (cross-cutting)
 
 CM-D20 — Homework Mode inherits INV-3/CM-D14 as a mission law, not a feature
 guardrail. STATUS: DECIDED (David, 2026-08-28).
@@ -144,6 +144,70 @@ unstructured/outside-content. Unlike CM-D01–D19, this decision is NOT scoped t
 the AP Statistics pilot — it applies to Homework Mode across every subject,
 since coverage (not the rule) is what varies by subject. Full design record:
 `docs/teaching/HOMEWORK_MODE_DESIGN_2026_08_28.md`.
+
+CM-D21 — Grounded dynamic content is the general form of CM-D20; FRQ grading
+already implements it. STATUS: DECIDED (recognized, not newly invented —
+2026-08-28).
+CM-D20's rule is not Homework-Mode-specific — it is the general shape every
+AI-generated response must take, anywhere in the product. Two kinds of content,
+held to different standards:
+- STRUCTURAL/GRADED content (an item, an answer key, a rubric, a criterion set,
+  a correctness verdict) stays fully scripted — sourced from an already-vetted
+  template, rubric, or check (CM-D14/INV-3). Never generated live.
+- DYNAMIC content (elaboration, evidence citation, a synthesized summary, a
+  targeted correction) MAY be generated live, but only when every substantive
+  claim is GROUNDED: traceable to real, cited evidence, never asserting a new
+  fact, a new criterion, or a verdict the evidence doesn't support.
+
+FRQ grading already implements exactly this, and is the reference pattern —
+not to be reinvented for Homework Mode or any future surface. In
+`supabase/functions/_shared/grading-feedback.ts` (`sanitizeModelResult`,
+confirmed wired into both grading paths in
+`supabase/functions/evaluate-attempt/index.ts` with a real
+`{responseText, responseParts}` context, not a flag left disabled), three
+server-side checks run on every model output, independent of what the model
+claims about itself:
+1. `earned_without_evidence` — a criterion claiming credit with no cited
+   evidence is forced to `unable_to_determine`, 0 points.
+2. `evidence_not_found` — a cited quote is checked against the actual response
+   text via `evidenceIsGrounded` (unicode/whitespace-normalized, elision-aware
+   fuzzy match, tuned against a 2,973-output corpus to cut false-positive
+   rejections from ~10% to ~3.7% while still catching fabricated quotes); an
+   ungrounded quote gets the same forced downgrade.
+3. `earned_points_mismatch` — credit claimed with real evidence still fails if
+   points and status are internally inconsistent.
+"Do not invent evidence" also appears in the prompt (`buildCriterionSystemPrompt`
+/ `buildSystemPrompt`) — but the prompt is a courtesy, not the enforcement; the
+post-hoc deterministic sanitizer is. This is INV-4 (determinism over judgment)
+applied to a grounding decision, not just a tier transition.
+Note vs. `docs/product/STUDENT_PRACTICE_AND_GRADING_DESIGN.md` (UX-006) §6.3: the
+spec describes a separate "decision gate" field (`pass`/`fail`/
+`unable_to_determine`); no such field exists in code — it is folded directly
+into the `status` enum. Functionally equivalent; a naming drift, not a gap.
+
+The boundary on WHICH content a dynamic response may touch is
+CONTEXT-DEPENDENT, not universal — this is a stated exception to CM-D20's
+framing, not a contradiction of it:
+- Pre-independent-demonstration (Homework Mode's teaching phase, before the cold
+  prove-it attempt): dynamic content must NEVER engage with the student's own
+  stated problem's specific content — absolute (§5 of
+  `HOMEWORK_MODE_DESIGN_2026_08_28.md`).
+- Post-independent-attempt feedback (FRQ grading now; Check My Work once it is
+  genuinely built): direct engagement with the student's own specific response
+  is not just permitted, it is the job — an FRQ's minimum-fix is supposed to
+  quote and repair the student's own sentence. The rule was never "never touch
+  their own work"; it is "never do their independent thinking for them before
+  they've done it themselves."
+
+Practical consequence — the gap this generalization exposes for MCQ: the Graded
+Feedback design (`GradedFeedback.dc.html` in the Homework Mode canvas) assumes
+the misconception catalog stores authored, per-distractor feedback text (a
+"Missing Concept" explanation, a "Next Fix" rule) that can be looked up, not
+generated. Whether that text exists in the catalog today is UNVERIFIED. The
+FRQ pattern argues for building this as a grounded lookup keyed to the picked
+distractor's tagged misconception, not a fresh composition per attempt —
+matching how the "why" line is already specified to source from the topic's
+stored "common point loss" field rather than being invented.
 
 ## 8. Pilot scope and the Stats reality check
 
