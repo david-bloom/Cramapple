@@ -3,14 +3,17 @@
 STATUS: draft for Product Owner review | DATE: 2026-09-17 | AUDIENCE: David, LLM-first
 entry point for any session working across modes.
 
-**UPDATE 2026-09-17:** §3.3's sequencing question and §4 items 1-2 are answered
-by direct student feedback, not further analysis — see
-`docs/product/COURSE_HOMEWORK_CONSOLIDATION_PLAN.md`. Course Mode and Homework
-Mode consolidate into one mode with bring-your-own-question as the primary
-entry point; Cram Mode becomes an exam-proximate pacing behavior of that same
-engine rather than a peer mode. The rest of this document's maturity/gap
-analysis (§1-§3.2, §3.4) still stands as background; treat the consolidation
-plan as superseding the "which mode ships first" framing specifically.
+**UPDATE 2026-09-17 (rev. after external review):** §3.3's engineering-
+sequencing question is answered directly by student feedback — see
+`docs/product/COURSE_HOMEWORK_CONSOLIDATION_PLAN.md`. Course Mode and
+Homework Mode consolidate into one engine with bring-your-own-question as the
+primary entry point; Cram Mode needs no separate backend. That plan's §7
+narrows what's still genuinely open: not "which mode ships first," but
+Cram/Points' *commercial* fate (positioning, pricing, whether a named
+cram-proximate offer survives) — §4 items 1-2 below are superseded by that
+plan's §7 and §10 specifically, not by this update's earlier, looser
+framing. The rest of this document's maturity/gap analysis (§1-§3.2, §3.4)
+still stands as background.
 
 ## 0. Why this document exists
 

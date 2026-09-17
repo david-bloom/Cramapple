@@ -65,7 +65,7 @@ records.
 | NOW-012 | P1 | Reconcile conceptual schemas with governance | Technical Owner / Main Conductor | Proposed | Complete `TASK-0009` before any physical database design |
 | NOW-013 | P0 | Establish grader confidence and calibration | Learning Quality Owner / Grading Lead | Proposed | Complete `TASK-0010` before learner-facing automated FRQ scores |
 | NOW-014 | P2 | Prototype handwritten graph camera capture | Product / Technical Owner | Research | Test the QR-linked paper-first flow in `TASK-0011` |
-| NOW-015 | P1 | Decide use-mode positioning and launch sequencing | David Bloom | Ready for Owner Review | Resolve `docs/product/USE_MODES_STRATEGIC_RECONCILIATION.md` §4 items 1-2 (Cram Mode vs. Course Mode positioning; which mode/subject ships first) |
+| NOW-015 | P1 | Decide Cram/Points commercial positioning, pricing, and launch subject | David Bloom (with Micah on positioning/pricing) | Ready for Owner Review | Engineering sequencing (which mode ships first) is answered by `docs/product/COURSE_HOMEWORK_CONSOLIDATION_PLAN.md` §1; the commercial questions in its §7 and §10 items 1-4 (category/promise, whether Points/Cram survives as a named offer, pricing/access model for year-round use, launch subject) remain open |
 
 ## 4. Active Task Register
 
