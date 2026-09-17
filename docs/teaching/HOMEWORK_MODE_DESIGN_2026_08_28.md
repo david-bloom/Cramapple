@@ -39,8 +39,17 @@ a separate one.
 ## 1. The governing principle (CM-D20)
 
 **STATUS: DECIDED (David, 2026-08-28).** Recorded formally as CM-D20 in
-`COURSE_MODE_LEARNING_MODEL.md` §12; restated here in full because it is the
-load-bearing rule for every other decision in this document:
+`COURSE_MODE_LEARNING_MODEL.md` §7; restated here in full because it is the
+load-bearing rule for every other decision in this document. **Update
+(2026-08-28, same day):** CM-D20 is generalized to a cross-cutting principle in
+the same section as **CM-D21** — the "structural stays scripted, dynamic stays
+grounded" rule applies everywhere, not just Homework Mode, and FRQ grading
+already implements it in production
+(`supabase/functions/_shared/grading-feedback.ts`'s `sanitizeModelResult`).
+That real implementation is the reference pattern for how Homework Mode's own
+dynamic surfaces (interview confirmation, the "Ask a follow-up" capability, and
+the still-open Graded Feedback lookup — see §5 and §8) should be built, not a
+parallel invention.
 
 > Homework Mode must remain true to Cramapple's mission — helping students earn
 > the most points from the time they have. What Cramapple teaches, and how it
@@ -285,6 +294,13 @@ references section here.
 - Exact Check My Work unlock thresholds (§5) — OPEN.
 - Two-tier coverage degrade using existing topic explainers (§3) — OPEN.
 - Conversational academic-integrity handling (§4) — OPEN.
+- Whether the misconception catalog stores authored, per-distractor feedback
+  text (a "Missing Concept" explanation, a "Next Fix" rule) that a graded-MCQ
+  feedback screen could look up — UNVERIFIED (see CM-D21 in
+  `COURSE_MODE_LEARNING_MODEL.md` §7). If it doesn't yet, this is real content
+  work, not a design question — the same discipline FRQ grading already
+  enforces (grounded lookup, not fresh composition) argues for enriching the
+  catalog rather than letting a model improvise this text per attempt.
 - The adversarial red-team guardrail pass (§6) — PROPOSED, not scheduled.
 - Backend contract (new edge function(s) for interview turns + classification +
   coverage lookup + a new `entry_path` value) and the front-end conversation UI
