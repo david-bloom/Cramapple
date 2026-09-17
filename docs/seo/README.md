@@ -13,3 +13,6 @@ growth.
 - [AP Biology Unit 6](ap-biology/unit-6-gene-expression-and-regulation.md)
 - [AP Biology Unit 7](ap-biology/unit-7-natural-selection.md)
 
+## Research
+
+- [Inside 12 Months of AI Search Experiments — Frost / HubSpot (2026-09-17)](research/2026-09-17-ai-search-experiments-poyar.md)
