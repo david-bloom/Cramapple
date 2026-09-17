@@ -3,6 +3,15 @@
 STATUS: draft for Product Owner review | DATE: 2026-09-17 | AUDIENCE: David, LLM-first
 entry point for any session working across modes.
 
+**UPDATE 2026-09-17:** §3.3's sequencing question and §4 items 1-2 are answered
+by direct student feedback, not further analysis — see
+`docs/product/COURSE_HOMEWORK_CONSOLIDATION_PLAN.md`. Course Mode and Homework
+Mode consolidate into one mode with bring-your-own-question as the primary
+entry point; Cram Mode becomes an exam-proximate pacing behavior of that same
+engine rather than a peer mode. The rest of this document's maturity/gap
+analysis (§1-§3.2, §3.4) still stands as background; treat the consolidation
+plan as superseding the "which mode ships first" framing specifically.
+
 ## 0. Why this document exists
 
 Cramapple now has three distinct use modes in the record, built at three different

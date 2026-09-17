@@ -17,6 +17,7 @@ Start with:
 
 - [Cramapple Vision and Problem Statement](docs/product/CRAMAPPLE_VISION.md)
 - [Use Modes Strategic Reconciliation](docs/product/USE_MODES_STRATEGIC_RECONCILIATION.md)
+- [Course + Homework Mode Consolidation Plan](docs/product/COURSE_HOMEWORK_CONSOLIDATION_PLAN.md)
 - [Master To-Do Backlog](docs/MASTER_TODO.md)
 - [Content Authoring and Prompt Architecture](docs/architecture/CONTENT_AUTHORING_AND_PROMPT_ARCHITECTURE.md)
 - [Content Authoring Model Experiment](docs/product/CONTENT_AUTHORING_MODEL_EXPERIMENT.md)

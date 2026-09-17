@@ -653,6 +653,20 @@ policy is decided.
 - [ ] Define deferred-skill and effort rollups.
 - [ ] Complete separate legal, privacy, security, and product approval.
 
+### SOCIAL-001 - Study Buddy Linked Accounts / Groups
+
+**Status:** Deferred
+**Owner:** Product Owner
+**Source:** Student feedback surfaced in
+`docs/product/COURSE_HOMEWORK_CONSOLIDATION_PLAN.md` §7 (2026-09-17)
+
+- [ ] Decide whether group formation is student-opt-in, parent-mediated, or
+  both, and how that interacts with minor-consent policy (GOV-002).
+- [ ] Define what is visible across linked accounts and what stays private.
+- [ ] Define abuse, moderation, and unlinking behavior.
+- [ ] Complete separate legal, privacy, security, and product approval before
+  any build.
+
 ### EXPAND-001 - Second Exam Pack
 
 **Status:** Deferred
