@@ -15,4 +15,4 @@ growth.
 
 ## Research
 
-- [AI Search Experiments — Poyar / HubSpot (2026-09-17)](research/2026-09-17-ai-search-experiments-poyar.md)
+- [Inside 12 Months of AI Search Experiments — Frost / HubSpot (2026-09-17)](research/2026-09-17-ai-search-experiments-poyar.md)

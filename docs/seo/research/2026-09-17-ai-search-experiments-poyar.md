@@ -1,95 +1,102 @@
-# Research Note — AI Search Experiments (Poyar / HubSpot)
+# Research Note — Inside 12 Months of AI Search Experiments (HubSpot)
 
 **Date:** 2026-09-17
 **Prepared by:** Bloom Insights
-**Source article:** Kyle Poyar, *"What HubSpot learned from running AI search experiments,"* Growth Unhinged
+**Source article:** Aja Frost, *"Inside 12 months of AI search experiments"* — guest post on
+Kyle Poyar's *Growth Unhinged*, published 2026-09-16.
 (https://www.growthunhinged.com/p/hubspot-ai-search-experiments)
-**Status:** Research input to the Cramapple SEO/AEO plan. Not a strategy change on its own —
-see "Plan changes adopted" below for what actually moves.
-
-> Sourcing note: the Growth Unhinged and HubSpot blog domains are blocked by our egress proxy,
-> so the specifics below were reconstructed from search-indexed excerpts and secondary coverage,
-> not a full read of the primary article. Figures are quoted as reported; re-verify against the
-> primary sources before citing externally.
+**Read from:** primary source (owner-supplied PDF of the article). Supersedes the first draft of
+this note, which was reconstructed from search excerpts and mis-attributed a "semantic triples /
++642%" finding that belongs to a *different* HubSpot article, not this one.
 
 ---
 
-## 1. The author and who he cites
+## 1. Author and who is cited
 
-- **Kyle Poyar** — founder of Growth Unhinged (ex-OpenView Partners); B2B GTM, PLG, and pricing;
-  ~85k+ readers. His recent through-line: **traffic is no longer a reliable growth metric; AI
-  discovery is a real acquisition channel now.**
-- **Amanda Sellers** — HubSpot, head of EN blog strategy. Ran the semantic-triples experiment.
-- **Elena Verna** — growth advisor (ex-HubSpot/Amplitude/Miro). Wrote "Company blogs are no longer
-  worth the investment"; the piece Poyar is partly reacting to.
-- **Valeriia Frolova** — Docebo. Runs both SEO and AEO as a team of one.
-- **Companies cited:** HubSpot, Docebo, Webflow, ChatGPT/OpenAI.
+- **Author: Aja Frost** — former marketing/SEO leader at HubSpot; now Director of Growth Marketing
+  at **Mercury**. She ran the program described here.
+- **Host: Kyle Poyar** — publishes *Growth Unhinged*; wrote the intro, did not write the piece.
+- **Project Lighthouse pod:** Victor Pan, Bradley Sanders, Amanda Kopen.
+- **Also thanked (Global Growth & Paid):** Rory Hope, Karolina Bujalska-Exner, Christina Clark,
+  Justine Gavriloff, Nancy Harnett, Justin Champion.
+- **Companies / tools named:** HubSpot, Mercury, **Ahrefs** (llms.txt stat), **Botify** (SpeedWorkers
+  pre-rendering), **Xfunnel** (AEO measurement tool HubSpot used, then acquired), Reddit, OpenAI,
+  Google, ChatGPT, Bing. Sponsor: Metronome (a Stripe product). Related Poyar pieces reference
+  **Clay, Glean, Rippling, Lovable** and co-author **Casey Hill**.
 
-**Related Poyar articles worth reading next:** "Traffic is no longer a reliable growth metric";
-"How to turn ChatGPT into your best pipeline source" (AI discovery playbook); "The best growth
-tactics of 2025"; "The GTM channels I'm betting on in 2026."
+**Related articles worth reading next:** "Is AI talking about your product in the right way?" (Clay/
+Glean/Rippling/Lovable; Poyar + Casey Hill); "How to use AI agents for marketing"; "40 ICP marketing
+plays." Separately, a distinct HubSpot post ("How simple semantics increased our AI citations by
+642%," attributed to Amanda Sellers) covers semantic triples — a *different* source we have not yet
+read directly (domain blocked); treat that figure as unverified.
 
 ## 2. The provocation
 
-The viral "HubSpot's blog traffic is collapsing" narrative is the wrong frame. It is not decline —
-it is a **platform shift**: buyers increasingly ask AI (ChatGPT) for recommendations instead of
-clicking blue links. Chasing organic sessions optimizes a dying metric. The job is to be the
-**cited, recommended source inside AI answers**.
+HubSpot's blog traffic "fell off a cliff" after Google's late-2024 algorithm change and the decline
+went viral. Frost's counter: part of the drop was *intentional* (they'd stopped chasing
+non-converting terms like "best OOO messages"), and the real move was to rebuild the growth engine
+around **AI search** — a brand-new channel no one had figured out yet. "Every headwind is a tailwind
+if you turn around."
 
-## 3. The experiments and findings
+**Program:** a dedicated experimental pod ("Project Lighthouse") — two AI-curious SEOs pulled off
+normal work, daily standups, weekly shipped experiments.
+**Headline outcome:** HubSpot became the **#1 most-visible CRM in AI search**, and **AI-qualified
+leads rose 1,850%**.
 
-| Source | What they did | Result (as reported) |
-|---|---|---|
-| HubSpot (Sellers) | Rewrote key facts on target pages from prose into **bulleted lists of semantic triples** (subject–predicate–object), on top of an "everything bagel" of schema, backlinks, and structure | **+58%** mentions of HubSpot in AI answers; **+642%** times HubSpot pages were cited by AI |
-| Docebo (Frolova) | One person owning SEO **and** AEO together | AI discovery = **12.7% of high-intent leads, up 429% YoY** |
-| Webflow | Treated AI discovery as a tracked channel | **10% of signups** from AI discovery, **4x YoY**; **ChatGPT traffic converts ~24%, ~6x** Google |
+## 3. The experiments and findings (as reported)
 
-**The tactics that generalize:**
-1. **Semantic triples** — express the facts you want AI to repeat as terse, atomic
-   subject–predicate–object bullets, not paragraphs. This is the single most concrete, highest-lift
-   tactic in the piece.
-2. **The "everything bagel"** — triples alone don't do it; pair with schema, structure, and
-   third-party mentions/backlinks.
-3. **Own-site source of truth** — put every fact you want engines to know on your own pages.
-4. **Measure discovery, not traffic** — attribute conversions/leads to AI referrers; expect a much
-   higher conversion rate than organic.
-5. **Ownership** — a single dedicated owner can move the needle.
+| # | Experiment | What they did | Result |
+|---|---|---|---|
+| 1 | **llms.txt** | Published llms.txt with tracking "easter eggs"; watched logs; submitted to Bing/Google | **Failed** — no crawls, no ingestion. Ahrefs: **97% of llms.txt files get zero requests.** Lesson: validate with your own data before scaling a hyped tactic. |
+| 2 | **Hyper-specific vertical content** | 141 AI-generated pages (industry × use-case, e.g. "CRM for [use case]"), built on case studies, heavy QA for hallucinations | ChatGPT bot alone = 15K crawls in weeks; citations started ~16%, rose to **92% cited, +49% visibility.** Rolled out in DE/ES/FR/JP. Lesson: **crawls → citations → visibility**, in sequence. |
+| 3 | **Teaching bots our pricing** | Pricing page was JS-rendered (AI bots can't execute JS), so LLMs quoted stale third-party prices. Wrote plain, bot-structured HTML blog posts describing each product's pricing | Accuracy improved for **5 of 6 products** in ~2 months; Sales Hub dropped (fixed by correcting third-party sites). |
+| 4 | **Glossary for bots** | 50 SSR, HTML-first glossary pages (term + definition + example + 1–2 sentences tying it to a HubSpot product) | Visibility **+35%** awareness-stage, **+26%** consideration/decision; overall citation share **1.97% → 3.2%.** Expanded to 5 languages. |
+| 5 | **AI share buttons** ("summarize with AI") | Neutral "Summarize the content at URL" button on lead-magnet pages | Citation rate **+29%** (7/8 URLs), but visibility flat → **shelved.** |
+| 6 | **Serving bots fast** | Botify SpeedWorkers pre-rendering; load speed cut 6.4x to ~0.1s | AI-bot crawls **+1,600%**, traditional crawlers **+30%**, citations **+~40%**, AI referral traffic **+6%.** (Citations and traffic don't move proportionately.) |
+| 7 | **Mention-building** (not link-building) | Paid flat fees for brand mentions | Learnings: (a) **fresh posts beat already-winning posts** (LLMs are recency-biased) and are cheaper; (b) **quantity of low/mid-DR mentions beat one high-DR mention**; (c) valued a mention via AI-influenced ARR ÷ mentions. |
+| 8 | **Cracking Reddit** | Co-moderated the existing r/HubSpot: content calendar, AMAs, "HubSpot champions," no spam | Community **+61.7% YoY**, HubSpot mentions across Reddit **7x**, citations **doubled.** Insight: activity spikes in r/HubSpot lifted positive mentions *across* Reddit. |
+
+**Guiding philosophy that emerged:** some content is for humans and bots, some just for humans,
+some just for bots. HubSpot later acquired **Xfunnel** (their measurement tool) and launched a
+HubSpot AEO product in April.
 
 ## 4. How this compares to our current plan
 
-**Already aligned (no change needed):**
-- Answer capsules / answer-first structure, FAQ schema, tables, entity consistency, third-party
-  authority (Reddit/Quora), freshness/year-in-URL, and tracking `chatgpt.com` / `perplexity.ai`
-  referrers are all in the strategy report and the template (`UnitContent` enforces the `lede`
-  answer block and auto-generates FAQ/Article/Breadcrumb JSON-LD).
-- Our "AI visitors convert ~4.4x" claim is directionally confirmed and arguably conservative next
-  to Webflow's ~6x.
+**Already aligned:** answer-first structure, FAQ schema, tables, entity consistency, and — crucially
+— the **Reddit / r/APStudents** bet. Frost's Reddit result is strong external validation, and it
+*sharpens* our play: the win came from **co-moderating and programming the community**, not from
+posting answers. Upgrade our Reddit line from "be a good contributor" to "own/co-run the community."
 
-**New / underweighted in our plan — worth adopting:**
-- **Semantic triples as a required content primitive.** We have answer capsules and bullet lists
-  but do not yet mandate atomic triple-formatted facts for the specific claims we want cited
-  (score data, exam format, unit weights, FRQ rubric points). This is the biggest concrete gap.
-- **Metric reframing.** Our 90-day scorecard still leads with "500+ organic sessions/month."
-  The article argues that is the wrong headline metric. AI-discovery-attributed sign-ups and
-  citation share should be co-equal primary metrics, not a side check.
-- **Named AEO ownership.** Our plan describes the work but assigns no owner. Docebo shows one
-  person is enough; name one.
+**New / underweighted — worth adopting (highest value first):**
+1. **SSR / HTML-first is a hard requirement, not a nice-to-have.** AI bots don't execute JavaScript.
+   If Cramapple's unit/FRQ/score pages render client-side (Lovable/React SPA), **AI engines may not
+   see the content at all.** This is the single most important technical finding for us — verify
+   our marketing pages are server-side rendered or pre-rendered, and that canonical facts (score
+   data, exam format, unit weights) are in the raw HTML.
+2. **Build a "glossary for bots."** An AP glossary (key terms + FRQ task words like *justify,
+   analyze, evaluate*), each with a definition, an example, and a sentence tying it to how Cramapple
+   teaches/grades it. Cheap, TOFU, and it nearly doubled HubSpot's citation share.
+3. **Page speed / pre-rendering** materially increases AI crawls and citations. Make marketing pages
+   fast and crawlable.
+4. **Mention-building mechanics:** favor **fresh** placements and **volume of mid-DR** mentions over
+   one prestige link — LLMs are recency-biased. Reframe our "best AP prep resources" outreach this way.
+5. **Measurement:** adopt an AEO measurement tool and track **citation share** and **AI-qualified
+   sign-ups** as first-class metrics (HubSpot: AI-qualified leads +1,850%).
+6. **Test discipline:** validate any hyped tactic (e.g. llms.txt) against our own logs before
+   investing. Don't build llms.txt on faith.
 
-**Where we should NOT over-rotate (divergence):**
-- The article is **B2B**. Cramapple is **B2C/student**, where the most-cited third party is
-  **r/APStudents**, not vendor-comparison behavior. Our existing Reddit/community bet stays central;
-  the article underweights it because its audience buys differently. Keep it.
-- "Blogs are dead" does not translate to "unit/FRQ pages are dead." Our long-tail student pages ARE
-  the AEO surface; they are not the traffic-chasing corporate blog Verna is describing.
+**Don't bother (yet):** AI "summarize" share buttons — HubSpot shelved them (citations up, visibility
+flat).
 
 ## 5. Plan changes adopted (this session)
 
-1. Added **semantic triples** to the AEO rules and the new-page launch checklist as a required
-   primitive for citable facts, and flagged a template follow-up: add a `triples` block type to
-   `UnitContent` so score/format/rubric facts render as machine-liftable bullets with schema.
-2. Reframed success metrics: **AI-discovery-attributed sign-ups** and **AI citation share** promoted
-   to primary; raw organic sessions demoted to a supporting indicator.
-3. Assigned a **single AEO owner** (to be named) accountable for both SEO and AEO, per the
-   Docebo one-person model.
+1. Elevated **SSR / HTML-first + crawlable canonical facts** to a required AEO rule, with a technical
+   verification action against our Lovable/React marketing pages.
+2. Added a **glossary-for-bots** page to the priority build list.
+3. Rewrote the **mention-building** guidance (fresh + volume of mid-DR) and **deepened the Reddit
+   play** to community co-ownership.
+4. Reframed success metrics to **AI citation share** and **AI-qualified sign-ups**; added a note to
+   evaluate an AEO measurement tool.
+5. Added a **test-with-own-data** rule (the llms.txt lesson).
 
-See `docs/proposals/2026-06-23-seo-aeo-strategy.md` for the applied plan edits.
+See `docs/proposals/2026-06-23-seo-aeo-strategy.md` for the applied edits.
