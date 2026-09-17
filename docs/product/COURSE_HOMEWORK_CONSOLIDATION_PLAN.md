@@ -1,8 +1,8 @@
 # Course + Homework Mode Consolidation Plan
 
-STATUS: plan, nothing built | DATE: 2026-09-17 (rev. 2026-09-17 after external
-review) | AUDIENCE: David, LLM-first entry point for any session picking this
-up.
+STATUS: plan, nothing built | DATE: 2026-09-17 (rev. 2 of 2026-09-17, after a
+second round of external review) | AUDIENCE: David, LLM-first entry point for
+any session picking this up.
 
 This is a **plan**, not an implementation. Nothing described here is built. It
 supersedes the "which mode ships first" framing in
@@ -13,16 +13,31 @@ Where a point is a firm product direction from this session it's tagged
 **DECIDED**; where it's this session's recommendation awaiting sign-off it's
 **PROPOSED**; unresolved calls are **OPEN**.
 
-**Revision note (rev. 2026-09-17):** this draft went to an independent second
-reviewer (Codex) before David sign-off. The review confirmed the core
+**Revision note (rev. 1, 2026-09-17):** this draft went to an independent
+second reviewer (Codex) before David sign-off. The review confirmed the core
 direction — one engine, BYOQ as the entry wedge, open-hand teaching as the
 shared mechanism, no separate cram backend — but found the first draft had
 promoted several open questions into settled conclusions without resolving
 the commercial, governance, and content-operations dependencies those
-conclusions create. This revision downgrades those points from DECIDED/
-PROPOSED-as-if-settled back to explicitly OPEN, names the specific documents
-and decisions each one needs to clear, and adds what the first draft
-understated or missed. Section-by-section changes are noted inline.
+conclusions create. That revision downgraded those points from DECIDED/
+PROPOSED-as-if-settled back to explicitly OPEN, named the specific documents
+and decisions each one needs to clear, and added what the first draft
+understated or missed.
+
+**Revision note (rev. 2, 2026-09-17):** the same reviewer verified rev. 1 and
+confirmed the substantive gaps closed, with five remaining issues: BYOQ-
+primary needed to be scoped to the year-round path rather than asserted
+universal (§1); the quarantine-pool mechanism needed explicit private/
+opted-in/canonical data states rather than one undifferentiated pool, plus
+source-attestation and lifecycle requirements (§4); the throughput
+experiment needed a two-stage design because synthetic/owned material can't
+measure real-world rights-rejection cost (§4); §10's open-decisions list
+needed evidence-basis moved to the top, an academic-integrity decision
+added, and its GOV/build-sequencing items sharpened; and the gating list
+needed `DESIGN-002`/`DESIGN-004`/`DESIGN-005`/`CONTENT-001` added with a
+staged (not uniform) gate table, plus a handful of stale cross-references
+fixed. This revision makes all five changes. Section-by-section changes are
+noted inline.
 
 ## 0. The signal driving this
 
@@ -63,9 +78,18 @@ becomes is addressed separately in §7, not assumed here.
 the Course Mode / Homework Mode split entirely; there is no longer a reason
 to build or document them as separate surfaces.
 
-- **Primary entry: bring-your-own-question (BYOQ).** A student's actual
-  homework, worksheet, or class question is the default way into a session,
-  not an alternate path bolted onto guided roaming.
+- **Default entry for the consolidated year-round experience:
+  bring-your-own-question (BYOQ).** A student's actual homework, worksheet,
+  or class question is the default way into a session, not an alternate path
+  bolted onto guided roaming. **Revised per second review:** this is decided
+  for the year-round experience specifically, not asserted as universal.
+  Entry priority for any retained cram/exam-season offer is explicitly part
+  of §7 — if David keeps a distinct Cram/Points offer, BYOQ may not be the
+  right primary entry for that segment's customer (someone arriving days
+  before an exam is looking for guided, prioritized practice, not
+  necessarily "bring your homework"). Treat "BYOQ is primary" as decided for
+  the default/year-round path and open pending §10 items 1, 2, 4, and 9 for
+  any cram-specific path.
 - **Secondary entry: Cramapple-directed practice.** The existing cell-based
   mastery queue (Course Mode's `student_cell_state` engine, due-review
   surfacing, the `/home` skills rail) doesn't go away — it becomes what fills
@@ -157,11 +181,16 @@ pre-existing public phrases — a narrower version of the sourcing question in
 
 ## 4. PROPOSED — intake and the library-growth path
 
-**DECIDED (per direction):** both camera-photo capture and worksheet upload
-ship, not one gating the other.
+**DECIDED (per direction), clarified per second review:** both camera-photo
+capture and worksheet upload are **target scope** — worksheet upload is not
+cut from the plan in favor of photo-only. Whether they **launch
+simultaneously** is a separate, open build-sequencing question (§10 item
+12), not part of this decision — the former is defensible as stated; the
+latter isn't yet supported by evidence (next paragraph).
 
-**OPEN, flagged by review — this reverses a deliberate prior sequencing
-decision without addressing why it existed.** `HOMEWORK_MODE_DESIGN_2026_08_28.md`
+**OPEN, flagged by review — the "both, simultaneously" reading would
+reverse a deliberate prior sequencing decision without addressing why it
+existed.** `HOMEWORK_MODE_DESIGN_2026_08_28.md`
 sequenced text-interview first, then photo, then worksheet upload, so the
 teach-not-solve guardrail loop could be proven before the harder inputs were
 added. Worksheet support specifically adds segmentation (multiple questions
@@ -172,32 +201,60 @@ analyzed directly by a model with no intake/persistence/security plumbing
 (`HOMEWORK_IMAGE_CLASSIFICATION_EXPERIMENT_2026_08_25.md`) — supports
 "classification generalizes broadly, worth building toward," not "multi-
 question worksheet parsing is de-risked for simultaneous launch with photo."
-Shipping both together stays the direction, but the build plan (§10 item 2)
+Shipping both together stays the direction, but the build plan (§10 item 12)
 should treat worksheet multi-question parsing as the harder of the two and
 scope its own validation pass rather than assume photo's feasibility result
 covers it.
 
-**Library growth — revised significantly from the first draft.** The first
-draft proposed every parsed question auto-staging as a draft candidate. That
-crosses a line the existing design deliberately drew and didn't say so:
-`STUDENT_PROVIDED_QUESTION_INTAKE_DESIGN.md` §6.5 keeps BYOQ material out of
-the canonical improvement pipeline **unless the Product Owner or Learning
-Quality Owner decides to promote a specific item.** Blanket auto-staging
-replaces "promote a specific item on a human decision" with "stage
-everything by default," which is a real policy change, not an implementation
-detail — so this plan now proposes it explicitly rather than assuming it:
+**Library growth — revised twice now, most recently to fix a governance gap
+the first revision still had.** The first draft proposed every parsed
+question auto-staging as a draft candidate; the first revision replaced that
+with a "quarantine pool" but treated entry into quarantine as itself
+governance-neutral. Second review is right that it isn't: retaining an
+upload-derived question anywhere Cramapple can later use it is already an
+improvement use, whatever the pool is named, and calling it "quarantine"
+doesn't make that retention private-session processing.
 
-- **Proposed policy:** parsed questions land in a **quarantined candidate
-  pool**, distinct from (and upstream of) the existing `draft` /
-  `unreleased_generated_pending_review` state — nothing in the quarantine
-  pool is treated as "pending review" the way generator output is, because
-  generator output already carries provenance, rights clearance, and
-  property-test coverage that a parsed worksheet item does not. Promotion
-  out of quarantine into the real candidate pipeline is a deliberate,
-  reviewable action per item, not automatic — this *replaces* §6.5's
-  "specific item" language with a named pool-and-promotion mechanism rather
-  than silently routing around it, and needs Product Owner + Learning
-  Quality sign-off as that explicit supersession.
+This plan now defines **three explicit data states**, not one pool:
+
+1. **Private session artifact** — the extracted question as used to serve
+   *that* student in *that* session. Short, approved retention window; not
+   visible to content reviewers; this is the state the existing photo-
+   discard promise (§11.3) actually governs, and stays consistent with it
+   once "discard" is understood to mean this artifact, not necessarily every
+   derived byte (see the retention-promise note below).
+2. **Opted-in improvement candidate** — copied into the quarantine pool
+   **only** under an approved consent/data-use basis (a student — or
+   parent-purchaser, per whatever GOV-002 settles — opts in to Cramapple
+   using their submission to improve the product), and only after an
+   initial PII/source screening. This is new retention beyond serving the
+   session, so it needs its own disclosure, not a re-use of the private-
+   session promise.
+3. **Canonical candidate** — promoted out of the quarantine pool per item,
+   after rights/provenance and Learning Quality review, into the same
+   pipeline every other authored item goes through.
+
+A student consenting to state 2 does not by itself establish Cramapple's
+right to retain or reuse a textbook's or teacher's copyrighted material that
+happens to appear in their upload — consent covers the student's own
+submission, not necessarily its source content. So entry into state 2 needs,
+at minimum: an approved retention/consent basis, and source attestation or
+source-type capture sufficient to decide whether retaining the full
+extracted text is even permitted for that item. The quarantine lifecycle
+(state 2 onward) also needs deletion, consent-withdrawal, takedown,
+access-control, retention-limit, and contamination-handling procedures —
+this plan names them as required properties rather than designing them here;
+they belong to the governing designs (`DESIGN-002`/`DESIGN-003`, below).
+
+- **Framing, corrected from the first revision:** this is best described as
+  an **operationalization of `STUDENT_PROVIDED_QUESTION_INTAKE_DESIGN.md`
+  §6.5's isolation principle, plus a proposed new opt-in retention path**
+  (state 2) — not a wholesale supersession of §6.5. The per-item,
+  human-decided promotion rule §6.5 establishes actually survives intact
+  (it's exactly what governs the state 2 → state 3 transition); what's new
+  is the opt-in mechanism that lets an item reach the quarantine pool at all
+  before a human has looked at it. Needs Product Owner + Learning Quality
+  sign-off as that addition, not as a wholesale rule change.
 - **Every promoted item still needs its own path to release, not a shared
   "CM-D19-equivalent" label.** The first draft's phrase understated this.
   CM-D19 exists for instances generated from an already-approved Cramapple
@@ -212,45 +269,87 @@ detail — so this plan now proposes it explicitly rather than assuming it:
   verbatim, this path has **not** skipped human authoring — it has moved
   where in the pipeline the human effort lands, which is exactly the
   throughput question below.
-- **The "faster" claim is unproven and should be tested, not assumed.**
-  Before committing build time to the quarantine-pool pipeline, run a bounded
-  comparison: roughly 25 parsed candidates (from synthetic or
-  internally-owned worksheets — see the retention point below) against 25
-  conventionally authored candidates, measuring percentage reaching release,
-  expert minutes per released item, elapsed time, rights-rejection rate,
-  duplicate/incomplete rate, remediation rounds, and post-review defect rate.
-  Parsed candidates plausibly *accelerate discovery and classification* and
-  still be *no faster to release* than authored content, because reviewers
-  must first determine whether the source item is even usable — that's a
-  real possible outcome, not a foregone one.
+- **The "faster" claim is unproven and needs a two-stage test, not a single
+  25-vs-25 pilot.** Second review correctly points out that a single pilot
+  run against synthetic/owned worksheets can't measure the dominant real-
+  world cost (rights rejection), because synthetic/owned material is
+  deliberately rights-clean — its rejection rate would be zero or
+  artificial by construction. Two stages:
+  - **Stage A — pre-policy experiment** (can run now, no GOV gate): ~25
+    parsed candidates from synthetic/owned worksheets against ~25
+    conventionally authored candidates. Measures extraction, completeness,
+    classification accuracy, rubric-construction effort, reviewer minutes,
+    remediation rounds, and quality — everything *except* real-world rights
+    exposure.
+  - **Stage B — post-policy shadow study** (blocked per the staged gating
+    table below): consented real uploads under approved governance,
+    routed only as far as state 2 (the three-state model above) — **nothing released to
+    students during this study.** Measures source eligibility, PII
+    incidence, rights-rejection rate, duplication, missing-context rate,
+    and full state-1-through-3 yield — the numbers Stage A structurally
+    cannot produce.
+  - **Design improvements for both stages:** match or stratify the 25-per-
+    arm groups by subject/cell, MCQ vs. constructed response,
+    diagram/shared-stimulus dependency, conceptual vs. deterministic item,
+    and expected rubric size. Track expert minutes *per ingested candidate*
+    (not only per released item), stage-by-stage survival (extracted →
+    eligible → promoted → validated → released), whether each promoted item
+    fills a prioritized coverage gap, total cost per released item
+    (including processing/ops, not just review time), time-to-first-
+    rejection alongside time-to-release, a blind final-quality pass, and
+    confidence intervals rather than point estimates given n≈25 per arm.
+  - **Predeclare a success threshold before running either stage** — e.g.,
+    "proceed to build the production pipeline only if parsed sourcing
+    reduces median expert time per quality-adjusted released item by ≥25%,
+    without a higher defect rate" — and treat a result whose interval
+    overlaps that threshold as inconclusive, requiring a larger sample,
+    rather than a pass. Parsed candidates plausibly *accelerate discovery
+    and classification* and still be *no faster to release* than authored
+    content, because reviewers must first determine whether the source item
+    is even usable — a real possible outcome, not a foregone one.
 - **The photo-discard promise needs an explicit update, not a silent
   change.** `COURSE_MODE_STUDENT_UX_INTEGRATION_SPEC.md` §11.3 states the
-  photo is read then discarded, no retention. Quarantine-pool staging
-  necessarily retains at least the extracted question text and its
-  provenance — that is a materially different data-use promise than
-  "nothing is kept," and needs its own disclosure and consent language, not
-  an assumption that the old promise still holds because the photo itself is
-  deleted.
+  photo is read then discarded, no retention. That promise still holds for
+  the **private session artifact** (state 1 above) — nothing changes there.
+  What's new is state 2: an opted-in student's extracted text and
+  provenance persisting beyond the session. That is a materially different
+  data-use promise than "nothing is kept," applies only on opt-in, and
+  needs its own disclosure and consent language rather than an assumption
+  that the original promise already covers it.
 - **This does not resolve the rights/privacy question, and can't yet, and
-  the gate is broader than the first draft named.** `MASTER_TODO.md`
+  the gate list is broader than either prior draft named.** `MASTER_TODO.md`
   GOV-001 (official-materials/rights) and GOV-002 (minor privacy/consent/
   upload handling) are both still `Proposed`, Product Owner hard gates, with
   counsel's related action (`NOW-006`) still `P0 / Expert Review Required`.
   **GOV-003** (provider retention/training terms, academic-integrity
   boundaries for teach/hint/check/solve modes) and **DESIGN-003** (upload
   validation, malware controls, retention architecture) are equally
-  load-bearing and were missing from the first draft — a worksheet upload
-  pipeline touches all four, not just two. This plan treats all four as a
-  hard prerequisite to turning on any quarantine-pool flow against **real**
-  student uploads. Policy-neutral work can proceed now: page/question
-  segmentation, extraction confidence and fail-closed behavior, synthetic
-  PII/redaction testing, classification and coverage lookup, ephemeral
-  processing interfaces, and evaluation sets built from owned or synthetic
-  worksheets. Policy-dependent work stays provisional and unbuilt against
-  real data until the gates clear: retention schemas, the quarantine-pool
-  persistence itself, reuse consent, model-provider routing, de-
-  identification standards, and rights metadata. This is the same
-  fail-closed posture the rest of the content system already uses.
+  load-bearing and were named in the first revision but not enough — second
+  review correctly adds that the quarantine-pool design (states 2-3 above)
+  also depends on **`DESIGN-002`** (provenance, retention hooks, deletion,
+  RLS, audit/event contracts — the actual mechanics states 2/3 need),
+  **`DESIGN-004`** (reviewer entitlement, assignment, promotion,
+  adjudication, release workflow — who does the per-item review in §4's
+  promotion path), **`DESIGN-005`** (provider routing, failure behavior,
+  observability, cost controls), and **`TASK-0005`/`CONTENT-001`** (source
+  plans, reviewer qualifications, governed release requirements). The gate
+  differs by stage, not uniformly "everything before anything":
+
+  | Stage | Principal gates |
+  | --- | --- |
+  | Policy-neutral synthetic/owned parsing (Stage A above) | A bounded research protocol; no GOV/DESIGN gate |
+  | Private real-upload intake (state 1) | GOV-001/002/003, DESIGN-003, relevant DESIGN-005 controls |
+  | Opted-in quarantine retention (state 2) | Above, plus DESIGN-002 and an approved consent/retention/source policy |
+  | Human promotion/review (state 2→3) | Above, plus DESIGN-004 and `CONTENT-001`/`TASK-0005` content-governance rules |
+  | Student-facing release (state 3, served) | Full existing content-validation and release gates (`CONTENT-001`, D8/CM-D19-equivalent per-item path above) |
+
+  Policy-neutral work can proceed now: page/question segmentation,
+  extraction confidence and fail-closed behavior, synthetic PII/redaction
+  testing, classification and coverage lookup, ephemeral processing
+  interfaces, and Stage A's evaluation sets. Everything from state 1 onward
+  against real data waits on the table above, staged rather than blocked
+  uniformly. This is the same fail-closed posture the rest of the content
+  system already uses.
 
 ## 5. PROPOSED — Cramapple-directed practice becomes explicitly a recommendation surface
 
@@ -363,49 +462,74 @@ alongside `PARENT-001`/`EXPAND-001`) — not developed further here.
 
 ## 10. Open decisions (David's call)
 
-Reordered and expanded from the first draft per review — the four
-originally listed (naming, build sequencing, GOV urgency, scaffold
-ownership) are still real but not the highest-leverage ones. In priority
-order:
+Reordered twice now per two rounds of review. Evidence basis moves to the
+top this round — second review correctly flagged it as upstream of treating
+BYOQ-primary as decided at all, not merely upstream of a launch commitment.
+An academic-integrity/value-boundary decision is added (previously
+missing), and item 7 (GOV urgency) is replaced with a concrete decision —
+asking whether an already-P0-hard-gated item is "urgent" wasn't actionable.
+In priority order:
 
-1. **Category and promise**: does Cramapple lead with score optimization,
+1. **Evidence basis**: document the student feedback behind §0 (sample
+   size, how students were asked, stated preference vs. observed behavior)
+   before *any* of the decisions below — including BYOQ-primary itself
+   (§1) — are treated as resting on solid ground rather than a working
+   hypothesis.
+2. **Category and promise**: does Cramapple lead with score optimization,
    homework-powered year-round learning, or an explicitly staged
    combination (§7)?
-2. **Points/Cram's fate**: does a named cram-proximate commercial offer and
+3. **Points/Cram's fate**: does a named cram-proximate commercial offer and
    student-selectable state survive consolidation, or does urgency become
    purely an automatic backend behavior with no user-facing equivalent (§7)?
-3. **Pricing and access model**: does year-round BYOQ use require a
+4. **Pricing and access model**: does year-round BYOQ use require a
    different access model than the current one-time-purchase hypothesis
    (§7, `CRAMAPPLE_VISION.md` §12.1)?
-4. **Launch subject**: Cram/vision's canonical launch is AP Biology; Course
+5. **Launch subject**: Cram/vision's canonical launch is AP Biology; Course
    Mode's proven pilot is AP Statistics. Which subject carries the
    consolidated product, and what minimum BYOQ coverage rate is required
    before launch?
-5. **§6.5 supersession**: does Product Owner + Learning Quality approve the
-   quarantine-pool mechanism in §4 as an explicit, documented supersession
-   of `STUDENT_PROVIDED_QUESTION_INTAKE_DESIGN.md` §6.5's specific-promotion
-   rule?
-6. **Reuse boundary**: may a quarantined item ever be used verbatim (once
+6. **§6.5 operationalization approval**: does Product Owner + Learning
+   Quality approve the three-state (private/opted-in/canonical) mechanism
+   in §4 as an operationalization of `STUDENT_PROVIDED_QUESTION_INTAKE_DESIGN.md`
+   §6.5 plus a new opt-in retention path — not a rule change to §6.5's
+   per-item promotion principle itself, which the mechanism keeps intact?
+7. **Reuse boundary**: may a quarantined item ever be used verbatim (once
    rights-cleared), or must promoted content always be independently
    rewritten from the parsed source?
-7. **GOV-001/002/003 urgency**: given §4 makes all three a hard prerequisite
-   for real-upload library growth, should they be escalated ahead of their
-   current `Proposed` status?
-8. **Skill-scaffold authoring ownership and grain**: Orly's
-   Learning-Quality-Owner scope under `CONTENT-001` (recommended, matches
-   every other content type), and resolution of the skill/topic/cell grain
-   question in §3.
-9. **Evidence basis**: document the student feedback behind §0 (sample size,
-   method, verbatim vs. paraphrased) before this plan is treated as a launch
-   commitment rather than a working hypothesis.
-10. **Cold-start / pre-`LEARN-006`-`007` behavior**: what does a student
+8. **Academic-integrity / value boundary** (new): what exactly can a
+   student receive on their own submitted question (teach/hint/check/solve,
+   per the existing UX-004 modes and CM-D20); when does Check My Work
+   unlock relative to the parallel open-hand item; and does the
+   teach-not-solve product still hold up as valuable once BYOQ is the
+   *primary* job rather than an occasional feature — worth testing, not
+   assuming, given how central BYOQ becomes under this plan.
+9. **Data posture for intake/retention/promotion** (replaces "GOV urgency"):
+   GOV-001/002/003 are already P0 hard gates, so the open question isn't
+   whether to escalate them — it's which specific data posture applies at
+   each of the three states in §4 (private session / opted-in quarantine /
+   canonical promotion), and who owns a **dated** counsel deliverable
+   resolving it. Without a named owner and date this stays open
+   indefinitely by default.
+10. **Skill-scaffold authoring ownership and grain**: Orly's
+    Learning-Quality-Owner scope under `CONTENT-001` (recommended, matches
+    every other content type), and resolution of the skill/topic/cell grain
+    question in §3.
+11. **Cold-start / pre-`LEARN-006`-`007` behavior**: what does a student
     arriving days before their exam get, given the recommendation and
     pacing logic this plan leans on isn't built yet (§7)?
-11. **Naming**: does the consolidated mode get a new name ("Learn"), or does
+12. **Naming**: does the consolidated mode get a new name ("Learn"), or does
     an existing name absorb the other's scope?
-12. **Build sequencing**: order across BYOQ-primary reframing, worksheet
-    parsing, skill scaffolds, and `LEARN-006` — none strictly blocks
-    another, but they compete for the same limited build time.
+13. **Build sequencing** (corrected — "none strictly blocks another" was
+    wrong): policy-neutral prototyping (BYOQ-primary UI reframe using
+    what's already built; Stage A of the parsing experiment; skill-scaffold
+    authoring) can proceed independently and in parallel. Production paths
+    cannot: any real-upload persistence is blocked on item 9's data-posture
+    decision clearing (§4's staged gating table), and worksheet
+    multi-question parsing specifically needs its own validation pass
+    (Stage A, then Stage B) before it's treated as launch-ready — it is not
+    de-risked by the photo path's feasibility result. `LEARN-006`'s
+    recommendation logic has no such external gate; it's purely a build-
+    time competition with the rest.
 
 **Backlog follow-through once directions are confirmed:** promote this plan
 into `MASTER_TODO.md` as a real tracked item (working ID `LEARN-008`) with

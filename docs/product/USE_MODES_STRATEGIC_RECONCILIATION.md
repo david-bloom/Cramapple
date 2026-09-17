@@ -144,6 +144,15 @@ the same milestone converging on the same launch.
 
 ## 4. Open decisions (David's call)
 
+**SUPERSEDED (items 1-2 only, 2026-09-17):** item 1 (positioning) and item 2
+(sequencing) as framed below are answered by
+`docs/product/COURSE_HOMEWORK_CONSOLIDATION_PLAN.md` — engineering
+sequencing directly (its §1), positioning narrowed to the specific
+commercial questions in its §7 and §10. **§5's recommendation below ("resolve
+item 2 first") and §6's suggested next step are both stale as a result — do
+not follow them; go to the consolidation plan's §10 instead.** Items 3-5
+below still stand as-is.
+
 1. **Positioning**: is Cramapple, going forward, primarily a year-long
    learning companion that compresses into a cram mode near the exam (Course
    Mode's framing), or primarily a cram tool that happens to support
@@ -167,20 +176,26 @@ the same milestone converging on the same launch.
    the sequencing decision (item 2) is made, so it's written once against a
    settled answer instead of twice?
 
-## 5. Recommendation
+## 5. Recommendation (items 1-2 superseded, see §4 note — kept for history)
 
-Resolve item 2 (sequencing) first — it's the one every other open item depends
-on. Once a first-ship mode/subject is chosen, items 1 and 5 (positioning and
-the vision-doc refresh) become a single writing pass instead of a live debate,
-and item 3 (backlog integration) becomes mechanical: promote the chosen mode's
-work into `MASTER_TODO.md` with real Task IDs, leave the others as tracked but
-lower-priority. Item 4 (Homework Mode's content gate) is a sequencing
-consequence, not an independent decision, once item 2 is settled — it should
-inherit whatever coverage state the chosen first-ship subject reaches.
+~~Resolve item 2 (sequencing) first — it's the one every other open item
+depends on. Once a first-ship mode/subject is chosen, items 1 and 5
+(positioning and the vision-doc refresh) become a single writing pass
+instead of a live debate, and item 3 (backlog integration) becomes
+mechanical: promote the chosen mode's work into `MASTER_TODO.md` with real
+Task IDs, leave the others as tracked but lower-priority. Item 4 (Homework
+Mode's content gate) is a sequencing consequence, not an independent
+decision, once item 2 is settled — it should inherit whatever coverage
+state the chosen first-ship subject reaches.~~ Superseded 2026-09-17: go to
+`COURSE_HOMEWORK_CONSOLIDATION_PLAN.md` §10 instead.
 
-## 6. Suggested next step
+## 6. Suggested next step (superseded, see §4 note — kept for history)
 
-A short decision session with David on §4 items 1–2 only, working from this
-document instead of the underlying `COURSE_MODE_*` and `HOMEWORK_MODE_*`
-corpus. Once those two are settled, the Main Conductor updates
-`MASTER_TODO.md` and opens the vision-doc revision as its own tracked task.
+~~A short decision session with David on §4 items 1–2 only, working from
+this document instead of the underlying `COURSE_MODE_*` and
+`HOMEWORK_MODE_*` corpus. Once those two are settled, the Main Conductor
+updates `MASTER_TODO.md` and opens the vision-doc revision as its own
+tracked task.~~ Superseded 2026-09-17: the actual next step is David's
+sign-off on `COURSE_HOMEWORK_CONSOLIDATION_PLAN.md` §10's decision list.
+Items 3 (backlog integration) and 5 (vision-doc refresh) from §4 above are
+still live once §10's higher-priority items land.

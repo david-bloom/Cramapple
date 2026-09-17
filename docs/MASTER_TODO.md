@@ -3,7 +3,7 @@
 **Status:** Active backlog index
 **Owner:** Main Conductor
 **Product Owner:** David Bloom
-**Last Updated:** 2026-06-15
+**Last Updated:** 2026-09-17
 
 ## 1. Purpose
 
@@ -658,7 +658,7 @@ policy is decided.
 **Status:** Deferred
 **Owner:** Product Owner
 **Source:** Student feedback surfaced in
-`docs/product/COURSE_HOMEWORK_CONSOLIDATION_PLAN.md` §7 (2026-09-17)
+`docs/product/COURSE_HOMEWORK_CONSOLIDATION_PLAN.md` §8 (2026-09-17)
 
 - [ ] Decide whether group formation is student-opt-in, parent-mediated, or
   both, and how that interacts with minor-consent policy (GOV-002).
