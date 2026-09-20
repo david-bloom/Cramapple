@@ -45,7 +45,9 @@ expected. Reuse it rather than duplicating:
 - **CED fact packs — the authoritative source.** `docs/product/AP_*_CED_FACT_PACK.md`
   carry, per topic, the College Board's Learning Objectives (LO) and Essential
   Knowledge (EK) statements. This is where curated vocabulary and formulas already
-  live in authoritative form.
+  live in authoritative form. The packs are verified against the most recent
+  official College Board Course and Exam Description documents (Product Owner,
+  2026-09-20), so the reference layer inherits that currency.
 
 ## The gaps
 
@@ -192,9 +194,11 @@ Two moves, no parallel system:
 1. **Equations coverage.** Some subjects (math, physics) lean heavily on formulas;
    others (biology) barely. Does the reference rack need a distinct equation
    treatment per subject, or does "formula field on a vocab/term row" suffice?
-2. **Fact-pack freshness.** The packs are point-in-time extractions from the CED
-   PDF (e.g., Biology re-extracted 2026-08-04). What re-verification cadence keeps
-   the reference layer aligned when the College Board revises a CED?
+2. **Fact-pack freshness — resolved.** The fact packs are verified against the
+   most recent official College Board CED documents (Product Owner, 2026-09-20),
+   so the reference layer inherits that currency. Residual (operational, not open
+   design): re-verify the reference layer whenever a pack is updated against a
+   newly revised CED — the trigger is a CED revision, not a fixed calendar cadence.
 3. **Cross-topic terms.** Some terms recur across topics (e.g., "residual" in AP
    Stats 5.3/5.4). One canonical definition reused, or per-topic phrasing?
 4. **Visual sourcing.** Vocabulary and equations extract cleanly from text;
