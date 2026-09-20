@@ -6,6 +6,8 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- TASK-0016 Grading Rollout Status Re-Verified (1 Month Stale) + First Real-Student Ungraded-Attempt Incident Root-Caused and Fixed: David's Recollection "We Rolled Out Engine 1, 3, and 4" Checked Against Live Evidence Rather Than Trusted — Found TASK-0016's Own Task File Untouched Since 2026-07-28 (Every Acceptance Criterion Still Unchecked, Phase D Still Literally "Pending" Despite Having Shipped) and Zero DECISIONS_LOG/Engine-Specific ACTIVITY_LOG Entries Since 2026-08-20; Engine 1 Live/Reachable Since 2026-08-14 but Every `grading_results` Row Traces to David or an Internal Test Account; Engine 3 Still Shadow-Only, Zero Published Content Routed to It; Engine 4's Stage D2 QR-Capture Infra Genuinely Shipped 2026-08-20 but the Pilot Item Is Still `ai_provisional_unapproved` and No Reader-Certification Audit Was Ever Scheduled — NET: "Rolled Out" Overstated the Product Outcome; Zero Real Students Had Ever Been Graded by Any Engine. SEPARATELY FOUND a Live Incident: Real Non-Family/Non-Test Student `bkmicahb@gmail.com` (Account Created 2026-08-22, Matching the Parent-Purchase-Funnel Launch) Had 2 Real Submitted FRQ Attempts Sitting Ungraded Since Creation. ROOT-CAUSED via Exact `function_edge_logs` Timestamps (Not Inference): Both Attempts Correctly Triggered `evaluate-attempt`, Which Correctly Returned 403 — the Account Had Zero `app.subject_entitlements` Rows, Because It Signed Up via `/signup` (Paid-Checkout Flow) Rather Than `/trial`, and Never Completed/Had-Attributed a Stripe Payment. ALSO SURFACED a Systemic Gap, Not Unique to This User: Nothing Gates `attempt-response` on Entitlement, So Any Student Can Submit Real Answers Before Having Any Entitlement and Only Discovers the Block at Grading, Where the UI's Generic "Couldn't Score That — Try Again" Retries the Same 403 Forever With No Actionable Message — Flagged for a Separate Fix, Not Addressed This Session. Could Not Check Live Stripe for a Missed/Misattributed Payment (Only Sandbox Stripe MCP Access Available) — Surfaced the Ambiguity to David Explicitly Rather Than Guessing; HE CHOSE "Grant a 7-Day Trial Now." Executed via the Legitimate, Already-Live `app.start_trial` RPC (the Same Path 20+ Other Real Students Went Through via `/trial`, Not a Manual Row Insert) — Verified an Active `trial` Entitlement Now Covers Biology (and All 9 Other Active Subjects) for the Window 2026-09-20→2026-09-27, Which `authorize_grading_access` Checks Against Wall-Clock Time at Grading-Request Time (Not Attempt-Submission Time), So It Correctly Covers the Backdated Attempts. NOT DONE: the Actual Grading Call — No Admin/User Credentials Were Available to Trigger `evaluate-attempt` Directly (Deliberately Did Not Hunt for the Production Service-Role Secret to Mint an Impersonation Token); Resolves Automatically on the Student's (or an Admin's) Next "Retry Grading" Click. — 2026-09-20
+- Reviewer Activity Investigation - Gulgeldi Darrynow in Production: Restarted the investigation against Prod directly by Supabase MCP project id (`pcntajvbdfqhbeewmdry`) while leaving the local CLI linked to Dev (`wmgjsdkphcyhngaffbqf`). Confirmed reviewer `119817d1-96c9-4cbc-8fdc-4962e03b1b12` / Gulgeldi Darrynow has 124 Production review assignments: 123 submitted, 1 skipped (`apchem-mcq-014`), 0 pending, 0 in progress. Submitted decisions total 123: 104 approve, 19 approve_with_edits, 0 disapprove; first submission `2026-07-31 18:15:48 UTC`, last `2026-08-06 14:26:46 UTC`. Timestamp-based work estimate: calendar span 140.18h, 60-minute session clustering 8 sessions / 14.3h, 30-minute clustering 16 sessions / 8.8h, capped-gap estimates 7.08h (5m cap) and 9.68h (10m cap); median inter-submission gap under 60m was 3.26m, so 123 x 3:26 gives ~7.04h. Conclusion: he completed reviews, probably around 7-10 active hours, defensible range ~7-14h. Read-only Prod investigation; no DB writes; no CLI relink. - 2026-08-26
 - Orly Protocol Resume (2026-08-24): Picked Up the Mining Work, David Chose "Fix `mcq_choices` Exposure" — Found It ALREADY FIXED and Verified It Live Rather Than Re-Applying Anything. The Orly Resume Guide (`ORLY_PROTOCOL_NEXT_SESSION_PROMPT_2026_08_24.md`) Still Described the `app.mcq_choices` Answer-Key Exposure as Live/"Held for David's Go," but `docs/security/MCQ_ANSWER_KEY_COORDINATED_FIX.md` Was Marked COMPLETE on Dev+Prod (Session 3) — a Same-Day Contradiction Between Two Docs. VERIFIED AGAINST THE LIVE DBs (Read-Only): on BOTH Prod (`pcntajvbdfqhbeewmdry`) and Dev (`wmgjsdkphcyhngaffbqf`) There Is No Table-Level SELECT for `authenticated`/`anon` on `app.mcq_choices`; `authenticated` Holds Column SELECT on Exactly the 5 Non-Secret Columns (`id, content_item_version_id, choice_key, choice_text, created_at`) and NOT `is_correct`/`rationale`; as the `authenticated` Role `has_column_privilege` Returns false for `is_correct`/`rationale`, true for `choice_key` (Student Serving Path Intact); the Reviewer RPC `public.get_review_mcq_choices(uuid)` Exists (SECURITY DEFINER, `authenticated` EXECUTE / `anon` No) So Reviewers Aren't Blinded. Also CLOSED the Doc's Open "Confirm `content_reviewer`'s Purpose" Note: `content_reviewer` (Which Still Holds a Table-Level SELECT on Prod) Has `rolcanlogin=false` and the PostgREST `authenticator` Login Role Is NOT a Member of It (Only Members Are `postgres`), So No Client JWT Can Assume It — NOT Student-Reachable. NET: Nothing to Apply; the Leak Is Closed. Corrected the Stale Docs Only (Resume Guide §1/§3 Now Say CLOSED+Verified; Security Doc Records the `content_reviewer` Reachability Finding + the Post-Fix Re-Verification). No DB Changes This Session. — 2026-08-24
 - Course Mode — Serving Milestone Independently Re-Verified by a Parallel Agent Session; First-Attempt `content_uncertain` Diagnosed as a One-Time `rubric_type` Backfill-Timing Race (NOT a Persistent Grading Defect): A Second, Concurrent Agent Session (Driven by David) Continued From the Same session-1-End State and Independently Flipped the 3 Dev Serving Switches (epv `4e54bb4f` `draft→published` at ~11:44Z, `home_release_manifest` Row `quick_start_enabled=true`/`minimum_published_items=3`/`allowed_unit_numbers={5}`, David's Dev `profiles.active_exam_pack_version_id=4e54bb4f`) and Confirmed Entitlement (`exam_pack_version_is_selectable` + `home_exam_pack_is_eligible` Both True for David via an Impersonated JWT; Compatible Published-MCQ Count = 3) — Overlapping/Converging With Session 2 (Idempotent). David's FIRST Live Attempt (`51706535`, 12:50:34Z, Answer `"A"`) Graded `content_uncertain` via the `data-driven-deterministic-verifier` (Abstained — "No Single Parseable Number") Because at That Instant the 3 Items Still Had `rubric_type=NULL`, So `evaluator_strategy='data_driven_deterministic'` Won `resolveGradingRoute` (Which Checks `rubric_type` FIRST, Then `evaluator_strategy`, Then `item_type`). Session 2's Fix 1 (`rubric_type='mcq'`) Landed ~6 Min LATER (All 3 Items Updated at the Identical `12:56:13.847Z`); David's Re-Answer (`207ccd4f`, 12:57:38Z) Then Routed to `mcq_rule` and Promoted Cell 5.3×3.B `unseen→independent` (`weighted_evidence` 0→1, `last_event=correct`). CONCLUSION: the `content_uncertain` Was a Backfill-Timing Artifact (Answer Graded in the Window Before Fix 1), Not a Grading Bug — Confirmed From `grading_results` (First Attempt `model_id=data-driven-deterministic-verifier status=uncertain`) + the Deployed `evaluate-attempt` v15 Bundle. This Agent Session Was Egress-Blocked From the Supabase Host (Org Policy 403 CONNECT) and Had No `pg_net`, So the Live Firing Was Driven by David in the Browser; Diagnosis Was SQL-Only + Reading the Deployed Function (Temporarily Set + RESTORED David's Dev Auth Password Attempting a JWT Mint Before Hitting the Egress Wall — No Residual Auth Change). Posted the Analysis to `david-bloom/Cramapple` PR #103 (Comment). NET-NEW RECOMMENDATION (Beyond Session 2's Generator Fix): Make `resolveGradingRoute` FAIL LOUD on a `rubric_type`↔`evaluator_strategy` Conflict Instead of Silently Letting `rubric_type` Win, So a Mis-Tagged Item Surfaces Immediately Rather Than Abstaining Until a Backfill Lands. Prod Untouched. — 2026-08-24
 - Orly Protocol: Taxonomy Labeling + Human Validation Run on the 8 Published Items, `validation_decision` Infrastructure Gap Closed (TASK-0028): Ran `scripts/taxonomy/extend_math_serving_labels.mjs --write-db` Against Prod Once per `content_key` (the Script Only Takes One `--key` Filter) — Required Temporarily Relinking the Supabase CLI Dev→Prod→Dev; the Script Overwrites Its Shared Report Doc `docs/research/MATH_TAXONOMY_SERVING_LABEL_RUN_2026_08_04.md` Rather Than Appending, so 8 Sequential Runs Clobbered It — Restored via `git checkout`, No Data Lost (Only the DB Writes Matter). All 8 Items Got `label_status='provisional_model'` (Two-Model Agreement, `openai/gpt-5.5` + `google/gemini-2.5-flash`), Matching the Originally-Authored `taxonomy_refs` Exactly. Then Found `provisional_model` Is NOT Servable — `public.select_unit_gated_practice_items` Only Reads `label_status='validated'`, and Per `TAXONOMY_LABELING_PLAN_V3_2026_08_04.md` §T6 a Model May NEVER Self-Certify `validated` (Human-Required, No Automated Path). Presented the 8 Primary-Unit/Required-Units Labels to David Directly in Chat; He Confirmed Them Explicitly — Applied via `20260824150000_validate_orly_protocol_taxonomy_labels.sql`, Verified End-to-End Against the Real Selector (Not Just the Label Table). SURFACED a Real Infra Gap: `validation_decision_id` Has Existed Since `20260804170000_taxonomy_label_layer.sql` as a Bare `uuid` With NO Foreign Key and NO Backing Table — the First Validation Write Had to Use a Generated Placeholder. Spawned + Executed `TASK-0028` (`docs/tasks/TASK-0028-CONTENT-TAXONOMY-VALIDATION-DECISION-TABLE.md`): New Table `app.content_taxonomy_validation_decisions` (Who/When/How/`confirmed`|`corrected`|`rejected`/Reviewer's Final Unit Call), Backfilled the 8 Rows Reusing Their Existing Placeholder IDs (No Re-Validation Needed), Real FK Added and Verified to Validate Cleanly (`20260824160000_content_taxonomy_validation_decisions.sql`). Prod Only; Dev Untouched (Has None of These 8 Items). — 2026-08-24
@@ -177,6 +179,90 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 ---
+
+## TASK-0016 Grading Rollout Re-Verified + Real-Student Ungraded-Attempt Incident Fixed - 2026-09-20
+
+**Task:** Opened with David recalling "we rolled out engine 1, 3, and 4." Per standing memory
+(`feedback_verify_before_characterising.md`), checked this against live evidence rather than
+trusting it or the month-old session summary at face value.
+
+**Status re-verification, all engines:**
+
+- **`docs/tasks/TASK-0016-GRADING-ENGINE-ROLLOUT.md` is genuinely stale** — untouched since
+  2026-07-28 per `git log`. Still reads "Approved — Phase A In Progress," every acceptance
+  criterion unchecked, Phase D still literally "Pending (longest pole)" despite Stage D2 having
+  shipped to production on 2026-08-20. `DECISIONS_LOG.md`'s last entry is still 2026-08-19; nothing
+  in `ACTIVITY_LOG.md` after 2026-08-20 mentions any of Engine 1/3/4 or TASK-0016 — the entire
+  month's activity was Course Mode content/serving work, unrelated.
+- **Engine 1:** live/reachable since 2026-08-14 (CORS fix verified end-to-end). But every
+  `app.grading_results` row in Production, checked directly, traces to `dbloom01@gmail.com` or an
+  internal `grading-pilot...@cramapple-internal.test` account. Zero real students graded.
+- **Engine 3:** unchanged, still shadow-only, zero published content routes to it.
+- **Engine 4:** Stage D2's QR-capture infrastructure genuinely shipped 2026-08-20 (real work, 5 QA
+  rounds — see the 2026-08-20 closeout entry below). But the pilot content item is still
+  `label_status='ai_provisional_unapproved'`, nobody has clicked the flow through with a real
+  phone, and the D3 reader-certification audit was never scheduled.
+- **Net verdict:** "rolled out" is fair for the engineering effort, not for the product outcome —
+  as of this check, **zero real students had ever been graded by any engine.**
+
+**Incident found while verifying, and fixed:** a real, non-family, non-test student —
+`bkmicahb@gmail.com`, `user_id 5fc2ebbe-b2c3-4f2a-99a9-d93e3dbb9e34`, account created 2026-08-22
+(matching the parent-purchase-funnel launch) — had submitted 2 real Biology FRQ attempts
+(`fb18a300-00a5-4d62-9cd3-6a8d6dbc6de5`, `8606314c-e838-4ce4-9e33-ac2904dae3c2`) that had sat
+ungraded for nearly a month. (A third attempt, `c8c78380-82a2-409b-8c92-b615a047f5b6`, was a
+never-submitted draft — correctly ungraded, not a bug.)
+
+**Root cause, established from exact `function_edge_logs` timestamps, not inference:** both
+submits correctly triggered `evaluate-attempt` (`18:59:29.702` and `19:02:09.843` on 2026-08-22),
+which correctly returned **403**. `app.subject_entitlements` had zero rows for this user — the
+account signed up via `/signup` (the paid-checkout flow) rather than `/trial`, and either never
+completed Stripe checkout or completed it without the payment getting attributed (the parent-
+purchase-funnel's checkout-attribution bug wasn't fixed until 2026-08-24, two days later — could
+not rule this out; only sandbox Stripe MCP access was available, not the live account).
+
+**Systemic gap surfaced, not fixed this session:** nothing gates `attempt-response` on
+entitlement — a student can submit real answers before having any entitlement and only discovers
+the block at grading, where the UI's generic "Couldn't score that — try again"
+(`use-grade-practice.ts`) retries the same 403 indefinitely with no actionable message. This will
+recur for other students until addressed separately.
+
+**Resolution:** surfaced the payment-vs-never-paid ambiguity to David directly rather than
+guessing (could not check live Stripe); he chose **grant a 7-day trial now**. Executed via the
+legitimate, already-live `app.start_trial` RPC — the identical path 20+ other real students used
+via `/trial`, not a manual row insert — confirmed a new `active` `trial` entitlement covering
+Biology (and all 9 other active subjects), window `2026-09-20T20:18:27Z`→`2026-09-27T20:18:27Z`.
+Verified `app.authorize_grading_access` checks the entitlement window against wall-clock time at
+the moment grading is *requested*, not attempt-submission time, so this correctly covers the
+month-old backdated attempts. **Not done:** the actual grading call itself — no admin or user
+credentials were available to invoke `evaluate-attempt` directly, and the production service-role
+secret was deliberately not hunted for to mint an impersonation token. Resolves automatically the
+next time the student (or an admin) triggers "retry grading."
+
+**Next Owner:** David Bloom.
+**Next Required Action:** trigger a grading retry for the two stuck attempts (student's own retry,
+or an admin session); separately, decide whether/how to fix the systemic pre-entitlement-submit
+gap; separately, decide TASK-0016's actual next steps now that a month has passed with no
+progress on D3 (reader-certification, corpus volume) or getting real content in front of the
+shipped D2 path.
+
+---
+
+## Reviewer Activity Investigation - Gulgeldi Darrynow in Production - 2026-08-26
+
+Restarted the investigation of reviewer **Gulgeldi Darrynow** in **Production** only. The local Supabase CLI was intentionally left linked to Dev (`wmgjsdkphcyhngaffbqf`), per David's instruction; all Production checks used Supabase MCP with explicit project id `pcntajvbdfqhbeewmdry`. No database writes were made.
+
+**Reviewer identity.** Production profile found for reviewer UUID `119817d1-96c9-4cbc-8fdc-4962e03b1b12`: full name `Gulgeldi Darrynow`, role `tutor`, `review_queue_scope='my_queue'`.
+
+**Completion findings.** Production has 124 assignments for this reviewer: 123 `submitted`, 1 `skipped`, 0 `pending`, 0 `in_progress`. The skipped assignment is `apchem-mcq-014` (`mcq`, `tutor_question`, `subject_review`). Production has 123 submitted review decisions: 104 `approve`, 19 `approve_with_edits`, and 0 `disapprove`. First submitted decision: `2026-07-31 18:15:48.978244+00`; last submitted decision: `2026-08-06 14:26:46.695842+00`.
+
+**Timestamp-based work estimate.** Submission timestamps measure when answers were saved, not directly how long the reviewer spent reading or thinking, so the estimate was reported as a range:
+- first-to-last calendar span: 140.18 hours, including multi-day idle gaps;
+- 60-minute idle-gap session clustering: 8 sessions, 14.3 hours of session span;
+- 30-minute idle-gap session clustering: 16 sessions, 8.8 hours of session span;
+- capped inter-submission gap estimates: 7.08 hours with a 5-minute cap, 9.68 hours with a 10-minute cap;
+- direct inter-submission stats under 60-minute gaps: average 7.46 minutes, median 3.26 minutes.
+
+**Conclusion.** Gulgeldi completed the Production reviews. A practical active-work estimate is roughly 7-10 hours total, with a defensible range of about 7-14 hours depending on how much idle time is counted. The simple median-gap calculation David suggested, `123 x 3:26`, gives about 7.04 hours, consistent with the lower bound.
 
 ## Course Mode — Serving Milestone Independently Re-Verified (Parallel Session) + `content_uncertain` Timing-Race Diagnosed + PR #103 Comment — 2026-08-24
 
