@@ -10,7 +10,7 @@ CHANGELOG v0.2: corrected the AP Stats procedure toolkit to the 2026-27 CED (rem
 - Every design commitment is a numbered decision `CM-Dxx` with STATUS ∈ {DECIDED, OPEN, DEFERRED, PROPOSED}. PROPOSED = recommended resolution awaiting David's sign-off.
 - Terms are defined once in §2 (Glossary) and used verbatim thereafter.
 - §3 (Invariants) lists rules that MUST hold in any implementation. Do not violate them without a new DECIDED decision that supersedes them.
-- Facts about the current codebase are in §8 and are tagged `[verified 2026-08-22]`. Re-verify before relying on them; code changes.
+- Facts about the current codebase are in §9 and are tagged `[verified 2026-08-22]`. Re-verify before relying on them; code changes.
 - EXECUTION STATUS (2026-08-23): F1 registry + the 4-table Dev↔Prod schema convergence are applied and verified; the computational generator + one 4.B slot-frame are built and Fable-QA'd (GO). scipy is APPROVED as an authoring dependency (t/χ² procedures not yet built). The student experience, the F2/F3 learner-state runtime, and the F4 servable-content path are NOT built. For the live map and the next workstreams (UX + content), read `COURSE_MODE_STATUS_AND_HANDOFF.md` first.
 - This document governs the *course-mode* evolution of the learning system. It EXTENDS, and where noted supersedes, the three prior drafts (`LEARNING_SYSTEM.md`, `LEARNING_SYSTEM_STUCK.md`, `TEACHING_AND_PEDAGOGY_DESIGN.md`). Those remain authoritative for the cram-horizon loop, grading pipeline, student-supplied questions, and data posture.
 
@@ -124,7 +124,92 @@ A template/frame is trusted via: human review of the template + a sample of inst
 CM-D19 — Template-level release mechanism. STATUS: APPROVED 2026-08-23 (David); the sampled spot-audit mitigation is adopted.
 For generated content to be servable at all, an approved *template* must be able to machine-stamp its *instances'* review status and serving/cell labels, rather than requiring a human on every instance. Proposed: human approves the template + a validation sample (CM-D17); the pipeline then machine-stamps each conforming instance as review-approved and serving-labeled, recording the template id + params as provenance. This CHANGES the current review invariant (per-instance human approval; today no MCQ can even reach approved status via code — CM-FACT-20). Final approval is David's; recorded here so it can be reviewed, not to pre-empt it.
 
-## 7. Pilot scope and the Stats reality check
+## 7. Grounded dynamic content (cross-cutting)
+
+CM-D20 — Homework Mode inherits INV-3/CM-D14 as a mission law, not a feature
+guardrail. STATUS: DECIDED (David, 2026-08-28).
+Homework Mode (a student brings an outside question via free text, photo, or
+uploaded worksheet and asks for help) must remain true to Cramapple's mission —
+helping students earn the most points from the time they have. What Cramapple
+teaches, and how it responds, must rely on principles already codified and
+content already created, or a version of that content parametrized to the
+specifics of the student's session — never freelanced pedagogy, explanations, or
+worked reasoning at response time. Concretely: a "version of it" means a new
+parametrized instance of an existing validated template (CM-D15/CM-D16), exactly
+as the generator already does for Course Mode — not an LLM composing a new
+explanation live. The model's only live-generated role is routing, classifying,
+and confirming. This is INV-3/CM-D14 applied to a conversational surface, not a
+new rule; it does not relax for Homework Mode because the input is
+unstructured/outside-content. Unlike CM-D01–D19, this decision is NOT scoped to
+the AP Statistics pilot — it applies to Homework Mode across every subject,
+since coverage (not the rule) is what varies by subject. Full design record:
+`docs/teaching/HOMEWORK_MODE_DESIGN_2026_08_28.md`.
+
+CM-D21 — Grounded dynamic content is the general form of CM-D20; FRQ grading
+already implements it. STATUS: DECIDED (recognized, not newly invented —
+2026-08-28).
+CM-D20's rule is not Homework-Mode-specific — it is the general shape every
+AI-generated response must take, anywhere in the product. Two kinds of content,
+held to different standards:
+- STRUCTURAL/GRADED content (an item, an answer key, a rubric, a criterion set,
+  a correctness verdict) stays fully scripted — sourced from an already-vetted
+  template, rubric, or check (CM-D14/INV-3). Never generated live.
+- DYNAMIC content (elaboration, evidence citation, a synthesized summary, a
+  targeted correction) MAY be generated live, but only when every substantive
+  claim is GROUNDED: traceable to real, cited evidence, never asserting a new
+  fact, a new criterion, or a verdict the evidence doesn't support.
+
+FRQ grading already implements exactly this, and is the reference pattern —
+not to be reinvented for Homework Mode or any future surface. In
+`supabase/functions/_shared/grading-feedback.ts` (`sanitizeModelResult`,
+confirmed wired into both grading paths in
+`supabase/functions/evaluate-attempt/index.ts` with a real
+`{responseText, responseParts}` context, not a flag left disabled), three
+server-side checks run on every model output, independent of what the model
+claims about itself:
+1. `earned_without_evidence` — a criterion claiming credit with no cited
+   evidence is forced to `unable_to_determine`, 0 points.
+2. `evidence_not_found` — a cited quote is checked against the actual response
+   text via `evidenceIsGrounded` (unicode/whitespace-normalized, elision-aware
+   fuzzy match, tuned against a 2,973-output corpus to cut false-positive
+   rejections from ~10% to ~3.7% while still catching fabricated quotes); an
+   ungrounded quote gets the same forced downgrade.
+3. `earned_points_mismatch` — credit claimed with real evidence still fails if
+   points and status are internally inconsistent.
+"Do not invent evidence" also appears in the prompt (`buildCriterionSystemPrompt`
+/ `buildSystemPrompt`) — but the prompt is a courtesy, not the enforcement; the
+post-hoc deterministic sanitizer is. This is INV-4 (determinism over judgment)
+applied to a grounding decision, not just a tier transition.
+Note vs. `docs/product/STUDENT_PRACTICE_AND_GRADING_DESIGN.md` (UX-006) §6.3: the
+spec describes a separate "decision gate" field (`pass`/`fail`/
+`unable_to_determine`); no such field exists in code — it is folded directly
+into the `status` enum. Functionally equivalent; a naming drift, not a gap.
+
+The boundary on WHICH content a dynamic response may touch is
+CONTEXT-DEPENDENT, not universal — this is a stated exception to CM-D20's
+framing, not a contradiction of it:
+- Pre-independent-demonstration (Homework Mode's teaching phase, before the cold
+  prove-it attempt): dynamic content must NEVER engage with the student's own
+  stated problem's specific content — absolute (§5 of
+  `HOMEWORK_MODE_DESIGN_2026_08_28.md`).
+- Post-independent-attempt feedback (FRQ grading now; Check My Work once it is
+  genuinely built): direct engagement with the student's own specific response
+  is not just permitted, it is the job — an FRQ's minimum-fix is supposed to
+  quote and repair the student's own sentence. The rule was never "never touch
+  their own work"; it is "never do their independent thinking for them before
+  they've done it themselves."
+
+Practical consequence — the gap this generalization exposes for MCQ: the Graded
+Feedback design (`GradedFeedback.dc.html` in the Homework Mode canvas) assumes
+the misconception catalog stores authored, per-distractor feedback text (a
+"Missing Concept" explanation, a "Next Fix" rule) that can be looked up, not
+generated. Whether that text exists in the catalog today is UNVERIFIED. The
+FRQ pattern argues for building this as a grounded lookup keyed to the picked
+distractor's tagged misconception, not a fresh composition per attempt —
+matching how the "why" line is already specified to source from the topic's
+stored "common point loss" field rather than being invented.
+
+## 8. Pilot scope and the Stats reality check
 
 CM-D18 — Pilot = AP Statistics, supply-engine first. STATUS: DECIDED.
 Build ONE subject first, extend with confidence. Subject = AP Statistics. First build = the content supply engine (generator), NOT the loop/experience, because per-cell retrieval-item inventory is the binding constraint. Stats chosen for best-reviewed teaching content (topic guides at 100%), deepest gold-set/calibration research, and full parametrizability — accepting that step 1 is generating items from near-scratch on that strong validation substrate.
@@ -132,7 +217,7 @@ Build ONE subject first, extend with confidence. Subject = AP Statistics. First 
 CM-FACT-19 — Stats computation is the minority of the subject. STATUS: DECIDED (reality check). `[verified 2026-08-22 from ap-statistics CED]`.
 AP Stats = 4 practices, 18 skills: Practice 1 Formulate (1 skill: 1.A), Practice 2 Collect Data (5: 2.A–2.E), Practice 3 Analyze Data (5: 3.A–3.E), Practice 4 Interpret Results (7: 4.A–4.G). Cleanly-computational skills ≈ 4–5 of 18 (~a quarter; ~4 if 3.A "construct representations" is treated as partly conceptual). The plurality — Practice 4 interpretation/justification, 7/18 — is conceptual and is where AP Stats points are most differentiated. Consequence: the computational generator (near-unlimited, reliable) covers the minority; authored slot-frames carry the majority. The pilot's real risk is whether slot-frames can cover Practice 4 at quality and volume — that is the load-bearing, unproven engine.
 
-## 8. Current-state facts (existing codebase) `[verified 2026-08-22]`
+## 9. Current-state facts (existing codebase) `[verified 2026-08-22]`
 
 - Learner state EXISTS and is live (schema `app.*`; a legacy `public.*` schema is unused by edge functions). Mastery is persisted at SUBJECT grain only: `app.student_memory_snapshots.memory_state jsonb` keyed by `subject_id` — a flat blob (last result, `latest_gap_criteria` = item-local criterion keys, preferred help style). It is a session/coaching memory, NOT a proficiency map. → must be re-founded at cell grain.
 - Post-grade write path (`_shared/grading-memory.ts` `persistGradingMemory`; `_shared/student-memory.ts`) returns EARLY when `sessionId` is null and is not passed `content_item_version_id`; three call sites (`evaluate-attempt/index.ts:1142,1644`; `attempt-response/index.ts:997`). Cell writes must route on attempt/item identity, NOT session presence, or manual/sessionless grades silently skip cell updates.
@@ -151,7 +236,7 @@ AP Stats = 4 practices, 18 skills: Practice 1 Formulate (1 skill: 1.A), Practice
 - Subject-key namespace gotcha: `app.subjects.subject_key` uses hyphens (`ap-calculus-ab`); `taxonomy_source_versions` / `topic_point_briefs` / `exam_packs.exam_code` use underscores (`ap_statistics`). Join by UUID (`subject_id`, `taxonomy_source_version`), never raw subject_key text, or RLS/joins match 0 rows.
 - Official CED PDFs are in-repo at `docs/teaching/ap-*-course-and-exam-description.pdf`; per-topic skill anchoring for Stats is pre-extracted in `docs/product/AP_STATISTICS_2027_CED_FACT_PACK.md` §3 (SME sign-off deferred — see CM-D18 pilot risks and the plan §7).
 
-## 9. CED structural facts (source authority) `[verified 2026-08-22]`
+## 10. CED structural facts (source authority) `[verified 2026-08-22]`
 
 - The CED assessment atom = (learning objective / content) × (skill). This is the cell (CM-D05).
 - The per-LO (LO → skill) anchoring is a *teaching suggestion*; the exam "can pair the content with any of the skills." So the mastery space is a matrix, and the anchoring is the seed spine (~130 cells for Stats).
@@ -159,7 +244,7 @@ AP Stats = 4 practices, 18 skills: Practice 1 Formulate (1 skill: 1.A), Practice
 - Each CED unit opener carries CB-authored "common student misunderstandings" as PROSE inside a "Preparing for the AP Exam" / "Building the Practices" section (not structured lists) — usable for distractor generation and diagnosis after manual extraction.
 - AP Statistics 2026-27 is a 5-unit course (Regression = Unit 5, descriptive only). Removed vs. the retired 9-unit version: see CM-D15 EXCLUDED list.
 
-## 10. Open questions and deferred work
+## 11. Open questions and deferred work
 
 OPEN:
 - Constant calibration: evidence weights (CM-D07), decay intervals + thresholds (CM-D08), priority scalar formula (CM-D09), tier-advancement requirements (how many independent attempts / how much surface variation / what delay for `confirmed`).
@@ -179,10 +264,10 @@ DEFERRED (post-pilot / later phase):
 - Conceptual generalization beyond authored frames.
 - Extension to subjects beyond Stats.
 
-## 11. Source anchors
+## 12. Source anchors
 
 - Prior design: `docs/teaching/LEARNING_SYSTEM.md`, `docs/teaching/LEARNING_SYSTEM_STUCK.md`, `docs/teaching/TEACHING_AND_PEDAGOGY_DESIGN.md`.
 - Stats CED extraction + removals: `docs/product/AP_STATISTICS_2027_CED_FACT_PACK.md` (§3 anchoring, §8 removals, §9 open items/SME gate).
 - CED PDFs: `docs/teaching/ap-*-course-and-exam-description.pdf`.
-- Schema: `supabase/migrations/` (see §8 for tables); grading: `supabase/functions/` (`evaluate-attempt`, `_shared/statistics-verifier.ts`, `_shared/grading-memory.ts`, `_shared/student-memory.ts`).
+- Schema: `supabase/migrations/` (see §9 for tables); grading: `supabase/functions/` (`evaluate-attempt`, `_shared/statistics-verifier.ts`, `_shared/grading-memory.ts`, `_shared/student-memory.ts`).
 - Content: `content/item-packages/`, `content/subject-packages/`; Stats research assets under `docs/research/` and `docs/product/`.

@@ -3,7 +3,7 @@
 **Status:** Active backlog index
 **Owner:** Main Conductor
 **Product Owner:** David Bloom
-**Last Updated:** 2026-06-15
+**Last Updated:** 2026-09-17
 
 ## 1. Purpose
 
@@ -65,6 +65,7 @@ records.
 | NOW-012 | P1 | Reconcile conceptual schemas with governance | Technical Owner / Main Conductor | Proposed | Complete `TASK-0009` before any physical database design |
 | NOW-013 | P0 | Establish grader confidence and calibration | Learning Quality Owner / Grading Lead | Proposed | Complete `TASK-0010` before learner-facing automated FRQ scores |
 | NOW-014 | P2 | Prototype handwritten graph camera capture | Product / Technical Owner | Research | Test the QR-linked paper-first flow in `TASK-0011` |
+| NOW-015 | P1 | Decide Cram/Points commercial positioning, pricing, and launch subject | David Bloom (with Micah on positioning/pricing) | Ready for Owner Review | Engineering sequencing (which mode ships first) is answered by `docs/product/COURSE_HOMEWORK_CONSOLIDATION_PLAN.md` §1; the commercial questions in its §7 and §10 items 1-4 (category/promise, whether Points/Cram survives as a named offer, pricing/access model for year-round use, launch subject) remain open |
 
 ## 4. Active Task Register
 
@@ -651,6 +652,20 @@ policy is decided.
 - [ ] Show learners exactly what is shared.
 - [ ] Define deferred-skill and effort rollups.
 - [ ] Complete separate legal, privacy, security, and product approval.
+
+### SOCIAL-001 - Study Buddy Linked Accounts / Groups
+
+**Status:** Deferred
+**Owner:** Product Owner
+**Source:** Student feedback surfaced in
+`docs/product/COURSE_HOMEWORK_CONSOLIDATION_PLAN.md` §8 (2026-09-17)
+
+- [ ] Decide whether group formation is student-opt-in, parent-mediated, or
+  both, and how that interacts with minor-consent policy (GOV-002).
+- [ ] Define what is visible across linked accounts and what stays private.
+- [ ] Define abuse, moderation, and unlinking behavior.
+- [ ] Complete separate legal, privacy, security, and product approval before
+  any build.
 
 ### EXPAND-001 - Second Exam Pack
 

@@ -1,0 +1,161 @@
+{
+  "schema_version": "course-mode-generated-0.1",
+  "package_id": "slotframe-u1_13-2a-101304",
+  "content_key": "apstat-u1-13-2a-design-101304",
+  "item_type": "mcq",
+  "difficulty": "Medium",
+  "exam_pack_ref": {
+    "exam_code": "ap_statistics",
+    "cycle": "2026-27"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "unit-1"
+    },
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "topic-1.13"
+    },
+    {
+      "scheme_key": "ap-statistics-skills",
+      "node_key": "skill-2.A",
+      "practice": 2
+    }
+  ],
+  "cells": [
+    {
+      "topic": "1.13",
+      "skill": "2.A"
+    }
+  ],
+  "scenario_provenance": {
+    "archetype": "Q1",
+    "archetype_label": "Multi-focus on Practices 1 & 2 (formulate questions; collect/represent data)",
+    "task_verb": "Describe",
+    "practice": 2,
+    "modality": "exam_aligned_digital",
+    "validity_rules": [
+      "realistic study-design scenario",
+      "classification must distinguish imposed treatments, randomization, control/placebo/blinding, and confounding"
+    ],
+    "sources": [
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S5 (Free-response archetypes)",
+        "note": "Section II question archetypes Q1-Q4"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S6 (Task verbs)",
+        "note": "the item stem's verb must match the scored demand"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S7 (Response modality)",
+        "note": "digital Bluebook; text/numeric entry -> exam_aligned_digital"
+      }
+    ],
+    "domain": "health"
+  },
+  "prompt": "A researcher records students' usual screen time and usual sleep hours, then compares sleep between students with high and low screen time. Which statement best identifies the design element or flaw?",
+  "mcq_form": {
+    "options": [
+      {
+        "text": "This is an experiment because the researcher compares two screen-time groups.",
+        "correct": false,
+        "misconception": "u1_13__observational_treated_as_experiment",
+        "misconception_source": {
+          "tag": "u1_13__observational_treated_as_experiment",
+          "label": "Treated an observational study as an experiment",
+          "evidence": "documented_cr",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 1 (1.10-1.13)",
+              "note": "observational studies do not impose treatments; experiments do"
+            }
+          ]
+        }
+      },
+      {
+        "text": "Randomization is present because students' usual schedules vary naturally.",
+        "correct": false,
+        "misconception": "u1_13__control_blinding_randomization_confused",
+        "misconception_source": {
+          "tag": "u1_13__control_blinding_randomization_confused",
+          "label": "Confused control, blinding, placebo, and randomization",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 1 (1.10-1.13)",
+              "note": "randomization, control, placebo, and blinding serve different roles in experimental design"
+            }
+          ]
+        }
+      },
+      {
+        "text": "The comparison group is a placebo group because it has lower screen time.",
+        "correct": false,
+        "misconception": "u1_13__control_blinding_randomization_confused",
+        "misconception_source": {
+          "tag": "u1_13__control_blinding_randomization_confused",
+          "label": "Confused control, blinding, placebo, and randomization",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 1 (1.10-1.13)",
+              "note": "randomization, control, placebo, and blinding serve different roles in experimental design"
+            }
+          ]
+        }
+      },
+      {
+        "text": "This is an observational study, because the researcher records existing habits and does not assign screen-time treatments.",
+        "correct": true,
+        "misconception": null
+      }
+    ]
+  },
+  "parts": [
+    {
+      "part_key": "part-a",
+      "prompt": "A researcher records students' usual screen time and usual sleep hours, then compares sleep between students with high and low screen time. Which statement best identifies the design element or flaw?",
+      "response_modalities": [
+        "mcq"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "Selects the study-design statement supported by the scenario.",
+          "required_evidence": "This is an observational study, because the researcher records existing habits and does not assign screen-time treatments.",
+          "deterministic_checks": [
+            {
+              "kind": "mcq_key",
+              "correct_design_statement": "This is an observational study, because the researcher records existing habits and does not assign screen-time treatments."
+            }
+          ],
+          "accepted_variants": []
+        }
+      ]
+    }
+  ],
+  "provenance": {
+    "generator": "course_mode_stats_generator/slot_frames.py",
+    "frame_id": "FB-U1-13-2A-DESIGN-01",
+    "template_id": "slotframe_u1_13_design",
+    "params": {
+      "scenario_id": "u1_13__sleep_screen_observation"
+    },
+    "seed": 101304,
+    "release_status": "unreleased_generated_pending_review",
+    "note": "Authored conceptual frame; correctness from study-design taxonomy."
+  }
+}

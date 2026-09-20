@@ -1,0 +1,198 @@
+{
+  "schema_version": "course-mode-generated-0.1",
+  "package_id": "slotframe-u1_5-3a-105016",
+  "content_key": "apstat-u1-5-3a-graphs-105016",
+  "item_type": "mcq",
+  "difficulty": "Medium",
+  "exam_pack_ref": {
+    "exam_code": "ap_statistics",
+    "cycle": "2026-27"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "unit-1"
+    },
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "topic-1.5"
+    },
+    {
+      "scheme_key": "ap-statistics-skills",
+      "node_key": "skill-3.A",
+      "practice": 3
+    }
+  ],
+  "cells": [
+    {
+      "topic": "1.5",
+      "skill": "3.A"
+    }
+  ],
+  "scenario_provenance": {
+    "archetype": "Q2",
+    "archetype_label": "Multi-focus on Practices 3 & 4 (analyze data; interpret results)",
+    "task_verb": "Describe",
+    "practice": 3,
+    "modality": "exam_aligned_digital",
+    "validity_rules": [
+      "one-variable quantitative data set represented from text/numbers",
+      "graph description preserves frequencies, scale, and quantitative variable type"
+    ],
+    "sources": [
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S5 (Free-response archetypes)",
+        "note": "Section II question archetypes Q1-Q4"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S6 (Task verbs)",
+        "note": "the item stem's verb must match the scored demand"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S7 (Response modality)",
+        "note": "digital Bluebook; text/numeric entry -> exam_aligned_digital"
+      }
+    ],
+    "domain": "manufacturing"
+  },
+  "prompt": "The battery life (hours) are 8, 10, 10, 9, 12, 11, 10, 12, 12, 15, 15, 17. Which representation correctly displays these quantitative data?",
+  "mcq_form": {
+    "options": [
+      {
+        "text": "Histogram with counts 5-9 hours: 2; 10-14 hours: 6; 15-19 hours: 4; 20-24 hours: 0",
+        "correct": false,
+        "misconception": "u1_5__miscounted_bin_frequency",
+        "misconception_source": {
+          "tag": "u1_5__miscounted_bin_frequency",
+          "label": "Miscounted a bin frequency",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 1 (1.5)",
+              "note": "graphical displays for one quantitative variable require accurate frequencies and scale reading"
+            }
+          ]
+        }
+      },
+      {
+        "text": "Stemplot 8 | 0; 9 | 0; 10 | 0 0 0; 11 | 0; 12 | 0 0 0; 15 | 0 0; 17 | 0",
+        "correct": false,
+        "misconception": "u1_5__stem_leaf_place_value_error",
+        "misconception_source": {
+          "tag": "u1_5__stem_leaf_place_value_error",
+          "label": "Misread stem-and-leaf place value",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 1 (1.5)",
+              "note": "stemplots represent quantitative values using stem/leaf place value"
+            }
+          ]
+        }
+      },
+      {
+        "text": "Histogram with counts 5-9 hours: 2; 10-14 hours: 7; 15-19 hours: 3; 20-24 hours: 0",
+        "correct": true,
+        "misconception": null
+      },
+      {
+        "text": "Bar chart with one bar for each named category of battery life, rather than a numeric axis",
+        "correct": false,
+        "misconception": "u1_5__wrong_plot_type_for_data",
+        "misconception_source": {
+          "tag": "u1_5__wrong_plot_type_for_data",
+          "label": "Used a categorical display for quantitative data",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 1 (1.5)",
+              "note": "quantitative variables are represented with dotplots, stemplots, histograms, and similar numeric displays"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "parts": [
+    {
+      "part_key": "part-a",
+      "prompt": "The battery life (hours) are 8, 10, 10, 9, 12, 11, 10, 12, 12, 15, 15, 17. Which representation correctly displays these quantitative data?",
+      "response_modalities": [
+        "mcq"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "Selects the graph description that preserves the quantitative values and frequencies.",
+          "required_evidence": "Histogram with counts 5-9 hours: 2; 10-14 hours: 7; 15-19 hours: 3; 20-24 hours: 0",
+          "deterministic_checks": [
+            {
+              "kind": "mcq_key",
+              "correct_representation": "histogram_counts"
+            }
+          ],
+          "accepted_variants": []
+        }
+      ]
+    }
+  ],
+  "provenance": {
+    "generator": "course_mode_stats_generator/slot_frames.py",
+    "frame_id": "FB-U1-5-3A-GRAPH-01",
+    "template_id": "slotframe_u1_5_graphs",
+    "params": {
+      "scenario_id": "u1_5__battery_hours",
+      "values": [
+        8,
+        10,
+        10,
+        9,
+        12,
+        11,
+        10,
+        12,
+        12,
+        15,
+        15,
+        17
+      ],
+      "bin_width": 5,
+      "bins": [
+        [
+          5,
+          9,
+          2
+        ],
+        [
+          10,
+          14,
+          7
+        ],
+        [
+          15,
+          19,
+          3
+        ],
+        [
+          20,
+          24,
+          0
+        ]
+      ]
+    },
+    "seed": 105016,
+    "release_status": "unreleased_generated_pending_review",
+    "note": "Authored conceptual frame; correctness from quantitative graph representation taxonomy."
+  }
+}

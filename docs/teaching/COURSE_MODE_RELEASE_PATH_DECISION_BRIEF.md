@@ -15,7 +15,7 @@ Companion docs: `COURSE_MODE_STATUS_AND_HANDOFF.md` (living map), `COURSE_MODE_L
 - **G1 → G2 → G3: apply the `last_attempt_id` migration to Dev, THEN deploy `evaluate-attempt`, then smoke-test one write.** The code is already merged to `main` (PR #101) but is **not deployed to Dev**, and the migration is **not applied**. Order is load-bearing (see §4). This can proceed without any release decision.
 
 **Three decisions are yours and gate the actual content release** (nothing serves until all three land):
-- **Decision A — D8 release bars** (validation sample sizes / property-test coverage / gold-regression thresholds). Currently ON HOLD. This gate is *why nothing is served yet*, and CM-D19 stamping cannot be built until it is set. §5.
+- **Decision A — D8 release bars** (validation sample sizes / property-test coverage / gold-regression thresholds). **RESOLVED 2026-08-25 (David): ratified as proposed** — see `COURSE_MODE_D8_RELEASE_BARS_PROPOSED_DEFAULTS_2026_08_25.md` and §5 below. CM-D19 stamping is now buildable against these bars. §5.
 - **Decision B — the `ap_statistics 2026-27` exam-pack version in Dev** (a governance object needing an official exam date). The loader **cannot run without it** — it fail-closed aborts. David/Orly. §6.
 - **Decision C — serving form** of the generated computational items: numeric-entry (data-driven verifier) vs MCQ (rule-based). Affects how the graded response is scored. §7.
 
@@ -100,7 +100,19 @@ Recommendation: **do G1–G3 now.** It isolates "did the deploy work" from "is t
 
 ---
 
-## 5. Decision A — D8 release bars (ON HOLD; yours)
+## 5. Decision A — D8 release bars (RESOLVED 2026-08-25 — David ratified as proposed)
+
+**Status:** D8 is no longer ON HOLD. David ratified the proposed slate on 2026-08-25. The ratified values (full rationale in `COURSE_MODE_D8_RELEASE_BARS_PROPOSED_DEFAULTS_2026_08_25.md`):
+
+| Bar | Ratified value |
+|---|---|
+| Validation sample size *n* per template (human spot-audit) | **20 instances** |
+| Property-test coverage | **≥100 instances/computational procedure, ≥120/MCQ frame, 0 rejects; every scenario context and every expected misconception tag exercised ≥1×; answer position varies; catalog self-checks pass** |
+| Gold-set regression threshold | **0 grader-behavior changes** vs the old-namespace Stats gold corpus (behavior-drift bar only, not coverage; gates engine changes, not content adds) |
+| Ongoing spot-audit rate | **5 served instances / template / 30 days** (or per 500 served, whichever first); confirmed defect → quarantine template |
+| Gate-2 independent re-derivation (added bar) | key + every distractor hand-recomputed on the validation sample; **0 defects** |
+
+CM-D19 stamping can now be built against these bars — it remains a separate, David-gated build.
 
 **What it is:** the quantitative bars a *template* must clear before its instances may be machine-stamped as released (CM-D17 / CM-D19): validation sample size per template, property-test coverage bar, and gold-set grader-behavior regression thresholds.
 

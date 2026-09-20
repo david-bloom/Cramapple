@@ -289,6 +289,161 @@ CATALOG: Dict[str, Misconception] = {m.tag: m for m in [
        "ced_structural", ["summary_stats"], ["1.7"], ["3.B"],
        [_fp("S10 Unit 1 (1.7)", "mean = (1/n) sum x_i -- the division by n is required")]),
 
+    # --- compare_stats (1.9 x 3.B) : compare one-variable distributions -------
+    _M("u1_9__used_mean_not_median",
+       "Used the wrong statistic for a comparison",
+       "Computed a difference of means when a median or IQR comparison was requested, "
+       "or a difference of medians when a mean comparison was requested.",
+       "ced_structural", ["compare_stats"], ["1.9"], ["3.B"],
+       [_fp("S10 Unit 1 (1.7/1.9)",
+            "mean, median, and IQR are distinct summary statistics; comparing distributions requires the named statistic")]),
+
+    _M("u1_9__used_range_not_iqr",
+       "Used range instead of IQR for a spread comparison",
+       "Computed the difference in ranges instead of the difference in IQRs, confusing "
+       "two measures of spread.",
+       "ced_structural", ["compare_stats"], ["1.9"], ["3.B"],
+       [_fp("S10 Unit 1 (1.7/1.9)",
+            "range and IQR are distinct measures of spread; IQR = Q3 - Q1, not max - min")]),
+
+    _M("u1_9__sign_reversed_difference",
+       "Reversed the order of the requested difference",
+       "Computed Group B minus Group A instead of the requested Group A minus Group B.",
+       "ced_structural", ["compare_stats"], ["1.9"], ["3.B"],
+       [_fp("S10 Unit 1 (1.9)", "comparison calculations must follow the stated group order")]),
+
+    _M("u1_9__reported_single_group_stat",
+       "Reported one group's statistic instead of the difference",
+       "Computed the requested statistic for one group but forgot the subtraction step "
+       "needed to compare the two distributions.",
+       "ced_structural", ["compare_stats"], ["1.9"], ["3.B"],
+       [_fp("S10 Unit 1 (1.9)", "comparing distributions involves contrasting the groups, not reporting one group alone")]),
+    # --- slot-frame FB-U1-2-2A-VARIABLES-01 (1.2 x 2.A) : variable types ------
+    _M("u1_2__numeric_codes_called_quantitative",
+       "Treated numeric labels or codes as quantitative variables",
+       "Classified a categorical identifier or coded label as quantitative merely because it uses numbers.",
+       "ced_structural", ["slotframe_u1_2_variables"], ["1.2"], ["2.A"],
+       [_fp("S10 Unit 1 (1.2)",
+            "categorical variables can be represented by labels or codes; quantitative variables are meaningful numerical measurements or counts")]),
+
+    _M("u1_2__counts_or_ordinal_miscategorized",
+       "Misclassified counts or ordered categories",
+       "Confused a count, which is quantitative discrete, with an ordered category, or treated an ordered category as a measurement.",
+       "ced_structural", ["slotframe_u1_2_variables"], ["1.2"], ["2.A"],
+       [_fp("S10 Unit 1 (1.2)",
+            "variable type depends on what the values mean: categories classify units; counts and measurements are quantitative")]),
+
+    _M("u1_2__quantitative_called_categorical",
+       "Called a genuine numerical measurement categorical",
+       "Classified a measurement or count as categorical because the values are grouped, rounded, or have few distinct values.",
+       "ced_structural", ["slotframe_u1_2_variables"], ["1.2"], ["2.A"],
+       [_fp("S10 Unit 1 (1.2)",
+            "quantitative variables record numerical measurements or counts for which arithmetic comparisons are meaningful")]),
+    # --- slot-frame FB-U1-6-4A-DISTRIBUTION-01 (1.6 x 4.A) : descriptions ---
+    _M("u1_6__skew_direction_reversed",
+       "Reversed the direction of skew",
+       "Identified the long right tail as left skew, or the long left tail as right skew.",
+       "documented_cr", ["slotframe_u1_6_distribution"], ["1.6"], ["4.A"],
+       [_fp("S10 Unit 1 (1.6)",
+            "2025 CR Report Q1 documents shape-description errors; skew direction must follow the longer tail")]),
+
+    _M("u1_6__center_spread_confused",
+       "Confused center and spread",
+       "Reported a spread measure as the center or a center measure as the spread when describing a distribution.",
+       "ced_structural", ["slotframe_u1_6_distribution"], ["1.6"], ["4.A"],
+       [_fp("S10 Unit 1 (1.6/1.7)",
+            "distribution descriptions distinguish center from variability/spread")]),
+
+    _M("u1_6__outlier_from_range_not_fences",
+       "Called an outlier from range alone instead of the 1.5 x IQR rule",
+       "Labeled an endpoint as an outlier merely because it is far from the minimum or maximum, without checking the fences.",
+       "ced_structural", ["slotframe_u1_6_distribution"], ["1.6"], ["4.A"],
+       [_fp("S10 Unit 1 (1.6/1.7)",
+            "outliers are assessed from quartiles and IQR fences, not from range alone")]),
+
+    _M("u1_6__ignores_shape_reports_center_only",
+       "Reported center but ignored shape",
+       "Gave a true center statement but omitted the required description of distribution shape.",
+       "documented_cr", ["slotframe_u1_6_distribution"], ["1.6"], ["4.A"],
+       [_fp("S10 Unit 1 (1.6)",
+            "describing a quantitative distribution requires shape, center, spread, and unusual features as appropriate")]),
+
+    # --- slot-frame FB-U1-5-3A-GRAPH-01 (1.5 x 3.A) : one-variable graphs ---
+    _M("u1_5__miscounted_bin_frequency",
+       "Miscounted a bin frequency",
+       "Chose a graph description with one or more observations placed in the wrong interval or counted with the wrong endpoint convention.",
+       "ced_structural", ["slotframe_u1_5_graphs"], ["1.5"], ["3.A"],
+       [_fp("S10 Unit 1 (1.5)", "graphical displays for one quantitative variable require accurate frequencies and scale reading")]),
+
+    _M("u1_5__stem_leaf_place_value_error",
+       "Misread stem-and-leaf place value",
+       "Interpreted stems or leaves at the wrong place value, changing the represented observations.",
+       "ced_structural", ["slotframe_u1_5_graphs"], ["1.5"], ["3.A"],
+       [_fp("S10 Unit 1 (1.5)", "stemplots represent quantitative values using stem/leaf place value")]),
+
+    _M("u1_5__wrong_plot_type_for_data",
+       "Used a categorical display for quantitative data",
+       "Selected a bar-chart or category-count display when the task calls for a quantitative dotplot/stemplot/histogram representation.",
+       "ced_structural", ["slotframe_u1_5_graphs"], ["1.5"], ["3.A"],
+       [_fp("S10 Unit 1 (1.5)", "quantitative variables are represented with dotplots, stemplots, histograms, and similar numeric displays")]),
+
+    # --- slot-frame FB-U1-8-3A-BOXPLOT-01 (1.8 x 3.A) : boxplots ---
+    _M("u1_8__quartile_median_positions_swapped",
+       "Swapped quartile and median positions",
+       "Chose a boxplot description that places Q1, the median, or Q3 in the wrong position.",
+       "ced_structural", ["slotframe_u1_8_boxplots"], ["1.8"], ["3.A"],
+       [_fp("S10 Unit 1 (1.8)", "boxplots encode Q1, median, Q3, whiskers, and possible outliers in specific positions")]),
+
+    _M("u1_8__whisker_to_extreme_ignores_outlier",
+       "Drew a whisker to an outlier",
+       "Extended the whisker to the minimum or maximum even though that endpoint is beyond the 1.5 x IQR fence and should be plotted as an outlier.",
+       "ced_structural", ["slotframe_u1_8_boxplots"], ["1.8"], ["3.A"],
+       [_fp("S10 Unit 1 (1.8)", "modified boxplots use whiskers to the most extreme non-outliers, not beyond-fence outliers")]),
+
+    _M("u1_8__box_spans_range_not_iqr",
+       "Made the box span the full range",
+       "Used the minimum and maximum as the ends of the box instead of using Q1 and Q3.",
+       "ced_structural", ["slotframe_u1_8_boxplots"], ["1.8"], ["3.A"],
+       [_fp("S10 Unit 1 (1.8)", "the box spans the interquartile range from Q1 to Q3, not the full range")]),
+
+    # --- slot-frame FB-U1-12-2A-BIAS-01 (1.12 x 2.A) : sampling bias ---
+    _M("u1_12__bias_type_confused",
+       "Confused the type of sampling bias",
+       "Identified the scenario as the wrong bias type, such as undercoverage versus nonresponse or voluntary response.",
+       "documented_cr", ["slotframe_u1_12_bias"], ["1.12"], ["2.A"],
+       [_fp("S10 Unit 1 (1.10-1.13)", "collecting data requires distinguishing sampling methods, bias, and study-design flaws")]),
+
+    _M("u1_12__sampling_vs_nonsampling_error",
+       "Confused sampling bias with nonsampling error",
+       "Treated a measurement or wording/response problem as if it were fixed by changing only the random sampling method, or vice versa.",
+       "ced_structural", ["slotframe_u1_12_bias"], ["1.12"], ["2.A"],
+       [_fp("S10 Unit 1 (1.10-1.13)", "sampling design errors and response/measurement errors are distinct data-collection problems")]),
+
+    _M("u1_12__no_bias_called_biased",
+       "Called an unbiased described plan biased",
+       "Claimed bias from a described random sampling plan even though the scenario gives no undercoverage, nonresponse, voluntary-response, or wording problem.",
+       "ced_structural", ["slotframe_u1_12_bias"], ["1.12"], ["2.A"],
+       [_fp("S10 Unit 1 (1.10-1.13)", "bias claims must be supported by the sampling scenario rather than assumed from sample size alone")]),
+
+    # --- slot-frame FB-U1-13-2A-DESIGN-01 (1.13 x 2.A) : experimental design ---
+    _M("u1_13__confounding_vs_lurking_confused",
+       "Confused confounding with a lurking variable or unrelated association",
+       "Misidentified whether an explanatory variable is mixed with another variable in the design, or claimed confounding without a plausible mixed effect.",
+       "documented_cr", ["slotframe_u1_13_design"], ["1.13"], ["2.A"],
+       [_fp("S10 Unit 1 (1.10-1.13)", "experimental and observational designs require identifying confounding and other design flaws")]),
+
+    _M("u1_13__control_blinding_randomization_confused",
+       "Confused control, blinding, placebo, and randomization",
+       "Attributed the role of random assignment, a control group, placebo, or blinding to the wrong design element.",
+       "ced_structural", ["slotframe_u1_13_design"], ["1.13"], ["2.A"],
+       [_fp("S10 Unit 1 (1.10-1.13)", "randomization, control, placebo, and blinding serve different roles in experimental design")]),
+
+    _M("u1_13__observational_treated_as_experiment",
+       "Treated an observational study as an experiment",
+       "Called a study an experiment even though researchers only observed existing conditions and did not impose treatments.",
+       "documented_cr", ["slotframe_u1_13_design"], ["1.13"], ["2.A"],
+       [_fp("S10 Unit 1 (1.10-1.13)", "observational studies do not impose treatments; experiments do")]),
+
     # --- slot-frame FB-4B-COMPARE-01 (1.9 x 4.B) : justify a claim -------------
     _M("ignores_variability_claims_every_value",
        "Treated a difference in means as a claim about every individual value",
@@ -323,6 +478,39 @@ CATALOG: Dict[str, Misconception] = {m.tag: m for m in [
        [_fp("S10 'General exam-wide conventions'",
             "2025 CR Report: conclusions must use non-definitive language ('convincing evidence'), never 'proves'/'always'; "
             "and must not generalize beyond the studied population")]),
+
+    # --- slot-frame FB-U1-11-2A-SAMPLING-01 (1.11 x 2.A) : sampling methods ----
+    _M("u1_11__stratified_cluster_confusion",
+       "Confused stratified sampling with cluster sampling",
+       "Treated sampling some units from every subgroup and sampling all units from selected "
+       "natural groups as interchangeable, missing the within-every-stratum vs whole-selected-cluster distinction.",
+       "ced_structural", ["slotframe_u1_11_sampling"], ["1.11"], ["2.A"],
+       [_fp("S10 Unit 1 (1.10-1.13)",
+            "CED vocabulary distinguishes SRS, stratified, cluster, and systematic sampling; cluster samples all units within selected clusters, while stratified samples within every stratum")]),
+
+    _M("u1_11__convenience_or_voluntary_called_random",
+       "Called a convenience or voluntary-response sample random",
+       "Labeled a sample as random even though units entered because they were easy to reach "
+       "or chose to respond, not because a random mechanism selected them.",
+       "documented_cr", ["slotframe_u1_11_sampling"], ["1.11", "1.12"], ["2.A"],
+       [_fp("S10 Unit 1 (1.10-1.13)",
+            "2025 CR Report Q2 flags sampling-method/bias vocabulary errors and incomplete random-sampling procedures; convenience and voluntary response are non-random biased methods")]),
+
+    _M("u1_11__systematic_srs_conflation",
+       "Conflated systematic random sampling with SRS",
+       "Treated a random start followed by every kth unit as the same as an SRS, ignoring "
+       "that systematic sampling uses a fixed interval after the start rather than independently selecting all units.",
+       "ced_structural", ["slotframe_u1_11_sampling"], ["1.11"], ["2.A"],
+       [_fp("S10 Unit 1 (1.10-1.13)",
+            "CED vocabulary distinguishes systematic random sampling from SRS as separate random-sampling methods")]),
+
+    _M("u1_11__stratified_samples_whole_groups",
+       "Thought stratified sampling means sampling whole groups",
+       "Chose a stratified label for a design that randomly selects entire groups and surveys "
+       "everyone in them, reversing the stratified-vs-cluster rule.",
+       "ced_structural", ["slotframe_u1_11_sampling"], ["1.11"], ["2.A"],
+       [_fp("S10 Unit 1 (1.10-1.13)",
+            "stratified sampling takes a random sample within every stratum; sampling all observational units in selected clusters is cluster sampling")]),
 
     # --- t procedures (means): 4.2 x 3.E interval, 4.5 x 3.E test statistic ----
     _M("se_divided_by_n_not_sqrt_n",

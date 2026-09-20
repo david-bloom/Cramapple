@@ -1,0 +1,161 @@
+{
+  "schema_version": "course-mode-generated-0.1",
+  "package_id": "slotframe-u1_12-2a-101204",
+  "content_key": "apstat-u1-12-2a-bias-101204",
+  "item_type": "mcq",
+  "difficulty": "Medium",
+  "exam_pack_ref": {
+    "exam_code": "ap_statistics",
+    "cycle": "2026-27"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "unit-1"
+    },
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "topic-1.12"
+    },
+    {
+      "scheme_key": "ap-statistics-skills",
+      "node_key": "skill-2.A",
+      "practice": 2
+    }
+  ],
+  "cells": [
+    {
+      "topic": "1.12",
+      "skill": "2.A"
+    }
+  ],
+  "scenario_provenance": {
+    "archetype": "Q1",
+    "archetype_label": "Multi-focus on Practices 1 & 2 (formulate questions; collect/represent data)",
+    "task_verb": "Describe",
+    "practice": 2,
+    "modality": "exam_aligned_digital",
+    "validity_rules": [
+      "realistic data-collection scenario",
+      "bias classification must follow the source of error stated in the stem"
+    ],
+    "sources": [
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S5 (Free-response archetypes)",
+        "note": "Section II question archetypes Q1-Q4"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S6 (Task verbs)",
+        "note": "the item stem's verb must match the scored demand"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S7 (Response modality)",
+        "note": "digital Bluebook; text/numeric entry -> exam_aligned_digital"
+      }
+    ],
+    "domain": "media"
+  },
+  "prompt": "A news website posts an open poll asking visitors to click if they support a proposed rule. Which statement best identifies the bias, if any?",
+  "mcq_form": {
+    "options": [
+      {
+        "text": "Response bias only, because the issue may be controversial.",
+        "correct": false,
+        "misconception": "u1_12__sampling_vs_nonsampling_error",
+        "misconception_source": {
+          "tag": "u1_12__sampling_vs_nonsampling_error",
+          "label": "Confused sampling bias with nonsampling error",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 1 (1.10-1.13)",
+              "note": "sampling design errors and response/measurement errors are distinct data-collection problems"
+            }
+          ]
+        }
+      },
+      {
+        "text": "Simple random sampling, because every website visitor can click the poll.",
+        "correct": false,
+        "misconception": "u1_12__bias_type_confused",
+        "misconception_source": {
+          "tag": "u1_12__bias_type_confused",
+          "label": "Confused the type of sampling bias",
+          "evidence": "documented_cr",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 1 (1.10-1.13)",
+              "note": "collecting data requires distinguishing sampling methods, bias, and study-design flaws"
+            }
+          ]
+        }
+      },
+      {
+        "text": "Voluntary-response bias, because people decide for themselves whether to participate.",
+        "correct": true,
+        "misconception": null
+      },
+      {
+        "text": "Nonresponse bias, because visitors who never see the website do not answer.",
+        "correct": false,
+        "misconception": "u1_12__bias_type_confused",
+        "misconception_source": {
+          "tag": "u1_12__bias_type_confused",
+          "label": "Confused the type of sampling bias",
+          "evidence": "documented_cr",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 1 (1.10-1.13)",
+              "note": "collecting data requires distinguishing sampling methods, bias, and study-design flaws"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "parts": [
+    {
+      "part_key": "part-a",
+      "prompt": "A news website posts an open poll asking visitors to click if they support a proposed rule. Which statement best identifies the bias, if any?",
+      "response_modalities": [
+        "mcq"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "Selects the bias classification supported by the data-collection scenario.",
+          "required_evidence": "Voluntary-response bias, because people decide for themselves whether to participate.",
+          "deterministic_checks": [
+            {
+              "kind": "mcq_key",
+              "correct_bias_statement": "Voluntary-response bias, because people decide for themselves whether to participate."
+            }
+          ],
+          "accepted_variants": []
+        }
+      ]
+    }
+  ],
+  "provenance": {
+    "generator": "course_mode_stats_generator/slot_frames.py",
+    "frame_id": "FB-U1-12-2A-BIAS-01",
+    "template_id": "slotframe_u1_12_bias",
+    "params": {
+      "scenario_id": "u1_12__website_click_poll"
+    },
+    "seed": 101204,
+    "release_status": "unreleased_generated_pending_review",
+    "note": "Authored conceptual frame; correctness from sampling-bias taxonomy."
+  }
+}

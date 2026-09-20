@@ -1,0 +1,193 @@
+{
+  "schema_version": "course-mode-generated-0.1",
+  "package_id": "compare_stats-090000",
+  "content_key": "apstat-compare_stats-090000",
+  "item_type": "mcq",
+  "difficulty": "Medium",
+  "exam_pack_ref": {
+    "exam_code": "ap_statistics",
+    "cycle": "2026-27"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "unit-1"
+    },
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "topic-1.9"
+    },
+    {
+      "scheme_key": "ap-statistics-skills",
+      "node_key": "skill-3.B",
+      "practice": 3
+    }
+  ],
+  "cells": [
+    {
+      "topic": "1.9",
+      "skill": "3.B"
+    }
+  ],
+  "prompt": "A researcher records study-session lengths for two groups. weekday sessions (Group A): 33, 34, 34, 35, 37, 45, 50 minutes. weekend sessions (Group B): 29, 29, 32, 32, 32, 34, 35 minutes. Calculate Group A's IQR minus Group B's IQR.",
+  "numeric_form": {
+    "answer_desc": "IQR difference = 6.0000",
+    "deterministic_checks": [
+      {
+        "kind": "numeric",
+        "value": 6.0,
+        "tol": 0.01
+      }
+    ]
+  },
+  "mcq_form": {
+    "options": [
+      {
+        "text": "6.00",
+        "correct": true,
+        "misconception": null
+      },
+      {
+        "text": "-6.00",
+        "correct": false,
+        "misconception": "u1_9__sign_reversed_difference",
+        "misconception_source": {
+          "tag": "u1_9__sign_reversed_difference",
+          "label": "Reversed the order of the requested difference",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 1 (1.9)",
+              "note": "comparison calculations must follow the stated group order"
+            }
+          ]
+        }
+      },
+      {
+        "text": "11.00",
+        "correct": false,
+        "misconception": "u1_9__used_range_not_iqr",
+        "misconception_source": {
+          "tag": "u1_9__used_range_not_iqr",
+          "label": "Used range instead of IQR for a spread comparison",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 1 (1.7/1.9)",
+              "note": "range and IQR are distinct measures of spread; IQR = Q3 - Q1, not max - min"
+            }
+          ]
+        }
+      },
+      {
+        "text": "6.43",
+        "correct": false,
+        "misconception": "u1_9__used_mean_not_median",
+        "misconception_source": {
+          "tag": "u1_9__used_mean_not_median",
+          "label": "Used the wrong statistic for a comparison",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 1 (1.7/1.9)",
+              "note": "mean, median, and IQR are distinct summary statistics; comparing distributions requires the named statistic"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "worked_solution": "Group A IQR = 11.0000; Group B IQR = 5.0000; A - B = 11.0000 - 5.0000 = 6.0000.",
+  "parts": [
+    {
+      "part_key": "part-a",
+      "prompt": "A researcher records study-session lengths for two groups. weekday sessions (Group A): 33, 34, 34, 35, 37, 45, 50 minutes. weekend sessions (Group B): 29, 29, 32, 32, 32, 34, 35 minutes. Calculate Group A's IQR minus Group B's IQR.",
+      "response_modalities": [
+        "mcq",
+        "numeric"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "IQR difference = 6.0000",
+          "required_evidence": "Group A IQR = 11.0000; Group B IQR = 5.0000; A - B = 11.0000 - 5.0000 = 6.0000.",
+          "deterministic_checks": [
+            {
+              "kind": "numeric",
+              "value": 6.0,
+              "tol": 0.01
+            }
+          ],
+          "accepted_variants": []
+        }
+      ]
+    }
+  ],
+  "scenario_provenance": {
+    "archetype": "Q2",
+    "archetype_label": "Multi-focus on Practices 3 & 4 (analyze data; interpret results)",
+    "task_verb": "Calculate",
+    "practice": 3,
+    "modality": "exam_aligned_digital",
+    "validity_rules": [
+      "two one-variable quantitative data sets for distinct groups",
+      "the requested statistic is stated explicitly as Group A minus Group B",
+      "answer is a single numeric comparison: mean difference, median difference, or IQR difference"
+    ],
+    "sources": [
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S5 (Free-response archetypes)",
+        "note": "Section II question archetypes Q1-Q4"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S6 (Task verbs)",
+        "note": "the item stem's verb must match the scored demand"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S7 (Response modality)",
+        "note": "digital Bluebook; text/numeric entry -> exam_aligned_digital"
+      }
+    ],
+    "domain": "education"
+  },
+  "provenance": {
+    "generator": "course_mode_stats_generator/generator.py",
+    "template_id": "compare_stats",
+    "params": {
+      "scenario_id": "u1_9__study_sessions",
+      "stat": "iqr",
+      "data_a": [
+        33,
+        34,
+        34,
+        35,
+        37,
+        45,
+        50
+      ],
+      "data_b": [
+        29,
+        29,
+        32,
+        32,
+        32,
+        34,
+        35
+      ]
+    },
+    "seed": 90000,
+    "release_status": "unreleased_generated_pending_review",
+    "note": "Synthetic; not official CB content. Requires CM-D19 template-release + review."
+  }
+}

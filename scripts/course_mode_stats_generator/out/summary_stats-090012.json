@@ -1,0 +1,184 @@
+{
+  "schema_version": "course-mode-generated-0.1",
+  "package_id": "summary_stats-090012",
+  "content_key": "apstat-summary_stats-090012",
+  "item_type": "mcq",
+  "difficulty": "Easy",
+  "exam_pack_ref": {
+    "exam_code": "ap_statistics",
+    "cycle": "2026-27"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "unit-1"
+    },
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "topic-1.7"
+    },
+    {
+      "scheme_key": "ap-statistics-skills",
+      "node_key": "skill-3.B",
+      "practice": 3
+    }
+  ],
+  "cells": [
+    {
+      "topic": "1.7",
+      "skill": "3.B"
+    }
+  ],
+  "prompt": "Consider the data set: 19, 42, 63, 65, 67, 78, 79. Calculate the sample mean.",
+  "numeric_form": {
+    "answer_desc": "mean = 59.0000",
+    "deterministic_checks": [
+      {
+        "kind": "numeric",
+        "value": 59,
+        "tol": 0.01
+      }
+    ]
+  },
+  "mcq_form": {
+    "options": [
+      {
+        "text": "68.83",
+        "correct": false,
+        "misconception": "divided_by_n_minus_1",
+        "misconception_source": {
+          "tag": "divided_by_n_minus_1",
+          "label": "Divided by n - 1 instead of n when computing the mean",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 1 (1.7)",
+              "note": "mean divides by n; only the sample SD/variance uses 1/(n-1)"
+            }
+          ]
+        }
+      },
+      {
+        "text": "59.00",
+        "correct": true,
+        "misconception": null
+      },
+      {
+        "text": "65.00",
+        "correct": false,
+        "misconception": "reported_median_not_mean",
+        "misconception_source": {
+          "tag": "reported_median_not_mean",
+          "label": "Reported the median instead of the mean",
+          "evidence": "documented_cr",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 1 (1.7)",
+              "note": "mean = (1/n) sum x_i vs median = middle ordered value; both defined distinctly"
+            },
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 1 (1.6)",
+              "note": "2025 CR Report Q1 documents mean-vs-median reasoning errors"
+            }
+          ]
+        }
+      },
+      {
+        "text": "19.88",
+        "correct": false,
+        "misconception": "reported_pop_sd",
+        "misconception_source": {
+          "tag": "reported_pop_sd",
+          "label": "Reported a standard deviation instead of the mean",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 1 (1.7)",
+              "note": "mean is a measure of center; SD is a measure of spread -- distinct statistics"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "worked_solution": "mean = sum/n = 413/7 = 59.0000.",
+  "parts": [
+    {
+      "part_key": "part-a",
+      "prompt": "Consider the data set: 19, 42, 63, 65, 67, 78, 79. Calculate the sample mean.",
+      "response_modalities": [
+        "mcq",
+        "numeric"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "mean = 59.0000",
+          "required_evidence": "mean = sum/n = 413/7 = 59.0000.",
+          "deterministic_checks": [
+            {
+              "kind": "numeric",
+              "value": 59,
+              "tol": 0.01
+            }
+          ],
+          "accepted_variants": []
+        }
+      ]
+    }
+  ],
+  "scenario_provenance": {
+    "archetype": "Q2",
+    "archetype_label": "Multi-focus on Practices 3 & 4 (analyze data; interpret results)",
+    "task_verb": "Calculate",
+    "practice": 3,
+    "modality": "exam_aligned_digital",
+    "validity_rules": [
+      "a raw quantitative data set (no real-world causal claim implied)"
+    ],
+    "sources": [
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S5 (Free-response archetypes)",
+        "note": "Section II question archetypes Q1-Q4"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S6 (Task verbs)",
+        "note": "the item stem's verb must match the scored demand"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S7 (Response modality)",
+        "note": "digital Bluebook; text/numeric entry -> exam_aligned_digital"
+      }
+    ]
+  },
+  "provenance": {
+    "generator": "course_mode_stats_generator/generator.py",
+    "template_id": "summary_stats",
+    "params": {
+      "data": [
+        19,
+        42,
+        63,
+        65,
+        67,
+        78,
+        79
+      ]
+    },
+    "seed": 90012,
+    "release_status": "unreleased_generated_pending_review",
+    "note": "Synthetic; not official CB content. Requires CM-D19 template-release + review."
+  }
+}

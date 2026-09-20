@@ -1,0 +1,193 @@
+{
+  "schema_version": "course-mode-generated-0.1",
+  "package_id": "compare_stats-090017",
+  "content_key": "apstat-compare_stats-090017",
+  "item_type": "mcq",
+  "difficulty": "Medium",
+  "exam_pack_ref": {
+    "exam_code": "ap_statistics",
+    "cycle": "2026-27"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "unit-1"
+    },
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "topic-1.9"
+    },
+    {
+      "scheme_key": "ap-statistics-skills",
+      "node_key": "skill-3.B",
+      "practice": 3
+    }
+  ],
+  "cells": [
+    {
+      "topic": "1.9",
+      "skill": "3.B"
+    }
+  ],
+  "prompt": "A researcher records seedling heights after four weeks for two groups. sunlit bed (Group A): 17, 18, 27, 29, 39, 40, 48 cm. shaded bed (Group B): 26, 34, 35, 37, 37, 38, 41 cm. Calculate Group A's mean minus Group B's mean.",
+  "numeric_form": {
+    "answer_desc": "mean difference = -4.2857",
+    "deterministic_checks": [
+      {
+        "kind": "numeric",
+        "value": -4.2857,
+        "tol": 0.01
+      }
+    ]
+  },
+  "mcq_form": {
+    "options": [
+      {
+        "text": "4.29",
+        "correct": false,
+        "misconception": "u1_9__sign_reversed_difference",
+        "misconception_source": {
+          "tag": "u1_9__sign_reversed_difference",
+          "label": "Reversed the order of the requested difference",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 1 (1.9)",
+              "note": "comparison calculations must follow the stated group order"
+            }
+          ]
+        }
+      },
+      {
+        "text": "31.14",
+        "correct": false,
+        "misconception": "u1_9__reported_single_group_stat",
+        "misconception_source": {
+          "tag": "u1_9__reported_single_group_stat",
+          "label": "Reported one group's statistic instead of the difference",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 1 (1.9)",
+              "note": "comparing distributions involves contrasting the groups, not reporting one group alone"
+            }
+          ]
+        }
+      },
+      {
+        "text": "-4.29",
+        "correct": true,
+        "misconception": null
+      },
+      {
+        "text": "-8.00",
+        "correct": false,
+        "misconception": "u1_9__used_mean_not_median",
+        "misconception_source": {
+          "tag": "u1_9__used_mean_not_median",
+          "label": "Used the wrong statistic for a comparison",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 1 (1.7/1.9)",
+              "note": "mean, median, and IQR are distinct summary statistics; comparing distributions requires the named statistic"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "worked_solution": "Group A mean = 31.1429; Group B mean = 35.4286; A - B = 31.1429 - 35.4286 = -4.2857.",
+  "parts": [
+    {
+      "part_key": "part-a",
+      "prompt": "A researcher records seedling heights after four weeks for two groups. sunlit bed (Group A): 17, 18, 27, 29, 39, 40, 48 cm. shaded bed (Group B): 26, 34, 35, 37, 37, 38, 41 cm. Calculate Group A's mean minus Group B's mean.",
+      "response_modalities": [
+        "mcq",
+        "numeric"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "mean difference = -4.2857",
+          "required_evidence": "Group A mean = 31.1429; Group B mean = 35.4286; A - B = 31.1429 - 35.4286 = -4.2857.",
+          "deterministic_checks": [
+            {
+              "kind": "numeric",
+              "value": -4.2857,
+              "tol": 0.01
+            }
+          ],
+          "accepted_variants": []
+        }
+      ]
+    }
+  ],
+  "scenario_provenance": {
+    "archetype": "Q2",
+    "archetype_label": "Multi-focus on Practices 3 & 4 (analyze data; interpret results)",
+    "task_verb": "Calculate",
+    "practice": 3,
+    "modality": "exam_aligned_digital",
+    "validity_rules": [
+      "two one-variable quantitative data sets for distinct groups",
+      "the requested statistic is stated explicitly as Group A minus Group B",
+      "answer is a single numeric comparison: mean difference, median difference, or IQR difference"
+    ],
+    "sources": [
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S5 (Free-response archetypes)",
+        "note": "Section II question archetypes Q1-Q4"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S6 (Task verbs)",
+        "note": "the item stem's verb must match the scored demand"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S7 (Response modality)",
+        "note": "digital Bluebook; text/numeric entry -> exam_aligned_digital"
+      }
+    ],
+    "domain": "biology"
+  },
+  "provenance": {
+    "generator": "course_mode_stats_generator/generator.py",
+    "template_id": "compare_stats",
+    "params": {
+      "scenario_id": "u1_9__garden_seedlings",
+      "stat": "mean",
+      "data_a": [
+        17,
+        18,
+        27,
+        29,
+        39,
+        40,
+        48
+      ],
+      "data_b": [
+        26,
+        34,
+        35,
+        37,
+        37,
+        38,
+        41
+      ]
+    },
+    "seed": 90017,
+    "release_status": "unreleased_generated_pending_review",
+    "note": "Synthetic; not official CB content. Requires CM-D19 template-release + review."
+  }
+}
