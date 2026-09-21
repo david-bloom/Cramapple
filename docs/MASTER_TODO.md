@@ -3,7 +3,7 @@
 **Status:** Active backlog index
 **Owner:** Main Conductor
 **Product Owner:** David Bloom
-**Last Updated:** 2026-09-17
+**Last Updated:** 2026-09-21
 
 ## 1. Purpose
 
@@ -66,6 +66,7 @@ records.
 | NOW-013 | P0 | Establish grader confidence and calibration | Learning Quality Owner / Grading Lead | Proposed | Complete `TASK-0010` before learner-facing automated FRQ scores |
 | NOW-014 | P2 | Prototype handwritten graph camera capture | Product / Technical Owner | Research | Test the QR-linked paper-first flow in `TASK-0011` |
 | NOW-015 | P1 | Decide Cram/Points commercial positioning, pricing, and launch subject | David Bloom (with Micah on positioning/pricing) | Ready for Owner Review | Engineering sequencing (which mode ships first) is answered by `docs/product/COURSE_HOMEWORK_CONSOLIDATION_PLAN.md` §1; the commercial questions in its §7 and §10 items 1-4 (category/promise, whether Points/Cram survives as a named offer, pricing/access model for year-round use, launch subject) remain open |
+| NOW-016 | P1 | Generate full-point FRQ canonical answers (Biology, then Statistics) and QA them | Codex (drafter) → independent non-OpenAI model (QA) → Orly Bloom (defect adjudication) | In Progress | Per `DECISION-0052` / `DESIGN-008`, run `prompts/CODEX_CANONICAL_ANSWER_GENERATION_2026_09_21.md`: draft answers for FRQs lacking a canonical, STOP for independent QA after Biology before starting Statistics; every draft graded to 100% against its own rubric before it counts. Coverage baseline (Production, 2026-09-21): Biology 143/157 (91%), Statistics 58/178 (33%); Physics family 22–37%, Calculus/Precalc 48–56%, Chemistry 80% — pending as later batches |
 
 ## 4. Active Task Register
 
@@ -253,6 +254,44 @@ records.
   so this needs the HDG capture path above, not the text-answer
   `generate_gold_set.mjs` pipeline. Revisit once this backlog item's core
   rendering/capture questions are resolved.
+
+### DESIGN-008 - Student-Facing Canonical Answers (Full-Point, Verified)
+
+**Status:** Approved approach, generation in progress (`DECISION-0052`)
+**Priority:** P1 (launch gate — a subject's FRQ bank needs full-point coverage)
+**Owner:** Learning Quality Owner (Orly Bloom) with grading lead; Codex as drafter
+**Depends on:** `TASK-0010` (grader calibration), `DECISION-0052`
+**Design record:** `docs/proposals/2026-09-20-student-facing-canonical-answers.md`
+**Execution record:** `NOW-016`, `prompts/CODEX_CANONICAL_ANSWER_GENERATION_2026_09_21.md`
+
+- [x] Adopt the rule: canonical = student-written AND graded 100% against its own rubric.
+- [x] Baseline FRQ canonical coverage per subject (Production audit, 2026-09-21).
+- [ ] Draft full-point answers for FRQs lacking one — Biology first, then Statistics
+  (Codex drafter → independent non-OpenAI QA, STOP-for-QA gate between subjects).
+- [ ] Verify every draft to 100% through the production grader before it counts.
+- [ ] Route existing canonicals through the QA pass; never overwrite them blindly.
+- [ ] Resolve the open parameters (verify against current grader now vs. one gate with
+  `TASK-0010`; single vs. multiple full-credit paths; long-FRQ dual-pass).
+- [ ] Extend to the remaining subjects (Physics family, Calculus/Precalc, Chemistry).
+- [ ] Hold the authored-canonical ≠ certified-gold-set and answer-key-secrecy lines.
+
+### DESIGN-009 - Topic Reference Layer (Vocabulary, Equations, Visuals)
+
+**Status:** Approved direction, build deferred (`DECISION-0053`)
+**Priority:** P2 (supporting; not a launch gate)
+**Owner:** Curricular Owner (Orly Bloom) with technical owner
+**Design record:** `docs/proposals/2026-09-20-topic-reference-layer.md`
+
+- [x] Decide scope: topic-scoped (not topic×skill); vocabulary sourced from CED
+  Essential Knowledge, grounded — not from model memory.
+- [x] Confirm reuse-first storage direction (mirror `topic_point_briefs` / use
+  `artifact_versions`; generalize the asset link to a taxonomy node).
+- [ ] Build the topic-scoped vocabulary/equation store (reuse, no parallel subsystem).
+- [ ] Generalize `content_asset_metadata` so an asset can attach to a taxonomy node.
+- [ ] Generate vocabulary/equations from the grounded prompt (shape documented in the
+  proposal), with an independent validation pass and a per-topic curation gate.
+- [ ] Resolve the reference-layer open questions (per-subject equation treatment;
+  cross-topic term reuse; how topic-scoped visuals are sourced).
 
 ## 7. P1 Product and Teaching Design Backlog
 
