@@ -37,8 +37,11 @@ not new machinery.
 
 ## Source of truth (per item)
 
-For each FRQ, the rubric is the ground truth. Pull, read-only, from the Cramapple
-**Development** Supabase project (`wmgjsdkphcyhngaffbqf`) — never Production:
+For each FRQ, the rubric is the ground truth. Pull, **read-only**, from the Cramapple
+**Production** Supabase project (`pcntajvbdfqhbeewmdry`). The FRQ corpus lives in
+Production, not Development (Development holds almost no FRQ content). You only ever
+**read** from it — every output you produce goes to repo files (see Output); you never
+write to any database:
 
 - `app.content_items` (`item_type='frq'`) → its latest `app.content_item_versions`
   (the `stem`, `prompt_json`, `scoring_contract`, existing `canonical_answer_1/2`,
@@ -52,8 +55,9 @@ For each FRQ, the rubric is the ground truth. Pull, read-only, from the Cramappl
 
 - **Only FRQs that lack a full-point canonical answer today** (latest version's
   `canonical_answer_1` is null/empty). Re-derive this set at run time; do not
-  trust a stale count. (As of the 2026-09-21 Production audit the gaps were ~14 of
-  157 Biology FRQs and ~120 of 178 Statistics FRQs — Development may differ.)
+  trust a stale count. (Per the 2026-09-21 Production audit the gaps were ~14 of
+  157 Biology FRQs and ~120 of 178 Statistics FRQs; re-derive the exact set at run
+  time from Production.)
 - **Never overwrite an existing canonical answer.** Items that already have one
   (e.g. Biology's reviewed "canonical pair" set) are routed to the QA pass for
   verification, not re-drafted by you.
