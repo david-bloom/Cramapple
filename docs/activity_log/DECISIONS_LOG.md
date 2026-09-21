@@ -6,6 +6,8 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0053 — Adopt the Topic Reference Layer Approach (Topic-Scoped, CED Essential-Knowledge-Grounded Vocabulary; Reuse-First Storage); Build Deferred (P2)
+- DECISION-0052 — Adopt Full-Point Verified Canonical Answers for FRQs, and Begin Generation (Biology → Statistics) with an Independent AI QA Gate
 - DECISION-0051 — Confirm QR Handoff (System A) as Engine 4's Sole Capture Path, No Direct-Upload Fallback; Define Capture-Failure Handling (Generic Retake Guidance vs. Bug Logging)
 - DECISION-0050 — Retire the Dual-Human-Adjudicated Gold-Set Requirement for Engine 4 (Spatial); Adopt the DECISION-0045 AI-Generation + Multi-Model-Verification + Reader-Certification Model Instead
 - DECISION-0049 — Hand-Drawn Capture Becomes an Added Submission Option for Typed-Math FRQs (Retroactive to All 36 Published Calculus FRQs), Graded via the Same Criteria as Typed Answers Through an OCR-Transcription Step
@@ -30,6 +32,100 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~600 lines, archive the older entries to `docs/activity_log/archive/DECISIONS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries. (This log is already well over that threshold — the first archive pass is overdue, not optional.)
 
 (Note: the TASK-0012 branch independently logged its own DECISION-0027/0028 — CORS/ALLOWED_ORIGINS and budget-burn semantics — under different numbers on its own branch. Those land separately when that work merges to `main`; this charter-adoption decision claimed 0027/0028 here because `main` had not yet recorded entries past DECISION-0026 at merge time. If both branches' numbering collides on merge, renumber on whichever side merges second and update this index.)
+
+## DECISION-0053 — Adopt the Topic Reference Layer Approach (Topic-Scoped, CED Essential-Knowledge-Grounded Vocabulary; Reuse-First Storage); Build Deferred (P2)
+
+**Date:** 2026-09-21
+**Decision Owner:** David Bloom
+**Status:** Approved (approach/direction); build deferred, P2 (supporting, not a launch gate)
+**Approval:** Product Owner direction, 2026-09-21 (this session)
+**Related Task:** `DESIGN-009` (backlog)
+**Related Docs:** `docs/proposals/2026-09-20-topic-reference-layer.md` (the merged proposal this adopts)
+**Area:** Content / Data model
+
+### Context
+
+Each topic needs a "reference rack" — the relevant equations, diagrams/graphs, and
+vocabulary a student should have at hand, surfaced per topic and curated rather than
+a dump of every term in a unit. Schema exploration found much of the backbone already
+built and reusable (`app.taxonomy_units/topics/skills/cells`; the
+`app.topic_point_briefs`/`app.topic_explainers` pattern; `app.content_asset_metadata`
+plus the Visual Stimulus system). The gaps: no vocabulary store, no equation store,
+and visuals are keyed to a `content_item_version_id` (item-scoped), not to a topic.
+
+### Decision
+
+1. **Reference content is topic-scoped, not topic×skill.** The CED prints Essential
+   Knowledge per topic, so the authoritative source is topic-grained; this matches
+   how `topic_point_briefs`/`topic_explainers` are already keyed.
+2. **Vocabulary is sourced from the CED fact packs' Essential Knowledge statements,
+   grounded — never generated from model memory.** The terms named in a topic's EK are
+   the curated set (~5–12 per topic), each with a CED-grounded one-line definition.
+3. **Reuse-first storage.** Add vocabulary/equations as a small table mirroring
+   `topic_point_briefs` (keyed `subject_key` + `topic_code`) or as `artifact_versions`
+   types; generalize the asset link so an asset can attach to a taxonomy node, not only
+   an item. No parallel subsystem.
+4. **CED fact packs are verified against the most recent official College Board CED
+   documents**, so the reference layer inherits that currency.
+
+### Consequences / Follow-ups
+
+- Opens `DESIGN-009` in the backlog; build is deferred (P2, supporting).
+- Generation of the vocabulary/equations from a grounded prompt is a planned build
+  step, not started here; its need and shape are documented in the proposal.
+
+## DECISION-0052 — Adopt Full-Point Verified Canonical Answers for FRQs, and Begin Generation (Biology → Statistics) with an Independent AI QA Gate
+
+**Date:** 2026-09-21
+**Decision Owner:** David Bloom
+**Status:** Approved (approach + start of generation); several parameters still open (below)
+**Approval:** Product Owner direction, 2026-09-21 (this session)
+**Related Task:** `DESIGN-008`, `NOW-016` (backlog); depends on `TASK-0010` (grader calibration)
+**Related Docs:** `docs/proposals/2026-09-20-student-facing-canonical-answers.md` (the merged
+proposal this adopts); `prompts/CODEX_CANONICAL_ANSWER_GENERATION_2026_09_21.md` (the generation
+orchestration prompt); FRQ canonical-answer coverage audit (Production, 2026-09-21, recorded in
+`NOW-016`)
+**Area:** Content / Grading
+
+### Context
+
+Canonical answers already exist across the stack (`content_item_versions.canonical_answer_1/2`,
+`mcq_choices.is_correct`, `frq_criteria`, the review lifecycle, the `evaluate-attempt` grader),
+but today's FRQ canonical is a restatement of the rubric, not a verified full-credit response,
+and nothing proves it earns full marks (the `APSTATS-SFRQ-008` stale-canonical bug zeroed every
+correct response until an audit caught it). A 2026-09-21 Production sample put FRQ canonical
+coverage at ~91% for Biology, ~33% for Statistics, and 22–37% across the Physics family — a
+launch-readiness gap, and a student-facing gap since a subject needs a full-credit model answer
+for every open-response item.
+
+### Decision
+
+1. **Adopt the rule:** an answer is not canonical until it is written as a student would write it
+   AND the production grader awards it 100% against its own rubric.
+2. **Generate by drafting with one AI, verifying with an independent one.** Codex drafts full-point
+   answers from each FRQ's rubric (it is the drafter only, writes to reviewable staging files, not
+   the database); a separate, independent, non-OpenAI model runs the QA/verification pass.
+3. **Start with Biology, then Statistics, with a STOP-for-QA gate between them** — Biology drafts
+   are QA-verified before Statistics generation begins.
+4. **Authored canonical ≠ certified gold set** (holds DECISION-0045's line), and a full-point answer
+   is an answer key — never exposed to a student before they submit.
+5. **Coverage of the verified canonical set becomes a launch gate** for a subject's FRQ bank.
+
+### Open (decided later, not by this entry)
+
+- Whether full-point verification runs against the **current** grader now (as content QA) or is
+  treated as one gate with `TASK-0010` grader calibration / `NOW-013`.
+- Whether one verified canonical suffices per item or a second full-credit path is captured
+  (`canonical_answer_2`), and whether the student sees one or several.
+- Whether long FRQs need dual-pass verification (`DESIGN-001`'s dual-pass question).
+
+### Consequences / Follow-ups
+
+- Opens `DESIGN-008` and `NOW-016`; creates `prompts/CODEX_CANONICAL_ANSWER_GENERATION_2026_09_21.md`.
+- Generation targets FRQs that lack a canonical today; existing canonicals are routed to the QA
+  pass, never overwritten by the drafter.
+- Rubric-defect findings surfaced during drafting/QA (criteria no correct answer can satisfy) go to
+  the Curricular Owner, not papered over.
 
 ## DECISION-0051 — Confirm QR Handoff (System A) as Engine 4's Sole Capture Path, No Direct-Upload Fallback; Define Capture-Failure Handling (Generic Retake Guidance vs. Bug Logging)
 
