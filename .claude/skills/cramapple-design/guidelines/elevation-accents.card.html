@@ -1,0 +1,29 @@
+<!-- @dsCard group="Brand" viewport="700x200" subtitle="Left rules carry meaning: 4px hint, 5px feedback, 2.5px dashed correction" name="Accent rules" -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Passion+One:wght@400;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper-000);font-family:var(--font-ui);color:var(--text-body);padding:18px 20px}
+.eye{font:var(--eyebrow);letter-spacing:var(--eyebrow-tracking);text-transform:uppercase}
+.head{font-family:var(--font-head)}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+.sw{width:104px}
+.chip{height:56px;border:1px solid var(--rule-300)}
+.lbl{font-size:12px;font-weight:700;margin-top:5px;color:var(--text-body)}
+.hex{font-size:11px;color:var(--text-muted);letter-spacing:.02em}
+</style>
+</head>
+<body>
+
+<div style="display:flex;flex-direction:column;gap:12px;max-width:620px">
+  <div style="background:var(--yellow-paper);border:1px solid var(--yellow-rule);border-left:var(--accent-rule) solid var(--yellow-500);padding:10px 13px;font:var(--body-strong)">Hint block — 4px yellow</div>
+  <div style="background:var(--purple-paper);border:1px solid var(--purple-rule-strong);border-left:var(--accent-rule-strong) solid var(--purple-600);box-shadow:var(--shadow-feedback);padding:10px 13px;font:var(--body-strong)">Feedback card — 5px purple</div>
+  <div style="padding-left:12px;border-left:var(--dashed-correction);font:var(--body);color:var(--text-correction);font-weight:600">Correction note — 2.5px dashed clay</div>
+</div>
+</body>
+</html>
