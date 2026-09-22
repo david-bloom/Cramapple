@@ -24,10 +24,19 @@ You never write to the database and you never generate at student-runtime.
 
 ## 1. Scope
 
-Every **published AP Biology FRQ**: 75 items (`content_item_versions`, `status='published'`,
-`subject_key='biology'`, `item_type='frq'`). Of these, ~68 already have a `canonical_answer_1` and
-~7 do not (verify the live counts yourself and report them). MCQ are out of scope — Open Hand MCQ
-is a different mechanic.
+Every **published AP Biology FRQ**: the **75 distinct items that have a `status='published'`
+version**. Filter `public.content_item_versions` by `status='published'`, `subject_key='biology'`,
+`item_type='frq'`, and take the **latest published version** per `content_item_id`. Of the 75,
+~68 already have a `canonical_answer_1` and ~7 do not (verify the live counts yourself and report
+them). MCQ are out of scope — Open Hand MCQ is a different mechanic.
+
+**Scope note (reconciled 2026-09-22, read-only Production).** There are **157** Biology FRQ
+`content_item` rows in total and **246** versions across them, but only **75** items carry a
+published version. `public.content_item_versions` is a **view that exposes all 246 versions**, so
+an unfiltered count reads 157/246 — that is why an earlier all-status pass saw 157. This work
+order is **published-only (75 items)**: Open Hand serves published content, and the other 82
+unpublished/draft items are out of scope until they are published. If a count you get is not 75,
+you have not filtered to `status='published'` + latest version — do that, do not expand scope.
 
 ---
 
