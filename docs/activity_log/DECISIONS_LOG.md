@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0055 — Pause the Human Independent-Review (Double/Triple-Reviewer) Requirement for Content; AI Cross-Model QA + Product Owner Approval Is the Operative Gate During the Pause
 - DECISION-0054 — Adopt One Device-Neutral Bootstrap and Shared ChatGPT Project Contract
 - DECISION-0053 — Adopt the Topic Reference Layer Approach (Topic-Scoped, CED Essential-Knowledge-Grounded Vocabulary; Reuse-First Storage); Build Deferred (P2)
 - DECISION-0052 — Adopt Full-Point Verified Canonical Answers for FRQs, and Begin Generation (Biology → Statistics) with an Independent AI QA Gate
@@ -33,6 +34,58 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~600 lines, archive the older entries to `docs/activity_log/archive/DECISIONS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries. (This log is already well over that threshold — the first archive pass is overdue, not optional.)
 
 (Note: the TASK-0012 branch independently logged its own DECISION-0027/0028 — CORS/ALLOWED_ORIGINS and budget-burn semantics — under different numbers on its own branch. Those land separately when that work merges to `main`; this charter-adoption decision claimed 0027/0028 here because `main` had not yet recorded entries past DECISION-0026 at merge time. If both branches' numbering collides on merge, renumber on whichever side merges second and update this index.)
+
+## DECISION-0055 — Pause the Human Independent-Review (Double/Triple-Reviewer) Requirement for Content; AI Cross-Model QA + Product Owner Approval Is the Operative Gate During the Pause
+
+**Date:** 2026-09-22
+**Decision Owner:** David Bloom
+**Status:** Approved — pause in effect, reversible
+**Approval:** Product Owner direction, 2026-09-22 (this session)
+**Supersedes while paused:** the human-reviewer half of DECISION-0044 (Universal Publication Rule —
+Double-Approve + AI QA) and the reviewer-count gate in `CONTENT_GOVERNANCE_AND_VALIDATION.md` §11.1
+(R0–R3)
+**Related Docs:** `docs/architecture/CONTENT_GOVERNANCE_AND_VALIDATION.md` §11.1; DECISION-0044;
+DECISION-0052 (AI-draft + independent-AI-QA model); the QA record in
+`docs/research/apbio_frq_segmentation_2026_09_22/`
+**Area:** Content / Governance
+
+### Context
+
+Content authoring and validation is the launch bottleneck. The Product Owner has consistently
+found human validation slow and error-prone and is more confident in AI for these tasks (topic
+labelling, canonical-answer verification). The AI pipeline in practice — one AI builds (Codex), a
+**different** AI runs independent QA (Claude), with cross-model corroboration (Gemini) — has caught
+real defects it was meant to (e.g. the `canonical_answer_2` re-draft defect, 2026-09-22, found and
+fixed before anything shipped) and is faster than a two/three-human-validator gate.
+
+### Decision
+
+1. **Pause the human independent-review requirement for content across all artifact classes** —
+   §11.1 R0 (one verifier), R1/R2 (two Teaching Validators), R3 (three, including one Lead), and the
+   human "double-approve" half of DECISION-0044. No human reviewer count is required to move content
+   toward serving while this pause is in effect.
+2. **Operative gate during the pause:** AI build (e.g. Codex) → **independent AI cross-model QA** (a
+   model different from the builder; e.g. Claude, corroborated by Gemini) → **Product Owner
+   approval**. AI QA is **not** paused — it is mandatory and is the gate. The Product Owner is the
+   single human sign-off.
+3. **Scope:** all content types and all subjects.
+4. **Reversible by design.** The §11.1 table and DECISION-0044's human-reviewer language are retained
+   verbatim; lifting this pause (a future decision) restores them with no rewrite.
+
+### Not paused — explicitly preserved
+
+- **INV-3 / CM-D20** — no unvetted generation at student **response time**. This pause concerns
+  *authoring-time* human review, not runtime generation.
+- **The answer-key serving boundary** (PR #106; no relaxation of `public.mcq_choices`).
+- **Trunk protection and CI.**
+- **The existing paying customer's access** must survive any change.
+- **The independent AI QA pass itself** — mandatory, not optional.
+
+### Open
+
+- Duration of the pause / when to revisit.
+- Whether Product Owner approval may be delegated (e.g. to the Learning Quality Owner) without
+  reintroducing a "reviewer count."
 
 ## DECISION-0054 — Adopt One Device-Neutral Bootstrap and Shared ChatGPT Project Contract
 

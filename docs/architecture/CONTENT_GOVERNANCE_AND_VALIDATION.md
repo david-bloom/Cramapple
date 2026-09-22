@@ -1351,6 +1351,14 @@ change requires an authorized human decision and a recorded rationale.
 
 ### 11.1 Reviewer Count
 
+> **PAUSED as of 2026-09-22 — DECISION-0055.** The human independent-review requirement in this
+> section (R0–R3) is **paused** across all artifact classes. During the pause, the operative gate
+> before content serves is: AI build → **independent AI cross-model QA** (a model different from the
+> builder) → **Product Owner approval**. AI QA is mandatory and is not paused. INV-3 (no unvetted
+> generation at response time), the answer-key serving boundary, and trunk protection are **not**
+> paused. This pause is reversible: the table below is retained verbatim and is restored in full
+> when a future decision lifts the pause.
+
 | Artifact | Required independent reviewers | Adjudication |
 | --- | --- | --- |
 | R0 administrative | One verifier | Release Approver if disputed |
