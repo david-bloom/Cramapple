@@ -88,6 +88,7 @@ These are design rules, not preferences. Breaking one is a bug.
 npm test                 # grading engine, incl. the voice rules (no "!", no praise)
 npm run verify:panes     # no pane overflows, in 17 screen states
 npm run verify:screens   # 73 interaction checks across all five screens
+npm run verify:real      # 8 real MCQ packages, both modes, 16 plates
 ```
 
 The two browser checks need a running preview and a Chromium:
@@ -104,7 +105,33 @@ Set `PLAYWRIGHT_CHROMIUM` if Chromium is already on disk somewhere else, and
 
 ## Content
 
-`src/content/` is a seam, not the content pipeline.
+`src/content/` is a seam, not the content pipeline. It now carries two tracks.
+
+### Real item packages
+
+`src/content/real.js` imports eight MCQ packages straight from
+`content/item-packages/` through the `@packages` alias — nothing is copied, so
+nothing drifts. They are stress cases, not friendly ones: the longest stem in the
+library, the longest choice text, the heaviest rationales, one with a directions
+stimulus and one with none, across four subjects.
+
+They resolve on the same routes as the samples, e.g.
+`/#/practice/apchem-mcq-016`. They stay out of Home and the study map, because
+they belong to eight different courses and do not form a unit.
+
+`src/content/adapter.js` maps a package onto what the screens read. **It invents
+nothing.** Where the design system wants content a package does not carry, the
+adapter returns `null` and the screen renders a marked absence
+(`screens/parts/Missing.jsx`) rather than a plausible-looking fabrication.
+Authoring that content is the pipeline's job, and filling it in here would put
+unvetted pedagogy in front of a student wearing the product's own styling.
+
+What every MCQ package is missing, against what the plate asks for: a pane title,
+the habits pair, reference materials, any hint definition, the three-section deep
+dive, per-verdict coaching, and a per-distractor `Fix:` line. Rationales say why
+a choice tempts; nothing says how to correct it.
+
+### The sample walkthrough
 
 The six items under `src/content/sample/` are **hand-written for this Unit 2
 walkthrough**. They did not come from the authoring pipeline in `prompts/`, they

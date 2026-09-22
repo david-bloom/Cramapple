@@ -7,6 +7,7 @@ import { TOPICS, ALL_QUESTIONS } from '../content/index.js';
  * nothing in it is scored.
  */
 
+/** Only the sample walkthrough forms a study map; real packages are reviewed directly. */
 export function topicProgress(attempts) {
   return TOPICS.map((t) => {
     const done = t.questions.filter((q) => attempts[q.package_id]?.mode === 'practice').length;

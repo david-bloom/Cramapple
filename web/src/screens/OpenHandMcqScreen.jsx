@@ -5,6 +5,8 @@ import {
 import { QuestionPlate } from './parts/QuestionPlate.jsx';
 import { ReferencePane } from './parts/ReferencePane.jsx';
 import { Stem } from './parts/Stem.jsx';
+import { Missing } from './parts/Missing.jsx';
+import { MISSING, topicLabel } from '../content/adapter.js';
 import { body } from './parts/text.js';
 import { useSession } from '../session/SessionProvider.jsx';
 
@@ -34,7 +36,10 @@ export function OpenHandMcqScreen({ question, onNext }) {
             </span>}
             style={{ height: '100%' }}
           >
-            <p style={{ ...body, marginBottom: 14 }}>{question.openHandNote}</p>
+            <p style={{ ...body, marginBottom: 14 }}>
+              {question.openHandNote
+                || 'Nothing is scored here. Every option is marked before you pick — read why each one is what it is.'}
+            </p>
             <div style={{ display: 'grid', gap: 10 }}>
               {question.choices.map((c) => {
                 const isRead = seen.includes(c.choice_key);
@@ -69,7 +74,13 @@ export function OpenHandMcqScreen({ question, onNext }) {
                       display: 'block', marginTop: 4, fontSize: 'var(--type-body-size)',
                       lineHeight: 'var(--type-body-line)', color: 'var(--text-secondary)'
                     }}>
-                      {c.is_correct ? 'Every move in place — and four ways to lose the point.' : c.minimum_fix}
+                      {/* The key row is sized for a one-line fix. Real packages carry
+                          no fix line, and substituting their rationale here overruns
+                          the pane by up to 204px -- the rationale belongs where the
+                          design puts it, on the selected option in the question pane. */}
+                      {c.is_correct
+                        ? 'Credited.'
+                        : (c.minimum_fix || 'No fix line in this package.')}
                     </span>
                   </div>
                 );
@@ -78,12 +89,15 @@ export function OpenHandMcqScreen({ question, onNext }) {
             <p style={{ ...body, marginTop: 14, fontSize: 'var(--type-count-size)', color: 'var(--text-quiet)' }}>
               Selecting an option is free in Open Hand. It counts as reading, not as answering.
             </p>
+            {!question.choices.some((c) => c.minimum_fix) && (
+              <div style={{ marginTop: 12 }}><Missing inline>{MISSING.choiceFix}</Missing></div>
+            )}
           </PaneShell>
 
           <PaneShell
             voice="question"
             eyebrow="Question"
-            title={question.title}
+            title={question.title || topicLabel(question)}
             right={<span style={{ fontSize: 'var(--type-count-size)', fontWeight: 600, color: 'var(--text-secondary)' }}>Not scored</span>}
             style={{ height: '100%' }}
           >
@@ -92,9 +106,9 @@ export function OpenHandMcqScreen({ question, onNext }) {
               gridTemplateRows: 'auto minmax(0,1fr) auto'
             }}>
               <QuestionHeader
-                topic={`${question.taxonomy.topic} ${question.taxonomy.topic_title}`}
+                topic={question.source === 'package' ? question.package_id : topicLabel(question)}
                 mode="Open Hand"
-                points={1}
+                points={question.points ?? 1}
                 stem={<Stem nodes={question.stem} />}
               />
 
@@ -118,12 +132,14 @@ export function OpenHandMcqScreen({ question, onNext }) {
               <ActionRow
                 note={`${seen.length} of ${total} explanations read`}
                 primary={<ActionButton variant="primary" onClick={onNext}>Next question</ActionButton>}
-                secondary={<ActionButton variant="link" onClick={openDeepDive}>Open the deep dive</ActionButton>}
+                secondary={question.deepDive
+                  ? <ActionButton variant="link" onClick={openDeepDive}>Open the deep dive</ActionButton>
+                  : undefined}
               />
             </div>
           </PaneShell>
 
-          <ReferencePane reference={question.reference} />
+          <ReferencePane reference={question.reference} expectedReasoning={question.expectedReasoning} />
         </>
       )}
     </QuestionPlate>

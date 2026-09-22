@@ -8,6 +8,8 @@ import { ReferencePane } from './parts/ReferencePane.jsx';
 import { Habits } from './parts/Habits.jsx';
 import { DeepDiveGate, DEEP_DIVE_HINT } from './parts/DeepDiveGate.jsx';
 import { Stem } from './parts/Stem.jsx';
+import { Missing } from './parts/Missing.jsx';
+import { MISSING, topicLabel } from '../content/adapter.js';
 import { body } from './parts/text.js';
 import { useSession, useHints } from '../session/SessionProvider.jsx';
 import { gradeMcq } from '../session/grade.js';
@@ -49,6 +51,8 @@ export function PracticeMcqScreen({ question, onNext }) {
     });
   };
 
+  const real = question.source === 'package';
+
   const shown = submitted
     ? question.choices.filter((c) => c.is_correct || c.choice_key === attempt.picked)
     : question.choices;
@@ -80,8 +84,11 @@ export function PracticeMcqScreen({ question, onNext }) {
                         color: m.is_correct ? 'var(--text-earned)' : m.picked ? 'var(--text-revisit)' : 'var(--text-quiet)'
                       }}>{m.is_correct ? '✓' : m.picked ? '↻' : '·'}</span>
                       <span style={{ fontSize: 'var(--type-body-size)', fontWeight: 700 }}>{m.choice_key}</span>
-                      <span style={{ fontSize: 'var(--type-body-size)', lineHeight: 'var(--type-body-line)', color: 'var(--text-secondary)' }}>
-                        {m.note}
+                      <span style={{
+                        fontSize: 'var(--type-body-size)', lineHeight: 'var(--type-body-line)',
+                        color: m.note ? 'var(--text-secondary)' : 'var(--text-quiet)'
+                      }}>
+                        {m.note || 'No fix in the package'}
                       </span>
                     </span>
                   </div>
@@ -89,7 +96,10 @@ export function PracticeMcqScreen({ question, onNext }) {
               </div>
             ) : (
               <div style={{ display: 'grid', gap: 16 }}>
-                <p style={body}>{question.scoringNote}</p>
+                {question.scoringNote
+                  ? <p style={body}>{question.scoringNote}</p>
+                  : <p style={body}>One point. One submission. The key stays closed until you commit.</p>}
+                {!elimHint && <Missing>{MISSING.hints}</Missing>}
                 {elimHint && (
                   <HintGate
                     name={elimHint.name}
@@ -104,10 +114,12 @@ export function PracticeMcqScreen({ question, onNext }) {
                     <p style={body}>{elimHint.body}</p>
                   </HintGate>
                 )}
-                {question.deepDive && (
-                  <DeepDiveGate hints={hints} onOpen={openDeepDive} />
-                )}
-                <Habits habits={question.habits} />
+                {question.deepDive
+                  ? <DeepDiveGate hints={hints} onOpen={openDeepDive} />
+                  : <Missing>{MISSING.deepDive}</Missing>}
+                {question.habits
+                  ? <Habits habits={question.habits} />
+                  : <Missing>{MISSING.habits}</Missing>}
               </div>
             )}
           </PaneShell>
@@ -115,7 +127,7 @@ export function PracticeMcqScreen({ question, onNext }) {
           <PaneShell
             voice="question"
             eyebrow="Question"
-            title={question.title}
+            title={question.title || topicLabel(question)}
             right={<ScoreChip earned={submitted ? attempt.earned : null} total={1} label="Score" />}
             style={{ height: '100%' }}
           >
@@ -124,9 +136,9 @@ export function PracticeMcqScreen({ question, onNext }) {
               gridTemplateRows: 'auto minmax(0,1fr) auto auto'
             }}>
               <QuestionHeader
-                topic={`${question.taxonomy.topic} ${question.taxonomy.topic_title}`}
+                topic={real ? question.package_id : topicLabel(question)}
                 mode="Practice"
-                points={1}
+                points={question.points ?? 1}
                 stem={<Stem nodes={question.stem} />}
               />
 
@@ -167,13 +179,15 @@ export function PracticeMcqScreen({ question, onNext }) {
                   ? <ActionButton variant="primary" onClick={onNext}>Next question</ActionButton>
                   : <ActionButton variant="primary" disabled={!picked} onClick={submit}>Submit answer</ActionButton>}
                 secondary={submitted
-                  ? <ActionButton variant="link" onClick={openDeepDive}>Open the deep dive</ActionButton>
+                  ? (question.deepDive
+                    ? <ActionButton variant="link" onClick={openDeepDive}>Open the deep dive</ActionButton>
+                    : undefined)
                   : <ActionButton variant="link" onClick={onNext}>Skip for now</ActionButton>}
               />
             </div>
           </PaneShell>
 
-          <ReferencePane reference={question.reference} />
+          <ReferencePane reference={question.reference} expectedReasoning={question.expectedReasoning} />
         </>
       )}
     </QuestionPlate>
