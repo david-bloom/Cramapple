@@ -1,8 +1,33 @@
 # Codex Work Order — Tag Biology & Statistics Items With Unit:Topic Pairs; Review FRQ Canonical Answers
 
 DATE: 2026-09-22 | SUBJECTS: AP Biology (`biology`), AP Statistics (`ap-statistics`)
-MODE: **Proposal only — no writes to published content.** Output files for review, then a
-second AI runs QA (see the last section).
+MODE: **Proposal only — no writes to published content.** All output goes to one working
+directory (below); a second AI then QAs it by writing its own feedback files there, never editing
+yours (see the last section).
+
+---
+
+## Working location — read inputs here, return output here (single source of truth)
+
+All of this work — Codex's proposal and the QA feedback — lives in **one directory** so QA and
+any human reviewer read from a single source:
+
+**`docs/research/bio_stats_topic_tagging_2026_09_22/`**  (create it if it does not exist)
+
+Read the source material from where §2 says it lives (the Production database and the protocol
+docs under `docs/`). Write **every output file** into the working directory above — nowhere else.
+
+| File | Written by | Purpose |
+| --- | --- | --- |
+| `inventory.csv` | Codex (Task 0) | what already exists vs what is a gap |
+| `topic_labels_proposal.csv` | Codex (Task A) | proposed primary unit:topic per item |
+| `frq_canonical_review.csv` | Codex (Task B) | FRQ canonical-answer review + drafts |
+| `SUMMARY.md` | Codex (§7) | the report-back summary |
+| `qa_findings.csv` | QA AI (§8) | pointers to potential errors — **a new file, never edits Codex's** |
+| `qa_report.md` | QA AI (§8) | QA narrative, rates, recommendation |
+
+**QA never modifies Codex's files.** It reads them and writes its own `qa_findings.csv` and
+`qa_report.md` alongside them. Codex's proposal is the record; QA points at it, it does not change it.
 
 ---
 
@@ -72,6 +97,18 @@ this is a from-scratch labelling pass, not a correction pass.
     `app.content_taxonomy_labels.taxonomy_source_version` for these subjects reference exactly
     these two versions).
 
+**The closed list gives the allowed values; the original CED document gives their meaning.**
+`app.taxonomy_topics` tells you *which* unit:topic codes you may assign. The College Board
+Course and Exam Description is the authority on *what each unit and topic actually covers* —
+consult it as necessary to disambiguate a primary-topic pick (e.g. when two topics look close, or
+an item's phrasing does not obviously map to a topic title). The CED documents are in the repo:
+  - **AP Biology:** `docs/teaching/ap-biology-course-and-exam-description.pdf`
+  - **AP Statistics:** `docs/teaching/ap-statistics-course-and-exam-description.pdf`
+
+  The CED PDF never adds a topic that is not in the DB closed list — if the CED describes a
+  distinction the closed list does not carry, that is a `needs_human` case, not license to invent
+  a code.
+
 ### 2.3 Independent second signals already in the database (use, but do not treat as ground truth)
 - `public.content_item_versions.prompt_json->'subtopics'` — the author's prose written at
   authoring time. The topic *codes* here are unreliable (many match no CED topic); the *prose* is
@@ -112,9 +149,9 @@ For the in-scope set, enumerate and report, per subject and item type:
 4. **Author prose present** — items with a non-empty `prompt_json->'subtopics'`.
 5. **Rubrics/criteria present** — FRQ with `public.frq_criteria` rows (do not modify).
 
-**Output `inventory.csv`** (one row per item: `content_item_id, subject_key, item_type,
-has_topic_label, has_canonical_answer_1, has_prior_model_run, has_author_prose, criteria_count`)
-plus a short summary table. Task A operates only on items where `has_topic_label = false`; Task B
+**Output `inventory.csv`** into the working directory (one row per item: `content_item_id,
+subject_key, item_type, has_topic_label, has_canonical_answer_1, has_prior_model_run,
+has_author_prose, criteria_count`) plus a short summary table. Task A operates only on items where `has_topic_label = false`; Task B
 drafts only where `has_canonical_answer_1 = false`. Everything already present is preserved and, at
 most, flagged.
 
@@ -135,7 +172,7 @@ each such published Biology and Statistics item:
 5. **Never invent a topic.** If nothing in the closed list fits, mark `primary_topic_code = null`,
    confidence `low`, and explain — that item routes to a human.
 
-**Output `topic_labels_proposal.csv`** (or JSONL), one row per item:
+**Output `topic_labels_proposal.csv`** (or JSONL) into the working directory, one row per item:
 
 ```
 content_item_id, subject_key, item_type, primary_unit_number, primary_topic_code,
@@ -165,7 +202,7 @@ and are **reviewed, never replaced**. For **every** published FRQ:
 4. For multi-part FRQ, note whether parts are structured (`prompt_json->'parts'`) or prose-only
    in the stem — this affects how the canonical answer maps to parts.
 
-**Output `frq_canonical_review.csv`** (or JSONL), one row per FRQ:
+**Output `frq_canonical_review.csv`** (or JSONL) into the working directory, one row per FRQ:
 
 ```
 content_item_id, subject_key, canonical_answer_1_present (true/false),
@@ -194,7 +231,7 @@ proposed_canonical_answer (draft, only when missing), flags, needs_human (true/f
 
 ---
 
-## 7. Summary to report back
+## 7. Summary to report back — write to `SUMMARY.md` in the working directory
 
 - The Task 0 inventory summary (what already exists vs what is a gap), per subject and item type.
 - Confirmed in-scope counts per subject and item type, with filters.
@@ -213,8 +250,14 @@ proposed_canonical_answer (draft, only when missing), flags, needs_human (true/f
 to agree with it.** Do not read the first model's rationale before forming your own judgment on a
 sampled item.
 
-**Inputs:** `topic_labels_proposal.csv`, `frq_canonical_review.csv`, and the same source material
-in §2 (read-only Production, the CED closed list, the items).
+**Inputs — all from the single working directory `docs/research/bio_stats_topic_tagging_2026_09_22/`:**
+`inventory.csv`, `topic_labels_proposal.csv`, `frq_canonical_review.csv`, `SUMMARY.md`, plus the
+same source material in §2 (read-only Production, the CED closed list, the items).
+
+**You do not edit, correct, overwrite, or re-run any of Codex's files.** Your entire output is
+two *new* files in the same directory — `qa_findings.csv` and `qa_report.md`. Every concern you
+have is recorded as a **flag with an explanation** pointing a human to investigate; you never
+change the proposal itself.
 
 **Procedure:**
 
@@ -227,7 +270,10 @@ in §2 (read-only Production, the CED closed list, the items).
    - **Fill-not-replace check:** no proposal row targets an item that already had a topic label,
      and no drafted canonical answer targets an FRQ that already had a non-blank
      `canonical_answer_1` (cross-check against `inventory.csv` and live Production). Any such row
-     is a **hard fail** — the pass overwrote existing content.
+     is a **high-severity finding** — the pass may have overwritten existing content.
+
+   Each structural problem above is written as a row in `qa_findings.csv` with its explanation —
+   not fixed in place.
 
 2. **Independent re-derivation on a random sample.** Draw a random **20%** per subject per item
    type (minimum 15 items per cell), stratified to include every confidence band. For each
@@ -246,11 +292,27 @@ in §2 (read-only Production, the CED closed list, the items).
    simple confidence interval, and compare against the human-escalation threshold the v3 plan's
    triage logic sets (or, if none is set for topics yet, recommend one from these numbers).
 
-5. **Verdict.** For each subject and task, output **PASS** (defect rate within threshold; route
-   only `needs_human` rows to a person), **PASS-WITH-FIXES** (list the specific rows to correct),
-   or **FAIL** (systematic problem — name it; the labelling pass is re-run, not hand-patched).
+5. **Overall assessment — a recommendation, not a correction.** Per subject and task, state
+   whether the proposal looks sound, mixed, or systematically off, with the numbers behind it, and
+   recommend what a human should do next (accept the `needs_human` routing as-is, investigate the
+   flagged rows, or reconsider the pass). You do **not** apply fixes or re-run the labelling — the
+   decision is the human's.
 
-**QA output:** `qa_report.md` with the sample sizes, the agreement/defect rates with filters,
-the row-level defect list, the recommended human-escalation threshold, and the per-subject
-verdicts. Do not write anything to the database. Nothing here becomes `validated` without the
-double-approve human step (`CONTENT_GOVERNANCE_AND_VALIDATION.md`).
+**QA output — two *new* files in the working directory; Codex's files are left untouched:**
+
+- **`qa_findings.csv`** — one row per potential error, a **flag with an explanation** for a human
+  to investigate, never a fix:
+  ```
+  finding_id, target_file, content_item_id, field,
+  issue_type (out_of_closed_list | unit_mismatch | topic_disagreement |
+    canonical_answer_gap | fill_not_replace_violation | missing_row |
+    needs_human_not_flagged | other),
+  severity (high/medium/low), explanation (what you observed and why it may be wrong),
+  suggested_investigation
+  ```
+- **`qa_report.md`** — sample sizes, agreement/defect rates with their filters, the recommended
+  human-escalation threshold, and the overall per-subject assessment from step 5.
+
+Write nothing to the database and nothing into Codex's files. Nothing becomes `validated` without
+the double-approve human step (`CONTENT_GOVERNANCE_AND_VALIDATION.md`); your findings are the
+input to that human step, not a substitute for it.
