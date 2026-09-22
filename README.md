@@ -15,6 +15,8 @@ external or layout requirements.
 
 Start with:
 
+- [Device-Neutral Session Start](docs/team_charter/CRAMAPPLE_SESSION_START.md)
+- [ChatGPT Project Instructions](docs/team_charter/CHATGPT_PROJECT_INSTRUCTIONS.md)
 - [Cramapple Vision and Problem Statement](docs/product/CRAMAPPLE_VISION.md)
 - [Use Modes Strategic Reconciliation](docs/product/USE_MODES_STRATEGIC_RECONCILIATION.md)
 - [Course + Homework Mode Consolidation Plan](docs/product/COURSE_HOMEWORK_CONSOLIDATION_PLAN.md)
