@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Local-Only Durable Artifacts Synced to `main`: 160 Files That Existed Only in David's Checkout Are Now in Git — 29 Topic-Guide Seed Migrations (2026-08-25..08-27), Their 27 Companion `AP_*_TOPIC_POINT_BRIEFS.md` Records, Two Calculus BC Generators, the Course Mode Score-Impact Protocol + Lovable Brief, and the Untracked Half of `.claude/skills/cramapple-design/`. Found at Session Start While Verifying the Working Tree Against the Synchronization Rule: the Content Those Migrations Produce **Is Live in Production** (603 Topic Point Briefs + 603 Explainers Across All Ten Subjects) but **None of Their Versions Appear in Production's Migration Ledger** — They Were Applied as Direct SQL, So the Provenance and Regeneration Path for Published Content Sat on One Machine. No Database State Changed. — 2026-09-22
 - Session Close (2026-09-22, App-Rebuild / Open Hand Thread). Resumed From `APP_REBUILD_NEXT_SESSION_HANDOFF_2026_09_22.md`. Landed This Session: Open Hand Defined as a Sanctioned Unit:Topic-Relevant Teaching Method and Aligned Across Design System + Migration Plan (Decision 21 → Method-DECIDED, Answer-Key Boundary Intact); `CONTENT_GAPS_RUNNING_LIST.md` Started and Now Folds In GAP-9 (Biology FRQ Canonical/Rubric Misalignment + Segmentation); Verified the Open Hand Rubric-Strike Mechanic Live in `web/` (Deterministic Span Toggle, Not Runtime AI, No Combination Library); Ran the Codex-Builds/Claude-QAs Loop on AP Biology FRQ Canonical-Answer Segmentation — Found + Fixed the `canonical_answer_2` Re-Draft Defect, ACCEPTED the ca2 Fix, Recorded the QA Under `docs/research/apbio_frq_segmentation_2026_09_22/`; PAUSED the Human Double-Review Requirement (DECISION-0055, Gate Now AI Cross-Model QA + PO Approval). **OPEN for next session:** ratify (PO sign-off) the Biology drafted canonical content; author/reconcile the 118 drafted criteria + 18 all-drafted + 15 off-rubric-ca2 + 7 no-canonical Biology items and the 9 point-total bugs; the 4 drawn-graph items → spatial-canonical/Engine-4 path; extend segmentation + the unit:topic tagging (Codex + Gemini compare) to Statistics and beyond; Phase 0 Decisions 1 (fixed frame — run `verify:panes` on a multi-part + image FRQ) and 11 (multi-part FRQ migration vs parsing) still OPEN. All work merged to `main`; working tree carries only pre-existing untracked topic-brief drafts. — 2026-09-22
 - Human Independent-Review Requirement for Content PAUSED (DECISION-0055, David, PO). All §11.1 Reviewer Counts (R0–R3) and the Human "Double-Approve" Half of DECISION-0044 Are Paused Across All Content Types and Subjects; During the Pause the Operative Gate Before Content Serves Is **AI Build → Independent AI Cross-Model QA (Different Model From the Builder; Claude, Corroborated by Gemini) → Product Owner Approval**. AI QA Is Mandatory and NOT Paused. Explicitly Preserved: INV-3/CM-D20 (No Unvetted Generation at Response Time), the Answer-Key Serving Boundary (PR #106), Trunk Protection/CI, and the Paying Customer's Access. Reversible by Design — the §11.1 Table and DECISION-0044 Language Are Retained Verbatim. Recorded in `DECISIONS_LOG.md` and Banner-Marked in `CONTENT_GOVERNANCE_AND_VALIDATION.md` §11.1. — 2026-09-22
 - AP Biology FRQ Canonical-Answer Segmentation — Codex Built, Claude QA'd, ca2 Fix ACCEPTED (David). QA of the First Codex Run Found `canonical_answer_2` (the Vetted Second-Part Answer) Ignored on All 52 Items That Have It and Fresh Text Drafted for Criteria It Already Answered (49 Items) — Root Cause the Work Order Scoping to `canonical_answer_1` Only. Fixed the Work Order (ca1+ca2 as One Corpus), Codex Re-Ran, and an Independent Claude Run Corroborated: **All 52 Now Reuse `canonical_answer_2` Verbatim**; Structure Clean (75/75 Exact Concatenation, 0 Uncovered, 0 Invented). ACCEPTED = the ca2 Reuse Fix + Structural Correctness; NOT the Drafted Content (Still Needs INV-3 Double-Approval). The Re-Run Surfaced a Larger, Cross-Model-Corroborated Content Problem, Left OPEN: **42% of Rubric Criteria (118/278) Required Freshly Drafted Content**, 18 Items Had EVERY Criterion Drafted (Stored Answers Don't Match Their Rubric), 15 Items Carry an Off-Rubric `canonical_answer_2`, 9 Items Have total_points=8 vs Rubric 9, 4 Drawn-Graph Items Need a Spatial Canonical, 7 Items Have No Canonical at All. Artifacts + Both Runs + QA Sign-off Landed in `docs/research/apbio_frq_segmentation_2026_09_22/`. — 2026-09-22
@@ -195,6 +196,52 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 ---
+
+## Local-Only Durable Artifacts Synced to `main` — 2026-09-22
+
+**Task.** Session start under `docs/team_charter/CRAMAPPLE_SESSION_START.md`. Step 5 (verify
+current GitHub state) surfaced 160 untracked files in the working tree. The previous handoff
+recorded the tree as clean and the last session-close entry described the remainder as
+"pre-existing untracked topic-brief drafts." Checked rather than accepted.
+
+**What they actually were.** Not drafts. 29 topic-guide seed migrations dated 2026-08-25 to
+2026-08-27, their 27 companion `docs/product/AP_*_TOPIC_POINT_BRIEFS.md` records, the two AP
+Calculus BC generator scripts, `docs/teaching/COURSE_MODE_SCORE_IMPACT_CONTENT_PROTOCOL_2026_08_27.md`,
+`prompts/LOVABLE_COURSE_MODE_SCORE_IMPACT_UX_UNIT1_2026_08_27.md`, and the untracked half of
+`.claude/skills/cramapple-design/` (component library, five `ui_kits` screens, `docs/new_design/`
+token CSS, bundle, manifest, `github.md`).
+
+**Evidence (read-only, Cramapple - Production `pcntajvbdfqhbeewmdry`, 2026-09-22).**
+
+- The content those migrations produce **is live**: 603 topic point briefs and 603 explainers
+  across all ten subjects (`app.topic_point_briefs` / `app.topic_explainers`, grouped by
+  `subject_key`; ap_biology 60, ap_calculus_ab 81, ap_calculus_bc 111, ap_chemistry 91,
+  ap_physics_1 43, ap_physics_2 46, ap_physics_c_em 17, ap_physics_c_mechanics 41,
+  ap_precalculus 58, ap_statistics 55).
+- **None of the 29 versions appear in the Production migration ledger.** Filter:
+  `select version, name from supabase_migrations.schema_migrations where version between
+  '20260825000000' and '20260828000000'` returns exactly one row,
+  `20260827010001_mcq_choices_public_view_drop_answer_key`.
+- Conclusion: the seeds were applied as direct SQL, not through the ledger, and their source was
+  never committed. The provenance and regeneration path for published Production content existed
+  on a single machine — contrary to the Synchronization Rule in `docs/README.md`.
+
+**What landed.** Three commits on `claude/local-only-artifacts-sync`, no database state changed.
+Files were scanned for credentials before staging; none found.
+
+**Correction to the prior session-close record.** That entry's claim "All work merged to `main`"
+was accurate. An initial `gh` read in this session reported PR #162 as OPEN; it had in fact
+merged at 22:59:18Z (merge commit `58b940ce`), and `b6ef2a65` is an ancestor of `origin/main`.
+
+**Still open, not addressed here.** The Production migration ledger does not reflect how this
+content was applied, so `supabase/migrations/` and the ledger disagree for this batch. Committing
+the files makes the source durable; it does not reconcile the ledger. Related prior finding: the
+Dev migration ledger was already recorded as untrustworthy under TASK-0027.
+
+**Next Owner:** David Bloom
+**Next Required Action:** Review and merge the PR. Then decide whether the migration-ledger
+divergence for this batch is reconciled (repair-mark the 29 versions as applied) or accepted and
+documented as a known seed path.
 
 ## Device-Neutral Cramapple Bootstrap and Shared ChatGPT Project Contract — 2026-09-22
 
