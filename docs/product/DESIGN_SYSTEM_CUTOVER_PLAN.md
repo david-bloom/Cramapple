@@ -10,6 +10,15 @@ any files — David is separately building a repo folder for the design system
 and related artifacts; this doc should be cross-linked to that folder once it
 exists, but its content stands on its own.
 
+**Revision note (2026-09-22):** David decided to split the single
+`exam-buddy-wireframe` codebase into two separate deployed projects —
+`app.cramapple.com` (logged-in product) and `cramapple.com` (marketing +
+signup funnel) — while this plan was still in draft. §6 (new) folds that
+decision into the cutover: it's not a separate initiative, because both
+projects need to launch on the same design system this plan is already
+sequencing, and the split itself changes what "cut over" means (two
+deploy targets, not one).
+
 ## 0. What was compared
 
 - **Current, live system**: `exam-buddy-wireframe` (the production frontend,
@@ -108,7 +117,7 @@ they change what the product *does*:
    1440×900 desktop viewport with `overflow: hidden` and content that is
    "sized to fit... never made reachable by scrolling." The current product
    is a normal responsive web app. This is the single biggest open
-   architecture question in this plan (see §6, open decision 1) — everything
+   architecture question in this plan (see §7, open decision 1) — everything
    else is downstream of how it's resolved.
 5. **Hint economy is new product behavior, not new paint.** The three-state
    hint gate (idle → cost-disclosed confirm → open-with-receipt, receipt
@@ -151,7 +160,62 @@ brief is superseded by Project-Crux, still in play for a future direction,
 or was an earlier exploration that's now moot — otherwise there are three
 competing "next design" references in the repo instead of one.
 
-## 6. Open decisions (David's call) before sequencing is final
+## 6. Repo split: app.cramapple.com vs. cramapple.com
+
+David decided (2026-09-22) to split the current single-repo product into two
+separately deployed Lovable projects: **`app.cramapple.com`** for the
+logged-in experience, **`cramapple.com`** for marketing pages and the signup
+funnel (folded together, not a third project — the funnel is the handoff
+between "convince" and "log in," not a separate product). This section maps
+today's ~85 routes to that split and names what it adds to the cutover.
+
+### 6.1 Proposed route mapping
+
+Using the same groupings as §2's coverage-gap analysis:
+
+| Goes to `app.cramapple.com` | Goes to `cramapple.com` | Needs an explicit decision |
+| --- | --- | --- |
+| Entry/orientation once authenticated: `/home`, `/topic`, `/setup*`, `/onboard`, `/account` | Marketing/top-of-funnel: home page, `/how-it-works`, `/compare/*`, `/blog`, `/plan`, `/pedagogy`, `/about`, `/contact-us`, `/help`, `/privacy`, `/terms` | `/login`, `/logout`, `/reset-password`, `/account-created` — publicly reachable before auth, so likely live on `cramapple.com` and redirect into `app.cramapple.com` on success, but need to be assigned explicitly, not assumed |
+| Course Mode + Homework Mode session UI: `/session/*`, `/bring-question`, `/progress`, `/dashboard`, capture flows (`capture-demo`, `capture-phone`, `hand-drawn-pilot`, `hand-drawn-responses`) | Commercial/funnel: `/signup`, `/join`, `/trial`, `/trial/verify`, `/checkout/*` | Operational/internal: `/reviewer-login`, `/tutor-login`, `admin.grade-response`, `beta.admin.health`, the reviewer portal (`src/components/reviewer`) — not student-facing marketing and not the student app either; needs its own home, possibly a third internal surface out of scope for this split |
+| Subject content pages if they require entitlement/session state (`ap-statistics.unit-*`, etc. — needs a per-route check, not assumed) | Subject content pages if they're public SEO/reference content (`ap-*.glossary`, `ap-*.frq-tips`, `ap-*.practice-questions`, `ap-*.scoring`, `ap-*.study-plan` — these read as public marketing/reference content today) | `/attempt/$id`, `/resume`, `/ask`, `/ask-parent`, `/byoq`, `/check-work` — need a route-by-route check against whether they require an active session |
+| | | `beta.*` routes — likely retired rather than mapped, but confirm nothing live depends on them before dropping |
+
+This table is a first pass from route names and existing groupings, not a
+verified audit — it needs a real pass against each route's actual auth
+requirement before it becomes a migration ticket list.
+
+### 6.2 What the split adds to the cutover, beyond the mapping
+
+1. **Two deploy targets for one design system.** Whatever this plan decides
+   in §5–§7 about tokens, components, and sequencing has to ship
+   identically to both Lovable projects, or the product reads as two
+   different brands depending on which subdomain a student is on. The
+   design-system artifacts folder David is building (§ intro) becomes the
+   single source both projects consume from — this makes that folder's
+   existence a harder prerequisite than it was before the split decision,
+   not just a nice-to-have.
+2. **Auth/session handoff across subdomains.** A student reaches
+   `cramapple.com`, signs up or logs in, and needs to land authenticated on
+   `app.cramapple.com`. Cookies scoped to `.cramapple.com` (not
+   `app.cramapple.com` alone) are the standard way to make this work without
+   a token-passing redirect dance — this needs to be an explicit technical
+   decision (§7 item 8), not an assumption that it'll "just work" because
+   both are subdomains of the same root domain.
+3. **Shared vs. duplicated non-design code.** Session/grading logic,
+   Supabase client config, and the taxonomy/content layer currently live in
+   one codebase. Splitting into two Lovable projects means deciding what's
+   duplicated (acceptable for marketing-side read-only content queries) vs.
+   what must stay single-sourced (grading, entitlements, anything
+   security-sensitive) — this is a real architecture question, not a design
+   one, but it's created by this split and belongs in this plan's tracking
+   even though it's outside the design-system scope proper.
+4. **Sequencing interacts with §7's cutover sequence.** Splitting the repo
+   and cutting over the design system are two migrations happening at
+   once. Doing both simultaneously multiplies risk; the sequencing options
+   in §8 assume they're ordered relative to each other, not concurrent by
+   default.
+
+## 7. Open decisions (David's call) before sequencing is final
 
 1. **Fixed-frame vs. responsive.** Does the three-pane 1440×900 plate become
    the product's actual layout (meaning the current responsive SPA gets
@@ -180,14 +244,34 @@ competing "next design" references in the repo instead of one.
    linked into it, and a Task ID/owner assigned per the repo's normal
    `TASK_WORKFLOW.md` process — not done here since that folder isn't
    in place yet.
+8. **Auth/session handoff between the two subdomains (new, §6.2 item 2).**
+   Confirm the cookie-scoping approach (`.cramapple.com`) as the mechanism,
+   or specify an alternative, before either Lovable project is built —
+   this is foundational to both, not a detail either can defer.
+9. **Route mapping and shared-vs-duplicated code (new, §6.1–§6.2 item 3).**
+   Turn §6.1's first-pass table into a verified route-by-route assignment,
+   and decide what session/grading/content code is shared (how) vs.
+   duplicated between the two projects.
+10. **Repo-split vs. design-cutover sequencing (new, §6.2 item 4).**
+    Decide whether the subdomain split happens before, after, or alongside
+    the design-system cutover — §8 proposes an order below, pending this
+    decision.
 
-## 7. Proposed cutover sequence (pending decision 1 and 4 above)
+## 8. Proposed cutover sequence (pending decisions 1, 4, and 10 above)
 
 This sequencing assumes decision 1 resolves toward "adapt the new visual
-language onto the current responsive architecture" (the lower-risk path) and
-decision 4 resolves toward "ship MCQ/FRQ practice first." If either resolves
-the other way, this sequence needs to be rewritten, not just relabeled.
+language onto the current responsive architecture" (the lower-risk path),
+decision 4 resolves toward "ship MCQ/FRQ practice first," and decision 10
+resolves toward doing the design cutover **before** splitting repos (design
+cutover in the single current codebase, then split into two projects that
+both start from the already-cut-over state — fewer moving parts than
+splitting first and cutting over twice). If any of these resolve the other
+way, this sequence needs to be rewritten, not just relabeled.
 
+0. **Repo split (if decision 10 puts it first instead — otherwise this step
+   moves to the end).** Stand up `app.cramapple.com` and `cramapple.com` per
+   §6.1's verified route mapping, with the auth/cookie handoff from §7 item 8
+   working end-to-end, before either project touches the design system.
 1. **Token layer swap.** Replace `--ca-*`/`--cv-*` values with the new
    token set where a direct mapping exists (§1 table); add new tokens
    (clay, purple, amber, teal) as additive, not replacing existing
@@ -209,13 +293,18 @@ the other way, this sequence needs to be rewritten, not just relabeled.
    new components once built.
 6. **Everything else (§2's list) stays on the current system** until each
    surface gets its own design pass, tracked as follow-on work once the
-   design-system folder and its owner are established (§6 item 7).
+   design-system folder and its owner are established (§7 item 7).
+7. **Repo split (if decision 10 puts it last instead of first — see step 0).**
+   Once the design system is cut over in the single codebase, split into
+   `app.cramapple.com` and `cramapple.com` per §6.1's route mapping, with
+   both projects already sharing one design-system source rather than
+   forking it mid-split.
 
-## 8. What this plan does not do
+## 9. What this plan does not do
 
 It does not move any files, does not create the design-system artifacts
-folder (David is building that separately), does not resolve any of §6's
-open decisions, and does not commit to the sequence in §7 as final — that
-sequence is explicitly conditional on decisions 1 and 4. Once those are
-made, this doc should be revised to drop the conditionals and, per §6 item
+folder (David is building that separately), does not resolve any of §7's
+open decisions, and does not commit to the sequence in §8 as final — that
+sequence is explicitly conditional on decisions 1, 4, and 10. Once those are
+made, this doc should be revised to drop the conditionals and, per §7 item
 7, relocated into the folder David is setting up.
