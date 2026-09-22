@@ -26,7 +26,7 @@ The copy rules and the pedagogy rules. The second set are design rules, not sugg
 
 Never auto-open a hint, never open one on hover, and never let a hint close without leaving its receipt.
 
-**Open Hand shows everything.** In Open Hand mode nothing is gated: the rubric's points are face-up and manipulable, the answer key marks Correct and Distractor before the student picks, and selecting any option is free. The learning move is exploration — Open Hand MCQ invites the student to read all four explanations, and tracks how many they have read rather than scoring them.
+**Open Hand is a teaching method — it shows everything.** Open Hand shows a question, chosen to be relevant to the unit:topic being taught, together with its answer and all of the supporting educational information: the rubric, how points are earned and lost, the reference pane and the deep dive. Nothing is gated and nothing is scored. The rubric's points are face-up and manipulable, the answer key marks Correct and Distractor before the student picks, and selecting any option is free. The learning move is exploration — Open Hand MCQ invites the student to read all four explanations, and tracks how many they have read rather than scoring them.
 
 **Practice mode scores the student's own work.** One answer, one submission, then a feedback card: score, coaching paragraph, hints-used receipt, and a per-criterion (FRQ) or per-choice (MCQ) mark list. The student's submitted work stays visible in a white band beneath the feedback so coaching can be read against it. Primary action is dimmed until there is something to submit.
 

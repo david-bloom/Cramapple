@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Open Hand Documented as a Sanctioned Full-Disclosure Teaching Method and Aligned Across the Design System, Product Design and Migration Plan (Decision 21 Moved From Blocking-Open to Method-DECIDED — the *Whether* Settled, Only the Serving Contract Still Open, and Still NOT by Relaxing the Answer-Key Boundary); Added David's Requirement That Open Hand's Shown Question Be Relevant to the Unit:Topic, Which Couples It Directly to the Topic-Label Gap. Started `CONTENT_GAPS_RUNNING_LIST.md` as a Living Tracker — Evidence Refreshed Read-Only Against Prod: **0 of 1,346 Items Carry a Topic Label** (Confirmed Per Subject: ap-statistics 0/384, biology 0/118), and FRQ Canonical Answers Are Missing on **46/80 AP Statistics** and **7/75 AP Biology** FRQ. Wrote a Codex Work Order to Tag All Biology + Statistics MCQ/FRQ With Unit:Topic Pairs Against the CED Closed List and Fill Missing FRQ Canonical Answers, Ending With a Second-AI Adversarial QA Stage. — 2026-09-22
 - Redesign Consolidated Into One Migration Plan; the Frontend and the Plan Both Merged to `main`: the Published Library Counted Properly for the First Time — **1,346 Items Across Ten AP Subjects, Structurally Complete** (Every MCQ Four Choices, One Correct, a Rationale on Every Choice; Every FRQ Criterion With `learner_facing_text` and `minimum_fix`; 170 Topics With a Complete Brief and Explainer), Which Makes This a Render-and-Wire Job Rather Than a Rebuild. Three Wiring Gaps Named: **No Published Item in Any Subject Carries a Topic Label** (Six Surfaces Dark), **Open Hand's Answer Key Has No Serving Contract and the Current One Forbids It by Design**, and `evaluate-attempt` Never Emits the Authored Per-Choice Rationale. Four Earlier Claims of Mine Corrected, Three of Them Confident Counts Over the Wrong Source. — 2026-09-22
 - Student Practice Frontend Built From the CramApple Design System (`web/`): the Five 1440×900 Plate Screens as a Running Vite + React App — Both Modes, Both Item Types, Working Hint Economy and Criterion-Level Feedback; `docs/new_design/` Landed and `.claude/skills/cramapple-design/` Refreshed Off Its Superseded Red Palette. Verified in a Real Browser, Not Just Built — Which Caught Four Panes Overflowing the Frame Against Fallback Fonts (Fixed by Self-Hosting) and a Fifth When the FRQ Rubric Hint Opens (Fixed by Restructure). Grading Is a Deterministic Local Stand-In, NOT the Supabase Grading Engines; Sample Content Is Hand-Written and Has NOT Been Through the Authoring Pipeline. — 2026-09-22
 - Systemic Entitlement Gate Fixed on Attempt Submission + Deployed to Dev/Prod: Closed the Gap Found the Same Day (see "TASK-0016 Grading Rollout Status Re-Verified" Below) — `attempt-response`'s `submit_response` Now Calls the Same `app.authorize_grading_access` RPC `evaluate-attempt` Has Used Since 2026-08-15, Gated by the Same `GRADING_ENTITLEMENTS_ENABLED` Flag, Same Admin Bypass, Scoped ONLY to `submit_response` (Not `create_attempt`/`save_response`, So Drafting Stays Unblocked — Only the Irreversible Submit Step Is Gated). Extracted `Deno.serve`'s Inline Callback Into a Named, Dependency-Injectable `handleAttemptResponse` Export (Pure Move, Mirrors `capture-pairing/index.ts`'s Existing Pattern) SPECIFICALLY So This Gate — Sitting on the Path Every Real Submission Goes Through — Could Be Tested Before Deploy: 4 New Tests (Entitled/Unentitled/Admin-Bypass/Attempt-Not-Found), Full Suite 320/321 (1 Pre-Existing Unrelated Failure, Confirmed Reproducing Without This Change). FRONTEND: `attempt-response`'s New `entitlement_required` Code Now Renders a Real, Actionable "Start Your Free Trial" Panel With a `/trial` CTA Instead of the Previous Generic `FailedPanel` Copy ("Grading Is Taking Longer Than Expected" / "Try Again") — Which Was ACTIVELY MISLEADING for This Case (Implies a Transient Delay; "Try Again" Just Re-Hit the Same 403 Forever, the Exact Silent-Retry-Loop Bug That Let a Real Student's Answers Sit Ungraded for a Month). Also Fixed the Same Gap in the Hand-Drawn Capture Path's Own Error Classifier (`classifyCaptureError`/`messageForBlockedCode`), Which Returns the Same Code From the Same Gate. DEPLOYED: Both Repos Merged With Real, Unrelated Upstream Work That Had Landed Since the Last Push (Backend: Docs-Only Conflict, Resolved Keep-Both; Frontend: ~40 New Lovable-Authored Files, Clean Auto-Merge, Re-Verified `tsc`/Full Vitest Suite Green — 401/402, Same One Pre-Existing Failure) — Backend `attempt-response` Deployed to Dev Then Production (Confirmed Byte-Identical via `get_edge_function` Content Diff, Not Just a Matching Hash); Frontend Pushed to `main` (Lovable Publish NOT Triggered This Session — Left for David, Since Publishing Is Its Own Explicit Step). VERIFICATION: Dev Smoke-Tested Clean (401 Unauthenticated, No Crash) — Note `GRADING_ENTITLEMENTS_ENABLED` Is Only SET on Production (Same as `evaluate-attempt`'s Existing Gate — Dev Intentionally Runs Ungated), So the Gate's Live Behavior Could Only Be Meaningfully Exercised on Prod; Did Not Force a Live HTTP Test Against Real Production With a Real Account (the Auto-Mode Classifier Also Blocks Direct Prod Curl Calls, Consistent With Earlier This Session) — Confidence Instead Rests on the 4 Passing Handler Tests Plus the Fact That `authorize_grading_access` Itself Is UNCHANGED and Has Been Correctly Gating `evaluate-attempt` in Live Production for Over a Month, Including a Direct, Just-Observed Correct 403 Against the Real `bkmicahb@gmail.com` Incident Earlier This Session. — 2026-09-20
@@ -190,6 +191,55 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 ---
+
+## Open Hand Documented as a Sanctioned Teaching Method; Docs Aligned Across Three Layers; Content-Gaps Running List Started; Codex Work Order for Bio/Stats Tagging + FRQ Canonical Answers — 2026-09-22
+
+**Task.** David set the Open Hand definition — "a new teaching method in which we show a
+question and answer and all the supporting educational information: rubric, how points are
+earned and lost, reference pane and deep dive" — required that "the question shown must be
+relevant to the unit:topic," and asked that the scattered documentation (design system, product
+design, migration plan) be aligned to it. Then: a running list of content gaps, and a Codex work
+order to tag Biology and Statistics MCQ/FRQ with unit:topic pairs and review FRQ for canonical
+answers, ending with instructions for a second AI to QA the work.
+
+**Doc alignment.** The design system (`docs/new_design/CONTENT_AND_PEDAGOGY.md`) and the
+product-design docs (consolidation plan, homework-mode design) were already consistent — Open
+Hand = full disclosure, nothing scored, the worked-example step of "open-hand teaching." The
+outlier was the migration plan, whose §5.2 framed the full disclosure as *forbidden by design
+and blocking*. Edited `APP_REBUILD_MIGRATION_PLAN.md`: §4.2 redefines Open Hand as a teaching
+method (Q + answer + rubric + points earned/lost + reference pane + deep dive, unit:topic
+relevant, nothing scored, rubric still interactive); §5.2 heading/framing flips to "Open Hand is
+sanctioned; its answer key still needs a serving contract"; §5.4 adds Open Hand's topic-relevant
+example selection to what the missing topic label blocks; **decision 21** moves from "OPEN,
+blocking" to "Method DECIDED (David, 2026-09-22); OPEN: the serving contract only." Enriched the
+canonical pedagogy rule in both `docs/new_design/` and its `.claude/skills/cramapple-design/`
+copy. **The answer-key boundary was kept intact** — Open Hand gets the key through a narrow
+scoped path (a `SECURITY DEFINER` RPC + scored-ineligibility), never by relaxing
+`public.mcq_choices` or restoring PR #106's revoked grants.
+
+**Content-gaps running list.** Started `docs/product/CONTENT_GAPS_RUNNING_LIST.md` — a living
+tracker, one row per gap, every count carrying its filter, closed gaps retained with evidence.
+GAP-1 (topic labels) is the one blocking gap; GAP-2 (FRQ canonical answers) through GAP-8
+(nothing `validated`) are non-blocking, several decision-gated.
+
+**Evidence (read-only, Prod `pcntajvbdfqhbeewmdry`, `status='published'`).** Confirmed the
+topic-label gap per subject — `ap-statistics` 0/384, `biology` 0/118 carry a coverage-scope
+label with a non-empty `assessed_topics`. Measured the canonical-answer gap: **46 of 80**
+AP Statistics FRQ and **7 of 75** AP Biology FRQ have no `canonical_answer_1`. Mapped each
+subject to its CED closed list in `app.taxonomy_topics`: Biology = 60 topics / 8 units
+(`c676d1fc-…`), AP Statistics = 55 topics (`dae3c72e-…`). Stored model runs available to
+re-score for primary-topic agreement: 155 (Stats), 75 (Biology).
+
+**Codex work order.** Wrote
+`prompts/CODEX_BIO_STATS_TOPIC_TAGGING_AND_FRQ_CANONICAL_REVIEW_2026_09_22.md`: assign one
+primary unit:topic per published Biology and Statistics item from the CED closed list, review
+each FRQ for a canonical answer, output a structured proposal (no writes to published content),
+and hand off to a second AI for adversarial QA against a sampled subset. No labels or answers are
+written to the database by this session — this is a work order, not an apply.
+
+**Not done / left for David.** No DECISION number allocated (David's, per `TASK_WORKFLOW.md`); the
+full-library canonical-answer count across all ten subjects (only Bio/Stats measured); running the
+Codex order; and the primary-topic re-score of the stored runs.
 
 ## Redesign Consolidated Into One Migration Plan; the Frontend and the Plan Both Merged to `main` — 2026-09-22
 

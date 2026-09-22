@@ -189,12 +189,16 @@ Product Owner and Micah territory.
 **David, 2026-09-22.** This is the operative definition and it settles what each
 mode is *for*.
 
-**Open Hand** is an **example** question with the rubric, a **sample answer** and
-the supporting content all exposed. The student changes the answer by selecting
-and deselecting rubric elements, and watches what the answer loses. The student
-is composing and decomposing the credited answer — not a teacher taking points
-back. (`web/` currently reads "Click a criterion to take the point back. ✕ is
-the teacher's hand": the mechanic is right, the voice is wrong. Copy pass owed.)
+**Open Hand** is a **teaching method** (David, 2026-09-22). It shows a question —
+one **relevant to the unit:topic being taught** — together with its answer and
+**all** of the supporting educational information: the rubric, how points are
+earned and lost, the reference pane and the deep dive. Nothing is gated and
+**nothing is scored**. The rubric stays interactive — the student selects and
+deselects rubric elements and watches what the answer loses, composing and
+decomposing the credited answer. (`web/` currently reads "Click a criterion to
+take the point back. ✕ is the teacher's hand": the mechanic is right, the voice
+is wrong. Copy pass owed.) Because the shown item must match the unit:topic, Open
+Hand depends on the topic label that §5.4 finds missing on every published item.
 
 **Practice** is the same template with **no sample answer** and the support
 content **hidden**. The student either answers cold, or exposes the helpful
@@ -255,7 +259,7 @@ exist. **They do not currently meet.**
 | Student-readable taxonomy | `public.get_student_taxonomy` | **RPC exists.** |
 | Stimulus images | `content_asset_metadata` + signed URLs | Exists; six published Bio FRQ use it. No plate treatment (§8.3). |
 
-### 5.2 The Open Hand answer key has no contract — and the current one forbids it
+### 5.2 Open Hand is sanctioned; its answer key still needs a serving contract
 
 This is the single largest wiring finding, and it is not a bug. It is a
 deliberate boundary that the new design crosses.
@@ -283,7 +287,10 @@ is scored. The existing model assumes every served item is an item the student
 will be scored on. Open Hand breaks that assumption, and the protection is
 correct for every case except this one.
 
-**This needs a decision, not a patch** (decision 21). The shape that fits the
+**The method is decided; the serving contract is not** (decision 21). Open Hand
+is a sanctioned full-disclosure teaching method (David, 2026-09-22) — *whether* to
+show the key is settled. What is open is *how* the key is served without weakening
+the boundary for scored items. The shape that fits the
 existing architecture: a `SECURITY DEFINER` RPC that serves the full key for an
 item explicitly requested **as an example**, with that item then ineligible to
 be scored for that student. There is precedent —
@@ -327,6 +334,8 @@ This is the one blocking content gap, and it blocks more than it looks like:
 - the **reference pane** comes from the same place
 - the **deep dive** and the Open Hand worked example come from
   `topic_explainers`, keyed by topic
+- **Open Hand's shown item** must be relevant to the unit:topic (§4.2), so
+  selecting the example depends on the item carrying a topic label
 - **progress and the study map** aggregate by topic
 
 So the topic layer is complete, published, already served by a working RPC, and
@@ -632,7 +641,7 @@ delete rather than migrate. `style-guide` is superseded by
 | 18 | **BYOQ: default entry or alternative?** | **OPEN — reorders Phase 1.** Consolidation §1 says default; David 2026-09-22 says Practice defaults to a Cramapple question (§13.3). |
 | 19 | **Intake: paste-first or camera/upload-first?** | **OPEN.** `HOMEWORK_MODE_DESIGN_2026_08_28.md` §2 defers photo and makes verbatim paste an anti-gaming layer; David 2026-09-22 names camera and document upload (§13.3). |
 | 20 | **What derives mastery from help-taken + score** | **OPEN — unbuilt and unspecified.** The signal both plate modes exist to produce (§4.2). |
-| 21 | **How Open Hand gets the answer key** | **NEW — OPEN, blocking Open Hand.** The serving contract forbids it by design (§5.2). Needs a narrow RPC and a scored-ineligibility rule, not a relaxation. |
+| 21 | **How Open Hand gets the answer key** | **Method DECIDED (David, 2026-09-22):** Open Hand is a sanctioned full-disclosure teaching method — a unit:topic-relevant question shown with its answer, rubric, points earned/lost, reference pane and deep dive, none of it scored. **OPEN: the serving contract only** — a narrow `SECURITY DEFINER` RPC + scored-ineligibility rule (§5.2), never a relaxation of the answer-key boundary. |
 | 22 | **Topic labelling approach** | **Direction set** (§6.2): AI-led, second source being sourced. Open: whether to re-score the stored runs for primary-topic agreement first, and what the human-escalation threshold is. |
 | 23 | **Item-package backfill or dual-read adapter** | **NEW — OPEN.** 203 of 1,346 items carry a package payload (§5.5). |
 | 24 | **Does `validated` status gate launch?** | **NEW — OPEN.** Nothing in the library is `validated` (§8.5). |
