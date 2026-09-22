@@ -1,0 +1,25 @@
+{
+  "name": "cramapple-web",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "CramApple student practice frontend, built on the CramApple Design System.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --port 4173",
+    "test": "node --test src/session/grade.test.js",
+    "verify:screens": "node scripts/verify-screens.mjs",
+    "verify:panes": "node scripts/measure-panes.mjs"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.2"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.1",
+    "playwright": "^1.47.0",
+    "vite": "^5.4.8"
+  }
+}

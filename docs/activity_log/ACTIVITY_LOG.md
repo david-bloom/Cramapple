@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Student Practice Frontend Built From the CramApple Design System (`web/`): the Five 1440×900 Plate Screens as a Running Vite + React App — Both Modes, Both Item Types, Working Hint Economy and Criterion-Level Feedback; `docs/new_design/` Landed and `.claude/skills/cramapple-design/` Refreshed Off Its Superseded Red Palette. Verified in a Real Browser, Not Just Built — Which Caught Four Panes Overflowing the Frame Against Fallback Fonts (Fixed by Self-Hosting) and a Fifth When the FRQ Rubric Hint Opens (Fixed by Restructure). Grading Is a Deterministic Local Stand-In, NOT the Supabase Grading Engines; Sample Content Is Hand-Written and Has NOT Been Through the Authoring Pipeline. — 2026-09-22
 - Systemic Entitlement Gate Fixed on Attempt Submission + Deployed to Dev/Prod: Closed the Gap Found the Same Day (see "TASK-0016 Grading Rollout Status Re-Verified" Below) — `attempt-response`'s `submit_response` Now Calls the Same `app.authorize_grading_access` RPC `evaluate-attempt` Has Used Since 2026-08-15, Gated by the Same `GRADING_ENTITLEMENTS_ENABLED` Flag, Same Admin Bypass, Scoped ONLY to `submit_response` (Not `create_attempt`/`save_response`, So Drafting Stays Unblocked — Only the Irreversible Submit Step Is Gated). Extracted `Deno.serve`'s Inline Callback Into a Named, Dependency-Injectable `handleAttemptResponse` Export (Pure Move, Mirrors `capture-pairing/index.ts`'s Existing Pattern) SPECIFICALLY So This Gate — Sitting on the Path Every Real Submission Goes Through — Could Be Tested Before Deploy: 4 New Tests (Entitled/Unentitled/Admin-Bypass/Attempt-Not-Found), Full Suite 320/321 (1 Pre-Existing Unrelated Failure, Confirmed Reproducing Without This Change). FRONTEND: `attempt-response`'s New `entitlement_required` Code Now Renders a Real, Actionable "Start Your Free Trial" Panel With a `/trial` CTA Instead of the Previous Generic `FailedPanel` Copy ("Grading Is Taking Longer Than Expected" / "Try Again") — Which Was ACTIVELY MISLEADING for This Case (Implies a Transient Delay; "Try Again" Just Re-Hit the Same 403 Forever, the Exact Silent-Retry-Loop Bug That Let a Real Student's Answers Sit Ungraded for a Month). Also Fixed the Same Gap in the Hand-Drawn Capture Path's Own Error Classifier (`classifyCaptureError`/`messageForBlockedCode`), Which Returns the Same Code From the Same Gate. DEPLOYED: Both Repos Merged With Real, Unrelated Upstream Work That Had Landed Since the Last Push (Backend: Docs-Only Conflict, Resolved Keep-Both; Frontend: ~40 New Lovable-Authored Files, Clean Auto-Merge, Re-Verified `tsc`/Full Vitest Suite Green — 401/402, Same One Pre-Existing Failure) — Backend `attempt-response` Deployed to Dev Then Production (Confirmed Byte-Identical via `get_edge_function` Content Diff, Not Just a Matching Hash); Frontend Pushed to `main` (Lovable Publish NOT Triggered This Session — Left for David, Since Publishing Is Its Own Explicit Step). VERIFICATION: Dev Smoke-Tested Clean (401 Unauthenticated, No Crash) — Note `GRADING_ENTITLEMENTS_ENABLED` Is Only SET on Production (Same as `evaluate-attempt`'s Existing Gate — Dev Intentionally Runs Ungated), So the Gate's Live Behavior Could Only Be Meaningfully Exercised on Prod; Did Not Force a Live HTTP Test Against Real Production With a Real Account (the Auto-Mode Classifier Also Blocks Direct Prod Curl Calls, Consistent With Earlier This Session) — Confidence Instead Rests on the 4 Passing Handler Tests Plus the Fact That `authorize_grading_access` Itself Is UNCHANGED and Has Been Correctly Gating `evaluate-attempt` in Live Production for Over a Month, Including a Direct, Just-Observed Correct 403 Against the Real `bkmicahb@gmail.com` Incident Earlier This Session. — 2026-09-20
 - TASK-0016 Grading Rollout Status Re-Verified (1 Month Stale) + First Real-Student Ungraded-Attempt Incident Root-Caused and Fixed: David's Recollection "We Rolled Out Engine 1, 3, and 4" Checked Against Live Evidence Rather Than Trusted — Found TASK-0016's Own Task File Untouched Since 2026-07-28 (Every Acceptance Criterion Still Unchecked, Phase D Still Literally "Pending" Despite Having Shipped) and Zero DECISIONS_LOG/Engine-Specific ACTIVITY_LOG Entries Since 2026-08-20; Engine 1 Live/Reachable Since 2026-08-14 but Every `grading_results` Row Traces to David or an Internal Test Account; Engine 3 Still Shadow-Only, Zero Published Content Routed to It; Engine 4's Stage D2 QR-Capture Infra Genuinely Shipped 2026-08-20 but the Pilot Item Is Still `ai_provisional_unapproved` and No Reader-Certification Audit Was Ever Scheduled — NET: "Rolled Out" Overstated the Product Outcome; Zero Real Students Had Ever Been Graded by Any Engine. SEPARATELY FOUND a Live Incident: Real Non-Family/Non-Test Student `bkmicahb@gmail.com` (Account Created 2026-08-22, Matching the Parent-Purchase-Funnel Launch) Had 2 Real Submitted FRQ Attempts Sitting Ungraded Since Creation. ROOT-CAUSED via Exact `function_edge_logs` Timestamps (Not Inference): Both Attempts Correctly Triggered `evaluate-attempt`, Which Correctly Returned 403 — the Account Had Zero `app.subject_entitlements` Rows, Because It Signed Up via `/signup` (Paid-Checkout Flow) Rather Than `/trial`, and Never Completed/Had-Attributed a Stripe Payment. ALSO SURFACED a Systemic Gap, Not Unique to This User: Nothing Gates `attempt-response` on Entitlement, So Any Student Can Submit Real Answers Before Having Any Entitlement and Only Discovers the Block at Grading, Where the UI's Generic "Couldn't Score That — Try Again" Retries the Same 403 Forever With No Actionable Message — Flagged for a Separate Fix, Not Addressed This Session. Could Not Check Live Stripe for a Missed/Misattributed Payment (Only Sandbox Stripe MCP Access Available) — Surfaced the Ambiguity to David Explicitly Rather Than Guessing; HE CHOSE "Grant a 7-Day Trial Now." Executed via the Legitimate, Already-Live `app.start_trial` RPC (the Same Path 20+ Other Real Students Went Through via `/trial`, Not a Manual Row Insert) — Verified an Active `trial` Entitlement Now Covers Biology (and All 9 Other Active Subjects) for the Window 2026-09-20→2026-09-27, Which `authorize_grading_access` Checks Against Wall-Clock Time at Grading-Request Time (Not Attempt-Submission Time), So It Correctly Covers the Backdated Attempts. NOT DONE: the Actual Grading Call — No Admin/User Credentials Were Available to Trigger `evaluate-attempt` Directly (Deliberately Did Not Hunt for the Production Service-Role Secret to Mint an Impersonation Token); Resolves Automatically on the Student's (or an Admin's) Next "Retry Grading" Click. — 2026-09-20
 - Homework Mode — Design Discussion Captured, Mission-Alignment Principle Codified as CM-D20 (TASK-0037, 2026-08-28): David scoped a new capability — a student brings an outside question (free text, photo, or worksheet) and Cramapple teaches the underlying skill without doing the problem for them — and this session ran the design discussion end to end, grounding every piece in prior art rather than inventing fresh: UX-004's existing "Bring a Question" intake spec (never built), the Course Mode learn-first entry (§11.2 of the UX integration spec), the already-run homework-image classification feasibility experiment (finding: classification generalizes broadly, vetted-content coverage is the real gate), and `LEARNING_SYSTEM_STUCK.md`'s evidence/confirmation-ladder model. Decisions made: sequence three intake modes with **text-interview first** (no vision dependency), then photo, then worksheet upload; on a coverage gap, **name the skill and defer, never generate a live substitute item**; the open-hand worked parallel example is non-negotiable; intake requires **verbatim paste, not description** (photo deferred) plus a **closed-form classification confirm** ("are you talking about X from unit 1.9?") instead of open dialogue — both explicitly anti-gaming, not just scope cuts. Surfaced and partly resolved two distinct gaming loopholes David flagged: (1) intake-classification gaming, closed by paste+closed-form-confirm; (2) the Check-My-Work unlock gate (a student submitting a garbage/lucky-guess answer on the parallel practice item just to unlock checking on their real homework) — tightened by requiring correct-not-just-attempted and proposing the existing provisional→confirmed ladder as the literal unlock bar, exact thresholds left OPEN for David. **Governing principle, codified as CM-D20** in `COURSE_MODE_LEARNING_MODEL.md` §7 (David, explicit): Homework Mode inherits INV-3/CM-D14 as a mission law — every response must rely on already-codified principles and already-created content, or a session-parametrized version of it (i.e. a new generator instance of an existing template), never live-freelanced pedagogy. This forced a real tightening of an earlier proposal: "Check My Work" on the student's own (unvetted) homework item may confirm right/wrong only via independent deterministic recompute, and may only name a wrong answer's error if it matches an existing catalog misconception — never freeform LLM commentary on their reasoning. Grounded "teach, don't answer" against real literature rather than asserting it: a 2024–25 Turkish-high-school field experiment (Bastani et al., PNAS 2025) found unrestricted AI homework help improved practice scores but left students **17% worse** on a later unassisted exam than a no-AI control, while a hint-only AI tutor showed **no such harm** — a close empirical validation of this design's core rule. Wrote `docs/teaching/HOMEWORK_MODE_DESIGN_2026_08_28.md` (full record, DECIDED/OPEN/PROPOSED tagged per item), added CM-D20 to `COURSE_MODE_LEARNING_MODEL.md` (renumbering §7–§11 to §8–§12, fixed the two internal + one cross-doc section reference this broke), and opened `TASK-0037` to track the initiative. Design-only — nothing built, no code/schema/deploy touched. OPEN for David: two-tier coverage degrade (surface an already-vetted topic explainer even without a practice cell, or stay strictly binary); exact Check-My-Work unlock thresholds; conversational academic-integrity mechanism; scheduling the adversarial red-team guardrail pass named as a pre-launch gate. — 2026-08-28
@@ -184,7 +185,81 @@ Most recent entries (full reverse-chronological list follows below):
 - Production Plumbing Session Handoff — 2026-06-20
 - Supabase Production Migrations and Storage Policies Drafted — 2026-06-20
 
+
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## Student Practice Frontend Built From the CramApple Design System (`web/`) — 2026-09-22
+
+**Task:** Implement the designs handed off from the Claude Design session (the "CramApple
+Design System" bundle) as real code. The repo had no frontend of any kind — content packages,
+grading engines, prompts and Supabase migrations only — so this is the first one.
+
+**What landed.** `web/` — a Vite + React app serving the five screens the design system
+specifies, at the fixed 1440×900 three-pane plate: Home / study map, and Practice + Open Hand
+for both FRQ and MCQ. Real interaction throughout, not a click-through: the hint economy
+(idle → asking with the cost named before disclosure → open, collapsing to a receipt that never
+disappears and is repeated on the feedback card), one-submission scoring, criterion-level
+rubric marks, coaching that names the error, and progress that feeds back to the home plate.
+The nineteen design-system components ship as `web/src/components/`, the tokens as
+`web/src/styles/`. HashRouter; `localStorage` for session state; no backend.
+
+**Also landed, both pending from the design session:**
+- `docs/new_design/` — the replacement visual-identity brief, committed verbatim as the design
+  session wrote it. It supersedes `docs/product/CRAMAPPLE_VISUAL_IDENTITY_BRIEF_v2.md`.
+- `.claude/skills/cramapple-design/` — **refreshed off its superseded palette.** It was still
+  shipping `--red-500: #F5442E` and would have taught every agent in this repo the wrong brand.
+  Now carries the orange system, 24 specimen cards, and pointers to the running code.
+
+**Verified in a real browser, which is the part that mattered.** Two Playwright checks live in
+`web/scripts/`, run as `npm run verify:panes` (15 screen states) and `npm run verify:screens`
+(65 interaction checks), plus 12 Node tests over the grading engine. They encode product rules
+as executable checks rather than prose: nothing scrolls inside a plate, no action is clipped
+below the frame, no action label wraps, a missed point is `↻` and never `✕`, backing out of a
+hint leaves no receipt, coaching carries no exclamation mark or praise word.
+
+That caught three defects a build alone would have shipped:
+1. **Four panes overflowed the 1440×900 frame** — traced to the webfonts. The design system
+   loads Bungee / Passion One / Source Sans 3 / STIX Two Math from Google Fonts, which
+   `HANDOFF.md` already flagged as a production gotcha; when that request fails the families
+   fall back to system sans and every plate reflows. The app now self-hosts all four
+   (latin + latin-ext, ~790KB). This is a layout dependency, not a cosmetic one.
+2. **The FRQ scoring pane overflowed by 173px** once the rubric hint was opened — the exact
+   failure the design system names as the most common way to break the system. Fixed by
+   restructure, per its own rule: once the rubric is paid for it replaces the habits pair,
+   which for an FRQ says the same thing the criteria say.
+3. **The feedback card was inside the pane's `minmax(0,1fr)` content track** in the prototype's
+   FRQ screen, contradicting `FeedbackCard.prompt.md`'s own documented rule. Moved to its own
+   `auto` row above the action row, where a grown answer field cannot push the primary action
+   past the frame.
+
+**Two things to be clear about, because both are easy to mistake for finished work:**
+- **Grading is a deterministic local stand-in.** `web/src/session/grade.js` is regex matching
+  against criterion patterns. It is NOT `supabase/functions/_shared/` (`grading-router`,
+  `deterministic-verifier`, `grading-partial-credit`). It is criterion-level and explainable
+  specifically so the seam is obvious — swap `gradeFrq()` for a call to the grading router and
+  the return shape holds.
+- **The sample content is hand-written and ungoverned.** The six items in
+  `web/src/content/sample/` did not come from the authoring pipeline in `prompts/`, carry no
+  fact-pack refs, no provenance and no content review. They exist so the screens render
+  something real. Their shape deliberately mirrors `content/item-packages/` so a loader over
+  the real packages is the intended replacement.
+
+**Scope held to AP Statistics Unit 2, topics 2.2 and 2.3** — what the design system was
+validated against. The repo's primary subject is AP Biology, whose longer FRQs and diagrammatic
+stimulus are exactly where the fixed no-scroll plate will bite; that tension is documented in
+`docs/new_design/README.md` and is not resolved here.
+
+**No DECISION number allocated.** The design decisions this implements (orange palette, flat
+Bungee wordmark, clay `↻` / maroon incorrect, dark mode retired, no-scroll plate held pending
+Bio content) were David's, taken in the design session and recorded in `docs/new_design/`.
+Allocating a number here risked colliding with open-PR claims — left for David.
+
+**Next Owner:** David Bloom
+**Next Required Action:** Review the pull request. Then decide whether to allocate DECISION
+numbers for the design calls now recorded in `docs/new_design/`, and whether to mark
+`CRAMAPPLE_VISUAL_IDENTITY_BRIEF_v1/v2` superseded in `docs/README.md`.
 
 ---
 
