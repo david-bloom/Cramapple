@@ -50,11 +50,18 @@ Use the **latest published version** per `content_item_id`.
 `stimulus` (extra stimulus text, may be null), `stimulus_image_path` (a figure reference, may be
 null), `frq_form` (`short`/`long`), `prompt_json` (metadata: `modules`, `subtopics`, `total_points`).
 
-### 2.2 The existing canonical answer (find it here first)
-`public.content_item_versions.canonical_answer_1` and `canonical_answer_2` on that same latest
-published version. **This is the text to reuse.** If it is non-blank, do not rewrite it — segment
-it. If it is blank, or it does not cover every criterion (common — see the worked example), draft
-only the missing span(s).
+### 2.2 The existing canonical answer(s) — read BOTH fields first
+`public.content_item_versions.canonical_answer_1` **and `canonical_answer_2`** on that same latest
+published version. **Both are vetted existing content and both must be reused.** On AP Biology,
+`canonical_answer_2` is not an alternate answer — it is typically the **answer to a later part** of
+a multi-part question (e.g. `canonical_answer_1` answers part (a), `canonical_answer_2` answers
+part (b)). Treat `canonical_answer_1` + `canonical_answer_2` together as the **single existing
+answer corpus**.
+
+**Do not draft content for a criterion until you have checked whether either field already answers
+it.** If a criterion's answer is present in `canonical_answer_1` or `canonical_answer_2`, segment
+that existing text verbatim — never generate a fresh paraphrase of content that already exists.
+Draft new text **only** for criteria that *neither* field covers.
 
 ### 2.3 The rubric components
 `public.frq_criteria`, joined on `content_item_version_id` (= the version's `id`). Per criterion:
@@ -90,16 +97,26 @@ compared. Two files (§4):
    the whole point; check it.
 5. **Follow rubric granularity.** A 2-point AP Biology criterion may own a multi-sentence span;
    do not invent finer criteria than `frq_criteria` lists.
-6. **Reuse, don't rewrite.** If the existing canonical answer already covers a criterion, segment
-   its actual words. Draft new text only for criteria the existing answer does not cover, and mark
-   those spans as drafted.
+6. **Reuse, don't rewrite — from BOTH `canonical_answer_1` and `canonical_answer_2`.** If either
+   field already covers a criterion, segment its actual words. Draft new text only for criteria
+   that *neither* field covers, and mark those spans as drafted. Re-paraphrasing content that
+   already exists in `canonical_answer_2` is the specific failure this rule prevents. Assemble
+   `full_text` as the complete answer in question order (part-a text, then part-b text, then any
+   drafted gap spans in their proper place).
 7. **Never invent a rubric point**, never relax any serving contract, never write to the DB.
 
-### 3.2 When the existing canonical answer is incomplete
-Very common (see §6). If `canonical_answer_1` covers only some criteria: keep and segment what is
-there, **draft the minimal span(s)** for the uncovered criteria, set `canonical_answer.source` to
-`completed`, list the uncovered criteria in `coverage`, and set `needs_human: true`. If no
-canonical answer exists at all, draft the whole thing, source `drafted`, `needs_human: true`.
+### 3.2 When the combined existing answer is incomplete
+First assemble the existing corpus from **both** `canonical_answer_1` and `canonical_answer_2`
+(§2.2). Then, and only then, judge coverage:
+- If `canonical_answer_1` + `canonical_answer_2` together cover **every** criterion: segment both
+  verbatim, `source: "existing"`, nothing drafted.
+- If together they cover only some criteria: segment what exists, **draft the minimal span(s)**
+  for the criteria *neither* field covers, `source: "completed"`, list the uncovered criteria in
+  `coverage.uncovered_by_existing_answer`, `needs_human: true`.
+- If neither field exists at all: draft the whole answer, `source: "drafted"`, `needs_human: true`.
+
+Record in `coverage` which criteria came from `canonical_answer_1`, which from
+`canonical_answer_2`, and which were drafted, so a reviewer can see the provenance of every span.
 
 ---
 
@@ -158,8 +175,10 @@ Working directory: **`docs/research/apbio_frq_segmentation_2026_09_22/`** (creat
 
 ## 5. Summary to report back (`SUMMARY.md`)
 
-- Live counts: published Biology FRQ; how many had `canonical_answer_1`; how many were `completed`
-  (partial existing answer extended); how many fully `drafted`.
+- Live counts: published Biology FRQ; how many had `canonical_answer_1`; how many had
+  `canonical_answer_2`; how many criteria were covered by reusing `canonical_answer_1`, by reusing
+  `canonical_answer_2`, and how many required drafting; how many items were `existing` /
+  `completed` / `drafted`.
 - How many records have `needs_human: true`, and why (drafted content vs coverage gap vs ambiguity).
 - Any item where `frq_criteria` is empty or the parts/points don't add up — flag, don't guess.
 - Any disagreement with the counts or assumptions in this order.
@@ -188,7 +207,18 @@ So: segment the existing sentence under `a`, **draft** a `b` span, mark `source:
   { "text": "Cholesterol buffers fluidity across temperature: at 40°C it restrains phospholipid movement and lowers fluidity, and at 20°C it prevents tight packing and preserves fluidity.", "criterion_key": "b" }
 ]
 ```
-(The `b` sentence is a drafted proposal for human approval, not authoritative content.)
+(The `b` sentence is a drafted proposal for human approval, not authoritative content. This item
+has **no** `canonical_answer_2`, so drafting `b` is correct here.)
+
+**Contrast — item `APBIO-FRQ-S-007`, where `canonical_answer_2` already holds the answer.**
+Rubric: `a` (Punnett square + 3:1 ratio), `b` (state the principle of segregation).
+`canonical_answer_1` = *"Aa × Aa gives a 3 purple : 1 white … 25% white."* (part a).
+`canonical_answer_2` = *"This follows the law of segregation: during meiosis I the two alleles
+separate so each gamete gets only one allele of the gene."* (part b). **Criterion `b` is already
+answered in `canonical_answer_2`.** The correct output segments `canonical_answer_2` verbatim under
+`b` — it does **not** draft a fresh sentence about segregation. `source: "existing"` (both criteria
+covered by existing text); nothing drafted. Generating a new `b` sentence here, while ca2 sits
+unused, is the exact error this work order now forbids.
 
 ---
 
