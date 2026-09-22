@@ -1,0 +1,84 @@
+import frq22 from './sample/apstats-2-2-frq-001.js';
+import mcq22 from './sample/apstats-2-2-mcq-001.js';
+import frq23a from './sample/apstats-2-3-frq-001.js';
+import mcq23a from './sample/apstats-2-3-mcq-001.js';
+import mcq23b from './sample/apstats-2-3-mcq-002.js';
+import frq23b from './sample/apstats-2-3-frq-002.js';
+
+/**
+ * The content layer.
+ *
+ * Every question here is a hand-written sample for the design system's Unit 2
+ * walkthrough. The real items live in content/item-packages/ as JSON, produced
+ * by the authoring pipeline in prompts/ and carrying provenance and fact-pack
+ * refs. This module is the seam: swap these imports for a loader over those
+ * packages and nothing downstream changes.
+ *
+ * Fields the screens rely on, beyond the repo's item-package schema:
+ *   criteria[].match / .disqualify  -- local grading (see session/grade.js)
+ *   creditedResponse[]              -- Open Hand phrase-to-criterion mapping
+ *   habits, hints, reference,
+ *   deepDive, coaching              -- the panes around the question
+ */
+
+export const COURSE = {
+  code: 'ap-statistics',
+  title: 'AP Statistics',
+  exam: 'AP Statistics · May 2027',
+  unitsInCourse: 9
+};
+
+export const UNIT = {
+  key: 'unit-2',
+  label: 'Unit 2',
+  title: 'Exploring Two-Variable Data',
+  get heading() { return `${this.label} · ${this.title}`; }
+};
+
+// Ordered. Question order inside a topic is the order a student meets them.
+const QUESTIONS = [
+  mcq22,
+  frq22,
+  frq23a,
+  mcq23a,
+  mcq23b,
+  frq23b
+];
+
+export const TOPICS = [
+  { code: '2.2', title: 'Scatterplots & Correlation' },
+  { code: '2.3', title: 'Least-Squares Regression' }
+].map((t) => ({
+  ...t,
+  questions: QUESTIONS.filter((q) => q.taxonomy.topic === t.code)
+}));
+
+export const ALL_QUESTIONS = TOPICS.flatMap((t) => t.questions);
+
+export const TOTAL_QUESTIONS = ALL_QUESTIONS.length;
+
+export function getQuestion(packageId) {
+  return ALL_QUESTIONS.find((q) => q.package_id === packageId) || null;
+}
+
+export function getTopic(code) {
+  return TOPICS.find((t) => t.code === code) || null;
+}
+
+/** Position of a question within its topic, 1-indexed, plus the topic total. */
+export function positionInTopic(question) {
+  const topic = getTopic(question.taxonomy.topic);
+  const index = topic.questions.indexOf(question);
+  return { number: index + 1, total: topic.questions.length };
+}
+
+/** The next question in the unit, crossing topic boundaries. Null at the end. */
+export function nextQuestion(question) {
+  const i = ALL_QUESTIONS.indexOf(question);
+  return i >= 0 && i < ALL_QUESTIONS.length - 1 ? ALL_QUESTIONS[i + 1] : null;
+}
+
+/** Plain text of a stem, for aria labels and the copied deep dive. */
+export function stemText(question) {
+  return question.stem.map((n) => n.value).join('');
+}
