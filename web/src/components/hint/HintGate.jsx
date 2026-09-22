@@ -39,7 +39,7 @@ export function HintGate({ name, cost, state = 'idle', contentHidden = false, on
         <p style={{ margin: '0 0 4px', fontSize: 'var(--type-body-size)', lineHeight: 'var(--type-body-line)', fontWeight: 'var(--type-body-strong-weight)', color: 'var(--text-body)' }}>Sure you need a hint?</p>
         <p style={{ margin: '0 0 12px', fontSize: 'var(--type-body-size)', lineHeight: 'var(--type-body-line)', color: 'var(--text-secondary)' }}>{cost}</p>
         <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)' }}>
-          <button type="button" onClick={onConfirm} style={yellowBtn}>Yes, show me</button>
+          <button type="button" onClick={onConfirm} aria-label={`Yes, show me: ${name}`} style={yellowBtn}>Yes, show me</button>
           <button type="button" onClick={onCancel} style={linkBtn}>No, keep solving</button>
         </div>
       </div>
@@ -56,7 +56,9 @@ export function HintGate({ name, cost, state = 'idle', contentHidden = false, on
         }}>?</span>
         <span style={{ fontSize: 'var(--type-body-size)', lineHeight: 'var(--type-body-line)', fontWeight: 'var(--type-body-strong-weight)', color: 'var(--text-body)' }}>{name}</span>
       </span>
-      <button type="button" onClick={onAsk} style={{ ...yellowBtn, padding: '7px 14px' }}>Show me</button>
+      {/* A plate can offer more than one hint, so the visible label stays short
+          and the accessible name carries which hint it opens. */}
+      <button type="button" onClick={onAsk} aria-label={name} style={{ ...yellowBtn, padding: '7px 14px' }}>Show me</button>
     </div>
   );
 }

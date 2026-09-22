@@ -65,6 +65,13 @@ These are design rules, not preferences. Breaking one is a bug.
   collapses to a receipt. The receipt never disappears — "Hide" folds the
   content away and leaves it standing — and every hint pulled is listed again on
   the feedback card.
+- **In Practice, all disclosed help is costed help.** That includes the deep
+  dive, which sits behind the same gate as the rubric rather than being a
+  post-submit extra. How much help a student took, read against the score, is
+  the mastery signal — so help that discloses silently would leave that signal
+  incomplete. After submission the deep dive is free.
+- **Reference materials are not help.** They are what a student may look up —
+  topic, skills, vocabulary — so they stay visible and ungated throughout.
 - **Body text never goes below 16px.** Chrome (breadcrumb 13, counts 12,
   eyebrows 12, caption 10) is the only exception, and never for content a
   student must read to answer.
@@ -79,8 +86,8 @@ These are design rules, not preferences. Breaking one is a bug.
 
 ```bash
 npm test                 # grading engine, incl. the voice rules (no "!", no praise)
-npm run verify:panes     # no pane overflows, in 15 screen states
-npm run verify:screens   # 65 interaction checks across all five screens
+npm run verify:panes     # no pane overflows, in 17 screen states
+npm run verify:screens   # 73 interaction checks across all five screens
 ```
 
 The two browser checks need a running preview and a Chromium:
@@ -145,6 +152,11 @@ fonts, four panes overflowed the frame.
 
 - **No backend.** Session state is `localStorage` (`cramapple.session.v1`);
   `SessionProvider.jsx` has the two functions to replace.
+- **No mastery signal.** Help taken and score are both recorded per attempt, but
+  nothing derives mastery from them — that belongs with `student_cell_state` and
+  is a pedagogy decision, not a frontend one.
+- **No bring-your-own-question.** Practice serves a Cramapple question only.
+  Camera and document upload are not built, and are not designed.
 - **No auth, no enrollment, no payment.**
 - **Desktop only.** The plate is a fixed 1440×900 frame by product rule; on a
   narrower viewport the desk scrolls around it rather than the plate reflowing.

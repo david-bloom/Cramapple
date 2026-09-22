@@ -85,7 +85,7 @@ check('MCQ: primary action disabled before a pick',
   await page.getByRole('button', { name: 'Submit answer' }).isDisabled());
 
 // Hint economy: idle -> asking -> back out -> asking -> open
-await page.getByRole('button', { name: 'Show me' }).click();
+await page.getByRole('button', { name: 'Rule out two choices' }).click();
 await page.waitForTimeout(120);
 t = await text();
 check('MCQ: asking state surfaces the cost before disclosure',
@@ -94,8 +94,8 @@ await page.getByRole('button', { name: 'No, keep solving' }).click();
 await page.waitForTimeout(120);
 check('MCQ: backing out leaves no receipt', !(await text()).includes('Hint used'));
 
-await page.getByRole('button', { name: 'Show me' }).click();
-await page.getByRole('button', { name: 'Yes, show me' }).click();
+await page.getByRole('button', { name: 'Rule out two choices' }).click();
+await page.getByRole('button', { name: /^Yes, show me/ }).click();
 await page.waitForTimeout(150);
 t = await text();
 check('MCQ: open state collapses to a receipt', /hint used/i.test(t));
@@ -205,6 +205,46 @@ await page.waitForTimeout(250);
 check('Next advances across the unit', page.url().includes('apstats-2-2-frq-001'), page.url());
 
 const appErrors = errors.filter((e) => !/ERR_CERT_AUTHORITY_INVALID|favicon|fonts\.googleapis|fonts\.gstatic|404 \(Not Found\)/i.test(e));
+// ---------- Deep dive is costed help in Practice ----------
+{
+  const ctx = await browser.newContext({ viewport: { width: 1480, height: 960 } });
+  const dd = await ctx.newPage();
+  await dd.goto(`${BASE}/#/practice/apstats-2-3-frq-001`, { waitUntil: 'networkidle' });
+  await dd.waitForTimeout(300);
+  let dt = await dd.evaluate(() => document.body.innerText);
+
+  check('Deep dive: offered before submitting', /show me the deep dive/i.test(dt));
+  check('Deep dive: not free before submitting', !/back to the question/i.test(dt));
+
+  await dd.getByRole('button', { name: 'Show me the deep dive' }).click();
+  await dd.waitForTimeout(150);
+  dt = await dd.evaluate(() => document.body.innerText);
+  check('Deep dive: names its cost before disclosing',
+    /sure you need a hint/i.test(dt) && /listed on your feedback/i.test(dt));
+
+  await dd.getByRole('button', { name: 'No, keep solving' }).click();
+  await dd.waitForTimeout(150);
+  check('Deep dive: backing out leaves no receipt',
+    !/deep dive/i.test((await dd.evaluate(() => document.body.innerText)).split('HINTS USED')[1] || ''));
+
+  await dd.getByRole('button', { name: 'Show me the deep dive' }).click();
+  await dd.getByRole('button', { name: /^Yes, show me/ }).click();
+  await dd.waitForTimeout(200);
+  check('Deep dive: opens on confirm', /back to the question/i.test(await dd.evaluate(() => document.body.innerText)));
+  await dd.keyboard.press('Escape');
+  await dd.waitForTimeout(150);
+  check('Deep dive: leaves a receipt once taken', /hint used/i.test(await dd.evaluate(() => document.body.innerText)));
+
+  await dd.locator('textarea').fill('For each additional hour studied per week, the predicted mean final exam score increases by 4.1 points.');
+  await dd.getByRole('button', { name: 'Submit answer' }).click();
+  await dd.waitForTimeout(250);
+  dt = await dd.evaluate(() => document.body.innerText);
+  const strip = (dt.split('HINTS USED')[1] || '').slice(0, 200);
+  check('Deep dive: help taken is carried onto the feedback card', /deep dive/i.test(strip), strip.trim().slice(0, 60));
+  check('Deep dive: full marks still scored with help taken', /4 \/ 4/.test(dt));
+  await ctx.close();
+}
+
 check('no console errors', appErrors.length === 0, appErrors.slice(0, 3).join(' | '));
 
 await browser.close();

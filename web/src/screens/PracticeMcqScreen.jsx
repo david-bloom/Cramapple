@@ -6,6 +6,7 @@ import {
 import { QuestionPlate } from './parts/QuestionPlate.jsx';
 import { ReferencePane } from './parts/ReferencePane.jsx';
 import { Habits } from './parts/Habits.jsx';
+import { DeepDiveGate, DEEP_DIVE_HINT } from './parts/DeepDiveGate.jsx';
 import { Stem } from './parts/Stem.jsx';
 import { body } from './parts/text.js';
 import { useSession, useHints } from '../session/SessionProvider.jsx';
@@ -22,7 +23,9 @@ import { gradeMcq } from '../session/grade.js';
  */
 export function PracticeMcqScreen({ question, onNext }) {
   const { attempts, recordAttempt } = useSession();
-  const hints = useHints(question.package_id, question.hints);
+  // The deep dive is costed help in Practice, so it joins the hint list and
+  // its receipt lands on the feedback card with the rest.
+  const hints = useHints(question.package_id, [...question.hints, DEEP_DIVE_HINT]);
   const attempt = attempts[question.package_id];
   const submitted = Boolean(attempt && attempt.mode === 'practice');
 
@@ -100,6 +103,9 @@ export function PracticeMcqScreen({ question, onNext }) {
                   >
                     <p style={body}>{elimHint.body}</p>
                   </HintGate>
+                )}
+                {question.deepDive && (
+                  <DeepDiveGate hints={hints} onOpen={openDeepDive} />
                 )}
                 <Habits habits={question.habits} />
               </div>

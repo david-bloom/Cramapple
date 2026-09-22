@@ -7,6 +7,7 @@ import { Scatterplot } from '../lib/Scatterplot.jsx';
 import { QuestionPlate } from './parts/QuestionPlate.jsx';
 import { ReferencePane } from './parts/ReferencePane.jsx';
 import { Habits } from './parts/Habits.jsx';
+import { DeepDiveGate, DEEP_DIVE_HINT } from './parts/DeepDiveGate.jsx';
 import { Stem } from './parts/Stem.jsx';
 import { eyebrow, body } from './parts/text.js';
 import { useSession, useHints } from '../session/SessionProvider.jsx';
@@ -18,13 +19,18 @@ import { gradeFrq } from '../session/grade.js';
  */
 export function PracticeFrqScreen({ question, onNext }) {
   const { attempts, recordAttempt } = useSession();
-  const hints = useHints(question.package_id, question.hints);
+  // The deep dive is costed help in Practice, so it joins the hint list and
+  // its receipt lands on the feedback card with the rest.
+  const hints = useHints(question.package_id, [...question.hints, DEEP_DIVE_HINT]);
   const attempt = attempts[question.package_id];
   const submitted = Boolean(attempt && attempt.mode === 'practice');
 
   const [text, setText] = useState(attempt?.response || '');
   const rubricHint = question.hints.find((h) => h.kind === 'rubric');
-  const rubricOpen = Boolean(rubricHint && hints.contentVisible(rubricHint.hint_key));
+  const anyHelpOpen = Boolean(
+    (rubricHint && hints.contentVisible(rubricHint.hint_key))
+    || hints.wasUsed(DEEP_DIVE_HINT.hint_key)
+  );
 
   const submit = () => {
     const result = gradeFrq(question, text);
@@ -70,7 +76,10 @@ export function PracticeFrqScreen({ question, onNext }) {
               </div>
             ) : (
               <div style={{ display: 'grid', gap: 16 }}>
-                <p style={body}>{question.scoringNote}</p>
+                {/* "You can answer without seeing how they are split" stops being
+                    true the moment the rubric is disclosed, and the pane needs the
+                    ~48px back for the second gate. Cut, not shrunk. */}
+                {!anyHelpOpen && <p style={body}>{question.scoringNote}</p>}
                 {rubricHint && (
                   <HintGate
                     name={rubricHint.name}
@@ -96,13 +105,16 @@ export function PracticeFrqScreen({ question, onNext }) {
                     </div>
                   </HintGate>
                 )}
-                {/* The habits pair is what stands in for a rubric the student
+                {question.deepDive && (
+                  <DeepDiveGate hints={hints} onOpen={openDeepDive} />
+                )}
+                {/* The habits pair is what stands in for scoring the student
                     cannot see, and for an FRQ it says the same thing the criteria
-                    say ("Name both variables" / "Names both variables"). Once the
-                    hint is paid for and the rubric is open, keeping both overruns
-                    the pane by ~170px -- so the rubric replaces them rather than
+                    say ("Name both variables" / "Names both variables"). Once
+                    either gate is open, keeping the habits as well overruns the
+                    pane -- so the disclosed help replaces them rather than
                     stacking on top of them. */}
-                {!rubricOpen && <Habits habits={question.habits} />}
+                {!anyHelpOpen && <Habits habits={question.habits} />}
               </div>
             )}
           </PaneShell>
