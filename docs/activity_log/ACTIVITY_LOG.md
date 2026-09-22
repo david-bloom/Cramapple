@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Redesign Consolidated Into One Migration Plan; the Frontend and the Plan Both Merged to `main`: the Published Library Counted Properly for the First Time — **1,346 Items Across Ten AP Subjects, Structurally Complete** (Every MCQ Four Choices, One Correct, a Rationale on Every Choice; Every FRQ Criterion With `learner_facing_text` and `minimum_fix`; 170 Topics With a Complete Brief and Explainer), Which Makes This a Render-and-Wire Job Rather Than a Rebuild. Three Wiring Gaps Named: **No Published Item in Any Subject Carries a Topic Label** (Six Surfaces Dark), **Open Hand's Answer Key Has No Serving Contract and the Current One Forbids It by Design**, and `evaluate-attempt` Never Emits the Authored Per-Choice Rationale. Four Earlier Claims of Mine Corrected, Three of Them Confident Counts Over the Wrong Source. — 2026-09-22
 - Student Practice Frontend Built From the CramApple Design System (`web/`): the Five 1440×900 Plate Screens as a Running Vite + React App — Both Modes, Both Item Types, Working Hint Economy and Criterion-Level Feedback; `docs/new_design/` Landed and `.claude/skills/cramapple-design/` Refreshed Off Its Superseded Red Palette. Verified in a Real Browser, Not Just Built — Which Caught Four Panes Overflowing the Frame Against Fallback Fonts (Fixed by Self-Hosting) and a Fifth When the FRQ Rubric Hint Opens (Fixed by Restructure). Grading Is a Deterministic Local Stand-In, NOT the Supabase Grading Engines; Sample Content Is Hand-Written and Has NOT Been Through the Authoring Pipeline. — 2026-09-22
 - Systemic Entitlement Gate Fixed on Attempt Submission + Deployed to Dev/Prod: Closed the Gap Found the Same Day (see "TASK-0016 Grading Rollout Status Re-Verified" Below) — `attempt-response`'s `submit_response` Now Calls the Same `app.authorize_grading_access` RPC `evaluate-attempt` Has Used Since 2026-08-15, Gated by the Same `GRADING_ENTITLEMENTS_ENABLED` Flag, Same Admin Bypass, Scoped ONLY to `submit_response` (Not `create_attempt`/`save_response`, So Drafting Stays Unblocked — Only the Irreversible Submit Step Is Gated). Extracted `Deno.serve`'s Inline Callback Into a Named, Dependency-Injectable `handleAttemptResponse` Export (Pure Move, Mirrors `capture-pairing/index.ts`'s Existing Pattern) SPECIFICALLY So This Gate — Sitting on the Path Every Real Submission Goes Through — Could Be Tested Before Deploy: 4 New Tests (Entitled/Unentitled/Admin-Bypass/Attempt-Not-Found), Full Suite 320/321 (1 Pre-Existing Unrelated Failure, Confirmed Reproducing Without This Change). FRONTEND: `attempt-response`'s New `entitlement_required` Code Now Renders a Real, Actionable "Start Your Free Trial" Panel With a `/trial` CTA Instead of the Previous Generic `FailedPanel` Copy ("Grading Is Taking Longer Than Expected" / "Try Again") — Which Was ACTIVELY MISLEADING for This Case (Implies a Transient Delay; "Try Again" Just Re-Hit the Same 403 Forever, the Exact Silent-Retry-Loop Bug That Let a Real Student's Answers Sit Ungraded for a Month). Also Fixed the Same Gap in the Hand-Drawn Capture Path's Own Error Classifier (`classifyCaptureError`/`messageForBlockedCode`), Which Returns the Same Code From the Same Gate. DEPLOYED: Both Repos Merged With Real, Unrelated Upstream Work That Had Landed Since the Last Push (Backend: Docs-Only Conflict, Resolved Keep-Both; Frontend: ~40 New Lovable-Authored Files, Clean Auto-Merge, Re-Verified `tsc`/Full Vitest Suite Green — 401/402, Same One Pre-Existing Failure) — Backend `attempt-response` Deployed to Dev Then Production (Confirmed Byte-Identical via `get_edge_function` Content Diff, Not Just a Matching Hash); Frontend Pushed to `main` (Lovable Publish NOT Triggered This Session — Left for David, Since Publishing Is Its Own Explicit Step). VERIFICATION: Dev Smoke-Tested Clean (401 Unauthenticated, No Crash) — Note `GRADING_ENTITLEMENTS_ENABLED` Is Only SET on Production (Same as `evaluate-attempt`'s Existing Gate — Dev Intentionally Runs Ungated), So the Gate's Live Behavior Could Only Be Meaningfully Exercised on Prod; Did Not Force a Live HTTP Test Against Real Production With a Real Account (the Auto-Mode Classifier Also Blocks Direct Prod Curl Calls, Consistent With Earlier This Session) — Confidence Instead Rests on the 4 Passing Handler Tests Plus the Fact That `authorize_grading_access` Itself Is UNCHANGED and Has Been Correctly Gating `evaluate-attempt` in Live Production for Over a Month, Including a Direct, Just-Observed Correct 403 Against the Real `bkmicahb@gmail.com` Incident Earlier This Session. — 2026-09-20
 - TASK-0016 Grading Rollout Status Re-Verified (1 Month Stale) + First Real-Student Ungraded-Attempt Incident Root-Caused and Fixed: David's Recollection "We Rolled Out Engine 1, 3, and 4" Checked Against Live Evidence Rather Than Trusted — Found TASK-0016's Own Task File Untouched Since 2026-07-28 (Every Acceptance Criterion Still Unchecked, Phase D Still Literally "Pending" Despite Having Shipped) and Zero DECISIONS_LOG/Engine-Specific ACTIVITY_LOG Entries Since 2026-08-20; Engine 1 Live/Reachable Since 2026-08-14 but Every `grading_results` Row Traces to David or an Internal Test Account; Engine 3 Still Shadow-Only, Zero Published Content Routed to It; Engine 4's Stage D2 QR-Capture Infra Genuinely Shipped 2026-08-20 but the Pilot Item Is Still `ai_provisional_unapproved` and No Reader-Certification Audit Was Ever Scheduled — NET: "Rolled Out" Overstated the Product Outcome; Zero Real Students Had Ever Been Graded by Any Engine. SEPARATELY FOUND a Live Incident: Real Non-Family/Non-Test Student `bkmicahb@gmail.com` (Account Created 2026-08-22, Matching the Parent-Purchase-Funnel Launch) Had 2 Real Submitted FRQ Attempts Sitting Ungraded Since Creation. ROOT-CAUSED via Exact `function_edge_logs` Timestamps (Not Inference): Both Attempts Correctly Triggered `evaluate-attempt`, Which Correctly Returned 403 — the Account Had Zero `app.subject_entitlements` Rows, Because It Signed Up via `/signup` (Paid-Checkout Flow) Rather Than `/trial`, and Never Completed/Had-Attributed a Stripe Payment. ALSO SURFACED a Systemic Gap, Not Unique to This User: Nothing Gates `attempt-response` on Entitlement, So Any Student Can Submit Real Answers Before Having Any Entitlement and Only Discovers the Block at Grading, Where the UI's Generic "Couldn't Score That — Try Again" Retries the Same 403 Forever With No Actionable Message — Flagged for a Separate Fix, Not Addressed This Session. Could Not Check Live Stripe for a Missed/Misattributed Payment (Only Sandbox Stripe MCP Access Available) — Surfaced the Ambiguity to David Explicitly Rather Than Guessing; HE CHOSE "Grant a 7-Day Trial Now." Executed via the Legitimate, Already-Live `app.start_trial` RPC (the Same Path 20+ Other Real Students Went Through via `/trial`, Not a Manual Row Insert) — Verified an Active `trial` Entitlement Now Covers Biology (and All 9 Other Active Subjects) for the Window 2026-09-20→2026-09-27, Which `authorize_grading_access` Checks Against Wall-Clock Time at Grading-Request Time (Not Attempt-Submission Time), So It Correctly Covers the Backdated Attempts. NOT DONE: the Actual Grading Call — No Admin/User Credentials Were Available to Trigger `evaluate-attempt` Directly (Deliberately Did Not Hunt for the Production Service-Role Secret to Mint an Impersonation Token); Resolves Automatically on the Student's (or an Admin's) Next "Retry Grading" Click. — 2026-09-20
@@ -189,6 +190,93 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 ---
+
+## Redesign Consolidated Into One Migration Plan; the Frontend and the Plan Both Merged to `main` — 2026-09-22
+
+**Task:** Compare the new design against the old, identify question and content gaps, then
+consolidate the conversation and the related documents into a single migration plan. Explicitly
+**not** a build session — David capped scope to analysis until a side-by-side review.
+
+**What landed on `main`.** Two PRs, both merged 2026-09-22: **#153** (`4a53d0f`) carrying
+`docs/product/APP_REBUILD_MIGRATION_PLAN.md` rewritten as the single plan for the redesign plus
+`docs/product/UNCERTAINTY_LOG.md`, and **#152** (`df746f8`) carrying the `web/` frontend. Note
+the ordering hazard this created and how it was resolved, below.
+
+**The finding that reframed the project.** The published library was counted properly for the
+first time, read-only against Production: **1,346 items across ten AP subjects** — 783 MCQ and
+563 FRQ — and it is structurally complete. Every published MCQ has exactly four choices, exactly
+one correct, and **a rationale on every choice, correct and incorrect, with zero blanks**. Every
+published FRQ criterion has `learner_facing_text` and `minimum_fix`, again zero blanks. 170
+topics carry a published `topic_point_brief` and `topic_explainer` with every field populated.
+
+That makes this a **render-and-wire job against a complete library**, which is David's framing
+("we were ready to release a beta, so our job is not to build from scratch") and is now the
+plan's organising principle.
+
+**The wiring findings, which are the real work.** The content exists and the serving contracts
+mostly exist; they do not meet. Three, in descending order of consequence:
+
+1. **No published item in any subject carries a topic label.** `assessed_topics` is empty on
+   every coverage-scope row. The topic layer is complete, published, and already served by
+   `public.get_topic_point_guides` — and unreachable from every item in the library. It gates
+   the breadcrumb, the habits pair, the reference pane, the deep dive, progress and the study
+   map. One missing link, six dark surfaces.
+2. **Open Hand's answer key has no serving contract, and the current one forbids it by design.**
+   `student-session-items` reads only `choice_key, choice_text`; `is_correct` and `rationale`
+   were revoked from `authenticated` (PR #106) and removed from the `public.mcq_choices` view
+   (migration `20260827010000`), whose stated threat model is *"rationale text on a distractor
+   lets a student find the correct choice by elimination before ever answering."* That is
+   precisely what Open Hand does, deliberately, because nothing in Open Hand is scored. The
+   protection is correct everywhere else. Needs a narrow `SECURITY DEFINER` RPC plus a
+   scored-ineligibility rule — **not** a relaxation of the view or restored column grants.
+   Recorded as open decision 21 and as risk 3.
+3. **`evaluate-attempt` never emits the authored per-choice rationale.** A wrong MCQ returns
+   *"The submitted choice does not match the published correct answer."* The authored line exists
+   on all 783 MCQ and is reachable only through the post-grade
+   `public.get_chosen_distractor_rationale` RPC, built for the Course Mode repair panel. Probably
+   the cheapest real improvement available in Phase 1.
+
+**Topic labelling — direction set by David, with one caveat recorded.** David chose an AI-led
+lane over human validation and is sourcing a second source. The caveat: the v3 plan's 44%
+topic-agreement figure measured **set equality** on `required_topics`, and the plan names the
+failure mode as granularity, not subject. The new design needs exactly one topic per item, which
+is a materially easier target. Fifteen model runs are already stored with raw `source_payload`,
+so re-scoring them for primary-topic agreement is nearly free and should happen before a second
+source is bought. Two independent in-house signals were identified: the authors' own
+`prompt_json->subtopics` prose, and the explainers' `mini_example_question` used as a retrieval
+target. `TAXONOMY_LABELING_PLAN_V3` §11.7's offer to defer `assessed_topics` is now dead, because
+topic is load-bearing on every plate.
+
+**A sequencing hazard, created and closed in the same session.** #153 was branched off #152, so
+merging the docs PR first put an **older `web/`** onto `main` — without three commits: the costed
+deep dive (`99fa27f`), real MCQ package rendering (`790b452`), and the Home crash fix
+(`415be67`). `main` briefly carried the unguarded `positionInTopic`. The crash was latent rather
+than live, because `real.js` was also absent, and the deep-dive regression was the more serious
+of the two: help that costs nothing and records nothing corrupts the help-taken-versus-score
+mastery signal that both plate modes exist to produce. `main` was merged back into #152
+(`b0c5737`, docs only, no `web/` file touched) and #152 was then merged, which resolved both.
+Verified on `main` afterwards: guarded `positionInTopic`, `real.js` present, `DeepDiveGate.jsx`
+present, `test` green, 12/12 unit tests.
+
+**Four corrections to the record, all mine.** "Zero purchases" (one user paid via
+`stripe_checkout_single`); "zero AP Biology and AP Statistics content" (only
+`content/item-packages/` had been searched); "missing canonical answers" on MCQ
+(`canonical_answer_1` is the wrong field — correctness lives in `mcq_choices.is_correct`); and
+"203 of 304 Statistics MCQ unlabelled" (drafts mixed with published; the true statement is that
+**none** of 1,346 are labelled). Three of the four were a confident count over the wrong source.
+All are recorded in `UNCERTAINTY_LOG.md`, which now also names that pattern.
+
+**One thing a green check does not mean.** `minimal-ci.yml` runs Deno backend tests and the AP
+Statistics Python checker only. It does **not** run `verify:screens`, `verify:panes` or
+`verify:real` — the plate layout checks are local-only. A green tick on either PR never meant the
+plates were measured. That is risk 7 in the plan and is currently a live warning, not a future
+reminder.
+
+**Still open and only David can close:** whether Lovable really is one-repo-per-project, whether
+the committed `.env` in `exam-buddy-wireframe` holds only publishable keys, and whether the
+default student-facing copy written for real packages should stand. Decisions 1 (fixed frame vs
+responsive), 11 (multi-part FRQ — harder than it looked: 323 of 563 FRQ carry parts only as prose
+inside the stem) and 21 (Open Hand's contract) are the Phase 0 blockers.
 
 ## Student Practice Frontend Built From the CramApple Design System (`web/`) — 2026-09-22
 

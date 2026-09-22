@@ -20,6 +20,7 @@ Start with:
 - [Course + Homework Mode Consolidation Plan](docs/product/COURSE_HOMEWORK_CONSOLIDATION_PLAN.md)
 - [Design System Cutover Plan](docs/product/DESIGN_SYSTEM_CUTOVER_PLAN.md)
 - [App Rebuild Migration Plan](docs/product/APP_REBUILD_MIGRATION_PLAN.md) — **the single plan for the redesign**; consolidates the three documents above it plus the taxonomy and content-production protocols
+- [App Rebuild — Next Session Handoff](docs/product/APP_REBUILD_NEXT_SESSION_HANDOFF_2026_09_22.md) — state of play, blockers and the Phase 0 prompt; read before the plan when resuming
 - [Uncertainty Log](docs/product/UNCERTAINTY_LOG.md)
 - [Master To-Do Backlog](docs/MASTER_TODO.md)
 - [Content Authoring and Prompt Architecture](docs/architecture/CONTENT_AUTHORING_AND_PROMPT_ARCHITECTURE.md)
