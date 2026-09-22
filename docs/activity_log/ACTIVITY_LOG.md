@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Device-Neutral Cramapple Bootstrap and Shared ChatGPT Project Contract Created; Existing Cramapple Project Retained on Default Memory; Codex/Claude Startup Prompts Routed Through One GitHub Source — 2026-09-22
 - Open Hand Documented as a Sanctioned Full-Disclosure Teaching Method and Aligned Across the Design System, Product Design and Migration Plan (Decision 21 Moved From Blocking-Open to Method-DECIDED — the *Whether* Settled, Only the Serving Contract Still Open, and Still NOT by Relaxing the Answer-Key Boundary); Added David's Requirement That Open Hand's Shown Question Be Relevant to the Unit:Topic, Which Couples It Directly to the Topic-Label Gap. Started `CONTENT_GAPS_RUNNING_LIST.md` as a Living Tracker — Evidence Refreshed Read-Only Against Prod: **0 of 1,346 Items Carry a Topic Label** (Confirmed Per Subject: ap-statistics 0/384, biology 0/118), and FRQ Canonical Answers Are Missing on **46/80 AP Statistics** and **7/75 AP Biology** FRQ. Wrote a Codex Work Order to Tag All Biology + Statistics MCQ/FRQ With Unit:Topic Pairs Against the CED Closed List and Fill Missing FRQ Canonical Answers, Ending With a Second-AI Adversarial QA Stage. — 2026-09-22
 - Redesign Consolidated Into One Migration Plan; the Frontend and the Plan Both Merged to `main`: the Published Library Counted Properly for the First Time — **1,346 Items Across Ten AP Subjects, Structurally Complete** (Every MCQ Four Choices, One Correct, a Rationale on Every Choice; Every FRQ Criterion With `learner_facing_text` and `minimum_fix`; 170 Topics With a Complete Brief and Explainer), Which Makes This a Render-and-Wire Job Rather Than a Rebuild. Three Wiring Gaps Named: **No Published Item in Any Subject Carries a Topic Label** (Six Surfaces Dark), **Open Hand's Answer Key Has No Serving Contract and the Current One Forbids It by Design**, and `evaluate-attempt` Never Emits the Authored Per-Choice Rationale. Four Earlier Claims of Mine Corrected, Three of Them Confident Counts Over the Wrong Source. — 2026-09-22
 - Student Practice Frontend Built From the CramApple Design System (`web/`): the Five 1440×900 Plate Screens as a Running Vite + React App — Both Modes, Both Item Types, Working Hint Economy and Criterion-Level Feedback; `docs/new_design/` Landed and `.claude/skills/cramapple-design/` Refreshed Off Its Superseded Red Palette. Verified in a Real Browser, Not Just Built — Which Caught Four Panes Overflowing the Frame Against Fallback Fonts (Fixed by Self-Hosting) and a Fifth When the FRQ Rubric Hint Opens (Fixed by Restructure). Grading Is a Deterministic Local Stand-In, NOT the Supabase Grading Engines; Sample Content Is Hand-Written and Has NOT Been Through the Authoring Pipeline. — 2026-09-22
@@ -191,6 +192,38 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 ---
+
+## Device-Neutral Cramapple Bootstrap and Shared ChatGPT Project Contract — 2026-09-22
+
+**Task.** Execute the approved plan so Cramapple work started in the iPhone and desktop ChatGPT
+apps uses the same documentation, memory, and operating protocols.
+
+**Changed.** Added `docs/team_charter/CRAMAPPLE_SESSION_START.md` and
+`docs/team_charter/CHATGPT_PROJECT_INSTRUCTIONS.md`; linked them from the root README; routed
+the Codex and Claude new-session prompts through the bootstrap; recorded DECISION-0054,
+APPROVAL-0047, and the charter changelog entry.
+
+**Operating result.** One existing ChatGPT Project named Cramapple remains the entry point on both
+devices. Default memory is retained so project continuity and ChatGPT Work remain available.
+Current GitHub records outrank Project memory, uploaded copies, old chats, and general memory.
+The bootstrap maps the authoritative repository, conditional frontend repositories, cloud services,
+and the boundary between portable cloud context and Mac-local state.
+
+**Verification.** Read the current `main` branch at
+`500a11ba6ca4b2d00418641711f1740138db8eb8`; inspected the approved charter/startup records;
+confirmed GitHub access to `david-bloom/Cramapple`, `david-bloom/exam-buddy-wireframe`,
+`david-bloom/cramapple-beta`, and `david-bloom/ai-project-operating-kit`; and checked current
+OpenAI Projects documentation for cross-device Project context, project instructions, connected
+apps, and memory behavior.
+
+**Open item.** The maintained Project-instructions text must be copied into the live Cramapple
+Project setting. The authenticated ChatGPT settings page was not reachable from the automation
+browser in this session, so no account-level setting was changed.
+
+**Next Required Action.** Merge the governance PR after the required GitHub check/review, then
+paste the maintained text from `CHATGPT_PROJECT_INSTRUCTIONS.md` into Cramapple → Project
+settings and confirm Memory remains Default. Run one fresh desktop test and one fresh iPhone test.
+
 
 ## Open Hand Documented as a Sanctioned Teaching Method; Docs Aligned Across Three Layers; Content-Gaps Running List Started; Codex Work Order for Bio/Stats Tagging + FRQ Canonical Answers — 2026-09-22
 
