@@ -76,11 +76,16 @@ export function getTopic(code) {
   return TOPICS.find((t) => t.code === code) || null;
 }
 
-/** Position of a question within its topic, 1-indexed, plus the topic total. */
+/**
+ * Position of a question within its topic, 1-indexed, plus the topic total.
+ * Real packages are not in the walkthrough and have no position, so this
+ * answers 1 of 1 rather than throwing.
+ */
 export function positionInTopic(question) {
-  const topic = getTopic(question.taxonomy.topic);
+  const topic = getTopic(question?.taxonomy?.topic);
+  if (!topic) return { number: 1, total: 1 };
   const index = topic.questions.indexOf(question);
-  return { number: index + 1, total: topic.questions.length };
+  return index === -1 ? { number: 1, total: 1 } : { number: index + 1, total: topic.questions.length };
 }
 
 /** The next question in the unit, crossing topic boundaries. Null at the end. */

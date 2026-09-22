@@ -22,9 +22,17 @@ export function unitProgress(attempts) {
   return { done, total: ALL_QUESTIONS.length };
 }
 
-/** Where to send the student when they resume. */
+/**
+ * Where to send the student when they resume.
+ *
+ * Only the walkthrough resumes. A real package reached directly for review is
+ * not part of it and must not become the home plate's resume target -- it has
+ * no topic, no position and no place on the study map.
+ */
 export function resumePoint(session) {
-  if (session.last) return session.last;
+  const lastIsInWalkthrough = session.last
+    && ALL_QUESTIONS.some((q) => q.package_id === session.last.packageId);
+  if (lastIsInWalkthrough) return session.last;
   const firstUnattempted = ALL_QUESTIONS.find((q) => !session.attempts[q.package_id]);
   const target = firstUnattempted || ALL_QUESTIONS[0];
   return { packageId: target.package_id, mode: 'practice' };

@@ -58,6 +58,25 @@ for (const id of IDS) {
   await shot('practice', id, `Practice · ${id}`);
 }
 
+// A real package is reviewed directly, not resumed. Visiting one and then going
+// Home used to leave the walkthrough with a resume target that has no topic,
+// which blanked the page.
+{
+  const ctx = await browser.newContext({ viewport: { width: 1480, height: 960 } });
+  const page = await ctx.newPage();
+  const errs = [];
+  page.on('pageerror', (e) => errs.push(String(e).split('\n')[0]));
+  await page.goto(`${BASE}/#/practice/${IDS[0]}`, { waitUntil: 'networkidle' });
+  await page.waitForTimeout(300);
+  await page.goto(`${BASE}/#/`, { waitUntil: 'networkidle' });
+  await page.waitForTimeout(400);
+  const text = await page.evaluate(() => document.body.innerText.trim());
+  const ok = errs.length === 0 && text.length > 0;
+  if (!ok) bad++;
+  console.log(`${ok ? 'ok      ' : 'PROBLEM '} ${'Home after a real package'.padEnd(34)} ${errs[0] || (text ? '' : 'blank page')}`);
+  await ctx.close();
+}
+
 await browser.close();
 console.log(`\n${bad} problem state(s) across ${IDS.length * 2} real-content plates`);
 process.exit(bad ? 1 : 0);

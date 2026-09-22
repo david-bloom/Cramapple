@@ -28,7 +28,9 @@ export function QuestionRoute() {
   const Screen = question ? SCREENS[`${mode}:${question.item_type}`] : null;
 
   useEffect(() => {
-    if (question && Screen) setLast(packageId, mode);
+    // Real packages are reviewed directly and are not part of the walkthrough,
+    // so they never become its resume point.
+    if (question && Screen && question.source !== 'package') setLast(packageId, mode);
   }, [question, Screen, packageId, mode, setLast]);
 
   if (!question || !Screen) return <Navigate to="/" replace />;
