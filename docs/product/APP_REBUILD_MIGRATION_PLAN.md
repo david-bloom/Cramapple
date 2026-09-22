@@ -148,6 +148,43 @@ system's language rather than the plan's, or vice versa, but do not ship both
 names. `COURSE_HOMEWORK_CONSOLIDATION_PLAN.md` §10 item 12 already has naming
 open.
 
+### 3a.1b What the two plate modes actually are
+
+**David, 2026-09-22**, more precise than §3a.1's inference. Recorded here because
+it is the operative definition and it settles what each mode is *for*.
+
+**Open Hand** is an **example** question with the rubric, a **sample answer** and
+the supporting content all exposed. The student changes the answer by selecting
+and deselecting rubric elements, and watches what the answer loses.
+
+Note the framing: the student is composing and decomposing the credited answer,
+not a teacher taking points back. `web/` currently labels it "Click a criterion
+to take the point back. ✕ is the teacher's hand" — the mechanic is right, the
+voice is the teacher's rather than the student's. Worth a copy pass.
+
+**Practice** is the same template with **no sample answer** and the support
+content **hidden**. The student can either answer cold, or expose the helpful
+content — the rubric, the deep dive — **before** submitting. One submission,
+then grade and feedback.
+
+**How much help the student takes, read against the score, is the mastery
+signal.** That is what lets the product track progress without doing the
+student's work for them, and it is the reason the hint economy exists at all.
+Two consequences the earlier drafts of this plan missed:
+
+1. **All disclosed help must be gated help.** The deep dive was reachable only
+   after submitting in `web/`, so taking it cost nothing and recorded nothing.
+   Fixed on PR #152: it now sits behind the same three-state gate as the rubric
+   and lands on the feedback card's hints-used strip.
+2. **Nothing yet derives mastery from help-taken plus score.** `web/` records
+   both per attempt and stops there. That derivation belongs with
+   `student_cell_state` and is a pedagogy decision, not a frontend one — it is
+   unbuilt and unspecified, and it is the half of this that makes the other half
+   worth having.
+
+Reference materials stay ungated throughout: they are what a student may look
+up, not help about this question.
+
 ### 3a.2 What the consolidation removes from this plan, and what it adds
 
 **Removes.** Mode selection as an IA concept: no mode picker, no per-mode
@@ -156,12 +193,56 @@ surfaces shrink accordingly, and `_ux.setup.subject` in particular may not
 survive at all.
 
 **Adds — and this is the part that increases Phase 1 scope, not decreases it.**
-If BYOQ is the *default* entry to the one surface, then BYOQ intake is core to
-Phase 1, not a late item. The design system has **no design for it**: pasting or
-photographing a question, the closed-form classification confirm ("is this
+BYOQ intake is core to Phase 1 rather than a late item (see §3a.2b for *how*
+core, which is now in dispute). The design system has **no design for it**:
+pasting or photographing a question, the closed-form classification confirm ("is this
 Topic 3.9?"), the coverage-gap response when no vetted parallel item exists, and
 the hand-back of the student's own question unsolved. All of that is specified
 in `HOMEWORK_MODE_DESIGN_2026_08_28.md` and none of it is drawn.
+
+### 3a.2b Two contradictions with the record, both needing David's word
+
+Flagged rather than resolved, because both reverse something already written
+down and neither is mine to overturn.
+
+**1. Is BYOQ the default, or the alternative?**
+
+| Source | Says |
+| --- | --- |
+| `COURSE_HOMEWORK_CONSOLIDATION_PLAN.md` §1 (**DECIDED**, twice reviewed) | "Default entry … is bring-your-own-question. A student's actual homework … is the default way into a session, **not an alternate path bolted onto guided roaming**." |
+| David, 2026-09-22 | "**Practice defaults to one of our questions** but the student can upload their own question via camera or document upload." |
+
+These are opposite emphases. In the plan, Cramapple-directed practice is what
+fills the gaps BYOQ leaves; in the 2026-09-22 statement, the student's own
+question is the substitution.
+
+They may be reconcilable — "default entry" could describe how sessions are
+typically *initiated* (a student arrives with homework) while "defaults to one
+of our questions" describes what *loads* when Practice is opened cold. But the
+consolidation plan is emphatic on the point, so treat this as a change until
+David says otherwise.
+
+**It changes Phase 1 ordering.** BYOQ was moved to step 3 on the strength of
+being the default entry. If it is the alternative, it moves back later and the
+Cramapple-directed path comes first — which is also the cheaper build, because
+the plate already renders Cramapple's own items.
+
+**2. Paste-first, or camera and upload?**
+
+`HOMEWORK_MODE_DESIGN_2026_08_28.md` §2 carries an explicit
+**scope-narrowing decision by David**: intake is sequenced **paste first**
+(verbatim, not described), **photo second**, **worksheet upload third**, and
+"photo capture is deferred." Paste-verbatim is not a convenience there — it is
+one of the two anti-gaming layers, because a pasted real question is checkable
+against the claimed topic in a way a description is not.
+
+David, 2026-09-22 names **camera or document upload** as the mechanism and does
+not mention paste. That is items 2 and 3 promoted and item 1 unmentioned.
+
+If photo/upload is now first, the anti-gaming argument for verbatim paste needs
+a replacement, and §4.4's classification confirm carries more weight than it was
+designed to. If paste is still first and camera/upload follow, the plan stands
+as written. Either is workable; the two documents currently disagree.
 
 ### 3a.3 Diagnostic and exam cram come after
 
@@ -258,9 +339,10 @@ The design system has a study map with per-topic dots and nothing else.
 `homework-help` components. Designed in `HOMEWORK_MODE_DESIGN_2026_08_28.md`,
 governed by CM-D20 — and not visually designed at all.
 
-**Re-prioritised 2026-09-22 (§3a.2).** This was the last item in the Phase 1
-order. Under consolidation BYOQ is the *default* way into the one surface, so it
-moves early — and it is the largest undesigned surface in Phase 1:
+**Re-prioritised 2026-09-22 (§3a.2), pending §3a.2b.** This was the last item in
+the Phase 1 order and moved early on the strength of BYOQ being the default
+entry — which §3a.2b now puts in dispute. It is in either case the largest
+undesigned surface in Phase 1:
 
 - verbatim paste intake (photo and worksheet upload are later per the design doc)
 - the closed-form classification confirm — "are you talking about Topic 3.9?" —
@@ -417,6 +499,9 @@ Carried from `DESIGN_SYSTEM_CUTOVER_PLAN.md` §7, with status updated.
 | 15 | **BYOQ intake has no design** | **NEW — OPEN, blocking Phase 1 step 3.** (§4.4) |
 | 16 | **Student-signal evidence basis** | **OPEN — upstream of 12 and 13.** Consolidation §10 item 1 asks for it before these are treated as settled (§3a.4). |
 | 17 | Which Course Mode mechanics survive the merge | **NEW — OPEN.** §4.1's mapping table needs confirming, component by component. |
+| 18 | **BYOQ: default entry or alternative?** | **NEW — OPEN, reorders Phase 1.** Consolidation §1 says default; David 2026-09-22 says Practice defaults to a Cramapple question (§3a.2b). |
+| 19 | **Intake: paste-first or camera/upload-first?** | **NEW — OPEN.** `HOMEWORK_MODE_DESIGN_2026_08_28.md` §2 defers photo and makes verbatim paste an anti-gaming layer; David 2026-09-22 names camera and document upload (§3a.2b). |
+| 20 | **What derives mastery from help-taken + score** | **NEW — OPEN, unbuilt and unspecified.** The signal both plate modes exist to produce (§3a.1b). |
 
 ### Decision 1 is still open and it is now urgent
 
@@ -462,7 +547,9 @@ is the default entry to the one surface rather than an alternate path:
 
 1. Question plate on **real** content — multi-part FRQ, typed math (§5.1)
 2. Session chrome and the auth/resume path
-3. **BYOQ intake** (§4.4) — paste, classification confirm, coverage-gap response
+3. **BYOQ intake** (§4.4) — intake, classification confirm, coverage-gap
+   response. **Position pending §3a.2b:** step 3 if BYOQ is the default entry,
+   later if Practice defaults to a Cramapple question
 4. The open-hand teaching sequence: explainer → worked example → cold attempt
    (§3a.1) — this is the Open Hand and Practice plates wired in order
 5. Cramapple-directed entry: the skills rail and the mastery queue (§4.1)
@@ -527,6 +614,9 @@ resolved, which is separate work.
 6. **The consolidation rests on an undocumented sample (§3a.4).** The rebuild is
    being sequenced around a student finding whose evidence basis the
    consolidation plan itself lists as its top open item. Cheap to record now.
+7. **The mastery signal stays unbuilt while the help economy ships (§3a.1b).**
+   Gating help is only worth the friction it costs a student if something reads
+   the result. Shipping the gates without the derivation is the worst of both.
 
 ---
 
