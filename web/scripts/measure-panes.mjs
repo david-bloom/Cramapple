@@ -8,7 +8,12 @@ const LAUNCH = process.env.PLAYWRIGHT_CHROMIUM
 
 const BASE = process.env.BASE_URL || 'http://localhost:4173';
 const browser = await chromium.launch(LAUNCH);
-const page = await browser.newPage({ viewport: { width: 1480, height: 960 } });
+const VIEWPORT = { width: 1480, height: 960 };
+async function freshPage() {
+  const ctx = await browser.newContext({ viewport: VIEWPORT });
+  return ctx.newPage();
+}
+let page = await freshPage();
 
 const ROUTES = [
   ['Home', '/#/'],
@@ -21,10 +26,6 @@ const ROUTES = [
   ['Practice MCQ 2.3b', '/#/practice/apstats-2-3-mcq-002'],
   ['Practice FRQ residual', '/#/practice/apstats-2-3-frq-002']
 ];
-
-// Seed submitted states so the post-submit layouts get measured too.
-await page.goto(`${BASE}/#/`);
-await page.evaluate(() => localStorage.clear());
 
 async function measure(label) {
   const r = await page.evaluate(() => {
@@ -63,8 +64,8 @@ await page.waitForTimeout(300);
 total += await measure('Practice FRQ submitted');
 
 await page.goto(`${BASE}/#/practice/apstats-2-3-mcq-001`, { waitUntil: 'networkidle' });
-await page.getByRole('button', { name: 'Show me' }).click();
-await page.getByRole('button', { name: 'Yes, show me' }).click();
+await page.getByRole('button', { name: 'Rule out two choices' }).click();
+await page.getByRole('button', { name: /^Yes, show me/ }).click();
 await page.getByRole('radio').filter({ hasText: 'causes final exam scores' }).click();
 await page.getByRole('button', { name: 'Submit answer' }).click();
 await page.waitForTimeout(300);
@@ -82,21 +83,44 @@ await page.getByRole('button', { name: 'Submit answer' }).click();
 await page.waitForTimeout(300);
 total += await measure('Practice FRQ residual submitted');
 
-// Hint open states (the tallest scoring pane). Clear first, then reload, or the
-// screens still render their submitted layout from the previous block.
-await page.evaluate(() => localStorage.clear());
+// Hint open states -- the tallest the scoring pane ever gets.
+//
+// A fresh context rather than localStorage.clear(): the running app re-saves its
+// in-memory session on the next render, so clearing underneath it races and the
+// screen comes back still submitted.
+page = await freshPage();
 await page.goto(`${BASE}/#/practice/apstats-2-3-frq-001`, { waitUntil: 'networkidle' });
-await page.reload({ waitUntil: 'networkidle' });
-await page.getByRole('button', { name: 'Show me' }).click();
-await page.getByRole('button', { name: 'Yes, show me' }).click();
+await page.getByRole('button', { name: 'Show me the rubric' }).click();
+await page.getByRole('button', { name: /^Yes, show me/ }).click();
 await page.waitForTimeout(300);
 total += await measure('FRQ rubric hint open');
 
 await page.goto(`${BASE}/#/practice/apstats-2-2-frq-001`, { waitUntil: 'networkidle' });
-await page.getByRole('button', { name: 'Show me' }).click();
-await page.getByRole('button', { name: 'Yes, show me' }).click();
+await page.getByRole('button', { name: 'Show me the rubric' }).click();
+await page.getByRole('button', { name: /^Yes, show me/ }).click();
 await page.waitForTimeout(300);
 total += await measure('FRQ 2.2 rubric hint open');
+
+// Both help items disclosed at once -- the tallest the scoring pane ever gets.
+page = await freshPage();
+await page.goto(`${BASE}/#/practice/apstats-2-3-frq-001`, { waitUntil: 'networkidle' });
+await page.getByRole('button', { name: 'Show me the rubric' }).click();
+await page.getByRole('button', { name: /^Yes, show me/ }).click();
+await page.getByRole('button', { name: 'Show me the deep dive' }).click();
+await page.getByRole('button', { name: /^Yes, show me/ }).click();
+await page.keyboard.press('Escape');
+await page.waitForTimeout(300);
+total += await measure('FRQ both hints open');
+
+page = await freshPage();
+await page.goto(`${BASE}/#/practice/apstats-2-3-mcq-001`, { waitUntil: 'networkidle' });
+await page.getByRole('button', { name: 'Rule out two choices' }).click();
+await page.getByRole('button', { name: /^Yes, show me/ }).click();
+await page.getByRole('button', { name: 'Show me the deep dive' }).click();
+await page.getByRole('button', { name: /^Yes, show me/ }).click();
+await page.keyboard.press('Escape');
+await page.waitForTimeout(300);
+total += await measure('MCQ both hints open');
 
 await browser.close();
 console.log(`\n${total} pane(s) overflowing`);

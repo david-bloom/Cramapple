@@ -4,6 +4,7 @@ import frq23a from './sample/apstats-2-3-frq-001.js';
 import mcq23a from './sample/apstats-2-3-mcq-001.js';
 import mcq23b from './sample/apstats-2-3-mcq-002.js';
 import frq23b from './sample/apstats-2-3-frq-002.js';
+import { REAL_ITEMS } from './real.js';
 
 /**
  * The content layer.
@@ -55,27 +56,43 @@ export const TOPICS = [
 
 export const ALL_QUESTIONS = TOPICS.flatMap((t) => t.questions);
 
+/**
+ * Real item packages, resolvable by the same routes as the samples. They sit
+ * outside the sample unit deliberately: they belong to eight different courses
+ * and do not form a study map, so Home and progress stay on the walkthrough
+ * while these are reachable directly for review.
+ */
+export { REAL_ITEMS };
+
 export const TOTAL_QUESTIONS = ALL_QUESTIONS.length;
 
 export function getQuestion(packageId) {
-  return ALL_QUESTIONS.find((q) => q.package_id === packageId) || null;
+  return ALL_QUESTIONS.find((q) => q.package_id === packageId)
+    || REAL_ITEMS.find((q) => q.package_id === packageId)
+    || null;
 }
 
 export function getTopic(code) {
   return TOPICS.find((t) => t.code === code) || null;
 }
 
-/** Position of a question within its topic, 1-indexed, plus the topic total. */
+/**
+ * Position of a question within its topic, 1-indexed, plus the topic total.
+ * Real packages are not in the walkthrough and have no position, so this
+ * answers 1 of 1 rather than throwing.
+ */
 export function positionInTopic(question) {
-  const topic = getTopic(question.taxonomy.topic);
+  const topic = getTopic(question?.taxonomy?.topic);
+  if (!topic) return { number: 1, total: 1 };
   const index = topic.questions.indexOf(question);
-  return { number: index + 1, total: topic.questions.length };
+  return index === -1 ? { number: 1, total: 1 } : { number: index + 1, total: topic.questions.length };
 }
 
 /** The next question in the unit, crossing topic boundaries. Null at the end. */
 export function nextQuestion(question) {
-  const i = ALL_QUESTIONS.indexOf(question);
-  return i >= 0 && i < ALL_QUESTIONS.length - 1 ? ALL_QUESTIONS[i + 1] : null;
+  const list = question.source === 'package' ? REAL_ITEMS : ALL_QUESTIONS;
+  const i = list.indexOf(question);
+  return i >= 0 && i < list.length - 1 ? list[i + 1] : null;
 }
 
 /** Plain text of a stem, for aria labels and the copied deep dive. */

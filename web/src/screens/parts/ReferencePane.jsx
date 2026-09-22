@@ -1,13 +1,30 @@
 import React from 'react';
 import { PaneShell } from '../../components/index.js';
 import { eyebrow, body, list } from './text.js';
+import { Missing } from './Missing.jsx';
+import { MISSING } from '../../content/adapter.js';
 
 /**
  * Reference materials are what the student may look up, not hints about this
  * question. Always the same three sections, in this order: Topic, Skills,
  * Vocabulary -- then the exam note.
  */
-export function ReferencePane({ reference }) {
+export function ReferencePane({ reference, expectedReasoning }) {
+  if (!reference) {
+    return (
+      <PaneShell voice="reference" eyebrow="Allowed" title="Reference Materials" style={{ height: '100%' }}>
+        <div style={{ display: 'grid', gap: 16 }}>
+          <Missing>{MISSING.reference}</Missing>
+          {expectedReasoning && (
+            <div>
+              <span style={eyebrow}>What the package does say</span>
+              <p style={body}>{expectedReasoning}</p>
+            </div>
+          )}
+        </div>
+      </PaneShell>
+    );
+  }
   return (
     <PaneShell voice="reference" eyebrow="Allowed" title="Reference Materials" style={{ height: '100%' }}>
       <div style={{ display: 'grid', gap: 18 }}>

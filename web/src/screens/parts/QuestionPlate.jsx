@@ -2,6 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Plate, PlateGrid, Masthead, Breadcrumb, StudyMap, DeepDiveOverlay } from '../../components/index.js';
 import { COURSE, UNIT, positionInTopic } from '../../content/index.js';
+import { topicLabel } from '../../content/adapter.js';
 import { useSession } from '../../session/SessionProvider.jsx';
 import { topicProgress } from '../../session/progress.js';
 
@@ -19,11 +20,12 @@ export function QuestionPlate({ question, mode, children }) {
   const [mapOpen, setMapOpen] = useState(false);
   const [deepOpen, setDeepOpen] = useState(false);
 
-  const { number, total } = positionInTopic(question);
+  const real = question.source === 'package';
+  const { number, total } = real ? { number: 1, total: 1 } : positionInTopic(question);
   const modeLabel = mode === 'open-hand' ? 'Open Hand' : 'Practice';
   const { topic, topic_title: topicTitle } = question.taxonomy;
 
-  const topics = topicProgress(session.attempts).map((t) => ({
+  const topics = real ? [] : topicProgress(session.attempts).map((t) => ({
     ...t,
     current: t.code === topic
   }));
@@ -42,19 +44,23 @@ export function QuestionPlate({ question, mode, children }) {
     : undefined;
 
   return (
-    <Plate caption={`CramApple · ${COURSE.title} · ${UNIT.label} · ${topic} ${topicTitle} · ${modeLabel}`}>
+    <Plate caption={real
+      ? `CramApple · ${question.taxonomy.course} · ${topicLabel(question)} · ${modeLabel} · real package`
+      : `CramApple · ${COURSE.title} · ${UNIT.label} · ${topic} ${topicTitle} · ${modeLabel}`}>
       <Masthead
-        course={COURSE.title}
+        course={real ? question.taxonomy.course : COURSE.title}
         right={<span style={{
           fontSize: 13, fontWeight: 700, letterSpacing: '.12em',
           textTransform: 'uppercase', color: 'var(--paper-000)'
         }}>{modeLabel}</span>}
       />
       <Breadcrumb
-        items={[UNIT.label, `${topic} ${topicTitle}`, `Question ${number}`]}
+        items={real
+          ? [question.taxonomy.course, topicLabel(question)]
+          : [UNIT.label, `${topic} ${topicTitle}`, `Question ${number}`]}
         mapOpen={mapOpen}
-        onOpenMap={() => setMapOpen((m) => !m)}
-        right={`Question ${number} of ${total}`}
+        onOpenMap={real ? undefined : () => setMapOpen((m) => !m)}
+        right={real ? question.package_id : `Question ${number} of ${total}`}
       />
 
       <PlateGrid>{typeof children === 'function' ? children({ openDeepDive: () => setDeepOpen(true) }) : children}</PlateGrid>
