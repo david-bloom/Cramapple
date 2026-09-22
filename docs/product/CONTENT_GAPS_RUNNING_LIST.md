@@ -62,9 +62,46 @@ updated as work lands.
 - **Why it matters:** FRQ grading and the Open Hand sample answer read the
   canonical answer; a blank one weakens both. (`canonical_answer_1` is the FRQ
   field — it is *not* where MCQ correctness lives; that is `mcq_choices.is_correct`.)
-- **Source material:** `docs/research/CONTENT_AUTHORING_AND_QA_PROTOCOL.md` and the
-  double-approve review path (`CONTENT_GOVERNANCE_AND_VALIDATION.md`).
+- **Source material:** `docs/research/CONTENT_AUTHORING_AND_QA_PROTOCOL.md`. Human
+  double-review is **paused** (DECISION-0055); the gate is now AI cross-model QA +
+  Product Owner approval.
+- **Two more requirements surfaced 2026-09-22 (see GAP-9):** a canonical answer must
+  also be (a) **criterion-segmented** into rubric-tagged spans for Open Hand, and
+  (b) actually **aligned to its rubric** — many are not.
 - **Owner:** — · **Status:** OPEN · **In flight:** Bio/Stats, in the Codex prompt above.
+
+### GAP-9 — Biology FRQ canonical answers are misaligned with their rubrics; Open Hand needs criterion-segmented answers
+- **What this is:** the Open Hand plate needs each FRQ's full-point answer
+  **segmented into criterion-tagged spans** (`creditedResponse` shape) so deselecting
+  a rubric point strikes the span that earns it. Producing that segmentation for the
+  75 published Biology FRQ exposed that the stored canonical answers are substantially
+  misaligned with their stored rubrics.
+- **Evidence (read-only Production, 2026-09-22; full QA record in
+  `docs/research/apbio_frq_segmentation_2026_09_22/`):**
+  - **118 of 278 rubric criteria (42%) had no answer text** in either
+    `canonical_answer_1` or `canonical_answer_2` and had to be freshly drafted.
+  - **18 items had *every* criterion drafted** — the stored answers do not match the
+    item's rubric at all (e.g. `APBIO-FRQ-S-021`).
+  - **15 items carry a `canonical_answer_2` that satisfies no stored criterion**
+    (off-rubric text, preserved as uncredited context).
+  - **9 items** have `prompt_json.total_points = 8` but a rubric summing to **9**
+    (`APBIO-FRQ-L-004/006/012/013/015/016/017/019/021`) — a points data bug.
+  - **4 drawn-graph items** (`APBIO-HDG-2026-GRAPH-002/003/008/010`) need a spatial
+    canonical; text cannot be a full-credit answer.
+  - **7 items** have no canonical answer at all (fully drafted, highest risk).
+  - Two independent AI runs (Codex + Claude) agree on the fix and the worst items, so
+    this is a real content-integrity issue, not a model artifact.
+- **Status of the segmentation mechanic:** ACCEPTED for Biology (DECISION-0055 gate) —
+  the `canonical_answer_2` reuse fix is verified; all 52 ca2 items reuse it verbatim,
+  75/75 exact concatenation. The **drafted answer content is the open work**, not the
+  segmentation.
+- **Action:** author/reconcile the misaligned Biology canonical answers to their
+  rubrics (the 118 drafted criteria, 18 all-drafted items, 15 off-rubric ca2, 7
+  no-canonical), fix the 9 point-total mismatches, and route the 4 drawn-graph items to
+  the spatial-canonical / Engine-4 path. Then extend the segmentation to the other
+  subjects. Gate: AI cross-model QA + Product Owner approval (DECISION-0055).
+- **Owner:** — · **Status:** OPEN · **In flight:** Biology segmented + QA'd; drafted
+  content awaits Product Owner sign-off.
 
 ### GAP-3 — `rubric_type` missing on a tail of items
 - **Scope:** 92 AP Statistics MCQ, 14 AP Statistics FRQ, 1 AP Biology FRQ
