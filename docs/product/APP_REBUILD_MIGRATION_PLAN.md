@@ -43,11 +43,23 @@ The usual objection to a rewrite — don't discard working software that has use
 | Distinct users who have ever submitted an attempt | **4** |
 | Attempts, all time / last 30 days | 101 / 53 |
 | Gradings, all time | 78 |
-| **Purchased** entitlements | **0** (283 entitlements exist; all trial, grant or backfill) |
-| Stripe checkout sessions, all time | 5 |
+| Users who have **purchased** | **1** (2 entitlement rows via `stripe_checkout_single`, 13–15 Aug) |
+| Stripe checkout sessions | 5 — 2 completed, 3 expired |
 
-There is no revenue and no weekly active usage to protect. The cost of the
-rebuild is engineering time, and that is the only cost.
+**Correction, 2026-09-22.** An earlier revision of this document, and the PR
+comments quoting it, reported purchases as **zero**. That was wrong: the query
+filtered `subject_entitlements` on `source = 'purchase'`, and the purchase
+source is named `stripe_checkout_single`. One real user has paid. See
+[`UNCERTAINTY_LOG.md`](./UNCERTAINTY_LOG.md) §1.
+
+The conclusion holds — one paying customer and zero sign-ins in seven days still
+makes the rebuild cheap, and engineering time is still the only cost. But "there
+is no revenue" was load-bearing in the argument for rebuilding rather than
+reskinning, and it was false.
+
+**It also creates an obligation this plan did not carry:** there is a paying
+customer, and whatever happens to the live app, that person's access has to
+survive it.
 
 **This is also the strongest argument for doing it now rather than later.** The
 number that makes a rewrite cheap today is the number a launch is meant to
@@ -637,6 +649,9 @@ resolved, which is separate work.
 
 - No Task ID allocated and no owner assigned (decision 7) — per
   `TASK_WORKFLOW.md` that is David's to assign.
+- Everything I was unsure about while writing this is in
+  [`UNCERTAINTY_LOG.md`](./UNCERTAINTY_LOG.md) — including two things that were
+  wrong, and three that are cheap to settle and change conclusions.
 - No DECISION number allocated. The calls recorded here are David's, taken in
   conversation on 2026-09-22; allocating a number risked colliding with open-PR
   claims.
