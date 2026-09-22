@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0054 — Adopt One Device-Neutral Bootstrap and Shared ChatGPT Project Contract
 - DECISION-0053 — Adopt the Topic Reference Layer Approach (Topic-Scoped, CED Essential-Knowledge-Grounded Vocabulary; Reuse-First Storage); Build Deferred (P2)
 - DECISION-0052 — Adopt Full-Point Verified Canonical Answers for FRQs, and Begin Generation (Biology → Statistics) with an Independent AI QA Gate
 - DECISION-0051 — Confirm QR Handoff (System A) as Engine 4's Sole Capture Path, No Direct-Upload Fallback; Define Capture-Failure Handling (Generic Retake Guidance vs. Bug Logging)
@@ -32,6 +33,39 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~600 lines, archive the older entries to `docs/activity_log/archive/DECISIONS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries. (This log is already well over that threshold — the first archive pass is overdue, not optional.)
 
 (Note: the TASK-0012 branch independently logged its own DECISION-0027/0028 — CORS/ALLOWED_ORIGINS and budget-burn semantics — under different numbers on its own branch. Those land separately when that work merges to `main`; this charter-adoption decision claimed 0027/0028 here because `main` had not yet recorded entries past DECISION-0026 at merge time. If both branches' numbering collides on merge, renumber on whichever side merges second and update this index.)
+
+## DECISION-0054 — Adopt One Device-Neutral Bootstrap and Shared ChatGPT Project Contract
+
+**Date:** 2026-09-22
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Approval:** APPROVAL-0047
+**Related Docs:** `docs/team_charter/CRAMAPPLE_SESSION_START.md`; `docs/team_charter/CHATGPT_PROJECT_INSTRUCTIONS.md`
+**Area:** Operating model / cross-device continuity
+
+### Context
+
+Cramapple work already lives in one ChatGPT Project on desktop, while iPhone-originated work must
+start and finish under the same documentation, memory, approval rules, and connected cloud-service
+model. Device-level chat continuity is insufficient because current policy and live state can change,
+and Mac-local state does not automatically exist in a fresh mobile session.
+
+### Decision
+
+1. Use the existing ChatGPT Project named **Cramapple** on desktop and iPhone; do not create a mobile duplicate.
+2. Make `CRAMAPPLE_SESSION_START.md` in `david-bloom/Cramapple` the single device-neutral bootstrap.
+3. Keep the Project on **Default memory** while ChatGPT Work is used. Project memory supports continuity; current GitHub records remain authoritative.
+4. Maintain the exact ChatGPT Project-instructions text in `CHATGPT_PROJECT_INSTRUCTIONS.md`; keep the live Project setting aligned when that file materially changes.
+5. Verify repository, branch, environment, connected-app access, and live service state per session. Do not infer them from prior chats or another device.
+6. Treat Mac-local checkouts, uncommitted changes, environment variables, development servers, and running Codex processes as non-portable state requiring remote continuation or a durable GitHub handoff.
+7. Use `david-bloom/Cramapple` as governance authority; use other repositories only as mapped by the bootstrap and current task records.
+
+### Consequences
+
+A fresh Cramapple chat on desktop or iPhone enters through the same current GitHub protocol.
+Operating changes are maintained once in canonical files and do not require separate mobile prompts
+or edits to historical conversations. A change to the live ChatGPT Project setting remains an
+account-level action and must be kept aligned with the maintained text.
 
 ## DECISION-0053 — Adopt the Topic Reference Layer Approach (Topic-Scoped, CED Essential-Knowledge-Grounded Vocabulary; Reuse-First Storage); Build Deferred (P2)
 

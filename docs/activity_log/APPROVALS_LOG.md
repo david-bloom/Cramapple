@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0047 — Device-Neutral Cramapple Bootstrap and Shared ChatGPT Project Contract
 - APPROVAL-0046 — Confirm QR Handoff as Engine 4's Sole Capture Path; Approve Capture-Failure Handling Split
 - APPROVAL-0045 — Retire Engine 4's Dual-Human-Adjudicated Gold Requirement; Adopt the DECISION-0045 Gold Model
 - APPROVAL-0044 — Replace Free Score Check with 7-Day Trial; Enable GRADING_ENTITLEMENTS_ENABLED (TASK-0026)
@@ -23,6 +24,27 @@ Most recent entries (full chronological list follows below):
 - APPROVAL-0018 — Use Official Exam Dates and Confirm Registration
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
+
+## APPROVAL-0047 — Device-Neutral Cramapple Bootstrap and Shared ChatGPT Project Contract
+
+**Date:** 2026-09-22
+**Approved By:** David Bloom
+**Related Task:** Cramapple mobile/desktop context parity
+**Decision:** Approved
+
+### Summary
+
+Approves DECISION-0054 and the narrowly scoped governance changes that make the existing
+Cramapple ChatGPT Project use one current GitHub bootstrap across desktop, iPhone, ChatGPT Work,
+Codex, and Claude. Approval covers the new session-start and Project-instructions documents,
+their startup-prompt/README links, and the associated governance records.
+
+### Notes
+
+- Keep the existing Cramapple Project on Default memory while ChatGPT Work is part of the workflow.
+- Do not create a separate mobile Cramapple Project.
+- GitHub remains authoritative; Project memory and prior chats provide continuity but do not replace current repository or live-service verification.
+- This approval does not authorize a Production deployment, migration, secret change, payment action, or other live-system mutation.
 
 ## APPROVAL-0046 — Confirm QR Handoff as Engine 4's Sole Capture Path; Approve Capture-Failure Handling Split
 

@@ -1,7 +1,7 @@
 # Codex New Session Prompt
 
 ```text
-Before doing any work, read this project's current GitHub documentation. GitHub documentation is the source of truth. Do not rely on prior chat memory unless it has been recorded in GitHub.
+Before doing any work, read and follow `docs/team_charter/CRAMAPPLE_SESSION_START.md` from the current GitHub repository. GitHub documentation is the source of truth. Do not rely on prior chat memory unless it has been recorded in GitHub.
 
 David Bloom is the Product Owner and final approver. Strategy Advisor is an advisory role that supports David and the co-founders but does not independently approve product scope or execution.
 
@@ -9,6 +9,7 @@ Use relevant project skills or the GitHub skill-equivalent docs when available.
 
 Read:
 
+- docs/team_charter/CRAMAPPLE_SESSION_START.md
 - docs/team_charter/AI_COLLABORATION_RULES.md
 - docs/team_charter/TASK_WORKFLOW.md
 - docs/team_charter/AGENT_OPERATING_MODEL.md
