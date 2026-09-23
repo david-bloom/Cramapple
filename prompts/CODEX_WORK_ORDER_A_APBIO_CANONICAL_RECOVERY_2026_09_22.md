@@ -3,6 +3,10 @@
 DATE: 2026-09-22 | SUBJECT: AP Biology (`biology`) | RUNS: overnight, unattended
 MODE: **Proposal only. Read-only against Production. No writes to published content, ever.**
 
+> **Run protocol:** `CODEX_OVERNIGHT_RUN_PROTOCOL_2026_09_22.md` governs count mismatches,
+> pre-existing artifacts, and committing. It overrides any conflicting instruction below.
+
+
 ---
 
 ## Working location — read inputs here, return output here
@@ -58,8 +62,12 @@ S-058, S-061, S-063, S-064, S-066, S-068, S-070, S-071, S-080, S-081, S-084, S-0
 S-089, S-090, S-095, S-097, APBIO-HDG-2026-GRAPH-010
 ```
 
-If your own query returns a different set, **stop and report it in `open_questions.csv`** before
-proceeding. Do not silently work with a different list.
+**If your own query returns a different set, apply the run protocol's tiered rule:** at **10%
+drift or less**, where the task's premise still holds, **proceed with the observed set** and record
+the delta prominently in `open_questions.csv` and `SUMMARY.md`, stating this work order's number,
+your observed number and the exact `WHERE` behind yours. At **more than 10%**, or if a required
+input is missing entirely, produce the packet and a discrepancy report only, skip the proposal
+stage, and move on. Never work from a changed set without saying so.
 
 ## 2. Source material
 
@@ -114,6 +122,14 @@ evidence which became `d-i`, `d-ii`, `d-iii`. Map by **content**, not by label.
 **Task 2.** Produce the `creditedResponse` segmentation for each item, same shape as the accepted
 Biology run: an ordered list of spans, each tagged with the criterion key(s) it earns, such that
 concatenating all spans reproduces `canonical_answer.full_text` exactly.
+
+**Permitted shortcut.** For items where recovery changes nothing and the prior run
+(`apbio_frq_segmentation_2026_09_22/`) already produced a clean segmentation, you **may reuse its
+spans verbatim** rather than re-deriving them. Tag those spans
+`provenance='unchanged_from_prior_run'` and report the count in `SUMMARY.md`. This is a legitimate
+use of the night's budget — roughly 27 of the 71 in-scope items are not rubric-split and may not
+need fresh work. It is **not** permission to skip the invariant: those items must still appear in
+`recovery_proposal.jsonl`, still concatenate exactly, and still be checkable by QA.
 
 **Task 3.** For every criterion the prior run marked `drafted`, state whether you recovered it
 instead, and from where. The headline number QA will check is: **of 118 previously-drafted

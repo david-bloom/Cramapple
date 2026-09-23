@@ -3,6 +3,10 @@
 DATE: 2026-09-22 | SUBJECT: AP Statistics (`ap-statistics`) | RUNS: overnight, unattended
 MODE: **Proposal only. Read-only against Production. No writes to published content, ever.**
 
+> **Run protocol:** `CODEX_OVERNIGHT_RUN_PROTOCOL_2026_09_22.md` governs count mismatches,
+> pre-existing artifacts, and committing. It overrides any conflicting instruction below.
+
+
 ---
 
 ## Working location
@@ -45,8 +49,12 @@ per `content_item_id` where `status='published'`, `item_type='frq'`,
 | — **with** a canonical answer (your scope) | **34** |
 | — without (work order B's scope, leave alone) | 46 |
 
-If your own query returns a different split, **stop and report it in `open_questions.csv`** before
-proceeding.
+**If your own query returns a different set, apply the run protocol's tiered rule:** at **10%
+drift or less**, where the task's premise still holds, **proceed with the observed set** and record
+the delta prominently in `open_questions.csv` and `SUMMARY.md`, stating this work order's number,
+your observed number and the exact `WHERE` behind yours. At **more than 10%**, or if a required
+input is missing entirely, produce the packet and a discrepancy report only, skip the proposal
+stage, and move on. Never work from a changed set without saying so.
 
 ## 2. Source material
 
@@ -125,7 +133,9 @@ cross-criterion entanglement; every off-rubric `canonical_answer_2`; any item wh
 were a judgement call.
 
 **5.5 Make the run reproducible.** Record UTC start and end time, model identifier, Production
-project ref, and the maximum `version_num` seen per item.
+project ref, **the UTC time you took the Production snapshot**, and the **maximum `version_num`
+observed per item**. Work order B covered the other 46 AP Statistics FRQ from an earlier snapshot;
+these two fields are what let QA *prove* the two snapshots agree rather than assume it.
 
 **5.6 If you run out of time, stop cleanly.** Finish the item you are on, then write `SUMMARY.md`
 reporting exactly which items are complete and which were not attempted. **Do not degrade quality

@@ -4,6 +4,10 @@ DATE: 2026-09-22 | SUBJECTS: AP Calculus AB (`ap-calculus-ab`), AP Chemistry (`a
 RUNS: overnight, unattended
 MODE: **Proposal only. Read-only against Production. No writes to published content, ever.**
 
+> **Run protocol:** `CODEX_OVERNIGHT_RUN_PROTOCOL_2026_09_22.md` governs count mismatches,
+> pre-existing artifacts, and committing. It overrides any conflicting instruction below.
+
+
 ---
 
 ## Working location
@@ -59,8 +63,12 @@ Note the registry stores `subject_key` with underscores (`ap_calculus_ab`, `ap_c
 content uses hyphens (`ap-calculus-ab`, `ap-chemistry`). **Normalise when you join, or you will
 match zero rows.**
 
-If your counts differ from the table above, **stop and report it in `open_questions.csv`** before
-proceeding.
+**If your own query returns a different set, apply the run protocol's tiered rule:** at **10%
+drift or less**, where the task's premise still holds, **proceed with the observed set** and record
+the delta prominently in `open_questions.csv` and `SUMMARY.md`, stating this work order's number,
+your observed number and the exact `WHERE` behind yours. At **more than 10%**, or if a required
+input is missing entirely, produce the packet and a discrepancy report only, skip the proposal
+stage, and move on. Never work from a changed set without saying so.
 
 ## 2. Source material
 
