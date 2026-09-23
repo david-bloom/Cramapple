@@ -1,22 +1,57 @@
-# AP Biology Drafted Criteria — Gate Skip
+# Work Order F — AP Biology drafted-criterion completion
 
-Status: **skipped — dependency gate closed**
+**Status:** Completed proposal; awaiting independent non-OpenAI QA and Product Owner approval. No Production writes occurred.
 
-Work Order F was not started. Its required dependency is an independent `qa_report.md` in `docs/research/apbio_canonical_recovery_2026_09_22/` with an explicit overall accepted/pass disposition.
+## Scope and result
 
-At the gate check, that file did not exist. Per the Project 2 charter, absence, partial acceptance, conditional acceptance, or rejection does not open the gate.
+F re-authored all **88** criterion spans A left drafted, across **41** Biology items. The other **13** formerly drafted criteria remain A's byte-preserved recovered-parent content. The proposal contains all **71** non-graph Biology FRQ; the four spatial graph items remain out of scope. APBIO-FRQ-S-073 criterion a is corrected from an explicit 2n=4 → n=2 derivation.
 
-## Gate invariant
+## Invariants
 
-| Invariant | Measured result | Status |
-|---|---:|---|
-| A `qa_report.md` exists | No | CLOSED |
-| Explicit overall accepted/pass disposition | Not available | CLOSED |
-| F packet or proposal generated | No | PASS |
-| Production writes | 0 | PASS |
+| Invariant | Expected | Measured | Result |
+|---|---:|---:|---|
+| Charter gate marker count | 1 | 1 | PASS |
+| Biology packet rows | 75 | 75 | PASS |
+| Non-graph proposals | 71 | 71 | PASS |
+| Authored criterion pairs | 88 | 88 | PASS |
+| A recoveries preserved as source-backed spans | 13 criteria | 13 criteria | PASS |
+| Authored similarity ≥0.85 | 0 | 0 | PASS |
+| Authored similarity 0.70–0.85 with justification | all | 0/0 | PASS |
+| Span concatenation equals full_text | 71 | 71 | PASS |
+| Declared removals traceable and logged | all | 4/4 | PASS |
+| Numeric values carry derivation records | all | 346/346 | PASS |
 
-No content packet was fetched, no answer spans were authored, and no Production records were changed.
+## Similarity gate
 
-## Judgment call
+Pair-level evidence is in `similarity_report.csv`. Across 88 authored span × criterion pairs, mean similarity is **0.219**; **0** are at or above 0.70 and **0** are at or above 0.85. The highest-scoring pair governs each span. Scores were treated as a gate, not a target; added material is criterion-relevant mechanism, calculation, consequence, or stem application.
 
-The shared packet requirements apply to executed work orders. Creating a source packet for a gated-shut order would begin the work prematurely, so this directory contains only the auditable skip record.
+## Cross-criterion entanglement
+
+The proposal carries **24** `cross_criterion_entanglement` flags: A’s 23 inherited disclosures plus a new explicit flag on APBIO-FRQ-S-080, where criteria a2 and b2 share the same folding-to-function causal chain. S-047 b1 was narrowed to genotype-only content so it does not newly absorb b2’s phenotype point.
+
+## DECISION-0056 removals
+
+Removed **4** uncredited, source-backed spans from **3** items where the newly authored span clearly supersedes the same content. Every row is verbatim and provenance-complete in `removals.csv`. Other candidates were retained when overlap was ambiguous; the QA finding's 30 in-scope items were not treated as a quota. Out-of-scope redundant prose on APBIO-FRQ-S-061, APBIO-FRQ-S-063, and APBIO-FRQ-S-064 is unchanged.
+
+## Confidence and review order
+
+Confidence tracks scientific ambiguity: **84 high, 4 medium, 0 low**. Lowest-confidence-first review:
+
+1. **APBIO-FRQ-S-073 a** — correction conflicts with the stored rubric evidence but follows the 2n=4 derivation.
+2. **APBIO-FRQ-S-036 a1** — approximate aerobic ATP yield convention.
+3. **APBIO-FRQ-S-038 b2** — residual substrate-level ATP range depends on continuing stages.
+4. **APBIO-FRQ-S-051 b1** — uses the scientifically safer “comparatively few genes” formulation.
+5. **Four logged removals** — verify semantic supersession as well as verbatim traceability.
+
+## Preserved boundaries
+
+A's directory and QA files were not modified. A-QA-003 and A-QA-005 remain outside F. No graph item, point-total mismatch, or Production record was changed. This run stops before work order G.
+
+## Reproducibility
+
+- UTC window: 2026-09-23T15:04:34.989Z to 2026-09-23T15:04:35.013Z
+- Model: OpenAI Codex GPT-5
+- Production project: pcntajvbdfqhbeewmdry (read-only; F used A's QA-confirmed snapshot)
+- Snapshot: 2026-09-23T01:30:44Z
+- Maximum version number per item: `run_metadata.json`
+- Superseded-run backups: `SUMMARY.md.20260923T145719Z.bak`, `run_metadata.json.20260923T145719Z.bak`
