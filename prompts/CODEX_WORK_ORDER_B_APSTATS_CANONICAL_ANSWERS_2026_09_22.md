@@ -3,6 +3,10 @@
 DATE: 2026-09-22 | SUBJECT: AP Statistics (`ap-statistics`) | RUNS: overnight, unattended
 MODE: **Proposal only. Read-only against Production. No writes to published content, ever.**
 
+> **Run protocol:** `CODEX_OVERNIGHT_RUN_PROTOCOL_2026_09_22.md` governs count mismatches,
+> pre-existing artifacts, and committing. It overrides any conflicting instruction below.
+
+
 ---
 
 ## Working location — read inputs here, return output here
@@ -64,7 +68,12 @@ STATS-MOD4-E005 (1/1)  -H012 (1/1)  -M009 (1/1)   STATS-MOD9-H018 (1/1)
 points while its 19 siblings have 10 criteria summing to 10. Author against the stored rubric as
 it is, and record the anomaly in `open_questions.csv`.
 
-If your own query returns a different set of 46, **stop and report it** before proceeding.
+**If your own query returns a different set, apply the run protocol's tiered rule:** at **10%
+drift or less**, where the task's premise still holds, **proceed with the observed set** and record
+the delta prominently in `open_questions.csv` and `SUMMARY.md`, stating this work order's number,
+your observed number and the exact `WHERE` behind yours. At **more than 10%**, or if a required
+input is missing entirely, produce the packet and a discrepancy report only, skip the proposal
+stage, and move on. Never work from a changed set without saying so.
 
 ## 2. Source material
 
@@ -191,7 +200,10 @@ lowest. A QA model that knows where you are weakest spends its budget well. The 
 treatment.
 
 **6.6 Make the run reproducible.** Record the UTC start and end time, the model identifier, the
-Production project ref, and the maximum `version_num` seen per item.
+Production project ref, **the UTC time you took the Production snapshot**, and the **maximum
+`version_num` observed per item**. Work order C covers the other 34 AP Statistics FRQ from a
+separate snapshot taken hours later; these two fields are what let QA *prove* the two snapshots
+agree rather than assume it.
 
 **6.7 Write `SUMMARY.md` last.** Include: counts authored and segmented, the invariant table with
 your results, the confidence ranking from 6.5, everything in `open_questions.csv`, and an explicit
