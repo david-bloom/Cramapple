@@ -200,6 +200,43 @@ Sensitivity: if they are Medium instead, the distribution moves from Easy 51.0% 
 per-point FRQ data — its validation remains the six question-level observations in §2. Coverage of
 90.9% is reach, not accuracy.
 
+## 4c. Complete assignments — every item labelled
+
+David's direction, 2026-09-22: *"without a large body of human testing data this is going to be an
+inexact process. I am fine with the results for these three."* The remaining gaps were closed by
+judgement against the same characteristics, and **all three subjects now carry a label on every
+published item, with zero unassigned.**
+
+| Subject | Items | Easy | Medium | Hard | Unassigned |
+|---|---:|---:|---:|---:|---:|
+| **AP Biology** | 118 | 23 (19.5%) | 75 (63.6%) | 20 (16.9%) | **0** |
+| **AP Chemistry** | 119 | 53 (44.5%) | 52 (43.7%) | 14 (11.8%) | **0** |
+| **AP Statistics** | 384 | 200 (52.1%) | 99 (25.8%) | 85 (22.1%) | **0** |
+
+By item type:
+
+| Subject | FRQ Easy/Med/Hard | MCQ Easy/Med/Hard |
+|---|---|---|
+| AP Chemistry | 33.3 / 51.0 / 15.7 | 52.9 / 38.2 / 8.8 |
+| AP Statistics | 23.8 / 45.0 / 31.2 | 59.5 / 20.7 / 19.7 |
+
+Chemistry's single authoritative file now merges the two halves — verb table for FRQ criteria,
+structural characteristics for MCQ — plus 11 judgement calls (single-step Beer-Lambert and
+stoichiometry, spectator-ion identification and photon-energy trends as Easy; calorimetry-to-
+thermodynamics links, two-step pOH, Faraday electrolysis and Hess-law manipulation as Medium).
+Statistics closed 35 items: 20 "Which representation correctly displays these data?" as Easy
+(build or read a basic display), 12 observational comparisons carrying confounding risk as Hard,
+2 randomised-experiment scenarios as Medium, and the truncated tail of the sampling-plan template
+as Easy.
+
+FRQ and MCQ distributions differ sharply and in opposite directions between the two subjects, which
+is worth a look independently of these labels: Statistics FRQ are 31.2% Hard against 19.7% of its
+MCQ, while Chemistry MCQ are 52.9% Easy against 33.3% of its FRQ.
+
+**This does not change the validation status.** Coverage is now 100% by construction; accuracy is
+still 9/10 for Chemistry (FRQ, per-point) and n=6 question-level for Statistics. Nothing is written
+to Production.
+
 ## 5. Recommendation
 
 1. **Ratify AP Biology only** (`README.md`). It has 0 unclassified items, 75% validation and 100%
