@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Session Close (2026-09-22/23, Difficulty Calibration + Overnight Codex Program). Landed: the 160 local-only files that produced live Production content (29 topic-guide migrations whose source sat on one machine for a month); a difficulty method anchored to published College Board attainment after establishing that **College Board defines no difficulty scale** (verified against two CEDs and the 2025 Chief Reader Reports) — 316 scored rubric points extracted across 8 subjects, and **every published Biology, Chemistry and Statistics item now carries an Easy/Medium/Hard label, 0 unassigned**; four overnight Codex work orders (A-D) plus a run protocol, all executed overnight; an offline QA harness with a self-test; a verified count baseline (28/28 exact); and Codex Project 2 (work orders E-I). **QA results:** Bio/Stats topic labels — Biology ACCEPTED, **Statistics REJECTED** (56 items, four template-shaped defect classes). A-D — **all four PASS structurally**; the 46 findings on first run were all my harness's bugs, not Codex's. **OPEN:** the semantic QA of A-D (the content-correctness gate) is NOT done and is Claude's; F and H are gated shut until it exists; Codex has started E. **Two governance findings:** A-D reached `main` when the protocol said branch-only, and the canonical-answer decision's "Biology QA-verified before Statistics generation" gate was crossed when A and B ran the same night. — 2026-09-23
 - Local-Only Durable Artifacts Synced to `main`: 160 Files That Existed Only in David's Checkout Are Now in Git — 29 Topic-Guide Seed Migrations (2026-08-25..08-27), Their 27 Companion `AP_*_TOPIC_POINT_BRIEFS.md` Records, Two Calculus BC Generators, the Course Mode Score-Impact Protocol + Lovable Brief, and the Untracked Half of `.claude/skills/cramapple-design/`. Found at Session Start While Verifying the Working Tree Against the Synchronization Rule: the Content Those Migrations Produce **Is Live in Production** (603 Topic Point Briefs + 603 Explainers Across All Ten Subjects) but **None of Their Versions Appear in Production's Migration Ledger** — They Were Applied as Direct SQL, So the Provenance and Regeneration Path for Published Content Sat on One Machine. No Database State Changed. — 2026-09-22
 - Session Close (2026-09-22, App-Rebuild / Open Hand Thread). Resumed From `APP_REBUILD_NEXT_SESSION_HANDOFF_2026_09_22.md`. Landed This Session: Open Hand Defined as a Sanctioned Unit:Topic-Relevant Teaching Method and Aligned Across Design System + Migration Plan (Decision 21 → Method-DECIDED, Answer-Key Boundary Intact); `CONTENT_GAPS_RUNNING_LIST.md` Started and Now Folds In GAP-9 (Biology FRQ Canonical/Rubric Misalignment + Segmentation); Verified the Open Hand Rubric-Strike Mechanic Live in `web/` (Deterministic Span Toggle, Not Runtime AI, No Combination Library); Ran the Codex-Builds/Claude-QAs Loop on AP Biology FRQ Canonical-Answer Segmentation — Found + Fixed the `canonical_answer_2` Re-Draft Defect, ACCEPTED the ca2 Fix, Recorded the QA Under `docs/research/apbio_frq_segmentation_2026_09_22/`; PAUSED the Human Double-Review Requirement (DECISION-0055, Gate Now AI Cross-Model QA + PO Approval). **OPEN for next session:** ratify (PO sign-off) the Biology drafted canonical content; author/reconcile the 118 drafted criteria + 18 all-drafted + 15 off-rubric-ca2 + 7 no-canonical Biology items and the 9 point-total bugs; the 4 drawn-graph items → spatial-canonical/Engine-4 path; extend segmentation + the unit:topic tagging (Codex + Gemini compare) to Statistics and beyond; Phase 0 Decisions 1 (fixed frame — run `verify:panes` on a multi-part + image FRQ) and 11 (multi-part FRQ migration vs parsing) still OPEN. All work merged to `main`; working tree carries only pre-existing untracked topic-brief drafts. — 2026-09-22
 - Human Independent-Review Requirement for Content PAUSED (DECISION-0055, David, PO). All §11.1 Reviewer Counts (R0–R3) and the Human "Double-Approve" Half of DECISION-0044 Are Paused Across All Content Types and Subjects; During the Pause the Operative Gate Before Content Serves Is **AI Build → Independent AI Cross-Model QA (Different Model From the Builder; Claude, Corroborated by Gemini) → Product Owner Approval**. AI QA Is Mandatory and NOT Paused. Explicitly Preserved: INV-3/CM-D20 (No Unvetted Generation at Response Time), the Answer-Key Serving Boundary (PR #106), Trunk Protection/CI, and the Paying Customer's Access. Reversible by Design — the §11.1 Table and DECISION-0044 Language Are Retained Verbatim. Recorded in `DECISIONS_LOG.md` and Banner-Marked in `CONTENT_GOVERNANCE_AND_VALIDATION.md` §11.1. — 2026-09-22
@@ -196,6 +197,114 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 ---
+
+## Session Close — Difficulty Calibration and the Overnight Codex Program — 2026-09-23
+
+**Task.** No Task ID. Session opened on the App Rebuild / content-gaps thread and became two
+things: establishing a defensible difficulty signal, and standing up an overnight Codex program
+against the Biology/Statistics content gaps.
+
+### What changed
+
+**1. 160 local-only files committed** (PR #163). Found at session start while checking the working
+tree against the Synchronization Rule. Not drafts: 29 topic-guide seed migrations (2026-08-25→27)
+whose content **is live in Production** — 603 topic point briefs and 603 explainers across ten
+subjects — while **none of their versions appear in Production's migration ledger**. They were
+applied as direct SQL and their source sat on one machine for a month.
+
+**2. A difficulty method, anchored to measured attainment** (PRs #164–#167).
+**College Board defines no difficulty scale.** Verified: zero occurrences of *difficult/easy/hard/
+rigor/complexity* in the 2025 AP Statistics Chief Reader Report; the AP Biology and AP Statistics
+CEDs mention difficulty once, as a line about exam construction, and neither ties task verbs or
+Science Practices to it. So the three-level scheme is a **Cramapple decision anchored to College
+Board data, not a College Board citation** — cite it that way.
+
+What College Board does publish is per-criterion attainment. Extracted **316 scored rubric points
+across 8 subjects**. Subject baselines differ by 21 points (Physics 2 0.653, Calculus AB 0.439), so
+cut points are per subject.
+
+Validation: the task-verb method scores **12/16 (75%)** against hand-verified 2025 AP Biology
+points and is **100% correct at both extremes** — all four errors fell in the Medium band. Two
+corrections from measured data: `calculate` → Hard (0.49, on the hard tertile) and `explain` split
+(Medium for CED skill 1.B Concept Explanation at 0.57; Hard only in SP6 Argumentation context). A
+blanket explain→Hard rule was tried and rejected — it alone moved the corpus from 23.7% to 53.4%
+Hard. The competing cognitive-complexity method was tested and rejected: **Cohen's kappa 0.023**
+against the verb method.
+
+David's Chemistry framework validated best of the three — **9/10** against per-point attainment,
+with monotonic verb ordering (identify 0.635 → calculate 0.513 → explain 0.380 → predict+justify
+0.170). Statistics validated weakest (n=6, question-level; its Investigative-Task claim is
+contradicted by the only data available).
+
+**Final assignments, 0 unassigned:** Biology 118 (19.5/63.6/16.9), Chemistry 119 (44.5/43.7/11.8),
+Statistics 384 (52.1/25.8/22.1).
+
+**3. Overnight Codex program** (PRs #168–#171, #176–#177). Work orders A–D plus a run protocol,
+then Project 2 (E–I). All executed overnight; all four A–D produced complete artifact sets.
+
+**4. QA infrastructure** (PRs #173–#175). An offline QA harness recomputing every stated invariant,
+with a self-test that plants known defects and asserts detection, plus a **count baseline verifying
+28/28 assertions exact**.
+
+### What was verified
+
+- **Bio/Stats topic labels (PR #172): Biology ACCEPTED, Statistics REJECTED.** Structure was
+  flawless — 502/502 items, all 73 (subject, code) pairs valid, 0 unit mismatches. Content was not:
+  56 Statistics items wrong across four template-shaped classes (compare-two-groups labelled `1.7`
+  not `1.9`; sampling-*method* items labelled as sampling-*distributions*; 24 graph items labelled
+  off a boilerplate stem; regression placed in Unit 1). Two codes absorbed 45% of the corpus.
+- **Work orders A–D: all four PASS every structural invariant.** The harness reported 46 findings
+  on first run; **every one was the harness's bug, not Codex's** — recovery sources resolved only
+  against the current item version, assembly-literal spans verbatim-checked against a source they
+  correctly lack, and a truth snapshot that omitted retired parent `APBIO-FRQ-L-025` entirely.
+- **A's recovery yield: 13 of 101.** The hypothesis that the 2026-08-12 rubric split left
+  recoverable text was **right about the mechanism and wrong about the yield** — the split created
+  genuinely new criteria, not finer slices. **88 criteria remain drafted (down from 118).**
+  GAP-9's drafted-content problem is real, not a migration artifact.
+- **49% of the FRQ library has no canonical answer** — 274 of 563, across every subject.
+
+### A correction to my own work, recorded
+
+I initially filed as critical that AP Statistics had zero items in Units 6–9. **That was my error.**
+The current AP Statistics CED has **five** units, not nine. The registry and Codex were both right.
+Consequence worth keeping: the content's author-time `subtopics` use the **legacy 9-unit**
+numbering while the registry uses the current 5-unit one, so `agreement_with_author_prose='no'` on
+85 items is partly an artifact of comparing two CED editions and is **not an accuracy signal**.
+
+### What remains open
+
+1. **The semantic QA of A–D is not done.** Structural QA passed; content correctness — does each
+   drafted span earn its criterion, does each authored number re-derive — has not been checked.
+   **This is Claude's, not Codex's** (DECISION-0055 independent-model gate).
+2. **F and H are gated shut**: no `qa_report.md` exists in any A–D directory.
+3. **Statistics topic labels**: work order E is the rework; **Codex has started it.**
+4. **Biology topic labels**: accepted, awaiting Product Owner sign-off (6 flagged items).
+5. **Difficulty assignments**: proposal only, unratified, and `prompt_json.difficulty` is read by
+   no runtime code.
+6. `app.attempt_criterion_results` has **0 rows** — nothing writes to it, though all 78
+   `grading_results` carry criterion JSON. Task chip open.
+
+### Governance findings
+
+- **A–D reached `main`** when the protocol said branch-only. Proposals belong on a branch until
+  ratified. E–I are correctly scoped to `codex/project2-2026-09-23`.
+- **A stop-for-QA gate was crossed.** The canonical-answer decision requires "Biology drafts are
+  QA-verified before Statistics generation begins". A and B ran the same night with no QA between.
+  B's output passed structural QA, so nothing is invalid, but the gate is real — and the work
+  orders that skipped it were mine. G now carries an explicit per-subject STOP-for-QA.
+
+### Do not touch next session
+
+- `docs/research/apstats_topic_labels_rework_2026_09_23/` — Codex's in-flight work order E.
+- `docs/research/apbio_frq_segmentation_2026_09_22/` and `bio_stats_topic_tagging_2026_09_22/` —
+  prior records, named as source material.
+- The four A–D directories — read for QA, never edit. `qa_findings.csv` / `qa_report.md` are
+  QA-owned and do not yet exist.
+
+**Next Owner:** David Bloom (ratification) / Claude (semantic QA).
+**Next Required Action:** Run the semantic QA of work orders A–D in handoff order (A first),
+writing `qa_report.md` and `qa_findings.csv` into each directory with an explicit
+accepted/rejected disposition line — that line is what unlocks F and H for Codex.
 
 ## Local-Only Durable Artifacts Synced to `main` — 2026-09-22
 
