@@ -152,8 +152,37 @@ def check_packet(R, packet, truth_items, expect_n, label="packet"):
     R.check(f"{label}: field drift vs Production", 0, drift, drift == 0)
 
 
+NON_SOURCE_PROV = {"drafted", "assembly_literal"}
+
+def resolve_source(truth_item, span, prior_by_item=None, items_by_key=None):
+    """Return the text a recovered span claims to come from.
+
+    A recovery may cite the CURRENT version, a PRIOR version of the same item, or -- for a split
+    child -- a PARENT item's version. Resolving only against the current item is wrong and reads
+    every prior-version recovery as non-verbatim.
+    """
+    fld = span.get("source_field") or ""
+    if fld in ("canonical_answer_1", "canonical_answer_2"):
+        return (truth_item or {}).get(fld)
+    sv = span.get("source_version_id")
+    if fld.startswith("prior_") or fld.startswith("parent_"):
+        base = fld.replace("prior_", "").replace("parent_", "")
+        for v in (prior_by_item or {}).get(sv, []):
+            return v.get(base)
+        # parent: the cited version belongs to a different content_item_id
+        for lst in (prior_by_item or {}).values():
+            for v in lst:
+                if v.get("version_id") == sv:
+                    return v.get(base)
+        for it in (items_by_key or {}).values():
+            if it.get("version_id") == sv:
+                return it.get(base)
+    return None
+
+
 def check_spans(R, proposals, truth_by_key, *, require_verbatim_fields=None,
-                forbid_drafted=False, label="segmentation"):
+                forbid_drafted=False, label="segmentation", prior_by_version=None,
+                items_by_key=None, allow_declared_uncovered=False):
     """Concatenation, criterion coverage, no invented criteria, verbatim provenance, and the
     non-empty-on-removal property. Shared by A, B and C."""
     concat_ok = cover_ok = invent_ok = verbatim_ok = removal_ok = 0
@@ -174,13 +203,21 @@ def check_spans(R, proposals, truth_by_key, *, require_verbatim_fields=None,
                       "Recompute the assembly; the proposal is internally inconsistent")
 
         covered = {k for s in spans for k in (s.get("criterion_keys") or [])}
-        if crit_keys and crit_keys <= covered:
+        declared = set((p.get("coverage") or {}).get("criteria_uncovered") or [])
+        miss = sorted(crit_keys - covered) if crit_keys else []
+        if not miss:
             cover_ok += 1
-        elif crit_keys:
-            miss = sorted(crit_keys - covered)
+        elif allow_declared_uncovered and set(miss) <= declared:
+            # Work order C: an honest uncovered criterion IS the correct output, provided the
+            # builder declared it rather than silently dropping it.
+            cover_ok += 1
+            R.finding("criterion_uncovered_declared", "medium", key,
+                      f"criteria the builder declares uncovered: {', '.join(miss[:6])}",
+                      "Permitted by the work order; confirm the published answer truly does not satisfy them")
+        else:
             R.finding("criterion_uncovered", "high", key,
-                      f"criteria with no span: {', '.join(miss[:6])}",
-                      "Either recover/author coverage, or the builder should have flagged it")
+                      f"criteria with no span and not declared uncovered: {', '.join(miss[:6])}",
+                      "Either recover/author coverage, or declare it in coverage.criteria_uncovered")
 
         invented = sorted(covered - crit_keys) if crit_keys else []
         if not invented:
@@ -193,13 +230,13 @@ def check_spans(R, proposals, truth_by_key, *, require_verbatim_fields=None,
             bad = []
             for s in spans:
                 prov = (s.get("provenance") or "")
-                fld = s.get("source_field")
                 if forbid_drafted and prov == "drafted":
                     drafted_spans += 1
-                if prov.startswith("recovered") or fld in require_verbatim_fields:
-                    src = truth.get(fld) if fld in (truth or {}) else None
-                    if src is None and fld:
-                        src = (truth or {}).get(fld)
+                if prov in NON_SOURCE_PROV:
+                    continue   # joining whitespace / genuinely new text has no source to match
+                if prov.startswith("recovered") or prov == "unchanged_from_prior_run" \
+                   or s.get("source_field") in require_verbatim_fields:
+                    src = resolve_source(truth, s, prior_by_version, items_by_key)
                     if src is None or norm(s.get("text", "")) not in norm(src):
                         bad.append(s.get("criterion_keys"))
             if not bad:
@@ -256,9 +293,13 @@ def order_A(R, truth, run):
         R.finding("out_of_scope_item_processed", "high", k,
                   "Drawn-graph item was segmented; the work order puts it out of scope")
 
+    prior_by_version = defaultdict(list)
+    for v in truth["prior_versions"]:
+        prior_by_version[v["version_id"]].append(v)
     check_spans(R, in_scope, by_key,
                 require_verbatim_fields={"canonical_answer_1", "canonical_answer_2"},
-                label="A")
+                label="A", prior_by_version=prior_by_version,
+                items_by_key={i["content_key"]: i for i in truth["items"]})
 
     # provenance ledger and the headline delta
     prov = Counter()
@@ -279,10 +320,21 @@ def order_A(R, truth, run):
         pv[v["content_item_id"]].add(v["version_id"])
     bad = 0
     id_by_key = {i["content_key"]: i["content_item_id"] for i in items}
+    all_version_ids = ({v["version_id"] for v in truth["prior_versions"]}
+                       | {i["version_id"] for i in truth["items"]})
     for p in in_scope:
         cid = id_by_key.get(p.get("content_key"))
         for s in (p.get("spans") or []):
             sv = s.get("source_version_id")
+            # A split child legitimately cites its PARENT item's version (S-101/102/103 -> L-025),
+            # so "belongs to this item" is too strict; require only that the version exists.
+            if (s.get("provenance") or "").startswith("recovered_parent"):
+                if sv and sv not in all_version_ids:
+                    bad += 1
+                    R.finding("unknown_source_version", "high", p.get("content_key"),
+                              f"parent recovery cites {sv}, which is not a known version")
+                    break
+                continue
             if sv and cid and sv not in pv[cid] and sv != by_key[p["content_key"]]["version_id"]:
                 bad += 1
                 R.finding("foreign_source_version", "high", p.get("content_key"),
@@ -357,9 +409,14 @@ def order_C(R, truth, run):
         R.finding("scope_collision", "high", k,
                   "Item belongs to work order B; C must not segment it")
 
+    prior_by_version = defaultdict(list)
+    for v in truth["prior_versions"]:
+        prior_by_version[v["version_id"]].append(v)
     check_spans(R, prop, by_key,
                 require_verbatim_fields={"canonical_answer_1", "canonical_answer_2"},
-                forbid_drafted=True, label="C")
+                forbid_drafted=True, label="C", prior_by_version=prior_by_version,
+                items_by_key={i["content_key"]: i for i in truth["items"]},
+                allow_declared_uncovered=True)
 
     # every non-blank canonical_answer_2 must survive verbatim in the assembly
     lost = []
