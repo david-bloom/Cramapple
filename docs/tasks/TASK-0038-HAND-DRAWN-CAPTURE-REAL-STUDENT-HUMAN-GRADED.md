@@ -8,7 +8,8 @@ DR-1-disqualified
 **Product Owner:** David Bloom
 **Tier:** Hard-Gate
 **Status:** Opened — Phase 1 Done, Phase 2 Done, Phase 3 Done (Still
-Admin-Gated), Phase 4 Next
+Admin-Gated), Phase 4 Infrastructure Done (Operational Commitment Still
+Pending)
 **Priority:** High
 **Created Date:** 2026-09-23
 **Approved Date:** Pending (Product Owner directed "get image capture into
@@ -191,14 +192,74 @@ Frontend (`exam-buddy-wireframe`):
   explicit step, left for David.
 
 ### Phase 4 — Real human-grading queue
-- TASK-0020 Program C already names "operationalizing manual grading
-  (reviewer queue, qualifications, SLA, dispute/regrade path, capacity
-  commitment)" as its own Hard Gate. `record_manual_grade` and
-  `/admin/grade-response/$attemptId` are a single-attempt admin tool today,
-  not a queue. This phase needs at minimum: a list view of submitted,
-  ungraded hand-drawn attempts; a named grader (owner, to start); and a
-  bounded SLA commitment before any real student is told to expect a graded
-  result.
+
+**Infrastructure done (2026-09-23); the operational commitment (named
+grader, SLA) is still open — see "Left for David" below.**
+
+**New finding that shaped this phase:** `app.attempts`,
+`app.response_attachments`, and `app.grading_results` RLS is owner-only
+(`auth.uid() = user_id`) with **no admin bypass policy**. The original
+single-attempt admin page (`admin.grade-response.$attemptId.tsx`) read these
+tables directly via the authenticated client — that only ever worked
+because every attempt graded through this pilot to date has been an admin's
+own test submission (matches the audit finding that `response_attachments`
+= 0 rows, ever). A real admin grading a real student's attempt would have
+hit RLS and failed silently on the read side. Separately, the photo itself
+was unreachable too: `storage-sign-url`'s `ownsLearnerPath` check had no
+admin exception at all for `sign_download`, so `canAccessBucket`'s existing
+admin clearance for `learner-uploads` was dead code for a real cross-user
+read.
+
+Backend (`supabase/functions/`):
+- New admin-only, service-role `attempt-response` operations:
+  `list_manual_grading_queue` (submitted attempts that have a current
+  `original` `response_attachments` row — the signal that scopes the queue
+  to hand-drawn capture rather than every stuck `submitted` attempt) and
+  `get_manual_grading_context` (attempt status, response_version_id,
+  storage bucket/path, criteria — everything the grading page needs for one
+  attempt, replacing the RLS-blocked direct reads).
+- `storage-sign-url/index.ts`: `ownsLearnerPath` now has a narrow admin
+  exception, scoped to `mode: "sign_download"` only — upload/delete stay
+  strictly owner/admin-delete as before. **Caught and fixed a real
+  transcription bug during this deploy**: an intermediate manual retype of
+  `storage-access.ts` swapped `validator` for `content_author` on the
+  `validation-artifacts` bucket rule; caught by comparing the deployed
+  content against local disk before promoting to Production, fixed, and
+  redeployed with the correct rule before Production ever saw the bad
+  version (confirmed via Dev/Prod content-hash match, not just a status
+  code).
+- Both deployed to Development then Production; `attempt-response`'s new
+  operations verified byte-for-byte against local source (comment-only
+  diff, no logic drift) before the Production push. 2 new unit tests (both
+  new operations refuse a non-admin caller before ever touching the
+  service client — the actual security property this phase depends on).
+- Pre-existing gap flagged, not fixed: `student-session-items/index_test.ts`
+  (see Phase 3) remains broken; no new test coverage was added for the
+  admin-success path of the two new operations (would need a much larger
+  fake `.from()` query-builder than this codebase's existing test harness
+  supports) — relied on live rolled-back SQL verification of the underlying
+  join instead, plus the deploy-time content diff.
+
+Frontend (`exam-buddy-wireframe`):
+- New route `/admin/grade-response` (index): lists pending attempts via
+  `list_manual_grading_queue`, links to the existing per-attempt page.
+- `admin.grade-response.$attemptId.tsx` rewritten to call
+  `get_manual_grading_context` instead of direct `db.from(...)` reads (the
+  actual RLS fix on the frontend side) and to sign the photo via the
+  context's bucket/path.
+- Verified: `tsc --noEmit` clean, `vite build` succeeds with both routes
+  registered, full Vitest suite 401/402 (same one pre-existing unrelated
+  failure).
+
+**Left for David — this phase's actual launch gate, not an engineering
+task:** TASK-0020 Program C names "operationalizing manual grading
+(reviewer queue, qualifications, SLA, dispute/regrade path, capacity
+commitment)" as its own Hard Gate. The queue now exists and works, but
+nothing has committed to *who* grades and *how fast*. Per this task's own
+Phase 4 acceptance criterion ("a real submitted attempt is graded by a
+named human within a committed SLA"), that decision — not more code — is
+what has to happen before `/session-hand-drawn-pilot`'s admin gate comes
+off for real students.
 
 ## Out of Scope (explicitly deferred, not silently dropped)
 
@@ -224,7 +285,11 @@ Frontend (`exam-buddy-wireframe`):
       lifted; not yet exercised end-to-end with real non-admin credentials
       (no such credentials were available this session).
 - [ ] Phase 4: a real submitted attempt is graded by a named human within a
-      committed SLA and the student sees a real result.
+      committed SLA and the student sees a real result. **Infrastructure
+      done** (real queue + per-attempt read/sign path, RLS/storage gaps
+      that blocked cross-user admin grading found and fixed); the named
+      grader and SLA commitment itself is still a Product Owner decision,
+      not yet made.
 
 ## Approval State
 

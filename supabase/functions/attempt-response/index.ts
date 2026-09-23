@@ -23,7 +23,9 @@ type Operation =
   | "save_response"
   | "submit_response"
   | "attach_capture"
-  | "record_manual_grade";
+  | "record_manual_grade"
+  | "list_manual_grading_queue"
+  | "get_manual_grading_context";
 
 const ALLOWED_OPERATIONS = new Set<Operation>([
   "create_attempt",
@@ -31,6 +33,8 @@ const ALLOWED_OPERATIONS = new Set<Operation>([
   "submit_response",
   "attach_capture",
   "record_manual_grade",
+  "list_manual_grading_queue",
+  "get_manual_grading_context",
 ]);
 const ATTACHMENT_KINDS = new Set<AttachmentKind>(["original", "derived"]);
 
@@ -1079,6 +1083,193 @@ export async function handleAttemptResponse(
         function: "attempt-response",
         operation,
         result,
+      });
+    }
+
+    // TASK-0038 Phase 4. Both read operations exist because
+    // app.attempts/response_attachments/grading_results RLS is owner-only
+    // (auth.uid() = user_id) with no admin bypass -- an admin reading a REAL
+    // student's attempt directly via the authenticated client (the pattern
+    // the original single-attempt grading page used) only ever worked
+    // because every attempt graded through this pilot so far has been the
+    // admin's own test submission. These go through the service role
+    // instead, same as record_manual_grade's write path.
+    if (operation === "list_manual_grading_queue") {
+      if (profile.role !== "admin") {
+        return respond({ error: "forbidden" }, { status: 403 });
+      }
+
+      const { data: submittedAttempts, error: submittedError } = await service
+        .schema("app")
+        .from("attempts")
+        .select("id, user_id, content_item_version_id, submitted_at")
+        .eq("status", "submitted")
+        .order("submitted_at", { ascending: true });
+      if (submittedError) {
+        return respond({ error: "grading_queue_failed" }, { status: 500 });
+      }
+      const submittedIds = (submittedAttempts ?? []).map((a) =>
+        a.id as string
+      );
+      if (submittedIds.length === 0) {
+        return respond({
+          status: "ok",
+          function: "attempt-response",
+          operation,
+          result: { items: [] },
+        });
+      }
+
+      // Only a hand-drawn capture attempt ever has a current original
+      // response_attachments row -- this is what scopes the queue to the
+      // hand-drawn pilot rather than every submitted-but-unrelated attempt
+      // (typed FRQs are graded automatically by evaluate-attempt and never
+      // sit in "submitted" waiting on a human).
+      const { data: attachments, error: attachmentsError } = await service
+        .schema("app")
+        .from("response_attachments")
+        .select("attempt_id, created_at")
+        .in("attempt_id", submittedIds)
+        .eq("is_current", true)
+        .eq("kind", "original");
+      if (attachmentsError) {
+        return respond({ error: "grading_queue_failed" }, { status: 500 });
+      }
+      const capturedAtByAttempt = new Map<string, string>();
+      for (const row of attachments ?? []) {
+        capturedAtByAttempt.set(row.attempt_id as string, row.created_at as string);
+      }
+      const pending = (submittedAttempts ?? []).filter((a) =>
+        capturedAtByAttempt.has(a.id as string)
+      );
+      if (pending.length === 0) {
+        return respond({
+          status: "ok",
+          function: "attempt-response",
+          operation,
+          result: { items: [] },
+        });
+      }
+
+      const versionIds = [
+        ...new Set(pending.map((a) => a.content_item_version_id as string)),
+      ];
+      const userIds = [...new Set(pending.map((a) => a.user_id as string))];
+
+      const [{ data: versionRows }, { data: profileRows }] = await Promise
+        .all([
+          service.schema("app").from("content_item_versions")
+            .select("id, content_item_id")
+            .in("id", versionIds),
+          service.schema("app").from("profiles")
+            .select("user_id, full_name")
+            .in("user_id", userIds),
+        ]);
+      const itemIdByVersion = new Map(
+        (versionRows ?? []).map((
+          r,
+        ) => [r.id as string, r.content_item_id as string]),
+      );
+      const itemIds = [...new Set([...itemIdByVersion.values()])];
+      const { data: itemRows } = itemIds.length
+        ? await service.schema("app").from("content_items")
+          .select("id, content_key, title")
+          .in("id", itemIds)
+        : { data: [] as Array<{ id: string; content_key: string; title: string | null }> };
+      const itemByItemId = new Map(
+        (itemRows ?? []).map((r) => [r.id as string, r]),
+      );
+      const nameByUser = new Map(
+        (profileRows ?? []).map((
+          r,
+        ) => [r.user_id as string, r.full_name as string | null]),
+      );
+
+      const items = pending.map((a) => {
+        const contentItemId = itemIdByVersion.get(
+          a.content_item_version_id as string,
+        );
+        const item = contentItemId ? itemByItemId.get(contentItemId) : null;
+        return {
+          attempt_id: a.id,
+          content_key: item?.content_key ?? null,
+          title: item?.title ?? null,
+          submitted_at: a.submitted_at,
+          captured_at: capturedAtByAttempt.get(a.id as string) ?? null,
+          student_display_name: nameByUser.get(a.user_id as string) ?? null,
+        };
+      });
+
+      return respond({
+        status: "ok",
+        function: "attempt-response",
+        operation,
+        result: { items },
+      });
+    }
+
+    if (operation === "get_manual_grading_context") {
+      if (profile.role !== "admin") {
+        return respond({ error: "forbidden" }, { status: 403 });
+      }
+
+      const contextAttemptId = asUuid(b.attempt_id ?? b.attemptId);
+      if (!contextAttemptId) {
+        return respond(
+          { error: "missing_required_fields", required: ["attempt_id"] },
+          { status: 400 },
+        );
+      }
+
+      const { data: attempt, error: attemptError } = await service
+        .schema("app")
+        .from("attempts")
+        .select("id, status, content_item_version_id")
+        .eq("id", contextAttemptId)
+        .maybeSingle();
+      if (attemptError || !attempt) {
+        return respond({ error: "attempt_not_found" }, { status: 404 });
+      }
+
+      const { data: responseVersionRow } = await service
+        .schema("app")
+        .from("response_versions")
+        .select("id")
+        .eq("attempt_id", contextAttemptId)
+        .eq("is_submitted", true)
+        .maybeSingle();
+      if (!responseVersionRow) {
+        return respond({ error: "response_not_found" }, { status: 404 });
+      }
+
+      const { data: attachment } = await service
+        .schema("app")
+        .from("response_attachments")
+        .select("storage_bucket, storage_path")
+        .eq("response_version_id", responseVersionRow.id)
+        .eq("is_current", true)
+        .maybeSingle();
+
+      const { data: criteriaRows } = await service
+        .schema("app")
+        .from("frq_criteria")
+        .select("criterion_key, learner_facing_text, points_possible")
+        .eq("content_item_version_id", attempt.content_item_version_id)
+        .order("criterion_key", { ascending: true });
+
+      return respond({
+        status: "ok",
+        function: "attempt-response",
+        operation,
+        result: {
+          attempt_status: attempt.status,
+          response_version_id: responseVersionRow.id,
+          storage_bucket: attachment?.storage_bucket ?? null,
+          storage_path: attachment?.storage_path ?? null,
+          criteria: (criteriaRows ?? []).filter((c) =>
+            c.learner_facing_text != null
+          ),
+        },
       });
     }
 
