@@ -185,7 +185,10 @@ Frontend (`exam-buddy-wireframe`):
   registers in the generated route tree; full Vitest suite 401/402 (the
   same one pre-existing, unrelated failure this repo has had all session —
   a stale string-match assertion in `session-setup.test.ts`).
-- **Not committed/pushed yet** — pending this session's next step.
+- Committed and pushed to `main` (backend `864c22aa`, frontend `e16c72d`,
+  merged clean with unrelated upstream Lovable work). **Lovable publish not
+  triggered** — a push to `main` does not deploy; publishing is its own
+  explicit step, left for David.
 
 ### Phase 4 — Real human-grading queue
 - TASK-0020 Program C already names "operationalizing manual grading
