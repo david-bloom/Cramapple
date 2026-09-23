@@ -46,7 +46,14 @@ def build(root):
         item("CHEM-2", "ap-chemistry", None, None, (), "v6", "c6", typ="mcq"),
         item("APBIO-FRQ-S-001", "biology", "One. Two.", "", ("a", "b"), "bv1", "b1"),
         item("APBIO-HDG-2026-GRAPH-002", "biology", "", "", ("a",), "bv2", "b2"),
+        item("APBIO-FRQ-S-002", "biology", "", "", ("a",), "bv3", "b3"),
     ]
+    # A criterion written as a declarative content statement -- the shape that makes copying it
+    # into the answer the path of least resistance. Planted for check_rubric_restatement.
+    RESTATE = ("A peptide bond forms between the carboxyl group of one amino acid "
+               "and the amino group of the adjacent amino acid.")
+    items[-1]["criteria"] = [{"criterion_key": "a", "points_possible": 1,
+                              "learner_facing_text": RESTATE}]
     json.dump(items, open(os.path.join(t, "items.json"), "w"))
     json.dump([{"content_item_id": "c1", "version_id": "v1prior", "version_num": 1,
                 "status": "retired", "content_key": "S-HAS-1",
@@ -134,8 +141,12 @@ def build(root):
             {"text": "Two.", "criterion_keys": ["b"], "provenance": "recovered_ca1",
              "source_field": "canonical_answer_1", "source_version_id": "NOT-A-VERSION"}]},
         {"content_key": "APBIO-HDG-2026-GRAPH-002", "out_of_scope": True, "spans": [],
-         "full_text": ""}])
-    runs["A_broken"] = ("A", d, {"foreign_source_version"})
+         "full_text": ""},
+        # authored span copied verbatim from its own criterion; carries NO second-person phrasing,
+        # so the order-B regex would pass it. check_rubric_restatement must catch it.
+        {"content_key": "APBIO-FRQ-S-002", "full_text": RESTATE, "spans": [
+            {"text": RESTATE, "criterion_keys": ["a"], "provenance": "drafted"}]}])
+    runs["A_broken"] = ("A", d, {"foreign_source_version", "rubric_restatement"})
 
     return t, runs
 
