@@ -8,8 +8,9 @@ DR-1-disqualified
 **Product Owner:** David Bloom
 **Tier:** Hard-Gate
 **Status:** Opened — Phase 1 Done, Phase 2 Done, Phase 3 Done (Still
-Admin-Gated), Phase 4 Infrastructure Done (Operational Commitment Still
-Pending)
+Admin-Gated), Phase 4 Done (Infrastructure + Operational Commitment
+Approved — `DECISION-0059`/`APPROVAL-0049`). Next: Stage 1's real
+end-to-end run.
 **Priority:** High
 **Created Date:** 2026-09-23
 **Approved Date:** Pending (Product Owner directed "get image capture into
@@ -251,15 +252,29 @@ Frontend (`exam-buddy-wireframe`):
   registered, full Vitest suite 401/402 (same one pre-existing unrelated
   failure).
 
-**Left for David — this phase's actual launch gate, not an engineering
-task:** TASK-0020 Program C names "operationalizing manual grading
-(reviewer queue, qualifications, SLA, dispute/regrade path, capacity
-commitment)" as its own Hard Gate. The queue now exists and works, but
-nothing has committed to *who* grades and *how fast*. Per this task's own
-Phase 4 acceptance criterion ("a real submitted attempt is graded by a
-named human within a committed SLA"), that decision — not more code — is
-what has to happen before `/session-hand-drawn-pilot`'s admin gate comes
-off for real students.
+**Operational commitment approved (2026-09-23) — `DECISION-0059`/
+`APPROVAL-0049`.** Pilot-scale, not the full Program C launch design:
+
+- **Scope:** `APBIO-HDG-2026-GRAPH-002` only.
+- **Grader:** David Bloom (the only admin who has ever operated this
+  pipeline; no qualified-reviewer roster exists yet).
+- **SLA:** graded within 24 hours; queue checked at least once daily.
+- **Dispute/regrade:** interim manual stance, not tooling — a direct,
+  logged SQL correction (no regrade RPC exists yet).
+- **Repair authoring:** accepted gap — `record_manual_grade` always passes
+  `highestValueGap: null`, so a manually-graded student sees a score but no
+  repair prompt. Left unbuilt for this pilot.
+- **Staged rollout:** Stage 1 (now) — `/session-hand-drawn-pilot` stays
+  admin-gated while David runs one real end-to-end loop under real
+  (non-simulated) conditions, the one Phase 3 acceptance criterion never
+  yet exercised. Stage 2 — only after Stage 1 proves clean, the gate lifts
+  for a small named group, never the general Biology population. No
+  further widening without revisiting `DECISION-0059`.
+
+This does **not** close TASK-0020 Program C's Hard Gate — a broader launch
+still needs the full multi-owner design (Learning Quality, Operations,
+Privacy/Security). **Next action, still open:** Stage 1's real
+end-to-end run.
 
 ## Out of Scope (explicitly deferred, not silently dropped)
 
@@ -284,12 +299,14 @@ off for real students.
       `/session` once the admin gate on `/session-hand-drawn-pilot` is
       lifted; not yet exercised end-to-end with real non-admin credentials
       (no such credentials were available this session).
-- [ ] Phase 4: a real submitted attempt is graded by a named human within a
-      committed SLA and the student sees a real result. **Infrastructure
-      done** (real queue + per-attempt read/sign path, RLS/storage gaps
-      that blocked cross-user admin grading found and fixed); the named
-      grader and SLA commitment itself is still a Product Owner decision,
-      not yet made.
+- [x] Phase 4: infrastructure (real queue + per-attempt read/sign path,
+      RLS/storage gaps that blocked cross-user admin grading found and
+      fixed) and the operational commitment (named grader, SLA,
+      dispute/regrade stance, staged rollout — `DECISION-0059`/
+      `APPROVAL-0049`) are both done. **Still open:** a real submitted
+      attempt actually being graded within the SLA and the student seeing
+      a real result — that needs Stage 1's real end-to-end run, not yet
+      performed.
 
 ## Approval State
 

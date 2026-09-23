@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0049 — Pilot-Scale Operational Commitment for Hand-Drawn Manual Grading (TASK-0038 Phase 4)
 - APPROVAL-0048 — Promote `APBIO-HDG-2026-GRAPH-002` to Human-Graded-Pilot-Approved (TASK-0038 Phase 2)
 - APPROVAL-0047 — Device-Neutral Cramapple Bootstrap and Shared ChatGPT Project Contract
 - APPROVAL-0046 — Confirm QR Handoff as Engine 4's Sole Capture Path; Approve Capture-Failure Handling Split
@@ -25,6 +26,34 @@ Most recent entries (full chronological list follows below):
 - APPROVAL-0018 — Use Official Exam Dates and Confirm Registration
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
+
+## APPROVAL-0049 — Pilot-Scale Operational Commitment for Hand-Drawn Manual Grading (TASK-0038 Phase 4)
+
+**Date:** 2026-09-23
+**Approved By:** David Bloom
+**Related Task:** `TASK-0038-HAND-DRAWN-CAPTURE-REAL-STUDENT-HUMAN-GRADED.md`, Phase 4
+**Decision:** Approved
+
+### Summary
+
+Approves `DECISION-0059`: a pilot-scale operational commitment for manual
+hand-drawn grading, scoped to one item (`APBIO-HDG-2026-GRAPH-002`) and one
+grader (David Bloom). Sets a 24-hour grading SLA with at least daily queue
+checks; adopts a manual, logged-correction interim stance for disputes
+(no regrade tooling exists yet); accepts that manually-graded students
+receive a score but no repair prompt (`highestValueGap` stays null); and
+adopts a two-stage rollout -- Stage 1 (admin-gated, one real end-to-end run
+by David) before Stage 2 (a small named group, never the general Biology
+population), with no further widening without revisiting this decision.
+
+### Notes
+
+- Does **not** close TASK-0020 Program C's Hard Gate -- that still needs the
+  full multi-owner design (Learning Quality, Operations, Privacy/Security)
+  for any broader launch. This approval covers only the one-item, one-grader
+  pilot scope named in `DECISION-0059`.
+- Does not authorize lifting `/session-hand-drawn-pilot`'s admin gate by
+  itself -- Stage 1's real end-to-end run must happen and be reported first.
 
 ## APPROVAL-0048 — Promote `APBIO-HDG-2026-GRAPH-002` to Human-Graded-Pilot-Approved (TASK-0038 Phase 2)
 

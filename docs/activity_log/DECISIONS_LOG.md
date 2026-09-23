@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0059 — Adopt a Pilot-Scale Operational Commitment for Hand-Drawn Manual Grading (Grader, SLA, Dispute/Regrade Stance, Staged Rollout) — TASK-0038 Phase 4
 - DECISION-0058 — Define "Approved" for `label_status` on a Hand-Drawn Item as Human-Graded-Pilot-Ready, Not AI-Grading-Ready or Rights-Cleared; Promote `APBIO-HDG-2026-GRAPH-002` Under That Definition (TASK-0038 Phase 2)
 - DECISION-0057 — BYOQ Items Must Never Expose a Canonical Answer, in Any Mode; Rubric/Deep-Dive/Reference/Points-Strategy Hints Are Allowed
 - DECISION-0056 — Scoped Exception to "Fill Gaps; Do Not Replace": Work Order F May Remove Uncredited Prose Its Own New Span Supersedes
@@ -37,6 +38,95 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~600 lines, archive the older entries to `docs/activity_log/archive/DECISIONS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries. (This log is already well over that threshold — the first archive pass is overdue, not optional.)
 
 (Note: the TASK-0012 branch independently logged its own DECISION-0027/0028 — CORS/ALLOWED_ORIGINS and budget-burn semantics — under different numbers on its own branch. Those land separately when that work merges to `main`; this charter-adoption decision claimed 0027/0028 here because `main` had not yet recorded entries past DECISION-0026 at merge time. If both branches' numbering collides on merge, renumber on whichever side merges second and update this index.)
+
+## DECISION-0059 — Adopt a Pilot-Scale Operational Commitment for Hand-Drawn Manual Grading (Grader, SLA, Dispute/Regrade Stance, Staged Rollout) — TASK-0038 Phase 4
+
+**Date:** 2026-09-23
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Approval:** Product Owner direction, 2026-09-23 (this session) — see `APPROVAL-0049`
+**Related Docs:** `docs/tasks/TASK-0038-HAND-DRAWN-CAPTURE-REAL-STUDENT-HUMAN-GRADED.md`;
+`docs/research/TASK0020_LAUNCH_READINESS_FINDINGS_2026_08_03.md` (Program C)
+**Area:** Grading Operations / Content Governance
+
+### Context
+
+TASK-0020 Program C names "operationalizing manual grading (reviewer queue,
+qualifications, SLA, dispute/regrade path, capacity commitment)" as its own
+Hard Gate before any hand-drawn capture can be graded for real students, and
+scopes the full version of that design to a multi-owner approval (Learning
+Quality Owner, Operations owner, Privacy/Security approvers, Product Owner).
+TASK-0038 built the real infrastructure for this (a working queue,
+`list_manual_grading_queue`/`get_manual_grading_context`) but had nothing to
+say about who grades, how fast, or what happens on a dispute. This decision
+adopts a deliberately narrow, pilot-scale operational commitment -- scoped to
+what the Product Owner alone can approve for a single-item, single-grader
+pilot -- rather than attempting the full Program C launch design in one step.
+
+### Decision
+
+1. **Scope:** this commitment covers exactly one item,
+   `APBIO-HDG-2026-GRAPH-002` (the item `DECISION-0058` promoted). No other
+   item is in scope.
+2. **Grader:** David Bloom, as the only admin who has ever operated this
+   pipeline. No qualified-reviewer roster exists yet; this decision names a
+   person, not a program.
+3. **SLA:** submitted attempts are graded within 24 hours; the queue
+   (`/admin/grade-response`) is checked at least once daily while volume
+   stays near-zero.
+4. **Dispute/regrade — interim stance, not a feature:** no regrade RPC
+   exists (`record_manual_grade` is a one-shot terminal write). A dispute is
+   handled by David personally, via a direct, logged SQL correction (the
+   same rolled-back-verification pattern used throughout this repo's
+   Supabase work), recorded in `ACTIVITY_LOG.md` -- not built as product
+   tooling at this volume.
+5. **Repair authoring gap, accepted as-is for the pilot:** `record_manual_grade`
+   always passes `highestValueGap: null`, so a manually-graded student sees
+   a score but no repair prompt (unlike automated grading, which derives
+   one). Left unbuilt for this pilot rather than blocking on it.
+6. **Staged rollout, each stage gating the next:**
+   - **Stage 1 (now):** `/session-hand-drawn-pilot` stays admin-gated.
+     David personally runs the full loop once under real (non-simulated)
+     conditions -- the one Phase 3 acceptance criterion never yet exercised.
+   - **Stage 2:** only after Stage 1 proves clean, the admin gate lifts for
+     a small, explicitly named group (existing pilot/test accounts) --
+     never the general Biology population.
+   - **No further widening** without revisiting this decision. Automated
+     grading (DR-1) still fails, so every widening step adds directly to
+     David's personal grading queue.
+
+### Rationale
+
+The full Program C design needs sign-off from owners who have not reviewed
+this pilot (Learning Quality, Operations, Privacy/Security) and covers
+qualification rosters, capacity modeling, and audit requirements this
+single-item pilot doesn't yet need. Waiting for that full design before
+making any commitment would leave the infrastructure TASK-0038 just built
+permanently unused. A narrow, honestly-scoped pilot commitment lets the
+pipeline actually get exercised by a real (if very small) audience while
+making explicit what it does *not* yet solve, so nobody later mistakes this
+for the real Program C gate being cleared.
+
+### Consequences
+
+- `/session-hand-drawn-pilot` remains admin-gated until Stage 1's real
+  end-to-end run is done and reported.
+- Any dispute in this pilot window is a manual, logged, one-off correction,
+  not a self-service regrade -- students are not to be told they can request
+  an automated regrade.
+- This decision does not close TASK-0020 Program C's Hard Gate. It is scoped
+  to this one item and this one grader; a broader launch still needs the
+  full multi-owner design Program C names.
+
+### Risks / Follow-ups
+
+- If real volume ever exceeds what one grader can turn around in 24 hours,
+  this commitment needs revisiting before it silently breaks (same failure
+  mode as the earlier "submitted and silently ungraded" incident this
+  session's audit surfaced).
+- Real regrade tooling and repair-authoring for manual grades remain
+  unbuilt; both are reasonable candidates for a future task once real usage
+  justifies the investment.
 
 ## DECISION-0058 — Define "Approved" for `label_status` on a Hand-Drawn Item as Human-Graded-Pilot-Ready, Not AI-Grading-Ready or Rights-Cleared; Promote `APBIO-HDG-2026-GRAPH-002` Under That Definition (TASK-0038 Phase 2)
 
