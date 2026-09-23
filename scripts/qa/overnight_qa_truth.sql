@@ -43,18 +43,35 @@ order by p.subject_key, p.content_key;
 --                       able to confirm a "recovered" span really came from one.
 -- ===========================================================================
 with pub as (
-  select distinct on (civ.content_item_id) civ.content_item_id, civ.version_num
+  select distinct on (civ.content_item_id) civ.content_item_id, civ.version_num,
+         civ.prompt_json->>'split_from' as split_from
   from public.content_item_versions civ
   where civ.status='published'
     and civ.subject_key in ('biology','ap-statistics','ap-calculus-ab','ap-chemistry')
   order by civ.content_item_id, civ.version_num desc
+
+), priors as (
+  select v.content_item_id, v.id as version_id, v.version_num, v.status, v.content_key,
+         v.canonical_answer_1, v.canonical_answer_2,
+         (select count(*) from public.frq_criteria f where f.content_item_version_id = v.id) as criteria_count
+  from public.content_item_versions v
+  join pub p on p.content_item_id = v.content_item_id and v.version_num < p.version_num
+), parents as (
+  -- Retired PARENTS named by prompt_json.split_from. These have no published version, so they are
+  -- neither in the published set nor a prior version of one -- and work order A recovers from them
+  -- (APBIO-FRQ-S-101/102/103 <- APBIO-FRQ-L-025). Omitting them makes every parent recovery read
+  -- as an unresolvable source. This block was added after that false positive was observed.
+  select distinct on (v.content_item_id, v.id)
+         v.content_item_id, v.id as version_id, v.version_num, v.status, v.content_key,
+         v.canonical_answer_1, v.canonical_answer_2,
+         (select count(*) from public.frq_criteria f where f.content_item_version_id = v.id) as criteria_count
+  from public.content_item_versions v
+  where v.content_key in (select distinct split_from from pub where split_from is not null)
 )
-select v.content_item_id, v.id as version_id, v.version_num, v.status, v.content_key,
-       v.canonical_answer_1, v.canonical_answer_2,
-       (select count(*) from public.frq_criteria f where f.content_item_version_id = v.id) as criteria_count
-from public.content_item_versions v
-join pub p on p.content_item_id = v.content_item_id and v.version_num < p.version_num
-order by v.content_item_id, v.version_num;
+select * from priors
+union all
+select * from parents
+order by content_item_id, version_num;
 
 -- ===========================================================================
 -- closed_list.json — the CED closed lists, with the registry subject_key
