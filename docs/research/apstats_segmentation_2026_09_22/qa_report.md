@@ -81,16 +81,47 @@ is what Open Hand shows a student as the full-credit exemplar.
 flags about uncovered criteria and span entanglement while saying nothing about segmenting text that
 matches its own rubric near-verbatim. Recorded as C-QA-002, low severity.
 
-## A scoping inconsistency for the Product Owner
+## Corrected: the drawn-response items, and what is actually missing
 
-**20 of C's 34 in-scope items are drawn-response graph items.** Work order A excluded Biology's four
-equivalents from scope outright — "Text cannot be a full-credit answer for a drawn response; they
-need a spatial canonical on the Engine 4 path." Work order C included twenty of them, and 14 of their
-80 criteria are consequently unearnable by any text answer.
+**An earlier version of this report got this wrong.** It said the 14 uncovered criteria are
+"structurally unearnable by text" and questioned C's scoping against work order A's. The Product
+Owner corrected it, and the correction is right: **hand-drawn capture was built precisely so these
+criteria can be earned.** The drawing earns them; the prose was never supposed to.
 
-Two work orders in the same overnight program took opposite decisions on the same structural
-question. C followed its instructions correctly; the instructions differed. Worth settling as a rule
-rather than per-order, because G and H will hit it again.
+So C's uncovered markings are not a symptom of anything wrong — they are the correct division of
+labour between the text canonical and the spatial one.
+
+Verified read-only in Production, the pieces are further along than my first reading implied:
+
+- **Capture is live.** `app.capture_pairing_tokens` (3 rows), `app.capture_pairing_events` (5 rows),
+  and the `learner-uploads` bucket all exist in Production.
+- **The spatial canonical already exists.** Every one of the 24 published hand-drawn items — 20 AP
+  Statistics and 4 Biology — carries `prompt_json.expected_graph_spec`. For
+  `APSTATS-HDG-2026-GRAPH-005` that is
+  `{x_axis: "hours studied", y_axis: "test score", representation: "scatterplot with trend line"}`,
+  which is exactly what `AXIS_LABELS` needs to be checked against.
+- **Routing is declared.** 23 of 24 carry `rubric_type = 'spatial'`.
+
+**What is missing is the verifier.** All 24 items carry `evaluator_strategy = 'human_shadow'`, and
+the grading router maps that to target `shadow_review`. In
+`supabase/functions/evaluate-attempt/index.ts:1482` that branch is commented as a hold — *"held for
+human/shadow review until the declared verifier is wired in"* — and it awards no points. Production
+does no human grading, so there is nobody at the other end of that hold.
+
+**The practical consequence today:** a student can capture the drawing, and the attempt then holds
+rather than scores. The content is ready and the capture is ready; Engine 4's spatial verifier is the
+gap. That is a sequencing question for the Product Owner, not a defect in C, in the content, or in
+the scoping of either work order. Recorded as C-QA-003.
+
+Two smaller things surfaced while checking this, both recorded:
+
+- **C-QA-006** — `APSTATS-HDG-2026-GRAPH-005` has `rubric_type` NULL where the other 19 carry
+  `'spatial'`. It still routes correctly through the `evaluator_strategy` fallback, so the gap is
+  latent rather than live. Work order I.2 already scopes `rubric_type` coverage.
+- **C-QA-007** — `expected_graph_spec` may be too thin to verify everything it must. GRAPH-005's spec
+  supports `AXIS_LABELS` but does not carry the nine ordered pairs that `POINTS_PLOTTED` requires;
+  that data sits in `stimulus_table` instead. Worth auditing all 24 specs against their spatial
+  criteria **before** the verifier is written rather than after.
 
 ## Segmentation granularity
 
@@ -108,5 +139,6 @@ are re-authored — which C-QA-001 may force anyway.
 segmentations may go to the Product Owner for ratification.
 
 **Does not:** authorise any write to Production; endorse the underlying canonical answers for the 14
-`APSTATS-SFRQ-*` items, which should not serve as grading exemplars until re-authored; or settle
-whether AP Statistics drawn-response items belong on the Engine 4 spatial path.
+`APSTATS-SFRQ-*` items, which should not serve as grading exemplars until re-authored; or make the
+24 hand-drawn items gradeable — they hold at `shadow_review` until Engine 4's spatial verifier is
+wired, however good the segmentation and the capture are.
