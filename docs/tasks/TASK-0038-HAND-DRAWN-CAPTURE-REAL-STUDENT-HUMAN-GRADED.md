@@ -276,6 +276,28 @@ still needs the full multi-owner design (Learning Quality, Operations,
 Privacy/Security). **Next action, still open:** Stage 1's real
 end-to-end run.
 
+### Addendum (2026-09-23) — reviewed against a separate Codex discussion draft
+
+David asked for a review of
+`docs/product/BYOQ_UPLOAD_POLICY_AND_DATA_LIFECYCLE_DISCUSSION_2026_09_23.md`
+(a Codex-authored discussion draft, not yet approved, on BYOQ upload policy
+generally) against this task. Two findings, both resolved same-session:
+
+- The draft's first-upload disclosure requirement (§4) applies to hand-drawn
+  capture too, not just BYOQ uploads — its own "Hand-drawn work" subsection
+  names the hand-drawn scoring feature explicitly. **David's direction**:
+  simple consent copy near the upload action, linking to Terms/Privacy, no
+  separate recorded-acceptance event. Added to `CaptureItem.tsx` (the real
+  `/session` capture component) — a visible "by submitting a photo, you
+  agree to our Terms and Privacy Policy" notice with a PII reminder, shown
+  before and during every capture. `exam-buddy-wireframe` commit `677728c`.
+- The draft's student-initiated-deletion section (§8) directly conflicts
+  with `response_attachments`' immutability trigger (`BEFORE DELETE OR
+  UPDATE`, blocks all deletion including `service_role`, added on purpose
+  by TASK-0025 for grading-dispute/audit integrity). **David's direction**:
+  disregard — that section was discussion only, not a policy decision. No
+  schema change made or needed.
+
 ## Out of Scope (explicitly deferred, not silently dropped)
 
 - Closing DR-1 for automated grading (D3 real-photo volume, reader
