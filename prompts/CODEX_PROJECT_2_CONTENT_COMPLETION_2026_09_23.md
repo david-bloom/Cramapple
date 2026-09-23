@@ -65,6 +65,8 @@ six subjects** — the single largest content gap in the product, and the substa
    migrations, no edge-function deploys. Propose in files; never write to the database.
 2. **Fill gaps; do not replace.** Existing canonical answers, rubrics, criteria, labels and author
    prose are prior work. Where existing content looks wrong, **flag it** — never overwrite it.
+   *(One scoped exception, DECISION-0056: work order F may remove uncredited prose its own new span
+   supersedes, under the conditions in F requirement 5. It applies to F only — not to G, H or I.)*
 3. **Never invent a criterion** outside an item's stored rubric. Never invent a topic code outside
    the closed list.
 4. **State the `WHERE` behind every count.** On a mismatch apply the protocol's tiered rule: at
@@ -272,14 +274,30 @@ Your job: for each of the 88, author an answer span that actually earns its crit
    criterion is covered.
 4. **Flag cross-criterion entanglement** — where one sentence earns two criteria, so deselecting one
    leaves an artifact. A found 23 such cases in the prior run; expect more as you author.
-5. **Report uncredited retained prose; do not delete it.** QA finding A-QA-004 measured **46
-   uncredited recovered sentence-spans across 33 items** (5,661 characters) sitting ahead of drafted
-   spans that restate the same point, so the assembled answer says the same thing twice — clearest
-   at `APBIO-FRQ-S-021`, `APBIO-FRQ-S-058` and `APBIO-FRQ-S-023`. **30 of those 33 items are in your
-   scope.** As you re-author, list in `SUMMARY.md` every item where retained uncredited prose is now
-   redundant against your new span, with the character count. **Do not remove it** — rule 2 of the
-   shared rules stands until a Product Owner decision says otherwise. This list is what that decision
-   will be made from.
+5. **Remove uncredited prose your new span supersedes — authorised, and narrowly.** QA finding
+   A-QA-004 measured **46 uncredited recovered sentence-spans across 33 items** (5,661 characters)
+   sitting ahead of drafted spans that restate the same point, so the assembled answer says the same
+   thing twice — clearest at `APBIO-FRQ-S-021`, `APBIO-FRQ-S-058` and `APBIO-FRQ-S-023`. **30 of
+   those 33 items are in your scope.**
+
+   **DECISION-0056 (Product Owner direction, 2026-09-23) authorises removal for this work order**, as
+   a scoped exception to shared rule 2 ("fill gaps; do not replace"). The exception is narrow:
+
+   - Remove a span **only if** it carries no `criterion_keys`, **and** its provenance is
+     `recovered_*` or `unchanged_from_prior_run`, **and** a span you authored in this run now covers
+     the same content for a criterion of the same item.
+   - **Never** remove a span that earns a criterion, and never remove text because you consider it
+     poorly written. This is a redundancy exception, not an editing licence.
+   - **Log every removal** in a `removals.csv` in your directory: `content_key`, the removed text
+     verbatim, its character count, its provenance, its `source_version_id`, and the criterion whose
+     new span supersedes it. QA re-derives every removed span against Production, so a removal you
+     cannot justify from that table is a finding.
+   - Nothing is deleted from Production. You are changing the assembled proposal, not the stored
+     canonical answer — the original remains in A's directory and in Production either way.
+   - Where removal changes the assembly, spans must still concatenate exactly to `full_text`.
+
+   Out-of-scope items `APBIO-FRQ-S-061`, `APBIO-FRQ-S-063` and `APBIO-FRQ-S-064` carry the same
+   redundancy but have no drafted criteria; leave them alone and list them in `SUMMARY.md`.
 6. **Out of scope, unchanged:** the 4 `APBIO-HDG-2026-GRAPH-*` items (they need a spatial canonical
    on the Engine 4 path) and the 9 point-total mismatches (work order I). Also outside F, and left to
    A's record: `APBIO-FRQ-S-061`, `APBIO-FRQ-S-063` and `APBIO-FRQ-S-064` carry redundant uncredited

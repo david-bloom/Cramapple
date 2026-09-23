@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0056 — Scoped Exception to "Fill Gaps; Do Not Replace": Work Order F May Remove Uncredited Prose Its Own New Span Supersedes
 - DECISION-0055 — Pause the Human Independent-Review (Double/Triple-Reviewer) Requirement for Content; AI Cross-Model QA + Product Owner Approval Is the Operative Gate During the Pause
 - DECISION-0054 — Adopt One Device-Neutral Bootstrap and Shared ChatGPT Project Contract
 - DECISION-0053 — Adopt the Topic Reference Layer Approach (Topic-Scoped, CED Essential-Knowledge-Grounded Vocabulary; Reuse-First Storage); Build Deferred (P2)
@@ -34,6 +35,58 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~600 lines, archive the older entries to `docs/activity_log/archive/DECISIONS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries. (This log is already well over that threshold — the first archive pass is overdue, not optional.)
 
 (Note: the TASK-0012 branch independently logged its own DECISION-0027/0028 — CORS/ALLOWED_ORIGINS and budget-burn semantics — under different numbers on its own branch. Those land separately when that work merges to `main`; this charter-adoption decision claimed 0027/0028 here because `main` had not yet recorded entries past DECISION-0026 at merge time. If both branches' numbering collides on merge, renumber on whichever side merges second and update this index.)
+
+## DECISION-0056 — Scoped Exception to "Fill Gaps; Do Not Replace": Work Order F May Remove Uncredited Prose Its Own New Span Supersedes
+
+**Date:** 2026-09-23
+**Decision Owner:** David Bloom
+**Status:** Approved — scoped to work order F
+**Approval:** Product Owner direction, 2026-09-23 (this session)
+**Related Docs:** `prompts/CODEX_PROJECT_2_CONTENT_COMPLETION_2026_09_23.md` (shared rule 2; work
+order F requirement 5); `docs/research/apbio_canonical_recovery_2026_09_22/qa_findings.csv`
+(A-QA-004); DECISION-0055
+**Area:** Content / Governance
+
+### Context
+
+QA of work order A (2026-09-23) measured **46 uncredited recovered sentence-spans across 33 items**
+— 5,661 characters — retained ahead of newer spans that state the same point, so the assembled
+canonical answer says the same thing twice. `APBIO-FRQ-S-021`, `APBIO-FRQ-S-058` and
+`APBIO-FRQ-S-023` are the clearest cases.
+
+This was not a builder error. Codex was following the standing rule **"fill gaps; do not replace"**,
+which forbids overwriting existing vetted content. The rule produced redundant assemblies precisely
+because it was obeyed. Only a Product Owner decision can relax it, and QA cannot relax a rule it is
+enforcing.
+
+### Decision
+
+**Work order F may remove an uncredited span when its own newly authored span supersedes it**, under
+all of these conditions:
+
+1. The span carries no `criterion_keys`.
+2. Its provenance is `recovered_*` or `unchanged_from_prior_run`.
+3. A span authored in the same run now covers that content for a criterion of the same item.
+4. Every removal is logged in `removals.csv` with the verbatim text, character count, provenance,
+   `source_version_id`, and the superseding criterion — so QA re-derives each one against Production.
+
+**Never** remove a span that earns a criterion, and never remove text on style grounds. This is a
+redundancy exception, not an editing licence.
+
+### Scope and limits
+
+- **Work order F only.** It does **not** extend to G, H or I, and does not amend the shared rule for
+  any other order. G covers 221 FRQ across seven subjects; if the same redundancy appears there, it
+  comes back for a separate decision.
+- **Nothing is deleted from Production.** F changes an assembled proposal. The original text remains
+  in Production and in work order A's directory either way.
+- The QA gate is unchanged: **AI build → independent AI cross-model QA → Product Owner approval**
+  (DECISION-0055). This decision changes what F may propose, not what may serve.
+
+### Open
+
+- Whether the exception should generalise to G, and to canonical-answer authoring as a standing rule,
+  once F's `removals.csv` shows what it actually removed in practice.
 
 ## DECISION-0055 — Pause the Human Independent-Review (Double/Triple-Reviewer) Requirement for Content; AI Cross-Model QA + Product Owner Approval Is the Operative Gate During the Pause
 

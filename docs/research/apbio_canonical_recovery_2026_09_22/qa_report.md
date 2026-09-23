@@ -125,6 +125,25 @@ they are thin as post-submission exemplars. It belongs in front of the Product O
   be the corpus's **only** connective-fragment span, so the content risk is contained; the gap is in the flag
   channel.
 
+## Where each finding is resolved (added 2026-09-23, after disposition)
+
+A's artifacts were **not** edited to close these — doing so would break the isolation this QA was
+certified under, and DECISION-0055's model separation bars the QA model from authoring fixes to
+defects it found. Three of the five findings fall inside **work order F**, which re-authors all 88
+drafted criteria (including `S-073`'s) and had not yet run. The repair was made in F before it runs.
+
+| Finding | Resolved by |
+| --- | --- |
+| A-QA-001 (`S-073` `a`) | **F requirement 2a.** Named as a rejected span Codex must re-author from the stem. The correction is deliberately not quoted from this report, so the QA model does not become its author. |
+| A-QA-002 (rubric restatement) | **F requirement 1a** — thresholds 0.85 re-author / 0.70 justify, confirmed by the Product Owner 2026-09-23 — plus `check_rubric_restatement()` in `scripts/qa/overnight_qa_harness.py`, which enforces them mechanically. F's prior guard was a second-person-phrasing regex that all three character-identical spans would have passed. |
+| A-QA-003 (stale flag on `S-101/102/103`) | **Open, metadata only.** Outside F (those items have no drafted criteria). Closed by Product Owner acceptance as known, or a later rework order. |
+| A-QA-004 (redundant uncredited prose) | **DECISION-0056**, 2026-09-23: F may remove uncredited prose its own new span supersedes, under four conditions and with a logged `removals.csv`. Scoped to F only. |
+| A-QA-005 (`S-102` entanglement flag) | **Open, metadata only.** Outside F. Disclosed in A's `SUMMARY.md` prose; the content is verbatim and correct. |
+
+The harness check reproduces this report's hand measurement exactly against A's real artifacts:
+**n=88, mean 0.582, 33 at or above 0.70, 15 at or above 0.85.** It is wired into order A as
+report-only, since A was dispositioned before it existed, and is a hard gate for F.
+
 ## What this disposition does and does not authorise
 
 **Does:** satisfies DECISION-0055's independent cross-model QA gate for work order A, and unlocks **work order
