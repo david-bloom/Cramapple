@@ -9,6 +9,25 @@ unchanged to every work order here.
 
 ---
 
+## Authoring authorisation — Codex is the named drafter
+
+Work orders F and G assign Codex genuine canonical-answer authorship. **This is explicitly
+authorised by an approved decision, not by this charter.** The canonical-answer decision states:
+*"Codex drafts full-point answers from each FRQ's rubric (it is the drafter only, writes to
+reviewable staging files, not the database); a separate, independent, non-OpenAI model runs the
+QA/verification pass."*
+
+`DECISION-0045`'s stricter constraint — *"no OpenAI model may write or verify; three non-OpenAI
+families required"* — governs **certified gold sets used to evaluate graders**, a different lane.
+The same decision draws the line explicitly: *"Authored canonical ≠ certified gold set (holds
+DECISION-0045's line)."* Do not treat a canonical answer you author as gold-set evidence, and do
+not author or verify anything in the gold-set lane.
+
+Two consequences that bind this project:
+
+1. **You draft; you never verify your own drafts.** QA is a non-OpenAI model.
+2. **A full-point answer is an answer key** and is never exposed to a student before they submit.
+
 ## What this project is NOT
 
 **It is not the QA of work orders A–D.** Those four produced proposals that are now awaiting
@@ -62,14 +81,22 @@ six subjects** — the single largest content gap in the product, and the substa
 ## Shared QA-preparation contract
 
 Every work order produces artifacts a *different* model must be able to recompute without access to
-your reasoning. For each:
+your reasoning.
+
+**Applies to every order:**
 
 - **`packet.jsonl`** — model-neutral inputs only, re-derivable from Production. QA diffs it against
   its own read; if they disagree the run is invalid regardless of proposal quality. Never mix
   inputs and proposal in one file.
-- **A proposal file** with machine-checkable per-item structure: `full_text`, `spans[]` each
-  carrying `text` + `criterion_keys[]` + `provenance` + `source_field` + `source_offset` where a
-  span is recovered, and a `coverage` object naming covered and uncovered criteria explicitly.
+
+**Proposal shape depends on the kind of work** *(corrected 2026-09-23 — an earlier draft applied the
+span schema to all five orders, which is wrong for topic labels and cleanup):*
+
+| Orders | Proposal shape |
+|---|---|
+| **F, G** (canonical answers) | `full_text`; `spans[]` each carrying `text` + `criterion_keys[]` + `provenance` + `source_field` + `source_offset` where recovered; a `coverage` object naming covered and uncovered criteria explicitly; `derivations[]` for every numeric value |
+| **E, H** (topic labels) | the topic-label CSV schema — one row per item with the evidence fields named in each order |
+| **I** (cleanup) | dedicated proposal CSVs, named in the order |
 - **`SUMMARY.md`** written last, carrying an **invariant table with your own measured result for
   each row**, the counts, your open questions, and a lowest-confidence-first ranking so QA can spend
   its budget where you are weakest. **If an invariant fails, report the failure — never adjust the
@@ -124,6 +151,11 @@ Two codes absorbed **45%** of the corpus (`1.3` 92 items, `1.7` 81).
    `proposed_topic_code = "undetermined"` with `needs_human=true`. **An honest `undetermined` is a
    better result than a confident wrong code.** The prior run emitted zero.
 
+   `undetermined` is a **sentinel, not a closed-list code**: leave `proposed_unit` and
+   `proposed_topic_title` blank, and expect QA to count valid registry codes and `undetermined`
+   rows separately rather than treating the sentinel as an invalid code. The QA harness was updated
+   on 2026-09-23 to recognise it.
+
 ## Scope and closed list
 
 All **384** published `ap-statistics` items. Closed list: `taxonomy_source_version`
@@ -140,13 +172,28 @@ and ignore its unit number.
 Registry `subject_key` is `ap_statistics` with an underscore; content is `ap-statistics` with a
 hyphen. **Normalise or you match zero rows.**
 
+## Required evidence columns
+
+Beyond the topic-label schema, every row must carry `previous_topic_code` (what the rejected run
+proposed), `defect_class` (which of the four named classes this item fell into, or blank) and
+`evidence_fields_used` (which of stem / stimulus / rubric / subtopics actually drove the decision).
+Those three make the before/after comparison mechanical instead of a manual diff.
+
+**Preserve the rejected proposal as comparison evidence; never copy its label as a default.**
+
+**The four defect-class counts overlap and must not be summed.** The graph-item class spans both
+Biology and Statistics, which is why 20 + 11 + 24 + 5 exceeds the 56 affected Statistics items.
+Report **unique affected items** plus per-class membership.
+
 ## Success criteria
 
 - Every one of the 384 items carries exactly one closed-list code **or** `undetermined`.
 - **Zero items in the four named defect classes carry their previous wrong code.** Report each
   class explicitly with before/after.
-- **No single topic code exceeds 25% of the subject.** If one does, say why in `SUMMARY.md` —
-  concentration was the symptom that exposed the last run.
+- **Report topic concentration; do not engineer it.** Concentration above ~25% on one code is a
+  *diagnostic* that exposed the last run, **not proof of error and not a target**. If a topic is
+  legitimately common in this bank, label it that way and say so. Never move a label off its correct
+  topic to flatten a distribution — that would trade a visible failure for an invisible one.
 - Report `high`/`medium`/`low` confidence honestly. The prior run reported **zero `high`** across
   502 items; if that repeats, say so rather than inflating.
 
@@ -187,7 +234,7 @@ Your job: for each of the 88, author an answer span that actually earns its crit
 
 ---
 
-# Work order G — canonical answers for the remaining six subjects
+# Work order G — canonical answers for the remaining seven subjects
 
 **Directory:** `docs/research/multisubject_canonical_answers_2026_09_23/`
 **The largest item in this project: 221 FRQ.** Run it subject by subject, committing after each.
@@ -203,10 +250,20 @@ Your job: for each of the 88, author an answer span that actually earns its crit
 | 5 | ap-calculus-bc | 29 | Shares much content with AB; do it after AB |
 | 6 | ap-physics-c-mechanics | 29 | |
 | 7 | ap-physics-2 | 19 | Smallest gap |
-| — | ap-chemistry | 1 | Fold into whichever subject you are on |
+| 8 | ap-chemistry | 1 | **Its own clearly-labelled micro-batch**, not folded into another subject |
 
 **Complete a subject before starting the next**, and commit per subject. A truthful "three subjects
-complete, four not attempted" is a good outcome; seven half-done subjects is not.
+complete, five not attempted" is a good outcome; eight half-done subjects is not.
+
+Write a **per-subject completion manifest** inside the single G directory — `<subject>/manifest.json`
+recording items attempted, items completed, and the UTC window — so an honest partial run is
+mechanically verifiable rather than a prose claim.
+
+**STOP-for-QA between subjects.** The governing decision on canonical answers requires Biology
+drafts to be QA-verified before Statistics generation begins. Apply the same rule here: **finish a
+subject, commit it, and do not begin the next subject's authoring until that subject's QA
+disposition exists** — unless the Product Owner waives the gate in writing. If QA has not run,
+stop and report rather than running ahead.
 
 ## Requirements
 
@@ -265,6 +322,9 @@ topic-level: treat them as a unit hint, not a recoverable code.
 
 **Directory:** `docs/research/mechanical_cleanup_2026_09_23/`
 **Lowest priority. Good filler when a larger order finishes early.** Small, bounded, low risk.
+
+Artifacts: `packet.jsonl`, `point_total_proposal.csv`, `rubric_type_proposal.csv`,
+`open_questions.csv`, `SUMMARY.md`.
 
 ## I.1 — Point-total mismatches
 

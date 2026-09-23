@@ -447,13 +447,22 @@ def order_D(R, truth, run):
     R.check("no duplicate rows", 0, len(dups), not dups, ", ".join(dups[:4]))
 
     CL = {(c["subject_key"], c["topic_code"]): c for c in truth["closed_list"]}
-    invalid = unit_bad = foreign = 0
+    invalid = unit_bad = foreign = undetermined = 0
     for r in prop:
         k = r.get("content_key"); s = r.get("subject_key", "").strip()
         code = (r.get("proposed_topic_code") or "").strip()
         if s not in subs:
             foreign += 1
             R.finding("out_of_scope_subject", "high", k, f"subject {s!r} is not in work order D's scope")
+            continue
+        if code == "undetermined":
+            # A permitted sentinel, not a code: the builder is declaring it cannot determine a
+            # topic from the available fields. That is a better output than a confident wrong
+            # code, so it is counted separately rather than failing closed-list validity.
+            undetermined += 1
+            if (r.get("needs_human") or "").strip().lower() not in ("true", "1", "yes"):
+                R.finding("undetermined_not_routed", "medium", k,
+                          "proposed_topic_code is 'undetermined' but needs_human is not true")
             continue
         c = CL.get((s, code))
         if not c:
@@ -466,7 +475,9 @@ def order_D(R, truth, run):
             unit_bad += 1
             R.finding("unit_topic_mismatch", "high", k,
                       f"proposed_unit {r.get('proposed_unit')} but {code} is unit {c['unit_number']}")
-    R.check("every code in the closed list", 0, invalid, invalid == 0)
+    R.check("every code in the closed list (excl. 'undetermined')", 0, invalid, invalid == 0)
+    R.note("items declared 'undetermined'", "0 or more", undetermined,
+           "a permitted sentinel; high counts mean the evidence fields were thin, not that the run failed")
     R.check("unit matches the code's registry unit", 0, unit_bad, unit_bad == 0)
     R.check("no out-of-scope subjects", 0, foreign, foreign == 0)
 
@@ -489,9 +500,10 @@ def order_D(R, truth, run):
     for (s, c), n in top:
         share = n / max(1, sum(v for (ss, _), v in conc.items() if ss == s))
         if share > 0.25:
-            R.finding("topic_concentration", "medium", f"{s} {c}",
+            R.finding("topic_concentration", "low", f"{s} {c}",
                       f"{n} items ({share:.0%} of the subject) share one topic code",
-                      "The Statistics run failed this way: templated items defaulting to one code")
+                      "DIAGNOSTIC ONLY, not proof of error: check whether a template family "
+                      "defaulted here, but do not move correct labels to flatten the distribution")
 
 
 ORDERS = {"A": order_A, "B": order_B, "C": order_C, "D": order_D}
