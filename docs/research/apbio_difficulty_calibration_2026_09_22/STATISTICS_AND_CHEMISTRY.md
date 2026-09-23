@@ -84,7 +84,7 @@ This mirrors AP Biology: the extremes carry signal, the middle does not.
 | — FRQ | 51 | 17 (33.3%) | 26 (51.0%) | 8 (15.7%) | |
 | — MCQ | 68 | 6 (8.8%) | 62 (91.2%) | **0 (0.0%)** | |
 
-Files: `apstats_difficulty_assignments.csv`, `apchem_difficulty_assignments.csv`.
+Files: `apstats_difficulty_assignments.csv` (superseded by §4b), `apchem_difficulty_assignments.csv`.
 
 Agreement with the existing authored 4-level labels (collapsed to 3): Statistics **44.0%, kappa
 0.084**; Chemistry **47.1%, kappa −0.084**. Both at or below chance. That is not by itself
@@ -164,6 +164,42 @@ not how often it is right. The spot checks above are plausibility evidence, not 
 
 File: `apchem_mcq_characteristics.csv` (regenerate with `assign_chem_mcq_characteristics.py`).
 
+## 4b. Statistics, re-done structurally
+
+The same structural treatment was applied to AP Statistics. Coverage, counting only items that
+matched a real cue (v1 forced its misses to Medium, which inflated that tier):
+
+| Method | Genuinely classified | Distribution |
+|---|---:|---|
+| Keyword v1 | 280 / 384 = 72.9% | Easy 37.0%, Medium 45.1%, Hard 18.0% (104 forced to Medium) |
+| Structural v2 | 304 / 384 = 79.2% | Easy 46.1%, Medium 29.6%, Hard 24.3% |
+| **Structural v3 (landed)** | **349 / 384 = 90.9%** | **Easy 51.0%, Medium 27.8%, Hard 21.2%** |
+
+FRQ reach 80/80 = 100%; MCQ 269/304 = 88.5%.
+
+Two structural signals did the work that keywords could not:
+
+1. **`subtopics` carries `"Unit N: descriptor"` strings** on 135 items (35.2%) — e.g.
+   `Unit 4: independence`, `Unit 4: combinations`, `Unit 9: paired vs independent`. The keyword
+   pass missed these because it searched for phrases like *independent events* rather than parsing
+   the unit. Unit 4 maps straight onto the framework's Hard tier (probability and random
+   variables).
+2. **Short stems carry their content in `stimulus`, not `stem`.** Items like "What type of study is
+   this?" and "Are A and B independent?" are uninterpretable from the stem alone; the scenario
+   lives in the stimulus.
+
+**Judgement call, stated because it is load-bearing.** 33 items are one repeated template —
+"Sampling plan: … Which choice best describes the sampling method?" and a variable-classification
+variant. These were classified **Easy**: read a described plan, recognise and name the method, one
+step, no computation — the same shape as the framework's own Easy example ("identifying the
+explanatory vs. response variable in a scatterplot"). The authored labels call them Medium.
+Sensitivity: if they are Medium instead, the distribution moves from Easy 51.0% / Medium 27.8% to
+**Easy 41.5% / Medium 37.2%**; Hard is unaffected at 21.2%. Worth settling before ratification.
+
+**Caveat unchanged.** Chief Reader Reports score FRQ only, and AP Statistics does not even publish
+per-point FRQ data — its validation remains the six question-level observations in §2. Coverage of
+90.9% is reach, not accuracy.
+
 ## 5. Recommendation
 
 1. **Ratify AP Biology only** (`README.md`). It has 0 unclassified items, 75% validation and 100%
@@ -172,8 +208,10 @@ File: `apchem_mcq_characteristics.csv` (regenerate with `assign_chem_mcq_charact
    of the three, 9/10), characteristics for MCQ (85.3% reach, plausible distribution). The earlier
    "do not ship Chemistry MCQ labels" recommendation applied to the verb-only attempt and is
    superseded by §4a.
-3. **Do not ratify Statistics.** Re-test the Investigative-Task claim against a second year before
-   relying on it, and treat the Easy/Medium boundary as unmeasured.
+3. **Statistics is now labelled to 90.9% reach** (§4b) but its framework validation is still the
+   weakest of the three (n=6, question-level). Settle the 33-item sampling-method template first,
+   re-test the Investigative-Task claim against a second year, and treat the Easy/Medium boundary
+   as unmeasured.
 4. **For MCQ generally, stop trying to infer the verb — classify by structure instead** (§4a).
    Capturing an explicit task-verb or Science-Practice field at authoring time remains the durable
    fix, and is cheap for new content.
