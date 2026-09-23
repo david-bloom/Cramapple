@@ -106,6 +106,13 @@ span schema to all five orders, which is wrong for topic labels and cleanup):*
 - **Reproducibility metadata**: UTC start/end, model identifier, Production project ref, the UTC
   time of your snapshot, and the maximum `version_num` seen per item.
 - **Self-flagged weak points.** Volunteering them makes your run more credible, not less.
+- **Confidence must track topical ambiguity, not metadata quality** *(added 2026-09-23 after QA of
+  work order E)*. E reported 370 `high`, 14 `medium`, 0 `low`, 0 `undetermined`, 0 open questions —
+  and every one of the six items QA rejected was marked `high`. Its `medium` rows all tracked
+  *metadata provenance* (`legacy_metadata_crosswalk`), so a genuinely ambiguous adjacent-topic call
+  was indistinguishable from a certain one, and confidence was useless for triage. **Where two
+  topics both plausibly fit an item, that item is `medium` at best regardless of how clean its
+  metadata is.** An honest `undetermined` still beats a confident wrong code.
 
 An automated harness (`scripts/qa/overnight_qa_harness.py`) recomputes these invariants. It expects
 exactly the field names above. Emitting a different shape does not hide a defect; it produces a
@@ -198,6 +205,56 @@ Report **unique affected items** plus per-class membership.
   topic to flatten a distribution — that would trade a visible failure for an invisible one.
 - Report `high`/`medium`/`low` confidence honestly. The prior run reported **zero `high`** across
   502 items; if that repeats, say so rather than inflating.
+
+---
+
+# Work order E.1 — the six boxplot items E labelled `1.8`
+
+**Directory:** `docs/research/apstats_topic_labels_rework_2026_09_23/` (E's own directory — this is a
+correction to your own proposal, not a new work order's output).
+**Size: six rows.** Do this before F if you are already in that directory; otherwise after F.
+
+## What QA found
+
+E was **accepted except six items**. Read `qa_report.md` and `qa_findings.csv` in that directory
+(finding **E-QA-001**). These six carry `proposed_topic_code = 1.8`:
+
+```
+APSTATS-HDG-2026-GRAPH-007   APSTATS-HDG-2026-GRAPH-013   APSTATS-HDG-2026-GRAPH-014
+APSTATS-HDG-2026-GRAPH-015   APSTATS-HDG-2026-GRAPH-016   APSTATS-HDG-2026-GRAPH-017
+```
+
+Each stimulus reads "compared *X* for **two groups** … Construct **side-by-side boxplots** … Then
+**compare** the typical *X* and the spread in context", and three of each item's four rubric criteria
+are comparison criteria. `1.8` is *Graphical Representations of Summary Statistics for **One**
+Quantitative Variable*. These belong in `1.9`, *Comparisons of the Distributions for One Quantitative
+Variable* — the same topic you correctly assigned to both other compare-two-groups templates.
+
+**Your own `SUMMARY.md` states the rule you did not apply here:** "Both compare-two-groups templates
+were assigned 1.9." This is the defect class that caused the original rejection, in a family the work
+order did not name.
+
+## Requirements
+
+1. **Relabel all six to `1.9`**, with `proposed_topic_title` set to the registry title for `1.9` and
+   `proposed_unit` = 1. Take the title verbatim from `app.taxonomy_topics` at
+   `dae3c72e-82ca-4960-9552-1b034bd347e5`; do not retype it.
+2. **Change nothing else on those rows** except `rationale`, which must say why `1.9` beats `1.8`
+   for a two-group comparison. Leave `previous_topic_code` as the *rejected run's* code — it records
+   the original defect, not this correction. Do not alter the other 378 rows.
+3. **Generalise the fix rather than patching six rows.** Re-run your compare-two-groups detection
+   across every item you labelled `1.5`, `1.6`, `1.7` or `1.8`, and report the result. QA's scan
+   found exactly these six, and `STATS-MOD3-H006` as a correctly-labelled near-miss (`1.6`: it
+   describes one bimodal distribution, not two groups). If your scan finds more than six, say so and
+   fix them; if it finds exactly six, say that too — a confirmed bound is a result.
+4. **Set confidence honestly on the corrected rows.** `1.8` versus `1.9` here is a genuine
+   adjacent-topic call. If you would not stake the run on it, it is `medium`, not `high`. See the
+   shared contract's confidence rule.
+5. **Write `E1_CHANGES.md`** in the same directory: the six rows before and after, your scan result,
+   and one line stating that `qa_report.md` and `qa_findings.csv` describe the **pre-correction**
+   state and are not yours to edit.
+6. **This needs a fresh QA pass.** Correcting a QA finding does not clear the finding; a different
+   model confirms the correction. Do not mark E closed.
 
 ---
 
@@ -426,7 +483,7 @@ find; the recorded figures predate several content changes.
 
 ## Sequencing
 
-**E → F → G → H → I.**
+**E → E.1 → F → G → H → I.**
 
 E is highest value and unblocks a rejected lane. F was gated on A's QA; **that gate is now open
 (2026-09-23) and F's earlier skip is superseded — re-enter F before continuing G.** G is the largest body of work
