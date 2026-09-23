@@ -43,6 +43,12 @@ export type SelectedRow = {
   // quantitative / frq); absent (treated as "frq") for the older
   // select_practice_frqs path, which only ever selects FRQs.
   item_type?: string;
+  // Computed by the caller from prompt_json->>'hand_drawn' before this row
+  // reaches buildRenderItem -- never read from a raw DB column here, so the
+  // rest of prompt_json (which can carry answer-bearing fields like
+  // expected_graph_spec) never has to flow through this type. TASK-0038
+  // Phase 3.
+  hand_drawn?: boolean;
 };
 
 export type McqChoice = {
@@ -124,6 +130,11 @@ export type RenderItem = {
   // a student, same rule toLearnerFacingParts already applies to criteria.
   choices: McqChoice[] | null;
   media: RenderMedia[];
+  // "hand_drawn" means the expected answer is a photographed hand-drawn
+  // response (TASK-0038), submitted via the capture pipeline
+  // (attach_capture) instead of typed text. Only ever "hand_drawn" for rows
+  // select_hand_drawn_pilot_items returns -- see SelectedRow.hand_drawn.
+  response_mode: "typed" | "hand_drawn";
 };
 
 export function assetKey(
@@ -312,5 +323,6 @@ export function buildRenderItem(
     parts: toLearnerFacingParts(criteria),
     choices: choices && choices.length ? [...choices] : null,
     media,
+    response_mode: row.hand_drawn === true ? "hand_drawn" : "typed",
   };
 }

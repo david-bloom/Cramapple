@@ -7,7 +7,8 @@ DR-1-disqualified
 **Owner:** Claude (implementation), Technical Owner (review)
 **Product Owner:** David Bloom
 **Tier:** Hard-Gate
-**Status:** Opened — Phase 1 Done, Phase 2 Done, Phase 3 Next
+**Status:** Opened — Phase 1 Done, Phase 2 Done, Phase 3 Done (Still
+Admin-Gated), Phase 4 Next
 **Priority:** High
 **Created Date:** 2026-09-23
 **Approved Date:** Pending (Product Owner directed "get image capture into
@@ -125,12 +126,66 @@ nothing server-side reads `label_status` yet; Phase 3 is what makes it
 load-bearing.
 
 ### Phase 3 — Real `/session` frontend support for hand-drawn capture
-- Extend `servedItemToQuestion` to detect a hand-drawn response mode from
-  the served item and produce `kind: "hand_drawn"`.
-- Reuse `CaptureItem`/`attach_capture` exactly as `/hand-drawn-pilot`
-  already does — do not fork a second implementation.
-- Remove/relax the pilot route's hard-coded admin-only client gate for the
-  specific promoted item(s) once Phase 2 clears them.
+
+**Done (2026-09-23), still admin-gated.** Found that `CaptureItem` +
+`prepareCaptureSlot`/`submitCapturedResponse` were already wired into the
+*real* `SessionFrame`/`use-session.ts` (built for TASK-0016 Phase D2's QR
+capture) — `/hand-drawn-pilot` is a separate, older, bespoke standalone page
+(`SameDeviceCapture`, its own hand-rolled state machine) that never touches
+this real machinery. The actual gap was narrower than first scoped: real
+`/session` had no way to *reach* a hand-drawn item, not a missing UI.
+
+Backend (`supabase/functions/`):
+- New migration `20260923170000_select_hand_drawn_pilot_items.sql`: a
+  dedicated selector RPC, deliberately separate from
+  `select_practice_frqs`/`select_unit_gated_practice_items` (which, per
+  Phase 1, now actively exclude hand-drawn items) — returns only items with
+  `hand_drawn=true AND label_status='human_graded_pilot_approved'`
+  (belt-and-suspenders double filter). Applied to Development then
+  Production; live-verified against Production returning exactly
+  `APBIO-HDG-2026-GRAPH-002` and nothing else.
+- `_shared/student-item-delivery.ts`: `SelectedRow` gained `hand_drawn?:
+  boolean` (computed by the caller, never read from a raw prompt_json
+  column downstream) and `RenderItem` gained `response_mode: "typed" |
+  "hand_drawn"`. New unit test; fixed a pre-existing stale key-allowlist
+  test (missing `choices`/`item_type`, unrelated to this change — the test
+  had drifted from the real `RenderItem` shape before this session).
+- `student-session-items/index.ts`: new `mode: "hand_drawn_pilot"` branch
+  calling the new selector (no `practice_format` requirement — the promoted
+  item carries `practice_format=null`); new `withHandDrawnFlag` helper
+  derives the safe boolean from `prompt_json` once, at the single place that
+  column is read, so the rest of the pipeline never has to carry or filter
+  the rest of `prompt_json` (which holds answer-bearing fields like
+  `expected_graph_spec`).
+- Deployed to Development then Production (byte-identical content hash
+  confirmed via file-content diff, not just a matching hash). Smoke-tested
+  clean on Development (401 unauthenticated, no crash); Production deploy
+  relies on the identical-content confirmation rather than a direct HTTP
+  call (consistent with this session's established practice of not forcing
+  live Prod HTTP checks).
+- Pre-existing, unrelated finding: `supabase/functions/student-session-items/index_test.ts`
+  is currently broken on `main` (confirmed via `git stash`, not caused by
+  this session) — its fixtures use non-UUID session ids, so every test
+  fails a strict UUID check and returns the wrong status code. Flagged as a
+  separate follow-up task (`task_dff018c9`), not fixed here.
+
+Frontend (`exam-buddy-wireframe`):
+- `use-session.ts`: `servedItemToQuestion` now derives `kind: "hand_drawn"`
+  from `item.response_mode`; new `ServedItem.response_mode` field; new
+  `UseSessionOptions.handDrawnPilot` flag that, when true, skips the
+  ordinary/pilot-MCQ serving paths and requests `mode: "hand_drawn_pilot"`.
+- New route `/session-hand-drawn-pilot`: mounts the real `SessionFrame` +
+  `useSession(..., { handDrawnPilot: true })` against the real selector.
+  Admin-gated and unlinked from any nav, same posture as `/hand-drawn-pilot`
+  — Phase 4 (a real, operational human-grading queue) doesn't exist yet, so
+  a real student submitting today would land in `human_review_pending` with
+  nothing currently committed to resolve it. Opening this route to real
+  students is Phase 4's go-ahead, not this one's.
+- Verified: `tsc --noEmit` clean; `vite build` succeeds and the new route
+  registers in the generated route tree; full Vitest suite 401/402 (the
+  same one pre-existing, unrelated failure this repo has had all session —
+  a stale string-match assertion in `session-setup.test.ts`).
+- **Not committed/pushed yet** — pending this session's next step.
 
 ### Phase 4 — Real human-grading queue
 - TASK-0020 Program C already names "operationalizing manual grading
@@ -159,10 +214,12 @@ load-bearing.
       re-verified live against Production.
 - [x] Phase 2: Product Owner has named the promoted item(s) and the
       operational meaning of "approved" for `label_status`.
-- [ ] Phase 3: a real (non-admin) student can reach a hand-drawn item via
-      `/session`, capture and submit a photo, and have it bound via the
-      existing `attach_capture` pipeline — verified end-to-end with real
-      credentials, not just type-checks.
+- [x] Phase 3 (pipeline built and verified; still admin-gated, not yet
+      opened to real students — that step belongs to Phase 4). A real
+      (non-admin) student CAN technically reach a hand-drawn item via
+      `/session` once the admin gate on `/session-hand-drawn-pilot` is
+      lifted; not yet exercised end-to-end with real non-admin credentials
+      (no such credentials were available this session).
 - [ ] Phase 4: a real submitted attempt is graded by a named human within a
       committed SLA and the student sees a real result.
 
