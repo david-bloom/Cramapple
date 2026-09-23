@@ -115,21 +115,68 @@ So the correct reading is:
   **FRQ rubric criteria**, where task verbs are present.
 - **The Statistics framework is half-sound** — its Hard tier is supported, its Easy/Medium split is
   not, and its Investigative-Task claim is contradicted.
-- **Neither subject's MCQ can be labelled by this method.** They need per-item content judgement,
-  or a different signal entirely.
+- **MCQ cannot be labelled by the *verb* method** — but see §4a. The *characteristics* half of the
+  Chemistry framework does reach them, and it was this document's error to conflate the two.
+
+## 4a. CORRECTION — the characteristics DO work on MCQ, implemented structurally
+
+An earlier version of this document concluded that neither subject's MCQ could be labelled. That
+was wrong, and the error was in the implementation rather than the framework.
+
+The Chemistry framework has two halves: a **task-verb table** and a set of **characteristics**
+(single-step algorithmic / connects two Science Practices / conceptual synthesis). The first pass
+encoded the characteristics as *keyword* markers — `particulate`, `equilibrium shift`, `deviation
+from ideal` — which is vocabulary Chemistry MCQ simply do not use. Measured contribution:
+
+| Cue type | Chemistry MCQ (68) | Chemistry FRQ (51) |
+|---|---:|---:|
+| Characteristic cue fired | **0** | 4 |
+| Verb cue fired | 10 | 46 |
+| Defaulted to Medium | 58 | 1 |
+
+Re-implemented as **structural** detectors — quantities-with-units plus numeric answer choices for
+"single-step algorithmic"; property/trend recall phrasing for "direct recall"; relational and
+multi-step markers for "connects two ideas"; deviation and anomaly phrasing ("even though",
+"does not change … because", "and why") for synthesis — coverage transforms:
+
+| Method on Chemistry MCQ | Classified | Distribution |
+|---|---:|---|
+| Task verb | 10 / 68 = 14.7% | 91.2% Medium, **0 Hard** |
+| Characteristics, structural | **58 / 68 = 85.3%** | Easy 51.7%, Medium 37.9%, Hard 10.3% |
+
+Spot checks against the authored labels are encouraging, and notably correct labels that are
+plainly wrong:
+
+| Item | Authored | Characteristics | Comment |
+|---|---|---|---|
+| "Adding an inert gas … does not change an ideal-gas equilibrium because" | Hard | **Hard** | agree |
+| "first ionization energy of magnesium … greater than aluminum, even though" | — | **Hard** | deviation from a periodic trend, correctly caught |
+| "a process is thermodynamically favorable when …" | **Very Hard** | **Easy** | pure definition recall; the authored label is wrong |
+| "The pH of 1.0×10⁻³ M HCl is approximately" | **Hard** | unclassified | one-step log calculation; authored label is wrong |
+
+**The two halves are complementary, not competing:** verbs reach FRQ rubric criteria (46/51 = 90%),
+characteristics reach MCQ (58/68 = 85%). Use the verb table for FRQ and the characteristics for
+MCQ, rather than choosing between them.
+
+**Caveat — coverage is not accuracy.** The Chief Reader Reports score FRQ only, so no ground truth
+exists for any MCQ in any subject. The 85.3% is a measure of how many items the method can *reach*,
+not how often it is right. The spot checks above are plausibility evidence, not validation.
+
+File: `apchem_mcq_characteristics.csv` (regenerate with `assign_chem_mcq_characteristics.py`).
 
 ## 5. Recommendation
 
 1. **Ratify AP Biology only** (`README.md`). It has 0 unclassified items, 75% validation and 100%
    accuracy at both extremes.
-2. **Adopt the Chemistry framework for FRQ criteria** — it is the best-validated of the three —
-   but do not ship the Chemistry MCQ labels. 91.2% Medium with zero Hard is an artifact of the
-   classifier, not a property of the bank.
+2. **Adopt the Chemistry framework in both halves** — verb table for FRQ criteria (best-validated
+   of the three, 9/10), characteristics for MCQ (85.3% reach, plausible distribution). The earlier
+   "do not ship Chemistry MCQ labels" recommendation applied to the verb-only attempt and is
+   superseded by §4a.
 3. **Do not ratify Statistics.** Re-test the Investigative-Task claim against a second year before
    relying on it, and treat the Easy/Medium boundary as unmeasured.
-4. **For MCQ generally, stop trying to infer the verb.** Either capture an explicit task-verb or
-   Science-Practice field at authoring time — which is cheap for new content and makes this whole
-   problem disappear — or accept per-item human judgement for the existing bank.
+4. **For MCQ generally, stop trying to infer the verb — classify by structure instead** (§4a).
+   Capturing an explicit task-verb or Science-Practice field at authoring time remains the durable
+   fix, and is cheap for new content.
 
 Point 4 is the durable fix. Every difficulty method tested here depends on knowing what cognitive
 task the item demands; three of the ten subjects record it implicitly in prose and the rest do not
