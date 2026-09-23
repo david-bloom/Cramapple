@@ -105,6 +105,27 @@ span schema to all five orders, which is wrong for topic labels and cleanup):*
   invariant.**
 - **Reproducibility metadata**: UTC start/end, model identifier, Production project ref, the UTC
   time of your snapshot, and the maximum `version_num` seen per item.
+- **Every criterion must have text exclusive to it** *(added 2026-09-23 after QA of work orders B and
+  G; applies to every span-shaped order — F and G)*. Spans exist for one reason: **deselecting a
+  rubric point must strike exactly the text that earns it, and nothing else.** A run can satisfy
+  every other invariant here — exact concatenation, full coverage, no invented criteria, removal
+  never emptying the answer — and still fail that purpose completely, which is what happened twice:
+
+  | Run | Criteria with no span of their own | Mean over-strike |
+  |---|---:|---:|
+  | B (AP Statistics, 240 criteria) | 81% | 0.82 |
+  | G `ap-physics-1` (176 criteria) | **100%** | **1.00** |
+  | C (AP Statistics, existing text it may not rewrite) | 35% | 0.35 |
+
+  **The rule:** every criterion must be earned by at least one span tagged with that criterion *and
+  no other*. Measure it yourself and report two numbers in `SUMMARY.md` — the count of criteria with
+  no exclusive span, and the mean over-strike fraction (for each criterion, the share of the text its
+  deselection removes that is not exclusively its own). **Both should be 0.**
+
+  Where one sentence genuinely earns two criteria, you are authoring in F and G, so **split the
+  sentence into two** rather than double-tagging one span. Double-tagging is the last resort, not the
+  default; where you use it, flag it. *(This is the one rule C could not follow, because C segments
+  published prose it is forbidden to rewrite. You are not in that position.)*
 - **Self-flagged weak points.** Volunteering them makes your run more credible, not less.
 - **Confidence must track topical ambiguity, not metadata quality** *(added 2026-09-23 after QA of
   work order E)*. E reported 370 `high`, 14 `medium`, 0 `low`, 0 `undetermined`, 0 open questions —
@@ -352,8 +373,12 @@ Your job: for each of the 88, author an answer span that actually earns its crit
    independent — a deliberately reworded correct answer is worse content, not better provenance.
    The separation DECISION-0055 actually protects is preserved by the next step: a different model
    QAs your correction.
-3. **Re-segment the full answer** so spans still concatenate exactly to `full_text` and every
-   criterion is covered.
+3. **Re-segment the full answer** so spans still concatenate exactly to `full_text`, every criterion
+   is covered, **and every criterion has at least one span tagged to it alone** — see the
+   span-exclusivity invariant in the shared contract. Work orders B and G both satisfied every other
+   segmentation invariant and still failed this one (B at 81%, G's `ap-physics-1` at 100%). You are
+   authoring, so where a sentence earns two criteria, split it into two sentences rather than
+   double-tagging one span. `order_F` in the QA harness enforces this.
 4. **Flag cross-criterion entanglement** — where one sentence earns two criteria, so deselecting one
    leaves an artifact. A found 23 such cases in the prior run; expect more as you author.
 5. **Remove uncredited prose your new span supersedes — authorised, and narrowly.** QA finding
@@ -429,12 +454,49 @@ subject, commit it, and do not begin the next subject's authoring until that sub
 disposition exists** — unless the Product Owner waives the gate in writing. If QA has not run,
 stop and report rather than running ahead.
 
+## G.1 — first, re-cut `ap-physics-1`; it already carries the defect B was rejected for
+
+**Do this before authoring any further subject.** The 39-item `ap-physics-1` batch you have already
+committed fails the span-exclusivity invariant completely: **176 of 176 criteria have no span of
+their own, and the mean over-strike is 1.00** — every character struck by deselecting a criterion is
+shared with another. 88 spans carry 176 criteria, so every span is double-tagged or worse. That is
+the same defect that got work order B's segmentation rejected, and it is worse here.
+
+This is not your error alone: G said "identical in shape to work order B", and B's own invariant
+table had no exclusivity row, so the spec permitted it. The row now exists in the shared contract
+above.
+
+1. **Re-cut the spans** so each of the 176 criteria has at least one span tagged to it alone.
+   `full_text` should not need to change for most items — split existing spans at sentence
+   boundaries.
+2. Where one sentence genuinely earns two criteria, **re-author it into two sentences.** You authored
+   this text, so you may. `full_text` changes there; say so.
+3. **Re-verify** exact concatenation and full coverage after re-cutting — the earlier invariants must
+   still hold.
+4. Report before/after in `ap-physics-1/`: criteria with no exclusive span and mean over-strike, both
+   before and after, plus the count of items whose `full_text` changed and why.
+5. **Then** continue the subject sequence, applying the invariant from the start for subjects 2–8.
+
+`ap-physics-1` has not been QA'd. Re-cut it first so QA reviews the corrected batch rather than
+dispositioning one you already know is defective.
+
 ## Requirements
 
-Identical in shape to work order B, which you have already run for AP Statistics. Per item: author
-a full-credit answer earning **every** stored criterion, segment it into criterion-tagged spans,
-and record a **`derivations[]` entry for every numeric value** in the answer, naming the inputs it
-came from. That field is what lets a second model re-derive your arithmetic instead of trusting it.
+Identical in shape to work order B, which you have already run for AP Statistics — **except for the
+span-exclusivity invariant in the shared contract above, which B did not carry and which is the
+reason B's segmentation was rejected.** Per item: author a full-credit answer earning **every**
+stored criterion, segment it into criterion-tagged spans **each of which earns its criterion and no
+other wherever possible**, and record a **`derivations[]` entry for every numeric value** in the
+answer, naming the inputs it came from. That field is what lets a second model re-derive your
+arithmetic instead of trusting it.
+
+**Tighten `derivations[]` beyond what B emitted** *(QA finding B-QA-002)*. B's derivations were
+complete in count but not mechanically re-derivable: `inputs` carried a boilerplate source quote
+rather than the operands, and `expression` repeated the whole answer sentence for every value in it,
+so QA had to parse arithmetic out of prose. For G: `expression` is the formula for **that one
+value**, `inputs` names the operands as label/value pairs, and a value read from a table — a t\*, a
+z, a χ² critical value — is `kind: "looked_up"` with the distribution and parameters named, not
+`kind: "computed"`.
 
 Two subject-specific cautions:
 

@@ -118,6 +118,51 @@ def _tokens(s):
     return re.sub(r"[^a-z0-9 ]", " ", (s or "").lower()).split()
 
 
+def check_span_exclusivity(R, proposals, truth_by_key, *, label="", fail_run=True):
+    """Can deselecting one rubric point strike exactly the text that earns it?
+
+    Added 2026-09-23 after QA of work orders B and G. Both satisfied every other segmentation
+    invariant -- exact concatenation, full coverage, no invented criteria, removal never emptying
+    the answer -- and still failed the purpose the spans exist for. B: 81% of criteria had no span
+    of their own, mean over-strike 0.82. G's ap-physics-1: 100% and 1.00, every span double-tagged.
+
+    Reports two numbers: criteria with no exclusive span, and the mean over-strike fraction -- for
+    each criterion, the share of the text its deselection removes that is not exclusively its own.
+    """
+    no_exclusive, scored, over = [], 0, []
+    for p in proposals:
+        key = p.get("content_key")
+        spans = p.get("spans") or []
+        covered = {ck for s in spans for ck in (s.get("criterion_keys") or [])}
+        alone = {ck for s in spans if len(s.get("criterion_keys") or []) == 1
+                 for ck in s["criterion_keys"]}
+        for ck in sorted(covered):
+            scored += 1
+            struck = sum(len(s.get("text", "")) for s in spans if ck in (s.get("criterion_keys") or []))
+            excl = sum(len(s.get("text", "")) for s in spans if (s.get("criterion_keys") or []) == [ck])
+            if struck:
+                over.append((struck - excl) / struck)
+            if ck not in alone:
+                no_exclusive.append((key, ck))
+    if not scored:
+        return True
+    mean_over = sum(over) / len(over) if over else 0.0
+    print(f"\n  span exclusivity: {len(no_exclusive)} of {scored} criteria have no span of their "
+          f"own; mean over-strike {mean_over:.2f}")
+    by_item = Counter(k for k, _ in no_exclusive)
+    for k, n in by_item.most_common():
+        R.finding("criterion_without_exclusive_span", "high", k,
+                  f"{n} criterion(s) have no span tagged to them alone, so deselecting one strikes "
+                  f"text earning another",
+                  "Split the shared span at a sentence boundary; if one sentence genuinely earns "
+                  "two criteria, re-author it into two (F and G author their own text)")
+    ok = not no_exclusive
+    R.check(f"every criterion has a span of its own{label}", 0,
+            f"{len(no_exclusive)} of {scored} (mean over-strike {mean_over:.2f})",
+            ok or not fail_run)
+    return ok
+
+
 def check_rubric_restatement(R, proposals, truth_by_key, *, label="",
                              hard=0.85, soft=0.70, fail_run=False):
     """Does an AUTHORED span answer the question, or just say the criterion back?
@@ -599,8 +644,9 @@ def order_F(R, truth, run):
     check_spans(R, in_scope, by_key, label="F",
                 items_by_key={i["content_key"]: i for i in truth["items"]})
 
-    # the gate F was written around
+    # the two gates F was written around
     check_rubric_restatement(R, in_scope, by_key, label=" (F)", fail_run=True)
+    check_span_exclusivity(R, in_scope, by_key, label=" (F)", fail_run=True)
 
     # DECISION-0056: every removal must be auditable, and each removed span must have really
     # existed in Production. A removal that cannot be traced is worse than one not made.
