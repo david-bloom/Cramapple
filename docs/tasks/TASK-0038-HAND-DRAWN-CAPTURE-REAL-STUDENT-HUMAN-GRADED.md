@@ -7,8 +7,7 @@ DR-1-disqualified
 **Owner:** Claude (implementation), Technical Owner (review)
 **Product Owner:** David Bloom
 **Tier:** Hard-Gate
-**Status:** Opened — Phase 1 Done, Phase 2 Next (Pending Product Owner Item
-Selection)
+**Status:** Opened — Phase 1 Done, Phase 2 Done, Phase 3 Next
 **Priority:** High
 **Created Date:** 2026-09-23
 **Approved Date:** Pending (Product Owner directed "get image capture into
@@ -103,13 +102,27 @@ where this gap was live and where the fix was actually verified against
 real data.
 
 ### Phase 2 — Promote a narrow, real item set off `ai_provisional_unapproved`
-- Product Owner selects which item(s) move from pilot to real (start with
-  the existing pilot item, `APBIO-HDG-2026-GRAPH-002`, or another with
-  `review_status='question_review_approved'` already set).
-- Define what "approved" means operationally for this label (who signs off,
-  what evidence) — this repo has never actually used `label_status` as a
-  real gate before, so this task has to define its first real semantics, not
-  just flip a flag.
+
+**Done (2026-09-23).** `DECISION-0058`/`APPROVAL-0048`: defined "approved" for
+this task's scope as human-graded-pilot-ready (a clean `tutor_question`-stage
+review trail, checked against `app.content_review_decisions` directly rather
+than trusting `review_status` at face value) — explicitly **not**
+AI-grading-readiness and **not** rights clearance, both of which remain open
+for the whole hand-drawn corpus. Reviewed the 24 published,
+`tutor_question`-approved candidates (12 `APBIO-HDG-*`, cross-referenced
+against known corpus defects in
+`docs/research/HAND_DRAWN_REAL_PHOTO_GRADING_ACCURACY_2026_08_18.md` — none
+of the axis-tick-corrupted `EST-*`-archetype items are in this set) and named
+**`APBIO-HDG-2026-GRAPH-002`** (`content_item_version_id
+1c29347d-0f41-4f09-96a7-6f863be82eaf`), the existing pilot item: reuses all
+built plumbing, and its one flagged review concern (Accuracy/Ambiguity, plus
+a curriculum-fit note) was fixed and cleanly re-approved 2026-08-08.
+`prompt_json.label_status` updated on Production from
+`ai_provisional_unapproved` to `human_graded_pilot_approved`, with a
+`human_graded_pilot_approval` object recording the decision/approval IDs and
+explicit scope. Verified live. This value is still descriptive only —
+nothing server-side reads `label_status` yet; Phase 3 is what makes it
+load-bearing.
 
 ### Phase 3 — Real `/session` frontend support for hand-drawn capture
 - Extend `servedItemToQuestion` to detect a hand-drawn response mode from
@@ -144,7 +157,7 @@ real data.
 - [x] Phase 1: hand-drawn items provably excluded from
       `select_practice_frqs`/real `/session` delivery; regression test added;
       re-verified live against Production.
-- [ ] Phase 2: Product Owner has named the promoted item(s) and the
+- [x] Phase 2: Product Owner has named the promoted item(s) and the
       operational meaning of "approved" for `label_status`.
 - [ ] Phase 3: a real (non-admin) student can reach a hand-drawn item via
       `/session`, capture and submit a photo, and have it bound via the

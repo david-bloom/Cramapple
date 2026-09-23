@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0058 — Define "Approved" for `label_status` on a Hand-Drawn Item as Human-Graded-Pilot-Ready, Not AI-Grading-Ready or Rights-Cleared; Promote `APBIO-HDG-2026-GRAPH-002` Under That Definition (TASK-0038 Phase 2)
 - DECISION-0057 — BYOQ Items Must Never Expose a Canonical Answer, in Any Mode; Rubric/Deep-Dive/Reference/Points-Strategy Hints Are Allowed
 - DECISION-0056 — Scoped Exception to "Fill Gaps; Do Not Replace": Work Order F May Remove Uncredited Prose Its Own New Span Supersedes
 - DECISION-0055 — Pause the Human Independent-Review (Double/Triple-Reviewer) Requirement for Content; AI Cross-Model QA + Product Owner Approval Is the Operative Gate During the Pause
@@ -36,6 +37,87 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~600 lines, archive the older entries to `docs/activity_log/archive/DECISIONS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries. (This log is already well over that threshold — the first archive pass is overdue, not optional.)
 
 (Note: the TASK-0012 branch independently logged its own DECISION-0027/0028 — CORS/ALLOWED_ORIGINS and budget-burn semantics — under different numbers on its own branch. Those land separately when that work merges to `main`; this charter-adoption decision claimed 0027/0028 here because `main` had not yet recorded entries past DECISION-0026 at merge time. If both branches' numbering collides on merge, renumber on whichever side merges second and update this index.)
+
+## DECISION-0058 — Define "Approved" for `label_status` on a Hand-Drawn Item as Human-Graded-Pilot-Ready, Not AI-Grading-Ready or Rights-Cleared; Promote `APBIO-HDG-2026-GRAPH-002` Under That Definition (TASK-0038 Phase 2)
+
+**Date:** 2026-09-23
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Approval:** Product Owner direction, 2026-09-23 (this session) — see `APPROVAL-0048`
+**Related Docs:** `docs/tasks/TASK-0038-HAND-DRAWN-CAPTURE-REAL-STUDENT-HUMAN-GRADED.md`;
+`docs/tasks/TASK-0025-HAND-DRAWN-CAPTURE-ATTACHMENT-SCHEMA.md`
+**Area:** Content Governance / Grading
+
+### Context
+
+TASK-0025 shipped `prompt_json.label_status` on hand-drawn content but the repo has
+never actually used it as a real gate, and TASK-0038's audit found nothing
+server-side ever reads it — it is descriptive metadata, not enforcement. Phase 2 of
+TASK-0038 needed to define, for the first time, what moving a hand-drawn item off
+`ai_provisional_unapproved` actually certifies, before picking which item to
+promote. Checked the real review trail (`app.content_review_decisions`) rather than
+trusting the `review_status='question_review_approved'` label at face value: every
+review on record for the hand-drawn corpus is stage `tutor_question` (content/prompt
+quality) — there is no `reader` stage anywhere in the corpus, i.e. no one has ever
+certified the *grading criteria* the way TASK-0016 Phase D's D3 reader-certification
+step requires for automated grading.
+
+### Decision
+
+For this task's scope (human-graded delivery, not automated), "approved" on
+`label_status` means:
+
+1. The item's **question/prompt text** has a clean `tutor_question`-stage review
+   trail — approved outright, or an earlier flagged concern with a documented fix
+   and a clean re-review. (Automated-grading reader-certification is explicitly
+   **not** part of this bar — the human grader substitutes for it live, which is
+   the entire point of routing this through `record_manual_grade` instead of
+   `evaluate-attempt`.)
+2. The Product Owner has reviewed that trail directly (not delegated to a label) and
+   named the item in-session.
+3. `rights_status` remains whatever it already is (`independently_authored_
+   synthetic_research_seed_unverified` for every hand-drawn item that exists) —
+   this decision does **not** certify authorship/rights clearance. That stays a
+   separate, still-open gap across the whole HDG corpus.
+
+Under this definition, David reviewed the candidate set (24 published,
+`tutor_question`-approved hand-drawn items across Biology and Statistics) and named
+**`APBIO-HDG-2026-GRAPH-002`** (`content_item_version_id
+1c29347d-0f41-4f09-96a7-6f863be82eaf`) — the existing pilot item, whose one flagged
+review concern (Accuracy/Ambiguity, plus a curriculum-fit note that boxplot
+construction reads more like a Statistics skill than Biology) was fixed and
+re-approved 2026-08-08.
+
+### Rationale
+
+Using the existing `review_status` label at face value would have silently smuggled
+in a claim ("reader-certified") this corpus has never actually earned. Defining the
+bar explicitly, and pointing it only at what a human grader actually needs (a
+trustworthy question, not a pre-certified rubric), keeps this task's real scope —
+human-graded pilot delivery — from being confused with the separate, much larger
+DR-1/automated-grading-readiness gate this task deliberately does not attempt to
+close.
+
+### Consequences
+
+- `app.content_item_versions.prompt_json->>'label_status'` for
+  `APBIO-HDG-2026-GRAPH-002` moves from `ai_provisional_unapproved` to
+  `human_graded_pilot_approved` (Production only; the item does not exist in
+  Development). The value is descriptive, matching every other use of this field —
+  Phase 3 is what will make it load-bearing.
+- This label's meaning is scoped to *this task*. It must not be read elsewhere as
+  "safe for automated grading" or "rights-cleared" — both remain false for this
+  item and the rest of the corpus.
+- Future items promoted under this same task inherit this same definition unless a
+  later decision changes it.
+
+### Risks / Follow-ups
+
+- Rights/authorship verification for the hand-drawn corpus remains entirely open;
+  scoping that is out of TASK-0038 (see its "Out of Scope" section).
+- If this pilot is later judged ready for automated grading, the real D3
+  reader-certification step still has to happen — this decision does not shortcut
+  it.
 
 ## DECISION-0057 — BYOQ Items Must Never Expose a Canonical Answer, in Any Mode; Rubric/Deep-Dive/Reference/Points-Strategy Hints Are Allowed
 
