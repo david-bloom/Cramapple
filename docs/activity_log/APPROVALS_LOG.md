@@ -6,6 +6,8 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0049 — Pilot-Scale Operational Commitment for Hand-Drawn Manual Grading (TASK-0038 Phase 4)
+- APPROVAL-0048 — Promote `APBIO-HDG-2026-GRAPH-002` to Human-Graded-Pilot-Approved (TASK-0038 Phase 2)
 - APPROVAL-0047 — Device-Neutral Cramapple Bootstrap and Shared ChatGPT Project Contract
 - APPROVAL-0046 — Confirm QR Handoff as Engine 4's Sole Capture Path; Approve Capture-Failure Handling Split
 - APPROVAL-0045 — Retire Engine 4's Dual-Human-Adjudicated Gold Requirement; Adopt the DECISION-0045 Gold Model
@@ -24,6 +26,62 @@ Most recent entries (full chronological list follows below):
 - APPROVAL-0018 — Use Official Exam Dates and Confirm Registration
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
+
+## APPROVAL-0049 — Pilot-Scale Operational Commitment for Hand-Drawn Manual Grading (TASK-0038 Phase 4)
+
+**Date:** 2026-09-23
+**Approved By:** David Bloom
+**Related Task:** `TASK-0038-HAND-DRAWN-CAPTURE-REAL-STUDENT-HUMAN-GRADED.md`, Phase 4
+**Decision:** Approved
+
+### Summary
+
+Approves `DECISION-0059`: a pilot-scale operational commitment for manual
+hand-drawn grading, scoped to one item (`APBIO-HDG-2026-GRAPH-002`) and one
+grader (David Bloom). Sets a 24-hour grading SLA with at least daily queue
+checks; adopts a manual, logged-correction interim stance for disputes
+(no regrade tooling exists yet); accepts that manually-graded students
+receive a score but no repair prompt (`highestValueGap` stays null); and
+adopts a two-stage rollout -- Stage 1 (admin-gated, one real end-to-end run
+by David) before Stage 2 (a small named group, never the general Biology
+population), with no further widening without revisiting this decision.
+
+### Notes
+
+- Does **not** close TASK-0020 Program C's Hard Gate -- that still needs the
+  full multi-owner design (Learning Quality, Operations, Privacy/Security)
+  for any broader launch. This approval covers only the one-item, one-grader
+  pilot scope named in `DECISION-0059`.
+- Does not authorize lifting `/session-hand-drawn-pilot`'s admin gate by
+  itself -- Stage 1's real end-to-end run must happen and be reported first.
+
+## APPROVAL-0048 — Promote `APBIO-HDG-2026-GRAPH-002` to Human-Graded-Pilot-Approved (TASK-0038 Phase 2)
+
+**Date:** 2026-09-23
+**Approved By:** David Bloom
+**Related Task:** `TASK-0038-HAND-DRAWN-CAPTURE-REAL-STUDENT-HUMAN-GRADED.md`, Phase 2
+**Decision:** Approved
+
+### Summary
+
+Approves `DECISION-0058`'s operational definition of "approved" for hand-drawn
+`label_status` (human-graded-pilot-ready; explicitly not AI-grading-ready, not
+rights-cleared) and names `APBIO-HDG-2026-GRAPH-002` (`content_item_version_id
+1c29347d-0f41-4f09-96a7-6f863be82eaf`) as the item promoted under it, after
+reviewing its real `content_review_decisions` trail (one flagged concern, fixed and
+re-approved 2026-08-08) rather than the `review_status` label alone. Authorizes
+updating `prompt_json.label_status` on this item from `ai_provisional_unapproved` to
+`human_graded_pilot_approved` in Production.
+
+### Notes
+
+- This approval covers this one item only; it does not blanket-approve the other 23
+  reviewed-but-`ai_provisional_unapproved` hand-drawn items, and does not authorize
+  Phase 3 (real `/session` frontend wiring) or Phase 4 (a real human-grading queue)
+  — each remains its own go-ahead per TASK-0038's Hard-Gate tier.
+- Does not certify automated grading readiness (DR-1 remains failed, unchanged) or
+  content rights/authorship (`rights_status` remains
+  `independently_authored_synthetic_research_seed_unverified`).
 
 ## APPROVAL-0047 — Device-Neutral Cramapple Bootstrap and Shared ChatGPT Project Contract
 

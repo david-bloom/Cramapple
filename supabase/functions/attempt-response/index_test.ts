@@ -136,3 +136,80 @@ Deno.test("submit-entitlement-gate: attempt_not_found from authorize_grading_acc
   const body = await res.json();
   assertEquals(body.error, "attempt_not_found");
 });
+
+// TASK-0038 Phase 4: both new read operations exist ONLY because
+// app.attempts/response_attachments RLS is owner-only with no admin bypass,
+// so a non-admin must be refused before either ever reaches the service
+// client (these forbidden checks run before any `.from()` call, so the
+// existing rpc-only fake service is sufficient -- it would throw on an
+// unexpected `.from()` call, which is exactly the point).
+function opRequest(operation: string, overrides: Record<string, unknown> = {}) {
+  return new Request("http://localhost/attempt-response", {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+      authorization: "Bearer test-token",
+    },
+    body: JSON.stringify({
+      operation,
+      idempotency_key: crypto.randomUUID(),
+      attempt_id: crypto.randomUUID(),
+      ...overrides,
+    }),
+  });
+}
+
+// The idempotency lookup (audit_events) runs before operation dispatch for
+// every non-submit_response operation, so the fake has to tolerate that one
+// table -- the assertion that matters is that a forbidden caller's request
+// never reaches any OTHER table (attempts, response_attachments, ...).
+function makeForbiddenPathService() {
+  const tablesQueried: string[] = [];
+  const stub = {
+    select: () => stub,
+    eq: () => stub,
+    order: () => stub,
+    in: () => stub,
+    maybeSingle: () => Promise.resolve({ data: null, error: null }),
+    single: () => Promise.resolve({ data: null, error: null }),
+    then: (resolve: (v: unknown) => void) =>
+      resolve({ data: [], error: null }),
+  };
+  const service = {
+    schema: () => ({
+      rpc: () => {
+        throw new Error("must not be called for a forbidden caller");
+      },
+      from: (table: string) => {
+        tablesQueried.push(table);
+        return stub;
+      },
+    }),
+    // deno-lint-ignore no-explicit-any
+  } as any;
+  return { service, tablesQueried };
+}
+
+Deno.test("list_manual_grading_queue: a student caller is refused, never queries attempt data", async () => {
+  const { service, tablesQueried } = makeForbiddenPathService();
+  const res = await handleAttemptResponse(
+    opRequest("list_manual_grading_queue"),
+    { service, requireProfile: fakeAuth({ id: crypto.randomUUID() }, "student") },
+  );
+  assertEquals(res.status, 403);
+  const body = await res.json();
+  assertEquals(body.error, "forbidden");
+  assertEquals(tablesQueried, ["audit_events"]);
+});
+
+Deno.test("get_manual_grading_context: a student caller is refused, never queries attempt data", async () => {
+  const { service, tablesQueried } = makeForbiddenPathService();
+  const res = await handleAttemptResponse(
+    opRequest("get_manual_grading_context"),
+    { service, requireProfile: fakeAuth({ id: crypto.randomUUID() }, "student") },
+  );
+  assertEquals(res.status, 403);
+  const body = await res.json();
+  assertEquals(body.error, "forbidden");
+  assertEquals(tablesQueried, ["audit_events"]);
+});

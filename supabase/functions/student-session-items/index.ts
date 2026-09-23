@@ -85,6 +85,24 @@ function asPositiveInt(value: unknown, fallback: number) {
   return Math.min(parsed, MAX_ITEMS);
 }
 
+// Every selector RPC (select_practice_frqs, select_unit_gated_practice_items,
+// select_confirm_transfer_item, select_hand_drawn_pilot_items) returns a raw
+// prompt_json column. This is the ONLY place that column is read -- it
+// derives the single safe boolean SelectedRow.hand_drawn and prompt_json
+// itself is discarded, so nothing downstream (buildRenderItem, RenderItem)
+// ever has to carry or filter the rest of prompt_json (which holds
+// answer-bearing fields like expected_graph_spec). TASK-0038 Phase 3.
+function withHandDrawnFlag(
+  rows: ReadonlyArray<SelectedRow & { prompt_json?: unknown }>,
+): SelectedRow[] {
+  return rows.map(({ prompt_json, ...row }) => ({
+    ...row,
+    hand_drawn:
+      typeof prompt_json === "object" && prompt_json !== null &&
+        (prompt_json as Record<string, unknown>).hand_drawn === true,
+  }));
+}
+
 // Only these three columns are ever read from frq_criteria. The same table
 // carries evidence_requirements, minimum_fix, and accepted_variants, which are
 // answer-bearing and must never reach a student. Verified 2026-08-05.
@@ -265,11 +283,16 @@ export async function handleStudentSessionItems(
 
   // "unit_gated" additionally serves mcq/quantitative alongside frq, scoped by
   // the student's real course-position unit via select_unit_gated_practice_items
-  // (TASK-0025). Default "frq_only" keeps the original TASK-0021 behaviour
+  // (TASK-0025). "hand_drawn_pilot" (TASK-0038) serves ONLY items explicitly
+  // promoted to human_graded_pilot_approved via select_hand_drawn_pilot_items
+  // -- a caller must ask for this mode by name, it is never blended into the
+  // ordinary queue. Default "frq_only" keeps the original TASK-0021 behaviour
   // (select_practice_frqs) unchanged for existing callers. The confirm-transfer
   // branch ignores mode entirely -- it always serves one same-cell item.
   const ordinaryMode = input.mode === "unit_gated"
     ? "unit_gated" as const
+    : input.mode === "hand_drawn_pilot"
+    ? "hand_drawn_pilot" as const
     : "frq_only" as const;
   const itemTypeFilter = typeof input.item_type === "string"
     ? input.item_type
@@ -363,7 +386,9 @@ export async function handleStudentSessionItems(
       // select_confirm_transfer_item only ever returns MCQs (item_type='mcq'
       // filter in the RPC); tag them so the delivery layer marks them mcq and
       // the client renders answer choices rather than an FRQ textarea.
-      const rows = ((selected ?? []) as SelectedRow[]).map((r) => ({
+      const rows = withHandDrawnFlag(
+        (selected ?? []) as SelectedRow[],
+      ).map((r) => ({
         ...r,
         item_type: "mcq",
       }));
@@ -438,6 +463,18 @@ export async function handleStudentSessionItems(
           _limit: limit,
         },
       ));
+    } else if (ordinaryMode === "hand_drawn_pilot") {
+      // No practice_format requirement -- pilot items aren't tied to the
+      // targeted_drill/full_exam_frq model (APBIO-HDG-2026-GRAPH-002 carries
+      // practice_format=null). select_hand_drawn_pilot_items does its own
+      // complete filtering (published, hand_drawn, promoted label_status).
+      ({ data: selected, error: selectError } = await service.rpc(
+        "select_hand_drawn_pilot_items",
+        {
+          _exam_pack_version_id: session.exam_pack_version_id,
+          _limit: limit,
+        },
+      ));
     } else {
       // select_practice_frqs has no NULL fallback by design. Mirror that here
       // rather than substituting a default -- a session with no format must
@@ -468,7 +505,7 @@ export async function handleStudentSessionItems(
       return respond({ error: "item_selection_failed" }, { status: 500 });
     }
 
-    const rows = (selected ?? []) as SelectedRow[];
+    const rows = withHandDrawnFlag((selected ?? []) as SelectedRow[]);
     const delivered = await deliverRows(service, rows, qaMode);
     if (!delivered.ok) {
       return respond({ error: delivered.error }, { status: 500 });

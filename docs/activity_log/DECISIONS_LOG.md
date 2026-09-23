@@ -6,6 +6,9 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0059 — Adopt a Pilot-Scale Operational Commitment for Hand-Drawn Manual Grading (Grader, SLA, Dispute/Regrade Stance, Staged Rollout) — TASK-0038 Phase 4
+- DECISION-0058 — Define "Approved" for `label_status` on a Hand-Drawn Item as Human-Graded-Pilot-Ready, Not AI-Grading-Ready or Rights-Cleared; Promote `APBIO-HDG-2026-GRAPH-002` Under That Definition (TASK-0038 Phase 2)
+- DECISION-0057 — BYOQ Items Must Never Expose a Canonical Answer, in Any Mode; Rubric/Deep-Dive/Reference/Points-Strategy Hints Are Allowed
 - DECISION-0056 — Scoped Exception to "Fill Gaps; Do Not Replace": Work Order F May Remove Uncredited Prose Its Own New Span Supersedes
 - DECISION-0055 — Pause the Human Independent-Review (Double/Triple-Reviewer) Requirement for Content; AI Cross-Model QA + Product Owner Approval Is the Operative Gate During the Pause
 - DECISION-0054 — Adopt One Device-Neutral Bootstrap and Shared ChatGPT Project Contract
@@ -35,6 +38,244 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~600 lines, archive the older entries to `docs/activity_log/archive/DECISIONS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries. (This log is already well over that threshold — the first archive pass is overdue, not optional.)
 
 (Note: the TASK-0012 branch independently logged its own DECISION-0027/0028 — CORS/ALLOWED_ORIGINS and budget-burn semantics — under different numbers on its own branch. Those land separately when that work merges to `main`; this charter-adoption decision claimed 0027/0028 here because `main` had not yet recorded entries past DECISION-0026 at merge time. If both branches' numbering collides on merge, renumber on whichever side merges second and update this index.)
+
+## DECISION-0059 — Adopt a Pilot-Scale Operational Commitment for Hand-Drawn Manual Grading (Grader, SLA, Dispute/Regrade Stance, Staged Rollout) — TASK-0038 Phase 4
+
+**Date:** 2026-09-23
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Approval:** Product Owner direction, 2026-09-23 (this session) — see `APPROVAL-0049`
+**Related Docs:** `docs/tasks/TASK-0038-HAND-DRAWN-CAPTURE-REAL-STUDENT-HUMAN-GRADED.md`;
+`docs/research/TASK0020_LAUNCH_READINESS_FINDINGS_2026_08_03.md` (Program C)
+**Area:** Grading Operations / Content Governance
+
+### Context
+
+TASK-0020 Program C names "operationalizing manual grading (reviewer queue,
+qualifications, SLA, dispute/regrade path, capacity commitment)" as its own
+Hard Gate before any hand-drawn capture can be graded for real students, and
+scopes the full version of that design to a multi-owner approval (Learning
+Quality Owner, Operations owner, Privacy/Security approvers, Product Owner).
+TASK-0038 built the real infrastructure for this (a working queue,
+`list_manual_grading_queue`/`get_manual_grading_context`) but had nothing to
+say about who grades, how fast, or what happens on a dispute. This decision
+adopts a deliberately narrow, pilot-scale operational commitment -- scoped to
+what the Product Owner alone can approve for a single-item, single-grader
+pilot -- rather than attempting the full Program C launch design in one step.
+
+### Decision
+
+1. **Scope:** this commitment covers exactly one item,
+   `APBIO-HDG-2026-GRAPH-002` (the item `DECISION-0058` promoted). No other
+   item is in scope.
+2. **Grader:** David Bloom, as the only admin who has ever operated this
+   pipeline. No qualified-reviewer roster exists yet; this decision names a
+   person, not a program.
+3. **SLA:** submitted attempts are graded within 24 hours; the queue
+   (`/admin/grade-response`) is checked at least once daily while volume
+   stays near-zero.
+4. **Dispute/regrade — interim stance, not a feature:** no regrade RPC
+   exists (`record_manual_grade` is a one-shot terminal write). A dispute is
+   handled by David personally, via a direct, logged SQL correction (the
+   same rolled-back-verification pattern used throughout this repo's
+   Supabase work), recorded in `ACTIVITY_LOG.md` -- not built as product
+   tooling at this volume.
+5. **Repair authoring gap, accepted as-is for the pilot:** `record_manual_grade`
+   always passes `highestValueGap: null`, so a manually-graded student sees
+   a score but no repair prompt (unlike automated grading, which derives
+   one). Left unbuilt for this pilot rather than blocking on it.
+6. **Staged rollout, each stage gating the next:**
+   - **Stage 1 (now):** `/session-hand-drawn-pilot` stays admin-gated.
+     David personally runs the full loop once under real (non-simulated)
+     conditions -- the one Phase 3 acceptance criterion never yet exercised.
+   - **Stage 2:** only after Stage 1 proves clean, the admin gate lifts for
+     a small, explicitly named group (existing pilot/test accounts) --
+     never the general Biology population.
+   - **No further widening** without revisiting this decision. Automated
+     grading (DR-1) still fails, so every widening step adds directly to
+     David's personal grading queue.
+
+### Rationale
+
+The full Program C design needs sign-off from owners who have not reviewed
+this pilot (Learning Quality, Operations, Privacy/Security) and covers
+qualification rosters, capacity modeling, and audit requirements this
+single-item pilot doesn't yet need. Waiting for that full design before
+making any commitment would leave the infrastructure TASK-0038 just built
+permanently unused. A narrow, honestly-scoped pilot commitment lets the
+pipeline actually get exercised by a real (if very small) audience while
+making explicit what it does *not* yet solve, so nobody later mistakes this
+for the real Program C gate being cleared.
+
+### Consequences
+
+- `/session-hand-drawn-pilot` remains admin-gated until Stage 1's real
+  end-to-end run is done and reported.
+- Any dispute in this pilot window is a manual, logged, one-off correction,
+  not a self-service regrade -- students are not to be told they can request
+  an automated regrade.
+- This decision does not close TASK-0020 Program C's Hard Gate. It is scoped
+  to this one item and this one grader; a broader launch still needs the
+  full multi-owner design Program C names.
+
+### Risks / Follow-ups
+
+- If real volume ever exceeds what one grader can turn around in 24 hours,
+  this commitment needs revisiting before it silently breaks (same failure
+  mode as the earlier "submitted and silently ungraded" incident this
+  session's audit surfaced).
+- Real regrade tooling and repair-authoring for manual grades remain
+  unbuilt; both are reasonable candidates for a future task once real usage
+  justifies the investment.
+
+## DECISION-0058 — Define "Approved" for `label_status` on a Hand-Drawn Item as Human-Graded-Pilot-Ready, Not AI-Grading-Ready or Rights-Cleared; Promote `APBIO-HDG-2026-GRAPH-002` Under That Definition (TASK-0038 Phase 2)
+
+**Date:** 2026-09-23
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Approval:** Product Owner direction, 2026-09-23 (this session) — see `APPROVAL-0048`
+**Related Docs:** `docs/tasks/TASK-0038-HAND-DRAWN-CAPTURE-REAL-STUDENT-HUMAN-GRADED.md`;
+`docs/tasks/TASK-0025-HAND-DRAWN-CAPTURE-ATTACHMENT-SCHEMA.md`
+**Area:** Content Governance / Grading
+
+### Context
+
+TASK-0025 shipped `prompt_json.label_status` on hand-drawn content but the repo has
+never actually used it as a real gate, and TASK-0038's audit found nothing
+server-side ever reads it — it is descriptive metadata, not enforcement. Phase 2 of
+TASK-0038 needed to define, for the first time, what moving a hand-drawn item off
+`ai_provisional_unapproved` actually certifies, before picking which item to
+promote. Checked the real review trail (`app.content_review_decisions`) rather than
+trusting the `review_status='question_review_approved'` label at face value: every
+review on record for the hand-drawn corpus is stage `tutor_question` (content/prompt
+quality) — there is no `reader` stage anywhere in the corpus, i.e. no one has ever
+certified the *grading criteria* the way TASK-0016 Phase D's D3 reader-certification
+step requires for automated grading.
+
+### Decision
+
+For this task's scope (human-graded delivery, not automated), "approved" on
+`label_status` means:
+
+1. The item's **question/prompt text** has a clean `tutor_question`-stage review
+   trail — approved outright, or an earlier flagged concern with a documented fix
+   and a clean re-review. (Automated-grading reader-certification is explicitly
+   **not** part of this bar — the human grader substitutes for it live, which is
+   the entire point of routing this through `record_manual_grade` instead of
+   `evaluate-attempt`.)
+2. The Product Owner has reviewed that trail directly (not delegated to a label) and
+   named the item in-session.
+3. `rights_status` remains whatever it already is (`independently_authored_
+   synthetic_research_seed_unverified` for every hand-drawn item that exists) —
+   this decision does **not** certify authorship/rights clearance. That stays a
+   separate, still-open gap across the whole HDG corpus.
+
+Under this definition, David reviewed the candidate set (24 published,
+`tutor_question`-approved hand-drawn items across Biology and Statistics) and named
+**`APBIO-HDG-2026-GRAPH-002`** (`content_item_version_id
+1c29347d-0f41-4f09-96a7-6f863be82eaf`) — the existing pilot item, whose one flagged
+review concern (Accuracy/Ambiguity, plus a curriculum-fit note that boxplot
+construction reads more like a Statistics skill than Biology) was fixed and
+re-approved 2026-08-08.
+
+### Rationale
+
+Using the existing `review_status` label at face value would have silently smuggled
+in a claim ("reader-certified") this corpus has never actually earned. Defining the
+bar explicitly, and pointing it only at what a human grader actually needs (a
+trustworthy question, not a pre-certified rubric), keeps this task's real scope —
+human-graded pilot delivery — from being confused with the separate, much larger
+DR-1/automated-grading-readiness gate this task deliberately does not attempt to
+close.
+
+### Consequences
+
+- `app.content_item_versions.prompt_json->>'label_status'` for
+  `APBIO-HDG-2026-GRAPH-002` moves from `ai_provisional_unapproved` to
+  `human_graded_pilot_approved` (Production only; the item does not exist in
+  Development). The value is descriptive, matching every other use of this field —
+  Phase 3 is what will make it load-bearing.
+- This label's meaning is scoped to *this task*. It must not be read elsewhere as
+  "safe for automated grading" or "rights-cleared" — both remain false for this
+  item and the rest of the corpus.
+- Future items promoted under this same task inherit this same definition unless a
+  later decision changes it.
+
+### Risks / Follow-ups
+
+- Rights/authorship verification for the hand-drawn corpus remains entirely open;
+  scoping that is out of TASK-0038 (see its "Out of Scope" section).
+- If this pilot is later judged ready for automated grading, the real D3
+  reader-certification step still has to happen — this decision does not shortcut
+  it.
+
+## DECISION-0057 — BYOQ Items Must Never Expose a Canonical Answer, in Any Mode; Rubric/Deep-Dive/Reference/Points-Strategy Hints Are Allowed
+
+**Date:** 2026-09-23
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Approval:** Product Owner direction, 2026-09-23 (this session)
+**Related Docs:** `docs/product/BYOQ_ANSWER_VISIBILITY_AND_DATA_MODEL_DISCUSSION.md`;
+`docs/product/APP_REBUILD_MIGRATION_PLAN.md` (Decision 21); `docs/product/STUDENT_PROVIDED_QUESTION_INTAKE_DESIGN.md`
+**Area:** Product / Teaching / Data Governance
+
+### Context
+
+Decision 21 in the App Rebuild Migration Plan sanctioned Open Hand's full-disclosure
+teaching method but left the answer-key serving mechanism unresolved, blocked on
+whether it could accidentally expose answers for non-library content. Investigation
+this session found BYOQ (bring-your-own-question / photo-capture of a student's own
+work) has no backend tables yet — `app.mcq_choices` / `app.frq_criteria` only ever
+hold CramApple library content today. That made it possible to ask the underlying
+product question directly rather than continue assuming it.
+
+### Decision
+
+- Open Hand questions are always pulled from the CramApple content library, never
+  from a student's own submitted work — the canonical answer/rubric may be shown in
+  Open Hand mode.
+- A BYOQ item must never be given an actual answer, in any mode, present or future.
+  This is a provenance rule, not an Open-Hand-vs-Practice mode rule.
+- BYOQ items may still receive rubric-derived hints, deep-dive material, reference
+  content, and win/lose-points strategy guidance — help short of the canonical
+  worked answer or correct-choice reveal is allowed.
+- If a student cannot solve a BYOQ item, the product should recommend a related Open
+  Hand (library) question, then return the student to the original BYOQ item.
+
+### Rationale
+
+Full-disclosure teaching is only safe when the content being disclosed is
+CramApple-authored and vetted. A student's own submitted problem has no verified
+answer key at all — showing one would mean either fabricating an answer or exposing
+whatever the student (or a mismatched lookup) supplied as canonical, either of which
+is a correctness and integrity risk the library-content case doesn't have.
+
+### Consequences
+
+- Unblocks writing the Open Hand answer-key-serving RPC (the Decision 21 gap): it can
+  safely omit a BYOQ provenance check today, since BYOQ content is not reachable
+  through `mcq_choices`/`frq_criteria` — see the linked discussion doc for the
+  recommended (not yet approved) data-model approach to keep that true once BYOQ gets
+  real tables.
+- BYOQ intake design (`STUDENT_PROVIDED_QUESTION_INTAKE_DESIGN.md` and
+  `UX-004-STUDENT-PROVIDED-QUESTION-INTAKE.md`) must design its hint surface (rubric
+  names/points, deep dive, reference, strategy) as a distinct, smaller contract than
+  the full library answer key it is explicitly barred from exposing.
+- BYOQ metadata requirement captured: any future BYOQ schema needs at minimum a
+  difficulty label and a unit/topic pair, so submissions can sit inside the existing
+  study-map/topic structure and, if later promoted to public SEO/AEO content, the
+  existing unit taxonomy.
+
+### Risks / Follow-ups
+
+- **Not decided, explicitly deferred:** whether a student submitting multiple BYOQ
+  items becomes eligible for progressively fewer hints per item. No design work
+  should proceed on this until picked back up.
+- **Not yet approved:** the recommendation that BYOQ live in a separate table from
+  library content and unify with it only at the point of promotion to public content
+  (see the linked discussion doc). This decision covers the *rule*, not the *schema*.
+- The stuck-BYOQ → related-Open-Hand-question → return-to-BYOQ routing flow has no
+  design or implementation yet.
 
 ## DECISION-0056 — Scoped Exception to "Fill Gaps; Do Not Replace": Work Order F May Remove Uncredited Prose Its Own New Span Supersedes
 

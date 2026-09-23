@@ -238,17 +238,36 @@ Deno.test("render payload carries no grading or answer-bearing field", () => {
   }
 
   assertEquals(Object.keys(item).sort(), [
+    "choices",
     "content_item_id",
     "content_item_version_id",
     "content_key",
     "frq_form",
+    "item_type",
     "media",
     "parts",
     "practice_format",
+    "response_mode",
     "stem",
     "stimulus",
     "title",
   ]);
+});
+
+Deno.test("response_mode is hand_drawn only when the row says so, never from prompt_json", () => {
+  const typed = buildRenderItem(row(), null, null, "2026-08-05T00:15:00Z", []);
+  assert(typed);
+  assertEquals(typed.response_mode, "typed");
+
+  const handDrawn = buildRenderItem(
+    row({ hand_drawn: true }),
+    null,
+    null,
+    "2026-08-05T00:15:00Z",
+    [],
+  );
+  assert(handDrawn);
+  assertEquals(handDrawn.response_mode, "hand_drawn");
 });
 
 // ── Accessibility metadata reaches the client ─────────────────────────────
