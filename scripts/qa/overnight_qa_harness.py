@@ -112,6 +112,76 @@ def norm(s):
     return re.sub(r"\s+", " ", (s or "")).strip()
 
 
+def _tokens(s):
+    """Case- and punctuation-insensitive word tokens, for similarity only -- never for verbatim
+    checks, which must stay byte-exact."""
+    return re.sub(r"[^a-z0-9 ]", " ", (s or "").lower()).split()
+
+
+def check_rubric_restatement(R, proposals, truth_by_key, *, label="",
+                             hard=0.85, soft=0.70, fail_run=False):
+    """Does an AUTHORED span answer the question, or just say the criterion back?
+
+    Added 2026-09-23 after QA of work order A. A's requirement-1 guard only caught second-person
+    rubric phrasing ("make sure your response identifies skew"). The failure that actually occurred
+    was DECLARATIVE restatement: three of A's drafted spans were character-identical to their own
+    learner_facing_text and contained no second-person phrasing at all, so that guard passed every
+    one of them. Many criteria are written as declarative content statements, which makes copying
+    them the path of least resistance.
+
+    Why it matters: an answer copied from its rubric cannot be used to validate that rubric, and it
+    is thin as the post-submission exemplar a student sees.
+
+    Only spans whose provenance is authored (drafted) are scored. Recovered and unchanged spans are
+    vetted prior content and are out of scope for this check.
+
+    fail_run=False reports the distribution without failing, for orders already dispositioned.
+    """
+    import difflib
+    scored, over_hard, over_soft = [], [], []
+    for p in proposals:
+        key = p.get("content_key")
+        crit = {c["criterion_key"]: c.get("learner_facing_text", "")
+                for c in ((truth_by_key.get(key) or {}).get("criteria") or [])}
+        for s in (p.get("spans") or []):
+            if (s.get("provenance") or "") != "drafted":
+                continue
+            for ck in (s.get("criterion_keys") or []):
+                if ck not in crit:
+                    continue
+                r = difflib.SequenceMatcher(None, _tokens(s.get("text")), _tokens(crit[ck])).ratio()
+                scored.append(r)
+                if r >= hard:
+                    over_hard.append((key, ck, r))
+                elif r >= soft:
+                    over_soft.append((key, ck, r))
+    if not scored:
+        return True
+    mean = sum(scored) / len(scored)
+    print(f"\n  authored-span similarity to rubric text: n={len(scored)} mean={mean:.3f} "
+          f">={soft}: {len(over_soft) + len(over_hard)}  >={hard}: {len(over_hard)}")
+    for key, ck, r in over_hard:
+        R.finding("rubric_restatement", "medium", key,
+                  f"authored span for criterion {ck} is {r:.2f} similar to its own "
+                  f"learner_facing_text -- it restates the rubric rather than answering",
+                  "Re-author from the stem, stimulus and CED fact pack")
+    for key, ck, r in over_soft:
+        if not any(f.get("type") == "restatement_justified"
+                   for f in (next((p for p in proposals if p.get("content_key") == key), {})
+                             .get("flags") or []) if isinstance(f, dict)):
+            R.finding("rubric_restatement_unjustified", "low", key,
+                      f"authored span for criterion {ck} is {r:.2f} similar to its "
+                      f"learner_facing_text and carries no restatement_justified flag",
+                      "Name what the span adds beyond the criterion, or re-author it")
+    ok = not over_hard
+    R.check(f"authored spans are not rubric restatements{label}",
+            f"0 at or above {hard}", f"{len(over_hard)} of {len(scored)} (mean {mean:.3f})",
+            ok or not fail_run,
+            "reported only; this order was dispositioned before the check existed"
+            if over_hard and not fail_run else "")
+    return ok
+
+
 # ----------------------------------------------------------------------------- shared checks
 
 def check_packet(R, packet, truth_items, expect_n, label="packet"):
@@ -300,6 +370,10 @@ def order_A(R, truth, run):
                 require_verbatim_fields={"canonical_answer_1", "canonical_answer_2"},
                 label="A", prior_by_version=prior_by_version,
                 items_by_key={i["content_key"]: i for i in truth["items"]})
+
+    # A was dispositioned (accepted, except S-073 a) before this check existed, so it reports
+    # rather than fails. Work order F specifies the same thresholds as a hard gate.
+    check_rubric_restatement(R, in_scope, by_key, label=" (A)", fail_run=False)
 
     # provenance ledger and the headline delta
     prov = Counter()
@@ -506,7 +580,59 @@ def order_D(R, truth, run):
                       "defaulted here, but do not move correct labels to flatten the distribution")
 
 
-ORDERS = {"A": order_A, "B": order_B, "C": order_C, "D": order_D}
+def order_F(R, truth, run):
+    """Work order F — AP Biology, the 88 criteria A left drafted.
+
+    Added 2026-09-23. An earlier version of F's text claimed this harness already enforced its
+    anti-restatement threshold; it did not -- there were modes for A-D only, and the similarity
+    routine ran against A in report-only mode. Codex caught the discrepancy before executing.
+    Here the threshold is a real gate: unlike A, F was written knowing the rule.
+    """
+    items = [i for i in truth["items"] if i["subject_key"] == "biology" and i["item_type"] == "frq"]
+    by_key = {i["content_key"]: i for i in items}
+    packet = load_jsonl(need(run, "packet.jsonl"))
+    prop = load_jsonl(need(run, "canonical_proposal.jsonl"))
+    check_packet(R, packet, items, len(items), "packet")
+
+    graph = {k for k in by_key if "HDG-2026-GRAPH" in k}
+    in_scope = [p for p in prop if p.get("content_key") not in graph]
+    check_spans(R, in_scope, by_key, label="F",
+                items_by_key={i["content_key"]: i for i in truth["items"]})
+
+    # the gate F was written around
+    check_rubric_restatement(R, in_scope, by_key, label=" (F)", fail_run=True)
+
+    # DECISION-0056: every removal must be auditable, and each removed span must have really
+    # existed in Production. A removal that cannot be traced is worse than one not made.
+    rem_path = os.path.join(run, "removals.csv")
+    if os.path.exists(rem_path):
+        with open(rem_path, newline="") as f:
+            rows = list(csv.DictReader(f))
+        bad = 0
+        for row in rows:
+            key, text = row.get("content_key"), row.get("removed_text") or ""
+            truth_item = by_key.get(key) or {}
+            sources = [truth_item.get("canonical_answer_1") or "", truth_item.get("canonical_answer_2") or ""]
+            if not text.strip() or not any(text in s for s in sources):
+                bad += 1
+                R.finding("unverifiable_removal", "high", key,
+                          "removals.csv row whose removed_text is not present verbatim in either "
+                          "Production canonical field",
+                          "DECISION-0056 allows removing only prose a new span supersedes; an "
+                          "untraceable removal breaks its audit trail")
+            if not (row.get("source_version_id") or "").strip():
+                bad += 1
+                R.finding("removal_missing_provenance", "medium", key,
+                          "removals.csv row with no source_version_id",
+                          "DECISION-0056 requires provenance on every removal")
+        R.check("every logged removal is traceable to Production", 0, bad, bad == 0,
+                f"{len(rows)} removals logged")
+    else:
+        R.check("removals.csv present (DECISION-0056 audit trail)", "optional", "absent", True,
+                "no removals claimed; acceptable — the exception is permissive, not mandatory")
+
+
+ORDERS = {"A": order_A, "B": order_B, "C": order_C, "D": order_D, "F": order_F}
 
 
 def main():

@@ -65,6 +65,8 @@ six subjects** — the single largest content gap in the product, and the substa
    migrations, no edge-function deploys. Propose in files; never write to the database.
 2. **Fill gaps; do not replace.** Existing canonical answers, rubrics, criteria, labels and author
    prose are prior work. Where existing content looks wrong, **flag it** — never overwrite it.
+   *(One scoped exception, DECISION-0056: work order F may remove uncredited prose its own new span
+   supersedes, under the conditions in F requirement 5. It applies to F only — not to G, H or I.)*
 3. **Never invent a criterion** outside an item's stored rubric. Never invent a topic code outside
    the closed list.
 4. **State the `WHERE` behind every count.** On a mismatch apply the protocol's tiered rule: at
@@ -104,6 +106,13 @@ span schema to all five orders, which is wrong for topic labels and cleanup):*
 - **Reproducibility metadata**: UTC start/end, model identifier, Production project ref, the UTC
   time of your snapshot, and the maximum `version_num` seen per item.
 - **Self-flagged weak points.** Volunteering them makes your run more credible, not less.
+- **Confidence must track topical ambiguity, not metadata quality** *(added 2026-09-23 after QA of
+  work order E)*. E reported 370 `high`, 14 `medium`, 0 `low`, 0 `undetermined`, 0 open questions —
+  and every one of the six items QA rejected was marked `high`. Its `medium` rows all tracked
+  *metadata provenance* (`legacy_metadata_crosswalk`), so a genuinely ambiguous adjacent-topic call
+  was indistinguishable from a certain one, and confidence was useless for triage. **Where two
+  topics both plausibly fit an item, that item is `medium` at best regardless of how clean its
+  metadata is.** An honest `undetermined` still beats a confident wrong code.
 
 An automated harness (`scripts/qa/overnight_qa_harness.py`) recomputes these invariants. It expects
 exactly the field names above. Emitting a different shape does not hide a defect; it produces a
@@ -199,19 +208,79 @@ Report **unique affected items** plus per-class membership.
 
 ---
 
+# Work order E.1 — the six boxplot items E labelled `1.8`
+
+**Directory:** `docs/research/apstats_topic_labels_rework_2026_09_23/` (E's own directory — this is a
+correction to your own proposal, not a new work order's output).
+**Size: six rows.** Do this before F if you are already in that directory; otherwise after F.
+
+## What QA found
+
+E was **accepted except six items**. Read `qa_report.md` and `qa_findings.csv` in that directory
+(finding **E-QA-001**). These six carry `proposed_topic_code = 1.8`:
+
+```
+APSTATS-HDG-2026-GRAPH-007   APSTATS-HDG-2026-GRAPH-013   APSTATS-HDG-2026-GRAPH-014
+APSTATS-HDG-2026-GRAPH-015   APSTATS-HDG-2026-GRAPH-016   APSTATS-HDG-2026-GRAPH-017
+```
+
+Each stimulus reads "compared *X* for **two groups** … Construct **side-by-side boxplots** … Then
+**compare** the typical *X* and the spread in context", and three of each item's four rubric criteria
+are comparison criteria. `1.8` is *Graphical Representations of Summary Statistics for **One**
+Quantitative Variable*. These belong in `1.9`, *Comparisons of the Distributions for One Quantitative
+Variable* — the same topic you correctly assigned to both other compare-two-groups templates.
+
+**Your own `SUMMARY.md` states the rule you did not apply here:** "Both compare-two-groups templates
+were assigned 1.9." This is the defect class that caused the original rejection, in a family the work
+order did not name.
+
+## Requirements
+
+1. **Relabel all six to `1.9`**, with `proposed_topic_title` set to the registry title for `1.9` and
+   `proposed_unit` = 1. Take the title verbatim from `app.taxonomy_topics` at
+   `dae3c72e-82ca-4960-9552-1b034bd347e5`; do not retype it.
+2. **Change nothing else on those rows** except `rationale`, which must say why `1.9` beats `1.8`
+   for a two-group comparison. Leave `previous_topic_code` as the *rejected run's* code — it records
+   the original defect, not this correction. Do not alter the other 378 rows.
+3. **Generalise the fix rather than patching six rows.** Re-run your compare-two-groups detection
+   across every item you labelled `1.5`, `1.6`, `1.7` or `1.8`, and report the result. QA's scan
+   found exactly these six, and `STATS-MOD3-H006` as a correctly-labelled near-miss (`1.6`: it
+   describes one bimodal distribution, not two groups). If your scan finds more than six, say so and
+   fix them; if it finds exactly six, say that too — a confirmed bound is a result.
+4. **Set confidence honestly on the corrected rows.** `1.8` versus `1.9` here is a genuine
+   adjacent-topic call. If you would not stake the run on it, it is `medium`, not `high`. See the
+   shared contract's confidence rule.
+5. **Write `E1_CHANGES.md`** in the same directory: the six rows before and after, your scan result,
+   and one line stating that `qa_report.md` and `qa_findings.csv` describe the **pre-correction**
+   state and are not yours to edit.
+6. **This needs a fresh QA pass.** Correcting a QA finding does not clear the finding; a different
+   model confirms the correction. Do not mark E closed.
+
+---
+
 # Work order F — AP Biology, the 88 still-drafted criteria
 
 **Directory:** `docs/research/apbio_drafted_criteria_2026_09_23/`
 **Depends on:** work order A's output being QA'd and accepted. **Do not start F until Claude's QA
 report exists in `apbio_canonical_recovery_2026_09_22/`.** If it does not, skip F and move to G.
 
+**Gate status, 2026-09-23:** `qa_report.md` and `qa_findings.csv` now exist in
+`apbio_canonical_recovery_2026_09_22/`. A's disposition is **accepted, except `APBIO-FRQ-S-073`
+criterion `a`**. **F is unblocked.** An earlier run recorded a gate skip for F when the report did
+not yet exist; that skip is superseded. **Read `qa_report.md` and `qa_findings.csv` before starting
+— three of the five findings are yours to close and are specified in §Requirements below.**
+
 ## What is left, and why recovery cannot close it
 
 Work order A recovered **13** of the 101 previously-drafted in-scope Biology criteria. **88 remain
 drafted.** The recovery hypothesis was that the 2026-08-12 rubric split left recoverable answer
-text behind; it turned out the split created *genuinely new* criteria rather than finer slices of
-existing content, so there was little to recover. **The drafted-content problem is real and must be
-authored, not recovered.**
+text behind. QA re-derived the reason it yielded so little, and it is sharper than "the split
+created new criteria": **for all 41 rubric-split items the prior version's canonical answers are
+byte-identical to the published ones.** Recovering "from the prior version" was therefore the same
+operation as reusing the current answer, which the accepted prior run had already done. There was
+never any additional text to recover for those 41; the retired parent `APBIO-FRQ-L-025` was the
+only genuinely new source, and all 13 recoveries came from it. **The drafted-content problem is
+real and must be authored, not recovered.**
 
 Your job: for each of the 88, author an answer span that actually earns its criterion, grounded in
 `docs/product/AP_BIOLOGY_CED_FACT_PACK.md` and the item's own stem and stimulus.
@@ -223,14 +292,109 @@ Your job: for each of the 88, author an answer span that actually earns its crit
    instruction about what to write.** "The distribution is skewed left because most values cluster
    high" is an answer; "make sure your response identifies skew" is a restatement. The QA harness
    fails any span containing second-person rubric phrasing.
+
+   **1a. Declarative restatement is the failure mode that actually occurred — guard against it
+   explicitly.** A's QA measured all 88 of A's drafted spans against their own
+   `learner_facing_text`: **mean word-level similarity 0.582, 33 at or above 0.70, 15 at or above
+   0.85, and three character-identical** (`APBIO-FRQ-S-021` `a1`, `APBIO-FRQ-S-028` `b1`,
+   `APBIO-FRQ-S-052` `b1`). None of those three contains second-person phrasing, so **the guard in
+   requirement 1 would pass every one of them.** Many of these criteria are written as declarative
+   content statements, which makes copying them the path of least resistance.
+
+   For every span you author, compute word-level similarity to that criterion's
+   `learner_facing_text` (case- and punctuation-normalised tokens, `difflib.SequenceMatcher`):
+
+   - **≥ 0.85 — do not emit.** Re-author from the stem, stimulus and fact pack.
+   - **0.70–0.85 — emit only with a `restatement_justified` flag** naming what the span adds beyond
+     the criterion (a mechanism, a derivation, a value, a link to the stem).
+   - **< 0.70 — no action.**
+
+   Report the distribution in `SUMMARY.md` — count and mean, not just the maximum. These thresholds
+   are QA-derived, not ratified; if the Product Owner sets different ones, they govern.
+
+   **Where a span serves several criteria, score each `span × criterion` pair separately and let the
+   highest score govern that span.** Emit the pair-level evidence as `similarity_report.csv` in your
+   directory, alongside the compact per-criterion figure in your ledger.
+
+   **This is a gate, not an optimisation target.** *(Codex's point, adopted 2026-09-23.)* Padding a
+   span with verbosity to push the ratio down would satisfy the number and defeat the purpose. If a
+   span scores high because the criterion genuinely states the whole answer — which happens for
+   one-fact criteria — say so in `restatement_justified` and leave the sentence alone rather than
+   inflating it. A short correct answer is not a defect.
+
+   **Correction to an earlier version of this work order:** it claimed
+   `scripts/qa/overnight_qa_harness.py` enforces this. At the time it did not — the harness had
+   modes for A–D only, and its similarity routine ran against A in report-only mode. An `order_F`
+   mode has since been added, and it is QA-owned: **you do not extend the shared harness** (shared
+   rule 5 keeps you inside your own directory). Your `similarity_report.csv` is your self-check; the
+   harness is the independent one.
+
+   A canonical answer that reproduces its rubric cannot be used to validate that rubric, and it is
+   thin as the post-submission exemplar a student sees. **The point of F is the reasoning the rubric
+   omits.**
 2. **Preserve everything A recovered.** Recovered spans are vetted content. Reuse them verbatim and
    author only into the gaps.
+
+   **2a. One exception, and only this one: `APBIO-FRQ-S-073` criterion `a`.** QA finding A-QA-001
+   rejected it. The stem sets **2n=4**, so each of the four products of meiosis II holds **two**
+   chromosomes, each a single chromatid — meiosis II separates sister chromatids and does not reduce
+   chromosome number. A's drafted span says "four cells each contain one chromosome," which is wrong
+   and also contradicts the same item's retained canonical text ("meiosis II separates sister
+   chromatids"). Criterion `a` is worth 2 points and covers both meiosis I and meiosis II; the
+   meiosis I half of A's span is correct.
+
+   **On independence — corrected 2026-09-23, because Codex's challenge was right.** An earlier
+   version said "do not copy a correction out of the QA report." But this work order and the QA
+   findings both state the substance of the correction, so blindness is already gone and pretending
+   otherwise would be theatre. **The standard is independent derivation, not artificial wording
+   divergence:** derive the meiosis I and meiosis II chromosome and chromatid counts from the stem's
+   `2n = 4` and record that derivation. Do **not** manufacture a different-sounding sentence to look
+   independent — a deliberately reworded correct answer is worse content, not better provenance.
+   The separation DECISION-0055 actually protects is preserved by the next step: a different model
+   QAs your correction.
 3. **Re-segment the full answer** so spans still concatenate exactly to `full_text` and every
    criterion is covered.
 4. **Flag cross-criterion entanglement** — where one sentence earns two criteria, so deselecting one
    leaves an artifact. A found 23 such cases in the prior run; expect more as you author.
-5. **Out of scope, unchanged:** the 4 `APBIO-HDG-2026-GRAPH-*` items (they need a spatial canonical
-   on the Engine 4 path) and the 9 point-total mismatches (work order I).
+5. **Remove uncredited prose your new span supersedes — authorised, and narrowly.** QA finding
+   A-QA-004 measured **46 uncredited recovered sentence-spans across 33 items** (5,661 characters)
+   sitting ahead of drafted spans that restate the same point, so the assembled answer says the same
+   thing twice — clearest at `APBIO-FRQ-S-021`, `APBIO-FRQ-S-058` and `APBIO-FRQ-S-023`. **30 of
+   those 33 items are in your scope.**
+
+   **DECISION-0056 (Product Owner direction, 2026-09-23) authorises removal for this work order**, as
+   a scoped exception to shared rule 2 ("fill gaps; do not replace"). The exception is narrow:
+
+   - Remove a span **only if** it carries no `criterion_keys`, **and** its provenance is
+     `recovered_*` or `unchanged_from_prior_run`, **and** a span you authored in this run now covers
+     the same content for a criterion of the same item.
+   - **Never** remove a span that earns a criterion, and never remove text because you consider it
+     poorly written. This is a redundancy exception, not an editing licence.
+   - **Log every removal** in a `removals.csv` in your directory: `content_key`, the removed text
+     verbatim, its character count, its provenance, its `source_version_id`, and the criterion whose
+     new span supersedes it. QA re-derives every removed span against Production, so a removal you
+     cannot justify from that table is a finding.
+   - **A-QA-004's 30 in-scope items are candidates, not a quota** *(confirmed 2026-09-23)*. That
+     finding reports where redundancy was measured; it does not authorise removal. The four
+     conditions above govern each case independently. **Do not force a 30-of-30 result** — retain and
+     flag every ambiguous case, and a run that removes far fewer than 30 with sound reasoning is a
+     better outcome than one that hits the number. Refuse any removal whose provenance or
+     `source_version_id` is missing, since DECISION-0056's audit trail would be incomplete.
+   - Nothing is deleted from Production. You are changing the assembled proposal, not the stored
+     canonical answer — the original remains in A's directory and in Production either way.
+   - Where removal changes the assembly, spans must still concatenate exactly to `full_text`.
+
+   Out-of-scope items `APBIO-FRQ-S-061`, `APBIO-FRQ-S-063` and `APBIO-FRQ-S-064` carry the same
+   redundancy but have no drafted criteria; leave them alone and list them in `SUMMARY.md`.
+6. **Out of scope, unchanged:** the 4 `APBIO-HDG-2026-GRAPH-*` items (they need a spatial canonical
+   on the Engine 4 path) and the 9 point-total mismatches (work order I). Also outside F, and left to
+   A's record: `APBIO-FRQ-S-061`, `APBIO-FRQ-S-063` and `APBIO-FRQ-S-064` carry redundant uncredited
+   prose but have no drafted criteria, and QA findings **A-QA-003** (a stale `fully_drafted_answer`
+   flag on `S-101/102/103`, contradicted by their own 100%-recovered coverage) and **A-QA-005** (the
+   `S-102` `b-iii`/`b-iv` connective entanglement, disclosed in A's `SUMMARY.md` prose but absent
+   from its `flags[]`) are metadata defects in A's own artifacts. **Do not edit A's directory to fix
+   them** — one directory per work order. They are recorded in A's `qa_findings.csv` and are closed
+   by the Product Owner accepting them as known, or by a later rework order.
 
 ---
 
@@ -350,9 +514,10 @@ find; the recorded figures predate several content changes.
 
 ## Sequencing
 
-**E → F → G → H → I.**
+**E → E.1 → F → G → H → I.**
 
-E is highest value and unblocks a rejected lane. F is gated on A's QA. G is the largest body of work
+E is highest value and unblocks a rejected lane. F was gated on A's QA; **that gate is now open
+(2026-09-23) and F's earlier skip is superseded — re-enter F before continuing G.** G is the largest body of work
 and is subject-sequenced so partial completion is still useful. H is gated on D's QA and is breadth
 rather than depth. I is filler.
 
