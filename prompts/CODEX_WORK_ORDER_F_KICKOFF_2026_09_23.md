@@ -7,8 +7,20 @@ specification, and restating it here would create a second source of truth.
 Work order F is unblocked. You recorded a gate skip for it earlier today because Claude's QA report
 did not yet exist; it exists now, and that skip is superseded. Re-enter F before continuing G.
 
-Pull `main` first. The charter was amended after your skip and the amendments are the point of this
-run — working from your earlier copy will produce the wrong output.
+FIRST, bring `main` into your branch. Verified 2026-09-23: the amended work order F is on `main` and
+is NOT on `codex/project2-2026-09-23`, so your working copy still has the pre-amendment text. The
+amendments are the entire point of this run — working from your current copy will reproduce the
+defects QA just found.
+
+    git fetch origin
+    git merge origin/main          # from your worktree on codex/project2-2026-09-23
+
+Confirm before continuing: `grep -c "Gate status, 2026-09-23"
+prompts/CODEX_PROJECT_2_CONTENT_COMPLETION_2026_09_23.md` must return 1. If it returns 0 you are
+reading the old charter — stop and resolve that first.
+
+The same merge brings you work order A's `qa_report.md` and `qa_findings.csv`, which do not exist on
+your branch either.
 
 Read, in this order:
 
@@ -57,6 +69,14 @@ returned. The amendments to F — the S-073 correction, the measurable anti-rest
 DECISION-0056's removal authorisation — all landed *after* that skip, so a Codex session working
 from its earlier read of the charter would miss every one of them.
 
-**Branch-hygiene note for whoever runs this:** the repository root checkout is shared. Do not switch
-its branch while a Codex run is in flight — on 2026-09-23 doing so captured work order E's commit
-onto a QA branch. Use `git worktree add` for parallel work instead.
+**Branch-hygiene note for whoever runs this:** on 2026-09-23 a QA branch created in the repository
+root checkout captured work order E's commit, because the Codex run was committing through that same
+checkout at the time. Codex now has its own worktree at `/private/tmp/cramapple-project2` on
+`codex/project2-2026-09-23`, which removes the collision — but the root checkout is still shared, so
+use `git worktree add` for parallel work rather than switching its branch.
+
+**Why the merge step is not optional:** that worktree is on `codex/project2-2026-09-23`, and the F
+amendments landed on `main`. Verified 2026-09-23: `grep -c "Gate status, 2026-09-23"` returns 1 on
+`main` and 0 on `codex/project2-2026-09-23`. A Codex session that skips the merge reads the
+pre-amendment work order, and every repair in it — the S-073 correction, the anti-restatement guard,
+DECISION-0056 — silently does not exist.
