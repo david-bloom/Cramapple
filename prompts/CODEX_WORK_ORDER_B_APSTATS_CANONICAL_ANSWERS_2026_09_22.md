@@ -76,6 +76,18 @@ If your own query returns a different set of 46, **stop and report it** before p
 - **Grounding:** `docs/product/AP_STATISTICS_CED_FACT_PACK.md`.
 - **Protocol:** `docs/research/CONTENT_AUTHORING_AND_QA_PROTOCOL.md`;
   `docs/product/CONTENT_GAPS_RUNNING_LIST.md` GAP-2.
+- **A prior artifact you must NOT reuse as answers.**
+  `docs/research/bio_stats_topic_tagging_2026_09_22/frq_canonical_review.csv` contains a
+  `proposed_canonical_answer` column with a draft for all 46 of your items. **These are rubric
+  restatements, not answers.** They read
+  `"DRAFT PROPOSAL FOR HUMAN APPROVAL ONLY. Answer each rubric criterion explicitly:
+  distribution_shape: To earn this point, make sure your response: correctly identifies skewed
+  left…"` — i.e. the criterion's own `learner_facing_text` reformatted, addressed to the student
+  in the second person. A canonical answer is what a student *writes* to earn the point
+  ("The distribution of scores is skewed left, because most scores cluster at higher values with a
+  tail toward lower values"), not an instruction about what to write. Read that file for coverage
+  signal if you like, but **do not carry any of its text into `full_text`.** QA will check for it.
+
 - **Worked precedent for the segmentation shape:**
   `docs/research/apbio_frq_segmentation_2026_09_22/apbio_frq_segmentation.codex.jsonl`. The
   `creditedResponse` mechanic there is ACCEPTED; copy its structure, not its content.
@@ -160,6 +172,7 @@ result for each:
 | Every numeric value in `full_text` appears in `derivations[]` | 0 orphans |
 | Every derivation's inputs trace to the stimulus or the stem | 0 unsourced |
 | Removing any one criterion's spans never empties the answer | 0 failures |
+| No span contains second-person rubric-instruction phrasing ("to earn this point", "make sure your response", "DRAFT PROPOSAL") | 0 occurrences |
 | The 34 out-of-scope items are unmodified | 34 / 34 |
 | Packet matches Production on version ids, canonical fields, criterion counts and point sums | 0 differences |
 
