@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- BYOQ Answer-Visibility Rule Discussed and Decided (DECISION-0057): BYOQ Items Never Expose a Canonical Answer, in Any Mode; Rubric/Deep-Dive/Reference/Points-Strategy Hints Allowed; Data-Model Approach (Separate Table, Unify at Promotion) Recommended but Not Yet Approved; Hint-Throttling for Repeat BYOQ Use Explicitly Deferred; Difficulty + Unit/Topic Metadata Requirement Captured for the Eventual BYOQ Schema. — 2026-09-23
 - Session Close (2026-09-22/23, Difficulty Calibration + Overnight Codex Program). Landed: the 160 local-only files that produced live Production content (29 topic-guide migrations whose source sat on one machine for a month); a difficulty method anchored to published College Board attainment after establishing that **College Board defines no difficulty scale** (verified against two CEDs and the 2025 Chief Reader Reports) — 316 scored rubric points extracted across 8 subjects, and **every published Biology, Chemistry and Statistics item now carries an Easy/Medium/Hard label, 0 unassigned**; four overnight Codex work orders (A-D) plus a run protocol, all executed overnight; an offline QA harness with a self-test; a verified count baseline (28/28 exact); and Codex Project 2 (work orders E-I). **QA results:** Bio/Stats topic labels — Biology ACCEPTED, **Statistics REJECTED** (56 items, four template-shaped defect classes). A-D — **all four PASS structurally**; the 46 findings on first run were all my harness's bugs, not Codex's. **OPEN:** the semantic QA of A-D (the content-correctness gate) is NOT done and is Claude's; F and H are gated shut until it exists; Codex has started E. **Two governance findings:** A-D reached `main` when the protocol said branch-only, and the canonical-answer decision's "Biology QA-verified before Statistics generation" gate was crossed when A and B ran the same night. — 2026-09-23
 - Local-Only Durable Artifacts Synced to `main`: 160 Files That Existed Only in David's Checkout Are Now in Git — 29 Topic-Guide Seed Migrations (2026-08-25..08-27), Their 27 Companion `AP_*_TOPIC_POINT_BRIEFS.md` Records, Two Calculus BC Generators, the Course Mode Score-Impact Protocol + Lovable Brief, and the Untracked Half of `.claude/skills/cramapple-design/`. Found at Session Start While Verifying the Working Tree Against the Synchronization Rule: the Content Those Migrations Produce **Is Live in Production** (603 Topic Point Briefs + 603 Explainers Across All Ten Subjects) but **None of Their Versions Appear in Production's Migration Ledger** — They Were Applied as Direct SQL, So the Provenance and Regeneration Path for Published Content Sat on One Machine. No Database State Changed. — 2026-09-22
 - Session Close (2026-09-22, App-Rebuild / Open Hand Thread). Resumed From `APP_REBUILD_NEXT_SESSION_HANDOFF_2026_09_22.md`. Landed This Session: Open Hand Defined as a Sanctioned Unit:Topic-Relevant Teaching Method and Aligned Across Design System + Migration Plan (Decision 21 → Method-DECIDED, Answer-Key Boundary Intact); `CONTENT_GAPS_RUNNING_LIST.md` Started and Now Folds In GAP-9 (Biology FRQ Canonical/Rubric Misalignment + Segmentation); Verified the Open Hand Rubric-Strike Mechanic Live in `web/` (Deterministic Span Toggle, Not Runtime AI, No Combination Library); Ran the Codex-Builds/Claude-QAs Loop on AP Biology FRQ Canonical-Answer Segmentation — Found + Fixed the `canonical_answer_2` Re-Draft Defect, ACCEPTED the ca2 Fix, Recorded the QA Under `docs/research/apbio_frq_segmentation_2026_09_22/`; PAUSED the Human Double-Review Requirement (DECISION-0055, Gate Now AI Cross-Model QA + PO Approval). **OPEN for next session:** ratify (PO sign-off) the Biology drafted canonical content; author/reconcile the 118 drafted criteria + 18 all-drafted + 15 off-rubric-ca2 + 7 no-canonical Biology items and the 9 point-total bugs; the 4 drawn-graph items → spatial-canonical/Engine-4 path; extend segmentation + the unit:topic tagging (Codex + Gemini compare) to Statistics and beyond; Phase 0 Decisions 1 (fixed frame — run `verify:panes` on a multi-part + image FRQ) and 11 (multi-part FRQ migration vs parsing) still OPEN. All work merged to `main`; working tree carries only pre-existing untracked topic-brief drafts. — 2026-09-22
@@ -195,6 +196,36 @@ Most recent entries (full reverse-chronological list follows below):
 
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+---
+
+## BYOQ Answer-Visibility Rule Discussed and Decided (DECISION-0057) — 2026-09-23
+
+**Task:** N/A (product/teaching policy discussion, this session)
+**Status:** Rule approved; data model and hint-throttling open
+**Summary:** Investigated whether BYOQ (bring-your-own-question / photo-capture of a
+student's own homework) has any path into the tables the Open Hand answer-key
+lockdown protects (`app.mcq_choices`, `app.frq_criteria`) — it does not; BYOQ is
+frontend-prototype-only with no backend tables today. That confirmed Open Hand
+questions are always CramApple library content, never student-submitted, resolving
+part of Decision 21's ambiguity. David then set the underlying rule explicitly: a
+BYOQ item must never expose a canonical answer, in any mode, though it may still
+receive rubric-derived hints, deep-dive material, reference content, and
+win/lose-points strategy guidance. If a student is stuck on a BYOQ item, the product
+should route them to a related Open Hand question and back. Recorded as
+DECISION-0057. Also discussed: whether BYOQ should live in the same tables as
+library content or a separate one (recommended separate, unifying only at the point
+a BYOQ item is promoted to public SEO/AEO content — not yet approved); a
+hint-throttling idea for students submitting multiple BYOQ items (explicitly
+deferred, not ready to decide); and a captured requirement that any future BYOQ
+schema needs at minimum a difficulty label and a unit/topic pair.
+**Full discussion:** `docs/product/BYOQ_ANSWER_VISIBILITY_AND_DATA_MODEL_DISCUSSION.md`
+
+**Next Owner:** David Bloom
+**Next Required Action:** Decide the BYOQ data-model approach (or hold it until the
+BYOQ intake design is fleshed out further); pick the hint-throttling question back up
+when ready; write the Open Hand answer-key RPC (now unblocked) and the BYOQ intake
+migration when scoped.
 
 ---
 

@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0057 — BYOQ Items Must Never Expose a Canonical Answer, in Any Mode; Rubric/Deep-Dive/Reference/Points-Strategy Hints Are Allowed
 - DECISION-0056 — Scoped Exception to "Fill Gaps; Do Not Replace": Work Order F May Remove Uncredited Prose Its Own New Span Supersedes
 - DECISION-0055 — Pause the Human Independent-Review (Double/Triple-Reviewer) Requirement for Content; AI Cross-Model QA + Product Owner Approval Is the Operative Gate During the Pause
 - DECISION-0054 — Adopt One Device-Neutral Bootstrap and Shared ChatGPT Project Contract
@@ -35,6 +36,74 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~600 lines, archive the older entries to `docs/activity_log/archive/DECISIONS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries. (This log is already well over that threshold — the first archive pass is overdue, not optional.)
 
 (Note: the TASK-0012 branch independently logged its own DECISION-0027/0028 — CORS/ALLOWED_ORIGINS and budget-burn semantics — under different numbers on its own branch. Those land separately when that work merges to `main`; this charter-adoption decision claimed 0027/0028 here because `main` had not yet recorded entries past DECISION-0026 at merge time. If both branches' numbering collides on merge, renumber on whichever side merges second and update this index.)
+
+## DECISION-0057 — BYOQ Items Must Never Expose a Canonical Answer, in Any Mode; Rubric/Deep-Dive/Reference/Points-Strategy Hints Are Allowed
+
+**Date:** 2026-09-23
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Approval:** Product Owner direction, 2026-09-23 (this session)
+**Related Docs:** `docs/product/BYOQ_ANSWER_VISIBILITY_AND_DATA_MODEL_DISCUSSION.md`;
+`docs/product/APP_REBUILD_MIGRATION_PLAN.md` (Decision 21); `docs/product/STUDENT_PROVIDED_QUESTION_INTAKE_DESIGN.md`
+**Area:** Product / Teaching / Data Governance
+
+### Context
+
+Decision 21 in the App Rebuild Migration Plan sanctioned Open Hand's full-disclosure
+teaching method but left the answer-key serving mechanism unresolved, blocked on
+whether it could accidentally expose answers for non-library content. Investigation
+this session found BYOQ (bring-your-own-question / photo-capture of a student's own
+work) has no backend tables yet — `app.mcq_choices` / `app.frq_criteria` only ever
+hold CramApple library content today. That made it possible to ask the underlying
+product question directly rather than continue assuming it.
+
+### Decision
+
+- Open Hand questions are always pulled from the CramApple content library, never
+  from a student's own submitted work — the canonical answer/rubric may be shown in
+  Open Hand mode.
+- A BYOQ item must never be given an actual answer, in any mode, present or future.
+  This is a provenance rule, not an Open-Hand-vs-Practice mode rule.
+- BYOQ items may still receive rubric-derived hints, deep-dive material, reference
+  content, and win/lose-points strategy guidance — help short of the canonical
+  worked answer or correct-choice reveal is allowed.
+- If a student cannot solve a BYOQ item, the product should recommend a related Open
+  Hand (library) question, then return the student to the original BYOQ item.
+
+### Rationale
+
+Full-disclosure teaching is only safe when the content being disclosed is
+CramApple-authored and vetted. A student's own submitted problem has no verified
+answer key at all — showing one would mean either fabricating an answer or exposing
+whatever the student (or a mismatched lookup) supplied as canonical, either of which
+is a correctness and integrity risk the library-content case doesn't have.
+
+### Consequences
+
+- Unblocks writing the Open Hand answer-key-serving RPC (the Decision 21 gap): it can
+  safely omit a BYOQ provenance check today, since BYOQ content is not reachable
+  through `mcq_choices`/`frq_criteria` — see the linked discussion doc for the
+  recommended (not yet approved) data-model approach to keep that true once BYOQ gets
+  real tables.
+- BYOQ intake design (`STUDENT_PROVIDED_QUESTION_INTAKE_DESIGN.md` and
+  `UX-004-STUDENT-PROVIDED-QUESTION-INTAKE.md`) must design its hint surface (rubric
+  names/points, deep dive, reference, strategy) as a distinct, smaller contract than
+  the full library answer key it is explicitly barred from exposing.
+- BYOQ metadata requirement captured: any future BYOQ schema needs at minimum a
+  difficulty label and a unit/topic pair, so submissions can sit inside the existing
+  study-map/topic structure and, if later promoted to public SEO/AEO content, the
+  existing unit taxonomy.
+
+### Risks / Follow-ups
+
+- **Not decided, explicitly deferred:** whether a student submitting multiple BYOQ
+  items becomes eligible for progressively fewer hints per item. No design work
+  should proceed on this until picked back up.
+- **Not yet approved:** the recommendation that BYOQ live in a separate table from
+  library content and unify with it only at the point of promotion to public content
+  (see the linked discussion doc). This decision covers the *rule*, not the *schema*.
+- The stuck-BYOQ → related-Open-Hand-question → return-to-BYOQ routing flow has no
+  design or implementation yet.
 
 ## DECISION-0056 — Scoped Exception to "Fill Gaps; Do Not Replace": Work Order F May Remove Uncredited Prose Its Own New Span Supersedes
 
