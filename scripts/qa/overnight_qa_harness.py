@@ -580,7 +580,59 @@ def order_D(R, truth, run):
                       "defaulted here, but do not move correct labels to flatten the distribution")
 
 
-ORDERS = {"A": order_A, "B": order_B, "C": order_C, "D": order_D}
+def order_F(R, truth, run):
+    """Work order F — AP Biology, the 88 criteria A left drafted.
+
+    Added 2026-09-23. An earlier version of F's text claimed this harness already enforced its
+    anti-restatement threshold; it did not -- there were modes for A-D only, and the similarity
+    routine ran against A in report-only mode. Codex caught the discrepancy before executing.
+    Here the threshold is a real gate: unlike A, F was written knowing the rule.
+    """
+    items = [i for i in truth["items"] if i["subject_key"] == "biology" and i["item_type"] == "frq"]
+    by_key = {i["content_key"]: i for i in items}
+    packet = load_jsonl(need(run, "packet.jsonl"))
+    prop = load_jsonl(need(run, "canonical_proposal.jsonl"))
+    check_packet(R, packet, items, len(items), "packet")
+
+    graph = {k for k in by_key if "HDG-2026-GRAPH" in k}
+    in_scope = [p for p in prop if p.get("content_key") not in graph]
+    check_spans(R, in_scope, by_key, label="F",
+                items_by_key={i["content_key"]: i for i in truth["items"]})
+
+    # the gate F was written around
+    check_rubric_restatement(R, in_scope, by_key, label=" (F)", fail_run=True)
+
+    # DECISION-0056: every removal must be auditable, and each removed span must have really
+    # existed in Production. A removal that cannot be traced is worse than one not made.
+    rem_path = os.path.join(run, "removals.csv")
+    if os.path.exists(rem_path):
+        with open(rem_path, newline="") as f:
+            rows = list(csv.DictReader(f))
+        bad = 0
+        for row in rows:
+            key, text = row.get("content_key"), row.get("removed_text") or ""
+            truth_item = by_key.get(key) or {}
+            sources = [truth_item.get("canonical_answer_1") or "", truth_item.get("canonical_answer_2") or ""]
+            if not text.strip() or not any(text in s for s in sources):
+                bad += 1
+                R.finding("unverifiable_removal", "high", key,
+                          "removals.csv row whose removed_text is not present verbatim in either "
+                          "Production canonical field",
+                          "DECISION-0056 allows removing only prose a new span supersedes; an "
+                          "untraceable removal breaks its audit trail")
+            if not (row.get("source_version_id") or "").strip():
+                bad += 1
+                R.finding("removal_missing_provenance", "medium", key,
+                          "removals.csv row with no source_version_id",
+                          "DECISION-0056 requires provenance on every removal")
+        R.check("every logged removal is traceable to Production", 0, bad, bad == 0,
+                f"{len(rows)} removals logged")
+    else:
+        R.check("removals.csv present (DECISION-0056 audit trail)", "optional", "absent", True,
+                "no removals claimed; acceptable — the exception is permissive, not mandatory")
+
+
+ORDERS = {"A": order_A, "B": order_B, "C": order_C, "D": order_D, "F": order_F}
 
 
 def main():

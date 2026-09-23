@@ -312,6 +312,23 @@ Your job: for each of the 88, author an answer span that actually earns its crit
    Report the distribution in `SUMMARY.md` — count and mean, not just the maximum. These thresholds
    are QA-derived, not ratified; if the Product Owner sets different ones, they govern.
 
+   **Where a span serves several criteria, score each `span × criterion` pair separately and let the
+   highest score govern that span.** Emit the pair-level evidence as `similarity_report.csv` in your
+   directory, alongside the compact per-criterion figure in your ledger.
+
+   **This is a gate, not an optimisation target.** *(Codex's point, adopted 2026-09-23.)* Padding a
+   span with verbosity to push the ratio down would satisfy the number and defeat the purpose. If a
+   span scores high because the criterion genuinely states the whole answer — which happens for
+   one-fact criteria — say so in `restatement_justified` and leave the sentence alone rather than
+   inflating it. A short correct answer is not a defect.
+
+   **Correction to an earlier version of this work order:** it claimed
+   `scripts/qa/overnight_qa_harness.py` enforces this. At the time it did not — the harness had
+   modes for A–D only, and its similarity routine ran against A in report-only mode. An `order_F`
+   mode has since been added, and it is QA-owned: **you do not extend the shared harness** (shared
+   rule 5 keeps you inside your own directory). Your `similarity_report.csv` is your self-check; the
+   harness is the independent one.
+
    A canonical answer that reproduces its rubric cannot be used to validate that rubric, and it is
    thin as the post-submission exemplar a student sees. **The point of F is the reasoning the rubric
    omits.**
@@ -323,10 +340,18 @@ Your job: for each of the 88, author an answer span that actually earns its crit
    chromosomes, each a single chromatid — meiosis II separates sister chromatids and does not reduce
    chromosome number. A's drafted span says "four cells each contain one chromosome," which is wrong
    and also contradicts the same item's retained canonical text ("meiosis II separates sister
-   chromatids"). **Author the correction yourself from the stem; do not copy a correction out of the
-   QA report.** The QA model found the defect, so it must not also be the author of the fix — that
-   is the model separation DECISION-0055 exists to protect. Criterion `a` is worth 2 points and
-   covers both meiosis I and meiosis II; the meiosis I half of A's span is correct.
+   chromatids"). Criterion `a` is worth 2 points and covers both meiosis I and meiosis II; the
+   meiosis I half of A's span is correct.
+
+   **On independence — corrected 2026-09-23, because Codex's challenge was right.** An earlier
+   version said "do not copy a correction out of the QA report." But this work order and the QA
+   findings both state the substance of the correction, so blindness is already gone and pretending
+   otherwise would be theatre. **The standard is independent derivation, not artificial wording
+   divergence:** derive the meiosis I and meiosis II chromosome and chromatid counts from the stem's
+   `2n = 4` and record that derivation. Do **not** manufacture a different-sounding sentence to look
+   independent — a deliberately reworded correct answer is worse content, not better provenance.
+   The separation DECISION-0055 actually protects is preserved by the next step: a different model
+   QAs your correction.
 3. **Re-segment the full answer** so spans still concatenate exactly to `full_text` and every
    criterion is covered.
 4. **Flag cross-criterion entanglement** — where one sentence earns two criteria, so deselecting one
@@ -349,6 +374,12 @@ Your job: for each of the 88, author an answer span that actually earns its crit
      verbatim, its character count, its provenance, its `source_version_id`, and the criterion whose
      new span supersedes it. QA re-derives every removed span against Production, so a removal you
      cannot justify from that table is a finding.
+   - **A-QA-004's 30 in-scope items are candidates, not a quota** *(confirmed 2026-09-23)*. That
+     finding reports where redundancy was measured; it does not authorise removal. The four
+     conditions above govern each case independently. **Do not force a 30-of-30 result** — retain and
+     flag every ambiguous case, and a run that removes far fewer than 30 with sound reasoning is a
+     better outcome than one that hits the number. Refuse any removal whose provenance or
+     `source_version_id` is missing, since DECISION-0056's audit trail would be incomplete.
    - Nothing is deleted from Production. You are changing the assembled proposal, not the stored
      canonical answer — the original remains in A's directory and in Production either way.
    - Where removal changes the assembly, spans must still concatenate exactly to `full_text`.
