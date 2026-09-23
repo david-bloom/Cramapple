@@ -514,6 +514,12 @@ Two subject-specific cautions:
 **Directory:** `docs/research/remaining_subjects_topic_labels_2026_09_23/`
 **Depends on:** work order D's output being QA'd and accepted, since H repeats D's method at scale.
 
+**Gate status, 2026-09-23: OPEN.** D's `qa_report.md` and `qa_findings.csv` exist in
+`calcab_chem_topic_labels_2026_09_22/` and its disposition is **ACCEPTED** — the strongest of the
+four overnight runs. **H is unblocked.** An earlier run recorded a gate skip for H when that report
+did not yet exist; that skip is superseded. Read D's QA report before starting: it tells you which
+parts of D's method were verified to work, and the one place D could not be checked.
+
 ## Scope
 
 **603 items** across the six subjects not covered by D (Calculus AB, Chemistry) or by the
@@ -529,9 +535,43 @@ Biology/Statistics work:
 | ap-physics-2 | 68 | 27 |
 | **Total** | **603** | **149** |
 
+## The closed lists — these are the only permitted values
+
+Verified read-only against Production 2026-09-23. All six are `verified` confidence, school year
+2026-2027. **Confirm each count yourself before you use it, and report any disagreement** rather than
+working around it — an earlier version of this work order named no versions at all, which left the
+single most important input to inference.
+
+| Subject | `taxonomy_source_version` | Topics | Units |
+| --- | --- | ---: | ---: |
+| ap-calculus-bc | `ab088009-dc9a-4f93-8824-803e1913505b` | 111 | 10 |
+| ap-physics-1 | `27111dec-ee07-48f1-86cf-1a5833dd2962` | 43 | 8 |
+| ap-precalculus | `16383753-6775-430d-960a-544cd6ee0972` | 58 | 4 |
+| ap-physics-c-em | `ef9618c9-de85-4941-8837-4dce4c755e62` | 31 | 6 |
+| ap-physics-c-mechanics | `d77d7801-441d-49bb-a2cf-a02f6bff407d` | 41 | 7 |
+| ap-physics-2 | `b3e41b93-95d8-40c6-bef5-98cc99111915` | 46 | 7 |
+
+As in D, the registry stores `subject_key` with underscores (`ap_calculus_bc`, `ap_physics_c_em`)
+while content uses hyphens. **Normalise when you join, or you will match zero rows.**
+
+**A note on AP Calculus BC.** Its list has 111 topics across 10 units against AB's 81 across 8. The
+extra topics are the BC-only ones — `7.5` Euler's Method, `7.9` Logistic Models, `8.13` Arc Length
+among them. D's QA found three items published in the **AB** bank that actually assess those three
+BC-only topics (`apcalcab-mcq-045`, `-046`, `-050`). **They are not in your scope and you must not
+move them** — their disposition is a Product Owner decision. Mentioned only so you recognise the
+pattern if a BC item shows the mirror image of it.
+
 **Recover first**, exactly as in D: 149 items already carry an author-time code. Validate each
 against the item's content, flag `content_disagrees` rather than overwriting, and derive only the
 remaining ~454.
+
+**Emit a per-item verdict on that validation, not just the exceptions** *(QA finding D-QA-003)*. D
+reported `content_disagrees=false` on all 241 rows, and QA could not prove the check had actually run
+on each of the 106 recovered codes — a blanket zero is the same shape that exposed work order E.
+Sampling found D's zero credible, but credible is weaker than evidenced. So for each of your 149
+recovered items record an explicit `content_check` value — `agrees` | `disagrees` | `unclear` — and
+report the distribution. A zero disagreement rate backed by 149 individual verdicts is a result; a
+zero with nothing behind it is an unverifiable claim.
 
 **Carry work order E's lessons forward even though this is a different subject set:** build evidence
 from stem + stimulus + rubric, run a template pre-pass before classifying, allow `undetermined`, and
