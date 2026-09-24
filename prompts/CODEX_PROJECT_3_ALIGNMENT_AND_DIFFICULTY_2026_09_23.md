@@ -65,6 +65,21 @@ So there are three separate problems wearing one label: a **vocabulary** that ha
 inconsistent casing, a **coverage** gap of 508 items, and a **calibrated proposal for three subjects
 that was never applied**.
 
+**A standing Product Owner steer, recorded 2026-09-23.** The working preference is to **collapse to
+three levels**, on three grounds: the three-level scheme is the only one with a derivable method
+behind it; the underlying signal is too noisy to support four bands (the task-verb method scored
+12/16 against hand-verified AP Biology points with *all four errors in the middle band*, and the
+competing cognitive-complexity method agreed with it at Cohen's kappa 0.023 — essentially chance);
+and `Very Hard` holds 5.8% of tagged items spread across nine subjects, which is too sparse per
+subject and topic to drive item selection.
+
+**This steer does not pre-decide J.1.** It is the prior, not the answer. If your evidence shows the
+49 `Very Hard` items have a coherent signature — a shared task shape, a consistent multi-step
+structure, a subject concentration — then say so and argue for keeping the distinction, or for
+representing it as `Hard` plus a flag rather than a fourth band. A brief that simply agrees with the
+steer without testing it is worth nothing. **J.1a and J.1b below exist so that whichever way this
+goes, it is cheap to reverse.**
+
 ## J.1 — Reconcile the vocabulary. Propose; do not choose.
 
 The central question is not yours to answer: **is the scheme three levels or four?** Build the
@@ -83,6 +98,48 @@ evidence and put the decision to the Product Owner.
 
 The 26 casing variants are a separate and unambiguous matter: `hard` and `Hard` are the same label
 written twice. Propose the normalisation as a straightforward correction, listed per item.
+
+### J.1a — Whatever the decision, make the collapse non-destructive
+
+**Never propose overwriting an existing difficulty value in place.** Every proposal row carries the
+raw original string in `existing_difficulty` alongside `proposed_difficulty`, and the eventual
+migration must write the operative label to one field while **preserving the original in a
+provenance field** — `difficulty_source_value`, or whatever the schema proposal settles on.
+
+The reason is specific: if the three-level collapse is ratified and later turns out to have merged a
+real distinction, the only way to answer "should it have been four?" is from the pre-collapse data.
+Overwrite it and that question becomes unanswerable rather than merely open. Collapsing 49 `Very
+Hard` items into `Hard` is reversible while the original strings survive and irreversible the moment
+they do not.
+
+Include the storage shape in your proposal: which field is operative, which is provenance, and what a
+reader that wants the pre-collapse value does. **Propose the schema; do not apply it.**
+
+### J.1b — Persist the per-item attainment score, not only the band
+
+The calibration's cut points are cut from a **measured attainment ratio per task verb** — that is
+what `crr_calibration_all_subjects.csv`'s `ratio` column holds, and what
+`docs/research/apbio_difficulty_calibration_2026_09_22/` used to place each item. But the assignment
+CSVs store only `content_key, item_type, difficulty, basis, rationale`. **The continuous score is
+computed and then discarded; only the band survives.**
+
+That is the wrong thing to throw away. For every item you assign, also emit:
+
+- `attainment_ratio` — the measured ratio the assignment rests on, as a number
+- `ratio_source` — which CRR rows or subject baseline produced it
+- `subject_cut_points` — the thresholds applied for that subject, so the band is re-derivable
+
+With those three fields, banding becomes a **presentation choice rather than a data commitment**:
+three levels or four can be derived at read time from the same stored numbers, per subject, and
+changed later without relabelling anything. Without them, every future change to the scheme is
+another full re-assignment pass.
+
+Where an item's score cannot be derived — a subject with no attainment baseline, or an item whose
+task verb is not in the calibration set — leave `attainment_ratio` empty and set `basis` to
+`undetermined` rather than inventing a number. An empty ratio with an honest band is fine; a
+fabricated ratio is a defect, because it would look re-derivable and not be.
+
+**This does not change the decision in J.1.** It changes how much the decision costs to get wrong.
 
 ## J.2 — Extend the calibrated method to the subjects that already have attainment data
 
@@ -117,9 +174,14 @@ no existing labels to argue with.
 
 ## Required evidence columns
 
-Per item: `content_key`, `subject_key`, `item_type`, `existing_difficulty` (raw), `proposed_difficulty`,
+Per item: `content_key`, `subject_key`, `item_type`, `existing_difficulty` (**the raw string,
+verbatim — never normalised, never blank when Production has a value**), `proposed_difficulty`,
 `basis` (`calibrated` | `normalised_casing` | `carried_forward` | `undetermined`), `confidence`,
-`rationale`, `attainment_anchor` (the CRR figure or subject baseline it rests on), `needs_human`.
+`rationale`, `attainment_ratio`, `ratio_source`, `subject_cut_points`, `needs_human`.
+
+The last three are J.1b's fields and are what make the band re-derivable. `existing_difficulty` is
+J.1a's and is what makes the collapse reversible. **A row missing either set is not usable for the
+decision this order exists to support**, so treat them as required rather than nice to have.
 
 **`undetermined` is available and is a real answer** — for items in a subject with no attainment
 baseline, or where the vocabulary decision in J.1 changes what the label should be. An honest
