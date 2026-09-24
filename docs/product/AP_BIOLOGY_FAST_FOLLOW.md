@@ -18,14 +18,18 @@ once it is more than a few days old.
 | …of which carry credited-response segmentation | 67 |
 | `full_exam_frq` items | **0** |
 | Hand-drawn pilot items | 1 (`GRAPH-002`) |
-| **MCQ reachable on this path** | **0 of 43** |
+| **MCQ reachable on this path** | **43 of 43** (FF-1, closed 2026-09-24) |
 
 ### Two things about that table that are not obvious
 
-**The practice path serves FRQ only.** `select_practice_frqs` filters `item_type = 'frq'`. Biology's
-43 published MCQ are unreachable through it. They can only be served by the unit-gated path (dark —
-see FF-3) or by `select_confirm_transfer_item`, which is a parallel-item flow requiring a source
-item, not a general queue.
+**The practice path now serves a Biology-scoped FRQ+MCQ mix.** Until FF-1, `select_practice_frqs`
+filtered `item_type = 'frq'` and Biology's 43 published MCQ were unreachable through it. As of
+2026-09-24, a Biology `targeted_drill` session instead calls the new
+`app.select_biology_practice_items`, which serves both: at today's pool (71 eligible FRQ, 43 MCQ) a
+20-item request returns 12 FRQ + 8 MCQ, interleaved and session-stable. Every other subject still
+calls `select_practice_frqs` unchanged. `select_confirm_transfer_item` (a parallel-item flow
+requiring a source item, not a general queue) and the unit-gated path (dark — see FF-3) are
+unaffected.
 
 **`full_exam_frq` returns zero items.** If any surface offers a full-exam Biology session, it will
 return an empty queue. `student-session-items` answers `session_practice_format_unset` when the
@@ -44,7 +48,7 @@ Rank is by student impact on the chosen path, not by effort.
 
 | ID | Item | Impact | Owner | Blocked on |
 | --- | --- | --- | --- | --- |
-| **FF-1** | 43 MCQ unreachable | **High** — a third of Biology's corpus is invisible | Codex | **Unblocked** — FF-13 is closed |
+| ~~**FF-1**~~ | 43 MCQ unreachable | **CLOSED 2026-09-24** — a Biology-scoped combined selector (`app.select_biology_practice_items`) now serves both FRQ and MCQ on `targeted_drill`; verified live with a real-student-token probe (12 FRQ + 8 MCQ served, no answer-key leak by any path, correct/incorrect MCQ graded 1/1 and 0/1 via `rule-based-mcq`) | Codex, QA'd and applied by Claude | — |
 | ~~**FF-2**~~ | `full_exam_frq` returns 0 | **Downgraded to Low** — verified 2026-09-24: the API accepts the format but **no session has ever used it** (117 sessions, all time). Not a day-one risk; one frontend toggle from being one | — | — |
 | **FF-3** | Unit-gated path dark product-wide (8 items across 10 subjects) | **High, strategic** | — | Promotion of serving labels to `validated` — the T9 vs DECISION-0055 question |
 | **FF-4** | `APBIO-FRQ-S-101` has no canonical | Medium — one item missing from 71 | Codex after decision | Product Owner rubric call: criterion `a-iv` spans two stem sub-parts |
@@ -64,12 +68,15 @@ Rank is by student impact on the chosen path, not by effort.
 
 ## Notes that change how some of these should be read
 
-**FF-1 and FF-13 were said to be coupled. They are not.** That claim rested on a memory note from
-2026-08-24 describing a live exposure. Verified 2026-09-24: all three parts of the coordinated fix
-are live, `authenticated` can read `choice_text` but is denied `is_correct` and `rationale`, and
-`anon` is denied everything. The mechanism is column-level grants — serve the choices, withhold the
-key. **FF-1 is unblocked.** Details and the methodological trap that produced the wrong first
-reading are in `docs/research/ff2_ff13_verification_2026_09_24/`.
+**FF-1 and FF-13 were said to be coupled. They were not, and both are now closed.** That coupling
+claim rested on a memory note from 2026-08-24 describing a live exposure. Verified 2026-09-24: all
+three parts of the coordinated fix are live, `authenticated` can read `choice_text` but is denied
+`is_correct` and `rationale`, and `anon` is denied everything. The mechanism is column-level
+grants — serve the choices, withhold the key. Details and the methodological trap that produced the
+wrong first reading are in `docs/research/ff2_ff13_verification_2026_09_24/`. FF-1 itself closed the
+same day: design in `docs/research/ff1_mcq_serving_design_2026_09_24.md`, implementation in
+migration `20260924200000_ff1_biology_combined_practice_selector.sql` and
+`supabase/functions/student-session-items/index.ts`.
 
 **FF-7 and FF-8 do nothing for launch.** They are the largest in-flight work and they change zero
 items on the practice path, because that path ignores taxonomy labels. They matter for FF-3. Worth
@@ -85,8 +92,9 @@ runs on a schedule, the next silent drop is found the same way — by someone ha
 ## Definition of done for this tracker
 
 Biology's fast-follow is complete when FF-1 through FF-6 are closed or explicitly accepted as
-permanent limitations, and FF-12 is running unattended. FF-2 and FF-13 are closed as of 2026-09-24. FF-7 through FF-9 belong to the unit-gated
-path and should be tracked against FF-3 rather than against launch.
+permanent limitations, and FF-12 is running unattended. FF-1, FF-2, and FF-13 are closed as of
+2026-09-24. FF-7 through FF-9 belong to the unit-gated path and should be tracked against FF-3
+rather than against launch.
 
 ## Related
 
