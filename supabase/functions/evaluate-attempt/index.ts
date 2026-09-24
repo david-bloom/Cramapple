@@ -548,7 +548,17 @@ async function readBodyAsRecord(req: Request) {
     : null;
 }
 
-Deno.serve(async (req) => {
+type Service = ReturnType<typeof createServiceClient>;
+
+export interface EvaluateAttemptDeps {
+  service?: Service;
+  requireProfile?: typeof requireProfile;
+}
+
+export async function handleEvaluateAttempt(
+  req: Request,
+  deps: EvaluateAttemptDeps = {},
+): Promise<Response> {
   const respond = (body: unknown, init: ResponseInit = {}) =>
     jsonResponse(body, init, req);
 
@@ -641,7 +651,8 @@ Deno.serve(async (req) => {
   // floor with data; never affects the grading itself.
   const stageTimer = createStageTimer();
 
-  const profileResult = await requireProfile(req);
+  const authenticate = deps.requireProfile ?? requireProfile;
+  const profileResult = await authenticate(req);
   if (!profileResult) {
     return respond({ error: "unauthorized" }, { status: 401 });
   }
@@ -652,7 +663,7 @@ Deno.serve(async (req) => {
     return respond({ error: "forbidden" }, { status: 403 });
   }
 
-  const service = createServiceClient();
+  const service = deps.service ?? createServiceClient();
 
   // Enforce prompt governance: the supplied promptVersion must correspond
   // to a published row in app.prompt_versions for this operation. Without
@@ -1898,4 +1909,8 @@ Deno.serve(async (req) => {
     }),
     { status: finalStatus === "graded" ? 200 : 202 },
   );
-});
+}
+
+if (import.meta.main) {
+  Deno.serve((req) => handleEvaluateAttempt(req));
+}

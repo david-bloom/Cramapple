@@ -78,6 +78,7 @@ export type OmissionReason =
   | "asset_metadata_missing"
   | "asset_not_approved_for_students"
   | "asset_sign_failed"
+  | "choices_missing"
   | "required_visual_absent"
   | "required_visual_not_approved";
 

@@ -225,13 +225,23 @@ async function deliverRows(
 
   const items: RenderItem[] = [];
   for (const { row, asset } of deliverable) {
+    const choices = choicesByVersion.get(row.content_item_version_id) ?? null;
+    if (row.item_type === "mcq" && (!choices || choices.length === 0)) {
+      // An MCQ without choices cannot be answered. Fail closed per item rather
+      // than rendering an empty choice set or failing the whole mixed queue.
+      omitted.push({
+        content_key: row.content_key,
+        reason: "choices_missing",
+      });
+      continue;
+    }
     const item = buildRenderItem(
       row,
       asset,
       asset ? signedByPath.get(asset.storage_path) ?? null : null,
       expiresAt,
       criteriaByVersion.get(row.content_item_version_id) ?? [],
-      choicesByVersion.get(row.content_item_version_id) ?? null,
+      choices,
     );
     if (!item) {
       // Survived the gates but could not be signed. Still a missing required
@@ -331,7 +341,9 @@ export async function handleStudentSessionItems(
     const { data: session, error: sessionError } = await service
       .schema("app")
       .from("learning_sessions")
-      .select("id, user_id, exam_pack_version_id, practice_format, status")
+      .select(
+        "id, user_id, exam_pack_version_id, practice_format, status, exam_pack_version:exam_pack_versions!inner(exam_pack:exam_packs!inner(exam_code))",
+      )
       .eq("id", learningSessionId)
       .maybeSingle();
 
@@ -348,6 +360,15 @@ export async function handleStudentSessionItems(
     }
 
     const qaMode = isStaffQaRole(profile.role);
+    const embeddedPackVersion = Array.isArray(session.exam_pack_version)
+      ? session.exam_pack_version[0]
+      : session.exam_pack_version;
+    const embeddedPack = Array.isArray(embeddedPackVersion?.exam_pack)
+      ? embeddedPackVersion.exam_pack[0]
+      : embeddedPackVersion?.exam_pack;
+    const sessionExamCode = typeof embeddedPack?.exam_code === "string"
+      ? embeddedPack.exam_code
+      : null;
 
     // ── Confirm-transfer branch (Course Mode §7.1) ──────────────────────────
     if (confirmTransferRequested) {
@@ -492,14 +513,28 @@ export async function handleStudentSessionItems(
         });
       }
 
-      ({ data: selected, error: selectError } = await service.rpc(
-        "select_practice_frqs",
-        {
-          _exam_pack_version_id: session.exam_pack_version_id,
-          _practice_format: session.practice_format,
-          _limit: limit,
-        },
-      ));
+      if (
+        sessionExamCode === "ap_biology" &&
+        session.practice_format === "targeted_drill"
+      ) {
+        ({ data: selected, error: selectError } = await service
+          .schema("app")
+          .rpc("select_biology_practice_items", {
+            _exam_pack_version_id: session.exam_pack_version_id,
+            _practice_format: session.practice_format,
+            _selection_seed: learningSessionId,
+            _limit: limit,
+          }));
+      } else {
+        ({ data: selected, error: selectError } = await service.rpc(
+          "select_practice_frqs",
+          {
+            _exam_pack_version_id: session.exam_pack_version_id,
+            _practice_format: session.practice_format,
+            _limit: limit,
+          },
+        ));
+      }
     }
     if (selectError) {
       return respond({ error: "item_selection_failed" }, { status: 500 });
@@ -529,4 +564,6 @@ export async function handleStudentSessionItems(
   }
 }
 
-Deno.serve((req) => handleStudentSessionItems(req));
+if (import.meta.main) {
+  Deno.serve((req) => handleStudentSessionItems(req));
+}

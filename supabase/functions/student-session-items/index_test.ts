@@ -16,15 +16,19 @@ import { handleStudentSessionItems } from "./index.ts";
 /* -------------------------------------------------------------------------- */
 
 type Row = Record<string, unknown>;
+type RpcCall = { schema: "app" | "public"; name: string; params: unknown };
 type Spec = {
   session?: Row | null;
   sourceVersion?: Row | null;
   transferRows?: Row[];
+  biologyRows?: Row[];
   transferError?: boolean;
   practiceRows?: Row[];
   criteria?: Row[];
+  choices?: Row[];
   assets?: Row[];
   visuals?: Row[];
+  rpcCalls?: RpcCall[];
   signFail?: boolean;
 };
 
@@ -50,28 +54,35 @@ function makeService(spec: Spec) {
   };
   const listByTable: Record<string, Row[]> = {
     frq_criteria: spec.criteria ?? [],
+    mcq_choices: spec.choices ?? [],
     content_asset_metadata: spec.assets ?? [],
     content_visual_requirements: spec.visuals ?? [],
   };
   const appSchema = {
     from: (t: string) =>
       tableBuilder(singleByTable[t] ?? null, listByTable[t] ?? []),
-    rpc: (fn: string) =>
-      Promise.resolve({
+    rpc: (fn: string, params: unknown) => {
+      spec.rpcCalls?.push({ schema: "app", name: fn, params });
+      return Promise.resolve({
         data: fn === "select_confirm_transfer_item"
           ? (spec.transferRows ?? [])
+          : fn === "select_biology_practice_items"
+          ? (spec.biologyRows ?? [])
           : [],
         error: spec.transferError ? { message: "boom" } : null,
-      }),
+      });
+    },
   };
   return {
     schema: (_name: string) => appSchema,
     // top-level rpc is the ordinary-path select_practice_frqs
-    rpc: (fn: string) =>
-      Promise.resolve({
+    rpc: (fn: string, params: unknown) => {
+      spec.rpcCalls?.push({ schema: "public", name: fn, params });
+      return Promise.resolve({
         data: fn === "select_practice_frqs" ? (spec.practiceRows ?? []) : [],
         error: null,
-      }),
+      });
+    },
     storage: {
       from: (_bucket: string) => ({
         // deno-lint-ignore no-explicit-any
@@ -95,12 +106,15 @@ function makeService(spec: Spec) {
 }
 
 const STUDENT = { user: { id: "u1" }, profile: { role: "student" } };
+const SESSION_ID = "11111111-1111-4111-8111-111111111111";
+const SOURCE_VERSION_ID = "22222222-2222-4222-8222-222222222222";
 const ACTIVE_SESSION = {
-  id: "sess1",
+  id: SESSION_ID,
   user_id: "u1",
   exam_pack_version_id: "epv1",
   practice_format: "mcq",
   status: "active",
+  exam_pack_version: { exam_pack: { exam_code: "ap_statistics" } },
 };
 
 function post(body: unknown) {
@@ -117,7 +131,10 @@ async function call(spec: Spec, body: unknown, profile: any = STUDENT) {
     service: makeService(spec),
     requireProfile: () => Promise.resolve(profile),
   });
-  return { status: res.status, json: await res.json() as Record<string, unknown> };
+  return {
+    status: res.status,
+    json: await res.json() as Record<string, unknown>,
+  };
 }
 
 const DELIVERABLE_TRANSFER = {
@@ -140,18 +157,26 @@ Deno.test("confirm-transfer returns one same-cell item", async () => {
   const { status, json } = await call(
     {
       session: ACTIVE_SESSION,
-      sourceVersion: { id: "srcv", content_items: { exam_pack_version_id: "epv1" } },
+      sourceVersion: {
+        id: SOURCE_VERSION_ID,
+        content_items: { exam_pack_version_id: "epv1" },
+      },
       transferRows: [DELIVERABLE_TRANSFER],
+      choices: [{
+        content_item_version_id: "tv1",
+        choice_key: "A",
+        choice_text: "A safe transfer choice",
+      }],
     },
     {
-      learning_session_id: "sess1",
-      confirm_transfer: { source_content_item_version_id: "srcv" },
+      learning_session_id: SESSION_ID,
+      confirm_transfer: { source_content_item_version_id: SOURCE_VERSION_ID },
     },
   );
   assertEquals(status, 200);
   const result = json.result as Record<string, unknown>;
   assertEquals(result.mode, "confirm_transfer");
-  assertEquals(result.source_content_item_version_id, "srcv");
+  assertEquals(result.source_content_item_version_id, SOURCE_VERSION_ID);
   assert(result.item, "expected a transfer item");
   assertEquals(
     (result.item as Record<string, unknown>).content_item_version_id,
@@ -169,12 +194,15 @@ Deno.test("confirm-transfer fails closed with no parallel item", async () => {
   const { status, json } = await call(
     {
       session: ACTIVE_SESSION,
-      sourceVersion: { id: "srcv", content_items: { exam_pack_version_id: "epv1" } },
+      sourceVersion: {
+        id: SOURCE_VERSION_ID,
+        content_items: { exam_pack_version_id: "epv1" },
+      },
       transferRows: [], // selector excluded / found nothing
     },
     {
-      learning_session_id: "sess1",
-      confirm_transfer: { source_content_item_version_id: "srcv" },
+      learning_session_id: SESSION_ID,
+      confirm_transfer: { source_content_item_version_id: SOURCE_VERSION_ID },
     },
   );
   assertEquals(status, 200);
@@ -196,7 +224,10 @@ Deno.test("confirm-transfer withholds a media-gated candidate", async () => {
   const { status, json } = await call(
     {
       session: ACTIVE_SESSION,
-      sourceVersion: { id: "srcv", content_items: { exam_pack_version_id: "epv1" } },
+      sourceVersion: {
+        id: SOURCE_VERSION_ID,
+        content_items: { exam_pack_version_id: "epv1" },
+      },
       transferRows: [withImage],
       // required visual with no student-approved metadata -> partitionDeliverable omits
       visuals: [{
@@ -206,8 +237,8 @@ Deno.test("confirm-transfer withholds a media-gated candidate", async () => {
       }],
     },
     {
-      learning_session_id: "sess1",
-      confirm_transfer: { source_content_item_version_id: "srcv" },
+      learning_session_id: SESSION_ID,
+      confirm_transfer: { source_content_item_version_id: SOURCE_VERSION_ID },
     },
   );
   assertEquals(status, 200);
@@ -229,14 +260,14 @@ Deno.test("confirm-transfer rejects a cross-pack source", async () => {
     {
       session: ACTIVE_SESSION,
       sourceVersion: {
-        id: "srcv",
+        id: SOURCE_VERSION_ID,
         content_items: { exam_pack_version_id: "OTHER_PACK" },
       },
       transferRows: [DELIVERABLE_TRANSFER],
     },
     {
-      learning_session_id: "sess1",
-      confirm_transfer: { source_content_item_version_id: "srcv" },
+      learning_session_id: SESSION_ID,
+      confirm_transfer: { source_content_item_version_id: SOURCE_VERSION_ID },
     },
   );
   assertEquals(status, 409);
@@ -247,8 +278,8 @@ Deno.test("confirm-transfer 404s an unknown source item", async () => {
   const { status, json } = await call(
     { session: ACTIVE_SESSION, sourceVersion: null },
     {
-      learning_session_id: "sess1",
-      confirm_transfer: { source_content_item_version_id: "srcv" },
+      learning_session_id: SESSION_ID,
+      confirm_transfer: { source_content_item_version_id: SOURCE_VERSION_ID },
     },
   );
   assertEquals(status, 404);
@@ -258,7 +289,7 @@ Deno.test("confirm-transfer 404s an unknown source item", async () => {
 Deno.test("confirm-transfer requires a source id", async () => {
   const { status, json } = await call(
     { session: ACTIVE_SESSION },
-    { learning_session_id: "sess1", confirm_transfer: {} },
+    { learning_session_id: SESSION_ID, confirm_transfer: {} },
   );
   assertEquals(status, 400);
   assertEquals(json.error, "missing_required_fields");
@@ -272,8 +303,8 @@ Deno.test("confirm-transfer denies a non-owner", async () => {
   const { status, json } = await call(
     { session: { ...ACTIVE_SESSION, user_id: "someone_else" } },
     {
-      learning_session_id: "sess1",
-      confirm_transfer: { source_content_item_version_id: "srcv" },
+      learning_session_id: SESSION_ID,
+      confirm_transfer: { source_content_item_version_id: SOURCE_VERSION_ID },
     },
   );
   assertEquals(status, 403);
@@ -284,8 +315,8 @@ Deno.test("confirm-transfer refuses an inactive session", async () => {
   const { status, json } = await call(
     { session: { ...ACTIVE_SESSION, status: "completed" } },
     {
-      learning_session_id: "sess1",
-      confirm_transfer: { source_content_item_version_id: "srcv" },
+      learning_session_id: SESSION_ID,
+      confirm_transfer: { source_content_item_version_id: SOURCE_VERSION_ID },
     },
   );
   assertEquals(status, 409);
@@ -296,8 +327,8 @@ Deno.test("unauthorized caller is rejected", async () => {
   const { status, json } = await call(
     { session: ACTIVE_SESSION },
     {
-      learning_session_id: "sess1",
-      confirm_transfer: { source_content_item_version_id: "srcv" },
+      learning_session_id: SESSION_ID,
+      confirm_transfer: { source_content_item_version_id: SOURCE_VERSION_ID },
     },
     null,
   );
@@ -313,12 +344,116 @@ Deno.test("ordinary path still serves the practice selection", async () => {
   const { status, json } = await call(
     {
       session: ACTIVE_SESSION,
-      practiceRows: [{ ...DELIVERABLE_TRANSFER, content_item_version_id: "ov1" }],
+      practiceRows: [{
+        ...DELIVERABLE_TRANSFER,
+        content_item_version_id: "ov1",
+      }],
     },
-    { learning_session_id: "sess1" },
+    { learning_session_id: SESSION_ID },
   );
   assertEquals(status, 200);
   const result = json.result as Record<string, unknown>;
   assertEquals((result.items as unknown[]).length, 1);
   assertEquals(result.practice_format, "mcq");
+});
+
+/* -------------------------------------------------------------------------- */
+/* FF-1: Biology targeted-drill routes to the combined selector               */
+/* -------------------------------------------------------------------------- */
+
+const BIOLOGY_SESSION = {
+  ...ACTIVE_SESSION,
+  practice_format: "targeted_drill",
+  exam_pack_version: { exam_pack: { exam_code: "ap_biology" } },
+};
+
+const BIOLOGY_MCQ = {
+  ...DELIVERABLE_TRANSFER,
+  content_item_version_id: "33333333-3333-4333-8333-333333333333",
+  content_item_id: "44444444-4444-4444-8444-444444444444",
+  content_key: "APBIO-MCQ-001",
+  item_type: "mcq",
+};
+
+Deno.test("Biology targeted-drill routes to the combined selector with the session seed", async () => {
+  const rpcCalls: RpcCall[] = [];
+  const { status, json } = await call(
+    {
+      session: BIOLOGY_SESSION,
+      biologyRows: [BIOLOGY_MCQ],
+      choices: [{
+        content_item_version_id: BIOLOGY_MCQ.content_item_version_id,
+        choice_key: "A",
+        choice_text: "A safe learner-facing choice",
+        is_correct: true,
+        rationale: "must not be forwarded",
+      }],
+      rpcCalls,
+    },
+    { learning_session_id: SESSION_ID, limit: 20 },
+  );
+
+  assertEquals(status, 200);
+  assertEquals(rpcCalls, [{
+    schema: "app",
+    name: "select_biology_practice_items",
+    params: {
+      _exam_pack_version_id: "epv1",
+      _practice_format: "targeted_drill",
+      _selection_seed: SESSION_ID,
+      _limit: 20,
+    },
+  }]);
+  const item = (json.result as Record<string, unknown>).items as Array<
+    Record<string, unknown>
+  >;
+  assertEquals(item.length, 1);
+  assertEquals(item[0].item_type, "mcq");
+  assertEquals(item[0].choices, [{
+    choice_key: "A",
+    choice_text: "A safe learner-facing choice",
+  }]);
+  const serialized = JSON.stringify(json);
+  assert(!serialized.includes("is_correct"));
+  assert(!serialized.includes("rationale"));
+});
+
+Deno.test("non-Biology and non-targeted formats keep the existing selector arguments", async () => {
+  for (
+    const session of [
+      { ...ACTIVE_SESSION, practice_format: "targeted_drill" },
+      { ...BIOLOGY_SESSION, practice_format: "full_exam_frq" },
+    ]
+  ) {
+    const rpcCalls: RpcCall[] = [];
+    const { status } = await call(
+      { session, practiceRows: [], rpcCalls },
+      { learning_session_id: SESSION_ID, limit: 7 },
+    );
+    assertEquals(status, 200);
+    assertEquals(rpcCalls, [{
+      schema: "public",
+      name: "select_practice_frqs",
+      params: {
+        _exam_pack_version_id: "epv1",
+        _practice_format: session.practice_format,
+        _limit: 7,
+      },
+    }]);
+  }
+});
+
+Deno.test("a Biology MCQ with no choices is omitted fail-closed", async () => {
+  const { status, json } = await call(
+    { session: BIOLOGY_SESSION, biologyRows: [BIOLOGY_MCQ], choices: [] },
+    { learning_session_id: SESSION_ID },
+  );
+
+  assertEquals(status, 200);
+  const result = json.result as Record<string, unknown>;
+  assertEquals(result.items, []);
+  assertEquals(result.omitted, [{
+    content_key: "APBIO-MCQ-001",
+    reason: "choices_missing",
+  }]);
 });
