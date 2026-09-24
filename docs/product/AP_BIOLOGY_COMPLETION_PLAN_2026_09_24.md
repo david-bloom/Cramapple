@@ -287,12 +287,12 @@ and on current evidence it is more likely to be a grader defect than a content d
 | D0–D5 decisions | **David** | — |
 | Work order J (difficulty vocabulary brief) | Codex | — |
 | M0 segmentation store | Claude | **APPLIED to Dev and Production 2026-09-24** (empty), RLS proven |
-| M5 baseline capture | Claude | — *(must precede M1)* |
-| M1 canonical + segmentation | Claude | D1, M0, M5-baseline |
+| M5 baseline capture | Claude | **DONE 2026-09-24** — `docs/research/biology_m5_grader_baseline_2026_09_24.md` |
+| M1 canonical + segmentation | Claude | **BLOCKED 2026-09-24** — F's span output does not fit M0's contract (M1-B-003/004); S-101 held (M1-B-001). See `docs/research/biology_m1_regrade_and_blocker_2026_09_24/` |
 | M2 topic labels | Claude | **APPLIED to Production 2026-09-24** (DECISION-0062) — 112 provisional, 6 held |
 | M3 difficulty | Claude | **store APPLIED to Production 2026-09-24 (empty)**; data load blocked on work order J.0 |
 | M4 point totals | Claude | **APPLIED to Production 2026-09-24** — all 16, verified |
-| M5 grader gate re-run | Claude | M1 |
+| M5 grader gate re-run | Claude | M1. S-101 re-run 2026-09-24: 1 of 3 runs at 100%, fails the bar |
 | Biology closeout record | Claude | all |
 
 Codex's share is small: work order J, and any content rework a decision triggers. **The critical path
