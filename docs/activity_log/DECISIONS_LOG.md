@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0065 — Four Rules to Unblock J.0's Continuous `attainment_ratio` (FF-6): AI Cross-Model Verb Verification, Same-Tier Borrowing, Mean Aggregation, Non-Overlapping Cut Points
 - DECISION-0064 — Split `APBIO-FRQ-S-101` Criterion `a-iv` Into Two Stem-Aligned Criteria; Authorize Rewriting `S-021`/`S-023`/`S-058`'s Canonical Answers to Match Their Rubrics
 - DECISION-0061 — Three Levels Are the Operative Difficulty Scheme; Four-Level Sources Are Translated Down, Non-Destructively
 - DECISION-0060 — Credited-Response Segmentation Is Stored in a Dedicated Child Table, One Row Per Span, Not in `prompt_json`
@@ -43,6 +44,81 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~600 lines, archive the older entries to `docs/activity_log/archive/DECISIONS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries. (This log is already well over that threshold — the first archive pass is overdue, not optional.)
 
 (Note: the TASK-0012 branch independently logged its own DECISION-0027/0028 — CORS/ALLOWED_ORIGINS and budget-burn semantics — under different numbers on its own branch. Those land separately when that work merges to `main`; this charter-adoption decision claimed 0027/0028 here because `main` had not yet recorded entries past DECISION-0026 at merge time. If both branches' numbering collides on merge, renumber on whichever side merges second and update this index.)
+
+## DECISION-0065 — Four Rules to Unblock J.0's Continuous `attainment_ratio` (FF-6)
+
+**Date:** 2026-09-24
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Approval:** Product Owner direction, 2026-09-24 (this session)
+**Related Docs:** `docs/product/AP_BIOLOGY_FAST_FOLLOW.md` (FF-6);
+`docs/research/difficulty_reconciliation_2026_09_23/` (Codex's J.0 run and its
+`DISCREPANCY.md`); `docs/research/apbio_j0_ratio_decision_2026_09_24/README.md` (the computed
+scope and exact rules this decision approves); `docs/research/apbio_difficulty_calibration_2026_09_22/README.md`
+(the existing, already-ratified categorical method and its task-verb tier table); DECISION-0061;
+DECISION-0055
+**Area:** Content / Governance
+
+### Context
+
+J.0 asked Codex to re-run Biology's existing difficulty method and additionally emit a continuous
+`attainment_ratio` per item, sourced from `crr_calibration_all_subjects.csv` (real College Board
+Chief Reader attainment data). Codex's run (2026-09-24) reproduced all 81 existing categorical
+task-verb bands exactly (0 drift) but correctly stopped rather than emit ratios: the committed
+method has no ratio calculation, only 6 of 81 items exact-join to Biology's own 18 CRR rows using
+an explicitly unverified column, and no rule existed for combining multiple criteria into one
+item-level number. See `DISCREPANCY.md` for the full evidence.
+
+Four separate inputs were needed to resume. This decision provides all four.
+
+### Decision
+
+1. **Verb verification is AI cross-model, not human.** Two independent AI models each verify the
+   mapping from a CRR row to its task verb/Science Practice. Agreement → use it. Disagreement → that
+   row does not contribute a ratio (same "do not manufacture, prefer null" discipline as everywhere
+   else in this project), it is not adjudicated by picking one model's answer.
+
+2. **Scope is 87 specific CRR rows, not 18 and not 298** — computed directly against Codex's own
+   `j0_reproduction.csv`, not estimated. Biology's 81 task-verb items use 23 distinct base verbs; 15
+   of those appear somewhere in the 316-row CRR file (10 Biology rows + 77 rows across six other
+   subjects — Chemistry 31, Calculus AB 19, Calculus BC 14, Physics C: E&M 6, Physics C: Mechanics
+   5, Precalculus 2); the exact 87 are listed in `crr_rows_to_verify.csv` in the same directory.
+
+3. **The remaining 8 verbs with zero CRR occurrence anywhere** (`apply`, `classify`, `contrast`,
+   `distinguish`, `label`, `name`, `support`, `trace`) **borrow from their own difficulty tier**
+   (the existing, already-ratified Easy/Medium/Hard task-verb grouping under DECISION-0061), tried
+   only after an exact-verb match fails. This closes the reachability gap completely — 0 of 81 items
+   are permanently unreachable — but it rests on an assumption that has not been independently
+   tested (same-tier verbs have similar *attainment*, not just similar judged *difficulty*), and the
+   Medium tier specifically is where the underlying method is weakest ("reliable at the extremes and
+   soft in the middle," per the calibration README's own validation note). **Every emitted ratio
+   must carry `ratio_source: exact_verb` or `ratio_source: tier_fallback`** so this is never silently
+   presented at the same confidence as a direct match.
+
+4. **Cross-subject ratios must be normalized, not copied raw.** Subject baselines differ by up to 21
+   points (AP Physics 2 mean 0.653 vs. AP Chemistry mean 0.440). A ratio borrowed from another
+   subject (exact-verb or tier-fallback) must be re-expressed as that source row's position relative
+   to its own subject's mean/cut points, then re-anchored to Biology's own cut points — never copied
+   as a raw number.
+
+5. **Aggregation rule: mean** of an item's per-criterion (or per-detected-verb, for a single-verb
+   MCQ) resolved ratios.
+
+6. **Cut-point inclusivity:** `Hard <= 0.49`; `Medium` is the open interval `(0.49, 0.75)`; `Easy >=
+   0.75`. A value exactly on a boundary belongs to the outer band — resolves the overlap in the
+   originally published language (`Hard <= 0.49`, `Medium 0.49-0.75`, `Easy >= 0.75`) in the
+   direction its own inclusive operators already implied.
+
+### What this does not change
+
+- The 37 judgment-basis items remain null, as J.0 originally specified — nothing here concerns them.
+- The existing categorical Easy/Medium/Hard label is untouched; it does not depend on the ratio and
+  was already validated independently (81/81 bands reproduce exactly). A null or tier-fallback ratio
+  never affects an item's categorical band.
+- Nothing at serving time reads difficulty today (verified by grep during the original J.0 work), so
+  none of this changes what a student is served.
+- Unchanged: AI build → independent AI cross-model QA → Product Owner approval (DECISION-0055)
+  before anything is written to Production.
 
 ## DECISION-0064 — Split `APBIO-FRQ-S-101` Criterion `a-iv` Into Two Stem-Aligned Criteria; Authorize Rewriting `S-021`/`S-023`/`S-058`'s Canonical Answers to Match Their Rubrics
 
