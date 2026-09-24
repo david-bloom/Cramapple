@@ -276,8 +276,8 @@ and on current evidence it is more likely to be a grader defect than a content d
 | M5 baseline capture | Claude | — *(must precede M1)* |
 | M1 canonical + segmentation | Claude | D1, M0, M5-baseline |
 | M2 topic labels | Claude | **BLOCKED** — T9 vs DECISION-0055 conflict |
-| M3 difficulty | Claude | D3 ✓ — store ready; **data load blocked on a Biology ratio regeneration (Codex)** |
-| M4 point totals | Claude | D4 ✓ — written, all 16, awaiting go |
+| M3 difficulty | Claude | **store APPLIED to Production 2026-09-24 (empty)**; data load blocked on work order J.0 |
+| M4 point totals | Claude | **APPLIED to Production 2026-09-24** — all 16, verified |
 | M5 grader gate re-run | Claude | M1 |
 | Biology closeout record | Claude | all |
 

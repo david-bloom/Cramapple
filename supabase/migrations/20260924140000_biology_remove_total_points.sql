@@ -2,9 +2,11 @@
 -- D4, approved 2026-09-24, extended the same day: remove prompt_json.total_points
 -- from ALL 16 Biology items that carry it, not only the 9 where it disagrees.
 --
--- NOT YET APPLIED. Production is a hard gate under
--- docs/team_charter/CRAMAPPLE_SESSION_START.md; this file is the reviewable
--- artifact and applies only on explicit Product Owner go.
+-- APPLIED TO PRODUCTION 2026-09-24 on Product Owner authorisation.
+-- Verified after: 118 Biology published versions, 0 still carrying the field,
+-- prompt_json key total 516 -> 500 (exactly 16 removed, so no other key was
+-- touched), 0 Biology point-total mismatches remaining. 235 published versions
+-- in other subjects still carry total_points and were deliberately untouched.
 --
 -- ---------------------------------------------------------------------------
 -- Why all 16 rather than the 9 that are wrong
@@ -68,6 +70,11 @@
 --    rather than hidden.
 --
 -- ---------------------------------------------------------------------------
+-- Subject is resolved through exam_packs.exam_code because app.content_items has
+-- NO subject_key column -- that exists only on the public view. The first
+-- attempt used ci.subject_key and failed; both paths were then verified
+-- read-only to select the identical 16 version ids before applying.
+--
 -- Scoped by predicate rather than by id list, so the intent is legible:
 -- "no published Biology version carries this field." Idempotent -- the
 -- `? 'total_points'` guard makes a re-run a no-op. Scoped to biology only;
@@ -77,8 +84,10 @@
 update app.content_item_versions civ
 set prompt_json = civ.prompt_json - 'total_points'
 from app.content_items ci
+join app.exam_pack_versions epv on epv.id = ci.exam_pack_version_id
+join app.exam_packs ep on ep.id = epv.exam_pack_id
 where ci.id = civ.content_item_id
-  and ci.subject_key = 'biology'
+  and ep.exam_code = 'ap_biology'
   and civ.status = 'published'
   and civ.prompt_json ? 'total_points';
 

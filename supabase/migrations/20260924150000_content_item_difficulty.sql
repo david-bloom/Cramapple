@@ -4,9 +4,21 @@
 -- attainment ratio, its source and the subject cut points alongside the band so
 -- banding is re-derivable at read time.
 --
--- NOT YET APPLIED. Production is a hard gate. This migration creates the store
--- EMPTY; the Biology data load is a separate step and is currently blocked --
--- see "What blocks the data load" below.
+-- APPLIED TO PRODUCTION 2026-09-24 on Product Owner authorisation, EMPTY.
+-- Verified after: 0 rows, RLS enabled, one policy scoped to service_role, 0
+-- grants to anon/authenticated/public, and `authenticated` functionally blocked.
+-- The Biology data load is a separate step and remains blocked -- see "What
+-- blocks the data load" below.
+--
+-- NOTE FOR ANY FUTURE app-SCHEMA TABLE, INCLUDING canonical_answer_spans.
+-- Production carries ALTER DEFAULT PRIVILEGES granting content_reviewer SELECT
+-- on every new table in the app schema (pg_default_acl shows
+-- {content_reviewer=r/postgres} for objtype 'r'). Dev does NOT. So a grant you
+-- did not write appears automatically on Production. It is inert here because
+-- RLS is enabled with a service_role-only policy, so content_reviewer's SELECT
+-- returns zero rows -- but anyone adding a broader RLS policy later would
+-- activate it silently. Check pg_default_acl before assuming a new table's
+-- grants match what its migration says.
 --
 -- ---------------------------------------------------------------------------
 -- Why a table rather than prompt_json keys
