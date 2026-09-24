@@ -1,6 +1,6 @@
 # AP Biology Completion Plan
 
-**Status:** Active — D0, D3 and D5 decided 2026-09-24 (DECISION-0060, DECISION-0061); **D1, D2, D4 outstanding**, all three ratifications of QA-accepted work
+**Status:** Active — D0, D1, D3, D5 accepted and D2 accepted in part (2026-09-24). **Outstanding: the 6 flagged Biology topic labels within D2, and D4.**
 **Owner:** David Bloom (ratification) / Claude (migration + verification)
 **Date:** 2026-09-24
 **Purpose:** Finish AP Biology end to end, and in doing so **establish the ratify → apply → verify
@@ -77,8 +77,8 @@ Biology is complete when all six hold:
 | ID | Decision | Recommendation | Blocks |
 | --- | --- | --- | --- |
 | ~~**D0**~~ | **DECIDED 2026-09-24 — DECISION-0060.** Segmentation is stored in a dedicated child table keyed by `content_item_version_id`, one row per span. Deciding argument: a span is answer-key material, and RLS on a dedicated table is far easier to get right than hiding a key inside a blob the grader reads on every attempt. | — | **Unblocked** |
-| **D1** | Ratify A + F's canonical answers and segmentation for Biology. | Accept. Both QA-accepted; F scored 88/88 biologically correct with zero errors. | M1 |
-| **D2** | Ratify the September topic labels, superseding the August provisional set, and sign off the 6 flagged items. | Accept, after reviewing the 6. The live set is `legacy_unvalidated` and predates the accepted run by seven weeks. | M2 |
+| ~~**D1**~~ | **ACCEPTED 2026-09-24.** A + F's canonical answers and segmentation are ratified for Biology. M1 may proceed once F.1 lands (`APBIO-FRQ-S-101`'s four-part re-label) — see the M5 baseline. | — | **Unblocked** |
+| **D2** *(part)* | **ACCEPTED 2026-09-24** — the September topic labels supersede the August provisional set. **Still open: sign-off on the 6 flagged items**, which the accepting QA raised for Product Owner review. M2 can be written against the accepted set but should not apply until the 6 are resolved. | — | M2 |
 | ~~**D3**~~ | **DECIDED 2026-09-24 — DECISION-0061.** Three levels are operative; four-level sources translate down (`Very Hard` → `Hard`) non-destructively, with the attainment ratio stored alongside. **Biology carries zero difficulty values, so it has nothing to translate** — its 118-row assignment applies directly and does **not** wait on work order J. | — | **Unblocked** |
 | **D4** | `prompt_json.total_points`: remove the field, or align it to the rubric sum, for the 9 Biology items. | **Remove.** No runtime reads it; `evaluate-attempt` sums `frq_criteria.points_possible`. Work order I's recommendation, and the runtime evidence supports it. | M4 |
 | ~~**D5**~~ | **DECIDED 2026-09-24 — accept as non-scoring for now.** Correction to how this was framed: the four are **not** uniform. `APBIO-HDG-2026-GRAPH-002` is `human_graded_pilot_approved` and sits in the TASK-0038 human-graded pilot lane (DECISION-0058/0059) — it *is* graded, by a human, under an operational commitment. The other three (`-003`, `-008`, `-010`) are `ai_provisional_unapproved` and genuinely score nothing. So D5 applies to those three; `-002` is already dispositioned elsewhere and must not be swept up. | — | **Unblocked** |

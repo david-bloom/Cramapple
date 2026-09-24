@@ -423,6 +423,73 @@ Your job: for each of the 88, author an answer span that actually earns its crit
 
 ---
 
+# Work order F.1 — re-label `APBIO-FRQ-S-101` to match its four-part stem
+
+**Directory:** `docs/research/apbio_drafted_criteria_2026_09_23/` (work order F's own directory —
+this is a correction to your own output).
+**Size: one item, one paragraph.** Do it whenever F's directory is next open; it blocks the Biology
+canonical migration (M1) and nothing else.
+
+## What the grader found
+
+The AP Biology completion plan captured a grader baseline on 2026-09-24, before any canonical is
+written to Production (`docs/research/biology_m5_grader_baseline_2026_09_24.md`). Two of the three
+reachable items score 100%. `APBIO-FRQ-S-101` scores **3 of 4**, on two separate runs, and the
+reason is not a grader defect:
+
+> *"The student did not provide a separate explanation explicitly answering part (a)(iv) about why
+> parsimony is preferred or fully defining 'most parsimonious' as required."*
+
+That is correct. Here is why it happens:
+
+- The item's **stem asks four sub-parts** — `(a)(i)` through `(a)(iv)` — and its rubric carries four
+  criteria, `a-i` through `a-iv`.
+- The **answer text is labelled `(i)`, `(ii)`, `(iii)` only.** It was recovered verbatim from retired
+  parent `APBIO-FRQ-L-025`, which asked a **three**-part question.
+- The content earning `a-iv` **is present**, but it sits inside the `(iii)` paragraph. QA of work
+  order A confirmed it verbatim at its exact offset, so the mapping was right.
+
+So the content is correct and the **presentation** is not: a student reading this canonical sees no
+part (iv). It is an artefact of splitting a three-part parent into a four-criterion child without
+re-labelling the answer's sub-parts.
+
+## What to do
+
+1. **Split the `(iii)` paragraph into labelled `(iii)` and `(iv)`**, matching the stem's four parts.
+   The definition of "most parsimonious" stays under `(iii)`; the explanation of why parsimony is
+   preferred becomes `(iv)`.
+2. **This is a re-label, not a re-authoring.** Preserve the recovered wording. You may add the `(iv)`
+   label and the minimal connective needed for the sentence to stand on its own — nothing more. The
+   text is vetted content from a retired published parent, and QA verified it byte-for-byte.
+3. **Re-verify the invariants** afterwards: spans still concatenate exactly to `full_text`, every
+   criterion still covered, and every criterion still has a span tagged to it alone. F scored 0 of
+   261 criteria without an exclusive span; do not regress that.
+4. **Update the span provenance honestly.** The `(iv)` span is no longer byte-identical to the parent
+   source, so it is not `recovered_parent` any more. Mark it `drafted` — or propose a more precise
+   value and say why — and record the change rather than leaving a `source_offset` that no longer
+   resolves.
+5. **Record it in `F1_CHANGES.md`**: the before and after text, which spans changed, the provenance
+   change, and your re-verified invariant numbers.
+
+## What you do NOT do
+
+**Do not re-grade it.** The grader path is `service_role`-gated and, more importantly, the model that
+makes a fix must not be the one that verifies it. Claude re-runs the gate against your corrected text
+and records the result against the baseline.
+
+**Do not touch `APBIO-FRQ-S-102` or `-103`.** Both score 100% on the current deployment and are
+accepted as they stand.
+
+## One generalising check, because the pattern may not be unique
+
+`S-101/102/103` are the only Biology items split from a retired parent, so the *parent-split* cause
+is contained. But the underlying defect is more general: **an answer whose sub-part labels do not
+match the sub-parts its stem asks for.** Scan work order F's 71 items for it — where a stem enumerates
+`(a)(i)`, `(b)(ii)` and so on, do the answer's labels cover the same set? Report the count either way.
+**Finding only `S-101` is a result worth having**, not a wasted pass.
+
+---
+
 # Work order G — canonical answers for the remaining seven subjects
 
 **Directory:** `docs/research/multisubject_canonical_answers_2026_09_23/`
@@ -640,7 +707,7 @@ find; the recorded figures predate several content changes.
 
 ## Sequencing
 
-**E → E.1 → F → G → H → I.**
+**E → E.1 → F → F.1 → G → H → I.**
 
 E is highest value and unblocks a rejected lane. F was gated on A's QA; **that gate is now open
 (2026-09-23) and F's earlier skip is superseded — re-enter F before continuing G.** G is the largest body of work
