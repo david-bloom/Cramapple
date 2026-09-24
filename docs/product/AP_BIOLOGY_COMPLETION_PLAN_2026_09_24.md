@@ -1,6 +1,6 @@
 # AP Biology Completion Plan
 
-**Status:** Draft for Product Owner decision
+**Status:** Active — D0, D3 and D5 decided 2026-09-24 (DECISION-0060, DECISION-0061); **D1, D2, D4 outstanding**, all three ratifications of QA-accepted work
 **Owner:** David Bloom (ratification) / Claude (migration + verification)
 **Date:** 2026-09-24
 **Purpose:** Finish AP Biology end to end, and in doing so **establish the ratify → apply → verify
@@ -66,7 +66,9 @@ Biology is complete when all six hold:
 4. No open high-severity QA finding against Biology content.
 5. The DECISION-0052 grader gate has been run against the **applied** canonicals for every reachable
    item, with results recorded.
-6. The 4 hand-drawn items have an explicit disposition — scoring, or withdrawn from the bank.
+6. The 4 hand-drawn items have an explicit disposition. **Met 2026-09-24:** `GRAPH-002` is in the
+   TASK-0038 human-graded pilot; `-003`, `-008` and `-010` are accepted as non-scoring until Engine
+   4's spatial verifier exists.
 
 ---
 
@@ -74,15 +76,22 @@ Biology is complete when all six hold:
 
 | ID | Decision | Recommendation | Blocks |
 | --- | --- | --- | --- |
-| **D0** | **Where does credited-response segmentation live?** New column on `content_item_versions`, new child table keyed by version, or a `prompt_json` key. | **A child table** keyed by `content_item_version_id`, one row per span with `criterion_key`, ordinal, text offsets and provenance. It is queryable, it versions with the item, and it does not bloat `prompt_json`, which already carries topic and difficulty. | Canonical migration (M1) — and every other subject |
+| ~~**D0**~~ | **DECIDED 2026-09-24 — DECISION-0060.** Segmentation is stored in a dedicated child table keyed by `content_item_version_id`, one row per span. Deciding argument: a span is answer-key material, and RLS on a dedicated table is far easier to get right than hiding a key inside a blob the grader reads on every attempt. | — | **Unblocked** |
 | **D1** | Ratify A + F's canonical answers and segmentation for Biology. | Accept. Both QA-accepted; F scored 88/88 biologically correct with zero errors. | M1 |
 | **D2** | Ratify the September topic labels, superseding the August provisional set, and sign off the 6 flagged items. | Accept, after reviewing the 6. The live set is `legacy_unvalidated` and predates the accepted run by seven weeks. | M2 |
-| **D3** | Ratify the 118-row difficulty assignment — **and settle the three-vs-four-level scheme first** (Project 3 work order J). | Apply three levels, non-destructively, storing the per-item attainment ratio alongside the band per J.1a/J.1b. | M3 |
+| ~~**D3**~~ | **DECIDED 2026-09-24 — DECISION-0061.** Three levels are operative; four-level sources translate down (`Very Hard` → `Hard`) non-destructively, with the attainment ratio stored alongside. **Biology carries zero difficulty values, so it has nothing to translate** — its 118-row assignment applies directly and does **not** wait on work order J. | — | **Unblocked** |
 | **D4** | `prompt_json.total_points`: remove the field, or align it to the rubric sum, for the 9 Biology items. | **Remove.** No runtime reads it; `evaluate-attempt` sums `frq_criteria.points_possible`. Work order I's recommendation, and the runtime evidence supports it. | M4 |
-| **D5** | The 4 hand-drawn items: accept as non-scoring until Engine 4's verifier exists, or withdraw them from the Biology bank. | Withdraw from the serving bank until the verifier lands. A published item that silently holds instead of scoring is worse for a student than an absent one. | — |
+| ~~**D5**~~ | **DECIDED 2026-09-24 — accept as non-scoring for now.** Correction to how this was framed: the four are **not** uniform. `APBIO-HDG-2026-GRAPH-002` is `human_graded_pilot_approved` and sits in the TASK-0038 human-graded pilot lane (DECISION-0058/0059) — it *is* graded, by a human, under an operational commitment. The other three (`-003`, `-008`, `-010`) are `ai_provisional_unapproved` and genuinely score nothing. So D5 applies to those three; `-002` is already dispositioned elsewhere and must not be swept up. | — | **Unblocked** |
 
-**D0 and D3 are not Biology-specific.** Deciding them here settles them for all ten subjects, which
-is most of this plan's value.
+**D0 and D3 were not Biology-specific, and both are now decided** (DECISION-0060, DECISION-0061),
+which settles the storage shape and the difficulty scheme for all ten subjects. D5 is decided too.
+**Remaining: D1, D2 and D4 — all three are ratifications of work QA has already accepted**, not new
+judgement calls.
+
+**One condition worth carrying forward on D5.** Accepting three items as non-scoring is safe while
+Production has no real students. It stops being safe the moment it does: a student who submits a
+drawing and receives nothing back is a worse experience than an item that was never offered. Revisit
+when the first real cohort lands, or when Engine 4's verifier ships — whichever comes first.
 
 ---
 
@@ -92,13 +101,13 @@ Each step is a reviewable migration with a verification query that must pass **b
 begins. Nothing is applied by direct SQL — the 29 topic-guide migrations of 2026-08-25/27 were
 applied that way and are the reason the Dev migration ledger cannot be trusted.
 
-### M0 — establish the segmentation store *(gated on D0)*
+### M0 — establish the segmentation store *(D0 decided — DECISION-0060)*
 
 Create the store, with no data. Verify shape, constraints and RLS before anything is written. RLS
 matters: **a credited-response span is answer-key material** and must not be readable by
 `authenticated` — the same exposure class as the `mcq_choices.is_correct` finding.
 
-### M1 — canonical answers and segmentation *(gated on D0, D1, M0)*
+### M1 — canonical answers and segmentation *(gated on D1, M0)*
 
 Write `canonical_answer_1` for the 7 blank Biology FRQ, and the full segmentation for all 71
 in-scope items from F's `canonical_proposal.jsonl`.
@@ -119,7 +128,7 @@ Insert the September labels at `label_scope='serving'` with a real `label_status
 `legacy_unvalidated` unsuperseded; every `topic_code` is in the closed list at the stated
 `taxonomy_source_version`.
 
-### M3 — difficulty *(gated on D3 and Project 3 work order J)*
+### M3 — difficulty *(gated on D3 — now decided; **not** gated on work order J)*
 
 Write the ratified band **and** the per-item attainment ratio, cut points and the raw prior value,
 per J.1a/J.1b. Biology is the clean case — it has no existing values to preserve, so it is the right
@@ -181,11 +190,11 @@ and on current evidence it is more likely to be a grader defect than a content d
 | --- | --- | --- |
 | D0–D5 decisions | **David** | — |
 | Work order J (difficulty vocabulary brief) | Codex | — |
-| M0 segmentation store | Claude | D0 |
+| M0 segmentation store | Claude | D0 ✓ |
 | M5 baseline capture | Claude | — *(must precede M1)* |
-| M1 canonical + segmentation | Claude | D0, D1, M0, M5-baseline |
+| M1 canonical + segmentation | Claude | D1, M0, M5-baseline |
 | M2 topic labels | Claude | D2 |
-| M3 difficulty | Claude | D3, J |
+| M3 difficulty | Claude | D3 ✓ |
 | M4 point totals | Claude | D4 |
 | M5 grader gate re-run | Claude | M1 |
 | Biology closeout record | Claude | all |

@@ -6,6 +6,8 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0061 — Three Levels Are the Operative Difficulty Scheme; Four-Level Sources Are Translated Down, Non-Destructively
+- DECISION-0060 — Credited-Response Segmentation Is Stored in a Dedicated Child Table, One Row Per Span, Not in `prompt_json`
 - DECISION-0059 — Adopt a Pilot-Scale Operational Commitment for Hand-Drawn Manual Grading (Grader, SLA, Dispute/Regrade Stance, Staged Rollout) — TASK-0038 Phase 4
 - DECISION-0058 — Define "Approved" for `label_status` on a Hand-Drawn Item as Human-Graded-Pilot-Ready, Not AI-Grading-Ready or Rights-Cleared; Promote `APBIO-HDG-2026-GRAPH-002` Under That Definition (TASK-0038 Phase 2)
 - DECISION-0057 — BYOQ Items Must Never Expose a Canonical Answer, in Any Mode; Rubric/Deep-Dive/Reference/Points-Strategy Hints Are Allowed
@@ -38,6 +40,103 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~600 lines, archive the older entries to `docs/activity_log/archive/DECISIONS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries. (This log is already well over that threshold — the first archive pass is overdue, not optional.)
 
 (Note: the TASK-0012 branch independently logged its own DECISION-0027/0028 — CORS/ALLOWED_ORIGINS and budget-burn semantics — under different numbers on its own branch. Those land separately when that work merges to `main`; this charter-adoption decision claimed 0027/0028 here because `main` had not yet recorded entries past DECISION-0026 at merge time. If both branches' numbering collides on merge, renumber on whichever side merges second and update this index.)
+
+## DECISION-0061 — Three Levels Are the Operative Difficulty Scheme; Four-Level Sources Are Translated Down, Non-Destructively
+
+**Date:** 2026-09-24
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Approval:** Product Owner direction, 2026-09-24 (this session)
+**Related Docs:** `docs/product/AP_BIOLOGY_COMPLETION_PLAN_2026_09_24.md` (D3);
+`prompts/CODEX_PROJECT_3_ALIGNMENT_AND_DIFFICULTY_2026_09_23.md` work order J;
+`docs/research/apbio_difficulty_calibration_2026_09_22/`
+**Area:** Content / Taxonomy
+
+### Context
+
+The 2026-09-22/23 calibration established a three-level scheme — Easy / Medium / Hard — anchored to
+published College Board per-criterion attainment, with per-subject cut points. Production meanwhile
+carries difficulty on 838 of 1,346 published items in a **four-level** vocabulary of unknown
+provenance: 49 `Very Hard`, plus 20 `Easy-Medium` hybrids and 26 casing variants, all in AP
+Statistics.
+
+### Decision
+
+1. **Three levels — Easy / Medium / Hard — are the operative scheme.**
+2. **Where a source carries four levels, translate down** rather than treating the fourth as a
+   separate band. `Very Hard` maps to `Hard`.
+3. **The translation is non-destructive.** The raw original value is preserved in a provenance field;
+   the operative label is written separately. Collapsing is reversible while the originals survive
+   and irreversible the moment they do not.
+4. **Store the per-item attainment ratio, its source, and the subject cut points** alongside the
+   band, so banding is re-derivable at read time and a future scheme change is a re-read rather than
+   a full re-assignment.
+
+### Grounds
+
+The three-level scheme is the only one with a derivable method behind it. The underlying signal is
+too noisy to support four bands — the task-verb method scored 12/16 against hand-verified AP Biology
+points with all four errors in the middle band, and the competing cognitive-complexity method agreed
+with it at Cohen's kappa 0.023, essentially chance. `Very Hard` holds 5.8% of tagged items spread
+across nine subjects, too sparse per subject-topic cell to drive item selection.
+
+### Scope note
+
+**AP Biology carries zero difficulty values and therefore has nothing to translate.** Its 118-row
+calibrated assignment applies directly, which makes it the clean subject on which to prove the
+storage shape. Work order J's vocabulary brief governs the other nine subjects, not Biology.
+
+### Open
+
+- Whether difficulty is ever surfaced to students or used only for item selection; nothing reads
+  `prompt_json.difficulty` today, so this remains an authoring convention rather than a validated
+  pedagogical claim until something does.
+
+## DECISION-0060 — Credited-Response Segmentation Is Stored in a Dedicated Child Table, One Row Per Span, Not in `prompt_json`
+
+**Date:** 2026-09-24
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Approval:** Product Owner direction, 2026-09-24 (this session)
+**Related Docs:** `docs/product/AP_BIOLOGY_COMPLETION_PLAN_2026_09_24.md` (D0, M0, M1);
+work order QA reports for A, B, C, F and G
+**Area:** Architecture / Content
+
+### Context
+
+A canonical answer is stored as text in `content_item_versions.canonical_answer_1/2`. The
+**segmentation** — which span of that text earns which rubric criterion — is what lets Open Hand
+strike exactly the text earning a deselected point.
+
+Verified 2026-09-24: **that mapping has no storage location in Production.** There is no span or
+credited-response column, no table matching `%credit%`, `%span%`, `%canonical%` or `%open_hand%`, and
+zero published items carry it in `prompt_json`. Work orders A, B, C, F and G have between them
+produced thousands of criterion-tagged spans — work order F alone produced 576 across 71 Biology
+items — with nowhere to land. Applying canonical answers without resolving this would write the text
+and discard every span.
+
+### Decision
+
+**Store segmentation in a dedicated child table keyed by `content_item_version_id`, one row per
+span**, carrying at minimum the criterion key, span ordinal, the text or its offsets, and provenance.
+
+Rejected alternatives: a JSON blob column (not queryable per criterion) and a `prompt_json` key
+(`prompt_json` already carries topic, difficulty, `hand_drawn` and `expected_graph_spec`, and the
+grader reads it on every attempt).
+
+### The deciding argument
+
+**A credited-response span is answer-key material.** A student who can read it knows which sentence
+earns each point before submitting. Cramapple already has an open exposure of this class — the
+`mcq_choices` finding, where authenticated students can read `is_correct` for every published MCQ.
+Enforcing RLS on a dedicated table is materially easier to get right, and to verify, than hiding one
+key inside a blob the grader must read on every attempt.
+
+### Consequences
+
+- The store must be created and its RLS proven **before** any span data is written.
+- It must never be readable by `anon` or `authenticated`.
+- This settles the storage question for all ten subjects, not only Biology.
 
 ## DECISION-0059 — Adopt a Pilot-Scale Operational Commitment for Hand-Drawn Manual Grading (Grader, SLA, Dispute/Regrade Stance, Staged Rollout) — TASK-0038 Phase 4
 
