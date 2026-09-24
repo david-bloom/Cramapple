@@ -70,6 +70,11 @@ type StudentSessionItemsDeps = {
   requireProfile?: typeof requireProfile;
 };
 
+// FF-15. "session_practice_format_unset" is a third, pre-existing case that
+// already carried a reason before this fix; kept out of the type so the
+// early-return literal continues to narrow correctly.
+type EmptyQueueReason = "no_matching_content" | "all_items_omitted";
+
 const UUID_RE =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
@@ -546,6 +551,20 @@ export async function handleStudentSessionItems(
       return respond({ error: delivered.error }, { status: 500 });
     }
 
+    // FF-15: an empty queue used to report `status: ok, items: []` with no
+    // indication of why -- indistinguishable from "you finished everything."
+    // Distinguish the two ways it can happen: the selector RPC had nothing
+    // matching this pool/unit/format (no_matching_content), versus it
+    // returned candidates that the media/answerability gates then withheld
+    // (all_items_omitted, detail in `omitted`). A non-empty result never
+    // needs a reason.
+    const emptyQueueReason: EmptyQueueReason | null =
+      delivered.items.length > 0
+        ? null
+        : rows.length === 0
+        ? "no_matching_content"
+        : "all_items_omitted";
+
     return respond({
       status: "ok",
       function: "student-session-items",
@@ -556,6 +575,7 @@ export async function handleStudentSessionItems(
         signed_url_ttl_seconds: SIGNED_URL_TTL_SECONDS,
         items: delivered.items,
         omitted: delivered.omitted,
+        reason: emptyQueueReason,
       },
     });
   } catch (error) {

@@ -355,6 +355,22 @@ Deno.test("ordinary path still serves the practice selection", async () => {
   const result = json.result as Record<string, unknown>;
   assertEquals((result.items as unknown[]).length, 1);
   assertEquals(result.practice_format, "mcq");
+  assertEquals(result.reason, null);
+});
+
+/* -------------------------------------------------------------------------- */
+/* FF-15: an empty queue must say why                                         */
+/* -------------------------------------------------------------------------- */
+
+Deno.test("empty queue reports no_matching_content when the selector returns nothing", async () => {
+  const { status, json } = await call(
+    { session: ACTIVE_SESSION, practiceRows: [] },
+    { learning_session_id: SESSION_ID },
+  );
+  assertEquals(status, 200);
+  const result = json.result as Record<string, unknown>;
+  assertEquals(result.items, []);
+  assertEquals(result.reason, "no_matching_content");
 });
 
 /* -------------------------------------------------------------------------- */
@@ -456,4 +472,5 @@ Deno.test("a Biology MCQ with no choices is omitted fail-closed", async () => {
     content_key: "APBIO-MCQ-001",
     reason: "choices_missing",
   }]);
+  assertEquals(result.reason, "all_items_omitted");
 });
