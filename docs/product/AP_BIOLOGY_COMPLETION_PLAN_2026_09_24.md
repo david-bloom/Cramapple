@@ -174,14 +174,37 @@ with a non-empty `assessed_topics`; every topic code is in the closed list at th
 `taxonomy_source_version`; **no serving label is modified**; the 2 osmosis corrections land as `2.7`;
 the 4 hand-drawn items are held rather than labelled from a boilerplate stem.
 
-### M3 — difficulty *(gated on D3 — now decided; **not** gated on work order J)*
+### M3 — difficulty *(store written, NOT applied; data load blocked)*
 
-Write the ratified band **and** the per-item attainment ratio, cut points and the raw prior value,
-per J.1a/J.1b. Biology is the clean case — it has no existing values to preserve, so it is the right
-subject to prove the storage shape on.
+`supabase/migrations/20260924150000_content_item_difficulty.sql`. Creates
+`app.content_item_difficulty` — the operative three-level band plus `attainment_ratio`,
+`ratio_source`, `subject_cut_points` and `source_value` (the raw pre-translation string), per
+DECISION-0061. A table rather than `prompt_json` keys, following D0's precedent: five facts per item
+would bloat a blob `evaluate-attempt` reads on every attempt. **That storage choice was made by
+precedent, not separately asked — it can be overridden.**
 
-*Verification:* 118 of 118 items carry a value; every value is in the ratified vocabulary; every row
-carries a re-derivable ratio.
+Biology's `source_value` is null throughout: it carries no existing difficulty value, so there is
+nothing to translate. That is exactly why it is the clean subject to prove the shape on.
+
+**The data load is blocked, and the reason is worth knowing.**
+`apbio_difficulty_assignments.csv` holds all 118 bands but its columns are only
+`content_key, item_type, difficulty, basis, rationale` — **there is no ratio.** The continuous score
+was computed during calibration and discarded, which is precisely the gap work order J.1b was written
+to stop, and Biology predates it. Further, **37 of 118 carry basis `judgement`**, which has no
+attainment anchor at all, so no ratio exists for them even in principle under this method; the other
+81 record their task verbs and could be reconstructed.
+
+**QA should not reconstruct those ratios** — that would make the QA model the author of numbers it
+then verifies. The fix is a small regeneration for Codex: re-run `assign_difficulty.py` for Biology
+emitting `attainment_ratio`, `ratio_source` and `subject_cut_points`, leaving the ratio null with
+basis `calibrated_judgement` where no anchor exists. 118 items, method already written.
+
+Loading 118 null ratios now would ship Biology as the one subject not carrying the thing
+DECISION-0061 exists for.
+
+*Verification:* store empty, RLS on, no grants to `anon`/`authenticated`/`public`. After the data
+load: 118 of 118 items carry exactly one row; every band is in the ratified vocabulary; every
+`calibrated_task_verb` row carries a non-null ratio; `source_value` null for all 118.
 
 ### M4 — point totals *(D4 approved; migration written, NOT applied)*
 
@@ -253,8 +276,8 @@ and on current evidence it is more likely to be a grader defect than a content d
 | M5 baseline capture | Claude | — *(must precede M1)* |
 | M1 canonical + segmentation | Claude | D1, M0, M5-baseline |
 | M2 topic labels | Claude | **BLOCKED** — T9 vs DECISION-0055 conflict |
-| M3 difficulty | Claude | D3 ✓ |
-| M4 point totals | Claude | D4 ✓ |
+| M3 difficulty | Claude | D3 ✓ — store ready; **data load blocked on a Biology ratio regeneration (Codex)** |
+| M4 point totals | Claude | D4 ✓ — written, all 16, awaiting go |
 | M5 grader gate re-run | Claude | M1 |
 | Biology closeout record | Claude | all |
 
