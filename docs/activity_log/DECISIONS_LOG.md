@@ -109,6 +109,52 @@ Mechanics** (0 of 4 candidates) and **AP Calculus BC** (0 of 17 candidates) — 
 serving labels re-run against current content, not promoted as-is. This is ordinary content work,
 tracked per-subject, same as any other relabeling need — not a governance question.
 
+### Correction, same day: the multi-unit gap the plan itself flagged was real
+
+After execution, re-reading `TAXONOMY_LABELING_PLAN_V3`'s own routing table (§T6.b) found that the
+229-item promotion did not match the plan's own design: the plan reserves blanket two-model-agreement
+promotion for **single-unit** agreement only, and explicitly routes **multi-unit** agreement to full
+human validation, "because a correlated error has no third vote to catch it" — and conditions the
+entire auto lane on a T6.a gold-set calibration (40 items, 2 blind human reviewers) that no record of
+ever running could be found. This decision's original text did not carry that nuance to David before
+execution.
+
+**26 of the 229 were multi-unit.** All 26 were immediately reverted to `provisional_model` pending a
+genuine third opinion — the plan's own fix for "no tiebreaker."
+
+**Remediation: Claude served as an independent third reviewer** (differently-architected from the
+original GPT-5.5 + Gemini-2.5-flash pair), reading each item's full stem/stimulus/rubric criteria
+against the subject's unit closed list from scratch, not just re-checking the original models' stated
+reasoning. Two rounds:
+
+- First pass: 19 of 26 confirmed (three-way agreement), 7 disputed.
+- Second pass, prompted by a direct question distinguishing genuine content dependency from
+  incidental distractor vocabulary: 3 of the 7 reclassified from disputed to confirmed on closer
+  reading (the "extra" unit's concept turned out to be load-bearing for the correct answer, not
+  decorative) — bringing the confirmed total to **22 of 26**. **2 of 26 are genuine over-tags**
+  (`APBIO-MCQ-012`, `apchem-mcq-048` — the extra unit appears only in wrong-answer distractors, not
+  in what's needed to reach or defend the correct answer). **2 of 26 remain genuinely unresolved**
+  even on careful re-reading (`APBIO-MCQ-041`, `apchem-frq-l-004`).
+
+**Risk direction matters here and changes the urgency.** Over-tagging (requiring a unit that isn't
+truly needed) only delays an item's availability — it cannot cause the unfair "shown material not yet
+covered" harm this whole review was checking for, because it makes the gate *more* conservative, not
+less. Re-verified: none of the 7 disputed items were under-tagged relative to my independent read, so
+none of the 229 originally promoted labels carried the harmful-direction risk in their final state.
+
+**Executed:** the 22 confirmed labels were promoted (`decision_source='chat_review'`, since this was
+a direct content review, not a scripted model-agreement pipeline) — unit-gated servable count
+increased further as a result. The 2 confirmed over-tags and 2 unresolved items remain
+`provisional_model`; a Codex work order will author new distractors/criteria to resolve the
+ambiguity in the content itself (`prompts/CODEX_WORK_ORDER_UNIT_TAG_DISTRACTOR_REPAIR_2026_09_24.md`)
+rather than continuing to adjudicate by argument.
+
+**Standing correction to this decision's mechanism, going forward:** any future promotion under
+DECISION-0066 must route multi-unit agreement through an explicit third-review step (a differently-
+architected model or a human), not blanket-promote on two-model agreement alone. Single-unit
+agreement promotion is unaffected by this correction — the plan's own routing table treats that lane
+differently.
+
 Work orders N and N.1 (Biology, queued behind J.0) and any equivalent future labeling passes for
 other subjects will need the same promotion step repeated once their labels reach agreement — this
 decision's mechanism applies to them too, not just to what was promoted today.
