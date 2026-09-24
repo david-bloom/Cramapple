@@ -35,12 +35,10 @@ function makeService(opts: { entitled: boolean; submitOk?: boolean }) {
     calls.push({ name, params });
     let result: { data: unknown; error: { message: string } | null };
     if (name === "authorize_grading_access") {
-      result = opts.entitled
-        ? { data: "entitled", error: null }
-        : {
-          data: null,
-          error: { message: "grading_access:entitlement_required" },
-        };
+      result = opts.entitled ? { data: "entitled", error: null } : {
+        data: null,
+        error: { message: "grading_access:entitlement_required" },
+      };
     } else if (name === "submit_response") {
       result = (opts.submitOk ?? true)
         ? { data: { attempt: { status: "submitted" } }, error: null }
@@ -119,7 +117,10 @@ Deno.test("submit-entitlement-gate: attempt_not_found from authorize_grading_acc
   const calls: RpcCall[] = [];
   const rpc = (name: string, params: Record<string, unknown>) => {
     calls.push({ name, params });
-    const result = { data: null, error: { message: "grading_access:attempt_not_found" } };
+    const result = {
+      data: null,
+      error: { message: "grading_access:attempt_not_found" },
+    };
     return {
       single: () => Promise.resolve(result),
       // deno-lint-ignore no-explicit-any
@@ -172,8 +173,7 @@ function makeForbiddenPathService() {
     in: () => stub,
     maybeSingle: () => Promise.resolve({ data: null, error: null }),
     single: () => Promise.resolve({ data: null, error: null }),
-    then: (resolve: (v: unknown) => void) =>
-      resolve({ data: [], error: null }),
+    then: (resolve: (v: unknown) => void) => resolve({ data: [], error: null }),
   };
   const service = {
     schema: () => ({
@@ -194,7 +194,10 @@ Deno.test("list_manual_grading_queue: a student caller is refused, never queries
   const { service, tablesQueried } = makeForbiddenPathService();
   const res = await handleAttemptResponse(
     opRequest("list_manual_grading_queue"),
-    { service, requireProfile: fakeAuth({ id: crypto.randomUUID() }, "student") },
+    {
+      service,
+      requireProfile: fakeAuth({ id: crypto.randomUUID() }, "student"),
+    },
   );
   assertEquals(res.status, 403);
   const body = await res.json();
@@ -206,10 +209,115 @@ Deno.test("get_manual_grading_context: a student caller is refused, never querie
   const { service, tablesQueried } = makeForbiddenPathService();
   const res = await handleAttemptResponse(
     opRequest("get_manual_grading_context"),
-    { service, requireProfile: fakeAuth({ id: crypto.randomUUID() }, "student") },
+    {
+      service,
+      requireProfile: fakeAuth({ id: crypto.randomUUID() }, "student"),
+    },
   );
   assertEquals(res.status, 403);
   const body = await res.json();
   assertEquals(body.error, "forbidden");
   assertEquals(tablesQueried, ["audit_events"]);
+});
+
+Deno.test("create_attempt accepts a served NULL-format MCQ in a targeted-drill session", async () => {
+  const ids = {
+    user: crypto.randomUUID(),
+    session: crypto.randomUUID(),
+    pack: crypto.randomUUID(),
+    version: crypto.randomUUID(),
+    item: crypto.randomUUID(),
+    attempt: crypto.randomUUID(),
+  };
+  const tablesQueried: string[] = [];
+  const makeChain = (table: string) => {
+    let insertValue: Record<string, unknown> | null = null;
+    const chain = {
+      select: () => chain,
+      eq: () => chain,
+      insert: (value: Record<string, unknown>) => {
+        insertValue = value;
+        return chain;
+      },
+      maybeSingle: () => {
+        if (table === "audit_events") {
+          return Promise.resolve({ data: null, error: null });
+        }
+        if (table === "learning_sessions") {
+          return Promise.resolve({
+            data: {
+              id: ids.session,
+              user_id: ids.user,
+              exam_pack_version_id: ids.pack,
+              practice_format: "targeted_drill",
+              status: "active",
+            },
+            error: null,
+          });
+        }
+        if (table === "content_item_versions") {
+          return Promise.resolve({
+            data: {
+              id: ids.version,
+              content_item_id: ids.item,
+              status: "published",
+              content_items: {
+                exam_pack_version_id: ids.pack,
+                item_type: "mcq",
+                practice_format: null,
+                status: "published",
+              },
+            },
+            error: null,
+          });
+        }
+        if (table === "attempts" && insertValue) {
+          return Promise.resolve({
+            data: { id: ids.attempt, ...insertValue },
+            error: null,
+          });
+        }
+        throw new Error(`unexpected maybeSingle table: ${table}`);
+      },
+      then: (resolve: (value: unknown) => void) =>
+        resolve({ data: null, error: null }),
+    };
+    return chain;
+  };
+  const service = {
+    schema: () => ({
+      from: (table: string) => {
+        tablesQueried.push(table);
+        return makeChain(table);
+      },
+    }),
+    // deno-lint-ignore no-explicit-any
+  } as any;
+  const req = new Request("http://localhost/attempt-response", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({
+      operation: "create_attempt",
+      idempotency_key: crypto.randomUUID(),
+      learning_session_id: ids.session,
+      content_item_version_id: ids.version,
+      attempt_mode: "mcq",
+    }),
+  });
+
+  const res = await handleAttemptResponse(req, {
+    service,
+    requireProfile: fakeAuth({ id: ids.user }, "student"),
+  });
+  const body = await res.json();
+  assertEquals(res.status, 200);
+  assertEquals(body.status, "ok");
+  assertEquals(body.result.attempt.attempt_mode, "mcq");
+  assertEquals(tablesQueried, [
+    "audit_events",
+    "learning_sessions",
+    "content_item_versions",
+    "attempts",
+    "audit_events",
+  ]);
 });

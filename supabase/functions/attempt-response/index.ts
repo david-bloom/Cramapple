@@ -1343,4 +1343,6 @@ export async function handleAttemptResponse(
   }
 }
 
-Deno.serve((req) => handleAttemptResponse(req));
+if (import.meta.main) {
+  Deno.serve((req) => handleAttemptResponse(req));
+}
