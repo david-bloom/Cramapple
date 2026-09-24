@@ -12,6 +12,7 @@ Most recent entries (full chronological list follows below):
 - DECISION-0058 — Define "Approved" for `label_status` on a Hand-Drawn Item as Human-Graded-Pilot-Ready, Not AI-Grading-Ready or Rights-Cleared; Promote `APBIO-HDG-2026-GRAPH-002` Under That Definition (TASK-0038 Phase 2)
 - DECISION-0057 — BYOQ Items Must Never Expose a Canonical Answer, in Any Mode; Rubric/Deep-Dive/Reference/Points-Strategy Hints Are Allowed
 - DECISION-0056 — Scoped Exception to "Fill Gaps; Do Not Replace": Work Order F May Remove Uncredited Prose Its Own New Span Supersedes
+- DECISION-0063 — AP Biology Launches on the Practice Path, Not the Unit-Gated Path
 - DECISION-0062 — Biology's Coverage (Topic) Labels Land as `provisional_model`; the T9 Human-Validation Question Is Deferred to Promotion, Not to Storage
 - DECISION-0055 — Pause the Human Independent-Review (Double/Triple-Reviewer) Requirement for Content; AI Cross-Model QA + Product Owner Approval Is the Operative Gate During the Pause
 - DECISION-0054 — Adopt One Device-Neutral Bootstrap and Shared ChatGPT Project Contract
@@ -41,6 +42,59 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~600 lines, archive the older entries to `docs/activity_log/archive/DECISIONS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries. (This log is already well over that threshold — the first archive pass is overdue, not optional.)
 
 (Note: the TASK-0012 branch independently logged its own DECISION-0027/0028 — CORS/ALLOWED_ORIGINS and budget-burn semantics — under different numbers on its own branch. Those land separately when that work merges to `main`; this charter-adoption decision claimed 0027/0028 here because `main` had not yet recorded entries past DECISION-0026 at merge time. If both branches' numbering collides on merge, renumber on whichever side merges second and update this index.)
+
+## DECISION-0063 — AP Biology Launches on the Practice Path, Not the Unit-Gated Path
+
+**Date:** 2026-09-24
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Approval:** Product Owner direction, 2026-09-24 (this session)
+**Related Docs:** `docs/product/AP_BIOLOGY_FAST_FOLLOW.md`;
+`docs/product/AP_BIOLOGY_LAUNCH_READINESS_2026_09_24.md`;
+`supabase/migrations/20260924190000_servable_items_census.sql`
+**Area:** Product / Serving
+
+### Context
+
+Cramapple has two serving paths, and they have almost nothing in common:
+
+- `public.select_practice_frqs` — requires only `practice_format` and not hand-drawn. **No taxonomy
+  label at all.** Returns 71 Biology FRQ.
+- `public.select_unit_gated_practice_items` — requires a serving label at `label_status='validated'`
+  whose taxonomy hash matches current content, plus a unit gate. Returns **0** Biology items, and
+  **8 items across all ten subjects**.
+
+This was discovered on 2026-09-24 by building `app.servable_items_census()` and calling the real
+functions rather than modelling their predicates. Earlier figures in this session (41, then 56
+"servable" Biology items) were computed from a predicate no live function uses, and were wrong.
+
+### Decision
+
+**AP Biology launches on the practice path.** Its readiness is measured by what
+`select_practice_frqs` returns, not by the six-condition completion definition, and not by the
+unit-gated census.
+
+### Why
+
+The practice path does not depend on the taxonomy label layer, so none of the label fragility found
+on 2026-09-24 can affect it — the August republish that silently stripped 20 MCQ out of serving for
+six weeks, M1 dropping 28 more the same morning, or the fact that no Biology serving label has ever
+reached `validated`. It is the only serving path in the product that is not currently fragile.
+
+### What this accepts
+
+- **Biology ships FRQ-only.** `select_practice_frqs` filters `item_type='frq'`, so all 43 published
+  Biology MCQ are unreachable on this path. Tracked as FF-1.
+- **`full_exam_frq` returns nothing**, so any surface offering a full-exam Biology session returns an
+  empty queue. Tracked as FF-2.
+- **The unit-gated path stays dark** for Biology and for eight of the ten subjects. Tracked as FF-3
+  and explicitly deferred, not solved.
+
+### Consequence for work in flight
+
+Work orders N and N.1 — the 43 unlabelled short FRQ and the 5 QA-rejected MCQ labels — **change zero
+items on the launch path**. They are prerequisites for FF-3, not for launch. This is recorded so
+their completion is not mistaken for launch progress.
 
 ## DECISION-0062 — Biology's Coverage (Topic) Labels Land as `provisional_model`; the T9 Human-Validation Question Is Deferred to Promotion, Not to Storage
 
