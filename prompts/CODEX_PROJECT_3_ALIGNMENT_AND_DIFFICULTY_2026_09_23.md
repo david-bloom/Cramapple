@@ -239,11 +239,13 @@ subject that scores comparably and has not yet been looked at.**
 
 ---
 
-# Work order L — `rubric_type` coverage is not a tail
+# Work order L — `rubric_type` coverage (largely closed by work order I)
 
 **Directory:** `docs/research/rubric_type_coverage_2026_09_23/`
 
-Project 2's work order I.2 scopes `rubric_type` coverage from GAP-3, which describes "a tail of
+**CORRECTED 2026-09-24 after QA of work order I.** An earlier version of this order presented a table of ~500 `prompt_json.rubric_type` nulls and called GAP-3 understated. That counted the **wrong field**. Work order I scoped the typed `content_item_versions.rubric_type` column, covered **206 items** (118 where `prompt_json` carries a value the typed column lacks, 88 where the item-type fallback resolves it), and reported **`behavior_change: none` on every one** — QA accepted that. **Do not redo it.** L is now only: (1) confirm I's conclusion holds for any item I did not cover, and (2) close the one known concrete gap, `APSTATS-HDG-2026-GRAPH-005`, whose `rubric_type` is null where its 19 siblings carry `spatial`. If there is no residue, **say so and close the order** — that is the expected outcome, not a failure.
+
+The original framing, retained for context: I.2 scopes `rubric_type` coverage from GAP-3, which describes "a tail of
 items". Verified on 2026-09-23, it is not a tail:
 
 | Subject | Published FRQ | `rubric_type` null |
@@ -258,6 +260,8 @@ items". Verified on 2026-09-23, it is not a tail:
 | ap-physics-2 | 28 | **28** |
 | ap-statistics | 80 | 35 |
 | biology | 75 | 71 |
+
+**That table is the `prompt_json` mirror, not the field the router reads first. It is retained only so the two counts are not confused again.**
 
 Essentially **every non-spatial FRQ** has a null `rubric_type`; the populated ones are the hand-drawn
 spatial items. Re-verify these counts first and report what you actually find.
