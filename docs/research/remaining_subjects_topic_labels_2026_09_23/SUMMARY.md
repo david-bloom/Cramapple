@@ -1,6 +1,6 @@
 # Work Order H — Remaining-Subjects Topic Labels
 
-Status: **in progress — 3 of 6 subjects complete**
+Status: **in progress — 4 of 6 subjects complete**
 
 Work order H re-entered after D's independent QA disposition changed the dependency gate to ACCEPTED. The earlier gate-skip record is preserved in `SUMMARY.md.20260923T195338Z.bak` and `run_metadata.json.20260923T195338Z.bak`.
 
@@ -13,7 +13,7 @@ Read-only filter: latest `version_num` per `content_item_id` where `status='publ
 | ap-calculus-bc | 127 | 127 | 111 | 10 | agrees | complete |
 | ap-physics-1 | 117 | 117 | 43 | 8 | agrees | complete |
 | ap-precalculus | 117 | 117 | 58 | 4 | agrees | complete |
-| ap-physics-c-em | 97 | 97 | 31 | 6 | agrees | not attempted |
+| ap-physics-c-em | 97 | 97 | 31 | 6 | agrees | complete |
 | ap-physics-c-mechanics | 77 | 77 | 41 | 7 | agrees | not attempted |
 | ap-physics-2 | 68 | 68 | 46 | 7 | agrees | not attempted |
 
@@ -27,6 +27,8 @@ AP Physics 1: 117 packet rows and 117 proposal rows; 33 recovered author codes a
 
 AP Precalculus: 117 packet rows and 117 proposal rows; 19 recovered author codes and 98 content-derived decisions. Per-item recovered-code checks: 19 agrees, 0 disagrees, 0 unclear. Confidence: 86 high, 27 medium, 4 low. Four balanced survey FRQs spanning unrelated units are explicitly `undetermined`. See `ap-precalculus/SUMMARY.md` for subject evidence.
 
+AP Physics C: Electricity and Magnetism: 97 packet rows and 97 proposal rows; 26 recovered author codes and 71 content-derived decisions. Per-item recovered-code checks: 26 agrees, 0 disagrees, 0 unclear. Confidence: 90 high, 7 medium, 0 low. Unit-name metadata was used only as a hint. See `ap-physics-c-em/SUMMARY.md` for subject evidence.
+
 ## Remaining sequence
 
-The three subjects marked not attempted have no packet or proposal files yet. Each will be completed and validated as a whole before the next subject begins. Every proposal remains gated on independent cross-model QA and Product Owner approval under DECISION-0055 before serving students.
+The two subjects marked not attempted have no packet or proposal files yet. Each will be completed and validated as a whole before the next subject begins. Every proposal remains gated on independent cross-model QA and Product Owner approval under DECISION-0055 before serving students.
