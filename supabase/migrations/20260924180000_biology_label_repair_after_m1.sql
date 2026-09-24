@@ -30,6 +30,11 @@
 -- `is distinct from`, and NULL differs from every hash — so those labels would have staled on the
 -- NEXT content edit whenever it came. Recording the hash is what makes a label durable.
 --
+-- (Note: the commit message for this file has one sentence mangled — a pair of backticks around
+-- "is distinct from" was consumed by the shell, leaving "the trigger compares with , so null".
+-- main forbids force-push, so the message stands as pushed. The sentence should read: the trigger
+-- compares with `is distinct from`, so NULL differs from every hash.)
+--
 -- ---------------------------------------------------------------------------
 -- M2.1 — coverage labels: restore and anchor
 --
