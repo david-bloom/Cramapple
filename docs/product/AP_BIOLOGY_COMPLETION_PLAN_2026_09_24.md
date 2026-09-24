@@ -101,6 +101,17 @@ Each step is a reviewable migration with a verification query that must pass **b
 begins. Nothing is applied by direct SQL — the 29 topic-guide migrations of 2026-08-25/27 were
 applied that way and are the reason the Dev migration ledger cannot be trusted.
 
+**Correction to this plan's verification strategy, 2026-09-24.** It originally said each migration
+would be rehearsed on Dev before Production. **That works for schema and not for data.** Dev holds
+**1** Biology item against Production's 118 — M0 rehearsed cleanly because it is pure DDL, but M1–M4
+touch Biology content Dev does not have, so applying them there proves nothing.
+
+The substitute is stronger than a Dev rehearsal, not weaker: **a data migration whose effect can be
+fully enumerated read-only against Production before it runs does not need a rehearsal environment.**
+Each of M1–M4 therefore ships with (a) the exact before-state, queried read-only, (b) an idempotent
+statement, (c) the rollback data recorded in the migration itself, and (d) verification queries to
+run after. Production remains a hard gate; nothing applies without explicit Product Owner go.
+
 ### M0 — establish the segmentation store *(D0 decided — DECISION-0060)*
 
 Create the store, with no data. Verify shape, constraints and RLS before anything is written. RLS
@@ -172,12 +183,25 @@ subject to prove the storage shape on.
 *Verification:* 118 of 118 items carry a value; every value is in the ratified vocabulary; every row
 carries a re-derivable ratio.
 
-### M4 — point totals *(gated on D4)*
+### M4 — point totals *(D4 approved; migration written, NOT applied)*
 
-Remove `prompt_json.total_points` from the 9 Biology items.
+`supabase/migrations/20260924140000_biology_remove_total_points.sql`. Removes
+`prompt_json.total_points` from the 9 Biology versions where it disagrees with the rubric. All 9
+currently declare **8** against a rubric summing to **9**, and all 9 share the identical shape
+`a=1;b=3;c=3;d=2` — one bad authoring template. The removed values are recorded in the migration so
+the change is reversible.
 
-*Verification:* no Biology item has `total_points` disagreeing with its rubric sum; grading behaviour
-unchanged on a sample re-run.
+**A question the before-state raised that D4 did not settle.** **16** Biology items carry
+`total_points`, not 9. The other **7** — `L-003`, `L-008`, `L-014`, `L-026`, `L-030`, `L-031`,
+`L-036` — carry a value that *agrees* with its rubric. Removing the field from 9 and leaving it on 7
+produces a state in which absence is ambiguous: a reader cannot tell whether a missing
+`total_points` means "removed because wrong" or "never had one". Since work order I's actual finding
+was that **no runtime reads the field at all**, removing all 16 is the more coherent end state.
+**Product Owner call: 9 as approved, or all 16.**
+
+*Verification:* the 9 no longer carry the field; no Biology item has a `total_points` disagreeing
+with its rubric sum; `prompt_json` key counts drop by exactly one on those 9 and are unchanged
+elsewhere in Biology.
 
 ### M5 — grader gate against applied canonicals *(gated on M1)*
 
