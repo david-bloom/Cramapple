@@ -1,16 +1,16 @@
 # Work Order G — Multisubject Canonical Answers
 
-Status: **partial by design — AP Physics 1 complete; STOP-for-QA gate closed for the next subject**
+Status: **partial by design — subjects 1–2 complete; STOP-for-QA gate closed before subject 3**
 
-The first subject batch is complete and ready for independent QA. No later subject was started. Production remained read-only.
+AP Physics 1 received an explicit ACCEPTED disposition, opening subject 2. AP Physics C: Electricity and Magnetism is now complete and ready for independent QA. No later subject was started. Production remained read-only.
 
 ## Subject status
 
 | Sequence | Subject | Status | Completed |
 |---:|---|---|---:|
-| 1 | `ap-physics-1` | Ready for independent QA | 39/39 |
-| 2 | `ap-physics-c-em` | Not attempted — waiting on Physics 1 QA | 0/39 |
-| 3 | `ap-calculus-ab` | Not attempted | 0/33 |
+| 1 | `ap-physics-1` | QA ACCEPTED | 39/39 |
+| 2 | `ap-physics-c-em` | Ready for independent QA | 39/39 |
+| 3 | `ap-calculus-ab` | Not attempted — waiting on E&M QA | 0/33 |
 | 4 | `ap-precalculus` | Not attempted | 0/32 |
 | 5 | `ap-calculus-bc` | Not attempted | 0/29 |
 | 6 | `ap-physics-c-mechanics` | Not attempted | 0/29 |
@@ -68,3 +68,11 @@ All other items are high confidence after source-grounded arithmetic and criteri
 The 39-item AP Physics 1 proposal was re-cut to satisfy the shared span-exclusivity invariant. Criteria with no exclusive span fell from 176/176 to 0/176, and mean over-strike fell from 1.00 to 0.00. Twenty-three items retained byte-identical full_text; 16 required criterion-specific sentence re-authoring. Exact concatenation and full coverage pass for all 39 items. The corrected proposal remains pending independent QA, and the STOP-for-QA gate before subject 2 remains in force.
 
 Before writing the G.1 correction, the pre-existing root summary and the AP Physics 1 canonical proposal, criterion ledger, manifest, run metadata, and validation report were moved to side-by-side 20260923T192650Z.bak files. No QA-owned file was created, edited, moved, or backed up.
+
+## AP Physics C: Electricity and Magnetism
+
+Subject 2 contains 39/39 in-scope blank-canonical FRQs and covers 198/198 stored criteria. Every criterion has a span tagged to it alone; exact concatenation passes for all 39 items. Eighteen earlier canonical answers were recovered byte-exact before criterion-specific completion.
+
+The amended G contract is applied from this subject onward: similarity_report.csv contains every authored span/criterion pair and high-similarity cases carry typed restatement_justified flags. All 297 numeric occurrences have one derivation row, populated criterion keys, criterion-specific expressions, and non-placeholder inputs. Computed results carry a one-value formula with named operands; values taken from standard physical or mathematical relations use looked_up provenance.
+
+Eight diagram/graph items are medium confidence and explicitly routed for spatial-path QA. The other 31 are high confidence. A second read-only Production snapshot matched the frozen packet on all 39 items with zero differences. The mandatory gate is now closed before AP Calculus AB until E&M receives an explicit accepted/pass QA disposition.
