@@ -60,7 +60,7 @@ Rank is by student impact on the chosen path, not by effort.
 | **FF-10** | 3 hand-drawn items score nothing | Low — dispositioned under D5 | — | Engine 4 spatial verifier |
 | **FF-11** | Grader gate unreachable for 65 items | Low now, high before any claim about canonical quality | — | Widening `evaluate-attempt`'s `canonical_answer_already_present` guard |
 | **FF-15** | An empty item queue reports `status: ok, items: []` with no reason — indistinguishable from "you finished everything" | Medium — this is the silent-failure class that hid three regressions today | — | A `reason` on the empty branch of `student-session-items` |
-| **FF-12** | `servable_items_check.py` runs only by hand | Medium — it exists precisely because silent failures went six weeks unnoticed | — | Scheduling it |
+| ~~**FF-12**~~ | `servable_items_check.py` runs only by hand | **CLOSED 2026-09-24** — `.github/workflows/servable-items-check.yml` runs it daily (09:00 UTC) + on demand via `workflow_dispatch`, against Production with a dedicated least-privilege role (`ci_servable_items_reader`: `USAGE` on schema `app` and `EXECUTE` on exactly the two census functions, nothing else). Verified with a real triggered run: self-test 93 ok / 0 MISMATCH, census `PASS` against baseline | Claude | — |
 | ~~**FF-13**~~ | `mcq_choices.is_correct` readable by authenticated users | **CLOSED** — verified 2026-09-24. All three parts of the coordinated fix are live; column grants expose `choice_text` and block `is_correct`/`rationale`. **FF-1 is not gated on it** | — | — |
 | **FF-14** | `content_hash` stale on edited items | Low — nothing verifies it at grade time | — | Would need the intake payload stored |
 
