@@ -130,9 +130,17 @@ assembled answer, not against Production, and DECISION-0056 authorised removal i
 its `full_text`; every criterion has a span tagged to it alone; span count matches the proposal
 exactly.
 
-### M2 — topic labels *(BLOCKED — see below; D2 cannot be executed as originally framed)*
+### M2 — topic labels *(WRITTEN and REHEARSED 2026-09-24; not yet applied to Production)*
 
-**Stop. The original M2 instruction was wrong, and writing it surfaced why.**
+**RESOLVED as DECISION-0062:** the 118 Biology coverage labels land as `provisional_model`, the six
+QA-flagged items land as `held`, no serving label is touched, and the T9 question moves from gating
+storage to gating *promotion* (and with it T8's coverage recompute).
+`supabase/migrations/20260924160000_biology_coverage_topic_labels.sql`. Rehearsed against a local
+replica built from the real DDL: INSERT 118 / UPDATE 60, label_version resolved per item (58 v1, 30
+v2, 30 v3), exactly one current coverage label per item, all 118 serving rows unchanged, 0 rows
+written as validated. Both guards negative-tested and both roll the transaction back.
+
+**The original M2 instruction was wrong, and writing it surfaced why.**
 
 `docs/architecture/TAXONOMY_LABELING_PLAN_V3_2026_08_04.md` §7a (T9) splits the label layer in two,
 and is explicit that the halves are not interchangeable:
@@ -166,8 +174,14 @@ approval the operative gate. It names `CONTENT_GOVERNANCE_AND_VALIDATION.md` §1
 explicitly. **It does not name this plan's T9/T6.b human-validation rule for coverage labels.** So it
 is genuinely ambiguous whether that rule is paused.
 
-Until that is resolved, M2 should not be written. Resolving it decides whether Biology's topic labels
-need Orly's review of all 118, or only the 6 the QA flagged.
+**Resolved 2026-09-24 as DECISION-0062, by routing around the ambiguity rather than settling it.**
+The labels land in a status that claims nothing: `provisional_model`. Three facts make that safe —
+nothing in the codebase reads `assessed_topics` (grep-verified: DDL only, no selector, no RPC, no
+edge function); the schema's own check constraint makes `validated` unreachable without a named
+validator, timestamp and decision id, all of which this migration leaves null; and the coverage index
+only indexes `validated` rows, so provisional labels are invisible to any coverage computation. The
+T9 question therefore still blocks T8's coverage recompute — which is where it belongs — and no
+longer blocks storing the data.
 
 *Verification, once unblocked:* every published Biology item has exactly one current coverage label
 with a non-empty `assessed_topics`; every topic code is in the closed list at the stated
@@ -275,7 +289,7 @@ and on current evidence it is more likely to be a grader defect than a content d
 | M0 segmentation store | Claude | **APPLIED to Dev and Production 2026-09-24** (empty), RLS proven |
 | M5 baseline capture | Claude | — *(must precede M1)* |
 | M1 canonical + segmentation | Claude | D1, M0, M5-baseline |
-| M2 topic labels | Claude | **BLOCKED** — T9 vs DECISION-0055 conflict |
+| M2 topic labels | Claude | **WRITTEN + REHEARSED 2026-09-24** (DECISION-0062) — awaiting Production apply |
 | M3 difficulty | Claude | **store APPLIED to Production 2026-09-24 (empty)**; data load blocked on work order J.0 |
 | M4 point totals | Claude | **APPLIED to Production 2026-09-24** — all 16, verified |
 | M5 grader gate re-run | Claude | M1 |

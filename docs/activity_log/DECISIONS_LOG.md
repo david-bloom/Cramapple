@@ -12,6 +12,7 @@ Most recent entries (full chronological list follows below):
 - DECISION-0058 — Define "Approved" for `label_status` on a Hand-Drawn Item as Human-Graded-Pilot-Ready, Not AI-Grading-Ready or Rights-Cleared; Promote `APBIO-HDG-2026-GRAPH-002` Under That Definition (TASK-0038 Phase 2)
 - DECISION-0057 — BYOQ Items Must Never Expose a Canonical Answer, in Any Mode; Rubric/Deep-Dive/Reference/Points-Strategy Hints Are Allowed
 - DECISION-0056 — Scoped Exception to "Fill Gaps; Do Not Replace": Work Order F May Remove Uncredited Prose Its Own New Span Supersedes
+- DECISION-0062 — Biology's Coverage (Topic) Labels Land as `provisional_model`; the T9 Human-Validation Question Is Deferred to Promotion, Not to Storage
 - DECISION-0055 — Pause the Human Independent-Review (Double/Triple-Reviewer) Requirement for Content; AI Cross-Model QA + Product Owner Approval Is the Operative Gate During the Pause
 - DECISION-0054 — Adopt One Device-Neutral Bootstrap and Shared ChatGPT Project Contract
 - DECISION-0053 — Adopt the Topic Reference Layer Approach (Topic-Scoped, CED Essential-Knowledge-Grounded Vocabulary; Reuse-First Storage); Build Deferred (P2)
@@ -40,6 +41,77 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~600 lines, archive the older entries to `docs/activity_log/archive/DECISIONS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries. (This log is already well over that threshold — the first archive pass is overdue, not optional.)
 
 (Note: the TASK-0012 branch independently logged its own DECISION-0027/0028 — CORS/ALLOWED_ORIGINS and budget-burn semantics — under different numbers on its own branch. Those land separately when that work merges to `main`; this charter-adoption decision claimed 0027/0028 here because `main` had not yet recorded entries past DECISION-0026 at merge time. If both branches' numbering collides on merge, renumber on whichever side merges second and update this index.)
+
+## DECISION-0062 — Biology's Coverage (Topic) Labels Land as `provisional_model`; the T9 Human-Validation Question Is Deferred to Promotion, Not to Storage
+
+**Date:** 2026-09-24
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Approval:** Product Owner direction, 2026-09-24 (this session)
+**Related Docs:** `docs/architecture/TAXONOMY_LABELING_PLAN_V3_2026_08_04.md` §7a (T9), §10 (T6.b);
+DECISION-0055; `docs/product/AP_BIOLOGY_COMPLETION_PLAN_2026_09_24.md` (D2, M2);
+`docs/research/bio_stats_topic_tagging_2026_09_22/`;
+`supabase/migrations/20260924160000_biology_coverage_topic_labels.sql`
+**Area:** Content / Taxonomy / Governance
+
+### Context
+
+D2 was originally framed as "the September topic labels supersede the August ones." That framing was
+wrong. T9 splits the label layer in two: a **serving** label (`required_units`, `max_required_unit`)
+answers what a student must have covered to *answer* an item; a **coverage** label
+(`assessed_topics`) answers what the item *counts toward*. Neither may substitute for the other, and
+the database enforces the split with a check constraint. The August rows are serving labels and are
+still live and still needed. The September proposal would be the first topic-level data Biology has
+ever had — across 484 Biology label rows, zero carried a topic.
+
+That left a real governance conflict. T9/T6.b requires **full human validation for any coverage
+label**, on a measurement: two models agreed on unit sets 16/18 (89%) but on exact topic lists only
+8/18 (44%). DECISION-0055 paused the human independent-review requirement with scope "all content
+types and all subjects", but names §11.1 R0–R3 and DECISION-0044 specifically and does **not** name
+T9/T6.b. Whether the pause reaches this rule is genuinely ambiguous — and the two rules rest on
+opposite evidence. DECISION-0055's premise is that AI is more reliable than humans at this class of
+task; T9's rule was set by measuring AI at this *specific* task and finding it near a coin flip.
+
+### Decision
+
+1. **Biology's 118 coverage labels are written with `label_status='provisional_model'`.** Not
+   `validated`.
+2. **The six items QA flagged are written as `held`**, with no topic, each carrying its QA finding
+   id and reason. Held rather than omitted, so absence is legible rather than ambiguous.
+3. **The T9 vs DECISION-0055 question is deferred, not answered.** It now gates only the *promotion*
+   of these rows to `validated`, and with it T8's coverage recompute. It no longer gates storing the
+   data.
+4. **No serving label is modified.**
+
+### Why this is a resolution and not a fudge
+
+- **Nothing reads coverage labels.** Verified by grep across `supabase/`, `web/`, `scripts/`,
+  `schemas/`: `assessed_topics` appears only in DDL — column, constraint, index, view column list,
+  comment. The live serving selector reads `max_required_unit`, not topics. A wrong topic label here
+  cannot mis-serve a student; it can only miscount a coverage report that has not been computed yet.
+- **The schema cannot be lied to.** `content_taxonomy_labels_validation_check` makes
+  `label_status='validated'` impossible unless `validated_by`, `validated_at`,
+  `validation_decision_id`, `validated_against_version_id` and `validated_against_taxo_hash` are all
+  present. The migration leaves all five null, so promotion cannot happen by accident.
+- **The coverage index only indexes `validated` rows**, so provisional rows are invisible to the
+  query shape any coverage computation would use.
+
+### What this does not decide
+
+- Whether T9/T6.b survives the DECISION-0055 pause. That question is now attached to promotion and
+  to T8, where it belongs, and it is still open.
+- The six held items. Four are hand-drawn graph prompts whose boilerplate stem carries no topic
+  signal and need re-derivation from rubric or stimulus; two are osmosis/water-potential items with a
+  known correction to `2.7 Tonicity and Osmoregulation`, recorded per row as `suggested_topic_code`
+  and landable on Product Owner word.
+- **AP Statistics' 384 rows from the same proposal remain REJECTED** — 56 wrong topics in four
+  systematic, template-shaped classes. They need a rebuild, not a repair.
+
+### Note on the builder's own confidence
+
+Of the 118 Biology rows, Codex rated **zero** high confidence (68 low, 50 medium) and marked 69
+`needs_human`. Those per-row judgements are preserved in `source_payload` rather than discarded, so a
+later promotion to `validated` is a review of recorded claims rather than a re-derivation.
 
 ## DECISION-0061 — Three Levels Are the Operative Difficulty Scheme; Four-Level Sources Are Translated Down, Non-Destructively
 
