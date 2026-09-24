@@ -44,8 +44,8 @@ Rank is by student impact on the chosen path, not by effort.
 
 | ID | Item | Impact | Owner | Blocked on |
 | --- | --- | --- | --- | --- |
-| **FF-1** | 43 MCQ unreachable | **High** — a third of Biology's corpus is invisible | — | Needs a decision: MCQ practice path, or FF-3 |
-| **FF-2** | `full_exam_frq` returns 0 | **High if exposed** — an empty session is worse than an absent feature | — | Verify whether any surface offers it |
+| **FF-1** | 43 MCQ unreachable | **High** — a third of Biology's corpus is invisible | Codex | **Unblocked** — FF-13 is closed |
+| ~~**FF-2**~~ | `full_exam_frq` returns 0 | **Downgraded to Low** — verified 2026-09-24: the API accepts the format but **no session has ever used it** (117 sessions, all time). Not a day-one risk; one frontend toggle from being one | — | — |
 | **FF-3** | Unit-gated path dark product-wide (8 items across 10 subjects) | **High, strategic** | — | Promotion of serving labels to `validated` — the T9 vs DECISION-0055 question |
 | **FF-4** | `APBIO-FRQ-S-101` has no canonical | Medium — one item missing from 71 | Codex after decision | Product Owner rubric call: criterion `a-iv` spans two stem sub-parts |
 | **FF-5** | `S-021`, `S-023`, `S-058` have no segmentation | Medium — Open Hand cannot strike on them | Product Owner | Call on whether drafting over published text is acceptable |
@@ -55,17 +55,21 @@ Rank is by student impact on the chosen path, not by effort.
 | **FF-9** | Topic labels are `provisional_model` | None on serving; blocks coverage reporting (T8) | Product Owner | DECISION-0062's deferred question |
 | **FF-10** | 3 hand-drawn items score nothing | Low — dispositioned under D5 | — | Engine 4 spatial verifier |
 | **FF-11** | Grader gate unreachable for 65 items | Low now, high before any claim about canonical quality | — | Widening `evaluate-attempt`'s `canonical_answer_already_present` guard |
+| **FF-15** | An empty item queue reports `status: ok, items: []` with no reason — indistinguishable from "you finished everything" | Medium — this is the silent-failure class that hid three regressions today | — | A `reason` on the empty branch of `student-session-items` |
 | **FF-12** | `servable_items_check.py` runs only by hand | Medium — it exists precisely because silent failures went six weeks unnoticed | — | Scheduling it |
-| **FF-13** | `mcq_choices.is_correct` readable by authenticated users | **Becomes High the moment FF-1 lands** | Product Owner | Held for your go (PR #103-style revoke) |
+| ~~**FF-13**~~ | `mcq_choices.is_correct` readable by authenticated users | **CLOSED** — verified 2026-09-24. All three parts of the coordinated fix are live; column grants expose `choice_text` and block `is_correct`/`rationale`. **FF-1 is not gated on it** | — | — |
 | **FF-14** | `content_hash` stale on edited items | Low — nothing verifies it at grade time | — | Would need the intake payload stored |
 
 ---
 
 ## Notes that change how some of these should be read
 
-**FF-1 and FF-13 are coupled.** Making MCQ reachable without first closing the answer-key exposure
-would put 43 items in front of students whose `is_correct` and `rationale` any authenticated user
-can already read. FF-13 should land first or at the same time, not after.
+**FF-1 and FF-13 were said to be coupled. They are not.** That claim rested on a memory note from
+2026-08-24 describing a live exposure. Verified 2026-09-24: all three parts of the coordinated fix
+are live, `authenticated` can read `choice_text` but is denied `is_correct` and `rationale`, and
+`anon` is denied everything. The mechanism is column-level grants — serve the choices, withhold the
+key. **FF-1 is unblocked.** Details and the methodological trap that produced the wrong first
+reading are in `docs/research/ff2_ff13_verification_2026_09_24/`.
 
 **FF-7 and FF-8 do nothing for launch.** They are the largest in-flight work and they change zero
 items on the practice path, because that path ignores taxonomy labels. They matter for FF-3. Worth
@@ -81,7 +85,7 @@ runs on a schedule, the next silent drop is found the same way — by someone ha
 ## Definition of done for this tracker
 
 Biology's fast-follow is complete when FF-1 through FF-6 are closed or explicitly accepted as
-permanent limitations, and FF-12 is running unattended. FF-7 through FF-9 belong to the unit-gated
+permanent limitations, and FF-12 is running unattended. FF-2 and FF-13 are closed as of 2026-09-24. FF-7 through FF-9 belong to the unit-gated
 path and should be tracked against FF-3 rather than against launch.
 
 ## Related
