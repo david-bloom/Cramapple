@@ -3,7 +3,42 @@
 Measured against the six conditions in `AP_BIOLOGY_COMPLETION_PLAN_2026_09_24.md`, all figures
 queried from Production after today's M0–M4 and the M2.1/M2.2 repairs.
 
-## The number that matters
+## CORRECTION, 2026-09-24 (later the same day)
+
+**The servable numbers below — 41, and the 56 reported after the MCQ QA — are wrong.** They were
+computed from a predicate I assembled by reading the serving selector: current taxonomy hash plus a
+non-null `max_required_unit`. That predicate is not what any live function uses.
+
+Two things I had missed, both found by building the standing check
+(`supabase/migrations/20260924190000_servable_items_census.sql`) and calling the real functions
+rather than modelling them:
+
+1. **`select_unit_gated_practice_items` also requires `label_status = 'validated'`.** Biology has
+   **zero** validated serving labels, so that path returns **0 items at every unit**. Confirmed by
+   calling it. Across all ten subjects it serves **8 items total** — 4 Calculus AB, 4 Calculus BC.
+2. **There is a second serving path I did not know about.** `select_practice_frqs` requires **no
+   taxonomy label at all** — only `practice_format` and not hand-drawn. It returns **71 Biology
+   FRQ**. This is the path students actually receive content through today.
+
+**What this means for the work already done.** The hash re-anchoring in M2.2 and M2.3 was necessary
+but not sufficient for the unit-gated path, and irrelevant to the practice path. It did not move
+what a student can be served today. It removes one of two blockers on a path that is still dark.
+
+**What it means for launch.** The binding question is which path launch runs on:
+
+- **Practice path** — Biology already serves 71 FRQ, and work order N does not change that number,
+  because that path ignores labels entirely.
+- **Unit-gated path** — Biology serves 0, and will keep serving 0 until serving labels reach
+  `label_status = 'validated'`. That is the human-validation question DECISION-0062 deferred. **The
+  deferral I recommended is itself the blocker for this path**, which I did not see at the time.
+
+The corrected per-subject figures are in `docs/research/servable_items_baseline.json`. The original
+assessment is kept below unedited, because the reasoning that produced a wrong number is worth
+seeing.
+
+---
+
+## The number that matters *(superseded — see the correction above)*
 
 **Biology can serve 41 of its 118 published items.** 22 FRQ and 19 MCQ, spread across all eight
 units (u1:2 u2:9 u3:2 u4:5 u5:5 u6:9 u7:6 u8:3).
