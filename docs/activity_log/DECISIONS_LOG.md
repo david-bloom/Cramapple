@@ -6,6 +6,8 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0067 — Coverage Labels Stay Deferred at `provisional_model`; No Promotion Work Until Coverage Reporting Is Prioritized (FF-9)
+- DECISION-0066 — Approve AI Two-Model Agreement as Sufficient to Promote Serving Labels to `validated`, Product Owner as Approver (FF-3)
 - DECISION-0065 — Four Rules to Unblock J.0's Continuous `attainment_ratio` (FF-6): AI Cross-Model Verb Verification, Same-Tier Borrowing, Mean Aggregation, Non-Overlapping Cut Points
 - DECISION-0064 — Split `APBIO-FRQ-S-101` Criterion `a-iv` Into Two Stem-Aligned Criteria; Authorize Rewriting `S-021`/`S-023`/`S-058`'s Canonical Answers to Match Their Rubrics
 - DECISION-0061 — Three Levels Are the Operative Difficulty Scheme; Four-Level Sources Are Translated Down, Non-Destructively
@@ -44,6 +46,101 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~600 lines, archive the older entries to `docs/activity_log/archive/DECISIONS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries. (This log is already well over that threshold — the first archive pass is overdue, not optional.)
 
 (Note: the TASK-0012 branch independently logged its own DECISION-0027/0028 — CORS/ALLOWED_ORIGINS and budget-burn semantics — under different numbers on its own branch. Those land separately when that work merges to `main`; this charter-adoption decision claimed 0027/0028 here because `main` had not yet recorded entries past DECISION-0026 at merge time. If both branches' numbering collides on merge, renumber on whichever side merges second and update this index.)
+
+## DECISION-0066 — Approve AI Two-Model Agreement as Sufficient to Promote Serving Labels to `validated` (FF-3)
+
+**Date:** 2026-09-24
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Approval:** Product Owner direction, 2026-09-24 (this session)
+**Related Docs:** `docs/product/AP_BIOLOGY_FAST_FOLLOW.md` (FF-3);
+`docs/architecture/TAXONOMY_LABELING_PLAN_V3_2026_08_04.md` §7a (T9), §10 (T6.b); DECISION-0055;
+DECISION-0062; `supabase/migrations/` — `content_taxonomy_labels_validation_check` constraint
+**Area:** Content / Taxonomy / Governance
+
+### Context
+
+The unit-gated serving path (`public.select_unit_gated_practice_items`) requires
+`label_status='validated'` on a serving label, and the schema enforces this genuinely: the
+`content_taxonomy_labels_validation_check` constraint makes `validated` impossible unless
+`validated_by`, `validated_at`, `validation_decision_id`, and a fresh content-hash match are all
+present. As of 2026-09-24 this made the path dark for 8 of 10 subjects (0 servable), with only
+AP Calculus AB and AP Calculus BC carrying any `validated` rows (4 each, from an earlier pass).
+
+The open question was whether T9/T6.b's human-validation requirement survives DECISION-0055's
+pause of the human independent-review requirement. T6.b already resolves this **for serving labels
+specifically** — it was "accepted for units only — not for topics," on a measured **89% two-model
+agreement rate**. Unlike FF-9's coverage labels (44% agreement, "near a coin flip" per
+DECISION-0062), the evidence for serving labels already supports automation; this decision approves
+operationalizing what the plan already endorses in principle, not a new automation claim.
+
+### Decision
+
+1. **Two-model agreement is accepted as sufficient basis for promoting a serving label to
+   `validated`**, across all subjects — this decision is not Biology-scoped, since the unit-gated
+   path is dark product-wide and the underlying evidence (T6.b) was never subject-specific.
+2. **The Product Owner (David) is the approver of record.** Promotion is recorded via
+   `content_taxonomy_validation_decisions` with `decided_by` = David's `profiles.user_id` and
+   `decision_source='automated_spot_check'` — a value the schema already supports — applied in
+   batch, not per item.
+3. **Items where the two models disagree are NOT promoted.** They remain `provisional_model` or
+   `held`. No adjudication, no picking one model's answer — same discipline as every other
+   AI-agreement gate in this project (DECISION-0065's verb verification, work order N's
+   disagreement rows).
+4. **This does not touch coverage labels.** `assessed_topics` stays under FF-9 (DECISION-0067),
+   unaffected — the evidence and the risk profile are different, and T9's split between serving and
+   coverage labels is explicitly preserved.
+
+### What still has to happen before FF-3 actually opens
+
+This decision authorizes the mechanism; it does not itself promote anything. Promotion requires:
+- The serving labels to exist and reach agreement in the first place — work orders N and N.1
+  (Biology, in queue behind J.0) and the equivalent for the other 7 non-Calculus subjects.
+- A batch operation that reads each subject's agreed serving labels, writes the corresponding
+  `content_taxonomy_validation_decisions` rows, and flips `label_status` to `validated` where the
+  hash still matches current content (re-verify at promotion time — a stale hash blocks promotion
+  regardless of prior agreement, per the existing constraint).
+- Claude executes this per subject as labels become ready; it is not a one-time action across all 10
+  subjects at once, since most subjects don't have current serving labels to promote yet.
+
+### What this does not decide
+
+- Coverage/topic label promotion (FF-9) — explicitly out of scope, see DECISION-0067.
+- Whether to re-run serving labeling for subjects that don't have current labels at all — that's
+  ordinary content work, tracked per-subject, not a governance question.
+
+## DECISION-0067 — Coverage Labels Stay Deferred; No Promotion Work Until Coverage Reporting Is Prioritized (FF-9)
+
+**Date:** 2026-09-24
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Approval:** Product Owner direction, 2026-09-24 (this session)
+**Related Docs:** `docs/product/AP_BIOLOGY_FAST_FOLLOW.md` (FF-9); DECISION-0062; `docs/architecture/
+TAXONOMY_LABELING_PLAN_V3_2026_08_04.md` §7a (T9), §10 (T6.b)
+**Area:** Content / Taxonomy / Governance
+
+### Context
+
+Coverage labels (`assessed_topics`) measured only **44% two-model agreement** — "near a coin flip"
+per DECISION-0062 — a materially weaker basis than serving labels' 89% (DECISION-0066). T9's rule
+requiring full human validation for coverage labels was set by measuring AI at exactly this task and
+finding it unreliable, not by a general policy preference. Verified during this session: **nothing
+in the live product reads `assessed_topics`** — it appears only in DDL (column, constraint, index,
+view definition), never in served content or grading. A wrong topic label cannot mis-serve a
+student; it can only miscount a coverage report (T8) that has not been built yet.
+
+### Decision
+
+**FF-9 stays deferred.** No promotion work, no automation-basis decision, no human-validation
+resourcing — none of it is scheduled. This is a deliberate "do nothing yet" call, not an oversight:
+given zero live cost and weak automation evidence, there is nothing to gain from deciding this now.
+
+### Revisit condition
+
+Revisit only when coverage reporting (T8) is actually prioritized on the roadmap. At that point the
+real question becomes concrete: fund human validation of coverage labels (matching what T9 already
+requires), or make a fresh case for AI automation with better evidence than the measured 44%. Either
+is a real option then; neither is worth deciding in the abstract now.
 
 ## DECISION-0065 — Four Rules to Unblock J.0's Continuous `attainment_ratio` (FF-6)
 
