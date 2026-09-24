@@ -109,6 +109,40 @@ do not edit any content field while doing it. If content changes after you label
 on arrival.
 ```
 
+## Work order N.1 — 5 MCQ serving labels QA rejected
+
+Paste this alongside N; same directory, same output shape.
+
+```text
+Work order N.1 — re-derive 5 AP Biology MCQ serving labels that QA rejected.
+
+Same method and same output format as work order N. Five items, and four of them share one cause.
+
+Claude's QA is in docs/research/apbio_mcq_serving_label_qa_2026_09_24/qa_report.md. Read it, but
+DERIVE THE LABELS YOURSELF from the current stem, choices and keyed answer. The proposed units below
+are QA's reading, recorded so you can disagree with a reason -- they are not the answer.
+
+  APBIO-MCQ-030   labelled {3}    apoptosis vs necrosis, sculpting interdigital spaces
+  APBIO-MCQ-033   labelled {3}    IP3 receptor, Ca2+ release, PKC activity
+  APBIO-MCQ-046   labelled {3}    TSH/T3 negative feedback with a pituitary adenoma
+  APBIO-MCQ-025   labelled {2,8}  ADH -> AQP2 -> osmosis in the collecting duct
+  APBIO-MCQ-088   labelled {7}    Hamilton's rule and altruism
+
+The first three are one systematic error, not three slips: cell-signalling and cell-cycle content
+labelled Unit 3 (Cellular Energetics) when U3 is energetics and U4 is Cell Communication and Cell
+Cycle. Check whether the same confusion reaches any OTHER Biology item already carrying U3, and
+report the count either way -- finding none is a result worth having.
+
+MCQ-025: U2 (Cells) looks right for aquaporin-mediated osmosis; the U8 (Ecology) tag is the part QA
+could not justify, since the item is organismal physiology.
+
+MCQ-088 is a genuine boundary call -- kin selection is taught under Natural Selection (U7),
+behaviour under Ecology (U8). Decide it, with reasoning, and mark needs_human=true either way.
+
+All five are currently NOT servable, so there is no rollback risk and no hurry-driven shortcut worth
+taking here.
+```
+
 ## What Claude does in parallel
 
 Not waiting on this. The other half of the serving gap is **24 MCQ whose serving label carries a
@@ -120,10 +154,12 @@ work order N.
 
 | | Items |
 | --- | ---: |
-| Servable now | 41 |
-| + work order N (43 short FRQ) | 84 |
-| + the 24 MCQ re-anchor | **108** |
-| Remainder: 6 held with no `required_units`, 4 hand-drawn | 118 |
+| Servable before this work | 41 |
+| + the 20 MCQ, QA'd 2026-09-24: 15 accepted and re-anchored | 56 *(done)* |
+| + work order N.1 (the 5 MCQ QA rejected) | 61 |
+| + work order N (43 short FRQ) | **104** |
+| Remainder: 14 held with no `required_units` | 118 |
 
-**108 of 118 is the realistic ceiling for launch**, and the two workstreams above are the whole path
-to it.
+**104 of 118 is the realistic ceiling**, and work orders N and N.1 are the whole remaining path.
+The 14 held items carry empty `required_units` by decision, not by omission, and include the 4
+hand-drawn items that are excluded from text serving anyway.
