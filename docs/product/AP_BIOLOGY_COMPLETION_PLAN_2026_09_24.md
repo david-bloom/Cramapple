@@ -1,6 +1,6 @@
 # AP Biology Completion Plan
 
-**Status:** Active — D0, D1, D3, D5 accepted and D2 accepted in part (2026-09-24). **Outstanding: the 6 flagged Biology topic labels within D2, and D4.**
+**Status:** Active — D0, D1, D3, D4, D5 accepted (2026-09-24). **D2 blocked**: the September labels are *coverage* labels, not replacements for the live *serving* labels, and the governing architecture plan requires human validation for every coverage label — which DECISION-0055 may or may not have paused. See M2.
 **Owner:** David Bloom (ratification) / Claude (migration + verification)
 **Date:** 2026-09-24
 **Purpose:** Finish AP Biology end to end, and in doing so **establish the ratify → apply → verify
@@ -80,7 +80,7 @@ Biology is complete when all six hold:
 | ~~**D1**~~ | **ACCEPTED 2026-09-24.** A + F's canonical answers and segmentation are ratified for Biology. M1 may proceed once F.1 lands (`APBIO-FRQ-S-101`'s four-part re-label) — see the M5 baseline. | — | **Unblocked** |
 | **D2** *(part)* | **ACCEPTED 2026-09-24** — the September topic labels supersede the August provisional set. **Still open: sign-off on the 6 flagged items**, which the accepting QA raised for Product Owner review. M2 can be written against the accepted set but should not apply until the 6 are resolved. | — | M2 |
 | ~~**D3**~~ | **DECIDED 2026-09-24 — DECISION-0061.** Three levels are operative; four-level sources translate down (`Very Hard` → `Hard`) non-destructively, with the attainment ratio stored alongside. **Biology carries zero difficulty values, so it has nothing to translate** — its 118-row assignment applies directly and does **not** wait on work order J. | — | **Unblocked** |
-| **D4** | `prompt_json.total_points`: remove the field, or align it to the rubric sum, for the 9 Biology items. | **Remove.** No runtime reads it; `evaluate-attempt` sums `frq_criteria.points_possible`. Work order I's recommendation, and the runtime evidence supports it. | M4 |
+| ~~**D4**~~ | **APPROVED 2026-09-24 — remove `prompt_json.total_points`** from the 9 Biology items. No runtime reads it; `evaluate-attempt` sums `frq_criteria.points_possible`. | — | **Unblocked** |
 | ~~**D5**~~ | **DECIDED 2026-09-24 — accept as non-scoring for now.** Correction to how this was framed: the four are **not** uniform. `APBIO-HDG-2026-GRAPH-002` is `human_graded_pilot_approved` and sits in the TASK-0038 human-graded pilot lane (DECISION-0058/0059) — it *is* graded, by a human, under an operational commitment. The other three (`-003`, `-008`, `-010`) are `ai_provisional_unapproved` and genuinely score nothing. So D5 applies to those three; `-002` is already dispositioned elsewhere and must not be swept up. | — | **Unblocked** |
 
 **D0 and D3 were not Biology-specific, and both are now decided** (DECISION-0060, DECISION-0061),
@@ -119,14 +119,49 @@ assembled answer, not against Production, and DECISION-0056 authorised removal i
 its `full_text`; every criterion has a span tagged to it alone; span count matches the proposal
 exactly.
 
-### M2 — topic labels *(gated on D2)*
+### M2 — topic labels *(BLOCKED — see below; D2 cannot be executed as originally framed)*
 
-Insert the September labels at `label_scope='serving'` with a real `label_status`, setting
-`superseded_by` on the August provisional rows rather than deleting them.
+**Stop. The original M2 instruction was wrong, and writing it surfaced why.**
 
-*Verification:* every published Biology item has exactly one current serving label; zero rows remain
-`legacy_unvalidated` unsuperseded; every `topic_code` is in the closed list at the stated
-`taxonomy_source_version`.
+`docs/architecture/TAXONOMY_LABELING_PLAN_V3_2026_08_04.md` §7a (T9) splits the label layer in two,
+and is explicit that the halves are not interchangeable:
+
+| | **Serving label** | **Coverage label** |
+| --- | --- | --- |
+| Question | What must a student have covered to *answer* this? | What does this item *count toward*? |
+| Field | `required_units[]`, `max_required_unit` | `assessed_topics[]` |
+| Granularity | Unit (8) | Topic (61) |
+| Automation | two-model lane (89% agreement) | **human validation** (44% agreement) |
+
+> *"Neither field may substitute for the other, and `primary_unit` is an input to neither."*
+
+Three consequences, all verified against Production 2026-09-24:
+
+1. **The September labels are coverage labels, not replacements for the August ones.** The live August
+   rows are *serving* labels carrying `required_units` — they answer a different question and are
+   still needed. **Nothing gets superseded.** "September supersedes August" was my framing and it was
+   wrong.
+2. **`assessed_topics` has never been populated.** Across all 484 Biology label rows — 181 coverage
+   and 303 serving — **zero** carry a topic. The September proposal would be the first topic-level
+   data ever written to this layer.
+3. **The plan requires full human validation for coverage labels.** Its triage table reads: *"**Any**
+   `assessed_topics` (coverage) label → **Full human validation**"* — because model agreement on
+   topics measured 44% against 89% on units. Codex's own proposal marks **69 of 118** Biology rows
+   `needs_human=true`, which is consistent with that.
+
+**The unresolved question, which is a Product Owner call, not a QA one.** DECISION-0055 paused the
+human independent-review requirement for content and made AI cross-model QA plus Product Owner
+approval the operative gate. It names `CONTENT_GOVERNANCE_AND_VALIDATION.md` §11.1 and DECISION-0044
+explicitly. **It does not name this plan's T9/T6.b human-validation rule for coverage labels.** So it
+is genuinely ambiguous whether that rule is paused.
+
+Until that is resolved, M2 should not be written. Resolving it decides whether Biology's topic labels
+need Orly's review of all 118, or only the 6 the QA flagged.
+
+*Verification, once unblocked:* every published Biology item has exactly one current coverage label
+with a non-empty `assessed_topics`; every topic code is in the closed list at the stated
+`taxonomy_source_version`; **no serving label is modified**; the 2 osmosis corrections land as `2.7`;
+the 4 hand-drawn items are held rather than labelled from a boilerplate stem.
 
 ### M3 — difficulty *(gated on D3 — now decided; **not** gated on work order J)*
 
@@ -193,9 +228,9 @@ and on current evidence it is more likely to be a grader defect than a content d
 | M0 segmentation store | Claude | D0 ✓ |
 | M5 baseline capture | Claude | — *(must precede M1)* |
 | M1 canonical + segmentation | Claude | D1, M0, M5-baseline |
-| M2 topic labels | Claude | D2 |
+| M2 topic labels | Claude | **BLOCKED** — T9 vs DECISION-0055 conflict |
 | M3 difficulty | Claude | D3 ✓ |
-| M4 point totals | Claude | D4 |
+| M4 point totals | Claude | D4 ✓ |
 | M5 grader gate re-run | Claude | M1 |
 | Biology closeout record | Claude | all |
 
