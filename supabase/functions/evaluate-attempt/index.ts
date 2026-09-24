@@ -555,6 +555,346 @@ export interface EvaluateAttemptDeps {
   requireProfile?: typeof requireProfile;
 }
 
+const QA_NO_PERSIST_PATH_VERSION =
+  "evaluate-attempt-qa-no-persist-2026-09-22";
+
+// FF-11 (2026-09-24): this used to refuse any item that already carried a
+// canonical_answer_1 (409 canonical_answer_already_present). That made
+// DECISION-0052's rule -- "the production grader awards it 100% against its
+// own rubric" -- permanently unverifiable for the 65 (of 68) Biology FRQ
+// whose canonical predates the grader gate: once written, they could never
+// be measured again. The guard added no security of its own (this path is
+// already gated by the vault-held qa_grader_rpc_secret_v1 token, checked via
+// verify_qa_grader_token below) and canonical_answer_1/2 are read only for
+// that removed presence check -- never fed into the prompt or the response --
+// so widening it cannot let an unverified canonical influence a score. See
+// docs/product/AP_BIOLOGY_FAST_FOLLOW.md FF-11 and
+// docs/research/biology_m1_regrade_and_blocker_2026_09_24/README.md.
+//
+/**
+ * Privileged canonical-answer QA path.
+ *
+ * This deliberately reuses evaluate-attempt's live prompt builders, model
+ * request shape, grading arm, retry behavior, and sanitizer, but it does not
+ * create an attempt/response/grading-result row or run any post-grade side
+ * effects. Access is limited to a database-held capability token checked by a
+ * service-role-only RPC. The public gateway JWT remains enabled for the whole
+ * function; the database wrapper supplies the project's anon JWT only to pass
+ * that outer gateway, then supplies the private capability separately.
+ */
+async function handleQaNoPersist(
+  req: Request,
+  body: Record<string, unknown>,
+  deps: EvaluateAttemptDeps = {},
+) {
+  const respond = (responseBody: unknown, init: ResponseInit = {}) =>
+    jsonResponse(responseBody, init, req);
+  const service = deps.service ?? createServiceClient();
+
+  const qaToken = req.headers.get("x-qa-grader-token")?.trim() ?? "";
+  if (!qaToken) {
+    return respond({ error: "forbidden" }, { status: 403 });
+  }
+
+  const { data: tokenAccepted, error: tokenError } = await service
+    .schema("app")
+    .rpc("verify_qa_grader_token", { p_token: qaToken });
+  if (tokenError || tokenAccepted !== true) {
+    return respond({ error: "forbidden" }, { status: 403 });
+  }
+
+  const contentItemVersionId = asUuid(
+    getBodyField(body, "content_item_version_id", "contentItemVersionId"),
+  );
+  const answerText = asString(
+    getBodyField(body, "answer_text", "answerText"),
+  )?.trim() ?? "";
+
+  if (!contentItemVersionId || !answerText) {
+    return respond(
+      {
+        error: "missing_required_fields",
+        required: ["content_item_version_id", "answer_text"],
+      },
+      { status: 400 },
+    );
+  }
+  if (answerText.length > 50_000) {
+    return respond({ error: "answer_too_large" }, { status: 413 });
+  }
+
+  const { data: contentVersion, error: contentError } = await service
+    .schema("app")
+    .from("content_item_versions")
+    .select(
+      "id, content_item_id, version_num, stem, stimulus, prompt_json, rubric_type, evaluator_strategy, status, canonical_answer_1, canonical_answer_2, created_at",
+    )
+    .eq("id", contentItemVersionId)
+    .maybeSingle();
+  if (contentError || !contentVersion) {
+    return respond({ error: "content_not_found" }, { status: 404 });
+  }
+
+  const [
+    { data: latestVersion, error: latestVersionError },
+    { data: contentItem, error: contentItemError },
+    { data: criteriaRows, error: criteriaError },
+  ] = await Promise.all([
+    service.schema("app")
+      .from("content_item_versions")
+      .select("id, version_num, created_at")
+      .eq("content_item_id", contentVersion.content_item_id)
+      .order("version_num", { ascending: false })
+      .order("created_at", { ascending: false })
+      .order("id", { ascending: false })
+      .limit(1)
+      .maybeSingle(),
+    service.schema("app")
+      .from("content_items")
+      .select(
+        "id, exam_pack_version_id, content_key, item_type, title, status",
+      )
+      .eq("id", contentVersion.content_item_id)
+      .maybeSingle(),
+    service.schema("app")
+      .from("frq_criteria")
+      .select(
+        "criterion_key, learner_facing_text, points_possible, evidence_requirements, minimum_fix, accepted_variants",
+      )
+      .eq("content_item_version_id", contentVersion.id)
+      .order("criterion_key", { ascending: true }),
+  ]);
+
+  if (latestVersionError || !latestVersion) {
+    return respond({ error: "latest_version_lookup_failed" }, { status: 500 });
+  }
+  if (latestVersion.id !== contentVersion.id) {
+    return respond(
+      {
+        error: "content_version_not_latest",
+        requested_content_item_version_id: contentVersion.id,
+        latest_content_item_version_id: latestVersion.id,
+      },
+      { status: 409 },
+    );
+  }
+  if (contentItemError || !contentItem) {
+    return respond({ error: "content_item_not_found" }, { status: 404 });
+  }
+  if (
+    criteriaError || !Array.isArray(criteriaRows) || criteriaRows.length === 0
+  ) {
+    return respond({ error: "criteria_not_found" }, { status: 409 });
+  }
+  if (
+    contentItem.item_type !== "frq" ||
+    contentItem.status !== "published" ||
+    contentVersion.status !== "published"
+  ) {
+    return respond({ error: "content_not_published_frq" }, { status: 409 });
+  }
+
+  const { data: examPackVersion, error: examPackVersionError } = await service
+    .schema("app")
+    .from("exam_pack_versions")
+    .select("id, exam_pack_id, status")
+    .eq("id", contentItem.exam_pack_version_id)
+    .maybeSingle();
+  if (examPackVersionError || !examPackVersion) {
+    return respond({ error: "exam_pack_version_not_found" }, { status: 404 });
+  }
+  if (examPackVersion.status !== "published") {
+    return respond({ error: "exam_pack_version_not_published" }, {
+      status: 409,
+    });
+  }
+
+  const { data: examPack, error: examPackError } = await service.schema("app")
+    .from("exam_packs")
+    .select("id, exam_code, exam_name")
+    .eq("id", examPackVersion.exam_pack_id)
+    .maybeSingle();
+  if (examPackError || !examPack) {
+    return respond({ error: "exam_pack_not_found" }, { status: 404 });
+  }
+  if (examPack.exam_code !== "ap_biology") {
+    return respond({ error: "qa_path_ap_biology_only" }, { status: 409 });
+  }
+
+  const promptVersion = EVALUATE_ATTEMPT_PROMPT_VERSION;
+  const { data: promptVersionRow, error: promptVersionError } = await service
+    .schema("app")
+    .from("prompt_versions")
+    .select("id, status")
+    .eq("operation", "grade_initial_attempt")
+    .eq("version", promptVersion)
+    .maybeSingle();
+  if (
+    promptVersionError || !promptVersionRow ||
+    promptVersionRow.status !== "published"
+  ) {
+    return respond({ error: "invalid_prompt_version" }, { status: 409 });
+  }
+
+  const routing = resolveGradingRoute({
+    rubricType: contentVersion.rubric_type,
+    evaluatorStrategy: contentVersion.evaluator_strategy,
+    itemType: contentItem.item_type,
+    promptJson: contentVersion.prompt_json,
+  });
+  if (routing.target !== "llm_text") {
+    return respond(
+      {
+        error: "qa_path_requires_llm_text",
+        resolved_target: routing.target,
+      },
+      { status: 409 },
+    );
+  }
+
+  const criteria = criteriaRows as FeedbackCriterionRow[];
+  const promptBase = {
+    operation: "grade_initial_attempt" as AllowedOperation,
+    promptVersion,
+    examName: examPack.exam_name as string,
+    itemTitle: contentItem.title as string,
+    itemType: contentItem.item_type as string,
+    stem: contentVersion.stem as string,
+    stimulus: contentVersion.stimulus as string | null,
+    responseText: answerText,
+    responseParts: {},
+    criteria,
+  };
+
+  const answerSha256 = await sha256Hex(answerText);
+  const idempotencyKey =
+    `qa:${contentVersion.id}:${promptVersion}:${answerSha256}`;
+  const userIdHash = await sha256Hex(`canonical-qa:${contentVersion.id}`);
+  const systemPrompt = GRADING_ARM === "a"
+    ? buildCriterionSystemPrompt(examPack.exam_name as string)
+    : buildSystemPrompt(examPack.exam_name as string);
+
+  try {
+    let finalPayload;
+    let rawGraderResponse: unknown;
+    let inputTokens = 0;
+    let outputTokens = 0;
+    let cachedTokens: number | null = null;
+    let latencyMs = 0;
+
+    if (GRADING_ARM === "a") {
+      const fanOut = await callOpenAIGraderPerCriterion({
+        modelId: OPENAI_MODEL,
+        maxOutputTokens: OPENAI_MAX_OUTPUT_TOKENS,
+        systemPrompt,
+        criteria,
+        buildUserPrompt: (criterion) =>
+          buildCriterionGradingPrompt({ ...promptBase, criterion }),
+        userIdHash,
+        idempotencyKey,
+      });
+      const merged = mergeCriterionResults(fanOut.parsed, criteria);
+      finalPayload = sanitizeModelResult(merged, criteria, {
+        responseText: answerText,
+        responseParts: {},
+      });
+      finalPayload = {
+        ...finalPayload,
+        student_facing_summary: composeStudentFacingSummary(
+          finalPayload.criteria,
+          finalPayload.points_earned,
+          finalPayload.points_available,
+          finalPayload.highest_value_gap?.minimum_fix ?? null,
+        ),
+      };
+      rawGraderResponse = {
+        arm: "a",
+        criterion_responses: fanOut.raws,
+      };
+      inputTokens = fanOut.inputTokens;
+      outputTokens = fanOut.outputTokens;
+      cachedTokens = fanOut.cachedTokens;
+      latencyMs = fanOut.elapsedMs;
+    } else {
+      const modelResponse = await callOpenAIGrader({
+        modelId: OPENAI_MODEL,
+        maxOutputTokens: OPENAI_MAX_OUTPUT_TOKENS,
+        systemPrompt,
+        userPrompt: buildGradingPrompt(promptBase),
+        userIdHash,
+        idempotencyKey,
+      });
+      finalPayload = sanitizeModelResult(modelResponse.parsed, criteria, {
+        responseText: answerText,
+        responseParts: {},
+      });
+      rawGraderResponse = modelResponse.raw;
+      const usage = extractUsage(modelResponse.raw as Record<string, unknown>);
+      inputTokens = usage.inputTokens ?? 0;
+      outputTokens = usage.outputTokens ?? 0;
+      cachedTokens = usage.cachedTokens;
+      latencyMs = modelResponse.elapsedMs;
+    }
+
+    const possibleByKey = new Map(
+      criteria.map((criterion) => [
+        criterion.criterion_key,
+        Number(criterion.points_possible || 0),
+      ]),
+    );
+    const criterionResults = finalPayload.criteria.map((criterion) => ({
+      ...criterion,
+      points_possible: possibleByKey.get(criterion.criterion_key) ?? 0,
+    }));
+
+    return respond({
+      status: finalPayload.status,
+      function: "evaluate-attempt",
+      mode: "qa_no_persist",
+      content_key: contentItem.content_key,
+      content_item_version_id: contentVersion.id,
+      result: {
+        ...finalPayload,
+        criteria: criterionResults,
+        carry_forward_used: false,
+        carry_forward_reason:
+          "QA no-persist mode has no prior-attempt context.",
+      },
+      grader: {
+        qa_path_version: QA_NO_PERSIST_PATH_VERSION,
+        deployment_id: Deno.env.get("DENO_DEPLOYMENT_ID") ?? null,
+        execution_id: Deno.env.get("SB_EXECUTION_ID") ?? null,
+        model_id: OPENAI_MODEL,
+        prompt_version: promptVersion,
+        grading_arm: GRADING_ARM,
+        latency_ms: latencyMs,
+        input_tokens: inputTokens,
+        output_tokens: outputTokens,
+        cached_tokens: cachedTokens,
+      },
+      raw_grader_response: rawGraderResponse,
+      persistence: {
+        wrote_attempts: false,
+        wrote_response_versions: false,
+        wrote_grading_results: false,
+        wrote_model_usage_ledger: false,
+        wrote_student_memory: false,
+        wrote_student_cell_state: false,
+        wrote_content: false,
+      },
+    });
+  } catch (error) {
+    return respond(
+      {
+        error: "qa_grading_failed",
+        detail: error instanceof Error ? error.message : "unknown_error",
+        qa_path_version: QA_NO_PERSIST_PATH_VERSION,
+      },
+      { status: 500 },
+    );
+  }
+}
+
 export async function handleEvaluateAttempt(
   req: Request,
   deps: EvaluateAttemptDeps = {},
@@ -573,6 +913,10 @@ export async function handleEvaluateAttempt(
   const body = await readBodyAsRecord(req);
   if (!body) {
     return respond({ error: "invalid_json" }, { status: 400 });
+  }
+
+  if (body.qa_no_persist === true) {
+    return await handleQaNoPersist(req, body, deps);
   }
 
   const operation = asString(getBodyField(body, "operation"));
