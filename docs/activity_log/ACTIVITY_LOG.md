@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Practice MCQ and Practice FRQ Wired to Live Production Supabase (Lovable, New Cramapple App); Two Real Bugs Found During Verification, Both Still Open (2026-09-24): Practice MCQ and Practice FRQ (the CramApple Design System screens imported earlier this session) were wired to real Supabase data and real server-side grading, replacing local/localStorage grading entirely — confirmed working end-to-end against Production with a throwaway test student account (real MCQ correct/incorrect verdicts, real FRQ per-criterion grading with ↻ never ✕ on missed points). Verification surfaced two real, still-open issues, both independent of this session's own changes: **(1) content gap, urgent** — the AP Statistics exam pack version new students are auto-assigned (2027-05-18, 203 MCQs) has zero published FRQs; only an older pack (2027-05-11) has FRQ content, so FRQ practice is currently broken for any real student landing on the default pack. **(2) backend bug** — `student-session-items` does not reliably honor its `item_type` filter (returned zero MCQs for one pack, FRQs when MCQs were requested for another); a client-side fallback was added in the Lovable project to query published items directly as a workaround, mirroring an existing workaround already present in `src/hooks/use-session.ts` for this same known AP Statistics pilot gap, but the root cause is unfixed server-side. Also not yet done: true in-browser verification of `/practice-mcq` and `/practice-frq` (blocked by production CORS not allowlisting the Lovable build sandbox's origin — the data/grading contract was verified directly against the real edge functions instead, which is a legitimate but partial substitute for loading the actual rendered pages). Production data created during verification: one test student account (`cramapple-qa-test+practice-verification-1790183201@cramapple.com`), a free-trial entitlement, two learning sessions, and three graded attempts (2 MCQ, 1 FRQ) — clearly labeled test data, left in place. — 2026-09-24
 - Hand-Drawn Capture Reviewed Against a Separate Codex BYOQ Upload-Policy Discussion Draft; Consent Notice Added (2026-09-23): David asked for review of a Codex-authored discussion draft (`docs/product/BYOQ_UPLOAD_POLICY_AND_DATA_LIFECYCLE_DISCUSSION_2026_09_23.md`, not approved, general BYOQ upload policy) against TASK-0038's hand-drawn capture work. Found the draft's first-upload disclosure requirement applies to hand-drawn capture too (its own text names the hand-drawn scoring feature), and its student-initiated-deletion section directly conflicts with `app.response_attachments`' immutability trigger (`BEFORE DELETE OR UPDATE`, blocks all deletion including `service_role`, added on purpose by TASK-0025 for grading-dispute/audit integrity — confirmed live against Production). **David's direction:** add simple consent copy (not a blocking step, no recorded-acceptance event) and disregard the deletion section entirely — it was discussion only, not a decision. Added a Terms/Privacy consent notice with a PII reminder to `CaptureItem.tsx` (the real `/session` hand-drawn capture component), shown before and during every capture; `tsc`/Vitest clean (401/402, same one pre-existing unrelated failure). No backend change made. `exam-buddy-wireframe` commit `677728c`. — 2026-09-23
 - TASK-0038 Phase 4 Operational Commitment Approved (DECISION-0059, APPROVAL-0049, 2026-09-23): David approved the pilot-scale grading commitment proposed this session — scope limited to `APBIO-HDG-2026-GRAPH-002` only; grader is David Bloom personally (no qualified-reviewer roster exists yet); 24-hour grading SLA with at least daily queue checks; disputes handled as a manual, logged SQL correction rather than product tooling (no regrade RPC exists); the repair-authoring gap (`record_manual_grade` always passes `highestValueGap: null`, so a manually-graded student sees a score but no repair prompt) accepted as-is for the pilot rather than blocking on it; a two-stage rollout where `/session-hand-drawn-pilot` stays admin-gated until David personally runs one real end-to-end loop under real (non-simulated) conditions — the one Phase 3 acceptance criterion never yet exercised — before any named small group gets access, with no further widening without revisiting this decision. Explicitly does **not** close TASK-0020 Program C's Hard Gate, which still needs the full multi-owner design (Learning Quality, Operations, Privacy/Security) for any broader launch — this covers only the narrow pilot scope one Product Owner can approve alone. TASK-0038 is now Phase 1-4 complete; the one remaining open item is Stage 1's real end-to-end run, not yet performed. — 2026-09-23
 - TASK-0038 Phase 4 Done (Infrastructure; Operational SLA/Grader Commitment Still Open): Real Hand-Drawn Grading Queue Built, an RLS Gap and a Dead Storage-Permission Check That Both Blocked Real Cross-User Admin Grading Found and Fixed, One Transcription Bug Caught Before It Reached Production (2026-09-23). Investigating what Phase 4 actually needed surfaced a real finding: `app.attempts`/`app.response_attachments`/`app.grading_results` RLS is owner-only with **no admin bypass** — the original single-attempt admin grading page read these tables directly via the authenticated client, which only ever worked because every attempt graded through this pilot so far has been an admin's own test submission (0 real rows, ever, per the Phase 1/2 audit). A real admin grading a real student's attempt would have hit RLS and failed on the read side; separately, `storage-sign-url`'s `ownsLearnerPath` check had **no admin exception at all** for `sign_download`, so `canAccessBucket`'s own admin clearance for `learner-uploads` was dead code — the photo itself was unreachable too. Fixed both: two new admin-only, service-role `attempt-response` operations (`list_manual_grading_queue`, `get_manual_grading_context`) replace the RLS-blocked direct reads; `storage-sign-url` gained a narrow admin exception scoped to `sign_download` only (upload/delete stay strictly owner/admin-delete). **Caught a real bug mid-session**: an intermediate manual retype of `storage-access.ts` while assembling the large multi-file deploy payload swapped `validator` for `content_author` on the `validation-artifacts` bucket rule — caught by diffing the deployed Dev content against local disk before promoting to Production, fixed, and redeployed with the correct rule confirmed via Dev/Prod content-hash match before Production ever ran the bad version. Also verified the much-larger `attempt-response` deploy (13 files, hand-retyped shared modules) byte-for-byte against local source with a comment/whitespace-stripped diff — 2 files showed only stripped-comment differences, zero logic drift, before pushing to Production. Both functions deployed Dev then Prod (hash-matched); 2 new unit tests (both new operations refuse a non-admin caller before ever touching the service client). Frontend: new `/admin/grade-response` queue-list route (`list_manual_grading_queue`); the existing per-attempt page rewritten to call `get_manual_grading_context` instead of direct RLS-bound reads. Verified: `tsc --noEmit` clean, `vite build` succeeds with both routes registered, Vitest 401/402 (same one pre-existing unrelated failure carried all session). **Left for David, not an engineering task**: TASK-0020 Program C names operationalizing manual grading (reviewer queue, qualifications, SLA, dispute path, capacity) as its own Hard Gate — the queue now works, but nobody has committed to who grades and how fast; that decision, not more code, is what has to happen before `/session-hand-drawn-pilot`'s admin gate comes off for real students. — 2026-09-23
@@ -204,6 +205,67 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 ---
+
+## Practice MCQ and Practice FRQ Wired to Live Production Supabase — 2026-09-24
+
+**Task:** N/A (Lovable frontend wiring, New Cramapple App project, this session)
+**Status:** Live and grading correctly; two known issues open (one urgent, one backend)
+**Summary:** Wired the CramApple Design System's Practice MCQ and Practice FRQ screens
+(imported earlier this session) to real Supabase data and real server-side grading via
+`session-event` → `student-session-items` → `attempt-response` (create/save/submit) →
+`evaluate-attempt`, removing local/localStorage grading (`gradeMcq`/`gradeFrq`) entirely
+for these two screens. Open Hand FRQ, Open Hand MCQ, and Supabase schema/migrations were
+left untouched. Connecting to Production required: adding the Lovable preview origins for
+both New Cramapple App and New Cramapple Marketing to `ALLOWED_ORIGINS` (per DECISION-0029,
+no wildcard fallback) and to Supabase Auth's Redirect URLs — both write-only settings with
+no retrievable current value, reconstructed from known live domains (Vercel, `cramapple.com`,
+existing Lovable preview URLs) rather than a saved copy, since none existed; and creating a
+throwaway, email-confirmed test student account (manual `email_confirmed_at` SQL update was
+needed since the sandboxed test runner has no mailbox access).
+
+Verification against Production, using that test account, confirmed the grading chain
+actually works: a correct MCQ answer graded 1/1, an incorrect one graded 0/1 with feedback;
+a real 4-part FRQ item graded 3/4 with per-criterion results, the missed criterion marked
+↻ (revisit) and never ✕ — the Open-Hand-only mark — matching the product rule from
+DECISION-0057. This also exercised the real `entitlement_required` / trial-start path a
+real student would hit, not a bypass.
+
+Two real, still-open issues surfaced, both pre-existing and independent of this session's
+code:
+1. **Content gap (urgent):** the AP Statistics exam pack version new students are
+   auto-assigned (`2027-05-18`, 203 MCQs) has zero published FRQs. Only an older pack
+   (`2027-05-11`, 101 MCQs / 69 FRQs) has FRQ content — FRQ practice is currently broken
+   for any real student who lands on the default pack.
+2. **Backend selector bug:** `student-session-items` does not reliably honor its
+   `item_type` request parameter (returned zero MCQs for one pack, FRQ items when MCQs
+   were requested for another). A client-side fallback was added in the Lovable project
+   (querying published items directly) to work around it, mirroring an existing workaround
+   already present in `src/hooks/use-session.ts` for this same known AP Statistics pilot
+   gap — the root cause is unfixed server-side.
+
+Not yet done: true in-browser verification of `/practice-mcq` and `/practice-frq` as
+rendered pages — Production CORS does not allowlist the Lovable build sandbox's own
+origin, only its preview origin, so the sandbox verified the full data/grading contract by
+calling the real edge functions directly with a real auth token instead of loading the
+pages in a browser. This is a legitimate but partial substitute; someone should open the
+preview URL directly to close the gap.
+
+Production data created and left in place (clearly labeled test data): one test student
+account (`cramapple-qa-test+practice-verification-1790183201@cramapple.com`,
+auth id `a9b458e1-b364-492c-8267-7d0cfb5f4ae9`), one free-trial entitlement, two learning
+sessions, and three graded attempts (2 MCQ, 1 FRQ). The test account's active exam pack is
+currently left set to the older (`2027-05-11`) pack, not the default, since that was the
+only way to reach FRQ content.
+
+**Next Owner:** David Bloom
+**Next Required Action:** Decide how to close the FRQ content gap on the default AP
+Statistics pack (publish FRQs to it, or repoint new-student assignment to the pack that
+has them); assign the `student-session-items` `item_type`-filter bug for a proper
+server-side fix rather than relying on the client-side fallback long-term; do the
+manual in-browser check of `/practice-mcq` and `/practice-frq`; decide whether to record
+the reconstructed `ALLOWED_ORIGINS`/Redirect-URL values somewhere retrievable (e.g. a
+`docs/architecture/` reference) so this is never unrecoverable again; decide whether to
+clean up the test production data above.
 
 ## BYOQ Answer-Visibility Rule Discussed and Decided (DECISION-0057) — 2026-09-23
 
