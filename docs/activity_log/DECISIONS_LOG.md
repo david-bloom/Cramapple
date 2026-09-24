@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0064 — Split `APBIO-FRQ-S-101` Criterion `a-iv` Into Two Stem-Aligned Criteria; Authorize Rewriting `S-021`/`S-023`/`S-058`'s Canonical Answers to Match Their Rubrics
 - DECISION-0061 — Three Levels Are the Operative Difficulty Scheme; Four-Level Sources Are Translated Down, Non-Destructively
 - DECISION-0060 — Credited-Response Segmentation Is Stored in a Dedicated Child Table, One Row Per Span, Not in `prompt_json`
 - DECISION-0059 — Adopt a Pilot-Scale Operational Commitment for Hand-Drawn Manual Grading (Grader, SLA, Dispute/Regrade Stance, Staged Rollout) — TASK-0038 Phase 4
@@ -42,6 +43,69 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~600 lines, archive the older entries to `docs/activity_log/archive/DECISIONS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries. (This log is already well over that threshold — the first archive pass is overdue, not optional.)
 
 (Note: the TASK-0012 branch independently logged its own DECISION-0027/0028 — CORS/ALLOWED_ORIGINS and budget-burn semantics — under different numbers on its own branch. Those land separately when that work merges to `main`; this charter-adoption decision claimed 0027/0028 here because `main` had not yet recorded entries past DECISION-0026 at merge time. If both branches' numbering collides on merge, renumber on whichever side merges second and update this index.)
+
+## DECISION-0064 — Split `APBIO-FRQ-S-101` Criterion `a-iv` Into Two Stem-Aligned Criteria; Authorize Rewriting `S-021`/`S-023`/`S-058`'s Canonical Answers to Match Their Rubrics
+
+**Date:** 2026-09-24
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Approval:** Product Owner direction, 2026-09-24 (this session)
+**Related Docs:** `docs/product/AP_BIOLOGY_FAST_FOLLOW.md` (FF-4, FF-5);
+`docs/research/biology_m1_regrade_and_blocker_2026_09_24/README.md`;
+`docs/research/apbio_canonical_recovery_2026_09_22/qa_findings.csv` (QA2-015, QA2-016, QA2-017,
+QA2-040, QA2-041); DECISION-0056; DECISION-0052
+**Area:** Content / Governance
+
+### Context — two separate defects, one decision
+
+**`S-101` (FF-4).** Its rubric keys (`a-i`…`a-iv`) imply a one-to-one mapping onto the stem's four
+sub-parts, but `a-iv` actually requires evidence from **both** stem sub-parts (iii) and (iv). Before
+work order F.1 relabelled the answer text to match the stem, both sentences sat in one paragraph and
+a single quote satisfied `a-iv`; after the (correct) relabel, `a-iv`'s evidence spans two separated
+paragraphs. Re-graded three times against identical text on the identical deployment: 4/4 once, 3/4
+twice. **The rubric and the stem structurally disagree — no answer text can satisfy both.** DECISION-
+0052 requires the production grader to award 100% before a canonical is written; `S-101` cannot clear
+that bar while the rubric stays as-is.
+
+**`S-021` / `S-023` / `S-058` (FF-5).** Originally scoped as "held for segmentation" because
+generating spans would require editing published text. Re-verified while preparing this decision:
+the actual defect is more serious for two of the three. QA findings QA2-015 and QA2-040 (2026-09-22,
+never actioned, flagged **high severity**) state that for `S-021` and `S-058`, **neither stored
+canonical answer (`canonical_answer_1` or `_2`) answers the item's own rubric** — "the stored answers
+appear to belong to a different question/rubric." The recovery ledger confirms every criterion
+(`a1`/`a2`/`b1`/`b2`) on both items had to be drafted from scratch; nothing was recoverable from the
+published text. `S-023` is less severe: 3 of 4 criteria needed drafting, 1 was recoverable from the
+existing `canonical_answer_2`.
+
+### Decision
+
+1. **Split `S-101`'s criterion `a-iv` into two 1-point criteria**, matching the stem's (a)(iii) and
+   (a)(iv) exactly (definition of "most parsimonious" under one, the preference explanation under the
+   other). The item moves from 4 points to 5. This is a rubric edit, not an answer edit — the answer
+   text F.1 already produced does not need to change, only the criteria it is graded against.
+2. **Authorize rewriting the published `canonical_answer_1`** (and reassessing `canonical_answer_2`)
+   for `S-021`, `S-023`, and `S-058` so that the stored answer actually answers the stored rubric,
+   including full replacement where nothing is recoverable (as `S-021`/`S-058` require). This is
+   **broader than DECISION-0056's exception** (which permits removing only *uncredited redundant*
+   prose that a new span supersedes) — it authorizes replacing content that does not answer the
+   rubric at all, not just trimming what is superseded.
+
+### Conditions (extending DECISION-0056's logging discipline to this broader authorization)
+
+- Scoped to exactly these four items (`S-101`, `S-021`, `S-023`, `S-058`). Does not generalize to any
+  other item; a similar defect found elsewhere comes back for its own decision.
+- Every substantive change (rubric split, answer rewrite, removed/replaced text) must be logged with
+  before/after text, character counts, and rationale — same discipline as DECISION-0056's
+  `removals.csv`, so QA can re-derive each change against Production.
+- `S-101`: the same gate applies as everywhere else — Claude re-runs the grader gate against the
+  corrected rubric before any canonical is written; the model that authors the fix does not verify it.
+- `S-021`/`S-023`/`S-058`: the existing 2026-09-22 drafted proposals are a starting point, not a
+  finished one — re-verify against current Production state before finalizing, and resolve the open
+  QA2-016/QA2-041 question (whether the existing off-rubric `canonical_answer_2` is legitimate
+  supplementary context or should be dropped) explicitly rather than leaving it ambiguous.
+- Unchanged: AI build → independent AI cross-model QA → Product Owner approval (DECISION-0055) before
+  anything serves a student. This decision authorizes what may be *proposed*, not what may *serve*
+  without going through that gate.
 
 ## DECISION-0063 — AP Biology Launches on the Practice Path, Not the Unit-Gated Path
 

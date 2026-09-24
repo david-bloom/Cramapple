@@ -51,8 +51,8 @@ Rank is by student impact on the chosen path, not by effort.
 | ~~**FF-1**~~ | 43 MCQ unreachable | **CLOSED 2026-09-24** — a Biology-scoped combined selector (`app.select_biology_practice_items`) now serves both FRQ and MCQ on `targeted_drill`; verified live with a real-student-token probe (12 FRQ + 8 MCQ served, no answer-key leak by any path, correct/incorrect MCQ graded 1/1 and 0/1 via `rule-based-mcq`) | Codex, QA'd and applied by Claude | — |
 | ~~**FF-2**~~ | `full_exam_frq` returns 0 | **Downgraded to Low** — verified 2026-09-24: the API accepts the format but **no session has ever used it** (117 sessions, all time). Not a day-one risk; one frontend toggle from being one | — | — |
 | **FF-3** | Unit-gated path dark product-wide (8 items across 10 subjects) | **High, strategic** | — | Promotion of serving labels to `validated` — the T9 vs DECISION-0055 question |
-| **FF-4** | `APBIO-FRQ-S-101` has no canonical | Medium — one item missing from 71 | Codex after decision | Product Owner rubric call: criterion `a-iv` spans two stem sub-parts |
-| **FF-5** | `S-021`, `S-023`, `S-058` have no segmentation | Medium — Open Hand cannot strike on them | Product Owner | Call on whether drafting over published text is acceptable |
+| **FF-4** | `APBIO-FRQ-S-101` has no canonical | Medium — one item missing from 71 | Codex (work order F.2) | **Decided 2026-09-24 (DECISION-0064)** — split criterion `a-iv` into two; in queue |
+| **FF-5** | `S-021`, `S-023`, `S-058` have no segmentation | Medium — Open Hand cannot strike on them; re-verified 2026-09-24 that `S-021`/`S-058` are worse than "no spans" — their stored answers don't answer their own rubric | Codex (work order F.2) | **Decided 2026-09-24 (DECISION-0064)** — rewriting authorized; in queue |
 | **FF-6** | 0 of 118 items carry a difficulty value | Medium — no difficulty targeting is possible | Codex (J.0) | In queue |
 | **FF-7** | 43 short FRQ have no serving label | **None on this path**; blocks FF-3 | Codex (work order N) | In queue |
 | **FF-8** | 5 MCQ serving labels QA rejected | None on this path; blocks FF-3 | Codex (work order N.1) | In queue |
