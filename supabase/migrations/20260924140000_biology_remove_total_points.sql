@@ -95,13 +95,16 @@ where ci.id = civ.content_item_id
 -- Verification. Run after applying; all three must hold.
 --
 --   -- 1. no published Biology version carries the field
---   select count(*) from app.content_items ci
---   join app.content_item_versions civ on civ.content_item_id = ci.id
+--   --    (public view exposes subject_key; app.content_items does not)
+--   select count(*) from public.content_items ci
+--   join public.content_item_versions civ on civ.content_item_id = ci.id
 --   where ci.subject_key = 'biology' and civ.status = 'published'
 --     and civ.prompt_json ? 'total_points';                            -- expect 0
+--   -- RESULT 2026-09-24: 0
 --
 --   -- 2. exactly 16 rows changed, and nothing outside Biology did
 --   --    (compare against the id list above)
 --
 --   -- 3. no other prompt_json key was touched: key counts drop by exactly 1
 --   --    on those 16 and are unchanged on every other Biology version.
+--   -- RESULT 2026-09-24: Biology prompt_json key total 516 -> 500, exactly 16.

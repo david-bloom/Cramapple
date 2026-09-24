@@ -30,7 +30,8 @@
 -- expected_graph_spec and more. Five more keys per item bloats a hot blob.
 --
 -- This is a choice made by precedent, not a decision that was separately asked.
--- The Product Owner can override it; nothing has been applied.
+-- The table is applied but EMPTY, so the shape can still be changed cheaply if
+-- the Product Owner prefers a different one.
 --
 -- Note the existing 838 items across nine other subjects carry only a bare
 -- prompt_json.difficulty, with no ratio and no provenance. Those are legacy and
