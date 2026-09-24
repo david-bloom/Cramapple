@@ -109,6 +109,88 @@ do not edit any content field while doing it. If content changes after you label
 on arrival.
 ```
 
+## Addendum — answers to Codex's four questions, and one thing the original order got wrong
+
+Paste this with N and N.1.
+
+```text
+Work order N — addendum. All four of your questions are resolved below; every suggested correction
+is accepted. One of your challenges is right and is now backed by evidence from today.
+
+FIRST, SOMETHING THE ORIGINAL ORDER DID NOT TELL YOU, because I did not know it when I wrote it.
+
+Authoring these labels will NOT, by itself, make a single item servable. Two facts found after the
+order was written, by building a standing check and calling the real functions instead of reading
+them:
+
+  * public.select_unit_gated_practice_items requires label_status = 'validated'. AP Biology has
+    ZERO validated serving labels, so that path returns 0 items at every unit. Across all ten
+    subjects it serves 8 items total -- 4 Calculus AB, 4 Calculus BC.
+  * public.select_practice_frqs -- the path students actually get Biology content through today --
+    requires no taxonomy label at all. It returns 71 Biology FRQ and your work will not change that
+    number either way.
+
+So work order N is necessary and not sufficient. Your labels will land as provisional_model and will
+serve nothing until a separate decision promotes serving labels to 'validated'. That is a Product
+Owner question, not yours and not mine. Knowing it should change nothing about how you label -- but
+you should not be told your work unblocks serving when it does not.
+
+1. DISAGREEMENT VS THE SCHEMA. Adopt your proposal exactly: on disagreement, keep both model
+   outputs, set required_units: [], max_required_unit: null, needs_human: true. You spotted a real
+   contradiction in my spec. Empty-and-null is also the shape Production already uses for this: the
+   6 held Biology serving labels carry empty required_units and null max_required_unit, and the
+   serving selector excludes them on max_required_unit being null. So a disagreement row is
+   inert by construction rather than by convention.
+
+2. MCQ HAVE NO CRITERION KEYS. Agreed, and you are right that inventing them would violate T9.
+   criterion_units: null, plus item_evidence covering the keyed-answer justification and the
+   distractor refutations. That is also what the existing generator's own rule already says for MCQ:
+   "against the keyed answer and each distractor refutation."
+
+3. MODEL PAIR. Keep gpt-5.5 + gemini-2.5-flash exactly. Not because that pair is best, but because
+   the 89% figure was measured on it -- changing the pair would silently invalidate the only
+   measurement this lane's existence rests on. Record each model's full preflight, unit set,
+   criterion mapping and uncertainty, not just required_units: that is precisely what lets QA check
+   your reasoning without re-deriving it, and re-deriving it would make QA the author.
+
+4. BRANCH. Yes. Branch codex/work-order-n-biology-serving-labels from freshly fetched origin/main,
+   commit and push there. Same as project2.
+
+EVERY SUGGESTED CORRECTION IS ACCEPTED. Notes on four of them:
+
+  * The scope query fix is correct and you should make it -- but be aware it does not change the
+    item set. I ran all three forms: any-published-version, latest-version-published, and
+    latest-version-published AND frq_form='short'. All return the same 43 items, and zero Biology
+    items are dropped for having a draft as their latest version. My query was right by coincidence
+    on this data, not by construction. Make the fix so it stays right; do not expect a different
+    list, and if you get one, stop and report.
+  * Widening the U3 audit to every current unsuperseded Biology serving label across MCQ and FRQ is
+    better than what I asked for. Do that.
+  * primary_unit: preserving an intentional null is right. Substituting the first required unit
+    fabricates a teaching home nobody chose, and a fabricated value is worse than a null because it
+    looks decided.
+  * The proposal-only scoped mode matters more than it sounds. A dry run that still emits
+    application SQL and legacy report files produces artifacts that look applicable, and somebody
+    eventually applies one. Scope it.
+
+YOUR CHALLENGE IS RIGHT, AND TODAY SUPPLIES THE EVIDENCE.
+
+You wrote that two-model agreement is evidence, not validation, and that n=18 is thin. Agreed. What
+makes it more than a methodological quibble: QA today rejected four Biology MCQ serving labels, and
+three of them are the SAME error -- apoptosis, IP3/PKC signal transduction and TSH/T3 feedback all
+labelled Unit 3 Cellular Energetics when they belong to Unit 4 Cell Communication and Cell Cycle.
+
+That is a correlated conceptual error, not three independent slips. Two models sharing a
+misconception about where cell signalling lives would agree with each other and both be wrong, and
+unanimity-of-two has no third vote to catch it. So agreement is weakest exactly where this corpus
+has already failed.
+
+Your routing -- every multi-unit item, every disagreement, every low-confidence result and MCQ-088
+to human review, and the single-unit agreement set made easy to sample -- is the right response.
+Add one thing: flag any item whose agreed label is Unit 3, so QA can sample that band deliberately
+rather than at random. That is the band where the known failure lives.
+```
+
 ## Work order N.1 — 5 MCQ serving labels QA rejected
 
 Paste this alongside N; same directory, same output shape.
