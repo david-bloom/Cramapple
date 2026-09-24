@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- AP Biology Shipped to Production and Set to Launch on the Practice Path (2026-09-24): nine migrations applied and verified, DECISION-0062 and DECISION-0063 logged, four silent serving failures found and a standing check built. See `docs/product/SESSION_STATUS_2026_09_24.md`.
 - Practice MCQ and Practice FRQ Wired to Live Production Supabase (Lovable, New Cramapple App); Two Real Bugs Found During Verification, Both Still Open (2026-09-24): Practice MCQ and Practice FRQ (the CramApple Design System screens imported earlier this session) were wired to real Supabase data and real server-side grading, replacing local/localStorage grading entirely — confirmed working end-to-end against Production with a throwaway test student account (real MCQ correct/incorrect verdicts, real FRQ per-criterion grading with ↻ never ✕ on missed points). Verification surfaced two real, still-open issues, both independent of this session's own changes: **(1) content gap, urgent** — the AP Statistics exam pack version new students are auto-assigned (2027-05-18, 203 MCQs) has zero published FRQs; only an older pack (2027-05-11) has FRQ content, so FRQ practice is currently broken for any real student landing on the default pack. **(2) backend bug** — `student-session-items` does not reliably honor its `item_type` filter (returned zero MCQs for one pack, FRQs when MCQs were requested for another); a client-side fallback was added in the Lovable project to query published items directly as a workaround, mirroring an existing workaround already present in `src/hooks/use-session.ts` for this same known AP Statistics pilot gap, but the root cause is unfixed server-side. Also not yet done: true in-browser verification of `/practice-mcq` and `/practice-frq` (blocked by production CORS not allowlisting the Lovable build sandbox's origin — the data/grading contract was verified directly against the real edge functions instead, which is a legitimate but partial substitute for loading the actual rendered pages). Production data created during verification: one test student account (`cramapple-qa-test+practice-verification-1790183201@cramapple.com`), a free-trial entitlement, two learning sessions, and three graded attempts (2 MCQ, 1 FRQ) — clearly labeled test data, left in place. — 2026-09-24
 - Hand-Drawn Capture Reviewed Against a Separate Codex BYOQ Upload-Policy Discussion Draft; Consent Notice Added (2026-09-23): David asked for review of a Codex-authored discussion draft (`docs/product/BYOQ_UPLOAD_POLICY_AND_DATA_LIFECYCLE_DISCUSSION_2026_09_23.md`, not approved, general BYOQ upload policy) against TASK-0038's hand-drawn capture work. Found the draft's first-upload disclosure requirement applies to hand-drawn capture too (its own text names the hand-drawn scoring feature), and its student-initiated-deletion section directly conflicts with `app.response_attachments`' immutability trigger (`BEFORE DELETE OR UPDATE`, blocks all deletion including `service_role`, added on purpose by TASK-0025 for grading-dispute/audit integrity — confirmed live against Production). **David's direction:** add simple consent copy (not a blocking step, no recorded-acceptance event) and disregard the deletion section entirely — it was discussion only, not a decision. Added a Terms/Privacy consent notice with a PII reminder to `CaptureItem.tsx` (the real `/session` hand-drawn capture component), shown before and during every capture; `tsc`/Vitest clean (401/402, same one pre-existing unrelated failure). No backend change made. `exam-buddy-wireframe` commit `677728c`. — 2026-09-23
 - TASK-0038 Phase 4 Operational Commitment Approved (DECISION-0059, APPROVAL-0049, 2026-09-23): David approved the pilot-scale grading commitment proposed this session — scope limited to `APBIO-HDG-2026-GRAPH-002` only; grader is David Bloom personally (no qualified-reviewer roster exists yet); 24-hour grading SLA with at least daily queue checks; disputes handled as a manual, logged SQL correction rather than product tooling (no regrade RPC exists); the repair-authoring gap (`record_manual_grade` always passes `highestValueGap: null`, so a manually-graded student sees a score but no repair prompt) accepted as-is for the pilot rather than blocking on it; a two-stage rollout where `/session-hand-drawn-pilot` stays admin-gated until David personally runs one real end-to-end loop under real (non-simulated) conditions — the one Phase 3 acceptance criterion never yet exercised — before any named small group gets access, with no further widening without revisiting this decision. Explicitly does **not** close TASK-0020 Program C's Hard Gate, which still needs the full multi-owner design (Learning Quality, Operations, Privacy/Security) for any broader launch — this covers only the narrow pilot scope one Product Owner can approve alone. TASK-0038 is now Phase 1-4 complete; the one remaining open item is Stage 1's real end-to-end run, not yet performed. — 2026-09-23
@@ -205,6 +206,43 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 ---
+
+## AP Biology Shipped to Production and Set to Launch on the Practice Path — 2026-09-24
+
+**Task:** AP Biology completion + launch readiness
+**Status:** Nine migrations applied and verified; launch path decided; two agents in flight
+**Summary:** Biology moved from zero applied migrations to nine. M0 (span store), M3 (difficulty
+store), M4 (remove `prompt_json.total_points` from 16 items), M2 (112 provisional coverage labels +
+6 held), M1 (67 canonical answers and 548 credited-response spans) all applied to Production, plus
+three repairs (M2.1, M2.2, M2.3) and a new standing check. **DECISION-0062** landed coverage labels
+as `provisional_model` rather than settling the T9 vs DECISION-0055 human-validation question.
+**DECISION-0063** set Biology to launch on the practice path, which serves 71 `targeted_drill` FRQ
+and reads no taxonomy label or difficulty value.
+
+The session's most consequential finding was **four silent serving failures**, three found by hand
+and one only after building `app.servable_items_census()` and calling the real serving functions
+instead of modelling them: 20 MCQ republished in August had silently stopped matching their content
+hash and had been unservable for six weeks; M1 dropped 28 more items out of serving the same
+morning; the unit-gated path has never served a Biology item at all and serves 8 items across all
+ten subjects; and an empty item queue returns `status: ok` with no reason. None is wrong code. Each
+is a design choice to report absence as normality. `scripts/qa/servable_items_check.py` now measures
+this per subject, self-verifies against the real RPCs (93 ok, 0 mismatch) and fails on any drop —
+but it has no trigger yet.
+
+Four of my own claims were corrected by measurement during the session and are recorded in
+`docs/product/SESSION_STATUS_2026_09_24.md`: two wrong servable-item counts computed from a
+predicate no live function uses, a migration-ordering error that staled 65 labels I had just
+written, and an FF-13 "blocker" that turned out to have been fixed weeks earlier.
+
+**Next Owner:** David Bloom / Codex
+**Next Required Action:** Codex is working FF-1
+(`prompts/CODEX_WORK_ORDER_FF1_MCQ_SERVING_2026_09_24.md`) — make the 43 Biology MCQ reachable
+through the serving contract rather than the frontend's client-side fallback, and diagnose the
+`student-session-items` `item_type` filter bug reported in the entry below. Queued but not
+dispatched: `prompts/CODEX_WORK_ORDER_QUEUE_2026_09_24.md` (J.0 → N → N.1). Open Product Owner
+decisions: the `APBIO-FRQ-S-101` rubric split, whether drafting over published canonicals is
+acceptable for S-021/S-023/S-058, the two osmosis topic corrections, and whether any serving label
+is ever promoted to `validated` (without which the unit-gated path stays dark product-wide).
 
 ## Practice MCQ and Practice FRQ Wired to Live Production Supabase — 2026-09-24
 

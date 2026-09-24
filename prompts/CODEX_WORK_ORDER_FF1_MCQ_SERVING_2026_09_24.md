@@ -11,6 +11,32 @@ fix are live. `authenticated` can read `choice_text` and is denied `is_correct` 
 **Design first, build second.** This changes a live serving surface, so the first deliverable is a
 design proposal, not code.
 
+## Late addition — read this before designing anything
+
+`docs/activity_log/ACTIVITY_LOG.md`, entry dated 2026-09-24 (a different session, same day),
+reports that **a Practice MCQ screen is already live in the new Lovable app and grades correctly
+against Production** — and that it reaches MCQ through **a client-side fallback that queries
+published items directly**, because `student-session-items` does not reliably honour its
+`item_type` parameter.
+
+That reframes FF-1 and makes it more serious, not less:
+
+- MCQ are not unreachable to a *student*. They are unreachable through the **serving contract**.
+- The frontend is therefore selecting content with no unit gate, no hand-drawn exclusion, no
+  taxonomy check and no `practice_format` logic — none of the rules the serving functions exist to
+  apply.
+- So the goal is not "make MCQ appear". It is **make the server-side path correct enough that the
+  client-side fallback can be deleted**, and the fallback's removal is the real definition of done.
+
+Also in scope, because it is the same root: **`student-session-items` does not reliably honour
+`item_type`** (returned zero MCQ for one pack, FRQ when MCQ were requested for another). Diagnose
+that as part of the design. It may be the whole bug.
+
+This is second-hand from the activity log; Claude has not verified the Lovable side and cannot from
+the backend. Treat it as a strong lead to confirm, not as established fact.
+
+---
+
 ```text
 Work order FF-1 — make AP Biology's 43 published MCQ reachable on the practice serving path.
 
@@ -80,6 +106,14 @@ So whatever you build must deliver choices WITHOUT those two columns. Two specif
 
 Include in your proposal how you would PROVE the key is not served — a functional probe as
 authenticated, not an inspection of the code.
+
+BEFORE YOU DESIGN: confirm the client-side fallback. The activity log entry for 2026-09-24 says the
+Lovable app reaches MCQ by querying published items directly, bypassing student-session-items,
+because that function does not reliably honour item_type. If true, your design's success condition
+is that the fallback can be DELETED -- not merely that MCQ appear. Establish what the fallback
+actually queries before proposing anything, and diagnose the item_type filter bug: it may be the
+entire problem, in which case options A, B and C above are all the wrong answer and the right one is
+a bug fix.
 
 WHAT WOULD MAKE THIS WORK REJECTED AT QA
 
