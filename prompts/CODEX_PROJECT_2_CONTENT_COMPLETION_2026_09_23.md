@@ -490,13 +490,37 @@ other wherever possible**, and record a **`derivations[]` entry for every numeri
 answer, naming the inputs it came from. That field is what lets a second model re-derive your
 arithmetic instead of trusting it.
 
-**Tighten `derivations[]` beyond what B emitted** *(QA finding B-QA-002)*. B's derivations were
-complete in count but not mechanically re-derivable: `inputs` carried a boilerplate source quote
-rather than the operands, and `expression` repeated the whole answer sentence for every value in it,
-so QA had to parse arithmetic out of prose. For G: `expression` is the formula for **that one
-value**, `inputs` names the operands as label/value pairs, and a value read from a table — a t\*, a
-z, a χ² critical value — is `kind: "looked_up"` with the distribution and parameters named, not
-`kind: "computed"`.
+**Emit `similarity_report.csv` for every subject** *(added 2026-09-24 — `ap-physics-1` did not, see
+G-P1-QA-002)*. Work order F's requirement 1a applies to G unchanged: score every authored span
+against its own criterion's `learner_facing_text`, emit the pair-level report, and where a span sits
+at or above 0.85 **flag it rather than rewriting it**. Physics 1 had four such spans and all four
+were legitimate one-fact criteria — `"Concludes K=E-U=3E/4, so K>U"` against
+`"Consequently K=E-U=3E/4, so K>U."` There is no better way to write that and padding it would game
+the metric. The defect was that nothing said so, so a reader could not tell a legitimately short
+answer from a rubric echo without redoing the measurement. **Make `flags[]` typed objects** rather
+than plain strings so `restatement_justified` can actually be expressed.
+
+**Tighten `derivations[]` beyond what B emitted** *(QA finding B-QA-002, restated 2026-09-24 after
+it failed to land in `ap-physics-1` — see G-P1-QA-001)*. B's derivations were complete in count but
+not mechanically re-derivable, and Physics 1's repeated the pattern: 87% of its `expression` values
+carried more than one number, and **all 1,242 of its `inputs` labels were the placeholder
+`numeric operand 1..6`**, which names nothing. The test is simple and you should apply it yourself:
+**can a second model recompute this one value from this one derivation row, without reading the
+answer prose?** If not, the row has failed.
+
+Concretely, for every numeric value in the answer:
+
+- **`expression` is the formula for that one value.** `"a = Δv/Δt = (8.00−0)/5.00"` — not
+  `"v=6.00 m/s and Δx=12.0 m from constant-acceleration relations."`, which names two values and no
+  formula.
+- **`inputs` names each operand meaningfully.** `{"label": "final velocity", "value": "8.00"}` — not
+  `{"label": "numeric operand 1", "value": "8.00"}`.
+- **`criterion_keys` is populated**, so the value is tied to the point it serves.
+- **A value that is read rather than computed is `kind: "looked_up"`**, with its source named. *An
+  earlier version of this rule gave only statistical examples (t\*, z, χ²), which is why Physics 1
+  reasonably used it zero times — that wording was wrong.* It covers **any value not derived from
+  the item's own data**: a physical constant such as `g = 9.80 m/s²` (22 occurrences in Physics 1), a
+  molar mass, a table lookup, a given conversion factor.
 
 Two subject-specific cautions:
 
