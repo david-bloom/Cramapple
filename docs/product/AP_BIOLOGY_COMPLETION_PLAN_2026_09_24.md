@@ -130,7 +130,7 @@ assembled answer, not against Production, and DECISION-0056 authorised removal i
 its `full_text`; every criterion has a span tagged to it alone; span count matches the proposal
 exactly.
 
-### M2 — topic labels *(WRITTEN and REHEARSED 2026-09-24; not yet applied to Production)*
+### M2 — topic labels *(APPLIED to Production 2026-09-24)*
 
 **RESOLVED as DECISION-0062:** the 118 Biology coverage labels land as `provisional_model`, the six
 QA-flagged items land as `held`, no serving label is touched, and the T9 question moves from gating
@@ -289,7 +289,7 @@ and on current evidence it is more likely to be a grader defect than a content d
 | M0 segmentation store | Claude | **APPLIED to Dev and Production 2026-09-24** (empty), RLS proven |
 | M5 baseline capture | Claude | — *(must precede M1)* |
 | M1 canonical + segmentation | Claude | D1, M0, M5-baseline |
-| M2 topic labels | Claude | **WRITTEN + REHEARSED 2026-09-24** (DECISION-0062) — awaiting Production apply |
+| M2 topic labels | Claude | **APPLIED to Production 2026-09-24** (DECISION-0062) — 112 provisional, 6 held |
 | M3 difficulty | Claude | **store APPLIED to Production 2026-09-24 (empty)**; data load blocked on work order J.0 |
 | M4 point totals | Claude | **APPLIED to Production 2026-09-24** — all 16, verified |
 | M5 grader gate re-run | Claude | M1 |
