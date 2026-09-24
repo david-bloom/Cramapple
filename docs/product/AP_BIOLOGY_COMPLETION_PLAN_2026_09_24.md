@@ -272,7 +272,7 @@ and on current evidence it is more likely to be a grader defect than a content d
 | --- | --- | --- |
 | D0–D5 decisions | **David** | — |
 | Work order J (difficulty vocabulary brief) | Codex | — |
-| M0 segmentation store | Claude | D0 ✓ |
+| M0 segmentation store | Claude | **APPLIED to Dev and Production 2026-09-24** (empty), RLS proven |
 | M5 baseline capture | Claude | — *(must precede M1)* |
 | M1 canonical + segmentation | Claude | D1, M0, M5-baseline |
 | M2 topic labels | Claude | **BLOCKED** — T9 vs DECISION-0055 conflict |

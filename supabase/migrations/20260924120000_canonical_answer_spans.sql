@@ -21,8 +21,15 @@
 -- (mcq_choices.is_correct readable by authenticated users), which is the
 -- mistake this table is shaped to avoid repeating.
 --
--- This migration creates the store EMPTY. No span data is written here; M1
--- does that, only after this shape and its RLS have been verified.
+-- APPLIED: Dev 2026-09-24, then PRODUCTION 2026-09-24 on Product Owner
+-- authorisation, EMPTY in both. Verified on Production: 0 rows, RLS enabled,
+-- one policy scoped to service_role, 0 grants to anon/authenticated/public, 4
+-- indexes, and a functional RLS test confirming authenticated, anon and
+-- content_reviewer all either error or see zero rows.
+--
+-- M1 writes the span data, and only after F.1 lands -- APBIO-FRQ-S-101's
+-- canonical is labelled for a three-part question against a four-part stem and
+-- must be re-labelled before it is applied.
 
 create table if not exists app.canonical_answer_spans (
   canonical_answer_span_id uuid primary key default gen_random_uuid(),
@@ -88,6 +95,19 @@ alter table app.canonical_answer_spans enable row level security;
 -- authenticated: this table is an answer key. If a student-facing surface ever
 -- needs post-submission span data, it must come through a server-side function
 -- that checks the attempt is already submitted -- never by granting read here.
+--
+-- ONE GRANT APPEARS HERE THAT THIS MIGRATION DOES NOT WRITE. Production carries
+-- ALTER DEFAULT PRIVILEGES granting content_reviewer SELECT on every new
+-- app-schema table (pg_default_acl, objtype 'r', {content_reviewer=r/postgres});
+-- Dev does not, which is why the Dev apply showed only postgres and
+-- service_role. Confirmed present and INERT on Production: SELECT without a
+-- matching RLS policy returns zero rows, and the functional test above proves
+-- content_reviewer sees none.
+--
+-- The risk is latent, not live: anyone who later adds a broader RLS policy to
+-- this table activates that standing grant silently. Answer-key access for
+-- reviewers may well be legitimate -- but it should be a decision, not a
+-- side effect of a schema default.
 drop policy if exists "canonical_answer_spans_service_all"
   on app.canonical_answer_spans;
 create policy "canonical_answer_spans_service_all"
