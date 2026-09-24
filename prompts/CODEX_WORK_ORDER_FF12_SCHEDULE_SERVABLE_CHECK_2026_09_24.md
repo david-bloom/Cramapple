@@ -5,13 +5,20 @@ been live for six weeks, one was introduced that same morning. `scripts/qa/serva
 now exists and self-verifies its own census against the real serving RPCs before trusting any
 number, but it only runs when someone remembers to type the command. FF-12 is making that automatic.
 
-**Scope is intentionally narrow.** This is CI/scheduling work, not content or serving-logic work: one
-small grant migration plus one GitHub Actions workflow file. It does not touch what a student is
-served.
+**Scope is intentionally narrow.** This is CI/scheduling work, not content or serving-logic work. It
+does not touch what a student is served.
 
-**One step Codex cannot do.** Adding the GitHub Actions secret is a repo-settings action only David
-can perform — it is called out explicitly at the end so this doesn't stall waiting on Codex to find a
-way around it.
+**Update 2026-09-24, after this was first written.** The plan below originally called for granting
+`supabase_read_only_user`. That role turned out to be Supabase-reserved — not even a superuser
+session can `ALTER ROLE` it. Claude created a dedicated role instead, **`ci_servable_items_reader`**
+(`NOLOGIN` is false — it can log in — `NOSUPERUSER NOCREATEDB NOCREATEROLE NOINHERIT`, connection
+limit 3), and has **already applied** `GRANT USAGE ON SCHEMA app` and the two `EXECUTE` grants below
+directly to Production. **Step 1 is done — skip it.** The GitHub secret is also already set, using a
+session-pooler connection string for this new role. Codex's job is now only Step 2.
+
+**One step Codex cannot do.** Adding/updating the GitHub Actions secret is a repo-settings action
+only David can perform — already done for this round, noted here so a future re-run of this order
+doesn't assume otherwise.
 
 Paste the block below into Codex.
 
@@ -35,26 +42,20 @@ READ FIRST: scripts/qa/servable_items_check.py. It already:
   - runs app.servable_items_census() and compares it to docs/research/servable_items_baseline.json,
   - fails (exit 1) on any DECREASE in unit_gated/drill/full_exam servable counts, exit 2 if it
     cannot run at all, exit 0 on pass.
-Do not modify the script's logic. This work order is only about running it automatically and
-connecting it to Production with the narrowest credential that works.
+Do not modify the script's logic. This work order is only about running it automatically.
 
-STEP 1 — GRANT MIGRATION (minimal-privilege CI credential)
+STEP 1 — GRANT MIGRATION: ALREADY DONE, DO NOT REPEAT
 
-The script connects with a bare `psql` connection string (CRAMAPPLE_DB_URL), not through PostgREST,
-so it needs an actual Postgres login role -- never the service_role key, and never a superuser.
-Production already has Supabase's built-in read-only replica role, supabase_read_only_user
-(rolsuper=false, rolcanlogin=true), which currently has schema-usage on `app` but no EXECUTE on
-either function the script calls (verified 2026-09-24). Add a migration that does exactly this and
-nothing else:
-
-    grant execute on function app.servable_items_census() to supabase_read_only_user;
-    grant execute on function app.servable_items_census_selftest() to supabase_read_only_user;
-
-Both functions are SECURITY DEFINER owned by postgres and read-only (no writes anywhere in their
-bodies -- confirm this yourself by reading their definitions before proposing the grant, don't take
-it on trust). Do not grant anything else, do not touch any other role, and do not widen any existing
-grant. If either function turns out not to be read-only, stop and report it instead of proposing the
-grant.
+The minimal-privilege CI role (`ci_servable_items_reader`) exists on Production and already has
+`USAGE` on schema `app` and `EXECUTE` on both `app.servable_items_census()` and
+`app.servable_items_census_selftest()`, applied directly by Claude on 2026-09-24 (see the note at
+the top of this file for why `supabase_read_only_user` wasn't usable). **Do not write a grant
+migration.** If you want a record of the grants in the migration history for consistency with how
+the rest of this repo tracks schema/permission changes, you may propose a no-op-safe migration file
+that documents what's already live (`grant ... if not exists`-equivalent, i.e. plain `grant`
+statements are idempotent in Postgres and safe to replay) -- but this is optional housekeeping, not
+a blocker, and Claude will verify the grants against Production either way before applying anything
+you propose.
 
 STEP 2 — GITHUB ACTIONS WORKFLOW
 
@@ -84,8 +85,8 @@ has to follow (below) match without translation.
 
 WHAT WOULD MAKE THIS REJECTED AT QA
 
-  - Any grant beyond the two EXECUTE grants above, to any role.
-  - A grant on a function that turns out to have a write path once you actually read its body.
+  - Proposing a grant to `supabase_read_only_user` (reserved, unmodifiable) or widening
+    `ci_servable_items_reader`'s privileges beyond what's already live.
   - The workflow connecting with anything other than the secret named SERVABLE_ITEMS_CHECK_DB_URL,
     or embedding a credential directly in the YAML.
   - `--update-baseline` anywhere in the scheduled job.
@@ -93,23 +94,16 @@ WHAT WOULD MAKE THIS REJECTED AT QA
   - Modifying servable_items_check.py's logic instead of only scheduling it.
 
 Proposal only. No Production writes, and do not create or touch any GitHub secret yourself (you
-don't have access to do so). Claude QAs this, applies the grant migration to Production, and merges
-the workflow file. David separately adds the GitHub secret -- that step is his, not yours, and this
-work order does not block on it landing first.
+don't have access to do so, and it's already set). Claude QAs this and merges the workflow file.
 ```
 
-## What David has to do (not Codex, not Claude)
+## What David already did (this section is now historical)
 
-GitHub Actions secrets can only be set by someone with repo admin access in the GitHub UI/CLI, and
-they should point at the least-privileged working credential -- not the service_role key.
-
-1. In the Supabase dashboard for **Cramapple - Production**: Project Settings → Database →
-   Connection string, select the **read-only** connection (the one backed by
-   `supabase_read_only_user`), and copy the full `postgres://...` URL.
-2. In GitHub: repo → Settings → Secrets and variables → Actions → New repository secret, name it
-   exactly `SERVABLE_ITEMS_CHECK_DB_URL`, paste that connection string.
-3. That's it — the scheduled workflow (once Claude merges it) will pick it up on its next run, or you
-   can trigger it immediately from the Actions tab via `workflow_dispatch`.
+GitHub Actions secrets can only be set by someone with repo admin access in the GitHub UI/CLI. This
+was completed 2026-09-24: `SERVABLE_ITEMS_CHECK_DB_URL` is set in the repo's Actions secrets, using a
+session-pooler connection string for `ci_servable_items_reader` (verified working via a manual
+`psql` connection before saving it). Nothing further needed here unless the credential needs
+rotating later.
 
 ## Why this is the right shape for Codex
 
@@ -119,8 +113,9 @@ in parallel with it.
 
 ## What stays with Claude
 
-- QA of the grant migration (confirm both functions are actually read-only before it lands) and of
-  the workflow file (SHA-pinning, correct secret name, no baseline-mutation flag).
-- Applying the grant to Production and merging the workflow.
-- Updating `docs/product/AP_BIOLOGY_FAST_FOLLOW.md` to close FF-12 once the secret is set and a real
-  scheduled or manually-dispatched run has passed.
+- QA of the workflow file (SHA-pinning, correct secret name, no baseline-mutation flag) and of any
+  optional documentation-only grant migration Codex proposes.
+- Merging the workflow.
+- Triggering an initial `workflow_dispatch` run once merged to confirm it actually connects and
+  passes, rather than waiting on the first scheduled run to find out.
+- Updating `docs/product/AP_BIOLOGY_FAST_FOLLOW.md` to close FF-12 once that run is verified.
