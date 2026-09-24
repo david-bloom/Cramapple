@@ -40,7 +40,7 @@ before working** — the protocol's tiered-drift rule applies.
 # Work order J — difficulty: reconcile the vocabulary, then complete the coverage
 
 **Directory:** `docs/research/difficulty_reconciliation_2026_09_23/`
-**Priority: highest in this project.** It is the one with a decision hiding inside it.
+**Priority: highest in this project**, and **J.0 below runs before everything else in Project 3** because a written migration is waiting on it. J.1 is the one with a decision hiding inside it.
 
 ## The problem, measured
 
@@ -79,6 +79,65 @@ structure, a subject concentration — then say so and argue for keeping the dis
 representing it as `Hard` plus a flag rather than a fourth band. A brief that simply agrees with the
 steer without testing it is worth nothing. **J.1a and J.1b below exist so that whichever way this
 goes, it is cheap to reverse.**
+
+## J.0 — Biology, and do this one FIRST — it blocks a written migration
+
+*(Promoted from J.3 on 2026-09-24. **This sub-task jumps Project 3's normal sequencing**, including
+the rule that Project 3 does not jump Project 2's queue — because a migration is written and waiting
+on it. Everything else in Project 3 still waits.)*
+
+Biology carries **zero** difficulty values in Production and has a complete 118-row calibrated
+assignment sitting unapplied. It is the cleanest case in the order — no existing labels to argue
+with, nothing to translate, `source_value` null throughout.
+
+**What is missing, and it is the whole reason this is blocked.**
+`docs/research/apbio_difficulty_calibration_2026_09_22/apbio_difficulty_assignments.csv` has columns
+`content_key, item_type, difficulty, basis, rationale`. **There is no ratio.** The continuous
+attainment score was computed during the 2026-09-22 calibration and then discarded — exactly the gap
+J.1b was written to stop, which Biology predates.
+
+`supabase/migrations/20260924150000_content_item_difficulty.sql` is already written and creates
+`app.content_item_difficulty` with `attainment_ratio`, `ratio_source` and `subject_cut_points`
+columns. **Loading 118 null ratios would ship Biology as the one subject not carrying the thing
+DECISION-0061 exists for.** So the store waits on you.
+
+### What to do
+
+**Re-run the existing method for Biology, emitting what it currently throws away.** Do not invent a
+new method — `assign_difficulty.py` and `finalize_assignments.py` in that directory are the
+calibrated method, validated at 12/16 against hand-verified AP Biology points. Reproduce their band
+assignments and add the provenance.
+
+Per item, emit alongside the existing columns:
+
+- **`attainment_ratio`** — the measured ratio the band rests on, as a number.
+- **`ratio_source`** — which `crr_calibration_all_subjects.csv` rows produced it (that file has 18
+  AP Biology rows).
+- **`subject_cut_points`** — the Biology thresholds applied, so the band is re-derivable.
+- **`basis`** — mapped onto the migration's vocabulary: `calibrated_task_verb` or
+  `calibrated_judgement`.
+
+### The 37 that have no anchor
+
+**81 of the 118 carry basis `task verb`** and record which verbs, so their ratio is reconstructable
+by joining to the CRR table. **37 carry basis `judgement`** — the method was applied but no verb
+anchor was available, so **no ratio exists for them even in principle.**
+
+**Leave those 37 null with `basis = 'calibrated_judgement'` and say so.** Do not manufacture a number
+to fill the column. A fabricated ratio is worse than a missing one because it would look re-derivable
+and not be — the same failure as work order B's derivations, which were complete in count and could
+not actually be re-derived.
+
+**Report the split explicitly**: how many carry a ratio, how many do not, and why. 81/37 is the
+expected answer; if your re-run produces a different split, that is a finding about the method, not a
+number to quietly adjust.
+
+### Do not re-band
+
+The 118 bands are already QA-relevant work and the Product Owner has ratified the three-level scheme.
+**If your re-run produces a band that differs from the committed assignment for any item, stop and
+report it** rather than overwriting — a changed band means the method is not reproducing, which is
+worth more than a silent correction.
 
 ## J.1 — Reconcile the vocabulary. Propose; do not choose.
 
@@ -165,12 +224,6 @@ the method, what was validated and what was rejected. Two findings there bind yo
 
 Work subject by subject, committing after each. Report each subject's cut points, its resulting
 distribution, and the validation you were able to run.
-
-## J.3 — Biology
-
-Biology carries **zero** difficulty labels in Production and has a complete 118-row calibrated
-assignment sitting unapplied. Reconcile the two and propose. This is the cleanest case in the order —
-no existing labels to argue with.
 
 ## Required evidence columns
 
