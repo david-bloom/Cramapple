@@ -91,17 +91,27 @@ operationalizing what the plan already endorses in principle, not a new automati
    unaffected — the evidence and the risk profile are different, and T9's split between serving and
    coverage labels is explicitly preserved.
 
-### What still has to happen before FF-3 actually opens
+### Execution (same day)
 
-This decision authorizes the mechanism; it does not itself promote anything. Promotion requires:
-- The serving labels to exist and reach agreement in the first place — work orders N and N.1
-  (Biology, in queue behind J.0) and the equivalent for the other 7 non-Calculus subjects.
-- A batch operation that reads each subject's agreed serving labels, writes the corresponding
-  `content_taxonomy_validation_decisions` rows, and flips `label_status` to `validated` where the
-  hash still matches current content (re-verify at promotion time — a stale hash blocks promotion
-  regardless of prior agreement, per the existing constraint).
-- Claude executes this per subject as labels become ready; it is not a one-time action across all 10
-  subjects at once, since most subjects don't have current serving labels to promote yet.
+Claude executed the batch promotion immediately after approval, against **existing** agreed serving
+labels already sitting in Production from an earlier labeling pass (`source =
+'vercel_ai_gateway_two_model_serving_lane'`, `reason` matching `two_model_*`) — this did not require
+waiting on new work orders. Freshness was verified per item, not assumed: a candidate was promoted
+only if the item's current published content version predates the label's creation (i.e. content
+was not edited after the label was made); `validated_against_taxo_hash` was computed fresh from
+current content at promotion time, per the schema's own constraint.
+
+**229 labels promoted across 9 subjects.** Unit-gated servable count: **8 → 143** product-wide.
+Verified clean afterward: `app.servable_items_census_selftest()` 93/93 ok, 0 mismatch.
+
+**Two subjects remain dark** because none of their candidate labels were fresh: **AP Physics C:
+Mechanics** (0 of 4 candidates) and **AP Calculus BC** (0 of 17 candidates) — both need their
+serving labels re-run against current content, not promoted as-is. This is ordinary content work,
+tracked per-subject, same as any other relabeling need — not a governance question.
+
+Work orders N and N.1 (Biology, queued behind J.0) and any equivalent future labeling passes for
+other subjects will need the same promotion step repeated once their labels reach agreement — this
+decision's mechanism applies to them too, not just to what was promoted today.
 
 ### What this does not decide
 
