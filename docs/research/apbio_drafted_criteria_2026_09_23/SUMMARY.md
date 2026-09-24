@@ -1,6 +1,10 @@
 # Work Order F — AP Biology drafted-criterion completion
 
-**Status:** Completed proposal; awaiting independent non-OpenAI QA and Product Owner approval. No Production writes occurred.
+**Status:** F accepted by independent QA; F.1 presentation correction complete and awaiting independent re-grade. No Production writes occurred.
+
+## F.1 addendum — APBIO-FRQ-S-101
+
+The combined (iii) paragraph was split into explicit (iii) and (iv) labels without changing its vetted biological wording. Exact concatenation and full coverage remain 71/71; all 261 criteria still have at least one exclusive span. The added (iv) label makes that span drafted with no inherited source offset. See F1_CHANGES.md for the before/after text, provenance change, and the required 71-item label scan. The pre-F.1 QA files were not edited.
 
 ## Scope and result
 
