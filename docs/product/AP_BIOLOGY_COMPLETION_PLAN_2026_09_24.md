@@ -1,0 +1,194 @@
+# AP Biology Completion Plan
+
+**Status:** Draft for Product Owner decision
+**Owner:** David Bloom (ratification) / Claude (migration + verification)
+**Date:** 2026-09-24
+**Purpose:** Finish AP Biology end to end, and in doing so **establish the ratify → apply → verify
+path that no subject has yet used.**
+
+---
+
+## The governing fact
+
+**This program has produced eight QA-accepted proposal sets and applied none of them.**
+
+Biology is the clearest case. Its building is roughly 90% complete; its shipping is at zero:
+
+| Workstream | Proposal | Production today |
+| --- | --- | --- |
+| Canonical answers | A + F, QA-accepted, 88 criteria authored | **7 FRQ still blank** |
+| Topic labels | QA-accepted 2026-09-22 | **Not applied.** Serving labels are `legacy_unvalidated` / `provisional_model` / `held` / `stale`, last written **2026-08-08** |
+| Difficulty | 118-row calibrated assignment | **0 of 118 items carry a difficulty value** |
+| Point totals | Work order I, QA-accepted | 9 items still mismatched |
+| Hand-drawn (4 items) | capture live, `expected_graph_spec` present | holds at `shadow_review`, **scores nothing** |
+
+So the reason to finish Biology first is not that it is nearly done. It is that **Biology is the only
+subject where the loop can actually be closed** — it is the only subject the DECISION-0052 grader
+gate accepts, so it is the only place an *applied* canonical can be confirmed to grade at 100%.
+
+Every other subject will hit this same wall. Better to hit it once, at 118 items, than three times at
+scale.
+
+---
+
+## Blocker found while writing this plan: the segmentation has nowhere to go
+
+**`creditedResponse` / `spans[]` has no storage location in Production.** Verified 2026-09-24:
+
+- `app.content_item_versions` has `canonical_answer_1` and `canonical_answer_2` (both `text`) and no
+  span, credited-response or segmentation column.
+- No table anywhere matching `%credit%`, `%span%`, `%canonical%` or `%open_hand%`.
+- **Zero** published Biology items carry `creditedResponse`, `credited_response` or `spans` in
+  `prompt_json`.
+
+Work orders A, B, C, F and G have between them produced **thousands of criterion-tagged spans**. F
+alone produced 576 across 71 Biology items. The entire point of that work is that Open Hand can
+strike exactly the text earning a deselected rubric point — and there is currently nowhere to put it.
+
+**Consequence:** applying "Biology's canonical answers" today would write `canonical_answer_1` text
+and **discard every span**. That is not finishing Biology; it is shipping half the artifact and
+losing the half that took the most QA effort.
+
+**This is decision D0 below, and it blocks the canonical-answer migration.** It is also the single
+highest-value thing surfaced by this plan, because it applies to all ten subjects.
+
+---
+
+## Definition of done for AP Biology
+
+Biology is complete when all six hold:
+
+1. Every published Biology FRQ has a canonical answer that is a student-voice full-credit response,
+   and its segmentation is stored and retrievable.
+2. Every published Biology item carries a ratified topic label from the current taxonomy source
+   version, at `label_status` better than `provisional_model`.
+3. Every published Biology item carries a ratified difficulty value.
+4. No open high-severity QA finding against Biology content.
+5. The DECISION-0052 grader gate has been run against the **applied** canonicals for every reachable
+   item, with results recorded.
+6. The 4 hand-drawn items have an explicit disposition — scoring, or withdrawn from the bank.
+
+---
+
+## Ratification decisions required (these are yours, and they gate everything)
+
+| ID | Decision | Recommendation | Blocks |
+| --- | --- | --- | --- |
+| **D0** | **Where does credited-response segmentation live?** New column on `content_item_versions`, new child table keyed by version, or a `prompt_json` key. | **A child table** keyed by `content_item_version_id`, one row per span with `criterion_key`, ordinal, text offsets and provenance. It is queryable, it versions with the item, and it does not bloat `prompt_json`, which already carries topic and difficulty. | Canonical migration (M1) — and every other subject |
+| **D1** | Ratify A + F's canonical answers and segmentation for Biology. | Accept. Both QA-accepted; F scored 88/88 biologically correct with zero errors. | M1 |
+| **D2** | Ratify the September topic labels, superseding the August provisional set, and sign off the 6 flagged items. | Accept, after reviewing the 6. The live set is `legacy_unvalidated` and predates the accepted run by seven weeks. | M2 |
+| **D3** | Ratify the 118-row difficulty assignment — **and settle the three-vs-four-level scheme first** (Project 3 work order J). | Apply three levels, non-destructively, storing the per-item attainment ratio alongside the band per J.1a/J.1b. | M3 |
+| **D4** | `prompt_json.total_points`: remove the field, or align it to the rubric sum, for the 9 Biology items. | **Remove.** No runtime reads it; `evaluate-attempt` sums `frq_criteria.points_possible`. Work order I's recommendation, and the runtime evidence supports it. | M4 |
+| **D5** | The 4 hand-drawn items: accept as non-scoring until Engine 4's verifier exists, or withdraw them from the Biology bank. | Withdraw from the serving bank until the verifier lands. A published item that silently holds instead of scoring is worse for a student than an absent one. | — |
+
+**D0 and D3 are not Biology-specific.** Deciding them here settles them for all ten subjects, which
+is most of this plan's value.
+
+---
+
+## Migration sequence
+
+Each step is a reviewable migration with a verification query that must pass **before** the next step
+begins. Nothing is applied by direct SQL — the 29 topic-guide migrations of 2026-08-25/27 were
+applied that way and are the reason the Dev migration ledger cannot be trusted.
+
+### M0 — establish the segmentation store *(gated on D0)*
+
+Create the store, with no data. Verify shape, constraints and RLS before anything is written. RLS
+matters: **a credited-response span is answer-key material** and must not be readable by
+`authenticated` — the same exposure class as the `mcq_choices.is_correct` finding.
+
+### M1 — canonical answers and segmentation *(gated on D0, D1, M0)*
+
+Write `canonical_answer_1` for the 7 blank Biology FRQ, and the full segmentation for all 71
+in-scope items from F's `canonical_proposal.jsonl`.
+
+**Do not overwrite any existing `canonical_answer_1`.** F's own removals are proposals against the
+assembled answer, not against Production, and DECISION-0056 authorised removal in the proposal only.
+
+*Verification:* every one of the 75 Biology FRQ has a non-empty canonical; every span concatenates to
+its `full_text`; every criterion has a span tagged to it alone; span count matches the proposal
+exactly.
+
+### M2 — topic labels *(gated on D2)*
+
+Insert the September labels at `label_scope='serving'` with a real `label_status`, setting
+`superseded_by` on the August provisional rows rather than deleting them.
+
+*Verification:* every published Biology item has exactly one current serving label; zero rows remain
+`legacy_unvalidated` unsuperseded; every `topic_code` is in the closed list at the stated
+`taxonomy_source_version`.
+
+### M3 — difficulty *(gated on D3 and Project 3 work order J)*
+
+Write the ratified band **and** the per-item attainment ratio, cut points and the raw prior value,
+per J.1a/J.1b. Biology is the clean case — it has no existing values to preserve, so it is the right
+subject to prove the storage shape on.
+
+*Verification:* 118 of 118 items carry a value; every value is in the ratified vocabulary; every row
+carries a re-derivable ratio.
+
+### M4 — point totals *(gated on D4)*
+
+Remove `prompt_json.total_points` from the 9 Biology items.
+
+*Verification:* no Biology item has `total_points` disagreeing with its rubric sum; grading behaviour
+unchanged on a sample re-run.
+
+### M5 — grader gate against applied canonicals *(gated on M1)*
+
+Re-run `app.qa_grade_frq` for every reachable Biology item **after** M1, against the applied text
+rather than the proposal.
+
+This is the step that makes DECISION-0052 real for the first time. It is also where the current
+evidence says trouble lives: F's QA ran the gate on 3 items and **2 failed**, both with the grader's
+own explanation affirming the criterion while its status denied it, and its own integrity checker
+flagging the contradiction.
+
+*Verification:* record every score. **A score below 100% is a finding, not a failure to suppress** —
+and on current evidence it is more likely to be a grader defect than a content defect.
+
+---
+
+## What this plan deliberately does not do
+
+- **It does not widen the grader gate.** The QA path is restricted to `ap_biology` and to items with
+  no existing canonical, which is why only 3 items are reachable. Widening it is a Production change
+  to a token-gated path and is out of scope here. *But note the interaction:* M1 writes canonical
+  answers, and the gate refuses items that **have** a canonical — so **M5 must run against a snapshot
+  captured before M1, or the guard must be widened first.** Sequencing this wrongly makes the gate
+  permanently unreachable for Biology.
+- **It does not touch Engine 4.** The 4 hand-drawn items are dispositioned by D5, not fixed here.
+- **It does not commit the other nine subjects.** It establishes the path they will use.
+
+---
+
+## Risks
+
+| Risk | Mitigation |
+| --- | --- |
+| **M1 makes the grader gate unreachable** (writing a canonical trips the 409 guard) | Run M5's baseline capture **before** M1, or widen the guard first. This is the sharpest ordering trap in the plan. |
+| Segmentation store leaks answer keys to students | RLS on the new store proven in M0 before any data is written; same class as the `mcq_choices.is_correct` exposure |
+| Direct-SQL application repeats the untrusted-ledger problem | Every step is a migration with a verification query; no direct SQL |
+| Difficulty scheme changes after M3 | J.1a/J.1b make the collapse non-destructive and the band re-derivable, so a later change is a re-read, not a re-assignment |
+| Biology "done" is declared while proposals for other subjects rot | H's five finished subjects should be QA'd and parked, not left open |
+
+---
+
+## Sequence and owners
+
+| Step | Owner | Depends on |
+| --- | --- | --- |
+| D0–D5 decisions | **David** | — |
+| Work order J (difficulty vocabulary brief) | Codex | — |
+| M0 segmentation store | Claude | D0 |
+| M5 baseline capture | Claude | — *(must precede M1)* |
+| M1 canonical + segmentation | Claude | D0, D1, M0, M5-baseline |
+| M2 topic labels | Claude | D2 |
+| M3 difficulty | Claude | D3, J |
+| M4 point totals | Claude | D4 |
+| M5 grader gate re-run | Claude | M1 |
+| Biology closeout record | Claude | all |
+
+Codex's share is small: work order J, and any content rework a decision triggers. **The critical path
+is D0 through D5** — the building is done and the decisions are what the work is waiting on.
