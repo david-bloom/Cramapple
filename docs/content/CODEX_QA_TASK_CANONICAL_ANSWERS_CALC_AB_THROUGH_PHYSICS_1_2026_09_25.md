@@ -1,4 +1,18 @@
-# Codex QA Task — Full Content Readiness, Calc AB Through Physics 1 (2026-09-25, update)
+# Codex QA Task — Canonical Answer QA, Calc AB Through Physics 1 (2026-09-25, update)
+
+**Scope, precisely.** This task is criterion-4 (canonical answer) correctness QA plus a lightweight,
+confirm-only pass on the other five servability criteria. It is renamed from an earlier working title
+("Full Content Readiness") that overstated its scope — a reviewer flagged that the title implied a full
+audit of the session's broader readiness work, when the task actually does NOT: validate whether the
+not-yet-run work orders (Precalculus, Calculus BC, Chemistry labels/difficulty, the Physics C
+Mechanics/Calc BC relabel order) still accurately reflect current Production state; call the live
+serving selectors (`public.select_practice_frqs`, `app.select_unit_gated_practice_items`) to confirm
+what actually gets served, as opposed to what the underlying data implies should be servable; or check
+exam-pack-version singularity platform-wide (only for these seven subjects). That broader audit is a
+separate, deliberately separate task — see
+`docs/content/CODEX_QA_TASK_READINESS_AUDIT_WORK_ORDERS_AND_SELECTORS_2026_09_25.md`. Keeping this task
+scoped to canonical-answer QA keeps an already-large 372-item review from becoming unwieldy; run both
+tasks if you want full coverage, but they are independent and can run in either order.
 
 **What changed since the last version.** The prior QA task
 (`docs/content/CODEX_QA_TASK_SUBJECT_CONTENT_READINESS_CALC_AB_THROUGH_PHYSICS_2026_09_25.md`) covered
@@ -6,8 +20,10 @@ five subjects authored 2026-09-24/25 (Calc AB, Chemistry, Physics 2, Physics C: 
 E&M). Overnight 2026-09-25, Claude directly authored and applied canonical-answer content for two more
 subjects — **AP Statistics** (35 items) and **AP Physics 1** (39 items) — bringing the total FRQ with a
 canonical answer across all seven subjects to **372**. This task supersedes the prior one: it keeps
-everything from Parts A-D below but adds Statistics and Physics 1 to every part's scope, and adds a new
-Part E specific to a real defect found overnight that changes what "verified" should mean here.
+everything from Parts A-D below but adds Statistics and Physics 1 to every part's scope, adds a new Part
+E specific to a real defect found overnight that changes what "verified" should mean here, and adds Part
+F (a precise, non-assertive method for the "no collateral damage" check that Part A's span-integrity
+check implicitly relies on).
 
 **Why Part E exists — read this before starting.** During Claude's own independent post-apply
 re-verification of the Physics 1 batch, two items (`apphy1-frq-033` and `apphy1-frq-035`) were found to
@@ -63,14 +79,14 @@ Proposal/report only — no Production writes. Read-only SQL against Production.
 Paste the block below into Codex.
 
 ```text
-QA task — full content readiness, Calc AB through Physics 1, 2026-09-25 (update).
+QA task — canonical answer QA, Calc AB through Physics 1, 2026-09-25 (update).
 
 Merge main first:
 
     git fetch origin
-    git switch codex/qa-content-readiness-calcab-through-physics1-2026-09-25
+    git switch codex/qa-canonical-answers-calcab-through-physics1-2026-09-25
     # If that branch does not exist instead run:
-    # git switch -c codex/qa-content-readiness-calcab-through-physics1-2026-09-25 origin/main
+    # git switch -c codex/qa-canonical-answers-calcab-through-physics1-2026-09-25 origin/main
     git merge origin/main
 
 The checkout must be clean before starting. This is a QA pass against Production
@@ -213,9 +229,34 @@ Confirm explicitly that apphy1-frq-033 and apphy1-frq-035 (the two items already
 pass this check cleanly, but do not stop there -- this check has not been run against the other 363
 items, including the 177 that predate this week's authoring work entirely.
 
+PART F -- NO-COLLATERAL-DAMAGE CHECK (precise method, not an assertion)
+
+Earlier drafts of this task asserted "no collateral damage" without a method to actually establish
+that -- git history proves what the migrations *intended* to change, but does not by itself prove
+nothing *else* in Production changed during this work window. There is no pre-change table snapshot, so
+this cannot be a byte-for-byte diff; instead, use timestamps as a bounded, precise substitute:
+
+1. The work window for this session's canonical-answer authoring is 2026-09-25 01:00:00 UTC through the
+   current time (i.e., from just before the first migration, 20260925000000, to now). Confirm this
+   window against `git log --format='%ad' --date=iso -1 <first and last commit hashes>` yourself rather
+   than trusting this task's stated boundary blindly.
+2. Query `app.content_item_versions` PLATFORM-WIDE (not scoped to these seven subjects) for every row
+   with `updated_at` inside that window. For each one, confirm its `content_item_id` maps to a
+   `content_key` that is explicitly named in one of the seven migration files' header comments or this
+   task's own item lists. Any row in that window NOT accounted for by a named migration is a collateral
+   change and must be reported as a P0 finding regardless of whether the change itself looks benign.
+3. Do the same for `app.canonical_answer_spans` using `created_at` in the same window (spans are
+   insert-only in this workflow, so `created_at` is the right column, not `updated_at`).
+4. Do the same for `app.frq_criteria` in the same window, specifically to confirm the Calc AB dedupe fix
+   (Part B) is the only source of frq_criteria row changes in this window -- any other frq_criteria
+   change in this window outside the four named Calc AB items is unexplained and must be reported.
+5. This check is platform-wide by design, not limited to the seven subjects in scope -- the whole point
+   is to catch a change that landed somewhere unexpected, which a subject-scoped query would definitionally
+   miss.
+
 DELIVERABLE
 
-`docs/content/CODEX_QA_REPORT_SUBJECT_CONTENT_READINESS_CALC_AB_THROUGH_PHYSICS_1_2026_09_25.md`:
+`docs/content/CODEX_QA_REPORT_CANONICAL_ANSWERS_CALC_AB_THROUGH_PHYSICS_1_2026_09_25.md`:
 
 - One section per subject with a table of all its FRQ-with-canonical items (372 total across the
   seven), each row showing: content_key, canonical-answer verdict, rubric verdict, agreement verdict,
@@ -233,6 +274,9 @@ DELIVERABLE
 - A single top-line section on the Part E version-identity cross-check, covering all 372 items --
   written so it's visible without reading the rest of the report, since a version-identity swap is a
   P0-class defect (wrong content reaching a real student) distinct from a plain correctness error.
+- A single top-line section on the Part F no-collateral-damage check, listing the exact window used and
+  every unaccounted-for row found platform-wide (or stating none were found, with the query used to
+  establish that).
 - A summary table across all seven subjects: items checked, canonical-correct, rubric-correct, both
   agree, span-clean, version-identity-clean, by severity tag.
 
@@ -255,5 +299,10 @@ WHAT WOULD MAKE THIS REJECTED
 - Scope creep into actually closing labels or difficulty gaps for any subject (Part C is
   confirm-only), or attempting to resolve AP Statistics' dual-exam-pack-version hazard (explicitly out
   of scope, tracked separately as a P0).
+- Asserting "no collateral damage" from git history alone without running Part F's timestamp-scoped
+  platform-wide query.
+- Treating this task as covering work-order accuracy or live selector validation -- that is
+  `docs/content/CODEX_QA_TASK_READINESS_AUDIT_WORK_ORDERS_AND_SELECTORS_2026_09_25.md`'s job, not this
+  task's.
 - Any Production write.
 ```
