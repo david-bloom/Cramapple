@@ -1,8 +1,23 @@
-# AP Calculus BC Launch Readiness (Tier 1 Criterion-4 Proposal, 2026-09-25)
+# AP Calculus BC Launch Readiness (Tier 1 Criterion-4, 2026-09-25)
 
 This pass executes Tier 1 only from `docs/product/SUBJECT_READINESS_COMPLETION_PLAN_2026_09_25.md`:
-close the canonical-answer gap for AP Calculus BC as a proposal artifact. No Production writes were
-made in this Codex pass.
+close the canonical-answer gap for AP Calculus BC. No Production writes were made in Codex's original
+pass -- migrations were proposal artifacts pending cross-QA.
+
+**Update after cross-QA and apply (Claude, same day):** Claude independently re-derived all 29 items
+(two parallel review agents) before applying. The 10 `apcalcbc-frq-np1-*` items were confirmed clean and
+applied exactly as Codex proposed. The 19 `apcalcbc-frq-u13-*` items had a genuine completeness defect:
+that batch's `frq_criteria.learner_facing_text` is generic rubric-label text with no computed values
+(e.g. "Correctly evaluates the limit."), while the actual numbers live only in `evidence_requirements`,
+which Codex's `string_agg(learner_facing_text, ...)` method never included -- so the proposed canonical
+text for those 19 items would have stated what a correct response *does* without ever stating what it
+*is*. Reapplied those 19 sourcing from `evidence_requirements` instead (see
+`supabase/migrations/20260925170000_apcalcbc_u13_canonical_answers_19_items_evidence_source.sql`), after
+independently verifying every one of the 19 items' math from scratch. Also fixed
+`apcalcbc-frq-u13-016`'s stimulus, which never stated the point (1,2) that its own `evidence_requirements`
+assumes (verified (1,2) satisfies the given curve). All 29 items are now applied to Production and
+independently re-verified: 0 blank, 0 span-concatenation mismatches, 0 criterion-coverage mismatches.
+Criterion 4 is now closed for AP Calculus BC.
 
 ## Production preflight
 

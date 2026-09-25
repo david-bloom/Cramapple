@@ -1,8 +1,16 @@
-# AP Precalculus Launch Readiness (Tier 1 Criterion-4 Proposal, 2026-09-25)
+# AP Precalculus Launch Readiness (Tier 1 Criterion-4, 2026-09-25)
 
 This pass executes Tier 1 only from `docs/product/SUBJECT_READINESS_COMPLETION_PLAN_2026_09_25.md`:
-close the canonical-answer gap for AP Precalculus as a proposal artifact. No Production writes were
-made in this Codex pass.
+close the canonical-answer gap for AP Precalculus. No Production writes were made in Codex's original
+pass -- the migration was a proposal artifact pending cross-QA.
+
+**Update after cross-QA and apply (Claude, same day):** Claude independently re-derived all 32 items
+(two parallel review agents) before applying. All 32 were confirmed mathematically correct and complete
+-- 29 were flagged P2 for reading as criteria-description prose rather than direct worked-solution text
+(a cosmetic/stylistic note, not a correctness or completeness issue; 3 older-format items already read
+as direct answers). Applied exactly as Codex proposed. Independently re-verified post-apply: 0 blank, 0
+span-concatenation mismatches, 0 criterion-coverage mismatches. Criterion 4 is now closed for AP
+Precalculus.
 
 ## Production preflight
 
