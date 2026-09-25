@@ -16,11 +16,11 @@ The morning canonical-write mechanics are clean: all 195 intended newly-authored
 
 The broader legacy corpus is not clean. Independent review found **21 P0 item-level correctness/completeness defects** spanning canonical answers, rubrics, and two student-facing stems. Several are pre-existing canonicals that cannot earn all points their own rubrics require.
 
-## Scope correction: 372 published FRQ items is not 372 current published versions
+## Scope correction: the task's 372-FRQ total is wrong; Production has 394 published FRQ items
 
-The task's “372 FRQs” count is the count of `content_items.status='published'` across the seven subjects. Only **349** of those items currently have a `content_item_versions.status='published'` version. The other **23** have no published version and therefore are not part of the current version-level answer QA.
+The task says the seven-subject scope contains **372 FRQs**, but a fresh Production census finds **394 `content_items.status='published'` FRQ items**. Of those, **349** currently have at least one `content_item_versions.status='published'` version. The other **45** have no published version and therefore are not part of the current version-level answer QA. The report uses the measured 394/349 counts rather than the prompt's arithmetic.
 
-This report preserves all 372 item rows in the appendix, but semantic answer/rubric QA is anchored to the 349 versions that are actually published.
+This report preserves all **394** published content-item rows in the appendix, but semantic answer/rubric QA is anchored to the **349** items that actually have a published version.
 
 | Subject | Published FRQ items | With a published version | Current canonicals | Current items with spans | New spans today | P0 findings |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
