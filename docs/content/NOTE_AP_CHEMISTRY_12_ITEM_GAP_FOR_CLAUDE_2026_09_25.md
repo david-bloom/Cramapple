@@ -57,3 +57,29 @@ and the dual-supersession requirement for those 7. Set the 5 Group B items aside
 documented gap — do not touch them in this task or any Tier 3 pipeline run; they need their own follow-up
 (likely: generate a first real label against their actual current content version, the same as any
 zero-current-row item, once someone decides to pick that up).
+
+## Second blocker and resolution (Claude, 2026-09-25, same follow-up session)
+
+Codex started executing against v3 and hit two more real problems before any Production write:
+
+1. **Packet export.** Codex's MCP client returns query results to the conversation, not to the filesystem —
+   there's no bridge to save a large packet-body result (stems, rubrics, choices) to a local JSON file
+   without risking hand-copy corruption. Claude's own MCP client happens to auto-save oversized results to a
+   local file, which is what made the technique in `docs/content/CODEX_TASK_AP_CHEMISTRY_TIER3_LABELS_DIFFICULTY_2026_09_25.md`
+   possible: this is a tooling difference between the two agents' environments, not a policy question.
+2. **13 of the 55 target items turned out to be non-published.** While fetching packets, Claude found that
+   `fetch_serving_label_packets.sql`'s own filter (`ci.status='published' AND latest.status='published'`)
+   excludes 12 `reviewed_disapproved` items (all from the clean 48) and 1 `retired` item — `apchem-sfrq-006`,
+   one of the 7 Group A items. This wasn't a caching gap; those items are genuinely not eligible for the
+   automated labeling pipeline, matching the same publish-status standard already used for the difficulty
+   criterion.
+
+**David's decision:** narrow the label target from 55 to the **42 published items** (drop all 13 non-published
+items entirely, including `apchem-sfrq-006`'s duplicate-label fix — it's retired, so left untouched). Claude
+fetched the full packet JSON for all 42 directly via the Supabase MCP tool (in 4 chunks to stay under its own
+tool's result-size limit, then merged and verified against the independently-derived 42-item list: exact
+match, no duplicates) and placed it at
+`/private/tmp/cramapple-math-taxonomy-serving/apchem_serving_packets_42_2026_09_25.json` on the shared host,
+so Codex doesn't have to solve the MCP-result-to-file problem itself. See
+`docs/content/CODEX_TASK_AP_CHEMISTRY_TIER3_LABELS_DIFFICULTY_2026_09_25.md` v4 for the updated target set and
+instructions.
