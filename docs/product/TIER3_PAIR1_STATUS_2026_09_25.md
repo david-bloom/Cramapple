@@ -16,20 +16,23 @@ through `batch5`, also in Supabase's own migration history), covering all live-p
 item-and-current-version status was both `published`. 23 live-pack items had no row in the source CSV
 (`apstats_difficulty_assignments.csv`) and remain undifficultied — a known, reported gap, not a defect.
 
-**Known gap: no local `supabase/migrations/*.sql` files exist for any of these 26 batches.** They exist
-only in Supabase's own tracked migration history (confirmed via `list_migrations` — all 26 entries are
-present there with exactly the names above), not as committed files in this repo. This is an inconsistency
-with the repo's established practice (every other content migration this week has a matching local file).
-Reconstructing all 26 batch files byte-exact would require either re-deriving each batch's exact applied
-SQL (some batches were applied with a trimmed `source_payload` relative to the pipeline's original
-`write_labels.sql` output, so the original scratch files at `/tmp/label_batch_*.sql` and
-`/tmp/apstats_diff_batch_*.sql` do not match 1:1 what was actually applied for every batch) or dumping the
-current DB state directly into one or two consolidated migration files. Neither was done this session —
-flagged here explicitly rather than silently left. **Next session: either backfill these files (recommend:
-two consolidated files, one for the 126 label rows and one for the 170 difficulty rows, generated directly
-from a fresh Production query rather than from the `/tmp` scratch files, since those don't all match what
-was actually applied) or explicitly decide Supabase's own migration history is sufficient and this repo's
-"every migration has a local file" norm doesn't need to extend to bulk data-loads like this one.**
+**Known gap, CLOSED 2026-09-25 (follow-up session):** the missing local files were backfilled as two
+consolidated migrations, generated directly from a fresh Production query (not from the `/tmp` scratch
+files, which didn't match 1:1 what was actually applied) —
+[`supabase/migrations/20260925180000_apstats_serving_labels_backfill.sql`](../../supabase/migrations/20260925180000_apstats_serving_labels_backfill.sql)
+(126 rows) and
+[`supabase/migrations/20260925190000_apstats_difficulty_backfill.sql`](../../supabase/migrations/20260925190000_apstats_difficulty_backfill.sql)
+(170 rows). Both are idempotent (`not exists` / `on conflict do nothing` guards keyed on `content_key`) and
+were verified by actually executing them: against Production via the Supabase CLI (`supabase db query
+--file ... --linked`, temporarily re-linking from Dev), where both were confirmed no-ops (counts unchanged
+at 107/19 and 170) since the rows already exist there; and against Dev, where the labels migration is a
+partial no-op (only 1 of 126 content_keys exist in Dev) and the difficulty migration currently fails
+outright because `app.content_item_difficulty` doesn't exist in Dev yet (a pre-existing Dev/Prod schema
+gap, not something this backfill caused or fixes — see the `content_item_difficulty` table's own migration
+note about Biology facing the same issue). One caught bug worth noting for future backfills of this shape:
+the first draft of the labels migration silently dropped a column because a Postgres `format()` call had
+one fewer `%L` placeholder than arguments (extra args are silently ignored, not an error) — caught only by
+actually running the migration, not by inspection.
 
 ## AP Chemistry (Codex's half) — task handed off, not yet started
 
