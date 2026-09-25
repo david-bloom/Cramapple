@@ -14,7 +14,7 @@
 
 The morning canonical-write mechanics are clean: all 195 intended newly-authored items have spans on published versions, span concatenation equals `canonical_answer_1`, and span criterion-key sets exactly match their own version's `frq_criteria`. No other subject received a canonical/version update in the audited write window.
 
-The broader legacy corpus is not clean. Independent review found **21 P0 item-level correctness/completeness defects** spanning canonical answers, rubrics, and two student-facing stems. Several are pre-existing canonicals that cannot earn all points their own rubrics require.
+The broader legacy corpus is not clean. Independent review found **34 P0 item-level correctness/completeness defects** spanning canonical answers, rubrics, and two student-facing stems. Several are pre-existing canonicals that cannot earn all points their own rubrics require.
 
 ## Scope correction: the task's 372-FRQ total is wrong; Production has 394 published FRQ items
 
@@ -26,12 +26,12 @@ This report preserves all **394** published content-item rows in the appendix, b
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
 | AP Calculus AB | 62 | 62 | 62 | 33 | 33 | 1 |
 | AP Chemistry | 53 | 51 | 51 | 1 | 1 | 7 |
-| AP Physics 1 | 61 | 54 | 54 | 39 | 39 | 3 |
-| AP Physics 2 | 37 | 28 | 28 | 19 | 19 | 4 |
-| AP Physics C: Mechanics | 42 | 36 | 36 | 29 | 29 | 2 |
-| AP Physics C: E&M | 55 | 49 | 49 | 39 | 39 | 2 |
-| AP Statistics (old/general pack) | 84 | 69 | 69 | 35 | 35 | 2 |
-| **Total** | **394** | **349** | **349** | **195** | **195** | **21** |
+| AP Physics 1 | 61 | 54 | 54 | 39 | 39 | 6 |
+| AP Physics 2 | 37 | 28 | 28 | 19 | 19 | 7 |
+| AP Physics C: Mechanics | 42 | 36 | 36 | 29 | 29 | 4 |
+| AP Physics C: E&M | 55 | 49 | 49 | 39 | 39 | 6 |
+| AP Statistics (old/general pack) | 84 | 69 | 69 | 35 | 35 | 3 |
+| **Total** | **394** | **349** | **349** | **195** | **195** | **34** |
 
 ## P0 findings
 
@@ -59,6 +59,20 @@ This report preserves all **394** published content-item rows in the appendix, b
 | `APSTAT-MOD4-H001-INV` | CANONICAL/STEM | For Ha: treatment < control, t=-2.5607 gives one-sided p≈0.0069, not 0.014. The stated 0.014 is the two-sided p-value. |
 | `apstats-frq-u12-020` | STEM/CANONICAL | Given n=40, mean=12.4, sample SD=3.1 and max=40 are mathematically incompatible; the item cannot describe a real dataset as written. |
 
+| `apphy1-frq-014` | CANONICAL | Canonical gives only \(v=\sqrt{4gh/3}\); it omits the required \(\sqrt2\) prediction for doubled height and the dissipative assumptions explicitly required by the stem/rubric. |
+| `apphy1-frq-026` | CANONICAL/RUBRIC | Claims Track A necessarily arrives first. That is not determined by the stated geometry: with the same horizontal span and endpoints, sufficiently large vertical drop can make Track A's longer steep-plus-flat path take longer. Equal final speed is guaranteed; arrival order is not without a specified height/span ratio or more precise track geometry. |
+| `apphy1-frq-054` | CANONICAL/RUBRIC | Stem explicitly asks for both initial velocity components; canonical computes only \(v_{0y}\) numerically and never states \(v_{0x}\approx19.2\,m/s\). The rubric also has no criterion for the requested component pair. |
+| `apphy2-frq-002` | CANONICAL | Stem asks to derive and evaluate both field and potential at the midpoint; canonical gives only the qualitative cancellation/addition result and omits the numerical potential (about \(1.80\times10^5\,V\)) and derivation. |
+| `apphy2-frq-003` | CANONICAL | Gives \(\tau\) and \(V_C(t)\) but omits the required Kirchhoff-loop derivation and initial-condition explanation. |
+| `apphy2-frq-017` | CANONICAL | Correctly states the 2x rms-speed and 4x per-molecule kinetic-energy ratios but omits the required explanation that gas amount does not affect these per-molecule ratios. |
+| `apphycm-frq-003` | CANONICAL | Omits part (b): the small-oscillation result \(\omega=2\sqrt{b/m}\), obtained from \(U''(x_{eq})=4b\). |
+| `apphycm-frq-008` | CANONICAL | Omits part (b): \(\bar v=\alpha T^2/3\), its comparison with \(v(T)=\alpha T^2\), and the explanation that they differ because velocity increases. |
+| `apphycem-frq-008` | CANONICAL | Gives only \(E_x=-dV/dx\); it omits the requested labeled potential graph and the one-dimensional gradient/principle explanation. |
+| `apphycem-frq-009` | CANONICAL | Stem asks for an experimental test of \(C=\epsilon A/d\) with variables and a control. Canonical supplies the formula plus an unasked energy expression and omits the experiment entirely. |
+| `apphycem-frq-011` | CANONICAL | Experimental design omits the required background-field correction and does not adequately specify minimizing return-path effects, both explicitly required by the rubric. |
+| `apphycem-frq-038` | CANONICAL | Says a “definite current direction” exists but never actually gives the unambiguous loop-current direction required by part (a)/the rubric. |
+| `APSTATS-HDG-2026-GRAPH-005` | CANONICAL | Canonical's suggested trend line from about (2,41) to (10,72) is not a reasonable line through data whose x-range is 0–5 and y-range is 58–94; one endpoint is outside the data range and the other is below every observed score. |
+
 ### Two quantitative findings worth making explicit
 
 **AP Statistics `APSTAT-MOD4-H001-INV`.** The canonical sets (H_a: \mu_T<\mu_C) and correctly computes (t=-2.5607). With Welch df ≈46.49, the corresponding **one-sided** p-value is ≈0.00688. The item's p≈0.014 is the two-sided p-value. The reject/not-reject conclusion at α=.05 is unchanged, but the stated hypothesis and p-value do not match.
@@ -69,7 +83,7 @@ This report preserves all **394** published content-item rows in the appendix, b
 
 Every current published-version item was reviewed against its stem and rubric rather than by merely matching `learner_facing_text`. Quantitative/high-risk items were independently recomputed. The appendix records PASS versus the P0 exceptions above.
 
-The 195 newly-authored items were treated as highest priority. No algebra/physics/chemistry error surfaced in the new Calc AB 33, Chemistry 1, Physics 2 19, Physics C: Mechanics 29, or Physics 1 39 canonical sets. The new Statistics set contains the two P0 issues described above. Physics C: E&M's new canonical for `apphycem-frq-np1-002` is itself correct, but the underlying stem says “cylindrical symmetry” for concentric spherical shells and must be repaired.
+The 195 newly-authored items were treated as highest priority. Their **mechanical** span/version integrity is clean, but content QA is not fully clean: Physics 1 `apphy1-frq-054` omits a requested velocity component; Physics C: E&M `apphycem-frq-038` does not state the required current direction; the new Statistics set contains the two numerical/source-data issues described above; and the new E&M canonical for `apphycem-frq-np1-002` is correct while its underlying stem incorrectly says “cylindrical symmetry” for concentric spherical shells. The remaining newly-authored answers reviewed cleanly.
 
 ## B. Span and version integrity
 
@@ -295,7 +309,7 @@ New `canonical_answer_spans.created_at` rows also occur on exactly those 195 con
 | `apphy1-frq-009` | — | no | 0 | No published version | Out of current published-version scope (latest=retired) |
 | `apphy1-frq-012` | 2 | yes | 3 | PASS | PASS |
 | `apphy1-frq-013` | — | no | 0 | No published version | Out of current published-version scope (latest=retired) |
-| `apphy1-frq-014` | 4 | yes | 0 | No spans (pre-existing debt) | PASS |
+| `apphy1-frq-014` | 4 | yes | 0 | No spans (pre-existing debt) | **P0 CANONICAL** |
 | `apphy1-frq-015` | 2 | yes | 0 | No spans (pre-existing debt) | PASS |
 | `apphy1-frq-017` | 1 | yes | 0 | No spans (pre-existing debt) | PASS |
 | `apphy1-frq-018` | 2 | yes | 3 | PASS | PASS |
@@ -306,7 +320,7 @@ New `canonical_answer_spans.created_at` rows also occur on exactly those 195 con
 | `apphy1-frq-023` | 2 | yes | 0 | No spans (pre-existing debt) | PASS |
 | `apphy1-frq-024` | 2 | yes | 5 | PASS | PASS |
 | `apphy1-frq-025` | 2 | yes | 0 | No spans (pre-existing debt) | PASS |
-| `apphy1-frq-026` | 2 | yes | 0 | No spans (pre-existing debt) | PASS |
+| `apphy1-frq-026` | 2 | yes | 0 | No spans (pre-existing debt) | **P0 CANONICAL/RUBRIC** |
 | `apphy1-frq-027` | 1 | yes | 0 | No spans (pre-existing debt) | PASS |
 | `apphy1-frq-028` | — | no | 0 | No published version | Out of current published-version scope (latest=retired) |
 | `apphy1-frq-029` | 1 | yes | 0 | No spans (pre-existing debt) | **P0 CANONICAL** |
@@ -333,7 +347,7 @@ New `canonical_answer_spans.created_at` rows also occur on exactly those 195 con
 | `apphy1-frq-051` | 2 | yes | 0 | No spans (pre-existing debt) | PASS |
 | `apphy1-frq-052` | 2 | yes | 15 | PASS | PASS |
 | `apphy1-frq-053` | 2 | yes | 9 | PASS | PASS |
-| `apphy1-frq-054` | 2 | yes | 11 | PASS | PASS |
+| `apphy1-frq-054` | 2 | yes | 11 | PASS | **P0 CANONICAL/RUBRIC** |
 | `apphy1-frq-055` | 1 | yes | 7 | PASS | PASS |
 | `apphy1-frq-056` | 2 | yes | 11 | PASS | PASS |
 | `apphy1-frq-057` | 2 | yes | 15 | PASS | PASS |
@@ -355,8 +369,8 @@ New `canonical_answer_spans.created_at` rows also occur on exactly those 195 con
 | content_key | published version | canonical | spans | structural | content QA |
 | --- | ---: | --- | ---: | --- | --- |
 | `apphy2-frq-001` | 2 | yes | 3 | PASS | PASS |
-| `apphy2-frq-002` | 2 | yes | 0 | No spans (pre-existing debt) | PASS |
-| `apphy2-frq-003` | 2 | yes | 0 | No spans (pre-existing debt) | PASS |
+| `apphy2-frq-002` | 2 | yes | 0 | No spans (pre-existing debt) | **P0 CANONICAL** |
+| `apphy2-frq-003` | 2 | yes | 0 | No spans (pre-existing debt) | **P0 CANONICAL** |
 | `apphy2-frq-004` | 2 | yes | 3 | PASS | PASS |
 | `apphy2-frq-005` | 3 | yes | 3 | PASS | PASS |
 | `apphy2-frq-006` | — | no | 0 | No published version | Out of current published-version scope (latest=retired) |
@@ -370,7 +384,7 @@ New `canonical_answer_spans.created_at` rows also occur on exactly those 195 con
 | `apphy2-frq-014` | 2 | yes | 3 | PASS | PASS |
 | `apphy2-frq-015` | 2 | yes | 3 | PASS | PASS |
 | `apphy2-frq-016` | — | no | 0 | No published version | Out of current published-version scope (latest=retired) |
-| `apphy2-frq-017` | 2 | yes | 0 | No spans (pre-existing debt) | PASS |
+| `apphy2-frq-017` | 2 | yes | 0 | No spans (pre-existing debt) | **P0 CANONICAL** |
 | `apphy2-frq-018` | — | no | 0 | No published version | Out of current published-version scope (latest=retired) |
 | `apphy2-frq-019` | 1 | yes | 0 | No spans (pre-existing debt) | **P0 CANONICAL** |
 | `apphy2-frq-020` | 2 | yes | 11 | PASS | PASS |
@@ -398,12 +412,12 @@ New `canonical_answer_spans.created_at` rows also occur on exactly those 195 con
 | --- | ---: | --- | ---: | --- | --- |
 | `apphycm-frq-001` | 2 | yes | 3 | PASS | PASS |
 | `apphycm-frq-002` | — | no | 0 | No published version | Out of current published-version scope (latest=retired) |
-| `apphycm-frq-003` | 1 | yes | 0 | No spans (pre-existing debt) | PASS |
+| `apphycm-frq-003` | 1 | yes | 0 | No spans (pre-existing debt) | **P0 CANONICAL** |
 | `apphycm-frq-004` | 2 | yes | 3 | PASS | PASS |
 | `apphycm-frq-005` | 2 | yes | 3 | PASS | PASS |
 | `apphycm-frq-006` | — | no | 0 | No published version | Out of current published-version scope (latest=retired) |
 | `apphycm-frq-007` | 2 | yes | 3 | PASS | PASS |
-| `apphycm-frq-008` | 1 | yes | 0 | No spans (pre-existing debt) | PASS |
+| `apphycm-frq-008` | 1 | yes | 0 | No spans (pre-existing debt) | **P0 CANONICAL** |
 | `apphycm-frq-009` | 2 | yes | 3 | PASS | PASS |
 | `apphycm-frq-010` | 3 | yes | 3 | PASS | PASS |
 | `apphycm-frq-011` | 3 | yes | 3 | PASS | PASS |
@@ -450,10 +464,10 @@ New `canonical_answer_spans.created_at` rows also occur on exactly those 195 con
 | `apphycem-frq-005` | 3 | yes | 3 | PASS | PASS |
 | `apphycem-frq-006` | 3 | yes | 3 | PASS | PASS |
 | `apphycem-frq-007` | — | no | 0 | No published version | Out of current published-version scope (latest=retired) |
-| `apphycem-frq-008` | 2 | yes | 0 | No spans (pre-existing debt) | PASS |
-| `apphycem-frq-009` | 2 | yes | 0 | No spans (pre-existing debt) | PASS |
+| `apphycem-frq-008` | 2 | yes | 0 | No spans (pre-existing debt) | **P0 CANONICAL** |
+| `apphycem-frq-009` | 2 | yes | 0 | No spans (pre-existing debt) | **P0 CANONICAL** |
 | `apphycem-frq-010` | 3 | yes | 3 | PASS | PASS |
-| `apphycem-frq-011` | 4 | yes | 0 | No spans (pre-existing debt) | PASS |
+| `apphycem-frq-011` | 4 | yes | 0 | No spans (pre-existing debt) | **P0 CANONICAL** |
 | `apphycem-frq-012` | 3 | yes | 3 | PASS | PASS |
 | `apphycem-frq-013` | 2 | yes | 0 | No spans (pre-existing debt) | PASS |
 | `apphycem-frq-014` | 2 | yes | 0 | No spans (pre-existing debt) | PASS |
@@ -480,7 +494,7 @@ New `canonical_answer_spans.created_at` rows also occur on exactly those 195 con
 | `apphycem-frq-035` | 2 | yes | 19 | PASS | PASS |
 | `apphycem-frq-036` | 2 | yes | 23 | PASS | PASS |
 | `apphycem-frq-037` | 2 | yes | 19 | PASS | PASS |
-| `apphycem-frq-038` | 2 | yes | 15 | PASS | PASS |
+| `apphycem-frq-038` | 2 | yes | 15 | PASS | **P0 CANONICAL** |
 | `apphycem-frq-040` | 1 | yes | 3 | PASS | PASS |
 | `apphycem-frq-042` | 1 | yes | 5 | PASS | PASS |
 | `apphycem-frq-048` | 1 | yes | 5 | PASS | PASS |
@@ -538,7 +552,7 @@ New `canonical_answer_spans.created_at` rows also occur on exactly those 195 con
 | `APSTATS-HDG-2026-GRAPH-002` | — | no | 0 | No published version | Out of current published-version scope (latest=retired) |
 | `APSTATS-HDG-2026-GRAPH-003` | 1 | yes | 0 | No spans (pre-existing debt) | PASS |
 | `APSTATS-HDG-2026-GRAPH-004` | — | no | 0 | No published version | Out of current published-version scope (latest=retired) |
-| `APSTATS-HDG-2026-GRAPH-005` | 1 | yes | 0 | No spans (pre-existing debt) | PASS |
+| `APSTATS-HDG-2026-GRAPH-005` | 1 | yes | 0 | No spans (pre-existing debt) | **P0 CANONICAL** |
 | `APSTATS-HDG-2026-GRAPH-007` | 1 | yes | 0 | No spans (pre-existing debt) | PASS |
 | `APSTATS-HDG-2026-GRAPH-008` | 1 | yes | 0 | No spans (pre-existing debt) | PASS |
 | `APSTATS-HDG-2026-GRAPH-010` | 1 | yes | 0 | No spans (pre-existing debt) | PASS |
