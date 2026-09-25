@@ -1,10 +1,17 @@
-# Codex Task — AP Chemistry Tier 3: Serving Labels + Difficulty (2026-09-25, v2)
+# Codex Task — AP Chemistry Tier 3: Serving Labels + Difficulty (2026-09-25, v3)
 
 **Revision note.** v1 of this task was reviewed by Codex before starting and returned five clarifying
-questions plus a list of ambiguities. This v2 answers all of them directly, with exact numbers re-verified
-against Production just now (2026-09-25, this revision), and adds stop conditions, a required dry-run
-artifact, deterministic batching, and a local-migration-file requirement. Read this whole document before
-running anything — do not start from v1's copy if you have it cached.
+questions plus a list of ambiguities. v2 answered all of them, with exact numbers re-verified against
+Production, and added stop conditions, a required dry-run artifact, deterministic batching, and a
+local-migration-file requirement. Codex then ran a preflight against v2 and found the 12-item
+duplicate-current-serving-label anomaly documented in
+`docs/content/NOTE_AP_CHEMISTRY_12_ITEM_GAP_FOR_CLAUDE_2026_09_25.md`, stopped before any Production writes,
+and correctly deferred the disposition decision rather than silently picking one. Claude investigated and
+found the 12 split into two materially different situations (see that note's "Resolution" section, added by
+Claude). **David's decision: fold the 7 items where the fix is unambiguous into this run's target set; set
+the other 5 aside as a separate, documented gap — do not touch them in this task.** This v3 updates the
+target set and PART A accordingly. Read this whole document before running anything — do not start from a
+cached v1 or v2 copy.
 
 **Context.** `docs/product/TIER3_LABELS_DIFFICULTY_PAIRED_PLAN_2026_09_25.md` splits Tier 3 (servability
 criteria 3 and 5 — serving labels and difficulty — for the nine non-Biology subjects) into pairs: one
@@ -36,33 +43,69 @@ is the Chemistry half.
    acceptable; the applied SQL must also exist in `supabase/migrations/` so the repo's history matches what
    Production actually has.
 
-## Precise target set (re-verified against Production just now, superseding v1's rougher counts)
+## Precise target set (updated after Codex preflight, 2026-09-25)
 
 "Current" label row = `label_scope='serving' and superseded_by is null` (exactly one such row should exist
 per content_item at any time; if you find an item with zero or more than one current row, that is itself a
 data-integrity finding to report, not something to silently fix).
 
 Live AP Chemistry item count (via `exam_packs.exam_code = 'ap_chemistry'` joined through
-`exam_pack_versions` where `retired_at is null` joined to `content_items`): **148 items**, every one of
-which currently has exactly one current serving-label row. Breakdown by current label_status:
+`exam_pack_versions` where `retired_at is null` joined to `content_items`): **136 items** in the single live
+pack version `c9ca46b2-b529-4ed3-9741-dddea455ab9b` (status `published`, `retired_at is null`). Current
+serving-label integrity is not perfectly clean: 124 items have exactly one current serving-label row and 12
+items have two current `legacy_unvalidated` serving-label rows. This explains the earlier 148 figure as likely a
+current-serving-label-row count, not a distinct-content-item count: 124 single-current-label items + 24 current
+rows on the 12 duplicated items = 148 current label rows. See below for the disposition of those 12 (7
+folded into this run, 5 excluded) — David has already decided this; it is not still an open finding to
+report-only.
 
-| label_status | current count |
-| --- | --- |
+Breakdown by first/current serving-label status across the 136 live items:
+
+| label_status | item count |
+| --- | ---: |
 | `held` | 32 |
-| `legacy_unvalidated` | 38 |
+| `legacy_unvalidated` | 26 |
 | `provisional_model` | 1 |
 | `stale` | 34 |
 | `validated` | 43 |
-| **total** | **148** |
+| **total live items** | **136** |
 
-- **Primary run targets (process these): `legacy_unvalidated` (38) + `stale` (34) = 72 items.** These are
-  the items missing a trustworthy current label.
-- **Excluded by default, do not touch: `held` (32), `provisional_model` (1), `validated` (43).**
+Of the 26 `legacy_unvalidated` items, 12 have duplicate current serving-label rows (both `legacy_unvalidated`,
+both empty placeholders — `required_units=[]`, no real classification). Claude's investigation (see
+`docs/content/NOTE_AP_CHEMISTRY_12_ITEM_GAP_FOR_CLAUDE_2026_09_25.md`, "Resolution" section) found these 12
+split into two groups by whether either duplicate row's `validated_against_version_id` matches the item's
+actual current content version:
+
+- **Group A (7 items) — fold into this run.** The newer of the two duplicate rows matches the item's current
+  content version; the older one is a stale leftover from before a content revision. Include these in the
+  label target set below. **When your pipeline writes the new model-generated label for one of these 7, it
+  must set `superseded_by` on *both* existing current rows for that item, not just one** — the pipeline's
+  normal assumption of exactly one current row to supersede does not hold here. Verify after each of these 7
+  specifically that zero rows remain with `superseded_by is null` other than the new one you just inserted.
+  `apchem-frq-l-002`, `apchem-frq-l-006`, `apchem-frq-l-012`, `apchem-mcq-001`, `apchem-mcq-070`,
+  `apchem-sfrq-006`, `apchem-sfrq-010`.
+- **Group B (5 items) — excluded, do not touch in this task.** *Neither* duplicate row matches the item's
+  current content version — these items have been revised again since (to content version 3 or 4) with zero
+  labels, even placeholder ones, ever generated against that current version. Superseding one stale
+  duplicate wouldn't actually fix anything for these; they need a decision beyond this task's scope. Leave
+  both existing rows on each of these exactly as they are; do not touch, supersede, or generate a label for
+  them. Report their exclusion in your deliverable, but they are David's decision to defer, not yours to
+  resolve.
+  `apchem-frq-l-013`, `apchem-frq-l-014`, `apchem-sfrq-003`, `apchem-sfrq-014`, `apchem-sfrq-024`.
+
+Therefore the label pipeline target is 14 clean `legacy_unvalidated` + 34 `stale` + 7 Group A duplicate-fix
+items = **55 items**.
+
+- **Primary run targets (process these): 55 items** — clean single-current-label `legacy_unvalidated` (14) +
+  `stale` (34) + Group A duplicate-fix (7). See the dual-supersession requirement above for the 7.
+- **Excluded by default, do not touch: `held` (32), `provisional_model` (1), `validated` (43), and Group B
+  (5, listed above).**
   `provisional_model` already has a current label from the earlier partial run; re-running it would just
   waste model calls and create a pointless extra version — leave it. `validated` is a human-governance
   status; never touch it in this task.
 - **`held` may be re-run only with a specific, individually-recorded reason** (see "Held items" below) —
   never as a blanket re-run of all 32.
+
 
 Live AP Chemistry item-and-current-version-published count (the analogous "actually servable" set Claude
 used for Statistics' difficulty load, i.e. `content_items.status='published' AND` the item's most-recently-
@@ -92,9 +135,12 @@ Stop immediately and report (do not push, do not apply further migrations) if an
 - The Supabase MCP tool is unavailable or errors in a way that would force you to fall back to the local
   `supabase` CLI against Production.
 - The project ref you are about to write to is not `pcntajvbdfqhbeewmdry`.
-- The live AP Chemistry item count you compute differs from 148 by more than 5 (small drift is plausible if
+- The live AP Chemistry item count you compute differs from 136 by more than 5 (small drift is plausible if
   content changed since this doc was written; a bigger gap means something is wrong with your query or the
   content has changed substantially — verify before trusting either number).
+- Any of the 5 Group B items (`apchem-frq-l-013`, `apchem-frq-l-014`, `apchem-sfrq-003`, `apchem-sfrq-014`,
+  `apchem-sfrq-024`) end up with a row count, `superseded_by` value, or label change of any kind — they are
+  explicitly out of scope for this task.
 - Any generated `write_labels.sql` (or your batched split of it) contains the literal string `validated` as
   a `label_status` value.
 - Any generated SQL references a `content_item_id` that does not belong to the live AP Chemistry pack (a
@@ -107,13 +153,14 @@ Stop immediately and report (do not push, do not apply further migrations) if an
 Before applying anything, produce and save (as part of your eventual report, not a throwaway) a dry-run
 summary containing:
 
-- Exact target item count for labels (expect 72, confirm your own count independently) and the full list of
-  target `content_key`s.
+- Exact target item count for labels (expect 55 = 14 clean `legacy_unvalidated` + 34 `stale` + 7 Group A
+  duplicate-fix items, confirm your own count independently) and the full list of target `content_key`s,
+  with the 7 Group A items flagged distinctly so you apply the dual-supersession step only to them.
 - Exact target item count for difficulty (expect 119, confirm your own count independently) and the full
   list of target `content_key`s, plus which of those 119 are covered by the CSV vs. not.
-- Generated row count from the label pipeline script's `write_labels.sql` (should equal 72 minus any items
+- Generated row count from the label pipeline script's `write_labels.sql` (should equal 55 minus any items
   the script itself holds for `rubric_preflight_failure`/`model_unit_disagreement`/scope-violation reasons —
-  those still produce a `held` row, so the total row count should still be 72, just split across statuses).
+  those still produce a `held` row, so the total row count should still be 55, just split across statuses).
 - Your batch plan (how many batches, how many rows each) before you start applying.
 
 ## Local migration files (required)
@@ -162,7 +209,7 @@ copy-paste contamination from the Statistics pipeline run this task's instructio
 Paste the block below into Codex.
 
 ```text
-Task -- AP Chemistry Tier 3: serving labels + difficulty, 2026-09-25 (v2).
+Task -- AP Chemistry Tier 3: serving labels + difficulty, 2026-09-25 (v3).
 
 Merge main first:
 
@@ -179,10 +226,12 @@ in your checkout. If either is missing after merging, STOP and report -- do not 
 The checkout must be clean before starting. This makes real writes to Production
 (pcntajvbdfqhbeewmdry) -- via the Supabase MCP tool only, never the local `supabase` CLI (it is linked to
 Dev, not Production). Read the full body of
-docs/content/CODEX_TASK_AP_CHEMISTRY_TIER3_LABELS_DIFFICULTY_2026_09_25.md (this v2 revision, not any
-cached v1) before running anything -- it defines the precise 72-item label target set, the 119-item
-difficulty target set, stop conditions, the required dry-run artifact, batching rules, idempotency checks,
-the contamination check, and the local-migration-file requirement. Follow all of it.
+docs/content/CODEX_TASK_AP_CHEMISTRY_TIER3_LABELS_DIFFICULTY_2026_09_25.md (this v3 revision, not any
+cached v1 or v2) before running anything -- it defines the precise 55-item label target set (including the
+7 Group A duplicate-fix items and their dual-supersession requirement, and the 5 Group B items that are
+explicitly excluded), the 119-item difficulty target set, stop conditions, the required dry-run artifact,
+batching rules, idempotency checks, the contamination check, and the local-migration-file requirement.
+Follow all of it.
 
 READ ALSO:
 - docs/product/TIER3_LABELS_DIFFICULTY_PAIRED_PLAN_2026_09_25.md -- the pipeline section and "Explicitly
@@ -195,13 +244,19 @@ READ ALSO:
 - docs/research/AP_STATISTICS_TAXONOMY_SERVING_LABEL_RUN_2026_09_25.md -- Claude's completed Statistics
   label run report, as a template for structure.
 
-PART A -- SERVING LABELS (criterion 3), target = 72 items (legacy_unvalidated + stale, current rows only)
+PART A -- SERVING LABELS (criterion 3), target = 55 items (14 clean legacy_unvalidated + 34 stale + 7 Group A
+duplicate-fix items, current rows only)
 
-1. Independently re-derive the 72-item target list from Production (do not trust this doc's count blindly;
-   confirm it, and stop per the stop conditions if it differs by more than 5).
+1. Independently re-derive the 55-item target list from Production (do not trust this doc's count blindly;
+   confirm it, and stop per the stop conditions if it differs by more than 5). Separately confirm the 7
+   Group A content_keys (`apchem-frq-l-002`, `apchem-frq-l-006`, `apchem-frq-l-012`, `apchem-mcq-001`,
+   `apchem-mcq-070`, `apchem-sfrq-006`, `apchem-sfrq-010`) each currently have exactly two current serving-
+   label rows, and that the 5 Group B content_keys (`apchem-frq-l-013`, `apchem-frq-l-014`,
+   `apchem-sfrq-003`, `apchem-sfrq-014`, `apchem-sfrq-024`) are excluded from your target list entirely.
 2. Run scripts/taxonomy/fetch_serving_label_packets.sql via execute_sql, scoped to
-   ep.exam_code = 'ap_chemistry', filtered to exactly the 72 target content_item_ids (not all 148 -- do not
-   regenerate labels for held/provisional_model/validated items). Save the packets JSON locally.
+   ep.exam_code = 'ap_chemistry', filtered to exactly the 55 target content_item_ids (not all 136 -- do not
+   regenerate labels for held/provisional_model/validated items or the 5 excluded Group B items). Save the
+   packets JSON locally.
 3. Run:
    node scripts/taxonomy/extend_serving_labels_mcp.mjs --packets-file=<your packets file> --subject=ap_chemistry
    (confirm the exact --subject value the script expects by checking its SUBJECTS config, same as the
@@ -209,7 +264,10 @@ PART A -- SERVING LABELS (criterion 3), target = 72 items (legacy_unvalidated + 
    docs/research/ -- it never writes to the DB itself.
 4. Produce the required dry-run artifact (see main doc) before applying anything.
 5. Split into batches of 25-35 tuples, apply each via apply_migration, verify row count after each batch,
-   commit each batch's exact SQL to supabase/migrations/ with the naming convention in the main doc.
+   commit each batch's exact SQL to supabase/migrations/ with the naming convention in the main doc. For the
+   7 Group A items specifically, your migration SQL must set `superseded_by` on both of that item's existing
+   current rows, not just one -- verify with a per-item count query (`superseded_by is null`) equal to 1
+   after the batch that touches it.
 6. Only `provisional_model` or `held` label_status values are acceptable output -- never `validated`.
 
 PART B -- DIFFICULTY (criterion 5), target = 119 items (item-and-current-version published)
@@ -236,6 +294,9 @@ WHAT WOULD MAKE THIS REJECTED
 - Skipping the coverage-gap report for either labels or difficulty.
 - A report-only PR without the matching local migration files under supabase/migrations/.
 - Skipping the contamination check (any row touching a non-Chemistry content_item).
+- Touching any of the 5 Group B items (`apchem-frq-l-013`, `apchem-frq-l-014`, `apchem-sfrq-003`,
+  `apchem-sfrq-014`, `apchem-sfrq-024`) in any way.
+- For the 7 Group A items, superseding only one of the two existing current rows instead of both.
 - Continuing past this task into cross-QA of your own work, or into Pair 2, or into promoting anything to
   `validated`.
 
@@ -247,6 +308,8 @@ DELIVERABLE
 - The dry-run artifact contents (target counts and lists, as independently re-derived by you).
 - Labels: starting counts by status (with the "current" definition stated explicitly), items processed,
   final counts by status broken out by held-reason, and any held-item candidates noted per "Held items".
+  Explicitly confirm each of the 7 Group A items ended with exactly one current row, and that the 5 Group B
+  items were left untouched (row counts and `superseded_by` values unchanged from this doc's baseline).
 - Difficulty: starting/ending row counts, any content_key mismatches found and how resolved, coverage gaps.
 - A short "ready for cross-QA" section naming exactly which content_items got new label/difficulty rows
   today, so Claude's cross-QA pass can sample from a known set.
