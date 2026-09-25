@@ -53,6 +53,9 @@ the others, and none of them imply the sixth.
 | Subject | Status | Doc |
 | --- | --- | --- |
 | AP Biology | Done, 2026-09-24 | `docs/product/AP_BIOLOGY_LAUNCH_READINESS_2026_09_24.md`, `docs/product/AP_BIOLOGY_FAST_FOLLOW.md` |
-| AP Statistics | In progress — work order sent to Codex 2026-09-24 | `prompts/CODEX_WORK_ORDER_AP_STATISTICS_LAUNCH_READINESS_2026_09_24.md` |
-| AP Calculus AB | In progress — work order sent to Codex 2026-09-24 | `prompts/CODEX_WORK_ORDER_AP_CALCULUS_AB_LAUNCH_READINESS_2026_09_24.md` |
-| Everyone else (Chemistry, Physics 1/2/C-Mech/C-E&M, Precalculus, Calculus BC) | Not started | — |
+| AP Statistics | In progress — Codex QA'd by Claude 2026-09-25 (morning) | `prompts/CODEX_WORK_ORDER_AP_STATISTICS_LAUNCH_READINESS_2026_09_24.md` |
+| AP Calculus AB | Criterion 4 (canonicals) closed directly by Claude 2026-09-25, all 33 items; also fixed a live grading bug (duplicated frq_criteria on 4 items). Criteria 3 (labels) and 5 (difficulty) still open. | `prompts/CODEX_WORK_ORDER_AP_CALCULUS_AB_LAUNCH_READINESS_2026_09_24.md`, `supabase/migrations/20260925000000_apcalcab_dedupe_frq_criteria.sql`, `supabase/migrations/20260925010000_apcalcab_canonical_answers_33_items.sql` |
+| AP Chemistry | Criterion 4 (canonicals) closed directly by Claude 2026-09-25, last 1 of 53 FRQ. Criteria 3 (labels, 78/123 non-validated) and 5 (difficulty, 0/123) still open. | `supabase/migrations` (apchem_frq_l_012 canonical) |
+| AP Precalculus | Measured 2026-09-25, work order written, not yet run | `prompts/CODEX_WORK_ORDER_AP_PRECALCULUS_LAUNCH_READINESS_2026_09_25.md` |
+| AP Calculus BC | Measured 2026-09-25, work order written, not yet run | `prompts/CODEX_WORK_ORDER_AP_CALCULUS_BC_LAUNCH_READINESS_2026_09_25.md` |
+| Everyone else (Physics 1/2/C-Mech/C-E&M) | Not started | — |
