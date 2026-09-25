@@ -62,3 +62,18 @@ the others, and none of them imply the sixth.
 | AP Physics 2 | Criterion 4 (canonicals) closed directly by Claude 2026-09-25, all 19 items, 37/37 FRQ (item-level), independently re-verified. **Correction 2026-09-25 (QA pass):** 9 of those 37 have a `retired` latest version (pre-existing canonicals, untouched by this week's work) — strict current-published-version count is 28/28. Criteria 3 (labels, 69/79 non-validated) and 5 (difficulty, 0/79) still open — Codex work order covers those too, now stale on criterion 4 but still current on 3/5. | `supabase/migrations/20260925020000_apphysics2_canonical_answers_19_items.sql`, `prompts/CODEX_WORK_ORDER_AP_PHYSICS_2_LAUNCH_READINESS_2026_09_25.md`, `docs/content/CLAUDE_QA_REPORT_AP_STATISTICS_AND_PHYSICS_1_2026_09_25.md` |
 | AP Physics C: Mechanics | Criterion 4 (canonicals) closed directly by Claude 2026-09-25, all 29 items, 42/42 FRQ (item-level), independently re-verified. **Correction 2026-09-25 (QA pass):** 6 of those 42 have a `retired` latest version (pre-existing canonicals, untouched) — strict current-published-version count is 36/36. Criterion 5 (difficulty, 0/84) still open. Criterion 3 (labels) still covered by the pre-existing, not-yet-run FF-3/DECISION-0066 relabel order. | `supabase/migrations/20260925030000_apphysicscm_canonical_answers_29_items.sql`, `prompts/CODEX_WORK_ORDER_PHYSICS_C_MECH_AND_CALC_BC_RELABEL_2026_09_24.md`, `docs/content/CLAUDE_QA_REPORT_AP_STATISTICS_AND_PHYSICS_1_2026_09_25.md` |
 | AP Physics C: E&M | Criterion 4 (canonicals) closed directly by Claude 2026-09-25, all 39 items, 55/55 FRQ (item-level), independently re-verified. **Correction 2026-09-25 (QA pass):** 6 of those 55 have a `retired` latest version (pre-existing canonicals, untouched) — strict current-published-version count is 49/49. Criteria 3 (labels, 97/103 non-validated) and 5 (difficulty, 0/103) still open. A separate, pre-existing gap remains in canonical_answer_spans for the other 16 (already-canonicaled) FRQ, out of scope here. | `supabase/migrations/20260925040000_apphysicscem_canonical_answers_39_items.sql`, `prompts/CODEX_WORK_ORDER_AP_PHYSICS_C_EM_LAUNCH_READINESS_2026_09_25.md`, `docs/content/CLAUDE_QA_REPORT_AP_STATISTICS_AND_PHYSICS_1_2026_09_25.md` |
+
+**Codex QA sweep and remediation, 2026-09-25 (all seven canonical-content subjects above).** Codex independently
+re-verified all 372 FRQ with a canonical answer across the seven subjects
+(`docs/content/CODEX_QA_REPORT_CANONICAL_ANSWERS_CALC_AB_THROUGH_PHYSICS_1_2026_09_25.md`, PR #188) and found 34
+P0 correctness/completeness defects — mostly pre-existing legacy canonicals omitting a subpart, diagram, or
+derivation their own rubric requires, plus 2 numerical/source-data errors in AP Statistics and 2 defects within
+this week's own new writes. All 34 have been fixed directly in Production and independently re-derived from each
+item's own stem/frq_criteria (not just patched to match the finding text), across
+`supabase/migrations/20260925070000` through `20260925130000`. Two of the 34 required fixing the *rubric* itself,
+not just the canonical: `apcalcab-frq-005` (wrong stimulus constant) and `apphy1-frq-026` (a rubric criterion
+asserting "Track A always arrives first," verified false with a worked counter-example). A companion QA task
+(`docs/content/CODEX_QA_TASK_READINESS_AUDIT_WORK_ORDERS_AND_SELECTORS_2026_09_25.md`, PR #189) separately
+re-verified the six-criteria measurements, live selector behavior, and work-order accuracy for these subjects
+plus Precalculus and Calc BC — see that report for criteria 3/5/6 status, which this remediation pass did not
+touch.
