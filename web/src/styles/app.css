@@ -13,9 +13,10 @@ html, body {
 a { color: var(--orange-700); }
 a:hover { color: var(--orange-800); }
 
-/* The plate is a fixed 1440x900 frame that never scrolls. On a narrower
-   viewport the desk scrolls around it rather than the plate reflowing --
-   reflowing would break the no-scroll-inside-a-plate rule. */
+/* The plate is a fixed 1440x900 frame that never scrolls and never reflows.
+   ViewportGate (components/layout/ViewportGate.jsx) keeps it from rendering
+   at all below that size, so #root only ever needs to center a plate that
+   already fits. */
 #root {
   min-height: 100vh;
   display: flex;

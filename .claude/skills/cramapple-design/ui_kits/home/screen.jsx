@@ -22,7 +22,7 @@ function Screen() {
       <Masthead course="AP Statistics" right={<span style={{ fontSize: 13, fontWeight: 700, letterSpacing: '.12em', textTransform: 'uppercase', color: 'var(--paper-000)' }}>Home</span>} />
       <Breadcrumb items={['Home', 'Unit 2 · Exploring Two-Variable Data']} mapOpen={map} onOpenMap={() => setMap(m => !m)} right={`${done} of ${total} questions done`} />
       <PlateGrid>
-        <PaneShell voice="question" eyebrow="Where you left off" title="2.3 Least-Squares Regression" right={<ScoreChip earned={done} total={total} tone="neutral" label="Unit" />} style={{ height: '100%' }}>
+        <PaneShell voice="question" eyebrow="Where you left off" title="2.3 Least-Squares Regression" right={<ScoreChip earned={3} total={4} tone="neutral" label="Last attempt" />} style={{ height: '100%' }}>
           <div style={{ display: 'grid', gap: 16, height: '100%', minHeight: 0, gridTemplateRows: 'auto auto minmax(0,1fr) auto' }}>
             <p style={{ margin: 0, fontSize: 'var(--type-question-size)', lineHeight: 'var(--type-question-line)' }}>
               Question 4 — interpret the slope of a least-squares line in context.
@@ -45,7 +45,7 @@ function Screen() {
           </div>
         </PaneShell>
 
-        <PaneShell voice="rubric" eyebrow="Study map" title="Unit 2 · Exploring Two-Variable Data" right={<span style={{ fontSize: 'var(--type-count-size)', fontWeight: 600, color: 'var(--text-secondary)' }}>{done} of {total} done</span>} style={{ height: '100%' }}>
+        <PaneShell voice="plain" eyebrow="Study map" title="Unit 2 · Exploring Two-Variable Data" right={<span style={{ fontSize: 'var(--type-count-size)', fontWeight: 600, color: 'var(--text-secondary)' }}>{done} of {total} done</span>} style={{ height: '100%' }}>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
             {UNITS.map(u => {
               const active = topic === u.code;
@@ -57,13 +57,13 @@ function Screen() {
                 }}>
                   <span style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between' }}>
                     <span style={{ fontSize: 'var(--type-count-size)', fontWeight: 700, letterSpacing: '.06em', color: 'var(--text-eyebrow)' }}>{u.code}</span>
-                    <span style={{ fontSize: 'var(--type-count-size)', fontWeight: 600, color: u.mode === 'Open Hand' ? 'var(--text-work)' : 'var(--text-secondary)' }}>{u.mode}</span>
+                    <span style={{ fontSize: 'var(--type-count-size)', fontWeight: 700, letterSpacing: '.06em', textTransform: 'uppercase', color: 'var(--text-eyebrow)' }}>{u.mode}</span>
                   </span>
                   <span style={{ display: 'block', margin: '3px 0 10px', fontSize: 'var(--type-option-size)', lineHeight: 'var(--type-option-line)', fontWeight: 600 }}>{u.title}</span>
                   <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
                     <span style={{ fontSize: 'var(--type-count-size)', color: 'var(--text-secondary)' }}>{u.done} of {u.total}</span>
                     <span style={{ display: 'inline-flex', gap: 3 }}>
-                      {Array.from({ length: u.total }).map((_, k) => (<span key={k} style={{ width: 9, height: 9, background: k < u.done ? 'var(--blue-600)' : 'var(--rule-300)' }} />))}
+                      {Array.from({ length: u.total }).map((_, k) => (<span key={k} style={{ width: 9, height: 9, background: k < u.done ? (u.mode === 'Open Hand' ? 'var(--ink-500)' : 'var(--blue-600)') : 'var(--rule-300)' }} />))}
                     </span>
                   </span>
                 </div>

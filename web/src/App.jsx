@@ -3,6 +3,7 @@ import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { SessionProvider } from './session/SessionProvider.jsx';
 import { HomeScreen } from './screens/HomeScreen.jsx';
 import { QuestionRoute } from './screens/QuestionRoute.jsx';
+import { ViewportGate } from './components/layout/ViewportGate.jsx';
 
 /**
  * HashRouter, not BrowserRouter: the app is a static build with no server
@@ -11,13 +12,15 @@ import { QuestionRoute } from './screens/QuestionRoute.jsx';
 export function App() {
   return (
     <SessionProvider>
-      <HashRouter>
-        <Routes>
-          <Route path="/" element={<HomeScreen />} />
-          <Route path="/:mode/:packageId" element={<QuestionRoute />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </HashRouter>
+      <ViewportGate>
+        <HashRouter>
+          <Routes>
+            <Route path="/" element={<HomeScreen />} />
+            <Route path="/:mode/:packageId" element={<QuestionRoute />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </HashRouter>
+      </ViewportGate>
     </SessionProvider>
   );
 }
