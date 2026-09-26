@@ -2,15 +2,17 @@
 
 **Task ID:** TASK-0040
 **Title:** Marketing Home Page — October 2, 2026 Free-Launch Readiness (verify-and-fix pass)
-**Owner:** AI agent (implementation) — unassigned; candidate: Codex or Claude
+**Owner:** Codex
 **Product Owner:** David Bloom
 **Tier:** Hard-Gate
-**Status:** Not Started
+**Status:** Blocked
 **Priority:** High
 **Created Date:** 2026-09-26
-**Approved Date:** Pending
-**Branch:** Not yet created — assign per R1 (`<agent>/task-0040-<slug>`) when an agent starts execution
+**Approved Date:** 2026-09-26 (read-only audit only; no Production change approved)
+**Branch:** `codex/task-0040-home-page-audit`
 **PR:** None yet
+
+**Blocked Reason:** The live page still contains paid CTAs and a $39.99 purchase section, triggering the runbook stop condition that a live CTA requires or implies payment.
 
 ## Codex QA note (2026-09-26, pre-execution review)
 
@@ -79,26 +81,34 @@ because the feature functions.
 Mirrors `docs/product/LAUNCH_RUNBOOK_2026_10_02.md` §§1 and 5 and
 `LAUNCH_PLAN_MARKETING_HOME_PAGE_2026_09_26.md`; those documents govern if this list drifts.
 
-- [ ] Confirm the live page clearly states that access is free for this launch.
-- [ ] Confirm every primary CTA routes to free access/sign-up and does not require or imply checkout.
-      **Treat the $39.99 CTA as an unresolved dependency, not a completed criterion, until David's fix
-      is confirmed live** — do not mark this Done from the plan's intent alone.
-- [ ] Confirm AP Biology and AP Statistics are shown "Live now"; other subjects are not advertised as
-      live.
-- [ ] Confirm no unsupported performance claim is present (no "X% improvement" without a cited
-      evidence source; GTM-001's evidence rules are still `Proposed`).
-- [ ] Confirm BYOQ is present, ungated, and anonymous on the live page. **Treat the pending
-      privacy/rights/academic-integrity review as an unresolved dependency, not a completed criterion**
-      — record it as an open risk if it hasn't actually happened, rather than passing this item because
-      the feature works.
-- [ ] Confirm anonymous BYOQ does not expose a canonical answer in the response or surrounding UI.
-- [ ] Confirm the live BYOQ copy accurately states the actual retention and privacy behavior. If the
-      required language is materially false or absent, stop and report it for David's risk decision.
-- [ ] WCAG AA contrast verified against `docs/new_design/`'s tokens with a real check, not a visual
-      read.
-- [ ] Copy reviewed against `docs/new_design/`'s voice guidance (no clinical/robotic, no hype, no
-      warm-fuzzy-teacher tone).
-- [ ] Record URL, timestamp, HTML/screenshot evidence, and Lovable commit/version checked.
+- [ ] **Blocked 2026-09-26:** the live page does not state that full launch access is free. It says
+      "One free question," which is not the approved free-launch promise.
+- [ ] **Failed 2026-09-26:** primary CTAs still imply purchase: "Get it · $39.99," a "$39.99 / one
+      subject / no subscription" price card, "Get AP Statistics," "Ask a parent to buy it," and
+      "Bundles." These link to `/signup` or `/ask-parent`. Treat the $39.99 CTA as unresolved until
+      David's fix is confirmed live.
+- [x] AP Biology and AP Statistics are shown "Live now"; the other eight subjects are shown as coming
+      soon.
+- [ ] **Needs review:** delivered social metadata says "Maximum AP exam score in minimal time" without
+      an evidence citation. No quantified improvement claim was found in the delivered home-page HTML,
+      but GTM-001's evidence rules are still `Proposed`.
+- [ ] **Partially verified:** BYOQ is present and the page says "Nothing saved · no account" and "One
+      free question. Your photo isn't kept." Interactive anonymous behavior was not exercised because
+      the supported browser could not start in this symlinked workspace. Treat the pending
+      privacy/rights/academic-integrity review as unresolved.
+- [ ] Not verified: anonymous BYOQ must not expose a canonical answer in the response or surrounding UI.
+- [ ] Not verified: the live BYOQ copy must accurately state actual retention and privacy behavior. If
+      the required language is materially false or absent, stop and report it for David's risk decision.
+- [ ] Not verified: WCAG AA contrast against `docs/new_design/`'s tokens requires a rendered-page check
+      with the supported browser.
+- [ ] Partially reviewed from delivered HTML only: copy still needs rendered-page review against
+      `docs/new_design/`'s voice guidance.
+- [x] Evidence recorded: `https://ap-prep-canvas.lovable.app/`, HTTP 200 at 2026-09-26 15:38:29 UTC
+      (11:38:29 America/New_York), deployment
+      `psr2.5b02aa18-5f8b-48a4-b335-056cbae402d6.1791041908.d1_x-jKSXQtPm1Yiz9fzXhiCjB7-3jn35h3k3K41-Pg`,
+      delivered assets `styles-DcabbJId.css`, `index-C34axR7A.css`, `index-D-MdByNs.css`,
+      `index-D4j384PU.js`, and `index-yd3Y6Fxu.js`. HTML evidence was inspected directly; screenshot
+      evidence remains unavailable because browser startup failed before navigation.
 - [ ] David has signed off on the final page (Hard Gate: public claims + brand identity finalization,
       per `STANDING_APPROVAL_LANES.md`).
 
@@ -123,20 +133,38 @@ Mirrors `docs/product/LAUNCH_RUNBOOK_2026_10_02.md` §§1 and 5 and
 **Approval Required:** Yes
 **Approval Type:** Hard Gate (public performance claims, brand identity finalization, and any change to
 the live Production Lovable app, per `STANDING_APPROVAL_LANES.md`)
-**Decision:** Pending — Codex reviewed this task record 2026-09-26 (Fail, revision required); this
-revision folds in that feedback. Still awaiting Codex's re-review before being finalized; execution has
-not started.
+**Decision:** David instructed Codex to execute TASK-0040 on 2026-09-26. That authorizes this read-only
+audit and its evidence updates only. No Production Lovable edit, deployment, public-claim approval,
+brand finalization, or risk acceptance has been approved. The live paid-CTA stop condition requires
+David's direction before implementation proceeds.
 
 ## Implementation Notes
 
-**Implementation Summary:** _(To be filled by the implementation agent — what was actually done, with
-citations to the live evidence checked.)_
+**Implementation Summary:** Codex performed the read-only audit against the live HTTPS response on
+2026-09-26. No Production change was made. The audit stopped when the delivered page showed paid CTAs
+and a $39.99 purchase section, as required by the October 2 runbook stop conditions.
 
-**Test Results:** _(To be filled by the implementation agent — live-page checks performed, with
-timestamps/version evidence.)_
+**Test Results:**
 
-**Risks / Issues:** _(To be filled by the implementation agent — any unresolved dependency found, e.g.
-the CTA fix or BYOQ review status, named explicitly rather than assumed resolved.)_
+- PASS — the live URL returned HTTP 200 and the exact deployment/assets are recorded above.
+- FAIL / BLOCKER — the page does not present the approved free-launch promise.
+- FAIL / BLOCKER — paid CTAs and the $39.99 price card remain live.
+- PASS — AP Biology and AP Statistics are marked "Live now"; the other eight subjects are presented as
+  coming soon.
+- PARTIAL — BYOQ is present with anonymous/no-retention copy, but its interaction, canonical-answer
+  boundary, and actual retention behavior were not verified.
+- NOT RUN — rendered WCAG contrast, interactive CTA destination behavior, and screenshots. The
+  required browser runtime could not start because the workspace path contains a symlink; the audit
+  did not substitute cached Lovable state.
+
+**Risks / Issues:**
+
+- Launch blocker: paid messaging contradicts `DECISION-0071` and the October 2 free-launch runbook.
+- Public-claim review needed for "Maximum AP exam score in minimal time" in social metadata.
+- BYOQ privacy/rights/academic-integrity review remains unresolved.
+- The retention claim "Your photo isn't kept" and canonical-answer boundary require functional
+  verification before launch.
+- Visual accessibility and full copy review remain unverified until rendered-browser QA is available.
 
 ## QA Review
 
