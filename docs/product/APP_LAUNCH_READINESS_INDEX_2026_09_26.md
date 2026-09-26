@@ -13,6 +13,19 @@ meaning the app is launch-ready — only when all five are Done.
 This is deliberately the single doc TASK-0023 itself predicted would need to exist ("a consolidated
 pre-launch checklist... cross-referencing BIZ-001, GTM-001, and TASK-0012") but never built.
 
+## CORRECTION #3, 2026-09-26 (`DECISION-0070`): Friday launch is free, no payment gating
+
+**David set a firm date and changed the launch's shape: Friday, free, no Stripe/payment gating.**
+Payment flow (plan 2) is **removed from the Friday launch-critical path** — it becomes a post-launch
+follow-up. This is a bigger change than the "next week" window from `DECISION-0069`: not a paid launch
+delayed slightly, but a free launch with payment added later. Friday's actual critical path is now:
+plan 5 (Subject onboarding gate, Biology + Statistics only), plan 4 (Student hub — still gated on D-1/
+D-2 below), plan 1 (Marketing home page — now a free-access page, not a purchase page, plus the BYOQ
+scope from `DECISION-0069`), and plan 3 only insofar as it unblocks plan 5 for the two Day-1 subjects.
+See `DECISION-0070` for full consequences. The five-plan structure and "Definition of launch-ready"
+below still describe full commercial launch-readiness — Friday's actual bar is narrower; don't confuse
+the two.
+
 ## CORRECTION, 2026-09-26 (same day, after a second AI review)
 
 **A second review found these plans were built without reading `docs/product/APP_REBUILD_MIGRATION_PLAN.md`
@@ -30,7 +43,7 @@ before agents execute further, rather than embedding unverified assumptions in t
 | # | Component | Plan | Current status |
 | --- | --- | --- | --- |
 | 1 | Marketing home page | `LAUNCH_PLAN_MARKETING_HOME_PAGE_2026_09_26.md` | Not started |
-| 2 | Payment flow | `LAUNCH_PLAN_PAYMENT_FLOW_2026_09_26.md` | In progress (TASK-0023 mostly built, blocked) |
+| 2 | Payment flow | `LAUNCH_PLAN_PAYMENT_FLOW_2026_09_26.md` | **Deferred, not Friday-critical** (`DECISION-0070`) — post-launch follow-up |
 | 3 | Content pipeline (question templates) | `LAUNCH_PLAN_CONTENT_PIPELINE_2026_09_26.md` | In progress, pipeline gap |
 | 4 | Student hub | `LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md` | Not started (audit) |
 | 5 | Subject onboarding gate | `LAUNCH_PLAN_SUBJECT_ONBOARDING_GATE_2026_09_26.md` | Day-1 = Biology + Statistics; both passing criterion 6 (Statistics' hazard resolved 2026-09-25); both open on labels/difficulty |
@@ -78,18 +91,18 @@ struck through.
 | D-4 | ~~AP Statistics' dual-published-exam-pack-version hazard~~ | **Resolved 2026-09-25**, before this index was drafted — pilot pack retired (`docs/content/APSTATS_PILOT_PACK_REVIEW_AND_UNPUBLISH_2026_09_25.md`). This index and plan 5 had it wrong as an open Day-1 hazard; corrected. |
 | D-5 | ~~Unlimited-subject pricing tier at launch~~ | **Resolved (`DECISION-0069`): deferred until all 10 subjects are live.** Not priced or enabled at initial launch. |
 | D-6 | Is the 2-subject bundle price ($79.99, effectively no discount vs. two singles at $79.98) intentional? | **Still open** — not addressed by `DECISION-0069`. |
-| D-7 | ~~Target launch window~~ | **Resolved (`DECISION-0069`): next week.** See sequencing tension below. |
+| D-7 | ~~Target launch window~~ | **Resolved (`DECISION-0070`, supersedes `DECISION-0069`): Friday, free, no payment gating.** Payment flow deferred post-launch. |
 | D-8 | ~~Logo/wordmark finalization~~ | **Resolved (`DECISION-0069`): not a blocker.** Type-only wordmark is sufficient; no illustrated mark required. |
 | D-9 | Shared vs. per-customer Stripe promotion code for the "add another subject" incentive. | **Open.** Blocks plan 2's coupon-build criterion. |
 | D-10 | Seed the remaining 6 subjects into `Cramapple-Development`, or scope dev testing to the 4 already seeded? | **Open.** |
 | D-11 | BIZ-001 remainder: access duration, refund/discount policy, parent-purchaser handling. | **Open.** |
 | D-12 | ~~Live bug: `attempt-response` isn't gated on entitlement~~ | Still a live bug to verify/fix — status not yet reported back. Separately, David added new scope here (not the same D-12): **BYOQ ships ungated and anonymous on the home page** (`DECISION-0069`) — now launch-critical for plan 1, and raises privacy/rights/academic-integrity review needs flagged in that plan. |
 
-**New, from `DECISION-0069`:** the 1-week target launch window (D-7) creates real tension with D-1's
-rebuild sequencing and the still-open items above (D-1, D-2, D-6, D-9, D-10, D-11, the D-3 Statistics
-question, and the entitlement bug). Recommend confirming with David whether "next week" means the
-rebuild sequence is being compressed/overridden, or targets a narrower slice of scope than the full
-five-plan definition of launch-ready above.
+**Updated by `DECISION-0070`:** D-6, D-9, D-10, D-11, and the entitlement-gating bug are no longer
+Friday-urgent — they only matter once payment flow (plan 2) actually ships, post-launch. D-1 (sequencing)
+is narrowed: the Stripe step is moot for Friday, so the open question is whether app-rebuild →
+marketing-reskin → home-page-last still holds for the remaining three steps, or whether they can run in
+parallel given the compressed timeline. D-2 (which frontend) is unchanged and still blocks plan 4.
 
 Items not yet needing your call (agents can proceed without you): everything else in each plan's
 acceptance criteria.

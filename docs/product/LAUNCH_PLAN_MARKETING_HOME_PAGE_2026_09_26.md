@@ -99,15 +99,17 @@ next week.
 ## Acceptance Criteria
 
 - [ ] Rebuild-sequencing gate confirmed: either Phase 4 of `APP_REBUILD_MIGRATION_PLAN.md` has been
-      reached, or David has explicitly overridden the sequence for this plan. Do not proceed past a
+      reached, or David has explicitly overridden the sequence for this plan (Friday's timeline per
+      `DECISION-0070` likely means an override — confirm rather than assume). Do not proceed past a
       spec draft until one of these is true.
 - [x] Logo/wordmark — **not a blocker** (`DECISION-0069`): produce the type-only wordmark per
       `docs/new_design/`'s token system, light-mode only. No illustrated mark needed.
 - [ ] Page structure and copy draft exists, covering at minimum: hero/positioning statement, problem
-      statement (matching Vision §2), what Cramapple is / is not (Vision §4), pricing/CTA section
-      (must match the live Stripe catalog and current pricing decision — `DECISION-0068` — in the
-      payment-flow plan, not an invented price), and a value-prop section for the secondary buyer
-      (parent).
+      statement (matching Vision §2), what Cramapple is / is not (Vision §4), and a value-prop section
+      for the secondary buyer (parent). **Per `DECISION-0070`: Friday launches free, no payment
+      gating** — the CTA is a free sign-up/start-practicing action, not a purchase CTA. Do not build a
+      pricing/checkout section for Friday; that comes back once payment flow (deferred, see
+      `LAUNCH_PLAN_PAYMENT_FLOW_2026_09_26.md`) actually ships.
 - [ ] BYOQ is implemented on the home page as a full, ungated, anonymous-session experience per
       `STUDENT_PROVIDED_QUESTION_INTAKE_DESIGN.md` — confirm the privacy/rights/academic-integrity
       review flagged above has actually happened before shipping, not just that the feature works.
@@ -117,9 +119,8 @@ next week.
 - [ ] Visual execution passes WCAG AA contrast per `docs/new_design/`'s tokens, light mode only.
 - [ ] Copy reviewed against `docs/new_design/`'s voice guidance — no clinical/robotic, no hype/
       exclamation-heavy, no warm-fuzzy-teacher tone.
-- [ ] CTA path from home page to checkout is verified against the live purchase flow in
-      `LAUNCH_PLAN_PAYMENT_FLOW_2026_09_26.md` — do not link to or imply pricing that doesn't match the
-      live Stripe catalog.
+- [ ] CTA path from home page leads to free access/sign-up for Friday's launch — verify it does not
+      link to or imply any checkout/purchase flow, since payment flow is deferred (`DECISION-0070`).
 - [ ] David has signed off on the final page (Hard Gate: public performance claims and brand identity
       finalization both require his approval per `STANDING_APPROVAL_LANES.md`).
 

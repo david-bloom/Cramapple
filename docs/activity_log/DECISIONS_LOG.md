@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0070 — Launch Friday, Free — Ship Without Stripe/Payment Gating; Add Payment Flow as a Post-Launch Follow-Up
 - DECISION-0069 — Launch-Planning Follow-Ups: BYOQ Ships Ungated/Anonymous on the New Home Page; Unlimited-Tier Pricing Deferred Until All 10 Subjects Are Live; Target Launch Window Is Next Week; Wordmark-Only Branding Is Sufficient (No Logo Mark Required)
 - DECISION-0068 — Day-1 Launch Subjects Are AP Biology and AP Statistics, Fast-Follow the Rest as Site-Performance Confidence Improves; Set Single/2-Bundle/3-Bundle Pricing at $39.99 / $79.99 / $99.99
 - DECISION-0067 — Coverage Labels Stay Deferred at `provisional_model`; No Promotion Work Until Coverage Reporting Is Prioritized (FF-9)
@@ -48,6 +49,64 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~600 lines, archive the older entries to `docs/activity_log/archive/DECISIONS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries. (This log is already well over that threshold — the first archive pass is overdue, not optional.)
 
 (Note: the TASK-0012 branch independently logged its own DECISION-0027/0028 — CORS/ALLOWED_ORIGINS and budget-burn semantics — under different numbers on its own branch. Those land separately when that work merges to `main`; this charter-adoption decision claimed 0027/0028 here because `main` had not yet recorded entries past DECISION-0026 at merge time. If both branches' numbering collides on merge, renumber on whichever side merges second and update this index.)
+
+## DECISION-0070 — Launch Friday, Free — No Stripe/Payment Gating at Launch
+
+**Date:** 2026-09-26
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Approval:** Product Owner direction, 2026-09-26 (this session)
+**Related Docs:** `docs/product/APP_LAUNCH_READINESS_INDEX_2026_09_26.md`;
+`docs/product/LAUNCH_PLAN_PAYMENT_FLOW_2026_09_26.md`; `docs/tasks/TASK-0023-STRIPE-SETUP-AND-LAUNCH-READINESS.md`;
+`DECISION-0068`; `DECISION-0069`
+**Area:** Product / Launch Scope / Commercial
+
+### Decision
+
+**Cramapple launches Friday (2026-09-27 target — confirm exact date), free, with no Stripe/payment
+gating.** All students get full access without purchasing. Payment flow (Stripe checkout, entitlement
+gating) is deferred to a post-launch follow-up, once there's time to add it properly — not a Day-1
+requirement.
+
+This supersedes `DECISION-0069`'s "target launch window is next week" with a firmer date and a
+materially different launch shape: **not a paid launch with a payment system, but a free launch with
+payment added later.**
+
+### Consequences
+
+- `LAUNCH_PLAN_PAYMENT_FLOW_2026_09_26.md` is **removed from the Friday launch-critical path.** None of
+  its acceptance criteria block Friday's launch. It becomes a fast-follow plan, run whenever there's
+  time to build it properly, per this decision.
+- The entitlement-gating bug flagged under `DECISION-0068`'s follow-up (`attempt-response` not gated on
+  entitlement) becomes **moot for Friday specifically** — if nothing is paywalled, an ungated attempt
+  path isn't a defect at launch. It still needs a real answer for whenever payment flow ships, so don't
+  delete it from tracking, just reclassify its urgency.
+- BIZ-001's remaining items (access duration, refunds, parent-purchaser handling) are **not needed for
+  Friday** — they matter once payment flow actually ships. Do not treat them as launch blockers this
+  week.
+- The marketing home page's pricing/CTA section changes meaning: it can't send a visitor to checkout
+  (nothing to check out into yet) — it needs a "free access" / sign-up CTA instead of a
+  purchase CTA for Friday, with pricing/purchase copy added back in whenever payment flow ships.
+- Removes urgency from D-6 (2-bundle pricing anomaly), D-9 (promo code), D-10 (dev subject seeding for
+  Stripe testing), and D-11 (BIZ-001 remainder) for Friday's launch specifically — they remain open,
+  just not this week's problem.
+
+### What actually still gates Friday
+
+With payment removed, Friday's real launch-critical path is: Subject onboarding gate (plan 5, for
+Biology and Statistics — see `DECISION-0068`), Student hub (plan 4, and the still-open D-1/D-2
+questions on sequencing and which frontend), Marketing home page (plan 1, now as a free-access page
+plus the BYOQ scope from `DECISION-0069`), and Content pipeline (plan 3) only insofar as it unblocks
+plan 5's remaining criteria for Biology/Statistics specifically — not the other 8 subjects, which
+aren't launching Friday anyway.
+
+### Not yet resolved
+
+Does a free, no-payment launch change the D-1 sequencing question (app rebuild → marketing reskin →
+Stripe → home page last)? The Stripe step in that sequence is now moot for Friday — recommend
+confirming whether the remaining three steps (app, marketing reskin, home page) still need to happen
+in that order given the compressed timeline, or whether they can run in parallel for this specific
+launch.
 
 ## DECISION-0069 — Launch-Planning Follow-Ups, 2026-09-26
 

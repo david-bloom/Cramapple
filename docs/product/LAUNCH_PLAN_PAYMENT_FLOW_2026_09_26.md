@@ -6,6 +6,13 @@
 full before touching this plan. This document is a launch-readiness wrapper around it, not a
 replacement.
 
+## DEFERRED, 2026-09-26 (`DECISION-0070`): not on the critical path for Friday's launch
+
+**Cramapple launches Friday, free, with no Stripe/payment gating.** This entire plan is a post-launch
+follow-up — none of its acceptance criteria block Friday. Do not pick up this plan for the Friday
+launch push; work it only once there's dedicated time to build payment flow properly, per David's own
+framing of this decision. The corrections below remain accurate for whenever that work resumes.
+
 ## CORRECTION, 2026-09-26 (same day, after a second AI review)
 
 **This plan's original "Current State" was six weeks stale and wrong on the central point: it said
