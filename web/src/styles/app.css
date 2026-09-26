@@ -13,10 +13,11 @@ html, body {
 a { color: var(--orange-700); }
 a:hover { color: var(--orange-800); }
 
-/* The plate is a fixed 1440x900 frame that never scrolls and never reflows.
-   ViewportGate (components/layout/ViewportGate.jsx) keeps it from rendering
-   at all below that size, so #root only ever needs to center a plate that
-   already fits. */
+/* The question plate is a fixed 1440x900 frame that never scrolls and never
+   reflows. ViewportGate (components/layout/ViewportGate.jsx) guards only the
+   question route and keeps it from rendering at all below that size. Home is
+   a hub, not a question -- it is a 1440-wide page of unbounded height, and
+   #root centers it the same way it centers the plate. */
 #root {
   min-height: 100vh;
   display: flex;

@@ -12,15 +12,13 @@ import { ViewportGate } from './components/layout/ViewportGate.jsx';
 export function App() {
   return (
     <SessionProvider>
-      <ViewportGate>
-        <HashRouter>
-          <Routes>
-            <Route path="/" element={<HomeScreen />} />
-            <Route path="/:mode/:packageId" element={<QuestionRoute />} />
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
-        </HashRouter>
-      </ViewportGate>
+      <HashRouter>
+        <Routes>
+          <Route path="/" element={<HomeScreen />} />
+          <Route path="/:mode/:packageId" element={<ViewportGate><QuestionRoute /></ViewportGate>} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </HashRouter>
     </SessionProvider>
   );
 }
