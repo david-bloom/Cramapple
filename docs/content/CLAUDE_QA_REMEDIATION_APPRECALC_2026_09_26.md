@@ -200,6 +200,30 @@ belong to live AP Precalculus items (zero contamination, confirmed via the same
 `exam_pack_versions`/`exam_packs.exam_code` join), zero `model_unit_disagreement` holds remain, and no row
 was set to `validated`.
 
+## 4b. Follow-up: metadata reconciliation (Codex's second cross-QA pass)
+
+Codex ran a second independent cross-QA pass against the pushed remediation (head `6fa0c896`) and confirmed
+all of the above -- reconciled branch, mergeable, corrected classifier committed and reproducible, correct
+1/109/7 difficulty distribution, 84/33 basis split, 13 holds resolved, 0 contamination, 0 `validated` writes.
+It found one residual issue: the 2026-09-26 difficulty correction migration
+(`20260926140000_apprecalc_difficulty_correction_batch_01.sql`) only updated the 30 rows whose difficulty
+**band** actually changed. The other 87 rows kept the correct band but still carried stale `rationale`/
+`basis`/`proposal_run` metadata computed by the pre-fix, item-level-blob classifier -- for example
+`apprecalc-frq-005` and `apprecalc-frq-013` still showed rationale text like `modal of 6 criteria:
+{'Hard': 6}` even though their band was already correct by coincidence. Since `rationale` and `proposal_run`
+are durable audit/provenance fields, not just display text, this needed a fix before the difficulty pass
+could be called fully closed.
+
+Applied `supabase/migrations/20260926150000_apprecalc_difficulty_metadata_reconcile.sql`: an idempotent,
+band-preserving update (its `where` clause only touches rows whose current band already equals the corrected
+CSV's band for that content_key, as a guard against this migration accidentally becoming a second band-change
+path) that rewrites `basis`/`confidence`/`rationale` to the corrected classifier's actual output and retags
+`proposal_run` to `apprecalc_tier3_2026_09_25_metadata_reconcile_2026_09_26`. Verified post-apply: all 87
+previously-stale rows now carry the corrected metadata (0 rows remain on the original `proposal_run`), and
+the two named examples now read exactly as the corrected CSV specifies (`apprecalc-frq-005`: Hard, "Easy=0,
+Medium=2, Hard=4"; `apprecalc-frq-013`: Hard, "Easy=2, Medium=2, Hard=2" -- an upward-tie-break Hard, not the
+old bug's false unanimous Hard).
+
 ## 5. What was NOT touched
 
 - AP Calculus AB (Pair 2's other half) -- untouched.

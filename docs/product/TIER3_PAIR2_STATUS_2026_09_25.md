@@ -76,6 +76,14 @@ the remediation doc for the full before/after table. `apprecalc-frq-np2-008`'s r
 correctly held, untouched. The narrative below (serving-label and difficulty run details) is the original
 2026-09-25 run report; the corrected final numbers are in the remediation doc.
 
+Codex's **second** cross-QA pass (against pushed head `6fa0c896`) confirmed all of the above and found one
+residual: the difficulty correction only rewrote the 30 rows whose band changed, leaving the other 87 rows'
+`rationale`/`proposal_run` metadata stale (correct band, wrong audit trail — e.g. `apprecalc-frq-005` and
+`apprecalc-frq-013` still read `modal of 6 criteria: {'Hard': 6}`). Fixed same-day via
+`supabase/migrations/20260926150000_apprecalc_difficulty_metadata_reconcile.sql`, an idempotent, band-
+preserving metadata-only update — see §4b of the remediation doc. All 117 difficulty rows now carry metadata
+consistent with the corrected classifier's actual output.
+
 ## AP Precalculus (Claude's half) — original 2026-09-25 run report
 
 Independently re-derived baseline against Production matched the kickoff table exactly: 126 live items, 0
