@@ -22,6 +22,7 @@ type Spec = {
   sourceVersion?: Row | null;
   transferRows?: Row[];
   biologyRows?: Row[];
+  statisticsRows?: Row[];
   transferError?: boolean;
   practiceRows?: Row[];
   criteria?: Row[];
@@ -68,6 +69,8 @@ function makeService(spec: Spec) {
           ? (spec.transferRows ?? [])
           : fn === "select_biology_practice_items"
           ? (spec.biologyRows ?? [])
+          : fn === "select_ordinary_combined_practice_items"
+          ? (spec.statisticsRows ?? [])
           : [],
         error: spec.transferError ? { message: "boom" } : null,
       });
@@ -337,13 +340,13 @@ Deno.test("unauthorized caller is rejected", async () => {
 });
 
 /* -------------------------------------------------------------------------- */
-/* Ordinary queue path is unchanged by the refactor                            */
+/* Unrelated ordinary queue paths are unchanged by the refactor                */
 /* -------------------------------------------------------------------------- */
 
-Deno.test("ordinary path still serves the practice selection", async () => {
+Deno.test("unrelated ordinary path still serves the FRQ practice selection", async () => {
   const { status, json } = await call(
     {
-      session: ACTIVE_SESSION,
+      session: { ...ACTIVE_SESSION, practice_format: "full_exam_frq" },
       practiceRows: [{
         ...DELIVERABLE_TRANSFER,
         content_item_version_id: "ov1",
@@ -354,7 +357,7 @@ Deno.test("ordinary path still serves the practice selection", async () => {
   assertEquals(status, 200);
   const result = json.result as Record<string, unknown>;
   assertEquals((result.items as unknown[]).length, 1);
-  assertEquals(result.practice_format, "mcq");
+  assertEquals(result.practice_format, "full_exam_frq");
   assertEquals(result.reason, null);
 });
 
@@ -434,11 +437,16 @@ Deno.test("Biology targeted-drill routes to the combined selector with the sessi
   assert(!serialized.includes("rationale"));
 });
 
-Deno.test("non-Biology and non-targeted formats keep the existing selector arguments", async () => {
+Deno.test("non-combined subjects and non-targeted/non-MCQ formats keep the FRQ selector", async () => {
   for (
     const session of [
-      { ...ACTIVE_SESSION, practice_format: "targeted_drill" },
+      {
+        ...ACTIVE_SESSION,
+        practice_format: "targeted_drill",
+        exam_pack_version: { exam_pack: { exam_code: "ap_chemistry" } },
+      },
       { ...BIOLOGY_SESSION, practice_format: "full_exam_frq" },
+      { ...ACTIVE_SESSION, practice_format: "full_exam_frq" },
     ]
   ) {
     const rpcCalls: RpcCall[] = [];
@@ -457,6 +465,97 @@ Deno.test("non-Biology and non-targeted formats keep the existing selector argum
       },
     }]);
   }
+});
+
+const STATISTICS_MCQ = {
+  ...DELIVERABLE_TRANSFER,
+  content_item_version_id: "55555555-5555-4555-8555-555555555555",
+  content_item_id: "66666666-6666-4666-8666-666666666666",
+  content_key: "APSTAT-MCQ-001",
+  item_type: "mcq",
+};
+
+Deno.test("Statistics targeted-drill routes to the combined selector", async () => {
+  const rpcCalls: RpcCall[] = [];
+  const { status } = await call(
+    {
+      session: { ...ACTIVE_SESSION, practice_format: "targeted_drill" },
+      statisticsRows: [],
+      rpcCalls,
+    },
+    { learning_session_id: SESSION_ID, limit: 20 },
+  );
+
+  assertEquals(status, 200);
+  assertEquals(rpcCalls, [{
+    schema: "app",
+    name: "select_ordinary_combined_practice_items",
+    params: {
+      _exam_pack_version_id: "epv1",
+      _practice_format: "targeted_drill",
+      _selection_seed: SESSION_ID,
+      _limit: 20,
+    },
+  }]);
+});
+
+Deno.test("Statistics Home MCQ session routes to the combined selector and hides answers", async () => {
+  const rpcCalls: RpcCall[] = [];
+  const { status, json } = await call(
+    {
+      session: ACTIVE_SESSION,
+      statisticsRows: [STATISTICS_MCQ],
+      choices: [{
+        content_item_version_id: STATISTICS_MCQ.content_item_version_id,
+        choice_key: "A",
+        choice_text: "A safe Statistics choice",
+        is_correct: true,
+        rationale: "must not be forwarded",
+      }],
+      rpcCalls,
+    },
+    { learning_session_id: SESSION_ID, limit: 10 },
+  );
+
+  assertEquals(status, 200);
+  assertEquals(rpcCalls, [{
+    schema: "app",
+    name: "select_ordinary_combined_practice_items",
+    params: {
+      _exam_pack_version_id: "epv1",
+      _practice_format: "mcq",
+      _selection_seed: SESSION_ID,
+      _limit: 10,
+    },
+  }]);
+  const items = (json.result as Record<string, unknown>).items as Array<
+    Record<string, unknown>
+  >;
+  assertEquals(items.length, 1);
+  assertEquals(items[0].item_type, "mcq");
+  assertEquals(items[0].choices, [{
+    choice_key: "A",
+    choice_text: "A safe Statistics choice",
+  }]);
+  const serialized = JSON.stringify(json);
+  assert(!serialized.includes("is_correct"));
+  assert(!serialized.includes("rationale"));
+});
+
+Deno.test("a Statistics MCQ with no choices is omitted fail-closed", async () => {
+  const { status, json } = await call(
+    { session: ACTIVE_SESSION, statisticsRows: [STATISTICS_MCQ], choices: [] },
+    { learning_session_id: SESSION_ID },
+  );
+
+  assertEquals(status, 200);
+  const result = json.result as Record<string, unknown>;
+  assertEquals(result.items, []);
+  assertEquals(result.omitted, [{
+    content_key: "APSTAT-MCQ-001",
+    reason: "choices_missing",
+  }]);
+  assertEquals(result.reason, "all_items_omitted");
 });
 
 Deno.test("a Biology MCQ with no choices is omitted fail-closed", async () => {

@@ -5,11 +5,11 @@
 **Owner:** AI agent (implementation) — unassigned; candidate: Codex or Claude
 **Product Owner:** David Bloom
 **Tier:** Standard
-**Status:** Ready for Review
+**Status:** Implementation Complete in Development — Production Approval Pending
 **Priority:** High — Day-1 subjects gate the October 2 launch directly
 **Created Date:** 2026-09-26
 **Approved Date:** Pending
-**Branch:** `claude/task-0044-flat-path-gate-bio-stats`
+**Branch:** `codex/task-0044-statistics-mcq`
 **PR:** None yet — not pushed/opened
 
 ## Codex QA note (2026-09-26, pre-execution review)
@@ -173,6 +173,39 @@ consistent with this task's Standing Approval scope.
   read-only verification task).
 - One AP Biology item (`APBIO-HDG-2026-GRAPH-010`) is missing a canonical answer, but this is expected
   and correct — it's the hand-drawn item both serving RPCs structurally exclude, not a live gap.
+
+## Codex MCQ-path remediation (2026-09-26)
+
+**Implementation Summary:** Codex implemented the AP Statistics backend MCQ serving path after David
+explicitly requested that TASK-0044 be unblocked. The generic ordinary combined selector now accepts
+the actual authoritative Home session format (`mcq`) in addition to `targeted_drill`; MCQ mode returns
+MCQs only. The selector fails closed for unpublished or retired packs, hand-drawn items, null seeds,
+unsupported formats, and MCQs without a correct choice. `student-session-items` now routes AP
+Statistics sessions with either `mcq` or `targeted_drill` to that selector. The response layer still
+fetches only `choice_key` and `choice_text`, so `is_correct` and `rationale` never enter the learner
+payload.
+
+**Development deployment:** Applied only to Cramapple Development (`wmgjsdkphcyhngaffbqf`):
+migration `task0044_stats_combined_selector_mcq_mode` and `student-session-items` version 8. No
+Production migration or function deployment was made. Production remains blocked pending David's
+explicit deployment approval and fresh independent QA.
+
+**Test Results:**
+- Focused handler type-check: Pass.
+- Focused handler suite: 17 passed, 0 failed, including Statistics Home `mcq` routing,
+  Statistics `targeted_drill` routing, answer-field redaction, missing-choice fail-closed behavior,
+  and unaffected fallback paths.
+- Development live selector: 20 total = 20 MCQ + 0 FRQ; 0 unanswerable; 0 hand-drawn.
+- Development determinism: identical seed returned identical order; different seed rotated order.
+- Development permissions: `public`, `anon`, and `authenticated` cannot execute; `service_role` can.
+- Development post-change security/performance advisors: no finding names the new selector; existing
+  project-wide findings remain and are outside this remediation's scope.
+
+**Risks / Issues:**
+- Production still has the original blocked AP Statistics MCQ path until the reviewed migration and
+  function version are explicitly approved and deployed there.
+- A signed-in end-to-end student smoke test should be part of independent QA before Production
+  deployment; the implementation agent did not manufacture or alter a student account to obtain it.
 
 ## QA Review
 

@@ -102,9 +102,8 @@ function withHandDrawnFlag(
 ): SelectedRow[] {
   return rows.map(({ prompt_json, ...row }) => ({
     ...row,
-    hand_drawn:
-      typeof prompt_json === "object" && prompt_json !== null &&
-        (prompt_json as Record<string, unknown>).hand_drawn === true,
+    hand_drawn: typeof prompt_json === "object" && prompt_json !== null &&
+      (prompt_json as Record<string, unknown>).hand_drawn === true,
   }));
 }
 
@@ -319,8 +318,10 @@ export async function handleStudentSessionItems(
   const confirmTransferRequested = confirmTransfer != null;
   const sourceContentItemVersionId = confirmTransferRequested
     ? asUuid(
-      (confirmTransfer as Record<string, unknown>)?.source_content_item_version_id ??
-        (confirmTransfer as Record<string, unknown>)?.sourceContentItemVersionId,
+      (confirmTransfer as Record<string, unknown>)
+        ?.source_content_item_version_id ??
+        (confirmTransfer as Record<string, unknown>)
+          ?.sourceContentItemVersionId,
     )
     : null;
   if (confirmTransferRequested && !sourceContentItemVersionId) {
@@ -530,6 +531,21 @@ export async function handleStudentSessionItems(
             _selection_seed: learningSessionId,
             _limit: limit,
           }));
+      } else if (
+        sessionExamCode === "ap_statistics" &&
+        (
+          session.practice_format === "targeted_drill" ||
+          session.practice_format === "mcq"
+        )
+      ) {
+        ({ data: selected, error: selectError } = await service
+          .schema("app")
+          .rpc("select_ordinary_combined_practice_items", {
+            _exam_pack_version_id: session.exam_pack_version_id,
+            _practice_format: session.practice_format,
+            _selection_seed: learningSessionId,
+            _limit: limit,
+          }));
       } else {
         ({ data: selected, error: selectError } = await service.rpc(
           "select_practice_frqs",
@@ -558,12 +574,11 @@ export async function handleStudentSessionItems(
     // returned candidates that the media/answerability gates then withheld
     // (all_items_omitted, detail in `omitted`). A non-empty result never
     // needs a reason.
-    const emptyQueueReason: EmptyQueueReason | null =
-      delivered.items.length > 0
-        ? null
-        : rows.length === 0
-        ? "no_matching_content"
-        : "all_items_omitted";
+    const emptyQueueReason: EmptyQueueReason | null = delivered.items.length > 0
+      ? null
+      : rows.length === 0
+      ? "no_matching_content"
+      : "all_items_omitted";
 
     return respond({
       status: "ok",
