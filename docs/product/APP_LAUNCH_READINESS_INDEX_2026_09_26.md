@@ -53,7 +53,7 @@ before agents execute further, rather than embedding unverified assumptions in t
 | 2 | Payment flow | `LAUNCH_PLAN_PAYMENT_FLOW_2026_09_26.md` | **Deferred, not October 2-critical** (`DECISION-0071`) — post-launch follow-up |
 | 3 | Content pipeline (question templates) | `LAUNCH_PLAN_CONTENT_PIPELINE_2026_09_26.md` | In progress; post-launch for the two flat-path Day-1 subjects |
 | 4 | Student hub | `LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md` | App exists, on-brand, real production grading verified (not a demo). Open risk: the entitlement-gating bug. |
-| 5 | Subject onboarding gate | `LAUNCH_PLAN_SUBJECT_ONBOARDING_GATE_2026_09_26.md` | Day-1 = Biology + Statistics; both passing criterion 6 (Statistics' hazard resolved 2026-09-25); both open on labels/difficulty |
+| 5 | Subject onboarding gate | `LAUNCH_PLAN_SUBJECT_ONBOARDING_GATE_2026_09_26.md` | **TASK-0044 executed 2026-09-26 (Ready for Review, QA pending): AP Biology Pass (flat-path FRQ+MCQ both live-confirmed reachable); AP Statistics FRQ Pass, MCQ Blocked — content is ready but no backend RPC serves it on the flat path (Statistics has no combined selector; `select_biology_practice_items` is Biology-only by design). Live-app confirmation of whatever currently serves Statistics MCQs is TASK-0043's job — see `SUBJECT_SERVABILITY_CRITERIA.md`'s TASK-0044 note for full evidence.** |
 
 Each plan is independently assignable to a different AI agent. Read dependency notes inside each plan
 before assuming full parallelism — see **Dependency map** below.

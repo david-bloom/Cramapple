@@ -5,12 +5,12 @@
 **Owner:** AI agent (implementation) — unassigned; candidate: Codex or Claude
 **Product Owner:** David Bloom
 **Tier:** Standard
-**Status:** Not Started
+**Status:** Ready for Review
 **Priority:** High — Day-1 subjects gate the October 2 launch directly
 **Created Date:** 2026-09-26
 **Approved Date:** Pending
-**Branch:** Not yet created — assign per R1 (`<agent>/task-0044-<slug>`) when an agent starts execution
-**PR:** None yet
+**Branch:** `claude/task-0044-flat-path-gate-bio-stats`
+**PR:** None yet — not pushed/opened
 
 ## Codex QA note (2026-09-26, pre-execution review)
 
@@ -77,23 +77,35 @@ Mirrors `docs/product/LAUNCH_RUNBOOK_2026_10_02.md` §3–4 and
 `LAUNCH_PLAN_SUBJECT_ONBOARDING_GATE_2026_09_26.md`, narrowed to Biology and Statistics, flat-path
 criteria only.
 
-- [ ] AP Biology: criterion 6 confirmed live (exactly one `published`, non-retired
-      `exam_pack_versions` row).
-- [ ] AP Biology: criteria 1, 2, 4 verified live for the version actually being served on the
-      flat/practice path.
-- [ ] AP Biology: the flat/practice serving RPC called directly against Production; item count recorded
-      with a diagnosed reason for any zero-or-low result.
-- [ ] AP Statistics: criterion 6 confirmed live (pilot pack retired 2026-09-25 — re-verify singularity
-      still holds, don't just cite the prior finding).
-- [ ] AP Statistics: criteria 1, 2, 4 verified live for the version actually being served.
-- [ ] AP Statistics: the flat/practice serving RPC called directly against Production for both MCQ and
-      FRQ; item count recorded with a diagnosed reason for any zero-or-low result; confirm the exam-pack
-      version served has the content the UI actually requests.
-- [ ] Both subjects' rows in `SUBJECT_SERVABILITY_CRITERIA.md`'s "Applied so far" table updated with the
-      current, cited result for criteria 1/2/4/6 only — dated, linked to evidence.
-- [ ] Status reported back to `APP_LAUNCH_READINESS_INDEX_2026_09_26.md` and
+- [x] AP Biology: criterion 6 confirmed live — exactly one `published`, non-retired
+      `exam_pack_versions` row (`2d88ba5e-a6a3-43b8-bfae-9e5505a178a7`).
+- [x] AP Biology: criteria 1, 2, 4 verified live for the version actually being served on the
+      flat/practice path — 71/71 servable `targeted_drill` FRQ (the 72nd is the hand-drawn item
+      correctly excluded from serving) and 43/43 MCQ have a canonical answer/correct choice and a
+      rubric.
+- [x] AP Biology: the flat/practice serving RPC called directly against Production; `select_practice_frqs`
+      returned 50 rows (limit-capped; real pool is 71), `select_biology_practice_items` returned a real
+      12 FRQ / 8 MCQ mix at limit 20 — both types confirmed reachable, not modeled.
+- [x] AP Statistics: criterion 6 confirmed live — re-verified singularity still holds (pilot pack
+      `7c5a2975-...` remains `retired_at` set; `548f06be-...` is the sole published version).
+- [x] AP Statistics: criteria 1, 2, 4 verified live — 49/49 servable (non-hand-drawn) `targeted_drill`
+      FRQ have a canonical answer and rubric; 101/101 published MCQ have a correct `mcq_choices` row at
+      the content level.
+- [x] AP Statistics: the flat/practice serving RPC called directly against Production for FRQ —
+      `select_practice_frqs` returned 49 rows, matching the content-level count exactly. **MCQ: zero
+      through any backend RPC, diagnosed reason recorded — no combined FRQ+MCQ selector exists for
+      AP Statistics; `select_biology_practice_items` is Biology-only by design, and
+      `student-session-items`'s ordinary-mode branch always calls `select_practice_frqs` (FRQ-only)
+      regardless of requested item type for every other subject. This is a backend-RPC gap, not a
+      content gap — see `SUBJECT_SERVABILITY_CRITERIA.md`'s new TASK-0044 note for full detail.** The
+      exam-pack version served is confirmed correct (criterion 6, above); this doesn't change the MCQ
+      finding.
+- [x] Both subjects' rows in `SUBJECT_SERVABILITY_CRITERIA.md`'s "Applied so far" table updated with the
+      current, cited result for criteria 1/2/4/6 only — dated, linked to evidence (see the new
+      "TASK-0044, 2026-09-26" note below that table).
+- [x] Status reported back to `APP_LAUNCH_READINESS_INDEX_2026_09_26.md` and
       `LAUNCH_RUNBOOK_2026_10_02.md` as Pass / Blocked (name the blocking criterion) / Not started, for
-      each of the two subjects.
+      each of the two subjects — see those docs' updated entries.
 
 ## QA Plan
 
@@ -112,19 +124,55 @@ criteria only.
 **Approval Required:** Yes
 **Approval Type:** Standing Approval for read-only verification of the existing, already-approved
 six-criteria checklist, narrowed to two subjects and four criteria.
-**Decision:** Pending — Codex reviewed this task record 2026-09-26 (Fail, revision required); this
-revision folds in that feedback, including narrowing scope to a flat-path gate for the two Day-1
-subjects and moving the full program to TASK-0046. Still awaiting Codex's re-review before being
-finalized; execution has not started.
+**Decision:** Pending — Codex's revision-required findings folded in, then executed 2026-09-26 by
+Claude (read-only, Standing Approval scope, no Production writes). Awaiting fresh independent QA and
+Main Conductor closure; not yet Done.
 
 ## Implementation Notes
 
-**Implementation Summary:** _(To be filled by the implementation agent.)_
+**Implementation Summary:** Executed 2026-09-26 by Claude, read-only, against Production
+(`pcntajvbdfqhbeewmdry`). Confirmed criterion 6 live for both subjects (exactly one non-retired
+published exam-pack version each). Confirmed criteria 1/2/4 for AP Biology's flat-path pool (FRQ +
+MCQ) fully pass, including a live call to both `select_practice_frqs` and
+`select_biology_practice_items` proving both item types are actually reachable, not just eligible on
+paper. Confirmed criteria 1/2/4 for AP Statistics' FRQ pool pass, with a live `select_practice_frqs`
+call matching the computed count exactly. Found and diagnosed a real gap: AP Statistics MCQ content is
+fully ready (101/101 with a correct choice) but **no backend RPC can serve it on the flat/practice
+path** — traced to `select_biology_practice_items` being intentionally Biology-only
+(`ep.exam_code = 'ap_biology'` in its own WHERE clause, by design per its migration's comment) and
+`student-session-items`'s ordinary-mode branch having no other combined selector to fall back to for
+any other subject. Updated `SUBJECT_SERVABILITY_CRITERIA.md`'s "Applied so far" table and added a full
+evidence note; updated `APP_LAUNCH_READINESS_INDEX_2026_09_26.md` and `LAUNCH_RUNBOOK_2026_10_02.md`
+with the subject-level Pass/Blocked status. No Production writes — read-only verification only,
+consistent with this task's Standing Approval scope.
 
-**Test Results:** _(To be filled by the implementation agent — live RPC call results for both
-subjects.)_
+**Test Results:**
+- AP Biology criterion 6: 1 published, non-retired `exam_pack_versions` row — Pass.
+- AP Biology criteria 1/2/4: 71/71 servable FRQ (72 published, 1 correctly excluded as hand-drawn) with
+  canonical + rubric; 43/43 MCQ with correct choice — Pass.
+- AP Biology live RPC calls: `select_practice_frqs(..., 'targeted_drill', 50)` → 50 rows;
+  `select_biology_practice_items(...)` → 12 FRQ / 8 MCQ at limit 20 — Pass, both types reachable.
+- AP Statistics criterion 6: 1 published, non-retired version (pilot pack re-confirmed retired) — Pass.
+- AP Statistics criteria 1/2/4 (FRQ): 49/49 servable FRQ with canonical + rubric — Pass.
+- AP Statistics live RPC call: `select_practice_frqs(...)` → 49 rows, matches exactly — Pass.
+- AP Statistics criteria 1/2/4 (MCQ, content level): 101/101 with correct choice — content Pass.
+- AP Statistics MCQ serving path: **Blocked** — no backend RPC serves MCQ on the flat path for this
+  subject; zero is the structurally correct result of calling `select_practice_frqs` for an MCQ
+  request, not a flaky failure.
 
-**Risks / Issues:** _(To be filled by the implementation agent.)_
+**Risks / Issues:**
+- **AP Statistics flat-path MCQ practice has no backend RPC serving it.** Whatever currently shows
+  Statistics MCQs to students in production (if anything does) is a Lovable-side mechanism outside this
+  repo's edit/verification surface — most likely the "client-side fallback... to query published items
+  directly" noted in the 2026-09-24 activity log entry. **This is a launch-relevant open risk for
+  October 2**: TASK-0043's runbook item 4 ("receive both the intended MCQ/FRQ experience") must verify
+  this directly against the live app rather than assuming it works because the FRQ path and content are
+  both confirmed ready. If the live app cannot actually serve Statistics MCQs to a real student, that is
+  a stop condition per the runbook, not a criterion this task can independently fix (fixing it would
+  mean building a new backend selector, a Production code change requiring its own approval, not a
+  read-only verification task).
+- One AP Biology item (`APBIO-HDG-2026-GRAPH-010`) is missing a canonical answer, but this is expected
+  and correct — it's the hand-drawn item both serving RPCs structurally exclude, not a live gap.
 
 ## QA Review
 
