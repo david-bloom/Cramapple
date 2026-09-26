@@ -233,6 +233,21 @@ made by David in the same session that created this task record.
 - **None of the 5 workstreams have been deployed to Production.** Everything above is committed in the
   Lovable project's own history (or, for E, this repo) but not published — deploy is explicitly David's
   call for each, not bundled into this pass.
+- **Follow-on, same session: `ConfirmTransferBeat` generalized beyond shape-only, per David's explicit
+  "let's build it" direction.** Backend (this repo, commit `9fc0f75b`): `student-session-items` now
+  resolves a `RenderCell` for any served item — fine-grained via `content_item_cells` (Statistics,
+  unchanged) or coarse via `content_taxonomy_labels` (topic-only, any subject) when no cell tag exists.
+  **A Fable-authored rationalization plan** (`docs/product/CONTENT_TAXONOMY_RATIONALIZATION_PLAN_2026_09_26.md`)
+  investigated this before it shipped and found a real governance conflict: the coarse fallback as first
+  built had no status filter, which would have made 112 unvalidated AP Biology topic labels
+  student-visible on deploy, contrary to `DECISION-0067`. Fixed before committing —
+  `.eq("label_status", "validated")` added, yielding zero rows today (honest, not a bug), plus a
+  regression test that inspects the actual query filter rather than trusting the test mock. 401/401 tests
+  pass. Frontend (Lovable, commit `9be19bbc`, verified via `get_diff`): `subjectHasCourseModeCells` is now
+  dual-mode (static `true` for Statistics, per-item for everyone else); `resolveSessionSkill` routes
+  Statistics through its unchanged hand-authored map and everyone else through the server-resolved cell.
+  Zero touches to Statistics' existing code path, zero overlap with Workstreams B/C. Not deployed on
+  either side.
 - **Cross-cutting process risk, confirmed this session:** Lovable serializes all work on one project
   through a single shared conversation thread. Running multiple agents against the same `project_id`
   concurrently causes messages to queue/timeout on the caller's side even though the underlying request
