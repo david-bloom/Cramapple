@@ -21,18 +21,42 @@ difficulty classifier). Claude takes AP Precalculus in the same session as this 
 
 No duplicate-current-serving-label-row anomaly (the Chemistry 12-item case) was found in either subject.
 
-## AP Calculus AB (Codex's half) — task handed off, not yet started
+## AP Calculus AB (Codex's half) — DONE, cross-QA'd, follow-up fixes applied
 
-`docs/content/CODEX_TASK_AP_CALCULUS_AB_TIER3_LABELS_DIFFICULTY_2026_09_25.md` (v1, not yet preflighted by
-Codex — expect a discrepancy pass like Chemistry's v1→v4 the first time Codex actually runs it). Paste-ready
-prompt is in that doc. Key difference from Pair 1: **there is no existing difficulty-assignment CSV for
-Calculus AB** — the task requires building and validating a task-verb (or subject-specific regex) classifier
-from scratch, following the documented method in
-`docs/research/apbio_difficulty_calibration_2026_09_22/README.md`, before any load can happen.
+`docs/content/CODEX_TASK_AP_CALCULUS_AB_TIER3_LABELS_DIFFICULTY_2026_09_25.md` (v1). Codex ran it without a
+clarification round this time (unlike Chemistry's v1→v4) and opened PR #197: 93 label decisions (64
+`provisional_model` + 29 `held`) targeting the 97-candidate/42-published-after-filtering set, and 122
+difficulty rows (12 Easy / 99 Medium / 11 Hard) via a Calculus-specific regex classifier
+(`assign_difficulty_calcab.py`), since — as anticipated — the generic verb list didn't fit Calculus phrasing.
 
-- Label target: ~97 items before published-filtering (34 no-current-row + 46 `legacy_unvalidated` + 17
-  `stale`), expected to shrink once filtered to published-only, the way Chemistry's 55 became 42.
-- Difficulty target: 122 items (item-and-current-version published), 0 existing rows, no CSV yet.
+Claude's independent cross-QA (`docs/content/CLAUDE_CROSS_QA_AP_CALCULUS_AB_2026_09_25.md`, PR #199)
+re-verified every count, contamination check, and migration-file byte-fidelity claim from scratch against
+Production and found them all correct. It also spot-checked unit-assignment reasoning and difficulty-band
+placement against real item text and found the work generally strong, with three fixable issues:
+
+1. `apcalcab-frq-005` held for `empty_required_units` — a Gemini model-output-extraction bug (its own prose
+   evidence agreed with GPT-5.5's `required_units=[2,3]`/`primary_unit=3`, but its structured array came back
+   empty).
+2. `apcalcab-mcq-030` held for `model_unit_disagreement` — a narrow secondary-unit-tagging disagreement
+   ([3] vs [2,3]), not a substantive one.
+3. `apcalcab-frq-033` — a real rubric defect (`part-a-criterion-3` scored an operation part (a)'s stem never
+   asked for) that also caused a difficulty misclassification (Easy, when the item is actually a non-routine
+   existence-and-uniqueness proof — Hard).
+
+All three were fixed 2026-09-26 (`docs/content/CLAUDE_CROSS_QA_FOLLOWUP_FIXES_APCALCAB_2026_09_26.md`):
+both holds resolved with a new current label row superseding the held one; `apcalcab-frq-033`'s stem reworded
+to match its (correct) rubric criterion, and its difficulty corrected to Hard (corroborated independently by
+the item's own authored `prompt_json.difficulty` field, which already said Hard). `apcalcab-frq-033`'s
+serving-label hold was deliberately left in place — resolving it requires re-running the two-model label
+pipeline against the now-corrected stem, not a hand-typed guess. PRs #197, #199, and the follow-up fix PR are
+merged.
+
+- Label target: 42 published items after filtering (36 clean + 6 Group A analog — see the run report for
+  exact composition). Post-fix current-row state for the full live AP Calculus AB pack (128 items): 72
+  `provisional_model`, 43 `held`, 9 `validated` (untouched), 3 `legacy_unvalidated` (untouched, non-published
+  exclusions) — the two resolved holds moved from `held` to `provisional_model`.
+- Difficulty target: 122 items (item-and-current-version published), 12 Easy / 99 Medium / 11 Hard, 1
+  corrected to Hard post-fix.
 
 ## AP Precalculus (Claude's half) — in progress
 
