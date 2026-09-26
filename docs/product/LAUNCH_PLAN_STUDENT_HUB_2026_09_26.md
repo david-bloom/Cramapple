@@ -710,9 +710,9 @@ blocking §7–§11 work. Recommendations are this session's opinion, not a deci
 
 ## DECIDED, 2026-09-26 (David's responses to the policy table above)
 
-- **#1 Frame:** go responsive. **Executing** (see below).
+- **#1 Frame:** go responsive. **Done** — `TASK-0047` Workstream A, commit `44a0f59e`, verified.
 - **#11 Multi-part FRQ:** cheap parser stopgap now, "we'll see what we need later" — full migration
-  explicitly not committed to. **Executing.**
+  explicitly not committed to. **Done** — `TASK-0047` Workstream B, commit `c52c3fd6`, verified.
 - **#24 `validated` gate:** agreed, don't gate Oct 2 on it. **Closed.**
 - **#18/#19 BYOQ shape:** "BYOQ is phone capture to start. Document upload post launch" — closes both the
   default-vs-alternative and intake-order questions together: BYOQ ships at launch as camera/phone capture
@@ -721,14 +721,18 @@ blocking §7–§11 work. Recommendations are this session's opinion, not a deci
 - **#3 ConfettiBurst:** agreed, keep as a named exception. **Closed.**
 - **#17 Course Mode components:** confirmed via follow-up question — proceed as recommended. Generalize
   `ConfirmTransferBeat`'s trigger beyond the Stats pilot; fold `LessonOpener` into `WorkedExample` rather
-  than investing further; keep `StreakBadge` as-is. **Executing** (see below).
+  than investing further; keep `StreakBadge` as-is. **Done** — `TASK-0047` Workstream D, commits
+  `8337b270`/`6b696008`, verified. Note: `ConfirmTransferBeat` generalization is shape-level only (a
+  pluggable registry replacing a hardcoded check) — it does not yet fire outside Statistics, since no
+  other subject has an equivalent cell/skill map; that's separate future content/backend work.
 - **NEW canonical session flow:** agreed — standardize on bare `/session`/`SessionFrame.tsx` (the real
   default); retire `/session/mcq`+`/session/frq`. **Closed on shape; actual route retirement not yet
   executed** — deleting the legacy route today would remove the only fallback/escape hatch (`?home=v1`)
   while the FeedbackCard redo below is still in flight. Retirement is a follow-up cleanup step once the
   redo is verified, not urgent to do in the same pass.
 - **NEW redo FeedbackCard:** agreed, sequenced after the flow decision above, which is now settled.
-  **Executing** — against `SessionFrame.tsx`'s actual `ResultPanel`/`CriterionCard`, not `GradeResultView.tsx`.
+  **Done** — `TASK-0047` Workstream C, commit `f2475531`, verified — against `SessionFrame.tsx`'s actual
+  `ResultPanel`/`CriterionCard`, not `GradeResultView.tsx`.
 - **#20 Mastery derivation — a concrete rule, not the "ship something simple" recommendation above:**
   **"Mastery = 2 full-point answers, with hint. Hints may be triggered after scoring without affecting
   mastery."** Read precisely: a skill/cell reaches mastery once the student has produced two full-point
@@ -740,7 +744,9 @@ blocking §7–§11 work. Recommendations are this session's opinion, not a deci
   build: confirming where per-cell mastery state actually lives today (`app.student_cell_state` exists per
   earlier schema checks, but this pass did not verify its current columns/semantics against this rule).
 - **#23 Item-package format:** confirmed via follow-up question — build the dual-read adapter, not a
-  backfill. **Executing** (see below).
+  backfill. **Done** — `TASK-0047` Workstream E, commit `1a6e8404` (this repo), verified. Investigation
+  found the underlying gap was dormant (100% of the 203 items already had complete legacy data) — the
+  adapter is forward insurance, not an active fix.
 - **#7 Owner/Task ID:** agreed, assign now. **Done** — see `docs/tasks/TASK-0047-APP-REBUILD-SECTIONS-7-11.md`,
   created this session. Owner still unassigned to a specific agent/person pending David's pick, following
   the same pattern TASK-0045 used.

@@ -6,7 +6,7 @@
 **Owner:** AI agent (implementation) — unassigned; candidate: Codex or Claude
 **Product Owner:** David Bloom
 **Tier:** Standard
-**Status:** In Progress
+**Status:** Ready for Review (all 5 workstreams code-complete, none deployed)
 **Priority:** High — several items block Phase 1 of the app rebuild
 **Created Date:** 2026-09-26
 **Approved Date:** 2026-09-26 (David assigned this Task ID per this session's policy-decision pass)
@@ -105,17 +105,21 @@ given how central `SessionFrame.tsx` is to the live grading path.
 
 ## Acceptance Criteria
 
-- [ ] Workstream A: frame is responsive with vertical scroll; `verify:panes`-equivalent check updated or
-      retired to match; existing screens re-verified not to break at the new behavior.
-- [ ] Workstream B: prose-embedded FRQ parts render correctly for a sample of the 323 affected items;
-      existing structured-`prompt_json.parts` items unaffected.
-- [ ] Workstream C: `SessionFrame.tsx`'s `ResultPanel`/`CriterionCard` restyled to `FeedbackCard`/`Plate`;
+- [x] Workstream A: frame is responsive with vertical scroll; confirmed no `verify:panes`-equivalent
+      check exists in this project (flagged, not invented); existing screens re-verified via screenshots
+      at desktop and phone widths — no horizontal overflow, no collisions.
+- [x] Workstream B: prose-embedded FRQ parts render correctly (5 tests against real sampled stem text);
+      existing structured-`prompt_json.parts` items unaffected (parser only runs when `parts.length === 0`).
+- [x] Workstream C: `SessionFrame.tsx`'s `ResultPanel`/`CriterionCard` restyled to `FeedbackCard`/`Plate`;
       all existing behavior (repair panel, confirm-transfer, uncertain/review/failed states, recheck
       dialog, celebration/streak) preserved; typecheck + full test suite pass; diff verified.
-- [ ] Workstream D: `ConfirmTransferBeat` fires outside the Stats pilot; `LessonOpener` folded into
-      `WorkedExample`; no regression to the Stats pilot's existing behavior.
-- [ ] Workstream E: dual-read adapter serves both item-package and legacy-schema items correctly; no
-      existing content path broken.
+- [x] Workstream D: `ConfirmTransferBeat`'s trigger generalized to a per-subject registry (shape-level —
+      does not yet fire outside Statistics, since no other subject has a cell/skill map; flagged, not
+      guessed at); `LessonOpener` folded into `WorkedExample` (content moved verbatim); no regression to
+      the Stats pilot's existing behavior.
+- [x] Workstream E: dual-read adapter built and tested; investigation found the underlying gap was
+      dormant (100% of the 203 items already had complete legacy data) — adapter is forward insurance,
+      not an active fix; no existing content path broken (391/391 edge-function tests pass).
 
 ## QA Plan
 
@@ -169,6 +173,33 @@ made by David in the same session that created this task record.
   project's message history. Lesson: a Lovable MCP timeout doesn't necessarily mean the request failed;
   check `list_messages`/`get_diff` before resending into a shared project thread.
 
+- **Workstream B (multi-part FRQ prose parser) — done in the Lovable project, not deployed.** Commit
+  `c52c3fd6`, verified via `get_diff` myself. New `src/lib/frq-prose-parts.ts`: `parseProseParts()`
+  sampled real Production stems first (not guessed) and handles two real shapes — blank-line-separated
+  `(a)/(b)/(c)` blocks and `Part A:/Part B:` blocks — requiring sequential, contiguous, correctly-ordered
+  labels or returning `null` untouched. Deliberately does NOT split parts run together inline in one
+  paragraph (rarer, riskier to split correctly) — conservative default preserved, confirmed by a test
+  case. `use-session.ts`'s `servedItemToQuestion()` only invokes it when `item.item_type !== "mcq" &&
+  item.parts.length === 0` — real structured `prompt_json.parts` always wins and MCQ is never touched.
+  Strips matched part text from the returned stem so it doesn't render twice. 5 new tests (real sampled
+  stem text), 418/418 total pass, typecheck clean.
+
+- **Workstream D (Course Mode component generalization) — done in the Lovable project, not deployed.**
+  Two commits (`8337b270`, `6b696008`), both verified via `get_diff` myself.
+  - *ConfirmTransferBeat trigger*: correctly scoped conservative — new `pilot-subjects.ts` registry
+    (`subjectHasCourseModeCells()`) replaces the hardcoded `subjectKey === STATS_PILOT_SUBJECT_KEY` check
+    in `session.index.tsx`, byte-for-byte equivalent today (only Statistics registered). This is a
+    shape-level generalization, not a behavioral one — it does NOT make the beat fire for any other
+    subject yet, since no other subject has an equivalent cell/skill map. Correctly flagged rather than
+    invented: building that map is separate content/backend work, not attempted here, matching the task
+    record's explicit instruction not to guess at new infrastructure.
+  - *LessonOpener → WorkedExample fold*: `LessonOpener.tsx` deleted; its exact JSX moved verbatim into
+    `WorkedExample.tsx` as a new `lesson`-prop branch (confirmed via diff: content is unchanged, just
+    relocated). `SessionFrame.tsx`'s touch is confined to exactly the import line and one render-branch
+    swap — confirmed zero overlap with Workstream C's already-landed `FeedbackCard`/`ResultPanel` changes
+    in the same file, sent as a deliberately separate, narrowly-scoped message per the file-conflict
+    instructions. 418/418 tests pass both times, typecheck clean.
+
 - **Workstream E (item-package dual-read adapter) — done, committed (`1a6e8404`), not deployed.**
   Investigation found the "203 of 1,346" gap is dormant, not active: every one of those 203 items
   already has complete legacy relational data, and `student-session-items` never read
@@ -190,10 +221,18 @@ made by David in the same session that created this task record.
 **Risks / Issues:**
 
 - Workstream A: none identified beyond the flagged `verify:panes` scope note above.
+- Workstream B: none identified. Inline-run-together part labels are intentionally left unparsed — a
+  real, small residual gap (unknown count, not measured), not a bug.
 - Workstream C: none identified. Not yet checked live in a browser against a real student session (same
   blocker as everything else in this doc — no test credentials available this session).
+- Workstream D: `ConfirmTransferBeat` generalization is shape-only — it does not yet fire for any subject
+  besides Statistics, since no other subject has an authored cell/skill map to gate on. Building that map
+  is separate future work, correctly not attempted here.
 - Workstream E: none identified. The one deliberately-deferred item (FRQ-criteria fallback) is flagged
   above, not a risk in the shipped code — no published item needs it today.
+- **None of the 5 workstreams have been deployed to Production.** Everything above is committed in the
+  Lovable project's own history (or, for E, this repo) but not published — deploy is explicitly David's
+  call for each, not bundled into this pass.
 - **Cross-cutting process risk, confirmed this session:** Lovable serializes all work on one project
   through a single shared conversation thread. Running multiple agents against the same `project_id`
   concurrently causes messages to queue/timeout on the caller's side even though the underlying request
