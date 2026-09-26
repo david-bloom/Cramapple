@@ -86,10 +86,10 @@ Mirrors `docs/product/LAUNCH_RUNBOOK_2026_10_02.md` §§1 and 5 and
       the price row, but it appears beside "$39.99 / one subject / no subscription" while the header
       still says "Get it · $39.99." The page therefore does not state the free-launch promise
       consistently or unambiguously.
-- [ ] **Failed 2026-09-26:** primary CTAs still imply purchase: "Get it · $39.99," a "$39.99 / one
-      subject / no subscription" price card, "Get AP Statistics," "Ask a parent to buy it," and
-      "Bundles." These link to `/signup` or `/ask-parent`. Treat the $39.99 CTA as unresolved until
-      David's fix is confirmed live.
+- [ ] **Failed 2026-09-26:** primary CTAs still imply purchase: the header links to `/signup` as "Get it
+      · $39.99," and the price card still says "ONE PAYMENT. THE WHOLE YEAR," "$39.99 / one subject /
+      no subscription," and "Get AP Statistics." The former "Ask a parent to buy it" and "Bundles"
+      links were removed in the latest deployment, but the core paid CTA remains.
 - [x] AP Biology and AP Statistics are shown "Live now"; the other eight subjects are shown as coming
       soon.
 - [ ] **Needs review:** delivered social metadata says "Maximum AP exam score in minimal time" without
@@ -118,6 +118,11 @@ Mirrors `docs/product/LAUNCH_RUNBOOK_2026_10_02.md` §§1 and 5 and
       `index-D-MdByNs.css`. The new deployment contains "Free for November" but still contains "Get it
       · $39.99," the $39.99 price, "Get AP Statistics," "Ask a parent to buy it," and "Bundles."
       Delivered HTML and JavaScript assets were checked directly.
+- [x] Latest recheck: HTTP 200 at 2026-09-26 15:53:55 UTC (11:53:55 America/New_York), deployment
+      `psr2.a50725d9-53c2-4fce-b306-ecdfc3446f79.1791042834.tghII7hEsXfI48QgRVr36yy98_QmiaCvpleua3BBRC8`,
+      delivered assets `index-B04bdM1t.js`, `index-CmkzbPkJ.js`, `index-CLnVlhs5.css`,
+      `index-D-MdByNs.css`, and `styles-DcabbJId.css`. "Ask a parent to buy it" and "Bundles" are gone,
+      but "Get it · $39.99," the $39.99 price card, and "Get AP Statistics" remain actionable.
 - [ ] David has signed off on the final page (Hard Gate: public claims + brand identity finalization,
       per `STANDING_APPROVAL_LANES.md`).
 
@@ -160,8 +165,9 @@ but the paid CTAs remained; no Production change was made by Codex.
 
 **Test Results:**
 - PASS — the live URL returned HTTP 200 and the exact deployment/assets are recorded above.
-- PARTIAL / BLOCKER — "Free for November" is live, but contradicts the surrounding paid messaging.
-- FAIL / BLOCKER — paid CTAs and the $39.99 price card remain live.
+- PARTIAL / BLOCKER — "Free for November" is live and two secondary purchase links were removed.
+- FAIL / BLOCKER — the primary "Get it · $39.99" CTA and $39.99 purchase card remain live and
+  actionable.
 - PASS — AP Biology and AP Statistics are marked "Live now"; the other eight subjects are presented as
   coming soon.
 - PARTIAL — BYOQ is present with anonymous/no-retention copy, but its interaction, canonical-answer

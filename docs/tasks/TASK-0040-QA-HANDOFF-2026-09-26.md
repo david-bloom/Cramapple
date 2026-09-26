@@ -27,13 +27,13 @@ Approval State:
 
 Live / Tool State:
 - Environments checked: Production public homepage over HTTPS
-- Services checked: `https://ap-prep-canvas.lovable.app/`, initial HTTP 200 at 2026-09-26 15:38:29 UTC;
-  follow-up deployment HTTP 200 at 15:47:35 UTC
+- Services checked: `https://ap-prep-canvas.lovable.app/`, latest HTTP 200 at 2026-09-26 15:53:55 UTC
 - Latest deployment checked:
-  `psr2.ca3ff895-7537-417a-8ab9-114518dc7d57.1791042456.BD1MZZqiUn51mL_W21qGywpl1jSpfenNA8_Q8_GahN8`
-- Latest delivered asset identifiers: `index-D8VnhNPE.js`, `index-DHyVGulG.js`,
-  `index-B-RszSsD.css`, `index-D-MdByNs.css`
-- Banner result: `Free for November` is live, but the paid CTA and pricing copy remain
+  `psr2.a50725d9-53c2-4fce-b306-ecdfc3446f79.1791042834.tghII7hEsXfI48QgRVr36yy98_QmiaCvpleua3BBRC8`
+- Latest delivered asset identifiers: `index-B04bdM1t.js`, `index-CmkzbPkJ.js`,
+  `index-CLnVlhs5.css`, `index-D-MdByNs.css`, `styles-DcabbJId.css`
+- Result: `Free for November` is live; two secondary purchase links were removed, but the primary paid
+  CTA and purchase card remain
 - Not checked / unavailable: rendered screenshots, interactive CTA/BYOQ behavior, actual photo retention,
   canonical-answer boundary, and rendered contrast. The supported browser could not start because the
   workspace path contains a symlink; cached Lovable state was not substituted.
@@ -49,7 +49,7 @@ Files / Systems Affected:
 Open Risks / Blockers:
 - P1: `Free for November` is contradicted by the live header CTA `Get it · $39.99`
 - P1: the same price row still says `$39.99 / one subject / no subscription`
-- P1: live price section still says `Get AP Statistics`, `Ask a parent to buy it`, and `Bundles`
+- P1: live price section still says `ONE PAYMENT. THE WHOLE YEAR` and `Get AP Statistics`
 - P1: the free-launch promise is not consistent or unambiguous across the page
 - P1: BYOQ retention/canonical-answer behavior remains functionally unverified
 - P2: social metadata says `Maximum AP exam score in minimal time` without a cited evidence source
