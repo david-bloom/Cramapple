@@ -21,9 +21,14 @@
 -- content (203 MCQ / 0 FRQ pack): returns 20 MCQ at limit 20, as expected.
 -- The same query body was also dry-run (inline, no function created) against
 -- Production's real AP Statistics pack (49 FRQ / 101 MCQ): quota logic
--- produced 7 FRQ + 13 MCQ at limit 20, a sensible proportional mix. NOT YET
--- applied to Production -- pending David's explicit approval (Hard Gate,
--- live grading-path schema change).
+-- produced 7 FRQ + 13 MCQ at limit 20, a sensible proportional mix.
+--
+-- Applied to Production 2026-09-26 with David's explicit approval, alongside
+-- the corresponding student-session-items deploy (routes AP Statistics
+-- targeted-drill sessions here). Verified live post-deploy: this function
+-- returns 7 FRQ + 13 MCQ against the same real Statistics pack, matching the
+-- dry run exactly; select_biology_practice_items re-verified unaffected
+-- (12 FRQ + 8 MCQ, unchanged).
 
 create or replace function app.select_ordinary_combined_practice_items(
   _exam_pack_version_id uuid,
