@@ -69,41 +69,49 @@ David identified the launch frontend as the Lovable app published at
 target — the `web/` Vite rebuild in this repo, or a Lovable app). It is neither of the two candidates
 this session had previously framed as the choice — it's a third option, a Lovable project.
 
-### Verification gap — flag before treating this as fully settled
+### CORRECTED, 2026-09-26 (same session): verification gap closed, wrong project originally guessed
 
-This session could not confirm which Lovable project in the workspace (`David's Lovable`, workspace
-`MqwiRKUJ3S0xlxyUafRr`) is actually published at that custom domain: the Lovable MCP tools don't expose
-a custom-domain-to-project mapping, and direct fetch of the URL was blocked by this session's network
-egress policy. Based on content match against the two most likely candidates:
+This session's first guess ("New Cramapple App," `56cae479-...`) was **wrong**. David provided the live
+HTML from `ap-prep-canvas.lovable.app` directly. It embeds `<meta property="og:image" content="https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/.../id-preview-be1cdb15--d334fed9-5a97-4e76-906e-7c0ad7082212.lovable.app-....png">`
+— Lovable auto-generates a page's social-preview meta from its own project screenshot, so this embedded
+project ID is strong evidence of which project actually serves that page.
 
-- **"New Cramapple App"** (project id `56cae479-f7c9-4988-b536-56538c38ee4e`) — description: "a
-  web-based study platform that enables high school students to practice for Advanced Placement exams
-  with live server grading... integrates directly with a Supabase backend... server-side scoring." This
-  is the strongest content match for a student-hub/practice app. **Tentatively identified as the
-  answer**, pending confirmation.
-- **"New Cramapple Marketing"** (project id `61dd6602-6991-4561-b418-e988bb7c8a0b`) — ruled out: this
-  is clearly the marketing site (already matches the new orange/Bungee brand from
-  `APP_REBUILD_MIGRATION_PLAN.md` / `docs/new_design/`), not the student app D-2 was asking about.
+**The launch frontend is the "Remix of Cramapple App" Lovable project**
+(id `d334fed9-5a97-4e76-906e-7c0ad7082212`, created 2026-07-09, tech stack TanStack Start — confirmed
+independently by the live HTML's own `$_TSR`/TanStack Router hydration markers, matching this project's
+stored description exactly).
 
-**CORRECTED, 2026-09-26 (same session): the branding-mismatch finding below is unverified, possibly
-stale.** David flagged that the Lovable screenshot this session read (via `get_project`) is a cached
-image, not necessarily the current live page — Lovable screenshots are known to lag behind actual
-content. David is providing the live HTML directly. **Do not treat "New Cramapple App still uses the
-old blue/red wordmark" as confirmed** until verified against that HTML. Original (now-flagged) claim,
-kept for the record: "New Cramapple App"'s `get_project` screenshot as read 2026-09-26 showed a
-blue/red "cramapple" wordmark and older layout, not the orange masthead + Bungee wordmark
-`docs/new_design/` specifies — this may simply be an outdated cached screenshot.
+**The branding-mismatch finding was half right, for the wrong reason.** This session's `get_project`
+screenshot read for this exact project is genuinely stale (still shows the old blue/red "cramapple"
+wordmark) — but the *live* HTML David sent shows the page is fully current: it imports
+`docs/new_design/tokens/*.css` verbatim (the page's inline `<style>` block literally comments "CramApple
+design tokens — generated from github.com/david-bloom/Cramapple docs/new_design/tokens/*.css"), uses
+the Bungee/Passion One/Source Sans 3/STIX Two Math font stack, and renders the orange masthead
+correctly. **The live site already matches the new design system in full — there is no branding gap.**
+Lovable's cached screenshot is simply out of date; don't trust `get_project` screenshots as current-state
+evidence for this project going forward, only the live HTML/URL.
+
+**New finding from the live HTML, not previously known: the page still shows a $39.99 purchase CTA and
+a full Stripe-style pricing section ("Get it · $39.99", "Get AP Statistics" buy button, tutor-cost
+comparison).** This is stale against `DECISION-0070` (Friday launches free, no Stripe/payment gating).
+Someone needs to swap this for a free-access/sign-up CTA before Friday — tracked in the marketing
+home page plan now.
+
+**Also confirmed from the live HTML, consistent with existing decisions:** AP Statistics and AP Biology
+show "Live now"; the other 8 subjects show "Coming soon" (matches `DECISION-0068`'s Day-1 subject list).
+A full anonymous, ungated BYOQ flow is present ("Upload a photo" / "Paste the text", "One free question.
+Your photo isn't kept.") — matches `DECISION-0069`.
 
 ### Consequences
 
-- `LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md` can proceed against this frontend instead of being blocked on
-  D-2, but should note the identification is tentative until David confirms the exact Lovable project.
-- If confirmed as "New Cramapple App," the visual/brand-system gap above becomes part of that plan's
-  scope, not a surprise found later.
-
-### Not yet resolved
-
-Exact confirmation of which Lovable project ID is published at `ap-prep-canvas.lovable.app`.
+- `LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md` and `LAUNCH_PLAN_MARKETING_HOME_PAGE_2026_09_26.md` should
+  both point at "Remix of Cramapple App" (`d334fed9-5a97-4e76-906e-7c0ad7082212`), not the previously
+  guessed project.
+- No visual/brand rebuild is needed — remove that item from the student hub plan's scope.
+- **New launch-blocking task for Friday:** replace the $39.99/Stripe purchase CTA and pricing section
+  with a free-access sign-up flow, per `DECISION-0070`.
+- Lesson for future verification: prefer live HTML/fetch over Lovable `get_project` screenshots, which
+  can be meaningfully stale.
 
 ## DECISION-0071 — AP Statistics Launches on the Flat Practice Path, Unit-Gating Deferred
 

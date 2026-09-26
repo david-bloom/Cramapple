@@ -43,6 +43,36 @@ rebuild sequencing this plan is gated on (see the first correction above) — fl
 rather than silently assuming one overrides the other; see decision register items D-1/D-2 in the
 index.
 
+## CORRECTION #3, 2026-09-26 (`DECISION-0072`): the home page already exists — this is a fix pass, not a build
+
+**This plan's premise was wrong. It assumed no home page existed yet and gated the work on Phase 4 of
+the rebuild sequence. A live, working home page already exists**, at
+`https://ap-prep-canvas.lovable.app/` (the "Remix of Cramapple App" Lovable project,
+`d334fed9-5a97-4e76-906e-7c0ad7082212`), confirmed via its live HTML. It already:
+
+- Fully matches the new design system (`docs/new_design/` tokens, Bungee/Passion One/Source Sans 3,
+  orange masthead) — no visual rebuild needed.
+- Shows the correct Day-1 subjects as "Live now" (AP Biology, AP Statistics) and the rest as "Coming
+  soon," matching `DECISION-0068`.
+- Ships a full anonymous, ungated BYOQ flow ("Upload a photo" / "Paste the text," no account needed),
+  matching `DECISION-0069` — this criterion below is likely already met, verify rather than build.
+- Includes an interactive embedded practice demo (the "Open Hand · FRQ" rubric-scoring plate), copy
+  matching the Vision doc's positioning, and a full page structure (hero, method, upload flow, hand-
+  written-answer pitch, deep-dive notes pitch, pricing, subjects grid, footer).
+
+**What actually still needs fixing for Friday, given `DECISION-0070` (free launch, no Stripe):**
+
+- The page currently shows a **$39.99 purchase CTA** ("Get it · $39.99" in the masthead, a full
+  pricing/buy section with "Get AP Statistics" and a tutor-cost comparison) and links to `/signup` as a
+  paid flow. This needs to become a free-access/trial CTA instead — do not simply hide the pricing
+  section without replacing the CTA's destination and copy.
+- Everything else in this plan's acceptance criteria below becomes **verify-against-live-HTML**, not
+  **build-from-spec** — re-read this page's actual markup before treating any criterion as unmet.
+
+This plan is **no longer gated on Phase 4 of the rebuild sequence** in the way the first correction
+above assumed, since the deliverable already exists — flag this resolution to David rather than
+continuing to treat D-1's sequencing question as blocking this specific plan.
+
 ## Product Goal
 
 The public marketing home page (pre-login, unauthenticated) says what Cramapple is, who it's for, and
@@ -91,32 +121,35 @@ next week.
   claim evidence rules" are still `Proposed` — any claim on the page ("improves your score," "X% of
   students...") must be checked against these rules once they exist, not written ahead of them. In
   practice this means: ship zero unsupported performance claims until GTM-001 resolves.
-- Where the deliverable actually lives: per the rebuild plan, marketing routes are served through the
-  Lovable-managed frontend (`New Cramapple Marketing` project), not this repository. An agent executing
-  this plan needs Lovable access to actually ship the page — this repo can hold the copy/structure spec,
-  not the deployed page itself.
+- Where the deliverable actually lives: **confirmed** — `https://ap-prep-canvas.lovable.app/`, the
+  "Remix of Cramapple App" Lovable project (`d334fed9-5a97-4e76-906e-7c0ad7082212`). An agent executing
+  this plan needs Lovable access to that project to actually ship changes.
 
 ## Acceptance Criteria
 
-- [ ] Rebuild-sequencing gate confirmed: either Phase 4 of `APP_REBUILD_MIGRATION_PLAN.md` has been
-      reached, or David has explicitly overridden the sequence for this plan (Friday's timeline per
-      `DECISION-0070` likely means an override — confirm rather than assume). Do not proceed past a
-      spec draft until one of these is true.
-- [x] Logo/wordmark — **not a blocker** (`DECISION-0069`): produce the type-only wordmark per
-      `docs/new_design/`'s token system, light-mode only. No illustrated mark needed.
-- [ ] Page structure and copy draft exists, covering at minimum: hero/positioning statement, problem
-      statement (matching Vision §2), what Cramapple is / is not (Vision §4), and a value-prop section
-      for the secondary buyer (parent). **Per `DECISION-0070`: Friday launches free, no payment
-      gating** — the CTA is a free sign-up/start-practicing action, not a purchase CTA. Do not build a
-      pricing/checkout section for Friday; that comes back once payment flow (deferred, see
-      `LAUNCH_PLAN_PAYMENT_FLOW_2026_09_26.md`) actually ships.
-- [ ] BYOQ is implemented on the home page as a full, ungated, anonymous-session experience per
-      `STUDENT_PROVIDED_QUESTION_INTAKE_DESIGN.md` — confirm the privacy/rights/academic-integrity
-      review flagged above has actually happened before shipping, not just that the feature works.
+- [x] Rebuild-sequencing gate — **moot, page already exists** (`DECISION-0072`). No longer blocking.
+- [x] Logo/wordmark — **not a blocker** (`DECISION-0069`), and already correct on the live page: a
+      type-only "CRAMAPPLE" wordmark per `docs/new_design/`'s token system, light-mode only.
+- [ ] **Replace the $39.99/Stripe purchase CTA with a free-access CTA**, per `DECISION-0070` (Friday
+      launches free, no payment gating). Specifically: the masthead's "Get it · $39.99" link, the
+      "Get AP Statistics" buy button, and the tutor-cost-comparison pricing section all currently point
+      at a paid flow and need to change to a free sign-up/start-practicing action. Do not just hide the
+      pricing section — the CTA's destination and copy both need to change. This is the main remaining
+      launch-blocking work in this plan.
+- [ ] Page structure and copy — **already exists and is largely correct**; verify against the live HTML
+      rather than drafting from scratch. Hero/positioning statement, problem framing, and value props
+      are present and match `CRAMAPPLE_VISION.md`'s tone. Spot-check for drift, don't rebuild.
+- [x] BYOQ is implemented on the home page as a full, ungated, anonymous-session experience per
+      `STUDENT_PROVIDED_QUESTION_INTAKE_DESIGN.md` — **confirmed present in the live HTML** ("Upload a
+      photo" / "Paste the text," "One free question. Your photo isn't kept."). Still verify the
+      privacy/rights/academic-integrity review flagged above has actually happened, not just that the
+      feature works.
 - [ ] Every claim on the page is either (a) a stated product fact verifiable in this repo, or (b)
       explicitly flagged pending GTM-001's evidence rules. No "X% improvement" or similar performance
-      claim ships without a cited evidence source.
-- [ ] Visual execution passes WCAG AA contrast per `docs/new_design/`'s tokens, light mode only.
+      claim ships without a cited evidence source. Spot-check the live copy against this rule.
+- [ ] Visual execution passes WCAG AA contrast per `docs/new_design/`'s tokens, light mode only —
+      already appears correct on the live page (orange-on-light, high-contrast ink), do a real contrast
+      check rather than assuming from a visual read.
 - [ ] Copy reviewed against `docs/new_design/`'s voice guidance — no clinical/robotic, no hype/
       exclamation-heavy, no warm-fuzzy-teacher tone.
 - [ ] CTA path from home page leads to free access/sign-up for Friday's launch — verify it does not

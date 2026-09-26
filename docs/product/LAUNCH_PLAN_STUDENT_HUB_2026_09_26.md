@@ -12,18 +12,25 @@ its own exit criterion.** The two documents partially overlap and are not reconc
 Do not audit against the older spec alone — you will report "not implemented" against a design that
 may itself be superseded.
 
-**RESOLVED, 2026-09-26 (`DECISION-0072`): the launch frontend is the Lovable app published at
-`https://ap-prep-canvas.lovable.app/`** — not either of the two candidates this plan originally framed
-(the live `exam-buddy-wireframe` app or the `web/` Vite rebuild). It is a third, separate Lovable
-project. This session tentatively identified it as the **"New Cramapple App"** Lovable project
-(id `56cae479-f7c9-4988-b536-56538c38ee4e`) by content match, but could not confirm the exact
-custom-domain mapping (network egress to that URL was blocked, and Lovable's API doesn't expose a
-domain-to-project lookup). **Confirm the exact project before auditing** — see `DECISION-0072` for the
-verification gap. **The branding-mismatch note this plan originally carried here (old blue/red
-wordmark vs. the new orange/Bungee system) is unverified and possibly stale** — David flagged that the
-Lovable `get_project` screenshot this session read is a cached image, not necessarily the current live
-page, and is providing the live HTML directly. Do not treat the brand-mismatch as confirmed; check the
-live HTML once available before scoping a visual rebuild into this plan.
+**RESOLVED and CONFIRMED, 2026-09-26 (`DECISION-0072`): the launch frontend is the "Remix of Cramapple
+App" Lovable project** (id `d334fed9-5a97-4e76-906e-7c0ad7082212`), published at
+`https://ap-prep-canvas.lovable.app/`. Confirmed via the live HTML's embedded `og:image`, which points
+to this exact project's screenshot, and independently via the HTML's TanStack Start/Router markers
+matching this project's stored tech-stack description. This session's first guess ("New Cramapple App")
+was wrong — corrected.
+
+**No visual/brand rebuild is needed.** The live HTML imports `docs/new_design/`'s token CSS verbatim
+(the page's own inline stylesheet comments cite that exact GitHub path) and renders the full
+orange/Bungee/Passion One/Source Sans 3 system correctly. The earlier "old blue/red wordmark" finding
+was real but pointed at a stale Lovable `get_project` screenshot cache, not the live page — the live
+page was already correct. Lesson: don't trust `get_project` screenshots as current-state evidence for
+this project; use the live URL/HTML instead.
+
+**New, launch-blocking finding from the live HTML:** the page still shows a $39.99 purchase CTA and a
+full Stripe-style pricing/buy section. This is stale against `DECISION-0070` (Friday launches free, no
+Stripe). Swapping this for a free-access CTA is tracked in
+`LAUNCH_PLAN_MARKETING_HOME_PAGE_2026_09_26.md`, not this plan, but note it here since it's the same
+live page this plan audits.
 
 ## Product Goal
 
@@ -63,10 +70,8 @@ to sections that are already decided; flag implementation gaps instead.
 
 ## Acceptance Criteria
 
-- [ ] **Confirm the exact Lovable project published at `ap-prep-canvas.lovable.app`** before auditing
-      anything else — this session's identification ("New Cramapple App," `56cae479-...`) is tentative,
-      not verified. Use Lovable's own dashboard/domain settings or ask David directly; do not proceed
-      on the tentative ID alone for anything beyond a first-pass audit.
+- [x] Frontend confirmed: "Remix of Cramapple App" Lovable project (`d334fed9-5a97-4e76-906e-7c0ad7082212`),
+      published at `ap-prep-canvas.lovable.app` — verified via live HTML, see `DECISION-0072`.
 - [ ] Rebuild plan §12's phase structure and its exit criterion are used as the primary execution
       frame; `STUDENT_PORTAL_INTERACTION_DESIGN.md` sections below are cross-checked against it, with
       any conflict between the two named explicitly rather than silently resolved.
