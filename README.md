@@ -52,4 +52,4 @@ The root-level `Blueprint_*` files predate the current canonical vision. They ar
 
 ## Operating Kit
 
-This repository uses the [AI Project Operating Kit](https://github.com/david-bloom/ai-project-operating-kit). See [PROJECT_SETUP.md](PROJECT_SETUP.md) for the installed configuration.
+This repository uses the [AI Project Operating Kit](https://github.com/david-bloom/ai-project-operating-kit). See [PROJECT_SETUP.md](PROJECT_SETUP.md) for the installed configuration and the Cramapple-specific Claude/Codex workflow.

@@ -60,7 +60,7 @@ the rebuild sequence. A live, working home page already exists**, at
   matching the Vision doc's positioning, and a full page structure (hero, method, upload flow, hand-
   written-answer pitch, deep-dive notes pitch, pricing, subjects grid, footer).
 
-**What actually still needs fixing for Friday, given `DECISION-0071` (free launch, no Stripe):**
+**What actually still needs fixing for Friday, October 2, given `DECISION-0071` (free launch, no Stripe):**
 
 - The page currently shows a **$39.99 purchase CTA** ("Get it · $39.99" in the masthead, a full
   pricing/buy section with "Get AP Statistics" and a tutor-cost comparison) and links to `/signup` as a
@@ -153,7 +153,7 @@ next week.
       check rather than assuming from a visual read.
 - [ ] Copy reviewed against `docs/new_design/`'s voice guidance — no clinical/robotic, no hype/
       exclamation-heavy, no warm-fuzzy-teacher tone.
-- [ ] CTA path from home page leads to free access/sign-up for Friday's launch — verify it does not
+- [ ] CTA path from home page leads to free access/sign-up for the October 2 launch — verify it does not
       link to or imply any checkout/purchase flow, since payment flow is deferred (`DECISION-0071`).
 - [ ] David has signed off on the final page (Hard Gate: public performance claims and brand identity
       finalization both require his approval per `STANDING_APPROVAL_LANES.md`).
