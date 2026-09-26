@@ -141,6 +141,34 @@ made by David in the same session that created this task record.
 
 **Implementation Summary:**
 
+- **Workstream A (responsive plate frame) — done in the Lovable project, not deployed.** Commit
+  `44a0f59e`, verified via `get_diff` myself. `Plate.jsx`: fixed `width/height` + `overflow:hidden`
+  replaced with `width:100%; max-width:var(--plate-width); min-width:320px; min-height:100vh`.
+  `spacing.css`: `--plate-height` removed; added `--plate-min-width` and an 899px breakpoint collapsing
+  the pane grid to one column (the old grid's fixed 352px/324px side columns would otherwise break at
+  phone widths). `app.css`: rewrote the `#root` comment (no longer claims the plate "never scrolls"),
+  added the single-column breakpoint plus a 520px breakpoint. One unplanned but correct follow-on:
+  `Breadcrumb.jsx` needed a fix too — the agent's own phone-width screenshot check found its content
+  colliding at narrow widths, so it added wrap-friendly class hooks. Confirmed via diff: the three
+  excluded files (`GradeResultView.tsx`, `SessionFrame.tsx`, `FeedbackCard.jsx`) were untouched.
+  Typecheck clean, 413/413 tests pass. Screenshots confirmed clean layout at both 1536px and 375px
+  widths, zero horizontal overflow, no element collision.
+  **Note:** this project has no `verify:panes` script — that script only exists in a separate local
+  `web/` reference implementation, out of scope for this Lovable-project change. Flagged, not touched.
+
+- **Workstream C (redo FeedbackCard on the real default path) — done in the Lovable project, not
+  deployed.** Commit `f2475531`, verified via `get_diff` myself. In `SessionFrame.tsx`: removed the
+  standalone leading "Plain verdict" div; moved its exact three-way Correct/Partially correct/Incorrect
+  computation into `ResultPanel`; `ResultPanel`'s header replaced with `FeedbackCard` (verdict, earned/
+  total gated on the existing `showTotal` condition, `marks` = the unchanged `CriterionCard` mapping).
+  `CriterionCard` itself, the "Recommended next step" repair panel, celebration/confetti, Course Mode
+  repair/confirm-transfer branches, uncertain/review/failed panels, and `RecheckDialog` wiring are all
+  confirmed untouched. Typecheck clean, 413/413 tests pass.
+  **Process note:** this `send_message` call timed out on my end waiting for a response, but the
+  underlying request had actually succeeded — confirmed by finding the completed response in the
+  project's message history. Lesson: a Lovable MCP timeout doesn't necessarily mean the request failed;
+  check `list_messages`/`get_diff` before resending into a shared project thread.
+
 - **Workstream E (item-package dual-read adapter) — done, committed (`1a6e8404`), not deployed.**
   Investigation found the "203 of 1,346" gap is dormant, not active: every one of those 203 items
   already has complete legacy relational data, and `student-session-items` never read
@@ -161,8 +189,16 @@ made by David in the same session that created this task record.
 
 **Risks / Issues:**
 
+- Workstream A: none identified beyond the flagged `verify:panes` scope note above.
+- Workstream C: none identified. Not yet checked live in a browser against a real student session (same
+  blocker as everything else in this doc — no test credentials available this session).
 - Workstream E: none identified. The one deliberately-deferred item (FRQ-criteria fallback) is flagged
   above, not a risk in the shipped code — no published item needs it today.
+- **Cross-cutting process risk, confirmed this session:** Lovable serializes all work on one project
+  through a single shared conversation thread. Running multiple agents against the same `project_id`
+  concurrently causes messages to queue/timeout on the caller's side even though the underlying request
+  still completes — don't assume a timeout means failure; check `list_messages`/`get_diff` first. Full
+  file-level conflict avoidance (as attempted here) does NOT prevent this queuing.
 
 ## QA Review
 
