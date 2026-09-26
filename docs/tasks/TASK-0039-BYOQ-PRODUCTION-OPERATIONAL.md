@@ -371,6 +371,13 @@ nothing enforcing they match.
   `worksheet_split`, for later phases), timestamps. RLS: owner-scoped
   select/insert/update only, no anon/public grant, no service-role-only
   answer columns to protect because none exist.
+- **Apply the same free-text answer-leak heuristic and masking-by-default
+  that `docs/product/BYOQ_WORKSHEET_PARSING_DESIGN.md` §6 designs for
+  worksheet-derived text to typed/pasted `stem`/`choices` text here too.** A
+  student can paste "Answer: B" into a typed question exactly as a worksheet
+  can print one, and no `is_correct`-style column protects against that
+  channel — this was flagged during that document's review as a gap in this
+  Phase 1 section specifically, not just a worksheet concern.
 - Per Decision needed #1's default (Option A): a parallel `app.byoq_responses`
   (or `byoq_attempts`/`byoq_responses` as a pair, if retake lineage needs its
   own version history) — deliberately lighter than the full
@@ -470,29 +477,25 @@ everything else BYOQ).
 
 ### Phase 3 — Worksheet upload, split into multiple questions
 
-- **This phase needs its own design pass before any schema or code is
-  written — it is undesigned today, not just unbuilt.** Every existing BYOQ
-  doc (`STUDENT_PROVIDED_QUESTION_INTAKE_DESIGN.md`, UX-004) assumes exactly
-  one question per submission. Open questions a design doc must answer before
-  Phase 3 starts:
-  - **Decision needed #2 (Product Owner):** what parsing approach and vendor?
-    (candidates surfaced this session: a VLM-based split-and-transcribe pass,
-    similar in kind to the already-tested-for-grading chart/handwriting
-    models but applied to layout segmentation instead of judgment; or a
-    document-structure tool like LlamaParse, whose only prior evaluation here
-    was for bounding boxes on grading images, not question-splitting.) No
-    vendor has been tested against a real multi-question worksheet.
-  - How many candidate questions is a worksheet allowed to yield, and does
-    the student confirm/edit each one individually before it becomes a real
-    `byoq_items` row (recommended — matches the "extraction confirmation"
-    stage `STUDENT_PROVIDED_QUESTION_INTAKE_DESIGN.md` already specifies for
-    the single-question case) or can mis-splits silently become bad items?
-  - Copyright/rights exposure is larger here than for a single typed question
-    — a worksheet is more likely to be a teacher's or publisher's original
-    material photographed wholesale. This needs its own privacy/rights read,
-    not an assumption that Phase 1/2's typed-question posture (student's own
-    words) still applies.
-- Out of scope for this task until that design doc exists and is approved.
+- **This phase's required design pass is now written:**
+  `docs/product/BYOQ_WORKSHEET_PARSING_DESIGN.md` (2026-09-26, Status:
+  Proposed for review — not yet approved). It defines the split → candidate
+  review → per-candidate confirmation flow (every candidate still goes
+  through the existing single-question Confirm Capture/Confirm Match stages
+  individually — a worksheet changes how a candidate is *proposed*, never how
+  it's *accepted*), a staging data model (`byoq_intake_batches`/
+  `byoq_intake_candidates`, holding parser output that is never itself a
+  practice-ready `byoq_items` row), and — the risk that document specifically
+  treats as more severe than anything in the single-question design — that a
+  worksheet's embedded answer key can leak into a candidate's `stem` as free
+  text, a channel the "no `is_correct` column" structural protection doesn't
+  cover. Phase 3 does not start until that document is approved and its
+  Decision needed #2 (parsing vendor) and remaining Open Decisions are
+  resolved.
+- Copyright/rights exposure is larger here than for a single typed question
+  — a worksheet is more likely to be a teacher's or publisher's original
+  material photographed wholesale; the design doc's §8 covers this.
+- Out of scope for this task until that design doc is approved.
 
 ### New gaps surfaced by review (need a Product Owner call before Phase 1 ships)
 
@@ -659,7 +662,9 @@ Primary records this task builds on:
 
 - `docs/product/STUDENT_PROVIDED_QUESTION_INTAKE_DESIGN.md`,
   `docs/product/BYOQ_ANSWER_VISIBILITY_AND_DATA_MODEL_DISCUSSION.md`,
-  `docs/tasks/UX-004-STUDENT-PROVIDED-QUESTION-INTAKE.md`, `DECISION-0057`.
+  `docs/product/BYOQ_WORKSHEET_PARSING_DESIGN.md` (Phase 3's required design
+  pass), `docs/tasks/UX-004-STUDENT-PROVIDED-QUESTION-INTAKE.md`,
+  `DECISION-0057`.
 - `web/src/content/byoq.js`, `web/src/screens/BringQuestionScreen.jsx`,
   `web/src/screens/PracticeByoqFrqScreen.jsx`,
   `web/src/screens/PracticeByoqMcqScreen.jsx` — the frontend-only reference
