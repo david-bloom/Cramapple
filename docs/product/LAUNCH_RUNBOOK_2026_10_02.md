@@ -54,6 +54,15 @@ for detailed evidence and post-launch commercial work.
 
 ### 4. AP Statistics flat-path smoke
 
+**Backend fix applied 2026-09-26 (branch `claude/task-0047-ap-statistics-mcq-serving`,
+David-approved, deployed to Production):** TASK-0044 found that AP Statistics MCQ practice was
+content-ready but unservable at the RPC layer (no combined FRQ+MCQ selector existed for any
+subject but Biology). A new `app.select_ordinary_combined_practice_items` RPC plus a
+`student-session-items` routing change closes that gap; verified live post-deploy returning a
+real 7 FRQ + 13 MCQ mix, with Biology's own path re-confirmed unaffected. **This smoke test can
+now proceed** — it should no longer hit the previously-diagnosed MCQ gap, but still verify the
+live student UI experience directly rather than assume the backend fix alone is sufficient.
+
 - [ ] Start a real AP Statistics practice session through the live student UI.
 - [ ] Receive both the intended MCQ/FRQ experience required by the launch surface.
 - [ ] Submit and receive a real server-side grade and criterion-level feedback.

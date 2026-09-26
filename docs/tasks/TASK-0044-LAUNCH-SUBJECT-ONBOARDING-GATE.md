@@ -12,6 +12,21 @@
 **Branch:** Not yet created — assign per R1 (`<agent>/task-0044-<slug>`) when an agent starts execution
 **PR:** None yet
 
+## Execution + follow-up fix status (2026-09-26)
+
+This task was executed by Claude on branch `claude/task-0044-flat-path-gate-bio-stats`
+(commit `24966a79`) — see that branch for the full Implementation Notes, Test Results, and
+Risks/Issues. Summary: AP Biology Pass; AP Statistics FRQ Pass, MCQ found Blocked at the
+backend-RPC layer (content-ready, no selector could serve it on the flat path).
+
+**That MCQ gap is now fixed and deployed to Production**, with David's explicit approval, on
+branch `claude/task-0047-ap-statistics-mcq-serving`: a new `app.select_ordinary_combined_practice_items`
+RPC plus a `student-session-items` routing change. Verified live post-deploy —
+Production now returns a real 7 FRQ + 13 MCQ mix for AP Statistics targeted-drill sessions;
+AP Biology's existing serving path re-verified unaffected (12 FRQ + 8 MCQ, unchanged). See that
+branch for full detail. Fresh independent QA and Main Conductor closure are still pending for
+both this task and TASK-0047.
+
 ## Codex QA note (2026-09-26, pre-execution review)
 
 Codex reviewed this task record before any work started and returned **Fail — revision required**.
