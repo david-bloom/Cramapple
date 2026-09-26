@@ -27,24 +27,34 @@ criterion-6 hazard (below) a Day-1 launch blocker, not a lower-priority special 
 6. Exam pack version (exactly one `published`, non-retired version per subject — **check this first**,
    it's a routing hazard even when 1-5 pass).
 
-## Current status per subject (as of `SUBJECT_SERVABILITY_CRITERIA.md`, 2026-09-25)
+## CORRECTION, 2026-09-26 (same day, after a second AI review)
+
+The table below has been updated with more current numbers from
+`docs/content/CODEX_QA_REPORT_READINESS_AUDIT_WORK_ORDERS_AND_SELECTORS_2026_09_25.md`, which already
+verified criterion 6 ("Pack singular?") as **Yes** for all 8 non-Statistics subjects and gives current
+validated-label counts — re-deriving this from scratch is redundant with work already done. Statistics
+remains the one confirmed criterion-6 hazard. Note this table is jointly maintained with
+`LAUNCH_PLAN_CONTENT_PIPELINE_2026_09_26.md` (that plan owns criteria 3/5 updates; this plan owns
+1/2/4/6) — check the other plan's latest edit before overwriting a row.
+
+## Current status per subject (updated 2026-09-26 from the 2026-09-25 Codex QA audit)
 
 | Subject | Criterion 4 (canonical) | Criteria 3 & 5 (labels/difficulty) | Criterion 6 (exam pack) | Overall |
 | --- | --- | --- | --- | --- |
-| AP Biology | Closed | Not met (0 validated labels; serves via the label-free FRQ path instead) | Met | Passing today, on the FRQ path only — unit-gated path serves 0 |
-| AP Statistics | Closed (69/69) | Open | **Live hazard: two published exam-pack versions simultaneously** | Blocked on a David decision (retire pilot pack / migrate-then-retire / verified stopgap) |
-| AP Calculus AB | Closed (62/62) | Open | Unconfirmed in this plan — verify live before assuming Met | Open |
-| AP Chemistry | Closed, strict count 51/51 | Open (78/123 non-validated) | Unconfirmed — verify live | Open |
-| AP Precalculus | Closed (32 items) | Open (30/120 validated) | Unconfirmed — verify live | Open |
-| AP Calculus BC | Closed (29 items, 2 defects found/fixed) | Open (4/129 validated) | Unconfirmed — verify live | Open |
-| AP Physics 1 | Closed (54/54, 1 defect found/fixed) | Open (115/124 non-validated) | Unconfirmed — verify live | Open |
-| AP Physics 2 | Closed, strict count 28/28 | Open (69/79 non-validated) | Unconfirmed — verify live | Open |
-| AP Physics C: Mechanics | Closed, strict count 36/36 | Criterion 3 covered by a pending relabel order; 5 open | Unconfirmed — verify live | Open |
-| AP Physics C: E&M | Closed, strict count 49/49 | Open (97/103 non-validated) | Unconfirmed — verify live | Open |
+| AP Biology | Closed | Serves via the label-free FRQ path; unit-gated path uses labels promoted under FF-3 (8→141 servable product-wide, 2026-09-24) — re-verify Biology's own current count live, don't assume 0 | Met | Passing today, on the FRQ path confirmed; unit-gated path status needs a fresh live check |
+| AP Statistics | Closed (69/69) | Open (64 validated per the 2026-09-25 audit) | **Confirmed hazard: two published exam-pack versions simultaneously — Day-1 subject, urgent** | Blocked on a David decision (retire pilot pack / migrate-then-retire / verified stopgap) |
+| AP Calculus AB | Closed (62/62) | Open (9 validated per the 2026-09-25 audit) | **Confirmed Met** (Pack singular: Yes) | Open on labels/difficulty only |
+| AP Chemistry | Closed, strict count 51/51 | Open (45 validated per the 2026-09-25 audit) | **Confirmed Met** | Open on labels/difficulty only |
+| AP Precalculus | Closed (32 items) | Open (30 validated per the 2026-09-25 audit) | **Confirmed Met** | Open on labels/difficulty only |
+| AP Calculus BC | Closed (29 items, 2 defects found/fixed) | Open (4 validated per the 2026-09-25 audit) | **Confirmed Met** | Open on labels/difficulty only |
+| AP Physics 1 | Closed (54/54, 1 defect found/fixed) | Open (9 validated per the 2026-09-25 audit) | **Confirmed Met** | Open on labels/difficulty only |
+| AP Physics 2 | Closed, strict count 28/28 | Open (10 validated per the 2026-09-25 audit) | **Confirmed Met** | Open on labels/difficulty only |
+| AP Physics C: Mechanics | Closed, strict count 36/36 | Open (4 validated per the 2026-09-25 audit) | **Confirmed Met** | Open on labels/difficulty only |
+| AP Physics C: E&M | Closed, strict count 49/49 | Open (6 validated per the 2026-09-25 audit) | **Confirmed Met** | Open on labels/difficulty only |
 
-Treat this table as a starting point, not current truth — re-verify against live systems before
-reporting any subject's status, per the method note below and the doc's own repeated finding that
-counts go stale fast.
+Re-verify before reporting any subject Done — the 2026-09-25 audit is the most current source found,
+but content and label state move fast in this repo; don't treat even this table as current truth
+without a fresh check on the subject you're actually closing out.
 
 ## Acceptance Criteria (per subject; repeat this block for each subject you're assigned)
 
@@ -56,7 +66,9 @@ counts go stale fast.
       pipeline has run for this subject yet — if not, this subject is blocked on that plan, not on you.
 - [ ] The actual serving RPC(s) for this subject are called directly against Production and the
       returned item count is recorded, with a diagnosed reason for any zero-or-low result (which
-      criterion failed), not just a raw count.
+      criterion failed), not just a raw count. Note: `select_practice_frqs` hard-caps at 50 rows per
+      the 2026-09-25 audit — don't misread a 50-item result as a shortfall when the true count is
+      higher.
 - [ ] Any model-call-based verification (grader-gate reachability, label agreement) is run 3+ times
       before being trusted.
 - [ ] This subject's entry in `SUBJECT_SERVABILITY_CRITERIA.md`'s "Applied so far" table is updated

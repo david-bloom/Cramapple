@@ -6,28 +6,62 @@
 full before touching this plan. This document is a launch-readiness wrapper around it, not a
 replacement.
 
+## CORRECTION, 2026-09-26 (same day, after a second AI review)
+
+**This plan's original "Current State" was six weeks stale and wrong on the central point: it said
+"nothing has been exercised end-to-end yet." A real customer paid via live Stripe 2026-08-13 to
+2026-08-15** — `docs/product/UNCERTAINTY_LOG.md` records this as a correction to an earlier "zero
+purchases" claim: "One real user purchased... Stripe shows 2 completed checkout sessions and 3
+expired." That means the production webhook signing secret was, at minimum, working at that point
+(the webhook fail-closes without it, per TASK-0023's own design) — treat that criterion as **verify**,
+not **obtain approval to set**, unless verification shows otherwise.
+
+Since 2026-08-11, `supabase/functions/stripe-webhook/index.ts` has also grown well past what this plan
+described: it now handles `charge.refunded` (refund processing exists, is not "explicitly deferred"),
+parent-gift checkout attribution, and `checkout.session.async_payment_succeeded`/`_failed`. A live,
+separate bug was found and fixed 2026-08-24 (`ACTIVITY_LOG.md`) in the parent-gift attribution path.
+
+**A real, separate launch-blocking bug exists and belongs on this plan's radar, found 2026-09-20
+(`ACTIVITY_LOG.md`):** nothing currently gates `attempt-response` on entitlement — an unentitled
+student can submit an answer and hits a generic "Couldn't score that" error loop instead of a clear
+paywall message. This is a student-facing defect on the payment/entitlement boundary and was not
+in any plan until now.
+
+The acceptance criteria below are corrected to verify-and-QA the flow that already took real money,
+rather than treat it as unbuilt.
+
 ## Product Goal
 
 A student can pay for one or more AP subjects (single, 2-bundle, 3-bundle, or unlimited) and be
 correctly entitled, in both the dev and production environments, with no path that grants access
 without a verified payment and no path that takes payment without granting access.
 
-## Current State (as of TASK-0023, 2026-08-11 entries)
+## Current State (corrected 2026-09-26; verify against live systems before trusting either version)
 
-Mostly built. Live and sandbox Stripe catalogs exist (10 single-subject Products, 3 bundle Products).
-`create-checkout-session` and `stripe-webhook` Edge Functions are code-complete and deployed to both
-Supabase projects. Entitlement schema is extended (not new), with idempotency via a webhook-events
-ledger. **Nothing has been exercised end-to-end yet in either environment** — the blockers below are
-why.
+Substantially built and already exercised once for real. Live and sandbox Stripe catalogs exist (10
+single-subject Products, 3 bundle Products — bundle prices need updating per `DECISION-0068`, see
+below). `create-checkout-session` and `stripe-webhook` Edge Functions are deployed to both Supabase
+projects and now include refund handling, parent-gift checkout, and async-payment event handling —
+more than TASK-0023's 2026-08-11 entries describe. At least one real transaction has cleared end-to-end
+in production. Treat every claim in TASK-0023 itself as needing a fresh live check before relying on
+it — it has not been updated to reflect the 2026-08-13+ activity.
 
 ## Acceptance Criteria
 
-- [ ] `STRIPE_WEBHOOK_SECRET` is set in `Cramapple-Development` (sandbox webhook endpoint registered,
-      test-mode secret obtained and set as an Edge Function secret).
-- [ ] `STRIPE_WEBHOOK_SECRET` is set in `Cramapple-Production` (live webhook endpoint registered,
-      live-mode secret obtained and set). **Hard Gate** — this touches the live Stripe account and
-      real money; requires David's explicit go per `TASK-0023`'s own out-of-scope note.
+- [ ] Verify (do not assume) whether `STRIPE_WEBHOOK_SECRET` is set in `Cramapple-Production` — the
+      2026-08-13 real transaction suggests it already is. If verification shows it is not set, treat
+      setting it as a **Hard Gate** requiring David's explicit go (live account, real money). If it's
+      already set and working, mark this Done with the evidence (a real webhook delivery log) and move
+      on — do not re-seek an approval that's already moot.
+- [ ] Same verification for `Cramapple-Development` (sandbox webhook secret).
 - [ ] `APP_BASE_URL` confirmed set in both environments.
+- [ ] **Fix or escalate the entitlement-gating gap**: `attempt-response` does not currently check
+      entitlement before scoring, producing a generic error for unentitled students instead of a clear
+      paywall message (found 2026-09-20, `ACTIVITY_LOG.md`). Confirm current status live — this may
+      already be fixed — and if not, this is launch-blocking for the payment surface regardless of
+      Stripe's own state.
+- [ ] Confirm current status of refund handling and parent-gift checkout (both now appear built per
+      the correction above) — do not re-defer or re-build either; verify and QA what exists.
 - [ ] `Cramapple-Development`'s `app.subjects` table seeded with the remaining 6 subjects (currently
       only 4 of 10 present) — OR explicitly confirmed that dev testing only needs to cover the 4
       seeded subjects for this launch, if that's David's call. Do not seed a subject into a dev
@@ -64,9 +98,9 @@ why.
 - [ ] Lovable-side frontend calls to `create-checkout-session` and the `/checkout/success` /
       `/checkout/cancel` routes exist and work (outside this repo's edit surface — verify via Lovable
       or via the live app, not by inspecting this repo).
-- [ ] Refund handling and referral-reward reconciliation — explicitly deferred in TASK-0023 until the
-      above is exercised. Not required for initial launch unless David says otherwise; flag as a known
-      gap in the go-live index rather than silently marking Done.
+- [ ] Referral-reward reconciliation specifically (distinct from refund handling, which now appears
+      built) — verify current status live before assuming TASK-0023's 2026-08-11 "not yet built" note
+      still holds.
 
 ## Out of Scope
 

@@ -13,6 +13,18 @@ meaning the app is launch-ready — only when all five are Done.
 This is deliberately the single doc TASK-0023 itself predicted would need to exist ("a consolidated
 pre-launch checklist... cross-referencing BIZ-001, GTM-001, and TASK-0012") but never built.
 
+## CORRECTION, 2026-09-26 (same day, after a second AI review)
+
+**A second review found these plans were built without reading `docs/product/APP_REBUILD_MIGRATION_PLAN.md`
+(2026-09-22, David-approved) — a newer, more current plan for the app rebuild that this index and
+plans 1/4 directly conflict with.** Confirmed conflicts: the design system plan 1 cited is retired
+(§11 of the rebuild plan); the rebuild plan sets an explicit sequence (app → marketing reskin → Stripe
+→ new home page last) that this index's "run in parallel" framing contradicts; and plan 2's payment
+"current state" was six weeks stale — a real customer had already paid via live Stripe before this
+index was written. All three plans have been corrected in place (see each plan's own CORRECTION
+block). This index adds a **David decision register** below to surface what actually needs your call
+before agents execute further, rather than embedding unverified assumptions in the plans themselves.
+
 ## The five component plans
 
 | # | Component | Plan | Current status |
@@ -42,6 +54,37 @@ before assuming full parallelism — see **Dependency map** below.
   can run fully in parallel with everything else.
 - Payment flow (2) should not advertise/sell a bundle containing a subject that hasn't passed the
   Subject onboarding gate (5) — BIZ-001 already states this as a policy requirement.
+- **Marketing home page (1) is gated on Student hub (4) reaching Phase 4 of the rebuild plan**, per
+  David's recorded sequence (app → marketing reskin → Stripe → new home page last) — this reverses the
+  original "runs fully in parallel" framing for plan 1 specifically. Plan 4 (audit) and the underlying
+  rebuild execution are not the same thing; the gate is on rebuild Phase 4, not on plan 4's audit
+  finishing. See decision **D-1** below.
+- **Content pipeline (3) and Subject onboarding gate (5) share one table** (`SUBJECT_SERVABILITY_CRITERIA.md`'s
+  "Applied so far") — plan 3 owns criteria 3/5 updates to it, plan 5 owns criteria 1/2/4/6, to avoid two
+  agents overwriting the same row concurrently.
+
+## David decision register
+
+Every open decision surfaced across all five plans, in one place, so agents can cite `D-n` instead of
+re-describing it. Plans link back here rather than each carrying a duplicate open-questions list.
+
+| ID | Decision | Why it matters |
+| --- | --- | --- |
+| D-1 | Does the rebuild's app→marketing-reskin→Stripe→home-page-last sequence still hold, or should the five launch plans run in parallel as originally proposed? | Determines whether plan 1 (and parts of plan 4) can start now or must wait. |
+| D-2 | Which frontend is the actual launch target — the `web/` Vite rebuild or the live Lovable app (`exam-buddy-wireframe`)? | Plan 4 cannot proceed without this; auditing the wrong one wastes the session. |
+| D-3 | Must the unit-gated practice path work for launch, or is the label-free FRQ path sufficient for Day 1? | Determines whether AP Biology actually "passes" today, and how much of plan 3/5's remaining work is truly launch-critical. |
+| D-4 | AP Statistics' dual-published-exam-pack-version hazard — retire the pilot pack, migrate-then-retire, or a verified stopgap? | Now Day-1-critical per `DECISION-0068`; blocks Statistics from passing plan 5. |
+| D-5 | Is the unlimited-subject pricing tier still offered at launch, and at what price (built catalog has it at $139.99)? | Blocks plan 2 from closing its catalog criterion. |
+| D-6 | Is the 2-subject bundle price ($79.99, effectively no discount vs. buying two singles at $79.98) intentional? | Flagged in `DECISION-0068`; affects whether the live Stripe catalog gets updated as-is or corrected first. |
+| D-7 | Target launch window, since GTM-001's "August 2026" has passed. | Needed for campaign sequencing and any date-bound messaging on the marketing page. |
+| D-8 | Logo/wordmark finalization status — per `docs/new_design/README.md`, a final mark "should not be drawn by an agent." | Blocks plan 1's final asset production. |
+| D-9 | Shared vs. per-customer Stripe promotion code for the "add another subject" incentive. | Blocks plan 2's coupon-build criterion. |
+| D-10 | Seed the remaining 6 subjects into `Cramapple-Development`, or scope dev testing to the 4 already seeded? | Blocks part of plan 2's sandbox-testing criterion. |
+| D-11 | BIZ-001 remainder: access duration, refund/discount policy, parent-purchaser handling. | Blocks plan 2 from fully closing. |
+| D-12 | **Not a planning decision — a live bug to prioritize:** `attempt-response` isn't gated on entitlement (found 2026-09-20), so an unentitled student can submit an answer and hit a generic error instead of a paywall message. | Student-facing defect on the payment boundary; not owned by any plan until this correction. Recommend fixing or explicitly deferring with a stated reason, independent of the rest of this index. |
+
+Items not yet needing your call (agents can proceed without you): everything else in each plan's
+acceptance criteria.
 
 ## Definition of "app is launch-ready"
 
@@ -74,15 +117,8 @@ The app is ready to go live only when:
    handling, unlimited-tier pricing), the AP Statistics exam-pack-version hazard, or any production
    Stripe/webhook configuration — those are Hard Gates for David.
 
-## Open questions for David (blocking this index, not any one plan)
+## Open questions for David
 
-- ~~Which subjects are in the day-one launch set?~~ **Resolved 2026-09-26:** AP Biology and AP
-  Statistics, per `DECISION-0068`. Remaining subjects fast-follow as site-performance confidence
-  improves — no fixed trigger/date set; worth a follow-up decision if you want one.
-- Is the August 2026 date in MASTER_TODO's GTM-001 item superseded by a new target window?
-- BIZ-001 pricing/access policy — partially resolved (`DECISION-0068`: $39.99 / $79.99 / $99.99 for
-  single / 2-bundle / 3-bundle). Still open: does the unlimited tier still exist at launch, and at what
-  price (built catalog has it at $139.99)? Also flagged: the 2-bundle price ($79.99) is $0.01 *more*
-  than two singles bought separately ($79.98) — effectively no bundle discount. Confirm this is
-  intentional before the Stripe catalog is updated. Access duration, refunds/discounts, and
-  parent-purchaser handling also remain open in BIZ-001.
+Superseded by the **David decision register** above (D-1 through D-12) — resolved as of 2026-09-26:
+day-one subjects are AP Biology and AP Statistics (`DECISION-0068`), and single/2-bundle/3-bundle
+pricing is set at $39.99/$79.99/$99.99. Everything still open is tracked in the register, not here.

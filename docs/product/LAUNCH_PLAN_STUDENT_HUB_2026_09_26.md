@@ -3,21 +3,44 @@
 **Status:** Draft | **Owner:** David Bloom | **Tier:** Standard
 **Part of:** `APP_LAUNCH_READINESS_INDEX_2026_09_26.md`
 
+## CORRECTION, 2026-09-26 (same day, after a second AI review)
+
+**This plan originally treated `STUDENT_PORTAL_INTERACTION_DESIGN.md` as the sole authoritative spec.
+It is not current: `docs/product/APP_REBUILD_MIGRATION_PLAN.md` (2026-09-22, David-approved) is a
+newer, phased rebuild plan for this exact surface, with its own decision register (§11, 25 items) and
+its own exit criterion.** The two documents partially overlap and are not reconciled with each other.
+Do not audit against the older spec alone — you will report "not implemented" against a design that
+may itself be superseded.
+
+**A real open question this plan did not surface: which frontend is actually being audited/built?**
+Two candidates exist — the live Lovable app (`exam-buddy-wireframe`, currently hosting real students
+via the Course Mode pilot and the reviewer portal) and the `web/` Vite rebuild (per PR #152, the
+rebuild plan's actual target). Auditing `STUDENT_PORTAL_INTERACTION_DESIGN.md` against `web/` will
+report near-total non-implementation since it's a fresh rebuild in progress; auditing it against the
+live Lovable app audits a product David has already decided to replace. **This is a decision for
+David, not something this plan should guess at** — see the decision register in
+`APP_LAUNCH_READINESS_INDEX_2026_09_26.md`.
+
 ## Product Goal
 
-The logged-in, student-facing app matches its own design spec closely enough that a real student can
+The logged-in, student-facing app matches its governing spec closely enough that a real student can
 complete a full session (enter, attempt, get feedback, see progress) without hitting an undesigned or
-unimplemented gap. This plan is an **implementation audit against an existing spec**, not a redesign —
-do not propose UX changes to sections that are already decided; flag implementation gaps instead.
+unimplemented gap. This plan is an **implementation audit**, not a redesign — do not propose UX changes
+to sections that are already decided; flag implementation gaps instead.
 
-## Authoritative source
+## Authoritative sources (corrected)
 
-`docs/product/STUDENT_PORTAL_INTERACTION_DESIGN.md` — the 14-section UX spec covering purpose,
-experience principles, information architecture, entry flows, session-mode presentation, the stable
-learning-session frame (cold attempt → feedback → repair/retry → completion/lock), feedback treatment,
-coaching copy, uncertainty/escalation/disagreement handling, progress/home, accessibility requirements,
-scope, research plan, and decisions still required (§14). Read §14 first — some of this spec is not
-yet finalized even on paper.
+- **Primary:** `docs/product/APP_REBUILD_MIGRATION_PLAN.md` §12 — the phased rebuild plan for the
+  student-facing app, with its own exit criterion ("a student can sign in, be taught from a vetted
+  item, attempt a real multi-part FRQ and a real MCQ, be graded..."). Treat this plan's phases as the
+  primary execution structure for this audit. §11 holds 25 open decisions — read before assuming any
+  UX question here is settled.
+- **Secondary/cross-check:** `docs/product/STUDENT_PORTAL_INTERACTION_DESIGN.md` — the older 14-section
+  UX spec (purpose, experience principles, information architecture, entry flows, session-mode
+  presentation, the learning-session frame, feedback treatment, coaching copy,
+  uncertainty/escalation/disagreement, progress/home, accessibility, scope, research plan, and §14's
+  own decisions-required list). Use this to cross-check the rebuild plan for gaps, not as the primary
+  source of truth where the two conflict — flag conflicts to David rather than picking one silently.
 
 ## Related implementation docs to cross-check, not duplicate
 
@@ -36,6 +59,12 @@ yet finalized even on paper.
 
 ## Acceptance Criteria
 
+- [ ] **Frontend-identity decision confirmed with David before auditing anything else** (`web/` rebuild
+      vs. live Lovable app) — do not proceed past this without an explicit answer.
+- [ ] Rebuild plan §12's phase structure and its exit criterion are used as the primary execution
+      frame; `STUDENT_PORTAL_INTERACTION_DESIGN.md` sections below are cross-checked against it, with
+      any conflict between the two named explicitly rather than silently resolved.
+
 Audit implementation status against each spec section and record a status (Implemented / Partial /
 Not implemented / Deferred-by-decision) with evidence (live app check, not a design doc read):
 
@@ -44,8 +73,10 @@ Not implemented / Deferred-by-decision) with evidence (live app check, not a des
 - [ ] §5 Session mode presentation — whichever variant (A or B) was decided is implemented; if neither
       is finalized, that's a Decision Required, not an implementation gap — check §14 first.
 - [ ] §6 Stable learning-session frame — cold attempt, feedback, repair/retry, and completion/lock all
-      function against a real question, tested live, for at least one subject that has passed
-      `LAUNCH_PLAN_SUBJECT_ONBOARDING_GATE_2026_09_26.md`.
+      function against a real question, tested live, for AP Biology on the FRQ practice path
+      specifically (the only path currently passing per
+      `LAUNCH_PLAN_SUBJECT_ONBOARDING_GATE_2026_09_26.md`) — do not test against the unit-gated path,
+      which serves zero items today.
 - [ ] §7 Feedback treatment — the decided variant is implemented and matches the evaluation criteria in
       the spec.
 - [ ] §8 Coaching copy — matches the Copy Rules in the spec; check the paste-event prompt specifically,
