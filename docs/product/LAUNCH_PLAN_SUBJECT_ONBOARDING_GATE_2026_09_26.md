@@ -91,13 +91,16 @@ without a fresh check on the subject you're actually closing out.
 ## Special cases already known
 
 - **AP Statistics:** criterion-6 hazard resolved (see correction #2 above) — no longer a special case,
-  do not re-litigate the retire/migrate/stopgap question, it's decided (retired). Remaining work is
-  ordinary criteria 3/5 label and difficulty work, same as the other 8 non-Biology subjects.
+  do not re-litigate the retire/migrate/stopgap question, it's decided (retired). Also launches on its
+  flat/practice serving path per `DECISION-0071` (2026-09-26) — same policy as Biology, not the
+  unit-gated path, despite Statistics having the strongest unit-gated coverage of any subject (64
+  validated labels, 27 items live across all 5 units). Remaining criteria 3/5 work is not launch-
+  blocking for Friday; it matters for whenever unit-gated practice is turned on.
 - **AP Biology**: passes today via the label-free FRQ practice path, per `DECISION-0063` (2026-09-24,
   approved) — this is not an open question, it's a recorded launch decision. The unit-gated path
   serves zero and is explicitly deferred (tracked as FF-3), not required for launch.
-- **Open, not yet decided: does `DECISION-0063` (FRQ-path-only launch) extend to AP Statistics too**,
-  now that Statistics is also Day-1? Flag to David rather than assuming either answer.
+- **Resolved:** `DECISION-0071` extends `DECISION-0063` to AP Statistics — both Day-1 subjects launch
+  flat-path, unit-gating deferred for both. No longer an open question.
 
 ## Out of Scope
 

@@ -87,7 +87,7 @@ struck through.
 | --- | --- | --- |
 | D-1 | Does the rebuild's app→marketing-reskin→Stripe→home-page-last sequence still hold, or should the five launch plans run in parallel? | **Open, now urgent** — see the sequencing-vs-1-week-window tension flagged below. |
 | D-2 | Which frontend is the actual launch target — the `web/` Vite rebuild or the live Lovable app (`exam-buddy-wireframe`)? | **Open.** Plan 4 cannot proceed without this. |
-| D-3 | Must the unit-gated practice path work for launch, or is the label-free FRQ path sufficient for Day 1? | **Already decided for Biology** (`DECISION-0063`, 2026-09-24: FRQ path only, unit-gated deferred as FF-3). **Open for AP Statistics** — does the same policy extend to it now that it's also Day-1? |
+| D-3 | Must the unit-gated practice path work for launch, or is the label-free FRQ path sufficient for Day 1? | **Resolved for both Day-1 subjects.** Biology: `DECISION-0063` (2026-09-24). Statistics: `DECISION-0071` (2026-09-26, extends the same policy). Both launch flat-path; unit-gating deferred for both. |
 | D-4 | ~~AP Statistics' dual-published-exam-pack-version hazard~~ | **Resolved 2026-09-25**, before this index was drafted — pilot pack retired (`docs/content/APSTATS_PILOT_PACK_REVIEW_AND_UNPUBLISH_2026_09_25.md`). This index and plan 5 had it wrong as an open Day-1 hazard; corrected. |
 | D-5 | ~~Unlimited-subject pricing tier at launch~~ | **Resolved (`DECISION-0069`): deferred until all 10 subjects are live.** Not priced or enabled at initial launch. |
 | D-6 | Is the 2-subject bundle price ($79.99, effectively no discount vs. two singles at $79.98) intentional? | **Still open** — not addressed by `DECISION-0069`. |

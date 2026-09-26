@@ -73,10 +73,10 @@ Not implemented / Deferred-by-decision) with evidence (live app check, not a des
 - [ ] §5 Session mode presentation — whichever variant (A or B) was decided is implemented; if neither
       is finalized, that's a Decision Required, not an implementation gap — check §14 first.
 - [ ] §6 Stable learning-session frame — cold attempt, feedback, repair/retry, and completion/lock all
-      function against a real question, tested live, for AP Biology on the FRQ practice path
-      specifically (the only path currently passing per
-      `LAUNCH_PLAN_SUBJECT_ONBOARDING_GATE_2026_09_26.md`) — do not test against the unit-gated path,
-      which serves zero items today.
+      function against a real question, tested live, for **both Day-1 subjects (AP Biology and AP
+      Statistics) on their flat/practice paths** per `DECISION-0063`/`DECISION-0071` — do not test
+      against the unit-gated path for either subject; both defer it, and Statistics' unit-gated path
+      currently serves the most items of any subject but is explicitly not the launch path.
 - [ ] §7 Feedback treatment — the decided variant is implemented and matches the evaluation criteria in
       the spec.
 - [ ] §8 Coaching copy — matches the Copy Rules in the spec; check the paste-event prompt specifically,

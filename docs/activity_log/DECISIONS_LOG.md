@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0071 — Extend DECISION-0063 to AP Statistics: Launches on the Flat/Practice Path, Unit-Gating Deferred
 - DECISION-0070 — Launch Friday, Free — Ship Without Stripe/Payment Gating; Add Payment Flow as a Post-Launch Follow-Up
 - DECISION-0069 — Launch-Planning Follow-Ups: BYOQ Ships Ungated/Anonymous on the New Home Page; Unlimited-Tier Pricing Deferred Until All 10 Subjects Are Live; Target Launch Window Is Next Week; Wordmark-Only Branding Is Sufficient (No Logo Mark Required)
 - DECISION-0068 — Day-1 Launch Subjects Are AP Biology and AP Statistics, Fast-Follow the Rest as Site-Performance Confidence Improves; Set Single/2-Bundle/3-Bundle Pricing at $39.99 / $79.99 / $99.99
@@ -49,6 +50,44 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~600 lines, archive the older entries to `docs/activity_log/archive/DECISIONS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries. (This log is already well over that threshold — the first archive pass is overdue, not optional.)
 
 (Note: the TASK-0012 branch independently logged its own DECISION-0027/0028 — CORS/ALLOWED_ORIGINS and budget-burn semantics — under different numbers on its own branch. Those land separately when that work merges to `main`; this charter-adoption decision claimed 0027/0028 here because `main` had not yet recorded entries past DECISION-0026 at merge time. If both branches' numbering collides on merge, renumber on whichever side merges second and update this index.)
+
+## DECISION-0071 — AP Statistics Launches on the Flat Practice Path, Unit-Gating Deferred
+
+**Date:** 2026-09-26
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Approval:** Product Owner direction, 2026-09-26 (this session)
+**Related Docs:** `DECISION-0063` (the original Biology-only version of this decision);
+`docs/product/APP_LAUNCH_READINESS_INDEX_2026_09_26.md` (decision D-3);
+`docs/product/LAUNCH_PLAN_SUBJECT_ONBOARDING_GATE_2026_09_26.md`;
+`docs/content/CODEX_QA_REPORT_READINESS_AUDIT_WORK_ORDERS_AND_SELECTORS_2026_09_25.md`
+**Area:** Product / Serving
+
+### Decision
+
+**`DECISION-0063` (AP Biology launches on the practice path, not the unit-gated path) is extended to
+AP Statistics.** Statistics launches Friday on its flat/practice serving path; its unit-gated path
+(organized by curriculum unit) is deferred, same as Biology.
+
+### Context
+
+Statistics is the one subject with real evidence of multi-unit unit-gated content (64 validated
+serving labels on its old/general exam pack, 27 items confirmed live via
+`select_unit_gated_practice_items`, spanning units 1 through 5 per the 2026-09-25 audit). Unlike
+Biology, Statistics *could* plausibly launch with a working unit-gated experience. David chose the flat
+path anyway, for consistency with Biology and to keep both Day-1 subjects on the same, simpler,
+lower-risk serving mechanism for Friday.
+
+### Consequences
+
+- `LAUNCH_PLAN_SUBJECT_ONBOARDING_GATE_2026_09_26.md`'s open question ("does DECISION-0063 extend to
+  Statistics?") is resolved — yes.
+- Statistics' criteria 3/5 (validated labels, difficulty) are **not launch-blocking for Friday**, same
+  as they aren't for Biology — they matter for whenever unit-gated practice is turned on, not for the
+  flat-path launch.
+- `LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md`'s testing criterion (currently "test against AP Biology, FRQ
+  path") should be read as covering both Day-1 subjects on their flat paths, not Biology alone.
+- Index decision **D-3** is resolved for both Day-1 subjects.
 
 ## DECISION-0070 — Launch Friday, Free — No Stripe/Payment Gating at Launch
 
