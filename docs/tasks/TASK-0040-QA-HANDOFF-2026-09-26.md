@@ -19,18 +19,21 @@ Current Source:
 
 Approval State:
 - Approved: David instructed Codex to execute TASK-0040 on 2026-09-26; read-only audit and evidence
-  updates only
+  updates only. David later approved continuing that audit while Lovable added the free-access banner;
+  this was not approval for Codex to edit Production or accept residual risk.
 - Not approved: any Lovable/Production change, deployment, brand or public-claim finalization, or risk
   acceptance
 - Required before execution: David's explicit approval before any live-page change
 
 Live / Tool State:
 - Environments checked: Production public homepage over HTTPS
-- Services checked: `https://ap-prep-canvas.lovable.app/`, HTTP 200 at 2026-09-26 15:38:29 UTC
-- Deployment checked:
-  `psr2.5b02aa18-5f8b-48a4-b335-056cbae402d6.1791041908.d1_x-jKSXQtPm1Yiz9fzXhiCjB7-3jn35h3k3K41-Pg`
-- Delivered asset identifiers: `styles-DcabbJId.css`, `index-C34axR7A.css`, `index-D-MdByNs.css`,
-  `index-D4j384PU.js`, `index-yd3Y6Fxu.js`
+- Services checked: `https://ap-prep-canvas.lovable.app/`, initial HTTP 200 at 2026-09-26 15:38:29 UTC;
+  follow-up deployment HTTP 200 at 15:47:35 UTC
+- Latest deployment checked:
+  `psr2.ca3ff895-7537-417a-8ab9-114518dc7d57.1791042456.BD1MZZqiUn51mL_W21qGywpl1jSpfenNA8_Q8_GahN8`
+- Latest delivered asset identifiers: `index-D8VnhNPE.js`, `index-DHyVGulG.js`,
+  `index-B-RszSsD.css`, `index-D-MdByNs.css`
+- Banner result: `Free for November` is live, but the paid CTA and pricing copy remain
 - Not checked / unavailable: rendered screenshots, interactive CTA/BYOQ behavior, actual photo retention,
   canonical-answer boundary, and rendered contrast. The supported browser could not start because the
   workspace path contains a symlink; cached Lovable state was not substituted.
@@ -44,9 +47,10 @@ Files / Systems Affected:
 - Other: no Production writes
 
 Open Risks / Blockers:
-- P1: live header CTA says `Get it · $39.99`
-- P1: live price section says `$39.99`, `Get AP Statistics`, `Ask a parent to buy it`, and `Bundles`
-- P1: page says `One free question`, not that launch access is free
+- P1: `Free for November` is contradicted by the live header CTA `Get it · $39.99`
+- P1: the same price row still says `$39.99 / one subject / no subscription`
+- P1: live price section still says `Get AP Statistics`, `Ask a parent to buy it`, and `Bundles`
+- P1: the free-launch promise is not consistent or unambiguous across the page
 - P1: BYOQ retention/canonical-answer behavior remains functionally unverified
 - P2: social metadata says `Maximum AP exam score in minimal time` without a cited evidence source
 - Pending owner decisions: approve/perform the free-launch CTA and pricing-copy change; decide residual

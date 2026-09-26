@@ -12,7 +12,7 @@
 **Branch:** `codex/task-0040-home-page-audit`
 **PR:** None yet
 
-**Blocked Reason:** The live page still contains paid CTAs and a $39.99 purchase section, triggering the runbook stop condition that a live CTA requires or implies payment.
+**Blocked Reason:** A new "Free for November" banner is live, but the page still contains paid CTAs and a $39.99 purchase section. The contradictory messaging continues to trigger the runbook stop condition that a live CTA requires or implies payment.
 
 ## Codex QA note (2026-09-26, pre-execution review)
 
@@ -48,7 +48,8 @@ evidence and rationale). Read both, including all CORRECTION blocks, before star
 **B. Implementation (any change to the live Lovable app — Hard Gate, requires David's explicit go
 before deploying):**
 - The $39.99/Stripe purchase CTA is stale against the free-launch decision (`DECISION-0071`). **David
-  is fixing this specific item himself directly in Lovable** (a "Free this week!" banner) — an
+  is fixing this specific item himself directly in Lovable.** On 2026-09-26 he reported a planned
+  "Free until November" banner; the live deployment later rendered "Free for November." An
   implementation agent must not independently rework the CTA or pricing section. Check current status
   with David before touching anything in this area; if he has already shipped the fix, this becomes an
   audit item (confirm it's live), not implementation work.
@@ -81,8 +82,10 @@ because the feature functions.
 Mirrors `docs/product/LAUNCH_RUNBOOK_2026_10_02.md` §§1 and 5 and
 `LAUNCH_PLAN_MARKETING_HOME_PAGE_2026_09_26.md`; those documents govern if this list drifts.
 
-- [ ] **Blocked 2026-09-26:** the live page does not state that full launch access is free. It says
-      "One free question," which is not the approved free-launch promise.
+- [ ] **Partially remediated, still blocked 2026-09-26:** a new "Free for November" banner is live in
+      the price row, but it appears beside "$39.99 / one subject / no subscription" while the header
+      still says "Get it · $39.99." The page therefore does not state the free-launch promise
+      consistently or unambiguously.
 - [ ] **Failed 2026-09-26:** primary CTAs still imply purchase: "Get it · $39.99," a "$39.99 / one
       subject / no subscription" price card, "Get AP Statistics," "Ask a parent to buy it," and
       "Bundles." These link to `/signup` or `/ask-parent`. Treat the $39.99 CTA as unresolved until
@@ -109,6 +112,12 @@ Mirrors `docs/product/LAUNCH_RUNBOOK_2026_10_02.md` §§1 and 5 and
       delivered assets `styles-DcabbJId.css`, `index-C34axR7A.css`, `index-D-MdByNs.css`,
       `index-D4j384PU.js`, and `index-yd3Y6Fxu.js`. HTML evidence was inspected directly; screenshot
       evidence remains unavailable because browser startup failed before navigation.
+- [x] Recheck evidence: HTTP 200 at 2026-09-26 15:47:35 UTC (11:47:35 America/New_York), deployment
+      `psr2.ca3ff895-7537-417a-8ab9-114518dc7d57.1791042456.BD1MZZqiUn51mL_W21qGywpl1jSpfenNA8_Q8_GahN8`,
+      delivered assets `index-D8VnhNPE.js`, `index-DHyVGulG.js`, `index-B-RszSsD.css`, and
+      `index-D-MdByNs.css`. The new deployment contains "Free for November" but still contains "Get it
+      · $39.99," the $39.99 price, "Get AP Statistics," "Ask a parent to buy it," and "Bundles."
+      Delivered HTML and JavaScript assets were checked directly.
 - [ ] David has signed off on the final page (Hard Gate: public claims + brand identity finalization,
       per `STANDING_APPROVAL_LANES.md`).
 
@@ -138,16 +147,20 @@ audit and its evidence updates only. No Production Lovable edit, deployment, pub
 brand finalization, or risk acceptance has been approved. The live paid-CTA stop condition requires
 David's direction before implementation proceeds.
 
+David then approved continuing the read-only audit while Lovable added a banner. This did not authorize
+Codex to edit Production or accept the remaining contradictory paid messaging.
+
 ## Implementation Notes
 
 **Implementation Summary:** Codex performed the read-only audit against the live HTTPS response on
 2026-09-26. No Production change was made. The audit stopped when the delivered page showed paid CTAs
-and a $39.99 purchase section, as required by the October 2 runbook stop conditions.
+and a $39.99 purchase section, as required by the October 2 runbook stop conditions. Codex then
+rechecked the follow-up Lovable deployment and its delivered JavaScript assets. The banner was present,
+but the paid CTAs remained; no Production change was made by Codex.
 
 **Test Results:**
-
 - PASS — the live URL returned HTTP 200 and the exact deployment/assets are recorded above.
-- FAIL / BLOCKER — the page does not present the approved free-launch promise.
+- PARTIAL / BLOCKER — "Free for November" is live, but contradicts the surrounding paid messaging.
 - FAIL / BLOCKER — paid CTAs and the $39.99 price card remain live.
 - PASS — AP Biology and AP Statistics are marked "Live now"; the other eight subjects are presented as
   coming soon.
@@ -159,7 +172,8 @@ and a $39.99 purchase section, as required by the October 2 runbook stop conditi
 
 **Risks / Issues:**
 
-- Launch blocker: paid messaging contradicts `DECISION-0071` and the October 2 free-launch runbook.
+- Launch blocker: contradictory free/paid messaging still violates `DECISION-0071` and the October 2
+  free-launch runbook.
 - Public-claim review needed for "Maximum AP exam score in minimal time" in social metadata.
 - BYOQ privacy/rights/academic-integrity review remains unresolved.
 - The retention claim "Your photo isn't kept" and canonical-answer boundary require functional
