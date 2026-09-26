@@ -10,11 +10,17 @@ import {
   assertFalse,
 } from "https://deno.land/std@0.224.0/assert/mod.ts";
 import {
+  applyItemPackageFallback,
   type AssetMetadata,
   buildRenderItem,
+  derivePackageChoices,
+  derivePackageStem,
+  derivePackageStimulus,
   indexAssets,
   isStaffQaRole,
+  type ItemPackagePayload,
   type LearnerFacingCriterion,
+  type McqChoice,
   partitionDeliverable,
   type SelectedRow,
   SIGNED_URL_TTL_SECONDS,
@@ -402,6 +408,152 @@ Deno.test("an unreviewed item is permissive, not blacked out", () => {
   );
   assertEquals(omitted.length, 0);
   assertEquals(deliverable.length, 1);
+});
+
+// ── TASK-0047 Workstream E: item-package dual-read adapter ───────────────
+// Both package shapes observed in the wild: on-disk content/item-packages/
+// (schema_version "1.0.0") and Production's item_package_payload column
+// (schema_version "course-mode-generated-0.1", the only shape ever populated
+// there -- verified against the 203 real rows 2026-09-26).
+
+const DISK_SHAPE_PACKAGE: ItemPackagePayload = {
+  schema_version: "1.0.0",
+  mcq_choices: [
+    { choice_key: "A", choice_text: "4", is_correct: true, rationale: "..." },
+    { choice_key: "B", choice_text: "2", is_correct: false, rationale: "..." },
+  ],
+  parts: [
+    { part_key: "question", prompt: "What is lim(x->2) ...?" },
+  ],
+};
+
+const DB_SHAPE_PACKAGE: ItemPackagePayload = {
+  schema_version: "course-mode-generated-0.1",
+  prompt: "Calculate the sample mean.",
+  mcq_form: {
+    options: [
+      { text: "31.00", correct: false, misconception: "reported_median" },
+      { text: "34.55", correct: true, misconception: null },
+    ],
+  },
+  parts: [
+    { part_key: "part-a", prompt: "Calculate the sample mean." },
+  ],
+};
+
+Deno.test("derivePackageStem reads the disk shape's first part prompt", () => {
+  assertEquals(
+    derivePackageStem(DISK_SHAPE_PACKAGE),
+    "What is lim(x->2) ...?",
+  );
+});
+
+Deno.test("derivePackageStem reads the DB shape's top-level prompt", () => {
+  assertEquals(
+    derivePackageStem(DB_SHAPE_PACKAGE),
+    "Calculate the sample mean.",
+  );
+});
+
+Deno.test("derivePackageStem returns null for a payload with no usable text", () => {
+  assertEquals(derivePackageStem({}), null);
+  assertEquals(derivePackageStem(null), null);
+  assertEquals(derivePackageStem(undefined), null);
+});
+
+Deno.test("derivePackageChoices reads the disk shape's mcq_choices, dropping is_correct/rationale", () => {
+  const choices = derivePackageChoices(DISK_SHAPE_PACKAGE);
+  assertEquals(choices, [
+    { choice_key: "A", choice_text: "4" },
+    { choice_key: "B", choice_text: "2" },
+  ]);
+  const serialized = JSON.stringify(choices);
+  assertFalse(serialized.includes("is_correct"));
+  assertFalse(serialized.includes("rationale"));
+  assertFalse(serialized.includes("true"));
+});
+
+Deno.test("derivePackageChoices reads the DB shape's mcq_form.options, assigning letter keys", () => {
+  const choices = derivePackageChoices(DB_SHAPE_PACKAGE);
+  assertEquals(choices, [
+    { choice_key: "A", choice_text: "31.00" },
+    { choice_key: "B", choice_text: "34.55" },
+  ]);
+  const serialized = JSON.stringify(choices);
+  assertFalse(serialized.includes("correct"));
+  assertFalse(serialized.includes("misconception"));
+});
+
+Deno.test("derivePackageChoices returns null when neither shape's choice field is present", () => {
+  assertEquals(derivePackageChoices({ schema_version: "1.0.0" }), null);
+  assertEquals(derivePackageChoices(null), null);
+});
+
+Deno.test("derivePackageStimulus reads the first text stimulus", () => {
+  const withStimulus: ItemPackagePayload = {
+    ...DISK_SHAPE_PACKAGE,
+    stimuli: [
+      { stimulus_key: "directions", kind: "text", payload: { text: "No calculator." } },
+    ],
+  };
+  assertEquals(derivePackageStimulus(withStimulus), "No calculator.");
+  assertEquals(derivePackageStimulus(DISK_SHAPE_PACKAGE), null);
+});
+
+Deno.test("applyItemPackageFallback is a no-op when legacy stem and choices are already present", () => {
+  const rows: SelectedRow[] = [row({ item_type: "mcq" })];
+  const choicesByVersion = new Map<string, McqChoice[]>([
+    [VERSION_A, [{ choice_key: "A", choice_text: "already legacy" }]],
+  ]);
+  const payloadByVersion = new Map([[VERSION_A, DISK_SHAPE_PACKAGE]]);
+
+  const result = applyItemPackageFallback(rows, choicesByVersion, payloadByVersion);
+
+  assertEquals(result.rows, rows);
+  assertEquals(
+    result.choicesByVersion.get(VERSION_A),
+    [{ choice_key: "A", choice_text: "already legacy" }],
+  );
+});
+
+Deno.test("applyItemPackageFallback backfills stem and choices when legacy data is empty", () => {
+  const rows: SelectedRow[] = [
+    row({ item_type: "mcq", stem: "", stimulus: null }),
+  ];
+  const choicesByVersion = new Map<string, McqChoice[]>(); // no legacy choices at all
+  const payloadByVersion = new Map([[VERSION_A, DISK_SHAPE_PACKAGE]]);
+
+  const result = applyItemPackageFallback(rows, choicesByVersion, payloadByVersion);
+
+  assertEquals(result.rows[0].stem, "What is lim(x->2) ...?");
+  assertEquals(
+    result.choicesByVersion.get(VERSION_A),
+    [
+      { choice_key: "A", choice_text: "4" },
+      { choice_key: "B", choice_text: "2" },
+    ],
+  );
+});
+
+Deno.test("applyItemPackageFallback never overwrites a non-empty legacy stem", () => {
+  const rows: SelectedRow[] = [row({ item_type: "mcq", stem: "real legacy stem" })];
+  const choicesByVersion = new Map<string, McqChoice[]>();
+  const payloadByVersion = new Map([[VERSION_A, DISK_SHAPE_PACKAGE]]);
+
+  const result = applyItemPackageFallback(rows, choicesByVersion, payloadByVersion);
+
+  assertEquals(result.rows[0].stem, "real legacy stem");
+});
+
+Deno.test("applyItemPackageFallback does nothing for a version with no package payload", () => {
+  const rows: SelectedRow[] = [row({ item_type: "mcq", stem: "" })];
+  const choicesByVersion = new Map<string, McqChoice[]>();
+  const payloadByVersion = new Map<string, ItemPackagePayload>(); // empty -- no package for this version
+
+  const result = applyItemPackageFallback(rows, choicesByVersion, payloadByVersion);
+
+  assertEquals(result.rows[0].stem, "");
+  assertEquals(result.choicesByVersion.get(VERSION_A), undefined);
 });
 
 Deno.test("the requirement gate applies to staff QA too", () => {

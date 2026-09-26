@@ -8,7 +8,7 @@
 // supabase/tests/confirm_transfer_item_selector.integration.sql.
 
 import "./_test_setup.ts";
-import { assert, assertEquals } from "jsr:@std/assert@1";
+import { assert, assertEquals, assertFalse } from "jsr:@std/assert@1";
 import { handleStudentSessionItems } from "./index.ts";
 
 /* -------------------------------------------------------------------------- */
@@ -30,6 +30,9 @@ type Spec = {
   visuals?: Row[];
   rpcCalls?: RpcCall[];
   signFail?: boolean;
+  // TASK-0047 Workstream E -- item_package_payload rows for the dual-read
+  // adapter, keyed the same way content_item_versions actually returns them.
+  packages?: Row[];
 };
 
 // deno-lint-ignore no-explicit-any
@@ -57,6 +60,11 @@ function makeService(spec: Spec) {
     mcq_choices: spec.choices ?? [],
     content_asset_metadata: spec.assets ?? [],
     content_visual_requirements: spec.visuals ?? [],
+    // Same table as the confirm-transfer source-version lookup (singleByTable
+    // above), but deliverRows queries it as a list (.select().in()) for the
+    // dual-read adapter -- tableBuilder resolves .maybeSingle() and the
+    // awaited list independently, so both call shapes are served correctly.
+    content_item_versions: spec.packages ?? [],
   };
   const appSchema = {
     from: (t: string) =>
@@ -356,6 +364,82 @@ Deno.test("ordinary path still serves the practice selection", async () => {
   assertEquals((result.items as unknown[]).length, 1);
   assertEquals(result.practice_format, "mcq");
   assertEquals(result.reason, null);
+});
+
+/* -------------------------------------------------------------------------- */
+/* TASK-0047 Workstream E: item-package dual-read adapter, wired end to end   */
+/* -------------------------------------------------------------------------- */
+
+Deno.test("an item with no legacy stem/choices but a package payload still serves", async () => {
+  const versionId = "55555555-5555-4555-8555-555555555555";
+  const { status, json } = await call(
+    {
+      session: ACTIVE_SESSION,
+      practiceRows: [{
+        ...DELIVERABLE_TRANSFER,
+        content_item_version_id: versionId,
+        item_type: "mcq",
+        stem: "", // legacy stem never populated for this hypothetical item
+      }],
+      choices: [], // and no legacy mcq_choices rows either
+      packages: [{
+        id: versionId,
+        item_package_payload: {
+          schema_version: "1.0.0",
+          mcq_choices: [
+            { choice_key: "A", choice_text: "4", is_correct: true },
+            { choice_key: "B", choice_text: "2", is_correct: false },
+          ],
+          parts: [{ part_key: "question", prompt: "What is lim(x->2) ...?" }],
+        },
+      }],
+    },
+    { learning_session_id: SESSION_ID },
+  );
+  assertEquals(status, 200);
+  const result = json.result as Record<string, unknown>;
+  const items = result.items as Array<Record<string, unknown>>;
+  assertEquals(items.length, 1);
+  assertEquals(items[0].stem, "What is lim(x->2) ...?");
+  assertEquals(items[0].choices, [
+    { choice_key: "A", choice_text: "4" },
+    { choice_key: "B", choice_text: "2" },
+  ]);
+  // The package's is_correct must never reach the response.
+  assertFalse(JSON.stringify(items).includes("is_correct"));
+});
+
+Deno.test("an item with a legacy stem is unaffected by an unrelated package payload", async () => {
+  const versionId = "ov1";
+  const { status, json } = await call(
+    {
+      session: ACTIVE_SESSION,
+      practiceRows: [{
+        ...DELIVERABLE_TRANSFER,
+        content_item_version_id: versionId,
+      }],
+      choices: [{
+        content_item_version_id: versionId,
+        choice_key: "A",
+        choice_text: "the real legacy choice",
+      }],
+      packages: [{
+        id: versionId,
+        item_package_payload: {
+          schema_version: "1.0.0",
+          mcq_choices: [{ choice_key: "Z", choice_text: "should never win" }],
+        },
+      }],
+    },
+    { learning_session_id: SESSION_ID },
+  );
+  assertEquals(status, 200);
+  const result = json.result as Record<string, unknown>;
+  const items = result.items as Array<Record<string, unknown>>;
+  assertEquals(items[0].stem, DELIVERABLE_TRANSFER.stem);
+  assertEquals(items[0].choices, [
+    { choice_key: "A", choice_text: "the real legacy choice" },
+  ]);
 });
 
 /* -------------------------------------------------------------------------- */

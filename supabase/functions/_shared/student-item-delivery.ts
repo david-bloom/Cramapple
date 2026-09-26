@@ -138,6 +138,179 @@ export type RenderItem = {
   response_mode: "typed" | "hand_drawn";
 };
 
+// TASK-0047 Workstream E — item-package dual-read adapter.
+//
+// Two content shapes exist for the same catalogue:
+//   1. The legacy per-row schema (app.mcq_choices / app.frq_criteria), read
+//      exclusively above. Every currently-published item -- including all 203
+//      whose content_item_versions.item_package_payload is populated -- has
+//      complete legacy rows (verified directly against Production 2026-09-26:
+//      0 published items have a null stem or a missing choice set alongside a
+//      populated item_package_payload). So today this fallback is never
+//      exercised; it exists so a future item authored ONLY in the newer
+//      package shape -- no legacy rows backfilled -- still serves, per
+//      David's decision: no mass migration, no forced format choice on new
+//      content (APP_REBUILD_MIGRATION_PLAN.md §5.5, decision 23).
+//
+//   2. The item-package JSON shape, which is not one format but two distinct
+//      ones observed in the wild:
+//        a. `content/item-packages/*.json` on disk (schema_version "1.0.0"):
+//           top-level `mcq_choices: [{choice_key, choice_text, is_correct,
+//           rationale}]`, `parts: [{part_key, prompt, criteria: [...]}]`.
+//           Never ingested into item_package_payload for any published item
+//           checked (e.g. apcalcab-mcq-021 is published with full legacy rows
+//           and item_package_payload NULL) -- these files are an authoring
+//           artifact that gets flattened into the legacy schema at publish
+//           time, not something serving reads today.
+//        b. `content_item_versions.item_package_payload` in Production
+//           (schema_version "course-mode-generated-0.1", all 203 populated
+//           rows are AP Statistics MCQ from the Course Mode generator):
+//           `mcq_form.options: [{text, correct, misconception}]`, top-level
+//           `prompt`/`stem`, `parts: [{prompt, criteria}]`.
+//      Both are read here so either can back-fill missing legacy data for the
+//      same item_type: 'mcq' case that is actually populated today.
+//
+// FRQ criteria fallback is deliberately NOT implemented. Neither package
+// shape carries a field equivalent to frq_criteria.learner_facing_text (a
+// reviewer-authored, pre-filtered "safe to show a student" string) --
+// `criteria[].description`/`required_evidence` are answer-bearing, the same
+// class of field toLearnerFacingParts already excludes for the legacy shape.
+// Deciding what, if anything, in the package criteria shape is safe to derive
+// as learner-facing is a content-safety judgment call beyond this workstream's
+// scope (no published item needs it yet -- 0 gaps found), not an engineering
+// stopgap; flagged for a follow-up decision if/when an FRQ-only-package item
+// is ever published without legacy criteria rows.
+export type ItemPackagePayload = {
+  schema_version?: string;
+  stem?: unknown;
+  prompt?: unknown;
+  mcq_choices?: unknown;
+  mcq_form?: { options?: unknown };
+  parts?: unknown;
+  stimuli?: unknown;
+};
+
+function firstNonEmptyString(...candidates: unknown[]): string | null {
+  for (const c of candidates) {
+    if (typeof c === "string" && c.trim().length > 0) return c;
+  }
+  return null;
+}
+
+/**
+ * Derives student-facing stem text from either package shape, falling back
+ * through top-level `stem`/`prompt` to the first part's `prompt`. Never reads
+ * `canonical_answers` or any criteria field -- those are answer-bearing.
+ */
+export function derivePackageStem(
+  payload: ItemPackagePayload | null | undefined,
+): string | null {
+  if (!payload || typeof payload !== "object") return null;
+  const direct = firstNonEmptyString(payload.stem, payload.prompt);
+  if (direct) return direct;
+  const parts = Array.isArray(payload.parts) ? payload.parts : [];
+  const firstPart = parts[0] as Record<string, unknown> | undefined;
+  return firstNonEmptyString(firstPart?.prompt);
+}
+
+/**
+ * Derives the first text stimulus's body, if any. Mirrors the legacy
+ * `stimulus` column -- optional context shown above the stem.
+ */
+export function derivePackageStimulus(
+  payload: ItemPackagePayload | null | undefined,
+): string | null {
+  if (!payload || typeof payload !== "object") return null;
+  const stimuli = Array.isArray(payload.stimuli) ? payload.stimuli : [];
+  for (const s of stimuli) {
+    const stim = s as Record<string, unknown>;
+    const text = (stim?.payload as Record<string, unknown> | undefined)?.text;
+    if (typeof text === "string" && text.trim().length > 0) return text;
+  }
+  return null;
+}
+
+/**
+ * Derives choice_key/choice_text pairs from either package shape. Deliberately
+ * whitelist-only, same rule as the legacy mcq_choices select above: is_correct
+ * / correct / rationale / misconception never leave this function.
+ */
+export function derivePackageChoices(
+  payload: ItemPackagePayload | null | undefined,
+): McqChoice[] | null {
+  if (!payload || typeof payload !== "object") return null;
+
+  if (Array.isArray(payload.mcq_choices) && payload.mcq_choices.length) {
+    const choices: McqChoice[] = [];
+    for (const c of payload.mcq_choices) {
+      const choice = c as Record<string, unknown>;
+      const key = choice?.choice_key;
+      const text = choice?.choice_text;
+      if (typeof key === "string" && typeof text === "string") {
+        choices.push({ choice_key: key, choice_text: text });
+      }
+    }
+    return choices.length ? choices : null;
+  }
+
+  const options = payload.mcq_form?.options;
+  if (Array.isArray(options) && options.length) {
+    const letters = ["A", "B", "C", "D", "E", "F"];
+    const choices: McqChoice[] = [];
+    options.forEach((o, i) => {
+      const opt = o as Record<string, unknown>;
+      const text = opt?.text;
+      if (typeof text === "string" && letters[i]) {
+        choices.push({ choice_key: letters[i], choice_text: text });
+      }
+    });
+    return choices.length ? choices : null;
+  }
+
+  return null;
+}
+
+/**
+ * Applies the dual-read fallback: for a row whose legacy stem/choices came
+ * back empty, backfills from item_package_payload when one exists for that
+ * version. Rows and choice lists that already have legacy data pass through
+ * completely unchanged -- this is additive-only, so no existing content path
+ * (100% of Production today) is affected.
+ */
+export function applyItemPackageFallback(
+  rows: readonly SelectedRow[],
+  choicesByVersion: ReadonlyMap<string, McqChoice[]>,
+  payloadByVersion: ReadonlyMap<string, ItemPackagePayload>,
+): { rows: SelectedRow[]; choicesByVersion: Map<string, McqChoice[]> } {
+  const nextChoicesByVersion = new Map(choicesByVersion);
+
+  const nextRows = rows.map((row) => {
+    const payload = payloadByVersion.get(row.content_item_version_id);
+    if (!payload) return row;
+
+    const hasStem = typeof row.stem === "string" && row.stem.trim().length > 0;
+    const patchedStem = hasStem ? row.stem : derivePackageStem(payload);
+    const patchedStimulus = row.stimulus ?? derivePackageStimulus(payload);
+
+    if (
+      row.item_type === "mcq" &&
+      !(nextChoicesByVersion.get(row.content_item_version_id)?.length)
+    ) {
+      const derived = derivePackageChoices(payload);
+      if (derived) {
+        nextChoicesByVersion.set(row.content_item_version_id, derived);
+      }
+    }
+
+    if (patchedStem === row.stem && patchedStimulus === row.stimulus) {
+      return row;
+    }
+    return { ...row, stem: patchedStem ?? row.stem, stimulus: patchedStimulus };
+  });
+
+  return { rows: nextRows, choicesByVersion: nextChoicesByVersion };
+}
+
 export function assetKey(
   versionId: string,
   bucket: string,

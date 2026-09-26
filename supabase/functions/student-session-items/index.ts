@@ -43,10 +43,12 @@ import { createServiceClient } from "../_shared/supabase.ts";
 import { jsonResponse, readJsonBody } from "../_shared/http.ts";
 import { requireProfile } from "../_shared/auth.ts";
 import {
+  applyItemPackageFallback,
   type AssetMetadata,
   buildRenderItem,
   indexAssets,
   isStaffQaRole,
+  type ItemPackagePayload,
   type LearnerFacingCriterion,
   MAX_ITEMS,
   type McqChoice,
@@ -140,7 +142,7 @@ async function deliverRows(
     return { ok: true, items: [], omitted: [], expiresAt };
   }
 
-  const [criteriaResult, assetResult, visualResult, choicesResult] =
+  const [criteriaResult, assetResult, visualResult, choicesResult, packageResult] =
     await Promise.all([
       service.schema("app").from("frq_criteria")
         .select(LEARNER_FACING_CRITERION_COLUMNS)
@@ -161,11 +163,19 @@ async function deliverRows(
         .select("content_item_version_id, choice_key, choice_text")
         .in("content_item_version_id", versionIds)
         .order("choice_key", { ascending: true }),
+      // TASK-0047 Workstream E -- dual-read adapter. Fetched unconditionally
+      // for every request (cheap: at most MAX_ITEMS=20 rows, same versionIds
+      // already used above) rather than only when legacy data looks empty,
+      // so this never becomes a second, order-dependent round trip. Only used
+      // as a fallback below -- see applyItemPackageFallback.
+      service.schema("app").from("content_item_versions")
+        .select("id, item_package_payload")
+        .in("id", versionIds),
     ]);
 
   if (
     criteriaResult.error || assetResult.error || visualResult.error ||
-    choicesResult.error
+    choicesResult.error || packageResult.error
   ) {
     return { ok: false, error: "item_details_failed" };
   }
@@ -197,8 +207,32 @@ async function deliverRows(
     visualByVersion.set(row.content_item_version_id, row);
   }
 
-  const { deliverable, omitted } = partitionDeliverable(
+  const packageByVersion = new Map<string, ItemPackagePayload>();
+  for (
+    const row of (packageResult.data ?? []) as Array<
+      { id: string; item_package_payload: ItemPackagePayload | null }
+    >
+  ) {
+    if (row.item_package_payload) {
+      packageByVersion.set(row.id, row.item_package_payload);
+    }
+  }
+
+  // TASK-0047 Workstream E -- dual-read adapter. A no-op against every
+  // published item today (all have complete legacy rows); backfills stem/
+  // stimulus/mcq choices from item_package_payload only when the legacy
+  // columns for that version came back empty. See student-item-delivery.ts
+  // for the shape-handling and scope notes.
+  const fallback = applyItemPackageFallback(
     rows,
+    choicesByVersion,
+    packageByVersion,
+  );
+  const rowsWithFallback = fallback.rows;
+  const choicesByVersionWithFallback = fallback.choicesByVersion;
+
+  const { deliverable, omitted } = partitionDeliverable(
+    rowsWithFallback,
     assetByKey,
     qaMode,
     visualByVersion,
@@ -230,7 +264,8 @@ async function deliverRows(
 
   const items: RenderItem[] = [];
   for (const { row, asset } of deliverable) {
-    const choices = choicesByVersion.get(row.content_item_version_id) ?? null;
+    const choices =
+      choicesByVersionWithFallback.get(row.content_item_version_id) ?? null;
     if (row.item_type === "mcq" && (!choices || choices.length === 0)) {
       // An MCQ without choices cannot be answered. Fail closed per item rather
       // than rendering an empty choice set or failing the whole mixed queue.
