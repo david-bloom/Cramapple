@@ -28,9 +28,29 @@ this project; use the live URL/HTML instead.
 
 **New, launch-blocking finding from the live HTML:** the page still shows a $39.99 purchase CTA and a
 full Stripe-style pricing/buy section. This is stale against `DECISION-0070` (Friday launches free, no
-Stripe). Swapping this for a free-access CTA is tracked in
-`LAUNCH_PLAN_MARKETING_HOME_PAGE_2026_09_26.md`, not this plan, but note it here since it's the same
-live page this plan audits.
+Stripe). David is handling this directly (a "Free this week!" banner), not delegated to an agent — see
+`LAUNCH_PLAN_MARKETING_HOME_PAGE_2026_09_26.md`.
+
+## VERIFIED, 2026-09-26: practice/grading is real production infrastructure, not a demo
+
+David asked whether this app's practice/grading is genuinely wired to a real grading backend or is a
+demo — the answer is **it's real**, verified by reading the project's source directly (see
+`DECISION-0072`'s verification addendum for full detail):
+
+- `src/lib/use-grade-practice.ts` (used by the real session/practice components,
+  `SessionFrame.tsx`/`GradeResultView.tsx`) calls `supabase.functions.invoke()` against the actual
+  production edge functions this repo documents elsewhere — `session-event`, `attempt-response`,
+  `evaluate-attempt` (the same infrastructure as TASK-0016's grading rollout). Not mocked, not a
+  separate path.
+- Only the home-page hero's `FrqDemo.tsx` (explicitly under `src/components/marketing/`) is a scripted,
+  hardcoded animation — expected and fine for a marketing teaser, not a defect.
+- This independently confirms the entitlement-gating bug flagged earlier (unentitled students hitting a
+  generic "Couldn't score that — try again." error) lives in exactly this real grading path — the error
+  string matches `use-grade-practice.ts`'s `runEvaluate` function verbatim.
+
+**This closes out the "is student hub / practice-grading genuinely separate and how far along is it"
+question this plan originally left open.** It's not a build item — it exists and is production-wired.
+The remaining real risk for Friday is the entitlement-gating bug, not the absence of real grading.
 
 ## Product Goal
 

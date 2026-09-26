@@ -45,7 +45,7 @@ before agents execute further, rather than embedding unverified assumptions in t
 | 1 | Marketing home page | `LAUNCH_PLAN_MARKETING_HOME_PAGE_2026_09_26.md` | Not started |
 | 2 | Payment flow | `LAUNCH_PLAN_PAYMENT_FLOW_2026_09_26.md` | **Deferred, not Friday-critical** (`DECISION-0070`) — post-launch follow-up |
 | 3 | Content pipeline (question templates) | `LAUNCH_PLAN_CONTENT_PIPELINE_2026_09_26.md` | In progress, pipeline gap |
-| 4 | Student hub | `LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md` | Not started (audit) |
+| 4 | Student hub | `LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md` | App exists, on-brand, real production grading verified (not a demo). Open risk: the entitlement-gating bug. |
 | 5 | Subject onboarding gate | `LAUNCH_PLAN_SUBJECT_ONBOARDING_GATE_2026_09_26.md` | Day-1 = Biology + Statistics; both passing criterion 6 (Statistics' hazard resolved 2026-09-25); both open on labels/difficulty |
 
 Each plan is independently assignable to a different AI agent. Read dependency notes inside each plan

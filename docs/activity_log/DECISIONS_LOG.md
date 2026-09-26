@@ -109,9 +109,36 @@ Your photo isn't kept.") — matches `DECISION-0069`.
   guessed project.
 - No visual/brand rebuild is needed — remove that item from the student hub plan's scope.
 - **New launch-blocking task for Friday:** replace the $39.99/Stripe purchase CTA and pricing section
-  with a free-access sign-up flow, per `DECISION-0070`.
+  with a free-access sign-up flow, per `DECISION-0070`. (Update: David is handling this directly with a
+  "Free this week!" banner rather than a full CTA rework — not delegated to an agent.)
 - Lesson for future verification: prefer live HTML/fetch over Lovable `get_project` screenshots, which
   can be meaningfully stale.
+
+### VERIFIED, 2026-09-26 (same session): practice/grading is real, not a demo
+
+David asked whether the practice/grading flow visible on the live page is genuinely wired to production
+grading or just a scripted demo — this was never actually checked earlier despite being listed as an
+open research item. Verified directly by reading this project's source via the Lovable MCP:
+
+- `src/components/marketing/FrqDemo.tsx` (the "Open Hand · FRQ" plate on the home page hero) **is a
+  scripted marketing demo** — 4 hardcoded example Q&As with pre-written grading payloads baked into the
+  component source, cycled via `setTimeout` state transitions (typing → submitting → graded). No API
+  call. This is expected and appropriate for a marketing teaser, not a defect.
+- `src/lib/use-grade-practice.ts` (the real practice-session grading hook, used by
+  `src/components/session/SessionFrame.tsx` and `GradeResultView.tsx`) **is genuinely wired to
+  production**: it calls `supabase.functions.invoke()` against the real, named edge functions
+  documented elsewhere in this repo — `session-event`, `attempt-response` (create/save/submit
+  operations), `evaluate-attempt`. The file's own header comment: "Uses the four already-deployed edge
+  functions... No legacy beta-attempt path is involved." This is the same grading infrastructure
+  covered by TASK-0016's rollout, not a separate or mocked path.
+- This also independently confirms the earlier-flagged entitlement-gating bug (`DECISION-0068`'s
+  follow-up, `ACTIVITY_LOG.md` 2026-09-20) is real and lives in exactly this code path — the generic
+  error string "Couldn't score that — try again." in `use-grade-practice.ts`'s `runEvaluate` matches
+  the bug report precisely.
+
+**Verdict: the student hub / practice & grading engine is not a separate long-build item for Friday —
+it already exists and is production-wired.** The main open risk for Friday is the entitlement-gating bug
+above, not the existence of real grading.
 
 ## DECISION-0071 — AP Statistics Launches on the Flat Practice Path, Unit-Gating Deferred
 
