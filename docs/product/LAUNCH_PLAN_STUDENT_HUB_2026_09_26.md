@@ -27,7 +27,7 @@ page was already correct. Lesson: don't trust `get_project` screenshots as curre
 this project; use the live URL/HTML instead.
 
 **New, launch-blocking finding from the live HTML:** the page still shows a $39.99 purchase CTA and a
-full Stripe-style pricing/buy section. This is stale against `DECISION-0071` (Friday launches free, no
+full Stripe-style pricing/buy section. This is stale against `DECISION-0071` (October 2 launches free, no
 Stripe). David is handling this directly (a "Free this week!" banner), not delegated to an agent — see
 `LAUNCH_PLAN_MARKETING_HOME_PAGE_2026_09_26.md`.
 
@@ -50,7 +50,9 @@ demo — the answer is **it's real**, verified by reading the project's source d
 
 **This closes out the "is student hub / practice-grading genuinely separate and how far along is it"
 question this plan originally left open.** It's not a build item — it exists and is production-wired.
-The remaining real risk for Friday is the entitlement-gating bug, not the absence of real grading.
+The remaining real risk for October 2 is the first-user access boundary, not the absence of real
+grading. Verify a brand-new student receives the free/trial subject entitlement required by
+Production and can complete grading in both Day-1 subjects.
 
 ## Product Goal
 
