@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0072 — Launch Frontend Target Is the Lovable App Published at ap-prep-canvas.lovable.app, Tentatively Identified as the "New Cramapple App" Project
 - DECISION-0071 — Extend DECISION-0063 to AP Statistics: Launches on the Flat/Practice Path, Unit-Gating Deferred
 - DECISION-0070 — Launch Friday, Free — Ship Without Stripe/Payment Gating; Add Payment Flow as a Post-Launch Follow-Up
 - DECISION-0069 — Launch-Planning Follow-Ups: BYOQ Ships Ungated/Anonymous on the New Home Page; Unlimited-Tier Pricing Deferred Until All 10 Subjects Are Live; Target Launch Window Is Next Week; Wordmark-Only Branding Is Sufficient (No Logo Mark Required)
@@ -50,6 +51,55 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~600 lines, archive the older entries to `docs/activity_log/archive/DECISIONS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries. (This log is already well over that threshold — the first archive pass is overdue, not optional.)
 
 (Note: the TASK-0012 branch independently logged its own DECISION-0027/0028 — CORS/ALLOWED_ORIGINS and budget-burn semantics — under different numbers on its own branch. Those land separately when that work merges to `main`; this charter-adoption decision claimed 0027/0028 here because `main` had not yet recorded entries past DECISION-0026 at merge time. If both branches' numbering collides on merge, renumber on whichever side merges second and update this index.)
+
+## DECISION-0072 — Launch Frontend Target: ap-prep-canvas.lovable.app
+
+**Date:** 2026-09-26
+**Decision Owner:** David Bloom
+**Status:** Approved, with an unresolved verification gap (see below)
+**Approval:** Product Owner direction, 2026-09-26 (this session)
+**Related Docs:** `docs/product/APP_LAUNCH_READINESS_INDEX_2026_09_26.md` (decision D-2);
+`docs/product/LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md`
+**Area:** Product / Frontend / Launch Scope
+
+### Decision
+
+David identified the launch frontend as the Lovable app published at
+**`https://ap-prep-canvas.lovable.app/`**, resolving decision D-2 (which frontend is the actual launch
+target — the `web/` Vite rebuild in this repo, or a Lovable app). It is neither of the two candidates
+this session had previously framed as the choice — it's a third option, a Lovable project.
+
+### Verification gap — flag before treating this as fully settled
+
+This session could not confirm which Lovable project in the workspace (`David's Lovable`, workspace
+`MqwiRKUJ3S0xlxyUafRr`) is actually published at that custom domain: the Lovable MCP tools don't expose
+a custom-domain-to-project mapping, and direct fetch of the URL was blocked by this session's network
+egress policy. Based on content match against the two most likely candidates:
+
+- **"New Cramapple App"** (project id `56cae479-f7c9-4988-b536-56538c38ee4e`) — description: "a
+  web-based study platform that enables high school students to practice for Advanced Placement exams
+  with live server grading... integrates directly with a Supabase backend... server-side scoring." This
+  is the strongest content match for a student-hub/practice app. **Tentatively identified as the
+  answer**, pending confirmation.
+- **"New Cramapple Marketing"** (project id `61dd6602-6991-4561-b418-e988bb7c8a0b`) — ruled out: this
+  is clearly the marketing site (already matches the new orange/Bungee brand from
+  `APP_REBUILD_MIGRATION_PLAN.md` / `docs/new_design/`), not the student app D-2 was asking about.
+
+**A real finding regardless of which project this resolves to:** "New Cramapple App"'s current
+screenshot does not match the new design system — it shows a blue/red "cramapple" wordmark and older
+layout, not the orange masthead + Bungee wordmark `docs/new_design/` specifies. If this is confirmed as
+the launch frontend, it needs the visual rebuild, not just a feature audit.
+
+### Consequences
+
+- `LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md` can proceed against this frontend instead of being blocked on
+  D-2, but should note the identification is tentative until David confirms the exact Lovable project.
+- If confirmed as "New Cramapple App," the visual/brand-system gap above becomes part of that plan's
+  scope, not a surprise found later.
+
+### Not yet resolved
+
+Exact confirmation of which Lovable project ID is published at `ap-prep-canvas.lovable.app`.
 
 ## DECISION-0071 — AP Statistics Launches on the Flat Practice Path, Unit-Gating Deferred
 

@@ -12,14 +12,16 @@ its own exit criterion.** The two documents partially overlap and are not reconc
 Do not audit against the older spec alone — you will report "not implemented" against a design that
 may itself be superseded.
 
-**A real open question this plan did not surface: which frontend is actually being audited/built?**
-Two candidates exist — the live Lovable app (`exam-buddy-wireframe`, currently hosting real students
-via the Course Mode pilot and the reviewer portal) and the `web/` Vite rebuild (per PR #152, the
-rebuild plan's actual target). Auditing `STUDENT_PORTAL_INTERACTION_DESIGN.md` against `web/` will
-report near-total non-implementation since it's a fresh rebuild in progress; auditing it against the
-live Lovable app audits a product David has already decided to replace. **This is a decision for
-David, not something this plan should guess at** — see the decision register in
-`APP_LAUNCH_READINESS_INDEX_2026_09_26.md`.
+**RESOLVED, 2026-09-26 (`DECISION-0072`): the launch frontend is the Lovable app published at
+`https://ap-prep-canvas.lovable.app/`** — not either of the two candidates this plan originally framed
+(the live `exam-buddy-wireframe` app or the `web/` Vite rebuild). It is a third, separate Lovable
+project. This session tentatively identified it as the **"New Cramapple App"** Lovable project
+(id `56cae479-f7c9-4988-b536-56538c38ee4e`) by content match, but could not confirm the exact
+custom-domain mapping (network egress to that URL was blocked, and Lovable's API doesn't expose a
+domain-to-project lookup). **Confirm the exact project before auditing** — see `DECISION-0072` for the
+verification gap. A real finding regardless: this project's current screenshot uses an older blue/red
+"cramapple" wordmark, not the new orange/Bungee brand system in `docs/new_design/` — expect a visual
+rebuild to be part of this plan's scope, not just a feature audit.
 
 ## Product Goal
 
@@ -59,8 +61,10 @@ to sections that are already decided; flag implementation gaps instead.
 
 ## Acceptance Criteria
 
-- [ ] **Frontend-identity decision confirmed with David before auditing anything else** (`web/` rebuild
-      vs. live Lovable app) — do not proceed past this without an explicit answer.
+- [ ] **Confirm the exact Lovable project published at `ap-prep-canvas.lovable.app`** before auditing
+      anything else — this session's identification ("New Cramapple App," `56cae479-...`) is tentative,
+      not verified. Use Lovable's own dashboard/domain settings or ask David directly; do not proceed
+      on the tentative ID alone for anything beyond a first-pass audit.
 - [ ] Rebuild plan §12's phase structure and its exit criterion are used as the primary execution
       frame; `STUDENT_PORTAL_INTERACTION_DESIGN.md` sections below are cross-checked against it, with
       any conflict between the two named explicitly rather than silently resolved.

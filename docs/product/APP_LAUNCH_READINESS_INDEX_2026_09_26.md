@@ -86,7 +86,7 @@ struck through.
 | ID | Decision | Status |
 | --- | --- | --- |
 | D-1 | Does the rebuild's app→marketing-reskin→Stripe→home-page-last sequence still hold, or should the five launch plans run in parallel? | **Open, now urgent** — see the sequencing-vs-1-week-window tension flagged below. |
-| D-2 | Which frontend is the actual launch target — the `web/` Vite rebuild or the live Lovable app (`exam-buddy-wireframe`)? | **Open.** Plan 4 cannot proceed without this. |
+| D-2 | Which frontend is the actual launch target? | **Resolved (`DECISION-0072`): the Lovable app at `ap-prep-canvas.lovable.app`** — a third option, not either originally-framed candidate. Tentatively identified as the "New Cramapple App" Lovable project pending confirmation (this session couldn't verify the custom-domain mapping directly). Plan 4 can proceed against it. |
 | D-3 | Must the unit-gated practice path work for launch, or is the label-free FRQ path sufficient for Day 1? | **Resolved for both Day-1 subjects.** Biology: `DECISION-0063` (2026-09-24). Statistics: `DECISION-0071` (2026-09-26, extends the same policy). Both launch flat-path; unit-gating deferred for both. |
 | D-4 | ~~AP Statistics' dual-published-exam-pack-version hazard~~ | **Resolved 2026-09-25**, before this index was drafted — pilot pack retired (`docs/content/APSTATS_PILOT_PACK_REVIEW_AND_UNPUBLISH_2026_09_25.md`). This index and plan 5 had it wrong as an open Day-1 hazard; corrected. |
 | D-5 | ~~Unlimited-subject pricing tier at launch~~ | **Resolved (`DECISION-0069`): deferred until all 10 subjects are live.** Not priced or enabled at initial launch. |
@@ -102,7 +102,7 @@ struck through.
 Friday-urgent — they only matter once payment flow (plan 2) actually ships, post-launch. D-1 (sequencing)
 is narrowed: the Stripe step is moot for Friday, so the open question is whether app-rebuild →
 marketing-reskin → home-page-last still holds for the remaining three steps, or whether they can run in
-parallel given the compressed timeline. D-2 (which frontend) is unchanged and still blocks plan 4.
+parallel given the compressed timeline. D-2 (which frontend) is resolved — see `DECISION-0072`.
 
 Items not yet needing your call (agents can proceed without you): everything else in each plan's
 acceptance criteria.
