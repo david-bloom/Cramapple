@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0068 — BYOQ Data Model Uses Parallel Tables (Option A), Not the Live Graded Pipeline; TASK-0039 Phase 1 Scope Approved
 - DECISION-0067 — Coverage Labels Stay Deferred at `provisional_model`; No Promotion Work Until Coverage Reporting Is Prioritized (FF-9)
 - DECISION-0066 — Approve AI Two-Model Agreement as Sufficient to Promote Serving Labels to `validated`, Product Owner as Approver (FF-3)
 - DECISION-0065 — Four Rules to Unblock J.0's Continuous `attainment_ratio` (FF-6): AI Cross-Model Verb Verification, Same-Tier Borrowing, Mean Aggregation, Non-Overlapping Cut Points
@@ -164,6 +165,72 @@ decision's mechanism applies to them too, not just to what was promoted today.
 - Coverage/topic label promotion (FF-9) — explicitly out of scope, see DECISION-0067.
 - Whether to re-run serving labeling for subjects that don't have current labels at all — that's
   ordinary content work, tracked per-subject, not a governance question.
+
+## DECISION-0068 — BYOQ Data Model Uses Parallel Tables (Option A), Not the Live Graded Pipeline; TASK-0039 Phase 1 Scope Approved
+
+**Date:** 2026-09-26
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Approval:** Product Owner direction, 2026-09-26 (this session) — see `APPROVAL-0050`
+**Related Docs:** `docs/tasks/TASK-0039-BYOQ-PRODUCTION-OPERATIONAL.md` ("Question identity, answer
+capture, and image linking" section, Decision needed #1); `DECISION-0057`;
+`docs/product/BYOQ_ANSWER_VISIBILITY_AND_DATA_MODEL_DISCUSSION.md`
+**Area:** Backend / Schema / Governance
+
+### Context
+
+`TASK-0039` needed a call on how BYOQ (bring-your-own-question) items and their attempts/images are
+stored: generalize the live, real-student-data `app.attempts`/`app.response_versions`/
+`app.response_attachments`/`app.capture_pairing_tokens` tables in place (Option D), or build BYOQ its
+own parallel tables (Option A). Option D was this session's first-draft recommendation, on the theory
+that a single, well-tested guard on the shared grading code paths would be a smaller surface than
+duplicating working attempt/version/retake machinery.
+
+An adversarial review of that exact schema, checked line-by-line against the live migrations and
+function bodies rather than taken on the plan's word, and independently re-verified directly against
+Production before this decision was recorded, found Option D's "one guard" premise false:
+`app.record_manual_grade` (the RPC the human-grading queue calls) checks only `status = 'submitted'`,
+with no content or BYOQ-provenance check of any kind; `app.prevent_client_grading_truth_update` (the
+trigger meant to block unauthorized grading writes) explicitly exempts the `service_role` every
+grading path runs as, so it offers no protection here; and `app.attempts_status_check` has no
+terminal "never graded, by design" status, so a BYOQ attempt reaching `submitted` sits in exactly the
+state the human-grading queue scopes on. Together, under Option D a BYOQ hand-drawn response photo
+reaching `submitted` status would land in the real human-grading queue, with the student's name
+attached, one RPC call away from being graded — a live `DECISION-0057` leak path, not a hypothetical
+one. Closing it under Option D would require a new, service-role-inclusive guard trigger, a new
+terminal attempt status, and rewrites to `bind_response_attachment` and `capture-pairing`'s
+supersede logic for the corrected `part_key`/`page_sequence` uniqueness rule — a materially larger and
+riskier migration surface against live tables than "a few additive columns."
+
+### Decision
+
+**Option A: BYOQ gets its own parallel tables** — `app.byoq_items`, `app.byoq_responses` (or a
+`byoq_attempts`/`byoq_responses` pair, sized to what BYOQ actually needs, not the full graded state
+machine), and, when Phase 2 starts, `app.byoq_capture_pairing_tokens`/`app.byoq_attachments`. No
+shared code path exists between BYOQ and the graded pipeline for a guard to fail on, because there is
+no shared code path — the human-grading queue, `evaluate-attempt`, and `record_manual_grade`
+structurally cannot see a `byoq_*` row. The `part_key`/`page_sequence` fix for "whole vs. part of a
+multi-part answer" (a real, pre-existing gap this task found, affecting library content too — AP
+Biology's longer FRQs and future long-form subjects like AP Literature) still applies, built correctly
+into `byoq_attachments` from the start (a `NOT NULL` triple-keyed uniqueness rule, not the nullable
+pair the first draft mistakenly specified).
+
+**`TASK-0039` Phase 1 scope is approved**: the `app.byoq_items`/`app.byoq_responses` schema (Option A
+shape, no answer-bearing column of any kind on `byoq_items`), a separate BYOQ Practice
+screen/component sharing UI components with but never branching inside the live graded Practice
+screens, and the Home entry point, per that task's Phase 1 section as currently written.
+
+### Not decided by this approval
+
+- **Phase 2** (QR photo capture) is not authorized to start — it still needs the Pre-flight
+  verification step (which Lovable frontend actually serves `cramapple.com`) done first, and its own
+  implementation go-ahead once Phase 1 ships.
+- **Phase 3** (worksheet parsing) remains blocked on `docs/product/BYOQ_WORKSHEET_PARSING_DESIGN.md`'s
+  own Open Decisions (parsing vendor, candidate cap, retention window).
+- **`TASK-0039`'s "New gaps" list is not resolved by this decision** — entitlement/trial gating, rate
+  limits/quotas, retention/deletion, consent copy, the private-until-promoted boundary, subject/
+  taxonomy scoping, stuck-BYOQ routing, and the hints/deep-dive floor all still need an explicit
+  Product Owner call before Phase 1 ships to real students, not just before its schema is built.
 
 ## DECISION-0067 — Coverage Labels Stay Deferred; No Promotion Work Until Coverage Reporting Is Prioritized (FF-9)
 

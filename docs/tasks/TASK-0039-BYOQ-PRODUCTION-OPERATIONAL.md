@@ -7,10 +7,13 @@ photo capture, and worksheet upload with multi-question parsing
 **Owner:** Claude (implementation), Technical Owner (review)
 **Product Owner:** David Bloom
 **Tier:** Hard-Gate
-**Status:** Not Started
+**Status:** Phase 1 Approved (`DECISION-0068`/`APPROVAL-0050`, 2026-09-26) —
+implementation not yet started. Phase 2 gated on its Pre-flight verification
+step; Phase 3 gated on `BYOQ_WORKSHEET_PARSING_DESIGN.md`'s Open Decisions.
 **Priority:** High
 **Created Date:** 2026-09-25
-**Approved Date:** Pending
+**Approved Date:** 2026-09-26 (Phase 1 scope and Decision needed #1 only —
+see "Approval State" below for what remains open)
 
 ## Why this task exists
 
@@ -337,10 +340,11 @@ is now the default**, not Option D:
   new service-role-inclusive guard trigger described above. That is a large,
   multi-migration surface against live, real-student-data tables, not "a few
   additive columns."
-- This task now defaults to **Option A**. If the Product Owner still prefers
-  Option D's unified shape after weighing the above, treat
-  `record_manual_grade`/`list_pending` exclusion of any BYOQ-sourced attempt
-  as a required, tested blocking acceptance criterion before Phase 1 ships —
+- **Approved: Option A** (`DECISION-0068`/`APPROVAL-0050`, 2026-09-26). If a
+  future revisit prefers Option D's unified shape after weighing the above,
+  treat `record_manual_grade`/`list_pending` exclusion of any BYOQ-sourced
+  attempt as a required, tested blocking acceptance criterion before Phase 1
+  ships —
   not an assumption.
 
 **Two smaller fixes from the same review pass, applicable under either
@@ -646,15 +650,22 @@ decided before Phase 1 ships to real students, not discovered after:
 
 **Approval Required:** Yes
 **Approval Type:** Hard Gate
-**Decision:** Pending — needs Product Owner sign-off on scope (including the
-"New gaps" list under Phase 3), plus explicit answers to Decision needed #1
-(now reframed as Option D — generalize `attempts`/`response_versions`/
-`response_attachments` in place — vs. Option A — parallel `byoq_*` tables;
-see "Question identity, answer capture, and image linking" above) and, before
-Phase 3 starts, a separate approved design doc resolving Decision needed #2.
-This draft has been through two adversarial review passes (see "Corrections
-from adversarial review" above, and the 2026-09-26 schema addition, itself
-pending its own review) — neither is a substitute for Product Owner approval.
+**Decision:** **Decision needed #1 and Phase 1 scope: Approved**
+(`DECISION-0068`/`APPROVAL-0050`, 2026-09-26) — Option A (parallel `byoq_*`
+tables) is the architecture; Phase 1 (schema, separate BYOQ Practice screen,
+Home entry point) is cleared to start.
+
+**Still Pending:**
+- The "New gaps" list under Phase 3 (entitlement/trial gating, rate
+  limits/quotas, retention/deletion, consent copy, the private-until-promoted
+  boundary, subject/taxonomy scoping, stuck-BYOQ routing, the hints/deep-dive
+  floor) — explicitly not resolved by this approval; needs its own Product
+  Owner call before Phase 1 ships to real students.
+- Phase 2 — needs the Pre-flight verification step done, then its own
+  implementation go-ahead.
+- Phase 3 — needs `docs/product/BYOQ_WORKSHEET_PARSING_DESIGN.md`'s Open
+  Decisions resolved (parsing vendor, candidate cap, retention window) before
+  it can start at all.
 
 ## Implementation Notes
 
