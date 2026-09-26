@@ -162,26 +162,231 @@ against production data before extending them. Do not assume the activity
 log entry's description of "production" still matches by the time this task
 executes — re-verify, per `feedback_verify_before_characterising`.
 
+### Question identity, answer capture, and image linking — unified schema
+
+This section supersedes the original Decision needed #1 framing below (kept
+for its still-relevant options, now reframed as one axis of a bigger choice).
+Written up 2026-09-26 after a design conversation surfaced that CramApple
+already has exactly the "code that allows lookup" pattern BYOQ needs
+(`content_items.content_key`), that a BYOQ session needs a **second** image
+type this plan hadn't named (a hand-drawn *response* photo, not just the
+question photo), and that the live system has a real, pre-existing gap in
+"whole vs. part of an answer" that BYOQ inherits and should fix rather than
+copy. Confirmed live against Production before writing this:
+`content_items.content_key` is the human-readable lookup code library content
+already has; `app.response_attachments` has no part/slot column at all (an
+image binds to a whole `response_version`, one "current" at a time); and
+`app.capture_pairing_tokens.submission_slot_id` — the one column that
+anticipates a "which part" concept — has never held any value but `slot-1`
+in any of the 3 real rows in Production, i.e. this was designed for and never
+actually exercised.
+
+**1. One binary-typed reference to "the question," used everywhere a question
+needs naming.** Every table that points at "the question" (attempts, the
+image table, eventually anything else) carries the same three columns instead
+of one untyped id:
+- `question_source` — `'cramapple' | 'byoq'`
+- `content_item_version_id` — nullable, FK to `app.content_item_versions`
+- `byoq_item_id` — nullable, FK to new `app.byoq_items`
+- a check constraint: exactly one of the two FKs is set, matching
+  `question_source`.
+
+This is the standard safe way to do a polymorphic reference in Postgres —
+two real foreign keys instead of one loosely-typed id, so referential
+integrity holds on both branches, matching this schema's existing taste for
+explicit check constraints over implicit convention (see
+`capture_pairing_tokens_access_path_check` for the same pattern already in
+use).
+
+**2. Lookup codes, same shape on both sides.** CramApple already has this:
+`content_items.content_key` (e.g. `apstats-2-2-mcq-001`) is the stable,
+human-readable code; `content_item_versions.id` is the specific version
+underneath it. New: `app.byoq_items.code` — short, unique, human-typeable,
+same role. `select * from byoq_items where code = '...'` works the same way
+`content_key` lookups already do.
+
+**3. (Option D's approach, described here for the Decision below — the
+answer/response layer would reuse `app.attempts`/`app.response_versions`
+instead of a parallel `byoq_responses` table.)** `app.response_versions` is
+already fully generic — it only points at `attempt_id`, never at the
+question directly, and already has `version_number`/
+`parent_response_version_id` for "multiple attempts, same or different
+session, multiple saved versions." Zero changes needed there. `app.attempts`
+needs #1's treatment (relax `content_item_version_id` to nullable, add
+`byoq_item_id`); for a BYOQ attempt, `score_points`/`result_state` simply
+stay null forever (never populated, per DECISION-0057) — no new branching
+logic to write at the schema level, only a guarantee that no grading code
+path is ever invoked for one (see the Decision below).
+
+**4. `app.response_attachments` gets #1's treatment plus a real fix: a
+`part_key` column and a `page_sequence` column.** Corrected after review:
+**both must be `NOT NULL` with defaults** (`part_key DEFAULT 'whole'`,
+`page_sequence DEFAULT 1`, existing rows backfilled at migration time) —
+**not nullable**, because the live uniqueness rule
+(`response_attachments_one_current_original`, confirmed: a partial unique
+index on `response_version_id` alone today) treats NULL as distinct from
+every other NULL. A nullable `part_key` would let a null-keyed row and a
+`'whole'`-keyed row both be "current" at once, silently defeating the rule
+it's meant to enforce. The corrected index is a **triple**:
+`(response_version_id, part_key, page_sequence) WHERE kind='original' AND
+is_current` — not a pair — because pages 1, 2, and 3 of one `'whole'` answer
+must all be current simultaneously; only `page_sequence` distinguishes them.
+`part_key` is `'whole'` for a single image or a multi-page continuous answer,
+or a value matching the keys already used in `response_versions.response_parts`
+(e.g. `'part_a'`) when an answer is split across distinct rubric parts.
+Retake lineage (`replaces_attachment_id`/`is_current`) must scope "current"
+per the full triple. This is a real rewrite of `bind_response_attachment`
+(its `select … where response_version_id = … and is_current for update` and
+`replaces_attachment_id` target check both need the triple) and of
+`capture-pairing/index.ts`'s auto-supersede logic — not an additive column
+add. Nothing today validates that `part_key` values agree with
+`response_parts`' keys, or that `page_sequence` has no gaps, or tells a
+reader whether all of an answer's expected parts are present — this plan
+leaves "an answer's parts are complete" as a UI-level notion, not a DB
+invariant, since BYOQ items have no rubric to check part completeness
+against in the first place. **This fixes a gap that exists today for
+library content too** (AP Biology FRQs are already noted elsewhere as
+longer, multi-part, and this table has never supported that) — it isn't
+BYOQ-specific, and should land as one shared migration regardless of which
+Decision option below is chosen. Also update `response_attachments_guard_immutable_fields`
+to protect the two new columns, the same as every other column recorded at
+capture time.
+
+**Note on future long-form content (e.g. AP Literature):** an extended essay
+response is exactly the case `page_sequence` is for — several photographed
+pages of one continuous answer, not a rubric-part split — so the schema
+above already generalizes to it without further change. Item authoring/rubric
+model differences for holistic long-form scoring (`rubric_type`,
+`evaluator_strategy` already exist as columns on `content_item_versions`) are
+a grading-pipeline concern, not a BYOQ-schema one, and don't block this task.
+
+**Decision needed #1 (Product Owner), reframed, then reversed after a second
+review pass (2026-09-26):** generalize the live tables in place, or keep
+BYOQ on fully parallel tables? A same-day adversarial review of this exact
+schema, checked line-by-line against the live migrations/functions rather
+than taken on the plan's word, found Option D's "additive-only, one guard"
+premise does not hold. Confirmed directly against Production before writing
+this:
+
+- `app.attempts.exam_pack_version_id` is **also** `NOT NULL` — a BYOQ item
+  has no exam pack, so this needs relaxing too, not just
+  `content_item_version_id`. Both `public.attempts` and `public.response_versions`
+  (the PostgREST views a frontend would actually read) inner-join
+  `exam_pack_versions → exam_packs → subjects`, so a BYOQ row with a null or
+  fabricated pack reference either silently disappears from those views or
+  pollutes pack-attempt counts, depending which way it's relaxed.
+- **A concrete leak path exists today, confirmed by reading the actual
+  function bodies:** `app.record_manual_grade` (the RPC the human-grading
+  queue calls) checks only `status = 'submitted'` — no content check, no
+  BYOQ awareness, nothing to stop it. `app.prevent_client_grading_truth_update`
+  (the trigger that otherwise blocks grading-truth columns from being written)
+  **explicitly exempts `service_role`** — the role every grading path,
+  including this one, runs as — so it provides zero protection here. And
+  `app.attempts_status_check` has no terminal "ungraded by design" status; a
+  BYOQ attempt that reaches `submitted` sits in exactly the state the human
+  grading queue (`attempt-response`'s `list_pending` operation) scopes on.
+  Put together: under Option D, a BYOQ response photo reaching `submitted`
+  status puts it in the real human-grading queue, with the student's name
+  attached, one RPC call away from being graded — which is exactly what
+  DECISION-0057 must never allow. Making Option D's "one guard" claim true
+  would require a **new BEFORE UPDATE trigger on `attempts`, with no
+  service_role exemption**, refusing any grading-truth write or `submitted`→
+  `graded`/`uncertain` transition when `byoq_item_id IS NOT NULL` — not the
+  single per-function guard the first draft of this section proposed.
+- The question-photo role doesn't fit `response_attachments` cleanly under
+  Option D either: it has no `attempt_id`/`response_version_id` to bind to,
+  so it needs those two columns relaxed as well (plus `capture_pairing_tokens`
+  relaxed on four columns, its single-literal `upload_purpose` check rewritten,
+  and its `one_live_per_slot` uniqueness — keyed on `attempt_id` — redesigned)
+  — meaning Option D still ends up needing a separate table for the
+  question-photo role regardless, eroding most of its "reuse, don't
+  duplicate" benefit.
+- Two more concrete costs found: both `response_attachments_guard_immutable_fields`
+  and `capture_pairing_tokens_guard_immutable_fields` would need updating to
+  protect the new columns (else a bound attachment could be re-pointed to a
+  different BYOQ item after capture), and this plan's own requirement that
+  BYOQ photos stay owner-deletable (see #4 above) directly conflicts with
+  `response_attachments`' storage policies and its BEFORE DELETE immutability
+  trigger, which apply to every row in that table — Option D would need
+  carve-outs in the exact policies that protect the graded path's integrity.
+
+Given this, **the recommendation reverses: Option A (fully parallel tables)
+is now the default**, not Option D:
+- **Option A — fully parallel tables (recommended):** `byoq_items`,
+  `byoq_responses`/`byoq_attempts` (an attempt/version/retake structure
+  scoped to BYOQ only, sized to what BYOQ actually needs — nothing here is
+  ever graded, disputed, or reviewed by a human queue, so it does not need
+  to reach the full `attempts`/`response_versions` state machine, only the
+  parts of it that give "multiple attempts, multiple saved versions, retake
+  lineage"), and `byoq_attachments` (with `part_key`/`page_sequence` built
+  in from the start, correctly as the triple described in #4). No shared
+  code path exists for a guard to fail on, because there is no shared code
+  path — the human-grading queue, `evaluate-attempt`, and `record_manual_grade`
+  structurally cannot see a `byoq_*` row, full stop, rather than being
+  trusted not to.
+- **Option D — generalize in place (kept as a documented alternative, not
+  recommended):** still possible, but the real cost is now named: relax
+  `content_item_version_id`/`exam_pack_version_id` on `attempts`, relax
+  `response_version_id`/`attempt_id` on `response_attachments` for the
+  question-photo role, relax four columns plus rewrite one check constraint
+  on `capture_pairing_tokens`, redesign `one_live_per_slot`'s uniqueness,
+  rewrite `bind_response_attachment` and `capture-pairing`'s supersede logic
+  for the new triple index, add a new non-`submitted` terminal attempt
+  status, update two immutability triggers, carve BYOQ exemptions into the
+  storage policies that currently protect every row uniformly, and add the
+  new service-role-inclusive guard trigger described above. That is a large,
+  multi-migration surface against live, real-student-data tables, not "a few
+  additive columns."
+- This task now defaults to **Option A**. If the Product Owner still prefers
+  Option D's unified shape after weighing the above, treat
+  `record_manual_grade`/`list_pending` exclusion of any BYOQ-sourced attempt
+  as a required, tested blocking acceptance criterion before Phase 1 ships —
+  not an assumption.
+
+**Two smaller fixes from the same review pass, applicable under either
+option:** (a) `byoq_items.code` needs an explicit uniqueness scope decided —
+global uniqueness (matching `content_key`) makes another student's code
+guessable as a "does this exist" oracle even though RLS hides the row
+contents; per-student uniqueness avoids that at the cost of needing the
+owner id to look one up. (b) wherever an attachment row's question reference
+(`question_source`/`content_item_version_id`/`byoq_item_id`) is written, derive
+it server-side from the attempt/response it's attached to rather than
+accepting it as a caller-supplied parameter the way `bind_response_attachment`
+currently accepts `p_content_item_version_id` — otherwise the two copies of
+the reference (on the attempt and on the attachment) can disagree with
+nothing enforcing they match.
+
 ### Phase 1 — Data model and typed/pasted intake (no photo, no worksheet)
 
 - New migration: `app.byoq_items` — `id`, `user_id` (FK `app.profiles`),
-  `item_type` (`mcq`/`frq`), `title`, `stem`, `choices` (jsonb array of
-  `{choice_key, choice_text}` for MCQ — **no `is_correct` column exists on
-  this table at all**, so there is no column to ever mis-grant; this is the
-  "structurally impossible, not policy-dependent" approach
-  `BYOQ_ANSWER_VISIBILITY_AND_DATA_MODEL_DISCUSSION.md` recommends), a
-  taxonomy reference (join to the existing `app.taxonomy_topics`/
+  `code` (per the schema above), `item_type` (`mcq`/`frq`), `title`, `stem`,
+  `choices` (jsonb array of `{choice_key, choice_text}` for MCQ — **no
+  `is_correct` column exists on this table at all**, so there is no column to
+  ever mis-grant; this is the "structurally impossible, not policy-dependent"
+  approach `BYOQ_ANSWER_VISIBILITY_AND_DATA_MODEL_DISCUSSION.md` recommends),
+  a taxonomy reference (join to the existing `app.taxonomy_topics`/
   `app.taxonomy_cells` the same way library content does, so a promoted BYOQ
   item can sit in the real CED structure later), `difficulty`, `status`
   (`draft`/`ready`/`archived`), `source_kind` (`typed`/`photo_single`/
   `worksheet_split`, for later phases), timestamps. RLS: owner-scoped
   select/insert/update only, no anon/public grant, no service-role-only
   answer columns to protect because none exist.
-- New, much lighter table `app.byoq_responses` (student's own draft/submitted
-  answer text or picked choice key, tied to `byoq_item_id` + `user_id`) —
-  deliberately **not** the full `attempts`/`response_versions` pipeline,
-  because nothing here is graded, disputed, or audited the way library
-  attempts are.
+- **Apply the same free-text answer-leak heuristic and masking-by-default
+  that `docs/product/BYOQ_WORKSHEET_PARSING_DESIGN.md` §6 designs for
+  worksheet-derived text to typed/pasted `stem`/`choices` text here too.** A
+  student can paste "Answer: B" into a typed question exactly as a worksheet
+  can print one, and no `is_correct`-style column protects against that
+  channel — this was flagged during that document's review as a gap in this
+  Phase 1 section specifically, not just a worksheet concern.
+- Per Decision needed #1's default (Option A): a parallel `app.byoq_responses`
+  (or `byoq_attempts`/`byoq_responses` as a pair, if retake lineage needs its
+  own version history) — deliberately lighter than the full
+  `attempts`/`response_versions` pipeline, since nothing here is graded,
+  disputed, or reviewed by a human queue the way library attempts are. If the
+  Product Owner instead chooses Option D, this becomes the generalized
+  `app.attempts`/`app.response_versions` per the schema section above, with
+  the additional guard trigger and terminal status named there as required,
+  not optional, acceptance criteria.
 - New edge function (or an existing resource-style function extended) to
   create/list/get a BYOQ item and record a response — follow the existing
   per-resource function pattern (`attempt-response`, `student-session-items`).
@@ -213,97 +418,84 @@ executes — re-verify, per `feedback_verify_before_characterising`.
   ready to execute once approved and the Pre-flight verification above is
   done.
 
-### Phase 2 — QR photo capture for a single BYOQ question
+### Phase 2 — QR photo capture: the question photo, and the hand-drawn answer photo
 
-- **Decision needed #1 (Product Owner):** how does BYOQ reuse the QR
-  capture-pairing mechanism?
-  - **Option A — parallel tables (recommended):** new
-    `app.byoq_capture_pairing_tokens` and `app.byoq_attachments`, structurally
-    similar to `capture_pairing_tokens`/`response_attachments` (same state
-    machine shape, same `learner-uploads` bucket, same
-    `_shared/capture-attachment.ts` server-side validation), but FK'd to
-    `byoq_item_id` instead of `attempt_id`/`response_version_id`/
-    `content_item_version_id`, under storage path
-    `<user_id>/byoq/<byoq_item_id>/...` — **not** a bare `byoq/` prefix; every
-    owner-scoped storage policy on `learner-uploads` (confirmed live)
-    keys on `split_part(name, '/', 1) = auth.uid()`, so the user id must be
-    the first path segment. Deliberately **do not** add an immutability
-    trigger or exclude these objects from the existing owner
-    update/delete storage policies the way `response_attachments` does —
-    BYOQ photos are ungraded and undisputed, and are the most likely object
-    in the system to contain third-party or personal material a student may
-    later want to remove (see "New gaps" below). Since there's no OCR yet
-    (below), start with the minimal slice of the pattern — pairing token,
-    signed upload, attachment row — and skip the quality-check model call and
-    append-only provenance-event stream `capture-pairing` also has; those
-    exist there to support automated spatial grading, which BYOQ has no
-    analog of. A new edge function (`byoq-capture-pairing`) mirrors
-    `capture-pairing/index.ts`'s split between authenticated (`mint_pairing`)
-    and token-authenticated (`describe_capture`/`create_capture_upload`/
-    `submit_capture`) operations, minus that extra machinery. Zero risk to
-    the live, working DRAWN_RESPONSE pipeline — nothing about it changes.
-  - **Option B — extend the existing tables:** relax
-    `capture_pairing_tokens_upload_purpose_check` to also allow a new
-    `'BYOQ_QUESTION_PHOTO'` literal, and make `content_item_version_id`/
-    `response_version_id`/`attempt_id` nullable with a check that exactly one
-    of "the DRAWN_RESPONSE triad" or "a byoq_item_id" is set. Less new schema,
-    but it's a migration against a live, audited, immutability-triggered
-    production table that has real graded-response data flowing through it
-    today — higher blast radius for a bug.
-  - **Option C — shared code, separate tables:** Option A's tables, but
-    extract the token/claim/upload logic in `capture-pairing/index.ts` into
-    `_shared/` and parameterize it by purpose, so one edge function serves
-    both DRAWN_RESPONSE and BYOQ_QUESTION_PHOTO instead of two near-duplicate
-    functions. Gets Option A's zero-blast-radius-on-data but requires a
-    refactor-and-redeploy of the *live* `capture-pairing` function — weigh
-    that redeploy risk honestly against the code-duplication cost of Option A
-    before picking this over A.
-  - This task defaults to Option A pending Product Owner sign-off.
-- Once uploaded, the photo needs to become a usable `byoq_items` row. No OCR
-  vendor is decided or tested for this (the OCR research on record is entirely
-  about *grading* hand-drawn responses, not transcribing a fresh question; the
-  one open thread — a direct LlamaParse pilot for hand-drawn content — was
-  never run to conclusion, per `docs/research/` and the 2026-08-18 vendor
-  notes). **Recommended default for this phase: no blind OCR.** The student
-  photographs the question, then types/pastes the transcription themselves
-  (Phase 1's intake form), with the photo attached to the `byoq_items` row
+Two distinct capture roles, both needed, both durably linked to the same
+`byoq_item_id` per the unified schema above:
+- **`question` role** — the original photographed problem, captured at
+  intake (what earlier drafts of this plan called Phase 2).
+- **`response` role** — the student's hand-drawn work solving their own BYOQ
+  item, captured later during Practice, structurally the same idea as the
+  existing DRAWN_RESPONSE capture but for a BYOQ item instead of a library
+  question. Additionally carries `response_version_id` (which specific
+  attempt's work this documents) and, per the schema above, `part_key`/
+  `page_sequence`.
+
+Per Decision needed #1's default (**Option A**, parallel tables), both roles
+share one new `app.byoq_capture_pairing_tokens`/`app.byoq_attachments` pair
+with a `capture_role` discriminator column, under storage path
+`<user_id>/byoq/<byoq_item_id>/...` — **not** a bare `byoq/` prefix; every
+owner-scoped storage policy on `learner-uploads` (confirmed live) keys on
+`split_part(name, '/', 1) = auth.uid()`, so the user id must be the first path
+segment. Either way: deliberately **do not** add an immutability trigger or
+exclude these objects from the existing owner update/delete storage policies
+the way `response_attachments` does for DRAWN_RESPONSE — BYOQ photos are
+ungraded and undisputed, and are the most likely object in the system to
+contain third-party or personal material a student may later want to remove
+(see "New gaps" below).
+
+Since there's no OCR yet (below), start with the minimal slice of the QR
+pattern for both roles — pairing token, signed upload, attachment row — and
+skip the quality-check model call and append-only provenance-event stream
+`capture-pairing` also has; those exist to support automated spatial grading,
+which BYOQ has no analog of (a response photo is never graded, same as
+everything else BYOQ).
+
+- Once a question photo is uploaded, it needs to become a usable `byoq_items`
+  row. No OCR vendor is decided or tested for this (the OCR research on
+  record is entirely about *grading* hand-drawn responses, not transcribing a
+  fresh question; the one open thread — a direct LlamaParse pilot for
+  hand-drawn content — was never run to conclusion, per `docs/research/` and
+  the 2026-08-18 vendor notes). **Recommended default for this phase: no
+  blind OCR.** The student photographs the question, then types/pastes the
+  transcription themselves (Phase 1's intake form), with the photo attached
   purely for their own/a reviewing teacher's reference. Treat OCR-assisted
   auto-fill as a fast-follow once a vendor is actually chosen and tested
   against real hand-drawn/photographed source material — not a Phase 2
-  dependency. Note this means the photo itself does no work yet (nothing
-  reads it) — if that trade-off isn't worth Phase 2's cost on its own, it can
-  wait and ship alongside the OCR fast-follow instead of before it.
-- A BYOQ item must exist (in `draft` status) before a pairing token can be
-  minted, since the token needs a `byoq_item_id` to bind to — decide and
-  document this ordering explicitly in the edge function's contract, and add
-  a sweep for abandoned drafts (minted, never scanned; scanned, never
-  uploaded) — see "New gaps" below.
+  dependency. Note this means the question photo itself does no work yet
+  (nothing reads it) — if that trade-off isn't worth this role's cost on its
+  own, it can wait and ship alongside the OCR fast-follow instead of before
+  it. The response-photo role has no equivalent OCR dependency — it's a
+  reference image for the student (and, if promoted, a future human
+  reviewer), not something anything needs to read automatically.
+- A BYOQ item must exist (in `draft` status) before a question-role pairing
+  token can be minted, since the token needs a `byoq_item_id` to bind to; a
+  response-role token additionally needs a `response_version_id` to exist
+  first. Decide and document this ordering explicitly in the edge function's
+  contract, and add a sweep for abandoned drafts (minted, never scanned;
+  scanned, never uploaded) — see "New gaps" below.
 
 ### Phase 3 — Worksheet upload, split into multiple questions
 
-- **This phase needs its own design pass before any schema or code is
-  written — it is undesigned today, not just unbuilt.** Every existing BYOQ
-  doc (`STUDENT_PROVIDED_QUESTION_INTAKE_DESIGN.md`, UX-004) assumes exactly
-  one question per submission. Open questions a design doc must answer before
-  Phase 3 starts:
-  - **Decision needed #2 (Product Owner):** what parsing approach and vendor?
-    (candidates surfaced this session: a VLM-based split-and-transcribe pass,
-    similar in kind to the already-tested-for-grading chart/handwriting
-    models but applied to layout segmentation instead of judgment; or a
-    document-structure tool like LlamaParse, whose only prior evaluation here
-    was for bounding boxes on grading images, not question-splitting.) No
-    vendor has been tested against a real multi-question worksheet.
-  - How many candidate questions is a worksheet allowed to yield, and does
-    the student confirm/edit each one individually before it becomes a real
-    `byoq_items` row (recommended — matches the "extraction confirmation"
-    stage `STUDENT_PROVIDED_QUESTION_INTAKE_DESIGN.md` already specifies for
-    the single-question case) or can mis-splits silently become bad items?
-  - Copyright/rights exposure is larger here than for a single typed question
-    — a worksheet is more likely to be a teacher's or publisher's original
-    material photographed wholesale. This needs its own privacy/rights read,
-    not an assumption that Phase 1/2's typed-question posture (student's own
-    words) still applies.
-- Out of scope for this task until that design doc exists and is approved.
+- **This phase's required design pass is now written:**
+  `docs/product/BYOQ_WORKSHEET_PARSING_DESIGN.md` (2026-09-26, Status:
+  Proposed for review — not yet approved). It defines the split → candidate
+  review → per-candidate confirmation flow (every candidate still goes
+  through the existing single-question Confirm Capture/Confirm Match stages
+  individually — a worksheet changes how a candidate is *proposed*, never how
+  it's *accepted*), a staging data model (`byoq_intake_batches`/
+  `byoq_intake_candidates`, holding parser output that is never itself a
+  practice-ready `byoq_items` row), and — the risk that document specifically
+  treats as more severe than anything in the single-question design — that a
+  worksheet's embedded answer key can leak into a candidate's `stem` as free
+  text, a channel the "no `is_correct` column" structural protection doesn't
+  cover. Phase 3 does not start until that document is approved and its
+  Decision needed #2 (parsing vendor) and remaining Open Decisions are
+  resolved.
+- Copyright/rights exposure is larger here than for a single typed question
+  — a worksheet is more likely to be a teacher's or publisher's original
+  material photographed wholesale; the design doc's §8 covers this.
+- Out of scope for this task until that design doc is approved.
 
 ### New gaps surfaced by review (need a Product Owner call before Phase 1 ships)
 
@@ -456,10 +648,13 @@ decided before Phase 1 ships to real students, not discovered after:
 **Approval Type:** Hard Gate
 **Decision:** Pending — needs Product Owner sign-off on scope (including the
 "New gaps" list under Phase 3), plus explicit answers to Decision needed #1
-(Phase 2 architecture) and, before Phase 3 starts, a separate approved design
-doc resolving Decision needed #2. This draft has already been through one
-adversarial review pass (see "Corrections from adversarial review" above) —
-that is not a substitute for Product Owner approval.
+(now reframed as Option D — generalize `attempts`/`response_versions`/
+`response_attachments` in place — vs. Option A — parallel `byoq_*` tables;
+see "Question identity, answer capture, and image linking" above) and, before
+Phase 3 starts, a separate approved design doc resolving Decision needed #2.
+This draft has been through two adversarial review passes (see "Corrections
+from adversarial review" above, and the 2026-09-26 schema addition, itself
+pending its own review) — neither is a substitute for Product Owner approval.
 
 ## Implementation Notes
 
@@ -467,7 +662,9 @@ Primary records this task builds on:
 
 - `docs/product/STUDENT_PROVIDED_QUESTION_INTAKE_DESIGN.md`,
   `docs/product/BYOQ_ANSWER_VISIBILITY_AND_DATA_MODEL_DISCUSSION.md`,
-  `docs/tasks/UX-004-STUDENT-PROVIDED-QUESTION-INTAKE.md`, `DECISION-0057`.
+  `docs/product/BYOQ_WORKSHEET_PARSING_DESIGN.md` (Phase 3's required design
+  pass), `docs/tasks/UX-004-STUDENT-PROVIDED-QUESTION-INTAKE.md`,
+  `DECISION-0057`.
 - `web/src/content/byoq.js`, `web/src/screens/BringQuestionScreen.jsx`,
   `web/src/screens/PracticeByoqFrqScreen.jsx`,
   `web/src/screens/PracticeByoqMcqScreen.jsx` — the frontend-only reference
