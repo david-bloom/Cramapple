@@ -31,11 +31,264 @@ full Stripe-style pricing/buy section. This is stale against `DECISION-0071` (Oc
 Stripe). David is handling this directly (a "Free this week!" banner), not delegated to an agent — see
 `LAUNCH_PLAN_MARKETING_HOME_PAGE_2026_09_26.md`.
 
-## VERIFIED, 2026-09-26: practice/grading is real production infrastructure, not a demo
+## CORRECTION, 2026-09-26 (later same day): the launch frontend has changed since `DECISION-0073`
+
+**`DECISION-0073`'s identification of the launch frontend is now stale.** The marketing/app split
+described in `.lovable/plan/split-cramapple-into-marketing-logged-in-projects-2026-09-22.md` has
+progressed since that decision was recorded: `ap-prep-canvas.lovable.app` — the alias `DECISION-0073`
+verified against — now serves a **different** Lovable project, **"New Cramapple Marketing"**
+(`61dd6602-6991-4561-b418-e988bb7c8a0b`, last edited 2026-09-26T16:05 UTC), not "Remix of Cramapple App"
+(`d334fed9`, the project the rest of this doc verified). David confirmed directly: `ap-prep-canvas.lovable.app`
+is the real, current launch homepage, and `cramapple.com` is intentionally left pointing at the old
+`d334fed9` build until the new split app is functional — this is not a defect, it's a deliberate
+staged cutover. Everything below in this section is about the **new** split (Marketing +
+`56cae479`/"New Cramapple App"), verified live/read directly, not inferred from either project's
+`description` or cached screenshot (both have shown stale content before — see the note two sections
+up).
+
+**Free-access routing is implemented correctly on the marketing side.** `New Cramapple Marketing`'s
+`src/routes/signup.tsx` `SubjectStep.onPick` sends the browser straight to
+`appUrl('/home?subject=<slug>')` — bypassing the paid confirm→role→plan→account→Stripe chain entirely
+(that chain still exists and is reachable only via deep links, by design, for the parent/bundle-purchase
+path). `appUrl()` resolves to `https://app.cramapple.com`, the logged-in "New Cramapple App" project
+(`56cae479-f7c9-4988-b536-56538c38ee4e`). This part is done and correct.
+
+**Blocker: the destination isn't reachable yet — this is the actual launch risk, not the routing.**
+- `app.cramapple.com` has **no DNS record at all** (checked directly; Namecheap is the registrar/DNS
+  host — confirmed by David). `cramapple.com`/`www` do resolve, to `185.158.133.1` (Lovable's
+  custom-domain edge IP), so DNS management itself works; the `app` subdomain simply was never created.
+- Independent of DNS, the "New Cramapple App" project's own default Lovable preview
+  (`id-preview--56cae479-...lovable.app`) redirects to a Lovable login wall at both `/` and `/home`,
+  even though its project metadata says `is_published: true` / `publish_audience: public`. That
+  combination means the publish/deploy action itself likely hasn't completed — pointing DNS at this
+  project today would not fix access on its own. Two separate things need to happen in Lovable before
+  DNS matters: confirm `56cae479` is actually publishing successfully, then attach the
+  `app.cramapple.com` custom domain to it (which will give the DNS target to add at Namecheap).
+- Net effect: a student who visits the real launch homepage, clicks "Get started," and picks a subject
+  today lands on a dead domain. Session/grading correctness for the new app (the question below) cannot
+  be tested at all until this is fixed, since there is nowhere live to test it.
+
+**The homepage's own "real product" claim doesn't hold up as written.** The interactive demo embedded
+in the New Cramapple Marketing homepage (`src/components/homepage-preview/HomepagePreview.tsx`) states
+*"The real product is below, not a video of it. Click anything — take a point away, pull a hint, open
+the notes."* Read directly: this component is entirely hardcoded client-side state (a fixed `2/3`
+score, canned rubric/feedback strings in `CRITERIA`/`MCQ_OPTIONS`/`NARRATION`) with zero backend calls
+anywhere in the file — no `supabase.functions.invoke`, no session/attempt creation. It is a scripted
+interactive mock, not the real product, regardless of being interactive rather than an autoplay video.
+This is a public factual claim that should be corrected or softened before launch, independent of the
+app-readiness question above.
+
+## CORRECTION, 2026-09-26 (later still): domain blocker resolved; new bug found in the login path
+
+**The DNS/deploy blocker above is now resolved.** David connected the domains in Lovable directly:
+`cramapple.com` → "New Cramapple Marketing" (`61dd6602`), `app.cramapple.com` → "New Cramapple App"
+(`56cae479`). Both were verified live (`dig`, `curl`, and browser) after a brief Cloudflare provisioning
+window (error 1001, cleared on its own within a few minutes — not a real problem). `cramapple.com` and
+`app.cramapple.com` both resolve and serve their correct respective projects now. One mid-flight mistake
+is worth recording: David initially connected `app.cramapple.com`'s project to the bare `cramapple.com`
+domain, which caused a live production outage (an infinite `302` self-redirect loop at the apex, because
+the App project's own `marketing-redirect.ts` assumes `cramapple.com` is a *different* origin) — caught
+and corrected within the same session.
+
+**TASK-0044 (AP Statistics MCQ serving) shipped to Production, independent of the domain work above.**
+Codex built and Dev-verified a fix on branch `codex/task-0044-statistics-mcq` (commit `7c709b51`) for the
+same gap this doc's servability section will need to check: `select_practice_frqs` is FRQ-only, so AP
+Statistics' 101 published MCQs were unreachable on the ordinary/flat practice path. Verified and applied
+directly to Production in this session, not just reviewed:
+- Found and corrected a discrepancy in Codex's own status report first: the `app.select_ordinary_combined_practice_items`
+  function already existed in Production in an **older, less-safe form** (missing the retired-pack
+  fail-closed check and the "MCQ must have a recorded correct choice" guard) — contradicting the claim
+  that "Production remains unchanged." Applied the second, safer migration to bring it in line with what
+  Codex tested in Dev.
+- Redeployed the `student-session-items` edge function to Production (version 23) with the routing
+  branch that calls this selector for AP Statistics on both `targeted_drill` and `mcq` practice formats.
+- Verified directly against real Production content post-deploy: `select_ordinary_combined_practice_items`
+  called with AP Statistics' real exam-pack-version id returns 20/20 valid MCQs at `mcq` mode. Matches
+  Codex's Dev result, now proven against Production data.
+- Purely additive: no existing table, function, or other subject's serving path was touched; AP Biology's
+  dedicated `select_biology_practice_items` path is untouched.
+
+**New, more serious bug found while live-testing the free-signup flow end-to-end: the post-login
+cross-domain handoff is broken.** Traced by reading source in both split projects, not just clicking
+around:
+- `cramapple.com/signup` → pick a subject → correctly does a full-page cross-domain jump to
+  `app.cramapple.com/home?subject=<slug>`. Working as designed.
+- On the App side, `/home` renders `HomeV2` (feature-flagged in), which — with no session — does a
+  **same-project** client-side `navigate({ to: "/login", search: { redirect: "/home" } })`
+  (`src/components/home/HomeV2.tsx`, App project). This silently drops the `subject` param.
+- The App project's own `/login` route is a redirect stub (`beforeLoad: () => redirectToMarketing(...)`)
+  that correctly bounces to `https://cramapple.com/login?redirect=%2Fhome` — this is the exact URL David
+  observed live.
+- **The actual bug**: Marketing's `login.tsx` reads that `redirect` param and, after a successful sign-in,
+  does `navigate({ to: destination, replace: true })` where `destination = redirect ?? "/home"` — a
+  **same-project** client-side navigation within Marketing. Marketing has no `/home` route at all (it only
+  exists in the separate App project), so a student who successfully signs in would land on a
+  broken/missing route instead of the real app. This would have blocked every free student, not just an
+  edge case.
+- Fix identified and sent to Lovable (as a direct prompt, 2026-09-26): use `window.location.href =
+  appUrl(destination)` in `login.tsx` instead of `navigate()` — the same cross-domain pattern
+  `signup.tsx`'s `SubjectStep.onPick` already uses correctly — and preserve the `subject` param through
+  the `HomeV2` → login → back-to-home round trip.
+
+**RESOLVED, 2026-09-26 (later still): fix verified live, not just reported.** David forgot to publish
+after the first Lovable response; once published, re-checked directly rather than trusting the report:
+- `login.tsx` in the correct project (`61dd6602`, the one serving `cramapple.com`) now does
+  `window.location.href = appUrl(destination)` in both the manual-sign-in path and the
+  already-signed-in effect — confirmed by reading the live source, not just the change description.
+- Lovable's own report claimed it could not fix the App-project side ("that code is in the other
+  project, I can't change it from here") — but the App project (`56cae479`) had *also* already been
+  fixed by the time this was checked: `HomeV2.tsx` now imports a new `src/lib/home-subject-param.ts`
+  helper and builds the login redirect as `/home?subject=<slug>` instead of a bare `/home`.
+- Live-reproduced end-to-end up to the sign-in wall: clicking "AP Statistics" on `cramapple.com/signup`
+  now lands on `https://cramapple.com/login?redirect=%2Fhome%3Fsubject%3Dap-statistics` — the subject
+  survives the full cross-domain round trip.
+- Lovable's third concern (cross-domain session sharing might not work) is not a real gap: both
+  projects' `supabase-cookie-options.ts` independently scope the session cookie to `.cramapple.com` on
+  both real hosts — the mechanism that makes a `cramapple.com` sign-in valid on `app.cramapple.com` too.
+  Built and unit-tested back on 2026-09-24; Lovable's agent likely just can't see the other project's
+  code from its own workspace.
+- **Not yet verified**: an actual completed sign-in landing the student in the real app. That requires
+  real credentials and was not done live in this session (no test account used against Production).
+  This is the one remaining gap before calling the free-signup flow fully closed.
+
+## CONFIRMED BROKEN, 2026-09-26: BYOQ's public retention/privacy claim doesn't hold up
+
+**This resolves the BYOQ risk flagged as unverified across multiple prior sessions (most recently
+`TASK-0040-QA-HANDOFF-2026-09-26.md`: "BYOQ exposes a canonical answer or makes inaccurate
+retention/privacy claims") — the answer is: the claim is unverifiable because the feature has no
+implementation on the page making it, not merely untested.**
+
+The real, live homepage (`src/routes/index.tsx` — the actual `/` route in the "New Cramapple Marketing"
+project, not a demo variant) has a "Bring Your Own Question" section that says *"Photograph a question
+from your homework or a past paper"* and, specifically, *"One free question. Your photo isn't kept."*
+Read directly:
+- The "Upload a photo" `ActionButton` has no `onClick` and no `href`.
+- The "Paste the text" `ActionButton` is identically inert.
+- `ActionButton`'s own source (`src/components/cramapple/ActionButton.tsx`) confirms: with neither prop
+  set, it renders a plain `<button type="button">` with `onClick={undefined}` — genuinely does nothing.
+- No file input, hidden upload mechanism, or navigation exists anywhere else in the file.
+
+This is a live, public, specific privacy claim ("your photo isn't kept") about a feature that does not
+exist on the page making the claim — worse than the separately-flagged `HomepagePreview.tsx` "not a
+video of it" overclaim (that one is at least interactive; this one promises a retention guarantee for a
+dead button). Needs a copy fix (soften/remove the claim, or mark "coming soon" the way the older
+`homepage-preview-data.ts` variant honestly does) before this page sees real traffic. Not yet sent to
+Lovable — pick up here next session.
+
+**CORRECTION to this section, 2026-09-26 (new session): both overclaims are actually in the same file,
+`src/routes/index.tsx`, not `HomepagePreview.tsx`.** `HomepagePreview.tsx` still exists in the repo but
+is dead code — the live `/` route imports its own inline plate + data from `@/data/liveHomepage`
+instead. Read directly, not inferred. Correcting the record so a future session doesn't waste time
+editing the wrong file.
+
+## RESOLVED (pending publish), 2026-09-26: both homepage overclaims fixed in Lovable
+
+Sent both fixes to the "New Cramapple Marketing" project (`61dd6602`) in one scoped message; verified
+via `get_diff` against the resulting commit (`50e8bd54`), not just Lovable's own report:
+- Hook line: `"The real product is below, not a video of it..."` → `"Try the real rubric mechanics
+  below, not a video of it..."` — drops the "real product" claim about a scripted client-side demo,
+  keeps the true "not a video" part.
+- BYOQ fineprint: `"One free question. Your photo isn't kept."` → `"Photo upload is coming soon — pick a
+  subject above to start practising today."` — removes the retention/privacy promise for a dead-button
+  feature. A "Coming soon" marker was also added beside the two inert buttons (Lovable's own choice
+  between that and dimming the buttons, since the shared `ActionButton` component has no `disabled`
+  prop to touch safely).
+- Flagged, not fixed at the time (out of the two requested scopes, left for a decision): the paragraph
+  above the buttons still read *"Photograph a question from your homework or a past paper. It opens in
+  the same three panes you just used, with its own rubric."* — present-tense description of the same
+  nonexistent feature. **Now also fixed** (same session, later): reworded to *"Photograph a question from
+  your homework or a past paper — this is coming soon. It'll open in the same three panes you just used,
+  with its own rubric."* (commit `ae1f7f88`), deployed via Lovable's `deploy_project`, and confirmed live
+  by reading the rendered `cramapple.com` page after the deploy propagated (~1 min lag observed).
+
+**VERIFIED live, 2026-09-26 (after David published):** loaded `https://cramapple.com/` directly and read
+the rendered page text. All three new strings are present ("Try the real rubric mechanics below, not a
+video of it...", "Photo upload is coming soon — pick a subject above to start practising today." plus the
+"Coming soon" marker beside the two buttons, and "this is coming soon. It'll open in the same three
+panes..."); none of the three old strings appear anywhere on the page. Closed.
+
+## Session status, end of day 2026-09-26 — resume here next session
+
+**Closed out today:**
+- Domain cutover complete and verified live: `cramapple.com` → New Cramapple Marketing (`61dd6602`),
+  `app.cramapple.com` → New Cramapple App (`56cae479`). Both resolve correctly; the mid-flight
+  mis-attachment (App wrongly connected to bare `cramapple.com`, causing an infinite-redirect outage) was
+  caught and fixed within the same session.
+- TASK-0044 (AP Statistics MCQ serving) shipped to Production: migration applied (with a
+  Codex-report-vs-reality discrepancy caught and corrected — the function already existed in an older,
+  less-safe form), edge function redeployed (v23), verified against real Production content (20/20 MCQs).
+- Cross-domain login-redirect bug (found, fixed, and independently verified live in this session, not
+  just reported): `login.tsx` now correctly hands off to `app.cramapple.com` via `appUrl()`; subject
+  param survives the full round trip; cross-domain session cookie sharing confirmed correct by design
+  (`.cramapple.com` scope on both projects).
+
+**Closed out in the following session (same day, resumed):**
+- All three homepage overclaim/privacy-copy bugs (hook line, BYOQ fineprint, BYOQ present-tense
+  paragraph) fixed in Lovable, published, and confirmed live on `cramapple.com`.
+- Stale local branch `codex/task-0044-ap-stats-mcq-fix` deleted (already gone from `origin`; superseded,
+  unmerged).
+- Full §3–§14 acceptance-criteria audit run against the actual live split app (`56cae479`), not just the
+  spec — see "AUDIT, 2026-09-26" section above. Surfaced four new, concrete launch risks (recheck dialog
+  no-op, dead Account route, duplicate feedback-UI implementations, unbuilt BYOQ/Open Hand) and cleared
+  one suspected risk (build/env drift — checked live, not an issue).
+- Item 3 (real completed sign-in) confirmed as blocked for an agent to do autonomously on Production;
+  needs David directly.
+
+**Status: still Draft, not launch-ready.** The free-signup routing and domain topology are solid, and
+Progress/Home is genuinely strong, but four undecided/unwired gaps (recheck no-op, dead Account, split
+feedback implementations, unbuilt BYOQ/Open Hand) plus the still-unverified real sign-in mean this cannot
+be called done for Oct 2 without David's input on items 3, 6, 7, and 8.
+
+**Open, for next session:**
+1. ~~BYOQ homepage claim~~ — fixed, diff-verified, and confirmed live on `cramapple.com` after publish.
+   Closed.
+2. ~~Homepage "not a video of it" overclaim~~ — fixed in the same message/commit as #1 above (both were
+   actually in `src/routes/index.tsx`, not `HomepagePreview.tsx` as originally recorded); confirmed live.
+   Closed.
+2b. ~~BYOQ paragraph "It opens in the same three panes..."~~ — reworded and confirmed live (see above).
+    Closed.
+3. The one remaining live-test gap on the free-signup flow: an actual completed sign-in (real
+   credentials) landing a student in the real app has not been done — everything up to the sign-in wall
+   is verified, the step after it is not. **BLOCKED for an agent to do autonomously**: completing a real
+   sign-in against Production means creating/using an account and entering credentials on a live
+   production site, which is outside an assistant's allowed autonomous actions (the "testing your own
+   application" exception only covers local dev hosts, not `cramapple.com`/`app.cramapple.com`). David
+   needs to do this step himself, or explicitly hand over a specific test account's credentials for this
+   session to use for this one check.
+4. ~~The rest of this doc's original acceptance-criteria audit (§3–§14)~~ — **done**, see the "AUDIT,
+   2026-09-26" section above (read-only source audit against `56cae479`, no live-session testing
+   possible without credentials — that gap is tracked as item 3). Closed as an audit task; it surfaced
+   four new, unfixed launch risks below that are decisions/dev work for David, not further audit.
+6. **New, from the audit — disputed-grade (recheck) dialog is a silent no-op.** `RecheckDialog.tsx`
+   collects a full dispute and its `onSubmit` just closes the dialog; no backend call exists. Ranked risk
+   #1. Needs either real wiring or the UI visibly disabled before launch — a product/dev decision, out of
+   this audit's scope to just implement.
+7. **New, from the audit — Account route is dead.** `account.tsx` unconditionally redirects to `/home`.
+   Needs a decision: re-enable it, or formally drop Account as an MVP nav destination (and confirm
+   `_ux.setup.index.tsx`'s own prototype-state fields aren't diverging from whatever `account.tsx` was
+   meant to read/write).
+8. **New, from the audit — two parallel feedback-UI implementations exist** (`FeedbackCard.jsx`/
+   `Plate.jsx` vs. the actually-routed `GradeResultView.tsx`). Needs a decision on which is canonical
+   before more design work lands on the unwired one.
+9. **New, from the audit — BYOQ and Open Hand are both fully unbuilt**, against open decisions 18/19/21
+   in `APP_REBUILD_MIGRATION_PLAN.md` §11. Not a regression, just a reminder these can't be assumed
+   "mostly there" for Oct 2 scoping.
+5. ~~Redundant branch `codex/task-0044-ap-stats-mcq-fix`~~ — checked: already deleted from `origin`
+   (likely in the 2026-09-25 cleanup); only a stale local ref remained, unmerged and superseded by
+   `codex/task-0044-statistics-mcq` (whose fix is already live in Production per this doc's earlier
+   session). Deleted the local branch. Closed.
+
+## VERIFIED, 2026-09-26 (earlier same day, about the OLD `d334fed9` build only):
+practice/grading is real production infrastructure, not a demo
+
+**This section's finding is still true, but only describes the `d334fed9` "Remix of Cramapple App"
+project — the build `cramapple.com` currently serves, not the one launching per the correction above.**
+It has not yet been re-verified against `56cae479` ("New Cramapple App"), which cannot be tested live
+until the deploy/DNS blocker above is resolved.
 
 David asked whether this app's practice/grading is genuinely wired to a real grading backend or is a
-demo — the answer is **it's real**, verified by reading the project's source directly (see
-`DECISION-0073`'s verification addendum for full detail):
+demo — the answer is **it's real for `d334fed9`**, verified by reading the project's source directly
+(see `DECISION-0073`'s verification addendum for full detail):
 
 - `src/lib/use-grade-practice.ts` (used by the real session/practice components,
   `SessionFrame.tsx`/`GradeResultView.tsx`) calls `supabase.functions.invoke()` against the actual
@@ -94,36 +347,194 @@ to sections that are already decided; flag implementation gaps instead.
 
 - [x] Frontend confirmed: "Remix of Cramapple App" Lovable project (`d334fed9-5a97-4e76-906e-7c0ad7082212`),
       published at `ap-prep-canvas.lovable.app` — verified via live HTML, see `DECISION-0073`.
-- [ ] Rebuild plan §12's phase structure and its exit criterion are used as the primary execution
+- [x] Rebuild plan §12's phase structure and its exit criterion are used as the primary execution
       frame; `STUDENT_PORTAL_INTERACTION_DESIGN.md` sections below are cross-checked against it, with
-      any conflict between the two named explicitly rather than silently resolved.
+      any conflict between the two named explicitly rather than silently resolved. Done in the AUDIT
+      section below — the phased §12 sequence is confirmed not yet started (this is pre-split code), and
+      the one real conflict found (§5 session-mode variant) is named rather than silently resolved.
 
 Audit implementation status against each spec section and record a status (Implemented / Partial /
 Not implemented / Deferred-by-decision) with evidence (live app check, not a design doc read):
 
-- [ ] §3 Information architecture — primary student areas exist and are navigable.
-- [ ] §4 Entry flows — first-session and returning-session flows both work as specced.
-- [ ] §5 Session mode presentation — whichever variant (A or B) was decided is implemented; if neither
-      is finalized, that's a Decision Required, not an implementation gap — check §14 first.
-- [ ] §6 Stable learning-session frame — cold attempt, feedback, repair/retry, and completion/lock all
-      function against a real question, tested live, for **both Day-1 subjects (AP Biology and AP
-      Statistics) on their flat/practice paths** per `DECISION-0063`/`DECISION-0072` — do not test
-      against the unit-gated path for either subject; both defer it, and Statistics' unit-gated path
-      currently serves the most items of any subject but is explicitly not the launch path.
-- [ ] §7 Feedback treatment — the decided variant is implemented and matches the evaluation criteria in
-      the spec.
-- [ ] §8 Coaching copy — matches the Copy Rules in the spec; check the paste-event prompt specifically,
-      since it interacts with academic-integrity handling shared with BYOQ.
-- [ ] §9 Uncertainty/escalation/disagreement — grading uncertainty, content uncertainty, disputed
-      grade, and temporary failure all have a real, tested path (not just a spec description).
-- [ ] §10 Progress and home — implemented per `PROGRESS_DASHBOARD_V1_PLAN_2026_08_21.md`.
-- [ ] §11 Accessibility requirements — verified against the spec's stated bar, not just visually
-      inspected.
-- [ ] §14 Decisions Required — every item in this list is either resolved (cite the decision) or
-      explicitly still open and named as a launch blocker in this plan.
-- [ ] Course Mode's own pilot-launch plan and QA report are checked for anything it found that
-      generalizes to the rest of the student hub (e.g., a bug class, a gating lesson) rather than
-      re-discovering it.
+- [x] §3 Information architecture — **Partial.** Home, Progress, session routes, and BYOQ all route
+      correctly, but Account (one of the four MVP persistent destinations) is dead: `account.tsx` does
+      `beforeLoad: () => throw redirect({ to: "/home" })`, unconditionally. See audit below.
+- [x] §4 Entry flows — **Partial.** First-session setup (`_ux.setup.index.tsx`) closely matches spec.
+      Returning-session logic (`_ux.home.tsx`) is real UI wired to fixture data, not a backend — its own
+      code comment flags this as TODO. See audit below.
+- [x] §5 Session mode presentation — **Decision Required, silently resolved in code.** Code has already
+      committed to Variant B (time-first) with no matching entry in either doc's decision registry. See
+      audit below.
+- [x] §6 Stable learning-session frame — **Partial, static-code-verified only (no login credentials
+      available to this session).** Cold attempt/feedback/retry/completion are genuinely wired to real
+      edge functions in the actually-routed component. A second, unwired feedback component tree exists
+      in parallel — see audit below. Live-session verification is still open (see item 3, blocked).
+- [x] §7 Feedback treatment — **Not implemented.** No bracket-marker/highlighting logic in either
+      feedback component; feedback is a plain verdict + summary string.
+- [x] §8 Coaching copy — **Not implemented.** No paste-event detection anywhere in BYOQ or the answer
+      field; BYOQ is a two-field form that saves to `localStorage`.
+- [x] §9 Uncertainty/escalation/disagreement — **Partial, weakest area found.** Grading uncertainty,
+      content-uncertainty reporting, and retry-after-failure are all really wired. The disputed-grade
+      (recheck) dialog is a fully-built UI that is a silent no-op on submit — see audit below, risk #1.
+- [x] §10 Progress and home — **Implemented.** Single-RPC-sourced, matches the "estimate not a score"
+      framing. Strongest-implemented surface found.
+- [x] §11 Accessibility requirements — **Partial.** Good ARIA/focus-management patterns found in the
+      pieces read; reduced-motion, zoom/reflow, and any table/chart equivalent-access were not
+      verifiable without a live login.
+- [x] §14 Decisions Required — **Mostly open.** See audit below for the item-by-item mapping to
+      `APP_REBUILD_MIGRATION_PLAN.md` §11's 25-item registry.
+- [x] Course Mode's own pilot-launch plan and QA report are checked for anything it found that
+      generalizes to the rest of the student hub — see audit below (migration-ledger drift risk,
+      build/env baked-at-publish risk, the held-gate-before-real-students pattern).
+
+**Full audit detail, findings, conflicts, and ranked launch risks: see "AUDIT, 2026-09-26" section
+below.**
+
+## AUDIT, 2026-09-26: §3–§14 implementation status (New Cramapple App, `56cae479`)
+
+Read-only source audit against `56cae479` ("New Cramapple App", serves `app.cramapple.com`),
+cross-referenced against `61dd6602` ("New Cramapple Marketing") and the governing specs. No live-session
+testing was possible (no test credentials available to this session — see item 3, blocked, above).
+
+**Key context: `56cae479` is not a stripped-down rebuild.** `list_files` shows it is essentially the full
+carried-over `exam-buddy-wireframe` tree (same routes, same `src/lib/course-mode/*`, same reviewer
+routes, same test suite) — consistent with `APP_REBUILD_MIGRATION_PLAN.md` §3 ("both remixed, code
+copied, no other changes"). **Phase 1 of that plan's §12 sequence has not been executed yet.** Every
+"Implemented" finding below means "implemented in the pre-split app, carried over unchanged by the
+split" — not evidence that rebuild work has happened.
+
+**§3 Information architecture (Partial).** Home (`_ux.home.tsx`), Progress (`_ux.progress.tsx`), session
+routes, and `byoq.tsx` all route correctly. `account.tsx` has `beforeLoad: () => throw redirect({ to:
+"/home" })` — Account, one of the four MVP persistent destinations in the spec, is present in code but
+unconditionally unreachable. 13 reviewer/admin routes are also still present (correctly out of scope per
+the migration plan, but unreviewed for cutover).
+
+**§4 Entry flows (Partial).** First session: `_ux.setup.index.tsx` closely matches spec §4.1 (exam date,
+course-position confirm/change, time picker, "Recommended first session" card with disclosure), near-
+verbatim onboarding copy. Returning session: `_ux.home.tsx` implements resume-incomplete-onboarding,
+resume-interrupted-session, and reconfirm/invitation/recommendation cards — but its own code comment
+says `ctx: ReturningContext` is "built from authored per-course fixtures... Backend wiring TODO: replace
+this derivation with a real `getReturningContext` server fn once available." Fixture-driven, not
+backend-wired (this can't be fully wired yet regardless, since no item carries a topic label — see §6
+and the migration plan's own §5.4 finding).
+
+**§5 Session mode presentation (Decision Required, silently resolved in code).** Spec §5/§14-1 leaves
+"named cards vs. time-first" as an open Product Owner decision; neither this doc nor
+`APP_REBUILD_MIGRATION_PLAN.md` §11 records it as resolved. `_ux.setup.index.tsx` already implements
+Variant B (Time First: 15/30/60-minute buttons; internal mode names "quick"/"focused"/"buckle_down"
+never surfaced to the student) — a real, working implementation built ahead of the decision being made
+on the record.
+
+**§6 Stable learning-session frame (Partial; two parallel implementations exist).** The route a student
+actually reaches, `_ux.session.mcq.tsx` + `GradeResultView.tsx`, is really wired:
+`use-grade-practice.ts` / `live-practice-mcq/grade.ts` / `live-practice-frq/grade.ts` call the real edge-
+function chain (`session-event` → `attempt-response` ×3 → `evaluate-attempt`), with explicit comments
+ruling out any local-fallback/legacy path. Cold attempt, feedback, retry (`grader.reset()`), and
+completion (`/session/complete`) all function against this real path — static-code-verified only, not
+live-session-verified. Repair labels in `SessionFrame.tsx` match the spec's internal→student-facing
+table exactly. **But** `FeedbackCard.jsx` + `Plate.jsx` (the extracted design-system templates the
+migration plan's §4.1/§9.1 describe) are a separate, unwired component tree — the live route uses
+`GradeResultView.tsx`, not `FeedbackCard.jsx`. Design work on one may never reach the live path, and vice
+versa — this is the migration plan's own Risk #2 playing out concretely, not a new problem.
+
+**§7 Feedback treatment (Not implemented).** No bracket-marker or sentence-level-highlighting logic in
+either feedback component — feedback is a plain verdict + `student_facing_summary` +
+`highest_value_gap.repair_prompt` string. Spec §7's Variant A/B bracket-marker experiment isn't built in
+either code path.
+
+**§8 Coaching copy (Not implemented).** `AnswerField.jsx` has no paste listener at all. `byoq.tsx` is a
+plain textarea + subject dropdown that saves to `localStorage` and navigates to `/session/setup` — no
+paste-event detection, no anti-gaming classification confirm, no camera/upload option (despite the
+migration plan's decision 19 naming camera/upload as David's stated intent). Matches the migration
+plan's own §9.4 characterization of BYOQ as "not visually designed at all."
+
+**§9 Uncertainty/escalation/disagreement (Partial — weakest area found).**
+- Grading uncertainty: real — `GradeResultView.tsx` renders `(uncertain)` inline; the tutor-review branch
+  never shows a bare 0. Implemented.
+- Content uncertainty: real — `ReportQuestionButton.tsx` does a genuine
+  `supabase.from("question_reports").insert(...)`. Implemented.
+- **Disputed grade: UI-only, not wired.** `RecheckDialog.tsx` (invoked from `SessionFrame.tsx`) collects
+  a full dispute (criterion, overlooked text, explanation) and then its `onSubmit` just does
+  `setRecheckCriterion(null)` — closes itself. No backend call of any kind. **Not implemented despite a
+  complete-looking UI — see Risk #1 below.**
+- Temporary failure: real — `GradeResultView.tsx`'s error phase offers "Retry scoring" wired to
+  `grader.retryGrading()`, re-running `evaluate-attempt` without a duplicate attempt. Implemented.
+- Separately, `_ux.session.uncertain.tsx` is a static standalone route with matching copy, but its "Flag
+  for review" button has no `onClick`, and nothing in the real grading path navigates to it on an
+  uncertain result — appears to be a disconnected mock, not a reachable state.
+
+**§10 Progress and home (Implemented).** `_ux.progress.tsx` is genuinely single-source: its own comment
+states every number comes from one RPC, `public.get_student_progress_dashboard`, with nothing computed
+client-side. Handles signed-out, locked-subject, and no-subject states distinctly; matches
+`PROGRESS_DASHBOARD_V1_PLAN`'s "estimate not a score" framing. Strongest-implemented surface found.
+
+**§11 Accessibility (Partial).** Positive: correct `radiogroup`/`aria-checked` on answer choices and
+pickers, `aria-live="polite"` on toasts/status changes, focus management with restore on dialog
+open/close, `aria-expanded`/`aria-controls` on disclosures, no color-only correctness cues in the pieces
+read (verdict text always paired with a word). Not verified (no live login possible): reduced-motion
+handling for `ConfettiBurst` (the migration plan's §9.7 already flags `--motion-duration: 0ms` as
+conflicting with the existing celebratory confetti — an open product question, not just a token), zoom/
+reflow behavior, equivalent access to tables/charts.
+
+**§14 Decisions Required — mapped to `APP_REBUILD_MIGRATION_PLAN.md` §11's registry:**
+1. Named cards vs. time-first — code silently implements Variant B; not on record as decided.
+2. Minimum onboarding explanation — resolved in code, matches spec.
+3. Four-region frame — structurally matches, not verified as a governed decision.
+4. Progressive disclosure order for feedback — not implemented as specced (simpler than the 6-step
+   order).
+5. Repair labels/override — resolved, implemented, matches spec exactly.
+6. Bracket marker vs. highlighting — not implemented, not decided.
+7. Coaching/paste posture — not implemented, not decided.
+8. Uncertainty/disputed-grade language — uncertainty copy implemented; disputed-grade UI exists but isn't
+   wired to any backend.
+9. MVP navigation/Progress hierarchy — Progress is strong; Account (a named MVP destination) is disabled
+   via redirect.
+Cross-reference: decisions 1 (fixed frame), 11 (multi-part FRQ), and 21 (Open Hand answer-key RPC) are
+all still OPEN in `APP_REBUILD_MIGRATION_PLAN.md` §11 itself, and no code read shows Open Hand
+implemented (no full-disclosure answer-key view, no `SECURITY DEFINER` RPC call site found anywhere).
+
+**Conflicts found between the primary plan and the secondary spec:**
+- Spec §5 leaves session-mode variant open; the migration plan doesn't list it in its own §11 decision
+  table at all, yet live code has already committed to Variant B. A gap in the primary plan's own
+  decision registry (it claims to consolidate all open decisions) rather than a direct contradiction.
+- Migration plan §13.3 records two explicit, still-unresolved contradictions (BYOQ default-vs-alternative,
+  paste-first-vs-camera-first) — moot for now, since `byoq.tsx` currently does neither; the contradiction
+  hasn't been forced into an implementation choice, it's just unbuilt.
+
+**Course Mode pilot pattern — what generalizes:**
+- The pilot handoff shows a migration ledger can claim a table/object exists in Dev when it doesn't
+  (`app.content_asset_metadata` / `content_visual_requirements` were "stamped" but absent, causing a
+  live 500 mid-pilot) — same bug class as [[feedback_dev_verification_drift]] already in memory. Since
+  the migration plan's §8.5 notes nothing in the content library is `validated` yet, the same silent-
+  drift risk applies to the topic-labelling work planned in its §6.
+- The pilot's "Lovable publish, not Vercel, env baked at build time" gotcha directly threatens the new
+  split: if `New Cramapple App`'s env/build hasn't been explicitly re-pointed and republished since the
+  split, it could be serving a stale bundle the same way `d334fed9` was mid-pilot. Worth an explicit
+  verification pass before trusting any "live" finding above.
+- The pilot's discipline of a named owner + a held gate requiring David's explicit go-ahead before real
+  students touch a feature is exactly what the migration plan's own §16 admits is missing for this
+  rebuild ("No Task ID allocated and no owner assigned").
+
+**Biggest risks for Oct 2 launch, ranked:**
+1. **Disputed-grade (recheck) UI is fully built but silently a no-op.** A student who files a recheck
+   gets no confirmation their dispute went anywhere, because none did. Looks finished; isn't. Highest
+   priority to either wire up or visibly disable before launch.
+2. **Account is unreachable** — any settings/exam-date/target-score UI meant to live there is dead code;
+   `_ux.setup.index.tsx` has its own separate prototype-state copy of similar fields, a possibly
+   divergent data path from whatever `account.tsx` was meant to read/write on `profiles`.
+3. **Two parallel session-feedback implementations** (`FeedbackCard.jsx`/`Plate.jsx` design-system vs.
+   the actually-routed `GradeResultView.tsx`) — visual/design work on one may never reach students.
+4. **BYOQ and Open Hand are both still fully unbuilt**, against open decisions 18/19/21 — if either is
+   assumed "mostly there" in Oct 2 planning, it isn't; BYOQ is a two-field form writing to
+   `localStorage`.
+5. ~~Build/env drift risk carried over from the Course Mode pilot~~ — **checked directly, not a live
+   risk.** `app.cramapple.com/home` (unauthenticated) correctly redirects to
+   `https://cramapple.com/login?redirect=%2Fhome`, exactly the designed handoff this doc already
+   verified earlier today — the App project is live, reachable, and wired to the right marketing
+   project, not serving a stale/wrong bundle. `get_project`'s `is_published: true` and a fresh
+   `latest_commit_sha` (`41ed495b`) corroborate this. Downgraded from the audit's ranked risk list;
+   the four risks above (recheck no-op, dead Account route, duplicate feedback implementations, unbuilt
+   BYOQ/Open Hand) remain the real open risks for Oct 2.
 
 ## Out of Scope
 
