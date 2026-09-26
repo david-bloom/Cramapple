@@ -259,20 +259,55 @@ be called done for Oct 2 without David's input on items 3, 6, 7, and 8.
    2026-09-26" section above (read-only source audit against `56cae479`, no live-session testing
    possible without credentials — that gap is tracked as item 3). Closed as an audit task; it surfaced
    four new, unfixed launch risks below that are decisions/dev work for David, not further audit.
-6. **New, from the audit — disputed-grade (recheck) dialog is a silent no-op.** `RecheckDialog.tsx`
-   collects a full dispute and its `onSubmit` just closes the dialog; no backend call exists. Ranked risk
-   #1. Needs either real wiring or the UI visibly disabled before launch — a product/dev decision, out of
-   this audit's scope to just implement.
-7. **New, from the audit — Account route is dead.** `account.tsx` unconditionally redirects to `/home`.
-   Needs a decision: re-enable it, or formally drop Account as an MVP nav destination (and confirm
-   `_ux.setup.index.tsx`'s own prototype-state fields aren't diverging from whatever `account.tsx` was
-   meant to read/write).
-8. **New, from the audit — two parallel feedback-UI implementations exist** (`FeedbackCard.jsx`/
-   `Plate.jsx` vs. the actually-routed `GradeResultView.tsx`). Needs a decision on which is canonical
-   before more design work lands on the unwired one.
-9. **New, from the audit — BYOQ and Open Hand are both fully unbuilt**, against open decisions 18/19/21
-   in `APP_REBUILD_MIGRATION_PLAN.md` §11. Not a regression, just a reminder these can't be assumed
-   "mostly there" for Oct 2 scoping.
+6. ~~Disputed-grade (recheck) dialog was a silent no-op~~ — **fixed and deployed, David's call.** See
+   "RESOLVED, 2026-09-26: three audit-risk fixes shipped" below.
+7. ~~Account route is dead~~ — **retired, David's call ("no longer serves a purpose").** See below.
+8. ~~Two parallel feedback-UI implementations~~ — **`FeedbackCard`/`Plate` design system is now the live
+   one, David's call.** See below.
+9. BYOQ and Open Hand are both fully unbuilt, against open decisions 18/19/21 in
+   `APP_REBUILD_MIGRATION_PLAN.md` §11 — **David: Codex is already working this, no action taken here.**
+   Not a regression, just a reminder these can't be assumed "mostly there" for Oct 2 scoping.
+
+## RESOLVED, 2026-09-26 (later still): three audit-risk fixes shipped to Production, David's explicit call on all three
+
+David reviewed the four audit risks above and directed action on three of them (BYOQ/Open Hand left to
+Codex). All three below were built, verified (typecheck + full 413-test suite, plus a targeted render
+check for the feedback-UI swap), and deployed to Production (`app.cramapple.com`) via `deploy_project` —
+not just committed to Lovable's working tree.
+
+**1. Recheck dialog wired to a real backend (risk #1).** Added `public.grade_disputes` (mirrors
+`question_reports`' RLS shape: `authenticated` can insert/select only `student_id = auth.uid()` rows) —
+applied to Dev (`wmgjsdkphcyhngaffbqf`) then Production (`pcntajvbdfqhbeewmdry`), `get_advisors` clean on
+both. Added `submitGradeDispute` to `use-session.ts` (mirrors `ReportQuestionButton`'s insert pattern).
+`RecheckDialog.tsx` now has real submit/success/error phases (was: fire-and-close) — a student who
+submits a recheck now gets "Thanks — recheck requested." or a retryable error, never silence. Diff
+verified via `get_diff` against commit `436a87d6`.
+
+**2. Account retired (risk #2).** Deleted `src/routes/account.tsx` outright (its own `profiles` query used
+`.eq("id", guard.userId)` — already broken, since `profiles` has no `id` column, only `user_id` — so
+"fix it" was never on the table once David said "no longer serves a purpose"). Removed the Account menu
+item from `SessionHamburgerMenu.tsx`. Lovable's own repo-wide search caught three *more* stale `/account`
+links this audit hadn't found — `session.setup.tsx`'s "Complete profile" (repointed to `/onboard`) and
+three "Back to progress" links in `attempt.$id.tsx` (repointed to `/progress`) — all real dead links this
+one decision would otherwise have left behind. Verified via `get_diff` against commit `4018a7c4`.
+
+**3. `FeedbackCard`/`Plate` design system made live (risk #3).** Only `GradeResultView.tsx`'s
+`phase === "done"` branch changed — every other phase (loading, tutor-review, content-unavailable, error)
+is untouched, and all existing behavior (confetti, streak badge, the `(uncertain)` marker, retry-on-fail)
+is preserved around the new card. One real gap surfaced and fixed, not papered over:
+`VerdictChip.jsx` previously only had two states (correct/incorrect) and would have silently mislabeled a
+partially-correct answer as flatly "Incorrect" — added a genuine third "Partially correct" state
+(amber, `--status-partial`) instead. Flagged, not fixed (out of scope, cosmetic only): `ScoreChip` has no
+matching amber tone yet, so a partial score still renders in the "lost" maroon color next to the new amber
+label — a color mismatch, not a mislabeling. Verified via `get_diff` against commit `322e8b47`, plus a
+throwaway render test (partial/uncertain/failed states all confirmed rendering correctly) that Lovable
+deleted after use.
+
+**Not yet done, flagged for a future session:** none of this was checked live in a browser against a real
+student session (still blocked on item 3 — no test credentials); the `ScoreChip` amber-color cosmetic gap
+above; and confirming `_ux.setup.index.tsx`'s prototype-state fields (exam date, target score, daily study
+minutes) aren't now an orphaned duplicate of whatever `account.tsx` used to read/write on `profiles` — the
+route is gone, but nobody has confirmed those fields still persist correctly through any other surface.
 5. ~~Redundant branch `codex/task-0044-ap-stats-mcq-fix`~~ — checked: already deleted from `origin`
    (likely in the 2026-09-25 cleanup); only a stale local ref remained, unmerged and superseded by
    `codex/task-0044-statistics-mcq` (whose fix is already live in Production per this doc's earlier
