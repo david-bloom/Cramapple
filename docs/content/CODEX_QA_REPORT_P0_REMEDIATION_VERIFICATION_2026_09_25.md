@@ -284,3 +284,16 @@ Two targeted corrections are still required under a separately authorized remedi
 
 After those two corrections, rerun a narrow verification on those two current version/rubric rows plus span integrity for `apstats-frq-u12-020`.
 
+
+
+## Final Verification Addendum — 2026-09-26
+
+The two P0s left open by this report were subsequently remediated in
+`supabase/migrations/20260925140000_fix_last_2_p0s_apphy1_026_apstats_u12_020.sql` and were independently re-checked read-only against Production.
+
+- `apphy1-frq-026`: **CLOSED.** The `b-time` `evidence_requirements` now match the corrected learner-facing criterion and no longer require the false “Track A finishes first” conclusion. The canonical remains correct that arrival order depends on specific track geometry.
+- `apstats-frq-u12-020`: **CLOSED.** The canonical now recomputes the corrected South sample SD exactly as approximately **3.735**, correctly states that it remains somewhat larger than North's 3.1, and correctly states that the spread gap shrinks substantially. `part-c-criterion-03` matches that result. Existing canonical spans still concatenate exactly to the current canonical and retain exact criterion-key coverage.
+
+**Final status:** all **34/34** original P0 findings from PR #188 are now independently verified closed.
+
+No Production writes were made during this verification addendum.
