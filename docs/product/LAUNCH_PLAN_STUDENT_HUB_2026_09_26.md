@@ -19,9 +19,11 @@ project. This session tentatively identified it as the **"New Cramapple App"** L
 (id `56cae479-f7c9-4988-b536-56538c38ee4e`) by content match, but could not confirm the exact
 custom-domain mapping (network egress to that URL was blocked, and Lovable's API doesn't expose a
 domain-to-project lookup). **Confirm the exact project before auditing** — see `DECISION-0072` for the
-verification gap. A real finding regardless: this project's current screenshot uses an older blue/red
-"cramapple" wordmark, not the new orange/Bungee brand system in `docs/new_design/` — expect a visual
-rebuild to be part of this plan's scope, not just a feature audit.
+verification gap. **The branding-mismatch note this plan originally carried here (old blue/red
+wordmark vs. the new orange/Bungee system) is unverified and possibly stale** — David flagged that the
+Lovable `get_project` screenshot this session read is a cached image, not necessarily the current live
+page, and is providing the live HTML directly. Do not treat the brand-mismatch as confirmed; check the
+live HTML once available before scoping a visual rebuild into this plan.
 
 ## Product Goal
 

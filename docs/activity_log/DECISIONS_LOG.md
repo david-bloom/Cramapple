@@ -85,10 +85,14 @@ egress policy. Based on content match against the two most likely candidates:
   is clearly the marketing site (already matches the new orange/Bungee brand from
   `APP_REBUILD_MIGRATION_PLAN.md` / `docs/new_design/`), not the student app D-2 was asking about.
 
-**A real finding regardless of which project this resolves to:** "New Cramapple App"'s current
-screenshot does not match the new design system — it shows a blue/red "cramapple" wordmark and older
-layout, not the orange masthead + Bungee wordmark `docs/new_design/` specifies. If this is confirmed as
-the launch frontend, it needs the visual rebuild, not just a feature audit.
+**CORRECTED, 2026-09-26 (same session): the branding-mismatch finding below is unverified, possibly
+stale.** David flagged that the Lovable screenshot this session read (via `get_project`) is a cached
+image, not necessarily the current live page — Lovable screenshots are known to lag behind actual
+content. David is providing the live HTML directly. **Do not treat "New Cramapple App still uses the
+old blue/red wordmark" as confirmed** until verified against that HTML. Original (now-flagged) claim,
+kept for the record: "New Cramapple App"'s `get_project` screenshot as read 2026-09-26 showed a
+blue/red "cramapple" wordmark and older layout, not the orange masthead + Bungee wordmark
+`docs/new_design/` specifies — this may simply be an outdated cached screenshot.
 
 ### Consequences
 
