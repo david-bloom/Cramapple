@@ -139,11 +139,30 @@ made by David in the same session that created this task record.
 
 ## Implementation Notes
 
-**Implementation Summary:** _(To be filled by the implementation agent per workstream.)_
+**Implementation Summary:**
 
-**Test Results:** _(To be filled by the implementation agent.)_
+- **Workstream E (item-package dual-read adapter) — done, committed (`1a6e8404`), not deployed.**
+  Investigation found the "203 of 1,346" gap is dormant, not active: every one of those 203 items
+  already has complete legacy relational data, and `student-session-items` never read
+  `item_package_payload` before this change. Built the dual-read adapter as forward insurance anyway,
+  per David's decision — additive-only (`applyItemPackageFallback` is a no-op for any row with real
+  legacy data), whitelist-only choice extraction (`choice_key`/`choice_text` only; `is_correct`/
+  `correct`/`rationale`/`misconception` never leave the function — verified directly in the diff, not
+  just the agent's claim). FRQ-criteria fallback deliberately NOT implemented — neither package shape
+  has an equivalent to `frq_criteria.learner_facing_text` (reviewer-authored, pre-filtered), and
+  deciding what's safe to derive there is a content-safety call, not an engineering stopgap. Flagged as
+  a real open question if an FRQ-only-package item is ever published, not resolved by assumption.
 
-**Risks / Issues:** _(To be filled by the implementation agent.)_
+**Test Results:**
+
+- Workstream E: `deno test --allow-env --allow-read --allow-net supabase/functions/` — 391/391 pass.
+  `deno check` clean on both touched files. `git diff --stat` confirmed exactly 4 files touched, no
+  migration, no deploy.
+
+**Risks / Issues:**
+
+- Workstream E: none identified. The one deliberately-deferred item (FRQ-criteria fallback) is flagged
+  above, not a risk in the shipped code — no published item needs it today.
 
 ## QA Review
 
