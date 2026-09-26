@@ -608,6 +608,105 @@ implemented (no full-disclosure answer-key view, no `SECURITY DEFINER` RPC call 
    the four risks above (recheck no-op, dead Account route, duplicate feedback implementations, unbuilt
    BYOQ/Open Hand) remain the real open risks for Oct 2.
 
+## EXECUTED, 2026-09-26 (next session): `APP_REBUILD_MIGRATION_PLAN.md` §7–§11 pass
+
+David asked for workstreams 7–11 of the migration plan's §7 (content production), §8 (remaining content
+gaps), §9 (functional gaps — Phase 1), §10 (what is not migrating), and §11 (open decisions) to be
+executed, with multiple agents run in parallel where there was no conflict risk, and policy decisions
+surfaced rather than silently resolved. Full results below.
+
+### Executed and verified
+
+**§8.2 `rubric_type` backfill — closed on Dev and Production.** The plan's own figures were stale (it says
+"92 Stats MCQ, 14 Stats FRQ, 1 Bio FRQ"; the real number was 207 nulls spread across 8 exam-pack versions).
+Before writing anything, confirmed all 207 also had a null `evaluator_strategy` — the exact precondition
+the original production backfill (`202607080006_backfill_rubric_routing_metadata.sql`) used, meaning none
+of the residual nulls were hiding a spatial/hand-drawn item that needed different handling. Re-ran that
+same, already-proven migration (`item_type='mcq'`→`rubric_type='mcq'`/`evaluator_strategy='rule_based_mcq'`,
+`'frq'`→`'discrete_text'`/`'llm_discrete_text'`) on Dev then Production. It correctly excluded the one
+genuine exception (a `human_shadow`/hand-drawn item, Dev-only synthetic test fixture, not real Production
+content). Production now has zero published items with a null `rubric_type`.
+
+**§10 cleanup — 7 dead files deleted from the App project, David to decide on deploy.** A background agent
+paginated the full file list (not just trusting the plan's description), confirmed via direct reads that
+nothing in `src/routes/**`, `src/components/home/**`, reviewer/admin routes, or `src/screens/**` imported
+any of them, then deleted: `src/routes/dev.celebrations.tsx` (its own header comment said "Not linked from
+any navigation"), `src/lib/beta-attempt.functions.ts`, `src/lib/beta-consent.functions.ts`, and a
+self-contained orphaned "returning-student prototype + Instagram/TikTok share modal" module
+(`src/lib/proto/{fixtures,referral,state}.ts(x)`, `src/components/proto/ShareWinModal.tsx`) — fictional
+fixture data and a share-studio UI nothing reachable ever imported. `src/routeTree.gen.ts` was edited by
+the same commit purely to drop the now-dead `DevCelebrationsRoute` entries — verified directly: 11 hunks,
+0 additions, 21 removals, nothing else touched. Typecheck clean, 413/413 tests pass, `get_diff` against
+commit `8d6d93fb` confirmed exactly these 8 changes and nothing else (no reviewer/admin file touched).
+**Not deployed** — left for David to decide when to publish.
+- Explicitly left alone: `src/lib/prototype-state.ts` (a different file, still live — imported by
+  `_ux.home.tsx`, `_ux.setup.index.tsx`, `_ux.topic.tsx`); all reviewer/admin routes (confirmed via direct
+  reads, none import any deleted file); `public/course-mode/*.html` static mocks (out of scope for this
+  task's four named patterns, flagged as unexamined rather than silently skipped).
+- **The plan's own §10 route/file count was wrong, confirmed by checking rather than trusting it:** no
+  `beta.*` or `_authenticated/proto.*` *routes* exist anywhere in this repo — only 1 literal route
+  (`dev.celebrations.tsx`) matched the named patterns; the rest of the "18 routes" turned out to be 6
+  orphaned library files, not routes. **`style-guide` does not exist at all** — no route, component, or
+  directory by that name anywhere in the project; the plan's claim that it's "superseded by
+  `.claude/skills/cramapple-design/guidelines/`" is moot since there's no current surface to retire.
+
+**§9.1 Course Mode component investigation — Decision 17 sharpened, not resolved.** A background agent
+read all 7 components (`SkillRail`, `ConfirmTransferBeat`, `CourseModeRepairPanel`, `RepairBlock`,
+`WorkedExample`, `LessonOpener`, `StreakBadge`) directly in the live App project and checked actual
+reachability/coupling rather than trusting the plan's provisional table:
+- **Clear enough to close now, no further investigation needed:** `SkillRail` (subject-agnostic despite
+  importing Course Mode types; survives as-is), `WorkedExample` (pure presentational, survives as-is),
+  `RepairBlock` (fully generic, already decoupled — only its gate, `CourseModeRepairPanel`, needs
+  generalizing beyond the Stats-pilot cell), `StreakBadge` (zero Course Mode dependency at all despite
+  being catalogued under "Course Mode session UI" — the most portable of the seven; the plan's "needs a
+  design" framing doesn't apply, there's nothing to decouple).
+- **Still need David's product judgment:** `ConfirmTransferBeat` (the component is portable, but its
+  *trigger* — `needsConfirmTransfer()` — is currently inseparable from the Stats-pilot transfer machine;
+  generalizing it is real engineering work, not just a placement call); `LessonOpener` (the plan lumps
+  this with `WorkedExample` as one mechanism, but code shows it's hard-scoped to one subject/unit/topic —
+  closer to disposable pilot scaffolding than a durable mechanism; conflating the two risks preserving
+  one-off pilot code as if it were the general case).
+- **A structural finding the plan doesn't mention at all, and the single most consequential thing this
+  pass surfaced:** there are **two parallel, fully live session flows** today, and which one a student
+  hits depends on a feature-flag default, not a decision. Bare `/session` (`SessionFrame.tsx`, carries all
+  7 Course Mode components) is what `TopicHome.tsx`'s "Start" buttons actually navigate to, and `home-v2`
+  defaults on (confirmed: no `VITE_HOME_V2` override in the App project's `.env`) — so this is the real
+  default path. `/session/mcq` + `/session/frq` (a 2026-09-23 rebuild, carries **none** of the 7
+  components, and is what `GradeResultView.tsx` serves) is reachable only via the legacy `?home=v1`
+  override. **This directly corrects this doc's earlier record** — see the correction immediately below.
+
+### Correction to this doc's own prior record, same investigation
+
+Earlier this session this doc recorded fix #3 ("`FeedbackCard`/`Plate` design system made live") as
+resolved. It was verified and deployed as described, but **it does not reach the real default student
+path.** `SessionFrame.tsx` (the file bare `/session` mounts) has its own third, independent graded-result
+rendering — `ResultPanel`/`CriterionCard`, driven by `graderResult` from `use-session.ts` — and never
+imports `GradeResultView.tsx` at all (confirmed: zero references). The recheck-dialog backend fix (#1) is
+unaffected by this — it lives directly in `SessionFrame.tsx`, so it genuinely is on the default path.
+**Not yet decided:** whether to redo the same `FeedbackCard` restyle against the actual
+`ResultPanel`/`CriterionCard` block. That's a materially bigger, riskier change — deeply intertwined with
+Course Mode repair panels, confirm-transfer, and the uncertain/review/failed states in the same render
+block — and deserves its own careful pass, not a hasty follow-up. David's call.
+
+### Consolidated policy decisions — David's call, not further audit
+
+From `APP_REBUILD_MIGRATION_PLAN.md` §11 plus what this pass surfaced, organized by what's actually
+blocking §7–§11 work:
+
+| Decision | Why it matters here |
+| --- | --- |
+| **#1 Fixed 1440×900 frame vs. responsive** | Blocking. Collides with hand-drawn capture (§9.2, phone-only), multi-part FRQ (§8.4), and the 6 image-stimulus Biology FRQs (§8.3). Nothing touching phones or long content resolves until this is settled. |
+| **#11 Multi-part FRQ / typed-math treatment** | Blocking. 323 of 563 published FRQ have parts as prose in the stem, not structured data — a content-migration-or-parser choice, not a UI choice. |
+| **#24 Does `validated` content status gate launch?** | Nothing in the library is `validated` today (§8.5) — a governance call, not engineering. |
+| **#18 / #19 BYOQ: default entry or alternative? Paste-first or camera-first?** | You and the consolidation plan already disagree on record (§13.3) — needs an explicit tiebreak before §9.4 can be built at all. |
+| **#3 ConfettiBurst motion exception** | Design system says zero motion; product has a deliberate celebration moment. Real product question, not a token. |
+| **#17 Course Mode component survival** | Narrowed to 2 real open items (`ConfirmTransferBeat`'s generalization cost, `LessonOpener`'s disposable-vs-durable status) plus the unchanged `StreakBadge` keep/drop call. |
+| **NEW — Which session flow should be canonical?** | Bare `/session` (`SessionFrame.tsx`, all 7 Course Mode components, real default via `home-v2`) vs. `/session/mcq`+`/session/frq` (2026-09-23 rebuild, none of them, legacy-only today). Both are live in Production right now; nothing has decided which one the product is actually building toward. |
+| **NEW — Redo the `FeedbackCard` restyle on the real default path?** | Today's fix is real but landed on the legacy route. Redoing it against `SessionFrame.tsx`'s actual `ResultPanel` is bigger and riskier — needs your go-ahead, not a unilateral follow-up. |
+| **#20 What derives mastery from help-taken + score** | Unbuilt and unspecified — upstream of the whole plate-mode design. |
+| **#23 Item-package backfill vs. dual-read adapter** | 203 of 1,346 items carry a newer package-format payload; needs a call before more content ships in either shape. |
+| **#7 Owner / Task ID for this rebuild** | Still unassigned — nothing in §7–§11 has a named owner or exit gate the way the Course Mode pilot did. |
+
 ## Out of Scope
 
 Redesigning any already-decided section of the interaction design spec — raise a proposal to David
