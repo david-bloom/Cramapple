@@ -69,7 +69,8 @@ it — it has not been updated to reflect the 2026-08-13+ activity.
       whoever owns that call (per TASK-0023's own flag on this exact point).
 - [ ] A full checkout-to-entitlement walkthrough is run and passes in sandbox: create checkout session
       → complete payment in Stripe test mode → webhook receives and verifies signature → entitlement
-      row(s) granted correctly for single, bundle, and unlimited purchase types.
+      row(s) granted correctly for single and bundle purchase types. Unlimited is deferred (see below) —
+      do not block this criterion on testing a tier that isn't launching yet.
 - [ ] Duplicate webhook delivery is tested and confirmed idempotent (no double-grant) — the unique
       constraint plus the events ledger should both cover this; verify with an actual replayed event,
       not by reading the schema.
@@ -79,9 +80,11 @@ it — it has not been updated to reflect the 2026-08-13+ activity.
       the 5% tolerance target, run against real or simulated sandbox transactions.
 - [x] Pricing decided (`DECISION-0068`, 2026-09-26): $39.99 single subject (matches the built catalog,
       no change needed), $79.99 two-subject bundle (**changes** the built catalog's current $69.99),
-      $99.99 three-subject bundle (**changes** the built catalog's current $89.99). Unlimited-tier
-      price is not yet decided (built catalog has it at $139.99) — do not touch the unlimited Price
-      until that's confirmed.
+      $99.99 three-subject bundle (**changes** the built catalog's current $89.99).
+- [x] Unlimited tier **deferred by decision, not open** (`DECISION-0069`, 2026-09-26): will be priced
+      and enabled once all 10 subjects are live, not at initial launch. Leave the built catalog's
+      $139.99 Price untouched and unmarketed until that condition is reached — this is not a blocker
+      for launch.
 - [ ] **Flag before implementing:** the decided 2-bundle price ($79.99) is $0.01 more than buying two
       singles separately ($79.98) — essentially no bundle discount. Confirm with David this is
       intentional before updating the live/sandbox Stripe 2-bundle Price; do not silently "fix" it to a

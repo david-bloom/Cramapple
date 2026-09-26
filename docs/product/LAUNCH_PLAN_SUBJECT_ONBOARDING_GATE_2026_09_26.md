@@ -14,8 +14,9 @@ A subject is only advertised as available to students once it has passed all six
 review tool's published-item count. This plan is run once per subject.
 
 **Day-one launch subjects are AP Biology and AP Statistics** (`DECISION-0068`, 2026-09-26). Remaining
-subjects fast-follow post-launch as confidence in site performance improves. This makes AP Statistics'
-criterion-6 hazard (below) a Day-1 launch blocker, not a lower-priority special case.
+subjects fast-follow post-launch as confidence in site performance improves. AP Statistics' criterion-6
+hazard, flagged as urgent in this plan's first draft, **is already resolved** — see the second
+correction block below.
 
 ## The six criteria (do not re-derive; use the source doc)
 
@@ -37,12 +38,21 @@ remains the one confirmed criterion-6 hazard. Note this table is jointly maintai
 `LAUNCH_PLAN_CONTENT_PIPELINE_2026_09_26.md` (that plan owns criteria 3/5 updates; this plan owns
 1/2/4/6) — check the other plan's latest edit before overwriting a row.
 
-## Current status per subject (updated 2026-09-26 from the 2026-09-25 Codex QA audit)
+## CORRECTION #2, 2026-09-26: AP Statistics' criterion-6 hazard was already resolved 2026-09-25
+
+David confirmed (and the repo history verifies) this was resolved **before** this plan's first draft
+was written: `docs/content/APSTATS_PILOT_PACK_REVIEW_AND_UNPUBLISH_2026_09_25.md` retired the MCQ-only
+pilot exam-pack version and confirmed platform-wide exam-pack-version singularity was restored. The
+"urgent hazard" framing in this plan's first draft was wrong — it was sourced from
+`SUBJECT_SERVABILITY_CRITERIA.md`'s "Applied so far" table, which was never updated after the fix. See
+`DECISION-0069`. Table corrected below.
+
+## Current status per subject (updated 2026-09-26)
 
 | Subject | Criterion 4 (canonical) | Criteria 3 & 5 (labels/difficulty) | Criterion 6 (exam pack) | Overall |
 | --- | --- | --- | --- | --- |
 | AP Biology | Closed | Serves via the label-free FRQ path; unit-gated path uses labels promoted under FF-3 (8→141 servable product-wide, 2026-09-24) — re-verify Biology's own current count live, don't assume 0 | Met | Passing today, on the FRQ path confirmed; unit-gated path status needs a fresh live check |
-| AP Statistics | Closed (69/69) | Open (64 validated per the 2026-09-25 audit) | **Confirmed hazard: two published exam-pack versions simultaneously — Day-1 subject, urgent** | Blocked on a David decision (retire pilot pack / migrate-then-retire / verified stopgap) |
+| AP Statistics | Closed (69/69) | Open (64 validated per the 2026-09-25 audit) | **Met — pilot pack retired 2026-09-25, singularity verified restored** | Open on labels/difficulty only; no longer blocked on a David decision |
 | AP Calculus AB | Closed (62/62) | Open (9 validated per the 2026-09-25 audit) | **Confirmed Met** (Pack singular: Yes) | Open on labels/difficulty only |
 | AP Chemistry | Closed, strict count 51/51 | Open (45 validated per the 2026-09-25 audit) | **Confirmed Met** | Open on labels/difficulty only |
 | AP Precalculus | Closed (32 items) | Open (30 validated per the 2026-09-25 audit) | **Confirmed Met** | Open on labels/difficulty only |
@@ -80,14 +90,14 @@ without a fresh check on the subject you're actually closing out.
 
 ## Special cases already known
 
-- **AP Statistics (Day-1 subject — this is now on the critical path):** do not touch the
-  dual-published-exam-pack-version hazard without a David decision first — this is a Hard Gate (a wrong
-  choice here could break the 51+ live student sessions already served against the current working
-  pack). Given Statistics is a Day-1 launch subject, resolving this decision is now urgent — surface it
-  to David rather than waiting for a routine check-in.
-- **AP Biology**: passes today only through the label-free FRQ practice path; the unit-gated path
-  serves zero. If unit-gated practice is part of the launch experience, Biology is not actually fully
-  passing — flag this distinction rather than reporting a blanket "Biology: Done."
+- **AP Statistics:** criterion-6 hazard resolved (see correction #2 above) — no longer a special case,
+  do not re-litigate the retire/migrate/stopgap question, it's decided (retired). Remaining work is
+  ordinary criteria 3/5 label and difficulty work, same as the other 8 non-Biology subjects.
+- **AP Biology**: passes today via the label-free FRQ practice path, per `DECISION-0063` (2026-09-24,
+  approved) — this is not an open question, it's a recorded launch decision. The unit-gated path
+  serves zero and is explicitly deferred (tracked as FF-3), not required for launch.
+- **Open, not yet decided: does `DECISION-0063` (FRQ-path-only launch) extend to AP Statistics too**,
+  now that Statistics is also Day-1? Flag to David rather than assuming either answer.
 
 ## Out of Scope
 

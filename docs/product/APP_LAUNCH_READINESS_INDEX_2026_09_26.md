@@ -33,7 +33,7 @@ before agents execute further, rather than embedding unverified assumptions in t
 | 2 | Payment flow | `LAUNCH_PLAN_PAYMENT_FLOW_2026_09_26.md` | In progress (TASK-0023 mostly built, blocked) |
 | 3 | Content pipeline (question templates) | `LAUNCH_PLAN_CONTENT_PIPELINE_2026_09_26.md` | In progress, pipeline gap |
 | 4 | Student hub | `LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md` | Not started (audit) |
-| 5 | Subject onboarding gate | `LAUNCH_PLAN_SUBJECT_ONBOARDING_GATE_2026_09_26.md` | Day-1 = Biology + Statistics; Biology passing (FRQ path only), Statistics blocked on a Hard Gate |
+| 5 | Subject onboarding gate | `LAUNCH_PLAN_SUBJECT_ONBOARDING_GATE_2026_09_26.md` | Day-1 = Biology + Statistics; both passing criterion 6 (Statistics' hazard resolved 2026-09-25); both open on labels/difficulty |
 
 Each plan is independently assignable to a different AI agent. Read dependency notes inside each plan
 before assuming full parallelism — see **Dependency map** below.
@@ -67,21 +67,29 @@ before assuming full parallelism — see **Dependency map** below.
 
 Every open decision surfaced across all five plans, in one place, so agents can cite `D-n` instead of
 re-describing it. Plans link back here rather than each carrying a duplicate open-questions list.
+Updated 2026-09-26 with David's responses (`DECISION-0069`) — resolved items kept for traceability,
+struck through.
 
-| ID | Decision | Why it matters |
+| ID | Decision | Status |
 | --- | --- | --- |
-| D-1 | Does the rebuild's app→marketing-reskin→Stripe→home-page-last sequence still hold, or should the five launch plans run in parallel as originally proposed? | Determines whether plan 1 (and parts of plan 4) can start now or must wait. |
-| D-2 | Which frontend is the actual launch target — the `web/` Vite rebuild or the live Lovable app (`exam-buddy-wireframe`)? | Plan 4 cannot proceed without this; auditing the wrong one wastes the session. |
-| D-3 | Must the unit-gated practice path work for launch, or is the label-free FRQ path sufficient for Day 1? | Determines whether AP Biology actually "passes" today, and how much of plan 3/5's remaining work is truly launch-critical. |
-| D-4 | AP Statistics' dual-published-exam-pack-version hazard — retire the pilot pack, migrate-then-retire, or a verified stopgap? | Now Day-1-critical per `DECISION-0068`; blocks Statistics from passing plan 5. |
-| D-5 | Is the unlimited-subject pricing tier still offered at launch, and at what price (built catalog has it at $139.99)? | Blocks plan 2 from closing its catalog criterion. |
-| D-6 | Is the 2-subject bundle price ($79.99, effectively no discount vs. buying two singles at $79.98) intentional? | Flagged in `DECISION-0068`; affects whether the live Stripe catalog gets updated as-is or corrected first. |
-| D-7 | Target launch window, since GTM-001's "August 2026" has passed. | Needed for campaign sequencing and any date-bound messaging on the marketing page. |
-| D-8 | Logo/wordmark finalization status — per `docs/new_design/README.md`, a final mark "should not be drawn by an agent." | Blocks plan 1's final asset production. |
-| D-9 | Shared vs. per-customer Stripe promotion code for the "add another subject" incentive. | Blocks plan 2's coupon-build criterion. |
-| D-10 | Seed the remaining 6 subjects into `Cramapple-Development`, or scope dev testing to the 4 already seeded? | Blocks part of plan 2's sandbox-testing criterion. |
-| D-11 | BIZ-001 remainder: access duration, refund/discount policy, parent-purchaser handling. | Blocks plan 2 from fully closing. |
-| D-12 | **Not a planning decision — a live bug to prioritize:** `attempt-response` isn't gated on entitlement (found 2026-09-20), so an unentitled student can submit an answer and hit a generic error instead of a paywall message. | Student-facing defect on the payment boundary; not owned by any plan until this correction. Recommend fixing or explicitly deferring with a stated reason, independent of the rest of this index. |
+| D-1 | Does the rebuild's app→marketing-reskin→Stripe→home-page-last sequence still hold, or should the five launch plans run in parallel? | **Open, now urgent** — see the sequencing-vs-1-week-window tension flagged below. |
+| D-2 | Which frontend is the actual launch target — the `web/` Vite rebuild or the live Lovable app (`exam-buddy-wireframe`)? | **Open.** Plan 4 cannot proceed without this. |
+| D-3 | Must the unit-gated practice path work for launch, or is the label-free FRQ path sufficient for Day 1? | **Already decided for Biology** (`DECISION-0063`, 2026-09-24: FRQ path only, unit-gated deferred as FF-3). **Open for AP Statistics** — does the same policy extend to it now that it's also Day-1? |
+| D-4 | ~~AP Statistics' dual-published-exam-pack-version hazard~~ | **Resolved 2026-09-25**, before this index was drafted — pilot pack retired (`docs/content/APSTATS_PILOT_PACK_REVIEW_AND_UNPUBLISH_2026_09_25.md`). This index and plan 5 had it wrong as an open Day-1 hazard; corrected. |
+| D-5 | ~~Unlimited-subject pricing tier at launch~~ | **Resolved (`DECISION-0069`): deferred until all 10 subjects are live.** Not priced or enabled at initial launch. |
+| D-6 | Is the 2-subject bundle price ($79.99, effectively no discount vs. two singles at $79.98) intentional? | **Still open** — not addressed by `DECISION-0069`. |
+| D-7 | ~~Target launch window~~ | **Resolved (`DECISION-0069`): next week.** See sequencing tension below. |
+| D-8 | ~~Logo/wordmark finalization~~ | **Resolved (`DECISION-0069`): not a blocker.** Type-only wordmark is sufficient; no illustrated mark required. |
+| D-9 | Shared vs. per-customer Stripe promotion code for the "add another subject" incentive. | **Open.** Blocks plan 2's coupon-build criterion. |
+| D-10 | Seed the remaining 6 subjects into `Cramapple-Development`, or scope dev testing to the 4 already seeded? | **Open.** |
+| D-11 | BIZ-001 remainder: access duration, refund/discount policy, parent-purchaser handling. | **Open.** |
+| D-12 | ~~Live bug: `attempt-response` isn't gated on entitlement~~ | Still a live bug to verify/fix — status not yet reported back. Separately, David added new scope here (not the same D-12): **BYOQ ships ungated and anonymous on the home page** (`DECISION-0069`) — now launch-critical for plan 1, and raises privacy/rights/academic-integrity review needs flagged in that plan. |
+
+**New, from `DECISION-0069`:** the 1-week target launch window (D-7) creates real tension with D-1's
+rebuild sequencing and the still-open items above (D-1, D-2, D-6, D-9, D-10, D-11, the D-3 Statistics
+question, and the entitlement bug). Recommend confirming with David whether "next week" means the
+rebuild sequence is being compressed/overridden, or targets a narrower slice of scope than the full
+five-plan definition of launch-ready above.
 
 Items not yet needing your call (agents can proceed without you): everything else in each plan's
 acceptance criteria.
@@ -114,8 +122,8 @@ The app is ready to go live only when:
    `AGENT_OPERATING_MODEL.md` — an implementation agent reports Ready for Review, it does not
    self-declare Done.
 5. Do not touch BIZ-001's remaining open questions (access duration, refunds, parent-purchaser
-   handling, unlimited-tier pricing), the AP Statistics exam-pack-version hazard, or any production
-   Stripe/webhook configuration — those are Hard Gates for David.
+   handling), the 2-bundle pricing anomaly (D-6), or any production Stripe/webhook configuration —
+   those are Hard Gates for David. The AP Statistics exam-pack hazard is resolved — no action needed.
 
 ## Open questions for David
 

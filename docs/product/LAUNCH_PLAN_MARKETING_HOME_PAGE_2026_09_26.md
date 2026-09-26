@@ -25,6 +25,24 @@ Corrected below: authoritative sources, voice/type/color references, and the dar
 The rest of this plan's structure (page-structure/copy deliverable, claim-evidence discipline) still
 holds.
 
+## CORRECTION #2, 2026-09-26 (`DECISION-0069`): logo resolved, BYOQ added to scope
+
+**Logo/wordmark is no longer an open item — it's decided.** David confirmed a type-only wordmark is
+sufficient for launch; no illustrated logo mark is required. Drop the "logo decision" acceptance
+criterion below to a non-blocking note.
+
+**New launch-critical scope: the home page ships the full BYOQ (Student-Provided Question Intake)
+experience, ungated and anonymous.** A visitor does not need to sign in or purchase to use BYOQ. This
+was previously scoped as UX-004 in the content-pipeline plan and treated as non-critical (gated on
+human domain reviews). It is now launch-critical for this plan specifically. See
+`docs/product/STUDENT_PROVIDED_QUESTION_INTAKE_DESIGN.md` for the UX spec — this plan does not
+redesign it, it implements/audits it as an anonymous-session feature on the home page.
+
+**Target launch window is next week** (`DECISION-0069`). This is a materially tighter timeline than the
+rebuild sequencing this plan is gated on (see the first correction above) — flag the tension to David
+rather than silently assuming one overrides the other; see decision register items D-1/D-2 in the
+index.
+
 ## Product Goal
 
 The public marketing home page (pre-login, unauthenticated) says what Cramapple is, who it's for, and
@@ -57,12 +75,18 @@ correction), typography and color per `docs/new_design/` above, light-mode only,
 sharp tutor" — not hype, not clinical, not encouraging-teacher-tone), anti-patterns banned (no mascots,
 no gamification, no manufactured urgency).
 
+**Decided (added 2026-09-26, `DECISION-0069`):** logo/wordmark — type-only wordmark is sufficient, no
+illustrated mark required; BYOQ ships on the home page, ungated, anonymous; target launch window is
+next week.
+
 **Still open — gates on this plan:**
-- Logo/wordmark finalization — check `docs/new_design/README.md`'s own note on this before assuming
-  it's still open; per that doc, a final mark "should not be drawn by an agent." Confirm current status
-  with David rather than assuming the identity-brief-v2-era open item still applies unchanged.
 - No page-structure/copy-block spec exists yet. This plan's actual deliverable is producing one — once
   the sequencing gate above is cleared.
+- BYOQ's anonymous/ungated delivery raises privacy, rights, and academic-integrity questions that
+  `STUDENT_PROVIDED_QUESTION_INTAKE_DESIGN.md`'s own task (UX-004) still lists as needing review
+  (accessibility/security/privacy/rights/academic-integrity/Product Owner). Shipping it ungated on a
+  public page makes those reviews launch-critical, not deferrable — flag to David rather than shipping
+  around them.
 - GTM-001's "readiness language without unsupported score prediction" and "social-proof/performance-
   claim evidence rules" are still `Proposed` — any claim on the page ("improves your score," "X% of
   students...") must be checked against these rules once they exist, not written ahead of them. In
@@ -77,13 +101,16 @@ no gamification, no manufactured urgency).
 - [ ] Rebuild-sequencing gate confirmed: either Phase 4 of `APP_REBUILD_MIGRATION_PLAN.md` has been
       reached, or David has explicitly overridden the sequence for this plan. Do not proceed past a
       spec draft until one of these is true.
-- [ ] Logo/wordmark decision recorded (cite the decision, e.g. a DECISION-NNNN entry) and final asset
-      produced per `docs/new_design/`'s token system, light-mode only.
+- [x] Logo/wordmark — **not a blocker** (`DECISION-0069`): produce the type-only wordmark per
+      `docs/new_design/`'s token system, light-mode only. No illustrated mark needed.
 - [ ] Page structure and copy draft exists, covering at minimum: hero/positioning statement, problem
       statement (matching Vision §2), what Cramapple is / is not (Vision §4), pricing/CTA section
       (must match the live Stripe catalog and current pricing decision — `DECISION-0068` — in the
       payment-flow plan, not an invented price), and a value-prop section for the secondary buyer
       (parent).
+- [ ] BYOQ is implemented on the home page as a full, ungated, anonymous-session experience per
+      `STUDENT_PROVIDED_QUESTION_INTAKE_DESIGN.md` — confirm the privacy/rights/academic-integrity
+      review flagged above has actually happened before shipping, not just that the feature works.
 - [ ] Every claim on the page is either (a) a stated product fact verifiable in this repo, or (b)
       explicitly flagged pending GTM-001's evidence rules. No "X% improvement" or similar performance
       claim ships without a cited evidence source.

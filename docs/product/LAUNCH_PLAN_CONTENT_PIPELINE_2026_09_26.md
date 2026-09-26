@@ -22,14 +22,19 @@ items from 8 to 141 product-wide. **This plan's actual remaining work is running
 already-proven lane for the subjects/items not yet covered — not building new infrastructure.**
 Difficulty has a related but separate method (DECISION-0061/0065).
 
-**UX-003 (Content Authoring Workbench) and UX-004 (BYOQ intake) are demoted out of this plan's
-critical path.** Both are gated on human domain reviews (Learning Quality, accessibility, security,
-privacy, rights, academic-integrity, Product Owner) that no AI agent can close, and neither is what's
-actually blocking subjects from passing the servability gate. They remain listed below for reference,
-but treat them as a separate content-ops-tooling track, not launch-critical, unless David says
-otherwise.
+**UX-003 (Content Authoring Workbench) was demoted out of this plan's critical path** — it's gated on
+human domain reviews no AI agent can close, and isn't what's blocking subjects from passing the
+servability gate. Track it as a separate content-ops-tooling item, not launch-critical, unless David
+says otherwise.
 
-## The three pieces (UX-003/UX-004 below are reference only — see correction above)
+**UX-004 (BYOQ intake) is re-promoted to launch-critical, but owned by the marketing-home-page plan,
+not this one** (`DECISION-0069`, 2026-09-26): BYOQ ships ungated and anonymous on the new home page.
+Its pending domain reviews (Learning Quality, accessibility, security, privacy, rights,
+academic-integrity) are therefore launch-blocking, not deferrable — see
+`LAUNCH_PLAN_MARKETING_HOME_PAGE_2026_09_26.md` for the acceptance criteria. This plan still lists it
+below for reference since it's part of "the three pieces," but does not own its execution.
+
+## The three pieces (UX-003 below is reference only; UX-004 is owned by the marketing-home-page plan)
 
 1. **Content Authoring and Revision Workbench** (internal tool for authors/reviewers) —
    `docs/product/CONTENT_AUTHORING_AND_REVISION_WORKBENCH_DESIGN.md` (17-section UX spec), task

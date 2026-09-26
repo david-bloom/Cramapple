@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0069 — Launch-Planning Follow-Ups: BYOQ Ships Ungated/Anonymous on the New Home Page; Unlimited-Tier Pricing Deferred Until All 10 Subjects Are Live; Target Launch Window Is Next Week; Wordmark-Only Branding Is Sufficient (No Logo Mark Required)
 - DECISION-0068 — Day-1 Launch Subjects Are AP Biology and AP Statistics, Fast-Follow the Rest as Site-Performance Confidence Improves; Set Single/2-Bundle/3-Bundle Pricing at $39.99 / $79.99 / $99.99
 - DECISION-0067 — Coverage Labels Stay Deferred at `provisional_model`; No Promotion Work Until Coverage Reporting Is Prioritized (FF-9)
 - DECISION-0066 — Approve AI Two-Model Agreement as Sufficient to Promote Serving Labels to `validated`, Product Owner as Approver (FF-3)
@@ -47,6 +48,61 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~600 lines, archive the older entries to `docs/activity_log/archive/DECISIONS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries. (This log is already well over that threshold — the first archive pass is overdue, not optional.)
 
 (Note: the TASK-0012 branch independently logged its own DECISION-0027/0028 — CORS/ALLOWED_ORIGINS and budget-burn semantics — under different numbers on its own branch. Those land separately when that work merges to `main`; this charter-adoption decision claimed 0027/0028 here because `main` had not yet recorded entries past DECISION-0026 at merge time. If both branches' numbering collides on merge, renumber on whichever side merges second and update this index.)
+
+## DECISION-0069 — Launch-Planning Follow-Ups, 2026-09-26
+
+**Date:** 2026-09-26
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Approval:** Product Owner direction, 2026-09-26 (this session)
+**Related Docs:** `docs/product/APP_LAUNCH_READINESS_INDEX_2026_09_26.md` (decision register D-3 through
+D-8, D-12); `docs/product/LAUNCH_PLAN_MARKETING_HOME_PAGE_2026_09_26.md`;
+`docs/product/LAUNCH_PLAN_PAYMENT_FLOW_2026_09_26.md`;
+`docs/product/LAUNCH_PLAN_SUBJECT_ONBOARDING_GATE_2026_09_26.md`;
+`docs/product/STUDENT_PROVIDED_QUESTION_INTAKE_DESIGN.md` (UX-004);
+`docs/content/APSTATS_PILOT_PACK_REVIEW_AND_UNPUBLISH_2026_09_25.md`; `DECISION-0068`
+**Area:** Product / Launch Scope / Commercial / Content
+
+### Decisions
+
+1. **BYOQ ships on the new home page, ungated, as an anonymous session.** A visitor does not need to
+   sign in or purchase to use the full Student-Provided Question Intake (BYOQ) experience
+   (`STUDENT_PROVIDED_QUESTION_INTAKE_DESIGN.md`). This changes UX-004 from a deferred/non-critical item
+   to launch-critical for the marketing home page and content-pipeline plans.
+2. **Unlimited-subject pricing tier is deferred.** It will be priced and enabled once all 10 subjects
+   are live, not at initial launch. Not an open item for now — remove from the payment-flow plan's
+   blocking criteria until that condition is reached.
+3. **Target launch window is next week.**
+4. **Logo/wordmark is not a launch blocker.** A type-only wordmark is sufficient; no illustrated logo
+   mark is required for launch.
+
+### Confirmed, not new: AP Statistics' criterion-6 hazard is resolved
+
+David asked to confirm this was already handled — it was. `docs/content/APSTATS_PILOT_PACK_REVIEW_AND_UNPUBLISH_2026_09_25.md`
+(2026-09-25, one day before this session's launch-planning docs were drafted) retired the
+MCQ-only pilot exam-pack version (`exam_pack_versions.id 7c5a2975-8f0e-45b9-8fcc-7ec9b8d81ada`) and
+verified platform-wide exam-pack-version singularity was restored. **The launch-planning docs drafted
+2026-09-26 cited this as an open Day-1 hazard because they were built from
+`SUBJECT_SERVABILITY_CRITERIA.md`'s "Applied so far" table, which itself was never updated after the
+2026-09-25 fix** — a staleness bug in that table, not a new problem. Corrected in
+`LAUNCH_PLAN_SUBJECT_ONBOARDING_GATE_2026_09_26.md`; `SUBJECT_SERVABILITY_CRITERIA.md` itself should
+also be updated by whoever next touches AP Statistics' row in it.
+
+### Flag: the 1-week launch window creates real tension with the rebuild's own sequencing
+
+`APP_REBUILD_MIGRATION_PLAN.md` sets an explicit sequence (app rebuild → marketing reskin → Stripe
+update → new home page last, "once the system it advertises exists") and lists 25 open decisions, some
+blocking Phase 0. A 1-week window is very tight against that sequence plus the still-open items in the
+decision register (D-1 sequencing override, D-2 which frontend, the unentitled-attempt bug from
+`DECISION-0068`'s follow-up). This is surfaced, not resolved, here — see D-1/D-2 in the index's
+decision register. Recommend confirming with David whether the 1-week window means the rebuild
+sequence is being compressed/overridden, or whether "next week" targets a narrower slice of the full
+rebuild scope.
+
+### Not yet resolved
+
+Does DECISION-0063 (Biology launches on the FRQ-only practice path, unit-gated path deferred) extend
+to AP Statistics as well, since Statistics is now also a Day-1 subject? Not addressed by this decision.
 
 ## DECISION-0068 — Day-1 Launch Subjects and Pricing (BIZ-001, GTM-001)
 
