@@ -708,6 +708,43 @@ blocking §7–§11 work. Recommendations are this session's opinion, not a deci
 | **#23 Item-package backfill vs. dual-read adapter** | 203 of 1,346 items carry a newer package-format payload; needs a call before more content ships in either shape. | Build the dual-read adapter, not a backfill. Cheaper, reversible, and doesn't force a format decision before the newer authoring shape has proven itself at scale. |
 | **#7 Owner / Task ID for this rebuild** | Still unassigned — nothing in §7–§11 has a named owner or exit gate the way the Course Mode pilot did. | Assign one now, following the Course Mode pilot's own pattern (phased rollout, named owner per phase, explicit exit gate, a held gate requiring your go-ahead before real students) — the plan already says to imitate this pattern but nothing in §7-§11 has done so yet. |
 
+## DECIDED, 2026-09-26 (David's responses to the policy table above)
+
+- **#1 Frame:** go responsive. **Executing** (see below).
+- **#11 Multi-part FRQ:** cheap parser stopgap now, "we'll see what we need later" — full migration
+  explicitly not committed to. **Executing.**
+- **#24 `validated` gate:** agreed, don't gate Oct 2 on it. **Closed.**
+- **#18/#19 BYOQ shape:** "BYOQ is phone capture to start. Document upload post launch" — closes both the
+  default-vs-alternative and intake-order questions together: BYOQ ships at launch as camera/phone capture
+  only; document/text upload is explicitly deferred post-launch. **Closed.** (BYOQ's actual build remains
+  Codex's work per earlier direction — this is the shape decision, not new scope for this session.)
+- **#3 ConfettiBurst:** agreed, keep as a named exception. **Closed.**
+- **#17 Course Mode components:** confirmed via follow-up question — proceed as recommended. Generalize
+  `ConfirmTransferBeat`'s trigger beyond the Stats pilot; fold `LessonOpener` into `WorkedExample` rather
+  than investing further; keep `StreakBadge` as-is. **Executing** (see below).
+- **NEW canonical session flow:** agreed — standardize on bare `/session`/`SessionFrame.tsx` (the real
+  default); retire `/session/mcq`+`/session/frq`. **Closed on shape; actual route retirement not yet
+  executed** — deleting the legacy route today would remove the only fallback/escape hatch (`?home=v1`)
+  while the FeedbackCard redo below is still in flight. Retirement is a follow-up cleanup step once the
+  redo is verified, not urgent to do in the same pass.
+- **NEW redo FeedbackCard:** agreed, sequenced after the flow decision above, which is now settled.
+  **Executing** — against `SessionFrame.tsx`'s actual `ResultPanel`/`CriterionCard`, not `GradeResultView.tsx`.
+- **#20 Mastery derivation — a concrete rule, not the "ship something simple" recommendation above:**
+  **"Mastery = 2 full-point answers, with hint. Hints may be triggered after scoring without affecting
+  mastery."** Read precisely: a skill/cell reaches mastery once the student has produced two full-point
+  (fully correct) answers on it; a hint may have been used to get either of those two answers without
+  disqualifying them from counting toward mastery; separately, hints shown *after* scoring (post-hoc
+  explanation/reveal) never affect mastery regardless. **This is genuinely foundational and unbuilt**
+  (decision 20 itself said so) — not implemented in this pass. Specified precisely here so a future
+  session can build it directly from this record rather than re-deriving David's intent. Needs, before
+  build: confirming where per-cell mastery state actually lives today (`app.student_cell_state` exists per
+  earlier schema checks, but this pass did not verify its current columns/semantics against this rule).
+- **#23 Item-package format:** confirmed via follow-up question — build the dual-read adapter, not a
+  backfill. **Executing** (see below).
+- **#7 Owner/Task ID:** agreed, assign now. **Done** — see `docs/tasks/TASK-0047-APP-REBUILD-SECTIONS-7-11.md`,
+  created this session. Owner still unassigned to a specific agent/person pending David's pick, following
+  the same pattern TASK-0045 used.
+
 ## Out of Scope
 
 Redesigning any already-decided section of the interaction design spec — raise a proposal to David
