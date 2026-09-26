@@ -12,7 +12,7 @@
 **Branch:** `codex/task-0040-home-page-audit`
 **PR:** None yet
 
-**Blocked Reason:** David confirmed that showing the $39.99 list price beside the November-free banner is intentional and accepted. The remaining blocker is functional: the live `/signup` route still presents a purchase flow and routes students toward secure payment/checkout instead of a verified zero-charge signup.
+**Blocked Reason:** Step 1 of David's approved flow is live (`Get Started` → `/signup`), but the deployed subject-selection bundle still routes into `/checkout/start` rather than directly to the student hub.
 
 ## Codex QA note (2026-09-26, pre-execution review)
 
@@ -56,6 +56,14 @@ before deploying):**
 - Any other Lovable change this task's audit surfaces as necessary is itself a Production frontend
   change and requires the same explicit approval before it ships — do not bundle an unapproved fix
   into what should be an audit report.
+**Owner-approved launch flow (2026-09-26):**
+
+1. Student clicks `Get Started`.
+2. Student lands on `/signup` and picks a subject.
+3. Student goes directly to the student hub.
+
+No checkout or payment step belongs in this October 2 flow.
+
 
 ## Out of Scope
 
@@ -84,10 +92,11 @@ Mirrors `docs/product/LAUNCH_RUNBOOK_2026_10_02.md` §§1 and 5 and
 
 - [x] **Owner-approved presentation:** "Free for November" is live beside the normal $39.99 list price.
       David confirmed this is the intended way to show the waived current price.
-- [ ] **Failed functional check 2026-09-26:** `/signup` still says "Which AP subject are you buying?",
-      describes a "One-time purchase," offers "Continue to secure payment," imports the checkout
-      client, and routes into `/checkout/start`. This does not verify that a student signing up now pays
-      zero or avoids checkout, despite the approved banner/list-price presentation.
+- [x] **Flow step 1:** the live header CTA now says `Get Started` and links to `/signup`.
+- [ ] **Flow steps 2–3 still blocked:** `/signup` still says "Which AP subject are you buying?" and the
+      deployed subject-selection bundle still contains "One-time purchase," "Continue to secure
+      payment," and `/checkout/start`. It does not route directly to the student hub after subject
+      selection.
 - [x] AP Biology and AP Statistics are shown "Live now"; the other eight subjects are shown as coming
       soon.
 - [ ] **Needs review:** delivered social metadata says "Maximum AP exam score in minimal time" without
@@ -131,6 +140,11 @@ Mirrors `docs/product/LAUNCH_RUNBOOK_2026_10_02.md` §§1 and 5 and
       client. No November zero-charge bypass was found in the delivered signup/checkout assets.
 ## QA Plan
 
+- [x] Flow-contract recheck: HTTP 200 at 2026-09-26 16:01:40 UTC (12:01:40 America/New_York), deployment
+      `psr2.b7a2e463-1cc8-4482-aaf9-2457dae5e10c.1791043299.5RDKqpkU6Ks1lzNU2zsji4rEKlTFBc5f0YhBjY41yZI`.
+      `Get Started` now links to `/signup`. Latest signup asset `signup-C4iqLflC.js` still imports
+      checkout code and contains `/checkout/start`, "One-time purchase," and "secure payment"; no
+      direct student-hub route was found in the deployed subject-selection flow.
 - Manual QA: load the live page, verify each criterion against actual rendered HTML/CSS, not the design
   doc or a cached screenshot.
 - Automated tests: none specific to this task; rely on Lovable's own build/preview.
@@ -171,8 +185,9 @@ deployment evidence that students signing up now are not charged.
 **Test Results:**
 - PASS — the live URL returned HTTP 200 and the exact deployment/assets are recorded above.
 - PASS — owner-approved price presentation: "Free for November" is live beside the normal list price.
-- FAIL / BLOCKER — `/signup` still presents a purchase and secure-payment flow leading to
-  `/checkout/start`; zero-charge November signup was not verified.
+- PASS — flow step 1: `Get Started` routes to `/signup`.
+- FAIL / BLOCKER — flow steps 2–3: subject selection still leads toward `/checkout/start`, not directly
+  to the student hub.
 - PASS — AP Biology and AP Statistics are marked "Live now"; the other eight subjects are presented as
   coming soon.
 - PARTIAL — BYOQ is present with anonymous/no-retention copy, but its interaction, canonical-answer
@@ -183,8 +198,8 @@ deployment evidence that students signing up now are not charged.
 
 **Risks / Issues:**
 
-- Launch blocker: the deployed signup route still initiates checkout/payment; the promised November
-  zero-charge behavior is not evidenced in the delivered flow.
+- Launch blocker: the deployed subject-selection flow still initiates checkout/payment instead of
+  routing directly to the student hub.
 - Public-claim review needed for "Maximum AP exam score in minimal time" in social metadata.
 - BYOQ privacy/rights/academic-integrity review remains unresolved.
 - The retention claim "Your photo isn't kept" and canonical-answer boundary require functional

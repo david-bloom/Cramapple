@@ -24,6 +24,8 @@ Approval State:
 - Not approved: any Lovable/Production change, deployment, brand or public-claim finalization, or risk
   acceptance
 - Owner decision: showing the $39.99 list price beside "Free for November" is intentional and accepted
+- Owner flow: `Get Started` → `/signup` subject picker → student hub
+- Explicitly excluded from launch flow: checkout and payment
 - Required before execution: David's explicit approval before any live-page change
 
 Live / Tool State:
@@ -35,8 +37,11 @@ Live / Tool State:
   `index-CLnVlhs5.css`, `index-D-MdByNs.css`, `styles-DcabbJId.css`
 - Result: `Free for November` is live; two secondary purchase links were removed, but the primary paid
   CTA links to `/signup`
-- Signup result: live `/signup` says "Which AP subject are you buying?" and deployed code offers
-  "Continue to secure payment" through `/checkout/start`; no zero-charge November bypass was found
+- Latest flow check: 2026-09-26 16:01:40 UTC, deployment
+  `psr2.b7a2e463-1cc8-4482-aaf9-2457dae5e10c.1791043299.5RDKqpkU6Ks1lzNU2zsji4rEKlTFBc5f0YhBjY41yZI`
+- Step 1 passes: `Get Started` links to `/signup`
+- Steps 2–3 fail: latest `signup-C4iqLflC.js` still contains `/checkout/start`, "One-time purchase,"
+  and "secure payment"; no direct student-hub route was found
 - Not checked / unavailable: rendered screenshots, interactive CTA/BYOQ behavior, actual photo retention,
   canonical-answer boundary, and rendered contrast. The supported browser could not start because the
   workspace path contains a symlink; cached Lovable state was not substituted.
@@ -51,8 +56,8 @@ Files / Systems Affected:
 
 Open Risks / Blockers:
 - Accepted: list price plus free banner presentation, per David
-- P1: linked signup flow still presents purchase, secure payment, and `/checkout/start`
-- P1: zero-charge November signup behavior has not been verified live
+- P1: subject selection still routes toward `/checkout/start` instead of the student hub
+- P1: direct post-selection student-hub routing has not been verified live
 - P1: BYOQ retention/canonical-answer behavior remains functionally unverified
 - P2: social metadata says `Maximum AP exam score in minimal time` without a cited evidence source
 - Pending owner decisions: approve/perform the free-launch CTA and pricing-copy change; decide residual
