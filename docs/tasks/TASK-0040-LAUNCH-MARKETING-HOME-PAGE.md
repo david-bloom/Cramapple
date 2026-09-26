@@ -12,7 +12,10 @@
 **Branch:** `codex/task-0040-home-page-audit`
 **PR:** None yet
 
-**Blocked Reason:** Step 1 of David's approved flow is live (`Get Started` → `/signup`), but the deployed subject-selection bundle still routes into `/checkout/start` rather than directly to the student hub.
+**Blocked Reason:** The checkout blocker is cleared, but the deployed subject picker now redirects to
+`https://app.cramapple.com/home?subject=<selected-subject>` and `app.cramapple.com` does not resolve in
+DNS. The picker also marks all ten subjects `Available`, conflicting with the October 2 Biology +
+Statistics launch scope.
 
 ## Codex QA note (2026-09-26, pre-execution review)
 
@@ -93,10 +96,11 @@ Mirrors `docs/product/LAUNCH_RUNBOOK_2026_10_02.md` §§1 and 5 and
 - [x] **Owner-approved presentation:** "Free for November" is live beside the normal $39.99 list price.
       David confirmed this is the intended way to show the waived current price.
 - [x] **Flow step 1:** the live header CTA now says `Get Started` and links to `/signup`.
-- [ ] **Flow steps 2–3 still blocked:** `/signup` still says "Which AP subject are you buying?" and the
-      deployed subject-selection bundle still contains "One-time purchase," "Continue to secure
-      payment," and `/checkout/start`. It does not route directly to the student hub after subject
-      selection.
+- [x] **Flow step 2:** `/signup` now says "Choose your subject" and renders the subject picker.
+- [ ] **Flow step 3 blocked:** the active subject-picker handler routes directly to
+      `https://app.cramapple.com/home?subject=<selected-subject>`, but that hostname returned no DNS
+      records and `curl` failed with `Could not resolve host` on 2026-09-26. The old checkout code
+      remains in the bundle for legacy states, but it is no longer the active first-click handler.
 - [x] AP Biology and AP Statistics are shown "Live now"; the other eight subjects are shown as coming
       soon.
 - [ ] **Needs review:** delivered social metadata says "Maximum AP exam score in minimal time" without
@@ -138,6 +142,22 @@ Mirrors `docs/product/LAUNCH_RUNBOOK_2026_10_02.md` §§1 and 5 and
       Delivered `/signup` HTML says "Which AP subject are you buying?"; deployed bundles contain
       "One-time purchase," "Continue to secure payment," `/checkout/start`, and the live checkout
       client. No November zero-charge bypass was found in the delivered signup/checkout assets.
+
+- [ ] Latest flow-contract recheck: homepage and `/signup` both returned HTTP 200 at 2026-09-26
+      17:25:50 UTC (13:25:50 America/New_York), deployment
+      `psr2.2b954098-f2fe-4b6c-a684-fc0bec10116b.1791048349.50j0W8gtc_TWX-r9UfGMY5pK4paVDgpP9GsuFZwDlLE`.
+      The deployed `signup-CKHFmLGW.js` active picker handler is
+      `window.location.href = appUrl('/home?subject=' + selectedSubject)`, and deployed
+      `app-url-D_SGYqYA.js` resolves that destination to `https://app.cramapple.com`. Direct requests
+      for Biology, Statistics, and Chemistry destinations all failed because `app.cramapple.com`
+      has no DNS answer; `dig +short app.cramapple.com` also returned no record. Evidence SHA-256:
+      homepage HTML `52798c6fcaa1d73e7b07cfef4a9d57fec40395c6a83e1be2c3dc0e9c83fb18ce`,
+      signup HTML `733f8ebb39521a1fb8c7e11d31c6714953df0ef8f831b1456974338a5561a379`,
+      signup bundle `49a16bfc10735f197dd56d06eb11c8821dc7f5d2343f8d54fa9bf1b9f84b7407`.
+- [ ] Scope mismatch found in the same deployment: the homepage correctly labels Biology and
+      Statistics `Live now` and the others `Coming soon`, but `/signup` forces every catalog result
+      and fallback subject to `available: true`, presenting all ten subjects as `Available`.
+
 ## QA Plan
 
 - [x] Flow-contract recheck: HTTP 200 at 2026-09-26 16:01:40 UTC (12:01:40 America/New_York), deployment
@@ -169,25 +189,30 @@ audit and its evidence updates only. No Production Lovable edit, deployment, pub
 brand finalization, or risk acceptance was initially approved. David then approved continuing the
 read-only audit while Lovable added a banner. He subsequently clarified that retaining the normal list
 price beside "Free for November" is intentional and accepted, and stated that the task is complete.
-That owner decision clears the price-presentation question. It does not resolve the conflicting live
-evidence that `/signup` still initiates a purchase/checkout flow rather than a verified zero-charge
-November signup.
+That owner decision clears the price-presentation question. The later deployment also clears the
+active checkout-route conflict, but does not clear the dead `app.cramapple.com` student-hub destination
+or the all-ten-subject availability mismatch found in the latest live evidence.
 
 ## Implementation Notes
 
 **Implementation Summary:** Codex performed the read-only audit against the live HTTPS response on
-2026-09-26. No Production change was made. Follow-up checks confirmed the "Free for November" banner
-and David's accepted list-price presentation. Codex then inspected the linked live signup page and its
-deployed signup/checkout assets. That flow still presents a purchase, secure payment, and
-`/checkout/start`; no November zero-charge bypass was found. The task therefore remains blocked on
-deployment evidence that students signing up now are not charged.
+2026-09-26. No Production change was made. Follow-up checks confirmed the free-until-November banner,
+David's accepted list-price presentation, and the revised subject picker. The active picker no longer
+enters checkout: it redirects the selected subject to the configured student-app base URL. That base
+URL is `https://app.cramapple.com`, which currently has no DNS answer, so the approved journey still
+cannot reach the student hub. The task remains blocked rather than being closed on copy/bundle
+evidence alone.
 
 **Test Results:**
 - PASS — the live URL returned HTTP 200 and the exact deployment/assets are recorded above.
 - PASS — owner-approved price presentation: "Free for November" is live beside the normal list price.
 - PASS — flow step 1: `Get Started` routes to `/signup`.
-- FAIL / BLOCKER — flow steps 2–3: subject selection still leads toward `/checkout/start`, not directly
-  to the student hub.
+- PASS — flow step 2: `/signup` presents direct subject selection without making checkout the active
+  first-click path.
+- FAIL / BLOCKER — flow step 3: the direct student-hub destination is `app.cramapple.com`, which does
+  not resolve.
+- FAIL / SCOPE MISMATCH — `/signup` presents all ten subjects as available while only Biology and
+  Statistics are in the October 2 launch scope.
 - PASS — AP Biology and AP Statistics are marked "Live now"; the other eight subjects are presented as
   coming soon.
 - PARTIAL — BYOQ is present with anonymous/no-retention copy, but its interaction, canonical-answer
@@ -198,8 +223,9 @@ deployment evidence that students signing up now are not charged.
 
 **Risks / Issues:**
 
-- Launch blocker: the deployed subject-selection flow still initiates checkout/payment instead of
-  routing directly to the student hub.
+- Launch blocker: the direct student-hub hostname `app.cramapple.com` has no DNS answer.
+- Launch-scope mismatch: the signup picker presents all ten subjects as available instead of limiting
+  launch access to Biology and Statistics.
 - Public-claim review needed for "Maximum AP exam score in minimal time" in social metadata.
 - BYOQ privacy/rights/academic-integrity review remains unresolved.
 - The retention claim "Your photo isn't kept" and canonical-answer boundary require functional
