@@ -305,9 +305,20 @@ deleted after use.
 
 **Not yet done, flagged for a future session:** none of this was checked live in a browser against a real
 student session (still blocked on item 3 — no test credentials); the `ScoreChip` amber-color cosmetic gap
-above; and confirming `_ux.setup.index.tsx`'s prototype-state fields (exam date, target score, daily study
-minutes) aren't now an orphaned duplicate of whatever `account.tsx` used to read/write on `profiles` — the
-route is gone, but nobody has confirmed those fields still persist correctly through any other surface.
+above.
+
+**RESOLVED same day: the `_ux.setup.index.tsx`/`profiles` divergence concern was a non-issue, checked and
+closed, not fixed because there was nothing to fix.** `_ux.setup.index.tsx`'s exam date and available
+minutes are pure `localStorage` state (`src/lib/prototype-state.ts`, key `cramapple.ux001.state`) — never
+touches Supabase at all, so there is no live conflict with anything server-side. Separately, pulled
+`public.profiles`' real column list directly: `user_id, full_name, role, review_queue_scope, timezone,
+locale, onboarding_completed_at, created_at, updated_at, active_exam_pack_version_id,
+first_run_dismissed_at`. The deleted `account.tsx` queried `display_name, exam, active_subject, exam_date,
+target_score, daily_study_minutes` filtered on `.eq("id", ...)` — **every one of those column names,
+including the filter column itself, was already wrong** before today's deletion. That page's
+profile/preferences UI would have thrown a Postgres error on every load; it was fully non-functional
+already, not merely redirected away. Deleting it was a clean no-op risk-wise — there was never real data
+for anything else to diverge from.
 5. ~~Redundant branch `codex/task-0044-ap-stats-mcq-fix`~~ — checked: already deleted from `origin`
    (likely in the 2026-09-25 cleanup); only a stale local ref remained, unmerged and superseded by
    `codex/task-0044-statistics-mcq` (whose fix is already live in Production per this doc's earlier
