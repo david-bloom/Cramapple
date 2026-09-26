@@ -23,6 +23,7 @@ Approval State:
   this was not approval for Codex to edit Production or accept residual risk.
 - Not approved: any Lovable/Production change, deployment, brand or public-claim finalization, or risk
   acceptance
+- Owner decision: showing the $39.99 list price beside "Free for November" is intentional and accepted
 - Required before execution: David's explicit approval before any live-page change
 
 Live / Tool State:
@@ -33,7 +34,9 @@ Live / Tool State:
 - Latest delivered asset identifiers: `index-B04bdM1t.js`, `index-CmkzbPkJ.js`,
   `index-CLnVlhs5.css`, `index-D-MdByNs.css`, `styles-DcabbJId.css`
 - Result: `Free for November` is live; two secondary purchase links were removed, but the primary paid
-  CTA and purchase card remain
+  CTA links to `/signup`
+- Signup result: live `/signup` says "Which AP subject are you buying?" and deployed code offers
+  "Continue to secure payment" through `/checkout/start`; no zero-charge November bypass was found
 - Not checked / unavailable: rendered screenshots, interactive CTA/BYOQ behavior, actual photo retention,
   canonical-answer boundary, and rendered contrast. The supported browser could not start because the
   workspace path contains a symlink; cached Lovable state was not substituted.
@@ -47,10 +50,9 @@ Files / Systems Affected:
 - Other: no Production writes
 
 Open Risks / Blockers:
-- P1: `Free for November` is contradicted by the live header CTA `Get it · $39.99`
-- P1: the same price row still says `$39.99 / one subject / no subscription`
-- P1: live price section still says `ONE PAYMENT. THE WHOLE YEAR` and `Get AP Statistics`
-- P1: the free-launch promise is not consistent or unambiguous across the page
+- Accepted: list price plus free banner presentation, per David
+- P1: linked signup flow still presents purchase, secure payment, and `/checkout/start`
+- P1: zero-charge November signup behavior has not been verified live
 - P1: BYOQ retention/canonical-answer behavior remains functionally unverified
 - P2: social metadata says `Maximum AP exam score in minimal time` without a cited evidence source
 - Pending owner decisions: approve/perform the free-launch CTA and pricing-copy change; decide residual

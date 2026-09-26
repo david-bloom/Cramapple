@@ -12,7 +12,7 @@
 **Branch:** `codex/task-0040-home-page-audit`
 **PR:** None yet
 
-**Blocked Reason:** A new "Free for November" banner is live, but the page still contains paid CTAs and a $39.99 purchase section. The contradictory messaging continues to trigger the runbook stop condition that a live CTA requires or implies payment.
+**Blocked Reason:** David confirmed that showing the $39.99 list price beside the November-free banner is intentional and accepted. The remaining blocker is functional: the live `/signup` route still presents a purchase flow and routes students toward secure payment/checkout instead of a verified zero-charge signup.
 
 ## Codex QA note (2026-09-26, pre-execution review)
 
@@ -47,12 +47,12 @@ evidence and rationale). Read both, including all CORRECTION blocks, before star
 
 **B. Implementation (any change to the live Lovable app — Hard Gate, requires David's explicit go
 before deploying):**
-- The $39.99/Stripe purchase CTA is stale against the free-launch decision (`DECISION-0071`). **David
-  is fixing this specific item himself directly in Lovable.** On 2026-09-26 he reported a planned
-  "Free until November" banner; the live deployment later rendered "Free for November." An
-  implementation agent must not independently rework the CTA or pricing section. Check current status
-  with David before touching anything in this area; if he has already shipped the fix, this becomes an
-  audit item (confirm it's live), not implementation work.
+- David clarified on 2026-09-26 that the $39.99 list price is intentionally visible so students
+  understand the normal price, while the "Free for November" banner communicates that students who
+  sign up now should not pay it. Treat that presentation as owner-approved. The audit must still verify
+  the linked signup path actually charges zero and does not require checkout; owner intent is not
+  deployment evidence. An implementation agent must not independently rework the CTA, pricing section,
+  or signup flow without explicit approval.
 - Any other Lovable change this task's audit surfaces as necessary is itself a Production frontend
   change and requires the same explicit approval before it ships — do not bundle an unapproved fix
   into what should be an audit report.
@@ -82,14 +82,12 @@ because the feature functions.
 Mirrors `docs/product/LAUNCH_RUNBOOK_2026_10_02.md` §§1 and 5 and
 `LAUNCH_PLAN_MARKETING_HOME_PAGE_2026_09_26.md`; those documents govern if this list drifts.
 
-- [ ] **Partially remediated, still blocked 2026-09-26:** a new "Free for November" banner is live in
-      the price row, but it appears beside "$39.99 / one subject / no subscription" while the header
-      still says "Get it · $39.99." The page therefore does not state the free-launch promise
-      consistently or unambiguously.
-- [ ] **Failed 2026-09-26:** primary CTAs still imply purchase: the header links to `/signup` as "Get it
-      · $39.99," and the price card still says "ONE PAYMENT. THE WHOLE YEAR," "$39.99 / one subject /
-      no subscription," and "Get AP Statistics." The former "Ask a parent to buy it" and "Bundles"
-      links were removed in the latest deployment, but the core paid CTA remains.
+- [x] **Owner-approved presentation:** "Free for November" is live beside the normal $39.99 list price.
+      David confirmed this is the intended way to show the waived current price.
+- [ ] **Failed functional check 2026-09-26:** `/signup` still says "Which AP subject are you buying?",
+      describes a "One-time purchase," offers "Continue to secure payment," imports the checkout
+      client, and routes into `/checkout/start`. This does not verify that a student signing up now pays
+      zero or avoids checkout, despite the approved banner/list-price presentation.
 - [x] AP Biology and AP Statistics are shown "Live now"; the other eight subjects are shown as coming
       soon.
 - [ ] **Needs review:** delivered social metadata says "Maximum AP exam score in minimal time" without
@@ -126,6 +124,11 @@ Mirrors `docs/product/LAUNCH_RUNBOOK_2026_10_02.md` §§1 and 5 and
 - [ ] David has signed off on the final page (Hard Gate: public claims + brand identity finalization,
       per `STANDING_APPROVAL_LANES.md`).
 
+- [x] Signup-path evidence: HTTP 200 at 2026-09-26 15:56:31 UTC (11:56:31 America/New_York), deployment
+      `psr2.a50725d9-53c2-4fce-b306-ecdfc3446f79.1791042990.YVsbcpdZBoZLUbR9ZDiefJhkXExiQeXNWFUnsyRVw4o`.
+      Delivered `/signup` HTML says "Which AP subject are you buying?"; deployed bundles contain
+      "One-time purchase," "Continue to secure payment," `/checkout/start`, and the live checkout
+      client. No November zero-charge bypass was found in the delivered signup/checkout assets.
 ## QA Plan
 
 - Manual QA: load the live page, verify each criterion against actual rendered HTML/CSS, not the design
@@ -149,25 +152,27 @@ Mirrors `docs/product/LAUNCH_RUNBOOK_2026_10_02.md` §§1 and 5 and
 the live Production Lovable app, per `STANDING_APPROVAL_LANES.md`)
 **Decision:** David instructed Codex to execute TASK-0040 on 2026-09-26. That authorizes this read-only
 audit and its evidence updates only. No Production Lovable edit, deployment, public-claim approval,
-brand finalization, or risk acceptance has been approved. The live paid-CTA stop condition requires
-David's direction before implementation proceeds.
-
-David then approved continuing the read-only audit while Lovable added a banner. This did not authorize
-Codex to edit Production or accept the remaining contradictory paid messaging.
+brand finalization, or risk acceptance was initially approved. David then approved continuing the
+read-only audit while Lovable added a banner. He subsequently clarified that retaining the normal list
+price beside "Free for November" is intentional and accepted, and stated that the task is complete.
+That owner decision clears the price-presentation question. It does not resolve the conflicting live
+evidence that `/signup` still initiates a purchase/checkout flow rather than a verified zero-charge
+November signup.
 
 ## Implementation Notes
 
 **Implementation Summary:** Codex performed the read-only audit against the live HTTPS response on
-2026-09-26. No Production change was made. The audit stopped when the delivered page showed paid CTAs
-and a $39.99 purchase section, as required by the October 2 runbook stop conditions. Codex then
-rechecked the follow-up Lovable deployment and its delivered JavaScript assets. The banner was present,
-but the paid CTAs remained; no Production change was made by Codex.
+2026-09-26. No Production change was made. Follow-up checks confirmed the "Free for November" banner
+and David's accepted list-price presentation. Codex then inspected the linked live signup page and its
+deployed signup/checkout assets. That flow still presents a purchase, secure payment, and
+`/checkout/start`; no November zero-charge bypass was found. The task therefore remains blocked on
+deployment evidence that students signing up now are not charged.
 
 **Test Results:**
 - PASS — the live URL returned HTTP 200 and the exact deployment/assets are recorded above.
-- PARTIAL / BLOCKER — "Free for November" is live and two secondary purchase links were removed.
-- FAIL / BLOCKER — the primary "Get it · $39.99" CTA and $39.99 purchase card remain live and
-  actionable.
+- PASS — owner-approved price presentation: "Free for November" is live beside the normal list price.
+- FAIL / BLOCKER — `/signup` still presents a purchase and secure-payment flow leading to
+  `/checkout/start`; zero-charge November signup was not verified.
 - PASS — AP Biology and AP Statistics are marked "Live now"; the other eight subjects are presented as
   coming soon.
 - PARTIAL — BYOQ is present with anonymous/no-retention copy, but its interaction, canonical-answer
@@ -178,8 +183,8 @@ but the paid CTAs remained; no Production change was made by Codex.
 
 **Risks / Issues:**
 
-- Launch blocker: contradictory free/paid messaging still violates `DECISION-0071` and the October 2
-  free-launch runbook.
+- Launch blocker: the deployed signup route still initiates checkout/payment; the promised November
+  zero-charge behavior is not evidenced in the delivered flow.
 - Public-claim review needed for "Maximum AP exam score in minimal time" in social metadata.
 - BYOQ privacy/rights/academic-integrity review remains unresolved.
 - The retention claim "Your photo isn't kept" and canonical-answer boundary require functional
