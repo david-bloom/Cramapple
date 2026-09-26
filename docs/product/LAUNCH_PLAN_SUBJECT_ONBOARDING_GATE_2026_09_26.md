@@ -95,7 +95,7 @@ without a fresh check on the subject you're actually closing out.
   flat/practice serving path per `DECISION-0072` (2026-09-26) — same policy as Biology, not the
   unit-gated path, despite Statistics having the strongest unit-gated coverage of any subject (64
   validated labels, 27 items live across all 5 units). Remaining criteria 3/5 work is not launch-
-  blocking for Friday; it matters for whenever unit-gated practice is turned on.
+  blocking for October 2; it matters for whenever unit-gated practice is turned on.
 - **AP Biology**: passes today via the label-free FRQ practice path, per `DECISION-0063` (2026-09-24,
   approved) — this is not an open question, it's a recorded launch decision. The unit-gated path
   serves zero and is explicitly deferred (tracked as FF-3), not required for launch.
