@@ -58,7 +58,25 @@ merged.
 - Difficulty target: 122 items (item-and-current-version published), 12 Easy / 99 Medium / 11 Hard, 1
   corrected to Hard post-fix.
 
-## AP Precalculus (Claude's half) — DONE, 2026-09-25
+## AP Precalculus (Claude's half) — DONE, cross-QA'd, remediated 2026-09-26
+
+Codex's independent cross-QA of PR #198 (this section, below) found two real problems: the
+Precalculus-specific difficulty classifier was never committed to the repository, and its output showed a
+likely scoring defect (several multi-part FRQs recorded Hard on every criterion from a single hard cue in
+one part). Both were fixed 2026-09-26
+(`docs/content/CLAUDE_QA_REMEDIATION_APPRECALC_2026_09_26.md`): a corrected classifier was written and
+committed (`docs/research/apbio_difficulty_calibration_2026_09_22/assign_difficulty_apprecalc.py`, per-part
+stem cue classification with a genuine per-criterion modal-tier computation, falling back to per-criterion
+`learner_facing_text` for the templated `apprecalc-frq-u12-*` items), re-run against all 117 servable items,
+and reloaded to Production (30 of 117 rows changed; corrected distribution Easy 1 / Medium 109 / Hard 7, down
+from the original Easy 1 / Medium 96 / Hard 20). Separately, all 13 `model_unit_disagreement` serving-label
+holds (not just Codex's sampled six) were resolved: 11 to the broader Unit-1-secondary answer, 1 to the same
+pattern in reverse, and 1 individually to the narrower, correct answer after reading the item's stem — see
+the remediation doc for the full before/after table. `apprecalc-frq-np2-008`'s rubric defect remains
+correctly held, untouched. The narrative below (serving-label and difficulty run details) is the original
+2026-09-25 run report; the corrected final numbers are in the remediation doc.
+
+## AP Precalculus (Claude's half) — original 2026-09-25 run report
 
 Independently re-derived baseline against Production matched the kickoff table exactly: 126 live items, 0
 duplicate-current-serving-label-row anomaly, 20 no-current-row + 10 `held` + 28 `legacy_unvalidated` + 31
@@ -204,8 +222,14 @@ Codex should independently review a sample of this output (spot-check the held-i
 Precalculus-specific difficulty cue design, and a handful of the 45 judgement-basis Medium defaults) once
 its own AP Calculus AB half lands; Claude does not cross-QA its own work here.
 
+## Cross-QA and remediation status (updated 2026-09-26)
+
+Both halves have now been independently cross-QA'd and remediated: AP Calculus AB by Claude (PR #199,
+follow-up fixes PR merged), AP Precalculus by Codex (PR #198 review) with remediation by Claude (see the
+"remediated 2026-09-26" section above and `docs/content/CLAUDE_QA_REMEDIATION_APPRECALC_2026_09_26.md`). PR
+#198 remains open (not merged) pending final review of the remediation.
+
 ## Not started
 
-- Cross-QA of either half (required before Pair 2 is closed, per the paired plan).
 - Pair 3 (AP Physics 1 + AP Physics 2), Pair 4 (AP Physics C: Mechanics + AP Physics C: E&M), and AP
   Calculus BC (solo or paired with whichever finishes first).
