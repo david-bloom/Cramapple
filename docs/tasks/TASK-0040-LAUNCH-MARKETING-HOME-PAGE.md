@@ -16,7 +16,7 @@
 
 Codex reviewed this task record before any work started and returned **Fail — revision required**.
 Findings folded into this revision: date corrected to October 2, 2026; reconciled with
-`docs/product/LAUNCH_RUNBOOK_2026_10_02.md` (item 1, "Public entry and free-access promise"); tier
+`docs/product/LAUNCH_RUNBOOK_2026_10_02.md` (§1 public entry and §5 BYOQ/safety boundary); tier
 raised to Hard-Gate because the CTA fix and BYOQ review clearance are unresolved dependencies, not
 completed criteria; audit split from any implementation that would touch the live Production Lovable
 app. This is still a pre-execution draft — no implementation agent has been assigned.
@@ -29,7 +29,7 @@ element, or an unsupported claim.
 
 ## Technical Scope
 
-Primary sources: `docs/product/LAUNCH_RUNBOOK_2026_10_02.md` §1 (the concise October 2 critical-path
+Primary sources: `docs/product/LAUNCH_RUNBOOK_2026_10_02.md` §§1 and 5 (the concise October 2 critical-path
 checklist — use this first) and `docs/product/LAUNCH_PLAN_MARKETING_HOME_PAGE_2026_09_26.md` (fuller
 evidence and rationale). Read both, including all CORRECTION blocks, before starting.
 
@@ -76,7 +76,7 @@ because the feature functions.
 
 ## Acceptance Criteria
 
-Mirrors `docs/product/LAUNCH_RUNBOOK_2026_10_02.md` §1 and
+Mirrors `docs/product/LAUNCH_RUNBOOK_2026_10_02.md` §§1 and 5 and
 `LAUNCH_PLAN_MARKETING_HOME_PAGE_2026_09_26.md`; those documents govern if this list drifts.
 
 - [ ] Confirm the live page clearly states that access is free for this launch.
@@ -91,6 +91,9 @@ Mirrors `docs/product/LAUNCH_RUNBOOK_2026_10_02.md` §1 and
       privacy/rights/academic-integrity review as an unresolved dependency, not a completed criterion**
       — record it as an open risk if it hasn't actually happened, rather than passing this item because
       the feature works.
+- [ ] Confirm anonymous BYOQ does not expose a canonical answer in the response or surrounding UI.
+- [ ] Confirm the live BYOQ copy accurately states the actual retention and privacy behavior. If the
+      required language is materially false or absent, stop and report it for David's risk decision.
 - [ ] WCAG AA contrast verified against `docs/new_design/`'s tokens with a real check, not a visual
       read.
 - [ ] Copy reviewed against `docs/new_design/`'s voice guidance (no clinical/robotic, no hype, no
@@ -104,9 +107,11 @@ Mirrors `docs/product/LAUNCH_RUNBOOK_2026_10_02.md` §1 and
 - Manual QA: load the live page, verify each criterion against actual rendered HTML/CSS, not the design
   doc or a cached screenshot.
 - Automated tests: none specific to this task; rely on Lovable's own build/preview.
-- Regression areas: BYOQ anonymous flow, CTA destination links.
+- Regression areas: BYOQ anonymous flow, canonical-answer exposure, retention/privacy copy, CTA
+  destination links.
 - Failure cases: any unsupported performance claim ships; any CTA implies checkout/purchase; BYOQ's
-  pending domain reviews are treated as closed without evidence they happened.
+  pending domain reviews are treated as closed without evidence they happened; BYOQ exposes a
+  canonical answer; required privacy/retention language is materially false or absent.
 - Security/data/integration checks: confirm BYOQ's pending domain reviews before treating the feature
   as fully cleared.
 - **QA independence:** QA on this task must run in a fresh context, separate from whichever agent

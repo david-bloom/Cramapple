@@ -34,6 +34,14 @@ criterion, §11's 25 open decisions) as the primary execution frame; `docs/produ
 (older 14-section UX spec) as secondary/cross-check — flag conflicts between the two explicitly rather
 than silently picking one.
 
+**Environment and subject boundary:** use non-production first for failure-path or destructive checks.
+Verify deployed behavior against the Production app with clearly labeled QA accounts and a recorded
+cleanup plan; do not infer Production behavior solely from non-production. For the cross-subject
+session-frame check, test Biology and Statistics plus **one** additional post-launch subject after that
+subject's TASK-0046 slice has passed and it is intentionally available in the tested environment. If no
+additional subject has reached that gate, record this criterion as blocked on TASK-0046 rather than
+testing an unavailable subject or silently expanding launch scope.
+
 Confirmed facts already established (do not re-derive; see TASK-0043 and
 `LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md` for full evidence):
 
@@ -69,8 +77,8 @@ Deferred-by-decision, with live-app evidence, not a design-doc read):
 - [ ] §4 Entry flows — first-session and returning-session flows both work as specced.
 - [ ] §5 Session mode presentation — decided variant implemented, or flagged as a Decision Required.
 - [ ] §6 Stable learning-session frame — cold attempt, feedback, repair/retry, completion/lock all
-      function against a real question, across subjects beyond the two Day-1 flat-path subjects
-      (TASK-0043 already covers those two on the flat path).
+      function against a real question for Biology, Statistics, and one post-launch subject whose
+      TASK-0046 slice has passed. If none has passed, record this criterion as blocked on TASK-0046.
 - [ ] §7 Feedback treatment — decided variant matches the spec's evaluation criteria.
 - [ ] §8 Coaching copy — matches Copy Rules; check the paste-event prompt specifically (shared with
       BYOQ academic-integrity handling).
@@ -85,8 +93,9 @@ Deferred-by-decision, with live-app evidence, not a design-doc read):
 
 ## QA Plan
 
-- Manual QA: real logged-in session in a non-production environment across subjects/sections beyond
-  TASK-0043's narrow smoke test.
+- Manual QA: run failure-path and destructive checks in non-production first; then verify the deployed
+  Production behavior with clearly labeled QA accounts. Cover Biology, Statistics, and one additional
+  subject only after its TASK-0046 slice has passed; otherwise report that portion blocked.
 - Automated tests: none specific beyond what already exists for the grading edge functions.
 - Regression areas: progress/home, accessibility, coaching copy.
 - Failure cases: any spec section silently reported "not implemented" against a superseded design.
@@ -110,7 +119,8 @@ launch decision.
 
 **Test Results:** _(To be filled by the implementation agent.)_
 
-**Risks / Issues:** _(To be filled by the implementation agent.)_
+**Risks / Issues:** _(To be filled by the implementation agent, including any criterion blocked on
+TASK-0046 and the disposition/cleanup status of every QA account.)_
 
 ## QA Review
 

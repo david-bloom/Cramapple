@@ -25,9 +25,10 @@ per `DECISION-0071` this task must not be picked up for the October 2 push regar
 
 ## Product Goal
 
-A student can pay for one or more AP subjects (single, 2-bundle, 3-bundle, or unlimited) and be
-correctly entitled, in both dev and production, with no path that grants access without a verified
-payment and no path that takes payment without granting access.
+A student can pay for one or more AP subjects through the currently approved single, 2-bundle, or
+3-bundle offers and be correctly entitled, in both dev and production, with no path that grants access
+without a verified payment and no path that takes payment without granting access. The unlimited tier
+is future scope and remains deferred under `DECISION-0070`.
 
 ## Technical Scope
 

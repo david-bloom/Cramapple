@@ -61,8 +61,9 @@ starts, split it into one slice per subject, each independently reviewable and s
 
 - TASK-0042-CALC-AB, TASK-0042-CALC-BC, TASK-0042-CHEMISTRY, TASK-0042-PHYSICS-1, TASK-0042-PHYSICS-2,
   TASK-0042-PHYSICS-C-MECH, TASK-0042-PHYSICS-C-EM, TASK-0042-PRECALCULUS, TASK-0042-STATISTICS
-  (Biology already sits at 141 servable items product-wide per FF-3 — confirm live whether it needs a
-  slice at all before creating one).
+  (The FF-3 count of 141 servable items is product-wide, not Biology-specific. Measure Biology's
+  current labels and difficulty coverage directly; create a Biology slice if that subject-specific
+  evidence shows remaining work.)
 - Each slice gets its own branch, its own PR, and its own explicit approval for its Production
   label/difficulty writes — do not batch multiple subjects' promotions under one approval.
 - Do not create these sub-task files speculatively; create each one only when an agent is actually
