@@ -28,7 +28,7 @@ servability gate. Track it as a separate content-ops-tooling item, not launch-cr
 says otherwise.
 
 **UX-004 (BYOQ intake) is re-promoted to launch-critical, but owned by the marketing-home-page plan,
-not this one** (`DECISION-0069`, 2026-09-26): BYOQ ships ungated and anonymous on the new home page.
+not this one** (`DECISION-0070`, 2026-09-26): BYOQ ships ungated and anonymous on the new home page.
 Its pending domain reviews (Learning Quality, accessibility, security, privacy, rights,
 academic-integrity) are therefore launch-blocking, not deferrable — see
 `LAUNCH_PLAN_MARKETING_HOME_PAGE_2026_09_26.md` for the acceptance criteria. This plan still lists it

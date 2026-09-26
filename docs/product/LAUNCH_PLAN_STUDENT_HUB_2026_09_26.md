@@ -12,7 +12,7 @@ its own exit criterion.** The two documents partially overlap and are not reconc
 Do not audit against the older spec alone — you will report "not implemented" against a design that
 may itself be superseded.
 
-**RESOLVED and CONFIRMED, 2026-09-26 (`DECISION-0072`): the launch frontend is the "Remix of Cramapple
+**RESOLVED and CONFIRMED, 2026-09-26 (`DECISION-0073`): the launch frontend is the "Remix of Cramapple
 App" Lovable project** (id `d334fed9-5a97-4e76-906e-7c0ad7082212`), published at
 `https://ap-prep-canvas.lovable.app/`. Confirmed via the live HTML's embedded `og:image`, which points
 to this exact project's screenshot, and independently via the HTML's TanStack Start/Router markers
@@ -27,7 +27,7 @@ page was already correct. Lesson: don't trust `get_project` screenshots as curre
 this project; use the live URL/HTML instead.
 
 **New, launch-blocking finding from the live HTML:** the page still shows a $39.99 purchase CTA and a
-full Stripe-style pricing/buy section. This is stale against `DECISION-0070` (Friday launches free, no
+full Stripe-style pricing/buy section. This is stale against `DECISION-0071` (Friday launches free, no
 Stripe). David is handling this directly (a "Free this week!" banner), not delegated to an agent — see
 `LAUNCH_PLAN_MARKETING_HOME_PAGE_2026_09_26.md`.
 
@@ -35,7 +35,7 @@ Stripe). David is handling this directly (a "Free this week!" banner), not deleg
 
 David asked whether this app's practice/grading is genuinely wired to a real grading backend or is a
 demo — the answer is **it's real**, verified by reading the project's source directly (see
-`DECISION-0072`'s verification addendum for full detail):
+`DECISION-0073`'s verification addendum for full detail):
 
 - `src/lib/use-grade-practice.ts` (used by the real session/practice components,
   `SessionFrame.tsx`/`GradeResultView.tsx`) calls `supabase.functions.invoke()` against the actual
@@ -91,7 +91,7 @@ to sections that are already decided; flag implementation gaps instead.
 ## Acceptance Criteria
 
 - [x] Frontend confirmed: "Remix of Cramapple App" Lovable project (`d334fed9-5a97-4e76-906e-7c0ad7082212`),
-      published at `ap-prep-canvas.lovable.app` — verified via live HTML, see `DECISION-0072`.
+      published at `ap-prep-canvas.lovable.app` — verified via live HTML, see `DECISION-0073`.
 - [ ] Rebuild plan §12's phase structure and its exit criterion are used as the primary execution
       frame; `STUDENT_PORTAL_INTERACTION_DESIGN.md` sections below are cross-checked against it, with
       any conflict between the two named explicitly rather than silently resolved.
@@ -105,7 +105,7 @@ Not implemented / Deferred-by-decision) with evidence (live app check, not a des
       is finalized, that's a Decision Required, not an implementation gap — check §14 first.
 - [ ] §6 Stable learning-session frame — cold attempt, feedback, repair/retry, and completion/lock all
       function against a real question, tested live, for **both Day-1 subjects (AP Biology and AP
-      Statistics) on their flat/practice paths** per `DECISION-0063`/`DECISION-0071` — do not test
+      Statistics) on their flat/practice paths** per `DECISION-0063`/`DECISION-0072` — do not test
       against the unit-gated path for either subject; both defer it, and Statistics' unit-gated path
       currently serves the most items of any subject but is explicitly not the launch path.
 - [ ] §7 Feedback treatment — the decided variant is implemented and matches the evaluation criteria in

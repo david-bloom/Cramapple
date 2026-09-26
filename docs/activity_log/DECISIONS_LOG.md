@@ -6,11 +6,12 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
-- DECISION-0072 — Launch Frontend Target Is the Lovable App Published at ap-prep-canvas.lovable.app, Tentatively Identified as the "New Cramapple App" Project
-- DECISION-0071 — Extend DECISION-0063 to AP Statistics: Launches on the Flat/Practice Path, Unit-Gating Deferred
-- DECISION-0070 — Launch Friday, Free — Ship Without Stripe/Payment Gating; Add Payment Flow as a Post-Launch Follow-Up
-- DECISION-0069 — Launch-Planning Follow-Ups: BYOQ Ships Ungated/Anonymous on the New Home Page; Unlimited-Tier Pricing Deferred Until All 10 Subjects Are Live; Target Launch Window Is Next Week; Wordmark-Only Branding Is Sufficient (No Logo Mark Required)
-- DECISION-0068 — Day-1 Launch Subjects Are AP Biology and AP Statistics, Fast-Follow the Rest as Site-Performance Confidence Improves; Set Single/2-Bundle/3-Bundle Pricing at $39.99 / $79.99 / $99.99
+- DECISION-0073 — Launch Frontend Target Is the Lovable App Published at ap-prep-canvas.lovable.app, Tentatively Identified as the "New Cramapple App" Project
+- DECISION-0072 — Extend DECISION-0063 to AP Statistics: Launches on the Flat/Practice Path, Unit-Gating Deferred
+- DECISION-0071 — Launch Friday, Free — Ship Without Stripe/Payment Gating; Add Payment Flow as a Post-Launch Follow-Up
+- DECISION-0070 — Launch-Planning Follow-Ups: BYOQ Ships Ungated/Anonymous on the New Home Page; Unlimited-Tier Pricing Deferred Until All 10 Subjects Are Live; Target Launch Window Is Next Week; Wordmark-Only Branding Is Sufficient (No Logo Mark Required)
+- DECISION-0069 — Day-1 Launch Subjects Are AP Biology and AP Statistics, Fast-Follow the Rest as Site-Performance Confidence Improves; Set Single/2-Bundle/3-Bundle Pricing at $39.99 / $79.99 / $99.99
+- DECISION-0068 — BYOQ Data Model Uses Parallel Tables (Option A), Not the Live Graded Pipeline; TASK-0039 Phase 1 Scope Approved
 - DECISION-0067 — Coverage Labels Stay Deferred at `provisional_model`; No Promotion Work Until Coverage Reporting Is Prioritized (FF-9)
 - DECISION-0066 — Approve AI Two-Model Agreement as Sufficient to Promote Serving Labels to `validated`, Product Owner as Approver (FF-3)
 - DECISION-0065 — Four Rules to Unblock J.0's Continuous `attainment_ratio` (FF-6): AI Cross-Model Verb Verification, Same-Tier Borrowing, Mean Aggregation, Non-Overlapping Cut Points
@@ -52,7 +53,9 @@ Most recent entries (full chronological list follows below):
 
 (Note: the TASK-0012 branch independently logged its own DECISION-0027/0028 — CORS/ALLOWED_ORIGINS and budget-burn semantics — under different numbers on its own branch. Those land separately when that work merges to `main`; this charter-adoption decision claimed 0027/0028 here because `main` had not yet recorded entries past DECISION-0026 at merge time. If both branches' numbering collides on merge, renumber on whichever side merges second and update this index.)
 
-## DECISION-0072 — Launch Frontend Target: ap-prep-canvas.lovable.app
+(Note: the same collision recurred 2026-09-26. The `claude/launch-planning-cram-4oyh2g` branch independently claimed DECISION-0068 through 0072 for five launch-planning decisions, not knowing `main` had already recorded its own DECISION-0068 (BYOQ parallel tables, TASK-0039 Phase 1) by the time this branch merged. Per the rule above, this branch — the later-merging side — renumbered its five decisions to DECISION-0069 through 0073 at merge time; main's DECISION-0068 is untouched. If you are reading an older copy of any of the five renumbered decisions (in a plan doc, a chat log, or a stale local checkout) under its original 0068-0072 number, this is why the number no longer matches — the content is unchanged, only the ID moved.)
+
+## DECISION-0073 — Launch Frontend Target: ap-prep-canvas.lovable.app
 
 **Date:** 2026-09-26
 **Decision Owner:** David Bloom
@@ -93,14 +96,14 @@ evidence for this project going forward, only the live HTML/URL.
 
 **New finding from the live HTML, not previously known: the page still shows a $39.99 purchase CTA and
 a full Stripe-style pricing section ("Get it · $39.99", "Get AP Statistics" buy button, tutor-cost
-comparison).** This is stale against `DECISION-0070` (Friday launches free, no Stripe/payment gating).
+comparison).** This is stale against `DECISION-0071` (Friday launches free, no Stripe/payment gating).
 Someone needs to swap this for a free-access/sign-up CTA before Friday — tracked in the marketing
 home page plan now.
 
 **Also confirmed from the live HTML, consistent with existing decisions:** AP Statistics and AP Biology
-show "Live now"; the other 8 subjects show "Coming soon" (matches `DECISION-0068`'s Day-1 subject list).
+show "Live now"; the other 8 subjects show "Coming soon" (matches `DECISION-0069`'s Day-1 subject list).
 A full anonymous, ungated BYOQ flow is present ("Upload a photo" / "Paste the text", "One free question.
-Your photo isn't kept.") — matches `DECISION-0069`.
+Your photo isn't kept.") — matches `DECISION-0070`.
 
 ### Consequences
 
@@ -109,7 +112,7 @@ Your photo isn't kept.") — matches `DECISION-0069`.
   guessed project.
 - No visual/brand rebuild is needed — remove that item from the student hub plan's scope.
 - **New launch-blocking task for Friday:** replace the $39.99/Stripe purchase CTA and pricing section
-  with a free-access sign-up flow, per `DECISION-0070`. (Update: David is handling this directly with a
+  with a free-access sign-up flow, per `DECISION-0071`. (Update: David is handling this directly with a
   "Free this week!" banner rather than a full CTA rework — not delegated to an agent.)
 - Lesson for future verification: prefer live HTML/fetch over Lovable `get_project` screenshots, which
   can be meaningfully stale.
@@ -131,7 +134,7 @@ open research item. Verified directly by reading this project's source via the L
   operations), `evaluate-attempt`. The file's own header comment: "Uses the four already-deployed edge
   functions... No legacy beta-attempt path is involved." This is the same grading infrastructure
   covered by TASK-0016's rollout, not a separate or mocked path.
-- This also independently confirms the earlier-flagged entitlement-gating bug (`DECISION-0068`'s
+- This also independently confirms the earlier-flagged entitlement-gating bug (`DECISION-0069`'s
   follow-up, `ACTIVITY_LOG.md` 2026-09-20) is real and lives in exactly this code path — the generic
   error string "Couldn't score that — try again." in `use-grade-practice.ts`'s `runEvaluate` matches
   the bug report precisely.
@@ -140,7 +143,7 @@ open research item. Verified directly by reading this project's source via the L
 it already exists and is production-wired.** The main open risk for Friday is the entitlement-gating bug
 above, not the existence of real grading.
 
-## DECISION-0071 — AP Statistics Launches on the Flat Practice Path, Unit-Gating Deferred
+## DECISION-0072 — AP Statistics Launches on the Flat Practice Path, Unit-Gating Deferred
 
 **Date:** 2026-09-26
 **Decision Owner:** David Bloom
@@ -178,7 +181,7 @@ lower-risk serving mechanism for Friday.
   path") should be read as covering both Day-1 subjects on their flat paths, not Biology alone.
 - Index decision **D-3** is resolved for both Day-1 subjects.
 
-## DECISION-0070 — Launch Friday, Free — No Stripe/Payment Gating at Launch
+## DECISION-0071 — Launch Friday, Free — No Stripe/Payment Gating at Launch
 
 **Date:** 2026-09-26
 **Decision Owner:** David Bloom
@@ -186,7 +189,7 @@ lower-risk serving mechanism for Friday.
 **Approval:** Product Owner direction, 2026-09-26 (this session)
 **Related Docs:** `docs/product/APP_LAUNCH_READINESS_INDEX_2026_09_26.md`;
 `docs/product/LAUNCH_PLAN_PAYMENT_FLOW_2026_09_26.md`; `docs/tasks/TASK-0023-STRIPE-SETUP-AND-LAUNCH-READINESS.md`;
-`DECISION-0068`; `DECISION-0069`
+`DECISION-0069`; `DECISION-0070`
 **Area:** Product / Launch Scope / Commercial
 
 ### Decision
@@ -196,7 +199,7 @@ gating.** All students get full access without purchasing. Payment flow (Stripe 
 gating) is deferred to a post-launch follow-up, once there's time to add it properly — not a Day-1
 requirement.
 
-This supersedes `DECISION-0069`'s "target launch window is next week" with a firmer date and a
+This supersedes `DECISION-0070`'s "target launch window is next week" with a firmer date and a
 materially different launch shape: **not a paid launch with a payment system, but a free launch with
 payment added later.**
 
@@ -205,7 +208,7 @@ payment added later.**
 - `LAUNCH_PLAN_PAYMENT_FLOW_2026_09_26.md` is **removed from the Friday launch-critical path.** None of
   its acceptance criteria block Friday's launch. It becomes a fast-follow plan, run whenever there's
   time to build it properly, per this decision.
-- The entitlement-gating bug flagged under `DECISION-0068`'s follow-up (`attempt-response` not gated on
+- The entitlement-gating bug flagged under `DECISION-0069`'s follow-up (`attempt-response` not gated on
   entitlement) becomes **moot for Friday specifically** — if nothing is paywalled, an ungated attempt
   path isn't a defect at launch. It still needs a real answer for whenever payment flow ships, so don't
   delete it from tracking, just reclassify its urgency.
@@ -222,9 +225,9 @@ payment added later.**
 ### What actually still gates Friday
 
 With payment removed, Friday's real launch-critical path is: Subject onboarding gate (plan 5, for
-Biology and Statistics — see `DECISION-0068`), Student hub (plan 4, and the still-open D-1/D-2
+Biology and Statistics — see `DECISION-0069`), Student hub (plan 4, and the still-open D-1/D-2
 questions on sequencing and which frontend), Marketing home page (plan 1, now as a free-access page
-plus the BYOQ scope from `DECISION-0069`), and Content pipeline (plan 3) only insofar as it unblocks
+plus the BYOQ scope from `DECISION-0070`), and Content pipeline (plan 3) only insofar as it unblocks
 plan 5's remaining criteria for Biology/Statistics specifically — not the other 8 subjects, which
 aren't launching Friday anyway.
 
@@ -236,7 +239,7 @@ confirming whether the remaining three steps (app, marketing reskin, home page) 
 in that order given the compressed timeline, or whether they can run in parallel for this specific
 launch.
 
-## DECISION-0069 — Launch-Planning Follow-Ups, 2026-09-26
+## DECISION-0070 — Launch-Planning Follow-Ups, 2026-09-26
 
 **Date:** 2026-09-26
 **Decision Owner:** David Bloom
@@ -247,7 +250,7 @@ D-8, D-12); `docs/product/LAUNCH_PLAN_MARKETING_HOME_PAGE_2026_09_26.md`;
 `docs/product/LAUNCH_PLAN_PAYMENT_FLOW_2026_09_26.md`;
 `docs/product/LAUNCH_PLAN_SUBJECT_ONBOARDING_GATE_2026_09_26.md`;
 `docs/product/STUDENT_PROVIDED_QUESTION_INTAKE_DESIGN.md` (UX-004);
-`docs/content/APSTATS_PILOT_PACK_REVIEW_AND_UNPUBLISH_2026_09_25.md`; `DECISION-0068`
+`docs/content/APSTATS_PILOT_PACK_REVIEW_AND_UNPUBLISH_2026_09_25.md`; `DECISION-0069`
 **Area:** Product / Launch Scope / Commercial / Content
 
 ### Decisions
@@ -281,7 +284,7 @@ also be updated by whoever next touches AP Statistics' row in it.
 update → new home page last, "once the system it advertises exists") and lists 25 open decisions, some
 blocking Phase 0. A 1-week window is very tight against that sequence plus the still-open items in the
 decision register (D-1 sequencing override, D-2 which frontend, the unentitled-attempt bug from
-`DECISION-0068`'s follow-up). This is surfaced, not resolved, here — see D-1/D-2 in the index's
+`DECISION-0069`'s follow-up). This is surfaced, not resolved, here — see D-1/D-2 in the index's
 decision register. Recommend confirming with David whether the 1-week window means the rebuild
 sequence is being compressed/overridden, or whether "next week" targets a narrower slice of the full
 rebuild scope.
@@ -291,7 +294,7 @@ rebuild scope.
 Does DECISION-0063 (Biology launches on the FRQ-only practice path, unit-gated path deferred) extend
 to AP Statistics as well, since Statistics is now also a Day-1 subject? Not addressed by this decision.
 
-## DECISION-0068 — Day-1 Launch Subjects and Pricing (BIZ-001, GTM-001)
+## DECISION-0069 — Day-1 Launch Subjects and Pricing (BIZ-001, GTM-001)
 
 **Date:** 2026-09-26
 **Decision Owner:** David Bloom
@@ -466,6 +469,72 @@ decision's mechanism applies to them too, not just to what was promoted today.
 - Coverage/topic label promotion (FF-9) — explicitly out of scope, see DECISION-0067.
 - Whether to re-run serving labeling for subjects that don't have current labels at all — that's
   ordinary content work, tracked per-subject, not a governance question.
+
+## DECISION-0068 — BYOQ Data Model Uses Parallel Tables (Option A), Not the Live Graded Pipeline; TASK-0039 Phase 1 Scope Approved
+
+**Date:** 2026-09-26
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Approval:** Product Owner direction, 2026-09-26 (this session) — see `APPROVAL-0050`
+**Related Docs:** `docs/tasks/TASK-0039-BYOQ-PRODUCTION-OPERATIONAL.md` ("Question identity, answer
+capture, and image linking" section, Decision needed #1); `DECISION-0057`;
+`docs/product/BYOQ_ANSWER_VISIBILITY_AND_DATA_MODEL_DISCUSSION.md`
+**Area:** Backend / Schema / Governance
+
+### Context
+
+`TASK-0039` needed a call on how BYOQ (bring-your-own-question) items and their attempts/images are
+stored: generalize the live, real-student-data `app.attempts`/`app.response_versions`/
+`app.response_attachments`/`app.capture_pairing_tokens` tables in place (Option D), or build BYOQ its
+own parallel tables (Option A). Option D was this session's first-draft recommendation, on the theory
+that a single, well-tested guard on the shared grading code paths would be a smaller surface than
+duplicating working attempt/version/retake machinery.
+
+An adversarial review of that exact schema, checked line-by-line against the live migrations and
+function bodies rather than taken on the plan's word, and independently re-verified directly against
+Production before this decision was recorded, found Option D's "one guard" premise false:
+`app.record_manual_grade` (the RPC the human-grading queue calls) checks only `status = 'submitted'`,
+with no content or BYOQ-provenance check of any kind; `app.prevent_client_grading_truth_update` (the
+trigger meant to block unauthorized grading writes) explicitly exempts the `service_role` every
+grading path runs as, so it offers no protection here; and `app.attempts_status_check` has no
+terminal "never graded, by design" status, so a BYOQ attempt reaching `submitted` sits in exactly the
+state the human-grading queue scopes on. Together, under Option D a BYOQ hand-drawn response photo
+reaching `submitted` status would land in the real human-grading queue, with the student's name
+attached, one RPC call away from being graded — a live `DECISION-0057` leak path, not a hypothetical
+one. Closing it under Option D would require a new, service-role-inclusive guard trigger, a new
+terminal attempt status, and rewrites to `bind_response_attachment` and `capture-pairing`'s
+supersede logic for the corrected `part_key`/`page_sequence` uniqueness rule — a materially larger and
+riskier migration surface against live tables than "a few additive columns."
+
+### Decision
+
+**Option A: BYOQ gets its own parallel tables** — `app.byoq_items`, `app.byoq_responses` (or a
+`byoq_attempts`/`byoq_responses` pair, sized to what BYOQ actually needs, not the full graded state
+machine), and, when Phase 2 starts, `app.byoq_capture_pairing_tokens`/`app.byoq_attachments`. No
+shared code path exists between BYOQ and the graded pipeline for a guard to fail on, because there is
+no shared code path — the human-grading queue, `evaluate-attempt`, and `record_manual_grade`
+structurally cannot see a `byoq_*` row. The `part_key`/`page_sequence` fix for "whole vs. part of a
+multi-part answer" (a real, pre-existing gap this task found, affecting library content too — AP
+Biology's longer FRQs and future long-form subjects like AP Literature) still applies, built correctly
+into `byoq_attachments` from the start (a `NOT NULL` triple-keyed uniqueness rule, not the nullable
+pair the first draft mistakenly specified).
+
+**`TASK-0039` Phase 1 scope is approved**: the `app.byoq_items`/`app.byoq_responses` schema (Option A
+shape, no answer-bearing column of any kind on `byoq_items`), a separate BYOQ Practice
+screen/component sharing UI components with but never branching inside the live graded Practice
+screens, and the Home entry point, per that task's Phase 1 section as currently written.
+
+### Not decided by this approval
+
+- **Phase 2** (QR photo capture) is not authorized to start — it still needs the Pre-flight
+  verification step (which Lovable frontend actually serves `cramapple.com`) done first, and its own
+  implementation go-ahead once Phase 1 ships.
+- **Phase 3** (worksheet parsing) remains blocked on `docs/product/BYOQ_WORKSHEET_PARSING_DESIGN.md`'s
+  own Open Decisions (parsing vendor, candidate cap, retention window).
+- **`TASK-0039`'s "New gaps" list is not resolved by this decision** — entitlement/trial gating, rate
+  limits/quotas, retention/deletion, consent copy, the private-until-promoted boundary, subject/
+  taxonomy scoping, stuck-BYOQ routing, and the hints/deep-dive floor all still need an explicit
+  Product Owner call before Phase 1 ships to real students, not just before its schema is built.
 
 ## DECISION-0067 — Coverage Labels Stay Deferred; No Promotion Work Until Coverage Reporting Is Prioritized (FF-9)
 

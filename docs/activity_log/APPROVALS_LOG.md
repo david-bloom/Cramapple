@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0050 — BYOQ Data-Model Architecture (Option A) and TASK-0039 Phase 1 Scope
 - APPROVAL-0049 — Pilot-Scale Operational Commitment for Hand-Drawn Manual Grading (TASK-0038 Phase 4)
 - APPROVAL-0048 — Promote `APBIO-HDG-2026-GRAPH-002` to Human-Graded-Pilot-Approved (TASK-0038 Phase 2)
 - APPROVAL-0047 — Device-Neutral Cramapple Bootstrap and Shared ChatGPT Project Contract
@@ -26,6 +27,34 @@ Most recent entries (full chronological list follows below):
 - APPROVAL-0018 — Use Official Exam Dates and Confirm Registration
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
+
+## APPROVAL-0050 — BYOQ Data-Model Architecture (Option A) and TASK-0039 Phase 1 Scope
+
+**Date:** 2026-09-26
+**Approved By:** David Bloom
+**Related Task:** `TASK-0039-BYOQ-PRODUCTION-OPERATIONAL.md`, Phase 1
+**Decision:** Approved
+
+### Summary
+
+Approves `DECISION-0068`: BYOQ (bring-your-own-question) gets its own parallel data model
+(`app.byoq_items`/`app.byoq_responses`, and later `app.byoq_capture_pairing_tokens`/
+`app.byoq_attachments`) rather than generalizing the live `app.attempts`/`app.response_versions`/
+`app.response_attachments`/`app.capture_pairing_tokens` tables, after an adversarial review found the
+generalize-in-place option would leave a real path for a BYOQ item to reach the human-grading queue.
+Authorizes starting `TASK-0039` Phase 1: the `byoq_items`/`byoq_responses` schema, a separate BYOQ
+Practice screen sharing components with (never branching inside) the live graded Practice screens,
+and the Home entry point.
+
+### Notes
+
+- Does **not** authorize Phase 2 (QR photo capture) or Phase 3 (worksheet parsing) — both remain
+  gated on their own open items (`TASK-0039`'s Pre-flight verification step for Phase 2; the Open
+  Decisions in `docs/product/BYOQ_WORKSHEET_PARSING_DESIGN.md` for Phase 3).
+- Does **not** resolve `TASK-0039`'s "New gaps" list (entitlement/trial gating, rate limits/quotas,
+  retention/deletion, consent copy, the private-until-promoted boundary, subject/taxonomy scoping,
+  stuck-BYOQ routing, the hints/deep-dive floor) — these still need an explicit Product Owner call
+  before Phase 1 ships to real students, separate from this schema/scope approval.
 
 ## APPROVAL-0049 — Pilot-Scale Operational Commitment for Hand-Drawn Manual Grading (TASK-0038 Phase 4)
 

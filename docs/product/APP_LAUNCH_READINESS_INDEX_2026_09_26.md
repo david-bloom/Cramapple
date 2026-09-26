@@ -13,16 +13,16 @@ meaning the app is launch-ready — only when all five are Done.
 This is deliberately the single doc TASK-0023 itself predicted would need to exist ("a consolidated
 pre-launch checklist... cross-referencing BIZ-001, GTM-001, and TASK-0012") but never built.
 
-## CORRECTION #3, 2026-09-26 (`DECISION-0070`): Friday launch is free, no payment gating
+## CORRECTION #3, 2026-09-26 (`DECISION-0071`): Friday launch is free, no payment gating
 
 **David set a firm date and changed the launch's shape: Friday, free, no Stripe/payment gating.**
 Payment flow (plan 2) is **removed from the Friday launch-critical path** — it becomes a post-launch
-follow-up. This is a bigger change than the "next week" window from `DECISION-0069`: not a paid launch
+follow-up. This is a bigger change than the "next week" window from `DECISION-0070`: not a paid launch
 delayed slightly, but a free launch with payment added later. Friday's actual critical path is now:
 plan 5 (Subject onboarding gate, Biology + Statistics only), plan 4 (Student hub — still gated on D-1/
 D-2 below), plan 1 (Marketing home page — now a free-access page, not a purchase page, plus the BYOQ
-scope from `DECISION-0069`), and plan 3 only insofar as it unblocks plan 5 for the two Day-1 subjects.
-See `DECISION-0070` for full consequences. The five-plan structure and "Definition of launch-ready"
+scope from `DECISION-0070`), and plan 3 only insofar as it unblocks plan 5 for the two Day-1 subjects.
+See `DECISION-0071` for full consequences. The five-plan structure and "Definition of launch-ready"
 below still describe full commercial launch-readiness — Friday's actual bar is narrower; don't confuse
 the two.
 
@@ -43,7 +43,7 @@ before agents execute further, rather than embedding unverified assumptions in t
 | # | Component | Plan | Current status |
 | --- | --- | --- | --- |
 | 1 | Marketing home page | `LAUNCH_PLAN_MARKETING_HOME_PAGE_2026_09_26.md` | Not started |
-| 2 | Payment flow | `LAUNCH_PLAN_PAYMENT_FLOW_2026_09_26.md` | **Deferred, not Friday-critical** (`DECISION-0070`) — post-launch follow-up |
+| 2 | Payment flow | `LAUNCH_PLAN_PAYMENT_FLOW_2026_09_26.md` | **Deferred, not Friday-critical** (`DECISION-0071`) — post-launch follow-up |
 | 3 | Content pipeline (question templates) | `LAUNCH_PLAN_CONTENT_PIPELINE_2026_09_26.md` | In progress, pipeline gap |
 | 4 | Student hub | `LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md` | App exists, on-brand, real production grading verified (not a demo). Open risk: the entitlement-gating bug. |
 | 5 | Subject onboarding gate | `LAUNCH_PLAN_SUBJECT_ONBOARDING_GATE_2026_09_26.md` | Day-1 = Biology + Statistics; both passing criterion 6 (Statistics' hazard resolved 2026-09-25); both open on labels/difficulty |
@@ -59,7 +59,7 @@ before assuming full parallelism — see **Dependency map** below.
   (canonical answers, exam-pack-version hygiene), but cannot close a subject's remaining two criteria
   until plan 3 ships.
 - **Payment flow (2)** is gated on remaining decisions, not code: BIZ-001's pricing is partially decided
-  (`DECISION-0068`) but access duration, refunds/discounts, parent-purchaser handling, and the
+  (`DECISION-0069`) but access duration, refunds/discounts, parent-purchaser handling, and the
   unlimited tier remain open, owned by David Bloom. The Stripe mechanics are otherwise close to done.
   An agent can close every acceptance criterion in plan 2 except the ones that require those remaining
   BIZ-001 questions and the live-account bundle-price update.
@@ -80,29 +80,29 @@ before assuming full parallelism — see **Dependency map** below.
 
 Every open decision surfaced across all five plans, in one place, so agents can cite `D-n` instead of
 re-describing it. Plans link back here rather than each carrying a duplicate open-questions list.
-Updated 2026-09-26 with David's responses (`DECISION-0069`) — resolved items kept for traceability,
+Updated 2026-09-26 with David's responses (`DECISION-0070`) — resolved items kept for traceability,
 struck through.
 
 | ID | Decision | Status |
 | --- | --- | --- |
 | D-1 | Does the rebuild's app→marketing-reskin→Stripe→home-page-last sequence still hold, or should the five launch plans run in parallel? | **Open, now urgent** — see the sequencing-vs-1-week-window tension flagged below. |
-| D-2 | Which frontend is the actual launch target? | **Resolved and confirmed (`DECISION-0072`): the "Remix of Cramapple App" Lovable project** (`d334fed9-...`), published at `ap-prep-canvas.lovable.app`. Confirmed via live HTML (embedded `og:image` + TanStack Start markers), not a guess. Already matches the new design system in full — no visual rebuild needed. **$39.99 CTA item:** David is handling directly (adding a "Free this week!" banner rather than a full CTA/pricing rework) — not delegated to an agent, see plan 1. |
-| D-3 | Must the unit-gated practice path work for launch, or is the label-free FRQ path sufficient for Day 1? | **Resolved for both Day-1 subjects.** Biology: `DECISION-0063` (2026-09-24). Statistics: `DECISION-0071` (2026-09-26, extends the same policy). Both launch flat-path; unit-gating deferred for both. |
+| D-2 | Which frontend is the actual launch target? | **Resolved and confirmed (`DECISION-0073`): the "Remix of Cramapple App" Lovable project** (`d334fed9-...`), published at `ap-prep-canvas.lovable.app`. Confirmed via live HTML (embedded `og:image` + TanStack Start markers), not a guess. Already matches the new design system in full — no visual rebuild needed. **$39.99 CTA item:** David is handling directly (adding a "Free this week!" banner rather than a full CTA/pricing rework) — not delegated to an agent, see plan 1. |
+| D-3 | Must the unit-gated practice path work for launch, or is the label-free FRQ path sufficient for Day 1? | **Resolved for both Day-1 subjects.** Biology: `DECISION-0063` (2026-09-24). Statistics: `DECISION-0072` (2026-09-26, extends the same policy). Both launch flat-path; unit-gating deferred for both. |
 | D-4 | ~~AP Statistics' dual-published-exam-pack-version hazard~~ | **Resolved 2026-09-25**, before this index was drafted — pilot pack retired (`docs/content/APSTATS_PILOT_PACK_REVIEW_AND_UNPUBLISH_2026_09_25.md`). This index and plan 5 had it wrong as an open Day-1 hazard; corrected. |
-| D-5 | ~~Unlimited-subject pricing tier at launch~~ | **Resolved (`DECISION-0069`): deferred until all 10 subjects are live.** Not priced or enabled at initial launch. |
-| D-6 | Is the 2-subject bundle price ($79.99, effectively no discount vs. two singles at $79.98) intentional? | **Still open** — not addressed by `DECISION-0069`. |
-| D-7 | ~~Target launch window~~ | **Resolved (`DECISION-0070`, supersedes `DECISION-0069`): Friday, free, no payment gating.** Payment flow deferred post-launch. |
-| D-8 | ~~Logo/wordmark finalization~~ | **Resolved (`DECISION-0069`): not a blocker.** Type-only wordmark is sufficient; no illustrated mark required. |
+| D-5 | ~~Unlimited-subject pricing tier at launch~~ | **Resolved (`DECISION-0070`): deferred until all 10 subjects are live.** Not priced or enabled at initial launch. |
+| D-6 | Is the 2-subject bundle price ($79.99, effectively no discount vs. two singles at $79.98) intentional? | **Still open** — not addressed by `DECISION-0070`. |
+| D-7 | ~~Target launch window~~ | **Resolved (`DECISION-0071`, supersedes `DECISION-0070`): Friday, free, no payment gating.** Payment flow deferred post-launch. |
+| D-8 | ~~Logo/wordmark finalization~~ | **Resolved (`DECISION-0070`): not a blocker.** Type-only wordmark is sufficient; no illustrated mark required. |
 | D-9 | Shared vs. per-customer Stripe promotion code for the "add another subject" incentive. | **Open.** Blocks plan 2's coupon-build criterion. |
 | D-10 | Seed the remaining 6 subjects into `Cramapple-Development`, or scope dev testing to the 4 already seeded? | **Open.** |
 | D-11 | BIZ-001 remainder: access duration, refund/discount policy, parent-purchaser handling. | **Open.** |
-| D-12 | ~~Live bug: `attempt-response` isn't gated on entitlement~~ | Still a live bug to verify/fix — status not yet reported back. Separately, David added new scope here (not the same D-12): **BYOQ ships ungated and anonymous on the home page** (`DECISION-0069`) — now launch-critical for plan 1, and raises privacy/rights/academic-integrity review needs flagged in that plan. |
+| D-12 | ~~Live bug: `attempt-response` isn't gated on entitlement~~ | Still a live bug to verify/fix — status not yet reported back. Separately, David added new scope here (not the same D-12): **BYOQ ships ungated and anonymous on the home page** (`DECISION-0070`) — now launch-critical for plan 1, and raises privacy/rights/academic-integrity review needs flagged in that plan. |
 
-**Updated by `DECISION-0070`:** D-6, D-9, D-10, D-11, and the entitlement-gating bug are no longer
+**Updated by `DECISION-0071`:** D-6, D-9, D-10, D-11, and the entitlement-gating bug are no longer
 Friday-urgent — they only matter once payment flow (plan 2) actually ships, post-launch. D-1 (sequencing)
 is narrowed: the Stripe step is moot for Friday, so the open question is whether app-rebuild →
 marketing-reskin → home-page-last still holds for the remaining three steps, or whether they can run in
-parallel given the compressed timeline. D-2 (which frontend) is resolved — see `DECISION-0072`.
+parallel given the compressed timeline. D-2 (which frontend) is resolved — see `DECISION-0073`.
 
 Items not yet needing your call (agents can proceed without you): everything else in each plan's
 acceptance criteria.
@@ -113,11 +113,11 @@ The app is ready to go live only when:
 
 - All five component plans report **Done** per their own acceptance criteria, each meeting the bar in
   `docs/team_charter/DEFINITION_OF_DONE.md`.
-- The day-one launch subjects — **AP Biology and AP Statistics** (`DECISION-0068`, 2026-09-26) — have
+- The day-one launch subjects — **AP Biology and AP Statistics** (`DECISION-0069`, 2026-09-26) — have
   passed all six criteria in `SUBJECT_SERVABILITY_CRITERIA.md` (tracked in plan 5). Remaining subjects
   fast-follow post-launch as confidence in site performance improves; no fixed date is set for them.
 - BIZ-001 (pricing/access policy) has a recorded decision, not just a proposal — partially resolved by
-  `DECISION-0068` (single/2-bundle/3-bundle pricing); access duration, refunds/discounts, and
+  `DECISION-0069` (single/2-bundle/3-bundle pricing); access duration, refunds/discounts, and
   parent-purchaser handling remain open.
 - This index itself has been updated to show all five rows as Done, with links to each plan's closing
   evidence (QA report, migration, or activity-log entry).
@@ -141,5 +141,5 @@ The app is ready to go live only when:
 ## Open questions for David
 
 Superseded by the **David decision register** above (D-1 through D-12) — resolved as of 2026-09-26:
-day-one subjects are AP Biology and AP Statistics (`DECISION-0068`), and single/2-bundle/3-bundle
+day-one subjects are AP Biology and AP Statistics (`DECISION-0069`), and single/2-bundle/3-bundle
 pricing is set at $39.99/$79.99/$99.99. Everything still open is tracked in the register, not here.

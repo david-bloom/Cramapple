@@ -6,7 +6,7 @@
 full before touching this plan. This document is a launch-readiness wrapper around it, not a
 replacement.
 
-## DEFERRED, 2026-09-26 (`DECISION-0070`): not on the critical path for Friday's launch
+## DEFERRED, 2026-09-26 (`DECISION-0071`): not on the critical path for Friday's launch
 
 **Cramapple launches Friday, free, with no Stripe/payment gating.** This entire plan is a post-launch
 follow-up — none of its acceptance criteria block Friday. Do not pick up this plan for the Friday
@@ -46,7 +46,7 @@ without a verified payment and no path that takes payment without granting acces
 ## Current State (corrected 2026-09-26; verify against live systems before trusting either version)
 
 Substantially built and already exercised once for real. Live and sandbox Stripe catalogs exist (10
-single-subject Products, 3 bundle Products — bundle prices need updating per `DECISION-0068`, see
+single-subject Products, 3 bundle Products — bundle prices need updating per `DECISION-0069`, see
 below). `create-checkout-session` and `stripe-webhook` Edge Functions are deployed to both Supabase
 projects and now include refund handling, parent-gift checkout, and async-payment event handling —
 more than TASK-0023's 2026-08-11 entries describe. At least one real transaction has cleared end-to-end
@@ -85,10 +85,10 @@ it — it has not been updated to reflect the 2026-08-13+ activity.
       shared-vs-per-customer decision made (still open in TASK-0023).
 - [ ] Reconciliation check confirms Supabase entitlement records match Stripe purchase records within
       the 5% tolerance target, run against real or simulated sandbox transactions.
-- [x] Pricing decided (`DECISION-0068`, 2026-09-26): $39.99 single subject (matches the built catalog,
+- [x] Pricing decided (`DECISION-0069`, 2026-09-26): $39.99 single subject (matches the built catalog,
       no change needed), $79.99 two-subject bundle (**changes** the built catalog's current $69.99),
       $99.99 three-subject bundle (**changes** the built catalog's current $89.99).
-- [x] Unlimited tier **deferred by decision, not open** (`DECISION-0069`, 2026-09-26): will be priced
+- [x] Unlimited tier **deferred by decision, not open** (`DECISION-0070`, 2026-09-26): will be priced
       and enabled once all 10 subjects are live, not at initial launch. Leave the built catalog's
       $139.99 Price untouched and unmarketed until that condition is reached — this is not a blocker
       for launch.

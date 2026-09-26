@@ -25,7 +25,7 @@ Corrected below: authoritative sources, voice/type/color references, and the dar
 The rest of this plan's structure (page-structure/copy deliverable, claim-evidence discipline) still
 holds.
 
-## CORRECTION #2, 2026-09-26 (`DECISION-0069`): logo resolved, BYOQ added to scope
+## CORRECTION #2, 2026-09-26 (`DECISION-0070`): logo resolved, BYOQ added to scope
 
 **Logo/wordmark is no longer an open item — it's decided.** David confirmed a type-only wordmark is
 sufficient for launch; no illustrated logo mark is required. Drop the "logo decision" acceptance
@@ -38,12 +38,12 @@ human domain reviews). It is now launch-critical for this plan specifically. See
 `docs/product/STUDENT_PROVIDED_QUESTION_INTAKE_DESIGN.md` for the UX spec — this plan does not
 redesign it, it implements/audits it as an anonymous-session feature on the home page.
 
-**Target launch window is next week** (`DECISION-0069`). This is a materially tighter timeline than the
+**Target launch window is next week** (`DECISION-0070`). This is a materially tighter timeline than the
 rebuild sequencing this plan is gated on (see the first correction above) — flag the tension to David
 rather than silently assuming one overrides the other; see decision register items D-1/D-2 in the
 index.
 
-## CORRECTION #3, 2026-09-26 (`DECISION-0072`): the home page already exists — this is a fix pass, not a build
+## CORRECTION #3, 2026-09-26 (`DECISION-0073`): the home page already exists — this is a fix pass, not a build
 
 **This plan's premise was wrong. It assumed no home page existed yet and gated the work on Phase 4 of
 the rebuild sequence. A live, working home page already exists**, at
@@ -53,14 +53,14 @@ the rebuild sequence. A live, working home page already exists**, at
 - Fully matches the new design system (`docs/new_design/` tokens, Bungee/Passion One/Source Sans 3,
   orange masthead) — no visual rebuild needed.
 - Shows the correct Day-1 subjects as "Live now" (AP Biology, AP Statistics) and the rest as "Coming
-  soon," matching `DECISION-0068`.
+  soon," matching `DECISION-0069`.
 - Ships a full anonymous, ungated BYOQ flow ("Upload a photo" / "Paste the text," no account needed),
-  matching `DECISION-0069` — this criterion below is likely already met, verify rather than build.
+  matching `DECISION-0070` — this criterion below is likely already met, verify rather than build.
 - Includes an interactive embedded practice demo (the "Open Hand · FRQ" rubric-scoring plate), copy
   matching the Vision doc's positioning, and a full page structure (hero, method, upload flow, hand-
   written-answer pitch, deep-dive notes pitch, pricing, subjects grid, footer).
 
-**What actually still needs fixing for Friday, given `DECISION-0070` (free launch, no Stripe):**
+**What actually still needs fixing for Friday, given `DECISION-0071` (free launch, no Stripe):**
 
 - The page currently shows a **$39.99 purchase CTA** ("Get it · $39.99" in the masthead, a full
   pricing/buy section with "Get AP Statistics" and a tutor-cost comparison) and links to `/signup` as a
@@ -105,7 +105,7 @@ correction), typography and color per `docs/new_design/` above, light-mode only,
 sharp tutor" — not hype, not clinical, not encouraging-teacher-tone), anti-patterns banned (no mascots,
 no gamification, no manufactured urgency).
 
-**Decided (added 2026-09-26, `DECISION-0069`):** logo/wordmark — type-only wordmark is sufficient, no
+**Decided (added 2026-09-26, `DECISION-0070`):** logo/wordmark — type-only wordmark is sufficient, no
 illustrated mark required; BYOQ ships on the home page, ungated, anonymous; target launch window is
 next week.
 
@@ -127,8 +127,8 @@ next week.
 
 ## Acceptance Criteria
 
-- [x] Rebuild-sequencing gate — **moot, page already exists** (`DECISION-0072`). No longer blocking.
-- [x] Logo/wordmark — **not a blocker** (`DECISION-0069`), and already correct on the live page: a
+- [x] Rebuild-sequencing gate — **moot, page already exists** (`DECISION-0073`). No longer blocking.
+- [x] Logo/wordmark — **not a blocker** (`DECISION-0070`), and already correct on the live page: a
       type-only "CRAMAPPLE" wordmark per `docs/new_design/`'s token system, light-mode only.
 - [x] **$39.99/Stripe CTA — David is handling directly**, not delegated to an agent: adding a "Free
       this week!" banner to the live page rather than a full CTA/pricing-section replacement. This is a
@@ -154,7 +154,7 @@ next week.
 - [ ] Copy reviewed against `docs/new_design/`'s voice guidance — no clinical/robotic, no hype/
       exclamation-heavy, no warm-fuzzy-teacher tone.
 - [ ] CTA path from home page leads to free access/sign-up for Friday's launch — verify it does not
-      link to or imply any checkout/purchase flow, since payment flow is deferred (`DECISION-0070`).
+      link to or imply any checkout/purchase flow, since payment flow is deferred (`DECISION-0071`).
 - [ ] David has signed off on the final page (Hard Gate: public performance claims and brand identity
       finalization both require his approval per `STANDING_APPROVAL_LANES.md`).
 

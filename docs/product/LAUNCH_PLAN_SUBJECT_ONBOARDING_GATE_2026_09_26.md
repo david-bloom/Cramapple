@@ -13,7 +13,7 @@ A subject is only advertised as available to students once it has passed all six
 `SUBJECT_SERVABILITY_CRITERIA.md`, verified against live serving RPCs, not inferred from the content
 review tool's published-item count. This plan is run once per subject.
 
-**Day-one launch subjects are AP Biology and AP Statistics** (`DECISION-0068`, 2026-09-26). Remaining
+**Day-one launch subjects are AP Biology and AP Statistics** (`DECISION-0069`, 2026-09-26). Remaining
 subjects fast-follow post-launch as confidence in site performance improves. AP Statistics' criterion-6
 hazard, flagged as urgent in this plan's first draft, **is already resolved** — see the second
 correction block below.
@@ -45,7 +45,7 @@ was written: `docs/content/APSTATS_PILOT_PACK_REVIEW_AND_UNPUBLISH_2026_09_25.md
 pilot exam-pack version and confirmed platform-wide exam-pack-version singularity was restored. The
 "urgent hazard" framing in this plan's first draft was wrong — it was sourced from
 `SUBJECT_SERVABILITY_CRITERIA.md`'s "Applied so far" table, which was never updated after the fix. See
-`DECISION-0069`. Table corrected below.
+`DECISION-0070`. Table corrected below.
 
 ## Current status per subject (updated 2026-09-26)
 
@@ -92,14 +92,14 @@ without a fresh check on the subject you're actually closing out.
 
 - **AP Statistics:** criterion-6 hazard resolved (see correction #2 above) — no longer a special case,
   do not re-litigate the retire/migrate/stopgap question, it's decided (retired). Also launches on its
-  flat/practice serving path per `DECISION-0071` (2026-09-26) — same policy as Biology, not the
+  flat/practice serving path per `DECISION-0072` (2026-09-26) — same policy as Biology, not the
   unit-gated path, despite Statistics having the strongest unit-gated coverage of any subject (64
   validated labels, 27 items live across all 5 units). Remaining criteria 3/5 work is not launch-
   blocking for Friday; it matters for whenever unit-gated practice is turned on.
 - **AP Biology**: passes today via the label-free FRQ practice path, per `DECISION-0063` (2026-09-24,
   approved) — this is not an open question, it's a recorded launch decision. The unit-gated path
   serves zero and is explicitly deferred (tracked as FF-3), not required for launch.
-- **Resolved:** `DECISION-0071` extends `DECISION-0063` to AP Statistics — both Day-1 subjects launch
+- **Resolved:** `DECISION-0072` extends `DECISION-0063` to AP Statistics — both Day-1 subjects launch
   flat-path, unit-gating deferred for both. No longer an open question.
 
 ## Out of Scope
