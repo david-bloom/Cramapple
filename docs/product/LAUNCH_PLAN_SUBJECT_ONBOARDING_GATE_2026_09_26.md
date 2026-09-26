@@ -11,9 +11,11 @@ subjects from passing.
 
 A subject is only advertised as available to students once it has passed all six criteria in
 `SUBJECT_SERVABILITY_CRITERIA.md`, verified against live serving RPCs, not inferred from the content
-review tool's published-item count. Since Cramapple is launching with multiple subjects, this plan is
-run once per subject, and its output feeds directly into which subjects go into the day-one launch set
-(an open question for David — see the go-live index).
+review tool's published-item count. This plan is run once per subject.
+
+**Day-one launch subjects are AP Biology and AP Statistics** (`DECISION-0068`, 2026-09-26). Remaining
+subjects fast-follow post-launch as confidence in site performance improves. This makes AP Statistics'
+criterion-6 hazard (below) a Day-1 launch blocker, not a lower-priority special case.
 
 ## The six criteria (do not re-derive; use the source doc)
 
@@ -66,9 +68,11 @@ counts go stale fast.
 
 ## Special cases already known
 
-- **AP Statistics**: do not touch the dual-published-exam-pack-version hazard without a David decision
-  first — this is a Hard Gate (a wrong choice here could break the 51+ live student sessions already
-  served against the current working pack).
+- **AP Statistics (Day-1 subject — this is now on the critical path):** do not touch the
+  dual-published-exam-pack-version hazard without a David decision first — this is a Hard Gate (a wrong
+  choice here could break the 51+ live student sessions already served against the current working
+  pack). Given Statistics is a Day-1 launch subject, resolving this decision is now urgent — surface it
+  to David rather than waiting for a routine check-in.
 - **AP Biology**: passes today only through the label-free FRQ practice path; the unit-gated path
   serves zero. If unit-gated practice is part of the launch experience, Biology is not actually fully
   passing — flag this distinction rather than reporting a blanket "Biology: Done."

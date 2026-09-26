@@ -654,13 +654,19 @@ planning target. Physical Supabase DDL remains deferred.
 
 ### BIZ-001 - Pricing and Access Policy
 
-**Status:** Proposed
+**Status:** Partially Decided (DECISION-0068, 2026-09-26)
 **Owner:** David Bloom with Strategy Advisor
 
-- [ ] Set AP Biology launch price.
+- [x] Set subject launch price — $39.99 per subject, $79.99 for a 2-subject bundle, $99.99 for a
+      3-subject bundle. See `DECISION-0068`. Unlimited-tier pricing not yet confirmed (built catalog
+      currently has it at $139.99). The 2-bundle price carries essentially no discount vs. two singles
+      ($79.98) — flagged in `DECISION-0068` as needing confirmation, not yet resolved.
 - [ ] Set access duration under the one-time purchase.
 - [ ] Define refunds, discounts, and future bundles.
-- [ ] Prevent sales of subject bundles before each pack passes quality gates.
+- [ ] Prevent sales of subject bundles before each pack passes quality gates. Day-1 subjects are AP
+      Biology and AP Statistics (`DECISION-0068`) — a Biology+Statistics bundle cannot be sold until
+      Statistics' criterion-6 exam-pack-version hazard is resolved (see
+      `SUBJECT_SERVABILITY_CRITERIA.md`).
 - [ ] Define parent-purchaser handling without granting parent data access.
 
 Feeds `TASK-0023` (Stripe Setup and Commercial Launch Readiness), which

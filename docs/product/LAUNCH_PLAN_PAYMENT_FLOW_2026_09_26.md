@@ -43,10 +43,24 @@ why.
       shared-vs-per-customer decision made (still open in TASK-0023).
 - [ ] Reconciliation check confirms Supabase entitlement records match Stripe purchase records within
       the 5% tolerance target, run against real or simulated sandbox transactions.
-- [ ] BIZ-001 (pricing and access policy) has moved from `Proposed` to a recorded decision — **Hard
-      Gate, owned by David with the Strategy Advisor.** No live-mode sale should be enabled before this
-      exists, and no subject bundle should be sellable before every subject in it has passed
-      `LAUNCH_PLAN_SUBJECT_ONBOARDING_GATE_2026_09_26.md` (BIZ-001's own stated requirement).
+- [x] Pricing decided (`DECISION-0068`, 2026-09-26): $39.99 single subject (matches the built catalog,
+      no change needed), $79.99 two-subject bundle (**changes** the built catalog's current $69.99),
+      $99.99 three-subject bundle (**changes** the built catalog's current $89.99). Unlimited-tier
+      price is not yet decided (built catalog has it at $139.99) — do not touch the unlimited Price
+      until that's confirmed.
+- [ ] **Flag before implementing:** the decided 2-bundle price ($79.99) is $0.01 more than buying two
+      singles separately ($79.98) — essentially no bundle discount. Confirm with David this is
+      intentional before updating the live/sandbox Stripe 2-bundle Price; do not silently "fix" it to a
+      discounted price without confirming that's what he wants.
+- [ ] Update the live and sandbox Stripe 2-bundle and 3-bundle Prices to $79.99 / $99.99. **Hard
+      Gate** for the live account — requires David's explicit go, same as any other live Stripe change.
+      The sandbox update can proceed under Standing Approval once the 2-bundle flag above is resolved.
+- [ ] BIZ-001 (pricing and access policy) — access duration, refunds/discounts, and parent-purchaser
+      handling remain open, still a **Hard Gate, owned by David with the Strategy Advisor.** No
+      live-mode sale should be enabled before these close, and no subject bundle should be sellable
+      before every subject in it has passed `LAUNCH_PLAN_SUBJECT_ONBOARDING_GATE_2026_09_26.md`
+      (BIZ-001's own stated requirement) — concretely, no Biology+Statistics bundle until Statistics'
+      criterion-6 hazard is resolved.
 - [ ] Lovable-side frontend calls to `create-checkout-session` and the `/checkout/success` /
       `/checkout/cancel` routes exist and work (outside this repo's edit surface — verify via Lovable
       or via the live app, not by inspecting this repo).

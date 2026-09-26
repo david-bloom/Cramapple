@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0068 — Day-1 Launch Subjects Are AP Biology and AP Statistics, Fast-Follow the Rest as Site-Performance Confidence Improves; Set Single/2-Bundle/3-Bundle Pricing at $39.99 / $79.99 / $99.99
 - DECISION-0067 — Coverage Labels Stay Deferred at `provisional_model`; No Promotion Work Until Coverage Reporting Is Prioritized (FF-9)
 - DECISION-0066 — Approve AI Two-Model Agreement as Sufficient to Promote Serving Labels to `validated`, Product Owner as Approver (FF-3)
 - DECISION-0065 — Four Rules to Unblock J.0's Continuous `attainment_ratio` (FF-6): AI Cross-Model Verb Verification, Same-Tier Borrowing, Mean Aggregation, Non-Overlapping Cut Points
@@ -46,6 +47,64 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~600 lines, archive the older entries to `docs/activity_log/archive/DECISIONS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries. (This log is already well over that threshold — the first archive pass is overdue, not optional.)
 
 (Note: the TASK-0012 branch independently logged its own DECISION-0027/0028 — CORS/ALLOWED_ORIGINS and budget-burn semantics — under different numbers on its own branch. Those land separately when that work merges to `main`; this charter-adoption decision claimed 0027/0028 here because `main` had not yet recorded entries past DECISION-0026 at merge time. If both branches' numbering collides on merge, renumber on whichever side merges second and update this index.)
+
+## DECISION-0068 — Day-1 Launch Subjects and Pricing (BIZ-001, GTM-001)
+
+**Date:** 2026-09-26
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Approval:** Product Owner direction, 2026-09-26 (this session)
+**Related Docs:** `docs/MASTER_TODO.md` BIZ-001, GTM-001; `docs/tasks/TASK-0023-STRIPE-SETUP-AND-LAUNCH-READINESS.md`;
+`docs/product/SUBJECT_SERVABILITY_CRITERIA.md`; `docs/product/APP_LAUNCH_READINESS_INDEX_2026_09_26.md`;
+`docs/product/LAUNCH_PLAN_PAYMENT_FLOW_2026_09_26.md`; `docs/product/LAUNCH_PLAN_SUBJECT_ONBOARDING_GATE_2026_09_26.md`
+**Area:** Commercial / Pricing / Launch Scope
+
+### Decision
+
+Day-1 launch subjects are **AP Biology and AP Statistics**. Remaining subjects (Calculus AB/BC,
+Chemistry, Physics 1/2, Physics C Mechanics/E&M, Precalculus) fast-follow as confidence in site
+performance improves — no fixed date set for the fast-follow subjects in this decision.
+
+Pricing (partially resolves BIZ-001):
+- Single subject: **$39.99** (matches the already-built live/sandbox Stripe catalog — no change).
+- Two-subject bundle: **$79.99** (changes the built catalog's current $69.99).
+- Three-subject bundle: **$99.99** (changes the built catalog's current $89.99).
+- Unlimited-subjects tier: **not specified in this decision.** The built catalog currently prices it
+  at $139.99; that price is neither confirmed nor superseded here. Open question for David: does the
+  unlimited tier still exist at launch, and if so, at what price?
+
+### Flag, not yet resolved by this decision
+
+The two-subject bundle price ($79.99) is $0.01 **more** than buying two single subjects separately
+($39.99 × 2 = $79.98) — effectively no bundle discount, and technically a worse deal than buying
+singles. The three-subject bundle ($99.99 vs. $119.97 for three singles) does carry a real ~$20
+discount. This asymmetry is called out here rather than silently implemented; confirm with David
+whether the 2-bundle price is intentional (e.g., a smaller incentive by design) or a rounding
+oversight before the Stripe catalog is updated to match.
+
+### Consequences
+
+- AP Statistics is now on the Day-1 critical path. Its known Hard Gate hazard — two simultaneously
+  published exam-pack versions (`SUBJECT_SERVABILITY_CRITERIA.md` criterion 6) — must be resolved
+  before launch, not treated as a lower-priority special case.
+- The live and sandbox Stripe Product/Price catalogs (`TASK-0023`) need their 2- and 3-subject bundle
+  Prices updated to $79.99 / $99.99. This is a live-Stripe-account change and remains a Hard Gate
+  requiring David's explicit go per the payment-flow plan.
+- BIZ-001's "prevent sales of subject bundles before each pack passes quality gates" rule now
+  concretely means: don't enable bundle purchases spanning Biology + Statistics (or any fast-follow
+  subject) until Statistics' criterion-6 hazard is resolved and the bundled subjects each pass
+  `SUBJECT_SERVABILITY_CRITERIA.md`.
+- BIZ-001 remains open on: access duration, refunds/discounts, parent-purchaser handling, and the
+  unlimited-tier question above.
+
+### Risks / Follow-ups
+
+- Confirm the 2-bundle pricing anomaly before any Stripe catalog update.
+- Decide the unlimited tier's fate (keep at $139.99, reprice, or drop) before payment-flow plan can
+  fully close its catalog criterion.
+- No fast-follow date/threshold was set for "as confidence in site performance improves" — if a
+  concrete trigger (e.g., N days of stable serving, or a specific error-rate threshold) is wanted, that
+  needs a follow-up decision.
 
 ## DECISION-0066 — Approve AI Two-Model Agreement as Sufficient to Promote Serving Labels to `validated` (FF-3)
 
