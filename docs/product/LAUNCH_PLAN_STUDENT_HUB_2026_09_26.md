@@ -307,6 +307,32 @@ deleted after use.
 student session (still blocked on item 3 — no test credentials); the `ScoreChip` amber-color cosmetic gap
 above.
 
+## CORRECTION, 2026-09-26 (next session, discovered via a §9.1 investigation agent): fix #3 above did not
+reach the real default student path — there are three parallel feedback implementations, not two
+
+The picture this doc has carried since the first audit — "`GradeResultView.tsx` is what's actually routed
+to; `FeedbackCard.jsx` is unwired" — was itself incomplete. Read directly, not inferred:
+
+- `TopicHome.tsx`'s `startPractice()`/`startDiagnostic()` (the buttons a real student clicks from Home)
+  both `navigate({ to: "/session", ... })` — the **bare** `/session` route, which mounts `SessionFrame.tsx`.
+- `SessionFrame.tsx` has its **own, third, independent** graded-result rendering block (`ResultPanel` /
+  `CriterionCard`, driven by `graderResult` from `use-session.ts`) — it does not import or use
+  `GradeResultView.tsx` at all. Confirmed by grep: zero references.
+- `_ux.session.mcq.tsx`/`_ux.session.frq.tsx` — the route `GradeResultView.tsx` (and today's `FeedbackCard`
+  swap) actually serves — is reachable only via the legacy `?home=v1` override or an explicit
+  `VITE_HOME_V2=off`. `isHomeV2Enabled()` in `feature-flags.ts` defaults to **on** (confirmed: no
+  `VITE_HOME_V2` override in `56cae479`'s `.env`), so bare `/session` is what a real student hits by
+  default today, not `_ux.session.mcq.tsx`.
+
+**Net effect: today's "make FeedbackCard live" fix is real, verified, deployed — but on a route most
+students won't reach by default.** The recheck-dialog backend fix, by contrast, genuinely is on the
+default live path, since it lives directly in `SessionFrame.tsx`. **Not yet decided:** whether to redo the
+same `FeedbackCard` restyle against `SessionFrame.tsx`'s actual `ResultPanel`/`CriterionCard` block —
+that's a materially bigger, riskier change (deeply intertwined with Course Mode repair panels,
+confirm-transfer, and the uncertain/review/failed states in the same block) and deserves its own careful
+pass rather than a hasty follow-up inside an already-long session. Flagged for David's call, not
+auto-executed.
+
 **RESOLVED same day: the `_ux.setup.index.tsx`/`profiles` divergence concern was a non-issue, checked and
 closed, not fixed because there was nothing to fix.** `_ux.setup.index.tsx`'s exam date and available
 minutes are pure `localStorage` state (`src/lib/prototype-state.ts`, key `cramapple.ux001.state`) — never
