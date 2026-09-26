@@ -530,6 +530,24 @@ export async function handleStudentSessionItems(
             _selection_seed: learningSessionId,
             _limit: limit,
           }));
+      } else if (
+        // TASK-0044 follow-up: select_practice_frqs is FRQ-only by design, so
+        // no other subject could ever serve MCQ on the ordinary/flat path.
+        // AP Statistics has published MCQ content and needs it for October 2
+        // launch -- route it to the same subject-agnostic combined selector
+        // Biology already proved out, rather than duplicating Biology's own
+        // dedicated RPC or generalizing it in place.
+        sessionExamCode === "ap_statistics" &&
+        session.practice_format === "targeted_drill"
+      ) {
+        ({ data: selected, error: selectError } = await service
+          .schema("app")
+          .rpc("select_ordinary_combined_practice_items", {
+            _exam_pack_version_id: session.exam_pack_version_id,
+            _practice_format: session.practice_format,
+            _selection_seed: learningSessionId,
+            _limit: limit,
+          }));
       } else {
         ({ data: selected, error: selectError } = await service.rpc(
           "select_practice_frqs",

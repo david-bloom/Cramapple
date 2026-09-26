@@ -22,6 +22,7 @@ type Spec = {
   sourceVersion?: Row | null;
   transferRows?: Row[];
   biologyRows?: Row[];
+  statisticsRows?: Row[];
   transferError?: boolean;
   practiceRows?: Row[];
   criteria?: Row[];
@@ -68,6 +69,8 @@ function makeService(spec: Spec) {
           ? (spec.transferRows ?? [])
           : fn === "select_biology_practice_items"
           ? (spec.biologyRows ?? [])
+          : fn === "select_ordinary_combined_practice_items"
+          ? (spec.statisticsRows ?? [])
           : [],
         error: spec.transferError ? { message: "boom" } : null,
       });
@@ -434,11 +437,23 @@ Deno.test("Biology targeted-drill routes to the combined selector with the sessi
   assert(!serialized.includes("rationale"));
 });
 
-Deno.test("non-Biology and non-targeted formats keep the existing selector arguments", async () => {
+Deno.test("non-targeted formats and non-combined-selector subjects keep the existing selector arguments", async () => {
   for (
     const session of [
-      { ...ACTIVE_SESSION, practice_format: "targeted_drill" },
+      // A subject with no combined selector at all (neither Biology's nor
+      // Statistics') still falls through to the plain FRQ-only selector,
+      // even on targeted_drill.
+      {
+        ...ACTIVE_SESSION,
+        practice_format: "targeted_drill",
+        exam_pack_version: { exam_pack: { exam_code: "ap_chemistry" } },
+      },
       { ...BIOLOGY_SESSION, practice_format: "full_exam_frq" },
+      {
+        ...ACTIVE_SESSION,
+        practice_format: "full_exam_frq",
+        exam_pack_version: { exam_pack: { exam_code: "ap_statistics" } },
+      },
     ]
   ) {
     const rpcCalls: RpcCall[] = [];
@@ -457,6 +472,35 @@ Deno.test("non-Biology and non-targeted formats keep the existing selector argum
       },
     }]);
   }
+});
+
+/* -------------------------------------------------------------------------- */
+/* TASK-0044 follow-up: AP Statistics targeted-drill routes to the combined    */
+/* selector too, the same way Biology already does.                           */
+/* -------------------------------------------------------------------------- */
+
+Deno.test("AP Statistics targeted-drill routes to the combined selector with the session seed", async () => {
+  const rpcCalls: RpcCall[] = [];
+  const { status } = await call(
+    {
+      session: { ...ACTIVE_SESSION, practice_format: "targeted_drill" },
+      statisticsRows: [],
+      rpcCalls,
+    },
+    { learning_session_id: SESSION_ID, limit: 20 },
+  );
+
+  assertEquals(status, 200);
+  assertEquals(rpcCalls, [{
+    schema: "app",
+    name: "select_ordinary_combined_practice_items",
+    params: {
+      _exam_pack_version_id: "epv1",
+      _practice_format: "targeted_drill",
+      _selection_seed: SESSION_ID,
+      _limit: 20,
+    },
+  }]);
 });
 
 Deno.test("a Biology MCQ with no choices is omitted fail-closed", async () => {
