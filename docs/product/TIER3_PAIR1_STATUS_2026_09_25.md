@@ -61,3 +61,36 @@ is defensible) before either subject is considered closed.
 - Pair 2 (AP Calculus AB + AP Precalculus), Pair 3 (AP Physics 1 + AP Physics 2), Pair 4 (AP Physics C:
   Mechanics + AP Physics C: E&M), and AP Calculus BC (pairs with whichever finishes first, or solo).
 - Promotion of any `provisional_model` label to `validated` — separate governance step, not touched.
+
+## Pair 1 CLOSED — 2026-09-25, later same session
+
+Both halves landed and both cross-QA passes are done:
+
+- AP Chemistry (Codex): [PR #192](https://github.com/david-bloom/Cramapple/pull/192), merged. 42 label rows
+  (33 `provisional_model`, 9 `held`), 119 difficulty rows (53 Easy/52 Medium/14 Hard), 0 contamination.
+  Claude's cross-QA (in-session, not a separate PR) verified all counts, the 6 Group A dual-supersession
+  repairs, and confirmed the FRQ/MCQ difficulty-basis split against the methodology doc's own validated
+  baseline — no issues found.
+- AP Statistics (Claude): migration-file backfill in this doc's earlier sections, plus
+  [PR #193](https://github.com/david-bloom/Cramapple/pull/193), merged — Codex's cross-QA report at
+  `docs/content/CODEX_CROSS_QA_AP_STATISTICS_2026_09_25.md`. Verified counts, 0 contamination, and (as of
+  this merge) confirmed the difficulty run's coverage is actually 170/170 with 0 gap — the earlier "23
+  live-pack items missing a CSV row" note in this doc is superseded: those 23 are items whose current
+  *version* is `retired` even though the *item* row still reads `published`, so they were never in-scope
+  under the strict item-and-current-version-published criterion to begin with, not a live coverage gap.
+
+**Deferred follow-up list from Codex's Statistics cross-QA** (none block Pair 1 closure; none are live
+defects — they're candidate refinements for whoever next touches AP Statistics taxonomy/difficulty):
+
+- Held rows Codex judges are likely resolvable rather than genuinely ambiguous: `APSTATS-MCQ-002`,
+  `APSTATS-MCQ-020`, `APSTATS-MCQ-075`, `APSTATS-MCQ-100` (plus the other 7 `model_unit_disagreement` holds,
+  if a taxonomy owner wants to resolve all 11 at once).
+- Unit-boundary question: `APSTATS-MCQ-058` — Unit 3 vs Unit 4 under the current 5-unit taxonomy.
+- Possible overbroad secondary-unit tagging: `APSTATS-MCQ-091` and `APSTATS-MCQ-099` (primary Unit 4 agreed
+  correct; secondary Unit 3 may not be intentional).
+- `other`-held items Codex reads as legitimate out-of-scope-under-2026-27-course-model content, not defects:
+  `APSTATS-MCQ-016-CAL`, `APSTATS-MCQ-018-CAL`, `APSTATS-MCQ-088`, `APSTATS-MCQ-094`, `APSTATS-MCQ-098`.
+- Difficulty-band boundary calls worth a second look if Statistics gets a higher-rigor difficulty pass:
+  `APSTAT-MOD5-M001` (Easy → possibly Medium), `APSTAT-MOD6-H002-INV` (Medium → possibly Hard).
+
+Next: Pair 2 (AP Calculus AB + AP Precalculus).
