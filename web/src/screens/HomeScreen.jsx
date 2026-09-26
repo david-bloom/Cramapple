@@ -132,6 +132,21 @@ export function HomeScreen() {
           </div>
         </PaneShell>
 
+        {/* BYOQ ENTRY -- a student's own question, held for their own review,
+            never scored and never shown in Open Hand. See DECISION-0057. */}
+        <PaneShell voice="plain" eyebrow="Bring a question" title="Practice your own homework">
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 'var(--space-6)' }}>
+            <p style={body}>
+              Type or paste a question from outside CramApple and practice it here.
+              It won't be scored — there's no answer key for a question CramApple
+              didn't write.
+            </p>
+            <ActionButton variant="quiet" onClick={() => navigate('/bring-a-question')}>
+              Bring a question
+            </ActionButton>
+          </div>
+        </PaneShell>
+
         {/* CURRICULUM -- progress derived from attempts, never stored twice. */}
         <PaneShell
           voice="rubric"
