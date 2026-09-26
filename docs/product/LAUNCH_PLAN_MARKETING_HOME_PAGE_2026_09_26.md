@@ -130,12 +130,13 @@ next week.
 - [x] Rebuild-sequencing gate — **moot, page already exists** (`DECISION-0072`). No longer blocking.
 - [x] Logo/wordmark — **not a blocker** (`DECISION-0069`), and already correct on the live page: a
       type-only "CRAMAPPLE" wordmark per `docs/new_design/`'s token system, light-mode only.
-- [ ] **Replace the $39.99/Stripe purchase CTA with a free-access CTA**, per `DECISION-0070` (Friday
-      launches free, no payment gating). Specifically: the masthead's "Get it · $39.99" link, the
-      "Get AP Statistics" buy button, and the tutor-cost-comparison pricing section all currently point
-      at a paid flow and need to change to a free sign-up/start-practicing action. Do not just hide the
-      pricing section — the CTA's destination and copy both need to change. This is the main remaining
-      launch-blocking work in this plan.
+- [x] **$39.99/Stripe CTA — David is handling directly**, not delegated to an agent: adding a "Free
+      this week!" banner to the live page rather than a full CTA/pricing-section replacement. This is a
+      lighter fix than originally scoped (swap destination/copy of every purchase touchpoint) — a
+      banner layered on top of the existing pricing display, announcing free access, rather than
+      removing pricing. An agent picking up this plan should **not** independently rework the $39.99
+      CTA or pricing section — check with David on current status before touching it, since he may
+      already be mid-edit in Lovable.
 - [ ] Page structure and copy — **already exists and is largely correct**; verify against the live HTML
       rather than drafting from scratch. Hero/positioning statement, problem framing, and value props
       are present and match `CRAMAPPLE_VISION.md`'s tone. Spot-check for drift, don't rebuild.
