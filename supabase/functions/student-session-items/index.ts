@@ -46,7 +46,10 @@ import {
   applyItemPackageFallback,
   type AssetMetadata,
   buildRenderItem,
+  buildResolvedCells,
+  type CellRow,
   indexAssets,
+  indexTaxonomyTitles,
   isStaffQaRole,
   type ItemPackagePayload,
   type LearnerFacingCriterion,
@@ -58,6 +61,8 @@ import {
   type SelectedRow,
   SIGNED_URL_TTL_SECONDS,
   STIMULUS_IMAGE_BUCKET,
+  type TaxonomyLabelRow,
+  type TaxonomyTopicTitleRow,
   type VisualRequirement,
 } from "../_shared/student-item-delivery.ts";
 
@@ -134,6 +139,10 @@ async function deliverRows(
     .map((r) => r.content_item_version_id)
     .filter((id): id is string => Boolean(id));
 
+  const itemIds = Array.from(
+    new Set(rows.map((r) => r.content_item_id).filter((id): id is string => Boolean(id))),
+  );
+
   const expiresAt = new Date(
     Date.now() + SIGNED_URL_TTL_SECONDS * 1000,
   ).toISOString();
@@ -142,8 +151,15 @@ async function deliverRows(
     return { ok: true, items: [], omitted: [], expiresAt };
   }
 
-  const [criteriaResult, assetResult, visualResult, choicesResult, packageResult] =
-    await Promise.all([
+  const [
+    criteriaResult,
+    assetResult,
+    visualResult,
+    choicesResult,
+    packageResult,
+    cellResult,
+    labelResult,
+  ] = await Promise.all([
       service.schema("app").from("frq_criteria")
         .select(LEARNER_FACING_CRITERION_COLUMNS)
         .in("content_item_version_id", versionIds)
@@ -171,14 +187,85 @@ async function deliverRows(
       service.schema("app").from("content_item_versions")
         .select("id, item_package_payload")
         .in("id", versionIds),
+      // TASK-0047 Decision 17 follow-on -- resolved topic/cell identity.
+      // Fine-grained path: app.content_item_cells, keyed by version. Today
+      // this table is exclusively AP Statistics (203 rows total, verified
+      // directly against Production 2026-09-26), but the query itself makes
+      // no subject assumption.
+      service.schema("app").from("content_item_cells")
+        .select("content_item_version_id, taxonomy_source_version, topic_code, skill_code")
+        .in("content_item_version_id", versionIds),
+      // Coarse fallback path: app.content_taxonomy_labels, keyed by
+      // content_item_id (not version_id -- this table pre-dates the
+      // fine-grained cell model and labels the item). Only rows with a
+      // non-empty assessed_topics are usable; empty arrays (a known, separate
+      // content-labeling gap for most of AP Biology today) are filtered below
+      // rather than resolved to a fabricated topic.
+      //
+      // label_status = 'validated' is a deliberate, load-bearing filter, not
+      // an optimization: DECISION-0067 (2026-09-24) left coverage-scope
+      // labels unpromoted specifically because "nothing in the live product
+      // reads assessed_topics" -- reading the unfiltered set here would make
+      // 112 unvalidated (provisional_model/stale) AP Biology topic guesses
+      // student-visible (breadcrumb, brief, explainer selection) as a side
+      // effect of this generalization, contradicting that decision. Today
+      // this filter yields zero rows -- an honest reflection of the real
+      // state (see CONTENT_TAXONOMY_RATIONALIZATION_PLAN_2026_09_26.md §4),
+      // not a bug. Widening it requires an explicit decision (that plan's
+      // §7 item 2), not a quiet fallback loosening.
+      itemIds.length
+        ? service.schema("app").from("content_taxonomy_labels")
+          .select("content_item_id, taxonomy_source_version, assessed_topics")
+          .eq("label_status", "validated")
+          .in("content_item_id", itemIds)
+        : Promise.resolve({ data: [], error: null }),
     ]);
 
   if (
     criteriaResult.error || assetResult.error || visualResult.error ||
-    choicesResult.error || packageResult.error
+    choicesResult.error || packageResult.error || cellResult.error ||
+    labelResult.error
   ) {
     return { ok: false, error: "item_details_failed" };
   }
+
+  const cellRows = (cellResult.data ?? []) as CellRow[];
+  const labelRows = ((labelResult.data ?? []) as Array<
+    { content_item_id: string; taxonomy_source_version: string; assessed_topics: string[] | null }
+  >).filter((l) => Array.isArray(l.assessed_topics) && l.assessed_topics.length > 0) as TaxonomyLabelRow[];
+
+  // Title lookup is a second, small round trip -- at most MAX_ITEMS=20 rows
+  // feed this batch, so the set of (taxonomy_source_version, topic_code)
+  // pairs needing a title is tiny. Filtered on both columns via separate
+  // .in() clauses (not an exact-pair match), so the result can contain a few
+  // extra rows outside this batch's real pairs -- harmless, since
+  // buildResolvedCells only ever looks up the exact pair it needs.
+  const neededVersions = Array.from(
+    new Set([
+      ...cellRows.map((c) => c.taxonomy_source_version),
+      ...labelRows.map((l) => l.taxonomy_source_version),
+    ]),
+  );
+  const neededTopicCodes = Array.from(
+    new Set([
+      ...cellRows.map((c) => c.topic_code),
+      ...labelRows.map((l) => l.assessed_topics?.[0]).filter((t): t is string => Boolean(t)),
+    ]),
+  );
+  let titleRows: TaxonomyTopicTitleRow[] = [];
+  if (neededVersions.length && neededTopicCodes.length) {
+    const { data: titleData, error: titleError } = await service.schema("app")
+      .from("taxonomy_topics")
+      .select("taxonomy_source_version, topic_code, topic_title, unit_number")
+      .in("taxonomy_source_version", neededVersions)
+      .in("topic_code", neededTopicCodes);
+    if (titleError) {
+      return { ok: false, error: "item_details_failed" };
+    }
+    titleRows = (titleData ?? []) as TaxonomyTopicTitleRow[];
+  }
+  const titleByKey = indexTaxonomyTitles(titleRows);
+  const cellByVersion = buildResolvedCells(rows, cellRows, labelRows, titleByKey);
 
   const criteriaByVersion = new Map<string, LearnerFacingCriterion[]>();
   for (const row of (criteriaResult.data ?? []) as LearnerFacingCriterion[]) {
@@ -282,6 +369,7 @@ async function deliverRows(
       expiresAt,
       criteriaByVersion.get(row.content_item_version_id) ?? [],
       choices,
+      cellByVersion.get(row.content_item_version_id) ?? null,
     );
     if (!item) {
       // Survived the gates but could not be signed. Still a missing required

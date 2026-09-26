@@ -136,6 +136,37 @@ export type RenderItem = {
   // (attach_capture) instead of typed text. Only ever "hand_drawn" for rows
   // select_hand_drawn_pilot_items returns -- see SelectedRow.hand_drawn.
   response_mode: "typed" | "hand_drawn";
+  // TASK-0047 Decision 17 follow-on -- generic, subject-agnostic resolved
+  // topic/cell identity. Additive: absent (null) for any item neither
+  // resolution path below can identify (no cell tag AND no non-empty
+  // taxonomy label) -- never fabricated. See buildResolvedCell.
+  cell: RenderCell | null;
+};
+
+// A resolved topic/cell identity for a served item. Two distinct
+// granularities feed this, chosen per item by buildResolvedCell:
+//   1. Fine-grained -- app.content_item_cells (topic_code + skill_code).
+//      Today this is exclusively AP Statistics (the hand-authored pilot map
+//      stats-unit1-skills.ts is built on the same table), but the shape here
+//      carries no subject assumption -- any subject with cell tags resolves
+//      the same way.
+//   2. Coarse -- app.content_taxonomy_labels.assessed_topics (topic-only, no
+//      skill sub-division). skill_code is always null on this path -- it is
+//      NOT a stand-in for a missing skill, it is a genuinely coarser
+//      granularity that must not be confused with the fine-grained one.
+// topic_title is populated from app.taxonomy_topics (topic_code +
+// taxonomy_source_version -> topic_title) uniformly for both paths -- that
+// table carries plain-language names for every subject already, so no new
+// content authoring is needed here.
+export type RenderCell = {
+  topic_code: string;
+  skill_code: string | null;
+  topic_title: string | null;
+  // From app.taxonomy_topics.unit_number -- lets a caller key a per-unit
+  // lookup (e.g. the topic-guides RPC) without needing the coarse label's
+  // own primary_unit, which is frequently null (verified directly against
+  // Production 2026-09-26 for AP Biology).
+  unit_number: number | null;
 };
 
 // TASK-0047 Workstream E — item-package dual-read adapter.
@@ -311,6 +342,131 @@ export function applyItemPackageFallback(
   return { rows: nextRows, choicesByVersion: nextChoicesByVersion };
 }
 
+// ---------------------------------------------------------------------------
+// TASK-0047 Decision 17 follow-on -- resolved topic/cell identity.
+//
+// ConfirmTransferBeat's trigger and the Course Mode pilot map are hardcoded to
+// AP Statistics because topic identity for any other subject only lives in
+// the database, never in the content_key (unlike Statistics' structured
+// `apstat-u1-<topic>-<skillletter>` keys). This resolves a generic identifier
+// per served item so a non-Statistics subject can eventually be gated the
+// same way, without inventing any new schema.
+// ---------------------------------------------------------------------------
+
+export type CellRow = {
+  content_item_version_id: string;
+  taxonomy_source_version: string;
+  topic_code: string;
+  skill_code: string;
+};
+
+// Keyed by content_item_id, NOT content_item_version_id -- this table
+// pre-dates the fine-grained cell/version model and labels the item, not a
+// specific version. assessed_topics is empty for the large majority of
+// AP Biology today (a known, separate content-labeling gap); the caller
+// passes only rows with a non-empty array here.
+export type TaxonomyLabelRow = {
+  content_item_id: string;
+  taxonomy_source_version: string;
+  assessed_topics: string[] | null;
+};
+
+export type TaxonomyTopicTitleRow = {
+  taxonomy_source_version: string;
+  topic_code: string;
+  topic_title: string | null;
+  unit_number: number | null;
+};
+
+type TaxonomyTopicMeta = { topic_title: string | null; unit_number: number | null };
+
+function taxonomyTitleKey(taxonomySourceVersion: string, topicCode: string) {
+  return `${taxonomySourceVersion}::${topicCode}`;
+}
+
+export function indexTaxonomyTitles(
+  rows: readonly TaxonomyTopicTitleRow[],
+): Map<string, TaxonomyTopicMeta> {
+  const byKey = new Map<string, TaxonomyTopicMeta>();
+  for (const r of rows) {
+    byKey.set(
+      taxonomyTitleKey(r.taxonomy_source_version, r.topic_code),
+      { topic_title: r.topic_title, unit_number: r.unit_number },
+    );
+  }
+  return byKey;
+}
+
+/**
+ * Resolves a RenderCell per content_item_version_id, preferring the
+ * fine-grained content_item_cells tag (topic_code + skill_code) and falling
+ * back to the coarser content_taxonomy_labels topic (topic_code only,
+ * skill_code null) when no cell tag exists. An item with neither -- no cell
+ * tag AND no non-empty assessed_topics -- resolves to no entry at all; the
+ * caller must treat a missing map entry as "no cell", never fabricate one.
+ *
+ * multi_topic_arrays are not expected (verified directly against Production
+ * 2026-09-26: 0 of 605 AP Biology content_taxonomy_labels rows carry more
+ * than one assessed_topics entry), but if one ever does, only the first
+ * topic is used -- a defined, deterministic tie-break, not an assumption of
+ * uniqueness.
+ */
+export function buildResolvedCells(
+  rows: readonly SelectedRow[],
+  cellRows: readonly CellRow[],
+  labelRows: readonly TaxonomyLabelRow[],
+  titleByKey: ReadonlyMap<string, TaxonomyTopicMeta>,
+): Map<string, RenderCell> {
+  const result = new Map<string, RenderCell>();
+
+  const cellByVersion = new Map<string, CellRow>();
+  for (const c of cellRows) {
+    if (!cellByVersion.has(c.content_item_version_id)) {
+      cellByVersion.set(c.content_item_version_id, c);
+    }
+  }
+
+  const labelByItem = new Map<string, TaxonomyLabelRow>();
+  for (const l of labelRows) {
+    if (!labelByItem.has(l.content_item_id)) {
+      labelByItem.set(l.content_item_id, l);
+    }
+  }
+
+  for (const row of rows) {
+    const cell = cellByVersion.get(row.content_item_version_id);
+    if (cell) {
+      const meta = titleByKey.get(
+        taxonomyTitleKey(cell.taxonomy_source_version, cell.topic_code),
+      );
+      result.set(row.content_item_version_id, {
+        topic_code: cell.topic_code,
+        skill_code: cell.skill_code,
+        topic_title: meta?.topic_title ?? null,
+        unit_number: meta?.unit_number ?? null,
+      });
+      continue;
+    }
+
+    const label = labelByItem.get(row.content_item_id);
+    const topicCode = label?.assessed_topics?.[0];
+    if (label && typeof topicCode === "string" && topicCode.trim().length > 0) {
+      const meta = titleByKey.get(
+        taxonomyTitleKey(label.taxonomy_source_version, topicCode),
+      );
+      result.set(row.content_item_version_id, {
+        topic_code: topicCode,
+        skill_code: null,
+        topic_title: meta?.topic_title ?? null,
+        unit_number: meta?.unit_number ?? null,
+      });
+    }
+    // Else: neither resolution path applies -- absent, not fabricated.
+  }
+
+  return result;
+}
+
 export function assetKey(
   versionId: string,
   bucket: string,
@@ -465,6 +621,7 @@ export function buildRenderItem(
   expiresAt: string,
   criteria: readonly LearnerFacingCriterion[],
   choices: readonly McqChoice[] | null = null,
+  cell: RenderCell | null = null,
 ): RenderItem | null {
   let media: RenderMedia[] = [];
 
@@ -498,5 +655,6 @@ export function buildRenderItem(
     choices: choices && choices.length ? [...choices] : null,
     media,
     response_mode: row.hand_drawn === true ? "hand_drawn" : "typed",
+    cell,
   };
 }
