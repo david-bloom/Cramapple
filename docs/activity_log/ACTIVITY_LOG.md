@@ -6,6 +6,71 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Session Close: Six-Section Launch Plan Audit, Mastery Rule Tightened (`DECISION-0074`), Student
+  Interaction Data Schema Plan Drafted, Full Branch Survey/Cleanup/Merge, MCQ-Fix Attribution
+  Corrected (2026-09-27): David asked for a full audit of all six launch-plan sections
+  (marketing home, payment, content pipeline, student hub shell, grading engine, subject gate) with
+  completion/effort estimates. Ran 6 parallel live-verification agents (not doc-trusting) — see memory
+  `project_launch_plan_six_section_audit_2026_09_26.md` for full per-section detail. **Two findings
+  changed prior understanding: (1) the live marketing/app frontend is Lovable project `61dd6602`
+  ("New Cramapple Marketing"), not `d334fed9` as `DECISION-0073` and every dependent doc had assumed —
+  confirmed via live DNS, not a doc citation; (2) no real student has ever had a graded attempt complete
+  in Production** — corrects an earlier memory note that a stuck real student's attempts would
+  "resolve on next retry." Both corrected in `APP_LAUNCH_READINESS_INDEX_2026_09_26.md`.
+  **`DECISION-0074`:** mastery rule tightened, on David's direction, from "2 full-point answers, with
+  hint" to **2 correct MCQ + 1 full-point FRQ, with no hint use prior to submission** (post-submission
+  hints still never count). Adds `GAP-9` to `CONTENT_GAPS_RUNNING_LIST.md` (a taxonomy cell needs both a
+  servable MCQ and FRQ or it can never reach mastery under the new rule — accepted as a temporary content
+  gap, not a rule flaw). A full audit/extend/prune plan for the student-interaction-data schema was
+  drafted by Fable, reviewed, amended twice after two rounds of pushback (an indexing plan for the new
+  tables; elevating the hint-definition-boundary question to a hard gate on schema-building, not an
+  end-of-plan decision) — written to `docs/product/STUDENT_INTERACTION_DATA_SCHEMA_PLAN_2026_09_27.md`,
+  plan only, nothing executed. **Full local/remote branch survey and cleanup**: of ~50 local branches
+  and ~30 live worktrees, deleted 16 confirmed-merged/superseded branches directly; merged 17 branches
+  of real unshipped work to `main` via PRs #211-#228 (14 AP Statistics Course Mode content branches
+  covering all of Unit 2/most of Unit 3, plus TASK-0044's execution, plus the AP Statistics MCQ-serving
+  fix); correctly declined to merge one branch (`codex/tier1-precalc-calcbc-canonical-2026-09-25`) on
+  discovering its canonical answers were already superseded by better, evidence-sourced migrations on
+  `main`. **Corrected a mis-attribution found along the way** (PR #229): the AP Statistics MCQ-serving
+  fix actually deployed to Production is `codex/task-0044-statistics-mcq`, not
+  `claude/task-0047-ap-statistics-mcq-serving` as `ACTIVITY_LOG.md`, `APPROVALS_LOG.md`
+  (`APPROVAL-0051`), and `LAUNCH_RUNBOOK_2026_10_02.md` had all credited — the latter branch's Dev-only
+  version never reached Production. **What remains open, in priority order:**
+  1. **No real student has ever completed a graded attempt in Production** — needs investigation before
+     Oct 2; directly contradicts the runbook's own stop condition. Highest-priority open item.
+  2. A reviewable cleanup script (`branch_cleanup_2026_09_27.sh`, sent to David) covers 18 more
+     confirmed-safe branch/worktree deletions, blocked on David's own machine by this session's
+     destructive-action permission classifier — not yet run.
+  3. `content/course-mode-stats-3.5-2e` and `3.7-3e`: real uncommitted generator-code and content
+     changes found in their worktrees during the cleanup pass (not captured in any commit) — needs a
+     recovery pass, explicitly NOT a deletion candidate despite looking like a stale merged branch.
+  4. `codex/tier1-precalc-calcbc-canonical-2026-09-25` left unmerged (see above) — David's call whether
+     anything in it is worth salvaging before deleting.
+  5. The hint-definition-boundary question (which in-attempt events count as "hint use before
+     submission" under `DECISION-0074`) blocks the interaction-data plan's Phase 1 items 1-2 — needs
+     David's answer, recorded as a `DECISION-0074` addendum, before that work starts.
+  6. Marketing home page (`61dd6602`): BYOQ unshipped, `/signup` not gated to Bio/Stats, one unsupported
+     marketing claim still live — see the corrected index row for detail.
+  7. Payment flow's four open decisions (D-6/D-9/D-10/D-11) — unchanged, still David-only, still
+     post-launch.
+  **Verified:** all PR merges confirmed via `gh pr view --json state,mergedAt`; Production schema state
+  for the MCQ-fix correction confirmed via direct `execute_sql` against Supabase, not inferred from
+  docs; the two flagged uncommitted worktrees confirmed via `git status --short --ignored`, not assumed
+  clean. **Files changed:** `APP_LAUNCH_READINESS_INDEX_2026_09_26.md`, `LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md`,
+  `LAUNCH_RUNBOOK_2026_10_02.md`, `TASK-0044-LAUNCH-SUBJECT-ONBOARDING-GATE.md`, `CONTENT_GAPS_RUNNING_LIST.md`,
+  `DECISIONS_LOG.md` (`DECISION-0074`), `ACTIVITY_LOG.md`, `APPROVALS_LOG.md` (`APPROVAL-0051`), new
+  `STUDENT_INTERACTION_DATA_SCHEMA_PLAN_2026_09_27.md`. **PRs merged this session:** #210 (prior turn),
+  #211-#226 (branch cleanup merges), #227 (MCQ-fix branch), #228 (distractor-repair branch), #229
+  (attribution correction). **Approval state:** all merges were docs/content/already-verified-live-code;
+  no new Production schema/config change was made by this session directly (the MCQ-fix code itself was
+  already live before PR #227 merely caught `main`'s git history up to it). Launch go/no-go remains
+  David's Hard Gate. **Next Owner:** David Bloom (decisions above) or whoever picks up the real-grading
+  investigation next. **Next Required Action:** investigate why the one confirmed real student's
+  attempts are still ungraded — this blocks confident Oct 2 sign-off regardless of how everything else
+  above resolves. **Do not touch:** `codex/image-workflows-design-sketch` (quarantined, needs a fresh
+  design review before merge) and `archive/free-score-check-2026-08-15` (intentional permanent archive)
+  — both confirmed correctly untouched this session. — 2026-09-27
+
 - TASK-0044 Executed (October 2 Flat-Path Content Gate); AP Statistics MCQ Serving Gap Diagnosed
   2026-09-26, Fixed and Deployed to Production 2026-09-27 — Both Awaiting Fresh Independent QA:
   Claude executed TASK-0044 (branch `claude/task-0044-flat-path-gate-bio-stats`, commit `24966a79`,
