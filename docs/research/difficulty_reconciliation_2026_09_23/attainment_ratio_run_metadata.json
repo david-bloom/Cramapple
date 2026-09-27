@@ -1,0 +1,41 @@
+{
+  "contribution_counts": {
+    "exact_verb": 107,
+    "tier_fallback": 12,
+    "unresolved": 24
+  },
+  "exact_ratio_by_verb": {
+    "calculate": 0.637706,
+    "construct": 0.723333,
+    "describe": 0.515333,
+    "design": 0.776,
+    "determine": 0.409333,
+    "evaluate": 0.49,
+    "explain": 0.559,
+    "identify": 0.660286,
+    "justify": 0.287444,
+    "predict": 0.759,
+    "propose": 0.849,
+    "represent": 0.243,
+    "write": 0.699
+  },
+  "exact_verb_aggregation": "mean of normalized verified CRR rows for the verified verb",
+  "item_counts": {
+    "basis_all_exact": 60,
+    "basis_all_tier_fallback": 5,
+    "basis_mixed": 6,
+    "cutpoint_different": 22,
+    "cutpoint_same": 49,
+    "judgement_null": 37,
+    "task_verb_computed": 71,
+    "task_verb_unavailable": 10
+  },
+  "normalization_rule": "AP Biology mean + (source ratio - source subject mean), clipped to [0, 1]",
+  "subject_means_source": "docs/research/apbio_difficulty_calibration_2026_09_22/README.md section 2",
+  "tier_fallback_aggregation": "mean of same-tier exact verb-level ratios, excluding the fallback verb",
+  "verification_counts": {
+    "agree": 50,
+    "disagree": 37,
+    "rows": 87
+  }
+}
