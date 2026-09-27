@@ -1,0 +1,180 @@
+{
+  "cells": [
+    {
+      "skill": "3.D",
+      "topic": "3.2"
+    }
+  ],
+  "content_key": "apstat-u3-2-3d-sample_prop_distribution-032014",
+  "difficulty": "Medium",
+  "exam_pack_ref": {
+    "cycle": "2026-27",
+    "exam_code": "ap_statistics"
+  },
+  "item_type": "mcq",
+  "mcq_form": {
+    "options": [
+      {
+        "correct": false,
+        "misconception": "u3_2__used_count_sd_instead_of_proportion_sd",
+        "misconception_source": {
+          "ek_codes": [],
+          "evidence": "ced_structural",
+          "label": "Used the count standard deviation instead of the proportion standard deviation",
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "note": "sampling distributions for counts and proportions have different standard deviations",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 3 (3.2)"
+            }
+          ],
+          "tag": "u3_2__used_count_sd_instead_of_proportion_sd"
+        },
+        "text": "mean = 0.400, SD = 6.0000"
+      },
+      {
+        "correct": false,
+        "misconception": "u3_2__used_observed_count_as_mean",
+        "misconception_source": {
+          "ek_codes": [],
+          "evidence": "ced_structural",
+          "label": "Used an observed count or sample size as the mean of p-hat",
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "note": "for sample proportions, the mean of the sampling distribution of p-hat is p",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 3 (3.2)"
+            }
+          ],
+          "tag": "u3_2__used_observed_count_as_mean"
+        },
+        "text": "mean = 60, SD = 0.0400"
+      },
+      {
+        "correct": false,
+        "misconception": "u3_2__omitted_sqrt_in_sd",
+        "misconception_source": {
+          "ek_codes": [],
+          "evidence": "ced_structural",
+          "label": "Omitted the square root in the SD of p-hat",
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "note": "the SD of p-hat is sqrt(p(1-p)/n) when the 10 percent condition is met",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 3 (3.2)"
+            }
+          ],
+          "tag": "u3_2__omitted_sqrt_in_sd"
+        },
+        "text": "mean = 0.400, SD = 0.0016"
+      },
+      {
+        "correct": true,
+        "misconception": null,
+        "text": "mean = 0.400, SD = 0.0400"
+      }
+    ]
+  },
+  "numeric_form": {
+    "answer_desc": "mean = 0.400, SD = 0.0400",
+    "deterministic_checks": [
+      {
+        "high": 0.04,
+        "kind": "interval",
+        "low": 0.4,
+        "tol": 0.001
+      }
+    ]
+  },
+  "package_id": "sample_prop_distribution-032014",
+  "parts": [
+    {
+      "criteria": [
+        {
+          "accepted_variants": [],
+          "criterion_key": "part-a-criterion-1",
+          "description": "mean = 0.400, SD = 0.0400",
+          "deterministic_checks": [
+            {
+              "high": 0.04,
+              "kind": "interval",
+              "low": 0.4,
+              "tol": 0.001
+            }
+          ],
+          "points": 1,
+          "required_evidence": "For p-hat, mean = p = 0.400. SD = sqrt(p(1-p)/n) = sqrt(0.40(0.60)/150) = 0.0400."
+        }
+      ],
+      "part_key": "part-a",
+      "points": 1,
+      "prompt": "In a large population of app users, the proportion who have a paid subscription is 0.40. For random samples of n = 150, calculate the mean and standard deviation of the sampling distribution of p-hat.",
+      "response_modalities": [
+        "mcq",
+        "numeric"
+      ]
+    }
+  ],
+  "prompt": "In a large population of app users, the proportion who have a paid subscription is 0.40. For random samples of n = 150, calculate the mean and standard deviation of the sampling distribution of p-hat.",
+  "provenance": {
+    "generator": "course_mode_stats_generator/generator.py",
+    "note": "Synthetic; not official CB content. Requires CM-D19 template-release + review.",
+    "params": {
+      "mean": 0.4,
+      "n": 150,
+      "p": 0.4,
+      "scenario_id": "u3_2__app_paid",
+      "sd": 0.04
+    },
+    "release_status": "unreleased_generated_pending_review",
+    "seed": 32014,
+    "template_id": "sample_prop_distribution"
+  },
+  "scenario_provenance": {
+    "archetype": "Q4",
+    "archetype_label": "Multi-focus on Practices 2, 3 & 4 (spans multiple content areas)",
+    "domain": "technology",
+    "modality": "exam_aligned_digital",
+    "practice": 3,
+    "sources": [
+      {
+        "kind": "fact_pack",
+        "note": "Section II question archetypes Q1-Q4",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S5 (Free-response archetypes)"
+      },
+      {
+        "kind": "fact_pack",
+        "note": "the item stem's verb must match the scored demand",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S6 (Task verbs)"
+      },
+      {
+        "kind": "fact_pack",
+        "note": "digital Bluebook; text/numeric entry -> exam_aligned_digital",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S7 (Response modality)"
+      }
+    ],
+    "task_verb": "Calculate",
+    "validity_rules": [
+      "population proportion p and sample size n are supplied",
+      "mean is p and SD is sqrt(p(1-p)/n)",
+      "large-counts and 10 percent conditions must hold"
+    ]
+  },
+  "schema_version": "course-mode-generated-0.1",
+  "taxonomy_refs": [
+    {
+      "node_key": "unit-3",
+      "scheme_key": "ap-statistics-2026-27"
+    },
+    {
+      "node_key": "topic-3.2",
+      "scheme_key": "ap-statistics-2026-27"
+    },
+    {
+      "node_key": "skill-3.D",
+      "practice": 3,
+      "scheme_key": "ap-statistics-skills"
+    }
+  ],
+  "worked_solution": "For p-hat, mean = p = 0.400. SD = sqrt(p(1-p)/n) = sqrt(0.40(0.60)/150) = 0.0400."
+}

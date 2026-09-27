@@ -1,0 +1,173 @@
+{
+  "schema_version": "course-mode-generated-0.1",
+  "package_id": "slotframe-u3_4-4f-030414",
+  "content_key": "apstat-u3-4-4f-prop-ci-claim-030414",
+  "item_type": "mcq",
+  "difficulty": "Medium",
+  "exam_pack_ref": {
+    "exam_code": "ap_statistics",
+    "cycle": "2026-27"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "unit-3"
+    },
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "topic-3.4"
+    },
+    {
+      "scheme_key": "ap-statistics-skills",
+      "node_key": "skill-4.F",
+      "practice": 4
+    }
+  ],
+  "cells": [
+    {
+      "topic": "3.4",
+      "skill": "4.F"
+    }
+  ],
+  "scenario_provenance": {
+    "archetype": "Q3",
+    "archetype_label": "Inference: a significance test or confidence interval",
+    "task_verb": "Justify",
+    "practice": 4,
+    "modality": "exam_aligned_digital",
+    "validity_rules": [
+      "one-population proportion confidence interval already supplied",
+      "claim support must be based on whether the claimed value or direction is consistent with the interval",
+      "conclusion must be about the population proportion, not the sample proportion, and must avoid definitive proof language"
+    ],
+    "sources": [
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S5 (Free-response archetypes)",
+        "note": "Section II question archetypes Q1-Q4"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S6 (Task verbs)",
+        "note": "the item stem's verb must match the scored demand"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S7 (Response modality)",
+        "note": "digital Bluebook; text/numeric entry -> exam_aligned_digital"
+      }
+    ],
+    "domain": "biology"
+  },
+  "prompt": "In a field ecology sample, a random sample was used to estimate the true proportion of preserve nesting sites that contain an active nest. The resulting 99% confidence interval is (75%, 87%). A student claims that the true proportion of preserve nesting sites that contain an active nest is different from 70%. Which interpretation is best supported by the interval?",
+  "mcq_form": {
+    "options": [
+      {
+        "text": "The interval supports the claim that the true proportion of preserve nesting sites that contain an active nest is different from 70%, because 70% is not in the interval of plausible values. The conclusion should still be stated as inference from the sample, not as proof.",
+        "correct": true,
+        "misconception": null
+      },
+      {
+        "text": "There is a 99% probability that the true proportion of preserve nesting sites that contain an active nest is between 75% and 87%, so the claim is automatically supported.",
+        "correct": false,
+        "misconception": "u3_4__confidence_level_as_probability_claim",
+        "misconception_source": {
+          "tag": "u3_4__confidence_level_as_probability_claim",
+          "label": "Interpreted the confidence level as the probability this computed interval contains the parameter",
+          "evidence": "documented_cr",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 3 (3.3-3.4)",
+              "note": "interpretations of confidence intervals must reference the population proportion and avoid probability language about a single already-computed interval"
+            }
+          ]
+        }
+      },
+      {
+        "text": "The interval does not support the claim, because the claimed cutoff 70% is not one of the endpoints of the interval.",
+        "correct": false,
+        "misconception": "u3_4__endpoint_inclusion_reversed",
+        "misconception_source": {
+          "tag": "u3_4__endpoint_inclusion_reversed",
+          "label": "Reversed the confidence-interval inclusion rule for a claim value",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 3 (3.3-3.4)",
+              "note": "a confidence interval gives plausible values for the population proportion; claim support depends on whether the claim value/direction is consistent with the interval"
+            }
+          ]
+        }
+      },
+      {
+        "text": "The interval proves that the true proportion of preserve nesting sites that contain an active nest is different from 70%, so the claim is guaranteed true.",
+        "correct": false,
+        "misconception": "u3_4__overstated_certainty_from_interval",
+        "misconception_source": {
+          "tag": "u3_4__overstated_certainty_from_interval",
+          "label": "Used definitive proof language for an inference conclusion",
+          "evidence": "documented_cr",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 'General exam-wide conventions'",
+              "note": "inference conclusions must use non-definitive language such as convincing evidence; they do not prove or guarantee a claim"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "parts": [
+    {
+      "part_key": "part-a",
+      "prompt": "In a field ecology sample, a random sample was used to estimate the true proportion of preserve nesting sites that contain an active nest. The resulting 99% confidence interval is (75%, 87%). A student claims that the true proportion of preserve nesting sites that contain an active nest is different from 70%. Which interpretation is best supported by the interval?",
+      "response_modalities": [
+        "mcq"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "Selects the CI interpretation that correctly judges claim support for a population proportion.",
+          "required_evidence": "The interval supports the claim that the true proportion of preserve nesting sites that contain an active nest is different from 70%, because 70% is not in the interval of plausible values. The conclusion should still be stated as inference from the sample, not as proof.",
+          "deterministic_checks": [
+            {
+              "kind": "mcq_key",
+              "correct_claim_support": true,
+              "claim_type": "different"
+            }
+          ],
+          "accepted_variants": []
+        }
+      ]
+    }
+  ],
+  "provenance": {
+    "generator": "course_mode_stats_generator/slot_frames.py",
+    "frame_id": "FB-U3-4-4F-PROP-CI-CLAIM-01",
+    "template_id": "slotframe_u3_4_prop_ci_claim",
+    "params": {
+      "scenario_id": "u3_4__habitat_nesting",
+      "confidence": 99,
+      "claim_type": "different",
+      "support": true,
+      "threshold": 0.7,
+      "low": 0.75,
+      "high": 0.87,
+      "center": 0.81,
+      "claim": "different from 70%",
+      "reason_support": "70% is not in the interval of plausible values",
+      "reason_no_support": "70% is in the interval of plausible values"
+    },
+    "seed": 30414,
+    "release_status": "unreleased_generated_pending_review",
+    "note": "Authored conceptual frame; correctness from confidence-interval claim-support rules."
+  }
+}

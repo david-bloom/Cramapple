@@ -217,6 +217,28 @@ CATALOG: Dict[str, Misconception] = {m.tag: m for m in [
        "ced_structural", ["lsrl_predict"], ["5.3"], ["3.B"],
        [_fp("S10 Unit 5 (5.3)", "the requested x-value must be substituted exactly into y-hat = a + bx")]),
 
+    # --- basic_probability (2.4 x 3.C) : finite equally likely outcomes ---------
+    _M("u2_4__used_complement_probability",
+       "Reported the complement probability",
+       "Computed P(E^C) = 1 - P(E) instead of P(E), swapping the requested event with its complement.",
+       "ced_structural", ["basic_probability"], ["2.4"], ["3.C"],
+       [_fp("S10 Unit 2 (2.4)",
+            "Topic 2.4 states the complement rule P(E^C) = 1 - P(E); using the complement for E is a structural probability-region error")]),
+
+    _M("u2_4__used_odds_instead_of_probability",
+       "Used odds in favor instead of probability",
+       "Divided favorable outcomes by non-event outcomes, fav/(total - fav), rather than favorable outcomes by all outcomes, fav/total.",
+       "ced_structural", ["basic_probability"], ["2.4"], ["3.C"],
+       [_fp("S10 Unit 2 (2.4)",
+            "P(E) = number of outcomes in E divided by total outcomes in the sample space, not favorable outcomes divided by unfavorable outcomes")]),
+
+    _M("u2_4__used_partial_sample_space_denominator",
+       "Used a partial sample-space denominator",
+       "Divided the favorable count by only part of the sample space, omitting some non-event outcomes from the denominator.",
+       "ced_structural", ["basic_probability"], ["2.4"], ["3.C"],
+       [_fp("S10 Unit 2 (2.4)",
+            "P(E) uses the total outcomes in the full sample space as the denominator for equally likely outcomes")]),
+
     # --- normal_prob (2.11 x 3.C) : normal-distribution probability ------------
     # Section 10 flags 2.11 misconception coverage as thin; corroborated via
     # trusted study guides (documented tail/area error patterns).
@@ -252,6 +274,31 @@ CATALOG: Dict[str, Misconception] = {m.tag: m for m in [
         _ext("albert.io", _ALBERT_NORMAL,
              "for the most extreme p% of values the area is split in half -- conflating one- and two-sided areas is a documented error"),
         _ext("fiveable.me", _FIVEABLE_NORMAL, "one-sided vs two-sided area must match the question")]),
+
+    # --- binomial_probability (2.10 x 3.C) : exact binomial probability -------
+    _M("u2_10__omitted_combination_count",
+       "Omitted the binomial coefficient",
+       "Computed p^k(1-p)^(n-k) for exactly k successes, but left out the number of ways "
+       "to arrange those k successes among n trials, C(n,k).",
+       "ced_structural", ["binomial_probability"], ["2.10"], ["3.C"],
+       [_fp("S10 Unit 2 (2.10)",
+            "binomial probabilities use C(n,k)p^k(1-p)^(n-k); the combination factor counts arrangements")]),
+
+    _M("u2_10__swapped_success_failure_probability",
+       "Swapped the success and failure probabilities",
+       "Used p^(n-k)(1-p)^k instead of p^k(1-p)^(n-k), treating the requested successes "
+       "as failures and the remaining trials as successes.",
+       "ced_structural", ["binomial_probability"], ["2.10"], ["3.C"],
+       [_fp("S10 Unit 2 (2.10)",
+            "the binomial formula assigns p to successes and (1-p) to failures")]),
+
+    _M("u2_10__used_tail_probability_for_exact_count",
+       "Used a cumulative tail probability for an exact-count question",
+       "Answered an 'exactly k' binomial probability question with P(X >= k) or P(X <= k), "
+       "mixing an exact-count probability with a cumulative event.",
+       "ced_structural", ["binomial_probability"], ["2.10"], ["3.C"],
+       [_fp("S10 Unit 2 (2.10)",
+            "binomial probability notation distinguishes exact-count events from cumulative tail events")]),
 
     # --- summary_stats (1.7 x 3.B) : sample mean of a small data set -----------
     _M("reported_median_not_mean",
@@ -318,6 +365,51 @@ CATALOG: Dict[str, Misconception] = {m.tag: m for m in [
        "needed to compare the two distributions.",
        "ced_structural", ["compare_stats"], ["1.9"], ["3.B"],
        [_fp("S10 Unit 1 (1.9)", "comparing distributions involves contrasting the groups, not reporting one group alone")]),
+
+    # --- random_variable_params (2.9 x 3.B) : mean/SD of a discrete random variable ---
+    _M("u2_9__unweighted_mean_values",
+       "Averaged the possible values without weighting by probability",
+       "Computed the ordinary average of the listed x-values instead of the expected value sum x_i P(x_i), dropping the probability weights entirely.",
+       "documented_cr", ["random_variable_params"], ["2.9"], ["3.B"],
+       [_fp("S10 Unit 2 (2.9)", "2025 CR Report Q3/Q5 documents computing the unweighted mean of possible X-values instead of the probability-weighted mean")]),
+
+    _M("u2_9__reported_variance_not_sd",
+       "Reported the variance instead of the standard deviation",
+       "Correctly or partly computed the probability-weighted squared deviations but stopped at V(X) instead of taking the square root to get sigma_X.",
+       "ced_structural", ["random_variable_params"], ["2.9"], ["3.B"],
+       [_fp("S10 Unit 2 (2.9)", "standard deviation sigma_X is the square root of V(X); variance and standard deviation are distinct parameters")]),
+
+    _M("u2_9__unweighted_sd_values",
+       "Computed spread from equally weighted values instead of probabilities",
+       "Found the standard deviation of the listed outcomes as if each value were equally likely, rather than weighting squared deviations by P(x_i).",
+       "ced_structural", ["random_variable_params"], ["2.9"], ["3.B"],
+       [_fp("S10 Unit 2 (2.9)", "sigma_X = sqrt(sum (x_i - mu_X)^2 P(x_i)); the probabilities weight each squared deviation")]),
+
+    _M("u2_9__off_by_one_discrete_value",
+       "Shifted a discrete outcome boundary by one value",
+       "Assigned probabilities to neighboring discrete values as if the outcome scale started one step too high, echoing boundary-inclusion errors such as treating 'fewer than 3' as '3 or fewer'.",
+       "documented_cr", ["random_variable_params"], ["2.9"], ["3.B"],
+       [_fp("S10 Unit 2 (2.9)", "2025 CR Report Q3/Q5 documents off-by-one boundary-inclusion errors for discrete random-variable events")]),
+
+    # --- slot-frame FB-U1-3-3A-CAT-TABLE-01 (1.3 x 3.A) : one categorical tables ---
+    _M("u1_3__count_percent_confusion",
+       "Confused counts with relative frequencies",
+       "Selected a table that reports raw counts where relative frequencies were requested, or treats percents as counts.",
+       "ced_structural", ["slotframe_u1_3_cat_tables"], ["1.3"], ["3.A"],
+       [_fp("S10 Unit 1 (1.3)", "one-categorical-variable tables distinguish frequency counts from relative frequencies")]),
+
+    _M("u1_3__relative_frequency_denominator_error",
+       "Used the wrong denominator for a relative frequency",
+       "Computed a category relative frequency using a subgroup or partial total instead of the full one-variable total requested by the table.",
+       "ced_structural", ["slotframe_u1_3_cat_tables"], ["1.3"], ["3.A"],
+       [_fp("S10 Unit 1 (1.3)", "relative frequency for one categorical variable uses the category count divided by the total number of observations")]),
+
+    _M("u1_3__quantitative_display_for_categories",
+       "Used a quantitative display for categorical values",
+       "Treated category labels as positions on a numeric scale rather than representing category counts or relative frequencies.",
+       "ced_structural", ["slotframe_u1_3_cat_tables"], ["1.3"], ["3.A"],
+       [_fp("S10 Unit 1 (1.3/1.4)", "categorical variables are summarized by category counts or proportions, not by arithmetic spacing of labels")]),
+
     # --- slot-frame FB-U1-2-2A-VARIABLES-01 (1.2 x 2.A) : variable types ------
     _M("u1_2__numeric_codes_called_quantitative",
        "Treated numeric labels or codes as quantitative variables",
@@ -339,6 +431,27 @@ CATALOG: Dict[str, Misconception] = {m.tag: m for m in [
        "ced_structural", ["slotframe_u1_2_variables"], ["1.2"], ["2.A"],
        [_fp("S10 Unit 1 (1.2)",
             "quantitative variables record numerical measurements or counts for which arithmetic comparisons are meaningful")]),
+    # --- slot-frame FB-U1-4-3A-CAT-GRAPH-01 (1.4 x 3.A) : categorical graphs ----
+    _M("u1_4__count_percent_graph_confusion",
+       "Used counts as if they were relative frequencies",
+       "Labeled a relative-frequency graph with raw counts or treated counts as percentages without dividing by the total.",
+       "ced_structural", ["slotframe_u1_4_cat_graphs"], ["1.4"], ["3.A"],
+       [_fp("S10 Unit 1 (1.4)",
+            "graphs for categorical data may display counts or relative frequencies; relative frequencies require dividing by the total")]),
+
+    _M("u1_4__relative_frequency_graph_denominator_error",
+       "Computed graph percentages with the wrong denominator",
+       "Computed relative-frequency bar heights using a category count instead of the total number of observations.",
+       "ced_structural", ["slotframe_u1_4_cat_graphs"], ["1.4"], ["3.A"],
+       [_fp("S10 Unit 1 (1.4)",
+            "relative frequencies for categorical data use each category count divided by the total count")]),
+
+    _M("u1_4__categorical_graph_as_quantitative_axis",
+       "Treated category labels as values on a quantitative axis",
+       "Represented categories as ordered numerical values and connected them as though the variable were quantitative.",
+       "ced_structural", ["slotframe_u1_4_cat_graphs"], ["1.4"], ["3.A"],
+       [_fp("S10 Unit 1 (1.4/1.5)",
+            "categorical variables are displayed with category-based graphs, not a quantitative number line or connected-value display")]),
     # --- slot-frame FB-U1-6-4A-DISTRIBUTION-01 (1.6 x 4.A) : descriptions ---
     _M("u1_6__skew_direction_reversed",
        "Reversed the direction of skew",
@@ -424,6 +537,94 @@ CATALOG: Dict[str, Misconception] = {m.tag: m for m in [
        "Claimed bias from a described random sampling plan even though the scenario gives no undercoverage, nonresponse, voluntary-response, or wording problem.",
        "ced_structural", ["slotframe_u1_12_bias"], ["1.12"], ["2.A"],
        [_fp("S10 Unit 1 (1.10-1.13)", "bias claims must be supported by the sampling scenario rather than assumed from sample size alone")]),
+
+    # --- computational sample_prop_distribution (3.2 x 3.D) : sampling distribution of p-hat ---
+    _M("u3_2__used_observed_count_as_mean",
+       "Used an observed count or sample size as the mean of p-hat",
+       "Reported the number of successes or the sample size instead of the population proportion p as the mean of the sampling distribution.",
+       "ced_structural", ["sample_prop_distribution"], ["3.2"], ["3.D"],
+       [_fp("S10 Unit 3 (3.2)",
+            "for sample proportions, the mean of the sampling distribution of p-hat is p")]),
+
+    _M("u3_2__omitted_sqrt_in_sd",
+       "Omitted the square root in the SD of p-hat",
+       "Computed p(1-p)/n instead of sqrt(p(1-p)/n) for the standard deviation of p-hat.",
+       "ced_structural", ["sample_prop_distribution"], ["3.2"], ["3.D"],
+       [_fp("S10 Unit 3 (3.2)",
+            "the SD of p-hat is sqrt(p(1-p)/n) when the 10 percent condition is met")]),
+
+    _M("u3_2__used_count_sd_instead_of_proportion_sd",
+       "Used the count standard deviation instead of the proportion standard deviation",
+       "Computed sqrt(np(1-p)), the SD of a count, instead of sqrt(p(1-p)/n), the SD of a sample proportion.",
+       "ced_structural", ["sample_prop_distribution"], ["3.2"], ["3.D"],
+       [_fp("S10 Unit 3 (3.2)",
+            "sampling distributions for counts and proportions have different standard deviations")]),
+
+    # --- computational u2_7_independent_union (2.7 x 3.C) : independent events and unions ---
+    _M("u2_7__added_without_subtracting_overlap",
+       "Added probabilities without subtracting the overlap",
+       "Computed P(A)+P(B) for a union even though independent events can both occur.",
+       "ced_structural", ["u2_7_independent_union"], ["2.7"], ["3.C"],
+       [_fp("S10 Unit 2 (2.7)",
+            "for unions, P(A or B)=P(A)+P(B)-P(A and B); independent events have overlap P(A)P(B)")]),
+
+    _M("u2_7__reported_intersection_instead_of_union",
+       "Reported the intersection instead of the union",
+       "Multiplied P(A) and P(B), which gives P(A and B) for independent events, not P(A or B).",
+       "ced_structural", ["u2_7_independent_union"], ["2.7"], ["3.C"],
+       [_fp("S10 Unit 2 (2.7)",
+            "independence supports multiplying for the intersection, while a union also includes outcomes in exactly one event")]),
+
+    _M("u2_7__reported_not_both_instead_of_at_least_one",
+       "Reported the probability that both events do not jointly occur",
+       "Computed 1 - P(A and B), which includes outcomes where neither event occurs, instead of P(A or B).",
+       "ced_structural", ["u2_7_independent_union"], ["2.7"], ["3.C"],
+       [_fp("S10 Unit 2 (2.7)",
+            "the complement of at least one event is neither event, not the event that A and B do not both occur")]),
+
+    # --- computational u2_6_cond_prob (2.6 x 3.C) : conditional probability ----
+    _M("u2_6__used_joint_probability_instead_of_conditional",
+       "Used the joint probability instead of the conditional probability",
+       "Divided the count in both events by the overall total instead of restricting the denominator to the condition.",
+       "ced_structural", ["u2_6_cond_prob"], ["2.6"], ["3.C"],
+       [_fp("S10 Unit 2 (2.6)",
+            "conditional probability restricts the sample space to the condition; P(A|B)=P(A and B)/P(B)")]),
+
+    _M("u2_6__reversed_the_condition",
+       "Reversed the conditioning event",
+       "Calculated P(B given A) when the stem asked for P(A given B).",
+       "ced_structural", ["u2_6_cond_prob"], ["2.6"], ["3.C"],
+       [_fp("S10 Unit 2 (2.6)",
+            "P(A|B) and P(B|A) generally use different denominators and are not interchangeable")]),
+
+    _M("u2_6__used_condition_complement_count",
+       "Used the complement within the condition",
+       "Used the count in the condition but not the target event instead of the count in both events.",
+       "ced_structural", ["u2_6_cond_prob"], ["2.6"], ["3.C"],
+       [_fp("S10 Unit 2 (2.6)",
+            "the numerator for P(A|B) is the count satisfying both A and B, not the count satisfying B but not A")]),
+
+    # --- slot-frame FB-U2-1-4A-TWOWAY-01 (2.1 x 4.A) : two-way table interpretation ---
+    _M("u2_1__raw_counts_as_conditional_comparison",
+       "Compared raw counts instead of conditional proportions",
+       "Used a larger cell count as evidence of a larger within-group proportion without accounting for different row totals.",
+       "ced_structural", ["slotframe_u2_1_twoway_interpret"], ["2.1"], ["4.A"],
+       [_fp("S10 Unit 2 (2.1/2.2)",
+            "two-way tables are interpreted through marginal and conditional distributions; comparing groups requires matching denominators")]),
+
+    _M("u2_1__used_column_denominator_for_row_condition",
+       "Used the column total when the condition was the row group",
+       "Computed percentages within the response category rather than within each row group named in the comparison.",
+       "ced_structural", ["slotframe_u2_1_twoway_interpret"], ["2.1"], ["4.A"],
+       [_fp("S10 Unit 2 (2.1/2.2)",
+            "conditional distributions must use the denominator for the stated condition, such as the row total when comparing within row groups")]),
+
+    _M("u2_1__marginal_percent_treated_as_conditional",
+       "Treated a marginal percentage as a conditional percentage",
+       "Used the overall percentage in a category as though it described each comparison group separately.",
+       "ced_structural", ["slotframe_u2_1_twoway_interpret"], ["2.1"], ["4.A"],
+       [_fp("S10 Unit 2 (2.1/2.2)",
+            "marginal distributions summarize one variable overall; conditional distributions summarize one variable within levels of another")]),
 
     # --- slot-frame FB-U1-13-2A-DESIGN-01 (1.13 x 2.A) : experimental design ---
     _M("u1_13__confounding_vs_lurking_confused",
@@ -511,6 +712,62 @@ CATALOG: Dict[str, Misconception] = {m.tag: m for m in [
        "ced_structural", ["slotframe_u1_11_sampling"], ["1.11"], ["2.A"],
        [_fp("S10 Unit 1 (1.10-1.13)",
             "stratified sampling takes a random sample within every stratum; sampling all observational units in selected clusters is cluster sampling")]),
+
+
+    # --- slot-frame FB-U3-4-4F-PROP-CI-CLAIM-01 (3.4 x 4.F) : interpret CI results ---
+    _M("u3_4__endpoint_inclusion_reversed",
+       "Reversed the confidence-interval inclusion rule for a claim value",
+       "Decided support for a claim by using the opposite of the interval rule: treating a null or claimed "
+       "value inside the confidence interval as evidence against it, or a value outside the interval as plausible.",
+       "ced_structural", ["slotframe_u3_4_prop_ci_claim"], ["3.4"], ["4.F"],
+       [_fp("S10 Unit 3 (3.3-3.4)",
+            "a confidence interval gives plausible values for the population proportion; claim support depends on whether the claim value/direction is consistent with the interval")]),
+
+    _M("u3_4__confidence_level_as_probability_claim",
+       "Interpreted the confidence level as the probability this computed interval contains the parameter",
+       "Said there is a stated-percent chance that the fixed interval contains the true population proportion, "
+       "rather than interpreting confidence through the long-run method.",
+       "documented_cr", ["slotframe_u3_4_prop_ci_claim"], ["3.4"], ["4.F"],
+       [_fp("S10 Unit 3 (3.3-3.4)",
+            "interpretations of confidence intervals must reference the population proportion and avoid probability language about a single already-computed interval")]),
+
+    _M("u3_4__sample_statistic_as_population_claim",
+       "Treated the sample proportion as if it were the population proportion",
+       "Used the sample result or interval midpoint as a definitive statement about the true population proportion, "
+       "rather than making a qualified inference from the interval.",
+       "documented_cr", ["slotframe_u3_4_prop_ci_claim"], ["3.4"], ["4.F"],
+       [_fp("S10 Unit 3 (3.3-3.4)",
+            "confidence-interval conclusions must be about the population proportion, not merely the sample proportion or sample count")]),
+
+    _M("u3_4__overstated_certainty_from_interval",
+       "Used definitive proof language for an inference conclusion",
+       "Claimed the interval proves or guarantees the population proportion's value or direction, overstating what inference results support.",
+       "documented_cr", ["slotframe_u3_4_prop_ci_claim"], ["3.4"], ["4.F"],
+       [_fp("S10 'General exam-wide conventions'",
+            "inference conclusions must use non-definitive language such as convincing evidence; they do not prove or guarantee a claim")]),
+
+
+    # --- slotframe_u2_8_random_variable_distributions (2.8 x 3.A) ---------------
+    _M("u2_8__probabilities_do_not_sum_to_one",
+       "Accepted a probability distribution whose probabilities do not sum to 1",
+       "Treated a table of nonnegative probabilities as valid without checking that the total probability equals 1.",
+       "ced_structural", ["slotframe_u2_8_random_variable_distributions"], ["2.8"], ["3.A"],
+       [_fp("S10 Unit 2 (2.8-2.9)",
+            "a probability distribution lists possible random-variable values with probabilities that sum to 1")]),
+
+    _M("u2_8__negative_probability_allowed",
+       "Allowed a negative probability in a distribution",
+       "Focused on the total or the table format while missing that an individual probability was negative, violating the probability range 0 <= P <= 1.",
+       "ced_structural", ["slotframe_u2_8_random_variable_distributions"], ["2.8"], ["3.A"],
+       [_fp("S10 Unit 2 (2.8-2.9)",
+            "probabilities in a distribution must be between 0 and 1 inclusive")]),
+
+    _M("u2_8__cumulative_probability_confused_with_point_probability",
+       "Confused cumulative probabilities with point probabilities",
+       "Read increasing cumulative values such as P(X <= x) as if they were point probabilities P(X = x), so the listed values no longer form a valid probability distribution.",
+       "ced_structural", ["slotframe_u2_8_random_variable_distributions"], ["2.8"], ["3.A"],
+       [_fp("S10 Unit 2 (2.8-2.9)",
+            "a probability distribution gives each value's probability; cumulative probabilities answer a different representation question")]),
 
     # --- t procedures (means): 4.2 x 3.E interval, 4.5 x 3.E test statistic ----
     _M("se_divided_by_n_not_sqrt_n",
@@ -619,6 +876,90 @@ CATALOG: Dict[str, Misconception] = {m.tag: m for m in [
        "ced_structural", ["slotframe_u3_6_pvalue_interpret"], ["3.6"], ["4.F"],
        [_fp("S10 Unit 3 (3.5-3.8)",
             "p-value meaning depends on the alternative-hypothesis direction and the corresponding tail event")]),
+
+
+    # --- slotframe_u2_5_mutually_exclusive (2.5 x 4.B) : mutually exclusive events
+    _M("u2_5__uses_independent_for_disjoint",
+       "Called disjoint events independent",
+       "Treats mutually exclusive events as independent, overlooking that two nonempty disjoint "
+       "events cannot both occur on the same trial.",
+       "ced_structural", ["slotframe_u2_5_mutually_exclusive"], ["2.5"], ["4.B"],
+       [_fp("S10 Unit 2 (2.5)",
+            "mutually exclusive events have no outcomes in common; distinguish this from independence")]),
+
+    _M("u2_5__overlap_wording_ignored",
+       "Ignored an explicit shared outcome",
+       "Claims two events are mutually exclusive even though the scenario states an outcome that "
+       "satisfies both event definitions.",
+       "ced_structural", ["slotframe_u2_5_mutually_exclusive"], ["2.5"], ["4.B"],
+       [_fp("S10 Unit 2 (2.5)",
+            "events are mutually exclusive only when they cannot occur together in a single trial")]),
+
+    _M("u2_5__different_labels_mean_disjoint",
+       "Assumed different labels make events disjoint",
+       "Decides events are mutually exclusive because their labels sound different, instead of "
+       "checking whether one outcome can satisfy both conditions.",
+       "ced_structural", ["slotframe_u2_5_mutually_exclusive"], ["2.5"], ["4.B"],
+       [_fp("S10 Unit 2 (2.5)",
+            "mutual exclusivity is about shared outcomes, not whether event names are different")]),
+
+    _M("u2_5__same_trial_condition_missed",
+       "Missed the same-trial condition",
+       "Reasons across repeated trials or different units instead of deciding whether both events "
+       "can happen on one trial for one selected unit.",
+       "ced_structural", ["slotframe_u2_5_mutually_exclusive"], ["2.5"], ["4.B"],
+       [_fp("S10 Unit 2 (2.5)",
+            "the relationship is determined within a single chance process or selected observational unit")]),
+
+    # --- two_way_proportions (2.2 x 3.B) : marginal/conditional proportions -----
+    _M("u2_2__used_grand_total_for_conditional",
+       "Used the grand total as the denominator for a conditional proportion",
+       "Computed a cell count divided by the whole table total when the condition restricts the denominator to one row or one column.",
+       "ced_structural", ["two_way_proportions"], ["2.2"], ["3.B"],
+       [_fp("S10 Unit 2 (2.2)",
+            "summary statistics for two categorical variables include marginal and conditional proportions; the denominator must match the condition")]),
+
+    _M("u2_2__swapped_conditioning_denominator",
+       "Used the opposite conditional denominator",
+       "For a conditional proportion, divided by the column total when the condition was a row, or by the row total when the condition was a column.",
+       "ced_structural", ["two_way_proportions"], ["2.2"], ["3.B"],
+       [_fp("S10 Unit 2 (2.2)",
+            "conditional proportions are computed within the given category of the conditioning variable")]),
+
+    _M("u2_2__used_complement_category",
+       "Used the complement category within the correct denominator",
+       "Kept the correct row or column denominator but counted the observations not in the requested category.",
+       "ced_structural", ["two_way_proportions"], ["2.2"], ["3.B"],
+       [_fp("S10 Unit 2 (2.2)",
+            "two-way-table calculations require matching the requested category, not its complement")]),
+
+    _M("u2_2__reported_conditional_instead_of_marginal",
+       "Reported a conditional proportion instead of a marginal proportion",
+       "Used a within-row or within-column proportion when the question asked for the overall marginal proportion from the table total.",
+       "ced_structural", ["two_way_proportions"], ["2.2"], ["3.B"],
+       [_fp("S10 Unit 2 (2.2)",
+            "marginal proportions use row or column totals over the grand total, while conditional proportions use a restricted denominator")]),
+
+    _M("u2_2__reported_marginal_instead_of_conditional",
+       "Reported a marginal proportion instead of a conditional proportion",
+       "Used a row or column total over the grand total when the question asked for a proportion within a stated row or column condition.",
+       "ced_structural", ["two_way_proportions"], ["2.2"], ["3.B"],
+       [_fp("S10 Unit 2 (2.2)",
+            "conditional proportions are computed inside the stated condition, unlike marginal proportions that use the grand total")]),
+
+    _M("u2_2__used_joint_cell_as_margin",
+       "Used a joint cell proportion when a marginal proportion was requested",
+       "Divided one interior cell by the grand total instead of using the full row or column total for the requested marginal proportion.",
+       "ced_structural", ["two_way_proportions"], ["2.2"], ["3.B"],
+       [_fp("S10 Unit 2 (2.2)",
+            "marginal proportions summarize a whole row or column of a two-way table, not just one joint cell")]),
+
+    _M("u2_2__mixed_row_and_column_margins",
+       "Used the wrong margin from the two-way table",
+       "Reported a row marginal proportion when the question asked for a column marginal proportion, or vice versa.",
+       "ced_structural", ["two_way_proportions"], ["2.2"], ["3.B"],
+       [_fp("S10 Unit 2 (2.2)",
+            "marginal distributions for the two categorical variables are distinct row and column summaries")]),
 
 ]}
 
