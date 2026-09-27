@@ -844,6 +844,40 @@ CATALOG: Dict[str, Misconception] = {m.tag: m for m in [
        [_fp("S10 Unit 4 (4.9-4.10, test for difference of two means)",
             "test statistic numerator is (xbar1 - xbar2) - 0; the order of subtraction sets the sign")]),
 
+    # --- p-values (3.6 x 4.F): interpret p-value meaning in context ------------
+    _M("u3_6__p_value_probability_null_true",
+       "Interpreted the p-value as the probability that the null hypothesis is true",
+       "Said the p-value is the probability H0 is true, rather than the probability, "
+       "assuming H0 is true, of observing a result as extreme as or more extreme than the sample result.",
+       "ced_structural", ["slotframe_u3_6_pvalue_interpret"], ["3.6"], ["4.F"],
+       [_fp("S10 Unit 3 (3.5-3.8)",
+            "p-value interpretation must be conditional on the null hypothesis and tied to results as extreme as the observed result")]),
+
+    _M("u3_6__p_value_probability_sample_due_to_chance",
+       "Interpreted the p-value as the probability that the sample result happened by chance",
+       "Said the p-value is the probability the observed sample statistic occurred by chance, "
+       "omitting the null-hypothesis condition and the as-extreme-or-more-extreme tail event.",
+       "documented_cr", ["slotframe_u3_6_pvalue_interpret"], ["3.6"], ["4.F"],
+       [_fp("S10 Unit 3 (3.5-3.8)",
+            "2025 CR patterns flag weak p-value interpretations that say only 'due to chance' instead of conditioning on H0 and an extreme-tail event")]),
+
+    _M("u3_6__p_value_probability_alternative_true",
+       "Interpreted the p-value as evidence that the alternative hypothesis is true with that probability",
+       "Treated the p-value as the probability the alternative claim is true, rather than a tail probability "
+       "computed under the null hypothesis.",
+       "ced_structural", ["slotframe_u3_6_pvalue_interpret"], ["3.6"], ["4.F"],
+       [_fp("S10 Unit 3 (3.5-3.8)",
+            "significance-test interpretation distinguishes evidence against H0 from posterior probability that Ha is true")]),
+
+    _M("u3_6__p_value_reverses_extreme_direction",
+       "Reversed the direction of the extreme-tail event",
+       "Described the p-value as the probability of getting a result in the opposite direction from the "
+       "alternative hypothesis, rather than as extreme as or more extreme in the direction of Ha.",
+       "ced_structural", ["slotframe_u3_6_pvalue_interpret"], ["3.6"], ["4.F"],
+       [_fp("S10 Unit 3 (3.5-3.8)",
+            "p-value meaning depends on the alternative-hypothesis direction and the corresponding tail event")]),
+
+
     # --- slotframe_u2_5_mutually_exclusive (2.5 x 4.B) : mutually exclusive events
     _M("u2_5__uses_independent_for_disjoint",
        "Called disjoint events independent",

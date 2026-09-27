@@ -279,6 +279,13 @@ FRAMING: Dict[str, Framing] = {
          "df = min(n1-1, n2-1) within the standard t-table (n <= 31)",
          "the t-statistic magnitude stays in a realistic range"],
         [_SEC5, _SEC6, _SEC7]),
+
+    "slotframe_u3_6_pvalue_interpret": Framing(
+        "slotframe_u3_6_pvalue_interpret", "Q3", "Describe", 4, "exam_aligned_digital",
+        ["one-proportion significance-test setting with stated H0 and Ha",
+         "p-value interpretation must be conditional on H0 being true",
+         "tail event must be as extreme as or more extreme than the observed sample result in the direction of Ha"],
+        [_SEC5, _SEC6, _SEC7]),
     "two_sample_t_interval": Framing(
         "two_sample_t_interval", "Q4", "Construct", 3, "exam_aligned_digital",
         ["two DISTINCT independent samples of a quantitative variable",
@@ -864,6 +871,40 @@ U1_13_DESIGN_CONTEXTS: List[Dict[str, object]] = [
 ]
 
 
+U3_6_PVALUE_CONTEXTS: List[Dict[str, object]] = [
+    {"id": "u3_6__bike_commute_support", "domain": "civic",
+     "source": "a random sample of neighborhood residents", "trait": "support adding protected bike lanes",
+     "parameter": "the proportion of all neighborhood residents who support adding protected bike lanes",
+     "null_value": 0.50, "alternative": "greater", "observed": "more than half of the sample residents supported the plan",
+     "stat_phrase": "a sample proportion at least this large"},
+    {"id": "u3_6__seed_germination_drop", "domain": "biology",
+     "source": "a random sample of seeds from a shipment", "trait": "germinate within one week",
+     "parameter": "the proportion of all seeds in the shipment that germinate within one week",
+     "null_value": 0.80, "alternative": "less", "observed": "the sample germination rate was below 0.80",
+     "stat_phrase": "a sample proportion this small or smaller"},
+    {"id": "u3_6__email_open_rate", "domain": "business",
+     "source": "a random sample of customer emails", "trait": "were opened within 24 hours",
+     "parameter": "the proportion of all customer emails that are opened within 24 hours",
+     "null_value": 0.35, "alternative": "greater", "observed": "the sample open rate was above 0.35",
+     "stat_phrase": "a sample proportion at least this large"},
+    {"id": "u3_6__bus_on_time_rate", "domain": "transportation",
+     "source": "a random sample of bus arrivals", "trait": "arrive on time",
+     "parameter": "the proportion of all bus arrivals that are on time",
+     "null_value": 0.90, "alternative": "less", "observed": "the sample on-time rate was below 0.90",
+     "stat_phrase": "a sample proportion this small or smaller"},
+    {"id": "u3_6__app_crash_rate", "domain": "technology",
+     "source": "a random sample of app sessions", "trait": "ended with a crash",
+     "parameter": "the proportion of all app sessions that end with a crash",
+     "null_value": 0.04, "alternative": "greater", "observed": "the sample crash rate was above 0.04",
+     "stat_phrase": "a sample proportion at least this large"},
+    {"id": "u3_6__recycling_participation", "domain": "civic",
+     "source": "a random sample of households", "trait": "used the curbside recycling program last month",
+     "parameter": "the proportion of all households that used the curbside recycling program last month",
+     "null_value": 0.60, "alternative": "less", "observed": "the sample participation rate was below 0.60",
+     "stat_phrase": "a sample proportion this small or smaller"},
+]
+
+
 
 U3_4_PROP_CI_CLAIM_CONTEXTS: List[Dict[str, str]] = [
     {"id": "u3_4__campus_transit", "domain": "education", "source": "a campus transportation survey",
@@ -1265,6 +1306,22 @@ def validate_scenarios() -> List[str]:
         if len(ctx.get("distractors", [])) < 3:
             problems.append(f"u1_13 design context needs at least 3 distractors: {ctx}")
 
+    seen_pvalue_ids = set()
+    for ctx in U3_6_PVALUE_CONTEXTS:
+        required = ("id", "domain", "source", "trait", "parameter", "null_value", "alternative", "observed", "stat_phrase")
+        if not all(k in ctx for k in required):
+            problems.append(f"u3_6 p-value context missing fields: {ctx}")
+        if ctx.get("id") in seen_pvalue_ids:
+            problems.append(f"duplicate u3_6 p-value context id: {ctx.get('id')}")
+        seen_pvalue_ids.add(ctx.get("id"))
+        if not str(ctx.get("id", "")).startswith("u3_6__"):
+            problems.append(f"u3_6 p-value context id is not namespaced: {ctx.get('id')}")
+        if ctx.get("alternative") not in ("greater", "less"):
+            problems.append(f"u3_6 p-value alternative must be greater or less: {ctx}")
+        p0 = ctx.get("null_value")
+        if not isinstance(p0, float) or not 0 < p0 < 1:
+            problems.append(f"u3_6 p-value null_value must be a proportion: {ctx}")
+
     seen_u3_4_ids = set()
     for ctx in U3_4_PROP_CI_CLAIM_CONTEXTS:
         required = ("id", "domain", "source", "population", "trait", "parameter")
@@ -1401,6 +1458,7 @@ if __name__ == "__main__":
             "u1_8_boxplots": len(U1_8_BOXPLOT_CONTEXTS),
             "u1_12_bias": len(U1_12_BIAS_CONTEXTS),
             "u1_13_design": len(U1_13_DESIGN_CONTEXTS),
+            "u3_6_pvalue": len(U3_6_PVALUE_CONTEXTS),
             "u3_4_prop_ci_claim": len(U3_4_PROP_CI_CLAIM_CONTEXTS),
             "u3_2_sample_prop": len(U3_2_SAMPLE_PROP_CONTEXTS),
             "u2_8_random_variables": len(U2_8_RANDOM_VARIABLE_CONTEXTS),

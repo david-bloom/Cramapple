@@ -122,6 +122,13 @@ DISTRIBUTION_TAGS = {
     "u1_6__ignores_shape_reports_center_only",
 }
 
+PVALUE_TAGS = {
+    "u3_6__p_value_probability_null_true",
+    "u3_6__p_value_probability_sample_due_to_chance",
+    "u3_6__p_value_probability_alternative_true",
+    "u3_6__p_value_reverses_extreme_direction",
+}
+
 DESIGN_TAGS = {
     "u1_13__confounding_vs_lurking_confused",
     "u1_13__control_blinding_randomization_confused",
@@ -1242,6 +1249,106 @@ def generate_u1_13_design(count: int, base_seed: int = 11300) -> List[Dict]:
     return [gen_u1_13_design_instance(random.Random(base_seed + i), base_seed + i) for i in range(count)]
 
 
+def _pvalue_tail_phrase(ctx: Dict[str, object]) -> str:
+    if ctx["alternative"] == "greater":
+        return f"at least as large as the one in the sample ({ctx['stat_phrase']})"
+    return f"at least as small as the one in the sample ({ctx['stat_phrase']})"
+
+
+def _pvalue_correct_text(ctx: Dict[str, object], p_value: float) -> str:
+    return (f"If {ctx['parameter']} really is {ctx['null_value']:.2f}, then there is about a "
+            f"{p_value:.1%} chance of getting a sample result {_pvalue_tail_phrase(ctx)} by random sampling alone.")
+
+
+def _pvalue_wrong_direction_text(ctx: Dict[str, object], p_value: float) -> str:
+    opposite = "this small or smaller" if ctx["alternative"] == "greater" else "this large or larger"
+    return (f"If {ctx['parameter']} really is {ctx['null_value']:.2f}, then there is about a "
+            f"{p_value:.1%} chance of getting a sample proportion {opposite} by random sampling alone.")
+
+
+def _pvalue_distractor_text(tag: str, ctx: Dict[str, object], p_value: float) -> str:
+    if tag == "u3_6__p_value_probability_null_true":
+        return f"There is about a {p_value:.1%} chance that the null hypothesis is true."
+    if tag == "u3_6__p_value_probability_sample_due_to_chance":
+        return f"There is about a {p_value:.1%} chance that the sample result happened by chance."
+    if tag == "u3_6__p_value_probability_alternative_true":
+        return f"There is about a {p_value:.1%} chance that the alternative hypothesis is true."
+    if tag == "u3_6__p_value_reverses_extreme_direction":
+        return _pvalue_wrong_direction_text(ctx, p_value)
+    raise ValueError(tag)
+
+
+def gen_u3_6_pvalue_instance(rng: random.Random, seed: int) -> Dict:
+    ctx = rng.choice(SCN.U3_6_PVALUE_CONTEXTS)
+    p_value = rng.choice([0.008, 0.014, 0.027, 0.041, 0.063, 0.118, 0.184])
+    scenario_prov = SCN.framing("slotframe_u3_6_pvalue_interpret", ctx.get("domain"))
+    alt_symbol = ">" if ctx["alternative"] == "greater" else "<"
+    prompt = (f"A significance test is performed using {ctx['source']} to test H0: p = {ctx['null_value']:.2f} "
+              f"against Ha: p {alt_symbol} {ctx['null_value']:.2f}, where p is {ctx['parameter']}. "
+              f"The sample result was {ctx['observed']}, and the p-value is {p_value:.3f}. "
+              "Which statement correctly interprets the p-value in context?")
+    options = [{"text": _pvalue_correct_text(ctx, p_value), "correct": True, "misconception": None}]
+    for tag in rng.sample(sorted(PVALUE_TAGS), 3):
+        options.append({"text": _pvalue_distractor_text(tag, ctx, p_value),
+                        "correct": False, "misconception": tag,
+                        "misconception_source": MISC.provenance(tag)})
+    rng.shuffle(options)
+    correct_text = next(o["text"] for o in options if o["correct"])
+    checks = [
+        ("p_value_in_unit_interval", 0 < p_value < 1),
+        ("alternative_known", ctx["alternative"] in ("greater", "less")),
+        ("exactly_one_correct", sum(1 for o in options if o["correct"]) == 1),
+        ("four_options", len(options) == 4),
+        ("option_texts_unique", len({o["text"] for o in options}) == 4),
+        ("all_distractors_tagged", all(o["misconception"] for o in options if not o["correct"])),
+        ("all_distractor_tags_canonical", all(o["misconception"] in MISC.CATALOG for o in options if not o["correct"])),
+        ("all_distractors_cite_source", all(o.get("misconception_source", {}).get("sources") for o in options if not o["correct"])),
+        ("scenario_framing_present", bool(scenario_prov.get("archetype")) and bool(scenario_prov.get("sources"))),
+        ("scenario_is_pvalue_interpretation", any("conditional on H0" in r for r in scenario_prov.get("validity_rules", []))),
+        ("correct_mentions_null_condition", "really is" in correct_text and f"{ctx['null_value']:.2f}" in correct_text),
+        ("correct_mentions_tail_event", "at least as" in correct_text),
+        ("pvalue_tags_subset", all(o.get("misconception") in PVALUE_TAGS for o in options if not o["correct"])),
+    ]
+    return {
+        "schema_version": "course-mode-generated-0.1",
+        "package_id": f"slotframe-u3_6-4f-{seed:06d}",
+        "content_key": f"apstat-u3-6-4f-pvalue-{seed:06d}",
+        "item_type": "mcq",
+        "difficulty": "Medium",
+        "exam_pack_ref": {"exam_code": "ap_statistics", "cycle": "2026-27"},
+        "taxonomy_refs": [
+            {"scheme_key": "ap-statistics-2026-27", "node_key": "unit-3"},
+            {"scheme_key": "ap-statistics-2026-27", "node_key": "topic-3.6"},
+            {"scheme_key": "ap-statistics-skills", "node_key": "skill-4.F", "practice": 4},
+        ],
+        "cells": [{"topic": "3.6", "skill": "4.F"}],
+        "scenario_provenance": scenario_prov,
+        "prompt": prompt,
+        "mcq_form": {"options": options},
+        "parts": [{
+            "part_key": "part-a", "prompt": prompt,
+            "response_modalities": ["mcq"], "points": 1,
+            "criteria": [{
+                "criterion_key": "part-a-criterion-1", "points": 1,
+                "description": "Selects the interpretation of a p-value as a conditional tail probability under H0 in context.",
+                "required_evidence": "Correctly conditions on H0 and refers to a result as extreme as or more extreme than the observed result.",
+                "deterministic_checks": [{"kind": "mcq_key", "correct_type": "p_value_conditional_tail_probability"}],
+                "accepted_variants": [],
+            }],
+        }],
+        "provenance": {
+            "generator": "course_mode_stats_generator/slot_frames.py",
+            "frame_id": "FB-U3-6-4F-PVALUE-01",
+            "template_id": "slotframe_u3_6_pvalue_interpret",
+            "params": {"scenario_id": ctx["id"], "p_value": p_value, "alternative": ctx["alternative"]},
+            "seed": seed,
+            "release_status": "unreleased_generated_pending_review",
+            "note": "Authored conceptual frame; correctness from p-value interpretation taxonomy.",
+        },
+        "_property_checks": checks,
+    }
+
+
 
 def _pct_fmt(value: float) -> str:
     return f"{value * 100:.0f}%"
@@ -1508,6 +1615,10 @@ def generate_u1_6_distribution(count: int, base_seed: int = 16000) -> List[Dict]
     return [gen_u1_6_distribution_instance(random.Random(base_seed + i), base_seed + i) for i in range(count)]
 
 
+def generate_u3_6_pvalue(count: int, base_seed: int = 36000) -> List[Dict]:
+    return [gen_u3_6_pvalue_instance(random.Random(base_seed + i), base_seed + i) for i in range(count)]
+
+
 def generate(count: int, base_seed: int = 7000) -> List[Dict]:
     return generate_4b(count, base_seed)
 
@@ -1543,6 +1654,9 @@ FRAMES = [
     {"frame_id": "FB-U1-13-2A-DESIGN-01", "cell": "1.13 x 2.A", "gen": generate_u1_13_design,
      "base_seed": 11300, "expected_tags": set(DESIGN_TAGS),
      "note": "Experimental design classification. Coverage: Unit 1 topic 1.13."},
+    {"frame_id": "FB-U3-6-4F-PVALUE-01", "cell": "3.6 x 4.F", "gen": generate_u3_6_pvalue,
+     "base_seed": 36000, "expected_tags": set(PVALUE_TAGS),
+     "note": "p-value interpretation in context. Coverage: Unit 3 topic 3.6 skill 4.F."},
 
     {"frame_id": "FB-U3-4-4F-PROP-CI-CLAIM-01", "cell": "3.4 x 4.F", "gen": generate_u3_4_prop_ci_claim,
      "base_seed": 30400, "expected_tags": set(PROP_CI_CLAIM_TAGS),
