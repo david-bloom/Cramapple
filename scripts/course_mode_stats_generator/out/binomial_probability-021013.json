@@ -1,0 +1,178 @@
+{
+  "schema_version": "course-mode-generated-0.1",
+  "package_id": "binomial_probability-021013",
+  "content_key": "apstat-binomial_probability-021013",
+  "item_type": "mcq",
+  "difficulty": "Medium",
+  "exam_pack_ref": {
+    "exam_code": "ap_statistics",
+    "cycle": "2026-27"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "unit-2"
+    },
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "topic-2.10"
+    },
+    {
+      "scheme_key": "ap-statistics-skills",
+      "node_key": "skill-3.C",
+      "practice": 3
+    }
+  ],
+  "cells": [
+    {
+      "topic": "2.10",
+      "skill": "3.C"
+    }
+  ],
+  "prompt": "A coach models each free throw as an independent trial with probability 0.55 that it is made. For 8 trials, calculate the probability of exactly 6 successes.",
+  "numeric_form": {
+    "answer_desc": "P(X = 6) = 0.1569",
+    "deterministic_checks": [
+      {
+        "kind": "numeric",
+        "value": 0.1569,
+        "tol": 0.005
+      }
+    ]
+  },
+  "mcq_form": {
+    "options": [
+      {
+        "text": "0.1569",
+        "correct": true,
+        "misconception": null
+      },
+      {
+        "text": "0.0703",
+        "correct": false,
+        "misconception": "u2_10__swapped_success_failure_probability",
+        "misconception_source": {
+          "tag": "u2_10__swapped_success_failure_probability",
+          "label": "Swapped the success and failure probabilities",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 2 (2.10)",
+              "note": "the binomial formula assigns p to successes and (1-p) to failures"
+            }
+          ]
+        }
+      },
+      {
+        "text": "0.0056",
+        "correct": false,
+        "misconception": "u2_10__omitted_combination_count",
+        "misconception_source": {
+          "tag": "u2_10__omitted_combination_count",
+          "label": "Omitted the binomial coefficient",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 2 (2.10)",
+              "note": "binomial probabilities use C(n,k)p^k(1-p)^(n-k); the combination factor counts arrangements"
+            }
+          ]
+        }
+      },
+      {
+        "text": "0.2201",
+        "correct": false,
+        "misconception": "u2_10__used_tail_probability_for_exact_count",
+        "misconception_source": {
+          "tag": "u2_10__used_tail_probability_for_exact_count",
+          "label": "Used a cumulative tail probability for an exact-count question",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 2 (2.10)",
+              "note": "binomial probability notation distinguishes exact-count events from cumulative tail events"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "worked_solution": "Let X ~ Binomial(n=8, p=0.55). P(X = 6) = C(8,6)(0.55)^6(0.45)^2 = 0.1569.",
+  "parts": [
+    {
+      "part_key": "part-a",
+      "prompt": "A coach models each free throw as an independent trial with probability 0.55 that it is made. For 8 trials, calculate the probability of exactly 6 successes.",
+      "response_modalities": [
+        "mcq",
+        "numeric"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "P(X = 6) = 0.1569",
+          "required_evidence": "Let X ~ Binomial(n=8, p=0.55). P(X = 6) = C(8,6)(0.55)^6(0.45)^2 = 0.1569.",
+          "deterministic_checks": [
+            {
+              "kind": "numeric",
+              "value": 0.1569,
+              "tol": 0.005
+            }
+          ],
+          "accepted_variants": []
+        }
+      ]
+    }
+  ],
+  "scenario_provenance": {
+    "archetype": "Q4",
+    "archetype_label": "Multi-focus on Practices 2, 3 & 4 (spans multiple content areas)",
+    "task_verb": "Calculate",
+    "practice": 3,
+    "modality": "exam_aligned_digital",
+    "validity_rules": [
+      "fixed number of independent trials",
+      "constant probability of success",
+      "success/failure outcome in each trial",
+      "requested probability must lie in [0, 1]"
+    ],
+    "sources": [
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S5 (Free-response archetypes)",
+        "note": "Section II question archetypes Q1-Q4"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S6 (Task verbs)",
+        "note": "the item stem's verb must match the scored demand"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S7 (Response modality)",
+        "note": "digital Bluebook; text/numeric entry -> exam_aligned_digital"
+      }
+    ],
+    "domain": "sports"
+  },
+  "provenance": {
+    "generator": "course_mode_stats_generator/generator.py",
+    "template_id": "binomial_probability",
+    "params": {
+      "scenario_id": "u2_10__free_throw",
+      "n": 8,
+      "k": 6,
+      "p": 0.55
+    },
+    "seed": 21013,
+    "release_status": "unreleased_generated_pending_review",
+    "note": "Synthetic; not official CB content. Requires CM-D19 template-release + review."
+  }
+}

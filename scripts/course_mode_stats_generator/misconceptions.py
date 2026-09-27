@@ -253,6 +253,31 @@ CATALOG: Dict[str, Misconception] = {m.tag: m for m in [
              "for the most extreme p% of values the area is split in half -- conflating one- and two-sided areas is a documented error"),
         _ext("fiveable.me", _FIVEABLE_NORMAL, "one-sided vs two-sided area must match the question")]),
 
+    # --- binomial_probability (2.10 x 3.C) : exact binomial probability -------
+    _M("u2_10__omitted_combination_count",
+       "Omitted the binomial coefficient",
+       "Computed p^k(1-p)^(n-k) for exactly k successes, but left out the number of ways "
+       "to arrange those k successes among n trials, C(n,k).",
+       "ced_structural", ["binomial_probability"], ["2.10"], ["3.C"],
+       [_fp("S10 Unit 2 (2.10)",
+            "binomial probabilities use C(n,k)p^k(1-p)^(n-k); the combination factor counts arrangements")]),
+
+    _M("u2_10__swapped_success_failure_probability",
+       "Swapped the success and failure probabilities",
+       "Used p^(n-k)(1-p)^k instead of p^k(1-p)^(n-k), treating the requested successes "
+       "as failures and the remaining trials as successes.",
+       "ced_structural", ["binomial_probability"], ["2.10"], ["3.C"],
+       [_fp("S10 Unit 2 (2.10)",
+            "the binomial formula assigns p to successes and (1-p) to failures")]),
+
+    _M("u2_10__used_tail_probability_for_exact_count",
+       "Used a cumulative tail probability for an exact-count question",
+       "Answered an 'exactly k' binomial probability question with P(X >= k) or P(X <= k), "
+       "mixing an exact-count probability with a cumulative event.",
+       "ced_structural", ["binomial_probability"], ["2.10"], ["3.C"],
+       [_fp("S10 Unit 2 (2.10)",
+            "binomial probability notation distinguishes exact-count events from cumulative tail events")]),
+
     # --- summary_stats (1.7 x 3.B) : sample mean of a small data set -----------
     _M("reported_median_not_mean",
        "Reported the median instead of the mean",

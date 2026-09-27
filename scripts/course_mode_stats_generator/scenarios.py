@@ -121,6 +121,11 @@ FRAMING: Dict[str, Framing] = {
         "normal_prob", "Q4", "Calculate", 3, "exam_aligned_digital",
         ["a quantity modeled as Normal", "probability must lie in [0, 1]"],
         [_SEC5, _SEC6, _SEC7]),
+    "binomial_probability": Framing(
+        "binomial_probability", "Q4", "Calculate", 3, "exam_aligned_digital",
+        ["fixed number of independent trials", "constant probability of success",
+         "success/failure outcome in each trial", "requested probability must lie in [0, 1]"],
+        [_SEC5, _SEC6, _SEC7]),
     "summary_stats": Framing(
         "summary_stats", "Q2", "Calculate", 3, "exam_aligned_digital",
         ["a raw quantitative data set (no real-world causal claim implied)"],
@@ -287,6 +292,29 @@ NORMAL_CONTEXTS: List[Dict[str, object]] = [
      "mu_choices": [20, 30, 45, 60], "sigma_choices": [5, 8, 10]},
     {"quantity": "bag fill weight", "unit": "grams", "domain": "manufacturing",
      "mu_choices": [200, 500, 1000], "sigma_choices": [5, 10, 15]},
+]
+
+# binomial probability: independent repeated trials with a fixed success probability.
+# Each context is original and uses language that makes the binomial assumptions explicit.
+BINOMIAL_CONTEXTS: List[Dict[str, object]] = [
+    {"id": "u2_10__seed_germination", "who": "a botanist", "trial_unit": "seed",
+     "success": "germinates within two weeks", "domain": "biology",
+     "n_choices": [8, 10, 12], "p_choices": [0.30, 0.40, 0.55]},
+    {"id": "u2_10__inspection_pass", "who": "a quality-control team", "trial_unit": "device",
+     "success": "passes the first inspection", "domain": "manufacturing",
+     "n_choices": [6, 8, 10], "p_choices": [0.60, 0.70, 0.80]},
+    {"id": "u2_10__email_open", "who": "a marketing analyst", "trial_unit": "customer",
+     "success": "opens a promotional email", "domain": "business",
+     "n_choices": [8, 10, 12], "p_choices": [0.20, 0.25, 0.35]},
+    {"id": "u2_10__free_throw", "who": "a coach", "trial_unit": "free throw",
+     "success": "is made", "domain": "sports",
+     "n_choices": [6, 8, 10], "p_choices": [0.55, 0.65, 0.75]},
+    {"id": "u2_10__app_trial", "who": "a product manager", "trial_unit": "new user",
+     "success": "completes the onboarding tutorial", "domain": "business",
+     "n_choices": [8, 10, 12], "p_choices": [0.35, 0.45, 0.60]},
+    {"id": "u2_10__bus_arrival", "who": "a transit analyst", "trial_unit": "bus trip",
+     "success": "arrives on time", "domain": "civic",
+     "n_choices": [6, 8, 10], "p_choices": [0.50, 0.65, 0.80]},
 ]
 
 # means (t procedures): a quantitative variable with a hypothesized/claimed mean.
@@ -768,6 +796,20 @@ def validate_scenarios() -> List[str]:
             problems.append(f"normal context missing fields: {ctx}")
         elif not ctx["mu_choices"] or not ctx["sigma_choices"]:
             problems.append(f"normal context has empty mu/sigma choices: {ctx}")
+    seen_binomial_ids = set()
+    for ctx in BINOMIAL_CONTEXTS:
+        required = ("id", "who", "trial_unit", "success", "domain", "n_choices", "p_choices")
+        if not all(k in ctx for k in required):
+            problems.append(f"binomial context missing fields: {ctx}")
+        if ctx.get("id") in seen_binomial_ids:
+            problems.append(f"duplicate binomial context id: {ctx.get('id')}")
+        seen_binomial_ids.add(ctx.get("id"))
+        if not str(ctx.get("id", "")).startswith("u2_10__"):
+            problems.append(f"binomial context id is not namespaced: {ctx.get('id')}")
+        if any(int(n) < 1 for n in ctx.get("n_choices", [])):
+            problems.append(f"binomial context has nonpositive n: {ctx}")
+        if any(not (0 < float(p) < 1) for p in ctx.get("p_choices", [])):
+            problems.append(f"binomial context has p outside (0,1): {ctx}")
     for ctx in MEAN_CONTEXTS:
         if not all(k in ctx for k in ("quantity", "unit", "who", "domain", "mu0_choices", "s_choices", "n_choices")):
             problems.append(f"mean context missing fields: {ctx}")
@@ -941,6 +983,7 @@ if __name__ == "__main__":
             "two_group": len(TWO_GROUP_CONTEXTS),
             "regression": len(REGRESSION_CONTEXTS),
             "normal": len(NORMAL_CONTEXTS),
+            "binomial": len(BINOMIAL_CONTEXTS),
             "mean": len(MEAN_CONTEXTS),
             "two_mean": len(TWO_MEAN_CONTEXTS),
             "u1_3_cat_tables": len(U1_3_CAT_TABLE_CONTEXTS),
