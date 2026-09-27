@@ -15,7 +15,15 @@ external or layout requirements.
 
 Start with:
 
+- [Device-Neutral Session Start](docs/team_charter/CRAMAPPLE_SESSION_START.md)
+- [ChatGPT Project Instructions](docs/team_charter/CHATGPT_PROJECT_INSTRUCTIONS.md)
 - [Cramapple Vision and Problem Statement](docs/product/CRAMAPPLE_VISION.md)
+- [Use Modes Strategic Reconciliation](docs/product/USE_MODES_STRATEGIC_RECONCILIATION.md)
+- [Course + Homework Mode Consolidation Plan](docs/product/COURSE_HOMEWORK_CONSOLIDATION_PLAN.md)
+- [Design System Cutover Plan](docs/product/DESIGN_SYSTEM_CUTOVER_PLAN.md)
+- [App Rebuild Migration Plan](docs/product/APP_REBUILD_MIGRATION_PLAN.md) — **the single plan for the redesign**; consolidates the three documents above it plus the taxonomy and content-production protocols
+- [App Rebuild — Next Session Handoff](docs/product/APP_REBUILD_NEXT_SESSION_HANDOFF_2026_09_22.md) — state of play, blockers and the Phase 0 prompt; read before the plan when resuming
+- [Uncertainty Log](docs/product/UNCERTAINTY_LOG.md)
 - [Master To-Do Backlog](docs/MASTER_TODO.md)
 - [Content Authoring and Prompt Architecture](docs/architecture/CONTENT_AUTHORING_AND_PROMPT_ARCHITECTURE.md)
 - [Content Authoring Model Experiment](docs/product/CONTENT_AUTHORING_MODEL_EXPERIMENT.md)
@@ -44,4 +52,4 @@ The root-level `Blueprint_*` files predate the current canonical vision. They ar
 
 ## Operating Kit
 
-This repository uses the [AI Project Operating Kit](https://github.com/david-bloom/ai-project-operating-kit). See [PROJECT_SETUP.md](PROJECT_SETUP.md) for the installed configuration.
+This repository uses the [AI Project Operating Kit](https://github.com/david-bloom/ai-project-operating-kit). See [PROJECT_SETUP.md](PROJECT_SETUP.md) for the installed configuration and the Cramapple-specific Claude/Codex workflow.

@@ -127,6 +127,11 @@ FRAMING: Dict[str, Framing] = {
         "normal_prob", "Q4", "Calculate", 3, "exam_aligned_digital",
         ["a quantity modeled as Normal", "probability must lie in [0, 1]"],
         [_SEC5, _SEC6, _SEC7]),
+    "binomial_probability": Framing(
+        "binomial_probability", "Q4", "Calculate", 3, "exam_aligned_digital",
+        ["fixed number of independent trials", "constant probability of success",
+         "success/failure outcome in each trial", "requested probability must lie in [0, 1]"],
+        [_SEC5, _SEC6, _SEC7]),
     "summary_stats": Framing(
         "summary_stats", "Q2", "Calculate", 3, "exam_aligned_digital",
         ["a raw quantitative data set (no real-world causal claim implied)"],
@@ -154,11 +159,22 @@ FRAMING: Dict[str, Framing] = {
          "quantitative variables may be discrete counts or continuous measurements",
          "numeric labels/codes are categorical when arithmetic on the values is not meaningful"],
         [_SEC5, _SEC6, _SEC7]),
+    "slotframe_u1_4_cat_graphs": Framing(
+        "slotframe_u1_4_cat_graphs", "Q2", "Describe", 3, "exam_aligned_digital",
+        ["one categorical variable represented from category counts",
+         "relative-frequency bar heights equal each category count divided by the total count",
+         "category labels are not values on a quantitative number line"],
+        [_SEC5, _SEC6, _SEC7]),
     "slotframe_u1_6_distribution": Framing(
         "slotframe_u1_6_distribution", "Q2", "Describe", 4, "exam_aligned_digital",
         ["one-variable quantitative distribution described from text and five-number summary",
          "shape, center, spread, and outlier claims must match the supplied summary",
          "outlier claims use the 1.5 x IQR fences"],
+        [_SEC5, _SEC6, _SEC7]),
+    "slotframe_u1_3_cat_tables": Framing(
+        "slotframe_u1_3_cat_tables", "Q2", "Describe", 3, "exam_aligned_digital",
+        ["one categorical variable with category counts",
+         "representation preserves category labels and uses the correct total for relative frequencies"],
         [_SEC5, _SEC6, _SEC7]),
     "slotframe_u1_5_graphs": Framing(
         "slotframe_u1_5_graphs", "Q2", "Describe", 3, "exam_aligned_digital",
@@ -180,6 +196,12 @@ FRAMING: Dict[str, Framing] = {
         ["realistic study-design scenario",
          "classification must distinguish imposed treatments, randomization, control/placebo/blinding, and confounding"],
         [_SEC5, _SEC6, _SEC7]),
+    "slotframe_u2_1_twoway_interpret": Framing(
+        "slotframe_u2_1_twoway_interpret", "Q2", "Describe", 4, "exam_aligned_digital",
+        ["two categorical variables summarized in a two-way table",
+         "interpretations must distinguish marginal and conditional distributions",
+         "conditional comparisons must use the denominator for the stated condition"],
+        [_SEC5, _SEC6, _SEC7]),
     "t_test_mean": Framing(
         "t_test_mean", "Q4", "Calculate", 3, "exam_aligned_digital",
         ["a random sample of a quantitative variable (population roughly Normal or n large)",
@@ -191,6 +213,13 @@ FRAMING: Dict[str, Framing] = {
         ["df = n-1 within the standard t-table (n <= 31)",
          "confidence in {90%, 95%, 99%}",
          "t (for a mean), never z -- CED convention; interval bounds realistic for the quantity"],
+        [_SEC5, _SEC6, _SEC7]),
+
+    "two_way_proportions": Framing(
+        "two_way_proportions", "Q2", "Calculate", 3, "exam_aligned_digital",
+        ["a two-way table of counts for two categorical variables",
+         "marginal proportions use row/column totals over the grand total",
+         "conditional proportions use the total within the stated condition"],
         [_SEC5, _SEC6, _SEC7]),
     "chi_square_test": Framing(
         "chi_square_test", "Q4", "Calculate", 3, "exam_aligned_digital",
@@ -310,6 +339,29 @@ NORMAL_CONTEXTS: List[Dict[str, object]] = [
      "mu_choices": [200, 500, 1000], "sigma_choices": [5, 10, 15]},
 ]
 
+# binomial probability: independent repeated trials with a fixed success probability.
+# Each context is original and uses language that makes the binomial assumptions explicit.
+BINOMIAL_CONTEXTS: List[Dict[str, object]] = [
+    {"id": "u2_10__seed_germination", "who": "a botanist", "trial_unit": "seed",
+     "success": "germinates within two weeks", "domain": "biology",
+     "n_choices": [8, 10, 12], "p_choices": [0.30, 0.40, 0.55]},
+    {"id": "u2_10__inspection_pass", "who": "a quality-control team", "trial_unit": "device",
+     "success": "passes the first inspection", "domain": "manufacturing",
+     "n_choices": [6, 8, 10], "p_choices": [0.60, 0.70, 0.80]},
+    {"id": "u2_10__email_open", "who": "a marketing analyst", "trial_unit": "customer",
+     "success": "opens a promotional email", "domain": "business",
+     "n_choices": [8, 10, 12], "p_choices": [0.20, 0.25, 0.35]},
+    {"id": "u2_10__free_throw", "who": "a coach", "trial_unit": "free throw",
+     "success": "is made", "domain": "sports",
+     "n_choices": [6, 8, 10], "p_choices": [0.55, 0.65, 0.75]},
+    {"id": "u2_10__app_trial", "who": "a product manager", "trial_unit": "new user",
+     "success": "completes the onboarding tutorial", "domain": "business",
+     "n_choices": [8, 10, 12], "p_choices": [0.35, 0.45, 0.60]},
+    {"id": "u2_10__bus_arrival", "who": "a transit analyst", "trial_unit": "bus trip",
+     "success": "arrives on time", "domain": "civic",
+     "n_choices": [6, 8, 10], "p_choices": [0.50, 0.65, 0.80]},
+]
+
 # means (t procedures): a quantitative variable with a hypothesized/claimed mean.
 # Each context carries its OWN plausible mu0 / sample-SD / sample-size pools so the
 # generated summary statistics fit the setting (per-context guardrail). n<=30 keeps
@@ -343,6 +395,30 @@ TWO_MEAN_CONTEXTS: List[Dict[str, object]] = [
      "domain": "biology", "mu_choices": [20, 25, 30, 35], "s_choices": [3, 4, 5], "n_choices": [10, 12, 16, 20]},
 ]
 
+
+# Unit 2.2 two-way categorical summaries: marginal and conditional proportions.
+# Each id is cell-namespaced and the count tables are original synthetic contexts.
+TWO_WAY_PROP_CONTEXTS: List[Dict[str, object]] = [
+    {"id": "u2_2__club_grade_transport", "desc": "students in two grade levels and their usual way to get to school",
+     "rows": ["9th grade", "12th grade"], "cols": ["Bus", "Car", "Bike/Walk"],
+     "obs": [[42, 36, 22], [28, 54, 18]], "row_var": "grade level", "col_var": "usual transportation", "domain": "education"},
+    {"id": "u2_2__store_region_delivery", "desc": "online orders from two regions and whether delivery met the promised date",
+     "rows": ["North region", "South region"], "cols": ["On time", "Late"],
+     "obs": [[86, 14], [72, 28]], "row_var": "shipping region", "col_var": "delivery outcome", "domain": "business"},
+    {"id": "u2_2__device_line_defect", "desc": "devices from two production lines and inspection result",
+     "rows": ["Line A", "Line B"], "cols": ["Pass", "Rework", "Fail"],
+     "obs": [[64, 20, 16], [72, 18, 10]], "row_var": "production line", "col_var": "inspection result", "domain": "manufacturing"},
+    {"id": "u2_2__library_age_format", "desc": "library patrons in two age groups and the format checked out most recently",
+     "rows": ["Ages 18-34", "Ages 35+"], "cols": ["Print", "E-book", "Audiobook"],
+     "obs": [[38, 44, 18], [62, 24, 14]], "row_var": "age group", "col_var": "checkout format", "domain": "civic"},
+    {"id": "u2_2__clinic_visit_payment", "desc": "clinic visits by appointment type and payment category",
+     "rows": ["Scheduled", "Walk-in"], "cols": ["Private insurance", "Public insurance", "Self-pay"],
+     "obs": [[58, 32, 10], [26, 44, 30]], "row_var": "appointment type", "col_var": "payment category", "domain": "health"},
+    {"id": "u2_2__survey_party_media", "desc": "surveyed voters by party registration and primary news source",
+     "rows": ["Registered party", "Unaffiliated"], "cols": ["Local TV", "Online news", "Social media"],
+     "obs": [[46, 38, 16], [30, 42, 28]], "row_var": "registration type", "col_var": "primary news source", "domain": "civic"},
+]
+
 # categorical (chi-square independence/homogeneity): two categorical variables ->
 # a two-way table. rows = groups/categories of one variable, cols = the other.
 CATEGORICAL_CONTEXTS: List[Dict[str, object]] = [
@@ -355,6 +431,16 @@ CATEGORICAL_CONTEXTS: List[Dict[str, object]] = [
     {"desc": "devices from two production lines and their inspection outcome",
      "rows": ["Line 1", "Line 2"], "cols": ["Pass", "Rework", "Fail"],
      "row_noun": "devices", "domain": "manufacturing"},
+]
+
+
+# Unit 1.3 one-categorical table contexts. Each id is cell-namespaced.
+U1_3_CAT_TABLE_CONTEXTS: List[Dict[str, object]] = [
+    {"id": "u1_3__club_choice", "quantity": "after-school activity choice", "unit": "student", "domain": "education", "categories": [("sports", 42), ("music", 28), ("service", 18), ("none", 12)]},
+    {"id": "u1_3__commute_mode", "quantity": "usual commute mode", "unit": "employee", "domain": "social", "categories": [("car", 54), ("bus", 24), ("bike", 10), ("walk", 12)]},
+    {"id": "u1_3__defect_type", "quantity": "primary defect type", "unit": "inspected device", "domain": "manufacturing", "categories": [("scratch", 16), ("battery", 9), ("screen", 11), ("none", 64)]},
+    {"id": "u1_3__library_section", "quantity": "library section visited first", "unit": "patron", "domain": "civic", "categories": [("fiction", 35), ("computers", 20), ("children", 30), ("reference", 15)]},
+    {"id": "u1_3__payment_type", "quantity": "payment method", "unit": "order", "domain": "business", "categories": [("credit", 48), ("debit", 26), ("gift card", 6), ("cash", 20)]},
 ]
 
 # Unit 1.9 two-distribution comparison contexts. Each id is cell-namespaced so
@@ -563,6 +649,21 @@ U1_2_VARIABLE_CONTEXTS: List[Dict[str, object]] = [
      ]},
 ]
 
+# Unit 1.4 categorical-graph contexts. Each id is cell-namespaced.
+U1_4_CAT_GRAPH_CONTEXTS: List[Dict[str, object]] = [
+    {"id": "u1_4__lunch_choice", "population": "students", "variable": "lunch entree chosen",
+     "domain": "education", "categories": [("pizza", 36), ("salad", 18), ("sandwich", 26), ("soup", 20)]},
+    {"id": "u1_4__pet_type", "population": "households", "variable": "primary pet type",
+     "domain": "social", "categories": [("dog", 44), ("cat", 31), ("fish", 10), ("none", 15)]},
+    {"id": "u1_4__phone_system", "population": "surveyed customers", "variable": "phone operating system",
+     "domain": "business", "categories": [("iOS", 52), ("Android", 43), ("other", 5)]},
+    {"id": "u1_4__recycling_material", "population": "items in a recycling audit", "variable": "material type",
+     "domain": "civic", "categories": [("paper", 40), ("plastic", 32), ("metal", 18), ("glass", 10)]},
+    {"id": "u1_4__shirt_color", "population": "shirts ordered for an event", "variable": "shirt color",
+     "domain": "business", "categories": [("blue", 25), ("black", 30), ("red", 20), ("green", 25)]},
+]
+
+
 # Unit 1.6 distribution-description contexts. Each id is cell-namespaced.
 U1_6_DISTRIBUTION_CONTEXTS: List[Dict[str, object]] = [
     {"id": "u1_6__commute_times", "quantity": "one-way commute times", "unit": "minutes", "domain": "social"},
@@ -699,6 +800,26 @@ U1_13_DESIGN_CONTEXTS: List[Dict[str, object]] = [
 ]
 
 
+# Unit 2.1 two-way table interpretation contexts. Each id is cell-namespaced.
+U2_1_TWOWAY_CONTEXTS: List[Dict[str, object]] = [
+    {"id": "u2_1__club_transport", "domain": "education", "row_variable": "grade level",
+     "col_variable": "usually gets to school by bus", "rows": ("9th grade", "12th grade"),
+     "cols": ("bus", "not bus"), "counts": ((42, 58), (30, 20)), "focus_col": "bus"},
+    {"id": "u2_1__membership_attendance", "domain": "business", "row_variable": "membership type",
+     "col_variable": "attended at least once this week", "rows": ("basic members", "premium members"),
+     "cols": ("attended", "did not attend"), "counts": ((56, 104), (45, 30)), "focus_col": "attended"},
+    {"id": "u2_1__clinic_portal", "domain": "health", "row_variable": "patient age group",
+     "col_variable": "uses the online portal", "rows": ("younger adults", "older adults"),
+     "cols": ("uses portal", "does not use portal"), "counts": ((48, 72), (36, 24)), "focus_col": "uses portal"},
+    {"id": "u2_1__library_format", "domain": "civic", "row_variable": "patron group",
+     "col_variable": "borrowed an e-book", "rows": ("adult patrons", "teen patrons"),
+     "cols": ("e-book", "print only"), "counts": ((54, 126), (35, 35)), "focus_col": "e-book"},
+    {"id": "u2_1__app_notifications", "domain": "technology", "row_variable": "account type",
+     "col_variable": "enabled notifications", "rows": ("free accounts", "paid accounts"),
+     "cols": ("enabled", "not enabled"), "counts": ((90, 210), (65, 35)), "focus_col": "enabled"},
+]
+
+
 # ==============================================================================
 # Access + validation helpers
 # ==============================================================================
@@ -765,6 +886,20 @@ def validate_scenarios() -> List[str]:
             problems.append(f"normal context missing fields: {ctx}")
         elif not ctx["mu_choices"] or not ctx["sigma_choices"]:
             problems.append(f"normal context has empty mu/sigma choices: {ctx}")
+    seen_binomial_ids = set()
+    for ctx in BINOMIAL_CONTEXTS:
+        required = ("id", "who", "trial_unit", "success", "domain", "n_choices", "p_choices")
+        if not all(k in ctx for k in required):
+            problems.append(f"binomial context missing fields: {ctx}")
+        if ctx.get("id") in seen_binomial_ids:
+            problems.append(f"duplicate binomial context id: {ctx.get('id')}")
+        seen_binomial_ids.add(ctx.get("id"))
+        if not str(ctx.get("id", "")).startswith("u2_10__"):
+            problems.append(f"binomial context id is not namespaced: {ctx.get('id')}")
+        if any(int(n) < 1 for n in ctx.get("n_choices", [])):
+            problems.append(f"binomial context has nonpositive n: {ctx}")
+        if any(not (0 < float(p) < 1) for p in ctx.get("p_choices", [])):
+            problems.append(f"binomial context has p outside (0,1): {ctx}")
     for ctx in MEAN_CONTEXTS:
         if not all(k in ctx for k in ("quantity", "unit", "who", "domain", "mu0_choices", "s_choices", "n_choices")):
             problems.append(f"mean context missing fields: {ctx}")
@@ -777,11 +912,34 @@ def validate_scenarios() -> List[str]:
             problems.append(f"two-mean context is not two distinct groups: {ctx}")
         elif any(n > 31 for n in ctx["n_choices"]):
             problems.append(f"two-mean context n exceeds t-table (df=min(n1-1,n2-1) must be <=30): {ctx}")
+
+    for ctx in TWO_WAY_PROP_CONTEXTS:
+        rows, cols, obs = ctx.get("rows"), ctx.get("cols"), ctx.get("obs")
+        if not rows or not cols or not obs:
+            problems.append(f"two-way proportion context missing table fields: {ctx}")
+            continue
+        if len(obs) != len(rows) or any(len(orow) != len(cols) for orow in obs):
+            problems.append(f"two-way proportion table dimensions mismatch: {ctx}")
+        if any(v <= 0 for orow in obs for v in orow):
+            problems.append(f"two-way proportion table has non-positive count: {ctx}")
     for ctx in CATEGORICAL_CONTEXTS:
         if not all(k in ctx for k in ("desc", "rows", "cols", "row_noun", "domain")):
             problems.append(f"categorical context missing fields: {ctx}")
         elif len(ctx["rows"]) < 2 or len(ctx["cols"]) < 2:
             problems.append(f"categorical context needs >=2 rows and cols: {ctx}")
+    seen_cat_table_ids = set()
+    for ctx in U1_3_CAT_TABLE_CONTEXTS:
+        required = ("id", "quantity", "unit", "domain", "categories")
+        if not all(k in ctx for k in required):
+            problems.append(f"u1_3 categorical table context missing fields: {ctx}")
+        if ctx.get("id") in seen_cat_table_ids:
+            problems.append(f"duplicate u1_3 categorical table context id: {ctx.get('id')}")
+        seen_cat_table_ids.add(ctx.get("id"))
+        if not str(ctx.get("id", "")).startswith("u1_3__"):
+            problems.append(f"u1_3 categorical table context id is not namespaced: {ctx.get('id')}")
+        cats = ctx.get("categories", [])
+        if len(cats) < 3 or sum(count for _label, count in cats) <= 0:
+            problems.append(f"u1_3 categorical table context needs positive category counts: {ctx}")
     seen_compare_ids = set()
     for ctx in U1_9_COMPARE_CONTEXTS:
         required = ("id", "quantity", "unit", "group_a", "group_b", "domain", "low", "high")
@@ -819,6 +977,20 @@ def validate_scenarios() -> List[str]:
             problems.append(f"u1_2 variable context id is not namespaced: {ctx.get('id')}")
         if len(ctx.get("distractors", [])) != 3:
             problems.append(f"u1_2 variable context needs exactly 3 distractors: {ctx}")
+    seen_cat_graph_ids = set()
+    for ctx in U1_4_CAT_GRAPH_CONTEXTS:
+        required = ("id", "population", "variable", "domain", "categories")
+        if not all(k in ctx for k in required):
+            problems.append(f"u1_4 categorical graph context missing fields: {ctx}")
+        if ctx.get("id") in seen_cat_graph_ids:
+            problems.append(f"duplicate u1_4 categorical graph context id: {ctx.get('id')}")
+        seen_cat_graph_ids.add(ctx.get("id"))
+        if not str(ctx.get("id", "")).startswith("u1_4__"):
+            problems.append(f"u1_4 categorical graph context id is not namespaced: {ctx.get('id')}")
+        cats = ctx.get("categories", [])
+        if len(cats) < 3 or any(not isinstance(name, str) or count <= 0 for name, count in cats):
+            problems.append(f"u1_4 categorical graph context needs positive category counts: {ctx}")
+
     seen_distribution_ids = set()
     for ctx in U1_6_DISTRIBUTION_CONTEXTS:
         required = ("id", "quantity", "unit", "domain")
@@ -880,6 +1052,23 @@ def validate_scenarios() -> List[str]:
             problems.append(f"u1_13 design context id is not namespaced: {ctx.get('id')}")
         if len(ctx.get("distractors", [])) < 3:
             problems.append(f"u1_13 design context needs at least 3 distractors: {ctx}")
+    seen_u2_1_ids = set()
+    for ctx in U2_1_TWOWAY_CONTEXTS:
+        required = ("id", "domain", "row_variable", "col_variable", "rows", "cols", "counts", "focus_col")
+        if not all(k in ctx for k in required):
+            problems.append(f"u2_1 two-way context missing fields: {ctx}")
+        if ctx.get("id") in seen_u2_1_ids:
+            problems.append(f"duplicate u2_1 two-way context id: {ctx.get('id')}")
+        seen_u2_1_ids.add(ctx.get("id"))
+        if not str(ctx.get("id", "")).startswith("u2_1__"):
+            problems.append(f"u2_1 two-way context id is not namespaced: {ctx.get('id')}")
+        rows, cols, counts = ctx.get("rows", ()), ctx.get("cols", ()), ctx.get("counts", ())
+        if len(rows) != 2 or len(cols) != 2 or len(counts) != 2 or any(len(r) != 2 for r in counts):
+            problems.append(f"u2_1 context must be a 2x2 table: {ctx}")
+        elif any(cell <= 0 for row in counts for cell in row):
+            problems.append(f"u2_1 context counts must be positive: {ctx}")
+        elif ctx.get("focus_col") not in cols:
+            problems.append(f"u2_1 focus_col must be one of cols: {ctx}")
     return problems
 
 
@@ -895,16 +1084,21 @@ if __name__ == "__main__":
             "regression": len(REGRESSION_CONTEXTS),
             "u2_4_probability": len(U2_4_PROBABILITY_CONTEXTS),
             "normal": len(NORMAL_CONTEXTS),
+            "binomial": len(BINOMIAL_CONTEXTS),
             "mean": len(MEAN_CONTEXTS),
             "two_mean": len(TWO_MEAN_CONTEXTS),
+            "two_way_proportion": len(TWO_WAY_PROP_CONTEXTS),
+            "u1_3_cat_tables": len(U1_3_CAT_TABLE_CONTEXTS),
             "u1_9_compare": len(U1_9_COMPARE_CONTEXTS),
             "u1_11_sampling": len(U1_11_SAMPLING_CONTEXTS),
             "u1_2_variables": len(U1_2_VARIABLE_CONTEXTS),
+            "u1_4_cat_graphs": len(U1_4_CAT_GRAPH_CONTEXTS),
             "u1_6_distribution": len(U1_6_DISTRIBUTION_CONTEXTS),
             "u1_5_graphs": len(U1_5_GRAPH_CONTEXTS),
             "u1_8_boxplots": len(U1_8_BOXPLOT_CONTEXTS),
             "u1_12_bias": len(U1_12_BIAS_CONTEXTS),
             "u1_13_design": len(U1_13_DESIGN_CONTEXTS),
+            "u2_1_twoway": len(U2_1_TWOWAY_CONTEXTS),
         },
         "framing": {p: {"archetype": f.archetype, "task_verb": f.task_verb,
                         "modality": f.modality} for p, f in FRAMING.items()},

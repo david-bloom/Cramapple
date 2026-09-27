@@ -10,15 +10,24 @@ import {
   assertFalse,
 } from "https://deno.land/std@0.224.0/assert/mod.ts";
 import {
+  applyItemPackageFallback,
   type AssetMetadata,
   buildRenderItem,
+  buildResolvedCells,
+  derivePackageChoices,
+  derivePackageStem,
+  derivePackageStimulus,
   indexAssets,
   isStaffQaRole,
+  type ItemPackagePayload,
   type LearnerFacingCriterion,
+  type McqChoice,
   partitionDeliverable,
+  type RenderCell,
   type SelectedRow,
   SIGNED_URL_TTL_SECONDS,
   STAFF_QA_ROLES,
+  type TopicResolutionRow,
   toLearnerFacingParts,
 } from "./student-item-delivery.ts";
 
@@ -238,17 +247,37 @@ Deno.test("render payload carries no grading or answer-bearing field", () => {
   }
 
   assertEquals(Object.keys(item).sort(), [
+    "cell",
+    "choices",
     "content_item_id",
     "content_item_version_id",
     "content_key",
     "frq_form",
+    "item_type",
     "media",
     "parts",
     "practice_format",
+    "response_mode",
     "stem",
     "stimulus",
     "title",
   ]);
+});
+
+Deno.test("response_mode is hand_drawn only when the row says so, never from prompt_json", () => {
+  const typed = buildRenderItem(row(), null, null, "2026-08-05T00:15:00Z", []);
+  assert(typed);
+  assertEquals(typed.response_mode, "typed");
+
+  const handDrawn = buildRenderItem(
+    row({ hand_drawn: true }),
+    null,
+    null,
+    "2026-08-05T00:15:00Z",
+    [],
+  );
+  assert(handDrawn);
+  assertEquals(handDrawn.response_mode, "hand_drawn");
 });
 
 // ── Accessibility metadata reaches the client ─────────────────────────────
@@ -385,6 +414,152 @@ Deno.test("an unreviewed item is permissive, not blacked out", () => {
   assertEquals(deliverable.length, 1);
 });
 
+// ── TASK-0047 Workstream E: item-package dual-read adapter ───────────────
+// Both package shapes observed in the wild: on-disk content/item-packages/
+// (schema_version "1.0.0") and Production's item_package_payload column
+// (schema_version "course-mode-generated-0.1", the only shape ever populated
+// there -- verified against the 203 real rows 2026-09-26).
+
+const DISK_SHAPE_PACKAGE: ItemPackagePayload = {
+  schema_version: "1.0.0",
+  mcq_choices: [
+    { choice_key: "A", choice_text: "4", is_correct: true, rationale: "..." },
+    { choice_key: "B", choice_text: "2", is_correct: false, rationale: "..." },
+  ],
+  parts: [
+    { part_key: "question", prompt: "What is lim(x->2) ...?" },
+  ],
+};
+
+const DB_SHAPE_PACKAGE: ItemPackagePayload = {
+  schema_version: "course-mode-generated-0.1",
+  prompt: "Calculate the sample mean.",
+  mcq_form: {
+    options: [
+      { text: "31.00", correct: false, misconception: "reported_median" },
+      { text: "34.55", correct: true, misconception: null },
+    ],
+  },
+  parts: [
+    { part_key: "part-a", prompt: "Calculate the sample mean." },
+  ],
+};
+
+Deno.test("derivePackageStem reads the disk shape's first part prompt", () => {
+  assertEquals(
+    derivePackageStem(DISK_SHAPE_PACKAGE),
+    "What is lim(x->2) ...?",
+  );
+});
+
+Deno.test("derivePackageStem reads the DB shape's top-level prompt", () => {
+  assertEquals(
+    derivePackageStem(DB_SHAPE_PACKAGE),
+    "Calculate the sample mean.",
+  );
+});
+
+Deno.test("derivePackageStem returns null for a payload with no usable text", () => {
+  assertEquals(derivePackageStem({}), null);
+  assertEquals(derivePackageStem(null), null);
+  assertEquals(derivePackageStem(undefined), null);
+});
+
+Deno.test("derivePackageChoices reads the disk shape's mcq_choices, dropping is_correct/rationale", () => {
+  const choices = derivePackageChoices(DISK_SHAPE_PACKAGE);
+  assertEquals(choices, [
+    { choice_key: "A", choice_text: "4" },
+    { choice_key: "B", choice_text: "2" },
+  ]);
+  const serialized = JSON.stringify(choices);
+  assertFalse(serialized.includes("is_correct"));
+  assertFalse(serialized.includes("rationale"));
+  assertFalse(serialized.includes("true"));
+});
+
+Deno.test("derivePackageChoices reads the DB shape's mcq_form.options, assigning letter keys", () => {
+  const choices = derivePackageChoices(DB_SHAPE_PACKAGE);
+  assertEquals(choices, [
+    { choice_key: "A", choice_text: "31.00" },
+    { choice_key: "B", choice_text: "34.55" },
+  ]);
+  const serialized = JSON.stringify(choices);
+  assertFalse(serialized.includes("correct"));
+  assertFalse(serialized.includes("misconception"));
+});
+
+Deno.test("derivePackageChoices returns null when neither shape's choice field is present", () => {
+  assertEquals(derivePackageChoices({ schema_version: "1.0.0" }), null);
+  assertEquals(derivePackageChoices(null), null);
+});
+
+Deno.test("derivePackageStimulus reads the first text stimulus", () => {
+  const withStimulus: ItemPackagePayload = {
+    ...DISK_SHAPE_PACKAGE,
+    stimuli: [
+      { stimulus_key: "directions", kind: "text", payload: { text: "No calculator." } },
+    ],
+  };
+  assertEquals(derivePackageStimulus(withStimulus), "No calculator.");
+  assertEquals(derivePackageStimulus(DISK_SHAPE_PACKAGE), null);
+});
+
+Deno.test("applyItemPackageFallback is a no-op when legacy stem and choices are already present", () => {
+  const rows: SelectedRow[] = [row({ item_type: "mcq" })];
+  const choicesByVersion = new Map<string, McqChoice[]>([
+    [VERSION_A, [{ choice_key: "A", choice_text: "already legacy" }]],
+  ]);
+  const payloadByVersion = new Map([[VERSION_A, DISK_SHAPE_PACKAGE]]);
+
+  const result = applyItemPackageFallback(rows, choicesByVersion, payloadByVersion);
+
+  assertEquals(result.rows, rows);
+  assertEquals(
+    result.choicesByVersion.get(VERSION_A),
+    [{ choice_key: "A", choice_text: "already legacy" }],
+  );
+});
+
+Deno.test("applyItemPackageFallback backfills stem and choices when legacy data is empty", () => {
+  const rows: SelectedRow[] = [
+    row({ item_type: "mcq", stem: "", stimulus: null }),
+  ];
+  const choicesByVersion = new Map<string, McqChoice[]>(); // no legacy choices at all
+  const payloadByVersion = new Map([[VERSION_A, DISK_SHAPE_PACKAGE]]);
+
+  const result = applyItemPackageFallback(rows, choicesByVersion, payloadByVersion);
+
+  assertEquals(result.rows[0].stem, "What is lim(x->2) ...?");
+  assertEquals(
+    result.choicesByVersion.get(VERSION_A),
+    [
+      { choice_key: "A", choice_text: "4" },
+      { choice_key: "B", choice_text: "2" },
+    ],
+  );
+});
+
+Deno.test("applyItemPackageFallback never overwrites a non-empty legacy stem", () => {
+  const rows: SelectedRow[] = [row({ item_type: "mcq", stem: "real legacy stem" })];
+  const choicesByVersion = new Map<string, McqChoice[]>();
+  const payloadByVersion = new Map([[VERSION_A, DISK_SHAPE_PACKAGE]]);
+
+  const result = applyItemPackageFallback(rows, choicesByVersion, payloadByVersion);
+
+  assertEquals(result.rows[0].stem, "real legacy stem");
+});
+
+Deno.test("applyItemPackageFallback does nothing for a version with no package payload", () => {
+  const rows: SelectedRow[] = [row({ item_type: "mcq", stem: "" })];
+  const choicesByVersion = new Map<string, McqChoice[]>();
+  const payloadByVersion = new Map<string, ItemPackagePayload>(); // empty -- no package for this version
+
+  const result = applyItemPackageFallback(rows, choicesByVersion, payloadByVersion);
+
+  assertEquals(result.rows[0].stem, "");
+  assertEquals(result.choicesByVersion.get(VERSION_A), undefined);
+});
+
 Deno.test("the requirement gate applies to staff QA too", () => {
   // QA mode relaxes the accessibility-approval gate, not the "this question is
   // unanswerable without a visual" gate.
@@ -396,4 +571,103 @@ Deno.test("the requirement gate applies to staff QA too", () => {
   );
   assertEquals(deliverable.length, 0);
   assertEquals(omitted[0].reason, "required_visual_absent");
+});
+
+// ── TASK-0047 Decision 17 follow-on: resolved topic/cell identity ─────────
+
+Deno.test("buildRenderItem defaults cell to null when the caller passes none", () => {
+  const item = buildRenderItem(row(), null, null, "2026-08-05T00:15:00Z", []);
+  assert(item);
+  assertEquals(item.cell, null);
+});
+
+Deno.test("buildRenderItem carries through a resolved cell unchanged", () => {
+  const cell: RenderCell = {
+    topic_code: "u1-l2",
+    skill_code: "A",
+    topic_title: "Sampling distributions",
+    unit_number: 1,
+  };
+  const item = buildRenderItem(
+    row(),
+    null,
+    null,
+    "2026-08-05T00:15:00Z",
+    [],
+    null,
+    cell,
+  );
+  assert(item);
+  assertEquals(item.cell, cell);
+});
+
+Deno.test("buildResolvedCells resolves a skill-bearing row from the view", () => {
+  const rows = [row({ content_item_id: "item-a" })];
+  const resolutionRows: TopicResolutionRow[] = [{
+    content_item_version_id: VERSION_A,
+    topic_code: "u1-l2",
+    skill_code: "A",
+    topic_title: "Sampling distributions",
+    unit_number: 1,
+  }];
+
+  const resolved = buildResolvedCells(rows, resolutionRows);
+
+  assertEquals(resolved.get(VERSION_A), {
+    topic_code: "u1-l2",
+    skill_code: "A",
+    topic_title: "Sampling distributions",
+    unit_number: 1,
+  });
+});
+
+Deno.test("buildResolvedCells resolves a topic-only row (null skill_code) from the view unchanged", () => {
+  const rows = [row({ content_item_id: "item-bio" })];
+  const resolutionRows: TopicResolutionRow[] = [{
+    content_item_version_id: VERSION_A,
+    topic_code: "4.2",
+    skill_code: null,
+    topic_title: "Introduction to Signal Transduction",
+    unit_number: 4,
+  }];
+
+  const resolved = buildResolvedCells(rows, resolutionRows);
+
+  assertEquals(resolved.get(VERSION_A), {
+    topic_code: "4.2",
+    skill_code: null,
+    topic_title: "Introduction to Signal Transduction",
+    unit_number: 4,
+  });
+});
+
+Deno.test("buildResolvedCells resolves nothing when the item has no row in the view at all", () => {
+  const rows = [row({ content_item_id: "item-nothing" })];
+
+  const resolved = buildResolvedCells(rows, []);
+
+  assertEquals(resolved.has(VERSION_A), false);
+});
+
+Deno.test("buildResolvedCells resolves a null title when the view's own title columns are null", () => {
+  const rows = [row({ content_item_id: "item-bio" })];
+  // The view left-joins taxonomy_topics for the title/unit -- a row can, in
+  // principle, come back with a null title if that join ever misses. Must
+  // resolve topic_title: null, not throw or omit the whole cell.
+  const resolutionRows: TopicResolutionRow[] = [{
+    content_item_version_id: VERSION_A,
+    topic_code: "4.2",
+    skill_code: null,
+    topic_title: null,
+    unit_number: null,
+  }];
+
+  const resolved = buildResolvedCells(rows, resolutionRows);
+
+  assertEquals(resolved.get(VERSION_A), {
+    topic_code: "4.2",
+    skill_code: null,
+    topic_title: null,
+    unit_number: null,
+  });
 });

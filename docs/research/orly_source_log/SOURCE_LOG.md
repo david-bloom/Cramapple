@@ -71,3 +71,7 @@ table.
 real decision rows (backfilled with the same IDs, so nothing was
 re-validated) instead of being unreferenced. Future validations get a real
 decision record from the start.
+
+| 2026-09-24 | Solebury School / (teacher not re-confirmed on this doc) | AP Calculus AB | Notes/practice packet, "Unit 1 Part II" (school-numbered LT1.9-1.15) + standalone "1.10" practice/test-prep packet + Mid-Unit 1 Review (Lessons 1.1-1.9) + one photographed worksheet page with Orly's own handwritten work (not mined as content, see insight note) | Real CED codes 1.10-1.16 (school's LT numbers are off by one starting at LT1.9 - see insight note) plus 1.1-1.9 (mid-unit review) | CED-aligned unit content, with one embedded prerequisite skill (domain/transformations, school's "LT1.11" - not a distinct CED topic) | Topic scope (with numbering correction), pacing (mid-unit checkpoint pattern), structural devices (Spot the Error, Fix It, one-sentence takeaway) | Pending - see `prompts/CODEX_WORK_ORDER_ORLY_CALC_AB_UNIT1_PART2_2026_09_24.md` | Teacher-authored worksheets, same rights posture as the 2026-08-24 batch; no answer key included in what was shared |
+
+**Insight note:** `docs/research/orly_source_log/2026-09-24_ap_calculus_ab_unit1_part2.md`.

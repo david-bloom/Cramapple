@@ -1,0 +1,110 @@
+-- M4 of the AP Biology completion plan (docs/product/AP_BIOLOGY_COMPLETION_PLAN_2026_09_24.md).
+-- D4, approved 2026-09-24, extended the same day: remove prompt_json.total_points
+-- from ALL 16 Biology items that carry it, not only the 9 where it disagrees.
+--
+-- APPLIED TO PRODUCTION 2026-09-24 on Product Owner authorisation.
+-- Verified after: 118 Biology published versions, 0 still carrying the field,
+-- prompt_json key total 516 -> 500 (exactly 16 removed, so no other key was
+-- touched), 0 Biology point-total mismatches remaining. 235 published versions
+-- in other subjects still carry total_points and were deliberately untouched.
+--
+-- ---------------------------------------------------------------------------
+-- Why all 16 rather than the 9 that are wrong
+--
+-- Work order I established, and QA confirmed, that NOTHING READS THIS FIELD:
+-- evaluate-attempt sums frq_criteria.points_possible instead. So the question
+-- was never "which number is right" but "should this field exist at all".
+--
+-- 16 Biology items carry it. 9 declare 8 against a rubric summing to 9 -- all
+-- sharing the identical shape a=1;b=3;c=3;d=2, one bad authoring template. The
+-- other 7 carry a value that agrees with its rubric. Removing only the 9 would
+-- leave absence ambiguous: a reader could not tell whether a missing
+-- total_points meant "removed because wrong" or "never had one". Removing all
+-- 16 makes the rule legible -- Biology does not carry this field, and
+-- frq_criteria.points_possible is the single source of point totals.
+--
+-- ---------------------------------------------------------------------------
+-- Rollback data, recorded here because the migration destroys it
+--
+--   total_points = 8  (mismatched against a rubric sum of 9)
+--     c721f9eb-1f78-4fa0-b035-15701b663bde  APBIO-FRQ-L-004 v2
+--     9aaacb20-9b11-4867-aaff-57ec9dbb07cf  APBIO-FRQ-L-006 v2
+--     1514c2ee-7cc6-4173-b547-b1f5535a4e95  APBIO-FRQ-L-012 v2
+--     3f39e127-2862-4a16-9805-c8ad8251a224  APBIO-FRQ-L-013 v2
+--     f9ab1b6b-ec52-479b-9c31-fbad9dcc62e8  APBIO-FRQ-L-015 v2
+--     2fea6947-66ba-4080-9bcb-863c35adeb1b  APBIO-FRQ-L-016 v3
+--     1840ca34-d29d-45f2-b0c1-831759df1d46  APBIO-FRQ-L-017 v2
+--     0d8bb422-95ef-4e50-884e-38f83cb4cf6a  APBIO-FRQ-L-019 v2
+--     072da3bc-ba23-4a52-8ef5-f1bb9a8ae49a  APBIO-FRQ-L-021 v1
+--
+--   total_points = 10 (agreeing with its rubric)
+--     0c9b6720-639f-4dc4-8fab-c66e65271b1d  APBIO-FRQ-L-003 v4
+--     36159394-bd67-47d0-8aa6-24b4d39d45d7  APBIO-FRQ-L-008 v2
+--
+--   total_points = 9  (agreeing with its rubric)
+--     0fbbb21d-7816-41e5-96ef-d5f2d904c3a9  APBIO-FRQ-L-014 v2
+--     13f4a0e3-a018-4ddf-ba71-c4a0ca0d7e67  APBIO-FRQ-L-026 v3
+--     e5703022-8587-4962-ad27-d63b8bb56227  APBIO-FRQ-L-030 v4
+--     4bc0591a-b1a8-4709-9e8d-b749210972b7  APBIO-FRQ-L-031 v5
+--     69b78d2f-d887-4d95-8fa4-0dd416185da6  APBIO-FRQ-L-036 v3
+--
+-- To reverse, jsonb_set each id's prompt_json back to the value above.
+--
+-- ---------------------------------------------------------------------------
+-- Two caveats a reviewer should see before approving
+--
+-- 1. content_hash goes stale, and cannot be maintained. It is
+--    sha256Hex(JSON.stringify(artifact)) over the original intake payload
+--    (supabase/functions/admin-content/index.ts:273), which is not stored, so no
+--    in-place data migration can recompute it. Prior in-place prompt_json
+--    migrations already left it stale, and nothing verifies it at grade time --
+--    evaluate-attempt selects the column but never checks it. This adds to a set
+--    that is already unreliable rather than breaking something that works.
+--
+-- 2. It edits published versions in place, departing from
+--    CONTENT_GOVERNANCE_AND_VALIDATION governing principle 1 (canonical content
+--    immutable and versioned). The strict alternative -- bumping version_num on
+--    16 items -- would orphan the taxonomy label layer's
+--    validated_against_version_id references and force M2/M3 rework, to delete
+--    an unread field. In-place is lower risk here, and the departure is named
+--    rather than hidden.
+--
+-- ---------------------------------------------------------------------------
+-- Subject is resolved through exam_packs.exam_code because app.content_items has
+-- NO subject_key column -- that exists only on the public view. The first
+-- attempt used ci.subject_key and failed; both paths were then verified
+-- read-only to select the identical 16 version ids before applying.
+--
+-- Scoped by predicate rather than by id list, so the intent is legible:
+-- "no published Biology version carries this field." Idempotent -- the
+-- `? 'total_points'` guard makes a re-run a no-op. Scoped to biology only;
+-- apchem-frq-l-012 carries the same defect and belongs to Chemistry's own
+-- completion, deliberately not swept up here.
+
+update app.content_item_versions civ
+set prompt_json = civ.prompt_json - 'total_points'
+from app.content_items ci
+join app.exam_pack_versions epv on epv.id = ci.exam_pack_version_id
+join app.exam_packs ep on ep.id = epv.exam_pack_id
+where ci.id = civ.content_item_id
+  and ep.exam_code = 'ap_biology'
+  and civ.status = 'published'
+  and civ.prompt_json ? 'total_points';
+
+-- ---------------------------------------------------------------------------
+-- Verification. Run after applying; all three must hold.
+--
+--   -- 1. no published Biology version carries the field
+--   --    (public view exposes subject_key; app.content_items does not)
+--   select count(*) from public.content_items ci
+--   join public.content_item_versions civ on civ.content_item_id = ci.id
+--   where ci.subject_key = 'biology' and civ.status = 'published'
+--     and civ.prompt_json ? 'total_points';                            -- expect 0
+--   -- RESULT 2026-09-24: 0
+--
+--   -- 2. exactly 16 rows changed, and nothing outside Biology did
+--   --    (compare against the id list above)
+--
+--   -- 3. no other prompt_json key was touched: key counts drop by exactly 1
+--   --    on those 16 and are unchanged on every other Biology version.
+--   -- RESULT 2026-09-24: Biology prompt_json key total 516 -> 500, exactly 16.

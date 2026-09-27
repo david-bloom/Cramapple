@@ -1,0 +1,189 @@
+{
+  "schema_version": "course-mode-generated-0.1",
+  "package_id": "two_way_proportions-022007",
+  "content_key": "apstat-two_way_proportions-022007",
+  "item_type": "mcq",
+  "difficulty": "Medium",
+  "exam_pack_ref": {
+    "exam_code": "ap_statistics",
+    "cycle": "2026-27"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "unit-2"
+    },
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "topic-2.2"
+    },
+    {
+      "scheme_key": "ap-statistics-skills",
+      "node_key": "skill-3.B",
+      "practice": 3
+    }
+  ],
+  "cells": [
+    {
+      "topic": "2.2",
+      "skill": "3.B"
+    }
+  ],
+  "prompt": "The table shows students in two grade levels and their usual way to get to school: 9th grade: Bus 44, Car 38, Bike/Walk 24; 12th grade: Bus 30, Car 56, Bike/Walk 20. Calculate the marginal proportion in the Car category.",
+  "numeric_form": {
+    "answer_desc": "proportion = 0.443",
+    "deterministic_checks": [
+      {
+        "kind": "numeric",
+        "value": 0.443,
+        "tol": 0.001
+      }
+    ]
+  },
+  "mcq_form": {
+    "options": [
+      {
+        "text": "0.557",
+        "correct": false,
+        "misconception": "u2_2__used_complement_category",
+        "misconception_source": {
+          "tag": "u2_2__used_complement_category",
+          "label": "Used the complement category within the correct denominator",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 2 (2.2)",
+              "note": "two-way-table calculations require matching the requested category, not its complement"
+            }
+          ]
+        }
+      },
+      {
+        "text": "0.404",
+        "correct": false,
+        "misconception": "u2_2__reported_conditional_instead_of_marginal",
+        "misconception_source": {
+          "tag": "u2_2__reported_conditional_instead_of_marginal",
+          "label": "Reported a conditional proportion instead of a marginal proportion",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 2 (2.2)",
+              "note": "marginal proportions use row or column totals over the grand total, while conditional proportions use a restricted denominator"
+            }
+          ]
+        }
+      },
+      {
+        "text": "0.443",
+        "correct": true,
+        "misconception": null
+      },
+      {
+        "text": "0.179",
+        "correct": false,
+        "misconception": "u2_2__used_joint_cell_as_margin",
+        "misconception_source": {
+          "tag": "u2_2__used_joint_cell_as_margin",
+          "label": "Used a joint cell proportion when a marginal proportion was requested",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 2 (2.2)",
+              "note": "marginal proportions summarize a whole row or column of a two-way table, not just one joint cell"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "worked_solution": "Use the column total over the grand total: 94/212 = 0.4434.",
+  "parts": [
+    {
+      "part_key": "part-a",
+      "prompt": "The table shows students in two grade levels and their usual way to get to school: 9th grade: Bus 44, Car 38, Bike/Walk 24; 12th grade: Bus 30, Car 56, Bike/Walk 20. Calculate the marginal proportion in the Car category.",
+      "response_modalities": [
+        "mcq",
+        "numeric"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "proportion = 0.443",
+          "required_evidence": "Use the column total over the grand total: 94/212 = 0.4434.",
+          "deterministic_checks": [
+            {
+              "kind": "numeric",
+              "value": 0.443,
+              "tol": 0.001
+            }
+          ],
+          "accepted_variants": []
+        }
+      ]
+    }
+  ],
+  "scenario_provenance": {
+    "archetype": "Q2",
+    "archetype_label": "Multi-focus on Practices 3 & 4 (analyze data; interpret results)",
+    "task_verb": "Calculate",
+    "practice": 3,
+    "modality": "exam_aligned_digital",
+    "validity_rules": [
+      "a two-way table of counts for two categorical variables",
+      "marginal proportions use row/column totals over the grand total",
+      "conditional proportions use the total within the stated condition"
+    ],
+    "sources": [
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S5 (Free-response archetypes)",
+        "note": "Section II question archetypes Q1-Q4"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S6 (Task verbs)",
+        "note": "the item stem's verb must match the scored demand"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S7 (Response modality)",
+        "note": "digital Bluebook; text/numeric entry -> exam_aligned_digital"
+      }
+    ],
+    "domain": "education"
+  },
+  "provenance": {
+    "generator": "course_mode_stats_generator/generator.py",
+    "template_id": "two_way_proportions",
+    "params": {
+      "scenario_id": "u2_2__club_grade_transport",
+      "observed": [
+        [
+          44,
+          38,
+          24
+        ],
+        [
+          30,
+          56,
+          20
+        ]
+      ],
+      "query_type": "col_marg",
+      "row": "9th grade",
+      "column": "Car"
+    },
+    "seed": 22007,
+    "release_status": "unreleased_generated_pending_review",
+    "note": "Synthetic; not official CB content. Requires CM-D19 template-release + review."
+  }
+}
