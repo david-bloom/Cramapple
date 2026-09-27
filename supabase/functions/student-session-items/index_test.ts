@@ -44,6 +44,15 @@ type Spec = {
   // content_item_topic_resolution_status_gate.integration.sql, since a
   // mock can't exercise a SQL-level WHERE clause.
   topicResolution?: Row[];
+  // Phase 2 (cell_scoped mode) -- app.content_items parent rows (content_key/
+  // title/frq_form/practice_format) and app.content_item_versions rows
+  // (id/content_item_id/stem/...) the two-query cell_scoped selector reads.
+  // Kept distinct from `packages` (also modeled on the content_item_versions
+  // mock table, for the unrelated dual-read adapter) -- both are merged into
+  // the same fake list, which is harmless since neither query's shape
+  // collides with the other's fields.
+  cellScopedParents?: Row[];
+  cellScopedVersions?: Row[];
 };
 
 // deno-lint-ignore no-explicit-any
@@ -75,8 +84,12 @@ function makeService(spec: Spec) {
     // above), but deliverRows queries it as a list (.select().in()) for the
     // dual-read adapter -- tableBuilder resolves .maybeSingle() and the
     // awaited list independently, so both call shapes are served correctly.
-    content_item_versions: spec.packages ?? [],
+    content_item_versions: [
+      ...(spec.packages ?? []),
+      ...(spec.cellScopedVersions ?? []),
+    ],
     content_item_topic_resolution: spec.topicResolution ?? [],
+    content_items: spec.cellScopedParents ?? [],
   };
   const appSchema = {
     from: (t: string) =>
@@ -544,6 +557,137 @@ Deno.test("an item with a legacy stem is unaffected by an unrelated package payl
   assertEquals(items[0].choices, [
     { choice_key: "A", choice_text: "the real legacy choice" },
   ]);
+});
+
+/* -------------------------------------------------------------------------- */
+/* Phase 2 (CONTENT_TAXONOMY_RATIONALIZATION_PLAN_2026_09_26.md): cell_scoped  */
+/* mode serves every published MCQ for the pack, unclamped, with a cell.      */
+/* -------------------------------------------------------------------------- */
+
+function cellScopedParent(n: number) {
+  return {
+    id: `ci${n}`,
+    content_key: `apstat-u1-${n}-2a`,
+    title: `Item ${n}`,
+    frq_form: null,
+    practice_format: null,
+  };
+}
+
+function cellScopedVersion(n: number) {
+  return {
+    id: `cv${n}`,
+    content_item_id: `ci${n}`,
+    stem: `Stem ${n}`,
+    stimulus: null,
+    stimulus_image_path: null,
+    prompt_json: {},
+    published_at: `2026-01-${String(n).padStart(2, "0")}T00:00:00Z`,
+  };
+}
+
+Deno.test("cell_scoped mode serves every published MCQ for the pack, not just MAX_ITEMS's old 20-item shape", async () => {
+  // 25 items -- more than the pre-Phase-2 MAX_ITEMS=20 cap -- to prove the
+  // mode is not silently truncated to the old ceiling. No `limit` sent, so
+  // it defaults to the (now 999) MAX_ITEMS, well above 25.
+  const n = 25;
+  const parents = Array.from({ length: n }, (_, i) => cellScopedParent(i + 1));
+  const versions = Array.from({ length: n }, (_, i) => cellScopedVersion(i + 1));
+  const choices = Array.from({ length: n }, (_, i) => ({
+    content_item_version_id: `cv${i + 1}`,
+    choice_key: "A",
+    choice_text: "a safe choice",
+  }));
+
+  const { status, json } = await call(
+    {
+      session: ACTIVE_SESSION,
+      cellScopedParents: parents,
+      cellScopedVersions: versions,
+      choices,
+      topicResolution: [{
+        content_item_version_id: "cv1",
+        topic_code: "1.2",
+        skill_code: "2.A",
+        topic_title: "Telling variable types apart",
+        unit_number: 1,
+      }],
+    },
+    { learning_session_id: SESSION_ID, mode: "cell_scoped" },
+  );
+
+  assertEquals(status, 200);
+  const result = json.result as Record<string, unknown>;
+  const items = result.items as Array<Record<string, unknown>>;
+  assertEquals(items.length, n);
+  assertEquals(result.reason, null);
+  // Every item is tagged mcq and carries choices -- never blended with FRQ.
+  assert(items.every((i) => i.item_type === "mcq"));
+  // The cell resolution path (Phase 1, already live) is exercised here too.
+  assertEquals(items[0].cell, {
+    topic_code: "1.2",
+    skill_code: "2.A",
+    topic_title: "Telling variable types apart",
+    unit_number: 1,
+  });
+  // An item the resolution view has no row for still serves -- absent, not
+  // fabricated (see buildResolvedCells).
+  assertEquals(items[1].cell, null);
+});
+
+Deno.test("cell_scoped mode still honors an explicit smaller limit", async () => {
+  const parents = Array.from({ length: 5 }, (_, i) => cellScopedParent(i + 1));
+  const versions = Array.from({ length: 5 }, (_, i) => cellScopedVersion(i + 1));
+  const choices = Array.from({ length: 5 }, (_, i) => ({
+    content_item_version_id: `cv${i + 1}`,
+    choice_key: "A",
+    choice_text: "a safe choice",
+  }));
+
+  const { status, json } = await call(
+    {
+      session: ACTIVE_SESSION,
+      cellScopedParents: parents,
+      cellScopedVersions: versions,
+      choices,
+    },
+    { learning_session_id: SESSION_ID, mode: "cell_scoped", limit: 3 },
+  );
+
+  assertEquals(status, 200);
+  const result = json.result as Record<string, unknown>;
+  assertEquals((result.items as unknown[]).length, 3);
+});
+
+Deno.test("cell_scoped mode reports no_matching_content when the pack has no published MCQs", async () => {
+  const { status, json } = await call(
+    { session: ACTIVE_SESSION, cellScopedParents: [], cellScopedVersions: [] },
+    { learning_session_id: SESSION_ID, mode: "cell_scoped" },
+  );
+  assertEquals(status, 200);
+  const result = json.result as Record<string, unknown>;
+  assertEquals(result.items, []);
+  assertEquals(result.reason, "no_matching_content");
+});
+
+Deno.test("cell_scoped mode omits an item with no choices, fail-closed like every other MCQ path", async () => {
+  const { status, json } = await call(
+    {
+      session: ACTIVE_SESSION,
+      cellScopedParents: [cellScopedParent(1)],
+      cellScopedVersions: [cellScopedVersion(1)],
+      choices: [],
+    },
+    { learning_session_id: SESSION_ID, mode: "cell_scoped" },
+  );
+  assertEquals(status, 200);
+  const result = json.result as Record<string, unknown>;
+  assertEquals(result.items, []);
+  assertEquals(result.omitted, [{
+    content_key: "apstat-u1-1-2a",
+    reason: "choices_missing",
+  }]);
+  assertEquals(result.reason, "all_items_omitted");
 });
 
 /* -------------------------------------------------------------------------- */

@@ -357,13 +357,24 @@ export async function handleStudentSessionItems(
   // (TASK-0025). "hand_drawn_pilot" (TASK-0038) serves ONLY items explicitly
   // promoted to human_graded_pilot_approved via select_hand_drawn_pilot_items
   // -- a caller must ask for this mode by name, it is never blended into the
-  // ordinary queue. Default "frq_only" keeps the original TASK-0021 behaviour
-  // (select_practice_frqs) unchanged for existing callers. The confirm-transfer
-  // branch ignores mode entirely -- it always serves one same-cell item.
+  // ordinary queue. "cell_scoped" (CONTENT_TAXONOMY_RATIONALIZATION_PLAN_2026_09_26.md
+  // Phase 2) serves every published MCQ for the session's exam pack version,
+  // mirroring the Lovable client's retired buildPublishedMcqQuery filters
+  // exactly (item_type = 'mcq', item + version status = 'published') --
+  // subject-agnostic in the backend; today only the AP Statistics pilot asks
+  // for it by name. Deliberately not capped to a small queue window: the
+  // caller (use-session.ts) holds the whole pool in memory and re-scopes/
+  // reorders it locally, so a partial slice would silently corrupt that
+  // client-side logic. Default "frq_only" keeps the original TASK-0021
+  // behaviour (select_practice_frqs) unchanged for existing callers. The
+  // confirm-transfer branch ignores mode entirely -- it always serves one
+  // same-cell item.
   const ordinaryMode = input.mode === "unit_gated"
     ? "unit_gated" as const
     : input.mode === "hand_drawn_pilot"
     ? "hand_drawn_pilot" as const
+    : input.mode === "cell_scoped"
+    ? "cell_scoped" as const
     : "frq_only" as const;
   const itemTypeFilter = typeof input.item_type === "string"
     ? input.item_type
@@ -545,6 +556,89 @@ export async function handleStudentSessionItems(
           _limit: limit,
         },
       ));
+    } else if (ordinaryMode === "cell_scoped") {
+      // Mirrors buildPublishedMcqQuery's filters (src/lib/use-published-mcq.ts,
+      // Lovable "New Cramapple App"): published MCQ content_items joined to
+      // their published content_item_versions, scoped to this session's exam
+      // pack version. No practice_format requirement -- MCQs on this path
+      // were never gated by it (targeted_drill/full_exam_frq is an FRQ-only
+      // concept). Two queries instead of one RPC: content_key/title/frq_form/
+      // practice_format live on app.content_items, stem/stimulus/prompt_json
+      // live on app.content_item_versions, and PostgREST embedding across
+      // schemas from the service client is more brittle than a plain in()
+      // fetch here.
+      const { data: parentRows, error: parentError } = await service
+        .schema("app")
+        .from("content_items")
+        .select("id, content_key, title, frq_form, practice_format")
+        .eq("exam_pack_version_id", session.exam_pack_version_id)
+        .eq("item_type", "mcq")
+        .eq("status", "published");
+      if (parentError) {
+        selected = null;
+        selectError = parentError;
+      } else {
+        const parentIds = (parentRows ?? []).map((r) => r.id as string);
+        if (!parentIds.length) {
+          selected = [];
+          selectError = null;
+        } else {
+          const { data: versionRows, error: versionError } = await service
+            .schema("app")
+            .from("content_item_versions")
+            .select(
+              "id, content_item_id, stem, stimulus, stimulus_image_path, prompt_json, published_at",
+            )
+            .in("content_item_id", parentIds)
+            .eq("status", "published")
+            .order("published_at", { ascending: true });
+          if (versionError) {
+            selected = null;
+            selectError = versionError;
+          } else {
+            const parentById = new Map(
+              (parentRows ?? []).map((
+                r,
+              ) => [r.id as string, r as {
+                id: string;
+                content_key: string;
+                title: string;
+                frq_form: string | null;
+                practice_format: string | null;
+              }]),
+            );
+            selected = ((versionRows ?? []) as Array<{
+              id: string;
+              content_item_id: string;
+              stem: string;
+              stimulus: string | null;
+              stimulus_image_path: string | null;
+              prompt_json: unknown;
+              published_at: string | null;
+            }>)
+              .map((v) => {
+                const parent = parentById.get(v.content_item_id);
+                if (!parent) return null;
+                return {
+                  content_item_version_id: v.id,
+                  content_item_id: v.content_item_id,
+                  content_key: parent.content_key,
+                  title: parent.title,
+                  stem: v.stem,
+                  stimulus: v.stimulus,
+                  stimulus_image_path: v.stimulus_image_path,
+                  prompt_json: v.prompt_json,
+                  frq_form: parent.frq_form,
+                  practice_format: parent.practice_format,
+                  item_type: "mcq",
+                };
+              })
+              .filter((r): r is NonNullable<typeof r> => r !== null)
+              .slice(0, limit);
+            selectError = null;
+          }
+        }
+      }
     } else if (ordinaryMode === "hand_drawn_pilot") {
       // No practice_format requirement -- pilot items aren't tied to the
       // targeted_drill/full_exam_frq model (APBIO-HDG-2026-GRAPH-002 carries
