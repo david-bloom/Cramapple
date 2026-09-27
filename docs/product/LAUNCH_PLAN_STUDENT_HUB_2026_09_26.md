@@ -379,6 +379,26 @@ The remaining real risk for October 2 is the first-user access boundary, not the
 grading. Verify a brand-new student receives the free/trial subject entitlement required by
 Production and can complete grading in both Day-1 subjects.
 
+### CORRECTION, 2026-09-27 (six-section launch-plan audit): "the absence of real grading" IS a live risk
+
+The paragraph above understated the risk. The infrastructure being wired and reachable is not the same
+claim as grading actually completing for a real student, and a direct query of Production found it
+does not. All 78 `grading_results` rows in Production trace only to David's account, one internal
+QA-test account, and the 2026-07-28 pilot account — **no real student has ever had a graded attempt
+complete in Production.** The one confirmed real, non-test student, `bkmicahb@gmail.com`, still has
+two Biology FRQ attempts sitting ungraded since 2026-08-22 — over a month later, despite the trial
+entitlement grant and the `attempt-response` gating fix (`docs/tasks/TASK-0016` incident, memory
+`project_engine_rollout_status_2026_09_20.md`) both landing that same day. That memory's earlier note
+that this would "resolve automatically on next retry" did not hold; nobody has confirmed whether a
+retry click was ever attempted, or whether retry itself is broken.
+
+This directly contradicts `LAUNCH_RUNBOOK_2026_10_02.md`'s stop condition ("Biology or Statistics
+cannot complete a real submit-to-grade round trip") and is not resolved by verifying the entitlement
+boundary alone — **TASK-0043's submit-to-grade smoke test must independently confirm a fresh grading
+attempt actually reaches a `grading_results` row, not just that the student reaches the grading call
+without a 403.** Full detail: `docs/product/STUDENT_INTERACTION_DATA_SCHEMA_PLAN_2026_09_27.md`'s
+sibling audit and memory `project_launch_plan_six_section_audit_2026_09_26.md` (Finding 2).
+
 ## Product Goal
 
 The logged-in, student-facing app matches its governing spec closely enough that a real student can
@@ -727,9 +747,24 @@ blocking §7–§11 work. Recommendations are this session's opinion, not a deci
   other subject has an equivalent cell/skill map; that's separate future content/backend work.
 - **NEW canonical session flow:** agreed — standardize on bare `/session`/`SessionFrame.tsx` (the real
   default); retire `/session/mcq`+`/session/frq`. **Closed on shape; actual route retirement not yet
-  executed** — deleting the legacy route today would remove the only fallback/escape hatch (`?home=v1`)
-  while the FeedbackCard redo below is still in flight. Retirement is a follow-up cleanup step once the
-  redo is verified, not urgent to do in the same pass.
+  executed.** The original reason (FeedbackCard redo still in flight, `?home=v1` kept as a fallback) is
+  now resolved — the redo is done and verified (see below) — but a 2026-09-27 attempt to execute the
+  retirement found the scope is bigger than described here and stopped short of any Lovable edit or
+  deploy. **`/session/mcq` and `/session/frq` are not reachable only via `?home=v1`** as this doc
+  originally stated: `_ux.setup.index.tsx` (route `/setup`, a legacy setup wizard) navigates straight to
+  `/session/mcq` with no flag check at all, and `_ux.session.uncertain.tsx` links directly to both
+  routes. Neither `/setup` nor `/session/uncertain` is reachable from the real default flow
+  (`HomeV2`/`TopicHome` only ever navigate to bare `/session`, `/learn/...`, `/progress`, `/ask`,
+  `/logout`) — so this whole cluster looks equally dead by the same reasoning, but deleting only the
+  two originally-named routes would leave `/setup`'s "Start session" button and `/session/uncertain`'s
+  two CTAs pointing at nothing. `GradeResultView.tsx` was confirmed used only by the two legacy routes
+  (not by admin/reviewer tooling, which uses a separate `GradedResponseCard.tsx`), so that part of the
+  original plan still holds. **Awaiting David's call on scope:** widen the retirement to the whole dead
+  cluster (`/session/mcq`, `/session/frq`, `/setup`, `/setup/subject`, `/session/uncertain`'s two links)
+  in one pass, or keep it narrow but re-point `/setup` and `/session/uncertain` at bare `/session` first
+  so nothing dangles. Several historical planning docs (`docs/teaching/COURSE_MODE_STUDENT_UX_INTEGRATION_SPEC.md`,
+  `docs/teaching/COURSE_MODE_SESSION_ASSEMBLY_AND_ENTRY_FLOW_SPEC.md`, and others) still describe
+  `/session/mcq` as "the core loop" and will need a stale-doc pass once this actually ships.
 - **NEW redo FeedbackCard:** agreed, sequenced after the flow decision above, which is now settled.
   **Done** — `TASK-0047` Workstream C, commit `f2475531`, verified — against `SessionFrame.tsx`'s actual
   `ResultPanel`/`CriterionCard`, not `GradeResultView.tsx`.
