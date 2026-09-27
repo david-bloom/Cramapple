@@ -6,6 +6,29 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- `cell_scoped` No-Matching-Content Bug Resolved — Stale Edge Function Deploy, Not a Query/Data Bug
+  (2026-09-27): picked up the paused diagnosis from `LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md`'s
+  "SESSION CLOSE" section (every AP Statistics topic serving `no_matching_content` for a real signed-in
+  account, despite 203 published MCQs confirmed present). **Root cause: Production's and Dev's deployed
+  `student-session-items` Edge Function predated the `cell_scoped` mode commit (`912699b2`,
+  2026-09-26) entirely** — pulled the live deployed source directly and confirmed it had no
+  `cell_scoped` branch and the old `MAX_ITEMS = 20`. Neither environment had been redeployed since that
+  commit landed (`git push` does not deploy Supabase Edge Functions on its own). The stale function
+  silently fell back to its default queue path, which for David's session shape called
+  `select_ordinary_combined_practice_items` — confirmed directly against Production that this RPC
+  returns zero rows for that pack/format, producing exactly the `no_matching_content` seen live.
+  **Side finding fixed first:** 5 tests in `student-session-items/index_test.ts` were silently broken
+  (test-mock/routing mismatch from two branches merging independently, confirmed via a `git worktree`
+  bisection to `912699b2` where all 23 then-existing tests passed) — fixed the mocks only, no runtime
+  change, commit `707a1c52`, 26/26 pass now. **Fix:** redeployed current `main`'s `student-session-items`
+  to Dev then Production (David confirmed both, via `AskUserQuestion`, before the Production deploy);
+  both report an identical `ezbr_sha256`; `get_advisors` shows no new findings. **Not yet done:** a real
+  signed-in HTTP round trip through the fixed function (SQL-level and unit-test verification only so
+  far) — flagged to David to re-try live. **Next Owner:** David Bloom (live re-test), then whoever
+  resumes `LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md`'s IDG-5 live-grading verification, now unblocked.
+  **Next Action:** re-test the AP Statistics topic chip / Home "Start" button live; if clean, resume the
+  IDG-5 live grading round trip. Full detail in `LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md`'s "RESOLVED,
+  2026-09-27" section.
 - Lean Source-of-Truth Startup Mode Adopted (DECISION-0081 / APPROVAL-0055, 2026-09-27): diagnosed why
   Codex session-start was consuming most of a session's usage budget before task work began —
   `CODEX_NEW_SESSION_PROMPT.md` hardcoded an unconditional ~3,200-line, 11-doc read for every task,
@@ -13,10 +36,12 @@ Most recent entries (full reverse-chronological list follows below):
   the three activity/approval/decision logs' "(Index section)" instruction had no enforceable stopping
   point. Rewrote `CODEX_NEW_SESSION_PROMPT.md` and `CLAUDE_NEW_SESSION_PROMPT.md` to classify Tier
   first (pointing at `AGENT_OPERATING_MODEL.md`'s existing Task Tiers definition rather than
-  redefining it, to avoid drift) and size the reading set to that tier; added an explicit
-  `<!-- INDEX_END -->` marker to `ACTIVITY_LOG.md`, `APPROVALS_LOG.md`, and `DECISIONS_LOG.md` so
-  index-only reads have a real stopping point, with a required fallback (read past the marker, don't
-  report absence) if a targeted ID/keyword search finds nothing; added root `AGENTS.md` for repo-wide
+  redefining it, to avoid drift) and size the reading set to that tier; added an end-of-index HTML
+  comment marker to `ACTIVITY_LOG.md`, `APPROVALS_LOG.md`, and `DECISIONS_LOG.md` (see the bottom
+  of each file's Index section for its exact form — deliberately not spelled out here, so this
+  entry's own prose can't be mistaken for the marker by a literal-string reader) so index-only
+  reads have a real stopping point, with a required fallback (read past the marker, don't report
+  absence) if a targeted ID/keyword search finds nothing; added root `AGENTS.md` for repo-wide
   search discipline (no broad scans of `docs/research`, `docs/teaching`, `prompts`, `tmp`, `output`,
   worktree/dependency dirs, generated output, raw logs, image/PDF corpora). David reviewed the
   diagnosis and the protocol draft directly, requested six tightening edits, and approved shipping
@@ -151,6 +176,72 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+---
+
+## `cell_scoped` No-Matching-Content Bug Resolved — Stale Edge Function Deploy — 2026-09-27
+
+**What & why.** The prior session paused mid-diagnosis (per its own "SESSION CLOSE" section in
+`LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md`) on a bug where `student-session-items`'s `cell_scoped` mode
+returned `no_matching_content` for every AP Statistics topic David tried live, despite 203 published
+MCQs genuinely present for his exam pack version. This session's first and only task was to pick that
+diagnosis back up.
+
+**Root cause.** Not a query or data bug — a stale Edge Function deploy. Pulled the actual deployed
+source for `student-session-items` from both Supabase projects via `get_edge_function` and compared it
+directly against `main`:
+
+- Neither deployed function had the `cell_scoped` mode at all — no branch for `input.mode ===
+  "cell_scoped"`, no read of `content_item_topic_resolution`, and `MAX_ITEMS` was still `20` (the pre-
+  taxonomy-rationalization value; `main` has been `999` since 2026-09-26 21:24 ET).
+- `list_edge_functions`' `updated_at` confirmed neither project had redeployed this function since
+  before commit `912699b2` ("Phase 2: add cell_scoped mode to student-session-items," 2026-09-26 22:15
+  ET) — Production last deployed 19:54 UTC that day, Dev 18:48 UTC, both earlier than the commit.
+  `git push` does not deploy a Supabase Edge Function; someone has to run the deploy separately, and
+  nobody did after that commit (or the later `MAX_ITEMS` change) landed.
+- Consequence: the stale function silently treated the unrecognized `mode: "cell_scoped"` as its
+  default `"frq_only"` path. For David's real session shape (`ap_statistics`,
+  `practice_format: "targeted_drill"`), that path calls `select_ordinary_combined_practice_items` —
+  confirmed directly against Production (`execute_sql`, `exam_pack_version_id
+  7c5a2975-8f0e-45b9-8fcc-7ec9b8d81ada`) that this RPC returns **zero rows** for that exact pack/format.
+  That is the literal source of the `no_matching_content` — failing before any client-side topic
+  filtering ever ran, exactly as the paused diagnosis had narrowed it down to.
+- The data itself was never the problem: 203 published MCQ `content_items` and 203 matching published
+  `content_item_versions`, reconfirmed identical on Dev.
+
+**Side finding, fixed first.** 5 tests in `supabase/functions/student-session-items/index_test.ts` were
+silently broken — they seeded `practiceRows` against the suite's default `ACTIVE_SESSION` fixture
+(`practice_format: "mcq"`, `ap_statistics`), but that exact session shape has routed to
+`select_ordinary_combined_practice_items` (seeded via `statisticsRows`, not `practiceRows`) since
+"Unblock AP Statistics MCQ serving path." Bisected with a throwaway `git worktree` at `912699b2`: all 23
+tests existing on that commit passed, because the ap_statistics/`mcq` combined-selector branch and the
+topic/cell-resolution tests were developed on two separate lines that only became inconsistent once
+both merged into `main`. Fixed by renaming the 5 affected mocks' `practiceRows` → `statisticsRows`,
+matching the pattern the file's own passing Statistics tests already use elsewhere. Test-only — no
+runtime code touched. Commit `707a1c52`. `deno test`: 26/26 pass; `deno check`: clean.
+
+**Fix.** Redeployed the current `main` `student-session-items` function (`index.ts` plus its 5
+unchanged `_shared/*.ts` dependencies) to Dev first, then to Production after explicit confirmation from
+David via an `AskUserQuestion` prompt (this touches Production). Verified both deploys report the exact
+same `ezbr_sha256` (`f3e6ebb3...`) — byte-identical bundles on both environments. `get_advisors`
+(security) shows no new findings introduced by the deploy. Dev: function version 8 → 9. Production:
+function version 24 → 25.
+
+**Not yet done.** Deployed and SQL/unit-test-verified, but not yet confirmed via a real signed-in HTTP
+round trip — `requireProfile` needs a genuine user JWT, and generating one without an interactive
+sign-in was out of scope here. Flagged directly to David to re-try the AP Statistics topic chip / Home
+"Start" button live. If it still misbehaves after this deploy, that is a new finding, not a repeat of
+this one.
+
+**Process note.** Worth carrying forward: after a meaningful Edge Function change, confirm the function
+actually redeployed — `list_edge_functions`/`get_edge_function`'s `updated_at` versus the relevant
+commit's timestamp is a fast, cheap check. This particular gap sat live for most of a day before
+anyone hit it in practice.
+
+**Next Owner:** David Bloom (live re-test of the fix). **Next Action:** re-test the AP Statistics topic
+chip / Home "Start" button live on `app.cramapple.com`; if clean, resume
+`LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md`'s IDG-5 live-grading verification, which this bug had been
+blocking. Full technical detail in that doc's "RESOLVED, 2026-09-27" section.
 
 ---
 

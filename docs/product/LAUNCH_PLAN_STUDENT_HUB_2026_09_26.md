@@ -1323,6 +1323,50 @@ role check), `app.assistance_event_policy`'s seed data (reflects `DECISION-0080`
 session-route cluster (`/session/mcq`, `/session/frq`, `/setup`, `/session/uncertain`) — confirmed live
 and in real use via `TopicHome`'s Resume link, not dead code.
 
+## RESOLVED, 2026-09-27 (new session): `cell_scoped` `no_matching_content` bug — root cause was a stale Edge Function deploy, not a query or data bug
+
+Picked back up per this doc's own "Exact next step." Root cause found and fixed within the hour;
+**not** the query-logic bug the paused diagnosis suspected.
+
+- **Root cause:** Production's (and Dev's) deployed `student-session-items` Edge Function predated the
+  `cell_scoped` mode entirely. Pulled the actual deployed source via `get_edge_function` and confirmed
+  it had no `cell_scoped` branch, no `content_item_topic_resolution` read, and `MAX_ITEMS = 20` (not the
+  `999` on `main`) — i.e. it was frozen before commit `912699b2` ("Phase 2: add cell_scoped mode",
+  2026-09-26 22:15 ET). Both projects' `updated_at` (`Production` 2026-09-26 19:54 UTC, `Dev` 18:48 UTC)
+  confirmed neither had been redeployed since. Supabase Edge Functions are not deployed by `git push` —
+  someone has to run the deploy — and nobody did after that commit landed.
+- **Why it produced exactly `no_matching_content`, not an obvious 400/500:** the stale function silently
+  treats an unrecognized `mode: "cell_scoped"` as the default `"frq_only"` path. For David's real session
+  shape (`ap_statistics`, `practice_format: "targeted_drill"`), that path routes to
+  `select_ordinary_combined_practice_items` — confirmed directly against Production
+  (`exam_pack_version_id 7c5a2975-...`) that this RPC returns **zero rows** for that pack/format. Data
+  itself was never the problem (203 published MCQ `content_items`, 203 matching published
+  `content_item_versions` — reconfirmed identical on Dev).
+- **Side finding, fixed first so the redeploy wasn't verified against an untrustworthy suite:** 5 tests
+  in `student-session-items/index_test.ts` had been silently broken since two independently-developed
+  branches merged — they seeded `practiceRows` against the default `ACTIVE_SESSION` fixture
+  (`practice_format: "mcq"`, `ap_statistics`), but that session shape has routed to
+  `select_ordinary_combined_practice_items` (seeded via `statisticsRows`) since "Unblock AP Statistics
+  MCQ serving path," so the seeded rows were never read. Confirmed via `git worktree` at `912699b2` that
+  all 23 tests passed there (the ap_statistics/`mcq` combined-selector branch didn't exist yet on that
+  line); the break was introduced when that branch merged with the topic/cell-resolution tests added on
+  a separate line. Fixed by renaming the 5 mocks' `practiceRows` → `statisticsRows`, matching the
+  established pattern the file's own passing Statistics tests already use. Test-only; no runtime code
+  changed. Commit `707a1c52`. 26/26 pass now (`deno test`), `deno check` clean.
+- **Fix:** redeployed the current `main` `student-session-items` (`index.ts` + its 5 unchanged
+  `_shared/*.ts` deps) to Dev first, then Production, after explicit confirmation from David. Both now
+  report `ezbr_sha256: f3e6ebb3...` — byte-identical bundles. `get_advisors` (security) shows no new
+  findings versus before the deploy. Dev: version 8 → 9. Production: version 24 → 25.
+- **Not yet done — live HTTP verification:** deployed and SQL-level-verified, but not yet confirmed via
+  a real signed-in HTTP round trip (`requireProfile` needs a real user JWT; generating one without an
+  interactive sign-in was out of scope for this pass). **David: worth trying the AP Statistics topic
+  chip / Home "Start" button again now** — if `cell_scoped` still misbehaves, that's a genuinely new
+  finding, not a repeat of this bug.
+- **Process note worth carrying forward:** confirm an Edge Function actually deployed after a
+  meaningful backend change, not just that the migration applied and tests passed. `list_edge_functions`
+  / `get_edge_function`'s `updated_at` vs. the relevant commit's timestamp is the fast check; this bug
+  sat live for most of a day before anyone hit it.
+
 ## Out of Scope
 
 Redesigning any already-decided section of the interaction design spec — raise a proposal to David
