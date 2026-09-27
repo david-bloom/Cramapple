@@ -916,6 +916,39 @@ GAP-9. This confirms mastery cannot ship for Oct 2 on content grounds without ei
 or scoping mastery to the ~19 complete cells — a decision for David, consistent with the runbook already
 treating mastery as post-launch.
 
+## DECIDED + IN BUILD, 2026-09-27: the plate loop is the new-templates architecture
+
+David directed (2026-09-27): make the **plate loop** — Open Hand (teach) → Practice (do), plus BYOQ —
+the real student-facing architecture, and build it out ("completing student hub including this
+architecture is your goal"), running autonomously to the Production-deploy Hard Gate. Full detail and
+sequencing: `docs/product/PLATE_LOOP_BUILD_PLAN_2026_09_27.md`.
+
+**Why this is tractable close to launch:** the plate Practice templates already run on the same live
+grading backend as SessionFrame (`session-event → attempt-response → evaluate-attempt`), and the Open
+Hand "face-up" content already exists server-side (it was just never exposed to the client). So this is
+frontend/routing plus one additive, read-only, entitlement-gated backend read — not a grading rebuild
+or a content-authoring project.
+
+**Two product rules captured this session:**
+- BYOQ **never grades**. "We do not grade or correct student work. We will scaffold their BYOQ with
+  rubric, reference, deep dive and any other info but not grade." BYOQ classifies the pasted question to
+  a topic and shows that topic's scaffolding around the student's own question, hint-gated.
+- Practice aids (rubric, how-points, deep dive, reference) are **hint-gated** (closed by default, each
+  revealed by its own hint, which marks the attempt coached). Open Hand shows them all face-up.
+
+**Build status (all behind an off-by-default `plate-loop` flag; `/session` stays the default/fallback):**
+- **P1 — plumbing: DONE** (Lovable `96219e2c`). Same-skill targeting on Live Practice, Open Hand "Try
+  one on your own" CTA, `plate-loop` flag + `practiceEntry()` switch. 415/415 tests.
+- **P2 — live Open Hand: DONE (pending deploy).** New gated `open-hand-item` edge function
+  (`supabase/functions/open-hand-item/`, repo PR #214) returns the face-up payload; frontend containers/
+  adapters/routes wire Open Hand to it (Lovable `d0bf136c`). 425/425 tests. Coverage confirms both Day-1
+  subjects (Bio 43/43 MCQ, 71/75 FRQ segments; Stats 304/304 MCQ, 35/69 segments). Data layer
+  Dev-verified.
+- **P3 — BYOQ scaffold (no grade): in build.**
+- **P4 — deploy package:** the Lovable app and its preview point at **Production** Supabase, so the loop
+  only goes live once `open-hand-item` is deployed to Production and the Lovable app is published — both
+  Hard Gates for David. Nothing is deployed autonomously.
+
 ## Out of Scope
 
 Redesigning any already-decided section of the interaction design spec — raise a proposal to David
