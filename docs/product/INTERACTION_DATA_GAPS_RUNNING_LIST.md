@@ -14,7 +14,13 @@ finding, evidence query + count, moved to **§2 Closed** when resolved. Nothing 
 
 ## 1. Open
 
-### IDG-5 — RESOLVED: `attempts`' entire grading-truth update was silently failing on every real attempt
+(IDG-5 and IDG-1 moved to §2 Closed, 2026-09-27 — see below for the live-verification evidence. Nothing
+else currently open in this section as of this pass — see "Not yet run" at the bottom for what Phase 0
+still hasn't covered.)
+
+## 2. Closed
+
+### IDG-5 — CLOSED, 2026-09-27: `attempts`' entire grading-truth update was silently failing on every real attempt
 - **Symptom (2026-09-27):** Not just `confidence_level`/`result_summary` (IDG-1) — **every** column the
   post-grading `attempts.update()` writes is 0% populated: `status` is only ever `draft`/`submitted`
   (never `graded`/`uncertain`), `graded_at`/`score_points`/`score_possible` are null on all 104 rows.
@@ -66,16 +72,21 @@ finding, evidence query + count, moved to **§2 Closed** when resolved. Nothing 
   a real service-role connection, so this one was never actually broken. No other occurrences found.
 - **Practical impact:** low in retrospect for grading itself (`grading_results` was always the real
   source of truth, per `project_engine_rollout_status_2026_09_20` memory) but this was a real, silent
-  gap in `attempts.status`/`graded_at`/`score_points` for every graded attempt ever. Not yet verified
-  against a real live student grading event (same credential blocker as launch plan item 3) — the fix is
-  proven correct via the scratch-row test above, but hasn't been observed end-to-end through the actual
-  `evaluate-attempt` HTTP path with a real student attempt.
+  gap in `attempts.status`/`graded_at`/`score_points` for every graded attempt ever.
+- **Live-verified, 2026-09-27 (new session):** David submitted a real answer at `app.cramapple.com`
+  (topic `1.13`) and it graded. Queried Production directly: attempt `d7663902-a06f-4423-8471-706fd4765d8e`
+  shows `status`/`result_state` both `"graded"`, `graded_at` set ~1.5s after `submitted_at`,
+  `score_points: 0`/`score_possible: 1` — the fix now confirmed on real HTTP traffic, not just the
+  scratch-row DB test.
 
-### IDG-1 — `attempts.confidence_level` / `result_summary` write-path bug — still open, numbers re-confirmed
-- **Evidence (2026-09-27):** `count(confidence_level)` = 0/108, `count(result_summary)` = 0/108 in
-  `app.attempts`. Matches the 2026-09-26/27 audit exactly — no drift.
-- **Status:** Superseded by the broader IDG-5 finding above — this isn't two isolated dead columns, it's
-  the entire update silently failing. Error logging shipped; root cause still needs live confirmation.
+### IDG-1 — CLOSED, 2026-09-27: `attempts.confidence_level` / `result_summary` write-path bug
+- **Evidence (2026-09-27, same session as IDG-5's diagnosis):** `count(confidence_level)` = 0/108,
+  `count(result_summary)` = 0/108 in `app.attempts`. Matches the 2026-09-26/27 audit exactly — no drift.
+- **Status:** Was superseded by, and closed together with, the broader IDG-5 fix — this was never two
+  isolated dead columns, it was the entire update silently failing.
+- **Live-verified, 2026-09-27 (new session):** the same real attempt above (`d7663902-...`) shows
+  `confidence_level: "high"` and `result_summary: "Not quite. Review the selected answer against the
+  published choices."` — both columns populate correctly on real traffic now.
 
 ## 2. Closed
 
