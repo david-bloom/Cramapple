@@ -28,6 +28,7 @@ import {
 } from "../_shared/grading-feedback.ts";
 import { gradeAgainstChecks } from "../_shared/deterministic-verifier.ts";
 import { persistCellState } from "../_shared/cell-state-persist.ts";
+import { deriveAssistanceState } from "../_shared/assistance-state.ts";
 import {
   type AllowedOperation,
   applyDeterministicFlagScope,
@@ -1044,7 +1045,7 @@ export async function handleEvaluateAttempt(
     service.schema("app")
       .from("attempts")
       .select(
-        "id, user_id, learning_session_id, exam_pack_version_id, content_item_version_id, artifact_version_id, attempt_mode, status, assistance_state, started_at, submitted_at, graded_at, score_points, score_possible",
+        "id, user_id, learning_session_id, exam_pack_version_id, content_item_version_id, artifact_version_id, attempt_mode, status, assistance_state, pre_submit_hint_count, started_at, submitted_at, graded_at, score_points, score_possible",
       )
       .eq("id", attemptId)
       .maybeSingle(),
@@ -1072,6 +1073,15 @@ export async function handleEvaluateAttempt(
   if (!responseVersion.is_submitted) {
     return respond({ error: "response_not_submitted" }, { status: 409 });
   }
+
+  // DECISION-0080 / STUDENT_INTERACTION_DATA_SCHEMA_PLAN_2026_09_27.md Phase 1
+  // item 1: attempts.assistance_state was entirely client-supplied until now.
+  // Derive the server-truth value once here and use it everywhere below
+  // instead of the raw attempt.assistance_state column.
+  const derivedAssistanceState = deriveAssistanceState(
+    attempt.assistance_state as string | null,
+    attempt.pre_submit_hint_count as number | null,
+  );
 
   const effectiveContentItemVersionId =
     requestedContentItemVersionId ?? attempt.content_item_version_id as string;
@@ -1517,6 +1527,7 @@ export async function handleEvaluateAttempt(
       confidence_level: finalResult.confidence,
       result_state: "graded",
       result_summary: finalResult.student_facing_summary,
+      assistance_state: derivedAssistanceState,
     }).eq("id", attempt.id);
 
     await persistGradingTelemetry(service, idempotencyKey, {
@@ -1530,7 +1541,7 @@ export async function handleEvaluateAttempt(
       sessionId: attempt.learning_session_id as string | null,
       attemptId: attempt.id,
       attemptMode: attempt.attempt_mode as string,
-      assistanceState: attempt.assistance_state as string,
+      assistanceState: derivedAssistanceState as string,
       finalStatus: "graded",
       pointsEarned: finalResult.points_earned,
       pointsAvailable: finalResult.points_available,
@@ -1555,7 +1566,7 @@ export async function handleEvaluateAttempt(
       attemptId: attempt.id as string,
       subjectId: examPack.subject_id as string,
       sessionId: attempt.learning_session_id as string | null,
-      assistanceState: attempt.assistance_state as string | null,
+      assistanceState: derivedAssistanceState,
       finalStatus: "graded",
       pointsEarned: finalResult.points_earned,
       pointsAvailable: finalResult.points_available,
@@ -2180,6 +2191,7 @@ export async function handleEvaluateAttempt(
       confidence_level: finalPayload.confidence,
       result_state: finalStatus,
       result_summary: finalPayload.student_facing_summary,
+      assistance_state: derivedAssistanceState,
     })
     .eq("id", attempt.id);
 
@@ -2188,7 +2200,7 @@ export async function handleEvaluateAttempt(
     sessionId: attempt.learning_session_id as string | null,
     attemptId: attempt.id,
     attemptMode: attempt.attempt_mode as string,
-    assistanceState: attempt.assistance_state as string,
+    assistanceState: derivedAssistanceState as string,
     finalStatus,
     pointsEarned: finalPayload.points_earned,
     pointsAvailable: finalPayload.points_available,
@@ -2218,7 +2230,7 @@ export async function handleEvaluateAttempt(
     attemptId: attempt.id as string,
     subjectId: examPack.subject_id as string,
     sessionId: attempt.learning_session_id as string | null,
-    assistanceState: attempt.assistance_state as string | null,
+    assistanceState: derivedAssistanceState,
     finalStatus,
     pointsEarned: finalPayload.points_earned,
     pointsAvailable: finalPayload.points_available,
