@@ -53,6 +53,7 @@ CONTEXTS = SCN.PROPORTION_CONTEXTS
 TWO_GROUP = SCN.TWO_GROUP_CONTEXTS
 REG_CONTEXTS = SCN.REGRESSION_CONTEXTS
 NORMAL_CONTEXTS = SCN.NORMAL_CONTEXTS
+BINOMIAL_CONTEXTS = SCN.BINOMIAL_CONTEXTS
 MEAN_CONTEXTS = SCN.MEAN_CONTEXTS
 TWO_MEAN_CONTEXTS = SCN.TWO_MEAN_CONTEXTS
 CATEGORICAL_CONTEXTS = SCN.CATEGORICAL_CONTEXTS
@@ -278,6 +279,74 @@ def gen_normal_prob(rng: random.Random, seed: int) -> Dict:
                     [{"kind": "numeric", "value": round(below, 4), "tol": tol}],
                     f"{below:.4f}", below, tol, distractors,
                     {"mu": mu, "sigma": sigma, "x": x}, checks, scenario_domain=c["domain"])
+
+
+def _binom_pmf(n: int, k: int, p: float) -> float:
+    return math.comb(n, k) * (p ** k) * ((1 - p) ** (n - k))
+
+
+def _binom_tail_ge(n: int, k: int, p: float) -> float:
+    return sum(_binom_pmf(n, j, p) for j in range(k, n + 1))
+
+
+def gen_binomial_probability(rng: random.Random, seed: int) -> Dict:
+    """Exact binomial probability for exactly k successes (cell 2.10 x 3.C).
+    Uses stdlib math.comb; no scipy/new dependency. Distractors encode concrete
+    formula errors and are kept as plausible probabilities distinct from the key."""
+    c = rng.choice(BINOMIAL_CONTEXTS)
+    tol = 0.005
+    n = k = 0
+    p = key = 0.0
+    distractors: List[Tuple[str, str, float]] = []
+    for _ in range(800):
+        n = int(rng.choice(c["n_choices"]))
+        p = float(rng.choice(c["p_choices"]))
+        k = rng.randint(1, n - 1)
+        key = _binom_pmf(n, k, p)
+        # Distractor candidates: each is a named, documented binomial formula slip.
+        no_comb = (p ** k) * ((1 - p) ** (n - k))                         # omitted C(n,k)
+        swapped = math.comb(n, k) * (p ** (n - k)) * ((1 - p) ** k)        # p and 1-p swapped
+        tail_ge = _binom_tail_ge(n, k, p)                                  # P(X >= k) not P(X = k)
+        cand = [
+            (no_comb, "u2_10__omitted_combination_count"),
+            (swapped, "u2_10__swapped_success_failure_probability"),
+            (tail_ge, "u2_10__used_tail_probability_for_exact_count"),
+        ]
+        distractors = []
+        chosen: List[float] = []
+        for val, tag in cand:
+            if not (0.0 <= val <= 1.0):
+                continue
+            if abs(val - key) <= 3 * tol:
+                continue
+            if any(abs(val - prior) <= 3 * tol for prior in chosen):
+                continue
+            distractors.append((f"{val:.4f}", tag, val))
+            chosen.append(val)
+        if 0.025 <= key <= 0.45 and len(distractors) == 3:
+            break
+    prompt = (f"{c['who'].capitalize()} models each {c['trial_unit']} as an independent trial with "
+              f"probability {p:.2f} that it {c['success']}. For {n} trials, calculate the "
+              f"probability of exactly {k} successes.")
+    worked = (f"Let X ~ Binomial(n={n}, p={p:.2f}). "
+              f"P(X = {k}) = C({n},{k})({p:.2f})^{k}({1-p:.2f})^{n-k} = {key:.4f}.")
+    checks = [
+        ("binomial_formula", abs(key - math.comb(n, k) * (p ** k) * ((1 - p) ** (n - k))) < 1e-12),
+        ("valid_parameters", n >= 1 and 0 <= k <= n and 0 < p < 1),
+        ("prob_in_0_1", 0.0 <= key <= 1.0),
+        ("key_not_tiny_or_dominant", 0.025 <= key <= 0.45),
+        ("three_plausible_distractors", len(distractors) == 3),
+        ("distractors_valid_probabilities", all(0.0 <= v <= 1.0 for _, _, v in distractors)),
+        ("distractors_clear_of_key", all(abs(v - key) > 2 * tol for _, _, v in distractors)),
+        ("distractors_distinct", len({d for d, _, _ in distractors}) == 3),
+        ("distractor_tags_distinct", len({tag for _, tag, _ in distractors}) == 3),
+    ]
+    return _package("binomial_probability", seed, "2.10", ["3.C"], "Medium", prompt,
+                    f"P(X = {k}) = {key:.4f}", worked,
+                    [{"kind": "numeric", "value": round(key, 4), "tol": tol}],
+                    f"{key:.4f}", key, tol, distractors,
+                    {"scenario_id": c["id"], "n": n, "k": k, "p": p}, checks,
+                    scenario_domain=c["domain"])
 
 
 def gen_summary_stats(rng: random.Random, seed: int) -> Dict:
@@ -862,6 +931,7 @@ PROCEDURES: Dict[str, Callable[[random.Random, int], Dict]] = {
     "lsrl_predict": gen_lsrl_predict,
     "normal_prob": gen_normal_prob,
     "two_way_proportions": gen_two_way_proportions,
+    "binomial_probability": gen_binomial_probability,
     "summary_stats": gen_summary_stats,
     "compare_stats": gen_compare_stats,
     "t_test_mean": gen_t_test_mean,
@@ -1012,6 +1082,7 @@ def property_report(per_proc: int = 80) -> Dict:
         ("ci_higher_conf_wider", S.one_prop_ci(64, 100, 0.99)[1] > S.one_prop_ci(64, 100, 0.95)[1]),
         ("ci_larger_n_narrower", S.one_prop_ci(128, 200, 0.95)[1] < S.one_prop_ci(64, 100, 0.95)[1]),
         ("normal_cdf_monotone", S.norm_cdf(0.0) < S.norm_cdf(1.0) < S.norm_cdf(2.0)),
+        ("binomial_pmf_known_value", abs(_binom_pmf(5, 2, 0.4) - 0.3456) < 1e-12),
         ("two_prop_equal_groups_z0", abs(S.two_prop_ztest(50, 100, 50, 100)[3]) < 1e-9),
         ("lsrl_perfect_line_r1", abs(S.lsrl([1, 2, 3, 4], [3, 5, 7, 9])[2] - 1.0) < 1e-9),
         ("misconception_catalog_selfcheck", not MISC.validate_catalog()),
