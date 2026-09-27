@@ -102,10 +102,26 @@ export async function persistCellState(
   try {
     // 1. Item -> cell(s). A read ERROR must skip (not masquerade as "no tag");
     //    only a genuine empty result means "not course-mode content".
+    //
+    // CONTENT_TAXONOMY_RATIONALIZATION_PLAN_2026_09_26.md Phase 1 step 3:
+    // content_item_cells now also carries topic-only rows (skill_code NULL,
+    // e.g. the 112 AP Biology items) since a topic-level assignment is a
+    // legal, real absence of a skill, not a missing value. student_cell_state
+    // has a NOT NULL, FK-enforced skill_code column and cannot hold one of
+    // these rows -- filtering them out here, not there, keeps this the one
+    // place that decides "does this tag produce mastery evidence" (decision
+    // #3 in that plan is still open on whether topic-only mastery should
+    // exist at all; until it's built, a topic-only cell is correctly a
+    // silent no-op, the same as any other untagged item). is_primary=true
+    // also excludes any future secondary/coverage-only cell from ever
+    // writing evidence -- only the one primary topic assignment can.
     const { data: cellRows, error: cellErr } = await input.service.schema("app")
       .from("content_item_cells")
       .select("taxonomy_source_version, topic_code, skill_code")
-      .eq("content_item_version_id", input.contentItemVersionId);
+      .eq("content_item_version_id", input.contentItemVersionId)
+      .eq("is_primary", true)
+      .in("assignment_status", ["validated", "authored"])
+      .not("skill_code", "is", null);
     if (cellErr) {
       console.error("cell_state_persist_cells_read_failed", {
         content_item_version_id: input.contentItemVersionId,
