@@ -117,16 +117,19 @@ updated as work lands.
 - **Decision landed (`D8`, `ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md`):** cheap render-time parser
   stopgap (`src/lib/frq-prose-parts.ts`, TASK-0047 Workstream B, commit `c52c3fd6`), not a content
   migration. No longer decision-gated for that reason — tracked open now only for the bug below.
-- **Bug found + fixed, 2026-09-27:** the parser silently dropped any text after the last labeled
-  `(a)/(b)/(c)` block — a closing instruction like "Justify your answer using the data above." never
-  reached the student, a real scoring-fairness defect (reported by David from a Lovable error surface).
-  Root cause: the function computed the preamble before the first label but never captured anything
-  after the last one. Fixed by appending trailing blocks to the last part's body instead of discarding
-  them, with a new regression test. Sent to Lovable 2026-09-27 (see `LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md`
-  for the outcome once verified) — this repo's own copy of the parser (none exists here; the file lives
-  only in the Lovable frontend) was not touched, so this fix is Lovable-only.
-- **Owner:** — · **Status:** OPEN pending verification of the trailing-text fix; otherwise the parser
-  stopgap itself is considered shipped and working as decided.
+- **Bug found + fixed + verified, 2026-09-27:** the parser silently dropped any text after the last
+  labeled `(a)/(b)/(c)` block — a closing instruction like "Justify your answer using the data above."
+  never reached the student, a real scoring-fairness defect (reported by David from a Lovable error
+  surface). Root cause: the function computed the preamble before the first label but never captured
+  anything after the last one. Fixed in Lovable commit `e580786e`: trailing blocks now append to the
+  last part's body instead of being discarded. Verified via `get_diff` against the exact spec sent — a
+  new regression test (`"keeps a closing instruction that follows the last labeled part"`), the existing
+  5 tests unchanged, full suite 433/433, typecheck clean. Scope-checked: the parser's only caller is
+  `use-session.ts`, client-side at render time; nothing server-side or content-authoring reads its
+  output and no stored attempt/response depended on it, so the bug only hid text visually, never
+  corrupted stored data. This repo has no copy of the parser (it lives only in the Lovable frontend).
+- **Owner:** — · **Status:** CLOSED. `D8`'s parser stopgap is shipped and this bug in it is fixed and
+  verified.
 
 ### GAP-5 — Stimulus-image plate treatment
 - **Scope:** 6 published Biology FRQ carry a `stimulus_image_path`
