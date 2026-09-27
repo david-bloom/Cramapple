@@ -47,6 +47,12 @@ for detailed evidence and post-launch commercial work.
 
 ### 3. AP Biology flat-path smoke
 
+**Content-servability pre-check done (TASK-0044, 2026-09-26, read-only against Production): Pass.**
+Criteria 1/2/4/6 confirmed live for both FRQ and MCQ; both item types confirmed actually reachable via
+live RPC calls (`select_practice_frqs`, `select_biology_practice_items`). See
+`SUBJECT_SERVABILITY_CRITERIA.md`'s TASK-0044 note for full evidence. This smoke test should not hit a
+content-side failure for Biology.
+
 - [ ] Start a real AP Biology practice session through the live student UI.
 - [ ] Receive a real published question from the flat practice path.
 - [ ] Submit and receive a real server-side grade and criterion-level feedback.
@@ -54,8 +60,19 @@ for detailed evidence and post-launch commercial work.
 
 ### 4. AP Statistics flat-path smoke
 
+**Content-servability pre-check done (TASK-0044, 2026-09-26, read-only against Production): FRQ Pass;
+MCQ Blocked at the backend-RPC layer.** FRQ content and live serving both confirmed. MCQ content is
+fully ready (101/101 with a correct answer) but **no backend RPC can serve it on the flat path** —
+`select_biology_practice_items` (the only combined FRQ+MCQ selector) is Biology-only by design, and
+`student-session-items` calls only `select_practice_frqs` (FRQ-only) for every other subject in ordinary
+mode. **This smoke test is where that gap surfaces or doesn't** — if the live app cannot actually show
+an AP Statistics MCQ to this test student, that is exactly item 2's "receive both the intended MCQ/FRQ
+experience" failing, and it is a stop condition, not something to work around. See
+`SUBJECT_SERVABILITY_CRITERIA.md`'s TASK-0044 note and TASK-0044's Risks/Issues for full evidence.
+
 - [ ] Start a real AP Statistics practice session through the live student UI.
-- [ ] Receive both the intended MCQ/FRQ experience required by the launch surface.
+- [ ] Receive both the intended MCQ/FRQ experience required by the launch surface — **verify the MCQ
+      side specifically; do not assume it works because FRQ and content are both confirmed ready.**
 - [ ] Submit and receive a real server-side grade and criterion-level feedback.
 - [ ] Confirm the selected exam-pack version has the content the UI requests; do not rely on the
       retired unit-gated or pilot-pack path.

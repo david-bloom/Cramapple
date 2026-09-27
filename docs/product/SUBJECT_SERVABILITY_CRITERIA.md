@@ -52,8 +52,8 @@ the others, and none of them imply the sixth.
 
 | Subject | Status | Doc |
 | --- | --- | --- |
-| AP Biology | Done, 2026-09-24 | `docs/product/AP_BIOLOGY_LAUNCH_READINESS_2026_09_24.md`, `docs/product/AP_BIOLOGY_FAST_FOLLOW.md` |
-| AP Statistics | Criterion 4 (canonicals) closed directly by Claude 2026-09-25, all 35 missing items authored and independently re-verified, 69/69 current-published-version FRQ on the primary (only-functioning) exam pack. Criterion 6's dual-published-version hazard (a second, MCQ-only pack with 0 FRQ served) is untouched by this work and remains a separate P0. | `supabase/migrations/20260925050000_apstats_canonical_answers_35_items.sql`, `prompts/CODEX_WORK_ORDER_AP_STATISTICS_LAUNCH_READINESS_2026_09_24.md`, `docs/content/CLAUDE_QA_REPORT_AP_STATISTICS_AND_PHYSICS_1_2026_09_25.md` |
+| AP Biology | Done, 2026-09-24. **Flat-path criteria 1/2/4/6 re-verified live 2026-09-26 (TASK-0044) — Pass**, see note below the table. | `docs/product/AP_BIOLOGY_LAUNCH_READINESS_2026_09_24.md`, `docs/product/AP_BIOLOGY_FAST_FOLLOW.md` |
+| AP Statistics | Criterion 4 (canonicals) closed directly by Claude 2026-09-25, all 35 missing items authored and independently re-verified, 69/69 current-published-version FRQ on the primary (only-functioning) exam pack. Criterion 6's dual-published-version hazard (a second, MCQ-only pack with 0 FRQ served) is untouched by this work and remains a separate P0. **Flat-path criteria 1/2/4/6 re-verified live 2026-09-26 (TASK-0044): FRQ Pass; MCQ content-ready but no backend selector serves it on the flat path (Statistics has no combined selector — see note below the table); live-app verification is TASK-0043's job.** | `supabase/migrations/20260925050000_apstats_canonical_answers_35_items.sql`, `prompts/CODEX_WORK_ORDER_AP_STATISTICS_LAUNCH_READINESS_2026_09_24.md`, `docs/content/CLAUDE_QA_REPORT_AP_STATISTICS_AND_PHYSICS_1_2026_09_25.md` |
 | AP Calculus AB | Criterion 4 (canonicals) closed and independently re-verified by Claude 2026-09-25, all 33 items, 62/62 FRQ; also fixed a live grading bug (duplicated frq_criteria on 4 items). Codex QA prompt written. Criteria 3 (labels) and 5 (difficulty) still open. | `docs/product/AP_CALCULUS_AB_LAUNCH_READINESS_2026_09_25.md`, `prompts/CODEX_QA_PROMPT_AP_CALCULUS_AB_2026_09_25.md`, `supabase/migrations/20260925000000_apcalcab_dedupe_frq_criteria.sql`, `supabase/migrations/20260925010000_apcalcab_canonical_answers_33_items.sql` |
 | AP Chemistry | Criterion 4 (canonicals) closed by Claude 2026-09-25, last 1 of 53 FRQ. **Correction 2026-09-25 (QA pass):** 53 counts item-level `published` status only; 2 of those 53 FRQ have a `retired` latest version (pre-existing canonicals, untouched by this week's work) — the strict current-published-version count is 51/51. Codex work order written for criteria 3 (labels, 78/123 non-validated) and 5 (difficulty, 0/123), also stated at the item-level count. | `docs/product/AP_CHEMISTRY_LAUNCH_READINESS_2026_09_25.md`, `prompts/CODEX_WORK_ORDER_AP_CHEMISTRY_LABELS_AND_DIFFICULTY_2026_09_25.md`, `docs/content/CLAUDE_QA_REPORT_AP_STATISTICS_AND_PHYSICS_1_2026_09_25.md` |
 | AP Precalculus | Criterion 4 (canonicals) closed 2026-09-25 (Tier 1): Codex proposed 32 items, Claude independently re-derived and applied all 32 (confirmed correct/complete, cosmetic-only P2 phrasing note). Criteria 3 (labels, 30/120 validated) and 5 (difficulty, 0/120) still open. | `docs/product/AP_PRECALCULUS_LAUNCH_READINESS_2026_09_25.md`, `supabase/migrations/20260925150000_apprecalc_canonical_answers_32_items.sql` |
@@ -77,3 +77,37 @@ asserting "Track A always arrives first," verified false with a worked counter-e
 re-verified the six-criteria measurements, live selector behavior, and work-order accuracy for these subjects
 plus Precalculus and Calc BC — see that report for criteria 3/5/6 status, which this remediation pass did not
 touch.
+
+**TASK-0044, 2026-09-26 — October 2 flat-path gate, live verification (criteria 1/2/4/6 only, AP Biology
+and AP Statistics).** Called the actual serving RPCs directly against Production
+(`pcntajvbdfqhbeewmdry`), not modeled from SQL.
+
+- **AP Biology** — criterion 6: confirmed exactly one `published`, non-retired `exam_pack_versions` row
+  (`2d88ba5e-a6a3-43b8-bfae-9e5505a178a7`). Criteria 1/2/4: of 72 published `targeted_drill` FRQ, 71 are
+  servable (the 1 excluded, `APBIO-HDG-2026-GRAPH-010`, is the hand-drawn item `select_practice_frqs`/
+  `select_biology_practice_items` structurally exclude — its missing canonical is expected, not a gap);
+  all 71 servable FRQ have a canonical answer and a rubric. All 43 published MCQ have a correct
+  `mcq_choices` row. Live RPC calls confirm both are actually reachable: `select_practice_frqs(...,
+  'targeted_drill', 50)` returned 50 rows (pool capped by limit); `select_biology_practice_items(...)`
+  returned a real FRQ+MCQ mix (12 FRQ / 8 MCQ at limit 20). **Pass** on this task's scope.
+- **AP Statistics** — criterion 6: re-verified live, still exactly one `published`, non-retired version
+  (`548f06be-ccf4-426d-b82b-b424137a4438`); the pilot pack (`7c5a2975-...`) remains `retired_at` set.
+  Criteria 1/2/4 for FRQ: of 69 published `targeted_drill` FRQ, 49 are non-hand-drawn and servable, all
+  49 with canonical answer and rubric; live `select_practice_frqs(...)` call returned 49 rows, matching
+  exactly. Criteria 1/2/4 for MCQ at the **content** level: all 101 published MCQ have a correct
+  `mcq_choices` row — content is ready. **But there is no backend selector that can serve them on the
+  flat/practice path**: `select_practice_frqs` hard-filters `item_type = 'frq'`, and
+  `select_biology_practice_items` (the only combined FRQ+MCQ selector that exists) is Biology-only by
+  design (`ep.exam_code = 'ap_biology'` in its own WHERE clause) — confirmed by reading
+  `student-session-items/index.ts`, which only routes to it when `sessionExamCode === 'ap_biology'`; for
+  every other subject in ordinary (non-unit-gated) mode it always calls `select_practice_frqs`
+  regardless of the requested item type, so an MCQ request for AP Statistics returns zero through this
+  RPC path, structurally, not intermittently. This is very likely the same effect the 2026-09-24 activity
+  log entry described as "`student-session-items` does not reliably honor its `item_type` filter" and
+  the Lovable-side "client-side fallback... to query published items directly" — this session's
+  evidence suggests that workaround isn't a stopgap for a flaky bug but the *only* path Statistics MCQ
+  practice has ever had, since no backend RPC was ever built for it. **This repo's side is content-Pass,
+  backend-RPC-Blocked; whether the Lovable-side workaround actually serves AP Statistics MCQs correctly
+  in the live app is outside this repo's verification surface and is TASK-0043's runbook item 4 to
+  confirm directly against the live student experience — do not assume it works because the content and
+  FRQ path do.**
