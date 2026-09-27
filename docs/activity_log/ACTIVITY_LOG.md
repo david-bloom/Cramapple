@@ -22,12 +22,12 @@ Most recent entries (full reverse-chronological list follows below):
   bisection to `912699b2` where all 23 then-existing tests passed) — fixed the mocks only, no runtime
   change, commit `707a1c52`, 26/26 pass now. **Fix:** redeployed current `main`'s `student-session-items`
   to Dev then Production (David confirmed both, via `AskUserQuestion`, before the Production deploy);
-  both report an identical `ezbr_sha256`; `get_advisors` shows no new findings. **Not yet done:** a real
-  signed-in HTTP round trip through the fixed function (SQL-level and unit-test verification only so
-  far) — flagged to David to re-try live. **Next Owner:** David Bloom (live re-test), then whoever
-  resumes `LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md`'s IDG-5 live-grading verification, now unblocked.
-  **Next Action:** re-test the AP Statistics topic chip / Home "Start" button live; if clean, resume the
-  IDG-5 live grading round trip. Full detail in `LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md`'s "RESOLVED,
+  both report an identical `ezbr_sha256`; `get_advisors` shows no new findings. **Live-verified:** David
+  re-tried on `app.cramapple.com` immediately after the Production deploy and confirmed content now
+  loads — bug fully closed, no open follow-up. **Next Owner:** whoever resumes
+  `LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md`'s IDG-5 live-grading verification, now unblocked. **Next
+  Action:** attempt the real live grading round trip (sign-in → submit → grade → `attempts` row update)
+  IDG-5 has been waiting on. Full detail in `LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md`'s "RESOLVED,
   2026-09-27" section.
 - Lean Source-of-Truth Startup Mode Adopted (DECISION-0081 / APPROVAL-0055, 2026-09-27): diagnosed why
   Codex session-start was consuming most of a session's usage budget before task work began —
@@ -227,21 +227,19 @@ same `ezbr_sha256` (`f3e6ebb3...`) — byte-identical bundles on both environmen
 (security) shows no new findings introduced by the deploy. Dev: function version 8 → 9. Production:
 function version 24 → 25.
 
-**Not yet done.** Deployed and SQL/unit-test-verified, but not yet confirmed via a real signed-in HTTP
-round trip — `requireProfile` needs a genuine user JWT, and generating one without an interactive
-sign-in was out of scope here. Flagged directly to David to re-try the AP Statistics topic chip / Home
-"Start" button live. If it still misbehaves after this deploy, that is a new finding, not a repeat of
-this one.
+**Live verification: done.** David re-tested on `app.cramapple.com` immediately after the Production
+deploy and confirmed content now loads. `cell_scoped` MCQ serving is healthy in Production again — this
+bug is fully closed, no open follow-up.
 
 **Process note.** Worth carrying forward: after a meaningful Edge Function change, confirm the function
 actually redeployed — `list_edge_functions`/`get_edge_function`'s `updated_at` versus the relevant
 commit's timestamp is a fast, cheap check. This particular gap sat live for most of a day before
 anyone hit it in practice.
 
-**Next Owner:** David Bloom (live re-test of the fix). **Next Action:** re-test the AP Statistics topic
-chip / Home "Start" button live on `app.cramapple.com`; if clean, resume
-`LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md`'s IDG-5 live-grading verification, which this bug had been
-blocking. Full technical detail in that doc's "RESOLVED, 2026-09-27" section.
+**Next Owner:** whoever resumes `LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md`'s IDG-5 live-grading
+verification, now unblocked. **Next Action:** attempt the real live grading round trip (sign-in →
+submit → grade → `attempts` row update) IDG-5 has been waiting on. Full technical detail in that doc's
+"RESOLVED, 2026-09-27" section.
 
 ---
 

@@ -1357,11 +1357,9 @@ Picked back up per this doc's own "Exact next step." Root cause found and fixed 
   `_shared/*.ts` deps) to Dev first, then Production, after explicit confirmation from David. Both now
   report `ezbr_sha256: f3e6ebb3...` — byte-identical bundles. `get_advisors` (security) shows no new
   findings versus before the deploy. Dev: version 8 → 9. Production: version 24 → 25.
-- **Not yet done — live HTTP verification:** deployed and SQL-level-verified, but not yet confirmed via
-  a real signed-in HTTP round trip (`requireProfile` needs a real user JWT; generating one without an
-  interactive sign-in was out of scope for this pass). **David: worth trying the AP Statistics topic
-  chip / Home "Start" button again now** — if `cell_scoped` still misbehaves, that's a genuinely new
-  finding, not a repeat of this bug.
+- **Live HTTP verification: DONE.** David re-tried live on `app.cramapple.com` immediately after the
+  Production deploy and confirmed content now loads. `cell_scoped` MCQ serving is healthy in Production
+  again. This bug is fully closed — no open follow-up.
 - **Process note worth carrying forward:** confirm an Edge Function actually deployed after a
   meaningful backend change, not just that the migration applied and tests passed. `list_edge_functions`
   / `get_edge_function`'s `updated_at` vs. the relevant commit's timestamp is the fast check; this bug
