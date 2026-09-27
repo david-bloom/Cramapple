@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0080 — `DECISION-0074` Addendum: the Four Gated Aids (Rubric, Points, Deep Dive, Reference) All Count as Pre-Submission Hint Use for Mastery; Approves Rebuilding `SessionFrame`'s Live Hint Gating to Match (Workstream B1 of the "Gate the Four Aids" Plan)
 - DECISION-0079 — Promote All 293 `provisional_model` Topic Labels (112 AP Biology + 181 AP Statistics) to `validated`; Both Now Visible Through `content_item_topic_resolution`
 - DECISION-0078 — Ratify Three Session-Start Bootstrap Edits: Live Lovable Front-Ends in the Repository Map, Required First-Read of the Architecture/Design One-Pager + INDEX, and an Anti-Stale Rule
 - DECISION-0077 — BYOQ Is Identity-Agnostic: `byoq_items.user_id` Not Required (Anonymous on Marketing, Recognized-but-Not-Gated In-App); Resolves the DECISION-0070 ⟷ DECISION-0068 Conflict
@@ -29,6 +30,80 @@ Most recent entries (full chronological list follows below):
 (Note: the TASK-0012 branch independently logged its own DECISION-0027/0028 — CORS/ALLOWED_ORIGINS and budget-burn semantics — under different numbers on its own branch. Those land separately when that work merges to `main`; this charter-adoption decision claimed 0027/0028 here because `main` had not yet recorded entries past DECISION-0026 at merge time. If both branches' numbering collides on merge, renumber on whichever side merges second and update this index.)
 
 (Note: the same collision recurred 2026-09-26. The `claude/launch-planning-cram-4oyh2g` branch independently claimed DECISION-0068 through 0072 for five launch-planning decisions, not knowing `main` had already recorded its own DECISION-0068 (BYOQ parallel tables, TASK-0039 Phase 1) by the time this branch merged. Per the rule above, this branch — the later-merging side — renumbered its five decisions to DECISION-0069 through 0073 at merge time; main's DECISION-0068 is untouched. If you are reading an older copy of any of the five renumbered decisions (in a plan doc, a chat log, or a stale local checkout) under its original 0068-0072 number, this is why the number no longer matches — the content is unchanged, only the ID moved.)
+
+## DECISION-0080 — `DECISION-0074` Addendum: Hint-Definition Boundary for Mastery
+
+**Date:** 2026-09-27
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Approval:** Product Owner direction, 2026-09-27 (this session)
+**Related Docs:** `docs/product/STUDENT_INTERACTION_DATA_SCHEMA_PLAN_2026_09_27.md` (Open Decision #1, the
+hard gate this resolves); `DECISION-0074` (the mastery rule this addends); `.lovable/plan/gate-the-four-aids-in-practice-findings-and-plan-2026-09-27.md`
+(same-day Lovable investigation this decision is grounded in — real code, not the schema plan's
+candidate-event list)
+**Area:** Product / Mastery / Schema
+
+### Context
+
+`DECISION-0074` requires "no hint use prior to submission" for mastery, but left "which in-attempt
+events count as hint use" undefined — the schema plan's Phase 1 items 1-2 (hint-tracking table +
+mastery counters) were hard-gated on this answer, because the plan's own reasoning holds: logging an
+event now that's later ruled non-disqualifying is a cheap recompute; *not* logging one now that's later
+ruled disqualifying is unrecoverable history.
+
+David's answer: **"there are four hints in the architecture. clicking on any of them is recorded in the
+schema. if that action happens before scoring, it counts against mastery."** Verified against the live
+codebase (`56cae479`) before recording, rather than taken as an abstract answer: the four gated aids
+that actually exist, per `HintGate.jsx`'s call sites, are **Rubric/criteria preview, "How points are
+earned/lost," Deep Dive, and Reference Materials** (there is also a fifth, MCQ-only bonus gate,
+Elimination — not one of "the four," left as a bonus/aside per the same architecture). All four are
+built and gated in the **plate Practice templates** (`/practice-mcq`, `/practice-frq`) via `HintGate`/
+`DeepDiveGate`; none of the four exist yet on the route a real student actually reaches by default
+(bare `/session` → `SessionFrame.tsx`, which has exactly one pre-submit aid, "I need help," ungated by
+`HintGate` at all).
+
+**This gap was surfaced and put to David directly rather than silently building the schema against an
+architecture real students can't reach:** asked whether to (a) build the schema for all four and treat
+`SessionFrame` rebuild as a prerequisite, or (b) build for what's live today (one aid) and extend later.
+**Answer: (a), all four — rebuild `SessionFrame` to match.**
+
+### Decision
+
+1. **Hint-definition boundary (unblocks schema plan Phase 1 items 1-2):** an in-attempt event counts
+   as disqualifying "hint use before submission" under `DECISION-0074` if and only if the student opens
+   one of the four gated aids — **Rubric/criteria preview, Points-earned/lost, Deep Dive, or Reference
+   Materials** — before the attempt is scored. (Elimination, the MCQ-only bonus gate, is out of scope
+   of "the four" as David named them; whether it also disqualifies is not decided here and should not
+   be assumed either way until asked.) Opening any one of the four sets `pre_submit_hint_count > 0` for
+   that attempt regardless of how many total opens occur, per the schema plan's Phase 1 item 1 design
+   (`app.attempt_assistance_events`, one row per open event, rolled up via
+   `app.assistance_event_policy.disqualifies_mastery`).
+2. **Live-path scope (new, not in the schema plan):** the four-hint model only exists in the unlinked
+   plate templates today. David approved **Workstream B1** of the "gate the four aids" plan — split
+   `SessionFrame`'s single "I need help" link into four separate `HintGate`s (Rubric preview, Points,
+   Reference, Deep Dive) on the live default path — as the way to make this decision enforceable for
+   real students, not just plate-template demo traffic. **Workstream B2** (replace `SessionFrame`'s
+   question UI wholesale with the plate templates) is explicitly **not** approved — the investigating
+   plan itself recommends against it as a follow-on edit, given the scope (react-router-dom hooks,
+   `SessionProvider` state, confirm-transfer/repair/recheck/skill-rail carry-over).
+
+### Not resolved by this decision — real blockers to B1, not yet executed
+
+- **Data source gap, flagged by the same investigation, not newly found here:** a rubric-preview gate
+  needs a student-safe rubric source for served items, which doesn't exist today (`PracticeFrqScreen`
+  already notes this for its own unlinked route). Reference Materials and Deep Dive content likewise
+  have no data source on served items yet — only the plate templates' local sample content has it.
+  **B1 cannot show real content in three of its four gates until this content/data gap is closed
+  separately** — gating an empty pane is not the same as gating real content, and shipping empty gates
+  to real students needs its own explicit go-ahead, not an assumption bundled into this decision.
+- **Server-side "coached" propagation** for the plate templates' live routes (`LivePracticeMcq`/
+  `LivePracticeFrq`) is itself unconfirmed — today they only pass `hintsUsed` into the client-side
+  result receipt, not to the grading server. Workstream A of the same plan (unrelated to B1, smaller/
+  lower-risk) already flags this as a "stop and report" item if the grade endpoint has no such field.
+- **This decision does not itself build anything.** It resolves the open policy question the schema
+  plan needed and approves B1's scope; implementing `attempt_assistance_events`, the four `HintGate`
+  splits in `SessionFrame`, and the content/data-source work above are separate, still-unexecuted
+  engineering tasks.
 
 ## DECISION-0079 — Promote All 293 `provisional_model` Topic Labels to `validated`
 
