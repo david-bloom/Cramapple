@@ -1003,6 +1003,40 @@ topic/skill cell label, and Biology's `taxonomy_cells` legal grid is still empty
 authoring, not a data flip. Carried-forward item #1 from the taxonomy rationalization close-out is now
 resolved (the labels are promoted); GAP-9 itself is unchanged by this decision.
 
+## EXECUTED, 2026-09-27: `STUDENT_INTERACTION_DATA_SCHEMA_PLAN_2026_09_27.md` Phase 1 items 1-2 — schema built, application code not wired
+
+`DECISION-0080` unblocked the hard gate; applied migration `20260927170000_interaction_data_phase1_hint_tracking.sql`
+to Dev (`wmgjsdkphcyhngaffbqf`) then Production (`pcntajvbdfqhbeewmdry`). Built:
+
+- `app.assistance_event_policy` (event_kind → disqualifies_mastery, versioned by `effective_from`),
+  seeded per `DECISION-0080`: `rubric_preview`/`points_earned_lost`/`deep_dive`/`reference_materials` =
+  `true`, `elimination` = `false` (not one of "the four," undecided, logged non-disqualifying by
+  default).
+- `app.attempt_assistance_events` (append-only event log, RLS mirrors `attempts` ownership,
+  `relative_to_submission`/`hint_ordinal`/`counts_toward_hint_rule` derived server-side by a
+  `SECURITY DEFINER` trigger — never client-supplied).
+- `app.attempts.pre_submit_hint_count` (denormalized rollup, maintained by a second trigger).
+- `app.student_cell_state.mastery_mcq_correct_count`/`mastery_frq_full_count`/`mastery_reached_at`
+  (columns only).
+
+**Verified in Dev before/after trusting it:** inserted synthetic before/after-submission events against
+a real Dev attempt, confirmed `relative_to_submission`/`counts_toward_hint_rule`/the `pre_submit_hint_count`
+rollup all computed correctly, then deleted the test rows and manually reset the counter (the rollup
+trigger has no decrement-on-delete path — fine for the real append-only usage pattern, but meant this
+test's cleanup needed a manual counter reset, which was done; Dev returned to its pre-test state,
+Production was never touched by testing). `get_advisors` (security) shows exactly one new finding,
+expected and matching precedent (`app.assistance_event_policy` has RLS enabled with no policies — same
+class as `taxonomy_topics`/`taxonomy_cells`, a service-managed config table).
+
+**Not done — this migration only makes the schema exist:**
+- `evaluate-attempt/index.ts` still needs to derive `attempts.assistance_state` from this table instead
+  of trusting the client (Phase 1 item 1's other half).
+- `_shared/cell-state.ts` still needs to populate the new `student_cell_state` mastery counters.
+- `SessionFrame` emits zero events into this table until the separately-approved Workstream B1 rebuild
+  (the four `HintGate` split, `DECISION-0080`) ships — until then this schema has no real writer.
+- Phase 1 items 3-6 (active time, student confidence, retry-reason, recommendation provenance) were
+  deliberately left out of this migration — not gated on `DECISION-0080`, but a separate pass.
+
 ## Out of Scope
 
 Redesigning any already-decided section of the interaction design spec — raise a proposal to David
