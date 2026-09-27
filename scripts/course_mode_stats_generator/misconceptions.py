@@ -343,6 +343,26 @@ CATALOG: Dict[str, Misconception] = {m.tag: m for m in [
        "needed to compare the two distributions.",
        "ced_structural", ["compare_stats"], ["1.9"], ["3.B"],
        [_fp("S10 Unit 1 (1.9)", "comparing distributions involves contrasting the groups, not reporting one group alone")]),
+
+    # --- slot-frame FB-U1-3-3A-CAT-TABLE-01 (1.3 x 3.A) : one categorical tables ---
+    _M("u1_3__count_percent_confusion",
+       "Confused counts with relative frequencies",
+       "Selected a table that reports raw counts where relative frequencies were requested, or treats percents as counts.",
+       "ced_structural", ["slotframe_u1_3_cat_tables"], ["1.3"], ["3.A"],
+       [_fp("S10 Unit 1 (1.3)", "one-categorical-variable tables distinguish frequency counts from relative frequencies")]),
+
+    _M("u1_3__relative_frequency_denominator_error",
+       "Used the wrong denominator for a relative frequency",
+       "Computed a category relative frequency using a subgroup or partial total instead of the full one-variable total requested by the table.",
+       "ced_structural", ["slotframe_u1_3_cat_tables"], ["1.3"], ["3.A"],
+       [_fp("S10 Unit 1 (1.3)", "relative frequency for one categorical variable uses the category count divided by the total number of observations")]),
+
+    _M("u1_3__quantitative_display_for_categories",
+       "Used a quantitative display for categorical values",
+       "Treated category labels as positions on a numeric scale rather than representing category counts or relative frequencies.",
+       "ced_structural", ["slotframe_u1_3_cat_tables"], ["1.3"], ["3.A"],
+       [_fp("S10 Unit 1 (1.3/1.4)", "categorical variables are summarized by category counts or proportions, not by arithmetic spacing of labels")]),
+
     # --- slot-frame FB-U1-2-2A-VARIABLES-01 (1.2 x 2.A) : variable types ------
     _M("u1_2__numeric_codes_called_quantitative",
        "Treated numeric labels or codes as quantitative variables",
@@ -364,6 +384,27 @@ CATALOG: Dict[str, Misconception] = {m.tag: m for m in [
        "ced_structural", ["slotframe_u1_2_variables"], ["1.2"], ["2.A"],
        [_fp("S10 Unit 1 (1.2)",
             "quantitative variables record numerical measurements or counts for which arithmetic comparisons are meaningful")]),
+    # --- slot-frame FB-U1-4-3A-CAT-GRAPH-01 (1.4 x 3.A) : categorical graphs ----
+    _M("u1_4__count_percent_graph_confusion",
+       "Used counts as if they were relative frequencies",
+       "Labeled a relative-frequency graph with raw counts or treated counts as percentages without dividing by the total.",
+       "ced_structural", ["slotframe_u1_4_cat_graphs"], ["1.4"], ["3.A"],
+       [_fp("S10 Unit 1 (1.4)",
+            "graphs for categorical data may display counts or relative frequencies; relative frequencies require dividing by the total")]),
+
+    _M("u1_4__relative_frequency_graph_denominator_error",
+       "Computed graph percentages with the wrong denominator",
+       "Computed relative-frequency bar heights using a category count instead of the total number of observations.",
+       "ced_structural", ["slotframe_u1_4_cat_graphs"], ["1.4"], ["3.A"],
+       [_fp("S10 Unit 1 (1.4)",
+            "relative frequencies for categorical data use each category count divided by the total count")]),
+
+    _M("u1_4__categorical_graph_as_quantitative_axis",
+       "Treated category labels as values on a quantitative axis",
+       "Represented categories as ordered numerical values and connected them as though the variable were quantitative.",
+       "ced_structural", ["slotframe_u1_4_cat_graphs"], ["1.4"], ["3.A"],
+       [_fp("S10 Unit 1 (1.4/1.5)",
+            "categorical variables are displayed with category-based graphs, not a quantitative number line or connected-value display")]),
     # --- slot-frame FB-U1-6-4A-DISTRIBUTION-01 (1.6 x 4.A) : descriptions ---
     _M("u1_6__skew_direction_reversed",
        "Reversed the direction of skew",
@@ -449,6 +490,28 @@ CATALOG: Dict[str, Misconception] = {m.tag: m for m in [
        "Claimed bias from a described random sampling plan even though the scenario gives no undercoverage, nonresponse, voluntary-response, or wording problem.",
        "ced_structural", ["slotframe_u1_12_bias"], ["1.12"], ["2.A"],
        [_fp("S10 Unit 1 (1.10-1.13)", "bias claims must be supported by the sampling scenario rather than assumed from sample size alone")]),
+
+    # --- slot-frame FB-U2-1-4A-TWOWAY-01 (2.1 x 4.A) : two-way table interpretation ---
+    _M("u2_1__raw_counts_as_conditional_comparison",
+       "Compared raw counts instead of conditional proportions",
+       "Used a larger cell count as evidence of a larger within-group proportion without accounting for different row totals.",
+       "ced_structural", ["slotframe_u2_1_twoway_interpret"], ["2.1"], ["4.A"],
+       [_fp("S10 Unit 2 (2.1/2.2)",
+            "two-way tables are interpreted through marginal and conditional distributions; comparing groups requires matching denominators")]),
+
+    _M("u2_1__used_column_denominator_for_row_condition",
+       "Used the column total when the condition was the row group",
+       "Computed percentages within the response category rather than within each row group named in the comparison.",
+       "ced_structural", ["slotframe_u2_1_twoway_interpret"], ["2.1"], ["4.A"],
+       [_fp("S10 Unit 2 (2.1/2.2)",
+            "conditional distributions must use the denominator for the stated condition, such as the row total when comparing within row groups")]),
+
+    _M("u2_1__marginal_percent_treated_as_conditional",
+       "Treated a marginal percentage as a conditional percentage",
+       "Used the overall percentage in a category as though it described each comparison group separately.",
+       "ced_structural", ["slotframe_u2_1_twoway_interpret"], ["2.1"], ["4.A"],
+       [_fp("S10 Unit 2 (2.1/2.2)",
+            "marginal distributions summarize one variable overall; conditional distributions summarize one variable within levels of another")]),
 
     # --- slot-frame FB-U1-13-2A-DESIGN-01 (1.13 x 2.A) : experimental design ---
     _M("u1_13__confounding_vs_lurking_confused",
