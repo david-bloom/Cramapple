@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0081 — Lean Source-of-Truth Startup Mode: Tier-First Session-Start Reading for Codex and Claude, `AGENTS.md` Search Discipline, and Log `INDEX_END` Markers
 - DECISION-0080 — `DECISION-0074` Addendum: the Four Gated Aids (Rubric, Points, Deep Dive, Reference) All Count as Pre-Submission Hint Use for Mastery; Approves Rebuilding `SessionFrame`'s Live Hint Gating to Match (Workstream B1 of the "Gate the Four Aids" Plan)
 - DECISION-0079 — Promote All 293 `provisional_model` Topic Labels (112 AP Biology + 181 AP Statistics) to `validated`; Both Now Visible Through `content_item_topic_resolution`
 - DECISION-0078 — Ratify Three Session-Start Bootstrap Edits: Live Lovable Front-Ends in the Repository Map, Required First-Read of the Architecture/Design One-Pager + INDEX, and an Anti-Stale Rule
@@ -30,6 +31,65 @@ Most recent entries (full chronological list follows below):
 (Note: the TASK-0012 branch independently logged its own DECISION-0027/0028 — CORS/ALLOWED_ORIGINS and budget-burn semantics — under different numbers on its own branch. Those land separately when that work merges to `main`; this charter-adoption decision claimed 0027/0028 here because `main` had not yet recorded entries past DECISION-0026 at merge time. If both branches' numbering collides on merge, renumber on whichever side merges second and update this index.)
 
 (Note: the same collision recurred 2026-09-26. The `claude/launch-planning-cram-4oyh2g` branch independently claimed DECISION-0068 through 0072 for five launch-planning decisions, not knowing `main` had already recorded its own DECISION-0068 (BYOQ parallel tables, TASK-0039 Phase 1) by the time this branch merged. Per the rule above, this branch — the later-merging side — renumbered its five decisions to DECISION-0069 through 0073 at merge time; main's DECISION-0068 is untouched. If you are reading an older copy of any of the five renumbered decisions (in a plan doc, a chat log, or a stale local checkout) under its original 0068-0072 number, this is why the number no longer matches — the content is unchanged, only the ID moved.)
+
+<!-- INDEX_END -->
+
+## DECISION-0081 — Lean Source-of-Truth Startup Mode: Tier-First Session-Start Reading, `AGENTS.md`, Log `INDEX_END` Markers
+
+**Date:** 2026-09-27
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Approval:** Product Owner direction, 2026-09-27 (this session); see `APPROVAL-0055`
+**Related Docs:** `prompts/CODEX_NEW_SESSION_PROMPT.md`, `prompts/CLAUDE_NEW_SESSION_PROMPT.md`,
+`docs/team_charter/CRAMAPPLE_SESSION_START.md`, `AGENTS.md` (new), `docs/activity_log/ACTIVITY_LOG.md`,
+`APPROVALS_LOG.md`, `DECISIONS_LOG.md` (this file)
+**Area:** Operating Policy / Session Startup
+
+### Context
+
+Codex session-start cost had grown large enough to consume most of a session's usage budget before
+any task work began. Diagnosis (independently corroborated by Codex and Claude): the entry-point
+prompt `CODEX_NEW_SESSION_PROMPT.md` hardcoded an unconditional read of 11 governance/log/product
+docs (~3,200 lines) for every task regardless of size, and its "(Index section)" instruction for the
+three activity/approval/decision logs had no enforceable stopping point, so a normal read pulled each
+full log (400-900+ lines) instead of its ~30-130 line index. This directly contradicted
+`CRAMAPPLE_SESSION_START.md`'s own existing guidance ("Read only the documents needed for a clearly
+bounded task. The broad orientation list is a fallback, not mandatory ceremony for every Micro
+task.") — the entry-point prompt was stricter than the protocol it was supposed to invoke.
+
+### Decision
+
+Adopt a tier-first startup protocol ("Lean Source-of-Truth Mode") for both Codex and Claude new
+sessions:
+
+- Classify the task's Tier (Micro / Standard / Hard-Gate) before choosing a reading set, using the
+  existing Task Tiers definition in `AGENT_OPERATING_MODEL.md` as the sole test — the startup
+  prompts do not redefine tier criteria themselves, to avoid two definitions drifting apart.
+- Micro tasks read only `CRAMAPPLE_SESSION_START.md` and the named task record by default; the full
+  11-doc stack is reserved for Standard/Hard-Gate or genuinely unclear-scope work.
+- The three activity/approval/decision logs now carry an explicit `<!-- INDEX_END -->` marker after
+  their Index section (added to `ACTIVITY_LOG.md`, `APPROVALS_LOG.md`, `DECISIONS_LOG.md` in this
+  change). Startup reading stops at that marker and searches by exact ID/date/keyword before ever
+  reading a full log; an empty targeted search must be reported as such, not treated as proof the
+  record doesn't exist.
+- A new root `AGENTS.md` sets repo-wide search discipline (no broad scans of `docs/research`,
+  `docs/teaching`, `prompts`, `tmp`, `output`, worktree/dependency directories, generated output, raw
+  logs, or image/PDF corpora; targeted search and capped output everywhere else).
+- `prompts/CODEX_NEW_SESSION_PROMPT.md` and `prompts/CLAUDE_NEW_SESSION_PROMPT.md` were rewritten in
+  parallel to this rule set (each keeping its own tool-specific tail — Claude's operating-model/
+  model-effort section, Codex's explicit do-not-implement-past-approval language).
+- An escalation from a lower tier to a higher one changes required approvals and status path (per
+  `TASK_WORKFLOW.md`), not just the reading list — both must be applied together.
+- This is an operating-policy change to how every future session bootstraps; it does not change
+  authority order, approval lanes, or any hard gate.
+
+### Not resolved by this decision
+
+- Repo-size hygiene (large tracked PDFs, raw `.jsonl` model-call logs, generated SQL under
+  `scripts/*/out`) is a real, separate finding and is explicitly deferred to its own task — it was not
+  bundled with this change.
+- The pre-existing debt of both `APPROVALS_LOG.md`'s and `DECISIONS_LOG.md`'s Index sections already
+  exceeding their own "~10 entries" rotation target is unchanged by this decision.
 
 ## DECISION-0080 — `DECISION-0074` Addendum: Hint-Definition Boundary for Mastery
 
