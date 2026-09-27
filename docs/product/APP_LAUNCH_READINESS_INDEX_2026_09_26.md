@@ -20,8 +20,9 @@ Payment flow (plan 2) is **removed from the Friday launch-critical path** — it
 follow-up. This is a bigger change than the "next week" window from `DECISION-0070`: not a paid launch
 delayed slightly, but a free launch with payment added later. Friday's actual critical path is now:
 plan 5 (Subject onboarding gate, Biology + Statistics only), plan 4 (Student hub — still gated on D-1/
-D-2 below), plan 1 (Marketing home page — now a free-access page, not a purchase page, plus the BYOQ
-scope from `DECISION-0070`), and plan 3 only insofar as it unblocks plan 5 for the two Day-1 subjects.
+D-2 below), and plan 1 (Marketing home page — now a free-access page, not a purchase page, plus the
+BYOQ scope from `DECISION-0070`). Under `DECISION-0072`, plan 3 does **not** block Friday: Biology and
+Statistics both use flat practice paths, so their unit-gated labels/difficulty are deferred.
 See `DECISION-0071` for full consequences. The five-plan structure and "Definition of launch-ready"
 below still describe full commercial launch-readiness — Friday's actual bar is narrower; don't confuse
 the two.
@@ -44,20 +45,20 @@ before agents execute further, rather than embedding unverified assumptions in t
 | --- | --- | --- | --- |
 | 1 | Marketing home page | `LAUNCH_PLAN_MARKETING_HOME_PAGE_2026_09_26.md` | Not started |
 | 2 | Payment flow | `LAUNCH_PLAN_PAYMENT_FLOW_2026_09_26.md` | **Deferred, not Friday-critical** (`DECISION-0071`) — post-launch follow-up |
-| 3 | Content pipeline (question templates) | `LAUNCH_PLAN_CONTENT_PIPELINE_2026_09_26.md` | In progress, pipeline gap |
+| 3 | Content pipeline (question templates) | `LAUNCH_PLAN_CONTENT_PIPELINE_2026_09_26.md` | **Post-Friday/full-readiness work:** difficulty is now 100% across all ten live packs; 216 fresh single-unit labels promoted and selectors rechecked; three subject label runs, multi-unit third review, and quantity expansion remain open |
 | 4 | Student hub | `LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md` | App exists, on-brand, real production grading verified (not a demo). Open risk: the entitlement-gating bug. |
-| 5 | Subject onboarding gate | `LAUNCH_PLAN_SUBJECT_ONBOARDING_GATE_2026_09_26.md` | Day-1 = Biology + Statistics; both passing criterion 6 (Statistics' hazard resolved 2026-09-25); both open on labels/difficulty |
+| 5 | Subject onboarding gate | `LAUNCH_PLAN_SUBJECT_ONBOARDING_GATE_2026_09_26.md` | Day-1 = Biology + Statistics; both use flat practice paths, so labels/difficulty are not Friday blockers (`DECISION-0072`); full unit-gated readiness remains open |
 
 Each plan is independently assignable to a different AI agent. Read dependency notes inside each plan
 before assuming full parallelism — see **Dependency map** below.
 
 ## Dependency map
 
-- **Content pipeline (3)** blocks **Subject onboarding gate (5)**: criteria 3 (validated labels) and
-  5 (difficulty) in the servability checklist require the two-model-agreement pipeline that plan 3
-  builds. An agent can start plan 5 immediately on the criteria that don't depend on the pipeline
-  (canonical answers, exam-pack-version hygiene), but cannot close a subject's remaining two criteria
-  until plan 3 ships.
+- **Content pipeline (3)** does **not** block the Friday launch or the flat-path launch status of AP
+  Biology/AP Statistics (`DECISION-0072`). It remains a dependency for enabling their deferred
+  unit-gated paths and for closing full all-subject readiness. The pipeline already exists; plan 3
+  runs it, independently cross-QAs output, promotes eligible fresh labels under `DECISION-0066`, and
+  verifies the resulting live selectors.
 - **Payment flow (2)** is gated on remaining decisions, not code: BIZ-001's pricing is partially decided
   (`DECISION-0069`) but access duration, refunds/discounts, parent-purchaser handling, and the
   unlimited tier remain open, owned by David Bloom. The Stripe mechanics are otherwise close to done.
@@ -75,6 +76,10 @@ before assuming full parallelism — see **Dependency map** below.
 - **Content pipeline (3) and Subject onboarding gate (5) share one table** (`SUBJECT_SERVABILITY_CRITERIA.md`'s
   "Applied so far") — plan 3 owns criteria 3/5 updates to it, plan 5 owns criteria 1/2/4/6, to avoid two
   agents overwriting the same row concurrently.
+
+The content quantity target currently has one defined scope only: AP Biology (600 MCQs, 300 short
+FRQs, 64 long FRQs; 964 total). Whether the other nine subjects need equivalent targets is an open
+Product Owner decision; no agent should infer or manufacture those targets.
 
 ## David decision register
 

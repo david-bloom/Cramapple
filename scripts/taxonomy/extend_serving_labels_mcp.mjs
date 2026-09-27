@@ -17,8 +17,14 @@ import fs from "node:fs";
 import path from "node:path";
 
 const ROOT = process.cwd();
-const GATEWAY_ENV = path.join(ROOT, "scripts/vercel-gateway-check/.env.local");
-const OUT_DIR = "/private/tmp/cramapple-math-taxonomy-serving";
+const gatewayEnvArg = process.argv.find((arg) => arg.startsWith("--gateway-env="));
+const GATEWAY_ENV = gatewayEnvArg
+  ? path.resolve(gatewayEnvArg.slice("--gateway-env=".length))
+  : path.join(ROOT, "scripts/vercel-gateway-check/.env.local");
+const outDirArg = process.argv.find((arg) => arg.startsWith("--out-dir="));
+const OUT_DIR = outDirArg
+  ? path.resolve(outDirArg.slice("--out-dir=".length))
+  : "/private/tmp/cramapple-math-taxonomy-serving";
 const DEFAULT_REPORT = path.join(
   ROOT,
   "docs/research/MATH_TAXONOMY_SERVING_LABEL_RUN_2026_08_04.md",
@@ -212,7 +218,23 @@ function extractJsonObject(text) {
   if (start < 0 || end < start) {
     throw new Error(`Could not find JSON object in CLI output: ${text.slice(0, 500)}`);
   }
-  return JSON.parse(text.slice(start, end + 1));
+  const candidate = text.slice(start, end + 1);
+  try {
+    return JSON.parse(candidate);
+  } catch (firstError) {
+    // Model explanations frequently include LaTeX delimiters such as \( ... \) or commands such as
+    // \frac inside JSON strings. Those backslashes are not valid JSON escapes unless doubled. Repair
+    // only invalid escape prefixes, plus a common trailing-comma defect, then parse once more. The raw
+    // response remains preserved in model_results for auditability.
+    const repaired = candidate
+      .replace(/\\(?!["\\/bfnrtu])/g, "\\\\")
+      .replace(/,\s*([}\]])/g, "$1");
+    try {
+      return JSON.parse(repaired);
+    } catch {
+      throw firstError;
+    }
+  }
 }
 
 function fetchPackets(packetsFile) {
@@ -330,7 +352,19 @@ function extractJson(text) {
   const start = raw.indexOf("{");
   const end = raw.lastIndexOf("}");
   if (start < 0 || end < start) throw new Error(`no JSON object in response: ${raw.slice(0, 200)}`);
-  return JSON.parse(raw.slice(start, end + 1));
+  const candidate = raw.slice(start, end + 1);
+  try {
+    return JSON.parse(candidate);
+  } catch (firstError) {
+    const repaired = candidate
+      .replace(/\\(?!["\\/bfnrtu])/g, "\\\\")
+      .replace(/,\s*([}\]])/g, "$1");
+    try {
+      return JSON.parse(repaired);
+    } catch {
+      throw firstError;
+    }
+  }
 }
 
 async function callModel(model, item) {
@@ -664,7 +698,7 @@ function reportPath(subjectFilter) {
   const slug = subjectFilter ? subjectFilter.toUpperCase() : "ALL_SUBJECTS";
   return path.join(
     ROOT,
-    `docs/research/${slug}_TAXONOMY_SERVING_LABEL_RUN_2026_09_25.md`,
+    `docs/research/${slug}_TAXONOMY_SERVING_LABEL_RUN_2026_09_26.md`,
   );
 }
 
@@ -686,7 +720,7 @@ function writeReport(items, results, subjectFilter) {
   }
 
   const lines = [];
-  lines.push("# Math Taxonomy Serving Label Run — 2026-08-04");
+  lines.push("# Math Taxonomy Serving Label Run — 2026-09-26");
   lines.push("");
   lines.push(`Run ID: \`${RUN_ID}\``);
   lines.push("");
@@ -722,7 +756,7 @@ function writeReport(items, results, subjectFilter) {
     );
   }
   lines.push("");
-  lines.push("Raw model outputs and SQL write file are stored under `/private/tmp/cramapple-math-taxonomy-serving/`.");
+  lines.push(`Raw model outputs and SQL write file were generated under \`${OUT_DIR}/\`.`);
   const outFile = reportPath(subjectFilter);
   fs.writeFileSync(outFile, `${lines.join("\n")}\n`);
   return outFile;
@@ -750,6 +784,10 @@ async function main() {
   const keyFilter = keyArg ? keyArg.slice("--key=".length) : null;
   const packetsFileArg = process.argv.find((arg) => arg.startsWith("--packets-file="));
   const packetsFile = packetsFileArg ? packetsFileArg.slice("--packets-file=".length) : null;
+  const resumeResultsArg = process.argv.find((arg) => arg.startsWith("--resume-results="));
+  const resumeResultsFile = resumeResultsArg
+    ? path.resolve(resumeResultsArg.slice("--resume-results=".length))
+    : null;
   fs.mkdirSync(OUT_DIR, { recursive: true });
   fs.rmSync(path.join(OUT_DIR, "model_results.jsonl"), { force: true });
   requireEnv("AI_GATEWAY_API_KEY");
@@ -761,11 +799,27 @@ async function main() {
     ? filteredItems.filter((item) => item.content_key === keyFilter)
     : filteredItems;
   const items = Number.isInteger(limit) && limit > 0 ? keyedItems.slice(0, limit) : keyedItems;
+  const reusableResults = new Map();
+  if (resumeResultsFile) {
+    const priorResults = JSON.parse(fs.readFileSync(resumeResultsFile, "utf8"));
+    for (const prior of priorResults) {
+      if (prior?.item?.content_key && prior?.outcome?.reason !== "model_call_failure") {
+        reusableResults.set(prior.item.content_key, prior);
+      }
+    }
+  }
   fs.writeFileSync(path.join(OUT_DIR, "packets.json"), JSON.stringify(items, null, 2));
   console.log(`run_id=${RUN_ID}`);
   console.log(`items=${items.length}`);
 
   const modelResults = await pool(items, 4, async (item, itemIndex) => {
+    const reusable = reusableResults.get(item.content_key);
+    if (reusable) {
+      console.log(
+        `[${itemIndex + 1}/${items.length}] ${item.exam_code} ${item.content_key} -> reused:${reusable.outcome.status}:${reusable.outcome.reason}`,
+      );
+      return reusable;
+    }
     const packetHash = shasum(JSON.stringify(packetForModel(item)));
     const structural = structuralHold(item);
     let calls = [];
