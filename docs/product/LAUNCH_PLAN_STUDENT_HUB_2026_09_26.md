@@ -944,10 +944,19 @@ or a content-authoring project.
   adapters/routes wire Open Hand to it (Lovable `d0bf136c`). 425/425 tests. Coverage confirms both Day-1
   subjects (Bio 43/43 MCQ, 71/75 FRQ segments; Stats 304/304 MCQ, 35/69 segments). Data layer
   Dev-verified.
-- **P3 — BYOQ scaffold (no grade): in build.**
-- **P4 — deploy package:** the Lovable app and its preview point at **Production** Supabase, so the loop
-  only goes live once `open-hand-item` is deployed to Production and the Lovable app is published — both
-  Hard Gates for David. Nothing is deployed autonomously.
+- **P3 — BYOQ scaffold (no grade): DONE** (Lovable `dab60c01`). `/byoq` classifies the pasted question
+  (AP Stats Unit 1 scope) and opens a scaffold screen showing the student's own question read-only with
+  the topic's rubric/how-points, reference, and deep dive hint-gated — no grade, no submit, no answer.
+  Open Hand's "Upload your own question" CTA routes here. The old "Check my work" help-mode option (which
+  contradicted the no-grading rule) was removed. 432/432 tests.
+- **P4 — deploy package (the remaining Hard Gate):** the whole loop is built and Dev-verified behind the
+  off-by-default flag; nothing is deployed. The Lovable app and its preview point at **Production**
+  Supabase, so going live requires (1) deploying `open-hand-item` to Production, (2) publishing the
+  Lovable app, then (3) flipping the `plate-loop` flag (`?loop=plate`) to verify end-to-end — all David's
+  calls. Known follow-ups (non-blocking): Open Hand FRQ shows the topic code as a "null" title when an
+  item lacks a `topic_code`; FRQ text stimulus isn't rendered (scatterplots only); the reference-pane
+  vocabulary list is empty (`topic_explainers` has no vocabulary column); BYOQ covers AP Stats Unit 1
+  only (Biology declines honestly); none of it is browser-verified yet (blocked on the function deploy).
 
 ## Out of Scope
 

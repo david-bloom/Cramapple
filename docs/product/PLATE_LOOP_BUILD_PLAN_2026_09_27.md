@@ -54,11 +54,18 @@ segment-highlight interaction). This overturns the earlier recon note that live 
   plus per-topic reference + deep dive). Data layer Dev-verified (Stats MCQ). Frontend: new
   `LiveOpenHandMcq`/`LiveOpenHandFrq` containers + adapters + routes wiring Open Hand to this read
   (Lovable, in progress).
-- **P3 — BYOQ scaffold, no grade.** `/byoq` paste → classify → Practice-in-BYOQ mode showing the
-  student's question + the classified cell's scaffolding (rubric/reference/deep dive) gated behind
-  hints. Reuses the P2 read. Camera/photo capture stays out of scope (separate workstream).
-- **P4 — Integrate + verify** the loop behind the flag on Dev/preview; assemble the Production
-  deploy/migration Hard-Gate package.
+- **P3 — BYOQ scaffold, no grade (DONE, Lovable `dab60c01`, 432/432 tests).** `/byoq` paste →
+  `classifyHomeworkQuestion` (AP Stats Unit 1) → `/byoq-scaffold` showing the student's own question
+  read-only with the topic's rubric/how-points + reference + deep dive hint-gated. No grade/submit/
+  answer. Reuses `topic-content.ts` (`fetchTopicGuides`) — no new backend. Open Hand's "Upload your own
+  question" CTA routes here. Removed the legacy "Check my work" help-mode option.
+- **P4 — deploy package (the remaining Hard Gate).** Whole loop built + Dev-verified behind the
+  off-by-default flag. Because the Lovable app + preview point at Production Supabase, going live needs:
+  (1) deploy `open-hand-item` to Production (additive, read-only, entitlement-gated; via the repo's
+  edge-function deploy / PR #214), (2) publish the Lovable app, (3) flip `?loop=plate` and verify
+  end-to-end, then decide when to default the flag on. Non-blocking follow-ups: Open Hand FRQ "null"
+  title when `topic_code` missing; FRQ text stimulus not rendered; empty reference vocabulary; BYOQ =
+  AP Stats Unit 1 only; nothing browser-verified until the function deploys.
 
 ## Security note
 
