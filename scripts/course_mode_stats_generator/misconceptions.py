@@ -697,6 +697,39 @@ CATALOG: Dict[str, Misconception] = {m.tag: m for m in [
        [_fp("S10 Unit 4 (4.9-4.10, test for difference of two means)",
             "test statistic numerator is (xbar1 - xbar2) - 0; the order of subtraction sets the sign")]),
 
+    # --- slotframe_u2_5_mutually_exclusive (2.5 x 4.B) : mutually exclusive events
+    _M("u2_5__uses_independent_for_disjoint",
+       "Called disjoint events independent",
+       "Treats mutually exclusive events as independent, overlooking that two nonempty disjoint "
+       "events cannot both occur on the same trial.",
+       "ced_structural", ["slotframe_u2_5_mutually_exclusive"], ["2.5"], ["4.B"],
+       [_fp("S10 Unit 2 (2.5)",
+            "mutually exclusive events have no outcomes in common; distinguish this from independence")]),
+
+    _M("u2_5__overlap_wording_ignored",
+       "Ignored an explicit shared outcome",
+       "Claims two events are mutually exclusive even though the scenario states an outcome that "
+       "satisfies both event definitions.",
+       "ced_structural", ["slotframe_u2_5_mutually_exclusive"], ["2.5"], ["4.B"],
+       [_fp("S10 Unit 2 (2.5)",
+            "events are mutually exclusive only when they cannot occur together in a single trial")]),
+
+    _M("u2_5__different_labels_mean_disjoint",
+       "Assumed different labels make events disjoint",
+       "Decides events are mutually exclusive because their labels sound different, instead of "
+       "checking whether one outcome can satisfy both conditions.",
+       "ced_structural", ["slotframe_u2_5_mutually_exclusive"], ["2.5"], ["4.B"],
+       [_fp("S10 Unit 2 (2.5)",
+            "mutual exclusivity is about shared outcomes, not whether event names are different")]),
+
+    _M("u2_5__same_trial_condition_missed",
+       "Missed the same-trial condition",
+       "Reasons across repeated trials or different units instead of deciding whether both events "
+       "can happen on one trial for one selected unit.",
+       "ced_structural", ["slotframe_u2_5_mutually_exclusive"], ["2.5"], ["4.B"],
+       [_fp("S10 Unit 2 (2.5)",
+            "the relationship is determined within a single chance process or selected observational unit")]),
+
     # --- two_way_proportions (2.2 x 3.B) : marginal/conditional proportions -----
     _M("u2_2__used_grand_total_for_conditional",
        "Used the grand total as the denominator for a conditional proportion",
