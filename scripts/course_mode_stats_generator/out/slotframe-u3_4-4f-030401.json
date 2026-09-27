@@ -1,0 +1,173 @@
+{
+  "schema_version": "course-mode-generated-0.1",
+  "package_id": "slotframe-u3_4-4f-030401",
+  "content_key": "apstat-u3-4-4f-prop-ci-claim-030401",
+  "item_type": "mcq",
+  "difficulty": "Medium",
+  "exam_pack_ref": {
+    "exam_code": "ap_statistics",
+    "cycle": "2026-27"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "unit-3"
+    },
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "topic-3.4"
+    },
+    {
+      "scheme_key": "ap-statistics-skills",
+      "node_key": "skill-4.F",
+      "practice": 4
+    }
+  ],
+  "cells": [
+    {
+      "topic": "3.4",
+      "skill": "4.F"
+    }
+  ],
+  "scenario_provenance": {
+    "archetype": "Q3",
+    "archetype_label": "Inference: a significance test or confidence interval",
+    "task_verb": "Justify",
+    "practice": 4,
+    "modality": "exam_aligned_digital",
+    "validity_rules": [
+      "one-population proportion confidence interval already supplied",
+      "claim support must be based on whether the claimed value or direction is consistent with the interval",
+      "conclusion must be about the population proportion, not the sample proportion, and must avoid definitive proof language"
+    ],
+    "sources": [
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S5 (Free-response archetypes)",
+        "note": "Section II question archetypes Q1-Q4"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S6 (Task verbs)",
+        "note": "the item stem's verb must match the scored demand"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S7 (Response modality)",
+        "note": "digital Bluebook; text/numeric entry -> exam_aligned_digital"
+      }
+    ],
+    "domain": "education"
+  },
+  "prompt": "In a campus transportation survey, a random sample was used to estimate the true proportion of students who would use a late-night shuttle. The resulting 99% confidence interval is (65%, 75%). A student claims that the true proportion of students who would use a late-night shuttle is more than 70%. Which interpretation is best supported by the interval?",
+  "mcq_form": {
+    "options": [
+      {
+        "text": "The interval proves that the true proportion of students who would use a late-night shuttle is not more than 70%, so the claim is impossible.",
+        "correct": false,
+        "misconception": "u3_4__overstated_certainty_from_interval",
+        "misconception_source": {
+          "tag": "u3_4__overstated_certainty_from_interval",
+          "label": "Used definitive proof language for an inference conclusion",
+          "evidence": "documented_cr",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 'General exam-wide conventions'",
+              "note": "inference conclusions must use non-definitive language such as convincing evidence; they do not prove or guarantee a claim"
+            }
+          ]
+        }
+      },
+      {
+        "text": "The interval supports the claim, because the cutoff 70% lies inside the interval and is therefore a plausible value.",
+        "correct": false,
+        "misconception": "u3_4__endpoint_inclusion_reversed",
+        "misconception_source": {
+          "tag": "u3_4__endpoint_inclusion_reversed",
+          "label": "Reversed the confidence-interval inclusion rule for a claim value",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 3 (3.3-3.4)",
+              "note": "a confidence interval gives plausible values for the population proportion; claim support depends on whether the claim value/direction is consistent with the interval"
+            }
+          ]
+        }
+      },
+      {
+        "text": "The interval does not support the claim that the true proportion of students who would use a late-night shuttle is more than 70%, because the interval includes values at or below 70%. Values consistent with the interval make the claim too strong for these results.",
+        "correct": true,
+        "misconception": null
+      },
+      {
+        "text": "There is a 99% probability that the true proportion of students who would use a late-night shuttle is between 65% and 75%, so the claim is automatically supported.",
+        "correct": false,
+        "misconception": "u3_4__confidence_level_as_probability_claim",
+        "misconception_source": {
+          "tag": "u3_4__confidence_level_as_probability_claim",
+          "label": "Interpreted the confidence level as the probability this computed interval contains the parameter",
+          "evidence": "documented_cr",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 3 (3.3-3.4)",
+              "note": "interpretations of confidence intervals must reference the population proportion and avoid probability language about a single already-computed interval"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "parts": [
+    {
+      "part_key": "part-a",
+      "prompt": "In a campus transportation survey, a random sample was used to estimate the true proportion of students who would use a late-night shuttle. The resulting 99% confidence interval is (65%, 75%). A student claims that the true proportion of students who would use a late-night shuttle is more than 70%. Which interpretation is best supported by the interval?",
+      "response_modalities": [
+        "mcq"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "Selects the CI interpretation that correctly judges claim support for a population proportion.",
+          "required_evidence": "The interval does not support the claim that the true proportion of students who would use a late-night shuttle is more than 70%, because the interval includes values at or below 70%. Values consistent with the interval make the claim too strong for these results.",
+          "deterministic_checks": [
+            {
+              "kind": "mcq_key",
+              "correct_claim_support": false,
+              "claim_type": "greater"
+            }
+          ],
+          "accepted_variants": []
+        }
+      ]
+    }
+  ],
+  "provenance": {
+    "generator": "course_mode_stats_generator/slot_frames.py",
+    "frame_id": "FB-U3-4-4F-PROP-CI-CLAIM-01",
+    "template_id": "slotframe_u3_4_prop_ci_claim",
+    "params": {
+      "scenario_id": "u3_4__campus_transit",
+      "confidence": 99,
+      "claim_type": "greater",
+      "support": false,
+      "threshold": 0.7,
+      "low": 0.65,
+      "high": 0.75,
+      "center": 0.7,
+      "claim": "more than 70%",
+      "reason_support": "the entire interval is above 70%",
+      "reason_no_support": "the interval includes values at or below 70%"
+    },
+    "seed": 30401,
+    "release_status": "unreleased_generated_pending_review",
+    "note": "Authored conceptual frame; correctness from confidence-interval claim-support rules."
+  }
+}

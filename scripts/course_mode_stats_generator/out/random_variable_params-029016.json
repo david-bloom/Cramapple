@@ -1,0 +1,188 @@
+{
+  "schema_version": "course-mode-generated-0.1",
+  "package_id": "random_variable_params-029016",
+  "content_key": "apstat-random_variable_params-029016",
+  "item_type": "mcq",
+  "difficulty": "Medium",
+  "exam_pack_ref": {
+    "exam_code": "ap_statistics",
+    "cycle": "2026-27"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "unit-2"
+    },
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "topic-2.9"
+    },
+    {
+      "scheme_key": "ap-statistics-skills",
+      "node_key": "skill-3.B",
+      "practice": 3
+    }
+  ],
+  "cells": [
+    {
+      "topic": "2.9",
+      "skill": "3.B"
+    }
+  ],
+  "prompt": "Let X be the number of late packages in a small delivery batch for one randomly selected delivery batch. The probability distribution is 1 late packages: 0.18; 2 late packages: 0.34; 3 late packages: 0.30; 4 late packages: 0.18. Calculate the standard deviation of X.",
+  "numeric_form": {
+    "answer_desc": "sigma_X = 0.9847",
+    "deterministic_checks": [
+      {
+        "kind": "numeric",
+        "value": 0.9847,
+        "tol": 0.02
+      }
+    ]
+  },
+  "mcq_form": {
+    "options": [
+      {
+        "text": "3.48",
+        "correct": false,
+        "misconception": "u2_9__off_by_one_discrete_value",
+        "misconception_source": {
+          "tag": "u2_9__off_by_one_discrete_value",
+          "label": "Shifted a discrete outcome boundary by one value",
+          "evidence": "documented_cr",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 2 (2.9)",
+              "note": "2025 CR Report Q3/Q5 documents off-by-one boundary-inclusion errors for discrete random-variable events"
+            }
+          ]
+        }
+      },
+      {
+        "text": "1.12",
+        "correct": false,
+        "misconception": "u2_9__unweighted_sd_values",
+        "misconception_source": {
+          "tag": "u2_9__unweighted_sd_values",
+          "label": "Computed spread from equally weighted values instead of probabilities",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 2 (2.9)",
+              "note": "sigma_X = sqrt(sum (x_i - mu_X)^2 P(x_i)); the probabilities weight each squared deviation"
+            }
+          ]
+        }
+      },
+      {
+        "text": "2.50",
+        "correct": false,
+        "misconception": "u2_9__unweighted_mean_values",
+        "misconception_source": {
+          "tag": "u2_9__unweighted_mean_values",
+          "label": "Averaged the possible values without weighting by probability",
+          "evidence": "documented_cr",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 2 (2.9)",
+              "note": "2025 CR Report Q3/Q5 documents computing the unweighted mean of possible X-values instead of the probability-weighted mean"
+            }
+          ]
+        }
+      },
+      {
+        "text": "0.98",
+        "correct": true,
+        "misconception": null
+      }
+    ]
+  },
+  "worked_solution": "mu_X = sum x_i P(x_i) = 1(0.18) + 2(0.34) + 3(0.30) + 4(0.18) = 2.4800. Variance = sum (x_i - mu_X)^2 P(x_i) = 0.9696. sigma_X = sqrt(0.9696) = 0.9847 late packages.",
+  "parts": [
+    {
+      "part_key": "part-a",
+      "prompt": "Let X be the number of late packages in a small delivery batch for one randomly selected delivery batch. The probability distribution is 1 late packages: 0.18; 2 late packages: 0.34; 3 late packages: 0.30; 4 late packages: 0.18. Calculate the standard deviation of X.",
+      "response_modalities": [
+        "mcq",
+        "numeric"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "sigma_X = 0.9847",
+          "required_evidence": "mu_X = sum x_i P(x_i) = 1(0.18) + 2(0.34) + 3(0.30) + 4(0.18) = 2.4800. Variance = sum (x_i - mu_X)^2 P(x_i) = 0.9696. sigma_X = sqrt(0.9696) = 0.9847 late packages.",
+          "deterministic_checks": [
+            {
+              "kind": "numeric",
+              "value": 0.9847,
+              "tol": 0.02
+            }
+          ],
+          "accepted_variants": []
+        }
+      ]
+    }
+  ],
+  "scenario_provenance": {
+    "archetype": "Q4",
+    "archetype_label": "Multi-focus on Practices 2, 3 & 4 (spans multiple content areas)",
+    "task_verb": "Calculate",
+    "practice": 3,
+    "modality": "exam_aligned_digital",
+    "validity_rules": [
+      "a complete discrete probability distribution for one random variable",
+      "probabilities sum to 1",
+      "expected value uses probability-weighted outcomes; standard deviation is the square root of the probability-weighted variance"
+    ],
+    "sources": [
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S5 (Free-response archetypes)",
+        "note": "Section II question archetypes Q1-Q4"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S6 (Task verbs)",
+        "note": "the item stem's verb must match the scored demand"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S7 (Response modality)",
+        "note": "digital Bluebook; text/numeric entry -> exam_aligned_digital"
+      }
+    ],
+    "domain": "operations"
+  },
+  "provenance": {
+    "generator": "course_mode_stats_generator/generator.py",
+    "template_id": "random_variable_params",
+    "params": {
+      "scenario_id": "u2_9__late_packages",
+      "values": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "probabilities": [
+        0.18,
+        0.34,
+        0.3,
+        0.18
+      ],
+      "mu": 2.48,
+      "variance": 0.9696
+    },
+    "seed": 29016,
+    "release_status": "unreleased_generated_pending_review",
+    "note": "Synthetic; not official CB content. Requires CM-D19 template-release + review."
+  }
+}

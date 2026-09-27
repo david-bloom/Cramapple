@@ -1,0 +1,187 @@
+{
+  "schema_version": "course-mode-generated-0.1",
+  "package_id": "two_way_proportions-022013",
+  "content_key": "apstat-two_way_proportions-022013",
+  "item_type": "mcq",
+  "difficulty": "Medium",
+  "exam_pack_ref": {
+    "exam_code": "ap_statistics",
+    "cycle": "2026-27"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "unit-2"
+    },
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "topic-2.2"
+    },
+    {
+      "scheme_key": "ap-statistics-skills",
+      "node_key": "skill-3.B",
+      "practice": 3
+    }
+  ],
+  "cells": [
+    {
+      "topic": "2.2",
+      "skill": "3.B"
+    }
+  ],
+  "prompt": "The table shows online orders from two regions and whether delivery met the promised date: North region: On time 94, Late 22; South region: On time 80, Late 36. Calculate the marginal proportion in the Late category.",
+  "numeric_form": {
+    "answer_desc": "proportion = 0.250",
+    "deterministic_checks": [
+      {
+        "kind": "numeric",
+        "value": 0.25,
+        "tol": 0.001
+      }
+    ]
+  },
+  "mcq_form": {
+    "options": [
+      {
+        "text": "0.155",
+        "correct": false,
+        "misconception": "u2_2__used_joint_cell_as_margin",
+        "misconception_source": {
+          "tag": "u2_2__used_joint_cell_as_margin",
+          "label": "Used a joint cell proportion when a marginal proportion was requested",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 2 (2.2)",
+              "note": "marginal proportions summarize a whole row or column of a two-way table, not just one joint cell"
+            }
+          ]
+        }
+      },
+      {
+        "text": "0.250",
+        "correct": true,
+        "misconception": null
+      },
+      {
+        "text": "0.621",
+        "correct": false,
+        "misconception": "u2_2__reported_conditional_instead_of_marginal",
+        "misconception_source": {
+          "tag": "u2_2__reported_conditional_instead_of_marginal",
+          "label": "Reported a conditional proportion instead of a marginal proportion",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 2 (2.2)",
+              "note": "marginal proportions use row or column totals over the grand total, while conditional proportions use a restricted denominator"
+            }
+          ]
+        }
+      },
+      {
+        "text": "0.750",
+        "correct": false,
+        "misconception": "u2_2__used_complement_category",
+        "misconception_source": {
+          "tag": "u2_2__used_complement_category",
+          "label": "Used the complement category within the correct denominator",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 2 (2.2)",
+              "note": "two-way-table calculations require matching the requested category, not its complement"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "worked_solution": "Use the column total over the grand total: 58/232 = 0.2500.",
+  "parts": [
+    {
+      "part_key": "part-a",
+      "prompt": "The table shows online orders from two regions and whether delivery met the promised date: North region: On time 94, Late 22; South region: On time 80, Late 36. Calculate the marginal proportion in the Late category.",
+      "response_modalities": [
+        "mcq",
+        "numeric"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "proportion = 0.250",
+          "required_evidence": "Use the column total over the grand total: 58/232 = 0.2500.",
+          "deterministic_checks": [
+            {
+              "kind": "numeric",
+              "value": 0.25,
+              "tol": 0.001
+            }
+          ],
+          "accepted_variants": []
+        }
+      ]
+    }
+  ],
+  "scenario_provenance": {
+    "archetype": "Q2",
+    "archetype_label": "Multi-focus on Practices 3 & 4 (analyze data; interpret results)",
+    "task_verb": "Calculate",
+    "practice": 3,
+    "modality": "exam_aligned_digital",
+    "validity_rules": [
+      "a two-way table of counts for two categorical variables",
+      "marginal proportions use row/column totals over the grand total",
+      "conditional proportions use the total within the stated condition"
+    ],
+    "sources": [
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S5 (Free-response archetypes)",
+        "note": "Section II question archetypes Q1-Q4"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S6 (Task verbs)",
+        "note": "the item stem's verb must match the scored demand"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S7 (Response modality)",
+        "note": "digital Bluebook; text/numeric entry -> exam_aligned_digital"
+      }
+    ],
+    "domain": "business"
+  },
+  "provenance": {
+    "generator": "course_mode_stats_generator/generator.py",
+    "template_id": "two_way_proportions",
+    "params": {
+      "scenario_id": "u2_2__store_region_delivery",
+      "observed": [
+        [
+          94,
+          22
+        ],
+        [
+          80,
+          36
+        ]
+      ],
+      "query_type": "col_marg",
+      "row": "South region",
+      "column": "Late"
+    },
+    "seed": 22013,
+    "release_status": "unreleased_generated_pending_review",
+    "note": "Synthetic; not official CB content. Requires CM-D19 template-release + review."
+  }
+}

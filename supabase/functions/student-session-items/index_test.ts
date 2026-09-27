@@ -8,7 +8,7 @@
 // supabase/tests/confirm_transfer_item_selector.integration.sql.
 
 import "./_test_setup.ts";
-import { assert, assertEquals } from "jsr:@std/assert@1";
+import { assert, assertEquals, assertFalse } from "jsr:@std/assert@1";
 import { handleStudentSessionItems } from "./index.ts";
 
 /* -------------------------------------------------------------------------- */
@@ -22,6 +22,7 @@ type Spec = {
   sourceVersion?: Row | null;
   transferRows?: Row[];
   biologyRows?: Row[];
+  statisticsRows?: Row[];
   transferError?: boolean;
   practiceRows?: Row[];
   criteria?: Row[];
@@ -30,6 +31,29 @@ type Spec = {
   visuals?: Row[];
   rpcCalls?: RpcCall[];
   signFail?: boolean;
+  // TASK-0047 Workstream E -- item_package_payload rows for the dual-read
+  // adapter, keyed the same way content_item_versions actually returns them.
+  packages?: Row[];
+  // TASK-0047 Decision 17 follow-on -- resolved topic/cell identity rows.
+  // Phase 1 (CONTENT_TAXONOMY_RATIONALIZATION_PLAN_2026_09_26.md) replaced
+  // the two-source read this mock used to model (content_item_cells +
+  // content_taxonomy_labels) with a single view,
+  // app.content_item_topic_resolution, that already does the merge AND the
+  // safety-critical assignment_status filter in SQL. This mock table stands
+  // in for that view's OUTPUT -- the filter itself is verified separately,
+  // against real data, by supabase/tests/
+  // content_item_topic_resolution_status_gate.integration.sql, since a
+  // mock can't exercise a SQL-level WHERE clause.
+  topicResolution?: Row[];
+  // Phase 2 (cell_scoped mode) -- app.content_items parent rows (content_key/
+  // title/frq_form/practice_format) and app.content_item_versions rows
+  // (id/content_item_id/stem/...) the two-query cell_scoped selector reads.
+  // Kept distinct from `packages` (also modeled on the content_item_versions
+  // mock table, for the unrelated dual-read adapter) -- both are merged into
+  // the same fake list, which is harmless since neither query's shape
+  // collides with the other's fields.
+  cellScopedParents?: Row[];
+  cellScopedVersions?: Row[];
 };
 
 // deno-lint-ignore no-explicit-any
@@ -57,6 +81,16 @@ function makeService(spec: Spec) {
     mcq_choices: spec.choices ?? [],
     content_asset_metadata: spec.assets ?? [],
     content_visual_requirements: spec.visuals ?? [],
+    // Same table as the confirm-transfer source-version lookup (singleByTable
+    // above), but deliverRows queries it as a list (.select().in()) for the
+    // dual-read adapter -- tableBuilder resolves .maybeSingle() and the
+    // awaited list independently, so both call shapes are served correctly.
+    content_item_versions: [
+      ...(spec.packages ?? []),
+      ...(spec.cellScopedVersions ?? []),
+    ],
+    content_item_topic_resolution: spec.topicResolution ?? [],
+    content_items: spec.cellScopedParents ?? [],
   };
   const appSchema = {
     from: (t: string) =>
@@ -68,6 +102,8 @@ function makeService(spec: Spec) {
           ? (spec.transferRows ?? [])
           : fn === "select_biology_practice_items"
           ? (spec.biologyRows ?? [])
+          : fn === "select_ordinary_combined_practice_items"
+          ? (spec.statisticsRows ?? [])
           : [],
         error: spec.transferError ? { message: "boom" } : null,
       });
@@ -337,13 +373,13 @@ Deno.test("unauthorized caller is rejected", async () => {
 });
 
 /* -------------------------------------------------------------------------- */
-/* Ordinary queue path is unchanged by the refactor                            */
+/* Unrelated ordinary queue paths are unchanged by the refactor                */
 /* -------------------------------------------------------------------------- */
 
-Deno.test("ordinary path still serves the practice selection", async () => {
+Deno.test("unrelated ordinary path still serves the FRQ practice selection", async () => {
   const { status, json } = await call(
     {
-      session: ACTIVE_SESSION,
+      session: { ...ACTIVE_SESSION, practice_format: "full_exam_frq" },
       practiceRows: [{
         ...DELIVERABLE_TRANSFER,
         content_item_version_id: "ov1",
@@ -354,8 +390,307 @@ Deno.test("ordinary path still serves the practice selection", async () => {
   assertEquals(status, 200);
   const result = json.result as Record<string, unknown>;
   assertEquals((result.items as unknown[]).length, 1);
-  assertEquals(result.practice_format, "mcq");
+  assertEquals(result.practice_format, "full_exam_frq");
   assertEquals(result.reason, null);
+});
+
+/* -------------------------------------------------------------------------- */
+/* TASK-0047 Decision 17 follow-on: resolved topic/cell identity, wired       */
+/* end to end through the real handler (not just the pure functions above).  */
+/* -------------------------------------------------------------------------- */
+
+Deno.test("a served item's cell resolves a skill-bearing row from content_item_topic_resolution", async () => {
+  const { status, json } = await call(
+    {
+      session: ACTIVE_SESSION,
+      practiceRows: [{
+        ...DELIVERABLE_TRANSFER,
+        content_item_version_id: "ov1",
+        content_item_id: "oi1",
+      }],
+      topicResolution: [{
+        content_item_version_id: "ov1",
+        topic_code: "u1-l2",
+        skill_code: "A",
+        topic_title: "Sampling distributions",
+        unit_number: 1,
+      }],
+    },
+    { learning_session_id: SESSION_ID },
+  );
+  assertEquals(status, 200);
+  const result = json.result as Record<string, unknown>;
+  const item = (result.items as Record<string, unknown>[])[0];
+  assertEquals(item.cell, {
+    topic_code: "u1-l2",
+    skill_code: "A",
+    topic_title: "Sampling distributions",
+    unit_number: 1,
+  });
+});
+
+Deno.test("a served item's cell resolves a topic-only row (null skill_code) from content_item_topic_resolution", async () => {
+  const { status, json } = await call(
+    {
+      session: ACTIVE_SESSION,
+      practiceRows: [{
+        ...DELIVERABLE_TRANSFER,
+        content_item_version_id: "ov2",
+        content_item_id: "oi2",
+      }],
+      // The real content_item_topic_resolution VIEW (not this mock) is what
+      // filters assignment_status to ('validated', 'authored') -- see
+      // 20260927004700_content_item_topic_resolution_view.sql and its
+      // dedicated integration test, supabase/tests/
+      // content_item_topic_resolution_status_gate.integration.sql, which
+      // verifies that filter against real data. This mock table stands in
+      // for the view's OUTPUT, so it cannot exercise that SQL-level filter
+      // itself -- only that a row the view already decided to expose is
+      // then handled correctly end-to-end (topic-only, skill_code null).
+      topicResolution: [{
+        content_item_version_id: "ov2",
+        topic_code: "4.2",
+        skill_code: null,
+        topic_title: "Introduction to Signal Transduction",
+        unit_number: 4,
+      }],
+    },
+    { learning_session_id: SESSION_ID },
+  );
+  assertEquals(status, 200);
+  const result = json.result as Record<string, unknown>;
+  const item = (result.items as Record<string, unknown>[])[0];
+  assertEquals(item.cell, {
+    topic_code: "4.2",
+    skill_code: null,
+    topic_title: "Introduction to Signal Transduction",
+    unit_number: 4,
+  });
+});
+
+Deno.test("a served item's cell is null when neither resolution path applies", async () => {
+  const { status, json } = await call(
+    {
+      session: ACTIVE_SESSION,
+      practiceRows: [{
+        ...DELIVERABLE_TRANSFER,
+        content_item_version_id: "ov3",
+        content_item_id: "oi3",
+      }],
+    },
+    { learning_session_id: SESSION_ID },
+  );
+  assertEquals(status, 200);
+  const result = json.result as Record<string, unknown>;
+  const item = (result.items as Record<string, unknown>[])[0];
+  assertEquals(item.cell, null);
+});
+
+/* -------------------------------------------------------------------------- */
+/* TASK-0047 Workstream E: item-package dual-read adapter, wired end to end   */
+/* -------------------------------------------------------------------------- */
+
+Deno.test("an item with no legacy stem/choices but a package payload still serves", async () => {
+  const versionId = "55555555-5555-4555-8555-555555555555";
+  const { status, json } = await call(
+    {
+      session: ACTIVE_SESSION,
+      practiceRows: [{
+        ...DELIVERABLE_TRANSFER,
+        content_item_version_id: versionId,
+        item_type: "mcq",
+        stem: "", // legacy stem never populated for this hypothetical item
+      }],
+      choices: [], // and no legacy mcq_choices rows either
+      packages: [{
+        id: versionId,
+        item_package_payload: {
+          schema_version: "1.0.0",
+          mcq_choices: [
+            { choice_key: "A", choice_text: "4", is_correct: true },
+            { choice_key: "B", choice_text: "2", is_correct: false },
+          ],
+          parts: [{ part_key: "question", prompt: "What is lim(x->2) ...?" }],
+        },
+      }],
+    },
+    { learning_session_id: SESSION_ID },
+  );
+  assertEquals(status, 200);
+  const result = json.result as Record<string, unknown>;
+  const items = result.items as Array<Record<string, unknown>>;
+  assertEquals(items.length, 1);
+  assertEquals(items[0].stem, "What is lim(x->2) ...?");
+  assertEquals(items[0].choices, [
+    { choice_key: "A", choice_text: "4" },
+    { choice_key: "B", choice_text: "2" },
+  ]);
+  // The package's is_correct must never reach the response.
+  assertFalse(JSON.stringify(items).includes("is_correct"));
+});
+
+Deno.test("an item with a legacy stem is unaffected by an unrelated package payload", async () => {
+  const versionId = "ov1";
+  const { status, json } = await call(
+    {
+      session: ACTIVE_SESSION,
+      practiceRows: [{
+        ...DELIVERABLE_TRANSFER,
+        content_item_version_id: versionId,
+      }],
+      choices: [{
+        content_item_version_id: versionId,
+        choice_key: "A",
+        choice_text: "the real legacy choice",
+      }],
+      packages: [{
+        id: versionId,
+        item_package_payload: {
+          schema_version: "1.0.0",
+          mcq_choices: [{ choice_key: "Z", choice_text: "should never win" }],
+        },
+      }],
+    },
+    { learning_session_id: SESSION_ID },
+  );
+  assertEquals(status, 200);
+  const result = json.result as Record<string, unknown>;
+  const items = result.items as Array<Record<string, unknown>>;
+  assertEquals(items[0].stem, DELIVERABLE_TRANSFER.stem);
+  assertEquals(items[0].choices, [
+    { choice_key: "A", choice_text: "the real legacy choice" },
+  ]);
+});
+
+/* -------------------------------------------------------------------------- */
+/* Phase 2 (CONTENT_TAXONOMY_RATIONALIZATION_PLAN_2026_09_26.md): cell_scoped  */
+/* mode serves every published MCQ for the pack, unclamped, with a cell.      */
+/* -------------------------------------------------------------------------- */
+
+function cellScopedParent(n: number) {
+  return {
+    id: `ci${n}`,
+    content_key: `apstat-u1-${n}-2a`,
+    title: `Item ${n}`,
+    frq_form: null,
+    practice_format: null,
+  };
+}
+
+function cellScopedVersion(n: number) {
+  return {
+    id: `cv${n}`,
+    content_item_id: `ci${n}`,
+    stem: `Stem ${n}`,
+    stimulus: null,
+    stimulus_image_path: null,
+    prompt_json: {},
+    published_at: `2026-01-${String(n).padStart(2, "0")}T00:00:00Z`,
+  };
+}
+
+Deno.test("cell_scoped mode serves every published MCQ for the pack, not just MAX_ITEMS's old 20-item shape", async () => {
+  // 25 items -- more than the pre-Phase-2 MAX_ITEMS=20 cap -- to prove the
+  // mode is not silently truncated to the old ceiling. No `limit` sent, so
+  // it defaults to the (now 999) MAX_ITEMS, well above 25.
+  const n = 25;
+  const parents = Array.from({ length: n }, (_, i) => cellScopedParent(i + 1));
+  const versions = Array.from({ length: n }, (_, i) => cellScopedVersion(i + 1));
+  const choices = Array.from({ length: n }, (_, i) => ({
+    content_item_version_id: `cv${i + 1}`,
+    choice_key: "A",
+    choice_text: "a safe choice",
+  }));
+
+  const { status, json } = await call(
+    {
+      session: ACTIVE_SESSION,
+      cellScopedParents: parents,
+      cellScopedVersions: versions,
+      choices,
+      topicResolution: [{
+        content_item_version_id: "cv1",
+        topic_code: "1.2",
+        skill_code: "2.A",
+        topic_title: "Telling variable types apart",
+        unit_number: 1,
+      }],
+    },
+    { learning_session_id: SESSION_ID, mode: "cell_scoped" },
+  );
+
+  assertEquals(status, 200);
+  const result = json.result as Record<string, unknown>;
+  const items = result.items as Array<Record<string, unknown>>;
+  assertEquals(items.length, n);
+  assertEquals(result.reason, null);
+  // Every item is tagged mcq and carries choices -- never blended with FRQ.
+  assert(items.every((i) => i.item_type === "mcq"));
+  // The cell resolution path (Phase 1, already live) is exercised here too.
+  assertEquals(items[0].cell, {
+    topic_code: "1.2",
+    skill_code: "2.A",
+    topic_title: "Telling variable types apart",
+    unit_number: 1,
+  });
+  // An item the resolution view has no row for still serves -- absent, not
+  // fabricated (see buildResolvedCells).
+  assertEquals(items[1].cell, null);
+});
+
+Deno.test("cell_scoped mode still honors an explicit smaller limit", async () => {
+  const parents = Array.from({ length: 5 }, (_, i) => cellScopedParent(i + 1));
+  const versions = Array.from({ length: 5 }, (_, i) => cellScopedVersion(i + 1));
+  const choices = Array.from({ length: 5 }, (_, i) => ({
+    content_item_version_id: `cv${i + 1}`,
+    choice_key: "A",
+    choice_text: "a safe choice",
+  }));
+
+  const { status, json } = await call(
+    {
+      session: ACTIVE_SESSION,
+      cellScopedParents: parents,
+      cellScopedVersions: versions,
+      choices,
+    },
+    { learning_session_id: SESSION_ID, mode: "cell_scoped", limit: 3 },
+  );
+
+  assertEquals(status, 200);
+  const result = json.result as Record<string, unknown>;
+  assertEquals((result.items as unknown[]).length, 3);
+});
+
+Deno.test("cell_scoped mode reports no_matching_content when the pack has no published MCQs", async () => {
+  const { status, json } = await call(
+    { session: ACTIVE_SESSION, cellScopedParents: [], cellScopedVersions: [] },
+    { learning_session_id: SESSION_ID, mode: "cell_scoped" },
+  );
+  assertEquals(status, 200);
+  const result = json.result as Record<string, unknown>;
+  assertEquals(result.items, []);
+  assertEquals(result.reason, "no_matching_content");
+});
+
+Deno.test("cell_scoped mode omits an item with no choices, fail-closed like every other MCQ path", async () => {
+  const { status, json } = await call(
+    {
+      session: ACTIVE_SESSION,
+      cellScopedParents: [cellScopedParent(1)],
+      cellScopedVersions: [cellScopedVersion(1)],
+      choices: [],
+    },
+    { learning_session_id: SESSION_ID, mode: "cell_scoped" },
+  );
+  assertEquals(status, 200);
+  const result = json.result as Record<string, unknown>;
+  assertEquals(result.items, []);
+  assertEquals(result.omitted, [{
+    content_key: "apstat-u1-1-2a",
+    reason: "choices_missing",
+  }]);
+  assertEquals(result.reason, "all_items_omitted");
 });
 
 /* -------------------------------------------------------------------------- */
@@ -434,11 +769,16 @@ Deno.test("Biology targeted-drill routes to the combined selector with the sessi
   assert(!serialized.includes("rationale"));
 });
 
-Deno.test("non-Biology and non-targeted formats keep the existing selector arguments", async () => {
+Deno.test("non-combined subjects and non-targeted/non-MCQ formats keep the FRQ selector", async () => {
   for (
     const session of [
-      { ...ACTIVE_SESSION, practice_format: "targeted_drill" },
+      {
+        ...ACTIVE_SESSION,
+        practice_format: "targeted_drill",
+        exam_pack_version: { exam_pack: { exam_code: "ap_chemistry" } },
+      },
       { ...BIOLOGY_SESSION, practice_format: "full_exam_frq" },
+      { ...ACTIVE_SESSION, practice_format: "full_exam_frq" },
     ]
   ) {
     const rpcCalls: RpcCall[] = [];
@@ -457,6 +797,97 @@ Deno.test("non-Biology and non-targeted formats keep the existing selector argum
       },
     }]);
   }
+});
+
+const STATISTICS_MCQ = {
+  ...DELIVERABLE_TRANSFER,
+  content_item_version_id: "55555555-5555-4555-8555-555555555555",
+  content_item_id: "66666666-6666-4666-8666-666666666666",
+  content_key: "APSTAT-MCQ-001",
+  item_type: "mcq",
+};
+
+Deno.test("Statistics targeted-drill routes to the combined selector", async () => {
+  const rpcCalls: RpcCall[] = [];
+  const { status } = await call(
+    {
+      session: { ...ACTIVE_SESSION, practice_format: "targeted_drill" },
+      statisticsRows: [],
+      rpcCalls,
+    },
+    { learning_session_id: SESSION_ID, limit: 20 },
+  );
+
+  assertEquals(status, 200);
+  assertEquals(rpcCalls, [{
+    schema: "app",
+    name: "select_ordinary_combined_practice_items",
+    params: {
+      _exam_pack_version_id: "epv1",
+      _practice_format: "targeted_drill",
+      _selection_seed: SESSION_ID,
+      _limit: 20,
+    },
+  }]);
+});
+
+Deno.test("Statistics Home MCQ session routes to the combined selector and hides answers", async () => {
+  const rpcCalls: RpcCall[] = [];
+  const { status, json } = await call(
+    {
+      session: ACTIVE_SESSION,
+      statisticsRows: [STATISTICS_MCQ],
+      choices: [{
+        content_item_version_id: STATISTICS_MCQ.content_item_version_id,
+        choice_key: "A",
+        choice_text: "A safe Statistics choice",
+        is_correct: true,
+        rationale: "must not be forwarded",
+      }],
+      rpcCalls,
+    },
+    { learning_session_id: SESSION_ID, limit: 10 },
+  );
+
+  assertEquals(status, 200);
+  assertEquals(rpcCalls, [{
+    schema: "app",
+    name: "select_ordinary_combined_practice_items",
+    params: {
+      _exam_pack_version_id: "epv1",
+      _practice_format: "mcq",
+      _selection_seed: SESSION_ID,
+      _limit: 10,
+    },
+  }]);
+  const items = (json.result as Record<string, unknown>).items as Array<
+    Record<string, unknown>
+  >;
+  assertEquals(items.length, 1);
+  assertEquals(items[0].item_type, "mcq");
+  assertEquals(items[0].choices, [{
+    choice_key: "A",
+    choice_text: "A safe Statistics choice",
+  }]);
+  const serialized = JSON.stringify(json);
+  assert(!serialized.includes("is_correct"));
+  assert(!serialized.includes("rationale"));
+});
+
+Deno.test("a Statistics MCQ with no choices is omitted fail-closed", async () => {
+  const { status, json } = await call(
+    { session: ACTIVE_SESSION, statisticsRows: [STATISTICS_MCQ], choices: [] },
+    { learning_session_id: SESSION_ID },
+  );
+
+  assertEquals(status, 200);
+  const result = json.result as Record<string, unknown>;
+  assertEquals(result.items, []);
+  assertEquals(result.omitted, [{
+    content_key: "APSTAT-MCQ-001",
+    reason: "choices_missing",
+  }]);
+  assertEquals(result.reason, "all_items_omitted");
 });
 
 Deno.test("a Biology MCQ with no choices is omitted fail-closed", async () => {

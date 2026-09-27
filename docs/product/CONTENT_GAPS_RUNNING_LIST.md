@@ -142,6 +142,23 @@ updated as work lands.
   is a **governance decision** (decision 24), not engineering.
 - **Owner:** — · **Status:** OPEN, decision-gated.
 
+### GAP-9 — Mastery cells missing a servable MCQ or FRQ (blocks `DECISION-0074`)
+- **Scope:** not yet measured. `DECISION-0074` (2026-09-27) requires a topic × skill
+  cell to have both a servable MCQ (2 needed) and a servable full-point FRQ (1
+  needed) for a student to ever reach mastery on it. No count has been run yet of
+  how many cells currently lack one or the other — this is a fast-follow item, not
+  a blocker David has asked to gate on, but it needs measuring before mastery
+  ships or some cells will be silently unmasterable.
+- **Why it blocks:** a cell short an FRQ (or MCQ) makes mastery permanently
+  unreachable for that cell under the new rule, not just slower — this is a
+  correctness gap, not a coverage-quality one.
+- **To measure:** per subject, per taxonomy cell (unit:topic × skill), count
+  published+servable items by `item_type` (`mcq`/`frq`) and flag any cell with
+  zero of either type. Cross-reference against `GAP-1`'s topic-labeling gap first
+  — a cell can't be counted accurately until items carry topic labels.
+- **Owner:** — · **Status:** OPEN, unmeasured. Accepted by David as a temporary
+  gap for content authoring to close, not a rule-design flaw.
+
 ---
 
 ## 3. Closed

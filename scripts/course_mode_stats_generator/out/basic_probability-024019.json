@@ -1,0 +1,198 @@
+{
+  "schema_version": "course-mode-generated-0.1",
+  "package_id": "basic_probability-024019",
+  "content_key": "apstat-basic_probability-024019",
+  "item_type": "mcq",
+  "difficulty": "Easy",
+  "exam_pack_ref": {
+    "exam_code": "ap_statistics",
+    "cycle": "2026-27"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "unit-2"
+    },
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "topic-2.4"
+    },
+    {
+      "scheme_key": "ap-statistics-skills",
+      "node_key": "skill-3.C",
+      "practice": 3
+    }
+  ],
+  "cells": [
+    {
+      "topic": "2.4",
+      "skill": "3.C"
+    }
+  ],
+  "prompt": "A packet contains mixed seeds that are equally likely to be drawn: basil: 24; dill: 16; mint: 32; parsley: 28. If one seed is selected at random from this pool, what is the probability of selecting a basil or dill seed?",
+  "numeric_form": {
+    "answer_desc": "P = 0.4000",
+    "deterministic_checks": [
+      {
+        "kind": "numeric",
+        "value": 0.4,
+        "tol": 0.001
+      }
+    ]
+  },
+  "mcq_form": {
+    "options": [
+      {
+        "text": "P = 0.667",
+        "correct": false,
+        "misconception": "u2_4__used_odds_instead_of_probability",
+        "misconception_source": {
+          "tag": "u2_4__used_odds_instead_of_probability",
+          "label": "Used odds in favor instead of probability",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 2 (2.4)",
+              "note": "P(E) = number of outcomes in E divided by total outcomes in the sample space, not favorable outcomes divided by unfavorable outcomes"
+            }
+          ]
+        }
+      },
+      {
+        "text": "P = 0.556",
+        "correct": false,
+        "misconception": "u2_4__used_partial_sample_space_denominator",
+        "misconception_source": {
+          "tag": "u2_4__used_partial_sample_space_denominator",
+          "label": "Used a partial sample-space denominator",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 2 (2.4)",
+              "note": "P(E) uses the total outcomes in the full sample space as the denominator for equally likely outcomes"
+            }
+          ]
+        }
+      },
+      {
+        "text": "P = 0.400",
+        "correct": true,
+        "misconception": null
+      },
+      {
+        "text": "P = 0.600",
+        "correct": false,
+        "misconception": "u2_4__used_complement_probability",
+        "misconception_source": {
+          "tag": "u2_4__used_complement_probability",
+          "label": "Reported the complement probability",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 2 (2.4)",
+              "note": "Topic 2.4 states the complement rule P(E^C) = 1 - P(E); using the complement for E is a structural probability-region error"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "worked_solution": "The favorable count is 40 and the total number of equally likely outcomes is 100. P(E) = favorable/total = 40/100 = 0.4000.",
+  "parts": [
+    {
+      "part_key": "part-a",
+      "prompt": "A packet contains mixed seeds that are equally likely to be drawn: basil: 24; dill: 16; mint: 32; parsley: 28. If one seed is selected at random from this pool, what is the probability of selecting a basil or dill seed?",
+      "response_modalities": [
+        "mcq",
+        "numeric"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "P = 0.4000",
+          "required_evidence": "The favorable count is 40 and the total number of equally likely outcomes is 100. P(E) = favorable/total = 40/100 = 0.4000.",
+          "deterministic_checks": [
+            {
+              "kind": "numeric",
+              "value": 0.4,
+              "tol": 0.001
+            }
+          ],
+          "accepted_variants": []
+        }
+      ]
+    }
+  ],
+  "scenario_provenance": {
+    "archetype": "Q4",
+    "archetype_label": "Multi-focus on Practices 2, 3 & 4 (spans multiple content areas)",
+    "task_verb": "Calculate",
+    "practice": 3,
+    "modality": "exam_aligned_digital",
+    "validity_rules": [
+      "finite sample space with equally likely outcomes",
+      "the requested event consists of listed categories",
+      "probability must use favorable outcomes divided by the total sample space and lie in [0, 1]"
+    ],
+    "sources": [
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S5 (Free-response archetypes)",
+        "note": "Section II question archetypes Q1-Q4"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S6 (Task verbs)",
+        "note": "the item stem's verb must match the scored demand"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S7 (Response modality)",
+        "note": "digital Bluebook; text/numeric entry -> exam_aligned_digital"
+      }
+    ],
+    "domain": "biology"
+  },
+  "provenance": {
+    "generator": "course_mode_stats_generator/generator.py",
+    "template_id": "basic_probability",
+    "params": {
+      "scenario_id": "u2_4__plant_seed_packet",
+      "categories": [
+        [
+          "basil",
+          24
+        ],
+        [
+          "dill",
+          16
+        ],
+        [
+          "mint",
+          32
+        ],
+        [
+          "parsley",
+          28
+        ]
+      ],
+      "event_categories": [
+        "basil",
+        "dill"
+      ],
+      "favorable": 40,
+      "total": 100
+    },
+    "seed": 24019,
+    "release_status": "unreleased_generated_pending_review",
+    "note": "Synthetic; not official CB content. Requires CM-D19 template-release + review."
+  }
+}

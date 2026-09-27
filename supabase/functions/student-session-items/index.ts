@@ -43,10 +43,13 @@ import { createServiceClient } from "../_shared/supabase.ts";
 import { jsonResponse, readJsonBody } from "../_shared/http.ts";
 import { requireProfile } from "../_shared/auth.ts";
 import {
+  applyItemPackageFallback,
   type AssetMetadata,
   buildRenderItem,
+  buildResolvedCells,
   indexAssets,
   isStaffQaRole,
+  type ItemPackagePayload,
   type LearnerFacingCriterion,
   MAX_ITEMS,
   type McqChoice,
@@ -56,6 +59,7 @@ import {
   type SelectedRow,
   SIGNED_URL_TTL_SECONDS,
   STIMULUS_IMAGE_BUCKET,
+  type TopicResolutionRow,
   type VisualRequirement,
 } from "../_shared/student-item-delivery.ts";
 
@@ -102,9 +106,8 @@ function withHandDrawnFlag(
 ): SelectedRow[] {
   return rows.map(({ prompt_json, ...row }) => ({
     ...row,
-    hand_drawn:
-      typeof prompt_json === "object" && prompt_json !== null &&
-        (prompt_json as Record<string, unknown>).hand_drawn === true,
+    hand_drawn: typeof prompt_json === "object" && prompt_json !== null &&
+      (prompt_json as Record<string, unknown>).hand_drawn === true,
   }));
 }
 
@@ -140,8 +143,14 @@ async function deliverRows(
     return { ok: true, items: [], omitted: [], expiresAt };
   }
 
-  const [criteriaResult, assetResult, visualResult, choicesResult] =
-    await Promise.all([
+  const [
+    criteriaResult,
+    assetResult,
+    visualResult,
+    choicesResult,
+    packageResult,
+    resolutionResult,
+  ] = await Promise.all([
       service.schema("app").from("frq_criteria")
         .select(LEARNER_FACING_CRITERION_COLUMNS)
         .in("content_item_version_id", versionIds)
@@ -161,14 +170,34 @@ async function deliverRows(
         .select("content_item_version_id, choice_key, choice_text")
         .in("content_item_version_id", versionIds)
         .order("choice_key", { ascending: true }),
+      // TASK-0047 Workstream E -- dual-read adapter. Fetched unconditionally
+      // for every request (cheap: at most MAX_ITEMS=20 rows, same versionIds
+      // already used above) rather than only when legacy data looks empty,
+      // so this never becomes a second, order-dependent round trip. Only used
+      // as a fallback below -- see applyItemPackageFallback.
+      service.schema("app").from("content_item_versions")
+        .select("id, item_package_payload")
+        .in("id", versionIds),
+      // TASK-0047 Decision 17 follow-on / Phase 1 step 5 -- resolved
+      // topic/cell identity, read from the single canonical view
+      // (CONTENT_TAXONOMY_RATIONALIZATION_PLAN_2026_09_26.md §3.2). The view
+      // already carries topic_title/unit_number and already excludes
+      // anything that isn't a primary assignment -- no second query, no
+      // client-side merge of two source tables.
+      service.schema("app").from("content_item_topic_resolution")
+        .select("content_item_version_id, topic_code, skill_code, topic_title, unit_number")
+        .in("content_item_version_id", versionIds),
     ]);
 
   if (
     criteriaResult.error || assetResult.error || visualResult.error ||
-    choicesResult.error
+    choicesResult.error || packageResult.error || resolutionResult.error
   ) {
     return { ok: false, error: "item_details_failed" };
   }
+
+  const resolutionRows = (resolutionResult.data ?? []) as TopicResolutionRow[];
+  const cellByVersion = buildResolvedCells(rows, resolutionRows);
 
   const criteriaByVersion = new Map<string, LearnerFacingCriterion[]>();
   for (const row of (criteriaResult.data ?? []) as LearnerFacingCriterion[]) {
@@ -197,8 +226,32 @@ async function deliverRows(
     visualByVersion.set(row.content_item_version_id, row);
   }
 
-  const { deliverable, omitted } = partitionDeliverable(
+  const packageByVersion = new Map<string, ItemPackagePayload>();
+  for (
+    const row of (packageResult.data ?? []) as Array<
+      { id: string; item_package_payload: ItemPackagePayload | null }
+    >
+  ) {
+    if (row.item_package_payload) {
+      packageByVersion.set(row.id, row.item_package_payload);
+    }
+  }
+
+  // TASK-0047 Workstream E -- dual-read adapter. A no-op against every
+  // published item today (all have complete legacy rows); backfills stem/
+  // stimulus/mcq choices from item_package_payload only when the legacy
+  // columns for that version came back empty. See student-item-delivery.ts
+  // for the shape-handling and scope notes.
+  const fallback = applyItemPackageFallback(
     rows,
+    choicesByVersion,
+    packageByVersion,
+  );
+  const rowsWithFallback = fallback.rows;
+  const choicesByVersionWithFallback = fallback.choicesByVersion;
+
+  const { deliverable, omitted } = partitionDeliverable(
+    rowsWithFallback,
     assetByKey,
     qaMode,
     visualByVersion,
@@ -230,7 +283,8 @@ async function deliverRows(
 
   const items: RenderItem[] = [];
   for (const { row, asset } of deliverable) {
-    const choices = choicesByVersion.get(row.content_item_version_id) ?? null;
+    const choices =
+      choicesByVersionWithFallback.get(row.content_item_version_id) ?? null;
     if (row.item_type === "mcq" && (!choices || choices.length === 0)) {
       // An MCQ without choices cannot be answered. Fail closed per item rather
       // than rendering an empty choice set or failing the whole mixed queue.
@@ -247,6 +301,7 @@ async function deliverRows(
       expiresAt,
       criteriaByVersion.get(row.content_item_version_id) ?? [],
       choices,
+      cellByVersion.get(row.content_item_version_id) ?? null,
     );
     if (!item) {
       // Survived the gates but could not be signed. Still a missing required
@@ -301,13 +356,24 @@ export async function handleStudentSessionItems(
   // (TASK-0025). "hand_drawn_pilot" (TASK-0038) serves ONLY items explicitly
   // promoted to human_graded_pilot_approved via select_hand_drawn_pilot_items
   // -- a caller must ask for this mode by name, it is never blended into the
-  // ordinary queue. Default "frq_only" keeps the original TASK-0021 behaviour
-  // (select_practice_frqs) unchanged for existing callers. The confirm-transfer
-  // branch ignores mode entirely -- it always serves one same-cell item.
+  // ordinary queue. "cell_scoped" (CONTENT_TAXONOMY_RATIONALIZATION_PLAN_2026_09_26.md
+  // Phase 2) serves every published MCQ for the session's exam pack version,
+  // mirroring the Lovable client's retired buildPublishedMcqQuery filters
+  // exactly (item_type = 'mcq', item + version status = 'published') --
+  // subject-agnostic in the backend; today only the AP Statistics pilot asks
+  // for it by name. Deliberately not capped to a small queue window: the
+  // caller (use-session.ts) holds the whole pool in memory and re-scopes/
+  // reorders it locally, so a partial slice would silently corrupt that
+  // client-side logic. Default "frq_only" keeps the original TASK-0021
+  // behaviour (select_practice_frqs) unchanged for existing callers. The
+  // confirm-transfer branch ignores mode entirely -- it always serves one
+  // same-cell item.
   const ordinaryMode = input.mode === "unit_gated"
     ? "unit_gated" as const
     : input.mode === "hand_drawn_pilot"
     ? "hand_drawn_pilot" as const
+    : input.mode === "cell_scoped"
+    ? "cell_scoped" as const
     : "frq_only" as const;
   const itemTypeFilter = typeof input.item_type === "string"
     ? input.item_type
@@ -319,8 +385,10 @@ export async function handleStudentSessionItems(
   const confirmTransferRequested = confirmTransfer != null;
   const sourceContentItemVersionId = confirmTransferRequested
     ? asUuid(
-      (confirmTransfer as Record<string, unknown>)?.source_content_item_version_id ??
-        (confirmTransfer as Record<string, unknown>)?.sourceContentItemVersionId,
+      (confirmTransfer as Record<string, unknown>)
+        ?.source_content_item_version_id ??
+        (confirmTransfer as Record<string, unknown>)
+          ?.sourceContentItemVersionId,
     )
     : null;
   if (confirmTransferRequested && !sourceContentItemVersionId) {
@@ -489,6 +557,89 @@ export async function handleStudentSessionItems(
           _limit: limit,
         },
       ));
+    } else if (ordinaryMode === "cell_scoped") {
+      // Mirrors buildPublishedMcqQuery's filters (src/lib/use-published-mcq.ts,
+      // Lovable "New Cramapple App"): published MCQ content_items joined to
+      // their published content_item_versions, scoped to this session's exam
+      // pack version. No practice_format requirement -- MCQs on this path
+      // were never gated by it (targeted_drill/full_exam_frq is an FRQ-only
+      // concept). Two queries instead of one RPC: content_key/title/frq_form/
+      // practice_format live on app.content_items, stem/stimulus/prompt_json
+      // live on app.content_item_versions, and PostgREST embedding across
+      // schemas from the service client is more brittle than a plain in()
+      // fetch here.
+      const { data: parentRows, error: parentError } = await service
+        .schema("app")
+        .from("content_items")
+        .select("id, content_key, title, frq_form, practice_format")
+        .eq("exam_pack_version_id", session.exam_pack_version_id)
+        .eq("item_type", "mcq")
+        .eq("status", "published");
+      if (parentError) {
+        selected = null;
+        selectError = parentError;
+      } else {
+        const parentIds = (parentRows ?? []).map((r) => r.id as string);
+        if (!parentIds.length) {
+          selected = [];
+          selectError = null;
+        } else {
+          const { data: versionRows, error: versionError } = await service
+            .schema("app")
+            .from("content_item_versions")
+            .select(
+              "id, content_item_id, stem, stimulus, stimulus_image_path, prompt_json, published_at",
+            )
+            .in("content_item_id", parentIds)
+            .eq("status", "published")
+            .order("published_at", { ascending: true });
+          if (versionError) {
+            selected = null;
+            selectError = versionError;
+          } else {
+            const parentById = new Map(
+              (parentRows ?? []).map((
+                r,
+              ) => [r.id as string, r as {
+                id: string;
+                content_key: string;
+                title: string;
+                frq_form: string | null;
+                practice_format: string | null;
+              }]),
+            );
+            selected = ((versionRows ?? []) as Array<{
+              id: string;
+              content_item_id: string;
+              stem: string;
+              stimulus: string | null;
+              stimulus_image_path: string | null;
+              prompt_json: unknown;
+              published_at: string | null;
+            }>)
+              .map((v) => {
+                const parent = parentById.get(v.content_item_id);
+                if (!parent) return null;
+                return {
+                  content_item_version_id: v.id,
+                  content_item_id: v.content_item_id,
+                  content_key: parent.content_key,
+                  title: parent.title,
+                  stem: v.stem,
+                  stimulus: v.stimulus,
+                  stimulus_image_path: v.stimulus_image_path,
+                  prompt_json: v.prompt_json,
+                  frq_form: parent.frq_form,
+                  practice_format: parent.practice_format,
+                  item_type: "mcq",
+                };
+              })
+              .filter((r): r is NonNullable<typeof r> => r !== null)
+              .slice(0, limit);
+            selectError = null;
+          }
+        }
+      }
     } else if (ordinaryMode === "hand_drawn_pilot") {
       // No practice_format requirement -- pilot items aren't tied to the
       // targeted_drill/full_exam_frq model (APBIO-HDG-2026-GRAPH-002 carries
@@ -530,6 +681,21 @@ export async function handleStudentSessionItems(
             _selection_seed: learningSessionId,
             _limit: limit,
           }));
+      } else if (
+        sessionExamCode === "ap_statistics" &&
+        (
+          session.practice_format === "targeted_drill" ||
+          session.practice_format === "mcq"
+        )
+      ) {
+        ({ data: selected, error: selectError } = await service
+          .schema("app")
+          .rpc("select_ordinary_combined_practice_items", {
+            _exam_pack_version_id: session.exam_pack_version_id,
+            _practice_format: session.practice_format,
+            _selection_seed: learningSessionId,
+            _limit: limit,
+          }));
       } else {
         ({ data: selected, error: selectError } = await service.rpc(
           "select_practice_frqs",
@@ -558,12 +724,11 @@ export async function handleStudentSessionItems(
     // returned candidates that the media/answerability gates then withheld
     // (all_items_omitted, detail in `omitted`). A non-empty result never
     // needs a reason.
-    const emptyQueueReason: EmptyQueueReason | null =
-      delivered.items.length > 0
-        ? null
-        : rows.length === 0
-        ? "no_matching_content"
-        : "all_items_omitted";
+    const emptyQueueReason: EmptyQueueReason | null = delivered.items.length > 0
+      ? null
+      : rows.length === 0
+      ? "no_matching_content"
+      : "all_items_omitted";
 
     return respond({
       status: "ok",
