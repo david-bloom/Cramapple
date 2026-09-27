@@ -333,9 +333,32 @@ the design is simpler than expected. And `resolved-skill.ts` (built for the Conf
 generalization, same session) already has the `ServedCell`/`resolveSessionSkill` seam ready to carry
 Statistics through the server-cell path too, once this is decided.
 
-**Recommendation, not a decision:** option 1 (mode-scoped exemption) — most narrowly targeted, easiest to
-verify in isolation, doesn't touch the shared cap other modes/subjects/tests depend on. Needs David's
-call before Phase 2 proceeds. Nothing built or committed on either side of the repo for Phase 2 yet.
+**DECIDED, 2026-09-27:** David rejected the mode-scoped exemption on principle — no Statistics-only
+config, since a special case is something the team will forget and it will break later. Investigated the
+actual cost driver before implementing anything: every query `MAX_ITEMS` bounds is already a single
+batched `IN (...)` fetch or a single batched `createSignedUrls` call, so cost scales with row count, not
+with the ceiling; the only live caller (`use-session.ts`'s `student-session-items` call) always passes an
+explicit `limit: 8` today, so raising the ceiling changes nothing for any subject until something actually
+requests more. **Applied: option 2, `MAX_ITEMS` raised from 20 to 999** (`student-item-delivery.ts`,
+commit `0d384a91`) — 999 stays under Supabase Storage's `createSignedUrls` 1000-path batch limit and
+comfortably covers every subject's real item pool today. 58 tests pass, `deno check` clean, no test
+asserted the old value.
+
+David then raised a real forward-looking concern: today 0 of 312 published Stats MCQs need an image
+signed (verified live against Production), but that will stop being true as image use expands into other
+subjects, and a single large-payload request can still be slow even without per-item signing cost. He
+proposed a lazy-load pattern (fetch ~50, top up once ~40 are consumed). Investigated and flagged the real
+complication: `scope-mcqs.ts`/`retry-order.ts` need the WHOLE subject's cell membership to answer "is
+there another same-cell item," so naive windowed fetching would make "no more items on this skill" lie
+once a subject's pool exceeds one window. The clean fix is a lightweight index/content split — fetch a
+cheap `{content_item_version_id, cell}` index for the whole subject once (keeps scoping/retry correct),
+then lazily page full item content (stem, choices, signed images) against that index. **David's call:
+defer this — keep the 999 cap, revisit pagination once a subject actually carries meaningful image
+volume, not preemptively.** Tracked here so the index/content-split design isn't reinvented from scratch
+when that day comes.
+
+Phase 2 is now unblocked. Proceeding to build option (a): the Stats pilot routed through
+`student-session-items`, `item.cell` replacing `pilotCellFromContentKey`.
 
 ### Phase 3 — Run the topic-labelling protocol into the table of record (needs §7 items 2, 6)
 
