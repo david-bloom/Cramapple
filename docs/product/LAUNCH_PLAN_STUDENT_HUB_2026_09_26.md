@@ -1481,10 +1481,22 @@ than actually running).
 message sent, preserved in the project's chat history) and ready to execute the moment the agent is
 unstuck. **Needs David to open the editor directly** (`https://lovable.dev/projects/56cae479-f7c9-4988-b536-56538c38ee4e`),
 clear whatever's pending (the Build-mode approval, a credit/spend-limit prompt, or whatever the UI
-actually shows), and either let the queued fix message run or re-send it. **Next Owner:** David Bloom.
-**Next Action:** clear the Lovable editor's pending state, then either this session or a future one
-re-sends the fix (full spec already written, nothing to re-derive) and verifies via `get_diff` before
-declaring it done.
+actually shows), and either let the queued fix message run or re-send it.
+
+**RESOLVED, same session, minutes later.** David confirmed the pending state was a leftover
+"Automatic Full Preview" plan-mode approval (unrelated feature, from earlier today) and switched it to
+Build mode himself. The queued fix ran immediately — commit `6ce5cbcc` ("Fixed query bugs in
+home/functions.ts"), verified via `get_diff` against the exact spec sent: both files now query
+`learning_sessions` with the correct columns, `home.functions.ts` throws on a real query error instead
+of swallowing it, `resumeUrlForFormat` now receives real `practice_format` data, and
+`session.setup.tsx` correctly **dropped** the fabricated-data risk entirely — instead of inventing a
+`lastSummary`/topic recommendation from data that doesn't exist, it now shows an honest generic
+"Welcome back. Pick up where you left off, or choose something new below." The agent also proactively
+regenerated `src/types/production-database.ts` to include `practice_format`. This closes both bugs from
+the "AUDITED, 2026-09-27" section above — `TopicHome`'s Resume banner and `session.setup.tsx`'s
+Returning-student banner both now work on real data. **Not yet live-verified in a browser** (needs an
+account with a genuine in-progress session to actually see the Resume banner render) — worth a quick
+real check next time someone has an active session, but the fix itself is confirmed correct by diff.
 
 ## FOUND, 2026-09-27 (same session): `/home` was never structurally redesigned — real, previously-untracked gap (now `O17` in the architecture one-pager)
 
