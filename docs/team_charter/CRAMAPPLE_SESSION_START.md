@@ -10,12 +10,11 @@
 > Procedure" step 4 below (the architecture/design one-pager and `docs/INDEX.md`) are ratified and kept.
 > They add references only; they change no policy.
 >
-> **PENDING RATIFICATION (2026-09-27).** Three further edits await David's ratification, marked inline
-> where they appear: (1) the Repository Map now names the live Lovable front-ends (`56cae479` app /
-> `61dd6602` marketing) and demotes `exam-buddy-wireframe` to a reviewer-portal holdover; (2) a required
-> first-read of the one-pager + `docs/INDEX.md` for architecture/design/front-end/session-mode/launch
-> work; (3) a "do not trust stale/SUPERSEDED material; verify memory against the one-pager" rule. These
-> are operating-policy changes (this doc is governed). If not ratified, revert the three marked edits.
+> **RATIFIED (2026-09-27, DECISION-0078 / APPROVAL-0054).** Three further edits are ratified and kept:
+> (1) the Repository Map names the live Lovable front-ends (`56cae479` app / `61dd6602` marketing) and
+> demotes `exam-buddy-wireframe` to a reviewer-portal holdover; (2) a required first-read of the one-pager
+> + `docs/INDEX.md` for architecture/design/front-end/session-mode/launch work; (3) a "do not trust
+> stale/SUPERSEDED material; verify memory against the one-pager" rule.
 
 ## Purpose
 
@@ -64,14 +63,14 @@ Before substantive work:
 
 Read only the documents needed for a clearly bounded task. The broad orientation list is a fallback, not mandatory ceremony for every Micro task.
 
-**Required first-read for architecture, design, front-end, session-mode, or launch work** *(added 2026-09-27, pending ratification — see header note)*: before doing any such work, read `docs/product/ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md` and `docs/INDEX.md` first — even for a bounded task. They carry the current decided-vs-open picture and the map of which docs are canonical vs. superseded. This is not optional for these work types.
+**Required first-read for architecture, design, front-end, session-mode, or launch work** *(DECISION-0078)*: before doing any such work, read `docs/product/ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md` and `docs/INDEX.md` first — even for a bounded task. They carry the current decided-vs-open picture and the map of which docs are canonical vs. superseded. This is not optional for these work types.
 
-**Do not trust stale material** *(added 2026-09-27, pending ratification)*: treat any doc marked `STATUS: SUPERSEDED` or `STATUS: HISTORICAL` (see `docs/INDEX.md`'s superseded/historical list) as **non-current** — do not cite it as the present answer. Assume your own memory and prior-chat context may be stale on design, session-mode, plate-frame, mastery, and front-end topics; verify against `ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md` (the one-pager) before acting. If a doc and the one-pager disagree, the one-pager governs (it cites a record for every decision); name the conflict, don't silently resolve it.
+**Do not trust stale material** *(DECISION-0078)*: treat any doc marked `STATUS: SUPERSEDED` or `STATUS: HISTORICAL` (see `docs/INDEX.md`'s superseded/historical list) as **non-current** — do not cite it as the present answer. Assume your own memory and prior-chat context may be stale on design, session-mode, plate-frame, mastery, and front-end topics; verify against `ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md` (the one-pager) before acting. If a doc and the one-pager disagree, the one-pager governs (it cites a record for every decision); name the conflict, don't silently resolve it.
 
 ## Repository Map
 
 - `david-bloom/Cramapple` — authoritative Cramapple governance, product records, architecture, backend, content, migrations, tasks, decisions, approvals, and activity history.
-- **Live front-end (Lovable, not GitHub repos)** — the rebuilt app runs in two Lovable projects, verified live 2026-09-27 *(added 2026-09-27, pending ratification — see header note)*:
+- **Live front-end (Lovable, not GitHub repos)** — the rebuilt app runs in two Lovable projects, verified live 2026-09-27 *(DECISION-0078)*:
   - **`56cae479-f7c9-4988-b536-56538c38ee4e`** ("New Cramapple App") → `app.cramapple.com` — the authenticated student app.
   - **`61dd6602`** ("New Cramapple Marketing") → `cramapple.com` — marketing + signup funnel (and anonymous BYOQ per `DECISION-0077`).
   - Front-end commits live in Lovable, **not** in `david-bloom/Cramapple` — a frontend commit hash cited in a doc is not verifiable from this git repo. Re-confirm project IDs against live DNS before citing (per `DECISION-0073`'s self-correction). Canonical current picture: `docs/product/ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md`.

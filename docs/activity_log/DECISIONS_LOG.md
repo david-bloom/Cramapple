@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0078 — Ratify Three Session-Start Bootstrap Edits: Live Lovable Front-Ends in the Repository Map, Required First-Read of the Architecture/Design One-Pager + INDEX, and an Anti-Stale Rule
 - DECISION-0077 — BYOQ Is Identity-Agnostic: `byoq_items.user_id` Not Required (Anonymous on Marketing, Recognized-but-Not-Gated In-App); Resolves the DECISION-0070 ⟷ DECISION-0068 Conflict
 - DECISION-0076 — TASK-0039 BYOQ Phase Priority Corrected: Camera/Phone Capture Is Launch-Required, Not Typed Intake; Ownership Confirmed as Claude, Not Codex
 - DECISION-0075 — Ratify `ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md` as the Canonical Architecture/Design Source of Truth; Adopt the `STATUS:` Header Convention + `docs/INDEX.md`; Legacy Docs Handled by Annotate-in-Place (Option A, No Move)
@@ -27,6 +28,40 @@ Most recent entries (full chronological list follows below):
 (Note: the TASK-0012 branch independently logged its own DECISION-0027/0028 — CORS/ALLOWED_ORIGINS and budget-burn semantics — under different numbers on its own branch. Those land separately when that work merges to `main`; this charter-adoption decision claimed 0027/0028 here because `main` had not yet recorded entries past DECISION-0026 at merge time. If both branches' numbering collides on merge, renumber on whichever side merges second and update this index.)
 
 (Note: the same collision recurred 2026-09-26. The `claude/launch-planning-cram-4oyh2g` branch independently claimed DECISION-0068 through 0072 for five launch-planning decisions, not knowing `main` had already recorded its own DECISION-0068 (BYOQ parallel tables, TASK-0039 Phase 1) by the time this branch merged. Per the rule above, this branch — the later-merging side — renumbered its five decisions to DECISION-0069 through 0073 at merge time; main's DECISION-0068 is untouched. If you are reading an older copy of any of the five renumbered decisions (in a plan doc, a chat log, or a stale local checkout) under its original 0068-0072 number, this is why the number no longer matches — the content is unchanged, only the ID moved.)
+
+## DECISION-0078 — Ratify Three Session-Start Bootstrap Edits (Live Front-Ends, Required First-Read, Anti-Stale Rule)
+
+**Date:** 2026-09-27
+**Decision Owner:** David Bloom
+**Status:** Approved (see `APPROVAL-0054`)
+**Related Docs:** `docs/team_charter/CRAMAPPLE_SESSION_START.md` (the governed bootstrap, APPROVAL-0047 /
+DECISION-0054); `docs/product/ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md`; `docs/INDEX.md`; PR #232
+**Area:** Governance / Operating Policy
+
+### Context
+
+The 2026-09-27 documentation cleanup found that the session-start bootstrap could still route sessions
+to outdated material: its Repository Map named `exam-buddy-wireframe` as the "current front-end," the
+new canonical one-pager + INDEX were only in the optional fallback list, and there was no explicit rule
+to distrust superseded docs or stale memory. Three edits were made and merged (PR #232), flagged pending
+ratification because the bootstrap is a governed operating-policy document.
+
+### Decision
+
+The three edits are **ratified and kept** (they change routing/guidance, not authority order or gates):
+
+1. **Repository Map corrected** — names the live Lovable front-ends **`56cae479`** (app, `app.cramapple.com`)
+   and **`61dd6602`** (marketing, `cramapple.com`), notes front-end commits live in Lovable (not this
+   repo) and must be re-confirmed against live DNS, and demotes `exam-buddy-wireframe` to a
+   reviewer-portal holdover (rebuild §10).
+2. **Required first-read** — for architecture / design / front-end / session-mode / launch work,
+   `ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md` + `docs/INDEX.md` must be read first, not left to the
+   optional fallback list.
+3. **Anti-stale rule** — treat `STATUS: SUPERSEDED`/`HISTORICAL` docs as non-current; assume memory and
+   prior-chat context may be stale on design/mode/frame/frontend; verify against the one-pager, which
+   governs on conflict.
+
+Builds on `DECISION-0075` (which ratified the earlier one-pager/INDEX pointers in the same bootstrap).
 
 ## DECISION-0077 — BYOQ Is Identity-Agnostic; `byoq_items.user_id` Not Required; Resolves DECISION-0070 ⟷ DECISION-0068
 
