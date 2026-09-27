@@ -1150,6 +1150,25 @@ resulting logs checked, or someone with dashboard access confirming the service-
 Practical impact today is low for grading itself (confirmed `grading_results` is the real source of
 truth, not `attempts`) but real for anything reading `attempts.status`/`graded_at` directly.
 
+## CONFIRMED, 2026-09-27 (same day): the `attempts`-update root cause is no longer a hypothesis
+
+Checked the Supabase dashboard directly with David: the `evaluate-attempt` edge functions' `SUPABASE_SERVICE_ROLE_KEY`
+secret is the newer, non-JWT `sb_secret_...` format. Then confirmed empirically, not just by inference:
+deployed a throwaway diagnostic edge function to **Dev only** (deleted immediately after) using the exact
+same `createServiceClient()` shared module, which called a temporary SQL function exposing
+`current_setting('request.jwt.claim.role', true)` (dropped immediately after) — result: **`<null>`**, not
+`service_role`, not even `anon`. PostgREST cannot resolve any role claim at all from this service
+client's requests today, which is exactly what makes `attempts_prevent_client_grading_truth_update`
+reject every update. Root cause confirmed, nothing guessed.
+
+**Fix, in progress:** repoint the `SUPABASE_SERVICE_ROLE_KEY` edge-function secret at the legacy JWT
+`service_role` key (still valid — the project's legacy anon JWT is confirmed still active, same
+underlying signing mechanism) instead of the new-format secret key, via the dashboard's Edge Function
+Secrets page. David is doing this directly, not delegated — it's a highly-privileged, project-wide
+credential and the exact value was never exposed in this session. Once set, verification is a repeat of
+the same Dev diagnostic (or a real grading event's logs) to confirm `attempts.update()` now succeeds.
+Full evidence trail: `INTERACTION_DATA_GAPS_RUNNING_LIST.md`'s IDG-5.
+
 ## Out of Scope
 
 Redesigning any already-decided section of the interaction design spec — raise a proposal to David

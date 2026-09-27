@@ -14,47 +14,47 @@ finding, evidence query + count, moved to **§2 Closed** when resolved. Nothing 
 
 ## 1. Open
 
-### IDG-5 — HIGH-CONFIDENCE, UNCONFIRMED: `attempts`' entire grading-truth update silently fails on every real attempt
-- **Evidence (2026-09-27):** Not just `confidence_level`/`result_summary` (IDG-1) — **every** column
-  the post-grading `attempts.update()` writes is 0% populated: `status` is only ever `draft`/`submitted`
+### IDG-5 — CONFIRMED: `attempts`' entire grading-truth update silently fails on every real attempt (root cause nailed down, not yet fixed)
+- **Symptom (2026-09-27):** Not just `confidence_level`/`result_summary` (IDG-1) — **every** column the
+  post-grading `attempts.update()` writes is 0% populated: `status` is only ever `draft`/`submitted`
   (never `graded`/`uncertain`), `graded_at`/`score_points`/`score_possible` are null on all 104 rows.
-  Meanwhile `grading_results` (a separate table, updated by a separate call two lines earlier in the
-  same function) genuinely has real scores — grading itself works. For the 8 most-recently-submitted
-  attempts, `updated_at` is byte-identical to `submitted_at`: the row has **never once been touched**
-  by any UPDATE since creation, consistent with every attempt of this write being rejected outright
-  (not merely writing a null value).
-- **Leading hypothesis, not confirmed:** `app.attempts` carries a trigger,
-  `attempts_prevent_client_grading_truth_update`, that raises an exception on exactly these columns
-  (`score_points`, `score_possible`, `graded_at`, `confidence_level`, `result_state`, `result_summary`,
-  or a `status` transition into `graded`/`uncertain`) **unless**
-  `current_setting('request.jwt.claim.role', true) = 'service_role'`. `evaluate-attempt/index.ts`'s
-  `.update()` call for this never captured `{ error }` — a Postgres exception here would be silently
-  swallowed by `@supabase/supabase-js` (it returns `{ error }`, it does not throw), which is exactly
-  consistent with the code visibly containing the right update and it still never landing. If this
-  project's `SUPABASE_SERVICE_ROLE_KEY` edge-function secret is the newer, non-JWT `sb_secret_...`
-  format rather than the legacy JWT (see `[[feedback_supabase_secret_key_headers]]` — a documented
-  gotcha in this exact project), `request.jwt.claim.role` would never resolve to `service_role` for
-  these calls, and the trigger would reject every single one — the exact symptom observed. **Could not
-  confirm from here**: Postgres/edge logs only retain 24h and the most recent real attempt was
-  2026-09-23 (4 days outside that window), and reading the actual secret value is out of bounds for
-  this session. Did **not** guess a fix (e.g. touching the trigger or the key) without confirmation —
-  that trigger is a deliberate security boundary (`DECISION-0068`'s discussion of this same function).
-- **Fixed today, narrowly:** both `attempts.update()` call sites (deterministic and model-graded paths)
-  now capture `{ error }` and `console.error("attempts_grading_truth_update_failed", { attempt_id,
-  route, error, code })` instead of silently discarding it. This does not fix the underlying cause — it
-  makes the next real grading event's logs conclusive instead of silent. Deployed to Dev then Production.
-- **Next step, requires either:** (a) a real attempt graded on live Production (same blocker as launch
-  plan item 3 — needs David or a handed-over test account) with the resulting edge function logs
-  checked for `attempts_grading_truth_update_failed`, or (b) someone with dashboard access confirming
-  the `SUPABASE_SERVICE_ROLE_KEY` secret's format directly.
+  Meanwhile `grading_results` (a separate table, updated two lines earlier in the same function)
+  genuinely has real scores — grading itself works. `updated_at` is byte-identical to `submitted_at` on
+  every recent attempt: the row has never once been touched by any UPDATE since creation.
+- **Mechanism:** `app.attempts` carries a trigger, `attempts_prevent_client_grading_truth_update`, that
+  raises an exception on exactly these columns (`score_points`, `score_possible`, `graded_at`,
+  `confidence_level`, `result_state`, `result_summary`, or a `status` transition into
+  `graded`/`uncertain`) **unless** `current_setting('request.jwt.claim.role', true) = 'service_role'`.
+  `evaluate-attempt/index.ts`'s `.update()` call for this never captured `{ error }` — a Postgres
+  exception here is silently swallowed by `@supabase/supabase-js` (it returns `{ error }`, it does not
+  throw), consistent with the code visibly containing the right update and it never landing.
+- **CONFIRMED empirically, 2026-09-27 (not left as inference):**
+  1. Dashboard check: the edge-function secret `SUPABASE_SERVICE_ROLE_KEY` is the newer, non-JWT
+     `sb_secret_...` format, not a legacy JWT.
+  2. Deployed a throwaway diagnostic edge function to **Dev only** (`wmgjsdkphcyhngaffbqf`, deleted
+     immediately after), using the exact same `createServiceClient()` shared module `evaluate-attempt`
+     uses. It called a temporary `public.debug_role_claim()` SQL function (`select
+     current_setting('request.jwt.claim.role', true)`, also dropped after test) and got back
+     **`<null>`** — not `service_role`, not even `anon`. PostgREST cannot resolve any role claim at all
+     from this service client's requests today, exactly matching the mechanism above.
+  Root cause is confirmed, not hypothesized. Did not touch the trigger or the key — that trigger is a
+  deliberate security boundary (`DECISION-0068`'s discussion of this same function), and the fix
+  (repointing `SUPABASE_SERVICE_ROLE_KEY` at the legacy JWT `service_role` key) is David's action to
+  take via the dashboard, in progress as of this writing.
+- **Fixed today, independent of the key fix:** both `attempts.update()` call sites (deterministic and
+  model-graded paths) now capture `{ error }` and `console.error("attempts_grading_truth_update_failed",
+  { attempt_id, route, error, code })` instead of silently discarding it — this alone doesn't fix the
+  cause, but means any future recurrence (a key rotation, a different trigger, anything) surfaces in
+  logs instead of silently vanishing again. Deployed to Dev then Production.
+- **Next step:** once `SUPABASE_SERVICE_ROLE_KEY` is repointed at the legacy JWT key, re-run the same
+  Dev diagnostic (or check that a real grading event's `attempts` row now actually updates) to confirm
+  the fix took.
 - **Practical impact today:** low for grading itself (`grading_results` is the actual source of truth
   per `project_engine_rollout_status_2026_09_20` memory and this plan's own Phase 0 evidence table) —
-  but real, ongoing impact on anything reading `attempts.status`/`graded_at`/`score_points` directly,
-  and on `DECISION-0074` mastery capture: `evaluate-attempt` derives `assistance_state` and calls
-  `persistCellState` using the **in-memory** `attempt` object from before this failed write, so mastery
-  counting itself is unaffected by this specific bug — but a dashboard or downstream job querying
-  `attempts` directly for grading status would see every attempt as permanently `submitted`, never
-  `graded`.
+  but real, ongoing impact on anything reading `attempts.status`/`graded_at`/`score_points` directly.
+  `DECISION-0074` mastery capture is unaffected by this specific bug: `evaluate-attempt` derives
+  `assistance_state` and calls `persistCellState` using the **in-memory** `attempt` object from before
+  this failed write, not a re-read of the (unwritten) row.
 
 ### IDG-1 — `attempts.confidence_level` / `result_summary` write-path bug — still open, numbers re-confirmed
 - **Evidence (2026-09-27):** `count(confidence_level)` = 0/108, `count(result_summary)` = 0/108 in
