@@ -1,13 +1,13 @@
 # Launch Plan — Content Pipeline (Question Templates) — 2026-09-26
 
-**Status:** In progress | **Owner:** David Bloom | **Tier:** Standard
+**Status:** Done (2026-09-27) | **Owner:** David Bloom | **Tier:** Standard
 **Part of:** `APP_LAUNCH_READINESS_INDEX_2026_09_26.md`
 
 ## Product Goal
 
 The system that turns raw exam content into servable, validated questions works end to end without
 manual per-item authoring at scale. This plan covers two related but distinct systems plus the
-quantity target they feed. Under `DECISION-0072`, it is **not a Friday-launch blocker**: AP Biology
+quantity policy they feed. Under `DECISION-0072`, it is **not an October 2 launch blocker**: AP Biology
 and AP Statistics launch on their flat practice paths, which do not require unit-gated labels or
 difficulty. It remains the execution plan for post-launch unit-gating and full all-subject readiness.
 
@@ -68,32 +68,38 @@ recorded in `CONTENT_PIPELINE_CODEX_HANDOFF_2026_09_27.md`.
 
 | Subject | Label generation | Independent cross-QA | Validation promotion | Live unit-gated selector verification | Difficulty coverage |
 | --- | --- | --- | --- | --- | --- |
-| AP Biology | Earlier lane executed; remaining FF-7/FF-8 label gaps are tracked in `AP_BIOLOGY_FAST_FOLLOW.md` | FF-3 promotion received independent multi-unit review | Partial existing FF-3 promotion; fresh subject-level census required | Fresh unit-gated check pending; flat practice path is independently verified and is the Friday path | **118/118 complete** (FF-6) |
+| AP Biology | Earlier lane executed; remaining FF-7/FF-8 label gaps are tracked in `AP_BIOLOGY_FAST_FOLLOW.md` | FF-3 promotion and this pass's remaining multi-unit candidate received independent review | 23 fresh validated live | **Verified:** current maximum eligible unit-gated pool 23; flat practice remains the October 2 path | **118/118 complete** (FF-6) |
 | AP Statistics | **Complete:** 126 decisions (107 provisional, 19 held) | **Complete:** Codex cross-QA, PR #193 | 23 fresh single-unit rows promoted this pass; 67 fresh validated live | **Verified:** direct selector returned 48 at unit 5 (RPC eligibility/cap rules apply) | **170/170 complete** |
 | AP Chemistry | **Complete:** 42 decisions (33 provisional, 9 held) | **Complete:** independent cross-QA, no issues | 25 fresh single-unit rows promoted; 65 fresh validated live | **Verified:** direct selector reached the 50-row RPC cap at unit 9 | **119/119 complete** |
-| AP Calculus AB | **Complete:** Pair 2 run and follow-up fixes | **Complete:** independent cross-QA and remediation | 24 fresh single-unit rows promoted; 31 fresh validated live; older/multi-unit rows remain provisional | **Verified:** direct selector returned 31 at unit 7 | **122/122 complete** |
-| AP Precalculus | **Complete:** Pair 2 run; disagreement remediation applied | **Complete:** two cross-QA passes and metadata remediation | 25 fresh single-unit rows promoted; 52 fresh validated live | **Verified:** direct selector reached the 50-row RPC cap at unit 3 | **117/117 complete**, including metadata reconciliation |
-| AP Calculus BC | **Complete:** 98 guarded label results written | **Complete:** strict result revalidation plus independent Claude remediation QA | 36 fresh single-unit rows promoted; 40 fresh validated live; 27 multi-unit agreements remain provisional | **Verified:** unit-gated pool reaches 40 | **127/127 complete** (`20260926234400`) |
-| AP Physics 1 | **Complete:** 107 candidates re-labeled; current live state 77 validated / 17 provisional / 23 held | Independent result-shape and migration checks complete; multi-unit third review remains | 70 fresh single-unit rows promoted this pass | **Verified:** direct selector reached the 50-row RPC cap at unit 8 | **117/117 complete** (`20260926234000`) |
-| AP Physics 2 | **Complete:** 66 candidates re-labeled; current live state 50 validated / 2 provisional / 16 held | Independent result-shape and migration checks complete; multi-unit third review remains | 49 fresh single-unit rows promoted this pass | **Verified:** direct selector reached the 50-row RPC cap | **68/68 complete** (`20260926234100`) |
-| AP Physics C: Mechanics | **Complete:** all 76 failed calls retried; 58 agreements and 18 holds | **Complete:** runner/result checks plus independent Claude remediation QA | 45 fresh single-unit rows promoted; 49 fresh validated live; 13 multi-unit agreements remain provisional | **Verified:** unit-gated pool reaches 45 | **77/77 complete** (`20260926234200`) |
-| AP Physics C: E&M | **Complete:** 96 guarded label results written | **Complete:** strict result revalidation plus independent Claude remediation QA | 71 fresh single-unit rows promoted; 77 fresh validated live; 9 multi-unit agreements remain provisional | **Verified:** unit-gated pool reaches 72; high-volume probes correctly cap at 50 | **97/97 complete** (`20260926234300`) |
+| AP Calculus AB | **Complete:** Pair 2 run and follow-up fixes | **Complete:** independent cross-QA, remediation, and blind third review | 36 fresh validated live | **Verified:** current maximum eligible unit-gated pool 36 | **122/122 complete** |
+| AP Precalculus | **Complete:** Pair 2 run; disagreement remediation applied | **Complete:** two cross-QA passes, metadata remediation, and blind third review | 53 fresh validated live | **Verified:** current maximum eligible unit-gated pool 53 | **117/117 complete**, including metadata reconciliation |
+| AP Calculus BC | **Complete:** 98 guarded label results written | **Complete:** strict revalidation, independent remediation QA, and blind third review | 45 fresh validated live | **Verified:** current maximum eligible unit-gated pool 45 | **127/127 complete** (`20260926234400`) |
+| AP Physics 1 | **Complete:** 107 candidates re-labeled | **Complete:** independent checks and blind third review | 85 fresh validated live | **Verified:** current maximum eligible unit-gated pool 85 | **117/117 complete** (`20260926234000`) |
+| AP Physics 2 | **Complete:** 66 candidates re-labeled | **Complete:** independent checks and blind third review | 50 fresh validated live | **Verified:** current maximum eligible unit-gated pool 50 | **68/68 complete** (`20260926234100`) |
+| AP Physics C: Mechanics | **Complete:** all 76 failed calls retried; 58 agreements and 18 holds | **Complete:** runner/result checks, independent remediation QA, and blind third review | 50 fresh validated live | **Verified:** current maximum eligible unit-gated pool 50 | **77/77 complete** (`20260926234200`) |
+| AP Physics C: E&M | **Complete:** 96 guarded label results written | **Complete:** strict revalidation, independent remediation QA, and blind third review | 75 fresh validated live | **Verified:** current maximum eligible unit-gated pool 75 | **97/97 complete** (`20260926234300`) |
 
 Evidence: `TIER3_PAIR1_STATUS_2026_09_25.md`, `TIER3_PAIR2_STATUS_2026_09_25.md`,
 `AP_BIOLOGY_FAST_FOLLOW.md`, and
 `docs/content/CODEX_QA_REPORT_READINESS_AUDIT_WORK_ORDERS_AND_SELECTORS_2026_09_25.md`.
 
-## The actual remaining work: finish execution, promotion, and live verification
+## Completion state
 
 `SUBJECT_SERVABILITY_CRITERIA.md` criteria 3 (validated serving labels) and 5 (difficulty values) now
-have validated labels and complete difficulty coverage for all ten subjects. The remaining label
-work is intentionally narrower: 49 multi-unit agreements across Calculus BC and both Physics C
-subjects still require DECISION-0066's independent third review. The separate content-quantity
-criterion remains open because only Biology has owner-approved quantity targets.
+have fresh validated labels and complete difficulty coverage for all ten subjects. A live audit found
+141—not the previously documented 49—current, fresh multi-unit two-model agreements across all ten
+subjects. All 141 received the required blind third review through Vercel AI Gateway using
+`anthropic/claude-haiku-4-5`: 27 exact full-label confirmations were promoted, 66 disagreements and
+48 rubric/scope holds remained unpromoted, and no calls failed. Those 114 non-confirmations are
+completed review outcomes, not unfinished work.
+
+`DECISION-0082` resolves the quantity criterion: Biology retains its approved planning targets; the
+other nine subjects have no fixed quantity targets and instead maximize the safely usable portion of
+their current published inventory without weakening quality or freshness gates.
 
 ## Acceptance Criteria
 
-- [ ] For each subject not yet fully covered, issue or continue a Codex work order following the
+- [x] For each subject not yet fully covered, issue or continue a Codex work order following the
       pattern in the examples above, and independently re-verify its output (per this repo's own
       practice of an independent re-check after every Codex-proposed batch).
 - [x] Every promoted label passes a spot-check against `select_unit_gated_practice_items`'s actual
@@ -102,15 +108,15 @@ criterion remains open because only Biology has owner-approved quantity targets.
       valid — this is why some Physics C/Calc BC candidates were flagged stale).
 - [x] Difficulty rows are produced per DECISION-0061/0065 (null `attainment_ratio` acceptable with an
       honest `basis`; a fabricated ratio is not).
-- [ ] Any model-call-based *grader-gate reachability* check specifically is run 3+ times before being
+- [x] Any model-call-based *grader-gate reachability* check specifically is run 3+ times before being
       trusted (this 3+ rule is about grader reachability, not the label-agreement step itself, which
       already has its own two-model-agreement design per DECISION-0066 — don't triple the label-run
-      cost by conflating the two).
-- [ ] `CONTENT_QUANTITY_AND_DISTRIBUTION.md`'s approved planning targets are checked against actual
+      cost by conflating the two). **Not invoked here:** this plan makes no grader-gate reachability
+      claim, so no three-call reachability test was required.
+- [x] `CONTENT_QUANTITY_AND_DISTRIBUTION.md`'s approved planning targets are checked against actual
       current AP Biology bank size. Its approved targets — 600 MCQs, 300 short FRQs, and 64 long FRQs
-      (964 total) — are **Biology-only**. **David decision required:** whether equivalent targets are
-      needed for the other 9 subjects. Until that decision is recorded, do not invent targets or
-      treat this quantity criterion as checkable for those subjects.
+      (964 total) — are **Biology-only**. `DECISION-0082` records that the other nine subjects have no
+      fixed quantity targets; maximize safely usable current published inventory instead.
 - [x] Once a subject's labels/difficulty are updated, its entry in `SUBJECT_SERVABILITY_CRITERIA.md`'s
       "Applied so far" table is updated with real numbers, cited to the migration or run that produced
       them. **This table is shared with `LAUNCH_PLAN_SUBJECT_ONBOARDING_GATE_2026_09_26.md` — this plan
@@ -124,12 +130,18 @@ criterion remains open because only Biology has owner-approved quantity targets.
 - Applied the five-row difficulty correction; all five specified rows are now Hard in Production.
 - Hardened the shared runner's resume and write guards and added a passing no-network safety fixture.
 - Completed guarded label writes for Calculus BC and both Physics C subjects, then promoted 152 fresh
-  single-unit agreements. Current live validated counts are Calculus BC 40, Mechanics 49, E&M 77.
-- Re-ran the real selectors and census self-test: 0 mismatches for the three completed subjects.
+  single-unit agreements.
+- Audited the live set and blind-reviewed all 141 current fresh multi-unit agreements. The review
+  returned 27 exact full-label confirmations, 66 disagreements, 48 rubric/scope holds, and 0 call
+  errors. Applied `20260927184534_task0042_promote_blind_third_review_confirmations`; exactly the 27
+  confirmations moved to `validated`. Four same-unit/different-primary results remained unpromoted
+  under the conservative exact-full-label rule.
+- Re-ran the real selectors and census self-test: 0 mismatches across all ten subjects. Fresh current
+  validated counts are Biology 23, Statistics 67, Calculus AB 36, Chemistry 65, Precalculus 53,
+  Calculus BC 45, Physics 1 85, Physics 2 50, Physics C Mechanics 50, and Physics C E&M 75.
 - Checked Biology quantity against its approved target: 43/600 MCQ, 59/300 short FRQ, 16/64 long
-  FRQ. The other-subject target decision remains open.
-- Remaining execution is the 49-row multi-unit third review and a Product Owner quantity-target
-  decision for the other nine subjects.
+  FRQ. `DECISION-0082` records no fixed targets for the other nine subjects and directs maximizing
+  safely usable current published inventory.
 
 ## Out of Scope
 

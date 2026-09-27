@@ -2,7 +2,7 @@
 
 ## Outcome
 
-The authorized TASK-0042 cross-cutting remediation is implemented and independently QA-verified.
+The authorized TASK-0042 cross-cutting remediation is complete and independently QA-verified.
 Production project: `pcntajvbdfqhbeewmdry`. Approval: `APPROVAL-0056`.
 
 ### Freshness audit
@@ -74,9 +74,32 @@ Applied fresh single-unit promotions:
 - `20260927114124_promote_apcalculusbc_fresh_single_unit` — 36
 - `20260927114128_promote_apphysicscmechanics_fresh_single_unit` — 45
 
-Current live validated-label counts independently reported by QA: E&M 77, Mechanics 49,
-Calculus BC 40. Multi-unit agreements remain provisional: E&M 9, Mechanics 13, Calculus BC 27.
-No multi-unit label was promoted without the DECISION-0066 third review.
+The values above record the state before the blind third review. No multi-unit label was promoted
+without that review.
+
+### Blind third review and final promotion
+
+A new live audit found 141—not the earlier partial count of 49—current, fresh, provisional
+multi-unit two-model agreements across all ten subjects. With David's explicit approval to transmit
+the question stems, answers, and rubrics, every packet received a blind review through Vercel AI
+Gateway using `anthropic/claude-haiku-4-5`; the reviewer did not receive the candidate label.
+
+| Outcome | Rows |
+| --- | ---: |
+| Exact full-label confirmation | 27 |
+| Disagreement | 66 |
+| Rubric/scope hold | 48 |
+| Call error | 0 |
+| **Total** | **141** |
+
+Applied `20260927184534_task0042_promote_blind_third_review_confirmations`; exactly 27 confirmations
+moved to `validated`. All 114 non-confirmations remained provisional or held. Four results matching
+the candidate `required_units` but disagreeing on `primary_unit` were conservatively excluded because
+the promotion rule required an exact full-label match.
+
+Evidence:
+`docs/research/content_pipeline_third_review_2026_09_27/REPORT.md`, `reviews.json`,
+`reviews.jsonl`, `summary.json`, and `packets.json`.
 
 ### Approval provenance correction
 
@@ -88,9 +111,10 @@ on `APPROVAL-0056` and zero remaining on the conflicting ID. No label state chan
 
 ### Live verification
 
-`app.servable_items_census_selftest()` returned no mismatches for the three completed subjects.
-Uncapped unit probes matched exactly; higher-volume E&M probes returned `skipped_capped` as
-designed. Unit-gated pools now reach 72 for E&M, 45 for Mechanics, and 40 for Calculus BC.
+`app.servable_items_census_selftest()` returned no mismatches across all ten subjects. Fresh current
+validated counts and maximum eligible unit-gated pools are Biology 23, Statistics 67 (selector cap
+48), Calculus AB 36, Chemistry 65, Precalculus 53, Calculus BC 45, Physics 1 85, Physics 2 50,
+Physics C Mechanics 50, and Physics C E&M 75.
 
 ## Independent QA
 
@@ -100,10 +124,11 @@ guards and fixture, confirmed all nine new Production migrations in the ledger, 
 three live subject counts. Verdict: core remediation passed; the documentation and cosmetic exporter
 reference were the only follow-up findings, now corrected here.
 
-## Still open
+## Closeout
 
-- Multi-unit labels require a genuine independent third review from a differently architected model
-  or a human before promotion.
-- Only Biology has owner-defined quantity targets: 43/600 MCQ, 59/300 short FRQ, 16/64 long FRQ.
-  Equivalent targets for the other subjects remain a Product Owner decision.
-- TASK-0042 remains in progress until those explicitly retained items are reviewed or descoped.
+- The multi-unit review is complete. The 114 non-confirmations are evidence-backed exclusions, not
+  an unfinished queue.
+- Biology remains at 43/600 MCQ, 59/300 short FRQ, and 16/64 long FRQ against its planning targets.
+- Under `DECISION-0082`, the other nine subjects have no fixed quantity targets; they maximize safely
+  usable current published inventory without weakening content, freshness, rubric, or review gates.
+- TASK-0042 is Done.

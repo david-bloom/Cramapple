@@ -73,18 +73,18 @@ hash; difficulty uses that same current-version population.
 | --- | ---: | ---: |
 | AP Biology | 23 | 118/118 |
 | AP Statistics | 67 | 170/170 |
-| AP Calculus AB | 31 | 122/122 |
+| AP Calculus AB | 36 | 122/122 |
 | AP Chemistry | 65 | 119/119 |
-| AP Precalculus | 52 | 117/117 |
-| AP Calculus BC | 40 | 127/127 |
-| AP Physics 1 | 77 | 117/117 |
+| AP Precalculus | 53 | 117/117 |
+| AP Calculus BC | 45 | 127/127 |
+| AP Physics 1 | 85 | 117/117 |
 | AP Physics 2 | 50 | 68/68 |
-| AP Physics C: Mechanics | 45 | 77/77 |
-| AP Physics C: E&M | 72 | 97/97 |
+| AP Physics C: Mechanics | 50 | 77/77 |
+| AP Physics C: E&M | 75 | 97/97 |
 
-Evidence: `CONTENT_PIPELINE_CODEX_HANDOFF_2026_09_27.md` and the guarded migrations listed there.
-The independently reported raw `validated` status totals for Mechanics and E&M are 49 and 77;
-the lower 45 and 72 figures above intentionally enforce current-version/hash freshness.
+Evidence: `CONTENT_PIPELINE_CODEX_HANDOFF_2026_09_27.md`, the guarded migrations listed there, and
+`20260927184534_task0042_promote_blind_third_review_confirmations`. The table uses current-version
+and current-hash freshness, not raw status totals.
 
 **Codex QA sweep and remediation, 2026-09-25 (all seven canonical-content subjects above).** Codex independently
 re-verified all 372 FRQ with a canonical answer across the seven subjects

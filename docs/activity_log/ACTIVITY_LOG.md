@@ -6,7 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
-- TASK-0042 Content-Pipeline QA Remediation Applied and Independently Verified (2026-09-27): Closed the 216-row freshness audit at 216 verified / 0 reverted / 0 unverifiable; hardened the runner; applied five difficulty corrections; completed guarded E&M, Calc BC, and Mechanics writes; promoted 152 fresh single-unit agreements; left 49 multi-unit agreements provisional; live census self-test had no mismatches. Independent Claude QA passed. Approval: `APPROVAL-0056`.
+- TASK-0042 Content Pipeline Done (2026-09-27): completed the 216-row freshness audit, five difficulty corrections, runner hardening, all-subject label execution, and blind Claude third review of the actual 141 current multi-unit candidates. Promoted 27 exact confirmations; retained 66 disagreements and 48 holds. All-subject live census: 0 mismatches. David set no fixed quantity targets outside Biology; maximize safely usable published inventory (`DECISION-0082`). Approval: `APPROVAL-0056`.
 - Lean Source-of-Truth Startup Mode Adopted (DECISION-0081 / APPROVAL-0055, 2026-09-27): diagnosed why
   Codex session-start was consuming most of a session's usage budget before task work began —
   `CODEX_NEW_SESSION_PROMPT.md` hardcoded an unconditional ~3,200-line, 11-doc read for every task,
@@ -153,12 +153,36 @@ Most recent entries (full reverse-chronological list follows below):
 
 <!-- INDEX_END -->
 
+## TASK-0042 Content Pipeline Done — 2026-09-27
+
+**Task:** TASK-0042
+**Approval:** `APPROVAL-0056`
+**Decision:** `DECISION-0082`
+**Status:** Done
+
+The live audit found 141—not 49—current, fresh multi-unit two-model agreements across all ten
+subjects. With David's explicit external-transfer approval, all 141 packets were sent through Vercel
+AI Gateway to `anthropic/claude-haiku-4-5` in a blind review that withheld the candidate label.
+Results: 27 exact full-label confirmations, 66 disagreements, 48 rubric/scope holds, 0 call errors.
+Applied `20260927184534_task0042_promote_blind_third_review_confirmations`; exactly 27 labels moved
+to `validated`, while all 114 non-confirmations remained unpromoted.
+
+Fresh current validated counts are Biology 23, Statistics 67, Calculus AB 36, Chemistry 65,
+Precalculus 53, Calculus BC 45, Physics 1 85, Physics 2 50, Physics C Mechanics 50, and Physics C
+E&M 75. `app.servable_items_census_selftest()` returned zero mismatches for all subjects.
+
+David decided the nine non-Biology subjects do not need fixed quantity targets. The continuing
+operating rule is to maximize safely usable current published inventory without weakening freshness,
+rubric, or independent-review gates. This resolves the final policy blocker and closes TASK-0042.
+
+---
+
 ## TASK-0042 Content-Pipeline QA Remediation Applied and Independently Verified — 2026-09-27
 
 **Task:** TASK-0042 content-pipeline QA remediation
 **Approval:** `APPROVAL-0056`
 **Production:** `pcntajvbdfqhbeewmdry`
-**Status:** Core remediation complete and independently passed; retained multi-unit/quantity decisions remain open
+**Status:** Superseded snapshot — core remediation passed; final closeout is recorded above
 
 Reconstructed original generation hashes for all 216 labels promoted by `20260926233500`.
 Applied `20260927112814_reaudit_decision0066_single_unit_promotions`: 216 verified fresh,
@@ -169,8 +193,9 @@ Hardened `extend_serving_labels_mcp.mjs` with exact resume matching, pre-write l
 guards, newer-label protection, the correct exporter filename, and a passing no-network fixture.
 Applied guarded label migrations for E&M (96), Calculus BC (98), and Mechanics (76); Mechanics'
 76 genuine model-call failures were retried, yielding 58 agreements and 18 holds. Promoted only
-fresh single-unit agreements: E&M 71, Calc BC 36, Mechanics 45. The 49 multi-unit agreements
-remain provisional pending DECISION-0066 third review.
+fresh single-unit agreements: E&M 71, Calc BC 36, Mechanics 45. At this intermediate snapshot, the
+known 49 multi-unit agreements remained provisional pending DECISION-0066 third review; the later
+live audit found and reviewed 141 across all subjects, as recorded in the Done entry above.
 
 Post-write `app.servable_items_census_selftest()` had no mismatches for these subjects.
 Independent Claude QA verified original hash provenance, ledger state, five difficulty rows, runner
@@ -182,8 +207,8 @@ TASK-0044's existing `APPROVAL-0051`. TASK-0042 was renumbered to `APPROVAL-0056
 migration `20260927181002_correct_task0042_approval_note_provenance` changed exactly 152 affected
 validation-decision notes, with 152 corrected and 0 old-ID notes remaining. Label state was unchanged.
 
-**Still open:** independent third review for multi-unit labels; Product Owner quantity targets outside
-Biology. TASK-0042 remains In Progress.
+**Superseded open items:** the independent third review and quantity policy were subsequently resolved
+by the Done entry above and `DECISION-0082`. TASK-0042 is Done.
 
 ---
 

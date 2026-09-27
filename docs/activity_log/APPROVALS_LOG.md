@@ -53,6 +53,16 @@ remediation. Production changes remain durable, subject-identifiable migrations 
 - Does not authorize replaying applied migrations, exposing secrets, or leaving the CLI Production-linked.
 - Final acceptance requires fresh independent QA by an agent that did not author the fixes.
 
+### Closeout addendum — 2026-09-27
+
+David explicitly approved transmitting 141 current question packets—including stems, answers, and
+rubrics—to Vercel AI Gateway using `anthropic/claude-haiku-4-5` for DECISION-0066's blind third
+review. The review completed with 27 exact full-label confirmations, 66 disagreements, 48 rubric or
+scope holds, and zero call errors. Migration
+`20260927184534_task0042_promote_blind_third_review_confirmations` promoted only the 27 exact
+matches. David also decided that the nine non-Biology subjects have no fixed quantity targets; see
+`DECISION-0082`.
+
 ### ID reconciliation
 
 This authorization was initially recorded in the task branch as `APPROVAL-0051`. When current

@@ -5,14 +5,14 @@
 **Owner:** Codex (implementation)
 **Product Owner:** David Bloom
 **Tier:** Hard-Gate
-**Status:** In Progress
+**Status:** Done
 **Priority:** Medium — **removed from the October 2, 2026 launch-critical path**
 **Created Date:** 2026-09-26
 **Approved Date:** 2026-09-27 (`APPROVAL-0056`)
 **Branch:** `codex/task-0042-content-pipeline-remediation`
 **PR:** None yet
 
-## Codex QA note (2026-09-26, pre-execution review)
+## Codex QA note (2026-09-26, pre-execution review; superseded by the closeout below)
 
 Codex reviewed this task record before any work started and returned **Fail — revision required**.
 Findings folded into this revision: **removed from the October 2 critical path** — per
@@ -21,8 +21,8 @@ the remaining labels/difficulty pipeline for Biology and Statistics" is post-lau
 subject's flat-path launch depends on this task; tier raised from Standard to **Hard-Gate** because
 this task performs live Production writes (label/difficulty promotion) and Standing Approval is
 insufficient for that — every promotion batch needs explicit, recorded approval; **must be split into
-independently reviewable per-subject slices before assignment** — see "Required slicing" below. This is
-still a pre-execution draft — no implementation agent has been assigned.
+independently reviewable per-subject slices before assignment** — see "Required slicing" below. This
+paragraph records the original review state; implementation and closeout are now complete.
 
 ## Product Goal
 
@@ -38,16 +38,18 @@ CORRECTION block, before starting.
 
 **The pipeline already exists and has already produced a real result** — do not build new
 infrastructure. FF-3 promoted 229 two-model-agreed labels across 9 subjects (closed 2026-09-24 under
-`DECISION-0066`), moving unit-gated servable items from 8 to 141 product-wide. The remaining work is
-running the same Codex-work-order pattern (see
+`DECISION-0066`), moving unit-gated servable items from 8 to 141 product-wide. The original execution
+brief was to run the same Codex-work-order pattern (see
 `prompts/CODEX_WORK_ORDER_AP_CHEMISTRY_LABELS_AND_DIFFICULTY_2026_09_25.md` for the pattern) for
 subjects/items not yet covered, via `scripts/taxonomy/extend_serving_labels_mcp.mjs` /
 `extend_math_serving_labels.mjs`.
 
 Per-subject current validated-label counts (per
 `docs/content/CODEX_QA_REPORT_READINESS_AUDIT_WORK_ORDERS_AND_SELECTORS_2026_09_25.md`, more current
-than `SUBJECT_SERVABILITY_CRITERIA.md`'s own table): Calc AB 9, Calc BC 4, Chemistry 45, Physics 1 9,
-Physics 2 10, Physics C Mechanics 4, Physics C E&M 6, Precalculus 30, Statistics 64.
+than `SUBJECT_SERVABILITY_CRITERIA.md`'s table at that time): Calc AB 9, Calc BC 4, Chemistry 45,
+Physics 1 9, Physics 2 10, Physics C Mechanics 4, Physics C E&M 6, Precalculus 30, Statistics 64.
+These baseline counts are historical; use the Implementation Notes and the reconciled servability
+table for the final state.
 
 UX-003 (Content Authoring Workbench) is out of this task's critical path — gated on human domain
 reviews. UX-004 (BYOQ intake) is owned by TASK-0040 (Marketing Home Page), not this task — listed in
@@ -128,26 +130,26 @@ doc governs if they drift. Apply per subject slice.)
 **Approval Required:** Yes
 **Approval Type:** Hard Gate — explicit, recorded approval per subject slice's Production write. Not
 Standing Approval, despite the underlying mechanism being repeatedly exercised.
-**Decision:** Approved and executed under `APPROVAL-0056`. Core remediation passed independent Claude QA on 2026-09-27. Multi-unit third review and non-Biology quantity targets remain open.
+**Decision:** Approved and executed under `APPROVAL-0056`. Core remediation passed independent Claude QA; all 141 current multi-unit candidates then received blind Claude third review. Quantity policy resolved by `DECISION-0082`.
 
 ## Implementation Notes
 
-**Implementation Summary:** Re-audited all 216 prior promotions; corrected five difficulty rows; hardened the runner; completed guarded E&M, Calculus BC, and Mechanics writes; promoted 152 fresh single-unit agreements. See `docs/product/CONTENT_PIPELINE_CODEX_HANDOFF_2026_09_27.md`.
+**Implementation Summary:** Re-audited all 216 prior promotions; corrected five difficulty rows; hardened the runner; completed guarded all-subject label execution; promoted 152 fresh single-unit agreements; blind-reviewed all 141 current multi-unit candidates and promoted 27 exact confirmations. See `docs/product/CONTENT_PIPELINE_CODEX_HANDOFF_2026_09_27.md`.
 
-**Test Results:** Runner syntax and no-network fixture passed. Production ledger and row counts verified. `app.servable_items_census_selftest()` returned no mismatches for the three completed subjects. Approval provenance migration `20260927181002` corrected 152 notes to `APPROVAL-0056`, with zero conflicting references remaining in that slice.
+**Test Results:** Runner syntax and fixtures passed. Production ledger and guarded row counts verified. `app.servable_items_census_selftest()` returned no mismatches across all ten subjects. Blind third review completed 141/141 with zero call errors; migration `20260927184534` promoted exactly 27.
 
-**Risks / Issues:** 49 multi-unit agreements remain provisional pending independent third review. Quantity targets beyond Biology remain an owner decision.
+**Risks / Issues:** 114 independently non-confirmed multi-unit candidates remain unpromoted: 66 disagreements and 48 rubric/scope holds. These are evidence-backed exclusions, not unfinished review. Fixed quantity targets intentionally do not apply outside Biology under `DECISION-0082`.
 
 ## QA Review
 
 **QA Verdict:** Pass for the implemented remediation (independent Claude review, 2026-09-27).
 
-**QA Result:** Verified original hash provenance, 216/216 live validated state, all five Hard corrections, runner safeguards, nine applied Production migrations, and live counts of E&M 77 / Mechanics 49 / Calc BC 40.
+**QA Result:** Verified original hash provenance, 216/216 live validated state, all five Hard corrections, runner safeguards, guarded migrations, the 141-row blind third-review evidence, exact 27-row promotion, and zero live census mismatches.
 
 ## Done Decision
 
-**Decision:** Pending
-**Date:** YYYY-MM-DD
+**Decision:** Done — closed by the Main Conductor after all-subject live verification
+**Date:** 2026-09-27
 
 This umbrella task is Done only once every subject slice it spawned is Done or explicitly descoped.
 Only the Main Conductor may set a slice's status to `Done`.
