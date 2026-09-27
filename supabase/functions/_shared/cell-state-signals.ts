@@ -141,6 +141,66 @@ export function readProvenance(
   return { templateId, params: prov.params ?? null, seed: prov.seed ?? null };
 }
 
+// ---------------------------------------------------------------------------
+// DECISION-0074 mastery counters. Deliberately independent of the tier/
+// weighted-evidence engine above (a separate, discrete rule stacked on the
+// same per-cell row, not a replacement) — see
+// STUDENT_INTERACTION_DATA_SCHEMA_PLAN_2026_09_27.md Phase 1 item 2 and
+// DECISION-0080 (the hint-definition-boundary addendum this depends on).
+// ---------------------------------------------------------------------------
+
+export type MasteryCounters = {
+  mcqCorrect: number;
+  frqFull: number;
+  masteryReachedAt: string | null;
+};
+
+/** A correct MCQ or full-point FRQ (deriveCellEvent's "correct" already means
+ *  full marks for both item types — see its own doc comment) counts toward
+ *  DECISION-0074's "2 correct MCQ + 1 full-point FRQ" mastery rule IFF no
+ *  gated hint was opened before submission on that same attempt
+ *  (DECISION-0080: attempts.pre_submit_hint_count > 0 disqualifies it). A
+ *  disqualified or incorrect/uncertain answer simply does not increment
+ *  either counter -- it does not reset progress already made on the cell
+ *  (DECISION-0074 says nothing about resetting, and INV-6 elsewhere in this
+ *  module already establishes "a miss reopens, never zeroes" as this
+ *  codebase's posture).
+ *
+ *  attempt_mode's third allowed value, "quantitative" (attempts_mode_check),
+ *  has zero Production rows as of 2026-09-27 and no defined mapping to
+ *  either counter under DECISION-0074 -- it deliberately increments neither
+ *  until that mapping is decided, rather than guessing.
+ *
+ *  mastery_reached_at is set once, the first time both thresholds are met,
+ *  and never cleared or recomputed once set (it is a "first reached" stamp,
+ *  not a live "is currently mastered" flag -- matching this rule's own
+ *  framing that a miss reopens the *estimate*, not the historical fact that
+ *  mastery was once demonstrated). */
+export function deriveMasteryCounters(
+  prior: MasteryCounters,
+  input: {
+    event: CellEvent;
+    attemptMode: string;
+    preSubmitHintCount: number | null;
+    now: Date;
+  },
+): MasteryCounters {
+  const qualifies = input.event === "correct" &&
+    (input.preSubmitHintCount ?? 0) === 0;
+
+  const mcqCorrect = qualifies && input.attemptMode === "mcq"
+    ? prior.mcqCorrect + 1
+    : prior.mcqCorrect;
+  const frqFull = qualifies && input.attemptMode === "frq"
+    ? prior.frqFull + 1
+    : prior.frqFull;
+
+  const masteryReachedAt = prior.masteryReachedAt ??
+    (mcqCorrect >= 2 && frqFull >= 1 ? input.now.toISOString() : null);
+
+  return { mcqCorrect, frqFull, masteryReachedAt };
+}
+
 /** A stored student_cell_state row -> the engine's CellState shape. */
 export function rowToCellState(row: Record<string, unknown>): CellState {
   return {

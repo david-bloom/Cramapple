@@ -39,6 +39,7 @@ import {
   attemptIdempotency,
   deriveCellEvent,
   deriveChangedSurface,
+  deriveMasteryCounters,
   paramsHash,
   readProvenance,
   rowToCellState,
@@ -59,6 +60,11 @@ export type PersistCellStateInput = {
   subjectId: string; // the attempt's subject (from exam_packs.subject_id, by UUID)
   sessionId: string | null;
   assistanceState: string | null;
+  attemptMode: string; // "mcq" | "frq" | "quantitative" (attempts_mode_check) — see
+  // DECISION-0074 note at the mastery-counter increment site: "quantitative" is a
+  // real allowed value (0 Production rows as of 2026-09-27) with no defined mapping
+  // to the "2 MCQ + 1 FRQ" rule yet; it counts toward neither counter until decided.
+  preSubmitHintCount: number | null; // attempts.pre_submit_hint_count (DECISION-0080)
   finalStatus: string; // "graded" | "uncertain" | "failed"
   pointsEarned: number;
   pointsAvailable: number;
@@ -254,6 +260,8 @@ export async function persistCellState(
         skillCode,
         event,
         assisted,
+        attemptMode: input.attemptMode,
+        preSubmitHintCount: input.preSubmitHintCount,
         currentTemplateId,
         currentParamsHash,
         now,
@@ -290,6 +298,8 @@ async function applyToCell(args: {
   skillCode: string;
   event: CellEvent;
   assisted: boolean;
+  attemptMode: string;
+  preSubmitHintCount: number | null;
   currentTemplateId: string;
   currentParamsHash: string;
   now: Date;
@@ -305,6 +315,8 @@ async function applyToCell(args: {
     skillCode,
     event,
     assisted,
+    attemptMode,
+    preSubmitHintCount,
     currentTemplateId,
     currentParamsHash,
     now,
@@ -314,7 +326,7 @@ async function applyToCell(args: {
     const { data: existing, error: readErr } = await service.schema("app")
       .from("student_cell_state")
       .select(
-        "tier, fragile, weighted_evidence, last_independent_success_at, last_attempt_at, last_exposure_at, next_due_at, due_reason, last_session_id, last_template_id, last_params_hash, last_attempt_id, updated_at",
+        "tier, fragile, weighted_evidence, last_independent_success_at, last_attempt_at, last_exposure_at, next_due_at, due_reason, last_session_id, last_template_id, last_params_hash, last_attempt_id, updated_at, mastery_mcq_correct_count, mastery_frq_full_count, mastery_reached_at",
       )
       .eq("user_id", userId)
       .eq("taxonomy_source_version", taxonomyVersion)
@@ -371,6 +383,20 @@ async function applyToCell(args: {
       now,
     );
 
+    // DECISION-0074 / DECISION-0080: a separate, discrete counter stacked on
+    // this same cell row, gated by the same idempotency check above (a
+    // re-grade of the same attempt never double-counts, exactly like the
+    // tier engine's evidence).
+    const masteryCounters = deriveMasteryCounters(
+      {
+        mcqCorrect: Number(existing?.mastery_mcq_correct_count ?? 0),
+        frqFull: Number(existing?.mastery_frq_full_count ?? 0),
+        masteryReachedAt:
+          (existing?.mastery_reached_at as string | null) ?? null,
+      },
+      { event, attemptMode, preSubmitHintCount, now },
+    );
+
     const uncertain = event === "content_uncertain";
 
     // F6: an untrusted (content_uncertain) attempt records recency but must NOT
@@ -404,6 +430,9 @@ async function applyToCell(args: {
       last_template_id: surfaceTemplateId,
       last_params_hash: surfaceParamsHash,
       last_attempt_id: idem.stampAttemptId,
+      mastery_mcq_correct_count: masteryCounters.mcqCorrect,
+      mastery_frq_full_count: masteryCounters.frqFull,
+      mastery_reached_at: masteryCounters.masteryReachedAt,
     };
 
     if (existing) {
