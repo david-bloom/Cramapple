@@ -1486,6 +1486,46 @@ actually shows), and either let the queued fix message run or re-send it. **Next
 re-sends the fix (full spec already written, nothing to re-derive) and verifies via `get_diff` before
 declaring it done.
 
+## FOUND, 2026-09-27 (same session): `/home` was never structurally redesigned — real, previously-untracked gap (now `O17` in the architecture one-pager)
+
+David reported `app.cramapple.com/home` "still using legacy design." Traced rather than guessed:
+
+- **`TopicHome.tsx`/`HomeV2.tsx` (the real `/home`) run on a separate, older `home2-`/`home3-` prefixed
+  CSS/component layer** — the madlib unit/topic picker, the "Learn/Points" mode toggle, its own card and
+  button classes — not `docs/new_design/`'s Plate/pane system that governs Session and the practice UI.
+- **Two prior passes both touched Home, neither redesigned it structurally:**
+  1. The 2026-09-24 Lovable plan "Apply the imported CramApple style guide across the product" (read
+     directly from the project) explicitly scoped itself as a **token bridge**: "bridge legacy
+     `--ca-*`, `--cv-*`... classes onto those tokens" while "preserving each screen's structure and
+     behavior." This is why Home's *colors* are correct brand orange today (confirmed directly in the
+     live CSS: `--ca-action`/`--ca-accent` resolve to `var(--orange-600)`/`var(--action-primary-bg)` in
+     light mode) — it recolored the existing layout, it did not rebuild it.
+  2. TASK-0047 Workstream A (commit `44a0f59e`, the D3 responsive-frame decision) — pulled the diff
+     directly via `get_diff`: it touches only `Breadcrumb.jsx`, `Plate.jsx`, `app.css`, and spacing
+     tokens, i.e. the shared Plate system `SessionFrame`/the practice UI use. It never touches
+     `TopicHome.tsx` or `HomeV2.tsx`.
+- **Net effect:** Home's palette is on-brand, but its actual layout and component language predate the
+  canonical system and were never rebuilt against it. This is very likely what "still using legacy
+  design" is actually seeing.
+- A leftover, unrelated dark-mode CSS block (`.dark, [data-mode="dark"]` in `src/styles.css`) was also
+  found during this trace — hardcoded dark colors, e.g. `--ca-accent: #FF5A66` (coral, not brand
+  orange), `--ca-action: #6B8BEE` (blue). Per `docs/new_design/README.md`, dark mode was retired
+  2026-09-21. **Not confirmed reachable** — did not find anything that currently sets `.dark` or
+  `data-mode="dark"` at runtime, so this is very likely inert leftover CSS, not the cause of what David
+  saw, but it's worth a quick check (search for `data-mode`/`classList.add("dark")` usage) before
+  ruling it out completely, and it should probably be deleted regardless once confirmed dead — shipping
+  dead code for a retired system this specific is exactly the kind of thing that causes a future
+  regression.
+- **Not sized or scoped.** This could be a substantial redesign (new Plate-based Home layout) or a
+  lighter pass depending on what David actually wants Home to look like — no design direction exists
+  for it yet, unlike Session which had `docs/new_design/` to build against. Recorded as `O17` in
+  `ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md`'s OPEN table.
+
+**Next Owner:** David Bloom (design direction / scope call). **Next Action:** decide whether `/home`
+gets a structural redesign against the Plate/pane system (and if so, whether that's a new Lovable
+plan/task with its own scope), a lighter targeted pass, or is deliberately deferred past launch — this
+doc has no opinion recorded yet either way.
+
 ## Out of Scope
 
 Redesigning any already-decided section of the interaction design spec — raise a proposal to David
