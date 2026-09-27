@@ -1392,6 +1392,71 @@ Nothing else queried in this pass — a correct answer, a second topic, and the 
 unverified against real traffic and would be worth trying next if more confidence is wanted before
 declaring the grading path fully proven.
 
+## AUDITED, 2026-09-27 (new session): session-route retirement re-traced — two real bugs found, cluster's live reachability is weaker than last session's correction implied
+
+Per the "CORRECTION" section above (`docs/product/LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md` around
+line 924) and its explicit instruction to trace **every** Start *and* Resume entry point before raising
+retirement again, re-traced the whole cluster directly against the live Lovable source
+(`56cae479-f7c9-4988-b536-56538c38ee4e`, commit `a67a28d5`) and Production's actual schema — not
+trusting file-name pattern matches or the prior audit's own conclusions.
+
+**The cluster is real and internally connected**, larger than the five routes originally named:
+`/setup` → (`INTENT_ROUTES`) → `/session/mcq`, `/topic`, `/check-work`, `/bring-question`; `/topic` →
+`/session/mcq`; `/session/uncertain` → `/session/mcq` + `/session/frq`; `/setup/subject` → `/setup`.
+Confirmed by reading `_ux.setup.index.tsx`, `_ux.topic.tsx`, `_ux.session.uncertain.tsx`,
+`_ux.setup.subject.tsx` directly.
+
+**But its two claimed live entry points from the real default flow are both currently non-functional —
+for reasons unrelated to routing policy, and neither previously known:**
+
+1. **`TopicHome`'s "Resume" banner (`liveSession`) can never render, for any student, today.**
+   `src/lib/home.functions.ts`'s `loadStudentHome` queries `supabase.from("sessions").select("id,
+   started_at, ended_at, goal").eq("user_id", userId)` — this hits `public.sessions` (confirmed via
+   `information_schema.columns` against Production), a legacy table whose actual columns are
+   `student_id` (not `user_id`) and has no `goal` column at all. PostgREST errors on both bad
+   references; the code destructures only `{ data: sessionRows }` (no `error` check), so the error is
+   silently swallowed and `sessionRows` defaults to `[]` via `?? []`. `liveSession` is therefore always
+   `null`, and `TopicHome.tsx`'s entire "Live session / Resume" section (`{liveSession && (...)}`,
+   the exact code the prior audit relied on) never renders. This is the identical bug *class* — wrong
+   table/column reference, error silently swallowed — as the `attempts` bug this doc's own comment two
+   lines above already documents fixing once (`content_item_version_id`/`learning_session_id` vs.
+   invented old names); it recurred here, unnoticed, in the adjacent query.
+2. **The same bug pattern, independently, in a third route:** `src/routes/session.setup.tsx` (reachable
+   live via `TopicHome` → "Learn more" → "Start practicing" on
+   `learn.$subjectKey.$unitNumber.$topicCode.tsx`) queries the identical `public.sessions`/`user_id`
+   shape to compute `hasPriorSession`/`lastSummary` for its "Returning student context" banner — same
+   silent failure, same always-empty result.
+3. **The `useStudentGuard({ requireSubject: true })` redirect to `/setup/subject` — the second path this
+   doc's correction cited — is not invoked by bare `/session`.** `session.index.tsx` calls
+   `useStudentGuard()` with no options (the subject-agnostic default), not `requireSubject: true`,
+   despite the guard's own JSDoc claiming it is "mounted on any `/session/*` route." Checked
+   `_ux.topic.tsx` too — it has its own, separate, local subject-check that also lands on
+   `/setup/subject`, so that specific route is still reachable from `/topic`, but `/topic` itself sits
+   downstream of `/setup`, not upstream of the real default flow. **Not exhaustively confirmed:** did
+   not check every remaining route file for a `requireSubject: true` call, so a live path into
+   `/setup/subject` from somewhere else in the app cannot be ruled out with full certainty — the two
+   paths above are the ones the prior audit specifically named, and both are now shown broken or
+   unconnected to the default flow.
+
+**Net effect: the practical answer to "is this cluster reachable from real live traffic today" now
+leans toward *no*, but for two concrete, fixable bugs rather than because the code is provably dead by
+design.** This is a different, more actionable situation than either the original audit (called it dead)
+or last session's correction (called it definitely live) — both were right about what the code
+*contains*, neither confirmed what a real student's browser actually *does*, which is this doc's own
+recurring lesson (see Method Note below).
+
+**Flagging rather than resolving, same as every scope question in this doc:**
+- Whether to fix the two `public.sessions` query bugs (a small, contained, well-understood fix — point
+  both queries at `app.learning_sessions`/`public.learning_sessions` instead, which has the right
+  columns and is already what the current live grading path writes to) is a real product call: fixing
+  them would make "Resume your session" and "Returning student" actually work, which also means it would
+  make `/session/mcq`/`/session/frq` reachable again via the Resume banner (`resumeUrlForFormat` can
+  still return either) — the opposite direction from retirement. Not fixed here.
+- Whether to retire the cluster now, given it currently has no confirmed live entry point, or fix the
+  bugs first and re-decide, is David's call, not mine to make unilaterally.
+- `GradeResultView.tsx`'s confirmed-legacy-only status (from the original audit) still holds regardless
+  of which way this goes.
+
 ## Out of Scope
 
 Redesigning any already-decided section of the interaction design spec — raise a proposal to David
