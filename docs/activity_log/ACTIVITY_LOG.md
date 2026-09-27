@@ -6,6 +6,25 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Lean Source-of-Truth Startup Mode Adopted (DECISION-0081 / APPROVAL-0055, 2026-09-27): diagnosed why
+  Codex session-start was consuming most of a session's usage budget before task work began —
+  `CODEX_NEW_SESSION_PROMPT.md` hardcoded an unconditional ~3,200-line, 11-doc read for every task,
+  contradicting `CRAMAPPLE_SESSION_START.md`'s own "read only what a bounded task needs" guidance, and
+  the three activity/approval/decision logs' "(Index section)" instruction had no enforceable stopping
+  point. Rewrote `CODEX_NEW_SESSION_PROMPT.md` and `CLAUDE_NEW_SESSION_PROMPT.md` to classify Tier
+  first (pointing at `AGENT_OPERATING_MODEL.md`'s existing Task Tiers definition rather than
+  redefining it, to avoid drift) and size the reading set to that tier; added an explicit
+  `<!-- INDEX_END -->` marker to `ACTIVITY_LOG.md`, `APPROVALS_LOG.md`, and `DECISIONS_LOG.md` so
+  index-only reads have a real stopping point, with a required fallback (read past the marker, don't
+  report absence) if a targeted ID/keyword search finds nothing; added root `AGENTS.md` for repo-wide
+  search discipline (no broad scans of `docs/research`, `docs/teaching`, `prompts`, `tmp`, `output`,
+  worktree/dependency dirs, generated output, raw logs, image/PDF corpora). David reviewed the
+  diagnosis and the protocol draft directly, requested six tightening edits, and approved shipping
+  once applied — recorded as `DECISION-0081`/`APPROVAL-0055`. **Repo-size hygiene** (large tracked
+  PDFs, raw `.jsonl` logs, generated SQL under `scripts/*/out`) was flagged as a real, separate finding
+  and deliberately **not** bundled into this change. **Next Owner:** open. **Next Action:** none
+  required to use the new protocol going forward; repo-size cleanup remains a separate, unscheduled
+  follow-up.
 - BYOQ Anonymous-Access Conflict RESOLVED (DECISION-0077 / APPROVAL-0053, 2026-09-27): the conflict flagged in the entry below — `DECISION-0070` (BYOQ ungated/anonymous) vs. `DECISION-0068`'s authenticated `user_id`-keyed schema — was resolved by David directly: **BYOQ is identity-agnostic.** `app.byoq_items.user_id` is nullable (recognition, not a gate); BYOQ runs anonymously on the marketing page (`61dd6602`) and recognized in the app (`56cae479`) with identical behavior; anonymous scoping (session/device token) is build work under TASK-0039. `DECISION-0070` stands; `DECISION-0068`'s auth assumption gives. Reconciled in place: `TASK-0039` (schema + resolution note), `DECISIONS_LOG` (`DECISION-0077`), `APPROVALS_LOG` (`APPROVAL-0053`), and the canonical one-pager (O16 → D18). **Correction to the entry below:** it cites the launch frontend as `d334fed9` ("Remix of Cramapple App") — that is the **stale** ID `DECISION-0073` self-corrected; the verified live projects are **App `56cae479`** (`app.cramapple.com`) and **Marketing `61dd6602`** (`cramapple.com`) (re-confirmed via live DNS 2026-09-27). **Next Owner:** Claude (BYOQ build, TASK-0039). **Next Action:** design the anonymous-scoping mechanism and the nullable-`user_id` migration under the existing Hard-Gate.
 - TASK-0039 Reconciled Against DECISION-0075's Documentation Cleanup: Phase Priority and Ownership Corrected (DECISION-0076, APPROVAL-0052); Anonymous-Access Conflict Found and Reported, Not Resolved (2026-09-27): a cross-session notification pointed this session at `DECISION-0075` (the new canonical `ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md`), which surfaced a real conflict with `TASK-0039`'s approved Phase 1 (typed intake first, camera capture deferred, Claude-owned) against a same-day decision this session hadn't seen: "BYOQ is phone capture to start. Document upload post launch," with BYOQ's build originally assigned to Codex. Rather than self-resolve, stopped and asked David directly. **David's direction:** "phase 1 is phone, not text BYOQ" and "Claude is taking over BYOQ while Codex works on content pipeline" — recorded as `DECISION-0076`/`APPROVAL-0052`. `TASK-0039` annotated in place (not physically renumbered, to avoid leaving 49 cross-references inconsistent): camera/QR capture is now launch-required, typed intake is a fallback, and the Pre-flight verification step's frontend-identity question was independently resolved by `DECISION-0073` (the launch frontend is Lovable project `d334fed9`, "Remix of Cramapple App" — neither of this task's two earlier guesses). **A second, more severe conflict was found during the same re-verification pass and reported rather than self-resolved:** `DECISION-0070` (2026-09-26) states BYOQ ships "ungated, as an anonymous session" on launch — structurally incompatible with the approved Option A schema's owner-scoped RLS (`app.byoq_items.user_id` as a `NOT NULL` FK, keyed to an authenticated `auth.uid()`), and possibly implying BYOQ ships on the marketing frontend rather than the authenticated app. **Not resolved this session** — flagged directly to David, no schema or implementation work proceeded past this point. **Next Owner:** David Bloom. **Next Required Action:** decide whether BYOQ needs an anonymous-capable data path (no `user_id`) or whether the anonymous/ungated framing in `DECISION-0070` should be revisited, and confirm which frontend BYOQ actually ships in.
 - Documentation Cleanup — Architecture/Design Single Source of Truth (2026-09-27): docs-only pass that
@@ -130,6 +149,8 @@ Most recent entries (full reverse-chronological list follows below):
 - Older entries: [`ACTIVITY_LOG-2026-06-09_to_2026-09-22.md`](archive/ACTIVITY_LOG-2026-06-09_to_2026-09-22.md)
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
+
+<!-- INDEX_END -->
 
 ---
 

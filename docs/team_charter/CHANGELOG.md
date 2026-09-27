@@ -2,6 +2,16 @@
 
 Append-only chronological log, one entry per material change to `docs/team_charter/`. Checked on every `SYNC`. Per-doc `Version`/`Last Updated` headers are not used — git history plus the `APPROVAL-NNNN` / `DECISION-NNNN` references below are sufficient.
 
+## 2026-09-27 — Lean Source-of-Truth startup mode (tier-first reading)
+
+**Approval:** APPROVAL-0055
+**Decision:** DECISION-0081
+**Change (summary):**
+- Rewrote `prompts/CODEX_NEW_SESSION_PROMPT.md` and `prompts/CLAUDE_NEW_SESSION_PROMPT.md` to classify Tier before choosing a reading set, instead of reading the full 11-doc governance/log/product stack unconditionally on every task. Tier criteria are not redefined in the prompts — both point at `AGENT_OPERATING_MODEL.md`'s existing Task Tiers section as the single source, to prevent the two from drifting apart.
+- Added `<!-- INDEX_END -->` markers to `docs/activity_log/ACTIVITY_LOG.md`, `APPROVALS_LOG.md`, and `DECISIONS_LOG.md` so the prompts' "read the Index section" instruction has an enforceable stopping point; targeted search by exact ID/date/keyword is required before a full-log read, and an empty search must be reported as such rather than treated as proof a record doesn't exist.
+- Added root `AGENTS.md` (repo-wide, read automatically by Codex-family agents) setting search discipline: no broad scans of `docs/research`, `docs/teaching`, `prompts`, `tmp`, `output`, worktree/dependency directories, generated output, raw model-call logs, or image/PDF corpora without a specific reason.
+- Does not change authority order, approval lanes, or any hard gate. Repo-size hygiene (large tracked binaries/logs) is a separate, explicitly deferred follow-up.
+
 ## 2026-09-22 — Device-neutral Cramapple bootstrap and ChatGPT Project contract
 
 **Approval:** APPROVAL-0047

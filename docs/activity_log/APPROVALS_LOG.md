@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0055 — Adopt Lean Source-of-Truth Startup Mode (Tier-First Reading, `AGENTS.md`, Log `INDEX_END` Markers) — DECISION-0081
 - APPROVAL-0054 — Ratify Three Session-Start Bootstrap Edits (Live Front-Ends, Required First-Read, Anti-Stale Rule) — DECISION-0078
 - APPROVAL-0053 — BYOQ Is Identity-Agnostic: `byoq_items.user_id` Not Required; Resolves the DECISION-0070/0068 Conflict
 - APPROVAL-0052 — TASK-0039 BYOQ Phase Priority Corrected (Camera-First) and Ownership Confirmed (Claude, Not Codex)
@@ -23,6 +24,24 @@ Most recent entries (full chronological list follows below):
 - Older entries: [`APPROVALS_LOG-0001_to_0040.md`](archive/APPROVALS_LOG-0001_to_0040.md)
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
+
+<!-- INDEX_END -->
+
+## APPROVAL-0055 — Adopt Lean Source-of-Truth Startup Mode (Tier-First Reading, `AGENTS.md`, Log `INDEX_END` Markers)
+
+**Date:** 2026-09-27
+**Approved By:** David Bloom
+**Related Docs:** `prompts/CODEX_NEW_SESSION_PROMPT.md`, `prompts/CLAUDE_NEW_SESSION_PROMPT.md`, `AGENTS.md` (new)
+**Related Decision:** `DECISION-0081`
+**Decision:** Approved
+
+David reviewed the Codex-authored startup-cost analysis and Claude's revised protocol draft directly
+in-session, requested six tightening edits (tier-classification pointed at `AGENT_OPERATING_MODEL.md`
+rather than redefined inline; softened "follow Session-Start Procedure" wording; constrained `SYNC`
+to the same index-marker/exact-ID discipline; a narrow branch-hygiene read rule; non-eager skill
+loading; an explicit `AGENTS.md`/`INDEX_END` precondition note), and approved shipping once applied.
+Applied to both `CODEX_NEW_SESSION_PROMPT.md` and `CLAUDE_NEW_SESSION_PROMPT.md`. See `DECISION-0081`
+for full rationale and scope.
 
 ## APPROVAL-0054 — Ratify Three Session-Start Bootstrap Edits (Live Front-Ends, Required First-Read, Anti-Stale Rule)
 
