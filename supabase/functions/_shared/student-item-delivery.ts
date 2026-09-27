@@ -353,115 +353,57 @@ export function applyItemPackageFallback(
 // same way, without inventing any new schema.
 // ---------------------------------------------------------------------------
 
-export type CellRow = {
+// CONTENT_TAXONOMY_RATIONALIZATION_PLAN_2026_09_26.md Phase 1 step 5. One row
+// per published version with its resolved topic/skill identity, read from
+// app.content_item_topic_resolution -- the view that is now the single place
+// this resolves from (it already prefers the fine-grained
+// content_item_cells tag when skill_code is present, and includes topic-only
+// rows, e.g. the 112 AP Biology items, with skill_code null). This replaced
+// a two-source read (content_item_cells + a content_taxonomy_labels
+// fallback gated on label_status = 'validated') that duplicated the view's
+// own resolution logic in TypeScript; the view is now the one place that
+// logic lives -- including the safety-critical filter: the view only
+// surfaces assignment_status IN ('validated', 'authored'), so an
+// unvalidated (provisional_model) row never reaches this function at all.
+// See 20260927004700_content_item_topic_resolution_view.sql for why that
+// filter exists and what it protects (decision #2 of the rationalization
+// plan, deferred not resolved).
+export type TopicResolutionRow = {
   content_item_version_id: string;
-  taxonomy_source_version: string;
   topic_code: string;
-  skill_code: string;
-};
-
-// Keyed by content_item_id, NOT content_item_version_id -- this table
-// pre-dates the fine-grained cell/version model and labels the item, not a
-// specific version. assessed_topics is empty for the large majority of
-// AP Biology today (a known, separate content-labeling gap); the caller
-// passes only rows with a non-empty array here.
-export type TaxonomyLabelRow = {
-  content_item_id: string;
-  taxonomy_source_version: string;
-  assessed_topics: string[] | null;
-};
-
-export type TaxonomyTopicTitleRow = {
-  taxonomy_source_version: string;
-  topic_code: string;
+  skill_code: string | null;
   topic_title: string | null;
   unit_number: number | null;
 };
 
-type TaxonomyTopicMeta = { topic_title: string | null; unit_number: number | null };
-
-function taxonomyTitleKey(taxonomySourceVersion: string, topicCode: string) {
-  return `${taxonomySourceVersion}::${topicCode}`;
-}
-
-export function indexTaxonomyTitles(
-  rows: readonly TaxonomyTopicTitleRow[],
-): Map<string, TaxonomyTopicMeta> {
-  const byKey = new Map<string, TaxonomyTopicMeta>();
-  for (const r of rows) {
-    byKey.set(
-      taxonomyTitleKey(r.taxonomy_source_version, r.topic_code),
-      { topic_title: r.topic_title, unit_number: r.unit_number },
-    );
-  }
-  return byKey;
-}
-
 /**
- * Resolves a RenderCell per content_item_version_id, preferring the
- * fine-grained content_item_cells tag (topic_code + skill_code) and falling
- * back to the coarser content_taxonomy_labels topic (topic_code only,
- * skill_code null) when no cell tag exists. An item with neither -- no cell
- * tag AND no non-empty assessed_topics -- resolves to no entry at all; the
- * caller must treat a missing map entry as "no cell", never fabricate one.
- *
- * multi_topic_arrays are not expected (verified directly against Production
- * 2026-09-26: 0 of 605 AP Biology content_taxonomy_labels rows carry more
- * than one assessed_topics entry), but if one ever does, only the first
- * topic is used -- a defined, deterministic tie-break, not an assumption of
- * uniqueness.
+ * Resolves a RenderCell per content_item_version_id from
+ * app.content_item_topic_resolution rows. An item with no row in the view --
+ * no primary topic assignment at all -- resolves to no entry; the caller
+ * must treat a missing map entry as "no cell", never fabricate one.
  */
 export function buildResolvedCells(
   rows: readonly SelectedRow[],
-  cellRows: readonly CellRow[],
-  labelRows: readonly TaxonomyLabelRow[],
-  titleByKey: ReadonlyMap<string, TaxonomyTopicMeta>,
+  resolutionRows: readonly TopicResolutionRow[],
 ): Map<string, RenderCell> {
   const result = new Map<string, RenderCell>();
 
-  const cellByVersion = new Map<string, CellRow>();
-  for (const c of cellRows) {
-    if (!cellByVersion.has(c.content_item_version_id)) {
-      cellByVersion.set(c.content_item_version_id, c);
-    }
-  }
-
-  const labelByItem = new Map<string, TaxonomyLabelRow>();
-  for (const l of labelRows) {
-    if (!labelByItem.has(l.content_item_id)) {
-      labelByItem.set(l.content_item_id, l);
+  const byVersion = new Map<string, TopicResolutionRow>();
+  for (const r of resolutionRows) {
+    if (!byVersion.has(r.content_item_version_id)) {
+      byVersion.set(r.content_item_version_id, r);
     }
   }
 
   for (const row of rows) {
-    const cell = cellByVersion.get(row.content_item_version_id);
-    if (cell) {
-      const meta = titleByKey.get(
-        taxonomyTitleKey(cell.taxonomy_source_version, cell.topic_code),
-      );
-      result.set(row.content_item_version_id, {
-        topic_code: cell.topic_code,
-        skill_code: cell.skill_code,
-        topic_title: meta?.topic_title ?? null,
-        unit_number: meta?.unit_number ?? null,
-      });
-      continue;
-    }
-
-    const label = labelByItem.get(row.content_item_id);
-    const topicCode = label?.assessed_topics?.[0];
-    if (label && typeof topicCode === "string" && topicCode.trim().length > 0) {
-      const meta = titleByKey.get(
-        taxonomyTitleKey(label.taxonomy_source_version, topicCode),
-      );
-      result.set(row.content_item_version_id, {
-        topic_code: topicCode,
-        skill_code: null,
-        topic_title: meta?.topic_title ?? null,
-        unit_number: meta?.unit_number ?? null,
-      });
-    }
-    // Else: neither resolution path applies -- absent, not fabricated.
+    const resolved = byVersion.get(row.content_item_version_id);
+    if (!resolved) continue; // No primary topic assignment -- absent, not fabricated.
+    result.set(row.content_item_version_id, {
+      topic_code: resolved.topic_code,
+      skill_code: resolved.skill_code,
+      topic_title: resolved.topic_title,
+      unit_number: resolved.unit_number,
+    });
   }
 
   return result;

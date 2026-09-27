@@ -34,33 +34,24 @@ type Spec = {
   // adapter, keyed the same way content_item_versions actually returns them.
   packages?: Row[];
   // TASK-0047 Decision 17 follow-on -- resolved topic/cell identity rows.
-  cells?: Row[];
-  taxonomyLabels?: Row[];
-  taxonomyTopics?: Row[];
-  // Records every .eq(column, value) call made against any table, tagged
-  // with the table name. Exists so a test can assert a safety-critical
-  // filter (e.g. label_status = 'validated' on content_taxonomy_labels) is
-  // actually present in the query, not just that the mock returns the
-  // fixture -- the mock's .eq() is otherwise a no-op chain call, so without
-  // this a filter could be silently deleted from the real code and no test
-  // here would notice.
-  eqCalls?: Array<{ table: string; column: string; value: unknown }>;
+  // Phase 1 (CONTENT_TAXONOMY_RATIONALIZATION_PLAN_2026_09_26.md) replaced
+  // the two-source read this mock used to model (content_item_cells +
+  // content_taxonomy_labels) with a single view,
+  // app.content_item_topic_resolution, that already does the merge AND the
+  // safety-critical assignment_status filter in SQL. This mock table stands
+  // in for that view's OUTPUT -- the filter itself is verified separately,
+  // against real data, by supabase/tests/
+  // content_item_topic_resolution_status_gate.integration.sql, since a
+  // mock can't exercise a SQL-level WHERE clause.
+  topicResolution?: Row[];
 };
 
 // deno-lint-ignore no-explicit-any
-function tableBuilder(
-  tableName: string,
-  single: any,
-  list: any[],
-  eqCalls?: Array<{ table: string; column: string; value: unknown }>,
-): any {
+function tableBuilder(single: any, list: any[]): any {
   const b: Record<string, unknown> = {};
   const chain = () => b;
   b.select = chain;
-  b.eq = (column: string, value: unknown) => {
-    eqCalls?.push({ table: tableName, column, value });
-    return chain();
-  };
+  b.eq = chain;
   b.in = chain;
   b.order = chain;
   b.maybeSingle = () => Promise.resolve({ data: single ?? null, error: null });
@@ -85,13 +76,11 @@ function makeService(spec: Spec) {
     // dual-read adapter -- tableBuilder resolves .maybeSingle() and the
     // awaited list independently, so both call shapes are served correctly.
     content_item_versions: spec.packages ?? [],
-    content_item_cells: spec.cells ?? [],
-    content_taxonomy_labels: spec.taxonomyLabels ?? [],
-    taxonomy_topics: spec.taxonomyTopics ?? [],
+    content_item_topic_resolution: spec.topicResolution ?? [],
   };
   const appSchema = {
     from: (t: string) =>
-      tableBuilder(t, singleByTable[t] ?? null, listByTable[t] ?? [], spec.eqCalls),
+      tableBuilder(singleByTable[t] ?? null, listByTable[t] ?? []),
     rpc: (fn: string, params: unknown) => {
       spec.rpcCalls?.push({ schema: "app", name: fn, params });
       return Promise.resolve({
@@ -394,7 +383,7 @@ Deno.test("ordinary path still serves the practice selection", async () => {
 /* end to end through the real handler (not just the pure functions above).  */
 /* -------------------------------------------------------------------------- */
 
-Deno.test("a served item's cell resolves from content_item_cells when a fine-grained tag exists", async () => {
+Deno.test("a served item's cell resolves a skill-bearing row from content_item_topic_resolution", async () => {
   const { status, json } = await call(
     {
       session: ACTIVE_SESSION,
@@ -403,15 +392,10 @@ Deno.test("a served item's cell resolves from content_item_cells when a fine-gra
         content_item_version_id: "ov1",
         content_item_id: "oi1",
       }],
-      cells: [{
+      topicResolution: [{
         content_item_version_id: "ov1",
-        taxonomy_source_version: "tsv1",
         topic_code: "u1-l2",
         skill_code: "A",
-      }],
-      taxonomyTopics: [{
-        taxonomy_source_version: "tsv1",
-        topic_code: "u1-l2",
         topic_title: "Sampling distributions",
         unit_number: 1,
       }],
@@ -429,8 +413,7 @@ Deno.test("a served item's cell resolves from content_item_cells when a fine-gra
   });
 });
 
-Deno.test("a served item's cell resolves from the coarse taxonomy label when no content_item_cells tag exists", async () => {
-  const eqCalls: Array<{ table: string; column: string; value: unknown }> = [];
+Deno.test("a served item's cell resolves a topic-only row (null skill_code) from content_item_topic_resolution", async () => {
   const { status, json } = await call(
     {
       session: ACTIVE_SESSION,
@@ -439,21 +422,22 @@ Deno.test("a served item's cell resolves from the coarse taxonomy label when no 
         content_item_version_id: "ov2",
         content_item_id: "oi2",
       }],
-      // label_status: "validated" -- see the note on the real query in
-      // student-session-items/index.ts: only validated labels may resolve.
-      taxonomyLabels: [{
-        content_item_id: "oi2",
-        taxonomy_source_version: "tsv2",
-        assessed_topics: ["4.2"],
-        label_status: "validated",
-      }],
-      taxonomyTopics: [{
-        taxonomy_source_version: "tsv2",
+      // The real content_item_topic_resolution VIEW (not this mock) is what
+      // filters assignment_status to ('validated', 'authored') -- see
+      // 20260927004700_content_item_topic_resolution_view.sql and its
+      // dedicated integration test, supabase/tests/
+      // content_item_topic_resolution_status_gate.integration.sql, which
+      // verifies that filter against real data. This mock table stands in
+      // for the view's OUTPUT, so it cannot exercise that SQL-level filter
+      // itself -- only that a row the view already decided to expose is
+      // then handled correctly end-to-end (topic-only, skill_code null).
+      topicResolution: [{
+        content_item_version_id: "ov2",
         topic_code: "4.2",
+        skill_code: null,
         topic_title: "Introduction to Signal Transduction",
         unit_number: 4,
       }],
-      eqCalls,
     },
     { learning_session_id: SESSION_ID },
   );
@@ -466,18 +450,6 @@ Deno.test("a served item's cell resolves from the coarse taxonomy label when no 
     topic_title: "Introduction to Signal Transduction",
     unit_number: 4,
   });
-  // Safety-critical, per CONTENT_TAXONOMY_RATIONALIZATION_PLAN_2026_09_26.md
-  // §4 and DECISION-0067: the real query must filter to validated labels
-  // only. This assertion fails if that filter is ever removed from the real
-  // code, even though the mock's .eq() would otherwise let it pass silently.
-  assert(
-    eqCalls.some((c) =>
-      c.table === "content_taxonomy_labels" &&
-      c.column === "label_status" &&
-      c.value === "validated"
-    ),
-    "content_taxonomy_labels query must filter label_status = 'validated'",
-  );
 });
 
 Deno.test("a served item's cell is null when neither resolution path applies", async () => {

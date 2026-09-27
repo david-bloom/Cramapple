@@ -14,12 +14,10 @@ import {
   type AssetMetadata,
   buildRenderItem,
   buildResolvedCells,
-  type CellRow,
   derivePackageChoices,
   derivePackageStem,
   derivePackageStimulus,
   indexAssets,
-  indexTaxonomyTitles,
   isStaffQaRole,
   type ItemPackagePayload,
   type LearnerFacingCriterion,
@@ -29,8 +27,7 @@ import {
   type SelectedRow,
   SIGNED_URL_TTL_SECONDS,
   STAFF_QA_ROLES,
-  type TaxonomyLabelRow,
-  type TaxonomyTopicTitleRow,
+  type TopicResolutionRow,
   toLearnerFacingParts,
 } from "./student-item-delivery.ts";
 
@@ -578,8 +575,6 @@ Deno.test("the requirement gate applies to staff QA too", () => {
 
 // ── TASK-0047 Decision 17 follow-on: resolved topic/cell identity ─────────
 
-const TAXONOMY_VERSION = "33333333-3333-4333-8333-333333333333";
-
 Deno.test("buildRenderItem defaults cell to null when the caller passes none", () => {
   const item = buildRenderItem(row(), null, null, "2026-08-05T00:15:00Z", []);
   assert(item);
@@ -606,25 +601,17 @@ Deno.test("buildRenderItem carries through a resolved cell unchanged", () => {
   assertEquals(item.cell, cell);
 });
 
-Deno.test("buildResolvedCells prefers the fine-grained content_item_cells tag over a taxonomy label", () => {
+Deno.test("buildResolvedCells resolves a skill-bearing row from the view", () => {
   const rows = [row({ content_item_id: "item-a" })];
-  const cellRows: CellRow[] = [{
+  const resolutionRows: TopicResolutionRow[] = [{
     content_item_version_id: VERSION_A,
-    taxonomy_source_version: TAXONOMY_VERSION,
     topic_code: "u1-l2",
     skill_code: "A",
+    topic_title: "Sampling distributions",
+    unit_number: 1,
   }];
-  const labelRows: TaxonomyLabelRow[] = [{
-    content_item_id: "item-a",
-    taxonomy_source_version: TAXONOMY_VERSION,
-    assessed_topics: ["9.9"], // would resolve to a different topic if used
-  }];
-  const titleByKey = indexTaxonomyTitles([
-    { taxonomy_source_version: TAXONOMY_VERSION, topic_code: "u1-l2", topic_title: "Sampling distributions", unit_number: 1 },
-    { taxonomy_source_version: TAXONOMY_VERSION, topic_code: "9.9", topic_title: "Wrong topic", unit_number: 9 },
-  ]);
 
-  const resolved = buildResolvedCells(rows, cellRows, labelRows, titleByKey);
+  const resolved = buildResolvedCells(rows, resolutionRows);
 
   assertEquals(resolved.get(VERSION_A), {
     topic_code: "u1-l2",
@@ -634,18 +621,17 @@ Deno.test("buildResolvedCells prefers the fine-grained content_item_cells tag ov
   });
 });
 
-Deno.test("buildResolvedCells falls back to the coarse taxonomy label when no cell tag exists", () => {
+Deno.test("buildResolvedCells resolves a topic-only row (null skill_code) from the view unchanged", () => {
   const rows = [row({ content_item_id: "item-bio" })];
-  const labelRows: TaxonomyLabelRow[] = [{
-    content_item_id: "item-bio",
-    taxonomy_source_version: TAXONOMY_VERSION,
-    assessed_topics: ["4.2"],
+  const resolutionRows: TopicResolutionRow[] = [{
+    content_item_version_id: VERSION_A,
+    topic_code: "4.2",
+    skill_code: null,
+    topic_title: "Introduction to Signal Transduction",
+    unit_number: 4,
   }];
-  const titleByKey = indexTaxonomyTitles([
-    { taxonomy_source_version: TAXONOMY_VERSION, topic_code: "4.2", topic_title: "Introduction to Signal Transduction", unit_number: 4 },
-  ]);
 
-  const resolved = buildResolvedCells(rows, [], labelRows, titleByKey);
+  const resolved = buildResolvedCells(rows, resolutionRows);
 
   assertEquals(resolved.get(VERSION_A), {
     topic_code: "4.2",
@@ -655,42 +641,28 @@ Deno.test("buildResolvedCells falls back to the coarse taxonomy label when no ce
   });
 });
 
-Deno.test("buildResolvedCells resolves nothing for an item with no cell tag and an empty taxonomy label array", () => {
-  const rows = [row({ content_item_id: "item-untagged" })];
-  const labelRows: TaxonomyLabelRow[] = [{
-    content_item_id: "item-untagged",
-    taxonomy_source_version: TAXONOMY_VERSION,
-    // Caller is expected to filter empty assessed_topics out before passing
-    // rows in, but the function must not fabricate a topic even if one
-    // slips through.
-    assessed_topics: [],
-  }];
-
-  const resolved = buildResolvedCells(rows, [], labelRows, new Map());
-
-  assertEquals(resolved.has(VERSION_A), false);
-});
-
-Deno.test("buildResolvedCells resolves nothing when neither a cell tag nor a taxonomy label exists at all", () => {
+Deno.test("buildResolvedCells resolves nothing when the item has no row in the view at all", () => {
   const rows = [row({ content_item_id: "item-nothing" })];
 
-  const resolved = buildResolvedCells(rows, [], [], new Map());
+  const resolved = buildResolvedCells(rows, []);
 
   assertEquals(resolved.has(VERSION_A), false);
 });
 
-Deno.test("buildResolvedCells resolves a null title when no matching taxonomy_topics row exists", () => {
+Deno.test("buildResolvedCells resolves a null title when the view's own title columns are null", () => {
   const rows = [row({ content_item_id: "item-bio" })];
-  const labelRows: TaxonomyLabelRow[] = [{
-    content_item_id: "item-bio",
-    taxonomy_source_version: TAXONOMY_VERSION,
-    assessed_topics: ["4.2"],
+  // The view left-joins taxonomy_topics for the title/unit -- a row can, in
+  // principle, come back with a null title if that join ever misses. Must
+  // resolve topic_title: null, not throw or omit the whole cell.
+  const resolutionRows: TopicResolutionRow[] = [{
+    content_item_version_id: VERSION_A,
+    topic_code: "4.2",
+    skill_code: null,
+    topic_title: null,
+    unit_number: null,
   }];
 
-  // titleByKey deliberately empty -- simulates a title row that hasn't been
-  // fetched/doesn't exist. Must resolve topic_title: null, not throw or omit
-  // the whole cell.
-  const resolved = buildResolvedCells(rows, [], labelRows, new Map());
+  const resolved = buildResolvedCells(rows, resolutionRows);
 
   assertEquals(resolved.get(VERSION_A), {
     topic_code: "4.2",
