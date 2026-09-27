@@ -117,6 +117,12 @@ FRAMING: Dict[str, Framing] = {
          "the prediction AND every distractor land inside the response's credible envelope "
          "(y_lo..y_hi) -- e.g. exam score <= 100, a >10-year-old car is cheap, temperature in Celsius"],
         [_SEC5, _SEC6, _SEC7]),
+    "basic_probability": Framing(
+        "basic_probability", "Q4", "Calculate", 3, "exam_aligned_digital",
+        ["finite sample space with equally likely outcomes",
+         "the requested event consists of listed categories",
+         "probability must use favorable outcomes divided by the total sample space and lie in [0, 1]"],
+        [_SEC5, _SEC6, _SEC7]),
     "normal_prob": Framing(
         "normal_prob", "Q4", "Calculate", 3, "exam_aligned_digital",
         ["a quantity modeled as Normal", "probability must lie in [0, 1]"],
@@ -285,6 +291,38 @@ REGRESSION_CONTEXTS: List[Dict[str, object]] = [
     {"xlab": "age (years)", "ylab": "price of a used car (thousands of dollars)",
      "who": "a dealership analyst", "sign": -1, "domain": "business",
      "x_lo": 3, "x_hi": 11, "y_lo": 1, "y_hi": 32, "a_choices": [28, 30, 34], "b_mag": [2, 2.5, 3]},
+]
+
+# basic probability: finite equally likely outcomes with category counts. Each
+# context is original and uses a complete sample space; event categories are
+# deliberately two-category events so numerator completeness is testable without
+# invoking conditional probability or independence.
+U2_4_PROBABILITY_CONTEXTS: List[Dict[str, object]] = [
+    {"id": "u2_4__school_raffle", "domain": "education",
+     "setting": "A school raffle has tickets in four colors",
+     "unit": "ticket", "event_label": "a blue or green ticket",
+     "categories": [("blue", 18), ("green", 12), ("red", 25), ("yellow", 20)],
+     "event_categories": ["blue", "green"]},
+    {"id": "u2_4__snack_box", "domain": "business",
+     "setting": "A cafe prize box contains sealed snack coupons",
+     "unit": "coupon", "event_label": "a muffin or granola coupon",
+     "categories": [("muffin", 16), ("granola", 14), ("coffee", 24), ("tea", 18)],
+     "event_categories": ["muffin", "granola"]},
+    {"id": "u2_4__recycling_bin", "domain": "civic",
+     "setting": "A recycling audit sorts equally sized sample items by material",
+     "unit": "item", "event_label": "a paper or glass item",
+     "categories": [("paper", 22), ("glass", 10), ("plastic", 30), ("metal", 18)],
+     "event_categories": ["paper", "glass"]},
+    {"id": "u2_4__plant_seed_packet", "domain": "biology",
+     "setting": "A packet contains mixed seeds that are equally likely to be drawn",
+     "unit": "seed", "event_label": "a basil or dill seed",
+     "categories": [("basil", 20), ("dill", 12), ("mint", 28), ("parsley", 24)],
+     "event_categories": ["basil", "dill"]},
+    {"id": "u2_4__app_badges", "domain": "technology",
+     "setting": "An app randomly awards one badge from a visible badge pool",
+     "unit": "badge", "event_label": "a silver or bronze badge",
+     "categories": [("silver", 15), ("bronze", 21), ("gold", 24), ("platinum", 18)],
+     "event_categories": ["silver", "bronze"]},
 ]
 
 # normal: a light, realistic quantity for the Normal model. Each context carries
@@ -822,6 +860,27 @@ def validate_scenarios() -> List[str]:
             problems.append(f"regression context missing credibility-envelope fields: {ctx}")
         elif ctx["x_lo"] >= ctx["x_hi"] or ctx["y_lo"] >= ctx["y_hi"]:
             problems.append(f"regression context has an inverted x/y range: {ctx}")
+    seen_probability_ids = set()
+    for ctx in U2_4_PROBABILITY_CONTEXTS:
+        required = ("id", "domain", "setting", "unit", "event_label", "categories", "event_categories")
+        if not all(k in ctx for k in required):
+            problems.append(f"u2_4 probability context missing fields: {ctx}")
+            continue
+        if ctx.get("id") in seen_probability_ids:
+            problems.append(f"duplicate u2_4 probability context id: {ctx.get('id')}")
+        seen_probability_ids.add(ctx.get("id"))
+        if not str(ctx.get("id", "")).startswith("u2_4__"):
+            problems.append(f"u2_4 probability context id is not namespaced: {ctx.get('id')}")
+        cats = ctx.get("categories", [])
+        event_cats = set(ctx.get("event_categories", []))
+        cat_names = [name for name, _count in cats]
+        if len(cats) < 3 or len(cat_names) != len(set(cat_names)):
+            problems.append(f"u2_4 probability context needs >=3 uniquely named categories: {ctx}")
+        if not event_cats or not event_cats.issubset(set(cat_names)):
+            problems.append(f"u2_4 event categories must be drawn from the sample space: {ctx}")
+        if any(count <= 0 for _name, count in cats):
+            problems.append(f"u2_4 category counts must be positive: {ctx}")
+
     for ctx in NORMAL_CONTEXTS:
         if not all(k in ctx for k in ("quantity", "unit", "domain", "mu_choices", "sigma_choices")):
             problems.append(f"normal context missing fields: {ctx}")
@@ -1023,6 +1082,7 @@ if __name__ == "__main__":
             "proportion": len(PROPORTION_CONTEXTS),
             "two_group": len(TWO_GROUP_CONTEXTS),
             "regression": len(REGRESSION_CONTEXTS),
+            "u2_4_probability": len(U2_4_PROBABILITY_CONTEXTS),
             "normal": len(NORMAL_CONTEXTS),
             "binomial": len(BINOMIAL_CONTEXTS),
             "mean": len(MEAN_CONTEXTS),

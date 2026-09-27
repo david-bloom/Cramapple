@@ -217,6 +217,28 @@ CATALOG: Dict[str, Misconception] = {m.tag: m for m in [
        "ced_structural", ["lsrl_predict"], ["5.3"], ["3.B"],
        [_fp("S10 Unit 5 (5.3)", "the requested x-value must be substituted exactly into y-hat = a + bx")]),
 
+    # --- basic_probability (2.4 x 3.C) : finite equally likely outcomes ---------
+    _M("u2_4__used_complement_probability",
+       "Reported the complement probability",
+       "Computed P(E^C) = 1 - P(E) instead of P(E), swapping the requested event with its complement.",
+       "ced_structural", ["basic_probability"], ["2.4"], ["3.C"],
+       [_fp("S10 Unit 2 (2.4)",
+            "Topic 2.4 states the complement rule P(E^C) = 1 - P(E); using the complement for E is a structural probability-region error")]),
+
+    _M("u2_4__used_odds_instead_of_probability",
+       "Used odds in favor instead of probability",
+       "Divided favorable outcomes by non-event outcomes, fav/(total - fav), rather than favorable outcomes by all outcomes, fav/total.",
+       "ced_structural", ["basic_probability"], ["2.4"], ["3.C"],
+       [_fp("S10 Unit 2 (2.4)",
+            "P(E) = number of outcomes in E divided by total outcomes in the sample space, not favorable outcomes divided by unfavorable outcomes")]),
+
+    _M("u2_4__used_partial_sample_space_denominator",
+       "Used a partial sample-space denominator",
+       "Divided the favorable count by only part of the sample space, omitting some non-event outcomes from the denominator.",
+       "ced_structural", ["basic_probability"], ["2.4"], ["3.C"],
+       [_fp("S10 Unit 2 (2.4)",
+            "P(E) uses the total outcomes in the full sample space as the denominator for equally likely outcomes")]),
+
     # --- normal_prob (2.11 x 3.C) : normal-distribution probability ------------
     # Section 10 flags 2.11 misconception coverage as thin; corroborated via
     # trusted study guides (documented tail/area error patterns).
