@@ -513,6 +513,28 @@ CATALOG: Dict[str, Misconception] = {m.tag: m for m in [
        "ced_structural", ["slotframe_u1_12_bias"], ["1.12"], ["2.A"],
        [_fp("S10 Unit 1 (1.10-1.13)", "bias claims must be supported by the sampling scenario rather than assumed from sample size alone")]),
 
+    # --- computational u2_6_cond_prob (2.6 x 3.C) : conditional probability ----
+    _M("u2_6__used_joint_probability_instead_of_conditional",
+       "Used the joint probability instead of the conditional probability",
+       "Divided the count in both events by the overall total instead of restricting the denominator to the condition.",
+       "ced_structural", ["u2_6_cond_prob"], ["2.6"], ["3.C"],
+       [_fp("S10 Unit 2 (2.6)",
+            "conditional probability restricts the sample space to the condition; P(A|B)=P(A and B)/P(B)")]),
+
+    _M("u2_6__reversed_the_condition",
+       "Reversed the conditioning event",
+       "Calculated P(B given A) when the stem asked for P(A given B).",
+       "ced_structural", ["u2_6_cond_prob"], ["2.6"], ["3.C"],
+       [_fp("S10 Unit 2 (2.6)",
+            "P(A|B) and P(B|A) generally use different denominators and are not interchangeable")]),
+
+    _M("u2_6__used_condition_complement_count",
+       "Used the complement within the condition",
+       "Used the count in the condition but not the target event instead of the count in both events.",
+       "ced_structural", ["u2_6_cond_prob"], ["2.6"], ["3.C"],
+       [_fp("S10 Unit 2 (2.6)",
+            "the numerator for P(A|B) is the count satisfying both A and B, not the count satisfying B but not A")]),
+
     # --- slot-frame FB-U2-1-4A-TWOWAY-01 (2.1 x 4.A) : two-way table interpretation ---
     _M("u2_1__raw_counts_as_conditional_comparison",
        "Compared raw counts instead of conditional proportions",

@@ -60,6 +60,7 @@ TWO_MEAN_CONTEXTS = SCN.TWO_MEAN_CONTEXTS
 CATEGORICAL_CONTEXTS = SCN.CATEGORICAL_CONTEXTS
 TWO_WAY_PROP_CONTEXTS = SCN.TWO_WAY_PROP_CONTEXTS
 U1_9_COMPARE_CONTEXTS = SCN.U1_9_COMPARE_CONTEXTS
+U2_6_COND_PROB_CONTEXTS = SCN.U2_6_COND_PROB_CONTEXTS
 
 
 def _rid(prefix: str, seed: int) -> str:
@@ -842,6 +843,48 @@ def gen_chi_square_test(rng: random.Random, seed: int) -> Dict:
                     {"observed": obs}, checks, scenario_domain=c["domain"])
 
 
+def gen_u2_6_cond_prob(rng: random.Random, seed: int) -> Dict:
+    c = rng.choice(U2_6_COND_PROB_CONTEXTS)
+    scale = rng.choice([0, 5, 10, 15])
+    total = int(c["total"]) + 4 * scale
+    a = int(c["a"]) + 2 * scale
+    b = int(c["b"]) + scale
+    both = int(c["both"]) + scale
+    answer = both / b
+    joint = both / total
+    reversed_cond = both / a
+    complement_within_condition = (b - both) / b
+    tol = 0.005
+    prompt = (f"Among {total} {c['population']}, {a} {c['event_a']}, {b} {c['event_b']}, "
+              f"and {both} both {c['event_a']} and {c['event_b']}. "
+              f"What is the probability that a randomly selected member {c['event_a']} given that the member {c['event_b']}?")
+    worked = (f"Restrict the denominator to the condition: {b} {c['population']} {c['event_b']}. "
+              f"Of those, {both} also {c['event_a']}. P(A|B) = {both}/{b} = {answer:.3f}.")
+    distractors = [
+        (f"{joint:.3f}", "u2_6__used_joint_probability_instead_of_conditional", joint),
+        (f"{reversed_cond:.3f}", "u2_6__reversed_the_condition", reversed_cond),
+        (f"{complement_within_condition:.3f}", "u2_6__used_condition_complement_count", complement_within_condition),
+    ]
+    checks = [
+        ("probability_in_range", 0 <= answer <= 1),
+        ("formula_uses_condition_denominator", abs(answer - both / b) < 1e-12),
+        ("joint_distractor_formula", abs(joint - both / total) < 1e-12),
+        ("reversed_condition_formula", abs(reversed_cond - both / a) < 1e-12),
+        ("complement_formula", abs(complement_within_condition - (b - both) / b) < 1e-12),
+        ("distractors_clear_of_key", all(abs(v - answer) > 3 * tol for _, _, v in distractors)),
+        ("distractors_distinct", len({round(v, 3) for _, _, v in distractors}) == 3),
+    ]
+    pkg = _package("u2_6_cond_prob", seed, "2.6", ["3.C"], "Medium", prompt,
+                   f"P = {answer:.3f}", worked,
+                   [{"kind": "numeric", "value": round(answer, 3), "tol": tol}],
+                   f"{answer:.3f}", answer, tol, distractors,
+                   {"scenario_id": c["id"], "total": total, "a": a, "b": b, "both": both},
+                   checks, scenario_domain=c["domain"])
+    pkg["content_key"] = _rid("apstat-u2-6-3c-cond_prob", seed)
+    return pkg
+
+
+
 def gen_two_sample_t_test(rng: random.Random, seed: int) -> Dict:
     """Two-sample (independent) t test statistic for a difference of means
     (cell 4.7 x 3.E). Uses unpooled (Welch) SE and conservative df = min(n1-1, n2-1).
@@ -986,6 +1029,7 @@ PROCEDURES: Dict[str, Callable[[random.Random, int], Dict]] = {
     "binomial_probability": gen_binomial_probability,
     "summary_stats": gen_summary_stats,
     "compare_stats": gen_compare_stats,
+    "u2_6_cond_prob": gen_u2_6_cond_prob,
     "t_test_mean": gen_t_test_mean,
     "t_interval_mean": gen_t_interval_mean,
     "chi_square_test": gen_chi_square_test,

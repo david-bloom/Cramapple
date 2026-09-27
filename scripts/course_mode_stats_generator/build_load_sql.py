@@ -75,6 +75,7 @@ COMPUTATIONAL_PREFIXES = (
     "one_prop_ci", "two_prop_ztest", "lsrl_predict", "basic_probability", "normal_prob",
     "binomial_probability", "summary_stats", "two_way_proportions",
     "compare_stats",
+    "u2_6_cond_prob",
     "t_test_mean", "t_interval_mean", "chi_square_test",
     "two_sample_t_test", "two_sample_t_interval",
 )
