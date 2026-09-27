@@ -12,7 +12,13 @@ export const STIMULUS_IMAGE_BUCKET = "content-assets";
 // a student renders one item at a time and the client re-fetches on expiry.
 export const SIGNED_URL_TTL_SECONDS = 900;
 
-export const MAX_ITEMS = 20;
+// Not tuned per subject on purpose (see CONTENT_TAXONOMY_RATIONALIZATION_PLAN_2026_09_26.md
+// Phase 2 correction): every query this bounds is already a single batched
+// `IN (...)` fetch or a single batched `createSignedUrls` call, so cost scales
+// with row count, not with this ceiling. 999 stays under Storage's
+// createSignedUrls batch limit (1000) and is large enough that no subject's
+// real item pool (today: 384, AP Statistics) needs a mode-specific exemption.
+export const MAX_ITEMS = 999;
 
 // Roles allowed to render assets that have not yet cleared Learning Quality
 // review -- the "QA-visible" half of the gate. `student` is deliberately
