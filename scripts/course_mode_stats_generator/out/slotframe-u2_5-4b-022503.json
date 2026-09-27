@@ -1,0 +1,163 @@
+{
+  "schema_version": "course-mode-generated-0.1",
+  "package_id": "slotframe-u2_5-4b-022503",
+  "content_key": "apstat-u2-5-4b-mutually-exclusive-022503",
+  "item_type": "mcq",
+  "difficulty": "Medium",
+  "exam_pack_ref": {
+    "exam_code": "ap_statistics",
+    "cycle": "2026-27"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "unit-2"
+    },
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "topic-2.5"
+    },
+    {
+      "scheme_key": "ap-statistics-skills",
+      "node_key": "skill-4.B",
+      "practice": 4
+    }
+  ],
+  "cells": [
+    {
+      "topic": "2.5",
+      "skill": "4.B"
+    }
+  ],
+  "scenario_provenance": {
+    "archetype": "Q2",
+    "archetype_label": "Multi-focus on Practices 3 & 4 (analyze data; interpret results)",
+    "task_verb": "Justify",
+    "practice": 4,
+    "modality": "exam_aligned_digital",
+    "validity_rules": [
+      "one chance process or one selected unit defines the trial",
+      "mutually exclusive means no single outcome can satisfy both event definitions",
+      "overlapping events have at least one shared outcome and are not mutually exclusive"
+    ],
+    "sources": [
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S5 (Free-response archetypes)",
+        "note": "Section II question archetypes Q1-Q4"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S6 (Task verbs)",
+        "note": "the item stem's verb must match the scored demand"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S7 (Response modality)",
+        "note": "digital Bluebook; text/numeric entry -> exam_aligned_digital"
+      }
+    ],
+    "domain": "games"
+  },
+  "prompt": "For one roll of a fair six-sided die, let Event A be that the result is even and Event B be that the result is odd. Which statement best justifies whether Events A and B are mutually exclusive?",
+  "mcq_form": {
+    "options": [
+      {
+        "text": "The events are independent, because if Event A occurs, then Event B cannot also occur.",
+        "correct": false,
+        "misconception": "u2_5__uses_independent_for_disjoint",
+        "misconception_source": {
+          "tag": "u2_5__uses_independent_for_disjoint",
+          "label": "Called disjoint events independent",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 2 (2.5)",
+              "note": "mutually exclusive events have no outcomes in common; distinguish this from independence"
+            }
+          ]
+        }
+      },
+      {
+        "text": "The events are mutually exclusive, because the two descriptions use different labels for the selected outcome.",
+        "correct": false,
+        "misconception": "u2_5__different_labels_mean_disjoint",
+        "misconception_source": {
+          "tag": "u2_5__different_labels_mean_disjoint",
+          "label": "Assumed different labels make events disjoint",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 2 (2.5)",
+              "note": "mutual exclusivity is about shared outcomes, not whether event names are different"
+            }
+          ]
+        }
+      },
+      {
+        "text": "The events are not mutually exclusive, because over many repetitions of the chance process one event could occur on one trial and the other could occur on another trial.",
+        "correct": false,
+        "misconception": "u2_5__same_trial_condition_missed",
+        "misconception_source": {
+          "tag": "u2_5__same_trial_condition_missed",
+          "label": "Missed the same-trial condition",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 2 (2.5)",
+              "note": "the relationship is determined within a single chance process or selected observational unit"
+            }
+          ]
+        }
+      },
+      {
+        "text": "The events are mutually exclusive, because a single die result cannot be both even and odd.",
+        "correct": true,
+        "misconception": null
+      }
+    ]
+  },
+  "parts": [
+    {
+      "part_key": "part-a",
+      "prompt": "For one roll of a fair six-sided die, let Event A be that the result is even and Event B be that the result is odd. Which statement best justifies whether Events A and B are mutually exclusive?",
+      "response_modalities": [
+        "mcq"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "Selects the justification that correctly identifies whether the two events can occur on the same trial.",
+          "required_evidence": "The events are mutually exclusive, because a single die result cannot be both even and odd.",
+          "deterministic_checks": [
+            {
+              "kind": "mcq_key",
+              "correct_relationship": "mutually_exclusive"
+            }
+          ],
+          "accepted_variants": []
+        }
+      ]
+    }
+  ],
+  "provenance": {
+    "generator": "course_mode_stats_generator/slot_frames.py",
+    "frame_id": "FB-U2-5-4B-MUTUALLY-EXCLUSIVE-01",
+    "template_id": "slotframe_u2_5_mutually_exclusive",
+    "params": {
+      "scenario_id": "u2_5__one_roll_even_and_odd",
+      "relationship": "mutually_exclusive"
+    },
+    "seed": 22503,
+    "release_status": "unreleased_generated_pending_review",
+    "note": "Authored conceptual frame; correctness from same-trial mutually-exclusive-event taxonomy."
+  }
+}
