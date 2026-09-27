@@ -74,7 +74,7 @@ LOAD_SQL = OUT_DIR / "f4_load_DRAFT.sql"
 COMPUTATIONAL_PREFIXES = (
     "one_prop_ci", "two_prop_ztest", "lsrl_predict", "basic_probability", "normal_prob",
     "binomial_probability", "summary_stats", "two_way_proportions",
-    "compare_stats",
+    "compare_stats", "random_variable_params",
     "u2_7_independent_union",
     "u2_6_cond_prob",
     "t_test_mean", "t_interval_mean", "chi_square_test",

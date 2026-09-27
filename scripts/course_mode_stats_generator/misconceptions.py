@@ -366,6 +366,31 @@ CATALOG: Dict[str, Misconception] = {m.tag: m for m in [
        "ced_structural", ["compare_stats"], ["1.9"], ["3.B"],
        [_fp("S10 Unit 1 (1.9)", "comparing distributions involves contrasting the groups, not reporting one group alone")]),
 
+    # --- random_variable_params (2.9 x 3.B) : mean/SD of a discrete random variable ---
+    _M("u2_9__unweighted_mean_values",
+       "Averaged the possible values without weighting by probability",
+       "Computed the ordinary average of the listed x-values instead of the expected value sum x_i P(x_i), dropping the probability weights entirely.",
+       "documented_cr", ["random_variable_params"], ["2.9"], ["3.B"],
+       [_fp("S10 Unit 2 (2.9)", "2025 CR Report Q3/Q5 documents computing the unweighted mean of possible X-values instead of the probability-weighted mean")]),
+
+    _M("u2_9__reported_variance_not_sd",
+       "Reported the variance instead of the standard deviation",
+       "Correctly or partly computed the probability-weighted squared deviations but stopped at V(X) instead of taking the square root to get sigma_X.",
+       "ced_structural", ["random_variable_params"], ["2.9"], ["3.B"],
+       [_fp("S10 Unit 2 (2.9)", "standard deviation sigma_X is the square root of V(X); variance and standard deviation are distinct parameters")]),
+
+    _M("u2_9__unweighted_sd_values",
+       "Computed spread from equally weighted values instead of probabilities",
+       "Found the standard deviation of the listed outcomes as if each value were equally likely, rather than weighting squared deviations by P(x_i).",
+       "ced_structural", ["random_variable_params"], ["2.9"], ["3.B"],
+       [_fp("S10 Unit 2 (2.9)", "sigma_X = sqrt(sum (x_i - mu_X)^2 P(x_i)); the probabilities weight each squared deviation")]),
+
+    _M("u2_9__off_by_one_discrete_value",
+       "Shifted a discrete outcome boundary by one value",
+       "Assigned probabilities to neighboring discrete values as if the outcome scale started one step too high, echoing boundary-inclusion errors such as treating 'fewer than 3' as '3 or fewer'.",
+       "documented_cr", ["random_variable_params"], ["2.9"], ["3.B"],
+       [_fp("S10 Unit 2 (2.9)", "2025 CR Report Q3/Q5 documents off-by-one boundary-inclusion errors for discrete random-variable events")]),
+
     # --- slot-frame FB-U1-3-3A-CAT-TABLE-01 (1.3 x 3.A) : one categorical tables ---
     _M("u1_3__count_percent_confusion",
        "Confused counts with relative frequencies",

@@ -1,0 +1,188 @@
+{
+  "schema_version": "course-mode-generated-0.1",
+  "package_id": "random_variable_params-029007",
+  "content_key": "apstat-random_variable_params-029007",
+  "item_type": "mcq",
+  "difficulty": "Medium",
+  "exam_pack_ref": {
+    "exam_code": "ap_statistics",
+    "cycle": "2026-27"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "unit-2"
+    },
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "topic-2.9"
+    },
+    {
+      "scheme_key": "ap-statistics-skills",
+      "node_key": "skill-3.B",
+      "practice": 3
+    }
+  ],
+  "cells": [
+    {
+      "topic": "2.9",
+      "skill": "3.B"
+    }
+  ],
+  "prompt": "Let X be the number of unused reservations on a weekend for one randomly selected park facility. The probability distribution is 2 unused reservations: 0.08; 3 unused reservations: 0.22; 4 unused reservations: 0.39; 5 unused reservations: 0.31. Calculate the standard deviation of X.",
+  "numeric_form": {
+    "answer_desc": "sigma_X = 0.9193",
+    "deterministic_checks": [
+      {
+        "kind": "numeric",
+        "value": 0.9193,
+        "tol": 0.02
+      }
+    ]
+  },
+  "mcq_form": {
+    "options": [
+      {
+        "text": "1.12",
+        "correct": false,
+        "misconception": "u2_9__unweighted_sd_values",
+        "misconception_source": {
+          "tag": "u2_9__unweighted_sd_values",
+          "label": "Computed spread from equally weighted values instead of probabilities",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 2 (2.9)",
+              "note": "sigma_X = sqrt(sum (x_i - mu_X)^2 P(x_i)); the probabilities weight each squared deviation"
+            }
+          ]
+        }
+      },
+      {
+        "text": "0.85",
+        "correct": false,
+        "misconception": "u2_9__reported_variance_not_sd",
+        "misconception_source": {
+          "tag": "u2_9__reported_variance_not_sd",
+          "label": "Reported the variance instead of the standard deviation",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 2 (2.9)",
+              "note": "standard deviation sigma_X is the square root of V(X); variance and standard deviation are distinct parameters"
+            }
+          ]
+        }
+      },
+      {
+        "text": "3.50",
+        "correct": false,
+        "misconception": "u2_9__unweighted_mean_values",
+        "misconception_source": {
+          "tag": "u2_9__unweighted_mean_values",
+          "label": "Averaged the possible values without weighting by probability",
+          "evidence": "documented_cr",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 2 (2.9)",
+              "note": "2025 CR Report Q3/Q5 documents computing the unweighted mean of possible X-values instead of the probability-weighted mean"
+            }
+          ]
+        }
+      },
+      {
+        "text": "0.92",
+        "correct": true,
+        "misconception": null
+      }
+    ]
+  },
+  "worked_solution": "mu_X = sum x_i P(x_i) = 2(0.08) + 3(0.22) + 4(0.39) + 5(0.31) = 3.9300. Variance = sum (x_i - mu_X)^2 P(x_i) = 0.8451. sigma_X = sqrt(0.8451) = 0.9193 unused reservations.",
+  "parts": [
+    {
+      "part_key": "part-a",
+      "prompt": "Let X be the number of unused reservations on a weekend for one randomly selected park facility. The probability distribution is 2 unused reservations: 0.08; 3 unused reservations: 0.22; 4 unused reservations: 0.39; 5 unused reservations: 0.31. Calculate the standard deviation of X.",
+      "response_modalities": [
+        "mcq",
+        "numeric"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "sigma_X = 0.9193",
+          "required_evidence": "mu_X = sum x_i P(x_i) = 2(0.08) + 3(0.22) + 4(0.39) + 5(0.31) = 3.9300. Variance = sum (x_i - mu_X)^2 P(x_i) = 0.8451. sigma_X = sqrt(0.8451) = 0.9193 unused reservations.",
+          "deterministic_checks": [
+            {
+              "kind": "numeric",
+              "value": 0.9193,
+              "tol": 0.02
+            }
+          ],
+          "accepted_variants": []
+        }
+      ]
+    }
+  ],
+  "scenario_provenance": {
+    "archetype": "Q4",
+    "archetype_label": "Multi-focus on Practices 2, 3 & 4 (spans multiple content areas)",
+    "task_verb": "Calculate",
+    "practice": 3,
+    "modality": "exam_aligned_digital",
+    "validity_rules": [
+      "a complete discrete probability distribution for one random variable",
+      "probabilities sum to 1",
+      "expected value uses probability-weighted outcomes; standard deviation is the square root of the probability-weighted variance"
+    ],
+    "sources": [
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S5 (Free-response archetypes)",
+        "note": "Section II question archetypes Q1-Q4"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S6 (Task verbs)",
+        "note": "the item stem's verb must match the scored demand"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S7 (Response modality)",
+        "note": "digital Bluebook; text/numeric entry -> exam_aligned_digital"
+      }
+    ],
+    "domain": "civic"
+  },
+  "provenance": {
+    "generator": "course_mode_stats_generator/generator.py",
+    "template_id": "random_variable_params",
+    "params": {
+      "scenario_id": "u2_9__park_reservations",
+      "values": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "probabilities": [
+        0.08,
+        0.22,
+        0.39,
+        0.31
+      ],
+      "mu": 3.9299999999999997,
+      "variance": 0.8451
+    },
+    "seed": 29007,
+    "release_status": "unreleased_generated_pending_review",
+    "note": "Synthetic; not official CB content. Requires CM-D19 template-release + review."
+  }
+}

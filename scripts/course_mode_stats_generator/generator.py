@@ -53,6 +53,7 @@ CONTEXTS = SCN.PROPORTION_CONTEXTS
 TWO_GROUP = SCN.TWO_GROUP_CONTEXTS
 REG_CONTEXTS = SCN.REGRESSION_CONTEXTS
 NORMAL_CONTEXTS = SCN.NORMAL_CONTEXTS
+RANDOM_VARIABLE_CONTEXTS = SCN.RANDOM_VARIABLE_CONTEXTS
 PROBABILITY_CONTEXTS = SCN.U2_4_PROBABILITY_CONTEXTS
 BINOMIAL_CONTEXTS = SCN.BINOMIAL_CONTEXTS
 MEAN_CONTEXTS = SCN.MEAN_CONTEXTS
@@ -523,6 +524,77 @@ def gen_compare_stats(rng: random.Random, seed: int) -> Dict:
                     [{"kind": "numeric", "value": round(key, 4), "tol": tol}],
                     f"{key:.2f}", key, tol, distractors,
                     {"scenario_id": c["id"], "stat": stat, "data_a": data_a, "data_b": data_b},
+                    checks, scenario_domain=c["domain"])
+
+
+def _fmt_distribution_table(values: List[int], probs: List[float], unit: str) -> str:
+    parts = [f"{x:g} {unit}: {p:.2f}" for x, p in zip(values, probs)]
+    return "; ".join(parts)
+
+
+def gen_random_variable_params(rng: random.Random, seed: int) -> Dict:
+    """Mean/expected value and standard deviation of a discrete random variable
+    (cell 2.9 x 3.B). The distribution is fully specified by a small probability
+    table. Distractors encode documented/canonical mistakes and are hand-checkable:
+    unweighted mean, variance reported as SD, unweighted variance, and an off-by-one
+    value shift when assigning probabilities to neighboring outcomes."""
+    c = rng.choice(RANDOM_VARIABLE_CONTEXTS)
+    tol = 0.02
+    probs = list(rng.choice(c["prob_sets"]))
+    step = int(rng.choice(c["step_choices"]))
+    start = int(rng.choice(c["start_choices"]))
+    values = [start + step * i for i in range(len(probs))]
+    mu = sum(x * p for x, p in zip(values, probs))
+    variance = sum((x - mu) ** 2 * p for x, p in zip(values, probs))
+    sd = math.sqrt(variance)
+    unweighted_mu = sum(values) / len(values)                     # wrong formula: sum(x_i)/k, ignoring P(x_i)
+    variance_as_sd = variance                                    # wrong formula: stops at sigma_X^2, reports variance as SD
+    unweighted_var_sd = math.sqrt(sum((x - unweighted_mu) ** 2 for x in values) / len(values))  # wrong formula: equal weights on all values
+    shifted_values = values[1:] + [values[-1] + step]
+    shifted_mu = sum(x * p for x, p in zip(shifted_values, probs)) # wrong formula: assigns probabilities to outcomes shifted one step high
+    candidates = [
+        (unweighted_mu, "u2_9__unweighted_mean_values"),
+        (variance_as_sd, "u2_9__reported_variance_not_sd"),
+        (unweighted_var_sd, "u2_9__unweighted_sd_values"),
+        (shifted_mu, "u2_9__off_by_one_discrete_value"),
+    ]
+    distractors: List[Tuple[str, str, float]] = []
+    chosen: List[float] = []
+    for val, tag in candidates:
+        if val < 0:
+            continue
+        if abs(val - sd) <= 3 * tol:
+            continue
+        if any(abs(val - prior) <= 3 * tol for prior in chosen):
+            continue
+        distractors.append((f"{val:.2f}", tag, val))
+        chosen.append(val)
+        if len(distractors) == 3:
+            break
+    prompt = (f"Let X be the {c['quantity']} for one randomly selected {c['unit_subject']}. "
+              f"The probability distribution is {_fmt_distribution_table(values, probs, c['unit'])}. "
+              f"Calculate the standard deviation of X.")
+    worked = (f"mu_X = sum x_i P(x_i) = "
+              f"{' + '.join(f'{x:g}({p:.2f})' for x, p in zip(values, probs))} = {mu:.4f}. "
+              f"Variance = sum (x_i - mu_X)^2 P(x_i) = {variance:.4f}. "
+              f"sigma_X = sqrt({variance:.4f}) = {sd:.4f} {c['unit']}.")
+    checks = [
+        ("probabilities_sum_to_1", abs(sum(probs) - 1.0) < 1e-12),
+        ("values_increasing", values == sorted(values) and len(set(values)) == len(values)),
+        ("expected_value_formula", abs(mu - sum(x * p for x, p in zip(values, probs))) < 1e-12),
+        ("variance_formula", abs(variance - sum((x - mu) ** 2 * p for x, p in zip(values, probs))) < 1e-12),
+        ("sd_formula", abs(sd - math.sqrt(variance)) < 1e-12),
+        ("sd_positive", sd > 0),
+        ("three_plausible_distractors", len(distractors) == 3),
+        ("distractors_nonnegative", all(v >= 0 for _, _, v in distractors)),
+        ("distractors_clear_of_key", all(abs(v - sd) > 2 * tol for _, _, v in distractors)),
+        ("distractors_distinct", len({d for d, _, _ in distractors}) == len(distractors)),
+    ]
+    return _package("random_variable_params", seed, "2.9", ["3.B"], "Medium", prompt,
+                    f"sigma_X = {sd:.4f}", worked,
+                    [{"kind": "numeric", "value": round(sd, 4), "tol": tol}],
+                    f"{sd:.2f}", sd, tol, distractors,
+                    {"scenario_id": c["id"], "values": values, "probabilities": probs, "mu": mu, "variance": variance},
                     checks, scenario_domain=c["domain"])
 
 
@@ -1066,6 +1138,7 @@ PROCEDURES: Dict[str, Callable[[random.Random, int], Dict]] = {
     "binomial_probability": gen_binomial_probability,
     "summary_stats": gen_summary_stats,
     "compare_stats": gen_compare_stats,
+    "random_variable_params": gen_random_variable_params,
     "u2_7_independent_union": gen_u2_7_independent_union,
     "u2_6_cond_prob": gen_u2_6_cond_prob,
     "t_test_mean": gen_t_test_mean,

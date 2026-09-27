@@ -197,6 +197,13 @@ FRAMING: Dict[str, Framing] = {
          "classification must distinguish imposed treatments, randomization, control/placebo/blinding, and confounding"],
         [_SEC5, _SEC6, _SEC7]),
 
+    "random_variable_params": Framing(
+        "random_variable_params", "Q4", "Calculate", 3, "exam_aligned_digital",
+        ["a complete discrete probability distribution for one random variable",
+         "probabilities sum to 1",
+         "expected value uses probability-weighted outcomes; standard deviation is the square root of the probability-weighted variance"],
+        [_SEC5, _SEC6, _SEC7]),
+
     "slotframe_u2_8_random_variable_distributions": Framing(
         "slotframe_u2_8_random_variable_distributions", "Q2", "Describe", 3, "exam_aligned_digital",
         ["discrete random-variable representation only",
@@ -362,6 +369,25 @@ NORMAL_CONTEXTS: List[Dict[str, object]] = [
      "mu_choices": [20, 30, 45, 60], "sigma_choices": [5, 8, 10]},
     {"quantity": "bag fill weight", "unit": "grams", "domain": "manufacturing",
      "mu_choices": [200, 500, 1000], "sigma_choices": [5, 10, 15]},
+]
+
+
+# Unit 2.9 random-variable parameter contexts. Each id is cell-namespaced.
+# The probability sets are deliberately nonuniform so the weighted mean and the
+# unweighted average of outcomes are usually different.
+RANDOM_VARIABLE_CONTEXTS: List[Dict[str, object]] = [
+    {"id": "u2_9__late_packages", "quantity": "number of late packages in a small delivery batch", "unit": "late packages", "unit_subject": "delivery batch", "domain": "operations",
+     "start_choices": [0, 1], "step_choices": [1], "prob_sets": [(0.42, 0.31, 0.18, 0.09), (0.18, 0.34, 0.30, 0.18), (0.55, 0.25, 0.15, 0.05)]},
+    {"id": "u2_9__support_calls", "quantity": "number of support calls made in a day", "unit": "calls", "unit_subject": "customer account", "domain": "business",
+     "start_choices": [0], "step_choices": [1, 2], "prob_sets": [(0.50, 0.28, 0.15, 0.07), (0.25, 0.35, 0.25, 0.15), (0.12, 0.28, 0.36, 0.24)]},
+    {"id": "u2_9__clinic_no_shows", "quantity": "number of no-shows in an afternoon schedule", "unit": "no-shows", "unit_subject": "clinic afternoon", "domain": "health",
+     "start_choices": [0, 1], "step_choices": [1], "prob_sets": [(0.35, 0.33, 0.22, 0.10), (0.20, 0.30, 0.32, 0.18), (0.48, 0.27, 0.17, 0.08)]},
+    {"id": "u2_9__defective_sensors", "quantity": "number of defective sensors in an inspection lot", "unit": "defective sensors", "unit_subject": "inspection lot", "domain": "manufacturing",
+     "start_choices": [0], "step_choices": [1], "prob_sets": [(0.60, 0.24, 0.11, 0.05), (0.30, 0.38, 0.22, 0.10), (0.16, 0.34, 0.31, 0.19)]},
+    {"id": "u2_9__quiz_retries", "quantity": "number of quiz retries used", "unit": "retries", "unit_subject": "student", "domain": "education",
+     "start_choices": [0, 1], "step_choices": [1], "prob_sets": [(0.46, 0.29, 0.17, 0.08), (0.22, 0.36, 0.27, 0.15), (0.10, 0.24, 0.38, 0.28)]},
+    {"id": "u2_9__park_reservations", "quantity": "number of unused reservations on a weekend", "unit": "unused reservations", "unit_subject": "park facility", "domain": "civic",
+     "start_choices": [0, 2], "step_choices": [1, 2], "prob_sets": [(0.40, 0.30, 0.20, 0.10), (0.15, 0.33, 0.34, 0.18), (0.08, 0.22, 0.39, 0.31)]},
 ]
 
 # binomial probability: independent repeated trials with a fixed success probability.
@@ -1014,6 +1040,20 @@ def validate_scenarios() -> List[str]:
             problems.append(f"normal context missing fields: {ctx}")
         elif not ctx["mu_choices"] or not ctx["sigma_choices"]:
             problems.append(f"normal context has empty mu/sigma choices: {ctx}")
+
+    seen_rv_ids = set()
+    for ctx in RANDOM_VARIABLE_CONTEXTS:
+        required = ("id", "quantity", "unit", "unit_subject", "domain", "start_choices", "step_choices", "prob_sets")
+        if not all(k in ctx for k in required):
+            problems.append(f"u2_9 random-variable context missing fields: {ctx}")
+        if ctx.get("id") in seen_rv_ids:
+            problems.append(f"duplicate u2_9 random-variable context id: {ctx.get('id')}")
+        seen_rv_ids.add(ctx.get("id"))
+        if not str(ctx.get("id", "")).startswith("u2_9__"):
+            problems.append(f"u2_9 random-variable context id is not namespaced: {ctx.get('id')}")
+        for probs in ctx.get("prob_sets", []):
+            if len(probs) != 4 or abs(sum(probs) - 1.0) > 1e-12 or any(p <= 0 for p in probs):
+                problems.append(f"u2_9 probabilities must be four positive values summing to 1: {ctx}")
     seen_binomial_ids = set()
     for ctx in BINOMIAL_CONTEXTS:
         required = ("id", "who", "trial_unit", "success", "domain", "n_choices", "p_choices")
@@ -1277,6 +1317,7 @@ if __name__ == "__main__":
             "regression": len(REGRESSION_CONTEXTS),
             "u2_4_probability": len(U2_4_PROBABILITY_CONTEXTS),
             "normal": len(NORMAL_CONTEXTS),
+            "random_variable": len(RANDOM_VARIABLE_CONTEXTS),
             "binomial": len(BINOMIAL_CONTEXTS),
             "mean": len(MEAN_CONTEXTS),
             "two_mean": len(TWO_MEAN_CONTEXTS),
