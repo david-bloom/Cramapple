@@ -208,6 +208,13 @@ FRAMING: Dict[str, Framing] = {
          "confidence in {90%, 95%, 99%}",
          "t (for a mean), never z -- CED convention; interval bounds realistic for the quantity"],
         [_SEC5, _SEC6, _SEC7]),
+
+    "two_way_proportions": Framing(
+        "two_way_proportions", "Q2", "Calculate", 3, "exam_aligned_digital",
+        ["a two-way table of counts for two categorical variables",
+         "marginal proportions use row/column totals over the grand total",
+         "conditional proportions use the total within the stated condition"],
+        [_SEC5, _SEC6, _SEC7]),
     "chi_square_test": Framing(
         "chi_square_test", "Q4", "Calculate", 3, "exam_aligned_digital",
         ["a two-way table of counts for two categorical variables",
@@ -348,6 +355,30 @@ TWO_MEAN_CONTEXTS: List[Dict[str, object]] = [
      "domain": "education", "mu_choices": [72, 76, 80, 84], "s_choices": [6, 8, 10], "n_choices": [12, 15, 18, 20, 25]},
     {"quantity": "plant height after six weeks", "unit": "cm", "gA": "with fertilizer", "gB": "control group",
      "domain": "biology", "mu_choices": [20, 25, 30, 35], "s_choices": [3, 4, 5], "n_choices": [10, 12, 16, 20]},
+]
+
+
+# Unit 2.2 two-way categorical summaries: marginal and conditional proportions.
+# Each id is cell-namespaced and the count tables are original synthetic contexts.
+TWO_WAY_PROP_CONTEXTS: List[Dict[str, object]] = [
+    {"id": "u2_2__club_grade_transport", "desc": "students in two grade levels and their usual way to get to school",
+     "rows": ["9th grade", "12th grade"], "cols": ["Bus", "Car", "Bike/Walk"],
+     "obs": [[42, 36, 22], [28, 54, 18]], "row_var": "grade level", "col_var": "usual transportation", "domain": "education"},
+    {"id": "u2_2__store_region_delivery", "desc": "online orders from two regions and whether delivery met the promised date",
+     "rows": ["North region", "South region"], "cols": ["On time", "Late"],
+     "obs": [[86, 14], [72, 28]], "row_var": "shipping region", "col_var": "delivery outcome", "domain": "business"},
+    {"id": "u2_2__device_line_defect", "desc": "devices from two production lines and inspection result",
+     "rows": ["Line A", "Line B"], "cols": ["Pass", "Rework", "Fail"],
+     "obs": [[64, 20, 16], [72, 18, 10]], "row_var": "production line", "col_var": "inspection result", "domain": "manufacturing"},
+    {"id": "u2_2__library_age_format", "desc": "library patrons in two age groups and the format checked out most recently",
+     "rows": ["Ages 18-34", "Ages 35+"], "cols": ["Print", "E-book", "Audiobook"],
+     "obs": [[38, 44, 18], [62, 24, 14]], "row_var": "age group", "col_var": "checkout format", "domain": "civic"},
+    {"id": "u2_2__clinic_visit_payment", "desc": "clinic visits by appointment type and payment category",
+     "rows": ["Scheduled", "Walk-in"], "cols": ["Private insurance", "Public insurance", "Self-pay"],
+     "obs": [[58, 32, 10], [26, 44, 30]], "row_var": "appointment type", "col_var": "payment category", "domain": "health"},
+    {"id": "u2_2__survey_party_media", "desc": "surveyed voters by party registration and primary news source",
+     "rows": ["Registered party", "Unaffiliated"], "cols": ["Local TV", "Online news", "Social media"],
+     "obs": [[46, 38, 16], [30, 42, 28]], "row_var": "registration type", "col_var": "primary news source", "domain": "civic"},
 ]
 
 # categorical (chi-square independence/homogeneity): two categorical variables ->
@@ -822,6 +853,16 @@ def validate_scenarios() -> List[str]:
             problems.append(f"two-mean context is not two distinct groups: {ctx}")
         elif any(n > 31 for n in ctx["n_choices"]):
             problems.append(f"two-mean context n exceeds t-table (df=min(n1-1,n2-1) must be <=30): {ctx}")
+
+    for ctx in TWO_WAY_PROP_CONTEXTS:
+        rows, cols, obs = ctx.get("rows"), ctx.get("cols"), ctx.get("obs")
+        if not rows or not cols or not obs:
+            problems.append(f"two-way proportion context missing table fields: {ctx}")
+            continue
+        if len(obs) != len(rows) or any(len(orow) != len(cols) for orow in obs):
+            problems.append(f"two-way proportion table dimensions mismatch: {ctx}")
+        if any(v <= 0 for orow in obs for v in orow):
+            problems.append(f"two-way proportion table has non-positive count: {ctx}")
     for ctx in CATEGORICAL_CONTEXTS:
         if not all(k in ctx for k in ("desc", "rows", "cols", "row_noun", "domain")):
             problems.append(f"categorical context missing fields: {ctx}")
@@ -986,6 +1027,7 @@ if __name__ == "__main__":
             "binomial": len(BINOMIAL_CONTEXTS),
             "mean": len(MEAN_CONTEXTS),
             "two_mean": len(TWO_MEAN_CONTEXTS),
+            "two_way_proportion": len(TWO_WAY_PROP_CONTEXTS),
             "u1_3_cat_tables": len(U1_3_CAT_TABLE_CONTEXTS),
             "u1_9_compare": len(U1_9_COMPARE_CONTEXTS),
             "u1_11_sampling": len(U1_11_SAMPLING_CONTEXTS),

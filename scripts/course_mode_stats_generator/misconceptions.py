@@ -674,6 +674,57 @@ CATALOG: Dict[str, Misconception] = {m.tag: m for m in [
        "ced_structural", ["two_sample_t_test", "two_sample_t_interval"], ["4.7", "4.10"], ["3.E"],
        [_fp("S10 Unit 4 (4.9-4.10, test for difference of two means)",
             "test statistic numerator is (xbar1 - xbar2) - 0; the order of subtraction sets the sign")]),
+
+    # --- two_way_proportions (2.2 x 3.B) : marginal/conditional proportions -----
+    _M("u2_2__used_grand_total_for_conditional",
+       "Used the grand total as the denominator for a conditional proportion",
+       "Computed a cell count divided by the whole table total when the condition restricts the denominator to one row or one column.",
+       "ced_structural", ["two_way_proportions"], ["2.2"], ["3.B"],
+       [_fp("S10 Unit 2 (2.2)",
+            "summary statistics for two categorical variables include marginal and conditional proportions; the denominator must match the condition")]),
+
+    _M("u2_2__swapped_conditioning_denominator",
+       "Used the opposite conditional denominator",
+       "For a conditional proportion, divided by the column total when the condition was a row, or by the row total when the condition was a column.",
+       "ced_structural", ["two_way_proportions"], ["2.2"], ["3.B"],
+       [_fp("S10 Unit 2 (2.2)",
+            "conditional proportions are computed within the given category of the conditioning variable")]),
+
+    _M("u2_2__used_complement_category",
+       "Used the complement category within the correct denominator",
+       "Kept the correct row or column denominator but counted the observations not in the requested category.",
+       "ced_structural", ["two_way_proportions"], ["2.2"], ["3.B"],
+       [_fp("S10 Unit 2 (2.2)",
+            "two-way-table calculations require matching the requested category, not its complement")]),
+
+    _M("u2_2__reported_conditional_instead_of_marginal",
+       "Reported a conditional proportion instead of a marginal proportion",
+       "Used a within-row or within-column proportion when the question asked for the overall marginal proportion from the table total.",
+       "ced_structural", ["two_way_proportions"], ["2.2"], ["3.B"],
+       [_fp("S10 Unit 2 (2.2)",
+            "marginal proportions use row or column totals over the grand total, while conditional proportions use a restricted denominator")]),
+
+    _M("u2_2__reported_marginal_instead_of_conditional",
+       "Reported a marginal proportion instead of a conditional proportion",
+       "Used a row or column total over the grand total when the question asked for a proportion within a stated row or column condition.",
+       "ced_structural", ["two_way_proportions"], ["2.2"], ["3.B"],
+       [_fp("S10 Unit 2 (2.2)",
+            "conditional proportions are computed inside the stated condition, unlike marginal proportions that use the grand total")]),
+
+    _M("u2_2__used_joint_cell_as_margin",
+       "Used a joint cell proportion when a marginal proportion was requested",
+       "Divided one interior cell by the grand total instead of using the full row or column total for the requested marginal proportion.",
+       "ced_structural", ["two_way_proportions"], ["2.2"], ["3.B"],
+       [_fp("S10 Unit 2 (2.2)",
+            "marginal proportions summarize a whole row or column of a two-way table, not just one joint cell")]),
+
+    _M("u2_2__mixed_row_and_column_margins",
+       "Used the wrong margin from the two-way table",
+       "Reported a row marginal proportion when the question asked for a column marginal proportion, or vice versa.",
+       "ced_structural", ["two_way_proportions"], ["2.2"], ["3.B"],
+       [_fp("S10 Unit 2 (2.2)",
+            "marginal distributions for the two categorical variables are distinct row and column summaries")]),
+
 ]}
 
 
