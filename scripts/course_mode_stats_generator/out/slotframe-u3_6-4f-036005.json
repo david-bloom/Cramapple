@@ -1,0 +1,164 @@
+{
+  "schema_version": "course-mode-generated-0.1",
+  "package_id": "slotframe-u3_6-4f-036005",
+  "content_key": "apstat-u3-6-4f-pvalue-036005",
+  "item_type": "mcq",
+  "difficulty": "Medium",
+  "exam_pack_ref": {
+    "exam_code": "ap_statistics",
+    "cycle": "2026-27"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "unit-3"
+    },
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "topic-3.6"
+    },
+    {
+      "scheme_key": "ap-statistics-skills",
+      "node_key": "skill-4.F",
+      "practice": 4
+    }
+  ],
+  "cells": [
+    {
+      "topic": "3.6",
+      "skill": "4.F"
+    }
+  ],
+  "scenario_provenance": {
+    "archetype": "Q3",
+    "archetype_label": "Inference: a significance test or confidence interval",
+    "task_verb": "Describe",
+    "practice": 4,
+    "modality": "exam_aligned_digital",
+    "validity_rules": [
+      "one-proportion significance-test setting with stated H0 and Ha",
+      "p-value interpretation must be conditional on H0 being true",
+      "tail event must be as extreme as or more extreme than the observed sample result in the direction of Ha"
+    ],
+    "sources": [
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S5 (Free-response archetypes)",
+        "note": "Section II question archetypes Q1-Q4"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S6 (Task verbs)",
+        "note": "the item stem's verb must match the scored demand"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S7 (Response modality)",
+        "note": "digital Bluebook; text/numeric entry -> exam_aligned_digital"
+      }
+    ],
+    "domain": "civic"
+  },
+  "prompt": "A significance test is performed using a random sample of households to test H0: p = 0.60 against Ha: p < 0.60, where p is the proportion of all households that used the curbside recycling program last month. The sample result was the sample participation rate was below 0.60, and the p-value is 0.008. Which statement correctly interprets the p-value in context?",
+  "mcq_form": {
+    "options": [
+      {
+        "text": "If the proportion of all households that used the curbside recycling program last month really is 0.60, then there is about a 0.8% chance of getting a sample proportion this large or larger by random sampling alone.",
+        "correct": false,
+        "misconception": "u3_6__p_value_reverses_extreme_direction",
+        "misconception_source": {
+          "tag": "u3_6__p_value_reverses_extreme_direction",
+          "label": "Reversed the direction of the extreme-tail event",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 3 (3.5-3.8)",
+              "note": "p-value meaning depends on the alternative-hypothesis direction and the corresponding tail event"
+            }
+          ]
+        }
+      },
+      {
+        "text": "There is about a 0.8% chance that the sample result happened by chance.",
+        "correct": false,
+        "misconception": "u3_6__p_value_probability_sample_due_to_chance",
+        "misconception_source": {
+          "tag": "u3_6__p_value_probability_sample_due_to_chance",
+          "label": "Interpreted the p-value as the probability that the sample result happened by chance",
+          "evidence": "documented_cr",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 3 (3.5-3.8)",
+              "note": "2025 CR patterns flag weak p-value interpretations that say only 'due to chance' instead of conditioning on H0 and an extreme-tail event"
+            }
+          ]
+        }
+      },
+      {
+        "text": "There is about a 0.8% chance that the alternative hypothesis is true.",
+        "correct": false,
+        "misconception": "u3_6__p_value_probability_alternative_true",
+        "misconception_source": {
+          "tag": "u3_6__p_value_probability_alternative_true",
+          "label": "Interpreted the p-value as evidence that the alternative hypothesis is true with that probability",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 3 (3.5-3.8)",
+              "note": "significance-test interpretation distinguishes evidence against H0 from posterior probability that Ha is true"
+            }
+          ]
+        }
+      },
+      {
+        "text": "If the proportion of all households that used the curbside recycling program last month really is 0.60, then there is about a 0.8% chance of getting a sample result at least as small as the one in the sample (a sample proportion this small or smaller) by random sampling alone.",
+        "correct": true,
+        "misconception": null
+      }
+    ]
+  },
+  "parts": [
+    {
+      "part_key": "part-a",
+      "prompt": "A significance test is performed using a random sample of households to test H0: p = 0.60 against Ha: p < 0.60, where p is the proportion of all households that used the curbside recycling program last month. The sample result was the sample participation rate was below 0.60, and the p-value is 0.008. Which statement correctly interprets the p-value in context?",
+      "response_modalities": [
+        "mcq"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "Selects the interpretation of a p-value as a conditional tail probability under H0 in context.",
+          "required_evidence": "Correctly conditions on H0 and refers to a result as extreme as or more extreme than the observed result.",
+          "deterministic_checks": [
+            {
+              "kind": "mcq_key",
+              "correct_type": "p_value_conditional_tail_probability"
+            }
+          ],
+          "accepted_variants": []
+        }
+      ]
+    }
+  ],
+  "provenance": {
+    "generator": "course_mode_stats_generator/slot_frames.py",
+    "frame_id": "FB-U3-6-4F-PVALUE-01",
+    "template_id": "slotframe_u3_6_pvalue_interpret",
+    "params": {
+      "scenario_id": "u3_6__recycling_participation",
+      "p_value": 0.008,
+      "alternative": "less"
+    },
+    "seed": 36005,
+    "release_status": "unreleased_generated_pending_review",
+    "note": "Authored conceptual frame; correctness from p-value interpretation taxonomy."
+  }
+}

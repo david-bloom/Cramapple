@@ -1,0 +1,174 @@
+{
+  "schema_version": "course-mode-generated-0.1",
+  "package_id": "slotframe-u2_8-3a-022810",
+  "content_key": "apstat-u2-8-3a-random-variable-distribution-022810",
+  "item_type": "mcq",
+  "difficulty": "Medium",
+  "exam_pack_ref": {
+    "exam_code": "ap_statistics",
+    "cycle": "2026-27"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "unit-2"
+    },
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "topic-2.8"
+    },
+    {
+      "scheme_key": "ap-statistics-skills",
+      "node_key": "skill-3.A",
+      "practice": 3
+    }
+  ],
+  "cells": [
+    {
+      "topic": "2.8",
+      "skill": "3.A"
+    }
+  ],
+  "scenario_provenance": {
+    "archetype": "Q2",
+    "archetype_label": "Multi-focus on Practices 3 & 4 (analyze data; interpret results)",
+    "task_verb": "Describe",
+    "practice": 3,
+    "modality": "exam_aligned_digital",
+    "validity_rules": [
+      "discrete random-variable representation only",
+      "a valid probability distribution lists possible values and point probabilities P(X = x)",
+      "every probability must be between 0 and 1 and the probabilities must sum to 1"
+    ],
+    "sources": [
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S5 (Free-response archetypes)",
+        "note": "Section II question archetypes Q1-Q4"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S6 (Task verbs)",
+        "note": "the item stem's verb must match the scored demand"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S7 (Response modality)",
+        "note": "digital Bluebook; text/numeric entry -> exam_aligned_digital"
+      }
+    ],
+    "domain": "education"
+  },
+  "prompt": "A random variable X is defined as the number of late assignments a student has in a week. Which table is a valid probability distribution for this random variable?",
+  "mcq_form": {
+    "options": [
+      {
+        "text": "Probability table: X=0: 0.46; X=1: 0.31; X=2: 0.16; X=3: 0.07",
+        "correct": true,
+        "misconception": null
+      },
+      {
+        "text": "Probability table: X=0: 0.57; X=1: 0.31; X=2: 0.16; X=3: -0.04",
+        "correct": false,
+        "misconception": "u2_8__negative_probability_allowed",
+        "misconception_source": {
+          "tag": "u2_8__negative_probability_allowed",
+          "label": "Allowed a negative probability in a distribution",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 2 (2.8-2.9)",
+              "note": "probabilities in a distribution must be between 0 and 1 inclusive"
+            }
+          ]
+        }
+      },
+      {
+        "text": "Cumulative probability table: X=0: 0.46; X=1: 0.77; X=2: 0.93; X=3: 1.00",
+        "correct": false,
+        "misconception": "u2_8__cumulative_probability_confused_with_point_probability",
+        "misconception_source": {
+          "tag": "u2_8__cumulative_probability_confused_with_point_probability",
+          "label": "Confused cumulative probabilities with point probabilities",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 2 (2.8-2.9)",
+              "note": "a probability distribution gives each value's probability; cumulative probabilities answer a different representation question"
+            }
+          ]
+        }
+      },
+      {
+        "text": "Probability table: X=0: 0.46; X=1: 0.31; X=2: 0.16; X=3: 0.15",
+        "correct": false,
+        "misconception": "u2_8__probabilities_do_not_sum_to_one",
+        "misconception_source": {
+          "tag": "u2_8__probabilities_do_not_sum_to_one",
+          "label": "Accepted a probability distribution whose probabilities do not sum to 1",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 2 (2.8-2.9)",
+              "note": "a probability distribution lists possible random-variable values with probabilities that sum to 1"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "parts": [
+    {
+      "part_key": "part-a",
+      "prompt": "A random variable X is defined as the number of late assignments a student has in a week. Which table is a valid probability distribution for this random variable?",
+      "response_modalities": [
+        "mcq"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "Selects the table that gives valid point probabilities for a discrete random variable.",
+          "required_evidence": "Probability table: X=0: 0.46; X=1: 0.31; X=2: 0.16; X=3: 0.07",
+          "deterministic_checks": [
+            {
+              "kind": "mcq_key",
+              "correct_representation": "valid_probability_distribution"
+            }
+          ],
+          "accepted_variants": []
+        }
+      ]
+    }
+  ],
+  "provenance": {
+    "generator": "course_mode_stats_generator/slot_frames.py",
+    "frame_id": "FB-U2-8-3A-RANDOM-VARIABLE-DIST-01",
+    "template_id": "slotframe_u2_8_random_variable_distributions",
+    "params": {
+      "scenario_id": "u2_8__late_assignments",
+      "values": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "probabilities": [
+        0.46,
+        0.31,
+        0.16,
+        0.07
+      ]
+    },
+    "seed": 22810,
+    "release_status": "unreleased_generated_pending_review",
+    "note": "Authored conceptual frame; correctness from probability-distribution validity rules."
+  }
+}
