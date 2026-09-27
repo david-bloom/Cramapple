@@ -1519,7 +1519,20 @@ export async function handleEvaluateAttempt(
       raw_model_response: null,
     }).eq("request_id", idempotencyKey);
 
-    await service.schema("app").from("attempts").update({
+    // STUDENT_INTERACTION_DATA_SCHEMA_PLAN_2026_09_27.md Phase 0 item 6 finding:
+    // this write was previously fire-and-forget (no error captured), and a live
+    // audit found attempts.status/graded_at/confidence_level/score_points/
+    // result_summary are 0% populated in Production despite grading_results
+    // (updated just above) being genuinely correct -- i.e. this exact update has
+    // apparently never once succeeded on real traffic. The leading suspect is
+    // app.attempts' attempts_prevent_client_grading_truth_update trigger, which
+    // only permits these columns to change when the request resolves to
+    // service_role -- capturing and logging the error here (rather than
+    // continuing to swallow it) is the only way to confirm the actual cause the
+    // next time a real attempt is graded, without guessing at a fix blind.
+    const { error: attemptUpdateError } = await service.schema("app").from(
+      "attempts",
+    ).update({
       status: "graded",
       graded_at: new Date().toISOString(),
       score_points: finalResult.points_earned,
@@ -1529,6 +1542,14 @@ export async function handleEvaluateAttempt(
       result_summary: finalResult.student_facing_summary,
       assistance_state: derivedAssistanceState,
     }).eq("id", attempt.id);
+    if (attemptUpdateError) {
+      console.error("attempts_grading_truth_update_failed", {
+        attempt_id: attempt.id,
+        route: "deterministic",
+        error: attemptUpdateError.message,
+        code: (attemptUpdateError as { code?: string }).code,
+      });
+    }
 
     await persistGradingTelemetry(service, idempotencyKey, {
       normalized_response_sha256: normalizedResponseSha256,
@@ -2183,7 +2204,10 @@ export async function handleEvaluateAttempt(
     stage_timings: stageTimer.finish(),
   });
 
-  await service.schema("app")
+  // See the deterministic-path sibling of this call for why the error is now
+  // captured and logged instead of swallowed (STUDENT_INTERACTION_DATA_SCHEMA_PLAN_2026_09_27.md
+  // Phase 0 item 6).
+  const { error: attemptUpdateError } = await service.schema("app")
     .from("attempts")
     .update({
       status: finalStatus === "graded" ? "graded" : "uncertain",
@@ -2196,6 +2220,14 @@ export async function handleEvaluateAttempt(
       assistance_state: derivedAssistanceState,
     })
     .eq("id", attempt.id);
+  if (attemptUpdateError) {
+    console.error("attempts_grading_truth_update_failed", {
+      attempt_id: attempt.id,
+      route: "model_graded",
+      error: attemptUpdateError.message,
+      code: (attemptUpdateError as { code?: string }).code,
+    });
+  }
 
   const runtimeContext = await persistGradingMemory({
     service,

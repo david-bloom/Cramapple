@@ -143,21 +143,30 @@ updated as work lands.
 - **Owner:** — · **Status:** OPEN, decision-gated.
 
 ### GAP-9 — Mastery cells missing a servable MCQ or FRQ (blocks `DECISION-0074`)
-- **Scope:** not yet measured. `DECISION-0074` (2026-09-27) requires a topic × skill
-  cell to have both a servable MCQ (2 needed) and a servable full-point FRQ (1
-  needed) for a student to ever reach mastery on it. No count has been run yet of
-  how many cells currently lack one or the other — this is a fast-follow item, not
-  a blocker David has asked to gate on, but it needs measuring before mastery
-  ships or some cells will be silently unmasterable.
-- **Why it blocks:** a cell short an FRQ (or MCQ) makes mastery permanently
-  unreachable for that cell under the new rule, not just slower — this is a
-  correctness gap, not a coverage-quality one.
-- **To measure:** per subject, per taxonomy cell (unit:topic × skill), count
-  published+servable items by `item_type` (`mcq`/`frq`) and flag any cell with
-  zero of either type. Cross-reference against `GAP-1`'s topic-labeling gap first
-  — a cell can't be counted accurately until items carry topic labels.
-- **Owner:** — · **Status:** OPEN, unmeasured. Accepted by David as a temporary
-  gap for content authoring to close, not a rule-design flaw.
+- **Measured 2026-09-27 (first pass, before `DECISION-0079` promotion):** **0 masterable cells in both
+  Statistics and Biology.** Root cause was labeling, not content — see the launch plan doc's "B. GAP-9
+  measured" section.
+- **Re-measured 2026-09-27, after `DECISION-0079` promoted all 293 `provisional_model` labels to
+  `validated`:** still **0 masterable cells** in both subjects — the promotion did not close this gap
+  (an earlier same-day query that didn't filter on `skill_code IS NOT NULL` briefly suggested otherwise;
+  corrected before recording here). Precise root cause, confirmed directly against Production:
+  - **Every FRQ in both subjects — all 80 Statistics FRQs, all 75 Biology FRQs — is topic-only
+    (`content_item_cells.skill_code IS NULL`).** Zero FRQs anywhere carry a skill-level label. This is
+    true of the newly-promoted rows too, not just the original `authored` set — promoting `provisional_model`
+    → `validated` made these rows visible to `content_item_topic_resolution`, but visibility doesn't
+    manufacture a skill code that was never assigned.
+  - **Statistics** has 11 topic×skill cells with a skill-coded MCQ (10 cells with 20 MCQs each, 1 with
+    3), all with **zero** skill-coded FRQ — `mcq_n >= 2 AND frq_n >= 1` is false for all 11.
+  - **Biology** has zero skill-coded cells of any kind (matches `taxonomy_cells` being empty for the
+    subject — see `docs/product/LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md`'s "GAP-9 remediation" note).
+- **Why it blocks:** unchanged — a cell short an FRQ (or MCQ) makes mastery permanently unreachable
+  under `DECISION-0074`, not just slower.
+- **Remediation needs two content-authoring passes, neither is an engineering backfill:**
+  1. Skill-label the FRQs in both subjects (today they carry a topic only).
+  2. Author Biology's `app.taxonomy_cells` topic×skill grid from scratch (currently 0 rows; every
+     subject except Statistics is 0 — Statistics' own 131-row grid is the only precedent to follow).
+- **Owner:** — · **Status:** OPEN, measured twice, root cause fully diagnosed. Accepted by David as a
+  temporary gap for content authoring to close, not a rule-design flaw.
 
 ---
 

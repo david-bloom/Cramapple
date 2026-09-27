@@ -1067,6 +1067,89 @@ until the separately-approved Workstream B1 rebuild ships. The wiring is correct
 that landing, not exercised by real traffic yet. `_shared/cell-state.ts` still needs its own pass to
 populate `student_cell_state`'s new mastery counters — not done in this change.
 
+## EXECUTED, 2026-09-27: `cell-state.ts` wired to populate mastery counters — backend half of item #6 (mastery capture) now fully connected
+
+New pure function `deriveMasteryCounters` (`cell-state-signals.ts`): a `"correct"` event (already means
+full marks for both MCQ and FRQ per `deriveCellEvent`'s own definition) with `pre_submit_hint_count = 0`
+increments `mastery_mcq_correct_count` or `mastery_frq_full_count` by `attempt_mode`; a hinted, incorrect,
+or `content_uncertain` answer increments neither and never resets prior progress (matches this module's
+existing "a miss reopens, never zeroes" posture, INV-6). `mastery_reached_at` stamps once, the first
+time both DECISION-0074 thresholds (2 MCQ + 1 FRQ) are met, never re-stamped after. `attempt_mode`'s
+third allowed value, `"quantitative"` (zero Production rows as of today), deliberately maps to neither
+counter — no defined mapping exists under `DECISION-0074`, and guessing one would be a silent policy
+call, not an engineering one.
+
+`cell-state-persist.ts`'s `applyToCell` now reads/writes the three mastery columns alongside the
+existing tier-engine fields, gated by the same per-attempt idempotency check that already guards
+against double-counting a re-grade — no new race condition introduced. `PersistCellStateInput` gained
+`attemptMode`/`preSubmitHintCount`, threaded from both `evaluate-attempt/index.ts` call sites (which
+already had both values on hand from the previous change).
+
+**Verified before deploying:** 6 new `deriveMasteryCounters` unit tests (increments the right counter
+per item type, a hint disqualifies without resetting progress, incorrect/uncertain never count,
+`mastery_reached_at` stamps exactly once, `quantitative` counts toward neither); all 53 tests across the
+four affected files pass; `deno check` clean on all four. Deployed to Dev then Production (`evaluate-attempt`)
+via the CLI.
+
+**This closes the entire backend half of mastery capture (#6).** Schema → hint-truth derivation →
+mastery-counter logic are wired and tested end to end, exactly as `DECISION-0074`/`DECISION-0080`
+specify. The only remaining piece is `SessionFrame`'s Workstream B1 rebuild (frontend, content-gated —
+see `DECISION-0080`'s own caveats about missing rubric-preview/reference/deep-dive content for served
+items) — once that ships and starts logging real hint events, this backend chain requires zero further
+changes to start producing real mastery data.
+
+## EXECUTED, 2026-09-27: interaction-data Phase 0, items 2-6 completed; GAP-9 re-measured; a likely production bug found and instrumented
+
+**Item 7 (GAP-9), re-measured after `DECISION-0079`'s label promotion.** Still **0 masterable cells in
+both subjects** — the promotion didn't close it. Precise, confirmed-against-Production root cause: every
+FRQ in both subjects (80 Statistics, 75 Biology) is topic-only (`skill_code IS NULL`) — none of the
+newly-promoted rows added a skill-level FRQ label either, they just made the existing topic-only rows
+visible. Full detail and the two required content-authoring passes: `CONTENT_GAPS_RUNNING_LIST.md`'s
+GAP-9 entry (rewritten with today's numbers) and `INTERACTION_DATA_GAPS_RUNNING_LIST.md`.
+
+**Item 8, remaining Phase 0 checks (2/3/5b/5c) executed against Production** — full detail in
+`INTERACTION_DATA_GAPS_RUNNING_LIST.md`:
+- **FK integrity:** zero orphans across all six checked relationships (including the new
+  `attempt_assistance_events`). Three pre-existing, un-introduced gaps found (`grading_results.rubric_version_id`,
+  `student_cell_state.last_attempt_id`/`last_session_id` lack a declared FK) — flagged, not retrofitted.
+- **Index health:** no actionable finding — every index in `app` schema is currently 0-scan and under
+  48 kB (expected pre-launch with zero real traffic), the plan's own bar for this check is a quarterly
+  post-launch re-run, not a today-with-no-signal guess.
+- **Table-split rationality:** `attempt_criterion_results` is a **second dead table**, same shape as the
+  already-found `attempt_responses` — zero writers in any edge function, 0 rows in Production;
+  `grading_results.criterion_results` (jsonb) is the real source of truth. `student_memory_events`'s
+  `last_action_hint`/`last_repair_hint` is a legitimate, documented read-model (one named writer,
+  consistent `last_*` convention) — not a stray duplicate, passes as-is.
+
+**New finding, not on the original list: `attempts`' grading-truth update appears to silently fail on
+every real attempt.** Not just `confidence_level`/`result_summary` (the schema plan's own IDG-1) — every
+column that post-grading `attempts.update()` writes (`status`, `graded_at`, `score_points`,
+`score_possible`) is 0% populated across all 104 current rows, and the 8 most-recently-submitted
+attempts' `updated_at` is byte-identical to `submitted_at` (never touched by any UPDATE since creation).
+`grading_results` — a separate table, written two lines earlier in the same function — genuinely has
+real scores, so grading itself is not broken; this is specific to the `attempts` row never reflecting it.
+
+Leading hypothesis, **not confirmed**: `app.attempts`' `attempts_prevent_client_grading_truth_update`
+trigger rejects exactly these columns unless `current_setting('request.jwt.claim.role', true) =
+'service_role'`, and the `.update()` call never captured `{ error }` — a rejected update would be
+silently swallowed by `supabase-js` (returns `{ error }`, doesn't throw), exactly matching the observed
+symptom. If this project's edge-function `SUPABASE_SERVICE_ROLE_KEY` secret is the newer non-JWT
+`sb_secret_...` format rather than a legacy JWT (a documented gotcha in this exact project —
+`[[feedback_supabase_secret_key_headers]]`), the role claim would never resolve and every one of these
+updates would be rejected. **Could not confirm from here** — Postgres/edge logs only retain 24h and the
+most recent real attempt is 4 days outside that window; reading the actual secret value is out of bounds
+for this session. Did not guess at a fix (touching the trigger or the key) without confirmation, since
+that trigger is a deliberate security boundary (see `DECISION-0068`'s discussion of this same function).
+
+**Fixed today, narrowly and safely:** both `attempts.update()` call sites now capture `{ error }` and
+log `attempts_grading_truth_update_failed` with the attempt id, route, and the actual Postgres error/code
+instead of silently discarding it. This doesn't fix the root cause — it makes the next real grading
+event's logs conclusive. Typecheck clean, existing tests unaffected, deployed to Dev then Production.
+**Next step needs either a real graded attempt on live Production (same blocker as item 3) with the
+resulting logs checked, or someone with dashboard access confirming the service-role key's format.**
+Practical impact today is low for grading itself (confirmed `grading_results` is the real source of
+truth, not `attempts`) but real for anything reading `attempts.status`/`graded_at` directly.
+
 ## Out of Scope
 
 Redesigning any already-decided section of the interaction design spec — raise a proposal to David
