@@ -1,0 +1,178 @@
+{
+  "cells": [
+    {
+      "skill": "3.C",
+      "topic": "2.6"
+    }
+  ],
+  "content_key": "apstat-u2-6-3c-cond_prob-026003",
+  "difficulty": "Medium",
+  "exam_pack_ref": {
+    "cycle": "2026-27",
+    "exam_code": "ap_statistics"
+  },
+  "item_type": "mcq",
+  "mcq_form": {
+    "options": [
+      {
+        "correct": false,
+        "misconception": "u2_6__reversed_the_condition",
+        "misconception_source": {
+          "ek_codes": [],
+          "evidence": "ced_structural",
+          "label": "Reversed the conditioning event",
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "note": "P(A|B) and P(B|A) generally use different denominators and are not interchangeable",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 2 (2.6)"
+            }
+          ],
+          "tag": "u2_6__reversed_the_condition"
+        },
+        "text": "0.333"
+      },
+      {
+        "correct": true,
+        "misconception": null,
+        "text": "0.417"
+      },
+      {
+        "correct": false,
+        "misconception": "u2_6__used_joint_probability_instead_of_conditional",
+        "misconception_source": {
+          "ek_codes": [],
+          "evidence": "ced_structural",
+          "label": "Used the joint probability instead of the conditional probability",
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "note": "conditional probability restricts the sample space to the condition; P(A|B)=P(A and B)/P(B)",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 2 (2.6)"
+            }
+          ],
+          "tag": "u2_6__used_joint_probability_instead_of_conditional"
+        },
+        "text": "0.100"
+      },
+      {
+        "correct": false,
+        "misconception": "u2_6__used_condition_complement_count",
+        "misconception_source": {
+          "ek_codes": [],
+          "evidence": "ced_structural",
+          "label": "Used the complement within the condition",
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "note": "the numerator for P(A|B) is the count satisfying both A and B, not the count satisfying B but not A",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 2 (2.6)"
+            }
+          ],
+          "tag": "u2_6__used_condition_complement_count"
+        },
+        "text": "0.583"
+      }
+    ]
+  },
+  "numeric_form": {
+    "answer_desc": "P = 0.417",
+    "deterministic_checks": [
+      {
+        "kind": "numeric",
+        "tol": 0.005,
+        "value": 0.417
+      }
+    ]
+  },
+  "package_id": "u2_6_cond_prob-026003",
+  "parts": [
+    {
+      "criteria": [
+        {
+          "accepted_variants": [],
+          "criterion_key": "part-a-criterion-1",
+          "description": "P = 0.417",
+          "deterministic_checks": [
+            {
+              "kind": "numeric",
+              "tol": 0.005,
+              "value": 0.417
+            }
+          ],
+          "points": 1,
+          "required_evidence": "Restrict the denominator to the condition: 36 library patrons attended a library event. Of those, 15 also borrowed an e-book. P(A|B) = 15/36 = 0.417."
+        }
+      ],
+      "part_key": "part-a",
+      "points": 1,
+      "prompt": "Among 150 library patrons, 45 borrowed an e-book, 36 attended a library event, and 15 both borrowed an e-book and attended a library event. What is the probability that a randomly selected member borrowed an e-book given that the member attended a library event?",
+      "response_modalities": [
+        "mcq",
+        "numeric"
+      ]
+    }
+  ],
+  "prompt": "Among 150 library patrons, 45 borrowed an e-book, 36 attended a library event, and 15 both borrowed an e-book and attended a library event. What is the probability that a randomly selected member borrowed an e-book given that the member attended a library event?",
+  "provenance": {
+    "generator": "course_mode_stats_generator/generator.py",
+    "note": "Synthetic; not official CB content. Requires CM-D19 template-release + review.",
+    "params": {
+      "a": 45,
+      "b": 36,
+      "both": 15,
+      "scenario_id": "u2_6__library_ebook_event",
+      "total": 150
+    },
+    "release_status": "unreleased_generated_pending_review",
+    "seed": 26003,
+    "template_id": "u2_6_cond_prob"
+  },
+  "scenario_provenance": {
+    "archetype": "Q4",
+    "archetype_label": "Multi-focus on Practices 2, 3 & 4 (spans multiple content areas)",
+    "domain": "civic",
+    "modality": "exam_aligned_digital",
+    "practice": 3,
+    "sources": [
+      {
+        "kind": "fact_pack",
+        "note": "Section II question archetypes Q1-Q4",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S5 (Free-response archetypes)"
+      },
+      {
+        "kind": "fact_pack",
+        "note": "the item stem's verb must match the scored demand",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S6 (Task verbs)"
+      },
+      {
+        "kind": "fact_pack",
+        "note": "digital Bluebook; text/numeric entry -> exam_aligned_digital",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S7 (Response modality)"
+      }
+    ],
+    "task_verb": "Calculate",
+    "validity_rules": [
+      "two events with an explicit conditioning event",
+      "answer uses the count in both events divided by the count in the condition",
+      "all probabilities and distractors stay within [0, 1]"
+    ]
+  },
+  "schema_version": "course-mode-generated-0.1",
+  "taxonomy_refs": [
+    {
+      "node_key": "unit-2",
+      "scheme_key": "ap-statistics-2026-27"
+    },
+    {
+      "node_key": "topic-2.6",
+      "scheme_key": "ap-statistics-2026-27"
+    },
+    {
+      "node_key": "skill-3.C",
+      "practice": 3,
+      "scheme_key": "ap-statistics-skills"
+    }
+  ],
+  "worked_solution": "Restrict the denominator to the condition: 36 library patrons attended a library event. Of those, 15 also borrowed an e-book. P(A|B) = 15/36 = 0.417."
+}

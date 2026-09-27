@@ -112,7 +112,16 @@ Deno.serve(async (req) => {
     return respond({ error: "forbidden" }, { status: 403 });
   }
 
-  if (bucket === "learner-uploads" && !ownsLearnerPath(userId, path)) {
+  // TASK-0038 Phase 4: an admin grading a real student's hand-drawn capture
+  // must be able to view a learner-uploads object it does not own -- this
+  // check previously had no admin exception at all, so canAccessBucket's own
+  // admin clearance for "learner-uploads" was unreachable for cross-user
+  // reads. Scoped to sign_download only; upload/delete stay strictly
+  // owner/admin-delete as before (sign_delete is already admin-only above).
+  if (
+    bucket === "learner-uploads" && !ownsLearnerPath(userId, path) &&
+    !(mode === "sign_download" && role === "admin")
+  ) {
     return respond({ error: "forbidden_path" }, { status: 403 });
   }
 
