@@ -6,6 +6,21 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- IDG-5 and `DECISION-0074` Mastery Capture Both Confirmed Live in One Real Grading Round Trip
+  (2026-09-27): immediately after the `cell_scoped` fix below, David submitted a real answer at
+  `app.cramapple.com` (topic `1.13`) and it graded. Queried Production directly to confirm, rather than
+  trusting the UI: `app.attempts` shows the real attempt (`d7663902-...`) went `submitted` → `graded` in
+  ~1.5s via the service-role write path, `status`/`result_state` both `"graded"`, score 0/1 — the first
+  non-synthetic confirmation that `attempts_prevent_client_grading_truth_update` (fixed last session,
+  previously only scratch-row-tested) works on real traffic. **`app.student_cell_state`** also shows a
+  new row for that topic/skill with `last_event: "incorrect"`, `mastery_mcq_correct_count: 0` (correct —
+  a miss shouldn't increment it), and `last_attempt_id` correctly linked to the graded attempt — the
+  first live confirmation of the entire `DECISION-0074` mastery-capture backend (schema →
+  `assistance_state` derivation → mastery counters), previously verified only by unit tests and a
+  synthetic Dev event. **Both of last session's two biggest unverified builds are now confirmed live.**
+  **Next Owner:** open. **Next Action:** none required; a correct answer, a second topic, and the FRQ
+  path remain untried against real traffic if more confidence is wanted. Full detail in
+  `LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md`'s second "RESOLVED, 2026-09-27" section.
 - `cell_scoped` No-Matching-Content Bug Resolved — Stale Edge Function Deploy, Not a Query/Data Bug
   (2026-09-27): picked up the paused diagnosis from `LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md`'s
   "SESSION CLOSE" section (every AP Statistics topic serving `no_matching_content` for a real signed-in
@@ -240,6 +255,47 @@ anyone hit it in practice.
 verification, now unblocked. **Next Action:** attempt the real live grading round trip (sign-in →
 submit → grade → `attempts` row update) IDG-5 has been waiting on. Full technical detail in that doc's
 "RESOLVED, 2026-09-27" section.
+
+---
+
+## IDG-5 and `DECISION-0074` Mastery Capture Both Confirmed Live — 2026-09-27
+
+**What & why.** Immediately after the `cell_scoped` fix above went live, David submitted a real answer
+at `https://app.cramapple.com/session?minutes=10&mode=quick&unit=1&intent=review&topic=%221.13%22`, and
+it graded. This is the real, non-synthetic grading round trip
+`LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md`'s "Exact next step" had been waiting on all session — IDG-5's
+DB-scratch test was strong evidence the trigger fix worked, but not the same as a real HTTP round trip.
+Queried Production directly rather than trusting the UI alone.
+
+**`app.attempts` (IDG-5).** Attempt `d7663902-a06f-4423-8471-706fd4765d8e`, this session's own account
+(`f5a26c6b-3566-4d58-9e97-979fbb947564`): `started_at` 18:29:26 UTC → `submitted_at` 18:30:04 →
+`graded_at` 18:30:05.542 — under 1.5 seconds through the service-role grading write.
+`status`/`result_state` both `"graded"`, `score_points: 0`, `score_possible: 1`,
+`assistance_state: "independent"` (no pre-submit hints). This is the first confirmation, on real
+traffic rather than a scratch row, that `attempts_prevent_client_grading_truth_update` (fixed last
+session — a dead PostgREST GUC check) actually lets a real grading write land in Production. IDG-5 is
+now closed.
+
+**`app.student_cell_state` (`DECISION-0074` mastery capture).** A row was created for topic `1.13`,
+skill `2.A`, same account: `last_event: "incorrect"` (matches the 0/1 score), `mastery_mcq_correct_count:
+0` (correctly not incremented on a miss), `last_attempt_id` correctly linked back to the attempt above,
+`next_due_at` scheduled ~24h out with `due_reason: "direct_miss"`, `rule_engine_version:
+"cell-state-1.0"`. This is the first live confirmation of the entire `DECISION-0074` mastery-capture
+backend built last session (schema → `assistance_state` derivation → mastery counters) — previously
+verified only by 10 new unit tests and one synthetic before/after event on a Dev attempt, never by a
+real student answer until now.
+
+**Net effect.** Both of last session's two biggest unverified builds — the grading-truth trigger fix and
+the full mastery-capture pipeline — are now confirmed working end to end on real Production traffic, in
+the same single round trip.
+
+**Not tried this pass.** A correct answer (only a miss was observed), a second topic/cell, and the FRQ
+attempt path all remain unverified against real traffic — worth trying if more confidence is wanted
+before calling the grading path fully proven.
+
+**Next Owner:** open. **Next Action:** none required to consider IDG-5 or the mastery-capture build
+closed; the untried paths above are optional further confidence-building, not blockers. Full detail in
+`LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md`'s second "RESOLVED, 2026-09-27" section.
 
 ---
 

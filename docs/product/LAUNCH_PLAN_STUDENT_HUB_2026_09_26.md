@@ -1365,6 +1365,33 @@ Picked back up per this doc's own "Exact next step." Root cause found and fixed 
   / `get_edge_function`'s `updated_at` vs. the relevant commit's timestamp is the fast check; this bug
   sat live for most of a day before anyone hit it.
 
+## RESOLVED, 2026-09-27: IDG-5 live grading verification — the real round trip this doc has been waiting on
+
+Immediately after the `cell_scoped` fix above, David submitted a real answer live at
+`https://app.cramapple.com/session?minutes=10&mode=quick&unit=1&intent=review&topic=%221.13%22`, and it
+graded. Queried Production directly (not trusting the UI alone) to confirm the full write path, not
+just that a response rendered:
+
+- **`app.attempts`** (id `d7663902-a06f-4423-8471-706fd4765d8e`, this session's account
+  `f5a26c6b-3566-4d58-9e97-979fbb947564`): `started_at` 18:29:26 UTC → `submitted_at` 18:30:04 →
+  `graded_at` 18:30:05.542, `status`/`result_state` both `"graded"`, `score_points: 0`,
+  `score_possible: 1`, `assistance_state: "independent"` (no pre-submit hints). This is the real,
+  non-synthetic confirmation that `attempts_prevent_client_grading_truth_update` (fixed and
+  DB-scratch-tested last session) actually lets the service-role grading write land on live traffic —
+  IDG-5 closed.
+- **`app.student_cell_state`** (topic `1.13`, skill `2.A`, same account): a row was created —
+  `last_event: "incorrect"` (matches the 0/1 score), `mastery_mcq_correct_count: 0` (correctly not
+  incremented on a miss), `last_attempt_id` correctly links back to the graded attempt above,
+  `next_due_at` scheduled ~24h out with `due_reason: "direct_miss"`, `rule_engine_version:
+  "cell-state-1.0"`. This is the **first live confirmation of the entire `DECISION-0074` mastery-capture
+  backend** built last session (schema → `assistance_state` derivation → mastery counters) — previously
+  verified only by unit tests and a synthetic Dev event, never by a real graded attempt until now.
+
+**Both of last session's two biggest unverified builds are now confirmed live in one round trip.**
+Nothing else queried in this pass — a correct answer, a second topic, and the FRQ path all remain
+unverified against real traffic and would be worth trying next if more confidence is wanted before
+declaring the grading path fully proven.
+
 ## Out of Scope
 
 Redesigning any already-decided section of the interaction design spec — raise a proposal to David
