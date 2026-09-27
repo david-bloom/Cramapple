@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0051 — TASK-0042 Cross-Cutting Content-Pipeline QA Remediation and Subject-Scoped Production Writes
 - APPROVAL-0050 — BYOQ Data-Model Architecture (Option A) and TASK-0039 Phase 1 Scope
 - APPROVAL-0049 — Pilot-Scale Operational Commitment for Hand-Drawn Manual Grading (TASK-0038 Phase 4)
 - APPROVAL-0048 — Promote `APBIO-HDG-2026-GRAPH-002` to Human-Graded-Pilot-Approved (TASK-0038 Phase 2)
@@ -19,6 +20,38 @@ Most recent entries (full chronological list follows below):
 - Older entries: [`APPROVALS_LOG-0001_to_0040.md`](archive/APPROVALS_LOG-0001_to_0040.md)
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
+
+## APPROVAL-0051 — TASK-0042 Cross-Cutting Content-Pipeline QA Remediation and Subject-Scoped Production Writes
+
+**Date:** 2026-09-27
+**Approved By:** David Bloom
+**Related Task:** `TASK-0042-LAUNCH-CONTENT-PIPELINE.md`
+**Decision:** Approved
+
+### Summary
+
+Authorizes Codex to implement and verify the content-pipeline QA remediation described in the
+Product Owner's 2026-09-27 execution handoff, including the necessary subject-scoped Production
+data corrections. The authorized work covers: reconstructing and auditing original generation-time
+taxonomy hashes for the 216 prior promotions; reverting stale or unverifiable promotions while
+retaining verified-fresh ones; applying the five specified Medium-to-Hard difficulty corrections;
+hardening the taxonomy runner's resume and generated-SQL guards; and completing safe remaining
+single-unit label writes whose artifacts pass those guards.
+
+This approval is a Product Owner exception to TASK-0042's one-branch-per-subject execution rule for
+the cross-cutting QA remediation itself. Production data changes must still be implemented as
+durable, narrowly scoped migrations with per-subject counts and evidence so each affected subject
+remains independently reviewable.
+
+### Limits
+
+- Does not weaken `DECISION-0066`: multi-unit labels still require a genuine independent third review
+  from a differently architected model or a human before promotion.
+- Does not authorize inventing quantity targets beyond the existing Biology targets or fabricating
+  attainment ratios.
+- Does not authorize replaying already-applied migrations, exposing secrets, or leaving the local
+  Supabase CLI linked to Production.
+- Final acceptance still requires fresh independent QA by an agent that did not author the fixes.
 
 ## APPROVAL-0050 — BYOQ Data-Model Architecture (Option A) and TASK-0039 Phase 1 Scope
 

@@ -2,7 +2,7 @@
 """Build deterministic Tier 3 difficulty artifacts for the remaining subjects.
 
 This is an offline artifact builder. It reads committed research packets plus the
-explicitly exported candidate packets under /private/tmp and writes CSVs,
+preserved candidate-packet snapshots under docs/research and writes CSVs,
 reports, and SQL migration artifacts. It never connects to Supabase.
 
 DECISION-0061/0065 rules implemented here:
@@ -20,13 +20,17 @@ from __future__ import annotations
 
 import csv
 import json
+import os
 import re
 from collections import Counter
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-TMP = Path("/private/tmp/cramapple-content-pipeline-2026-09-26")
+SOURCE_PACKETS = Path(os.environ.get(
+    "CRAMAPPLE_DIFFICULTY_SOURCE_DIR",
+    ROOT / "docs/research/content_pipeline_difficulty_2026_09_26/source_packets",
+))
 OUT = ROOT / "docs/research/content_pipeline_difficulty_2026_09_26"
 MIGRATIONS = ROOT / "supabase/migrations"
 RUN_DATE = "2026-09-26"
@@ -94,55 +98,53 @@ SUPPLEMENTAL_ITEMS = {
 }
 
 
-# Exact values applied by the five base migrations before QA caught that the
-# approved README places `predict` and `integrate` in Hard, not Medium. These
-# values are retained solely to build a strict old -> new corrective migration.
-METHOD_CORRECTION_OLD = {
-    "827cc508-251e-4288-8be6-700541d5ee09": {
-        "difficulty": "Hard",
-        "basis": "calibrated_task_verb",
-        "rationale": "Per-criterion approved task-verb tiers, modal with upward tie-break: Easy=1, Medium=2, Hard=2; uncued=1/6.",
-    },
+# Exact applied-state values for the five QA-approved corrections. The base
+# migrations were already applied to Production, so the generator emits a new
+# corrective migration instead of rewriting those migration files in place.
+METHOD_CORRECTIONS = {
     "80649e35-7e85-49bb-a863-7a53c80699d3": {
-        "difficulty": "Medium",
-        "basis": "calibrated_task_verb",
-        "rationale": "Per-criterion approved task-verb tiers, modal with upward tie-break: Easy=0, Medium=4, Hard=1; uncued=3/8.",
+        "content_key": "apphycem-frq-021",
+        "old_difficulty": "Medium",
+        "old_rationale": "Per-criterion approved task-verb tiers, modal with upward tie-break: Easy=0, Medium=4, Hard=1; uncued=3/8.",
+        "new_difficulty": "Hard",
+        "new_rationale": "QA correction under DECISION-0061: `predict` is a Hard task verb; corrected from the already-applied Medium row to Hard.",
     },
     "43a19e11-5d0b-437f-9d9b-7098ee87e22e": {
-        "difficulty": "Medium",
-        "basis": "calibrated_task_verb",
-        "rationale": "Per-criterion approved task-verb tiers, modal with upward tie-break: Easy=1, Medium=4, Hard=0; uncued=3/8.",
-    },
-    "44478991-915a-4e3e-b521-b2ae3b310558": {
-        "difficulty": "Medium",
-        "basis": "calibrated_task_verb",
-        "rationale": "Per-criterion approved task-verb tiers, modal with upward tie-break: Easy=0, Medium=5, Hard=1; uncued=0/6.",
-    },
-    "599dcf66-fca5-4c7d-b46b-eebdaab9316a": {
-        "difficulty": "Medium",
-        "basis": "calibrated_task_verb",
-        "rationale": "Per-criterion approved task-verb tiers, modal with upward tie-break: Easy=0, Medium=4, Hard=1; uncued=0/5.",
-    },
-    "57aeed25-7535-4055-b1a6-45bb9d51b505": {
-        "difficulty": "Medium",
-        "basis": "calibrated_task_verb",
-        "rationale": "Per-criterion approved task-verb tiers, modal with upward tie-break: Easy=1, Medium=5, Hard=0; uncued=0/6.",
+        "content_key": "apphycem-frq-025",
+        "old_difficulty": "Medium",
+        "old_rationale": "Per-criterion approved task-verb tiers, modal with upward tie-break: Easy=1, Medium=4, Hard=0; uncued=3/8.",
+        "new_difficulty": "Hard",
+        "new_rationale": "QA correction under DECISION-0061: `predict` is a Hard task verb; corrected from the already-applied Medium row to Hard.",
     },
     "57c6fbdf-72dc-4205-9d04-8dc339144511": {
-        "difficulty": "Medium",
-        "basis": "calibrated_task_verb",
-        "rationale": "Per-criterion approved task-verb tiers, modal with upward tie-break: Easy=0, Medium=3, Hard=2; uncued=2/7.",
-    },
-    "086cbead-f233-42d0-ada2-a1f48dfa51ec": {
-        "difficulty": "Medium",
-        "basis": "calibrated_task_verb",
-        "rationale": "Per-criterion approved task-verb tiers, modal with upward tie-break: Easy=1, Medium=3, Hard=0; uncued=2/6.",
+        "content_key": "apphycm-frq-017",
+        "old_difficulty": "Medium",
+        "old_rationale": "Per-criterion approved task-verb tiers, modal with upward tie-break: Easy=0, Medium=3, Hard=2; uncued=2/7.",
+        "new_difficulty": "Hard",
+        "new_rationale": "QA correction under DECISION-0061: `predict` is a Hard task verb; corrected from the already-applied Medium row to Hard.",
     },
     "5fcb4563-b353-4692-98aa-af5b356af902": {
-        "difficulty": "Medium",
-        "basis": "calibrated_task_verb",
-        "rationale": "Per-criterion approved task-verb tiers, modal with upward tie-break: Easy=2, Medium=3, Hard=0; uncued=2/7.",
+        "content_key": "apphycm-frq-024",
+        "old_difficulty": "Medium",
+        "old_rationale": "Per-criterion approved task-verb tiers, modal with upward tie-break: Easy=2, Medium=3, Hard=0; uncued=2/7.",
+        "new_difficulty": "Hard",
+        "new_rationale": "QA correction under DECISION-0061: `predict` is a Hard task verb; corrected from the already-applied Medium row to Hard.",
     },
+    "5a71d645-8c9a-4b00-a91b-e45bdc91c184": {
+        "content_key": "apcalcbc-frq-np1-006",
+        "old_difficulty": "Medium",
+        "old_rationale": "Per-criterion approved task-verb tiers, modal with upward tie-break: Easy=1, Medium=2, Hard=1; uncued=0/4.",
+        "new_difficulty": "Hard",
+        "new_rationale": "QA correction under DECISION-0061: `integrate` is a Hard task verb; corrected from the already-applied Medium row to Hard.",
+    },
+}
+
+BASE_MIGRATION_APPLIED_VALUES = {
+    version_id: {
+        "difficulty": correction["old_difficulty"],
+        "rationale": correction["old_rationale"],
+    }
+    for version_id, correction in METHOD_CORRECTIONS.items()
 }
 
 
@@ -286,7 +288,7 @@ def assign(subject_key: str, item: dict, candidate: dict | None) -> dict:
         difficulty = normalized
     else:
         difficulty, basis, confidence, rationale = classify_unlabelled(candidate or item)
-    return {
+    row = {
         "content_key": item["content_key"],
         "content_item_version_id": item["content_item_version_id"],
         "item_type": item["item_type"],
@@ -298,10 +300,17 @@ def assign(subject_key: str, item: dict, candidate: dict | None) -> dict:
         "confidence": confidence,
         "rationale": rationale,
     }
+    correction = METHOD_CORRECTIONS.get(item["content_item_version_id"])
+    if correction:
+        row["difficulty"] = correction["new_difficulty"]
+        row["basis"] = "calibrated_task_verb"
+        row["confidence"] = "medium"
+        row["rationale"] = correction["new_rationale"]
+    return row
 
 
 def load_subject(subject_key: str, config: dict) -> tuple[list[dict], list[dict]]:
-    candidate_path = TMP / f"{subject_key}_packets.json"
+    candidate_path = SOURCE_PACKETS / f"{subject_key}_packets.json"
     candidates = json.loads(candidate_path.read_text(encoding="utf-8"))
     candidate_by_key = {row["content_key"]: row for row in candidates}
     if config["full"] is None:
@@ -330,7 +339,7 @@ def load_subject(subject_key: str, config: dict) -> tuple[list[dict], list[dict]
 def write_csv(subject_key: str, rows: list[dict]) -> Path:
     path = OUT / f"{subject_key.upper()}_DIFFICULTY_ASSIGNMENTS_2026_09_26.csv"
     with path.open("w", newline="", encoding="utf-8") as handle:
-        writer = csv.DictWriter(handle, fieldnames=list(rows[0]))
+        writer = csv.DictWriter(handle, fieldnames=list(rows[0]), lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
     return path
@@ -341,16 +350,19 @@ def write_migration(subject_key: str, config: dict, rows: list[dict], csv_path: 
     values = []
     for row in rows:
         source = "null" if not row["source_value"] else sql_text(row["source_value"])
+        applied_value = BASE_MIGRATION_APPLIED_VALUES.get(row["content_item_version_id"], {})
+        migration_difficulty = applied_value.get("difficulty", row["difficulty"])
+        migration_rationale = applied_value.get("rationale", row["rationale"])
         values.append(
             "  ("
             + ", ".join(
                 [
                     sql_text(row["content_key"]),
                     sql_text(row["content_item_version_id"]) + "::uuid",
-                    sql_text(row["difficulty"]),
+                    sql_text(migration_difficulty),
                     sql_text(row["basis"]),
                     source,
-                    sql_text(row["rationale"]),
+                    sql_text(migration_rationale),
                     sql_text(row["confidence"]),
                 ]
             )
@@ -444,6 +456,148 @@ commit;
     return path
 
 
+def write_correction_migration(all_rows: list[dict]) -> Path:
+    by_version = {row["content_item_version_id"]: row for row in all_rows}
+    missing = sorted(set(METHOD_CORRECTIONS) - set(by_version))
+    if missing:
+        raise ValueError(f"missing correction rows: {missing}")
+
+    values = []
+    for version_id, correction in METHOD_CORRECTIONS.items():
+        row = by_version[version_id]
+        if row["content_key"] != correction["content_key"]:
+            raise ValueError(
+                f"correction key mismatch for {version_id}: {row['content_key']}"
+            )
+        if row["difficulty"] != correction["new_difficulty"]:
+            raise ValueError(
+                f"correction difficulty mismatch for {correction['content_key']}: {row['difficulty']}"
+            )
+        values.append(
+            "  ("
+            + ", ".join(
+                [
+                    sql_text(correction["content_key"]),
+                    sql_text(version_id) + "::uuid",
+                    sql_text(correction["old_difficulty"]),
+                    sql_text(correction["old_rationale"]),
+                    sql_text(correction["new_difficulty"]),
+                    sql_text(correction["new_rationale"]),
+                ]
+            )
+            + ")"
+        )
+
+    joined_values = ",\n".join(values)
+    expected = len(METHOD_CORRECTIONS)
+    migration = f"""-- Correct DECISION-0061 predict/integrate difficulty tier assignments.
+-- Generated offline on {RUN_DATE}; applies only after the 20260926234000-234400
+-- base difficulty migrations have inserted their original Medium rows.
+
+begin;
+
+create temporary table tmp_difficulty_method_corrections (
+  content_key text not null,
+  content_item_version_id uuid not null,
+  old_difficulty text not null,
+  old_rationale text not null,
+  new_difficulty text not null,
+  new_rationale text not null
+) on commit drop;
+
+insert into tmp_difficulty_method_corrections (
+  content_key, content_item_version_id, old_difficulty, old_rationale,
+  new_difficulty, new_rationale
+) values
+{joined_values};
+
+do $$
+declare
+  v_expected int := {expected};
+  v_rows int;
+  v_missing int;
+  v_wrong_old int;
+  v_wrong_subject int;
+begin
+  select count(*) into v_rows from tmp_difficulty_method_corrections;
+  if v_rows <> v_expected then
+    raise exception 'difficulty method correction: expected % rows, found %', v_expected, v_rows;
+  end if;
+
+  select count(*) into v_missing
+  from tmp_difficulty_method_corrections tmp
+  where not exists (
+    select 1
+    from app.content_item_difficulty cid
+    where cid.content_item_version_id = tmp.content_item_version_id
+  );
+  if v_missing <> 0 then
+    raise exception 'difficulty method correction: % target rows are missing', v_missing;
+  end if;
+
+  select count(*) into v_wrong_old
+  from tmp_difficulty_method_corrections tmp
+  join app.content_item_difficulty cid
+    on cid.content_item_version_id = tmp.content_item_version_id
+  where cid.difficulty is distinct from tmp.old_difficulty
+     or cid.basis is distinct from 'calibrated_task_verb'
+     or cid.rationale is distinct from tmp.old_rationale;
+  if v_wrong_old <> 0 then
+    raise exception 'difficulty method correction: % rows are not at the expected applied old state', v_wrong_old;
+  end if;
+
+  select count(*) into v_wrong_subject
+  from tmp_difficulty_method_corrections tmp
+  where not exists (
+    select 1
+    from app.content_items ci
+    join lateral (
+      select civ.id, civ.status
+      from app.content_item_versions civ
+      where civ.content_item_id = ci.id
+      order by civ.version_num desc
+      limit 1
+    ) latest on true
+    where ci.content_key = tmp.content_key
+      and latest.id = tmp.content_item_version_id
+      and ci.status = 'published'
+      and latest.status = 'published'
+  );
+  if v_wrong_subject <> 0 then
+    raise exception 'difficulty method correction: % rows are not current published versions', v_wrong_subject;
+  end if;
+end $$;
+
+update app.content_item_difficulty cid
+set
+  difficulty = tmp.new_difficulty,
+  rationale = tmp.new_rationale,
+  proposal_run = cid.proposal_run || '_method_correction_predict_integrate_2026_09_27'
+from tmp_difficulty_method_corrections tmp
+where cid.content_item_version_id = tmp.content_item_version_id;
+
+do $$
+declare
+  v_corrected int;
+begin
+  select count(*) into v_corrected
+  from tmp_difficulty_method_corrections tmp
+  join app.content_item_difficulty cid
+    on cid.content_item_version_id = tmp.content_item_version_id
+  where cid.difficulty = tmp.new_difficulty
+    and cid.rationale = tmp.new_rationale;
+
+  if v_corrected <> {expected} then
+    raise exception 'difficulty method correction verification failed: expected %, found %', {expected}, v_corrected;
+  end if;
+end $$;
+
+commit;
+"""
+    path = MIGRATIONS / "20260927112232_correct_remaining_difficulty_predict_integrate.sql"
+    path.write_text(migration, encoding="utf-8")
+    return path
+
 def write_report(subject_key: str, config: dict, rows: list[dict], csv_path: Path, migration_path: Path) -> Path:
     bands = Counter(row["difficulty"] for row in rows)
     bases = Counter(row["basis"] for row in rows)
@@ -453,7 +607,7 @@ def write_report(subject_key: str, config: dict, rows: list[dict], csv_path: Pat
     complete = len(rows) == expected
     report = f"""# {config['title']} difficulty calibration — {RUN_DATE}
 
-Status: **{'Complete artifact; base migration applied to Production 2026-09-26; method correction pending' if complete else 'Partial artifact — source export incomplete'}**
+Status: **{'Complete artifact; base migration applied to Production 2026-09-26; method correction applied to Production 2026-09-27' if complete else 'Partial artifact — source export incomplete'}**
 
 ## Result
 
@@ -487,7 +641,7 @@ Basis counts: {', '.join(f'`{key}` {value}' for key, value in sorted(bases.items
 - Assignments: `{csv_path.relative_to(ROOT)}`
 - Base migration (applied to Production 2026-09-26): `{migration_path.relative_to(ROOT)}`
 - Corrective migration for the approved `predict` / `integrate` tier rule:
-  `supabase/migrations/20260926234500_correct_remaining_difficulty_predict_integrate.sql`
+  `supabase/migrations/20260927112232_correct_remaining_difficulty_predict_integrate.sql`
 - Rebuild script: `scripts/taxonomy/build_remaining_difficulty_artifacts.py`
 
 ## Gate note
@@ -501,14 +655,23 @@ Basis counts: {', '.join(f'`{key}` {value}' for key, value in sorted(bases.items
 
 def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
+    all_rows = []
+    generated = []
     for subject_key, config in SUBJECTS.items():
         rows, _ = load_subject(subject_key, config)
+        all_rows.extend(rows)
         csv_path = write_csv(subject_key, rows)
         migration_path = write_migration(subject_key, config, rows, csv_path)
+        generated.append((subject_key, config, rows, csv_path, migration_path))
+
+    correction_path = write_correction_migration(all_rows)
+
+    for subject_key, config, rows, csv_path, migration_path in generated:
         report_path = write_report(subject_key, config, rows, csv_path, migration_path)
         bands = Counter(row["difficulty"] for row in rows)
         bases = Counter(row["basis"] for row in rows)
         print(subject_key, len(rows), dict(bands), dict(bases), report_path.relative_to(ROOT))
+    print("correction_migration", correction_path.relative_to(ROOT))
 
 
 if __name__ == "__main__":

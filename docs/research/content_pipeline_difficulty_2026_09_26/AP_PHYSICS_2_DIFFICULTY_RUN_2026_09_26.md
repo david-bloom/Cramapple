@@ -1,6 +1,6 @@
 # AP Physics 2 difficulty calibration — 2026-09-26
 
-Status: **Complete artifact; base migration applied to Production 2026-09-26; method correction pending**
+Status: **Complete artifact; base migration applied to Production 2026-09-26; method correction applied to Production 2026-09-27**
 
 ## Result
 
@@ -34,7 +34,7 @@ Basis counts: `calibrated_judgement` 2, `calibrated_task_verb` 5, `normalised_ca
 - Assignments: `docs/research/content_pipeline_difficulty_2026_09_26/AP_PHYSICS_2_DIFFICULTY_ASSIGNMENTS_2026_09_26.csv`
 - Base migration (applied to Production 2026-09-26): `supabase/migrations/20260926234100_apphysics2_difficulty.sql`
 - Corrective migration for the approved `predict` / `integrate` tier rule:
-  `supabase/migrations/20260926234500_correct_remaining_difficulty_predict_integrate.sql`
+  `supabase/migrations/20260927112232_correct_remaining_difficulty_predict_integrate.sql`
 - Rebuild script: `scripts/taxonomy/build_remaining_difficulty_artifacts.py`
 
 ## Gate note

@@ -1,10 +1,9 @@
 -- DECISION-0066: promote only current-live, single-unit, two-model agreements
--- whose label was produced after the current content version's last update.
+-- whose stored generation-time taxonomy hash matches the current published version.
 --
 -- Multi-unit agreements are deliberately excluded: they require a genuinely
--- independent third review. Older labels are also excluded even when they
--- reference the same version id, because rubric/choice changes can alter the
--- taxonomy-relevant packet without creating a new content_item_version row.
+-- independent third review. Timestamp ordering is not freshness evidence; the
+-- exact generation hash and current version identity are both required.
 
 begin;
 
@@ -43,7 +42,7 @@ where ctl.label_status = 'provisional_model'
   and ctl.source_payload->>'reason' like 'two_model_%'
   and cardinality(ctl.required_units) = 1
   and ctl.validated_against_version_id = civ.id
-  and ctl.created_at >= civ.updated_at;
+  and ctl.validated_against_taxo_hash = app.taxonomy_relevant_hash(civ.id);
 
 do $$
 declare
@@ -77,7 +76,7 @@ select
   'automated_spot_check',
   p.primary_unit,
   p.required_units,
-  'DECISION-0066 batch: fresh single-unit agreement from the approved GPT-5.5 + Gemini-2.5-flash serving-label lane. Multi-unit and stale-by-timestamp labels excluded.'
+  'DECISION-0066 batch: fresh single-unit agreement from the approved GPT-5.5 + Gemini-2.5-flash serving-label lane. Multi-unit and generation-hash-mismatched labels excluded.'
 from _fresh_single_unit_promotions p;
 
 update app.content_taxonomy_labels ctl

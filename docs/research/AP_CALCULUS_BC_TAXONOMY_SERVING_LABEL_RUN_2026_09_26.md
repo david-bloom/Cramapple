@@ -1,6 +1,6 @@
 # Math Taxonomy Serving Label Run — 2026-09-26
 
-Run ID: `serving-units-mcp-2026-09-25-20260926232945`
+Run ID: `serving-units-mcp-2026-09-25-20260927113406`
 
 Scope: serving labels only (`required_units`, `primary_unit`, derived `max_required_unit`). Topic coverage (`assessed_topics`) was deferred.
 
@@ -152,4 +152,4 @@ Validation rule: no `validated` labels were written. Two-model agreement writes 
 | ap_calculus_bc | apcalcbc-mcq-np1-009 | provisional_model | two_model_unit_agreement | 2, 3 |
 | ap_calculus_bc | apcalcbc-mcq-np1-010 | provisional_model | two_model_unit_agreement | 2, 3 |
 
-Raw model outputs and SQL write file were generated under `/private/tmp/cramapple-content-pipeline-2026-09-26/ap_calculus_bc_ready/`.
+Raw model outputs and SQL write file were generated under `/Users/davidbloom/.codex/worktrees/179a/Cramapple.nosync/docs/research/content_pipeline_label_runs_2026_09_27/ap_calculus_bc/`.

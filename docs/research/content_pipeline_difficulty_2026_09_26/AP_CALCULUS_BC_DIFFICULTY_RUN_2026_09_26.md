@@ -1,6 +1,6 @@
 # AP Calculus BC difficulty calibration — 2026-09-26
 
-Status: **Complete artifact; base migration applied to Production 2026-09-26; method correction pending**
+Status: **Complete artifact; base migration applied to Production 2026-09-26; method correction applied to Production 2026-09-27**
 
 ## Result
 
@@ -11,8 +11,8 @@ Status: **Complete artifact; base migration applied to Production 2026-09-26; me
 | FRQ | 64 |
 | MCQ | 63 |
 | Easy | 15 |
-| Medium | 58 |
-| Hard | 54 |
+| Medium | 57 |
+| Hard | 55 |
 | Rows with a preserved authored source value | 95 |
 | Rows with null `attainment_ratio` / `ratio_source` | 127 |
 
@@ -34,7 +34,7 @@ Basis counts: `calibrated_judgement` 12, `calibrated_task_verb` 20, `normalised_
 - Assignments: `docs/research/content_pipeline_difficulty_2026_09_26/AP_CALCULUS_BC_DIFFICULTY_ASSIGNMENTS_2026_09_26.csv`
 - Base migration (applied to Production 2026-09-26): `supabase/migrations/20260926234400_apcalcbc_difficulty.sql`
 - Corrective migration for the approved `predict` / `integrate` tier rule:
-  `supabase/migrations/20260926234500_correct_remaining_difficulty_predict_integrate.sql`
+  `supabase/migrations/20260927112232_correct_remaining_difficulty_predict_integrate.sql`
 - Rebuild script: `scripts/taxonomy/build_remaining_difficulty_artifacts.py`
 
 ## Gate note
