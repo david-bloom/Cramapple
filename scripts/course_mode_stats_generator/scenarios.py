@@ -196,6 +196,12 @@ FRAMING: Dict[str, Framing] = {
         ["realistic study-design scenario",
          "classification must distinguish imposed treatments, randomization, control/placebo/blinding, and confounding"],
         [_SEC5, _SEC6, _SEC7]),
+    "u2_7_independent_union": Framing(
+        "u2_7_independent_union", "Q4", "Calculate", 3, "exam_aligned_digital",
+        ["two independent events with probabilities between 0 and 1",
+         "answer computes P(A or B)=P(A)+P(B)-P(A)P(B)",
+         "the events are not described as mutually exclusive"],
+        [_SEC5, _SEC6, _SEC7]),
     "u2_6_cond_prob": Framing(
         "u2_6_cond_prob", "Q4", "Calculate", 3, "exam_aligned_digital",
         ["two events with an explicit conditioning event",
@@ -812,6 +818,21 @@ U1_13_DESIGN_CONTEXTS: List[Dict[str, object]] = [
 ]
 
 
+# Unit 2.7 independent-events union contexts. Each id is cell-namespaced.
+U2_7_INDEPENDENT_UNION_CONTEXTS: List[Dict[str, object]] = [
+    {"id": "u2_7__email_coupon", "domain": "business", "event_a": "opens a promotional email",
+     "event_b": "uses a coupon that week", "p_a_choices": [0.25, 0.30, 0.35], "p_b_choices": [0.18, 0.20, 0.24]},
+    {"id": "u2_7__app_features", "domain": "technology", "event_a": "uses the search feature",
+     "event_b": "turns on notifications", "p_a_choices": [0.40, 0.45, 0.50], "p_b_choices": [0.22, 0.28, 0.32]},
+    {"id": "u2_7__library_services", "domain": "civic", "event_a": "borrows an e-book",
+     "event_b": "attends a weekend event", "p_a_choices": [0.16, 0.20, 0.28], "p_b_choices": [0.12, 0.18, 0.25]},
+    {"id": "u2_7__clinic_reminders", "domain": "health", "event_a": "uses the patient portal",
+     "event_b": "confirms an appointment by text", "p_a_choices": [0.38, 0.42, 0.48], "p_b_choices": [0.30, 0.34, 0.40]},
+    {"id": "u2_7__student_activities", "domain": "education", "event_a": "joins a study group",
+     "event_b": "attends a review session", "p_a_choices": [0.26, 0.32, 0.36], "p_b_choices": [0.20, 0.25, 0.30]},
+]
+
+
 # Unit 2.6 conditional-probability contexts. Each id is cell-namespaced.
 U2_6_COND_PROB_CONTEXTS: List[Dict[str, object]] = [
     {"id": "u2_6__sports_music", "domain": "education", "population": "students",
@@ -1132,6 +1153,19 @@ def validate_scenarios() -> List[str]:
             problems.append(f"u1_13 design context id is not namespaced: {ctx.get('id')}")
         if len(ctx.get("distractors", [])) < 3:
             problems.append(f"u1_13 design context needs at least 3 distractors: {ctx}")
+    seen_u2_7_ids = set()
+    for ctx in U2_7_INDEPENDENT_UNION_CONTEXTS:
+        required = ("id", "domain", "event_a", "event_b", "p_a_choices", "p_b_choices")
+        if not all(k in ctx for k in required):
+            problems.append(f"u2_7 independent-union context missing fields: {ctx}")
+        if ctx.get("id") in seen_u2_7_ids:
+            problems.append(f"duplicate u2_7 independent-union context id: {ctx.get('id')}")
+        seen_u2_7_ids.add(ctx.get("id"))
+        if not str(ctx.get("id", "")).startswith("u2_7__"):
+            problems.append(f"u2_7 independent-union context id is not namespaced: {ctx.get('id')}")
+        vals = list(ctx.get("p_a_choices", [])) + list(ctx.get("p_b_choices", []))
+        if not vals or any(p <= 0 or p >= 1 for p in vals):
+            problems.append(f"u2_7 probabilities must be inside (0,1): {ctx}")
     seen_u2_6_ids = set()
     for ctx in U2_6_COND_PROB_CONTEXTS:
         required = ("id", "domain", "population", "event_a", "event_b", "total", "a", "b", "both")
@@ -1211,6 +1245,7 @@ if __name__ == "__main__":
             "u1_8_boxplots": len(U1_8_BOXPLOT_CONTEXTS),
             "u1_12_bias": len(U1_12_BIAS_CONTEXTS),
             "u1_13_design": len(U1_13_DESIGN_CONTEXTS),
+            "u2_7_independent_union": len(U2_7_INDEPENDENT_UNION_CONTEXTS),
             "u2_6_cond_prob": len(U2_6_COND_PROB_CONTEXTS),
             "u2_5_mutually_exclusive": len(U2_5_MUTUALLY_EXCLUSIVE_CONTEXTS),
             "u2_1_twoway": len(U2_1_TWOWAY_CONTEXTS),

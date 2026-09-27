@@ -60,6 +60,7 @@ TWO_MEAN_CONTEXTS = SCN.TWO_MEAN_CONTEXTS
 CATEGORICAL_CONTEXTS = SCN.CATEGORICAL_CONTEXTS
 TWO_WAY_PROP_CONTEXTS = SCN.TWO_WAY_PROP_CONTEXTS
 U1_9_COMPARE_CONTEXTS = SCN.U1_9_COMPARE_CONTEXTS
+U2_7_INDEPENDENT_UNION_CONTEXTS = SCN.U2_7_INDEPENDENT_UNION_CONTEXTS
 U2_6_COND_PROB_CONTEXTS = SCN.U2_6_COND_PROB_CONTEXTS
 
 
@@ -843,6 +844,42 @@ def gen_chi_square_test(rng: random.Random, seed: int) -> Dict:
                     {"observed": obs}, checks, scenario_domain=c["domain"])
 
 
+def gen_u2_7_independent_union(rng: random.Random, seed: int) -> Dict:
+    c = rng.choice(U2_7_INDEPENDENT_UNION_CONTEXTS)
+    p_a = float(rng.choice(c["p_a_choices"]))
+    p_b = float(rng.choice(c["p_b_choices"]))
+    intersection = p_a * p_b
+    answer = p_a + p_b - intersection
+    add_only = p_a + p_b
+    tol = 0.005
+    prompt = (f"For members of a large group, the event that a member {c['event_a']} has probability {p_a:.2f}, "
+              f"and the event that a member {c['event_b']} has probability {p_b:.2f}. "
+              "The two events are independent. What is the probability that a randomly selected member has at least one of these two events occur?")
+    worked = (f"For independent events, P(A and B)=({p_a:.2f})({p_b:.2f})={intersection:.3f}. "
+              f"P(A or B)=P(A)+P(B)-P(A and B)={p_a:.2f}+{p_b:.2f}-{intersection:.3f}={answer:.3f}.")
+    distractors = [
+        (f"{add_only:.3f}", "u2_7__added_without_subtracting_overlap", add_only),
+        (f"{intersection:.3f}", "u2_7__reported_intersection_instead_of_union", intersection),
+        (f"{1 - intersection:.3f}", "u2_7__reported_not_both_instead_of_at_least_one", 1 - intersection),
+    ]
+    checks = [
+        ("intersection_formula", abs(intersection - p_a * p_b) < 1e-12),
+        ("union_formula", abs(answer - (p_a + p_b - p_a * p_b)) < 1e-12),
+        ("answer_probability", 0 <= answer <= 1),
+        ("distractors_clear_of_key", all(abs(v - answer) > 3 * tol for _, _, v in distractors)),
+        ("distractors_distinct", len({round(v, 3) for _, _, v in distractors}) == 3),
+    ]
+    pkg = _package("u2_7_independent_union", seed, "2.7", ["3.C"], "Medium", prompt,
+                   f"P = {answer:.3f}", worked,
+                   [{"kind": "numeric", "value": round(answer, 3), "tol": tol}],
+                   f"{answer:.3f}", answer, tol, distractors,
+                   {"scenario_id": c["id"], "p_a": p_a, "p_b": p_b, "intersection": intersection},
+                   checks, scenario_domain=c["domain"])
+    pkg["content_key"] = _rid("apstat-u2-7-3c-independent_union", seed)
+    return pkg
+
+
+
 def gen_u2_6_cond_prob(rng: random.Random, seed: int) -> Dict:
     c = rng.choice(U2_6_COND_PROB_CONTEXTS)
     scale = rng.choice([0, 5, 10, 15])
@@ -1029,6 +1066,7 @@ PROCEDURES: Dict[str, Callable[[random.Random, int], Dict]] = {
     "binomial_probability": gen_binomial_probability,
     "summary_stats": gen_summary_stats,
     "compare_stats": gen_compare_stats,
+    "u2_7_independent_union": gen_u2_7_independent_union,
     "u2_6_cond_prob": gen_u2_6_cond_prob,
     "t_test_mean": gen_t_test_mean,
     "t_interval_mean": gen_t_interval_mean,

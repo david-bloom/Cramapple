@@ -513,6 +513,28 @@ CATALOG: Dict[str, Misconception] = {m.tag: m for m in [
        "ced_structural", ["slotframe_u1_12_bias"], ["1.12"], ["2.A"],
        [_fp("S10 Unit 1 (1.10-1.13)", "bias claims must be supported by the sampling scenario rather than assumed from sample size alone")]),
 
+    # --- computational u2_7_independent_union (2.7 x 3.C) : independent events and unions ---
+    _M("u2_7__added_without_subtracting_overlap",
+       "Added probabilities without subtracting the overlap",
+       "Computed P(A)+P(B) for a union even though independent events can both occur.",
+       "ced_structural", ["u2_7_independent_union"], ["2.7"], ["3.C"],
+       [_fp("S10 Unit 2 (2.7)",
+            "for unions, P(A or B)=P(A)+P(B)-P(A and B); independent events have overlap P(A)P(B)")]),
+
+    _M("u2_7__reported_intersection_instead_of_union",
+       "Reported the intersection instead of the union",
+       "Multiplied P(A) and P(B), which gives P(A and B) for independent events, not P(A or B).",
+       "ced_structural", ["u2_7_independent_union"], ["2.7"], ["3.C"],
+       [_fp("S10 Unit 2 (2.7)",
+            "independence supports multiplying for the intersection, while a union also includes outcomes in exactly one event")]),
+
+    _M("u2_7__reported_not_both_instead_of_at_least_one",
+       "Reported the probability that both events do not jointly occur",
+       "Computed 1 - P(A and B), which includes outcomes where neither event occurs, instead of P(A or B).",
+       "ced_structural", ["u2_7_independent_union"], ["2.7"], ["3.C"],
+       [_fp("S10 Unit 2 (2.7)",
+            "the complement of at least one event is neither event, not the event that A and B do not both occur")]),
+
     # --- computational u2_6_cond_prob (2.6 x 3.C) : conditional probability ----
     _M("u2_6__used_joint_probability_instead_of_conditional",
        "Used the joint probability instead of the conditional probability",
