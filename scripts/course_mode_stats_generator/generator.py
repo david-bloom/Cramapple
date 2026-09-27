@@ -61,6 +61,7 @@ TWO_MEAN_CONTEXTS = SCN.TWO_MEAN_CONTEXTS
 CATEGORICAL_CONTEXTS = SCN.CATEGORICAL_CONTEXTS
 TWO_WAY_PROP_CONTEXTS = SCN.TWO_WAY_PROP_CONTEXTS
 U1_9_COMPARE_CONTEXTS = SCN.U1_9_COMPARE_CONTEXTS
+U3_2_SAMPLE_PROP_CONTEXTS = SCN.U3_2_SAMPLE_PROP_CONTEXTS
 U2_7_INDEPENDENT_UNION_CONTEXTS = SCN.U2_7_INDEPENDENT_UNION_CONTEXTS
 U2_6_COND_PROB_CONTEXTS = SCN.U2_6_COND_PROB_CONTEXTS
 
@@ -916,6 +917,44 @@ def gen_chi_square_test(rng: random.Random, seed: int) -> Dict:
                     {"observed": obs}, checks, scenario_domain=c["domain"])
 
 
+def gen_sample_prop_distribution(rng: random.Random, seed: int) -> Dict:
+    c = rng.choice(U3_2_SAMPLE_PROP_CONTEXTS)
+    p = float(rng.choice(c["p_choices"]))
+    n = int(rng.choice(c["n_choices"]))
+    mean = p
+    sd = math.sqrt(p * (1 - p) / n)
+    no_sqrt = p * (1 - p) / n
+    count_sd = math.sqrt(n * p * (1 - p))
+    observed_count = round(n * p)
+    tol = 0.001
+    prompt = (f"In a large population of {c['population']}, the proportion who {c['trait']} is {p:.2f}. "
+              f"For random samples of n = {n}, calculate the mean and standard deviation of the sampling distribution of p-hat.")
+    worked = (f"For p-hat, mean = p = {mean:.3f}. SD = sqrt(p(1-p)/n) = "
+              f"sqrt({p:.2f}({1-p:.2f})/{n}) = {sd:.4f}.")
+    correct = f"mean = {mean:.3f}, SD = {sd:.4f}"
+    distractors = [
+        (f"mean = {observed_count}, SD = {sd:.4f}", "u3_2__used_observed_count_as_mean", None),
+        (f"mean = {mean:.3f}, SD = {no_sqrt:.4f}", "u3_2__omitted_sqrt_in_sd", None),
+        (f"mean = {mean:.3f}, SD = {count_sd:.4f}", "u3_2__used_count_sd_instead_of_proportion_sd", None),
+    ]
+    checks = [
+        ("mean_equals_p", abs(mean - p) < 1e-12),
+        ("sd_formula", abs(sd - math.sqrt(p * (1 - p) / n)) < 1e-12),
+        ("large_counts", n * p >= 10 and n * (1 - p) >= 10),
+        ("sd_probability_scale", 0 < sd < 0.1),
+        ("distractors_distinct", len({d[0] for d in distractors}) == 3),
+    ]
+    pkg = _package("sample_prop_distribution", seed, "3.2", ["3.D"], "Medium", prompt,
+                   f"mean = {mean:.3f}, SD = {sd:.4f}", worked,
+                   [{"kind": "interval", "low": round(mean, 3), "high": round(sd, 4), "tol": tol}],
+                   correct, None, tol, distractors,
+                   {"scenario_id": c["id"], "p": p, "n": n, "mean": mean, "sd": sd},
+                   checks, scenario_domain=c["domain"])
+    pkg["content_key"] = _rid("apstat-u3-2-3d-sample_prop_distribution", seed)
+    return pkg
+
+
+
 def gen_u2_7_independent_union(rng: random.Random, seed: int) -> Dict:
     c = rng.choice(U2_7_INDEPENDENT_UNION_CONTEXTS)
     p_a = float(rng.choice(c["p_a_choices"]))
@@ -1131,6 +1170,7 @@ def gen_two_sample_t_interval(rng: random.Random, seed: int) -> Dict:
 PROCEDURES: Dict[str, Callable[[random.Random, int], Dict]] = {
     "one_prop_ci": gen_one_prop_ci,
     "two_prop_ztest": gen_two_prop_ztest,
+    "sample_prop_distribution": gen_sample_prop_distribution,
     "lsrl_predict": gen_lsrl_predict,
     "basic_probability": gen_basic_probability,
     "normal_prob": gen_normal_prob,

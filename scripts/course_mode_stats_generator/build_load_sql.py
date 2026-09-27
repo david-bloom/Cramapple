@@ -72,7 +72,7 @@ LOAD_SQL = OUT_DIR / "f4_load_DRAFT.sql"
 # Which generated templates answer with a numeric/interval value (graded by the
 # data-driven verifier) vs. the conceptual slot-frame (graded as an MCQ).
 COMPUTATIONAL_PREFIXES = (
-    "one_prop_ci", "two_prop_ztest", "lsrl_predict", "basic_probability", "normal_prob",
+    "one_prop_ci", "two_prop_ztest", "sample_prop_distribution", "lsrl_predict", "basic_probability", "normal_prob",
     "binomial_probability", "summary_stats", "two_way_proportions",
     "compare_stats", "random_variable_params",
     "u2_7_independent_union",
