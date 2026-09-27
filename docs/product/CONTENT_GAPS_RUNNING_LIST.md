@@ -142,10 +142,16 @@ updated as work lands.
   is a **governance decision** (decision 24), not engineering.
 - **Owner:** — · **Status:** OPEN, decision-gated.
 
-### GAP-9 — Mastery cells missing a servable MCQ or FRQ (blocks `DECISION-0074`)
+### GAP-10 — Mastery cells missing a servable MCQ or FRQ (blocks `DECISION-0074`)
+- **Renumbered 2026-09-27 (new session):** this entry collided with the pre-existing GAP-9 above
+  (Biology FRQ canonical-answer/rubric alignment, 2026-09-22) — two unrelated gaps had the same ID.
+  Renumbered this one to GAP-10 (the next unused number); the launch plan doc's own "GAP-9 measured"/
+  "GAP-9 remediation" section headers still say GAP-9 in their prose and haven't been renamed, but they
+  are this same finding — cross-reference by content/date, not the old number, until that doc is touched
+  again for another reason.
 - **Measured 2026-09-27 (first pass, before `DECISION-0079` promotion):** **0 masterable cells in both
   Statistics and Biology.** Root cause was labeling, not content — see the launch plan doc's "B. GAP-9
-  measured" section.
+  measured" section (pre-renumbering title, same finding).
 - **Re-measured 2026-09-27, after `DECISION-0079` promoted all 293 `provisional_model` labels to
   `validated`:** still **0 masterable cells** in both subjects — the promotion did not close this gap
   (an earlier same-day query that didn't filter on `skill_code IS NOT NULL` briefly suggested otherwise;
@@ -158,7 +164,8 @@ updated as work lands.
   - **Statistics** has 11 topic×skill cells with a skill-coded MCQ (10 cells with 20 MCQs each, 1 with
     3), all with **zero** skill-coded FRQ — `mcq_n >= 2 AND frq_n >= 1` is false for all 11.
   - **Biology** has zero skill-coded cells of any kind (matches `taxonomy_cells` being empty for the
-    subject — see `docs/product/LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md`'s "GAP-9 remediation" note).
+    subject — see `docs/product/LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md`'s "GAP-9 remediation" note,
+    pre-renumbering title, same finding as this GAP-10).
 - **Why it blocks:** unchanged — a cell short an FRQ (or MCQ) makes mastery permanently unreachable
   under `DECISION-0074`, not just slower.
 - **Remediation needs two content-authoring passes, neither is an engineering backfill:**
