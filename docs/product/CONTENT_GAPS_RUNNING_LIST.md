@@ -114,7 +114,19 @@ updated as work lands.
   **323 carry parts only as prose** in the stem (plan §8.4). Longest stem 2,205
   chars. Any per-part design implies a content migration or a parser — a
   deliberate choice (decision 11).
-- **Owner:** — · **Status:** OPEN, decision-gated.
+- **Decision landed (`D8`, `ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md`):** cheap render-time parser
+  stopgap (`src/lib/frq-prose-parts.ts`, TASK-0047 Workstream B, commit `c52c3fd6`), not a content
+  migration. No longer decision-gated for that reason — tracked open now only for the bug below.
+- **Bug found + fixed, 2026-09-27:** the parser silently dropped any text after the last labeled
+  `(a)/(b)/(c)` block — a closing instruction like "Justify your answer using the data above." never
+  reached the student, a real scoring-fairness defect (reported by David from a Lovable error surface).
+  Root cause: the function computed the preamble before the first label but never captured anything
+  after the last one. Fixed by appending trailing blocks to the last part's body instead of discarding
+  them, with a new regression test. Sent to Lovable 2026-09-27 (see `LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md`
+  for the outcome once verified) — this repo's own copy of the parser (none exists here; the file lives
+  only in the Lovable frontend) was not touched, so this fix is Lovable-only.
+- **Owner:** — · **Status:** OPEN pending verification of the trailing-text fix; otherwise the parser
+  stopgap itself is considered shipped and working as decided.
 
 ### GAP-5 — Stimulus-image plate treatment
 - **Scope:** 6 published Biology FRQ carry a `stimulus_image_path`
