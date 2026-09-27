@@ -1,0 +1,189 @@
+{
+  "schema_version": "course-mode-generated-0.1",
+  "package_id": "two_way_proportions-022017",
+  "content_key": "apstat-two_way_proportions-022017",
+  "item_type": "mcq",
+  "difficulty": "Medium",
+  "exam_pack_ref": {
+    "exam_code": "ap_statistics",
+    "cycle": "2026-27"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "unit-2"
+    },
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "topic-2.2"
+    },
+    {
+      "scheme_key": "ap-statistics-skills",
+      "node_key": "skill-3.B",
+      "practice": 3
+    }
+  ],
+  "cells": [
+    {
+      "topic": "2.2",
+      "skill": "3.B"
+    }
+  ],
+  "prompt": "The table shows library patrons in two age groups and the format checked out most recently: Ages 18-34: Print 38, E-book 44, Audiobook 18; Ages 35+: Print 62, E-book 24, Audiobook 14. Calculate the proportion of the E-book category who are Ages 35+.",
+  "numeric_form": {
+    "answer_desc": "proportion = 0.353",
+    "deterministic_checks": [
+      {
+        "kind": "numeric",
+        "value": 0.353,
+        "tol": 0.001
+      }
+    ]
+  },
+  "mcq_form": {
+    "options": [
+      {
+        "text": "0.240",
+        "correct": false,
+        "misconception": "u2_2__swapped_conditioning_denominator",
+        "misconception_source": {
+          "tag": "u2_2__swapped_conditioning_denominator",
+          "label": "Used the opposite conditional denominator",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 2 (2.2)",
+              "note": "conditional proportions are computed within the given category of the conditioning variable"
+            }
+          ]
+        }
+      },
+      {
+        "text": "0.647",
+        "correct": false,
+        "misconception": "u2_2__used_complement_category",
+        "misconception_source": {
+          "tag": "u2_2__used_complement_category",
+          "label": "Used the complement category within the correct denominator",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 2 (2.2)",
+              "note": "two-way-table calculations require matching the requested category, not its complement"
+            }
+          ]
+        }
+      },
+      {
+        "text": "0.353",
+        "correct": true,
+        "misconception": null
+      },
+      {
+        "text": "0.120",
+        "correct": false,
+        "misconception": "u2_2__used_grand_total_for_conditional",
+        "misconception_source": {
+          "tag": "u2_2__used_grand_total_for_conditional",
+          "label": "Used the grand total as the denominator for a conditional proportion",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 2 (2.2)",
+              "note": "summary statistics for two categorical variables include marginal and conditional proportions; the denominator must match the condition"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "worked_solution": "Condition on E-book: 24/68 = 0.3529.",
+  "parts": [
+    {
+      "part_key": "part-a",
+      "prompt": "The table shows library patrons in two age groups and the format checked out most recently: Ages 18-34: Print 38, E-book 44, Audiobook 18; Ages 35+: Print 62, E-book 24, Audiobook 14. Calculate the proportion of the E-book category who are Ages 35+.",
+      "response_modalities": [
+        "mcq",
+        "numeric"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "proportion = 0.353",
+          "required_evidence": "Condition on E-book: 24/68 = 0.3529.",
+          "deterministic_checks": [
+            {
+              "kind": "numeric",
+              "value": 0.353,
+              "tol": 0.001
+            }
+          ],
+          "accepted_variants": []
+        }
+      ]
+    }
+  ],
+  "scenario_provenance": {
+    "archetype": "Q2",
+    "archetype_label": "Multi-focus on Practices 3 & 4 (analyze data; interpret results)",
+    "task_verb": "Calculate",
+    "practice": 3,
+    "modality": "exam_aligned_digital",
+    "validity_rules": [
+      "a two-way table of counts for two categorical variables",
+      "marginal proportions use row/column totals over the grand total",
+      "conditional proportions use the total within the stated condition"
+    ],
+    "sources": [
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S5 (Free-response archetypes)",
+        "note": "Section II question archetypes Q1-Q4"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S6 (Task verbs)",
+        "note": "the item stem's verb must match the scored demand"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S7 (Response modality)",
+        "note": "digital Bluebook; text/numeric entry -> exam_aligned_digital"
+      }
+    ],
+    "domain": "civic"
+  },
+  "provenance": {
+    "generator": "course_mode_stats_generator/generator.py",
+    "template_id": "two_way_proportions",
+    "params": {
+      "scenario_id": "u2_2__library_age_format",
+      "observed": [
+        [
+          38,
+          44,
+          18
+        ],
+        [
+          62,
+          24,
+          14
+        ]
+      ],
+      "query_type": "col_cond",
+      "row": "Ages 35+",
+      "column": "E-book"
+    },
+    "seed": 22017,
+    "release_status": "unreleased_generated_pending_review",
+    "note": "Synthetic; not official CB content. Requires CM-D19 template-release + review."
+  }
+}

@@ -53,9 +53,12 @@ CONTEXTS = SCN.PROPORTION_CONTEXTS
 TWO_GROUP = SCN.TWO_GROUP_CONTEXTS
 REG_CONTEXTS = SCN.REGRESSION_CONTEXTS
 NORMAL_CONTEXTS = SCN.NORMAL_CONTEXTS
+PROBABILITY_CONTEXTS = SCN.U2_4_PROBABILITY_CONTEXTS
+BINOMIAL_CONTEXTS = SCN.BINOMIAL_CONTEXTS
 MEAN_CONTEXTS = SCN.MEAN_CONTEXTS
 TWO_MEAN_CONTEXTS = SCN.TWO_MEAN_CONTEXTS
 CATEGORICAL_CONTEXTS = SCN.CATEGORICAL_CONTEXTS
+TWO_WAY_PROP_CONTEXTS = SCN.TWO_WAY_PROP_CONTEXTS
 U1_9_COMPARE_CONTEXTS = SCN.U1_9_COMPARE_CONTEXTS
 U2_6_COND_PROB_CONTEXTS = SCN.U2_6_COND_PROB_CONTEXTS
 
@@ -246,6 +249,56 @@ def gen_lsrl_predict(rng: random.Random, seed: int) -> Dict:
                     {"slope": b, "intercept": a, "x_new": x_new}, checks, scenario_domain=c["domain"])
 
 
+def _fmt_probability_counts(categories: List[Tuple[str, int]]) -> str:
+    return "; ".join(f"{name}: {count}" for name, count in categories)
+
+
+def gen_basic_probability(rng: random.Random, seed: int) -> Dict:
+    """Basic probability for a finite sample space with equally likely outcomes
+    (cell 2.4 x 3.C). The item stays inside Topic 2.4: favorable outcomes over
+    total outcomes, probability in [0,1], and complement as a distractor -- no
+    conditional probability, independence, or binomial machinery."""
+    c = rng.choice(PROBABILITY_CONTEXTS)
+    tol = 0.001
+    count_shift = rng.choice([0, 2, 4, 6])
+    categories = [(name, int(count) + count_shift) for name, count in c["categories"]]
+    event_categories = set(c["event_categories"])
+    total = sum(count for _name, count in categories)
+    favorable = sum(count for name, count in categories if name in event_categories)
+    non_event = total - favorable
+    first_non_event_count = next(count for name, count in categories if name not in event_categories)
+    prob = favorable / total
+    complement = non_event / total
+    odds_in_favor = favorable / non_event
+    partial_denominator = favorable / (favorable + first_non_event_count)
+    distractors = [
+        (f"P = {complement:.3f}", "u2_4__used_complement_probability", complement),
+        (f"P = {odds_in_favor:.3f}", "u2_4__used_odds_instead_of_probability", odds_in_favor),
+        (f"P = {partial_denominator:.3f}", "u2_4__used_partial_sample_space_denominator", partial_denominator),
+    ]
+    prompt = (f"{c['setting']}: {_fmt_probability_counts(categories)}. If one {c['unit']} is selected at random "
+              f"from this pool, what is the probability of selecting {c['event_label']}?")
+    worked = (f"The favorable count is {favorable} and the total number of equally likely outcomes is {total}. "
+              f"P(E) = favorable/total = {favorable}/{total} = {prob:.4f}.")
+    checks = [
+        ("probability_formula", abs(prob - favorable / total) < 1e-12),
+        ("probability_in_0_1", 0.0 <= prob <= 1.0),
+        ("complement_sums_to_one", abs(prob + complement - 1.0) < 1e-12),
+        ("finite_sample_space_positive_total", total > favorable > 0),
+        ("odds_distractor_in_0_1", 0.0 <= odds_in_favor <= 1.0),
+        ("partial_denominator_distractor_in_0_1", 0.0 <= partial_denominator <= 1.0),
+        ("distractors_clear_of_key", all(abs(v - prob) > 2 * tol for _d, _tag, v in distractors)),
+        ("distractors_distinct", len({d for d, _tag, _v in distractors}) == len(distractors)),
+    ]
+    return _package("basic_probability", seed, "2.4", ["3.C"], "Easy", prompt,
+                    f"P = {prob:.4f}", worked,
+                    [{"kind": "numeric", "value": round(prob, 4), "tol": tol}],
+                    f"P = {prob:.3f}", prob, tol, distractors,
+                    {"scenario_id": c["id"], "categories": categories,
+                     "event_categories": sorted(event_categories), "favorable": favorable, "total": total},
+                    checks, scenario_domain=c["domain"])
+
+
 def gen_normal_prob(rng: random.Random, seed: int) -> Dict:
     c = rng.choice(NORMAL_CONTEXTS)
     mu = rng.choice(c["mu_choices"])       # per-context ranges keep the numbers realistic
@@ -278,6 +331,74 @@ def gen_normal_prob(rng: random.Random, seed: int) -> Dict:
                     [{"kind": "numeric", "value": round(below, 4), "tol": tol}],
                     f"{below:.4f}", below, tol, distractors,
                     {"mu": mu, "sigma": sigma, "x": x}, checks, scenario_domain=c["domain"])
+
+
+def _binom_pmf(n: int, k: int, p: float) -> float:
+    return math.comb(n, k) * (p ** k) * ((1 - p) ** (n - k))
+
+
+def _binom_tail_ge(n: int, k: int, p: float) -> float:
+    return sum(_binom_pmf(n, j, p) for j in range(k, n + 1))
+
+
+def gen_binomial_probability(rng: random.Random, seed: int) -> Dict:
+    """Exact binomial probability for exactly k successes (cell 2.10 x 3.C).
+    Uses stdlib math.comb; no scipy/new dependency. Distractors encode concrete
+    formula errors and are kept as plausible probabilities distinct from the key."""
+    c = rng.choice(BINOMIAL_CONTEXTS)
+    tol = 0.005
+    n = k = 0
+    p = key = 0.0
+    distractors: List[Tuple[str, str, float]] = []
+    for _ in range(800):
+        n = int(rng.choice(c["n_choices"]))
+        p = float(rng.choice(c["p_choices"]))
+        k = rng.randint(1, n - 1)
+        key = _binom_pmf(n, k, p)
+        # Distractor candidates: each is a named, documented binomial formula slip.
+        no_comb = (p ** k) * ((1 - p) ** (n - k))                         # omitted C(n,k)
+        swapped = math.comb(n, k) * (p ** (n - k)) * ((1 - p) ** k)        # p and 1-p swapped
+        tail_ge = _binom_tail_ge(n, k, p)                                  # P(X >= k) not P(X = k)
+        cand = [
+            (no_comb, "u2_10__omitted_combination_count"),
+            (swapped, "u2_10__swapped_success_failure_probability"),
+            (tail_ge, "u2_10__used_tail_probability_for_exact_count"),
+        ]
+        distractors = []
+        chosen: List[float] = []
+        for val, tag in cand:
+            if not (0.0 <= val <= 1.0):
+                continue
+            if abs(val - key) <= 3 * tol:
+                continue
+            if any(abs(val - prior) <= 3 * tol for prior in chosen):
+                continue
+            distractors.append((f"{val:.4f}", tag, val))
+            chosen.append(val)
+        if 0.025 <= key <= 0.45 and len(distractors) == 3:
+            break
+    prompt = (f"{c['who'].capitalize()} models each {c['trial_unit']} as an independent trial with "
+              f"probability {p:.2f} that it {c['success']}. For {n} trials, calculate the "
+              f"probability of exactly {k} successes.")
+    worked = (f"Let X ~ Binomial(n={n}, p={p:.2f}). "
+              f"P(X = {k}) = C({n},{k})({p:.2f})^{k}({1-p:.2f})^{n-k} = {key:.4f}.")
+    checks = [
+        ("binomial_formula", abs(key - math.comb(n, k) * (p ** k) * ((1 - p) ** (n - k))) < 1e-12),
+        ("valid_parameters", n >= 1 and 0 <= k <= n and 0 < p < 1),
+        ("prob_in_0_1", 0.0 <= key <= 1.0),
+        ("key_not_tiny_or_dominant", 0.025 <= key <= 0.45),
+        ("three_plausible_distractors", len(distractors) == 3),
+        ("distractors_valid_probabilities", all(0.0 <= v <= 1.0 for _, _, v in distractors)),
+        ("distractors_clear_of_key", all(abs(v - key) > 2 * tol for _, _, v in distractors)),
+        ("distractors_distinct", len({d for d, _, _ in distractors}) == 3),
+        ("distractor_tags_distinct", len({tag for _, tag, _ in distractors}) == 3),
+    ]
+    return _package("binomial_probability", seed, "2.10", ["3.C"], "Medium", prompt,
+                    f"P(X = {k}) = {key:.4f}", worked,
+                    [{"kind": "numeric", "value": round(key, 4), "tol": tol}],
+                    f"{key:.4f}", key, tol, distractors,
+                    {"scenario_id": c["id"], "n": n, "k": k, "p": p}, checks,
+                    scenario_domain=c["domain"])
 
 
 def gen_summary_stats(rng: random.Random, seed: int) -> Dict:
@@ -514,6 +635,135 @@ def gen_t_interval_mean(rng: random.Random, seed: int) -> Dict:
                     [{"kind": "interval", "low": round(lo, 3), "high": round(hi, 3), "tol": 0.01}],
                     f"({lo:.2f}, {hi:.2f})", None, 0.01, distractors,
                     {"xbar": xbar, "s": s, "n": n, "conf": conf}, checks, scenario_domain=c["domain"])
+
+
+def _table_totals(obs: List[List[int]]) -> Tuple[List[int], List[int], int]:
+    row_totals = [sum(orow) for orow in obs]
+    col_totals = [sum(obs[i][j] for i in range(len(obs))) for j in range(len(obs[0]))]
+    return row_totals, col_totals, sum(row_totals)
+
+
+def gen_two_way_proportions(rng: random.Random, seed: int) -> Dict:
+    """Marginal and conditional proportions from a two-way table (cell 2.2 x 3.B).
+    Served as MCQ, but stored with the deterministic numeric answer so the same
+    package remains verifier-backed. Every distractor is a concrete denominator
+    or event-swap error from the two-way table, not a throwaway option."""
+    tol = 0.001
+
+    def fmt_prop(v: float) -> str:
+        return f"{v:.3f}"
+
+    for _ in range(300):
+        c = rng.choice(TWO_WAY_PROP_CONTEXTS)
+        rows, cols = list(c["rows"]), list(c["cols"])
+        base_obs = c["obs"]
+        shift = rng.choice([0, 2, 4, 6, 8])
+        obs = [[int(v + shift) for v in orow] for orow in base_obs]
+        row_totals, col_totals, grand = _table_totals(obs)
+        ri = rng.randrange(len(rows))
+        cj = rng.randrange(len(cols))
+        qtype = rng.choice(["row_cond", "col_cond", "row_marg", "col_marg"])
+
+        if qtype == "row_cond":
+            num = obs[ri][cj]
+            denom = row_totals[ri]
+            key = num / denom
+            prompt = (f"The table shows {c['desc']}: {_fmt_table(rows, cols, obs)}. "
+                      f"Calculate the proportion of {rows[ri]} who are in the {cols[cj]} category.")
+            worked = f"Condition on {rows[ri]}: {num}/{denom} = {key:.4f}."
+            # wrong formulas: num/grand, num/column total, row complement/row total,
+            # and marginal summaries substituted for the requested conditional proportion.
+            candidates = [
+                (num / grand, "u2_2__used_grand_total_for_conditional"),
+                (num / col_totals[cj], "u2_2__swapped_conditioning_denominator"),
+                ((denom - num) / denom, "u2_2__used_complement_category"),
+                (row_totals[ri] / grand, "u2_2__reported_marginal_instead_of_conditional"),
+                (col_totals[cj] / grand, "u2_2__reported_marginal_instead_of_conditional"),
+            ]
+        elif qtype == "col_cond":
+            num = obs[ri][cj]
+            denom = col_totals[cj]
+            key = num / denom
+            prompt = (f"The table shows {c['desc']}: {_fmt_table(rows, cols, obs)}. "
+                      f"Calculate the proportion of the {cols[cj]} category who are {rows[ri]}.")
+            worked = f"Condition on {cols[cj]}: {num}/{denom} = {key:.4f}."
+            # wrong formulas: num/grand, num/row total, column complement/column total,
+            # and marginal summaries substituted for the requested conditional proportion.
+            candidates = [
+                (num / grand, "u2_2__used_grand_total_for_conditional"),
+                (num / row_totals[ri], "u2_2__swapped_conditioning_denominator"),
+                ((denom - num) / denom, "u2_2__used_complement_category"),
+                (row_totals[ri] / grand, "u2_2__reported_marginal_instead_of_conditional"),
+                (col_totals[cj] / grand, "u2_2__reported_marginal_instead_of_conditional"),
+            ]
+        elif qtype == "row_marg":
+            num = row_totals[ri]
+            key = num / grand
+            prompt = (f"The table shows {c['desc']}: {_fmt_table(rows, cols, obs)}. "
+                      f"Calculate the marginal proportion that are {rows[ri]}.")
+            worked = f"Use the row total over the grand total: {num}/{grand} = {key:.4f}."
+            other_row = (ri + 1) % len(rows)
+            candidates = [
+                (obs[ri][cj] / row_totals[ri], "u2_2__reported_conditional_instead_of_marginal"),
+                (obs[ri][cj] / grand, "u2_2__used_joint_cell_as_margin"),
+                (row_totals[other_row] / grand, "u2_2__used_complement_category"),
+                (col_totals[cj] / grand, "u2_2__mixed_row_and_column_margins"),
+                (obs[other_row][cj] / grand, "u2_2__used_joint_cell_as_margin"),
+            ]
+        else:
+            num = col_totals[cj]
+            key = num / grand
+            prompt = (f"The table shows {c['desc']}: {_fmt_table(rows, cols, obs)}. "
+                      f"Calculate the marginal proportion in the {cols[cj]} category.")
+            worked = f"Use the column total over the grand total: {num}/{grand} = {key:.4f}."
+            other_col = (cj + 1) % len(cols)
+            candidates = [
+                (obs[ri][cj] / col_totals[cj], "u2_2__reported_conditional_instead_of_marginal"),
+                (obs[ri][cj] / grand, "u2_2__used_joint_cell_as_margin"),
+                ((grand - num) / grand, "u2_2__used_complement_category"),
+                (row_totals[ri] / grand, "u2_2__mixed_row_and_column_margins"),
+                (col_totals[other_col] / grand, "u2_2__mixed_row_and_column_margins"),
+            ]
+
+        distractors: List[Tuple[str, str, float]] = []
+        used_displays = {fmt_prop(key)}
+        used_values: List[float] = []
+        for val, tag in candidates:
+            if not (0.0 <= val <= 1.0):
+                continue
+            if abs(val - key) <= 3 * tol:
+                continue
+            disp = fmt_prop(val)
+            if disp in used_displays:
+                continue
+            if any(abs(val - prev) <= 3 * tol for prev in used_values):
+                continue
+            distractors.append((disp, tag, val))
+            used_displays.add(disp)
+            used_values.append(val)
+            if len(distractors) == 3:
+                break
+        if len(distractors) == 3:
+            break
+    else:
+        raise RuntimeError("two_way_proportions could not build three distinct distractors")
+
+    checks = [
+        ("proportion_in_0_1", 0.0 <= key <= 1.0),
+        ("table_totals_positive", grand > 0 and all(t > 0 for t in row_totals + col_totals)),
+        ("row_column_totals_match_grand", sum(row_totals) == grand and sum(col_totals) == grand),
+        ("conditional_or_marginal_type_valid", qtype in {"row_cond", "col_cond", "row_marg", "col_marg"}),
+        ("three_plausible_distractors", len(distractors) == 3),
+        ("distractors_in_0_1", all(0.0 <= v <= 1.0 for _, _, v in distractors)),
+        ("distractors_clear_of_key", all(abs(v - key) > 2 * tol for _, _, v in distractors)),
+        ("distractors_distinct", len({d for d, _, _ in distractors}) == 3),
+    ]
+    return _package("two_way_proportions", seed, "2.2", ["3.B"], "Medium", prompt,
+                    f"proportion = {key:.3f}", worked,
+                    [{"kind": "numeric", "value": round(key, 3), "tol": tol}],
+                    fmt_prop(key), key, tol, distractors,
+                    {"scenario_id": c["id"], "observed": obs, "query_type": qtype,
+                     "row": rows[ri], "column": cols[cj]}, checks, scenario_domain=c["domain"])
 
 
 def _fmt_table(rows: List[str], cols: List[str], obs: List[List[int]]) -> str:
@@ -773,7 +1023,10 @@ PROCEDURES: Dict[str, Callable[[random.Random, int], Dict]] = {
     "one_prop_ci": gen_one_prop_ci,
     "two_prop_ztest": gen_two_prop_ztest,
     "lsrl_predict": gen_lsrl_predict,
+    "basic_probability": gen_basic_probability,
     "normal_prob": gen_normal_prob,
+    "two_way_proportions": gen_two_way_proportions,
+    "binomial_probability": gen_binomial_probability,
     "summary_stats": gen_summary_stats,
     "compare_stats": gen_compare_stats,
     "u2_6_cond_prob": gen_u2_6_cond_prob,
@@ -925,6 +1178,7 @@ def property_report(per_proc: int = 80) -> Dict:
         ("ci_higher_conf_wider", S.one_prop_ci(64, 100, 0.99)[1] > S.one_prop_ci(64, 100, 0.95)[1]),
         ("ci_larger_n_narrower", S.one_prop_ci(128, 200, 0.95)[1] < S.one_prop_ci(64, 100, 0.95)[1]),
         ("normal_cdf_monotone", S.norm_cdf(0.0) < S.norm_cdf(1.0) < S.norm_cdf(2.0)),
+        ("binomial_pmf_known_value", abs(_binom_pmf(5, 2, 0.4) - 0.3456) < 1e-12),
         ("two_prop_equal_groups_z0", abs(S.two_prop_ztest(50, 100, 50, 100)[3]) < 1e-9),
         ("lsrl_perfect_line_r1", abs(S.lsrl([1, 2, 3, 4], [3, 5, 7, 9])[2] - 1.0) < 1e-9),
         ("misconception_catalog_selfcheck", not MISC.validate_catalog()),
