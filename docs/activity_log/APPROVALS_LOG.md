@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0051 — Deploy the AP Statistics Combined Practice Selector (TASK-0044) to Production
 - APPROVAL-0050 — BYOQ Data-Model Architecture (Option A) and TASK-0039 Phase 1 Scope
 - APPROVAL-0049 — Pilot-Scale Operational Commitment for Hand-Drawn Manual Grading (TASK-0038 Phase 4)
 - APPROVAL-0048 — Promote `APBIO-HDG-2026-GRAPH-002` to Human-Graded-Pilot-Approved (TASK-0038 Phase 2)
@@ -19,6 +20,54 @@ Most recent entries (full chronological list follows below):
 - Older entries: [`APPROVALS_LOG-0001_to_0040.md`](archive/APPROVALS_LOG-0001_to_0040.md)
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
+
+## APPROVAL-0051 — Deploy the AP Statistics Combined Practice Selector (TASK-0044) to Production
+
+**Date:** 2026-09-26 (approval); Production deploy actually reached via PR #227, 2026-09-27
+**Approved By:** David Bloom
+**Related Task:** `TASK-0044-LAUNCH-SUBJECT-ONBOARDING-GATE.md` (found the gap)
+**Decision:** Approved
+
+### Summary
+
+Approves building and deploying to Production a fix for a gap TASK-0044 found: AP Statistics had
+101/101 published MCQ items content-ready but zero servable through any backend RPC on the
+flat/`targeted_drill` practice path, because `select_practice_frqs` is FRQ-only by design and the only
+existing combined FRQ+MCQ selector (`select_biology_practice_items`) is Biology-only by design. Approves
+the deploy itself: a new, additive `app.select_ordinary_combined_practice_items` Postgres function
+(Biology's own selector is untouched) plus the corresponding `student-session-items` edge-function
+routing change.
+
+### CORRECTION, 2026-09-27: which branch actually fulfilled this approval
+
+The branch this approval was originally requested for (`claude/task-0047-ap-statistics-mcq-serving`)
+built only a `targeted_drill`-only routing, and its migration/edge-function version were applied to
+Cramapple Development only — **never to Production**, despite this entry's original text. The branch
+that actually shipped this approval's intent to Production, via `main` PR #227 on 2026-09-27, is
+`codex/task-0044-statistics-mcq` — a superset that routes both `mcq` (the real Home session format) and
+`targeted_drill` to the same new RPC. Independently verified byte-for-byte identical (function body,
+comment, deployed edge-function source) to what Production was already running before the PR formally
+landed it in `main`'s git history, so this approval's substance — approving this class of fix for this
+diagnosed gap — was correctly fulfilled, just not by the branch originally named.
+
+### Evidence
+
+- Focused handler suite passing on the shipped branch, including Statistics Home `mcq` routing,
+  Statistics `targeted_drill` routing, answer-field redaction, and missing-choice fail-closed behavior.
+- Applied to Cramapple Development and called live against Dev's real AP Statistics content: correct
+  MCQ-only results in `mcq` mode.
+- Live post-merge verification against Production: `app.select_ordinary_combined_practice_items`
+  returns 7 FRQ + 13 MCQ for AP Statistics, matching the pre-deploy dry-run projection exactly;
+  `app.select_biology_practice_items` re-verified unchanged at 12 FRQ + 8 MCQ — confirms AP Biology's
+  serving path was not affected.
+
+### Notes
+
+- Does **not** close TASK-0044 — a fresh, independent QA pass and Main Conductor integration are still
+  required before it is marked `Done`.
+- Does **not** substitute for actually verifying the live, student-facing AP Statistics MCQ experience
+  end-to-end (`LAUNCH_RUNBOOK_2026_10_02.md` item 4) — this approval covers the backend serving path
+  only.
 
 ## APPROVAL-0050 — BYOQ Data-Model Architecture (Option A) and TASK-0039 Phase 1 Scope
 
