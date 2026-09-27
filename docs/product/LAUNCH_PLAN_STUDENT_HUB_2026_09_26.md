@@ -1177,6 +1177,152 @@ already has a working `current_user` check ANDed alongside the dead one).
 observed through the real HTTP path with a real attempt. Full evidence trail:
 `INTERACTION_DATA_GAPS_RUNNING_LIST.md`'s IDG-5.
 
+## NEW, 2026-09-27 (live-verification attempt): `cell_scoped` MCQ serving appears broken for a real account — investigation paused mid-diagnosis, David's call
+
+While trying to get the one real graded attempt IDG-5 still needed, David signed in live as himself
+(`dbloom01@gmail.com`) on `app.cramapple.com` and hit **`no_matching_content` on every AP Statistics
+topic he tried** (Unit 1 topic 1.1, topic 1.9, and "any unit 1 or unit 3 topics"), via both the topic
+chip on Home and a direct `/session?...&topic=...` URL. Confirmed this is not a URL-encoding artifact —
+TanStack Router's default search serializer legitimately JSON-encodes each param (the `topic=%221.9%22`
+in the address bar decodes to the clean string `"1.9"` before `validateSearch` ever sees it); David also
+confirmed he changed only the topic value between attempts, not the URL structure.
+
+**Traced partway, not finished:**
+- `student-session-items`'s `cell_scoped` mode (`index.ts` ~L560-642) queries `app.content_items` by
+  `exam_pack_version_id = session.exam_pack_version_id`, `item_type='mcq'`, `status='published'`, then
+  joins `content_item_versions` — no topic/unit filter at the SQL level at all. Topic/unit scoping
+  happens **client-side**, in `use-session.ts`, via `scopeMcqItemsWithFallback` applied to the *whole*
+  returned pool.
+- The raw string `no_matching_content` (not the friendlier client-composed fallback text) only renders
+  when `itemsRes.data.result.reason` is that exact server-set value, which only happens when the
+  **entire pool from the server was empty** (`rows.length === 0` in `student-session-items`) — i.e. this
+  is failing before any topic filtering, for every topic, because the server-side query itself is
+  returning nothing.
+- Checked directly against Production: David's own `profiles.active_exam_pack_version_id`
+  (`7c5a2975-8f0e-45b9-8fcc-7ec9b8d81ada`) has **203 published MCQ `content_items`**, and the exact join
+  `student-session-items` runs (`content_item_versions` where `content_item_id in (...)` and
+  `status='published'`) also returns **203 rows** — the data the query needs is genuinely there. The most
+  recent `learning_sessions` rows for his account (created in the last few minutes of this session, all
+  `entry_path: self_guided_topic`, `session_mode: quick`) do carry that same exam pack version id, so a
+  session-creation exam-pack mismatch was also ruled out as the obvious explanation.
+- **Not yet found:** why the query returns empty in the live request when the same shape of query
+  returns 203 rows run directly. Did not get further — David asked to stop and pick this up once content
+  service is in production again, not chase it mid-session.
+- **Confirmed unrelated to anything changed this session:** none of today's work touched
+  `content_items`/`content_item_versions`/`student-session-items`, the label-promotion (`DECISION-0079`)
+  only ever *adds* visibility, and the `attempts` trigger fix touches a completely different table. This
+  is either a pre-existing bug this session happened to be the first to hit live, or a very recent
+  regression from something outside this session's changes.
+- **Severity note:** if this really blocks every topic-scoped self-guided entry (not just the ones with
+  a labeling gap), it's more severe than `GAP-9` — that gap only blocks *mastery*, not basic practice
+  serving. Worth prioritizing highly whenever this is picked back up, since it may mean **no real student
+  can currently get a question through this entry path at all**, independent of GAP-9's cell-coverage
+  problem. The Home "Start" button/default recommendation path was not re-tested after this was found;
+  it's unconfirmed whether it shares the same code path (it also passes `unit`, so `entryPath` would
+  also resolve to `self_guided_topic` — plausible it's affected too, not verified).
+- **IDG-5 (the actual reason for this investigation) remains unverified against real live traffic** as a
+  direct result — no attempt could be submitted this session. The scratch-row DB test is still the only
+  evidence the trigger fix works; it is strong evidence (both directions, both environments) but is not
+  the same as a real HTTP round trip.
+
+## SESSION CLOSE, 2026-09-27 — per `docs/team_charter/CRAMAPPLE_SESSION_START.md` / `prompts/CLOSE_SESSION_PROMPT.md`
+
+**1. Current task/issue:** this launch-readiness plan, worked continuously across one long session
+covering: session-route retirement (approved then correctly halted), the `ScoreChip` partial-credit fix,
+`DECISION-0079` (label promotion), `DECISION-0080` (hint-definition-boundary addendum), the full backend
+build of `DECISION-0074` mastery capture (schema → `assistance_state` derivation → mastery counters), a
+completed interaction-data Phase 0 audit, and diagnosis + fix of a real production bug in
+`attempts_prevent_client_grading_truth_update`. Ended mid-diagnosis of a newly-found, likely-severe
+`cell_scoped` MCQ-serving bug, on David's explicit instruction to pause and close the session.
+
+**2. What changed this session (commits, chronological, all on `main`, all pushed):**
+`943ed3be` route-retirement correction + ScoreChip fix + Phase 0 partial pass · `97deba81` `DECISION-0079`
+· `10c7e8e3` `DECISION-0080` · `b7de4ef4` interaction-data schema Phase 1 items 1-2 (migration) ·
+`cea62438` wire `evaluate-attempt` → `assistance_state` · `3ed08e7f` record the deploy · `5b7f30d2` wire
+`cell-state.ts` mastery counters · `cd3f18e4` complete Phase 0 items 2-6, re-measure GAP-9, find + log the
+`attempts`-update bug · `ea2edf16` confirm the bug's root cause empirically · `1dd1241d` fix the real
+cause (a dead PostgREST GUC in the grading-truth trigger).
+
+**3. What was verified:**
+- `ScoreChip` fix: `get_diff` (single-file), 432/432 tests, deployed and live.
+- Migration `20260927170000` (hint schema): synthetic before/after events on a real Dev attempt, checked
+  and reverted; `get_advisors` clean.
+- `assistance_state` derivation + mastery counters: 10 new unit tests, 53 total in the affected suites,
+  `deno check` clean on every touched file, deployed to Dev then Production.
+- `DECISION-0079` promotion: `content_item_topic_resolution` grew from 203 → 496 rows exactly as
+  expected; `get_advisors` showed no new findings.
+- `attempts_prevent_client_grading_truth_update` fix: verified **both directions on both environments**
+  with a scratch, immediately-deleted `attempts` row — service-role update now succeeds, anon-key update
+  still correctly rejected (`permission denied for schema app`). All throwaway diagnostic functions and
+  SQL helper functions were deleted immediately after use; none were left deployed.
+
+**4. What remains open (see the doc sections above for full detail on each):**
+- The new `cell_scoped` no-matching-content bug (this section) — diagnosis paused, not resolved.
+- IDG-5's fix is unverified against a real live grading event (blocked on the bug above, which pre-empted
+  the live test).
+- GAP-9 (0 masterable cells, both subjects) — needs FRQ skill-labeling + Biology's `taxonomy_cells` grid,
+  content-authoring work, not engineering.
+- `SessionFrame` Workstream B1 (the four-`HintGate` split, `DECISION-0080`) — not started; blocked on
+  rubric-preview/reference/deep-dive content sources that don't exist yet for served items.
+- Session-route retirement (`/session/mcq`, `/session/frq`, `/setup`, `/session/uncertain`) — approval
+  was reversed once live code showed the cluster is not actually dead (`TopicHome`'s Resume link and
+  `/setup/subject`'s guard redirect both use it); needs a full Start-and-Resume re-audit before it's
+  raised again, not just a Start-only trace.
+- Interaction-data schema Phase 0 item 4 (naming/typing consistency) — only spot-checked for today's own
+  two new tables (clean); the pre-existing `student_cell_state_id`-vs-`id` split is tracked separately
+  and wasn't re-litigated.
+- Phase 1 items 3-6 (active time, student confidence, retry-reason, recommendation provenance) —
+  deliberately out of scope this session.
+- Three pre-existing undeclared FKs flagged, not fixed (`grading_results.rubric_version_id`,
+  `student_cell_state.last_attempt_id`/`last_session_id`).
+- Two more migration-era dead tables identified, not dropped (`attempt_responses`, `attempt_criterion_results`)
+  — flagged as safe Phase-2 rename-then-drop candidates.
+
+**5. Open blockers/risks:**
+- **The new `cell_scoped` bug is the top risk.** Skip it until the content service is confirmed healthy
+  in Production again — do not resume diagnosis until that's re-checked, per David's explicit
+  instruction closing this session. If it turns out to affect the default Home "Start" path too (not
+  just topic-scoped self-guided entry, unconfirmed either way), it would mean no real student can
+  currently complete a practice session at all — treat that as the working hypothesis to disprove first,
+  not something to assume is fine.
+- A live, end-to-end grading verification (real sign-in → real submit → real grade → real `attempts` row
+  update) is still outstanding. Whoever resumes this should attempt it again once the serving bug above
+  is understood, since it's now clear the serving bug — not the trigger fix — was what actually blocked
+  today's attempt.
+- David's `SERVICE_ROLE_KEY` custom secret still holds a legacy JWT (harmless, unused dead fallback,
+  reversion optional — see `INTERACTION_DATA_GAPS_RUNNING_LIST.md`'s IDG-5 for why it's not necessary to
+  revert, though doing so is fine).
+
+**6. Files changed or checked (full list in the commits above); most consequential:**
+`supabase/migrations/20260927170000_interaction_data_phase1_hint_tracking.sql`,
+`supabase/migrations/20260927200000_fix_grading_truth_role_check.sql`,
+`supabase/functions/_shared/assistance-state.ts` (new), `supabase/functions/_shared/cell-state-signals.ts`,
+`supabase/functions/_shared/cell-state-persist.ts`, `supabase/functions/evaluate-attempt/index.ts`,
+`docs/product/LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md` (this file), `docs/product/INTERACTION_DATA_GAPS_RUNNING_LIST.md`,
+`docs/product/CONTENT_GAPS_RUNNING_LIST.md`, `docs/activity_log/DECISIONS_LOG.md`.
+
+**7. Commands/queries/tests run, with results:** see each dated section above for the exact SQL, `deno
+test`/`deno check` invocations, and their results — not repeated here to avoid drift between two copies.
+
+**8. Approval state:** `DECISION-0079` and `DECISION-0080` both recorded as Approved (David, this
+session) in `DECISIONS_LOG.md`. The `attempts`-trigger fix and the mastery-capture backend build were
+executed under this session's standing instruction to "finish this work... only stop when blocked" — no
+further owner approval is pending on anything actually shipped. The new serving bug requires David's
+own investigation/priority call before anyone resumes it (an explicit "skip for now," not a decision to
+formally record).
+
+**9. Exact next step for the next session:** confirm the content service / `cell_scoped` MCQ serving path
+is healthy in Production (re-test `student-session-items` with `mode=cell_scoped` against David's real
+`exam_pack_version_id` `7c5a2975-8f0e-45b9-8fcc-7ec9b8d81ada`, and check whether the plain Home "Start"
+button is also affected) before anything else on this plan. Once that's resolved or explained, get the
+one real graded attempt IDG-5 has been waiting on, and confirm the `attempts` row actually updates live.
+
+**10. Do not touch next session without re-reading this first:**
+`app.prevent_client_grading_truth_update` (just fixed and verified — do not revert or re-guess at its
+role check), `app.assistance_event_policy`'s seed data (reflects `DECISION-0080` exactly), and the
+session-route cluster (`/session/mcq`, `/session/frq`, `/setup`, `/session/uncertain`) — confirmed live
+and in real use via `TopicHome`'s Resume link, not dead code.
+
 ## Out of Scope
 
 Redesigning any already-decided section of the interaction design spec — raise a proposal to David
