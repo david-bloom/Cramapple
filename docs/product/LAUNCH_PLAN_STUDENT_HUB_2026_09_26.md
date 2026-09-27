@@ -921,6 +921,75 @@ Both launch subjects serve real, distinct published items. This confirms the bac
 carried-forward item #5 (Phase 2 serving). The logged-in-UI half (Home renders these, skill rail
 resolves) still needs a real sign-in — same blocker as A/item 3.
 
+## CORRECTION, 2026-09-27: the "widen session-route retirement" approval does not hold — the cluster is not dead
+
+David approved widening the `/session/mcq`+`/session/frq` retirement to the whole cluster (`/setup`,
+`/setup/subject`, `/session/uncertain`'s two links) based on this doc's own prior finding that none of
+it was reachable from the real default flow. **Sent to the "New Cramapple App" Lovable project
+(`56cae479`) with an explicit stop-and-report instruction if any live reference turned up — it did, and
+the agent correctly stopped before deleting anything (commit `a67a28d5` contains only the unrelated
+`ScoreChip` fix below, verified via `get_diff`):**
+
+- **`TopicHome.tsx`'s Resume link is built from `home.functions.ts`'s `resumeUrlForFormat()`, which
+  returns `/session/mcq` or `/session/frq`.** A returning student with an in-progress attempt resumes
+  through exactly the routes this doc's audit called dead-except-via-`?home=v1`. This was missed
+  because the original audit traced `TopicHome.tsx`'s **Start** buttons (which do go to bare `/session`)
+  but not its **Resume** buttons.
+- **`/setup/subject` is a live redirect target of a subject guard** (`use-student-guard.ts`) for
+  subject-dependent routes, not an orphaned page only `/setup` links to.
+
+**Net effect: this doc's own record was wrong, not just stale — the "real default path" finding that
+underpinned both the original narrow retirement and today's widened approval needs re-auditing before
+any part of this cluster is touched.** Nothing was deleted; nothing is scheduled for deletion. Before
+raising this again: trace **every** entry point into `/session/mcq`/`/session/frq`/`/setup`/`/setup/subject`/
+`/session/uncertain` (Start *and* Resume, not just Start), and confirm whether the "NEW canonical session
+flow" decision (standardize on bare `/session`) implies `resumeUrlForFormat()` itself needs to change
+first — that may be the actual next step, not a route deletion. Flagging back to David rather than
+re-deciding scope myself.
+
+## EXECUTED, 2026-09-27: `ScoreChip` partial-credit color fix shipped to Production
+
+Independent of the correction above (same Lovable message, but the agent split the two apart correctly).
+`ScoreChip.jsx` previously had no `partial` tone — `TONES[tone || (earned === total ? 'earned' : 'lost')]`
+meant a partial score rendered in the "lost" maroon color, next to `VerdictChip.jsx`'s already-correct
+amber "Partially correct" label (the color-mismatch gap this doc flagged 2026-09-26). Added a `partial`
+tone (`var(--status-partial)` / `var(--yellow-700)` fg/border, `var(--yellow-050)` background — reusing
+existing tokens, no new color invented) and select it when `0 < earned < total`. Verified via `get_diff`
+against commit `a67a28d5` — only this file changed. Typecheck clean, 432/432 tests passed. Deployed to
+Production via `deploy_project`. **Not yet re-verified live in a browser** (same blocker as item 3/A —
+no test credentials to reach a real partial-score result).
+
+## EXECUTED, 2026-09-27: Interaction-data schema Phase 0 — partial pass, one open decision closed
+
+Ran the non-gated slice of `STUDENT_INTERACTION_DATA_SCHEMA_PLAN_2026_09_27.md`'s Phase 0 (read-only SQL
+against Production; Phase 1 items 1-2 remain hard-gated on David's hint-definition-boundary decision,
+untouched). Full results, evidence, and what's still unrun: `docs/product/INTERACTION_DATA_GAPS_RUNNING_LIST.md`.
+
+Headline: the plan doc's numbers (108 attempts, 83 grading_results, `confidence_level`/`result_summary`
+still 0/108, `assistance_state` still non-discriminating) re-confirmed with zero drift. One of the
+schema plan's five open decisions is now answered, not just investigated: **`app.attempt_responses` has
+zero rows table-wide** (not merely "less used" than `response_versions` as originally framed) — safe to
+freeze/retire. Recommend the Phase 2 rename-then-drop; not executed here, since that's sequenced after
+the rest of Phase 0.
+
+## INVESTIGATED, 2026-09-27: GAP-9 remediation — Biology's `taxonomy_cells` grid needs curriculum authoring, not a backfill
+
+Checked whether the Biology `taxonomy_cells` grid (empty per the 2026-09-27 GAP-9 count) could be
+populated mechanically from data already in Production. It cannot, and this isn't an engineering gap:
+
+- `app.taxonomy_cells` — the canonical "legal topic × skill combination" grid, distinct from
+  `content_item_cells` (actual content mapped to cells) — is **empty for every subject except AP
+  Statistics** (131 rows). AP Biology, both Calculus tracks, Chemistry, both Physics tracks, and
+  Precalculus all show 0.
+- There is no source-of-record elsewhere in the schema for "which skills legitimately pair with which
+  Biology topics" to derive this from — populating it means deciding the actual topic×skill matrix for
+  the subject, the same kind of judgment call the existing 131 Statistics rows represent. That's
+  curriculum/content authoring, not a migration I should invent rows for.
+
+**Not executed — flagged for David/content**, same as the label-promotion decision below. GAP-9
+remediation for Biology needs this grid authored (by whoever built the 131 Statistics cells, or an
+equivalent content pass) before the labeling work on top of it can even be scoped.
+
 ## Out of Scope
 
 Redesigning any already-decided section of the interaction design spec — raise a proposal to David
