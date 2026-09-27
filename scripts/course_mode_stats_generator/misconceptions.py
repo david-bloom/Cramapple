@@ -466,6 +466,28 @@ CATALOG: Dict[str, Misconception] = {m.tag: m for m in [
        "ced_structural", ["slotframe_u1_12_bias"], ["1.12"], ["2.A"],
        [_fp("S10 Unit 1 (1.10-1.13)", "bias claims must be supported by the sampling scenario rather than assumed from sample size alone")]),
 
+    # --- slot-frame FB-U2-1-4A-TWOWAY-01 (2.1 x 4.A) : two-way table interpretation ---
+    _M("u2_1__raw_counts_as_conditional_comparison",
+       "Compared raw counts instead of conditional proportions",
+       "Used a larger cell count as evidence of a larger within-group proportion without accounting for different row totals.",
+       "ced_structural", ["slotframe_u2_1_twoway_interpret"], ["2.1"], ["4.A"],
+       [_fp("S10 Unit 2 (2.1/2.2)",
+            "two-way tables are interpreted through marginal and conditional distributions; comparing groups requires matching denominators")]),
+
+    _M("u2_1__used_column_denominator_for_row_condition",
+       "Used the column total when the condition was the row group",
+       "Computed percentages within the response category rather than within each row group named in the comparison.",
+       "ced_structural", ["slotframe_u2_1_twoway_interpret"], ["2.1"], ["4.A"],
+       [_fp("S10 Unit 2 (2.1/2.2)",
+            "conditional distributions must use the denominator for the stated condition, such as the row total when comparing within row groups")]),
+
+    _M("u2_1__marginal_percent_treated_as_conditional",
+       "Treated a marginal percentage as a conditional percentage",
+       "Used the overall percentage in a category as though it described each comparison group separately.",
+       "ced_structural", ["slotframe_u2_1_twoway_interpret"], ["2.1"], ["4.A"],
+       [_fp("S10 Unit 2 (2.1/2.2)",
+            "marginal distributions summarize one variable overall; conditional distributions summarize one variable within levels of another")]),
+
     # --- slot-frame FB-U1-13-2A-DESIGN-01 (1.13 x 2.A) : experimental design ---
     _M("u1_13__confounding_vs_lurking_confused",
        "Confused confounding with a lurking variable or unrelated association",

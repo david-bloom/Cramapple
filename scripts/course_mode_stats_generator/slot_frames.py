@@ -146,6 +146,12 @@ GRAPH_TAGS = {
     "u1_5__wrong_plot_type_for_data",
 }
 
+TWOWAY_INTERPRET_TAGS = {
+    "u2_1__raw_counts_as_conditional_comparison",
+    "u2_1__used_column_denominator_for_row_condition",
+    "u2_1__marginal_percent_treated_as_conditional",
+}
+
 CAT_GRAPH_TAGS = {
     "u1_4__count_percent_graph_confusion",
     "u1_4__relative_frequency_graph_denominator_error",
@@ -668,6 +674,104 @@ def _hist_counts(values: List[int], width: int) -> List[tuple]:
     return bins
 
 
+def _pct(count: int, denom: int) -> int:
+    return round(count / denom * 100)
+
+
+def _twoway_table_text(rows: tuple, cols: tuple, counts: tuple) -> str:
+    return (f"{rows[0]}: {cols[0]} {counts[0][0]}, {cols[1]} {counts[0][1]}; "
+            f"{rows[1]}: {cols[0]} {counts[1][0]}, {cols[1]} {counts[1][1]}")
+
+
+def gen_u2_1_twoway_interpret_instance(rng: random.Random, seed: int) -> Dict:
+    c = rng.choice(SCN.U2_1_TWOWAY_CONTEXTS)
+    rows, cols = c["rows"], c["cols"]
+    shift = rng.choice([0, 2, 4, 6])
+    counts = tuple(tuple(v + shift for v in row) for row in c["counts"])
+    focus_idx = cols.index(c["focus_col"])
+    row_totals = [sum(row) for row in counts]
+    col_total = counts[0][focus_idx] + counts[1][focus_idx]
+    grand_total = sum(row_totals)
+    row_pcts = [_pct(counts[i][focus_idx], row_totals[i]) for i in range(2)]
+    col_pcts = [_pct(counts[i][focus_idx], col_total) for i in range(2)]
+    marginal_pct = _pct(col_total, grand_total)
+    higher = rows[0] if row_pcts[0] > row_pcts[1] else rows[1]
+    lower = rows[1] if higher == rows[0] else rows[0]
+    higher_pct = max(row_pcts)
+    lower_pct = min(row_pcts)
+    raw_higher = rows[0] if counts[0][focus_idx] > counts[1][focus_idx] else rows[1]
+    raw_lower = rows[1] if raw_higher == rows[0] else rows[0]
+    correct_text = (f"About {higher_pct}% of {higher} are in the '{c['focus_col']}' category, "
+                    f"compared with about {lower_pct}% of {lower}, so {higher} have the larger conditional percentage.")
+    prompt = (f"The two-way table summarizes {c['row_variable']} and whether each case is classified as {c['col_variable']}. "
+              f"Counts are {_twoway_table_text(rows, cols, counts)}. "
+              f"Which statement correctly interprets the conditional distribution of '{c['focus_col']}' by {c['row_variable']}?")
+    distractors = [
+        (f"Because the count {counts[0][focus_idx] if raw_higher == rows[0] else counts[1][focus_idx]} is larger than "
+         f"{counts[1][focus_idx] if raw_higher == rows[0] else counts[0][focus_idx]}, {raw_higher} have the larger conditional percentage than {raw_lower}.",
+         "u2_1__raw_counts_as_conditional_comparison"),
+        (f"Among cases in the '{c['focus_col']}' category, about {col_pcts[0]}% are {rows[0]} and {col_pcts[1]}% are {rows[1]}, "
+         f"so those are the conditional percentages within the two {c['row_variable']} groups.",
+         "u2_1__used_column_denominator_for_row_condition"),
+        (f"Overall, about {marginal_pct}% of all cases are in the '{c['focus_col']}' category, so each {c['row_variable']} group has about {marginal_pct}% in that category.",
+         "u2_1__marginal_percent_treated_as_conditional"),
+    ]
+    options = [{"text": correct_text, "correct": True, "misconception": None}]
+    for text, tag in distractors:
+        options.append({"text": text, "correct": False, "misconception": tag,
+                        "misconception_source": MISC.provenance(tag)})
+    rng.shuffle(options)
+    scenario_prov = SCN.framing("slotframe_u2_1_twoway_interpret", c.get("domain"))
+    checks = [
+        ("exactly_one_correct", sum(1 for o in options if o["correct"]) == 1),
+        ("four_options", len(options) == 4),
+        ("option_texts_unique", len({o["text"] for o in options}) == 4),
+        ("all_distractors_tagged", all(o["misconception"] for o in options if not o["correct"])),
+        ("all_distractor_tags_canonical", all(o["misconception"] in MISC.CATALOG for o in options if not o["correct"])),
+        ("all_distractors_cite_source", all(o.get("misconception_source", {}).get("sources") for o in options if not o["correct"])),
+        ("scenario_framing_present", bool(scenario_prov.get("archetype")) and bool(scenario_prov.get("sources"))),
+        ("twoway_tags_used", {o.get("misconception") for o in options if o.get("misconception")} == TWOWAY_INTERPRET_TAGS),
+        ("raw_count_misleads", raw_higher != higher),
+        ("conditional_percentages_distinct", row_pcts[0] != row_pcts[1]),
+    ]
+    return {
+        "schema_version": "course-mode-generated-0.1",
+        "package_id": f"slotframe-u2_1-4a-{seed:06d}",
+        "content_key": f"apstat-u2-1-4a-twoway_interpret-{seed:06d}",
+        "item_type": "mcq",
+        "difficulty": "Medium",
+        "exam_pack_ref": {"exam_code": "ap_statistics", "cycle": "2026-27"},
+        "taxonomy_refs": [
+            {"scheme_key": "ap-statistics-2026-27", "node_key": "unit-2"},
+            {"scheme_key": "ap-statistics-2026-27", "node_key": "topic-2.1"},
+            {"scheme_key": "ap-statistics-skills", "node_key": "skill-4.A", "practice": 4},
+        ],
+        "cells": [{"topic": "2.1", "skill": "4.A"}],
+        "scenario_provenance": scenario_prov,
+        "prompt": prompt,
+        "mcq_form": {"options": options},
+        "parts": [{"part_key": "part-a", "prompt": prompt, "response_modalities": ["mcq"], "points": 1,
+                   "criteria": [{"criterion_key": "part-a-criterion-1", "points": 1,
+                                  "description": "Selects the row-conditional interpretation that uses each row total as the denominator.",
+                                  "required_evidence": correct_text,
+                                  "deterministic_checks": [{"kind": "mcq_key", "correct_representation": "row_conditional_comparison"}],
+                                  "accepted_variants": []}]}],
+        "provenance": {"generator": "course_mode_stats_generator/slot_frames.py",
+                       "frame_id": "FB-U2-1-4A-TWOWAY-01", "template_id": "slotframe_u2_1_twoway_interpret",
+                       "params": {"scenario_id": c["id"], "rows": rows, "cols": cols, "counts": counts,
+                                  "focus_col": c["focus_col"], "row_totals": row_totals,
+                                  "row_percentages": row_pcts, "column_percentages": col_pcts,
+                                  "marginal_percentage": marginal_pct},
+                       "seed": seed, "release_status": "unreleased_generated_pending_review",
+                       "note": "Authored conceptual frame; correctness from two-way table conditional-distribution interpretation."},
+        "_property_checks": checks,
+    }
+
+
+def generate_u2_1_twoway_interpret(count: int, base_seed: int = 21000) -> List[Dict]:
+    return [gen_u2_1_twoway_interpret_instance(random.Random(base_seed + i), base_seed + i) for i in range(count)]
+
+
 def _percentages(categories: List[tuple]) -> List[tuple]:
     total = sum(count for _, count in categories)
     return [(name, round(count / total * 100)) for name, count in categories]
@@ -1052,6 +1156,9 @@ FRAMES = [
     {"frame_id": "FB-U1-13-2A-DESIGN-01", "cell": "1.13 x 2.A", "gen": generate_u1_13_design,
      "base_seed": 11300, "expected_tags": set(DESIGN_TAGS),
      "note": "Experimental design classification. Coverage: Unit 1 topic 1.13."},
+    {"frame_id": "FB-U2-1-4A-TWOWAY-01", "cell": "2.1 x 4.A", "gen": generate_u2_1_twoway_interpret,
+     "base_seed": 21000, "expected_tags": set(TWOWAY_INTERPRET_TAGS),
+     "note": "Two-way table conditional-distribution interpretation. Coverage: Unit 2 topic 2.1."},
 ]
 
 

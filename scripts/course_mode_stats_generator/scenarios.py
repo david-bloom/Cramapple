@@ -185,6 +185,12 @@ FRAMING: Dict[str, Framing] = {
         ["realistic study-design scenario",
          "classification must distinguish imposed treatments, randomization, control/placebo/blinding, and confounding"],
         [_SEC5, _SEC6, _SEC7]),
+    "slotframe_u2_1_twoway_interpret": Framing(
+        "slotframe_u2_1_twoway_interpret", "Q2", "Describe", 4, "exam_aligned_digital",
+        ["two categorical variables summarized in a two-way table",
+         "interpretations must distinguish marginal and conditional distributions",
+         "conditional comparisons must use the denominator for the stated condition"],
+        [_SEC5, _SEC6, _SEC7]),
     "t_test_mean": Framing(
         "t_test_mean", "Q4", "Calculate", 3, "exam_aligned_digital",
         ["a random sample of a quantitative variable (population roughly Normal or n large)",
@@ -697,6 +703,26 @@ U1_13_DESIGN_CONTEXTS: List[Dict[str, object]] = [
 ]
 
 
+# Unit 2.1 two-way table interpretation contexts. Each id is cell-namespaced.
+U2_1_TWOWAY_CONTEXTS: List[Dict[str, object]] = [
+    {"id": "u2_1__club_transport", "domain": "education", "row_variable": "grade level",
+     "col_variable": "usually gets to school by bus", "rows": ("9th grade", "12th grade"),
+     "cols": ("bus", "not bus"), "counts": ((42, 58), (30, 20)), "focus_col": "bus"},
+    {"id": "u2_1__membership_attendance", "domain": "business", "row_variable": "membership type",
+     "col_variable": "attended at least once this week", "rows": ("basic members", "premium members"),
+     "cols": ("attended", "did not attend"), "counts": ((56, 104), (45, 30)), "focus_col": "attended"},
+    {"id": "u2_1__clinic_portal", "domain": "health", "row_variable": "patient age group",
+     "col_variable": "uses the online portal", "rows": ("younger adults", "older adults"),
+     "cols": ("uses portal", "does not use portal"), "counts": ((48, 72), (36, 24)), "focus_col": "uses portal"},
+    {"id": "u2_1__library_format", "domain": "civic", "row_variable": "patron group",
+     "col_variable": "borrowed an e-book", "rows": ("adult patrons", "teen patrons"),
+     "cols": ("e-book", "print only"), "counts": ((54, 126), (35, 35)), "focus_col": "e-book"},
+    {"id": "u2_1__app_notifications", "domain": "technology", "row_variable": "account type",
+     "col_variable": "enabled notifications", "rows": ("free accounts", "paid accounts"),
+     "cols": ("enabled", "not enabled"), "counts": ((90, 210), (65, 35)), "focus_col": "enabled"},
+]
+
+
 # ==============================================================================
 # Access + validation helpers
 # ==============================================================================
@@ -884,6 +910,23 @@ def validate_scenarios() -> List[str]:
             problems.append(f"u1_13 design context id is not namespaced: {ctx.get('id')}")
         if len(ctx.get("distractors", [])) < 3:
             problems.append(f"u1_13 design context needs at least 3 distractors: {ctx}")
+    seen_u2_1_ids = set()
+    for ctx in U2_1_TWOWAY_CONTEXTS:
+        required = ("id", "domain", "row_variable", "col_variable", "rows", "cols", "counts", "focus_col")
+        if not all(k in ctx for k in required):
+            problems.append(f"u2_1 two-way context missing fields: {ctx}")
+        if ctx.get("id") in seen_u2_1_ids:
+            problems.append(f"duplicate u2_1 two-way context id: {ctx.get('id')}")
+        seen_u2_1_ids.add(ctx.get("id"))
+        if not str(ctx.get("id", "")).startswith("u2_1__"):
+            problems.append(f"u2_1 two-way context id is not namespaced: {ctx.get('id')}")
+        rows, cols, counts = ctx.get("rows", ()), ctx.get("cols", ()), ctx.get("counts", ())
+        if len(rows) != 2 or len(cols) != 2 or len(counts) != 2 or any(len(r) != 2 for r in counts):
+            problems.append(f"u2_1 context must be a 2x2 table: {ctx}")
+        elif any(cell <= 0 for row in counts for cell in row):
+            problems.append(f"u2_1 context counts must be positive: {ctx}")
+        elif ctx.get("focus_col") not in cols:
+            problems.append(f"u2_1 focus_col must be one of cols: {ctx}")
     return problems
 
 
@@ -910,6 +953,7 @@ if __name__ == "__main__":
             "u1_8_boxplots": len(U1_8_BOXPLOT_CONTEXTS),
             "u1_12_bias": len(U1_12_BIAS_CONTEXTS),
             "u1_13_design": len(U1_13_DESIGN_CONTEXTS),
+            "u2_1_twoway": len(U2_1_TWOWAY_CONTEXTS),
         },
         "framing": {p: {"archetype": f.archetype, "task_verb": f.task_verb,
                         "modality": f.modality} for p, f in FRAMING.items()},
