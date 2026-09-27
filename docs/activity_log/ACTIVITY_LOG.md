@@ -6,6 +6,26 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- `O17` Home Redesign Reviewed for Viability, `TASK-0048` Planned (2026-09-27): David shared a
+  Design-canvas artifact (`https://claude.ai/artifact/HoaRcFFv8GoiV9VeyDcgYh`) as the intended `/home`
+  redesign answering `O17`. Reviewed every element against the real schema/functions rather than
+  judging it on looks: design-system fidelity confirmed real (`project/ds/cramapple/tokens.json` is a
+  byte-for-byte copy of `docs/new_design/`'s tokens, not a reinvention). Stage A (new student) and
+  Stage B (building evidence) are mostly buildable now or after small backend work; the
+  Main/Personalized state depends on things that don't exist yet (`GAP-10`'s content pass, an unbuilt
+  partial-FRQ-resume capability, a nonexistent streak/trend computation layer) and was deliberately cut
+  from scope. **Independently found while reviewing:** `get_home_start_queue` (the RPC behind the
+  "Start here" queue on the *current* live Home) was written in a migration
+  (`20260828120000_home_start_queue_rpc.sql`) and never deployed to Dev or Production — confirmed via
+  `pg_proc` on both — the same "written, never shipped" bug class as today's earlier `public.sessions`
+  fixes, silently showing every student a hardcoded placeholder queue today, unrelated to this
+  redesign. Created `TASK-0048` (`docs/tasks/TASK-0048-HOME-REDESIGN-STAGE-A-B.md`) scoping Stage A +
+  Stage B with that RPC deploy and a topic-level course-position schema change as prerequisites; the
+  diagnostic quiz, cross-subject rollup, and full Main-state build are explicitly flagged as separate
+  follow-ups, not silently dropped. **Next Owner:** David Bloom (confirm scope), then whoever picks up
+  `TASK-0048`. **Next Action:** deploy `get_home_start_queue` — free-standing, fixes live Home
+  regardless of this task's timeline. Full detail in `LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md`'s
+  "REVIEWED, 2026-09-27" section and `ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md`'s `O17`.
 - TASK-0042 Content Pipeline Done (2026-09-27): completed the 216-row freshness audit, five difficulty corrections, runner hardening, all-subject label execution, and blind Claude third review of the actual 141 current multi-unit candidates. Promoted 27 exact confirmations; retained 66 disagreements and 48 holds. All-subject live census: 0 mismatches. David set no fixed quantity targets outside Biology; maximize safely usable published inventory (`DECISION-0082`). Approval: `APPROVAL-0056`.
 - David Chose "Fix First" on the Two `public.sessions` Bugs — Lovable Agent Blocked, Needs Editor
   Attention (2026-09-27): asked David directly whether to fix the two session-route bugs found this

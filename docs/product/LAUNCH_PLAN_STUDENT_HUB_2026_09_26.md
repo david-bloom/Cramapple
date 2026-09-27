@@ -1533,6 +1533,57 @@ David reported `app.cramapple.com/home` "still using legacy design." Traced rath
   for it yet, unlike Session which had `docs/new_design/` to build against. Recorded as `O17` in
   `ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md`'s OPEN table.
 
+## REVIEWED, 2026-09-27 (same session): design direction shared for `O17` — viable in two of four states, `TASK-0048` planned
+
+David shared a Design-canvas artifact (`https://claude.ai/artifact/HoaRcFFv8GoiV9VeyDcgYh`, "CramApple
+— Student Hub") with the intended `/home` redesign: four artboards — Desktop/Mobile Personalized, Stage
+A (new recognized student), Stage B (building evidence). Reviewed every element against the real schema
+and functions rather than judging it on looks alone.
+
+**Design-system fidelity: confirmed real, not assumed.** `project/ds/cramapple/tokens.json` (the
+artifact's copied design-system tokens) is a byte-for-byte match to `docs/new_design/`'s canonical
+tokens — its own `meta.source` cites `docs/new_design/tokens/*.css on main`, and a spot check of the
+color/type/spacing values confirms it. The design also correctly diagnoses the fix this doc's own `O17`
+note reached independently: "Home is a page, not a plate" — the plate's 1440px width, masthead,
+gutters, caps and square corners all hold; only the no-scroll rule doesn't fit a hub page.
+
+**Per-state viability, checked line by line:**
+- **Stage A (new student):** mostly buildable now — position-not-set state, unit/topic selects, the
+  empty curriculum grid, and generic explainer cards all map onto data that already exists
+  (`getUnitsForSubject`, `fetchTopicGuides`). Two real gaps: topic-level position tracking doesn't
+  exist (`student_course_positions` has only `unit_id`, confirmed via `information_schema.columns`),
+  and the "6-question diagnostic" ("Not sure? Take the check") is a genuinely new, unbuilt feature —
+  not a wiring task.
+- **Stage B (building evidence):** partially buildable, closer than expected. Its "Worth revisiting"
+  panel maps closely onto `get_home_start_queue`'s due-reasons (`direct_miss`, `decay`) — **but that
+  RPC was never deployed.** Confirmed via `pg_proc` on both Dev and Production: the migration
+  (`20260828120000_home_start_queue_rpc.sql`) is fully written, reads from `app.student_cell_state`
+  (now populated with real data from this week's mastery-capture build), and is simply absent from both
+  environments' function list. This is the same bug class as today's earlier two `public.sessions`
+  fixes — a real feature, coded, never shipped — and it's *why the current live Home's* "Start here"
+  queue silently renders a hardcoded placeholder today, independent of this redesign entirely. The
+  "Pulse"/"Independence" panels need a new aggregation over `attempts.assistance_state`/
+  `pre_submit_hint_count`, buildable now off this week's work but not yet wired into a snapshot
+  function. The "Your subjects" cross-subject panel is new scope (today's snapshot is single-subject).
+- **Main/Personalized:** the design's most ambitious state, and not viable as a near-term build. Real
+  gaps found: topic-level mastery heat-map (gated on `GAP-10`'s content-authoring pass), per-criterion
+  partial-FRQ resume ("you've already banked 4 here" — `StudentHomeSnapshot.lastAttempt` is hardcoded
+  `null` today, no schema for an in-progress FRQ's criterion state), a streak counter ("12 days in a
+  row" — zero backend exists for this anywhere), a 12-session trend line and ranked point-loss list
+  (`stats: []` is hardcoded empty today), and a session-queue resume that survives a reload (the queue
+  cursor lives client-side only, confirmed while tracing `cell_scoped` earlier this session). None of
+  these are wiring tasks — each is real, separately-scoped product/engineering work.
+- **Mobile:** the artifact's own canvas note says it wasn't reworked yet ("still the earlier boxy
+  version") — not reviewed in depth, nothing to build against yet.
+
+**Outcome:** `TASK-0048` created (`docs/tasks/TASK-0048-HOME-REDESIGN-STAGE-A-B.md`) scoping Stage A +
+Stage B only, with the `get_home_start_queue` deploy and topic-position schema change as prerequisite
+workstreams, and the diagnostic/cross-subject-rollup/Main-state work explicitly cut and flagged as
+separate follow-ups rather than silently dropped. **Next Owner:** David Bloom (confirm scope/sequencing)
+then whoever picks up `TASK-0048`'s workstreams. **Next Action:** deploy `get_home_start_queue` to Dev
+then Production — free-standing, fixes a currently-broken feature on live Home regardless of this
+task's timeline — then proceed through `TASK-0048` in the sequence that doc lays out.
+
 **Next Owner:** David Bloom (design direction / scope call). **Next Action:** decide whether `/home`
 gets a structural redesign against the Plate/pane system (and if so, whether that's a new Lovable
 plan/task with its own scope), a lighter targeted pass, or is deliberately deferred past launch — this
