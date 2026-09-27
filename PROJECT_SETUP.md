@@ -11,6 +11,13 @@ Every substantive Cramapple session, including Claude and Codex sessions, starts
 
 - `docs/team_charter/CRAMAPPLE_SESSION_START.md`
 
+For "what is the app's architecture and design right now?" and a map of which doc is canonical per
+topic, read these before trusting any individual design/architecture doc:
+
+- `docs/product/ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md` — the decided-vs-open one-pager.
+- `docs/INDEX.md` — canonical source-of-truth per topic, the `STATUS:` header convention, and the
+  list of superseded/historical docs to avoid.
+
 Agent-specific convenience prompts point to the same bootstrap:
 
 - `prompts/CLAUDE_NEW_SESSION_PROMPT.md`

@@ -1,7 +1,18 @@
 # Design System Cutover Plan — Current App → Project-Crux
 
-STATUS: draft for Product Owner review | DATE: 2026-09-22 | AUDIENCE: David,
+STATUS: SUPERSEDED (palette/naming) by `docs/new_design/` (2026-09-27) | DATE: 2026-09-22 | AUDIENCE: David,
 LLM-first entry point for any session picking this up.
+
+> **STALE-PALETTE BANNER (2026-09-27).** This plan froze an earlier snapshot of the "new" design
+> system and calls it **"Project-Crux"** with **brand red `#F5442E`**, **clay for incorrect**, and
+> **amber for revisit** (§1, §8). **That palette is superseded.** The system that actually landed and
+> is live (Lovable `56cae479`, verified 2026-09-27) is **brand orange `#f54900` / `#ca3500` ink,
+> light-only, square corners, Bungee family** — see `docs/new_design/README.md` + `VISUAL_IDENTITY.md`
+> (canonical). Also note the **fixed 1440×900 no-scroll frame** described in the §1 comparison table is
+> itself superseded — the frame is now **responsive** (David 2026-09-26). The *structure* of this doc's
+> gap analysis (what the new system had never covered, the two-deploy-target split) is still useful
+> history; its **colour, corner, and frame characterizations are not current.** Canonical current
+> summary: `docs/product/ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md` (rows D3, D4, D5).
 
 This plan compares the live Cramapple product's current design system against
 the new one produced by the Project-Crux design project, names every gap

@@ -2,6 +2,15 @@
 
 **Status: approved direction. This folder supersedes the earlier visual identity briefs.**
 
+> **CORRECTION (2026-09-27): the no-scroll plate is SUPERSEDED — the frame is now responsive.**
+> The "Decided" bullet and the "The plate vs. page length" section below record the state as of
+> 2026-09-21 ("no-scroll plate stays for now"). On **2026-09-26 David decided go responsive**
+> (`docs/product/LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md`, "DECIDED, 2026-09-26" #1); implemented in
+> Lovable `56cae479` commit `44a0f59e` and verified 2026-09-27. Everything else in this folder
+> (orange/light palette, square corners, zero motion, type stack, the two plate templates) remains
+> CURRENT. Canonical current summary: `docs/product/ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md`
+> (row D3).
+
 Per `docs/README.md` authority order, this is a canonical product document. It replaces:
 
 - `docs/product/CRAMAPPLE_VISUAL_IDENTITY_BRIEF.md` (v1)
@@ -46,7 +55,7 @@ The full system — components, UI kits, specimen cards — lives in the design-
 ## Decided
 
 - **Dark mode: retired** (2026-09-21, David). Light-only. Supersedes v2's dark-first requirement.
-- **The no-scroll plate stays for now** (2026-09-21, David) — held as-is to see how it plays out under real content, with the page-length question explicitly open. See "The plate vs. page length" below.
+- **The no-scroll plate stays for now** (2026-09-21, David) — held as-is to see how it plays out under real content, with the page-length question explicitly open. See "The plate vs. page length" below. **[SUPERSEDED 2026-09-26: go responsive — see CORRECTION at top.]**
 
 ## Open items needing a David decision
 

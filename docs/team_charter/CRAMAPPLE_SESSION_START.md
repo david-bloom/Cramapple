@@ -6,6 +6,10 @@
 **Decision:** DECISION-0054  
 **Canonical repository:** `david-bloom/Cramapple`
 
+> **RATIFIED (2026-09-27, DECISION-0075).** The two discoverability pointers added to §"Session-Start
+> Procedure" step 4 below (the architecture/design one-pager and `docs/INDEX.md`) are ratified and kept.
+> They add references only; they change no policy.
+
 ## Purpose
 
 This is the device-neutral bootstrap for every substantive Cramapple session, whether it starts in ChatGPT on desktop, ChatGPT on iPhone, ChatGPT Work, Codex, Claude, or another approved tool.
@@ -44,6 +48,8 @@ Before substantive work:
    - `docs/team_charter/CHANGELOG.md`
    - the Index sections of `docs/activity_log/ACTIVITY_LOG.md`, `APPROVALS_LOG.md`, and `DECISIONS_LOG.md`
    - `docs/product/CRAMAPPLE_VISION.md`
+   - `docs/INDEX.md` — canonical source-of-truth per topic, and which docs are superseded/historical *(DECISION-0075)*
+   - `docs/product/ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md` — current architecture/design, decided vs. open *(DECISION-0075)*
 5. Verify current GitHub state for every repository involved. Continue the branch named by the task record; otherwise follow branch-hygiene R1-R7.
 6. Determine the task Tier, approval state, required QA, and any Product Owner or Delegated Domain Approver gate.
 7. Verify access to each required external system. Tool availability in an earlier chat, on another device, or on a Mac does not prove availability in the current session.

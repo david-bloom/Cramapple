@@ -6,6 +6,14 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Documentation Cleanup — Architecture/Design Single Source of Truth (2026-09-27): docs-only pass that
+  created the canonical one-pager `docs/product/ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md` and
+  `docs/INDEX.md`, annotated the stale canonical design/rebuild docs in place (fixed-plate rule → responsive;
+  §11 decisions marked resolved with TASK-0047/`DECISION-0074` citations; Course Mode / "Project-Crux"
+  vocabulary + palette banners), and added entry-point pointers. Verified the responsive frame, project
+  IDs, commit locations, and DNS against live systems, not docs. **Ratified `DECISION-0075`** (one-pager
+  canonical, owner David Bloom; governed-doc pointers kept; legacy = annotate-in-place, no move).
+  Committed via docs-only PR.
 - Session Close: Six-Section Launch Plan Audit, Mastery Rule Tightened (`DECISION-0074`), Student
   Interaction Data Schema Plan Drafted, Full Branch Survey/Cleanup/Merge, MCQ-Fix Attribution
   Corrected (2026-09-27): David asked for a full audit of all six launch-plan sections
@@ -122,6 +130,55 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 ---
+
+## Documentation Cleanup — Architecture/Design Single Source of Truth — 2026-09-27
+
+**What & why.** David asked for a docs-only cleanup: make the *current* architecture/design state easy
+to find and the *legacy* state clearly out of the way, without destroying history and without making any
+product decision. Diagnosed problem: the authoritative rebuild plan (`APP_REBUILD_MIGRATION_PLAN.md`)
+carried no Task/owner/DECISION number and its §11 "open decisions" were largely resolved 2026-09-26
+without in-place updates; canonical design docs still asserted the reversed fixed-plate rule; "Course
+Mode" and "Open Hand" vocabulary was overloaded; three design systems (orange canonical vs. emerald v2
+vs. red "Project-Crux") were in circulation.
+
+**Verified against live systems (not docs), 2026-09-27:**
+- Responsive-frame change is real: Lovable `56cae479` commit `44a0f59e` removes `width/height`/
+  `overflow:hidden` from `Plate.jsx`, drops `--plate-height`, adds `--plate-min-width` + 899/520px
+  breakpoints, and writes an `AGENTS.md` documenting the fluid plate. Read the diff directly.
+- Canonical design (orange/light/Bungee/square) confirmed live in `56cae479`'s screenshot; the red
+  "Project-Crux" palette is not what shipped.
+- Two-repo hazard confirmed: the 6 frontend commits cited across docs are absent from this git repo;
+  only Workstream E `1a6e8404` and follow-on `9fc0f75b` (plus the taxonomy commits) are in-repo.
+- Live DNS: both domains on Cloudflare/Lovable (`185.158.133.1`); `app.cramapple.com` currently
+  301-redirects to `cramapple.com` (flagged for re-confirmation of intended launch behavior).
+- Decision numbering: highest is `DECISION-0074`; next free is `DECISION-0075`.
+
+**Changes (docs-only):**
+- **New:** `docs/product/ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md` — the canonical decided-vs-open
+  one-pager (17 DECIDED rows each cited, 15 OPEN rows each with owner). Carries a blank
+  DECISION-#### + owner slot for David to ratify.
+- **New:** `docs/INDEX.md` — canonical source-of-truth per topic, the `STATUS:` header convention, and
+  the superseded/historical list.
+- **Annotated in place (no silent rewrites):** `new_design/VISUAL_IDENTITY.md` + `README.md`
+  (fixed-plate rule superseded → responsive); `APP_REBUILD_MIGRATION_PLAN.md` (doc-level pointer +
+  §11 rows 1/3/7/11/17/18/19/20/23/24 marked resolved/superseded with citations, genuine opens kept;
+  §9.1 + Decision-1 prose annotated); `DESIGN_SYSTEM_CUTOVER_PLAN.md` (stale palette/"Project-Crux"
+  banner); `USE_MODES_STRATEGIC_RECONCILIATION.md` + the three active `teaching/COURSE_MODE_*` specs
+  (vocabulary banners: one mode "Learn"; components ≠ mode).
+- **Entry-point pointers:** `PROJECT_SETUP.md` (ungoverned — done) and
+  `team_charter/CRAMAPPLE_SESSION_START.md` (governed — **flagged PENDING RATIFICATION**, per David's
+  choice this session to edit both and flag the governed one).
+
+**Governance — resolved same session (David's calls):**
+1. **Ratified** `ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md` as **`DECISION-0075`**, owner David Bloom;
+   the two pointers in the governed `CRAMAPPLE_SESSION_START.md` are ratified and kept. Recorded in
+   `DECISIONS_LOG.md`.
+2. **Legacy-file handling: Option A (annotate-in-place, no move).** No `docs/legacy/` tree created;
+   banners + `docs/INDEX.md` do the job. Proposal doc marked DECIDED.
+
+**Status:** Committed via PR (docs-only, 2026-09-27). No product/design decision was created or reversed;
+no files moved or deleted. The three pre-existing uncommitted files (`APP_LAUNCH_READINESS_INDEX`,
+`LAUNCH_PLAN_STUDENT_HUB`, `LAUNCH_RUNBOOK`) were left untouched, not included in the PR.
 
 ## October 2 Launch Operating Cleanup — 2026-09-26
 

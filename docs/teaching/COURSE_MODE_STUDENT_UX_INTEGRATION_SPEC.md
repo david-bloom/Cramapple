@@ -1,6 +1,13 @@
 # Course Mode — Student UX Integration Spec
 
-STATUS: build-ready integration spec | DATE: 2026-08-25 | AUDIENCE: David → Claude Design (screens) → Lovable (build).
+STATUS: SUPERSEDED (vocabulary) — HISTORICAL pilot spec | DATE: 2026-08-25 | AUDIENCE: David → Claude Design (screens) → Lovable (build).
+
+> **VOCABULARY BANNER (2026-09-27).** "Course Mode" as a **selectable session mode** is **retired**
+> (David 2026-09-27: "there is only one mode"). There is now **one session mode ("Learn")**; what this
+> doc calls Course Mode survives only as **components** (`ConfirmTransferBeat`, `WorkedExample`,
+> `StreakBadge` — see TASK-0047 Workstream D), not as a mode, and any `/session/mcq` "core loop"
+> language here is stale (canonical flow is bare `/session`). Read this as historical pilot design.
+> Current vocabulary and decisions: `docs/product/ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md` (D1, D11, D14).
 
 **What this supersedes.** The original mocks brief (`COURSE_MODE_STUDENT_UX_DEFINITION` + the
 "four static HTML mocks" plan) framed Course Mode as **a panel above today's home** and four

@@ -1,8 +1,19 @@
 # Cramapple Visual Identity — canonical
 
+STATUS: CURRENT except where a CORRECTION note below applies.
+
 Supersedes `docs/product/CRAMAPPLE_VISUAL_IDENTITY_BRIEF.md` and `..._v2.md`. See `README.md` in this folder for what changed and why.
 
-**The plate.** Every template is a fixed 1440×900 frame that never scrolls and never has a collapsed region. `overflow: hidden` at the frame, a 70px orange masthead, a 48px breadcrumb bar, then a three-column grid — 352px / fluid / 324px with 20px gaps inside 40px gutters — and a single 10px caption line at the bottom. **Content is sized to fit; it is never made reachable by scrolling or expanding.** If something does not fit, cut copy or restructure the layout. This is a hard rule and the most common way to break the system.
+> **CORRECTION (2026-09-27): the fixed no-scroll plate rule below is SUPERSEDED.**
+> David decided **go responsive** on 2026-09-26 (`docs/product/LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md`,
+> "DECIDED, 2026-09-26" #1). The plate is now **fluid up to 1440px, grows with its content, stacks its
+> pane grid below 900px, and scrolls vertically** — verified live in Lovable project `56cae479`
+> commit `44a0f59e` (removed `width/height`/`overflow:hidden` from `Plate.jsx`, dropped `--plate-height`,
+> added `--plate-min-width` + breakpoints). The colour, type, corner, motion, mark and iconography rules
+> in this file remain CURRENT. The fixed-frame / never-scroll / "cut copy to fit" rule does **not**.
+> Canonical current summary: `docs/product/ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md` (row D3).
+
+**The plate.** *(Frame geometry SUPERSEDED — see CORRECTION above; retained for historical reference.)* Every template was a fixed 1440×900 frame that never scrolls and never has a collapsed region. `overflow: hidden` at the frame, a 70px orange masthead, a 48px breadcrumb bar, then a three-column grid — 352px / fluid / 324px with 20px gaps inside 40px gutters — and a single 10px caption line at the bottom. **Content is sized to fit; it is never made reachable by scrolling or expanding.** If something does not fit, cut copy or restructure the layout. This was a hard rule and the most common way to break the system. *(As of 2026-09-26 this is no longer the rule: the frame is responsive and vertical scrolling is allowed.)*
 
 **Corners are square.** Radius 0 on every surface — panes, cards, buttons, chips, inputs. The only round thing in the product is a radio dot. Do not introduce rounded cards.
 
