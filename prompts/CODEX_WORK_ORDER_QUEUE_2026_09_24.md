@@ -1,5 +1,72 @@
 # Codex Queue — 2026-09-24 (J.0 → N → N.1)
 
+STATUS: CURRENT for N and N.1 only. **J.0 is done** — see the redirect block below, which is the
+thing to paste into Codex.
+
+---
+
+## REDIRECT — paste this into Codex now (2026-09-27)
+
+```text
+Stop and re-read before doing anything else. Production moved between 2026-09-24 and 2026-09-27 and
+two of the things you were asked to do are already done. This was verified against Production
+directly, not from docs.
+
+    git fetch origin && git merge origin/main
+    # then read docs/INDEX.md and docs/product/ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md
+
+1. STOP WORK ORDER FF-1 (MCQ serving). It is SUPERSEDED and you should discard whatever design you
+   have in progress. app.select_biology_practice_items and
+   app.select_ordinary_combined_practice_items both exist on Production, both serve MCQ, and both are
+   already called by student-session-items (index.ts:678, :693). They are SECURITY INVOKER, neither
+   returns is_correct, and the combined one touches is_correct only as a WHERE predicate. TASK-0044 /
+   PR #227 shipped this. Nothing about the answer-key boundary was compromised in doing it.
+
+   The only live remnant is a frontend question this repo cannot answer: whether the Lovable
+   client-side fallback in src/hooks/use-session.ts can now be deleted. Do not attempt that from
+   here.
+
+2. SKIP J.0 (Biology difficulty). All 118 Biology items now carry a row in
+   app.content_item_difficulty. Do not re-run it.
+
+   BUT REPORT ONE THING. Only 71 of the 118 carry an attainment_ratio. J.0's specification predicted
+   81 with a ratio and 37 without, and said explicitly that a different split "is a finding about the
+   method, not a number to quietly adjust." The applied data splits 71/47. Someone should establish
+   whether 10 items that had a reconstructable verb anchor were loaded without one, or whether the
+   method legitimately changed. That is a short read of the applied migration against
+   crr_calibration_all_subjects.csv -- it is not a re-run, and it is not a licence to backfill the
+   10 silently.
+
+3. N AND N.1 ARE STILL VALID AND STILL NEEDED. Verified on Production 2026-09-27:
+     - 43 AP Biology short FRQ still have no serving label at all. Unchanged.
+     - All 5 MCQ from N.1 still carry the units QA rejected, and all 5 still fail the taxonomy hash
+       check, so none of them is servable.
+
+   What changed is their VALUE, and it is now higher than when the orders were written. The orders
+   said the unit-gated path was dark -- 8 items across ten subjects -- so labels served nothing.
+   That is no longer true: serving labels were promoted to validated across every subject and
+   unit-gated serving is now 503 items product-wide, 23 of them Biology. Your 43 + 5 are the gap
+   between Biology's 23 and the rest of its corpus. The work is the same; the reason is better.
+
+   Everything in the N and N.1 orders still stands, including the addendum answering your four
+   questions. The ONE thing to re-verify before you start: the orders assert the scope query returns
+   exactly 43 items. It still does. If you get a different number, stop and report rather than
+   proceeding on the new one.
+
+4. DO NOT DISPATCH ORDER 1 of 3 below (J.0). Start at ORDER 2 of 3 (N).
+
+One correction to the framing in the orders below. They tell you none of this queue changes
+launch-day content, on the basis that Biology launches on the flat practice path. That is still true
+and still canonical -- launch is 2026-10-02, Biology and Statistics, flat practice paths
+(DECISION-0063, extended by DECISION-0072, recorded at
+docs/product/APP_LAUNCH_READINESS_INDEX_2026_09_26.md row D-3). Unit-gating is deferred for both
+Day-1 subjects. So N and N.1 remain post-launch work. They are worth doing; they are not a launch
+gate, and nobody should treat them as one.
+```
+
+---
+
+
 One paste, three work orders, in order. Each has a QA gate before the next starts.
 
 **Read this before dispatching.** None of these three changes what a student can be served at

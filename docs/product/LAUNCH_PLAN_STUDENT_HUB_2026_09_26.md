@@ -849,6 +849,78 @@ built, QA-verified, and merged. Summary for whoever picks up the student hub lau
    than assuming from the deploy confirmation alone.
 6. **BYOQ and Open Hand remain fully unbuilt** (Codex's separate workstream, unchanged this session).
 
+## EXECUTED, 2026-09-27 (next session): grading-pipeline investigation (item A), GAP-9 count (item B), Stats/Bio serving smoke (item C)
+
+Read-only investigation against live Production (`pcntajvbdfqhbeewmdry`), via SQL. Goal: work the
+remaining student-hub items in sequence. Three closed this pass; the blocked ones (real sign-in,
+mastery build, BYOQ/Open Hand) are re-flagged unchanged.
+
+### A. "No real student has ever been graded" — the grading pipeline is NOT broken
+
+The earlier framing (a live risk that grading might be broken) does not hold up against the data. The
+pipeline grades end-to-end today:
+
+- **`grading_results` has zero `failed`/`error` rows** — every row is `graded` (74) or `uncertain` (9).
+  No currently-broken grading path exists.
+- **The `trial_v1` free-entitlement → submit → grade path is proven.** The launch-QA account
+  (`cramapple-qa-test+practice-verification-...@cramapple.com`) had a `trial_v1` entitlement created
+  2026-09-23 17:17 and a real FRQ **graded 3/4 two minutes later** (17:19, `gpt-4.1-mini`,
+  `grade_initial_attempt`). David's own MCQ attempts grade 49/50 through 2026-09-26.
+- **The two real students' non-grading is a timing/engagement artifact, not a defect:**
+  - `bkmicahb@gmail.com` attempted on **2026-08-22**, but their entitlements weren't created until
+    **2026-09-20** (the TASK-0016 incident grant) — a 7-day trial that **ends 2026-09-27 (today)**. They
+    attempted a month before any entitlement existed and never returned during the trial window. Their two
+    "submitted" attempts fired ~1 second after creation with no captured response — no logs survive from
+    that date to reconstruct further, and this predates the current split app (`56cae479`).
+  - `obloom27@solebury.org` has **zero entitlement rows** — their lone attempt is a stranded `draft`.
+
+**Two production-mutation facts flagged for David (NOT actioned — outside autonomous scope):**
+`obloom27@solebury.org` (a real student) has no entitlement; `bkmicahb@gmail.com`'s trial expires today.
+
+**Schema note (matches `STUDENT_INTERACTION_DATA_SCHEMA_PLAN_2026_09_27.md`):** grade state lives
+entirely in `grading_results`. On `attempts`, `graded_at` is null for all 108 rows, `status` is only ever
+`draft`/`submitted` (never `graded`), and `score_points` is null everywhere. `attempt_responses` is empty
+for the whole table (0 rows). Do **not** build mastery/progress off `attempts.score_points`/`graded_at`.
+
+**What remains for A:** the genuine open gap is runbook item 2 + this doc's item 3 — a fresh real
+submit-to-grade round trip through the **current `56cae479` UI** by an organic-style account. Blocked on a
+real Production sign-in (David directly, or a handed-over test account). The pipeline itself is not the risk.
+
+### B. GAP-9 measured — the constraint is labeling (GAP-1), not missing content
+
+Under `DECISION-0074` a topic × skill cell needs 2 servable MCQ + 1 servable FRQ to be masterable. Counted
+via `content_item_topic_resolution` (the validated-cell resolver) on live Production:
+
+| Subject | FRQ published | FRQ resolved to a cell | MCQ published | MCQ resolved to a cell | Cells masterable (2 MCQ + 1 FRQ) |
+| --- | --- | --- | --- | --- | --- |
+| AP Statistics | 80 | **0** | 304 | 203 (across 11 of 131 cells; all 11 clear the 2-MCQ bar) | **0** |
+| AP Biology | 75 | **0** | 43 | **0** | **0** (and `taxonomy_cells` grid is empty for Biology) |
+
+**Zero cells in either subject are masterable today — but purely because labels aren't resolved, not
+because content is missing.** 155 FRQs and 347 MCQs are published-but-unresolved. Root causes: the Bio topic
+labels + 181 new Stats labels are still `provisional_model` (carried-forward item #1, invisible to the
+resolver); no FRQ is topic/skill-labeled to a cell in either subject; and Biology's `taxonomy_cells`
+(topic × skill) grid is not materialized at all. **GAP-9 remediation is downstream of the provisional→
+validated label-promotion decision + the FRQ labeling + the Biology cell-grid build — it is not a
+content-authoring shortage.** This also means GAP-9 does not gate the Oct 2 flat-path launch (which does
+not use the cell resolver); it gates mastery (item G), which is itself unbuilt.
+
+### C. Statistics + Biology serving smoke (backend) — PASS
+
+Called the live serving selectors directly (per the "call the function, don't model its predicate"
+discipline) against each subject's selectable exam-pack version:
+
+- **Statistics** (`548f06be-ccf4-426d-b82b-b424137a4438`, `exam_pack_version_is_selectable = true`):
+  `app.select_ordinary_combined_practice_items(..., 'mcq', ...)` returns 50 distinct published MCQ;
+  `'targeted_drill'` returns FRQ. This is the post-PR-#227 combined path; the edge function
+  (`student-session-items`) combines both formats for the Home session.
+- **Biology** (`2d88ba5e-a6a3-43b8-bfae-9e5505a178a7`): `app.select_biology_practice_items(..., 'targeted_drill', ...)`
+  returns a real 12 FRQ + 8 MCQ blend.
+
+Both launch subjects serve real, distinct published items. This confirms the backend half of
+carried-forward item #5 (Phase 2 serving). The logged-in-UI half (Home renders these, skill rail
+resolves) still needs a real sign-in — same blocker as A/item 3.
+
 ## Out of Scope
 
 Redesigning any already-decided section of the interaction design spec — raise a proposal to David

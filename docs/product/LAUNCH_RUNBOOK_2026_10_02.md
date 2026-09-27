@@ -4,8 +4,12 @@
 **Owner / final launch approver:** David Bloom
 **Tier:** Hard-Gate
 **Launch target:** Friday, October 2, 2026
-**Launch frontend:** `https://ap-prep-canvas.lovable.app/` — Lovable project “Remix of Cramapple App”
-(`d334fed9-5a97-4e76-906e-7c0ad7082212`)
+**Launch frontend (CORRECTED 2026-09-27, per `D-2` in `APP_LAUNCH_READINESS_INDEX_2026_09_26.md`):**
+the live launch surface is **`https://cramapple.com`** (marketing → Lovable project "New Cramapple
+Marketing," `61dd6602`) and **`https://app.cramapple.com`** (student app → Lovable project "New Cramapple
+App," `56cae479`). The previously listed `https://ap-prep-canvas.lovable.app/` ("Remix of Cramapple App,"
+`d334fed9`) is **NOT** the production frontend — a live DNS/`curl` check on 2026-09-27 confirmed the
+domains resolve to `61dd6602`/`56cae479`. Re-confirm via DNS before trusting any doc's project citation.
 **Launch shape:** Free; no Stripe checkout or payment gating
 **Day-1 subjects:** AP Biology and AP Statistics, both on flat practice paths
 
