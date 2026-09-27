@@ -1457,6 +1457,35 @@ recurring lesson (see Method Note below).
 - `GradeResultView.tsx`'s confirmed-legacy-only status (from the original audit) still holds regardless
   of which way this goes.
 
+## BLOCKED, 2026-09-27 (same session): David chose "fix the two bugs first" — Lovable agent not executing, needs David to clear it in the editor
+
+Asked David directly (not a unilateral call): fix the two `public.sessions` bugs first, retire the
+cluster now, or leave both alone. **He chose fix-first.** Sent a full, precise fix spec to the "New
+Cramapple App" Lovable project (`56cae479-f7c9-4988-b536-56538c38ee4e`) via `send_message` — exact
+before/after code for both files, the `learning_sessions` column names to use, explicit instruction not
+to invent a `summary`/recommendation replacement for `session.setup.tsx` since no such data exists, and
+an explicit "stop and report if ambiguous" guard.
+
+**The agent is not executing it.** Three consecutive messages (the original fix spec, then two
+check-ins) each returned within ~5-30 seconds with empty content and `status: "completed"`, but
+`list_edits`/`get_project` show no new commit — still `a67a28d5` ("Retired legacy session routes"),
+unchanged since before any of this session's messages. This matches the Lovable MCP tool's own
+documented `awaiting_input` behavior: **an earlier, unrelated request from earlier today (an
+"Automatic Full Preview" feature) left a `chat_mode--switch_to_build_mode` approval pending** — a
+tool-approval gate the docs say "only the user can answer... in the Lovable editor," and that a new
+`send_message` does not clear, it "supersedes the pause... and is processed instead" (which may explain
+the empty near-instant responses: each new message may itself be landing in the same stuck state rather
+than actually running).
+
+**Not resolved — genuinely blocked, not a scope question.** The fix itself is fully specified (see the
+message sent, preserved in the project's chat history) and ready to execute the moment the agent is
+unstuck. **Needs David to open the editor directly** (`https://lovable.dev/projects/56cae479-f7c9-4988-b536-56538c38ee4e`),
+clear whatever's pending (the Build-mode approval, a credit/spend-limit prompt, or whatever the UI
+actually shows), and either let the queued fix message run or re-send it. **Next Owner:** David Bloom.
+**Next Action:** clear the Lovable editor's pending state, then either this session or a future one
+re-sends the fix (full spec already written, nothing to re-derive) and verifies via `get_diff` before
+declaring it done.
+
 ## Out of Scope
 
 Redesigning any already-decided section of the interaction design spec — raise a proposal to David

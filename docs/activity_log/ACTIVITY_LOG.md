@@ -6,6 +6,20 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- David Chose "Fix First" on the Two `public.sessions` Bugs — Lovable Agent Blocked, Needs Editor
+  Attention (2026-09-27): asked David directly whether to fix the two session-route bugs found this
+  session, retire the cluster, or leave both alone — he chose fix-first. Sent a complete, precise fix
+  spec to the "New Cramapple App" Lovable project via `send_message` (exact before/after code, correct
+  `learning_sessions` columns, explicit instruction not to fabricate a `summary`/recommendation
+  replacement for `session.setup.tsx`). **The agent isn't executing it** — three consecutive messages
+  each returned in seconds with empty content and no new commit (`list_edits` still shows `a67a28d5`,
+  unchanged). Matches the Lovable tool's documented `awaiting_input` behavior: an unrelated, earlier
+  request today ("Automatic Full Preview") left a `switch_to_build_mode` approval pending, which "only
+  the user can answer... in the Lovable editor" and a new message doesn't clear. **Next Owner:** David
+  Bloom. **Next Action:** open `https://lovable.dev/projects/56cae479-f7c9-4988-b536-56538c38ee4e`,
+  clear whatever's pending, then re-send or let the queued fix run — the fix itself needs no further
+  design work, it's fully specified in the project's chat history and in
+  `LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md`'s "BLOCKED, 2026-09-27" section.
 - Session-Route Retirement Re-Audited — Two Real `public.sessions` Query Bugs Found, Cluster's Live
   Reachability Weaker Than Last Session's Correction Implied (2026-09-27): per last session's explicit
   instruction to trace every Start *and* Resume entry point before raising retirement again, re-traced
