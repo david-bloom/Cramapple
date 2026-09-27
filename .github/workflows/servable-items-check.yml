@@ -1,0 +1,51 @@
+name: Servable Items Check
+
+# FF-12. scripts/qa/servable_items_check.py exists because three silent serving
+# failures were found by hand on 2026-09-24 -- one had been live for six weeks.
+# It self-verifies its own census against the real serving RPCs before trusting
+# any number, then fails on any DECREASE in servable counts versus the
+# committed baseline. This workflow is the only thing that makes it run
+# without someone remembering to type the command.
+
+on:
+  schedule:
+    # 09:00 UTC = 4-5am US Eastern (DST-dependent), well before anyone is
+    # looking at Biology data for the day and before any content/serving
+    # deploy is likely to have landed hours earlier without being noticed.
+    - cron: "0 9 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: servable-items-check-${{ github.workflow }}
+  cancel-in-progress: false
+
+jobs:
+  check:
+    name: check
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+
+      - name: Install psql client
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends postgresql-client
+
+      # Never pass --update-baseline here. That flag is a human decision (the
+      # script's own comment says an increase "requires a baseline update") --
+      # a scheduled job must never rewrite the baseline it's checking against.
+      - name: Run servable items check
+        env:
+          CRAMAPPLE_DB_URL: ${{ secrets.SERVABLE_ITEMS_CHECK_DB_URL }}
+        run: python3 scripts/qa/servable_items_check.py

@@ -56,6 +56,13 @@ MISCONCEPTION_TYPES = [
     "over_generalizes_beyond_data",
 ]
 
+
+CAT_TABLE_TAGS = {
+    "u1_3__count_percent_confusion",
+    "u1_3__relative_frequency_denominator_error",
+    "u1_3__quantitative_display_for_categories",
+}
+
 SAMPLING_METHODS = ["srs", "stratified", "cluster", "systematic", "convenience", "voluntary"]
 SAMPLING_DISTRACTOR_TAGS = [
     "u1_11__stratified_cluster_confusion",
@@ -143,6 +150,12 @@ TWOWAY_INTERPRET_TAGS = {
     "u2_1__raw_counts_as_conditional_comparison",
     "u2_1__used_column_denominator_for_row_condition",
     "u2_1__marginal_percent_treated_as_conditional",
+}
+
+CAT_GRAPH_TAGS = {
+    "u1_4__count_percent_graph_confusion",
+    "u1_4__relative_frequency_graph_denominator_error",
+    "u1_4__categorical_graph_as_quantitative_axis",
 }
 
 def _justification_text(kind: str, s: Dict[str, str], mA: float, mB: float, sd: float) -> str:
@@ -246,6 +259,88 @@ def gen_4b_instance(rng: random.Random, seed: int) -> Dict:
         "_property_checks": checks,
     }
 
+
+
+def _pct_text(count: int, total: int) -> str:
+    return f"{100 * count / total:.0f}%"
+
+
+def _cat_rel_table_text(categories: List[tuple], total: int) -> str:
+    return "; ".join(f"{label}: {_pct_text(count, total)}" for label, count in categories)
+
+
+def _cat_count_table_text(categories: List[tuple]) -> str:
+    return "; ".join(f"{label}: {count}" for label, count in categories)
+
+
+def gen_u1_3_cat_table_instance(rng: random.Random, seed: int) -> Dict:
+    c = rng.choice(SCN.U1_3_CAT_TABLE_CONTEXTS)
+    categories = list(c["categories"])
+    shift = rng.choice([0, 2, 4, 6])
+    categories = [(label, count + shift) for label, count in categories]
+    total = sum(count for _label, count in categories)
+    largest = max(count for _label, count in categories)
+    correct_text = "Relative-frequency table: " + _cat_rel_table_text(categories, total)
+    wrong_denom_text = "Relative-frequency table: " + _cat_rel_table_text(categories, largest)
+    prompt = (f"A sample of {total} {c['unit']}s was classified by {c['quantity']}. "
+              f"The category counts are {_cat_count_table_text(categories)}. "
+              "Which representation correctly shows the relative-frequency table for this one categorical variable?")
+    distractors = [
+        ("Frequency table: " + _cat_count_table_text(categories), "u1_3__count_percent_confusion"),
+        (wrong_denom_text, "u1_3__relative_frequency_denominator_error"),
+        (f"Dotplot on a number line after coding the categories as 1, 2, 3, and 4", "u1_3__quantitative_display_for_categories"),
+    ]
+    options = [{"text": correct_text, "correct": True, "misconception": None}]
+    for text, tag in distractors:
+        options.append({"text": text, "correct": False, "misconception": tag,
+                        "misconception_source": MISC.provenance(tag)})
+    rng.shuffle(options)
+    scenario_prov = SCN.framing("slotframe_u1_3_cat_tables", c.get("domain"))
+    checks = [
+        ("total_positive", total > 0),
+        ("relative_freq_sum_near_100", abs(sum(100 * count / total for _label, count in categories) - 100) < 1e-9),
+        ("exactly_one_correct", sum(1 for o in options if o["correct"]) == 1),
+        ("four_options", len(options) == 4),
+        ("option_texts_unique", len({o["text"] for o in options}) == 4),
+        ("all_distractors_tagged", all(o["misconception"] for o in options if not o["correct"])),
+        ("all_distractor_tags_canonical", all(o["misconception"] in MISC.CATALOG for o in options if not o["correct"])),
+        ("all_distractors_cite_source", all(o.get("misconception_source", {}).get("sources") for o in options if not o["correct"])),
+        ("scenario_framing_present", bool(scenario_prov.get("archetype")) and bool(scenario_prov.get("sources"))),
+        ("cat_table_tags_used", {o.get("misconception") for o in options if o.get("misconception")} == CAT_TABLE_TAGS),
+    ]
+    return {
+        "schema_version": "course-mode-generated-0.1",
+        "package_id": f"slotframe-u1_3-3a-{seed:06d}",
+        "content_key": f"apstat-u1-3-3a-cat_table-{seed:06d}",
+        "item_type": "mcq",
+        "difficulty": "Easy-Medium",
+        "exam_pack_ref": {"exam_code": "ap_statistics", "cycle": "2026-27"},
+        "taxonomy_refs": [
+            {"scheme_key": "ap-statistics-2026-27", "node_key": "unit-1"},
+            {"scheme_key": "ap-statistics-2026-27", "node_key": "topic-1.3"},
+            {"scheme_key": "ap-statistics-skills", "node_key": "skill-3.A", "practice": 3},
+        ],
+        "cells": [{"topic": "1.3", "skill": "3.A"}],
+        "scenario_provenance": scenario_prov,
+        "prompt": prompt,
+        "mcq_form": {"options": options},
+        "parts": [{"part_key": "part-a", "prompt": prompt, "response_modalities": ["mcq"], "points": 1,
+                   "criteria": [{"criterion_key": "part-a-criterion-1", "points": 1,
+                                  "description": "Selects the relative-frequency table that preserves category labels and divides by the full sample total.",
+                                  "required_evidence": correct_text,
+                                  "deterministic_checks": [{"kind": "mcq_key", "correct_representation": "categorical_relative_frequency_table"}],
+                                  "accepted_variants": []}]}],
+        "provenance": {"generator": "course_mode_stats_generator/slot_frames.py",
+                       "frame_id": "FB-U1-3-3A-CAT-TABLE-01", "template_id": "slotframe_u1_3_cat_tables",
+                       "params": {"scenario_id": c["id"], "categories": categories, "total": total},
+                       "seed": seed, "release_status": "unreleased_generated_pending_review",
+                       "note": "Authored conceptual frame; correctness from one-categorical-variable table representation rules."},
+        "_property_checks": checks,
+    }
+
+
+def generate_u1_3_cat_tables(count: int, base_seed: int = 13000) -> List[Dict]:
+    return [gen_u1_3_cat_table_instance(random.Random(base_seed + i), base_seed + i) for i in range(count)]
 
 def _sampling_plan_text(method: str, s: Dict[str, object], rng: random.Random) -> str:
     n = rng.choice([30, 40, 50, 60])
@@ -677,6 +772,90 @@ def generate_u2_1_twoway_interpret(count: int, base_seed: int = 21000) -> List[D
     return [gen_u2_1_twoway_interpret_instance(random.Random(base_seed + i), base_seed + i) for i in range(count)]
 
 
+def _percentages(categories: List[tuple]) -> List[tuple]:
+    total = sum(count for _, count in categories)
+    return [(name, round(count / total * 100)) for name, count in categories]
+
+
+def _bar_pct_text(pcts: List[tuple]) -> str:
+    return "; ".join(f"{name}: {pct}%" for name, pct in pcts)
+
+
+def gen_u1_4_cat_graph_instance(rng: random.Random, seed: int) -> Dict:
+    c = rng.choice(SCN.U1_4_CAT_GRAPH_CONTEXTS)
+    shift = rng.choice([0, 2, 4, 6])
+    categories = [(name, count + shift) for name, count in c["categories"]]
+    total = sum(count for _, count in categories)
+    pcts = _percentages(categories)
+    largest = max(count for _, count in categories)
+    wrong_denominator = [(name, round(count / largest * 100)) for name, count in categories]
+    coded_points = ", ".join(f"{i + 1}={name}" for i, (name, _) in enumerate(categories))
+    count_as_pct = [(name, count) for name, count in categories]
+    correct_text = "Relative-frequency bar graph with separate category bars: " + _bar_pct_text(pcts)
+    prompt = (f"A group of {total} {c['population']} was classified by {c['variable']}. "
+              f"The category counts are " + "; ".join(f"{name}: {count}" for name, count in categories) +
+              ". Which description correctly represents the relative-frequency bar graph for this categorical variable?")
+    distractors = [
+        ("Relative-frequency bar graph with bar heights copied from the counts: " + _bar_pct_text(count_as_pct),
+         "u1_4__count_percent_graph_confusion"),
+        ("Relative-frequency bar graph using the largest category as the denominator: " + _bar_pct_text(wrong_denominator),
+         "u1_4__relative_frequency_graph_denominator_error"),
+        (f"Line graph on a number line after coding the categories as {coded_points}, with points connected in code order",
+         "u1_4__categorical_graph_as_quantitative_axis"),
+    ]
+    options = [{"text": correct_text, "correct": True, "misconception": None}]
+    for text, tag in distractors:
+        options.append({"text": text, "correct": False, "misconception": tag,
+                        "misconception_source": MISC.provenance(tag)})
+    rng.shuffle(options)
+    scenario_prov = SCN.framing("slotframe_u1_4_cat_graphs", c.get("domain"))
+    checks = [
+        ("exactly_one_correct", sum(1 for o in options if o["correct"]) == 1),
+        ("four_options", len(options) == 4),
+        ("option_texts_unique", len({o["text"] for o in options}) == 4),
+        ("all_distractors_tagged", all(o["misconception"] for o in options if not o["correct"])),
+        ("all_distractor_tags_canonical", all(o["misconception"] in MISC.CATALOG for o in options if not o["correct"])),
+        ("all_distractors_cite_source", all(o.get("misconception_source", {}).get("sources") for o in options if not o["correct"])),
+        ("scenario_framing_present", bool(scenario_prov.get("archetype")) and bool(scenario_prov.get("sources"))),
+        ("cat_graph_tags_used", {o.get("misconception") for o in options if o.get("misconception")} == CAT_GRAPH_TAGS),
+        ("correct_percentages_sum_near_100", 98 <= sum(pct for _, pct in pcts) <= 102),
+        ("denominator_is_total", total > largest),
+    ]
+    return {
+        "schema_version": "course-mode-generated-0.1",
+        "package_id": f"slotframe-u1_4-3a-{seed:06d}",
+        "content_key": f"apstat-u1-4-3a-cat_graph-{seed:06d}",
+        "item_type": "mcq",
+        "difficulty": "Easy-Medium",
+        "exam_pack_ref": {"exam_code": "ap_statistics", "cycle": "2026-27"},
+        "taxonomy_refs": [
+            {"scheme_key": "ap-statistics-2026-27", "node_key": "unit-1"},
+            {"scheme_key": "ap-statistics-2026-27", "node_key": "topic-1.4"},
+            {"scheme_key": "ap-statistics-skills", "node_key": "skill-3.A", "practice": 3},
+        ],
+        "cells": [{"topic": "1.4", "skill": "3.A"}],
+        "scenario_provenance": scenario_prov,
+        "prompt": prompt,
+        "mcq_form": {"options": options},
+        "parts": [{"part_key": "part-a", "prompt": prompt, "response_modalities": ["mcq"], "points": 1,
+                   "criteria": [{"criterion_key": "part-a-criterion-1", "points": 1,
+                                  "description": "Selects the relative-frequency bar graph description that divides each category count by the total.",
+                                  "required_evidence": correct_text,
+                                  "deterministic_checks": [{"kind": "mcq_key", "correct_representation": "relative_frequency_bar_graph"}],
+                                  "accepted_variants": []}]}],
+        "provenance": {"generator": "course_mode_stats_generator/slot_frames.py",
+                       "frame_id": "FB-U1-4-3A-CAT-GRAPH-01", "template_id": "slotframe_u1_4_cat_graphs",
+                       "params": {"scenario_id": c["id"], "categories": categories, "total": total, "percentages": pcts},
+                       "seed": seed, "release_status": "unreleased_generated_pending_review",
+                       "note": "Authored conceptual frame; correctness from categorical graph representation taxonomy."},
+        "_property_checks": checks,
+    }
+
+
+def generate_u1_4_cat_graphs(count: int, base_seed: int = 14000) -> List[Dict]:
+    return [gen_u1_4_cat_graph_instance(random.Random(base_seed + i), base_seed + i) for i in range(count)]
+
+
 def _hist_text(bins: List[tuple], unit: str) -> str:
     return "; ".join(f"{lo}-{hi} {unit}: {count}" for lo, hi, count in bins)
 
@@ -950,6 +1129,9 @@ FRAMES = [
     {"frame_id": "FB-4B-COMPARE-01", "cell": "1.9 x 4.B", "gen": generate_4b,
      "base_seed": 7000, "expected_tags": set(),
      "note": "1 authored frame + scenario/justification slots. Coverage: Practice-4 skill 4.B."},
+    {"frame_id": "FB-U1-3-3A-CAT-TABLE-01", "cell": "1.3 x 3.A", "gen": generate_u1_3_cat_tables,
+     "base_seed": 13000, "expected_tags": set(CAT_TABLE_TAGS),
+     "note": "Categorical table/relative-frequency representation. Coverage: Unit 1 topic 1.3."},
     {"frame_id": "FB-U1-11-2A-SAMPLING-01", "cell": "1.11 x 2.A", "gen": generate_u1_11_sampling,
      "base_seed": 11000, "expected_tags": set(SAMPLING_DISTRACTOR_TAGS),
      "note": "Sampling-method identification. Coverage: Unit 1 random-sampling methods."},
@@ -959,6 +1141,9 @@ FRAMES = [
     {"frame_id": "FB-U1-6-4A-DISTRIBUTION-01", "cell": "1.6 x 4.A", "gen": generate_u1_6_distribution,
      "base_seed": 16000, "expected_tags": set(DISTRIBUTION_TAGS),
      "note": "Distribution description (shape/center/spread/outliers). Coverage: Unit 1 topic 1.6."},
+    {"frame_id": "FB-U1-4-3A-CAT-GRAPH-01", "cell": "1.4 x 3.A", "gen": generate_u1_4_cat_graphs,
+     "base_seed": 14000, "expected_tags": set(CAT_GRAPH_TAGS),
+     "note": "Categorical graph representation (relative-frequency bar graph). Coverage: Unit 1 topic 1.4."},
     {"frame_id": "FB-U1-5-3A-GRAPH-01", "cell": "1.5 x 3.A", "gen": generate_u1_5_graphs,
      "base_seed": 15000, "expected_tags": set(GRAPH_TAGS),
      "note": "Quantitative graph representation (histogram/dotplot/stemplot). Coverage: Unit 1 topic 1.5."},

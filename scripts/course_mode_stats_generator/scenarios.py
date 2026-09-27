@@ -148,11 +148,22 @@ FRAMING: Dict[str, Framing] = {
          "quantitative variables may be discrete counts or continuous measurements",
          "numeric labels/codes are categorical when arithmetic on the values is not meaningful"],
         [_SEC5, _SEC6, _SEC7]),
+    "slotframe_u1_4_cat_graphs": Framing(
+        "slotframe_u1_4_cat_graphs", "Q2", "Describe", 3, "exam_aligned_digital",
+        ["one categorical variable represented from category counts",
+         "relative-frequency bar heights equal each category count divided by the total count",
+         "category labels are not values on a quantitative number line"],
+        [_SEC5, _SEC6, _SEC7]),
     "slotframe_u1_6_distribution": Framing(
         "slotframe_u1_6_distribution", "Q2", "Describe", 4, "exam_aligned_digital",
         ["one-variable quantitative distribution described from text and five-number summary",
          "shape, center, spread, and outlier claims must match the supplied summary",
          "outlier claims use the 1.5 x IQR fences"],
+        [_SEC5, _SEC6, _SEC7]),
+    "slotframe_u1_3_cat_tables": Framing(
+        "slotframe_u1_3_cat_tables", "Q2", "Describe", 3, "exam_aligned_digital",
+        ["one categorical variable with category counts",
+         "representation preserves category labels and uses the correct total for relative frequencies"],
         [_SEC5, _SEC6, _SEC7]),
     "slotframe_u1_5_graphs": Framing(
         "slotframe_u1_5_graphs", "Q2", "Describe", 3, "exam_aligned_digital",
@@ -323,6 +334,16 @@ CATEGORICAL_CONTEXTS: List[Dict[str, object]] = [
     {"desc": "devices from two production lines and their inspection outcome",
      "rows": ["Line 1", "Line 2"], "cols": ["Pass", "Rework", "Fail"],
      "row_noun": "devices", "domain": "manufacturing"},
+]
+
+
+# Unit 1.3 one-categorical table contexts. Each id is cell-namespaced.
+U1_3_CAT_TABLE_CONTEXTS: List[Dict[str, object]] = [
+    {"id": "u1_3__club_choice", "quantity": "after-school activity choice", "unit": "student", "domain": "education", "categories": [("sports", 42), ("music", 28), ("service", 18), ("none", 12)]},
+    {"id": "u1_3__commute_mode", "quantity": "usual commute mode", "unit": "employee", "domain": "social", "categories": [("car", 54), ("bus", 24), ("bike", 10), ("walk", 12)]},
+    {"id": "u1_3__defect_type", "quantity": "primary defect type", "unit": "inspected device", "domain": "manufacturing", "categories": [("scratch", 16), ("battery", 9), ("screen", 11), ("none", 64)]},
+    {"id": "u1_3__library_section", "quantity": "library section visited first", "unit": "patron", "domain": "civic", "categories": [("fiction", 35), ("computers", 20), ("children", 30), ("reference", 15)]},
+    {"id": "u1_3__payment_type", "quantity": "payment method", "unit": "order", "domain": "business", "categories": [("credit", 48), ("debit", 26), ("gift card", 6), ("cash", 20)]},
 ]
 
 # Unit 1.9 two-distribution comparison contexts. Each id is cell-namespaced so
@@ -530,6 +551,21 @@ U1_2_VARIABLE_CONTEXTS: List[Dict[str, object]] = [
          ("quantitative continuous, because model performance can be measured", "u1_2__quantitative_called_categorical"),
      ]},
 ]
+
+# Unit 1.4 categorical-graph contexts. Each id is cell-namespaced.
+U1_4_CAT_GRAPH_CONTEXTS: List[Dict[str, object]] = [
+    {"id": "u1_4__lunch_choice", "population": "students", "variable": "lunch entree chosen",
+     "domain": "education", "categories": [("pizza", 36), ("salad", 18), ("sandwich", 26), ("soup", 20)]},
+    {"id": "u1_4__pet_type", "population": "households", "variable": "primary pet type",
+     "domain": "social", "categories": [("dog", 44), ("cat", 31), ("fish", 10), ("none", 15)]},
+    {"id": "u1_4__phone_system", "population": "surveyed customers", "variable": "phone operating system",
+     "domain": "business", "categories": [("iOS", 52), ("Android", 43), ("other", 5)]},
+    {"id": "u1_4__recycling_material", "population": "items in a recycling audit", "variable": "material type",
+     "domain": "civic", "categories": [("paper", 40), ("plastic", 32), ("metal", 18), ("glass", 10)]},
+    {"id": "u1_4__shirt_color", "population": "shirts ordered for an event", "variable": "shirt color",
+     "domain": "business", "categories": [("blue", 25), ("black", 30), ("red", 20), ("green", 25)]},
+]
+
 
 # Unit 1.6 distribution-description contexts. Each id is cell-namespaced.
 U1_6_DISTRIBUTION_CONTEXTS: List[Dict[str, object]] = [
@@ -749,6 +785,19 @@ def validate_scenarios() -> List[str]:
             problems.append(f"categorical context missing fields: {ctx}")
         elif len(ctx["rows"]) < 2 or len(ctx["cols"]) < 2:
             problems.append(f"categorical context needs >=2 rows and cols: {ctx}")
+    seen_cat_table_ids = set()
+    for ctx in U1_3_CAT_TABLE_CONTEXTS:
+        required = ("id", "quantity", "unit", "domain", "categories")
+        if not all(k in ctx for k in required):
+            problems.append(f"u1_3 categorical table context missing fields: {ctx}")
+        if ctx.get("id") in seen_cat_table_ids:
+            problems.append(f"duplicate u1_3 categorical table context id: {ctx.get('id')}")
+        seen_cat_table_ids.add(ctx.get("id"))
+        if not str(ctx.get("id", "")).startswith("u1_3__"):
+            problems.append(f"u1_3 categorical table context id is not namespaced: {ctx.get('id')}")
+        cats = ctx.get("categories", [])
+        if len(cats) < 3 or sum(count for _label, count in cats) <= 0:
+            problems.append(f"u1_3 categorical table context needs positive category counts: {ctx}")
     seen_compare_ids = set()
     for ctx in U1_9_COMPARE_CONTEXTS:
         required = ("id", "quantity", "unit", "group_a", "group_b", "domain", "low", "high")
@@ -786,6 +835,20 @@ def validate_scenarios() -> List[str]:
             problems.append(f"u1_2 variable context id is not namespaced: {ctx.get('id')}")
         if len(ctx.get("distractors", [])) != 3:
             problems.append(f"u1_2 variable context needs exactly 3 distractors: {ctx}")
+    seen_cat_graph_ids = set()
+    for ctx in U1_4_CAT_GRAPH_CONTEXTS:
+        required = ("id", "population", "variable", "domain", "categories")
+        if not all(k in ctx for k in required):
+            problems.append(f"u1_4 categorical graph context missing fields: {ctx}")
+        if ctx.get("id") in seen_cat_graph_ids:
+            problems.append(f"duplicate u1_4 categorical graph context id: {ctx.get('id')}")
+        seen_cat_graph_ids.add(ctx.get("id"))
+        if not str(ctx.get("id", "")).startswith("u1_4__"):
+            problems.append(f"u1_4 categorical graph context id is not namespaced: {ctx.get('id')}")
+        cats = ctx.get("categories", [])
+        if len(cats) < 3 or any(not isinstance(name, str) or count <= 0 for name, count in cats):
+            problems.append(f"u1_4 categorical graph context needs positive category counts: {ctx}")
+
     seen_distribution_ids = set()
     for ctx in U1_6_DISTRIBUTION_CONTEXTS:
         required = ("id", "quantity", "unit", "domain")
@@ -880,9 +943,11 @@ if __name__ == "__main__":
             "normal": len(NORMAL_CONTEXTS),
             "mean": len(MEAN_CONTEXTS),
             "two_mean": len(TWO_MEAN_CONTEXTS),
+            "u1_3_cat_tables": len(U1_3_CAT_TABLE_CONTEXTS),
             "u1_9_compare": len(U1_9_COMPARE_CONTEXTS),
             "u1_11_sampling": len(U1_11_SAMPLING_CONTEXTS),
             "u1_2_variables": len(U1_2_VARIABLE_CONTEXTS),
+            "u1_4_cat_graphs": len(U1_4_CAT_GRAPH_CONTEXTS),
             "u1_6_distribution": len(U1_6_DISTRIBUTION_CONTEXTS),
             "u1_5_graphs": len(U1_5_GRAPH_CONTEXTS),
             "u1_8_boxplots": len(U1_8_BOXPLOT_CONTEXTS),

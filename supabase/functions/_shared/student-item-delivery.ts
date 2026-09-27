@@ -12,7 +12,13 @@ export const STIMULUS_IMAGE_BUCKET = "content-assets";
 // a student renders one item at a time and the client re-fetches on expiry.
 export const SIGNED_URL_TTL_SECONDS = 900;
 
-export const MAX_ITEMS = 20;
+// Not tuned per subject on purpose (see CONTENT_TAXONOMY_RATIONALIZATION_PLAN_2026_09_26.md
+// Phase 2 correction): every query this bounds is already a single batched
+// `IN (...)` fetch or a single batched `createSignedUrls` call, so cost scales
+// with row count, not with this ceiling. 999 stays under Storage's
+// createSignedUrls batch limit (1000) and is large enough that no subject's
+// real item pool (today: 384, AP Statistics) needs a mode-specific exemption.
+export const MAX_ITEMS = 999;
 
 // Roles allowed to render assets that have not yet cleared Learning Quality
 // review -- the "QA-visible" half of the gate. `student` is deliberately
@@ -43,6 +49,12 @@ export type SelectedRow = {
   // quantitative / frq); absent (treated as "frq") for the older
   // select_practice_frqs path, which only ever selects FRQs.
   item_type?: string;
+  // Computed by the caller from prompt_json->>'hand_drawn' before this row
+  // reaches buildRenderItem -- never read from a raw DB column here, so the
+  // rest of prompt_json (which can carry answer-bearing fields like
+  // expected_graph_spec) never has to flow through this type. TASK-0038
+  // Phase 3.
+  hand_drawn?: boolean;
 };
 
 export type McqChoice = {
@@ -72,6 +84,7 @@ export type OmissionReason =
   | "asset_metadata_missing"
   | "asset_not_approved_for_students"
   | "asset_sign_failed"
+  | "choices_missing"
   | "required_visual_absent"
   | "required_visual_not_approved";
 
@@ -124,7 +137,283 @@ export type RenderItem = {
   // a student, same rule toLearnerFacingParts already applies to criteria.
   choices: McqChoice[] | null;
   media: RenderMedia[];
+  // "hand_drawn" means the expected answer is a photographed hand-drawn
+  // response (TASK-0038), submitted via the capture pipeline
+  // (attach_capture) instead of typed text. Only ever "hand_drawn" for rows
+  // select_hand_drawn_pilot_items returns -- see SelectedRow.hand_drawn.
+  response_mode: "typed" | "hand_drawn";
+  // TASK-0047 Decision 17 follow-on -- generic, subject-agnostic resolved
+  // topic/cell identity. Additive: absent (null) for any item neither
+  // resolution path below can identify (no cell tag AND no non-empty
+  // taxonomy label) -- never fabricated. See buildResolvedCell.
+  cell: RenderCell | null;
 };
+
+// A resolved topic/cell identity for a served item. Two distinct
+// granularities feed this, chosen per item by buildResolvedCell:
+//   1. Fine-grained -- app.content_item_cells (topic_code + skill_code).
+//      Today this is exclusively AP Statistics (the hand-authored pilot map
+//      stats-unit1-skills.ts is built on the same table), but the shape here
+//      carries no subject assumption -- any subject with cell tags resolves
+//      the same way.
+//   2. Coarse -- app.content_taxonomy_labels.assessed_topics (topic-only, no
+//      skill sub-division). skill_code is always null on this path -- it is
+//      NOT a stand-in for a missing skill, it is a genuinely coarser
+//      granularity that must not be confused with the fine-grained one.
+// topic_title is populated from app.taxonomy_topics (topic_code +
+// taxonomy_source_version -> topic_title) uniformly for both paths -- that
+// table carries plain-language names for every subject already, so no new
+// content authoring is needed here.
+export type RenderCell = {
+  topic_code: string;
+  skill_code: string | null;
+  topic_title: string | null;
+  // From app.taxonomy_topics.unit_number -- lets a caller key a per-unit
+  // lookup (e.g. the topic-guides RPC) without needing the coarse label's
+  // own primary_unit, which is frequently null (verified directly against
+  // Production 2026-09-26 for AP Biology).
+  unit_number: number | null;
+};
+
+// TASK-0047 Workstream E — item-package dual-read adapter.
+//
+// Two content shapes exist for the same catalogue:
+//   1. The legacy per-row schema (app.mcq_choices / app.frq_criteria), read
+//      exclusively above. Every currently-published item -- including all 203
+//      whose content_item_versions.item_package_payload is populated -- has
+//      complete legacy rows (verified directly against Production 2026-09-26:
+//      0 published items have a null stem or a missing choice set alongside a
+//      populated item_package_payload). So today this fallback is never
+//      exercised; it exists so a future item authored ONLY in the newer
+//      package shape -- no legacy rows backfilled -- still serves, per
+//      David's decision: no mass migration, no forced format choice on new
+//      content (APP_REBUILD_MIGRATION_PLAN.md §5.5, decision 23).
+//
+//   2. The item-package JSON shape, which is not one format but two distinct
+//      ones observed in the wild:
+//        a. `content/item-packages/*.json` on disk (schema_version "1.0.0"):
+//           top-level `mcq_choices: [{choice_key, choice_text, is_correct,
+//           rationale}]`, `parts: [{part_key, prompt, criteria: [...]}]`.
+//           Never ingested into item_package_payload for any published item
+//           checked (e.g. apcalcab-mcq-021 is published with full legacy rows
+//           and item_package_payload NULL) -- these files are an authoring
+//           artifact that gets flattened into the legacy schema at publish
+//           time, not something serving reads today.
+//        b. `content_item_versions.item_package_payload` in Production
+//           (schema_version "course-mode-generated-0.1", all 203 populated
+//           rows are AP Statistics MCQ from the Course Mode generator):
+//           `mcq_form.options: [{text, correct, misconception}]`, top-level
+//           `prompt`/`stem`, `parts: [{prompt, criteria}]`.
+//      Both are read here so either can back-fill missing legacy data for the
+//      same item_type: 'mcq' case that is actually populated today.
+//
+// FRQ criteria fallback is deliberately NOT implemented. Neither package
+// shape carries a field equivalent to frq_criteria.learner_facing_text (a
+// reviewer-authored, pre-filtered "safe to show a student" string) --
+// `criteria[].description`/`required_evidence` are answer-bearing, the same
+// class of field toLearnerFacingParts already excludes for the legacy shape.
+// Deciding what, if anything, in the package criteria shape is safe to derive
+// as learner-facing is a content-safety judgment call beyond this workstream's
+// scope (no published item needs it yet -- 0 gaps found), not an engineering
+// stopgap; flagged for a follow-up decision if/when an FRQ-only-package item
+// is ever published without legacy criteria rows.
+export type ItemPackagePayload = {
+  schema_version?: string;
+  stem?: unknown;
+  prompt?: unknown;
+  mcq_choices?: unknown;
+  mcq_form?: { options?: unknown };
+  parts?: unknown;
+  stimuli?: unknown;
+};
+
+function firstNonEmptyString(...candidates: unknown[]): string | null {
+  for (const c of candidates) {
+    if (typeof c === "string" && c.trim().length > 0) return c;
+  }
+  return null;
+}
+
+/**
+ * Derives student-facing stem text from either package shape, falling back
+ * through top-level `stem`/`prompt` to the first part's `prompt`. Never reads
+ * `canonical_answers` or any criteria field -- those are answer-bearing.
+ */
+export function derivePackageStem(
+  payload: ItemPackagePayload | null | undefined,
+): string | null {
+  if (!payload || typeof payload !== "object") return null;
+  const direct = firstNonEmptyString(payload.stem, payload.prompt);
+  if (direct) return direct;
+  const parts = Array.isArray(payload.parts) ? payload.parts : [];
+  const firstPart = parts[0] as Record<string, unknown> | undefined;
+  return firstNonEmptyString(firstPart?.prompt);
+}
+
+/**
+ * Derives the first text stimulus's body, if any. Mirrors the legacy
+ * `stimulus` column -- optional context shown above the stem.
+ */
+export function derivePackageStimulus(
+  payload: ItemPackagePayload | null | undefined,
+): string | null {
+  if (!payload || typeof payload !== "object") return null;
+  const stimuli = Array.isArray(payload.stimuli) ? payload.stimuli : [];
+  for (const s of stimuli) {
+    const stim = s as Record<string, unknown>;
+    const text = (stim?.payload as Record<string, unknown> | undefined)?.text;
+    if (typeof text === "string" && text.trim().length > 0) return text;
+  }
+  return null;
+}
+
+/**
+ * Derives choice_key/choice_text pairs from either package shape. Deliberately
+ * whitelist-only, same rule as the legacy mcq_choices select above: is_correct
+ * / correct / rationale / misconception never leave this function.
+ */
+export function derivePackageChoices(
+  payload: ItemPackagePayload | null | undefined,
+): McqChoice[] | null {
+  if (!payload || typeof payload !== "object") return null;
+
+  if (Array.isArray(payload.mcq_choices) && payload.mcq_choices.length) {
+    const choices: McqChoice[] = [];
+    for (const c of payload.mcq_choices) {
+      const choice = c as Record<string, unknown>;
+      const key = choice?.choice_key;
+      const text = choice?.choice_text;
+      if (typeof key === "string" && typeof text === "string") {
+        choices.push({ choice_key: key, choice_text: text });
+      }
+    }
+    return choices.length ? choices : null;
+  }
+
+  const options = payload.mcq_form?.options;
+  if (Array.isArray(options) && options.length) {
+    const letters = ["A", "B", "C", "D", "E", "F"];
+    const choices: McqChoice[] = [];
+    options.forEach((o, i) => {
+      const opt = o as Record<string, unknown>;
+      const text = opt?.text;
+      if (typeof text === "string" && letters[i]) {
+        choices.push({ choice_key: letters[i], choice_text: text });
+      }
+    });
+    return choices.length ? choices : null;
+  }
+
+  return null;
+}
+
+/**
+ * Applies the dual-read fallback: for a row whose legacy stem/choices came
+ * back empty, backfills from item_package_payload when one exists for that
+ * version. Rows and choice lists that already have legacy data pass through
+ * completely unchanged -- this is additive-only, so no existing content path
+ * (100% of Production today) is affected.
+ */
+export function applyItemPackageFallback(
+  rows: readonly SelectedRow[],
+  choicesByVersion: ReadonlyMap<string, McqChoice[]>,
+  payloadByVersion: ReadonlyMap<string, ItemPackagePayload>,
+): { rows: SelectedRow[]; choicesByVersion: Map<string, McqChoice[]> } {
+  const nextChoicesByVersion = new Map(choicesByVersion);
+
+  const nextRows = rows.map((row) => {
+    const payload = payloadByVersion.get(row.content_item_version_id);
+    if (!payload) return row;
+
+    const hasStem = typeof row.stem === "string" && row.stem.trim().length > 0;
+    const patchedStem = hasStem ? row.stem : derivePackageStem(payload);
+    const patchedStimulus = row.stimulus ?? derivePackageStimulus(payload);
+
+    if (
+      row.item_type === "mcq" &&
+      !(nextChoicesByVersion.get(row.content_item_version_id)?.length)
+    ) {
+      const derived = derivePackageChoices(payload);
+      if (derived) {
+        nextChoicesByVersion.set(row.content_item_version_id, derived);
+      }
+    }
+
+    if (patchedStem === row.stem && patchedStimulus === row.stimulus) {
+      return row;
+    }
+    return { ...row, stem: patchedStem ?? row.stem, stimulus: patchedStimulus };
+  });
+
+  return { rows: nextRows, choicesByVersion: nextChoicesByVersion };
+}
+
+// ---------------------------------------------------------------------------
+// TASK-0047 Decision 17 follow-on -- resolved topic/cell identity.
+//
+// ConfirmTransferBeat's trigger and the Course Mode pilot map are hardcoded to
+// AP Statistics because topic identity for any other subject only lives in
+// the database, never in the content_key (unlike Statistics' structured
+// `apstat-u1-<topic>-<skillletter>` keys). This resolves a generic identifier
+// per served item so a non-Statistics subject can eventually be gated the
+// same way, without inventing any new schema.
+// ---------------------------------------------------------------------------
+
+// CONTENT_TAXONOMY_RATIONALIZATION_PLAN_2026_09_26.md Phase 1 step 5. One row
+// per published version with its resolved topic/skill identity, read from
+// app.content_item_topic_resolution -- the view that is now the single place
+// this resolves from (it already prefers the fine-grained
+// content_item_cells tag when skill_code is present, and includes topic-only
+// rows, e.g. the 112 AP Biology items, with skill_code null). This replaced
+// a two-source read (content_item_cells + a content_taxonomy_labels
+// fallback gated on label_status = 'validated') that duplicated the view's
+// own resolution logic in TypeScript; the view is now the one place that
+// logic lives -- including the safety-critical filter: the view only
+// surfaces assignment_status IN ('validated', 'authored'), so an
+// unvalidated (provisional_model) row never reaches this function at all.
+// See 20260927004700_content_item_topic_resolution_view.sql for why that
+// filter exists and what it protects (decision #2 of the rationalization
+// plan, deferred not resolved).
+export type TopicResolutionRow = {
+  content_item_version_id: string;
+  topic_code: string;
+  skill_code: string | null;
+  topic_title: string | null;
+  unit_number: number | null;
+};
+
+/**
+ * Resolves a RenderCell per content_item_version_id from
+ * app.content_item_topic_resolution rows. An item with no row in the view --
+ * no primary topic assignment at all -- resolves to no entry; the caller
+ * must treat a missing map entry as "no cell", never fabricate one.
+ */
+export function buildResolvedCells(
+  rows: readonly SelectedRow[],
+  resolutionRows: readonly TopicResolutionRow[],
+): Map<string, RenderCell> {
+  const result = new Map<string, RenderCell>();
+
+  const byVersion = new Map<string, TopicResolutionRow>();
+  for (const r of resolutionRows) {
+    if (!byVersion.has(r.content_item_version_id)) {
+      byVersion.set(r.content_item_version_id, r);
+    }
+  }
+
+  for (const row of rows) {
+    const resolved = byVersion.get(row.content_item_version_id);
+    if (!resolved) continue; // No primary topic assignment -- absent, not fabricated.
+    result.set(row.content_item_version_id, {
+      topic_code: resolved.topic_code,
+      skill_code: resolved.skill_code,
+      topic_title: resolved.topic_title,
+      unit_number: resolved.unit_number,
+    });
+  }
+
+  return result;
+}
 
 export function assetKey(
   versionId: string,
@@ -280,6 +569,7 @@ export function buildRenderItem(
   expiresAt: string,
   criteria: readonly LearnerFacingCriterion[],
   choices: readonly McqChoice[] | null = null,
+  cell: RenderCell | null = null,
 ): RenderItem | null {
   let media: RenderMedia[] = [];
 
@@ -312,5 +602,7 @@ export function buildRenderItem(
     parts: toLearnerFacingParts(criteria),
     choices: choices && choices.length ? [...choices] : null,
     media,
+    response_mode: row.hand_drawn === true ? "hand_drawn" : "typed",
+    cell,
   };
 }
