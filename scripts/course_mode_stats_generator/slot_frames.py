@@ -154,6 +154,14 @@ GRAPH_TAGS = {
 }
 
 
+PROP_CI_CLAIM_TAGS = {
+    "u3_4__endpoint_inclusion_reversed",
+    "u3_4__confidence_level_as_probability_claim",
+    "u3_4__sample_statistic_as_population_claim",
+    "u3_4__overstated_certainty_from_interval",
+}
+
+
 RANDOM_VARIABLE_TAGS = {
     "u2_8__probabilities_do_not_sum_to_one",
     "u2_8__negative_probability_allowed",
@@ -1234,6 +1242,155 @@ def generate_u1_13_design(count: int, base_seed: int = 11300) -> List[Dict]:
     return [gen_u1_13_design_instance(random.Random(base_seed + i), base_seed + i) for i in range(count)]
 
 
+
+def _pct_fmt(value: float) -> str:
+    return f"{value * 100:.0f}%"
+
+
+def _prop_ci_claim_case(rng: random.Random) -> Dict[str, object]:
+    claim_type = rng.choice(["greater", "less", "different"])
+    support = rng.choice([True, False])
+    threshold = rng.choice([0.25, 0.30, 0.40, 0.50, 0.60, 0.70])
+    width = rng.choice([0.08, 0.10, 0.12])
+    gap = rng.choice([0.03, 0.05, 0.07])
+    if claim_type == "greater":
+        if support:
+            low = threshold + gap
+            high = low + width
+        else:
+            low = threshold - width / 2
+            high = threshold + width / 2
+        claim = f"more than {_pct_fmt(threshold)}"
+        reason_support = f"the entire interval is above {_pct_fmt(threshold)}"
+        reason_no_support = f"the interval includes values at or below {_pct_fmt(threshold)}"
+    elif claim_type == "less":
+        if support:
+            high = threshold - gap
+            low = high - width
+        else:
+            low = threshold - width / 2
+            high = threshold + width / 2
+        claim = f"less than {_pct_fmt(threshold)}"
+        reason_support = f"the entire interval is below {_pct_fmt(threshold)}"
+        reason_no_support = f"the interval includes values at or above {_pct_fmt(threshold)}"
+    else:
+        if support:
+            direction = rng.choice(["above", "below"])
+            if direction == "above":
+                low = threshold + gap
+                high = low + width
+            else:
+                high = threshold - gap
+                low = high - width
+        else:
+            low = threshold - width / 2
+            high = threshold + width / 2
+        claim = f"different from {_pct_fmt(threshold)}"
+        reason_support = f"{_pct_fmt(threshold)} is not in the interval of plausible values"
+        reason_no_support = f"{_pct_fmt(threshold)} is in the interval of plausible values"
+    low = round(max(0.03, low), 2)
+    high = round(min(0.97, high), 2)
+    center = round((low + high) / 2, 2)
+    return {"claim_type": claim_type, "support": support, "threshold": threshold,
+            "low": low, "high": high, "center": center, "claim": claim,
+            "reason_support": reason_support, "reason_no_support": reason_no_support}
+
+
+def _prop_ci_correct_text(case: Dict[str, object], c: Dict[str, str]) -> str:
+    if case["support"]:
+        return (f"The interval supports the claim that {c['parameter']} is {case['claim']}, because "
+                f"{case['reason_support']}. The conclusion should still be stated as inference from the sample, not as proof.")
+    return (f"The interval does not support the claim that {c['parameter']} is {case['claim']}, because "
+            f"{case['reason_no_support']}. Values consistent with the interval make the claim too strong for these results.")
+
+
+def _prop_ci_distractor_text(tag: str, case: Dict[str, object], c: Dict[str, str], confidence: int) -> str:
+    if tag == "u3_4__endpoint_inclusion_reversed":
+        if case["support"]:
+            return (f"The interval does not support the claim, because the claimed cutoff {_pct_fmt(case['threshold'])} "
+                    "is not one of the endpoints of the interval.")
+        return (f"The interval supports the claim, because the cutoff {_pct_fmt(case['threshold'])} lies inside the interval "
+                "and is therefore a plausible value.")
+    if tag == "u3_4__confidence_level_as_probability_claim":
+        return (f"There is a {confidence}% probability that {c['parameter']} is between {_pct_fmt(case['low'])} and "
+                f"{_pct_fmt(case['high'])}, so the claim is automatically supported.")
+    if tag == "u3_4__sample_statistic_as_population_claim":
+        return (f"The sample proportion is about {_pct_fmt(case['center'])}, so {c['parameter']} equals about "
+                f"{_pct_fmt(case['center'])}; the claim should be judged from that sample value alone.")
+    if tag == "u3_4__overstated_certainty_from_interval":
+        if case["support"]:
+            return (f"The interval proves that {c['parameter']} is {case['claim']}, so the claim is guaranteed true.")
+        return (f"The interval proves that {c['parameter']} is not {case['claim']}, so the claim is impossible.")
+    raise ValueError(tag)
+
+
+def gen_u3_4_prop_ci_claim_instance(rng: random.Random, seed: int) -> Dict:
+    c = rng.choice(SCN.U3_4_PROP_CI_CLAIM_CONTEXTS)
+    scenario_prov = SCN.framing("slotframe_u3_4_prop_ci_claim", c.get("domain"))
+    confidence = rng.choice([90, 95, 99])
+    case = _prop_ci_claim_case(rng)
+    prompt = (f"In {c['source']}, a random sample was used to estimate {c['parameter']}. "
+              f"The resulting {confidence}% confidence interval is ({_pct_fmt(case['low'])}, {_pct_fmt(case['high'])}). "
+              f"A student claims that {c['parameter']} is {case['claim']}. Which interpretation is best supported by the interval?")
+    options = [{"text": _prop_ci_correct_text(case, c), "correct": True, "misconception": None}]
+    for tag in rng.sample(sorted(PROP_CI_CLAIM_TAGS), 3):
+        options.append({"text": _prop_ci_distractor_text(tag, case, c, confidence),
+                        "correct": False, "misconception": tag,
+                        "misconception_source": MISC.provenance(tag)})
+    rng.shuffle(options)
+    checks = [
+        ("interval_ordered", 0 < case["low"] < case["high"] < 1),
+        ("threshold_in_unit_interval", 0 < case["threshold"] < 1),
+        ("support_rule_consistent",
+         (case["claim_type"] == "greater" and case["support"] == (case["low"] > case["threshold"])) or
+         (case["claim_type"] == "less" and case["support"] == (case["high"] < case["threshold"])) or
+         (case["claim_type"] == "different" and case["support"] == (not (case["low"] <= case["threshold"] <= case["high"])))),
+        ("exactly_one_correct", sum(1 for o in options if o["correct"]) == 1),
+        ("four_options", len(options) == 4),
+        ("option_texts_unique", len({o["text"] for o in options}) == 4),
+        ("all_distractors_tagged", all(o["misconception"] for o in options if not o["correct"])),
+        ("all_distractor_tags_canonical", all(o["misconception"] in MISC.CATALOG for o in options if not o["correct"])),
+        ("all_distractors_cite_source", all(o.get("misconception_source", {}).get("sources") for o in options if not o["correct"])),
+        ("scenario_framing_present", bool(scenario_prov.get("archetype")) and bool(scenario_prov.get("sources"))),
+        ("scenario_is_prop_ci_claim", any("one-population proportion confidence interval" in r for r in scenario_prov.get("validity_rules", []))),
+        ("prop_ci_claim_tags_subset", all(o.get("misconception") in PROP_CI_CLAIM_TAGS for o in options if not o["correct"])),
+    ]
+    return {
+        "schema_version": "course-mode-generated-0.1",
+        "package_id": f"slotframe-u3_4-4f-{seed:06d}",
+        "content_key": f"apstat-u3-4-4f-prop-ci-claim-{seed:06d}",
+        "item_type": "mcq",
+        "difficulty": "Medium",
+        "exam_pack_ref": {"exam_code": "ap_statistics", "cycle": "2026-27"},
+        "taxonomy_refs": [
+            {"scheme_key": "ap-statistics-2026-27", "node_key": "unit-3"},
+            {"scheme_key": "ap-statistics-2026-27", "node_key": "topic-3.4"},
+            {"scheme_key": "ap-statistics-skills", "node_key": "skill-4.F", "practice": 4},
+        ],
+        "cells": [{"topic": "3.4", "skill": "4.F"}],
+        "scenario_provenance": scenario_prov,
+        "prompt": prompt,
+        "mcq_form": {"options": options},
+        "parts": [{"part_key": "part-a", "prompt": prompt, "response_modalities": ["mcq"], "points": 1,
+                   "criteria": [{"criterion_key": "part-a-criterion-1", "points": 1,
+                                  "description": "Selects the CI interpretation that correctly judges claim support for a population proportion.",
+                                  "required_evidence": _prop_ci_correct_text(case, c),
+                                  "deterministic_checks": [{"kind": "mcq_key", "correct_claim_support": case["support"],
+                                                            "claim_type": case["claim_type"]}],
+                                  "accepted_variants": []}]}],
+        "provenance": {"generator": "course_mode_stats_generator/slot_frames.py",
+                       "frame_id": "FB-U3-4-4F-PROP-CI-CLAIM-01",
+                       "template_id": "slotframe_u3_4_prop_ci_claim",
+                       "params": {"scenario_id": c["id"], "confidence": confidence, **case},
+                       "seed": seed, "release_status": "unreleased_generated_pending_review",
+                       "note": "Authored conceptual frame; correctness from confidence-interval claim-support rules."},
+        "_property_checks": checks,
+    }
+
+
+def generate_u3_4_prop_ci_claim(count: int, base_seed: int = 30400) -> List[Dict]:
+    return [gen_u3_4_prop_ci_claim_instance(random.Random(base_seed + i), base_seed + i) for i in range(count)]
+
 def _prob_table_text(rv: str, values: List[int], probs: List[float], label: str = "P") -> str:
     entries = "; ".join(f"{rv}={v}: {p:.2f}" for v, p in zip(values, probs))
     return f"{label} table: {entries}"
@@ -1387,6 +1544,9 @@ FRAMES = [
      "base_seed": 11300, "expected_tags": set(DESIGN_TAGS),
      "note": "Experimental design classification. Coverage: Unit 1 topic 1.13."},
 
+    {"frame_id": "FB-U3-4-4F-PROP-CI-CLAIM-01", "cell": "3.4 x 4.F", "gen": generate_u3_4_prop_ci_claim,
+     "base_seed": 30400, "expected_tags": set(PROP_CI_CLAIM_TAGS),
+     "note": "Confidence-interval claim interpretation for one population proportion. Coverage: Unit 3 topic 3.4."},
     {"frame_id": "FB-U2-8-3A-RANDOM-VARIABLE-DIST-01", "cell": "2.8 x 3.A", "gen": generate_u2_8_random_variable_distributions,
      "base_seed": 22800, "expected_tags": set(RANDOM_VARIABLE_TAGS),
      "note": "Random-variable probability distribution representation. Coverage: Unit 2 topic 2.8."},

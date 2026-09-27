@@ -714,6 +714,39 @@ CATALOG: Dict[str, Misconception] = {m.tag: m for m in [
             "stratified sampling takes a random sample within every stratum; sampling all observational units in selected clusters is cluster sampling")]),
 
 
+    # --- slot-frame FB-U3-4-4F-PROP-CI-CLAIM-01 (3.4 x 4.F) : interpret CI results ---
+    _M("u3_4__endpoint_inclusion_reversed",
+       "Reversed the confidence-interval inclusion rule for a claim value",
+       "Decided support for a claim by using the opposite of the interval rule: treating a null or claimed "
+       "value inside the confidence interval as evidence against it, or a value outside the interval as plausible.",
+       "ced_structural", ["slotframe_u3_4_prop_ci_claim"], ["3.4"], ["4.F"],
+       [_fp("S10 Unit 3 (3.3-3.4)",
+            "a confidence interval gives plausible values for the population proportion; claim support depends on whether the claim value/direction is consistent with the interval")]),
+
+    _M("u3_4__confidence_level_as_probability_claim",
+       "Interpreted the confidence level as the probability this computed interval contains the parameter",
+       "Said there is a stated-percent chance that the fixed interval contains the true population proportion, "
+       "rather than interpreting confidence through the long-run method.",
+       "documented_cr", ["slotframe_u3_4_prop_ci_claim"], ["3.4"], ["4.F"],
+       [_fp("S10 Unit 3 (3.3-3.4)",
+            "interpretations of confidence intervals must reference the population proportion and avoid probability language about a single already-computed interval")]),
+
+    _M("u3_4__sample_statistic_as_population_claim",
+       "Treated the sample proportion as if it were the population proportion",
+       "Used the sample result or interval midpoint as a definitive statement about the true population proportion, "
+       "rather than making a qualified inference from the interval.",
+       "documented_cr", ["slotframe_u3_4_prop_ci_claim"], ["3.4"], ["4.F"],
+       [_fp("S10 Unit 3 (3.3-3.4)",
+            "confidence-interval conclusions must be about the population proportion, not merely the sample proportion or sample count")]),
+
+    _M("u3_4__overstated_certainty_from_interval",
+       "Used definitive proof language for an inference conclusion",
+       "Claimed the interval proves or guarantees the population proportion's value or direction, overstating what inference results support.",
+       "documented_cr", ["slotframe_u3_4_prop_ci_claim"], ["3.4"], ["4.F"],
+       [_fp("S10 'General exam-wide conventions'",
+            "inference conclusions must use non-definitive language such as convincing evidence; they do not prove or guarantee a claim")]),
+
+
     # --- slotframe_u2_8_random_variable_distributions (2.8 x 3.A) ---------------
     _M("u2_8__probabilities_do_not_sum_to_one",
        "Accepted a probability distribution whose probabilities do not sum to 1",

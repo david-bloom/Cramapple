@@ -196,6 +196,13 @@ FRAMING: Dict[str, Framing] = {
         ["realistic study-design scenario",
          "classification must distinguish imposed treatments, randomization, control/placebo/blinding, and confounding"],
         [_SEC5, _SEC6, _SEC7]),
+
+    "slotframe_u3_4_prop_ci_claim": Framing(
+        "slotframe_u3_4_prop_ci_claim", "Q3", "Justify", 4, "exam_aligned_digital",
+        ["one-population proportion confidence interval already supplied",
+         "claim support must be based on whether the claimed value or direction is consistent with the interval",
+         "conclusion must be about the population proportion, not the sample proportion, and must avoid definitive proof language"],
+        [_SEC5, _SEC6, _SEC7]),
     "sample_prop_distribution": Framing(
         "sample_prop_distribution", "Q4", "Calculate", 3, "exam_aligned_digital",
         ["population proportion p and sample size n are supplied",
@@ -857,6 +864,22 @@ U1_13_DESIGN_CONTEXTS: List[Dict[str, object]] = [
 ]
 
 
+
+U3_4_PROP_CI_CLAIM_CONTEXTS: List[Dict[str, str]] = [
+    {"id": "u3_4__campus_transit", "domain": "education", "source": "a campus transportation survey",
+     "population": "students at the college", "trait": "would use a late-night shuttle", "parameter": "the true proportion of students who would use a late-night shuttle"},
+    {"id": "u3_4__park_permit", "domain": "civic", "source": "a city parks department sample",
+     "population": "adult city residents", "trait": "support a weekend parking permit program", "parameter": "the true proportion of adult residents who support the permit program"},
+    {"id": "u3_4__quality_defect", "domain": "manufacturing", "source": "a quality-control sample",
+     "population": "items produced during the shift", "trait": "have a surface defect", "parameter": "the true proportion of shift items with a surface defect"},
+    {"id": "u3_4__clinic_portal", "domain": "health", "source": "a clinic patient sample",
+     "population": "clinic patients", "trait": "prefer online appointment reminders", "parameter": "the true proportion of clinic patients who prefer online reminders"},
+    {"id": "u3_4__retail_reuse", "domain": "business", "source": "a retailer's customer sample",
+     "population": "recent customers", "trait": "would reuse a shipping box", "parameter": "the true proportion of recent customers who would reuse a shipping box"},
+    {"id": "u3_4__habitat_nesting", "domain": "biology", "source": "a field ecology sample",
+     "population": "nesting sites in the preserve", "trait": "contain an active nest", "parameter": "the true proportion of preserve nesting sites that contain an active nest"},
+]
+
 # Unit 3.2 sampling-distribution contexts for sample proportions. Each id is cell-namespaced.
 U3_2_SAMPLE_PROP_CONTEXTS: List[Dict[str, object]] = [
     {"id": "u3_2__commute_bike", "domain": "civic", "population": "city residents",
@@ -1241,6 +1264,17 @@ def validate_scenarios() -> List[str]:
             problems.append(f"u1_13 design context id is not namespaced: {ctx.get('id')}")
         if len(ctx.get("distractors", [])) < 3:
             problems.append(f"u1_13 design context needs at least 3 distractors: {ctx}")
+
+    seen_u3_4_ids = set()
+    for ctx in U3_4_PROP_CI_CLAIM_CONTEXTS:
+        required = ("id", "domain", "source", "population", "trait", "parameter")
+        if not all(k in ctx for k in required):
+            problems.append(f"u3_4 proportion CI claim context missing fields: {ctx}")
+        if ctx.get("id") in seen_u3_4_ids:
+            problems.append(f"duplicate u3_4 proportion CI claim context id: {ctx.get('id')}")
+        seen_u3_4_ids.add(ctx.get("id"))
+        if not str(ctx.get("id", "")).startswith("u3_4__"):
+            problems.append(f"u3_4 proportion CI claim context id is not namespaced: {ctx.get('id')}")
     seen_u3_2_ids = set()
     for ctx in U3_2_SAMPLE_PROP_CONTEXTS:
         required = ("id", "domain", "population", "trait", "p_choices", "n_choices")
@@ -1367,6 +1401,7 @@ if __name__ == "__main__":
             "u1_8_boxplots": len(U1_8_BOXPLOT_CONTEXTS),
             "u1_12_bias": len(U1_12_BIAS_CONTEXTS),
             "u1_13_design": len(U1_13_DESIGN_CONTEXTS),
+            "u3_4_prop_ci_claim": len(U3_4_PROP_CI_CLAIM_CONTEXTS),
             "u3_2_sample_prop": len(U3_2_SAMPLE_PROP_CONTEXTS),
             "u2_8_random_variables": len(U2_8_RANDOM_VARIABLE_CONTEXTS),
             "u2_7_independent_union": len(U2_7_INDEPENDENT_UNION_CONTEXTS),
