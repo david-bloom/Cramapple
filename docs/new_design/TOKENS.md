@@ -33,10 +33,10 @@ styles.css
 | `--blue-600` | #1f56a8 | Rubric, points earned, credited answers, ✓ |
 | `--green-500` | #2f9c67 | Reference materials |
 | `--yellow-500` | #edb90d | Hints — and every yellow surface costs the student something |
-| `--purple-600` | #5f43ba | The student's own work: answer field, options, feedback, deep dive |
+| `--purple-600` | #5f43ba | The student's own work: answer field, options, feedback |
 | `--maroon-600` | #8a2f3f | Points lost, incorrect verdicts, eliminated options |
 | `--clay-600` | #8c4530 | The ↻ revisit mark |
-| `--teal-500` | #2a8a92 | One accent rule inside the deep dive |
+| `--teal-500` | #2a8a92 | The Deep Dive — its cap, its eyebrow, and any control that opens it |
 
 Orange is never an error colour. Yellow is never decoration. Nothing else may be introduced into the warm lane.
 

@@ -15,7 +15,7 @@ import React from 'react';
  * Deliberately not styled like product UI: a dashed rule and mono type, so it
  * can never be mistaken for content at a glance or in a screenshot.
  */
-export function Missing({ children, inline = false }) {
+export function Missing({ children, inline = false, heading = 'Not in this package' }) {
   return (
     <div
       role="note"
@@ -34,7 +34,7 @@ export function Missing({ children, inline = false }) {
         letterSpacing: '.1em',
         textTransform: 'uppercase',
         color: 'var(--text-quiet)'
-      }}>Not in this package</span>
+      }}>{heading}</span>
       <span style={{
         fontSize: inline ? 'var(--type-count-size)' : 'var(--type-body-size)',
         lineHeight: inline ? 'var(--type-count-line)' : 'var(--type-body-line)',

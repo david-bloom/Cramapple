@@ -5,6 +5,7 @@ import mcq23a from './sample/apstats-2-3-mcq-001.js';
 import mcq23b from './sample/apstats-2-3-mcq-002.js';
 import frq23b from './sample/apstats-2-3-frq-002.js';
 import { REAL_ITEMS } from './real.js';
+import { getByoqItem } from './byoq.js';
 
 /**
  * The content layer.
@@ -69,11 +70,22 @@ export const TOTAL_QUESTIONS = ALL_QUESTIONS.length;
 export function getQuestion(packageId) {
   return ALL_QUESTIONS.find((q) => q.package_id === packageId)
     || REAL_ITEMS.find((q) => q.package_id === packageId)
-    || null;
+    || getByoqItem(packageId);
 }
 
 export function getTopic(code) {
   return TOPICS.find((t) => t.code === code) || null;
+}
+
+/**
+ * A library question's reference block for a given topic, for a BYOQ item to
+ * borrow. CramApple-authored and topic-general, so it carries no answer to the
+ * student's own submitted problem -- see content/byoq.js.
+ */
+export function referenceForTopic(code) {
+  const topic = getTopic(code);
+  const withReference = topic?.questions.find((q) => q.reference);
+  return withReference?.reference || null;
 }
 
 /**

@@ -6,12 +6,19 @@ import { PracticeFrqScreen } from './PracticeFrqScreen.jsx';
 import { PracticeMcqScreen } from './PracticeMcqScreen.jsx';
 import { OpenHandFrqScreen } from './OpenHandFrqScreen.jsx';
 import { OpenHandMcqScreen } from './OpenHandMcqScreen.jsx';
+import { PracticeByoqFrqScreen } from './PracticeByoqFrqScreen.jsx';
+import { PracticeByoqMcqScreen } from './PracticeByoqMcqScreen.jsx';
 
 const SCREENS = {
   'practice:frq': PracticeFrqScreen,
   'practice:mcq': PracticeMcqScreen,
   'open-hand:frq': OpenHandFrqScreen,
-  'open-hand:mcq': OpenHandMcqScreen
+  'open-hand:mcq': OpenHandMcqScreen,
+  // A BYOQ item never resolves an 'open-hand:*:byoq' key, on purpose: it has no
+  // answer key to show face-up. See DECISION-0057. This is the enforcement
+  // point for that rule, including against a hand-typed URL.
+  'practice:frq:byoq': PracticeByoqFrqScreen,
+  'practice:mcq:byoq': PracticeByoqMcqScreen
 };
 
 /**
@@ -25,12 +32,13 @@ export function QuestionRoute() {
   const { setLast } = useSession();
 
   const question = getQuestion(packageId);
-  const Screen = question ? SCREENS[`${mode}:${question.item_type}`] : null;
+  const key = question?.source === 'student' ? `${mode}:${question.item_type}:byoq` : `${mode}:${question?.item_type}`;
+  const Screen = question ? SCREENS[key] : null;
 
   useEffect(() => {
-    // Real packages are reviewed directly and are not part of the walkthrough,
-    // so they never become its resume point.
-    if (question && Screen && question.source !== 'package') setLast(packageId, mode);
+    // Real packages and BYOQ items are not part of the walkthrough, so neither
+    // becomes its resume point.
+    if (question && Screen && question.source !== 'package' && question.source !== 'student') setLast(packageId, mode);
   }, [question, Screen, packageId, mode, setLast]);
 
   if (!question || !Screen) return <Navigate to="/" replace />;

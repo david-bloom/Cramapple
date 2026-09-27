@@ -16,9 +16,9 @@ Supersedes `docs/product/CRAMAPPLE_VISUAL_IDENTITY_BRIEF.md` and `..._v2.md`. Se
 | Blue `--blue-600` | Rubric, points earned, credited answers, ✓ marks. |
 | Green `--green-500` | Reference materials only. |
 | Yellow `--yellow-500` | Hints only. Every yellow surface costs the student something. |
-| Purple `--purple-600` | The student's own work: answer field, options, feedback, deep dive. |
+| Purple `--purple-600` | The student's own work: answer field, options, feedback. |
 
-Maroon `--maroon-600` #8a2f3f carries points lost, incorrect verdicts and eliminated options — cool enough never to be read as the brand orange, because a lost point is a correction and not an alarm. Clay `--clay-600` #8c4530 is the ↻ revisit mark: come back to this, the point is still available. Amber is gone — the warm lane is now brand orange only. Teal appears only as one accent rule inside the deep dive.
+Maroon `--maroon-600` #8a2f3f carries points lost, incorrect verdicts and eliminated options — cool enough never to be read as the brand orange, because a lost point is a correction and not an alarm. Clay `--clay-600` #8c4530 is the ↻ revisit mark: come back to this, the point is still available. Amber is gone — the warm lane is now brand orange only. Teal `--teal-500` #2a8a92 owns the Deep Dive — its cap, its eyebrow, and any control that opens it.
 
 **Type.** Bungee is the wordmark and nothing else. Passion One sets pane titles, scores and overlay titles at 22–32px; it is used at display sizes only, never for prose. Source Sans 3 does all reading and all controls. STIX Two Math is reserved for set mathematics. **Body copy never goes below 16px** — chrome (breadcrumb 13px, counts 12px, eyebrows 12px, the plate caption 10px) is the only exception, and never for content a student must read to answer. Eyebrows are 12px, 700 weight, uppercase, `.15em` tracking.
 

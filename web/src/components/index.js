@@ -2,6 +2,8 @@
 // Source of truth for the visual rules: docs/new_design/ and .claude/skills/cramapple-design/.
 // Do not re-implement a primitive inside a screen -- add it here instead.
 
+export { ViewportGate } from './layout/ViewportGate.jsx';
+
 export { Plate, PlateGrid } from './pane/Plate.jsx';
 export { PaneShell } from './pane/PaneShell.jsx';
 export { ScoreChip } from './pane/ScoreChip.jsx';

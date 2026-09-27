@@ -1,0 +1,180 @@
+{
+  "schema_version": "course-mode-generated-0.1",
+  "package_id": "slotframe-u1_3-3a-013016",
+  "content_key": "apstat-u1-3-3a-cat_table-013016",
+  "item_type": "mcq",
+  "difficulty": "Easy-Medium",
+  "exam_pack_ref": {
+    "exam_code": "ap_statistics",
+    "cycle": "2026-27"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "unit-1"
+    },
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "topic-1.3"
+    },
+    {
+      "scheme_key": "ap-statistics-skills",
+      "node_key": "skill-3.A",
+      "practice": 3
+    }
+  ],
+  "cells": [
+    {
+      "topic": "1.3",
+      "skill": "3.A"
+    }
+  ],
+  "scenario_provenance": {
+    "archetype": "Q2",
+    "archetype_label": "Multi-focus on Practices 3 & 4 (analyze data; interpret results)",
+    "task_verb": "Describe",
+    "practice": 3,
+    "modality": "exam_aligned_digital",
+    "validity_rules": [
+      "one categorical variable with category counts",
+      "representation preserves category labels and uses the correct total for relative frequencies"
+    ],
+    "sources": [
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S5 (Free-response archetypes)",
+        "note": "Section II question archetypes Q1-Q4"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S6 (Task verbs)",
+        "note": "the item stem's verb must match the scored demand"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S7 (Response modality)",
+        "note": "digital Bluebook; text/numeric entry -> exam_aligned_digital"
+      }
+    ],
+    "domain": "civic"
+  },
+  "prompt": "A sample of 124 patrons was classified by library section visited first. The category counts are fiction: 41; computers: 26; children: 36; reference: 21. Which representation correctly shows the relative-frequency table for this one categorical variable?",
+  "mcq_form": {
+    "options": [
+      {
+        "text": "Relative-frequency table: fiction: 100%; computers: 63%; children: 88%; reference: 51%",
+        "correct": false,
+        "misconception": "u1_3__relative_frequency_denominator_error",
+        "misconception_source": {
+          "tag": "u1_3__relative_frequency_denominator_error",
+          "label": "Used the wrong denominator for a relative frequency",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 1 (1.3)",
+              "note": "relative frequency for one categorical variable uses the category count divided by the total number of observations"
+            }
+          ]
+        }
+      },
+      {
+        "text": "Relative-frequency table: fiction: 33%; computers: 21%; children: 29%; reference: 17%",
+        "correct": true,
+        "misconception": null
+      },
+      {
+        "text": "Dotplot on a number line after coding the categories as 1, 2, 3, and 4",
+        "correct": false,
+        "misconception": "u1_3__quantitative_display_for_categories",
+        "misconception_source": {
+          "tag": "u1_3__quantitative_display_for_categories",
+          "label": "Used a quantitative display for categorical values",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 1 (1.3/1.4)",
+              "note": "categorical variables are summarized by category counts or proportions, not by arithmetic spacing of labels"
+            }
+          ]
+        }
+      },
+      {
+        "text": "Frequency table: fiction: 41; computers: 26; children: 36; reference: 21",
+        "correct": false,
+        "misconception": "u1_3__count_percent_confusion",
+        "misconception_source": {
+          "tag": "u1_3__count_percent_confusion",
+          "label": "Confused counts with relative frequencies",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 1 (1.3)",
+              "note": "one-categorical-variable tables distinguish frequency counts from relative frequencies"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "parts": [
+    {
+      "part_key": "part-a",
+      "prompt": "A sample of 124 patrons was classified by library section visited first. The category counts are fiction: 41; computers: 26; children: 36; reference: 21. Which representation correctly shows the relative-frequency table for this one categorical variable?",
+      "response_modalities": [
+        "mcq"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "Selects the relative-frequency table that preserves category labels and divides by the full sample total.",
+          "required_evidence": "Relative-frequency table: fiction: 33%; computers: 21%; children: 29%; reference: 17%",
+          "deterministic_checks": [
+            {
+              "kind": "mcq_key",
+              "correct_representation": "categorical_relative_frequency_table"
+            }
+          ],
+          "accepted_variants": []
+        }
+      ]
+    }
+  ],
+  "provenance": {
+    "generator": "course_mode_stats_generator/slot_frames.py",
+    "frame_id": "FB-U1-3-3A-CAT-TABLE-01",
+    "template_id": "slotframe_u1_3_cat_tables",
+    "params": {
+      "scenario_id": "u1_3__library_section",
+      "categories": [
+        [
+          "fiction",
+          41
+        ],
+        [
+          "computers",
+          26
+        ],
+        [
+          "children",
+          36
+        ],
+        [
+          "reference",
+          21
+        ]
+      ],
+      "total": 124
+    },
+    "seed": 13016,
+    "release_status": "unreleased_generated_pending_review",
+    "note": "Authored conceptual frame; correctness from one-categorical-variable table representation rules."
+  }
+}
