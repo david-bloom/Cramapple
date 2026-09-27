@@ -6,6 +6,8 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0077 — BYOQ Is Identity-Agnostic: `byoq_items.user_id` Not Required (Anonymous on Marketing, Recognized-but-Not-Gated In-App); Resolves the DECISION-0070 ⟷ DECISION-0068 Conflict
+- DECISION-0076 — TASK-0039 BYOQ Phase Priority Corrected: Camera/Phone Capture Is Launch-Required, Not Typed Intake; Ownership Confirmed as Claude, Not Codex
 - DECISION-0075 — Ratify `ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md` as the Canonical Architecture/Design Source of Truth; Adopt the `STATUS:` Header Convention + `docs/INDEX.md`; Legacy Docs Handled by Annotate-in-Place (Option A, No Move)
 - DECISION-0074 — Mastery Rule Tightened: 2 Correct MCQ + 1 Full-Point FRQ, No Hint Use Prior to Submission; Adds a New Content-Coverage Dependency (GAP-9)
 - DECISION-0073 — Launch Frontend Target Is the Lovable App Published at ap-prep-canvas.lovable.app, Tentatively Identified as the "New Cramapple App" Project
@@ -25,6 +27,90 @@ Most recent entries (full chronological list follows below):
 (Note: the TASK-0012 branch independently logged its own DECISION-0027/0028 — CORS/ALLOWED_ORIGINS and budget-burn semantics — under different numbers on its own branch. Those land separately when that work merges to `main`; this charter-adoption decision claimed 0027/0028 here because `main` had not yet recorded entries past DECISION-0026 at merge time. If both branches' numbering collides on merge, renumber on whichever side merges second and update this index.)
 
 (Note: the same collision recurred 2026-09-26. The `claude/launch-planning-cram-4oyh2g` branch independently claimed DECISION-0068 through 0072 for five launch-planning decisions, not knowing `main` had already recorded its own DECISION-0068 (BYOQ parallel tables, TASK-0039 Phase 1) by the time this branch merged. Per the rule above, this branch — the later-merging side — renumbered its five decisions to DECISION-0069 through 0073 at merge time; main's DECISION-0068 is untouched. If you are reading an older copy of any of the five renumbered decisions (in a plan doc, a chat log, or a stale local checkout) under its original 0068-0072 number, this is why the number no longer matches — the content is unchanged, only the ID moved.)
+
+## DECISION-0077 — BYOQ Is Identity-Agnostic; `byoq_items.user_id` Not Required; Resolves DECISION-0070 ⟷ DECISION-0068
+
+**Date:** 2026-09-27
+**Decision Owner:** David Bloom
+**Status:** Approved (see `APPROVAL-0053`)
+**Related Docs:** `docs/tasks/TASK-0039-BYOQ-PRODUCTION-OPERATIONAL.md`;
+`docs/product/ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md` (O16 → resolved); `DECISION-0070`;
+`DECISION-0068`; `DECISION-0057`
+**Area:** Backend / Schema / Product
+
+### Context
+
+The BYOQ session (acting on the 2026-09-27 doc-cleanup broadcast) surfaced a real conflict between two
+approved decisions: `DECISION-0070` (2026-09-26) says BYOQ ships "ungated, as an anonymous session" on
+the new home page — no sign-in — while `DECISION-0068`'s approved Option A schema makes
+`app.byoq_items.user_id` a `NOT NULL` FK to `app.profiles` with RLS keyed to `auth.uid()`, which an
+anonymous visitor cannot satisfy. It also raised whether BYOQ ships on the marketing site or the
+authenticated app. Surfaced to David rather than self-resolved (per standing rule); this task already
+carried the same flag (TASK-0039 lines ~199–216).
+
+### Decision
+
+**BYOQ is identity-agnostic.** David, 2026-09-27: "There is never a need for a specific BYOQ. If a
+student uses it on the marketing page they do so without registering. If they are registered and use it
+inside the app they are recognized, but that doesn't affect their use of BYOQ either way." Concretely:
+
+- **`app.byoq_items.user_id` is NOT required** — nullable; when present (signed-in in-app user) it is
+  recognition metadata, not a gate. This **amends** the Option A schema approved under `DECISION-0068`;
+  the parallel-tables architecture is otherwise unchanged.
+- **BYOQ runs on both surfaces with identical behavior** — anonymous on the marketing home page
+  (`cramapple.com` / `61dd6602`), recognized in the app (`app.cramapple.com` / `56cae479`).
+- Implementation defines how anonymous items are scoped/secured without `auth.uid()` (e.g. a durable
+  session/device token) and preserves BYOQ's invariants (Practice-only, never Open Hand, no canonical
+  answer/rubric — `DECISION-0057`). That scoping is build work under TASK-0039, not a further PO decision.
+
+`DECISION-0070` stands; `DECISION-0068`'s user-authentication assumption is the part that gives.
+
+## DECISION-0076 — TASK-0039 BYOQ Phase Priority Corrected: Camera/Phone Capture Is Launch-Required, Not Typed Intake; Ownership Confirmed as Claude, Not Codex
+
+**Date:** 2026-09-27
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Approval:** Product Owner direction, 2026-09-27 (this session)
+**Related Docs:** `docs/tasks/TASK-0039-BYOQ-PRODUCTION-OPERATIONAL.md` ("Correction" section); `DECISION-0075`;
+`docs/product/ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md` (D9); `docs/product/LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md`
+("BYOQ is phone capture to start. Document upload post launch"); `DECISION-0068`/`APPROVAL-0050`
+**Area:** Product / Governance / BYOQ
+
+### Context
+
+`TASK-0039` was drafted 2026-09-25 and its Phase 1 (typed/pasted intake, camera capture deferred to
+Phase 2) approved 2026-09-26 (`DECISION-0068`/`APPROVAL-0050`), without knowledge of a same-day decision
+recorded elsewhere in a concurrent session's launch-planning work: "BYOQ is phone capture to start.
+Document upload post launch," which also named BYOQ's build as Codex's workstream. A separate
+concurrent session's documentation cleanup ratified `DECISION-0075` on 2026-09-27, surfacing this
+conflict directly to the session executing `TASK-0039`. That session verified the conflict against the
+primary source (not just the one-pager summary) and stopped rather than self-resolve it, per this
+project's standing rule to notify the Product Owner on exactly this kind of cross-session contradiction.
+
+### Decision
+
+**Camera/phone capture is BYOQ's primary, launch-required intake method — not typed/pasted text.**
+David's direction: "phase 1 is phone, not text BYOQ." What `TASK-0039` originally labeled "Phase 2" (QR
+photo capture) is launch-required and ships no later than the data model and Practice screen; what it
+labeled "Phase 1" (typed/pasted intake) is a fallback input, not the primary or first-shipped path.
+
+**Ownership confirmed: Claude, not Codex.** David's direction: "Claude is taking over BYOQ while Codex
+works on content pipeline." This supersedes the earlier direction recorded in
+`LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md` that BYOQ's build was Codex's workstream.
+
+**Unaffected by this decision:** the data-model architecture (Option A, parallel `byoq_*` tables) and
+Phase 1's schema/screen scope approved under `DECISION-0068`/`APPROVAL-0050` — this decision reorders
+priority and confirms ownership, it does not reopen that approval. `TASK-0039`'s Phase 3 (worksheet
+upload, post-launch) was already correctly scoped and is unaffected.
+
+### Not decided by this entry
+
+Whether BYOQ ships **ungated, as an anonymous session** (`DECISION-0070`, 2026-09-26: "BYOQ ships on the
+new home page, ungated, as an anonymous session... A visitor does not need to sign in or purchase")
+is a separate, more severe conflict this same review pass found, structurally at odds with the
+approved Option A schema (owner-scoped RLS keyed to an authenticated `auth.uid()`/`app.profiles.user_id`
+— an anonymous visitor has neither). **Not resolved here** — see the same-day Activity Log entry for
+this finding, reported to David rather than self-resolved.
 
 ## DECISION-0075 — Ratify the Current Architecture/Design One-Pager as Canonical; Adopt STATUS Headers + INDEX; Legacy = Annotate-in-Place
 

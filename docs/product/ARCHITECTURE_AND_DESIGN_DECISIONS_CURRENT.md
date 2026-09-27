@@ -50,7 +50,7 @@ reality" note at the end.
 | D6 | **Marketing / app split & live projects** | Two deployed Lovable projects: **App** = "New Cramapple App" `56cae479` → `app.cramapple.com`; **Marketing** = "New Cramapple Marketing" `61dd6602` → `cramapple.com`. In-repo rebuild target is `web/`. | `APP_REBUILD_MIGRATION_PLAN.md` §3; `DECISION-0073` (self-correction); verified live 2026-09-27 | — |
 | D7 | **Mastery rule** | **2 correct MCQ + 1 full-point FRQ, with no hint use prior to submission** on any of the three (hints after submission never affect mastery). Foundational and **still unbuilt**. | `docs/activity_log/DECISIONS_LOG.md` `DECISION-0074` | `DECISION-0074` (supersedes the earlier "2 full-point, hint allowed" first pass) |
 | D8 | **Multi-part FRQ** | **Cheap render-time parser stopgap** for `(a)/(b)/(c)` prose parts; full re-authoring migration explicitly **not** committed. | `LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md` "DECIDED" #11 | TASK-0047 Workstream B, commit `c52c3fd6` (Lovable) |
-| D9 | **BYOQ shape** | **Phone/camera capture at launch**; document/text upload **deferred post-launch**. BYOQ is the alternative path, not the default (Practice defaults to a Cramapple question). Build itself is Codex's workstream. | `LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md` "DECIDED" #18/#19 | — |
+| D9 | **BYOQ shape & owner** | **Phone/camera capture is the launch-required intake**; typed/paste is a **fallback alongside** it; worksheet/document upload **deferred post-launch (Phase 3)**. BYOQ is the alternative path, not the default (Practice defaults to a Cramapple question). **Owner: Claude** (Codex moved to the content pipeline). | `LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md` "DECIDED" #18/#19; `DECISION-0076` / `APPROVAL-0052` (phase priority + ownership, 2026-09-27) | `TASK-0039` (`DECISION-0076`) |
 | D10 | **ConfettiBurst motion** | **Keep**, as a named, documented exception to the "zero motion" rule. | `LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md` "DECIDED" #3 | `APP_REBUILD` §11 #3 |
 | D11 | **Course-Mode component survival** | Generalize `ConfirmTransferBeat`'s trigger; fold `LessonOpener` into `WorkedExample`; keep `StreakBadge`. These are **components**, not a "mode." | `LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md` "DECIDED" #17 | TASK-0047 Workstream D, commits `8337b270` / `6b696008` (Lovable); follow-on backend `9fc0f75b` (this repo) |
 | D12 | **Item-package format** | **Dual-read adapter**, not a mass backfill. (Gap was found dormant — adapter is forward insurance.) | `LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md` "DECIDED" #23 | TASK-0047 Workstream E, commit `1a6e8404` (this repo) |
@@ -59,6 +59,7 @@ reality" note at the end.
 | D15 | **Day-1 launch subjects** | **AP Biology + AP Statistics** live day 1; other 8 subjects fast-follow. Pricing $39.99 / $79.99 / $99.99 (single / 2-bundle / 3-bundle). | `docs/activity_log/DECISIONS_LOG.md` `DECISION-0069` | `DECISION-0069` |
 | D16 | **Backend does not move** | The 16 edge functions, data model (`attempts`, `attempt_responses`, `grading_results`, `learning_sessions`, `subject_entitlements`), grading engines and migrations are **unchanged** by the rebuild. Rebuild re-implements callers, not contracts. | `APP_REBUILD_MIGRATION_PLAN.md` §2.4, §10 | — |
 | D17 | **Open Hand answer-key: method** | Open Hand is a **sanctioned full-disclosure teaching method** — a unit:topic-relevant item shown with its answer, rubric, points earned/lost, reference pane and deep dive, none of it scored. (*Whether* to show the key is settled; *how* to serve it is OPEN — see O5.) | `APP_REBUILD_MIGRATION_PLAN.md` §5.2, §11 #21; David 2026-09-22 | — |
+| D18 | **BYOQ is identity-agnostic** | BYOQ requires **no authentication**: `app.byoq_items.user_id` is **nullable** (recognition metadata for a signed-in in-app user, not a gate). It runs **anonymously on the marketing page** (`61dd6602`) and **recognized in the app** (`56cae479`) with identical behavior. Amends `DECISION-0068`'s authenticated-only schema; upholds `DECISION-0070`. Anonymous scoping (e.g. session/device token) is build work under TASK-0039. | `DECISION-0077` / `APPROVAL-0053` (David, 2026-09-27) | `TASK-0039` |
 
 ---
 
@@ -71,7 +72,7 @@ reality" note at the end.
 | O3 | **Route-by-route auth-requirement audit** | `APP_REBUILD` §2.3 buckets routes by name only — a first pass, not an audit. | eng |
 | O4 | **"Open Hand" naming collision** | The term means both a *pedagogical sequence* (consolidation plan) and a *plate template* (design system + `web/`). They map cleanly but **one vocabulary must be chosen** before both ship. | David |
 | O5 | **Open Hand answer-key serving contract** | Method is DECIDED (D17); the **serving contract is not** — needs a narrow `SECURITY DEFINER` RPC + a scored-ineligibility rule, never a relaxation of the answer-key boundary. | David / eng |
-| O6 | **BYOQ intake design** | The capture/paste/confirm intake is not visually designed. Shape is set (D9); the screen is not. | David / Codex |
+| O6 | **BYOQ intake design** | The capture/paste/confirm intake is not visually designed. Shape + owner are set (D9, `DECISION-0076`); the screen is not, and no production backend exists yet (`TASK-0039`). | David / Claude |
 | O7 | **Student-signal evidence basis** | The consolidation pivot rests on an undocumented feedback sample (size, method, stated-vs-observed). Upstream of D1/D9 and the mastery design. | David |
 | O8 | **Topic-labelling specifics** | Direction is AI-led with a second source (`APP_REBUILD` §6.2); **open**: whether to re-score stored runs for *primary-topic* agreement first, and the human-escalation threshold. Blocks breadcrumb, habits pair, reference pane, deep dive, progress, study map. | David / content |
 | O9 | **Per-choice "fix" line in the Open Hand key** | No `minimum_fix` column exists on `mcq_choices` — the template either drops the line or fills it from the rationale. | David / eng |
@@ -81,6 +82,7 @@ reality" note at the end.
 | O13 | **Gold-for-full-marks** | v2's gold moment is currently absorbed into blue; keep-or-drop is an open design call. | David |
 | O14 | **Type-stack final confirmation** | Canonical/shipping answer is the Bungee family (D4); `docs/new_design/README.md` still flags a formal "confirm which is real" against v2's Plus Jakarta Sans. Minor. | David |
 | O15 | **Owner / Task ID for the rebuild** | TASK-0047 created (2026-09-26) but **owner still unassigned**; §7–§11 work has no named owner or exit gate. (This one-pager itself is now ratified — DECISION-0075, owner David Bloom.) | David |
+| ~~O16~~ | **BYOQ: anonymous vs. authenticated (0070 ⟷ 0068 conflict)** | **RESOLVED 2026-09-27 → see D18** (`DECISION-0077`): BYOQ is identity-agnostic; `user_id` nullable; runs on both surfaces. | — |
 
 ---
 
