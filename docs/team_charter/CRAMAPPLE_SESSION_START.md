@@ -6,6 +6,16 @@
 **Decision:** DECISION-0054  
 **Canonical repository:** `david-bloom/Cramapple`
 
+> **RATIFIED (2026-09-27, DECISION-0075).** The two discoverability pointers added to §"Session-Start
+> Procedure" step 4 below (the architecture/design one-pager and `docs/INDEX.md`) are ratified and kept.
+> They add references only; they change no policy.
+>
+> **RATIFIED (2026-09-27, DECISION-0078 / APPROVAL-0054).** Three further edits are ratified and kept:
+> (1) the Repository Map names the live Lovable front-ends (`56cae479` app / `61dd6602` marketing) and
+> demotes `exam-buddy-wireframe` to a reviewer-portal holdover; (2) a required first-read of the one-pager
+> + `docs/INDEX.md` for architecture/design/front-end/session-mode/launch work; (3) a "do not trust
+> stale/SUPERSEDED material; verify memory against the one-pager" rule.
+
 ## Purpose
 
 This is the device-neutral bootstrap for every substantive Cramapple session, whether it starts in ChatGPT on desktop, ChatGPT on iPhone, ChatGPT Work, Codex, Claude, or another approved tool.
@@ -44,6 +54,8 @@ Before substantive work:
    - `docs/team_charter/CHANGELOG.md`
    - the Index sections of `docs/activity_log/ACTIVITY_LOG.md`, `APPROVALS_LOG.md`, and `DECISIONS_LOG.md`
    - `docs/product/CRAMAPPLE_VISION.md`
+   - `docs/INDEX.md` — canonical source-of-truth per topic, and which docs are superseded/historical *(DECISION-0075)*
+   - `docs/product/ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md` — current architecture/design, decided vs. open *(DECISION-0075)*
 5. Verify current GitHub state for every repository involved. Continue the branch named by the task record; otherwise follow branch-hygiene R1-R7.
 6. Determine the task Tier, approval state, required QA, and any Product Owner or Delegated Domain Approver gate.
 7. Verify access to each required external system. Tool availability in an earlier chat, on another device, or on a Mac does not prove availability in the current session.
@@ -51,10 +63,18 @@ Before substantive work:
 
 Read only the documents needed for a clearly bounded task. The broad orientation list is a fallback, not mandatory ceremony for every Micro task.
 
+**Required first-read for architecture, design, front-end, session-mode, or launch work** *(DECISION-0078)*: before doing any such work, read `docs/product/ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md` and `docs/INDEX.md` first — even for a bounded task. They carry the current decided-vs-open picture and the map of which docs are canonical vs. superseded. This is not optional for these work types.
+
+**Do not trust stale material** *(DECISION-0078)*: treat any doc marked `STATUS: SUPERSEDED` or `STATUS: HISTORICAL` (see `docs/INDEX.md`'s superseded/historical list) as **non-current** — do not cite it as the present answer. Assume your own memory and prior-chat context may be stale on design, session-mode, plate-frame, mastery, and front-end topics; verify against `ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md` (the one-pager) before acting. If a doc and the one-pager disagree, the one-pager governs (it cites a record for every decision); name the conflict, don't silently resolve it.
+
 ## Repository Map
 
 - `david-bloom/Cramapple` — authoritative Cramapple governance, product records, architecture, backend, content, migrations, tasks, decisions, approvals, and activity history.
-- `david-bloom/exam-buddy-wireframe` — current Lovable/front-end code when the active Cramapple task or handoff names it. Its code state does not override governance in `david-bloom/Cramapple`.
+- **Live front-end (Lovable, not GitHub repos)** — the rebuilt app runs in two Lovable projects, verified live 2026-09-27 *(DECISION-0078)*:
+  - **`56cae479-f7c9-4988-b536-56538c38ee4e`** ("New Cramapple App") → `app.cramapple.com` — the authenticated student app.
+  - **`61dd6602`** ("New Cramapple Marketing") → `cramapple.com` — marketing + signup funnel (and anonymous BYOQ per `DECISION-0077`).
+  - Front-end commits live in Lovable, **not** in `david-bloom/Cramapple` — a frontend commit hash cited in a doc is not verifiable from this git repo. Re-confirm project IDs against live DNS before citing (per `DECISION-0073`'s self-correction). Canonical current picture: `docs/product/ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md`.
+- `david-bloom/exam-buddy-wireframe` — **legacy holdover, not the current front-end.** Retained only for the reviewer/admin portal until it is rehomed (rebuild §10). Use only when the active task explicitly names it; its code state does not override governance in `david-bloom/Cramapple`.
 - `david-bloom/cramapple-beta` — available repository, but not authoritative by default. Use it only when a current canonical Cramapple task or handoff explicitly names it.
 - `david-bloom/ai-project-operating-kit` — upstream reusable template. Cramapple's installed, approved documents govern until a migration from the kit is approved and landed.
 

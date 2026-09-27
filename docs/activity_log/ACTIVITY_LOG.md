@@ -6,8 +6,136 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
-- TASK-0042 Content-Pipeline QA Remediation Applied and Independently Verified (2026-09-27): Closed the 216-row freshness audit at 216 verified / 0 reverted / 0 unverifiable; hardened the runner; applied the five difficulty corrections; completed guarded E&M, Calculus BC, and Mechanics label writes; promoted 152 fresh single-unit agreements; left all 49 multi-unit agreements provisional; live census self-test showed no mismatches. Independent Claude QA passed the core work. Branch: `codex/task-0042-content-pipeline-remediation`; approval: `APPROVAL-0051`.
-- TASK-0042 Difficulty Method Correction Applied to Production (2026-09-27): Applied `20260927112232_correct_remaining_difficulty_predict_integrate` to Production (`pcntajvbdfqhbeewmdry`) after verifying the prerequisite difficulty migrations were present in the ledger. The asserted migration corrected exactly five DECISION-0061 `predict`/`integrate` rows from Medium to Hard and would abort unless each row still matched the old applied state. The 216-row label-promotion original-hash audit remains open because this session only had migration-level Supabase tooling, not arbitrary SQL query access.
+- TASK-0042 Content-Pipeline QA Remediation Applied and Independently Verified (2026-09-27): Closed the 216-row freshness audit at 216 verified / 0 reverted / 0 unverifiable; hardened the runner; applied five difficulty corrections; completed guarded E&M, Calc BC, and Mechanics writes; promoted 152 fresh single-unit agreements; left 49 multi-unit agreements provisional; live census self-test had no mismatches. Independent Claude QA passed. Approval: `APPROVAL-0056`.
+- Lean Source-of-Truth Startup Mode Adopted (DECISION-0081 / APPROVAL-0055, 2026-09-27): diagnosed why
+  Codex session-start was consuming most of a session's usage budget before task work began —
+  `CODEX_NEW_SESSION_PROMPT.md` hardcoded an unconditional ~3,200-line, 11-doc read for every task,
+  contradicting `CRAMAPPLE_SESSION_START.md`'s own "read only what a bounded task needs" guidance, and
+  the three activity/approval/decision logs' "(Index section)" instruction had no enforceable stopping
+  point. Rewrote `CODEX_NEW_SESSION_PROMPT.md` and `CLAUDE_NEW_SESSION_PROMPT.md` to classify Tier
+  first (pointing at `AGENT_OPERATING_MODEL.md`'s existing Task Tiers definition rather than
+  redefining it, to avoid drift) and size the reading set to that tier; added an explicit
+  `<!-- INDEX_END -->` marker to `ACTIVITY_LOG.md`, `APPROVALS_LOG.md`, and `DECISIONS_LOG.md` so
+  index-only reads have a real stopping point, with a required fallback (read past the marker, don't
+  report absence) if a targeted ID/keyword search finds nothing; added root `AGENTS.md` for repo-wide
+  search discipline (no broad scans of `docs/research`, `docs/teaching`, `prompts`, `tmp`, `output`,
+  worktree/dependency dirs, generated output, raw logs, image/PDF corpora). David reviewed the
+  diagnosis and the protocol draft directly, requested six tightening edits, and approved shipping
+  once applied — recorded as `DECISION-0081`/`APPROVAL-0055`. **Repo-size hygiene** (large tracked
+  PDFs, raw `.jsonl` logs, generated SQL under `scripts/*/out`) was flagged as a real, separate finding
+  and deliberately **not** bundled into this change. **Next Owner:** open. **Next Action:** none
+  required to use the new protocol going forward; repo-size cleanup remains a separate, unscheduled
+  follow-up.
+- BYOQ Anonymous-Access Conflict RESOLVED (DECISION-0077 / APPROVAL-0053, 2026-09-27): the conflict flagged in the entry below — `DECISION-0070` (BYOQ ungated/anonymous) vs. `DECISION-0068`'s authenticated `user_id`-keyed schema — was resolved by David directly: **BYOQ is identity-agnostic.** `app.byoq_items.user_id` is nullable (recognition, not a gate); BYOQ runs anonymously on the marketing page (`61dd6602`) and recognized in the app (`56cae479`) with identical behavior; anonymous scoping (session/device token) is build work under TASK-0039. `DECISION-0070` stands; `DECISION-0068`'s auth assumption gives. Reconciled in place: `TASK-0039` (schema + resolution note), `DECISIONS_LOG` (`DECISION-0077`), `APPROVALS_LOG` (`APPROVAL-0053`), and the canonical one-pager (O16 → D18). **Correction to the entry below:** it cites the launch frontend as `d334fed9` ("Remix of Cramapple App") — that is the **stale** ID `DECISION-0073` self-corrected; the verified live projects are **App `56cae479`** (`app.cramapple.com`) and **Marketing `61dd6602`** (`cramapple.com`) (re-confirmed via live DNS 2026-09-27). **Next Owner:** Claude (BYOQ build, TASK-0039). **Next Action:** design the anonymous-scoping mechanism and the nullable-`user_id` migration under the existing Hard-Gate.
+- TASK-0039 Reconciled Against DECISION-0075's Documentation Cleanup: Phase Priority and Ownership Corrected (DECISION-0076, APPROVAL-0052); Anonymous-Access Conflict Found and Reported, Not Resolved (2026-09-27): a cross-session notification pointed this session at `DECISION-0075` (the new canonical `ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md`), which surfaced a real conflict with `TASK-0039`'s approved Phase 1 (typed intake first, camera capture deferred, Claude-owned) against a same-day decision this session hadn't seen: "BYOQ is phone capture to start. Document upload post launch," with BYOQ's build originally assigned to Codex. Rather than self-resolve, stopped and asked David directly. **David's direction:** "phase 1 is phone, not text BYOQ" and "Claude is taking over BYOQ while Codex works on content pipeline" — recorded as `DECISION-0076`/`APPROVAL-0052`. `TASK-0039` annotated in place (not physically renumbered, to avoid leaving 49 cross-references inconsistent): camera/QR capture is now launch-required, typed intake is a fallback, and the Pre-flight verification step's frontend-identity question was independently resolved by `DECISION-0073` (the launch frontend is Lovable project `d334fed9`, "Remix of Cramapple App" — neither of this task's two earlier guesses). **A second, more severe conflict was found during the same re-verification pass and reported rather than self-resolved:** `DECISION-0070` (2026-09-26) states BYOQ ships "ungated, as an anonymous session" on launch — structurally incompatible with the approved Option A schema's owner-scoped RLS (`app.byoq_items.user_id` as a `NOT NULL` FK, keyed to an authenticated `auth.uid()`), and possibly implying BYOQ ships on the marketing frontend rather than the authenticated app. **Not resolved this session** — flagged directly to David, no schema or implementation work proceeded past this point. **Next Owner:** David Bloom. **Next Required Action:** decide whether BYOQ needs an anonymous-capable data path (no `user_id`) or whether the anonymous/ungated framing in `DECISION-0070` should be revisited, and confirm which frontend BYOQ actually ships in.
+- Documentation Cleanup — Architecture/Design Single Source of Truth (2026-09-27): docs-only pass that
+  created the canonical one-pager `docs/product/ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md` and
+  `docs/INDEX.md`, annotated the stale canonical design/rebuild docs in place (fixed-plate rule → responsive;
+  §11 decisions marked resolved with TASK-0047/`DECISION-0074` citations; Course Mode / "Project-Crux"
+  vocabulary + palette banners), and added entry-point pointers. Verified the responsive frame, project
+  IDs, commit locations, and DNS against live systems, not docs. **Ratified `DECISION-0075`** (one-pager
+  canonical, owner David Bloom; governed-doc pointers kept; legacy = annotate-in-place, no move).
+  Committed via docs-only PR.
+- Session Close: Six-Section Launch Plan Audit, Mastery Rule Tightened (`DECISION-0074`), Student
+  Interaction Data Schema Plan Drafted, Full Branch Survey/Cleanup/Merge, MCQ-Fix Attribution
+  Corrected (2026-09-27): David asked for a full audit of all six launch-plan sections
+  (marketing home, payment, content pipeline, student hub shell, grading engine, subject gate) with
+  completion/effort estimates. Ran 6 parallel live-verification agents (not doc-trusting) — see memory
+  `project_launch_plan_six_section_audit_2026_09_26.md` for full per-section detail. **Two findings
+  changed prior understanding: (1) the live marketing/app frontend is Lovable project `61dd6602`
+  ("New Cramapple Marketing"), not `d334fed9` as `DECISION-0073` and every dependent doc had assumed —
+  confirmed via live DNS, not a doc citation; (2) no real student has ever had a graded attempt complete
+  in Production** — corrects an earlier memory note that a stuck real student's attempts would
+  "resolve on next retry." Both corrected in `APP_LAUNCH_READINESS_INDEX_2026_09_26.md`.
+  **`DECISION-0074`:** mastery rule tightened, on David's direction, from "2 full-point answers, with
+  hint" to **2 correct MCQ + 1 full-point FRQ, with no hint use prior to submission** (post-submission
+  hints still never count). Adds `GAP-9` to `CONTENT_GAPS_RUNNING_LIST.md` (a taxonomy cell needs both a
+  servable MCQ and FRQ or it can never reach mastery under the new rule — accepted as a temporary content
+  gap, not a rule flaw). A full audit/extend/prune plan for the student-interaction-data schema was
+  drafted by Fable, reviewed, amended twice after two rounds of pushback (an indexing plan for the new
+  tables; elevating the hint-definition-boundary question to a hard gate on schema-building, not an
+  end-of-plan decision) — written to `docs/product/STUDENT_INTERACTION_DATA_SCHEMA_PLAN_2026_09_27.md`,
+  plan only, nothing executed. **Full local/remote branch survey and cleanup**: of ~50 local branches
+  and ~30 live worktrees, deleted 16 confirmed-merged/superseded branches directly; merged 17 branches
+  of real unshipped work to `main` via PRs #211-#228 (14 AP Statistics Course Mode content branches
+  covering all of Unit 2/most of Unit 3, plus TASK-0044's execution, plus the AP Statistics MCQ-serving
+  fix); correctly declined to merge one branch (`codex/tier1-precalc-calcbc-canonical-2026-09-25`) on
+  discovering its canonical answers were already superseded by better, evidence-sourced migrations on
+  `main`. **Corrected a mis-attribution found along the way** (PR #229): the AP Statistics MCQ-serving
+  fix actually deployed to Production is `codex/task-0044-statistics-mcq`, not
+  `claude/task-0047-ap-statistics-mcq-serving` as `ACTIVITY_LOG.md`, `APPROVALS_LOG.md`
+  (`APPROVAL-0051`), and `LAUNCH_RUNBOOK_2026_10_02.md` had all credited — the latter branch's Dev-only
+  version never reached Production. **What remains open, in priority order:**
+  1. **No real student has ever completed a graded attempt in Production** — needs investigation before
+     Oct 2; directly contradicts the runbook's own stop condition. Highest-priority open item.
+  2. A reviewable cleanup script (`branch_cleanup_2026_09_27.sh`, sent to David) covers 18 more
+     confirmed-safe branch/worktree deletions, blocked on David's own machine by this session's
+     destructive-action permission classifier — not yet run.
+  3. `content/course-mode-stats-3.5-2e` and `3.7-3e`: real uncommitted generator-code and content
+     changes found in their worktrees during the cleanup pass (not captured in any commit) — needs a
+     recovery pass, explicitly NOT a deletion candidate despite looking like a stale merged branch.
+  4. `codex/tier1-precalc-calcbc-canonical-2026-09-25` left unmerged (see above) — David's call whether
+     anything in it is worth salvaging before deleting.
+  5. The hint-definition-boundary question (which in-attempt events count as "hint use before
+     submission" under `DECISION-0074`) blocks the interaction-data plan's Phase 1 items 1-2 — needs
+     David's answer, recorded as a `DECISION-0074` addendum, before that work starts.
+  6. Marketing home page (`61dd6602`): BYOQ unshipped, `/signup` not gated to Bio/Stats, one unsupported
+     marketing claim still live — see the corrected index row for detail.
+  7. Payment flow's four open decisions (D-6/D-9/D-10/D-11) — unchanged, still David-only, still
+     post-launch.
+  **Verified:** all PR merges confirmed via `gh pr view --json state,mergedAt`; Production schema state
+  for the MCQ-fix correction confirmed via direct `execute_sql` against Supabase, not inferred from
+  docs; the two flagged uncommitted worktrees confirmed via `git status --short --ignored`, not assumed
+  clean. **Files changed:** `APP_LAUNCH_READINESS_INDEX_2026_09_26.md`, `LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md`,
+  `LAUNCH_RUNBOOK_2026_10_02.md`, `TASK-0044-LAUNCH-SUBJECT-ONBOARDING-GATE.md`, `CONTENT_GAPS_RUNNING_LIST.md`,
+  `DECISIONS_LOG.md` (`DECISION-0074`), `ACTIVITY_LOG.md`, `APPROVALS_LOG.md` (`APPROVAL-0051`), new
+  `STUDENT_INTERACTION_DATA_SCHEMA_PLAN_2026_09_27.md`. **PRs merged this session:** #210 (prior turn),
+  #211-#226 (branch cleanup merges), #227 (MCQ-fix branch), #228 (distractor-repair branch), #229
+  (attribution correction). **Approval state:** all merges were docs/content/already-verified-live-code;
+  no new Production schema/config change was made by this session directly (the MCQ-fix code itself was
+  already live before PR #227 merely caught `main`'s git history up to it). Launch go/no-go remains
+  David's Hard Gate. **Next Owner:** David Bloom (decisions above) or whoever picks up the real-grading
+  investigation next. **Next Required Action:** investigate why the one confirmed real student's
+  attempts are still ungraded — this blocks confident Oct 2 sign-off regardless of how everything else
+  above resolves. **Do not touch:** `codex/image-workflows-design-sketch` (quarantined, needs a fresh
+  design review before merge) and `archive/free-score-check-2026-08-15` (intentional permanent archive)
+  — both confirmed correctly untouched this session. — 2026-09-27
+
+- TASK-0044 Executed (October 2 Flat-Path Content Gate); AP Statistics MCQ Serving Gap Diagnosed
+  2026-09-26, Fixed and Deployed to Production 2026-09-27 — Both Awaiting Fresh Independent QA:
+  Claude executed TASK-0044 (branch `claude/task-0044-flat-path-gate-bio-stats`, commit `24966a79`,
+  merged `main` via PR #226), verifying criteria 1/2/4/6 live against Production for the two Day-1
+  subjects. **AP Biology: Pass** — 71/71 servable `targeted_drill` FRQ and 43/43 MCQ have canonical
+  answers/rubrics; live RPC calls confirmed both types reachable (`select_practice_frqs` → 50 rows;
+  `select_biology_practice_items` → real 12 FRQ/8 MCQ mix). **AP Statistics: FRQ Pass, MCQ Blocked** —
+  49/49 servable FRQ pass, but a real gap was found and diagnosed: 101/101 published MCQ were
+  content-ready with zero path to serve them, because `select_practice_frqs` is FRQ-only by design and
+  `select_biology_practice_items` (the only existing combined selector) is Biology-only by design,
+  confirmed by reading both the RPC SQL and `student-session-items/index.ts`.
+  **CORRECTION, 2026-09-27:** the fix that actually reached Production is `codex/task-0044-statistics-mcq`
+  (merged `main` via PR #227), not a separate same-day attempt (`claude/task-0047-ap-statistics-mcq-serving`,
+  since deleted) this entry originally credited. That earlier branch built the same idea — a new,
+  subject-agnostic `app.select_ordinary_combined_practice_items` RPC (additive — Biology's own selector
+  is untouched) — but only wired `student-session-items` to route AP Statistics's `targeted_drill`
+  format to it; its migration and edge-function version were applied to Cramapple Development only and
+  were **never applied to Production**, contrary to what this entry originally stated. The branch that
+  actually shipped, `codex/task-0044-statistics-mcq`, routes both `mcq` (the real Home session format)
+  **and** `targeted_drill` to the same RPC — independently verified byte-for-byte identical (function
+  body, comment, and deployed edge-function source) to what Production was already running before PR
+  #227 formally merged it into `main`'s git history. Live post-merge verification: 7 FRQ + 13 MCQ for
+  AP Statistics (matching the original dry-run projection exactly) and 12 FRQ + 8 MCQ for AP Biology,
+  unchanged. **A real, resolved shared-workdir incident** (unaffected by this correction): mid-execution
+  of the original TASK-0044 pass, this local checkout was switched to a branch Codex had concurrently
+  checked out elsewhere for TASK-0040, so one commit briefly landed on the wrong branch, bundled with
+  Codex's uncommitted work. Caught before anything was pushed; verified Codex's actual dedicated
+  worktree was never touched; cleanly separated the two agents' work and re-committed TASK-0044 on its
+  own branch via an isolated `git worktree` rather than the shared primary checkout. **Neither TASK-0044
+  nor the MCQ-serving fix has closed** — both still need a fresh, independent QA pass and Main Conductor
+  integration before `Done`. **Next Owner:** whoever runs the next QA pass (fresh context, not a
+  continuation of any of these sessions). **Next Required Action:** QA the live AP Statistics MCQ
+  experience end-to-end per `LAUNCH_RUNBOOK_2026_10_02.md` item 4, then fold the verdict into
+  `TASK-0044-LAUNCH-SUBJECT-ONBOARDING-GATE.md`. — 2026-09-27 (correcting a 2026-09-26 entry)
+
 - October 2 Launch Operating Cleanup (2026-09-26): David confirmed Friday, October 2, 2026 as the free-launch date. Added `PROJECT_SETUP.md` and `docs/product/LAUNCH_RUNBOOK_2026_10_02.md`; resolved D-1 for this launch because the live app/home page already exists; moved labels/difficulty and payment work off the October 2 flat-path critical path; made a brand-new-student entitlement-to-grading smoke test an explicit stop condition; and rotated the oversized activity, decision, and approval logs into lossless archives. Documentation only — no code, deployment, migration, secret, or Production mutation. **Branch:** `codex/launch-plan-operating-kit-cleanup`. **Approval state:** documentation under Standing Approval; launch remains a Hard Gate requiring David's final go/no-go.
 - Session Close: PR #201 (Six Launch-Readiness Plans + DECISION-0069 Through 0073), #202 (Student Home Design Direction), and #203 (P0 Remediation Verification Closeout) All Merged to `main` (2026-09-26): Closing out the launch-planning session below. When PR #201 was marked ready for review, GitHub surfaced a real merge conflict: `main` had independently landed its own `DECISION-0068` (TASK-0039 Phase 1, BYOQ parallel tables) while this branch had claimed `DECISION-0068` through `0072` for five unrelated launch-planning decisions. Merged `main` in and renumbered this branch's five decisions to `DECISION-0069` through `0073` per this log's own stated collision convention (later-merging branch renumbers) — content unchanged, only the IDs moved, across `DECISIONS_LOG.md`, `ACTIVITY_LOG.md`, `MASTER_TODO.md`, and all six launch-plan docs; added a footnote recording the collision. PR #201 then merged clean (`14aee72`). David separately asked to merge #202 (still draft; marked ready for review, then merged clean, `baa1dbe`) and #203 (already ready, CI green, docs-only; merged clean, `f189543`). No code/schema/production changes in any of the three — all documentation. **Still open, not resolved by any of this**: the entitlement-gating bug in `attempt-response`/`use-grade-practice.ts` (flagged 2026-09-20, re-confirmed this session) remains unfixed; `SUBJECT_SERVABILITY_CRITERIA.md`'s own AP Statistics row still doesn't reflect the 2026-09-25 pilot-pack retirement; BIZ-001's remaining items (access duration, refunds, parent-purchaser handling) are undecided but deferred past Friday's free launch. **Next Owner:** David Bloom. **Next Required Action:** none blocking Friday's launch specifically; the entitlement bug should get a real fix before payment flow resumes post-launch. — 2026-09-26
 - Six Launch-Readiness Plans Drafted + DECISION-0069 Through DECISION-0073 Recorded, Friday Free-Launch Confirmed Ready Pending One Unfixed Bug (2026-09-26, PR #201, branch `claude/launch-planning-cram-4oyh2g`, not yet merged; note: these decisions were originally numbered 0068-0072 and renumbered at merge time to avoid colliding with `main`'s own independently-landed DECISION-0068 below — see the DECISIONS_LOG.md footnote): David asked for a set of component launch plans an AI agent could run to completion and know when that part of the app is ready for students. Wrote `docs/product/APP_LAUNCH_READINESS_INDEX_2026_09_26.md` plus five component plans (marketing home page, payment flow, content pipeline, student hub, subject onboarding gate), each citing existing canonical docs rather than re-deriving requirements. **Two independent AI reviews (a second Claude session, then Fable) found the first draft was built without reading `docs/product/APP_REBUILD_MIGRATION_PLAN.md` (2026-09-22, David-approved) — a newer plan it directly conflicted with**: the design system cited was retired, the payment plan's "nothing exercised yet" was six weeks stale (a real customer had already paid via live Stripe), and the index's "run in parallel" framing contradicted David's recorded build sequence. Corrected all three in place with visible CORRECTION blocks, verified each claim against source files (including resolving a git-history contradiction on AP Statistics' exam-pack hazard by comparing exact commit timestamps) before writing anything. **David then made five real launch decisions, each recorded and threaded through every affected doc: DECISION-0069** (Day-1 subjects are AP Biology + AP Statistics, pricing $39.99/$79.99/$99.99 single/2-bundle/3-bundle — flagged the 2-bundle carries effectively no discount, still unconfirmed); **DECISION-0070** (BYOQ ships ungated/anonymous on the new home page, unlimited tier deferred until all 10 subjects live, target window "next week," wordmark-only branding); **DECISION-0071** (superseding 0070 — launch Friday, free, no Stripe/payment gating at all; payment flow plan moved entirely off the critical path, becomes a post-launch follow-up); **DECISION-0072** (extends `DECISION-0063`, the existing Biology-only "launch on the flat/practice path, unit-gating deferred" policy, to AP Statistics too — resolving it as a Day-1 subject despite Statistics having the strongest unit-gated coverage of any subject); **DECISION-0073** (identifies the actual launch frontend as `ap-prep-canvas.lovable.app` — a third option, not either candidate this session had framed; first guess was wrong, corrected with real evidence once David supplied the live HTML: the page's own `og:image` meta embeds another project's screenshot URL, confirming the true project as "Remix of Cramapple App," `d334fed9-5a97-4e76-906e-7c0ad7082212`). **Verified directly against Lovable-hosted source** (read-only, no code changed) that the live page already fully matches the new orange/Bungee design system (an earlier "stale branding" finding was real but pointed at a stale cached screenshot, not the live page) and, critically, that the practice/grading flow is genuinely production-wired — `src/lib/use-grade-practice.ts` calls the real `session-event`/`attempt-response`/`evaluate-attempt` edge functions documented elsewhere in this repo (TASK-0016's rollout), not mocked; only the home-page hero's `FrqDemo.tsx` (under `src/components/marketing/`) is a scripted demo, which is expected. This also independently confirmed the entitlement-gating bug flagged 2026-09-20 (unentitled `attempt-response` calls hit a generic "Couldn't score that" error) lives in exactly this real code path — **the bug itself was not fixed this session**, only documented and cross-referenced. Live page currently still shows a $39.99/Stripe purchase CTA, stale against the free-launch decision; David is fixing this himself directly in Lovable (a "Free this week!" banner) rather than delegating it. Also updated `docs/MASTER_TODO.md`'s BIZ-001/GTM-001 items to reflect DECISION-0069. **Net assessment given directly to David: five of six original launch-readiness areas are in good shape or correctly descoped for Friday (marketing page, payment-on-hold, content-pipeline-not-needed, student-hub-and-grading-confirmed-real, subject-gate-not-blocking); the one real open risk is the unfixed entitlement-gating bug.** All work is docs-only in this repo (no schema/code/deploy changes); PR #201 still open/draft, not merged — see Approval State below. — 2026-09-26
@@ -23,58 +151,90 @@ Most recent entries (full reverse-chronological list follows below):
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
----
+<!-- INDEX_END -->
 
 ## TASK-0042 Content-Pipeline QA Remediation Applied and Independently Verified — 2026-09-27
 
 **Task:** TASK-0042 content-pipeline QA remediation
-**Approval:** `APPROVAL-0051`
+**Approval:** `APPROVAL-0056`
 **Production:** `pcntajvbdfqhbeewmdry`
 **Status:** Core remediation complete and independently passed; retained multi-unit/quantity decisions remain open
 
-Reconstructed the original generation hashes for all 216 labels promoted by `20260926233500`.
+Reconstructed original generation hashes for all 216 labels promoted by `20260926233500`.
 Applied `20260927112814_reaudit_decision0066_single_unit_promotions`: 216 verified fresh,
-0 reverted, 0 unverifiable. Applied the already-recorded five-row DECISION-0061 correction
-(`20260927112232`) and confirmed all five rows are Hard.
+0 reverted, 0 unverifiable. Applied the five-row DECISION-0061 correction (`20260927112232`)
+and confirmed all five rows are Hard.
 
 Hardened `extend_serving_labels_mcp.mjs` with exact resume matching, pre-write live-state/hash
-guards, newer-label protection, and a passing no-network fixture. Completed and applied guarded
-label migrations for AP Physics C: E&M (96), AP Calculus BC (98), and AP Physics C: Mechanics (76);
-Mechanics' 76 genuine model-call failures were retried, yielding 58 agreements and 18 legitimate
-holds. Promoted only fresh single-unit agreements: E&M 71, Calc BC 36, Mechanics 45. The 49
-multi-unit agreements remain provisional pending DECISION-0066 third review.
+guards, newer-label protection, the correct exporter filename, and a passing no-network fixture.
+Applied guarded label migrations for E&M (96), Calculus BC (98), and Mechanics (76); Mechanics'
+76 genuine model-call failures were retried, yielding 58 agreements and 18 holds. Promoted only
+fresh single-unit agreements: E&M 71, Calc BC 36, Mechanics 45. The 49 multi-unit agreements
+remain provisional pending DECISION-0066 third review.
 
-Post-write `app.servable_items_census_selftest()` had no mismatches for the three subjects.
-Independent Claude QA verified original pre-promotion hashes, live migration ledger state, the five
-difficulty rows, runner guards/fixture, 216/216 validated state, and live validated counts (E&M 77,
-Mechanics 49, Calc BC 40). Full evidence:
-`docs/product/CONTENT_PIPELINE_CODEX_HANDOFF_2026_09_27.md`.
+Post-write `app.servable_items_census_selftest()` had no mismatches for these subjects.
+Independent Claude QA verified original hash provenance, ledger state, five difficulty rows, runner
+guards/fixture, 216/216 validated state, and live counts (E&M 77, Mechanics 49, Calc BC 40).
+Full evidence: `docs/product/CONTENT_PIPELINE_CODEX_HANDOFF_2026_09_27.md`.
 
-**Still open:** independent third review for multi-unit labels; Product Owner decision on quantity
-targets outside Biology. TASK-0042 therefore remains In Progress rather than Done.
+During reconciliation with newer `main`, the locally chosen approval ID was found to collide with
+TASK-0044's existing `APPROVAL-0051`. TASK-0042 was renumbered to `APPROVAL-0056`; Production
+migration `20260927181002_correct_task0042_approval_note_provenance` changed exactly 152 affected
+validation-decision notes, with 152 corrected and 0 old-ID notes remaining. Label state was unchanged.
 
-## TASK-0042 Difficulty Method Correction Applied to Production — 2026-09-27
+**Still open:** independent third review for multi-unit labels; Product Owner quantity targets outside
+Biology. TASK-0042 remains In Progress.
 
-**Task:** TASK-0042 content-pipeline QA remediation
-**Status:** Five-row difficulty correction applied to Production; 216-row label-promotion hash audit still open
-**Branch:** `codex/task-0042-content-pipeline-remediation`
+---
 
-Applied Production migration `20260927112232_correct_remaining_difficulty_predict_integrate` to
-`pcntajvbdfqhbeewmdry` after confirming the prerequisite `20260926234000` through
-`20260926234400` difficulty migrations were recorded in the Production ledger. The migration corrected
-exactly five QA-identified DECISION-0061 method rows from Medium to Hard:
-`apphycm-frq-017`, `apphycm-frq-024`, `apphycem-frq-021`, `apphycem-frq-025`, and
-`apcalcbc-frq-np1-006`.
+## Documentation Cleanup — Architecture/Design Single Source of Truth — 2026-09-27
 
-The corrective migration is strictly asserted: it checks that all five target rows exist, remain current
-published versions, and still match the old applied Medium state before updating; it then verifies all
-five landed as Hard. The durable generator now keeps the previously applied base migration sources in
-their old applied state, emits corrected CSV/report artifacts, and writes the corrective migration under
-the ledger-matching version filename.
+**What & why.** David asked for a docs-only cleanup: make the *current* architecture/design state easy
+to find and the *legacy* state clearly out of the way, without destroying history and without making any
+product decision. Diagnosed problem: the authoritative rebuild plan (`APP_REBUILD_MIGRATION_PLAN.md`)
+carried no Task/owner/DECISION number and its §11 "open decisions" were largely resolved 2026-09-26
+without in-place updates; canonical design docs still asserted the reversed fixed-plate rule; "Course
+Mode" and "Open Hand" vocabulary was overloaded; three design systems (orange canonical vs. emerald v2
+vs. red "Project-Crux") were in circulation.
 
-Still open: the 216-row serving-label promotion original-hash audit and any resulting rollback/keep
-correction. This session had Supabase migration tooling only, not arbitrary SQL query access, so that
-audit could not be completed here.
+**Verified against live systems (not docs), 2026-09-27:**
+- Responsive-frame change is real: Lovable `56cae479` commit `44a0f59e` removes `width/height`/
+  `overflow:hidden` from `Plate.jsx`, drops `--plate-height`, adds `--plate-min-width` + 899/520px
+  breakpoints, and writes an `AGENTS.md` documenting the fluid plate. Read the diff directly.
+- Canonical design (orange/light/Bungee/square) confirmed live in `56cae479`'s screenshot; the red
+  "Project-Crux" palette is not what shipped.
+- Two-repo hazard confirmed: the 6 frontend commits cited across docs are absent from this git repo;
+  only Workstream E `1a6e8404` and follow-on `9fc0f75b` (plus the taxonomy commits) are in-repo.
+- Live DNS: both domains on Cloudflare/Lovable (`185.158.133.1`); `app.cramapple.com` currently
+  301-redirects to `cramapple.com` (flagged for re-confirmation of intended launch behavior).
+- Decision numbering: highest is `DECISION-0074`; next free is `DECISION-0075`.
+
+**Changes (docs-only):**
+- **New:** `docs/product/ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md` — the canonical decided-vs-open
+  one-pager (17 DECIDED rows each cited, 15 OPEN rows each with owner). Carries a blank
+  DECISION-#### + owner slot for David to ratify.
+- **New:** `docs/INDEX.md` — canonical source-of-truth per topic, the `STATUS:` header convention, and
+  the superseded/historical list.
+- **Annotated in place (no silent rewrites):** `new_design/VISUAL_IDENTITY.md` + `README.md`
+  (fixed-plate rule superseded → responsive); `APP_REBUILD_MIGRATION_PLAN.md` (doc-level pointer +
+  §11 rows 1/3/7/11/17/18/19/20/23/24 marked resolved/superseded with citations, genuine opens kept;
+  §9.1 + Decision-1 prose annotated); `DESIGN_SYSTEM_CUTOVER_PLAN.md` (stale palette/"Project-Crux"
+  banner); `USE_MODES_STRATEGIC_RECONCILIATION.md` + the three active `teaching/COURSE_MODE_*` specs
+  (vocabulary banners: one mode "Learn"; components ≠ mode).
+- **Entry-point pointers:** `PROJECT_SETUP.md` (ungoverned — done) and
+  `team_charter/CRAMAPPLE_SESSION_START.md` (governed — **flagged PENDING RATIFICATION**, per David's
+  choice this session to edit both and flag the governed one).
+
+**Governance — resolved same session (David's calls):**
+1. **Ratified** `ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md` as **`DECISION-0075`**, owner David Bloom;
+   the two pointers in the governed `CRAMAPPLE_SESSION_START.md` are ratified and kept. Recorded in
+   `DECISIONS_LOG.md`.
+2. **Legacy-file handling: Option A (annotate-in-place, no move).** No `docs/legacy/` tree created;
+   banners + `docs/INDEX.md` do the job. Proposal doc marked DECIDED.
+
+**Status:** Committed via PR (docs-only, 2026-09-27). No product/design decision was created or reversed;
+no files moved or deleted. The three pre-existing uncommitted files (`APP_LAUNCH_READINESS_INDEX`,
+`LAUNCH_PLAN_STUDENT_HUB`, `LAUNCH_RUNBOOK`) were left untouched, not included in the PR.
 
 ## October 2 Launch Operating Cleanup — 2026-09-26
 

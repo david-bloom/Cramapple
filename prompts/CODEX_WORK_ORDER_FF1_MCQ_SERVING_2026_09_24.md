@@ -1,5 +1,31 @@
 # Codex Work Order FF-1 — Make AP Biology's 43 MCQ Reachable
 
+STATUS: SUPERSEDED by work already on Production (2026-09-27)
+
+**DO NOT DISPATCH THIS. The deliverable already exists and is wired up.** Verified against
+Production 2026-09-27:
+
+- `app.select_biology_practice_items(uuid, text, uuid, int)` — exists, serves MCQ
+- `app.select_ordinary_combined_practice_items(uuid, text, uuid, int)` — exists, serves MCQ
+- Both are called by `student-session-items` (index.ts:678 and :693)
+- Both are SECURITY INVOKER, so the column grants still protect the answer key
+- Neither returns `is_correct`; the combined one uses it only as a `WHERE` predicate
+  (`and choice.is_correct is true`), which is a "this MCQ has a key" check, not a leak
+
+So the invariant this order was most worried about — a SECURITY DEFINER function bypassing the column
+grants — was avoided by whoever built it. The design questions below were answered by
+`ab64d9a9` / PR #227 (TASK-0044) while this order sat undispatched.
+
+**What remains of FF-1, if anything:** the order's real success condition was *"the client-side
+fallback in the Lovable app can be deleted."* That is a frontend question this repo cannot answer.
+Someone should confirm whether `src/hooks/use-session.ts`'s direct-query fallback is still present
+and still needed now that the backend selectors exist. That is the only live part of this.
+
+The original order is kept below unedited, for the record.
+
+---
+
+
 **This one does move launch-day content**, unlike J.0, N and N.1. A third of Biology's published
 corpus — 43 of 118 items — cannot reach a student on the launch path.
 

@@ -6,7 +6,12 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
-- APPROVAL-0051 — TASK-0042 Cross-Cutting Content-Pipeline QA Remediation and Subject-Scoped Production Writes
+- APPROVAL-0056 — TASK-0042 Cross-Cutting Content-Pipeline QA Remediation and Subject-Scoped Production Writes
+- APPROVAL-0055 — Adopt Lean Source-of-Truth Startup Mode (Tier-First Reading, `AGENTS.md`, Log `INDEX_END` Markers) — DECISION-0081
+- APPROVAL-0054 — Ratify Three Session-Start Bootstrap Edits (Live Front-Ends, Required First-Read, Anti-Stale Rule) — DECISION-0078
+- APPROVAL-0053 — BYOQ Is Identity-Agnostic: `byoq_items.user_id` Not Required; Resolves the DECISION-0070/0068 Conflict
+- APPROVAL-0052 — TASK-0039 BYOQ Phase Priority Corrected (Camera-First) and Ownership Confirmed (Claude, Not Codex)
+- APPROVAL-0051 — Deploy the AP Statistics Combined Practice Selector (TASK-0044) to Production
 - APPROVAL-0050 — BYOQ Data-Model Architecture (Option A) and TASK-0039 Phase 1 Scope
 - APPROVAL-0049 — Pilot-Scale Operational Commitment for Hand-Drawn Manual Grading (TASK-0038 Phase 4)
 - APPROVAL-0048 — Promote `APBIO-HDG-2026-GRAPH-002` to Human-Graded-Pilot-Approved (TASK-0038 Phase 2)
@@ -21,7 +26,9 @@ Most recent entries (full chronological list follows below):
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
 
-## APPROVAL-0051 — TASK-0042 Cross-Cutting Content-Pipeline QA Remediation and Subject-Scoped Production Writes
+<!-- INDEX_END -->
+
+## APPROVAL-0056 — TASK-0042 Cross-Cutting Content-Pipeline QA Remediation and Subject-Scoped Production Writes
 
 **Date:** 2026-09-27
 **Approved By:** David Bloom
@@ -31,27 +38,143 @@ Most recent entries (full chronological list follows below):
 ### Summary
 
 Authorizes Codex to implement and verify the content-pipeline QA remediation described in the
-Product Owner's 2026-09-27 execution handoff, including the necessary subject-scoped Production
-data corrections. The authorized work covers: reconstructing and auditing original generation-time
-taxonomy hashes for the 216 prior promotions; reverting stale or unverifiable promotions while
-retaining verified-fresh ones; applying the five specified Medium-to-Hard difficulty corrections;
-hardening the taxonomy runner's resume and generated-SQL guards; and completing safe remaining
-single-unit label writes whose artifacts pass those guards.
+Product Owner's 2026-09-27 execution handoff, including necessary subject-scoped Production data
+corrections: reconstructing and auditing the original hashes for 216 prior promotions; reverting
+stale or unverifiable promotions; applying the five specified Medium-to-Hard corrections; hardening
+the runner; and completing safe remaining single-unit label writes.
 
-This approval is a Product Owner exception to TASK-0042's one-branch-per-subject execution rule for
-the cross-cutting QA remediation itself. Production data changes must still be implemented as
-durable, narrowly scoped migrations with per-subject counts and evidence so each affected subject
-remains independently reviewable.
+This is a Product Owner exception to TASK-0042's one-branch-per-subject rule for the cross-cutting
+remediation. Production changes remain durable, subject-identifiable migrations with exact counts.
 
 ### Limits
 
-- Does not weaken `DECISION-0066`: multi-unit labels still require a genuine independent third review
-  from a differently architected model or a human before promotion.
-- Does not authorize inventing quantity targets beyond the existing Biology targets or fabricating
-  attainment ratios.
-- Does not authorize replaying already-applied migrations, exposing secrets, or leaving the local
-  Supabase CLI linked to Production.
-- Final acceptance still requires fresh independent QA by an agent that did not author the fixes.
+- Does not weaken `DECISION-0066`: multi-unit labels still require genuine independent third review.
+- Does not authorize invented quantity targets or attainment ratios.
+- Does not authorize replaying applied migrations, exposing secrets, or leaving the CLI Production-linked.
+- Final acceptance requires fresh independent QA by an agent that did not author the fixes.
+
+### ID reconciliation
+
+This authorization was initially recorded in the task branch as `APPROVAL-0051`. When current
+`main` was merged, that ID was already occupied by TASK-0044, so this record was renumbered to the
+next free ID, `APPROVAL-0056`. Migration
+`20260927181002_correct_task0042_approval_note_provenance` updated the 152 affected Production
+validation-decision notes; it did not alter labels or promotion outcomes.
+
+## APPROVAL-0055 — Adopt Lean Source-of-Truth Startup Mode (Tier-First Reading, `AGENTS.md`, Log `INDEX_END` Markers)
+
+**Date:** 2026-09-27
+**Approved By:** David Bloom
+**Related Docs:** `prompts/CODEX_NEW_SESSION_PROMPT.md`, `prompts/CLAUDE_NEW_SESSION_PROMPT.md`, `AGENTS.md` (new)
+**Related Decision:** `DECISION-0081`
+**Decision:** Approved
+
+David reviewed the Codex-authored startup-cost analysis and Claude's revised protocol draft directly
+in-session, requested six tightening edits (tier-classification pointed at `AGENT_OPERATING_MODEL.md`
+rather than redefined inline; softened "follow Session-Start Procedure" wording; constrained `SYNC`
+to the same index-marker/exact-ID discipline; a narrow branch-hygiene read rule; non-eager skill
+loading; an explicit `AGENTS.md`/`INDEX_END` precondition note), and approved shipping once applied.
+Applied to both `CODEX_NEW_SESSION_PROMPT.md` and `CLAUDE_NEW_SESSION_PROMPT.md`. See `DECISION-0081`
+for full rationale and scope.
+
+## APPROVAL-0054 — Ratify Three Session-Start Bootstrap Edits (Live Front-Ends, Required First-Read, Anti-Stale Rule)
+
+**Date:** 2026-09-27
+**Approved By:** David Bloom
+**Related Doc:** `docs/team_charter/CRAMAPPLE_SESSION_START.md` (governed bootstrap)
+**Related Decision:** `DECISION-0078`
+**Decision:** Approved
+
+David ratified the three session-start bootstrap edits merged in PR #232 (live Lovable front-ends in the
+Repository Map; required first-read of `ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md` + `docs/INDEX.md`
+for architecture/design/front-end/session-mode/launch work; the anti-stale rule). They change routing and
+guidance, not authority order or hard gates. In-doc "pending ratification" flags flipped to ratified. See
+`DECISION-0078` for full text.
+
+## APPROVAL-0053 — BYOQ Is Identity-Agnostic: `byoq_items.user_id` Not Required; Resolves the DECISION-0070/0068 Conflict
+
+**Date:** 2026-09-27
+**Approved By:** David Bloom
+**Related Task:** `TASK-0039-BYOQ-PRODUCTION-OPERATIONAL.md`
+**Related Decision:** `DECISION-0077`
+**Decision:** Approved
+
+David resolved the DECISION-0070 (ungated/anonymous BYOQ) vs. DECISION-0068 (authenticated `user_id`-keyed
+schema) conflict directly, 2026-09-27: BYOQ is identity-agnostic — `byoq_items.user_id` is nullable
+(recognition, not a gate), BYOQ runs anonymously on the marketing page and recognized in the app with
+identical behavior, and the anonymous scoping mechanism is build work under TASK-0039. Amends the
+Option A schema approved under `APPROVAL-0050`/`DECISION-0068`; the parallel-tables architecture is
+unchanged. See `DECISION-0077` for full text.
+
+## APPROVAL-0052 — TASK-0039 BYOQ Phase Priority Corrected (Camera-First) and Ownership Confirmed (Claude, Not Codex)
+
+**Date:** 2026-09-27
+**Approved By:** David Bloom
+**Related Task:** `TASK-0039-BYOQ-PRODUCTION-OPERATIONAL.md`
+**Decision:** Approved
+
+### Summary
+
+Approves `DECISION-0076`: corrects `TASK-0039`'s phase priority so camera/phone capture (originally
+labeled "Phase 2") is the primary, launch-required BYOQ intake method, with typed/pasted intake
+("Phase 1") shipping as a fallback rather than the first-shipped path. Confirms BYOQ implementation
+ownership as Claude, superseding an earlier direction that had it as Codex's workstream (Codex is
+instead working on the content pipeline). Does not reopen `DECISION-0068`/`APPROVAL-0050`'s
+architecture/schema approval.
+
+### Notes
+
+- Found and reported, not yet resolved: `DECISION-0070` (2026-09-26) states BYOQ ships "ungated, as an
+  anonymous session" — structurally in tension with the approved owner-scoped RLS schema, which assumes
+  an authenticated `user_id`. This approval does not cover that question; it remains open.
+
+## APPROVAL-0051 — Deploy the AP Statistics Combined Practice Selector (TASK-0044) to Production
+
+**Date:** 2026-09-26 (approval); Production deploy actually reached via PR #227, 2026-09-27
+**Approved By:** David Bloom
+**Related Task:** `TASK-0044-LAUNCH-SUBJECT-ONBOARDING-GATE.md` (found the gap)
+**Decision:** Approved
+
+### Summary
+
+Approves building and deploying to Production a fix for a gap TASK-0044 found: AP Statistics had
+101/101 published MCQ items content-ready but zero servable through any backend RPC on the
+flat/`targeted_drill` practice path, because `select_practice_frqs` is FRQ-only by design and the only
+existing combined FRQ+MCQ selector (`select_biology_practice_items`) is Biology-only by design. Approves
+the deploy itself: a new, additive `app.select_ordinary_combined_practice_items` Postgres function
+(Biology's own selector is untouched) plus the corresponding `student-session-items` edge-function
+routing change.
+
+### CORRECTION, 2026-09-27: which branch actually fulfilled this approval
+
+The branch this approval was originally requested for (`claude/task-0047-ap-statistics-mcq-serving`)
+built only a `targeted_drill`-only routing, and its migration/edge-function version were applied to
+Cramapple Development only — **never to Production**, despite this entry's original text. The branch
+that actually shipped this approval's intent to Production, via `main` PR #227 on 2026-09-27, is
+`codex/task-0044-statistics-mcq` — a superset that routes both `mcq` (the real Home session format) and
+`targeted_drill` to the same new RPC. Independently verified byte-for-byte identical (function body,
+comment, deployed edge-function source) to what Production was already running before the PR formally
+landed it in `main`'s git history, so this approval's substance — approving this class of fix for this
+diagnosed gap — was correctly fulfilled, just not by the branch originally named.
+
+### Evidence
+
+- Focused handler suite passing on the shipped branch, including Statistics Home `mcq` routing,
+  Statistics `targeted_drill` routing, answer-field redaction, and missing-choice fail-closed behavior.
+- Applied to Cramapple Development and called live against Dev's real AP Statistics content: correct
+  MCQ-only results in `mcq` mode.
+- Live post-merge verification against Production: `app.select_ordinary_combined_practice_items`
+  returns 7 FRQ + 13 MCQ for AP Statistics, matching the pre-deploy dry-run projection exactly;
+  `app.select_biology_practice_items` re-verified unchanged at 12 FRQ + 8 MCQ — confirms AP Biology's
+  serving path was not affected.
+
+### Notes
+
+- Does **not** close TASK-0044 — a fresh, independent QA pass and Main Conductor integration are still
+  required before it is marked `Done`.
+- Does **not** substitute for actually verifying the live, student-facing AP Statistics MCQ experience
+  end-to-end (`LAUNCH_RUNBOOK_2026_10_02.md` item 4) — this approval covers the backend serving path
+  only.
 
 ## APPROVAL-0050 — BYOQ Data-Model Architecture (Option A) and TASK-0039 Phase 1 Scope
 

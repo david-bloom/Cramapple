@@ -8,7 +8,7 @@
 **Status:** In Progress
 **Priority:** Medium — **removed from the October 2, 2026 launch-critical path**
 **Created Date:** 2026-09-26
-**Approved Date:** 2026-09-27 (`APPROVAL-0051`)
+**Approved Date:** 2026-09-27 (`APPROVAL-0056`)
 **Branch:** `codex/task-0042-content-pipeline-remediation`
 **PR:** None yet
 
@@ -128,13 +128,13 @@ doc governs if they drift. Apply per subject slice.)
 **Approval Required:** Yes
 **Approval Type:** Hard Gate — explicit, recorded approval per subject slice's Production write. Not
 Standing Approval, despite the underlying mechanism being repeatedly exercised.
-**Decision:** Approved and executed under `APPROVAL-0051`. Core remediation passed independent Claude QA on 2026-09-27. Multi-unit third review and non-Biology quantity targets remain open.
+**Decision:** Approved and executed under `APPROVAL-0056`. Core remediation passed independent Claude QA on 2026-09-27. Multi-unit third review and non-Biology quantity targets remain open.
 
 ## Implementation Notes
 
 **Implementation Summary:** Re-audited all 216 prior promotions; corrected five difficulty rows; hardened the runner; completed guarded E&M, Calculus BC, and Mechanics writes; promoted 152 fresh single-unit agreements. See `docs/product/CONTENT_PIPELINE_CODEX_HANDOFF_2026_09_27.md`.
 
-**Test Results:** Runner syntax and no-network fixture passed. Production ledger and row counts verified. `app.servable_items_census_selftest()` returned no mismatches for the three completed subjects.
+**Test Results:** Runner syntax and no-network fixture passed. Production ledger and row counts verified. `app.servable_items_census_selftest()` returned no mismatches for the three completed subjects. Approval provenance migration `20260927181002` corrected 152 notes to `APPROVAL-0056`, with zero conflicting references remaining in that slice.
 
 **Risks / Issues:** 49 multi-unit agreements remain provisional pending independent third review. Quantity targets beyond Biology remain an owner decision.
 
@@ -154,7 +154,7 @@ Only the Main Conductor may set a slice's status to `Done`.
 
 ## Product Owner Execution Authorization (2026-09-27)
 
-`APPROVAL-0051` authorizes a single cross-cutting QA-remediation branch because the freshness defect,
+`APPROVAL-0056` authorizes a single cross-cutting QA-remediation branch because the freshness defect,
 difficulty-method correction, runner hardening, and reproducibility repair span the shared pipeline.
 This exception does not erase subject boundaries: every Production correction must remain a durable,
 subject-identifiable migration with exact before/after counts and independent review evidence. The

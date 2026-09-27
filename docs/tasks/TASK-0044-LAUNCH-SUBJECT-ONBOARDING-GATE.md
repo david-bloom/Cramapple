@@ -185,10 +185,16 @@ Statistics sessions with either `mcq` or `targeted_drill` to that selector. The 
 fetches only `choice_key` and `choice_text`, so `is_correct` and `rationale` never enter the learner
 payload.
 
-**Development deployment:** Applied only to Cramapple Development (`wmgjsdkphcyhngaffbqf`):
-migration `task0044_stats_combined_selector_mcq_mode` and `student-session-items` version 8. No
-Production migration or function deployment was made. Production remains blocked pending David's
-explicit deployment approval and fresh independent QA.
+**Development deployment:** Applied to Cramapple Development (`wmgjsdkphcyhngaffbqf`):
+migration `task0044_stats_combined_selector_mcq_mode` and `student-session-items` version 8.
+
+**CORRECTION, 2026-09-27:** this branch (`codex/task-0044-statistics-mcq`) was subsequently merged to
+`main` and Production via PR #227, after being independently verified byte-for-byte identical to what
+was already live in Production (function body, comment, and edge-function routing all matched exactly).
+Production now runs this `mcq`-or-`targeted_drill` routing, not the narrower `targeted_drill`-only
+version an earlier, separate attempt (`claude/task-0047-ap-statistics-mcq-serving`, since deleted) had
+built — that earlier branch's Dev-only version was never applied to Production. See
+`ACTIVITY_LOG.md`'s 2026-09-27 entry for the full correction.
 
 **Test Results:**
 - Focused handler type-check: Pass.

@@ -1,6 +1,13 @@
 # App Rebuild Migration Plan
 
-STATUS: draft for Product Owner review | DATE: 2026-09-22 | OWNER: unassigned (§16)
+STATUS: CURRENT (architecture) — but §11's decision statuses are SUPERSEDED in place (see banner in §11) | DATE: 2026-09-22 | OWNER: unassigned (§16)
+
+> **POINTER (2026-09-27).** This remains the authoritative architecture/gap-analysis plan. However,
+> most of **§11's "open decisions" were resolved on 2026-09-26** and are annotated in place below.
+> For the current decided-vs-open picture at a glance, read
+> `docs/product/ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md` first — it is the ratifiable one-pager
+> this plan now feeds. This plan still has no Task ID / owner / DECISION number of its own (its §16);
+> the one-pager carries the ratification slot.
 
 **This is the single plan for the redesign.** It consolidates the conversation of
 2026-09-22 with the documents listed in §15, and supersedes the earlier revision
@@ -511,7 +518,12 @@ governance decision, not an engineering one.
 
 These exist in the current app, are used, and have **no design treatment**.
 
-### 9.1 Course Mode session UI — 7 components, shipped, live pilot
+### 9.1 Course Mode session UI — 7 components (Course Mode is no longer a selectable *mode*)
+
+> **VOCABULARY NOTE (2026-09-27).** "Course Mode" as a selectable session mode is **retired** (David
+> 2026-09-27: "there is only one mode"). These are **components** that survive into the single "Learn"
+> mode, not a mode of their own — per Decision 17 (RESOLVED): generalize `ConfirmTransferBeat`, fold
+> `LessonOpener` into `WorkedExample`, keep `StreakBadge`.
 
 `SkillRail`, `ConfirmTransferBeat`, `CourseModeRepairPanel`, `RepairBlock`,
 `WorkedExample`, `LessonOpener`, `StreakBadge`.
@@ -619,35 +631,46 @@ delete rather than migrate. `style-guide` is superseded by
 
 ## 11. Open decisions
 
+> **STATUS UPDATE (2026-09-27): this table is annotated in place.** Most rows below were resolved by
+> David on **2026-09-26** (`docs/product/LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md`, "DECIDED, 2026-09-26")
+> and executed under **`docs/tasks/TASK-0047-APP-REBUILD-SECTIONS-7-11.md`**; #20 is superseded by
+> **`DECISION-0074`**. Each changed row now carries its resolution and citation. Rows still marked OPEN
+> are genuinely open. Frontend commit hashes cited here live in the Lovable project `56cae479`, not in
+> this repo (verify against Lovable, not git). Single-glance current view:
+> `docs/product/ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md`.
+
 | # | Decision | Status |
 | --- | --- | --- |
-| 1 | **Fixed 1440×900 frame vs. responsive** | **OPEN — blocking.** See below. |
+| 1 | **Fixed 1440×900 frame vs. responsive** | **RESOLVED 2026-09-26 — go responsive.** TASK-0047 Workstream A, Lovable `56cae479` commit `44a0f59e` (verified). The "Decision 1 is still open" prose below is superseded. |
 | 2 | Visual-identity brief v2 status | **Resolved.** `docs/new_design/` is canonical. |
-| 3 | Motion — `ConfettiBurst` exception | OPEN (§9.7) |
+| 3 | Motion — `ConfettiBurst` exception | **RESOLVED 2026-09-26 — keep as a named, documented exception to the zero-motion rule.** |
 | 4 | Scope for v1 | **Resolved.** App, marketing, Stripe, home page (§3). |
 | 5 | Logo | OPEN — ships with the type wordmark unless resolved |
 | 6 | Dark mode | **Resolved.** Retired 2026-09-21, light only. |
-| 7 | Owner / Task ID | OPEN (§16) |
+| 7 | Owner / Task ID | **PARTLY RESOLVED 2026-09-26 — `TASK-0047` created; owner still unassigned.** (This plan itself still has no DECISION number of its own; the one-pager carries the ratification slot.) |
 | 8 | Cross-subdomain auth handoff (`.cramapple.com` cookie scope) | OPEN — foundational to both projects |
 | 9 | Route-by-route auth-requirement audit | OPEN — §2.3 buckets by name, which is a first pass |
 | 10 | Repo-split vs. cutover sequencing | **Resolved.** Split first, then rebuild. |
-| 11 | **Multi-part FRQ and typed-math treatment** | **OPEN — blocking Phase 1.** Harder than it looked: parts are prose on 323 of 563 items (§8.4). |
+| 11 | **Multi-part FRQ and typed-math treatment** | **RESOLVED 2026-09-26 — cheap render-time parser stopgap; full re-authoring not committed.** TASK-0047 Workstream B, Lovable commit `c52c3fd6`. |
 | 12 | Mode consolidation into one surface | **Resolved.** The plate is that surface (§4.1). |
 | 13 | Diagnostic / exam-cram sequencing | **Resolved.** After the homework/course path (§4.1). Commercial half open. |
 | 14 | "Open Hand" means two things | **OPEN, cheap.** Pick one vocabulary (§4.3). |
 | 15 | BYOQ intake has no design | **OPEN** (§9.4) |
 | 16 | **Student-signal evidence basis** | **OPEN — upstream of 12, 13 and 18.** Consolidation §10 item 1. |
-| 17 | Which Course Mode mechanics survive the merge | **OPEN.** §9.1's table needs confirming component by component. |
-| 18 | **BYOQ: default entry or alternative?** | **OPEN — reorders Phase 1.** Consolidation §1 says default; David 2026-09-22 says Practice defaults to a Cramapple question (§13.3). |
-| 19 | **Intake: paste-first or camera/upload-first?** | **OPEN.** `HOMEWORK_MODE_DESIGN_2026_08_28.md` §2 defers photo and makes verbatim paste an anti-gaming layer; David 2026-09-22 names camera and document upload (§13.3). |
-| 20 | **What derives mastery from help-taken + score** | **OPEN — unbuilt and unspecified.** The signal both plate modes exist to produce (§4.2). |
+| 17 | Which Course Mode mechanics survive the merge | **RESOLVED 2026-09-26 — generalize `ConfirmTransferBeat`; fold `LessonOpener` into `WorkedExample`; keep `StreakBadge`.** TASK-0047 Workstream D, Lovable commits `8337b270`/`6b696008`; backend follow-on `9fc0f75b` (this repo). Components, not a "mode." |
+| 18 | **BYOQ: default entry or alternative?** | **RESOLVED 2026-09-26 — alternative, not default.** Practice defaults to a Cramapple question; BYOQ is the alternate path. |
+| 19 | **Intake: paste-first or camera/upload-first?** | **RESOLVED 2026-09-26 — phone/camera capture at launch; document/text upload deferred post-launch.** (BYOQ build itself remains Codex's workstream.) |
+| 20 | **What derives mastery from help-taken + score** | **SUPERSEDED by `DECISION-0074` (2026-09-26): rule DECIDED — 2 correct MCQ + 1 full-point FRQ, no hint use prior to submission — but still UNBUILT and hard-gated on David's "what counts as hint use before submission" definition.** See `STUDENT_INTERACTION_DATA_SCHEMA_PLAN_2026_09_27.md`. |
 | 21 | **How Open Hand gets the answer key** | **Method DECIDED (David, 2026-09-22):** Open Hand is a sanctioned full-disclosure teaching method — a unit:topic-relevant question shown with its answer, rubric, points earned/lost, reference pane and deep dive, none of it scored. **OPEN: the serving contract only** — a narrow `SECURITY DEFINER` RPC + scored-ineligibility rule (§5.2), never a relaxation of the answer-key boundary. |
 | 22 | **Topic labelling approach** | **Direction set** (§6.2): AI-led, second source being sourced. Open: whether to re-score the stored runs for primary-topic agreement first, and what the human-escalation threshold is. |
-| 23 | **Item-package backfill or dual-read adapter** | **NEW — OPEN.** 203 of 1,346 items carry a package payload (§5.5). |
-| 24 | **Does `validated` status gate launch?** | **NEW — OPEN.** Nothing in the library is `validated` (§8.5). |
+| 23 | **Item-package backfill or dual-read adapter** | **RESOLVED 2026-09-26 — dual-read adapter, not a backfill.** TASK-0047 Workstream E, commit `1a6e8404` (this repo). Gap found dormant; adapter is forward insurance. |
+| 24 | **Does `validated` status gate launch?** | **RESOLVED 2026-09-26 — no, does not gate the Oct 2 launch.** Post-launch content-hygiene project. |
 | 25 | Per-choice "fix" line in the Open Hand key | **NEW — OPEN, cheap.** No such column exists (§5.5). |
 
-### Decision 1 is still open and it is now urgent
+### Decision 1 is still open and it is now urgent  *(SUPERSEDED 2026-09-26 — resolved: go responsive; see §11 row 1)*
+
+> The analysis below was correct when written and is retained for context, but the decision it calls
+> for has been made: **responsive** (TASK-0047 Workstream A, Lovable `56cae479` commit `44a0f59e`).
 
 The design system specifies a fixed 1440×900 plate with `overflow: hidden` that
 must never scroll. `web/` implements that literally and enforces it —

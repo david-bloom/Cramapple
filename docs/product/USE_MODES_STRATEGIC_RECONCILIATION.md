@@ -1,7 +1,12 @@
 # Cramapple Use Modes — Strategic Reconciliation
 
-STATUS: draft for Product Owner review | DATE: 2026-09-17 | AUDIENCE: David, LLM-first
+STATUS: SUPERSEDED by `COURSE_HOMEWORK_CONSOLIDATION_PLAN.md` and the single-mode decision (2026-09-27) | DATE: 2026-09-17 | AUDIENCE: David, LLM-first
 entry point for any session working across modes.
+
+> **VOCABULARY BANNER (2026-09-27).** The multi-mode framing this doc reconciles is retired: there is
+> **one session mode ("Learn")**, not Course / Homework / Cram modes (David 2026-09-27). Retained as
+> historical background on how three modes arose. Current: `docs/product/ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md`
+> (D1) and `docs/product/COURSE_HOMEWORK_CONSOLIDATION_PLAN.md`.
 
 **UPDATE 2026-09-17 (rev. after external review):** §3.3's engineering-
 sequencing question is answered directly by student feedback — see

@@ -6,6 +6,13 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0081 — Lean Source-of-Truth Startup Mode: Tier-First Session-Start Reading for Codex and Claude, `AGENTS.md` Search Discipline, and Log `INDEX_END` Markers
+- DECISION-0080 — `DECISION-0074` Addendum: the Four Gated Aids (Rubric, Points, Deep Dive, Reference) All Count as Pre-Submission Hint Use for Mastery; Approves Rebuilding `SessionFrame`'s Live Hint Gating to Match (Workstream B1 of the "Gate the Four Aids" Plan)
+- DECISION-0079 — Promote All 293 `provisional_model` Topic Labels (112 AP Biology + 181 AP Statistics) to `validated`; Both Now Visible Through `content_item_topic_resolution`
+- DECISION-0078 — Ratify Three Session-Start Bootstrap Edits: Live Lovable Front-Ends in the Repository Map, Required First-Read of the Architecture/Design One-Pager + INDEX, and an Anti-Stale Rule
+- DECISION-0077 — BYOQ Is Identity-Agnostic: `byoq_items.user_id` Not Required (Anonymous on Marketing, Recognized-but-Not-Gated In-App); Resolves the DECISION-0070 ⟷ DECISION-0068 Conflict
+- DECISION-0076 — TASK-0039 BYOQ Phase Priority Corrected: Camera/Phone Capture Is Launch-Required, Not Typed Intake; Ownership Confirmed as Claude, Not Codex
+- DECISION-0075 — Ratify `ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md` as the Canonical Architecture/Design Source of Truth; Adopt the `STATUS:` Header Convention + `docs/INDEX.md`; Legacy Docs Handled by Annotate-in-Place (Option A, No Move)
 - DECISION-0074 — Mastery Rule Tightened: 2 Correct MCQ + 1 Full-Point FRQ, No Hint Use Prior to Submission; Adds a New Content-Coverage Dependency (GAP-9)
 - DECISION-0073 — Launch Frontend Target Is the Lovable App Published at ap-prep-canvas.lovable.app, Tentatively Identified as the "New Cramapple App" Project
 - DECISION-0072 — Extend DECISION-0063 to AP Statistics: Launches on the Flat/Practice Path, Unit-Gating Deferred
@@ -24,6 +31,340 @@ Most recent entries (full chronological list follows below):
 (Note: the TASK-0012 branch independently logged its own DECISION-0027/0028 — CORS/ALLOWED_ORIGINS and budget-burn semantics — under different numbers on its own branch. Those land separately when that work merges to `main`; this charter-adoption decision claimed 0027/0028 here because `main` had not yet recorded entries past DECISION-0026 at merge time. If both branches' numbering collides on merge, renumber on whichever side merges second and update this index.)
 
 (Note: the same collision recurred 2026-09-26. The `claude/launch-planning-cram-4oyh2g` branch independently claimed DECISION-0068 through 0072 for five launch-planning decisions, not knowing `main` had already recorded its own DECISION-0068 (BYOQ parallel tables, TASK-0039 Phase 1) by the time this branch merged. Per the rule above, this branch — the later-merging side — renumbered its five decisions to DECISION-0069 through 0073 at merge time; main's DECISION-0068 is untouched. If you are reading an older copy of any of the five renumbered decisions (in a plan doc, a chat log, or a stale local checkout) under its original 0068-0072 number, this is why the number no longer matches — the content is unchanged, only the ID moved.)
+
+<!-- INDEX_END -->
+
+## DECISION-0081 — Lean Source-of-Truth Startup Mode: Tier-First Session-Start Reading, `AGENTS.md`, Log `INDEX_END` Markers
+
+**Date:** 2026-09-27
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Approval:** Product Owner direction, 2026-09-27 (this session); see `APPROVAL-0055`
+**Related Docs:** `prompts/CODEX_NEW_SESSION_PROMPT.md`, `prompts/CLAUDE_NEW_SESSION_PROMPT.md`,
+`docs/team_charter/CRAMAPPLE_SESSION_START.md`, `AGENTS.md` (new), `docs/activity_log/ACTIVITY_LOG.md`,
+`APPROVALS_LOG.md`, `DECISIONS_LOG.md` (this file)
+**Area:** Operating Policy / Session Startup
+
+### Context
+
+Codex session-start cost had grown large enough to consume most of a session's usage budget before
+any task work began. Diagnosis (independently corroborated by Codex and Claude): the entry-point
+prompt `CODEX_NEW_SESSION_PROMPT.md` hardcoded an unconditional read of 11 governance/log/product
+docs (~3,200 lines) for every task regardless of size, and its "(Index section)" instruction for the
+three activity/approval/decision logs had no enforceable stopping point, so a normal read pulled each
+full log (400-900+ lines) instead of its ~30-130 line index. This directly contradicted
+`CRAMAPPLE_SESSION_START.md`'s own existing guidance ("Read only the documents needed for a clearly
+bounded task. The broad orientation list is a fallback, not mandatory ceremony for every Micro
+task.") — the entry-point prompt was stricter than the protocol it was supposed to invoke.
+
+### Decision
+
+Adopt a tier-first startup protocol ("Lean Source-of-Truth Mode") for both Codex and Claude new
+sessions:
+
+- Classify the task's Tier (Micro / Standard / Hard-Gate) before choosing a reading set, using the
+  existing Task Tiers definition in `AGENT_OPERATING_MODEL.md` as the sole test — the startup
+  prompts do not redefine tier criteria themselves, to avoid two definitions drifting apart.
+- Micro tasks read only `CRAMAPPLE_SESSION_START.md` and the named task record by default; the full
+  11-doc stack is reserved for Standard/Hard-Gate or genuinely unclear-scope work.
+- The three activity/approval/decision logs now carry an explicit `<!-- INDEX_END -->` marker after
+  their Index section (added to `ACTIVITY_LOG.md`, `APPROVALS_LOG.md`, `DECISIONS_LOG.md` in this
+  change). Startup reading stops at that marker and searches by exact ID/date/keyword before ever
+  reading a full log; an empty targeted search must be reported as such, not treated as proof the
+  record doesn't exist.
+- A new root `AGENTS.md` sets repo-wide search discipline (no broad scans of `docs/research`,
+  `docs/teaching`, `prompts`, `tmp`, `output`, worktree/dependency directories, generated output, raw
+  logs, or image/PDF corpora; targeted search and capped output everywhere else).
+- `prompts/CODEX_NEW_SESSION_PROMPT.md` and `prompts/CLAUDE_NEW_SESSION_PROMPT.md` were rewritten in
+  parallel to this rule set (each keeping its own tool-specific tail — Claude's operating-model/
+  model-effort section, Codex's explicit do-not-implement-past-approval language).
+- An escalation from a lower tier to a higher one changes required approvals and status path (per
+  `TASK_WORKFLOW.md`), not just the reading list — both must be applied together.
+- This is an operating-policy change to how every future session bootstraps; it does not change
+  authority order, approval lanes, or any hard gate.
+
+### Not resolved by this decision
+
+- Repo-size hygiene (large tracked PDFs, raw `.jsonl` model-call logs, generated SQL under
+  `scripts/*/out`) is a real, separate finding and is explicitly deferred to its own task — it was not
+  bundled with this change.
+- The pre-existing debt of both `APPROVALS_LOG.md`'s and `DECISIONS_LOG.md`'s Index sections already
+  exceeding their own "~10 entries" rotation target is unchanged by this decision.
+
+## DECISION-0080 — `DECISION-0074` Addendum: Hint-Definition Boundary for Mastery
+
+**Date:** 2026-09-27
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Approval:** Product Owner direction, 2026-09-27 (this session)
+**Related Docs:** `docs/product/STUDENT_INTERACTION_DATA_SCHEMA_PLAN_2026_09_27.md` (Open Decision #1, the
+hard gate this resolves); `DECISION-0074` (the mastery rule this addends); `.lovable/plan/gate-the-four-aids-in-practice-findings-and-plan-2026-09-27.md`
+(same-day Lovable investigation this decision is grounded in — real code, not the schema plan's
+candidate-event list)
+**Area:** Product / Mastery / Schema
+
+### Context
+
+`DECISION-0074` requires "no hint use prior to submission" for mastery, but left "which in-attempt
+events count as hint use" undefined — the schema plan's Phase 1 items 1-2 (hint-tracking table +
+mastery counters) were hard-gated on this answer, because the plan's own reasoning holds: logging an
+event now that's later ruled non-disqualifying is a cheap recompute; *not* logging one now that's later
+ruled disqualifying is unrecoverable history.
+
+David's answer: **"there are four hints in the architecture. clicking on any of them is recorded in the
+schema. if that action happens before scoring, it counts against mastery."** Verified against the live
+codebase (`56cae479`) before recording, rather than taken as an abstract answer: the four gated aids
+that actually exist, per `HintGate.jsx`'s call sites, are **Rubric/criteria preview, "How points are
+earned/lost," Deep Dive, and Reference Materials** (there is also a fifth, MCQ-only bonus gate,
+Elimination — not one of "the four," left as a bonus/aside per the same architecture). All four are
+built and gated in the **plate Practice templates** (`/practice-mcq`, `/practice-frq`) via `HintGate`/
+`DeepDiveGate`; none of the four exist yet on the route a real student actually reaches by default
+(bare `/session` → `SessionFrame.tsx`, which has exactly one pre-submit aid, "I need help," ungated by
+`HintGate` at all).
+
+**This gap was surfaced and put to David directly rather than silently building the schema against an
+architecture real students can't reach:** asked whether to (a) build the schema for all four and treat
+`SessionFrame` rebuild as a prerequisite, or (b) build for what's live today (one aid) and extend later.
+**Answer: (a), all four — rebuild `SessionFrame` to match.**
+
+### Decision
+
+1. **Hint-definition boundary (unblocks schema plan Phase 1 items 1-2):** an in-attempt event counts
+   as disqualifying "hint use before submission" under `DECISION-0074` if and only if the student opens
+   one of the four gated aids — **Rubric/criteria preview, Points-earned/lost, Deep Dive, or Reference
+   Materials** — before the attempt is scored. (Elimination, the MCQ-only bonus gate, is out of scope
+   of "the four" as David named them; whether it also disqualifies is not decided here and should not
+   be assumed either way until asked.) Opening any one of the four sets `pre_submit_hint_count > 0` for
+   that attempt regardless of how many total opens occur, per the schema plan's Phase 1 item 1 design
+   (`app.attempt_assistance_events`, one row per open event, rolled up via
+   `app.assistance_event_policy.disqualifies_mastery`).
+2. **Live-path scope (new, not in the schema plan):** the four-hint model only exists in the unlinked
+   plate templates today. David approved **Workstream B1** of the "gate the four aids" plan — split
+   `SessionFrame`'s single "I need help" link into four separate `HintGate`s (Rubric preview, Points,
+   Reference, Deep Dive) on the live default path — as the way to make this decision enforceable for
+   real students, not just plate-template demo traffic. **Workstream B2** (replace `SessionFrame`'s
+   question UI wholesale with the plate templates) is explicitly **not** approved — the investigating
+   plan itself recommends against it as a follow-on edit, given the scope (react-router-dom hooks,
+   `SessionProvider` state, confirm-transfer/repair/recheck/skill-rail carry-over).
+
+### Not resolved by this decision — real blockers to B1, not yet executed
+
+- **Data source gap, flagged by the same investigation, not newly found here:** a rubric-preview gate
+  needs a student-safe rubric source for served items, which doesn't exist today (`PracticeFrqScreen`
+  already notes this for its own unlinked route). Reference Materials and Deep Dive content likewise
+  have no data source on served items yet — only the plate templates' local sample content has it.
+  **B1 cannot show real content in three of its four gates until this content/data gap is closed
+  separately** — gating an empty pane is not the same as gating real content, and shipping empty gates
+  to real students needs its own explicit go-ahead, not an assumption bundled into this decision.
+- **Server-side "coached" propagation** for the plate templates' live routes (`LivePracticeMcq`/
+  `LivePracticeFrq`) is itself unconfirmed — today they only pass `hintsUsed` into the client-side
+  result receipt, not to the grading server. Workstream A of the same plan (unrelated to B1, smaller/
+  lower-risk) already flags this as a "stop and report" item if the grade endpoint has no such field.
+- **This decision does not itself build anything.** It resolves the open policy question the schema
+  plan needed and approves B1's scope; implementing `attempt_assistance_events`, the four `HintGate`
+  splits in `SessionFrame`, and the content/data-source work above are separate, still-unexecuted
+  engineering tasks.
+
+## DECISION-0079 — Promote All 293 `provisional_model` Topic Labels to `validated`
+
+**Date:** 2026-09-27
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Approval:** Product Owner direction, 2026-09-27 (this session)
+**Related Docs:** `docs/product/LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md` (carried-forward item #1, taxonomy
+rationalization close-out); `docs/product/CONTENT_TAXONOMY_RATIONALIZATION_PLAN_2026_09_26.md`;
+`DECISION-0067` (the prior, unrelated coverage-label deferral — not reversed by this decision, see below)
+**Area:** Content / Taxonomy
+
+### Context
+
+`CONTENT_TAXONOMY_RATIONALIZATION_PLAN_2026_09_26.md` Phase 1/3 landed 112 AP Biology topic-only cells
+and 181 new AP Statistics topic labels as `assignment_status = 'provisional_model'` — deliberately not
+`validated`, per that plan's own decision to keep AI-derived serving labels out of student-facing
+surfaces until promoted. `app.content_item_topic_resolution`'s `SAFETY-CRITICAL FILTER` (migration
+`20260927004700`) only exposes `assignment_status IN ('validated', 'authored')`, so all 293 rows were
+invisible to `student-session-items` and everything downstream of it (breadcrumb, habits pair,
+reference pane, deep dive, progress, study map) despite existing in `content_item_cells`.
+
+### Decision
+
+**Promote all 293 rows from `provisional_model` to `validated`.** Applied directly to Production
+(`pcntajvbdfqhbeewmdry`): `validated_by` = David Bloom's `auth.users.id`, `validated_at` = time of
+write, `validation_decision_id` = a single generated UUID (`5cbbd490-3c47-4715-badc-fc417e763077`)
+shared across all 293 rows, this decision being their validation record. Verified post-write:
+`content_item_cells` now shows 0 `provisional_model` rows (203 `authored` + 293 `validated`);
+`content_item_topic_resolution` row count went from 203 to 496, exactly matching. `get_advisors`
+(security) run immediately after showed no new findings attributable to this change — all findings
+present were pre-existing (RLS-enabled-no-policy on unrelated tables, etc.).
+
+### Not resolved by this decision
+
+- **This does not itself close GAP-9.** No FRQ in either subject carries a topic/skill cell label at
+  all (a separate, unstarted labeling gap), and AP Biology's `app.taxonomy_cells` "legal topic × skill
+  grid" is still empty (0 rows; every subject except AP Statistics is empty) — that grid needs to be
+  authored from curriculum judgment, not derived from this promotion. GAP-9 remains 0 masterable cells
+  in both subjects until both of those are addressed.
+- **Does not touch or reverse `DECISION-0067`** (coverage labels / `assessed_topics`, a different
+  label type measured at only 44% two-model agreement) — that deferral stands untouched. This decision
+  is about **serving/topic labels** specifically, which `DECISION-0066` already approved promoting on
+  a materially stronger 89% agreement basis.
+- Whether the underlying AI-derived labels are individually correct was not re-audited here — this
+  decision executes the promotion David approved, it does not re-run the labeling QA.
+
+## DECISION-0078 — Ratify Three Session-Start Bootstrap Edits (Live Front-Ends, Required First-Read, Anti-Stale Rule)
+
+**Date:** 2026-09-27
+**Decision Owner:** David Bloom
+**Status:** Approved (see `APPROVAL-0054`)
+**Related Docs:** `docs/team_charter/CRAMAPPLE_SESSION_START.md` (the governed bootstrap, APPROVAL-0047 /
+DECISION-0054); `docs/product/ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md`; `docs/INDEX.md`; PR #232
+**Area:** Governance / Operating Policy
+
+### Context
+
+The 2026-09-27 documentation cleanup found that the session-start bootstrap could still route sessions
+to outdated material: its Repository Map named `exam-buddy-wireframe` as the "current front-end," the
+new canonical one-pager + INDEX were only in the optional fallback list, and there was no explicit rule
+to distrust superseded docs or stale memory. Three edits were made and merged (PR #232), flagged pending
+ratification because the bootstrap is a governed operating-policy document.
+
+### Decision
+
+The three edits are **ratified and kept** (they change routing/guidance, not authority order or gates):
+
+1. **Repository Map corrected** — names the live Lovable front-ends **`56cae479`** (app, `app.cramapple.com`)
+   and **`61dd6602`** (marketing, `cramapple.com`), notes front-end commits live in Lovable (not this
+   repo) and must be re-confirmed against live DNS, and demotes `exam-buddy-wireframe` to a
+   reviewer-portal holdover (rebuild §10).
+2. **Required first-read** — for architecture / design / front-end / session-mode / launch work,
+   `ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md` + `docs/INDEX.md` must be read first, not left to the
+   optional fallback list.
+3. **Anti-stale rule** — treat `STATUS: SUPERSEDED`/`HISTORICAL` docs as non-current; assume memory and
+   prior-chat context may be stale on design/mode/frame/frontend; verify against the one-pager, which
+   governs on conflict.
+
+Builds on `DECISION-0075` (which ratified the earlier one-pager/INDEX pointers in the same bootstrap).
+
+## DECISION-0077 — BYOQ Is Identity-Agnostic; `byoq_items.user_id` Not Required; Resolves DECISION-0070 ⟷ DECISION-0068
+
+**Date:** 2026-09-27
+**Decision Owner:** David Bloom
+**Status:** Approved (see `APPROVAL-0053`)
+**Related Docs:** `docs/tasks/TASK-0039-BYOQ-PRODUCTION-OPERATIONAL.md`;
+`docs/product/ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md` (O16 → resolved); `DECISION-0070`;
+`DECISION-0068`; `DECISION-0057`
+**Area:** Backend / Schema / Product
+
+### Context
+
+The BYOQ session (acting on the 2026-09-27 doc-cleanup broadcast) surfaced a real conflict between two
+approved decisions: `DECISION-0070` (2026-09-26) says BYOQ ships "ungated, as an anonymous session" on
+the new home page — no sign-in — while `DECISION-0068`'s approved Option A schema makes
+`app.byoq_items.user_id` a `NOT NULL` FK to `app.profiles` with RLS keyed to `auth.uid()`, which an
+anonymous visitor cannot satisfy. It also raised whether BYOQ ships on the marketing site or the
+authenticated app. Surfaced to David rather than self-resolved (per standing rule); this task already
+carried the same flag (TASK-0039 lines ~199–216).
+
+### Decision
+
+**BYOQ is identity-agnostic.** David, 2026-09-27: "There is never a need for a specific BYOQ. If a
+student uses it on the marketing page they do so without registering. If they are registered and use it
+inside the app they are recognized, but that doesn't affect their use of BYOQ either way." Concretely:
+
+- **`app.byoq_items.user_id` is NOT required** — nullable; when present (signed-in in-app user) it is
+  recognition metadata, not a gate. This **amends** the Option A schema approved under `DECISION-0068`;
+  the parallel-tables architecture is otherwise unchanged.
+- **BYOQ runs on both surfaces with identical behavior** — anonymous on the marketing home page
+  (`cramapple.com` / `61dd6602`), recognized in the app (`app.cramapple.com` / `56cae479`).
+- Implementation defines how anonymous items are scoped/secured without `auth.uid()` (e.g. a durable
+  session/device token) and preserves BYOQ's invariants (Practice-only, never Open Hand, no canonical
+  answer/rubric — `DECISION-0057`). That scoping is build work under TASK-0039, not a further PO decision.
+
+`DECISION-0070` stands; `DECISION-0068`'s user-authentication assumption is the part that gives.
+
+## DECISION-0076 — TASK-0039 BYOQ Phase Priority Corrected: Camera/Phone Capture Is Launch-Required, Not Typed Intake; Ownership Confirmed as Claude, Not Codex
+
+**Date:** 2026-09-27
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Approval:** Product Owner direction, 2026-09-27 (this session)
+**Related Docs:** `docs/tasks/TASK-0039-BYOQ-PRODUCTION-OPERATIONAL.md` ("Correction" section); `DECISION-0075`;
+`docs/product/ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md` (D9); `docs/product/LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md`
+("BYOQ is phone capture to start. Document upload post launch"); `DECISION-0068`/`APPROVAL-0050`
+**Area:** Product / Governance / BYOQ
+
+### Context
+
+`TASK-0039` was drafted 2026-09-25 and its Phase 1 (typed/pasted intake, camera capture deferred to
+Phase 2) approved 2026-09-26 (`DECISION-0068`/`APPROVAL-0050`), without knowledge of a same-day decision
+recorded elsewhere in a concurrent session's launch-planning work: "BYOQ is phone capture to start.
+Document upload post launch," which also named BYOQ's build as Codex's workstream. A separate
+concurrent session's documentation cleanup ratified `DECISION-0075` on 2026-09-27, surfacing this
+conflict directly to the session executing `TASK-0039`. That session verified the conflict against the
+primary source (not just the one-pager summary) and stopped rather than self-resolve it, per this
+project's standing rule to notify the Product Owner on exactly this kind of cross-session contradiction.
+
+### Decision
+
+**Camera/phone capture is BYOQ's primary, launch-required intake method — not typed/pasted text.**
+David's direction: "phase 1 is phone, not text BYOQ." What `TASK-0039` originally labeled "Phase 2" (QR
+photo capture) is launch-required and ships no later than the data model and Practice screen; what it
+labeled "Phase 1" (typed/pasted intake) is a fallback input, not the primary or first-shipped path.
+
+**Ownership confirmed: Claude, not Codex.** David's direction: "Claude is taking over BYOQ while Codex
+works on content pipeline." This supersedes the earlier direction recorded in
+`LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md` that BYOQ's build was Codex's workstream.
+
+**Unaffected by this decision:** the data-model architecture (Option A, parallel `byoq_*` tables) and
+Phase 1's schema/screen scope approved under `DECISION-0068`/`APPROVAL-0050` — this decision reorders
+priority and confirms ownership, it does not reopen that approval. `TASK-0039`'s Phase 3 (worksheet
+upload, post-launch) was already correctly scoped and is unaffected.
+
+### Not decided by this entry
+
+Whether BYOQ ships **ungated, as an anonymous session** (`DECISION-0070`, 2026-09-26: "BYOQ ships on the
+new home page, ungated, as an anonymous session... A visitor does not need to sign in or purchase")
+is a separate, more severe conflict this same review pass found, structurally at odds with the
+approved Option A schema (owner-scoped RLS keyed to an authenticated `auth.uid()`/`app.profiles.user_id`
+— an anonymous visitor has neither). **Not resolved here** — see the same-day Activity Log entry for
+this finding, reported to David rather than self-resolved.
+
+## DECISION-0075 — Ratify the Current Architecture/Design One-Pager as Canonical; Adopt STATUS Headers + INDEX; Legacy = Annotate-in-Place
+
+**Date:** 2026-09-27
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Approval:** Product Owner direction, this session (2026-09-27 doc-cleanup)
+**Related Docs:** `docs/product/ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md` (the ratified one-pager);
+`docs/INDEX.md`; `docs/proposals/LEGACY_DOCS_ARCHIVE_PROPOSAL_2026_09_27.md`;
+`docs/activity_log/ACTIVITY_LOG.md` (2026-09-27 doc-cleanup entry)
+**Area:** Documentation / Information Architecture
+
+### Context
+
+The most load-bearing architecture/design plan (`APP_REBUILD_MIGRATION_PLAN.md`) carried no Task ID,
+owner, or DECISION number; its §11 "open decisions" were largely resolved 2026-09-26 without in-place
+updates; and design/vocabulary/palette drift (fixed-plate rule, Course Mode, "Project-Crux" red) was
+actively misleading readers. A docs-only cleanup produced a single decided-vs-open one-pager and a
+discoverability layer, verified against live systems.
+
+### Decision
+
+1. **`docs/product/ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md` is ratified** as the canonical entry
+   point for the app's current architecture and design. Where an older design/architecture doc conflicts
+   with it, the one-pager wins (it cites a source of record for every DECIDED row). **Owner: David Bloom.**
+2. **Adopt the `STATUS:` header convention** (`CURRENT | SUPERSEDED by <doc> (<date>) | HISTORICAL`) and
+   `docs/INDEX.md` as the canonical source-of-truth-per-topic map.
+3. **The discoverability pointers added to the governed `docs/team_charter/CRAMAPPLE_SESSION_START.md`
+   are ratified and kept** (they added references only, no policy change).
+4. **Legacy docs: Option A — annotate-in-place, no physical move.** Superseded docs stay where they are,
+   carry supersession banners, and are listed in `docs/INDEX.md`. No `docs/legacy/` tree is created at
+   this time (see the proposal for Options B/C if revisited later).
+
+### Notes
+
+Docs-only; no product/design decision was created or reversed by this ratification — it records and
+organizes decisions already made. Next free decision number after this is DECISION-0076.
 
 ## DECISION-0074 — Mastery Rule Tightened: 2 Correct MCQ + 1 Full-Point FRQ, No Hint Use Prior to Submission
 

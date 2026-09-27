@@ -849,6 +849,480 @@ built, QA-verified, and merged. Summary for whoever picks up the student hub lau
    than assuming from the deploy confirmation alone.
 6. **BYOQ and Open Hand remain fully unbuilt** (Codex's separate workstream, unchanged this session).
 
+## EXECUTED, 2026-09-27 (next session): grading-pipeline investigation (item A), GAP-9 count (item B), Stats/Bio serving smoke (item C)
+
+Read-only investigation against live Production (`pcntajvbdfqhbeewmdry`), via SQL. Goal: work the
+remaining student-hub items in sequence. Three closed this pass; the blocked ones (real sign-in,
+mastery build, BYOQ/Open Hand) are re-flagged unchanged.
+
+### A. "No real student has ever been graded" — the grading pipeline is NOT broken
+
+The earlier framing (a live risk that grading might be broken) does not hold up against the data. The
+pipeline grades end-to-end today:
+
+- **`grading_results` has zero `failed`/`error` rows** — every row is `graded` (74) or `uncertain` (9).
+  No currently-broken grading path exists.
+- **The `trial_v1` free-entitlement → submit → grade path is proven.** The launch-QA account
+  (`cramapple-qa-test+practice-verification-...@cramapple.com`) had a `trial_v1` entitlement created
+  2026-09-23 17:17 and a real FRQ **graded 3/4 two minutes later** (17:19, `gpt-4.1-mini`,
+  `grade_initial_attempt`). David's own MCQ attempts grade 49/50 through 2026-09-26.
+- **The two real students' non-grading is a timing/engagement artifact, not a defect:**
+  - `bkmicahb@gmail.com` attempted on **2026-08-22**, but their entitlements weren't created until
+    **2026-09-20** (the TASK-0016 incident grant) — a 7-day trial that **ends 2026-09-27 (today)**. They
+    attempted a month before any entitlement existed and never returned during the trial window. Their two
+    "submitted" attempts fired ~1 second after creation with no captured response — no logs survive from
+    that date to reconstruct further, and this predates the current split app (`56cae479`).
+  - `obloom27@solebury.org` has **zero entitlement rows** — their lone attempt is a stranded `draft`.
+
+**Two production-mutation facts flagged for David (NOT actioned — outside autonomous scope):**
+`obloom27@solebury.org` (a real student) has no entitlement; `bkmicahb@gmail.com`'s trial expires today.
+
+**Schema note (matches `STUDENT_INTERACTION_DATA_SCHEMA_PLAN_2026_09_27.md`):** grade state lives
+entirely in `grading_results`. On `attempts`, `graded_at` is null for all 108 rows, `status` is only ever
+`draft`/`submitted` (never `graded`), and `score_points` is null everywhere. `attempt_responses` is empty
+for the whole table (0 rows). Do **not** build mastery/progress off `attempts.score_points`/`graded_at`.
+
+**What remains for A:** the genuine open gap is runbook item 2 + this doc's item 3 — a fresh real
+submit-to-grade round trip through the **current `56cae479` UI** by an organic-style account. Blocked on a
+real Production sign-in (David directly, or a handed-over test account). The pipeline itself is not the risk.
+
+### B. GAP-9 measured — the constraint is labeling (GAP-1), not missing content
+
+Under `DECISION-0074` a topic × skill cell needs 2 servable MCQ + 1 servable FRQ to be masterable. Counted
+via `content_item_topic_resolution` (the validated-cell resolver) on live Production:
+
+| Subject | FRQ published | FRQ resolved to a cell | MCQ published | MCQ resolved to a cell | Cells masterable (2 MCQ + 1 FRQ) |
+| --- | --- | --- | --- | --- | --- |
+| AP Statistics | 80 | **0** | 304 | 203 (across 11 of 131 cells; all 11 clear the 2-MCQ bar) | **0** |
+| AP Biology | 75 | **0** | 43 | **0** | **0** (and `taxonomy_cells` grid is empty for Biology) |
+
+**Zero cells in either subject are masterable today — but purely because labels aren't resolved, not
+because content is missing.** 155 FRQs and 347 MCQs are published-but-unresolved. Root causes: the Bio topic
+labels + 181 new Stats labels are still `provisional_model` (carried-forward item #1, invisible to the
+resolver); no FRQ is topic/skill-labeled to a cell in either subject; and Biology's `taxonomy_cells`
+(topic × skill) grid is not materialized at all. **GAP-9 remediation is downstream of the provisional→
+validated label-promotion decision + the FRQ labeling + the Biology cell-grid build — it is not a
+content-authoring shortage.** This also means GAP-9 does not gate the Oct 2 flat-path launch (which does
+not use the cell resolver); it gates mastery (item G), which is itself unbuilt.
+
+### C. Statistics + Biology serving smoke (backend) — PASS
+
+Called the live serving selectors directly (per the "call the function, don't model its predicate"
+discipline) against each subject's selectable exam-pack version:
+
+- **Statistics** (`548f06be-ccf4-426d-b82b-b424137a4438`, `exam_pack_version_is_selectable = true`):
+  `app.select_ordinary_combined_practice_items(..., 'mcq', ...)` returns 50 distinct published MCQ;
+  `'targeted_drill'` returns FRQ. This is the post-PR-#227 combined path; the edge function
+  (`student-session-items`) combines both formats for the Home session.
+- **Biology** (`2d88ba5e-a6a3-43b8-bfae-9e5505a178a7`): `app.select_biology_practice_items(..., 'targeted_drill', ...)`
+  returns a real 12 FRQ + 8 MCQ blend.
+
+Both launch subjects serve real, distinct published items. This confirms the backend half of
+carried-forward item #5 (Phase 2 serving). The logged-in-UI half (Home renders these, skill rail
+resolves) still needs a real sign-in — same blocker as A/item 3.
+
+## CORRECTION, 2026-09-27: the "widen session-route retirement" approval does not hold — the cluster is not dead
+
+David approved widening the `/session/mcq`+`/session/frq` retirement to the whole cluster (`/setup`,
+`/setup/subject`, `/session/uncertain`'s two links) based on this doc's own prior finding that none of
+it was reachable from the real default flow. **Sent to the "New Cramapple App" Lovable project
+(`56cae479`) with an explicit stop-and-report instruction if any live reference turned up — it did, and
+the agent correctly stopped before deleting anything (commit `a67a28d5` contains only the unrelated
+`ScoreChip` fix below, verified via `get_diff`):**
+
+- **`TopicHome.tsx`'s Resume link is built from `home.functions.ts`'s `resumeUrlForFormat()`, which
+  returns `/session/mcq` or `/session/frq`.** A returning student with an in-progress attempt resumes
+  through exactly the routes this doc's audit called dead-except-via-`?home=v1`. This was missed
+  because the original audit traced `TopicHome.tsx`'s **Start** buttons (which do go to bare `/session`)
+  but not its **Resume** buttons.
+- **`/setup/subject` is a live redirect target of a subject guard** (`use-student-guard.ts`) for
+  subject-dependent routes, not an orphaned page only `/setup` links to.
+
+**Net effect: this doc's own record was wrong, not just stale — the "real default path" finding that
+underpinned both the original narrow retirement and today's widened approval needs re-auditing before
+any part of this cluster is touched.** Nothing was deleted; nothing is scheduled for deletion. Before
+raising this again: trace **every** entry point into `/session/mcq`/`/session/frq`/`/setup`/`/setup/subject`/
+`/session/uncertain` (Start *and* Resume, not just Start), and confirm whether the "NEW canonical session
+flow" decision (standardize on bare `/session`) implies `resumeUrlForFormat()` itself needs to change
+first — that may be the actual next step, not a route deletion. Flagging back to David rather than
+re-deciding scope myself.
+
+## EXECUTED, 2026-09-27: `ScoreChip` partial-credit color fix shipped to Production
+
+Independent of the correction above (same Lovable message, but the agent split the two apart correctly).
+`ScoreChip.jsx` previously had no `partial` tone — `TONES[tone || (earned === total ? 'earned' : 'lost')]`
+meant a partial score rendered in the "lost" maroon color, next to `VerdictChip.jsx`'s already-correct
+amber "Partially correct" label (the color-mismatch gap this doc flagged 2026-09-26). Added a `partial`
+tone (`var(--status-partial)` / `var(--yellow-700)` fg/border, `var(--yellow-050)` background — reusing
+existing tokens, no new color invented) and select it when `0 < earned < total`. Verified via `get_diff`
+against commit `a67a28d5` — only this file changed. Typecheck clean, 432/432 tests passed. Deployed to
+Production via `deploy_project`. **Not yet re-verified live in a browser** (same blocker as item 3/A —
+no test credentials to reach a real partial-score result).
+
+## EXECUTED, 2026-09-27: Interaction-data schema Phase 0 — partial pass, one open decision closed
+
+Ran the non-gated slice of `STUDENT_INTERACTION_DATA_SCHEMA_PLAN_2026_09_27.md`'s Phase 0 (read-only SQL
+against Production; Phase 1 items 1-2 remain hard-gated on David's hint-definition-boundary decision,
+untouched). Full results, evidence, and what's still unrun: `docs/product/INTERACTION_DATA_GAPS_RUNNING_LIST.md`.
+
+Headline: the plan doc's numbers (108 attempts, 83 grading_results, `confidence_level`/`result_summary`
+still 0/108, `assistance_state` still non-discriminating) re-confirmed with zero drift. One of the
+schema plan's five open decisions is now answered, not just investigated: **`app.attempt_responses` has
+zero rows table-wide** (not merely "less used" than `response_versions` as originally framed) — safe to
+freeze/retire. Recommend the Phase 2 rename-then-drop; not executed here, since that's sequenced after
+the rest of Phase 0.
+
+## INVESTIGATED, 2026-09-27: GAP-9 remediation — Biology's `taxonomy_cells` grid needs curriculum authoring, not a backfill
+
+Checked whether the Biology `taxonomy_cells` grid (empty per the 2026-09-27 GAP-9 count) could be
+populated mechanically from data already in Production. It cannot, and this isn't an engineering gap:
+
+- `app.taxonomy_cells` — the canonical "legal topic × skill combination" grid, distinct from
+  `content_item_cells` (actual content mapped to cells) — is **empty for every subject except AP
+  Statistics** (131 rows). AP Biology, both Calculus tracks, Chemistry, both Physics tracks, and
+  Precalculus all show 0.
+- There is no source-of-record elsewhere in the schema for "which skills legitimately pair with which
+  Biology topics" to derive this from — populating it means deciding the actual topic×skill matrix for
+  the subject, the same kind of judgment call the existing 131 Statistics rows represent. That's
+  curriculum/content authoring, not a migration I should invent rows for.
+
+**Not executed — flagged for David/content**, same as the label-promotion decision below. GAP-9
+remediation for Biology needs this grid authored (by whoever built the 131 Statistics cells, or an
+equivalent content pass) before the labeling work on top of it can even be scoped.
+
+## EXECUTED, 2026-09-27: label-promotion decision closed (`DECISION-0079`) — all 293 `provisional_model` rows now `validated`
+
+David's call: promote now. Applied directly to Production — all 112 Biology topic-only cells and 181
+new Statistics labels flipped from `provisional_model` to `validated`, with `validated_by`/`validated_at`/
+`validation_decision_id` populated per `content_item_cells`'s own validation CHECK constraint. Verified:
+`content_item_cells` shows 0 `provisional_model` remaining; `content_item_topic_resolution` grew from
+203 to 496 rows, exactly matching. Full record: `DECISION-0079`.
+
+**This does not close GAP-9 by itself** — see the investigation above: no FRQ in either subject has a
+topic/skill cell label, and Biology's `taxonomy_cells` legal grid is still empty. Both need curriculum
+authoring, not a data flip. Carried-forward item #1 from the taxonomy rationalization close-out is now
+resolved (the labels are promoted); GAP-9 itself is unchanged by this decision.
+
+## EXECUTED, 2026-09-27: `STUDENT_INTERACTION_DATA_SCHEMA_PLAN_2026_09_27.md` Phase 1 items 1-2 — schema built, application code not wired
+
+`DECISION-0080` unblocked the hard gate; applied migration `20260927170000_interaction_data_phase1_hint_tracking.sql`
+to Dev (`wmgjsdkphcyhngaffbqf`) then Production (`pcntajvbdfqhbeewmdry`). Built:
+
+- `app.assistance_event_policy` (event_kind → disqualifies_mastery, versioned by `effective_from`),
+  seeded per `DECISION-0080`: `rubric_preview`/`points_earned_lost`/`deep_dive`/`reference_materials` =
+  `true`, `elimination` = `false` (not one of "the four," undecided, logged non-disqualifying by
+  default).
+- `app.attempt_assistance_events` (append-only event log, RLS mirrors `attempts` ownership,
+  `relative_to_submission`/`hint_ordinal`/`counts_toward_hint_rule` derived server-side by a
+  `SECURITY DEFINER` trigger — never client-supplied).
+- `app.attempts.pre_submit_hint_count` (denormalized rollup, maintained by a second trigger).
+- `app.student_cell_state.mastery_mcq_correct_count`/`mastery_frq_full_count`/`mastery_reached_at`
+  (columns only).
+
+**Verified in Dev before/after trusting it:** inserted synthetic before/after-submission events against
+a real Dev attempt, confirmed `relative_to_submission`/`counts_toward_hint_rule`/the `pre_submit_hint_count`
+rollup all computed correctly, then deleted the test rows and manually reset the counter (the rollup
+trigger has no decrement-on-delete path — fine for the real append-only usage pattern, but meant this
+test's cleanup needed a manual counter reset, which was done; Dev returned to its pre-test state,
+Production was never touched by testing). `get_advisors` (security) shows exactly one new finding,
+expected and matching precedent (`app.assistance_event_policy` has RLS enabled with no policies — same
+class as `taxonomy_topics`/`taxonomy_cells`, a service-managed config table).
+
+**Not done — this migration only makes the schema exist:**
+- `evaluate-attempt/index.ts` still needs to derive `attempts.assistance_state` from this table instead
+  of trusting the client (Phase 1 item 1's other half).
+- `_shared/cell-state.ts` still needs to populate the new `student_cell_state` mastery counters.
+- `SessionFrame` emits zero events into this table until the separately-approved Workstream B1 rebuild
+  (the four `HintGate` split, `DECISION-0080`) ships — until then this schema has no real writer.
+- Phase 1 items 3-6 (active time, student confidence, retry-reason, recommendation provenance) were
+  deliberately left out of this migration — not gated on `DECISION-0080`, but a separate pass.
+
+## EXECUTED, 2026-09-27: `evaluate-attempt` wired to derive `assistance_state` server-side, deployed to Production
+
+New `supabase/functions/_shared/assistance-state.ts`: `deriveAssistanceState(clientValue, preSubmitHintCount)`
+forces `"coached"` whenever `attempts.pre_submit_hint_count` (the trigger-maintained rollup from the
+migration above) is `> 0`; otherwise passes the client's original value through unchanged — it only
+ever strengthens the claim, never downgrades a declared `exam_practice` attempt to `independent` just
+because no event happens to be logged yet. `evaluate-attempt/index.ts` now selects
+`pre_submit_hint_count` alongside `assistance_state`, computes the derived value once per request, and
+uses it (not the raw client column) on both `attempts.update()` calls and both `persistGradingMemory`/
+`persistCellState` call sites (the deterministic-fast-path and full-model-grading path each have their
+own of both).
+
+**Verified before deploying:** new unit tests (4 cases covering the coached-override, the
+exam_practice-preservation guard, the pass-through case, and the null-count edge case) pass; the
+existing `evaluate-attempt` test suite (2 tests) and the downstream `cell-state`/`cell-state-signals`
+suites (41 tests) are unaffected; `deno check evaluate-attempt/index.ts` is clean.
+
+**Deployed to Dev (`wmgjsdkphcyhngaffbqf`) then Production (`pcntajvbdfqhbeewmdry`, now version 61)**
+via the Supabase CLI (`supabase functions deploy evaluate-attempt --project-ref <id> --workdir
+/Users/davidbloom/Documents/Cramapple.nosync`) — the CLI's default workdir detection failed silently in
+this environment (no `supabase/config.toml` in this checkout; it fell back to the home directory and
+couldn't find the entrypoint) until `--workdir` was passed explicitly. Confirmed via `list_edge_functions`
+that Production's `evaluate-attempt` bumped to version 61, `ACTIVE`.
+
+**Still a no-op for every real attempt today** — the same caveat as the migration above: `SessionFrame`
+writes zero rows into `attempt_assistance_events`, so `pre_submit_hint_count` stays 0 for every attempt
+until the separately-approved Workstream B1 rebuild ships. The wiring is correct and tested ahead of
+that landing, not exercised by real traffic yet. `_shared/cell-state.ts` still needs its own pass to
+populate `student_cell_state`'s new mastery counters — not done in this change.
+
+## EXECUTED, 2026-09-27: `cell-state.ts` wired to populate mastery counters — backend half of item #6 (mastery capture) now fully connected
+
+New pure function `deriveMasteryCounters` (`cell-state-signals.ts`): a `"correct"` event (already means
+full marks for both MCQ and FRQ per `deriveCellEvent`'s own definition) with `pre_submit_hint_count = 0`
+increments `mastery_mcq_correct_count` or `mastery_frq_full_count` by `attempt_mode`; a hinted, incorrect,
+or `content_uncertain` answer increments neither and never resets prior progress (matches this module's
+existing "a miss reopens, never zeroes" posture, INV-6). `mastery_reached_at` stamps once, the first
+time both DECISION-0074 thresholds (2 MCQ + 1 FRQ) are met, never re-stamped after. `attempt_mode`'s
+third allowed value, `"quantitative"` (zero Production rows as of today), deliberately maps to neither
+counter — no defined mapping exists under `DECISION-0074`, and guessing one would be a silent policy
+call, not an engineering one.
+
+`cell-state-persist.ts`'s `applyToCell` now reads/writes the three mastery columns alongside the
+existing tier-engine fields, gated by the same per-attempt idempotency check that already guards
+against double-counting a re-grade — no new race condition introduced. `PersistCellStateInput` gained
+`attemptMode`/`preSubmitHintCount`, threaded from both `evaluate-attempt/index.ts` call sites (which
+already had both values on hand from the previous change).
+
+**Verified before deploying:** 6 new `deriveMasteryCounters` unit tests (increments the right counter
+per item type, a hint disqualifies without resetting progress, incorrect/uncertain never count,
+`mastery_reached_at` stamps exactly once, `quantitative` counts toward neither); all 53 tests across the
+four affected files pass; `deno check` clean on all four. Deployed to Dev then Production (`evaluate-attempt`)
+via the CLI.
+
+**This closes the entire backend half of mastery capture (#6).** Schema → hint-truth derivation →
+mastery-counter logic are wired and tested end to end, exactly as `DECISION-0074`/`DECISION-0080`
+specify. The only remaining piece is `SessionFrame`'s Workstream B1 rebuild (frontend, content-gated —
+see `DECISION-0080`'s own caveats about missing rubric-preview/reference/deep-dive content for served
+items) — once that ships and starts logging real hint events, this backend chain requires zero further
+changes to start producing real mastery data.
+
+## EXECUTED, 2026-09-27: interaction-data Phase 0, items 2-6 completed; GAP-9 re-measured; a likely production bug found and instrumented
+
+**Item 7 (GAP-9), re-measured after `DECISION-0079`'s label promotion.** Still **0 masterable cells in
+both subjects** — the promotion didn't close it. Precise, confirmed-against-Production root cause: every
+FRQ in both subjects (80 Statistics, 75 Biology) is topic-only (`skill_code IS NULL`) — none of the
+newly-promoted rows added a skill-level FRQ label either, they just made the existing topic-only rows
+visible. Full detail and the two required content-authoring passes: `CONTENT_GAPS_RUNNING_LIST.md`'s
+GAP-9 entry (rewritten with today's numbers) and `INTERACTION_DATA_GAPS_RUNNING_LIST.md`.
+
+**Item 8, remaining Phase 0 checks (2/3/5b/5c) executed against Production** — full detail in
+`INTERACTION_DATA_GAPS_RUNNING_LIST.md`:
+- **FK integrity:** zero orphans across all six checked relationships (including the new
+  `attempt_assistance_events`). Three pre-existing, un-introduced gaps found (`grading_results.rubric_version_id`,
+  `student_cell_state.last_attempt_id`/`last_session_id` lack a declared FK) — flagged, not retrofitted.
+- **Index health:** no actionable finding — every index in `app` schema is currently 0-scan and under
+  48 kB (expected pre-launch with zero real traffic), the plan's own bar for this check is a quarterly
+  post-launch re-run, not a today-with-no-signal guess.
+- **Table-split rationality:** `attempt_criterion_results` is a **second dead table**, same shape as the
+  already-found `attempt_responses` — zero writers in any edge function, 0 rows in Production;
+  `grading_results.criterion_results` (jsonb) is the real source of truth. `student_memory_events`'s
+  `last_action_hint`/`last_repair_hint` is a legitimate, documented read-model (one named writer,
+  consistent `last_*` convention) — not a stray duplicate, passes as-is.
+
+**New finding, not on the original list: `attempts`' grading-truth update appears to silently fail on
+every real attempt.** Not just `confidence_level`/`result_summary` (the schema plan's own IDG-1) — every
+column that post-grading `attempts.update()` writes (`status`, `graded_at`, `score_points`,
+`score_possible`) is 0% populated across all 104 current rows, and the 8 most-recently-submitted
+attempts' `updated_at` is byte-identical to `submitted_at` (never touched by any UPDATE since creation).
+`grading_results` — a separate table, written two lines earlier in the same function — genuinely has
+real scores, so grading itself is not broken; this is specific to the `attempts` row never reflecting it.
+
+Leading hypothesis, **not confirmed**: `app.attempts`' `attempts_prevent_client_grading_truth_update`
+trigger rejects exactly these columns unless `current_setting('request.jwt.claim.role', true) =
+'service_role'`, and the `.update()` call never captured `{ error }` — a rejected update would be
+silently swallowed by `supabase-js` (returns `{ error }`, doesn't throw), exactly matching the observed
+symptom. If this project's edge-function `SUPABASE_SERVICE_ROLE_KEY` secret is the newer non-JWT
+`sb_secret_...` format rather than a legacy JWT (a documented gotcha in this exact project —
+`[[feedback_supabase_secret_key_headers]]`), the role claim would never resolve and every one of these
+updates would be rejected. **Could not confirm from here** — Postgres/edge logs only retain 24h and the
+most recent real attempt is 4 days outside that window; reading the actual secret value is out of bounds
+for this session. Did not guess at a fix (touching the trigger or the key) without confirmation, since
+that trigger is a deliberate security boundary (see `DECISION-0068`'s discussion of this same function).
+
+**Fixed today, narrowly and safely:** both `attempts.update()` call sites now capture `{ error }` and
+log `attempts_grading_truth_update_failed` with the attempt id, route, and the actual Postgres error/code
+instead of silently discarding it. This doesn't fix the root cause — it makes the next real grading
+event's logs conclusive. Typecheck clean, existing tests unaffected, deployed to Dev then Production.
+**Next step needs either a real graded attempt on live Production (same blocker as item 3) with the
+resulting logs checked, or someone with dashboard access confirming the service-role key's format.**
+Practical impact today is low for grading itself (confirmed `grading_results` is the real source of
+truth, not `attempts`) but real for anything reading `attempts.status`/`graded_at` directly.
+
+## RESOLVED, 2026-09-27 (same day): `attempts`' grading-truth update bug — root cause was narrower than first thought, now fixed and verified both directions
+
+First hypothesis (key format) was ruled out mid-investigation, not confirmed as originally recorded here.
+David repointed the custom `SERVICE_ROLE_KEY` secret at a genuine, correctly-scoped, unexpired legacy
+`service_role` JWT — a throwaway Dev/Prod diagnostic function (deployed and deleted the same session)
+proved that JWT verified correctly, yet `current_setting('request.jwt.claim.role', true)` still returned
+null. **Real cause:** this project's current PostgREST version no longer populates that deprecated
+per-claim GUC for anyone, JWT or not — it only sets the consolidated `request.jwt.claims` JSON and the
+actual Postgres session `role`, both of which correctly said `service_role` all along, including for the
+original `sb_secret_...` key. The key swap was never actually necessary.
+
+**Fix:** migration `20260927200000_fix_grading_truth_role_check.sql` rewrites
+`app.prevent_client_grading_truth_update()` to check `current_setting('role', true)` instead of the dead
+GUC. Applied to Dev then Production. Verified both directions on both environments with a scratch,
+immediately-deleted attempts row (never real data): the service-role client can now update grading-truth
+columns; an anon-key client is still correctly rejected — the security boundary is intact. Reverted
+`_shared/supabase.ts`'s key precedence back to its original default (no reason to keep relying on a
+manually-managed legacy JWT once the SQL fix alone resolves it) and redeployed `evaluate-attempt` with
+that reversion. Also searched every `app`/`public` function for the same GUC pattern — found one other
+hit (`app.prevent_profile_role_change`), read it directly, confirmed it was never actually broken (it
+already has a working `current_user` check ANDed alongside the dead one).
+
+**Not yet verified:** an actual live student grading event going through this fixed path end-to-end
+(same credential blocker as item 3) — the fix is proven correct via the scratch-row test, but hasn't been
+observed through the real HTTP path with a real attempt. Full evidence trail:
+`INTERACTION_DATA_GAPS_RUNNING_LIST.md`'s IDG-5.
+
+## NEW, 2026-09-27 (live-verification attempt): `cell_scoped` MCQ serving appears broken for a real account — investigation paused mid-diagnosis, David's call
+
+While trying to get the one real graded attempt IDG-5 still needed, David signed in live as himself
+(`dbloom01@gmail.com`) on `app.cramapple.com` and hit **`no_matching_content` on every AP Statistics
+topic he tried** (Unit 1 topic 1.1, topic 1.9, and "any unit 1 or unit 3 topics"), via both the topic
+chip on Home and a direct `/session?...&topic=...` URL. Confirmed this is not a URL-encoding artifact —
+TanStack Router's default search serializer legitimately JSON-encodes each param (the `topic=%221.9%22`
+in the address bar decodes to the clean string `"1.9"` before `validateSearch` ever sees it); David also
+confirmed he changed only the topic value between attempts, not the URL structure.
+
+**Traced partway, not finished:**
+- `student-session-items`'s `cell_scoped` mode (`index.ts` ~L560-642) queries `app.content_items` by
+  `exam_pack_version_id = session.exam_pack_version_id`, `item_type='mcq'`, `status='published'`, then
+  joins `content_item_versions` — no topic/unit filter at the SQL level at all. Topic/unit scoping
+  happens **client-side**, in `use-session.ts`, via `scopeMcqItemsWithFallback` applied to the *whole*
+  returned pool.
+- The raw string `no_matching_content` (not the friendlier client-composed fallback text) only renders
+  when `itemsRes.data.result.reason` is that exact server-set value, which only happens when the
+  **entire pool from the server was empty** (`rows.length === 0` in `student-session-items`) — i.e. this
+  is failing before any topic filtering, for every topic, because the server-side query itself is
+  returning nothing.
+- Checked directly against Production: David's own `profiles.active_exam_pack_version_id`
+  (`7c5a2975-8f0e-45b9-8fcc-7ec9b8d81ada`) has **203 published MCQ `content_items`**, and the exact join
+  `student-session-items` runs (`content_item_versions` where `content_item_id in (...)` and
+  `status='published'`) also returns **203 rows** — the data the query needs is genuinely there. The most
+  recent `learning_sessions` rows for his account (created in the last few minutes of this session, all
+  `entry_path: self_guided_topic`, `session_mode: quick`) do carry that same exam pack version id, so a
+  session-creation exam-pack mismatch was also ruled out as the obvious explanation.
+- **Not yet found:** why the query returns empty in the live request when the same shape of query
+  returns 203 rows run directly. Did not get further — David asked to stop and pick this up once content
+  service is in production again, not chase it mid-session.
+- **Confirmed unrelated to anything changed this session:** none of today's work touched
+  `content_items`/`content_item_versions`/`student-session-items`, the label-promotion (`DECISION-0079`)
+  only ever *adds* visibility, and the `attempts` trigger fix touches a completely different table. This
+  is either a pre-existing bug this session happened to be the first to hit live, or a very recent
+  regression from something outside this session's changes.
+- **Severity note:** if this really blocks every topic-scoped self-guided entry (not just the ones with
+  a labeling gap), it's more severe than `GAP-9` — that gap only blocks *mastery*, not basic practice
+  serving. Worth prioritizing highly whenever this is picked back up, since it may mean **no real student
+  can currently get a question through this entry path at all**, independent of GAP-9's cell-coverage
+  problem. The Home "Start" button/default recommendation path was not re-tested after this was found;
+  it's unconfirmed whether it shares the same code path (it also passes `unit`, so `entryPath` would
+  also resolve to `self_guided_topic` — plausible it's affected too, not verified).
+- **IDG-5 (the actual reason for this investigation) remains unverified against real live traffic** as a
+  direct result — no attempt could be submitted this session. The scratch-row DB test is still the only
+  evidence the trigger fix works; it is strong evidence (both directions, both environments) but is not
+  the same as a real HTTP round trip.
+
+## SESSION CLOSE, 2026-09-27 — per `docs/team_charter/CRAMAPPLE_SESSION_START.md` / `prompts/CLOSE_SESSION_PROMPT.md`
+
+**1. Current task/issue:** this launch-readiness plan, worked continuously across one long session
+covering: session-route retirement (approved then correctly halted), the `ScoreChip` partial-credit fix,
+`DECISION-0079` (label promotion), `DECISION-0080` (hint-definition-boundary addendum), the full backend
+build of `DECISION-0074` mastery capture (schema → `assistance_state` derivation → mastery counters), a
+completed interaction-data Phase 0 audit, and diagnosis + fix of a real production bug in
+`attempts_prevent_client_grading_truth_update`. Ended mid-diagnosis of a newly-found, likely-severe
+`cell_scoped` MCQ-serving bug, on David's explicit instruction to pause and close the session.
+
+**2. What changed this session (commits, chronological, all on `main`, all pushed):**
+`943ed3be` route-retirement correction + ScoreChip fix + Phase 0 partial pass · `97deba81` `DECISION-0079`
+· `10c7e8e3` `DECISION-0080` · `b7de4ef4` interaction-data schema Phase 1 items 1-2 (migration) ·
+`cea62438` wire `evaluate-attempt` → `assistance_state` · `3ed08e7f` record the deploy · `5b7f30d2` wire
+`cell-state.ts` mastery counters · `cd3f18e4` complete Phase 0 items 2-6, re-measure GAP-9, find + log the
+`attempts`-update bug · `ea2edf16` confirm the bug's root cause empirically · `1dd1241d` fix the real
+cause (a dead PostgREST GUC in the grading-truth trigger).
+
+**3. What was verified:**
+- `ScoreChip` fix: `get_diff` (single-file), 432/432 tests, deployed and live.
+- Migration `20260927170000` (hint schema): synthetic before/after events on a real Dev attempt, checked
+  and reverted; `get_advisors` clean.
+- `assistance_state` derivation + mastery counters: 10 new unit tests, 53 total in the affected suites,
+  `deno check` clean on every touched file, deployed to Dev then Production.
+- `DECISION-0079` promotion: `content_item_topic_resolution` grew from 203 → 496 rows exactly as
+  expected; `get_advisors` showed no new findings.
+- `attempts_prevent_client_grading_truth_update` fix: verified **both directions on both environments**
+  with a scratch, immediately-deleted `attempts` row — service-role update now succeeds, anon-key update
+  still correctly rejected (`permission denied for schema app`). All throwaway diagnostic functions and
+  SQL helper functions were deleted immediately after use; none were left deployed.
+
+**4. What remains open (see the doc sections above for full detail on each):**
+- The new `cell_scoped` no-matching-content bug (this section) — diagnosis paused, not resolved.
+- IDG-5's fix is unverified against a real live grading event (blocked on the bug above, which pre-empted
+  the live test).
+- GAP-9 (0 masterable cells, both subjects) — needs FRQ skill-labeling + Biology's `taxonomy_cells` grid,
+  content-authoring work, not engineering.
+- `SessionFrame` Workstream B1 (the four-`HintGate` split, `DECISION-0080`) — not started; blocked on
+  rubric-preview/reference/deep-dive content sources that don't exist yet for served items.
+- Session-route retirement (`/session/mcq`, `/session/frq`, `/setup`, `/session/uncertain`) — approval
+  was reversed once live code showed the cluster is not actually dead (`TopicHome`'s Resume link and
+  `/setup/subject`'s guard redirect both use it); needs a full Start-and-Resume re-audit before it's
+  raised again, not just a Start-only trace.
+- Interaction-data schema Phase 0 item 4 (naming/typing consistency) — only spot-checked for today's own
+  two new tables (clean); the pre-existing `student_cell_state_id`-vs-`id` split is tracked separately
+  and wasn't re-litigated.
+- Phase 1 items 3-6 (active time, student confidence, retry-reason, recommendation provenance) —
+  deliberately out of scope this session.
+- Three pre-existing undeclared FKs flagged, not fixed (`grading_results.rubric_version_id`,
+  `student_cell_state.last_attempt_id`/`last_session_id`).
+- Two more migration-era dead tables identified, not dropped (`attempt_responses`, `attempt_criterion_results`)
+  — flagged as safe Phase-2 rename-then-drop candidates.
+
+**5. Open blockers/risks:**
+- **The new `cell_scoped` bug is the top risk.** Skip it until the content service is confirmed healthy
+  in Production again — do not resume diagnosis until that's re-checked, per David's explicit
+  instruction closing this session. If it turns out to affect the default Home "Start" path too (not
+  just topic-scoped self-guided entry, unconfirmed either way), it would mean no real student can
+  currently complete a practice session at all — treat that as the working hypothesis to disprove first,
+  not something to assume is fine.
+- A live, end-to-end grading verification (real sign-in → real submit → real grade → real `attempts` row
+  update) is still outstanding. Whoever resumes this should attempt it again once the serving bug above
+  is understood, since it's now clear the serving bug — not the trigger fix — was what actually blocked
+  today's attempt.
+- David's `SERVICE_ROLE_KEY` custom secret still holds a legacy JWT (harmless, unused dead fallback,
+  reversion optional — see `INTERACTION_DATA_GAPS_RUNNING_LIST.md`'s IDG-5 for why it's not necessary to
+  revert, though doing so is fine).
+
+**6. Files changed or checked (full list in the commits above); most consequential:**
+`supabase/migrations/20260927170000_interaction_data_phase1_hint_tracking.sql`,
+`supabase/migrations/20260927200000_fix_grading_truth_role_check.sql`,
+`supabase/functions/_shared/assistance-state.ts` (new), `supabase/functions/_shared/cell-state-signals.ts`,
+`supabase/functions/_shared/cell-state-persist.ts`, `supabase/functions/evaluate-attempt/index.ts`,
+`docs/product/LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md` (this file), `docs/product/INTERACTION_DATA_GAPS_RUNNING_LIST.md`,
+`docs/product/CONTENT_GAPS_RUNNING_LIST.md`, `docs/activity_log/DECISIONS_LOG.md`.
+
+**7. Commands/queries/tests run, with results:** see each dated section above for the exact SQL, `deno
+test`/`deno check` invocations, and their results — not repeated here to avoid drift between two copies.
+
+**8. Approval state:** `DECISION-0079` and `DECISION-0080` both recorded as Approved (David, this
+session) in `DECISIONS_LOG.md`. The `attempts`-trigger fix and the mastery-capture backend build were
+executed under this session's standing instruction to "finish this work... only stop when blocked" — no
+further owner approval is pending on anything actually shipped. The new serving bug requires David's
+own investigation/priority call before anyone resumes it (an explicit "skip for now," not a decision to
+formally record).
+
+**9. Exact next step for the next session:** confirm the content service / `cell_scoped` MCQ serving path
+is healthy in Production (re-test `student-session-items` with `mode=cell_scoped` against David's real
+`exam_pack_version_id` `7c5a2975-8f0e-45b9-8fcc-7ec9b8d81ada`, and check whether the plain Home "Start"
+button is also affected) before anything else on this plan. Once that's resolved or explained, get the
+one real graded attempt IDG-5 has been waiting on, and confirm the `attempts` row actually updates live.
+
+**10. Do not touch next session without re-reading this first:**
+`app.prevent_client_grading_truth_update` (just fixed and verified — do not revert or re-guess at its
+role check), `app.assistance_event_policy`'s seed data (reflects `DECISION-0080` exactly), and the
+session-route cluster (`/session/mcq`, `/session/frq`, `/setup`, `/session/uncertain`) — confirmed live
+and in real use via `TopicHome`'s Resume link, not dead code.
+
 ## Out of Scope
 
 Redesigning any already-decided section of the interaction design spec — raise a proposal to David

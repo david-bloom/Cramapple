@@ -1,6 +1,12 @@
 # Course Mode — Student Experience: What the UX Must Accomplish
 
-STATUS: UX definition (requirements, not visual design) | DATE: 2026-08-24 | AUDIENCE: David, then Claude Design (design), then Lovable (build).
+STATUS: SUPERSEDED (vocabulary) — HISTORICAL pilot spec | DATE: 2026-08-24 | AUDIENCE: David, then Claude Design (design), then Lovable (build).
+
+> **VOCABULARY BANNER (2026-09-27).** "Course Mode" as a **selectable session mode** is **retired**
+> (David 2026-09-27: "there is only one mode"). One session mode ("Learn") now; the mechanics survive
+> as **components**, not a mode. `/session/mcq` "core loop" language here is stale (canonical: bare
+> `/session`). Read as historical pilot design.
+> Current: `docs/product/ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md` (D1, D11, D14).
 
 **How to use this doc.** This is the articulation of *what the Course Mode student experience
 must accomplish and the rules it must obey* — the "jobs to be done," the model it must render,

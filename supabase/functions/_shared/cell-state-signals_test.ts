@@ -10,6 +10,7 @@ import {
   canonicalJson,
   deriveCellEvent,
   deriveChangedSurface,
+  deriveMasteryCounters,
   paramsHash,
   readProvenance,
   rowToCellState,
@@ -540,4 +541,90 @@ Deno.test("signals -> engine: a SAME-surface repeat never reaches `independent`/
     state = r.state;
     t = new Date(t.getTime() + 5 * 86_400_000);
   }
+});
+
+// --- deriveMasteryCounters (DECISION-0074 / DECISION-0080) -----------------
+
+const NO_PRIOR_MASTERY = { mcqCorrect: 0, frqFull: 0, masteryReachedAt: null };
+
+Deno.test("deriveMasteryCounters: a correct, unhinted MCQ increments mcqCorrect only", () => {
+  const r = deriveMasteryCounters(NO_PRIOR_MASTERY, {
+    event: "correct",
+    attemptMode: "mcq",
+    preSubmitHintCount: 0,
+    now: new Date("2026-09-27T00:00:00Z"),
+  });
+  assert(r.mcqCorrect === 1, "mcqCorrect should increment");
+  assert(r.frqFull === 0, "frqFull should not move for an MCQ");
+  assert(r.masteryReachedAt === null, "1 MCQ alone is not mastery");
+});
+
+Deno.test("deriveMasteryCounters: a full-point, unhinted FRQ increments frqFull only", () => {
+  const r = deriveMasteryCounters(NO_PRIOR_MASTERY, {
+    event: "correct",
+    attemptMode: "frq",
+    preSubmitHintCount: 0,
+    now: new Date("2026-09-27T00:00:00Z"),
+  });
+  assert(r.frqFull === 1, "frqFull should increment");
+  assert(r.mcqCorrect === 0, "mcqCorrect should not move for an FRQ");
+});
+
+Deno.test("deriveMasteryCounters: a hinted correct answer does not count, and does not reset prior progress", () => {
+  const prior = { mcqCorrect: 1, frqFull: 0, masteryReachedAt: null };
+  const r = deriveMasteryCounters(prior, {
+    event: "correct",
+    attemptMode: "mcq",
+    preSubmitHintCount: 1,
+    now: new Date("2026-09-27T00:00:00Z"),
+  });
+  assert(r.mcqCorrect === 1, "a pre-submission hint disqualifies this answer from counting");
+  assert(r.frqFull === 0, "unrelated counter untouched");
+});
+
+Deno.test("deriveMasteryCounters: an incorrect or content_uncertain answer never increments either counter", () => {
+  for (const event of ["incorrect", "content_uncertain"] as const) {
+    const r = deriveMasteryCounters(
+      { mcqCorrect: 1, frqFull: 0, masteryReachedAt: null },
+      { event, attemptMode: "mcq", preSubmitHintCount: 0, now: new Date() },
+    );
+    assert(r.mcqCorrect === 1, `${event} must not increment mcqCorrect`);
+    assert(r.frqFull === 0, `${event} must not increment frqFull`);
+  }
+});
+
+Deno.test("deriveMasteryCounters: mastery_reached_at is stamped exactly once, on the qualifying transition", () => {
+  const now = new Date("2026-09-27T12:00:00Z");
+  const afterSecondMcq = deriveMasteryCounters(
+    { mcqCorrect: 1, frqFull: 1, masteryReachedAt: null },
+    { event: "correct", attemptMode: "mcq", preSubmitHintCount: 0, now },
+  );
+  assert(afterSecondMcq.mcqCorrect === 2 && afterSecondMcq.frqFull === 1, "2 MCQ + 1 FRQ reached");
+  assert(
+    afterSecondMcq.masteryReachedAt === now.toISOString(),
+    "mastery_reached_at should stamp on the transition that satisfies both thresholds",
+  );
+
+  // A later attempt must not move the stamp, even though it still qualifies.
+  const later = new Date("2026-09-28T12:00:00Z");
+  const afterThirdMcq = deriveMasteryCounters(afterSecondMcq, {
+    event: "correct",
+    attemptMode: "mcq",
+    preSubmitHintCount: 0,
+    now: later,
+  });
+  assert(
+    afterThirdMcq.masteryReachedAt === now.toISOString(),
+    "mastery_reached_at is a first-reached stamp, not re-stamped on later qualifying attempts",
+  );
+});
+
+Deno.test("deriveMasteryCounters: the third allowed attempt_mode, quantitative, increments neither counter", () => {
+  const r = deriveMasteryCounters(NO_PRIOR_MASTERY, {
+    event: "correct",
+    attemptMode: "quantitative",
+    preSubmitHintCount: 0,
+    now: new Date(),
+  });
+  assert(r.mcqCorrect === 0 && r.frqFull === 0, "quantitative has no defined mapping yet -- must not silently count as either");
 });

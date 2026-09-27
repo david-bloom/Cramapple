@@ -3,7 +3,7 @@
 ## Outcome
 
 The authorized TASK-0042 cross-cutting remediation is implemented and independently QA-verified.
-Production project: `pcntajvbdfqhbeewmdry`. Approval: `APPROVAL-0051`.
+Production project: `pcntajvbdfqhbeewmdry`. Approval: `APPROVAL-0056`.
 
 ### Freshness audit
 
@@ -77,6 +77,14 @@ Applied fresh single-unit promotions:
 Current live validated-label counts independently reported by QA: E&M 77, Mechanics 49,
 Calculus BC 40. Multi-unit agreements remain provisional: E&M 9, Mechanics 13, Calculus BC 27.
 No multi-unit label was promoted without the DECISION-0066 third review.
+
+### Approval provenance correction
+
+The work was initially recorded locally as `APPROVAL-0051`. Reconciliation with newer `main`
+showed that ID was already assigned to TASK-0044, so TASK-0042 was renumbered to `APPROVAL-0056`.
+Production migration `20260927181002_correct_task0042_approval_note_provenance` corrected exactly
+the 152 validation-decision notes created by the three promotions; verification returned 152 notes
+on `APPROVAL-0056` and zero remaining on the conflicting ID. No label state changed.
 
 ### Live verification
 

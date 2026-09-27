@@ -4,8 +4,12 @@
 **Owner / final launch approver:** David Bloom
 **Tier:** Hard-Gate
 **Launch target:** Friday, October 2, 2026
-**Launch frontend:** `https://ap-prep-canvas.lovable.app/` — Lovable project “Remix of Cramapple App”
-(`d334fed9-5a97-4e76-906e-7c0ad7082212`)
+**Launch frontend (CORRECTED 2026-09-27, per `D-2` in `APP_LAUNCH_READINESS_INDEX_2026_09_26.md`):**
+the live launch surface is **`https://cramapple.com`** (marketing → Lovable project "New Cramapple
+Marketing," `61dd6602`) and **`https://app.cramapple.com`** (student app → Lovable project "New Cramapple
+App," `56cae479`). The previously listed `https://ap-prep-canvas.lovable.app/` ("Remix of Cramapple App,"
+`d334fed9`) is **NOT** the production frontend — a live DNS/`curl` check on 2026-09-27 confirmed the
+domains resolve to `61dd6602`/`56cae479`. Re-confirm via DNS before trusting any doc's project citation.
 **Launch shape:** Free; no Stripe checkout or payment gating
 **Day-1 subjects:** AP Biology and AP Statistics, both on flat practice paths
 
@@ -60,13 +64,24 @@ content-side failure for Biology.
 
 ### 4. AP Statistics flat-path smoke
 
-**Content-servability pre-check done (TASK-0044, 2026-09-26, read-only against Production): FRQ Pass;
-MCQ Blocked at the backend-RPC layer.** FRQ content and live serving both confirmed. MCQ content is
-fully ready (101/101 with a correct answer) but **no backend RPC can serve it on the flat path** —
-`select_biology_practice_items` (the only combined FRQ+MCQ selector) is Biology-only by design, and
-`student-session-items` calls only `select_practice_frqs` (FRQ-only) for every other subject in ordinary
-mode. **This smoke test is where that gap surfaces or doesn't** — if the live app cannot actually show
-an AP Statistics MCQ to this test student, that is exactly item 2's "receive both the intended MCQ/FRQ
+**Backend fix merged to Production 2026-09-27 (PR #227, branch `codex/task-0044-statistics-mcq`):**
+TASK-0044 found that AP Statistics MCQ practice was content-ready but unservable at the RPC layer (no
+combined FRQ+MCQ selector existed for any subject but Biology). A new
+`app.select_ordinary_combined_practice_items` RPC plus a `student-session-items` routing change
+accepting either `mcq` (the real Home session format) or `targeted_drill` closes that gap — independently
+verified byte-for-byte identical to what was already running live in Production before the merge, and
+confirmed returning a real 7 FRQ + 13 MCQ mix with Biology's own path unaffected. (A separate, earlier
+attempt at this fix, `claude/task-0047-ap-statistics-mcq-serving`, used a narrower `targeted_drill`-only
+routing and was never applied to Production; that branch has been deleted.) **This smoke test can now
+proceed** — it should no longer hit the previously-diagnosed MCQ gap, but still verify the live student
+UI experience directly rather than assume the backend fix alone is sufficient.
+
+**Content-servability pre-check (TASK-0044, 2026-09-26, read-only against Production): FRQ Pass; MCQ
+originally found Blocked at the backend-RPC layer, now fixed per the correction above.** FRQ content
+and live serving both confirmed. MCQ content is fully ready (101/101 with a correct answer); the
+backend gap that made it unservable is closed as of PR #227. **This smoke test should still verify the
+MCQ experience directly against the live student UI** rather than assume the backend fix alone is
+sufficient — if it doesn't work, that is exactly item 2's "receive both the intended MCQ/FRQ
 experience" failing, and it is a stop condition, not something to work around. See
 `SUBJECT_SERVABILITY_CRITERIA.md`'s TASK-0044 note and TASK-0044's Risks/Issues for full evidence.
 

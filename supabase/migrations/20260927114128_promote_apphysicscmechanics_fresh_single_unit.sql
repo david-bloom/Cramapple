@@ -1,4 +1,4 @@
--- APPROVAL-0051 / DECISION-0066: promote fresh single-unit agreements for ap_physics_c_mechanics.
+-- APPROVAL-0056 / DECISION-0066: promote fresh single-unit agreements for ap_physics_c_mechanics.
 -- Multi-unit agreements remain provisional pending independent third review.
 
 begin;
@@ -58,7 +58,7 @@ select
   'automated_spot_check',
   primary_unit,
   required_units,
-  'APPROVAL-0051 / DECISION-0066: exact current-version and generation-hash match; fresh single-unit two-model agreement. Multi-unit labels excluded pending independent third review.'
+  'APPROVAL-0056 / DECISION-0066: exact current-version and generation-hash match; fresh single-unit two-model agreement. Multi-unit labels excluded pending independent third review.'
 from tmp_subject_single_unit_promotions;
 
 update app.content_taxonomy_labels ctl

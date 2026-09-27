@@ -55,7 +55,7 @@ below for reference since it's part of "the three pieces," but does not own its 
    `docs/product/CONTENT_QUANTITY_AND_DISTRIBUTION.md` (inventory unit, approved planning targets,
    unit distribution, official topic coverage matrix, launch/reporting rule).
 
-## Current execution state (documented through 2026-09-26)
+## Current execution state (reconciled through 2026-09-27)
 
 The stages below are deliberately separate. **Generated** labels are not necessarily servable:
 independent cross-QA must finish, eligible labels must be promoted to `validated` under
@@ -63,9 +63,8 @@ independent cross-QA must finish, eligible labels must be promoted to `validated
 hold, and the live selector must then be called. A difficulty row is a separate criterion and does
 not promote a label.
 
-Counts in this table are documented run results, not a substitute for a fresh Production census.
-The selector figures marked “pre-run” come from the 2026-09-25 readiness audit and predate the Pair
-1/2 writes; re-run the selector after promotion before claiming current unit-gated coverage.
+Counts in this table combine the documented run results with the fresh Production verification
+recorded in `CONTENT_PIPELINE_CODEX_HANDOFF_2026_09_27.md`.
 
 | Subject | Label generation | Independent cross-QA | Validation promotion | Live unit-gated selector verification | Difficulty coverage |
 | --- | --- | --- | --- | --- | --- |
@@ -74,11 +73,11 @@ The selector figures marked “pre-run” come from the 2026-09-25 readiness aud
 | AP Chemistry | **Complete:** 42 decisions (33 provisional, 9 held) | **Complete:** independent cross-QA, no issues | 25 fresh single-unit rows promoted; 65 fresh validated live | **Verified:** direct selector reached the 50-row RPC cap at unit 9 | **119/119 complete** |
 | AP Calculus AB | **Complete:** Pair 2 run and follow-up fixes | **Complete:** independent cross-QA and remediation | 24 fresh single-unit rows promoted; 31 fresh validated live; older/multi-unit rows remain provisional | **Verified:** direct selector returned 31 at unit 7 | **122/122 complete** |
 | AP Precalculus | **Complete:** Pair 2 run; disagreement remediation applied | **Complete:** two cross-QA passes and metadata remediation | 25 fresh single-unit rows promoted; 52 fresh validated live | **Verified:** direct selector reached the 50-row RPC cap at unit 3 | **117/117 complete**, including metadata reconciliation |
-| AP Calculus BC | **Blocked before model transfer:** 98 candidates exported; explicit Vercel-intermediary approval required | Pending | 4 fresh validated; old provisional/stale/legacy/no-label rows remain | **Verified unchanged:** direct selector returned 4 | **127/127 complete** (`20260926234400`) |
+| AP Calculus BC | **Complete:** 98 guarded label results written | **Complete:** strict result revalidation plus independent Claude remediation QA | 36 fresh single-unit rows promoted; 40 fresh validated live; 27 multi-unit agreements remain provisional | **Verified:** unit-gated pool reaches 40 | **127/127 complete** (`20260926234400`) |
 | AP Physics 1 | **Complete:** 107 candidates re-labeled; current live state 77 validated / 17 provisional / 23 held | Independent result-shape and migration checks complete; multi-unit third review remains | 70 fresh single-unit rows promoted this pass | **Verified:** direct selector reached the 50-row RPC cap at unit 8 | **117/117 complete** (`20260926234000`) |
 | AP Physics 2 | **Complete:** 66 candidates re-labeled; current live state 50 validated / 2 provisional / 16 held | Independent result-shape and migration checks complete; multi-unit third review remains | 49 fresh single-unit rows promoted this pass | **Verified:** direct selector reached the 50-row RPC cap | **68/68 complete** (`20260926234100`) |
-| AP Physics C: Mechanics | **Blocked before model transfer:** 76 candidates exported; explicit Vercel-intermediary approval required | Pending | 0 fresh validated | **Verified unchanged:** direct selector returned 0 | **77/77 complete** (`20260926234200`) |
-| AP Physics C: E&M | **Blocked before model transfer:** 96 candidates exported; explicit Vercel-intermediary approval required | Pending | 1 fresh validated | **Verified unchanged:** direct selector returned 1 | **97/97 complete** (`20260926234300`) |
+| AP Physics C: Mechanics | **Complete:** all 76 failed calls retried; 58 agreements and 18 holds | **Complete:** runner/result checks plus independent Claude remediation QA | 45 fresh single-unit rows promoted; 49 fresh validated live; 13 multi-unit agreements remain provisional | **Verified:** unit-gated pool reaches 45 | **77/77 complete** (`20260926234200`) |
+| AP Physics C: E&M | **Complete:** 96 guarded label results written | **Complete:** strict result revalidation plus independent Claude remediation QA | 71 fresh single-unit rows promoted; 77 fresh validated live; 9 multi-unit agreements remain provisional | **Verified:** unit-gated pool reaches 72; high-volume probes correctly cap at 50 | **97/97 complete** (`20260926234300`) |
 
 Evidence: `TIER3_PAIR1_STATUS_2026_09_25.md`, `TIER3_PAIR2_STATUS_2026_09_25.md`,
 `AP_BIOLOGY_FAST_FOLLOW.md`, and
@@ -86,20 +85,18 @@ Evidence: `TIER3_PAIR1_STATUS_2026_09_25.md`, `TIER3_PAIR2_STATUS_2026_09_25.md`
 
 ## The actual remaining work: finish execution, promotion, and live verification
 
-`SUBJECT_SERVABILITY_CRITERIA.md` criteria 3 (validated serving labels) and 5 (difficulty values) are
-still open for most subjects — not because the pipeline doesn't exist, but because label generation,
-cross-QA, governance promotion, and live verification have not all been completed for every subject.
-Pair 1 (Statistics/Chemistry) and Pair 2 (Calculus AB/Precalculus) have completed generation,
-difficulty, and cross-QA; their new `provisional_model` labels still need the separate promotion and
-live-selector stages. Pair 3, Pair 4, and Calculus BC remain to be run. Hand-authoring the remainder
-isn't viable at the current pace; continue the established per-subject work-order pattern.
+`SUBJECT_SERVABILITY_CRITERIA.md` criteria 3 (validated serving labels) and 5 (difficulty values) now
+have validated labels and complete difficulty coverage for all ten subjects. The remaining label
+work is intentionally narrower: 49 multi-unit agreements across Calculus BC and both Physics C
+subjects still require DECISION-0066's independent third review. The separate content-quantity
+criterion remains open because only Biology has owner-approved quantity targets.
 
 ## Acceptance Criteria
 
 - [ ] For each subject not yet fully covered, issue or continue a Codex work order following the
       pattern in the examples above, and independently re-verify its output (per this repo's own
       practice of an independent re-check after every Codex-proposed batch).
-- [ ] Every promoted label passes a spot-check against `select_unit_gated_practice_items`'s actual
+- [x] Every promoted label passes a spot-check against `select_unit_gated_practice_items`'s actual
       requirement (verify by calling it — do not assume from reading the promotion rule) and honors
       DECISION-0066's content-hash freshness rule (a label promoted against stale content is not
       valid — this is why some Physics C/Calc BC candidates were flagged stale).
@@ -114,24 +111,25 @@ isn't viable at the current pace; continue the established per-subject work-orde
       (964 total) — are **Biology-only**. **David decision required:** whether equivalent targets are
       needed for the other 9 subjects. Until that decision is recorded, do not invent targets or
       treat this quantity criterion as checkable for those subjects.
-- [ ] Once a subject's labels/difficulty are updated, its entry in `SUBJECT_SERVABILITY_CRITERIA.md`'s
+- [x] Once a subject's labels/difficulty are updated, its entry in `SUBJECT_SERVABILITY_CRITERIA.md`'s
       "Applied so far" table is updated with real numbers, cited to the migration or run that produced
       them. **This table is shared with `LAUNCH_PLAN_SUBJECT_ONBOARDING_GATE_2026_09_26.md` — this plan
       owns writing criteria 3/5 updates to it; plan 5 owns criteria 1/2/4/6. Do not both edit the same
       row concurrently without checking the other plan's latest edit first.**
 
-## Execution update — 2026-09-26
+## Execution update — 2026-09-27
 
-- Completed Pair 3 labeling and applied the Physics 1 / Physics 2 migrations.
-- Promoted 216 current, fresh, single-unit two-model agreements under DECISION-0066. Older labels
-  and all multi-unit labels were deliberately excluded.
-- Completed and applied 486 difficulty rows, closing criterion 5 for all ten live packs.
-- Re-ran the real selector and the census self-test: 0 mismatches.
+- Reconstructed original generation hashes for all 216 earlier single-unit promotions and applied
+  `20260927112814`: 216 verified fresh, 0 reverted, 0 unverifiable.
+- Applied the five-row difficulty correction; all five specified rows are now Hard in Production.
+- Hardened the shared runner's resume and write guards and added a passing no-network safety fixture.
+- Completed guarded label writes for Calculus BC and both Physics C subjects, then promoted 152 fresh
+  single-unit agreements. Current live validated counts are Calculus BC 40, Mechanics 49, E&M 77.
+- Re-ran the real selectors and census self-test: 0 mismatches for the three completed subjects.
 - Checked Biology quantity against its approved target: 43/600 MCQ, 59/300 short FRQ, 16/64 long
   FRQ. The other-subject target decision remains open.
-- Remaining execution depends on two explicit inputs: approval to send the three outstanding
-  subjects through Vercel AI Gateway to OpenAI/Gemini, and a Product Owner quantity-target decision
-  for the other nine subjects.
+- Remaining execution is the 49-row multi-unit third review and a Product Owner quantity-target
+  decision for the other nine subjects.
 
 ## Out of Scope
 
