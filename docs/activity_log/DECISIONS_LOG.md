@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0074 — Mastery Rule Tightened: 2 Correct MCQ + 1 Full-Point FRQ, No Hint Use Prior to Submission; Adds a New Content-Coverage Dependency (GAP-9)
 - DECISION-0073 — Launch Frontend Target Is the Lovable App Published at ap-prep-canvas.lovable.app, Tentatively Identified as the "New Cramapple App" Project
 - DECISION-0072 — Extend DECISION-0063 to AP Statistics: Launches on the Flat/Practice Path, Unit-Gating Deferred
 - DECISION-0071 — Launch Friday, Free — Ship Without Stripe/Payment Gating; Add Payment Flow as a Post-Launch Follow-Up
@@ -23,6 +24,62 @@ Most recent entries (full chronological list follows below):
 (Note: the TASK-0012 branch independently logged its own DECISION-0027/0028 — CORS/ALLOWED_ORIGINS and budget-burn semantics — under different numbers on its own branch. Those land separately when that work merges to `main`; this charter-adoption decision claimed 0027/0028 here because `main` had not yet recorded entries past DECISION-0026 at merge time. If both branches' numbering collides on merge, renumber on whichever side merges second and update this index.)
 
 (Note: the same collision recurred 2026-09-26. The `claude/launch-planning-cram-4oyh2g` branch independently claimed DECISION-0068 through 0072 for five launch-planning decisions, not knowing `main` had already recorded its own DECISION-0068 (BYOQ parallel tables, TASK-0039 Phase 1) by the time this branch merged. Per the rule above, this branch — the later-merging side — renumbered its five decisions to DECISION-0069 through 0073 at merge time; main's DECISION-0068 is untouched. If you are reading an older copy of any of the five renumbered decisions (in a plan doc, a chat log, or a stale local checkout) under its original 0068-0072 number, this is why the number no longer matches — the content is unchanged, only the ID moved.)
+
+## DECISION-0074 — Mastery Rule Tightened: 2 Correct MCQ + 1 Full-Point FRQ, No Hint Use Prior to Submission
+
+**Date:** 2026-09-27
+**Decision Owner:** David Bloom
+**Status:** Approved; unbuilt
+**Approval:** Product Owner direction, this session
+**Related Docs:** `docs/product/LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md` (#20, originally recorded
+2026-09-26); `docs/product/CONTENT_GAPS_RUNNING_LIST.md` (GAP-9, new); memory
+`project_launch_plan_six_section_audit_2026_09_26.md` (Finding 3, mastery schema gap)
+**Area:** Learning Design / Grading
+
+### Context
+
+The 2026-09-26 launch-plan audit flagged mastery derivation as specified but unbuilt, and found
+that `app.student_cell_state`'s actual columns (`weighted_evidence`, `tier`, `fragile`, `last_event`,
+`last_weight`) don't support the original rule ("2 full-point answers, with hint; hints before
+submission don't disqualify") as a discrete, auditable count. When asked to reconsider the rule with
+that gap in mind, David proposed tightening it instead of just re-scoping the same rule against the
+existing schema.
+
+### Decision
+
+**Supersedes the mastery-derivation rule recorded under `LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md` #20.**
+A skill/cell reaches mastery once the student has produced:
+
+- **2 correct MCQ answers**, and
+- **1 full-point (fully correct) FRQ answer**,
+
+on that cell, where **none of those three answers used a hint before submission**. A hint viewed
+*after* submission/scoring (post-hoc explanation or reveal) never affects mastery, on any answer,
+including the three that count toward it — this half of the original rule is unchanged.
+
+This is a stricter bar than the 2026-09-26 version in two ways: it requires a specific item-type mix
+(2 MCQ + 1 FRQ, not "any 2 full-point answers"), and it removes the prior allowance for a
+before-submission hint on a qualifying answer.
+
+### New dependency this creates: GAP-9
+
+Under this rule, a cell with no servable FRQ (or no servable MCQ) can never reach mastery — not "reach
+it slower," genuinely blocked. Tracked as `GAP-9` in `CONTENT_GAPS_RUNNING_LIST.md`. David accepted
+this as a temporary gap, explicitly to be closed by content authoring, not by relaxing the rule — see
+that gap entry for scope and status.
+
+### Still unbuilt — same schema gap, now sharper
+
+`app.student_cell_state` still has no discrete counter for "correct-without-pre-submission-hint,
+by item type." Building this rule requires, at minimum: recording hint-use timing (before vs. after
+submission) per answer, and item-type (MCQ vs. FRQ) per counted answer — neither exists today. Needs
+its own scoping pass before implementation, per the same caution the original #20 entry recorded.
+
+### Revisit condition
+
+Revisit if GAP-9's cell-level MCQ+FRQ coverage turns out to be worse than expected once measured
+(the six-section audit did not measure it — only flagged the risk), or if the schema-scoping pass
+finds the hint-timing/item-type tracking meaningfully more expensive to build than anticipated.
 
 ## DECISION-0073 — Launch Frontend Target: ap-prep-canvas.lovable.app
 

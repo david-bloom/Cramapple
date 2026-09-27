@@ -733,16 +733,16 @@ blocking §7–§11 work. Recommendations are this session's opinion, not a deci
 - **NEW redo FeedbackCard:** agreed, sequenced after the flow decision above, which is now settled.
   **Done** — `TASK-0047` Workstream C, commit `f2475531`, verified — against `SessionFrame.tsx`'s actual
   `ResultPanel`/`CriterionCard`, not `GradeResultView.tsx`.
-- **#20 Mastery derivation — a concrete rule, not the "ship something simple" recommendation above:**
-  **"Mastery = 2 full-point answers, with hint. Hints may be triggered after scoring without affecting
-  mastery."** Read precisely: a skill/cell reaches mastery once the student has produced two full-point
-  (fully correct) answers on it; a hint may have been used to get either of those two answers without
-  disqualifying them from counting toward mastery; separately, hints shown *after* scoring (post-hoc
-  explanation/reveal) never affect mastery regardless. **This is genuinely foundational and unbuilt**
-  (decision 20 itself said so) — not implemented in this pass. Specified precisely here so a future
-  session can build it directly from this record rather than re-deriving David's intent. Needs, before
-  build: confirming where per-cell mastery state actually lives today (`app.student_cell_state` exists per
-  earlier schema checks, but this pass did not verify its current columns/semantics against this rule).
+- **#20 Mastery derivation — superseded 2026-09-26 by `DECISION-0074`, see that decision for the current
+  rule.** (Original first pass, kept for traceability: "Mastery = 2 full-point answers, with hint.
+  Hints may be triggered after scoring without affecting mastery." That version allowed a hint before
+  submission without disqualifying the answer.) **`DECISION-0074` tightens this**: mastery now requires
+  2 correct MCQ + 1 full-point FRQ, with **no hint use prior to submission** on any of the three (hints
+  after submission/scoring still never affect mastery). Still genuinely foundational and unbuilt — see
+  `DECISION-0074` for the schema gap (no discrete hint-timing or item-type-mix tracking exists yet on
+  `app.student_cell_state`) and the new content-coverage dependency this adds (`GAP-9` in
+  `CONTENT_GAPS_RUNNING_LIST.md`: a cell needs both a servable MCQ and FRQ to ever reach mastery under
+  this rule).
 - **#23 Item-package format:** confirmed via follow-up question — build the dual-read adapter, not a
   backfill. **Done** — `TASK-0047` Workstream E, commit `1a6e8404` (this repo), verified. Investigation
   found the underlying gap was dormant (100% of the 203 items already had complete legacy data) — the
@@ -750,6 +750,69 @@ blocking §7–§11 work. Recommendations are this session's opinion, not a deci
 - **#7 Owner/Task ID:** agreed, assign now. **Done** — see `docs/tasks/TASK-0047-APP-REBUILD-SECTIONS-7-11.md`,
   created this session. Owner still unassigned to a specific agent/person pending David's pick, following
   the same pattern TASK-0045 used.
+
+## Student interaction data schema — plan drafted 2026-09-27, not executed
+
+`DECISION-0074`'s mastery rule exposed a broader question: is the schema recording student
+interaction with each question (response content, scoring, timing, hint usage, retry/repair,
+recommendation inputs) rational, efficient, and complete enough to support feedback, progress, and
+next-best-action? A full plan for auditing, extending, and pruning that schema is documented in
+`docs/product/STUDENT_INTERACTION_DATA_SCHEMA_PLAN_2026_09_27.md` — **plan only, nothing in it has
+been executed** (no migrations, no code changes).
+
+Summary: a live audit found `attempts.confidence_level`/`result_summary` are not actually dead
+columns (the write path exists but isn't reaching them — a bug, not stale schema); found
+`attempts.assistance_state` already models "coached vs. independent" and should be extended, not
+replaced; and identified six gaps (hint timing/count, MCQ/FRQ mix per mastery cell, active
+engagement time, student confidence self-report, retry-reason tagging, recommendation provenance)
+that need new columns/tables in the existing schema's conventions. The plan has three phases (live
+audit → additive schema → dead-column elimination) and one hard gate: Phase 1's hint-tracking table
+cannot be built until David answers which in-attempt events count as "hint use before submission"
+under `DECISION-0074` — see that plan doc's "Open decisions" section for the full list and why that
+one specifically can't wait.
+
+## EXECUTED, 2026-09-27: Content taxonomy rationalization, all four phases — session close
+
+`docs/product/CONTENT_TAXONOMY_RATIONALIZATION_PLAN_2026_09_26.md` (the "fable" plan) is now fully
+built, QA-verified, and merged. Summary for whoever picks up the student hub launch next:
+
+- **Phase 1** (generalize `app.content_item_cells` to allow topic-only rows) — committed `1d9dcfff`,
+  applied to Production. 112 Biology topic labels migrated in as `provisional_model`.
+- **Phase 2** (retire content-key parsing) — backend committed `912699b2`; frontend committed in the
+  Lovable "New Cramapple App" project (`8fdaa40c`) and **deployed by David**. The AP Statistics pilot
+  now serves through `student-session-items`'s new `cell_scoped` mode with server-resolved `.cell`,
+  not a client-side content-key regex. `MAX_ITEMS` raised globally from 20 to 999 (David's explicit
+  call — no subject-specific exemption, to avoid a special case someone forgets later). Lazy-loading
+  the item pool (fetch ~50, top up at ~40 consumed) was discussed for future image-heavy subjects and
+  deliberately deferred — see that plan doc's Phase 2 section for the index/content-split design this
+  would need so it doesn't break `scope-mcqs.ts`/`retry-order.ts`'s whole-subject retry logic.
+- **Phase 3** (seed 181 new Statistics topic labels) — committed `6888116e`, applied to Production.
+  Dev rehearsal deliberately skipped (Dev doesn't contain these rows at all — pre-existing drift, not
+  introduced here). 6 boxplot items relabeled 1.8 → 1.9 per QA finding E-QA-001.
+- **Phase 4** (census monitoring columns) — committed `ac883a9e`, applied to Production.
+- All four phases merged to `main` via **PR #208** (test check passed first). Independently
+  QA-verified against live Production state, not just trusted from agent reports — see the plan doc
+  and this session's transcript for the query-level evidence (row counts, view DDL, integration test
+  run live).
+
+**Open items for the student hub launch, carried forward:**
+
+1. **Decision #2 (Biology topic labels) and the new 181 Statistics labels are still `provisional_model`
+   — deliberately not promoted to `validated`.** They exist in `content_item_cells` but are invisible
+   through `content_item_topic_resolution` (confirmed live: 0 unvalidated rows exposed). Promoting them
+   is its own decision, not part of this work.
+2. **`GAP-9`** (`CONTENT_GAPS_RUNNING_LIST.md`) — unmeasured: how many topic × skill cells lack a
+   servable MCQ or FRQ, which under `DECISION-0074` blocks mastery on that cell permanently, not just
+   slows it. Needs a count before mastery ships.
+3. **The student interaction data schema plan** (previous section) is drafted, not executed, and has
+   its own hard gate (David's answer on what counts as "hint use before submission").
+4. **Mastery derivation itself (`DECISION-0074`) is still unbuilt** — no discrete
+   hint-timing/item-type-mix tracking exists on `app.student_cell_state` yet.
+5. **Phase 2's frontend deploy was not independently re-verified against the live domain** by this
+   session after David confirmed he'd deployed it — worth a quick smoke test (start a Stats pilot
+   session, confirm items load and a skill's rail resolves) next time someone is in the app, rather
+   than assuming from the deploy confirmation alone.
+6. **BYOQ and Open Hand remain fully unbuilt** (Codex's separate workstream, unchanged this session).
 
 ## Out of Scope
 
