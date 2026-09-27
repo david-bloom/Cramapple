@@ -14,7 +14,7 @@ finding, evidence query + count, moved to **§2 Closed** when resolved. Nothing 
 
 ## 1. Open
 
-### IDG-5 — CONFIRMED: `attempts`' entire grading-truth update silently fails on every real attempt (root cause nailed down, not yet fixed)
+### IDG-5 — RESOLVED: `attempts`' entire grading-truth update was silently failing on every real attempt
 - **Symptom (2026-09-27):** Not just `confidence_level`/`result_summary` (IDG-1) — **every** column the
   post-grading `attempts.update()` writes is 0% populated: `status` is only ever `draft`/`submitted`
   (never `graded`/`uncertain`), `graded_at`/`score_points`/`score_possible` are null on all 104 rows.
@@ -28,33 +28,48 @@ finding, evidence query + count, moved to **§2 Closed** when resolved. Nothing 
   `evaluate-attempt/index.ts`'s `.update()` call for this never captured `{ error }` — a Postgres
   exception here is silently swallowed by `@supabase/supabase-js` (it returns `{ error }`, it does not
   throw), consistent with the code visibly containing the right update and it never landing.
-- **CONFIRMED empirically, 2026-09-27 (not left as inference):**
+- **Diagnosis, in three steps, 2026-09-27 — the real cause was narrower than the first hypothesis:**
   1. Dashboard check: the edge-function secret `SUPABASE_SERVICE_ROLE_KEY` is the newer, non-JWT
-     `sb_secret_...` format, not a legacy JWT.
-  2. Deployed a throwaway diagnostic edge function to **Dev only** (`wmgjsdkphcyhngaffbqf`, deleted
-     immediately after), using the exact same `createServiceClient()` shared module `evaluate-attempt`
-     uses. It called a temporary `public.debug_role_claim()` SQL function (`select
-     current_setting('request.jwt.claim.role', true)`, also dropped after test) and got back
-     **`<null>`** — not `service_role`, not even `anon`. PostgREST cannot resolve any role claim at all
-     from this service client's requests today, exactly matching the mechanism above.
-  Root cause is confirmed, not hypothesized. Did not touch the trigger or the key — that trigger is a
-  deliberate security boundary (`DECISION-0068`'s discussion of this same function), and the fix
-  (repointing `SUPABASE_SERVICE_ROLE_KEY` at the legacy JWT `service_role` key) is David's action to
-  take via the dashboard, in progress as of this writing.
-- **Fixed today, independent of the key fix:** both `attempts.update()` call sites (deterministic and
-  model-graded paths) now capture `{ error }` and `console.error("attempts_grading_truth_update_failed",
-  { attempt_id, route, error, code })` instead of silently discarding it — this alone doesn't fix the
-  cause, but means any future recurrence (a key rotation, a different trigger, anything) surfaces in
-  logs instead of silently vanishing again. Deployed to Dev then Production.
-- **Next step:** once `SUPABASE_SERVICE_ROLE_KEY` is repointed at the legacy JWT key, re-run the same
-  Dev diagnostic (or check that a real grading event's `attempts` row now actually updates) to confirm
-  the fix took.
-- **Practical impact today:** low for grading itself (`grading_results` is the actual source of truth
-  per `project_engine_rollout_status_2026_09_20` memory and this plan's own Phase 0 evidence table) —
-  but real, ongoing impact on anything reading `attempts.status`/`graded_at`/`score_points` directly.
-  `DECISION-0074` mastery capture is unaffected by this specific bug: `evaluate-attempt` derives
-  `assistance_state` and calls `persistCellState` using the **in-memory** `attempt` object from before
-  this failed write, not a re-read of the (unwritten) row.
+     `sb_secret_...` format. First hypothesis: PostgREST can't decode a role claim from a non-JWT key.
+  2. David repointed the custom `SERVICE_ROLE_KEY` secret at a genuine, correctly-scoped, unexpired
+     legacy `service_role` JWT. **This alone did not fix it** — a throwaway Dev/Prod diagnostic function
+     (deployed and deleted the same session) proved the JWT decoded correctly (`role: "service_role"`,
+     right project ref) and PostgREST verified it fine, yet `current_setting('request.jwt.claim.role',
+     true)` still returned `<null>`. That ruled out the key-format hypothesis.
+  3. The same diagnostic checked `current_setting('request.jwt.claims', true)` (JSON) and
+     `current_setting('role', true)` instead: both were correct (`role: "service_role"` in each). **The
+     real bug: this project's current PostgREST version no longer populates the deprecated per-claim
+     GUC (`request.jwt.claim.role`) at all, for any caller, JWT or not** — it only sets the consolidated
+     JSON `request.jwt.claims` and switches the actual Postgres session role. The trigger was checking a
+     GUC that could never be true for anyone, key format was never the issue.
+- **Fix applied, 2026-09-27:** migration `20260927200000_fix_grading_truth_role_check.sql` rewrites
+  `app.prevent_client_grading_truth_update()` to check `coalesce(current_setting('role', true), '') <>
+  'service_role'` instead of the deprecated JWT-claim GUC — the actual, reliable signal PostgREST sets.
+  Applied to Dev then Production. **Verified both directions on both environments** before considering
+  it done: a scratch attempts row (inserted and deleted by the test, never real data) could be updated
+  by the service-role client (previously impossible) and was still correctly rejected for an anon-key
+  client (`permission denied for schema app`) — the security boundary is intact, not weakened.
+  `_shared/supabase.ts`'s key precedence was left at its original default (prefer the reserved
+  `SUPABASE_SERVICE_ROLE_KEY`) after confirming that key was never actually the problem — no reason to
+  add a dependency on a manually-managed, Supabase-labeled-deprecated legacy JWT for something the SQL
+  fix alone resolves. David's `SERVICE_ROLE_KEY` custom secret still holds the legacy JWT he set; it's
+  harmless and unused (a dead fallback again), no action needed on it either way.
+- **Also fixed, independent of the trigger fix:** both `attempts.update()` call sites in
+  `evaluate-attempt/index.ts` (deterministic and model-graded paths) now capture `{ error }` and
+  `console.error("attempts_grading_truth_update_failed", ...)` instead of silently discarding it — extra
+  defense so a future recurrence of this class of bug (a different trigger, another GUC deprecation)
+  surfaces in logs instead of silently vanishing again.
+- **Checked for the same bug class elsewhere:** searched every function in `app`/`public` for
+  `request.jwt.claim` — found exactly one other hit, `app.prevent_profile_role_change`. Read directly:
+  it checks `current_user <> 'service_role' AND coalesce(current_setting('request.jwt.claim.role',
+  true), '') <> 'service_role' AND ...` — the `current_user` check already short-circuits correctly for
+  a real service-role connection, so this one was never actually broken. No other occurrences found.
+- **Practical impact:** low in retrospect for grading itself (`grading_results` was always the real
+  source of truth, per `project_engine_rollout_status_2026_09_20` memory) but this was a real, silent
+  gap in `attempts.status`/`graded_at`/`score_points` for every graded attempt ever. Not yet verified
+  against a real live student grading event (same credential blocker as launch plan item 3) — the fix is
+  proven correct via the scratch-row test above, but hasn't been observed end-to-end through the actual
+  `evaluate-attempt` HTTP path with a real student attempt.
 
 ### IDG-1 — `attempts.confidence_level` / `result_summary` write-path bug — still open, numbers re-confirmed
 - **Evidence (2026-09-27):** `count(confidence_level)` = 0/108, `count(result_summary)` = 0/108 in

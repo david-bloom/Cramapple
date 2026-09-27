@@ -1150,24 +1150,32 @@ resulting logs checked, or someone with dashboard access confirming the service-
 Practical impact today is low for grading itself (confirmed `grading_results` is the real source of
 truth, not `attempts`) but real for anything reading `attempts.status`/`graded_at` directly.
 
-## CONFIRMED, 2026-09-27 (same day): the `attempts`-update root cause is no longer a hypothesis
+## RESOLVED, 2026-09-27 (same day): `attempts`' grading-truth update bug — root cause was narrower than first thought, now fixed and verified both directions
 
-Checked the Supabase dashboard directly with David: the `evaluate-attempt` edge functions' `SUPABASE_SERVICE_ROLE_KEY`
-secret is the newer, non-JWT `sb_secret_...` format. Then confirmed empirically, not just by inference:
-deployed a throwaway diagnostic edge function to **Dev only** (deleted immediately after) using the exact
-same `createServiceClient()` shared module, which called a temporary SQL function exposing
-`current_setting('request.jwt.claim.role', true)` (dropped immediately after) — result: **`<null>`**, not
-`service_role`, not even `anon`. PostgREST cannot resolve any role claim at all from this service
-client's requests today, which is exactly what makes `attempts_prevent_client_grading_truth_update`
-reject every update. Root cause confirmed, nothing guessed.
+First hypothesis (key format) was ruled out mid-investigation, not confirmed as originally recorded here.
+David repointed the custom `SERVICE_ROLE_KEY` secret at a genuine, correctly-scoped, unexpired legacy
+`service_role` JWT — a throwaway Dev/Prod diagnostic function (deployed and deleted the same session)
+proved that JWT verified correctly, yet `current_setting('request.jwt.claim.role', true)` still returned
+null. **Real cause:** this project's current PostgREST version no longer populates that deprecated
+per-claim GUC for anyone, JWT or not — it only sets the consolidated `request.jwt.claims` JSON and the
+actual Postgres session `role`, both of which correctly said `service_role` all along, including for the
+original `sb_secret_...` key. The key swap was never actually necessary.
 
-**Fix, in progress:** repoint the `SUPABASE_SERVICE_ROLE_KEY` edge-function secret at the legacy JWT
-`service_role` key (still valid — the project's legacy anon JWT is confirmed still active, same
-underlying signing mechanism) instead of the new-format secret key, via the dashboard's Edge Function
-Secrets page. David is doing this directly, not delegated — it's a highly-privileged, project-wide
-credential and the exact value was never exposed in this session. Once set, verification is a repeat of
-the same Dev diagnostic (or a real grading event's logs) to confirm `attempts.update()` now succeeds.
-Full evidence trail: `INTERACTION_DATA_GAPS_RUNNING_LIST.md`'s IDG-5.
+**Fix:** migration `20260927200000_fix_grading_truth_role_check.sql` rewrites
+`app.prevent_client_grading_truth_update()` to check `current_setting('role', true)` instead of the dead
+GUC. Applied to Dev then Production. Verified both directions on both environments with a scratch,
+immediately-deleted attempts row (never real data): the service-role client can now update grading-truth
+columns; an anon-key client is still correctly rejected — the security boundary is intact. Reverted
+`_shared/supabase.ts`'s key precedence back to its original default (no reason to keep relying on a
+manually-managed legacy JWT once the SQL fix alone resolves it) and redeployed `evaluate-attempt` with
+that reversion. Also searched every `app`/`public` function for the same GUC pattern — found one other
+hit (`app.prevent_profile_role_change`), read it directly, confirmed it was never actually broken (it
+already has a working `current_user` check ANDed alongside the dead one).
+
+**Not yet verified:** an actual live student grading event going through this fixed path end-to-end
+(same credential blocker as item 3) — the fix is proven correct via the scratch-row test, but hasn't been
+observed through the real HTTP path with a real attempt. Full evidence trail:
+`INTERACTION_DATA_GAPS_RUNNING_LIST.md`'s IDG-5.
 
 ## Out of Scope
 
