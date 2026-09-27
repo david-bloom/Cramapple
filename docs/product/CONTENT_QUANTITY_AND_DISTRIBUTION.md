@@ -37,6 +37,13 @@ authoring workload.
 
 ## Approved Planning Targets
 
+### Scope clarification — 2026-09-27 (`DECISION-0082`)
+
+The fixed targets in this document apply only to AP Biology. The other nine subjects do not have
+fixed quantity targets. For those subjects, the approved operating objective is to make as many
+currently published questions safely usable by students as possible, without weakening content,
+freshness, rubric, or independent-review gates.
+
 For each of the 60 official topics:
 
 - at least 10 approved MCQs;

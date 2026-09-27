@@ -1,0 +1,313 @@
+-- Re-audit the 216 DECISION-0066 single-unit promotions against original
+-- generation-time hashes. Unlike the original promotion, this never treats
+-- label creation time as freshness evidence.
+
+begin;
+
+create temporary table tmp_decision0066_freshness_evidence (
+  exam_code text not null,
+  content_key text not null,
+  content_taxonomy_label_id uuid primary key,
+  content_item_id uuid not null,
+  generation_version_id uuid not null,
+  generation_taxonomy_hash text not null
+) on commit drop;
+
+insert into tmp_decision0066_freshness_evidence (
+  exam_code, content_key, content_taxonomy_label_id, content_item_id,
+  generation_version_id, generation_taxonomy_hash
+) values
+  ('ap_calculus_ab', 'apcalcab-frq-009', 'ccf288a4-ea2f-4ecf-9a5f-b62709e071e8'::uuid, 'f907d9c0-1566-4a65-b517-c7c00f4088ab'::uuid, 'f55d4dec-ca07-43e6-9f1e-70e4071b91e4'::uuid, '20ddb5f76f7eda54bc6f4e58bf9040341d9ce12d294f39a8120d97d2366d7a67'),
+  ('ap_calculus_ab', 'apcalcab-frq-025', '790a17c8-029d-441a-b1fb-17c6c11e127b'::uuid, '65bb373a-f882-4250-8a27-9c7cc2988a4e'::uuid, 'b21ebb17-3823-41ad-bf55-4c68e9e3d8f3'::uuid, '8243117eefa469b8bd8e56a2ff925d32ae83c044df51e492381208ae78b62d61'),
+  ('ap_calculus_ab', 'apcalcab-frq-np2-004', '781328f1-9608-4341-b258-ca9e4b077dfd'::uuid, '6e3e44b0-df1d-46e2-830a-892de867e183'::uuid, '2aa9f09d-7d8f-446a-a687-1ed543858db7'::uuid, 'ce8c61682d7cbbbe5943f0ad5a88cbbdf267b0ad172492c2dc3c79c9d4d3b0b5'),
+  ('ap_calculus_ab', 'apcalcab-frq-np2-008', '6e2ad506-449d-426d-a3ee-6ae3f439bd05'::uuid, '9261fb4a-a3df-4700-af2f-00c8e77d78f5'::uuid, '72973fb2-f772-4729-b9cb-e21d6ba8650d'::uuid, 'f4134bea2131cbd5b63a60f0901b681bd4d006c850b74edc9eec13a32fb0486c'),
+  ('ap_calculus_ab', 'apcalcab-frq-u13-001', '8c1ad549-d6b4-4f1c-8a59-ece31bbc1d32'::uuid, '45e20c35-6008-4db3-a6df-ecd3d4c1a780'::uuid, '829f41f5-2804-4231-a111-9edb31cda154'::uuid, 'c0d911d238e33c5f6f262468e843cbdf9846233c854e3cd626ca7b2374af631f'),
+  ('ap_calculus_ab', 'apcalcab-frq-u13-002', 'a1626db1-02e3-432f-82b4-093bda62f218'::uuid, '776d2398-e222-4068-ae3a-de315e7d4309'::uuid, 'd0f2974c-bac9-498d-8173-8a1c88b3d8eb'::uuid, '6b34dcc2996693adc0cf4ca0ae4298658a8b956b6547dc9054343328d8097cba'),
+  ('ap_calculus_ab', 'apcalcab-frq-u13-004', '132bfef3-6443-43eb-9f32-070676510ee9'::uuid, 'e2cfa854-271d-4039-a6b7-85906918970f'::uuid, 'f786dc8a-a3c4-497f-a271-24a2da334fcd'::uuid, '6a19cdc69930dfc7b02195d03cf961472c63427010934201b91a8c56e4e19139'),
+  ('ap_calculus_ab', 'apcalcab-frq-u13-005', 'ba65cbef-515d-439d-92fc-858a219c48a3'::uuid, 'd7d5d82e-4eee-4223-ad1c-ef55e3461567'::uuid, '66c7e7de-16e7-4d06-a7ac-25e80a6d8f22'::uuid, 'f9d1e919c3ea2fbf20135bf07a2ed341474bb1f5bc46fe0936cfd77ece55f7d3'),
+  ('ap_calculus_ab', 'apcalcab-frq-u13-008', '920cd460-df7d-4d6e-9028-65efda86cadd'::uuid, '0ff4a511-424a-43c5-ad4a-c2267fbebe01'::uuid, 'fd460169-7f26-45b2-a7d7-e96a174f5d5d'::uuid, '8dee2565f03b4b235268b41aadd298d38fb5c9605ee2ab9d34ccbf83d7f21d6c'),
+  ('ap_calculus_ab', 'apcalcab-frq-u13-010', 'ad05affa-4bd6-414c-82f4-fd7a91444d47'::uuid, '6dc8e836-25e9-44e3-a58a-f48b72880133'::uuid, 'daf9d061-631a-4f52-a59d-92d39431e448'::uuid, 'ae2e776a311fbeffe2ee37d0586fb121e251883a8915c269c2ebeb4679d48fb5'),
+  ('ap_calculus_ab', 'apcalcab-frq-u13-011', '1c8ab777-1680-4424-a773-760acc969a44'::uuid, 'fadbfde2-fef7-4159-adc5-9a5b51490a24'::uuid, 'a10d5a79-0d50-4945-adb0-b4942902ac34'::uuid, 'f0089f72aa079c938b0c987f6f0ba13a2b43cdbc0bbf81adbef33446c94868d5'),
+  ('ap_calculus_ab', 'apcalcab-frq-u13-012', 'd414a57b-6aa2-4cee-8ce5-678769943ab4'::uuid, '309b92e3-e8ed-4edf-a949-838f22b00ae3'::uuid, '87949000-95db-4cf3-a1eb-c14767be7728'::uuid, 'bbb61dd21d7a773f5ee06b6ec07f800e16df0aa78e1a70013ad051e252678b7c'),
+  ('ap_calculus_ab', 'apcalcab-frq-u13-018', 'feb588b5-5991-4a60-81ee-e7ce4a2816d0'::uuid, '920f980b-875d-4388-a1e0-ce80e9567643'::uuid, 'c794879c-9f93-41bb-883c-d0688834fb30'::uuid, 'f34364f8bdb8db2c5ff660fce15514cd9a2f20c25baa6031b853017b0e631004'),
+  ('ap_calculus_ab', 'apcalcab-mcq-021', 'f025c644-41bc-45d1-adcb-46753a328fe9'::uuid, '61ac5c7b-bff8-413f-a62d-01a4c4e06c2f'::uuid, 'd5ce86ce-69e0-4e02-80d6-12b2e47cfb19'::uuid, 'fede4c7d477dff192078f88e42777f1e96385beb845e1388ad76aa0fe629fec6'),
+  ('ap_calculus_ab', 'apcalcab-mcq-022', 'b66afafd-887d-4fcc-bb3a-ea394e3c0c76'::uuid, '1d146d5c-3b22-4ce0-a1a4-5a5e21dd75ab'::uuid, 'f187cb9b-ad82-4c0a-bf31-1fe9bc88b111'::uuid, '2e34eac8d4fa414ee4d4bee6449034bc61f07cc2b64b3f0109392c540c514875'),
+  ('ap_calculus_ab', 'apcalcab-mcq-024', 'fb4153e2-3cc2-4023-8dca-db80238cde26'::uuid, '61b5cb98-2dbe-4fab-aa95-fe4d1ea0b416'::uuid, '83a5e4bd-4243-45ae-99f3-4dc2b20277d6'::uuid, '706e988e27fb012f269fd19d9a2bb9ef28d19763ce497d3c696bc139672f9f04'),
+  ('ap_calculus_ab', 'apcalcab-mcq-025', '2c816355-d4e0-4b16-be41-f72e07738b05'::uuid, '7c65a231-9d7c-4617-8149-d0bf268c4893'::uuid, '282b516f-24df-4efd-a6b4-4bd707b27ade'::uuid, '7842e1211d22378814f8785f85bbd1983f124bb57e4ba3cdc34649ec6cc607e6'),
+  ('ap_calculus_ab', 'apcalcab-mcq-026', '01ab2fdb-040d-4f64-a922-18eae4b36f94'::uuid, 'abb64eca-ba72-4b4a-a7c1-5340818ac2e7'::uuid, '669ae7ce-d0bb-4605-8672-3d5edcc82ae0'::uuid, 'eaa9fdf6b7c3c35c3ce03c8843755f378390c6e0903b46fdcf93943e3314e67a'),
+  ('ap_calculus_ab', 'apcalcab-mcq-027', 'af8f9985-e06b-49dc-b7f5-ad96fe970c26'::uuid, '02c786a9-b398-4729-b97a-8f677eb55dd1'::uuid, '46c685fa-6f73-4fec-8e6a-65f76f20688b'::uuid, '133e04b53dbe3e9b46273dc128b16b29d303092cba7b8c1d20363eb30b6a3b52'),
+  ('ap_calculus_ab', 'apcalcab-mcq-037', 'fbb47c6d-5fbc-489f-959d-60e9a063a85c'::uuid, '81b364f7-fc0b-4e57-b590-c087725ae78f'::uuid, '809ae281-c05f-4e7e-8582-15dabad909d0'::uuid, 'db351df5bf9398abf9c77fd5432cd937c85d6b0f446b59d02629965c73ed6f5c'),
+  ('ap_calculus_ab', 'apcalcab-mcq-038', '81cbfdd2-5cd1-45b8-870a-082a4557ad83'::uuid, '33531ad0-93ba-4c0f-b3da-b0f7e77c6591'::uuid, 'a948f2bd-99d2-4b79-b1c1-ef6f1fe0e43a'::uuid, '6670a95f183c5d1cb83c980eaeb4f20c8d8baea978b9378c9e75dec88bf635da'),
+  ('ap_calculus_ab', 'apcalcab-mcq-040', '603572e9-4e1a-45f3-a885-bd07f9789e40'::uuid, '00d080e0-da0f-4db4-a8ae-1cd0c9ddfd13'::uuid, '172ee07f-0692-45f6-bcf0-413062e46d4d'::uuid, 'a012e15c151e3a4c5affcf9e9fba8b2bc507dc8339dfc1077bcdba92bfbe4a5e'),
+  ('ap_calculus_ab', 'apcalcab-mcq-042', '40943edd-7550-467f-b329-4ce3ed0d94d1'::uuid, '444684f1-adf2-42f1-9056-dfc31d3a6271'::uuid, '8a70d356-3323-498f-bf1c-ed157a9c1d4a'::uuid, '44d28f3aac03aa36f406c7b6aee759247f54f918e2b22cd72bb95b2cae57ca38'),
+  ('ap_calculus_ab', 'apcalcab-mcq-043', '9d335ba7-9d3f-45a3-87e0-bf0cdbdc6ffe'::uuid, '7b97de5b-7485-4ad5-bab8-1654f163c372'::uuid, '4513a5d9-2989-4839-9009-7cddd4eadfe1'::uuid, '4e72f43297a90fb0309d63afc1ec01b02e7d1620fc19f9dd89a1a34e80328892'),
+  ('ap_chemistry', 'apchem-frq-l-006', '307c3acd-598f-43f9-9b6a-85fad840989e'::uuid, '0d8bcde3-a2c5-40b2-8335-3289a7394408'::uuid, '4a3a6222-6c26-4828-b4e0-8c169cc959fe'::uuid, '98592fbf58eeb8961d25283ce63a1752cff0b336eb22825b490f0685e9d67602'),
+  ('ap_chemistry', 'apchem-frq-l-012', '7f9bf6fc-35d6-4497-9a9c-511c0c0c96dc'::uuid, '3979d2c7-bd51-4adc-9653-e5d09d9a5d6a'::uuid, 'd08e7fa8-d88d-42cd-a7b9-e113c478ac9d'::uuid, 'ca164f70406a9d6887a86e696c98ac1574a08f6b91b233503e9fae2042e64d1d'),
+  ('ap_chemistry', 'apchem-frq-l-020', '63601841-12b8-4a9f-86b3-474c19d6f297'::uuid, '4e9db7b7-9006-4ccf-b4c8-88068487f347'::uuid, '0d42d921-2660-45ff-bd03-58a40bb047cc'::uuid, '0d2b954b4184a9d15038720bf9343b2f727e0a33643397eccd3a515ec39a36ce'),
+  ('ap_chemistry', 'apchem-frq-l-027', 'df0c0d1c-9525-410a-88ac-6041d4b6ce4a'::uuid, '208e55a5-6844-44cb-9630-a28b1c861580'::uuid, '178ece2f-0eb1-409c-a469-32ce3b26cf4d'::uuid, 'f3b0716ca93fe9eb92db951e659e935c116678e13d996d3595d55ebdc698b61e'),
+  ('ap_chemistry', 'apchem-mcq-001', '1ce8ad7d-7e68-46dc-9852-c73987913077'::uuid, '618a74d7-c784-422d-9973-478ed1a3539c'::uuid, '76e74e55-8284-48f7-be7c-39aed7d3b07a'::uuid, 'a80091766eb3a5ccdbb1373bdc15a494aaeb531a6ef30be6ef43792fb0a1b22e'),
+  ('ap_chemistry', 'apchem-mcq-018', '2c6f1cd9-3ed8-4764-b849-217a52c89d28'::uuid, 'b6d3f884-7b8b-4926-9b19-0a55796290a6'::uuid, 'f79fcfa0-ec2e-4c06-a21b-abe42c8b4f3b'::uuid, '7916d99dd78ddcb5b136c197b2df88d788271e9f51218987ef680262aead0f2a'),
+  ('ap_chemistry', 'apchem-mcq-024', 'a120d769-58fe-4236-ad00-cffaec72148e'::uuid, 'c862a5ef-6dbf-4a9c-b7d2-491c15968b13'::uuid, '89a2d1d9-1c53-45e0-8037-659ccb349392'::uuid, '3f2b865cff31f0eff8ccf97540e8c4e0a3ccad05cd8e16e8be53451966fa50c9'),
+  ('ap_chemistry', 'apchem-mcq-033', 'e9b205b8-4019-4c98-b9a3-d7f1b746fd4c'::uuid, '3983a3d8-524c-4341-a1fb-bf1ad6ef7bf4'::uuid, '9e049c05-c49e-4b95-b4b9-a777c60c0d2e'::uuid, 'e0810a7d8bda91b87ffdce2e57a4a0e360a94def0c3c9819ea3b909869386c87'),
+  ('ap_chemistry', 'apchem-mcq-039', '2ff1996f-4a33-470f-baf2-3d82ec2bdc82'::uuid, 'afd4f7cb-1d33-4357-8a07-d14647569497'::uuid, '1f25a29a-5532-4439-88b9-06e8a2bfe8ad'::uuid, '0a07bb45c249bf0b8625e1c6df5788d0661ba936be3a9ea6f2bb071c041cb44b'),
+  ('ap_chemistry', 'apchem-mcq-043', '0762abbb-daa6-42d0-b949-17fe855925cd'::uuid, '1e9972c7-5641-42b4-bf7b-056766a098c0'::uuid, '99b2b547-b2a8-49a9-bf16-c692589ec7c6'::uuid, 'be9b92cbb31f79da813379a2e9690f73cd8a5ece08ee4086861cd291e856b5f8'),
+  ('ap_chemistry', 'apchem-mcq-046', '20589937-e99d-4560-ac9e-fb7a9e96c4b0'::uuid, 'c563deaf-b92f-4293-8c97-1247958726ea'::uuid, '938c2a66-d889-4b80-bfb0-858f425e30d0'::uuid, '6ebdfa7bef2a28fcaf3a34508a26df1ba559bf5ee5c67599cf8764e36b3bde9e'),
+  ('ap_chemistry', 'apchem-mcq-049', 'e84b1ffd-4351-479f-9494-39cccd627584'::uuid, '67be4368-824f-497b-85a7-338719560d61'::uuid, 'ad10a23b-bc26-45e7-ab78-47c9cea66001'::uuid, '3c44a7f75af878f849d09d37d48eb2e434113f94a0988eb6286f136f723b3471'),
+  ('ap_chemistry', 'apchem-mcq-055', 'ac953adc-d86f-4748-9f27-82eb6768865d'::uuid, '30b9f367-13ce-4294-916d-5a9681a1188f'::uuid, '187c11be-5220-4b94-9e0a-a5c1b1f7c720'::uuid, '3ac3368e851feceb906a308ea248cfcf44e66a54ae5147e33f31f35fcbc072e2'),
+  ('ap_chemistry', 'apchem-mcq-057', 'eedc1adf-39c3-4b39-983f-200915aeaed7'::uuid, 'c13bdc07-e919-4d48-afb7-5305bb77d499'::uuid, '5a6405c0-7c21-4333-8269-1a6ac8792f4d'::uuid, 'aaf5742d7dc2201cc9e3eb6d55d6d28b0d2a0bb3ffb9226cde2fd22cebc25730'),
+  ('ap_chemistry', 'apchem-mcq-062', '89823421-c7d2-4d18-9224-eb5aee5f26ac'::uuid, 'd06b3b6d-e01a-46b0-87a0-d4c66745c350'::uuid, 'c68402dd-2032-41bc-91fb-84b1c0d9d529'::uuid, 'e630dfcf4c47ea325aa4a6f13baa5a1606ba09ac2bb29d377202464551d243fd'),
+  ('ap_chemistry', 'apchem-mcq-063', 'f6f0034f-f861-41b5-8576-8996ea28e570'::uuid, '55e58365-763c-475b-b015-6dc32b3fbd97'::uuid, 'aa03ff47-9e9b-4401-83d8-636f6d537918'::uuid, '2a18863e6779a7751cf1d6b138a5ef8ae281ad645a7f4684c0fdb4a0e7e35d75'),
+  ('ap_chemistry', 'apchem-mcq-068', '02f04a22-e67f-4aab-923b-112eaffbf141'::uuid, 'dd64d6c7-7c57-40a4-9e52-e54be8338c67'::uuid, 'c5d5b783-6e2a-49db-9674-9df23e6b1bbe'::uuid, 'd9cc38110732987a8e6630f467c7ca1d25428b019fc0eeaadca38c08087d8725'),
+  ('ap_chemistry', 'apchem-sfrq-008', '42a2e264-750a-45f9-bfd2-d04a0ad5219c'::uuid, 'a1c5a615-6a76-4145-b826-2ac126f8a334'::uuid, 'a27211e9-475b-4f75-a9af-b3549bbd9bf0'::uuid, 'a575b6bdcd2ad91122aef967094e72edcf901d841f5a3be7ef727fc95feb686d'),
+  ('ap_chemistry', 'apchem-sfrq-009', 'b1542cd9-d245-45ef-9967-724e1742b4e0'::uuid, '3c95e382-5798-4075-bcfc-daaee60b3aed'::uuid, 'fcf5a47f-ff2e-470f-987a-160cd9ccd103'::uuid, 'b95ad54a7d816853235dfe789399de16e1231b1494e2cfb3720af8b015ca5c72'),
+  ('ap_chemistry', 'apchem-sfrq-016', '600bbb07-1c26-4b56-9586-e19b6d5bd6eb'::uuid, '99b58265-c3e3-45a1-a704-fe396239bcfb'::uuid, '821308d5-a28b-4adf-9400-fe0e5444fcc1'::uuid, '637bcff82315f28b935c066e198feea105bfc788a97eb577db111d495a701ef3'),
+  ('ap_chemistry', 'apchem-sfrq-021', '08388082-7dfc-42a4-b11a-f1046f1b0258'::uuid, '481ae433-b678-424d-acee-1cf3c4dd6e0c'::uuid, '68911f4e-34a0-4643-a3d6-cdbd8e6d4c56'::uuid, '5cc565f9968bf6f13d7fe79bb2d397eeba346d64a3a772b316a37f59fa655a07'),
+  ('ap_chemistry', 'apchem-sfrq-028', '5e965aea-03eb-48ae-b479-07808258509f'::uuid, 'c8311138-03b8-482c-a185-a7323e2dfa03'::uuid, '957fab7f-2e87-4ed8-b622-4c7577a9f6ec'::uuid, 'e7ef54fb212a68688efe73573b388144bea5e45917e051be8665f49aab1d32da'),
+  ('ap_chemistry', 'apchem-sfrq-034', 'f04bfd32-0727-4c47-a31f-c216364d007f'::uuid, 'bdfadf49-6212-4519-b591-29913a8d5f8e'::uuid, 'c2cdb4ce-279a-4427-8cf0-b23d0d6a0771'::uuid, '79a36b49f66c1eff0286a50ea307c925428fef6c422eed92062038c94e49b211'),
+  ('ap_chemistry', 'apchem-sfrq-036', 'ac057256-20e5-4438-bc80-433bfc361861'::uuid, 'f8e8cc4b-d545-4a92-a959-1d3817ffe9a7'::uuid, '2f38ca1e-55d2-45a3-9bfd-16b26d8942ad'::uuid, '3e8cb7076c95646dd9b43d7362a9ad49420f1742db2c48c48bc3252f4dd98680'),
+  ('ap_chemistry', 'apchem-sfrq-037', '9f8e87bf-9da8-49eb-8125-519ffe188e48'::uuid, 'b7f2d24a-383d-4a4d-86f3-6f1ec5fcd7c7'::uuid, 'ebccd150-e943-4784-8e29-1f07017181bd'::uuid, '56eaf2b875cff608820d288e94a988cbc42c81713ddf7e2f97b73b6cf9177ca7'),
+  ('ap_physics_1', 'apphy1-frq-012', '6140371f-9da1-46bf-9764-d4cdefbaf036'::uuid, 'da3c6768-3b04-40bc-9beb-9ba398447f47'::uuid, 'd5148959-28b2-4e2d-a111-f64926d3d2f4'::uuid, 'b60b782ac43d233ca029d18dabd0026c04ea41df35b9a930b1764134c7624aa3'),
+  ('ap_physics_1', 'apphy1-frq-015', '42b0d739-e414-457e-9238-f83335244cb0'::uuid, 'a037b83d-c8f7-4f7d-bfd0-f62fdb50de3d'::uuid, 'd1bbeb16-03b4-42c8-ae1b-37a9eb84e8d7'::uuid, '4b04ff83c11a31c3354c9cfd399d6a1ba131904e4f649449561e755fc725fc9e'),
+  ('ap_physics_1', 'apphy1-frq-020', 'afa4c61e-7489-4c76-8db0-498c9b2859b6'::uuid, '4f470477-e845-4d7c-907a-8fbfc306ea96'::uuid, 'dc9a044e-e24c-4f9d-a2b8-232106cce238'::uuid, 'ca2176a44bc905ddfabc3b0081862b2b669d1f6f9e385f0cadb7784f26d7781f'),
+  ('ap_physics_1', 'apphy1-frq-021', '1a9f5f7a-dee3-40ee-a437-bfa4092ae474'::uuid, '76985b51-24d0-4637-8957-86627e0369e2'::uuid, '6e68bac0-367b-4bda-b971-7f0bab89fa18'::uuid, 'df077e4bb067188c6e93944b6d92251e42f0ff5980670517e916283df086aed9'),
+  ('ap_physics_1', 'apphy1-frq-023', 'a31cea6b-4b76-440b-83c9-611898aa847e'::uuid, '37351bbb-3544-4907-af67-df4ad69d62dd'::uuid, 'def15be4-b068-47e2-b9e6-7dc93b2481af'::uuid, 'ed1738b797c49d4952d8c86451125e5dadea0635fd2b67bdf4f0107edaf57735'),
+  ('ap_physics_1', 'apphy1-frq-027', '3a7287ae-c1ef-49d9-8397-1367d767f94b'::uuid, '6edd51dd-ada9-42ad-a659-161724f33604'::uuid, '85f95e28-10f2-455b-bd41-ab4a0b97cb5d'::uuid, 'ce1c953e52b80bf0e70e40deead27a6971b4fe1d2081aeb17cc44f295304ae60'),
+  ('ap_physics_1', 'apphy1-frq-030', 'e2406173-7112-49ca-82ae-693e7ec025da'::uuid, 'eb194ee3-4770-4074-9fe6-62bc26381a73'::uuid, 'eb3cd946-0364-4170-83da-690d6597b2d7'::uuid, '7b04e6d0179a07583f49e31514873a07f89d6e55980ed692f22ba89d5223d2a9'),
+  ('ap_physics_1', 'apphy1-frq-033', 'c790a366-7084-41ef-93a5-c933638677b1'::uuid, '14b30ea9-0539-4911-8910-47ffd6d5c60e'::uuid, 'beacb3d2-fd4c-404d-95b9-e734637d17d8'::uuid, 'd8205f6fcf995223c50b39c55f65c6e79da1dd9ade1033f49e039d91f23c6273'),
+  ('ap_physics_1', 'apphy1-frq-037', '4ffa3891-3f5a-44d5-ab69-014de0954f27'::uuid, '702fca06-c833-4262-a4ca-c1bf76252a84'::uuid, '96f0cca0-0b23-4d3d-91f1-d5c0bf65832c'::uuid, '3894d83e2703b02e7121ebe84c4607cd3afba86bf7c1b4f79ac40ffe54dc82d6'),
+  ('ap_physics_1', 'apphy1-frq-040', '2a32cf6d-a1a0-4ca9-a709-9efab7034dea'::uuid, 'c1b5017e-2e2e-4a9e-a697-19c12e9205fd'::uuid, 'c7a640a0-0475-4276-bc66-1de484a058a6'::uuid, '59c5aa2a87218ae40907d591e5c488744973b50ee5c47ea719c93e5c4b1e93bd'),
+  ('ap_physics_1', 'apphy1-frq-041', '24155ede-4a0d-45f5-b57b-f2134fe82e61'::uuid, 'fc1ed479-20aa-4803-a110-eee861b5397a'::uuid, 'f43cd467-46ad-4758-b6c9-21e3851a261e'::uuid, '2b30879db42313fd7952485e05296a1e2b994ffe10589f92a8fab03f9ce8bd4e'),
+  ('ap_physics_1', 'apphy1-frq-042', '282450ae-5289-45d0-94d3-edb74c248d92'::uuid, '02b9352a-83e8-40d3-a8c7-07b58aa28ea1'::uuid, '2a7ee51f-c0d2-490c-bc20-2e749616868b'::uuid, '4f9093dcceb1de5527154734088f8e95727ead9bf73c6686dad4b5ccd3aeb6ae'),
+  ('ap_physics_1', 'apphy1-frq-043', '964e3bea-d35e-4ec0-b283-387c68539114'::uuid, 'e16deef1-cb7a-41a9-ad27-4559eb4056b0'::uuid, '0927826d-129f-490a-911c-ad68c38eb929'::uuid, 'b69cc924ac1f2e7cf5efb52e855ae22ff96845cd0747cb56fb1695220de31a0f'),
+  ('ap_physics_1', 'apphy1-frq-044', 'f7f525d3-c3d9-427e-b72b-7335fe362654'::uuid, 'ad105418-ee59-4654-afe4-2243b0171f6c'::uuid, '8a24e2ec-5604-4100-a3f9-565a0ed16d5b'::uuid, '91e7676a07a203a16144c8604adf06270f4bd01894b0f1b944b255cc57903fc7'),
+  ('ap_physics_1', 'apphy1-frq-045', 'd7a4acec-d83f-448b-9857-3cb853b80bbf'::uuid, '6f76e68b-1534-4c5b-a620-178b21990107'::uuid, '408b1a87-6b9a-438d-93e8-9881ea534971'::uuid, '021ec213e356d41f0c8c96301cafe01c27f1b0c2981b9468f42b26c873e075b3'),
+  ('ap_physics_1', 'apphy1-frq-046', '15b40ce1-2656-498f-a761-5875720b1c5c'::uuid, 'dcc448ec-14be-40fd-a31d-6efb71d72d0d'::uuid, 'f0613586-dd55-4891-b441-ce9abccc3b28'::uuid, 'fce859b385f40d2dc46eaf1525cfdbf31388056ba02843d5c75cda7853e99587'),
+  ('ap_physics_1', 'apphy1-frq-048', '8f465a13-0061-46d5-bf05-c57d735d0cf9'::uuid, '7b739aba-0777-4293-a51f-4ad2b8da70b5'::uuid, '2a52b9bb-636d-43f7-8ffe-d67a746e0bfb'::uuid, 'f72bfb6bb333d695ec547e991cce9f59a3613b6bb74fe7804a9699b8fe706ec5'),
+  ('ap_physics_1', 'apphy1-frq-049', '51700838-15b6-4845-9856-08caaec5f556'::uuid, 'daf8dc45-7984-4ae5-ab97-593e2f79d678'::uuid, '76d2506f-9aeb-4d39-b20d-804df229efd5'::uuid, 'c0c4394f5202c6135778e9ed0c85033b8dd7eda5d3dbc7600ae2afa09cfda3ee'),
+  ('ap_physics_1', 'apphy1-frq-050', '5ef7701c-a7db-4999-8933-275a9036775a'::uuid, 'f42b6500-d7a7-4689-a87d-1de3c580cea5'::uuid, '78097e73-05c4-4498-8407-f9fbc9060755'::uuid, '6a25d33de0e2382b5f6c9f6bc8a094d4912b6d6f38386d2342f6c0a56b2a26b5'),
+  ('ap_physics_1', 'apphy1-frq-051', 'bd27ffbf-1389-462f-8d42-9f064f102f76'::uuid, '91b25cfc-758e-4781-a865-2eb050337fb9'::uuid, '8aeccb20-2703-408e-a8ea-0a6eaec41310'::uuid, 'd0c0eff4422444422bd49737afff1e48cc9442c12d6655afc96018bf2f8d05ee'),
+  ('ap_physics_1', 'apphy1-frq-np1-001', '8844454a-f452-416a-a665-33e1add98807'::uuid, '011eb94a-18c3-4111-8d3e-58e13c8793d3'::uuid, '40c3850d-f7e1-4ad7-bde8-0ff27230d22c'::uuid, 'a504fb4570aba4915842321f661fe2829eb50ca05bea2bd345511d2da4339938'),
+  ('ap_physics_1', 'apphy1-frq-np1-002', '5081031c-e313-4400-a33b-54d8a00ceaf7'::uuid, '383ad75c-6ebb-4383-9a1e-6d8756f548ff'::uuid, '4c413573-a128-4274-a44c-2bacd6289897'::uuid, '88718598bd4469e770b740aed141c26080b95baf4bdb0b7ffd4041fceb6fa151'),
+  ('ap_physics_1', 'apphy1-frq-np1-004', 'ea818cea-6471-4eab-9663-b0a6ef2f683f'::uuid, '58aac6ec-e5bd-4577-93ec-c9718bd8b4a8'::uuid, '91ea2d10-2353-4956-a83a-6f0be6d6f6fd'::uuid, '1cb9e54c36ca95f4a2d125f3a7e2aae9d68f62cc62d246457bdd9612e4b0b45f'),
+  ('ap_physics_1', 'apphy1-frq-np1-006', '9dfa4177-5b94-4002-a82f-acc5519c7490'::uuid, '1f266070-c443-455c-96ac-9d9f9b709aec'::uuid, '1200ff17-ed8a-433f-ae65-efd3c136bcd0'::uuid, '4564bf2673f0a3e23ed5f17a7c45616a735a090886b8d817e848512469b7cd31'),
+  ('ap_physics_1', 'apphy1-frq-np1-007', '3789c742-41c3-4ff7-95d2-ee37991b4ed0'::uuid, '6b0976cd-524e-4f31-a767-0367f19d50be'::uuid, '664f7767-66a4-49c6-9959-452e6c5e8666'::uuid, 'f786a567b0bdf74dde0be422e678a7bc8f288e1b4deaef4aa03036947c8fd9cf'),
+  ('ap_physics_1', 'apphy1-frq-np1-008', '760e0013-0ad5-498b-afc6-264f01f38b81'::uuid, '184bc8b2-94c8-4965-ab70-4bc260706fe1'::uuid, '67b35097-72a4-4af6-b621-61cf15188e9f'::uuid, 'db99f8eb65bcd6d2b32b4644e74cc2fd6a04e05e0108ffe055cec5fa7756867f'),
+  ('ap_physics_1', 'apphy1-frq-np1-009', '138f3867-6e76-48b8-a437-15fa1734a4f1'::uuid, '371b6607-fc72-48fb-b349-4fb01db89ec2'::uuid, '85ab476a-ed8d-4e51-a35a-f935260094c3'::uuid, '4e0b000a542fe92f1399ffa9509dda2a5d3a07a20b0d087bbe41d7ce44e667ce'),
+  ('ap_physics_1', 'apphy1-mcq-001', '20acbe09-32a0-43e5-817f-30ef5c7642dd'::uuid, '488b8d80-7894-49cd-ad47-2884eed20068'::uuid, '2c820084-2551-4764-853d-a0dc9f11e0c9'::uuid, '9d73c74b97f67051df9e7368db716814443dcfcc5cb0f7a9f37975093ebdbf3f'),
+  ('ap_physics_1', 'apphy1-mcq-005', 'e3f8dd70-fc51-40ca-94b8-681ce0e6e910'::uuid, '49a34da0-7b59-4127-92ba-671b7752ca0f'::uuid, 'bb9afd55-b2d5-4af0-94c9-59886dc5926c'::uuid, 'c150fb613520440ba4ad57cf533602d6532b879bd9662b5ad72093109df99d95'),
+  ('ap_physics_1', 'apphy1-mcq-009', 'c28bc38e-fde9-4efc-872a-498bbfaaf577'::uuid, 'dc30cbe6-15d2-43a3-9a20-5b4ec8af08a1'::uuid, '1f58497a-221b-4265-928f-8e70331ee3b4'::uuid, 'be1f822e599c5dca83afa50ab892e34e86817ab81d41129bc7243612f68116b2'),
+  ('ap_physics_1', 'apphy1-mcq-014', 'd22ec184-4cbd-4ea5-8b2f-ec25942598ae'::uuid, 'c1525a8a-ca72-4023-9742-859c27e3b87b'::uuid, 'c71dcbce-3da7-4c8e-9c62-9cc87ea01355'::uuid, '7e1053e7c9e5c0bc068b0bab54cb49bc2802e20f8a17723ae0b2d685025dbfe9'),
+  ('ap_physics_1', 'apphy1-mcq-017', '75f310d4-db8f-49fe-a445-b1dde64718fb'::uuid, 'cfae28f3-a3c1-46a8-a5c6-a226a71eb7a2'::uuid, 'b240be8d-c4c0-4d82-8278-09592bbd3d90'::uuid, '6e37f53e04b0131122afbacfe4cec501f1f4da529c7e818ea001ce3a6a19fc2d'),
+  ('ap_physics_1', 'apphy1-mcq-018', 'e9ede06e-8c89-4244-8df6-55ff19808dd6'::uuid, '9bc94c85-9ad5-441a-b827-76e2590aeb76'::uuid, '89a4d869-97ad-4bcb-8e8b-8b2cd5d10be4'::uuid, '2aa6bb77c90955abb641f0ad115b28c4c2fc07dd2ed316b80d661bdfbcf490a1'),
+  ('ap_physics_1', 'apphy1-mcq-019', '2ea98d81-b08e-4368-8f8d-f2133f027488'::uuid, 'f1f70799-734d-42be-a88e-5a444c9a7ade'::uuid, 'e6481db2-df0b-4424-8b54-56889c85609d'::uuid, '8e7ca5610d7e5f2c23c281d1c169687216df593435b8663abc9d5185bf7bd24e'),
+  ('ap_physics_1', 'apphy1-mcq-020', '9539a079-b2d8-4e5d-93b7-8d996f5141e1'::uuid, '74d52d4b-d42c-4226-bdef-74a85b161d3e'::uuid, 'c4a6ebb3-d175-4a60-8b4e-97fd7747f9df'::uuid, '75af86197fc2b4c761b36db693fc9747c5369adaab9fc0ade8725989c81a36cb'),
+  ('ap_physics_1', 'apphy1-mcq-024', 'd3b41bc4-84dd-4ff4-9bb2-d43d3cd3fa01'::uuid, '82a8d13b-0a69-4351-b567-f1f94c310b60'::uuid, '6c427f6c-b401-4043-a470-458dcc416a86'::uuid, '9921926376087cdfe209437ea0b61571fcb878b2a896124630bfb3cf3d9838ae'),
+  ('ap_physics_1', 'apphy1-mcq-025', 'df50bc3e-53cf-49fa-b07a-7325e45669ef'::uuid, '8a6ff00b-bb9a-48f7-9775-5741413ddfc9'::uuid, '45181081-39da-484b-b13b-863eb5f997ff'::uuid, 'b1ae3dd5715a58cf0948ccd7e0650a72aa06e5fe1a321b818252dcb563ebc4d8'),
+  ('ap_physics_1', 'apphy1-mcq-027', '9b2294af-8cdf-46d2-b6f6-4e6e2b78cb7f'::uuid, '5de8c846-7220-47ae-9a5a-648a1379c22f'::uuid, '06673d08-b128-4c03-ae90-a800fd981340'::uuid, 'df1bb08d84b320aeaff30432f497917bb0eadea06bcf840aeff2d07fda826a81'),
+  ('ap_physics_1', 'apphy1-mcq-028', '086218c2-b30f-4dfa-8a4d-f4a47e21ca6e'::uuid, '08da8a0d-6780-45af-b790-92359239e02a'::uuid, 'fb38cec8-6e6c-4626-bd70-83c831809672'::uuid, 'a4768f9c1416ff78633489facdaa9e84b91985d3c5b73988e66d7f925133015c'),
+  ('ap_physics_1', 'apphy1-mcq-029', '96c7d940-07e7-4bfa-b2f5-c743ae3fda53'::uuid, 'e01914bc-5856-4e46-a0d0-473eeb685983'::uuid, '2603976c-9939-4f74-99e2-d01c3a03eea5'::uuid, 'd13b3ad1f9875739244f03eb6cbca17aaf5450535e0381aaa730ff6fa2e240bf'),
+  ('ap_physics_1', 'apphy1-mcq-030', 'a8015ca2-88b2-4aec-9460-99345a440740'::uuid, '7d9a53ea-d767-4dbd-aea2-9fa7daced21e'::uuid, 'de3eaba6-9673-4bcc-b719-169f6eee2c1f'::uuid, 'd59198832b507017188e000312f49f94c2a868cc3fc35b74d6787a8ba2032bf9'),
+  ('ap_physics_1', 'apphy1-mcq-031', 'cd72a3cb-af2a-4cfc-894a-68293deded91'::uuid, 'e7eeff96-73fe-464b-b6ee-52dd9eb8bb05'::uuid, '075dcd6e-8e6f-4458-b1c1-4235efde6475'::uuid, '7ab9f14926bf2b248810aa4ad633bdaaeda01600e0d87833b5c879bffa63400d'),
+  ('ap_physics_1', 'apphy1-mcq-032', '483930a7-abf5-4626-878d-eee95b6ccdde'::uuid, 'dcd6e3a9-7044-40ec-8dd3-4e60decd90a7'::uuid, '597e294e-e4e0-4756-9892-502e71fba634'::uuid, 'a99db3d61bad85661b25bcd4d07ee9d937488f22bf44762d13474bc9af73047f'),
+  ('ap_physics_1', 'apphy1-mcq-033', 'd8626b20-d808-4965-8a15-f6449b7b655e'::uuid, '153eeb97-1a05-48ca-80b4-8a175f59e905'::uuid, '996fa997-44be-474f-9a2e-56bc793a48d8'::uuid, 'acdda7ce7280f34c0125452920981b969e1276e6172b165074e01646e92811b8'),
+  ('ap_physics_1', 'apphy1-mcq-034', '0e67e8f3-add4-4988-8cf4-a669e68fc9e4'::uuid, '192e581b-9692-409a-812e-f4e22a28f702'::uuid, '0c7d5004-5595-44b6-8d9b-97c5c865edf9'::uuid, '940c0c835a05075c2569175493ae6a137903e80e908865790e50e716822ef230'),
+  ('ap_physics_1', 'apphy1-mcq-035', '7cf34cf1-a750-4b4b-8dc8-367428d61d55'::uuid, '7feec89d-d16a-4e56-add8-6179cee05524'::uuid, 'e985d1eb-8dc5-43cc-8d5b-d63e360463ad'::uuid, '01b40e3bd2114e98d03c902de00493779e9301752958ea93537732b6ee5e9c98'),
+  ('ap_physics_1', 'apphy1-mcq-036', 'a03a3948-4527-420a-a2d2-2eb2929ba90c'::uuid, '1029573b-d57e-4a36-abd4-f660d1d599cf'::uuid, 'a1dfe74d-67dd-4fec-ab51-5130926bf8df'::uuid, 'cfa4207b99bb942ecdb10145ba7d2c09da3377b9528c394ee4ba4206de4c9b74'),
+  ('ap_physics_1', 'apphy1-mcq-037', '96001952-383e-45b7-9cd7-3e3c70a22006'::uuid, 'd574f4dd-7816-4413-9687-73595ec6cfad'::uuid, '109a8378-0f5f-4dd8-814d-3822a59398da'::uuid, '153f208e3dcf214febed237dbc45eb678acbe8b5bb09796280133f223f54b50e'),
+  ('ap_physics_1', 'apphy1-mcq-038', 'fc3ef286-6663-4b27-8148-076fdd5bd0fc'::uuid, 'dcc3b80f-616b-4f3f-9bc0-244b056f307d'::uuid, '61a0acd1-d7b1-4b73-8293-29a24583c7b0'::uuid, '7d8dd43c64a379b68eee2e438305eaced12e2118d7ac23d704a0d2fe162683b5'),
+  ('ap_physics_1', 'apphy1-mcq-039', '32ba7821-54bf-466b-809e-28d25be05480'::uuid, '832a6b06-125f-42b7-bd05-2356a655ba0f'::uuid, '0efe6803-940a-42b0-8d68-742b4072fad8'::uuid, '102fc08be872147747d352c237e63573e5417728dcf3a31b50ae889968e5b0d3'),
+  ('ap_physics_1', 'apphy1-mcq-040', '517385a6-055f-4d7a-840c-d779275d6539'::uuid, '2bf1989e-cf25-497d-a502-3f4dc5283a63'::uuid, '5b2e914d-dea5-4f5d-9a27-56bbd0b96b13'::uuid, '580c392e3da5ee199e7c9c6b1792591861bbae4e405acbd889b46252b16eba16'),
+  ('ap_physics_1', 'apphy1-mcq-042', '1a4105b3-68af-4b0b-80e9-b8e7a974f120'::uuid, 'd01abc36-1ce3-43c2-935e-ab69fcb66963'::uuid, '9bb41125-91f3-4ff8-9966-1752ed3e1263'::uuid, '934665620fd849436c5bbace0f542e7267f6ec47ecd993b0943fc5688626abe5'),
+  ('ap_physics_1', 'apphy1-mcq-043', 'ad3c6675-e4cd-4bc2-8845-79e57f3d5ff5'::uuid, '00ecd918-d75d-476e-8ca6-3a3e8f6425fe'::uuid, 'edc13957-c6a1-4ed0-89d6-03d45d535731'::uuid, 'b2a99549601eea757838717ea650cc98cecce4fef729a36e92a073ed840481d0'),
+  ('ap_physics_1', 'apphy1-mcq-044', '8b50156d-1e09-4c7f-95f3-ef6bd939a045'::uuid, 'f84ee0d5-93a3-4589-8bd4-5ddc8f0d12be'::uuid, '967a26f8-30c2-466c-973b-5422389cf9ef'::uuid, '6b831edba34f84aab04d4041acf70e01867bfa8e78ca9a0e9d9c6bf4e00a1d07'),
+  ('ap_physics_1', 'apphy1-mcq-046', 'f6d7da77-93ea-4fd3-a267-6cd3e566f571'::uuid, 'e235864b-965d-48bf-aa7e-ebeedb4daf23'::uuid, 'a6e95d9b-91cb-4004-bbf9-d393fa9a3c81'::uuid, 'f0e6158dbf3701ac44bd2cbc7f8cd198037523c6d009f4d448897fb2283cf73a'),
+  ('ap_physics_1', 'apphy1-mcq-047', 'db0f649e-f298-4b2b-ba18-1f80aa9b0044'::uuid, '7d7045d2-f649-445c-8f66-3ea69542c7c4'::uuid, 'e06d79d9-0a0e-4794-8d76-86a0bf3d60e3'::uuid, 'b804f1fb8308e316b5980172c8cfde385569eb03c6dd2fc0ce3fafb4b8ace619'),
+  ('ap_physics_1', 'apphy1-mcq-048', '97330d74-632e-4815-aa26-bff5e1b24ee8'::uuid, '1f699d4e-527e-4645-84b6-47a460ff384a'::uuid, 'a7bfb31f-ad79-4b7d-8cb2-a3afddd128ab'::uuid, 'c7ef303e44638f730e43cba7b0d617965af1d400f7a1abc1fa5de14d9cbd45d1'),
+  ('ap_physics_1', 'apphy1-mcq-np1-001', 'd4218dd0-c28b-476b-b0bf-9b0be58d8315'::uuid, 'ee2a4787-696a-4864-85e2-75af487992a4'::uuid, '62a90a11-984f-4725-8e80-5a0339369492'::uuid, 'e69d504084e7e8eef9aad404722ee4a9e44ec537e4ed17e0ab18c879ba07aa86'),
+  ('ap_physics_1', 'apphy1-mcq-np1-003', 'c84a7dc8-79b4-4781-a07f-afc2bd8793ad'::uuid, 'e3d7bced-7bb7-463b-b25c-61eb1db8053e'::uuid, '9378703b-8170-47ba-a4a4-e5c913d142b4'::uuid, '5ee67e03cd6544ba9d92ae580b1ce95a5a8ee96cb4352981b90ecd92d61a26ac'),
+  ('ap_physics_1', 'apphy1-mcq-np1-004', 'c27298fb-475a-4b67-8576-86f18a0878dd'::uuid, 'fd051afc-63aa-4e28-88e3-3471625c2f59'::uuid, '9bff5406-439b-4103-893a-bd902f813a11'::uuid, '353d98e698c1f0be77c0515f6e916f42e024890b1f8c81a5f09a162404156995'),
+  ('ap_physics_1', 'apphy1-mcq-np1-005', '5a233f16-1477-4adc-9b2d-75200738aa3d'::uuid, '2420fe44-c320-4c41-9a13-ec28c49185cd'::uuid, 'a42325f5-1cd3-41ca-ab6c-5182fc45c13d'::uuid, '0aa65bce894502516e65fa36c20d7a8afc7451bf9aa6190cf8e178043cbda83d'),
+  ('ap_physics_1', 'apphy1-mcq-np1-006', '997c4acf-8885-4280-935b-9286e31cc337'::uuid, '03d67ed7-287d-4eb6-82f3-fe4da20dd148'::uuid, 'ba6460cb-0609-49ae-9587-60e6575eb2ef'::uuid, '6d297f2425d08f870c8ee9faee1f33774425ed078fed646647a0262376277daa'),
+  ('ap_physics_1', 'apphy1-mcq-np1-007', 'a4b47815-742d-403d-b576-95dee215505d'::uuid, '804b5d2e-013c-4443-8f92-1209b2b2e615'::uuid, 'e49f394b-fd51-4b50-83a3-867d99c23ce8'::uuid, '784b46438f21abb5c09ea3fec39757c38ba93d582c1a7a0bb4efce9d4e3eee42'),
+  ('ap_physics_1', 'apphy1-mcq-np1-008', '8cd46f28-02b1-4bc7-8492-e7d6c2d5cc36'::uuid, '4e8ae758-ddbf-416a-925c-c1a164b965bc'::uuid, 'fa8abc48-89e5-4d75-bf15-d0357b5ffd6c'::uuid, 'a63983ac4ce3f451068ab31fb527a0d2866c68a99303fdc07d271bf08d612207'),
+  ('ap_physics_1', 'apphy1-mcq-np1-009', '6d020768-2422-48fe-8632-701e3c2e28e8'::uuid, 'c2b0d16b-bab3-4d3c-85f2-c4bfe0d062ee'::uuid, '429d4ece-1723-4dad-8db4-c548d1f8abb1'::uuid, '51e62be7be69a69556051e6715ad4148f363eb0e4c07b153ed30e5572821ea56'),
+  ('ap_physics_1', 'apphy1-mcq-np1-010', '3772c345-aee9-47ba-bbec-e1d2a457e590'::uuid, '8e7d20f4-6f16-4495-bc03-e53a49af40bb'::uuid, '538f8e41-d20e-422a-b7a8-13495665c5d9'::uuid, '47ef3689d3b280f8f7a539614fbf50d2f0593778b2cc4ea728abb17b3afeae67'),
+  ('ap_physics_1', 'apphy1-mcq-np2-001', '07fb95ae-59b7-429f-8b0a-fc8d99dccd72'::uuid, '89325e85-d408-4f45-abee-b9a83a0e7521'::uuid, '6d2349fc-2359-4a96-87e5-0dc91c0a4e24'::uuid, '7f8566d3c886ffc52793a09cc7f6ae4c413ee6ec9c64c36b07dace4c3675c09e'),
+  ('ap_physics_1', 'apphy1-mcq-np2-004', 'be332354-dddc-406a-9470-c5605d7cc088'::uuid, '754d9319-706f-4c34-b027-cff3742666a4'::uuid, 'a4e40fd5-7483-4ea6-8ca6-0c454f4e2b26'::uuid, 'ebbf1c0b91a5b5c40f5db9952b8f0d27090d4955689c46b5dc28f0fe7b9e2db8'),
+  ('ap_physics_1', 'apphy1-mcq-np2-008', '91ea6041-bc97-4d16-90db-19b04da75779'::uuid, '79393022-5cc0-4eb0-a0e4-ff408a106639'::uuid, '44fc574f-2372-4822-a6f4-2b79ac2aee42'::uuid, 'f6f6155e214d9cf50e13a636c5ee99bb1f12a56e3627d99bc47c829bba3d426b'),
+  ('ap_physics_1', 'apphy1-mcq-np2-009', 'c2c087e3-5100-4ee6-a379-887d99a2b789'::uuid, 'f2ec6671-581e-4a49-a2fe-c1fd4169d414'::uuid, '432c7f01-499e-4399-a313-34c5dbe730f8'::uuid, '685f50d2482f817858cd253e0f47d2d0683a3dd06ca30fb453c0a2d1e2c00db2'),
+  ('ap_physics_2', 'apphy2-frq-001', '580c5fcb-4851-4ec4-bd68-facfa1cebe2a'::uuid, '9aee16a0-10ac-4943-be49-7104a139a740'::uuid, 'b77b444d-0a37-4e02-a3d3-64095326722d'::uuid, 'cf7dc47e72cf7b5fffe0c25f9416111313eeac6b433a7f10d4dd09fb4f408d17'),
+  ('ap_physics_2', 'apphy2-frq-004', 'bb080e86-f89d-4b5b-ab40-5922c4625716'::uuid, 'f897a7dc-4dd9-47a1-af3f-a13ce7c75564'::uuid, 'ec3ef759-ee9c-4043-992a-4fecb183edbf'::uuid, '73108aa6395568481aa328fd62a315eac191d269cf7e03e9eff145fbf66258f1'),
+  ('ap_physics_2', 'apphy2-frq-005', 'd1aa23b4-75c5-4c6b-a690-a904493a1910'::uuid, 'e3d5ad70-8d48-447a-b406-9e70f0a8822f'::uuid, '8a400fdc-60fa-400f-a083-bad4519b47c4'::uuid, 'ec635cc9b7193971277b5d5f05df4710378119173b62355e661810784eb56eab'),
+  ('ap_physics_2', 'apphy2-frq-010', 'fddf0506-2fd6-492c-af91-55518a774112'::uuid, 'c4605fb3-09e5-4e0a-a65b-758a684b3025'::uuid, 'e3a69010-4244-4967-9539-7ecd326a251a'::uuid, '278bf3b4ca0841cc2bac04493c20b84b5c09f6fa7633bfbd44b48adfdeefdc5b'),
+  ('ap_physics_2', 'apphy2-frq-012', 'fc883c0c-7a02-4020-9bf8-472430933644'::uuid, '21be72a5-38b0-45d0-82c9-38c94160f92e'::uuid, '2e9c108b-23c3-4ca9-a995-03d6122206da'::uuid, 'ff4997db132ee38db9ff4331776940a067a20e5db50da604be8943a6a7a22fc0'),
+  ('ap_physics_2', 'apphy2-frq-013', '13a5cf9e-e9e7-4295-b2a9-b4c6501b4c7b'::uuid, '75e20cae-b15b-444c-b9a3-da3323720e4d'::uuid, 'd4047334-d5ba-4511-9869-8b8305934c5d'::uuid, 'd6fd2054bf75b5ad26a5162555745c3210cc093c9def85e9abedfd653ae2774c'),
+  ('ap_physics_2', 'apphy2-frq-017', 'cd0128b1-106a-428c-ad1f-7eb6fbb176f3'::uuid, '38edecc9-29b1-44ea-8062-2eef9a123acf'::uuid, 'c8331178-884f-4568-abb9-6918569f26e9'::uuid, 'aa094884a1d4d2b940b3f31bba179a6ed81b7e8aff2bec85b1ff65c7e006e1cc'),
+  ('ap_physics_2', 'apphy2-frq-021', '827c5c7f-f3ea-4ff3-b13c-0e0e01ae4916'::uuid, '4e321220-b1c3-4699-8c8b-ab40b5ad80fe'::uuid, 'c6205508-e95b-47ef-9b9c-58bde42cab25'::uuid, '40bb55f87461719d399433a4f0ef2a2bce246c8ced8071eb7bd78f88c58899a9'),
+  ('ap_physics_2', 'apphy2-frq-023', '0eeebb62-3e20-42f1-88d3-217b0d8c0745'::uuid, 'bd34a601-7b1f-4885-8e5b-bd6e2b7d7f29'::uuid, 'c1f00b9c-648a-418a-97ef-90fc077b57e9'::uuid, '72cf1d9d9743b0d71f376266328fe497645e3b2c77d90b39a1d31dff61bfe12f'),
+  ('ap_physics_2', 'apphy2-frq-029', '81dd81c8-fee3-4076-bb39-ad2365c54431'::uuid, '361e9ae2-5343-4056-958e-eaf3f774dfeb'::uuid, 'dd97ff0f-7ce0-42d6-8f01-cf6270f20216'::uuid, '869045c3ec63aa68b0cb901769ad4aafa498d2ea81cd55c8bbcd4782b85cd9e3'),
+  ('ap_physics_2', 'apphy2-frq-036', '08b0d9ef-69c0-4b5b-8cc8-d46d5ab00b01'::uuid, 'b827a1b9-7d24-40d7-a50a-2ab74960b081'::uuid, '20f62599-5631-4e16-86a7-33c2091f7637'::uuid, 'b0155f11bfbbdee966e782038893f53a59ef78e52390a9a9a7f4af110f02f790'),
+  ('ap_physics_2', 'apphy2-frq-037', '260b3724-ce8b-4842-80f2-6042dcb5fae0'::uuid, 'f50fd54a-da0b-4b47-a981-805c29fe3eb9'::uuid, '0a0c9b28-f027-486a-8e74-300adadea454'::uuid, '29fd2cd5e703c0c43565c5cf66d7f429d371e5741047e36aada358d44941ff21'),
+  ('ap_physics_2', 'apphy2-mcq-002', 'fc67ca1c-50f8-443e-af0c-250980ff1737'::uuid, '72bf6cc1-53d7-45ec-bddf-2229f0d55b13'::uuid, '79a6b93d-55d9-4ae0-b884-4dd334e8dfac'::uuid, 'ca78adf04a049900326d439cd90d863ca8504f4c27bdc2ccf839e647659e1b41'),
+  ('ap_physics_2', 'apphy2-mcq-003', 'f83f2f4b-dd83-4538-a5b1-de756ab60823'::uuid, 'de575f7c-5aeb-4268-8b2e-cdd37c0f3596'::uuid, '70984727-0772-45e4-a04a-8ee28c582513'::uuid, '465a4f641887117dae0fc968d0638505840d2394bd0299477d046eb3cc8bfe99'),
+  ('ap_physics_2', 'apphy2-mcq-004', '8f89ba3c-5c5f-47d9-b811-32ef7acd4d88'::uuid, '7e016f9a-a5bd-4721-95ab-b433eec050a4'::uuid, '0e153951-2152-4c66-9e46-947b7c72a92a'::uuid, '99f59a7a1499691dfc69c3c311c0fe11d7805fe5b4217a7d083f3171f2161502'),
+  ('ap_physics_2', 'apphy2-mcq-005', '3a1b7191-3bbf-44b7-a0dd-e11e8b00c393'::uuid, 'f89b3306-f71c-47fa-be5b-e5c1bd028d3a'::uuid, '58f46bfd-3a78-43b4-a6fe-30f506e84c75'::uuid, '4fe100a6a9f9927713338e588b3733b76f7a66d649811cb340ec47c41603eeb3'),
+  ('ap_physics_2', 'apphy2-mcq-006', '73de9af6-695b-4035-a163-f213f5ce0a37'::uuid, '6e7c80ae-eab3-4f51-aab7-d25d77f4d2e8'::uuid, 'a437632c-4747-43f4-bc98-86f4bd5f490e'::uuid, '767cb4663df2cc99c7f4d7aab19df30a21456fe656b318169e79e8e51936ac9b'),
+  ('ap_physics_2', 'apphy2-mcq-007', '71d9e95b-e196-43f1-ad3d-d88a8d13330d'::uuid, '705667c4-c2ee-4abd-9efc-1d2981452798'::uuid, '3f988f70-a49e-4a96-a66a-2cd9e9afedd5'::uuid, 'f96f931b10b968e6c415b065bc6737448f0a3be933bc341405701b1f542c2280'),
+  ('ap_physics_2', 'apphy2-mcq-008', '8089f80b-cd2d-4e81-a193-8cba6a3a8c45'::uuid, 'da6a4a08-e8ed-4f40-9687-7115b883ae49'::uuid, 'ff54dff1-7b63-4f09-864e-88125f0638da'::uuid, 'c104b8ff309207851d9da3a7c4010eefd60f068d85ee1a5ae0d1441b6d440b9b'),
+  ('ap_physics_2', 'apphy2-mcq-010', '5f75c823-64dc-41c6-82f5-4af09bd2062f'::uuid, '65a74e55-1f56-4d8f-8443-fbf504027015'::uuid, '80ab716d-cb3c-4226-a9c2-627e21309f9e'::uuid, '8c8fd9da8758ade68fa9a69e62b72f9f6c6979f88bb252521ada60d2b53bf3cd'),
+  ('ap_physics_2', 'apphy2-mcq-012', '4f524691-85e7-4ed2-9a2a-46207d15f80c'::uuid, 'f65ed739-b183-488f-b787-3cde35d5a564'::uuid, 'f8952991-b8db-4914-89a9-0a537f6ec5ae'::uuid, 'ab1736d9313c3c6faa5989d28d3da1ff3b4ca5554d2b31887e82363b1979a753'),
+  ('ap_physics_2', 'apphy2-mcq-013', '64076089-860d-48bc-87f9-42b13d0df498'::uuid, 'af9559fe-b7ea-4140-a870-0371f675bb15'::uuid, '6d4fc26b-a60d-4fc0-83e5-9f272a68994c'::uuid, '703758132ad22056e56f9476e0c00712b78b1514f1a0cbf3cc1552611f180a49'),
+  ('ap_physics_2', 'apphy2-mcq-014', 'aeea2784-c6a3-42e1-984d-191917296213'::uuid, '3434fe02-560c-40a1-a93a-7fd0ada453ab'::uuid, 'd1204237-373b-4ad7-a36c-803c6656cfd9'::uuid, 'd18fb4a7633bd540d37fd932b812a9398542d24f8732a0cff1ff311d7de4ae60'),
+  ('ap_physics_2', 'apphy2-mcq-015', 'f7872539-5c64-48dc-80ec-78c765e56a37'::uuid, '8209410c-4fa0-4932-8d34-c5b23cbc7e9b'::uuid, 'd049cddb-a291-4bd2-afa1-2bd25588d376'::uuid, 'a2f252710b765792aa372f911ca9dfa97a372bb83f1d3b02c73bae39b8a9d85d'),
+  ('ap_physics_2', 'apphy2-mcq-016', '68aced47-68ac-42e3-abff-acfc7b17369a'::uuid, '716fafdd-ba1f-4c69-93ab-5a6d98be0e09'::uuid, '9d1fee80-d912-43d6-8746-f2795f09787b'::uuid, '8763cfe9559e15bcb41e56f902613637b852bd65eec2f127758c98c20ff786ed'),
+  ('ap_physics_2', 'apphy2-mcq-017', '47afc257-529f-4919-8acd-796613b30969'::uuid, 'c0d999a1-9393-4f03-ab6f-359b13c63671'::uuid, '0975e43b-f228-403c-8b10-3bb449942a51'::uuid, '598c694872954be9b121e8dd13ce723940dec2c6a84aed6cc1c10545577d1403'),
+  ('ap_physics_2', 'apphy2-mcq-020', 'faa3bae1-ced3-465a-96d8-947883e548fa'::uuid, '295f27ef-806c-404b-827d-fda2cc0eb474'::uuid, 'eeae7b54-8e4a-4a14-bb34-d2c46a628fc0'::uuid, 'dc900fa449a5acab99abff7b3ac31f0b979ce8cd389bd53090d645edad10d8c4'),
+  ('ap_physics_2', 'apphy2-mcq-021', '44eec143-ae81-48d4-99b8-373d0f2652b6'::uuid, 'c4ac07e7-d1fb-47ab-9509-4311f00e2965'::uuid, '798ef9d6-60f6-44b1-91d4-586756066360'::uuid, '5df02ec6c3747d29d990b3e63dd1c4a362bcc47704a4ac581ef0a1e2be1b86d3'),
+  ('ap_physics_2', 'apphy2-mcq-022', '44e5c454-78de-4665-aee7-5d5e8d9c4c93'::uuid, 'cabc07e1-be3d-4936-a768-640c12067b61'::uuid, 'd8be3521-4876-4b15-97ae-16aced23753a'::uuid, 'c387bb0afa71a64f6fb3a577c9d15e09fc639a3c74942a4418b171e59f0ae826'),
+  ('ap_physics_2', 'apphy2-mcq-023', 'e13a4aa2-c374-4529-930d-5df6058c76bb'::uuid, '23474684-1d5f-40ae-b28a-28331540f2d7'::uuid, 'c4991223-bfc1-4484-985f-1a9916cb4513'::uuid, '3ca0ff984f4a35e8ae204e7fc664aa5cb0089c76996f268cca3915c4c651569a'),
+  ('ap_physics_2', 'apphy2-mcq-024', '23d41caa-58cc-4093-b1ac-d1616b3a0b1b'::uuid, '771d98b7-e06a-470e-966b-5b1920d6eea4'::uuid, 'aef222f0-de71-41ad-8e4a-67aff59afe92'::uuid, 'f40c27bd2cfa9ab16a6fdb232edb1cd922a3ff945fed02f6c853e28cdb29e517'),
+  ('ap_physics_2', 'apphy2-mcq-025', '593e1122-a225-41a0-950f-908c04dd8564'::uuid, '152502ad-6fe0-43dc-b264-c1ce61186fcb'::uuid, '8b4127b8-7472-456c-bb72-df136bbd5896'::uuid, 'db49594898f228e5c7094ba0ca50d105719938038c9c0b82078efafd43bd5165'),
+  ('ap_physics_2', 'apphy2-mcq-026', 'da2dd44a-d6ba-42ea-84d6-e72593caaf56'::uuid, '3574bc1f-4a7e-4a75-89ef-0558567a3db0'::uuid, '7531ab19-6d04-4235-8f80-e9468fa5f048'::uuid, '6bd38f10be08340d152aff6c8e04e67f9aa135d0b51f5f4ca250a84a56f04d6e'),
+  ('ap_physics_2', 'apphy2-mcq-027', '11d0caa8-a920-46bb-9433-6340b0c6aa58'::uuid, 'c8030902-7020-47b5-8b74-a78213f0c84d'::uuid, '2661f0f4-ab40-4e36-8069-f3c67a278cbb'::uuid, '87e3403c8f48f3bf64b3e12af3c4ec001b6ad32c47469827e174621334e16b21'),
+  ('ap_physics_2', 'apphy2-mcq-028', 'c2ad00d0-ada7-43c1-9ace-39ddf7d34a70'::uuid, '84e3b17a-210d-44b7-90ba-f4b4703f479d'::uuid, '478b5762-d4b2-4c77-b73c-34cfe38ca585'::uuid, '171ad34f7a14af49dbec60c44c28a4d1de9e14c8f367ffe4174a88f4718e062b'),
+  ('ap_physics_2', 'apphy2-mcq-029', '285f812a-034e-4fe6-aaf2-6f730169e1b6'::uuid, '3181ec59-9dc2-46ae-a35d-2a0c394f1869'::uuid, '0714f061-39d4-477c-937d-5d544bd089db'::uuid, 'd96614ed5ab98a8125e7ea24b2a509629264beaa23f131ed119da720ccb40e27'),
+  ('ap_physics_2', 'apphy2-mcq-030', '1860fb4f-57cc-499f-990b-1fe844f26a3e'::uuid, '84d26421-3b56-4b66-81ef-37c8255ee022'::uuid, '6bdafdc6-94e1-4d2b-a304-cd2487a7af30'::uuid, '690e30662e4acf51ef524b6c2ea142cc60fa1906495390ee9082191ad350f1b7'),
+  ('ap_physics_2', 'apphy2-mcq-031', 'ca16b985-8195-4e47-b647-f1b35fb98295'::uuid, '658a2709-788e-43a8-a60a-4ce5ce1a1d37'::uuid, '904498ef-0e49-49f1-99d5-98c5c53deb7b'::uuid, '4493ab8c1ec1608ec7e4400731db2824bdd6b795bca436e2de92713b3033637d'),
+  ('ap_physics_2', 'apphy2-mcq-032', '15ebd8d8-1955-45ff-90a4-218525df6a00'::uuid, 'e29f8faa-83a8-44d5-bcef-bac6e4c28c8b'::uuid, '9add92ae-19a8-4b53-aaeb-24362f0f4842'::uuid, 'dd3389c5c0b320c1e96add89d17620f71f2ce8fd929cf8a5aa4eeedf16ce34f2'),
+  ('ap_physics_2', 'apphy2-mcq-033', '6a0062e4-3ae0-41c8-9d86-9b5d0b1f8d28'::uuid, '56dd5547-d962-43f5-a606-5bf24816e0d7'::uuid, '5664df1f-203d-47f1-a544-227bbf2bfeb6'::uuid, '3870a02cbe2ce3a7f44c21cd272bcaba2a88107f46e800c7d53fd06a1a2f2d53'),
+  ('ap_physics_2', 'apphy2-mcq-034', '6c16a467-32f9-48bf-8a27-f66efa211aa2'::uuid, 'f263529b-09d8-4280-9138-81480725f788'::uuid, '1124f048-e37b-4337-9cb6-b3305820973b'::uuid, '8ce0903ea4c9bb89b41c2b21483a52f39763ed8fb6dfd66f98cc6c3b44a0a479'),
+  ('ap_physics_2', 'apphy2-mcq-035', '239400ad-84b1-4eee-9199-95dbeb67d188'::uuid, 'ac61964d-0b59-456f-9f40-cb6cb870b1da'::uuid, 'baebe382-6429-4f75-a28f-e0e40e964daa'::uuid, 'efcee56c174e3ab0dd944966ab2917a7f50d32433af892a52f21bcb793bca7ee'),
+  ('ap_physics_2', 'apphy2-mcq-036', 'f45fd039-38cf-4958-97e8-d3cb8215995c'::uuid, 'e3181a08-cfd4-45af-bfba-9e9e4f9db615'::uuid, '1ff33c89-a38e-43f1-b83d-88261d6ba0ac'::uuid, 'f9a34a0c1188a6c2088bc79d8163c4b591eec518818dc44ff2de69e134b78ed4'),
+  ('ap_physics_2', 'apphy2-mcq-037', 'cb13c9fa-56a6-4e42-a1e6-456b6687c102'::uuid, '7e735839-c531-4c43-be6f-3e5a07868695'::uuid, 'f9bd3c8d-0ee2-4783-902f-e721a867b065'::uuid, 'ec0e6c931fba119172ccfbe3d2c08564ec0b97eaf6c7f2c0eff24f2dbd266dfe'),
+  ('ap_physics_2', 'apphy2-mcq-038', 'ed27b153-1135-44b8-bff9-ae9041e82fde'::uuid, '2825ba0a-2344-4b39-820a-afc7ab218164'::uuid, '81d4eb9c-d8b7-4df1-a229-8abd0aab3af3'::uuid, 'a3ed2c9612ac83bb321cc51e0561c867c1e722fd7031ad3890df6899571e3557'),
+  ('ap_physics_2', 'apphy2-mcq-039', 'ece13ec0-30e8-4bfc-a531-0670bf4fd3ca'::uuid, 'a1da27c2-6af7-49b4-bd89-e297a171e8ba'::uuid, 'd7a58c0f-488b-4eae-946a-2bb6223f4e20'::uuid, 'e1dac5d18fd61705dca2a08ac3f1cca5b688fea643af833aabb9e39bdc8bcd1e'),
+  ('ap_physics_2', 'apphy2-mcq-040', '4e36edba-5a65-47f4-a531-95bdd8dfcfd4'::uuid, 'b79ad532-0f8f-4e24-b8c2-a8f53ff08878'::uuid, 'c0cf1fa7-2e01-4dca-85e2-6e1dad5bb9b4'::uuid, '9557182f28990b97795ff6eea20ce9bad11060f422a00ab340027cfdfafbc684'),
+  ('ap_physics_2', 'apphy2-mcq-041', '6690bcc2-1083-4633-b573-b65bb1c7a020'::uuid, '2970f68c-0ef6-4195-be44-63127fb43212'::uuid, '88061f49-923f-46f4-830c-ad9ef63db3d8'::uuid, 'a1347b85e3bb79c1efa9b77cf28a6fd6e47977baea072524b369466c87c84220'),
+  ('ap_physics_2', 'apphy2-mcq-042', '8fa1c201-8201-414b-b276-293fdba2b4c4'::uuid, 'e60d9d30-6ffe-4caf-ac00-0c6748c20a0c'::uuid, '425aa4fb-4a89-4c9a-965f-024d59f67674'::uuid, '3bcf9d6a89febe58eb6dc52aabce3bd75d61f62812e3c78a1f770a0fa65a738f'),
+  ('ap_precalculus', 'apprecalc-frq-032', 'b88740f4-51d8-4aef-85d3-53a749d9f7ef'::uuid, '3bea9948-b8c8-4c53-bee1-a4ca6a9c4bb7'::uuid, 'ba17ab7a-808a-4c24-8244-996ba74d7497'::uuid, 'c3f0e62f0cb591f505ced8e29bb2f706d01fdf87e734dce1adf3db320f8846ee'),
+  ('ap_precalculus', 'apprecalc-frq-np2-002', '0333e05e-b0a6-428d-8bc1-edefc465380e'::uuid, 'fffd72fc-9aeb-44d4-acc1-ec245a4e1f15'::uuid, 'b7a5d9ba-b504-42a6-b66e-07903533e2d8'::uuid, 'e83528e298cd96bd6642ab9fe8fa54a6de5431230efd2ab1c31172af3787b16c'),
+  ('ap_precalculus', 'apprecalc-frq-np2-005', 'bbe6f1d0-37eb-40d0-b467-bdbbde94f34a'::uuid, '226d6d13-ef7b-485c-be5a-8814f4ec31ec'::uuid, 'e385e927-883f-483d-9299-daeac95b266f'::uuid, 'c998806d3c77c2fea4201131e6d19f00b4c32b903ef85bfe65cc8be4db3f31f5'),
+  ('ap_precalculus', 'apprecalc-frq-np2-006', '7b74944d-d8c6-4486-910f-a9d2544ee9de'::uuid, 'baa26e29-08dd-47f7-adb2-7465c39ad70b'::uuid, 'fa9e0ce7-fead-4d9c-85fd-620dedd7615f'::uuid, '374e177656ff7e5233278035e9f84d95eaeb19c17852b4f1bdc8ae80218c1aab'),
+  ('ap_precalculus', 'apprecalc-frq-np2-009', 'c45f6c44-e311-4010-8b82-0de8f58cb94d'::uuid, 'e53b3ead-e68f-4b68-9c1d-998b2be3e5c6'::uuid, 'b7e1dcbe-4a15-45eb-9f7b-ebbaab8da6fd'::uuid, 'da1fbdba1bc35f4fe2acaad0ad275f8a546e38a86f4cf12d89b77765998ac008'),
+  ('ap_precalculus', 'apprecalc-frq-u12-003', '1b30b8bd-c6e0-415d-8e27-ff6f6d16518c'::uuid, 'a41ce9c5-800e-455e-a50e-6419cedcb9b9'::uuid, 'b4c69acb-e5df-43b8-ac72-d96b8058d78f'::uuid, 'ebf0d4b6801b627da9b2fdd8c279702e545db5435bed30cf11f7a4b4b56f95ce'),
+  ('ap_precalculus', 'apprecalc-frq-u12-005', '7946671c-2305-4e6f-a67c-751d88ce661a'::uuid, 'e45ea840-1283-49c6-afe1-7cedad0b8596'::uuid, 'f869e744-2c92-4c3a-b23a-1e0e94b553d5'::uuid, 'e59a471730afcf21e2ebdf7b9d718eb516862255b978c499deb5d44f4494a82e'),
+  ('ap_precalculus', 'apprecalc-frq-u12-006', '5d63f4f2-ed38-4c19-95d7-36bda82837dc'::uuid, '03feed1a-d1ca-41a2-af8a-5b890dc947cf'::uuid, '3f6a5741-e344-4891-afcf-3c877869b1c4'::uuid, '26b7220440e03bb066607ece466753b3f613c35004b920b4eaab20f1f6915e01'),
+  ('ap_precalculus', 'apprecalc-frq-u12-008', '0e3b7dcc-b85d-4af9-99b7-2bdbb6772eab'::uuid, '8d8d1d28-9e2a-4517-ad0e-0e18b35e1887'::uuid, '89cb2ceb-9985-48bd-a878-ff6489c4c541'::uuid, '28a560a1431fa8ca781627d72ca22b1c3a530d341a0f3bfd475025847c2687c6'),
+  ('ap_precalculus', 'apprecalc-frq-u12-010', '93a18772-0735-4512-bbf4-91952c11b631'::uuid, '737f091d-088b-4c61-a1c0-684cfaaa26f6'::uuid, '595bd40d-7726-4d7d-af6a-a8adab5d0472'::uuid, '082c42762b3c6c3ee804e959a5d97eda3f943798bd53f23bb25e2df5cb6e457e'),
+  ('ap_precalculus', 'apprecalc-frq-u12-011', '0c73fbad-43ef-4dc8-85d2-e686a2ad791d'::uuid, '809abd44-4e6a-4967-adad-3974c0702792'::uuid, 'df08dc19-9be8-4d1a-820c-29bd3e3f0547'::uuid, '01ca2da167ff21a23ca47cebc65d074577d57cd21f739bd247f2cdbbd00692d5'),
+  ('ap_precalculus', 'apprecalc-frq-u12-012', '2ba26e6c-a0b2-458b-b890-c57cbbee5754'::uuid, '21a17db8-78e4-4eb6-a35d-12e53c97ab4d'::uuid, '0d390467-9d69-4a5a-acff-123bbfa73620'::uuid, '0185e283986bd287f91b968d043cd70293e511475cead5b4133afe27dee2d99f'),
+  ('ap_precalculus', 'apprecalc-frq-u12-013', '2e219807-0b79-4731-ae7f-b2ca423ad7af'::uuid, '558106e7-f505-40b7-a5df-91382180a3ae'::uuid, '761bf688-8b78-4a2c-a985-3134cdc16e0b'::uuid, '6312511e70a8f6a43539c36cda594651f9a5304b5c95478fb3d8c326e5b79ea7'),
+  ('ap_precalculus', 'apprecalc-frq-u12-015', '02b29100-ff08-47aa-958e-99840ebd462a'::uuid, 'c99b578c-4c8e-4638-a893-882eb6d1b8d5'::uuid, 'dd62283a-ac50-404f-8168-59ce2b27a2c3'::uuid, '918d0ea311f791aac1da9405df2c97b5d37a713f1e1267a3bb280fc5260a87e6'),
+  ('ap_precalculus', 'apprecalc-frq-u12-018', 'be9afe4a-a0f0-437a-9a63-4cb4392bbe0f'::uuid, 'f4991b16-5c47-42ed-a222-f96a5faf92f2'::uuid, '184814fb-41f2-4820-ace4-368a4fe7e877'::uuid, '94d73aa49c3d8152874a90e531ec13631a83baf87acf1e49aabc8e8b3470589a'),
+  ('ap_precalculus', 'apprecalc-frq-u12-019', '98a1c5c6-79ce-4ecd-a8d7-fff9e2de8a2e'::uuid, '00260a57-cf2d-4a1f-ab26-0a5abd0d841d'::uuid, '6da87c68-cdd3-4917-b6c1-cbc10a2a1446'::uuid, '3da69a8dca632d1f95561a062f49940a5fdb142231773b2b01ff6d2098b5c1ad'),
+  ('ap_precalculus', 'apprecalc-frq-u12-020', 'efcba20b-bb13-4f78-ad79-45f60d4776aa'::uuid, '65a69d35-8d0d-414a-afd4-bba8918955a2'::uuid, 'a7ae9b95-dde0-4a8b-a060-969d5c730677'::uuid, '082ce6f3e8059ae228895ba9748340daee619ddd7e0ea3654bb767d58ed49362'),
+  ('ap_precalculus', 'apprecalc-mcq-026', 'fe0fcb94-bc28-433a-9be8-ae8404c0ad30'::uuid, '16a7224d-4ba6-4bd6-b604-3329013ae06c'::uuid, '6a7db798-e2be-4fa3-a4ee-3b79c5faebf6'::uuid, 'a1d0836308b31c5da7d514ac43b6e8612cd164b2e9af9d6e42acae49b3d60123'),
+  ('ap_precalculus', 'apprecalc-mcq-028', '8ea7004d-d893-43b3-9db9-f99bd3b68531'::uuid, '9168feb4-749b-493c-8a66-85b5bea0afe8'::uuid, '2462b46b-07f1-412e-9d04-b4170c64fb16'::uuid, 'cb0f1e55e08209beb292bb74b578fd031cb206749b124c4b02cf668ff0610637'),
+  ('ap_precalculus', 'apprecalc-mcq-030', 'd7d0ae78-9e85-4cbb-9e1a-5bb712563ac0'::uuid, '468496cc-98e5-41fb-99d8-3f37711100dc'::uuid, 'f860ebef-7d0e-41f3-9a9d-07347a03dd7f'::uuid, 'de743496e2e72754d8027cf9bf3570942cba34038b055dd04ddfbe7f478eee5a'),
+  ('ap_precalculus', 'apprecalc-mcq-031', '0edb5c68-051e-41ad-b516-0c52df8141db'::uuid, '5e9d621c-c4b3-4fe0-892b-25c7aaa3e37e'::uuid, '344e3520-ce37-4303-aeab-ccf86d77c521'::uuid, 'a17297b7e0cc574b7bdf611bd852fec0f5a375302ae57d8e9c9ba2e5fe68ac1a'),
+  ('ap_precalculus', 'apprecalc-mcq-036', '7d7008c0-584f-4b20-a5bf-ee91918b68a5'::uuid, '574d732f-00c9-4a57-b674-c2c276aa76ca'::uuid, 'c42a4161-d558-4dd5-a427-891404f88dae'::uuid, '841ea628a69ec2a65f0a1207019e6f65e09261ed47f7de58bf86e9888e37b556'),
+  ('ap_precalculus', 'apprecalc-mcq-038', '0756dcf5-1395-4b68-8004-7fb6465c3e0a'::uuid, '5ddbd788-5ba9-45a7-8719-9c779ad9914b'::uuid, 'd6d5756c-ced2-42c5-bb73-7ab9eec4e4f1'::uuid, 'f49b1289462f590aeef873311ae6f9421aa5466c89168c508ac32eea28064144'),
+  ('ap_precalculus', 'apprecalc-mcq-040', '2ea523c6-2ce4-4036-b427-9ccf9048246f'::uuid, '69d75830-63b2-41c8-94e8-bba886ba1781'::uuid, '7b86a30b-2c16-4541-bafa-9eaed4d8e334'::uuid, 'fdd0faff48b115ebb29d461e306a1d4a9241747ffa2a3e529c95faea3b1bb783'),
+  ('ap_precalculus', 'apprecalc-mcq-045', '5f65f126-1d74-4a95-b399-c7fecc508ee3'::uuid, '6beecd39-c626-407d-84be-253225e4250a'::uuid, '87e4a25c-dfad-41da-9f67-a02bac5ca693'::uuid, '7a645f16066fdb184a21c18ab33718fca89db1f380d37dee4403c34de696f885'),
+  ('ap_statistics', 'apstats-frq-u12-001', 'd63126a5-be09-476e-bf51-2fe969852fa3'::uuid, '0d5cc3fa-48fa-44d6-a0c9-c8e9d6067a6e'::uuid, '1300dd2b-de29-4d8b-a990-376c8d3ff876'::uuid, 'f730877324eee7231a21c6178e47e15dde9f5d1286a699e45145cc064047b576'),
+  ('ap_statistics', 'apstats-frq-u12-002', '09d4bc06-9857-469c-a905-e33c68f3633f'::uuid, 'd49c417a-ffc9-4836-a070-bd356e021b69'::uuid, '2899b6c0-815c-4b54-a8a3-1f912e11d97d'::uuid, '064c83f92805b96e8519c735ec9233cad03141041b9f5b2183fba636e0382ea3'),
+  ('ap_statistics', 'apstats-frq-u12-003', 'a83c320e-fc08-41b4-ac34-915ff5d7c730'::uuid, '614b65b6-f98c-4319-ae0a-b540ce47233d'::uuid, 'f8ebd5b5-6ac8-405f-a564-bb6b0dfb0759'::uuid, '68b2d1f2ac49052b7fcf7efd9d51350c2fffd8071e00b466e8909366af6da9d6'),
+  ('ap_statistics', 'apstats-frq-u12-004', '2086b40f-0820-4e40-850a-0746eb9f7512'::uuid, '66dba214-f1d0-41ba-a52e-1e16996ce0d7'::uuid, 'a01f2bff-79df-4a27-a7d8-39a12a4cb5df'::uuid, '2451b8c4e7919d2e86226fb497c744caf666b73b1613f391558b3b0cd4f2e16a'),
+  ('ap_statistics', 'apstats-frq-u12-005', '7948b68b-18f4-44c0-a438-d7b0088558cf'::uuid, 'c19e2b4d-b0f5-4944-a4d9-46840f005aab'::uuid, '804d26da-67ae-4acf-8ad8-dc33c2459f67'::uuid, '502230be6b5f193273de2584490572ee0d319012c0f27f8f41ee4ed4c4dde317'),
+  ('ap_statistics', 'apstats-frq-u12-006', '4cc8dc95-e155-4399-a174-28ca56c982ca'::uuid, 'c9e06a78-dfe6-49eb-a069-5a3bf2aa1ad7'::uuid, '5a68fcbc-4c45-4bdc-ae2a-4acbcfaf79ac'::uuid, 'eba8e56e181210dd133db15318f9c7cbff1d6a6b73005bdad42e8bd1003aac17'),
+  ('ap_statistics', 'apstats-frq-u12-007', 'b1f05c66-b4ac-4801-b7d8-af6f3c40cc97'::uuid, 'fd23b590-846f-49cc-a45d-16ff3d187c67'::uuid, '09c01266-44ef-4639-af6e-b9f8016b8211'::uuid, 'a326368ea8b26699f23c4a70e87cfaa8c56d3c689bdb3cd579716a2be4cbaeb2'),
+  ('ap_statistics', 'apstats-frq-u12-008', '38130e07-2f10-4292-a480-99d8a948b004'::uuid, 'ee476290-e8fa-491d-ad5f-49a9e4a51f25'::uuid, 'ff256908-1a1d-4138-a396-0f24d1e0a8e4'::uuid, '12bc476d0cbfcec6e31e57e0ec1c88042fddb7b33b2ea78ca945d846b234033c'),
+  ('ap_statistics', 'apstats-frq-u12-009', 'beb04aa4-b311-40ab-8f1c-c9f49b32fefd'::uuid, 'd96694c3-cce5-407b-ae36-1656d7ce1164'::uuid, '350a6f19-505d-476e-a513-f7cc14473966'::uuid, 'a98cfa781a34c8d059207f847d07cdd34899aa271a3667ad68481cabc88fa9ee'),
+  ('ap_statistics', 'apstats-frq-u12-010', '96a6cfd9-a9f2-4be1-94e7-eb6be8b80e0f'::uuid, '8a42ff98-03a4-4ba2-ac27-296c1932def9'::uuid, '22897ba4-5b51-473d-a7dc-ea9012892f99'::uuid, '4977b6a710a5c136d9b400417df15f3e54e19e98d8d333c0d13ca1312d716a83'),
+  ('ap_statistics', 'apstats-frq-u12-011', '31cf01de-8c8e-4a49-97c6-bd7cde54a4a2'::uuid, 'a4913da2-8e3b-4524-af90-74a5eb559735'::uuid, '9a053602-a9d5-4a4a-a641-afb2d8fc9f11'::uuid, '4636ca58af3f43a5a96e76a37217e5617448f10e75416a18d0dbfff7c1bfd1b9'),
+  ('ap_statistics', 'apstats-frq-u12-012', 'a7edfbf7-caf4-4b3b-a5aa-ba8836f3ad5e'::uuid, '4621efff-f4e8-4fd8-ac47-0c5600406d6c'::uuid, '3ffe16de-35ff-46ed-ad96-6709fc159cd4'::uuid, '78d09143b935030d77e5bd3520b4612a7628dce9f774ca9ff190c32975af1c4a'),
+  ('ap_statistics', 'apstats-frq-u12-013', '3cf4e69c-0862-4757-a53f-42a69253c026'::uuid, 'f7dbe26b-eb58-4ae1-a30a-c31b65767ee3'::uuid, '4b713cd8-0e04-477c-ac93-1cc73faf2315'::uuid, 'd492fa9c948866d895fe6337bac147000ea979b785915630145ac6632cb43c4f'),
+  ('ap_statistics', 'apstats-frq-u12-014', '6ced3352-9c5b-4732-8f38-91f9cdd6e43c'::uuid, 'f4ca034a-6b6b-4a24-ae04-4ffb82eef35f'::uuid, 'f3b2730e-2ea9-4ab9-ad22-01566fa117e3'::uuid, '3761303c0b5d3c8ee982db2a56c0b6a01a2733bbe5e734b9bebf95ea8ba709f3'),
+  ('ap_statistics', 'apstats-frq-u12-015', 'f954e0b0-4afd-43d3-952e-e8a1a06e0f21'::uuid, 'c15d8495-3926-4af0-a56d-b0ebd3901957'::uuid, '0838c759-dc87-4acf-ac86-06057344b531'::uuid, 'e4b0e30fcc1223b5d27ab073c52a9f17a7b703470f18dec104f8262a6bec8397'),
+  ('ap_statistics', 'apstats-frq-u12-016', '8d759272-1e89-4762-a941-9be930cefa51'::uuid, '81508254-a2e0-4906-ae6f-e7a63e0ad431'::uuid, 'c41a14bc-0ecb-42a3-ac92-4837389d9ac5'::uuid, 'f4898c6956d4c89062e976a0cfa5a545d1a6bcc3989b0bb5ef6ca9fb7959dcb9'),
+  ('ap_statistics', 'apstats-frq-u12-018', '59fd24a9-a6f0-4350-90d0-67e08f4610ad'::uuid, 'b97d6604-1b56-4a08-a462-9a5b0e4af145'::uuid, 'a115bde8-0657-4607-aa4a-4a46ed141af3'::uuid, '4d0de0402b67c1b71cdd183e953c8c6284f790faede993405b0f50ac75194010'),
+  ('ap_statistics', 'apstats-frq-u12-019', '3172b270-4971-47f5-b59f-96ba08cfa6cc'::uuid, 'f90a9e1b-6fd9-4158-a668-f4ed22e3f8c6'::uuid, '1147fd77-60f7-4fb4-a485-e0100e05c21f'::uuid, '58799974957fcd29aa97da90cdd10aeb7121eeff6b1c8b9b5afcbeb2d3cd557c'),
+  ('ap_statistics', 'apstats-frq-u12-020', 'df3683d7-5a1e-4f60-95ac-e5f2b5fcb3c8'::uuid, '995aa8dd-b257-4228-a066-a045d75fcb58'::uuid, '3449fff0-009e-4ffc-ac1f-ef1c77c0b670'::uuid, '261881112beccd5416519e19662ec0f91dae8041f86a4fe38b3823a905e47b4e'),
+  ('ap_statistics', 'APSTATS-HDG-2026-GRAPH-005', 'f46b2829-7ac5-4212-b461-353e0ec798b6'::uuid, '247fa43c-12a1-4325-9e4a-3d2ac12ca337'::uuid, '51978e67-36b4-4df8-847d-7b8d7f83261d'::uuid, 'a595db37a8e32339db98003fb3b2855e7e74006ba9929121b959a70654f506b2'),
+  ('ap_statistics', 'APSTATS-HDG-2026-GRAPH-033', 'e287039f-b0b5-46ed-9ea4-6ae5737ab997'::uuid, 'ca5f0628-cd55-4293-a6d8-51a1cacb6437'::uuid, '26d6805b-a82d-4db8-b0b2-9a6a73a19ea6'::uuid, '25da56dfc9f69a021080ece1b4656cf6ccc5b988d4bd3671d0695fb365cc4f53'),
+  ('ap_statistics', 'APSTATS-MCQ-004', '81f89154-09f2-4fb2-a27a-5e5cc5a2557a'::uuid, '61b590c1-2e52-4bc6-ad7e-399de26f0670'::uuid, 'ff356650-a4ab-465f-b88c-07034c430457'::uuid, 'f08865af752428f66557cb3577717093d9ab3da642642dc31584bda2f95e2781'),
+  ('ap_statistics', 'APSTATS-SFRQ-003', '064b4af5-9e1d-4dc1-8f30-0a9056dc3242'::uuid, 'eb74b80e-3f89-430e-a5a2-741ece5451ef'::uuid, 'bcfbc4de-a31c-4957-8137-70b589495688'::uuid, '2e83a85b0d493e1aec7ae96a87bd49145243704847ba95943e856f8e4a2bd8dd');
+
+create temporary table tmp_decision0066_audit on commit drop as
+select
+  ctl.content_taxonomy_label_id,
+  case
+    when e.content_taxonomy_label_id is null then false
+    when ci.id is distinct from e.content_item_id then false
+    when ci.content_key is distinct from e.content_key then false
+    when ep.exam_code is distinct from e.exam_code then false
+    when ci.status is distinct from 'published' then false
+    when epv.status is distinct from 'published' then false
+    when epv.retired_at is not null then false
+    when civ.status is distinct from 'published' then false
+    when civ.id is distinct from e.generation_version_id then false
+    when ctl.validated_against_version_id is distinct from e.generation_version_id then false
+    when app.taxonomy_relevant_hash(civ.id) is distinct from e.generation_taxonomy_hash then false
+    else true
+  end as verified_fresh
+from app.content_taxonomy_labels ctl
+join app.content_taxonomy_validation_decisions tvd
+  on tvd.validation_decision_id = ctl.validation_decision_id
+left join app.content_items ci on ci.id = ctl.content_item_id
+left join app.exam_pack_versions epv on epv.id = ci.exam_pack_version_id
+left join app.exam_packs ep on ep.id = epv.exam_pack_id
+left join lateral (
+  select v.id, v.status
+  from app.content_item_versions v
+  where v.content_item_id = ci.id
+  order by v.version_num desc
+  limit 1
+) civ on true
+left join tmp_decision0066_freshness_evidence e
+  on e.content_taxonomy_label_id = ctl.content_taxonomy_label_id
+where tvd.notes like 'DECISION-0066 batch: fresh single-unit agreement%'
+  and ctl.superseded_by is null;
+
+do $$
+declare
+  v_evidence int;
+  v_targets int;
+begin
+  select count(*) into v_evidence from tmp_decision0066_freshness_evidence;
+  select count(*) into v_targets from tmp_decision0066_audit;
+  if v_evidence <> 216 or v_targets <> 216 then
+    raise exception 'DECISION-0066 freshness audit drift: evidence %, live targets %, expected 216',
+      v_evidence, v_targets;
+  end if;
+end $$;
+
+update app.content_taxonomy_labels ctl
+set
+  label_status = 'provisional_model',
+  validation_decision_id = null,
+  validated_by = null,
+  validated_at = null,
+  validated_against_version_id = null,
+  validated_against_taxo_hash = null
+from tmp_decision0066_audit audit
+where audit.content_taxonomy_label_id = ctl.content_taxonomy_label_id
+  and not audit.verified_fresh;
+
+do $$
+declare
+  v_bad_validated int;
+begin
+  select count(*) into v_bad_validated
+  from tmp_decision0066_audit audit
+  join app.content_taxonomy_labels ctl
+    on ctl.content_taxonomy_label_id = audit.content_taxonomy_label_id
+  where not audit.verified_fresh
+    and ctl.label_status = 'validated';
+  if v_bad_validated <> 0 then
+    raise exception 'DECISION-0066 freshness correction failed: % invalid labels remain validated',
+      v_bad_validated;
+  end if;
+end $$;
+
+commit;

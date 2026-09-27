@@ -1,0 +1,148 @@
+-- AP Physics 2 Tier 3 difficulty calibration.
+-- Generated offline on 2026-09-26; not applied by the generator.
+-- DECISION-0061/0065: three bands; source preserved; honest null ratios.
+-- Expected rows: 68. Source: docs/research/content_pipeline_difficulty_2026_09_26/AP_PHYSICS_2_DIFFICULTY_ASSIGNMENTS_2026_09_26.csv.
+
+begin;
+
+create temporary table tmp_subject_difficulty (
+  content_key text not null,
+  content_item_version_id uuid not null,
+  difficulty text not null,
+  basis text not null,
+  source_value text,
+  rationale text not null,
+  confidence text not null
+) on commit drop;
+
+insert into tmp_subject_difficulty (
+  content_key, content_item_version_id, difficulty, basis, source_value,
+  rationale, confidence
+) values
+  ('apphy2-frq-001', 'b77b444d-0a37-4e02-a3d3-64095326722d'::uuid, 'Easy', 'normalised_casing', 'Easy', 'Preserved authored three-level source value ''Easy'' as operative band ''Easy''; raw value preserved.', 'high'),
+  ('apphy2-frq-002', 'd37c7ee1-3df3-4279-a270-6777ce18a8a1'::uuid, 'Easy', 'normalised_casing', 'Easy', 'Preserved authored three-level source value ''Easy'' as operative band ''Easy''; raw value preserved.', 'high'),
+  ('apphy2-frq-003', '9ea55355-b89a-4f52-ac16-9d0ee8de03ff'::uuid, 'Easy', 'normalised_casing', 'Easy', 'Preserved authored three-level source value ''Easy'' as operative band ''Easy''; raw value preserved.', 'high'),
+  ('apphy2-frq-004', 'ec3ef759-ee9c-4043-992a-4fecb183edbf'::uuid, 'Easy', 'normalised_casing', 'Easy', 'Preserved authored three-level source value ''Easy'' as operative band ''Easy''; raw value preserved.', 'high'),
+  ('apphy2-frq-005', '8a400fdc-60fa-400f-a083-bad4519b47c4'::uuid, 'Medium', 'normalised_casing', 'Medium', 'Preserved authored three-level source value ''Medium'' as operative band ''Medium''; raw value preserved.', 'high'),
+  ('apphy2-frq-007', 'bb482f33-f989-45e7-84a9-665cf2f7431f'::uuid, 'Medium', 'normalised_casing', 'Medium', 'Preserved authored three-level source value ''Medium'' as operative band ''Medium''; raw value preserved.', 'high'),
+  ('apphy2-frq-008', 'c0855f07-9d7e-497a-860f-34eb0d63e6cb'::uuid, 'Medium', 'normalised_casing', 'Medium', 'Preserved authored three-level source value ''Medium'' as operative band ''Medium''; raw value preserved.', 'high'),
+  ('apphy2-frq-010', 'e3a69010-4244-4967-9539-7ecd326a251a'::uuid, 'Medium', 'normalised_casing', 'Medium', 'Preserved authored three-level source value ''Medium'' as operative band ''Medium''; raw value preserved.', 'high'),
+  ('apphy2-frq-011', '57ffba8b-d120-43ef-b943-7451060d3832'::uuid, 'Hard', 'normalised_casing', 'Hard', 'Preserved authored three-level source value ''Hard'' as operative band ''Hard''; raw value preserved.', 'high'),
+  ('apphy2-frq-012', '2e9c108b-23c3-4ca9-a995-03d6122206da'::uuid, 'Hard', 'normalised_casing', 'Hard', 'Preserved authored three-level source value ''Hard'' as operative band ''Hard''; raw value preserved.', 'high'),
+  ('apphy2-frq-013', 'd4047334-d5ba-4511-9869-8b8305934c5d'::uuid, 'Hard', 'normalised_casing', 'Hard', 'Preserved authored three-level source value ''Hard'' as operative band ''Hard''; raw value preserved.', 'high'),
+  ('apphy2-frq-014', '6689e2ee-48a9-4766-aed1-19c8ead7b205'::uuid, 'Hard', 'normalised_casing', 'Hard', 'Preserved authored three-level source value ''Hard'' as operative band ''Hard''; raw value preserved.', 'high'),
+  ('apphy2-frq-015', 'a0a4ecc3-d184-4473-8233-73319d29ac3a'::uuid, 'Hard', 'translated', 'Very Hard', 'Translated authored source value ''Very Hard'' to the operative three-level band ''Hard''; raw value preserved.', 'high'),
+  ('apphy2-frq-017', 'c8331178-884f-4568-abb9-6918569f26e9'::uuid, 'Medium', 'normalised_casing', 'Medium', 'Preserved authored three-level source value ''Medium'' as operative band ''Medium''; raw value preserved.', 'high'),
+  ('apphy2-frq-019', '03cb90e0-aa97-453a-95ae-f9c30925f61e'::uuid, 'Hard', 'normalised_casing', 'Hard', 'Preserved authored three-level source value ''Hard'' as operative band ''Hard''; raw value preserved.', 'high'),
+  ('apphy2-frq-020', '6737066b-2224-409c-8aa3-1d1ccf7fa5e3'::uuid, 'Easy', 'calibrated_task_verb', null, 'Per-criterion approved task-verb tiers, modal with upward tie-break: Easy=5, Medium=0, Hard=1; uncued=0/6.', 'medium'),
+  ('apphy2-frq-021', 'c6205508-e95b-47ef-9b9c-58bde42cab25'::uuid, 'Easy', 'calibrated_task_verb', null, 'Per-criterion approved task-verb tiers, modal with upward tie-break: Easy=3, Medium=1, Hard=0; uncued=0/4.', 'medium'),
+  ('apphy2-frq-022', '5ba47ced-b8ae-4731-9046-75198e152c2a'::uuid, 'Hard', 'calibrated_task_verb', null, 'Per-criterion approved task-verb tiers, modal with upward tie-break: Easy=2, Medium=1, Hard=2; uncued=2/7.', 'medium'),
+  ('apphy2-frq-023', 'c1f00b9c-648a-418a-97ef-90fc077b57e9'::uuid, 'Medium', 'normalised_casing', 'Medium', 'Preserved authored three-level source value ''Medium'' as operative band ''Medium''; raw value preserved.', 'high'),
+  ('apphy2-frq-025', '096f1fa1-0735-4caa-81ce-3051d81549e6'::uuid, 'Hard', 'normalised_casing', 'Hard', 'Preserved authored three-level source value ''Hard'' as operative band ''Hard''; raw value preserved.', 'high'),
+  ('apphy2-frq-028', 'fddc7ce8-ac97-4e7c-8e79-2d71d3f82b4f'::uuid, 'Medium', 'normalised_casing', 'Medium', 'Preserved authored three-level source value ''Medium'' as operative band ''Medium''; raw value preserved.', 'high'),
+  ('apphy2-frq-029', 'dd97ff0f-7ce0-42d6-8f01-cf6270f20216'::uuid, 'Medium', 'calibrated_task_verb', null, 'Per-criterion approved task-verb tiers, modal with upward tie-break: Easy=0, Medium=2, Hard=0; uncued=1/3.', 'medium'),
+  ('apphy2-frq-031', 'a98745c9-03fb-4fe8-9f11-6286b83fedcf'::uuid, 'Medium', 'calibrated_task_verb', null, 'Per-criterion approved task-verb tiers, modal with upward tie-break: Easy=0, Medium=3, Hard=0; uncued=0/3.', 'medium'),
+  ('apphy2-frq-032', 'd25d66d0-a39c-4e32-9683-34377e35d708'::uuid, 'Medium', 'normalised_casing', 'Medium', 'Preserved authored three-level source value ''Medium'' as operative band ''Medium''; raw value preserved.', 'high'),
+  ('apphy2-frq-034', '50f28e68-91c6-44cd-b712-a7c8ac734d28'::uuid, 'Medium', 'normalised_casing', 'Medium', 'Preserved authored three-level source value ''Medium'' as operative band ''Medium''; raw value preserved.', 'high'),
+  ('apphy2-frq-035', 'dc4bd46a-9418-40ab-aa2d-5117b7392347'::uuid, 'Hard', 'normalised_casing', 'Hard', 'Preserved authored three-level source value ''Hard'' as operative band ''Hard''; raw value preserved.', 'high'),
+  ('apphy2-frq-036', '20f62599-5631-4e16-86a7-33c2091f7637'::uuid, 'Hard', 'normalised_casing', 'Hard', 'Preserved authored three-level source value ''Hard'' as operative band ''Hard''; raw value preserved.', 'high'),
+  ('apphy2-frq-037', '0a0c9b28-f027-486a-8e74-300adadea454'::uuid, 'Medium', 'normalised_casing', 'Medium', 'Preserved authored three-level source value ''Medium'' as operative band ''Medium''; raw value preserved.', 'high'),
+  ('apphy2-mcq-001', 'da82cdbc-afc0-4e9c-85b1-a6c10b5eb761'::uuid, 'Easy', 'normalised_casing', 'Easy', 'Preserved authored three-level source value ''Easy'' as operative band ''Easy''; raw value preserved.', 'high'),
+  ('apphy2-mcq-002', '79a6b93d-55d9-4ae0-b884-4dd334e8dfac'::uuid, 'Easy', 'normalised_casing', 'Easy', 'Preserved authored three-level source value ''Easy'' as operative band ''Easy''; raw value preserved.', 'high'),
+  ('apphy2-mcq-003', '70984727-0772-45e4-a04a-8ee28c582513'::uuid, 'Easy', 'normalised_casing', 'Easy', 'Preserved authored three-level source value ''Easy'' as operative band ''Easy''; raw value preserved.', 'high'),
+  ('apphy2-mcq-004', '0e153951-2152-4c66-9e46-947b7c72a92a'::uuid, 'Easy', 'normalised_casing', 'Easy', 'Preserved authored three-level source value ''Easy'' as operative band ''Easy''; raw value preserved.', 'high'),
+  ('apphy2-mcq-005', '58f46bfd-3a78-43b4-a6fe-30f506e84c75'::uuid, 'Easy', 'normalised_casing', 'Easy', 'Preserved authored three-level source value ''Easy'' as operative band ''Easy''; raw value preserved.', 'high'),
+  ('apphy2-mcq-006', 'a437632c-4747-43f4-bc98-86f4bd5f490e'::uuid, 'Medium', 'normalised_casing', 'Medium', 'Preserved authored three-level source value ''Medium'' as operative band ''Medium''; raw value preserved.', 'high'),
+  ('apphy2-mcq-007', '3f988f70-a49e-4a96-a66a-2cd9e9afedd5'::uuid, 'Medium', 'normalised_casing', 'Medium', 'Preserved authored three-level source value ''Medium'' as operative band ''Medium''; raw value preserved.', 'high'),
+  ('apphy2-mcq-008', 'ff54dff1-7b63-4f09-864e-88125f0638da'::uuid, 'Medium', 'normalised_casing', 'Medium', 'Preserved authored three-level source value ''Medium'' as operative band ''Medium''; raw value preserved.', 'high'),
+  ('apphy2-mcq-009', 'b8dd7e16-c158-4213-8642-0fa0b878af86'::uuid, 'Medium', 'normalised_casing', 'Medium', 'Preserved authored three-level source value ''Medium'' as operative band ''Medium''; raw value preserved.', 'high'),
+  ('apphy2-mcq-010', '80ab716d-cb3c-4226-a9c2-627e21309f9e'::uuid, 'Medium', 'normalised_casing', 'Medium', 'Preserved authored three-level source value ''Medium'' as operative band ''Medium''; raw value preserved.', 'high'),
+  ('apphy2-mcq-012', 'f8952991-b8db-4914-89a9-0a537f6ec5ae'::uuid, 'Medium', 'normalised_casing', 'Medium', 'Preserved authored three-level source value ''Medium'' as operative band ''Medium''; raw value preserved.', 'high'),
+  ('apphy2-mcq-013', '6d4fc26b-a60d-4fc0-83e5-9f272a68994c'::uuid, 'Medium', 'normalised_casing', 'Medium', 'Preserved authored three-level source value ''Medium'' as operative band ''Medium''; raw value preserved.', 'high'),
+  ('apphy2-mcq-014', 'd1204237-373b-4ad7-a36c-803c6656cfd9'::uuid, 'Hard', 'normalised_casing', 'Hard', 'Preserved authored three-level source value ''Hard'' as operative band ''Hard''; raw value preserved.', 'high'),
+  ('apphy2-mcq-015', 'd049cddb-a291-4bd2-afa1-2bd25588d376'::uuid, 'Hard', 'normalised_casing', 'Hard', 'Preserved authored three-level source value ''Hard'' as operative band ''Hard''; raw value preserved.', 'high'),
+  ('apphy2-mcq-016', '9d1fee80-d912-43d6-8746-f2795f09787b'::uuid, 'Medium', 'normalised_casing', 'Medium', 'Preserved authored three-level source value ''Medium'' as operative band ''Medium''; raw value preserved.', 'high'),
+  ('apphy2-mcq-017', '0975e43b-f228-403c-8b10-3bb449942a51'::uuid, 'Hard', 'normalised_casing', 'Hard', 'Preserved authored three-level source value ''Hard'' as operative band ''Hard''; raw value preserved.', 'high'),
+  ('apphy2-mcq-019', '21247dc8-cf80-4098-b5bc-a84792d7ca10'::uuid, 'Hard', 'translated', 'Very Hard', 'Translated authored source value ''Very Hard'' to the operative three-level band ''Hard''; raw value preserved.', 'high'),
+  ('apphy2-mcq-020', 'eeae7b54-8e4a-4a14-bb34-d2c46a628fc0'::uuid, 'Hard', 'translated', 'Very Hard', 'Translated authored source value ''Very Hard'' to the operative three-level band ''Hard''; raw value preserved.', 'high'),
+  ('apphy2-mcq-021', '798ef9d6-60f6-44b1-91d4-586756066360'::uuid, 'Easy', 'normalised_casing', 'Easy', 'Preserved authored three-level source value ''Easy'' as operative band ''Easy''; raw value preserved.', 'high'),
+  ('apphy2-mcq-022', 'd8be3521-4876-4b15-97ae-16aced23753a'::uuid, 'Easy', 'normalised_casing', 'Easy', 'Preserved authored three-level source value ''Easy'' as operative band ''Easy''; raw value preserved.', 'high'),
+  ('apphy2-mcq-023', 'c4991223-bfc1-4484-985f-1a9916cb4513'::uuid, 'Medium', 'normalised_casing', 'Medium', 'Preserved authored three-level source value ''Medium'' as operative band ''Medium''; raw value preserved.', 'high'),
+  ('apphy2-mcq-024', 'aef222f0-de71-41ad-8e4a-67aff59afe92'::uuid, 'Medium', 'calibrated_judgement', null, 'No decisive MCQ task-verb cue; standard one-concept item judged Medium.', 'low'),
+  ('apphy2-mcq-025', '8b4127b8-7472-456c-bb72-df136bbd5896'::uuid, 'Medium', 'normalised_casing', 'Medium', 'Preserved authored three-level source value ''Medium'' as operative band ''Medium''; raw value preserved.', 'high'),
+  ('apphy2-mcq-026', '7531ab19-6d04-4235-8f80-e9468fa5f048'::uuid, 'Medium', 'calibrated_judgement', null, 'No decisive MCQ task-verb cue; standard one-concept item judged Medium.', 'low'),
+  ('apphy2-mcq-027', '2661f0f4-ab40-4e36-8069-f3c67a278cbb'::uuid, 'Easy', 'normalised_casing', 'Easy', 'Preserved authored three-level source value ''Easy'' as operative band ''Easy''; raw value preserved.', 'high'),
+  ('apphy2-mcq-028', '478b5762-d4b2-4c77-b73c-34cfe38ca585'::uuid, 'Easy', 'normalised_casing', 'Easy', 'Preserved authored three-level source value ''Easy'' as operative band ''Easy''; raw value preserved.', 'high'),
+  ('apphy2-mcq-029', '0714f061-39d4-477c-937d-5d544bd089db'::uuid, 'Easy', 'normalised_casing', 'Easy', 'Preserved authored three-level source value ''Easy'' as operative band ''Easy''; raw value preserved.', 'high'),
+  ('apphy2-mcq-030', '6bdafdc6-94e1-4d2b-a304-cd2487a7af30'::uuid, 'Easy', 'normalised_casing', 'Easy', 'Preserved authored three-level source value ''Easy'' as operative band ''Easy''; raw value preserved.', 'high'),
+  ('apphy2-mcq-031', '904498ef-0e49-49f1-99d5-98c5c53deb7b'::uuid, 'Medium', 'normalised_casing', 'Medium', 'Preserved authored three-level source value ''Medium'' as operative band ''Medium''; raw value preserved.', 'high'),
+  ('apphy2-mcq-032', '9add92ae-19a8-4b53-aaeb-24362f0f4842'::uuid, 'Easy', 'normalised_casing', 'Easy', 'Preserved authored three-level source value ''Easy'' as operative band ''Easy''; raw value preserved.', 'high'),
+  ('apphy2-mcq-033', '5664df1f-203d-47f1-a544-227bbf2bfeb6'::uuid, 'Medium', 'normalised_casing', 'Medium', 'Preserved authored three-level source value ''Medium'' as operative band ''Medium''; raw value preserved.', 'high'),
+  ('apphy2-mcq-034', '1124f048-e37b-4337-9cb6-b3305820973b'::uuid, 'Easy', 'normalised_casing', 'Easy', 'Preserved authored three-level source value ''Easy'' as operative band ''Easy''; raw value preserved.', 'high'),
+  ('apphy2-mcq-035', 'baebe382-6429-4f75-a28f-e0e40e964daa'::uuid, 'Easy', 'normalised_casing', 'Easy', 'Preserved authored three-level source value ''Easy'' as operative band ''Easy''; raw value preserved.', 'high'),
+  ('apphy2-mcq-036', '1ff33c89-a38e-43f1-b83d-88261d6ba0ac'::uuid, 'Easy', 'normalised_casing', 'Easy', 'Preserved authored three-level source value ''Easy'' as operative band ''Easy''; raw value preserved.', 'high'),
+  ('apphy2-mcq-037', 'f9bd3c8d-0ee2-4783-902f-e721a867b065'::uuid, 'Easy', 'normalised_casing', 'Easy', 'Preserved authored three-level source value ''Easy'' as operative band ''Easy''; raw value preserved.', 'high'),
+  ('apphy2-mcq-038', '81d4eb9c-d8b7-4df1-a229-8abd0aab3af3'::uuid, 'Medium', 'normalised_casing', 'Medium', 'Preserved authored three-level source value ''Medium'' as operative band ''Medium''; raw value preserved.', 'high'),
+  ('apphy2-mcq-039', 'd7a58c0f-488b-4eae-946a-2bb6223f4e20'::uuid, 'Easy', 'normalised_casing', 'Easy', 'Preserved authored three-level source value ''Easy'' as operative band ''Easy''; raw value preserved.', 'high'),
+  ('apphy2-mcq-040', 'c0cf1fa7-2e01-4dca-85e2-6e1dad5bb9b4'::uuid, 'Easy', 'normalised_casing', 'Easy', 'Preserved authored three-level source value ''Easy'' as operative band ''Easy''; raw value preserved.', 'high'),
+  ('apphy2-mcq-041', '88061f49-923f-46f4-830c-ad9ef63db3d8'::uuid, 'Medium', 'normalised_casing', 'Medium', 'Preserved authored three-level source value ''Medium'' as operative band ''Medium''; raw value preserved.', 'high'),
+  ('apphy2-mcq-042', '425aa4fb-4a89-4c9a-965f-024d59f67674'::uuid, 'Medium', 'normalised_casing', 'Medium', 'Preserved authored three-level source value ''Medium'' as operative band ''Medium''; raw value preserved.', 'high');
+
+do $$
+declare
+  v_expected int := 68;
+  v_rows int;
+  v_bad_subject int;
+  v_prior int;
+begin
+  select count(*) into v_rows from tmp_subject_difficulty;
+  if v_rows <> v_expected then
+    raise exception 'AP Physics 2 difficulty: expected % rows, found %', v_expected, v_rows;
+  end if;
+
+  select count(*) into v_bad_subject
+  from tmp_subject_difficulty tmp
+  where not exists (
+    select 1
+    from app.content_items ci
+    join app.exam_pack_versions epv on epv.id = ci.exam_pack_version_id
+    join app.exam_packs ep on ep.id = epv.exam_pack_id
+    join lateral (
+      select civ.id, civ.status
+      from app.content_item_versions civ
+      where civ.content_item_id = ci.id
+      order by civ.version_num desc
+      limit 1
+    ) latest on true
+    where ci.content_key = tmp.content_key
+      and latest.id = tmp.content_item_version_id
+      and ep.exam_code = 'ap_physics_2'
+      and epv.status = 'published'
+      and epv.retired_at is null
+      and ci.status = 'published'
+      and latest.status = 'published'
+  );
+  if v_bad_subject <> 0 then
+    raise exception 'AP Physics 2 difficulty: % rows are contaminated, retired, or non-current', v_bad_subject;
+  end if;
+
+  select count(*) into v_prior
+  from tmp_subject_difficulty tmp
+  join app.content_item_difficulty cid
+    on cid.content_item_version_id = tmp.content_item_version_id;
+  if v_prior <> 0 then
+    raise exception 'AP Physics 2 difficulty: % versions already have difficulty rows', v_prior;
+  end if;
+end $$;
+
+insert into app.content_item_difficulty (
+  content_item_version_id, difficulty, basis, attainment_ratio, ratio_source,
+  subject_cut_points, source_value, rationale, confidence, proposal_run
+)
+select
+  content_item_version_id, difficulty, basis, null, null,
+  null, source_value, rationale, confidence,
+  'ap_physics_2_tier3_difficulty_2026_09_26'
+from tmp_subject_difficulty;
+
+commit;

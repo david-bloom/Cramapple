@@ -63,6 +63,29 @@ the others, and none of them imply the sixth.
 | AP Physics C: Mechanics | Criterion 4 (canonicals) closed directly by Claude 2026-09-25, all 29 items, 42/42 FRQ (item-level), independently re-verified. **Correction 2026-09-25 (QA pass):** 6 of those 42 have a `retired` latest version (pre-existing canonicals, untouched) — strict current-published-version count is 36/36. Criterion 5 (difficulty, 0/84) still open. Criterion 3 (labels) still covered by the pre-existing, not-yet-run FF-3/DECISION-0066 relabel order. | `supabase/migrations/20260925030000_apphysicscm_canonical_answers_29_items.sql`, `prompts/CODEX_WORK_ORDER_PHYSICS_C_MECH_AND_CALC_BC_RELABEL_2026_09_24.md`, `docs/content/CLAUDE_QA_REPORT_AP_STATISTICS_AND_PHYSICS_1_2026_09_25.md` |
 | AP Physics C: E&M | Criterion 4 (canonicals) closed directly by Claude 2026-09-25, all 39 items, 55/55 FRQ (item-level), independently re-verified. **Correction 2026-09-25 (QA pass):** 6 of those 55 have a `retired` latest version (pre-existing canonicals, untouched) — strict current-published-version count is 49/49. Criteria 3 (labels, 97/103 non-validated) and 5 (difficulty, 0/103) still open. A separate, pre-existing gap remains in canonical_answer_spans for the other 16 (already-canonicaled) FRQ, out of scope here. | `supabase/migrations/20260925040000_apphysicscem_canonical_answers_39_items.sql`, `prompts/CODEX_WORK_ORDER_AP_PHYSICS_C_EM_LAUNCH_READINESS_2026_09_25.md`, `docs/content/CLAUDE_QA_REPORT_AP_STATISTICS_AND_PHYSICS_1_2026_09_25.md` |
 
+### Criteria 3/5 reconciliation — 2026-09-27
+
+The criteria 3/5 statements embedded in the historical rows above are superseded by this fresh
+Production census. “Validated” below requires the current published version and current taxonomy
+hash; difficulty uses that same current-version population.
+
+| Subject | Current-fresh validated labels | Difficulty |
+| --- | ---: | ---: |
+| AP Biology | 23 | 118/118 |
+| AP Statistics | 67 | 170/170 |
+| AP Calculus AB | 36 | 122/122 |
+| AP Chemistry | 65 | 119/119 |
+| AP Precalculus | 53 | 117/117 |
+| AP Calculus BC | 45 | 127/127 |
+| AP Physics 1 | 85 | 117/117 |
+| AP Physics 2 | 50 | 68/68 |
+| AP Physics C: Mechanics | 50 | 77/77 |
+| AP Physics C: E&M | 75 | 97/97 |
+
+Evidence: `CONTENT_PIPELINE_CODEX_HANDOFF_2026_09_27.md`, the guarded migrations listed there, and
+`20260927184534_task0042_promote_blind_third_review_confirmations`. The table uses current-version
+and current-hash freshness, not raw status totals.
+
 **Codex QA sweep and remediation, 2026-09-25 (all seven canonical-content subjects above).** Codex independently
 re-verified all 372 FRQ with a canonical answer across the seven subjects
 (`docs/content/CODEX_QA_REPORT_CANONICAL_ANSWERS_CALC_AB_THROUGH_PHYSICS_1_2026_09_25.md`, PR #188) and found 34

@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0082 — No Fixed Quantity Targets Outside AP Biology; Maximize Safe Student Usability of Current Published Inventory
 - DECISION-0081 — Lean Source-of-Truth Startup Mode: Tier-First Session-Start Reading for Codex and Claude, `AGENTS.md` Search Discipline, and Log `INDEX_END` Markers
 - DECISION-0080 — `DECISION-0074` Addendum: the Four Gated Aids (Rubric, Points, Deep Dive, Reference) All Count as Pre-Submission Hint Use for Mastery; Approves Rebuilding `SessionFrame`'s Live Hint Gating to Match (Workstream B1 of the "Gate the Four Aids" Plan)
 - DECISION-0079 — Promote All 293 `provisional_model` Topic Labels (112 AP Biology + 181 AP Statistics) to `validated`; Both Now Visible Through `content_item_topic_resolution`
@@ -33,6 +34,32 @@ Most recent entries (full chronological list follows below):
 (Note: the same collision recurred 2026-09-26. The `claude/launch-planning-cram-4oyh2g` branch independently claimed DECISION-0068 through 0072 for five launch-planning decisions, not knowing `main` had already recorded its own DECISION-0068 (BYOQ parallel tables, TASK-0039 Phase 1) by the time this branch merged. Per the rule above, this branch — the later-merging side — renumbered its five decisions to DECISION-0069 through 0073 at merge time; main's DECISION-0068 is untouched. If you are reading an older copy of any of the five renumbered decisions (in a plan doc, a chat log, or a stale local checkout) under its original 0068-0072 number, this is why the number no longer matches — the content is unchanged, only the ID moved.)
 
 <!-- INDEX_END -->
+
+## DECISION-0082 — No Fixed Quantity Targets Outside AP Biology; Maximize Safe Student Usability of Current Published Inventory
+
+**Date:** 2026-09-27
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Approval:** Product Owner direction, 2026-09-27 (TASK-0042 closeout)
+**Related Docs:** `CONTENT_QUANTITY_AND_DISTRIBUTION.md`;
+`LAUNCH_PLAN_CONTENT_PIPELINE_2026_09_26.md`; `TASK-0042-LAUNCH-CONTENT-PIPELINE.md`
+**Area:** Content / Quantity / Launch Readiness
+
+### Decision
+
+The nine non-Biology subjects do not receive fixed inventory-count targets. AP Biology's approved
+600 MCQ / 300 short-FRQ / 64 long-FRQ planning targets remain Biology-only. For every other subject,
+the operating objective is to make as many currently published questions safely usable by students
+as the evidence supports. This does not weaken content, freshness, rubric, or DECISION-0066 gates:
+items that fail or disagree in independent review remain unpromoted rather than being counted toward
+an invented quota.
+
+### TASK-0042 application
+
+David separately approved sending 141 current multi-unit question packets, including stems, answers,
+and rubrics, through Vercel AI Gateway to `anthropic/claude-haiku-4-5` for blind third review.
+Twenty-seven exact full-label matches were promoted; 66 unit/primary disagreements and 48 rubric or
+scope holds remained unpromoted. The absence of a quota is not permission to lower that bar.
 
 ## DECISION-0081 — Lean Source-of-Truth Startup Mode: Tier-First Session-Start Reading, `AGENTS.md`, Log `INDEX_END` Markers
 

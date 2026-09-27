@@ -17,18 +17,24 @@ import fs from "node:fs";
 import path from "node:path";
 
 const ROOT = process.cwd();
-const GATEWAY_ENV = path.join(ROOT, "scripts/vercel-gateway-check/.env.local");
-const OUT_DIR = "/private/tmp/cramapple-math-taxonomy-serving";
+const gatewayEnvArg = process.argv.find((arg) => arg.startsWith("--gateway-env="));
+const GATEWAY_ENV = gatewayEnvArg
+  ? path.resolve(gatewayEnvArg.slice("--gateway-env=".length))
+  : path.join(ROOT, "scripts/vercel-gateway-check/.env.local");
+const outDirArg = process.argv.find((arg) => arg.startsWith("--out-dir="));
+const OUT_DIR = outDirArg
+  ? path.resolve(outDirArg.slice("--out-dir=".length))
+  : "/private/tmp/cramapple-math-taxonomy-serving";
 const DEFAULT_REPORT = path.join(
   ROOT,
   "docs/research/MATH_TAXONOMY_SERVING_LABEL_RUN_2026_08_04.md",
 );
 
 const MODELS = ["openai/gpt-5.5", "google/gemini-2.5-flash"];
-const RUN_ID = `serving-units-mcp-2026-09-25-${new Date()
-  .toISOString()
-  .replace(/[-:.TZ]/g, "")
-  .slice(0, 14)}`;
+const RUN_STARTED_AT = new Date().toISOString();
+const RUN_ID =
+  "serving-units-mcp-2026-09-25-" +
+  RUN_STARTED_AT.replace(/[-:.TZ]/g, "").slice(0, 14);
 
 const SUBJECTS = {
   ap_biology: {
@@ -212,13 +218,29 @@ function extractJsonObject(text) {
   if (start < 0 || end < start) {
     throw new Error(`Could not find JSON object in CLI output: ${text.slice(0, 500)}`);
   }
-  return JSON.parse(text.slice(start, end + 1));
+  const candidate = text.slice(start, end + 1);
+  try {
+    return JSON.parse(candidate);
+  } catch (firstError) {
+    // Model explanations frequently include LaTeX delimiters such as \( ... \) or commands such as
+    // \frac inside JSON strings. Those backslashes are not valid JSON escapes unless doubled. Repair
+    // only invalid escape prefixes, plus a common trailing-comma defect, then parse once more. The raw
+    // response remains preserved in model_results for auditability.
+    const repaired = candidate
+      .replace(/\\(?!["\\/bfnrtu])/g, "\\\\")
+      .replace(/,\s*([}\]])/g, "$1");
+    try {
+      return JSON.parse(repaired);
+    } catch {
+      throw firstError;
+    }
+  }
 }
 
 function fetchPackets(packetsFile) {
   if (!packetsFile) {
     throw new Error(
-      "Missing --packets-file=<path>. Run scripts/taxonomy/fetch_serving_label_packets.sql via the " +
+      "Missing --packets-file=<path>. Run scripts/taxonomy/fetch_candidate_serving_label_packets.sql via the " +
         "Supabase MCP execute_sql tool against Production, save the `packets` column's text value " +
         "(a JSON array) to a file, and pass its path here.",
     );
@@ -253,6 +275,23 @@ function packetForModel(item) {
         }
       : null,
   };
+}
+
+function resumeKey(item) {
+  return item.exam_code + "\u0000" + item.content_key;
+}
+
+function reusableResultMatchesItem(prior, item) {
+  if (!prior?.item || prior?.outcome?.reason === "model_call_failure") return false;
+  const packetHash = shasum(JSON.stringify(packetForModel(item)));
+  return (
+    prior.item.exam_code === item.exam_code &&
+    prior.item.content_key === item.content_key &&
+    prior.item.content_item_id === item.content_item_id &&
+    prior.item.content_item_version_id === item.content_item_version_id &&
+    prior.item.taxonomy_relevant_hash === item.taxonomy_relevant_hash &&
+    prior.input_packet_hash === packetHash
+  );
 }
 
 function structuralHold(item) {
@@ -330,7 +369,19 @@ function extractJson(text) {
   const start = raw.indexOf("{");
   const end = raw.lastIndexOf("}");
   if (start < 0 || end < start) throw new Error(`no JSON object in response: ${raw.slice(0, 200)}`);
-  return JSON.parse(raw.slice(start, end + 1));
+  const candidate = raw.slice(start, end + 1);
+  try {
+    return JSON.parse(candidate);
+  } catch (firstError) {
+    const repaired = candidate
+      .replace(/\\(?!["\\/bfnrtu])/g, "\\\\")
+      .replace(/,\s*([}\]])/g, "$1");
+    try {
+      return JSON.parse(repaired);
+    } catch {
+      throw firstError;
+    }
+  }
 }
 
 async function callModel(model, item) {
@@ -528,6 +579,7 @@ function sqlIntArray(values) {
 }
 
 function buildWriteSql(results) {
+  if (!results.length) throw new Error("Refusing to generate an empty label migration");
   const rows = results.map((result) => {
     const item = result.item;
     const outcome = result.outcome;
@@ -553,6 +605,9 @@ function buildWriteSql(results) {
       ),
     };
     return `(
+      ${sqlString(item.exam_code)},
+      ${sqlString(item.content_key)},
+      ${sqlString(result.generated_at || RUN_STARTED_AT)}::timestamptz,
       ${sqlString(item.content_item_id)}::uuid,
       ${sqlString(item.content_item_version_id)}::uuid,
       ${sqlString(item.taxonomy_relevant_hash)},
@@ -571,6 +626,9 @@ function buildWriteSql(results) {
 begin;
 
 create temporary table tmp_math_serving_labels (
+  exam_code text,
+  content_key text,
+  generated_at timestamptz,
   content_item_id uuid,
   validated_against_version_id uuid,
   validated_against_taxo_hash text,
@@ -585,6 +643,9 @@ create temporary table tmp_math_serving_labels (
 ) on commit drop;
 
 insert into tmp_math_serving_labels (
+  exam_code,
+  content_key,
+  generated_at,
   content_item_id,
   validated_against_version_id,
   validated_against_taxo_hash,
@@ -598,6 +659,59 @@ insert into tmp_math_serving_labels (
   input_packet_hash
 ) values
 ${rows.join(",\n")};
+
+do $$
+declare
+  v_bad_scope integer;
+  v_newer_current integer;
+begin
+  select count(*) into v_bad_scope
+  from tmp_math_serving_labels tmp
+  left join app.content_items ci
+    on ci.id = tmp.content_item_id
+   and ci.content_key = tmp.content_key
+  left join app.exam_pack_versions epv
+    on epv.id = ci.exam_pack_version_id
+  left join app.exam_packs ep
+    on ep.id = epv.exam_pack_id
+   and ep.exam_code = tmp.exam_code
+  left join lateral (
+    select civ.id, civ.status
+    from app.content_item_versions civ
+    where civ.content_item_id = ci.id
+    order by civ.version_num desc
+    limit 1
+  ) current_version on true
+  where ci.id is null
+     or ci.status <> 'published'
+     or ep.id is null
+     or epv.status <> 'published'
+     or epv.retired_at is not null
+     or current_version.id is distinct from tmp.validated_against_version_id
+     or current_version.status <> 'published'
+     or app.taxonomy_relevant_hash(current_version.id)
+          is distinct from tmp.validated_against_taxo_hash;
+
+  if v_bad_scope <> 0 then
+    raise exception
+      'serving-label write aborted: % rows have wrong subject, content key, live pack, current version, or taxonomy hash',
+      v_bad_scope;
+  end if;
+
+  select count(*) into v_newer_current
+  from tmp_math_serving_labels tmp
+  join app.content_taxonomy_labels current_label
+    on current_label.content_item_id = tmp.content_item_id
+   and current_label.label_scope = 'serving'
+   and current_label.superseded_by is null
+   and current_label.created_at > tmp.generated_at;
+
+  if v_newer_current <> 0 then
+    raise exception
+      'serving-label write aborted: % rows would supersede a label newer than the generated output',
+      v_newer_current;
+  end if;
+end $$;
 
 with numbered as (
   select
@@ -664,7 +778,7 @@ function reportPath(subjectFilter) {
   const slug = subjectFilter ? subjectFilter.toUpperCase() : "ALL_SUBJECTS";
   return path.join(
     ROOT,
-    `docs/research/${slug}_TAXONOMY_SERVING_LABEL_RUN_2026_09_25.md`,
+    `docs/research/${slug}_TAXONOMY_SERVING_LABEL_RUN_2026_09_26.md`,
   );
 }
 
@@ -686,7 +800,7 @@ function writeReport(items, results, subjectFilter) {
   }
 
   const lines = [];
-  lines.push("# Math Taxonomy Serving Label Run — 2026-08-04");
+  lines.push("# Math Taxonomy Serving Label Run — 2026-09-26");
   lines.push("");
   lines.push(`Run ID: \`${RUN_ID}\``);
   lines.push("");
@@ -722,7 +836,7 @@ function writeReport(items, results, subjectFilter) {
     );
   }
   lines.push("");
-  lines.push("Raw model outputs and SQL write file are stored under `/private/tmp/cramapple-math-taxonomy-serving/`.");
+  lines.push(`Raw model outputs and SQL write file were generated under \`${OUT_DIR}/\`.`);
   const outFile = reportPath(subjectFilter);
   fs.writeFileSync(outFile, `${lines.join("\n")}\n`);
   return outFile;
@@ -741,6 +855,50 @@ async function pool(items, limit, iterator) {
   return results;
 }
 
+function runSelfTestFixture() {
+  const fixturePath = path.join(
+    ROOT,
+    "scripts/taxonomy/fixtures/runner_safety_fixture.json",
+  );
+  const fixture = JSON.parse(fs.readFileSync(fixturePath, "utf8"));
+  const item = fixture.item;
+  const exact = {
+    ...fixture.prior_result,
+    item,
+    input_packet_hash: shasum(JSON.stringify(packetForModel(item))),
+  };
+  if (!reusableResultMatchesItem(exact, item)) {
+    throw new Error("fixture: exact resume result was not reusable");
+  }
+  for (const [field, value] of [
+    ["exam_code", "ap_physics_2"],
+    ["content_key", "fixture-other"],
+    ["content_item_version_id", "22222222-2222-4222-8222-222222222222"],
+    ["taxonomy_relevant_hash", "f".repeat(64)],
+  ]) {
+    const changed = { ...item, [field]: value };
+    if (reusableResultMatchesItem(exact, changed)) {
+      throw new Error("fixture: resume mismatch was reused for " + field);
+    }
+  }
+  const failed = {
+    ...exact,
+    outcome: { ...exact.outcome, reason: "model_call_failure" },
+  };
+  if (reusableResultMatchesItem(failed, item)) {
+    throw new Error("fixture: model_call_failure was reused");
+  }
+  const sql = buildWriteSql([exact]);
+  for (const expected of [
+    "wrong subject, content key, live pack, current version, or taxonomy hash",
+    "current_label.created_at > tmp.generated_at",
+    "app.taxonomy_relevant_hash(current_version.id)",
+  ]) {
+    if (!sql.includes(expected)) throw new Error("fixture: SQL guard missing: " + expected);
+  }
+  console.log("runner_safety_fixture=pass");
+}
+
 async function main() {
   const limitArg = process.argv.find((arg) => arg.startsWith("--limit="));
   const limit = limitArg ? Number(limitArg.slice("--limit=".length)) : null;
@@ -750,6 +908,14 @@ async function main() {
   const keyFilter = keyArg ? keyArg.slice("--key=".length) : null;
   const packetsFileArg = process.argv.find((arg) => arg.startsWith("--packets-file="));
   const packetsFile = packetsFileArg ? packetsFileArg.slice("--packets-file=".length) : null;
+  const resumeResultsArg = process.argv.find((arg) => arg.startsWith("--resume-results="));
+  const resumeResultsFile = resumeResultsArg
+    ? path.resolve(resumeResultsArg.slice("--resume-results=".length))
+    : null;
+  if (process.argv.includes("--self-test-fixture")) {
+    runSelfTestFixture();
+    return;
+  }
   fs.mkdirSync(OUT_DIR, { recursive: true });
   fs.rmSync(path.join(OUT_DIR, "model_results.jsonl"), { force: true });
   requireEnv("AI_GATEWAY_API_KEY");
@@ -761,11 +927,45 @@ async function main() {
     ? filteredItems.filter((item) => item.content_key === keyFilter)
     : filteredItems;
   const items = Number.isInteger(limit) && limit > 0 ? keyedItems.slice(0, limit) : keyedItems;
+  const reusableResults = new Map();
+  let resumeGeneratedAt = null;
+  if (resumeResultsFile) {
+    const priorResults = JSON.parse(fs.readFileSync(resumeResultsFile, "utf8"));
+    resumeGeneratedAt = fs.statSync(resumeResultsFile).mtime.toISOString();
+    for (const prior of priorResults) {
+      if (!prior?.item?.exam_code || !prior?.item?.content_key) continue;
+      const key = resumeKey(prior.item);
+      if (reusableResults.has(key)) {
+        throw new Error(
+          "Duplicate resume result for " + prior.item.exam_code + "/" + prior.item.content_key,
+        );
+      }
+      reusableResults.set(key, prior);
+    }
+  }
   fs.writeFileSync(path.join(OUT_DIR, "packets.json"), JSON.stringify(items, null, 2));
   console.log(`run_id=${RUN_ID}`);
   console.log(`items=${items.length}`);
 
   const modelResults = await pool(items, 4, async (item, itemIndex) => {
+    const reusable = reusableResults.get(resumeKey(item));
+    if (reusable && reusableResultMatchesItem(reusable, item)) {
+      const reused = {
+        ...reusable,
+        generated_at: reusable.generated_at || resumeGeneratedAt,
+      };
+      console.log(
+        "[" + (itemIndex + 1) + "/" + items.length + "] " + item.exam_code + " " +
+          item.content_key + " -> reused:" + reused.outcome.status + ":" + reused.outcome.reason,
+      );
+      return reused;
+    }
+    if (reusable) {
+      console.log(
+        "[" + (itemIndex + 1) + "/" + items.length + "] " + item.exam_code + " " +
+          item.content_key + " -> resume_mismatch:regenerating",
+      );
+    }
     const packetHash = shasum(JSON.stringify(packetForModel(item)));
     const structural = structuralHold(item);
     let calls = [];
@@ -777,6 +977,7 @@ async function main() {
     const outcome = classifyOutcome(item, calls);
     const result = {
       item,
+      generated_at: RUN_STARTED_AT,
       input_packet_hash: packetHash,
       calls,
       outcome,

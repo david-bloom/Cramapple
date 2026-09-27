@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0056 — TASK-0042 Cross-Cutting Content-Pipeline QA Remediation and Subject-Scoped Production Writes
 - APPROVAL-0055 — Adopt Lean Source-of-Truth Startup Mode (Tier-First Reading, `AGENTS.md`, Log `INDEX_END` Markers) — DECISION-0081
 - APPROVAL-0054 — Ratify Three Session-Start Bootstrap Edits (Live Front-Ends, Required First-Read, Anti-Stale Rule) — DECISION-0078
 - APPROVAL-0053 — BYOQ Is Identity-Agnostic: `byoq_items.user_id` Not Required; Resolves the DECISION-0070/0068 Conflict
@@ -26,6 +27,49 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## APPROVAL-0056 — TASK-0042 Cross-Cutting Content-Pipeline QA Remediation and Subject-Scoped Production Writes
+
+**Date:** 2026-09-27
+**Approved By:** David Bloom
+**Related Task:** `TASK-0042-LAUNCH-CONTENT-PIPELINE.md`
+**Decision:** Approved
+
+### Summary
+
+Authorizes Codex to implement and verify the content-pipeline QA remediation described in the
+Product Owner's 2026-09-27 execution handoff, including necessary subject-scoped Production data
+corrections: reconstructing and auditing the original hashes for 216 prior promotions; reverting
+stale or unverifiable promotions; applying the five specified Medium-to-Hard corrections; hardening
+the runner; and completing safe remaining single-unit label writes.
+
+This is a Product Owner exception to TASK-0042's one-branch-per-subject rule for the cross-cutting
+remediation. Production changes remain durable, subject-identifiable migrations with exact counts.
+
+### Limits
+
+- Does not weaken `DECISION-0066`: multi-unit labels still require genuine independent third review.
+- Does not authorize invented quantity targets or attainment ratios.
+- Does not authorize replaying applied migrations, exposing secrets, or leaving the CLI Production-linked.
+- Final acceptance requires fresh independent QA by an agent that did not author the fixes.
+
+### Closeout addendum — 2026-09-27
+
+David explicitly approved transmitting 141 current question packets—including stems, answers, and
+rubrics—to Vercel AI Gateway using `anthropic/claude-haiku-4-5` for DECISION-0066's blind third
+review. The review completed with 27 exact full-label confirmations, 66 disagreements, 48 rubric or
+scope holds, and zero call errors. Migration
+`20260927184534_task0042_promote_blind_third_review_confirmations` promoted only the 27 exact
+matches. David also decided that the nine non-Biology subjects have no fixed quantity targets; see
+`DECISION-0082`.
+
+### ID reconciliation
+
+This authorization was initially recorded in the task branch as `APPROVAL-0051`. When current
+`main` was merged, that ID was already occupied by TASK-0044, so this record was renumbered to the
+next free ID, `APPROVAL-0056`. Migration
+`20260927181002_correct_task0042_approval_note_provenance` updated the 152 affected Production
+validation-decision notes; it did not alter labels or promotion outcomes.
 
 ## APPROVAL-0055 — Adopt Lean Source-of-Truth Startup Mode (Tier-First Reading, `AGENTS.md`, Log `INDEX_END` Markers)
 
