@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0079 — Promote All 293 `provisional_model` Topic Labels (112 AP Biology + 181 AP Statistics) to `validated`; Both Now Visible Through `content_item_topic_resolution`
 - DECISION-0078 — Ratify Three Session-Start Bootstrap Edits: Live Lovable Front-Ends in the Repository Map, Required First-Read of the Architecture/Design One-Pager + INDEX, and an Anti-Stale Rule
 - DECISION-0077 — BYOQ Is Identity-Agnostic: `byoq_items.user_id` Not Required (Anonymous on Marketing, Recognized-but-Not-Gated In-App); Resolves the DECISION-0070 ⟷ DECISION-0068 Conflict
 - DECISION-0076 — TASK-0039 BYOQ Phase Priority Corrected: Camera/Phone Capture Is Launch-Required, Not Typed Intake; Ownership Confirmed as Claude, Not Codex
@@ -28,6 +29,52 @@ Most recent entries (full chronological list follows below):
 (Note: the TASK-0012 branch independently logged its own DECISION-0027/0028 — CORS/ALLOWED_ORIGINS and budget-burn semantics — under different numbers on its own branch. Those land separately when that work merges to `main`; this charter-adoption decision claimed 0027/0028 here because `main` had not yet recorded entries past DECISION-0026 at merge time. If both branches' numbering collides on merge, renumber on whichever side merges second and update this index.)
 
 (Note: the same collision recurred 2026-09-26. The `claude/launch-planning-cram-4oyh2g` branch independently claimed DECISION-0068 through 0072 for five launch-planning decisions, not knowing `main` had already recorded its own DECISION-0068 (BYOQ parallel tables, TASK-0039 Phase 1) by the time this branch merged. Per the rule above, this branch — the later-merging side — renumbered its five decisions to DECISION-0069 through 0073 at merge time; main's DECISION-0068 is untouched. If you are reading an older copy of any of the five renumbered decisions (in a plan doc, a chat log, or a stale local checkout) under its original 0068-0072 number, this is why the number no longer matches — the content is unchanged, only the ID moved.)
+
+## DECISION-0079 — Promote All 293 `provisional_model` Topic Labels to `validated`
+
+**Date:** 2026-09-27
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Approval:** Product Owner direction, 2026-09-27 (this session)
+**Related Docs:** `docs/product/LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md` (carried-forward item #1, taxonomy
+rationalization close-out); `docs/product/CONTENT_TAXONOMY_RATIONALIZATION_PLAN_2026_09_26.md`;
+`DECISION-0067` (the prior, unrelated coverage-label deferral — not reversed by this decision, see below)
+**Area:** Content / Taxonomy
+
+### Context
+
+`CONTENT_TAXONOMY_RATIONALIZATION_PLAN_2026_09_26.md` Phase 1/3 landed 112 AP Biology topic-only cells
+and 181 new AP Statistics topic labels as `assignment_status = 'provisional_model'` — deliberately not
+`validated`, per that plan's own decision to keep AI-derived serving labels out of student-facing
+surfaces until promoted. `app.content_item_topic_resolution`'s `SAFETY-CRITICAL FILTER` (migration
+`20260927004700`) only exposes `assignment_status IN ('validated', 'authored')`, so all 293 rows were
+invisible to `student-session-items` and everything downstream of it (breadcrumb, habits pair,
+reference pane, deep dive, progress, study map) despite existing in `content_item_cells`.
+
+### Decision
+
+**Promote all 293 rows from `provisional_model` to `validated`.** Applied directly to Production
+(`pcntajvbdfqhbeewmdry`): `validated_by` = David Bloom's `auth.users.id`, `validated_at` = time of
+write, `validation_decision_id` = a single generated UUID (`5cbbd490-3c47-4715-badc-fc417e763077`)
+shared across all 293 rows, this decision being their validation record. Verified post-write:
+`content_item_cells` now shows 0 `provisional_model` rows (203 `authored` + 293 `validated`);
+`content_item_topic_resolution` row count went from 203 to 496, exactly matching. `get_advisors`
+(security) run immediately after showed no new findings attributable to this change — all findings
+present were pre-existing (RLS-enabled-no-policy on unrelated tables, etc.).
+
+### Not resolved by this decision
+
+- **This does not itself close GAP-9.** No FRQ in either subject carries a topic/skill cell label at
+  all (a separate, unstarted labeling gap), and AP Biology's `app.taxonomy_cells` "legal topic × skill
+  grid" is still empty (0 rows; every subject except AP Statistics is empty) — that grid needs to be
+  authored from curriculum judgment, not derived from this promotion. GAP-9 remains 0 masterable cells
+  in both subjects until both of those are addressed.
+- **Does not touch or reverse `DECISION-0067`** (coverage labels / `assessed_topics`, a different
+  label type measured at only 44% two-model agreement) — that deferral stands untouched. This decision
+  is about **serving/topic labels** specifically, which `DECISION-0066` already approved promoting on
+  a materially stronger 89% agreement basis.
+- Whether the underlying AI-derived labels are individually correct was not re-audited here — this
+  decision executes the promotion David approved, it does not re-run the labeling QA.
 
 ## DECISION-0078 — Ratify Three Session-Start Bootstrap Edits (Live Front-Ends, Required First-Read, Anti-Stale Rule)
 

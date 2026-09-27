@@ -990,6 +990,19 @@ populated mechanically from data already in Production. It cannot, and this isn'
 remediation for Biology needs this grid authored (by whoever built the 131 Statistics cells, or an
 equivalent content pass) before the labeling work on top of it can even be scoped.
 
+## EXECUTED, 2026-09-27: label-promotion decision closed (`DECISION-0079`) — all 293 `provisional_model` rows now `validated`
+
+David's call: promote now. Applied directly to Production — all 112 Biology topic-only cells and 181
+new Statistics labels flipped from `provisional_model` to `validated`, with `validated_by`/`validated_at`/
+`validation_decision_id` populated per `content_item_cells`'s own validation CHECK constraint. Verified:
+`content_item_cells` shows 0 `provisional_model` remaining; `content_item_topic_resolution` grew from
+203 to 496 rows, exactly matching. Full record: `DECISION-0079`.
+
+**This does not close GAP-9 by itself** — see the investigation above: no FRQ in either subject has a
+topic/skill cell label, and Biology's `taxonomy_cells` legal grid is still empty. Both need curriculum
+authoring, not a data flip. Carried-forward item #1 from the taxonomy rationalization close-out is now
+resolved (the labels are promoted); GAP-9 itself is unchanged by this decision.
+
 ## Out of Scope
 
 Redesigning any already-decided section of the interaction design spec — raise a proposal to David
