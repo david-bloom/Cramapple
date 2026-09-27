@@ -6,6 +6,21 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- AP Biology Difficulty Gap Closed (2026-09-27): PR #235's "complete difficulty coverage for all ten
+  subjects" claim was checked against live Production and found overstated for Biology (43/65 MCQ,
+  75/95 FRQ). Traced the gap to the one-shot 2026-09-24 difficulty load
+  (`20260924240000_apbio_content_item_difficulty_load.sql`, work order J.0), which covered exactly the
+  118 items live at that time and asserted that count; 42 items (20 FRQ + 22 MCQ, all authored
+  June/July 2026) later moved to `published` through ordinary editorial review with no corresponding
+  backfill — corpus growth outrunning a one-time load, not a repack (Biology has had a single
+  `exam_pack_version` since 2026-06-27) or a defect in that migration. Closed via
+  `20260927170500_apbio_difficulty_gap_closure.sql`, applying DECISION-0061/0065's approved task-verb
+  method identically to `scripts/taxonomy/build_remaining_difficulty_artifacts.py`'s regex
+  classification (FRQ: modal criterion tier with upward tie-break over `app.frq_criteria`; MCQ: stem
+  classification; undecided items default to Medium/`calibrated_judgement`, never a fabricated ratio).
+  Verified post-apply: Biology is now 95/95 FRQ and 65/65 MCQ with a difficulty row;
+  `app.servable_items_census_selftest()` shows 0 mismatches. Source:
+  `docs/research/apbio_difficulty_gap_closure_2026_09_27/APBIO_DIFFICULTY_GAP_CLOSURE_2026_09_27.csv`.
 - `O17` Home Redesign Reviewed for Viability, `TASK-0048` Planned (2026-09-27): David shared a
   Design-canvas artifact (`https://claude.ai/artifact/HoaRcFFv8GoiV9VeyDcgYh`) as the intended `/home`
   redesign answering `O17`. Reviewed every element against the real schema/functions rather than
@@ -247,6 +262,48 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## AP Biology Difficulty Gap Closed — 2026-09-27
+
+**Task:** Follow-up QA on PR #235 (TASK-0042)
+**Status:** Applied to Production, verified
+**Migration:** `20260927170500_apbio_difficulty_gap_closure.sql`
+
+PR #235 claimed difficulty coverage was "complete for all ten subjects." A live query against
+Production found this overstated for Biology: 43/65 MCQ and 75/95 FRQ had a difficulty row, not
+118/118.
+
+**Origin.** The one-shot 2026-09-24 difficulty load
+(`20260924240000_apbio_content_item_difficulty_load.sql`, work order J.0) covered exactly 118
+items — every Biology item that was current-latest-published at that time — and hard-asserted
+that count. Since then, 42 items (20 FRQ + 22 MCQ, all authored June/July 2026) moved to
+`published` status through ordinary editorial review, with no corresponding difficulty backfill.
+Biology has had exactly one `exam_pack_version` since 2026-06-27 (never retired or re-cut), so
+this is corpus growth outrunning a one-time load, not a repack and not a defect in that migration.
+TASK-0042 never touched Biology (DECISION-0063/0072 route it to the flat/practice path, not gated
+by difficulty), so this gap was never in that task's scope.
+
+**Fix.** Applied DECISION-0061/0065's approved task-verb method to the 42 gap items, using the
+identical regex classification already implemented in
+`scripts/taxonomy/build_remaining_difficulty_artifacts.py`: FRQ items take the modal criterion
+tier (over `app.frq_criteria.learner_facing_text`/`evidence_requirements`/`minimum_fix`) with an
+upward tie-break; MCQ items classify on the item stem; items with no decisive verb cue default to
+Medium/`calibrated_judgement` (the same undiscriminated-middle-band fallback the approved method
+uses elsewhere), never a fabricated ratio. No authored difficulty value existed for any of the 42
+items (no `content/item-packages/ap-biology/` directory, no `prompt_json.difficulty` on any of
+them), so every row is freshly classified. The migration guards scope (published item, published
+non-retired pack, current version match) and refuses to overwrite any row that already has a
+difficulty value.
+
+**Verified post-apply:** Biology is now 95/95 FRQ and 65/65 MCQ with a difficulty row (26 Hard, 10
+Medium, 6 Easy). `app.servable_items_census_selftest()` shows 0 mismatches system-wide.
+Source/audit trail: `docs/research/apbio_difficulty_gap_closure_2026_09_27/APBIO_DIFFICULTY_GAP_CLOSURE_2026_09_27.csv`.
+
+**Next Owner:** David Bloom
+**Next Required Action:** none — this closes the gap flagged in the PR #235 review. No further
+action needed unless Biology's corpus grows again without a difficulty backfill trigger, which
+remains a standing "silent absence" risk (nothing currently connects a publish-status transition
+to the difficulty/label pipelines for any subject).
 
 ## TASK-0042 Content Pipeline Done — 2026-09-27
 
