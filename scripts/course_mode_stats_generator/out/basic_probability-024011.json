@@ -1,0 +1,198 @@
+{
+  "schema_version": "course-mode-generated-0.1",
+  "package_id": "basic_probability-024011",
+  "content_key": "apstat-basic_probability-024011",
+  "item_type": "mcq",
+  "difficulty": "Easy",
+  "exam_pack_ref": {
+    "exam_code": "ap_statistics",
+    "cycle": "2026-27"
+  },
+  "taxonomy_refs": [
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "unit-2"
+    },
+    {
+      "scheme_key": "ap-statistics-2026-27",
+      "node_key": "topic-2.4"
+    },
+    {
+      "scheme_key": "ap-statistics-skills",
+      "node_key": "skill-3.C",
+      "practice": 3
+    }
+  ],
+  "cells": [
+    {
+      "topic": "2.4",
+      "skill": "3.C"
+    }
+  ],
+  "prompt": "A school raffle has tickets in four colors: blue: 20; green: 14; red: 27; yellow: 22. If one ticket is selected at random from this pool, what is the probability of selecting a blue or green ticket?",
+  "numeric_form": {
+    "answer_desc": "P = 0.4096",
+    "deterministic_checks": [
+      {
+        "kind": "numeric",
+        "value": 0.4096,
+        "tol": 0.001
+      }
+    ]
+  },
+  "mcq_form": {
+    "options": [
+      {
+        "text": "P = 0.694",
+        "correct": false,
+        "misconception": "u2_4__used_odds_instead_of_probability",
+        "misconception_source": {
+          "tag": "u2_4__used_odds_instead_of_probability",
+          "label": "Used odds in favor instead of probability",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 2 (2.4)",
+              "note": "P(E) = number of outcomes in E divided by total outcomes in the sample space, not favorable outcomes divided by unfavorable outcomes"
+            }
+          ]
+        }
+      },
+      {
+        "text": "P = 0.410",
+        "correct": true,
+        "misconception": null
+      },
+      {
+        "text": "P = 0.557",
+        "correct": false,
+        "misconception": "u2_4__used_partial_sample_space_denominator",
+        "misconception_source": {
+          "tag": "u2_4__used_partial_sample_space_denominator",
+          "label": "Used a partial sample-space denominator",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 2 (2.4)",
+              "note": "P(E) uses the total outcomes in the full sample space as the denominator for equally likely outcomes"
+            }
+          ]
+        }
+      },
+      {
+        "text": "P = 0.590",
+        "correct": false,
+        "misconception": "u2_4__used_complement_probability",
+        "misconception_source": {
+          "tag": "u2_4__used_complement_probability",
+          "label": "Reported the complement probability",
+          "evidence": "ced_structural",
+          "ek_codes": [],
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 2 (2.4)",
+              "note": "Topic 2.4 states the complement rule P(E^C) = 1 - P(E); using the complement for E is a structural probability-region error"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "worked_solution": "The favorable count is 34 and the total number of equally likely outcomes is 83. P(E) = favorable/total = 34/83 = 0.4096.",
+  "parts": [
+    {
+      "part_key": "part-a",
+      "prompt": "A school raffle has tickets in four colors: blue: 20; green: 14; red: 27; yellow: 22. If one ticket is selected at random from this pool, what is the probability of selecting a blue or green ticket?",
+      "response_modalities": [
+        "mcq",
+        "numeric"
+      ],
+      "points": 1,
+      "criteria": [
+        {
+          "criterion_key": "part-a-criterion-1",
+          "points": 1,
+          "description": "P = 0.4096",
+          "required_evidence": "The favorable count is 34 and the total number of equally likely outcomes is 83. P(E) = favorable/total = 34/83 = 0.4096.",
+          "deterministic_checks": [
+            {
+              "kind": "numeric",
+              "value": 0.4096,
+              "tol": 0.001
+            }
+          ],
+          "accepted_variants": []
+        }
+      ]
+    }
+  ],
+  "scenario_provenance": {
+    "archetype": "Q4",
+    "archetype_label": "Multi-focus on Practices 2, 3 & 4 (spans multiple content areas)",
+    "task_verb": "Calculate",
+    "practice": 3,
+    "modality": "exam_aligned_digital",
+    "validity_rules": [
+      "finite sample space with equally likely outcomes",
+      "the requested event consists of listed categories",
+      "probability must use favorable outcomes divided by the total sample space and lie in [0, 1]"
+    ],
+    "sources": [
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S5 (Free-response archetypes)",
+        "note": "Section II question archetypes Q1-Q4"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S6 (Task verbs)",
+        "note": "the item stem's verb must match the scored demand"
+      },
+      {
+        "kind": "fact_pack",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S7 (Response modality)",
+        "note": "digital Bluebook; text/numeric entry -> exam_aligned_digital"
+      }
+    ],
+    "domain": "education"
+  },
+  "provenance": {
+    "generator": "course_mode_stats_generator/generator.py",
+    "template_id": "basic_probability",
+    "params": {
+      "scenario_id": "u2_4__school_raffle",
+      "categories": [
+        [
+          "blue",
+          20
+        ],
+        [
+          "green",
+          14
+        ],
+        [
+          "red",
+          27
+        ],
+        [
+          "yellow",
+          22
+        ]
+      ],
+      "event_categories": [
+        "blue",
+        "green"
+      ],
+      "favorable": 34,
+      "total": 83
+    },
+    "seed": 24011,
+    "release_status": "unreleased_generated_pending_review",
+    "note": "Synthetic; not official CB content. Requires CM-D19 template-release + review."
+  }
+}

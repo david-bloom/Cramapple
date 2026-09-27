@@ -1,0 +1,194 @@
+{
+  "cells": [
+    {
+      "skill": "4.A",
+      "topic": "2.1"
+    }
+  ],
+  "content_key": "apstat-u2-1-4a-twoway_interpret-021003",
+  "difficulty": "Medium",
+  "exam_pack_ref": {
+    "cycle": "2026-27",
+    "exam_code": "ap_statistics"
+  },
+  "item_type": "mcq",
+  "mcq_form": {
+    "options": [
+      {
+        "correct": true,
+        "misconception": null,
+        "text": "About 59% of premium members are in the 'attended' category, compared with about 35% of basic members, so premium members have the larger conditional percentage."
+      },
+      {
+        "correct": false,
+        "misconception": "u2_1__marginal_percent_treated_as_conditional",
+        "misconception_source": {
+          "ek_codes": [],
+          "evidence": "ced_structural",
+          "label": "Treated a marginal percentage as a conditional percentage",
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "note": "marginal distributions summarize one variable overall; conditional distributions summarize one variable within levels of another",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 2 (2.1/2.2)"
+            }
+          ],
+          "tag": "u2_1__marginal_percent_treated_as_conditional"
+        },
+        "text": "Overall, about 43% of all cases are in the 'attended' category, so each membership type group has about 43% in that category."
+      },
+      {
+        "correct": false,
+        "misconception": "u2_1__used_column_denominator_for_row_condition",
+        "misconception_source": {
+          "ek_codes": [],
+          "evidence": "ced_structural",
+          "label": "Used the column total when the condition was the row group",
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "note": "conditional distributions must use the denominator for the stated condition, such as the row total when comparing within row groups",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 2 (2.1/2.2)"
+            }
+          ],
+          "tag": "u2_1__used_column_denominator_for_row_condition"
+        },
+        "text": "Among cases in the 'attended' category, about 55% are basic members and 45% are premium members, so those are the conditional percentages within the two membership type groups."
+      },
+      {
+        "correct": false,
+        "misconception": "u2_1__raw_counts_as_conditional_comparison",
+        "misconception_source": {
+          "ek_codes": [],
+          "evidence": "ced_structural",
+          "label": "Compared raw counts instead of conditional proportions",
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "note": "two-way tables are interpreted through marginal and conditional distributions; comparing groups requires matching denominators",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 2 (2.1/2.2)"
+            }
+          ],
+          "tag": "u2_1__raw_counts_as_conditional_comparison"
+        },
+        "text": "Because the count 58 is larger than 47, basic members have the larger conditional percentage than premium members."
+      }
+    ]
+  },
+  "package_id": "slotframe-u2_1-4a-021003",
+  "parts": [
+    {
+      "criteria": [
+        {
+          "accepted_variants": [],
+          "criterion_key": "part-a-criterion-1",
+          "description": "Selects the row-conditional interpretation that uses each row total as the denominator.",
+          "deterministic_checks": [
+            {
+              "correct_representation": "row_conditional_comparison",
+              "kind": "mcq_key"
+            }
+          ],
+          "points": 1,
+          "required_evidence": "About 59% of premium members are in the 'attended' category, compared with about 35% of basic members, so premium members have the larger conditional percentage."
+        }
+      ],
+      "part_key": "part-a",
+      "points": 1,
+      "prompt": "The two-way table summarizes membership type and whether each case is classified as attended at least once this week. Counts are basic members: attended 58, did not attend 106; premium members: attended 47, did not attend 32. Which statement correctly interprets the conditional distribution of 'attended' by membership type?",
+      "response_modalities": [
+        "mcq"
+      ]
+    }
+  ],
+  "prompt": "The two-way table summarizes membership type and whether each case is classified as attended at least once this week. Counts are basic members: attended 58, did not attend 106; premium members: attended 47, did not attend 32. Which statement correctly interprets the conditional distribution of 'attended' by membership type?",
+  "provenance": {
+    "frame_id": "FB-U2-1-4A-TWOWAY-01",
+    "generator": "course_mode_stats_generator/slot_frames.py",
+    "note": "Authored conceptual frame; correctness from two-way table conditional-distribution interpretation.",
+    "params": {
+      "cols": [
+        "attended",
+        "did not attend"
+      ],
+      "column_percentages": [
+        55,
+        45
+      ],
+      "counts": [
+        [
+          58,
+          106
+        ],
+        [
+          47,
+          32
+        ]
+      ],
+      "focus_col": "attended",
+      "marginal_percentage": 43,
+      "row_percentages": [
+        35,
+        59
+      ],
+      "row_totals": [
+        164,
+        79
+      ],
+      "rows": [
+        "basic members",
+        "premium members"
+      ],
+      "scenario_id": "u2_1__membership_attendance"
+    },
+    "release_status": "unreleased_generated_pending_review",
+    "seed": 21003,
+    "template_id": "slotframe_u2_1_twoway_interpret"
+  },
+  "scenario_provenance": {
+    "archetype": "Q2",
+    "archetype_label": "Multi-focus on Practices 3 & 4 (analyze data; interpret results)",
+    "domain": "business",
+    "modality": "exam_aligned_digital",
+    "practice": 4,
+    "sources": [
+      {
+        "kind": "fact_pack",
+        "note": "Section II question archetypes Q1-Q4",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S5 (Free-response archetypes)"
+      },
+      {
+        "kind": "fact_pack",
+        "note": "the item stem's verb must match the scored demand",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S6 (Task verbs)"
+      },
+      {
+        "kind": "fact_pack",
+        "note": "digital Bluebook; text/numeric entry -> exam_aligned_digital",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S7 (Response modality)"
+      }
+    ],
+    "task_verb": "Describe",
+    "validity_rules": [
+      "two categorical variables summarized in a two-way table",
+      "interpretations must distinguish marginal and conditional distributions",
+      "conditional comparisons must use the denominator for the stated condition"
+    ]
+  },
+  "schema_version": "course-mode-generated-0.1",
+  "taxonomy_refs": [
+    {
+      "node_key": "unit-2",
+      "scheme_key": "ap-statistics-2026-27"
+    },
+    {
+      "node_key": "topic-2.1",
+      "scheme_key": "ap-statistics-2026-27"
+    },
+    {
+      "node_key": "skill-4.A",
+      "practice": 4,
+      "scheme_key": "ap-statistics-skills"
+    }
+  ]
+}
