@@ -7,13 +7,45 @@ photo capture, and worksheet upload with multi-question parsing
 **Owner:** Claude (implementation), Technical Owner (review)
 **Product Owner:** David Bloom
 **Tier:** Hard-Gate
-**Status:** Phase 1 Approved (`DECISION-0068`/`APPROVAL-0050`, 2026-09-26) —
-implementation not yet started. Phase 2 gated on its Pre-flight verification
-step; Phase 3 gated on `BYOQ_WORKSHEET_PARSING_DESIGN.md`'s Open Decisions.
+**Status:** Phase 1's schema/architecture Approved (`DECISION-0068`/
+`APPROVAL-0050`, 2026-09-26) — implementation not yet started. **Phase
+priority corrected 2026-09-27, see "Correction" below.** Phase 2 (renumbered;
+see Correction) gated on `BYOQ_WORKSHEET_PARSING_DESIGN.md`'s Open Decisions.
 **Priority:** High
 **Created Date:** 2026-09-25
 **Approved Date:** 2026-09-26 (Phase 1 scope and Decision needed #1 only —
 see "Approval State" below for what remains open)
+
+## Correction (2026-09-27): phase priority and ownership, per `DECISION-0076`
+
+A concurrent session's documentation cleanup ratified `DECISION-0075` (the
+new canonical `docs/product/ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md`),
+which surfaced a real conflict with this task as first written, from a
+decision (`LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md`, "BYOQ is phone capture to
+start. Document upload post launch") this task's own author didn't know
+about at the time. David resolved it directly, 2026-09-27: **"phase 1 is
+phone, not text BYOQ"** and **"Claude is taking over BYOQ while Codex works
+on content pipeline."** Recorded as `DECISION-0076`/`APPROVAL-0052`. Concretely,
+without renumbering every section below (the technical content of each
+phase is unaffected, only its priority):
+
+- **What this document calls "Phase 2" (QR photo/camera capture) is the
+  primary, launch-required BYOQ intake method — not a later add-on.** It
+  ships alongside, and no later than, the data model and Practice screen.
+- **What this document calls "Phase 1" (typed/pasted intake) ships as a
+  fallback input method alongside camera capture, not as the first or sole
+  intake path.** The 2026-09-26 approval of "Phase 1" (`DECISION-0068`/
+  `APPROVAL-0050`) covers the **data model and Practice-screen architecture**
+  — Option A's parallel tables, the separate BYOQ Practice screen — which
+  both intake methods share and which is unaffected by this reordering. It
+  does not mean typed intake alone is sufficient to call BYOQ launch-ready.
+- **What this document calls "Phase 3" (worksheet upload) is confirmed
+  correctly scoped as post-launch** — matches the canonical decision
+  unchanged.
+- **Ownership confirmed:** Claude owns BYOQ's implementation (this task);
+  Codex is working on the content pipeline instead. This supersedes
+  `LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md`'s note that "BYOQ's actual build
+  remains Codex's work per earlier direction" — that direction changed.
 
 ## Why this task exists
 
@@ -151,19 +183,47 @@ picked an option.
 
 ### Pre-flight verification (before any Phase 1 code)
 
-This repo's own memory records `exam-buddy-wireframe` as the Lovable project
-that actually publishes to `cramapple.com`. The 2026-09-24 activity log entry
-this task's "Why" section leans on names a *different* project, "New Cramapple
-App," as where Practice MCQ/FRQ were wired up — and that entry's own text
-notes true in-browser verification was blocked by CORS, so even that work was
-never confirmed rendering on a real, loaded page. Before writing any Phase 1
-code: confirm (a) which Lovable project is actually published and serving
-`cramapple.com` today, (b) whether "New Cramapple App" is that same project
-under a new name, a staged replacement not yet published, or something else
-entirely, and (c) load the live Practice MCQ/FRQ screens in a real browser
-against production data before extending them. Do not assume the activity
-log entry's description of "production" still matches by the time this task
-executes — re-verify, per `feedback_verify_before_characterising`.
+**Partially resolved 2026-09-27, per `DECISION-0073`** (a concurrent session's
+finding, surfaced via `DECISION-0075`'s documentation cleanup): the launch
+frontend is neither `exam-buddy-wireframe` nor "New Cramapple App" (`56cae479`)
+— both this document's earlier guesses — but a third Lovable project, "Remix
+of Cramapple App" (`d334fed9-5a97-4e76-906e-7c0ad7082212`), identified by
+David directly and confirmed via the live page's own embedded Lovable
+project-screenshot metadata, not inferred. **Still required before Phase 1/2
+code:** load the live Practice MCQ/FRQ screens on that actual project in a
+real browser against production data — `DECISION-0073`'s own text flags this
+verification as still open at the time it was recorded. Do not assume any
+prior activity-log description of "production" still matches by the time
+this task executes — re-verify, per `feedback_verify_before_characterising`.
+
+**New, higher-severity item found during this same re-verification pass —
+now RESOLVED by `DECISION-0077` (2026-09-27):** `DECISION-0070` (2026-09-26)
+states "BYOQ ships on the new home page, ungated, as an anonymous session...
+A visitor does not need to sign in or purchase to use the full [BYOQ]
+experience." This was structurally in tension with the Option A schema
+approved under `DECISION-0068`/`APPROVAL-0050` — `app.byoq_items.user_id` as
+a `NOT NULL` FK to `app.profiles`, and RLS keyed to an authenticated
+`auth.uid()` — since an anonymous visitor has neither a `profiles` row nor an
+`auth.uid()` to own their submission. It also raised which frontend BYOQ
+ships in.
+
+> **RESOLUTION (`DECISION-0077` / `APPROVAL-0053`, David, 2026-09-27):** BYOQ
+> is **identity-agnostic**. "There is never a need for a specific BYOQ. If a
+> student uses it on the marketing page they do so without registering. If
+> they are registered and use it inside the app they are recognized, but that
+> doesn't affect their use of BYOQ either way." Concretely:
+> - **`app.byoq_items.user_id` is NOT required** — it is nullable and, when
+>   present (a signed-in user in the app), it is recognition metadata, not a
+>   gate. This amends the Option A schema approved under `DECISION-0068`; the
+>   parallel-tables architecture itself is unchanged.
+> - **BYOQ runs on both surfaces** — anonymous on the marketing home page
+>   (`cramapple.com`/`61dd6602`) and recognized in the app
+>   (`app.cramapple.com`/`56cae479`), with the **same** behavior either way.
+> - Implementation must define how anonymous items are scoped/secured without
+>   `auth.uid()` (e.g. a durable session/device token) and preserve BYOQ's
+>   existing invariants (Practice-only, never Open Hand, no canonical
+>   answer/rubric — `DECISION-0057`). That scoping design is build work under
+>   this task, not a further Product-Owner decision.
 
 ### Question identity, answer capture, and image linking — unified schema
 
@@ -362,7 +422,11 @@ nothing enforcing they match.
 
 ### Phase 1 — Data model and typed/pasted intake (no photo, no worksheet)
 
-- New migration: `app.byoq_items` — `id`, `user_id` (FK `app.profiles`),
+- New migration: `app.byoq_items` — `id`, `user_id` (**nullable** FK
+  `app.profiles` per `DECISION-0077` — recognition metadata for a signed-in
+  in-app user, `NULL` for an anonymous marketing-page visitor; not a gate),
+  plus a durable anonymous scope key (e.g. session/device token) so anonymous
+  items are still owner-scopable without `auth.uid()`,
   `code` (per the schema above), `item_type` (`mcq`/`frq`), `title`, `stem`,
   `choices` (jsonb array of `{choice_key, choice_text}` for MCQ — **no
   `is_correct` column exists on this table at all**, so there is no column to
@@ -372,9 +436,12 @@ nothing enforcing they match.
   `app.taxonomy_cells` the same way library content does, so a promoted BYOQ
   item can sit in the real CED structure later), `difficulty`, `status`
   (`draft`/`ready`/`archived`), `source_kind` (`typed`/`photo_single`/
-  `worksheet_split`, for later phases), timestamps. RLS: owner-scoped
-  select/insert/update only, no anon/public grant, no service-role-only
-  answer columns to protect because none exist.
+  `worksheet_split`, for later phases), timestamps. RLS (per `DECISION-0077`):
+  scope by `auth.uid()` when signed in, and by the durable anonymous token
+  when not — so both an anonymous visitor and a recognized user reach only
+  their own items; no service-role-only answer columns to protect because none
+  exist. (The exact anonymous-scoping mechanism is build-time design under
+  this task.)
 - **Apply the same free-text answer-leak heuristic and masking-by-default
   that `docs/product/BYOQ_WORKSHEET_PARSING_DESIGN.md` §6 designs for
   worksheet-derived text to typed/pasted `stem`/`choices` text here too.** A
@@ -609,6 +676,11 @@ decided before Phase 1 ships to real students, not discovered after:
 
 ## Acceptance Criteria
 
+**Per the 2026-09-27 Correction above: BYOQ is not launch-ready on "Phase 1"
+alone.** The camera-capture criterion below (labeled "Phase 2" only because
+of this document's original, since-corrected priority order) is required for
+launch, not optional or later.
+
 - [ ] Phase 1: `app.byoq_items`/`app.byoq_responses` migrated to Dev, then
       Production, with RLS verified owner-scoped (test with a non-owner
       session, confirm zero rows returned).
@@ -650,10 +722,15 @@ decided before Phase 1 ships to real students, not discovered after:
 
 **Approval Required:** Yes
 **Approval Type:** Hard Gate
-**Decision:** **Decision needed #1 and Phase 1 scope: Approved**
-(`DECISION-0068`/`APPROVAL-0050`, 2026-09-26) — Option A (parallel `byoq_*`
-tables) is the architecture; Phase 1 (schema, separate BYOQ Practice screen,
-Home entry point) is cleared to start.
+**Decision:** **Decision needed #1, Phase 1 scope, and phase priority: Approved**
+(`DECISION-0068`/`APPROVAL-0050`, 2026-09-26; priority/ownership corrected
+`DECISION-0076`/`APPROVAL-0052`, 2026-09-27) — Option A (parallel `byoq_*`
+tables) is the architecture; the data model, separate BYOQ Practice screen,
+and Home entry point are cleared to start; **camera/QR capture (this
+document's "Phase 2") is the launch-required intake method, cleared to start
+alongside the schema work, not gated behind it.** Typed/pasted intake ships
+as a fallback input, not the primary path. Claude owns implementation; Codex
+is working on the content pipeline instead.
 
 **Still Pending:**
 - The "New gaps" list under Phase 3 (entitlement/trial gating, rate
@@ -661,11 +738,12 @@ Home entry point) is cleared to start.
   boundary, subject/taxonomy scoping, stuck-BYOQ routing, the hints/deep-dive
   floor) — explicitly not resolved by this approval; needs its own Product
   Owner call before Phase 1 ships to real students.
-- Phase 2 — needs the Pre-flight verification step done, then its own
-  implementation go-ahead.
-- Phase 3 — needs `docs/product/BYOQ_WORKSHEET_PARSING_DESIGN.md`'s Open
-  Decisions resolved (parsing vendor, candidate cap, retention window) before
-  it can start at all.
+- Camera/QR capture ("Phase 2") still needs the Pre-flight verification step
+  done first (which Lovable frontend actually serves `cramapple.com`) before
+  implementation starts — this is a sequencing prerequisite, not a scope gate.
+- Phase 3 (worksheet upload) — needs `docs/product/BYOQ_WORKSHEET_PARSING_DESIGN.md`'s
+  Open Decisions resolved (parsing vendor, candidate cap, retention window)
+  before it can start at all. Confirmed correctly scoped as post-launch.
 
 ## Implementation Notes
 

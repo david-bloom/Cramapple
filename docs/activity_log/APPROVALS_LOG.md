@@ -6,6 +6,8 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0053 — BYOQ Is Identity-Agnostic: `byoq_items.user_id` Not Required; Resolves the DECISION-0070/0068 Conflict
+- APPROVAL-0052 — TASK-0039 BYOQ Phase Priority Corrected (Camera-First) and Ownership Confirmed (Claude, Not Codex)
 - APPROVAL-0051 — Deploy the AP Statistics Combined Practice Selector (TASK-0044) to Production
 - APPROVAL-0050 — BYOQ Data-Model Architecture (Option A) and TASK-0039 Phase 1 Scope
 - APPROVAL-0049 — Pilot-Scale Operational Commitment for Hand-Drawn Manual Grading (TASK-0038 Phase 4)
@@ -20,6 +22,43 @@ Most recent entries (full chronological list follows below):
 - Older entries: [`APPROVALS_LOG-0001_to_0040.md`](archive/APPROVALS_LOG-0001_to_0040.md)
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
+
+## APPROVAL-0053 — BYOQ Is Identity-Agnostic: `byoq_items.user_id` Not Required; Resolves the DECISION-0070/0068 Conflict
+
+**Date:** 2026-09-27
+**Approved By:** David Bloom
+**Related Task:** `TASK-0039-BYOQ-PRODUCTION-OPERATIONAL.md`
+**Related Decision:** `DECISION-0077`
+**Decision:** Approved
+
+David resolved the DECISION-0070 (ungated/anonymous BYOQ) vs. DECISION-0068 (authenticated `user_id`-keyed
+schema) conflict directly, 2026-09-27: BYOQ is identity-agnostic — `byoq_items.user_id` is nullable
+(recognition, not a gate), BYOQ runs anonymously on the marketing page and recognized in the app with
+identical behavior, and the anonymous scoping mechanism is build work under TASK-0039. Amends the
+Option A schema approved under `APPROVAL-0050`/`DECISION-0068`; the parallel-tables architecture is
+unchanged. See `DECISION-0077` for full text.
+
+## APPROVAL-0052 — TASK-0039 BYOQ Phase Priority Corrected (Camera-First) and Ownership Confirmed (Claude, Not Codex)
+
+**Date:** 2026-09-27
+**Approved By:** David Bloom
+**Related Task:** `TASK-0039-BYOQ-PRODUCTION-OPERATIONAL.md`
+**Decision:** Approved
+
+### Summary
+
+Approves `DECISION-0076`: corrects `TASK-0039`'s phase priority so camera/phone capture (originally
+labeled "Phase 2") is the primary, launch-required BYOQ intake method, with typed/pasted intake
+("Phase 1") shipping as a fallback rather than the first-shipped path. Confirms BYOQ implementation
+ownership as Claude, superseding an earlier direction that had it as Codex's workstream (Codex is
+instead working on the content pipeline). Does not reopen `DECISION-0068`/`APPROVAL-0050`'s
+architecture/schema approval.
+
+### Notes
+
+- Found and reported, not yet resolved: `DECISION-0070` (2026-09-26) states BYOQ ships "ungated, as an
+  anonymous session" — structurally in tension with the approved owner-scoped RLS schema, which assumes
+  an authenticated `user_id`. This approval does not cover that question; it remains open.
 
 ## APPROVAL-0051 — Deploy the AP Statistics Combined Practice Selector (TASK-0044) to Production
 
