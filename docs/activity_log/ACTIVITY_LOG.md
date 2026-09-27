@@ -7,6 +7,79 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 Most recent entries (full reverse-chronological list follows below):
 
 - TASK-0042 Content Pipeline Done (2026-09-27): completed the 216-row freshness audit, five difficulty corrections, runner hardening, all-subject label execution, and blind Claude third review of the actual 141 current multi-unit candidates. Promoted 27 exact confirmations; retained 66 disagreements and 48 holds. All-subject live census: 0 mismatches. David set no fixed quantity targets outside Biology; maximize safely usable published inventory (`DECISION-0082`). Approval: `APPROVAL-0056`.
+- David Chose "Fix First" on the Two `public.sessions` Bugs — Lovable Agent Blocked, Needs Editor
+  Attention (2026-09-27): asked David directly whether to fix the two session-route bugs found this
+  session, retire the cluster, or leave both alone — he chose fix-first. Sent a complete, precise fix
+  spec to the "New Cramapple App" Lovable project via `send_message` (exact before/after code, correct
+  `learning_sessions` columns, explicit instruction not to fabricate a `summary`/recommendation
+  replacement for `session.setup.tsx`). **The agent isn't executing it** — three consecutive messages
+  each returned in seconds with empty content and no new commit (`list_edits` still shows `a67a28d5`,
+  unchanged). Matches the Lovable tool's documented `awaiting_input` behavior: an unrelated, earlier
+  request today ("Automatic Full Preview") left a `switch_to_build_mode` approval pending, which "only
+  the user can answer... in the Lovable editor" and a new message doesn't clear. **Next Owner:** David
+  Bloom. **Next Action:** open `https://lovable.dev/projects/56cae479-f7c9-4988-b536-56538c38ee4e`,
+  clear whatever's pending, then re-send or let the queued fix run — the fix itself needs no further
+  design work, it's fully specified in the project's chat history and in
+  `LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md`'s "BLOCKED, 2026-09-27" section.
+- Session-Route Retirement Re-Audited — Two Real `public.sessions` Query Bugs Found, Cluster's Live
+  Reachability Weaker Than Last Session's Correction Implied (2026-09-27): per last session's explicit
+  instruction to trace every Start *and* Resume entry point before raising retirement again, re-traced
+  the whole `/setup`/`/topic`/`/session/mcq`/`/session/frq`/`/session/uncertain`/`/setup/subject` cluster
+  directly against live Lovable source and Production's real schema. **Found two previously-unknown,
+  real bugs, not a routing-policy question:** `home.functions.ts`'s `loadStudentHome` (behind
+  `TopicHome`'s "Resume" banner) and `session.setup.tsx` (behind its "Returning student" banner) both
+  query `public.sessions` with `.eq("user_id", ...)` and select a `goal` column — that table's real
+  columns are `student_id` (no `user_id`) and no `goal` at all, confirmed via
+  `information_schema.columns`. PostgREST errors on both bad references; both call sites swallow the
+  error via `?? []`, so both features silently no-op for every student, always — the identical bug
+  *class* (wrong table/column, error swallowed) as the `attempts` bug this doc already fixed once,
+  recurring unnoticed in an adjacent query. Also found `session.index.tsx` (bare `/session`) does not
+  actually invoke the `requireSubject: true` guard its own JSDoc claims it does, so the second path the
+  prior correction cited into `/setup/subject` is not confirmed either (not exhaustively ruled out
+  elsewhere). **Net: the cluster currently has no confirmed live entry point from the real default flow
+  — not because it was provably dead by design, but because of two fixable bugs.** Fixing them would
+  restore reachability (the opposite direction from retirement) — flagged to David rather than resolved
+  either way. **Next Owner:** David Bloom (scope call: fix the `public.sessions` bugs, retire the
+  cluster, or both in sequence). **Next Action:** none taken past diagnosis; full detail in
+  `LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md`'s "AUDITED, 2026-09-27" section.
+- IDG-5 and `DECISION-0074` Mastery Capture Both Confirmed Live in One Real Grading Round Trip
+  (2026-09-27): immediately after the `cell_scoped` fix below, David submitted a real answer at
+  `app.cramapple.com` (topic `1.13`) and it graded. Queried Production directly to confirm, rather than
+  trusting the UI: `app.attempts` shows the real attempt (`d7663902-...`) went `submitted` → `graded` in
+  ~1.5s via the service-role write path, `status`/`result_state` both `"graded"`, score 0/1 — the first
+  non-synthetic confirmation that `attempts_prevent_client_grading_truth_update` (fixed last session,
+  previously only scratch-row-tested) works on real traffic. **`app.student_cell_state`** also shows a
+  new row for that topic/skill with `last_event: "incorrect"`, `mastery_mcq_correct_count: 0` (correct —
+  a miss shouldn't increment it), and `last_attempt_id` correctly linked to the graded attempt — the
+  first live confirmation of the entire `DECISION-0074` mastery-capture backend (schema →
+  `assistance_state` derivation → mastery counters), previously verified only by unit tests and a
+  synthetic Dev event. **Both of last session's two biggest unverified builds are now confirmed live.**
+  **Next Owner:** open. **Next Action:** none required; a correct answer, a second topic, and the FRQ
+  path remain untried against real traffic if more confidence is wanted. Full detail in
+  `LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md`'s second "RESOLVED, 2026-09-27" section.
+- `cell_scoped` No-Matching-Content Bug Resolved — Stale Edge Function Deploy, Not a Query/Data Bug
+  (2026-09-27): picked up the paused diagnosis from `LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md`'s
+  "SESSION CLOSE" section (every AP Statistics topic serving `no_matching_content` for a real signed-in
+  account, despite 203 published MCQs confirmed present). **Root cause: Production's and Dev's deployed
+  `student-session-items` Edge Function predated the `cell_scoped` mode commit (`912699b2`,
+  2026-09-26) entirely** — pulled the live deployed source directly and confirmed it had no
+  `cell_scoped` branch and the old `MAX_ITEMS = 20`. Neither environment had been redeployed since that
+  commit landed (`git push` does not deploy Supabase Edge Functions on its own). The stale function
+  silently fell back to its default queue path, which for David's session shape called
+  `select_ordinary_combined_practice_items` — confirmed directly against Production that this RPC
+  returns zero rows for that pack/format, producing exactly the `no_matching_content` seen live.
+  **Side finding fixed first:** 5 tests in `student-session-items/index_test.ts` were silently broken
+  (test-mock/routing mismatch from two branches merging independently, confirmed via a `git worktree`
+  bisection to `912699b2` where all 23 then-existing tests passed) — fixed the mocks only, no runtime
+  change, commit `707a1c52`, 26/26 pass now. **Fix:** redeployed current `main`'s `student-session-items`
+  to Dev then Production (David confirmed both, via `AskUserQuestion`, before the Production deploy);
+  both report an identical `ezbr_sha256`; `get_advisors` shows no new findings. **Live-verified:** David
+  re-tried on `app.cramapple.com` immediately after the Production deploy and confirmed content now
+  loads — bug fully closed, no open follow-up. **Next Owner:** whoever resumes
+  `LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md`'s IDG-5 live-grading verification, now unblocked. **Next
+  Action:** attempt the real live grading round trip (sign-in → submit → grade → `attempts` row update)
+  IDG-5 has been waiting on. Full detail in `LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md`'s "RESOLVED,
+  2026-09-27" section.
 - Lean Source-of-Truth Startup Mode Adopted (DECISION-0081 / APPROVAL-0055, 2026-09-27): diagnosed why
   Codex session-start was consuming most of a session's usage budget before task work began —
   `CODEX_NEW_SESSION_PROMPT.md` hardcoded an unconditional ~3,200-line, 11-doc read for every task,
@@ -14,10 +87,12 @@ Most recent entries (full reverse-chronological list follows below):
   the three activity/approval/decision logs' "(Index section)" instruction had no enforceable stopping
   point. Rewrote `CODEX_NEW_SESSION_PROMPT.md` and `CLAUDE_NEW_SESSION_PROMPT.md` to classify Tier
   first (pointing at `AGENT_OPERATING_MODEL.md`'s existing Task Tiers definition rather than
-  redefining it, to avoid drift) and size the reading set to that tier; added an explicit
-  `<!-- INDEX_END -->` marker to `ACTIVITY_LOG.md`, `APPROVALS_LOG.md`, and `DECISIONS_LOG.md` so
-  index-only reads have a real stopping point, with a required fallback (read past the marker, don't
-  report absence) if a targeted ID/keyword search finds nothing; added root `AGENTS.md` for repo-wide
+  redefining it, to avoid drift) and size the reading set to that tier; added an end-of-index HTML
+  comment marker to `ACTIVITY_LOG.md`, `APPROVALS_LOG.md`, and `DECISIONS_LOG.md` (see the bottom
+  of each file's Index section for its exact form — deliberately not spelled out here, so this
+  entry's own prose can't be mistaken for the marker by a literal-string reader) so index-only
+  reads have a real stopping point, with a required fallback (read past the marker, don't report
+  absence) if a targeted ID/keyword search finds nothing; added root `AGENTS.md` for repo-wide
   search discipline (no broad scans of `docs/research`, `docs/teaching`, `prompts`, `tmp`, `output`,
   worktree/dependency dirs, generated output, raw logs, image/PDF corpora). David reviewed the
   diagnosis and the protocol draft directly, requested six tightening edits, and approved shipping
@@ -209,6 +284,170 @@ validation-decision notes, with 152 corrected and 0 old-ID notes remaining. Labe
 
 **Superseded open items:** the independent third review and quantity policy were subsequently resolved
 by the Done entry above and `DECISION-0082`. TASK-0042 is Done.
+
+---
+
+## `cell_scoped` No-Matching-Content Bug Resolved — Stale Edge Function Deploy — 2026-09-27
+
+**What & why.** The prior session paused mid-diagnosis (per its own "SESSION CLOSE" section in
+`LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md`) on a bug where `student-session-items`'s `cell_scoped` mode
+returned `no_matching_content` for every AP Statistics topic David tried live, despite 203 published
+MCQs genuinely present for his exam pack version. This session's first and only task was to pick that
+diagnosis back up.
+
+**Root cause.** Not a query or data bug — a stale Edge Function deploy. Pulled the actual deployed
+source for `student-session-items` from both Supabase projects via `get_edge_function` and compared it
+directly against `main`:
+
+- Neither deployed function had the `cell_scoped` mode at all — no branch for `input.mode ===
+  "cell_scoped"`, no read of `content_item_topic_resolution`, and `MAX_ITEMS` was still `20` (the pre-
+  taxonomy-rationalization value; `main` has been `999` since 2026-09-26 21:24 ET).
+- `list_edge_functions`' `updated_at` confirmed neither project had redeployed this function since
+  before commit `912699b2` ("Phase 2: add cell_scoped mode to student-session-items," 2026-09-26 22:15
+  ET) — Production last deployed 19:54 UTC that day, Dev 18:48 UTC, both earlier than the commit.
+  `git push` does not deploy a Supabase Edge Function; someone has to run the deploy separately, and
+  nobody did after that commit (or the later `MAX_ITEMS` change) landed.
+- Consequence: the stale function silently treated the unrecognized `mode: "cell_scoped"` as its
+  default `"frq_only"` path. For David's real session shape (`ap_statistics`,
+  `practice_format: "targeted_drill"`), that path calls `select_ordinary_combined_practice_items` —
+  confirmed directly against Production (`execute_sql`, `exam_pack_version_id
+  7c5a2975-8f0e-45b9-8fcc-7ec9b8d81ada`) that this RPC returns **zero rows** for that exact pack/format.
+  That is the literal source of the `no_matching_content` — failing before any client-side topic
+  filtering ever ran, exactly as the paused diagnosis had narrowed it down to.
+- The data itself was never the problem: 203 published MCQ `content_items` and 203 matching published
+  `content_item_versions`, reconfirmed identical on Dev.
+
+**Side finding, fixed first.** 5 tests in `supabase/functions/student-session-items/index_test.ts` were
+silently broken — they seeded `practiceRows` against the suite's default `ACTIVE_SESSION` fixture
+(`practice_format: "mcq"`, `ap_statistics`), but that exact session shape has routed to
+`select_ordinary_combined_practice_items` (seeded via `statisticsRows`, not `practiceRows`) since
+"Unblock AP Statistics MCQ serving path." Bisected with a throwaway `git worktree` at `912699b2`: all 23
+tests existing on that commit passed, because the ap_statistics/`mcq` combined-selector branch and the
+topic/cell-resolution tests were developed on two separate lines that only became inconsistent once
+both merged into `main`. Fixed by renaming the 5 affected mocks' `practiceRows` → `statisticsRows`,
+matching the pattern the file's own passing Statistics tests already use elsewhere. Test-only — no
+runtime code touched. Commit `707a1c52`. `deno test`: 26/26 pass; `deno check`: clean.
+
+**Fix.** Redeployed the current `main` `student-session-items` function (`index.ts` plus its 5
+unchanged `_shared/*.ts` dependencies) to Dev first, then to Production after explicit confirmation from
+David via an `AskUserQuestion` prompt (this touches Production). Verified both deploys report the exact
+same `ezbr_sha256` (`f3e6ebb3...`) — byte-identical bundles on both environments. `get_advisors`
+(security) shows no new findings introduced by the deploy. Dev: function version 8 → 9. Production:
+function version 24 → 25.
+
+**Live verification: done.** David re-tested on `app.cramapple.com` immediately after the Production
+deploy and confirmed content now loads. `cell_scoped` MCQ serving is healthy in Production again — this
+bug is fully closed, no open follow-up.
+
+**Process note.** Worth carrying forward: after a meaningful Edge Function change, confirm the function
+actually redeployed — `list_edge_functions`/`get_edge_function`'s `updated_at` versus the relevant
+commit's timestamp is a fast, cheap check. This particular gap sat live for most of a day before
+anyone hit it in practice.
+
+**Next Owner:** whoever resumes `LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md`'s IDG-5 live-grading
+verification, now unblocked. **Next Action:** attempt the real live grading round trip (sign-in →
+submit → grade → `attempts` row update) IDG-5 has been waiting on. Full technical detail in that doc's
+"RESOLVED, 2026-09-27" section.
+
+---
+
+## Session-Route Retirement Re-Audited — Two Real `public.sessions` Bugs Found — 2026-09-27
+
+**What & why.** The prior session's "CORRECTION" entry (see that section, and the paused route-retirement
+decision in `LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md`) had found `TopicHome`'s Resume link and a subject
+guard both still reference `/session/mcq`/`/session/frq`, and stopped short of executing retirement,
+instructing a full re-trace of every Start *and* Resume entry point (not just Start) before raising the
+question again. This session did that trace, reading the live Lovable source directly
+(`56cae479-f7c9-4988-b536-56538c38ee4e`) rather than relying on the prior audit's own conclusions.
+
+**Finding 1 — the Resume banner can never render.** `src/lib/home.functions.ts`'s `loadStudentHome`
+computes `liveSession` (which drives `TopicHome.tsx`'s "Live session / Resume" section) from
+`supabase.from("sessions").select("id, started_at, ended_at, goal").eq("user_id", userId)`. Checked
+Production's actual schema via `information_schema.columns`: `public.sessions` (the table this hits,
+since no `.schema("app")` is specified) has `student_id`, not `user_id`, and no `goal` column at all.
+PostgREST errors on both bad references; the code only destructures `{ data: sessionRows }`, no `error`
+check, so the failure is silently swallowed and `sessionRows` defaults to `[]`. `liveSession` is
+therefore always `null` — the Resume banner the prior correction relied on as evidence of live reachability
+literally cannot render, for any student, today.
+
+**Finding 2 — the identical bug, independently, in a second file.** `src/routes/session.setup.tsx` — a
+third, separate "start a session" UI, reachable live via `TopicHome` → "Learn more" →
+"Start practicing" on the topic-explainer route — queries the same `public.sessions`/`user_id` shape to
+compute `hasPriorSession`/`lastSummary` for its own "Returning student context" banner. Same silent
+failure, same always-empty result. This is the identical bug *class* (wrong table/column reference, error
+silently swallowed via `?? []`) as the `attempts` bug already documented and fixed earlier this week —
+recurring unnoticed in an adjacent query nobody had re-checked.
+
+**Finding 3 — the guard-based path is not confirmed either.** `session.index.tsx` (bare `/session`)
+calls `useStudentGuard()` with no options — the subject-agnostic default — not `requireSubject: true`,
+despite the guard's own JSDoc claiming it is "mounted on any `/session/*` route." That contradicts the
+prior correction's second cited reachability path. `_ux.topic.tsx` does have its own, separate,
+locally-implemented subject check that lands on `/setup/subject`, so that specific route stays reachable
+from `/topic` — but `/topic` itself sits downstream of `/setup`, not upstream of the real default flow.
+Not exhaustively ruled out: whether some other, unchecked route still invokes the guard with
+`requireSubject: true`.
+
+**Mapped the fuller cluster while tracing this**, confirming it is larger and internally consistent:
+`/setup` → (`INTENT_ROUTES`) → `/session/mcq`, `/topic`, `/check-work`, `/bring-question`; `/topic` →
+`/session/mcq`; `/session/uncertain` → `/session/mcq` + `/session/frq`; `/setup/subject` → `/setup`.
+
+**Net effect.** The practical answer to "is this cluster reachable from real live traffic today" now
+leans toward no — but because of two concrete, fixable frontend bugs, not because the routes are
+provably dead by design. This is a different, more actionable situation than either the original audit
+(called it dead) or the immediately-prior correction (called it definitely live): neither had confirmed
+what a real student's browser actually does, only what the code contains.
+
+**Not resolved — flagged, same as every scope question in this doc.** Fixing the two `public.sessions`
+bugs would restore "Resume your session" and "Returning student," which also restores live reachability
+of `/session/mcq`/`/session/frq` via the Resume path — the opposite direction from retirement. Whether to
+fix the bugs, retire the cluster as currently-unreachable, or sequence both, is David's call.
+
+**Next Owner:** David Bloom. **Next Action:** decide whether to fix the `public.sessions` query bugs
+(small, contained — point both at `app.learning_sessions`/`public.learning_sessions`, which has the
+correct columns and is what the live grading path already writes to), retire the session-route cluster
+now that it has no confirmed live entry point, or both in sequence. Full detail in
+`LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md`'s "AUDITED, 2026-09-27" section.
+
+---
+
+## IDG-5 and `DECISION-0074` Mastery Capture Both Confirmed Live — 2026-09-27
+
+**What & why.** Immediately after the `cell_scoped` fix above went live, David submitted a real answer
+at `https://app.cramapple.com/session?minutes=10&mode=quick&unit=1&intent=review&topic=%221.13%22`, and
+it graded. This is the real, non-synthetic grading round trip
+`LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md`'s "Exact next step" had been waiting on all session — IDG-5's
+DB-scratch test was strong evidence the trigger fix worked, but not the same as a real HTTP round trip.
+Queried Production directly rather than trusting the UI alone.
+
+**`app.attempts` (IDG-5).** Attempt `d7663902-a06f-4423-8471-706fd4765d8e`, this session's own account
+(`f5a26c6b-3566-4d58-9e97-979fbb947564`): `started_at` 18:29:26 UTC → `submitted_at` 18:30:04 →
+`graded_at` 18:30:05.542 — under 1.5 seconds through the service-role grading write.
+`status`/`result_state` both `"graded"`, `score_points: 0`, `score_possible: 1`,
+`assistance_state: "independent"` (no pre-submit hints). This is the first confirmation, on real
+traffic rather than a scratch row, that `attempts_prevent_client_grading_truth_update` (fixed last
+session — a dead PostgREST GUC check) actually lets a real grading write land in Production. IDG-5 is
+now closed.
+
+**`app.student_cell_state` (`DECISION-0074` mastery capture).** A row was created for topic `1.13`,
+skill `2.A`, same account: `last_event: "incorrect"` (matches the 0/1 score), `mastery_mcq_correct_count:
+0` (correctly not incremented on a miss), `last_attempt_id` correctly linked back to the attempt above,
+`next_due_at` scheduled ~24h out with `due_reason: "direct_miss"`, `rule_engine_version:
+"cell-state-1.0"`. This is the first live confirmation of the entire `DECISION-0074` mastery-capture
+backend built last session (schema → `assistance_state` derivation → mastery counters) — previously
+verified only by 10 new unit tests and one synthetic before/after event on a Dev attempt, never by a
+real student answer until now.
+
+**Net effect.** Both of last session's two biggest unverified builds — the grading-truth trigger fix and
+the full mastery-capture pipeline — are now confirmed working end to end on real Production traffic, in
+the same single round trip.
+
+**Not tried this pass.** A correct answer (only a miss was observed), a second topic/cell, and the FRQ
+attempt path all remain unverified against real traffic — worth trying if more confidence is wanted
+before calling the grading path fully proven.
+
+**Next Owner:** open. **Next Action:** none required to consider IDG-5 or the mastery-capture build
+closed; the untried paths above are optional further confidence-building, not blockers. Full detail in
+`LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md`'s second "RESOLVED, 2026-09-27" section.
 
 ---
 
