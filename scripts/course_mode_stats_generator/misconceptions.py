@@ -359,6 +359,27 @@ CATALOG: Dict[str, Misconception] = {m.tag: m for m in [
        "ced_structural", ["slotframe_u1_2_variables"], ["1.2"], ["2.A"],
        [_fp("S10 Unit 1 (1.2)",
             "quantitative variables record numerical measurements or counts for which arithmetic comparisons are meaningful")]),
+    # --- slot-frame FB-U1-4-3A-CAT-GRAPH-01 (1.4 x 3.A) : categorical graphs ----
+    _M("u1_4__count_percent_graph_confusion",
+       "Used counts as if they were relative frequencies",
+       "Labeled a relative-frequency graph with raw counts or treated counts as percentages without dividing by the total.",
+       "ced_structural", ["slotframe_u1_4_cat_graphs"], ["1.4"], ["3.A"],
+       [_fp("S10 Unit 1 (1.4)",
+            "graphs for categorical data may display counts or relative frequencies; relative frequencies require dividing by the total")]),
+
+    _M("u1_4__relative_frequency_graph_denominator_error",
+       "Computed graph percentages with the wrong denominator",
+       "Computed relative-frequency bar heights using a category count instead of the total number of observations.",
+       "ced_structural", ["slotframe_u1_4_cat_graphs"], ["1.4"], ["3.A"],
+       [_fp("S10 Unit 1 (1.4)",
+            "relative frequencies for categorical data use each category count divided by the total count")]),
+
+    _M("u1_4__categorical_graph_as_quantitative_axis",
+       "Treated category labels as values on a quantitative axis",
+       "Represented categories as ordered numerical values and connected them as though the variable were quantitative.",
+       "ced_structural", ["slotframe_u1_4_cat_graphs"], ["1.4"], ["3.A"],
+       [_fp("S10 Unit 1 (1.4/1.5)",
+            "categorical variables are displayed with category-based graphs, not a quantitative number line or connected-value display")]),
     # --- slot-frame FB-U1-6-4A-DISTRIBUTION-01 (1.6 x 4.A) : descriptions ---
     _M("u1_6__skew_direction_reversed",
        "Reversed the direction of skew",
