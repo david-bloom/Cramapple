@@ -836,9 +836,11 @@ built, QA-verified, and merged. Summary for whoever picks up the student hub lau
    — deliberately not promoted to `validated`.** They exist in `content_item_cells` but are invisible
    through `content_item_topic_resolution` (confirmed live: 0 unvalidated rows exposed). Promoting them
    is its own decision, not part of this work.
-2. **`GAP-9`** (`CONTENT_GAPS_RUNNING_LIST.md`) — unmeasured: how many topic × skill cells lack a
-   servable MCQ or FRQ, which under `DECISION-0074` blocks mastery on that cell permanently, not just
-   slows it. Needs a count before mastery ships.
+2. **`GAP-9`** (`CONTENT_GAPS_RUNNING_LIST.md`) — **MEASURED 2026-09-27, see "EXECUTED, 2026-09-27"
+   below.** Only 6 Biology and 13 Statistics cells currently carry the ≥2-MCQ + ≥1-FRQ complement
+   `DECISION-0074` needs; ~60% of populated cells lack one type outright. Mastery is not shippable for
+   Oct 2 on content grounds without a large authoring push or scoping mastery to those ~19 cells —
+   David's call.
 3. **The student interaction data schema plan** (previous section) is drafted, not executed, and has
    its own hard gate (David's answer on what counts as "hint use before submission").
 4. **Mastery derivation itself (`DECISION-0074`) is still unbuilt** — no discrete
@@ -848,6 +850,71 @@ built, QA-verified, and merged. Summary for whoever picks up the student hub lau
    session, confirm items load and a skill's rail resolves) next time someone is in the app, rather
    than assuming from the deploy confirmation alone.
 6. **BYOQ and Open Hand remain fully unbuilt** (Codex's separate workstream, unchanged this session).
+
+## EXECUTED, 2026-09-27 (next session): grading pipeline diagnosed live + GAP-9 measured
+
+Two of the carried-forward items were executable against Production without David's input or credentials
+and were run this session. Both are read-only Production queries (no mutation), cross-checked against the
+deployed edge-function versions and the repo source, not inferred from either alone.
+
+### Finding 1 — the "real grading has never completed" risk is real but mis-framed; grading is not broken
+
+The 2026-09-27 correction above ("the absence of real grading IS a live risk") is directionally right about
+the launch gap but overstates the mechanism. Read directly against Production (`pcntajvbdfqhbeewmdry`):
+
+- **The grading pipeline works.** Production holds 83 `grading_results`, all `graded`/`uncertain`. The
+  launch-QA account `cramapple-qa-test+practice-verification-...` completed a full round trip on
+  **2026-09-23** (after the entitlement fix): 4 MCQ graded via `rule-based-mcq` (1/1, 1/1, 1/1, 0/1) and
+  1 FRQ graded via `gpt-4.1-mini` (3/4). So a properly-entitled non-owner account *does* submit-to-grade
+  end-to-end. "No real student has ever completed a graded attempt" is literally true only because just
+  two real (non-test) students have ever tried at all.
+- **Why every attempt shows `graded_at = NULL` is a timing artifact, not a live bug.** All 108 Production
+  attempts (58 submitted, 50 draft) have `graded_at`/`result_state`/`score_points` unset — for *everyone*,
+  including David's 50 grades. Root cause: the write-back to `app.attempts` (`status='graded'`,
+  `graded_at`, `score_points`, `result_state`, `result_summary`) was added to `evaluate-attempt` and
+  deployed as **v60 on 2026-09-24 18:47 UTC**; the newest `grading_result` in Production is **2026-09-23**.
+  Zero grades have been produced since the write-back went live, so it is *deployed but unexercised* — its
+  correctness in Production is unverified, not disproven. (This also explains the schema plan's
+  "`confidence_level`/`result_summary` write path exists but isn't reaching them" note — same columns, same
+  cause.)
+- **`bkmicahb@gmail.com` (the one real non-test student who submitted) is a pre-fix casualty, not evidence
+  of a current break.** Both submitted Biology FRQ attempts (2026-08-22) have **zero `attempt_responses`**
+  — the answer body was never persisted — and no `grading_result`. Their trial entitlements were only
+  granted 2026-09-20 (a 7-day `trial_v1`, all 12 subjects, expiring 2026-09-27). So: submitted 08-22 with
+  no entitlement, response never recorded, never retried after the entitlement landed. (`obloom27@solebury.org`,
+  the other apparent real account, has 1 draft, never submitted.)
+- **Minor code observation:** both write-back sites in `evaluate-attempt/index.ts` (~L1512 MCQ path,
+  ~L2174 FRQ path) issue `.update(...).eq("id", attempt.id)` and discard the returned error — a silent
+  failure would not be logged. Worth a one-line error-capture when that file is next touched; not the
+  cause of the NULL data.
+
+**Net for Oct 2:** the runbook stop-condition "Biology or Statistics cannot complete a real submit-to-grade
+round trip" is **unverified on the current build, not violated.** The single most valuable launch action
+remains TASK-0043's credentialed smoke test — and it must now specifically confirm that a *fresh* grade
+(post-v60) stamps the `attempts` row (`graded_at`/`result_state`/`score_points`), not just that a
+`grading_results` row appears. That step is Hard-Gated (real signup + Production) and needs David or an
+explicitly handed-over test account.
+
+### Finding 2 — GAP-9 measured (best-effort; published-item proxy)
+
+Counted per taxonomy cell (`topic_code` × `skill_code`) in `app.content_item_cells`, joined to
+published `content_items` + `content_item_versions`, for the two Day-1 subjects. "Servable" is proxied by
+`status='published'` only — the fuller servability guards (retired-pack fail-closed, "MCQ must have a
+recorded correct choice") are **not** applied, so these numbers *overstate* servable items and therefore
+*understate* the gap. Cells with zero assigned items are not counted at all (also unmasterable).
+
+| Subject | Cells w/ content | MCQ-only (no FRQ) | FRQ-only (no MCQ) | Mastery-capable (≥2 MCQ + ≥1 FRQ) |
+| --- | --- | --- | --- | --- |
+| Biology (`c676d1fc…`) | 36 (all topic-only) | 9 | 13 | **6** |
+| Statistics (`dae3c72e…`) | 58 (47 topic-only) | 24 | 13 | **13** |
+
+So ~60% of populated cells lack one item type outright (Bio 22/36, Stats 37/58), and only **19 cells
+across both subjects** currently carry the full 2-MCQ + 1-FRQ complement `DECISION-0074` requires for
+mastery. Caveat: labels are still `provisional_model` (not exposed through `content_item_topic_resolution`),
+so the exact cell mapping can shift on validation. Full entry updated in `CONTENT_GAPS_RUNNING_LIST.md`
+GAP-9. This confirms mastery cannot ship for Oct 2 on content grounds without either a large authoring push
+or scoping mastery to the ~19 complete cells — a decision for David, consistent with the runbook already
+treating mastery as post-launch.
 
 ## Out of Scope
 

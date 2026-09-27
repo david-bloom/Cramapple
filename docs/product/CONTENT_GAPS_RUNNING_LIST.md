@@ -143,12 +143,24 @@ updated as work lands.
 - **Owner:** — · **Status:** OPEN, decision-gated.
 
 ### GAP-9 — Mastery cells missing a servable MCQ or FRQ (blocks `DECISION-0074`)
-- **Scope:** not yet measured. `DECISION-0074` (2026-09-27) requires a topic × skill
-  cell to have both a servable MCQ (2 needed) and a servable full-point FRQ (1
-  needed) for a student to ever reach mastery on it. No count has been run yet of
-  how many cells currently lack one or the other — this is a fast-follow item, not
-  a blocker David has asked to gate on, but it needs measuring before mastery
-  ships or some cells will be silently unmasterable.
+- **Scope:** MEASURED 2026-09-27 (read-only Production, best-effort). `DECISION-0074`
+  (2026-09-27) requires a topic × skill cell to have both a servable MCQ (2 needed)
+  and a servable full-point FRQ (1 needed) for a student to ever reach mastery on it.
+- **Measurement (2026-09-27):** counted per `topic_code`×`skill_code` cell in
+  `app.content_item_cells` joined to published `content_items`/`content_item_versions`,
+  Day-1 subjects only. "Servable" proxied by `status='published'` — the retired-pack
+  fail-closed and MCQ-has-correct-choice guards are NOT applied, so this OVERSTATES
+  servable items and UNDERSTATES the gap; cells with zero assigned items aren't counted.
+
+  | Subject | Cells w/ content | MCQ-only (no FRQ) | FRQ-only (no MCQ) | Mastery-capable (≥2 MCQ + ≥1 FRQ) |
+  | --- | --- | --- | --- | --- |
+  | Biology (`c676d1fc…`) | 36 (all topic-only) | 9 | 13 | 6 |
+  | Statistics (`dae3c72e…`) | 58 (47 topic-only) | 24 | 13 | 13 |
+
+  Only **19 cells across both subjects** carry the full 2-MCQ + 1-FRQ complement today;
+  ~60% of populated cells (Bio 22/36, Stats 37/58) lack one item type outright. Labels
+  are still `provisional_model` (not exposed through `content_item_topic_resolution`), so
+  the exact mapping can shift on validation.
 - **Why it blocks:** a cell short an FRQ (or MCQ) makes mastery permanently
   unreachable for that cell under the new rule, not just slower — this is a
   correctness gap, not a coverage-quality one.
@@ -156,8 +168,10 @@ updated as work lands.
   published+servable items by `item_type` (`mcq`/`frq`) and flag any cell with
   zero of either type. Cross-reference against `GAP-1`'s topic-labeling gap first
   — a cell can't be counted accurately until items carry topic labels.
-- **Owner:** — · **Status:** OPEN, unmeasured. Accepted by David as a temporary
-  gap for content authoring to close, not a rule-design flaw.
+- **Owner:** — · **Status:** OPEN, measured 2026-09-27 (see above). Accepted by David
+  as a temporary gap for content authoring to close, not a rule-design flaw. Next:
+  David's call on scoping mastery to the ~19 complete cells vs. authoring to close the
+  gap; a validated re-count once labels are promoted out of `provisional_model`.
 
 ---
 
