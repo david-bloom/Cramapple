@@ -1,6 +1,12 @@
 # Course Mode — Session Assembly & Entry-Flow Spec
 
-STATUS: build-ready design spec (requirements + flow, not visual design) | DATE: 2026-08-25 | AUDIENCE: David (decision-maker) → Claude Design (screens) → Lovable (build).
+STATUS: SUPERSEDED (vocabulary) — HISTORICAL pilot spec | DATE: 2026-08-25 | AUDIENCE: David (decision-maker) → Claude Design (screens) → Lovable (build).
+
+> **VOCABULARY BANNER (2026-09-27).** "Course Mode" as a **selectable session mode** is **retired**
+> (David 2026-09-27: "there is only one mode"). There is now **one session mode ("Learn")**; the
+> mechanics described here survive as **components**, not a mode, and `/session/mcq` "core loop"
+> references are stale (canonical flow is bare `/session`). Read as historical pilot design.
+> Current: `docs/product/ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md` (D1, D11, D14).
 
 **What this fills.** Every prior Course Mode UX doc names one thing as unbuilt: **session
 assembly** — *how "your 20 minutes" is presented and paced* (the "single biggest undesigned

@@ -1,0 +1,71 @@
+# Cramapple Docs — Canonical Source-of-Truth Index
+
+STATUS: CURRENT
+DATE: 2026-09-27
+CANONICAL REPOSITORY: `david-bloom/Cramapple`
+
+**Purpose.** One hop from "what's the current answer on X?" to the doc that actually holds it —
+and away from superseded docs. This complements `docs/README.md` (authority order) and
+`PROJECT_SETUP.md` / `docs/team_charter/CRAMAPPLE_SESSION_START.md` (session bootstrap). When docs
+conflict, `docs/README.md`'s authority order governs; this index just routes you to the right one.
+
+> **Read this first for architecture/design:**
+> [`docs/product/ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md`](product/ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md)
+> — the decided-vs-open one-pager. If a design/architecture doc disagrees with it, the one-pager wins
+> (it cites the record for every decision).
+
+---
+
+## The STATUS-header convention
+
+Every design/architecture doc should carry a `STATUS:` line near the top, one of:
+
+- `STATUS: CURRENT` — this is the live answer.
+- `STATUS: SUPERSEDED by <doc> (<date>)` — replaced; kept for history. Say what supersedes it.
+- `STATUS: HISTORICAL` — a dated record of past work (a pilot log, a rederivation record); never current by design.
+
+Partial supersession is allowed: mark the doc `CURRENT except where a CORRECTION note applies` and
+put a dated `> CORRECTION` / `> BANNER` block above the stale section (see
+`docs/new_design/VISUAL_IDENTITY.md` for the pattern). **Annotate; do not silently rewrite** a
+decision that was on record.
+
+---
+
+## Canonical source of truth, by topic
+
+| Topic | Canonical doc | Notes |
+| --- | --- | --- |
+| **Current architecture & design (decided vs. open)** | `product/ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md` | Start here. |
+| App rebuild plan / gap analysis | `product/APP_REBUILD_MIGRATION_PLAN.md` | Authoritative architecture; §11 decision statuses annotated in place (mostly resolved 2026-09-26). |
+| Decisions closed 2026-09-26 | `product/LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md` ("DECIDED, 2026-09-26") | The decision log for the rebuild policy calls. |
+| Execution of rebuild §7–§11 | `tasks/TASK-0047-APP-REBUILD-SECTIONS-7-11.md` | Frontend commits live in Lovable `56cae479`, not this repo. |
+| **Design system (canonical)** | `new_design/` (`README.md`, `VISUAL_IDENTITY.md`, `TOKENS.md`) | Orange/light/Bungee, square, zero-motion. Fixed-plate rule SUPERSEDED (responsive). |
+| Session modes / consolidation | `product/COURSE_HOMEWORK_CONSOLIDATION_PLAN.md` | One mode "Learn." Course Mode is retired as a *mode*. |
+| Mastery rule | `activity_log/DECISIONS_LOG.md` → `DECISION-0074` | 2 MCQ + 1 FRQ, no pre-submission hint; unbuilt. |
+| Student interaction schema | `product/STUDENT_INTERACTION_DATA_SCHEMA_PLAN_2026_09_27.md` | Plan only; hard-gated on hint-use definition. |
+| Launch execution (Oct 2) | `product/LAUNCH_RUNBOOK_2026_10_02.md`, `product/APP_LAUNCH_READINESS_INDEX_2026_09_26.md` | Runbook = short surface; index = full reasoning. |
+| Numbered decisions / approvals / activity | `activity_log/DECISIONS_LOG.md`, `APPROVALS_LOG.md`, `ACTIVITY_LOG.md` | Highest decision as of 2026-09-27: `DECISION-0074`. |
+| Governance / roles / workflow | `team_charter/` (`AI_COLLABORATION_RULES.md`, `TASK_WORKFLOW.md`, `AGENT_OPERATING_MODEL.md`, `DEFINITION_OF_DONE.md`) | — |
+| Session bootstrap | `team_charter/CRAMAPPLE_SESSION_START.md` | Device-neutral entry point (governed: APPROVAL-0047 / DECISION-0054). |
+| Content taxonomy / labeling | `product/CONTENT_TAXONOMY_RATIONALIZATION_PLAN_2026_09_26.md`, `architecture/TAXONOMY_LABELING_PLAN_V3_2026_08_04.md` | Rationalization shipped 2026-09-27 (PR #208). |
+| Reviewer / admin portal | `product/QUESTION_AND_ANSWER_REVIEW_PORTAL_DESIGN.md`, `exam-buddy-wireframe` reviewer routes | **Still live — NOT legacy** (rebuild §10). |
+
+---
+
+## Superseded / historical — do NOT treat as current
+
+These are retained for history. They carry banners pointing here or to the one-pager. Do not quote
+them as the current answer.
+
+| Doc(s) | Superseded on | By |
+| --- | --- | --- |
+| `product/CRAMAPPLE_VISUAL_IDENTITY_BRIEF.md` (v1), `..._BRIEF_v2.md` (v2) | 2026-09-22 | `new_design/` |
+| `product/DESIGN_SYSTEM_CUTOVER_PLAN.md` (palette/"Project-Crux" red, fixed frame) | 2026-09-27 | `new_design/` + one-pager (D3/D4/D5) |
+| The fixed 1440×900 no-scroll plate rule (in `new_design/VISUAL_IDENTITY.md` / `README.md`) | 2026-09-26 | Responsive decision (one-pager D3) — banners applied in place |
+| `product/USE_MODES_STRATEGIC_RECONCILIATION.md` | 2026-09-27 | `COURSE_HOMEWORK_CONSOLIDATION_PLAN.md` + single-mode decision |
+| `teaching/COURSE_MODE_*` tree (~55 pilot specs, rederivation records, work orders, pilot logs) | 2026-09-27 | **HISTORICAL pilot record.** Course Mode is retired as a *mode*; its mechanics survive only as components (one-pager D1/D11). The three active specs carry vocabulary banners; the dated rederivation/work-order/log files are historical by their nature — treat the whole tree as pilot history, not current design. |
+
+**Legacy-doc handling (DECISION-0075, 2026-09-27): annotate-in-place, no move (Option A).** Superseded
+docs stay where they are, carry supersession banners, and are listed above. No `docs/legacy/` tree is
+created — the banners + this index route agents past legacy in one hop. See
+`docs/proposals/LEGACY_DOCS_ARCHIVE_PROPOSAL_2026_09_27.md` for the Options B/C if this is ever revisited.
