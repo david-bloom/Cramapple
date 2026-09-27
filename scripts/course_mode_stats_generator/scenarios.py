@@ -196,6 +196,13 @@ FRAMING: Dict[str, Framing] = {
         ["realistic study-design scenario",
          "classification must distinguish imposed treatments, randomization, control/placebo/blinding, and confounding"],
         [_SEC5, _SEC6, _SEC7]),
+
+    "slotframe_u2_8_random_variable_distributions": Framing(
+        "slotframe_u2_8_random_variable_distributions", "Q2", "Describe", 3, "exam_aligned_digital",
+        ["discrete random-variable representation only",
+         "a valid probability distribution lists possible values and point probabilities P(X = x)",
+         "every probability must be between 0 and 1 and the probabilities must sum to 1"],
+        [_SEC5, _SEC6, _SEC7]),
     "u2_7_independent_union": Framing(
         "u2_7_independent_union", "Q4", "Calculate", 3, "exam_aligned_digital",
         ["two independent events with probabilities between 0 and 1",
@@ -818,6 +825,26 @@ U1_13_DESIGN_CONTEXTS: List[Dict[str, object]] = [
 ]
 
 
+
+U2_8_RANDOM_VARIABLE_CONTEXTS: List[Dict[str, object]] = [
+    {"id": "u2_8__late_assignments", "domain": "education",
+     "rv": "X", "quantity": "the number of late assignments a student has in a week",
+     "values": [0, 1, 2, 3], "probs": [0.46, 0.31, 0.16, 0.07]},
+    {"id": "u2_8__support_tickets", "domain": "operations",
+     "rv": "Y", "quantity": "the number of support tickets a small team receives in an hour",
+     "values": [0, 1, 2, 3, 4], "probs": [0.18, 0.34, 0.27, 0.15, 0.06]},
+    {"id": "u2_8__rainy_days", "domain": "environment",
+     "rv": "R", "quantity": "the number of rainy days in a three-day field trip",
+     "values": [0, 1, 2, 3], "probs": [0.28, 0.39, 0.24, 0.09]},
+    {"id": "u2_8__returned_items", "domain": "business",
+     "rv": "N", "quantity": "the number of returned items in a sample of four orders",
+     "values": [0, 1, 2, 3, 4], "probs": [0.52, 0.29, 0.13, 0.05, 0.01]},
+    {"id": "u2_8__equipment_failures", "domain": "manufacturing",
+     "rv": "F", "quantity": "the number of equipment failures during a shift",
+     "values": [0, 1, 2, 3], "probs": [0.62, 0.25, 0.10, 0.03]},
+]
+
+
 # Unit 2.7 independent-events union contexts. Each id is cell-namespaced.
 U2_7_INDEPENDENT_UNION_CONTEXTS: List[Dict[str, object]] = [
     {"id": "u2_7__email_coupon", "domain": "business", "event_a": "opens a promotional email",
@@ -1153,6 +1180,25 @@ def validate_scenarios() -> List[str]:
             problems.append(f"u1_13 design context id is not namespaced: {ctx.get('id')}")
         if len(ctx.get("distractors", [])) < 3:
             problems.append(f"u1_13 design context needs at least 3 distractors: {ctx}")
+
+    seen_u2_8_ids = set()
+    for ctx in U2_8_RANDOM_VARIABLE_CONTEXTS:
+        required = ("id", "domain", "rv", "quantity", "values", "probs")
+        if not all(k in ctx for k in required):
+            problems.append(f"u2_8 random-variable context missing fields: {ctx}")
+        if ctx.get("id") in seen_u2_8_ids:
+            problems.append(f"duplicate u2_8 random-variable context id: {ctx.get('id')}")
+        seen_u2_8_ids.add(ctx.get("id"))
+        if not str(ctx.get("id", "")).startswith("u2_8__"):
+            problems.append(f"u2_8 random-variable context id is not namespaced: {ctx.get('id')}")
+        values = ctx.get("values", [])
+        probs = ctx.get("probs", [])
+        if len(values) != len(probs) or len(values) < 3:
+            problems.append(f"u2_8 random-variable context needs matching values/probs with at least 3 values: {ctx}")
+        if any(p < 0 or p > 1 for p in probs):
+            problems.append(f"u2_8 random-variable context has probability outside [0, 1]: {ctx}")
+        if abs(sum(probs) - 1.0) > 1e-9:
+            problems.append(f"u2_8 random-variable context probabilities do not sum to 1: {ctx}")
     seen_u2_7_ids = set()
     for ctx in U2_7_INDEPENDENT_UNION_CONTEXTS:
         required = ("id", "domain", "event_a", "event_b", "p_a_choices", "p_b_choices")
@@ -1245,6 +1291,7 @@ if __name__ == "__main__":
             "u1_8_boxplots": len(U1_8_BOXPLOT_CONTEXTS),
             "u1_12_bias": len(U1_12_BIAS_CONTEXTS),
             "u1_13_design": len(U1_13_DESIGN_CONTEXTS),
+            "u2_8_random_variables": len(U2_8_RANDOM_VARIABLE_CONTEXTS),
             "u2_7_independent_union": len(U2_7_INDEPENDENT_UNION_CONTEXTS),
             "u2_6_cond_prob": len(U2_6_COND_PROB_CONTEXTS),
             "u2_5_mutually_exclusive": len(U2_5_MUTUALLY_EXCLUSIVE_CONTEXTS),

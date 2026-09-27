@@ -153,6 +153,13 @@ GRAPH_TAGS = {
     "u1_5__wrong_plot_type_for_data",
 }
 
+
+RANDOM_VARIABLE_TAGS = {
+    "u2_8__probabilities_do_not_sum_to_one",
+    "u2_8__negative_probability_allowed",
+    "u2_8__cumulative_probability_confused_with_point_probability",
+}
+
 TWOWAY_INTERPRET_TAGS = {
     "u2_1__raw_counts_as_conditional_comparison",
     "u2_1__used_column_denominator_for_row_condition",
@@ -1227,6 +1234,99 @@ def generate_u1_13_design(count: int, base_seed: int = 11300) -> List[Dict]:
     return [gen_u1_13_design_instance(random.Random(base_seed + i), base_seed + i) for i in range(count)]
 
 
+def _prob_table_text(rv: str, values: List[int], probs: List[float], label: str = "P") -> str:
+    entries = "; ".join(f"{rv}={v}: {p:.2f}" for v, p in zip(values, probs))
+    return f"{label} table: {entries}"
+
+
+def _adjusted_sum_probs(probs: List[float]) -> List[float]:
+    adjusted = list(probs)
+    adjusted[-1] = round(max(0.01, adjusted[-1] + 0.08), 2)
+    return adjusted
+
+
+def _negative_probs(probs: List[float]) -> List[float]:
+    adjusted = list(probs)
+    adjusted[0] = round(adjusted[0] + adjusted[-1] + 0.04, 2)
+    adjusted[-1] = -0.04
+    return adjusted
+
+
+def _cumulative_probs(probs: List[float]) -> List[float]:
+    running = 0.0
+    cumulative = []
+    for p in probs:
+        running += p
+        cumulative.append(round(running, 2))
+    return cumulative
+
+
+def gen_u2_8_random_variable_distribution_instance(rng: random.Random, seed: int) -> Dict:
+    c = rng.choice(SCN.U2_8_RANDOM_VARIABLE_CONTEXTS)
+    values = list(c["values"])
+    probs = [float(p) for p in c["probs"]]
+    rv = str(c["rv"])
+    scenario_prov = SCN.framing("slotframe_u2_8_random_variable_distributions", c.get("domain"))
+
+    prompt = (f"A random variable {rv} is defined as {c['quantity']}. "
+              "Which table is a valid probability distribution for this random variable?")
+    correct_text = _prob_table_text(rv, values, probs, "Probability")
+    distractors = [
+        (_prob_table_text(rv, values, _adjusted_sum_probs(probs), "Probability"),
+         "u2_8__probabilities_do_not_sum_to_one"),
+        (_prob_table_text(rv, values, _negative_probs(probs), "Probability"),
+         "u2_8__negative_probability_allowed"),
+        (_prob_table_text(rv, values, _cumulative_probs(probs), "Cumulative probability"),
+         "u2_8__cumulative_probability_confused_with_point_probability"),
+    ]
+    options = [{"text": correct_text, "correct": True, "misconception": None}]
+    for text, tag in distractors:
+        options.append({"text": text, "correct": False, "misconception": tag,
+                        "misconception_source": MISC.provenance(tag)})
+    rng.shuffle(options)
+
+    used_tags = {o.get("misconception") for o in options if o.get("misconception")}
+    checks = [
+        ("source_probs_nonnegative", all(0 <= p <= 1 for p in probs)),
+        ("source_probs_sum_to_one", abs(sum(probs) - 1.0) < 1e-9),
+        ("bad_sum_not_one", abs(sum(_adjusted_sum_probs(probs)) - 1.0) > 0.02),
+        ("negative_distractor_has_negative_probability", any(p < 0 for p in _negative_probs(probs))),
+        ("cumulative_distractor_not_point_distribution", sum(_cumulative_probs(probs)) > 1.0),
+        ("exactly_one_correct", sum(1 for o in options if o["correct"]) == 1),
+        ("four_options", len(options) == 4),
+        ("option_texts_unique", len({o["text"] for o in options}) == 4),
+        ("all_distractors_tagged", all(o["misconception"] for o in options if not o["correct"])),
+        ("all_distractor_tags_canonical", all(o["misconception"] in MISC.CATALOG for o in options if not o["correct"])),
+        ("all_distractors_cite_source", all(o.get("misconception_source", {}).get("sources") for o in options if not o["correct"])),
+        ("scenario_framing_present", bool(scenario_prov.get("archetype")) and bool(scenario_prov.get("sources"))),
+        ("random_variable_tags_used", used_tags == RANDOM_VARIABLE_TAGS),
+    ]
+    return {"schema_version": "course-mode-generated-0.1", "package_id": f"slotframe-u2_8-3a-{seed:06d}",
+            "content_key": f"apstat-u2-8-3a-random-variable-distribution-{seed:06d}", "item_type": "mcq", "difficulty": "Medium",
+            "exam_pack_ref": {"exam_code": "ap_statistics", "cycle": "2026-27"},
+            "taxonomy_refs": [{"scheme_key": "ap-statistics-2026-27", "node_key": "unit-2"},
+                              {"scheme_key": "ap-statistics-2026-27", "node_key": "topic-2.8"},
+                              {"scheme_key": "ap-statistics-skills", "node_key": "skill-3.A", "practice": 3}],
+            "cells": [{"topic": "2.8", "skill": "3.A"}], "scenario_provenance": scenario_prov,
+            "prompt": prompt, "mcq_form": {"options": options},
+            "parts": [{"part_key": "part-a", "prompt": prompt, "response_modalities": ["mcq"], "points": 1,
+                       "criteria": [{"criterion_key": "part-a-criterion-1", "points": 1,
+                                      "description": "Selects the table that gives valid point probabilities for a discrete random variable.",
+                                      "required_evidence": correct_text,
+                                      "deterministic_checks": [{"kind": "mcq_key", "correct_representation": "valid_probability_distribution"}],
+                                      "accepted_variants": []}]}],
+            "provenance": {"generator": "course_mode_stats_generator/slot_frames.py", "frame_id": "FB-U2-8-3A-RANDOM-VARIABLE-DIST-01",
+                           "template_id": "slotframe_u2_8_random_variable_distributions",
+                           "params": {"scenario_id": c["id"], "values": values, "probabilities": probs},
+                           "seed": seed, "release_status": "unreleased_generated_pending_review",
+                           "note": "Authored conceptual frame; correctness from probability-distribution validity rules."},
+            "_property_checks": checks}
+
+
+def generate_u2_8_random_variable_distributions(count: int, base_seed: int = 22800) -> List[Dict]:
+    return [gen_u2_8_random_variable_distribution_instance(random.Random(base_seed + i), base_seed + i) for i in range(count)]
+
+
 def generate_u2_5_mutually_exclusive(count: int, base_seed: int = 22500) -> List[Dict]:
     return [gen_u2_5_mutually_exclusive_instance(random.Random(base_seed + i), base_seed + i) for i in range(count)]
 
@@ -1286,6 +1386,10 @@ FRAMES = [
     {"frame_id": "FB-U1-13-2A-DESIGN-01", "cell": "1.13 x 2.A", "gen": generate_u1_13_design,
      "base_seed": 11300, "expected_tags": set(DESIGN_TAGS),
      "note": "Experimental design classification. Coverage: Unit 1 topic 1.13."},
+
+    {"frame_id": "FB-U2-8-3A-RANDOM-VARIABLE-DIST-01", "cell": "2.8 x 3.A", "gen": generate_u2_8_random_variable_distributions,
+     "base_seed": 22800, "expected_tags": set(RANDOM_VARIABLE_TAGS),
+     "note": "Random-variable probability distribution representation. Coverage: Unit 2 topic 2.8."},
     {"frame_id": "FB-U2-5-4B-MUTUALLY-EXCLUSIVE-01", "cell": "2.5 x 4.B", "gen": generate_u2_5_mutually_exclusive,
      "base_seed": 22500, "expected_tags": set(MUTUALLY_EXCLUSIVE_TAGS),
      "note": "Mutually exclusive event relationship justification. Coverage: Unit 2 topic 2.5."},
