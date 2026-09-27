@@ -1,0 +1,199 @@
+{
+  "cells": [
+    {
+      "skill": "3.A",
+      "topic": "1.4"
+    }
+  ],
+  "content_key": "apstat-u1-4-3a-cat_graph-014010",
+  "difficulty": "Easy-Medium",
+  "exam_pack_ref": {
+    "cycle": "2026-27",
+    "exam_code": "ap_statistics"
+  },
+  "item_type": "mcq",
+  "mcq_form": {
+    "options": [
+      {
+        "correct": false,
+        "misconception": "u1_4__relative_frequency_graph_denominator_error",
+        "misconception_source": {
+          "ek_codes": [],
+          "evidence": "ced_structural",
+          "label": "Computed graph percentages with the wrong denominator",
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "note": "relative frequencies for categorical data use each category count divided by the total count",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 1 (1.4)"
+            }
+          ],
+          "tag": "u1_4__relative_frequency_graph_denominator_error"
+        },
+        "text": "Relative-frequency bar graph using the largest category as the denominator: paper: 100%; plastic: 80%; metal: 45%; glass: 25%"
+      },
+      {
+        "correct": false,
+        "misconception": "u1_4__categorical_graph_as_quantitative_axis",
+        "misconception_source": {
+          "ek_codes": [],
+          "evidence": "ced_structural",
+          "label": "Treated category labels as values on a quantitative axis",
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "note": "categorical variables are displayed with category-based graphs, not a quantitative number line or connected-value display",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 1 (1.4/1.5)"
+            }
+          ],
+          "tag": "u1_4__categorical_graph_as_quantitative_axis"
+        },
+        "text": "Line graph on a number line after coding the categories as 1=paper, 2=plastic, 3=metal, 4=glass, with points connected in code order"
+      },
+      {
+        "correct": false,
+        "misconception": "u1_4__count_percent_graph_confusion",
+        "misconception_source": {
+          "ek_codes": [],
+          "evidence": "ced_structural",
+          "label": "Used counts as if they were relative frequencies",
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "note": "graphs for categorical data may display counts or relative frequencies; relative frequencies require dividing by the total",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 1 (1.4)"
+            }
+          ],
+          "tag": "u1_4__count_percent_graph_confusion"
+        },
+        "text": "Relative-frequency bar graph with bar heights copied from the counts: paper: 40%; plastic: 32%; metal: 18%; glass: 10%"
+      },
+      {
+        "correct": true,
+        "misconception": null,
+        "text": "Relative-frequency bar graph with separate category bars: paper: 40%; plastic: 32%; metal: 18%; glass: 10%"
+      }
+    ]
+  },
+  "package_id": "slotframe-u1_4-3a-014010",
+  "parts": [
+    {
+      "criteria": [
+        {
+          "accepted_variants": [],
+          "criterion_key": "part-a-criterion-1",
+          "description": "Selects the relative-frequency bar graph description that divides each category count by the total.",
+          "deterministic_checks": [
+            {
+              "correct_representation": "relative_frequency_bar_graph",
+              "kind": "mcq_key"
+            }
+          ],
+          "points": 1,
+          "required_evidence": "Relative-frequency bar graph with separate category bars: paper: 40%; plastic: 32%; metal: 18%; glass: 10%"
+        }
+      ],
+      "part_key": "part-a",
+      "points": 1,
+      "prompt": "A group of 100 items in a recycling audit was classified by material type. The category counts are paper: 40; plastic: 32; metal: 18; glass: 10. Which description correctly represents the relative-frequency bar graph for this categorical variable?",
+      "response_modalities": [
+        "mcq"
+      ]
+    }
+  ],
+  "prompt": "A group of 100 items in a recycling audit was classified by material type. The category counts are paper: 40; plastic: 32; metal: 18; glass: 10. Which description correctly represents the relative-frequency bar graph for this categorical variable?",
+  "provenance": {
+    "frame_id": "FB-U1-4-3A-CAT-GRAPH-01",
+    "generator": "course_mode_stats_generator/slot_frames.py",
+    "note": "Authored conceptual frame; correctness from categorical graph representation taxonomy.",
+    "params": {
+      "categories": [
+        [
+          "paper",
+          40
+        ],
+        [
+          "plastic",
+          32
+        ],
+        [
+          "metal",
+          18
+        ],
+        [
+          "glass",
+          10
+        ]
+      ],
+      "percentages": [
+        [
+          "paper",
+          40
+        ],
+        [
+          "plastic",
+          32
+        ],
+        [
+          "metal",
+          18
+        ],
+        [
+          "glass",
+          10
+        ]
+      ],
+      "scenario_id": "u1_4__recycling_material",
+      "total": 100
+    },
+    "release_status": "unreleased_generated_pending_review",
+    "seed": 14010,
+    "template_id": "slotframe_u1_4_cat_graphs"
+  },
+  "scenario_provenance": {
+    "archetype": "Q2",
+    "archetype_label": "Multi-focus on Practices 3 & 4 (analyze data; interpret results)",
+    "domain": "civic",
+    "modality": "exam_aligned_digital",
+    "practice": 3,
+    "sources": [
+      {
+        "kind": "fact_pack",
+        "note": "Section II question archetypes Q1-Q4",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S5 (Free-response archetypes)"
+      },
+      {
+        "kind": "fact_pack",
+        "note": "the item stem's verb must match the scored demand",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S6 (Task verbs)"
+      },
+      {
+        "kind": "fact_pack",
+        "note": "digital Bluebook; text/numeric entry -> exam_aligned_digital",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S7 (Response modality)"
+      }
+    ],
+    "task_verb": "Describe",
+    "validity_rules": [
+      "one categorical variable represented from category counts",
+      "relative-frequency bar heights equal each category count divided by the total count",
+      "category labels are not values on a quantitative number line"
+    ]
+  },
+  "schema_version": "course-mode-generated-0.1",
+  "taxonomy_refs": [
+    {
+      "node_key": "unit-1",
+      "scheme_key": "ap-statistics-2026-27"
+    },
+    {
+      "node_key": "topic-1.4",
+      "scheme_key": "ap-statistics-2026-27"
+    },
+    {
+      "node_key": "skill-3.A",
+      "practice": 3,
+      "scheme_key": "ap-statistics-skills"
+    }
+  ]
+}
