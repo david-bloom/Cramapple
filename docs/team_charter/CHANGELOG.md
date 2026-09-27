@@ -2,6 +2,17 @@
 
 Append-only chronological log, one entry per material change to `docs/team_charter/`. Checked on every `SYNC`. Per-doc `Version`/`Last Updated` headers are not used — git history plus the `APPROVAL-NNNN` / `DECISION-NNNN` references below are sufficient.
 
+## 2026-09-22 — Device-neutral Cramapple bootstrap and ChatGPT Project contract
+
+**Approval:** APPROVAL-0047
+**Decision:** DECISION-0054
+**Change (summary):**
+- Added `CRAMAPPLE_SESSION_START.md` as the single device-neutral bootstrap for desktop ChatGPT, iPhone ChatGPT, ChatGPT Work, Codex, Claude, and other approved tools.
+- Added `CHATGPT_PROJECT_INSTRUCTIONS.md` as the maintained copy of the existing Cramapple ChatGPT Project's instructions.
+- Kept the existing Cramapple Project on Default memory so project continuity and ChatGPT Work remain available; no mobile-specific duplicate Project is created.
+- Defined the authority order, repository/service map, cloud-versus-local-state boundary, session-start verification, closeout, and protocol-maintenance rules.
+- Updated the Codex and Claude new-session prompts and root README to enter through the same bootstrap.
+
 ## 2026-08-01 — Branch hygiene R1–R7 encoded and enforced
 
 **Approval:** APPROVAL-0040

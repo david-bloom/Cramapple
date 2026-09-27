@@ -318,6 +318,26 @@ CATALOG: Dict[str, Misconception] = {m.tag: m for m in [
        "needed to compare the two distributions.",
        "ced_structural", ["compare_stats"], ["1.9"], ["3.B"],
        [_fp("S10 Unit 1 (1.9)", "comparing distributions involves contrasting the groups, not reporting one group alone")]),
+
+    # --- slot-frame FB-U1-3-3A-CAT-TABLE-01 (1.3 x 3.A) : one categorical tables ---
+    _M("u1_3__count_percent_confusion",
+       "Confused counts with relative frequencies",
+       "Selected a table that reports raw counts where relative frequencies were requested, or treats percents as counts.",
+       "ced_structural", ["slotframe_u1_3_cat_tables"], ["1.3"], ["3.A"],
+       [_fp("S10 Unit 1 (1.3)", "one-categorical-variable tables distinguish frequency counts from relative frequencies")]),
+
+    _M("u1_3__relative_frequency_denominator_error",
+       "Used the wrong denominator for a relative frequency",
+       "Computed a category relative frequency using a subgroup or partial total instead of the full one-variable total requested by the table.",
+       "ced_structural", ["slotframe_u1_3_cat_tables"], ["1.3"], ["3.A"],
+       [_fp("S10 Unit 1 (1.3)", "relative frequency for one categorical variable uses the category count divided by the total number of observations")]),
+
+    _M("u1_3__quantitative_display_for_categories",
+       "Used a quantitative display for categorical values",
+       "Treated category labels as positions on a numeric scale rather than representing category counts or relative frequencies.",
+       "ced_structural", ["slotframe_u1_3_cat_tables"], ["1.3"], ["3.A"],
+       [_fp("S10 Unit 1 (1.3/1.4)", "categorical variables are summarized by category counts or proportions, not by arithmetic spacing of labels")]),
+
     # --- slot-frame FB-U1-2-2A-VARIABLES-01 (1.2 x 2.A) : variable types ------
     _M("u1_2__numeric_codes_called_quantitative",
        "Treated numeric labels or codes as quantitative variables",
