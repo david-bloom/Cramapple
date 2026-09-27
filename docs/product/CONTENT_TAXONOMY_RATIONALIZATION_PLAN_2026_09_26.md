@@ -297,6 +297,46 @@ Then: `scope-mcqs.ts`, `retry-order.ts`, `SessionFrame` and `home-skills-rail.ts
 `course-mode-pilot-cell-resolution.test.ts` are deleted; `stats-unit1-skills.ts` keeps names/descriptors only.
 Regression bar: the 10 pilot skills scope identically on all 203 items (now 203, not 200).
 
+### CORRECTION, 2026-09-27: Phase 2 blocked on a real architectural conflict this plan didn't name
+
+An execution pass stopped before writing any code (correctly — this was flagged as the class of surprise
+worth stopping for, per the session's own instruction) and found: `student-session-items`'s shared
+`MAX_ITEMS = 20` constant (in `student-item-delivery.ts`) clamps **every** mode's result set before the mode
+branch runs — asserted directly in `index_test.ts`, and the function's own comments bank on "at most
+MAX_ITEMS=20 rows" for every request. Option (a) above, built the way every other mode in that function is
+built, would inherit that cap. But the regression bar requires **all 203** items unclamped, matching
+`buildPublishedMcqQuery`'s current no-`.limit()` behavior — and it's not just a number to raise:
+`scope-mcqs.ts`'s scoping and `retry-order.ts`'s same-cell/different-cell retry logic are both written
+assuming the client holds the *entire* published-MCQ pool in memory, which is only true today because the
+client-side query never paginates. Capped at 20, `scopeMcqItemsWithFallback` would silently scope over a
+random 20-item slice instead of the real 203, and "try a fresh one on this skill" would frequently report
+`{ kind: "none" }` for skills whose only same-cell siblings fell outside the slice — a functional
+regression on the one subject with working Course Mode, not a wash.
+
+Three options identified, none built yet (all real product/architecture calls, not engineering defaults):
+
+1. **Exempt this one mode from `MAX_ITEMS`** — smallest blast radius (other modes/subjects untouched), but
+   changes a shared function's contract its own tests currently treat as universal, and raises the
+   `deliverRows` fan-out from ≤20 to ≤203 rows for this mode only.
+2. **Raise `MAX_ITEMS` itself** (e.g. to 250) — touches every mode's cap, including Biology/Chem/Calc/
+   Physics selectors this task was explicitly told not to touch, for a limit that exists to bound
+   response size/signing cost per request.
+3. **Keep the 20-item cap and paginate the frontend** — client accumulates successive windows toward the
+   full 203 before running `scope-mcqs`/`retry-order`. Avoids touching the backend constant, but is a
+   materially larger frontend rewrite than "read `item.cell` instead of parsing the key," and changes
+   Stats' load/latency behavior in ways this plan never scoped.
+
+One useful piece of good news the same pass found: `use-session.ts` already creates a real
+`learning_session_id` for the pilot before the serving-path branch runs, so routing through
+`student-session-items` is NOT blocked by "no session exists" the way it might have looked — that part of
+the design is simpler than expected. And `resolved-skill.ts` (built for the ConfirmTransferBeat
+generalization, same session) already has the `ServedCell`/`resolveSessionSkill` seam ready to carry
+Statistics through the server-cell path too, once this is decided.
+
+**Recommendation, not a decision:** option 1 (mode-scoped exemption) — most narrowly targeted, easiest to
+verify in isolation, doesn't touch the shared cap other modes/subjects/tests depend on. Needs David's
+call before Phase 2 proceeds. Nothing built or committed on either side of the repo for Phase 2 yet.
+
 ### Phase 3 — Run the topic-labelling protocol into the table of record (needs §7 items 2, 6)
 
 `APP_REBUILD_MIGRATION_PLAN.md` §6 already sets the method (AI-led, closed list, primary-topic agreement, second
