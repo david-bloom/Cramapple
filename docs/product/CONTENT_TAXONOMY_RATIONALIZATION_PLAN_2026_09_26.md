@@ -394,34 +394,28 @@ These are product or governance calls. Engineering recommendations are given but
    skill, or a parallel topic-level table) and should be scoped as its own follow-on, not squeezed into this
    pass. Interacts directly with the mastery-derivation rule already recorded in
    `LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md` ("2 full-point answers, with hint").
-4. **Publish gate: hard, mechanism to be worked out.** David wants a hard gate as the real target, not the
-   phased soft-then-hard default this plan proposed, but flagged that *how* to do that without stranding 1,020
-   already-published items needs figuring out. Proposed mechanism, for confirmation before building:
-   - **Hard, immediately, for any version that has never been published before** — a brand-new item cannot go
-     to `published` status without a primary topic row. Zero existing content is affected (nothing already
-     published is being touched), so this has no blocking side effect and can ship as soon as Phase 1's schema
-     lands — no waiting for Phase 3.
-   - **For the 1,020 already-published items with no topic:** each one is only re-blocked by the hard gate at
-     the moment someone tries to publish a *new version* of it (a real edit/republish) — at that point, the
-     labeling run (Phase 3) has to have reached that item first, or the republish is refused and the item stays
-     on its last-published version rather than being pulled from serving. This means existing content never goes
-     dark, but nothing can be edited-and-republished without first being labeled — a real, immediate hard
-     constraint, not a someday one.
-   - This reframes Phase 4 from "soft now, hard later" to "hard now for new/edited content, and the census
-     (Phase 0) tracks the shrinking pool of untouched legacy items separately, with no forced deadline on them."
-   - **Needs confirmation**, not yet built: does this mechanism match what you meant by "figure out how," or is
-     there a different mechanism in mind (e.g., a hard subject-wide cutover date instead of a per-item republish
-     gate)?
+4. **Publish gate: SOFT (revised from David's first answer — the earlier "hard, mechanism TBD" reply was a
+   misunderstanding of what was being asked, corrected 2026-09-26 same day).** David's actual decision: soft
+   gate (warning + census, matching this plan's original §6/§7 recommendation), with validation done through
+   the **existing double-AI-model / second-source cross-check protocol** (the same mechanism §6.2 of
+   `APP_REBUILD_MIGRATION_PLAN.md` already describes and `DECISION-0055`'s cross-model gate already uses for
+   the Statistics proposal in item 6 below) — **explicitly not dependent on expensive human tutor review to
+   unblock content.** David has his own ideas for how this AI-validation protocol should work; not specified
+   further here — flag for a follow-up conversation if/when he wants to detail it. **No mechanism-design work
+   needed beyond what Phase 0/4 already proposed** — this simplifies back to the plan's original recommendation,
+   just confirmed rather than escalated to a hard gate.
 5. **Status of the 203 Statistics generator-emitted tags: `authored`.** Agreed as recommended, with an explicit
    reversibility note from David ("if we decide later they are bad we will do something else") — recorded so a
    future session doesn't need to re-litigate whether this was meant to be permanent. **Not yet built** —
    depends on Phase 1's DDL (the `assignment_status` column doesn't exist on `content_item_cells` yet).
-6. **Ratify the 384-label Statistics proposal (378 accepted / 6 rejected) as the Phase 3 seed: yes.** Agreed,
-   with one addition to confirm before applying: David wrote "1 extra label" — read as confirming the plan's
-   own recommendation (re-label the 6 rejected boxplot items to `1.9` before seeding, rather than dropping them)
-   rather than a change to the recommendation. **Flagging this reading explicitly rather than silently assuming
-   it** — if "1 extra label" meant something else (e.g., only 1 of the 6 gets relabeled, not all 6), say so.
-   **Not yet built** — depends on Phase 1's schema existing as the write target.
+6. **Ratify the 384-label Statistics proposal (378 accepted / 6 rejected) as the Phase 3 seed: yes, confirmed.**
+   Clarified 2026-09-26: relabel all 6 rejected boxplot items to `1.9` — David's reasoning is that 1.9 is
+   "likely" correct for all 6 since that's where boxplot comparison lives in the AP Statistics curriculum
+   (matches `stats-unit1-skills.ts`'s own real content: topic 1.9 is "Comparing distributions," the skill that
+   uses side-by-side boxplots; topic 1.8 is single-boxplot reading — so 1.9 is the right home for a
+   *comparison* task, consistent with why these 6 were flagged as boxplot-related in the first place). Then
+   seed all 384 (378 as originally accepted + the 6 relabeled) as `provisional_model`. **Not yet built** —
+   depends on Phase 1's schema existing as the write target.
 7. **Client-visible codes vs. server-side resolution: route through the edge function.** Agreed — confirms
    Phase 2 option (a), not (b): the Stats pilot's MCQ queue should be rewired to go through
    `student-session-items` (which now resolves `cell` server-side, per the work already shipped this session)
@@ -429,11 +423,11 @@ These are product or governance calls. Engineering recommendations are given but
    regex. **Not yet built** — this is Phase 2's actual engineering task, larger than the read-seam work already
    done, since it changes the Stats pilot's serving path itself, not just what accompanies it.
 
-**Net effect on sequencing:** items 1, 2, 5 need no further engineering right now (2 and 5 are policy holds,
-not builds). Items 3, 4, 6, 7 are each real, separately-scoped engineering work — Phase 1 (schema
-generalization) is the common prerequisite for 5, 6, and the mastery work in 3; Phase 2 (item 7) can start
-once Phase 1's `cell` field is stable. None of this has been built yet — this section records the decisions
-so the next execution pass doesn't need to re-derive them.
+**Net effect on sequencing:** items 1, 2, 4, 5 need no further engineering right now (2, 4, and 5 are policy
+holds confirming this plan's original recommendation, not builds). Items 3, 6, 7 are each real,
+separately-scoped engineering work — Phase 1 (schema generalization) is the common prerequisite for 5, 6, and
+the mastery work in 3; Phase 2 (item 7) can start once Phase 1's `cell` field is stable. None of this has been
+built yet — this section records the decisions so the next execution pass doesn't need to re-derive them.
 
 ---
 
