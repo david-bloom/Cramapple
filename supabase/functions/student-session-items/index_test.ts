@@ -403,7 +403,7 @@ Deno.test("a served item's cell resolves a skill-bearing row from content_item_t
   const { status, json } = await call(
     {
       session: ACTIVE_SESSION,
-      practiceRows: [{
+      statisticsRows: [{
         ...DELIVERABLE_TRANSFER,
         content_item_version_id: "ov1",
         content_item_id: "oi1",
@@ -433,7 +433,7 @@ Deno.test("a served item's cell resolves a topic-only row (null skill_code) from
   const { status, json } = await call(
     {
       session: ACTIVE_SESSION,
-      practiceRows: [{
+      statisticsRows: [{
         ...DELIVERABLE_TRANSFER,
         content_item_version_id: "ov2",
         content_item_id: "oi2",
@@ -472,7 +472,7 @@ Deno.test("a served item's cell is null when neither resolution path applies", a
   const { status, json } = await call(
     {
       session: ACTIVE_SESSION,
-      practiceRows: [{
+      statisticsRows: [{
         ...DELIVERABLE_TRANSFER,
         content_item_version_id: "ov3",
         content_item_id: "oi3",
@@ -495,7 +495,7 @@ Deno.test("an item with no legacy stem/choices but a package payload still serve
   const { status, json } = await call(
     {
       session: ACTIVE_SESSION,
-      practiceRows: [{
+      statisticsRows: [{
         ...DELIVERABLE_TRANSFER,
         content_item_version_id: versionId,
         item_type: "mcq",
@@ -534,7 +534,7 @@ Deno.test("an item with a legacy stem is unaffected by an unrelated package payl
   const { status, json } = await call(
     {
       session: ACTIVE_SESSION,
-      practiceRows: [{
+      statisticsRows: [{
         ...DELIVERABLE_TRANSFER,
         content_item_version_id: versionId,
       }],
