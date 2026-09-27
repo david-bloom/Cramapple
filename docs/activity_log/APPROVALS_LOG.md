@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0054 — Ratify Three Session-Start Bootstrap Edits (Live Front-Ends, Required First-Read, Anti-Stale Rule) — DECISION-0078
 - APPROVAL-0053 — BYOQ Is Identity-Agnostic: `byoq_items.user_id` Not Required; Resolves the DECISION-0070/0068 Conflict
 - APPROVAL-0052 — TASK-0039 BYOQ Phase Priority Corrected (Camera-First) and Ownership Confirmed (Claude, Not Codex)
 - APPROVAL-0051 — Deploy the AP Statistics Combined Practice Selector (TASK-0044) to Production
@@ -22,6 +23,20 @@ Most recent entries (full chronological list follows below):
 - Older entries: [`APPROVALS_LOG-0001_to_0040.md`](archive/APPROVALS_LOG-0001_to_0040.md)
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
+
+## APPROVAL-0054 — Ratify Three Session-Start Bootstrap Edits (Live Front-Ends, Required First-Read, Anti-Stale Rule)
+
+**Date:** 2026-09-27
+**Approved By:** David Bloom
+**Related Doc:** `docs/team_charter/CRAMAPPLE_SESSION_START.md` (governed bootstrap)
+**Related Decision:** `DECISION-0078`
+**Decision:** Approved
+
+David ratified the three session-start bootstrap edits merged in PR #232 (live Lovable front-ends in the
+Repository Map; required first-read of `ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md` + `docs/INDEX.md`
+for architecture/design/front-end/session-mode/launch work; the anti-stale rule). They change routing and
+guidance, not authority order or hard gates. In-doc "pending ratification" flags flipped to ratified. See
+`DECISION-0078` for full text.
 
 ## APPROVAL-0053 — BYOQ Is Identity-Agnostic: `byoq_items.user_id` Not Required; Resolves the DECISION-0070/0068 Conflict
 
