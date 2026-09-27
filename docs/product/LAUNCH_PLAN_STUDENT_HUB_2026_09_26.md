@@ -1037,6 +1037,36 @@ class as `taxonomy_topics`/`taxonomy_cells`, a service-managed config table).
 - Phase 1 items 3-6 (active time, student confidence, retry-reason, recommendation provenance) were
   deliberately left out of this migration — not gated on `DECISION-0080`, but a separate pass.
 
+## EXECUTED, 2026-09-27: `evaluate-attempt` wired to derive `assistance_state` server-side, deployed to Production
+
+New `supabase/functions/_shared/assistance-state.ts`: `deriveAssistanceState(clientValue, preSubmitHintCount)`
+forces `"coached"` whenever `attempts.pre_submit_hint_count` (the trigger-maintained rollup from the
+migration above) is `> 0`; otherwise passes the client's original value through unchanged — it only
+ever strengthens the claim, never downgrades a declared `exam_practice` attempt to `independent` just
+because no event happens to be logged yet. `evaluate-attempt/index.ts` now selects
+`pre_submit_hint_count` alongside `assistance_state`, computes the derived value once per request, and
+uses it (not the raw client column) on both `attempts.update()` calls and both `persistGradingMemory`/
+`persistCellState` call sites (the deterministic-fast-path and full-model-grading path each have their
+own of both).
+
+**Verified before deploying:** new unit tests (4 cases covering the coached-override, the
+exam_practice-preservation guard, the pass-through case, and the null-count edge case) pass; the
+existing `evaluate-attempt` test suite (2 tests) and the downstream `cell-state`/`cell-state-signals`
+suites (41 tests) are unaffected; `deno check evaluate-attempt/index.ts` is clean.
+
+**Deployed to Dev (`wmgjsdkphcyhngaffbqf`) then Production (`pcntajvbdfqhbeewmdry`, now version 61)**
+via the Supabase CLI (`supabase functions deploy evaluate-attempt --project-ref <id> --workdir
+/Users/davidbloom/Documents/Cramapple.nosync`) — the CLI's default workdir detection failed silently in
+this environment (no `supabase/config.toml` in this checkout; it fell back to the home directory and
+couldn't find the entrypoint) until `--workdir` was passed explicitly. Confirmed via `list_edge_functions`
+that Production's `evaluate-attempt` bumped to version 61, `ACTIVE`.
+
+**Still a no-op for every real attempt today** — the same caveat as the migration above: `SessionFrame`
+writes zero rows into `attempt_assistance_events`, so `pre_submit_hint_count` stays 0 for every attempt
+until the separately-approved Workstream B1 rebuild ships. The wiring is correct and tested ahead of
+that landing, not exercised by real traffic yet. `_shared/cell-state.ts` still needs its own pass to
+populate `student_cell_state`'s new mastery counters — not done in this change.
+
 ## Out of Scope
 
 Redesigning any already-decided section of the interaction design spec — raise a proposal to David
