@@ -8,7 +8,7 @@
 **Status:** Done — all 9 slices live-verified and independently QA-passed by Codex, approved by David Bloom, 2026-09-28
 **Priority:** Medium — post-launch; not required for the October 2, 2026 launch decision
 **Created Date:** 2026-09-26
-**Approved Date:** Pending
+**Approved Date:** 2026-09-28 (`APPROVAL-0057`)
 **Branch:** Not yet created — see "Required slicing" below before any branch is assigned
 **PR:** None yet
 
@@ -103,9 +103,7 @@ independent Production writes in this task's own scope.
 **Approval Required:** Yes
 **Approval Type:** Standing Approval for read-only verification of the existing six-criteria checklist,
 per subject slice.
-**Decision:** Pending — this task record was created 2026-09-26 as a split from TASK-0044 per Codex's
-review; not yet reviewed on its own. Execution has not started and is not required before the October 2
-launch decision.
+**Decision:** Approved under `APPROVAL-0057` on 2026-09-28. Product Owner directed execution after confirming TASK-0042 is Done, in this order: Chemistry → Calculus AB → Calculus BC → Precalculus → Physics 1 → Physics 2 → Physics C E&M → Physics C Mechanics.
 
 ## Implementation Notes
 
@@ -161,6 +159,14 @@ and difficulty coverage is complete. TASK-0042's validated-label work is live, a
 a real nonzero unit-gated serving pool." This independently confirms criteria 1/2/4/5/6 across all 10
 subjects and the non-zero unit-gated serving result this task's own implementation notes report — no
 discrepancy between the implementer's and QA's live-Production findings.
+
+**Reconciliation note (2026-09-28):** A concurrent Codex session independently ran the same TASK-0046
+verification and merged its own per-subject records (`TASK-0046-CHEMISTRY-VERIFY.md` and similar,
+`APPROVAL-0057`, PRs #237–247) ahead of this branch. Its per-subject unit-gated pool counts match this
+branch's findings exactly (Chemistry 65, Biology 23, Statistics 48 — sum of this branch's FRQ+MCQ
+figures in each case), cross-validating both independent live-Production runs. This branch's
+`SUBJECT_SERVABILITY_CRITERIA.md` section remains the consolidated, single-table record; the
+per-subject `*-VERIFY.md` files are the other session's per-slice evidence trail for the same result.
 
 ## Done Decision
 
