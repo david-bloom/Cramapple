@@ -1594,18 +1594,19 @@ export async function handleEvaluateAttempt(
       });
     }
 
-    await persistGradingTelemetry(service, idempotencyKey, {
-      normalized_response_sha256: normalizedResponseSha256,
-      cached_tokens: null,
-      stage_timings: stageTimer.finish(),
-    });
-
-    await persistAttemptCriterionResults(
-      service,
-      attempt.id as string,
-      finalResult.criteria,
-      "rule-based-mcq",
-    );
+    await Promise.all([
+      persistGradingTelemetry(service, idempotencyKey, {
+        normalized_response_sha256: normalizedResponseSha256,
+        cached_tokens: null,
+        stage_timings: stageTimer.finish(),
+      }),
+      persistAttemptCriterionResults(
+        service,
+        attempt.id as string,
+        finalResult.criteria,
+        "rule-based-mcq",
+      ),
+    ]);
 
     const runtimeContext = await persistGradingMemory({
       service,
@@ -2248,18 +2249,19 @@ export async function handleEvaluateAttempt(
   // Passive telemetry, best-effort: separate write so the main update above
   // keeps working against the pre-migration schema (see
   // 20260811TBD_grading_telemetry.sql).
-  await persistGradingTelemetry(service, idempotencyKey, {
-    normalized_response_sha256: normalizedResponseSha256,
-    cached_tokens: cachedTokensTelemetry,
-    stage_timings: stageTimer.finish(),
-  });
-
-  await persistAttemptCriterionResults(
-    service,
-    attempt.id as string,
-    finalPayload.criteria,
-    routedModelId,
-  );
+  await Promise.all([
+    persistGradingTelemetry(service, idempotencyKey, {
+      normalized_response_sha256: normalizedResponseSha256,
+      cached_tokens: cachedTokensTelemetry,
+      stage_timings: stageTimer.finish(),
+    }),
+    persistAttemptCriterionResults(
+      service,
+      attempt.id as string,
+      finalPayload.criteria,
+      routedModelId,
+    ),
+  ]);
 
   // See the deterministic-path sibling of this call for why the error is now
   // captured and logged instead of swallowed (STUDENT_INTERACTION_DATA_SCHEMA_PLAN_2026_09_27.md
