@@ -276,14 +276,23 @@ The 2026-09-27 Product Owner instruction establishes the new TASK-0041 scope. It
 
 ## Implementation Notes
 
-**Implementation Summary:** _(To be filled by implementation agent.)_
+**Implementation Summary:**
 
-**Test Results:** _(To be filled by implementation agent.)_
+- Backend foundations implemented on `codex/task-0041-payment-flow` in commits `9d9c80a8`, `7b4d12f6`, `25dcd3d1`, and `baf425b3`.
+- Lovable project `61dd6602-6991-4561-b418-e988bb7c8a0b` generated the checkout, parent-share drawer, and processing/confirmation routes. The project remains unpublished.
+- Public `get-checkout-status` compatibility endpoint reports payment as paid only after the expected webhook-created entitlements are active.
+
+**Test Results:**
+
+- `deno check` passed for all five TASK-0041 payment Edge Functions.
+- 12 shared checkout-contract and Stripe-catalog tests passed.
+- Lovable reported 14 front-end tests passing and successful desktop/mobile build verification.
 
 **Risks / Issues:**  
-- Two-subject pricing anomaly must be resolved before catalog changes or savings claims.  
-- Custom Checkout Sessions approach must be verified against installed Stripe SDK/API version.  
-- Current paid-entitlement boundary must be re-verified before implementation changes.
+- Lovable requires `VITE_STRIPE_PUBLISHABLE_KEY` before the Elements checkout can run.
+- Parent transactional email remains pending provider/configuration selection and rate limiting.
+- Post-purchase add-on remains pending an approved server-side offer and separately authorized Stripe account writes.
+- Production deployment, live Stripe writes, and live paid gating remain separately controlled changes.
 
 ## QA Review
 
