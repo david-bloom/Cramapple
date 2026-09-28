@@ -5,10 +5,10 @@
 **Owner:** AI agent (implementation) — unassigned; candidate: Codex or Claude
 **Product Owner:** David Bloom
 **Tier:** Standard
-**Status:** Not Started
+**Status:** In Progress
 **Priority:** Medium — post-launch; not required for the October 2, 2026 launch decision
 **Created Date:** 2026-09-26
-**Approved Date:** Pending
+**Approved Date:** 2026-09-28 (`APPROVAL-0057`)
 **Branch:** Not yet created — see "Required slicing" below before any branch is assigned
 **PR:** None yet
 
@@ -103,9 +103,7 @@ independent Production writes in this task's own scope.
 **Approval Required:** Yes
 **Approval Type:** Standing Approval for read-only verification of the existing six-criteria checklist,
 per subject slice.
-**Decision:** Pending — this task record was created 2026-09-26 as a split from TASK-0044 per Codex's
-review; not yet reviewed on its own. Execution has not started and is not required before the October 2
-launch decision.
+**Decision:** Approved under `APPROVAL-0057` on 2026-09-28. Product Owner directed execution after confirming TASK-0042 is Done, in this order: Chemistry → Calculus AB → Calculus BC → Precalculus → Physics 1 → Physics 2 → Physics C E&M → Physics C Mechanics.
 
 ## Implementation Notes
 
