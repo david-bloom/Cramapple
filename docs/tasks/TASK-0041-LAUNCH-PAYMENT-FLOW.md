@@ -11,7 +11,7 @@
 **Reframed Date:** 2026-09-27  
 **Approved Date:** 2026-09-28  
 **Branch:** `chatgpt/task-0041-purchase-funnel`  
-**PR:** Pending creation from `chatgpt/task-0041-purchase-funnel` creation
+**PR:** #253 — `TASK-0041 purchase funnel implementation`
 
 > **TASK REFRAME — 2026-09-27.** The prior "post-launch verify-and-fix" framing is superseded.  
 > TASK-0041 is now the implementation task for the redesigned Cramapple purchase funnel.  
@@ -305,10 +305,10 @@ The Product Owner approved immediate TASK-0041 execution and revised pricing on 
 - Add-on called against unpaid/ineligible source: HTTP 409 `addon_not_eligible`.
 - Lovable frontend: typecheck clean; 16/16 tests passed; build passed before final 48px touch-target tweak, with typecheck/tests re-run after tweak.
 - Supabase security advisor run after schema work; new TASK-0041 tables are RLS-enabled. Advisor also reports unrelated pre-existing project-wide warnings.
-- Full paid sandbox entitlement round trip is still pending because the automated browser payment run did not complete.
+- Parent-share hosted sandbox payment completed successfully in Stripe. The resulting `checkout.session.completed` webhook reached Supabase Development but was rejected by signature verification because Development `STRIPE_WEBHOOK_SECRET` does not match the configured Stripe sandbox webhook endpoint. Entitlement fulfillment therefore remains unverified until that protected secret/config mismatch is corrected.
 
 **Risks / Issues:**  
-- Full paid sandbox round trip still required: payment -> webhook -> student account resolution -> entitlement -> status confirmation.
+- **Current blocker:** Development `STRIPE_WEBHOOK_SECRET` does not match the Stripe sandbox webhook endpoint secret. A real sandbox parent-share payment completed, but `checkout.session.completed` was rejected at signature verification. Correcting the Development secret/config is a protected Hard-Gate action and requires explicit Product Owner approval.
 - Sandbox webhook does not currently subscribe to `charge.refunded`; changing webhook config remains a separately protected Stripe sandbox configuration write.
 - Development parent-email endpoint returns provider-unavailable until the approved email provider secret/config is present.
 - Current Marketing Lovable environment points at Production Supabase and lacks a usable Stripe publishable key in the inspected project file; do not publish the payment funnel until Production configuration is explicitly approved.
