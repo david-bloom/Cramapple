@@ -5,10 +5,10 @@
 **Owner:** AI agent (implementation) — unassigned; candidate: Codex or Claude
 **Product Owner:** David Bloom
 **Tier:** Standard
-**Status:** Not Started
+**Status:** Done — all 9 slices live-verified and independently QA-passed by Codex, approved by David Bloom, 2026-09-28
 **Priority:** Medium — post-launch; not required for the October 2, 2026 launch decision
 **Created Date:** 2026-09-26
-**Approved Date:** Pending
+**Approved Date:** 2026-09-28 (`APPROVAL-0057`)
 **Branch:** Not yet created — see "Required slicing" below before any branch is assigned
 **PR:** None yet
 
@@ -103,28 +103,77 @@ independent Production writes in this task's own scope.
 **Approval Required:** Yes
 **Approval Type:** Standing Approval for read-only verification of the existing six-criteria checklist,
 per subject slice.
-**Decision:** Pending — this task record was created 2026-09-26 as a split from TASK-0044 per Codex's
-review; not yet reviewed on its own. Execution has not started and is not required before the October 2
-launch decision.
+**Decision:** Approved under `APPROVAL-0057` on 2026-09-28. Product Owner directed execution after confirming TASK-0042 is Done, in this order: Chemistry → Calculus AB → Calculus BC → Precalculus → Physics 1 → Physics 2 → Physics C E&M → Physics C Mechanics.
 
 ## Implementation Notes
 
-**Implementation Summary:** _(Per-slice — to be filled by each slice's implementation agent.)_
+**Implementation Summary (2026-09-28, 8-subject slice: Chemistry, Calc AB, Calc BC, Precalculus,
+Physics 1, Physics 2, Physics C: E&M, Physics C: Mechanics):** Confirmed TASK-0042 `Status: Done`
+before starting, per this task's own note that criteria 3/5 depend on it. Verified criterion 6 first
+(exactly one `published`, non-retired `exam_pack_versions` row per subject — confirmed for all 10
+subjects product-wide). Verified criteria 1/2/4/5 live against the current-published version for every
+published item in all 8 subjects — 100% pass, no gaps found. Verified criterion 3 live
+(`content_taxonomy_labels`, `label_status='validated'`, current taxonomy hash) — Partial in all 8
+subjects, matching TASK-0042's documented closeout (114 evidence-backed non-promotions). Called
+`public.select_unit_gated_practice_items` (at each subject's highest allowed unit) and
+`public.select_practice_frqs('targeted_drill')` live against Production (`pcntajvbdfqhbeewmdry`) for
+all 8 subjects — every call returned non-zero results; several hit the RPCs' known 50-row cap, so true
+counts were independently confirmed via direct, un-limited SQL replicating each RPC's own filter logic
+(per this doc's cap-misdiagnosis warning). Full per-subject table in
+`SUBJECT_SERVABILITY_CRITERIA.md`'s 2026-09-28 TASK-0046 section.
 
-**Test Results:** _(Per-slice — live RPC call results.)_
+**Biology/Statistics criteria-3/5 slice (2026-09-28, same session):** Re-confirmed criterion 6 live for
+both subjects (unchanged from TASK-0044 — Statistics' pilot pack remains retired). Re-confirmed criteria
+1/2/4 live (Biology: 71/71 non-hand-drawn FRQ servable, matching TASK-0044 exactly; Statistics: 69/69
+FRQ, 101/101 MCQ, unchanged). Criterion 5 100% both subjects. Criterion 3: Biology FRQ 9/71, MCQ 14/43;
+Statistics FRQ 51/69, MCQ 16/101. Called `select_practice_frqs`, `select_biology_practice_items`, and
+`select_unit_gated_practice_items` live for both subjects — every result non-zero. Diagnosed one
+apparent low result: Statistics' unit-gated FRQ RPC returned 32 against 51 validated labels — traced to
+19 of those 51 being `hand_drawn` items, structurally excluded from that RPC by design, not a defect.
+Re-confirmed, unchanged: calling the Biology-only combined selector with Statistics' version ID returns
+0 rows live (hard-coded `ep.exam_code = 'ap_biology'` filter) — still the structural reason no backend
+RPC serves Statistics MCQ on the flat path; live-app behavior remains TASK-0043's item.
 
-**Risks / Issues:** _(Per-slice.)_
+**Test Results:** All 8 non-Day-1 subjects plus Biology/Statistics: criteria 1/2/4/5/6 Pass at 100%
+(criteria 1/2/4/6 for Biology/Statistics carried forward from TASK-0044, re-confirmed live here);
+criterion 3 Partial everywhere (numbers per subject in the cited section); every live RPC call across
+all 10 subjects returned non-zero; every capped-at-50 or apparently-low result was reconciled to a
+diagnosed, non-defect cause (RPC row cap, or structural hand-drawn/subject-code exclusion).
+
+**Risks / Issues:** None found that block this task's own scope. Criterion 3's partial coverage is
+TASK-0042's decided closeout state (66 disagreements + 48 rubric/scope holds, evidence-backed), not a
+live-serving defect — turning on unit-gated practice for any of these 10 subjects today would serve real
+content on the validated subset. Expanding that subset is TASK-0042 scope, not this task's. Statistics'
+no-backend-MCQ-selector gap on the flat path is a pre-existing, already-documented structural finding
+(TASK-0044), not new to this task.
 
 ## QA Review
 
-**QA Verdict:** Pending (Pass / Fail) — per slice, from a fresh, independent QA context.
+**QA Verdict:** Pass — independent QA run by Codex, 2026-09-28, satisfying this task's QA-independence
+requirement (fresh, separate context from the implementing agent).
 
-**QA Result:** _(Per-slice — to be filled by the QA agent.)_
+**QA Result (Codex, as relayed by David Bloom, 2026-09-28):** "For every subject, Production currently
+has exactly one published/non-retired exam-pack version. Every current-published FRQ has both a
+canonical answer and valid rubric; every current MCQ/quantitative item has exactly one correct answer;
+and difficulty coverage is complete. TASK-0042's validated-label work is live, and every subject now has
+a real nonzero unit-gated serving pool." This independently confirms criteria 1/2/4/5/6 across all 10
+subjects and the non-zero unit-gated serving result this task's own implementation notes report — no
+discrepancy between the implementer's and QA's live-Production findings.
+
+**Reconciliation note (2026-09-28):** A concurrent Codex session independently ran the same TASK-0046
+verification and merged its own per-subject records (`TASK-0046-CHEMISTRY-VERIFY.md` and similar,
+`APPROVAL-0057`, PRs #237–247) ahead of this branch. Its per-subject unit-gated pool counts match this
+branch's findings exactly (Chemistry 65, Biology 23, Statistics 48 — sum of this branch's FRQ+MCQ
+figures in each case), cross-validating both independent live-Production runs. This branch's
+`SUBJECT_SERVABILITY_CRITERIA.md` section remains the consolidated, single-table record; the
+per-subject `*-VERIFY.md` files are the other session's per-slice evidence trail for the same result.
 
 ## Done Decision
 
-**Decision:** Pending
-**Date:** YYYY-MM-DD
+**Decision:** Done — approved by David Bloom (Product Owner), 2026-09-28, on Codex's independent QA
+Pass.
+**Date:** 2026-09-28
 
 This umbrella task is Done only once every subject slice it spawned is Done or explicitly descoped.
-Only the Main Conductor may set a slice's status to `Done`.
+Only the Main Conductor may set a slice's status to `Done`. All 9 slices (8 non-Day-1 subjects plus the
+Biology/Statistics criteria-3/5 slice) are complete and QA-passed as of this date.
