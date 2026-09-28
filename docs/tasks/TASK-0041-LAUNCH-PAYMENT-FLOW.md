@@ -77,7 +77,7 @@ Implement/refactor:
 - anonymous `student_direct` Checkout Session creation;
 - existing-account reconciliation;
 - generalized student account resolution/provisioning;
-- custom Checkout Session support for direct student checkout;
+- Elements Checkout Session support for direct student checkout;
 - server-authoritative subject/price validation;
 - promo-code handling;
 - `parent_share` hosted Checkout Session creation;

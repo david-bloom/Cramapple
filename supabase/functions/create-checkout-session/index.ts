@@ -229,7 +229,7 @@ export async function handleCreateCheckoutSession(
     const session = purchaseType === "student_direct"
       ? await stripe.checkout.sessions.create({
         ...commonParams,
-        ui_mode: "custom",
+        ui_mode: "elements",
         customer_creation: "always",
         customer_email: payerEmail,
         payment_intent_data: { setup_future_usage: "off_session" },
@@ -238,7 +238,7 @@ export async function handleCreateCheckoutSession(
       })
       : await stripe.checkout.sessions.create({
         ...commonParams,
-        ui_mode: "hosted",
+        ui_mode: "hosted_page",
         customer_email: payerEmail,
         success_url: purchaseType === "parent_share"
           ? `${APP_BASE_URL}/checkout/success?session_id={CHECKOUT_SESSION_ID}&role=parent`

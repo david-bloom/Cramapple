@@ -147,7 +147,7 @@ The exact wording may be adjusted to fit the canonical Cramapple voice, but the 
 
 ### 4.1 Direct student checkout: Checkout Sessions API with custom UI
 
-Use Stripe Checkout Sessions in `ui_mode: "custom"` for the direct student checkout.
+Use Stripe Checkout Sessions in `ui_mode: "elements"` for the direct student checkout.
 
 Rationale:
 
@@ -157,7 +157,7 @@ Rationale:
 - It avoids introducing an independent PaymentIntent-only fulfillment path.
 - It supports discount handling and future payment-method reuse through Checkout Session configuration.
 
-Implementation agent must confirm the installed Stripe SDK/API version supports `ui_mode: "custom"` before coding. If the currently pinned SDK does not support it, upgrading Stripe SDK/API version becomes a separately reviewed implementation step.
+Confirmed 2026-09-28 against Stripe CLI 1.52.0 and Stripe API `2026-08-26.dahlia`: the current enum is `ui_mode: "elements"` (renamed from the earlier `"custom"` value), and hosted checkout uses `"hosted_page"`. The backend is pinned to Stripe SDK 22.6.0 for this contract.
 
 ### 4.2 Express payment
 
@@ -304,7 +304,7 @@ If a signed-in student enters checkout:
 
 ## 7. Direct checkout API
 
-Refactor the existing `create-checkout-session` Edge Function so it supports a custom Checkout Session.
+Refactor the existing `create-checkout-session` Edge Function so it supports an Elements Checkout Session.
 
 ### 7.1 Request
 
@@ -340,7 +340,7 @@ Conceptual server shape:
 ```ts
 stripe.checkout.sessions.create({
   mode: "payment",
-  ui_mode: "custom",
+  ui_mode: "elements",
   line_items: [{ price: SERVER_RESOLVED_PRICE_ID, quantity: 1 }],
   return_url: `${APP_BASE_URL}/checkout/return?session_id={CHECKOUT_SESSION_ID}`,
   customer_creation: "always",
@@ -508,7 +508,7 @@ Create a new hosted Checkout Session:
 ```ts
 stripe.checkout.sessions.create({
   mode: "payment",
-  ui_mode: "hosted",
+  ui_mode: "hosted_page",
   line_items: [{ price: SERVER_RESOLVED_PRICE_ID, quantity: 1 }],
   customer_email: undefined,
   allow_promotion_codes: true,
