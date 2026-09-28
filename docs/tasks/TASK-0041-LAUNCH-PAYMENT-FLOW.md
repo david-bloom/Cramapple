@@ -5,11 +5,13 @@
 **Owner:** AI implementation agent — unassigned  
 **Product Owner:** David Bloom  
 **Tier:** Hard-Gate  
-**Status:** Not Started  
-**Priority:** Medium — not on the October 2, 2026 free-launch critical path (`DECISION-0071`)  
+**Status:** In Progress — implementation begun 2026-09-28 (`DECISION-0083`)  
+**Priority:** Medium — still not on the October 2, 2026 free-launch critical path (`DECISION-0071`
+unchanged: October 2 remains free, no payment gating), but building starts now rather than waiting
+for a post-launch follow-up  
 **Created Date:** 2026-09-26  
 **Reframed Date:** 2026-09-27  
-**Approved Date:** Pending execution approval  
+**Approved Date:** 2026-09-28 (`DECISION-0083`) — execution of Phase A/B begins now  
 **Branch:** Not yet created for implementation; use `<agent>/task-0041-<slug>` per R1  
 **PR:** None yet for implementation
 
