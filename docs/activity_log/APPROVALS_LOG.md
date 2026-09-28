@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0057 — Execute TASK-0046 Subject Onboarding Gate in Ordered Per-Subject Slices
 - APPROVAL-0056 — TASK-0042 Cross-Cutting Content-Pipeline QA Remediation and Subject-Scoped Production Writes
 - APPROVAL-0055 — Adopt Lean Source-of-Truth Startup Mode (Tier-First Reading, `AGENTS.md`, Log `INDEX_END` Markers) — DECISION-0081
 - APPROVAL-0054 — Ratify Three Session-Start Bootstrap Edits (Live Front-Ends, Required First-Read, Anti-Stale Rule) — DECISION-0078
@@ -27,6 +28,24 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## APPROVAL-0057 — Execute TASK-0046 Subject Onboarding Gate in Ordered Per-Subject Slices
+
+**Date:** 2026-09-28
+**Approved By:** David Bloom
+**Related Task:** `TASK-0046-SUBJECT-ONBOARDING-GATE-FULL-PROGRAM.md`
+**Decision:** Approved
+
+### Summary
+
+Authorizes execution of TASK-0046's read-only Production six-criteria verification program after confirming TASK-0042 is Done. Execute the eight non-Day-1 subject slices in this order: AP Chemistry, AP Calculus AB, AP Calculus BC, AP Precalculus, AP Physics 1, AP Physics 2, AP Physics C: Electricity and Magnetism, AP Physics C: Mechanics.
+
+### Notes
+
+- This approval covers read-only Production verification and documentation updates only; it does not authorize Production data writes, migrations, deployments, secrets/configuration changes, payments, or launch.
+- Preserve TASK-0046's required one-subject-per-slice branch/PR structure and fresh independent QA before any slice is marked Done.
+- TASK-0042 was verified Done on 2026-09-28 from the canonical task record before execution began.
+
 
 ## APPROVAL-0056 — TASK-0042 Cross-Cutting Content-Pipeline QA Remediation and Subject-Scoped Production Writes
 
