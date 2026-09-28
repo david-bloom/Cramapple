@@ -6,6 +6,23 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Content-Pipeline Session, Final Close: Pair-QA Status Confirmed Complete for All Ten Subjects
+  (2026-09-27): David asked what remained to be pair-QA'd after the content pipeline/unlock work
+  above. Read-only check, no new writes: the original 2026-09-25 pairing
+  (`TIER3_LABELS_DIFFICULTY_PAIRED_PLAN_2026_09_25.md`) split the nine non-Biology subjects into Pair
+  1 (Statistics/Chemistry), Pair 2 (Calculus AB/Precalculus), Pair 3 (Physics 1/Physics 2), and Pair 4
+  (Physics C: Mechanics/Physics C: E&M), plus a solo Calculus BC lane, with Biology on its own separate
+  FF lane. `LAUNCH_PLAN_CONTENT_PIPELINE_2026_09_26.md`'s status table lists "Independent cross-QA:
+  Complete" for all ten, and this session already has independent corroboration beyond that table's
+  own claim: the 216-row single-unit freshness re-audit and the 27-of-141 blind multi-unit third
+  review (via a separate model, candidate label withheld from the prompt) ran across all ten subjects
+  together, superseding the original per-pair split, and `app.servable_items_census_selftest()` shows
+  0 mismatches. **Zero subjects remain to be pair-QA'd.** Caveat recorded: this confirms the cross-QA
+  *procedures* ran and landed correctly in Production, not a fresh independent re-read of each pair's
+  original substantive judgment calls (e.g., whether a specific unit-assignment rationale was sound) —
+  that would be a deeper content-quality pass, distinct from what was checked here. Also re-confirmed
+  for David: the AP Biology difficulty gap (see below) is fully closed, not outstanding — a prior
+  message had referenced it only as session background, which read as if it were still open.
 - Content-Pipeline QA Session Close: PR #235 Verified, Biology Difficulty Gap Closed, Unlock Status
   Checked (2026-09-27): Independently audited the Codex `codex/task-0042-content-pipeline-remediation`
   worktree and, after it merged, PR #235 itself, against live Production rather than the docs' own
