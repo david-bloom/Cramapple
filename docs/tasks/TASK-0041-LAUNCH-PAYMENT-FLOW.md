@@ -9,7 +9,7 @@
 **Priority:** Active — execute now per Product Owner direction, 2026-09-28  
 **Created Date:** 2026-09-26  
 **Reframed Date:** 2026-09-27  
-**Approved Date:** 2026-09-28  
+**Approved Date:** 2026-09-28 (`DECISION-0083`, `APPROVAL-0059`)
 **Branch:** `chatgpt/task-0041-purchase-funnel`  
 **PR:** #253 — `TASK-0041 purchase funnel implementation`
 
@@ -274,9 +274,9 @@ Unless separately approved:
 
 **Approval Required:** Yes  
 **Approval Type:** Hard Gate  
-**Execution Decision:** Approved — `APPROVAL-0058` / `DECISION-0083`
+**Execution Decision:** Approved — `APPROVAL-0059` / `DECISION-0083`
 
-The Product Owner approved immediate TASK-0041 execution and revised pricing on 2026-09-28 (`DECISION-0083`, `APPROVAL-0058`). Separate Hard Gates remain for Production migrations/deployments, live Stripe configuration/writes, secret changes, enabling live paid sales, Lovable Production publish, and final risk acceptance.
+The Product Owner approved immediate TASK-0041 execution and revised pricing on 2026-09-28 (`DECISION-0083`, `APPROVAL-0059`). Separate Hard Gates remain for Production migrations/deployments, live Stripe configuration/writes, secret changes, enabling live paid sales, Lovable Production publish, and final risk acceptance.
 
 ## Implementation Notes
 
@@ -305,11 +305,15 @@ The Product Owner approved immediate TASK-0041 execution and revised pricing on 
 - Add-on called against unpaid/ineligible source: HTTP 409 `addon_not_eligible`.
 - Lovable frontend: typecheck clean; 16/16 tests passed; build passed before final 48px touch-target tweak, with typecheck/tests re-run after tweak.
 - Supabase security advisor run after schema work; new TASK-0041 tables are RLS-enabled. Advisor also reports unrelated pre-existing project-wide warnings.
-- Parent-share hosted sandbox payment completed successfully in Stripe. The resulting `checkout.session.completed` webhook reached Supabase Development but was rejected by signature verification because Development `STRIPE_WEBHOOK_SECRET` does not match the configured Stripe sandbox webhook endpoint. Entitlement fulfillment therefore remains unverified until that protected secret/config mismatch is corrected.
+- Independent QA verified one completed parent-share sandbox payment through its processed webhook event and active Biology entitlement in Supabase Development.
+- QA remediation migration `task0041_webhook_replay` applied to Development as migration version `20260928191344`; the known failed event was backfilled to `status=failed`, `attempt_count=1`.
+- Stripe redelivery of `evt_1UKf1RLrvKNd9sBpHp1wEkTp` through the secret-matching endpoint reran processing and incremented `attempt_count` to 2. It remained failed only because the fixture student address is intentionally invalid.
+- Parent-share add-on fallback verified against source session `cs_test_b13BEtdKtJTqdmRbPmFeaSXxIzwlv4HVjPPmU2I1BUMQuAmWddrMh7N35n`: status returned the server-controlled $30 offer and add-on session `cs_test_a1yNtXG2I5TqSbssnFY4LBVWzIgXVTUv282HRE2V1ULdAFbfiYBYk2kYgj` returned `payment_method_reuse=card_entry_required` instead of 409.
+- Development deployments verified active: `stripe-webhook` v19, `create-parent-payment-link` v11, `create-post-purchase-addon` v11, and `get-checkout-status` v12.
+- Post-migration Supabase security advisor reported no new TASK-0041 finding; existing project-wide advisor items remain outside this task.
 
 **Risks / Issues:**  
-- **Current blocker:** Development `STRIPE_WEBHOOK_SECRET` does not match the Stripe sandbox webhook endpoint secret. A real sandbox parent-share payment completed, but `checkout.session.completed` was rejected at signature verification. Correcting the Development secret/config is a protected Hard-Gate action and requires explicit Product Owner approval.
-- Sandbox webhook does not currently subscribe to `charge.refunded`; changing webhook config remains a separately protected Stripe sandbox configuration write.
+- Stripe sandbox has two enabled webhook endpoints for the same Development URL. Endpoint `we_1U3MbjLrvKNd9sBptVDPa4qw` matches the configured signing secret but lacks `charge.refunded`; endpoint `we_1UKj4nLrvKNd9sBpasmGR65M` includes `charge.refunded` but fails Development signature verification. Consolidating these endpoints is a separately protected Stripe configuration write.
 - Development parent-email endpoint returns provider-unavailable until the approved email provider secret/config is present.
 - Current Marketing Lovable environment points at Production Supabase and lacks a usable Stripe publishable key in the inspected project file; do not publish the payment funnel until Production configuration is explicitly approved.
 - Post-purchase add-on currently treats possession of the source Checkout Session ID as the capability to start a saved-customer add-on session. Before Production, review whether authenticated-user binding or another stronger proof should be required.
@@ -317,9 +321,9 @@ The Product Owner approved immediate TASK-0041 execution and revised pricing on 
 
 ## QA Review
 
-**QA Verdict:** Pending
+**QA Verdict:** Fail / Blocked — remediation implemented; fresh re-QA required
 
-**QA Result:** _(Fresh independent QA context.)_
+**QA Result:** Independent QA on 2026-09-28 found three blocking defects: failed webhook deliveries could not be replayed, parent-share purchases lacked an add-on payment fallback, and the TASK-0041 approval ID collided with `main`. The implementation branch now includes a durable retryable webhook ledger, parent-share Customer creation plus card-entry fallback, and the renumbered `APPROVAL-0059`. These fixes have local typecheck/unit evidence but require fresh independent QA and Development migration/deployment before the verdict can change.
 
 ## Done Decision
 

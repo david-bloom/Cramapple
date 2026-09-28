@@ -2,6 +2,10 @@ import { jsonResponse } from "../_shared/http.ts";
 import { createServiceClient } from "../_shared/supabase.ts";
 import { recordGrowthEvent } from "../_shared/growth-events.ts";
 import { stripe, verifyStripeWebhookEvent } from "../_shared/stripe.ts";
+import {
+  webhookDeliveryDisposition,
+  type WebhookLedgerStatus,
+} from "../_shared/stripe-webhook-ledger.ts";
 
 function requireEnv(name: string) {
   const value = Deno.env.get(name);
@@ -307,8 +311,7 @@ async function handleCheckoutSessionCompleted(
 ) {
   const metadata = session.metadata ?? {};
   const purchaseType = metadata.purchase_type ?? metadata.purchaser_type ?? "";
-  const resolvesStudentByEmail =
-    purchaseType === "parent_gift" ||
+  const resolvesStudentByEmail = purchaseType === "parent_gift" ||
     purchaseType === "parent_share" ||
     purchaseType === "student_direct";
   const userId = session.client_reference_id ??
@@ -559,22 +562,59 @@ Deno.serve(async (req) => {
 
   const service = createServiceClient();
 
-  // Idempotency ledger: insert-first on the Stripe event id. A primary-key
-  // conflict means this event was already received (redelivery or a
-  // concurrent delivery) - acknowledge without reprocessing.
+  // Insert-first preserves idempotency. A redelivery may claim a prior failed
+  // attempt (or one abandoned for at least five minutes), but processed events
+  // and active concurrent attempts never run twice.
+  const attemptStartedAt = new Date().toISOString();
   const { error: ledgerError } = await service.schema("app")
     .from("stripe_webhook_events")
     .insert({
       id: event.id,
       event_type: event.type,
       payload: JSON.parse(rawBody),
+      status: "processing",
+      attempt_count: 1,
+      last_attempt_at: attemptStartedAt,
     });
   if (ledgerError) {
     if (ledgerError.code === "23505") {
-      return respond({ status: "ok", duplicate: true });
+      const { data: claimed, error: claimError } = await service.schema("app")
+        .rpc("claim_stripe_webhook_event", { p_event_id: event.id });
+      if (claimError) {
+        console.error("stripe-webhook ledger_claim_failed", claimError);
+        return respond({ error: "ledger_claim_failed" }, { status: 500 });
+      }
+      if (!claimed) {
+        const { data: existing, error: existingError } = await service.schema(
+          "app",
+        ).from("stripe_webhook_events")
+          .select("status,processed_at")
+          .eq("id", event.id)
+          .maybeSingle();
+        if (existingError || !existing) {
+          console.error(
+            "stripe-webhook ledger_status_failed",
+            existingError,
+          );
+          return respond({ error: "ledger_status_failed" }, { status: 500 });
+        }
+        const disposition = webhookDeliveryDisposition({
+          status: existing.status as WebhookLedgerStatus | null,
+          processedAt: existing.processed_at,
+        });
+        if (disposition === "retryable") {
+          return respond({ error: "ledger_claim_race" }, { status: 500 });
+        }
+        return respond({
+          status: "ok",
+          duplicate: disposition === "already_processed",
+          processing: disposition === "in_progress",
+        });
+      }
+    } else {
+      console.error("stripe-webhook ledger_insert_failed", ledgerError);
+      return respond({ error: "ledger_write_failed" }, { status: 500 });
     }
-    console.error("stripe-webhook ledger_insert_failed", ledgerError);
-    return respond({ error: "ledger_write_failed" }, { status: 500 });
   }
 
   try {
@@ -616,9 +656,20 @@ Deno.serve(async (req) => {
       throw new Error(`unsupported_stripe_event_type:${event.type}`);
     }
 
-    await service.schema("app").from("stripe_webhook_events")
-      .update({ processed_at: new Date().toISOString() })
+    const { error: processedLedgerError } = await service.schema("app").from(
+      "stripe_webhook_events",
+    )
+      .update({
+        status: "processed",
+        processed_at: new Date().toISOString(),
+        processing_error: null,
+      })
       .eq("id", event.id);
+    if (processedLedgerError) {
+      throw new Error(
+        `webhook_ledger_mark_processed_failed:${processedLedgerError.message}`,
+      );
+    }
 
     return respond({ status: "ok" });
   } catch (error) {
@@ -627,7 +678,10 @@ Deno.serve(async (req) => {
       : "stripe_webhook_processing_failed";
     console.error("stripe-webhook processing_failed", error);
     await service.schema("app").from("stripe_webhook_events")
-      .update({ processing_error: message.slice(0, 500) })
+      .update({
+        status: "failed",
+        processing_error: message.slice(0, 500),
+      })
       .eq("id", event.id);
     return respond({ error: "processing_failed" }, { status: 500 });
   }

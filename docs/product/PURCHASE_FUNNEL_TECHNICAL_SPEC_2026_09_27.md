@@ -1,6 +1,6 @@
 # Purchase Funnel Technical Specification — TASK-0041
 
-**Status:** In Progress — execution approved (`DECISION-0083`, `APPROVAL-0058`)  
+**Status:** In Progress — execution approved (`DECISION-0083`, `APPROVAL-0059`)
 **Date:** 2026-09-27  
 **Owner:** David Bloom  
 **Implementation Task:** `TASK-0041 — Launch: Payment Flow`  
@@ -8,7 +8,7 @@
 **Canonical repository:** `david-bloom/Cramapple`  
 **Implementation branch:** `chatgpt/task-0041-purchase-funnel`
 
-> This document is the implementation specification for TASK-0041. Development/task-branch execution was approved on 2026-09-28 (`DECISION-0083`, `APPROVAL-0058`). Production deployment/migration, live Stripe writes/configuration, secrets, live paid sales, Lovable Production publish, and risk acceptance remain separate Hard Gates.
+> This document is the implementation specification for TASK-0041. Development/task-branch execution was approved on 2026-09-28 (`DECISION-0083`, `APPROVAL-0059`). Production deployment/migration, live Stripe writes/configuration, secrets, live paid sales, Lovable Production publish, and risk acceptance remain separate Hard Gates.
 >
 > The supplied design document included a secret-like string. It is intentionally omitted here and must not be copied into source control, prompts, logs, or client code.
 

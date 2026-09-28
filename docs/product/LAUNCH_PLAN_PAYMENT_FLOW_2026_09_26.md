@@ -1,6 +1,6 @@
 # Launch Plan — Purchase Funnel / Payment Flow — 2026-09-26
 
-**Status:** In Progress — execution approved (`DECISION-0083`, `APPROVAL-0058`)  
+**Status:** In Progress — execution approved (`DECISION-0083`, `APPROVAL-0059`)
 **Owner:** David Bloom  
 **Tier:** Hard-Gate  
 **Implementation Task:** `docs/tasks/TASK-0041-LAUNCH-PAYMENT-FLOW.md`  
@@ -34,6 +34,12 @@ This is an implementation project, not merely a verification exercise.
 ## 2. Execution timing and October 2
 
 `DECISION-0083` supersedes the payment-flow deferment from `DECISION-0071`: **TASK-0041 executes now.** The separate October 2 free-launch path remains unchanged unless explicitly changed later. Implementing TASK-0041 now does not authorize live paid gating or Production enablement.
+
+**UPDATE, 2026-09-28 (`DECISION-0083`):** implementation of TASK-0041 has started now, ahead of
+October 2, rather than waiting for a post-launch follow-up window. This is a timeline change only —
+every point above still holds unchanged: October 2 stays free with no payment gating, and Phase E's
+Production/live-payment Hard Gate still requires separate, explicit Product Owner approval before any
+live Stripe change or paid-sales enablement.
 
 ---
 

@@ -73,8 +73,7 @@ Deno.serve(async (req) => {
     }
   }
 
-  const failed =
-    stored.status === "async_payment_failed" ||
+  const failed = stored.status === "async_payment_failed" ||
     stored.status === "expired";
 
   if (failed) {
@@ -100,7 +99,10 @@ Deno.serve(async (req) => {
       .eq("status", "active");
 
     if (entitlementError) {
-      console.error("get-checkout-status entitlement_lookup_failed", entitlementError);
+      console.error(
+        "get-checkout-status entitlement_lookup_failed",
+        entitlementError,
+      );
       return respond({ error: "status_lookup_failed" }, { status: 500 });
     }
 
@@ -112,27 +114,21 @@ Deno.serve(async (req) => {
 
   let offer = null;
   if (entitled && stored.mode === "single" && stored.user_id) {
-    const { data: customer } = await service.schema("app")
-      .from("stripe_customers")
-      .select("stripe_customer_id")
-      .eq("user_id", stored.user_id)
-      .maybeSingle();
+    const { count: activeSubjectCount } = await service.schema("app")
+      .from("subjects")
+      .select("id", { count: "exact", head: true })
+      .eq("status", "active");
 
-    if (customer?.stripe_customer_id) {
-      const { count: activeSubjectCount } = await service.schema("app")
-        .from("subjects")
-        .select("id", { count: "exact", head: true })
-        .eq("status", "active");
-
-      if ((activeSubjectCount ?? 0) > subjectKeys.length) {
-        offer = {
-          id: "bundle_2_upgrade",
-          title: "Add another AP subject",
-          description: "Complete your 2-subject bundle for $30.00 total extra.",
-          price_label: "$30.00",
-          url: `${APP_BASE_URL}/checkout/add-on?session_id=${encodeURIComponent(sessionId)}`,
-        };
-      }
+    if ((activeSubjectCount ?? 0) > subjectKeys.length) {
+      offer = {
+        id: "bundle_2_upgrade",
+        title: "Add another AP subject",
+        description: "Complete your 2-subject bundle for $30.00 total extra.",
+        price_label: "$30.00",
+        url: `${APP_BASE_URL}/checkout/add-on?session_id=${
+          encodeURIComponent(sessionId)
+        }`,
+      };
     }
   }
 

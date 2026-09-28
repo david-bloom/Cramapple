@@ -2,7 +2,10 @@ import { jsonResponse, readJsonBody } from "../_shared/http.ts";
 import { recordGrowthEvent } from "../_shared/growth-events.ts";
 import { createServiceClient } from "../_shared/supabase.ts";
 import { stripe } from "../_shared/stripe.ts";
-import { loadPriceCatalog, type PriceCatalog } from "../_shared/stripe-catalog.ts";
+import {
+  loadPriceCatalog,
+  type PriceCatalog,
+} from "../_shared/stripe-catalog.ts";
 
 type Mode = "single" | "bundle_2" | "bundle_3";
 const MODES = new Set<Mode>(["single", "bundle_2", "bundle_3"]);
@@ -28,9 +31,7 @@ function asString(value: unknown) {
 function asEmail(value: unknown) {
   const email = asString(value);
   if (!email) return null;
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-    ? email.toLowerCase()
-    : null;
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? email.toLowerCase() : null;
 }
 
 function asSubjectKeys(value: unknown) {
@@ -113,6 +114,8 @@ Deno.serve(async (req) => {
   try {
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
+      customer_creation: "always",
+      payment_intent_data: { setup_future_usage: "off_session" },
       line_items: [{ price: priceId, quantity: 1 }],
       ...(promotionCodeId
         ? { discounts: [{ promotion_code: promotionCodeId }] }

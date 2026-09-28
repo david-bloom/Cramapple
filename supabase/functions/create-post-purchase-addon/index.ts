@@ -1,4 +1,5 @@
 import { jsonResponse, readJsonBody } from "../_shared/http.ts";
+import { addonCustomerOptions } from "../_shared/addon-checkout.ts";
 import { createServiceClient } from "../_shared/supabase.ts";
 import { stripe } from "../_shared/stripe.ts";
 
@@ -42,8 +43,13 @@ Deno.serve(async (req) => {
     .select("id,user_id,mode,payment_status,subject_keys")
     .eq("id", sourceSessionId)
     .maybeSingle();
-  if (sourceError) return respond({ error: "status_lookup_failed" }, { status: 500 });
-  if (!source || source.payment_status !== "paid" || source.mode !== "single" || !source.user_id) {
+  if (sourceError) {
+    return respond({ error: "status_lookup_failed" }, { status: 500 });
+  }
+  if (
+    !source || source.payment_status !== "paid" || source.mode !== "single" ||
+    !source.user_id
+  ) {
     return respond({ error: "addon_not_eligible" }, { status: 409 });
   }
 
@@ -56,12 +62,16 @@ Deno.serve(async (req) => {
 
   const { data: subject, error: subjectError } = await service.schema("app")
     .from("subjects")
-    .select("id,subject_key,name,status")
+    .select("id,subject_key,display_name,status")
     .eq("subject_key", subjectKey)
     .eq("status", "active")
     .maybeSingle();
-  if (subjectError) return respond({ error: "subject_lookup_failed" }, { status: 500 });
-  if (!subject) return respond({ error: "unknown_subject_key" }, { status: 400 });
+  if (subjectError) {
+    return respond({ error: "subject_lookup_failed" }, { status: 500 });
+  }
+  if (!subject) {
+    return respond({ error: "unknown_subject_key" }, { status: 400 });
+  }
 
   const { data: already } = await service.schema("app")
     .from("subject_entitlements")
@@ -77,38 +87,40 @@ Deno.serve(async (req) => {
     .select("stripe_customer_id")
     .eq("user_id", source.user_id)
     .maybeSingle();
-  if (customerError) return respond({ error: "customer_lookup_failed" }, { status: 500 });
-  if (!customer?.stripe_customer_id) {
-    return respond({ error: "saved_payment_unavailable" }, { status: 409 });
+  if (customerError) {
+    return respond({ error: "customer_lookup_failed" }, { status: 500 });
   }
+  const savedCustomerId = customer?.stripe_customer_id ?? null;
 
   try {
-    const session = await stripe.checkout.sessions.create({
-      mode: "payment",
-      ui_mode: "elements",
-      customer: customer.stripe_customer_id,
-      client_reference_id: source.user_id,
-      line_items: [{
-        price_data: {
-          currency: "usd",
-          unit_amount: ADDON_AMOUNT_CENTS,
-          product_data: {
-            name: `Cramapple — ${subject.name ?? subjectKey}`,
+    const session = await stripe.checkout.sessions.create(
+      {
+        mode: "payment",
+        ui_mode: "elements",
+        ...addonCustomerOptions(savedCustomerId),
+        client_reference_id: source.user_id,
+        line_items: [{
+          price_data: {
+            currency: "usd",
+            unit_amount: ADDON_AMOUNT_CENTS,
+            product_data: {
+              name: `Cramapple — ${subject.display_name ?? subjectKey}`,
+            },
           },
+          quantity: 1,
+        }],
+        return_url:
+          `${APP_BASE_URL}/checkout/return?session_id={CHECKOUT_SESSION_ID}&role=student`,
+        payment_intent_data: { setup_future_usage: "off_session" },
+        metadata: {
+          mode: "single",
+          subject_ids: subjectKey,
+          purchase_type: "post_purchase_addon",
+          purchaser_type: "post_purchase_addon",
+          source_checkout_session_id: sourceSessionId,
         },
-        quantity: 1,
-      }],
-      return_url:
-        `${APP_BASE_URL}/checkout/return?session_id={CHECKOUT_SESSION_ID}&role=student`,
-      payment_intent_data: { setup_future_usage: "off_session" },
-      metadata: {
-        mode: "single",
-        subject_ids: subjectKey,
-        purchase_type: "post_purchase_addon",
-        purchaser_type: "post_purchase_addon",
-        source_checkout_session_id: sourceSessionId,
-      },
-    } as Parameters<typeof stripe.checkout.sessions.create>[0]);
+      } as Parameters<typeof stripe.checkout.sessions.create>[0],
+    );
 
     if (!session.client_secret) {
       return respond({ error: "checkout_session_failed" }, { status: 502 });
@@ -119,6 +131,9 @@ Deno.serve(async (req) => {
       session_id: session.id,
       client_secret: session.client_secret,
       amount_total: ADDON_AMOUNT_CENTS,
+      payment_method_reuse: savedCustomerId
+        ? "available"
+        : "card_entry_required",
     });
   } catch (error) {
     console.error("create-post-purchase-addon stripe_error", error);
