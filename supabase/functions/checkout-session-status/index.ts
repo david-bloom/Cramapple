@@ -1,4 +1,7 @@
-import { checkoutAccessState } from "../_shared/checkout-contract.ts";
+import {
+  checkoutAccessState,
+  publicPaymentStatus,
+} from "../_shared/checkout-contract.ts";
 import { jsonResponse, readJsonBody } from "../_shared/http.ts";
 import { createServiceClient } from "../_shared/supabase.ts";
 import { stripe } from "../_shared/stripe.ts";
@@ -10,7 +13,7 @@ function asSessionId(value: unknown) {
     : null;
 }
 
-Deno.serve(async (req) => {
+export async function handleCheckoutStatus(req: Request) {
   const respond = (body: unknown, init: ResponseInit = {}) =>
     jsonResponse(body, init, req);
 
@@ -70,9 +73,11 @@ Deno.serve(async (req) => {
     });
 
     return respond({
-      status,
+      status: "ok",
       session_id: sessionId,
-      payment_status: paymentStatus,
+      payment_status: publicPaymentStatus(status),
+      entitled: status === "confirmed",
+      checkout_state: status,
       mode: recorded?.mode ?? session.metadata?.mode ?? null,
       subject_keys: subjectKeys.length > 0
         ? subjectKeys
@@ -89,4 +94,6 @@ Deno.serve(async (req) => {
     console.error("checkout-session-status failed", error);
     return respond({ error: "checkout_status_failed" }, { status: 502 });
   }
-});
+}
+
+if (import.meta.main) Deno.serve(handleCheckoutStatus);

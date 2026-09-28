@@ -2,6 +2,7 @@ import {
   checkoutAccessState,
   checkoutNeedsStudentResolution,
   checkoutPurchaserType,
+  publicPaymentStatus,
 } from "./checkout-contract.ts";
 
 function assertEquals(actual: unknown, expected: unknown) {
@@ -87,4 +88,11 @@ Deno.test("checkout access preserves terminal failure states", () => {
     }),
     "failed",
   );
+});
+
+Deno.test("public payment status only reports paid after confirmation", () => {
+  assertEquals(publicPaymentStatus("processing"), "processing");
+  assertEquals(publicPaymentStatus("confirmed"), "paid");
+  assertEquals(publicPaymentStatus("failed"), "failed");
+  assertEquals(publicPaymentStatus("expired"), "failed");
 });

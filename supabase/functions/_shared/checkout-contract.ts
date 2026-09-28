@@ -25,6 +25,16 @@ export type CheckoutAccessState =
   | "failed"
   | "expired";
 
+export type PublicPaymentStatus = "paid" | "processing" | "failed";
+
+export function publicPaymentStatus(
+  state: CheckoutAccessState,
+): PublicPaymentStatus {
+  if (state === "confirmed") return "paid";
+  if (state === "failed" || state === "expired") return "failed";
+  return "processing";
+}
+
 export function checkoutAccessState(input: {
   checkoutStatus: string | null;
   paymentStatus: string | null;
