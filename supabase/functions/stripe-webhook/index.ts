@@ -364,7 +364,9 @@ async function handleCheckoutSessionCompleted(
     }
 
     const hadDiscount = Boolean(session.total_details?.amount_discount);
-    const source = mode === "single"
+    const source = metadata.purchase_type === "post_purchase_addon"
+      ? "stripe_checkout_addon"
+      : mode === "single"
       ? (hadDiscount
         ? "stripe_checkout_single_coupon"
         : "stripe_checkout_single")
