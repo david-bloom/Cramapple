@@ -2,6 +2,14 @@ import { jsonResponse, readJsonBody } from "../_shared/http.ts";
 import { createServiceClient } from "../_shared/supabase.ts";
 import { stripe } from "../_shared/stripe.ts";
 
+function requireEnv(name: string) {
+  const value = Deno.env.get(name);
+  if (!value) throw new Error(`Missing required environment variable: ${name}`);
+  return value;
+}
+
+const APP_BASE_URL = requireEnv("APP_BASE_URL").replace(/\/$/, "");
+
 function asString(value: unknown) {
   return typeof value === "string" && value.trim() ? value.trim() : null;
 }
@@ -102,12 +110,39 @@ Deno.serve(async (req) => {
     entitled = (entitlements?.length ?? 0) >= expectedCount;
   }
 
+  let offer = null;
+  if (entitled && stored.mode === "single" && stored.user_id) {
+    const { data: customer } = await service.schema("app")
+      .from("stripe_customers")
+      .select("stripe_customer_id")
+      .eq("user_id", stored.user_id)
+      .maybeSingle();
+
+    if (customer?.stripe_customer_id) {
+      const { count: activeSubjectCount } = await service.schema("app")
+        .from("subjects")
+        .select("id", { count: "exact", head: true })
+        .eq("status", "active");
+
+      if ((activeSubjectCount ?? 0) > subjectKeys.length) {
+        offer = {
+          id: "bundle_2_upgrade",
+          title: "Add another AP subject",
+          description: "Complete your 2-subject bundle for $30.00 total extra.",
+          price_label: "$30.00",
+          url: `${APP_BASE_URL}/checkout/add-on?session_id=${encodeURIComponent(sessionId)}`,
+        };
+      }
+    }
+  }
+
   return respond({
     status: "ok",
     payment_status: stored.payment_status === "paid"
       ? (entitled ? "paid" : "processing")
       : stored.payment_status ?? "processing",
     entitled,
-    offer: null,
+    subject_keys: subjectKeys,
+    offer,
   });
 });
