@@ -11,7 +11,7 @@
 **Reframed Date:** 2026-09-27  
 **Approved Date:** 2026-09-28  
 **Branch:** `chatgpt/task-0041-purchase-funnel`  
-**PR:** Pending
+**PR:** Pending creation
 
 > **TASK REFRAME — 2026-09-27.** The prior "post-launch verify-and-fix" framing is superseded.  
 > TASK-0041 is now the implementation task for the redesigned Cramapple purchase funnel.  
@@ -274,20 +274,46 @@ Unless separately approved:
 
 **Approval Required:** Yes  
 **Approval Type:** Hard Gate  
-**Execution Decision:** Pending
+**Execution Decision:** Approved — `APPROVAL-0058` / `DECISION-0083`
 
-The 2026-09-27 Product Owner instruction establishes the new TASK-0041 scope. It does not by itself bypass existing Hard Gates for Stripe writes, migrations, Production deployment, live-mode sales, pricing changes, or risk acceptance.
+The Product Owner approved immediate TASK-0041 execution and revised pricing on 2026-09-28 (`DECISION-0083`, `APPROVAL-0058`). Separate Hard Gates remain for Production migrations/deployments, live Stripe configuration/writes, secret changes, enabling live paid sales, Lovable Production publish, and final risk acceptance.
 
 ## Implementation Notes
 
-**Implementation Summary:** _(To be filled by implementation agent.)_
+**Implementation Summary:** Development implementation completed through the current protected boundary on 2026-09-28.
 
-**Test Results:** _(To be filled by implementation agent.)_
+- Supabase Development runtime repaired with idempotent payment tables and RLS/service-role policies.
+- Anonymous `student_direct` Elements Checkout Session creation implemented.
+- `parent_share` hosted Checkout Session creation implemented.
+- Webhook recipient resolution expanded to `student_direct`, `parent_share`, and legacy `parent_gift`; entitlement authority remains webhook-only.
+- Stripe Customer/payment-method mapping added for post-purchase reuse.
+- Parent-payment transactional-email endpoint implemented with rate-limit audit; provider configuration remains unavailable in Development.
+- Post-purchase second-subject upgrade implemented at **$30.00**, completing the approved $69.99 two-subject total after a $39.99 single.
+- Checkout status endpoint exposes only server-confirmed entitlement state and eligible add-on offers.
+- Stripe API pinned to `2026-03-25.dahlia` minimum-compatible behavior for `ui_mode: "elements"`.
+- Development Edge Functions deployed only; Production untouched.
+- Lovable Marketing add-on UI implemented in Lovable commit `95ba1954eb5195d660a97e25289bf8aace3ecd1a`; not published.
+
+**Test Results:** Development evidence as of 2026-09-28:
+
+- Stripe sandbox catalog verified: $39.99 single / $69.99 bundle_2 / $89.99 bundle_3.
+- Sandbox webhook verified pointed to Supabase Development.
+- Anonymous student-direct session creation: HTTP 200 after Stripe API-version correction; client secret returned.
+- Pre-payment status: HTTP 200, unpaid, entitled=false.
+- Parent-share session creation: HTTP 200; hosted Stripe Checkout URL returned.
+- Parent-share pre-payment status: HTTP 200, unpaid, entitled=false.
+- Add-on called against unpaid/ineligible source: HTTP 409 `addon_not_eligible`.
+- Lovable frontend: typecheck clean; 16/16 tests passed; build passed before final 48px touch-target tweak, with typecheck/tests re-run after tweak.
+- Supabase security advisor run after schema work; new TASK-0041 tables are RLS-enabled. Advisor also reports unrelated pre-existing project-wide warnings.
+- Full paid sandbox entitlement round trip is still pending because the automated browser payment run did not complete.
 
 **Risks / Issues:**  
-- Two-subject pricing anomaly must be resolved before catalog changes or savings claims.  
-- Custom Checkout Sessions approach must be verified against installed Stripe SDK/API version.  
-- Current paid-entitlement boundary must be re-verified before implementation changes.
+- Full paid sandbox round trip still required: payment -> webhook -> student account resolution -> entitlement -> status confirmation.
+- Sandbox webhook does not currently subscribe to `charge.refunded`; changing webhook config remains a separately protected Stripe sandbox configuration write.
+- Development parent-email endpoint returns provider-unavailable until the approved email provider secret/config is present.
+- Current Marketing Lovable environment points at Production Supabase and lacks a usable Stripe publishable key in the inspected project file; do not publish the payment funnel until Production configuration is explicitly approved.
+- Post-purchase add-on currently treats possession of the source Checkout Session ID as the capability to start a saved-customer add-on session. Before Production, review whether authenticated-user binding or another stronger proof should be required.
+- Production migrations/deployments, live Stripe writes/config, live sales, secrets, and Lovable publish remain Hard-Gated.
 
 ## QA Review
 
