@@ -6,7 +6,30 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
-- TASK-0039 BYOQ Live in Production, Phases 1–2 (2026-09-28): Claude built and shipped bring-your-own-question end to end under `APPROVAL-0058`/`DECISION-0083`. The work covers parallel `byoq_*` tables with no answer-bearing column (enforced by a CHECK), the `byoq` edge function (anonymous owner keys plus recognized students, the answer-leak gate, unscored responses, phone/QR capture with metadata-stripped photos), 30-day anonymous retention on pg_cron, and the App screens at `app.cramapple.com/byoq` with a homepage link on `cramapple.com`. Independent QA returned Fail on the first round (unswept raw uploads, unscheduled purge, spoofable IP rate limit, title/source-note answer leak); all four were fixed and re-verified on Dev (24/24 live smoke checks) before Production. A Production round trip passed and was cleaned up. Phase 3 (worksheet upload) remains blocked on `BYOQ_WORKSHEET_PARSING_DESIGN.md`. **Next Owner:** David. **Next Action:** confirm or revise the eight launch defaults in `DECISION-0083`, and do a real-phone QR test on `app.cramapple.com/byoq`.
+- TASK-0039 BYOQ Live in Production, Phases 1–2 (2026-09-28): Claude built and shipped bring-your-own-question end to end under `APPROVAL-0058`/`DECISION-0084`. The work covers parallel `byoq_*` tables with no answer-bearing column (enforced by a CHECK), the `byoq` edge function (anonymous owner keys plus recognized students, the answer-leak gate, unscored responses, phone/QR capture with metadata-stripped photos), 30-day anonymous retention on pg_cron, and the App screens at `app.cramapple.com/byoq` with a homepage link on `cramapple.com`. Independent QA returned Fail on the first round (unswept raw uploads, unscheduled purge, spoofable IP rate limit, title/source-note answer leak); all four were fixed and re-verified on Dev (24/24 live smoke checks) before Production. A Production round trip passed and was cleaned up. Phase 3 (worksheet upload) remains blocked on `BYOQ_WORKSHEET_PARSING_DESIGN.md`. **Next Owner:** David. **Next Action:** confirm or revise the eight launch defaults in `DECISION-0084`, and do a real-phone QR test on `app.cramapple.com/byoq`.
+- Oct 2 Launch Audit, TASK-0049 File Collision Resolved + Cold-Start Test Added, TASK-0039 BYOQ
+  Status Checked (2026-09-28): ran a read-only Oct 2 launch-readiness audit (headline finding: the
+  runbook's own brand-new-student submit-to-grade smoke test has never been run against the live
+  app — still the top open risk). Then fixed the two issues it flagged, PR #251
+  (`claude/task-0049-dedup-and-cold-start-test`, draft, CI green): annotated (not renamed)
+  `TASK-0049-CLAUDE-INDEPENDENT-AUDIT-2026-09-28.md` in place, per `DECISION-0075`'s
+  annotate-in-place convention, since a same-day Production migration and an active Codex prompt
+  already cite that exact filename as their evidence trail; added a reciprocal pointer and refreshed
+  status/baseline fields in the real `TASK-0049-BIOLOGY-STATISTICS-SIX-CRITERION-REMEDIATION.md`,
+  which were themselves stale (Phase 1 already promoted 100 items to Production the same day).
+  Added `supabase/functions/start-trial/index_test.ts` — previously zero coverage of the entrypoint
+  a brand-new student calls for the free-trial entitlement `authorize_grading_access` checks at
+  submit time — via a `handleStartTrial(req, deps)` seam matching `attempt-response`'s pattern;
+  wired into `minimal-ci.yml`, diagnosed and fixed a resulting `--allow-env` CI failure, green as of
+  `9f50cab`. Explicitly not a substitute for the live smoke test above. Separately checked TASK-0039
+  (BYOQ) status on request: confirmed zero backend exists (no migrations, no edge function — grep
+  and full git-history search both confirm every BYOQ commit is docs or the non-production `web/`
+  prototype), and flagged that the launch-readiness index's "~2-4 hrs remaining" estimate
+  materially understates TASK-0039's own multi-day Hard-Gate scope (camera/QR capture is
+  launch-required per `DECISION-0076`). No Production reads or writes this session. Session handoff:
+  `docs/handoffs/SESSION_CLOSE_2026_09_28_LAUNCH_AUDIT_TASK0049_DEDUP_BYOQ_CHECK.md`. **Next Owner:**
+  David Bloom. **Next Action:** review/merge PR #251; decide BYOQ's Oct 2 scope (descope vs.
+  compressed build).
 - TASK-0046 Verification Session Closed; TASK-0049 Created (2026-09-28): confirmed TASK-0042 Done, ran read-only Production six-criterion verification across all 10 subjects, and produced subject-slice evidence/PRs pending fresh independent QA. AP Biology currently has 23/118 current-fresh validated serving labels and four hand-drawn FRQs without canonicals (all structurally excluded from ordinary/unit-gated serving); AP Statistics has 67/170 current-fresh validated serving labels with canonical/rubric/choice/difficulty coverage otherwise clean. David requested a dedicated follow-up to close these six-criterion gaps; no such remediation task already existed, so created **TASK-0049 — Biology + Statistics: Close Remaining Six-Criterion Servability Gaps** as a Hard-Gate task. No Production writes were performed. Session handoff: `docs/handoffs/TASK-0046_SESSION_CLOSE_2026_09_28.md`. Concurrent TASK-0046 PR #248 exists and must be reconciled with this session's PRs before merging overlapping documentation. **Next Owner:** fresh independent QA/Main Conductor. **Next Action:** reconcile TASK-0046 evidence/PRs, complete fresh QA, then seek explicit Product Owner approval for the first TASK-0049 Production remediation slice.
 - Content-Pipeline Session, Final Close: Pair-QA Status Confirmed Complete for All Ten Subjects
   (2026-09-27): David asked what remained to be pair-QA'd after the content pipeline/unlock work
@@ -304,7 +327,7 @@ Most recent entries (full reverse-chronological list follows below):
 ## TASK-0039 BYOQ Live in Production, Phases 1–2 — 2026-09-28
 
 **Task:** `TASK-0039-BYOQ-PRODUCTION-OPERATIONAL.md`
-**Approval:** `APPROVAL-0058` (David, 2026-09-28: "get task 0039 into production"); defaults in `DECISION-0083`
+**Approval:** `APPROVAL-0058` (David, 2026-09-28: "get task 0039 into production"); defaults in `DECISION-0084`
 **Branch:** `claude/cramapple-task-0039-wfgs2q`
 **Status:** Phases 1–2 live in Production. Phase 3 blocked.
 

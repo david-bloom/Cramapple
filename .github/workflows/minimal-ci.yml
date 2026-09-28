@@ -36,6 +36,7 @@ jobs:
       - name: Run deterministic Deno tests
         run: >-
           deno test
+          --allow-env=SUPABASE_URL,SUPABASE_ANON_KEY,SUPABASE_SERVICE_ROLE_KEY,ALLOWED_ORIGINS,POSTHOG_PROJECT_API_KEY,POSTHOG_HOST
           supabase/functions/_shared/grading-router_test.ts
           supabase/functions/_shared/formula-notation_test.ts
           supabase/functions/_shared/deterministic-verifier_test.ts
@@ -43,6 +44,7 @@ jobs:
           supabase/functions/_shared/cell-state-signals_test.ts
           supabase/functions/_shared/grading-feedback_test.ts
           supabase/functions/_shared/grading-partial-credit_test.ts
+          supabase/functions/start-trial/index_test.ts
 
       - name: Run AP Statistics checker tests
         run: python -m unittest scripts/ap_statistics_calculation_check/test_checker.py

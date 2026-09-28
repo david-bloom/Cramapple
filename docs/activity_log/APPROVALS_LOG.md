@@ -6,7 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
-- APPROVAL-0058 — Ship TASK-0039 BYOQ (Phases 1–2: Data Model, Typed Fallback, Phone/QR Capture, Practice Screen) to Production — DECISION-0083
+- APPROVAL-0058 — Ship TASK-0039 BYOQ (Phases 1–2: Data Model, Typed Fallback, Phone/QR Capture, Practice Screen) to Production — DECISION-0084
 - APPROVAL-0057 — Execute TASK-0046 Subject Onboarding Gate in Ordered Per-Subject Slices
 - APPROVAL-0056 — TASK-0042 Cross-Cutting Content-Pipeline QA Remediation and Subject-Scoped Production Writes
 - APPROVAL-0055 — Adopt Lean Source-of-Truth Startup Mode (Tier-First Reading, `AGENTS.md`, Log `INDEX_END` Markers) — DECISION-0081
@@ -35,7 +35,7 @@ Most recent entries (full chronological list follows below):
 **Date:** 2026-09-28
 **Approved By:** David Bloom
 **Related Task:** `TASK-0039-BYOQ-PRODUCTION-OPERATIONAL.md`
-**Related Decision:** `DECISION-0083`
+**Related Decision:** `DECISION-0084`
 **Decision:** Approved
 
 ### Summary
@@ -52,10 +52,10 @@ Product Owner direction, 2026-09-28: "Work through all phases unless blocked. Th
 ### Notes
 
 - Phase 3 (worksheet upload) is not covered. It stays blocked on its design doc's open decisions.
-- 2026-09-28: David confirmed `DECISION-0083` items 1–2: access is free and open, with a limit of 30 new questions per owner per day and 120 new anonymous users per IP per hour.
+- 2026-09-28: David confirmed `DECISION-0084` items 1–2: access is free and open, with a limit of 30 new questions per owner per day and 120 new anonymous users per IP per hour.
 - 2026-09-28: David also confirmed item 3 (30-day anonymous retention) and item 7 (stuck-routing deferred).
 - 2026-09-28: David approved item 8 as topic-level step-by-step hints: up to four hints from the published point brief, revealed one at a time, never specific to the student's question and never recorded. Published in the App.
-- The eight "New gaps" defaults in `DECISION-0083` were chosen by the implementer under this
+- The eight "New gaps" defaults in `DECISION-0084` were chosen by the implementer under this
   direction and are flagged for explicit Product Owner confirmation or revision.
 - Independent QA ran before the Production apply: one Fail round, with all four blocking findings
   fixed and re-verified on Development.

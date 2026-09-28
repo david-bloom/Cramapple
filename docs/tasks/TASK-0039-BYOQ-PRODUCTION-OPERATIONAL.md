@@ -8,7 +8,7 @@ photo capture, and worksheet upload with multi-question parsing
 **Product Owner:** David Bloom
 **Tier:** Hard-Gate
 **Status:** **Phases 1–2 live in Production (2026-09-28)** under
-`APPROVAL-0058`/`DECISION-0083`: typed fallback, phone/QR capture, and the BYOQ Practice screen at
+`APPROVAL-0058`/`DECISION-0084`: typed fallback, phone/QR capture, and the BYOQ Practice screen at
 `app.cramapple.com/byoq`, with a homepage link on `cramapple.com`. **Phase 3 (worksheet upload) is
 blocked** on `BYOQ_WORKSHEET_PARSING_DESIGN.md`'s open decisions. See "Production Release
 (2026-09-28)" below.
@@ -572,7 +572,7 @@ everything else BYOQ).
 
 ### New gaps surfaced by review (need a Product Owner call before Phase 1 ships)
 
-> **2026-09-28:** All eight gaps below now have launch defaults, recorded in `DECISION-0083`: no
+> **2026-09-28:** All eight gaps below now have launch defaults, recorded in `DECISION-0084`: no
 > entitlement gate; concrete quotas; 30-day anonymous retention with a scheduled purge; consent copy
 > on intake and capture; private-only; subjects from the live taxonomy with an explicit
 > "no reference yet" state; stuck-routing deferred; reference-only hints floor. They are flagged for
@@ -741,10 +741,10 @@ as a fallback input, not the primary path. Claude owns implementation; Codex
 is working on the content pipeline instead.
 
 **Production release:** Approved and executed, 2026-09-28 (`APPROVAL-0058`); the "New gaps" defaults
-are in `DECISION-0083`.
+are in `DECISION-0084`.
 
 **Still Pending:**
-- None of the `DECISION-0083` defaults remain open. On 2026-09-28 David confirmed access, quotas, 30-day retention and deferred stuck-routing, and chose topic-level step-by-step hints, which are shipped in the App.
+- None of the `DECISION-0084` defaults remain open. On 2026-09-28 David confirmed access, quotas, 30-day retention and deferred stuck-routing, and chose topic-level step-by-step hints, which are shipped in the App.
 - Phase 3 (worksheet upload). It needs `docs/product/BYOQ_WORKSHEET_PARSING_DESIGN.md`'s Open
   Decisions resolved (parsing vendor, candidate cap, retention window) before it can start.
   Post-launch.
@@ -800,7 +800,7 @@ are in `DECISION-0083`.
 
 - No real-phone QR test on Production yet. The session sandbox cannot reach public hosts.
 - `BYOQ_IP_HMAC_KEY` is not set; IP hashing falls back to the service-role key.
-- Stuck-BYOQ routing and rubric-derived hints are deferred (see `DECISION-0083` items 7–8).
+- Stuck-BYOQ routing and rubric-derived hints are deferred (see `DECISION-0084` items 7–8).
 - The `pg_net` extension sits in `public` (a Supabase advisor WARN). It is not relocatable and is
   accepted.
 
@@ -847,5 +847,5 @@ capture, is still recommended before this task is marked Done.
 ## Done Decision
 
 **Decision:** Pending. Phases 1–2 are in Production; Done awaits Product Owner confirmation of the
-`DECISION-0083` defaults and a real-phone check. Phase 3 is blocked (post-launch).
+`DECISION-0084` defaults and a real-phone check. Phase 3 is blocked (post-launch).
 **Date:** Pending

@@ -6,7 +6,8 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
-- DECISION-0083 — TASK-0039 BYOQ Ships to Production (Phases 1–2): Launch Defaults for the Eight "New Gaps" (No Entitlement Gate, Quotas, 30-Day Anonymous Retention, Consent Copy, Private-Only, Stuck-Routing and Hints Deferred); Phase 3 Remains Blocked
+- DECISION-0084 — TASK-0039 BYOQ Ships to Production (Phases 1–2): Launch Defaults for the Eight "New Gaps" (No Entitlement Gate, Quotas, 30-Day Anonymous Retention, Consent Copy, Private-Only, Stuck-Routing and Hints Deferred); Phase 3 Remains Blocked
+- DECISION-0083 — Begin TASK-0041 Payment Flow Implementation Now, in Advance of the October 2 Free Launch; Launch Shape Itself Unchanged
 - DECISION-0082 — No Fixed Quantity Targets Outside AP Biology; Maximize Safe Student Usability of Current Published Inventory
 - DECISION-0081 — Lean Source-of-Truth Startup Mode: Tier-First Session-Start Reading for Codex and Claude, `AGENTS.md` Search Discipline, and Log `INDEX_END` Markers
 - DECISION-0080 — `DECISION-0074` Addendum: the Four Gated Aids (Rubric, Points, Deep Dive, Reference) All Count as Pre-Submission Hint Use for Mastery; Approves Rebuilding `SessionFrame`'s Live Hint Gating to Match (Workstream B1 of the "Gate the Four Aids" Plan)
@@ -36,7 +37,7 @@ Most recent entries (full chronological list follows below):
 
 <!-- INDEX_END -->
 
-## DECISION-0083 — TASK-0039 BYOQ Ships to Production (Phases 1–2) with Launch Defaults for the Eight "New Gaps"; Phase 3 Remains Blocked
+## DECISION-0084 — TASK-0039 BYOQ Ships to Production (Phases 1–2) with Launch Defaults for the Eight "New Gaps"; Phase 3 Remains Blocked
 
 **Date:** 2026-09-28
 **Decision Owner:** David Bloom (direction); defaults chosen by Claude as implementation owner, flagged for confirmation
@@ -44,6 +45,8 @@ Most recent entries (full chronological list follows below):
 **Approval:** `APPROVAL-0058` — Product Owner direction, 2026-09-28: "Work through all phases unless blocked. The goal is to get task 0039 into production."
 **Related Docs:** `docs/tasks/TASK-0039-BYOQ-PRODUCTION-OPERATIONAL.md`; `DECISION-0057`, `DECISION-0068`, `DECISION-0070`, `DECISION-0071`, `DECISION-0076`, `DECISION-0077`; `docs/product/BYOQ_WORKSHEET_PARSING_DESIGN.md`
 **Area:** Product / BYOQ / Security / Data Lifecycle
+
+_Numbering note: first recorded as DECISION-0083 on the TASK-0039 branch. `main` had already recorded its own DECISION-0083 (TASK-0041 payment flow), so this entry was renumbered to 0084 at merge time. The content is unchanged._
 
 ### Decision
 
@@ -94,6 +97,30 @@ implementation and no duplicate flow.
 `BYOQ_WORKSHEET_PARSING_DESIGN.md`'s open decisions: parsing vendor, candidate cap, and retention
 window.
 
+## DECISION-0083 — Begin TASK-0041 Payment Flow Implementation Now, in Advance of the October 2 Free Launch; Launch Shape Itself Unchanged
+
+**Date:** 2026-09-28
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Approval:** Product Owner direction, in-session, 2026-09-28
+**Related Docs:** `docs/tasks/TASK-0041-LAUNCH-PAYMENT-FLOW.md`;
+`docs/product/LAUNCH_PLAN_PAYMENT_FLOW_2026_09_26.md`; `APP_LAUNCH_READINESS_INDEX_2026_09_26.md`;
+`LAUNCH_RUNBOOK_2026_10_02.md`; `DECISION-0071`
+**Area:** Launch Readiness / Payments
+
+### Decision
+
+TASK-0041 (the purchase funnel / payment flow) starts implementation now, ahead of the October 2 free
+launch, instead of waiting until after launch. This moves the build timeline earlier; it does not
+reverse `DECISION-0071`. The October 2 launch itself remains free with no Stripe/payment gating —
+nothing about the free-launch shape, the flat-path Day-1 subjects, or the no-payment-gating rule
+changes. What changes is that engineering work on TASK-0041 (Stripe checkout, parent-pay, promo
+codes, post-purchase add-on, per `LAUNCH_PLAN_PAYMENT_FLOW_2026_09_26.md` §5) is active now rather
+than deferred to a post-launch follow-up, so it can be closer to ready when payment gating is later
+turned on. Every Hard-Gate boundary in that plan and in TASK-0041 itself still applies unchanged:
+live Stripe catalog/config writes, live-mode secret changes, Production migrations/deployment, and
+enabling paid sales all still require separate, explicit Product Owner approval. Nothing here
+authorizes turning on payment gating for October 2 or moves that date.
 
 ## DECISION-0082 — No Fixed Quantity Targets Outside AP Biology; Maximize Safe Student Usability of Current Published Inventory
 

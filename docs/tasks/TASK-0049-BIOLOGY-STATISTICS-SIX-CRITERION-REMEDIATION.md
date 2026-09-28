@@ -5,18 +5,27 @@
 **Owner:** Unassigned implementation agent  
 **Product Owner:** David Bloom  
 **Tier:** Hard-Gate  
-**Status:** Not Started  
+**Status:** In Progress — Phase 1 promotion batches applied to Production 2026-09-28 (100 items across
+two migrations, David-approved per-batch); Phase 2 scoped in
+`prompts/CODEX_TASK0049_PHASE2_LABEL_REMEDIATION_2026_09_28.md`, not yet executed. See the "Current Live
+Baseline" superseded-note above — not independently re-verified in this document.  
 **Priority:** Medium — post-launch/unit-gated readiness follow-up  
 **Created Date:** 2026-09-28  
-**Approved Date:** Pending  
-**Branch:** To be assigned only after approval and subject slicing  
-**PR:** None yet
+**Approved Date:** Pending for remaining batches; first two batches approved in-session 2026-09-28  
+**Branch:** See individual migration/prompt files for the branches that executed Phase 1  
+**PR:** None recorded in this document yet
 
 ## Origin
 
 Created at session close on 2026-09-28 after TASK-0046 live verification showed that AP Biology and AP Statistics are both currently servable on their active unit-gated paths, but substantial portions of their current-published banks still do not satisfy all six servability criteria item-by-item.
 
 This task is remediation, not verification. TASK-0046 remains the verification/gate task.
+
+**Naming note:** `docs/tasks/TASK-0049-CLAUDE-INDEPENDENT-AUDIT-2026-09-28.md` is a session log, not a
+second task doc — an earlier same-day session initially misfiled its work under this task's own ID
+before catching the mistake. It is kept under that name (not renamed) because later Production
+migrations and an active Codex prompt already cite it by filename. This document remains the sole
+source of truth for TASK-0049's scope and status.
 
 ## Product Goal
 
@@ -28,6 +37,14 @@ Bring the intended current-published AP Biology and AP Statistics inventory to a
 Do not manufacture completeness by narrowing the eligible population without recording the exclusion.
 
 ## Current Live Baseline — 2026-09-28
+
+> **Superseded same day, not yet re-verified in this doc:** the counts below predate two Production
+> migrations applied later on 2026-09-28
+> (`20260928130000_task0049_promote_claude_confirmed_single_unit.sql`,
+> `20260928131500_task0049_promote_multi_unit_reconciled.sql`). Per
+> `prompts/CODEX_TASK0049_PHASE2_LABEL_REMEDIATION_2026_09_28.md`, the post-migration counts are Biology
+> 43/118 (was 23) and Statistics 143/170 (was 67) — re-confirm against live Production before treating
+> either number as current; not independently re-verified here.
 
 Production project: `pcntajvbdfqhbeewmdry`.
 
