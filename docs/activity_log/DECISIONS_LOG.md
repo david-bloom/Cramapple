@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0083 — Execute TASK-0041 Now; Set Paid Pricing to $39.99 / $69.99 / $89.99
 - DECISION-0082 — No Fixed Quantity Targets Outside AP Biology; Maximize Safe Student Usability of Current Published Inventory
 - DECISION-0081 — Lean Source-of-Truth Startup Mode: Tier-First Session-Start Reading for Codex and Claude, `AGENTS.md` Search Discipline, and Log `INDEX_END` Markers
 - DECISION-0080 — `DECISION-0074` Addendum: the Four Gated Aids (Rubric, Points, Deep Dive, Reference) All Count as Pre-Submission Hint Use for Mastery; Approves Rebuilding `SessionFrame`'s Live Hint Gating to Match (Workstream B1 of the "Gate the Four Aids" Plan)
@@ -34,6 +35,27 @@ Most recent entries (full chronological list follows below):
 (Note: the same collision recurred 2026-09-26. The `claude/launch-planning-cram-4oyh2g` branch independently claimed DECISION-0068 through 0072 for five launch-planning decisions, not knowing `main` had already recorded its own DECISION-0068 (BYOQ parallel tables, TASK-0039 Phase 1) by the time this branch merged. Per the rule above, this branch — the later-merging side — renumbered its five decisions to DECISION-0069 through 0073 at merge time; main's DECISION-0068 is untouched. If you are reading an older copy of any of the five renumbered decisions (in a plan doc, a chat log, or a stale local checkout) under its original 0068-0072 number, this is why the number no longer matches — the content is unchanged, only the ID moved.)
 
 <!-- INDEX_END -->
+
+## DECISION-0083 — Execute TASK-0041 Now; Set Paid Pricing to $39.99 / $69.99 / $89.99
+
+**Date:** 2026-09-28  
+**Decision Owner:** David Bloom  
+**Status:** Approved  
+**Related Task:** `TASK-0041-LAUNCH-PAYMENT-FLOW.md`  
+**Area:** Payments / Purchase Funnel / Pricing
+
+David directed immediate execution of TASK-0041 and explicitly removed the prior October 2 deferment as a blocker to implementing the purchase funnel now. This supersedes only the timing/deferment consequence of `DECISION-0071` for TASK-0041; it does not by itself change the separate October 2 free-launch path or authorize live paid gating.
+
+Approved paid pricing is:
+
+- single subject: **$39.99**;
+- two-subject bundle: **$69.99**;
+- three-subject bundle: **$89.99**.
+
+These prices supersede the pricing values in `DECISION-0069`. Unlimited remains deferred unless separately decided.
+
+Implementation in Development/task-branch scope is approved. Existing Hard Gates remain for Production deployments/migrations, live Stripe configuration or catalog writes, secrets, enabling live paid sales, and risk acceptance.
+
 
 ## DECISION-0082 — No Fixed Quantity Targets Outside AP Biology; Maximize Safe Student Usability of Current Published Inventory
 
