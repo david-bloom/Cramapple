@@ -291,6 +291,49 @@ async function persistGradingTelemetry(
   }
 }
 
+// app.attempt_criterion_results has had no writer since it was created
+// (20260731160000_schema_baseline.sql) -- evaluate-attempt has only ever
+// persisted per-criterion detail as jsonb inside grading_results.criterion_results.
+// 20260731160400_criterion_partially_earned_status.sql widened the table's
+// status CHECK specifically so a 'partially_earned' criterion would not fail
+// to insert "the first time that table is wired up" -- this is that wiring.
+// Best-effort and swallowed on failure, same rationale as
+// persistGradingTelemetry above: a row-level detail table must never be able
+// to fail a grade. Upserts on (attempt_id, criterion_key) -- the table's own
+// unique index -- so a re-grade of the same attempt replaces its prior rows
+// instead of violating the constraint.
+async function persistAttemptCriterionResults(
+  service: ReturnType<typeof createServiceClient>,
+  attemptId: string,
+  criteria: OutputCriterion[],
+  evaluatorVersion: string,
+) {
+  if (!Array.isArray(criteria) || criteria.length === 0) return;
+  try {
+    const rows = criteria.map((criterion) => ({
+      attempt_id: attemptId,
+      criterion_key: criterion.criterion_key,
+      status: criterion.status,
+      points_awarded: Math.trunc(Number(criterion.points_awarded || 0)),
+      evidence_quote: criterion.evidence_quote ?? null,
+      decision_explanation: criterion.decision_explanation ?? null,
+      minimum_fix: criterion.minimum_fix ?? null,
+      evaluator_version: evaluatorVersion,
+    }));
+    const { error } = await service.schema("app")
+      .from("attempt_criterion_results")
+      .upsert(rows, { onConflict: "attempt_id,criterion_key" });
+    if (error) {
+      console.warn(
+        "attempt_criterion_results_write_skipped",
+        error.message ?? String(error),
+      );
+    }
+  } catch (error) {
+    console.warn("attempt_criterion_results_write_skipped", error);
+  }
+}
+
 function summarizeSelectedChoice(responseJson: Record<string, unknown>) {
   const candidates = [
     responseJson.selected_choice_key,
@@ -1551,11 +1594,19 @@ export async function handleEvaluateAttempt(
       });
     }
 
-    await persistGradingTelemetry(service, idempotencyKey, {
-      normalized_response_sha256: normalizedResponseSha256,
-      cached_tokens: null,
-      stage_timings: stageTimer.finish(),
-    });
+    await Promise.all([
+      persistGradingTelemetry(service, idempotencyKey, {
+        normalized_response_sha256: normalizedResponseSha256,
+        cached_tokens: null,
+        stage_timings: stageTimer.finish(),
+      }),
+      persistAttemptCriterionResults(
+        service,
+        attempt.id as string,
+        finalResult.criteria,
+        "rule-based-mcq",
+      ),
+    ]);
 
     const runtimeContext = await persistGradingMemory({
       service,
@@ -2198,11 +2249,19 @@ export async function handleEvaluateAttempt(
   // Passive telemetry, best-effort: separate write so the main update above
   // keeps working against the pre-migration schema (see
   // 20260811TBD_grading_telemetry.sql).
-  await persistGradingTelemetry(service, idempotencyKey, {
-    normalized_response_sha256: normalizedResponseSha256,
-    cached_tokens: cachedTokensTelemetry,
-    stage_timings: stageTimer.finish(),
-  });
+  await Promise.all([
+    persistGradingTelemetry(service, idempotencyKey, {
+      normalized_response_sha256: normalizedResponseSha256,
+      cached_tokens: cachedTokensTelemetry,
+      stage_timings: stageTimer.finish(),
+    }),
+    persistAttemptCriterionResults(
+      service,
+      attempt.id as string,
+      finalPayload.criteria,
+      routedModelId,
+    ),
+  ]);
 
   // See the deterministic-path sibling of this call for why the error is now
   // captured and logged instead of swallowed (STUDENT_INTERACTION_DATA_SCHEMA_PLAN_2026_09_27.md
