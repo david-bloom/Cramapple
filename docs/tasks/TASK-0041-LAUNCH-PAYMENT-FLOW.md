@@ -5,13 +5,13 @@
 **Owner:** AI implementation agent — unassigned  
 **Product Owner:** David Bloom  
 **Tier:** Hard-Gate  
-**Status:** Not Started  
-**Priority:** Medium — not on the October 2, 2026 free-launch critical path (`DECISION-0071`)  
+**Status:** In Progress  
+**Priority:** Active — execute now per Product Owner direction, 2026-09-28  
 **Created Date:** 2026-09-26  
 **Reframed Date:** 2026-09-27  
-**Approved Date:** Pending execution approval  
-**Branch:** Not yet created for implementation; use `<agent>/task-0041-<slug>` per R1  
-**PR:** None yet for implementation
+**Approved Date:** 2026-09-28  
+**Branch:** `chatgpt/task-0041-purchase-funnel`  
+**PR:** Pending
 
 > **TASK REFRAME — 2026-09-27.** The prior "post-launch verify-and-fix" framing is superseded.  
 > TASK-0041 is now the implementation task for the redesigned Cramapple purchase funnel.  
@@ -101,11 +101,11 @@ Preserve:
 Pricing:
 
 - Single subject: **$39.99**
-- Two-subject bundle: **$79.99**
-- Three-subject bundle: **$99.99**
+- Two-subject bundle: **$69.99**
+- Three-subject bundle: **$89.99**
 - Unlimited: deferred / not marketed
 
-The $79.99 two-subject price is one cent more than two $39.99 singles ($79.98). Product Owner confirmation is required before catalog changes or bundle-savings claims.
+The revised pricing above is approved by the Product Owner as of 2026-09-28.
 
 Design:
 
@@ -118,7 +118,7 @@ Design:
 
 ## Relationship to October 2 launch
 
-This task remains outside the October 2 free-launch critical path under `DECISION-0071`.
+The Product Owner explicitly directed immediate execution on 2026-09-28; the prior October 2 deferment no longer blocks this task.
 
 That means:
 
