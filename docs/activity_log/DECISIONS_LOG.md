@@ -40,7 +40,7 @@ Most recent entries (full chronological list follows below):
 
 **Date:** 2026-09-28
 **Decision Owner:** David Bloom (direction); defaults chosen by Claude as implementation owner, flagged for confirmation
-**Status:** Approved (production direction). **2026-09-28: David confirmed items 1–2** (free/open access; 30 new questions per owner per day, 120 new anonymous users per IP per hour). Items 3–8 remain defaults open to revision.
+**Status:** Approved (production direction). **2026-09-28: David confirmed items 1–3 and 7** (free/open access; 30 new questions per owner per day and 120 new anonymous users per IP per hour; 30-day anonymous retention; stuck-routing deferred). Item 8 (hints floor) is under discussion.
 **Approval:** `APPROVAL-0058` — Product Owner direction, 2026-09-28: "Work through all phases unless blocked. The goal is to get task 0039 into production."
 **Related Docs:** `docs/tasks/TASK-0039-BYOQ-PRODUCTION-OPERATIONAL.md`; `DECISION-0057`, `DECISION-0068`, `DECISION-0070`, `DECISION-0071`, `DECISION-0076`, `DECISION-0077`; `docs/product/BYOQ_WORKSHEET_PARSING_DESIGN.md`
 **Area:** Product / BYOQ / Security / Data Lifecycle

@@ -744,7 +744,7 @@ is working on the content pipeline instead.
 are in `DECISION-0083`.
 
 **Still Pending:**
-- Product Owner confirmation or revision of `DECISION-0083` items 3–8. Items 1–2 (free/open access; 30 questions/day, 120 new users/IP/hour) were confirmed by David on 2026-09-28.
+- Product Owner call on `DECISION-0083` item 8 (hints floor). David confirmed items 1–3 and 7 on 2026-09-28: access, quotas, 30-day retention, and stuck-routing deferred.
 - Phase 3 (worksheet upload). It needs `docs/product/BYOQ_WORKSHEET_PARSING_DESIGN.md`'s Open
   Decisions resolved (parsing vendor, candidate cap, retention window) before it can start.
   Post-launch.
