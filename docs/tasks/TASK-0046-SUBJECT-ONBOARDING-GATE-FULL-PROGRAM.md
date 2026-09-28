@@ -5,7 +5,7 @@
 **Owner:** AI agent (implementation) — unassigned; candidate: Codex or Claude
 **Product Owner:** David Bloom
 **Tier:** Standard
-**Status:** In Progress — all 9 slices (8 non-Day-1 subjects plus Biology/Statistics criteria 3/5) live-verified 2026-09-28; awaiting fresh independent QA before Done
+**Status:** Done — all 9 slices live-verified and independently QA-passed by Codex, approved by David Bloom, 2026-09-28
 **Priority:** Medium — post-launch; not required for the October 2, 2026 launch decision
 **Created Date:** 2026-09-26
 **Approved Date:** Pending
@@ -151,15 +151,23 @@ no-backend-MCQ-selector gap on the flat path is a pre-existing, already-document
 
 ## QA Review
 
-**QA Verdict:** Pending (Pass / Fail) — from a fresh, independent QA context, per this task's QA
-independence requirement (not yet run for the 2026-09-28 8-subject slice).
+**QA Verdict:** Pass — independent QA run by Codex, 2026-09-28, satisfying this task's QA-independence
+requirement (fresh, separate context from the implementing agent).
 
-**QA Result:** _(To be filled by the QA agent.)_
+**QA Result (Codex, as relayed by David Bloom, 2026-09-28):** "For every subject, Production currently
+has exactly one published/non-retired exam-pack version. Every current-published FRQ has both a
+canonical answer and valid rubric; every current MCQ/quantitative item has exactly one correct answer;
+and difficulty coverage is complete. TASK-0042's validated-label work is live, and every subject now has
+a real nonzero unit-gated serving pool." This independently confirms criteria 1/2/4/5/6 across all 10
+subjects and the non-zero unit-gated serving result this task's own implementation notes report — no
+discrepancy between the implementer's and QA's live-Production findings.
 
 ## Done Decision
 
-**Decision:** Pending
-**Date:** YYYY-MM-DD
+**Decision:** Done — approved by David Bloom (Product Owner), 2026-09-28, on Codex's independent QA
+Pass.
+**Date:** 2026-09-28
 
 This umbrella task is Done only once every subject slice it spawned is Done or explicitly descoped.
-Only the Main Conductor may set a slice's status to `Done`.
+Only the Main Conductor may set a slice's status to `Done`. All 9 slices (8 non-Day-1 subjects plus the
+Biology/Statistics criteria-3/5 slice) are complete and QA-passed as of this date.
