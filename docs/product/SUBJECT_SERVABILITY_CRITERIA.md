@@ -50,6 +50,12 @@ the others, and none of them imply the sixth.
 
 ## Applied so far
 
+**TASK-0046, 2026-09-28** ran a full six-criteria live pass for the 8 non-Day-1 subjects (Chemistry,
+Calc AB, Calc BC, Precalculus, Physics 1, Physics 2, Physics C: E&M, Physics C: Mechanics). Result for
+all 8: **Pass on criteria 1/2/4/5/6, Partial on criterion 3.** See the dated section near the end of
+this doc for full per-subject numbers and RPC evidence; the historical rows immediately below are left
+as-is (per this doc's own "correct visibly, don't silently overwrite" rule).
+
 | Subject | Status | Doc |
 | --- | --- | --- |
 | AP Biology | Done, 2026-09-24. **Flat-path criteria 1/2/4/6 re-verified live 2026-09-26 (TASK-0044) — Pass**, see note below the table. | `docs/product/AP_BIOLOGY_LAUNCH_READINESS_2026_09_24.md`, `docs/product/AP_BIOLOGY_FAST_FOLLOW.md` |
@@ -134,3 +140,93 @@ and AP Statistics).** Called the actual serving RPCs directly against Production
   in the live app is outside this repo's verification surface and is TASK-0043's runbook item 4 to
   confirm directly against the live student experience — do not assume it works because the content and
   FRQ path do.**
+
+**TASK-0046, 2026-09-28 — full six-criteria live verification, 8 non-Day-1 subjects (Chemistry, Calc
+AB, Calc BC, Precalculus, Physics 1, Physics 2, Physics C: E&M, Physics C: Mechanics).** Called
+`public.select_unit_gated_practice_items` and `public.select_practice_frqs` directly against
+Production (`pcntajvbdfqhbeewmdry`), plus direct SQL against `app.content_items` /
+`app.content_item_versions` / `app.frq_criteria` / `app.mcq_choices` / `app.content_item_difficulty` /
+`app.content_taxonomy_labels` replicating each RPC's own WHERE-clause logic without a `LIMIT`, to get
+true counts unaffected by `select_practice_frqs`'s/`select_unit_gated_practice_items`'s 50-row cap (the
+exact misdiagnosis this doc already warns about). TASK-0042 (content pipeline) is confirmed `Status:
+Done`, closed 2026-09-27 — its criteria 3/5 work has run for every subject, including these 8; the
+partial label coverage below is that pipeline's decided closeout state (114 evidence-backed non-
+promotions: 66 disagreements, 48 rubric/scope holds — not unfinished review), not a block on this task.
+
+**Result for all 8 subjects: criteria 1 (published), 2 (rubric), 4 (canonical), 5 (difficulty), and 6
+(exam pack version) all Pass at 100%. Criterion 3 (validated serving label) is Partial everywhere** —
+expected, since TASK-0042's two-model-agreement pipeline only promotes labels it can independently
+confirm; the live unit-gated RPC is fully reachable and returns real, non-zero content today on exactly
+the validated-label subset. No subject showed a zero-or-low result; every low criterion-3 fraction below
+is explained by TASK-0042's already-closed pipeline state, not a live-serving defect.
+
+| Subject | Exam pack version (criterion 6, singular, confirmed) | C1/2/4/5 (published/rubric/canonical/difficulty) | C3 — validated serving label | Live `select_unit_gated_practice_items` at final unit (capped-at-50 flagged) | Live `select_practice_frqs('targeted_drill')` (capped-at-50 flagged) |
+| --- | --- | --- | --- | --- | --- |
+| AP Chemistry | `c9ca46b2-b529-4ed3-9741-dddea455ab9b` | FRQ 51/51/51/51; MCQ 68/68/–/68 | FRQ 13/51; MCQ 52/68 | unit 9: FRQ 13, MCQ 50 (**capped, true 52**) | 50 (**capped, true 51**) |
+| AP Calculus AB | `826c8cf1-bc1b-4f2a-bd33-61a758e1487d` | FRQ 62/62/62/62; MCQ 60/60/–/60 | FRQ 14/62; MCQ 22/60 | unit 8: FRQ 14, MCQ 22 (uncapped) | 44 (uncapped; `full_exam_frq` 18) |
+| AP Calculus BC | `3778d753-273a-403d-8f02-55dc64ec6a27` | FRQ 64/64/64/64; MCQ 63/63/–/63 | FRQ 18/64; MCQ 27/63 | unit 10: FRQ 18, MCQ 27 (uncapped) | 43 (uncapped; `full_exam_frq` 21) |
+| AP Precalculus | `5522b532-5e50-41f2-99a2-10144bd4e8db` | FRQ 64/64/64/64; MCQ 53/53/–/53 | FRQ 26/64; MCQ 27/53 | unit 4: FRQ 26, MCQ 27 (uncapped) | 44 (uncapped; `full_exam_frq` 20) |
+| AP Physics 1 | `29c719dc-701b-470f-9e49-fab981722d3f` | FRQ 54/54/54/54; MCQ 63/63/–/63 | FRQ 33/54; MCQ 52/63 | unit 8: FRQ 33 (uncapped), MCQ 50 (**capped, true 52**) | 50 (**capped, true 51**; `full_exam_frq` 3) |
+| AP Physics 2 | `f584ab0d-114a-4520-9649-42e3e9a2fd22` | FRQ 28/28/28/28; MCQ 40/40/–/40 | FRQ 12/28; MCQ 38/40 | unit 15: FRQ 12, MCQ 38 (uncapped) | 25 (uncapped; `full_exam_frq` 3) |
+| AP Physics C: E&M | `841a88cc-773c-44e5-97fa-6504f8667689` | FRQ 49/49/49/49; MCQ 48/48/–/48 | FRQ 31/49; MCQ 44/48 | unit 13: FRQ 31, MCQ 44 (uncapped) | 45 (uncapped; `full_exam_frq` 4) |
+| AP Physics C: Mechanics | `ab92fc0f-7bab-4ea2-a1bc-7f03130ab7a9` | FRQ 36/36/36/36; MCQ 41/41/–/41 | FRQ 17/36; MCQ 33/41 | unit 7: FRQ 17, MCQ 33 (uncapped) | 33 (uncapped; `full_exam_frq` 3) |
+
+Method: criterion 6 checked first (`app.exam_pack_versions` joined to `app.exam_packs`, filtered
+`status='published' and retired_at is null` — exactly one row per subject, confirmed for all 10
+subjects product-wide in the same query). Criteria 1/2/4/5 measured against each item's
+current-published version only (`distinct on (content_item_id) order by version_num desc`, filtered to
+`status='published'`), matching every published item to `frq_criteria`/`mcq_choices`,
+`canonical_answer_1`, and `app.content_item_difficulty` — no gaps found on any of the four criteria
+across any of the 8 subjects. Criterion 3 read `app.content_taxonomy_labels` filtered to
+`label_scope='serving', label_status='validated', superseded_by is null`, matched to the current
+version by `label.validated_against_taxo_hash = app.taxonomy_relevant_hash(civ.id)` — the same
+freshness check `select_unit_gated_practice_items` itself applies. The unit-gated RPC was called live at
+each subject's highest allowed unit (from `app.home_release_manifest.allowed_unit_numbers`, so the
+result is the full pool, not one unit's slice); the flat-path RPC was called live with
+`_practice_format='targeted_drill'`. Every "capped" cell above was cross-checked against the direct,
+un-limited SQL count to confirm the true total rather than reporting the RPC's 50-row ceiling as the
+real number.
+
+**Overall status per subject: Pass** on this task's own bar (live-verified, non-zero, explained) — not
+a full six-of-six Pass, since criterion 3 is Partial everywhere by design of TASK-0042's already-closed
+pipeline. Turning on unit-gated practice for any of these 8 subjects would serve real content today on
+the validated-label subset; expanding that subset further is TASK-0042's scope (closed, evidence-backed
+partial), not TASK-0046's. Reported to `APP_LAUNCH_READINESS_INDEX_2026_09_26.md` accordingly.
+
+**TASK-0046, 2026-09-28 — Biology and Statistics, criteria 3/5 only (criteria 1/2/4/6 already covered
+by TASK-0044).** Called the same live RPCs and direct-SQL true-count method as above against Production
+for both Day-1 subjects.
+
+- **Criterion 6 (re-confirmed live):** AP Biology — exactly one `published`, non-retired
+  `exam_pack_versions` row (`2d88ba5e-a6a3-43b8-bfae-9e5505a178a7`). AP Statistics — exactly one
+  `published`, non-retired row (`548f06be-ccf4-426d-b82b-b424137a4438`); the pilot pack
+  (`7c5a2975-8f0e-45b9-8fcc-7ec9b8d81ada`) remains `retired_at` set, consistent with TASK-0044's finding.
+- **Criteria 1/2/4 (re-confirmed live):** AP Biology — 75 published FRQ, 71 with canonical+rubric; the 4
+  without canonical are all `hand_drawn` items (`APBIO-HDG-2026-GRAPH-002/003/008/010`), structurally
+  excluded from every serving RPC by design, not a gap — matches TASK-0044's "71 servable" figure
+  exactly. 43/43 MCQ have a correct choice. AP Statistics — 69/69 FRQ and 101/101 MCQ, unchanged from
+  TASK-0044.
+- **Criterion 5 (difficulty):** AP Biology 75/75 FRQ, 43/43 MCQ. AP Statistics 69/69 FRQ, 101/101 MCQ.
+  Both 100%.
+- **Criterion 3 (validated serving label):** AP Biology — FRQ 9/75 (9/71 of the non-hand-drawn servable
+  pool), MCQ 14/43. AP Statistics — FRQ 51/69, MCQ 16/101.
+- **Live RPC evidence, AP Biology** (final allowed unit 8): `select_practice_frqs('targeted_drill')`
+  returned 50 (**capped, true 71** via direct SQL). `select_biology_practice_items('targeted_drill')` —
+  the dedicated combined FRQ+MCQ selector — returned 50 (**capped**; true eligible pool 114 = 71 FRQ +
+  43 MCQ, both non-hand-drawn). `select_unit_gated_practice_items` at unit 8: FRQ 9, MCQ 14 (both
+  uncapped, exactly matching the validated-label counts).
+- **Live RPC evidence, AP Statistics** (final allowed unit 5): `select_practice_frqs('targeted_drill')`
+  returned 49 (uncapped, matching TASK-0044's figure exactly). `select_unit_gated_practice_items` at
+  unit 5: FRQ **32** (diagnosed: of the 51 validated-label FRQ, 19 are `hand_drawn` and structurally
+  excluded from this RPC — 51 minus 19 equals 32, confirmed live, not a defect), MCQ 16 (uncapped,
+  matches the validated-label count exactly, none hand-drawn). **Re-confirmed unchanged from
+  TASK-0044: calling `select_biology_practice_items` with Statistics' own exam-pack-version ID returns
+  0 rows live** — the function hard-filters `ep.exam_code = 'ap_biology'` in its own SQL, so this
+  remains structurally, not intermittently, the reason no backend RPC serves AP Statistics MCQ practice
+  on the flat path. Whether the Lovable-side client fallback actually serves it in the live app remains
+  TASK-0043's runbook item to confirm, outside this repo's verification surface.
+
+**Overall: both subjects Pass criteria 1/2/4/5/6; criterion 3 Partial** (expected, same TASK-0042
+closeout state as the 8-subject slice above). No zero-or-low result went undiagnosed. This closes the
+Biology/Statistics half of TASK-0046's required slicing — all 10 subjects now have a live-verified
+six-criteria record in this doc dated 2026-09-28 or later.

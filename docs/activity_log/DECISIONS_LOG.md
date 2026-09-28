@@ -6,6 +6,8 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0084 — TASK-0039 BYOQ Ships to Production (Phases 1–2): Launch Defaults for the Eight "New Gaps" (No Entitlement Gate, Quotas, 30-Day Anonymous Retention, Consent Copy, Private-Only, Stuck-Routing and Hints Deferred); Phase 3 Remains Blocked
+- DECISION-0083 — Begin TASK-0041 Payment Flow Implementation Now, in Advance of the October 2 Free Launch; Launch Shape Itself Unchanged
 - DECISION-0082 — No Fixed Quantity Targets Outside AP Biology; Maximize Safe Student Usability of Current Published Inventory
 - DECISION-0081 — Lean Source-of-Truth Startup Mode: Tier-First Session-Start Reading for Codex and Claude, `AGENTS.md` Search Discipline, and Log `INDEX_END` Markers
 - DECISION-0080 — `DECISION-0074` Addendum: the Four Gated Aids (Rubric, Points, Deep Dive, Reference) All Count as Pre-Submission Hint Use for Mastery; Approves Rebuilding `SessionFrame`'s Live Hint Gating to Match (Workstream B1 of the "Gate the Four Aids" Plan)
@@ -34,6 +36,91 @@ Most recent entries (full chronological list follows below):
 (Note: the same collision recurred 2026-09-26. The `claude/launch-planning-cram-4oyh2g` branch independently claimed DECISION-0068 through 0072 for five launch-planning decisions, not knowing `main` had already recorded its own DECISION-0068 (BYOQ parallel tables, TASK-0039 Phase 1) by the time this branch merged. Per the rule above, this branch — the later-merging side — renumbered its five decisions to DECISION-0069 through 0073 at merge time; main's DECISION-0068 is untouched. If you are reading an older copy of any of the five renumbered decisions (in a plan doc, a chat log, or a stale local checkout) under its original 0068-0072 number, this is why the number no longer matches — the content is unchanged, only the ID moved.)
 
 <!-- INDEX_END -->
+
+## DECISION-0084 — TASK-0039 BYOQ Ships to Production (Phases 1–2) with Launch Defaults for the Eight "New Gaps"; Phase 3 Remains Blocked
+
+**Date:** 2026-09-28
+**Decision Owner:** David Bloom (direction); defaults chosen by Claude as implementation owner, flagged for confirmation
+**Status:** Approved (production direction). **2026-09-28: David confirmed items 1–3, 7 and 8** (free/open access; 30 new questions per owner per day and 120 new anonymous users per IP per hour; 30-day anonymous retention; stuck-routing deferred; hints revised as below). Items 4–6 stand as shipped.
+**Approval:** `APPROVAL-0058` — Product Owner direction, 2026-09-28: "Work through all phases unless blocked. The goal is to get task 0039 into production."
+**Related Docs:** `docs/tasks/TASK-0039-BYOQ-PRODUCTION-OPERATIONAL.md`; `DECISION-0057`, `DECISION-0068`, `DECISION-0070`, `DECISION-0071`, `DECISION-0076`, `DECISION-0077`; `docs/product/BYOQ_WORKSHEET_PARSING_DESIGN.md`
+**Area:** Product / BYOQ / Security / Data Lifecycle
+
+_Numbering note: first recorded as DECISION-0083 on the TASK-0039 branch. `main` had already recorded its own DECISION-0083 (TASK-0041 payment flow), so this entry was renumbered to 0084 at merge time. The content is unchanged._
+
+### Decision
+
+TASK-0039's "New gaps" list required a Product Owner call before BYOQ reached real students. David's
+direction to ship TASK-0039 to Production is treated as authority to ship with the following
+conservative launch defaults. Each one is a starting position that can be changed without schema
+rework, and none of them weakens `DECISION-0057`:
+
+1. **Entitlement/trial gating — none.** BYOQ is free and ungated, consistent with `DECISION-0071`
+   (launch free, no payment gating) and `DECISION-0070`/`DECISION-0077` (ungated/anonymous on the
+   marketing site, recognized-but-not-gated in-app).
+2. **Rate limits/quotas.** Anonymous owners: 120 per client IP per rolling hour (sized for a school
+   NAT) plus a global circuit breaker of 5,000 per hour, failing closed when no client IP is
+   available. Per owner: 30 new items per 24h and 200 live items in total, 200 saved response
+   versions per item, 12 capture links per 10 minutes, and 6 open capture links at a time. Per capture
+   link: 12 upload URLs, and 10 current pages per question/answer part. Stem ≤ 6,000 chars, choice
+   ≤ 1,000, answer text ≤ 20,000, 2–6 MCQ choices, photos ≤ 20 MB (enforced at the storage bucket
+   too). Page views create nothing; an owner is created only by the first saved question.
+3. **Retention/deletion.** An anonymous owner inactive for 30 days is purged together with its
+   items, responses, and photos by a scheduled job (every 15 minutes via pg_cron → `byoq` purge). Raw
+   (unstripped) phone uploads that were never submitted are swept 5 minutes after their capture link
+   closes. All child rows cascade from their item, and students can delete an item or a photo at any
+   time. Full account deletion remains a pre-existing, product-wide gap, not a BYOQ one.
+4. **Consent copy.** The phone capture screen carries the privacy notice: no names, schools, or other
+   people's work, and location data is removed. The homepage section states the 30-day anonymous
+   retention. Only metadata-stripped images are stored, and the upload fails closed when stripping is
+   incomplete.
+5. **Private-until-promoted boundary.** BYOQ items are private to their owner. No public, SEO, or AEO
+   path may read `app.byoq_items` without a moderation/content-review step first; this is recorded in
+   the table comment.
+6. **Subject/taxonomy scoping.** Subjects and topics come from the live `app.taxonomy_*` tables for
+   all ten subjects (hyphen/underscore normalized). Enrollment is not used to filter, because BYOQ is
+   ungated. When a topic has no published guide, the response says so explicitly
+   (`reference.missing = true`) instead of rendering nothing.
+7. **Stuck-BYOQ routing — deferred.** The practice screen links to the student's chosen topic reference
+   only. The "recommend a related Open Hand item, then return" flow named in `DECISION-0057` is
+   explicitly deferred to a follow-up.
+8. **Hints/deep-dive floor — reference only.** BYOQ shows CramApple-authored topic guides (point briefs
+   and explainers) and no rubric-derived hints, as a deliberate v1 scope choice. The "distinct,
+   smaller" hint contract remains future work.
+   **Revised 2026-09-28 (David):** the reference now appears as up to four topic-level hints, revealed one per click from the topic's published point brief: what this is testing, how points are earned, the answer move, and where students lose points. The full guide stays available. The hints are never specific to the student's question, reveal state stays in the browser, and hint use is not recorded or counted toward mastery.
+
+**Build locus.** BYOQ is built in the App Lovable project (`app.cramapple.com/byoq`). The marketing
+site (`cramapple.com`) carries only a homepage section that links into the app, so there is one
+implementation and no duplicate flow.
+
+**Phase 3 (worksheet upload)** is not shipped. It remains blocked on
+`BYOQ_WORKSHEET_PARSING_DESIGN.md`'s open decisions: parsing vendor, candidate cap, and retention
+window.
+
+## DECISION-0083 — Begin TASK-0041 Payment Flow Implementation Now, in Advance of the October 2 Free Launch; Launch Shape Itself Unchanged
+
+**Date:** 2026-09-28
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Approval:** Product Owner direction, in-session, 2026-09-28
+**Related Docs:** `docs/tasks/TASK-0041-LAUNCH-PAYMENT-FLOW.md`;
+`docs/product/LAUNCH_PLAN_PAYMENT_FLOW_2026_09_26.md`; `APP_LAUNCH_READINESS_INDEX_2026_09_26.md`;
+`LAUNCH_RUNBOOK_2026_10_02.md`; `DECISION-0071`
+**Area:** Launch Readiness / Payments
+
+### Decision
+
+TASK-0041 (the purchase funnel / payment flow) starts implementation now, ahead of the October 2 free
+launch, instead of waiting until after launch. This moves the build timeline earlier; it does not
+reverse `DECISION-0071`. The October 2 launch itself remains free with no Stripe/payment gating —
+nothing about the free-launch shape, the flat-path Day-1 subjects, or the no-payment-gating rule
+changes. What changes is that engineering work on TASK-0041 (Stripe checkout, parent-pay, promo
+codes, post-purchase add-on, per `LAUNCH_PLAN_PAYMENT_FLOW_2026_09_26.md` §5) is active now rather
+than deferred to a post-launch follow-up, so it can be closer to ready when payment gating is later
+turned on. Every Hard-Gate boundary in that plan and in TASK-0041 itself still applies unchanged:
+live Stripe catalog/config writes, live-mode secret changes, Production migrations/deployment, and
+enabling paid sales all still require separate, explicit Product Owner approval. Nothing here
+authorizes turning on payment gating for October 2 or moves that date.
 
 ## DECISION-0082 — No Fixed Quantity Targets Outside AP Biology; Maximize Safe Student Usability of Current Published Inventory
 
