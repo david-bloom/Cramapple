@@ -6,6 +6,24 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Content-Pipeline QA Session Close: PR #235 Verified, Biology Difficulty Gap Closed, Unlock Status
+  Checked (2026-09-27): Independently audited the Codex `codex/task-0042-content-pipeline-remediation`
+  worktree and, after it merged, PR #235 itself, against live Production rather than the docs' own
+  claims. Confirmed as accurate: the 216-row DECISION-0066 freshness re-audit (0 reverted, hashes
+  traced to original pre-promotion migrations, not circular), the five-row difficulty correction, the
+  runner-hardening diff, and the 27-of-141 blind multi-unit third review (exact `validation_decisions`
+  note match). Found one claim overstated — "complete difficulty coverage for all ten subjects" was
+  false for Biology (43/65 MCQ, 75/95 FRQ) — traced the cause (a one-shot 2026-09-24 load capped at the
+  118 items live then; 42 items published since without a backfill trigger) and closed it same session
+  via `20260927170500_apbio_difficulty_gap_closure.sql`, applying the approved task-verb method;
+  Biology is now 95/95 FRQ, 65/65 MCQ. Committed and pushed to `main` (`b9ed6ea5`). **Unlock status
+  checked before close:** 9 of 10 subjects now return a non-empty pool from the real unit-gated
+  selector on every probed unit (Biology, Calculus AB, Calculus BC, Chemistry, Physics 1, Physics 2,
+  Physics C: E&M, Physics C: Mechanics, Precalculus). **AP Statistics is not fully unlocked**: 2 of 7
+  probed units return 0 rows from `select_unit_gated_practice_items` despite Statistics having the
+  most validated labels of any subject (88) — not diagnosed further this session; the cause (which
+  two units, why validated-label count doesn't cover them) is the open next step, not assumed to be
+  the same root cause as the Biology gap.
 - AP Biology Difficulty Gap Closed (2026-09-27): PR #235's "complete difficulty coverage for all ten
   subjects" claim was checked against live Production and found overstated for Biology (43/65 MCQ,
   75/95 FRQ). Traced the gap to the one-shot 2026-09-24 difficulty load
@@ -262,6 +280,71 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## Content-Pipeline QA Session Close: PR #235 Verified, Biology Gap Closed, Unlock Status Checked — 2026-09-27
+
+**Task:** Independent QA of `codex/task-0042-content-pipeline-remediation` / PR #235
+**Status:** Session closed. One real gap found and fixed; one real gap found and left open.
+
+**What this session did.** Read the Codex handoff doc cold, then re-verified its own claims against
+live Production (`pcntajvbdfqhbeewmdry`) rather than trusting the doc or the later PR body. Checks
+run and their results:
+
+- **216-row DECISION-0066 freshness re-audit** (`20260927112814_reaudit_decision0066_single_unit_promotions.sql`):
+  confirmed applied; spot-checked two of the 216 recovered hashes against the original pre-promotion
+  migration (`20260925220100_apcalcab_serving_labels_batch_01.sql`) to rule out circularity; live query
+  showed all 216 still `validated`, matching the audit CSV's 0-reverted result exactly.
+- **Five-row difficulty correction** (`predict`/`integrate` Medium→Hard): confirmed all five rows are
+  `Hard` in Production.
+- **Runner hardening** (`extend_serving_labels_mcp.mjs`): confirmed the diff adds genuine resume-match
+  guards (subject/version/content-key/hash) and a self-test fixture, not just cosmetic changes.
+- **PR #235's 27-of-141 blind multi-unit third review**: confirmed via an exact `validation_decisions.notes`
+  match ("blind independent multi-unit third review by anthropic/claude-haiku-4-5... Candidate label
+  withheld from the review prompt.") and `app.servable_items_census_selftest()` returning 0 mismatches.
+- **One claim found overstated**: PR #235 said difficulty coverage was "complete for all ten subjects."
+  Biology was actually 43/65 MCQ and 75/95 FRQ.
+
+**Biology gap: traced and closed same session.** Origin: the one-shot 2026-09-24 difficulty load
+(`20260924240000_apbio_content_item_difficulty_load.sql`, work order J.0) covered exactly the 118
+items live at that time and hard-asserted that count. 42 items (20 FRQ + 22 MCQ, all authored
+June/July 2026) later moved to `published` through ordinary editorial review with no backfill
+trigger — corpus growth outrunning a one-time load, not a repack (Biology has had one
+`exam_pack_version` since 2026-06-27) and not a defect in TASK-0042, which never touched Biology
+(DECISION-0063/0072 route it to the flat/practice path). Closed via
+`20260927170500_apbio_difficulty_gap_closure.sql`: applied DECISION-0061/0065's approved task-verb
+method, replicated from `scripts/taxonomy/build_remaining_difficulty_artifacts.py`'s regex
+classification, directly in SQL (Postgres regex needs `\y` for a word boundary, not `\b` — `\b` is a
+literal backspace in Postgres's ARE dialect and silently matched nothing until caught). Verified
+post-apply: Biology 95/95 FRQ, 65/65 MCQ. Committed and pushed to `main` (`b9ed6ea5`).
+
+**Unlock status, checked directly against the real selector before closing.** Ran
+`app.servable_items_census_selftest()` grouped by subject and probed unit:
+
+| Subject | Units probed | Units returning 0 |
+| --- | ---: | ---: |
+| AP Biology | 8 | 0 |
+| AP Calculus AB | 8 | 0 |
+| AP Calculus BC | 10 | 0 |
+| AP Chemistry | 9 | 0 |
+| AP Physics 1 | 8 | 0 |
+| AP Physics 2 | 7 | 0 |
+| AP Physics C: E&M | 6 | 0 |
+| AP Physics C: Mechanics | 7 | 0 |
+| AP Precalculus | 4 | 0 |
+| AP Statistics | 7 | **2** |
+
+**9 of 10 subjects are fully unlocked** — every probed unit returns a non-empty pool from the real
+`select_unit_gated_practice_items` RPC, not a modeled prediction. **AP Statistics is not fully
+unlocked**: 2 of its 7 probed units return 0 rows despite Statistics holding the most validated
+labels of any subject (88, per `content_taxonomy_labels` grouped by `label_status`). This was not
+diagnosed further — flagging it as a distinct open item rather than assuming it shares the Biology
+gap's root cause (Statistics' shortfall is in which units are validated, not a missing difficulty
+row).
+
+**Next Owner:** David Bloom
+**Next Required Action:** diagnose why exactly 2 of AP Statistics' 7 unit-gated probes return zero
+rows despite 88 validated labels — likely a unit-coverage gap (specific units under-represented
+among the validated set) rather than a difficulty or freshness defect, but unconfirmed.
 
 ## AP Biology Difficulty Gap Closed — 2026-09-27
 
