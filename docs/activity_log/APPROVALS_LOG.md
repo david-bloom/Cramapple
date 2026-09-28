@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0058 — Execute TASK-0041 Now with All Three Paid Modes and Corrected Bundle Pricing
 - APPROVAL-0057 — Execute TASK-0046 Subject Onboarding Gate in Ordered Per-Subject Slices
 - APPROVAL-0056 — TASK-0042 Cross-Cutting Content-Pipeline QA Remediation and Subject-Scoped Production Writes
 - APPROVAL-0055 — Adopt Lean Source-of-Truth Startup Mode (Tier-First Reading, `AGENTS.md`, Log `INDEX_END` Markers) — DECISION-0081
@@ -28,6 +29,23 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## APPROVAL-0058 — Execute TASK-0041 Now with All Three Paid Modes and Corrected Bundle Pricing
+
+**Date:** 2026-09-28
+**Approved By:** David Bloom
+**Related Task:** `TASK-0041-LAUNCH-PAYMENT-FLOW.md`
+**Decision:** Approved with Notes
+
+### Summary
+
+Authorizes Codex to restart and execute TASK-0041 immediately, without waiting for the former October 2 sequencing gate and without limiting the implementation to single-subject checkout. Single-, two-, and three-subject purchase modes are in scope at $39.99, $69.99, and $89.99 respectively.
+
+### Notes
+
+- Covers repository implementation, tests, and source-of-truth documentation for TASK-0041.
+- Supersedes the TASK-0041 timing and pricing assumptions in `DECISION-0071` and `DECISION-0069` only as recorded in `DECISION-0083`.
+- Does not by itself authorize Production deployment, live Stripe catalog writes, live-mode sales, or paid-gating activation.
 
 ## APPROVAL-0057 — Execute TASK-0046 Subject Onboarding Gate in Ordered Per-Subject Slices
 

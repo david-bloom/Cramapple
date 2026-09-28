@@ -33,16 +33,16 @@ This is an implementation project, not merely a verification exercise.
 
 ## 2. Relationship to the October 2 free launch
 
-`DECISION-0071` remains in force: the October 2, 2026 launch is free and does not depend on paid checkout.
+`DECISION-0083` supersedes the TASK-0041 sequencing portion of `DECISION-0071`: purchase-funnel implementation proceeds immediately and is not held until after October 2.
 
 Therefore:
 
-- TASK-0041 is **not a blocker for the October 2 free launch**;
-- the purchase funnel may be designed and implemented independently of that launch;
-- no paid gating should be introduced into the October 2 free-launch path unless separately approved;
+- TASK-0041 proceeds now rather than waiting on the October 2 milestone;
+- single-, two-, and three-subject purchase modes are all included;
+- Production deployment, live Stripe writes, and paid-gating activation still require their normal approvals;
 - production enablement of the new paid funnel remains a Hard Gate.
 
-"Not launch-critical" does **not** mean "do not implement." It only means the free launch does not wait for this task.
+The prior timing constraint no longer limits implementation.
 
 ---
 
@@ -174,19 +174,15 @@ The specific add-on subject and discount are configurable product inputs, not ha
 Current decided prices remain:
 
 - **Single subject:** $39.99
-- **Two-subject bundle:** $79.99
-- **Three-subject bundle:** $99.99
+- **Two-subject bundle:** $69.99
+- **Three-subject bundle:** $89.99
 - **Unlimited:** deferred / not marketed
 
 The technical implementation must not substitute the $29 examples from the external design brief.
 
-### Open pricing issue
+### Pricing confirmation
 
-$79.99 for two subjects is one cent more than two $39.99 single purchases ($79.98).
-
-Do not silently change this.
-
-Before updating Stripe catalog prices or presenting bundle-savings language, Product Owner confirmation is required.
+The Product Owner confirmed these prices on 2026-09-28 in `DECISION-0083`. They supersede the prior $79.99 / $99.99 bundle prices and clear the former pricing anomaly.
 
 ---
 

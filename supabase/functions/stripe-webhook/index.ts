@@ -1,4 +1,8 @@
 import { jsonResponse } from "../_shared/http.ts";
+import {
+  checkoutNeedsStudentResolution,
+  checkoutPurchaserType,
+} from "../_shared/checkout-contract.ts";
 import { createServiceClient } from "../_shared/supabase.ts";
 import { recordGrowthEvent } from "../_shared/growth-events.ts";
 import { stripe, verifyStripeWebhookEvent } from "../_shared/stripe.ts";
@@ -11,8 +15,7 @@ function requireEnv(name: string) {
   return value;
 }
 
-// Used only as the redirectTo for parent-gift student invites (see
-// resolveGiftStudentUserId below).
+// Used as the redirectTo when a paid checkout provisions a new student.
 const APP_BASE_URL = requireEnv("APP_BASE_URL").replace(/\/$/, "");
 
 // This function is the sole authority for granting and revoking
@@ -238,7 +241,7 @@ async function findAuthUserByEmail(service: Service, email: string) {
 // parent. app.handle_new_user grants the default 'student' role and seeds
 // full_name from raw_user_meta_data.full_name, so no separate profile
 // write is needed here.
-async function resolveGiftStudentUserId(
+async function resolveStudentUserId(
   service: Service,
   metadata: Record<string, string>,
 ) {
@@ -276,9 +279,10 @@ async function handleCheckoutSessionCompleted(
   eventType: CheckoutStatus,
 ) {
   const metadata = session.metadata ?? {};
+  const purchaserType = checkoutPurchaserType(metadata);
   const userId = session.client_reference_id ??
-    (metadata.purchase_type === "parent_gift"
-      ? await resolveGiftStudentUserId(service, metadata)
+    (checkoutNeedsStudentResolution(metadata)
+      ? await resolveStudentUserId(service, metadata)
       : null);
   if (!userId) {
     throw new Error("checkout_session_missing_client_reference_id");
@@ -360,6 +364,7 @@ async function handleCheckoutSessionCompleted(
       stripe_event_id: eventId,
       stripe_event_type: eventType,
       amount_discount: session.total_details?.amount_discount ?? 0,
+      purchaser_type: purchaserType ?? "authenticated_legacy",
     },
   });
 
@@ -397,8 +402,9 @@ async function handleCheckoutSessionEvent(
       eventId,
       status,
     );
-    // recordCheckoutSession above ran before the gift student's account was
-    // resolved (client_reference_id is null for parent-gift checkouts), so
+    // recordCheckoutSession above can run before the student's account is
+    // resolved (client_reference_id is null for anonymous direct and parent
+    // checkouts), so
     // the row it wrote still has user_id null for that case - backfill it
     // now that the real recipient is known.
     if (userId !== session.client_reference_id) {

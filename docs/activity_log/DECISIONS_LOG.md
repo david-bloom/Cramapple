@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0083 — Execute TASK-0041 Now; Launch All Three Paid Modes at $39.99 / $69.99 / $89.99
 - DECISION-0082 — No Fixed Quantity Targets Outside AP Biology; Maximize Safe Student Usability of Current Published Inventory
 - DECISION-0081 — Lean Source-of-Truth Startup Mode: Tier-First Session-Start Reading for Codex and Claude, `AGENTS.md` Search Discipline, and Log `INDEX_END` Markers
 - DECISION-0080 — `DECISION-0074` Addendum: the Four Gated Aids (Rubric, Points, Deep Dive, Reference) All Count as Pre-Submission Hint Use for Mastery; Approves Rebuilding `SessionFrame`'s Live Hint Gating to Match (Workstream B1 of the "Gate the Four Aids" Plan)
@@ -34,6 +35,21 @@ Most recent entries (full chronological list follows below):
 (Note: the same collision recurred 2026-09-26. The `claude/launch-planning-cram-4oyh2g` branch independently claimed DECISION-0068 through 0072 for five launch-planning decisions, not knowing `main` had already recorded its own DECISION-0068 (BYOQ parallel tables, TASK-0039 Phase 1) by the time this branch merged. Per the rule above, this branch — the later-merging side — renumbered its five decisions to DECISION-0069 through 0073 at merge time; main's DECISION-0068 is untouched. If you are reading an older copy of any of the five renumbered decisions (in a plan doc, a chat log, or a stale local checkout) under its original 0068-0072 number, this is why the number no longer matches — the content is unchanged, only the ID moved.)
 
 <!-- INDEX_END -->
+
+## DECISION-0083 — Execute TASK-0041 Now; Launch All Three Paid Modes at $39.99 / $69.99 / $89.99
+
+**Date:** 2026-09-28
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Approval:** Product Owner direction, 2026-09-28; see `APPROVAL-0058`
+**Related Docs:** `docs/tasks/TASK-0041-LAUNCH-PAYMENT-FLOW.md`; `docs/product/PURCHASE_FUNNEL_TECHNICAL_SPEC_2026_09_27.md`; `docs/product/LAUNCH_PLAN_PAYMENT_FLOW_2026_09_26.md`
+**Area:** Payments / Pricing / Launch Sequencing
+
+### Decision
+
+TASK-0041 proceeds immediately and is not deferred by the former October 2 sequencing rule. The implementation is not limited to single-subject checkout: single-, two-, and three-subject modes all launch in scope. Authoritative prices are $39.99 for one subject, $69.99 for two subjects, and $89.99 for three subjects. Unlimited remains deferred and unmarketed.
+
+This decision supersedes `DECISION-0069`'s $79.99 / $99.99 bundle prices and the TASK-0041 sequencing portion of `DECISION-0071`. It does not authorize Production deployment, live Stripe catalog mutation, live-mode sales, or activation of paid gating without the normal controlled-change approval.
 
 ## DECISION-0082 — No Fixed Quantity Targets Outside AP Biology; Maximize Safe Student Usability of Current Published Inventory
 

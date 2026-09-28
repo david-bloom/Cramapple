@@ -1,4 +1,4 @@
-import Stripe from "https://esm.sh/stripe@17?target=deno";
+import Stripe from "https://esm.sh/stripe@22.6.0?target=deno";
 
 function requireEnv(name: string) {
   const value = Deno.env.get(name);

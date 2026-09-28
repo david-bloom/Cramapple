@@ -1,13 +1,23 @@
 import { requireProfile } from "../_shared/auth.ts";
+import {
+  PURCHASE_TYPES,
+  type PurchaseType,
+} from "../_shared/checkout-contract.ts";
 import { jsonResponse, readJsonBody } from "../_shared/http.ts";
 import { recordGrowthEvent } from "../_shared/growth-events.ts";
 import { createServiceClient } from "../_shared/supabase.ts";
 import { stripe } from "../_shared/stripe.ts";
-import { loadPriceCatalog, type PriceCatalog } from "../_shared/stripe-catalog.ts";
+import {
+  loadPriceCatalog,
+  type PriceCatalog,
+} from "../_shared/stripe-catalog.ts";
 
 type Mode = "single" | "bundle_2" | "bundle_3" | "unlimited";
 const MODES = new Set<Mode>(["single", "bundle_2", "bundle_3", "unlimited"]);
-const REQUIRED_SUBJECT_COUNT: Record<"single" | "bundle_2" | "bundle_3", number> = {
+const REQUIRED_SUBJECT_COUNT: Record<
+  "single" | "bundle_2" | "bundle_3",
+  number
+> = {
   single: 1,
   bundle_2: 2,
   bundle_3: 3,
@@ -48,7 +58,19 @@ function asSubjectKeys(value: unknown) {
   return keys.length === value.length ? keys : null;
 }
 
-Deno.serve(async (req) => {
+function integrationIdentifier() {
+  const randomBytes = crypto.getRandomValues(new Uint8Array(8));
+  const suffix = Array.from(
+    randomBytes,
+    (value) => String.fromCharCode(97 + (value % 26)),
+  ).join("");
+  return `cramapple_checkout_${suffix}`;
+}
+
+export async function handleCreateCheckoutSession(
+  req: Request,
+  forcedPurchaseType?: PurchaseType,
+) {
   const respond = (body: unknown, init: ResponseInit = {}) =>
     jsonResponse(body, init, req);
 
@@ -67,21 +89,21 @@ Deno.serve(async (req) => {
     return respond({ error: "invalid_mode" }, { status: 400 });
   }
 
-  // Parent-gift checkout: a parent buying for a student who doesn't have an
-  // account yet. supabase-js always attaches an Authorization header (the
-  // anon key when there's no session), so presence/absence of that header
-  // can't signal "not logged in" - the caller declares gift mode explicitly
-  // instead. This doesn't widen what an unauthenticated caller can already
-  // do with the public anon key; it only changes who ends up holding the
-  // entitlement once Stripe confirms payment.
-  const isGiftCheckout = asString(input.purchase_type) === "parent_gift";
+  const rawPurchaseType = forcedPurchaseType ?? asString(input.purchase_type);
+  if (
+    rawPurchaseType &&
+    !PURCHASE_TYPES.has(rawPurchaseType as PurchaseType)
+  ) {
+    return respond({ error: "invalid_purchase_type" }, { status: 400 });
+  }
+  const purchaseType = rawPurchaseType as PurchaseType | null;
 
   let userId: string | null = null;
   let payerEmail: string | undefined;
   let studentEmail: string | null = null;
   let studentName: string | null = null;
 
-  if (isGiftCheckout) {
+  if (purchaseType === "parent_gift") {
     studentEmail = asEmail(input.student_email);
     studentName = asString(input.student_name);
     if (!studentEmail || !studentName) {
@@ -93,6 +115,35 @@ Deno.serve(async (req) => {
         { status: 400 },
       );
     }
+  } else if (
+    purchaseType === "student_direct" || purchaseType === "parent_share"
+  ) {
+    const auth = await requireProfile(req);
+    if (
+      auth && auth.profile.role !== "student" && auth.profile.role !== "admin"
+    ) {
+      return respond({ error: "forbidden" }, { status: 403 });
+    }
+
+    const requestedStudentEmail = asEmail(input.student_email);
+    const authenticatedEmail = asEmail(auth?.user.email);
+    if (
+      purchaseType === "student_direct" && authenticatedEmail &&
+      requestedStudentEmail && authenticatedEmail !== requestedStudentEmail
+    ) {
+      return respond({ error: "student_email_mismatch" }, { status: 403 });
+    }
+
+    studentEmail = authenticatedEmail ?? requestedStudentEmail;
+    if (!studentEmail) {
+      return respond(
+        { error: "missing_student_details", required: ["student_email"] },
+        { status: 400 },
+      );
+    }
+    userId = auth?.user.id ?? null;
+    payerEmail = purchaseType === "student_direct" ? studentEmail : undefined;
+    studentName = auth?.profile.full_name ?? asString(input.student_name);
   } else {
     const auth = await requireProfile(req);
     if (!auth) return respond({ error: "unauthorized" }, { status: 401 });
@@ -135,28 +186,67 @@ Deno.serve(async (req) => {
   }
 
   try {
-    const session = await stripe.checkout.sessions.create({
-      mode: "payment",
+    const promoCode = asString(input.promo_code);
+    let promotionCodeId: string | null = null;
+    if (promoCode) {
+      const promotionCodes = await stripe.promotionCodes.list({
+        code: promoCode,
+        active: true,
+        limit: 1,
+      });
+      promotionCodeId = promotionCodes.data[0]?.id ?? null;
+      if (!promotionCodeId) {
+        return respond({ error: "invalid_promo_code" }, { status: 400 });
+      }
+    }
+
+    const metadata = {
+      mode,
+      subject_ids: subjectKeys.join(","),
+      ...(userId ? { user_id: userId } : {}),
+      ...(purchaseType
+        ? {
+          purchaser_type: purchaseType,
+          purchase_type: purchaseType,
+          student_email: studentEmail as string,
+          ...(studentName ? { student_name: studentName } : {}),
+          is_upsell_eligible: String(mode === "single"),
+        }
+        : {}),
+    };
+
+    const commonParams = {
+      mode: "payment" as const,
+      integration_identifier: integrationIdentifier(),
       line_items: [{ price: priceId, quantity: 1 }],
       ...(userId ? { client_reference_id: userId } : {}),
-      customer_email: payerEmail,
-      allow_promotion_codes: true,
-      success_url:
-        `${APP_BASE_URL}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${APP_BASE_URL}/checkout/cancel`,
-      metadata: {
-        mode,
-        subject_ids: subjectKeys.join(","),
-        ...(userId ? { user_id: userId } : {}),
-        ...(isGiftCheckout
-          ? {
-            purchase_type: "parent_gift",
-            student_email: studentEmail as string,
-            student_name: studentName as string,
-          }
-          : {}),
-      },
-    });
+      ...(promotionCodeId
+        ? { discounts: [{ promotion_code: promotionCodeId }] }
+        : { allow_promotion_codes: true }),
+      metadata,
+    };
+
+    const session = purchaseType === "student_direct"
+      ? await stripe.checkout.sessions.create({
+        ...commonParams,
+        ui_mode: "custom",
+        customer_creation: "always",
+        customer_email: payerEmail,
+        payment_intent_data: { setup_future_usage: "off_session" },
+        return_url:
+          `${APP_BASE_URL}/checkout/return?session_id={CHECKOUT_SESSION_ID}`,
+      })
+      : await stripe.checkout.sessions.create({
+        ...commonParams,
+        ui_mode: "hosted",
+        customer_email: payerEmail,
+        success_url: purchaseType === "parent_share"
+          ? `${APP_BASE_URL}/checkout/success?session_id={CHECKOUT_SESSION_ID}&role=parent`
+          : `${APP_BASE_URL}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: purchaseType === "parent_share"
+          ? `${APP_BASE_URL}/checkout/parent-cancelled`
+          : `${APP_BASE_URL}/checkout/cancel`,
+      });
 
     const service = createServiceClient();
     await recordGrowthEvent(service, {
@@ -167,12 +257,23 @@ Deno.serve(async (req) => {
       properties: {
         offer: mode,
         access_tier: "paid",
+        purchaser_type: purchaseType ?? "authenticated_legacy",
       },
     });
 
-    return respond({ status: "ok", url: session.url, session_id: session.id });
+    return respond({
+      status: "ok",
+      session_id: session.id,
+      ...(purchaseType === "student_direct"
+        ? { client_secret: session.client_secret }
+        : { url: session.url }),
+    });
   } catch (error) {
     console.error("create-checkout-session stripe_error", error);
     return respond({ error: "checkout_session_failed" }, { status: 502 });
   }
-});
+}
+
+if (import.meta.main) {
+  Deno.serve((req) => handleCreateCheckoutSession(req));
+}

@@ -2,15 +2,15 @@
 
 **Task ID:** TASK-0041  
 **Title:** Purchase Funnel — Mobile Checkout, Parent Pay, and Post-Purchase Add-On  
-**Owner:** AI implementation agent — unassigned  
+**Owner:** Codex
 **Product Owner:** David Bloom  
 **Tier:** Hard-Gate  
-**Status:** Not Started  
-**Priority:** Medium — not on the October 2, 2026 free-launch critical path (`DECISION-0071`)  
+**Status:** In Progress
+**Priority:** High — execution approved without the former October 2 sequencing gate
 **Created Date:** 2026-09-26  
 **Reframed Date:** 2026-09-27  
-**Approved Date:** Pending execution approval  
-**Branch:** Not yet created for implementation; use `<agent>/task-0041-<slug>` per R1  
+**Approved Date:** 2026-09-28 (`APPROVAL-0058`)
+**Branch:** `codex/task-0041-payment-flow`
 **PR:** None yet for implementation
 
 > **TASK REFRAME — 2026-09-27.** The prior "post-launch verify-and-fix" framing is superseded.  
@@ -101,11 +101,11 @@ Preserve:
 Pricing:
 
 - Single subject: **$39.99**
-- Two-subject bundle: **$79.99**
-- Three-subject bundle: **$99.99**
+- Two-subject bundle: **$69.99**
+- Three-subject bundle: **$89.99**
 - Unlimited: deferred / not marketed
 
-The $79.99 two-subject price is one cent more than two $39.99 singles ($79.98). Product Owner confirmation is required before catalog changes or bundle-savings claims.
+All three paid modes are in scope for implementation. The prior single-subject-only constraint and the prior $79.99 / $99.99 bundle prices are superseded by `DECISION-0083`.
 
 Design:
 
@@ -118,13 +118,7 @@ Design:
 
 ## Relationship to October 2 launch
 
-This task remains outside the October 2 free-launch critical path under `DECISION-0071`.
-
-That means:
-
-- October 2 does not wait for TASK-0041;
-- the free launch must not be converted to paid gating by this task without separate approval;
-- TASK-0041 can still proceed as the next purchase-funnel implementation project once execution is approved.
+Product Owner direction on 2026-09-28 (`APPROVAL-0058`, `DECISION-0083`) removes the October 2 sequencing gate for TASK-0041 and approves immediate implementation of single-, two-, and three-subject purchase modes. Production deployment, live Stripe writes, and live paid gating remain separately controlled changes.
 
 ## Routes / Components / Systems Affected
 

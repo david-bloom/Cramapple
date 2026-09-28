@@ -8,7 +8,7 @@
 **Canonical repository:** `david-bloom/Cramapple`  
 **Draft branch:** `chatgpt/task-0041-purchase-funnel-spec`
 
-> This document is an implementation specification for the purchase-funnel plan supplied by the Product Owner on 2026-09-27. It does **not** authorize implementation, Stripe writes, deployment, migration, live-mode sales, or Production changes. TASK-0041 remains Hard-Gated and deferred from the October 2, 2026 free launch until explicitly approved for execution.
+> This document is an implementation specification for the purchase-funnel plan supplied by the Product Owner on 2026-09-27. Product Owner direction on 2026-09-28 (`APPROVAL-0058`, `DECISION-0083`) authorizes implementation now, removes the October 2 sequencing gate, includes all three paid modes, and sets pricing at $39.99 / $69.99 / $89.99. Stripe account writes, deployment, live-mode sales, and Production changes remain separately gated.
 >
 > The supplied design document included a secret-like string. It is intentionally omitted here and must not be copied into source control, prompts, logs, or client code.
 
@@ -52,8 +52,8 @@ Where the external purchase-funnel brief conflicts with current Cramapple record
 - Design system: light-only, brand orange `#f54900`, orange ink `#ca3500`, square corners, zero motion except the documented ConfettiBurst exception, Bungee / Passion One / Source Sans 3 / STIX Two Math.
 - Current decided pricing:
   - Single subject: **$39.99**
-  - Two-subject bundle: **$79.99**
-  - Three-subject bundle: **$99.99**
+  - Two-subject bundle: **$69.99**
+  - Three-subject bundle: **$89.99**
   - Unlimited: deferred and not marketed.
 - TASK-0041 owns the paid purchase / paid entitlement path.
 - Stripe webhook fulfillment remains the authoritative entitlement grant path. Client-side redirects must never grant access.
@@ -1113,14 +1113,14 @@ QA must be in a fresh context separate from implementation, per the Cramapple op
 
 This spec is build-ready as a technical design, but the following remain governed gates:
 
-1. TASK-0041 execution approval.
+1. TASK-0041 execution approval. **Cleared 2026-09-28 by `APPROVAL-0058`.**
 2. Any Stripe sandbox catalog/config write under the current TASK-0041 approval record.
 3. Any live Stripe catalog/config write.
 4. Live-mode sales enablement.
 5. Production deployment.
 6. BIZ-001 closure for access/refund/discount/parent policy.
 7. Final approved add-on discount/offer.
-8. Current two-subject pricing anomaly: $79.99 bundle vs. $79.98 for two singles must be confirmed before catalog changes.
+8. Bundle pricing confirmation. **Cleared 2026-09-28 by `DECISION-0083`: $69.99 for two subjects and $89.99 for three.**
 
 An AI implementation agent must stop at any of these boundaries unless the canonical approval record explicitly clears it.
 
@@ -1156,16 +1156,9 @@ The supplied design calls for "Secure 256-Bit Encrypted Checkout." Unless Cramap
 
 This is simpler, recognizable, and avoids an unnecessary technical marketing claim.
 
-## A4. Revisit the $79.99 two-subject bundle
+## A4. Resolved: two-subject bundle pricing
 
-The current decided price is one cent **more** than two $39.99 single purchases.
-
-That undermines the ordinary meaning of "bundle" and makes inline cross-sell difficult to explain. Before paid launch, consider either:
-
-- lowering the two-subject bundle below $79.98; or
-- dropping "bundle savings" language and treating it as a packaged selection convenience.
-
-This is a Product Owner pricing decision, not an implementation decision.
+Resolved by the Product Owner on 2026-09-28: the two-subject bundle is $69.99 and the three-subject bundle is $89.99. The prior $79.99 / $99.99 prices are superseded.
 
 ## A5. Consider post-purchase subject selection rather than a hard-coded add-on
 
