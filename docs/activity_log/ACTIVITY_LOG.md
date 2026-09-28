@@ -16,14 +16,15 @@ Most recent entries (full reverse-chronological list follows below):
   false for Biology (43/65 MCQ, 75/95 FRQ) — traced the cause (a one-shot 2026-09-24 load capped at the
   118 items live then; 42 items published since without a backfill trigger) and closed it same session
   via `20260927170500_apbio_difficulty_gap_closure.sql`, applying the approved task-verb method;
-  Biology is now 95/95 FRQ, 65/65 MCQ. Committed and pushed to `main` (`b9ed6ea5`). **Unlock status
-  checked before close:** 9 of 10 subjects now return a non-empty pool from the real unit-gated
-  selector on every probed unit (Biology, Calculus AB, Calculus BC, Chemistry, Physics 1, Physics 2,
-  Physics C: E&M, Physics C: Mechanics, Precalculus). **AP Statistics is not fully unlocked**: 2 of 7
-  probed units return 0 rows from `select_unit_gated_practice_items` despite Statistics having the
-  most validated labels of any subject (88) — not diagnosed further this session; the cause (which
-  two units, why validated-label count doesn't cover them) is the open next step, not assumed to be
-  the same root cause as the Biology gap.
+  Biology is now 95/95 FRQ, 65/65 MCQ. Committed and pushed to `main` (`b9ed6ea5`). **Unlock status,
+  corrected after re-diagnosis:** all 10 subjects are fully unlocked. A first pass flagged AP
+  Statistics as having 2 of 7 probed units return 0 rows and left it as an open item; re-diagnosis
+  found this was a false alarm caused by a pre-existing, already-documented limitation of
+  `app.servable_items_census_selftest()` (it scans every `exam_pack_version` including retired ones).
+  Calling `select_unit_gated_practice_items` directly against both of AP Statistics' pack versions
+  confirmed the live, non-retired pack serves both units correctly (19 and 48 items); only the
+  retired 2026-08-24 pilot pack (retired 2026-09-25) returned 0, which is correct behavior, not a
+  defect. Corrected same session — see below.
 - AP Biology Difficulty Gap Closed (2026-09-27): PR #235's "complete difficulty coverage for all ten
   subjects" claim was checked against live Production and found overstated for Biology (43/65 MCQ,
   75/95 FRQ). Traced the gap to the one-shot 2026-09-24 difficulty load
@@ -333,18 +334,27 @@ post-apply: Biology 95/95 FRQ, 65/65 MCQ. Committed and pushed to `main` (`b9ed6
 | AP Precalculus | 4 | 0 |
 | AP Statistics | 7 | **2** |
 
-**9 of 10 subjects are fully unlocked** — every probed unit returns a non-empty pool from the real
-`select_unit_gated_practice_items` RPC, not a modeled prediction. **AP Statistics is not fully
-unlocked**: 2 of its 7 probed units return 0 rows despite Statistics holding the most validated
-labels of any subject (88, per `content_taxonomy_labels` grouped by `label_status`). This was not
-diagnosed further — flagging it as a distinct open item rather than assuming it shares the Biology
-gap's root cause (Statistics' shortfall is in which units are validated, not a missing difficulty
-row).
+At first read this looked like AP Statistics was not fully unlocked (2 of 7 probed units returning
+0 rows), and was recorded as an open item. **Correction, same session:** re-diagnosis found this was
+a false alarm. `app.servable_items_census_selftest()` reported `unit=1` and `unit=5` twice each for
+AP Statistics — once against the real live exam-pack version, once against a **retired** pilot pack
+(`7c5a2975-8f0e-45b9-8fcc-7ec9b8d81ada`, created 2026-08-24, retired 2026-09-25). This is the
+pre-existing, already-documented limitation in `docs/content/CONTENT_PIPELINE_LIVE_CENSUS_2026_09_26.md`
+("`app.servable_items_census()` currently scans every exam pack version without filtering
+`exam_pack_versions.status` or `retired_at`... a reporting-helper defect, not a recurrence of the
+dual-published pack hazard") — not something this session introduced. Confirmed by calling
+`public.select_unit_gated_practice_items` directly against both AP Statistics pack version IDs:
+the live pack (`548f06be-ccf4-426d-b82b-b424137a4438`, never retired) returns 19 items for unit 1
+and 48 for unit 5, matching the correct probe rows exactly; only the retired pilot pack returns 0,
+which is correct — real students never see it.
+
+**Corrected conclusion: all 10 subjects are fully unlocked.** No further action needed for AP
+Statistics.
 
 **Next Owner:** David Bloom
-**Next Required Action:** diagnose why exactly 2 of AP Statistics' 7 unit-gated probes return zero
-rows despite 88 validated labels — likely a unit-coverage gap (specific units under-represented
-among the validated set) rather than a difficulty or freshness defect, but unconfirmed.
+**Next Required Action:** none. Optionally, harden `app.servable_items_census_selftest()` itself to
+filter out retired/non-live exam-pack versions so a future run doesn't require re-diagnosing the
+same known artifact — tracked as a nice-to-have, not a blocker.
 
 ## AP Biology Difficulty Gap Closed — 2026-09-27
 
