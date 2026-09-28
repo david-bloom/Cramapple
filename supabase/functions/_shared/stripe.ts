@@ -23,6 +23,8 @@ export const stripe = new Stripe(STRIPE_SECRET_KEY, {
   httpClient: Stripe.createFetchHttpClient(),
 });
 
+const stripeCryptoProvider = Stripe.createSubtleCryptoProvider();
+
 // Deno has no synchronous Node crypto, so signature verification must use
 // the async variant (constructEventAsync uses SubtleCrypto under the hood).
 export async function verifyStripeWebhookEvent(
@@ -37,5 +39,7 @@ export async function verifyStripeWebhookEvent(
     rawBody,
     signatureHeader,
     webhookSecret,
+    undefined,
+    stripeCryptoProvider,
   );
 }
