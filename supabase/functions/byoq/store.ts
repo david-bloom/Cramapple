@@ -71,6 +71,8 @@ export interface TokenRow {
   expires_at: string;
   redemption_attempts: number;
   uploads_bound: number;
+  storage_prefix: string;
+  incoming_swept_at: string | null;
   created_at: string;
 }
 
@@ -105,6 +107,12 @@ export class StoreRpcError extends Error {}
 
 export interface ByoqStore {
   profileExists(userId: string): Promise<boolean>;
+  verifyPurgeToken(token: string): Promise<boolean>;
+  countAnonymousOwnersSince(sinceIso: string): Promise<number>;
+  countLiveTokens(ownerId: string): Promise<number>;
+  expireLapsedTokens(): Promise<void>;
+  unsweptClosedTokens(closedBeforeIso: string, limit: number): Promise<TokenRow[]>;
+  markTokenSwept(id: string, atIso: string): Promise<void>;
   getOwnerById(ownerId: string): Promise<OwnerRow | null>;
   findOwnerByKeyHash(keySha256: string): Promise<OwnerRow | null>;
   findKeylessOwnerForUser(userId: string): Promise<OwnerRow | null>;
@@ -136,7 +144,9 @@ export interface ByoqStore {
 
   countMintsSince(ownerId: string, sinceIso: string): Promise<number>;
   cancelLiveTokens(slot: { item_id: string; capture_role: string; response_id: string | null; part_key: string }): Promise<number[]>;
-  insertToken(row: Omit<TokenRow, "id" | "created_at" | "state" | "access_path" | "redemption_attempts" | "uploads_bound">): Promise<TokenRow>;
+  insertToken(
+    row: Omit<TokenRow, "id" | "created_at" | "state" | "access_path" | "redemption_attempts" | "uploads_bound" | "incoming_swept_at">,
+  ): Promise<TokenRow>;
   getTokenByHash(handleSha256: string): Promise<TokenRow | null>;
   getTokenById(id: string): Promise<TokenRow | null>;
   /** Compare-and-set: updates only when the current state is one of `fromStates`. */
@@ -164,6 +174,8 @@ export interface ByoqStore {
 export interface ByoqStorage {
   signUpload(path: string): Promise<{ signedUrl: string; token: string }>;
   download(path: string): Promise<Uint8Array | null>;
+  /** Object size in bytes from storage metadata, or null if it does not exist. */
+  size(path: string): Promise<number | null>;
   upload(path: string, bytes: Uint8Array, contentType: string): Promise<void>;
   remove(paths: string[]): Promise<void>;
   signRead(path: string, expiresInSeconds: number): Promise<string | null>;
@@ -197,6 +209,38 @@ export function createSupabaseStore(client: Client): ByoqStore {
   return {
     async profileExists(userId) {
       return Boolean(orNull(await app().from("profiles").select("user_id").eq("user_id", userId).maybeSingle(), "profile"));
+    },
+    async verifyPurgeToken(token) {
+      const r = await app().rpc("byoq_verify_purge_token", { p_token: token });
+      return !r.error && r.data === true;
+    },
+    async countAnonymousOwnersSince(since) {
+      const r = await app().from("byoq_owners").select("id", { count: "exact", head: true })
+        .is("user_id", null).gte("created_at", since);
+      if (r.error) throw new Error(`count_anon_owners: ${r.error.message}`);
+      return r.count ?? 0;
+    },
+    async countLiveTokens(ownerId) {
+      const r = await app().from("byoq_capture_pairing_tokens").select("id", { count: "exact", head: true })
+        .eq("owner_id", ownerId).in("state", ["issued", "paired", "uploaded"]).gt("expires_at", new Date().toISOString());
+      if (r.error) throw new Error(`count_live_tokens: ${r.error.message}`);
+      return r.count ?? 0;
+    },
+    async expireLapsedTokens() {
+      const r = await app().rpc("expire_byoq_capture_pairing_tokens", { p_limit: 500 });
+      if (r.error) throw new Error(`expire_tokens: ${r.error.message}`);
+    },
+    async unsweptClosedTokens(before, limit) {
+      return must(
+        await app().from("byoq_capture_pairing_tokens").select("*")
+          .is("incoming_swept_at", null).in("state", ["consumed", "expired", "cancelled", "rejected"])
+          .lt("closed_at", before).order("closed_at").limit(limit),
+        "unswept_tokens",
+      );
+    },
+    async markTokenSwept(id, at) {
+      const r = await app().from("byoq_capture_pairing_tokens").update({ incoming_swept_at: at }).eq("id", id);
+      if (r.error) throw new Error(`mark_swept: ${r.error.message}`);
     },
     async getOwnerById(id) {
       return orNull(await app().from("byoq_owners").select(OWNER_COLS).eq("id", id).maybeSingle(), "owner_by_id");
@@ -491,6 +535,17 @@ export function createSupabaseStorage(client: Client): ByoqStorage {
       const r = await bucket().download(path);
       if (r.error || !r.data) return null;
       return new Uint8Array(await r.data.arrayBuffer());
+    },
+    async size(path) {
+      const slash = path.lastIndexOf("/");
+      const folder = path.slice(0, slash);
+      const name = path.slice(slash + 1);
+      const r = await bucket().list(folder, { limit: 100, search: name });
+      if (r.error) return null;
+      const hit = (r.data ?? []).find((o: { name: string }) => o.name === name) as
+        | { metadata?: { size?: number } }
+        | undefined;
+      return hit ? Number(hit.metadata?.size ?? 0) : null;
     },
     async upload(path, bytes, contentType) {
       const r = await bucket().upload(path, bytes, { contentType, upsert: false });

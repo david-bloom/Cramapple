@@ -22,8 +22,10 @@ export const BYOQ_LIMITS = {
   choicesMin: 2,
   choicesMax: 6,
   responseTextMaxChars: 20000,
-  /** Anonymous owners minted per creating IP per rolling hour. */
-  ownersPerIpPerHour: 20,
+  /** Anonymous owners minted per creating IP per rolling hour (a school NAT is one IP). */
+  ownersPerIpPerHour: 120,
+  /** Circuit breaker: anonymous owners minted across all callers per rolling hour. */
+  anonymousOwnersPerHourGlobal: 5000,
   /** Items created per owner per rolling 24h. */
   itemsPerOwnerPerDay: 30,
   /** Total live (non-deleted) items per owner. */
@@ -33,6 +35,8 @@ export const BYOQ_LIMITS = {
   /** Capture capabilities minted per owner per rolling window. */
   pairingMintWindowSeconds: 10 * 60,
   pairingMintMaxPerWindow: 12,
+  /** Live (unfinished) capture capabilities per owner at once. */
+  liveCapturesPerOwner: 6,
   /** Upload URLs issued against one capability (pages + retakes). */
   pairingMaxRedemptions: 12,
   /** Current pages per (item, role, response, part). */
@@ -102,11 +106,32 @@ export async function hmacSha256Hex(key: string, value: string) {
   return Array.from(new Uint8Array(sig)).map((b) => b.toString(16).padStart(2, "0")).join("");
 }
 
-/** First hop of X-Forwarded-For, which the Supabase edge sets. */
+/**
+ * The caller's IP as seen by the platform edge. Verified on Development
+ * (2026-09-28): Cloudflare sets `CF-Connecting-IP` and rejects requests that
+ * try to forge it, and a client-supplied `X-Forwarded-For` is replaced, not
+ * appended to (the rightmost hop is a rotating load balancer). So prefer
+ * CF-Connecting-IP and fall back to the first X-Forwarded-For hop.
+ */
 export function clientIp(req: Request): string | null {
-  const forwarded = req.headers.get("x-forwarded-for");
-  const first = forwarded?.split(",")[0]?.trim();
-  return first || req.headers.get("x-real-ip") || null;
+  const cf = req.headers.get("cf-connecting-ip")?.trim();
+  if (cf) return cf;
+  const first = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
+  return first || null;
+}
+
+/** Constant-time string comparison for bearer-style secrets. */
+export function timingSafeEqual(a: string, b: string) {
+  const ea = new TextEncoder().encode(a);
+  const eb = new TextEncoder().encode(b);
+  let diff = ea.length ^ eb.length;
+  for (let i = 0; i < Math.max(ea.length, eb.length); i++) diff |= (ea[i] ?? 0) ^ (eb[i] ?? 0);
+  return diff === 0;
+}
+
+/** Capture slot names: the whole answer, or a rubric part like `part_a`. */
+export function isValidPartKey(value: unknown): value is string {
+  return typeof value === "string" && /^(whole|part_[a-z0-9]{1,8})$/.test(value);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -131,7 +156,7 @@ export function generateItemCode() {
 export type LeakRule = "answer_label" | "correct_marker" | "trailing_answer_line";
 
 export interface LeakFlag {
-  field: "stem" | "choice";
+  field: "stem" | "choice" | "title" | "source_note";
   /** Choice index for field = "choice"; null for the stem. */
   index: number | null;
   start: number;
@@ -165,6 +190,8 @@ function scanText(text: string, field: LeakFlag["field"], index: number | null):
     const end = lineEnd(text, start);
     // "Answer: ________" is a blank to fill in, not a leaked answer.
     if (!/[A-Za-z0-9]/.test(text.slice(start + m[0].length, end))) continue;
+    // "Justify your answer: use the graph" is an instruction, not an answer.
+    if (/\b(?:your|the|an|their|each|every)\s+$/i.test(text.slice(Math.max(0, start - 8), start))) continue;
     flags.push({ field, index, start, end, rule: "answer_label" });
   }
   for (const m of text.matchAll(CORRECT_MARKER)) {
@@ -197,10 +224,18 @@ function mergeFlags(flags: LeakFlag[]): LeakFlag[] {
   return out;
 }
 
-export function detectAnswerLeaks(stem: string | null, choices: ChoiceInput[]): LeakFlag[] {
+export function detectAnswerLeaks(
+  stem: string | null,
+  choices: ChoiceInput[],
+  extra: { title?: string | null; source_note?: string | null } = {},
+): LeakFlag[] {
   const flags: LeakFlag[] = [];
   if (stem) flags.push(...scanText(stem, "stem", null));
   choices.forEach((c, i) => flags.push(...scanText(c.choice_text, "choice", i)));
+  // Any free-text field shown back to the student is an answer channel
+  // (DECISION-0057), not only the stem and choices.
+  if (extra.title) flags.push(...scanText(extra.title, "title", null));
+  if (extra.source_note) flags.push(...scanText(extra.source_note, "source_note", null));
   return flags;
 }
 
@@ -227,8 +262,17 @@ function removeSpans(text: string, spans: LeakFlag[]) {
 }
 
 /** Masked-by-default view (§6.1 item 2): flagged spans never reach the screen unmasked. */
-export function maskedView(stem: string | null, choices: ChoiceInput[], flags: LeakFlag[]) {
+export function maskedView(
+  stem: string | null,
+  choices: ChoiceInput[],
+  flags: LeakFlag[],
+  extra: { title?: string | null; source_note?: string | null } = {},
+) {
+  const maskField = (v: string | null | undefined, field: LeakFlag["field"]) =>
+    v === null || v === undefined ? v ?? null : maskSpans(v, flags.filter((f) => f.field === field));
   return {
+    title: maskField(extra.title, "title"),
+    source_note: maskField(extra.source_note, "source_note"),
     stem: stem === null ? null : maskSpans(stem, flags.filter((f) => f.field === "stem")),
     choices: choices.map((c, i) => ({
       choice_key: c.choice_key,
@@ -238,8 +282,17 @@ export function maskedView(stem: string | null, choices: ChoiceInput[], flags: L
 }
 
 /** Removes flagged spans so the student never has to reveal them to fix them (§6.3). */
-export function removeFlaggedText(stem: string | null, choices: ChoiceInput[], flags: LeakFlag[]) {
+export function removeFlaggedText(
+  stem: string | null,
+  choices: ChoiceInput[],
+  flags: LeakFlag[],
+  extra: { title?: string | null; source_note?: string | null } = {},
+) {
+  const clean = (v: string | null | undefined, field: LeakFlag["field"]) =>
+    v === null || v === undefined ? null : removeSpans(v, flags.filter((f) => f.field === field)) || null;
   return {
+    title: clean(extra.title, "title"),
+    source_note: clean(extra.source_note, "source_note"),
     stem: stem === null ? null : removeSpans(stem, flags.filter((f) => f.field === "stem")) || null,
     choices: choices.map((c, i) => ({
       choice_key: c.choice_key,
@@ -425,13 +478,13 @@ export function ownerStoragePrefix(owner: { id: string; user_id: string | null }
 }
 
 export function uploadPath(params: {
-  owner: { id: string; user_id: string | null };
+  storagePrefix: string;
   itemId: string;
   pairingId: string;
   attempt: number;
   mediaType: ByoqMediaType;
 }) {
-  return `${ownerStoragePrefix(params.owner)}/${params.itemId}/incoming/${params.pairingId}-${params.attempt}.${extensionFor(params.mediaType)}`;
+  return `${incomingObjectPrefix(params.storagePrefix, params.itemId, params.pairingId)}${params.attempt}.${extensionFor(params.mediaType)}`;
 }
 
 export function finalPath(params: {
@@ -444,8 +497,18 @@ export function finalPath(params: {
   return `${ownerStoragePrefix(params.owner)}/${params.itemId}/${params.role}/${params.fileId}.${extensionFor(params.mediaType)}`;
 }
 
-export function incomingPrefix(owner: { id: string; user_id: string | null }, itemId: string, pairingId: string) {
-  return `${ownerStoragePrefix(owner)}/${itemId}/incoming/${pairingId}-`;
+/** Every prefix an owner's objects may live under (it changes when an anonymous owner is recognized). */
+export function allOwnerStoragePrefixes(owner: { id: string; user_id: string | null }) {
+  const anon = `byoq-anon/${owner.id}`;
+  return owner.user_id ? [anon, ownerStoragePrefix(owner)] : [anon];
+}
+
+export function incomingFolder(storagePrefix: string, itemId: string) {
+  return `${storagePrefix}/${itemId}/incoming`;
+}
+
+export function incomingObjectPrefix(storagePrefix: string, itemId: string, pairingId: string) {
+  return `${incomingFolder(storagePrefix, itemId)}/${pairingId}-`;
 }
 
 export function isSafeByoqPath(path: string) {

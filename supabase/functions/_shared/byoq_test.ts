@@ -58,6 +58,7 @@ Deno.test("leak heuristic ignores stemplot keys, chemistry solutions, blanks, an
       "Answer: ______________",
       "Answer the following question about the scatterplot.",
       "Justify your answer using the graph.",
+      "Justify your answer: use the graph above.",
     ]
   ) {
     assertEquals(detectAnswerLeaks(s, []), [], s);
@@ -149,9 +150,8 @@ Deno.test("validateResponseInput checks choice keys against the item", () => {
 });
 
 Deno.test("storage paths: recognized owners under their uid, anonymous under byoq-anon", () => {
-  const rec = { id: "o1", user_id: "u1" };
   const anon = { id: "o2", user_id: null };
-  const p1 = uploadPath({ owner: rec, itemId: "i", pairingId: "p", attempt: 1, mediaType: "image/jpeg" });
+  const p1 = uploadPath({ storagePrefix: "u1/byoq/o1", itemId: "i", pairingId: "p", attempt: 1, mediaType: "image/jpeg" });
   const p2 = finalPath({ owner: anon, itemId: "i", role: "question", fileId: "f1", mediaType: "image/png" });
   assertEquals(p1, "u1/byoq/o1/i/incoming/p-1.jpg");
   assertEquals(p2, "byoq-anon/o2/i/question/f1.png");

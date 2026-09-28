@@ -45,8 +45,11 @@ import {
   generateItemCode,
   generateOwnerKey,
   hmacSha256Hex,
-  incomingPrefix,
+  allOwnerStoragePrefixes,
+  incomingFolder,
+  incomingObjectPrefix,
   isSafeByoqPath,
+  isValidPartKey,
   isWellFormedCaptureHandle,
   isWellFormedOwnerKey,
   type ItemFields,
@@ -56,6 +59,7 @@ import {
   readinessProblem,
   removeFlaggedText,
   sha256Hex,
+  timingSafeEqual,
   uploadPath,
   validateItemFields,
   validateResponseInput,
@@ -97,7 +101,10 @@ const CAPTURE_OPERATIONS = new Set([
   "submit_capture",
   "finish_capture",
 ]);
-const CREATES_OWNER = new Set(["start", "create_item"]);
+// Only creating a question mints an anonymous owner; merely opening the page
+// (`start`) must not, or page views alone would burn the per-IP budget.
+const CREATES_OWNER = new Set(["create_item"]);
+const MAX_CAPTURE_BYTES = 20 * 1024 * 1024;
 const LIVE_STATES = ["issued", "paired", "uploaded"] as const;
 const SIGNED_READ_SECONDS = 10 * 60;
 
@@ -139,22 +146,23 @@ function decodeJwtRole(jwt: string): string | null {
 function itemView(item: ItemRow, opts: { reveal?: boolean; topic?: unknown } = {}) {
   const flagged = item.leak_flags.length > 0;
   const masked = flagged && !opts.reveal;
+  const extra = { title: item.title, source_note: item.source_note };
   const text = masked
-    ? maskedView(item.stem, item.choices, item.leak_flags)
-    : { stem: item.stem, choices: item.choices };
+    ? maskedView(item.stem, item.choices, item.leak_flags, extra)
+    : { stem: item.stem, choices: item.choices, ...extra };
   return {
     id: item.id,
     code: item.code,
     source: "student",
     item_type: item.item_type,
-    title: item.title,
+    title: text.title,
     stem: text.stem,
     choices: text.choices,
     subject_key: item.subject_key,
     topic: opts.topic ?? null,
     difficulty: item.difficulty,
     source_kind: item.source_kind,
-    source_note: item.source_note,
+    source_note: text.source_note,
     status: item.status,
     answer_text_detected: flagged,
     text_masked: masked,
@@ -229,11 +237,16 @@ export async function handleByoq(req: Request, deps: ByoqDeps = {}): Promise<Res
 
   try {
     if (operation === "purge") {
-      if (!serviceRoleKey || getBearerToken(req) !== serviceRoleKey) {
+      const bearer = getBearerToken(req) ?? "";
+      const purgeToken = req.headers.get("x-byoq-purge-token") ?? "";
+      const authorized = (serviceRoleKey && timingSafeEqual(bearer, serviceRoleKey)) ||
+        (purgeToken.length >= 32 && await store.verifyPurgeToken(purgeToken));
+      if (!authorized) {
         return respond({ error: "forbidden" }, { status: 403 });
       }
+      const swept = await sweepClosedCaptures(ctx, 200);
       const purged = await purgeStaleAnonymousOwners(ctx, 50);
-      return respond({ status: "ok", operation, result: { purged_owners: purged } });
+      return respond({ status: "ok", operation, result: { purged_owners: purged, swept_captures: swept } });
     }
     if (PUBLIC_OPERATIONS.has(operation)) {
       return respond({ status: "ok", operation, result: await publicOperation(ctx, operation) });
@@ -249,11 +262,17 @@ export async function handleByoq(req: Request, deps: ByoqDeps = {}): Promise<Res
     const result = await ownerOperation(ctx, caller, operation);
     if (caller.issuedOwnerKey) (result as Json).owner_key = caller.issuedOwnerKey;
     (result as Json).recognized = caller.userId !== null;
-    if (operation === "start") scheduleOpportunisticPurge(ctx);
+    if (operation === "start" || operation === "create_item") scheduleOpportunisticPurge(ctx);
     return respond({ status: "ok", operation, result });
   } catch (error) {
     if (error instanceof HttpError) {
       return respond({ error: error.code, ...error.extra }, { status: error.status });
+    }
+    // Two concurrent requests racing for the same unique slot (a second save
+    // of the same version, a second QR for the same slot): ask the client to
+    // retry rather than reporting a server fault.
+    if (error instanceof Error && /duplicate key|unique constraint/i.test(error.message)) {
+      return respond({ error: "conflict_retry" }, { status: 409 });
     }
     console.error("byoq_failed", operation, error instanceof Error ? error.message : String(error));
     return respond({ error: "byoq_failed" }, { status: 500 });
@@ -337,11 +356,18 @@ async function resolveCaller(
 
   const ip = clientIp(ctx.req);
   const ipHmac = ip ? await hmacSha256Hex(ctx.ipHmacKey, `byoq-ip:${ip}`) : null;
-  if (ipHmac) {
-    const since = new Date(ctx.now().getTime() - 3600_000).toISOString();
-    if (await store.countOwnersFromIpSince(ipHmac, since) >= BYOQ_LIMITS.ownersPerIpPerHour) {
-      throw new HttpError(429, "rate_limited", { retry_after_seconds: 3600 });
-    }
+  const since = new Date(ctx.now().getTime() - 3600_000).toISOString();
+  // Global circuit breaker first: it also covers the (unexpected) case of a
+  // request arriving with no client IP at all, which therefore fails closed
+  // against a bounded budget instead of being unlimited.
+  if (await store.countAnonymousOwnersSince(since) >= BYOQ_LIMITS.anonymousOwnersPerHourGlobal) {
+    throw new HttpError(429, "rate_limited", { retry_after_seconds: 600 });
+  }
+  if (!ipHmac) {
+    throw new HttpError(429, "rate_limited", { retry_after_seconds: 600 });
+  }
+  if (await store.countOwnersFromIpSince(ipHmac, since) >= BYOQ_LIMITS.ownersPerIpPerHour) {
+    throw new HttpError(429, "rate_limited", { retry_after_seconds: 3600 });
   }
   const ownerKey = generateOwnerKey();
   const owner = await store.insertOwner({
@@ -407,7 +433,9 @@ async function buildPatch(ctx: Ctx, current: ItemRow | null, fields: ItemFields)
 
   const stem = patch.stem !== undefined ? patch.stem : current?.stem ?? null;
   const choices: ChoiceInput[] = patch.choices !== undefined ? patch.choices : current?.choices ?? [];
-  patch.leak_flags = detectAnswerLeaks(stem, choices);
+  const title = patch.title !== undefined ? patch.title : current?.title ?? null;
+  const sourceNote = patch.source_note !== undefined ? patch.source_note : current?.source_note ?? null;
+  patch.leak_flags = detectAnswerLeaks(stem, choices, { title, source_note: sourceNote });
   return patch;
 }
 
@@ -498,13 +526,19 @@ async function ownerOperation(ctx: Ctx, caller: Caller, operation: string): Prom
 
     case "remove_flagged_text": {
       const item = await ownedItem(ctx, caller, b.item_id);
-      const cleaned = removeFlaggedText(item.stem, item.choices, item.leak_flags);
+      if (item.status === "archived") throw new HttpError(409, "item_archived");
+      const cleaned = removeFlaggedText(item.stem, item.choices, item.leak_flags, {
+        title: item.title,
+        source_note: item.source_note,
+      });
       const choices = cleaned.choices.filter((c) => c.choice_text.length > 0)
         .map((c, i) => ({ choice_key: String.fromCharCode(65 + i), choice_text: c.choice_text }));
       const patch: Partial<ItemRow> = {
         stem: cleaned.stem,
         choices,
-        leak_flags: detectAnswerLeaks(cleaned.stem, choices),
+        title: cleaned.title,
+        source_note: cleaned.source_note,
+        leak_flags: detectAnswerLeaks(cleaned.stem, choices, { title: cleaned.title, source_note: cleaned.source_note }),
       };
       if (item.status === "ready" && readinessProblem({ ...item, ...patch } as ItemRow)) patch.status = "draft";
       const updated = await store.updateItem(item.id, patch);
@@ -545,7 +579,8 @@ async function ownerOperation(ctx: Ctx, caller: Caller, operation: string): Prom
     case "delete_item": {
       const item = await ownedItem(ctx, caller, b.item_id);
       const owner = await store.getOwnerById(item.owner_id);
-      await removeItemObjects(ctx, owner!, item.id);
+      if (!owner) throw new HttpError(404, "item_not_found");
+      await removeItemObjects(ctx, owner, item.id);
       await store.deleteItem(item.id);
       return { deleted: true };
     }
@@ -636,7 +671,9 @@ async function mintPairing(ctx: Ctx, caller: Caller): Promise<Json> {
     }
   }
   const partKey = b.part_key === undefined || b.part_key === null ? "whole" : b.part_key;
-  if (typeof partKey !== "string" || !/^[a-z0-9_]{1,32}$/.test(partKey)) throw new HttpError(400, "invalid_part_key");
+  if (!isValidPartKey(partKey)) throw new HttpError(400, "invalid_part_key");
+  const owner = await store.getOwnerById(item.owner_id);
+  if (!owner) throw new HttpError(404, "item_not_found");
 
   const windowStart = new Date(ctx.now().getTime() - BYOQ_LIMITS.pairingMintWindowSeconds * 1000).toISOString();
   if (await store.countMintsSince(item.owner_id, windowStart) >= BYOQ_LIMITS.pairingMintMaxPerWindow) {
@@ -651,6 +688,10 @@ async function mintPairing(ctx: Ctx, caller: Caller): Promise<Json> {
     response_id: responseId,
     part_key: partKey,
   });
+  // Bound how many open upload channels one owner can hold at once.
+  if (await store.countLiveTokens(item.owner_id) >= BYOQ_LIMITS.liveCapturesPerOwner) {
+    throw new HttpError(429, "too_many_open_captures");
+  }
   const handle = generateCaptureHandle();
   const token = await store.insertToken({
     handle_sha256: await sha256Hex(handle),
@@ -661,6 +702,9 @@ async function mintPairing(ctx: Ctx, caller: Caller): Promise<Json> {
     part_key: partKey,
     generation: superseded.reduce((m, g) => Math.max(m, g), 0) + 1,
     expires_at: new Date(ctx.now().getTime() + BYOQ_PAIRING_TTL_SECONDS * 1000).toISOString(),
+    // Pinned at mint time so a sign-in mid-capture cannot move the folder
+    // the phone is uploading into.
+    storage_prefix: ownerStoragePrefix(owner),
   });
   return {
     // The one and only time the capability is returned.
@@ -697,6 +741,7 @@ const CAPTURE_ERRORS: Record<string, [number, string]> = {
   invalid_retake_target: [409, "invalid_retake_target"],
   stale_retake_target: [409, "stale_retake_target"],
   page_limit_reached: [409, "page_limit_reached"],
+  item_archived: [409, "item_archived"],
 };
 
 function mapRpcError(e: unknown): HttpError {
@@ -777,9 +822,13 @@ async function captureOperation(ctx: Ctx, operation: string): Promise<Json> {
     }
     if (token.state === "expired") throw new HttpError(409, "pairing_expired");
     if (token.state === "rejected") throw new HttpError(409, "pairing_attempts_exhausted");
-    const owner = await store.getOwnerById(token.owner_id);
-    if (!owner) throw new HttpError(404, "pairing_not_found");
-    const path = uploadPath({ owner, itemId: token.item_id, pairingId: token.id, attempt: token.redemption_attempts, mediaType });
+    const path = uploadPath({
+      storagePrefix: token.storage_prefix,
+      itemId: token.item_id,
+      pairingId: token.id,
+      attempt: token.redemption_attempts,
+      mediaType,
+    });
     if (!isSafeByoqPath(path)) throw new HttpError(500, "invalid_storage_path");
     const signed = await storage.signUpload(path);
     return { storage_path: path, signed_url: signed.signedUrl, upload_token: signed.token, pairing: tokenView(token) };
@@ -792,7 +841,7 @@ async function captureOperation(ctx: Ctx, operation: string): Promise<Json> {
     const path = typeof b.storage_path === "string" ? b.storage_path : "";
     // A capability may only submit an object inside its own incoming folder,
     // whose name is its own id -- which a different capability cannot produce.
-    if (!isSafeByoqPath(path) || !path.startsWith(incomingPrefix(owner, token.item_id, token.id))) {
+    if (!isSafeByoqPath(path) || !path.startsWith(incomingObjectPrefix(token.storage_prefix, token.item_id, token.id))) {
       throw new HttpError(400, "invalid_storage_path");
     }
     const replaces = b.replaces_attachment_id === undefined || b.replaces_attachment_id === null
@@ -800,6 +849,14 @@ async function captureOperation(ctx: Ctx, operation: string): Promise<Json> {
       : asUuid(b.replaces_attachment_id);
     if (b.replaces_attachment_id && !replaces) throw new HttpError(400, "invalid_replaces_attachment_id");
 
+    // Size is checked from object metadata before the bytes are pulled into
+    // memory; the bucket also caps objects at the same 20 MB.
+    const size = await storage.size(path);
+    if (size === null) throw new HttpError(404, "capture_object_not_found");
+    if (size > MAX_CAPTURE_BYTES) {
+      await storage.remove([path]).catch(() => {});
+      throw new HttpError(422, "capture_too_large", { failure_class: "blocked" });
+    }
     const raw = await storage.download(path);
     if (!raw) throw new HttpError(404, "capture_object_not_found");
     const validation = await validateCaptureObject({ bytes: raw });
@@ -826,7 +883,6 @@ async function captureOperation(ctx: Ctx, operation: string): Promise<Json> {
       mediaType: validation.mediaType,
     });
     await storage.upload(destination, finalBytes, validation.mediaType);
-    await storage.remove([path]).catch(() => {});
 
     let attachment: AttachmentRow;
     try {
@@ -843,9 +899,13 @@ async function captureOperation(ctx: Ctx, operation: string): Promise<Json> {
         maxCurrentPages: BYOQ_LIMITS.maxCurrentPages,
       });
     } catch (e) {
+      // Keep the incoming upload so a retry can re-submit it; the closed-
+      // capture sweep removes it if nobody does.
       await storage.remove([destination]).catch(() => {});
       throw mapRpcError(e);
     }
+    // Only now, with the stripped copy safely bound, drop the raw upload.
+    await storage.remove([path]).catch(() => {});
     if (replaces) {
       const old = await store.getAttachment(replaces);
       if (old && !old.is_current) {
@@ -883,14 +943,33 @@ async function captureOperation(ctx: Ctx, operation: string): Promise<Json> {
 
 async function removeItemObjects(ctx: Ctx, owner: OwnerRow, itemId: string) {
   const attachments = (await ctx.store.listAttachments(itemId)).map((a) => a.storage_path);
-  const base = `${ownerStoragePrefix(owner)}/${itemId}`;
-  const leftovers = [
-    ...await ctx.storage.list(`${base}/incoming`),
-    ...await ctx.storage.list(`${base}/question`),
-    ...await ctx.storage.list(`${base}/response`),
-  ];
+  const leftovers: string[] = [];
+  for (const prefix of allOwnerStoragePrefixes(owner)) {
+    for (const folder of ["incoming", "question", "response"]) {
+      leftovers.push(...await ctx.storage.list(`${prefix}/${itemId}/${folder}`));
+    }
+  }
   const all = [...new Set([...attachments, ...leftovers])];
   if (all.length) await ctx.storage.remove(all);
+}
+
+/**
+ * Removes unsubmitted (raw, never-stripped) uploads left in `incoming/` by
+ * capabilities that have closed. Waits a few minutes after closing so a
+ * submit that is still in flight is not raced.
+ */
+async function sweepClosedCaptures(ctx: Ctx, limit: number): Promise<number> {
+  await ctx.store.expireLapsedTokens();
+  const before = new Date(ctx.now().getTime() - 5 * 60_000).toISOString();
+  const tokens = await ctx.store.unsweptClosedTokens(before, limit);
+  for (const t of tokens) {
+    const prefix = incomingObjectPrefix(t.storage_prefix, t.item_id, t.id);
+    const leftovers = (await ctx.storage.list(incomingFolder(t.storage_prefix, t.item_id)))
+      .filter((p) => p.startsWith(prefix));
+    if (leftovers.length) await ctx.storage.remove(leftovers);
+    await ctx.store.markTokenSwept(t.id, ctx.now().toISOString());
+  }
+  return tokens.length;
 }
 
 /**

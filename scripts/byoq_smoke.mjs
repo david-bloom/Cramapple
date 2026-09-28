@@ -92,8 +92,8 @@ export async function runByoqSmoke(
 
   const start = await call({ operation: "start" });
   check(
-    "start issues an anonymous owner key",
-    start.status === 200 && start.json?.result?.owner_key?.startsWith("byoq_"),
+    "start creates no owner (page views are free)",
+    start.status === 200 && !start.json?.result?.owner_key,
     start.text,
   );
   check(
@@ -101,7 +101,9 @@ export async function runByoqSmoke(
     start.cors === origin,
     `got ${start.cors}`,
   );
-  const ownerKey = start.json?.result?.owner_key;
+  const firstItem = await call({ operation: "create_item", stem: "Smoke: first draft" });
+  const ownerKey = firstItem.json?.result?.owner_key;
+  check("create_item issues an anonymous owner key", ownerKey?.startsWith("byoq_"), firstItem.text);
   if (!ownerKey) {
     log("cannot continue without an owner key");
     return failures;
@@ -133,13 +135,15 @@ export async function runByoqSmoke(
     subject_key: "ap_statistics",
     unit_number: topics.json?.result?.units?.[0]?.unit_number,
     topic_code: firstTopic?.topic_code,
+    title: "Smoke Answer: C",
     source_note: "Smoke test",
   });
   const item = created.json?.result?.item;
   check("create_item succeeds", created.status === 200, created.text);
   check(
     "pasted answer detected and masked",
-    item?.answer_text_detected === true && !item?.stem?.includes("Answer: B"),
+    item?.answer_text_detected === true && !item?.stem?.includes("Answer: B") &&
+      !item?.title?.includes("Answer: C"),
     JSON.stringify(item),
   );
 
@@ -187,7 +191,7 @@ export async function runByoqSmoke(
     !/is_correct|score_points|verdict/.test(saved.text),
   );
 
-  const outsider = await call({ operation: "start" });
+  const outsider = await call({ operation: "create_item", stem: "Smoke: outsider" });
   const peek = await call({
     operation: "get_item",
     owner_key: outsider.json?.result?.owner_key,

@@ -1,3 +1,4 @@
+// deno-lint-ignore-file require-await
 // Request-handling tests for the byoq function, driven through handleByoq
 // with an in-memory store/storage that mirrors the SQL semantics of
 // 20260928150000_task0039_byoq_core.sql (claim / bind / one-live-token /
@@ -104,8 +105,29 @@ class Mem implements ByoqStore, ByoqStorage {
   id = () => crypto.randomUUID();
   ts = () => new Date().toISOString();
 
+  purgeToken = "p".repeat(40);
   // --- store
   async profileExists(u: string) { return this.profiles.has(u); }
+  async verifyPurgeToken(t: string) { return t === this.purgeToken; }
+  async countAnonymousOwnersSince(since: string) { return this.owners.filter((o) => !o.user_id && o.created_at >= since).length; }
+  async countLiveTokens(o: string) {
+    return this.tokens.filter((t) => t.owner_id === o && ["issued", "paired", "uploaded"].includes(t.state)).length;
+  }
+  async expireLapsedTokens() {
+    for (const t of this.tokens) {
+      if (["issued", "paired", "uploaded"].includes(t.state) && new Date(t.expires_at) <= new Date()) {
+        t.state = t.uploads_bound > 0 ? "consumed" : "expired";
+        (t as TokenRow & { closed_at?: string }).closed_at = this.ts();
+      }
+    }
+  }
+  async unsweptClosedTokens(before: string, limit: number) {
+    return this.tokens.filter((t) =>
+      !t.incoming_swept_at && ["consumed", "expired", "cancelled", "rejected"].includes(t.state) &&
+      ((t as TokenRow & { closed_at?: string }).closed_at ?? "9999") < before
+    ).slice(0, limit);
+  }
+  async markTokenSwept(id: string, at: string) { const t = this.tokens.find((x) => x.id === id); if (t) t.incoming_swept_at = at; }
   async getOwnerById(id: string) { return this.owners.find((o) => o.id === id) ?? null; }
   async findOwnerByKeyHash(h: string) { return this.owners.find((o) => o.key_sha256 === h) ?? null; }
   async findKeylessOwnerForUser(u: string) { return this.owners.find((o) => o.user_id === u && !o.key_sha256) ?? null; }
@@ -184,13 +206,14 @@ class Mem implements ByoqStore, ByoqStorage {
     live.forEach((t) => (t.state = "cancelled"));
     return live.map((t) => t.generation);
   }
-  async insertToken(r: Omit<TokenRow, "id" | "created_at" | "state" | "access_path" | "redemption_attempts" | "uploads_bound">) {
-    const t: TokenRow = { id: this.id(), created_at: this.ts(), state: "issued", access_path: null, redemption_attempts: 0, uploads_bound: 0, ...r };
+  async insertToken(r: Omit<TokenRow, "id" | "created_at" | "state" | "access_path" | "redemption_attempts" | "uploads_bound" | "incoming_swept_at">) {
+    const t: TokenRow = { id: this.id(), created_at: this.ts(), state: "issued", access_path: null, redemption_attempts: 0, uploads_bound: 0, incoming_swept_at: null, ...r };
     this.tokens.push(t);
     return { ...t };
   }
   async getTokenByHash(h: string) { const t = this.tokens.find((x) => x.handle_sha256 === h); return t ? { ...t } : null; }
   async getTokenById(id: string) { const t = this.tokens.find((x) => x.id === id); return t ? { ...t } : null; }
+  bindShouldFail = false;
   async transitionToken(id: string, from: string[], patch: Record<string, unknown>) {
     const t = this.tokens.find((x) => x.id === id);
     if (!t || !from.includes(t.state)) return null;
@@ -212,6 +235,7 @@ class Mem implements ByoqStore, ByoqStorage {
   async bindAttachment(p: Parameters<ByoqStore["bindAttachment"]>[0]) {
     const t = this.tokens.find((x) => x.id === p.pairingId);
     if (!t) throw new StoreRpcError("byoq_bind:pairing_not_found");
+    if (this.bindShouldFail) throw new StoreRpcError("byoq_bind:page_limit_reached");
     if (!["paired", "uploaded"].includes(t.state)) throw new StoreRpcError("byoq_bind:pairing_not_live");
     const slot = this.attachments.filter((a) =>
       a.item_id === t.item_id && a.capture_role === t.capture_role && a.response_id === t.response_id &&
@@ -246,6 +270,7 @@ class Mem implements ByoqStore, ByoqStorage {
   // --- storage
   async signUpload(path: string) { return { signedUrl: `https://upload/${path}`, token: "tok" }; }
   async download(path: string) { return this.objects.get(path) ?? null; }
+  async size(path: string) { return this.objects.get(path)?.length ?? null; }
   async upload(path: string, bytes: Uint8Array) {
     if (this.objects.has(path)) throw new Error("exists");
     this.objects.set(path, bytes);
@@ -261,8 +286,12 @@ class Mem implements ByoqStore, ByoqStorage {
 
 function harness() {
   const mem = new Mem();
-  const call = async (body: Record<string, unknown>, opts: { jwt?: string; ip?: string; bearer?: string } = {}) => {
-    const headers: Record<string, string> = { "content-type": "application/json", "x-forwarded-for": opts.ip ?? "203.0.113.9" };
+  const call = async (
+    body: Record<string, unknown>,
+    opts: { jwt?: string; ip?: string | null; bearer?: string; headers?: Record<string, string> } = {},
+  ) => {
+    const headers: Record<string, string> = { "content-type": "application/json", ...(opts.headers ?? {}) };
+    if (opts.ip !== null) headers["cf-connecting-ip"] = opts.ip ?? "203.0.113.9";
     if (opts.jwt) headers.authorization = `Bearer ${opts.jwt}`;
     if (opts.bearer) headers.authorization = `Bearer ${opts.bearer}`;
     const res = await handleByoq(new Request("https://fn/byoq", { method: "POST", headers, body: JSON.stringify(body) }), {
@@ -291,14 +320,17 @@ async function anonItem(call: ReturnType<typeof harness>["call"], fields: Record
 /* Tests                                                                       */
 /* -------------------------------------------------------------------------- */
 
-Deno.test("anonymous start issues an owner key once; presenting it reuses the owner", async () => {
+Deno.test("only create_item mints an anonymous owner key, once; presenting it reuses the owner", async () => {
   const { mem, call } = harness();
-  const first = await call({ operation: "start" });
-  assertEquals(first.status, 200);
+  const opened = await call({ operation: "start" });
+  assertEquals(opened.status, 200);
+  assertEquals(opened.json.result.owner_key, undefined);
+  assertEquals(mem.owners.length, 0, "opening the page creates nothing");
+  const first = await call({ operation: "create_item", item_type: "frq", stem: "x" });
   const key = first.json.result.owner_key;
   assert(typeof key === "string" && key.startsWith("byoq_"));
   assertEquals(first.json.result.recognized, false);
-  const second = await call({ operation: "start", owner_key: key });
+  const second = await call({ operation: "create_item", owner_key: key, item_type: "frq", stem: "y" });
   assertEquals(second.json.result.owner_key, undefined);
   assertEquals(mem.owners.length, 1);
   // Only the hash is stored.
@@ -340,12 +372,12 @@ Deno.test("an answer-shaped key on a choice is refused, never silently stored", 
 Deno.test("another owner gets 404 for an item and an empty list", async () => {
   const { call } = harness();
   const { item } = await anonItem(call, { item_type: "frq", stem: "Explain." });
-  const other = await call({ operation: "start" }, { ip: "198.51.100.1" });
+  const other = await call({ operation: "create_item", stem: "z" }, { ip: "198.51.100.1" });
   const otherKey = other.json.result.owner_key;
   const get = await call({ operation: "get_item", owner_key: otherKey, item_id: item.id });
   assertEquals(get.status, 404);
   const list = await call({ operation: "list_items", owner_key: otherKey });
-  assertEquals(list.json.result.items, []);
+  assert(!list.json.result.items.some((i: { id: string }) => i.id === item.id), "other owner's list excludes the item");
   // No key at all: nothing, and no owner is created for a read.
   const bare = await call({ operation: "get_item", item_id: item.id });
   assertEquals(bare.status, 404);
@@ -370,7 +402,7 @@ Deno.test("an expired user JWT is a 401, not a silent anonymous downgrade; the a
   const { call } = harness();
   const expired = await call({ operation: "start" }, { jwt: fakeJwt("authenticated", "expired") });
   assertEquals(expired.status, 401);
-  const anon = await call({ operation: "start" }, { jwt: fakeJwt("anon", "") });
+  const anon = await call({ operation: "create_item", stem: "q" }, { jwt: fakeJwt("anon", "") });
   assertEquals(anon.status, 200);
   assertEquals(anon.json.result.recognized, false);
 });
@@ -498,12 +530,87 @@ Deno.test("delete_item removes stored photos as well as rows", async () => {
   assertEquals(mem.items.length, 0);
 });
 
-Deno.test("anonymous owner creation is rate-limited per IP", async () => {
+Deno.test("anonymous owner creation is rate-limited per IP, fails closed without an IP, and has a global ceiling", async () => {
+  const { mem, call } = harness();
+  const make = (ip: string | null) => call({ operation: "create_item", stem: "q" }, { ip });
+  for (let i = 0; i < 120; i++) assertEquals((await make("192.0.2.7")).status, 200);
+  assertEquals((await make("192.0.2.7")).status, 429);
+  assertEquals((await make("192.0.2.8")).status, 200);
+  assertEquals((await make(null)).status, 429, "no client IP must not mean no limit");
+  // A spoofed X-Forwarded-For does not override the edge-set client IP.
+  const spoof = await call({ operation: "create_item", stem: "q" }, { ip: "192.0.2.7", headers: { "x-forwarded-for": "1.1.1.1" } });
+  assertEquals(spoof.status, 429);
+  // Global circuit breaker.
+  for (let i = 0; i < 5000; i++) {
+    mem.owners.push({ id: crypto.randomUUID(), key_sha256: null, user_id: null, created_ip_hmac: "x", created_at: new Date().toISOString(), last_seen_at: "" });
+  }
+  assertEquals((await make("192.0.2.99")).status, 429);
+});
+
+Deno.test("answer text in the title or source note is detected and masked too (DECISION-0057)", async () => {
   const { call } = harness();
-  for (let i = 0; i < 20; i++) assertEquals((await call({ operation: "start" }, { ip: "192.0.2.7" })).status, 200);
-  const limited = await call({ operation: "start" }, { ip: "192.0.2.7" });
-  assertEquals(limited.status, 429);
-  assertEquals((await call({ operation: "start" }, { ip: "192.0.2.8" })).status, 200);
+  const { key, item } = await anonItem(call, {
+    item_type: "frq",
+    stem: "Explain the trend.",
+    title: "Q3 Answer: C",
+    source_note: "Answer key: B",
+  });
+  assertEquals(item.answer_text_detected, true);
+  assert(!item.title.includes("Answer: C") && !item.source_note.includes("Answer key: B"), JSON.stringify(item));
+  const list = await call({ operation: "list_items", owner_key: key });
+  assert(!list.text.includes("Answer: C") && !list.text.includes("Answer key: B"));
+  const cleaned = await call({ operation: "remove_flagged_text", owner_key: key, item_id: item.id });
+  assertEquals(cleaned.json.result.item.answer_text_detected, false);
+  assertEquals(cleaned.json.result.item.title, "Q3");
+});
+
+Deno.test("part keys are whitelisted and open captures per owner are capped", async () => {
+  const { call } = harness();
+  const { key, item } = await anonItem(call, {});
+  const bad = await call({ operation: "mint_pairing", owner_key: key, item_id: item.id, capture_role: "question", part_key: "x".repeat(20) });
+  assertEquals(bad.json.error, "invalid_part_key");
+  const codes: number[] = [];
+  for (const part of ["whole", "part_a", "part_b", "part_c", "part_d", "part_e", "part_f"]) {
+    codes.push((await call({ operation: "mint_pairing", owner_key: key, item_id: item.id, capture_role: "question", part_key: part })).status);
+  }
+  assertEquals(codes, [200, 200, 200, 200, 200, 200, 429]);
+});
+
+Deno.test("a failed bind keeps the raw upload for retry, and the closed-capture sweep then removes it", async () => {
+  const { mem, call } = harness();
+  const { key, item } = await anonItem(call, {});
+  const mint = await call({ operation: "mint_pairing", owner_key: key, item_id: item.id, capture_role: "question" });
+  const handle = mint.json.result.pairing_handle;
+  const up = await call({ operation: "create_capture_upload", pairing_handle: handle, media_type: "image/png" });
+  mem.objects.set(up.json.result.storage_path, pngWithMetadata());
+  mem.bindShouldFail = true;
+  const failed = await call({ operation: "submit_capture", pairing_handle: handle, storage_path: up.json.result.storage_path });
+  assertEquals(failed.status, 409);
+  assert(mem.objects.has(up.json.result.storage_path), "raw upload kept for a retry");
+  assertEquals(mem.objects.size, 1, "no stray stripped copy left behind");
+  // Abandon it: the capability closes, then the scheduled purge sweeps it.
+  await call({ operation: "cancel_pairing", owner_key: key, pairing_id: mint.json.result.pairing.pairing_id });
+  const tok = mem.tokens[0] as TokenRow & { closed_at?: string };
+  tok.closed_at = "2000-01-01T00:00:00.000Z";
+  const purge = await call({ operation: "purge" }, { headers: { "x-byoq-purge-token": mem.purgeToken } });
+  assertEquals(purge.json.result.swept_captures, 1);
+  assertEquals(mem.objects.size, 0);
+  assertEquals(mem.tokens[0].incoming_swept_at !== null, true);
+});
+
+Deno.test("a capture minted before sign-in still submits after the owner is recognized", async () => {
+  const { mem, call } = harness();
+  const { key, item } = await anonItem(call, {});
+  const mint = await call({ operation: "mint_pairing", owner_key: key, item_id: item.id, capture_role: "question" });
+  const handle = mint.json.result.pairing_handle;
+  const up = await call({ operation: "create_capture_upload", pairing_handle: handle, media_type: "image/png" });
+  await call({ operation: "list_items", owner_key: key }, { jwt: fakeJwt("authenticated", USER_A) });
+  mem.objects.set(up.json.result.storage_path, pngWithMetadata());
+  const sub = await call({ operation: "submit_capture", pairing_handle: handle, storage_path: up.json.result.storage_path });
+  assertEquals(sub.status, 200, sub.text);
+  const del = await call({ operation: "delete_item", item_id: item.id }, { jwt: fakeJwt("authenticated", USER_A) });
+  assertEquals(del.status, 200);
+  assertEquals(mem.objects.size, 0, "objects under both the anonymous and recognized prefixes are removed");
 });
 
 Deno.test("purge requires the service-role key and removes stale anonymous owners with their photos", async () => {
@@ -516,6 +623,7 @@ Deno.test("purge requires the service-role key and removes stale anonymous owner
 
   assertEquals((await call({ operation: "purge" })).status, 403);
   assertEquals((await call({ operation: "purge" }, { bearer: "not-it" })).status, 403);
+  assertEquals((await call({ operation: "purge" }, { headers: { "x-byoq-purge-token": "q".repeat(40) } })).status, 403);
   const fresh = await call({ operation: "purge" }, { bearer: "svc-key" });
   assertEquals(fresh.json.result.purged_owners, 0);
   mem.owners[0].last_seen_at = "2000-01-01T00:00:00.000Z";
