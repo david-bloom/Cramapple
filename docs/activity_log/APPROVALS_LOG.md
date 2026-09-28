@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0058 — Execute TASK-0041 Purchase Funnel in Development — DECISION-0083
 - APPROVAL-0057 — Execute TASK-0046 Subject Onboarding Gate in Ordered Per-Subject Slices
 - APPROVAL-0056 — TASK-0042 Cross-Cutting Content-Pipeline QA Remediation and Subject-Scoped Production Writes
 - APPROVAL-0055 — Adopt Lean Source-of-Truth Startup Mode (Tier-First Reading, `AGENTS.md`, Log `INDEX_END` Markers) — DECISION-0081
@@ -28,6 +29,19 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## APPROVAL-0058 — Execute TASK-0041 Purchase Funnel in Development
+
+**Date:** 2026-09-28  
+**Approved By:** David Bloom  
+**Related Task:** `TASK-0041-LAUNCH-PAYMENT-FLOW.md`  
+**Related Decision:** `DECISION-0083`  
+**Decision:** Approved
+
+Approves immediate execution of TASK-0041 in Development/task-branch scope using prices $39.99 single / $69.99 two-subject / $89.99 three-subject. Includes code, Development schema migrations, Development Edge Function deployment, sandbox read-only verification and non-live test-session creation, Lovable code edits without publish, and QA evidence collection.
+
+This approval does **not** authorize Production migrations/deployments, live Stripe writes/configuration, secret changes, enabling live paid sales, Lovable Production publish, or final risk acceptance. Those remain separate Hard Gates.
+
 
 ## APPROVAL-0057 — Execute TASK-0046 Subject Onboarding Gate in Ordered Per-Subject Slices
 
