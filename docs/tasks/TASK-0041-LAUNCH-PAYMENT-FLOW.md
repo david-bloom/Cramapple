@@ -125,6 +125,7 @@ Product Owner direction on 2026-09-28 (`APPROVAL-0058`, `DECISION-0083`) removes
 Backend:
 
 - `supabase/functions/create-checkout-session`
+- `supabase/functions/checkout-session-status`
 - `supabase/functions/stripe-webhook`
 - new parent-payment-link Edge Function
 - new parent-email send path

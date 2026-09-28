@@ -1,4 +1,5 @@
 import {
+  checkoutAccessState,
   checkoutNeedsStudentResolution,
   checkoutPurchaserType,
 } from "./checkout-contract.ts";
@@ -43,5 +44,47 @@ Deno.test("all purchase-funnel types resolve the student recipient", () => {
   assertEquals(
     checkoutNeedsStudentResolution({ purchaser_type: "unknown" }),
     false,
+  );
+});
+
+Deno.test("checkout access is confirmed only after every entitlement exists", () => {
+  assertEquals(
+    checkoutAccessState({
+      checkoutStatus: "completed",
+      paymentStatus: "paid",
+      expectedEntitlements: 2,
+      activeEntitlements: 1,
+    }),
+    "processing",
+  );
+  assertEquals(
+    checkoutAccessState({
+      checkoutStatus: "completed",
+      paymentStatus: "paid",
+      expectedEntitlements: 2,
+      activeEntitlements: 2,
+    }),
+    "confirmed",
+  );
+});
+
+Deno.test("checkout access preserves terminal failure states", () => {
+  assertEquals(
+    checkoutAccessState({
+      checkoutStatus: "expired",
+      paymentStatus: "unpaid",
+      expectedEntitlements: 1,
+      activeEntitlements: 0,
+    }),
+    "expired",
+  );
+  assertEquals(
+    checkoutAccessState({
+      checkoutStatus: "async_payment_failed",
+      paymentStatus: "unpaid",
+      expectedEntitlements: 1,
+      activeEntitlements: 0,
+    }),
+    "failed",
   );
 });

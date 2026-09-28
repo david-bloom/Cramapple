@@ -18,3 +18,27 @@ export function checkoutNeedsStudentResolution(
 ) {
   return checkoutPurchaserType(metadata) !== null;
 }
+
+export type CheckoutAccessState =
+  | "processing"
+  | "confirmed"
+  | "failed"
+  | "expired";
+
+export function checkoutAccessState(input: {
+  checkoutStatus: string | null;
+  paymentStatus: string | null;
+  expectedEntitlements: number;
+  activeEntitlements: number;
+}): CheckoutAccessState {
+  if (input.checkoutStatus === "expired") return "expired";
+  if (input.checkoutStatus === "async_payment_failed") return "failed";
+  if (
+    input.paymentStatus === "paid" &&
+    input.expectedEntitlements > 0 &&
+    input.activeEntitlements >= input.expectedEntitlements
+  ) {
+    return "confirmed";
+  }
+  return "processing";
+}
