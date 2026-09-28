@@ -192,3 +192,41 @@ a full six-of-six Pass, since criterion 3 is Partial everywhere by design of TAS
 pipeline. Turning on unit-gated practice for any of these 8 subjects would serve real content today on
 the validated-label subset; expanding that subset further is TASK-0042's scope (closed, evidence-backed
 partial), not TASK-0046's. Reported to `APP_LAUNCH_READINESS_INDEX_2026_09_26.md` accordingly.
+
+**TASK-0046, 2026-09-28 — Biology and Statistics, criteria 3/5 only (criteria 1/2/4/6 already covered
+by TASK-0044).** Called the same live RPCs and direct-SQL true-count method as above against Production
+for both Day-1 subjects.
+
+- **Criterion 6 (re-confirmed live):** AP Biology — exactly one `published`, non-retired
+  `exam_pack_versions` row (`2d88ba5e-a6a3-43b8-bfae-9e5505a178a7`). AP Statistics — exactly one
+  `published`, non-retired row (`548f06be-ccf4-426d-b82b-b424137a4438`); the pilot pack
+  (`7c5a2975-8f0e-45b9-8fcc-7ec9b8d81ada`) remains `retired_at` set, consistent with TASK-0044's finding.
+- **Criteria 1/2/4 (re-confirmed live):** AP Biology — 75 published FRQ, 71 with canonical+rubric; the 4
+  without canonical are all `hand_drawn` items (`APBIO-HDG-2026-GRAPH-002/003/008/010`), structurally
+  excluded from every serving RPC by design, not a gap — matches TASK-0044's "71 servable" figure
+  exactly. 43/43 MCQ have a correct choice. AP Statistics — 69/69 FRQ and 101/101 MCQ, unchanged from
+  TASK-0044.
+- **Criterion 5 (difficulty):** AP Biology 75/75 FRQ, 43/43 MCQ. AP Statistics 69/69 FRQ, 101/101 MCQ.
+  Both 100%.
+- **Criterion 3 (validated serving label):** AP Biology — FRQ 9/75 (9/71 of the non-hand-drawn servable
+  pool), MCQ 14/43. AP Statistics — FRQ 51/69, MCQ 16/101.
+- **Live RPC evidence, AP Biology** (final allowed unit 8): `select_practice_frqs('targeted_drill')`
+  returned 50 (**capped, true 71** via direct SQL). `select_biology_practice_items('targeted_drill')` —
+  the dedicated combined FRQ+MCQ selector — returned 50 (**capped**; true eligible pool 114 = 71 FRQ +
+  43 MCQ, both non-hand-drawn). `select_unit_gated_practice_items` at unit 8: FRQ 9, MCQ 14 (both
+  uncapped, exactly matching the validated-label counts).
+- **Live RPC evidence, AP Statistics** (final allowed unit 5): `select_practice_frqs('targeted_drill')`
+  returned 49 (uncapped, matching TASK-0044's figure exactly). `select_unit_gated_practice_items` at
+  unit 5: FRQ **32** (diagnosed: of the 51 validated-label FRQ, 19 are `hand_drawn` and structurally
+  excluded from this RPC — 51 minus 19 equals 32, confirmed live, not a defect), MCQ 16 (uncapped,
+  matches the validated-label count exactly, none hand-drawn). **Re-confirmed unchanged from
+  TASK-0044: calling `select_biology_practice_items` with Statistics' own exam-pack-version ID returns
+  0 rows live** — the function hard-filters `ep.exam_code = 'ap_biology'` in its own SQL, so this
+  remains structurally, not intermittently, the reason no backend RPC serves AP Statistics MCQ practice
+  on the flat path. Whether the Lovable-side client fallback actually serves it in the live app remains
+  TASK-0043's runbook item to confirm, outside this repo's verification surface.
+
+**Overall: both subjects Pass criteria 1/2/4/5/6; criterion 3 Partial** (expected, same TASK-0042
+closeout state as the 8-subject slice above). No zero-or-low result went undiagnosed. This closes the
+Biology/Statistics half of TASK-0046's required slicing — all 10 subjects now have a live-verified
+six-criteria record in this doc dated 2026-09-28 or later.

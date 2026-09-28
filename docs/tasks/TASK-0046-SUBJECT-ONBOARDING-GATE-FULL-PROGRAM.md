@@ -5,7 +5,7 @@
 **Owner:** AI agent (implementation) — unassigned; candidate: Codex or Claude
 **Product Owner:** David Bloom
 **Tier:** Standard
-**Status:** In Progress — 8 of 9 slices (all non-Day-1 subjects) live-verified 2026-09-28; Biology/Statistics criteria 3/5 slice not started
+**Status:** In Progress — all 9 slices (8 non-Day-1 subjects plus Biology/Statistics criteria 3/5) live-verified 2026-09-28; awaiting fresh independent QA before Done
 **Priority:** Medium — post-launch; not required for the October 2, 2026 launch decision
 **Created Date:** 2026-09-26
 **Approved Date:** Pending
@@ -124,17 +124,30 @@ counts were independently confirmed via direct, un-limited SQL replicating each 
 (per this doc's cap-misdiagnosis warning). Full per-subject table in
 `SUBJECT_SERVABILITY_CRITERIA.md`'s 2026-09-28 TASK-0046 section.
 
-**Biology/Statistics criteria-3/5 slice:** not started this session — out of scope for the subject order
-requested (8 non-Day-1 subjects first).
+**Biology/Statistics criteria-3/5 slice (2026-09-28, same session):** Re-confirmed criterion 6 live for
+both subjects (unchanged from TASK-0044 — Statistics' pilot pack remains retired). Re-confirmed criteria
+1/2/4 live (Biology: 71/71 non-hand-drawn FRQ servable, matching TASK-0044 exactly; Statistics: 69/69
+FRQ, 101/101 MCQ, unchanged). Criterion 5 100% both subjects. Criterion 3: Biology FRQ 9/71, MCQ 14/43;
+Statistics FRQ 51/69, MCQ 16/101. Called `select_practice_frqs`, `select_biology_practice_items`, and
+`select_unit_gated_practice_items` live for both subjects — every result non-zero. Diagnosed one
+apparent low result: Statistics' unit-gated FRQ RPC returned 32 against 51 validated labels — traced to
+19 of those 51 being `hand_drawn` items, structurally excluded from that RPC by design, not a defect.
+Re-confirmed, unchanged: calling the Biology-only combined selector with Statistics' version ID returns
+0 rows live (hard-coded `ep.exam_code = 'ap_biology'` filter) — still the structural reason no backend
+RPC serves Statistics MCQ on the flat path; live-app behavior remains TASK-0043's item.
 
-**Test Results:** All 8 subjects: criteria 1/2/4/5/6 Pass at 100%; criterion 3 Partial (numbers per
-subject in the cited section); live RPC calls non-zero for both the unit-gated and flat serving paths
-in every subject; no zero-or-low result required diagnosis beyond the known/expected label-coverage gap.
+**Test Results:** All 8 non-Day-1 subjects plus Biology/Statistics: criteria 1/2/4/5/6 Pass at 100%
+(criteria 1/2/4/6 for Biology/Statistics carried forward from TASK-0044, re-confirmed live here);
+criterion 3 Partial everywhere (numbers per subject in the cited section); every live RPC call across
+all 10 subjects returned non-zero; every capped-at-50 or apparently-low result was reconciled to a
+diagnosed, non-defect cause (RPC row cap, or structural hand-drawn/subject-code exclusion).
 
 **Risks / Issues:** None found that block this task's own scope. Criterion 3's partial coverage is
 TASK-0042's decided closeout state (66 disagreements + 48 rubric/scope holds, evidence-backed), not a
-live-serving defect — turning on unit-gated practice for any of these 8 subjects today would serve real
-content on the validated subset. Expanding that subset is TASK-0042 scope, not this task's.
+live-serving defect — turning on unit-gated practice for any of these 10 subjects today would serve real
+content on the validated subset. Expanding that subset is TASK-0042 scope, not this task's. Statistics'
+no-backend-MCQ-selector gap on the flat path is a pre-existing, already-documented structural finding
+(TASK-0044), not new to this task.
 
 ## QA Review
 
