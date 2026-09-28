@@ -5,7 +5,7 @@
 **Owner:** AI agent (implementation) — unassigned; candidate: Codex or Claude
 **Product Owner:** David Bloom
 **Tier:** Standard
-**Status:** Not Started
+**Status:** In Progress — 8 of 9 slices (all non-Day-1 subjects) live-verified 2026-09-28; Biology/Statistics criteria 3/5 slice not started
 **Priority:** Medium — post-launch; not required for the October 2, 2026 launch decision
 **Created Date:** 2026-09-26
 **Approved Date:** Pending
@@ -109,17 +109,39 @@ launch decision.
 
 ## Implementation Notes
 
-**Implementation Summary:** _(Per-slice — to be filled by each slice's implementation agent.)_
+**Implementation Summary (2026-09-28, 8-subject slice: Chemistry, Calc AB, Calc BC, Precalculus,
+Physics 1, Physics 2, Physics C: E&M, Physics C: Mechanics):** Confirmed TASK-0042 `Status: Done`
+before starting, per this task's own note that criteria 3/5 depend on it. Verified criterion 6 first
+(exactly one `published`, non-retired `exam_pack_versions` row per subject — confirmed for all 10
+subjects product-wide). Verified criteria 1/2/4/5 live against the current-published version for every
+published item in all 8 subjects — 100% pass, no gaps found. Verified criterion 3 live
+(`content_taxonomy_labels`, `label_status='validated'`, current taxonomy hash) — Partial in all 8
+subjects, matching TASK-0042's documented closeout (114 evidence-backed non-promotions). Called
+`public.select_unit_gated_practice_items` (at each subject's highest allowed unit) and
+`public.select_practice_frqs('targeted_drill')` live against Production (`pcntajvbdfqhbeewmdry`) for
+all 8 subjects — every call returned non-zero results; several hit the RPCs' known 50-row cap, so true
+counts were independently confirmed via direct, un-limited SQL replicating each RPC's own filter logic
+(per this doc's cap-misdiagnosis warning). Full per-subject table in
+`SUBJECT_SERVABILITY_CRITERIA.md`'s 2026-09-28 TASK-0046 section.
 
-**Test Results:** _(Per-slice — live RPC call results.)_
+**Biology/Statistics criteria-3/5 slice:** not started this session — out of scope for the subject order
+requested (8 non-Day-1 subjects first).
 
-**Risks / Issues:** _(Per-slice.)_
+**Test Results:** All 8 subjects: criteria 1/2/4/5/6 Pass at 100%; criterion 3 Partial (numbers per
+subject in the cited section); live RPC calls non-zero for both the unit-gated and flat serving paths
+in every subject; no zero-or-low result required diagnosis beyond the known/expected label-coverage gap.
+
+**Risks / Issues:** None found that block this task's own scope. Criterion 3's partial coverage is
+TASK-0042's decided closeout state (66 disagreements + 48 rubric/scope holds, evidence-backed), not a
+live-serving defect — turning on unit-gated practice for any of these 8 subjects today would serve real
+content on the validated subset. Expanding that subset is TASK-0042 scope, not this task's.
 
 ## QA Review
 
-**QA Verdict:** Pending (Pass / Fail) — per slice, from a fresh, independent QA context.
+**QA Verdict:** Pending (Pass / Fail) — from a fresh, independent QA context, per this task's QA
+independence requirement (not yet run for the 2026-09-28 8-subject slice).
 
-**QA Result:** _(Per-slice — to be filled by the QA agent.)_
+**QA Result:** _(To be filled by the QA agent.)_
 
 ## Done Decision
 
