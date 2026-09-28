@@ -11,7 +11,7 @@
 **Reframed Date:** 2026-09-27  
 **Approved Date:** 2026-09-28  
 **Branch:** `chatgpt/task-0041-purchase-funnel`  
-**PR:** Pending creation
+**PR:** Pending creation from `chatgpt/task-0041-purchase-funnel` creation
 
 > **TASK REFRAME — 2026-09-27.** The prior "post-launch verify-and-fix" framing is superseded.  
 > TASK-0041 is now the implementation task for the redesigned Cramapple purchase funnel.  
