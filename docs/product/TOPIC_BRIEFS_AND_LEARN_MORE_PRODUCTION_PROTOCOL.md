@@ -1,6 +1,13 @@
 # Topic Briefs And Learn More Production Protocol
 
-Status: Canonical operating protocol.
+STATUS: CURRENT
+
+DATE: 2026-09-28
+
+Status: Canonical operating protocol. The structured content-block contract and
+migration requirements below govern new or rewritten Learn More / Deep Dive
+content. Existing v1 rows remain valid runtime content until they are migrated
+and approved under this protocol.
 
 Owner: Product Owner / Learning Quality.
 
@@ -23,6 +30,18 @@ A **topic explainer** is the richer `Learn more` payload for the same subject,
 unit, and topic. It gives enough instruction for the student to understand the
 scoring move and return to practice. It is not a textbook lesson, article
 library, or replacement for class instruction.
+
+A **structured topic explainer** is the v2 representation of that instruction.
+It separates the learning objective, core idea, reasoning sequence, common
+mistakes, worked example, exam connection, key takeaways, practice bridge, and
+source references into purpose-specific fields. The frontend may present these
+fields in a Learn More page or Deep Dive reading surface, but presentation does
+not change their instructional meaning.
+
+A **student note** is student-authored text associated with a topic or question.
+It is not topic-explainer content, must not be stored in the explainer row, and
+must not pass through content review as though it were Cramapple-authored
+instruction.
 
 The two documents are paired by:
 
@@ -48,6 +67,10 @@ Repository source records may live in Markdown product documents and SQL
 migrations, but once content is published, Supabase is the runtime source of
 truth. Markdown files preserve rationale and review history; they are not a
 separate runtime content store.
+
+The current production tables and RPC expose the v1 explainer contract. The v2
+content-block contract in this document is the approved target, not evidence
+that the production schema, RPC, or frontend already supports those fields.
 
 ## Database Contract
 
@@ -95,6 +118,22 @@ Every topic explainer must:
 - use a topic-specific mini-example, not a generic title-interpolation prompt;
 - move the student back toward practice;
 - avoid diagnostic, cold-assessment, secure, or answer-bearing content.
+
+Every structured topic explainer must also:
+
+- give each block one clear instructional job instead of repeating the same
+  explanation under different headings;
+- express reasoning as an ordered sequence of meaningful steps, not fragments
+  created by splitting prose at sentence boundaries;
+- distinguish a misconception from the correction and the observable answer
+  move that avoids it;
+- keep worked examples Cramapple-original and visibly separate from the active
+  practice question;
+- state an exam connection only when the approved source supports the claimed
+  task, representation, justification, interpretation, or scoring behavior;
+- end with concise takeaways and a concrete bridge back to practice;
+- preserve source grounding and review provenance for every rewritten or newly
+  synthesized block.
 
 Recommended budgets:
 
@@ -146,6 +185,111 @@ Topic explainer required fields:
 - `practice_bridge`
 - `source_note`
 - `status`
+
+## Structured Content-Block Contract
+
+The following v2 fields are the target contract for new and migrated topic
+explainers. The storage migration may use typed columns, validated JSON, or a
+normalized child table, but the public RPC must return one stable, versioned
+shape and preserve block order.
+
+- `content_version`
+- `subject_key`
+- `unit_number`
+- `topic_code`
+- `title`
+- `learning_objective`
+- `core_idea`
+- `reasoning_steps`, as an ordered list of `{title, body}` objects
+- `common_mistakes`, as a list of `{mistake, correction, answer_move}` objects
+- `worked_example`, as an optional object containing `prompt`, `weak_answer`,
+  `point_attaining_answer`, and `why_it_earns_points`
+- `exam_connection`
+- `key_takeaways`, as an ordered list of concise statements
+- `practice_bridge`
+- `source_references`, as zero or more reviewable source locators
+- `source_note`
+- `status`
+
+`learning_objective`, `core_idea`, `reasoning_steps`, `common_mistakes`,
+`exam_connection`, `key_takeaways`, and `practice_bridge` are required for a v2
+row. `worked_example` may be omitted only when a reviewer records why an example
+would be misleading, redundant, or unsupported. `source_references` may be
+empty only when `source_note` points to a batch artifact containing the
+reviewable grounding.
+
+Student notes use a separate student-owned data contract. At minimum, that
+contract needs a note ID, student ID, topic or question association, note body,
+and created/updated timestamps. Note text must not be included in product
+analytics events or content-authoring exports.
+
+## Delivery Stages
+
+### Possible Today
+
+The frontend may improve the current Learn More / Deep Dive experience without
+changing the production content schema:
+
+- render the existing v1 fields with a stronger responsive hierarchy;
+- provide accurate fallbacks when only partial content exists;
+- add a browser-local, topic- or question-scoped scratchpad;
+- expose save, saved, error, clear, and copy states without implying cross-device
+  sync;
+- preserve the distinction between pre-submission assistance and
+  post-submission review;
+- add non-content analytics for open, close, copy, and note-use events without
+  transmitting note text.
+
+This stage must not relabel a one-line explanation as a complete Deep Dive or
+invent missing instructional blocks in the frontend.
+
+### Moderate Work
+
+The moderate-work release includes:
+
+- selecting and migrating the v2 database representation;
+- versioning the public RPC response and frontend adapter;
+- sectioning existing explainers into the v2 fields using the migration rules
+  below;
+- rewriting migrated text to this protocol rather than mechanically wrapping
+  existing prose;
+- validating, reviewing, and approving the rewritten blocks;
+- rendering the v2 hierarchy while maintaining an explicit v1 fallback during
+  migration;
+- adding authenticated, cross-device student-note persistence with student-only
+  access controls and local-note import;
+- recording pre-submission Deep Dive use as a server-owned assistance event so
+  mastery eligibility is not determined by a client assertion.
+
+Use one representative topic set containing both MCQ and FRQ material as the
+pilot. Refine the schema and authoring guidance from that pilot before migrating
+the full catalog.
+
+## Sectioning And Rewriting Existing Content
+
+Existing v1 rows are source material, not automatically approved v2 rows. Use
+this mapping as an editorial starting point:
+
+| Existing field | Target block | Required treatment |
+| --- | --- | --- |
+| `title` | `title` | Retain unless taxonomy or clarity review requires repair. |
+| `what_students_need_to_understand` | `learning_objective` | Rewrite as an observable understanding, not a broad description. |
+| `core_idea` | `core_idea` | Retain only if it adds instruction beyond the point brief; otherwise rewrite. |
+| `how_this_becomes_points` + `answer_move` | `reasoning_steps`, `exam_connection` | Split, order, and rewrite into conceptual reasoning versus exam execution. |
+| `common_point_loss` + relevant `weak_answer` text | `common_mistakes` | State the mistake, correction, and improved answer move explicitly. |
+| `mini_example_question`, `weak_answer`, `point_attaining_answer` | `worked_example` | Review together; add `why_it_earns_points` from approved grounding. |
+| Summary ideas across reviewed fields | `key_takeaways` | Write concise takeaways after the other blocks are approved; do not generate unsupported claims. |
+| `practice_bridge` | `practice_bridge` | Rewrite as a specific next action for the same topic. |
+| `source_note` and batch grounding | `source_note`, `source_references` | Preserve provenance and add precise locators where available. |
+
+The migration must never split prose by punctuation alone, copy a generic
+wrapper into a new field, or infer subject facts that are absent from the
+approved source. When a target block lacks sufficient content, mark it missing
+and route it to authoring and review. Do not fill the gap in the adapter.
+
+For each migration batch, produce a coverage report with counts for complete,
+partial, missing, rewritten, reviewed, and approved rows. Preserve the v1 row or
+an exact before-state until the v2 row passes live verification.
 
 ## Provenance Requirements
 
@@ -252,6 +396,12 @@ only when the source brief has already passed review, the generated text remains
 topic-specific, `core_idea` is not merely a copy of `what_it_is`, and the
 mini-example is specific to the topic rather than a generic template.
 
+For new or meaning-changing work, author to the structured content-block
+contract. A v1-shaped row may be maintained temporarily for backward
+compatibility, but it must be derived from the approved v2 content or carry a
+documented migration exception. Existing generated-from-brief rows must pass
+the sectioning and rewriting process before receiving `content_version = 2`.
+
 ### 5. Accuracy Review
 
 Learning Quality review must confirm:
@@ -265,6 +415,11 @@ Learning Quality review must confirm:
   justify, calculate, interpret, represent, or name;
 - Learn More content adds useful instruction beyond restating the topic card;
 - mini-examples are topic-specific and scientifically/mathematically valid.
+- reasoning steps are ordered, independently useful, and collectively complete;
+- common-mistake blocks contain a correction and actionable answer move;
+- worked examples explain why the stronger response earns points;
+- key takeaways introduce no claims absent from the reviewed blocks;
+- no missing block was silently synthesized by an adapter or presentation layer.
 
 Every row is in scope for accuracy review. For batches of 30 or more rows a
 reviewer may sample rather than read every row, provided the batch note
@@ -320,6 +475,11 @@ The change must:
 - update automated QA expectations in the same commit when published counts
   change;
 - avoid frontend writes to `app.topic_point_briefs` or `app.topic_explainers`.
+
+For a v2 batch, the change must also preserve `content_version`, block order,
+optional-block semantics, and the exact before-state of any v1 row being
+replaced. The RPC and frontend adapter must be deployable in a compatibility
+order that does not strand either v1 or v2 content.
 
 When copying shared material between subjects, create subject-owned rows rather
 than shared rows if the Product Owner has chosen independent subject ownership.
@@ -388,6 +548,11 @@ Minimum checks:
   `source_note` records an approved cross-subject duplication.
 - Rows outside content length budgets are listed in release evidence with the
   reviewer-approved reason.
+- Every v2 row has all required blocks, valid ordered-list shapes, and a
+  supported `content_version`.
+- Migrated rows retain reviewable provenance back to the v1 row and approved
+  grounding artifact.
+- The RPC returns v1 and v2 content predictably throughout the migration window.
 
 For AP Biology Unit 1 Topic 1.1, the smoke check should confirm the brief text
 contains:
@@ -503,6 +668,13 @@ the row scope.
 - C11: Anonymous users remain locked out of views and RPC execution.
 - C12: The Lovable/frontend smoke path renders a real brief and Learn More
   explainer for at least one topic in the batch.
+- C13: Every v2 explainer has the required structured blocks, and ordered block
+  arrays contain no empty items.
+- C14: Every migrated v2 row has a traceable before-state and source grounding.
+- C15: The frontend renders both a v2 row and an intentional v1 fallback during
+  the migration window.
+- C16: Student-note access tests prove that one student cannot read or modify
+  another student's notes, and analytics payloads contain no note body.
 
 ## Relationship To Content Operations
 
@@ -533,6 +705,11 @@ Do not release if any of these are true:
 - `practice_*` fields point to a different topic than the brief;
 - generated-from-brief Learn More content merely restates the card or uses a
   generic mini-example;
+- a migrated row is marked v2 without editorial rewriting and review;
+- a required v2 block is empty, generic, duplicated without an approved reason,
+  or synthesized by the frontend adapter;
+- student notes share storage or access rules with published explainer content;
+- analytics or content QA exports contain student note text;
 - RPC returns snake_case fields where frontend expects camelCase;
 - anonymous users can read the topic-guide content;
 - frontend falls through to "Point brief coming soon" after a query error;
@@ -567,3 +744,25 @@ A topic brief and Learn More explainer are student-ready only when:
 - frontend renders the brief and Learn More explainer for the selected topic;
 - practice routing uses the same subject/unit/topic;
 - release evidence is recorded.
+
+A structured v2 explainer is student-ready only when its content-block shape,
+rewrite review, provenance, compatibility behavior, and representative frontend
+rendering also pass the criteria in this protocol.
+
+## Future Ideas
+
+The following are deliberately outside the current production commitment until
+content quality, policy, ownership, and technical feasibility are resolved:
+
+- AI-generated or student-personalized Deep Dives;
+- automated feedback on student-authored notes;
+- generating flashcards or study guides from notes;
+- topic notebooks that aggregate notes across questions;
+- teacher-visible or collaborative notes;
+- passage-anchored highlights that survive content revisions;
+- offline-first note editing with multi-device conflict resolution;
+- semantic search across notes and instructional content;
+- automated generation of complete v2 explainers for the existing catalog;
+- rich media, diagrams, simulations, or interactive worked examples;
+- using note behavior as mastery or recommendation evidence;
+- proving learning impact rather than engagement alone.

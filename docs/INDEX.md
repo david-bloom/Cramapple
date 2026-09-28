@@ -48,6 +48,7 @@ decision that was on record.
 | Governance / roles / workflow | `team_charter/` (`AI_COLLABORATION_RULES.md`, `TASK_WORKFLOW.md`, `AGENT_OPERATING_MODEL.md`, `DEFINITION_OF_DONE.md`) | — |
 | Session bootstrap | `team_charter/CRAMAPPLE_SESSION_START.md` | Device-neutral entry point (governed: APPROVAL-0047 / DECISION-0054). |
 | Content taxonomy / labeling | `product/CONTENT_TAXONOMY_RATIONALIZATION_PLAN_2026_09_26.md`, `architecture/TAXONOMY_LABELING_PLAN_V3_2026_08_04.md` | Rationalization shipped 2026-09-27 (PR #208). |
+| Topic briefs / Learn More / Deep Dive content production | `product/TOPIC_BRIEFS_AND_LEARN_MORE_PRODUCTION_PROTOCOL.md` | Canonical authoring, structured-block migration, review, publication, and QA protocol. |
 | Reviewer / admin portal | `product/QUESTION_AND_ANSWER_REVIEW_PORTAL_DESIGN.md`, `exam-buddy-wireframe` reviewer routes | **Still live — NOT legacy** (rebuild §10). |
 
 ---
