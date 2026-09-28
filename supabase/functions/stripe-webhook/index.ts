@@ -28,6 +28,11 @@ type CheckoutSessionObject = {
   amount_total?: number | null;
   currency: string | null;
   payment_status?: string | null;
+  customer?: string | { id?: string } | null;
+  payment_intent?:
+    | string
+    | { id?: string; payment_method?: string | { id?: string } | null }
+    | null;
   metadata: Record<string, string> | null;
   discounts?:
     | Array<{
@@ -136,6 +141,7 @@ async function retrieveCheckoutSession(session: CheckoutSessionObject) {
         "discounts.coupon",
         "discounts.promotion_code",
         "total_details.breakdown",
+        "payment_intent.payment_method",
       ],
     }) as unknown as CheckoutSessionObject;
   } catch (error) {
@@ -267,6 +273,32 @@ async function resolveCheckoutStudentUserId(
   return invited.id;
 }
 
+async function persistStripeCustomer(
+  service: Service,
+  session: CheckoutSessionObject,
+  userId: string,
+) {
+  const stripeCustomerId = objectId(session.customer);
+  if (!stripeCustomerId) return;
+
+  const paymentIntent = session.payment_intent;
+  const paymentMethodId = paymentIntent && typeof paymentIntent === "object"
+    ? objectId(paymentIntent.payment_method)
+    : null;
+
+  const { error } = await service.schema("app").from("stripe_customers").upsert(
+    {
+      user_id: userId,
+      stripe_customer_id: stripeCustomerId,
+      default_payment_method_id: paymentMethodId,
+      source_checkout_session_id: session.id,
+      updated_at: new Date().toISOString(),
+    },
+    { onConflict: "user_id" },
+  );
+  if (error) throw error;
+}
+
 async function handleCheckoutSessionCompleted(
   service: Service,
   session: CheckoutSessionObject,
@@ -349,6 +381,8 @@ async function handleCheckoutSessionCompleted(
       });
     }
   }
+
+  await persistStripeCustomer(service, session, userId);
 
   await recordGrowthEvent(service, {
     eventName: "purchase_completed",
