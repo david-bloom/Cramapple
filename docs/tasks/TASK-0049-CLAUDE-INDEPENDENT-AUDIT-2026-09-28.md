@@ -1,9 +1,31 @@
 # TASK-0049 — Claude Independent Attempt: Read-Only Audit Only
 
+> **Not the task doc.** This is a session log, not a task specification. The task itself is
+> `docs/tasks/TASK-0049-BIOLOGY-STATISTICS-SIX-CRITERION-REMEDIATION.md` — read that one for scope,
+> acceptance criteria, and approval state. This file's name collides with it (both say "TASK-0049")
+> purely because this session initially misfiled its work under the task's own ID before catching the
+> mistake (see "What this session actually did" below); it is kept here, not renamed or moved, because
+> a later same-day migration and an active Codex prompt already cite this exact filename as their
+> evidence trail (`supabase/migrations/20260928130000_task0049_promote_claude_confirmed_single_unit.sql`,
+> `prompts/CODEX_TASK0049_PHASE2_LABEL_REMEDIATION_2026_09_28.md`) — renaming it would break that
+> citation chain for a Production migration David already approved. Consistent with this repo's
+> `DECISION-0075` convention: annotate stale/confusing docs in place, don't move them.
+>
+> **This file's own "no remediation executed" conclusion below is now stale.** Later the same day
+> (2026-09-28), two migrations promoted 100 items total
+> (`20260928130000_task0049_promote_claude_confirmed_single_unit.sql`, 96 items;
+> `20260928131500_task0049_promote_multi_unit_reconciled.sql`, 4 items) — approved by David in-session
+> per the first migration's own header — and a Phase 2 label-remediation prompt for Codex
+> (`prompts/CODEX_TASK0049_PHASE2_LABEL_REMEDIATION_2026_09_28.md`) was written covering the remaining
+> gap items. Whatever unblocked that work (a different classification approach, not necessarily the
+> AI Gateway credentials this file found missing) is not re-derived here — see those two files for the
+> current baseline instead of trusting this file's numbers past this point.
+
 **Relates to:** `docs/tasks/TASK-0049-BIOLOGY-STATISTICS-SIX-CRITERION-REMEDIATION.md` (the real TASK-0049,
 on `origin/chatgpt/task-0049-bio-stats-six-criterion-remediation`, unmerged to `main`).
 **This session's branch:** `claude/task-0049-vax3al`
-**Status:** Audit confirmed current. No remediation executed. Blocked on missing AI Gateway credentials.
+**Status:** Audit confirmed current as of this session. No remediation executed by this session. Blocked
+on missing AI Gateway credentials. **Superseded later the same day — see banner above.**
 **Date:** 2026-09-28
 
 ## What this session actually did on TASK-0049

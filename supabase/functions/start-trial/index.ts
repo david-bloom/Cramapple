@@ -5,7 +5,32 @@ import { recordGrowthEvent } from "../_shared/growth-events.ts";
 import { sendLoopsEvent } from "../_shared/loops-client.ts";
 import { createServiceClient } from "../_shared/supabase.ts";
 
-Deno.serve(async (req) => {
+type Service = ReturnType<typeof createServiceClient>;
+
+// Seam the handler-level tests inject, same pattern as
+// attempt-response/index.ts's AttemptResponseDeps. Both default to the real
+// implementations, so production behaviour (Deno.serve(handleStartTrial), no
+// deps passed) is byte-for-byte unchanged.
+//
+// This is the entrypoint a brand-new/stranger student actually calls to get
+// the free-trial entitlement `authorize_grading_access` checks at submit
+// time -- previously it had zero test coverage of its own request-handling
+// logic (only the pure `_shared/trial-contract.ts` helpers were tested), so
+// the cold-start path (unauthenticated -> missing consent -> RPC failure ->
+// first-ever grant -> already-started replay) was never pinned before
+// deploy. This does not replace the live-Production brand-new-student smoke
+// test `docs/product/LAUNCH_RUNBOOK_2026_10_02.md` item 2 still requires --
+// it only pins this function's own request-handling contract.
+export interface StartTrialDeps {
+  service?: Service;
+  requireProfile?: typeof requireProfile;
+}
+
+export async function handleStartTrial(
+  req: Request,
+  deps: StartTrialDeps = {},
+): Promise<Response> {
+  const authenticate = deps.requireProfile ?? requireProfile;
   const respond = (body: unknown, init: ResponseInit = {}) =>
     jsonResponse(body, init, req);
 
@@ -20,7 +45,7 @@ Deno.serve(async (req) => {
   }
   const input = body as Record<string, unknown>;
 
-  const auth = await requireProfile(req);
+  const auth = await authenticate(req);
   if (!auth) return respond({ error: "unauthorized" }, { status: 401 });
   if (auth.profile.role !== "student" && auth.profile.role !== "admin") {
     return respond({ error: "forbidden" }, { status: 403 });
@@ -33,7 +58,7 @@ Deno.serve(async (req) => {
     });
   }
 
-  const service = createServiceClient();
+  const service = deps.service ?? createServiceClient();
   const userId = auth.user.id;
 
   try {
@@ -92,4 +117,8 @@ Deno.serve(async (req) => {
     console.error("start-trial", error);
     return respond({ error: "trial_start_failed" }, { status: 500 });
   }
-});
+}
+
+if (import.meta.main) {
+  Deno.serve((req) => handleStartTrial(req));
+}
