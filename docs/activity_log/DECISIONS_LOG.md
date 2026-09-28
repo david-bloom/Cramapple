@@ -40,7 +40,7 @@ Most recent entries (full chronological list follows below):
 
 **Date:** 2026-09-28
 **Decision Owner:** David Bloom (direction); defaults chosen by Claude as implementation owner, flagged for confirmation
-**Status:** Approved (production direction). **2026-09-28: David confirmed items 1–3 and 7** (free/open access; 30 new questions per owner per day and 120 new anonymous users per IP per hour; 30-day anonymous retention; stuck-routing deferred). Item 8 (hints floor) is under discussion.
+**Status:** Approved (production direction). **2026-09-28: David confirmed items 1–3, 7 and 8** (free/open access; 30 new questions per owner per day and 120 new anonymous users per IP per hour; 30-day anonymous retention; stuck-routing deferred; hints revised as below). Items 4–6 stand as shipped.
 **Approval:** `APPROVAL-0058` — Product Owner direction, 2026-09-28: "Work through all phases unless blocked. The goal is to get task 0039 into production."
 **Related Docs:** `docs/tasks/TASK-0039-BYOQ-PRODUCTION-OPERATIONAL.md`; `DECISION-0057`, `DECISION-0068`, `DECISION-0070`, `DECISION-0071`, `DECISION-0076`, `DECISION-0077`; `docs/product/BYOQ_WORKSHEET_PARSING_DESIGN.md`
 **Area:** Product / BYOQ / Security / Data Lifecycle
@@ -84,6 +84,7 @@ rework, and none of them weakens `DECISION-0057`:
 8. **Hints/deep-dive floor — reference only.** BYOQ shows CramApple-authored topic guides (point briefs
    and explainers) and no rubric-derived hints, as a deliberate v1 scope choice. The "distinct,
    smaller" hint contract remains future work.
+   **Revised 2026-09-28 (David):** the reference now appears as up to four topic-level hints, revealed one per click from the topic's published point brief: what this is testing, how points are earned, the answer move, and where students lose points. The full guide stays available. The hints are never specific to the student's question, reveal state stays in the browser, and hint use is not recorded or counted toward mastery.
 
 **Build locus.** BYOQ is built in the App Lovable project (`app.cramapple.com/byoq`). The marketing
 site (`cramapple.com`) carries only a homepage section that links into the app, so there is one

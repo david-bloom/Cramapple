@@ -744,7 +744,7 @@ is working on the content pipeline instead.
 are in `DECISION-0083`.
 
 **Still Pending:**
-- Product Owner call on `DECISION-0083` item 8 (hints floor). David confirmed items 1–3 and 7 on 2026-09-28: access, quotas, 30-day retention, and stuck-routing deferred.
+- None of the `DECISION-0083` defaults remain open. On 2026-09-28 David confirmed access, quotas, 30-day retention and deferred stuck-routing, and chose topic-level step-by-step hints, which are shipped in the App.
 - Phase 3 (worksheet upload). It needs `docs/product/BYOQ_WORKSHEET_PARSING_DESIGN.md`'s Open
   Decisions resolved (parsing vendor, candidate cap, retention window) before it can start.
   Post-launch.

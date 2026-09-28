@@ -54,6 +54,7 @@ Product Owner direction, 2026-09-28: "Work through all phases unless blocked. Th
 - Phase 3 (worksheet upload) is not covered. It stays blocked on its design doc's open decisions.
 - 2026-09-28: David confirmed `DECISION-0083` items 1–2: access is free and open, with a limit of 30 new questions per owner per day and 120 new anonymous users per IP per hour.
 - 2026-09-28: David also confirmed item 3 (30-day anonymous retention) and item 7 (stuck-routing deferred).
+- 2026-09-28: David approved item 8 as topic-level step-by-step hints: up to four hints from the published point brief, revealed one at a time, never specific to the student's question and never recorded. Published in the App.
 - The eight "New gaps" defaults in `DECISION-0083` were chosen by the implementer under this
   direction and are flagged for explicit Product Owner confirmation or revision.
 - Independent QA ran before the Production apply: one Fail round, with all four blocking findings
