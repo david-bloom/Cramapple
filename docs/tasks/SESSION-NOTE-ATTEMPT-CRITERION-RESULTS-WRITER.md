@@ -1,6 +1,14 @@
-# TASK-0049 — Wire the `app.attempt_criterion_results` Writer
+# Session Note — Wire the `app.attempt_criterion_results` Writer
 
-**Task ID:** TASK-0049
+**NOT TASK-0049.** This session initially mislabeled this work as "TASK-0049" because no
+`docs/tasks/TASK-0049-*.md` existed on `main` or on this session's checked-out branch at the time.
+The real `TASK-0049` ("Close Six-Criterion Gaps for AP Biology and AP Statistics") exists on
+`origin/chatgpt/task-0049-bio-stats-six-criterion-remediation`, unmerged — this session missed it by
+checking only `main` and its own branch, not the full remote branch list. Renamed off the TASK-0049
+number to stop the collision; this is an unnumbered session note, not a task record. See
+`docs/tasks/TASK-0049-BIOLOGY-STATISTICS-SIX-CRITERION-REMEDIATION.md` (on that branch) for the actual
+task, which this session is now picking up separately.
+
 **Title:** Give `app.attempt_criterion_results` its first writer; stop leaving per-criterion grading
 detail only as jsonb inside `grading_results`
 **Owner:** Claude (this session, `claude/task-0049-vax3al`)
