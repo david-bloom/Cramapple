@@ -232,13 +232,11 @@ async function findAuthUserByEmail(service: Service, email: string) {
   return null;
 }
 
-// Parent-gift checkout has no client_reference_id - the buyer never signed
-// in. This resolves (or creates, via a branded Supabase invite email) the
-// student's own account so entitlements land on the student, not the
-// parent. app.handle_new_user grants the default 'student' role and seeds
-// full_name from raw_user_meta_data.full_name, so no separate profile
-// write is needed here.
-async function resolveGiftStudentUserId(
+// Anonymous student-direct and parent-share/gift checkouts have no verified
+// client_reference_id. Resolve (or create, via a branded Supabase invite)
+// the learner's account from server-carried Stripe metadata so entitlement
+// ownership never follows the payer.
+async function resolveCheckoutStudentUserId(
   service: Service,
   metadata: Record<string, string>,
 ) {
@@ -276,9 +274,14 @@ async function handleCheckoutSessionCompleted(
   eventType: CheckoutStatus,
 ) {
   const metadata = session.metadata ?? {};
+  const purchaseType = metadata.purchase_type ?? metadata.purchaser_type ?? "";
+  const resolvesStudentByEmail =
+    purchaseType === "parent_gift" ||
+    purchaseType === "parent_share" ||
+    purchaseType === "student_direct";
   const userId = session.client_reference_id ??
-    (metadata.purchase_type === "parent_gift"
-      ? await resolveGiftStudentUserId(service, metadata)
+    (resolvesStudentByEmail
+      ? await resolveCheckoutStudentUserId(service, metadata)
       : null);
   if (!userId) {
     throw new Error("checkout_session_missing_client_reference_id");
