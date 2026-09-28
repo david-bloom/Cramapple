@@ -106,13 +106,9 @@ experience" failing, and it is a stop condition, not something to work around. S
 - [ ] Main Conductor reconciles the QA result into this runbook and the launch-readiness index.
 - [ ] David records the final go/no-go decision. A QA Pass is not launch approval.
 
-## Explicitly post-launch (enablement, not implementation)
+## Explicitly post-launch
 
-- Turning on Stripe checkout / payment gating for students — October 2 itself stays free, no live CTA
-  requires or implies payment (see Stop conditions). **Note (`DECISION-0083`, 2026-09-28): TASK-0041
-  implementation (checkout UI, webhook, bundles, promotions, refunds, paid entitlement reconciliation)
-  is now under active development ahead of October 2 — only enabling it for real payment on the live
-  launch surface stays post-launch, and remains Hard-Gated on explicit Product Owner approval.**
+- Stripe checkout, webhook, bundles, promotions, refunds, and paid entitlement reconciliation.
 - Unit-gated practice and the remaining labels/difficulty pipeline for Biology and Statistics.
 - The other eight AP subjects.
 - BIZ-001’s remaining commercial-policy questions.

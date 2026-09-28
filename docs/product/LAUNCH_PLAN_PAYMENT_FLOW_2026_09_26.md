@@ -44,12 +44,6 @@ Therefore:
 
 "Not launch-critical" does **not** mean "do not implement." It only means the free launch does not wait for this task.
 
-**UPDATE, 2026-09-28 (`DECISION-0083`):** implementation of TASK-0041 has started now, ahead of
-October 2, rather than waiting for a post-launch follow-up window. This is a timeline change only —
-every point above still holds unchanged: October 2 stays free with no payment gating, and Phase E's
-Production/live-payment Hard Gate still requires separate, explicit Product Owner approval before any
-live Stripe change or paid-sales enablement.
-
 ---
 
 ## 3. Source of truth
