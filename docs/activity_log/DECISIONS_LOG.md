@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0083 — Begin TASK-0041 Payment Flow Implementation Now, in Advance of the October 2 Free Launch; Launch Shape Itself Unchanged
 - DECISION-0082 — No Fixed Quantity Targets Outside AP Biology; Maximize Safe Student Usability of Current Published Inventory
 - DECISION-0081 — Lean Source-of-Truth Startup Mode: Tier-First Session-Start Reading for Codex and Claude, `AGENTS.md` Search Discipline, and Log `INDEX_END` Markers
 - DECISION-0080 — `DECISION-0074` Addendum: the Four Gated Aids (Rubric, Points, Deep Dive, Reference) All Count as Pre-Submission Hint Use for Mastery; Approves Rebuilding `SessionFrame`'s Live Hint Gating to Match (Workstream B1 of the "Gate the Four Aids" Plan)
@@ -34,6 +35,31 @@ Most recent entries (full chronological list follows below):
 (Note: the same collision recurred 2026-09-26. The `claude/launch-planning-cram-4oyh2g` branch independently claimed DECISION-0068 through 0072 for five launch-planning decisions, not knowing `main` had already recorded its own DECISION-0068 (BYOQ parallel tables, TASK-0039 Phase 1) by the time this branch merged. Per the rule above, this branch — the later-merging side — renumbered its five decisions to DECISION-0069 through 0073 at merge time; main's DECISION-0068 is untouched. If you are reading an older copy of any of the five renumbered decisions (in a plan doc, a chat log, or a stale local checkout) under its original 0068-0072 number, this is why the number no longer matches — the content is unchanged, only the ID moved.)
 
 <!-- INDEX_END -->
+
+## DECISION-0083 — Begin TASK-0041 Payment Flow Implementation Now, in Advance of the October 2 Free Launch; Launch Shape Itself Unchanged
+
+**Date:** 2026-09-28
+**Decision Owner:** David Bloom
+**Status:** Approved
+**Approval:** Product Owner direction, in-session, 2026-09-28
+**Related Docs:** `docs/tasks/TASK-0041-LAUNCH-PAYMENT-FLOW.md`;
+`docs/product/LAUNCH_PLAN_PAYMENT_FLOW_2026_09_26.md`; `APP_LAUNCH_READINESS_INDEX_2026_09_26.md`;
+`LAUNCH_RUNBOOK_2026_10_02.md`; `DECISION-0071`
+**Area:** Launch Readiness / Payments
+
+### Decision
+
+TASK-0041 (the purchase funnel / payment flow) starts implementation now, ahead of the October 2 free
+launch, instead of waiting until after launch. This moves the build timeline earlier; it does not
+reverse `DECISION-0071`. The October 2 launch itself remains free with no Stripe/payment gating —
+nothing about the free-launch shape, the flat-path Day-1 subjects, or the no-payment-gating rule
+changes. What changes is that engineering work on TASK-0041 (Stripe checkout, parent-pay, promo
+codes, post-purchase add-on, per `LAUNCH_PLAN_PAYMENT_FLOW_2026_09_26.md` §5) is active now rather
+than deferred to a post-launch follow-up, so it can be closer to ready when payment gating is later
+turned on. Every Hard-Gate boundary in that plan and in TASK-0041 itself still applies unchanged:
+live Stripe catalog/config writes, live-mode secret changes, Production migrations/deployment, and
+enabling paid sales all still require separate, explicit Product Owner approval. Nothing here
+authorizes turning on payment gating for October 2 or moves that date.
 
 ## DECISION-0082 — No Fixed Quantity Targets Outside AP Biology; Maximize Safe Student Usability of Current Published Inventory
 

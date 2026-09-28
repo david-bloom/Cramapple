@@ -19,6 +19,13 @@ meaning the app is launch-ready — only when all five are Done.
 This is deliberately the single doc TASK-0023 itself predicted would need to exist ("a consolidated
 pre-launch checklist... cross-referencing BIZ-001, GTM-001, and TASK-0012") but never built.
 
+## UPDATE, 2026-09-28 (`DECISION-0083`): payment flow (plan 2) implementation started early
+
+`DECISION-0071` below still governs the October 2 launch shape itself — free, no Stripe/payment
+gating, unchanged. What changed 2026-09-28: TASK-0041 (the new purchase funnel) began implementation
+now instead of waiting for a post-launch follow-up window; Codex is the active implementer. See plan
+2's row below and `DECISION-0083` for the full scope of what did and didn't change.
+
 ## CORRECTION #3, 2026-09-26 (`DECISION-0071`): October 2 launch is free, no payment gating
 
 **David set a firm date and changed the launch's shape: Friday, October 2, 2026, free, no
@@ -50,7 +57,7 @@ before agents execute further, rather than embedding unverified assumptions in t
 | # | Component | Plan | Current status |
 | --- | --- | --- | --- |
 | 1 | Marketing home page | `LAUNCH_PLAN_MARKETING_HOME_PAGE_2026_09_26.md` | **CORRECTED 2026-09-27: not `d334fed9` (see D-2 correction below).** Live-verified against the actual production project (`61dd6602`, "New Cramapple Marketing"): ~5 of 13 criteria done (domain cutover live, correct design system, Bio/Stats "Live now," signup bypasses checkout). Open: BYOQ not shipped (upload buttons have no `onClick`, contrary to `DECISION-0070`'s launch-critical scope); `/signup` shows all 10 subjects "Available" instead of gating to Bio/Stats; an unsupported "maximum AP exam score" claim is still live; no end-to-end fresh-visitor verification done. Est. 2-4 hrs remaining. See memory `project_launch_plan_six_section_audit_2026_09_26.md`. |
-| 2 | Payment flow | `LAUNCH_PLAN_PAYMENT_FLOW_2026_09_26.md` | **Deferred, not October 2-critical** (`DECISION-0071`) — post-launch follow-up. Mechanically done and Stripe-verified live; blocked entirely on David's decisions (D-6/D-9/D-10/D-11), not engineering. **Not fully isolated from the free launch**: free and paid entitlements write to the same `app.subject_entitlements` table the grading gate reads. |
+| 2 | Payment flow | `LAUNCH_PLAN_PAYMENT_FLOW_2026_09_26.md` | **Not October 2-critical** (`DECISION-0071` unchanged: October 2 stays free, no payment gating) — but **implementation started 2026-09-28** (`DECISION-0083`), ahead of the original post-launch timeline; Codex is the active implementer. Existing Stripe mechanics were already verified live; the new TASK-0041 funnel (mobile checkout, parent-pay, add-on) is now In Progress. Still blocked on David's decisions (D-6/D-9/D-10/D-11) for the parts that need them; Production/live-payment enablement remains a separate Hard Gate. **Not fully isolated from the free launch**: free and paid entitlements write to the same `app.subject_entitlements` table the grading gate reads. |
 | 3 | Content pipeline (question templates) | `LAUNCH_PLAN_CONTENT_PIPELINE_2026_09_26.md` | **Done 2026-09-27 (TASK-0042):** all 216 earlier promotions verified fresh; difficulty complete for all ten live packs; all 141 current multi-unit candidates received blind Claude third review; 27 exact matches promoted and 114 non-confirmations safely retained. All-subject census has zero mismatches. Per `DECISION-0082`, fixed quantity targets remain Biology-only; other subjects maximize safely usable published inventory. Authoring/review workbench remains separately human-review-gated and outside this plan. |
 | 4 | Student hub | `LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md` | Shell/nav/account close to launch-ready; main gap is verification (real sign-in, entitlement-grant confirmation), not missing build. **Risk downgraded 2026-09-27 after read-only investigation** (see plan doc §"EXECUTED, 2026-09-27... item A"): the "no real student ever graded" fact is confirmed but is a timing/engagement artifact, not a broken pipeline — grading works end-to-end (QA account graded via the free `trial_v1` path 2026-09-23; zero failed grading rows). Residual gap is a fresh submit-to-grade round trip through the current `56cae479` UI, which needs David's live sign-in. GAP-9 measured same day: 0 masterable cells in either subject, blocked entirely on label promotion (GAP-1), not missing content (155 FRQ + 347 MCQ published-but-unresolved). `DECISION-0074` (mastery rule) recorded; implementation not started, blocked on the hint-definition-boundary decision — see `docs/product/STUDENT_INTERACTION_DATA_SCHEMA_PLAN_2026_09_27.md`. |
 | 5 | Subject onboarding gate | `LAUNCH_PLAN_SUBJECT_ONBOARDING_GATE_2026_09_26.md` | **CORRECTED 2026-09-27 (see `APPROVAL-0051`'s correction and `ACTIVITY_LOG.md`): AP Statistics MCQ gap is now fixed and merged to Production** via `codex/task-0044-statistics-mcq` (PR #227) — not `claude/task-0047-ap-statistics-mcq-serving`, which this doc previously credited but which never reached Production. AP Biology: Pass. AP Statistics: FRQ Pass, MCQ now fixed at the backend layer; live student-UI verification (`LAUNCH_RUNBOOK_2026_10_02.md` item 4) still outstanding. Gate-as-process confirmed genuinely thin/reusable; 7 of the other 8 AP subjects already pass 4 of 6 servability criteria, ~1 agent-day each remaining on labels/difficulty. TASK-0044/the fix still need a fresh independent QA pass before Done. **TASK-0046, 2026-09-28: all 8 non-Day-1 subjects (Chemistry, Calc AB, Calc BC, Precalculus, Physics 1, Physics 2, Physics C: E&M, Physics C: Mechanics) live-verified — Pass on criteria 1/2/4/5/6, Partial on criterion 3 (validated-label coverage, TASK-0042's already-closed pipeline state). Unit-gated RPC reachable and non-zero for all 8 today. See `SUBJECT_SERVABILITY_CRITERIA.md`'s dated TASK-0046 section for full evidence. Post-launch scope only — does not change the October 2 Day-1 bar (Biology/Statistics). **TASK-0046, 2026-09-28 (same day): Biology/Statistics criteria 3/5 slice also run — both Pass criteria 1/2/4/5/6, Partial on criterion 3 as expected; re-confirmed criterion 6 and the Statistics no-backend-MCQ-selector finding unchanged from TASK-0044. All 10 subjects now carry a live-verified six-criteria record in `SUBJECT_SERVABILITY_CRITERIA.md` dated 2026-09-28.** |
@@ -63,11 +70,13 @@ before assuming full parallelism — see **Dependency map** below.
 - **Content pipeline (3)** blocks full commercial/unit-gated completion of **Subject onboarding gate
   (5)** because criteria 3 (validated labels) and 5 (difficulty) require that pipeline. It does not
   block the October 2 flat-path launch for Biology or Statistics under `DECISION-0063`/`DECISION-0072`.
-- **Payment flow (2)** is gated on remaining decisions, not code: BIZ-001's pricing is partially decided
-  (`DECISION-0069`) but access duration, refunds/discounts, parent-purchaser handling, and the
-  unlimited tier remain open, owned by David Bloom. The Stripe mechanics are otherwise close to done.
-  An agent can close every acceptance criterion in plan 2 except the ones that require those remaining
-  BIZ-001 questions and the live-account bundle-price update.
+- **Payment flow (2)** implementation is now active (`DECISION-0083`, 2026-09-28), but the parts still
+  gated on decisions, not code, remain gated: BIZ-001's pricing is partially decided (`DECISION-0069`)
+  but access duration, refunds/discounts, parent-purchaser handling, and the unlimited tier remain
+  open, owned by David Bloom. An agent can close every acceptance criterion in plan 2 except the ones
+  that require those remaining BIZ-001 questions and the live-account bundle-price update — and none
+  of Production enablement, live Stripe catalog/config writes, or paid-sales enablement, all still
+  Hard-Gated.
 - **Marketing home page (1)** and **Student hub (4)** are verification/fix passes against the same
   existing live Lovable app. Coordinate their checks, but neither waits for a new page build.
 - Payment flow (2) should not advertise/sell a bundle containing a subject that hasn't passed the
@@ -94,7 +103,7 @@ struck through.
 | D-4 | ~~AP Statistics' dual-published-exam-pack-version hazard~~ | **Resolved 2026-09-25**, before this index was drafted — pilot pack retired (`docs/content/APSTATS_PILOT_PACK_REVIEW_AND_UNPUBLISH_2026_09_25.md`). This index and plan 5 had it wrong as an open Day-1 hazard; corrected. |
 | D-5 | ~~Unlimited-subject pricing tier at launch~~ | **Resolved (`DECISION-0070`): deferred until all 10 subjects are live.** Not priced or enabled at initial launch. |
 | D-6 | Is the 2-subject bundle price ($79.99, effectively no discount vs. two singles at $79.98) intentional? | **Still open** — not addressed by `DECISION-0070`. |
-| D-7 | ~~Target launch window~~ | **Resolved (`DECISION-0071`, confirmed 2026-09-26): Friday, October 2, 2026, free, no payment gating.** Payment flow deferred post-launch. |
+| D-7 | ~~Target launch window~~ | **Resolved (`DECISION-0071`, confirmed 2026-09-26): Friday, October 2, 2026, free, no payment gating.** Payment flow itself is no longer deferred to strictly post-launch — TASK-0041 implementation started 2026-09-28 (`DECISION-0083`) — but the October 2 launch shape (free, no gating) is unchanged. |
 | D-8 | ~~Logo/wordmark finalization~~ | **Resolved (`DECISION-0070`): not a blocker.** Type-only wordmark is sufficient; no illustrated mark required. |
 | D-9 | Shared vs. per-customer Stripe promotion code for the "add another subject" incentive. | **Open.** Blocks plan 2's coupon-build criterion. |
 | D-10 | Seed the remaining 6 subjects into `Cramapple-Development`, or scope dev testing to the 4 already seeded? | **Open.** |
