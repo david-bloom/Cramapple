@@ -7,10 +7,12 @@ photo capture, and worksheet upload with multi-question parsing
 **Owner:** Claude (implementation), Technical Owner (review)
 **Product Owner:** David Bloom
 **Tier:** Hard-Gate
-**Status:** Phase 1's schema/architecture Approved (`DECISION-0068`/
-`APPROVAL-0050`, 2026-09-26) — implementation not yet started. **Phase
-priority corrected 2026-09-27, see "Correction" below.** Phase 2 (renumbered;
-see Correction) gated on `BYOQ_WORKSHEET_PARSING_DESIGN.md`'s Open Decisions.
+**Status:** **Phases 1–2 live in Production (2026-09-28)** under
+`APPROVAL-0058`/`DECISION-0083`: typed fallback, phone/QR capture, and the BYOQ Practice screen at
+`app.cramapple.com/byoq`, with a homepage link on `cramapple.com`. **Phase 3 (worksheet upload) is
+blocked** on `BYOQ_WORKSHEET_PARSING_DESIGN.md`'s open decisions. See "Production Release
+(2026-09-28)" below.
+**Branch:** `claude/cramapple-task-0039-wfgs2q`
 **Priority:** High
 **Created Date:** 2026-09-25
 **Approved Date:** 2026-09-26 (Phase 1 scope and Decision needed #1 only —
@@ -570,6 +572,12 @@ everything else BYOQ).
 
 ### New gaps surfaced by review (need a Product Owner call before Phase 1 ships)
 
+> **2026-09-28:** All eight gaps below now have launch defaults, recorded in `DECISION-0083`: no
+> entitlement gate; concrete quotas; 30-day anonymous retention with a scheduled purge; consent copy
+> on intake and capture; private-only; subjects from the live taxonomy with an explicit
+> "no reference yet" state; stuck-routing deferred; reference-only hints floor. They are flagged for
+> Product Owner confirmation, and each can be revised without schema changes.
+
 None of these block writing Phase 1's schema, but all of them should be
 decided before Phase 1 ships to real students, not discovered after:
 
@@ -732,18 +740,69 @@ alongside the schema work, not gated behind it.** Typed/pasted intake ships
 as a fallback input, not the primary path. Claude owns implementation; Codex
 is working on the content pipeline instead.
 
+**Production release:** Approved and executed, 2026-09-28 (`APPROVAL-0058`); the "New gaps" defaults
+are in `DECISION-0083`.
+
 **Still Pending:**
-- The "New gaps" list under Phase 3 (entitlement/trial gating, rate
-  limits/quotas, retention/deletion, consent copy, the private-until-promoted
-  boundary, subject/taxonomy scoping, stuck-BYOQ routing, the hints/deep-dive
-  floor) — explicitly not resolved by this approval; needs its own Product
-  Owner call before Phase 1 ships to real students.
-- Camera/QR capture ("Phase 2") still needs the Pre-flight verification step
-  done first (which Lovable frontend actually serves `cramapple.com`) before
-  implementation starts — this is a sequencing prerequisite, not a scope gate.
-- Phase 3 (worksheet upload) — needs `docs/product/BYOQ_WORKSHEET_PARSING_DESIGN.md`'s
-  Open Decisions resolved (parsing vendor, candidate cap, retention window)
-  before it can start at all. Confirmed correctly scoped as post-launch.
+- Product Owner confirmation or revision of the `DECISION-0083` defaults.
+- Phase 3 (worksheet upload). It needs `docs/product/BYOQ_WORKSHEET_PARSING_DESIGN.md`'s Open
+  Decisions resolved (parsing vendor, candidate cap, retention window) before it can start.
+  Post-launch.
+
+## Production Release (2026-09-28)
+
+**What shipped:**
+
+- **Schema** (`supabase/migrations/20260928150000_task0039_byoq_core.sql`,
+  `20260928160000_task0039_byoq_hardening.sql`):
+  - Parallel `app.byoq_*` tables (Option A).
+  - A CHECK pins MCQ choices to exactly `{choice_key, choice_text}`, so an `is_correct` key is rejected
+    by the database.
+  - Composite owner foreign keys, and a ready-check that requires an empty answer-leak flag set.
+  - Atomic claim, bind, and expire RPCs.
+  - RLS: `authenticated` has SELECT on its own rows only; `anon` has no access.
+  - Hashed capture capabilities with the storage prefix pinned at mint time.
+  - The purge is invoked by pg_cron → pg_net → Vault token.
+- **Edge function** `supabase/functions/byoq/` (plus `_shared/byoq.ts`):
+  - Callers are anonymous owners (a server-issued key, stored only as SHA-256) or recognized students
+    (verified JWT); the key links to the account on sign-in.
+  - Answer-leak heuristic over stem, choices, title, and source note, with masked-by-default display
+    and one-click removal.
+  - Unscored responses with attempt/version lineage.
+  - Phone capture: validation, EXIF/GPS stripping that fails closed, and multi-page/multi-part slots.
+  - Topic reference built from published point briefs and explainers, with an explicit `missing` state.
+  - Quotas and IP rate limits keyed on CF-Connecting-IP, failing closed.
+  - 30-day anonymous purge, and a sweep of raw uploads that were never submitted.
+- **Frontend** (Lovable App):
+  - Routes `/byoq`, `/byoq/new`, `/byoq/capture`, `/byoq/$itemId`, plus a Home entry link.
+  - A test enforces that no BYOQ file imports graded-practice code.
+  - The owner key is cleared on sign-out.
+  - The Marketing homepage has a "Bring your own question" section linking to `appUrl("/byoq")`.
+
+**Verification:**
+
+- Deno tests: 33 BYOQ and 65 in total with capture-pairing; lint is clean.
+- `supabase/tests/task0039_byoq_core.integration.sql` passes on Dev.
+- `scripts/byoq_smoke.mjs` passed 24/24 against the deployed Dev function.
+- Independent QA round 1 returned **Fail** with four blocking findings: unswept raw uploads, no
+  scheduled purge, a spoofable or fail-open IP limit, and a title/source-note leak. All four were fixed,
+  plus seven non-blocking findings, and re-verified on Dev.
+- Production:
+  - The deployed source matches the bundle.
+  - CORS works for both domains.
+  - Public ops and `start` create no owner.
+  - Purge auth returns 403 for a bad token and 200 via cron/Vault.
+  - A full write round trip passed and was cleaned up.
+  - Live pages were fetched and confirmed.
+- App Vitest: 445 pass.
+
+**Known limits / follow-ups:**
+
+- No real-phone QR test on Production yet. The session sandbox cannot reach public hosts.
+- `BYOQ_IP_HMAC_KEY` is not set; IP hashing falls back to the service-role key.
+- Stuck-BYOQ routing and rubric-derived hints are deferred (see `DECISION-0083` items 7–8).
+- The `pg_net` extension sits in `public` (a Supabase advisor WARN). It is not relocatable and is
+  accepted.
 
 ## Implementation Notes
 
@@ -780,9 +839,13 @@ Primary records this task builds on:
 
 ## QA Review
 
-**QA Verdict:** Pending (Pass / Fail)
+**QA Verdict:** Round 1 **Fail**, from an independent adversarial review of backend and schema. All
+four blocking findings were fixed and re-verified live on Dev (24/24 smoke checks), then verified on
+Production as above. A fresh independent QA pass of the final shipped state, including a real-phone
+capture, is still recommended before this task is marked Done.
 
 ## Done Decision
 
-**Decision:** Pending
+**Decision:** Pending. Phases 1–2 are in Production; Done awaits Product Owner confirmation of the
+`DECISION-0083` defaults and a real-phone check. Phase 3 is blocked (post-launch).
 **Date:** Pending

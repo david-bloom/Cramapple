@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- TASK-0039 BYOQ Live in Production, Phases 1–2 (2026-09-28): Claude built and shipped bring-your-own-question end to end under `APPROVAL-0058`/`DECISION-0083`. The work covers parallel `byoq_*` tables with no answer-bearing column (enforced by a CHECK), the `byoq` edge function (anonymous owner keys plus recognized students, the answer-leak gate, unscored responses, phone/QR capture with metadata-stripped photos), 30-day anonymous retention on pg_cron, and the App screens at `app.cramapple.com/byoq` with a homepage link on `cramapple.com`. Independent QA returned Fail on the first round (unswept raw uploads, unscheduled purge, spoofable IP rate limit, title/source-note answer leak); all four were fixed and re-verified on Dev (24/24 live smoke checks) before Production. A Production round trip passed and was cleaned up. Phase 3 (worksheet upload) remains blocked on `BYOQ_WORKSHEET_PARSING_DESIGN.md`. **Next Owner:** David. **Next Action:** confirm or revise the eight launch defaults in `DECISION-0083`, and do a real-phone QR test on `app.cramapple.com/byoq`.
 - TASK-0046 Verification Session Closed; TASK-0049 Created (2026-09-28): confirmed TASK-0042 Done, ran read-only Production six-criterion verification across all 10 subjects, and produced subject-slice evidence/PRs pending fresh independent QA. AP Biology currently has 23/118 current-fresh validated serving labels and four hand-drawn FRQs without canonicals (all structurally excluded from ordinary/unit-gated serving); AP Statistics has 67/170 current-fresh validated serving labels with canonical/rubric/choice/difficulty coverage otherwise clean. David requested a dedicated follow-up to close these six-criterion gaps; no such remediation task already existed, so created **TASK-0049 — Biology + Statistics: Close Remaining Six-Criterion Servability Gaps** as a Hard-Gate task. No Production writes were performed. Session handoff: `docs/handoffs/TASK-0046_SESSION_CLOSE_2026_09_28.md`. Concurrent TASK-0046 PR #248 exists and must be reconciled with this session's PRs before merging overlapping documentation. **Next Owner:** fresh independent QA/Main Conductor. **Next Action:** reconcile TASK-0046 evidence/PRs, complete fresh QA, then seek explicit Product Owner approval for the first TASK-0049 Production remediation slice.
 - Content-Pipeline Session, Final Close: Pair-QA Status Confirmed Complete for All Ten Subjects
   (2026-09-27): David asked what remained to be pair-QA'd after the content pipeline/unlock work
@@ -299,6 +300,48 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## TASK-0039 BYOQ Live in Production, Phases 1–2 — 2026-09-28
+
+**Task:** `TASK-0039-BYOQ-PRODUCTION-OPERATIONAL.md`
+**Approval:** `APPROVAL-0058` (David, 2026-09-28: "get task 0039 into production"); defaults in `DECISION-0083`
+**Branch:** `claude/cramapple-task-0039-wfgs2q`
+**Status:** Phases 1–2 live in Production. Phase 3 blocked.
+
+**Shipped to Production (`pcntajvbdfqhbeewmdry`):**
+
+- Migrations `task0039_byoq_core` and `task0039_byoq_hardening`: `app.byoq_owners`, `byoq_items`,
+  `byoq_responses`, `byoq_capture_pairing_tokens`, `byoq_attachments`, plus the claim, bind, and expire
+  RPCs, the Vault-backed purge invoker, two pg_cron jobs, and the 20 MB cap on `learner-uploads`.
+- Edge function `byoq` (verify_jwt off, own auth). Deployed source diffed against the built bundle;
+  the only differences are rendered `\u` escapes.
+- Vault secrets `byoq_purge_token` (generated inside the database, never seen by the session) and
+  `byoq_function_url`.
+- Lovable App (`app.cramapple.com/byoq`, `/byoq/new`, `/byoq/capture`, `/byoq/$itemId`) and the
+  Marketing homepage section linking to the app. Both were published, and the live pages were
+  confirmed by fetching them from Production's pg_net.
+
+**Verification:**
+
+- 33 Deno tests for BYOQ (65 including capture-pairing), with clean lint.
+- SQL integration assertions pass on Dev.
+- 24/24 live smoke checks on Dev after hardening.
+- Production: CORS for both domains, `list_subjects`/`list_topics`, `start` creates no owner, a bad
+  purge token gets 403, and the Vault cron purge returns 200. A full write round trip (create →
+  answer text masked → remove → confirm → unscored save → delete) passed, and the test owner and pg_net
+  responses were deleted afterwards. The App's 445 Vitest tests pass.
+- Security advisors show only expected INFO for no-policy tables. There is one new WARN (`pg_net` in
+  `public`), which is not relocatable and is accepted.
+
+**Not done / open:**
+
+- A real-phone QR capture test on Production, since the session's sandbox cannot reach the public web.
+- `BYOQ_IP_HMAC_KEY` is unset, so IP hashing falls back to the service-role key. This works, but a
+  dedicated secret is preferred.
+- The Dev temporary functions `byoq-smoke-runner` and `byoq-ip-echo` were redeployed as inert 410
+  stubs, because the tooling cannot delete them.
+- Phase 3 is blocked on its design doc's open decisions.
+
 
 ## Content-Pipeline QA Session Close: PR #235 Verified, Biology Gap Closed, Unlock Status Checked — 2026-09-27
 
