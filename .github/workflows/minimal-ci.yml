@@ -36,6 +36,7 @@ jobs:
       - name: Run deterministic Deno tests
         run: >-
           deno test
+          --allow-env=SUPABASE_URL,SUPABASE_ANON_KEY,SUPABASE_SERVICE_ROLE_KEY,ALLOWED_ORIGINS,POSTHOG_PROJECT_API_KEY,POSTHOG_HOST
           supabase/functions/_shared/grading-router_test.ts
           supabase/functions/_shared/formula-notation_test.ts
           supabase/functions/_shared/deterministic-verifier_test.ts
