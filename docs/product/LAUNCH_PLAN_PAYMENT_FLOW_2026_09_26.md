@@ -1,6 +1,6 @@
 # Launch Plan — Purchase Funnel / Payment Flow — 2026-09-26
 
-**Status:** Draft  
+**Status:** In Progress — execution approved (`DECISION-0083`, `APPROVAL-0058`)  
 **Owner:** David Bloom  
 **Tier:** Hard-Gate  
 **Implementation Task:** `docs/tasks/TASK-0041-LAUNCH-PAYMENT-FLOW.md`  
@@ -31,18 +31,9 @@ This is an implementation project, not merely a verification exercise.
 
 ---
 
-## 2. Relationship to the October 2 free launch
+## 2. Execution timing and October 2
 
-`DECISION-0071` remains in force: the October 2, 2026 launch is free and does not depend on paid checkout.
-
-Therefore:
-
-- TASK-0041 is **not a blocker for the October 2 free launch**;
-- the purchase funnel may be designed and implemented independently of that launch;
-- no paid gating should be introduced into the October 2 free-launch path unless separately approved;
-- production enablement of the new paid funnel remains a Hard Gate.
-
-"Not launch-critical" does **not** mean "do not implement." It only means the free launch does not wait for this task.
+`DECISION-0083` supersedes the payment-flow deferment from `DECISION-0071`: **TASK-0041 executes now.** The separate October 2 free-launch path remains unchanged unless explicitly changed later. Implementing TASK-0041 now does not authorize live paid gating or Production enablement.
 
 ---
 
@@ -174,19 +165,15 @@ The specific add-on subject and discount are configurable product inputs, not ha
 Current decided prices remain:
 
 - **Single subject:** $39.99
-- **Two-subject bundle:** $79.99
-- **Three-subject bundle:** $99.99
+- **Two-subject bundle:** $69.99
+- **Three-subject bundle:** $89.99
 - **Unlimited:** deferred / not marketed
 
 The technical implementation must not substitute the $29 examples from the external design brief.
 
-### Open pricing issue
+### Pricing status
 
-$79.99 for two subjects is one cent more than two $39.99 single purchases ($79.98).
-
-Do not silently change this.
-
-Before updating Stripe catalog prices or presenting bundle-savings language, Product Owner confirmation is required.
+The Product Owner resolved pricing on 2026-09-28 in `DECISION-0083`. The existing Stripe sandbox catalog already matches $39.99 / $69.99 / $89.99, so no sandbox catalog write was needed for Development implementation.
 
 ---
 
