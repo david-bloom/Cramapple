@@ -5,6 +5,50 @@
 **Area:** Open Hand / answer-key exposure / scoring integrity
 **Branches in scope:** `codex/task-0049-open-hand-answer-key` (pushed 2026-09-29, no PR), `claude/plate-loop-open-hand-rebased` (PR #256, draft)
 
+## 0. Step 0 results (executed 2026-09-29, read-only) — read before §2 and §3
+
+Step 0 ran. It changes the severity, not the plan.
+
+**Finding 0a — the exposure is not reachable today. `open-hand-item` has no caller.** The Open Hand
+screens in the live app (`src/screens/OpenHandMcqScreen.jsx`, `OpenHandFrqScreen.jsx`, mounted at
+`/cramapple` via `QuestionRoute`) are **demo-only presentation components**. `OpenHandMcqScreen`
+takes its `question` as a prop, makes **no network call of any kind**, and renders `is_correct`,
+`rationale` and `minimum_fix` from whatever it is handed; `useSession()` is used only for local
+read-tracking. Per the front end's own findings doc
+(`.lovable/plan/gate-the-four-aids-in-practice-findings-and-plan-2026-09-27.md`) these screens run on
+local sample content (`src/content/sample/*`) with no server grading, and *"the four plate templates
+are not what students practise in"* — a logged-in student goes to bare `/session` → `SessionFrame`,
+which has no Plate, no rubric pane, no Deep Dive and no Open Hand.
+
+Corroborated in Dev: `app.open_hand_scoring_exclusions` holds **0 rows**.
+
+**This corrects an overstatement in §2 and in the comment on #256.** Saying "Dev currently has the
+reader live and the enforcement not live" was accurate about *deployment* and misleading about
+*exposure*. The function is deployed in Dev and nothing calls it. No student can read a real answer
+key through Open Hand today, so no student can be scored on an item whose real key they saw. This is
+a **latent design gap in work that is not yet wired up**, not a live hole.
+
+**Consequence for sequencing — the one thing that must not slip.** The gap becomes real the moment
+the plate loop is wired to live data, which is precisely what #256's `PLATE_LOOP_BUILD_PLAN` sets out
+to do. So the exclusion mechanism has to land **with** that wiring, in the same change, not as a
+follow-up afterwards. That is the single scheduling constraint this plan exists to protect.
+
+**Finding 0b — the bundle blocker is real and not marginal.** `evaluate-attempt/index.ts` is 89,616
+bytes; with its 20 direct `_shared` imports it is **289,938 bytes**, and that is a floor (transitive
+imports are not counted) against the platform safety reviewer's 200,000-byte limit. Splitting would
+have to shed ~90KB+ of the import closure. This blocks the enforcement half's deployment to **both**
+Dev and Production, under either §4 D2 option.
+
+**Finding 0c — not established: whether Dev's deployed `evaluate-attempt` contains the `409` check.**
+Three routes were tried and none is conclusive: the Supabase MCP returns `PLACEHOLDER` for the
+deployed source; the timestamps are ambiguous (the migration is stamped 2026-09-28 02:38 UTC and the
+Dev function was updated 2026-09-28 13:05 UTC — after, but 2026-09-28 also carried unrelated
+TASK-0041 deploys); and the behavioural test needs a Dev user JWT plus a submitted attempt, which
+requires Dev auth credentials this session does not hold and should not mint. Finding 0a makes this
+low-stakes — with no caller, no exclusion row is ever written, so the `409` path cannot fire either
+way. **Treat enforcement as not deployed until proven.** Step 2's redeploy settles it definitively;
+do not spend further effort proving it beforehand.
+
 ## 1. What happened
 
 Open Hand — the teaching mode that deliberately shows a student the full answer key — was built
