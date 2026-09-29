@@ -98,7 +98,20 @@ deployed environment. `evaluate-attempt` v67 (the new MCQ feedback) is live in P
 **nobody has submitted a wrong answer through it.** `TASK-0053`'s verification criterion is
 deliberately unticked for this reason.
 
-**Precondition:** PR #270 merged (or run it from that branch).
+**Development run — PASSED 2026-09-29 (18:33 UTC), run by David.** This is the first time a brand-new
+student has gone from signup to a graded wrong answer on a deployed environment. The distractor
+chosen got its authored rationale back ("Not quite. Look again at the choice you picked: Predicted the
+intercept, ignoring the explanatory variable…"), scored zero, and did not get the retired
+placeholder. Dev runs the same `evaluate-attempt` bundle as Production v67. The test student was
+deleted afterwards and SQL confirmed nothing was left. **The Production run below is still David's,
+immediately before test students.**
+
+Before that run, PR #270 fixed five calls in the script that didn't match the deployed code.
+Submission goes through `attempt-response` `submit_response`: Production has no `submit-response`
+function. Grading is `grade_initial_attempt`. It also fixed a `check()` bug that would have printed
+ALL CHECKS PASSED after stopping early.
+
+**Precondition:** PR #270 merged (done 2026-09-29).
 
 ```bash
 SMOKE_URL=https://pcntajvbdfqhbeewmdry.supabase.co \
@@ -132,10 +145,12 @@ curl -s -X DELETE "https://pcntajvbdfqhbeewmdry.supabase.co/auth/v1/admin/users/
 Confirm the attempt rows are gone afterwards; if any `app.attempts` row survives the auth delete,
 remove it by `user_id` before declaring cleanup complete.
 
-**Can it be run on Dev instead? No, not today.** There is no Dev secret key on this machine and Dev
-requires email confirmation, so the script cannot obtain a session there. If David adds a Dev secret
-key, swap `SMOKE_URL`/`SMOKE_PUBLISHABLE_KEY` to the Dev values in §0 and it will work — and that is
-the better first run.
+**Running it on Dev** (done 2026-09-29, passed). David's Mac now has `SUPABASE_DEV_SECRET_KEY` in
+`.secrets.env`. Swap `SMOKE_URL`/`SMOKE_PUBLISHABLE_KEY` to the Dev values in §0, and read the key
+without sourcing the file:
+`SMOKE_SECRET_KEY="$(grep '^SUPABASE_DEV_SECRET_KEY=' .secrets.env | cut -d= -f2- | tr -d ' "')"`.
+Dev has no `start-trial` function, so the script grants the subject directly and prints a note
+saying so.
 
 ---
 
