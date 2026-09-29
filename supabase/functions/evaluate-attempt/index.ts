@@ -1772,19 +1772,30 @@ export async function handleEvaluateAttempt(
         // pin to the first and ignore any stragglers rather than mixing labels
         // from two CED editions into one sentence.
         const taxonomyVersion = cellRows[0].taxonomy_source_version;
+        // skill_code is NULLABLE in Production, despite the original DDL
+        // declaring it NOT NULL. Most tagged items are topic-only: of the 783
+        // published MCQs, 406 carry a topic and only 304 (all Statistics)
+        // carry a skill. Passing a null through to .in() would query for a
+        // skill code of "null", so drop them here and let the skill sentence
+        // be absent rather than wrong.
         const codes = [
           ...new Set(
             cellRows
               .filter((row) => row.taxonomy_source_version === taxonomyVersion)
-              .map((row) => row.skill_code),
+              .map((row) => row.skill_code)
+              .filter((code): code is string =>
+                typeof code === "string" && code.length > 0
+              ),
           ),
         ];
-        const { data: skillRows, error: skillError } = await service
-          .schema("app")
-          .from("taxonomy_skills")
-          .select("skill_code, label")
-          .eq("taxonomy_source_version", taxonomyVersion)
-          .in("skill_code", codes);
+        const { data: skillRows, error: skillError } = codes.length === 0
+          ? { data: [], error: null }
+          : await service
+            .schema("app")
+            .from("taxonomy_skills")
+            .select("skill_code, label")
+            .eq("taxonomy_source_version", taxonomyVersion)
+            .in("skill_code", codes);
         if (!skillError && Array.isArray(skillRows)) {
           skillLabels = codes
             .map((code) =>
