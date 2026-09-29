@@ -137,9 +137,40 @@ items" and "adjudicate 139."
   §5 asks for is enforced by the database rather than by discipline. Phase B writes
   `provisional_model` with `source` + `model_run_id`; promotion is an UPDATE to `validated` that
   physically cannot omit who confirmed it and under which decision.
-- A confirm/correct pass — model agreement auto-accepts only where both models agree AND a
-  spot-check sample (recommend 10%) confirms; everything else needs a human confirm, same as
-  `DECISION-0079`'s promotion gate for the original MCQ labels.
+- A confirm/correct pass — model agreement auto-accepts only where both proposers agree AND a
+  spot-check sample (recommend 10%) confirms.
+- **Disagreements are broken by the blind adjudicator (David, 2026-09-29), not by a human queue.**
+  Where the two proposers disagree, the adjudicator model is asked the same question with both
+  candidate labels withheld, and **its answer is the label** — the same blind-third-review pattern
+  this project already used for the 27-of-141 multi-unit review. This replaces the previous design,
+  in which every disagreement went to a human. It is what makes a subject-sized run tractable: for
+  AP Statistics it moves ~139 contested items off the Product Owner's desk.
+
+**Model roster (David, 2026-09-29), replacing the earlier pair:**
+
+| Seat | Model | Rationale |
+| --- | --- | --- |
+| Proposer A | `openai/gpt-5.5` | Retained from the measured baseline, so agreement rates stay loosely comparable to `TAXONOMY_LABELING_PLAN_V3`'s 89%/44%. |
+| Proposer B | `gemini-2.5-pro` | Replaces `gemini-2.5-flash`. Different lab from A, so proposer errors stay uncorrelated. |
+| Blind adjudicator | `claude-opus-5` | Strongest model, in the seat that decides contested labels. Must not be a proposer — an adjudicator that proposed would be grading its own answer. |
+
+`gemini-2.5-flash` was dropped because it is the small/fast tier and this is a content-quality
+judgment feeding a student-facing mastery claim. The cost argument for keeping it does not hold:
+measured against the live AP Statistics pack, all 181 items total ~79k tokens of content (~260k
+input tokens per model pass with scaffolding), so a full frontier two-model pass over a subject is
+**well under $10**, and under ~$100 for all ten. Record the exact model IDs per run in
+`content_item_cells.model_run_id` so any future re-measurement can tell runs apart.
+
+**Constraint the tie-break rule runs into — read before implementing.** A model-decided label
+**cannot be written as `assignment_status='validated'`.** `content_item_cells_validation_check`
+requires `validated_by`, `validated_at`, and `validation_decision_id` to be populated, and
+`validated_by` is `uuid references app.profiles(user_id)` — a human. So the tie-break decides *what
+the label is*, not *that it is validated*. Implement it as: adjudicator's answer is written as the
+label with `assignment_status='provisional_model'` and the tie-break recorded in `model_run_id`;
+promotion to `validated` still happens in batch, on the strength of the 10% spot-check, with a
+human recorded as `validated_by`. David's intent — no per-item human adjudication queue — is fully
+preserved; what survives is a sampled human sign-off the database will not let us skip.
+
 - Never promote a batch to "validated"/servable without recording who confirmed it and against
   what CED citation, mirroring the audit trail T2 already establishes for serving labels.
 
@@ -239,10 +270,14 @@ as it was forked from `extend_math_serving_labels.mjs`) to:
 - Emit `skill_code` (not just `required_units`) in its output, validated against the subject's now-
   existing `taxonomy_cells` registry from Phase A — the composite FK is the safety net if the model
   proposes a cell that isn't registered.
-- Keep the model pair (`openai/gpt-5.5`, `google/gemini-2.5-flash`) and the Vercel AI Gateway path
-  already wired (`scripts/vercel-gateway-check/.env.local`) — this is the spend David authorized.
-- Apply the confirm/correct discipline from §5: write, don't auto-promote; spot-check; promote with
-  a record of who/what confirmed it.
+- Use §5's model roster — proposers `openai/gpt-5.5` + `gemini-2.5-pro`, blind adjudicator
+  `claude-opus-5` — over the Vercel AI Gateway path already wired
+  (`scripts/vercel-gateway-check/.env.local`); this is the spend David authorized. Note the script's
+  `MODELS` constant (`extend_serving_labels_mcp.mjs:33`) still hardcodes the old pair including
+  `gemini-2.5-flash` and must be updated as part of the Phase B fork.
+- Apply the confirm/correct discipline from §5: write `provisional_model`, break proposer
+  disagreements with the blind adjudicator rather than a human queue, spot-check 10%, then promote
+  the batch with a human recorded as `validated_by`.
 
 **Hard constraint — `is_primary`, the most likely way Phase B fails on its first insert.**
 `20260927004500_generalize_content_item_cells_topic_only.sql` added `is_primary boolean not null
