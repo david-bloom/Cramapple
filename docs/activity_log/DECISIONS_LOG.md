@@ -7,6 +7,7 @@ This log records product, architecture, operating, security, design, and workflo
 Most recent entries (full chronological list follows below):
 
 - DECISION-0086 — Open Hand Resolves to One Gated Path: Entitlement-Scoped Access With a Mandatory Exclusion Write (Staff/QA Exempt), Unified on `get_open_hand_item`; the Work Is TASK-0051
+- DECISION-0085 — Skill-Dimension Labels Are Validated by Model Consensus (≥2 of 3), Not Human Review; Frontier Proposer Pair Plus Blind Adjudicator; Extends DECISION-0066 to `skill_code`
 - DECISION-0084 — TASK-0039 BYOQ Ships to Production (Phases 1–2): Launch Defaults for the Eight "New Gaps" (No Entitlement Gate, Quotas, 30-Day Anonymous Retention, Consent Copy, Private-Only, Stuck-Routing and Hints Deferred); Phase 3 Remains Blocked
 - DECISION-0083 — Begin TASK-0041 Payment Flow Now; Set Pricing to $39.99 / $69.99 / $89.99; October 2 Free Launch Unchanged
 - DECISION-0082 — No Fixed Quantity Targets Outside AP Biology; Maximize Safe Student Usability of Current Published Inventory
@@ -105,6 +106,62 @@ Open Hand screens are demo-only components fed local sample content that make no
 exclusions table holds 0 rows; Production has no `open-hand-item`. The gap becomes real when the
 plate loop is wired to live data, so **the exclusion mechanism must land in the same change as that
 wiring**, not afterwards. This decision is a sequencing commitment, not an incident response.
+
+## DECISION-0085 — Skill-Dimension Labels Are Validated by Model Consensus (≥2 of 3), Not Human Review; Frontier Proposer Pair Plus Blind Adjudicator
+
+**Date:** 2026-09-29
+**Decision Owner:** David Bloom
+**Status:** Approved (direction given in session, 2026-09-29). One implementation route remains open — see "Not decided" below.
+**Approval:** `APPROVAL-0060`
+**Related Task:** `docs/tasks/TASK-0050-SKILL-DIMENSION-ROLLOUT.md`
+**Related Docs:** `docs/product/SKILL_DIMENSION_ROLLOUT_PLAN_2026_09_29.md`; `docs/product/SKILL_DIMENSION_FEASIBILITY_2026_09_29.md`; `DECISION-0066` (two-model agreement sufficient for serving labels — this extends it), `DECISION-0074` (mastery rule), `DECISION-0079` (human promotion of topic labels)
+**Area:** Content taxonomy / Labeling quality / Data schema
+
+### Decided
+
+1. **Model roster for Phase B labeling.** Proposers `openai/gpt-5.5` and `gemini-2.5-pro`; blind
+   adjudicator `claude-opus-5`. The adjudicator must not be a proposer. `gemini-2.5-flash` is
+   dropped: it is the small/fast tier, and the cost argument for it does not survive the measured
+   volume — roughly 260k input tokens per model pass per subject, so a frontier two-model pass is
+   under $10 per subject and under ~$100 for all ten.
+2. **Proposer disagreements are broken by the blind adjudicator**, asked the same question with both
+   candidate labels withheld. Its answer is the label. No human adjudication queue.
+3. **`validated` is earned by model consensus: at least 2 of the 3 models agree.** No human review
+   pass and no spot-check sample. This **extends `DECISION-0066`** — which already approved AI
+   two-model agreement as sufficient to promote serving labels to `validated` — from serving labels
+   to `skill_code` on `app.content_item_cells`, and adds a third model as tie-breaker. It does not
+   disturb `DECISION-0079`, which was a one-time human promotion of 293 existing topic labels.
+4. **No-majority items park as `held`** (proposers split and the adjudicator names a third label),
+   excluded from serving and listed for a later pass. Not hypothetical: 88 of AP Statistics' 181
+   items sit on topics with 3 or 4 registered skills.
+5. **All three models run on every item**, not only on disagreements (~$5 extra per subject), and the
+   agreement tier — unanimous vs majority-earned — is recorded on every row.
+
+### Not decided (open, Hard Gate)
+
+`app.content_item_cells_validation_check` requires `validated_by`, a uuid FK to `app.profiles`, and
+Production has no system/service profile (17 tutor, 14 student, 2 admin, 1 reader — checked
+2026-09-29). A model-consensus `validated` is therefore **rejected by the database today**. Two
+routes, neither authorized by this decision and both requiring their own approval:
+
+- **Relax the CHECK (recommended):** permit `validated` when `validated_by is null and model_run_id
+  is not null and validation_decision_id is not null`. Preserves the audit trail; pretends nothing.
+- **Mint a synthetic "system" profile (not recommended):** records a human-shaped actor for a
+  decision no human made; every later audit joining `validated_by` to a person silently misleads.
+
+Phase B is explicitly **not blocked** on this: labels sit at `provisional_model` with the consensus
+outcome recorded in `model_run_id`, and promotion becomes a single later UPDATE.
+
+### Evidence considered, and why it did not change the decision
+
+This project's own paid measurement — the 2026-08-20 `gpt-5.2` full-corpus self-consistency run
+(322 calls, $6.64; archived activity log) — found **majority-earned 2-of-3 cut false-accept rate
+19.0 → 14.7, while unanimous 3-of-3 cut it to 9.5**. A 2-of-3 majority was meaningfully weaker than
+unanimity, and on that task still failed its quality gate. That was hand-drawn graph grading, a task
+with a far larger answer space than a 2–4 way skill choice, so it does not transfer directly. It was
+raised before the decision and did not override it. It is the reason item 5 requires the agreement
+tier to be recorded: if skill labels later prove unreliable, the remedy is a query demoting the
+2-of-3 tier, not a re-run of all ten subjects.
 
 ## DECISION-0084 — TASK-0039 BYOQ Ships to Production (Phases 1–2) with Launch Defaults for the Eight "New Gaps"; Phase 3 Remains Blocked
 
