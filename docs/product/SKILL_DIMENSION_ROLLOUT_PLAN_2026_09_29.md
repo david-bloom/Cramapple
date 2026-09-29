@@ -12,6 +12,15 @@ launch, but we have ten subjects. we need them to have the same data schema." Th
 GAP-10 remediation from "fix Biology + finish Statistics" to "bring all 10 subjects to the same
 skill-dimension schema state."
 
+**Revision note (2026-09-29, same day).** This doc was corrected before merge after a
+verification pass read
+`supabase/migrations/20260927004500_generalize_content_item_cells_topic_only.sql` — a migration
+applied to **Development and Production** on 2026-09-26/27 that the first draft did not account
+for. Three claims changed as a result (§2's "zero on both counts", §3's ordering/safety-net
+reasoning, §5's "may need a status column added"), a new hard `is_primary` insert constraint was
+added to §7, and a new no-spend feasibility gate (§5a) was inserted ahead of Phase A. The original
+draft is on record in PR #257. Nothing in the authorization above changed.
+
 ## 1. The 10 subjects
 
 AP Biology, AP Statistics, AP Chemistry, AP Physics 1, AP Physics 2, AP Physics C: Mechanics,
@@ -29,8 +38,19 @@ it does not proceed on a secondary source.
 ## 2. What "same data schema" means concretely
 
 Statistics is the only subject with rows in `app.taxonomy_cells` (131 cells) and the only one with
-any `skill_code`-tagged content (`app.content_item_cells`, MCQ only, 11 of its own 131 cells). The
-other 9 subjects are at zero on both counts. "Same schema" = every subject ends this rollout with:
+any `skill_code`-tagged content (`app.content_item_cells`, MCQ only, 11 of its own 131 cells).
+
+**The other 9 subjects are at zero on `taxonomy_cells` and at zero on `skill_code` — but not at zero
+on `content_item_cells`.** AP Biology already has ~112 **topic-only** rows there (`skill_code` NULL),
+loaded from `content_taxonomy_labels` by
+`supabase/migrations/20260927004600_biology_topic_labels_into_cells.sql` against Production data
+2026-09-26/27; Statistics has 203 `authored` skill-level rows plus 181 seeded topic-only rows
+(`20260927160000_seed_statistics_topic_labels_proposal.sql`). This matters operationally: Phase B is
+**adding skill-coded rows alongside existing primary rows**, not populating an empty table — see
+§7's `is_primary` constraint, which is the single most likely way a labeling run fails on its first
+insert.
+
+"Same schema" = every subject ends this rollout with:
 
 1. A `taxonomy_source_version` + `taxonomy_skills` + `taxonomy_cells` registry (topic × skill grid),
    sourced from that subject's own CED, at the same rigor as Statistics' 131-cell grid.
@@ -46,13 +66,21 @@ content with no grid, is not enough.
 
 `app.content_item_cells.skill_code` has a **composite foreign key** to
 `app.taxonomy_cells(taxonomy_source_version, topic_code, skill_code)`
-(`supabase/migrations/20260823130000_course_mode_f4_servable_content_path.sql`). A content item
-literally cannot be tagged with a skill that isn't already a registered cell — the DB rejects it.
+(`supabase/migrations/20260823130000_course_mode_f4_servable_content_path.sql:83`). A content item
+cannot be tagged with a **non-null** skill that isn't already a registered cell — the DB rejects it.
 
 **Consequence: Phase A (grid) must exist before Phase B (item labeling) for a given subject.**
-This is a hard dependency, not a style preference, and it's actually a safety net: it makes it
-impossible for the labeling pass to hallucinate a skill_code/topic_code pair that isn't real. Run
-Phase A to completion and verify the grid in Dev before starting Phase B for that subject.
+This is a hard dependency, not a style preference. Run Phase A to completion and verify the grid in
+Dev before starting Phase B for that subject.
+
+**The safety net is narrower than it looks.** Since
+`20260927004500_generalize_content_item_cells_topic_only.sql`, `skill_code` is **nullable**, and the
+composite FK is MATCH SIMPLE — Postgres treats it as trivially satisfied when `skill_code` is NULL.
+So the FK catches a hallucinated *skill*, but a labeling pass that emits NULL for a skill it
+couldn't determine silently writes a legal topic-only row and reports success. A second FK
+(`content_item_cells_topic_fkey`, added by the same migration) guards the topic on those rows, so
+nothing invalid lands — but **"no FK violation" is not evidence that a skill was assigned.** Phase
+B's verification must count non-null `skill_code` rows, never row inserts.
 
 ## 4. Subject readiness — who needs a Phase 0 first
 
@@ -87,15 +115,61 @@ of the time at **topic** granularity — a coin flip. Skill-level labeling (fine
 be assumed to sit at or below that 44% agreement ceiling until measured otherwise per subject.
 
 **This rules out blind auto-write for Phase B.** Design each subject's labeling run as:
-- Two-model proposal (per `extend_serving_labels_mcp.mjs`'s existing pattern) writes labels with
-  `label_scope='coverage'`... `taxonomy_confidence` (or whatever the content-item-cells equivalent
-  flag is — check current schema, this table predates the T2 label-versioning redesign and may need
-  a status column added) marked provisional, not auto-promoted.
+- Two-model proposal (per `extend_serving_labels_mcp.mjs`'s existing pattern) writes labels marked
+  provisional, not auto-promoted. **No schema work is needed for this — the governance apparatus
+  already exists and is live in Dev and Production.**
+  `20260927004500_generalize_content_item_cells_topic_only.sql` added to `content_item_cells`:
+  `assignment_status` (CHECK-constrained to
+  `legacy_unvalidated|provisional_model|validated|stale|held|authored`), `source`, `model_run_id`,
+  `validated_by`, `validated_at`, `validation_decision_id`, and `superseded_by` — the same
+  vocabulary as `content_taxonomy_labels`. A second CHECK
+  (`content_item_cells_validation_check`) makes `assignment_status='validated'` *impossible* unless
+  `validated_by`, `validated_at`, and `validation_decision_id` are all populated, so the audit trail
+  §5 asks for is enforced by the database rather than by discipline. Phase B writes
+  `provisional_model` with `source` + `model_run_id`; promotion is an UPDATE to `validated` that
+  physically cannot omit who confirmed it and under which decision.
 - A confirm/correct pass — model agreement auto-accepts only where both models agree AND a
   spot-check sample (recommend 10%) confirms; everything else needs a human confirm, same as
   `DECISION-0079`'s promotion gate for the original MCQ labels.
 - Never promote a batch to "validated"/servable without recording who confirmed it and against
   what CED citation, mirroring the audit trail T2 already establishes for serving labels.
+
+## 5a. Feasibility gate — run this before spending anything on a subject
+
+**Why this section exists.** §10's definition of done is "at least one topic×skill cell satisfies
+`DECISION-0074`'s 2 MCQ + 1 FRQ bar." Whether that is *reachable* is arithmetic, and it is knowable
+before a single AI-Gateway call: a subject's published items spread across a grid of N cells can only
+produce masterable cells if items concentrate. Statistics is the warning case — its 203 existing
+skill-coded rows collapse to roughly **11 distinct cells out of 131**, which is what a thin spread
+looks like. A full paid labeling run that ends schema-complete and mastery-empty satisfies §2 and
+fails §10, and no amount of labeling quality fixes it, because the cause is grid size, not labels.
+
+Per subject, read-only, no writes and no gateway spend:
+
+1. Count published items by type (MCQ, FRQ) for the subject.
+2. Count the candidate grid size N the Phase A curation would produce (topics × plausible skills per
+   topic from the fact pack — an estimate is fine here).
+3. Compute items-per-cell for each type. A cell needs **2 MCQ and 1 FRQ**, so the binding constraint
+   is usually FRQ: if `published_FRQ / N < 1`, then *even perfectly uniform* labeling cannot make
+   most cells masterable, and a uniform spread is the optimistic case.
+4. Record the numbers as evidence (counts + the query used), and state the implied ceiling: the
+   maximum number of masterable cells this subject can reach at that grid size.
+
+**Grid size is a free variable, and this plan previously treated it as fixed by the CED.** Where the
+arithmetic says the CED-faithful grid cannot produce a masterable cell, the correct response is a
+**deliberately coarser grid** — fewer, broader cells, so items concentrate — not a labeling run that
+cannot succeed. Coarsening is a product decision (it changes what "mastery of a skill" means to a
+student) and belongs to David, not to the executing session. Surface the number and the recommended
+grid size; do not silently pick one.
+
+**Open decision, not resolved by this plan — provisional topics under provisional skills.** Both
+launch subjects' *topic* assignments are themselves `assignment_status='provisional_model'`
+(unratified AI proposals: Biology's ~112 rows, Statistics' 181 seeded rows). If Phase B writes skill
+codes onto those rows, a resulting "masterable cell" rests on two unvalidated assertions stacked, and
+`DECISION-0074`'s bar is student-facing. **David to decide:** may a cell count toward mastery when its
+topic assignment is not yet `validated`, or does topic validation gate skill labeling for that item?
+Until this is answered, Phase B should record the topic's `assignment_status` alongside each skill
+label so the question can be answered retroactively rather than re-run.
 
 ## 6. Phase A — build each subject's topic × skill grid
 
@@ -137,6 +211,26 @@ as it was forked from `extend_math_serving_labels.mjs`) to:
 - Apply the confirm/correct discipline from §5: write, don't auto-promote; spot-check; promote with
   a record of who/what confirmed it.
 
+**Hard constraint — `is_primary`, the most likely way Phase B fails on its first insert.**
+`20260927004500_generalize_content_item_cells_topic_only.sql` added `is_primary boolean not null
+default true` plus a unique index `content_item_cells_one_primary_per_version` (one primary row per
+content item version). Most items targeted by Phase B **already have a primary topic-only row** (§2).
+A naive insert of a skill-coded row therefore takes the `is_primary` default of `true` and **violates
+that index**. Two legal shapes, and the subject's session must pick one explicitly:
+
+- **Add a secondary row** — insert the skill-coded row with `is_primary = false`, leaving the existing
+  topic-only primary in place. Safe, additive, reversible; the cell coverage lives on secondary rows.
+- **Enrich the existing primary** — UPDATE the existing primary row's `skill_code` in place (its
+  `topic_code` is already there), which keeps one row per item but mutates a row whose
+  `assignment_status`/`model_run_id` describe the *topic* pass, not the skill pass.
+
+The first is recommended; the second loses provenance. The unique constraint is
+`(content_item_version_id, topic_code, skill_code)` with `NULLS NOT DISTINCT`, so a topic-only row and
+a skill-coded row for the same topic coexist without collision. Precedent: the Statistics seed
+migration hit exactly this and documented its workaround
+(`20260927160000_seed_statistics_topic_labels_proposal.sql`, header notes) — read it before writing
+the insert.
+
 Run MCQ and FRQ as separate passes if that's operationally easier (Statistics already needs only
 the FRQ pass, since its MCQ pass exists and mostly succeeded — its 11 skill-coded cells came from
 MCQ-only labeling).
@@ -152,6 +246,8 @@ dependency. A session picking up a subject should be handed exactly:
   trusting this doc's table (fact packs get edited; this table is a snapshot from today).
 
 Per-subject checklist for that session:
+0. **§5a feasibility gate** — run the arithmetic first, record it, and stop for David if the implied
+   masterable-cell ceiling is zero at the candidate grid size. No gateway spend before this.
 1. Phase 0 (if flagged) — source and add the skills/practices section to the fact pack, with page
    citations. Stop and ask David if the primary CED can't be located.
 2. Phase A — curate and apply the grid to Dev. Flag any topic×skill curation call that isn't
@@ -191,6 +287,9 @@ to that subject's own `taxonomy_source_version`.
 - Published MCQs and FRQs for the subject carry `skill_code` (not just `topic_code`) in
   `content_item_cells`, with a recorded confirm/promote trail.
 - At least one topic×skill cell in the subject satisfies `DECISION-0074`'s mastery bar (2 MCQ + 1
-  FRQ), verified by ID, not by trusting the labeling script's own success message.
+  FRQ), verified by ID, not by trusting the labeling script's own success message — and counted from
+  rows with a **non-null** `skill_code` (§3: a NULL skill passes the FK silently).
+- §5a's feasibility numbers recorded for the subject, with the implied ceiling stated. If the ceiling
+  was zero and a coarser grid was adopted, David's decision on that grid size is cited.
 - GAP-10 entry updated with the subject's result, using the same evidence-first standard as every
   other verification in this project — no claim of completion without a primary-source check.
