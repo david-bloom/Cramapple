@@ -152,23 +152,27 @@ restriction, not a per-skill exclusion, and it does not remove 3.A-3.C from FRQ 
 - **6.F** Explain the connection between experimental results and chemical concepts, processes, or theories.
 - **6.G** Explain how potential sources of experimental error may affect the experimental results.
 
-## Topic-to-practice alignment — TASK-0050 Phase 0, PARTIAL (Units 6-9 only)
+## Topic-to-practice alignment — TASK-0050 Phase 0, COMPLETE (all 9 units)
 
-Source: CED "Course at a Glance" (Course Framework V.1 pp. 18-20, © 2024 College Board), supplied by
-David 2026-09-29. Each topic carries the Science Practice the CED aligns to it, so the topic × skill
+Source: CED "Course at a Glance" (Course Framework V.1 pp. 16-20, © 2024 College Board), supplied by
+David 2026-09-29 in two batches. Each topic carries the Science Practice the CED aligns to it, so the topic × skill
 grid is **transcribed rather than curated** for the units covered — the case `TASK-0050` §6.2 says to
 prefer.
 
-> **COVERAGE: Units 6-9 only (43 of 91 topics). Units 1-5 are NOT yet aligned** — their Course at a
-> Glance pages have not been supplied. Do not build the Chemistry grid from this section alone; see
-> "Still needed" below.
+**COVERAGE: complete — all 91 topics across all 9 units.** Units 6-9 were supplied first
+(2026-09-29), Units 1-5 in a second batch the same day.
 
-**Verification of this transcription.** The topic counts read from the captures are Unit 6: 9,
-Unit 7: 12, Unit 8: 11, Unit 9: 11. `app.taxonomy_topics` holds exactly 9, 12, 11 and 11 for those
-units. A miscount would almost certainly have broken that equality.
+**Verification of this transcription.** The per-unit topic counts read from the captures are 8, 7,
+13, 9, 11, 9, 12, 11, 11 for Units 1-9, totalling 91. `app.taxonomy_topics` holds exactly those nine
+counts and exactly 91 topics. A miscount in any unit would have broken that equality.
 
 | Unit | Topic → Practice |
 | --- | --- |
+| 1 — Atomic Structure and Properties | 1.1→5, 1.2→5, 1.3→2, 1.4→5, 1.5→1, 1.6→4, 1.7→4, 1.8→4 |
+| 2 — Compound Structure and Properties | 2.1→6, 2.2→3, 2.3→4, 2.4→4, 2.5→3, 2.6→6, 2.7→6 |
+| 3 — Properties of Substances and Mixtures | 3.1→4, 3.2→4, 3.3→3, 3.4→5, 3.5→4, 3.6→6, 3.7→5, 3.8→3, 3.9→2, 3.10→4, 3.11→4, 3.12→5, 3.13→2 |
+| 4 — Chemical Reactions | 4.1→2, 4.2→5, 4.3→3, 4.4→6, 4.5→5, 4.6→3, 4.7→1, 4.8→1, 4.9→5 |
+| 5 — Kinetics | 5.1→6, 5.2→5, 5.3→5, 5.4→5, 5.5→6, 5.6→3, 5.7→1, 5.8→5, 5.9→5, 5.10→3, 5.11→6 |
 | 6 — Thermochemistry | 6.1→6, 6.2→3, 6.3→6, 6.4→2, 6.5→1, 6.6→4, 6.7→5, 6.8→5, 6.9→5 |
 | 7 — Equilibrium | 7.1→6, 7.2→4, 7.3→3, 7.4→5, 7.5→6, 7.6→5, 7.7→3, 7.8→3, 7.9→6, 7.10→5, 7.11→5, 7.12→2 |
 | 8 — Acids and Bases | 8.1→5, 8.2→5, 8.3→5, 8.4→5, 8.5→5, 8.6→6, 8.7→2, 8.8→6, 8.9→5, 8.10→6, 8.11→2 |
@@ -177,8 +181,9 @@ units. A miscount would almost certainly have broken that equality.
 Every Chemistry topic in these units carries **exactly one** practice — unlike AP Calculus, where
 three topics (2.2, 5.12, 10.11) carry two.
 
-Exam weightings captured alongside, for authoring reference: Unit 6 7-9%, Unit 7 7-9%, Unit 8
-11-15%, Unit 9 7-9%.
+Exam weightings captured alongside, for authoring reference: Unit 1 7-9%, Unit 2 7-9%,
+**Unit 3 18-22%** (the heaviest unit in the course), Unit 4 7-9%, Unit 5 7-9%, Unit 6 7-9%,
+Unit 7 7-9%, **Unit 8 11-15%**, Unit 9 7-9%.
 
 **How the grid derives from this.** A topic's candidate skills are the sub-skills of its aligned
 practice — so a Practice 5 topic offers 5.A-5.F (six candidates), Practice 6 offers 6.A-6.G (seven),
@@ -186,13 +191,30 @@ Practice 2 offers 2.A-2.F (six), Practice 4 offers 4.A-4.D (four), Practice 3 of
 Practice 1 offers 1.A-1.B (two). No Chemistry sub-skill is marked *not assessed*, so none are
 excluded — unlike AP Calculus, which excludes 1.A, 1.B and 3.A.
 
-### Still needed
+### Practice distribution across the course
 
-The **Course at a Glance pages for Units 1-5** (48 of 91 topics: Unit 1 has 8, Unit 2 has 7, Unit 3
-has 13, Unit 4 has 9, Unit 5 has 11). Until those are supplied, a Chemistry grid could only be built
-for Units 6-9; the remaining 48 topics would have to offer all 28 skills as candidates, a 28-way
-choice per item against AP Statistics' 2.33-candidate average, and well below the granularity at
-which model agreement has been measured as trustworthy.
+Useful when sizing a labelling run, since a topic's candidate count is the size of its practice:
+
+| Practice | Sub-skills | Topics aligned to it |
+| --- | --- | --- |
+| 1 Models and Representations | 2 | 5 |
+| 2 Question and Method | 6 | 9 |
+| 3 Representing Data and Phenomena | 3 | 12 |
+| 4 Model Analysis | 4 | 14 |
+| 5 Mathematical Routines | 6 | 30 |
+| 6 Argumentation | 7 | 21 |
+| **Total** | | **91** |
+
+Practice 5 (Mathematical Routines) carries a third of the course, consistent with its 35-42% MCQ
+weighting recorded above.
+
+Mean candidates per topic is **5.31** — larger than AP Statistics' 2.33, so expect lower proposer
+agreement than Statistics' 85.6% on the eventual Phase B run, though far better than the 28-way
+choice that would apply without this alignment.
+
+**Phase 0 for AP Chemistry is complete.** Phase A (building `taxonomy_skills` and `taxonomy_cells`)
+can now be transcribed from this section plus the sub-skill list above. Phase B still requires the
+topic pass first: no AP Chemistry item currently carries a topic assignment.
 
 FRQ practice weighting: Practice 1, 2-4%; Practice 2, 10-16%; Practice 3, 8-16%; Practice 4, 5-9%; Practice 5, 43-53%; Practice 6, 15-24%.
 
