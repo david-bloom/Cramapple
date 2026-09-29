@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0061 — Execute TASK-0051 Open Hand Unification in Development — DECISION-0086
 - APPROVAL-0060 — Execute TASK-0050 Skill-Dimension Rollout in Development, with AI-Gateway Spend — DECISION-0085
 - APPROVAL-0059 — Execute TASK-0041 Purchase Funnel in Development — DECISION-0083
 - APPROVAL-0058 — Ship TASK-0039 BYOQ (Phases 1–2: Data Model, Typed Fallback, Phone/QR Capture, Practice Screen) to Production — DECISION-0084
@@ -31,6 +32,35 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## APPROVAL-0061 — Execute TASK-0051 Open Hand Unification in Development
+
+**Date:** 2026-09-29  
+**Approved By:** David Bloom  
+**Related Task:** `TASK-0051-OPEN-HAND-UNIFIED-ANSWER-KEY.md`  
+**Related Decision:** `DECISION-0086`  
+**Decision:** Approved
+
+Approves execution of TASK-0051 in Development/task-branch scope: amending `get_open_hand_item` to
+the entitlement-scoped access model with a view-only staff/QA bypass, making
+`open_hand_scoring_exclusions.learning_session_id` nullable, repointing the `open-hand-item` edge
+function at the RPC, consolidating the two competing branches onto one, Development migrations and
+Development function deploys, and the end-to-end Dev verification in the task's checklist.
+
+This approval does **not** authorize: any Production migration or function deploy; wiring the plate
+loop to live data for students; or changing the `open-hand-item` response contract (the list-vs-
+single-item disclosure question in TASK-0051 item 5) or the exclusion's version-vs-item keying
+(item 7) — both are frontend/integrity contract changes needing the Product Owner's confirmation
+first.
+
+_Correction, 2026-09-29: an earlier version of this entry also withheld authorization for "a
+workaround for the `evaluate-attempt` bundle-size limit." No such limit applies — it belongs to the
+Supabase MCP deploy tool, not the platform, and the function has been deployed to Production via the
+CLI. That clause is withdrawn; deploying `evaluate-attempt` to Development via the CLI is within this
+approval._
+
+_Numbering note: this entry took 0061 because `APPROVAL-0060` was then claimed by the unmerged PR
+#259. **#259 merged 2026-09-29**, so 0060 is on `main` and the sequence is correct._
 
 ## APPROVAL-0060 — Execute TASK-0050 Skill-Dimension Rollout in Development, with AI-Gateway Spend
 

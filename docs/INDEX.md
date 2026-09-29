@@ -49,6 +49,8 @@ decision that was on record.
 | Session bootstrap | `team_charter/CRAMAPPLE_SESSION_START.md` | Device-neutral entry point (governed: APPROVAL-0047 / DECISION-0054). |
 | Content taxonomy / labeling | `product/CONTENT_TAXONOMY_RATIONALIZATION_PLAN_2026_09_26.md`, `architecture/TAXONOMY_LABELING_PLAN_V3_2026_08_04.md` | Rationalization shipped 2026-09-27 (PR #208). |
 | Reviewer / admin portal | `product/QUESTION_AND_ANSWER_REVIEW_PORTAL_DESIGN.md`, `exam-buddy-wireframe` reviewer routes | **Still live — NOT legacy** (rebuild §10). |
+| **Open Hand (face-up answer key) + scoring exclusion** | `product/OPEN_HAND_BRANCH_RESOLUTION_PLAN_2026_09_29.md`, `tasks/TASK-0051-OPEN-HAND-UNIFIED-ANSWER-KEY.md` (backend), `tasks/TASK-0052-OPEN-HAND-FRONTEND-WIRING.md` (Lovable) | Built twice independently; resolved to one gated path by `DECISION-0086`. The RPC — not the edge function — is the security boundary. No student-facing exposure until TASK-0052 ships. |
+| Skill dimension (topic × skill grid, all 10 subjects) | `product/SKILL_DIMENSION_ROLLOUT_PLAN_2026_09_29.md`, `product/SKILL_DIMENSION_FEASIBILITY_2026_09_29.md`, `tasks/TASK-0050-SKILL-DIMENSION-ROLLOUT.md` | `DECISION-0085`. Mastery ceiling is `floor(published_MCQ / 2)` and grid-independent — schema parity, not a mastery unlock. |
 
 ---
 

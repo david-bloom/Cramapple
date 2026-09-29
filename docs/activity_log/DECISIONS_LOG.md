@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0086 — Open Hand Resolves to One Gated Path: Entitlement-Scoped Access With a Mandatory Exclusion Write (Staff/QA Exempt), Unified on `get_open_hand_item`; the Work Is TASK-0051
 - DECISION-0085 — Skill-Dimension Labels Are Validated by Model Consensus (≥2 of 3), Not Human Review; Frontier Proposer Pair Plus Blind Adjudicator; Extends DECISION-0066 to `skill_code`
 - DECISION-0084 — TASK-0039 BYOQ Ships to Production (Phases 1–2): Launch Defaults for the Eight "New Gaps" (No Entitlement Gate, Quotas, 30-Day Anonymous Retention, Consent Copy, Private-Only, Stuck-Routing and Hints Deferred); Phase 3 Remains Blocked
 - DECISION-0083 — Begin TASK-0041 Payment Flow Now; Set Pricing to $39.99 / $69.99 / $89.99; October 2 Free Launch Unchanged
@@ -37,6 +38,74 @@ Most recent entries (full chronological list follows below):
 (Note: the same collision recurred 2026-09-26. The `claude/launch-planning-cram-4oyh2g` branch independently claimed DECISION-0068 through 0072 for five launch-planning decisions, not knowing `main` had already recorded its own DECISION-0068 (BYOQ parallel tables, TASK-0039 Phase 1) by the time this branch merged. Per the rule above, this branch — the later-merging side — renumbered its five decisions to DECISION-0069 through 0073 at merge time; main's DECISION-0068 is untouched. If you are reading an older copy of any of the five renumbered decisions (in a plan doc, a chat log, or a stale local checkout) under its original 0068-0072 number, this is why the number no longer matches — the content is unchanged, only the ID moved.)
 
 <!-- INDEX_END -->
+
+## DECISION-0086 — Open Hand Resolves to One Gated Path: Entitlement-Scoped Access With a Mandatory Exclusion Write, Unified on `get_open_hand_item`
+
+**Date:** 2026-09-29
+**Decision Owner:** David Bloom
+**Status:** Approved (direction given in session, 2026-09-29)
+**Approval:** `APPROVAL-0061`
+**Related Task:** `docs/tasks/TASK-0051-OPEN-HAND-UNIFIED-ANSWER-KEY.md`
+**Related Docs:** `docs/product/OPEN_HAND_BRANCH_RESOLUTION_PLAN_2026_09_29.md`; `docs/product/PLATE_LOOP_BUILD_PLAN_2026_09_27.md` (on PR #256); `DECISION-0080` (the four gated aids count as pre-submission hint use)
+**Area:** Open Hand / answer-key exposure / scoring integrity
+
+_Numbering note: this entry took 0086 because `DECISION-0085` was, at the time of writing, claimed by the skill-dimension rollout on the then-unmerged PR #259. **#259 merged 2026-09-29 (`25c18e7c`)**, so 0085 is now on `main` and the sequence is correct with no renumbering needed._
+
+### Context
+
+Open Hand was built twice, independently, by agents that could not see each other's work — one
+branch (`codex/task-0049-open-hand-answer-key`) was local-only until 2026-09-29. The two designs
+disagreed on what the risk is. PR #256's `open-hand-item` serves the answer key and writes nothing,
+reasoning that "practice/exam grading never calls this function." That is true of code paths but
+does not address the **student**: nothing stopped a student reading item X's key and then being
+scored on item X. The codex branch treated the student as the risk and added an exclusion table plus
+a `409` refusal in `evaluate-attempt`. `DECISION-0080` — under which rubric, how-points, deep dive
+and reference all count as pre-submission hint use — supports the codex framing, since Open Hand
+exposes strictly more than those four aids.
+
+### Decided
+
+1. **D1 (c) — Access is entitlement-scoped, with a mandatory exclusion write.** Any authenticated
+   user with an active entitlement for the item's subject may view, on a servable pack. Staff/QA
+   roles may view and are **exempt from the exclusion write**. Chosen over the codex branch's
+   session-scoped rule (which removes reviewer/QA access entirely) and over #256's entitlement rule
+   (which leaves the gap open).
+2. **D2 (a) — Unify on the RPC.** `open-hand-item` calls `public.get_open_hand_item` instead of
+   reading `mcq_choices` / `frq_criteria` / `canonical_answer_spans` directly. The exclusion insert
+   and the key read then happen in one statement, leaving no window in which a student has seen the
+   key but no exclusion row exists. Rejected: bolting a separate write onto the edge function, which
+   reintroduces that window and leaves two code paths to the same answer data to keep in sync.
+3. **D3 — The work is TASK-0051.** TASK-0050 now belongs to the skill-dimension rollout.
+
+### Consequences recorded at decision time
+
+- The existing RPC implements D1 (a), not D1 (c); its access predicate must be rewritten and a
+  view-only staff/QA bypass added.
+- **`app.open_hand_scoring_exclusions.learning_session_id` is `NOT NULL`** (verified in Dev,
+  2026-09-29). Entitlement-scoped callers may have no learning session, so this column must become
+  nullable — otherwise D1 (c) collapses back into D1 (a) in practice.
+- ~~`evaluate-attempt` cannot currently be deployed to either environment~~ — **withdrawn
+  2026-09-29** after independent review (Fable) falsified it. The 200,000-byte limit belongs to the
+  Supabase MCP `deploy_edge_function` tool, not the platform; `evaluate-attempt` was deployed to Dev
+  and Production via the CLI on 2026-09-27 (Production v61; v66 today). There is no bundle blocker
+  and nothing needs splitting. Deploy with the CLI and an explicit `--workdir`.
+- The RPC, not the edge function, is the real security boundary: it is granted `execute` to
+  `authenticated`, so students can call it directly through PostgREST. The entitlement predicate and
+  the staff/QA exemption must therefore live in SQL, reading the role from `app.profiles`, and the
+  exemption must never be a caller-supplied flag.
+- `open-hand-item` is a **list** endpoint (up to 50 items) while the RPC is single-item. Looping the
+  RPC across a listed page would permanently exclude ~20 items per screen load — enough to burn AP
+  Biology's entire 43-item MCQ pool in two loads. The disclosure contract must be settled before
+  implementation; TASK-0051 records the recommendation (list without keys, one RPC per item actually
+  opened) and flags it as needing Product Owner confirmation because it changes a frontend contract.
+
+### Severity, as established by the plan's Step 0
+
+No student-facing exposure exists today. `open-hand-item` is deployed in Dev with **no caller**; the
+Open Hand screens are demo-only components fed local sample content that make no network call; Dev's
+exclusions table holds 0 rows; Production has no `open-hand-item`. The gap becomes real when the
+plate loop is wired to live data, so **the exclusion mechanism must land in the same change as that
+wiring**, not afterwards. This decision is a sequencing commitment, not an incident response.
 
 ## DECISION-0085 — Skill-Dimension Labels Are Validated by Model Consensus (≥2 of 3), Not Human Review; Frontier Proposer Pair Plus Blind Adjudicator
 
