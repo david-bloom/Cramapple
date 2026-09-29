@@ -1,5 +1,9 @@
 import { jsonResponse, readJsonBody } from "../_shared/http.ts";
-import { addonCustomerOptions } from "../_shared/addon-checkout.ts";
+import {
+  addonCustomerOptions,
+  isPayerNotLearner,
+  purchaserTypeFromMetadata,
+} from "../_shared/addon-checkout.ts";
 import { createServiceClient } from "../_shared/supabase.ts";
 import { stripe } from "../_shared/stripe.ts";
 
@@ -40,7 +44,9 @@ Deno.serve(async (req) => {
   const service = createServiceClient();
   const { data: source, error: sourceError } = await service.schema("app")
     .from("stripe_checkout_sessions")
-    .select("id,user_id,mode,payment_status,subject_keys")
+    .select(
+      "id,user_id,mode,payment_status,subject_keys,metadata:payload->metadata",
+    )
     .eq("id", sourceSessionId)
     .maybeSingle();
   if (sourceError) {
@@ -48,7 +54,10 @@ Deno.serve(async (req) => {
   }
   if (
     !source || source.payment_status !== "paid" || source.mode !== "single" ||
-    !source.user_id
+    !source.user_id ||
+    isPayerNotLearner(
+      purchaserTypeFromMetadata(source.metadata as Record<string, unknown>),
+    )
   ) {
     return respond({ error: "addon_not_eligible" }, { status: 409 });
   }

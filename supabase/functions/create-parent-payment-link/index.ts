@@ -114,8 +114,9 @@ Deno.serve(async (req) => {
   try {
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
+      // No setup_future_usage: the parent's card is never saved for reuse
+      // (DECISION-0090). The Customer still carries the parent's receipt.
       customer_creation: "always",
-      payment_intent_data: { setup_future_usage: "off_session" },
       line_items: [{ price: priceId, quantity: 1 }],
       ...(promotionCodeId
         ? { discounts: [{ promotion_code: promotionCodeId }] }
