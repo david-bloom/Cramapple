@@ -72,14 +72,15 @@ picker sends visitors to `app.cramapple.com/home?subject=…`, which bounces the
    Subject Selection → Checkout flow. — *"follow the guidance in the spec"*
 5. **Parent-facing screens show the student's first name only**, never the email (masked or not). —
    *"yes, just show the name"*
+6. **Checkout trust line is "Secure payment powered by Stripe"** (spec A3), not the source doc's "Secure
+   256-Bit Encrypted Checkout". — *"\"Secure payment powered by Stripe\"."*
+7. **No live test** of the invited-student 6-digit-code sign-in is required. — *"No live test"*
 
 ### Not decided / still gated
 
 - Disabling the password provider in Supabase Auth and editing the Auth email template for 6-digit codes
   are auth-config changes: Development is covered by `APPROVAL-0059`; Production stays a Hard Gate.
 - Live Stripe changes, Production deploys, and paid-sales enablement stay behind Phase E.
-- The source doc still asks for "Secure 256-Bit Encrypted Checkout"; spec A3's "Secure payment powered by
-  Stripe" is unchanged pending a Product Owner call.
 
 ### Consequences
 

@@ -1228,7 +1228,7 @@ Recommendation:
 - introduce `parent_share` for the new funnel;
 - use "Ask a Parent to Pay" in UI.
 
-## A3. Avoid the phrase "256-bit encrypted checkout"
+## A3. Avoid the phrase "256-bit encrypted checkout" — RESOLVED 2026-09-29 (`DECISION-0090`): use "Secure payment powered by Stripe"
 
 The supplied design calls for "Secure 256-Bit Encrypted Checkout." Unless Cramapple has a precise, verified basis for that claim, a safer trust message is:
 
