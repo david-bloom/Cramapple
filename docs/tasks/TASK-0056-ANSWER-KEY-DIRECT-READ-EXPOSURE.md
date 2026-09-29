@@ -1,6 +1,6 @@
 # TASK-0056 — Close Direct Reads of Answer Keys
 
-**Status:** Not Started. **Launch gating for October 2** (`DECISION-0089`).
+**Status:** In Progress. Step 1 (reader inventory) is done, 2026-09-29. **Launch gating for October 2** (`DECISION-0089`).
 **Tier:** Hard-Gate (Production grant changes and a data-exposure fix)
 **Owner:** TBD (single agent, single branch)
 **Product Owner:** David Bloom
@@ -66,7 +66,7 @@ does not touch them. Production has had zero student attempts, so there is no si
 | `mcq_choices.is_correct / rationale` | Never student-readable | Unchanged (already revoked) |
 | `canonical_answer_spans.*` | Never student-readable | Unchanged (already revoked) |
 
-`help_text` is also column-granted. Classify it in step 1 before deciding whether it stays.
+`help_text`: **classified student-visible (step 1).** In Production, 254 published versions carry it, and it is generic coaching ("Correct the first invalid mathematical step, then recompute…"), not answer content. It keeps its grant.
 
 ## Plan
 
@@ -85,17 +85,66 @@ Before any grant changes, find every caller of these columns that runs as `authe
 For each reader, record the file, the column, the role, and what replaces it. If every reader is covered
 by step 3's replacements, proceed. If not, add the missing route to step 3 before revoking.
 
+#### Step 1 result: reader inventory (2026-09-29, read-only)
+
+**Verdict: one reader breaks, and it is a reviewer screen, not a student one.** No student-facing or
+anonymous path reads a column this task revokes.
+
+| Reader | What it reads | Login it uses | Breaks on revoke? |
+| --- | --- | --- | --- |
+| Lovable app `56cae479`, `src/lib/review.functions.ts` (`getReviewTask`, fallback path for a submitted or closed assignment) | `content_item_versions`: `id, version_num, stem, stimulus, stimulus_image_path, explanation, item_type, frq_form, review_status, content_key` | User-scoped (`context.supabase`: publishable key plus the caller's token) | **Yes.** The whole select fails, not just the column. The error is ignored, so the reviewer sees an empty stem and stimulus. The same code is in `exam-buddy-wireframe` (`src/lib/review.functions.ts:215`). |
+| Same file, FRQ criteria | `frq_criteria`: `criterion_key, learner_facing_text, points_possible` | User-scoped | No |
+| Same file, `get_review_mcq_choices` RPC | `is_correct`, `rationale` | SECURITY DEFINER, gated on an assignment or admin | No |
+| `src/lib/use-published-mcq.ts` (`PUBLISHED_MCQ_SELECT`; also used by `use-session.ts`, `live-practice-mcq/session.ts`) | `stem, stimulus, …, mcq_choices!inner(id,choice_key,choice_text)` | User-scoped | No |
+| `src/lib/course-mode/confirm-transfer-api.ts` | `mcq_choices`: `id, choice_key, choice_text` | User-scoped | No |
+| `src/lib/dashboard.functions.ts` (`loadContentInventory`) | `content_item_versions`: `content_item_id, version_num, review_status` | User-scoped (admin via RLS) | No |
+| `src/routes/admin.grade-response.$attemptId.tsx` | `frq_criteria`: safe columns only | User-scoped | No |
+| `src/lib/homework-help/graded-feedback.ts` (`fetchRevealedKey`) | `mcq_choices`: `choice_key, is_correct` | User-scoped | **Already failing** (`is_correct` was revoked earlier). Production logs show the 400. The error is swallowed, so the post-grade correct-answer reveal never shows. |
+| Lovable marketing `61dd6602-6991-4561-b418-e988bb7c8a0b` | None of these tables | — | No |
+| Edge functions in this repo (`evaluate-attempt`, `student-session-items`, `review-queue`, `admin-content`, `review-decision`) | Answer columns | Service role | No |
+| DB functions reading these columns as the caller | `app.cm_d19_release_template`, `app.cm_d19_revoke_template_release` (`item_package_payload`) | SECURITY INVOKER, operator-run template release | No for the app. Operators run them as `postgres`/service role. (Side note: both are executable by `anon`/`authenticated`; they only work with table privileges those roles lack.) |
+| `anon` | — | — | No: `anon` holds no column grants on these tables today. |
+
+**Production traffic** (edge logs; windows read: 2026-09-22/23, 2026-09-27/28, and 2026-09-29 to 19:05 UTC;
+two other windows failed to load). Every request that selected an answer column used the **service-role**
+key: `evaluate-attempt`'s reads of `frq_criteria.evidence_requirements/minimum_fix/accepted_variants` and
+`mcq_choices.is_correct/rationale`. Publishable-key requests selected only safe columns, plus the
+already-failing `graded-feedback.ts` read above.
+
+**Found in passing (pre-existing, not caused by this task):**
+- The app calls `get_chosen_distractor_rationale` (`use-session.ts`) and `get_graded_choice_feedback`
+  (`graded-feedback.ts`). **Neither function exists in Production or Development.** Both callers swallow
+  the error, so post-grade distractor rationales and graded-choice feedback silently never appear. This
+  belongs to TASK-0053's feedback surface, not here, but should be checked before launch.
+- `evaluate-attempt` selects `explanation` (`index.ts:1389`) but never returns it. **No student sees the
+  explanation anywhere today.** So under decision 2 (post-submission only), revoking loses nothing, and
+  showing it after grading is new work, not a replacement.
+- A code comment in the app's `dashboard.functions.ts` says Production has no
+  `SUPABASE_SERVICE_ROLE_KEY` for the app's server functions. If so, every `supabaseAdmin` path there is
+  already broken (`gradeAttemptFn`, `loadDashboardOverview`, the phone half of `capture.functions.ts`).
+  Unverified; out of scope.
+
+Audit coverage: 96 Lovable files read (85 app, 11 marketing; tests, generated types and static
+marketing/auth routes skipped); `exam-buddy-wireframe` searched in full.
+
 ### 2. Confirm the replacement paths exist
 
-- **Post-submission explanation.** Confirm the grading response (`evaluate-attempt`) already returns
-  `explanation`, or add it there, since it runs as service role. The app reads it from the grade and not
-  from the table.
+- **Post-submission explanation.** *Step 1 finding:* `evaluate-attempt` does **not** return it today, and
+  no student path shows it, so nothing needs replacing for the revoke. If the product wants it after
+  grading, add it to the grading response (service role). That is optional new work, not a launch
+  blocker.
 - **FRQ rubric as a hint.** Confirm the hint flow serves rubric fields and records the event
   (`assistance_state` / `pre_submit_hint_count`). If it currently reads `frq_criteria` directly from the
   client, move that read server-side.
-- **Reviewer portal.** If it reads these columns directly, route it through `SECURITY DEFINER` functions
-  gated on an active review assignment or `role='admin'`, read from `app.profiles`. The precedent is
-  `public.get_review_mcq_choices`.
+- **Reviewer portal. Required: this is the one reader that breaks.** Add
+  `public.get_review_item_version(p_content_item_version_id uuid)`: SECURITY DEFINER, `search_path`
+  pinned, execute to `authenticated` only. It is gated exactly like `get_review_mcq_choices` (an active
+  review assignment for the caller, or `role='admin'` read from `app.profiles`) and returns the columns
+  `getReviewTask` selects today, including `explanation`. Switch `review.functions.ts` to it in the
+  Lovable app, and also in `exam-buddy-wireframe` if that portal is still in use. Ship the function and
+  the app change **before** the revoke. The app change is a Lovable edit and needs its own go-ahead.
+- **FRQ rubric as a hint.** *Step 1 finding:* no user-scoped reader selects the rubric columns, so the
+  revoke breaks nothing. Pre-submission rubric display, if the product wants it, is new hint-flow work.
 
 ### 3. The migration (Development first, then Production, one approval each)
 
@@ -152,7 +201,7 @@ Fold in the other two QA findings and re-run QA:
 
 ## Verification
 
-- [ ] Step 1 inventory recorded in this file: every reader, its role, and its replacement.
+- [x] Step 1 inventory recorded in this file: every reader, its role, and its replacement (2026-09-29).
 - [ ] `explanation` reaches students only through the grading response, after submission.
 - [ ] FRQ rubric fields reach students only through the hint flow, and use is recorded.
 - [ ] Reviewer portal still works for an assigned reviewer and for an admin, and refuses an unassigned
@@ -171,7 +220,6 @@ Fold in the other two QA findings and re-run QA:
 
 ## Open questions
 
-- `help_text`: classify it in step 1 (a hint aid, or safe to show).
 - Once the column grants are revoked, does any student-facing flow still need direct `SELECT` on
   `app.content_item_versions` at all? If none does, revoking table-level access and serving items only
   through edge functions is the simpler long-term shape. That would be a follow-up, not this task.
