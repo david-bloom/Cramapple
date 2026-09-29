@@ -22,3 +22,22 @@ Transcribed into `docs/product/AP_CALCULUS_AB_BC_CED_FACT_PACK.md` under "Practi
 **Transcription check that passed:** the captures yield 87 topics across Units 1-8, six of them
 BC-only, predicting AB = 81 and BC = 111. Production holds exactly 81 and 111. A miscount would
 almost certainly have broken that equality.
+
+## AP Chemistry
+
+Supplied by David Bloom, 2026-09-29. Captures of the *AP Chemistry Course and Exam Description*,
+Course Framework V.1, © 2024 College Board — the same Fall 2024 edition recorded in
+`AP_CHEMISTRY_CED_FACT_PACK.md`'s Source control section.
+
+| File | CED page | What was taken from it |
+| --- | --- | --- |
+| `chem_science_practices_1_3.png` | Course Framework V.1 p. 12 | Practices 1-3 and their sub-skills (1.A-1.B, 2.A-2.F, 3.A-3.C) |
+| `chem_science_practices_4_6.png` | Course Framework V.1 p. 13 | Practices 4-6 and their sub-skills (4.A-4.D, 5.A-5.F, 6.A-6.G) |
+
+28 sub-skills total, **none marked not assessed** — unlike AP Calculus, where the CED excludes 1.A,
+1.B and 3.A. Practice 3 being absent from the MCQ weighting is a section-level restriction, not a
+per-skill exclusion.
+
+**Not yet supplied for Chemistry:** the "Course at a Glance" pages carrying each topic's practice
+tag. Those are what made the Calculus grid a transcription rather than a curation; without them a
+Chemistry grid would offer all 28 skills against each of 91 topics.
