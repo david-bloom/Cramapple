@@ -2,6 +2,10 @@ import { jsonResponse } from "../_shared/http.ts";
 import { createServiceClient } from "../_shared/supabase.ts";
 import { recordGrowthEvent } from "../_shared/growth-events.ts";
 import { stripe, verifyStripeWebhookEvent } from "../_shared/stripe.ts";
+import {
+  webhookDeliveryDisposition,
+  type WebhookLedgerStatus,
+} from "../_shared/stripe-webhook-ledger.ts";
 
 function requireEnv(name: string) {
   const value = Deno.env.get(name);
@@ -28,6 +32,11 @@ type CheckoutSessionObject = {
   amount_total?: number | null;
   currency: string | null;
   payment_status?: string | null;
+  customer?: string | { id?: string } | null;
+  payment_intent?:
+    | string
+    | { id?: string; payment_method?: string | { id?: string } | null }
+    | null;
   metadata: Record<string, string> | null;
   discounts?:
     | Array<{
@@ -136,6 +145,7 @@ async function retrieveCheckoutSession(session: CheckoutSessionObject) {
         "discounts.coupon",
         "discounts.promotion_code",
         "total_details.breakdown",
+        "payment_intent.payment_method",
       ],
     }) as unknown as CheckoutSessionObject;
   } catch (error) {
@@ -232,13 +242,11 @@ async function findAuthUserByEmail(service: Service, email: string) {
   return null;
 }
 
-// Parent-gift checkout has no client_reference_id - the buyer never signed
-// in. This resolves (or creates, via a branded Supabase invite email) the
-// student's own account so entitlements land on the student, not the
-// parent. app.handle_new_user grants the default 'student' role and seeds
-// full_name from raw_user_meta_data.full_name, so no separate profile
-// write is needed here.
-async function resolveGiftStudentUserId(
+// Anonymous student-direct and parent-share/gift checkouts have no verified
+// client_reference_id. Resolve (or create, via a branded Supabase invite)
+// the learner's account from server-carried Stripe metadata so entitlement
+// ownership never follows the payer.
+async function resolveCheckoutStudentUserId(
   service: Service,
   metadata: Record<string, string>,
 ) {
@@ -269,6 +277,32 @@ async function resolveGiftStudentUserId(
   return invited.id;
 }
 
+async function persistStripeCustomer(
+  service: Service,
+  session: CheckoutSessionObject,
+  userId: string,
+) {
+  const stripeCustomerId = objectId(session.customer);
+  if (!stripeCustomerId) return;
+
+  const paymentIntent = session.payment_intent;
+  const paymentMethodId = paymentIntent && typeof paymentIntent === "object"
+    ? objectId(paymentIntent.payment_method)
+    : null;
+
+  const { error } = await service.schema("app").from("stripe_customers").upsert(
+    {
+      user_id: userId,
+      stripe_customer_id: stripeCustomerId,
+      default_payment_method_id: paymentMethodId,
+      source_checkout_session_id: session.id,
+      updated_at: new Date().toISOString(),
+    },
+    { onConflict: "user_id" },
+  );
+  if (error) throw error;
+}
+
 async function handleCheckoutSessionCompleted(
   service: Service,
   session: CheckoutSessionObject,
@@ -276,9 +310,13 @@ async function handleCheckoutSessionCompleted(
   eventType: CheckoutStatus,
 ) {
   const metadata = session.metadata ?? {};
+  const purchaseType = metadata.purchase_type ?? metadata.purchaser_type ?? "";
+  const resolvesStudentByEmail = purchaseType === "parent_gift" ||
+    purchaseType === "parent_share" ||
+    purchaseType === "student_direct";
   const userId = session.client_reference_id ??
-    (metadata.purchase_type === "parent_gift"
-      ? await resolveGiftStudentUserId(service, metadata)
+    (resolvesStudentByEmail
+      ? await resolveCheckoutStudentUserId(service, metadata)
       : null);
   if (!userId) {
     throw new Error("checkout_session_missing_client_reference_id");
@@ -329,7 +367,9 @@ async function handleCheckoutSessionCompleted(
     }
 
     const hadDiscount = Boolean(session.total_details?.amount_discount);
-    const source = mode === "single"
+    const source = metadata.purchase_type === "post_purchase_addon"
+      ? "stripe_checkout_addon"
+      : mode === "single"
       ? (hadDiscount
         ? "stripe_checkout_single_coupon"
         : "stripe_checkout_single")
@@ -346,6 +386,8 @@ async function handleCheckoutSessionCompleted(
       });
     }
   }
+
+  await persistStripeCustomer(service, session, userId);
 
   await recordGrowthEvent(service, {
     eventName: "purchase_completed",
@@ -520,22 +562,59 @@ Deno.serve(async (req) => {
 
   const service = createServiceClient();
 
-  // Idempotency ledger: insert-first on the Stripe event id. A primary-key
-  // conflict means this event was already received (redelivery or a
-  // concurrent delivery) - acknowledge without reprocessing.
+  // Insert-first preserves idempotency. A redelivery may claim a prior failed
+  // attempt (or one abandoned for at least five minutes), but processed events
+  // and active concurrent attempts never run twice.
+  const attemptStartedAt = new Date().toISOString();
   const { error: ledgerError } = await service.schema("app")
     .from("stripe_webhook_events")
     .insert({
       id: event.id,
       event_type: event.type,
       payload: JSON.parse(rawBody),
+      status: "processing",
+      attempt_count: 1,
+      last_attempt_at: attemptStartedAt,
     });
   if (ledgerError) {
     if (ledgerError.code === "23505") {
-      return respond({ status: "ok", duplicate: true });
+      const { data: claimed, error: claimError } = await service.schema("app")
+        .rpc("claim_stripe_webhook_event", { p_event_id: event.id });
+      if (claimError) {
+        console.error("stripe-webhook ledger_claim_failed", claimError);
+        return respond({ error: "ledger_claim_failed" }, { status: 500 });
+      }
+      if (!claimed) {
+        const { data: existing, error: existingError } = await service.schema(
+          "app",
+        ).from("stripe_webhook_events")
+          .select("status,processed_at")
+          .eq("id", event.id)
+          .maybeSingle();
+        if (existingError || !existing) {
+          console.error(
+            "stripe-webhook ledger_status_failed",
+            existingError,
+          );
+          return respond({ error: "ledger_status_failed" }, { status: 500 });
+        }
+        const disposition = webhookDeliveryDisposition({
+          status: existing.status as WebhookLedgerStatus | null,
+          processedAt: existing.processed_at,
+        });
+        if (disposition === "retryable") {
+          return respond({ error: "ledger_claim_race" }, { status: 500 });
+        }
+        return respond({
+          status: "ok",
+          duplicate: disposition === "already_processed",
+          processing: disposition === "in_progress",
+        });
+      }
+    } else {
+      console.error("stripe-webhook ledger_insert_failed", ledgerError);
+      return respond({ error: "ledger_write_failed" }, { status: 500 });
     }
-    console.error("stripe-webhook ledger_insert_failed", ledgerError);
-    return respond({ error: "ledger_write_failed" }, { status: 500 });
   }
 
   try {
@@ -577,9 +656,20 @@ Deno.serve(async (req) => {
       throw new Error(`unsupported_stripe_event_type:${event.type}`);
     }
 
-    await service.schema("app").from("stripe_webhook_events")
-      .update({ processed_at: new Date().toISOString() })
+    const { error: processedLedgerError } = await service.schema("app").from(
+      "stripe_webhook_events",
+    )
+      .update({
+        status: "processed",
+        processed_at: new Date().toISOString(),
+        processing_error: null,
+      })
       .eq("id", event.id);
+    if (processedLedgerError) {
+      throw new Error(
+        `webhook_ledger_mark_processed_failed:${processedLedgerError.message}`,
+      );
+    }
 
     return respond({ status: "ok" });
   } catch (error) {
@@ -588,7 +678,10 @@ Deno.serve(async (req) => {
       : "stripe_webhook_processing_failed";
     console.error("stripe-webhook processing_failed", error);
     await service.schema("app").from("stripe_webhook_events")
-      .update({ processing_error: message.slice(0, 500) })
+      .update({
+        status: "failed",
+        processing_error: message.slice(0, 500),
+      })
       .eq("id", event.id);
     return respond({ error: "processing_failed" }, { status: 500 });
   }

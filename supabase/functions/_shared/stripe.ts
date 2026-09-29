@@ -16,8 +16,14 @@ function requireEnv(name: string) {
 const STRIPE_SECRET_KEY = requireEnv("STRIPE_SECRET_KEY");
 
 export const stripe = new Stripe(STRIPE_SECRET_KEY, {
+  // Checkout Sessions with ui_mode: "elements" requires Dahlia or newer.
+  // Pin the minimum compatible version so Development/Production do not
+  // silently inherit an older account default.
+  apiVersion: "2026-03-25.dahlia" as Stripe.LatestApiVersion,
   httpClient: Stripe.createFetchHttpClient(),
 });
+
+const stripeCryptoProvider = Stripe.createSubtleCryptoProvider();
 
 // Deno has no synchronous Node crypto, so signature verification must use
 // the async variant (constructEventAsync uses SubtleCrypto under the hood).
@@ -33,5 +39,7 @@ export async function verifyStripeWebhookEvent(
     rawBody,
     signatureHeader,
     webhookSecret,
+    undefined,
+    stripeCryptoProvider,
   );
 }

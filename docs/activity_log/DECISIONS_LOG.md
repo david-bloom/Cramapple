@@ -7,7 +7,7 @@ This log records product, architecture, operating, security, design, and workflo
 Most recent entries (full chronological list follows below):
 
 - DECISION-0084 — TASK-0039 BYOQ Ships to Production (Phases 1–2): Launch Defaults for the Eight "New Gaps" (No Entitlement Gate, Quotas, 30-Day Anonymous Retention, Consent Copy, Private-Only, Stuck-Routing and Hints Deferred); Phase 3 Remains Blocked
-- DECISION-0083 — Begin TASK-0041 Payment Flow Implementation Now, in Advance of the October 2 Free Launch; Launch Shape Itself Unchanged
+- DECISION-0083 — Begin TASK-0041 Payment Flow Now; Set Pricing to $39.99 / $69.99 / $89.99; October 2 Free Launch Unchanged
 - DECISION-0082 — No Fixed Quantity Targets Outside AP Biology; Maximize Safe Student Usability of Current Published Inventory
 - DECISION-0081 — Lean Source-of-Truth Startup Mode: Tier-First Session-Start Reading for Codex and Claude, `AGENTS.md` Search Discipline, and Log `INDEX_END` Markers
 - DECISION-0080 — `DECISION-0074` Addendum: the Four Gated Aids (Rubric, Points, Deep Dive, Reference) All Count as Pre-Submission Hint Use for Mastery; Approves Rebuilding `SessionFrame`'s Live Hint Gating to Match (Workstream B1 of the "Gate the Four Aids" Plan)
@@ -121,6 +121,8 @@ turned on. Every Hard-Gate boundary in that plan and in TASK-0041 itself still a
 live Stripe catalog/config writes, live-mode secret changes, Production migrations/deployment, and
 enabling paid sales all still require separate, explicit Product Owner approval. Nothing here
 authorizes turning on payment gating for October 2 or moves that date.
+
+Approved paid pricing is **$39.99** for one subject, **$69.99** for two subjects, and **$89.99** for three subjects. These values supersede `DECISION-0069`; unlimited remains deferred unless separately decided.
 
 ## DECISION-0082 — No Fixed Quantity Targets Outside AP Biology; Maximize Safe Student Usability of Current Published Inventory
 
