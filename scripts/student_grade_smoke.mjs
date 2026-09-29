@@ -37,7 +37,12 @@ let failures = 0;
 const check = (label, ok, detail = "") => {
   console.log(`${ok ? "PASS" : "FAIL"}  ${label}${ok ? "" : `\n      ${detail}`}`);
   if (!ok) failures++;
+  return Boolean(ok);
 };
+
+// Set only when main() runs to its last check. An early return must never
+// read as a pass.
+let completed = false;
 
 // Secret keys are not JWTs, so they go in the apikey header. Sending one as a
 // bearer token authenticates as anon and the call silently under-reads.
@@ -298,10 +303,14 @@ async function main() {
   check("feedback reflects the distractor the student actually chose",
     Boolean(summary) && summary.includes(target.wrong.rationale.replace(/\.$/, "").slice(0, 40)),
     `summary did not contain the authored rationale`);
+  completed = true;
 }
 
 main()
   .then(() => {
+    if (!completed && failures === 0) {
+      check("the test ran to completion", false, "main() returned before the final checks");
+    }
     console.log(failures === 0 ? "\nALL CHECKS PASSED" : `\n${failures} CHECK(S) FAILED`);
     process.exit(failures === 0 ? 1 * 0 : 1);
   })
