@@ -1,0 +1,17 @@
+-- TASK-0050 Phase A — AP Calculus AB topic x skill grid. DECISION-0088.
+-- Applied to Production 2026-09-29; recorded here for the migration ledger.
+-- See the applied statement in the Supabase migration of the same name.
+--
+-- Option 3 (full sub-skill grid): each topic offers every ASSESSED sub-skill of
+-- the practice the CED aligns to it. 23 skills registered (the CED's full set),
+-- cells built only from the 20 assessed ones -- 1.A, 1.B and 3.A are marked "not
+-- assessed" by the CED so no cell offers them.
+--
+-- Verified after applying: 23 skills, 20 assessed, 404 cells across 81 topics,
+-- 0 not-assessed codes leaked into cells, mean 4.99 candidates per topic, and
+-- app.taxonomy_scope_selftest() unchanged at its 11 pre-existing AP Statistics
+-- legacy-label findings -- no new violations introduced.
+--
+-- Reversible: delete from app.taxonomy_cells / app.taxonomy_skills where
+-- taxonomy_source_version = (select taxonomy_source_version from
+-- app.taxonomy_source_versions where subject_key='ap_calculus_ab');

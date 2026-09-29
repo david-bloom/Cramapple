@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0088 — Skill Grain Is the Full Sub-Skill Grid (Option 3): Store Fine, Roll Up Later; Mastery Definition Unchanged
 - DECISION-0087 — Home's "Start Practice" Always Starts With Open Hand (Teaching-First Entry); Answer Keys Must Reveal on an Explicit Action, Never on Mount
 - DECISION-0086 — Open Hand Resolves to One Gated Path: Entitlement-Scoped Access With a Mandatory Exclusion Write (Staff/QA Exempt), Unified on `get_open_hand_item`; the Work Is TASK-0051
 - DECISION-0085 — Skill-Dimension Labels Are Validated by Model Consensus (≥2 of 3), Not Human Review; Frontier Proposer Pair Plus Blind Adjudicator; Extends DECISION-0066 to `skill_code`
@@ -39,6 +40,57 @@ Most recent entries (full chronological list follows below):
 (Note: the same collision recurred 2026-09-26. The `claude/launch-planning-cram-4oyh2g` branch independently claimed DECISION-0068 through 0072 for five launch-planning decisions, not knowing `main` had already recorded its own DECISION-0068 (BYOQ parallel tables, TASK-0039 Phase 1) by the time this branch merged. Per the rule above, this branch — the later-merging side — renumbered its five decisions to DECISION-0069 through 0073 at merge time; main's DECISION-0068 is untouched. If you are reading an older copy of any of the five renumbered decisions (in a plan doc, a chat log, or a stale local checkout) under its original 0068-0072 number, this is why the number no longer matches — the content is unchanged, only the ID moved.)
 
 <!-- INDEX_END -->
+
+## DECISION-0088 — Skill Grain Is the Full Sub-Skill Grid; Store Fine and Roll Up Later
+
+**Date:** 2026-09-29
+**Decision Owner:** David Bloom
+**Status:** Approved — "No change to the definition of mastery now. Just go with option 3."
+**Related Task:** `docs/tasks/TASK-0050-SKILL-DIMENSION-ROLLOUT.md`
+**Related Docs:** `docs/product/SKILL_GRAIN_FINDING_2026_09_29.md`; `DECISION-0074` (mastery rule, untouched), `DECISION-0085` (labelling roster)
+**Area:** Content taxonomy / mastery / data model
+
+### Decided
+
+The topic × skill grid registers **every assessed sub-skill of each topic's CED-aligned practice**
+— the full sub-skill grid. Not a curated narrow grid, and not practice-level.
+
+**`DECISION-0074` is unchanged.** Mastery remains 2 correct MCQ + 1 full-point FRQ per cell.
+
+### Why, and the distinction that decided it
+
+Storage grain and evaluation grain are separable, which an earlier analysis in this task conflated.
+Fine labels **roll up** — mastery can be evaluated per sub-skill, per practice, or per topic with a
+`GROUP BY` over the same rows. Coarse labels cannot be split without re-labelling every item. So the
+full grid preserves every option; a coarser grid forecloses them.
+
+A curated narrow grid was rejected for a second reason: it is **lossy at write time**. Registering
+only some of a practice's sub-skills means the composite FK rejects an item whose true sub-skill was
+left out, forcing it onto a registered neighbour — the failure that put `apcalcab-mcq-050` on topic
+8.3 at 0.35 confidence, where a forced label is indistinguishable from a correct one.
+
+The two options' failure modes are asymmetric, and that is the crux: a curated grid fails **silently**
+at write time, while the full grid fails **visibly**, as held items that can be counted and reviewed.
+
+### Accepted costs, recorded so they are not a surprise later
+
+- **Wider candidate sets lower agreement.** AP Calculus AB averages 4.99 candidates per topic and AP
+  Chemistry 5.31, against AP Statistics' 2.33 which produced 85.6% proposer agreement. Expect
+  materially lower agreement, more held items and somewhat more gateway spend on Phase B runs.
+- **Masterable cells fall at skill grain.** `masterable(topic × skill) ≤ masterable(topic)` always,
+  since every cell sits inside one topic. AP Statistics measured 14 at topic grain and 12 at skill
+  grain. AP Calculus AB currently has 15 at topic grain and will have fewer once skill-labelled.
+  This is a subdivision of mastery, never an addition to it.
+- **The roll-up remains available.** Because labels are stored fine, evaluating mastery at topic
+  grain later is a query change, not a re-label. Recorded explicitly so a future session does not
+  conclude the fine grain is irreversible.
+
+### Left open
+
+Whether mastery should eventually be evaluated at a coarser roll-up. Under a topic-grain roll-up a
+student could earn 2 MCQ on one sub-skill and the FRQ on another and still be "mastered" on the
+topic. That is a claim about what mastery means, and is deliberately **not** settled by this
+decision.
 
 ## DECISION-0087 — Home's "Start Practice" Always Starts With Open Hand; Keys Reveal on an Explicit Action, Never on Mount
 
