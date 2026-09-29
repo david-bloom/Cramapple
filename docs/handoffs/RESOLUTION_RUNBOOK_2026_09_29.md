@@ -7,6 +7,14 @@ precondition, the exact command, how to tell it worked, and how to undo it.
 **Read with:** `docs/handoffs/SESSION_CLOSE_2026_09_29_MCQ_FEEDBACK_AND_SKILL_WORK.md` (what
 happened and why). This file is the *what to do next*.
 
+> **Status at close of the execution session (2026-09-29, evening).** Step 1 is done (PR #272). Step
+> 1b is done: a Production grading hotfix, APPROVAL-0062. Step 2 passed on Dev; the Production run is
+> still David's. Step 3 (TASK-0051) passed its live Dev end-to-end, but **independent QA set it
+> Blocked**. Any signed-in student can read answer keys directly from `content_item_versions`
+> (finding F1). F1 is now **TASK-0056** (DECISION-0089, launch-gating), in PR #278. Do not take the
+> TASK-0051 Production gate until TASK-0056 lands and a fresh QA passes. Full close-out:
+> `docs/handoffs/SESSION_CLOSE_2026_09_29_RUNBOOK_EXECUTION.md`.
+
 ---
 
 ## 0. Facts you need before touching anything
