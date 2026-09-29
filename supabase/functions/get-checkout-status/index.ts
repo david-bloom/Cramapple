@@ -5,6 +5,7 @@ import {
   isPayerNotLearner,
   purchaserTypeFromMetadata,
 } from "../_shared/addon-checkout.ts";
+import { checkoutAccess } from "../_shared/checkout-access.ts";
 
 function requireEnv(name: string) {
   const value = Deno.env.get(name);
@@ -94,16 +95,16 @@ Deno.serve(async (req) => {
   const purchaserType = purchaserTypeFromMetadata(metadata);
   const payerNotLearner = isPayerNotLearner(purchaserType);
   let entitled = false;
+  let refunded = false;
 
   if (stored.user_id && stored.payment_status === "paid") {
     const { data: entitlements, error: entitlementError } = await service
       .schema("app")
       .from("subject_entitlements")
-      .select("subject_id")
+      .select("status")
       .eq("user_id", stored.user_id)
       .eq("stripe_checkout_session_id", sessionId)
-      .eq("access_tier", "paid")
-      .eq("status", "active");
+      .eq("access_tier", "paid");
 
     if (entitlementError) {
       console.error(
@@ -116,7 +117,12 @@ Deno.serve(async (req) => {
     const expectedCount = stored.mode === "unlimited"
       ? 1
       : Math.max(subjectKeys.length, 1);
-    entitled = (entitlements?.length ?? 0) >= expectedCount;
+    const access = checkoutAccess(
+      (entitlements ?? []).map((row) => String(row.status)),
+      expectedCount,
+    );
+    entitled = access === "entitled";
+    refunded = access === "refunded";
   }
 
   let offer = null;
@@ -144,7 +150,7 @@ Deno.serve(async (req) => {
   return respond({
     status: "ok",
     payment_status: stored.payment_status === "paid"
-      ? (entitled ? "paid" : "processing")
+      ? (entitled ? "paid" : refunded ? "refunded" : "processing")
       : stored.payment_status ?? "processing",
     entitled,
     subject_keys: subjectKeys,
