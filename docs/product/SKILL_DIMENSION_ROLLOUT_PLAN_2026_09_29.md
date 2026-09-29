@@ -137,14 +137,33 @@ items" and "adjudicate 139."
   §5 asks for is enforced by the database rather than by discipline. Phase B writes
   `provisional_model` with `source` + `model_run_id`; promotion is an UPDATE to `validated` that
   physically cannot omit who confirmed it and under which decision.
-- A confirm/correct pass — model agreement auto-accepts only where both proposers agree AND a
-  spot-check sample (recommend 10%) confirms.
+- **No human review pass (David, 2026-09-29).** `validated` is earned by **model consensus: at
+  least 2 of the 3 models agree.** This supersedes the earlier design's human confirm and 10%
+  spot-check, and supersedes `DECISION-0079`'s human promotion gate *for this label class only* —
+  skill codes on `content_item_cells`, not serving labels. Record it as its own decision before the
+  first promotion.
 - **Disagreements are broken by the blind adjudicator (David, 2026-09-29), not by a human queue.**
   Where the two proposers disagree, the adjudicator model is asked the same question with both
   candidate labels withheld, and **its answer is the label** — the same blind-third-review pattern
-  this project already used for the 27-of-141 multi-unit review. This replaces the previous design,
-  in which every disagreement went to a human. It is what makes a subject-sized run tractable: for
-  AP Statistics it moves ~139 contested items off the Product Owner's desk.
+  this project already used for the 27-of-141 multi-unit review. For AP Statistics this moves ~139
+  contested items off the Product Owner's desk.
+
+**Resulting promotion rule, in full:**
+
+| Outcome | Agreement | Status |
+| --- | --- | --- |
+| Both proposers agree | 2 of 2 (3 of 3 if the adjudicator is also run) | `validated` |
+| Proposers split, adjudicator matches one | 2 of 3 | `validated` |
+| Proposers split, adjudicator names a third label | 1 / 1 / 1, no majority | **`held`** — excluded from serving, listed for a later pass |
+
+The no-majority case is real, not theoretical: **88 of AP Statistics' 181 items sit on topics with 3
+or 4 registered skills**, so a three-way split is available. `held` is already a legal
+`assignment_status`; use it rather than inventing a status or silently dropping the item.
+
+**Run all three models on every item, not just on disagreements.** It costs one extra pass (~$5 per
+subject at the measured volume) and buys a distinction the blocker note below shows is worth having:
+without it, "both proposers agreed" and "2-of-3 after a tie-break" are indistinguishable afterwards,
+and separating them later means re-running the subject.
 
 **Model roster (David, 2026-09-29), replacing the earlier pair:**
 
@@ -161,18 +180,41 @@ input tokens per model pass with scaffolding), so a full frontier two-model pass
 **well under $10**, and under ~$100 for all ten. Record the exact model IDs per run in
 `content_item_cells.model_run_id` so any future re-measurement can tell runs apart.
 
-**Constraint the tie-break rule runs into — read before implementing.** A model-decided label
-**cannot be written as `assignment_status='validated'`.** `content_item_cells_validation_check`
-requires `validated_by`, `validated_at`, and `validation_decision_id` to be populated, and
-`validated_by` is `uuid references app.profiles(user_id)` — a human. So the tie-break decides *what
-the label is*, not *that it is validated*. Implement it as: adjudicator's answer is written as the
-label with `assignment_status='provisional_model'` and the tie-break recorded in `model_run_id`;
-promotion to `validated` still happens in batch, on the strength of the 10% spot-check, with a
-human recorded as `validated_by`. David's intent — no per-item human adjudication queue — is fully
-preserved; what survives is a sampled human sign-off the database will not let us skip.
+**Blocker — the database will reject a model-consensus `validated` today.**
+`content_item_cells_validation_check` enforces that `assignment_status='validated'` iff
+`validated_by`, `validated_at`, and `validation_decision_id` are all non-null, and `validated_by` is
+`uuid references app.profiles(user_id)`. Production has **no system/service profile** (17 tutor, 14
+student, 2 admin, 1 reader — checked 2026-09-29), so as the schema stands, a label with no human
+behind it cannot be `validated`.
 
-- Never promote a batch to "validated"/servable without recording who confirmed it and against
-  what CED citation, mirroring the audit trail T2 already establishes for serving labels.
+Two ways forward; **both are Hard Gates and neither should be done without a recorded decision:**
+
+1. **Relax the CHECK (recommended).** Allow a model-consensus path: `validated` requires *either* a
+   human `validated_by` *or* (`validated_by is null and model_run_id is not null and
+   validation_decision_id is not null`). The audit trail survives — which decision authorised
+   model-consensus validation, and which run produced the label — and nothing pretends a human
+   signed off.
+2. **Create a synthetic "system" profile** and write it as `validated_by`. Cheaper, but it records a
+   human-shaped actor for a decision no human made, and every later audit that joins `validated_by`
+   to a person will silently mislead. Not recommended.
+
+Until one of these lands, Phase B can still run end to end — labels simply sit at
+`provisional_model` with the consensus outcome recorded in `model_run_id`, and the promotion is a
+single later UPDATE once the gate clears. **Do not block the labeling run on this.**
+
+**Evidence from this project that argues for keeping 2-of-3 and 3-of-3 distinguishable.** The
+`gpt-5.2` full-corpus self-consistency run (2026-08-20, 322 calls, $6.64, archived activity log)
+measured exactly this trade-off on a different task: **majority-earned (2 of 3) cut false-accept
+rate 19.0 → 14.7, while unanimous (3 of 3) cut it to 9.5** — a 2-of-3 majority was *meaningfully
+weaker than unanimity*, and on that task 2-of-3 still failed its quality gate. That was hand-drawn
+graph grading, not taxonomy labeling, so it does not transfer directly and is not a reason to
+override the decision above. It is a reason to **record the agreement tier on every row** so that,
+if skill labels later look unreliable, the fix is a query that demotes the 2-of-3 tier rather than
+a full re-run of all ten subjects.
+
+- Record, for every promoted batch, the consensus outcome and the CED citation basis — the same
+  audit trail T2 establishes for serving labels, with model consensus standing where a human
+  confirmer previously stood.
 
 ## 5a. Feasibility gate — run this before spending anything on a subject
 
@@ -275,9 +317,11 @@ as it was forked from `extend_math_serving_labels.mjs`) to:
   (`scripts/vercel-gateway-check/.env.local`); this is the spend David authorized. Note the script's
   `MODELS` constant (`extend_serving_labels_mcp.mjs:33`) still hardcodes the old pair including
   `gemini-2.5-flash` and must be updated as part of the Phase B fork.
-- Apply the confirm/correct discipline from §5: write `provisional_model`, break proposer
-  disagreements with the blind adjudicator rather than a human queue, spot-check 10%, then promote
-  the batch with a human recorded as `validated_by`.
+- Apply §5's promotion rule: run all three models on every item, break proposer disagreements with
+  the blind adjudicator, promote to `validated` on ≥2-of-3 agreement, park no-majority items as
+  `held`, and record the agreement tier (unanimous vs majority-earned) on every row. No human review
+  pass. If §5's CHECK-constraint blocker has not cleared, write `provisional_model` and leave
+  promotion as a later UPDATE — do not block the run.
 
 **Hard constraint — `is_primary`, the most likely way Phase B fails on its first insert.**
 `20260927004500_generalize_content_item_cells_topic_only.sql` added `is_primary boolean not null
