@@ -80,6 +80,7 @@ Deno.test("evaluate-attempt rejects an Open Hand item before loading answer-key 
     response: "11000000-0000-4000-8000-000000000003",
     content: "11000000-0000-4000-8000-000000000004",
     pack: "11000000-0000-4000-8000-000000000005",
+    item: "11000000-0000-4000-8000-000000000006",
   };
   const rows: Record<string, unknown> = {
     prompt_versions: { id: crypto.randomUUID(), status: "published" },
@@ -97,8 +98,13 @@ Deno.test("evaluate-attempt rejects an Open Hand item before loading answer-key 
       response_parts: { selected_choice_key: "A" },
       is_submitted: true,
     },
+    // DECISION-0086: the version is resolved to its item, and the exclusion is
+    // keyed on the item, so republishing cannot restore scorability.
+    content_item_versions: {
+      content_item_id: ids.item,
+    },
     open_hand_scoring_exclusions: {
-      content_item_version_id: ids.content,
+      content_item_id: ids.item,
     },
   };
   const service = {
@@ -142,6 +148,7 @@ Deno.test("evaluate-attempt rejects an Open Hand item before loading answer-key 
     "prompt_versions",
     "attempts",
     "response_versions",
+    "content_item_versions",
     "open_hand_scoring_exclusions",
   ]);
 });
