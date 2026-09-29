@@ -223,3 +223,22 @@ Fold in the other two QA findings and re-run QA:
 - Once the column grants are revoked, does any student-facing flow still need direct `SELECT` on
   `app.content_item_versions` at all? If none does, revoking table-level access and serving items only
   through edge functions is the simpler long-term shape. That would be a follow-up, not this task.
+
+## Handoff (session close, 2026-09-29)
+
+- **Done:** step 1 (reader inventory, above). DECISION-0089 recorded. No code, migration or deploy.
+- **Approval state:** DECISION-0089 approved. **No execution approval yet.** Step 2 needs (a) Dev approval
+  for the reviewer function and (b) a go-ahead for the Lovable `review.functions.ts` edit. Step 3 needs a
+  Dev approval, then a separate Production approval.
+- **Next action:** write the migration for `public.get_review_item_version(uuid)`, modelled on
+  `public.get_review_mcq_choices`. On approval, apply it to Dev, commit the file under Dev's recorded
+  version (Trap 1), and test it as an assigned reviewer, an unassigned reviewer and an admin (the
+  rolled-back SQL method in `docs/qa/TASK-0051_INDEPENDENT_QA_2026_09_29.md` §1). Then switch the
+  Lovable app's `getReviewTask` to it.
+- **Do not touch:** Production grants or views until step 3 is approved. The Lovable app, until its edit is
+  approved. `get_open_hand_item` (TASK-0051 scope).
+- **Environment note:** a Claude cloud container proxies the Dev host and replaces user `Authorization`
+  headers, so real-JWT tests must run from a machine with a direct route (David's Mac).
+- **Recommended prompt:** "Continue TASK-0056 at step 2 per `docs/tasks/TASK-0056-ANSWER-KEY-DIRECT-READ-EXPOSURE.md`
+  (branch `claude/task-0056-answer-key-exposure`, PR #278). Approval given for: [list]. Hard-Gate; read
+  the Hard-Gate set first."
