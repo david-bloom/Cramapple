@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0089 — Answer Keys Are Never Directly Readable: Close Column Grants Before Launch; `explanation` Post-Submission Only; FRQ Rubric Is a Recorded Hint (TASK-0056)
 - DECISION-0088 — Skill Grain Is the Full Sub-Skill Grid (Option 3): Store Fine, Roll Up Later; Mastery Definition Unchanged
 - DECISION-0087 — Home's "Start Practice" Always Starts With Open Hand (Teaching-First Entry); Answer Keys Must Reveal on an Explicit Action, Never on Mount
 - DECISION-0086 — Open Hand Resolves to One Gated Path: Entitlement-Scoped Access With a Mandatory Exclusion Write (Staff/QA Exempt), Unified on `get_open_hand_item`; the Work Is TASK-0051
@@ -40,6 +41,37 @@ Most recent entries (full chronological list follows below):
 (Note: the same collision recurred 2026-09-26. The `claude/launch-planning-cram-4oyh2g` branch independently claimed DECISION-0068 through 0072 for five launch-planning decisions, not knowing `main` had already recorded its own DECISION-0068 (BYOQ parallel tables, TASK-0039 Phase 1) by the time this branch merged. Per the rule above, this branch — the later-merging side — renumbered its five decisions to DECISION-0069 through 0073 at merge time; main's DECISION-0068 is untouched. If you are reading an older copy of any of the five renumbered decisions (in a plan doc, a chat log, or a stale local checkout) under its original 0068-0072 number, this is why the number no longer matches — the content is unchanged, only the ID moved.)
 
 <!-- INDEX_END -->
+
+## DECISION-0089 — Answer Keys Are Never Directly Readable; `explanation` Is Post-Submission Only; the FRQ Rubric Is a Recorded Hint
+
+**Date:** 2026-09-29
+**Decision Owner:** David Bloom
+**Status:** Approved (direction given in session, 2026-09-29: "Yes to all three recommendations")
+**Related Task:** `docs/tasks/TASK-0056-ANSWER-KEY-DIRECT-READ-EXPOSURE.md`
+**Related Docs:** `docs/qa/TASK-0051_INDEPENDENT_QA_2026_09_29.md` (finding F1); `DECISION-0086` (Open Hand is the gated key path); `DECISION-0080` (the rubric counts as pre-submission hint use)
+**Area:** Security / answer-key exposure / scoring integrity
+
+### Context
+
+TASK-0051's independent QA found that any signed-in user can read answer keys directly through
+PostgREST, from `app.content_item_versions` (`canonical_answer_1/2`, `explanation`,
+`item_package_payload`) and the `public.content_item_versions` / `public.frq_criteria` views. Production
+has the same grants, and the data behind them includes 380 MCQ letter keys. That bypasses
+`DECISION-0086`'s premise that the Open Hand RPC is the only path to a key.
+
+### Decided
+
+1. **Launch gating.** Closing direct reads of answer keys ships before the October 2 launch.
+2. **`explanation` is post-submission only.** It is delivered with the grade (service role), never
+   readable by a student before submitting.
+3. **The FRQ rubric is a recorded hint.** `frq_criteria.evidence_requirements`, `accepted_variants` and
+   `minimum_fix` are not directly readable. Where the product shows the rubric before submission, it
+   comes through the hint flow so the use is recorded, consistent with `DECISION-0080`.
+
+### Not decided here
+
+No execution approval. TASK-0056's Development migration and its Production apply each need their own
+approval entry.
 
 ## DECISION-0088 — Skill Grain Is the Full Sub-Skill Grid; Store Fine and Roll Up Later
 
