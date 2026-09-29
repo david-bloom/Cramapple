@@ -114,7 +114,16 @@ get them from the primary source.
 of the time at **topic** granularity — a coin flip. Skill-level labeling (finer than topic) should
 be assumed to sit at or below that 44% agreement ceiling until measured otherwise per subject.
 
-**This rules out blind auto-write for Phase B.** Design each subject's labeling run as:
+**Where the choice set is small, that ceiling is pessimistic — measure it per subject rather than
+assuming it.** The 44% figure was measured on a choice among ~55 topics. Phase B's choice is narrower:
+the composite FK restricts a skill to the cells already registered for that item's topic, which for
+AP Statistics averages **2.33 candidate skills (min 1, max 4)**. Picking 1 of 2–4 is a materially
+easier task than picking 1 of 55, and **items whose topic has exactly one registered skill are
+deterministic — no model call, no judgment.** For Statistics that is 42 of 181 items (23%). Compute
+this distribution per subject before sizing a labeling run; it is the difference between "label 181
+items" and "adjudicate 139."
+
+**This still rules out blind auto-write for Phase B.** Design each subject's labeling run as:
 - Two-model proposal (per `extend_serving_labels_mcp.mjs`'s existing pattern) writes labels marked
   provisional, not auto-promoted. **No schema work is needed for this — the governance apparatus
   already exists and is live in Dev and Production.**
@@ -223,8 +232,10 @@ Per subject:
 
 Extend `scripts/taxonomy/extend_serving_labels_mcp.mjs` (or a sibling script forked from it, same
 as it was forked from `extend_math_serving_labels.mjs`) to:
-- Add FRQ items to its packet query, not just MCQ — check `fetch_serving_label_packets.sql` /
-  `fetch_candidate_serving_label_packets.sql` for what's currently excluded and why.
+- ~~Add FRQ items to its packet query, not just MCQ.~~ **Already done — verified 2026-09-29.**
+  `fetch_serving_label_packets.sql` has **no `item_type` filter** and already selects `frq_criteria`
+  alongside `mcq_choices`, so FRQs are in the packet set today. No packet-query change is needed for
+  either type; the gap was only ever in what the script *emits*.
 - Emit `skill_code` (not just `required_units`) in its output, validated against the subject's now-
   existing `taxonomy_cells` registry from Phase A — the composite FK is the safety net if the model
   proposes a cell that isn't registered.
@@ -296,8 +307,18 @@ Not a hard dependency order (§8), just cheapest-and-most-valuable first:
    pack Statistics actually serves, `548f06be`, has 101 MCQ + 80 FRQ and **zero** skill-level labels.
    Phase B here is a full MCQ + FRQ labeling pass against `548f06be`. This is also why GAP-10
    measures zero masterable cells despite 11 cells already clearing the 2-MCQ half of the bar — their
-   pack has no FRQ to clear the other half. Still a sensible first subject, because it is the only
-   one that skips Phase A.
+   pack has no FRQ to clear the other half.
+
+   **Still the right first subject, and Phase A is confirmed unnecessary (verified 2026-09-29).** All
+   181 items on `548f06be` (101 MCQ + 80 FRQ) already carry topic-only rows with `validated` topics,
+   spanning 48 distinct topics — and **all 48 are already present in the existing 131-cell grid, with
+   zero topics missing.** So Statistics needs no grid work at all: Phase B is adding a `skill_code` to
+   181 rows that already exist. Of those, **42 sit on topics with exactly one registered skill and are
+   therefore deterministic** (24 MCQ + 18 FRQ — no model call needed); the remaining 139 are a pick
+   among 2–4 candidates. Sized this way: ~3–5 hrs to extend the script, a ~278-call two-model run,
+   and roughly 1–2 hrs of Product Owner adjudication for disagreements plus a 10% spot-check of
+   agreements. Checkpoint the disagreement rate after the first ~30 items — if it runs far above the
+   expected ~25–40%, the adjudication load, not the compute, is what grows.
 2. **AP Biology** — Phase A + B, the other launch subject, matches GAP-10's original ask.
 3. **AP Chemistry, AP Calculus AB, AP Calculus BC** — Phase 0 is light (practice-level already
    documented, just needs sub-skill sourcing) before Phase A + B.
