@@ -2,6 +2,7 @@ import { jsonResponse } from "../_shared/http.ts";
 import { createServiceClient } from "../_shared/supabase.ts";
 import { recordGrowthEvent } from "../_shared/growth-events.ts";
 import { stripe, verifyStripeWebhookEvent } from "../_shared/stripe.ts";
+import { isPayerNotLearner } from "../_shared/addon-checkout.ts";
 import {
   webhookDeliveryDisposition,
   type WebhookLedgerStatus,
@@ -387,7 +388,9 @@ async function handleCheckoutSessionCompleted(
     }
   }
 
-  await persistStripeCustomer(service, session, userId);
+  if (!isPayerNotLearner(purchaseType)) {
+    await persistStripeCustomer(service, session, userId);
+  }
 
   await recordGrowthEvent(service, {
     eventName: "purchase_completed",

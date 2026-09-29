@@ -1,6 +1,10 @@
 import { jsonResponse, readJsonBody } from "../_shared/http.ts";
 import { createServiceClient } from "../_shared/supabase.ts";
 import { stripe } from "../_shared/stripe.ts";
+import {
+  isPayerNotLearner,
+  purchaserTypeFromMetadata,
+} from "../_shared/addon-checkout.ts";
 
 function requireEnv(name: string) {
   const value = Deno.env.get(name);
@@ -42,7 +46,7 @@ Deno.serve(async (req) => {
   const { data: stored, error } = await service.schema("app")
     .from("stripe_checkout_sessions")
     .select(
-      "id,user_id,mode,status,payment_status,subject_keys,amount_total,amount_discount",
+      "id,user_id,mode,status,payment_status,subject_keys,amount_total,amount_discount,metadata:payload->metadata",
     )
     .eq("id", sessionId)
     .maybeSingle();
@@ -86,6 +90,9 @@ Deno.serve(async (req) => {
   }
 
   const subjectKeys = parseSubjectKeys(stored.subject_keys);
+  const metadata = (stored.metadata ?? {}) as Record<string, unknown>;
+  const purchaserType = purchaserTypeFromMetadata(metadata);
+  const payerNotLearner = isPayerNotLearner(purchaserType);
   let entitled = false;
 
   if (stored.user_id && stored.payment_status === "paid") {
@@ -113,7 +120,9 @@ Deno.serve(async (req) => {
   }
 
   let offer = null;
-  if (entitled && stored.mode === "single" && stored.user_id) {
+  if (
+    entitled && stored.mode === "single" && stored.user_id && !payerNotLearner
+  ) {
     const { count: activeSubjectCount } = await service.schema("app")
       .from("subjects")
       .select("id", { count: "exact", head: true })
@@ -139,6 +148,12 @@ Deno.serve(async (req) => {
       : stored.payment_status ?? "processing",
     entitled,
     subject_keys: subjectKeys,
+    purchaser_type: purchaserType,
+    // The parent confirmation names the student by first name only; the
+    // student's email is never returned (DECISION-0090).
+    student_first_name: payerNotLearner
+      ? (asString(metadata.student_name)?.split(/\s+/)[0] ?? null)
+      : null,
     offer,
   });
 });

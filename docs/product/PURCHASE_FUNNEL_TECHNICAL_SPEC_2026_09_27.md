@@ -10,6 +10,15 @@
 
 > This document is the implementation specification for TASK-0041. Development/task-branch execution was approved on 2026-09-28 (`DECISION-0083`, `APPROVAL-0059`). Production deployment/migration, live Stripe writes/configuration, secrets, live paid sales, Lovable Production publish, and risk acceptance remain separate Hard Gates.
 >
+> **AMENDED 2026-09-29 (`DECISION-0090`).** The Product Owner revised Screens 1, 2, 3 and §6 of the source
+> Google Doc ("Cramapple Mobile Checkout Product Spec"). The binding changes are folded into §3.3, §4.4, §6.5,
+> §8.1, §9.6, §10, §12, §13.1 and the new §12.4 (post-checkout sign-in) below, each marked `DECISION-0090`.
+> In short: optional Google Sign-In on checkout; the student's waiting screen updates live when the parent
+> pays; "Start Studying Now" enters the app only on a verified session (Google, or a 6-digit email code) —
+> never merely because a payment cleared; password login is removed permanently; the add-on is
+> `student_direct`-only and a parent's card is never saved; parent-facing screens name the student by
+> first name only, never email; `/signup` subject picks go to `/checkout`.
+>
 > The supplied design document included a secret-like string. It is intentionally omitted here and must not be copied into source control, prompts, logs, or client code.
 
 ---
@@ -135,6 +144,11 @@ Render in this order:
 9. Sticky bottom CTA.
 10. Secondary "Ask a Parent to Pay" action.
 
+**`DECISION-0090`:** between the divider and the student email (step 6), offer an optional
+**Continue with Google** button. Choosing it signs the student in *before* payment, so checkout proceeds as
+an existing authenticated student (§6.4) and the post-payment "Start Studying Now" needs no further step.
+Typed email and wallet autofill remain the default; Google is never required to pay.
+
 Recommended exact primary CTA pattern:
 
 `Pay $[total] & Start Studying`
@@ -193,6 +207,11 @@ Reason:
 - Stripe-hosted Checkout minimizes risk on an externally shared payment page.
 
 The parent payment session must contain enough metadata to provision the student's entitlement after webhook verification.
+
+**`DECISION-0090`:** the parent-share session must **not** set `setup_future_usage`. The parent's card is
+never saved for reuse, and the webhook never writes a parent's Stripe Customer/PaymentMethod into
+`app.stripe_customers` against the student (applies to `parent_share` and legacy `parent_gift`). This
+reverses the add-on reuse behaviour added for parent-share purchases in commit `09b3124`.
 
 ### 4.5 Post-purchase add-on payment
 
@@ -300,6 +319,13 @@ If a signed-in student enters checkout:
 - do not permit a signed-in student to purchase for an unrelated student email through the direct-payment path;
 - parent/gift flow remains the separate mechanism for buying for another student.
 
+### 6.5 Google Sign-In at checkout (`DECISION-0090`)
+
+Optional, never required. A student who continues with Google is an authenticated student for §6.4
+purposes: the checkout email is the Google account's verified email, not a typed value. If that Google email
+differs from an email the student previously bought under, it is a different account — do not merge
+automatically; support handles merges.
+
 ---
 
 ## 7. Direct checkout API
@@ -396,6 +422,11 @@ Example:
 `/checkout?subjects=ap_biology`
 
 The page calls the backend to resolve the authoritative offer.
+
+**`DECISION-0090`:** the `/signup` "Choose your subject" picker is the funnel's subject-selection step. Picking
+a subject goes to `/checkout` with that subject preselected (using the parameter `/checkout` already reads —
+live today as `?subject=<key>`). It must not send an anonymous visitor to the app's `/home`, which bounces
+them to `/login` (defect reproduced 2026-09-29).
 
 ### 8.2 Components
 
@@ -568,6 +599,22 @@ Rate-limit this endpoint to prevent abuse.
 
 ---
 
+### 9.6 Student waiting state (`DECISION-0090`)
+
+After the link is created, the student's screen stays on a "Waiting for your parent to pay" state and polls
+`get-checkout-status` with the parent-share `session_id` returned by `create-parent-payment-link` (bounded
+interval, e.g. every 4 s for the first 10 minutes then every 30 s; stop when the page is hidden and resume on
+focus). Polling, not WebSockets: the status endpoint already exists and is webhook-authoritative.
+
+When it reports `entitled: true`, update in place to **"Your parent just completed payment! Access
+Unlocked."** Then:
+
+- if the student has a verified session (signed in with Google, or already logged in), send them straight into
+  the app on the purchased subject;
+- otherwise show the §12.4 sign-in step (6-digit code) and continue into the app once verified.
+
+Never create a session on this device just because the payment cleared.
+
 ## 10. Parent payment view
 
 Stripe-hosted Checkout is the payment form.
@@ -581,7 +628,11 @@ Required context before or inside the payment flow where supported:
 - total price;
 - "Access is for [student email]" or a privacy-reduced variant.
 
-Do not expose the student's full email if the link is likely to be forwarded broadly unless necessary for payer confidence. If displayed, mask part of the address when feasible.
+**`DECISION-0090` (supersedes the masking option in A7):** parent-facing surfaces — the context banner, the
+Stripe-hosted page's custom text, and the parent confirmation — identify the student by **first name only**
+(from `student_name`). Never show the student's email, masked or not. If no name was given, say "your
+student". `get-checkout-status` returns `student_first_name` for parent-paid sessions and never returns an
+email.
 
 Parent provides their own payment email to Stripe.
 
@@ -677,6 +728,11 @@ Then:
 - start-studying CTA;
 - email activation guidance if the student account was just created.
 
+**`DECISION-0090`:** the primary CTA is **Start Studying Now**, opening the purchased subject in the app. It
+works directly only on a verified session. For a student who paid without signing in, the CTA first runs the
+§12.4 6-digit code step inline on this page, then continues into the app. Payment clearing never signs the
+device in by itself — otherwise anyone could pay to enter another person's account by typing their email.
+
 ### 12.3 Parent payer confirmation
 
 When `role=parent`:
@@ -685,6 +741,28 @@ When `role=parent`:
 - say access was sent/unlocked for the student;
 - do not sign the parent into the student account;
 - do not show student-only study CTAs as though the parent is the learner.
+
+**`DECISION-0090` copy:** "Payment complete! Access to [AP Subject] has been unlocked for [first name]. A
+copy of your receipt has been sent to your email." (Stripe sends the receipt; confirm receipt emails are
+enabled in the Stripe account before relying on this line.) No add-on offer on the parent view.
+
+### 12.4 Post-checkout sign-in (`DECISION-0090`)
+
+Cramapple is passwordless. **Password login is removed permanently** from `/login` and every sign-up path,
+including the "Forgot password?" flow.
+
+Sign-in methods:
+
+1. **Email code (primary):** the student enters their email; Cramapple sends a **6-digit code** (and a magic
+   link in the same email). Entering the code or tapping the link creates the session.
+2. **Google:** "Continue with Google". The account is matched by the Google account's verified email.
+
+Existing accounts that were created with a password sign in with either method on the same email; no
+migration is needed. Disabling the password provider in Supabase Auth itself is a Production auth-config
+change and stays behind the Hard Gate; the front-end removal does not wait on it.
+
+Supabase dependency: `signInWithOtp` sends a 6-digit code only if the Auth email template includes
+`{{ .Token }}`. Updating the template is an auth-config change (Dev first; Production is gated).
 
 ---
 
@@ -698,7 +776,9 @@ Show only when:
 - payment succeeded;
 - a reusable payment method is available;
 - the proposed add-on subject is not already entitled;
-- an approved promotion/price exists.
+- an approved promotion/price exists;
+- **the original purchase is `student_direct` (`DECISION-0090`).** Never for `parent_share` or `parent_gift`:
+  no offer is shown and `create-post-purchase-addon` refuses the source session.
 
 The supplied brief example ("AP Biology for 50% off") is illustrative only. The actual add-on subject and discount must come from approved server-side offer configuration.
 
@@ -1148,7 +1228,7 @@ Recommendation:
 - introduce `parent_share` for the new funnel;
 - use "Ask a Parent to Pay" in UI.
 
-## A3. Avoid the phrase "256-bit encrypted checkout"
+## A3. Avoid the phrase "256-bit encrypted checkout" — RESOLVED 2026-09-29 (`DECISION-0090`): use "Secure payment powered by Stripe"
 
 The supplied design calls for "Secure 256-Bit Encrypted Checkout." Unless Cramapple has a precise, verified basis for that claim, a safer trust message is:
 
@@ -1182,7 +1262,7 @@ A long-lived payment link can become confusing if pricing, selected subjects, or
 
 Consider a product-level expiration such as 24–72 hours and regenerate after expiration.
 
-## A7. Consider masking student email on the parent page
+## A7. Consider masking student email on the parent page — SUPERSEDED by `DECISION-0090` (first name only; §10)
 
 Instead of:
 
